@@ -1716,6 +1716,8 @@ class SimplePie
     /**
      * Set the limit for items returned per-feed with multifeeds
      *
+     * @deprecated since SimplePie 1.10.0, this does nothing outside multifeeds.
+     *
      * @param int $limit The maximum number of items to return.
      * @return void
      */
