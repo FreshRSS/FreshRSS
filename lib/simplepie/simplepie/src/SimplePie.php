@@ -664,7 +664,9 @@ class SimplePie
     public $rename_attributes = [];
 
     /**
-     * @var array<string,string[]> Stores allowed tags and attributes. Preferred over $strip_htmltags and $strip_attributes.
+     * @var array<string,string[]> Stores allowed tags and attributes.
+     * Preferred over $strip_htmltags and $strip_attributes.
+     * Note that `<html>`, `<head>`, `<body>`, `<div>` are always allowed.
      * @see SimplePie::allowed_html_elements_with_attributes()
      * @access private
      */
@@ -678,13 +680,13 @@ class SimplePie
     public $allowed_html_attributes = [];
 
     /**
-     * @var bool Whether data-* should be allowed or not
+     * @var bool Whether `data-*` attributes should be allowed or not
      * @see SimplePie::allow_data_attr()
      * @access private
      */
     public $allow_data_attr = true;
     /**
-     * @var bool Whether aria-* should be allowed or not
+     * @var bool Whether `aria-*` attributes should be allowed or not
      * @see SimplePie::allow_aria_attr()
      * @access private
      */
@@ -1553,36 +1555,36 @@ class SimplePie
 
     /**
      * @param array<string,string[]> $tags Set array of allowed tags and attributes.
-     * @return void
+     * Note that `<html>`, `<head>`, `<body>`, `<div>` are always allowed.
+     * Preferred over {@see SimplePie::allowed_html_attributes()} and {@see SimplePie::strip_attributes()}.
+     *
+     * Example: `['a' => ['href', 'title'], 'img' => ['src', 'alt']]`
      */
-    public function allowed_html_elements_with_attributes(array $tags = [])
+    public function allowed_html_elements_with_attributes(array $tags = []): void
     {
         $this->sanitize->allowed_html_elements_with_attributes($tags);
     }
 
     /**
      * @param string[] $attrs Set default array of allowed attributes.
-     * @return void
      */
-    public function allowed_html_attributes(array $attrs = [])
+    public function allowed_html_attributes(array $attrs = []): void
     {
         $this->sanitize->allowed_html_attributes($attrs);
     }
 
     /**
-     * @param bool $allow Whether data-* should be allowed or not
-     * @return void
+     * @param bool $allow Whether `data-*` attributes should be allowed or not
      */
-    public function allow_data_attr(bool $allow = true)
+    public function allow_data_attr(bool $allow = true): void
     {
         $this->sanitize->allow_data_attr($allow);
     }
 
     /**
-     * @param bool $allow Whether aria-* should be allowed or not
-     * @return void
+     * @param bool $allow Whether `aria-*` attributes should be allowed or not
      */
-    public function allow_aria_attr(bool $allow = true)
+    public function allow_aria_attr(bool $allow = true): void
     {
         $this->sanitize->allow_aria_attr($allow);
     }

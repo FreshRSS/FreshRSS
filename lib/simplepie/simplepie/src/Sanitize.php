@@ -246,9 +246,10 @@ class Sanitize implements RegistryAware
 
     /**
      * @param array<string,string[]> $tags Set array of allowed HTML elements with their allowed attributes.
-     * @return void
+     * Note that `<html>`, `<head>`, `<body>`, `<div>` are always allowed.
+     * Preferred over {@see Sanitize::strip_htmltags()}.
      */
-    public function allowed_html_elements_with_attributes(array $tags = [])
+    public function allowed_html_elements_with_attributes(array $tags = []): void
     {
         $this->strip_htmltags = [];
         $this->strip_attributes = [];
@@ -257,27 +258,24 @@ class Sanitize implements RegistryAware
 
     /**
      * @param string[] $attrs Set default array of allowed HTML attributes.
-     * @return void
      */
-    public function allowed_html_attributes(array $attrs = [])
+    public function allowed_html_attributes(array $attrs = []): void
     {
         $this->allowed_html_attributes = $attrs;
     }
 
     /**
      * @param bool $allow Whether data-* should be allowed or not
-     * @return void
      */
-    public function allow_data_attr(bool $allow = true)
+    public function allow_data_attr(bool $allow = true): void
     {
         $this->allow_data_attr = $allow;
     }
 
     /**
      * @param bool $allow Whether aria-* should be allowed or not
-     * @return void
      */
-    public function allow_aria_attr(bool $allow = true)
+    public function allow_aria_attr(bool $allow = true): void
     {
         $this->allow_aria_attr = $allow;
     }
@@ -691,27 +689,15 @@ class Sanitize implements RegistryAware
 
     /**
      * Keep only allowed HTML elements (tags) and their allowed attributes.
-     * @return void
      */
-    protected function enforce_allowed_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true)
+    protected function enforce_allowed_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true): void
     {
         if ($element instanceof \DOMElement) {
             $tag = $element->tagName;
-            $div = null;
-            $doc = $element->ownerDocument;
-            if ($doc !== null) {
-                $div = $doc->getElementsByTagName('body')->item(0);
-                if ($div !== null) {
-                    $div = $div->firstChild;
-                    if ($div !== null && $div->nodeName !== 'div') {
-                        $div = null;
-                    }
-                }
-            }
-            if ($element !== $div
-                && !in_array($tag, ['html', 'head', 'body'])
+            $parent = $element->parentNode;
+            if (!in_array($tag, ['html', 'head', 'body', 'div'], true)
                 && !isset($this->allowed_html_elements_with_attributes[$tag])) {
-                if (!in_array($tag, ['script', 'style', 'svg', 'math'])) {
+                if (!in_array($tag, ['script', 'style', 'svg', 'math'], true)) {
                     // Preserve children inside the disallowed element
                     for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
                         $child = $element->childNodes->item($i);
@@ -721,11 +707,12 @@ class Sanitize implements RegistryAware
                         if ($child instanceof \DOMText) {
                             $child->nodeValue = htmlspecialchars($child->nodeValue ?? '', ENT_QUOTES, 'UTF-8');
                         }
-                        $element->before($child);
+                        if ($parent !== null) {
+                            $parent->insertBefore($child, $element);
+                        }
                         $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
                     }
                 }
-                $parent = $element->parentNode;
                 if ($parent !== null) {
                     $parent->removeChild($element);
                     return;
@@ -741,7 +728,7 @@ class Sanitize implements RegistryAware
                 }
 
                 if (!in_array($attr, $allowed_attrs, true)) {
-                    $element->removeAttributeNS(null, $attr);
+                    $element->removeAttributeNode($element->attributes[$i]);
                 }
             }
         }
