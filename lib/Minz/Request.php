@@ -521,6 +521,22 @@ class Minz_Request {
 		return 'POST' === ($_SERVER['REQUEST_METHOD'] ?? '');
 	}
 
+	public static function tokenIsOk(): bool {
+		$token_param = self::paramStringNull('token');
+		if ($token_param === null) {
+			return false;
+		}
+		$username = self::paramStringNull('user');
+		if ($username === null) {
+			return false;
+		}
+		$conf = get_user_configuration($username);
+		if ($conf === null || !hash_equals($conf->token, $token_param)) {
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * @return list<string>
 	 */
