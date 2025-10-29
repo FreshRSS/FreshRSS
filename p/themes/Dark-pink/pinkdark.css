@@ -160,3 +160,7 @@ input:focus {
 #btn-add > img {
 	filter: brightness(0.75);
 }
+
+.theme-preview-list .nav label.btn:hover {
+	background-color: var(--background-color-hover);
+}
