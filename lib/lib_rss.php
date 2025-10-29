@@ -367,13 +367,13 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 
 	$simplePie->strip_comments(true);
 	$simplePie->rename_attributes(['id', 'class']);
-
-	// Includes data-* and aria-*
+	$simplePie->allow_aria_attr(true);
+	$simplePie->allow_data_attr(true);
 	$simplePie->allowed_html_attributes([
 		// HTML
-		'title', 'lang', 'role', 'draggable', 'hidden', 'dir',
+		'dir', 'draggable', 'hidden', 'lang', 'role', 'title',
 		// MathML
-		'displaystyle', 'scriptlevel', 'mathsize',
+		'displaystyle', 'mathsize', 'scriptlevel',
 	]);
 	$simplePie->allowed_html_elements_with_attributes([
 		// HTML
@@ -389,6 +389,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'bdi' => [],
 		'bdo' => [],
 		'big' => [],
+		'blink' => [],
 		'blockquote' => ['cite'],
 		'br' => ['clear'],
 		'button' => ['disabled'],
@@ -426,8 +427,8 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'hr' => ['align', 'noshade', 'size', 'width'],
 		'i' => [],
 		'iframe' => ['src', 'align', 'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'scrolling'],
-		'img' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
 		'image' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
+		'img' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
 		'ins' => ['cite', 'datetime'],
 		'kbd' => [],
 		'label' => [],
@@ -489,10 +490,9 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'video' => ['src', 'poster', 'controlslist', 'height', 'loop', 'muted', 'playsinline', 'width'],
 		'wbr' => [],
 		'xmp' => [],
-		'blink' => [],
 		// MathML
-		'math' => ['display'],
 		'maction' => ['actiontype', 'selection'],
+		'math' => ['display'],
 		'menclose' => ['notation'],
 		'merror' => [],
 		'mfenced' => ['close', 'open', 'separators'],
@@ -522,8 +522,8 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		// TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	]);
 	$simplePie->strip_attributes([
-		'data-auto-leave-validation', 'data-leave-validation', 'data-original',
-		'data-type', 'data-no-leave-validation', 'data-form', 'data-help', 'data-method', 'data-field', 'data-unread', 'data-url', 'data-input',
+		'data-auto-leave-validation', 'data-field', 'data-form', 'data-help', 'data-input', 'data-leave-validation', 'data-method',
+		'data-no-leave-validation', 'data-original', 'data-type', 'data-unread', 'data-url',
 	]);
 	$simplePie->add_attributes([
 		'audio' => ['controls' => 'controls', 'preload' => 'none'],
