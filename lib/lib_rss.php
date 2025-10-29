@@ -481,7 +481,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'thead' => ['align', 'valign'],
 		'time' => ['datetime'],
 		'tr' => ['align', 'valign'],
-		// 'track' => [], // TODO: add <track> back once it's lazy-loaded
+		'track' => ['default', 'kind', 'srclang', 'label', 'src'],
 		'tt' => [],
 		'u' => [],
 		'ul' => ['type'],
