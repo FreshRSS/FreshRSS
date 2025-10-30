@@ -129,6 +129,32 @@ function init_password_observers(parent) {
 }
 // </show password>
 
+function init_display(parent) {
+	// Keyboard support for theme switcher navigation
+	const wrapper = parent.querySelector('div.theme-preview-list-wrapper');
+	if (wrapper) {
+		wrapper.addEventListener('keypress', function (e) {
+			if (e.key !== 'Enter' && e.key !== ' ') return;
+			const { target } = e;
+			if (target.tagName === 'LABEL') {
+				e.preventDefault();
+				target.click();
+
+				// Refocus the new button that's in the same position, or the one next to it if not present
+				let currentClass = `label[class="${target.getAttribute('class')}"]`;
+				function newBtn() {
+					return Array.from(wrapper.querySelectorAll(currentClass)).filter(el => getComputedStyle(el).display !== 'none')[0];
+				}
+				if (!newBtn()) {
+					const isNext = currentClass.includes('next');
+					currentClass = currentClass.replace(isNext ? 'next' : 'prev', isNext ? 'prev' : 'next');
+				}
+				newBtn().focus();
+			}
+		});
+	}
+}
+
 function init_archiving(parent) {
 	parent.addEventListener('change', function (e) {
 		if (e.target.id === 'use_default_purge_options') {
@@ -536,6 +562,7 @@ function init_extra_afterDOM() {
 			init_archiving(slider);
 			init_url_observers(slider);
 		} else {
+			init_display(document.body);
 			init_archiving(document.body);
 			init_url_observers(document.body);
 		}
