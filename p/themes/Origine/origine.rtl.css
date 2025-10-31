@@ -120,11 +120,6 @@ textarea:hover {
 	color: var(--font-color);
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 input, select, textarea {
 	padding: 7px;
 	background-color: var(--background-color-light);

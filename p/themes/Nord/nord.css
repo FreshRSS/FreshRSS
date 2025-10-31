@@ -1087,11 +1087,6 @@ a, button.as-link {
 }
 
 /*=== Forms */
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 option,
 optgroup {
 	padding-left: 0.5rem;

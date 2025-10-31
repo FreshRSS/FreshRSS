@@ -33,11 +33,6 @@ label {
 	color: #444;
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 input, select, textarea {
 	padding: 5px;
 	background: #fff;

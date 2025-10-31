@@ -79,11 +79,6 @@ label {
 	cursor: pointer;
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 input, select, textarea {
 	padding: 7px;
 	background: var(--background-color-light);

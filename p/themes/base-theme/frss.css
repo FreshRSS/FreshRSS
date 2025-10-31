@@ -291,6 +291,10 @@ input[type=number] {
 	width: 6em;
 }
 
+textarea {
+	height: 7rem;
+}
+
 textarea,
 input[type="file"],
 input.long {
