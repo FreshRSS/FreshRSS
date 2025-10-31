@@ -308,6 +308,11 @@ select {
 	min-width: 6em;
 }
 
+textarea.h50 {
+	height: 50vh;
+	min-height: 7rem;
+}
+
 input.w50,
 select.w50,
 textarea.w50 {
