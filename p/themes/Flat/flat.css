@@ -43,7 +43,6 @@ input, select, textarea {
 	border-radius: 5px;
 	min-height: 25px;
 	line-height: 1;
-	vertical-align: middle;
 }
 
 option {

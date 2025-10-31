@@ -302,6 +302,8 @@ input.long {
 }
 
 input, select, textarea {
+	padding: 0.5rem;
+	vertical-align: middle;
 	display: inline-block;
 	max-width: 85vw;
 	font-size: 0.8rem;

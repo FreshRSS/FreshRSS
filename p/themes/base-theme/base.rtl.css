@@ -29,11 +29,6 @@ label {
 	cursor: pointer;
 }
 
-input, select, textarea {
-	padding: 7px;
-	vertical-align: middle;
-}
-
 option {
 	padding: 0 .5em;
 }
