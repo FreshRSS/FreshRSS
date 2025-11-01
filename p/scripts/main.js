@@ -2033,11 +2033,12 @@ function load_more_posts() {
 		const html = this.response;
 		const streamFooter = document.getElementById('stream-footer');
 		const transitions = document.querySelectorAll('#stream > .transition');
-		const lastTransition = transitions.length > 0 ? transitions[transitions.length - 1] : null;
+		let lastTransition = transitions.length > 0 ? transitions[transitions.length - 1] : null;
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
 		streamAdopted.querySelectorAll('.flux, .transition').forEach(function (div) {
-			if (div.classList.contains('transition') && lastTransition !== null && div.textContent === lastTransition.textContent) {
+			if (lastTransition !== null && div.classList.contains('transition') && div.textContent === lastTransition.textContent) {
+				lastTransition = null;
 				return;	// Skip duplicate transition
 			}
 			box_load_more.insertBefore(div, streamFooter);
