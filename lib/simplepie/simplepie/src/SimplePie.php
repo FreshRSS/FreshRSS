@@ -664,6 +664,35 @@ class SimplePie
     public $rename_attributes = [];
 
     /**
+     * @var array<string,string[]> Stores allowed tags and attributes.
+     * Preferred over $strip_htmltags and $strip_attributes.
+     * Note that `<html>`, `<head>`, `<body>`, `<div>` are always allowed.
+     * @see SimplePie::allowed_html_elements_with_attributes()
+     * @access private
+     */
+    public $allowed_html_elements_with_attributes = [];
+
+    /**
+     * @var string[] Stores array of default allowed attributes.
+     * @see SimplePie::allowed_html_attributes()
+     * @access private
+     */
+    public $allowed_html_attributes = [];
+
+    /**
+     * @var bool Whether `data-*` attributes should be allowed or not
+     * @see SimplePie::allow_data_attr()
+     * @access private
+     */
+    public $allow_data_attr = true;
+    /**
+     * @var bool Whether `aria-*` attributes should be allowed or not
+     * @see SimplePie::allow_aria_attr()
+     * @access private
+     */
+    public $allow_aria_attr = true;
+
+    /**
      * @var bool Should we throw exceptions, or use the old-style error property?
      * @access private
      */
@@ -1525,6 +1554,42 @@ class SimplePie
     }
 
     /**
+     * @param array<string,string[]> $tags Set array of allowed tags and attributes.
+     * Note that `<html>`, `<head>`, `<body>`, `<div>` are always allowed.
+     * Preferred over {@see SimplePie::allowed_html_attributes()} and {@see SimplePie::strip_attributes()}.
+     *
+     * Example: `['a' => ['href', 'title'], 'img' => ['src', 'alt']]`
+     */
+    public function allowed_html_elements_with_attributes(array $tags = []): void
+    {
+        $this->sanitize->allowed_html_elements_with_attributes($tags);
+    }
+
+    /**
+     * @param string[] $attrs Set default array of allowed attributes.
+     */
+    public function allowed_html_attributes(array $attrs = []): void
+    {
+        $this->sanitize->allowed_html_attributes($attrs);
+    }
+
+    /**
+     * @param bool $allow Whether `data-*` attributes should be allowed or not
+     */
+    public function allow_data_attr(bool $allow = true): void
+    {
+        $this->sanitize->allow_data_attr($allow);
+    }
+
+    /**
+     * @param bool $allow Whether `aria-*` attributes should be allowed or not
+     */
+    public function allow_aria_attr(bool $allow = true): void
+    {
+        $this->sanitize->allow_aria_attr($allow);
+    }
+
+    /**
      * @return void
      */
     public function encode_instead_of_strip(bool $enable = true)
@@ -1650,6 +1715,8 @@ class SimplePie
 
     /**
      * Set the limit for items returned per-feed with multifeeds
+     *
+     * @deprecated since SimplePie 1.10.0, this does nothing outside multifeeds.
      *
      * @param int $limit The maximum number of items to return.
      * @return void
