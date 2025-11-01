@@ -522,8 +522,7 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		// TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	]);
 	$simplePie->strip_attributes([
-		'data-auto-leave-validation', 'data-field', 'data-form', 'data-help', 'data-input', 'data-leave-validation', 'data-method',
-		'data-no-leave-validation', 'data-original', 'data-type', 'data-unread', 'data-url',
+		'data-original',
 	]);
 	$simplePie->add_attributes([
 		'audio' => ['controls' => 'controls', 'preload' => 'none'],
