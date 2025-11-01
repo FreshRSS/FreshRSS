@@ -846,7 +846,7 @@
 						$httpHeaders = array_filter($httpHeaders,
 							fn(string $header) => !preg_match('/^(Remote-User|X-WebAuth-User)\\s*:/i', $header));
 					?>
-					<textarea class="valid-json" id="http_headers" name="http_headers" rows="3" cols="64" spellcheck="false"><?php
+					<textarea class="w100" id="http_headers" name="http_headers" rows="3" spellcheck="false"><?php
 						foreach ($httpHeaders as $header) {
 							echo htmlspecialchars($header, ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}

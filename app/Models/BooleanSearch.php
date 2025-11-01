@@ -422,6 +422,11 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	}
 
 	/** @param FreshRSS_BooleanSearch|FreshRSS_Search $search */
+	public function prepend(FreshRSS_BooleanSearch|FreshRSS_Search $search): void {
+		array_unshift($this->searches, $search);
+	}
+
+	/** @param FreshRSS_BooleanSearch|FreshRSS_Search $search */
 	public function add(FreshRSS_BooleanSearch|FreshRSS_Search $search): void {
 		$this->searches[] = $search;
 	}
