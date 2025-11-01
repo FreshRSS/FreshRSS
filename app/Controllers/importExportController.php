@@ -752,11 +752,13 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			return;
 		}
 
-		// Format export as for the ZIP file. See Services/ExportService::zip
-		$username = Minz_User::name() ?? '_';
-		$day = date('Y-m-d');
-		$this->view->sqliteName = 'freshrss_' . $username . '_' . $day . '_db.sqlite';
 		$this->view->sqlitePath = $path;
+		$this->view->sqliteName = basename($path);
+		if ($this->view->sqliteName === 'db.sqlite') {
+			$username = Minz_User::name() ?? '_';
+			$date = date('Y-m-d_H-i-s', filemtime($path) ?: time());
+			$this->view->sqliteName = 'freshrss_' . $username . '_' . $date . '_db.sqlite';
+		}
 		$this->view->_layout(null);
 	}
 }
