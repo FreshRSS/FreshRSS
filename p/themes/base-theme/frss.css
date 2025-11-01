@@ -291,6 +291,10 @@ input[type=number] {
 	width: 6em;
 }
 
+textarea {
+	height: 7rem;
+}
+
 textarea,
 input[type="file"],
 input.long {
@@ -298,6 +302,8 @@ input.long {
 }
 
 input, select, textarea {
+	padding: 0.5rem;
+	vertical-align: middle;
 	display: inline-block;
 	max-width: 85vw;
 	font-size: 0.8rem;
@@ -306,6 +312,11 @@ input, select, textarea {
 
 select {
 	min-width: 6em;
+}
+
+textarea.h50 {
+	height: 50vh;
+	min-height: 7rem;
 }
 
 input.w50,

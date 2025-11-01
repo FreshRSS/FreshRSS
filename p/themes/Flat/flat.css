@@ -33,11 +33,6 @@ label {
 	color: #444;
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 input, select, textarea {
 	padding: 5px;
 	background: #fff;
@@ -48,7 +43,6 @@ input, select, textarea {
 	border-radius: 5px;
 	min-height: 25px;
 	line-height: 1;
-	vertical-align: middle;
 }
 
 option {
