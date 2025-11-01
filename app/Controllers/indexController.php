@@ -34,11 +34,13 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * @return '.future'|'.today'|'.yesterday'|''
 	 */
 	private static function dayRelative(int $timestamp): string {
-		static $today = strtotime('today');
+		static $today = null;
 		if (!is_int($today)) {
-			return '';
+			$today = strtotime('today') ?: 0;
 		}
-		if ($timestamp >= $today + 86400) {
+		if ($today <= 0) {
+			return '';
+		} elseif ($timestamp >= $today + 86400) {
 			return '.future';
 		} elseif ($timestamp >= $today) {
 			return '.today';

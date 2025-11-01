@@ -37,7 +37,7 @@ return array(
 	'feed' => array(
 		'empty' => 'Il n’y a aucun article à afficher.',
 		'published' => array(
-			'_' => 'Pubié',
+			'_' => 'Publié',
 			'future' => 'Publié dans le futur',
 			'today' => 'Publié aujourd’hui',
 			'yesterday' => 'Publié hier',
