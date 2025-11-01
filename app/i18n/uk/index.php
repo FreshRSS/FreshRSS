@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Нема статей для показу.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Отримано раніше за вчора',
+			'_' => 'Received',	// TODO
 			'today' => 'Отримано сьогодні',
 			'yesterday' => 'Отримано вчора',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Головний потік',
 		'title_fav' => 'Вподобані',
 		'title_global' => 'Глобальний показ',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Журнали',

@@ -478,21 +478,21 @@ th {
 	text-decoration: none;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 0 10px;
 	font-weight: bold;
 	line-height: 3;
 }
 
-.day span {
+.transition span {
 	line-height: 1.5;
 }
 
-#new-article + .day {
+#new-article + .transition {
 }
 
-.day .name {
+.transition .name {
 	padding: 0 0 0 10px;
 	font-size: 1.8em;
 	opacity: 0.3;
@@ -737,7 +737,7 @@ th {
 		width: 400px;
 	}
 
-	.day .name {
+	.transition .name {
 		font-size: 1.1rem;
 	}
 

@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'No hay artículos a mostrar.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
+			'_' => 'Received',	// TODO
 			'today' => 'Received today',	// TODO
 			'yesterday' => 'Received yesterday',	// TODO
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Salida Principal',
 		'title_fav' => 'Favoritos',
 		'title_global' => 'Vista global',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Registros',

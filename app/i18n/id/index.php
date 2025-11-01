@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Tidak ada artikel untuk diperlihatkan.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Diterima sebelum kemarin',
+			'_' => 'Received',	// TODO
 			'today' => 'Diterima hari ini',
 			'yesterday' => 'Diterima kemarin',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Bagian Utama',
 		'title_fav' => 'Favorit',
 		'title_global' => 'Tampilan Global',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Log',

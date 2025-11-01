@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Näytettäviä artikkeleita ei ole.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Saapuneet aikaisemmin kuin eilen',
+			'_' => 'Received',	// TODO
 			'today' => 'Saapuneet tänään',
 			'yesterday' => 'Saapuneet eilen',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Pääsyötevirta',
 		'title_fav' => 'Suosikit',
 		'title_global' => 'Yleisnäkymä',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Lokit',

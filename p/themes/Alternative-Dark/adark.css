@@ -709,8 +709,8 @@ kbd {
 	background: var(--contrast-background-color-hover);
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 0 10px;
 	font-weight: bold;
 	line-height: 3;
@@ -719,15 +719,15 @@ kbd {
 	border-top: 1px solid var(--border-color-dark);
 }
 
-.day span {
+.transition span {
 	line-height: 1.5;
 }
 
-#new-article + .day {
+#new-article + .transition {
 	border-top: none;
 }
 
-.day .name {
+.transition .name {
 	padding: 0 10px 0 0;
 	color: var(--font-color-light);
 	font-size: 1.8em;
@@ -1144,7 +1144,7 @@ kbd {
 		border-left: 2px solid var(--background-color-light);
 	}
 
-	.day .name {
+	.transition .name {
 		display: none!important;
 		font-size: 1.1rem;
 		text-shadow: none;

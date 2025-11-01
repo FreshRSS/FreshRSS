@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Non ci sono articoli da mostrare.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Ricevuto prima di ieri',
+			'_' => 'Received',	// TODO
 			'today' => 'Ricevuto oggi',
 			'yesterday' => 'Ricevuto ieri',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Flusso principale',
 		'title_fav' => 'Preferiti',
 		'title_global' => 'Vista globale per categorie',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Log',
