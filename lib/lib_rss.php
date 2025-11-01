@@ -373,8 +373,12 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 		'object', 'param', 'plaintext', 'script', 'style',
 		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
 	]);
+	$simplePie->limit_tags([
+		'iframe' => 100,
+	]);
 	$simplePie->rename_attributes(['id', 'class']);
 	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, [
+		'loading', 'fetchpriority', 'decoding',
 		'alink', 'autoplay', 'background', 'bgcolor', 'class', 'form', 'formaction',
 		'link', 'onblur', 'onchange', 'onclick', 'ondblclick', 'onfocus',
 		'onkeydown', 'onkeypress', 'onkeyup', 'onload', 'onmousedown', 'onmousemove',
@@ -389,6 +393,11 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 			'sandbox' => 'allow-scripts allow-same-origin',
 		],
 		'video' => ['controls' => 'controls', 'preload' => 'none'],
+	]);
+	$simplePie->default_attributes([
+		'iframe' => [
+			'src' => 'about:blank',
+		],
 	]);
 	$simplePie->set_url_replacements([
 		'a' => 'href',
@@ -748,13 +757,21 @@ function validateEmailAddress(string $email): bool {
  */
 function lazyimg(string $content): string {
 	return preg_replace([
-			'/<((?:img|image|iframe|track)[^>]+?)src="([^"]+)"([^>]*)>/i',
-			"/<((?:img|image|iframe|track)[^>]+?)src='([^']+)'([^>]*)>/i",
+			'/<((?:img|image|track)[^>]+?)src="([^"]+)"([^>]*)>/i',
+			"/<((?:img|image|track)[^>]+?)src='([^']+)'([^>]*)>/i",
+
+			'/<((?:iframe)[^>]+?)src="([^"]+)"([^>]*)>(.*?)<\/iframe>/is',
+			"/<((?:iframe)[^>]+?)src='([^']+)'([^>]*)>(.*?)<\/iframe>/is",
+
 			'/<((?:video)[^>]+?)poster="([^"]+)"([^>]*)>/i',
 			"/<((?:video)[^>]+?)poster='([^']+)'([^>]*)>/i",
 		], [
 			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
 			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+
+			'<lazy-$1data-original="$2"$3>$4</lazy-iframe>',
+			"<lazy-$1data-original='$2'$3>$4</lazy-iframe>",
+
 			'<$1poster="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
 			"<$1poster='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
 		],

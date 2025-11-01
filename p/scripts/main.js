@@ -38,6 +38,7 @@ function xmlHttpRequestJson(req) {
 /* eslint-disable no-var */
 var context;
 var prevTitle;
+var intersectionObserver;
 /* eslint-enable no-var */
 
 (function parseJsonVars() {
@@ -440,15 +441,44 @@ function mark_favorite(div) {
 const freshrssOpenArticleEvent = document.createEvent('Event');
 freshrssOpenArticleEvent.initEvent('freshrss:openArticle', true, true);
 
-function loadLazyImages(rootElement) {
-	rootElement.querySelectorAll('img[data-original], iframe[data-original], video[data-original], track[data-original]').forEach(function (el) {
-		if (el.tagName === 'VIDEO') {
-			el.poster = el.getAttribute('data-original');
-		} else {
-			el.src = el.getAttribute('data-original');
+function init_intersection_observer(rootElement) {
+	const observer = new IntersectionObserver((entries) => {
+		const visible = entries.filter(entry => entry.isIntersecting);
+		for (let i = 0; i < Math.min(visible.length, 100); i++) {
+			const { target } = visible[i];
+			loadLazyElement(target);
+			observer.unobserve(target);
 		}
-		el.removeAttribute('data-original');
+	}, {
+		rootMargin: '800px 0px 800px 0px',
 	});
+
+	getLazyImages(rootElement).forEach(el => observer.observe(el));
+	return observer;
+}
+
+function loadLazyElement(el) {
+	if (!el.dataset.original) {
+		return;
+	}
+	if (el.tagName === 'LAZY-IFRAME') {
+		const newEl = document.createElement('iframe');
+		for (const attr of el.attributes) {
+			newEl.setAttribute(attr.name, attr.value);
+		}
+		el.replaceWith(newEl);
+		el = newEl;
+	}
+	if (el.tagName === 'VIDEO') {
+		el.setAttribute('poster', el.dataset.original);
+	} else {
+		el.setAttribute('src', el.dataset.original);
+	}
+	el.removeAttribute('data-original');
+}
+
+function getLazyImages(rootElement) {
+	return rootElement.querySelectorAll('img[data-original], iframe[data-original], lazy-iframe[data-original], video[data-original], track[data-original]');
 }
 
 function toggleContent(new_active, old_active, skipping) {
@@ -457,8 +487,11 @@ function toggleContent(new_active, old_active, skipping) {
 		return;
 	}
 
-	if (context.does_lazyload && !skipping) {
-		loadLazyImages(new_active);
+	if (context.hide_posts && context.does_lazyload) {
+		if (intersectionObserver) {
+			intersectionObserver.disconnect();
+		}
+		intersectionObserver = init_intersection_observer(new_active.querySelector('div.text'));
 	}
 
 	if (old_active !== new_active) {
@@ -1279,7 +1312,7 @@ function init_stream(stream) {
 			// Note: Firefox Mobile saves PDFs with a filename that looks like: `temp[19 random digits].PDF` regardless of title
 			head.querySelector('title').innerText = articleTitle;
 
-			loadLazyImages(content_el);
+			getLazyImages(content_el).forEach(loadLazyElement);
 
 			const print_frame = document.createElement('iframe');
 			print_frame.style.display = 'none';
@@ -2034,6 +2067,9 @@ function load_more_posts() {
 		const streamFooter = document.getElementById('stream-footer');
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
+		if (!context.hide_posts && context.does_lazyload) {
+			getLazyImages(streamAdopted).forEach(el => intersectionObserver.observe(el));
+		}
 		streamAdopted.querySelectorAll('.flux, .day').forEach(function (div) {
 			box_load_more.insertBefore(div, streamFooter);
 		});
@@ -2232,6 +2268,9 @@ function init_main_afterDOM() {
 	if (stream) {
 		init_load_more(stream);
 		init_posts();
+		if (!context.hide_posts && context.does_lazyload) {
+			intersectionObserver = init_intersection_observer(stream);
+		}
 		if (document.getElementById('new-article')) {
 			// Only relevant for interactive views
 			init_nav_entries();

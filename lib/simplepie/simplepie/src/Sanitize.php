@@ -44,6 +44,8 @@ class Sanitize implements RegistryAware
     public $image_handler = '';
     /** @var string[] */
     public $strip_htmltags = ['base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style'];
+    /** @var array<tag:string,limit:int> */
+    public $limit_tags = [];
     /** @var bool */
     public $encode_instead_of_strip = false;
     /** @var string[] */
@@ -52,6 +54,8 @@ class Sanitize implements RegistryAware
     public $rename_attributes = [];
     /** @var array<string, array<string, string>> */
     public $add_attributes = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']];
+    /** @var array<string, array<string, string>> */
+    public $default_attributes = [];
     /** @var bool */
     public $strip_comments = false;
     /** @var string */
@@ -237,6 +241,14 @@ class Sanitize implements RegistryAware
     }
 
     /**
+     * @param array<tag:string,limit:int> $limits Set limits for amount of tags
+     * @return void
+     */
+    public function limit_tags(array $limits = []) {
+        $this->limit_tags = $limits;
+    }
+
+    /**
      * @return void
      */
     public function encode_instead_of_strip(bool $encode = false)
@@ -285,6 +297,15 @@ class Sanitize implements RegistryAware
     public function add_attributes(array $attribs = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']])
     {
         $this->add_attributes = $attribs;
+    }
+
+    /**
+     * @param array<string, array<string, string>> $attribs
+     * @return void
+     */
+    public function default_attributes(array $attribs = [])
+    {
+        $this->default_attributes = $attribs;
     }
 
     /**
@@ -469,6 +490,14 @@ class Sanitize implements RegistryAware
                     }
                 }
 
+                if ($this->limit_tags) {
+                    foreach ($this->limit_tags as $tag => $limit) {
+                        if ($xpath->query('body//' . $tag)->count() > $limit) {
+                            $this->strip_tag($tag, $document, $xpath, $type, $limit);
+                        }
+                    }
+                }
+
                 if ($this->rename_attributes) {
                     foreach ($this->rename_attributes as $attrib) {
                         $this->rename_attr($attrib, $xpath);
@@ -484,6 +513,12 @@ class Sanitize implements RegistryAware
                 if ($this->add_attributes) {
                     foreach ($this->add_attributes as $tag => $valuePairs) {
                         $this->add_attr($tag, $valuePairs, $document);
+                    }
+                }
+
+                if ($this->default_attributes) {
+                    foreach ($this->default_attributes as $tag => $valuePairs) {
+                        $this->add_attr($tag, $valuePairs, $document, overwrite: false);
                     }
                 }
 
@@ -643,7 +678,7 @@ class Sanitize implements RegistryAware
      * @param int-mask-of<SimplePie::CONSTRUCT_*> $type
      * @return void
      */
-    protected function strip_tag(string $tag, DOMDocument $document, DOMXPath $xpath, int $type)
+    protected function strip_tag(string $tag, DOMDocument $document, DOMXPath $xpath, int $type, int $limit = 0)
     {
         $elements = $xpath->query('body//' . $tag);
 
@@ -653,6 +688,8 @@ class Sanitize implements RegistryAware
                 __METHOD__
             ), 1);
         }
+
+        $must_remove = $elements->count() - $limit;
 
         if ($this->encode_instead_of_strip) {
             foreach ($elements as $element) {
@@ -723,6 +760,9 @@ class Sanitize implements RegistryAware
                 if (($parentNode = $element->parentNode) !== null) {
                     $parentNode->replaceChild($fragment, $element);
                 }
+                if ($limit !== 0 && ++$removed >= $must_remove) {
+                    return;
+                }
             }
         }
     }
@@ -772,12 +812,15 @@ class Sanitize implements RegistryAware
      * @param array<string, string> $valuePairs
      * @return void
      */
-    protected function add_attr(string $tag, array $valuePairs, DOMDocument $document)
+    protected function add_attr(string $tag, array $valuePairs, DOMDocument $document, bool $overwrite = true)
     {
         $elements = $document->getElementsByTagName($tag);
         /** @var \DOMElement $element */
         foreach ($elements as $element) {
             foreach ($valuePairs as $attrib => $value) {
+                if (!$overwrite && $element->hasAttribute($attrib)) {
+                    continue;
+                }
                 $element->setAttribute($attrib, $value);
             }
         }

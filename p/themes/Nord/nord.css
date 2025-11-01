@@ -807,7 +807,8 @@ li.item.active {
 	text-align: center;
 }
 
-.flux_header:hover {
+.flux_header:hover,
+:not(.hide_posts) > .flux .flux_header {
 	background-color: var(--accent-bg);
 	transition: .3s;
 }

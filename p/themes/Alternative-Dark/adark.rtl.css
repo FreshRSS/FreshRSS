@@ -752,7 +752,8 @@ kbd {
 	border-right-style: solid;
 }
 
-.flux .flux_header:hover {
+.flux .flux_header:hover,
+:not(.hide_posts) > .flux .flux_header {
 	background: var(--background-color-hover) !important;
 }
 
