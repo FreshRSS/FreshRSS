@@ -1545,7 +1545,11 @@ async function loadDynamicTags(div) {
 
 	let json;
 	try {
-		const response = await fetch('./?c=tag&a=getTagsForEntry&id_entry=' + entryId);
+		const response = await fetch('./?c=tag&a=getTagsForEntry&id_entry=' + entryId, {
+			headers: {
+				'Accept': 'application/json',
+			}
+		});
 		if (!response.ok) {
 			throw new Error('HTTP error ' + response.status);
 		}
