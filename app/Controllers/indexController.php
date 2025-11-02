@@ -33,14 +33,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * @return '.future'|'.today'|'.yesterday'|''
 	 */
-	private static function dayRelative(int $timestamp): string {
+	private static function dayRelative(int $timestamp, bool $mayBeFuture): string {
 		static $today = null;
 		if (!is_int($today)) {
 			$today = strtotime('today') ?: 0;
 		}
 		if ($today <= 0) {
 			return '';
-		} elseif ($timestamp >= $today + 86400) {
+		} elseif ($mayBeFuture && ($timestamp >= $today + 86400)) {
 			return '.future';
 		} elseif ($timestamp >= $today) {
 			return '.today';
@@ -56,11 +56,11 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public static function transition(FreshRSS_Entry $entry, string $sort): string {
 		return match ($sort) {
-			'id' => _t('index.feed.received' . self::dayRelative($entry->dateAdded(raw: true))) .
+			'id' => _t('index.feed.received' . self::dayRelative($entry->dateAdded(raw: true), mayBeFuture: false)) .
 				' — ' . timestamptodate($entry->dateAdded(raw: true), hour: false),
-			'date' => _t('index.feed.published' . self::dayRelative($entry->date(raw: true))) .
+			'date' => _t('index.feed.published' . self::dayRelative($entry->date(raw: true), mayBeFuture: true)) .
 				' — ' . timestamptodate($entry->date(raw: true), hour: false),
-			'lastUserModified' => _t('index.feed.userModified' . self::dayRelative($entry->lastUserModified())) .
+			'lastUserModified' => _t('index.feed.userModified' . self::dayRelative($entry->lastUserModified(), mayBeFuture: false)) .
 				' — ' . timestamptodate($entry->lastUserModified(), hour: false),
 			'c.name' => $entry->feed()?->category()?->name() ?? '',
 			'f.name' => $entry->feed()?->name() ?? '',
