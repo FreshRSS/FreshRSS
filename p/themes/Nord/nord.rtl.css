@@ -125,25 +125,18 @@ label {
 }
 
 input, select, textarea {
-	padding: 5px;
 	color: var(--text-default);
 	border: 1px solid var(--border-elements);
 	border-radius: 6px;
 	background-color: transparent;
 	min-height: 25px;
 	line-height: 1;
-	vertical-align: middle;
 }
 
 input:invalid,
 select:invalid,
 textarea:invalid {
 	border-color: var(--red);
-}
-
-select {
-	padding-top: 10px;
-	padding-bottom: 9px;
 }
 
 input:hover,
@@ -1087,11 +1080,6 @@ a, button.as-link {
 }
 
 /*=== Forms */
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 option,
 optgroup {
 	padding-right: 0.5rem;

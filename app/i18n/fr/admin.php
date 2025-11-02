@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Aucune extension installée',
 		'empty_list_help' => 'Vérifiez les logs pour déterminer pourquoi la liste des extensions est vide.',
 		'enabled' => 'Activée',
+		'is_compatible' => 'Est compatible',
 		'latest' => 'Installée',
 		'name' => 'Nom',
 		'no_configure_view' => 'Cette extension n’a pas à être configurée',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Statistiques',
 		'all_feeds' => 'Tous les flux',
 		'category' => 'Catégorie',
+		'date_published' => 'Date de publication',
+		'date_received' => 'Date de réception',
 		'entry_count' => 'Nombre d’articles',
 		'entry_per_category' => 'Articles par catégorie',
 		'entry_per_day' => 'Nombre d’articles par jour (30 derniers jours)',
@@ -146,6 +149,7 @@ return array(
 		'idle' => 'Flux inactifs',
 		'main' => 'Statistiques principales',
 		'main_stream' => 'Flux principal',
+		'nb_unreads' => 'Nombre d’articles non lus',
 		'no_idle' => 'Il n’y a aucun flux inactif !',
 		'number_entries' => '%d articles',	// IGNORE
 		'overview' => 'Vue d’ensemble',
@@ -157,6 +161,7 @@ return array(
 		'status_unread' => 'non lus',
 		'title' => 'Statistiques',
 		'top_feed' => 'Les dix plus gros flux',
+		'unread_dates' => 'Dates avec le plus d’articles non lus',
 	),
 	'system' => array(
 		'_' => 'Configuration du système',

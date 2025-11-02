@@ -38,6 +38,9 @@ class FreshRSS_Feed extends Minz_Model {
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
 	public const PRIORITY_CATEGORY = 0;
+	public const PRIORITY_FEED = -5;
+	public const PRIORITY_HIDDEN = -10;
+	/** @deprecated use PRIORITY_HIDDEN instead */
 	public const PRIORITY_ARCHIVED = -10;
 
 	public const TTL_DEFAULT = 0;
@@ -252,7 +255,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$params = '';
 			if ($this->customFavicon()) {
 				$current = $this->id . Minz_User::name();
-				$hookParams = Minz_ExtensionManager::callHook('custom_favicon_hash', $this);
+				$hookParams = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconHash, $this);
 				$params = $hookParams !== null ? $hookParams : $current;
 			} else {
 				$params = $this->website(fallback: true) . $this->proxyParam();
@@ -287,15 +290,6 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->category?->id() ?: $this->categoryId;
 	}
 
-	/**
-	 * @return list<FreshRSS_Entry>|null
-	 * @deprecated
-	 */
-	public function entries(): ?array {
-		Minz_Log::warning(__METHOD__ . ' is deprecated since FreshRSS 1.16.1!');
-		$simplePie = $this->load(false, true);
-		return $simplePie == null ? [] : array_values(iterator_to_array($this->loadEntries($simplePie)));
-	}
 	public function name(bool $raw = false): string {
 		return $raw || $this->name != '' ? $this->name : (preg_replace('%^https?://(www[.])?%i', '', $this->url) ?? '');
 	}
@@ -576,9 +570,9 @@ class FreshRSS_Feed extends Minz_Model {
 					// Do not use `$simplePie->enable_cache(false);` as it would prevent caching in multiuser context
 					$this->clearCache();
 				}
-				Minz_ExtensionManager::callHook('simplepie_before_init', $simplePie, $this);
+				Minz_ExtensionManager::callHook(Minz_HookType::SimplepieBeforeInit, $simplePie, $this);
 				$simplePieResult = $simplePie->init();
-				Minz_ExtensionManager::callHook('simplepie_after_init', $simplePie, $this, $simplePieResult);
+				Minz_ExtensionManager::callHook(Minz_HookType::SimplepieAfterInit, $simplePie, $this, $simplePieResult);
 
 				if ($simplePieResult === false || $simplePie->get_hash() === '' || !empty($simplePie->error())) {
 					if ($simplePie->status_code() === 429) {
@@ -949,6 +943,9 @@ class FreshRSS_Feed extends Minz_Model {
 			// If the result is a list, then aggregate as a JSON array
 			$result = [];
 			foreach ($jsonFragments as $node) {
+				if (!($node instanceof DOMNode)) {
+					continue;
+				}
 				$json = json_decode($node->textContent, true);
 				if (json_last_error() === JSON_ERROR_NONE && is_array($json)) {
 					$result[] = $json;
@@ -1073,6 +1070,9 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 
 			foreach ($nodes as $node) {
+				if (!($node instanceof DOMNode)) {
+					continue;
+				}
 				$item = [];
 				$item['title'] = $xPathItemTitle == '' ? '' : $xpathEvaluateString($xPathItemTitle, $node);
 
@@ -1083,7 +1083,9 @@ class FreshRSS_Feed extends Minz_Model {
 						// List of nodes, save as HTML
 						$content = '';
 						foreach ($result as $child) {
-							$content .= $doc->saveHTML($child) . "\n";
+							if ($child instanceof DOMNode) {
+								$content .= $doc->saveHTML($child) . "\n";
+							}
 						}
 						$item['content'] = $content;
 					} elseif (is_string($result) || is_int($result) || is_bool($result)) {
@@ -1109,7 +1111,9 @@ class FreshRSS_Feed extends Minz_Model {
 					} elseif ($itemCategories instanceof DOMNodeList && $itemCategories->length > 0) {
 						$item['tags'] = [];
 						foreach ($itemCategories as $itemCategory) {
-							$item['tags'][] = $itemCategory->textContent;
+							if ($itemCategory instanceof DOMNode) {
+								$item['tags'][] = $itemCategory->textContent;
+							}
 						}
 					}
 				}

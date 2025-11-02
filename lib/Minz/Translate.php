@@ -11,6 +11,8 @@ declare(strict_types=1);
  * It uses files in `./app/i18n/`
  */
 class Minz_Translate {
+	public const DEFAULT_LANGUAGE = 'en';
+
 	/**
 	 * $path_list is the list of registered base path to search translations.
 	 * @var array<string>
@@ -99,7 +101,7 @@ class Minz_Translate {
 	 */
 	public static function getLanguage(?string $user, array $preferred, ?string $default): string {
 		if (null !== $user) {
-			if (!self::exists($user)) return 'en';
+			if (!self::exists($user)) return self::DEFAULT_LANGUAGE;
 			return $user;
 		}
 
@@ -111,7 +113,7 @@ class Minz_Translate {
 			}
 		}
 
-		return $default == null ? 'en' : $default;
+		return $default ?: self::DEFAULT_LANGUAGE;
 	}
 
 	/**

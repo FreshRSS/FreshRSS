@@ -114,8 +114,6 @@ label {
 
 textarea {
 	max-width: 100%;
-	width: 360px;
-	height: 100px;
 }
 
 input, select, textarea, button {

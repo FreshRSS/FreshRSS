@@ -62,11 +62,8 @@ $color_hover:	#fff;
 %input {
 	min-height: 25px;
 	margin-top: 4px;
-	line-height: 2.25;
-	vertical-align: middle;
 	background-color: var(--color-background-light);
 	border: 2px solid var(--color-border-grey);
-	padding-left: 8px;
 }
 %input:focus {
 	border: 2px solid var(--color-background-dark);
@@ -181,8 +178,6 @@ label {
 }
 
 textarea {
-	width: 360px;
-	height: 100px;
 
 	@extend %input;
 }
@@ -200,11 +195,6 @@ select {
 	&:disabled {
 		background-color: var(--color-background-light);
 	}
-}
-
-select {
-	padding-top: 7px;
-	padding-bottom: 8px;
 }
 
 option {

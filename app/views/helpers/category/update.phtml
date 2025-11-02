@@ -8,7 +8,7 @@
 <div class="post">
 	<h2>
 		<?= $this->category->name() ?>
-		<?php if ($this->category->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) { echo _i('opml-dyn'); } ?>
+		<?= $this->category->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? _i('opml-dyn') : '' ?>
 	</h2>
 
 	<div>
@@ -100,6 +100,11 @@
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+					<p>
+						<button class="btn" formaction="<?= _url('category', 'viewFilter', 'id', $this->category->id()); ?>" formtarget="_blank">
+							<?= _t('sub.feed.filteractions.view_filter') ?>
+						</button>
+					</p>
 				</div>
 			</div>
 

@@ -40,11 +40,6 @@
 	filter: sepia(21%) brightness(94%) hue-rotate(112deg) saturate(1000%) contrast(132%) invert(100%)
 }
 
-.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
-.aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
-	background-color: #000;
-}
-
 #new-article {
 	background: #ffa1af;
 }
@@ -164,4 +159,8 @@ input:focus {
 
 #btn-add > img {
 	filter: brightness(0.75);
+}
+
+.theme-preview-list .nav label.btn:hover {
+	background-color: var(--background-color-hover);
 }

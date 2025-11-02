@@ -50,6 +50,14 @@ class Sanitize implements RegistryAware
     public $strip_attributes = ['bgsound', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc'];
     /** @var string[] */
     public $rename_attributes = [];
+    /** @var array<string, string[]> */
+    public $allowed_html_elements_with_attributes = [];
+    /** @var string[] */
+    public $allowed_html_attributes = [];
+    /** @var bool */
+    public $allow_data_attr = true;
+    /** @var bool */
+    public $allow_aria_attr = true;
     /** @var array<string, array<string, string>> */
     public $add_attributes = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']];
     /** @var bool */
@@ -234,6 +242,42 @@ class Sanitize implements RegistryAware
         } else {
             $this->strip_htmltags = [];
         }
+    }
+
+    /**
+     * @param array<string,string[]> $tags Set array of allowed HTML elements with their allowed attributes.
+     * Note that `<html>`, `<head>`, `<body>`, `<div>` are always allowed.
+     * Preferred over {@see Sanitize::strip_htmltags()}.
+     */
+    public function allowed_html_elements_with_attributes(array $tags = []): void
+    {
+        $this->strip_htmltags = [];
+        $this->strip_attributes = [];
+        $this->allowed_html_elements_with_attributes = $tags;
+    }
+
+    /**
+     * @param string[] $attrs Set default array of allowed HTML attributes.
+     */
+    public function allowed_html_attributes(array $attrs = []): void
+    {
+        $this->allowed_html_attributes = $attrs;
+    }
+
+    /**
+     * @param bool $allow Whether data-* should be allowed or not
+     */
+    public function allow_data_attr(bool $allow = true): void
+    {
+        $this->allow_data_attr = $allow;
+    }
+
+    /**
+     * @param bool $allow Whether aria-* should be allowed or not
+     */
+    public function allow_aria_attr(bool $allow = true): void
+    {
+        $this->allow_aria_attr = $allow;
     }
 
     /**
@@ -460,18 +504,22 @@ class Sanitize implements RegistryAware
                     }
                 }
 
+                if (!empty($this->rename_attributes)) {
+                    foreach ($this->rename_attributes as $attrib) {
+                        $this->rename_attr($attrib, $xpath);
+                    }
+                }
+
+                if (!empty($this->allowed_html_elements_with_attributes)) {
+                    $this->enforce_allowed_html_nodes($document, $this->allow_data_attr, $this->allow_aria_attr);
+                }
+
                 // Strip out HTML tags and attributes that might cause various security problems.
                 // Based on recommendations by Mark Pilgrim at:
                 // https://web.archive.org/web/20110902041826/http://diveintomark.org:80/archives/2003/06/12/how_to_consume_rss_safely
                 if ($this->strip_htmltags) {
                     foreach ($this->strip_htmltags as $tag) {
                         $this->strip_tag($tag, $document, $xpath, $type);
-                    }
-                }
-
-                if ($this->rename_attributes) {
-                    foreach ($this->rename_attributes as $attrib) {
-                        $this->rename_attr($attrib, $xpath);
                     }
                 }
 
@@ -636,6 +684,61 @@ class Sanitize implements RegistryAware
             return $match[4];
         } else {
             return '';
+        }
+    }
+
+    /**
+     * Keep only allowed HTML elements (tags) and their allowed attributes.
+     */
+    protected function enforce_allowed_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true): void
+    {
+        if ($element instanceof \DOMElement) {
+            $tag = $element->tagName;
+            $parent = $element->parentNode;
+            if (!in_array($tag, ['html', 'head', 'body', 'div'], true)
+                && !isset($this->allowed_html_elements_with_attributes[$tag])) {
+                if (!in_array($tag, ['script', 'style', 'svg', 'math'], true)) {
+                    // Preserve children inside the disallowed element
+                    for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
+                        $child = $element->childNodes->item($i);
+                        if ($child === null) {
+                            continue;
+                        }
+                        if ($child instanceof \DOMText) {
+                            $child->nodeValue = htmlspecialchars($child->nodeValue ?? '', ENT_QUOTES, 'UTF-8');
+                        }
+                        if ($parent !== null) {
+                            $parent->insertBefore($child, $element);
+                        }
+                        $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
+                    }
+                }
+                if ($parent !== null) {
+                    $parent->removeChild($element);
+                    return;
+                }
+            }
+            $allowed_attrs = array_merge($this->allowed_html_elements_with_attributes[$tag] ?? [], $this->allowed_html_attributes);
+            for ($i = $element->attributes->length - 1; $i >= 0; $i--) {
+                $attr = $element->attributes[$i]->nodeName;
+                // Skip data-*, aria-* if allowed
+                if (($allow_data_attr && str_starts_with($attr, 'data-'))
+                    || ($allow_aria_attr && str_starts_with($attr, 'aria-'))) {
+                    continue;
+                }
+
+                if (!in_array($attr, $allowed_attrs, true)) {
+                    $element->removeAttributeNode($element->attributes[$i]);
+                }
+            }
+        }
+        if ($element instanceof \DOMElement || $element instanceof \DOMDocument) {
+            for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
+                $child = $element->childNodes->item($i);
+                if ($child !== null) {
+                    $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
+                }
+            }
         }
     }
 

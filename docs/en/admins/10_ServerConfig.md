@@ -116,9 +116,9 @@ server {
 ## Security
 
 Avoid overwriting the [`Content-Security-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) header with directives such as `more_set_headers "Content-Security-Policy: ..."`
-This will likely make your FreshRSS instance vulnerable to event handler XSS attacks, since FreshRSS does not yet blacklist all event attributes.
 
-✅ Example of good CSP: `default-src 'self' frame-ancestors 'self'`
+✅ Example of good CSP: `default-src 'self'; frame-ancestors 'self'`
+
 ❌ Bad CSP: `upgrade-insecure-requests`
 
 Debug CSP header:

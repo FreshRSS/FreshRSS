@@ -338,7 +338,7 @@ services:
       TZ: Europe/Paris
       # Cron job to refresh feeds at specified minutes
       CRON_MIN: '2,32'
-      # 'development' for additional logs; default is 'production'
+      # Optional 'development' for additional logs; default is 'production'
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
@@ -372,6 +372,14 @@ services:
         --language en
         --password ${ADMIN_PASSWORD}
         --user admin
+    # Optional healthcheck
+    healthcheck:
+      test: ["CMD", "cli/health.php"]
+      timeout: 10s
+      start_period: 60s
+      start_interval: 11s
+      interval: 75s
+      retries: 3
 ```
 
 ### Docker Compose with PostgreSQL
