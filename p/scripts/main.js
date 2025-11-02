@@ -740,7 +740,7 @@ function user_filter(key) {
 	}
 }
 
-function show_labels_menu(el) {
+async function show_labels_menu(el) {
 	const div = el.parentElement;
 	const dropdownMenu = div.querySelector('.dropdown-menu');
 
@@ -756,8 +756,7 @@ function show_labels_menu(el) {
 
 		return loadDynamicTags(div.closest('.dynamictags'));
 	}
-
-	return Promise.resolve(true);
+	return true;
 }
 
 function show_share_menu(el) {
@@ -791,44 +790,39 @@ function show_share_menu(el) {
 	return true;
 }
 
-function mylabels(key) {
+async function mylabels(key) {
 	const mylabelsDropdown = document.querySelector('.flux.current.active .dropdown-target[id^="dropdown-labels"]');
 
 	if (!mylabelsDropdown) {
 		return;
 	}
 
-	let loadMenuPromise = Promise.resolve(true);
-
 	if (typeof key === 'undefined') {
-		loadMenuPromise = show_labels_menu(mylabelsDropdown);
+		await show_labels_menu(mylabelsDropdown);
+	}
+	// Display the mylabels div
+	location.hash = mylabelsDropdown.id;
+	// Force scrolling to the mylabels div
+	const scrollTop = needsScroll(mylabelsDropdown.closest('.horizontal-list'));
+	if (scrollTop !== 0) {
+		if (mylabelsDropdown.closest('.horizontal-list.flux_header')) {
+			mylabelsDropdown.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "start" });
+		} else {
+			mylabelsDropdown.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "end" });
+		}
 	}
 
-	loadMenuPromise.then(() => {
-		// Display the mylabels div
-		location.hash = mylabelsDropdown.id;
-		// Force scrolling to the mylabels div
-		const scrollTop = needsScroll(mylabelsDropdown.closest('.horizontal-list'));
-		if (scrollTop !== 0) {
-			if (mylabelsDropdown.closest('.horizontal-list.flux_header')) {
-				mylabelsDropdown.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "start" });
-			} else {
-				mylabelsDropdown.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "end" });
-			}
+	key = parseInt(key);
+
+	if (key === 0) {
+		mylabelsDropdown.parentElement.querySelector('.dropdown-menu .item .newTag').focus();
+	} else {
+		const mylabelsCheckboxes = mylabelsDropdown.parentElement.querySelectorAll('.dropdown-menu .item .checkboxTag');
+
+		if (key <= mylabelsCheckboxes.length) {
+			mylabelsCheckboxes[key].click();
 		}
-
-		key = parseInt(key);
-
-		if (key === 0) {
-			mylabelsDropdown.parentElement.querySelector('.dropdown-menu .item .newTag').focus();
-		} else {
-			const mylabelsCheckboxes = mylabelsDropdown.parentElement.querySelectorAll('.dropdown-menu .item .checkboxTag');
-
-			if (key <= mylabelsCheckboxes.length) {
-				mylabelsCheckboxes[key].click();
-			}
-		}
-	});
+	}
 }
 
 function auto_share(key) {
@@ -1545,99 +1539,89 @@ function init_nav_entries() {
 // purpose of this flag: minimize the network traffic.
 let forceReloadLabelsList = false;
 
-function loadDynamicTags(div) {
-	return new Promise((resolve, reject) => {
+async function loadDynamicTags(div) {
+	div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
+	const entryId = div.closest('div.flux').id.replace(/^flux_/, '');
+
+	let json;
+	try {
+		const response = await fetch('./?c=tag&a=getTagsForEntry&id_entry=' + entryId);
+		if (!response.ok) {
+			throw new Error('HTTP error ' + response.status);
+		}
+		json = await response.json();
+	} catch (ex) {
 		div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
-		const entryId = div.closest('div.flux').id.replace(/^flux_/, '');
+		throw ex;
+	}
 
-		const req = new XMLHttpRequest();
-		req.open('GET', './?c=tag&a=getTagsForEntry&id_entry=' + entryId, true);
-		req.responseType = 'json';
-		req.onerror = function (e) {
-			div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
-			reject(e);
-		};
-		req.onload = function (e) {
-			if (this.status != 200) {
-				return req.onerror(e);
+	if (!context.anonymous) {
+		const li_item0 = document.createElement('li');
+		li_item0.setAttribute('class', 'item addItem');
+
+		const label = document.createElement('label');
+		label.setAttribute('class', 'noHover');
+
+		const input_checkboxTag = document.createElement('input');
+		input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
+		input_checkboxTag.setAttribute('name', 't_0');
+		input_checkboxTag.setAttribute('type', 'checkbox');
+
+		const input_newTag = document.createElement('input');
+		input_newTag.setAttribute('type', 'text');
+		input_newTag.setAttribute('name', 'newTag');
+		input_newTag.setAttribute('class', 'newTag');
+		input_newTag.setAttribute('list', 'datalist-labels');
+		input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
+
+		const button_btn = document.createElement('button');
+		button_btn.setAttribute('type', 'button');
+		button_btn.setAttribute('class', 'btn');
+		button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
+
+		const text_plus = document.createTextNode('+');
+
+		const div_stick = document.createElement('div');
+		div_stick.setAttribute('class', 'stick');
+
+		button_btn.appendChild(text_plus);
+		div_stick.appendChild(input_newTag);
+		div_stick.appendChild(button_btn);
+		label.appendChild(input_checkboxTag);
+		label.appendChild(div_stick);
+		li_item0.appendChild(label);
+
+		div.querySelector('.dropdown-menu-scrollable').appendChild(li_item0);
+	}
+
+	let html = '';
+	let datalist = '';
+	if (json && json.length) {
+		let nbLabelsChecked = 0;
+		for (let i = 0; i < json.length; i++) {
+			const tag = json[i];
+			if (context.anonymous && !tag.checked) {
+				// In anonymous mode, show only the used tags
+				continue;
 			}
-			const json = xmlHttpRequestJson(this);
-			if (!json) {
-				return req.onerror(e);
+			if (tag.checked) {
+				nbLabelsChecked++;
 			}
-
-			if (!context.anonymous) {
-				const li_item0 = document.createElement('li');
-				li_item0.setAttribute('class', 'item addItem');
-
-				const label = document.createElement('label');
-				label.setAttribute('class', 'noHover');
-
-				const input_checkboxTag = document.createElement('input');
-				input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
-				input_checkboxTag.setAttribute('name', 't_0');
-				input_checkboxTag.setAttribute('type', 'checkbox');
-
-				const input_newTag = document.createElement('input');
-				input_newTag.setAttribute('type', 'text');
-				input_newTag.setAttribute('name', 'newTag');
-				input_newTag.setAttribute('class', 'newTag');
-				input_newTag.setAttribute('list', 'datalist-labels');
-				input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
-
-				const button_btn = document.createElement('button');
-				button_btn.setAttribute('type', 'button');
-				button_btn.setAttribute('class', 'btn');
-				button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
-
-				const text_plus = document.createTextNode('+');
-
-				const div_stick = document.createElement('div');
-				div_stick.setAttribute('class', 'stick');
-
-				button_btn.appendChild(text_plus);
-				div_stick.appendChild(input_newTag);
-				div_stick.appendChild(button_btn);
-				label.appendChild(input_checkboxTag);
-				label.appendChild(div_stick);
-				li_item0.appendChild(label);
-
-				div.querySelector('.dropdown-menu-scrollable').appendChild(li_item0);
-			}
-
-			let html = '';
-			let datalist = '';
-			if (json && json.length) {
-				let nbLabelsChecked = 0;
-				for (let i = 0; i < json.length; i++) {
-					const tag = json[i];
-					if (context.anonymous && !tag.checked) {
-						// In anonymous mode, show only the used tags
-						continue;
-					}
-					if (tag.checked) {
-						nbLabelsChecked++;
-					}
-					html += '<li class="item"><label><input ' +
-						(context.anonymous ? '' : 'class="checkboxTag" ') +
-						'name="t_' + tag.id + '"type="checkbox" ' +
-						(context.anonymous ? 'disabled="disabled" ' : '') +
-						(tag.checked ? 'checked="checked" ' : '') + '/>' + tag.name + '</label></li>';
-					datalist += '<option value="' + tag.name + '"></option>';
-				}
-				if (context.anonymous && nbLabelsChecked === 0) {
-					html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
-				}
-			}
-			div.querySelector('.dropdown-menu-scrollable').insertAdjacentHTML('beforeend', html);
-			const datalistLabels = document.getElementById('datalist-labels');
-			datalistLabels.innerHTML = ''; // clear before add the (updated) labels list
-			datalistLabels.insertAdjacentHTML('beforeend', datalist);
-
-			resolve(json);
-		};
-		req.send();
-	});
+			html += '<li class="item"><label><input ' +
+				(context.anonymous ? '' : 'class="checkboxTag" ') +
+				'name="t_' + tag.id + '"type="checkbox" ' +
+				(context.anonymous ? 'disabled="disabled" ' : '') +
+				(tag.checked ? 'checked="checked" ' : '') + '/>' + tag.name + '</label></li>';
+			datalist += '<option value="' + tag.name + '"></option>';
+		}
+		if (context.anonymous && nbLabelsChecked === 0) {
+			html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
+		}
+	}
+	div.querySelector('.dropdown-menu-scrollable').insertAdjacentHTML('beforeend', html);
+	const datalistLabels = document.getElementById('datalist-labels');
+	datalistLabels.innerHTML = ''; // clear before add the (updated) labels list
+	datalistLabels.insertAdjacentHTML('beforeend', datalist);
 }
 
 // <actualize>
