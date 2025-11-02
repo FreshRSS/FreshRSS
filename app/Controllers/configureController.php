@@ -180,6 +180,25 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('conf.reading.title') . ' · ');
 	}
 
+	public function viewFilterAction(): void {
+		$search = '';
+		$filters_name = Minz_Request::paramString('filters_name', plaintext: true);
+		$filteractions = Minz_Request::paramTextToArray($filters_name);
+		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
+		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
+		foreach ($filteractions as $action) {
+			$search .= "($action) OR ";
+		}
+		$search = preg_replace('/ OR $/', '', $search);
+		Minz_Request::forward([
+			'c' => 'index',
+			'a' => 'index',
+			'params' => [
+				'search' => $search,
+			],
+		], redirect: true);
+	}
+
 	/**
 	 * This action handles the integration configuration page.
 	 *

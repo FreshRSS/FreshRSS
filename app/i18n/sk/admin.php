@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Žiadne nainštalované rozšírenia',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Povolené',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Nainštalované',
 		'name' => 'Názov',
 		'no_configure_view' => 'Toto rozšírenie nemá nastavenia.',

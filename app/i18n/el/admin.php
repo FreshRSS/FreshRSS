@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Δεν υπάρχουν εγκατεστημένες επεκτάσεις',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Ενεργοποιημένες',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Εγκατεστημένες',
 		'name' => 'Όνομα',
 		'no_configure_view' => 'Αυτή η επέκταση δεν μπορεί να ρυθμιστεί.',

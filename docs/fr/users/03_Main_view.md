@@ -313,3 +313,5 @@ Contrairement aux recherches normales, les caractères spéciaux XML `<&">` ne s
 	* [Pour PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP) ;
 	* [Pour MariaDB](https://mariadb.com/kb/en/pcre/) ;
 	* [Pour MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
+
+> ℹ️ Même avec PostgreSQL, vous pouvez utiliser `\b` pour les limites de mots (et `\B` pour l’inverse), car une traduction automatique est effectuée vers `\y` et `\Y`.

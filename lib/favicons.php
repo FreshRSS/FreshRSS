@@ -26,6 +26,10 @@ function faviconCachePath(string $url): string {
 }
 
 function searchFavicon(string $url): string {
+	$url = trim($url);
+	if ($url === '') {
+		return '';
+	}
 	$dom = new DOMDocument();
 	['body' => $html, 'effective_url' => $effective_url, 'fail' => $fail] = httpGet($url, cachePath: CACHE_PATH . '/' . sha1($url) . '.html', type: 'html');
 	if ($fail || $html === '' || !@$dom->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {

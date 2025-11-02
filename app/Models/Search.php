@@ -274,6 +274,9 @@ class FreshRSS_Search implements \Stringable {
 	public function getNotMaxPubdate(): ?int {
 		return $this->not_max_pubdate ?: null;
 	}
+	public function setMaxPubdate(int $value): void {
+		$this->max_pubdate = $value;
+	}
 
 	public function getMinUserdate(): ?int {
 		return $this->min_userdate ?: null;

@@ -114,18 +114,11 @@ label {
 	cursor: pointer;
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 input, select, textarea {
-	padding: 7px;
 	background-color: var(--background-color-white);
 	color: var(--font-color-grey);
 	border: 1px solid var(--border-color-grey-dark);
 	border-radius: 3px;
-	vertical-align: middle;
 }
 
 option {

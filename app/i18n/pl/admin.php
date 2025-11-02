@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Brak zainstalowanych rozszerzeń',
 		'empty_list_help' => 'Sprawdź dziennik, aby ustalić powód pustej listy rozszerzeń.',
 		'enabled' => 'Włączone',
+		'is_compatible' => 'Jest kompatybilne',
 		'latest' => 'Zainstalowane',
 		'name' => 'Nazwa',
 		'no_configure_view' => 'To rozszerzenie nie jest konfigurowalne.',

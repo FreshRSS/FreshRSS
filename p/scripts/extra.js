@@ -17,6 +17,11 @@ function forgetOpenCategories() {
 }
 
 function init_crypto_forms() {
+	const crypto_forms = document.querySelectorAll('.crypto-form');
+	if (crypto_forms.length === 0) {
+		return;
+	}
+
 	if (!(window.bcrypt)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for bcrypt.js…');
@@ -26,7 +31,6 @@ function init_crypto_forms() {
 	}
 
 	/* globals bcrypt */
-	const crypto_forms = document.querySelectorAll('.crypto-form');
 	crypto_forms.forEach(crypto_form => {
 		const submit_button = crypto_form.querySelector('[type="submit"]');
 		if (submit_button) {

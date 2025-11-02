@@ -5,6 +5,7 @@ declare(strict_types=1);
  * An extension manager to load extensions present in CORE_EXTENSIONS_PATH and THIRDPARTY_EXTENSIONS_PATH.
  *
  * @todo see coding style for methods!!
+ * @phpstan-import-type ExtensionMetadata from Minz_Extension
  */
 final class Minz_ExtensionManager {
 
@@ -81,7 +82,7 @@ final class Minz_ExtensionManager {
 				continue;
 			}
 			$meta_raw_content = file_get_contents($metadata_filename) ?: '';
-			/** @var array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'}|null $meta_json */
+			/** @var ExtensionMetadata|null $meta_json */
 			$meta_json = json_decode($meta_raw_content, true);
 			if (!is_array($meta_json) || !self::isValidMetadata($meta_json)) {
 				// metadata.json is not a json file? Invalid!
@@ -109,8 +110,7 @@ final class Minz_ExtensionManager {
 	 * If the extension class name is `TestExtension`, entry point will be `Test`.
 	 * `entry_point` must be composed of alphanumeric characters.
 	 *
-	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'} $meta
-	 * is an array of values.
+	 * @param ExtensionMetadata $meta is an array of values.
 	 * @return bool true if the array is valid, false else.
 	 */
 	private static function isValidMetadata(array $meta): bool {
@@ -121,8 +121,7 @@ final class Minz_ExtensionManager {
 	/**
 	 * Load the extension source code based on info metadata.
 	 *
-	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'} $info
-	 * an array containing information about extension.
+	 * @param ExtensionMetadata $info an array containing information about extension.
 	 * @return Minz_Extension|null an extension inheriting from Minz_Extension.
 	 */
 	private static function load(array $info): ?Minz_Extension {

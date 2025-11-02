@@ -29,16 +29,6 @@ label {
 	cursor: pointer;
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
-input, select, textarea {
-	padding: 7px;
-	vertical-align: middle;
-}
-
 option {
 	padding: 0 .5em;
 }

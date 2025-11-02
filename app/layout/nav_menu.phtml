@@ -152,12 +152,20 @@
 						type="submit"><?= $string_mark ?></button>
 				</li>
 <?php
-	$mark_read_enabled = FreshRSS_Context::$sort === 'id';
+	$mark_read_enabled = in_array(FreshRSS_Context::$sort, ['id', 'date'], true);
 	$today = @strtotime('today');
 	$mark_before_today = $mark_read_url;
-	$mark_before_today['params']['idMax'] = $today . '000000';
 	$mark_before_one_week = $mark_read_url;
-	$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
+	switch (FreshRSS_Context::$sort) {
+		case 'id':
+			$mark_before_today['params']['idMax'] = $today . '000000';
+			$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
+			break;
+		case 'date':
+			$mark_before_today['params']['maxPubDate'] = $today;
+			$mark_before_one_week['params']['maxPubDate'] = $today - 604800;
+			break;
+	}
 	$mark_unread_enabled = FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) ||
 		(!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) && !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_OR_NOT_READ));
 ?>
