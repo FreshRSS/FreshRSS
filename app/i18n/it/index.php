@@ -37,13 +37,13 @@ return array(
 	'feed' => array(
 		'empty' => 'Non ci sono articoli da mostrare.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Pubblicato',
+			'future' => 'Pubblicato nel futuro',
+			'today' => 'Pubblicato oggi',
+			'yesterday' => 'Pubblicato ieri',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'Ricevuto',
 			'today' => 'Ricevuto oggi',
 			'yesterday' => 'Ricevuto ieri',
 		),
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'Preferiti',
 		'title_global' => 'Vista globale per categorie',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Modificato dall’utente',
+			'today' => 'Modificato dall’utente oggi',
+			'yesterday' => 'Modificato dall’utente ieri',
 		),
 	),
 	'log' => array(
@@ -100,15 +100,15 @@ return array(
 			),
 			'id_asc' => 'Dal meno recente',
 			'id_desc' => 'Dal più recente',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'length_asc' => 'Lunghezza contenuto 1→9',
+			'length_desc' => 'Lunghezza contenuto 9→1',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Ordine casuale',
 			'title_asc' => 'Titolo A→Z',
 			'title_desc' => 'Titolo Z→A',
-			'user_modified_asc' => 'Modificato dall\'utente 1→9',
-			'user_modified_desc' => 'Modificato dall\'utente 9→1',
+			'user_modified_asc' => 'Modificato dall’utente 1→9',
+			'user_modified_desc' => 'Modificato dall’utente 9→1',
 		),
 		'starred' => 'Mostra solo preferiti',
 		'stats' => 'Statistiche',
