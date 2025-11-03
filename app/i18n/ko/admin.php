@@ -118,6 +118,7 @@ return array(
 		'empty_list' => '설치된 확장 기능이 없습니다',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => '활성화됨',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => '설치됨',
 		'name' => '이름',
 		'no_configure_view' => '이 확장 기능은 설정이 없습니다.',

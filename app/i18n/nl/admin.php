@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Er zijn geïnstalleerde uitbreidingen',
 		'empty_list_help' => 'Controleer de logbestanden om de reden voor de lege extensielijst te achterhalen.',
 		'enabled' => 'Ingeschakeld',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Geïnstalleerd',
 		'name' => 'Naam',
 		'no_configure_view' => 'Deze uitbreiding kan niet worden geconfigureerd.',

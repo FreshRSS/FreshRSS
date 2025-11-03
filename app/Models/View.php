@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+/**
+ * @phpstan-import-type ExtensionFullMetadata from FreshRSS_extension_Controller
+ */
 class FreshRSS_View extends Minz_View {
 
 	// Main views
@@ -89,6 +92,7 @@ class FreshRSS_View extends Minz_View {
 	/** @var null|array<array{name:string,size:int,mtime:int}> */
 	public ?array $sqliteArchives = null;
 	public string $sqlitePath;
+	public string $sqliteName;
 
 	// Form login
 	public int $cookie_days;
@@ -123,7 +127,7 @@ class FreshRSS_View extends Minz_View {
 	public bool $selectorSuccess;
 
 	// Extensions
-	/** @var array<array{name:string,author:string,description:string,version:string,entrypoint:string,type:'system'|'user',url:string,method:string,directory:string}> */
+	/** @var list<ExtensionFullMetadata> */
 	public array $available_extensions;
 	public ?Minz_Extension $ext_details = null;
 	/** @var array{system:array<Minz_Extension>,user:array<Minz_Extension>} */

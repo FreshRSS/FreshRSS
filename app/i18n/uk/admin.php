@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Розширень не встановлено',
 		'empty_list_help' => 'Щоб виявити причину порожнього списку розширень, перегляньте журнали.',
 		'enabled' => 'Увімкнено',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Встановлено',
 		'name' => 'Назва',
 		'no_configure_view' => 'Розширення не налаштовується.',

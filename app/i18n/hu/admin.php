@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Nincsenek telepített kiegészítők',
 		'empty_list_help' => 'Ellenőrizd a naplókat, hogy megállapítsd az üres bővítménylista mögött meghúzódó okot.',
 		'enabled' => 'Bekapcsolva',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Telepítve',
 		'name' => 'Név',
 		'no_configure_view' => 'Ezt a kiegészítőt nem lehet konfigurálni.',

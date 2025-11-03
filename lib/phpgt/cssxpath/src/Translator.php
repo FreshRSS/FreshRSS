@@ -12,6 +12,7 @@ class Translator {
 		. '|(#(?P<id>[\w-]*))'
 		. '|(\.(?P<class>[\w-]*))'
 		. '|(?P<sibling>\s*\+\s*)'
+		. '|(?P<subsequentsibling>\s*~\s*)'
 		. "|(\[(?P<attribute>[\w-]*)((?P<attribute_equals>[=~$|^*]+)(?P<attribute_value>(.+\[\]'?)|[^\]]+))*\])+"
 		. '|(?P<descendant>\s+)'
 		. '/';
@@ -24,8 +25,8 @@ class Translator {
 	const EQUALS_STARTS_WITH = "^=";
 
 	public function __construct(
-			protected string $cssSelector, 
-			protected string $prefix = ".//", 
+			protected string $cssSelector,
+			protected string $prefix = ".//",
 			protected bool $htmlMode = true
 		) {
 	}
@@ -198,7 +199,7 @@ class Translator {
 							"[last()]"
 						);
 					}
-					break;					
+					break;
 
 				}
 				break;
@@ -231,6 +232,14 @@ class Translator {
 				array_push(
 					$xpath,
 					"/following-sibling::*[1]/self::"
+				);
+				$hasElement = false;
+				break;
+
+			case "subsequentsibling":
+				array_push(
+					$xpath,
+					"/following-sibling::"
 				);
 				$hasElement = false;
 				break;

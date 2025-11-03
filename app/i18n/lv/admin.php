@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Nav instalētu paplašinājumu',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Ieslēgts',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Instalēts',
 		'name' => 'Vārds',
 		'no_configure_view' => 'Šo paplašinājumu nevar konfigurēt.',

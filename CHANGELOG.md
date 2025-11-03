@@ -11,18 +11,22 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 		* Allows finding articles marked as read/unread or starred/unstarred at specific dates for e.g. undo action.
 	* New sorting by article length [#8119](https://github.com/FreshRSS/FreshRSS/pull/8119)
 	* New advanced search form [#8103](https://github.com/FreshRSS/FreshRSS/pull/8103), [#8122](https://github.com/FreshRSS/FreshRSS/pull/8122)
+	* Add compatibility with PCRE word boundary `\b` and `\B` for regex search using PostgreSQL [#8141](https://github.com/FreshRSS/FreshRSS/pull/8141)
 	* New overview of dates with most unread articles [#8089](https://github.com/FreshRSS/FreshRSS/pull/8089)
 	* New option to show user labels instead of tags in RSS share [#8112](https://github.com/FreshRSS/FreshRSS/pull/8112)
 	* New ability to share feed visibility through API (implemented by e.g. Capy Reader) [#7583](https://github.com/FreshRSS/FreshRSS/pull/7583)
 	* Add new feed visibility (priority) *Show in its feed* [#7972](https://github.com/FreshRSS/FreshRSS/pull/7972)
 	* Configurable notification timeout [#7942](https://github.com/FreshRSS/FreshRSS/pull/7942)
 	* Ensure stable IDs (categories, feeds, labels) during export/import [#7988](https://github.com/FreshRSS/FreshRSS/pull/7988)
+	* Support CSS selector `~` *subsequent-sibling* [#8154](https://github.com/FreshRSS/FreshRSS/pull/8154)
+		* Upstream PR [phpgt/CssXPath#231](https://github.com/phpgt/CssXPath/pull/231)
 * Security
 	* Fix some CSRFs [#8035](https://github.com/FreshRSS/FreshRSS/pull/8035)
 	* Strengthen some crypto (login, tokens, nonces) [#8061](https://github.com/FreshRSS/FreshRSS/pull/8061)
 * Bug fixing
 	* Fix OpenID Connect with Debian 13 [#8032](https://github.com/FreshRSS/FreshRSS/pull/8032)
 	* Fix SQLite bind bug when adding tag [#8101](https://github.com/FreshRSS/FreshRSS/pull/8101)
+	* Fix SQL auto-update of field `f.kind` to ease migrations from FreshRSS versions older than 1.20.0 [#8148](https://github.com/FreshRSS/FreshRSS/pull/8148)
 	* Fix drag & drop of user query losing information [#8113](https://github.com/FreshRSS/FreshRSS/pull/8113)
 	* Fix DOM error while filtering retrieved full content [#8132](https://github.com/FreshRSS/FreshRSS/pull/8132)
 	* Fix `config.custom.php` during install [#8033](https://github.com/FreshRSS/FreshRSS/pull/8033)
@@ -34,25 +38,32 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Various upstream contributions [simplepie#940](https://github.com/simplepie/simplepie/pull/940), [simplepie#944](https://github.com/simplepie/simplepie/pull/944)
 * Deployment
 	* Docker default image updated to Debian 13 Trixie with PHP 8.4.11 and Apache 2.4.65 [#8032](https://github.com/FreshRSS/FreshRSS/pull/8032)
+	* Fix Docker healthcheck `cli/health.php` compatibility with OpenID Connect [#8040](https://github.com/FreshRSS/FreshRSS/pull/8040)
 * UI
 	* Fix autocomplete issues in change password form [#7812](https://github.com/FreshRSS/FreshRSS/pull/7812)
 	* Fix navigating between read feeds using shortcut <kbd>shift</kbd>+<kbd>j</kbd>/<kbd>k</kbd> [#8057](https://github.com/FreshRSS/FreshRSS/pull/8057)
+	* Dark background in Web app manifest to avoid white flash when opening [#8140](https://github.com/FreshRSS/FreshRSS/pull/8140)
+	* Increase button visibility in UI to change theme [#8149](https://github.com/FreshRSS/FreshRSS/pull/8149)
 * API
 	* API performance optimisation: streaming of large responses [#8041](https://github.com/FreshRSS/FreshRSS/pull/8041)
 * Extensions
 	* Add support for extension priority [#8038](https://github.com/FreshRSS/FreshRSS/pull/8038)
+	* Add support for extension compatibility [#8081](https://github.com/FreshRSS/FreshRSS/pull/8081)
 	* Improve PHP code with hook enums [#8036](https://github.com/FreshRSS/FreshRSS/pull/8036)
 	* New hook `nav_entries` [#8054](https://github.com/FreshRSS/FreshRSS/pull/8054)
 * I18n
 	* Translation status as text in README [#7842](https://github.com/FreshRSS/FreshRSS/pull/7842)
 	* Change some regional language codes to comply with RFC 5646 / IETF BCP 47 / ISO 3166 / ISO 639-1 [#8065](https://github.com/FreshRSS/FreshRSS/pull/8065)
 	* Improve German [#8028](https://github.com/FreshRSS/FreshRSS/pull/8028)
+	* Improve Greek [#8146](https://github.com/FreshRSS/FreshRSS/pull/8146)
 	* Improve Finnish [#8073](https://github.com/FreshRSS/FreshRSS/pull/8073), [#8092](https://github.com/FreshRSS/FreshRSS/pull/8092)
 	* Improve Italian [#8115](https://github.com/FreshRSS/FreshRSS/pull/8115)
 	* Improve Polish [#8134](https://github.com/FreshRSS/FreshRSS/pull/8134), [#8135](https://github.com/FreshRSS/FreshRSS/pull/8135)
+	* Improve Russian [#8155](https://github.com/FreshRSS/FreshRSS/pull/8155)
 * Misc.
 	* Remove *Pocket* sharing service [#8127](https://github.com/FreshRSS/FreshRSS/pull/8127), [#8128](https://github.com/FreshRSS/FreshRSS/pull/8128)
 	* Update to PHPMailer 6.11.1 [#8048](https://github.com/FreshRSS/FreshRSS/pull/8048)
+	* Improve PHP code [#8156](https://github.com/FreshRSS/FreshRSS/pull/8156)
 	* Update dev dependencies [#8043](https://github.com/FreshRSS/FreshRSS/pull/8043), [#8044](https://github.com/FreshRSS/FreshRSS/pull/8044),
 		[#8045](https://github.com/FreshRSS/FreshRSS/pull/8045), [#8046](https://github.com/FreshRSS/FreshRSS/pull/8046), [#8047](https://github.com/FreshRSS/FreshRSS/pull/8047),
 		[#8052](https://github.com/FreshRSS/FreshRSS/pull/8052)

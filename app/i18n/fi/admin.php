@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Asennettuja laajennuksia ei ole',
 		'empty_list_help' => 'Voit tarkistaa lokeista, miksi laajennusluettelo on tyhjä.',
 		'enabled' => 'Käytössä',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Asennettu',
 		'name' => 'Nimi',
 		'no_configure_view' => 'Tätä laajennusta ei voi määrittää.',

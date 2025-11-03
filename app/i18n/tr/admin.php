@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Yüklü eklenti yok',
 		'empty_list_help' => 'Eklenti listesinin neden boş olduğunu belirlemek için günlükleri kontrol edin.',
 		'enabled' => 'Etkin',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Yüklü',
 		'name' => 'İsim',
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',

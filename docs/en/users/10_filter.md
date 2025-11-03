@@ -155,6 +155,8 @@ As opposed to normal searches, special XML characters `<&">` are not escaped in 
 	* [For MariaDB](https://mariadb.com/kb/en/pcre/);
 	* [For MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
 
+> ℹ️ Even with PostgreSQL, you are welcome to use `\b` for word boundary (and `\B` for the opposite), as there is an automatic translation to `\y` and `\Y`.
+
 ## By sorting by date
 
 You can change the sort order by clicking the toggle button available in the header.

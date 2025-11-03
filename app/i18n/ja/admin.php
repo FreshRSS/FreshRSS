@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'インストールされている拡張機能はありません',
 		'empty_list_help' => '拡張機能リストが表示されない原因を特定するために、ログを確認してください。',
 		'enabled' => '有効',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'インストール済み',
 		'name' => '名前',
 		'no_configure_view' => 'この拡張機能は設定できません.',

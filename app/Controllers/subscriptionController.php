@@ -409,6 +409,30 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	public function viewFilterAction(): void {
+		$id = Minz_Request::paramInt('id');
+		if ($id === 0) {
+			Minz_Error::error(400);
+			return;
+		}
+		$filteractions = Minz_Request::paramTextToArray('filteractions_read');
+		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
+		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
+		$search = "f:$id (";
+		foreach ($filteractions as $action) {
+			$search .= "($action) OR ";
+		}
+		$search = preg_replace('/ OR $/', '', $search);
+		$search .= ')';
+		Minz_Request::forward([
+			'c' => 'index',
+			'a' => 'index',
+			'params' => [
+				'search' => $search,
+			],
+		], redirect: true);
+	}
+
 	/**
 	 * This action displays the bookmarklet page.
 	 */

@@ -751,7 +751,14 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(404);
 			return;
 		}
+
 		$this->view->sqlitePath = $path;
+		$this->view->sqliteName = basename($path);
+		if ($this->view->sqliteName === 'db.sqlite') {
+			$username = Minz_User::name() ?? '_';
+			$date = date('Y-m-d_H-i-s', filemtime($path) ?: time());
+			$this->view->sqliteName = 'freshrss_' . $username . '_' . $date . '_db.sqlite';
+		}
 		$this->view->_layout(null);
 	}
 }
