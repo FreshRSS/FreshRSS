@@ -594,7 +594,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 
 	$options = [];
 	$accept = '';
-	$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY]) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
+	$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] ?? null) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
 	if (is_array($attributes['curl_params'] ?? null)) {
 		$options = sanitizeCurlParams($attributes['curl_params']);
 		$proxy = is_string($options[CURLOPT_PROXY]) ? $options[CURLOPT_PROXY] : '';
