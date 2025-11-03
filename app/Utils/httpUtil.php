@@ -14,7 +14,7 @@ final class FreshRSS_http_Util {
 		if (is_int($port)) {
 			$domain .= ':' . $port;
 		}
-		return self::RETRY_AFTER_PATH . urlencode($domain) . (!empty($proxy) ? ('_' . urlencode($proxy)) : '') . '.txt';
+		return self::RETRY_AFTER_PATH . urlencode($domain) . (empty($proxy) ? '' : ('_' . urlencode($proxy))) . '.txt';
 	}
 
 	/**
