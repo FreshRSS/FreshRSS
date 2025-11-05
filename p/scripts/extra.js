@@ -100,6 +100,19 @@ function init_crypto_forms() {
 // </crypto form (Web login)>
 
 // <show password>
+
+function init_display(parent) {
+	const theme = parent.querySelector('select#theme');
+	if (!theme) {
+		return;
+	}
+	theme.addEventListener('change', (e) => {
+		const picked = parent.querySelector('.preview-container.picked');
+		picked.classList.remove('picked');
+		parent.querySelector(`[data-theme-preview="${e.target.value}"]`).classList.add('picked');
+	});
+}
+
 function togglePW(btn) {
 	if (btn.classList.contains('active')) {
 		hidePW(btn);
@@ -543,6 +556,7 @@ function init_extra_afterDOM() {
 			init_archiving(slider);
 			init_url_observers(slider);
 		} else {
+			init_display(document.body);
 			init_archiving(document.body);
 			init_url_observers(document.body);
 		}

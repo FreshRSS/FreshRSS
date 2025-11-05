@@ -43,29 +43,26 @@
 		<div class="form-group">
 			<label class="group-name" for="theme"><?= _t('conf.display.theme') ?></label>
 			<div class="group-controls">
+				<select id="theme" name="theme">
+				<?php foreach ($this->themes as $theme): ?>
+					<option value="<?= $theme['id'] ?>"<?= FreshRSS_Context::userConf()->theme === $theme['id'] ? ' selected' : '' ?>><?= $theme['name'] ?></option>
+				<?php endforeach ?>
+				</select>
+
 				<div class="theme-preview-list-wrapper">
 					<ul class="theme-preview-list">
 						<?php $slides = count($this->themes); $i = 1; $themeAvailable = false; ?>
 						<?php
 							foreach ($this->themes as $theme) { ?>
-							<?php if (FreshRSS_Context::userConf()->theme === $theme['id']) {
-								$checked = 'checked="checked"';
+							<?php
+							$isCurrent = FreshRSS_Context::userConf()->theme === $theme['id'];
+							if ($isCurrent) {
 								$themeAvailable = true;
-							} else {
-								$checked = '';
-							} ?>
-							<input type="radio" name="theme" id="img-<?= $i ?>" <?= $checked ?> value="<?= $theme['id'] ?>" />
-							<li class="preview-container">
+							}
+							?>
+							<li class="preview-container<?= $isCurrent ? ' picked' : '' ?>" data-theme-preview="<?= $theme['id'] ?>">
 								<div class="preview">
 									<img src="<?= Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png') ?>" loading="lazy" />
-								</div>
-								<div class="nav">
-									<?php if ($i !== 1) {?>
-										<label for="img-<?= $i - 1 ?>" class="btn prev"><?= _i('prev') ?></label>
-									<?php } ?>
-									<?php if ($i !== $slides) {?>
-										<label for="img-<?= $i + 1 ?>" class="btn next"><?= _i('next') ?></label>
-									<?php } ?>
 								</div>
 								<div class="properties">
 									<div>
@@ -83,19 +80,13 @@
 									<?php if (!empty($theme['theme-color']['dark'])) { ?>
 										<div class="darkMode">✔ <?= _t('conf.display.darkMode') ?></div>
 									<?php } ?>
-
 								</div>
-								<div class="page-number">( <?= sprintf('%d/%d', $i, $slides) ?> )</div>
 							</li>
 							<?php $i++ ?>
 						<?php } ?>
 						<?php if (!$themeAvailable) {?>
-							<input type="radio" name="theme" checked="checked" value="Origine" />
-							<li class="preview-container">
+							<li class="preview-container picked">
 								<div class="preview">
-								</div>
-								<div class="nav">
-									<label for="img-<?= $i - 1 ?>" class="prev"><?= _i('prev') ?></label>
 								</div>
 								<div class="properties alert-error">
 									<div><?= _t('conf.display.theme_not_available', FreshRSS_Context::userConf()->theme)?></div>

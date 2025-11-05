@@ -2114,10 +2114,6 @@ html.slider-active {
 	min-width: 260px;
 }
 
-.theme-preview-list input {
-	display: none;
-}
-
 .theme-preview-list .preview-container {
 	display: block;
 }
@@ -2136,19 +2132,6 @@ html.slider-active {
 	height: 100%;
 }
 
-.theme-preview-list .nav label {
-	padding: 0;
-	display: none;
-	min-width: 50px;
-	min-height: 5rem;
-	position: absolute;
-	top: 34%;
-	z-index: 9;
-	text-align: center;
-	line-height: 5;
-}
-
-
 .theme-preview-list .properties {
 	padding: 5px;
 	background-color: var(--frss-background-color-transparent);
@@ -2161,32 +2144,13 @@ html.slider-active {
 	backdrop-filter: blur(3px);
 }
 
-.theme-preview-list .page-number {
-	bottom: -1.5rem;
-	position: absolute;
-	display: none;
-	right: 0;
-	left: 0;
-	text-align: center;
-}
-
-.theme-preview-list .nav label.prev {
-	right: -1rem;
-}
-
-.theme-preview-list .nav label.next {
-	left: -1rem;
-}
-
-.theme-preview-list input:checked + .preview-container .preview {
+.preview-container.picked .preview {
 	opacity: 1;
 	transform: scale(1);
 	transition: opacity .5s ease-in-out;
 }
 
-.theme-preview-list input:checked + .preview-container .nav label,
-.theme-preview-list input:checked + .preview-container .properties,
-.theme-preview-list input:checked + .preview-container .page-number {
+.preview-container.picked .properties {
 	display: block;
 }
 
