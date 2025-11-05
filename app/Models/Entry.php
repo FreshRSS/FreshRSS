@@ -873,23 +873,6 @@ HTML;
 		$feed->applyFilterActions($this);
 	}
 
-	public function isDay(int $day, int $today): bool {
-		$date = $this->dateAdded(true);
-		switch ($day) {
-			case FreshRSS_Days::TODAY:
-				$tomorrow = $today + 86400;
-				return $date >= $today && $date < $tomorrow;
-			case FreshRSS_Days::YESTERDAY:
-				$yesterday = $today - 86400;
-				return $date >= $yesterday && $date < $today;
-			case FreshRSS_Days::BEFORE_YESTERDAY:
-				$yesterday = $today - 86400;
-				return $date < $yesterday;
-			default:
-				return false;
-		}
-	}
-
 	/**
 	 * @param string $url Overridden URL. Will default to the entry URL.
 	 * @throws Minz_Exception

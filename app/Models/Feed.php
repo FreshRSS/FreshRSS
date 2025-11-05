@@ -552,7 +552,7 @@ class FreshRSS_Feed extends Minz_Model {
 					Minz_Exception::ERROR
 				);
 			} else {
-				if (($retryAfter = FreshRSS_http_Util::getRetryAfter($this->url)) > 0) {
+				if (($retryAfter = FreshRSS_http_Util::getRetryAfter($this->url, $this->proxyParam())) > 0) {
 					throw new FreshRSS_Feed_Exception('For that domain, will first retry after ' . date('c', $retryAfter) .
 						'. ' . $this->url(includeCredentials: false), code: 503);
 				}

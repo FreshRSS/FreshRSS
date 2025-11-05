@@ -655,15 +655,15 @@ th {
 	background: #2980b9;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 0 10px;
 	font-weight: bold;
 	line-height: 3em;
 	border-left: 2px solid #ecf0f1;
 }
 
-.day .name {
+.transition .name {
 	padding: 0 10px 0 0;
 	color: #aab;
 	font-size: 1.8em;
@@ -991,7 +991,7 @@ th {
 		bottom: -19px;
 	}
 
-	.day .name {
+	.transition .name {
 		font-size: 1.1rem;
 	}
 

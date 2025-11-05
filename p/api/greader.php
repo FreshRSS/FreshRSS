@@ -414,7 +414,7 @@ final class GReaderAPI {
 				}
 			}
 			$c_name = htmlspecialchars($c_name, ENT_COMPAT, 'UTF-8');
-			if (in_array($c_name, ['', 'Uncategorized', _t('gen.short.default_category')], true)) {
+			if (in_array($c_name, ['', FreshRSS_CategoryDAO::DEFAULT_CATEGORY_NAME, _t('gen.short.default_category')], true)) {
 				$addCatId = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
 			} else {
 				$categoryDAO = FreshRSS_Factory::createCategoryDao();

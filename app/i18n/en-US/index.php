@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'There are no articles to show.',	// IGNORE
+		'published' => array(
+			'_' => 'Published',	// IGNORE
+			'future' => 'Published in the future',	// IGNORE
+			'today' => 'Published today',	// IGNORE
+			'yesterday' => 'Published yesterday',	// IGNORE
+		),
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// IGNORE
+			'_' => 'Received',	// IGNORE
 			'today' => 'Received today',	// IGNORE
 			'yesterday' => 'Received yesterday',	// IGNORE
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Main stream',	// IGNORE
 		'title_fav' => 'Favorites',
 		'title_global' => 'Global view',	// IGNORE
+		'userModified' => array(
+			'_' => 'Modified by user',	// IGNORE
+			'today' => 'Modified by user today',	// IGNORE
+			'yesterday' => 'Modified by user yesterday',	// IGNORE
+		),
 	),
 	'log' => array(
 		'_' => 'Logs',	// IGNORE

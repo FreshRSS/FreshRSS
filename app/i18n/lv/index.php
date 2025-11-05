@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Nav neviena raksta, ko parādīt.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
+			'_' => 'Received',	// TODO
 			'today' => 'Received today',	// TODO
 			'yesterday' => 'Received yesterday',	// TODO
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Galvenā plūsma',
 		'title_fav' => 'Mīļākie',
 		'title_global' => 'Globālais skats',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Žurnāli',

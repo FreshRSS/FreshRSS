@@ -5,7 +5,7 @@ final class FreshRSS_http_Util {
 
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
 
-	private static function getRetryAfterFile(string $url): string {
+	private static function getRetryAfterFile(string $url, string $proxy): string {
 		$domain = parse_url($url, PHP_URL_HOST);
 		if (!is_string($domain) || $domain === '') {
 			return '';
@@ -14,7 +14,7 @@ final class FreshRSS_http_Util {
 		if (is_int($port)) {
 			$domain .= ':' . $port;
 		}
-		return self::RETRY_AFTER_PATH . urlencode($domain) . '.txt';
+		return self::RETRY_AFTER_PATH . urlencode($domain) . (empty($proxy) ? '' : ('_' . urlencode($proxy))) . '.txt';
 	}
 
 	/**
@@ -39,11 +39,11 @@ final class FreshRSS_http_Util {
 	 * Check whether the URL needs to wait for a Retry-After period.
 	 * @return int The timestamp of when the Retry-After expires, or 0 if not set.
 	 */
-	public static function getRetryAfter(string $url): int {
+	public static function getRetryAfter(string $url, string $proxy): int {
 		if (rand(0, 30) === 1) {	// Remove old files once in a while
 			self::cleanRetryAfters();
 		}
-		$txt = self::getRetryAfterFile($url);
+		$txt = self::getRetryAfterFile($url, $proxy);
 		if ($txt === '') {
 			return 0;
 		}
@@ -61,8 +61,8 @@ final class FreshRSS_http_Util {
 	/**
 	 * Store the HTTP Retry-After header value of an HTTP `429 Too Many Requests` or `503 Service Unavailable` response.
 	 */
-	public static function setRetryAfter(string $url, string $retryAfter): int {
-		$txt = self::getRetryAfterFile($url);
+	public static function setRetryAfter(string $url, string $proxy, string $retryAfter): int {
+		$txt = self::getRetryAfterFile($url, $proxy);
 		if ($txt === '') {
 			return 0;
 		}

@@ -1413,12 +1413,12 @@ input[type="search"] {
 	display: block;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	background: inherit;
 }
 
-.day .name {
+.transition .name {
 	position: absolute;
 	left: 0;
 	width: 50%;
@@ -2485,7 +2485,7 @@ html.slider-active {
 	}
 
 	.flux_header .item.website span,
-	.item .date, .day .date,
+	.item .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile,
 	.aside_feed .tree-folder-items .item .no-dropdown-toggle {
@@ -2829,7 +2829,7 @@ html.slider-active {
 	}
 
 	.header, .aside,
-	.nav_menu, .day,
+	.nav_menu, .transition,
 	.flux_header,
 	.flux_content .bottom,
 	.pagination,

@@ -745,13 +745,13 @@ main.post .drop-section li.item.feed a:hover .icon {
 	background-color: var(--color-background-nav-darker);
 }
 
-.day {
+.transition {
 	padding: 0 10px;
 	font-weight: bold;
 	line-height: 3;
 	text-align: center;
 }
-.day .name {
+.transition .name {
 	display: none;
 }
 
@@ -1171,7 +1171,7 @@ main.global {
 		left: 3%;
 		right: auto;
 	}
-	.day .name {
+	.transition .name {
 		font-size: 1.1rem;
 	}
 	.notification {

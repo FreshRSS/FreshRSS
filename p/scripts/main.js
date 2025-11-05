@@ -2008,7 +2008,7 @@ let load_more = false;
 let box_load_more = null;
 
 function remove_existing_posts() {
-	document.querySelectorAll('.flux, .day').forEach(function (div) {
+	document.querySelectorAll('.flux, .transition').forEach(function (div) {
 		div.remove();
 	});
 }
@@ -2031,9 +2031,15 @@ function load_more_posts() {
 
 		const html = this.response;
 		const streamFooter = document.getElementById('stream-footer');
+		const transitions = document.querySelectorAll('#stream > .transition');
+		let lastTransition = transitions.length > 0 ? transitions[transitions.length - 1] : null;
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
-		streamAdopted.querySelectorAll('.flux, .day').forEach(function (div) {
+		streamAdopted.querySelectorAll('.flux, .transition').forEach(function (div) {
+			if (lastTransition !== null && div.classList.contains('transition') && div.textContent === lastTransition.textContent) {
+				lastTransition = null;
+				return;	// Skip duplicate transition
+			}
 			box_load_more.insertBefore(div, streamFooter);
 		});
 
@@ -2051,13 +2057,6 @@ function load_more_posts() {
 			}
 			toggle_bigMarkAsRead_button();
 		}
-
-		document.querySelectorAll('[id^=day_]').forEach(function (div) {
-			const ids = document.querySelectorAll('[id="' + div.id + '"]');
-			for (let i = ids.length - 1; i > 0; i--) {	// Keep only the first
-				ids[i].remove();
-			}
-		});
 
 		init_load_more(box_load_more);
 

@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'There are no articles to show.',
+		'published' => array(
+			'_' => 'Published',
+			'future' => 'Published in the future',
+			'today' => 'Published today',
+			'yesterday' => 'Published yesterday',
+		),
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',
+			'_' => 'Received',
 			'today' => 'Received today',
 			'yesterday' => 'Received yesterday',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Main stream',
 		'title_fav' => 'Favourites',
 		'title_global' => 'Global view',
+		'userModified' => array(
+			'_' => 'Modified by user',
+			'today' => 'Modified by user today',
+			'yesterday' => 'Modified by user yesterday',
+		),
 	),
 	'log' => array(
 		'_' => 'Logs',

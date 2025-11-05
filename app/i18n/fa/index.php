@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => ' هیچ مقاله ای برای نمایش وجود ندارد.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'پیش از دیروز دریافت شد',
+			'_' => 'Received',	// TODO
 			'today' => 'امروز دریافت شد',
 			'yesterday' => 'دیروز دریافت شد',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => ' جریان اصلی',
 		'title_fav' => ' موارد دلخواه',
 		'title_global' => ' نمای جهانی',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => ' سیاهههای مربوط',

@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Gösterilecek makale yok.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Dünden önceki gün alınanlar',
+			'_' => 'Received',	// TODO
 			'today' => 'Bugün alınanlar',
 			'yesterday' => 'Dün alınanlar',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Ana akış',
 		'title_fav' => 'Favoriler',
 		'title_global' => 'Genel görünüm',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Günlükler',

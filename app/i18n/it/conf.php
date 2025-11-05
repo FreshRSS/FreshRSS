@@ -152,7 +152,7 @@ return array(
 			'categories' => 'Mostra per categoria',
 			'feeds' => 'Mostra per feed',
 			'order' => 'Ordina per data',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => 'Sostituisce i <i>tag del feed</i> con le <i>etichette dell’utente</i> nel feed RSS condiviso',
 			'search' => 'Espressione',
 			'shareOpml' => 'Abilita la condivisione di OPML di categorie e feed corrispondenti',
 			'shareRss' => 'Abilita la condivisione di HTML &amp; RSS',

@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Il n’y a aucun article à afficher.',
+		'published' => array(
+			'_' => 'Publié',
+			'future' => 'Publié dans le futur',
+			'today' => 'Publié aujourd’hui',
+			'yesterday' => 'Publié hier',
+		),
 		'received' => array(
-			'before_yesterday' => 'Reçu avant avant-hier',
+			'_' => 'Reçu',
 			'today' => 'Reçu aujourd’hui',
 			'yesterday' => 'Reçu hier',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Flux principal',
 		'title_fav' => 'Favoris',
 		'title_global' => 'Vue globale',
+		'userModified' => array(
+			'_' => 'Modifié par l’utilisateur',
+			'today' => 'Modifié par l’utilisateur aujourd’hui',
+			'yesterday' => 'Modifié par l’utilisateur hier',
+		),
 	),
 	'log' => array(
 		'_' => 'Logs',	// IGNORE

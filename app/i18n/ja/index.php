@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => '表示できる記事がありません',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => '一昨日以前',
+			'_' => 'Received',	// TODO
 			'today' => '今日',
 			'yesterday' => '昨日',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'メイン',
 		'title_fav' => 'お気に入り',
 		'title_global' => 'グローバルビュー',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'ログ',
