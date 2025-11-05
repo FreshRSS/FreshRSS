@@ -366,22 +366,164 @@ function customSimplePie(array $attributes = [], array $curl_options = []): \Sim
 	$simplePie->set_curl_options($curl_options);
 
 	$simplePie->strip_comments(true);
-	$simplePie->strip_htmltags([
-		'base', 'blink', 'body', 'doctype', 'embed',
-		'font', 'form', 'frame', 'frameset', 'html',
-		'link', 'input', 'marquee', 'meta', 'noscript',
-		'object', 'param', 'plaintext', 'script', 'style',
-		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
-	]);
 	$simplePie->rename_attributes(['id', 'class']);
-	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, [
-		'alink', 'autoplay', 'background', 'bgcolor', 'class', 'form', 'formaction',
-		'link', 'onblur', 'onchange', 'onclick', 'ondblclick', 'onfocus',
-		'onkeydown', 'onkeypress', 'onkeyup', 'onload', 'onmousedown', 'onmousemove',
-		'onmouseout', 'onmouseover', 'onmouseup', 'onselect', 'onunload',
-		'seamless', 'sizes', 'srcdoc', 'srcset', 'text', 'vlink', 'referrerpolicy', 'ping',
-		'target', 'rel', 'name', 'download', 'attributionsrc',
-	]));
+	$simplePie->allow_aria_attr(true);
+	$simplePie->allow_data_attr(true);
+	$simplePie->allowed_html_attributes([
+		// HTML
+		'dir', 'draggable', 'hidden', 'lang', 'role', 'title',
+		// MathML
+		'displaystyle', 'mathsize', 'scriptlevel',
+	]);
+	$simplePie->allowed_html_elements_with_attributes([
+		// HTML
+		'a' => ['href', 'hreflang', 'type'],
+		'abbr' => [],
+		'acronym' => [],
+		'address' => [],
+		// 'area' => [], // TODO: support <area> after rewriting ids with a format like #ugc-<insert original id here> (maybe)
+		'article' => [],
+		'aside' => [],
+		'audio' => ['controlslist', 'loop', 'muted', 'src'],
+		'b' => [],
+		'bdi' => [],
+		'bdo' => [],
+		'big' => [],
+		'blink' => [],
+		'blockquote' => ['cite'],
+		'br' => ['clear'],
+		'button' => ['disabled'],
+		'canvas' => ['width', 'height'],
+		'caption' => ['align'],
+		'center' => [],
+		'cite' => [],
+		'code' => [],
+		'col' => ['span', 'align', 'valign', 'width'],
+		'colgroup' => ['span', 'align', 'valign', 'width'],
+		'data' => ['value'],
+		'datalist' => [],
+		'dd' => [],
+		'del' => ['cite', 'datetime'],
+		'details' => ['open'],
+		'dfn' => [],
+		'dialog' => [],
+		'dir' => [],
+		'div' => ['align'],
+		'dl' => [],
+		'dt' => [],
+		'em' => [],
+		'fieldset' => ['disabled'],
+		'figcaption' => [],
+		'figure' => [],
+		'footer' => [],
+		'h1' => [],
+		'h2' => [],
+		'h3' => [],
+		'h4' => [],
+		'h5' => [],
+		'h6' => [],
+		'header' => [],
+		'hgroup' => [],
+		'hr' => ['align', 'noshade', 'size', 'width'],
+		'i' => [],
+		'iframe' => ['src', 'align', 'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'scrolling'],
+		'image' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
+		'img' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
+		'ins' => ['cite', 'datetime'],
+		'kbd' => [],
+		'label' => [],
+		'legend' => [],
+		'li' => ['value', 'type'],
+		'main' => [],
+		// 'map' => [], // TODO: support <map> after rewriting ids with a format like #ugc-<insert original id here> (maybe)
+		'mark' => [],
+		'marquee' => ['behavior', 'direction', 'height', 'hspace', 'loop', 'scrollamount', 'scrolldelay', 'truespeed', 'vspace', 'width'],
+		'menu' => [],
+		'meter' => ['value', 'min', 'max', 'low', 'high', 'optimum'],
+		'nav' => [],
+		'nobr' => [],
+		// 'noembed' => [], // <embed> is not allowed, so we want to display the contents of <noembed>
+		'noframes' => [],
+		// 'noscript' => [], // From the perspective of the feed content, JS isn't allowed so we want to display the contents of <noscript>
+		'ol' => ['reversed', 'start', 'type'],
+		'optgroup' => ['disabled', 'label'],
+		'option' => ['disabled', 'label', 'selected', 'value'],
+		'output' => [],
+		'p' => ['align'],
+		'picture' => [],
+		// 'plaintext' => [], // Can't be closed. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/plaintext
+		'pre' => ['width', 'wrap'],
+		'progress' => ['max', 'value'],
+		'q' => ['cite'],
+		'rb' => [],
+		'rp' => [],
+		'rt' => [],
+		'rtc' => [],
+		'ruby' => [],
+		's' => [],
+		'samp' => [],
+		'search' => [],
+		'section' => [],
+		'select' => ['disabled', 'multiple', 'size'],
+		'small' => [],
+		'source' => ['type', 'src', 'media', 'height', 'width'],
+		'span' => [],
+		'strike' => [],
+		'strong' => [],
+		'sub' => [],
+		'summary' => [],
+		'sup' => [],
+		'table' => ['align', 'border', 'cellpadding', 'cellspacing', 'rules', 'summary', 'width'],
+		'tbody' => ['align', 'char', 'charoff', 'valign'],
+		'td' => ['colspan', 'headers', 'rowspan', 'abbr', 'align', 'height', 'scope', 'valign', 'width'],
+		'textarea' => ['cols', 'disabled', 'maxlength', 'minlength', 'placeholder', 'readonly', 'rows', 'wrap'],
+		'tfoot' => ['align', 'valign'],
+		'th' => ['abbr', 'colspan', 'rowspan', 'scope', 'align', 'height', 'valign', 'width'],
+		'thead' => ['align', 'valign'],
+		'time' => ['datetime'],
+		'tr' => ['align', 'valign'],
+		'track' => ['default', 'kind', 'srclang', 'label', 'src'],
+		'tt' => [],
+		'u' => [],
+		'ul' => ['type'],
+		'var' => [],
+		'video' => ['src', 'poster', 'controlslist', 'height', 'loop', 'muted', 'playsinline', 'width'],
+		'wbr' => [],
+		'xmp' => [],
+		// MathML
+		'maction' => ['actiontype', 'selection'],
+		'math' => ['display'],
+		'menclose' => ['notation'],
+		'merror' => [],
+		'mfenced' => ['close', 'open', 'separators'],
+		'mfrac' => ['denomalign', 'linethickness', 'numalign'],
+		'mi' => ['mathvariant'],
+		'mmultiscripts' => ['subscriptshift', 'superscriptshift'],
+		'mn' => [],
+		'mo' => ['accent', 'fence', 'form', 'largeop', 'lspace', 'maxsize', 'minsize', 'movablelimits', 'rspace', 'separator', 'stretchy', 'symmetric'],
+		'mover' => ['accent'],
+		'mpadded' => ['depth', 'height', 'lspace', 'voffset', 'width'],
+		'mphantom' => [],
+		'mprescripts' => [],
+		'mroot' => [],
+		'mrow' => [],
+		'ms' => [],
+		'mspace' => ['depth', 'height', 'width'],
+		'msqrt' => [],
+		'msub' => [],
+		'msubsup' => ['subscriptshift', 'superscriptshift'],
+		'msup' => ['superscriptshift'],
+		'mtable' => ['align', 'columnalign', 'columnlines', 'columnspacing', 'frame', 'framespacing', 'rowalign', 'rowlines', 'rowspacing', 'width'],
+		'mtd' => ['columnspan', 'rowspan', 'columnalign', 'rowalign'],
+		'mtext' => [],
+		'mtr' => ['columnalign', 'rowalign'],
+		'munder' => ['accentunder'],
+		'munderover' => ['accent', 'accentunder'],
+		// TODO: Support SVG after sanitizing and URL rewriting of xlink:href
+	]);
+	$simplePie->strip_attributes([
+		'data-auto-leave-validation', 'data-leave-validation', 'data-no-leave-validation', 'data-original',
+	]);
 	$simplePie->add_attributes([
 		'audio' => ['controls' => 'controls', 'preload' => 'none'],
 		'iframe' => [
@@ -593,7 +735,24 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		cleanCache(CLEANCACHE_HOURS);
 	}
 
-	if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url)) > 0) {
+	$options = [];
+	$accept = '';
+	$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] ?? null) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
+	if (is_array($attributes['curl_params'] ?? null)) {
+		$options = sanitizeCurlParams($attributes['curl_params']);
+		$proxy = is_string($options[CURLOPT_PROXY]) ? $options[CURLOPT_PROXY] : '';
+		if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
+			// Remove headers problematic for security
+			$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
+				fn($header) => is_string($header) && !preg_match('/^(Remote-User|X-WebAuth-User)\\s*:/i', $header));
+			// Add Accept header if it is not set
+			if (preg_grep('/^Accept\\s*:/i', $options[CURLOPT_HTTPHEADER]) === false) {
+				$options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $accept;
+			}
+		}
+	}
+
+	if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 		Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
 		return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
 	}
@@ -602,7 +761,6 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . \SimplePie\Misc::url_remove_credentials($url));
 	}
 
-	$accept = '';
 	switch ($type) {
 		case 'json':
 			$accept = 'application/json,application/feed+json,application/javascript;q=0.9,text/javascript;q=0.8,*/*;q=0.7';
@@ -640,6 +798,9 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 	]);
 
+	curl_setopt_array($ch, $options);
+	curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
+
 	$responseHeaders = '';
 	curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
 		if (trim($header) !== '') {	// Skip e.g. separation with trailer headers
@@ -647,22 +808,6 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		}
 		return strlen($header);
 	});
-
-	curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
-
-	if (is_array($attributes['curl_params'] ?? null)) {
-		$options = sanitizeCurlParams($attributes['curl_params']);
-		if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
-			// Remove headers problematic for security
-			$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
-				fn($header) => is_string($header) && !preg_match('/^(Remote-User|X-WebAuth-User)\\s*:/i', $header));
-			// Add Accept header if it is not set
-			if (preg_grep('/^Accept\\s*:/i', $options[CURLOPT_HTTPHEADER]) === false) {
-				$options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $accept;
-			}
-		}
-		curl_setopt_array($ch, $options);
-	}
 
 	if (isset($attributes['ssl_verify'])) {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, empty($attributes['ssl_verify']) ? 0 : 2);
@@ -696,7 +841,7 @@ function httpGet(string $url, string $cachePath, string $type = 'html', array $a
 		$body = '';
 		Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 		if (in_array($c_status, [429, 503], true)) {
-			$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $headers['retry-after'] ?? '');
+			$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $proxy, $headers['retry-after'] ?? '');
 			if ($c_status === 429) {
 				$errorMessage = 'HTTP 429 Too Many Requests! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
 			} elseif ($c_status === 503) {

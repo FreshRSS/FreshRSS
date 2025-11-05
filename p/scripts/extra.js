@@ -17,6 +17,11 @@ function forgetOpenCategories() {
 }
 
 function init_crypto_forms() {
+	const crypto_forms = document.querySelectorAll('.crypto-form');
+	if (crypto_forms.length === 0) {
+		return;
+	}
+
 	if (!(window.bcrypt)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for bcrypt.js…');
@@ -26,7 +31,6 @@ function init_crypto_forms() {
 	}
 
 	/* globals bcrypt */
-	const crypto_forms = document.querySelectorAll('.crypto-form');
 	crypto_forms.forEach(crypto_form => {
 		const submit_button = crypto_form.querySelector('[type="submit"]');
 		if (submit_button) {
@@ -271,26 +275,27 @@ function init_update_feed() {
 	});
 
 	if (faviconExtBtn) {
-		faviconExtBtn.onclick = function (e) {
+		faviconExtBtn.onclick = async function (e) {
 			e.preventDefault();
 			faviconExtBtn.disabled = true;
-			fetch(faviconExtBtn.dataset.extensionUrl, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8'
-				},
-				body: JSON.stringify({
-					'_csrf': context.csrf,
-					'extAction': 'query_icon_info',
-					'id': +feed_update.dataset.feedId
-				}),
-			}).then(resp => {
+			try {
+				const resp = await fetch(faviconExtBtn.dataset.extensionUrl, {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json; charset=UTF-8',
+					},
+					body: JSON.stringify({
+						'_csrf': context.csrf,
+						'extAction': 'query_icon_info',
+						'id': +feed_update.dataset.feedId
+					}),
+				});
 				if (!resp.ok) {
 					faviconExtBtn.disabled = false;
-					return Promise.reject(resp);
+					throw new Error(`Custom favicons HTTP error ${resp.status}: ${resp.statusText}`);
 				}
-				return resp.json();
-			}).then(json => {
+				const json = await resp.json();
 				clearUploadedIcon();
 				const resetField = feed_update.querySelector('input[name="resetFavicon"]');
 				if (resetField) {
@@ -303,7 +308,9 @@ function init_update_feed() {
 				extension.dataset.initialExt = extension.innerText;
 				extension.innerText = json.extName;
 				favicon.src = json.iconUrl;
-			});
+			} catch (error) {
+				faviconExtBtn.disabled = false;
+			}
 		};
 		faviconExtBtn.form.onsubmit = async function (e) {
 			const extChanged = faviconExtBtn.disabled;

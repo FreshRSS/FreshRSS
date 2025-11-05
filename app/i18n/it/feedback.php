@@ -97,7 +97,7 @@ return array(
 			'deleted' => 'Feed cancellato',
 			'error' => 'Feed non aggiornato',
 			'favicon' => array(
-				'too_large' => 'L\'icona caricata è troppo grande. La dimensione massima del file è <em>%s</em>.',
+				'too_large' => 'L’icona caricata è troppo grande. La dimensione massima del file è <em>%s</em>.',
 				'unsupported_format' => 'Formato file immagine non supportato!',
 			),
 			'internal_problem' => 'Feed RSS non aggiunto. <a href="%s">Verifica i log</a> per dettagli. Puoi provare l’aggiunta forzata aggiungendo <code>#force_feed</code> all’URL.',

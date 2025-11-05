@@ -244,6 +244,7 @@ People are sorted by name so please keep this order.
 * [Sam Edwards](https://github.com/dotsam): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dotsam), [Web](https://samedwards.ca/)
 * [Sandro Jäckel](https://github.com/SuperSandro2000): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SuperSandro2000), [Web](https://supersandro.de/)
 * [scmaybee](https://github.com/scmaybee): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:scmaybee)
+* [scollovati](https://github.com/scollovati): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:scollovati)
 * [Sebastian K](https://github.com/skrollme): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:skrollme)
 * [shn7798](https://github.com/shn7798): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:shn7798), [Web](http://www.code2talk.com/)
 * [Simone "roughnecks" Canaletti](https://github.com/roughnecks): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:roughnecks), [Web](https://woodpeckersnest.space/)
