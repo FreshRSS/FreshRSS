@@ -70,6 +70,7 @@ return array(
 		'bookmark_query' => 'Додати поточний запит у закладки',
 		'favorites' => 'Вподобані (%s)',
 		'global_view' => 'Загальний показ',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => 'Важливі стрічки',
 		'main_stream' => 'Головний потік',
 		'mark_all_read' => 'Позначити всі прочитаними',
