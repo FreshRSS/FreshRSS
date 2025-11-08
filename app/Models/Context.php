@@ -42,7 +42,7 @@ final class FreshRSS_Context {
 	public static int $state = 0;
 	/** @var 'ASC'|'DESC' */
 	public static string $order = 'DESC';
-	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand' */
+	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' */
 	public static string $sort = 'id';
 	public static int $number = 0;
 	public static int $offset = 0;
@@ -151,6 +151,21 @@ final class FreshRSS_Context {
 		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
 			FreshRSS_Context::$user_conf->display_categories = FreshRSS_Context::$user_conf->display_categories === true ? 'all' : 'active';
 		}
+
+		// FreshRSS 1.27.1+
+		if (isset(FreshRSS_Context::$user_conf->shortcuts['close_dropdown'])) {
+			$shortcuts = FreshRSS_Context::$user_conf->shortcuts;
+			$shortcuts['close_menus'] = $shortcuts['close_dropdown'];
+			unset($shortcuts['close_dropdown']);
+			FreshRSS_Context::$user_conf->shortcuts = $shortcuts;
+			FreshRSS_Context::$user_conf->save();
+		}
+
+		FreshRSS_Context::$user_conf->language = preg_replace_callback(
+			'/-(\\w{2})$/',
+			static fn (array $matches): string => strtoupper($matches[0]),
+			FreshRSS_Context::$user_conf->language ?? Minz_Translate::DEFAULT_LANGUAGE
+		) ?? Minz_Translate::DEFAULT_LANGUAGE;
 	}
 
 	/**
@@ -217,10 +232,10 @@ final class FreshRSS_Context {
 			self::$total_important_unread = FreshRSS_Category::countUnread(self::categories(), FreshRSS_Feed::PRIORITY_IMPORTANT);
 		}
 
-		self::_get(Minz_Request::paramString('get') ?: 'a');
+		self::_get(Minz_Request::paramString('get', plaintext: true) ?: 'a');
 
 		self::$state = Minz_Request::paramInt('state') ?: FreshRSS_Context::userConf()->default_state;
-		$state_forced_by_user = Minz_Request::paramString('state', true) !== '';
+		$state_forced_by_user = Minz_Request::paramString('state', plaintext: true) !== '';
 		if (!$state_forced_by_user) {
 			if (FreshRSS_Context::userConf()->show_fav_unread && (self::isCurrentGet('s') || self::isCurrentGet('T') || self::isTag())) {
 				self::$state = FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_READ;
@@ -234,10 +249,10 @@ final class FreshRSS_Context {
 		}
 
 		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
-		$order = Minz_Request::paramString('order', true) ?: FreshRSS_Context::userConf()->sort_order;
+		$order = Minz_Request::paramString('order', plaintext: true) ?: FreshRSS_Context::userConf()->sort_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = Minz_Request::paramString('sort', true) ?: FreshRSS_Context::userConf()->sort;
-		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand'], true) ? $sort : 'id';
+		$sort = Minz_Request::paramString('sort', plaintext: true) ?: FreshRSS_Context::userConf()->sort;
+		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
 		if (self::$number > FreshRSS_Context::userConf()->max_posts_per_rss) {
 			self::$number = max(
@@ -245,9 +260,9 @@ final class FreshRSS_Context {
 				FreshRSS_Context::userConf()->posts_per_page);
 		}
 		self::$offset = Minz_Request::paramInt('offset');
-		$id_max = Minz_Request::paramString('idMax', true);
+		$id_max = Minz_Request::paramString('idMax', plaintext: true);
 		self::$id_max = ctype_digit($id_max) ? $id_max : '0';
-		$continuation_id = Minz_Request::paramString('cid', true);
+		$continuation_id = Minz_Request::paramString('cid', plaintext: true);
 		self::$continuation_id = ctype_digit($continuation_id) ? $continuation_id : '0';
 		self::$sinceHours = Minz_Request::paramInt('hours');
 	}
@@ -391,11 +406,12 @@ final class FreshRSS_Context {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public static function _get(string $get): void {
+	private static function _get(string $get): void {
 		$type = $get[0];
 		$id = (int)substr($get, 2);
 
 		if (empty(self::$categories)) {
+			// TODO: Check whether this section is used
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$details = $type === 'f'; 	// Load additional feed details in the case of feed view
 			self::$categories = $catDAO->listCategories(prePopulateFeeds: true, details: $details);
@@ -407,12 +423,12 @@ final class FreshRSS_Context {
 				self::$description = FreshRSS_Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
-			case 'A':	// All except PRIORITY_ARCHIVED
+			case 'A':	// All except PRIORITY_HIDDEN
 				self::$current_get['A'] = true;
 				self::$description = FreshRSS_Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
-			case 'Z':	// All including PRIORITY_ARCHIVED
+			case 'Z':	// All including PRIORITY_HIDDEN
 				self::$current_get['Z'] = true;
 				self::$name = _t('index.feed.title');
 				self::$description = FreshRSS_Context::systemConf()->meta_description;

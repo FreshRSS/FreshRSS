@@ -99,6 +99,18 @@ class Minz_Request {
 		return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
 	}
 
+	/**
+	 * @return list<int>
+	 */
+	public static function paramArrayInt(string $key): array {
+		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
+			return [];
+		}
+		$result = array_filter(self::$params[$key], 'is_numeric');
+		$result = array_map('intval', $result);
+		return array_values($result);
+	}
+
 	public static function paramTernary(string $key): ?bool {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
@@ -461,8 +473,10 @@ class Minz_Request {
 	 * @param string $msg notification content
 	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $url url array to where we should be forwarded
 	 */
-	public static function good(string $msg, array $url = [], string $notificationName = ''): void {
-		Minz_Request::setGoodNotification($msg, $notificationName);
+	public static function good(string $msg, array $url = [], string $notificationName = '', bool $showNotification = true): void {
+		if ($showNotification) {
+			Minz_Request::setGoodNotification($msg);
+		}
 		Minz_Request::forward($url, true);
 	}
 
@@ -515,6 +529,6 @@ class Minz_Request {
 		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $acceptLanguage, $matches) > 0) {
 			return $matches['lang'];
 		}
-		return ['en'];
+		return [Minz_Translate::DEFAULT_LANGUAGE];
 	}
 }

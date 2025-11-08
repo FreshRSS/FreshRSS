@@ -29,7 +29,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
-			'frame-ancestors' => "'none'",
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'img-src' => '* data: blob:',
 		]);
 
@@ -85,7 +85,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$this->view->topFeed = $statsDAO->calculateTopFeed();
 
 		$last30DaysLabels = [];
-		for ($i = 0; $i < 30; $i++) {
+		for ($i = 0; $i < 31; $i++) {
 			$last30DaysLabels[$i] = date('d.m.Y', strtotime((-30 + $i) . ' days') ?: null);
 		}
 
@@ -245,5 +245,19 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->hours24Labels = $hours24Labels;
+	}
+
+	public function unreadDatesAction(): void {
+		$statsDAO = FreshRSS_Factory::createStatsDAO();
+		$field = Minz_Request::paramString('field', plaintext: true);
+		if (!in_array($field, ['id', 'date'], true)) {
+			$field = 'id';
+		}
+		$granularity = Minz_Request::paramString('granularity', plaintext: true);
+		if (!in_array($granularity, ['day', 'month', 'year'], true)) {
+			$granularity = 'day';
+		}
+		$dates = $statsDAO->getMaxUnreadDates($field, $granularity, Minz_Request::paramInt('max') ?: 100);
+		$this->view->unreadDates = $dates;
 	}
 }

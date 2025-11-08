@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => ' اعمال فیلتر',
 			'help' => ' در هر خط یک فیلتر جستجو بنویسید. اپراتورها <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">مستندات را ببینید</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP سربرگ‌ها',
 		'http_headers_help' => 'سر برگ ها با یک خط جدید از هم جدا می‌شوند و نام و مقدار سربرگ ها با یک دونقطه از هم جدا می‌شوند (مثلاً: <kbd><code>پذیرش: application/atom+xml<br />مجوز: Bearer some-token</code></kbd>).',
@@ -209,8 +210,9 @@ return array(
 		'path_entries_conditions' => 'شرایط بازیابی محتوا',
 		'priority' => array(
 			'_' => ' دید',
-			'archived' => ' نشان داده نشود (بایگانی شده)',
 			'category' => ' نمایش در دسته بندی خود',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'نشان ندهید.',
 			'important' => 'نمایش در فیدهای مهم',
 			'main_stream' => ' نمایش در جریان اصلی',
 		),
@@ -281,6 +283,7 @@ return array(
 			'idle' => ' تغذیه بیکار',
 			'main' => ' آمار اصلی',
 			'repartition' => ' تقسیم مجدد مقالات',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => ' مدیریت اشتراک',
 		'subscription_tools' => 'ابزارهای اشتراک',
@@ -301,7 +304,6 @@ return array(
 		'add_opml_category' => 'نام دسته OPML',
 		'delete_label' => ' یک برچسب را حذف کنید',
 		'feed_management' => ' فیدهای RSS را مدیریت می کندment',
-		'rename_label' => ' نام یک برچسب را تغییر دهید',
 		'subscription_tools' => 'ابزارهای اشتراک',
 	),
 );

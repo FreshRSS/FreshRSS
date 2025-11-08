@@ -87,7 +87,7 @@
 						<li class="item"><a href="<?= _url('configure', 'queries') ?>"><?= _t('gen.menu.queries') ?></a></li>
 						<li class="item"><a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a></li>
 						<li class="item"><a href="<?= _url('configure', 'privacy') ?>"><?= _t('gen.menu.privacy') ?></a></li>
-						<?= Minz_ExtensionManager::callHookString('menu_configuration_entry') ?>
+						<?= Minz_ExtensionManager::callHookString(Minz_HookType::MenuConfigurationEntry) ?>
 					</ul>
 				</li>
 				<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
@@ -103,7 +103,7 @@
 						<?php if (!FreshRSS_Context::systemConf()->disable_update) { ?>
 						<li class="item"><a href="<?= _url('update', 'index') ?>"><?= _t('gen.menu.update') ?></a></li>
 						<?php } ?>
-						<?= Minz_ExtensionManager::callHookString('menu_admin_entry') ?>
+						<?= Minz_ExtensionManager::callHookString(Minz_HookType::MenuAdminEntry) ?>
 					</ul>
 				</li>
 				<?php } ?>
@@ -117,7 +117,7 @@
 								<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
 							</li>
 						<?php } ?>
-						<?= Minz_ExtensionManager::callHookString('menu_other_entry') ?>
+						<?= Minz_ExtensionManager::callHookString(Minz_HookType::MenuOtherEntry) ?>
 					</ul>
 				</li>
 			</ul>

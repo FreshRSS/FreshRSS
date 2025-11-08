@@ -1,22 +1,22 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Salli kirjautumattomien käyttäjien lukea oletuskäyttäjän artikkeleita (%s)',
 		'allow_anonymous_refresh' => 'Salli kirjautumattomien käyttäjien päivittää artikkelit',
-		'api_enabled' => 'Salli <abbr>API</abbr>-käyttö <small>(pakollinen kännykkäsovelluksille and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Salli <abbr>API</abbr>-käyttö <small>(pakollinen kännykkäsovelluksille ja käyttäjän kyselyjen jakamiselle)</small>',
 		'form' => 'Web-lomake (perinteinen, käyttää JavaScriptiä)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP (lisäasetukset: web-palvelin, OIDC, SSO…)',
 		'none' => 'Ei mitään (vaarallinen)',
 		'title' => 'Todentaminen',
 		'token' => 'Todentamisen päätunnisteväline',
@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Asennettuja laajennuksia ei ole',
 		'empty_list_help' => 'Voit tarkistaa lokeista, miksi laajennusluettelo on tyhjä.',
 		'enabled' => 'Käytössä',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Asennettu',
 		'name' => 'Nimi',
 		'no_configure_view' => 'Tätä laajennusta ei voi määrittää.',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Tilastot',
 		'all_feeds' => 'Kaikki syötteet',
 		'category' => 'Luokka',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Artikkelien määrä',
 		'entry_per_category' => 'Artikkelit luokan mukaan',
 		'entry_per_day' => 'Artikkelit päivän mukaan (edelliset 30 päivää)',
@@ -146,9 +149,10 @@ return array(
 		'idle' => 'Hiljentyneet syötteet',
 		'main' => 'Päätilastot',
 		'main_stream' => 'Pääsyötevirta',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Hiljentyneitä syötteitä ei ole.',
 		'number_entries' => '%d artikkelia',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Katsaus',
 		'percent_of_total' => '% kaikista',
 		'repartition' => 'Artikkelien uudelleenjaottelu: %s',
 		'status_favorites' => 'Suosikit',
@@ -157,6 +161,7 @@ return array(
 		'status_unread' => 'Lukemattomat',
 		'title' => 'Tilastot',
 		'top_feed' => '10 parasta syötettä',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Järjestelmän määritys',

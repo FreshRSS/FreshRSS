@@ -114,8 +114,6 @@ label {
 
 textarea {
 	max-width: 100%;
-	width: 360px;
-	height: 100px;
 }
 
 input, select, textarea, button {
@@ -780,8 +778,8 @@ main.prompt {
 	background: #b7641d;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 1rem 0 0 1.25rem;
 	color: #6d655f;
 	font-size: 0.875rem;
@@ -790,7 +788,7 @@ main.prompt {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 }
-.day .name {
+.transition .name {
 	padding: 0 1rem 0 1rem;
 	color: #363330;
 	font-size: 0.875rem;
@@ -1275,6 +1273,9 @@ main.prompt {
 	.nav_menu .search .input:focus {
 		width: 400px;
 	}
+	#nav_menu_read_all #nav_menu_read .dropdown-toggle.btn {
+		background-image: none;
+	}
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;
 	}
@@ -1288,11 +1289,11 @@ main.prompt {
 	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
 		bottom: -17px;
 	}
-	.day {
+	.transition {
 		text-align: center;
 		padding: 1rem 0;
 	}
-	.day .name {
+	.transition .name {
 		padding: 0;
 		display: block;
 		width: 100%;

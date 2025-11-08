@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -105,6 +105,16 @@ return array(
 		'none' => 'Brak',
 		'small' => 'Mały',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Pokaż baner ostrzeżenia',
+			'seconds' => 'sekundy (przynajmniej 1)',
+		),
+		'good' => array(
+			'label' => 'Pokaż baner potwierdzający',
+			'seconds' => 'sekundy (0 oznacza nie pokazuj)',
+		),
+	),
 	'privacy' => array(
 		'_' => 'Prywatność',
 		'retrieve_extension_list' => 'Pobieraj listę rozszerzeń',
@@ -142,6 +152,7 @@ return array(
 			'categories' => 'Według kategorii',
 			'feeds' => 'Według kanału',
 			'order' => 'Sortowanie wg daty',
+			'publish_labels_instead_of_tags' => 'Zamień <i>tagi kanałów</i> na <i>własne etykiety</i> w udostępnionym RSS',
 			'search' => 'Wyrażenie',
 			'shareOpml' => 'Włącz udostępnianie OPML-ów zawierających kategorie i kanały',
 			'shareRss' => 'Włącz udostępnianie przez HTML i RSS',
@@ -322,7 +333,7 @@ return array(
 		'article_action' => 'Akcje wiadomości',
 		'auto_share' => 'Udostępnij',
 		'auto_share_help' => 'Gdy jest dostępna tylko jedna metoda udostępniania jest ona od razu wykorzystywana. W pozostałych przypadkach poszczególne metody są dostępne przez wybranie ich numeru.',
-		'close_dropdown' => 'Zamknięcie menu',
+		'close_menus' => 'Zamknięcie menu',
 		'collapse_article' => 'Zwinięcie',
 		'first_article' => 'Otworzenie pierwszej wiadomości',
 		'focus_search' => 'Przejdź do pola wyszukiwania',

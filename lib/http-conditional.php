@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 ```php
 <?php
-	require_once('http-conditional.php');
+	require_once 'http-conditional.php';
 	//Date of the last modification of the content (Unix Timestamp format).
 	//Examples: query the database, or last modification of a static file.
 	$dateLastModification = ...;

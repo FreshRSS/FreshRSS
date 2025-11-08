@@ -4,7 +4,7 @@
 	$topline_read = FreshRSS_Context::userConf()->topline_read;
 	$topline_favorite = FreshRSS_Context::userConf()->topline_favorite;
 	$topline_myLabels = FreshRSS_Context::userConf()->topline_myLabels;
-	$topline_sharing = FreshRSS_Context::userConf()->topline_sharing;
+	$topline_sharing = FreshRSS_Context::userConf()->topline_sharing && (count(FreshRSS_Context::userConf()->sharing) > 0);;
 	$topline_website = FreshRSS_Context::userConf()->topline_website;
 	$topline_thumbnail = FreshRSS_Context::userConf()->topline_thumbnail;
 	$topline_summary = FreshRSS_Context::userConf()->topline_summary;
@@ -23,8 +23,8 @@
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = '0';
 				}
-				?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
-					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
+				?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?=
+					_i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
 			?></li><?php
 		}
 		if ($topline_favorite) {
@@ -33,8 +33,8 @@
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = '0';
 				}
-				?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
-					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
+				?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?=
+					_i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 			?></li><?php
 		}
 	}

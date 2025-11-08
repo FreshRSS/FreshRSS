@@ -12,15 +12,18 @@
     ],
     "require": {
         "marienfressinaud/lib_opml": "0.5.1",
-        "phpgt/cssxpath": "v1.3.0",
-        "phpmailer/phpmailer": "6.10.0",
-        "simplepie/simplepie": "dev-freshrss#24fc939c10b3b8d3d486a4f467bbb9d8c98a6878"
+        "phpgt/cssxpath": "v1.4.0",
+        "phpmailer/phpmailer": "7.0.0",
+        "simplepie/simplepie": "dev-freshrss#e7b26b4f01d377dc8174d5d4aee961604534d065"
     },
     "config": {
         "sort-packages": true,
         "vendor-dir": "./"
     },
     "scripts": {
-        "post-update-cmd": "git clean -d -f -X ."
+        "post-update-cmd": [
+            "git clean -d -ff -X .",
+            "find . -name '.git' -type d -exec rm -rf {} + || true"
+        ]
     }
 }

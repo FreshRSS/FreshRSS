@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -116,8 +116,9 @@ return array(
 		'description' => 'Beschrijving',
 		'disabled' => 'Uitgeschakeld',
 		'empty_list' => 'Er zijn geïnstalleerde uitbreidingen',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Controleer de logbestanden om de reden voor de lege extensielijst te achterhalen.',
 		'enabled' => 'Ingeschakeld',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Geïnstalleerd',
 		'name' => 'Naam',
 		'no_configure_view' => 'Deze uitbreiding kan niet worden geconfigureerd.',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Statistieken',
 		'all_feeds' => 'Alle feeds',
 		'category' => 'Categorie',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Invoer aantallen',
 		'entry_per_category' => 'Aantallen per categorie',
 		'entry_per_day' => 'Aantallen per dag (laatste 30 dagen)',
@@ -146,9 +149,10 @@ return array(
 		'idle' => 'Gepauzeerde feeds',
 		'main' => 'Hoofd statistieken',
 		'main_stream' => 'Overzicht',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Er is geen gepauzeerde feed!',
 		'number_entries' => '%d artikelen',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Overzicht',
 		'percent_of_total' => '% van totaal',
 		'repartition' => 'Artikelverdeling: %s',
 		'status_favorites' => 'Favorieten',
@@ -157,6 +161,7 @@ return array(
 		'status_unread' => 'Ongelezen',
 		'title' => 'Statistieken',
 		'top_feed' => 'Top tien feeds',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Systeem configuratie',

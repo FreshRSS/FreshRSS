@@ -112,7 +112,7 @@ class Locator implements RegistryAware
     }
 
     /**
-     * @param SimplePie::LOCATOR_* $type
+     * @param int-mask-of<SimplePie::LOCATOR_*> $type
      * @param array<Response>|null $working
      * @return Response|null
      */

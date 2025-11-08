@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -105,6 +105,16 @@ return array(
 		'none' => 'Aucun',
 		'small' => 'Petit',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Afficher la bannière d’avertissement',
+			'seconds' => 'secondes (au moins 1)',
+		),
+		'good' => array(
+			'label' => 'Afficher la bannière de confirmation',
+			'seconds' => 'secondes (0 pour désactiver)',
+		),
+	),
 	'privacy' => array(
 		'_' => 'Vie privée',
 		'retrieve_extension_list' => 'Récupération de la liste des extensions',
@@ -142,6 +152,7 @@ return array(
 			'categories' => 'Afficher par catégorie',
 			'feeds' => 'Afficher par flux',
 			'order' => 'Tri par date',
+			'publish_labels_instead_of_tags' => 'Remplacer les <i>tags des flux</i> par les <i>étiquettes d’utilisateur</i> dans le RSS partagé',
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Active le partage par OPML des catégories et flux correspondants',
 			'shareRss' => 'Active le partage par HTML &amp; RSS',
@@ -322,7 +333,7 @@ return array(
 		'article_action' => 'Actions associées à l’article courant',
 		'auto_share' => 'Partager',
 		'auto_share_help' => 'S’il n’y a qu’un mode de partage, celui-ci est utilisé automatiquement. Sinon ils sont accessibles par leur numéro.',
-		'close_dropdown' => 'Fermer les menus',
+		'close_menus' => 'Fermer les menus',
 		'collapse_article' => 'Refermer',
 		'first_article' => 'Passer au premier article',
 		'focus_search' => 'Accéder à la recherche',

@@ -28,10 +28,8 @@
 	<ul id="tagsList" <?= (count($this->tags) > 11) ? 'class="listInColumns"' : '' ?>>
 	<?php foreach ($this->tags as $tag): ?>
 		<li>
-			<a href="<?= _url('tag', 'update', 'id', $tag->id()) ?>" class="configure open-slider" title="<?= _t('gen.action.manage') ?>">
-				<?= _i('configure') ?>
-			</a>
-			<?= $tag->name() ?>
+			<a href="<?= _url('tag', 'update', 'id', $tag->id()) ?>" class="configure open-slider" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
+			<span class="item-name"><?= $tag->name() ?></span>
 		</li>
 	<?php endforeach; ?>
 	</ul>

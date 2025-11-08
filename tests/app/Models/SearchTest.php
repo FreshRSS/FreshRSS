@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
 
-require_once(LIB_PATH . '/lib_date.php');
+require_once LIB_PATH . '/lib_date.php';
 
-class SearchTest extends PHPUnit\Framework\TestCase {
+final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
@@ -167,9 +167,9 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public static function provideDateSearch(): array {
 		return [
-			['date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800],
-			['date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799],
-			['date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', 1172754001, 1210519800],
+			['date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:29:59Z')],
+			['date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:01Z'), strtotime('2008-05-11T15:30:00Z')],
 			['date:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1],
 			['date:2007-03-01/', strtotime('2007-03-01'), null],
 			['date:/2008-05-11', null, strtotime('2008-05-12') - 1],
@@ -188,12 +188,29 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public static function providePubdateSearch(): array {
 		return [
-			['pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800],
-			['pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799],
-			['pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', 1172754001, 1210519800],
+			['pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:29:59Z')],
+			['pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:01Z'), strtotime('2008-05-11T15:30:00Z')],
 			['pubdate:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1],
 			['pubdate:2007-03-01/', strtotime('2007-03-01'), null],
 			['pubdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
+		];
+	}
+
+	#[DataProvider('provideUserdateSearch')]
+	public static function test__construct_whenInputContainsUserdate(string $input, ?int $min_userdate_value, ?int $max_userdate_value): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($min_userdate_value, $search->getMinUserdate());
+		self::assertSame($max_userdate_value, $search->getMaxUserdate());
+	}
+
+	/**
+	 * @return list<list<mixed>>
+	 */
+	public static function provideUserdateSearch(): array {
+		return [
+			['userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['userdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
 		];
 	}
 
@@ -221,6 +238,70 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			['#word1 #word2', ['word1', 'word2'], null],
 			["#word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['#word1+word2', ['word1 word2'], null]
+		];
+	}
+
+	/**
+	 * @param list<array{search:string}> $queries
+	 * @param array{0:string,1:list<string|int>} $expectedResult
+	 */
+	#[DataProvider('provideSavedQueryIdExpansion')]
+	public static function test__construct_whenInputContainsSavedQueryIds_expandsSavedSearches(array $queries, string $input, array $expectedResult): void {
+		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
+		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
+		$newUserConf->queries = $queries;
+		FreshRSS_Context::$user_conf = $newUserConf;
+
+		try {
+			$search = new FreshRSS_BooleanSearch($input);
+			[$actualValues, $actualSql] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $search);
+			self::assertSame($expectedResult[0], trim($actualSql));
+			self::assertSame($expectedResult[1], $actualValues);
+		} finally {
+			FreshRSS_Context::$user_conf = $previousUserConf;
+		}
+	}
+
+	/**
+	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>}}>
+	 */
+	public static function provideSavedQueryIdExpansion(): array {
+		return [
+			'expanded single group' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'S:0,1',
+				[
+					'((e.author LIKE ? )) OR ((e.title LIKE ? ))',
+					['%Alice%', '%World%'],
+				],
+			],
+			'separate groups with OR' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+					['search' => 'inurl:Example'],
+					['search' => 'author:Bob'],
+				],
+				'S:0,1 OR S:2,3',
+				[
+					'((e.author LIKE ? )) OR ((e.title LIKE ? )) OR ((e.link LIKE ? )) OR ((e.author LIKE ? ))',
+					['%Alice%', '%World%', '%Example%', '%Bob%'],
+				],
+			],
+			'mixed with other clauses' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'intitle:Hello S:0,1 date:2025-10',
+				[
+					'((e.title LIKE ? )) AND ((e.author LIKE ? )) OR ((e.title LIKE ? )) AND ((e.id >= ? AND e.id <= ? ))',
+					['%Hello%', '%Alice%', '%World%', strtotime('2025-10-01') . '000000', (strtotime('2025-11-01') - 1) . '000000'],
+				],
+			],
 		];
 	}
 
@@ -505,6 +586,130 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'(e.content ~ ? )',
 				['^(ab|cd)']
 			],
+			[
+				'L:1 L:2',
+				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) AND ' .
+					'e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) )',
+				[1, 2]
+			],
+			[
+				'L:1,2',
+				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?,?)) )',
+				[1, 2]
+			],
+		];
+	}
+
+	/**
+	 * @param array<string> $values
+	 */
+	#[DataProvider('provideDateOperators')]
+	public function test__date_operators(string $input, string $sql, array $values): void {
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertSame(trim($sql), trim($filterSearch));
+		self::assertSame($values, $filterValues);
+	}
+
+	/** @return list<list<mixed>> */
+	public static function provideDateOperators(): array {
+		return [
+			// Basic date operator tests
+			[
+				'date:2007-03-01/2008-05-11',
+				'(e.id >= ? AND e.id <= ? )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z') . '000000'],
+			],
+			[
+				'date:2007-03-01/',
+				'(e.id >= ? )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000'],
+			],
+			[
+				'date:/2008-05-11',
+				'(e.id <= ? )',
+				[strtotime('2008-05-11T23:59:59Z') . '000000'],
+			],
+			// Basic pubdate operator tests
+			[
+				'pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'(e.date >= ? AND e.date <= ? )',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'pubdate:2007-03-01/',
+				'(e.date >= ? )',
+				[strtotime('2007-03-01T00:00:00Z')],
+			],
+			[
+				'pubdate:/2008-05-11',
+				'(e.date <= ? )',
+				[strtotime('2008-05-11T23:59:59Z')],
+			],
+			// Basic userdate operator tests
+			[
+				'userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'(e.`lastUserModified` >= ? AND e.`lastUserModified` <= ? )',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'userdate:2007-03-01/',
+				'(e.`lastUserModified` >= ? )',
+				[strtotime('2007-03-01T00:00:00Z')],
+			],
+			[
+				'userdate:/2008-05-11',
+				'(e.`lastUserModified` <= ? )',
+				[strtotime('2008-05-11T23:59:59Z')],
+			],
+			// Negative date operator tests
+			[
+				'-date:2007-03-01/2008-05-11',
+				'((e.id < ? OR e.id > ?) )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z') . '000000'],
+			],
+			[
+				'!pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'((e.date < ? OR e.date > ?) )',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'!userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'((e.`lastUserModified` < ? OR e.`lastUserModified` > ?) )',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			// Combined date operators
+			[
+				'date:2007-03-01/ pubdate:/2008-05-11',
+				'(e.id >= ? AND e.date <= ? )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z')],
+			],
+			[
+				'pubdate:2007-03-01/ userdate:/2008-05-11',
+				'(e.date >= ? AND e.`lastUserModified` <= ? )',
+				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
+			],
+			[
+				'date:2007-03-01/ userdate:2007-06-01/',
+				'(e.id >= ? AND e.`lastUserModified` >= ? )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2007-06-01T00:00:00Z')],
+			],
+			// Complex combinations with other operators
+			[
+				'intitle:test date:2007-03-01/ pubdate:/2008-05-11',
+				'(e.id >= ? AND e.date <= ? AND e.title LIKE ? )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z'), '%test%'],
+			],
+			[
+				'author:john userdate:2007-03-01/2008-05-11',
+				'(e.`lastUserModified` >= ? AND e.`lastUserModified` <= ? AND e.author LIKE ? )',
+				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z'), '%john%'],
+			],
+			// Mixed positive and negative date operators
+			[
+				'date:2007-03-01/ !pubdate:2008-01-01/2008-05-11',
+				'(e.id >= ? AND (e.date < ? OR e.date > ?) )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-01-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
+			],
 		];
 	}
 
@@ -545,6 +750,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'intext:/^ab\\M/',
 				'(e.content ~ ? )',
 				['^ab\\M']
+			],
+			[
+				'intitle:/\\b\\d+/',
+				'(e.title ~ ? )',
+				['\\y\\d+']
 			],
 			[
 				'author:/^ab$/',
@@ -613,6 +823,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'intitle:/^ab$/m',
 				"(e.title REGEXP ? )",
 				['(?-i)(?m)^ab$']
+			],
+			[
+				'intitle:/\\b\\d+/',
+				"(e.title REGEXP ? )",
+				['(?-i)\\b\\d+']
 			],
 			[
 				'intext:/^ab$/m',

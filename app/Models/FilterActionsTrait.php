@@ -132,7 +132,7 @@ trait FreshRSS_FilterActionsTrait {
 						case 'read':
 							if (!$entry->isRead()) {
 								$entry->_isRead(true);
-								Minz_ExtensionManager::callHook('entry_auto_read', $entry, 'filter');
+								Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $entry, 'filter');
 							}
 							break;
 						case 'star':

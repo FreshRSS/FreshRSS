@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Tindakan penyaringan',
 			'help' => 'Tulis satu penyaringan pencarian per baris. Operator <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">lihat dokumentasi</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'Tajuk HTTP',
 		'http_headers_help' => 'Tajuk dipisahkan dengan baris baru dan nama dan nilai dari tajuk dipisahkan dengan titik dua (contoh: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
@@ -209,8 +210,9 @@ return array(
 		'path_entries_conditions' => 'Kondisi untuk pengambilan konten',
 		'priority' => array(
 			'_' => 'Ketampakan',
-			'archived' => 'Jangan tampilkan (diarsipkan)',
 			'category' => 'Tampilkan hanya di kategorinya saja',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'Jangan tampilkan',
 			'important' => 'Tampilkan di umpan penting',
 			'main_stream' => 'Tampilkan di bagian utama',
 		),
@@ -281,6 +283,7 @@ return array(
 			'idle' => 'Umpan tak terbarukan',
 			'main' => 'Statistik utama',
 			'repartition' => 'Pengkategorian artikel',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Pengelolaan langganan',
 		'subscription_tools' => 'Alat langganan',
@@ -301,7 +304,6 @@ return array(
 		'add_opml_category' => 'Nama kategori OPML',
 		'delete_label' => 'Hapus label',
 		'feed_management' => 'Pengelolaan umpan RSS',
-		'rename_label' => 'Ubah nama label',
 		'subscription_tools' => 'Alat langganan',
 	),
 );

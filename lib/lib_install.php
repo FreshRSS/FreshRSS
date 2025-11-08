@@ -73,7 +73,7 @@ function checkRequirements(string $dbType = ''): array {
 }
 
 function generateSalt(): string {
-	return sha1(uniqid('' . mt_rand(), true) . implode('', stat(__FILE__) ?: []));
+	return hash('sha256', uniqid(more_entropy: true) . implode('', stat(__FILE__) ?: []) . random_bytes(32));
 }
 
 /**

@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+/**
+ * @phpstan-import-type ExtensionFullMetadata from FreshRSS_extension_Controller
+ */
 class FreshRSS_View extends Minz_View {
 
 	// Main views
@@ -29,6 +32,10 @@ class FreshRSS_View extends Minz_View {
 	/** @var array<string,array<string>> */
 	public array $tagsForEntries;
 	public bool $excludeMutedFeeds;
+
+	// Search
+	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
+	public array $labels;
 
 	// Subscriptions
 	public bool $displaySlider = false;
@@ -78,13 +85,14 @@ class FreshRSS_View extends Minz_View {
 	// Export / Import
 	public string $content;
 	/** @var array<string,array<string>> */
-	public array $entryIdsTagNames;
+	public array $entryIdsTagNames = [];
 	public string $list_title;
 	public int $queryId;
 	public string $type;
 	/** @var null|array<array{name:string,size:int,mtime:int}> */
 	public ?array $sqliteArchives = null;
 	public string $sqlitePath;
+	public string $sqliteName;
 
 	// Form login
 	public int $cookie_days;
@@ -111,6 +119,7 @@ class FreshRSS_View extends Minz_View {
 	public bool $internal_rendering = false;
 	public string $description = '';
 	public string $image_url = '';
+	public bool $publishLabelsInsteadOfTags = false;
 
 	// Content preview
 	public string $fatalError;
@@ -118,7 +127,7 @@ class FreshRSS_View extends Minz_View {
 	public bool $selectorSuccess;
 
 	// Extensions
-	/** @var array<array{name:string,author:string,description:string,version:string,entrypoint:string,type:'system'|'user',url:string,method:string,directory:string}> */
+	/** @var list<ExtensionFullMetadata> */
 	public array $available_extensions;
 	public ?Minz_Extension $ext_details = null;
 	/** @var array{system:array<Minz_Extension>,user:array<Minz_Extension>} */

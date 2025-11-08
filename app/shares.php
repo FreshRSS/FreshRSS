@@ -125,7 +125,7 @@ return [
 	'linkding' => [
 		'url' => '~URL~/bookmarks/new?url=~LINK~&amp;title=~TITLE~&amp;auto_close',
 		'transform' => ['rawurlencode'],
-		'help' => 'https://github.com/sissbruecker/linkding/blob/master/docs/how-to.md',
+		'help' => 'https://linkding.link/how-to/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
@@ -152,7 +152,7 @@ return [
 	'omnivore' => [
 		'url' => '~URL~/api/save?url=~LINK~',
 		'transform' => ['urlencode'],
-		'help' => 'https://omnivore.app/',
+		'help' => 'https://github.com/omnivore-app/omnivore',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
@@ -167,12 +167,6 @@ return [
 		'url' => 'https://pinterest.com/pin/create/button/?url=~LINK~',
 		'transform' => ['rawurlencode'],
 		'help' => 'https://pinterest.com/',
-		'form' => 'simple',
-		'method' => 'GET',
-	],
-	'pocket' => [
-		'url' => 'https://getpocket.com/save?url=~LINK~&amp;title=~TITLE~',
-		'transform' => ['rawurlencode'],
 		'form' => 'simple',
 		'method' => 'GET',
 	],

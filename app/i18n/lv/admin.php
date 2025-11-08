@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Nav instalētu paplašinājumu',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Ieslēgts',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Instalēts',
 		'name' => 'Vārds',
 		'no_configure_view' => 'Šo paplašinājumu nevar konfigurēt.',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Statistika',
 		'all_feeds' => 'Visas barotnes',
 		'category' => 'Kategorija',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Ierakstu skaits',
 		'entry_per_category' => 'Ieraksti katrā kategorijā',
 		'entry_per_day' => 'Ieraksti dienā (pēdējās 30 dienas)',
@@ -146,6 +149,7 @@ return array(
 		'idle' => 'Neaktīvās barotnes',
 		'main' => 'Galvenās statistikas',
 		'main_stream' => 'Galvenā plūsma',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Nav neaktīvu barotņu!',
 		'number_entries' => '%d raksti',
 		'overview' => 'Overview',	// TODO
@@ -157,6 +161,7 @@ return array(
 		'status_unread' => 'Neizlasīti',
 		'title' => 'Statistika',
 		'top_feed' => 'Top 10 barotnes',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Sistēmas konfigurācija',

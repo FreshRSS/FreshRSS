@@ -291,6 +291,10 @@ input[type=number] {
 	width: 6em;
 }
 
+textarea {
+	height: 7rem;
+}
+
 textarea,
 input[type="file"],
 input.long {
@@ -298,6 +302,8 @@ input.long {
 }
 
 input, select, textarea {
+	padding: 0.5rem;
+	vertical-align: middle;
 	display: inline-block;
 	max-width: 85vw;
 	font-size: 0.8rem;
@@ -306,6 +312,11 @@ input, select, textarea {
 
 select {
 	min-width: 6em;
+}
+
+textarea.h50 {
+	height: 50vh;
+	min-height: 7rem;
 }
 
 input.w50,
@@ -354,7 +365,6 @@ textarea:invalid {
 .prompt input,
 .prompt select,
 .prompt .stick {
-	margin: 5px auto;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -432,6 +442,10 @@ button.as-link[disabled] {
 /*=== Tables */
 .table-wrapper {
 	overflow-x: auto;
+}
+
+.table-wrapper th {
+	white-space: nowrap;
 }
 
 table {
@@ -529,6 +543,13 @@ input#favicon-upload {
 
 .favicon-controls {
 	display: inline;
+}
+
+input.ignore-auto-complete {
+	position: absolute;
+	right: -9999px;
+	pointer-events: none;
+	user-select: none;
 }
 
 /*=== Buttons */
@@ -1368,6 +1389,11 @@ input[type="search"] {
 	opacity: 1;
 }
 
+.aside_feed .tree-folder-items .item .no-dropdown-toggle {
+	display: inline-block;
+	width: 2.25rem;
+}
+
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
@@ -1387,12 +1413,12 @@ input[type="search"] {
 	display: block;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	background: inherit;
 }
 
-.day .name {
+.transition .name {
 	position: absolute;
 	left: 0;
 	width: 50%;
@@ -1601,7 +1627,7 @@ a.website:hover .favicon {
 	min-height: 20rem;
 	margin: auto;
 	line-height: 1.5;
-	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 .content .text {
@@ -2078,6 +2104,7 @@ html.slider-active {
 /*=== SLIDESHOW Theme Preview */
 /*==============*/
 .theme-preview-list {
+	margin: 0.5rem 1rem 2rem 1rem;
 	padding: 0;
 	display: block;
 	max-width: 640px;
@@ -2085,11 +2112,6 @@ html.slider-active {
 	border: 1px solid var(--frss-border-color);
 	position: relative;
 	min-width: 260px;
-	margin-bottom: 30px;
-}
-
-.theme-preview-list input {
-	display: none;
 }
 
 .theme-preview-list .preview-container {
@@ -2103,32 +2125,11 @@ html.slider-active {
 	top: 0;
 	opacity: 0;
 	position: absolute;
-	transform: scale(0);
-	transition: all .7s ease-in-out;
 }
 
 .theme-preview-list .preview img {
 	width: 100%;
 	height: 100%;
-}
-
-.theme-preview-list .nav label {
-	padding: 0;
-	display: none;
-	width: 65px;
-	height: 100%;
-	color: var(--frss-font-color-light);
-	font-family: "Varela Round", sans-serif;
-	font-size: 9rem;
-	position: absolute;
-	opacity: 0;
-	z-index: 9;
-	cursor: pointer;
-	transition: opacity .2s;
-	text-align: center;
-	line-height: 2;
-	background-color: var(--frss-background-color-transparent);
-	text-shadow: 0px 0px 15px rgb(119, 119, 119);
 }
 
 .theme-preview-list .properties {
@@ -2143,35 +2144,13 @@ html.slider-active {
 	backdrop-filter: blur(3px);
 }
 
-.theme-preview-list .properties .page-number {
-	left: 5px;
-	top: 0;
-	position: absolute;
-}
-
-.theme-preview-list .preview + .nav label {
-	opacity: 0.5;
-}
-
-.theme-preview-list .nav label:hover {
-	opacity: 1;
-}
-
-.theme-preview-list .nav .next {
-	left: 0;
-}
-
-.theme-preview-list input:checked + .preview-container .preview {
+.preview-container.picked .preview {
 	opacity: 1;
 	transform: scale(1);
-	transition: opacity 1s ease-in-out;
+	transition: opacity .5s ease-in-out;
 }
 
-.theme-preview-list input:checked + .preview-container .nav label {
-	display: block;
-}
-
-.theme-preview-list input:checked + .preview-container .properties {
+.preview-container.picked .properties {
 	display: block;
 }
 
@@ -2516,9 +2495,10 @@ html.slider-active {
 	}
 
 	.flux_header .item.website span,
-	.item .date, .day .date,
+	.item .date,
 	.dropdown-menu > .no-mobile,
-	.no-mobile {
+	.no-mobile,
+	.aside_feed .tree-folder-items .item .no-dropdown-toggle {
 		display: none;
 	}
 
@@ -2689,9 +2669,9 @@ html.slider-active {
 		width: 90%;
 		height: 100vh;
 		top: 0;
-		left: 0;
+		left: 0 !important;
 		bottom: 0;
-		right: auto;
+		right: auto !important;
 		position: fixed;
 		padding-top: 0;
 		margin-top: 0;
@@ -2859,7 +2839,7 @@ html.slider-active {
 	}
 
 	.header, .aside,
-	.nav_menu, .day,
+	.nav_menu, .transition,
 	.flux_header,
 	.flux_content .bottom,
 	.pagination,

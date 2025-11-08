@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'インストールされている拡張機能はありません',
 		'empty_list_help' => '拡張機能リストが表示されない原因を特定するために、ログを確認してください。',
 		'enabled' => '有効',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'インストール済み',
 		'name' => '名前',
 		'no_configure_view' => 'この拡張機能は設定できません.',
@@ -134,6 +135,8 @@ return array(
 		'_' => '統計',
 		'all_feeds' => 'すべてのフィード',
 		'category' => 'カテゴリ',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'エントリの統計',
 		'entry_per_category' => 'カテゴリのエントリ',
 		'entry_per_day' => '日にちごとのエントリ (直近30日間)',
@@ -146,6 +149,7 @@ return array(
 		'idle' => '休止中のフィード',
 		'main' => '主な統計',
 		'main_stream' => '主なストリーム',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => '休止中のフィードはありません!',
 		'number_entries' => '%d 記事',
 		'overview' => '概要',
@@ -157,6 +161,7 @@ return array(
 		'status_unread' => '未読',
 		'title' => '統計',
 		'top_feed' => '上位10位のフィード',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'システム設定',
@@ -167,7 +172,7 @@ return array(
 		),
 		'cookie-duration' => array(
 			'help' => '秒',
-			'number' => 'ログを残す間隔',
+			'number' => 'ログイン状態維持時間',
 		),
 		'force_email_validation' => 'Eメールアドレスの検証を強制します',
 		'instance-name' => 'インスタンス名',

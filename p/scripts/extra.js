@@ -16,10 +16,9 @@ function forgetOpenCategories() {
 	localStorage.removeItem('FreshRSS_open_categories');
 }
 
-function init_crypto_form() {
-	/* globals bcrypt */
-	const crypto_form = document.getElementById('crypto-form');
-	if (!crypto_form) {
+function init_crypto_forms() {
+	const crypto_forms = document.querySelectorAll('.crypto-form');
+	if (crypto_forms.length === 0) {
 		return;
 	}
 
@@ -27,103 +26,114 @@ function init_crypto_form() {
 		if (window.console) {
 			console.log('FreshRSS waiting for bcrypt.js…');
 		}
-		setTimeout(init_crypto_form, 100);
+		setTimeout(init_crypto_forms, 100);
 		return;
 	}
 
-	forgetOpenCategories();
+	/* globals bcrypt */
+	crypto_forms.forEach(crypto_form => {
+		const submit_button = crypto_form.querySelector('[type="submit"]');
+		if (submit_button) {
+			submit_button.disabled = false;
+		}
 
-	const submit_button = crypto_form.querySelector('[type="submit"]');
-	if (submit_button) {
-		submit_button.disabled = false;
-	}
-
-	crypto_form.onsubmit = function (e) {
-		let challenge = crypto_form.querySelector('#challenge');
-		if (!challenge) {
-			crypto_form.querySelectorAll('[data-challenge-if-not-empty] input[type="password"]').forEach(el => {
-				if (el.value !== '' && !challenge) {
-					crypto_form.insertAdjacentHTML('beforeend', '<input type="hidden" id="challenge" name="challenge" />');
-					challenge = crypto_form.querySelector('#challenge');
-				}
-			});
+		crypto_form.onsubmit = function (e) {
+			let challenge = crypto_form.querySelector('#challenge');
 			if (!challenge) {
-				return true;
-			}
-		}
-
-		e.preventDefault();
-
-		if (!submit_button) {
-			return false;
-		}
-		submit_button.disabled = true;
-
-		const req = new XMLHttpRequest();
-		req.open('GET', './?c=javascript&a=nonce&user=' + document.getElementById('username').value, true);
-
-		req.onerror = function () {
-			openNotification('Communication error!', 'bad');
-			submit_button.disabled = false;
-		};
-
-		req.onload = function () {
-			if (req.status == 200) {
-				const json = xmlHttpRequestJson(req);
-				if (!json.salt1 || !json.nonce) {
-					openNotification('Invalid user!', 'bad');
-				} else {
-					try {
-						const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
-						const s = bcrypt.hashSync(document.getElementById('passwordPlain').value, json.salt1);
-						const c = bcrypt.hashSync(json.nonce + s, strong ? bcrypt.genSaltSync(4) : poormanSalt());
-						challenge.value = c;
-						if (!s || !c) {
-							openNotification('Crypto error!', 'bad');
-						} else {
-							crypto_form.removeEventListener('submit', crypto_form.onsubmit);
-							crypto_form.submit();
-						}
-					} catch (ex) {
-						openNotification('Crypto exception! ' + ex, 'bad');
+				crypto_form.querySelectorAll('details[data-challenge-if-open]').forEach(el => {
+					if (el.open && !challenge) {
+						crypto_form.insertAdjacentHTML('beforeend', '<input type="hidden" id="challenge" name="challenge" />');
+						challenge = crypto_form.querySelector('#challenge');
 					}
+				});
+				if (!challenge) {
+					return true;
 				}
-			} else {
-				req.onerror();
 			}
-			submit_button.disabled = false;
-		};
 
-		req.send();
-	};
+			e.preventDefault();
+
+			if (!submit_button) {
+				return false;
+			}
+			submit_button.disabled = true;
+
+			const req = new XMLHttpRequest();
+			req.open('GET', './?c=javascript&a=nonce&user=' + crypto_form.querySelector('#username').value, true);
+
+			req.onerror = function () {
+				openNotification('Communication error!', 'bad');
+				submit_button.disabled = false;
+			};
+
+			req.onload = function () {
+				if (req.status == 200) {
+					const json = xmlHttpRequestJson(req);
+					if (!json.salt1 || !json.nonce) {
+						openNotification('Invalid user!', 'bad');
+					} else {
+						try {
+							const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
+							const s = bcrypt.hashSync(crypto_form.querySelector('.passwordPlain').value, json.salt1);
+							const c = bcrypt.hashSync(json.nonce + s, strong ? bcrypt.genSaltSync(4) : poormanSalt());
+							challenge.value = c;
+							if (!s || !c) {
+								openNotification('Crypto error!', 'bad');
+							} else {
+								crypto_form.removeEventListener('submit', crypto_form.onsubmit);
+								crypto_form.submit();
+							}
+						} catch (ex) {
+							openNotification('Crypto exception! ' + ex, 'bad');
+						}
+					}
+				} else {
+					req.onerror();
+				}
+				submit_button.disabled = false;
+			};
+
+			req.send();
+		};
+	});
 }
 // </crypto form (Web login)>
 
 // <show password>
-let timeoutHide;
 
-function showPW_this() {
-	const id_passwordField = this.getAttribute('data-toggle');
-	if (this.classList.contains('active')) {
-		hidePW(id_passwordField);
+function init_display(parent) {
+	const theme = parent.querySelector('select#theme');
+	if (!theme) {
+		return;
+	}
+	theme.addEventListener('change', (e) => {
+		const picked = parent.querySelector('.preview-container.picked');
+		picked.classList.remove('picked');
+		parent.querySelector(`[data-theme-preview="${e.target.value}"]`).classList.add('picked');
+	});
+}
+
+function togglePW(btn) {
+	if (btn.classList.contains('active')) {
+		hidePW(btn);
 	} else {
-		showPW(id_passwordField);
+		showPW(btn);
 	}
 	return false;
 }
 
-function showPW(id_passwordField) {
-	const passwordField = document.getElementById(id_passwordField);
+function showPW(btn) {
+	const passwordField = btn.previousElementSibling;
 	passwordField.setAttribute('type', 'text');
-	passwordField.nextElementSibling.classList.add('active');
-	clearTimeout(timeoutHide);
-	timeoutHide = setTimeout(function () { hidePW(id_passwordField); }, 5000);
+	btn.classList.add('active');
+	clearTimeout(btn.timeoutHide);
+	btn.timeoutHide = setTimeout(function () { hidePW(btn); }, 5000);
 	return false;
 }
 
-function hidePW(id_passwordField) {
-	clearTimeout(timeoutHide);
-	const passwordField = document.getElementById(id_passwordField);
+function hidePW(btn) {
+	clearTimeout(btn.timeoutHide);
+	const passwordField = btn.previousElementSibling;
 	passwordField.setAttribute('type', 'password');
 	passwordField.nextElementSibling.classList.remove('active');
 	return false;
@@ -131,7 +141,7 @@ function hidePW(id_passwordField) {
 
 function init_password_observers(parent) {
 	parent.querySelectorAll('.toggle-password').forEach(function (btn) {
-		btn.addEventListener('click', showPW_this);
+		btn.onclick = () => togglePW(btn);
 	});
 }
 // </show password>
@@ -179,6 +189,10 @@ function init_update_feed() {
 		if (resetField) {
 			resetField.remove();
 		}
+		const extBtn = feed_update.querySelector('input#extBtn');
+		if (extBtn) {
+			extBtn.remove();
+		}
 		if (faviconExtBtn) {
 			faviconExtBtn.disabled = false;
 			extension.innerText = extension.dataset.initialExt ?? extension.innerText;
@@ -214,6 +228,10 @@ function init_update_feed() {
 		if (resetField) {
 			resetField.remove();
 		}
+		const extBtn = feed_update.querySelector('input#extBtn');
+		if (extBtn) {
+			extBtn.remove();
+		}
 		resetFavicon.disabled = false;
 		favicon.src = URL.createObjectURL(faviconUpload.files[0]);
 	};
@@ -231,54 +249,55 @@ function init_update_feed() {
 		faviconExt.classList.add('hidden');
 		faviconError.innerHTML = '';
 		clearUploadedIcon();
-		resetFavicon.insertAdjacentHTML('afterend', '<input type="hidden" name="resetFavicon" value="1" />');
+		resetFavicon.insertAdjacentHTML('afterend', '<input type="hidden" name="resetFavicon" value="1" data-leave-validation="" />');
 		resetFavicon.disabled = true;
 
 		favicon.src = favicon.dataset.originalIcon;
 	};
 
-	// Discard the icon change when the "Cancel" button is clicked
-	feed_update.querySelectorAll('[type="reset"]').forEach(cancelBtn => {
-		cancelBtn.addEventListener('click', () => {
-			faviconExt.classList.remove('hidden');
-			faviconError.innerHTML = '';
-			discardIconChange();
-		});
+	feed_update.querySelector('form').addEventListener('reset', () => {
+		faviconExt.classList.remove('hidden');
+		faviconError.innerHTML = '';
+		discardIconChange();
 	});
 
 	if (faviconExtBtn) {
-		faviconExtBtn.onclick = function (e) {
+		faviconExtBtn.onclick = async function (e) {
 			e.preventDefault();
 			faviconExtBtn.disabled = true;
-			fetch(faviconExtBtn.dataset.extensionUrl, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8'
-				},
-				body: JSON.stringify({
-					'_csrf': context.csrf,
-					'extAction': 'query_icon_info',
-					'id': +feed_update.dataset.feedId
-				}),
-			}).then(resp => {
+			try {
+				const resp = await fetch(faviconExtBtn.dataset.extensionUrl, {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json; charset=UTF-8',
+					},
+					body: JSON.stringify({
+						'_csrf': context.csrf,
+						'extAction': 'query_icon_info',
+						'id': +feed_update.dataset.feedId
+					}),
+				});
 				if (!resp.ok) {
 					faviconExtBtn.disabled = false;
-					return Promise.reject(resp);
+					throw new Error(`Custom favicons HTTP error ${resp.status}: ${resp.statusText}`);
 				}
-				return resp.json();
-			}).then(json => {
+				const json = await resp.json();
 				clearUploadedIcon();
 				const resetField = feed_update.querySelector('input[name="resetFavicon"]');
 				if (resetField) {
 					resetField.remove();
 				}
+				faviconExtBtn.insertAdjacentHTML('afterend', '<input type="hidden" id="extBtn" value="1" data-leave-validation="" />');
 				resetFavicon.disabled = false;
 				faviconError.innerHTML = '';
 				faviconExt.classList.remove('hidden');
 				extension.dataset.initialExt = extension.innerText;
 				extension.innerText = json.extName;
 				favicon.src = json.iconUrl;
-			});
+			} catch (error) {
+				faviconExtBtn.disabled = false;
+			}
 		};
 		faviconExtBtn.form.onsubmit = async function (e) {
 			const extChanged = faviconExtBtn.disabled;
@@ -367,9 +386,12 @@ function close_slider_listener(ev) {
 	if (data_leave_validation(slider) || confirm(context.i18n.confirm_exit_slider)) {
 		slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
 		document.documentElement.classList.remove('slider-active');
-		return;
+		return true;
 	}
-	ev.preventDefault();
+	if (ev) {
+		ev.preventDefault();
+	}
+	return false;
 }
 // </slider>
 
@@ -483,6 +505,25 @@ function init_configuration_alert() {
 	};
 }
 
+function init_details_attributes() {
+	function toggleRequired(details) {
+		details.querySelectorAll('[data-required-if-open]').forEach(el => {
+			if (details.open) {
+				el.setAttribute('required', 'required');
+			} else {
+				el.removeAttribute('required');
+			}
+		});
+	}
+
+	document.querySelectorAll('details').forEach(details => {
+		details.addEventListener('toggle', () => {
+			toggleRequired(details);
+		});
+		toggleRequired(details);
+	});
+}
+
 function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
@@ -491,13 +532,18 @@ function init_extra_afterDOM() {
 		setTimeout(init_extra_afterDOM, 50);
 		return;
 	}
+	const loginButton = document.querySelector('#loginButton');
+	if (loginButton) {
+		loginButton.addEventListener('click', forgetOpenCategories);
+	}
 	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
-		init_crypto_form();
+		init_crypto_forms();
 		init_password_observers(document.body);
 		init_select_observers();
 		init_configuration_alert();
 		init_2stateButton();
 		init_update_feed();
+		init_details_attributes();
 
 		data_auto_leave_validation(document.body);
 
@@ -510,6 +556,7 @@ function init_extra_afterDOM() {
 			init_archiving(slider);
 			init_url_observers(slider);
 		} else {
+			init_display(document.body);
 			init_archiving(document.body);
 			init_url_observers(document.body);
 		}

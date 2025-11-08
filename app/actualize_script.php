@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/../cli/_cli.php');
+require dirname(__DIR__) . '/cli/_cli.php';
 
 session_cache_limiter('');
 ob_implicit_flush(false);
@@ -96,7 +96,7 @@ foreach ($users as $user) {
 	// NB: Extensions and hooks are reinitialised there
 	$app->init();
 
-	Minz_ExtensionManager::addHook('feed_before_actualize', static function (FreshRSS_Feed $feed) use ($mutexFile) {
+	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile) {
 		touch($mutexFile);
 		return $feed;
 	});

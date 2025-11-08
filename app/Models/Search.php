@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once(LIB_PATH . '/lib_date.php');
+require_once LIB_PATH . '/lib_date.php';
 
 /**
  * Contains a search from the search form.
@@ -23,9 +23,9 @@ class FreshRSS_Search implements \Stringable {
 	private ?array $feed_ids = null;
 	/** @var list<int>|null */
 	private ?array $category_ids = null;
-	/** @var list<int>|'*'|null */
+	/** @var list<list<int>|'*'>|null */
 	private $label_ids = null;
-	/** @var list<string>|null */
+	/** @var list<list<string>>|null */
 	private ?array $label_names = null;
 	/** @var list<string>|null */
 	private ?array $intitle = null;
@@ -43,6 +43,10 @@ class FreshRSS_Search implements \Stringable {
 	private $min_pubdate = null;
 	/** @var int|false|null */
 	private $max_pubdate = null;
+	/** @var int|false|null */
+	private $min_userdate = null;
+	/** @var int|false|null */
+	private $max_userdate = null;
 	/** @var list<string>|null */
 	private ?array $inurl = null;
 	/** @var list<string>|null */
@@ -66,9 +70,9 @@ class FreshRSS_Search implements \Stringable {
 	private ?array $not_feed_ids = null;
 	/** @var list<int>|null */
 	private ?array $not_category_ids = null;
-	/** @var list<int>|'*'|null */
+	/** @var list<list<int>|'*'>|null */
 	private $not_label_ids = null;
-	/** @var list<string>|null */
+	/** @var list<list<string>>|null */
 	private ?array $not_label_names = null;
 	/** @var list<string>|null */
 	private ?array $not_intitle = null;
@@ -86,6 +90,10 @@ class FreshRSS_Search implements \Stringable {
 	private $not_min_pubdate = null;
 	/** @var int|false|null */
 	private $not_max_pubdate = null;
+	/** @var int|false|null */
+	private $not_min_userdate = null;
+	/** @var int|false|null */
+	private $not_max_userdate = null;
 	/** @var list<string>|null */
 	private ?array $not_inurl = null;
 	/** @var list<string>|null */
@@ -115,6 +123,7 @@ class FreshRSS_Search implements \Stringable {
 		$input = $this->parseNotLabelIds($input);
 		$input = $this->parseNotLabelNames($input);
 
+		$input = $this->parseNotUserdateSearch($input);
 		$input = $this->parseNotPubdateSearch($input);
 		$input = $this->parseNotDateSearch($input);
 
@@ -130,6 +139,7 @@ class FreshRSS_Search implements \Stringable {
 		$input = $this->parseLabelIds($input);
 		$input = $this->parseLabelNames($input);
 
+		$input = $this->parseUserdateSearch($input);
 		$input = $this->parsePubdateSearch($input);
 		$input = $this->parseDateSearch($input);
 
@@ -180,19 +190,19 @@ class FreshRSS_Search implements \Stringable {
 		return $this->not_category_ids;
 	}
 
-	/** @return list<int>|'*'|null */
-	public function getLabelIds(): array|string|null {
+	/** @return list<list<int>|'*'>|null */
+	public function getLabelIds(): array|null {
 		return $this->label_ids;
 	}
-	/** @return list<int>|'*'|null */
-	public function getNotLabelIds(): array|string|null {
+	/** @return list<list<int>|'*'>|null */
+	public function getNotLabelIds(): array|null {
 		return $this->not_label_ids;
 	}
-	/** @return list<string>|null */
+	/** @return list<list<string>>|null */
 	public function getLabelNames(): ?array {
 		return $this->label_names;
 	}
-	/** @return list<string>|null */
+	/** @return list<list<string>>|null */
 	public function getNotLabelNames(): ?array {
 		return $this->not_label_names;
 	}
@@ -263,6 +273,23 @@ class FreshRSS_Search implements \Stringable {
 	}
 	public function getNotMaxPubdate(): ?int {
 		return $this->not_max_pubdate ?: null;
+	}
+	public function setMaxPubdate(int $value): void {
+		$this->max_pubdate = $value;
+	}
+
+	public function getMinUserdate(): ?int {
+		return $this->min_userdate ?: null;
+	}
+	public function getNotMinUserdate(): ?int {
+		return $this->not_min_userdate ?: null;
+	}
+
+	public function getMaxUserdate(): ?int {
+		return $this->max_userdate ?: null;
+	}
+	public function getNotMaxUserdate(): ?int {
+		return $this->not_max_userdate ?: null;
 	}
 
 	/** @return list<string>|null */
@@ -481,7 +508,7 @@ class FreshRSS_Search implements \Stringable {
 			$this->label_ids = [];
 			foreach ($ids_lists as $ids_list) {
 				if ($ids_list === '*') {
-					$this->label_ids = '*';
+					$this->label_ids[] = '*';
 					break;
 				}
 				$label_ids = explode(',', $ids_list);
@@ -489,7 +516,7 @@ class FreshRSS_Search implements \Stringable {
 				/** @var list<int> $label_ids */
 				$label_ids = array_map('intval', $label_ids);
 				if (!empty($label_ids)) {
-					$this->label_ids = array_merge($this->label_ids, $label_ids);
+					$this->label_ids[] = $label_ids;
 				}
 			}
 		}
@@ -503,7 +530,7 @@ class FreshRSS_Search implements \Stringable {
 			$this->not_label_ids = [];
 			foreach ($ids_lists as $ids_list) {
 				if ($ids_list === '*') {
-					$this->not_label_ids = '*';
+					$this->not_label_ids[] = '*';
 					break;
 				}
 				$label_ids = explode(',', $ids_list);
@@ -511,7 +538,7 @@ class FreshRSS_Search implements \Stringable {
 				/** @var list<int> $label_ids */
 				$label_ids = array_map('intval', $label_ids);
 				if (!empty($label_ids)) {
-					$this->not_label_ids = array_merge($this->not_label_ids, $label_ids);
+					$this->not_label_ids[] = $label_ids;
 				}
 			}
 		}
@@ -537,7 +564,7 @@ class FreshRSS_Search implements \Stringable {
 				$names_array = explode(',', $names_list);
 				$names_array = self::removeEmptyValues($names_array);
 				if (!empty($names_array)) {
-					$this->label_names = array_merge($this->label_names, $names_array);
+					$this->label_names[] = $names_array;
 				}
 			}
 		}
@@ -563,7 +590,7 @@ class FreshRSS_Search implements \Stringable {
 				$names_array = explode(',', $names_list);
 				$names_array = self::removeEmptyValues($names_array);
 				if (!empty($names_array)) {
-					$this->not_label_names = array_merge($this->not_label_names, $names_array);
+					$this->not_label_names[] = $names_array;
 				}
 			}
 		}
@@ -793,6 +820,32 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_pubdate, $this->not_max_pubdate] = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find userdate keyword and the search related to it.
+	 * The search is the first word following the keyword.
+	 */
+	private function parseUserdateSearch(string $input): string {
+		if (preg_match_all('/\\buserdate:(?P<search>[^\\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				[$this->min_userdate, $this->max_userdate] = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotUserdateSearch(string $input): string {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]userdate:(?P<search>[^\\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				[$this->not_min_userdate, $this->not_max_userdate] = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;
