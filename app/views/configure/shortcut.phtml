@@ -16,7 +16,7 @@
 		$s = array_map(static fn(string $string) => htmlspecialchars($string, ENT_COMPAT, 'UTF-8'), FreshRSS_Context::userConf()->shortcuts);
 	?>
 
-	<?php if ([] !== $nonStandard = getNonStandardShortcuts($s)): ?>
+	<?php if ([] !== $nonStandard = FreshRSS_configure_Controller::getNonStandardShortcuts($s)): ?>
 		<p class="alert alert-error">
 			<?= _t('conf.shortcut.non_standard', implode('</kbd>, <kbd>', $nonStandard)) ?>
 		</p>

@@ -80,7 +80,7 @@
 		<div class="form-group" id="max-registrations-block">
 			<label class="group-name" for="max-registrations-input"><?= _t('admin.system.registration.number') ?></label>
 			<div class="group-controls">
-				<?php $number = count(listUsers()); ?>
+				<?php $number = count(FreshRSS_user_Controller::listUsers()); ?>
 				 <input type="number" id="max-registrations-input" name="" value="<?= FreshRSS_Context::systemConf()->limits['max_registrations'] > 1 ? FreshRSS_Context::systemConf()->limits['max_registrations'] : $number + 1; ?>" min="2" data-number="<?= $number ?>"/>
 				<span id="max-registrations-status-disabled">(= <?= _t('admin.system.registration.status.disabled') ?>)</span><span id="max-registrations-status-enabled">(= <?= _t('admin.system.registration.status.enabled') ?>)</span>
 			</div>

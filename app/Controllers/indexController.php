@@ -383,7 +383,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->terms_of_service = $terms_of_service;
-		$this->view->can_register = !max_registrations_reached();
+		$this->view->can_register = !FreshRSS_user_Controller::max_registrations_reached();
 		FreshRSS_View::prependTitle(_t('index.tos.title') . ' · ');
 	}
 

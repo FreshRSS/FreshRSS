@@ -16,7 +16,7 @@ class FreshRSS_Auth {
 	 * This method initializes authentication system.
 	 */
 	public static function init(): bool {
-		if (isset($_SESSION['REMOTE_USER']) && $_SESSION['REMOTE_USER'] !== httpAuthUser()) {
+		if (isset($_SESSION['REMOTE_USER']) && $_SESSION['REMOTE_USER'] !== FreshRSS_http_Util::httpAuthUser()) {
 			//HTTP REMOTE_USER has changed
 			self::removeAccess();
 		}
@@ -67,7 +67,7 @@ class FreshRSS_Auth {
 				}
 				return $current_user != '';
 			case 'http_auth':
-				$current_user = httpAuthUser();
+				$current_user = FreshRSS_http_Util::httpAuthUser();
 				if ($current_user == '') {
 					return false;
 				}
@@ -115,7 +115,7 @@ class FreshRSS_Auth {
 				break;
 			case 'http_auth':
 				$current_user = Minz_User::name() ?? '';
-				self::$login_ok = strcasecmp($current_user, httpAuthUser()) === 0;
+				self::$login_ok = strcasecmp($current_user, FreshRSS_http_Util::httpAuthUser()) === 0;
 				break;
 			case 'none':
 				self::$login_ok = true;
@@ -127,7 +127,7 @@ class FreshRSS_Auth {
 
 		Minz_Session::_params([
 			'loginOk' => self::$login_ok,
-			'REMOTE_USER' => httpAuthUser(),
+			'REMOTE_USER' => FreshRSS_http_Util::httpAuthUser(),
 		]);
 		return self::$login_ok;
 	}
@@ -175,7 +175,7 @@ class FreshRSS_Auth {
 		if ($token_param != '') {
 			$username = Minz_Request::paramString('user');
 			if ($username != '') {
-				$conf = get_user_configuration($username);
+				$conf = FreshRSS_UserConfiguration::getForUser($username);
 				if ($conf == null) {
 					$username = '';
 				}

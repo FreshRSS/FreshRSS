@@ -363,7 +363,7 @@ class FreshRSS_Import_Service {
 		$category = new FreshRSS_Category($name);
 
 		if (isset($category_element['frss:opmlUrl'])) {
-			$opml_url = checkUrl($category_element['frss:opmlUrl']);
+			$opml_url = FreshRSS_http_Util::checkUrl($category_element['frss:opmlUrl']);
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$category->_attribute('opml_url', $opml_url);
