@@ -384,7 +384,7 @@ class Minz_Request {
 
 		if ($is_public) {
 			$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
-			$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $host);
+			$is_public &= !preg_match('/^(\\[)?(::1$|fc00::|fe80::)/i', $host);
 		}
 
 		return (bool)$is_public;
