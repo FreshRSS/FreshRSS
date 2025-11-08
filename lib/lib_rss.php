@@ -308,6 +308,20 @@ function invalidateHttpCache(string $username = ''): bool {
 }
 
 /**
+ * @deprecated Use {@see Minz_Request::connectionRemoteAddress()} instead.
+ */
+function connectionRemoteAddress(): string {
+	return Minz_Request::connectionRemoteAddress();
+}
+
+/**
+ * @deprecated Use {@see FreshRSS_http_Util::checkTrustedIP()} instead.
+ */
+function checkTrustedIP(): bool {
+	return FreshRSS_http_Util::checkTrustedIP();
+}
+
+/**
  * Remove a directory recursively.
  * From http://php.net/rmdir#110489
  */

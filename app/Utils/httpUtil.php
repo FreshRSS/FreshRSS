@@ -452,7 +452,7 @@ final class FreshRSS_http_Util {
 	 * (if available, to be robust even when using Apache mod_remoteip) or `REMOTE_ADDR` environment variables.
 	 * @return bool true if the sender’s IP is in one of the ranges defined in the configuration, else false
 	 */
-	private static function checkTrustedIP(): bool {
+	public static function checkTrustedIP(): bool {
 		if (!FreshRSS_Context::hasSystemConf()) {
 			return false;
 		}
