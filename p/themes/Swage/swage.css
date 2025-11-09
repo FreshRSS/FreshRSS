@@ -1,105 +1,86 @@
-@use "sass:color";
-
 @charset "UTF-8";
-//colors
 
-$color_text:	#181621;
-$color_light:	#f5f3f3;
-$color_nav:		#0062be;
-$color_aside:	#22303d;
-$color_alert:	#fa8052;
-$color_good:	#5eaabf;
-$color_bad:		#b0425b;
-$color_grey:	#e3e3e3;
-$color_grey_transparent: #d9d9d9bb;
-$color_stared:	#fff6da;
-$color_unread:	#fff3ed;
-$color_hover:	#fff;
-
+/* colors */
 :root {
-	--color-text-light: #{$color_light};
-	--color-text-light-darker: #{color.adjust(  $color_light,  $lightness: -40%)};
-	--color-text-dark: #{$color_text};
-	--color-text-nav: #{color.adjust(  $color_nav,  $lightness: -10%)};
-	--color-text-aside: #{$color_aside};
-	--color-text-alert: #{$color_alert};
-	--color-text-good: #{$color_good};
-	--color-text-bad: #{$color_bad};
-	--color-text-bad-lighter: #{color.adjust( $color_bad, $lightness: 10%)};
+	--color-base-text: #181621;
+	--color-base-light: #f5f3f3;
+	--color-base-nav: #0062be;
+	--color-base-aside: #22303d;
+	--color-base-alert: #fa8052;
+	--color-base-good: #5eaabf;
+	--color-base-bad: #b0425b;
+	--color-base-grey: #e3e3e3;
+	--color-base-grey-transparent: #d9d9d9bb;
+	--color-base-stared: #fff6da;
+	--color-base-unread: #fff3ed;
+	--color-base-hover: #fff;
 
-	--color-text-shadow-light: #{$color_light};
-	--color-box-shadow-light: #{color.adjust(  $color_light,  $lightness: -10%)};
+	--color-text-light: var(--color-base-light);
+	--color-text-light-darker: color(from var(--color-base-light) hsl h s calc(l - 40%));
+	--color-text-dark: var(--color-base-text);
+	--color-text-nav: color(from var(--color-base-nav) hsl h s calc(l - 10%));
+	--color-text-aside: var(--color-base-aside);
+	--color-text-alert: var(--color-base-alert);
+	--color-text-good: var(--color-base-good);
+	--color-text-bad: var(--color-base-bad);
+	--color-text-bad-lighter: color(from var(--color-base-bad) hsl h s calc(l + 10%));
 
-	--color-border-light: #{$color_light};
-	--color-border-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
-	--color-border-grey: #{$color_grey};
-	--color-border-nav: #{color.adjust(  $color_nav,  $lightness: -10%)};
-	--color-border-bad: #{$color_bad};
+	--color-text-shadow-light: var(--color-base-light);
+	--color-box-shadow-light: color(from var(--color-base-light) hsl h s calc(l - 10%));
 
-	--color-background-light: #{$color_light};
-	--color-background-light-darker: #{color.adjust(  $color_light,  $lightness: -10%)};
-	--color-background-light-darker-transparent: #{$color_grey_transparent};
-	--color-background-dark: #{$color_text};
-	--color-background-nav: #{$color_nav};
-	--color-background-nav-darker: #{color.adjust(  $color_nav,  $lightness: -10%)};
-	--color-background-aside: #{$color_aside};
-	--color-background-alert: #{$color_alert};
-	--color-background-alert-darker: #{color.adjust(  $color_alert,  $lightness: -10%)};
-	--color-background-good: #{$color_good};
-	--color-background-bad: #{color.adjust( $color_bad, $lightness: 10%)};
-	--color-background-stared: #{$color_stared};
-	--color-background-unread: #{$color_unread};
-	--color-background-hover: #{$color_hover};
+	--color-border-light: var(--color-base-light);
+	--color-border-light-darker: color(from var(--color-base-light) hsl h s calc(l - 10%));
+	--color-border-grey: var(--color-base-grey);
+	--color-border-nav: color(from var(--color-base-nav) hsl h s calc(l - 10%));
+	--color-border-bad: var(--color-base-bad);
+
+	--color-background-light: var(--color-base-light);
+	--color-background-light-darker: color(from var(--color-base-light) hsl h s calc(l - 10%));
+	--color-background-light-darker-transparent: var(--color-base-grey-transparent);
+	--color-background-dark: var(--color-base-text);
+	--color-background-nav: var(--color-base-nav);
+	--color-background-nav-darker: color(from var(--color-base-nav) hsl h s calc(l - 10%));
+	--color-background-aside: var(--color-base-aside);
+	--color-background-alert: var(--color-base-alert);
+	--color-background-alert-darker: color(from var(--color-base-alert) hsl h s calc(l - 10%));
+	--color-background-good: var(--color-base-good);
+	--color-background-bad: color(from var(--color-base-bad) hsl h s calc(l + 10%));
+	--color-background-stared: var(--color-base-stared);
+	--color-background-unread: var(--color-base-unread);
+	--color-background-hover: var(--color-base-hover);
 
 	--frss-scrollbar-handle: rgba(0, 0, 0, 0.1);
 	--frss-scrollbar-handle-hover: rgba(0, 0, 0, 0.4);
 	--frss-scrollbar-track: rgba(0, 0, 0, 0.05);
 	--frss-scrollbar-track-hover: rgba(0, 0, 0, 0.1);
+
+	--min-height-input: 25px;
+	--margin-top-input: 4px;
+	--border-input-default: 2px solid var(--color-border-grey);
+	--min-height-nav-list: 2.5em;
+	--line-height-nav-list: 2.5;
+	--padding-dropdown: 0 22px;
+	--font-size-dropdown: 0.8rem;
+	--line-height-dropdown: 2.5;
+	--width-aside: 231px;
 }
 
-
-// @extend-elements
-%input {
-	min-height: 25px;
-	margin-top: 4px;
-	background-color: var(--color-background-light);
-	border: 2px solid var(--color-border-grey);
-}
-%input:focus {
-	border: 2px solid var(--color-background-dark);
-	outline: none;
-}
-
-%invalid {
-	padding-left: 5px;
-	color: var(--color-text-bad);
-	border-left-color: var(--color-border-bad);
-	border-left-width: 5px;
-	box-shadow: none;
+/* Compatibility: CSS Color Module Level 4, Relative Color */
+@supports not (color: color(from white hsl h s calc(l - 10%))) {
+	:root {
+		--color-text-light-darker: #988484;
+		--color-text-nav: #00488b;
+		--color-text-bad-lighter: #c46178;
+		--color-box-shadow-light: #ded7d7;
+		--color-border-light-darker: #ded7d7;
+		--color-border-nav: #00488b;
+		--color-background-light-darker: #ded7d7;
+		--color-background-nav-darker: #00488b;
+		--color-background-alert-darker: #f95c20;
+		--color-background-bad: #c46178;
+	}
 }
 
-%nav-list {
-	min-height: 2.5em;
-	line-height: 2.5;
-}
-
-%dropdown {
-	padding: 0 22px;
-	color: var(--color-text-light);
-	font-size: 0.8rem;
-	line-height: 2.5;
-}
-
-%after {
-	display: block;
-	clear: both;
-}
-
-%aside-width {
-	width: 231px;
-}
-
-// /@extend-elements
 html,
 body {
 	color: var(--color-text-dark);
@@ -174,22 +155,28 @@ legend {
 }
 
 label {
-	min-height: 25px;
+	min-height: var(--min-height-input);
 }
 
-textarea {
+:is(textarea, input, select) {
+	min-height: var(--min-height-input);
+	margin-top: var(--margin-top-input);
+	background-color: var(--color-background-light);
+	border: var(--border-input-default);
 
-	@extend %input;
+	&:focus {
+		border: 2px solid var(--color-background-dark);
+		outline: none;
+	}
 }
 
-input,
-select {
-
-	@extend %input;
-
+:is(input, select) {
 	&:invalid {
-
-		@extend %invalid;
+		padding-left: 5px;
+		color: var(--color-text-bad);
+		border-left-color: var(--color-border-bad);
+		border-left-width: 5px;
+		box-shadow: none;
 	}
 
 	&:disabled {
@@ -267,8 +254,8 @@ form {
 }
 
 .form-group::after {
-
-	@extend %after;
+	display: block;
+	clear: both;
 }
 
 .stick {
@@ -278,8 +265,7 @@ form {
 
 	&.configure-feeds {
 		margin: 0.5rem 0 1rem 0.3rem;
-
-		@extend %aside-width;
+		width: var(--width-aside);
 	}
 }
 
@@ -344,12 +330,12 @@ form {
 	font-size: 0.9rem;
 
 	.item {
-
-		@extend %nav-list;
+		min-height: var(--min-height-nav-list);
+		line-height: var(--line-height-nav-list);
 
 		.nav-header {
-
-			@extend %nav-list;
+			min-height: var(--min-height-nav-list);
+			line-height: var(--line-height-nav-list);
 			padding: 0 1rem;
 			font-weight: bold;
 			background-color: var(--color-background-aside);
@@ -396,7 +382,7 @@ form {
 
 .dropdown-menu {
 	padding: 0.5rem 0 1rem 0;
-	font-size: 0.8rem;
+	font-size: var(--font-size-dropdown);
 	text-align: left;
 	border: none;
 	background-color: var(--color-background-nav-darker);
@@ -437,7 +423,7 @@ form {
 		.item {
 			a,
 			.as-link {
-				padding: 0 22px;
+				padding: var(--padding-dropdown);
 
 				&:hover {
 					background-color: var(--color-background-nav);
@@ -446,36 +432,36 @@ form {
 		}
 	}
 
-	> {
-		.item {
+	& > .item {
+		padding: 0 0 0 0.5rem;
+	}
 
-			@extend %dropdown;
-			padding: 0 0 0 0.5rem;
+	.item {
+		color: var(--color-text-light);
+		font-size: var(--font-size-dropdown);
+		line-height: var(--line-height-dropdown);
 
-			a,
-			> span,
-			> .as-link,
-			button {
-
-				@extend %dropdown;
-			}
-
-			> a {
-				min-width: initial;
-				white-space: nowrap;
-			}
-
-			> a:hover,
-			> button:hover {
-				background-color: var(--color-background-nav);
-				color: var(--color-text-light);
-			}
+		> :is(a, .as-link, span, button) {
+			padding: var(--padding-dropdown);
+			color: var(--color-text-light);
+			font-size: var(--font-size-dropdown);
+			line-height: var(--line-height-dropdown);
 		}
 
-		.item[aria-checked="true"] > a::before {
-			font-weight: bold;
-			margin: 0 0 0 -14px;
+		> a {
+			min-width: initial;
+			white-space: nowrap;
 		}
+
+		> :is(a, button):hover {
+			background-color: var(--color-background-nav);
+			color: var(--color-text-light);
+		}
+	}
+
+	& > .item[aria-checked="true"] > a::before {
+		font-weight: bold;
+		margin: 0 0 0 -14px;
 	}
 
 	.help a {
@@ -768,8 +754,7 @@ main.post .drop-section li.item.feed a:hover .icon {
 		vertical-align: middle;
 
 		&.title {
-
-			@extend %aside-width;
+			width: var(--width-aside);
 			position: absolute;
 			text-align: center;
 
@@ -822,8 +807,7 @@ main.post .drop-section li.item.feed a:hover .icon {
 .aside {
 	background-color: var(--color-background-aside);
 	padding-top: 2.5rem;
-
-	@extend %aside-width;
+	width: var(--width-aside);
 
 	&.aside_feed {
 		.tree {
@@ -935,8 +919,7 @@ main.post .drop-section li.item.feed a:hover .icon {
 	z-index: 900;
 	left: 0;
 	line-height: 1.5;
-
-	@extend %aside-width;
+	width: var(--width-aside);
 
 	> a {
 		padding: 1rem;
@@ -1004,8 +987,8 @@ main.post .drop-section li.item.feed a:hover .icon {
 	background-color: var(--color-background-light);
 
 	&::after {
-
-		@extend %after;
+		display: block;
+		clear: both;
 		margin: 0 auto;
 		width: 90%;
 		border-top: 1px solid var(--color-border-light-darker);
@@ -1075,8 +1058,7 @@ main.post .drop-section li.item.feed a:hover .icon {
 	bottom: 48px;
 	left: 0;
 	top: auto;
-
-	@extend %aside-width;
+	width: var(--width-aside);
 
 	&.good,
 	&.bad {
@@ -1116,8 +1098,7 @@ main.post .drop-section li.item.feed a:hover .icon {
 }
 
 #nav_entries {
-
-	@extend %aside-width;
+	width: var(--width-aside);
 	background-color: var(--color-background-aside);
 }
 
@@ -1237,7 +1218,7 @@ body.reader {
 	}
 
 	.aside:target {
-		width: 231px;
+		width: var(--width-aside);
 		padding-top: 0;
 	}
 }
