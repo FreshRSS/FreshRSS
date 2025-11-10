@@ -49,52 +49,50 @@
 				<?php endforeach ?>
 				</select>
 
-				<div class="theme-preview-list-wrapper">
-					<ul class="theme-preview-list">
-						<?php $slides = count($this->themes); $i = 1; $themeAvailable = false; ?>
+				<ul class="theme-preview-list">
+					<?php $slides = count($this->themes); $i = 1; $themeAvailable = false; ?>
+					<?php
+						foreach ($this->themes as $theme) { ?>
 						<?php
-							foreach ($this->themes as $theme) { ?>
-							<?php
-							$isCurrent = FreshRSS_Context::userConf()->theme === $theme['id'];
-							if ($isCurrent) {
-								$themeAvailable = true;
-							}
-							?>
-							<li class="preview-container<?= $isCurrent ? ' picked' : '' ?>" data-theme-preview="<?= $theme['id'] ?>">
-								<div class="preview">
-									<img src="<?= Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png') ?>" loading="lazy" />
-								</div>
-								<div class="properties">
-									<div>
-										<?php if (!empty($theme['deprecated'])) { ?>
-											<span class="deprecated error"><?= _t('conf.display.theme.deprecated') ?>:</span>
-										<?php } ?>
-										<?= sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']) ?>
-									</div>
-									<div>
-										<?php if (!empty($theme['deprecated'])) { ?>
-											<span class="deprecated"><?= _t('conf.display.theme.deprecated.description') ?></span><br />
-										<?php } ?>
-										<?= $theme['description'] ?>
-									</div>
-									<?php if (!empty($theme['theme-color']['dark'])) { ?>
-										<div class="darkMode">✔ <?= _t('conf.display.darkMode') ?></div>
+						$isCurrent = FreshRSS_Context::userConf()->theme === $theme['id'];
+						if ($isCurrent) {
+							$themeAvailable = true;
+						}
+						?>
+						<li class="preview-container<?= $isCurrent ? ' picked' : '' ?>" data-theme-preview="<?= $theme['id'] ?>">
+							<div class="preview">
+								<img src="<?= Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png') ?>" loading="lazy" />
+							</div>
+							<div class="properties">
+								<div>
+									<?php if (!empty($theme['deprecated'])) { ?>
+										<span class="deprecated error"><?= _t('conf.display.theme.deprecated') ?>:</span>
 									<?php } ?>
+									<?= sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']) ?>
 								</div>
-							</li>
-							<?php $i++ ?>
-						<?php } ?>
-						<?php if (!$themeAvailable) {?>
-							<li class="preview-container picked">
-								<div class="preview">
+								<div>
+									<?php if (!empty($theme['deprecated'])) { ?>
+										<span class="deprecated"><?= _t('conf.display.theme.deprecated.description') ?></span><br />
+									<?php } ?>
+									<?= $theme['description'] ?>
 								</div>
-								<div class="properties alert-error">
-									<div><?= _t('conf.display.theme_not_available', FreshRSS_Context::userConf()->theme)?></div>
-								</div>
-							</li>
-						<?php }?>
-					</ul>
-				</div>
+								<?php if (!empty($theme['theme-color']['dark'])) { ?>
+									<div class="darkMode">✔ <?= _t('conf.display.darkMode') ?></div>
+								<?php } ?>
+							</div>
+						</li>
+						<?php $i++ ?>
+					<?php } ?>
+					<?php if (!$themeAvailable) {?>
+						<li class="preview-container picked">
+							<div class="preview">
+							</div>
+							<div class="properties alert-error">
+								<div><?= _t('conf.display.theme_not_available', FreshRSS_Context::userConf()->theme)?></div>
+							</div>
+						</li>
+					<?php }?>
+				</ul>
 			</div>
 		</div>
 
