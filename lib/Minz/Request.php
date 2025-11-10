@@ -374,7 +374,7 @@ class Minz_Request {
 		}
 
 		$is_public = (str_contains($host, '.') || str_contains($host, ':'))	// TLD
-			&& !preg_match('/(^|\\.)(ipv6-)?(internal|local|localdomain|localhost)6?$/', $host)	// DNS
+			&& !preg_match('/(^|\\.)(ipv6-)?(internal|lan|local|localdomain|localhost)6?$/', $host)	// DNS
 			&& !preg_match('/^(10|127|172[.](1[6-9]|2[0-9]|3[01])|192[.]168)[.]/', $host)	// IPv4
 			&& !preg_match('/^(\\[)?(::1|f[c-d][0-9a-f]{2}:|fe80:)(\\])?/i', $host);	// IPv6
 		return $is_public;
