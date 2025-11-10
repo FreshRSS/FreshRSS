@@ -2418,6 +2418,10 @@ html.slider-active {
 	padding: 1rem 2rem;
 }
 
+.grid main {
+	position: relative;
+}
+
 .grid .flux {
 	display: inline-block;
 	vertical-align: top;
@@ -2454,6 +2458,19 @@ html.slider-active {
 
 .grid .card .title {
 	color: var(--frss-font-color-dark);
+}
+
+.grid .flux.active .flux_content {
+	background: white;
+	display: inline-block;
+	position: absolute;
+	height: 50vh;
+	right: 10px;
+	border: 1px solid grey;
+	overflow-y: scroll;
+	box-shadow: 0 5px 16px black;
+	left: 1rem;
+	z-index: 999;
 }
 
 .grid .flux.not_read .card .title {
