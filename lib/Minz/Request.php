@@ -360,7 +360,7 @@ class Minz_Request {
 	 * Note: for the moment it tests only if address is corresponding to a
 	 * localhost address.
 	 *
-	 * @param string $address the address to test, can be an IP or a URL.
+	 * @param string $address the address to test, can be an URL with a DNS or an IP.
 	 * @return bool true if server is accessible, false otherwise.
 	 * @todo improve test with a more valid technique (e.g. test with an external server?)
 	 */
@@ -373,21 +373,11 @@ class Minz_Request {
 			return false;
 		}
 
-		$is_public = !in_array($host, [
-			'localhost',
-			'localhost.localdomain',
-			'[::1]',
-			'ip6-localhost',
-			'localhost6',
-			'localhost6.localdomain6',
-		], true);
-
-		if ($is_public) {
-			$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
-			$is_public &= !preg_match('/^(\\[)?(::1$|fc00::|fe80::)/i', $host);
-		}
-
-		return (bool)$is_public;
+		$is_public = (str_contains($host, '.') || str_contains($host, ':'))	// TLD
+			&& !preg_match('/(^|\\.)local(host|domain)(6)?$/', $host)	// DNS
+			&& !preg_match('/^(10|127|172[.](1[6-9]|2[0-9]|3[01])|192[.]168)[.]/', $host)	// IPv4
+			&& !preg_match('/^(\\[)?(::1|f[c-d][0-9a-f]{2}:|fe80:)(\\])?/i', $host);	// IPv6
+		return $is_public;
 	}
 
 	private static function requestId(): string {
