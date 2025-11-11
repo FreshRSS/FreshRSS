@@ -1378,7 +1378,7 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.flux_header, .flux_content');
 		if (el) {	// flux_toggle
-			if (ev.target.closest('.reader, .content, .item.website, .item.link, .dropdown')) {
+			if (ev.target.closest('.reader, .content, .item.website, .item.link, .dropdown, .article-header-topline .website')) {
 				return true;
 			}
 			if ((!context.sides_close_article && ev.target.matches('.flux_content')) || ev.target.closest('footer')) {
