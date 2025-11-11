@@ -71,7 +71,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(400);
 			return;
 		}
-		$user_conf = get_user_configuration($user);
+		$user_conf = FreshRSS_UserConfiguration::getForUser($user);
 		if ($user_conf !== null) {
 			try {
 				$s = $user_conf->passwordHash;

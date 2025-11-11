@@ -5,7 +5,9 @@ final class FreshRSS_SimplePieResponse extends \SimplePie\File
 {
 	#[\Override]
 	protected function on_http_response($response, array $curl_options = []): void {
-		syslog(LOG_INFO, 'FreshRSS SimplePie GET ' . $this->get_status_code() . ' ' . \SimplePie\Misc::url_remove_credentials($this->get_final_requested_uri()));
+		if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
+			syslog(LOG_INFO, 'FreshRSS SimplePie GET ' . $this->get_status_code() . ' ' . \SimplePie\Misc::url_remove_credentials($this->get_final_requested_uri()));
+		}
 
 		if (in_array($this->get_status_code(), [429, 503], true)) {
 			$parser = new \SimplePie\HTTP\Parser(is_string($response) ? $response : '');

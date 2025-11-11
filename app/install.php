@@ -224,12 +224,12 @@ function saveStep3(): bool {
 		}
 
 		if (FreshRSS_Context::systemConf()->auth_type === 'http_auth' &&
-			connectionRemoteAddress() !== '' &&
+			Minz_Request::connectionRemoteAddress() !== '' &&
 			empty($_SERVER['REMOTE_USER']) && empty($_SERVER['REDIRECT_REMOTE_USER']) &&	// No safe authentication HTTP headers
 			(!empty($_SERVER['HTTP_REMOTE_USER']) || !empty($_SERVER['HTTP_X_WEBAUTH_USER']))	// but has unsafe authentication HTTP headers
 		) {
 			// Trust by default the remote IP address (e.g. last proxy) used during install to provide remote user name via unsafe HTTP header
-			FreshRSS_Context::systemConf()->trusted_sources[] = connectionRemoteAddress();
+			FreshRSS_Context::systemConf()->trusted_sources[] = Minz_Request::connectionRemoteAddress();
 			FreshRSS_Context::systemConf()->trusted_sources = array_unique(FreshRSS_Context::systemConf()->trusted_sources);
 		}
 
@@ -661,7 +661,7 @@ function printStep3(): void {
 			<div class="group-controls">
 				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
 					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= $default_user ?>"
-					placeholder="<?= httpAuthUser(false) == '' ? 'alice' : httpAuthUser(false) ?>" tabindex="1" />
+					placeholder="<?= FreshRSS_http_Util::httpAuthUser(false) == '' ? 'alice' : FreshRSS_http_Util::httpAuthUser(false) ?>" tabindex="1" />
 				<p class="help"><?= _i('help') ?> <?= _t('install.default_user.max_char') ?></p>
 			</div>
 		</div>
@@ -670,12 +670,12 @@ function printStep3(): void {
 			<label class="group-name" for="auth_type"><?= _t('admin.auth.type') ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" tabindex="2">
-					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
-						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
+					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && FreshRSS_password_Util::cryptAvailable()) ? ' selected="selected"' : '',
+						FreshRSS_password_Util::cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
-						httpAuthUser(false) == '' ? ' disabled="disabled"' : '' ?>>
-							<?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= httpAuthUser(false) ?>')</option>
-					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''
+						FreshRSS_http_Util::httpAuthUser(false) == '' ? ' disabled="disabled"' : '' ?>>
+							<?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= FreshRSS_http_Util::httpAuthUser(false) ?>')</option>
+					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !FreshRSS_password_Util::cryptAvailable()) ? ' selected="selected"' : ''
 						?>><?= _t('admin.auth.none') ?></option>
 				</select>
 			</div>
