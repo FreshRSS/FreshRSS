@@ -904,7 +904,7 @@ HTML;
 		}
 
 		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
-		$response = httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
+		$response = FreshRSS_http_Util::httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
 		$html = $response['body'];
 		if ($html !== '') {
 			$doc = new DOMDocument();
@@ -979,7 +979,7 @@ HTML;
 			}
 
 			unset($xpath, $doc);
-			$html = sanitizeHTML($html, $base);
+			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
 
 			if ($path_entries_filter !== '') {
 				// Remove unwanted elements again after sanitizing, for CSS selectors to also match sanitized content

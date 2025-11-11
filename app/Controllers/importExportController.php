@@ -448,7 +448,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			} else {
 				$content = '';
 			}
-			$content = sanitizeHTML($content, $url);
+			$content = FreshRSS_SimplePieCustom::sanitizeHTML($content, $url);
 
 			if (is_int($item['published'] ?? null) || is_string($item['published'] ?? null)) {
 				$published = (string)$item['published'];

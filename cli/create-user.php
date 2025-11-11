@@ -58,7 +58,7 @@ if (!empty($cliOptions->errors)) {
 
 $username = $cliOptions->user;
 
-if (!empty(preg_grep("/^$username$/i", listUsers()))) {
+if (!empty(preg_grep("/^$username$/i", FreshRSS_user_Controller::listUsers()))) {
 	fail('FreshRSS warning: username already exists “' . $username . '”', EXIT_CODE_ALREADY_EXISTS);
 }
 
