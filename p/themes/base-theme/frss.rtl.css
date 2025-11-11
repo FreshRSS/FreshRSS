@@ -2670,8 +2670,12 @@ html.slider-active {
 		z-index: 99;
 	}
 
-	.nav_mobile {
+	.nav_menu.nav_mobile {
 		display: block;
+	}
+
+	.nav_mobile {
+		display: initial;
 	}
 
 	.aside {
