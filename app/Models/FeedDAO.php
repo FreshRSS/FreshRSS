@@ -71,7 +71,7 @@ SQL;
 			$valuesTmp['category'],
 			mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8'),
 			$valuesTmp['website'],
-			sanitizeHTML($valuesTmp['description'], ''),
+			FreshRSS_SimplePieCustom::sanitizeHTML($valuesTmp['description'], ''),
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? (int)$valuesTmp['priority'] : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
 			mb_strcut($valuesTmp['pathEntries'], 0, 4096, 'UTF-8'),

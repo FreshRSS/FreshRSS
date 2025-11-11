@@ -37,13 +37,13 @@ return array(
 	'feed' => array(
 		'empty' => 'Нет статей для отображения.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Опубликовано',
+			'future' => 'Опубликовано в будущем',
+			'today' => 'Опубликовано сегодня',
+			'yesterday' => 'Опубликовано вчера',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'Получено',
 			'today' => 'Получено сегодня',
 			'yesterday' => 'Получено вчера',
 		),
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'Избранное',
 		'title_global' => 'Глобальный вид',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Изменено пользователем',
+			'today' => 'Изменено пользователем сегодня',
+			'yesterday' => 'Изменено пользователем вчера',
 		),
 	),
 	'log' => array(

@@ -66,7 +66,7 @@ echo 'Results: ', "\n";	//Buffered
 
 // Create the list of users to actualize.
 // Users are processed in a random order but always start with default user
-$users = listUsers();
+$users = FreshRSS_user_Controller::listUsers();
 shuffle($users);
 if (FreshRSS_Context::systemConf()->default_user !== '') {
 	array_unshift($users, FreshRSS_Context::systemConf()->default_user);
