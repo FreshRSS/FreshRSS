@@ -2477,10 +2477,9 @@ html.slider-active {
 	position: absolute;
 	margin-top: -2.2rem;
 	height: 50vh;
-	left: 2rem;
 	right: 2rem;
+	left: 2rem;
 	overflow-y: scroll;
-	right: 1rem;
 	z-index: 999;
 	border: 1px solid var(--border-color)
 }
