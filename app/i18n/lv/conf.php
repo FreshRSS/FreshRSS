@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Fokusēt nākamo bez atvēršanas',
 		'skip_previous_article' => 'Fokusēt iepriekšējo bez atvēršanas',
 		'title' => 'Saīsnes',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Mēdiju atskaņošana/pauze',
 		'user_filter' => 'Piekļuve lietotāju pieprasījumiem',
 		'user_filter_help' => 'Ja ir tikai viens lietotāja pieprasījums, tiek izmantots tas. Pretējā gadījumā pieprasījumi ir pieejami pēc to numura.',

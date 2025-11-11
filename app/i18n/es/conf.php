@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Enfoque siguiente sin abrir',
 		'skip_previous_article' => 'Enfoque anterior sin abrir',
 		'title' => 'Atajos de teclado',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Jugar/pausar medios',
 		'user_filter' => 'Acceso a filtros de usuario',
 		'user_filter_help' => 'Si solo hay un filtro de usuario, ese será el que se use. En caso contrario, los filtros están accesibles por su numeración.',

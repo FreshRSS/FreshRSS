@@ -783,6 +783,9 @@ main.post .drop-section li.item.feed a:hover .icon {
 .nav_menu #toggle-starred .icon {
 	filter: brightness(1);
 }
+.nav_menu .btn {
+	box-sizing: content-box;
+}
 
 .flux {
 	padding-left: 10px;

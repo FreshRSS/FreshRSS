@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',	// TODO
 		'skip_previous_article' => 'Focus previous without opening',	// TODO
 		'title' => 'קיצורי דרך',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Play/pause media',	// TODO
 		'user_filter' => 'גישה למססנים',
 		'user_filter_help' => 'אם יש רק מזנן אחד הוא יהיה בשימוש. אחרת המסננים ישמשו על בסיס המספר שלהם.',

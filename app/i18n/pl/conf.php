@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Przejdź do następnej wiadomości bez otwierania',
 		'skip_previous_article' => 'Przejdź do poprzedniej wiadomości bez otwierania',
 		'title' => 'Skróty klawiszowe',
+		'toggle_aside' => 'Pokaż/ukryj pasek boczny',
 		'toggle_media' => 'Odtwarzanie/pauza mediów',
 		'user_filter' => 'Przejdź do zapisanych zapytań',
 		'user_filter_help' => 'Gdy zapisane jest tylko jedno zapytanie jest ono od razu wykorzystywane. W przeciwnym przypadku zapytania są dostępne przez wybranie ich numeru.',

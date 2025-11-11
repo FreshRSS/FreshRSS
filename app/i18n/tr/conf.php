@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Açmadan sonrakine odaklan',
 		'skip_previous_article' => 'Açmadan öncesine odaklan',
 		'title' => 'Kısayollar',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Medyayı oynat/duraklat',
 		'user_filter' => 'Kullanıcı sorgularına eriş',
 		'user_filter_help' => 'Eğer yalnızca bir kullanıcı sorgusu varsa, o kullanılır. Aksi takdirde, sorgular numaralarıyla erişilebilir.',

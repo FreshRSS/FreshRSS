@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => '跳轉到下一篇文章而不打開',
 		'skip_previous_article' => '跳轉到上一篇文章而不打開',
 		'title' => '快捷鍵',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => '播放/暫停媒體',
 		'user_filter' => '顯示自定義查詢',
 		'user_filter_help' => '如果有多個自定義過濾器，則會按照它們的序號依次訪問。',
