@@ -255,6 +255,20 @@ class Minz_Request {
 	}
 
 	/**
+	 * Use CONN_REMOTE_ADDR (if available, to be robust even when using Apache mod_remoteip) or REMOTE_ADDR environment variable to determine the connection IP.
+	 */
+	public static function connectionRemoteAddress(): string {
+		$remoteIp = is_string($_SERVER['CONN_REMOTE_ADDR'] ?? null) ? $_SERVER['CONN_REMOTE_ADDR'] : '';
+		if ($remoteIp == '') {
+			$remoteIp = is_string($_SERVER['REMOTE_ADDR'] ?? null) ? $_SERVER['REMOTE_ADDR'] : '';
+		}
+		if ($remoteIp == 0) {
+			$remoteIp = '';
+		}
+		return $remoteIp;
+	}
+
+	/**
 	 * Return true if the request is over HTTPS, false otherwise (HTTP)
 	 */
 	public static function isHttps(): bool {

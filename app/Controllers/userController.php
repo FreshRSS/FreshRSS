@@ -15,6 +15,37 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		return preg_match('/^' . self::USERNAME_PATTERN . '$/', $username) === 1;
 	}
 
+	/**
+	 * Validate an email address, supports internationalized addresses.
+	 *
+	 * @param string $email The address to validate
+	 * @return bool true if email is valid, else false
+	 */
+	private static function validateEmailAddress(string $email): bool {
+		$mailer = new PHPMailer\PHPMailer\PHPMailer();
+		$mailer->CharSet = 'utf-8';
+		$punyemail = $mailer->punyencodeAddress($email);
+		return PHPMailer\PHPMailer\PHPMailer::validateAddress($punyemail, 'html5');
+	}
+
+	/**
+	 * @return list<string>
+	 */
+	public static function listUsers(): array {
+		$final_list = [];
+		$base_path = join_path(DATA_PATH, 'users');
+		$dir_list = array_values(array_diff(
+			scandir($base_path) ?: [],
+			['..', '.', Minz_User::INTERNAL_USER]
+		));
+		foreach ($dir_list as $file) {
+			if ($file[0] !== '.' && is_dir(join_path($base_path, $file)) && file_exists(join_path($base_path, $file, 'config.php'))) {
+				$final_list[] = $file;
+			}
+		}
+		return $final_list;
+	}
+
 	public static function userExists(string $username): bool {
 		$config_path = USERS_PATH . '/' . $username . '/config.php';
 		if (@file_exists($config_path)) {
@@ -30,9 +61,21 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		return false;
 	}
 
+	/**
+	 * Return if the maximum number of registrations has been reached.
+	 * Note a max_registrations of 0 means there is no limit.
+	 *
+	 * @return bool true if number of users >= max registrations, false else.
+	 */
+	public static function max_registrations_reached(): bool {
+		$limit_registrations = FreshRSS_Context::systemConf()->limits['max_registrations'];
+		$number_accounts = count(self::listUsers());
+		return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
+	}
+
 	/** @param array<string,mixed> $userConfigUpdated */
 	public static function updateUser(string $user, ?string $email, string $passwordPlain, array $userConfigUpdated = []): bool {
-		$userConfig = get_user_configuration($user);
+		$userConfig = FreshRSS_UserConfiguration::getForUser($user);
 		if ($userConfig === null) {
 			return false;
 		}
@@ -166,7 +209,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				);
 			}
 
-			if (!empty($email) && !validateEmailAddress($email)) {
+			if (!empty($email) && !self::validateEmailAddress($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.invalid'),
 					['c' => 'user', 'a' => 'profile']
@@ -285,7 +328,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$this->view->show_email_field = FreshRSS_Context::systemConf()->force_email_validation;
 		$this->view->current_user = Minz_Request::paramString('u');
 
-		foreach (listUsers() as $user) {
+		foreach (self::listUsers() as $user) {
 			$this->view->users[$user] = $this->retrieveUserDetails($user);
 		}
 	}
@@ -322,7 +365,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				$userConfig['language'] = Minz_Translate::DEFAULT_LANGUAGE;
 			}
 
-			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', listUsers()), true);	//Not an existing user, case-insensitive
+			$ok &= !in_array(strtoupper($new_user_name), array_map('strtoupper', self::listUsers()), true);	//Not an existing user, case-insensitive
 
 			$configPath = join_path($homeDir, 'config.php');
 			$ok &= !file_exists($configPath);
@@ -370,7 +413,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * @todo clean up this method. Idea: write a method to init a user with basic information.
 	 */
 	public function createAction(): void {
-		if (!FreshRSS_Auth::hasAccess('admin') && max_registrations_reached()) {
+		if (!FreshRSS_Auth::hasAccess('admin') && self::max_registrations_reached()) {
 			Minz_Error::error(403);
 		}
 
@@ -424,7 +467,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				);
 			}
 
-			if (!empty($email) && !validateEmailAddress($email)) {
+			if (!empty($email) && !self::validateEmailAddress($email)) {
 				Minz_Request::bad(
 					_t('user.email.feedback.invalid'),
 					$badRedirectUrl
@@ -451,7 +494,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			// user just created its account himself so he probably wants to
 			// get started immediately.
 			if ($ok && !FreshRSS_Auth::hasAccess('admin')) {
-				$user_conf = get_user_configuration($new_user_name);
+				$user_conf = FreshRSS_UserConfiguration::getForUser($new_user_name);
 				if ($user_conf !== null) {
 					Minz_Session::_params([
 						Minz_User::CURRENT_USER => $new_user_name,
@@ -531,7 +574,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$token = Minz_Request::paramString('token');
 
 		if ($username !== '') {
-			$user_config = get_user_configuration($username);
+			$user_config = FreshRSS_UserConfiguration::getForUser($username);
 		} elseif (FreshRSS_Auth::hasAccess()) {
 			$user_config = FreshRSS_Context::userConf();
 		} else {
@@ -711,7 +754,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(404);
 		}
 
-		if (null === $userConfig = get_user_configuration($username)) {
+		if (null === $userConfig = FreshRSS_UserConfiguration::getForUser($username)) {
 			Minz_Error::error(500);
 			return;
 		}
@@ -769,7 +812,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
 
-		$userConfiguration = get_user_configuration($username);
+		$userConfiguration = FreshRSS_UserConfiguration::getForUser($username);
 		if ($userConfiguration === null) {
 			throw new Exception('Error loading user configuration!');
 		}

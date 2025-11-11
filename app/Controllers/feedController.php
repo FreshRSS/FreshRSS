@@ -417,14 +417,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @param \SimplePie\SimplePie|null $simplePiePush Used by WebSub (PubSubHubbub) to push updates
+	 * @param FreshRSS_SimplePieCustom|null $simplePiePush Used by WebSub (PubSubHubbub) to push updates
 	 * @param string $selfUrl Used by WebSub (PubSubHubbub) to override the feed URL
 	 * @return array{0:int,1:FreshRSS_Feed|null,2:int,3:array<FreshRSS_Feed>} Number of updated feeds, first feed or null, number of new articles,
 	 * 	list of feeds for which a cache refresh is needed
 	 * @throws FreshRSS_BadUrl_Exception
 	 */
 	public static function actualizeFeeds(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null,
-		?\SimplePie\SimplePie $simplePiePush = null, string $selfUrl = ''): array {
+		?FreshRSS_SimplePieCustom $simplePiePush = null, string $selfUrl = ''): array {
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
 		}
@@ -866,14 +866,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @param \SimplePie\SimplePie|null $simplePiePush Used by WebSub (PubSubHubbub) to push updates
+	 * @param FreshRSS_SimplePieCustom|null $simplePiePush Used by WebSub (PubSubHubbub) to push updates
 	 * @param string $selfUrl Used by WebSub (PubSubHubbub) to override the feed URL
 	 * @return array{0:int,1:FreshRSS_Feed|null,2:int,3:array<FreshRSS_Feed>} Number of updated feeds, first feed or null, number of new articles,
 	 * 	list of feeds for which a cache refresh is needed
 	 * @throws FreshRSS_BadUrl_Exception
 	 */
 	public static function actualizeFeedsAndCommit(?int $feed_id = null, ?string $feed_url = null, ?int $maxFeeds = null,
-		?SimplePie\SimplePie $simplePiePush = null, string $selfUrl = ''): array {
+		?FreshRSS_SimplePieCustom $simplePiePush = null, string $selfUrl = ''): array {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		[$nbUpdatedFeeds, $feed, $nbNewArticles, $feedsCacheToRefresh] =
 			FreshRSS_feed_Controller::actualizeFeeds($feed_id, $feed_url, $maxFeeds, $simplePiePush, $selfUrl);
@@ -1066,7 +1066,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			// Remove related queries
-			$queries = remove_query_by_get('f_' . $feed_id, FreshRSS_Context::userConf()->queries);
+			$queries = FreshRSS_UserQuery::remove_query_by_get('f_' . $feed_id, FreshRSS_Context::userConf()->queries);
 			FreshRSS_Context::userConf()->queries = $queries;
 			FreshRSS_Context::userConf()->save();
 			return true;

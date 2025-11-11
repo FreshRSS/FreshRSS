@@ -31,7 +31,8 @@ function searchFavicon(string $url): string {
 		return '';
 	}
 	$dom = new DOMDocument();
-	['body' => $html, 'effective_url' => $effective_url, 'fail' => $fail] = httpGet($url, cachePath: CACHE_PATH . '/' . sha1($url) . '.html', type: 'html');
+	['body' => $html, 'effective_url' => $effective_url, 'fail' => $fail] =
+		FreshRSS_http_Util::httpGet($url, cachePath: CACHE_PATH . '/' . sha1($url) . '.html', type: 'html');
 	if ($fail || $html === '' || !@$dom->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
 		return '';
 	}
@@ -69,7 +70,7 @@ function searchFavicon(string $url): string {
 		if ($iri == false) {
 			return '';
 		}
-		$favicon = httpGet($iri, faviconCachePath($iri), 'ico', curl_options: [
+		$favicon = FreshRSS_http_Util::httpGet($iri, faviconCachePath($iri), 'ico', curl_options: [
 			CURLOPT_REFERER => $effective_url,
 		])['body'];
 		if (isImgMime($favicon)) {
@@ -90,7 +91,7 @@ function download_favicon(string $url, string $dest): bool {
 		}
 		if ($favicon == '') {
 			$link = $rootUrl . 'favicon.ico';
-			$favicon = httpGet($link, faviconCachePath($link), 'ico', curl_options: [
+			$favicon = FreshRSS_http_Util::httpGet($link, faviconCachePath($link), 'ico', curl_options: [
 				CURLOPT_REFERER => $url,
 			])['body'];
 			if (!isImgMime($favicon)) {

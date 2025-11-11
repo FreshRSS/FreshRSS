@@ -25,7 +25,7 @@ if (!empty($cliOptions->errors)) {
 	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$users = $cliOptions->user ?? listUsers();
+$users = $cliOptions->user ?? FreshRSS_user_Controller::listUsers();
 
 sort($users);
 
