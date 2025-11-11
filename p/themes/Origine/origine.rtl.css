@@ -838,13 +838,18 @@ button:hover .icon,
 }
 
 /*=== Feed articles */
-.flux {
+.normal .flux,
+.global .flux {
 	background-color: var(--background-color-light);
 	border-right: 2px solid transparent;
 }
 
 .flux.current {
 	background-color: var(--background-color-light);
+}
+
+.normal .flux.current,
+.global .flux.current {
 	border-right: 2px solid var(--contrast-border-color-active);
 }
 
@@ -880,6 +885,22 @@ button:hover .icon,
 .normal .flux.favorite,
 .global .flux.favorite {
 	border-right: 2px solid var(--favorite-article-border-color);
+}
+
+.grid .flux.active .flux_content {
+	box-shadow: 0 3px 3px var(--box-shadow-color);
+}
+
+.grid .flux.current .flux_content {
+	border-top: 1rem solid var(--background-color-hover);
+}
+
+.grid .flux.not_read.current .flux_content {
+	border-top: 1rem solid var(--unread-article-background-color-hover);
+}
+
+.grid .flux.favorite.active .flux_content {
+	border-top: 1rem solid var(--favorite-article-background-color);
 }
 
 .flux.favorite:not(.current) .flux_header,

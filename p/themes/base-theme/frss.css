@@ -2434,6 +2434,13 @@ html.slider-active {
 	height: 350px;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	border: 1px solid var(--border-color);
+}
+
+.grid .flux.active .card {
+	height: calc(350px + 2rem);
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
 }
 
 .grid .card .article-header-topline {
@@ -2460,17 +2467,22 @@ html.slider-active {
 	color: var(--frss-font-color-dark);
 }
 
+.grid .flux.active {
+	margin-bottom: 50vh;
+}
+
 .grid .flux.active .flux_content {
 	background: white;
 	display: inline-block;
 	position: absolute;
+	margin-top: -2.2rem;
 	height: 50vh;
-	left: 10px;
-	border: 1px solid grey;
+	left: 2rem;
+	right: 2rem;
 	overflow-y: scroll;
-	box-shadow: 0 5px 16px black;
 	right: 1rem;
 	z-index: 999;
+	border: 1px solid var(--border-color)
 }
 
 .grid .flux.not_read .card .title {
