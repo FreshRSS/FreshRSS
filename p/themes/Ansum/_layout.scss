@@ -117,8 +117,8 @@ main.prompt {
 	background: variables.$main-first-alt;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 1rem 0 0 1.25rem;
 	color: variables.$light-font-color;
 	font-size: 0.875rem;

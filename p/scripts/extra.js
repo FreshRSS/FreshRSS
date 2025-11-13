@@ -100,6 +100,19 @@ function init_crypto_forms() {
 // </crypto form (Web login)>
 
 // <show password>
+
+function init_display(parent) {
+	const theme = parent.querySelector('select#theme');
+	if (!theme) {
+		return;
+	}
+	theme.addEventListener('change', (e) => {
+		const picked = parent.querySelector('.preview-container.picked');
+		picked.classList.remove('picked');
+		parent.querySelector(`[data-theme-preview="${e.target.value}"]`).classList.add('picked');
+	});
+}
+
 function togglePW(btn) {
 	if (btn.classList.contains('active')) {
 		hidePW(btn);
@@ -249,26 +262,27 @@ function init_update_feed() {
 	});
 
 	if (faviconExtBtn) {
-		faviconExtBtn.onclick = function (e) {
+		faviconExtBtn.onclick = async function (e) {
 			e.preventDefault();
 			faviconExtBtn.disabled = true;
-			fetch(faviconExtBtn.dataset.extensionUrl, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8'
-				},
-				body: JSON.stringify({
-					'_csrf': context.csrf,
-					'extAction': 'query_icon_info',
-					'id': +feed_update.dataset.feedId
-				}),
-			}).then(resp => {
+			try {
+				const resp = await fetch(faviconExtBtn.dataset.extensionUrl, {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json; charset=UTF-8',
+					},
+					body: JSON.stringify({
+						'_csrf': context.csrf,
+						'extAction': 'query_icon_info',
+						'id': +feed_update.dataset.feedId
+					}),
+				});
 				if (!resp.ok) {
 					faviconExtBtn.disabled = false;
-					return Promise.reject(resp);
+					throw new Error(`Custom favicons HTTP error ${resp.status}: ${resp.statusText}`);
 				}
-				return resp.json();
-			}).then(json => {
+				const json = await resp.json();
 				clearUploadedIcon();
 				const resetField = feed_update.querySelector('input[name="resetFavicon"]');
 				if (resetField) {
@@ -281,7 +295,9 @@ function init_update_feed() {
 				extension.dataset.initialExt = extension.innerText;
 				extension.innerText = json.extName;
 				favicon.src = json.iconUrl;
-			});
+			} catch (error) {
+				faviconExtBtn.disabled = false;
+			}
 		};
 		faviconExtBtn.form.onsubmit = async function (e) {
 			const extChanged = faviconExtBtn.disabled;
@@ -540,6 +556,7 @@ function init_extra_afterDOM() {
 			init_archiving(slider);
 			init_url_observers(slider);
 		} else {
+			init_display(document.body);
 			init_archiving(document.body);
 			init_url_observers(document.body);
 		}

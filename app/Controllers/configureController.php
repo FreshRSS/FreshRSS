@@ -236,6 +236,30 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('conf.sharing.title') . ' · ');
 	}
 
+	private const SHORTCUT_KEYS = [
+			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+			'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+			'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+			'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12',
+			'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Backspace', 'Delete',
+			'End', 'Enter', 'Escape', 'Home', 'Insert', 'PageDown', 'PageUp', 'Space', 'Tab',
+		];
+
+	/**
+	 * @param array<string> $shortcuts
+	 * @return list<string>
+	 */
+	public static function getNonStandardShortcuts(array $shortcuts): array {
+		$standard = strtolower(implode(' ', self::SHORTCUT_KEYS));
+
+		$nonStandard = array_filter($shortcuts, static function (string $shortcut) use ($standard) {
+			$shortcut = trim($shortcut);
+			return $shortcut !== '' && stripos($standard, $shortcut) === false;
+		});
+
+		return array_values($nonStandard);
+	}
+
 	/**
 	 * This action handles the shortcut configuration page.
 	 *
@@ -249,7 +273,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * tab and up.
 	 */
 	public function shortcutAction(): void {
-		$this->view->list_keys = SHORTCUT_KEYS;
+		$this->view->list_keys = self::SHORTCUT_KEYS;
 
 		if (Minz_Request::isPost()) {
 			$shortcuts = Minz_Request::paramArray('shortcuts', plaintext: true);

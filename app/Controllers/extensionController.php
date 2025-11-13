@@ -45,12 +45,12 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * @phpstan-return list<ExtensionFullMetadata>
 	 */
 	protected function getAvailableExtensionList(): array {
-		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
+		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/refs/heads/main/extensions.json';
 
 		$cacheFile = CACHE_PATH . '/extension_list.json';
 		if (FreshRSS_Context::userConf()->retrieve_extension_list === true) {
 			if (!file_exists($cacheFile) || (time() - (filemtime($cacheFile) ?: 0) > 86400)) {
-				$json = httpGet($extensionListUrl, $cacheFile, 'json')['body'];
+				$json = FreshRSS_http_Util::httpGet($extensionListUrl, $cacheFile, 'json')['body'];
 			} else {
 				$json = @file_get_contents($cacheFile) ?: '';
 			}

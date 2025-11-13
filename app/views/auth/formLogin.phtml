@@ -5,7 +5,7 @@
 <main class="prompt">
 	<h1><?= _t('gen.auth.login') ?></h1>
 
-	<?php if (!max_registrations_reached()) { ?>
+	<?php if (!FreshRSS_user_Controller::max_registrations_reached()) { ?>
 		<div class="link-registration">
 			<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
 		</div>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	public const DEFAULTCATEGORYID = 1;
+	public const DEFAULT_CATEGORY_NAME = 'Uncategorized';
 
 	public function sqlResetSequence(): bool {
 		return true;	// Nothing to do for MySQL
@@ -14,7 +15,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		$stm = $this->pdo->prepare('UPDATE `_category` SET name = :name WHERE id = :id');
 		if ($stm !== false) {
 			$stm->bindValue(':id', self::DEFAULTCATEGORYID, PDO::PARAM_INT);
-			$stm->bindValue(':name', 'Uncategorized');
+			$stm->bindValue(':name', self::DEFAULT_CATEGORY_NAME);
 		}
 		return $stm !== false && $stm->execute();
 	}

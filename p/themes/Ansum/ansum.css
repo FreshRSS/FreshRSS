@@ -778,8 +778,8 @@ main.prompt {
 	background: #b7641d;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 1rem 0 0 1.25rem;
 	color: #6d655f;
 	font-size: 0.875rem;
@@ -788,7 +788,7 @@ main.prompt {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 }
-.day .name {
+.transition .name {
 	padding: 0 1rem 0 1rem;
 	color: #363330;
 	font-size: 0.875rem;
@@ -1289,11 +1289,11 @@ main.prompt {
 	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
 		bottom: -17px;
 	}
-	.day {
+	.transition {
 		text-align: center;
 		padding: 1rem 0;
 	}
-	.day .name {
+	.transition .name {
 		padding: 0;
 		display: block;
 		width: 100%;

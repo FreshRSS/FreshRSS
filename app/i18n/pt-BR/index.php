@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Não há nenhum artigo para mostrar.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
+			'_' => 'Received',	// TODO
 			'today' => 'Received today',	// TODO
 			'yesterday' => 'Received yesterday',	// TODO
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Stream principal',
 		'title_fav' => 'Favoritos',
 		'title_global' => 'Visualização Global',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Logs',	// IGNORE

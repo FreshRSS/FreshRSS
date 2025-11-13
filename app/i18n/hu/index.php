@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Nincs megjeleníthető cikk.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Tegnapelőtt fogadva',
+			'_' => 'Received',	// TODO
 			'today' => 'Ma fogadva',
 			'yesterday' => 'Tegnap fogadva',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Minden cikk',
 		'title_fav' => 'Kedvencek',
 		'title_global' => 'Globális nézet',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Log-ok',
