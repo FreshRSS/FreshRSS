@@ -22,21 +22,21 @@ SQL;
 			$whereEntryIdFeeds = 'id_feed IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
 		}
 		$sql = <<<SQL
-WITH entry_counts AS (
-	SELECT
-		id_feed,
-		COUNT(*) AS total_entries,
-		SUM(CASE WHEN is_read = 0 THEN 1 ELSE 0 END) AS unread_entries
-	FROM `_entry`
-	WHERE $whereEntryIdFeeds
-	GROUP BY id_feed
-)
-UPDATE `_feed`
-SET `cache_nbEntries` = COALESCE(c.total_entries, 0),
-	`cache_nbUnreads` = COALESCE(c.unread_entries, 0)
-FROM entry_counts c
-WHERE id = c.id_feed AND $whereFeedIds
-SQL;
+			WITH entry_counts AS (
+				SELECT
+					id_feed,
+					COUNT(*) AS total_entries,
+					SUM(CASE WHEN is_read = 0 THEN 1 ELSE 0 END) AS unread_entries
+				FROM `_entry`
+				WHERE $whereEntryIdFeeds
+				GROUP BY id_feed
+			)
+			UPDATE `_feed`
+			SET `cache_nbEntries` = COALESCE(c.total_entries, 0),
+				`cache_nbUnreads` = COALESCE(c.unread_entries, 0)
+			FROM entry_counts c
+			WHERE id = c.id_feed AND $whereFeedIds
+			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute(array_merge($feedIds, $feedIds))) {
 			return $stm->rowCount();
