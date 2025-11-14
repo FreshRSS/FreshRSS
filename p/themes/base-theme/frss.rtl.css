@@ -2460,7 +2460,7 @@ html.slider-active {
 
 .grid .card .date {
 	padding: 0.25rem 0;
-	font-size: 0.9rem;
+	font-size: 0.7rem;
 }
 
 .grid .card .title {
@@ -2482,6 +2482,10 @@ html.slider-active {
 	overflow-y: scroll;
 	z-index: 999;
 	border: 1px solid var(--border-color)
+}
+
+.grid .flux.active .flux_content .content {
+	min-height: 46vh;
 }
 
 .grid .flux.not_read .card .title {
