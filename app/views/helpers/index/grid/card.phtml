@@ -52,14 +52,19 @@
 	</div>
 	<div class="thumbnail <?= $topline_thumbnail ?>"><?php
 		$thumbnail = $this->entry->thumbnail();
-		if ($thumbnail != null):
-			?>
+		?>
 			<a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>">
-				<img src="<?= $thumbnail['url'] ?>" class="item-element "<?= $lazyload ? ' loading="lazy"' : '' ?> alt="" />
-			</a>
 			<?php
-		endif;
-	?></div>
+			if ($thumbnail != null) { ?>
+				<img src="<?= $thumbnail['url'] ?>" class="item-element "<?= $lazyload ? ' loading="lazy"' : '' ?> alt="" />
+				<?php
+			} else { ?>
+				<div class="noThumbnail">
+					<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
+				</div>
+			<?php } ?>
+			</a>
+			</div>
 	<?php if ($topline_date) { ?>
 		<div class="date">
 			<time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>
