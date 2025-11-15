@@ -1443,11 +1443,14 @@ SQL;
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters, id_min: $id_min, id_max: $id_max,
 			sort: $sort, order: $order, continuation_id: $continuation_id, continuation_values: $continuation_values);
 
+		// Help MySQL/MariaDB's optimizer with the query plan:
+		$useEntryIndex = $this->pdo->dbType() === 'mysql' ? 'USE INDEX (entry_feed_read_index) ' : '';
+
 		return [array_merge($values, $searchValues), 'SELECT '
 			. ($type === 'T' ? 'DISTINCT ' : '')
 			. 'e.id'
 			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
-			. ' FROM `_entry` e '
+			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
 			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
