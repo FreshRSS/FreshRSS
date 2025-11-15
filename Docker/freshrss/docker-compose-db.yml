@@ -11,7 +11,7 @@ services:
       options:
         max-size: 10m
     volumes:
-      - db:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/18/docker
     environment:
       POSTGRES_DB: ${DB_BASE:-freshrss}
       POSTGRES_USER: ${DB_USER:-freshrss}
