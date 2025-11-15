@@ -29,12 +29,18 @@ SQL;
 				FROM `_entry`
 				WHERE $whereEntryIdFeeds
 				GROUP BY id_feed
+			),
+			target_feeds AS (
+				SELECT id
+				FROM `_feed`
+				WHERE $whereFeedIds
 			)
 			UPDATE `_feed`
 			SET `cache_nbEntries` = COALESCE(c.total_entries, 0),
 				`cache_nbUnreads` = COALESCE(c.unread_entries, 0)
-			FROM entry_counts c
-			WHERE id = c.id_feed AND $whereFeedIds
+			FROM target_feeds AS tf
+			LEFT JOIN entry_counts AS c ON tf.id = c.id_feed
+			WHERE id = tf.id;
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute(array_merge($feedIds, $feedIds))) {

@@ -23,7 +23,7 @@ class FreshRSS_FeedDAOMySQL extends FreshRSS_FeedDAO {
 				GROUP BY e.id_feed
 			)
 			UPDATE `_feed` AS f
-			JOIN entry_counts AS c ON f.id = c.id_feed
+			LEFT JOIN entry_counts AS c ON f.id = c.id_feed
 			SET f.`cache_nbEntries` = COALESCE(c.total_entries, 0),
 				f.`cache_nbUnreads` = COALESCE(c.unread_entries, 0)
 			WHERE $whereFeedIds;
