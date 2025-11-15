@@ -13,7 +13,6 @@ SQL;
 
 	#[\Override]
 	public function updateCachedValues(int ...$feedIds): int|false {
-		// Faster than the MySQL version
 		if (empty($feedIds)) {
 			$whereFeedIds = 'true';
 			$whereEntryIdFeeds = 'true';
