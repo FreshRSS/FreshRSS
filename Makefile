@@ -114,6 +114,17 @@ endif
 	@$(PHP) ./cli/manipulate.translation.php --action add --key $(key) --value "$(value)"
 	@echo Key added.
 
+.PHONY: i18n-move-key
+i18n-move-key: ## Move an existing key into a new location
+ifndef key
+	$(error To move a key, you need to provide one in the "key" variable)
+endif
+ifndef new-key
+	$(error To specify a location to move the key to, you need to provide it in the "new-key" variable)
+endif
+	@$(PHP) ./cli/manipulate.translation.php --action move --key $(key) --new-key "$(new-key)"
+	@echo Key moved.
+
 .PHONY: i18n-add-language
 i18n-add-language: ## Add a new supported language
 ifndef lang

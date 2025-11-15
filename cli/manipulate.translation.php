@@ -9,6 +9,7 @@ require_once dirname(__DIR__) . '/constants.php';
 $cliOptions = new class extends CliOptionsParser {
 	public string $action;
 	public string $key;
+	public string $newKey;
 	public string $value;
 	public string $language;
 	public string $originLanguage;
@@ -18,6 +19,7 @@ $cliOptions = new class extends CliOptionsParser {
 	public function __construct() {
 		$this->addRequiredOption('action', (new CliOption('action', 'a')));
 		$this->addOption('key', (new CliOption('key', 'k')));
+		$this->addOption('newKey', (new CliOption('new-key', 'n')));
 		$this->addOption('value', (new CliOption('value', 'v')));
 		$this->addOption('language', (new CliOption('language', 'l')));
 		$this->addOption('originLanguage', (new CliOption('origin-language', 'o')));
@@ -53,6 +55,14 @@ switch ($cliOptions->action) {
 			$i18nData->addLanguage($cliOptions->language, $reference);
 		} else {
 			error('You need to specify a valid set of options.');
+			exit;
+		}
+		break;
+	case 'move':
+		if (isset($cliOptions->key) && isset($cliOptions->newKey)) {
+			$i18nData->moveKey($cliOptions->key, $cliOptions->newKey);
+		} else {
+			error('You need to specify the key to move and its new location.');
 			exit;
 		}
 		break;
@@ -131,7 +141,7 @@ DESCRIPTION
 	Manipulate translation files.
 
 	-a, --action=ACTION
-				select the action to perform. Available actions are add, delete,
+				select the action to perform. Available actions are add, move, delete,
 				exist, format, ignore, and ignore_unmodified. This option is mandatory.
 	-k, --key=KEY		select the key to work on.
 	-v, --value=VAL		select the value to set.
@@ -176,6 +186,9 @@ Example 10:	check if a key exist.
 
 Example 11:	add a new file to all languages
 	php $file -a add -k my_file.php
-HELP;
+
+Example 12:\tmove an existing key into a new location
+	php $file -a move -k my_key -n new_location
+HELP, PHP_EOL;
 	exit();
 }
