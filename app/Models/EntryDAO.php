@@ -1447,7 +1447,7 @@ SQL;
 			. ($type === 'T' ? 'DISTINCT ' : '')
 			. 'e.id'
 			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
-			. ' FROM `_entry` e '
+			. ' FROM `_entry` e FORCE INDEX (`entry_feed_read_index`) '
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
 			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
