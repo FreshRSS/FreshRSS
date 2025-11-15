@@ -1679,7 +1679,13 @@ SQL;
 			}
 			return $affected;
 		}
-		$sql = 'UPDATE `_entry` SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1) . '?)';
+
+		// Reduce MySQL deadlock probability by ensuring consistent lock ordering
+		$orderBy = $this->pdo->dbType() === 'mysql' ? ' ORDER BY id DESC' : '';
+
+		$sql = 'UPDATE `_entry` ' .
+			'SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1) . '?)' .
+			$orderBy;
 		$stm = $this->pdo->prepare($sql);
 		if ($mtime <= 0) {
 			$mtime = time();
