@@ -19,11 +19,11 @@ class Minz_View {
 	/** @var array<string> */
 	private static array $base_pathnames = [APP_PATH];
 	private static string $title = '';
-	/** @var array<array{'media':string,'url':string}> */
+	/** @var array<array{media:string,url:string}> */
 	private static array $styles = [];
-	/** @var array<array{'url':string,'id':string,'defer':bool,'async':bool}> */
+	/** @var array<array{url:string,id:string,defer:bool,async:bool}> */
 	private static array $scripts = [];
-	/** @var string|array{'dark'?:string,'light'?:string,'default'?:string} */
+	/** @var string|array{dark?:string,light?:string,default?:string} */
 	private static $themeColors;
 	/** @var array<string,mixed> */
 	private static array $params = [];
@@ -245,9 +245,9 @@ class Minz_View {
 	}
 
 	/**
-	 * @param string|array{'dark'?:string,'light'?:string,'default'?:string} $themeColors
+	 * @param string|array{dark?:string,light?:string,default?:string} $themeColors
 	 */
-	public static function appendThemeColors($themeColors): void {
+	public static function appendThemeColors(string|array $themeColors): void {
 		self::$themeColors = $themeColors;
 	}
 

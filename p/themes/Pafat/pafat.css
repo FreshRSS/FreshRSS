@@ -95,7 +95,7 @@ html, body {
 }
 
 /*=== Links */
-a {
+a, .as-link, button.as-link {
 	color: var(--font-color-link-general);
 	outline: none;
 }
@@ -114,18 +114,11 @@ label {
 	cursor: pointer;
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 input, select, textarea {
-	padding: 7px;
 	background-color: var(--background-color-white);
 	color: var(--font-color-grey);
 	border: 1px solid var(--border-color-grey-dark);
 	border-radius: 3px;
-	vertical-align: middle;
 }
 
 option {
@@ -302,26 +295,31 @@ th {
 	line-height: 2.5;
 }
 
-.nav-list .item a:hover {
+.nav-list .item a:hover,
+.nav-list .item .as-link:hover {
 	color: var(--font-color-link-general-hover);
 	background-color: var(--background-color-grey-hover);
 }
 
 .nav-list .item.active,
-.nav-list .item.active a:hover {
+.nav-list .item.active a:hover,
+.nav-list .item.active .as-link:hover {
 	background-color: var(--background-color-navlist-active);
 	color: var(--font-color-white);
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: var(--font-color-white);
 }
 
-.nav-list .item > a {
+.nav-list .item > a,
+.nav-list .item > .as-link {
 	padding: 0 1rem;
 }
 
-.nav-list a:hover {
+.nav-list a:hover,
+.nav-list .as-link:hover {
 	text-decoration: none;
 }
 
@@ -379,8 +377,11 @@ th {
 	margin-bottom: 0.5rem;
 }
 
+.dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
+.dropdown-menu .item > button:focus:not([disabled]),
 .dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background-color: var(--background-color-grey-hover);
 	color: var(--font-color-grey);
@@ -753,8 +754,8 @@ a.signin {
 	background-color: var(--background-color-new-article-hover);
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 0 10px;
 	background-color: var(--background-color-white);
 	color: var(--font-color-grey);
@@ -764,15 +765,15 @@ a.signin {
 	line-height: 3;
 }
 
-.day span {
+.transition span {
 	line-height: 1.5;
 }
 
-#new-article + .day {
+#new-article + .transition {
 	border-top: none;
 }
 
-.day .name {
+.transition .name {
 	padding: 0 10px 0 0;
 	color: var(--font-color-grey);
 	font-size: 1.8em;
@@ -929,16 +930,24 @@ a.signin {
 	border: 1px solid var(--notification-bad-border-color);
 }
 
-.notification.good a.close:hover {
+.notification.good .close:hover {
 	background-color: var(--notification-good-border-color);
 }
 
-.notification.bad a.close:hover {
+.notification.bad .close:hover {
 	background-color: var(--notification-bad-border-color);
 }
 
+.notification .close .icon {
+	filter: brightness(1.5);
+}
+
+.notification .close:hover .icon {
+	filter: brightness(0.5);
+}
+
 /*=== "Load more" part */
-#bigMarkAsRead {
+#bigMarkAsRead.big {
 	background-color: var(--background-color-grey-light);
 	color: var(--font-color-grey);
 	text-align: center;
@@ -967,7 +976,7 @@ a.signin {
 	border: none;
 }
 
-#stream.reader .flux .content {
+#stream.reader .flux .flux_content {
 	background-color: var(--background-color-white);
 	border-color: var(--border-color-grey-light);
 }
@@ -1079,22 +1088,22 @@ a.signin {
 		border-left: 1px solid var(--border-color-grey-dark);
 	}
 
-	.day .name {
+	.transition .name {
 		font-size: 1.1rem;
 		text-shadow: none;
 	}
 
-	.notification a.close {
+	.notification .close {
 		background: transparent;
 		display: block;
 		left: 0;
 	}
 
-	.notification a.close:hover {
+	.notification .close:hover {
 		opacity: 0.5;
 	}
 
-	.notification a.close .icon {
+	.notification .close .icon {
 		display: none;
 	}
 

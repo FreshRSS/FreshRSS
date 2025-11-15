@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'HTTP-salasana',
 			'username' => 'HTTP-käyttäjätunnus',
 		),
+		'change_favicon' => 'Muuta…',
 		'clear_cache' => 'Tyhjennä välimuisti aina',
 		'content_action' => array(
 			'_' => 'Toiminto noudettaessa artikkelin sisältö',
@@ -57,28 +58,33 @@ return array(
 			'prepend' => 'Lisää ennen aiempaa sisältöä',
 			'replace' => 'Korvaa aiempi sisältö',
 		),
+		'content_retrieval' => 'Sisällön noutaminen',
 		'css_cookie' => 'Käytä evästeitä noudettaessa artikkelin sisältö',
 		'css_cookie_help' => 'Esimerkki: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Noutaa lyhennetyt RSS-syötteet (huomautus: kestää pidempään!)',
 		'css_path' => 'Artikkelin CSS-valitsin alkuperäisellä sivustolla',
 		'css_path_filter' => array(
 			'_' => 'Poistettavien elementtien CSS-valitsin',
-			'help' => 'CSS-valitsin voi olla luettelo, kuten: <kbd>.footer, .aside, p[data-sanitized-class="menu"]</kbd>',
+			'help' => 'CSS-valitsin voi olla luettelo, kuten: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
 		'description' => 'Kuvaus',
 		'empty' => 'Syöte on tyhjä. Varmista, että sitä ylläpidetään edelleen.',
-		'error' => 'Syötteessä on ilmennyt ongelma. Varmista, että se on aina tavoitettavissa ja päivitä se sitten.',
+		'error' => 'Syötteessä on ilmennyt ongelma. Jos tilanne jatkuu, varmista, että syöte on edelleen käytettävissä.',
 		'export-as-opml' => array(
 			'download' => 'Lataa',
 			'help' => 'XML-tiedosto (osa tiedoista. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Katso ohje</a>)',
 			'label' => 'Vie OPML-tiedostoksi',
 		),
+		'ext_favicon' => 'Määritä automaattisesti',
+		'favicon_changed_by_ext' => 'Laajennus <b>%s</b> on määrittänyt kuvakkeen.',
 		'filteractions' => array(
 			'_' => 'Suodatustoiminnot',
 			'help' => 'Kirjoita kukin hakusuodatin omalle rivilleen. Lisätietoja operaattoreista <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ohjeissa</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP-otsikot',
 		'http_headers_help' => 'Otsikot erotellaan rivinvaihdoin, ja nimi ja arvo erotellaan kaksoispisteellä. Esimerkki: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Kuvake',
 		'information' => 'Tiedot',
 		'keep_min' => 'Säilytettävien artikkeleiden vähimmäismäärä',
 		'kind' => array(
@@ -87,7 +93,7 @@ return array(
 				'_' => 'HTML + XPath + JSON-pistemerkintä (JSON HTML:ssä)',
 				'xpath' => array(
 					'_' => 'XPath (JSON HTML:ssä)',
-					'help' => 'Esimerkki: <code>//script[@type="application/json"]</code>',
+					'help' => 'Esimerkki: <code>normalize-space(//script[@type="application/json"])</code> (yksittäinen JSON)<br />tai: <code>//script[@type="application/ld+json"]</code> (yksi JSON-objekti artikkelia kohti)',
 				),
 			),
 			'html_xpath' => array(
@@ -201,15 +207,18 @@ return array(
 		'no_selected' => 'Syötettä ei ole valittu.',
 		'number_entries' => '%d artikkelia',
 		'open_feed' => 'Avaa syöte %s',
+		'path_entries_conditions' => 'Sisällön noutamisen ehdot',
 		'priority' => array(
 			'_' => 'Näkyvyys',
-			'archived' => 'Älä näytä (arkistoitu)',
 			'category' => 'Näytä luokassaan',
+			'feed' => 'Näytä syötteessään',
+			'hidden' => 'Älä näytä',
 			'important' => 'Näytä tärkeissä syötteissä',
 			'main_stream' => 'Näytä pääsyötevirrassa',
 		),
 		'proxy' => 'Nouda syöte käyttämällä välityspalvelinta',
 		'proxy_help' => 'Valitse protokolla (esimerkki: SOCKS5) ja kirjoita välityspalvelimen osoite (esimerkki: <kbd>127.0.0.1:1080</kbd> tai <kbd>käyttäjätunnus:salasana@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Palauta oletuskuvakkeeksi',
 		'selector_preview' => array(
 			'show_raw' => 'Näytä lähdekoodi',
 			'show_rendered' => 'Näytä sisältö',
@@ -234,9 +243,15 @@ return array(
 			'help' => 'Olennainen virheellisille syötteille.<br />⚠️ Käytännön muuttaminen luo kaksoiskappaleita.',
 			'id' => 'Perustunnus (oletus)',
 			'link' => 'Linkki',
+			'sha1:content' => 'Sisältö',
+			'sha1:content_published' => 'Sisältö + päiväys',
 			'sha1:link_published' => 'Linkki + päiväys',
 			'sha1:link_published_title' => 'Linkki + päiväys + otsikko',
 			'sha1:link_published_title_content' => 'Linkki + päiväys + otsikko + sisältö',
+			'sha1:published' => 'Päiväys',
+			'sha1:title' => 'Otsikko',
+			'sha1:title_published' => 'Otsikko + päiväys',
+			'sha1:title_published_content' => 'Otsikko + päiväys + sisältö',
 		),
 		'url' => 'Syötteen URL-osoite',
 		'useragent' => 'Määritä syötteen noutamiseen käytettävä käyttäjäagentti',
@@ -268,6 +283,7 @@ return array(
 			'idle' => 'Hiljentyneet syötteet',
 			'main' => 'Tilastot',
 			'repartition' => 'Artikkelien uudelleenjaottelu',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Tilausten hallinta',
 		'subscription_tools' => 'Tilaustyökalut',
@@ -285,9 +301,9 @@ return array(
 		'add_dynamic_opml' => 'Lisää dynaaminen OPML',
 		'add_feed' => 'Lisää syöte',
 		'add_label' => 'Lisää tunniste',
+		'add_opml_category' => 'OPML-luokan nimi',
 		'delete_label' => 'Poista tunniste',
 		'feed_management' => 'RSS-syötteiden hallinta',
-		'rename_label' => 'Nimeä tunniste uudelleen',
 		'subscription_tools' => 'Tilaustyökalut',
 	),
 );

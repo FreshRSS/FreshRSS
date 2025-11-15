@@ -2,9 +2,19 @@
 	declare(strict_types=1);
 ?>
 <nav class="nav nav-list aside" id="aside_feed">
+	<form id="post-csrf" method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+	</form>
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
 	<ul>
+		<li class="item nav-section">
+			<ul>
+				<li class="item">
+					<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
+				</li>
+			</ul>
+		</li>
 		<li class="item nav-section">
 			<div class="item nav-header"><?= _t('gen.menu.account') ?>: <?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?></div>
 			<ul>
@@ -12,9 +22,8 @@
 					<a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a>
 				</li>
 				<li class="item">
-					<a class="signout" href="<?= FreshRSS_auth_Controller::getLogoutUrl() ?>">
-						<?php
-						echo _t('gen.auth.logout'); ?> <?= _i('logout') ?></a>
+					<button class="as-link signout" form="post-csrf" formaction="<?=
+						FreshRSS_auth_Controller::getLogoutUrl() ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></button>
 				</li>
 			</ul>
 		</li>
@@ -43,7 +52,7 @@
 				<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
 					<a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a>
 				</li>
-				<li class="item<?= Minz_Request::controllerName() === 'privacy' ? ' active' : '' ?>">
+				<li class="item<?= Minz_Request::actionName() === 'privacy' ? ' active' : '' ?>">
 					<a href="<?= _url('configure', 'privacy') ?>"><?= _t('gen.menu.privacy') ?></a>
 				</li>
 				<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
@@ -51,7 +60,7 @@
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
 				<?php } ?>
-				<?= Minz_ExtensionManager::callHookString('menu_configuration_entry') ?>
+				<?= Minz_ExtensionManager::callHookString(Minz_HookType::MenuConfigurationEntry) ?>
 			</ul>
 		</li>
 
@@ -79,7 +88,7 @@
 				<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
-				<?= Minz_ExtensionManager::callHookString('menu_admin_entry') ?>
+				<?= Minz_ExtensionManager::callHookString(Minz_HookType::MenuAdminEntry) ?>
 			</ul>
 		</li>
 		<?php } ?>

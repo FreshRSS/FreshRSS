@@ -60,13 +60,15 @@
 
 		<div class="item"></div>
 
+		<form id="post-csrf" method="post">
+			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		</form>
+
 		<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
 			<div class="item configure">
 			<?php if (FreshRSS_Auth::hasAccess()): ?>
-				<a class="signout" href="<?= Minz_Url::display(['c' => 'auth', 'a' => 'logout'], 'html', 'root') ?>">
-					<?= _i('logout') ?><?= _t('gen.auth.logout') ?>
-					(<?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>)
-				</a>
+				<button class="as-link signout" form="post-csrf" formaction="<?=
+					_url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></button>
 			<?php else: ?>
 				<a class="signin" href="<?= Minz_Url::display(['c' => 'auth', 'a' => 'login'], 'html', 'root') ?>">
 					<?= _i('login') ?><?= _t('gen.auth.login') ?>

@@ -1,22 +1,22 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Разрешить анонимное чтение статей пользователя по умолчанию (%s)',
 		'allow_anonymous_refresh' => 'Разрешить анонимное обновление статей',
-		'api_enabled' => 'Позволить <abbr>API</abbr> доступ <small>(необходимо для мобильных приложений)</small>',
+		'api_enabled' => 'Позволить <abbr>API</abbr> доступ <small>(необходимо для мобильных приложений and sharing user queries)</small>',
 		'form' => 'Веб-форма (традиционный, необходим JavaScript)',
-		'http' => 'HTTP (для опытных пользователей с HTTPS)',
+		'http' => 'HTTP (продвинутый: управляется веб-сервером, OIDC, SSO…)',
 		'none' => 'Без аутентификации (небезопасно)',
 		'title' => 'Аутентификации',
 		'token' => 'Главный токен аутентификации',
@@ -116,8 +116,9 @@ return array(
 		'description' => 'Описание',
 		'disabled' => 'Отключены',
 		'empty_list' => 'Нет установленных расширений',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Проверьте логи, чтобы определить причину пустого списка расширений.',
 		'enabled' => 'Включены',
+		'is_compatible' => 'Совместимо',
 		'latest' => 'Установлено',
 		'name' => 'Название',
 		'no_configure_view' => 'Это расширение не требует настройки.',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Статистика',
 		'all_feeds' => 'Все подписки',
 		'category' => 'Категория',
+		'date_published' => 'Дата публикации',
+		'date_received' => 'Дата получения',
 		'entry_count' => 'Количество статей',
 		'entry_per_category' => 'Статей в категории',
 		'entry_per_day' => 'Статей за день (за последние 30 дней)',
@@ -146,16 +149,19 @@ return array(
 		'idle' => 'Неактивные ленты',
 		'main' => 'Основная статистика',
 		'main_stream' => 'Основной поток',
+		'nb_unreads' => 'Количество непрочитанных статей',
 		'no_idle' => 'Нет неактивных лент!',
 		'number_entries' => 'статей: %d',
+		'overview' => 'Обзор',
 		'percent_of_total' => '% от всего',
-		'repartition' => 'Распределение статей',
+		'repartition' => 'Распределение статей: %s',
 		'status_favorites' => 'В избранном',
 		'status_read' => 'Прочитано',
 		'status_total' => 'Всего',
 		'status_unread' => 'Не прочитано',
 		'title' => 'Статистика',
 		'top_feed' => '10 лучших лент',
+		'unread_dates' => 'Даты с наибольшим количеством непрочитанных статей',
 	),
 	'system' => array(
 		'_' => 'Системные настройки',

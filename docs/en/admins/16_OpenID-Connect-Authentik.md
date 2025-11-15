@@ -101,8 +101,6 @@ OIDC_CLIENT_CRYPTO_KEY=???
 This is a full example docker-compose file. It uses Traefik reverse proxy, Authentik for OAuth.
 
 ```yaml
-version: "2.4"
-
 # you will need to define these volumes base on your setup
 volumes:
   freshrss-data:

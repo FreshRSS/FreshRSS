@@ -1,5 +1,8 @@
 parameters:
-	level: 9	# https://phpstan.org/user-guide/rule-levels
+	phpVersion:
+		min: 80100	# PHP 8.1
+		max: 80599	# PHP 8.5
+	level: 10	# https://phpstan.org/user-guide/rule-levels
 	fileExtensions:
 		- php
 		- phtml
@@ -11,13 +14,13 @@ parameters:
 			- lib/phpgt/*
 			- lib/phpmailer/*
 			- lib/simplepie/*
-			- vendor/*
 		analyseAndScan:
 			- .git/*?
 			- extensions/node_modules?
 			- extensions/symbolic?
 			- extensions/vendor?
 			- node_modules/*?
+			- vendor/*
 	bootstrapFiles:
 		- cli/_cli.php
 		- lib/favicons.php
@@ -33,26 +36,21 @@ parameters:
 		- STDOUT
 		- TMP_PATH
 		- USERS_PATH
+	checkBenevolentUnionTypes: true
+	checkImplicitMixed: true
 	checkMissingOverrideMethodAttribute: true
-	reportMaybesInPropertyPhpDocTypes: false
+	checkTooWideReturnTypesInProtectedAndPublicMethods: true
+	reportAnyTypeWideningInVarTag: true
+	reportPossiblyNonexistentConstantArrayOffset: true
 	treatPhpDocTypesAsCertain: false
 	strictRules:
-		allRules: false
-		booleansInConditions: true
-		closureUsesThis: true
-		disallowedConstructs: false
+		disallowedEmpty: false
 		disallowedLooseComparison: false
-		matchingInheritedMethodNames: true
-		noVariableVariables: true
-		numericOperandsInArithmeticOperators: true
-		overwriteVariablesWithLoop: true
-		requireParentConstructorCall: true
-		strictCalls: true
-		switchConditionsMatchingType: true
-		uselessCast: true
+		disallowedShortTernary: false
+		strictArrayFilter: true
 	exceptions:
 		check:
-			missingCheckedExceptionInThrows: false	# TODO pass
+			missingCheckedExceptionInThrows: false	# TODO pass maybe
 			tooWideThrowType: true
 		implicitThrows: false
 		checkedExceptionClasses:

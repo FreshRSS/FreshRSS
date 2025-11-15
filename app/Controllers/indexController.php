@@ -16,10 +16,56 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public function indexAction(): void {
 		$preferred_output = FreshRSS_Context::userConf()->view_mode;
+		$viewMode = FreshRSS_ViewMode::getAllModes()[$preferred_output] ?? null;
+
+		// Fallback to 'normal' if the preferred mode was not found
+		if ($viewMode === null) {
+			Minz_Request::setBadNotification(_t('feedback.extensions.invalid_view_mode', $preferred_output));
+			$viewMode = FreshRSS_ViewMode::getAllModes()['normal'];
+		}
+
 		Minz_Request::forward([
-			'c' => 'index',
-			'a' => $preferred_output,
+			'c' => $viewMode->controller(),
+			'a' => $viewMode->action(),
 		]);
+	}
+
+	/**
+	 * @return '.future'|'.today'|'.yesterday'|''
+	 */
+	private static function dayRelative(int $timestamp, bool $mayBeFuture): string {
+		static $today = null;
+		if (!is_int($today)) {
+			$today = strtotime('today') ?: 0;
+		}
+		if ($today <= 0) {
+			return '';
+		} elseif ($mayBeFuture && ($timestamp >= $today + 86400)) {
+			return '.future';
+		} elseif ($timestamp >= $today) {
+			return '.today';
+		} elseif ($timestamp >= $today - 86400) {
+			return '.yesterday';
+		}
+		return '';
+	}
+
+	/**
+	 * Content for displaying a transition between entries when sorting by specific criteria.
+	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
+	 */
+	public static function transition(FreshRSS_Entry $entry, string $sort): string {
+		return match ($sort) {
+			'id' => _t('index.feed.received' . self::dayRelative($entry->dateAdded(raw: true), mayBeFuture: false)) .
+				' — ' . timestamptodate($entry->dateAdded(raw: true), hour: false),
+			'date' => _t('index.feed.published' . self::dayRelative($entry->date(raw: true), mayBeFuture: true)) .
+				' — ' . timestamptodate($entry->date(raw: true), hour: false),
+			'lastUserModified' => _t('index.feed.userModified' . self::dayRelative($entry->lastUserModified(), mayBeFuture: false)) .
+				' — ' . timestamptodate($entry->lastUserModified(), hour: false),
+			'c.name' => $entry->feed()?->category()?->name() ?? '',
+			'f.name' => $entry->feed()?->name() ?? '',
+			default => '',
+		};
 	}
 
 	/**
@@ -49,7 +95,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$this->_csp([
 			'default-src' => "'self'",
 			'frame-src' => '*',
-			'img-src' => '* data:',
+			'img-src' => '* data: blob:',
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'media-src' => '*',
 		]);
 
@@ -62,7 +109,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 		FreshRSS_View::prependTitle($title . ' · ');
 
-		FreshRSS_Context::$id_max = time() . '000000';
+		if (FreshRSS_Context::$id_max === '0') {
+			FreshRSS_Context::$id_max = uTimeString();
+		}
 
 		$this->view->callbackBeforeFeeds = static function (FreshRSS_View $view) {
 			$view->tags = FreshRSS_Context::labels(true);
@@ -84,10 +133,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		};
 
 		$this->view->callbackBeforePagination = static function (?FreshRSS_View $view, int $nbEntries, FreshRSS_Entry $lastEntry) {
-			if ($nbEntries >= FreshRSS_Context::$number) {
+			if ($nbEntries > FreshRSS_Context::$number) {
 				//We have enough entries: we discard the last one to use it for the next articles' page
 				ob_clean();
-				FreshRSS_Context::$next_id = $lastEntry->id();
+				FreshRSS_Context::$continuation_id = $lastEntry->id();
+			} else {
+				FreshRSS_Context::$continuation_id = '0';
 			}
 			ob_end_flush();
 		};
@@ -117,7 +168,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		try {
 			FreshRSS_Context::updateUsingRequest(true);
-		} catch (FreshRSS_Context_Exception $e) {
+		} catch (FreshRSS_Context_Exception) {
 			Minz_Error::error(404);
 		}
 
@@ -133,7 +184,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$this->_csp([
 			'default-src' => "'self'",
 			'frame-src' => '*',
-			'img-src' => '* data:',
+			'img-src' => '* data: blob:',
+			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'media-src' => '*',
 		]);
 	}
@@ -170,8 +222,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->html_url = Minz_Url::display('', 'html', true);
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
+
+		$queryString = $_SERVER['QUERY_STRING'] ?? '';
 		$this->view->rss_url = htmlspecialchars(
-			PUBLIC_TO_INDEX_PATH . '/' . (empty($_SERVER['QUERY_STRING']) ? '' : '?' . $_SERVER['QUERY_STRING']), ENT_COMPAT, 'UTF-8');
+			PUBLIC_TO_INDEX_PATH . '/' . ($queryString === '' || !is_string($queryString) ? '' : '?' . $queryString), ENT_COMPAT, 'UTF-8');
 
 		// No layout for RSS output.
 		$this->view->_layout(null);
@@ -194,7 +248,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		try {
 			FreshRSS_Context::updateUsingRequest(false);
-		} catch (FreshRSS_Context_Exception $e) {
+		} catch (FreshRSS_Context_Exception) {
 			Minz_Error::error(404);
 		}
 
@@ -205,7 +259,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$this->view->excludeMutedFeeds = $type !== 'f';	// Exclude muted feeds except when we focus on a feed
 
 		switch ($type) {
-			case 'a':
+			case 'a':	// All PRIORITY_MAIN_STREAM
+			case 'A':	// All except PRIORITY_HIDDEN
+			case 'Z':	// All including PRIORITY_HIDDEN
 				$this->view->categories = FreshRSS_Context::categories();
 				break;
 			case 'c':
@@ -214,7 +270,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					Minz_Error::error(404);
 					return;
 				}
-				$this->view->categories = [ $cat->id() => $cat ];
+				$this->view->categories = [$cat->id() => $cat];
 				break;
 			case 'f':
 				// We most likely already have the feed object in cache
@@ -227,7 +283,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 						return;
 					}
 				}
-				$this->view->feeds = [ $feed->id() => $feed ];
+				$this->view->feeds = [$feed->id() => $feed];
 				break;
 			case 's':
 			case 't':
@@ -260,16 +316,48 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			$id = 0;
 		}
 
-		$date_min = 0;
+		$id_min = '0';
 		if (FreshRSS_Context::$sinceHours > 0) {
-			$date_min = time() - (FreshRSS_Context::$sinceHours * 3600);
+			$id_min = (time() - (FreshRSS_Context::$sinceHours * 3600)) . '000000';
+		}
+
+		$continuation_values = [];
+		if (FreshRSS_Context::$continuation_id !== '0') {
+			if (in_array(FreshRSS_Context::$sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified', 'length'], true)) {
+				$pagingEntry = $entryDAO->searchById(FreshRSS_Context::$continuation_id);
+
+				if ($pagingEntry !== null && in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
+					// We most likely already have the feed object in cache
+					$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $pagingEntry->feedId());
+					if ($feed !== null) {
+						$pagingEntry->_feed($feed);
+					}
+				}
+
+				$continuation_values[] = $pagingEntry === null ? 0 : match (FreshRSS_Context::$sort) {
+					'c.name' => $pagingEntry->feed()?->categoryId() === FreshRSS_CategoryDAO::DEFAULTCATEGORYID ?
+						FreshRSS_CategoryDAO::DEFAULT_CATEGORY_NAME : $pagingEntry->feed()?->category()?->name() ?? '',
+					'date' => $pagingEntry->date(raw: true),
+					'f.name' => $pagingEntry->feed()?->name() ?? '',
+					'link' => $pagingEntry->link(raw: true),
+					'title' => $pagingEntry->title(),
+					'lastUserModified' => $pagingEntry->lastUserModified(),
+					'length' => $pagingEntry->sqlContentLength() ?? 0,
+				};
+				if ($pagingEntry !== null && FreshRSS_Context::$sort === 'c.name') {
+					// Secondary sort criterion
+					$continuation_values[] = $pagingEntry->feed()?->name() ?? '';
+				}
+			} elseif (FreshRSS_Context::$sort === 'rand') {
+				FreshRSS_Context::$continuation_id = '0';
+			}
 		}
 
 		foreach ($entryDAO->listWhere(
-					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$order,
-					$postsPerPage ?? FreshRSS_Context::$number, FreshRSS_Context::$offset, FreshRSS_Context::$first_id,
-					FreshRSS_Context::$search, $date_min
-				) as $entry) {
+					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
+					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
+					continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
+					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset) as $entry) {
 			yield $entry;
 		}
 	}
@@ -295,7 +383,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->terms_of_service = $terms_of_service;
-		$this->view->can_register = !max_registrations_reached();
+		$this->view->can_register = !FreshRSS_user_Controller::max_registrations_reached();
 		FreshRSS_View::prependTitle(_t('index.tos.title') . ' · ');
 	}
 

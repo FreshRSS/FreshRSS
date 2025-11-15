@@ -9,7 +9,7 @@ final class FreshRSS_LogDAO {
 		return USERS_PATH . '/' . (Minz_User::name() ?? Minz_User::INTERNAL_USER) . '/' . $logFileName;
 	}
 
-	/** @return array<FreshRSS_Log> */
+	/** @return list<FreshRSS_Log> */
 	public static function lines(?string $logFileName = null): array {
 		$logs = [];
 		$handle = @fopen(self::logPath($logFileName), 'r');

@@ -59,4 +59,4 @@ A commit message should succinctly describe the changes on the first line. For e
 
 If necessary, this can be followed by a blank line and a longer explanation.
 
-For further tips, see [here](https://chris.beams.io/posts/git-commit/).
+For further tips, see [here (chris.beams.io)](https://chris.beams.io/posts/git-commit/).

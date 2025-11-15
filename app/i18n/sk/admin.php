@@ -1,22 +1,22 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Povoliť čítanie článkov prednastaveného používateľa (%s) bez prihlásenia.',
 		'allow_anonymous_refresh' => 'Povoliť obnovenie článkov bez prihlásenia',
-		'api_enabled' => 'Povoliť prístup cez <abbr>API</abbr> <small>(vyžadujú mobilné aplikácie)</small>',
+		'api_enabled' => 'Povoliť prístup cez <abbr>API</abbr> <small>(vyžadujú mobilné aplikácie and sharing user queries)</small>',	// DIRTY
 		'form' => 'Webový formulár (traditičný, vyžaduje JavaScript)',
-		'http' => 'HTTP (pre pokročilých používateľov s HTTPS)',
+		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Žiadny (nebezpečné)',
 		'title' => 'Prihlásenie',
 		'token' => 'Hlavný prihlasovací token',
@@ -118,6 +118,7 @@ return array(
 		'empty_list' => 'Žiadne nainštalované rozšírenia',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Povolené',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Nainštalované',
 		'name' => 'Názov',
 		'no_configure_view' => 'Toto rozšírenie nemá nastavenia.',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Štatistiky',
 		'all_feeds' => 'Všetky kanály',
 		'category' => 'Kategória',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Počet položiek',
 		'entry_per_category' => 'Položiek v kategórii',
 		'entry_per_day' => 'Položiek za deň (posledných 30 dní)',
@@ -146,16 +149,19 @@ return array(
 		'idle' => 'Neaktívne kanály',
 		'main' => 'Hlavné štatistiky',
 		'main_stream' => 'Všetky kanály',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Žiadne neaktívne kanály!',
 		'number_entries' => 'Počet článkov: %d',
+		'overview' => 'Overview',	// TODO
 		'percent_of_total' => 'Z celkového počtu: %',
-		'repartition' => 'Rozdelenie článkov',
+		'repartition' => 'Rozdelenie článkov: %s',
 		'status_favorites' => 'Obľúbené',
 		'status_read' => 'Prečítané',
 		'status_total' => 'Spolu',
 		'status_unread' => 'Neprečítané',
 		'title' => 'Štatistiky',
 		'top_feed' => 'Top 10 kanálov',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Nastavenia systému',

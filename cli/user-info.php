@@ -1,16 +1,16 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
 
 $cliOptions = new class extends CliOptionsParser {
 	/** @var array<int,string> $user */
 	public array $user;
-	public string $header;
-	public string $json;
-	public string $humanReadable;
+	public bool $header;
+	public bool $json;
+	public bool $humanReadable;
 
 	public function __construct() {
 		$this->addOption('user', (new CliOption('user'))->typeOfArrayOfString());
@@ -25,18 +25,17 @@ if (!empty($cliOptions->errors)) {
 	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$users = $cliOptions->user ?? listUsers();
+$users = $cliOptions->user ?? FreshRSS_user_Controller::listUsers();
 
 sort($users);
 
-$formatJson = isset($cliOptions->json);
 $jsonOutput = [];
-if ($formatJson) {
-	unset($cliOptions->header);
-	unset($cliOptions->humanReadable);
+if ($cliOptions->json) {
+	$cliOptions->header = false;
+	$cliOptions->humanReadable = false;
 }
 
-if (isset($cliOptions->header)) {
+if ($cliOptions->header) {
 	printf(
 		DATA_FORMAT,
 		'default',
@@ -69,7 +68,7 @@ foreach ($users as $username) {
 	$nbFavorites = $entryDAO->countUnreadReadFavorites();
 	$feedList = $feedDAO->listFeedsIds();
 
-	$data = array(
+	$data = [
 		'default' => $username === FreshRSS_Context::systemConf()->default_user ? '*' : '',
 		'user' => $username,
 		'admin' => FreshRSS_Context::userConf()->is_admin ? '*' : '',
@@ -84,13 +83,13 @@ foreach ($users as $username) {
 		'tags' => $tagDAO->count(),
 		'lang' => FreshRSS_Context::userConf()->language,
 		'mail_login' => FreshRSS_Context::userConf()->mail_login,
-	);
-	if (isset($cliOptions->humanReadable)) {	//Human format
+	];
+	if ($cliOptions->humanReadable) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);
 		$data['database_size'] = format_bytes($data['database_size']);
 	}
 
-	if ($formatJson) {
+	if ($cliOptions->json) {
 		$data['default'] = !empty($data['default']);
 		$data['admin'] = !empty($data['admin']);
 		$data['enabled'] = !empty($data['enabled']);
@@ -101,7 +100,7 @@ foreach ($users as $username) {
 	}
 }
 
-if ($formatJson) {
+if ($cliOptions->json) {
 	echo json_encode($jsonOutput), "\n";
 }
 

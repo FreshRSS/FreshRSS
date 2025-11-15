@@ -1,5 +1,7 @@
 <?php
 declare(strict_types=1);
+header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; sandbox");
+header('X-Content-Type-Options: nosniff');
 
 /**
  * Fever API for FreshRSS
@@ -14,8 +16,8 @@ declare(strict_types=1);
 
 // ================================================================================================
 // BOOTSTRAP FreshRSS
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 FreshRSS_Context::initSystem();
 
 // check if API is enabled globally
@@ -31,7 +33,7 @@ Minz_Session::init('FreshRSS', true);
 // ================================================================================================
 
 // <Debug>
-$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1_048_576) ?: '';;
+$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1_048_576) ?: '';
 
 function debugInfo(): string {
 	if (function_exists('getallheaders')) {
@@ -39,7 +41,7 @@ function debugInfo(): string {
 	} else {	//nginx	http://php.net/getallheaders#84262
 		$ALL_HEADERS = [];
 		foreach ($_SERVER as $name => $value) {
-			if (substr($name, 0, 5) === 'HTTP_') {
+			if (is_string($name) && str_starts_with($name, 'HTTP_')) {
 				$ALL_HEADERS[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
 			}
 		}
@@ -69,9 +71,9 @@ final class FeverDAO extends Minz_ModelPdo
 	 */
 	private function bindParamArray(string $prefix, array $values, array &$bindArray): string {
 		$str = '';
-		for ($i = 0; $i < count($values); $i++) {
+		foreach ($values as $i => $iValue) {
 			$str .= ':' . $prefix . $i . ',';
-			$bindArray[$prefix . $i] = $values[$i];
+			$bindArray[$prefix . $i] = $iValue;
 		}
 		return rtrim($str, ',');
 	}
@@ -120,6 +122,8 @@ final class FeverDAO extends Minz_ModelPdo
 
 			$entries = [];
 			foreach ($result as $dao) {
+				/** @var array{id?:string,id_feed?:int,guid?:string,title?:string,author?:string,content?:string,link?:string,date?:int|string,lastSeen?:int,
+				 *	hash?:string,is_read?:bool|int,is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,thumbnail?:string,timestamp?:string} $dao */
 				$entries[] = FreshRSS_Entry::fromArray($dao);
 			}
 
@@ -151,7 +155,7 @@ final class FeverAPI
 	private function authenticate(): bool {
 		FreshRSS_Context::clearUserConf();
 		Minz_User::change();
-		$feverKey = empty($_POST['api_key']) ? '' : substr(trim($_POST['api_key']), 0, 128);
+		$feverKey = empty($_POST['api_key']) || !is_string($_POST['api_key']) ? '' : substr(trim($_POST['api_key']), 0, 128);
 		if (ctype_xdigit($feverKey)) {
 			$feverKey = strtolower($feverKey);
 			$username = @file_get_contents(DATA_PATH . '/fever/.key-' . sha1(FreshRSS_Context::systemConf()->salt) . '-' . $feverKey . '.txt', false);
@@ -223,9 +227,9 @@ final class FeverAPI
 			$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 		}
 
-		if (isset($_REQUEST['mark'], $_REQUEST['as'], $_REQUEST['id']) && ctype_digit($_REQUEST['id'])) {
-			$id = (string)$_REQUEST['id'];
-			$before = (int)($_REQUEST['before'] ?? '0');
+		if (is_string($_REQUEST['mark'] ?? null) && is_string($_REQUEST['as'] ?? null) && is_string($_REQUEST['id'] ?? null) && ctype_digit($_REQUEST['id'])) {
+			$id = $_REQUEST['id'];
+			$before = is_numeric($_REQUEST['before'] ?? null) ? (int)$_REQUEST['before'] : 0;
 			switch (strtolower($_REQUEST['mark'])) {
 				case 'item':
 					switch ($_REQUEST['as']) {
@@ -306,13 +310,16 @@ final class FeverAPI
 		return $lastUpdate;
 	}
 
-	/** @return array<array<string,string|int>> */
+	/** @return list<array{id:int,favicon_id:int,title:string,url:string,site_url:string,is_spark:int,last_updated_on_time:int}> */
 	private function getFeeds(): array {
 		$feeds = [];
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		/** @var FreshRSS_Feed $feed */
 		foreach ($myFeeds as $feed) {
+			if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+				continue;
+			}
 			$feeds[] = [
 				'id' => $feed->id(),
 				'favicon_id' => $feed->id(),
@@ -328,12 +335,12 @@ final class FeverAPI
 		return $feeds;
 	}
 
-	/** @return array<array<string,int|string>> */
+	/** @return list<array{id:int,title:string}> */
 	private function getGroups(): array {
 		$groups = [];
 
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
-		$categories = $categoryDAO->listCategories(false, false) ?: [];
+		$categories = $categoryDAO->listCategories(prePopulateFeeds: false, details: false);
 
 		foreach ($categories as $category) {
 			$groups[] = [
@@ -345,20 +352,23 @@ final class FeverAPI
 		return $groups;
 	}
 
-	/** @return array<array<string,int|string>> */
+	/** @return list<array{id:int,data:string}> */
 	private function getFavicons(): array {
 		if (!FreshRSS_Context::hasSystemConf()) {
 			return [];
 		}
 
-		require_once(LIB_PATH . '/favicons.php');
+		require_once LIB_PATH . '/favicons.php';
 
 		$favicons = [];
 		$salt = FreshRSS_Context::systemConf()->salt;
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		foreach ($myFeeds as $feed) {
-			$id = hash('crc32b', $salt . $feed->url());
+			if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+				continue;
+			}
+			$id = $feed->hashFavicon();
 			$filename = DATA_PATH . '/favicons/' . $id . '.ico';
 			if (!file_exists($filename)) {
 				continue;
@@ -378,7 +388,7 @@ final class FeverAPI
 	}
 
 	/**
-	 * @return array<array<string,int|string>>
+	 * @return list<array<string,int|string>>
 	 */
 	private function getFeedsGroup(): array {
 		$groups = [];
@@ -386,6 +396,9 @@ final class FeverAPI
 		$myFeeds = $this->feedDAO->listFeeds();
 
 		foreach ($myFeeds as $feed) {
+			if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+				continue;
+			}
 			$ids[$feed->categoryId()][] = $feed->id();
 		}
 
@@ -401,7 +414,7 @@ final class FeverAPI
 
 	/**
 	 * AFAIK there is no 'hot links' alternative in FreshRSS
-	 * @return array<string>
+	 * @return list<string>
 	 */
 	private function getLinks(): array {
 		return [];
@@ -415,12 +428,12 @@ final class FeverAPI
 	}
 
 	private function getUnreadItemIds(): string {
-		$entries = $this->entryDAO->listIdsWhere('a', 0, FreshRSS_Entry::STATE_NOT_READ, 'ASC', 0) ?? [];
+		$entries = $this->entryDAO->listIdsWhere('a', 0, FreshRSS_Entry::STATE_NOT_READ, order: 'ASC', limit: 0) ?? [];
 		return $this->entriesToIdList($entries);
 	}
 
 	private function getSavedItemIds(): string {
-		$entries = $this->entryDAO->listIdsWhere('a', 0, FreshRSS_Entry::STATE_FAVORITE, 'ASC', 0) ?? [];
+		$entries = $this->entryDAO->listIdsWhere('a', 0, FreshRSS_Entry::STATE_FAVORITE, order: 'ASC', limit: 0) ?? [];
 		return $this->entriesToIdList($entries);
 	}
 
@@ -452,46 +465,45 @@ final class FeverAPI
 		return $this->entryDAO->markFavorite($id, false);
 	}
 
-	/** @return array<array<string,string|int>> */
+	/** @return list<array<string,string|int>> */
 	private function getItems(): array {
 		$feed_ids = [];
 		$entry_ids = [];
 		$max_id = '';
 		$since_id = '';
 
-		if (isset($_REQUEST['feed_ids']) || isset($_REQUEST['group_ids'])) {
-			if (isset($_REQUEST['feed_ids'])) {
-				$feed_ids = explode(',', $_REQUEST['feed_ids']);
-			}
-
-			if (isset($_REQUEST['group_ids'])) {
-				$categoryDAO = FreshRSS_Factory::createCategoryDao();
-				$group_ids = explode(',', $_REQUEST['group_ids']);
-				$feeds = [];
-				foreach ($group_ids as $id) {
-					$category = $categoryDAO->searchById((int)$id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
-					if ($category == null) {
+		if (is_string($_REQUEST['feed_ids'] ?? null)) {
+			$feed_ids = explode(',', $_REQUEST['feed_ids']);
+		} elseif (is_string($_REQUEST['group_ids'] ?? null)) {
+			$categoryDAO = FreshRSS_Factory::createCategoryDao();
+			$group_ids = explode(',', $_REQUEST['group_ids']);
+			$feeds = [];
+			foreach ($group_ids as $id) {
+				$category = $categoryDAO->searchById((int)$id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
+				if ($category === null) {
+					continue;
+				}
+				foreach ($category->feeds() as $feed) {
+					if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
 						continue;
 					}
-					foreach ($category->feeds() as $feed) {
-						$feeds[] = $feed->id();
-					}
+					$feeds[] = $feed->id();
 				}
-				$feed_ids = array_unique($feeds);
 			}
+			$feed_ids = array_unique($feeds);
 		}
 
-		if (isset($_REQUEST['max_id'])) {
+		if (is_string($_REQUEST['max_id'] ?? null)) {
 			// use the max_id argument to request the previous $item_limit items
-			$max_id = '' . $_REQUEST['max_id'];
+			$max_id = $_REQUEST['max_id'];
 			if (!ctype_digit($max_id)) {
 				$max_id = '';
 			}
-		} elseif (isset($_REQUEST['with_ids'])) {
+		} elseif (is_string($_REQUEST['with_ids'] ?? null)) {
 			$entry_ids = explode(',', $_REQUEST['with_ids']);
-		} elseif (isset($_REQUEST['since_id'])) {
+		} elseif (is_string($_REQUEST['since_id'] ?? null)) {
 			// use the since_id argument to request the next $item_limit items
-			$since_id = '' . $_REQUEST['since_id'];
+			$since_id = $_REQUEST['since_id'];
 			if (!ctype_digit($since_id)) {
 				$since_id = '';
 			}
@@ -506,9 +518,9 @@ final class FeverAPI
 		Minz_ExtensionManager::init();
 
 		foreach ($entries as $item) {
-			/** @var FreshRSS_Entry $entry */
-			$entry = Minz_ExtensionManager::callHook('entry_before_display', $item);
-			if ($entry == null) {
+			/** @var FreshRSS_Entry|null $entry */
+			$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $item);
+			if ($entry === null) {
 				continue;
 			}
 			$items[] = [

@@ -9,6 +9,10 @@ class FreshRSS_Entry extends Minz_Model {
 	public const STATE_ALL = 3;
 	public const STATE_FAVORITE = 4;
 	public const STATE_NOT_FAVORITE = 8;
+	public const STATE_ANDS = self::STATE_READ | self::STATE_NOT_READ | self::STATE_FAVORITE | self::STATE_NOT_FAVORITE;
+	public const STATE_OR_NOT_READ = 32;
+	public const STATE_OR_FAVORITE = 64;
+	public const STATE_ORS = self::STATE_OR_NOT_READ | self::STATE_OR_FAVORITE;
 
 	/** @var numeric-string */
 	private string $id = '0';
@@ -20,9 +24,11 @@ class FreshRSS_Entry extends Minz_Model {
 	private string $link;
 	private int $date;
 	private int $lastSeen = 0;
+	private int $lastUserModified = 0;
 	/** In microseconds */
 	private string $date_added = '0';
 	private string $hash = '';
+	private ?int $sqlContentLength = null;
 	private ?bool $is_read;
 	private ?bool $is_favorite;
 	private bool $is_updated = false;
@@ -33,6 +39,7 @@ class FreshRSS_Entry extends Minz_Model {
 
 	/**
 	 * @param string|array<string> $tags
+	 * @param int|numeric-string $pubdate
 	 */
 	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
 			string $link = '', int|string $pubdate = 0, bool|int|null $is_read = false, bool|int|null $is_favorite = false, $tags = '') {
@@ -48,17 +55,23 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_guid($guid);
 	}
 
-	/** @param array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
-	 *		'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:?string,'thumbnail'?:string,'timestamp'?:string} $dao */
+	/** @param array{id?:string,id_feed?:int,guid?:string,title?:string,author?:string,content?:string,link?:string,
+	 * 		date?:int|string,lastSeen?:int,lastUserModified?:int,
+	 * 		hash?:string,is_read?:bool|int,is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,thumbnail?:string,timestamp?:string,
+	 * 		content_length?:int} $dao */
 	public static function fromArray(array $dao): FreshRSS_Entry {
-		FreshRSS_DatabaseDAO::pdoInt($dao, ['id_feed', 'date', 'lastSeen', 'is_read', 'is_favorite']);
-
-		if (empty($dao['content'])) {
+		if (empty($dao['content']) || !is_string($dao['content'])) {
 			$dao['content'] = '';
 		}
 
+		if (!is_numeric($dao['date'] ?? null)) {
+			$dao['date'] = 0;
+		}
+
 		$dao['attributes'] = empty($dao['attributes']) ? [] : json_decode($dao['attributes'], true);
-		if (!is_array($dao['attributes'])) {
+		if (is_array($dao['attributes'])) {
+			$dao['attributes'] = array_filter($dao['attributes'], 'is_string', ARRAY_FILTER_USE_KEY);
+		} else {
 			$dao['attributes'] = [];
 		}
 
@@ -79,7 +92,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$dao['is_favorite'] ?? false,
 			$dao['tags'] ?? ''
 		);
-		if (!empty($dao['id'])) {
+		if (!empty($dao['id']) && is_numeric($dao['id'])) {
 			$entry->_id($dao['id']);
 		}
 		if (!empty($dao['timestamp'])) {
@@ -88,18 +101,27 @@ class FreshRSS_Entry extends Minz_Model {
 		if (isset($dao['lastSeen'])) {
 			$entry->_lastSeen($dao['lastSeen']);
 		}
+		if (isset($dao['lastUserModified'])) {
+			$entry->_lastUserModified($dao['lastUserModified']);
+		}
 		if (!empty($dao['attributes'])) {
 			$entry->_attributes($dao['attributes']);
 		}
 		if (!empty($dao['hash'])) {
 			$entry->_hash($dao['hash']);
 		}
+		if (isset($dao['content_length']) && is_numeric($dao['content_length'])) {
+			$entry->_sqlContentLength((int)$dao['content_length']);
+		}
 		return $entry;
 	}
 
 	/**
-	 * @param Traversable<array{'id'?:string,'id_feed'?:int,'guid'?:string,'title'?:string,'author'?:string,'content'?:string,'link'?:string,'date'?:int|string,'lastSeen'?:int,
-	 *	'hash'?:string,'is_read'?:bool|int,'is_favorite'?:bool|int,'tags'?:string|array<string>,'attributes'?:?string,'thumbnail'?:string,'timestamp'?:string}> $daos
+	 * @param Traversable<array{id?:string,id_feed?:int,guid?:string,
+	 * title?:string,author?:string,content?:string,link?:string,
+	 * date?:int|string,lastSeen?:int,lastUserModified?:int,hash?:string,is_read?:bool|int,
+	 * is_favorite?:bool|int,tags?:string|array<string>,attributes?:?string,
+	 * thumbnail?:string,timestamp?:string}> $daos
 	 * @return Traversable<FreshRSS_Entry>
 	 */
 	public static function fromTraversable(Traversable $daos): Traversable {
@@ -161,14 +183,14 @@ class FreshRSS_Entry extends Minz_Model {
 		return preg_match('/(?P<delim>[\'"])' . preg_quote($link, '/') . '(?P=delim)/', $html) == 1;
 	}
 
-	/** @param array{'url'?:string,'length'?:int,'medium'?:string,'type'?:string} $enclosure */
+	/** @param array{url?:string,length?:int,medium?:string,type?:string} $enclosure */
 	private static function enclosureIsImage(array $enclosure): bool {
 		$elink = $enclosure['url'] ?? '';
 		$length = $enclosure['length'] ?? 0;
 		$medium = $enclosure['medium'] ?? '';
 		$mime = $enclosure['type'] ?? '';
 
-		return ($elink != '' && $medium === 'image') || strpos($mime, 'image') === 0 ||
+		return ($elink != '' && $medium === 'image') || str_starts_with($mime, 'image') ||
 			($mime == '' && $length == 0 && preg_match('/[.](avif|gif|jpe?g|png|svg|webp)([?#]|$)/i', $elink));
 	}
 
@@ -223,33 +245,35 @@ HTML;
 				continue;
 			}
 			$credits = $enclosure['credit'] ?? '';
-			$description = nl2br($enclosure['description'] ?? '', true);
-			$length = $enclosure['length'] ?? 0;
-			$medium = $enclosure['medium'] ?? '';
-			$mime = $enclosure['type'] ?? '';
+			$description = is_string($enclosure['description'] ?? null) ? nl2br($enclosure['description'], true) : '';
+			$length = is_numeric($enclosure['length'] ?? null) ? (int)$enclosure['length'] : 0;
+			$medium = is_string($enclosure['medium'] ?? null) ? $enclosure['medium'] : '';
+			$mime = is_string($enclosure['type'] ?? null) ? $enclosure['type'] : '';
 			$thumbnails = $enclosure['thumbnails'] ?? null;
 			if (!is_array($thumbnails)) {
 				$thumbnails = [];
 			}
-			$etitle = $enclosure['title'] ?? '';
+			$etitle = is_string($enclosure['title'] ?? null) ? $enclosure['title'] : '';
 
 			$content .= "\n";
 			$content .= '<figure class="enclosure">';
 
 			foreach ($thumbnails as $thumbnail) {
-				$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
+				if (is_string($thumbnail)) {
+					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
+				}
 			}
 
-			if (self::enclosureIsImage($enclosure)) {
+			if (self::enclosureIsImage(['url' => $elink, 'length' => $length, 'medium' => $medium, 'type' => $mime])) {
 				$content .= '<p class="enclosure-content"><img src="' . $elink . '" alt="" title="' . $etitle . '" /></p>';
-			} elseif ($medium === 'audio' || strpos($mime, 'audio') === 0) {
+			} elseif ($medium === 'audio' || str_starts_with($mime, 'audio')) {
 				$content .= '<p class="enclosure-content"><audio preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . (int)$length)
+					. ($length == null ? '' : '" data-length="' . $length)
 					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 					. '" controls="controls" title="' . $etitle . '"></audio> <a download="" href="' . $elink . '">💾</a></p>';
-			} elseif ($medium === 'video' || strpos($mime, 'video') === 0) {
+			} elseif ($medium === 'video' || str_starts_with($mime, 'video')) {
 				$content .= '<p class="enclosure-content"><video preload="none" src="' . $elink
-					. ($length == null ? '' : '" data-length="' . (int)$length)
+					. ($length == null ? '' : '" data-length="' . $length)
 					. ($mime == '' ? '' : '" data-type="' . htmlspecialchars($mime, ENT_COMPAT, 'UTF-8'))
 					. '" controls="controls" title="' . $etitle . '"></video> <a download="" href="' . $elink . '">💾</a></p>';
 			} else {	//e.g. application, text, unknown
@@ -264,7 +288,9 @@ HTML;
 					$credits = [$credits];
 				}
 				foreach ($credits as $credit) {
-					$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+					if (is_string($credit)) {
+						$content .= '<p class="enclosure-credits">© ' . $credit . '</p>';
+					}
 				}
 			}
 			if ($description != '') {
@@ -279,13 +305,13 @@ HTML;
 	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string|array<string>,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
 	public function enclosures(bool $searchBodyImages = false): Traversable {
 		$attributeEnclosures = $this->attributeArray('enclosures');
-		if (is_iterable($attributeEnclosures)) {
+		if (is_array($attributeEnclosures)) {
 			// FreshRSS 1.20.1+: The enclosures are saved as attributes
-			/** @var iterable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string|array<string>,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> $attributeEnclosures */
+			/** @var list<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string|array<string>,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> $attributeEnclosures */
 			yield from $attributeEnclosures;
 		}
 		try {
-			$searchEnclosures = !is_iterable($attributeEnclosures) && (strpos($this->content, '<p class="enclosure-content') !== false);
+			$searchEnclosures = !is_iterable($attributeEnclosures) && (str_contains($this->content, '<p class="enclosure-content'));
 			$searchBodyImages &= (stripos($this->content, '<img') !== false);
 			$xpath = null;
 			if ($searchEnclosures || $searchBodyImages) {
@@ -350,7 +376,7 @@ HTML;
 	public function thumbnail(bool $searchEnclosures = true): ?array {
 		$thumbnail = $this->attributeArray('thumbnail') ?? [];
 		// First, use the provided thumbnail, if any
-		if (!empty($thumbnail['url'])) {
+		if (is_string($thumbnail['url'] ?? null)) {
 			/** @var array{'url':string,'height'?:int,'width'?:int,'time'?:string} $thumbnail */
 			return $thumbnail;
 		}
@@ -376,10 +402,21 @@ HTML;
 		return null;
 	}
 
-	/** @return string HTML-encoded link of the entry */
-	public function link(): string {
+	/**
+	 * @param bool $raw Set to true to return the raw link,
+	 *  false (default) to attempt a fallback to the GUID if the link is empty.
+	 * @return string HTML-encoded link of the entry
+	 */
+	public function link(bool $raw = false): string {
+		if ($this->link === '' && !$raw) {
+			// Use the GUID as a fallback if it looks like a URL
+			if (filter_var($this->guid, FILTER_VALIDATE_URL, FILTER_NULL_ON_FAILURE) !== null) {
+				return $this->guid;
+			}
+		}
 		return $this->link;
 	}
+
 	/**
 	 * @phpstan-return ($raw is false ? string : int)
 	 */
@@ -395,6 +432,10 @@ HTML;
 
 	public function lastSeen(): int {
 		return $this->lastSeen;
+	}
+
+	public function lastUserModified(): int {
+		return $this->lastUserModified;
 	}
 
 	/**
@@ -457,10 +498,15 @@ HTML;
 
 	public function hash(): string {
 		if ($this->hash === '') {
+			$attributes = empty($this->attributeArray('enclosures')) ? '' : json_encode($this->attributes(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 			//Do not include $this->date because it may be automatically generated when lacking
-			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->originalContent() . $this->tags(true));
+			$this->hash = md5($this->link . $this->title . $this->authors(true) . $this->originalContent() . $this->tags(true) . $attributes);
 		}
 		return $this->hash;
+	}
+
+	public function sqlContentLength(): ?int {
+		return $this->sqlContentLength;
 	}
 
 	public function _hash(string $value): string {
@@ -471,8 +517,12 @@ HTML;
 		return $this->hash;
 	}
 
+	public function _sqlContentLength(int $value): void {
+		$this->sqlContentLength = $value > 0 ? $value : null;
+	}
+
 	/** @param int|numeric-string $value String is for compatibility with 32-bit platforms */
-	public function _id($value): void {
+	public function _id(int|string $value): void {
 		if (is_int($value)) {
 			$value = (string)$value;
 		}
@@ -495,10 +545,10 @@ HTML;
 		$this->_authors($value);
 	}
 	/** @param array<string>|string $value */
-	public function _authors($value): void {
+	public function _authors(array|string $value): void {
 		$this->hash = '';
 		if (!is_array($value)) {
-			if (strpos($value, ';') !== false) {
+			if (str_contains($value, ';')) {
 				$value = htmlspecialchars_decode($value, ENT_QUOTES);
 				$value = preg_split('/\s*[;]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY) ?: [];
 				$value = Minz_Helper::htmlspecialchars_utf8($value);
@@ -516,30 +566,40 @@ HTML;
 		$this->hash = '';
 		$this->link = trim($value);
 	}
-	/** @param int|string $value */
-	public function _date($value): void {
+	/** @param int|numeric-string $value */
+	public function _date(int|string $value): void {
 		$value = (int)$value;
 		$this->date = $value > 1 ? $value : time();
 	}
 
-	public function _lastSeen(int $value): void {
+	/**
+	 * @param int|numeric-string $value
+	 * 32-bit systems provide a string and will fail in year 2038
+	 */
+	public function _lastSeen(int|string $value): void {
+		$value = (int)$value;
 		$this->lastSeen = $value > 0 ? $value : 0;
 	}
 
-	/** @param int|string $value */
-	public function _dateAdded($value, bool $microsecond = false): void {
+	public function _lastUserModified(int|string $value): void {
+		$value = (int)$value;
+		$this->lastUserModified = $value > 0 ? $value : 0;
+	}
+
+	/** @param int|numeric-string $value */
+	public function _dateAdded(int|string $value, bool $microsecond = false): void {
 		if ($microsecond) {
 			$this->date_added = (string)($value);
 		} else {
 			$this->date_added = $value . '000000';
 		}
 	}
-	/** @param bool|int|null $value */
-	public function _isRead($value): void {
+
+	public function _isRead(bool|int|null $value): void {
 		$this->is_read = $value === null ? null : (bool)$value;
 	}
-	/** @param bool|int|null $value */
-	public function _isFavorite($value): void {
+
+	public function _isFavorite(bool|int|null $value): void {
 		$this->is_favorite = $value === null ? null : (bool)$value;
 	}
 
@@ -548,14 +608,13 @@ HTML;
 		$this->feedId = $this->feed == null ? 0 : $this->feed->id();
 	}
 
-	/** @param int|string $id */
-	private function _feedId($id): void {
+	private function _feedId(int $id): void {
 		$this->feed = null;
-		$this->feedId = (int)$id;
+		$this->feedId = $id;
 	}
 
 	/** @param array<string>|string $value */
-	public function _tags($value): void {
+	public function _tags(array|string $value): void {
 		$this->hash = '';
 		if (!is_array($value)) {
 			$value = preg_split('/\s*[#,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY) ?: [];
@@ -568,21 +627,13 @@ HTML;
 		foreach ($booleanSearch->searches() as $filter) {
 			if ($filter instanceof FreshRSS_BooleanSearch) {
 				// BooleanSearches are combined by AND (default) or OR or AND NOT (special cases) operators and are recursive
-				switch ($filter->operator()) {
-					case 'OR':
-						$ok |= $this->matches($filter);
-						break;
-					case 'OR NOT':
-						$ok |= !$this->matches($filter);
-						break;
-					case 'AND NOT':
-						$ok &= !$this->matches($filter);
-						break;
-					case 'AND':
-					default:
-						$ok &= $this->matches($filter);
-						break;
-				}
+				match ($filter->operator()) {
+					'AND' => $ok &= $this->matches($filter),
+					'OR' => $ok |= $this->matches($filter),
+					'AND NOT' => $ok &= !$this->matches($filter),
+					'OR NOT' => $ok |= !$this->matches($filter),
+					default => $ok &= $this->matches($filter),
+				};
 			} elseif ($filter instanceof FreshRSS_Search) {
 				// Searches are combined by OR and are not recursive
 				$ok = true;
@@ -616,11 +667,29 @@ HTML;
 				if ($ok && $filter->getNotMaxPubdate() !== null) {
 					$ok &= $this->date > $filter->getNotMaxPubdate();
 				}
+				if ($ok && $filter->getMinUserdate() !== null) {
+					$ok &= $this->lastUserModified >= $filter->getMinUserdate();
+				}
+				if ($ok && $filter->getNotMinUserdate() !== null) {
+					$ok &= $this->lastUserModified < $filter->getNotMinUserdate();
+				}
+				if ($ok && $filter->getMaxUserdate() !== null) {
+					$ok &= $this->lastUserModified <= $filter->getMaxUserdate();
+				}
+				if ($ok && $filter->getNotMaxUserdate() !== null) {
+					$ok &= $this->lastUserModified > $filter->getNotMaxUserdate();
+				}
 				if ($ok && $filter->getFeedIds() !== null) {
 					$ok &= in_array($this->feedId, $filter->getFeedIds(), true);
 				}
 				if ($ok && $filter->getNotFeedIds() !== null) {
 					$ok &= !in_array($this->feedId, $filter->getNotFeedIds(), true);
+				}
+				if ($ok && $filter->getCategoryIds() !== null) {
+					$ok &= in_array($this->feed()?->categoryId(), $filter->getCategoryIds(), true);
+				}
+				if ($ok && $filter->getNotCategoryIds() !== null) {
+					$ok &= !in_array($this->feed()?->categoryId(), $filter->getNotCategoryIds(), true);
 				}
 				if ($ok && $filter->getAuthor() !== null) {
 					foreach ($filter->getAuthor() as $author) {
@@ -660,6 +729,26 @@ HTML;
 				if ($ok && $filter->getNotIntitleRegex() !== null) {
 					foreach ($filter->getNotIntitleRegex() as $title) {
 						$ok &= preg_match($title, $this->title) === 0;
+					}
+				}
+				if ($ok && $filter->getIntext() !== null) {
+					foreach ($filter->getIntext() as $content) {
+						$ok &= stripos($this->content, $content) !== false;
+					}
+				}
+				if ($ok && $filter->getIntextRegex() !== null) {
+					foreach ($filter->getIntextRegex() as $content) {
+						$ok &= preg_match($content, $this->content) === 1;
+					}
+				}
+				if ($ok && $filter->getNotIntext() !== null) {
+					foreach ($filter->getNotIntext() as $content) {
+						$ok &= stripos($this->content, $content) === false;
+					}
+				}
+				if ($ok && $filter->getNotIntextRegex() !== null) {
+					foreach ($filter->getNotIntextRegex() as $content) {
+						$ok &= preg_match($content, $this->content) === 0;
 					}
 				}
 				if ($ok && $filter->getTags() !== null) {
@@ -771,12 +860,12 @@ HTML;
 		if (!$this->isRead()) {
 			if ($feed->attributeBoolean('read_upon_reception') ?? FreshRSS_Context::userConf()->mark_when['reception']) {
 				$this->_isRead(true);
-				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'upon_reception');
+				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'upon_reception');
 			}
 			if (!empty($titlesAsRead[$this->title()])) {
 				Minz_Log::debug('Mark title as read: ' . $this->title());
 				$this->_isRead(true);
-				Minz_ExtensionManager::callHook('entry_auto_read', $this, 'same_title_in_feed');
+				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'same_title_in_feed');
 			}
 		}
 		FreshRSS_Context::userConf()->applyFilterActions($this);
@@ -784,41 +873,47 @@ HTML;
 		$feed->applyFilterActions($this);
 	}
 
-	public function isDay(int $day, int $today): bool {
-		$date = $this->dateAdded(true);
-		switch ($day) {
-			case FreshRSS_Days::TODAY:
-				$tomorrow = $today + 86400;
-				return $date >= $today && $date < $tomorrow;
-			case FreshRSS_Days::YESTERDAY:
-				$yesterday = $today - 86400;
-				return $date >= $yesterday && $date < $today;
-			case FreshRSS_Days::BEFORE_YESTERDAY:
-				$yesterday = $today - 86400;
-				return $date < $yesterday;
-			default:
-				return false;
-		}
-	}
-
 	/**
 	 * @param string $url Overridden URL. Will default to the entry URL.
 	 * @throws Minz_Exception
 	 */
-	public function getContentByParsing(string $url = '', int $maxRedirs = 3): string {
+	public function getContentByParsing(string $url = '', int $maxRedirs = 4): string {
 		$url = $url ?: htmlspecialchars_decode($this->link(), ENT_QUOTES);
 		$feed = $this->feed();
 		if ($url === '' || $feed === null || $feed->pathEntries() === '') {
 			return '';
 		}
 
+		$conditions = $feed->attributeArray('path_entries_conditions') ?? [];
+		$conditions = array_filter($conditions, fn($v): bool => (is_string($v) ? trim($v) : '') !== '');
+		if (count($conditions) > 0) {
+			$found = false;
+			foreach ($conditions as $condition) {
+				if (!is_string($condition) || trim($condition) === '') {
+					continue;
+				}
+				$booleanSearch = new FreshRSS_BooleanSearch($condition);
+				if ($this->matches($booleanSearch)) {
+					$found = true;
+					break;
+				}
+			}
+			if (!$found) {
+				return '';
+			}
+		}
+
 		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
-		$html = httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
-		if (strlen($html) > 0) {
+		$response = FreshRSS_http_Util::httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
+		$html = $response['body'];
+		if ($html !== '') {
 			$doc = new DOMDocument();
 			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 			$xpath = new DOMXPath($doc);
 
+			// Account for HTTP redirections
+			$url = $response['effective_url'] ?: $url;
+			$maxRedirs -= $response['redirect_count'];
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
 				$metas = $xpath->query('//meta[@content]') ?: [];
@@ -836,33 +931,83 @@ HTML;
 			$base = $xpath->evaluate('normalize-space(//base/@href)');
 			if ($base == false || !is_string($base)) {
 				$base = $url;
-			} elseif (substr($base, 0, 2) === '//') {
+			} elseif (str_starts_with($base, '//')) {
 				//Protocol-relative URLs "//www.example.net"
 				$base = (parse_url($url, PHP_URL_SCHEME) ?? 'https') . ':' . $base;
 			}
 
-			$content = '';
+			$html = '';
 			$cssSelector = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
 			$cssSelector = trim($cssSelector, ', ');
+			$path_entries_filter = trim($feed->attributeString('path_entries_filter') ?? '', ', ');
 			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector, '//'))->asXPath());
 			if ($nodes != false) {
-				$path_entries_filter = $feed->attributeString('path_entries_filter') ?? '';
-				$path_entries_filter = trim($path_entries_filter, ', ');
+				$filter_xpath = $path_entries_filter === '' ? '' : (new Gt\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
 				foreach ($nodes as $node) {
-					if ($path_entries_filter !== '') {
-						$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter))->asXPath(), $node) ?: [];
-						foreach ($filterednodes as $filterednode) {
-							if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
-								continue;
+					try {
+						if (!($node instanceof DOMElement)) {
+							continue;
+						}
+						if ($filter_xpath !== '' && ($filterednodes = $xpath->query($filter_xpath, $node)) !== false) {
+							// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
+							foreach ($filterednodes as $filterednode) {
+								try {
+									if ($filterednode === $node) {
+										continue 2;
+									}
+									if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+										continue;
+									}
+									$filterednode->remove();
+								} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
+									if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+										throw $e;
+									}
+								}
 							}
-							$filterednode->parentNode->removeChild($filterednode);
+						}
+						if ($node->ownerDocument !== $doc || $node->parentNode === null) {
+							continue;
+						}
+						$html .= $doc->saveHTML($node) . "\n";
+					} catch (Error $e) {
+						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+							throw $e;
 						}
 					}
-					$content .= $doc->saveHTML($node) . "\n";
 				}
 			}
-			$html = trim(sanitizeHTML($content, $base));
-			return $html;
+
+			unset($xpath, $doc);
+			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
+
+			if ($path_entries_filter !== '') {
+				// Remove unwanted elements again after sanitizing, for CSS selectors to also match sanitized content
+				$modified = false;
+				$doc = new DOMDocument();
+				$utf8BOM = "\xEF\xBB\xBF";
+				$doc->loadHTML($utf8BOM . $html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+				$xpath = new DOMXPath($doc);
+				$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter, '//'))->asXPath()) ?: [];
+				foreach ($filterednodes as $filterednode) {
+					try {
+						if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+							continue;
+						}
+						$filterednode->remove();
+						$modified = true;
+					} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
+						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+							throw $e;
+						}
+					}
+				}
+				if ($modified) {
+					$html = $doc->saveHTML($doc->getElementsByTagName('body')->item(0) ?? $doc->firstElementChild) ?: $html;
+				}
+			}
+
+			return trim($html);
 		} else {
 			throw new Minz_Exception();
 		}
@@ -921,12 +1066,18 @@ HTML;
 				return false;
 			}
 			$xpath = new DOMXPath($doc);
-			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter') ?? '', '//'))->asXPath()) ?: [];
+			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter'), '//'))->asXPath()) ?: [];
 			foreach ($filterednodes as $filterednode) {
-				if (!($filterednode instanceof DOMElement) || $filterednode->parentNode === null) {
-					continue;
+				try {
+					if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+						continue;
+					}
+					$filterednode->remove();
+				} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
+					if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+						throw $e;
+					}
 				}
-				$filterednode->parentNode->removeChild($filterednode);
 			}
 			$html = $doc->saveHTML($doc->getElementsByTagName('body')->item(0) ?? $doc->firstElementChild);
 			if (!is_string($html)) {
@@ -950,8 +1101,9 @@ HTML;
 	}
 
 	/**
-	 * @return array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,
-	 * 	'hash':string,'is_read':?bool,'is_favorite':?bool,'id_feed':int,'tags':string,'attributes':array<string,mixed>}
+	 * @return array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
+	 * 	lastSeen:int,lastUserModified:int,
+	 * 	hash:string,is_read:?bool,is_favorite:?bool,id_feed:int,tags:string,attributes:array<string,mixed>}
 	 */
 	public function toArray(): array {
 		return [
@@ -960,9 +1112,10 @@ HTML;
 			'title' => $this->title(),
 			'author' => $this->authors(true),
 			'content' => $this->content(false),
-			'link' => $this->link(),
+			'link' => $this->link(raw: true),
 			'date' => $this->date(true),
 			'lastSeen' => $this->lastSeen(),
+			'lastUserModified' => $this->lastUserModified(),
 			'hash' => $this->hash(),
 			'is_read' => $this->isRead(),
 			'is_favorite' => $this->isFavorite(),
@@ -999,7 +1152,7 @@ HTML;
 	 * @param numeric-string|int $dec Decimal number
 	 * @return string 64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
 	 */
-	private static function dec2hex($dec): string {
+	private static function dec2hex(string|int $dec): string {
 		return PHP_INT_SIZE < 8 ? // 32-bit ?
 			str_pad(gmp_strval(gmp_init($dec, 10), 16), 16, '0', STR_PAD_LEFT) :
 			str_pad(dechex((int)($dec)), 16, '0', STR_PAD_LEFT);
@@ -1024,6 +1177,7 @@ HTML;
 		$category = $feed == null ? null : $feed->category();
 
 		$item = [
+			'frss:id' => $this->id(),
 			'id' => 'tag:google.com,2005:reader/item/' . self::dec2hex($this->id()),
 			'crawlTimeMsec' => substr($this->dateAdded(true, true), 0, -3),
 			'timestampUsec' => '' . $this->dateAdded(true, true), //EasyRSS & Reeder
@@ -1070,6 +1224,14 @@ HTML;
 				$item['origin']['title'] = escapeToUnicodeAlternative($feed->name(), true);
 			} elseif ($mode === 'freshrss') {
 				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url());
+			}
+			if ($feed->priority() >= FreshRSS_Feed::PRIORITY_MAIN_STREAM) {
+				$item['categories'][] = 'user/-/state/org.freshrss/main';
+				if ($feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) {
+					$item['categories'][] = 'user/-/state/org.freshrss/important';
+				}
+			} elseif ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+				$item['categories'][] = 'user/-/state/org.freshrss/hidden';
 			}
 		}
 		foreach ($this->enclosures() as $enclosure) {

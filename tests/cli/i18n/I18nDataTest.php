@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-require_once __DIR__ . '/../../../cli/i18n/I18nData.php';
-require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nData.php';
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nValue.php';
 
-class I18nDataTest extends PHPUnit\Framework\TestCase {
+final class I18nDataTest extends \PHPUnit\Framework\TestCase {
 	/** @var array<string,array<string,array<string,I18nValue>>> */
 	private array $referenceData;
 	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
@@ -36,7 +36,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 
 	public function testConstructWhenReferenceOnly(): void {
 		$data = new I18nData($this->referenceData);
-		self::assertEquals($this->referenceData, $data->getData());
+		self::assertSame($this->referenceData, $data->getData());
 	}
 
 	public function testConstructorWhenLanguageIsMissingFile(): void {
@@ -278,7 +278,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 			'nl' => [],
 		]);
 		$data = new I18nData($rawData);
-		self::assertEquals([
+		self::assertSame([
 			'en',
 			'fr',
 			'nl',
@@ -292,7 +292,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 			'de' => [],
 		]);
 		$data = new I18nData($rawData);
-		self::assertEquals([
+		self::assertSame([
 			'de',
 			'en',
 			'fr',
@@ -310,7 +310,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	public function testAddLanguageWhenNoReferenceProvided(): void {
 		$data = new I18nData($this->referenceData);
 		$data->addLanguage('fr');
-		self::assertEquals([
+		self::assertSame([
 			'en' => [
 				'file1.php' => [
 					'file1.l1.l2.k1' => $this->value,
@@ -347,7 +347,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	public function testAddLanguageWhenUnknownReferenceProvided(): void {
 		$data = new I18nData($this->referenceData);
 		$data->addLanguage('fr', 'unknown');
-		self::assertEquals([
+		self::assertSame([
 			'en' => [
 				'file1.php' => [
 					'file1.l1.l2.k1' => $this->value,
@@ -384,7 +384,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	public function testAddLanguageWhenKnownReferenceProvided(): void {
 		$data = new I18nData($this->referenceData);
 		$data->addLanguage('fr', 'en');
-		self::assertEquals([
+		self::assertSame([
 			'en' => [
 				'file1.php' => [
 					'file1.l1.l2.k1' => $this->value,
@@ -480,9 +480,33 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		$enValue = $getTargetedValue($data, 'en');
 		$frValue = $getTargetedValue($data, 'fr');
 		self::assertInstanceOf(I18nValue::class, $enValue);
-		self::assertEquals('value', $enValue->getValue());
+		self::assertSame('value', $enValue->getValue());
 		self::assertTrue($enValue->isTodo());
-		self::assertEquals($frValue, $enValue);
+		self::assertSame($frValue, $enValue);
+	}
+
+	public function testAddFileWhenNotPhpFile(): void {
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('The selected file name is not supported.');
+
+		$data = new I18nData($this->referenceData);
+		$data->addFile('file2');
+	}
+
+	public function testAddFileWhenAlreadyExists(): void {
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('The selected file exists already.');
+
+		$data = new I18nData($this->referenceData);
+		self::assertTrue($data->exists('file2.php'));
+		$data->addFile('file2.php');
+	}
+
+	public function testAddFileWhenNotExists(): void {
+		$data = new I18nData($this->referenceData);
+		self::assertFalse($data->exists('newfile.php'));
+		$data->addFile('newfile.php');
+		self::assertTrue($data->exists('newfile.php'));
 	}
 
 	public function testAddValueWhenLanguageDoesNotExist(): void {
@@ -520,9 +544,9 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		self::assertEquals($this->value, $beforeEnValue);
 		self::assertEquals($this->value, $beforeFrValue);
 		self::assertInstanceOf(I18nValue::class, $afterEnValue);
-		self::assertEquals('new value', $afterEnValue->getValue());
+		self::assertSame('new value', $afterEnValue->getValue());
 		self::assertInstanceOf(I18nValue::class, $afterFrValue);
-		self::assertEquals('new value', $afterFrValue->getValue());
+		self::assertSame('new value', $afterFrValue->getValue());
 	}
 
 	public function testAddValueWhenLanguageIsReferenceAndValueInOtherLanguageHasChange(): void {
@@ -554,7 +578,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		self::assertEquals($this->value, $beforeEnValue);
 		self::assertEquals($value, $beforeFrValue);
 		self::assertInstanceOf(I18nValue::class, $afterEnValue);
-		self::assertEquals('new value', $afterEnValue->getValue());
+		self::assertSame('new value', $afterEnValue->getValue());
 		self::assertEquals($value, $afterFrValue);
 	}
 
@@ -575,7 +599,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		self::assertEquals($this->value, $beforeFrValue);
 		self::assertEquals($this->value, $afterEnValue);
 		self::assertInstanceOf(I18nValue::class, $afterFrValue);
-		self::assertEquals('new value', $afterFrValue->getValue());
+		self::assertSame('new value', $afterFrValue->getValue());
 	}
 
 	public function testRemoveKeyWhenKeyDoesNotExist(): void {
@@ -723,7 +747,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 			'nl' => [],
 		]);
 		$data = new I18nData($rawData);
-		self::assertEquals($this->referenceData['en'], $data->getLanguage('en'));
+		self::assertSame($this->referenceData['en'], $data->getLanguage('en'));
 	}
 
 	public function testGetReferenceLanguage(): void {
@@ -732,6 +756,6 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 			'nl' => [],
 		]);
 		$data = new I18nData($rawData);
-		self::assertEquals($this->referenceData['en'], $data->getReferenceLanguage());
+		self::assertSame($this->referenceData['en'], $data->getReferenceLanguage());
 	}
 }

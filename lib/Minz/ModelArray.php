@@ -35,13 +35,13 @@ class Minz_ModelArray {
 		} elseif (($handle = $this->getLock()) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		} else {
-			$data = include($this->filename);
+			$data = include $this->filename;
 			$this->releaseLock($handle);
 
 			if ($data === false) {
 				throw new Minz_PermissionDeniedException($this->filename);
-			} elseif (!is_array($data)) {
-				$data = array();
+			} elseif (!is_array($data) || !is_array_keys_string($data)) {
+				$data = [];
 			}
 			return $data;
 		}

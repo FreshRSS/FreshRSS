@@ -31,4 +31,4 @@ Start by creating your development environment. A guide to setting up FreshRSSâ€
 
 ## Minz
 
-Minz is the homemade PHP framework used by FreshRSS. More information can be found [here](Minz/index.md).
+Minz is the homemade PHP framework used by FreshRSS. See the [dedicated documentation](Minz/index.md).

@@ -1,22 +1,22 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Consenti la lettura agli utenti anonimi degli articoli dell utente predefinito (%s)',
 		'allow_anonymous_refresh' => 'Consenti agli utenti anonimi di aggiornare gli articoli',
-		'api_enabled' => 'Consenti le <abbr>API</abbr> di accesso <small>(richiesto per le app mobili)</small>',
+		'api_enabled' => 'Consentire l’accesso all’<abbr>API</abbr> <small>(necessario per le app e per la condivisione delle query degli utenti)</small>',
 		'form' => 'Web form (tradizionale, richiede JavaScript)',
-		'http' => 'HTTP (per gli utenti avanzati con HTTPS)',
+		'http' => 'HTTP (avanzato: gestito da server Web, OIDC, SSO…)',
 		'none' => 'Nessuno (pericoloso)',
 		'title' => 'Autenticazione',
 		'token' => 'Token di autenticazione principale',
@@ -116,8 +116,9 @@ return array(
 		'description' => 'Descrizione',
 		'disabled' => 'Disabilitata',
 		'empty_list' => 'Non ci sono estensioni installate',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Controllare i log per determinare il motivo della lista estensioni vuota.',
 		'enabled' => 'Abilitata',
+		'is_compatible' => 'È compatibile',
 		'latest' => 'Installato',
 		'name' => 'Nome',
 		'no_configure_view' => 'Questa estensioni non può essere configurata.',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Statistiche',
 		'all_feeds' => 'Tutti i feeds',
 		'category' => 'Categoria',
+		'date_published' => 'Data di pubblicazione',
+		'date_received' => 'Data di ricezione',
 		'entry_count' => 'Articoli',
 		'entry_per_category' => 'Articoli per categoria',
 		'entry_per_day' => 'Articoli per giorno (ultimi 30 giorni)',
@@ -146,16 +149,19 @@ return array(
 		'idle' => 'Feeds non aggiornati',
 		'main' => 'Statistiche principali',
 		'main_stream' => 'Flusso principale',
+		'nb_unreads' => 'Numero di articoli non letti',
 		'no_idle' => 'Non ci sono feed non aggiornati',
 		'number_entries' => '%d articoli',
+		'overview' => 'Panoramica',
 		'percent_of_total' => '% del totale',
-		'repartition' => 'Ripartizione articoli',
+		'repartition' => 'Ripartizione articoli: %s',
 		'status_favorites' => 'Preferiti',
 		'status_read' => 'Letti',
 		'status_total' => 'Totale',
 		'status_unread' => 'Non letti',
 		'title' => 'Statistiche',
 		'top_feed' => 'I migliori 10 feeds',
+		'unread_dates' => 'Date con il maggior numero di articoli non letti',
 	),
 	'system' => array(
 		'_' => 'Configurazione di sistema',

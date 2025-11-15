@@ -5,7 +5,7 @@
 		return;
 	}
 ?>
-<div class="post" id="feed_update">
+<div class="post" id="feed_update" data-feed-id="<?= $this->feed->id() ?>">
 	<h1><?= $this->feed->name() ?></h1>
 
 	<div>
@@ -35,10 +35,38 @@
 		}
 	}
 	?>
-	<form method="post" action="<?= $url ?>" autocomplete="off">
+	<form method="post" action="<?= $url ?>" autocomplete="off" enctype="multipart/form-data" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<fieldset>
 			<legend><?= _t('sub.feed.information') ?></legend>
+			<div class="form-group">
+				<?php
+					$currentIconUrl = $this->feed->favicon();
+					$originalIconUrl = '';
+					if ($this->feed->customFavicon()) {
+						$this->feed->_attribute('customFavicon', false);
+						$this->feed->resetFaviconHash();
+					}
+					$originalIconUrl = $this->feed->favicon();
+					$this->feed->_attribute('customFavicon', $currentIconUrl !== $originalIconUrl);
+					$this->feed->resetFaviconHash();
+					$ext_url = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconBtnUrl, $this->feed);
+				?>
+				<div class="group-name"><?= _t('sub.feed.icon') ?></div>
+				<div class="group-controls">
+					<img class="favicon upload" src="<?= $currentIconUrl ?>" data-initial-src="<?= $currentIconUrl ?>" data-original-icon="<?= $originalIconUrl ?>" alt="✇" loading="lazy" />
+					<div class="favicon-controls">
+						<input id="favicon-upload" name="newFavicon" type="file" accept="image/*" />
+						<label for="favicon-upload" class="btn"><?= _t('sub.feed.change_favicon') ?></label>
+						<button id="reset-favicon" class="btn"<?= $this->feed->customFavicon() ? '' : ' disabled="disabled"'?>><?= _t('sub.feed.reset_favicon') ?></button>
+						<?php if (is_string($ext_url)) { ?>
+							<button id="favicon-ext-btn" class="btn" data-extension-url="<?= htmlspecialchars(html_entity_decode($ext_url), ENT_COMPAT, 'UTF-8') ?>"><?= _t('sub.feed.ext_favicon') ?></button>
+						<?php } ?>
+					</div>
+					<p id="favicon-ext" class="<?= $this->feed->customFaviconExt() !== null ? '' : 'hidden' ?>"><?= _t('sub.feed.favicon_changed_by_ext', htmlspecialchars($this->feed->customFaviconExt() ?? '', ENT_NOQUOTES, 'UTF-8')) ?></p>
+					<p id="favicon-error" class="error"></p>
+				</div>
+			</div>
 			<div class="form-group">
 				<label class="group-name" for="name"><?= _t('sub.feed.title') ?></label>
 				<div class="group-controls">
@@ -87,14 +115,16 @@
 				<label class="group-name" for="priority"><?= _t('sub.feed.priority') ?></label>
 				<div class="group-controls">
 					<select name="priority" id="priority" class="w50">
-						<option value='<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>' <?php
-							if (FreshRSS_Feed::PRIORITY_IMPORTANT === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.important') ?></option>
-						<option value='<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>' <?php
-							if (FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.main_stream') ?></option>
-						<option value='<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>' <?php
-							if (FreshRSS_Feed::PRIORITY_CATEGORY === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.category') ?></option>
-						<option value='<?= FreshRSS_Feed::PRIORITY_ARCHIVED ?>' <?php
-							if (FreshRSS_Feed::PRIORITY_ARCHIVED === $this->feed->priority()) {echo 'selected="selected"';}?>><?= _t('sub.feed.priority.archived') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>" <?=
+							FreshRSS_Feed::PRIORITY_IMPORTANT === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.important') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>" <?=
+							FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.main_stream') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>" <?=
+							FreshRSS_Feed::PRIORITY_CATEGORY === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.category') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_FEED ?>" <?=
+							FreshRSS_Feed::PRIORITY_FEED === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.feed') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_HIDDEN ?>" <?=
+							FreshRSS_Feed::PRIORITY_HIDDEN === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.hidden') ?></option>
 					</select>
 					<?= _i('important') ?>
 				</div>
@@ -115,6 +145,12 @@
 						<option value="sha1:link_published" <?= $unicityCriteria === 'sha1:link_published' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:link_published') ?></option>
 						<option value="sha1:link_published_title" <?= $unicityCriteria === 'sha1:link_published_title' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:link_published_title') ?></option>
 						<option value="sha1:link_published_title_content" <?= $unicityCriteria === 'sha1:link_published_title_content' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:link_published_title_content') ?></option>
+						<option value="sha1:title" <?= $unicityCriteria === 'sha1:title' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:title') ?></option>
+						<option value="sha1:title_published" <?= $unicityCriteria === 'sha1:title_published' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:title_published') ?></option>
+						<option value="sha1:title_published_content" <?= $unicityCriteria === 'sha1:title_published_content' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:title_published_content') ?></option>
+						<option value="sha1:content" <?= $unicityCriteria === 'sha1:content' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:content') ?></option>
+						<option value="sha1:content_published" <?= $unicityCriteria === 'sha1:content_published' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:content_published') ?></option>
+						<option value="sha1:published" <?= $unicityCriteria === 'sha1:published' ? 'selected="selected"' : '' ?>><?= _t('sub.feed.unicityCriteria.sha1:published') ?></option>
 					</select>
 					<label for="unicityCriteriaForced" class="inline">
 						<input type="checkbox" name="unicityCriteriaForced" id="unicityCriteriaForced" value="1"<?= $this->feed->attributeBoolean('unicityCriteriaForced') ? ' checked="checked"' : '' ?> />
@@ -129,11 +165,11 @@
 				<div class="group-controls">
 					<select class="w50" name="ttl" id="ttl" required="required"><?php
 						$found = false;
-						foreach (array(FreshRSS_Feed::TTL_DEFAULT => _t('gen.short.by_default'), 900 => '15min', 1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
+						foreach ([FreshRSS_Feed::TTL_DEFAULT => _t('gen.short.by_default'), 900 => '15min', 1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
 								3600 => '1h', 5400 => '1.5h', 7200 => '2h', 10800 => '3h', 14400 => '4h', 18800 => '5h', 21600 => '6h', 25200 => '7h', 28800 => '8h',
 								36000 => '10h', 43200 => '12h', 64800 => '18h',
 								86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
-								604800 => '1wk', 1209600 => '2wk', 1814400 => '3wk', 2419200 => '4wk', 2629744 => '1mo') as $v => $t) {
+								604800 => '1wk', 1209600 => '2wk', 1814400 => '3wk', 2419200 => '4wk', 2629744 => '1mo'] as $v => $t) {
 							echo '<option value="' . $v . ($this->feed->ttl() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
 							if ($this->feed->ttl() == $v) {
 								$found = true;
@@ -197,7 +233,7 @@
 					<div class="stick w50">
 						<input type="password" name="http_pass_feed<?= $this->feed->id() ?>" id="http_pass_feed<?= $this->feed->id() ?>" value="<?=
 							$auth['password'] ?>" autocomplete="new-password" />
-						<button type="button" class="btn toggle-password" data-toggle="http_pass_feed<?= $this->feed->id() ?>"><?= _i('key') ?></button>
+						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 				</div>
 			</div>
@@ -265,12 +301,18 @@
 			<div class="form-group">
 				<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
 				<div class="group-controls">
-					<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
+					<textarea name="filteractions_read" id="filteractions_read" class="w100"
+						placeholder="<?= _t('gen.short.blank_to_disable') ?>"><?php
 						foreach ($this->feed->filtersAction('read') as $filterRead) {
 							echo $filterRead->getRawInput(), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+					<p>
+						<button class="btn" formaction="<?= _url('subscription', 'viewFilter', 'id', $this->feed->id()); ?>" formtarget="_blank">
+							<?= _t('sub.feed.filteractions.view_filter') ?>
+						</button>
+					</p>
 				</div>
 			</div>
 
@@ -278,7 +320,6 @@
 				<label class="group-name" for="keep_max_n_unread"><?= _t('conf.reading.read.keep_max_n_unread') ?></label>
 				<div class="group-controls">
 					<input type="number" name="keep_max_n_unread" id="keep_max_n_unread" class="w50" min="1" max="10000000"
-						data-leave-validation="<?= $this->feed->attributeInt('keep_max_n_unread') ?>"
 						value="<?= $this->feed->attributeInt('keep_max_n_unread') ?>"
 						placeholder="<?= _t('gen.short.by_default') ?>" />
 				</div>
@@ -304,7 +345,7 @@
 			</div>
 			<?php
 				$archiving = $this->feed->attributeArray('archiving');
-				/** @var array<'default'?:bool,'keep_period'?:string,'keep_max'?:int,'keep_min'?:int,'keep_favourites'?:bool,'keep_labels'?:bool,'keep_unreads'?:bool>|null $archiving */
+				/** @var array{default?:bool,keep_period?:string,keep_max?:int,keep_min?:int,keep_favourites?:bool,keep_labels?:bool,keep_unreads?:bool}|null $archiving */
 				if (empty($archiving)) {
 					$archiving = [ 'default' => true ];
 				} else {
@@ -348,8 +389,7 @@
 				<div class="group-name"><?= _t('conf.archiving.policy') ?></div>
 				<div class="group-controls">
 					<label class="checkbox">
-						<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $archiving['default'] ? 1 : 0 ?>" />
+						<input type="checkbox" name="use_default_purge_options" id="use_default_purge_options" value="1"<?= $archiving['default'] ? ' checked="checked"' : '' ?> />
 						<?= _t('gen.short.by_default') ?>
 					</label>
 				</div>
@@ -357,23 +397,19 @@
 			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 				<div class="group-controls">
 					<label class="checkbox" for="enable_keep_max">
-						<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?>
-							data-leave-validation="<?= empty($archiving['keep_max']) ? 0 : 1 ?>"/>
+						<input type="checkbox" name="enable_keep_max" id="enable_keep_max" value="1"<?= empty($archiving['keep_max']) ? '' : ' checked="checked"' ?> />
 						<?= _t('conf.archiving.keep_max') ?>
-						<input type="number" id="keep_max" name="keep_max" min="0" value="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"
-							data-leave-validation="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>"/>
+						<input type="number" id="keep_max" name="keep_max" min="0" value="<?= empty($archiving['keep_max']) ? 200 : $archiving['keep_max'] ?>" />
 					</label>
 				</div>
 			</div>
 			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 				<div class="group-controls">
 					<label class="checkbox" for="enable_keep_period">
-						<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?= $volatile['enable_keep_period'] ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $volatile['enable_keep_period'] ? 1 : 0 ?>"/>
+						<input type="checkbox" name="enable_keep_period" id="enable_keep_period" value="1"<?= $volatile['enable_keep_period'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.archiving.keep_period') ?>
-						<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= $volatile['keep_period_count'] ?>"
-							data-leave-validation="<?= $volatile['keep_period_count'] ?>"/>
-						<select class="number" name="keep_period_unit" id="keep_period_unit" data-leave-validation="<?= $volatile['keep_period_unit'] ?>">
+						<input type="number" id="keep_period_count" name="keep_period_count" min="0" value="<?= $volatile['keep_period_count'] ?>" />
+						<select class="number" name="keep_period_unit" id="keep_period_unit">
 							<option></option>
 							<option value="P1Y" <?= 'P1Y' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
 							<option value="P1M" <?= 'P1M' === $volatile['keep_period_unit'] ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
@@ -388,8 +424,7 @@
 				<div class="group-name"><?= _t('conf.archiving.exception') ?></div>
 				<div class="group-controls">
 					<label class="checkbox" for="keep_favourites">
-						<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $archiving['keep_favourites'] ? 1 : 0 ?>"/>
+						<input type="checkbox" name="keep_favourites" id="keep_favourites" value="1"<?= $archiving['keep_favourites'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.archiving.keep_favourites') ?>
 					</label>
 				</div>
@@ -397,8 +432,7 @@
 			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 				<div class="group-controls">
 					<label class="checkbox" for="keep_labels">
-						<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $archiving['keep_labels'] ? 1 : 0 ?>"/>
+						<input type="checkbox" name="keep_labels" id="keep_labels" value="1"<?= $archiving['keep_labels'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.archiving.keep_labels') ?>
 					</label>
 				</div>
@@ -406,8 +440,7 @@
 			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 				<div class="group-controls">
 					<label class="checkbox" for="keep_unreads">
-						<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= $archiving['keep_unreads'] ? ' checked="checked"' : '' ?>
-							data-leave-validation="<?= $archiving['keep_unreads'] ?>"/>
+						<input type="checkbox" name="keep_unreads" id="keep_unreads" value="1"<?= $archiving['keep_unreads'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.archiving.keep_unreads') ?>
 					</label>
 				</div>
@@ -415,8 +448,7 @@
 			<div class="form-group archiving"<?= $archiving['default'] ? ' hidden="hidden"' : '' ?>>
 				<div class="group-controls">
 					<label for="keep_min"><?= _t('sub.feed.keep_min') ?>
-						<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>"
-							data-leave-validation="<?= $archiving['keep_min'] ?>">
+						<input type="number" id="keep_min" name="keep_min" min="0" value="<?= $archiving['keep_min'] ?>" />
 					</label>
 				</div>
 			</div>
@@ -459,8 +491,7 @@
 				<label class="group-name" for="xPathItem"><small><?= _t('sub.feed.kind.html_xpath.xpath') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xPathItem" id="xPathItem" rows="2" cols="64" spellcheck="false"
-						data-leave-validation="<?= $xpath['item'] ?? '' ?>"><?= $xpath['item'] ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathItem" id="xPathItem" rows="2" cols="64" spellcheck="false"><?= $xpath['item'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item.help') ?></p>
 				</div>
 			</div>
@@ -468,8 +499,7 @@
 				<label class="group-name" for="xPathItemTitle"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_title') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xPathItemTitle" id="xPathItemTitle" rows="2" cols="64" spellcheck="false"
-						data-leave-validation="<?= $xpath['itemTitle'] ?? '' ?>"><?= $xpath['itemTitle'] ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathItemTitle" id="xPathItemTitle" rows="2" cols="64" spellcheck="false"><?= $xpath['itemTitle'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_title.help') ?></p>
 				</div>
 			</div>
@@ -477,8 +507,7 @@
 				<label class="group-name" for="xPathItemContent"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_content') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xPathItemContent" id="xPathItemContent" rows="2" cols="64" spellcheck="false"
-						data-leave-validation="<?= $xpath['itemContent'] ?? '' ?>"><?= $xpath['itemContent'] ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathItemContent" id="xPathItemContent" rows="2" cols="64" spellcheck="false"><?= $xpath['itemContent'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_content.help') ?></p>
 				</div>
 			</div>
@@ -486,8 +515,7 @@
 				<label class="group-name" for="xPathItemUri"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_uri') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xPathItemUri" id="xPathItemUri" rows="2" cols="64" spellcheck="false"
-						data-leave-validation="<?= $xpath['itemUri'] ?? '' ?>"><?= $xpath['itemUri'] ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathItemUri" id="xPathItemUri" rows="2" cols="64" spellcheck="false"><?= $xpath['itemUri'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_uri.help') ?></p>
 				</div>
 			</div>
@@ -495,8 +523,7 @@
 				<label class="group-name" for="xPathItemThumbnail"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_thumbnail') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xPathItemThumbnail" id="xPathItemThumbnail" rows="2" cols="64" spellcheck="false"
-						data-leave-validation="<?= $xpath['itemThumbnail'] ?? '' ?>"><?= $xpath['itemThumbnail'] ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathItemThumbnail" id="xPathItemThumbnail" rows="2" cols="64" spellcheck="false"><?= $xpath['itemThumbnail'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_thumbnail.help') ?></p>
 				</div>
 			</div>
@@ -504,8 +531,7 @@
 				<label class="group-name" for="xPathItemAuthor"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_author') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xPathItemAuthor" id="xPathItemAuthor" rows="2" cols="64" spellcheck="false"
-						data-leave-validation="<?= $xpath['itemAuthor'] ?? '' ?>"><?= $xpath['itemAuthor'] ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathItemAuthor" id="xPathItemAuthor" rows="2" cols="64" spellcheck="false"><?= $xpath['itemAuthor'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_author.help') ?></p>
 				</div>
 			</div>
@@ -513,8 +539,7 @@
 				<label class="group-name" for="xPathItemTimestamp"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_timestamp') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"
-						data-leave-validation="<?= $xpath['itemTimestamp'] ?? '' ?>"><?= $xpath['itemTimestamp'] ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathItemTimestamp" id="xPathItemTimestamp" rows="2" cols="64" spellcheck="false"><?= $xpath['itemTimestamp'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timestamp.help') ?></p>
 				</div>
 			</div>
@@ -522,8 +547,7 @@
 				<label class="group-name" for="xPathItemTimeFormat">
 					<?= _t('sub.feed.kind.html_xpath.item_timeFormat') ?></label>
 				<div class="group-controls">
-					<textarea class="w100" name="xPathItemTimeFormat" id="xPathItemTimeFormat" rows="2" cols="64" spellcheck="false"
-						data-leave-validation="<?= $xpath['itemTimeFormat'] ?? '' ?>"><?= $xpath['itemTimeFormat'] ?? '' ?></textarea>
+					<textarea class="w100" name="xPathItemTimeFormat" id="xPathItemTimeFormat" rows="2" cols="64" spellcheck="false"><?= $xpath['itemTimeFormat'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.item_timeFormat.help') ?></p>
 				</div>
 			</div>
@@ -531,16 +555,14 @@
 				<label class="group-name" for="xPathItemCategories"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_categories') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xPathItemCategories" id="xPathItemCategories" rows="2" cols="64" spellcheck="false"
-						data-leave-validation="<?= $xpath['itemCategories'] ?? '' ?>"><?= $xpath['itemCategories'] ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathItemCategories" id="xPathItemCategories" rows="2" cols="64" spellcheck="false"><?= $xpath['itemCategories'] ?? '' ?></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="group-name" for="xPathItemUid"><small><?= _t('sub.feed.kind.html_xpath.relative') ?></small><br />
 					<?= _t('sub.feed.kind.html_xpath.item_uid') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xPathItemUid" id="xPathItemUid" rows="2" cols="64" spellcheck="false"
-						data-leave-validation="<?= $xpath['itemUid'] ?? '' ?>"><?= $xpath['itemUid'] ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathItemUid" id="xPathItemUid" rows="2" cols="64" spellcheck="false"><?= $xpath['itemUid'] ?? '' ?></textarea>
 				</div>
 			</div>
 		</fieldset>
@@ -554,7 +576,7 @@
 			<div class="form-group" id="xPathToJsonGroup">
 				<label class="group-name" for="xPathToJson"><?= _t('sub.feed.kind.html_json.xpath') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-xpath w100" name="xPathToJson" id="xPathToJson" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $xPathToJson ?>"><?= $xPathToJson ?? '' ?></textarea>
+					<textarea class="valid-xpath w100" name="xPathToJson" id="xPathToJson" rows="2" cols="64" spellcheck="false"><?= $xPathToJson ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_json.xpath.help') ?></p>
 				</div>
 			</div>
@@ -564,7 +586,7 @@
 				<label class="group-name" for="jsonItem"><small><?= _t('sub.feed.kind.json_dotnotation.json') ?></small><br />
 					<?= _t('sub.feed.kind.json_dotnotation.item') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json w100" name="jsonItem" id="jsonItem" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $jsonSettings['item'] ?? '' ?>"><?= $jsonSettings['item'] ?? '' ?></textarea>
+					<textarea class="valid-json w100" name="jsonItem" id="jsonItem" rows="2" cols="64" spellcheck="false"><?= $jsonSettings['item'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item.help') ?></p>
 				</div>
 			</div>
@@ -572,14 +594,14 @@
 				<label class="group-name" for="jsonItemTitle"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
 					<?= _t('sub.feed.kind.json_dotnotation.item_title') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json w100" name="jsonItemTitle" id="jsonItemTitle" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $jsonSettings['itemTitle'] ?? '' ?>"><?= $jsonSettings['itemTitle'] ?? '' ?></textarea>
+					<textarea class="valid-json w100" name="jsonItemTitle" id="jsonItemTitle" rows="2" cols="64" spellcheck="false"><?= $jsonSettings['itemTitle'] ?? '' ?></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="group-name" for="jsonItemContent"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
 					<?= _t('sub.feed.kind.json_dotnotation.item_content') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json w100" name="jsonItemContent" id="jsonItemContent" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $jsonSettings['itemContent'] ?? '' ?>"><?= $jsonSettings['itemContent'] ?? '' ?></textarea>
+					<textarea class="valid-json w100" name="jsonItemContent" id="jsonItemContent" rows="2" cols="64" spellcheck="false"><?= $jsonSettings['itemContent'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item_content.help') ?></p>
 				</div>
 			</div>
@@ -587,7 +609,7 @@
 				<label class="group-name" for="jsonItemUri"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
 					<?= _t('sub.feed.kind.json_dotnotation.item_uri') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json w100" name="jsonItemUri" id="jsonItemUri" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $jsonSettings['itemUri'] ?? '' ?>"><?= $jsonSettings['itemUri'] ?? '' ?></textarea>
+					<textarea class="valid-json w100" name="jsonItemUri" id="jsonItemUri" rows="2" cols="64" spellcheck="false"><?= $jsonSettings['itemUri'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item_uri.help') ?></p>
 				</div>
 			</div>
@@ -595,7 +617,7 @@
 				<label class="group-name" for="jsonItemThumbnail"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
 					<?= _t('sub.feed.kind.json_dotnotation.item_thumbnail') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json w100" name="jsonItemThumbnail" id="jsonItemThumbnail" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $jsonSettings['itemThumbnail'] ?? '' ?>"><?= $jsonSettings['itemThumbnail'] ?? '' ?></textarea>
+					<textarea class="valid-json w100" name="jsonItemThumbnail" id="jsonItemThumbnail" rows="2" cols="64" spellcheck="false"><?= $jsonSettings['itemThumbnail'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item_thumbnail.help') ?></p>
 				</div>
 			</div>
@@ -603,14 +625,14 @@
 				<label class="group-name" for="jsonItemAuthor"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
 					<?= _t('sub.feed.kind.json_dotnotation.item_author') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json w100" name="jsonItemAuthor" id="jsonItemAuthor" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $jsonSettings['itemAuthor'] ?? '' ?>"><?= $jsonSettings['itemAuthor'] ?? '' ?></textarea>
+					<textarea class="valid-json w100" name="jsonItemAuthor" id="jsonItemAuthor" rows="2" cols="64" spellcheck="false"><?= $jsonSettings['itemAuthor'] ?? '' ?></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="group-name" for="jsonItemTimestamp"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
 					<?= _t('sub.feed.kind.json_dotnotation.item_timestamp') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json w100" name="jsonItemTimestamp" id="jsonItemTimestamp" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $jsonSettings['itemTimestamp'] ?? '' ?>"><?= $jsonSettings['itemTimestamp'] ?? '' ?></textarea>
+					<textarea class="valid-json w100" name="jsonItemTimestamp" id="jsonItemTimestamp" rows="2" cols="64" spellcheck="false"><?= $jsonSettings['itemTimestamp'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item_timestamp.help') ?></p>
 				</div>
 			</div>
@@ -618,7 +640,7 @@
 				<label class="group-name" for="jsonItemTimeFormat">
 					<?= _t('sub.feed.kind.json_dotnotation.item_timeFormat') ?></label>
 				<div class="group-controls">
-					<textarea class="w100" name="jsonItemTimeFormat" id="jsonItemTimeFormat" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $jsonSettings['itemTimeFormat'] ?? '' ?>"><?= $jsonSettings['itemTimeFormat'] ?? '' ?></textarea>
+					<textarea class="w100" name="jsonItemTimeFormat" id="jsonItemTimeFormat" rows="2" cols="64" spellcheck="false"><?= $jsonSettings['itemTimeFormat'] ?? '' ?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.item_timeFormat.help') ?></p>
 				</div>
 			</div>
@@ -626,14 +648,14 @@
 				<label class="group-name" for="jsonItemCategories"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
 					<?= _t('sub.feed.kind.json_dotnotation.item_categories') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json w100" name="jsonItemCategories" id="jsonItemCategories" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $jsonSettings['itemCategories'] ?? '' ?>"><?= $jsonSettings['itemCategories'] ?? '' ?></textarea>
+					<textarea class="valid-json w100" name="jsonItemCategories" id="jsonItemCategories" rows="2" cols="64" spellcheck="false"><?= $jsonSettings['itemCategories'] ?? '' ?></textarea>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="group-name" for="jsonItemUid"><small><?= _t('sub.feed.kind.json_dotnotation.relative') ?></small><br />
 					<?= _t('sub.feed.kind.json_dotnotation.item_uid') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json w100" name="jsonItemUid" id="jsonItemUid" rows="2" cols="64" spellcheck="false" data-leave-validation="<?= $jsonSettings['itemUid'] ?? '' ?>"><?= $jsonSettings['itemUid'] ?? '' ?></textarea>
+					<textarea class="valid-json w100" name="jsonItemUid" id="jsonItemUid" rows="2" cols="64" spellcheck="false"><?= $jsonSettings['itemUid'] ?? '' ?></textarea>
 				</div>
 			</div>
 
@@ -646,13 +668,12 @@
 		</fieldset>
 
 		<fieldset>
-			<legend><?= _t('sub.feed.advanced') ?></legend>
+			<legend><?= _t('sub.feed.content_retrieval') ?></legend>
 			<div class="form-group">
 				<label class="group-name" for="path_entries"><?= _t('sub.feed.css_path') ?></label>
 				<div class="group-controls">
 					<div class="stick w100">
-						<input type="text" name="path_entries" id="path_entries" class="w100" value="<?= $this->feed->pathEntries() ?>"
-							data-leave-validation="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+						<input type="text" name="path_entries" id="path_entries" class="w100" value="<?= $this->feed->pathEntries() ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 						<a id="popup-preview-selector" class="btn" href="<?=
 							_url('feed', 'contentSelectorPreview', 'id', $this->feed->id(), 'selector', 'selector-token', 'selector_filter', 'selector-filter-token', '#', 'slider') ?>"><?= _i('look') ?></a>
 					</div>
@@ -661,14 +682,31 @@
 			</div>
 
 			<div class="form-group">
+				<label class="group-name" for="path_entries_conditions"><?= _t('sub.feed.path_entries_conditions') ?></label>
+				<div class="group-controls">
+					<textarea class="w100" id="path_entries_conditions" name="path_entries_conditions"
+						rows="3" cols="64" spellcheck="false" placeholder="<?= _t('gen.short.blank_to_disable') ?>"><?php
+						foreach ($this->feed->attributeArray('path_entries_conditions') ?? [] as $condition) {
+							if (is_string($condition)) {
+								echo htmlspecialchars($condition, ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+							}
+						}
+					?></textarea>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend><?= _t('sub.feed.advanced') ?></legend>
+			<div class="form-group">
 				<?php
 					$path_entries_filter = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeString('path_entries_filter') ?? '');
 				?>
 				<label class="group-name" for="path_entries_filter"><?= _t('sub.feed.css_path_filter') ?></label>
 				<div class="group-controls">
 					<div class="w100">
-						<input type="text" name="path_entries_filter" id="path_entries_filter" class="w100" value="<?= $path_entries_filter ?>"
-							data-leave-validation="<?= $path_entries_filter ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+						<input type="text" name="path_entries_filter" id="path_entries_filter" class="w100" value="<?= $path_entries_filter ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					</div>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_path_filter.help') ?></p>
 				</div>
@@ -721,7 +759,7 @@
 				<div class="group-controls">
 					<input type="text" name="curl_params_useragent" id="curl_params_useragent" class="w100" value="<?=
 						htmlspecialchars((string)($curlParams[CURLOPT_USERAGENT] ?? ''), ENT_COMPAT, 'UTF-8')
-					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					?>" placeholder="<?= _t('gen.short.by_default') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.useragent_help') ?></p>
 				</div>
 			</div>
@@ -730,15 +768,21 @@
 				<label class="group-name" for="proxy_type"><?= _t('sub.feed.proxy') ?></label>
 				<div class="group-controls">
 					<select name="proxy_type" id="proxy_type"><?php
+						defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2);	// Compatibility cURL 7.51
 						$type = $curlParams[CURLOPT_PROXYTYPE] ?? '';
-						foreach (['' => '', 3 => 'NONE', 0 => 'HTTP', 2 => 'HTTPS', 4 => 'SOCKS4', 6 => 'SOCKS4A', 5 => 'SOCKS5', 7 => 'SOCKS5H'] as $k => $v) {
+						if ($type === 3) {	// Legacy for NONE
+							$type = -1;
+						}
+						foreach (['' => '', -1 => 'NONE', CURLPROXY_HTTP => 'HTTP', CURLPROXY_HTTPS => 'HTTPS',
+							CURLPROXY_SOCKS4 => 'SOCKS4', CURLPROXY_SOCKS4A => 'SOCKS4A', CURLPROXY_SOCKS5 => 'SOCKS5',
+							CURLPROXY_SOCKS5_HOSTNAME => 'SOCKS5H'] as $k => $v) {
 							echo '<option value="' . $k . ($type === $k ? '" selected="selected' : '' ) . '">' . $v . '</option>';
 						}
 					?>
 					</select>
 					<input type="text" name="curl_params" id="curl_params" value="<?=
 						htmlspecialchars((string)($curlParams[CURLOPT_PROXY] ?? ''), ENT_COMPAT, 'UTF-8')
-					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					?>" placeholder="<?= _t('gen.short.by_default') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
 				</div>
 			</div>
@@ -757,8 +801,14 @@
 					?>
 					</select>
 					<div class="stick">
+						<?php
+							$postFields = $this->feed->attributeArray('curl_params')[CURLOPT_POSTFIELDS] ?? '';
+							if (!is_string($postFields)) {
+								$postFields = '';
+							}
+						?>
 						<input type="text" name="curl_fields" id="curl_fields" value="<?=
-							htmlspecialchars($this->feed->attributeArray('curl_params')[CURLOPT_POSTFIELDS] ?? '', ENT_COMPAT, 'UTF-8')
+							htmlspecialchars($postFields, ENT_COMPAT, 'UTF-8')
 						?>" placeholder="<?= _t('sub.feed.method_postparams') ?>" />
 					</div>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.method_help') ?></p>
@@ -786,8 +836,18 @@
 			<div class="form-group">
 				<label class="group-name" for="http_headers"><?= _t('sub.feed.http_headers') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json" id="http_headers" name="http_headers" rows="3" cols="64" spellcheck="false"><?php
-						foreach ($this->feed->attributeArray('curl_params')[CURLOPT_HTTPHEADER] ?? [] as $header) {
+					<?php
+						$httpHeaders = $this->feed->attributeArray('curl_params')[CURLOPT_HTTPHEADER] ?? [];
+						if (!is_array($httpHeaders)) {
+							$httpHeaders = [];
+						}
+						$httpHeaders = array_filter($httpHeaders, 'is_string');
+						// Remove headers problematic for security
+						$httpHeaders = array_filter($httpHeaders,
+							fn(string $header) => !preg_match('/^(Remote-User|X-WebAuth-User)\\s*:/i', $header));
+					?>
+					<textarea class="w100" id="http_headers" name="http_headers" rows="3" spellcheck="false"><?php
+						foreach ($httpHeaders as $header) {
 							echo htmlspecialchars($header, ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
@@ -817,9 +877,9 @@
 	<h2><?= _t('sub.feed.maintenance.title') ?></h2>
 	<div class="form-group">
 		<div class="group-controls">
-			<a class="btn btn-important" href="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
+			<button class="btn btn-important" form="post-csrf" formaction="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
 				<?= _t('sub.feed.maintenance.clear_cache') ?>
-			</a>
+			</button>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
 		</div>
 		<div class="group-controls">
@@ -837,7 +897,7 @@
 
 	<h2><?= _t('sub.import_export.export') ?></h2>
 	<div class="form-group">
-		<label class="group-name"><?= _t('sub.feed.export-as-opml.label') ?></label>
+		<div class="group-name"><?= _t('sub.feed.export-as-opml.label') ?></div>
 		<div class="group-controls">
 			<a class="btn btn-important" href="<?= _url('index', 'opml', 'get', 'f_' . $this->feed->id()) ?>" download="f_<?= $this->feed->id() ?> <?= $this->feed->name(true) ?>.opml.xml">
 				<?= _t('sub.feed.export-as-opml.download') ?>

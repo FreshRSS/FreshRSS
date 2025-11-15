@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
 	fail('FreshRSS seems to be already installed!' . "\n" . 'Please use `./cli/reconfigure.php` instead.', EXIT_CODE_ALREADY_EXISTS);
@@ -92,16 +92,16 @@ $dbValues = [
 	'prefix' => $cliOptions->dbPrefix ?? null,
 ];
 
-$config = array(
-		'salt' => generateSalt(),
-		'db' => FreshRSS_Context::systemConf()->db,
-	);
+$config = [
+	'salt' => generateSalt(),
+	'db' => FreshRSS_Context::systemConf()->db,
+];
 
 $customConfigPath = DATA_PATH . '/config.custom.php';
 if (file_exists($customConfigPath)) {
-	$customConfig = include($customConfigPath);
-	if (is_array($customConfig)) {
-		$config = array_merge($customConfig, $config);
+	$customConfig = include $customConfigPath;
+	if (is_array($customConfig) && is_array_keys_string($customConfig)) {
+		$config = array_merge($config, $customConfig);
 	}
 }
 
@@ -132,8 +132,14 @@ if ((!empty($config['base_url'])) && is_string($config['base_url']) && Minz_Requ
 	$config['pubsubhubbub_enabled'] = true;
 }
 
+if (!is_array($config['db'])) {
+	$config['db'] = [];
+}
 $config['db'] = array_merge($config['db'], array_filter($dbValues, static fn($value) => $value !== null));
 
+if (!is_string($config['db']['type'] ?? null)) {
+	$config['db']['type'] = '';
+}
 performRequirementCheck($config['db']['type']);
 
 if (file_put_contents(join_path(DATA_PATH, 'config.php'),
@@ -162,9 +168,12 @@ try {
 
 if (!$ok) {
 	@unlink(join_path(DATA_PATH, 'config.php'));
-	fail('FreshRSS database error: ' . (empty($_SESSION['bd_error']) ? 'Unknown error' : $_SESSION['bd_error']));
+	fail('FreshRSS database error: ' . (is_string($_SESSION['bd_error'] ?? null) ? $_SESSION['bd_error'] : 'Unknown error'));
 }
 
+if (!is_string($config['default_user'] ?? null)) {
+	fail('FreshRSS default user not set!');
+}
 echo 'ℹ️ Remember to create the default user: ', $config['default_user'],
 	"\t", './cli/create-user.php --user ', $config['default_user'], " --password 'password' --more-options\n";
 

@@ -19,8 +19,8 @@
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = '0';
 				}
-				?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?php
-					echo _i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
+				?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?=
+					_i($this->entry->isRead() ? 'read' : 'unread') ?></a><?php
 			?></li><?php
 		}
 		if ($bottomline_favorite) {
@@ -29,8 +29,8 @@
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = '0';
 				}
-				?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?php
-					echo _i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
+				?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?=
+					_i($this->entry->isFavorite() ? 'starred' : 'non-starred') ?></a><?php
 			?></li><?php
 		}
 	}
@@ -39,7 +39,7 @@
 		<div class="item-element dropdown dynamictags">
 			<div id="dropdown-labels-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-labels-<?= $this->entry->id() ?>">
-				<?= _i('label') ?><?= _t('index.menu.tags') ?>
+				<?= _i('label') ?><span class="dropdown-label"><?= _t('index.menu.mylabels') ?></span>
 			</a>
 		</div>
 	</li><?php
@@ -50,13 +50,14 @@
 		<div class="item-element dropdown">
 			<div id="dropdown-tags-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-tags-<?= $this->entry->id() ?>">
-				<?= _i('tag') ?><?= _t('index.tag.related') ?>
+				<?= _i('tag') ?><span class="dropdown-label"><?= _t('index.tag.related') ?></span>
 			</a>
 			<ul class="dropdown-menu">
 				<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
 				<?php
 				foreach ($tags as $tag) {
-					?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' . str_replace(' ', '+', htmlspecialchars_decode($tag, ENT_QUOTES))) ?>"><?= $tag ?></a></li><?php
+					?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' .
+						FreshRSS_tag_Controller::escapeForSearch($tag)) ?>"><?= $tag ?></a></li><?php
 				} ?>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
@@ -68,7 +69,7 @@
 		?><div class="item-element dropdown">
 			<div id="dropdown-share-<?= $this->entry->id() ?>" class="dropdown-target"></div>
 			<a class="dropdown-toggle" href="#dropdown-share-<?= $this->entry->id() ?>">
-				<?= _i('share') ?><?= _t('index.share') ?>
+				<?= _i('share') ?><span class="dropdown-label"><?= _t('index.share') ?></span>
 			</a>
 			<?php /* entry_share_menu */ ?>
 		</div>

@@ -1,22 +1,22 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',
-		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',
+		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>',
 		'form' => 'Web form (traditional, requires JavaScript)',
-		'http' => 'HTTP (for advanced users with HTTPS)',
+		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',
 		'none' => 'None (dangerous)',
 		'title' => 'Authentication',
 		'token' => 'Master authentication token',
@@ -116,8 +116,9 @@ return array(
 		'description' => 'Description',
 		'disabled' => 'Disabled',
 		'empty_list' => 'There are no installed extensions',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',
 		'enabled' => 'Enabled',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Installed',
 		'name' => 'Name',
 		'no_configure_view' => 'This extension cannot be configured.',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Statistics',
 		'all_feeds' => 'All feeds',
 		'category' => 'Category',
+		'date_published' => 'Publication date',
+		'date_received' => 'Received date',
 		'entry_count' => 'Entry count',
 		'entry_per_category' => 'Entries per category',
 		'entry_per_day' => 'Entries per day (last 30 days)',
@@ -146,16 +149,19 @@ return array(
 		'idle' => 'Idle feeds',
 		'main' => 'Main statistics',
 		'main_stream' => 'Main stream',
+		'nb_unreads' => 'Number of unread articles',
 		'no_idle' => 'There are no idle feeds!',
 		'number_entries' => '%d articles',
+		'overview' => 'Overview',
 		'percent_of_total' => '% of total',
-		'repartition' => 'Articles repartition',
+		'repartition' => 'Articles repartition: %s',
 		'status_favorites' => 'Favourites',
 		'status_read' => 'Read',
 		'status_total' => 'Total',
 		'status_unread' => 'Unread',
 		'title' => 'Statistics',
 		'top_feed' => 'Top ten feeds',
+		'unread_dates' => 'Dates with most unread articles',
 	),
 	'system' => array(
 		'_' => 'System configuration',

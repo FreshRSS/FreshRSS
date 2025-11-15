@@ -8,7 +8,6 @@ declare(strict_types=1);
  * easy way.
  */
 class FreshRSS_UserQuery {
-
 	private bool $deprecated = false;
 	private string $get = '';
 	private string $get_name = '';
@@ -16,15 +15,16 @@ class FreshRSS_UserQuery {
 	/** XML-encoded name */
 	private string $name = '';
 	private string $order = '';
-	private FreshRSS_BooleanSearch $search;
+	private readonly FreshRSS_BooleanSearch $search;
 	private int $state = 0;
 	private string $url = '';
 	private string $token = '';
 	private bool $shareRss = false;
 	private bool $shareOpml = false;
-	/** @var array<int,FreshRSS_Category> $categories */
+	private bool $publishLabelsInsteadOfTags = false;
+	/** @var array<int,FreshRSS_Category> $categories where the key is the category ID */
 	private array $categories;
-	/** @var array<int,FreshRSS_Tag> $labels */
+	/** @var array<int,FreshRSS_Tag> $labels where the key is the label ID */
 	private array $labels;
 	/** XML-encoded description */
 	private string $description = '';
@@ -44,13 +44,19 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * @param array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
-	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $query
-	 * @param array<int,FreshRSS_Category> $categories
-	 * @param array<int,FreshRSS_Tag> $labels
+	 * 	shareRss?:bool,shareOpml?:bool,publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string} $query
+	 * @param array<FreshRSS_Category> $categories
+	 * @param array<FreshRSS_Tag> $labels
 	 */
 	public function __construct(array $query, array $categories, array $labels) {
-		$this->categories = $categories;
-		$this->labels = $labels;
+		$this->categories = [];
+		foreach ($categories as $category) {
+			$this->categories[$category->id()] = $category;
+		}
+		$this->labels = [];
+		foreach ($labels as $label) {
+			$this->labels[$label->id()] = $label;
+		}
 		if (isset($query['get'])) {
 			$this->parseGet($query['get']);
 		} else {
@@ -70,6 +76,7 @@ class FreshRSS_UserQuery {
 				unset($link['name']);
 				unset($link['shareOpml']);
 				unset($link['shareRss']);
+				unset($link['publishLabelsInsteadOfTags']);
 				$this->url = Minz_Url::display(['params' => $link]);
 			}
 		} else {
@@ -86,6 +93,9 @@ class FreshRSS_UserQuery {
 		}
 		if (isset($query['shareOpml'])) {
 			$this->shareOpml = $query['shareOpml'];
+		}
+		if (isset($query['publishLabelsInsteadOfTags'])) {
+			$this->publishLabelsInsteadOfTags = (bool)$query['publishLabelsInsteadOfTags'];
 		}
 		if (isset($query['description'])) {
 			$this->description = $query['description'];
@@ -104,7 +114,9 @@ class FreshRSS_UserQuery {
 	/**
 	 * Convert the current object to an array.
 	 *
-	 * @return array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string,'token'?:string}
+	 * @return array{get?:string,name?:string,order?:string,search?:string,
+	 * 	state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool,
+	 * 	publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string}
 	 */
 	public function toArray(): array {
 		return array_filter([
@@ -117,9 +129,10 @@ class FreshRSS_UserQuery {
 			'token' => $this->token,
 			'shareRss' => $this->shareRss,
 			'shareOpml' => $this->shareOpml,
+			'publishLabelsInsteadOfTags' => $this->publishLabelsInsteadOfTags,
 			'description' => $this->description,
 			'imageUrl' => $this->imageUrl,
-		]);
+		], fn($v): bool => $v !== '' && $v !== 0 && $v !== false);
 	}
 
 	/**
@@ -129,11 +142,17 @@ class FreshRSS_UserQuery {
 		$this->get = $get;
 		if ($this->get === '') {
 			$this->get_type = 'all';
-		} elseif (preg_match('/(?P<type>[acfistT])(_(?P<id>\d+))?/', $get, $matches)) {
+		} elseif (preg_match('/(?P<type>[aAcfistTZ])(_(?P<id>\d+))?/', $get, $matches)) {
 			$id = intval($matches['id'] ?? '0');
 			switch ($matches['type']) {
-				case 'a':
+				case 'a':	// All PRIORITY_MAIN_STREAM
 					$this->get_type = 'all';
+					break;
+				case 'A':	// All except PRIORITY_HIDDEN
+					$this->get_type = 'A';
+					break;
+				case 'Z':	// All including PRIORITY_HIDDEN
+					$this->get_type = 'Z';
 					break;
 				case 'c':
 					$this->get_type = 'category';
@@ -268,6 +287,14 @@ class FreshRSS_UserQuery {
 		return $this->shareOpml;
 	}
 
+	public function setPublishLabelsInsteadOfTags(bool $publishLabelsInsteadOfTags): void {
+		$this->publishLabelsInsteadOfTags = $publishLabelsInsteadOfTags;
+	}
+
+	public function publishLabelsInsteadOfTags(): bool {
+		return $this->publishLabelsInsteadOfTags;
+	}
+
 	protected function sharedUrl(bool $xmlEscaped = true): string {
 		$currentUser = Minz_User::name() ?? '';
 		return Minz_Url::display("/api/query.php?user={$currentUser}&t={$this->token}", $xmlEscaped ? 'html' : '', true);
@@ -322,5 +349,23 @@ class FreshRSS_UserQuery {
 
 	public function setImageUrl(string $imageUrl): void {
 		$this->imageUrl = $imageUrl;
+	}
+
+	/**
+	 * Remove queries where $get is appearing.
+	 * @param string $get the get attribute which should be removed.
+	 * @param array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string}> $queries an array of queries.
+	 * @return array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string}> without queries where $get is appearing.
+	 */
+	public static function remove_query_by_get(string $get, array $queries): array {
+		$final_queries = [];
+		foreach ($queries as $query) {
+			if (empty($query['get']) || $query['get'] !== $get) {
+				$final_queries[] = $query;
+			}
+		}
+		return $final_queries;
 	}
 }

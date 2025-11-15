@@ -42,7 +42,7 @@ class Minz_FrontController {
 			$url = Minz_Url::build();
 			$url['params'] = array_merge(
 				empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
-				$_POST
+				array_filter($_POST, 'is_string', ARRAY_FILTER_USE_KEY)
 			);
 			Minz_Request::forward($url);
 		} catch (Minz_Exception $e) {

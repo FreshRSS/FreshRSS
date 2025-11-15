@@ -34,7 +34,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		return count(array_keys($tables, true, true)) === count($tables);
 	}
 
-	/** @return array<array{name:string,type:string,notnull:bool,default:mixed}> */
+	/** @return list<array{name:string,type:string,notnull:bool,default:mixed}> */
 	#[\Override]
 	public function getSchema(string $table): array {
 		$sql = <<<'SQL'
@@ -52,11 +52,16 @@ SQL;
 	#[\Override]
 	public function daoToSchema(array $dao): array {
 		return [
-			'name' => (string)($dao['field']),
-			'type' => strtolower((string)($dao['type'])),
-			'notnull' => (bool)$dao['null'],
-			'default' => $dao['default'],
+			'name' => is_string($dao['field'] ?? null) ? $dao['field'] : '',
+			'type' => is_string($dao['type'] ?? null) ? strtolower($dao['type']) : '',
+			'notnull' => empty($dao['null']),
+			'default' => is_scalar($dao['default'] ?? null) ? $dao['default'] : null,
 		];
+	}
+
+	#[\Override]
+	protected function selectVersion(): string {
+		return $this->fetchValue('SELECT version()') ?? '';
 	}
 
 	#[\Override]

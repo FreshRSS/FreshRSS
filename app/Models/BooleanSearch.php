@@ -4,20 +4,24 @@ declare(strict_types=1);
 /**
  * Contains Boolean search from the search form.
  */
-class FreshRSS_BooleanSearch {
+class FreshRSS_BooleanSearch implements \Stringable {
 
 	private string $raw_input = '';
-	/** @var array<FreshRSS_BooleanSearch|FreshRSS_Search> */
+	/** @var list<FreshRSS_BooleanSearch|FreshRSS_Search> */
 	private array $searches = [];
 
 	/**
-	 * @phpstan-var 'AND'|'OR'|'AND NOT'|'OR NOT'
+	 * @param string $input
+	 * @param int $level
+	 * @param 'AND'|'OR'|'AND NOT'|'OR NOT' $operator
+	 * @param bool $allowUserQueries
 	 */
-	private string $operator;
-
-	/** @param 'AND'|'OR'|'AND NOT'|'OR NOT' $operator */
-	public function __construct(string $input, int $level = 0, string $operator = 'AND', bool $allowUserQueries = true) {
-		$this->operator = $operator;
+	public function __construct(
+		string $input,
+		int $level = 0,
+		private readonly string $operator = 'AND',
+		bool $allowUserQueries = true
+	) {
 		$input = trim($input);
 		if ($input === '') {
 			return;
@@ -35,7 +39,7 @@ class FreshRSS_BooleanSearch {
 		$this->raw_input = $input;
 
 		if ($level === 0) {
-			$input = self::escapeRegexParentheses($input);
+			$input = self::escapeLiteralParentheses($input);
 			$input = $this->parseUserQueryNames($input, $allowUserQueries);
 			$input = $this->parseUserQueryIds($input, $allowUserQueries);
 			$input = trim($input);
@@ -79,7 +83,7 @@ class FreshRSS_BooleanSearch {
 					if (!empty($queries[$name])) {
 						$fromS[] = $matches[0][$i];
 						if ($allowUserQueries) {
-							$toS[] = '(' . self::escapeRegexParentheses($queries[$name]) . ')';
+							$toS[] = '(' . self::escapeLiteralParentheses($queries[$name]) . ')';
 						} else {
 							$toS[] = '';
 						}
@@ -98,7 +102,7 @@ class FreshRSS_BooleanSearch {
 	private function parseUserQueryIds(string $input, bool $allowUserQueries = true): string {
 		$all_matches = [];
 
-		if (preg_match_all('/\bS:(?P<search>\d+)/', $input, $matchesFound)) {
+		if (preg_match_all('/\bS:(?P<search>[0-9,]+)/', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
 		}
 
@@ -115,15 +119,25 @@ class FreshRSS_BooleanSearch {
 					continue;
 				}
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
-					// Index starting from 1
-					$id = (int)(trim($matches['search'][$i])) - 1;
-					if (!empty($queries[$id])) {
-						$fromS[] = $matches[0][$i];
-						if ($allowUserQueries) {
-							$toS[] = '(' . self::escapeRegexParentheses($queries[$id]) . ')';
-						} else {
-							$toS[] = '';
+					$ids = explode(',', $matches['search'][$i]);
+					$ids = array_map('intval', $ids);
+
+					$matchedQueries = [];
+					foreach ($ids as $id) {
+						if (!empty($queries[$id])) {
+							$matchedQueries[] = $queries[$id];
 						}
+					}
+					if (empty($matchedQueries)) {
+						continue;
+					}
+
+					$fromS[] = $matches[0][$i];
+					if ($allowUserQueries) {
+						$escapedQueries = array_map(fn(string $query): string => self::escapeLiteralParentheses($query), $matchedQueries);
+						$toS[] = '(' . implode(') OR (', $escapedQueries) . ')';
+					} else {
+						$toS[] = '';
 					}
 				}
 			}
@@ -134,16 +148,16 @@ class FreshRSS_BooleanSearch {
 	}
 
 	/**
-	 * Temporarily escape parentheses used in regex expressions.
+	 * Temporarily escape parentheses used in regex expressions or inside quoted strings.
 	 */
-	public static function escapeRegexParentheses(string $input): string {
-		return preg_replace_callback('%(?<=[\\s(:#!-]|^)(?<![\\\\])/.+?(?<!\\\\)/[im]*%',
+	public static function escapeLiteralParentheses(string $input): string {
+		return preg_replace_callback('%(?<=[\\s(:#!-]|^)(?<![\\\\])(?P<delim>[\'"/]).+?(?<!\\\\)(?P=delim)[im]*%',
 			fn(array $matches): string => str_replace(['(', ')'], ['\\u0028', '\\u0029'], $matches[0]),
 			$input
 		) ?? '';
 	}
 
-	public static function unescapeRegexParentheses(string $input): string {
+	public static function unescapeLiteralParentheses(string $input): string {
 		return str_replace(['\\u0028', '\\u0029'], ['(', ')'], $input);
 	}
 
@@ -396,7 +410,7 @@ class FreshRSS_BooleanSearch {
 	/**
 	 * Either a list of FreshRSS_BooleanSearch combined by implicit AND
 	 * or a series of FreshRSS_Search combined by explicit OR
-	 * @return array<FreshRSS_BooleanSearch|FreshRSS_Search>
+	 * @return list<FreshRSS_BooleanSearch|FreshRSS_Search>
 	 */
 	public function searches(): array {
 		return $this->searches;
@@ -408,7 +422,12 @@ class FreshRSS_BooleanSearch {
 	}
 
 	/** @param FreshRSS_BooleanSearch|FreshRSS_Search $search */
-	public function add($search): void {
+	public function prepend(FreshRSS_BooleanSearch|FreshRSS_Search $search): void {
+		array_unshift($this->searches, $search);
+	}
+
+	/** @param FreshRSS_BooleanSearch|FreshRSS_Search $search */
+	public function add(FreshRSS_BooleanSearch|FreshRSS_Search $search): void {
 		$this->searches[] = $search;
 	}
 

@@ -7,7 +7,7 @@ FreshRSS_UserConfiguration::register('default_user', join_path(FRESHRSS_PATH, 'c
 /** @return array<string,string> */
 function checkRequirements(string $dbType = ''): array {
 	$php = version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0;
-	$curl = extension_loaded('curl');
+	$curl = extension_loaded('curl');	// TODO: We actually require cURL >= 7.52 for CURLPROXY_HTTPS
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	$pdo_pgsql = extension_loaded('pdo_pgsql');
@@ -47,7 +47,7 @@ function checkRequirements(string $dbType = ''): array {
 	$users = is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html');
 	$favicons = is_dir(DATA_PATH) && touch(DATA_PATH . '/favicons/index.html');
 
-	return array(
+	return [
 		'php' => $php ? 'ok' : 'ko',
 		'curl' => $curl ? 'ok' : 'ko',
 		'pdo-mysql' => $pdo_mysql ? 'ok' : 'ko',
@@ -68,12 +68,12 @@ function checkRequirements(string $dbType = ''): array {
 		'favicons' => $favicons ? 'ok' : 'ko',
 		'message' => $message ?: '',
 		'all' => $php && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
-			$data && $cache && $tmp && $users && $favicons && $message == '' ? 'ok' : 'ko'
-	);
+			$data && $cache && $tmp && $users && $favicons && $message == '' ? 'ok' : 'ko',
+	];
 }
 
 function generateSalt(): string {
-	return sha1(uniqid('' . mt_rand(), true) . implode('', stat(__FILE__) ?: []));
+	return hash('sha256', uniqid(more_entropy: true) . implode('', stat(__FILE__) ?: []) . random_bytes(32));
 }
 
 /**

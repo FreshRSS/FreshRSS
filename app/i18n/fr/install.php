@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Garder l’ancienne configuration',
 		'next_step' => 'Passer à l’étape suivante',
 		'reinstall' => 'Réinstaller FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Formulaire (traditionnel, requiert JavaScript)',
-		'http' => 'HTTP (pour utilisateurs avancés avec HTTPS)',
-		'none' => 'Aucune (dangereux)',
-		'password_form' => 'Mot de passe<br /><small>(pour connexion par formulaire)</small>',
-		'password_format' => '7 caractères minimum',
-		'type' => 'Méthode d’authentification',
 	),
 	'bdd' => array(
 		'_' => 'Base de données',

@@ -1,22 +1,22 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
 		'allow_anonymous' => '누구나 기본 사용자의 글을 읽을 수 있도록 합니다(%s)',
 		'allow_anonymous_refresh' => '누구나 피드를 갱신할 수 있도록 합니다',
-		'api_enabled' => '<abbr>API</abbr> 사용을 허가합니다<small>(모바일 애플리케이션을 사용할 때 필요합니다)</small>',
+		'api_enabled' => '<abbr>API</abbr> 사용을 허가합니다<small>(모바일 애플리케이션을 사용할 때 필요합니다	and sharing user queries)</small>',	// DIRTY
 		'form' => '웹폼 (전통적인 방식, 자바스크립트 필요)',
-		'http' => 'HTTP (HTTPS를 사용하는 고급 사용자용)',
+		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => '사용하지 않음 (위험)',
 		'title' => '인증',
 		'token' => '마스터 인증 토큰',
@@ -118,6 +118,7 @@ return array(
 		'empty_list' => '설치된 확장 기능이 없습니다',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => '활성화됨',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => '설치됨',
 		'name' => '이름',
 		'no_configure_view' => '이 확장 기능은 설정이 없습니다.',
@@ -134,6 +135,8 @@ return array(
 		'_' => '통계',
 		'all_feeds' => '모든 피드',
 		'category' => '카테고리',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => '글 개수',
 		'entry_per_category' => '카테고리별 글 개수',
 		'entry_per_day' => '일일 글 개수 (최근 30 일)',
@@ -146,16 +149,19 @@ return array(
 		'idle' => '유휴 피드',
 		'main' => '주요 통계',
 		'main_stream' => '메인 스트림',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => '유휴 피드가 없습니다!',
 		'number_entries' => '%d 개의 글',
+		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '전체에서의 비율 (%)',
-		'repartition' => '글 분류',
+		'repartition' => '글 분류: %s',	// DIRTY
 		'status_favorites' => '즐겨찾기',
 		'status_read' => '읽음',
 		'status_total' => '전체',
 		'status_unread' => '읽지 않음',
 		'title' => '통계',
 		'top_feed' => '상위 10 개 피드',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => '시스템 설정',

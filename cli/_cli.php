@@ -7,16 +7,16 @@ if (php_sapi_name() !== 'cli') {
 
 const EXIT_CODE_ALREADY_EXISTS = 3;
 
-require(__DIR__ . '/../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
-require(LIB_PATH . '/lib_install.php');
-require_once(__DIR__ . '/CliOption.php');
-require_once(__DIR__ . '/CliOptionsParser.php');
+require dirname(__DIR__) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
+require LIB_PATH . '/lib_install.php';
+require_once __DIR__ . '/CliOption.php';
+require_once __DIR__ . '/CliOptionsParser.php';
 
 Minz_Session::init('FreshRSS', true);
 FreshRSS_Context::initSystem();
 Minz_ExtensionManager::init();
-Minz_Translate::init('en');
+Minz_Translate::init(Minz_Translate::DEFAULT_LANGUAGE);
 
 FreshRSS_Context::$isCli = true;
 
@@ -52,7 +52,8 @@ function accessRights(): void {
 
 function done(bool $ok = true): never {
 	if (!$ok) {
-		fwrite(STDERR, (empty($_SERVER['argv'][0]) ? 'Process' : basename($_SERVER['argv'][0])) . ' failed!' . "\n");
+		fwrite(STDERR, (isset($_SERVER['argv']) && is_array($_SERVER['argv']) && !empty($_SERVER['argv'][0]) && is_string($_SERVER['argv'][0]) ?
+			basename($_SERVER['argv'][0]) : 'Process') . ' failed!' . "\n");
 	}
 	exit($ok ? 0 : 1);
 }

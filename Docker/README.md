@@ -61,7 +61,7 @@ docker exec --user www-data freshrss cli/list-users.php
 Example of installation via command line:
 
 ```sh
-docker exec --user www-data freshrss cli/do-install.php --default_user freshrss
+docker exec --user www-data freshrss cli/do-install.php --default-user freshrss
 
 docker exec --user www-data freshrss cli/create-user.php --user freshrss --password freshrss
 ```
@@ -274,6 +274,7 @@ sudo nano /var/lib/docker/volumes/freshrss_data/_data/config.php
 First, put variables such as passwords in your `.env` file, which can live where your `docker-compose.yml` should be. See [`example.env`](./freshrss/example.env).
 
 ```ini
+BASE_URL=https://freshrss.example.net
 ADMIN_EMAIL=admin@example.net
 ADMIN_PASSWORD=freshrss
 ADMIN_API_PASSWORD=freshrss
@@ -303,8 +304,6 @@ docker compose down --remove-orphans
 Detailed (partial) example of Docker Compose for FreshRSS:
 
 ```yaml
-version: "2.4"
-
 volumes:
   data:
   extensions:
@@ -339,7 +338,7 @@ services:
       TZ: Europe/Paris
       # Cron job to refresh feeds at specified minutes
       CRON_MIN: '2,32'
-      # 'development' for additional logs; default is 'production'
+      # Optional 'development' for additional logs; default is 'production'
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
@@ -365,7 +364,7 @@ services:
         --db-password ${DB_PASSWORD}
         --db-type pgsql
         --db-user ${DB_USER}
-        --default_user admin
+        --default-user admin
         --language en
       FRESHRSS_USER: |-
         --api-password ${ADMIN_API_PASSWORD}
@@ -373,6 +372,14 @@ services:
         --language en
         --password ${ADMIN_PASSWORD}
         --user admin
+    # Optional healthcheck
+    healthcheck:
+      test: ["CMD", "cli/health.php"]
+      timeout: 10s
+      start_period: 60s
+      start_interval: 11s
+      interval: 75s
+      retries: 3
 ```
 
 ### Docker Compose with PostgreSQL

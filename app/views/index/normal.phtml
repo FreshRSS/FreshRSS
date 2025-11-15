@@ -8,9 +8,7 @@ if (!Minz_Request::paramBoolean('ajax')) {
 
 call_user_func($this->callbackBeforeEntries, $this);
 
-$display_today = true;
-$display_yesterday = true;
-$display_others = true;
+$last_transition = '';
 $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
 
 $today = @strtotime('today');
@@ -27,7 +25,7 @@ $today = @strtotime('today');
 	<div class="dropdown-menu">
 		<ul class="dropdown-menu-scrollable scrollbar-thin">
 			<li class="dropdown-header">
-				<?= _t('index.menu.tags') ?>
+				<?= _t('index.menu.mylabels') ?>
 				<?php if (FreshRSS_Auth::hasAccess()) { ?>
 					<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
 				<?php } ?>
@@ -46,56 +44,48 @@ $today = @strtotime('today');
 	$lastEntry = null;
 	$nbEntries = 0;
 	foreach ($this->entries as $item):
-		$lastEntry = $item;
-		$nbEntries++;
-		ob_flush();
-		/** @var FreshRSS_Entry */
-		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
-		if ($item == null) {
+		/** @var FreshRSS_Entry|null $item */
+		$item = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $item);
+		if ($item === null) {
 			continue;
 		}
+		ob_flush();
 		$this->entry = $item;
+		$lastEntry = $item;
+		$nbEntries++;
 
 		// We most likely already have the feed object in cache, otherwise make a request
 		$this->feed = FreshRSS_Category::findFeed($this->categories, $this->entry->feedId()) ??
 			$this->entry->feed() ?? FreshRSS_Feed::default();
+		$this->entry->_feed($this->feed);
 
-		if ($display_today && $this->entry->isDay(FreshRSS_Days::TODAY, $today)) {
-			?><div class="day" id="day_today"><?php
-				echo _t('gen.date.today');
-				?><span class="date"> — <?= timestamptodate(time(), false) ?></span><?php
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
-			$display_today = false;
-		}
-		if ($display_yesterday && $this->entry->isDay(FreshRSS_Days::YESTERDAY, $today)) {
-			?><div class="day" id="day_yesterday"><?php
-				echo _t('gen.date.yesterday');
-				?><span class="date"> — <?= timestamptodate(time() - 86400, false) ?></span><?php
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
-			$display_yesterday = false;
-		}
-		if ($display_others && $this->entry->isDay(FreshRSS_Days::BEFORE_YESTERDAY, $today)) {
-			?><div class="day" id="day_before_yesterday"><?php
-				echo _t('gen.date.before_yesterday');
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
-			$display_others = false;
+		if ($last_transition !== ($transition = FreshRSS_index_Controller::transition($this->entry, FreshRSS_Context::$sort))) {
+			$last_transition = $transition;
+			?><div class="transition">
+			<span class="transition-value">
+				<?php if (FreshRSS_Context::$sort === 'f.name' && FreshRSS_Context::userConf()->show_favicons): ?>
+				<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
+				<?php endif;?>
+				<?= $transition ?>
+			</span>
+			<span class="name"><?= FreshRSS_Context::$name ?></span>
+			</div><?php
 		}
 	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
 		?><?= $this->entry->isFavorite() ? ' favorite' : ''
 		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
 		?>" id="flux_<?= $this->entry->id()
+		?>" data-entry="<?= $this->entry->id()
 		?>" data-feed="<?= $this->feed->id()
 		?>" data-priority="<?= $this->feed->priority()
+		?>" data-link="<?= $this->entry->link()
 		?>"><?php
 			$this->renderHelper('index/normal/entry_header');
 			if ($this->feed === null || $this->entry === null) {
 				throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
 			}
 		?><article class="flux_content" dir="auto">
-			<div class="content <?= FreshRSS_Context::userConf()->content_width ?>">
+			<div class="content content_<?= FreshRSS_Context::userConf()->content_width ?>">
 				<header>
 					<?php if (FreshRSS_Context::userConf()->show_feed_name === 't') { ?>
 						<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
@@ -119,22 +109,14 @@ $today = @strtotime('today');
 									<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 								endif; ?><span><?= $this->feed->name() ?></span></a>
 							</div>
-							<?php
+						<?php }
+						if (!empty($this->entry->authors())) {
+							$this->renderHelper('index/authors');
+							if ($this->feed === null || $this->entry === null) {
+								throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
+							}
 						}
-
-						$authors = $this->entry->authors();
-						if (!empty($authors) && is_array($authors)) {
 						?>
-						<div class="author">
-							<?= _t('gen.short.by_author') ?>
-							<?php
-							foreach ($authors as $author) {
-								$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
-							?>
-							<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
-							<?php } ?>
-						</div>
-						<?php } ?>
 						<div class="date"><?= $this->entry->date() ?></div>
 					</div>
 					<?php } ?>
@@ -158,21 +140,14 @@ $today = @strtotime('today');
 											<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 										endif; ?><span><?= $this->feed->name() ?></span></a>
 									</div>
-									<?php
-								}
-								$authors = $this->entry->authors();
-								if (!empty($authors) && is_array($authors)) {
+								<?php }
+									if (!empty($this->entry->authors())) {
+										$this->renderHelper('index/authors');
+										if ($this->feed === null || $this->entry === null) {
+											throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
+										}
+									}
 								?>
-								<div class="author">
-									<?= _t('gen.short.by_author') ?>
-									<?php
-									foreach ($authors as $author) {
-										$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
-									?>
-									<a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a>
-									<?php } ?>
-								</div>
-								<?php } ?>
 								<div class="date"><?= $this->entry->date() ?></div>
 							</div>
 						<?php
@@ -220,6 +195,9 @@ $today = @strtotime('today');
 </a>
 
 <?php
-	if ($nbEntries > 0 && FreshRSS_Context::userConf()->show_nav_buttons) {
-		$this->partial('nav_entries');
+	if ($nbEntries > 0) {
+		echo Minz_ExtensionManager::callHookString(Minz_HookType::NavEntries);
+		if (FreshRSS_Context::userConf()->show_nav_buttons) {
+			$this->partial('nav_entries');
+		}
 	}

@@ -19,8 +19,7 @@ class FreshRSS_FeedDAOMySQL extends FreshRSS_FeedDAO {
 			SET `_feed`.`cache_nbEntries` = e2.total_entries,
 				`_feed`.`cache_nbUnreads` = e2.unread_entries
 			-- WHERE `_feed`.id IN (...)
-			;
-		SQL;
+			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($feedIds)) {
 			return $stm->rowCount();

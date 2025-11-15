@@ -4,10 +4,6 @@
 	$this->partial('aside_configure');
 ?>
 <main class="post">
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-	</div>
-
 	<h1><?= _t('admin.extensions.title') ?></h1>
 	<form id="form-extension" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
@@ -52,6 +48,7 @@
 					<th><?= _t('admin.extensions.version') ?></th>
 					<th><?= _t('admin.extensions.author') ?></th>
 					<th><?= _t('admin.extensions.description') ?></th>
+					<th><?= _t('admin.extensions.is_compatible') ?></th>
 				</tr>
 				<?php foreach ($this->available_extensions as $ext) { ?>
 					<tr>
@@ -72,6 +69,7 @@
 								<?php } ?>
 							<?php } ?>
 						</td>
+						<td><?= $ext['compatibility'] ?></td>
 					</tr>
 				<?php } ?>
 			</table>

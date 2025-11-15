@@ -37,7 +37,7 @@ Here are some tips to help you present your bug report or suggestion:
   * Not all bugs require logs, but if you have any doubts, it is better to provide them to us. Logs are important and very useful for debugging!
   * The logs may reveal confidential information, so **be careful not to disclose anything sensitive.**
 * If you report a feed problem, it will be easier if you could provide a snapshot of its content in a text file.
-See [here](#how-to-provide-feed-data) for more information.
+See [further down](#how-to-provide-feed-data) for more information.
 
 In addition, when facing a bug, you’re encouraged to follow this message format (from the [Sam & Max website](http://sametmax.com/template-de-demande-daide-en-informatique/):
 
@@ -72,7 +72,7 @@ Remember to give the following information if you know it:
 If you need us to investigate a feed problem, it will be easier if you provide a snapshot of the feed data.
 To do that, you can launch the following command:
 
-```bash
+```sh
 wget <feed url> -O output.rss.txt
 ```
 Then you can drag-and-drop the generated file into the issue.

@@ -21,14 +21,18 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		$db = FreshRSS_Context::systemConf()->db;
 
 		try {
-			$sql = sprintf($GLOBALS['SQL_CREATE_DB'], empty($db['base']) ? '' : $db['base']);
+			$sql = $GLOBALS['SQL_CREATE_DB'];
+			if (!is_string($sql)) {
+				throw new Exception('SQL_CREATE_DB is not a string!');
+			}
+			$sql = sprintf($sql, empty($db['base']) ? '' : $db['base']);
 			return $this->pdo->exec($sql) === false ? 'Error during CREATE DATABASE' : '';
 		} catch (Exception $e) {
-			syslog(LOG_DEBUG, __method__ . ' notice: ' . $e->getMessage());
+			syslog(LOG_DEBUG, __METHOD__ . ' notice: ' . $e->getMessage());
 			return $e->getMessage();
 		}
 	}
@@ -43,7 +47,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 			return $res == false ? 'Error during SQL connection fetch test!' : '';
 		} catch (Exception $e) {
-			syslog(LOG_DEBUG, __method__ . ' warning: ' . $e->getMessage());
+			syslog(LOG_DEBUG, __METHOD__ . ' warning: ' . $e->getMessage());
 			return $e->getMessage();
 		}
 	}
@@ -81,7 +85,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return count(array_keys($tables, true, true)) === count($tables);
 	}
 
-	/** @return array<array{name:string,type:string,notnull:bool,default:mixed}> */
+	/** @return list<array{name:string,type:string,notnull:bool,default:mixed}> */
 	public function getSchema(string $table): array {
 		$res = $this->fetchAssoc('DESC `_' . $table . '`');
 		return $res == null ? [] : $this->listDaoToSchema($res);
@@ -164,16 +168,16 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	 */
 	public function daoToSchema(array $dao): array {
 		return [
-			'name' => (string)($dao['Field']),
-			'type' => strtolower((string)($dao['Type'])),
-			'notnull' => (bool)$dao['Null'],
-			'default' => $dao['Default'],
+			'name' => is_string($dao['Field'] ?? null) ? $dao['Field'] : '',
+			'type' => is_string($dao['Type'] ?? null) ? strtolower($dao['Type']) : '',
+			'notnull' => empty($dao['Null']),
+			'default' => is_scalar($dao['Default'] ?? null) ? $dao['Default'] : null,
 		];
 	}
 
 	/**
 	 * @param array<array<string,string|int|bool|null>> $listDAO
-	 * @return array<array{name:string,type:string,notnull:bool,default:mixed}>
+	 * @return list<array{name:string,type:string,notnull:bool,default:mixed}>
 	 */
 	public function listDaoToSchema(array $listDAO): array {
 		$list = [];
@@ -193,20 +197,41 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		self::$staticVersion = $version;
 	}
 
+	protected function selectVersion(): string {
+		return $this->fetchValue('SELECT version()') ?? '';
+	}
+
 	public function version(): string {
 		if (self::$staticVersion !== null) {
 			return self::$staticVersion;
 		}
 		static $version = null;
-		if ($version === null) {
-			$version = $this->fetchValue('SELECT version()') ?? '';
+		if (!is_string($version)) {
+			$version = $this->selectVersion();
 		}
 		return $version;
+	}
+
+	public function pdoClientVersion(): string {
+		$version = $this->pdo->getAttribute(PDO::ATTR_CLIENT_VERSION);
+		return is_string($version) ? $version : '';
 	}
 
 	final public function isMariaDB(): bool {
 		// MariaDB includes its name in version, but not MySQL
 		return str_contains($this->version(), 'MariaDB');
+	}
+
+	/**
+	 * @return bool true if the database PDO driver returns typed integer values as it should, false otherwise.
+	 */
+	final public function testTyping(): bool {
+		$sql = 'SELECT 2 + 3';
+		if (($stm = $this->pdo->query($sql)) !== false) {
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			return ($res[0] ?? null) === 5;
+		}
+		return false;
 	}
 
 	public function size(bool $all = false): int {
@@ -255,8 +280,8 @@ SQL;
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
-		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-		if (!empty($GLOBALS['SQL_UPDATE_MINOR'])) {
+		include_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
+		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && is_string($GLOBALS['SQL_UPDATE_MINOR'])) {
 			$sql = $GLOBALS['SQL_UPDATE_MINOR'];
 			$isMariaDB = false;
 
@@ -272,7 +297,7 @@ SQL;
 			if ($this->pdo->exec($sql) === false) {
 				$info = $this->pdo->errorInfo();
 				if ($this->pdo->dbType() === 'mysql' &&
-					!$isMariaDB && !empty($info[2]) && (stripos($info[2], "Can't DROP ") !== false)) {
+					!$isMariaDB && is_string($info[2] ?? null) && (stripos($info[2], "Can't DROP ") !== false)) {
 					// Too bad for MySQL, but ignore error
 					return;
 				}
@@ -384,19 +409,17 @@ SQL;
 		$userTo->createUser();
 
 		$catTo->beginTransaction();
+		$catTo->deleteCategory(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+		$catTo->sqlResetSequence();
 		foreach ($catFrom->selectAll() as $category) {
-			$cat = $catTo->searchByName($category['name']);	//Useful for the default category
-			if ($cat != null) {
-				$catId = $cat->id();
-			} else {
-				$catId = $catTo->addCategory($category);
-				if ($catId == false) {
-					$error = 'Error during SQLite copy of categories!';
-					return self::stdError($error);
-				}
+			$catId = $catTo->addCategory($category);
+			if ($catId === false) {
+				$error = 'Error during SQLite copy of categories!';
+				return self::stdError($error);
 			}
 			$idMaps['c' . $category['id']] = $catId;
 		}
+		$catTo->sqlResetSequence();
 		foreach ($feedFrom->selectAll() as $feed) {
 			$feed['category'] = empty($idMaps['c' . $feed['category']]) ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $idMaps['c' . $feed['category']];
 			$feedId = $feedTo->addFeed($feed);
@@ -406,26 +429,35 @@ SQL;
 			}
 			$idMaps['f' . $feed['id']] = $feedId;
 		}
+		$feedTo->sqlResetSequence();
 		$catTo->commit();
 
 		$nbEntries = $entryFrom->count();
 		$n = 0;
+		$brokenEntries = 0;
 		$entryTo->beginTransaction();
-		foreach ($entryFrom->selectAll() as $entry) {
-			$n++;
-			if (!empty($idMaps['f' . $entry['id_feed']])) {
-				$entry['id_feed'] = $idMaps['f' . $entry['id_feed']];
-				if (!$entryTo->addEntry($entry, false)) {
-					$error = 'Error during SQLite copy of entries!';
-					return self::stdError($error);
+		while ($n < $nbEntries) {
+			foreach ($entryFrom->selectAll(offset: $n) as $entry) {
+				$n++;
+				if (!empty($idMaps['f' . $entry['id_feed']])) {
+					$entry['id_feed'] = $idMaps['f' . $entry['id_feed']];
+					if (!$entryTo->addEntry($entry, false)) {
+						$error = 'Error during SQLite copy of entries!';
+						return self::stdError($error);
+					}
+				}
+				if ($n % 100 === 1 && defined('STDERR') && $verbose) {	//Display progression
+					fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . ($brokenEntries > 0 ? " ($brokenEntries broken)" : ''));
 				}
 			}
-			if ($n % 100 === 1 && defined('STDERR') && $verbose) {	//Display progression
-				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries);
+			if ($n < $nbEntries) {
+				$brokenEntries++;
+				// Attempt to skip broken records in the case of corrupted database
+				$n++;
 			}
-		}
-		if (defined('STDERR') && $verbose) {
-			fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . "\n");
+			if (defined('STDERR') && $verbose) {
+				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . ($brokenEntries > 0 ? " ($brokenEntries broken)" : '') . PHP_EOL);
+			}
 		}
 		$entryTo->commit();
 		$feedTo->updateCachedValues();
@@ -444,41 +476,15 @@ SQL;
 		foreach ($tagFrom->selectEntryTag() as $entryTag) {
 			if (!empty($idMaps['t' . $entryTag['id_tag']])) {
 				$entryTag['id_tag'] = $idMaps['t' . $entryTag['id_tag']];
-				if (!$tagTo->tagEntry($entryTag['id_tag'], $entryTag['id_entry'])) {
+				if (!$tagTo->tagEntry($entryTag['id_tag'], (string)$entryTag['id_entry'])) {
 					$error = 'Error during SQLite copy of entry-tags!';
 					return self::stdError($error);
 				}
 			}
 		}
+		$tagTo->sqlResetSequence();
 		$tagTo->commit();
 
 		return true;
-	}
-
-	/**
-	 * Ensure that some PDO columns are `int` and not `string`.
-	 * Compatibility with PHP 7.
-	 * @param array<string|int|null> $table
-	 * @param array<string> $columns
-	 */
-	public static function pdoInt(array &$table, array $columns): void {
-		foreach ($columns as $column) {
-			if (isset($table[$column]) && is_string($table[$column])) {
-				$table[$column] = (int)$table[$column];
-			}
-		}
-	}
-
-	/**
-	 * Ensure that some PDO columns are `string` and not `bigint`.
-	 * @param array<string|int|null> $table
-	 * @param array<string> $columns
-	 */
-	public static function pdoString(array &$table, array $columns): void {
-		foreach ($columns as $column) {
-			if (isset($table[$column])) {
-				$table[$column] = (string)$table[$column];
-			}
-		}
 	}
 }

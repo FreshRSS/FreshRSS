@@ -11,7 +11,7 @@ final class UserJSExtension extends Minz_Extension {
 
 		$this->registerTranslates();
 		if ($this->hasFile(self::FILENAME)) {
-			Minz_View::appendScript($this->getFileUrl(self::FILENAME, 'js', false));
+			Minz_View::appendScript($this->getFileUrl(self::FILENAME, isStatic: false));
 		}
 	}
 
@@ -20,6 +20,10 @@ final class UserJSExtension extends Minz_Extension {
 		parent::init();
 
 		$this->registerTranslates();
+
+		if (FreshRSS_Auth::requestReauth()) {
+			return;
+		}
 
 		if (Minz_Request::isPost()) {
 			$js_rules = Minz_Request::paramString('js-rules', plaintext: true);

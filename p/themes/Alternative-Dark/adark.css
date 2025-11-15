@@ -29,6 +29,7 @@
 
 	--border-color-dark: #333;
 	--border-color-middle: #666;
+	--frss-border-color: var(--border-color-dark);
 	--border-color-favorite: #ffc300;
 	--border-color-unread: #e74c3c;
 
@@ -40,6 +41,7 @@
 
 	--notification-border-color: #eeb;
 	--notification-good-border-color: #0062b7;
+	--notification-good-background-color: #0062b7;
 	--notification-bad-background-color: #fdd;
 	--notification-bad-font-color: #912621;
 	--notification-bad-border-color: #ecc;
@@ -77,18 +79,11 @@ label {
 	cursor: pointer;
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 input, select, textarea {
-	padding: 7px;
 	background: var(--background-color-light);
 	color: var(--font-color-middle);
 	border: 1px solid var(--border-color-middle);
 	border-radius: 3px;
-	vertical-align: middle;
 }
 
 input:hover,
@@ -207,7 +202,7 @@ th {
 
 .btn {
 	margin: 0;
-	padding: 5px 10px;
+	padding: 0.25rem 0.5rem;
 	background: var(--background-color-dark);
 	color: var(--font-color-middle);
 	font-size: 0.9rem;
@@ -272,6 +267,18 @@ th {
 	box-shadow: none;
 }
 
+.spinner {
+	filter: invert(1);
+}
+
+a:hover > .spinner {
+	filter: invert(1) brightness(2);
+}
+
+.flux .item.manage .read:hover .icon.spinner {
+	filter: invert(1) grayscale(0.8) brightness(1.7);
+}
+
 /*=== switches */
 .switch.active {
 	background-color: var(--contrast-background-color);
@@ -293,25 +300,30 @@ th {
 	line-height: 2.5;
 }
 
-.nav-list .item a {
+.nav-list .item a,
+.nav-list .item .as-link {
 	color: var(--font-color-middle);
 }
 
-.nav-list .item a:hover {
+.nav-list .item a:hover,
+.nav-list .item .as-link:hover {
 	background-color: var(--background-color-hover);
 	color: var(--font-color-light);
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	background-color: var(--background-color-dark);
 	color: var(--font-color-light);
 }
 
-.nav-list .item > a {
+.nav-list .item > a,
+.nav-list .item > .as-link {
 	padding: 0 1rem;
 }
 
-.nav-list a:hover {
+.nav-list a:hover,
+.nav-list .as-link:hover {
 	text-decoration: none;
 }
 
@@ -367,8 +379,11 @@ th {
 	margin-bottom: 0.5rem;
 }
 
+.dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
+.dropdown-menu .item > button:focus:not([disabled]),
 .dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background: var(--background-color-hover);
 	color: var(--font-color-light);
@@ -694,8 +709,8 @@ kbd {
 	background: var(--contrast-background-color-hover);
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 0 10px;
 	font-weight: bold;
 	line-height: 3;
@@ -704,15 +719,15 @@ kbd {
 	border-top: 1px solid var(--border-color-dark);
 }
 
-.day span {
+.transition span {
 	line-height: 1.5;
 }
 
-#new-article + .day {
+#new-article + .transition {
 	border-top: none;
 }
 
-.day .name {
+.transition .name {
 	padding: 0 10px 0 0;
 	color: var(--font-color-light);
 	font-size: 1.8em;
@@ -895,14 +910,26 @@ kbd {
 	border-color: var(--notification-good-border-color);
 }
 
+.notification.good .close:hover {
+	background: var(--notification-good-background-color);
+}
+
 .notification.bad {
 	background-color: var(--notification-bad-background-color);
 	color: var(--notification-bad-font-color);
 	border-color: var(--notification-bad-border-color);
 }
 
-.notification.bad a.close:hover {
+.notification.bad .close:hover {
 	background: var(--notification-bad-background-color);
+}
+
+.notification .close .icon {
+	filter: brightness(1);
+}
+
+.notification .close:hover .icon {
+	filter: brightness(2);
 }
 
 .notification a {
@@ -910,7 +937,7 @@ kbd {
 }
 
 /*=== "Load more" part */
-#bigMarkAsRead {
+#bigMarkAsRead.big {
 	background: var(--background-color-dark);
 	color: var(--font-color-contrast);
 	text-align: center;
@@ -943,7 +970,7 @@ kbd {
 	background: inherit !important;
 }
 
-#stream.reader .flux .content {
+#stream.reader .flux .flux_content {
 	background-color: var(--background-color-middle);
 	border-color: var(--border-color-dark);
 }
@@ -1117,7 +1144,7 @@ kbd {
 		border-left: 2px solid var(--background-color-light);
 	}
 
-	.day .name {
+	.transition .name {
 		display: none!important;
 		font-size: 1.1rem;
 		text-shadow: none;
@@ -1127,17 +1154,17 @@ kbd {
 		background: var(--background-color-hover);
 	}
 
-	.notification a.close {
+	.notification .close {
 		background: transparent;
 		display: block;
 		left: 0;
 	}
 
-	.notification a.close:hover {
+	.notification .close:hover {
 		opacity: 0.5;
 	}
 
-	.notification a.close .icon {
+	.notification .close .icon {
 		display: none;
 	}
 

@@ -24,18 +24,24 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 			$this->pdo->prefix() . 'entrytag' => false,
 		];
 		foreach ($res as $value) {
-			$tables[$value['name']] = true;
+			if (is_array($value) && is_string($value['name'] ?? null)) {
+				$tables[$value['name']] = true;
+			}
 		}
 
 		return count(array_keys($tables, true, true)) == count($tables);
 	}
 
-	/** @return array<array{name:string,type:string,notnull:bool,default:mixed}> */
+	/** @return list<array{name:string,type:string,notnull:bool,default:mixed}> */
 	#[\Override]
 	public function getSchema(string $table): array {
 		$sql = 'PRAGMA table_info(' . $table . ')';
 		$stm = $this->pdo->query($sql);
-		return $stm !== false ? $this->listDaoToSchema($stm->fetchAll(PDO::FETCH_ASSOC) ?: []) : [];
+		if ($stm !== false && ($res = $stm->fetchAll(PDO::FETCH_ASSOC)) !== false) {
+			/** @var list<array{name:string,type:string,notnull:bool,dflt_value:string|int|bool|null}> $res */
+			return $this->listDaoToSchema($res);
+		}
+		return [];
 	}
 
 	#[\Override]
@@ -59,11 +65,16 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	#[\Override]
 	public function daoToSchema(array $dao): array {
 		return [
-			'name'    => (string)$dao['name'],
-			'type'    => strtolower((string)$dao['type']),
-			'notnull' => $dao['notnull'] == '1' ? true : false,
-			'default' => $dao['dflt_value'],
+			'name'    => is_string($dao['name'] ?? null) ? $dao['name'] : '',
+			'type'    => is_string($dao['type'] ?? null) ? strtolower($dao['type']) : '',
+			'notnull' => empty($dao['notnull']),
+			'default' => is_scalar($dao['dflt_value'] ?? null) ? $dao['dflt_value'] : null,
 		];
+	}
+
+	#[\Override]
+	protected function selectVersion(): string {
+		return $this->fetchValue('SELECT sqlite_version()') ?? '';
 	}
 
 	#[\Override]

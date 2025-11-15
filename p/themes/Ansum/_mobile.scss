@@ -96,6 +96,10 @@
 		}
 	}
 
+	#nav_menu_read_all #nav_menu_read .dropdown-toggle.btn {
+		background-image: none;
+	}
+
 	#stream {
 		.flux {
 			.flux_header {
@@ -122,7 +126,7 @@
 		}
 	}
 
-	.day {
+	.transition {
 		text-align: center;
 		padding: 1rem 0;
 

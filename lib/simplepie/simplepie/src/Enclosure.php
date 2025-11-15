@@ -253,7 +253,7 @@ class Enclosure
         if (function_exists('idn_to_ascii')) {
             $parsed = \SimplePie\Misc::parse_url($link ?? '');
             if ($parsed['authority'] !== '' && !ctype_print($parsed['authority'])) {
-                $authority = \idn_to_ascii($parsed['authority'], \IDNA_NONTRANSITIONAL_TO_ASCII, \INTL_IDNA_VARIANT_UTS46);
+                $authority = (string) \idn_to_ascii($parsed['authority'], \IDNA_NONTRANSITIONAL_TO_ASCII, \INTL_IDNA_VARIANT_UTS46);
                 $this->link = \SimplePie\Misc::compress_parse_url($parsed['scheme'], $authority, $parsed['path'], $parsed['query'], $parsed['fragment']);
             }
         }
@@ -931,7 +931,7 @@ class Enclosure
             }
         }
 
-        $mime = explode('/', $type, 2);
+        $mime = explode('/', (string) $type, 2);
         $mime = $mime[0];
 
         // Process values for 'auto'
@@ -992,7 +992,10 @@ class Enclosure
         // Flash Media Player file types.
         // Preferred handler for MP3 file types.
         elseif ($handler === 'fmedia' || ($handler === 'mp3' && $mediaplayer !== '')) {
-            $height += 20;
+            if (is_numeric($height)) {
+                $height += 20;
+            }
+
             if ($native) {
                 $embed .= "<embed src=\"$mediaplayer\" pluginspage=\"http://adobe.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" quality=\"high\" width=\"$width\" height=\"$height\" wmode=\"transparent\" flashvars=\"file=" . rawurlencode($this->get_link().'?file_extension=.'.$this->get_extension()) . "&autostart=false&repeat=$loop&showdigits=true&showfsbutton=false\"></embed>";
             } else {
@@ -1003,7 +1006,10 @@ class Enclosure
         // QuickTime 7 file types.  Need to test with QuickTime 6.
         // Only handle MP3's if the Flash Media Player is not present.
         elseif ($handler === 'quicktime' || ($handler === 'mp3' && $mediaplayer === '')) {
-            $height += 16;
+            if (is_numeric($height)) {
+                $height += 16;
+            }
+
             if ($native) {
                 if ($placeholder !== '') {
                     $embed .= "<embed type=\"$type\" style=\"cursor:hand; cursor:pointer;\" href=\"" . $this->get_link() . "\" src=\"$placeholder\" width=\"$width\" height=\"$height\" autoplay=\"false\" target=\"myself\" controller=\"false\" loop=\"$loop\" scale=\"aspect\" bgcolor=\"$bgcolor\" pluginspage=\"http://apple.com/quicktime/download/\"></embed>";
@@ -1017,7 +1023,10 @@ class Enclosure
 
         // Windows Media
         elseif ($handler === 'wmedia') {
-            $height += 45;
+            if (is_numeric($height)) {
+                $height += 45;
+            }
+
             if ($native) {
                 $embed .= "<embed type=\"application/x-mplayer2\" src=\"" . $this->get_link() . "\" autosize=\"1\" width=\"$width\" height=\"$height\" showcontrols=\"1\" showstatusbar=\"0\" showdisplay=\"0\" autostart=\"0\"></embed>";
             } else {
@@ -1053,10 +1062,9 @@ class Enclosure
         $types_wmedia = ['application/asx', 'application/x-mplayer2', 'audio/x-ms-wma', 'audio/x-ms-wax', 'video/x-ms-asf-plugin', 'video/x-ms-asf', 'video/x-ms-wm', 'video/x-ms-wmv', 'video/x-ms-wvx']; // Windows Media
         $types_mp3 = ['audio/mp3', 'audio/x-mp3', 'audio/mpeg', 'audio/x-mpeg']; // MP3
 
-        if ($this->get_type() !== null) {
-            $type = strtolower($this->type);
-        } else {
-            $type = null;
+        $type = $this->get_type();
+        if ($type !== null) {
+            $type = strtolower($type);
         }
 
         // If we encounter an unsupported mime-type, check the file extension and guess intelligently.

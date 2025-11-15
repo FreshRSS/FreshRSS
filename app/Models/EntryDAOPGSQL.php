@@ -24,9 +24,31 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	}
 
 	#[\Override]
+	protected static function sqlLimitAll(): string {
+		// https://www.postgresql.org/docs/current/queries-limit.html
+		return 'ALL';
+	}
+
+	#[\Override]
+	public static function sqlGreatest(string $a, string $b): string {
+		return 'GREATEST(' . $a . ', ' . $b . ')';
+	}
+
+	#[\Override]
+	public static function sqlRandom(): string {
+		return 'RANDOM()';
+	}
+
+	#[\Override]
 	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
 		$matches = static::regexToSql($regex);
 		if (isset($matches['pattern'])) {
+			$replacements = [	// Convert some of the PCRE regex syntax to PostgreSQL
+				'\\b' => '\\y', // matches only at the beginning or end of a word (was: backspace)
+				'\\B' => '\\Y', // matches only at a point that is not the beginning or end of a word (was: backslash)
+			];
+			$matches['pattern'] = str_replace(array_keys($replacements), array_values($replacements), $matches['pattern']);
+
 			$matchType = $matches['matchType'] ?? '';
 			if (str_contains($matchType, 'm')) {
 				// newline-sensitive matching
@@ -49,14 +71,14 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 		// Nothing to do for PostgreSQL
 	}
 
-	/** @param array<string|int> $errorInfo */
+	/** @param array{0:string,1:int,2:string} $errorInfo */
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
-				$errorLines = explode("\n", (string)$errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
-				foreach (['attributes'] as $column) {
-					if (stripos($errorLines[0], $column) !== false) {
+				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				foreach (['attributes', 'lastUserModified'] as $column) {
+					if (str_contains($errorLines[0], $column)) {
 						return $this->addColumn($column);
 					}
 				}

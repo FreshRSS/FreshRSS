@@ -6,11 +6,11 @@ declare(strict_types=1);
  */
 trait FreshRSS_FilterActionsTrait {
 
-	/** @var array<FreshRSS_FilterAction>|null $filterActions */
+	/** @var list<FreshRSS_FilterAction>|null $filterActions */
 	private ?array $filterActions = null;
 
 	/**
-	 * @return array<FreshRSS_FilterAction>
+	 * @return list<FreshRSS_FilterAction>
 	 */
 	private function filterActions(): array {
 		if (empty($this->filterActions)) {
@@ -30,7 +30,7 @@ trait FreshRSS_FilterActionsTrait {
 	 * @param array<FreshRSS_FilterAction>|null $filterActions
 	 */
 	private function _filterActions(?array $filterActions): void {
-		$this->filterActions = $filterActions;
+		$this->filterActions = is_array($filterActions) ? array_values($filterActions) : null;
 		if ($this->filterActions !== null && !empty($this->filterActions)) {
 			$this->_attribute('filters', array_map(
 				static fn(?FreshRSS_FilterAction $af) => $af == null ? null : $af->toJSON(),
@@ -40,7 +40,7 @@ trait FreshRSS_FilterActionsTrait {
 		}
 	}
 
-	/** @return array<FreshRSS_BooleanSearch> */
+	/** @return list<FreshRSS_BooleanSearch> */
 	public function filtersAction(string $action): array {
 		$action = trim($action);
 		if ($action == '') {
@@ -121,6 +121,7 @@ trait FreshRSS_FilterActionsTrait {
 
 	/**
 	 * @param bool $applyLabel Parameter by reference, which will be set to true if the callers needs to apply a label to the article entry.
+	 * @param-out bool $applyLabel
 	 */
 	public function applyFilterActions(FreshRSS_Entry $entry, ?bool &$applyLabel = null): void {
 		$applyLabel = false;
@@ -131,7 +132,7 @@ trait FreshRSS_FilterActionsTrait {
 						case 'read':
 							if (!$entry->isRead()) {
 								$entry->_isRead(true);
-								Minz_ExtensionManager::callHook('entry_auto_read', $entry, 'filter');
+								Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $entry, 'filter');
 							}
 							break;
 						case 'star':

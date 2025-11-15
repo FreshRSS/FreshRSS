@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Behoud de vorige installatie',
 		'next_step' => 'Ga naar de volgende stap',
 		'reinstall' => 'Installeer FreshRSS opnieuw',
-	),
-	'auth' => array(
-		'form' => 'Web formulier (traditioneel, benodigd JavaScript)',
-		'http' => 'HTTP (voor geavanceerde gebruikers met HTTPS)',
-		'none' => 'Geen (gevaarlijk)',
-		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
-		'password_format' => 'Tenminste 7 tekens',
-		'type' => 'Authenticatiemethode',
 	),
 	'bdd' => array(
 		'_' => 'Database',	// IGNORE

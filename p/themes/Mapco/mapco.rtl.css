@@ -114,8 +114,6 @@ label {
 
 textarea {
 	max-width: 100%;
-	width: 360px;
-	height: 100px;
 }
 
 input, select, textarea, button {
@@ -425,21 +423,21 @@ th {
 }
 
 /*=== "Load more" part */
-#bigMarkAsRead {
+#bigMarkAsRead.big {
 	text-align: center;
 	text-decoration: none;
 	background: #effcfd;
 	color: #36c;
 	transition: all 0.15s ease-in-out;
 }
-#bigMarkAsRead:hover {
+#bigMarkAsRead.big:hover {
 	background: #36c;
 	color: #fff;
 }
-#bigMarkAsRead:hover .bigTick {
+#bigMarkAsRead.big:hover .bigTick {
 	filter: brightness(5);
 }
-#bigMarkAsRead .bigTick {
+#bigMarkAsRead.big .bigTick {
 	margin: 0.5rem 0;
 	background: url(icons/tick-color.svg) center no-repeat;
 	display: inline-block;
@@ -613,12 +611,12 @@ th {
 	min-height: 2.5em;
 	line-height: 2.5em;
 }
-.nav-list .item a {
+.nav-list .item a, .nav-list .item .as-link {
 	padding: 0 1rem;
 	color: #ffffff;
 	transition: all 0.15s ease-in-out;
 }
-.nav-list .item a:hover {
+.nav-list .item a:hover, .nav-list .item .as-link:hover {
 	background: #17181a;
 	text-decoration: none;
 }
@@ -626,7 +624,7 @@ th {
 	background: #36c;
 	color: #fff;
 }
-.nav-list .item.active a {
+.nav-list .item.active a, .nav-list .item.active .as-link {
 	background: #36c;
 	color: #fff;
 	text-decoration: none;
@@ -795,8 +793,8 @@ main.prompt {
 	background: #25c;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 1rem 1.25rem 0 0;
 	color: #5b6871;
 	font-size: 0.875rem;
@@ -805,7 +803,7 @@ main.prompt {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 }
-.day .name {
+.transition .name {
 	padding: 0 1rem 0 1rem;
 	color: #303136;
 	font-size: 0.875rem;
@@ -898,52 +896,52 @@ main.prompt {
 }
 
 /*=== Content of feed articles */
-.content, .content.thin {
+.content, .content_thin {
 	padding: 20px 10px;
 	font-size: 1.125rem;
 	line-height: 1.8rem;
 }
-.content h1.title a, .content h1 a, .content.thin h1.title a, .content.thin h1 a {
+.content h1.title a, .content h1 a, .content_thin h1.title a, .content_thin h1 a {
 	color: #303136;
 	font-family: "spectral", serif;
 	font-size: 2rem;
 }
-.content h1.title a:hover, .content h1 a:hover, .content.thin h1.title a:hover, .content.thin h1 a:hover {
+.content h1.title a:hover, .content h1 a:hover, .content_thin h1.title a:hover, .content_thin h1 a:hover {
 	color: #36c;
 	text-decoration: none;
 }
-.content .author, .content.thin .author {
+.content .author, .content_thin .author {
 	color: #5b6871;
 	font-size: 1.125rem;
 }
-.content p, .content ul, .content.thin p, .content.thin ul {
+.content p, .content ul, .content_thin p, .content_thin ul {
 	font-size: 1.125rem;
 	line-height: 1.8rem;
 }
-.content .content hr, .content.thin .content hr {
+.content .content hr, .content_thin .content hr {
 	margin: 30px 10px;
 	background: #d5d8db;
 	height: 1px;
 	border: 0;
 	box-shadow: 0 2px 5px #ccc;
 }
-.content pre, .content.thin pre {
+.content pre, .content_thin pre {
 	background: #1d1e22;
 	color: #fff;
 	border-radius: 3px;
 }
-.content pre code, .content.thin pre code {
+.content pre code, .content_thin pre code {
 	background: transparent;
 	color: #fff;
 	border: none;
 }
-.content code, .content.thin code {
+.content code, .content_thin code {
 	background: #fde3e3;
 	color: #e41212;
 	font-size: 1rem;
 	border-radius: 3px;
 }
-.content blockquote, .content.thin blockquote {
+.content blockquote, .content_thin blockquote {
 	margin: 0;
 	padding: 0.5rem 1.5rem;
 	background: #f9fafb;
@@ -951,7 +949,7 @@ main.prompt {
 	color: #5b6871;
 	border-right: 4px solid #d5d8db;
 }
-.content blockquote p, .content.thin blockquote p {
+.content blockquote p, .content_thin blockquote p {
 	margin: 0;
 }
 
@@ -985,13 +983,13 @@ main.prompt {
 	background: #f5633e;
 	color: #fff;
 }
-.notification a.close {
-	border-radius: 3px 0 0 3px;
+.notification .close .icon {
+	filter: brightness(3);
 }
-.notification.good a.close:hover {
+.notification.good .close:hover {
 	background: #0c7540;
 }
-.notification.bad a.close:hover {
+.notification.bad .close:hover {
 	background: #73341f;
 }
 .notification#actualizeProgress br {
@@ -1129,11 +1127,11 @@ main.prompt {
 	color: #303136;
 	border: none;
 }
-#stream.reader .flux .content {
+#stream.reader .flux .flux_content {
 	background-color: #fff;
 	border: none;
 }
-#stream.reader .flux .content .author {
+#stream.reader .flux .flux_content .author {
 	color: #a6a7ae;
 }
 
@@ -1225,21 +1223,21 @@ main.prompt {
 		padding: 0.5rem 1rem;
 	}
 	.aside .toggle_aside,
-#overlay .close,
-.dropdown-menu .toggle_aside,
-#slider .toggle_aside {
+	#overlay .close,
+	.dropdown-menu .toggle_aside,
+	#slider .toggle_aside {
 		background-color: #36c;
 	}
 	.aside .toggle_aside:hover,
-#overlay .close:hover,
-.dropdown-menu .toggle_aside:hover,
-#slider .toggle_aside:hover {
+	#overlay .close:hover,
+	.dropdown-menu .toggle_aside:hover,
+	#slider .toggle_aside:hover {
 		background-color: #25c;
 	}
 	.aside .toggle_aside .icon,
-#overlay .close .icon,
-.dropdown-menu .toggle_aside .icon,
-#slider .toggle_aside .icon {
+	#overlay .close .icon,
+	.dropdown-menu .toggle_aside .icon,
+	#slider .toggle_aside .icon {
 		filter: grayscale(100%) brightness(2.5);
 	}
 	.header .item.search {
@@ -1273,16 +1271,16 @@ main.prompt {
 		padding: 0.85rem 1.25rem;
 	}
 	.nav_menu .stick,
-.nav_menu .group {
+	.nav_menu .group {
 		margin: 0.5rem 0.5rem;
 	}
 	.nav_menu .stick .btn,
-.nav_menu .group .btn {
+	.nav_menu .group .btn {
 		margin: 0;
 		padding: 0.85rem 1.25rem;
 	}
 	.nav_menu .stick .btn.read_all,
-.nav_menu .group .btn.read_all {
+	.nav_menu .group .btn.read_all {
 		padding: 0.85rem 1.25rem;
 	}
 	.nav_menu .search .input {
@@ -1291,6 +1289,9 @@ main.prompt {
 	}
 	.nav_menu .search .input:focus {
 		width: 400px;
+	}
+	#nav_menu_read_all #nav_menu_read .dropdown-toggle.btn {
+		background-image: none;
 	}
 	#stream .flux .flux_header {
 		padding: 0.5rem 0;
@@ -1305,11 +1306,11 @@ main.prompt {
 	.dropdown-target:target ~ a.dropdown-toggle:not(.btn)::after {
 		bottom: -17px;
 	}
-	.day {
+	.transition {
 		text-align: center;
 		padding: 1rem 0;
 	}
-	.day .name {
+	.transition .name {
 		padding: 0;
 		display: block;
 		width: 100%;

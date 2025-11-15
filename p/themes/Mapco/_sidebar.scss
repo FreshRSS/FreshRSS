@@ -184,14 +184,14 @@
 			line-height: 2.5em;
 		}
 
-		a {
+		a, .as-link {
 			padding: 0 1rem;
 			color: variables.$sid-font-color;
 
 			@include mixins.transition(all, 0.15s, ease-in-out);
 		}
 
-		a:hover {
+		a:hover, .as-link:hover {
 			background: variables.$sid-bg-dark;
 			text-decoration: none;
 		}
@@ -200,7 +200,7 @@
 			background: variables.$main-first;
 			color: variables.$white;
 
-			a {
+			a, .as-link {
 				background: variables.$main-first;
 				color: variables.$white;
 				text-decoration: none;

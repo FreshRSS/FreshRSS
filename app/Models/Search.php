@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once(LIB_PATH . '/lib_date.php');
+require_once LIB_PATH . '/lib_date.php';
 
 /**
  * Contains a search from the search form.
@@ -9,7 +9,7 @@ require_once(LIB_PATH . '/lib_date.php');
  * It allows to extract meaningful bits of the search and store them in a
  * convenient object
  */
-class FreshRSS_Search {
+class FreshRSS_Search implements \Stringable {
 
 	/**
 	 * This contains the user input string
@@ -17,18 +17,24 @@ class FreshRSS_Search {
 	private string $raw_input = '';
 
 	// The following properties are extracted from the raw input
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $entry_ids = null;
-	/** @var array<int>|null */
+	/** @var list<int>|null */
 	private ?array $feed_ids = null;
-	/** @var array<int>|'*'|null */
+	/** @var list<int>|null */
+	private ?array $category_ids = null;
+	/** @var list<list<int>|'*'>|null */
 	private $label_ids = null;
-	/** @var array<string>|null */
+	/** @var list<list<string>>|null */
 	private ?array $label_names = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $intitle = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $intitle_regex = null;
+	/** @var list<string>|null */
+	private ?array $intext = null;
+	/** @var list<string>|null */
+	private ?array $intext_regex = null;
 	/** @var int|false|null */
 	private $min_date = null;
 	/** @var int|false|null */
@@ -37,35 +43,45 @@ class FreshRSS_Search {
 	private $min_pubdate = null;
 	/** @var int|false|null */
 	private $max_pubdate = null;
-	/** @var array<string>|null */
+	/** @var int|false|null */
+	private $min_userdate = null;
+	/** @var int|false|null */
+	private $max_userdate = null;
+	/** @var list<string>|null */
 	private ?array $inurl = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $inurl_regex = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $author = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $author_regex = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $tags = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $tags_regex = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $search = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $search_regex = null;
 
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $not_entry_ids = null;
-	/** @var array<int>|null */
+	/** @var list<int>|null */
 	private ?array $not_feed_ids = null;
-	/** @var array<int>|'*'|null */
+	/** @var list<int>|null */
+	private ?array $not_category_ids = null;
+	/** @var list<list<int>|'*'>|null */
 	private $not_label_ids = null;
-	/** @var array<string>|null */
+	/** @var list<list<string>>|null */
 	private ?array $not_label_names = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $not_intitle = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $not_intitle_regex = null;
+	/** @var list<string>|null */
+	private ?array $not_intext = null;
+	/** @var list<string>|null */
+	private ?array $not_intext_regex = null;
 	/** @var int|false|null */
 	private $not_min_date = null;
 	/** @var int|false|null */
@@ -74,51 +90,61 @@ class FreshRSS_Search {
 	private $not_min_pubdate = null;
 	/** @var int|false|null */
 	private $not_max_pubdate = null;
-	/** @var array<string>|null */
+	/** @var int|false|null */
+	private $not_min_userdate = null;
+	/** @var int|false|null */
+	private $not_max_userdate = null;
+	/** @var list<string>|null */
 	private ?array $not_inurl = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $not_inurl_regex = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $not_author = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $not_author_regex = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $not_tags = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $not_tags_regex = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $not_search = null;
-	/** @var array<string>|null */
+	/** @var list<string>|null */
 	private ?array $not_search_regex = null;
 
 	public function __construct(string $input) {
 		$input = self::cleanSearch($input);
 		$input = self::unescape($input);
-		$input = FreshRSS_BooleanSearch::unescapeRegexParentheses($input);
+		$input = FreshRSS_BooleanSearch::unescapeLiteralParentheses($input);
 		$this->raw_input = $input;
 
 		$input = $this->parseNotEntryIds($input);
 		$input = $this->parseNotFeedIds($input);
+		$input = $this->parseNotCategoryIds($input);
 		$input = $this->parseNotLabelIds($input);
 		$input = $this->parseNotLabelNames($input);
 
+		$input = $this->parseNotUserdateSearch($input);
 		$input = $this->parseNotPubdateSearch($input);
 		$input = $this->parseNotDateSearch($input);
 
 		$input = $this->parseNotIntitleSearch($input);
+		$input = $this->parseNotIntextSearch($input);
 		$input = $this->parseNotAuthorSearch($input);
 		$input = $this->parseNotInurlSearch($input);
 		$input = $this->parseNotTagsSearch($input);
 
 		$input = $this->parseEntryIds($input);
 		$input = $this->parseFeedIds($input);
+		$input = $this->parseCategoryIds($input);
 		$input = $this->parseLabelIds($input);
 		$input = $this->parseLabelNames($input);
 
+		$input = $this->parseUserdateSearch($input);
 		$input = $this->parsePubdateSearch($input);
 		$input = $this->parseDateSearch($input);
 
 		$input = $this->parseIntitleSearch($input);
+		$input = $this->parseIntextSearch($input);
 		$input = $this->parseAuthorSearch($input);
 		$input = $this->parseInurlSearch($input);
 		$input = $this->parseTagsSearch($input);
@@ -137,56 +163,82 @@ class FreshRSS_Search {
 		return $this->raw_input;
 	}
 
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getEntryIds(): ?array {
 		return $this->entry_ids;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotEntryIds(): ?array {
 		return $this->not_entry_ids;
 	}
 
-	/** @return array<int>|null */
+	/** @return list<int>|null */
 	public function getFeedIds(): ?array {
 		return $this->feed_ids;
 	}
-	/** @return array<int>|null */
+	/** @return list<int>|null */
 	public function getNotFeedIds(): ?array {
 		return $this->not_feed_ids;
 	}
 
-	/** @return array<int>|'*'|null */
-	public function getLabelIds(): array|string|null {
+	/** @return list<int>|null */
+	public function getCategoryIds(): ?array {
+		return $this->category_ids;
+	}
+	/** @return list<int>|null */
+	public function getNotCategoryIds(): ?array {
+		return $this->not_category_ids;
+	}
+
+	/** @return list<list<int>|'*'>|null */
+	public function getLabelIds(): array|null {
 		return $this->label_ids;
 	}
-	/** @return array<int>|'*'|null */
-	public function getNotLabelIds(): array|string|null {
+	/** @return list<list<int>|'*'>|null */
+	public function getNotLabelIds(): array|null {
 		return $this->not_label_ids;
 	}
-	/** @return array<string>|null */
+	/** @return list<list<string>>|null */
 	public function getLabelNames(): ?array {
 		return $this->label_names;
 	}
-	/** @return array<string>|null */
+	/** @return list<list<string>>|null */
 	public function getNotLabelNames(): ?array {
 		return $this->not_label_names;
 	}
 
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getIntitle(): ?array {
 		return $this->intitle;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getIntitleRegex(): ?array {
 		return $this->intitle_regex;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotIntitle(): ?array {
 		return $this->not_intitle;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotIntitleRegex(): ?array {
 		return $this->not_intitle_regex;
+	}
+
+	/** @return list<string>|null */
+	public function getIntext(): ?array {
+		return $this->intext;
+	}
+	/** @return list<string>|null */
+	public function getIntextRegex(): ?array {
+		return $this->intext_regex;
+	}
+	/** @return list<string>|null */
+	public function getNotIntext(): ?array {
+		return $this->not_intext;
+	}
+	/** @return list<string>|null */
+	public function getNotIntextRegex(): ?array {
+		return $this->not_intext_regex;
 	}
 
 	public function getMinDate(): ?int {
@@ -222,91 +274,108 @@ class FreshRSS_Search {
 	public function getNotMaxPubdate(): ?int {
 		return $this->not_max_pubdate ?: null;
 	}
+	public function setMaxPubdate(int $value): void {
+		$this->max_pubdate = $value;
+	}
 
-	/** @return array<string>|null */
+	public function getMinUserdate(): ?int {
+		return $this->min_userdate ?: null;
+	}
+	public function getNotMinUserdate(): ?int {
+		return $this->not_min_userdate ?: null;
+	}
+
+	public function getMaxUserdate(): ?int {
+		return $this->max_userdate ?: null;
+	}
+	public function getNotMaxUserdate(): ?int {
+		return $this->not_max_userdate ?: null;
+	}
+
+	/** @return list<string>|null */
 	public function getInurl(): ?array {
 		return $this->inurl;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getInurlRegex(): ?array {
 		return $this->inurl_regex;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotInurl(): ?array {
 		return $this->not_inurl;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotInurlRegex(): ?array {
 		return $this->not_inurl_regex;
 	}
 
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getAuthor(): ?array {
 		return $this->author;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getAuthorRegex(): ?array {
 		return $this->author_regex;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotAuthor(): ?array {
 		return $this->not_author;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotAuthorRegex(): ?array {
 		return $this->not_author_regex;
 	}
 
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getTags(): ?array {
 		return $this->tags;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getTagsRegex(): ?array {
 		return $this->tags_regex;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotTags(): ?array {
 		return $this->not_tags;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotTagsRegex(): ?array {
 		return $this->not_tags_regex;
 	}
 
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getSearch(): ?array {
 		return $this->search;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getSearchRegex(): ?array {
 		return $this->search_regex;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotSearch(): ?array {
 		return $this->not_search;
 	}
-	/** @return array<string>|null */
+	/** @return list<string>|null */
 	public function getNotSearchRegex(): ?array {
 		return $this->not_search_regex;
 	}
 
 	/**
-	 * @param array<string>|null $anArray
-	 * @return array<string>
+	 * @param list<string>|null $anArray
+	 * @return list<string>
 	 */
 	private static function removeEmptyValues(?array $anArray): array {
-		return empty($anArray) ? [] : array_filter($anArray, static fn(string $value) => $value !== '');
+		return empty($anArray) ? [] : array_values(array_filter($anArray, static fn(string $value) => $value !== ''));
 	}
 
 	/**
-	 * @param array<string>|string $value
-	 * @return ($value is array ? array<string> : string)
+	 * @param list<string>|string $value
+	 * @return ($value is string ? string : list<string>)
 	 */
-	private static function decodeSpaces($value): array|string {
+	private static function decodeSpaces(array|string $value): array|string {
 		if (is_array($value)) {
-			for ($i = count($value) - 1; $i >= 0; $i--) {
-				$value[$i] = self::decodeSpaces($value[$i]);
+			foreach ($value as &$val) {
+				$val = self::decodeSpaces($val);
 			}
 		} else {
 			$value = trim(str_replace('+', ' ', $value));
@@ -315,8 +384,8 @@ class FreshRSS_Search {
 	}
 
 	/**
-	 * @param array<string> $strings
-	 * @return array<string>
+	 * @param list<string> $strings
+	 * @return list<string>
 	 */
 	private static function htmlspecialchars_decodes(array $strings): array {
 		return array_map(static fn(string $s) => htmlspecialchars_decode($s, ENT_QUOTES), $strings);
@@ -365,7 +434,7 @@ class FreshRSS_Search {
 			foreach ($ids_lists as $ids_list) {
 				$feed_ids = explode(',', $ids_list);
 				$feed_ids = self::removeEmptyValues($feed_ids);
-				/** @var array<int> $feed_ids */
+				/** @var list<int> $feed_ids */
 				$feed_ids = array_map('intval', $feed_ids);
 				if (!empty($feed_ids)) {
 					$this->feed_ids = array_merge($this->feed_ids, $feed_ids);
@@ -383,10 +452,46 @@ class FreshRSS_Search {
 			foreach ($ids_lists as $ids_list) {
 				$feed_ids = explode(',', $ids_list);
 				$feed_ids = self::removeEmptyValues($feed_ids);
-				/** @var array<int> $feed_ids */
+				/** @var list<int> $feed_ids */
 				$feed_ids = array_map('intval', $feed_ids);
 				if (!empty($feed_ids)) {
 					$this->not_feed_ids = array_merge($this->not_feed_ids, $feed_ids);
+				}
+			}
+		}
+		return $input;
+	}
+
+	private function parseCategoryIds(string $input): string {
+		if (preg_match_all('/\\bc:(?P<search>[0-9,]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = $matches['search'];
+			$this->category_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				$category_ids = explode(',', $ids_list);
+				$category_ids = self::removeEmptyValues($category_ids);
+				/** @var list<int> $category_ids */
+				$category_ids = array_map('intval', $category_ids);
+				if (!empty($category_ids)) {
+					$this->category_ids = array_merge($this->category_ids, $category_ids);
+				}
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotCategoryIds(string $input): string {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]c:(?P<search>[0-9,]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = $matches['search'];
+			$this->not_category_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				$category_ids = explode(',', $ids_list);
+				$category_ids = self::removeEmptyValues($category_ids);
+				/** @var list<int> $category_ids */
+				$category_ids = array_map('intval', $category_ids);
+				if (!empty($category_ids)) {
+					$this->not_category_ids = array_merge($this->not_category_ids, $category_ids);
 				}
 			}
 		}
@@ -403,15 +508,15 @@ class FreshRSS_Search {
 			$this->label_ids = [];
 			foreach ($ids_lists as $ids_list) {
 				if ($ids_list === '*') {
-					$this->label_ids = '*';
+					$this->label_ids[] = '*';
 					break;
 				}
 				$label_ids = explode(',', $ids_list);
 				$label_ids = self::removeEmptyValues($label_ids);
-				/** @var array<int> $label_ids */
+				/** @var list<int> $label_ids */
 				$label_ids = array_map('intval', $label_ids);
 				if (!empty($label_ids)) {
-					$this->label_ids = array_merge($this->label_ids, $label_ids);
+					$this->label_ids[] = $label_ids;
 				}
 			}
 		}
@@ -425,15 +530,15 @@ class FreshRSS_Search {
 			$this->not_label_ids = [];
 			foreach ($ids_lists as $ids_list) {
 				if ($ids_list === '*') {
-					$this->not_label_ids = '*';
+					$this->not_label_ids[] = '*';
 					break;
 				}
 				$label_ids = explode(',', $ids_list);
 				$label_ids = self::removeEmptyValues($label_ids);
-				/** @var array<int> $label_ids */
+				/** @var list<int> $label_ids */
 				$label_ids = array_map('intval', $label_ids);
 				if (!empty($label_ids)) {
-					$this->not_label_ids = array_merge($this->not_label_ids, $label_ids);
+					$this->not_label_ids[] = $label_ids;
 				}
 			}
 		}
@@ -459,7 +564,7 @@ class FreshRSS_Search {
 				$names_array = explode(',', $names_list);
 				$names_array = self::removeEmptyValues($names_array);
 				if (!empty($names_array)) {
-					$this->label_names = array_merge($this->label_names, $names_array);
+					$this->label_names[] = $names_array;
 				}
 			}
 		}
@@ -485,7 +590,7 @@ class FreshRSS_Search {
 				$names_array = explode(',', $names_list);
 				$names_array = self::removeEmptyValues($names_array);
 				if (!empty($names_array)) {
-					$this->not_label_names = array_merge($this->not_label_names, $names_array);
+					$this->not_label_names[] = $names_array;
 				}
 			}
 		}
@@ -494,7 +599,6 @@ class FreshRSS_Search {
 
 	/**
 	 * Parse the search string to find intitle keyword and the search related to it.
-	 * The search is the first word following the keyword.
 	 */
 	private function parseIntitleSearch(string $input): string {
 		if (preg_match_all('#\\bintitle:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
@@ -506,7 +610,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\\bintitle:(?P<search>[^\s"]*)/', $input, $matches)) {
-			$this->intitle = array_merge($this->intitle ?: [], $matches['search']);
+			$this->intitle = array_merge($this->intitle ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->intitle = self::removeEmptyValues($this->intitle);
@@ -526,12 +630,55 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]intitle:(?P<search>[^\s"]*)/', $input, $matches)) {
-			$this->not_intitle = array_merge($this->not_intitle ?: [], $matches['search']);
+			$this->not_intitle = array_merge($this->not_intitle ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_intitle = self::removeEmptyValues($this->not_intitle);
 		if (empty($this->not_intitle)) {
 			$this->not_intitle = null;
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find intext keyword and the search related to it.
+	 */
+	private function parseIntextSearch(string $input): string {
+		if (preg_match_all('#\\bintext:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+			$this->intext_regex = self::htmlspecialchars_decodes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/\\bintext:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$this->intext = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/\\bintext:(?P<search>[^\s"]*)/', $input, $matches)) {
+			$this->intext = array_merge($this->intext ?? [], $matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		$this->intext = self::removeEmptyValues($this->intext);
+		if (empty($this->intext)) {
+			$this->intext = null;
+		}
+		return $input;
+	}
+
+	private function parseNotIntextSearch(string $input): string {
+		if (preg_match_all('#(?<=[\\s(]|^)[!-]intext:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
+			$this->not_intext_regex = self::htmlspecialchars_decodes($matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]intext:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$this->not_intext = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]intext:(?P<search>[^\s"]*)/', $input, $matches)) {
+			$this->not_intext = array_merge($this->not_intext ?? [], $matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		$this->not_intext = self::removeEmptyValues($this->not_intext);
+		if (empty($this->not_intext)) {
+			$this->not_intext = null;
 		}
 		return $input;
 	}
@@ -551,7 +698,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\\bauthor:(?P<search>[^\s"]*)/', $input, $matches)) {
-			$this->author = array_merge($this->author ?: [], $matches['search']);
+			$this->author = array_merge($this->author ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->author = self::removeEmptyValues($this->author);
@@ -571,7 +718,7 @@ class FreshRSS_Search {
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]author:(?P<search>[^\s"]*)/', $input, $matches)) {
-			$this->not_author = array_merge($this->not_author ?: [], $matches['search']);
+			$this->not_author = array_merge($this->not_author ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_author = self::removeEmptyValues($this->not_author);
@@ -673,6 +820,32 @@ class FreshRSS_Search {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_pubdate, $this->not_max_pubdate] = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find userdate keyword and the search related to it.
+	 * The search is the first word following the keyword.
+	 */
+	private function parseUserdateSearch(string $input): string {
+		if (preg_match_all('/\\buserdate:(?P<search>[^\\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				[$this->min_userdate, $this->max_userdate] = parseDateInterval($dates[0]);
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotUserdateSearch(string $input): string {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]userdate:(?P<search>[^\\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				[$this->not_min_userdate, $this->not_max_userdate] = parseDateInterval($dates[0]);
 			}
 		}
 		return $input;

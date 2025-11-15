@@ -15,8 +15,14 @@ indent_style = tab
 [*.js]
 indent_style = tab
 
+[*.json]
+indent_style = tab
+
 [*.md]
 indent_size = 4
+indent_style = tab
+
+[*.neon]
 indent_style = tab
 
 [*.sh]
