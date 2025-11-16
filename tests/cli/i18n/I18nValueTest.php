@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
+
+namespace Tests\Cli\I18n;
+
 require_once dirname(__DIR__, 3) . '/cli/i18n/I18nValue.php';
+
+use Cli\I18n\I18nValue;
 
 final class I18nValueTest extends \PHPUnit\Framework\TestCase {
 	public static function testConstructorWithoutState(): void {
@@ -57,7 +62,7 @@ final class I18nValueTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public static function testStates(): void {
-		$reflectionProperty = new ReflectionProperty(I18nValue::class, 'state');
+		$reflectionProperty = new \ReflectionProperty(I18nValue::class, 'state');
 		$reflectionProperty->setAccessible(true);
 
 		$value = new I18nValue('some value');

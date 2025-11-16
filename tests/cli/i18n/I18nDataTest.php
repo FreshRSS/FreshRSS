@@ -1,13 +1,18 @@
 <?php
 declare(strict_types=1);
+
+namespace Tests\Cli\I18n;
+
 require_once dirname(__DIR__, 3) . '/cli/i18n/I18nData.php';
 require_once dirname(__DIR__, 3) . '/cli/i18n/I18nValue.php';
+
+use Cli\I18n\I18nData;
+use Cli\I18n\I18nValue;
 
 final class I18nDataTest extends \PHPUnit\Framework\TestCase {
 	/** @var array<string,array<string,array<string,I18nValue>>> */
 	private array $referenceData;
-	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
-	private $value;
+	private I18nValue&\PHPUnit\Framework\MockObject\MockObject $value;
 
 	#[\Override]
 	public function setUp(): void {

@@ -1,7 +1,11 @@
 <?php
 declare(strict_types=1);
 
+namespace Cli\I18n;
+
 require_once __DIR__ . '/I18nValue.php';
+
+use Cli\I18n\I18nValue;
 
 class I18nFile {
 
@@ -26,12 +30,12 @@ class I18nFile {
 	 */
 	public function load(): array {
 		$i18n = [];
-		$dirs = new DirectoryIterator(I18N_PATH);
+		$dirs = new \DirectoryIterator(I18N_PATH);
 		foreach ($dirs as $dir) {
 			if ($dir->isDot()) {
 				continue;
 			}
-			$files = new DirectoryIterator($dir->getPathname());
+			$files = new \DirectoryIterator($dir->getPathname());
 			foreach ($files as $file) {
 				if (!$file->isFile()) {
 					continue;
@@ -83,7 +87,7 @@ class I18nFile {
 
 		try {
 			$content = eval($content);
-		} catch (ParseError $ex) {
+		} catch (\ParseError $ex) {
 			if (defined('STDERR')) {
 				fwrite(STDERR, "Error while processing: $filename\n");
 				fwrite(STDERR, $ex->getMessage());

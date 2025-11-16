@@ -8,6 +8,11 @@ require_once __DIR__ . '/i18n/I18nFile.php';
 require_once __DIR__ . '/i18n/I18nUsageValidator.php';
 require_once dirname(__DIR__) . '/constants.php';
 
+use Cli\I18n\I18nCompletionValidator;
+use Cli\I18n\I18nData;
+use Cli\I18n\I18nFile;
+use Cli\I18n\I18nUsageValidator;
+
 $cliOptions = new class extends CliOptionsParser {
 	/** @var array<int,string> $language */
 	public array $language;
