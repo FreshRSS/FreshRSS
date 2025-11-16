@@ -183,7 +183,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	public function viewFilterAction(): void {
 		$search = '';
 		$filters_name = Minz_Request::paramString('filters_name', plaintext: true);
-		$filteractions = Minz_Request::paramTextToArray($filters_name);
+		$filteractions = Minz_Request::paramTextToArray($filters_name, plaintext: true);
 		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
 		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
 		foreach ($filteractions as $action) {
