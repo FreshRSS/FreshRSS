@@ -213,13 +213,13 @@ class Minz_Configuration {
 		$tmp_filename = $this->config_filename . '.tmp.php';
 		$back_filename = $this->config_filename . '.bak.php';
 
-		if (file_put_contents($tmp_filename,
-			"<?php\nreturn " . var_export($this->data, true) . ';', LOCK_EX) === false) {
+		if (!file_put_contents($tmp_filename,
+"<?php\nreturn " . var_export($this->data, true) . ';', LOCK_EX)) {
 			@unlink($tmp_filename);
 			return false;
 		}
 
-		if (copy($this->config_filename, $back_filename) === false) {
+		if (!copy($this->config_filename, $back_filename)) {
 			@unlink($tmp_filename);
 			return false;
 		}
