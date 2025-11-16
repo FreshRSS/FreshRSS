@@ -215,6 +215,11 @@ class Minz_Configuration {
 
 		if (file_put_contents($this->config_filename,
 			"<?php\nreturn " . var_export($this->data, true) . ';', LOCK_EX) === false) {
+			// file_put_contents failed, attempt to restore the backup config
+			if (@copy($back_filename, $this->config_filename) === false) {
+				// to help with second restore process during user context init
+				@unlink($this->config_filename);
+			}
 			return false;
 		}
 
