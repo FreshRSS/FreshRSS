@@ -29,18 +29,19 @@ SQL;
 				FROM `_entry`
 				WHERE $whereEntryIdFeeds
 				GROUP BY id_feed
-			),
-			target_feeds AS (
-				SELECT id
-				FROM `_feed`
-				WHERE $whereFeedIds
 			)
-			UPDATE `_feed` f
-			SET `cache_nbEntries` = COALESCE(c.total_entries, 0),
-				`cache_nbUnreads` = COALESCE(c.unread_entries, 0)
-			FROM target_feeds AS tf
-			LEFT JOIN entry_counts AS c ON tf.id = c.id_feed
-			WHERE f.id = tf.id
+			UPDATE `_feed`
+			SET `cache_nbEntries` = COALESCE((
+					SELECT c.total_entries
+					FROM entry_counts AS c
+					WHERE c.id_feed = `_feed`.id
+				), 0),
+				`cache_nbUnreads` = COALESCE((
+					SELECT c.unread_entries
+					FROM entry_counts AS c
+					WHERE c.id_feed = `_feed`.id
+				), 0)
+			WHERE $whereFeedIds
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute(array_merge($feedIds, $feedIds))) {
