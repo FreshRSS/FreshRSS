@@ -214,7 +214,7 @@ class Minz_Configuration {
 		$back_filename = $this->config_filename . '.bak.php';
 
 		if (!file_put_contents($tmp_filename,
-"<?php\nreturn " . var_export($this->data, true) . ';', LOCK_EX)) {
+			"<?php\nreturn " . var_export($this->data, true) . ';', LOCK_EX)) {
 			@unlink($tmp_filename);
 			return false;
 		}
