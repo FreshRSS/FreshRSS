@@ -28,7 +28,7 @@ class FreshRSS_Factory {
 		return match (FreshRSS_Context::systemConf()->db['type'] ?? '') {
 			'sqlite' => new FreshRSS_FeedDAOSQLite($username),
 			'pgsql' => new FreshRSS_FeedDAOPGSQL($username),
-			default => new FreshRSS_FeedDAOMySQL($username),
+			default => new FreshRSS_FeedDAO($username),
 		};
 	}
 
