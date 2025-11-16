@@ -210,7 +210,7 @@ class Minz_Configuration {
 	 * Save the current configuration in the configuration file.
 	 */
 	public function save(): bool {
-		$tmp_filename = $this->config_filename . '.tmp';
+		$tmp_filename = $this->config_filename . '.tmp.php';
 		$back_filename = $this->config_filename . '.bak.php';
 
 		if (file_put_contents($tmp_filename,
