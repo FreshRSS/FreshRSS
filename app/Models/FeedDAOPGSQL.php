@@ -10,40 +10,4 @@ SELECT setval('`_feed_id_seq`', COALESCE(MAX(id), 0) + 1, false) FROM `_feed`
 SQL;
 		return $this->pdo->exec($sql) !== false;
 	}
-
-	#[\Override]
-	public function updateCachedValues(int ...$feedIds): int|false {
-		// Faster than the MySQL version
-		if (empty($feedIds)) {
-			$whereFeedIds = 'true';
-			$whereEntryIdFeeds = 'true';
-		} else {
-			$whereFeedIds = 'id IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
-			$whereEntryIdFeeds = 'id_feed IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
-		}
-		$sql = <<<SQL
-			WITH entry_counts AS (
-				SELECT
-					id_feed,
-					COUNT(*) AS total_entries,
-					SUM(CASE WHEN is_read = 0 THEN 1 ELSE 0 END) AS unread_entries
-				FROM `_entry`
-				WHERE $whereEntryIdFeeds
-				GROUP BY id_feed
-			)
-			UPDATE `_feed`
-			SET `cache_nbEntries` = COALESCE(c.total_entries, 0),
-				`cache_nbUnreads` = COALESCE(c.unread_entries, 0)
-			FROM entry_counts c
-			WHERE id = c.id_feed AND $whereFeedIds
-			SQL;
-		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $stm->execute(array_merge($feedIds, $feedIds))) {
-			return $stm->rowCount();
-		} else {
-			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
-			return false;
-		}
-	}
 }

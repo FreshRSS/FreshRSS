@@ -273,7 +273,7 @@ final class FreshRSS_http_Util {
 		$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] ?? null) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
 		if (is_array($attributes['curl_params'] ?? null)) {
 			$options = self::sanitizeCurlParams($attributes['curl_params']);
-			$proxy = is_string($options[CURLOPT_PROXY]) ? $options[CURLOPT_PROXY] : '';
+			$proxy = is_string($options[CURLOPT_PROXY] ?? null) ? $options[CURLOPT_PROXY] : '';
 			if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
 				// Remove headers problematic for security
 				$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
