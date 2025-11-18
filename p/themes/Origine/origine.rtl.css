@@ -886,6 +886,12 @@ button:hover .icon,
 	background-color: var(--favorite-article-background-color-hover);
 }
 
+/* stylelint-disable-next-line no-duplicate-selectors */
+.flux.current {
+	border-right-width: 5px;
+	border-right-style: double;
+}
+
 .flux_header {
 	font-size: 0.9rem;
 	border-top: 1px solid var(--border-color);
