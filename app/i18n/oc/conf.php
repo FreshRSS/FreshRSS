@@ -263,6 +263,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Rescondre las categorias & fluxes sens articles pas legits (fonciona pas amb la configuracion « Mostrar totes los articles »)',
 		'img_with_lazyload' => 'Utilizar lo mòde “cargament tardiu” pels imatges',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'sautar al vesin venent pas legit',
 		'mark_updated_article_unread' => 'Marcar los articles actualizats coma pas legits',
 		'number_divided_when_reader' => 'Devisat per 2 dins la vista de lectura.',

@@ -308,6 +308,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);
+
 		if (is_array($get)) {
 			$type = $get[0];
 			$id = (int)($get[1]);
@@ -348,6 +349,20 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					// Secondary sort criterion
 					$continuation_values[] = $pagingEntry->feed()?->name() ?? '';
 				}
+				if (!empty(FreshRSS_Context::$local_feed_sorting) && $pagingEntry !== null && array_key_exists($pagingEntry->feed()?->id(), FreshRSS_Context::$local_feed_sorting)) {
+
+					$continuation_values[] =
+						match (FreshRSS_Context::$local_feed_sorting[$pagingEntry->feed()->id()]['sort']) {
+							'id' => $pagingEntry->id(),
+							'date' => $pagingEntry->date(raw: true),
+							'link' => $pagingEntry->link(raw: true),
+							'title' => $pagingEntry->title(),
+							'lastUserModified' => $pagingEntry->lastUserModified(),
+							'length' => $pagingEntry->sqlContentLength() ?? 0,
+						};
+				}
+
+
 			} elseif (FreshRSS_Context::$sort === 'rand') {
 				FreshRSS_Context::$continuation_id = '0';
 			}
@@ -355,9 +370,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		foreach ($entryDAO->listWhere(
 					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
-					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
-					continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
-					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset) as $entry) {
+					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order, sort_indv_feeds: FreshRSS_Context::$local_feed_sorting,
+					continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values, limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset) as $entry) {
 			yield $entry;
 		}
 	}

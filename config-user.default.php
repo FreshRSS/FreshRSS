@@ -4,6 +4,7 @@
 # `./data/config-user.custom.php` file instead, containing the keys you want to
 # override.
 return array (
+	'allow_local_sorting' => false,
 	'enabled' => true,
 	'is_admin' => false,
 	'language' => 'en',

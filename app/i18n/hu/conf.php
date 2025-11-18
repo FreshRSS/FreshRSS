@@ -263,6 +263,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Rejtse el a kategóriákat és hírforrásokat ahol nincs olvasatlan cikk (nem működik egyszerre a „Minden cikk megjelenítése” beállítással)',
 		'img_with_lazyload' => 'Használjon <em>lazy load</em> módot a képek betöltésére',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'ugorjon a következő olvasatlan testvérre',
 		'mark_updated_article_unread' => 'Frissített cikkek megjelölése olvasatlanként',
 		'number_divided_when_reader' => 'Olvasó módban 2-vel osztható szám.',

@@ -263,6 +263,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Скрывать категории и ленты без непрочитанных статей (не работает с «Показывать все статьи»)',
 		'img_with_lazyload' => 'Использовать режим «ленивой загрузки» для загрузки картинок',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'перейти к следующей',
 		'mark_updated_article_unread' => 'Отмечать обновлённые статьи непрочитанными',
 		'number_divided_when_reader' => 'Делится на 2 в виде для чтения.',

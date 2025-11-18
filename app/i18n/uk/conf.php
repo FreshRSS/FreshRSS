@@ -263,6 +263,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Ховати категорії та стрічки, усі статті яких прочитано (не працює при виборі «Показати всі статті»)',
 		'img_with_lazyload' => 'Відкладати завантаження зображень до появи їх у видимій області',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'перейти до наступного непрочитаного поруч',
 		'mark_updated_article_unread' => 'Позначати оновленні статті непрочитаними',
 		'number_divided_when_reader' => 'Ділиться на 2 в читацькому показі.',

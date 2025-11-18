@@ -263,6 +263,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Sembunyikan kategori dan umpan yang tidak memiliki artikel belum dibaca (tidak berlaku jika pilihan "Tampilkan semua artikel" dipilih)',
 		'img_with_lazyload' => 'Gunakan mode <em>muat lambat</em> untuk memuat gambar',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'loncat ke yang belum dibaca berikutnya',
 		'mark_updated_article_unread' => 'Tandai artikel yang diperbarui sebagai belum dibaca',
 		'number_divided_when_reader' => 'Bagi dua bagian dalam tampilan membaca.',

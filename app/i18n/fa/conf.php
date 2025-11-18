@@ -263,6 +263,7 @@ return array(
 		),
 		'hide_read_feeds' => ' دسته‌ها و فیدها را بدون مقاله خوانده نشده پنهان کنید (با پیکربندی «نمایش همه مقاله‌ها» کار نمی‌کند)',
 		'img_with_lazyload' => ' از حالت <em>بار تنبل</em> برای بارگیری تصاویر استفاده کنید',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => ' پرش به خواهر و برادر خوانده نشده بعدی',
 		'mark_updated_article_unread' => ' مقالات به روز شده را به عنوان خوانده نشده علامت گذاری کنید',
 		'number_divided_when_reader' => ' در نمای خواندن بر 2 تقسیم کنید.',

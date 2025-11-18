@@ -231,6 +231,13 @@
 			$title = _t('index.menu.newer_first');
 		}
 		$url_order = Minz_Request::currentRequest();
+		$sorted_feed_count = FreshRSS_Context::$sorted_feeds_count;
+		for($index = 0; $index < $sorted_feed_count; $index++){
+			unset($url_order['params']['localFeed'. $index]);
+			unset($url_order['params']['localSort'. $index]);
+			unset($url_order['params']['localOrder'. $index]);
+		}
+		unset($url_order['params']['sortedFeedCount']);
 	?>
 	<div id="nav_menu_sort" class="group">
 		<div class="dropdown">
@@ -275,6 +282,142 @@
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 	</div>
+	
+	<?php if(FreshRSS_Context::$sort === 'f.name' && FreshRSS_Context::userConf()->allow_local_sorting): ?>
+
+	<div id="nav_menu_feed_sort" class="group">
+    <div class="dropdown">
+        <div id="dropdown_feed-sort" class="dropdown-target"></div>
+
+        <a id="toggle-order_feed"
+           class="dropdown-toggle btn"
+           href="#dropdown_feed-sort"
+           title="<?= _t('index.menu.sort') ?>">
+            <?= _i($icon) ?>
+        </a>
+
+        <ul class="dropdown-menu" role="radiogroup">
+            <?php
+
+			$feeds = FreshRSS_Context::feeds_by_get();
+			$collator = new Collator('root');
+
+			usort($feeds, function($a, $b) use ($collator) {
+				return $collator->compare($a->name(), $b->name());
+			});
+
+			if (FreshRSS_Context::$order === 'DESC') {
+				$feeds = array_reverse($feeds);
+			}
+			foreach ($feeds as $feed):
+				$url_order = Minz_Request::currentRequest();
+				$sorted_feed_count  = FreshRSS_Context::$sorted_feeds_count;
+				$sorted_feed_index  = $sorted_feed_count;
+				$local_feed_context = 'localFeed' .
+				$local_sort         = FreshRSS_Context::$local_feed_sorting[$feed->id()]['sort']  ?? '';
+				$local_order        = FreshRSS_Context::$local_feed_sorting[$feed->id()]['order'] ?? '';
+				$has_custom_sort    = array_key_exists($feed->id(), FreshRSS_Context::$local_feed_sorting);
+				for ($index = 0; $index < $sorted_feed_count; $index++) {
+					if (($url_order['params']['localFeed' . $index] ?? null) == $feed->id()) {
+						$sorted_feed_count -= 1;
+						$sorted_feed_index = $index;
+						break;
+					}
+				}
+				$feed_toggle_id = 'feed-toggle-' . $feed->id();
+				$local_feed_id_var = 'localFeed' . $sorted_feed_index;
+				$local_sort_id_var = 'localSort' . $sorted_feed_index;
+				$local_order_id_var = 'localOrder' . $sorted_feed_index;
+				?>
+				<li class="feed-sorting-group">
+					<input type="checkbox" class="feed-toggle" id="<?= $feed_toggle_id ?>" <?= $has_custom_sort ? 'checked' : '' ?> />
+					<label class="item-feed-header <?= $has_custom_sort ? ' is-current-feed' : '' ?>" for="<?= $feed_toggle_id ?>" role="radio" aria-checked="<?= $has_custom_sort ? 'true' : 'false' ?>">
+						<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" />
+						<span class="feed-title"><?= htmlspecialchars($feed->name()) ?></span>
+						<span class="feed-caret">▾</span>
+					</label>
+
+					<ul class="feed-sort-options" role="radiogroup">
+						<li class="item" role="radio" aria-checked="<?= $local_order === 'DESC' && $local_sort === 'id' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'id', $local_order_id_var => 'DESC']]) ?>">
+								<?= _t('index.menu.sort.id_desc') ?>
+							</a>
+						</li>
+						<li class="item" role="radio"
+							aria-checked="<?= $local_order === 'DESC' && $local_sort === 'date' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: [ 'params' => [ 'sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'date', $local_order_id_var => 'DESC']]) ?>">
+								<?= _t('index.menu.sort.date_desc') ?>
+							</a>
+						</li>
+						<li class="item" role="radio"
+							aria-checked="<?= $local_order === 'DESC' && $local_sort === 'lastUserModified' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: [ 'params' => [ 'sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'lastUserModified', $local_order_id_var => 'DESC' ]]) ?>">
+								<?= _t('index.menu.sort.user_modified_desc') ?>
+							</a>
+						</li>
+						<li class="item" role="radio"
+							aria-checked="<?= $local_order === 'DESC' && $local_sort === 'length' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: [ 'params' => [ 'sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'length', $local_order_id_var => 'DESC']]) ?>">
+								<?= _t('index.menu.sort.length_desc') ?>
+							</a>
+						</li>
+						<li class="item" role="radio"
+							aria-checked="<?= $local_order === 'DESC' && $local_sort === 'link' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: [ 'params' => [ 'sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'link', $local_order_id_var => 'DESC']]) ?>">
+								<?= _t('index.menu.sort.link_desc') ?>
+							</a>
+						</li>
+						<li class="item" role="radio"
+							aria-checked="<?= $local_order === 'DESC' && $local_sort === 'title' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: [ 'params' => [ 'sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'title', $local_order_id_var => 'DESC' ]]) ?>">
+								<?= _t('index.menu.sort.title_desc') ?>
+							</a>
+						</li>
+						<li class="item separator" role="radio"
+							aria-checked="<?= $local_order === 'ASC' && $local_sort === 'id' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: ['params' => [ 'sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'id', $local_order_id_var => 'ASC']]) ?>">
+								<?= _t('index.menu.sort.id_asc') ?>
+							</a>
+						</li>
+						<li class="item" role="radio"
+							aria-checked="<?= $local_order === 'ASC' && $local_sort === 'date' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: [ 'params' => [ 'sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'date', $local_order_id_var => 'ASC']]) ?>">
+								<?= _t('index.menu.sort.date_asc') ?>
+							</a>
+						</li>
+						<li class="item" role="radio"
+							aria-checked="<?= $local_order === 'ASC' && $local_sort === 'lastUserModified' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: [ 'params' => [ 'sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'lastUserModified', $local_order_id_var => 'ASC']]) ?>">
+								<?= _t('index.menu.sort.user_modified_asc') ?>
+							</a>
+						</li>
+						<li class="item" role="radio"
+							aria-checked="<?= $local_order === 'ASC' && $local_sort === 'length' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: [ 'params' => ['sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'length', $local_order_id_var => 'ASC']]) ?>">
+								<?= _t('index.menu.sort.length_asc') ?>
+							</a>
+						</li>
+						<li class="item" role="radio"
+							aria-checked="<?= $local_order === 'ASC' && $local_sort === 'link' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: [ 'params' => [ 'sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'link', $local_order_id_var => 'ASC']]) ?>">
+								<?= _t('index.menu.sort.link_asc') ?>
+							</a>
+						</li>
+						<li class="item" role="radio" aria-checked="<?= $local_order === 'ASC' && $local_sort === 'title' ? 'true' : 'false' ?>">
+							<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sortedFeedCount' => $sorted_feed_count + 1, $local_feed_id_var => $feed->id(), $local_sort_id_var => 'title', $local_order_id_var => 'ASC']]) ?>">
+								<?= _t('index.menu.sort.title_asc') ?>
+							</a>
+						</li>
+					</ul>
+				</li>
+			<?php endforeach ?>
+        </ul>
+
+        <a class="dropdown-close" href="#close">❌</a>
+    </div>
+</div>
+
+	<?php endif; ?>
 
 	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous_refresh) { ?>
 		<div id="nav_menu_actualize" class="group">

@@ -263,6 +263,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Piilota luokat ja syötteet, joissa ei ole lukemattomia artikkeleita (ei toimi jos “Näytä kaikki artikkelit” on määritetty)',
 		'img_with_lazyload' => 'Lataa kuvat <em>vain tarvittaessa</em>',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'siirry seuraavaan lukemattomaan artikkeliin samassa näkymässä',
 		'mark_updated_article_unread' => 'Merkitse päivitetyt artikkelit lukemattomiksi',
 		'number_divided_when_reader' => 'Jaa kahdella lukunäkymässä.',
