@@ -105,6 +105,16 @@ return array(
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
@@ -142,6 +152,7 @@ return array(
 			'categories' => '카테고리별로 표시',
 			'feeds' => '피드별로 표시',
 			'order' => '날짜순으로 정렬',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => '정규 표현식',
 			'shareOpml' => '해당 카테고리와 피드에 대한 OPML 공유 활성화',
 			'shareRss' => 'HTML 및 RSS 공유 활성화',

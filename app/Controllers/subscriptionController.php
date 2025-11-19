@@ -337,9 +337,9 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$values = [
 				'name' => Minz_Request::paramString('name'),
 				'kind' => $feed->kind(),
-				'description' => sanitizeHTML(Minz_Request::paramString('description', true)),
-				'website' => checkUrl(Minz_Request::paramString('website')) ?: '',
-				'url' => checkUrl(Minz_Request::paramString('url')) ?: '',
+				'description' => FreshRSS_SimplePieCustom::sanitizeHTML(Minz_Request::paramString('description', true)),
+				'website' => FreshRSS_http_Util::checkUrl(Minz_Request::paramString('website')) ?: '',
+				'url' => FreshRSS_http_Util::checkUrl(Minz_Request::paramString('url')) ?: '',
 				'category' => Minz_Request::paramInt('category'),
 				'pathEntries' => Minz_Request::paramString('path_entries'),
 				'priority' => Minz_Request::paramTernary('priority') === null ? FreshRSS_Feed::PRIORITY_MAIN_STREAM : Minz_Request::paramInt('priority'),
@@ -383,7 +383,11 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
 					return;
 				}
-				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.sub.feed.updated'),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} elseif ($values['url'] != '' && $feedDAO->updateFeed($id, $values) !== false) {
 				$feed->_categoryId($values['category']);
 				// update url and website values for faviconPrepare
@@ -391,7 +395,11 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$feed->_website($values['website'], false);
 				$feed->faviconPrepare();
 
-				Minz_Request::good(_t('feedback.sub.feed.updated'), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.sub.feed.updated'),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				if ($values['url'] == '') {
 					Minz_Log::warning('Invalid feed URL!');
@@ -399,6 +407,30 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
 			}
 		}
+	}
+
+	public function viewFilterAction(): void {
+		$id = Minz_Request::paramInt('id');
+		if ($id === 0) {
+			Minz_Error::error(400);
+			return;
+		}
+		$filteractions = Minz_Request::paramTextToArray('filteractions_read');
+		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
+		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
+		$search = "f:$id (";
+		foreach ($filteractions as $action) {
+			$search .= "($action) OR ";
+		}
+		$search = preg_replace('/ OR $/', '', $search);
+		$search .= ')';
+		Minz_Request::forward([
+			'c' => 'index',
+			'a' => 'index',
+			'params' => [
+				'search' => $search,
+			],
+		], redirect: true);
 	}
 
 	/**

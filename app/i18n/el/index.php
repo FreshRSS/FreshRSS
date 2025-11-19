@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'There are no articles to show.',	// TODO
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
+			'_' => 'Received',	// TODO
 			'today' => 'Received today',	// TODO
 			'yesterday' => 'Received yesterday',	// TODO
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Main stream',	// TODO
 		'title_fav' => 'Favourites',	// TODO
 		'title_global' => 'Global view',	// TODO
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Logs',	// TODO
@@ -89,11 +100,15 @@ return array(
 			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
 			'link_desc' => 'Link Z→A',	// TODO
 			'rand' => 'Random order',	// TODO
 			'title_asc' => 'Title A→Z',	// TODO
 			'title_desc' => 'Title Z→A',	// TODO
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Show favourites',	// TODO
 		'stats' => 'Statistics',	// TODO

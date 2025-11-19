@@ -52,7 +52,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			invalidateHttpCache();
 
 			if ($ok) {
-				Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'auth', 'a' => 'index' ]);
+				Minz_Request::good(
+					_t('feedback.conf.updated'),
+					[ 'c' => 'auth', 'a' => 'index' ],
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Request::bad(_t('feedback.conf.error'), [ 'c' => 'auth', 'a' => 'index' ]);
 			}
@@ -77,8 +81,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			'http_auth' => Minz_Error::error(403, [
 					'error' => [
 						_t('feedback.access.denied'),
-						' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(false), ENT_NOQUOTES, 'UTF-8') .
-						' ; Remote IP address=' . connectionRemoteAddress() . ']'
+						' [HTTP Remote-User=' . htmlspecialchars(FreshRSS_http_Util::httpAuthUser(onlyTrusted: false), ENT_NOQUOTES, 'UTF-8') .
+						' ; Remote IP address=' . Minz_Request::connectionRemoteAddress() . ']'
 					]
 				], false),
 			'none' => Minz_Error::error(404),	// It should not happen!
@@ -171,7 +175,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				if (empty($url)) {
 					$url = [ 'c' => 'index', 'a' => 'index' ];
 				}
-				Minz_Request::good(_t('feedback.auth.login.success'), $url);
+				Minz_Request::good(
+					_t('feedback.auth.login.success'),
+					$url,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}");
 				header('HTTP/1.1 403 Forbidden');
@@ -220,7 +228,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			invalidateHttpCache();
 			FreshRSS_Auth::removeAccess();
 			Minz_Session::regenerateID('FreshRSS');
-			Minz_Request::good(_t('feedback.auth.logout.success'), [ 'c' => 'index', 'a' => 'index' ]);
+			Minz_Request::good(
+				_t('feedback.auth.logout.success'),
+				[ 'c' => 'index', 'a' => 'index' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		} else {
 			Minz_Error::error(403);
 		}
@@ -238,7 +250,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
 		}
 
-		if (max_registrations_reached()) {
+		if (FreshRSS_user_Controller::max_registrations_reached()) {
 			Minz_Error::error(403);
 		}
 

@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Tindakan penyaringan',
 			'help' => 'Tulis satu penyaringan pencarian per baris. Operator <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">lihat dokumentasi</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'Tajuk HTTP',
 		'http_headers_help' => 'Tajuk dipisahkan dengan baris baru dan nama dan nilai dari tajuk dipisahkan dengan titik dua (contoh: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
@@ -210,6 +211,7 @@ return array(
 		'priority' => array(
 			'_' => 'Ketampakan',
 			'category' => 'Tampilkan hanya di kategorinya saja',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Jangan tampilkan',
 			'important' => 'Tampilkan di umpan penting',
 			'main_stream' => 'Tampilkan di bagian utama',
@@ -281,6 +283,7 @@ return array(
 			'idle' => 'Umpan tak terbarukan',
 			'main' => 'Statistik utama',
 			'repartition' => 'Pengkategorian artikel',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Pengelolaan langganan',
 		'subscription_tools' => 'Alat langganan',

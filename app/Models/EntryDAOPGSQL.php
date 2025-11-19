@@ -30,6 +30,11 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	}
 
 	#[\Override]
+	public static function sqlGreatest(string $a, string $b): string {
+		return 'GREATEST(' . $a . ', ' . $b . ')';
+	}
+
+	#[\Override]
 	public static function sqlRandom(): string {
 		return 'RANDOM()';
 	}
@@ -38,6 +43,12 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
 		$matches = static::regexToSql($regex);
 		if (isset($matches['pattern'])) {
+			$replacements = [	// Convert some of the PCRE regex syntax to PostgreSQL
+				'\\b' => '\\y', // matches only at the beginning or end of a word (was: backspace)
+				'\\B' => '\\Y', // matches only at a point that is not the beginning or end of a word (was: backslash)
+			];
+			$matches['pattern'] = str_replace(array_keys($replacements), array_values($replacements), $matches['pattern']);
+
 			$matchType = $matches['matchType'] ?? '';
 			if (str_contains($matchType, 'm')) {
 				// newline-sensitive matching
@@ -66,7 +77,7 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
-				foreach (['attributes'] as $column) {
+				foreach (['attributes', 'lastUserModified'] as $column) {
 					if (str_contains($errorLines[0], $column)) {
 						return $this->addColumn($column);
 					}
@@ -79,22 +90,24 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 	#[\Override]
 	public function commitNewEntries(): bool {
 		//TODO: Update to PostgreSQL 9.5+ syntax with ON CONFLICT DO NOTHING
-		$sql = 'DO $$
-DECLARE
-maxrank bigint := (SELECT MAX(id) FROM `_entrytmp`);
-rank bigint := (SELECT maxrank - COUNT(*) FROM `_entrytmp`);
-BEGIN
-	INSERT INTO `_entry`
-		(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
-		(SELECT rank + row_number() OVER(ORDER BY date, id) AS id, guid, title, author, content,
-			link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
-			FROM `_entrytmp` AS etmp
-			WHERE NOT EXISTS (
-				SELECT 1 FROM `_entry` AS ereal
-				WHERE (etmp.id = ereal.id) OR (etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid))
-			ORDER BY date, id);
-	DELETE FROM `_entrytmp` WHERE id <= maxrank;
-END $$;';
+		$sql = <<<'SQL'
+			DO $$
+			DECLARE
+			maxrank bigint := (SELECT MAX(id) FROM `_entrytmp`);
+			rank bigint := (SELECT maxrank - COUNT(*) FROM `_entrytmp`);
+			BEGIN
+				INSERT INTO `_entry`
+					(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
+					(SELECT rank + row_number() OVER(ORDER BY etmp.date, etmp.id) AS id, guid, title, author, content,
+						link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+						FROM `_entrytmp` AS etmp
+						WHERE NOT EXISTS (
+							SELECT 1 FROM `_entry` AS ereal
+							WHERE (etmp.id = ereal.id) OR (etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid))
+						ORDER BY etmp.date, etmp.id);
+				DELETE FROM `_entrytmp` WHERE id <= maxrank;
+			END $$;
+			SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
 			$this->pdo->beginTransaction();

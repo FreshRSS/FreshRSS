@@ -188,7 +188,7 @@ docker network connect freshrss-network postgres
 
 # Otherwise, start a new PostgreSQL instance, remembering to change the passwords:
 docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v pgsql_data:/var/lib/postgresql/data \
+  -v pgsql_data:/var/lib/postgresql \
   -e POSTGRES_DB=freshrss \
   -e POSTGRES_USER=freshrss \
   -e POSTGRES_PASSWORD=freshrss \

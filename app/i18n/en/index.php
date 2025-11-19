@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'There are no articles to show.',
+		'published' => array(
+			'_' => 'Published',
+			'future' => 'Published in the future',
+			'today' => 'Published today',
+			'yesterday' => 'Published yesterday',
+		),
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',
+			'_' => 'Received',
 			'today' => 'Received today',
 			'yesterday' => 'Received yesterday',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Main stream',
 		'title_fav' => 'Favourites',
 		'title_global' => 'Global view',
+		'userModified' => array(
+			'_' => 'Modified by user',
+			'today' => 'Modified by user today',
+			'yesterday' => 'Modified by user yesterday',
+		),
 	),
 	'log' => array(
 		'_' => 'Logs',
@@ -89,11 +100,15 @@ return array(
 			),
 			'id_asc' => 'Freshly received last',
 			'id_desc' => 'Freshly received first',
+			'length_asc' => 'Content length 1→9',
+			'length_desc' => 'Content length 9→1',
 			'link_asc' => 'Link A→Z',
 			'link_desc' => 'Link Z→A',
 			'rand' => 'Random order',
 			'title_asc' => 'Title A→Z',
 			'title_desc' => 'Title Z→A',
+			'user_modified_asc' => 'User modified 1→9',
+			'user_modified_desc' => 'User modified 9→1',
 		),
 		'starred' => 'Show favourites',
 		'stats' => 'Statistics',

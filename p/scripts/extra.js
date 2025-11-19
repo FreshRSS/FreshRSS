@@ -17,6 +17,11 @@ function forgetOpenCategories() {
 }
 
 function init_crypto_forms() {
+	const crypto_forms = document.querySelectorAll('.crypto-form');
+	if (crypto_forms.length === 0) {
+		return;
+	}
+
 	if (!(window.bcrypt)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for bcrypt.js…');
@@ -26,7 +31,6 @@ function init_crypto_forms() {
 	}
 
 	/* globals bcrypt */
-	const crypto_forms = document.querySelectorAll('.crypto-form');
 	crypto_forms.forEach(crypto_form => {
 		const submit_button = crypto_form.querySelector('[type="submit"]');
 		if (submit_button) {
@@ -36,8 +40,8 @@ function init_crypto_forms() {
 		crypto_form.onsubmit = function (e) {
 			let challenge = crypto_form.querySelector('#challenge');
 			if (!challenge) {
-				crypto_form.querySelectorAll('[data-challenge-if-not-empty] input[type="password"]').forEach(el => {
-					if (el.value !== '' && !challenge) {
+				crypto_form.querySelectorAll('details[data-challenge-if-open]').forEach(el => {
+					if (el.open && !challenge) {
 						crypto_form.insertAdjacentHTML('beforeend', '<input type="hidden" id="challenge" name="challenge" />');
 						challenge = crypto_form.querySelector('#challenge');
 					}
@@ -96,6 +100,19 @@ function init_crypto_forms() {
 // </crypto form (Web login)>
 
 // <show password>
+
+function init_display(parent) {
+	const theme = parent.querySelector('select#theme');
+	if (!theme) {
+		return;
+	}
+	theme.addEventListener('change', (e) => {
+		const picked = parent.querySelector('.preview-container.picked');
+		picked.classList.remove('picked');
+		parent.querySelector(`[data-theme-preview="${e.target.value}"]`).classList.add('picked');
+	});
+}
+
 function togglePW(btn) {
 	if (btn.classList.contains('active')) {
 		hidePW(btn);
@@ -245,26 +262,27 @@ function init_update_feed() {
 	});
 
 	if (faviconExtBtn) {
-		faviconExtBtn.onclick = function (e) {
+		faviconExtBtn.onclick = async function (e) {
 			e.preventDefault();
 			faviconExtBtn.disabled = true;
-			fetch(faviconExtBtn.dataset.extensionUrl, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8'
-				},
-				body: JSON.stringify({
-					'_csrf': context.csrf,
-					'extAction': 'query_icon_info',
-					'id': +feed_update.dataset.feedId
-				}),
-			}).then(resp => {
+			try {
+				const resp = await fetch(faviconExtBtn.dataset.extensionUrl, {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json; charset=UTF-8',
+					},
+					body: JSON.stringify({
+						'_csrf': context.csrf,
+						'extAction': 'query_icon_info',
+						'id': +feed_update.dataset.feedId
+					}),
+				});
 				if (!resp.ok) {
 					faviconExtBtn.disabled = false;
-					return Promise.reject(resp);
+					throw new Error(`Custom favicons HTTP error ${resp.status}: ${resp.statusText}`);
 				}
-				return resp.json();
-			}).then(json => {
+				const json = await resp.json();
 				clearUploadedIcon();
 				const resetField = feed_update.querySelector('input[name="resetFavicon"]');
 				if (resetField) {
@@ -277,7 +295,9 @@ function init_update_feed() {
 				extension.dataset.initialExt = extension.innerText;
 				extension.innerText = json.extName;
 				favicon.src = json.iconUrl;
-			});
+			} catch (error) {
+				faviconExtBtn.disabled = false;
+			}
 		};
 		faviconExtBtn.form.onsubmit = async function (e) {
 			const extChanged = faviconExtBtn.disabled;
@@ -485,6 +505,25 @@ function init_configuration_alert() {
 	};
 }
 
+function init_details_attributes() {
+	function toggleRequired(details) {
+		details.querySelectorAll('[data-required-if-open]').forEach(el => {
+			if (details.open) {
+				el.setAttribute('required', 'required');
+			} else {
+				el.removeAttribute('required');
+			}
+		});
+	}
+
+	document.querySelectorAll('details').forEach(details => {
+		details.addEventListener('toggle', () => {
+			toggleRequired(details);
+		});
+		toggleRequired(details);
+	});
+}
+
 function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
@@ -504,6 +543,7 @@ function init_extra_afterDOM() {
 		init_configuration_alert();
 		init_2stateButton();
 		init_update_feed();
+		init_details_attributes();
 
 		data_auto_leave_validation(document.body);
 
@@ -516,6 +556,7 @@ function init_extra_afterDOM() {
 			init_archiving(slider);
 			init_url_observers(slider);
 		} else {
+			init_display(document.body);
 			init_archiving(document.body);
 			init_url_observers(document.body);
 		}

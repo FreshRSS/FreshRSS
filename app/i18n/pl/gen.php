@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Wczorajsze',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇵🇱',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O oprogramowaniu FreshRSS',
@@ -162,7 +161,7 @@ return array(
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
 		'fi' => 'Suomi',	// IGNORE
@@ -177,19 +176,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
-		'pt-pt' => 'Português (Portugal)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'uk' => 'Українська',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'O serwisie',
 		'account' => 'Konto',
 		'admin' => 'Administracja',
+		'advanced_search' => 'Zaawansowane wyszukiwanie',
 		'archiving' => 'Archiwizacja',
 		'authentication' => 'Uwierzytelnianie',
 		'check_install' => 'Sprawdzenie instalacji',
@@ -217,6 +217,38 @@ return array(
 		'weeks' => 'tygodnie',
 		'years' => 'lata',
 	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'Ten formularz pomaga w konstruowaniu zapytań dla wyszukiwarki, ale ręczne zapytania są jeszcze potężniejsze.',
+		'authors' => 'Autorzy',
+		'categories' => 'Kategorie',
+		'content' => 'Zawartość',
+		'date_from' => 'Od',
+		'date_past' => 'W przeszłych',
+		'date_published' => 'Data publikacji',
+		'date_range' => 'Zasięg dat',
+		'date_received' => 'Data otrzymania',
+		'date_to' => 'Do',
+		'date_user' => 'Data modyfikacji przez użytkownika',
+		'feeds' => 'Kanały',
+		'free_text' => 'Dowolny tekst',
+		'free_text_help' => 'Szukaj zarówno w tytule jak i zawartości',
+		'full_documentation' => 'Zobacz <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">pełną dokumentację o wyszukiwaniu</a>',
+		'labels' => 'Własne etykiety',
+		'multiple_help' => 'Zaznacz jedną lub więcej opcji (przytrzymaj <kbd>Ctrl</kbd> lub <kbd>Cmd</kbd>)',
+		'sources' => 'Źródła',
+		'tags' => 'Tagi artykułów',
+		'text' => 'Szukanie w tekście',
+		'text_help' => 'Wiele linii są łączone poprzez logiczne <i>or</i>. Wspierane są również <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">wyrażenia regularne</a>.',
+		'text_placeholder' => 'Słowo kluczowe',
+		'title' => 'Tytuł',
+		'url' => 'Adres URL',
+		'user_queries' => 'Zapisane zapytania',
+	),
 	'share' => array(
 		'Known' => 'Strony bazujące na usłudze Known',
 		'archiveIS' => 'archive.is',	// IGNORE
@@ -239,7 +271,6 @@ return array(
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Wydruk',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE

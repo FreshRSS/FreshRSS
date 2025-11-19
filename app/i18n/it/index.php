@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Non ci sono articoli da mostrare.',
+		'published' => array(
+			'_' => 'Pubblicato',
+			'future' => 'Pubblicato nel futuro',
+			'today' => 'Pubblicato oggi',
+			'yesterday' => 'Pubblicato ieri',
+		),
 		'received' => array(
-			'before_yesterday' => 'Ricevuto prima di ieri',
+			'_' => 'Ricevuto',
 			'today' => 'Ricevuto oggi',
 			'yesterday' => 'Ricevuto ieri',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Flusso principale',
 		'title_fav' => 'Preferiti',
 		'title_global' => 'Vista globale per categorie',
+		'userModified' => array(
+			'_' => 'Modificato dall’utente',
+			'today' => 'Modificato dall’utente oggi',
+			'yesterday' => 'Modificato dall’utente ieri',
+		),
 	),
 	'log' => array(
 		'_' => 'Log',
@@ -78,22 +89,26 @@ return array(
 		'sort' => array(
 			'_' => 'Ordina per',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Categoria, titolo del feed A→Z',
+				'name_desc' => 'Categoria, titolo del feed Z→A',
 			),
 			'date_asc' => 'Data di pubblicazione 1→9',
 			'date_desc' => 'Data di pubblicazione 9→1',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Titolo del feed A→Z',
+				'name_desc' => 'Titolo del feed Z→A',
 			),
 			'id_asc' => 'Dal meno recente',
 			'id_desc' => 'Dal più recente',
+			'length_asc' => 'Lunghezza contenuto 1→9',
+			'length_desc' => 'Lunghezza contenuto 9→1',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Ordine casuale',
 			'title_asc' => 'Titolo A→Z',
 			'title_desc' => 'Titolo Z→A',
+			'user_modified_asc' => 'Modificato dall’utente 1→9',
+			'user_modified_desc' => 'Modificato dall’utente 9→1',
 		),
 		'starred' => 'Mostra solo preferiti',
 		'stats' => 'Statistiche',

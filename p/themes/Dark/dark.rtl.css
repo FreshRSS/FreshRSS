@@ -443,8 +443,8 @@ button.as-link[disabled] {
 	background-color: var(--dark-background-color3);
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	border-top: 1px solid var(--dark-border-color3);
 	border-bottom: 1px solid var(--dark-border-color3);
 }

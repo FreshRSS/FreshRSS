@@ -52,7 +52,7 @@ class FreshRSS_FormAuth {
 
 	public static function makeCookie(string $username, string $password_hash): string|false {
 		do {
-			$token = sha1(FreshRSS_Context::systemConf()->salt . $username . uniqid('' . mt_rand(), true));
+			$token = hash('sha256', FreshRSS_Context::systemConf()->salt . $username . random_bytes(32));
 			$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		} while (file_exists($token_file));
 

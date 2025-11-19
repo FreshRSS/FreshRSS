@@ -105,6 +105,16 @@ return array(
 		'none' => 'Brak',
 		'small' => 'Mały',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Pokaż baner ostrzeżenia',
+			'seconds' => 'sekundy (przynajmniej 1)',
+		),
+		'good' => array(
+			'label' => 'Pokaż baner potwierdzający',
+			'seconds' => 'sekundy (0 oznacza nie pokazuj)',
+		),
+	),
 	'privacy' => array(
 		'_' => 'Prywatność',
 		'retrieve_extension_list' => 'Pobieraj listę rozszerzeń',
@@ -142,6 +152,7 @@ return array(
 			'categories' => 'Według kategorii',
 			'feeds' => 'Według kanału',
 			'order' => 'Sortowanie wg daty',
+			'publish_labels_instead_of_tags' => 'Zamień <i>tagi kanałów</i> na <i>własne etykiety</i> w udostępnionym RSS',
 			'search' => 'Wyrażenie',
 			'shareOpml' => 'Włącz udostępnianie OPML-ów zawierających kategorie i kanały',
 			'shareRss' => 'Włącz udostępnianie przez HTML i RSS',

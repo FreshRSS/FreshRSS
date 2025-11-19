@@ -189,6 +189,9 @@ Your class will benefit from four methods to redefine:
 
 You can register at the FreshRSS event system in an extensions `init()`
 method, to manipulate data when some of the core functions are executed.
+Le dernier paramètre représente la priorité du *hook* quand celui-ci est déclenché.
+Le *hook* avec la priorité la plus basse sera déclenché en premier.
+La priorité par défaut est 0.
 
 ```php
 final class HelloWorldExtension extends Minz_Extension
@@ -197,8 +200,8 @@ final class HelloWorldExtension extends Minz_Extension
 	public function init(): void {
 		parent::init();
 
-		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
-		$this->registerHook('check_url_before_add', [self::class, 'checkUrl']);
+		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry'], 10);
+		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl'], -10);
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
@@ -264,11 +267,13 @@ The following events are available:
 	the header dropdown menu (i.e. after the "About" entry), the returned
 	string must be valid HTML (e.g. `<li class="item active"><a href="url">New
 	entry</a></li>`)
+* `nav_entries` (`function() -> string`): ajoute des éléments DOM avant les boutons de navigation.
+* `nav_menu` (`function() -> string`): sera exécuté si la navigation est générée.
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO**
 	add documentation
 * `post_update` (`function(none) -> none`): **TODO** add documentation
-* `simplepie_after_init` (`function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed, bool $result): void`): Triggered after fetching an RSS/Atom feed with SimplePie. Useful for instance to get the HTTP response headers (e.g. `$simplePie->data['headers']`).
-* `simplepie_before_init` (`function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed): void`): Triggered before fetching an RSS/Atom feed with SimplePie.
+* `simplepie_after_init` (`function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed, bool $result): void`): Triggered after fetching an RSS/Atom feed with SimplePie. Useful for instance to get the HTTP response headers (e.g. `$simplePie->data['headers']`).
+* `simplepie_before_init` (`function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed): void`): Triggered before fetching an RSS/Atom feed with SimplePie.
 * `view_modes` (`function(array<FreshRSS_ViewMode> $viewModes): array|null`): permet aux extensions de déclarer d’autres modes de vue que *normale*, *lecture*, *globale*.
 
 > ℹ️ Note: the `simplepie_*` hooks are only fired for feeds using SimplePie via pull, i.e. normal RSS/Atom feeds. This excludes WebSub (push), and the various HTML or JSON Web scraping methods.

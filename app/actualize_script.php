@@ -66,7 +66,7 @@ echo 'Results: ', "\n";	//Buffered
 
 // Create the list of users to actualize.
 // Users are processed in a random order but always start with default user
-$users = listUsers();
+$users = FreshRSS_user_Controller::listUsers();
 shuffle($users);
 if (FreshRSS_Context::systemConf()->default_user !== '') {
 	array_unshift($users, FreshRSS_Context::systemConf()->default_user);
@@ -96,7 +96,7 @@ foreach ($users as $user) {
 	// NB: Extensions and hooks are reinitialised there
 	$app->init();
 
-	Minz_ExtensionManager::addHook('feed_before_actualize', static function (FreshRSS_Feed $feed) use ($mutexFile) {
+	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile) {
 		touch($mutexFile);
 		return $feed;
 	});

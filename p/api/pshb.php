@@ -98,7 +98,7 @@ if ($ORIGINAL_INPUT == '') {
 	die('Missing XML payload!');
 }
 
-$simplePie = customSimplePie();
+$simplePie = new FreshRSS_SimplePieCustom();
 $simplePie->enable_cache(false);
 $simplePie->set_raw_data($ORIGINAL_INPUT);
 $simplePie->init();
@@ -120,7 +120,7 @@ if ($httpLink !== '' && preg_match_all('/<([^>]+)>;\\s*rel="([^"]+)"/', $httpLin
 	// 	// TODO: Support WebSub hub redirection
 	// }
 	if (!empty($links['self'])) {
-		$httpSelf = checkUrl($links['self']) ?: '';
+		$httpSelf = FreshRSS_http_Util::checkUrl($links['self']) ?: '';
 		if ($self !== '' && $self !== $httpSelf) {
 			Minz_Log::warning('Warning: Self URL mismatch between XML [' . $self . '] and HTTP!: ' . $httpSelf, PSHB_LOG);
 		}

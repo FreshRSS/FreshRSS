@@ -32,7 +32,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$databaseDAO->minorDbMaintenance();
-		Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+		Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssUserMaintenance);
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$this->view->categories = $catDAO->listCategoriesOrderUpdate(FreshRSS_Context::userConf()->dynamic_opml_ttl_default);
@@ -71,15 +71,14 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(400);
 			return;
 		}
-		$user_conf = get_user_configuration($user);
+		$user_conf = FreshRSS_UserConfiguration::getForUser($user);
 		if ($user_conf !== null) {
 			try {
-				$salt = FreshRSS_Context::systemConf()->salt;
 				$s = $user_conf->passwordHash;
 				if (strlen($s) >= 60) {
 					//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
 					$this->view->salt1 = substr($s, 0, 29);
-					$this->view->nonce = sha1($salt . uniqid('' . mt_rand(), true));
+					$this->view->nonce = hash('sha256', FreshRSS_Context::systemConf()->salt . $user . random_bytes(32));
 					Minz_Session::_param('nonce', $this->view->nonce);
 					return;	//Success
 				}
@@ -95,7 +94,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		for ($i = 22; $i > 0; $i--) {
 			$this->view->salt1 .= $alphabet[random_int(0, 63)];
 		}
-		$this->view->nonce = sha1('' . mt_rand());
+		$this->view->nonce = hash('sha256', 'failure' . rand());
 		Minz_Session::_param('nonce', $this->view->nonce);
 	}
 }

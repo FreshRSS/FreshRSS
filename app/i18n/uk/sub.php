@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Автоматичний фільтр',
 			'help' => 'По одному фільтру на рядок. Перегляньте <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документацію операторів</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP-заголовки',
 		'http_headers_help' => 'По заголовку на рядок. Назву й значення відокремлено двокрапкою (наприклад, <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer деякий-токен</code></kbd>).',
@@ -210,6 +211,7 @@ return array(
 		'priority' => array(
 			'_' => 'Видимість',
 			'category' => 'Показати в категорії',
+			'feed' => 'Show in its feed',	// TODO
 			'hidden' => 'Не показувати',
 			'important' => 'Показати у важливих стрічках',
 			'main_stream' => 'Показати в головному потоці',
@@ -281,6 +283,7 @@ return array(
 			'idle' => 'Неактивні стрічки',
 			'main' => 'Основна статистика',
 			'repartition' => 'Перерозподіл статей',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'Керування підписками',
 		'subscription_tools' => 'Засоби підписки',

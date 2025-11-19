@@ -23,7 +23,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	}
 
 	/** @param array{0:string,1:int,2:string} $errorInfo */
-	protected function autoUpdateDb(array $errorInfo): bool {
+	public function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
@@ -71,7 +71,7 @@ SQL;
 			$valuesTmp['category'],
 			mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8'),
 			$valuesTmp['website'],
-			sanitizeHTML($valuesTmp['description'], ''),
+			FreshRSS_SimplePieCustom::sanitizeHTML($valuesTmp['description'], ''),
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? (int)$valuesTmp['priority'] : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
 			mb_strcut($valuesTmp['pathEntries'], 0, 4096, 'UTF-8'),
@@ -479,17 +479,38 @@ SQL;
 	 * Update cached values for selected feeds, or all feeds if no feed ID is provided.
 	 */
 	public function updateCachedValues(int ...$feedIds): int|false {
-		//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
-		$sql = <<<SQL
-UPDATE `_feed`
-SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `_entry` e1 WHERE e1.id_feed=`_feed`.id),
-	`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)
-SQL;
-		if (count($feedIds) > 0) {
-			$sql .= ' WHERE id IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
+		if (empty($feedIds)) {
+			$whereFeedIds = 'true';
+			$whereEntryIdFeeds = 'true';
+		} else {
+			$whereFeedIds = 'id IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
+			$whereEntryIdFeeds = 'id_feed IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
 		}
+		$sql = <<<SQL
+			WITH entry_counts AS (
+				SELECT
+					id_feed,
+					COUNT(*) AS total_entries,
+					SUM(CASE WHEN is_read = 0 THEN 1 ELSE 0 END) AS unread_entries
+				FROM `_entry`
+				WHERE $whereEntryIdFeeds
+				GROUP BY id_feed
+			)
+			UPDATE `_feed`
+			SET `cache_nbEntries` = COALESCE((
+					SELECT c.total_entries
+					FROM entry_counts AS c
+					WHERE c.id_feed = `_feed`.id
+				), 0),
+				`cache_nbUnreads` = COALESCE((
+					SELECT c.unread_entries
+					FROM entry_counts AS c
+					WHERE c.id_feed = `_feed`.id
+				), 0)
+			WHERE $whereFeedIds
+			SQL;
 		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $stm->execute($feedIds)) {
+		if ($stm !== false && $stm->execute(array_merge($feedIds, $feedIds))) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();

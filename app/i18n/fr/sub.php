@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Filtres d’action',
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
+			'view_filter' => 'Aperçu des filtres sur les articles existants (nouvelle fenêtre)',
 		),
 		'http_headers' => 'Entêtes HTTP',
 		'http_headers_help' => 'Un entête HTTP par ligne, avec le nom et la valeur séparés par un deux-points (ex. : <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
@@ -210,6 +211,7 @@ return array(
 		'priority' => array(
 			'_' => 'Visibilité',
 			'category' => 'Afficher dans sa catégorie',
+			'feed' => 'Afficher dans son flux',
 			'hidden' => 'Ne pas afficher',
 			'important' => 'Afficher dans les flux importants',
 			'main_stream' => 'Afficher dans les flux principaux',
@@ -281,6 +283,7 @@ return array(
 			'idle' => 'Flux inactifs',
 			'main' => 'Statistiques principales',
 			'repartition' => 'Répartition des articles',
+			'unread_dates' => 'Dates non lues',
 		),
 		'subscription_management' => 'Gestion des abonnements',
 		'subscription_tools' => 'Outils d’abonnement',

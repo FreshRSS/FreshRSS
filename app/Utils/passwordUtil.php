@@ -28,4 +28,9 @@ class FreshRSS_password_Util {
 	public static function check(string $password): bool {
 		return strlen($password) >= 7;
 	}
+
+	public static function cryptAvailable(): bool {
+		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+		return $hash === @crypt('password', $hash);
+	}
 }

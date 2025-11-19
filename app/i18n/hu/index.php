@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Nincs megjeleníthető cikk.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Tegnapelőtt fogadva',
+			'_' => 'Received',	// TODO
 			'today' => 'Ma fogadva',
 			'yesterday' => 'Tegnap fogadva',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Minden cikk',
 		'title_fav' => 'Kedvencek',
 		'title_global' => 'Globális nézet',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Log-ok',
@@ -89,11 +100,15 @@ return array(
 			),
 			'id_asc' => 'Frissen fogadott utoljára',
 			'id_desc' => 'Frissen fogadott először',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Véletlen sorrend',
 			'title_asc' => 'Cím A→Z',
 			'title_desc' => 'Cím Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Kedvencek megjelenítése',
 		'stats' => 'Statisztika',

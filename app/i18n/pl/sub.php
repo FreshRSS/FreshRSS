@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Akcje filtrowania',
 			'help' => 'Jedno zapytanie na linię. Operatory opisane są w <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dokumentacji</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'Nagłówki HTTP',
 		'http_headers_help' => 'Nagłówki są oddzielane przez nową linię, a nazwa i wartość nagłówka są oddzielane przez dwukropek (np: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer jakiś-token</code></kbd>).',
@@ -210,6 +211,7 @@ return array(
 		'priority' => array(
 			'_' => 'Widoczność',
 			'category' => 'Pokaż w kategorii kanału',
+			'feed' => 'Pokaż w kanale',
 			'hidden' => 'Nie pokazuj',
 			'important' => 'Pokaż w ważnych kanałach',
 			'main_stream' => 'Pokaż w kanale głównym',
@@ -281,6 +283,7 @@ return array(
 			'idle' => 'Bezczynne kanały',
 			'main' => 'Główne statystyki',
 			'repartition' => 'Podział wiadomości',
+			'unread_dates' => 'Nieprzeczytane daty',
 		),
 		'subscription_management' => 'Zarządzanie subskrypcjami',
 		'subscription_tools' => 'Narzędzia subskrypcji',

@@ -117,6 +117,7 @@ return array(
 		'empty_list' => 'No hay extensiones instaladas',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Activado',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Instalado',
 		'name' => 'Nombre',
 		'no_configure_view' => 'Esta extensión no puede ser configurada.',
@@ -133,6 +134,8 @@ return array(
 		'_' => 'Estadísticas',
 		'all_feeds' => 'Todas las fuentes',
 		'category' => 'Categoría',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Cómputo total',
 		'entry_per_category' => 'Entradas por categoría',
 		'entry_per_day' => 'Entradas por día (últimos 30 días)',
@@ -145,6 +148,7 @@ return array(
 		'idle' => 'Fuentes inactivas',
 		'main' => 'Estadísticas principales',
 		'main_stream' => 'Salida principal',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
 		'overview' => 'Overview',	// TODO
@@ -156,6 +160,7 @@ return array(
 		'status_unread' => 'Pendientes',
 		'title' => 'Estadísticas',
 		'top_feed' => 'Las 10 fuentes más activas',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Configuración del sistema',

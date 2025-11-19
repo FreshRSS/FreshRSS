@@ -19,7 +19,7 @@ if (!empty($cliOptions->errors)) {
 	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-foreach (listUsers() as $username) {
+foreach (FreshRSS_user_Controller::listUsers() as $username) {
 	$username = cliInitUser($username);
 	$filename = DATA_PATH . '/users/' . $username . '/backup.sqlite';
 	@unlink($filename);

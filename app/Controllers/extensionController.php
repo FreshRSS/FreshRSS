@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 /**
  * The controller to manage extensions.
+ *
+ * @phpstan-type ExtensionFullMetadata array{name:string,entrypoint:string,author:string,description:string,version:string,type:'system'|'user',url:string,method:string,directory:string,compatibility:string}
  */
 class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	/**
@@ -40,15 +42,15 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * Fetch extension list from GitHub
-	 * @return list<array{name:string,author:string,description:string,version:string,entrypoint:string,type:'system'|'user',url:string,method:string,directory:string}>
+	 * @phpstan-return list<ExtensionFullMetadata>
 	 */
 	protected function getAvailableExtensionList(): array {
-		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
+		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/refs/heads/main/extensions.json';
 
 		$cacheFile = CACHE_PATH . '/extension_list.json';
 		if (FreshRSS_Context::userConf()->retrieve_extension_list === true) {
 			if (!file_exists($cacheFile) || (time() - (filemtime($cacheFile) ?: 0) > 86400)) {
-				$json = httpGet($extensionListUrl, $cacheFile, 'json')['body'];
+				$json = FreshRSS_http_Util::httpGet($extensionListUrl, $cacheFile, 'json')['body'];
 			} else {
 				$json = @file_get_contents($cacheFile) ?: '';
 			}
@@ -82,7 +84,10 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			if (isset($extension['version']) && is_numeric($extension['version'])) {
 				$extension['version'] = (string)$extension['version'];
 			}
-			$keys = ['author', 'description', 'directory', 'entrypoint', 'method', 'name', 'type', 'url', 'version'];
+			if (!array_key_exists('compatibility', $extension)) {
+				$extension['compatibility'] = '✔';
+			}
+			$keys = ['author', 'description', 'directory', 'entrypoint', 'method', 'name', 'type', 'url', 'version', 'compatibility'];
 			$extension = array_intersect_key($extension, array_flip($keys));	// Keep only valid keys
 			$extension = array_filter($extension, 'is_string');
 			foreach ($keys as $key) {
@@ -93,10 +98,16 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			if (!in_array($extension['type'], ['system', 'user'], true) || trim($extension['name']) === '') {
 				continue;
 			}
-			/** @var array{name:string,author:string,description:string,version:string,entrypoint:string,type:'system'|'user',url:string,method:string,directory:string} $extension */
+			/** @var ExtensionFullMetadata $extension */
 			$extensions[] = $extension;
 		}
-		return $extensions;
+
+		return array_map(static function (array $extension) {
+			if ($extension['compatibility'] !== '✔') {
+				$extension['compatibility'] = version_compare($extension['compatibility'], FRESHRSS_VERSION, '>=') ? '✔' : '✘';
+			}
+			return $extension;
+		}, $extensions);
 	}
 
 	/**
@@ -191,7 +202,11 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
-				Minz_Request::good(_t('feedback.extensions.enable.ok', $ext_name), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.extensions.enable.ok', $ext_name),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning('Cannot enable extension ' . $ext_name . ': ' . $res);
 				Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
@@ -253,7 +268,11 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
-				Minz_Request::good(_t('feedback.extensions.disable.ok', $ext_name), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.extensions.disable.ok', $ext_name),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning('Cannot disable extension ' . $ext_name . ': ' . $res);
 				Minz_Request::bad(_t('feedback.extensions.disable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
@@ -290,7 +309,11 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$res = recursive_unlink($ext->getPath());
 			if ($res) {
-				Minz_Request::good(_t('feedback.extensions.removed', $ext_name), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.extensions.removed', $ext_name),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Request::bad(_t('feedback.extensions.cannot_remove', $ext_name), $url_redirect);
 			}
