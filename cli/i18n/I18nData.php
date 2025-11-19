@@ -98,7 +98,7 @@ class I18nData {
 	 */
 	public function addLanguage(string $language, ?string $reference = null): void {
 		if (array_key_exists($language, $this->data)) {
-			throw new Exception('The selected language already exist.');
+			throw new Exception('The selected language already exists.');
 		}
 		if (!is_string($reference) || !array_key_exists($reference, $this->data)) {
 			$reference = static::REFERENCE_LANGUAGE;
@@ -221,7 +221,7 @@ class I18nData {
 		}
 
 		if ($this->isKnown($key)) {
-			throw new Exception('The selected key already exist.');
+			throw new Exception('The selected key already exists.');
 		}
 
 		$parentKey = $this->getParentKey($key);
@@ -245,6 +245,29 @@ class I18nData {
 
 		if ($this->isKnown($parentKey)) {
 			$this->removeKey($parentKey);
+		}
+	}
+
+	/**
+	 * Move an existing key into a new location
+	 * @throws Exception
+	 */
+	public function moveKey(string $key, string $newKey): void {
+		if (!$this->isKnown($key) && !$this->isKnown($this->getEmptySibling($key))) {
+			throw new Exception('The selected key does not exist');
+		}
+		if ($this->isKnown($newKey)) {
+			throw new Exception('Cannot move key to a location that already exists.');
+		}
+
+		$keyPrefix = $this->isParent($key) ? $key . '.' : $key;
+		foreach ($this->getAvailableLanguages() as $language) {
+			foreach ($this->data[$language][$this->getFilenamePrefix($key)] as $k => $v) {
+				if (str_starts_with($k, $keyPrefix)) {
+					$this->data[$language][$this->getFilenamePrefix($newKey)][str_replace($key, $newKey, $k)] = $v;
+					unset($this->data[$language][$this->getFilenamePrefix($key)][$k]);
+				}
+			}
 		}
 	}
 

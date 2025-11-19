@@ -81,20 +81,20 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	#[\Override]
 	public function commitNewEntries(): bool {
 		$sql = <<<'SQL'
-DROP TABLE IF EXISTS `tmp`;
-CREATE TEMP TABLE `tmp` AS
-	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
-	FROM `_entrytmp`
-	ORDER BY date, id;
-INSERT OR IGNORE INTO `_entry`
-	(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
-	SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
-	guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
-	FROM `tmp`
-	ORDER BY date, id;
-DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
-DROP TABLE IF EXISTS `tmp`;
-SQL;
+			DROP TABLE IF EXISTS `tmp`;
+			CREATE TEMP TABLE `tmp` AS
+				SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+				FROM `_entrytmp`
+				ORDER BY date, id;
+			INSERT OR IGNORE INTO `_entry`
+				(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
+				SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
+				guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+				FROM `tmp` t
+				ORDER BY t.date, t.id;
+			DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
+			DROP TABLE IF EXISTS `tmp`;
+			SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
 			$this->pdo->beginTransaction();

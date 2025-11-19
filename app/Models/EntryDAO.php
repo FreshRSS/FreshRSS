@@ -248,18 +248,18 @@ SQL;
 
 	public function commitNewEntries(): bool {
 		$sql = <<<'SQL'
-SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`);
+			SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`);
 
-INSERT IGNORE INTO `_entry` (
-	id, guid, title, author, content_bin, link, date, `lastSeen`,
-	hash, is_read, is_favorite, id_feed, tags, attributes
-)
-SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
-FROM `_entrytmp`
-ORDER BY date, id;
+			INSERT IGNORE INTO `_entry` (
+				id, guid, title, author, content_bin, link, date, `lastSeen`,
+				hash, is_read, is_favorite, id_feed, tags, attributes
+			)
+			SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+			FROM `_entrytmp` etmp
+			ORDER BY etmp.date, etmp.id;
 
-DELETE FROM `_entrytmp` WHERE id <= @rank;
-SQL;
+			DELETE FROM `_entrytmp` WHERE id <= @rank;
+			SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
 			$this->pdo->beginTransaction();
@@ -1501,11 +1501,14 @@ SQL;
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters, id_min: $id_min, id_max: $id_max,
 			sort: $sort, order: $order, sort_indv_feeds: $sort_indv_feeds,  continuation_id: $continuation_id, continuation_values: $continuation_values);
 
+		// Help MySQL/MariaDB's optimizer with the query plan:
+		$useEntryIndex = $this->pdo->dbType() === 'mysql' ? 'USE INDEX (entry_feed_read_index) ' : '';
+
 		return [array_merge($values, $searchValues), 'SELECT '
 			. ($type === 'T' ? 'DISTINCT ' : '')
 			. 'e.id'
 			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
-			. ' FROM `_entry` e '
+			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
 			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
@@ -1754,7 +1757,13 @@ SQL;
 			}
 			return $affected;
 		}
-		$sql = 'UPDATE `_entry` SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1) . '?)';
+
+		// Reduce MySQL deadlock probability by ensuring consistent lock ordering
+		$orderBy = $this->pdo->dbType() === 'mysql' ? ' ORDER BY id DESC' : '';
+
+		$sql = 'UPDATE `_entry` ' .
+			'SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1) . '?)' .
+			$orderBy;
 		$stm = $this->pdo->prepare($sql);
 		if ($mtime <= 0) {
 			$mtime = time();

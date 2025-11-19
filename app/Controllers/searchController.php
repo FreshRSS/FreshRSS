@@ -52,7 +52,7 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 			if ($line === '') {
 				continue;
 			}
-			$quoted = preg_match('/\s/', $line) === 1 ? "'$line'" : $line;
+			$quoted = str_contains($line, ' ') && !str_starts_with($line, '/') ? "'$line'" : $line;
 			$terms[] = $prefix . $quoted;
 		}
 
