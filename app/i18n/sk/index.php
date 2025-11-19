@@ -110,7 +110,7 @@ return array(
 			'user_modified_asc' => 'User modified 1→9',	// TODO
 			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
-		'sort_indv_feeds' => 'Triediť kanály', //TODO
+		'sort_indv_feeds' => 'Triediť kanály',	// DIRTY
 		'starred' => 'Zobraziť obľúbené',
 		'stats' => 'Štatistiky',
 		'subscription' => 'Správca odberov',

@@ -110,7 +110,7 @@ return array(
 			'user_modified_asc' => 'Modificato dall’utente 1→9',
 			'user_modified_desc' => 'Modificato dall’utente 9→1',
 		),
-		'sort_indv_feeds' => 'Sort Feeds', //TODO
+		'sort_indv_feeds' => 'Sort Feeds',	// TODO
 		'starred' => 'Mostra solo preferiti',
 		'stats' => 'Statistiche',
 		'subscription' => 'Gestione sottoscrizioni',
