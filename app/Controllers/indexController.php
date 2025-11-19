@@ -353,6 +353,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					// Secondary sort criterion
 					$continuation_values[] = $pagingEntry->feed()?->name() ?? '';
 				}
+				// getting entry parameter
 				if (
 					!empty(FreshRSS_Context::$local_feed_sorting) &&
 					$pagingEntry !== null &&

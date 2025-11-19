@@ -283,6 +283,7 @@ final class FreshRSS_Context {
 		$sort = Minz_Request::paramString('sort', plaintext: true) ?: FreshRSS_Context::userConf()->sort;
 		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 		self::$sorted_feeds_count = Minz_Request::paramInt('sortedFeedCount') ?: 0;
+		// Filling local feed sorting parameters
 		for ($index = 0; $index < self::$sorted_feeds_count; $index++) {
 			$local_feed = Minz_Request::paramInt('localFeed' . $index) ?: -1;
 			$local_order = Minz_Request::paramString('localOrder' . $index, true) ?: 'id';

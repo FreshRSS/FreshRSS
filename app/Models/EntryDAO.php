@@ -1377,23 +1377,22 @@ SQL;
 					default => $alias . $config['sort'],
 				};
 				$local_sign = $config['order'] === 'ASC' ? '>' : '<';
-				$local_sign1 = $config['order'] === $order ? $local_sign . '=' : $local_sign;
-				if ($feedSortColumn === $alias . 'id') {
-					$sort_feeds_values[] = "({$alias}id_feed = {$sorted_feed} AND  {$alias}id {$local_sign1} ?)";
+				$local_sign_with_eq = $config['order'] === $order ? $local_sign . '=' : $local_sign;
+				if ($config['sort'] === 'id') {
+					$sort_feeds_values[] = "({$alias}id_feed = {$sorted_feed} AND  {$alias}id {$local_sign_with_eq} ?)";
 					$values[] = $continuation_id;
 				} else {
-					$sort_feeds_values[] = "({$alias}id_feed = {$sorted_feed}";
-					$sort_feeds_values[] = " AND ({$feedSortColumn} {$local_sign} ? OR ( {$feedSortColumn} = ? AND {$alias}id {$local_sign1} ?)))";
+					$sort_feeds_values[] = "({$alias}id_feed = {$sorted_feed}" .
+					" AND ({$feedSortColumn} {$local_sign} ? OR ( {$feedSortColumn} = ? AND {$alias}id {$local_sign_with_eq} ?)))";
 					$values[] = $continuation_values[1];
 					$values[] = $continuation_values[1];
 					$values[] = $continuation_id;
 				}
 			}
-
 			$search .= implode(' OR', $sort_feeds_values);
-			$search .= 'OR (' . $alias . 'id_feed NOT IN (' . implode(', ', array_keys($sort_indv_feeds)) . ') AND ' . $alias . 'id ' . $sign . '= ?)';
-
-			$search .= '))) ';
+			$search .= "OR ({$alias}id_feed NOT IN (";
+			$search .= implode(', ', array_keys($sort_indv_feeds));
+			$search .= ") AND {$alias}id {$sign}= ?)))) ";
 			$values[] = $continuation_id;
 		}
 
@@ -1483,6 +1482,8 @@ SQL;
 			'rand' => static::sqlRandom(),
 			default => 'e.' . $sort,
 		};
+
+		// Creating local feed sorting query
 		$sorted_feeds_sql = [];
 		if (!empty($sort_indv_feeds)) {
 			foreach ($sort_indv_feeds as $sorted_feed => $config) {
@@ -1559,6 +1560,7 @@ SELECT e0.id, e0.guid, e0.title, e0.author, {$content}, e0.link,
 FROM `_entry` e0 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
 SQL;
 
+		// Creating local feed sorting sql query
 		$sorted_feeds_sql = [];
 		if (!empty($sort_indv_feeds)) {
 			foreach ($sort_indv_feeds as $sorted_feed => $config) {
@@ -1588,6 +1590,7 @@ SQL;
 			// For keyset pagination
 			$sql .= ', e0.id ' . $order;
 		}
+		Minz_Log::debug($sql. ' |' . json_encode($values));
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
 			return $stm;
