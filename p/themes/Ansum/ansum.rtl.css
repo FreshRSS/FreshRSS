@@ -1414,3 +1414,11 @@ a, button.as-link {
 .dropdown-menu .feed-toggle:checked + .item-feed-header .feed-caret {
 	transform: rotate(180deg);
 }
+
+#toggle-order-feed {
+    background-image: url(icons/more.svg);
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    padding-right: 24px;
+}
+

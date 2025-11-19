@@ -1431,4 +1431,12 @@ a, button.as-link {
 	padding: 0.15em 0.75rem;
 }
 
+#toggle-order-feed {
+    background-image: url(icons/more.svg);
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    padding-right: 24px;
+}
+
+
 
