@@ -110,6 +110,7 @@ return array(
 			'user_modified_asc' => 'Изменено пользователем 1→9',
 			'user_modified_desc' => 'Изменено пользователем 9→1',
 		),
+		'sort_indv_feeds' => 'Sort Feeds', //TODO
 		'starred' => 'Показать избранное',
 		'stats' => 'Статистика',
 		'subscription' => 'Управление подписками',
