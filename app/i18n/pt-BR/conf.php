@@ -214,6 +214,7 @@ return array(
 	'reading' => array(
 		'_' => 'Leitura',
 		'after_onread' => 'Depois de “marcar todos como lido”,',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Mostrar todos os artivos nos favoritos por padrão',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
@@ -263,7 +264,6 @@ return array(
 		),
 		'hide_read_feeds' => 'Esconder categorias e feeds com nenhum artigo não lido (não funciona com a configuração “Mostrar todos os artigos”)',
 		'img_with_lazyload' => 'Utilizar o modo <em>lazy load</em> para carregar as imagens',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'Vá para o próximo irmão não lido',
 		'mark_updated_article_unread' => 'Marcar artigos atualizados como não lidos',
 		'number_divided_when_reader' => 'Dividido por 2 no modo de leitura .',

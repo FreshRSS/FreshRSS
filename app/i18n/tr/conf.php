@@ -214,6 +214,7 @@ return array(
 	'reading' => array(
 		'_' => 'Okuma',
 		'after_onread' => '“Tümünü okundu olarak işaretle”den sonra,',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Varsayılan olarak favorilerdeki tüm makaleleri göster',
 		'apply_to_individual_feed' => 'Beslemelere bireysel olarak uygula',
 		'article' => array(
@@ -263,7 +264,6 @@ return array(
 		),
 		'hide_read_feeds' => 'Okunmamış makalesi olmayan kategorileri ve beslemeleri gizle (“Tüm makaleleri göster” yapılandırmasıyla çalışmaz)',
 		'img_with_lazyload' => 'Resimleri yüklemek için <em>gecikmeli yükleme</em> modunu kullan',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'sonraki okunmamış kardeşe geç',
 		'mark_updated_article_unread' => 'Güncellenen makaleleri okunmadı olarak işaretle',
 		'number_divided_when_reader' => 'Okuma görünümünde 2’ye böl',

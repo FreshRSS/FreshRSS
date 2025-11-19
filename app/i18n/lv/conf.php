@@ -214,6 +214,7 @@ return array(
 	'reading' => array(
 		'_' => 'Lasīšana',
 		'after_onread' => 'Pēc "atzīmēt visus kā izlasītus",',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Pēc noklusējuma rādīt visus rakstus mīļāko sadaļā',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
@@ -263,7 +264,6 @@ return array(
 		),
 		'hide_read_feeds' => 'Paslēpt kategorijas un barotnes, kurās nav nelasītu rakstu (nedarbojas ar konfigurāciju "Rādīt visus rakstus")',
 		'img_with_lazyload' => 'Izmantot <em>slinkās ielādes</em> režīmu, lai ielādētu attēlus',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'pāriet uz nākamo nelasīto radinieku',
 		'mark_updated_article_unread' => 'Atjauninātos rakstus atzīmēt kā nelasītus',
 		'number_divided_when_reader' => 'Dalīt ar 2 lasīšanas skatā.',

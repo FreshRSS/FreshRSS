@@ -214,6 +214,7 @@ return array(
 	'reading' => array(
 		'_' => 'Lecture',
 		'after_onread' => 'Après « Marquer tout comme lu »,',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
 		'apply_to_individual_feed' => 'S’applique aux flux individuellement',
 		'article' => array(
@@ -263,7 +264,6 @@ return array(
 		),
 		'hide_read_feeds' => 'Cacher les catégories & flux sans article non-lu (ne fonctionne pas avec la configuration « Afficher tous les articles »)',
 		'img_with_lazyload' => 'Utiliser le mode <em>chargement différé</em> pour les images',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'sauter au prochain voisin non lu',
 		'mark_updated_article_unread' => 'Marquer les articles mis à jour comme non-lus',
 		'number_divided_when_reader' => 'Divisé par 2 dans la vue de lecture.',

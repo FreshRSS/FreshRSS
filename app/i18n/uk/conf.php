@@ -214,6 +214,7 @@ return array(
 	'reading' => array(
 		'_' => 'Читання',
 		'after_onread' => 'Коли все позначено прочитаним,',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'У вподобаних типово показувати всі статті',
 		'apply_to_individual_feed' => 'Застосовується до саме цієї стрічки',
 		'article' => array(
@@ -263,7 +264,6 @@ return array(
 		),
 		'hide_read_feeds' => 'Ховати категорії та стрічки, усі статті яких прочитано (не працює при виборі «Показати всі статті»)',
 		'img_with_lazyload' => 'Відкладати завантаження зображень до появи їх у видимій області',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'перейти до наступного непрочитаного поруч',
 		'mark_updated_article_unread' => 'Позначати оновленні статті непрочитаними',
 		'number_divided_when_reader' => 'Ділиться на 2 в читацькому показі.',

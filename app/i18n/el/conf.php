@@ -214,6 +214,7 @@ return array(
 	'reading' => array(
 		'_' => 'Reading',	// TODO
 		'after_onread' => 'After “mark all as read”,',	// TODO
+		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
@@ -263,7 +264,6 @@ return array(
 		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',	// TODO
 		'img_with_lazyload' => 'Use <em>lazy load</em> mode to load pictures',	// TODO
-		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => 'jump to next unread sibling',	// TODO
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// TODO
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',	// TODO

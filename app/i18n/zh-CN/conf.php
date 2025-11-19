@@ -214,6 +214,7 @@ return array(
 	'reading' => array(
 		'_' => '阅读',
 		'after_onread' => '“全部标记为已读”后',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => '默认显示收藏夹中所有的文章',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
@@ -263,7 +264,6 @@ return array(
 		),
 		'hide_read_feeds' => '隐藏没有未读文章的分类和订阅源（启用“显示所有文章”后不生效）',
 		'img_with_lazyload' => '延迟加载图片',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => '跳转到下一未读项',
 		'mark_updated_article_unread' => '将有更新的文章设为未读',
 		'number_divided_when_reader' => '阅读视图中显示一半',

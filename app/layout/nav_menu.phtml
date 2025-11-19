@@ -232,10 +232,10 @@
 		}
 		$url_order = Minz_Request::currentRequest();
 		$sorted_feed_count = FreshRSS_Context::$sorted_feeds_count;
-		for($index = 0; $index < $sorted_feed_count; $index++){
-			unset($url_order['params']['localFeed'. $index]);
-			unset($url_order['params']['localSort'. $index]);
-			unset($url_order['params']['localOrder'. $index]);
+		for ($index = 0; $index < $sorted_feed_count; $index++) {
+			unset($url_order['params']['localFeed' . $index]);
+			unset($url_order['params']['localSort' . $index]);
+			unset($url_order['params']['localOrder' . $index]);
 		}
 		unset($url_order['params']['sortedFeedCount']);
 	?>
@@ -283,27 +283,27 @@
 		</div>
 	</div>
 	
-	<?php if(FreshRSS_Context::$sort === 'f.name' && FreshRSS_Context::userConf()->allow_local_sorting): ?>
-
+	<?php if (FreshRSS_Context::$sort === 'f.name' && FreshRSS_Context::userConf()->allow_local_sorting): ?>
 	<div id="nav_menu_feed_sort" class="group">
-    <div class="dropdown">
-        <div id="dropdown_feed-sort" class="dropdown-target"></div>
+	<div class="dropdown">
+		<div id="dropdown_feed-sort" class="dropdown-target"></div>
 
-        <a id="toggle-order_feed"
-           class="dropdown-toggle btn"
-           href="#dropdown_feed-sort"
-           title="<?= _t('index.menu.sort') ?>">
-            <?= _i($icon) ?>
-        </a>
+		<a id="toggle-order_feed"
+		   class="dropdown-toggle btn"
+		   href="#dropdown_feed-sort"
+		   title="<?= _t('index.menu.sort') ?>">
+			<?= _i($icon) ?>
+		</a>
 
-        <ul class="dropdown-menu" role="radiogroup">
-            <?php
+		<ul class="dropdown-menu" role="radiogroup">
+			<?php
 
 			$feeds = FreshRSS_Context::feeds_by_get();
 			$collator = new Collator('root');
 
-			usort($feeds, function($a, $b) use ($collator) {
-				return $collator->compare($a->name(), $b->name());
+			usort($feeds, function ($a, $b) use ($collator) {
+				$result = $collator->compare($a->name(), $b->name());
+				return $result === false ? 0 : $result;
 			});
 
 			if (FreshRSS_Context::$order === 'DESC') {
@@ -313,8 +313,7 @@
 				$url_order = Minz_Request::currentRequest();
 				$sorted_feed_count  = FreshRSS_Context::$sorted_feeds_count;
 				$sorted_feed_index  = $sorted_feed_count;
-				$local_feed_context = 'localFeed' .
-				$local_sort         = FreshRSS_Context::$local_feed_sorting[$feed->id()]['sort']  ?? '';
+				$local_sort         = FreshRSS_Context::$local_feed_sorting[$feed->id()]['sort'] ?? '';
 				$local_order        = FreshRSS_Context::$local_feed_sorting[$feed->id()]['order'] ?? '';
 				$has_custom_sort    = array_key_exists($feed->id(), FreshRSS_Context::$local_feed_sorting);
 				for ($index = 0; $index < $sorted_feed_count; $index++) {
@@ -411,10 +410,10 @@
 					</ul>
 				</li>
 			<?php endforeach ?>
-        </ul>
+		</ul>
 
-        <a class="dropdown-close" href="#close">❌</a>
-    </div>
+		<a class="dropdown-close" href="#close">❌</a>
+	</div>
 </div>
 
 	<?php endif; ?>

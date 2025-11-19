@@ -214,6 +214,7 @@ return array(
 	'reading' => array(
 		'_' => 'リーディング',
 		'after_onread' => '“すべてに既読を付ける”を押した後,',
+		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'デフォルトですべてのお気に入りの記事を表示する',
 		'apply_to_individual_feed' => '個々のフィードに適用する',
 		'article' => array(
@@ -263,7 +264,6 @@ return array(
 		),
 		'hide_read_feeds' => 'カテゴリを非表示 & 未読の記事がないフィード ("すべてに既読を付ける”では適用しません)',
 		'img_with_lazyload' => '<em>lazy load</em>を写真の読み込み時に使う',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed', // TODO
 		'jump_next' => '次の未読の姉妹記事へ移る',
 		'mark_updated_article_unread' => '更新された記事を未読とする',
 		'number_divided_when_reader' => 'リーディングビューを2分割する',
