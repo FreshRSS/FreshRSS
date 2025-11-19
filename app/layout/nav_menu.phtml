@@ -283,15 +283,19 @@
 		</div>
 	</div>
 	
-	<?php if (FreshRSS_Context::$sort === 'f.name' && FreshRSS_Context::userConf()->allow_local_sorting): ?>
+	
+	<?php
+	// Local feed sorting menu 
+	if (FreshRSS_Context::$sort === 'f.name' && FreshRSS_Context::userConf()->allow_local_sorting): ?>
 	<div id="nav_menu_feed_sort" class="group">
 	<div class="dropdown">
-		<div id="dropdown_feed-sort" class="dropdown-target"></div>
+		<div id="dropdown-feed-sort" class="dropdown-target"></div>
 
-		<a id="toggle-order_feed"
+		<a id="toggle-order-feed"
 		   class="dropdown-toggle btn"
-		   href="#dropdown_feed-sort"
+		   href="#dropdown-feed-sort"
 		   title="<?= _t('index.menu.sort') ?>">
+		   	<span class="sorting-feeds_menu"><?= _t('index.menu.sort_indv_feeds') ?></span>
 			<?= _i($icon) ?>
 		</a>
 
