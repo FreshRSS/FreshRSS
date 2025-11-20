@@ -894,7 +894,7 @@ button:hover .icon,
 
 .flux.current > .flux_header {
 	background: linear-gradient(to left, transparent 0, transparent 3px, var(--background-color-hover) 3px);
-	margin-right: -3px; /* Compensate the increased border-left-width */
+	margin-right: -3px; /* Compensate increased border-left-width */
 }
 
 .flux.not_read.current > .flux_header, .flux.not_read.current > .flux_header:hover {
