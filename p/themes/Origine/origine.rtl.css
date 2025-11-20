@@ -896,9 +896,11 @@ button:hover .icon,
 	background: linear-gradient(to left, transparent 0, transparent 3px, var(--background-color-hover) 3px);
 	margin-right: -3px; /* Compensate the increased border-left-width */
 }
+
 .flux.not_read.current > .flux_header, .flux.not_read.current > .flux_header:hover {
 	background: linear-gradient(to left, transparent 0, transparent 3px, var(--unread-article-background-color-hover) 3px);
 }
+
 .flux.favorite.current > .flux_header, .flux.favorite.current > .flux_header:hover {
 	background: linear-gradient(to left, transparent 0, transparent 3px, var(--favorite-article-background-color-hover) 3px);
 }
