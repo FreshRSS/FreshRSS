@@ -892,6 +892,17 @@ button:hover .icon,
 	border-right-style: double;
 }
 
+.flux.current > .flux_header {
+	background: linear-gradient(to left, transparent 0, transparent 3px, var(--background-color-hover) 3px);
+	margin-right: -3px; /* Compensate the increased border-left-width */
+}
+.flux.not_read.current > .flux_header, .flux.not_read.current > .flux_header:hover {
+	background: linear-gradient(to left, transparent 0, transparent 3px, var(--unread-article-background-color-hover) 3px);
+}
+.flux.favorite.current > .flux_header, .flux.favorite.current > .flux_header:hover {
+	background: linear-gradient(to left, transparent 0, transparent 3px, var(--favorite-article-background-color-hover) 3px);
+}
+
 .flux_header {
 	font-size: 0.9rem;
 	border-top: 1px solid var(--border-color);
