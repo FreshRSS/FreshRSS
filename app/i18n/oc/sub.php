@@ -36,7 +36,7 @@ return array(
 		'position' => 'Mostrar la posicion',
 		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
 		'preferred_sort' => array(
-			'_' => 'Preferred sort', // TODO
+			'_' => 'Preferred sort',	// TODO
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
 			'f' => array(

@@ -36,7 +36,7 @@ return array(
 		'position' => 'Display position',	// IGNORE
 		'position_help' => 'To control category sort order',	// IGNORE
 		'preferred_sort' => array(
-			'_' => 'Preferred sort', // IGNORE
+			'_' => 'Preferred sort',	// IGNORE
 			'date_asc' => 'Publication date 1→9',	// IGNORE
 			'date_desc' => 'Publication date 9→1',	// IGNORE
 			'f' => array(
@@ -44,7 +44,7 @@ return array(
 				'name_desc' => 'Feed title Z→A',	// IGNORE
 			),
 			'id_asc' => 'Freshly received last',	// IGNORE
-			'id_desc' => 'Freshly received first',	// IGNORe
+			'id_desc' => 'Freshly received first',	// IGNORE
 			'length_asc' => 'Content length 1→9',	// IGNORE
 			'length_desc' => 'Content length 9→1',	// IGNORE
 			'link_asc' => 'Link A→Z',	// IGNORE

@@ -312,7 +312,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);
-
 		if (is_array($get)) {
 			$type = $get[0];
 			$id = (int)($get[1]);
@@ -353,7 +352,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					// Secondary sort criterion
 					$continuation_values[] = $pagingEntry->feed()?->name() ?? '';
 				}
-				
 			} elseif (FreshRSS_Context::$sort === 'rand') {
 				FreshRSS_Context::$continuation_id = '0';
 			}
@@ -362,9 +360,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		foreach ($entryDAO->listWhere(
 					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
 					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
-					continuation_id: FreshRSS_Context::$continuation_id,
-					continuation_values: $continuation_values, limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset
-				) as $entry) {
+					continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
+					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset) as $entry) {
 			yield $entry;
 		}
 	}

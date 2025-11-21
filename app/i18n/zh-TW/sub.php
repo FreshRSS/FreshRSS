@@ -36,7 +36,7 @@ return array(
 		'position' => '顯示位置',
 		'position_help' => '控制分類排列順序',
 		'preferred_sort' => array(
-			'_' => 'Preferred sort', // TODO
+			'_' => 'Preferred sort',	// TODO
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
 			'f' => array(
