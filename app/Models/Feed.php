@@ -540,7 +540,6 @@ class FreshRSS_Feed extends Minz_Model {
 	public function set_default_sort(string $sort, string $order) {
 		$this->_attribute('default_sort', $sort);	
 		$this->_attribute('default_order', $order);
-
 	}
 	public function get_default_sort(): string {
 		return $this->attributeString('default_sort') ?? 'id';
