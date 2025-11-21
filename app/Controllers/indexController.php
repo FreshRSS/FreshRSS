@@ -353,25 +353,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					// Secondary sort criterion
 					$continuation_values[] = $pagingEntry->feed()?->name() ?? '';
 				}
-				// getting entry parameter
-				if (
-					!empty(FreshRSS_Context::$local_feed_sorting) &&
-					$pagingEntry !== null &&
-					$pagingEntry->feed() instanceof FreshRSS_Feed &&
-					array_key_exists($pagingEntry->feed()->id(), FreshRSS_Context::$local_feed_sorting)
-				) {
-					$chosen_local_sort = FreshRSS_Context::$local_feed_sorting[$pagingEntry->feed()->id()]['sort'];
-					$continuation_values[] = !in_array(
-						$chosen_local_sort, ['id', 'date', 'link', 'title', 'lastUserModified', 'length'], true
-					) ? 0 : match ($chosen_local_sort) {
-						'id' => $pagingEntry->id(),
-						'date' => $pagingEntry->date(raw: true),
-						'link' => $pagingEntry->link(raw: true),
-						'title' => $pagingEntry->title(),
-						'lastUserModified' => $pagingEntry->lastUserModified(),
-						'length' => $pagingEntry->sqlContentLength() ?? 0,
-					};
-				}
+				
 			} elseif (FreshRSS_Context::$sort === 'rand') {
 				FreshRSS_Context::$continuation_id = '0';
 			}
@@ -380,7 +362,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		foreach ($entryDAO->listWhere(
 					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
 					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
-					sort_indv_feeds: FreshRSS_Context::$local_feed_sorting, continuation_id: FreshRSS_Context::$continuation_id,
+					continuation_id: FreshRSS_Context::$continuation_id,
 					continuation_values: $continuation_values, limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset
 				) as $entry) {
 			yield $entry;

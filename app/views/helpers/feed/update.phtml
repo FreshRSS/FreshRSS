@@ -131,6 +131,51 @@
 			</div>
 
 			<div class="form-group">
+				<label class="group-name" for="default_sort"><?= htmlspecialchars("Prefered Sort")?> </label>
+				<div class="group-controls">
+					<select name="default_sort_option" id="default_sort_option" class="w50">
+						<option value="id|DESC" <?=
+							$this->feed->get_default_sort() === 'id' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by id DESC") ?></option>
+						<option value= "date|DESC" <?=
+							$this->feed->get_default_sort() === 'date' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by date DESC") ?></option>
+						<option value="lastUserModified|DESC" <?=
+							$this->feed->get_default_sort() === 'lastUserModified' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by last user modified DESC") ?></option>
+						<option value= "length|DESC" <?=
+							$this->feed->get_default_sort() === 'length' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by lenght DESC") ?></option>
+						<option value="link|DESC" <?=
+							$this->feed->get_default_sort() === 'link' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by link DESC") ?></option>
+						<option value= "title|DESC" <?=
+							$this->feed->get_default_sort() === 'title' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by title DESC") ?></option>
+						
+						<option value="id|ASC" <?=
+							$this->feed->get_default_sort() === 'id' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by id ASC") ?></option>
+						<option value= "date|ASC" <?=
+							$this->feed->get_default_sort() === 'date' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by date ASC") ?></option>
+						<option value="lastUserModified|ASC" <?=
+							$this->feed->get_default_sort() === 'lastUserModified' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by last user modified ASC") ?></option>
+						<option value= "length|ASC" <?=
+							$this->feed->get_default_sort() === 'length' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by lenght ASC") ?></option>
+						<option value="link|ASC" <?=
+							$this->feed->get_default_sort() === 'link' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by link ASC") ?></option>
+						<option value= "title|ASC" <?=
+							$this->feed->get_default_sort() === 'title' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
+							htmlspecialchars("sort by title ASC") ?></option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<label class="group-name" for="unicityCriteria"><?= _t('sub.feed.unicityCriteria') ?></label>
 				<?php
 					$unicityCriteria = $this->feed->attributeString('unicityCriteria');
