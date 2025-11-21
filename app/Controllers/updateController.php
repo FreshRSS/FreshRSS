@@ -20,6 +20,11 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				'Please git pull manually!');
 		}
 
+		if (!function_exists('exec')) {
+			throw new Minz_Exception('Error during git checkout: exec() function is disabled! ' .
+				'Please git pull manually!');
+		}
+
 		exec('git --version', $output, $return);
 		if ($return != 0) {
 			throw new Minz_Exception("Error {$return} git not found: Please update manually!");
