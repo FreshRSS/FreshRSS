@@ -200,32 +200,6 @@ final class FreshRSS_Context {
 		return FreshRSS_Category::findFeeds(self::categories());
 	}
 
-	/** @return array<int,FreshRSS_Feed> where the key is the feed ID */
-	public static function feeds_by_get(): array {
-		$get  = self::currentGet(true);
-		if (is_array($get)) {
-			$type = $get[0];
-			$id = (int)($get[1]);
-		} else {
-			$type = $get;
-			$id = 0;
-		}
-		$feeds = FreshRSS_Category::findFeeds(self::categories());
-		$requested_feeds = [];
-		switch ($type) {
-			case 'c':
-				$requested_feeds = array_filter($feeds, fn($feed) => $feed->categoryId() === $id);
-				break;
-			case 'f':
-				$requested_feeds = array_filter($feeds, fn($feed) => $feed->id() === $id);
-				break;
-			default:
-				$requested_feeds = $feeds;
-				break;
-		}
-		return $requested_feeds;
-	}
-
 	/** @return array<int,FreshRSS_Tag> where the key is the label ID */
 	public static function labels(bool $precounts = false): array {
 		if (empty(self::$tags) || $precounts) {
