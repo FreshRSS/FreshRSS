@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'OPML-tiedoston URL-osoite',
 		'position' => 'Näyttöjärjestys',
 		'position_help' => 'Määritä luokkien lajittelujärjestys',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => 'Otsikko',
 	),
 	'feed' => array(

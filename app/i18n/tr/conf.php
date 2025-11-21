@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Okuma',
 		'after_onread' => '“Tümünü okundu olarak işaretle”den sonra,',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Varsayılan olarak favorilerdeki tüm makaleleri göster',
 		'apply_to_individual_feed' => 'Beslemelere bireysel olarak uygula',
 		'article' => array(

@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => '閱讀',
 		'after_onread' => '「全部標記為已讀」後',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => '預設顯示收藏夾中所有的文章',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(

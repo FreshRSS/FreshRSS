@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'リーディング',
 		'after_onread' => '“すべてに既読を付ける”を押した後,',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'デフォルトですべてのお気に入りの記事を表示する',
 		'apply_to_individual_feed' => '個々のフィードに適用する',
 		'article' => array(

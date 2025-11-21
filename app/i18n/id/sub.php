@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'URL OPML',
 		'position' => 'Posisi tampilan',
 		'position_help' => 'Untuk mengatur urutan pengurutan kategori',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => 'Judul',
 	),
 	'feed' => array(

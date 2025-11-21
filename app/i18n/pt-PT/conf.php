@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Leitura',
 		'after_onread' => 'Depois de “marcar todos como lido”,',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Mostrar todos os artigos nos favoritos por padrão',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(

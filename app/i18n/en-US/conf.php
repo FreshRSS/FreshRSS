@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Reading',	// IGNORE
 		'after_onread' => 'After “mark all as read”,',	// IGNORE
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// IGNORE
 		'always_show_favorites' => 'Show all articles in favorites by default',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// IGNORE
 		'article' => array(

@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => ' خواندن',
 		'after_onread' => ' بعد از "علامت گذاری همه به عنوان خوانده شده"',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => ' نمایش همه مقالات در موارد دلخواه به طور پیش فرض',
 		'apply_to_individual_feed' => 'به صورت جداگانه برای هر فید اعمال می‌شود',
 		'article' => array(

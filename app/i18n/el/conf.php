@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Reading',	// TODO
 		'after_onread' => 'After “mark all as read”,',	// TODO
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(

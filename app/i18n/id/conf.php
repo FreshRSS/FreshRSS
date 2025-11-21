@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Membaca',
 		'after_onread' => 'Setelah “tandai semua sebagai sudah dibaca”',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Tampilkan semua artikel favorit secara baku',
 		'apply_to_individual_feed' => 'Berlaku per umpan individu',
 		'article' => array(

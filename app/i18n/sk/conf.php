@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Čítanie',
 		'after_onread' => 'Po “Označiť všetko ako prečítané”,',
-		'allow_local_sorting' => 'Ukazať okno na idividualne triedenie pre jednotlive kanály',
 		'always_show_favorites' => 'Automaticky zobraziť všetky články v obľúbených',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(

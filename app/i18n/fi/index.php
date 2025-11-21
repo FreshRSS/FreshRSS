@@ -110,7 +110,6 @@ return array(
 			'user_modified_asc' => 'Käyttäjä muokannut 1→9',
 			'user_modified_desc' => 'Käyttäjä muokannut 9→1',
 		),
-		'sort_indv_feeds' => 'Sort Feeds',	// TODO
 		'starred' => 'Näytä suosikit',
 		'stats' => 'Tilastot',
 		'subscription' => 'Tilausten hallinta',

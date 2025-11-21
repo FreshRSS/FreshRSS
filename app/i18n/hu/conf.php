@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Olvasás',
 		'after_onread' => 'Utána „minden megjelölése olvasottként”,',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Minden cikk megjelenítése a kedvencekben alapértelmezetten',
 		'apply_to_individual_feed' => 'A hírforrásokra külön-külön vonatkozik',
 		'article' => array(

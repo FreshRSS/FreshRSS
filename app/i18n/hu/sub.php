@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Megjelenítési pozíció',
 		'position_help' => 'Kategória rendezési sorrend',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => 'Cím',
 	),
 	'feed' => array(

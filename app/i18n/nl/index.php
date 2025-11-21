@@ -110,7 +110,6 @@ return array(
 			'user_modified_asc' => 'Aangepast door gebruiker 1→9',
 			'user_modified_desc' => 'Aangepast door gebruiker 9→1',
 		),
-		'sort_indv_feeds' => 'Sort Feeds',	// TODO
 		'starred' => 'Laat alleen favorieten zien',
 		'stats' => 'Statistieken',
 		'subscription' => 'Abonnementen beheer',

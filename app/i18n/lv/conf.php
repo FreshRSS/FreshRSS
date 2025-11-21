@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Lasīšana',
 		'after_onread' => 'Pēc "atzīmēt visus kā izlasītus",',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Pēc noklusējuma rādīt visus rakstus mīļāko sadaļā',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(

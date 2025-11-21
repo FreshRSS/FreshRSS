@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => '읽기',
 		'after_onread' => '“모두 읽음으로 표시” 후,',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => '기본으로 즐겨찾기에 있는 모든 글을 표시',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(

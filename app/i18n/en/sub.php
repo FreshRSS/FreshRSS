@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'OPML URL',
 		'position' => 'Display position',
 		'position_help' => 'To control category sort order',
+		'preferred_sort' => 'Preferred sort', 
 		'title' => 'Title',
 	),
 	'feed' => array(

@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Lectura',
 		'after_onread' => 'Aprèp « marcar coma legit »,',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Mostrar totes los articles dels favorits per defaut',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(

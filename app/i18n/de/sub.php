@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'OPML-Datei URL',
 		'position' => 'Reihenfolge',
 		'position_help' => 'Steuert die Kategoriesortierung',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => 'Titel',
 	),
 	'feed' => array(

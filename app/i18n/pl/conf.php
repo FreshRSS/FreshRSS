@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Czytanie',
 		'after_onread' => 'Po oznaczeniu wszystkich jako przeczytane,',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Pokaż wszystkie wiadomości po wejściu do ulubionych',
 		'apply_to_individual_feed' => 'Dotyczy kanałów indywidualnie',
 		'article' => array(

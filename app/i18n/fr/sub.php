@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'URL de l’OPML',
 		'position' => 'Position d’affichage',
 		'position_help' => 'Pour contrôler l’ordre de tri des catégories',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => 'Titre',
 	),
 	'feed' => array(

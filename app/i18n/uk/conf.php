@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Читання',
 		'after_onread' => 'Коли все позначено прочитаним,',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'У вподобаних типово показувати всі статті',
 		'apply_to_individual_feed' => 'Застосовується до саме цієї стрічки',
 		'article' => array(

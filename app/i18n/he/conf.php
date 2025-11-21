@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'קריאה',
 		'after_onread' => 'לאחר “סימון הכל כנקרא”,',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(

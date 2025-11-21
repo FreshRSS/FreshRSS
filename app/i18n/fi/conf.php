@@ -214,7 +214,6 @@ return array(
 	'reading' => array(
 		'_' => 'Lukeminen',
 		'after_onread' => 'Kun valitset “merkitse kaikki luetuiksi”',
-		'allow_local_sorting' => 'Show option of Individual sorting per feed',	// TODO
 		'always_show_favorites' => 'Näytä oletusarvoisesti kaikki suosikkiartikkelit',
 		'apply_to_individual_feed' => 'Asetus vaikuttaa jokaiseen syötteeseen erikseen',
 		'article' => array(
