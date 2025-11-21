@@ -253,13 +253,13 @@ final class FreshRSS_Context {
 		if (self::$current_get['feed']) {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$feed = $feedDAO->searchById(self::$current_get['feed']);
-			$backtrack_order = $feed !== null ? $feed->get_default_order() : 'DESC';
-			$backtrack_sort = $feed !== null ? $feed->get_default_sort() : 'id';
+			$backtrack_order = $feed !== null ? $feed->get_default_order() : FreshRSS_Context::userConf()->sort_order;
+			$backtrack_sort = $feed !== null ? $feed->get_default_sort() : FreshRSS_Context::userConf()->sort;
 		} elseif (self::$current_get['category']) {
 			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$category = $categoryDAO->searchById(self::$current_get['category']);
-			$backtrack_order = $category !== null ? $category->get_default_order() : 'DESC';
-			$backtrack_sort = $category !== null ? $category->get_default_sort() : 'id';
+			$backtrack_order = $category !== null ? $category->get_default_order() : FreshRSS_Context::userConf()->sort_order;
+			$backtrack_sort = $category !== null ? $category->get_default_sort() : FreshRSS_Context::userConf()->sort;
 		} else {
 			$backtrack_order = FreshRSS_Context::userConf()->sort_order;
 			$backtrack_sort = FreshRSS_Context::userConf()->sort;
