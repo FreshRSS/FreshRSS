@@ -35,7 +35,25 @@ return array(
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Display position',	// IGNORE
 		'position_help' => 'To control category sort order',	// IGNORE
-		'preferred_sort' => 'Preferred sort', // IGNORE
+		'preferred_sort' => array(
+			'_' => 'Preferred sort', // IGNORE
+			'date_asc' => 'Publication date 1→9',	// IGNORE
+			'date_desc' => 'Publication date 9→1',	// IGNORE
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// IGNORE
+				'name_desc' => 'Feed title Z→A',	// IGNORE
+			),
+			'id_asc' => 'Freshly received last',	// IGNORE
+			'id_desc' => 'Freshly received first',	// IGNORe
+			'length_asc' => 'Content length 1→9',	// IGNORE
+			'length_desc' => 'Content length 9→1',	// IGNORE
+			'link_asc' => 'Link A→Z',	// IGNORE
+			'link_desc' => 'Link Z→A',	// IGNORE
+			'title_asc' => 'Title A→Z',	// IGNORE
+			'title_desc' => 'Title Z→A',	// IGNORE
+			'user_modified_asc' => 'User modified 1→9',	// IGNORE
+			'user_modified_desc' => 'User modified 9→1',	// IGNORE
+		),
 		'title' => 'Title',	// IGNORE
 	),
 	'feed' => array(

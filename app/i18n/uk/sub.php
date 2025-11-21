@@ -35,7 +35,25 @@ return array(
 		'opml_url' => 'URL-адреса OPML',
 		'position' => 'Пріоритет показу',
 		'position_help' => 'Визначає порядок категорій',
-		'preferred_sort' => 'Preferred sort', // TODO
+		'preferred_sort' => array(
+			'_' => 'Preferred sort', // TODO
+			'date_asc' => 'Publication date 1→9',	// TODO
+			'date_desc' => 'Publication date 9→1',	// TODO
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
+			'id_asc' => 'Freshly received last',	// TODO
+			'id_desc' => 'Freshly received first',	// TODO
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
+			'link_asc' => 'Link A→Z',	// TODO
+			'link_desc' => 'Link Z→A',	// TODO
+			'title_asc' => 'Title A→Z',	// TODO
+			'title_desc' => 'Title Z→A',	// TODO
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
+		),
 		'title' => 'Заголовок',
 	),
 	'feed' => array(
