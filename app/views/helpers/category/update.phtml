@@ -41,7 +41,7 @@
 			<div class="form-group">
 				<label class="group-name" for="default_sort"><?= _t('sub.category.preferred_sort')?> </label>
 				<div class="group-controls">
-					<select name="default_sort_option" id="default_sort_option_category" class="w50">
+					<select name="default_sort_option" id="default_sort_category" class="w50">
 						<option value="id|DESC" <?=
 							$this->category->get_default_sort() === 'id' && $this->category->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
 							_t('index.menu.sort.id_desc') ?></option>
@@ -60,7 +60,6 @@
 						<option value= "title|DESC" <?=
 							$this->category->get_default_sort() === 'title' && $this->category->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
 							_t('index.menu.sort.title_desc') ?></option>
-						
 						<option value="id|ASC" <?=
 							$this->category->get_default_sort() === 'id' && $this->category->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
 							_t('index.menu.sort.id_asc') ?></option>

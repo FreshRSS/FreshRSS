@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'OPML 地址',
 		'position' => '顯示位置',
 		'position_help' => '控制分類排列順序',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => '標題',
 	),
 	'feed' => array(

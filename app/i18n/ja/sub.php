@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'OPMLのURL',
 		'position' => '表示位置',
 		'position_help' => 'カテゴリの表示順を操作する',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => 'タイトル',
 	),
 	'feed' => array(

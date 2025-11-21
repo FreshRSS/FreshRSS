@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '표시 위치',
 		'position_help' => '정렬 순서 제어',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => '제목',
 	),
 	'feed' => array(

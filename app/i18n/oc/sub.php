@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'URL OPML',
 		'position' => 'Mostrar la posicion',
 		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => 'Títol',
 	),
 	'feed' => array(

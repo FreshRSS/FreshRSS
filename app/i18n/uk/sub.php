@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'URL-адреса OPML',
 		'position' => 'Пріоритет показу',
 		'position_help' => 'Визначає порядок категорій',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => 'Заголовок',
 	),
 	'feed' => array(

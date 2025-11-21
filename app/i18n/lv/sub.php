@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Displeja pozīcija',
 		'position_help' => 'Lai pārvaldītu kategoriju šķirošanas secību',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => 'Tituls',
 	),
 	'feed' => array(

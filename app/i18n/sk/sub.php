@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Zobrazť pozíciu',
 		'position_help' => 'Na kontrolu zoradenia kategórií',
+		'preferred_sort' => 'Preferované triedenie',
 		'title' => 'Názov',
 	),
 	'feed' => array(

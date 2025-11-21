@@ -133,7 +133,7 @@
 			<div class="form-group">
 				<label class="group-name" for="default_sort"><?= htmlspecialchars("Prefered Sort")?> </label>
 				<div class="group-controls">
-					<select name="default_sort_option" id="default_sort_option" class="w50">
+					<select name="default_sort_option" id="default_sort_feed" class="w50">
 						<option value="id|DESC" <?=
 							$this->feed->get_default_sort() === 'id' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
 							htmlspecialchars("sort by id DESC") ?></option>
@@ -152,7 +152,6 @@
 						<option value= "title|DESC" <?=
 							$this->feed->get_default_sort() === 'title' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
 							htmlspecialchars("sort by title DESC") ?></option>
-						
 						<option value="id|ASC" <?=
 							$this->feed->get_default_sort() === 'id' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
 							htmlspecialchars("sort by id ASC") ?></option>

@@ -35,6 +35,7 @@ return array(
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Weergavepositie',
 		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
+		'preferred_sort' => 'Preferred sort', // TODO
 		'title' => 'Titel',
 	),
 	'feed' => array(
