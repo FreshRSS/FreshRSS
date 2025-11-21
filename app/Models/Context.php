@@ -279,18 +279,21 @@ final class FreshRSS_Context {
 		if(self::$current_get['feed']){
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$feed = $feedDAO->searchById(self::$current_get['feed']);
-			$backtrackOrder = $feed->get_default_order();
-			$backtrackSort = $feed->get_default_sort();
+			$backtrack_order = $feed->get_default_order() ?? 'DESC';
+			$backtrack_sort = $feed->get_default_sort() ?? 'id';
+		}else if(self::$current_get['category']){
+			$categoryDAO = FreshRSS_Factory::createCategoryDao();
+			$category = $categoryDAO->searchById(self::$current_get['category']);
+			$backtrack_order = $category->get_default_order() ?? 'DESC';
+			$backtrack_sort = $category->get_default_sort() ?? 'id';
 		}else{
-			$backtrackOrder = FreshRSS_Context::userConf()->sort_order;
-			$backtrackSort = FreshRSS_Context::userConf()->sort;
+			$backtrack_order = FreshRSS_Context::userConf()->sort_order;
+			$backtrack_sort = FreshRSS_Context::userConf()->sort;
 		}
 		
-
-
-		$order = Minz_Request::paramString('order', plaintext: true) ?: $backtrackOrder;
+		$order = Minz_Request::paramString('order', plaintext: true) ?: $backtrack_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = Minz_Request::paramString('sort', plaintext: true) ?: $backtrackSort;
+		$sort = Minz_Request::paramString('sort', plaintext: true) ?: $backtrack_sort;
 		
 		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 		
