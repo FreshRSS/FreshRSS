@@ -209,6 +209,21 @@ return array(
 		'number_entries' => '%d articles',	// IGNORE
 		'open_feed' => 'Open feed %s',	// IGNORE
 		'path_entries_conditions' => 'Conditions for content retrieval',	// IGNORE
+		'preferred_sort' => array(
+			'_' => 'Preferred Sort',	// IGNORE
+			'date_asc' => 'Publication date 1→9',	// IGNORE
+			'date_desc' => 'Publication date 9→1',	// IGNORE
+			'id_asc' => 'Freshly received last',	// IGNORE
+			'id_desc' => 'Freshly received first',	// IGNORE
+			'length_asc' => 'Content length 1→9',	// IGNORE
+			'length_desc' => 'Content length 9→1',	// IGNORE
+			'link_asc' => 'Link A→Z',	// IGNORE
+			'link_desc' => 'Link Z→A',	// IGNORE
+			'title_asc' => 'Title A→Z',	// IGNORE
+			'title_desc' => 'Title Z→A',	// IGNORE
+			'user_modified_asc' => 'User modified 1→9',	// IGNORE
+			'user_modified_desc' => 'User modified 9→1',	// IGNORE
+		),
 		'priority' => array(
 			'_' => 'Visibility',	// IGNORE
 			'category' => 'Show in its category',	// IGNORE

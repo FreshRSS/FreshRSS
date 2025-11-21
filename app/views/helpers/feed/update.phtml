@@ -131,45 +131,45 @@
 			</div>
 
 			<div class="form-group">
-				<label class="group-name" for="default_sort"><?= htmlspecialchars("Prefered Sort")?> </label>
+				<label class="group-name" for="default_sort"><?= _t('sub.feed.preferred_sort')?> </label>
 				<div class="group-controls">
 					<select name="default_sort_option" id="default_sort_feed" class="w50">
 						<option value="id|DESC" <?=
 							$this->feed->get_default_sort() === 'id' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by id DESC") ?></option>
+							_t('sub.feed.preferred_sort.id_desc') ?></option>
 						<option value= "date|DESC" <?=
 							$this->feed->get_default_sort() === 'date' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by date DESC") ?></option>
+							_t('sub.feed.preferred_sort.date_desc') ?></option>
 						<option value="lastUserModified|DESC" <?=
 							$this->feed->get_default_sort() === 'lastUserModified' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by last user modified DESC") ?></option>
+							_t('sub.feed.preferred_sort.user_modified_desc') ?></option>
 						<option value= "length|DESC" <?=
 							$this->feed->get_default_sort() === 'length' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by lenght DESC") ?></option>
+							_t('sub.feed.preferred_sort.length_desc') ?></option>
 						<option value="link|DESC" <?=
 							$this->feed->get_default_sort() === 'link' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by link DESC") ?></option>
+							_t('sub.feed.preferred_sort.link_desc') ?></option>
 						<option value= "title|DESC" <?=
 							$this->feed->get_default_sort() === 'title' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by title DESC") ?></option>
+							_t('sub.feed.preferred_sort.title_desc') ?></option>
 						<option value="id|ASC" <?=
 							$this->feed->get_default_sort() === 'id' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by id ASC") ?></option>
+							_t('sub.feed.preferred_sort.id_asc') ?></option>
 						<option value= "date|ASC" <?=
 							$this->feed->get_default_sort() === 'date' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by date ASC") ?></option>
+							_t('sub.feed.preferred_sort.date_asc') ?></option>
 						<option value="lastUserModified|ASC" <?=
 							$this->feed->get_default_sort() === 'lastUserModified' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by last user modified ASC") ?></option>
+							_t('sub.feed.preferred_sort.user_modified_asc') ?></option>
 						<option value= "length|ASC" <?=
 							$this->feed->get_default_sort() === 'length' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by lenght ASC") ?></option>
+							_t('sub.feed.preferred_sort.length_asc') ?></option>
 						<option value="link|ASC" <?=
 							$this->feed->get_default_sort() === 'link' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by link ASC") ?></option>
+							_t('sub.feed.preferred_sort.link_asc') ?></option>
 						<option value= "title|ASC" <?=
 							$this->feed->get_default_sort() === 'title' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							htmlspecialchars("sort by title ASC") ?></option>
+							_t('sub.feed.preferred_sort.title_asc')?></option>
 					</select>
 				</div>
 			</div>

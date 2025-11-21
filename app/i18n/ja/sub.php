@@ -209,6 +209,21 @@ return array(
 		'number_entries' => '%d 記事数',
 		'open_feed' => 'フィードを開く %s',
 		'path_entries_conditions' => 'コンテンツを取得する条件',
+		'preferred_sort' => array(
+			'_' => 'Preferred Sort',	// TODO
+			'date_asc' => 'Publication date 1→9',	// TODO
+			'date_desc' => 'Publication date 9→1',	// TODO
+			'id_asc' => 'Freshly received last',	// TODO
+			'id_desc' => 'Freshly received first',	// TODO
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
+			'link_asc' => 'Link A→Z',	// TODO
+			'link_desc' => 'Link Z→A',	// TODO
+			'title_asc' => 'Title A→Z',	// TODO
+			'title_desc' => 'Title Z→A',	// TODO
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
+		),
 		'priority' => array(
 			'_' => '表示する場所',
 			'category' => 'カテゴリで表示する',
