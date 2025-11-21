@@ -44,9 +44,6 @@ final class FreshRSS_Context {
 	public static string $order = 'DESC';
 	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' */
 	public static string $sort = 'id';
-	public static int $sorted_feeds_count = 0;
-	/** @var array<int, array{ sort: string, order: string}> */
-	public static array $local_feed_sorting = [];
 	public static int $number = 0;
 	public static int $offset = 0;
 	public static FreshRSS_BooleanSearch $search;
@@ -278,20 +275,25 @@ final class FreshRSS_Context {
 		}
 
 		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
-		$order = Minz_Request::paramString('order', plaintext: true) ?: FreshRSS_Context::userConf()->sort_order;
-		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = Minz_Request::paramString('sort', plaintext: true) ?: FreshRSS_Context::userConf()->sort;
-		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
-		self::$sorted_feeds_count = Minz_Request::paramInt('sortedFeedCount') ?: 0;
-		// Filling local feed sorting parameters
-		for ($index = 0; $index < self::$sorted_feeds_count; $index++) {
-			$local_feed = Minz_Request::paramInt('localFeed' . $index) ?: -1;
-			$local_order = Minz_Request::paramString('localOrder' . $index, true) ?: 'id';
-			$local_sort = Minz_Request::paramString('localSort' . $index, true) ?: 'DESC';
-			if ($local_feed !== -1) {
-				self::$local_feed_sorting[$local_feed] = ['sort' => $local_sort, 'order' => $local_order];
-			}
+
+		if(self::$current_get['feed']){
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feed = $feedDAO->searchById(self::$current_get['feed']);
+			$backtrackOrder = $feed->get_default_order();
+			$backtrackSort = $feed->get_default_sort();
+		}else{
+			$backtrackOrder = FreshRSS_Context::userConf()->sort_order;
+			$backtrackSort = FreshRSS_Context::userConf()->sort;
 		}
+		
+
+
+		$order = Minz_Request::paramString('order', plaintext: true) ?: $backtrackOrder;
+		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
+		$sort = Minz_Request::paramString('sort', plaintext: true) ?: $backtrackSort;
+		
+		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
+		
 		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
 		if (self::$number > FreshRSS_Context::userConf()->max_posts_per_rss) {
 			self::$number = max(
