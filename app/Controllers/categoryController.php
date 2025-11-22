@@ -156,8 +156,8 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			if ($default_sort_option !== '') {
 				[$default_sort, $default_order] = array_pad(explode('|', $default_sort_option, 2), 2, null);
 			}
-			$category->_attribute('defaultSort', $default_sort ?? FreshRSS_Context::userConf()->sort ?? 'id');
-			$category->_attribute('defaultOrder', $default_order ?? FreshRSS_Context::userConf()->sort_order ?? 'DESC');
+			$category->_attribute('defaultSort', in_array($default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length'], true) ? $default_sort : 'id');
+			$category->_attribute('defaultOrder', in_array($default_order, ['ASC', 'DESC'], true) ? $default_order : 'DESC');
 
 			$values = [
 				'kind' => $category->kind(),
