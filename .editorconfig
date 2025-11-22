@@ -6,7 +6,7 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{css,scss}]
+[*.css]
 indent_style = tab
 
 [*.{html,php,phtml}]

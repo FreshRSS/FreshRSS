@@ -1,7 +1,0 @@
-/* stylelint-disable property-no-vendor-prefix */
-
-/* FUNCTIONS */
-
-@mixin transition($target, $duration, $ease) {
-	transition: $target $duration $ease;
-}

@@ -1,6 +1,6 @@
 <IfModule mod_authz_core.c>
 	# Deny files without extension or with specific extensions
-	<FilesMatch "^[^.]+$|\.(md|scss|sh)$">
+	<FilesMatch "^[^.]+$|\.(md|sh)$">
 		Require all denied
 	</FilesMatch>
 </IfModule>
