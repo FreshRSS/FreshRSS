@@ -278,6 +278,20 @@ return array(
 			'when_same_title_in_category' => 'если идентичный заголовок уже существует среди <i>n</i> новейших статей категории',
 			'when_same_title_in_feed' => 'если идентичный заголовок уже существует среди <i>n</i> новейших статей ленты',
 		),
+		'secondary_sort' => array(
+			'_' => 'Secondary Sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+		),
+		'secondary_sort_order' => array(
+			'_' => 'Secondary Sort Order',	// TODO
+			'asc' => 'ASC',	// TODO
+			'desc' => 'DESC',	// TODO
+		),
 		'show' => array(
 			'_' => 'Какие статьи отображать',
 			'active_category' => 'Активную категорию',

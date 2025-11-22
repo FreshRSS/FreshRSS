@@ -278,6 +278,20 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// IGNORE
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',	// IGNORE
 		),
+		'secondary_sort' => array(
+			'_' => 'Secondary Sort',	// IGNORE
+			'date' => 'date',	// IGNORE
+			'id' => 'id',	// IGNORE
+			'last_modified' => 'last user modified',
+			'length' => 'length',	// IGNORE
+			'link' => 'link',	// IGNORE
+			'title' => 'title',	// IGNORE
+		),
+		'secondary_sort_order' => array(
+			'_' => 'Secondary Sort Order',	// IGNORE
+			'asc' => 'ASC',	// IGNORE
+			'desc' => 'DESC',	// IGNORE
+		),
 		'show' => array(
 			'_' => 'Articles to display',	// IGNORE
 			'active_category' => 'Active category',	// IGNORE

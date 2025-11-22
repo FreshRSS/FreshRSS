@@ -278,6 +278,20 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',	// TODO
 		),
+		'secondary_sort' => array(
+			'_' => 'Secondary Sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+		),
+		'secondary_sort_order' => array(
+			'_' => 'Secondary Sort Order',	// TODO
+			'asc' => 'ASC',	// TODO
+			'desc' => 'DESC',	// TODO
+		),
 		'show' => array(
 			'_' => 'Articles to display',	// TODO
 			'active_category' => 'Active category',	// TODO

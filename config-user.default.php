@@ -57,6 +57,10 @@ return array (
 	'sort' => 'id',
 	'mark_read_button' => 'big',
 	'sort_order' => 'DESC',
+
+	# 'id'|'date'|'link'|'title'|'rand'|'lastUserModified'|'length'
+	'secondary_sort' => 'id',
+	'secondary_sort_order' => 'DESC',
 	'anon_access' => false,
 	'mark_when' => array (
 		'article' => true,

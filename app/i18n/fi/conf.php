@@ -278,6 +278,20 @@ return array(
 			'when_same_title_in_category' => 'jos jollakin luokan <i>n</i> uusimmalla artikkelilla on sama otsikko',
 			'when_same_title_in_feed' => 'jos jollakin syötteen <i>n</i> uusimmalla artikkelilla on sama otsikko',
 		),
+		'secondary_sort' => array(
+			'_' => 'Secondary Sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+		),
+		'secondary_sort_order' => array(
+			'_' => 'Secondary Sort Order',	// TODO
+			'asc' => 'ASC',	// TODO
+			'desc' => 'DESC',	// TODO
+		),
 		'show' => array(
 			'_' => 'Näytettävät artikkelit',
 			'active_category' => 'Käytössä oleva luokka',

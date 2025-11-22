@@ -278,6 +278,20 @@ return array(
 			'when_same_title_in_category' => 'якщо котрась зі стількох найновіших статей категорії має такий самий заголовок',
 			'when_same_title_in_feed' => 'якщо котрась зі стількох найновіших статей стрічки має такий самий заголовок',
 		),
+		'secondary_sort' => array(
+			'_' => 'Secondary Sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+		),
+		'secondary_sort_order' => array(
+			'_' => 'Secondary Sort Order',	// TODO
+			'asc' => 'ASC',	// TODO
+			'desc' => 'DESC',	// TODO
+		),
 		'show' => array(
 			'_' => 'Статті для показу',
 			'active_category' => 'Активна категорія',
