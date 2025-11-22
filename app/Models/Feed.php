@@ -538,11 +538,12 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function get_default_sort(): string {
-		return $this->attributeString('defaultSort') ?? 'id';
+		return $this->attributeString('defaultSort') ?? FreshRSS_Context::userConf()->sort ?? 'id';
 	}
 	public function get_default_order(): string {
-		return $this->attributeString('defaultOrder') ?? 'DESC';
+		return $this->attributeString('defaultOrder') ?? FreshRSS_Context::userConf()->sort_order ?? 'DESC';
 	}
+
 	/**
 	 * @throws Minz_FileNotExistException
 	 * @throws FreshRSS_Feed_Exception
