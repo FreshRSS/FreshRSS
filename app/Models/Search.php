@@ -294,13 +294,19 @@ class FreshRSS_Search implements \Stringable {
 	public function getNotMinUserdate(): ?int {
 		return $this->not_min_userdate ?: null;
 	}
-
+	public function setMinUserdate(int $value): void {
+		$this->min_userdate = $value;
+	}
 	public function getMaxUserdate(): ?int {
 		return $this->max_userdate ?: null;
 	}
 	public function getNotMaxUserdate(): ?int {
 		return $this->not_max_userdate ?: null;
 	}
+	public function setMaxUserdate(int $value): void {
+		$this->max_userdate = $value;
+	}
+
 	public function getMinModifiedDate(): ?int {
 		return $this->min_modified_date ?: null;
 	}
