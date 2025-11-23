@@ -66,6 +66,7 @@
 }
 
 /* Compatibility: CSS Color Module Level 4, Relative Color */
+
 @supports not (color: color(from white hsl h s calc(l - 10%))) {
 	:root {
 		--color-text-light-darker: #988484;
@@ -911,15 +912,15 @@ main.post .drop-section li.item.feed a:hover .icon {
 }
 
 #new-article {
-	background-color: var(--color-background-nav);
+	width: var(--width-aside);
 	font-size: 1em;
+	background-color: var(--color-background-nav);
 	text-align: center;
 	position: fixed;
 	bottom: 48px;
 	z-index: 900;
 	right: 0;
 	line-height: 1.5;
-	width: var(--width-aside);
 
 	> a {
 		padding: 1rem;
@@ -987,11 +988,11 @@ main.post .drop-section li.item.feed a:hover .icon {
 	background-color: var(--color-background-light);
 
 	&::after {
-		display: block;
-		clear: both;
 		margin: 0 auto;
+		display: block;
 		width: 90%;
 		border-top: 1px solid var(--color-border-light-darker);
+		clear: both;
 	}
 
 	.flux_header:hover,
@@ -1046,11 +1047,12 @@ main.post .drop-section li.item.feed a:hover .icon {
 
 .notification {
 	padding: 10px 0;
-	background-color: var(--color-background-light-darker);
+	width: var(--width-aside);
 	height: auto;
 	color: var(--color-text-light-darker);
 	font-size: 1em;
 	border: none;
+	background-color: var(--color-background-light-darker);
 	text-align: center;
 	font-weight: bold;
 	vertical-align: middle;
@@ -1058,7 +1060,6 @@ main.post .drop-section li.item.feed a:hover .icon {
 	bottom: 48px;
 	right: 0;
 	top: auto;
-	width: var(--width-aside);
 
 	&.good,
 	&.bad {
