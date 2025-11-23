@@ -1005,10 +1005,12 @@ main.post .drop-section li.item.feed a:hover .icon {
 
 	&.current {
 		border-right: 2px solid var(--color-background-alert-darker);
+
 		.flux_header {
 			background-color: unset;
 			margin-right: -2px; /* Compensate increased border-left-width */
 		}
+
 		.flux_header:hover {
 			background: linear-gradient(to left, transparent 0, transparent 2px, var(--color-background-hover) 2px);
 		}

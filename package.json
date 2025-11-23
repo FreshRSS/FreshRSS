@@ -31,7 +31,7 @@
 		"stylelint": "stylelint '**/*.css'",
 		"stylelint_fix": "stylelint --fix '**/*.css'",
 		"test": "npm run eslint && npm run stylelint && npm run markdownlint",
-		"fix": "npm run rtlcss && npm run stylelint_fix && npm run eslint_fix && npm run markdownlint_fix"
+		"fix": "npm run eslint_fix && npm run stylelint_fix && npm run rtlcss && npm run markdownlint_fix"
 	},
 	"devDependencies": {
 		"eslint": "^9.39.0",
