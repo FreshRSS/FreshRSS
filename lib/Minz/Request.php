@@ -369,14 +369,37 @@ class Minz_Request {
 	}
 
 	/**
-	 * Test if a given server address is publicly accessible.
+	 * Resolve a hostname to its first found IP address (IPv4 or IPv6).
 	 *
-	 * Note: for the moment it tests only if address is corresponding to a
-	 * localhost address.
+	 * @param string $hostname the hostname to resolve (from IP to DNS)
+	 * @return string|null the resolved IP address, or null if resolution fails
+	 */
+	private static function resolveHostname(string $hostname): ?string {
+		if (filter_var($hostname, FILTER_VALIDATE_IP) !== false) {
+			return $hostname;	// Already an IP address
+		}
+
+		$fqdn = rtrim($hostname, '.') . '.';	// Ensure fully qualified domain name
+		$records = @dns_get_record($fqdn, DNS_A + DNS_AAAA);
+		if (!is_array($records) || empty($records)) {
+			return null;
+		}
+
+		// Return the first resolved IP (IPv4 or IPv6)
+		if (is_string($records[0]['ip'] ?? null)) {
+			return $records[0]['ip'];
+		}
+		if (is_string($records[0]['ipv6'] ?? null)) {
+			return $records[0]['ipv6'];
+		}
+		return null;
+	}
+
+	/**
+	 * Test whether a given server address appears to be publicly accessible.
 	 *
-	 * @param string $address the address to test, can be an IP or a URL.
-	 * @return bool true if server is accessible, false otherwise.
-	 * @todo improve test with a more valid technique (e.g. test with an external server?)
+	 * @param string $address the address to test, which can be an URL with a DNS or an IP.
+	 * @return bool true if server does not appear to be on some kind of local network, false otherwise (probably public).
 	 */
 	public static function serverIsPublic(string $address): bool {
 		if (strlen($address) < strlen('http://a.bc')) {
@@ -387,18 +410,20 @@ class Minz_Request {
 			return false;
 		}
 
-		$is_public = !in_array($host, [
-			'localhost',
-			'localhost.localdomain',
-			'[::1]',
-			'ip6-localhost',
-			'localhost6',
-			'localhost6.localdomain6',
-		], true);
+		$is_public = (str_contains($host, '.') || str_contains($host, ':'))	// TLD
+			&& !preg_match('/(^|\\.)(ipv6-)?(internal|intranet|lan|local|localdomain|localhost)6?$/', $host)	// DNS
+			&& !preg_match('/^(10|127|172[.](1[6-9]|2[0-9]|3[01])|192[.]168)[.]/', $host)	// IPv4
+			&& !preg_match('/^(\\[)?(::1|f[c-d][0-9a-f]{2}:|fe80:)(\\])?/i', $host);	// IPv6
 
-		if ($is_public) {
-			$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
-			$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $host);
+		// If $host looks public and is not an IP address, try to resolve it
+		if ($is_public && filter_var($host, FILTER_VALIDATE_IP) === false) {
+			$resolvedIp = self::resolveHostname($host);
+			if ($resolvedIp !== null && $resolvedIp !== $host) {
+				$resolvedAddress = str_contains($resolvedIp, ':') ? "http://[{$resolvedIp}]/" : "http://{$resolvedIp}/";
+				if ($resolvedAddress !== $address) {
+					$is_public &= self::serverIsPublic($resolvedAddress);
+				}
+			}
 		}
 
 		return (bool)$is_public;
