@@ -282,7 +282,7 @@ return array(
 			'_' => 'Secondary Sort',	// IGNORE
 			'date' => 'date',	// IGNORE
 			'id' => 'id',	// IGNORE
-			'last_modified' => 'last user modified',
+			'last_modified' => 'last user modified',	// IGNORE
 			'length' => 'length',	// IGNORE
 			'link' => 'link',	// IGNORE
 			'title' => 'title',	// IGNORE
