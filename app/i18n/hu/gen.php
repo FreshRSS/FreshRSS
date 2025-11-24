@@ -241,7 +241,7 @@ return array(
 		'labels' => 'Saját címkék',
 		'multiple_help' => 'Válasszon egyet vagy többet (tartsa lenyomva a <kbd>Ctrl</kbd> vagy <kbd>Cmd</kbd> billentyűt)',
 		'sources' => 'Források',
-		'tags' => 'Cikk tagek',
+		'tags' => 'Cikk címkék',
 		'text' => 'Szöveges keresés',
 		'text_help' => 'A több sor logikai <i>vagy</i> kapcsolattal lesz összekapcsolva. Támogatja a <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">reguláris kifejezéseket</a> is.',
 		'text_placeholder' => 'Kulcsszó',
