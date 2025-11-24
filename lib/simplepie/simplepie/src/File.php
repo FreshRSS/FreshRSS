@@ -111,15 +111,33 @@ class File implements Response
             if (!$force_fsockopen && function_exists('curl_exec')) {
                 $this->method = \SimplePie\SimplePie::FILE_SOURCE_REMOTE | \SimplePie\SimplePie::FILE_SOURCE_CURL;
                 $fp = curl_init();
-                $headers2 = [];
-                foreach ($headers as $key => $value) {
-                    $headers2[] = "$key: $value";
-                }
-                if (isset($curl_options[CURLOPT_HTTPHEADER])) {
-                    if (is_array($curl_options[CURLOPT_HTTPHEADER])) {
-                        $headers2 = array_merge($headers2, $curl_options[CURLOPT_HTTPHEADER]);
+                if (is_array($curl_options[CURLOPT_HTTPHEADER] ?? null)) {
+                    // Save the original casing of HTTP headers
+                    $headers_keys = array_combine(array_map('strtolower', array_keys($headers)), array_keys($headers));
+                    // Merge HTTP headers case-insensitively from cURL options with the ones from the dedicated parameter
+                    $headers = array_change_key_case($headers, CASE_LOWER);
+                    foreach ($curl_options[CURLOPT_HTTPHEADER] as $header) {
+                        if (is_string($header)) {
+                            $parts = explode(':', $header, 2);
+                            if (count($parts) >= 2) {
+                                $key = trim($parts[0]);
+                                $headers_keys[strtolower($key)] = $key;
+                                $headers[strtolower($key)] = trim($parts[1]);
+                            }
+                        }
                     }
-                    unset($curl_options[CURLOPT_HTTPHEADER]);
+                    // Restore original casing of HTTP headers
+                    foreach ($headers_keys as $lower_key => $original_key) {
+                        if ($lower_key !== $original_key && isset($headers[$lower_key])) {
+                            $headers[$original_key] = $headers[$lower_key];
+                            unset($headers[$lower_key]);
+                        }
+                    }
+                }
+                unset($curl_options[CURLOPT_HTTPHEADER]);
+                $headers_inlined = [];
+                foreach ($headers as $key => $value) {
+                    $headers_inlined[] = "$key: $value";
                 }
                 if (version_compare(\SimplePie\Misc::get_curl_version(), '7.10.5', '>=')) {
                     curl_setopt($fp, CURLOPT_ENCODING, '');
@@ -131,7 +149,7 @@ class File implements Response
                 curl_setopt($fp, CURLOPT_CONNECTTIMEOUT, $timeout);
                 // curl_setopt($fp, CURLOPT_REFERER, \SimplePie\Misc::url_remove_credentials($url)); // FreshRSS removed
                 curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
-                curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
+                curl_setopt($fp, CURLOPT_HTTPHEADER, $headers_inlined);
                 $responseHeaders = '';
                 curl_setopt($fp, CURLOPT_HEADERFUNCTION, function ($ch, string $header) use (&$responseHeaders) {
                     $responseHeaders .= $header;
