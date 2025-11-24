@@ -24,5 +24,3 @@
 *.save
 *.autosav
 *.autosave
-*.sass-cache
-sass.sh
