@@ -1,9 +1,19 @@
-theme: jekyll-theme-cayman
 title: FreshRSS
 description: Documentation center
 
 logo: /img/FreshRSS-logo.png
-show_downloads: true
 
 include: [contributing.md]
-exclude: [CHANGELOG*.md]
+exclude: [CHANGELOG*.md, README.md]
+
+plugins:
+  - jekyll-coffeescript
+  - jekyll-commonmark-ghpages
+  - jekyll-gist
+  - jekyll-github-metadata
+  - jekyll-paginate
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings

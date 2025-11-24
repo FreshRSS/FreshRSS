@@ -1,0 +1,14 @@
+---
+layout: none
+---
+[
+  {% for page in site.pages %}
+  {% if page.title != nil %}
+   {
+      "title": "{{ page.title | escape }}",
+      "url": "{{ site.baseurl }}{{ page.url }}",
+      "content": {{ page.content | markdownify | strip_html | jsonify }}
+   }{% unless forloop.last %},{% endunless %}
+  {% endif %}
+  {% endfor %}
+]
