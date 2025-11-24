@@ -189,7 +189,7 @@ return array(
 		'about' => 'Névjegy',
 		'account' => 'Fiók',
 		'admin' => 'Adminisztráció',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Haladó keresés',
 		'archiving' => 'Archiválás',
 		'authentication' => 'Hitelesítés',
 		'check_install' => 'Telepítés ellenőrzése',
@@ -223,31 +223,31 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'Ez az űrlap segít a keresési lekérdezések összeállításában, de a kézzel írt lekérdezések még nagyobb szabadságot adnak.',
+		'authors' => 'Szerzők',
+		'categories' => 'Kategóriák',
+		'content' => 'Tartalom',
+		'date_from' => 'Dátumtól',
+		'date_past' => 'A múltban',
+		'date_published' => 'Közzététel dátuma',
+		'date_range' => 'Dátumtartomány',
+		'date_received' => 'Beérkezés dátuma',
+		'date_to' => 'Dátumig',
+		'date_user' => 'Felhasználói módosítás dátuma',
+		'feeds' => 'Hírforrások',
+		'free_text' => 'Szabad szöveg',
+		'free_text_help' => 'Keresés címben és tartalomban egyaránt',
+		'full_documentation' => 'Lásd <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">teljes keresési dokumentáció</a>',
+		'labels' => 'Saját címkék',
+		'multiple_help' => 'Válasszon egyet vagy többet (tartsa lenyomva a <kbd>Ctrl</kbd> vagy <kbd>Cmd</kbd> billentyűt)',
+		'sources' => 'Források',
+		'tags' => 'Cikk címkék',
+		'text' => 'Szöveges keresés',
+		'text_help' => 'A több sor logikai <i>vagy</i> kapcsolattal lesz összekapcsolva. Támogatja a <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">reguláris kifejezéseket</a> is.',
+		'text_placeholder' => 'Kulcsszó',
+		'title' => 'Cím',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Felhasználói lekérdezések',
 	),
 	'share' => array(
 		'Known' => 'Ismert weboldalak',
