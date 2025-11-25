@@ -113,7 +113,7 @@ class File implements Response
                 $fp = curl_init();
                 if (is_array($curl_options[CURLOPT_HTTPHEADER] ?? null)) {
                     // Save the original casing of HTTP headers
-                    $headers_keys = array_combine(array_map('strtolower', array_keys($headers)), array_keys($headers));
+                    $headers_keys = array_combine(array_map('strtolower', array_keys($headers)), array_keys($headers)) ?: [];
                     // Merge HTTP headers case-insensitively from cURL options with the ones from the dedicated parameter
                     $headers = array_change_key_case($headers, CASE_LOWER);
                     foreach ($curl_options[CURLOPT_HTTPHEADER] as $header) {
