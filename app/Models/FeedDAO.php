@@ -497,16 +497,9 @@ SQL;
 				GROUP BY id_feed
 			)
 			UPDATE `_feed`
-			SET `cache_nbEntries` = COALESCE((
-					SELECT c.total_entries
-					FROM entry_counts AS c
-					WHERE c.id_feed = `_feed`.id
-				), 0),
-				`cache_nbUnreads` = COALESCE((
-					SELECT c.unread_entries
-					FROM entry_counts AS c
-					WHERE c.id_feed = `_feed`.id
-				), 0)
+			LEFT JOIN entry_counts ON entry_counts.id_feed = `_feed`.id
+			SET `cache_nbEntries` = COALESCE(entry_counts.total_entries, 0),
+				`cache_nbUnreads` = COALESCE(entry_counts.unread_entries, 0)
 			WHERE $whereFeedIds
 			SQL;
 		$stm = $this->pdo->prepare($sql);
