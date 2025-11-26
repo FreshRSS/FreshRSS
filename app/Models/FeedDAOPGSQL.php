@@ -13,6 +13,7 @@ SQL;
 
 	#[\Override]
 	public function updateCachedValues(int ...$feedIds): int|false {
+		// Compatible PostgreSQL, SQLite, MySQL 8.0+, but not MariaDB as of version 12.2.
 		if (empty($feedIds)) {
 			$whereFeedIds = 'true';
 			$whereEntryIdFeeds = 'true';
