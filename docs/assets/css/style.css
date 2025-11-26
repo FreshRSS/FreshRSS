@@ -55,7 +55,7 @@ nav.mobile-nav {
 
 /* mobile layout */
 
-@media (max-width: 600px) {
+@media (max-width: 1200px) {
 	aside {
 		display: none;
 	}
@@ -110,6 +110,7 @@ nav.mobile-nav {
 /* general styling */
 a {
 	text-decoration: none;
+	color: #00e;
 }
 
 a#close {
@@ -118,7 +119,10 @@ a#close {
 
 aside a#close {
 	float: right;
-	color: red;
+	color: #f00;
+	font-size: 24px;
+	position: relative;
+	bottom: 4px;
 }
 
 table, th, tr, td {
