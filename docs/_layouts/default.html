@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: 'en-US' }}">
   <head>
-    <meta charset="UTF-8">
-    <title>{{ page.title | default: site.title }} · FreshRSS</title>
-    <meta name="description" content="{{ page.description | default: site.description | default: site.github.project_tagline }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="UTF-8">
+		<title>{{ page.title | default: site.title }} · FreshRSS</title>
+		<meta name="description" content="{{ page.description | default: site.description | default: site.github.project_tagline }}">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-    <link rel="stylesheet" href="{{ '/assets/css/highlight.css?v=' | append: site.github.build_revision | relative_url }}">
-    <link rel="stylesheet" href="{{ '/assets/css/normalize.css?v=' | append: site.github.build_revision | relative_url }}">
+		<link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+		<link rel="stylesheet" href="{{ '/assets/css/highlight.css?v=' | append: site.github.build_revision | relative_url }}">
+		<link rel="stylesheet" href="{{ '/assets/css/normalize.css?v=' | append: site.github.build_revision | relative_url }}">
+
+		<link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
   </head>
   <body>
 		<nav class="mobile-nav">
