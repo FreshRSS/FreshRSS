@@ -6,5 +6,5 @@ vendor/
 # Ignore RTLCSS auto-generated CSS
 *.rtl.css
 
-# actual location is docs/_includes/style.css
-docs/assets/css/style.css
+# actual location is docs/_includes/docs.css
+docs/assets/css/docs.css
