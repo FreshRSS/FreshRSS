@@ -1,3 +1,9 @@
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+	document.head.insertAdjacentHTML('beforeend', `
+	<meta name="darkreader-lock">
+	`);
+}
+
 let asideNav;
 
 window.addEventListener('beforeunload', () => {
