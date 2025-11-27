@@ -40,4 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	}
+
+	for (const el of document.querySelectorAll('img')) {
+		if (el.parentNode.tagName !== 'A') {
+			el.outerHTML = `<a href="${el.getAttribute('src')}">${el.outerHTML}</a>`;
+		}
+	}
 });

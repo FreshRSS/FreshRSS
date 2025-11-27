@@ -5,6 +5,7 @@
 		<title>{{ page.title | default: site.title }} · FreshRSS</title>
 		<meta name="description" content="{{ page.description | default: site.description | default: site.github.project_tagline }}">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'">
 
 		<link rel="stylesheet" href="{{ '/assets/css/docs.css?v=' | append: site.github.build_revision | relative_url }}">
 		<link rel="stylesheet" href="{{ '/assets/css/highlight.css?v=' | append: site.github.build_revision | relative_url }}">
