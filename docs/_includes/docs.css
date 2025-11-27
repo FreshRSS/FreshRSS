@@ -57,6 +57,11 @@ img {
 
 section.search {
 	margin-top: 1rem;
+	border-bottom: 1px solid black;
+}
+
+div.nojs-search {
+	margin-bottom: 1rem;
 }
 
 nav.mobile-nav {
@@ -142,4 +147,9 @@ table, th, tr, td {
 
 th, tr, td {
 	padding: 0.3rem;
+}
+
+button.copy {
+	margin: 0.5rem;
+	float: right;
 }

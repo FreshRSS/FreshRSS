@@ -9,8 +9,11 @@
 		<link rel="stylesheet" href="{{ '/assets/css/docs.css?v=' | append: site.github.build_revision | relative_url }}">
 		<link rel="stylesheet" href="{{ '/assets/css/highlight.css?v=' | append: site.github.build_revision | relative_url }}">
 		<link rel="stylesheet" href="{{ '/assets/css/normalize.css?v=' | append: site.github.build_revision | relative_url }}">
+		<link rel="stylesheet" media="(prefers-color-scheme: dark)" href="{{ '/assets/css/darkmode.css?v=' | site.github_build_revision | relative_url}}">
 
 		<link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
+
+		<script src="{{ '/assets/js/docs.js?v=' | append: site.github.build_revision | relative_url }}"></script>
   </head>
   <body>
 		<nav class="mobile-nav">
@@ -26,19 +29,41 @@
 		<aside id="aside">
 			<a href="https://freshrss.org/">&lt; Back to freshrss.org</a>
 			<a id="close" href="#close" title="Close">&times;</a>
-			<section class="search">
-				<input type="search" id="search-input" placeholder="Search docs...">
-				<ul id="results-container"></ul>
-			</section>
 
-			<script src="{{ '/assets/js/simple-jekyll-search.min.js?v=' | append: site.github.build_revision | relative_url }}"></script>
-			<script>
-				SimpleJekyllSearch({
-					searchInput: document.getElementById('search-input'),
-					resultsContainer: document.getElementById('results-container'),
-					json: '{{ "/search.json?v=" | append: site.github.build_revision | relative_url }}'
-				});
-			</script>
+			<section class="search">
+				<noscript>
+					<style>div.js-search { display: none; }</style>
+					<div class="nojs-search">
+						<form action="https://duckduckgo.com/" method="get">
+							<input type="search" name="q" placeholder="Search docs…">
+							<input type="hidden" name="sites" value="freshrss.github.io">
+							<button type="submit">Search</button>
+						</form>
+					</div>
+				</noscript>
+
+				<div class="js-search">
+					<input type="text" id="search-input" placeholder="Search docs…">
+					<ul id="results-container"></ul>
+
+					<script src="{{ '/assets/js/simple-jekyll-search.min.js?v=' | append: site.github.build_revision | relative_url }}"></script>
+					<script>
+						const search = document.querySelector('#search-input');
+
+						function init_search() {
+							search.removeEventListener('focus', init_search);
+							SimpleJekyllSearch({
+								searchInput: search,
+								resultsContainer: document.querySelector('#results-container'),
+								json: '{{ "/search.json?v=" | append: site.github.build_revision | relative_url }}',
+								searchResultTemplate: '<li><a href="{url}">{title}</a></li>'
+							});
+						}
+
+						search.addEventListener('focus', init_search);
+					</script>
+				</div>
+			</section>
 
 			<nav>
 				<ul>
