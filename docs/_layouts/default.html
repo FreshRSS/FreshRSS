@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en-US' }}">
+<html lang="{{ page.lang | default: 'en' }}">
   <head>
 		<meta charset="UTF-8">
 		<title>{{ page.title | default: site.title }} · FreshRSS</title>
@@ -14,37 +14,44 @@
 
 		<link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
 
+		<script>
+			var i18n = {
+				"copy_to_clipboard": "{%t copy_to_clipboard %}"
+			};
+		</script>
 		<script src="{{ '/assets/js/docs.js?v=' | append: site.github.build_revision | relative_url }}"></script>
   </head>
   <body>
 		<nav class="mobile-nav">
-			<a class="toggle-aside" href="#aside" title="Toggle sidebar">
+			<a class="toggle-aside" href="#aside" title="{%t toggle_aside %}">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
   				<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
 				</svg>
 			</a>
+			{% include lang_dropdown.html location="mobile" %}
 		</nav>
 
-		<a id="close" href="#close"></a>
+		<a class="close" href="#close"></a>
 
 		<aside id="aside">
-			<a href="https://freshrss.org/">&lt; Back to freshrss.org</a>
-			<a id="close" href="#close" title="Close">&times;</a>
+			<a href="https://freshrss.org/">&lt; {%t back_to_freshrss %}</a>
+			{% include lang_dropdown.html location="aside" %}
+			<a class="close" href="#close" title="{%t close %}">&times;</a>
 
 			<section class="search">
 				<noscript>
 					<style>div.js-search { display: none; }</style>
 					<div class="nojs-search">
 						<form action="https://duckduckgo.com/" method="get">
-							<input type="search" name="q" placeholder="Search docs…">
+							<input type="search" name="q" placeholder="{%t search_docs %}">
 							<input type="hidden" name="sites" value="freshrss.github.io">
-							<button type="submit">Search</button>
+							<button type="submit">{%t search %}</button>
 						</form>
 					</div>
 				</noscript>
 
 				<div class="js-search">
-					<input type="text" id="search-input" placeholder="Search docs…">
+					<input type="text" id="search-input" placeholder="{%t search_docs %}">
 					<ul id="results-container"></ul>
 
 					<script src="{{ '/assets/js/simple-jekyll-search.min.js?v=' | append: site.github.build_revision | relative_url }}"></script>
@@ -56,7 +63,7 @@
 							SimpleJekyllSearch({
 								searchInput: search,
 								resultsContainer: document.querySelector('#results-container'),
-								json: '{{ "/search.json?v=" | append: site.github.build_revision | relative_url }}',
+								json: '{{ "/search." | append: page.lang | append: ".json?v=" | append: site.github.build_revision | relative_url }}',
 								searchResultTemplate: '<li><a href="{url}">{title}</a></li>'
 							});
 						}
@@ -65,44 +72,8 @@
 					</script>
 				</div>
 			</section>
-
-			<nav>
-				<ul>
-					<li><a href="{{ '/' | relative_url }}">Home</a></li>
-			  	<li>
-						<a href="{{ '/en/users/02_First_steps.html' | relative_url }}">User documentation</a>
-						<ul>
-							{% for page in site.pages %}
-								{% if page.url contains '/en/users/' and page.title != nil and page.url != "/en/users/02_First_steps.html" %}
-									<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
-								{% endif %}
-							{% endfor %}
-						</ul>
-					</li>
-			  	<li>
-						<a href="{{ '/en/admins/01_Index.html' | relative_url }}">Administrator documentation</a>
-						<ul>
-							{% for page in site.pages %}
-								{% if page.url contains '/en/admins/' and page.url != "/en/admins/01_Index.html" and page.title != nil %}
-									<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
-								{% endif %}
-							{% endfor %}
-						</ul>
-					</li>
-			  	<li>
-						<a href="{{ '/en/developers/01_Index.html' | relative_url }}">Developer documentation</a>
-						<ul>
-							{% for page in site.pages %}
-								{% if page.url contains '/en/developers/' and page.url != "/en/developers/01_Index.html" and page.title != nil %}
-									<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
-								{% endif %}
-							{% endfor %}
-						</ul>
-					</li>
-			  	<li>
-						<a href="{{ '/en/contributing.html' | relative_url}}">Contributor guidelines</a>
-					</li>
-				</ul>
+			<nav class="docs">
+				{% include docs_nav.html %}
 			</nav>
 		</aside>
 

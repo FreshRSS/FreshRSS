@@ -7,7 +7,7 @@ bundle install
 
 Then serve:
 ```console
-bundle exec jekyll serve -H 0.0.0.0 --watch
+bundle exec jekyll serve -H 0.0.0.0 --watch --incremental
 ```
 
 The documentation should be reachable at `http://0.0.0.0:4000/`.

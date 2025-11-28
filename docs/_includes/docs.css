@@ -21,6 +21,10 @@ html, body {
 	overflow-x: hidden;
 }
 
+body {
+	min-height: 100vh;
+}
+
 aside {
 	padding: 1rem;
 	width: var(--aside-width);
@@ -32,16 +36,16 @@ aside {
 	margin-right: 1rem;
 }
 
-aside > nav {
+aside > nav.docs {
 	overflow-y: scroll;
 	max-height: 90vh;
 }
 
-aside > nav > ul {
+aside > nav.docs > ul {
 	margin-bottom: 10rem; /* extra scroll space */
 }
 
-aside ul {
+aside > nav.docs ul {
 	padding-left: 1rem;
 	margin-right: 1rem;
 }
@@ -68,6 +72,46 @@ nav.mobile-nav {
 	display: none;
 }
 
+nav.lang-dropdown {
+	display: none;
+}
+
+div.lang-dropdown:target nav {
+	padding: 0.2rem;
+	display: block;
+	border: 1px solid black;
+	border-radius: 6px;
+	position: absolute;
+	background-color: white;
+	z-index: 100;
+	text-wrap: nowrap;
+}
+
+div#mobile-language:target nav {
+	right: 0.2rem;
+}
+
+div.lang-dropdown:target nav a:hover {
+	background-color: silver;
+}
+
+div.lang-dropdown:target a.close {
+	display: block;
+	cursor: default;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 99; /* just below language dropdown */
+}
+
+nav.lang-dropdown ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
 /* mobile layout */
 
 @media (max-width: 1200px) {
@@ -75,15 +119,19 @@ nav.mobile-nav {
 		display: none;
 	}
 
-	aside a#close {
+	aside a.close {
 		display: block;
+	}
+
+	aside a.lang-btn {
+		display: none;
 	}
 
 	html:has(aside:target) {
 		overflow-y: hidden;
 	}
 
-	body:has(aside:target) > a#close {
+	body:has(aside:target) > a.close {
 		display: block;
 		cursor: default;
 		position: fixed;
@@ -113,6 +161,7 @@ nav.mobile-nav {
 	}
 
 	nav.mobile-nav > a.toggle-aside {
+		color: black;
 		-webkit-tap-highlight-color: transparent;
 	}
 
@@ -128,11 +177,11 @@ a {
 	color: #00e;
 }
 
-a#close {
+a.close {
 	display: none;
 }
 
-aside a#close {
+aside a.close {
 	float: right;
 	color: #f00;
 	font-size: 24px;
@@ -152,4 +201,12 @@ th, tr, td {
 button.copy {
 	margin: 0.5rem;
 	float: right;
+}
+
+div.lang-dropdown {
+	float: right;
+}
+
+a.lang-btn {
+	color: black;
 }
