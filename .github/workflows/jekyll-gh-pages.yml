@@ -31,10 +31,11 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./docs/
-          destination: ./_site
+        run: |
+          cd docs
+          sudo gem install bundler
+          sudo bundle install
+          bundle exec jekyll build --destination ../_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
 

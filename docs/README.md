@@ -10,4 +10,4 @@ Then serve:
 bundle exec jekyll serve -H 0.0.0.0 --watch --incremental
 ```
 
-The documentation should be reachable at `http://0.0.0.0:4000/`.
+The documentation should be reachable at `http://0.0.0.0:4000/FreshRSS/`.
