@@ -12,6 +12,12 @@ window.addEventListener('beforeunload', () => {
 	sessionStorage.setItem('sidebar_scrollTop', asideNav.scrollTop);
 });
 
+window.addEventListener('keydown', (e) => {
+	if (e.key === 'Escape') {
+		location.hash = 'close';
+	}
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 	asideNav = document.querySelector('aside > nav.docs');
 
