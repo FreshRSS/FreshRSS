@@ -49,7 +49,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		$this->_csp([
 			'default-src' => "'self'",
 			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
-			'img-src' => "'self' blob:",
+			'img-src' => "'self' data: blob:",
 		]);
 
 		$this->view->onlyFeedsWithError = Minz_Request::paramBoolean('error');
@@ -119,7 +119,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		$this->_csp([
 			'default-src' => "'self'",
 			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
-			'img-src' => "'self' blob:",
+			'img-src' => "'self' data: blob:",
 		]);
 
 		if (Minz_Request::isPost()) {

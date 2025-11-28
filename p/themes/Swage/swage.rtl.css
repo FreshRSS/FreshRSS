@@ -995,12 +995,24 @@ main.post .drop-section li.item.feed a:hover .icon {
 		clear: both;
 	}
 
-	.flux_header:hover,
-	.current {
+	.flux_header:hover {
 		background-color: var(--color-background-hover);
 
 		&:not(.current):hover .item .title {
 			background-color: var(--color-background-hover);
+		}
+	}
+
+	&.current {
+		border-right: 2px solid var(--color-background-alert-darker);
+
+		.flux_header {
+			background-color: unset;
+			margin-right: -2px; /* Compensate increased border-left-width */
+		}
+
+		.flux_header:hover {
+			background: linear-gradient(to left, transparent 0, transparent 2px, var(--color-background-hover) 2px);
 		}
 	}
 
