@@ -58,6 +58,8 @@ class Sanitize implements RegistryAware
     public $allow_data_attr = true;
     /** @var bool */
     public $allow_aria_attr = true;
+    /** @var string[] */
+    public $disallowed_uri_protocols = ['javascript'];
     /** @var array<string, array<string, string>> */
     public $add_attributes = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']];
     /** @var bool */
@@ -278,6 +280,14 @@ class Sanitize implements RegistryAware
     public function allow_aria_attr(bool $allow = true): void
     {
         $this->allow_aria_attr = $allow;
+    }
+
+    /**
+     * @param string[] $protocols List of protocols to disallow
+     */
+    public function disallow_uri_protocols(array $protocols = ['javascript']): void
+    {
+        $this->disallowed_uri_protocols = $protocols;
     }
 
     /**
@@ -541,6 +551,12 @@ class Sanitize implements RegistryAware
                     $this->replace_urls($document, $element, $attributes);
                 }
 
+                if ($this->disallowed_uri_protocols) {
+                    foreach ($this->disallowed_uri_protocols as $protocol) {
+                        $this->strip_uri_protocol($xpath, $protocol);
+                    }
+                }
+
                 // If image handling (caching, etc.) is enabled, cache and rewrite all the image tags.
                 if ($this->image_handler !== '' && $this->enable_cache) {
                     $images = $document->getElementsByTagName('img');
@@ -738,6 +754,51 @@ class Sanitize implements RegistryAware
                 if ($child !== null) {
                     $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
                 }
+            }
+        }
+    }
+
+    private function extract_protocol(string $uri): string
+    {
+        if (!str_contains($uri, ':')) {
+            return '';
+        }
+        $extracted_protocol = strtolower(preg_replace(
+            '/[\x01-\x20\s]/',
+            '',
+            rawurldecode(explode(':', $uri)[0])
+        ) ?? '');
+        return $extracted_protocol;
+    }
+
+    /**
+     * Remove a disallowed URI protocol
+     */
+    protected function strip_uri_protocol(\DOMXPath $xpath, string $protocol): void
+    {
+        $protocol = strtolower($protocol);
+        $elements = $xpath->query('.//a[@href]|.//iframe[@src]|.//math//*[@href]');
+
+        if ($elements === false) {
+            throw new \SimplePie\Exception(sprintf(
+                '%s(): Possibly malformed expression',
+                __METHOD__
+            ), 1);
+        }
+
+        foreach ($elements as $element) {
+            if (!($element instanceof \DOMElement)) {
+                continue;
+            }
+
+            $href = $element->getAttribute('href');
+            $src = $element->getAttribute('src');
+
+            if ($element->hasAttribute('href') && $this->extract_protocol($href) === $protocol) {
+                $element->setAttribute('href', 'unsafe:' . $href);
+            }
+            if ($element->hasAttribute('src') && $this->extract_protocol($src) === $protocol) {
+                $element->setAttribute('src', 'unsafe:' . $src);
             }
         }
     }

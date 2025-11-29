@@ -693,6 +693,13 @@ class SimplePie
     public $allow_aria_attr = true;
 
     /**
+     * @var string[] Stores array of disallowed URI protocols
+     * @see SimplePie::disallow_uri_protocols()
+     * @access private
+     */
+    public $disallowed_uri_protocols = ['javascript'];
+
+    /**
      * @var bool Should we throw exceptions, or use the old-style error property?
      * @access private
      */
@@ -1587,6 +1594,14 @@ class SimplePie
     public function allow_aria_attr(bool $allow = true): void
     {
         $this->sanitize->allow_aria_attr($allow);
+    }
+
+    /**
+     * @param string[] $protocols List of protocols to disallow
+     */
+    public function disallow_uri_protocols(array $protocols = ['javascript']): void
+    {
+        $this->sanitize->disallow_uri_protocols($protocols);
     }
 
     /**
