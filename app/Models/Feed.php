@@ -1098,6 +1098,10 @@ class FreshRSS_Feed extends Minz_Model {
 				$item['author'] = $xPathItemAuthor == '' ? '' : $xpathEvaluateString($xPathItemAuthor, $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : $xpathEvaluateString($xPathItemTimestamp, $node);
 				if ($xPathItemTimeFormat != '') {
+					if ($xPathItemTimeFormat === 'U' && strlen($item['timestamp']) > 10) {
+						// Compatibility with Unix timestamp in milliseconds
+						$item['timestamp'] = substr($item['timestamp'], 0, -3);
+					}
 					$dateTime = DateTime::createFromFormat($xPathItemTimeFormat, $item['timestamp']);
 					if ($dateTime != false) {
 						$item['timestamp'] = $dateTime->format(DateTime::ATOM);

@@ -159,6 +159,10 @@ final class FreshRSS_dotNotation_Util
 				: $rssItem['content'];
 
 			if (isset($dotNotation['itemTimeFormat']) && is_string($dotNotation['itemTimeFormat'])) {
+				if ($dotNotation['itemTimeFormat'] === 'U' && strlen($rssItem['timestamp']) > 10) {
+					// Compatibility with Unix timestamp in milliseconds
+					$rssItem['timestamp'] = substr($rssItem['timestamp'], 0, -3);
+				}
 				$dateTime = DateTime::createFromFormat($dotNotation['itemTimeFormat'], $rssItem['timestamp']);
 				if ($dateTime != false) {
 					$rssItem['timestamp'] = $dateTime->format(DateTime::ATOM);
