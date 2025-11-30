@@ -1,13 +1,13 @@
 This is the documentation deployed by GitHub Pages.
 
 To build and serve locally, first install the necessary packages:
-```console
+```sh
 bundle install
 ```
 
 Then serve:
-```console
-bundle exec jekyll serve -H 0.0.0.0 --watch --incremental
+```sh
+bundle exec jekyll serve -H 127.0.0.1 --watch --incremental
 ```
 
-The documentation should be reachable at `http://0.0.0.0:4000/FreshRSS/`.
+The documentation should be reachable at <http://127.0.0.1:4000/FreshRSS/>.
