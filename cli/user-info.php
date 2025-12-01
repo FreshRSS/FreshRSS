@@ -64,9 +64,7 @@ foreach ($users as $username) {
 	$tagDAO = FreshRSS_Factory::createTagDao($username);
 	$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
 
-	$nbEntries = $entryDAO->countUnreadRead();
-	$nbFavorites = $entryDAO->countUnreadReadFavorites();
-	$feedList = $feedDAO->listFeedsIds();
+	$nbEntries = $entryDAO->countAsStates();
 
 	$data = [
 		'default' => $username === FreshRSS_Context::systemConf()->default_user ? '*' : '',
@@ -76,10 +74,10 @@ foreach ($users as $username) {
 		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
 		'database_size' => $databaseDAO->size(),
 		'categories' => $catDAO->count(),
-		'feeds' => count($feedList),
-		'reads' => (int)$nbEntries['read'],
-		'unreads' => (int)$nbEntries['unread'],
-		'favourites' => (int)$nbFavorites['all'],
+		'feeds' => $feedDAO->count(),
+		'reads' => $nbEntries['read'],
+		'unreads' => $nbEntries['unread'],
+		'favourites' => $nbEntries['favorites'],
 		'tags' => $tagDAO->count(),
 		'lang' => FreshRSS_Context::userConf()->language,
 		'mail_login' => FreshRSS_Context::userConf()->mail_login,

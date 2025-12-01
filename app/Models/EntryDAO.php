@@ -1733,29 +1733,35 @@ SQL;
 		}
 	}
 
-	/** @return array<string,int> */
-	public function countUnreadRead(): array {
+	/** @return array{all:int,unread:int,read:int,favorites:int} */
+	public function countAsStates(?int $minPriority = null): array {
+		$values = [];
 		$sql = <<<'SQL'
-SELECT COUNT(e.id) AS count FROM `_entry` e
-	INNER JOIN `_feed` f ON e.id_feed=f.id
-	WHERE f.priority > 0
-UNION
-SELECT COUNT(e.id) AS count FROM `_entry` e
-	INNER JOIN `_feed` f ON e.id_feed=f.id
-	WHERE f.priority > 0 AND e.is_read=0
-SQL;
-		$res = $this->fetchColumn($sql, 0);
-		if ($res === null) {
-			return ['all' => -1, 'unread' => -1, 'read' => -1];
+			SELECT
+				COUNT(*) AS total,
+				COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS unread,
+				COUNT(CASE WHEN e.is_favorite = 1 THEN 1 END) AS favorites
+			FROM `_entry` e
+			SQL;
+		if ($minPriority !== null) {
+			$sql .= <<<'SQL'
+			INNER JOIN `_feed` f ON e.id_feed = f.id
+			WHERE f.priority > :priority
+			SQL;
+			$values[':priority'] = $minPriority;
 		}
-		rsort($res);
-		$all = (int)($res[0] ?? 0);
-		$unread = (int)($res[1] ?? 0);
-		return ['all' => $all, 'unread' => $unread, 'read' => $all - $unread];
+		$res = $this->fetchAssoc($sql, $values);
+		if ($res === null || !isset($res[0])) {
+			return ['all' => -1, 'unread' => -1, 'read' => -1, 'favorites' => -1];
+		}
+		$all = (int)($res[0]['total'] ?? 0);
+		$unread = (int)($res[0]['unread'] ?? 0);
+		$favorites = (int)($res[0]['favorites'] ?? 0);
+		return ['all' => $all, 'unread' => $unread, 'read' => $all - $unread, 'favorites' => $favorites];
 	}
 
 	public function count(?int $minPriority = null): int {
-		$sql = 'SELECT COUNT(e.id) AS count FROM `_entry` e';
+		$sql = 'SELECT COUNT(*) AS count FROM `_entry` e';
 		$values = [];
 		if ($minPriority !== null) {
 			$sql .= ' INNER JOIN `_feed` f ON e.id_feed=f.id';
@@ -1766,51 +1772,22 @@ SQL;
 		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
-	public function countNotRead(?int $minPriority = null): int {
-		$sql = 'SELECT COUNT(e.id) AS count FROM `_entry` e';
-		if ($minPriority !== null) {
-			$sql .= ' INNER JOIN `_feed` f ON e.id_feed=f.id';
-		}
-		$sql .= ' WHERE e.is_read=0';
-		$values = [];
-		if ($minPriority !== null) {
-			$sql .= ' AND f.priority > :priority';
-			$values[':priority'] = $minPriority;
-		}
-		$res = $this->fetchColumn($sql, 0, $values);
-		return isset($res[0]) ? (int)($res[0]) : -1;
-	}
-
 	/** @return array{'all':int,'read':int,'unread':int} */
 	public function countUnreadReadFavorites(): array {
 		$sql = <<<'SQL'
-SELECT c FROM (
-	SELECT COUNT(e1.id) AS c, 1 AS o
-		FROM `_entry` AS e1
-		JOIN `_feed` AS f1 ON e1.id_feed = f1.id
-		WHERE e1.is_favorite = 1
-		AND f1.priority >= :priority1
-	UNION
-	SELECT COUNT(e2.id) AS c, 2 AS o
-		FROM `_entry` AS e2
-		JOIN `_feed` AS f2 ON e2.id_feed = f2.id
-		WHERE e2.is_favorite = 1
-		AND e2.is_read = 0 AND f2.priority >= :priority2
-	) u
-ORDER BY o
-SQL;
-		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417
-		$res = $this->fetchColumn($sql, 0, [
-			':priority1' => FreshRSS_Feed::PRIORITY_CATEGORY,
-			':priority2' => FreshRSS_Feed::PRIORITY_CATEGORY,
-		]);
-		if ($res === null) {
+			SELECT
+				COUNT(*) AS total,
+				COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS unread
+			FROM `_entry` e
+			JOIN `_feed` f ON e.id_feed = f.id
+			WHERE e.is_favorite = 1 AND f.priority > :priority
+			SQL;
+		$res = $this->fetchAssoc($sql, [':priority' => FreshRSS_Feed::PRIORITY_HIDDEN]);
+		if ($res === null || !isset($res[0])) {
 			return ['all' => -1, 'unread' => -1, 'read' => -1];
 		}
-
-		rsort($res);
-		$all = (int)($res[0] ?? 0);
-		$unread = (int)($res[1] ?? 0);
+		$all = (int)($res[0]['total'] ?? 0);
+		$unread = (int)($res[0]['unread'] ?? 0);
 		return ['all' => $all, 'unread' => $unread, 'read' => $all - $unread];
 	}
 }
