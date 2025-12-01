@@ -5,59 +5,118 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/simplepie/simplepie/compare/1.8.0...master)
+## [Unreleased](https://github.com/simplepie/simplepie/compare/1.9.0...master)
 
 ### Added
 
-- New method `SimplePie\SimplePie::set_http_client()` for providing PSR-18 HTTP client and PSR-17 factories by @Art4 in [#777](https://github.com/simplepie/simplepie/pull/777)
-- New method `SimplePie\Locator::set_http_client()` for providing PSR-18 HTTP client and PSR-17 factories by @Art4 in [#777](https://github.com/simplepie/simplepie/pull/777)
-- New method `SimplePie\Sanitize::set_http_client()` for providing PSR-18 HTTP client and PSR-17 factories by @Art4 in [#777](https://github.com/simplepie/simplepie/pull/777)
+Nothing yet.
 
 ### Changed
 
-- Use `idn_to_ascii` function instead of `idna_convert` library (requires `intl` extension or a [polyfill](https://github.com/symfony/polyfill-intl-idn)) by @jtojnar in [#785](https://github.com/simplepie/simplepie/pull/785)
-- Use native `gzdecode` function instead of internal PHP implementation by @jtojnar in [#882](https://github.com/simplepie/simplepie/pull/882)
+Nothing yet.
 
-### Removed
+### Fixed
 
-- Third-party `idna_convert` library is no longer part of the repository by @jtojnar in [#785](https://github.com/simplepie/simplepie/pull/785)
+Nothing yet.
 
 ### Deprecated
 
-- The method `SimplePie\SimplePie::set_file()` is deprecated, use `SimplePie\SimplePie::set_http_client()` or `SimplePie\SimplePie::set_raw_data()` instead
-- The method `SimplePie\Sanitize::pass_file_data()` is deprecated, use `SimplePie\Sanitize::set_http_client()` instead
+- `SimplePie\SimplePie::set_item_limit()` is deprecated since it only affects multi-feed mode, which has been deprecated in SimplePie 1.9 (by @jtojnar in [#954](https://github.com/simplepie/simplepie/pull/954))
+
+## [1.9.0](https://github.com/simplepie/simplepie/compare/1.8.1...1.9.0) - 2025-09-12
+
+### Added
+
+- New method `SimplePie\SimplePie::set_http_client()` for providing PSR-18 HTTP client and PSR-17 factories (by @Art4 in [#777](https://github.com/simplepie/simplepie/pull/777))
+- New method `SimplePie\Locator::set_http_client()` for providing PSR-18 HTTP client and PSR-17 factories (by @Art4 in [#777](https://github.com/simplepie/simplepie/pull/777))
+- New method `SimplePie\Sanitize::set_http_client()` for providing PSR-18 HTTP client and PSR-17 factories (by @Art4 in [#777](https://github.com/simplepie/simplepie/pull/777))
+
+### Changed
+
+- Use `idn_to_ascii` function instead of `idna_convert` library (requires `intl` extension or a [polyfill](https://github.com/symfony/polyfill-intl-idn)) (by @jtojnar in [#785](https://github.com/simplepie/simplepie/pull/785))
+- Improve precision of type annotations and increased the PHPStan checks to level 8 (by @jtojnar in [#837](https://github.com/simplepie/simplepie/pull/837))
+- Use native `gzdecode` function instead of internal PHP implementation (by @jtojnar in [#882](https://github.com/simplepie/simplepie/pull/882))
+- `SimplePie\SimplePie::set_curl_options([CURLOPT_HTTPHEADER => …])` will no longer prevent the following headers defined by SimplePie from being sent: `Accept`, `if-modified-since`, `if-none-match` and `X-FORWARDED-FOR`. (by @Alkarex in [#912](https://github.com/simplepie/simplepie/pull/912))
+
+### Fixed
+
+- Do not crash when `Content-Type` header is missing (by @Art4 in [#774](https://github.com/simplepie/simplepie/pull/774))
+- Correct `SimplePie\File::$permanent_url` when multiple redirects are chained (by @jtojnar in [#812](https://github.com/simplepie/simplepie/pull/812))
+- Improve PHP 8.4 compatibility (by @jrfnl in [#880](https://github.com/simplepie/simplepie/pull/880), [#881](https://github.com/simplepie/simplepie/pull/881), @jtojnar in [#837](https://github.com/simplepie/simplepie/pull/837), @Girgias in [#851](https://github.com/simplepie/simplepie/pull/851))
+- Fix regression from 1.8.0 in cache invalidation (by @Alkarex in [#883](https://github.com/simplepie/simplepie/pull/883))
+- `SimplePie\SimplePie::strip_htmltags()` correctly propagates `$encode` argument to `Sanitize` (by @jtojnar in [#894](https://github.com/simplepie/simplepie/pull/894))
+- Stop `SimplePie\File` from mangling UTF-16 and UTF-32 encoded feeds (by @Alkarex in [#916](https://github.com/simplepie/simplepie/pull/916) and [#917](https://github.com/simplepie/simplepie/pull/917))
+
+### Removed
+
+- Third-party `idna_convert` library is no longer part of the repository (by @jtojnar in [#785](https://github.com/simplepie/simplepie/pull/785))
+
+### Deprecated
+
+- Most public properties on `SimplePie\File` are deprecated in favour of new methods. (by @jtojnar in [26e0d18d67c24fa2611cdd4f27d1d7158ef9a913](https://github.com/simplepie/simplepie/commit/26e0d18d67c24fa2611cdd4f27d1d7158ef9a913))
+  - `SimplePie\File::$url` is deprecated, use `SimplePie\File::get_final_requested_uri()` instead
+  - `SimplePie\File::$useragent` is deprecated, pass the user agent in constructor instead
+  - `SimplePie\File::$body` is deprecated, use `SimplePie\File::get_body_content()` instead
+  - `SimplePie\File::$headers` is deprecated, use `SimplePie\File::get_headers()` instead
+  - `SimplePie\File::$status_code` is deprecated, use `SimplePie\File::get_status_code()` instead
+  - `SimplePie\File::$method` is deprecated, no replacement: backend is implementation detail which you should not care about; to see if the file was retrieved over HTTP, check the protocol of `SimplePie\File::get_final_requested_uri()`.
+  - `SimplePie\File::$permanent_url` is deprecated, use `SimplePie\File::get_permanent_uri()` instead
+
+- The following `SimplePie\Misc` methods are deprecated without replacement:
+  - `SimplePie\Misc::element_implode()` is deprecated
+  - `SimplePie\Misc::parse_str()` is deprecated
+  - `SimplePie\Misc::percent_encoding_normalization()` is deprecated
+  - `SimplePie\Misc::strip_comments()` is deprecated
+  - `SimplePie\Misc::uncomment_rfc822()` is deprecated
+
+  If you need any of them, consider copying the function to your codebase. (by @jtojnar in [#899](https://github.com/simplepie/simplepie/pull/899))
+- The method `SimplePie\SimplePie::set_file()` is deprecated, use `SimplePie\SimplePie::set_http_client()` or `SimplePie\SimplePie::set_raw_data()` instead (by @Art4 in [#777](https://github.com/simplepie/simplepie/pull/777))
+- The method `SimplePie\Sanitize::pass_file_data()` is deprecated, use `SimplePie\Sanitize::set_http_client()` instead (by @Art4 in [#774](https://github.com/simplepie/simplepie/pull/774))
 - Passing multiple URLs to `SimplePie\SimplePie::set_feed_url()` is deprecated. You can create separate `SimplePie` instance per feed and then use `SimplePie::merge_items()` to get a single list of items. ([#795](https://github.com/simplepie/simplepie/pull/795))
-- The `SimplePie\Gzdecode` class is deprecated. You can use native [`gzdecode`](https://www.php.net/manual/en/function.gzdecode.php) function by @jtojnar in [#882](https://github.com/simplepie/simplepie/pull/882)
+- The `SimplePie\Gzdecode` class is deprecated. You can use native [`gzdecode`](https://www.php.net/manual/en/function.gzdecode.php) function (by @jtojnar in [#882](https://github.com/simplepie/simplepie/pull/882))
+
+## [1.8.1](https://github.com/simplepie/simplepie/compare/1.8.0...1.8.1) - 2024-10-01
+
+### Changed
+
+- Disable Composer lockfile (by @jrfnl in [#887](https://github.com/simplepie/simplepie/pull/887), backported in [#895](https://github.com/simplepie/simplepie/pull/895))
+
+### Fixed
+
+- Fixes for PHP 8.4 deprecations (by @Girgias, @jrfnl and @jtojnar, backported in [#875](https://github.com/simplepie/simplepie/pull/875))
+- Fix locator with website missing `Content-Type` header (by @jtojnar in [#891](https://github.com/simplepie/simplepie/pull/891))
+- Fix `encode` argument of `SimplePie::strip_htmltags()` @jtojnar in [#894](https://github.com/simplepie/simplepie/pull/894), backported in [#898](https://github.com/simplepie/simplepie/pull/898)
+- Reverted `strict_types` only on the `one-dot-eight` branch (by @jtojnar in [#842](https://github.com/simplepie/simplepie/pull/842))
 
 ## [1.8.0](https://github.com/simplepie/simplepie/compare/1.7.0...1.8.0) - 2023-01-20
 
 ### Added
 
-- New method `SimplePie\SimplePie::set_cache()` for providing a PSR-16 cache implementation by @Art4 in [#742](https://github.com/simplepie/simplepie/pull/742)
+- New method `SimplePie\SimplePie::set_cache()` for providing a PSR-16 cache implementation (by @Art4 in [#742](https://github.com/simplepie/simplepie/pull/742))
 - New method `SimplePie\SimplePie::set_cache_namefilter()` for customize the cache key in [#762](https://github.com/simplepie/simplepie/pull/762)
 - New class `SimplePie\Cache\CallableNameFilter` to provide a `callable` to customize the cache key in [#762](https://github.com/simplepie/simplepie/pull/762)
-- New interface `SimplePie\RegistryAware` to inject the `Registry` instance into classes created by `Registry` by @Art4 in [#760](https://github.com/simplepie/simplepie/pull/760)
-- update PHP versions in GH Actions workflows by @jrfnl in [#767](https://github.com/simplepie/simplepie/pull/767)
-- Registry: Allow using class-strings instead of magic strings by @jtojnar and @Art4 in [#766](https://github.com/simplepie/simplepie/pull/766)
+- New interface `SimplePie\RegistryAware` to inject the `Registry` instance into classes created by `Registry` (by @Art4 in [#760](https://github.com/simplepie/simplepie/pull/760))
+- update PHP versions in GH Actions workflows (by @jrfnl in [#767](https://github.com/simplepie/simplepie/pull/767))
+- Registry: Allow using class-strings instead of magic strings (by @jtojnar and @Art4 in [#766](https://github.com/simplepie/simplepie/pull/766))
 
 ### Changed
 
-- Clarify branching strategy by @Art4 in [#751](https://github.com/simplepie/simplepie/pull/751)
-- Use native array_replace_recursive() by @Alkarex in [#749](https://github.com/simplepie/simplepie/pull/749)
-- PHP 7.2 or newer is now required by @Art4 in [#743](https://github.com/simplepie/simplepie/pull/743)
-- Parse\Date: Clean up regex structure by @jtojnar in [#765](https://github.com/simplepie/simplepie/pull/765)
-- Declare strict_types=1 in every file by @Art4 in [#763](https://github.com/simplepie/simplepie/pull/763)
+- Clarify branching strategy (by @Art4 in [#751](https://github.com/simplepie/simplepie/pull/751))
+- Use native `array_replace_recursive()` (by @Alkarex in [#749](https://github.com/simplepie/simplepie/pull/749))
+- PHP 7.2 or newer is now required (by @Art4 in [#743](https://github.com/simplepie/simplepie/pull/743))
+- `SimplePie\Parse\Date::date_w3cdtf()`: Clean up regex structure (by @jtojnar in [#765](https://github.com/simplepie/simplepie/pull/765))
+- Declare `strict_types=1` in every file (by @Art4 in [#763](https://github.com/simplepie/simplepie/pull/763))
 
 ### Fixed
 
-- Item::get_date(): fix return type on unparsable date by @jtojnar in [#753](https://github.com/simplepie/simplepie/pull/753)
-- Fix error handling for PHP 8.1 by @cedric-anne in [#747](https://github.com/simplepie/simplepie/pull/747)
-- The method `SimplePie\SimplePie::get_image_height()` returns the pixel number as `int` instead of `float` by @Art4 in [#763](https://github.com/simplepie/simplepie/pull/763)
-- The method `SimplePie\SimplePie::get_image_width()` returns the pixel number as `int` instead of `float` by @Art4 in [#763](https://github.com/simplepie/simplepie/pull/763)
-- No URL Decode for enclosure links by @Alkarex in [#768](https://github.com/simplepie/simplepie/pull/768)
-- Sanitize thumbnail URL by @Alkarex in [#770](https://github.com/simplepie/simplepie/pull/770)
-- Fix case of multiple RSS2.0 enclosures by @Alkarex in [#769](https://github.com/simplepie/simplepie/pull/769)
-- Fix broken phpdoc references by @jtojnar in [#771](https://github.com/simplepie/simplepie/pull/771)
+- Item::get_date(): fix return type on unparsable date (by @jtojnar in [#753](https://github.com/simplepie/simplepie/pull/753))
+- Fix error handling for PHP 8.1 (by @cedric-anne in [#747](https://github.com/simplepie/simplepie/pull/747))
+- The method `SimplePie\SimplePie::get_image_height()` returns the pixel number as `int` instead of `float` (by @Art4 in [#763](https://github.com/simplepie/simplepie/pull/763))
+- The method `SimplePie\SimplePie::get_image_width()` returns the pixel number as `int` instead of `float` (by @Art4 in [#763](https://github.com/simplepie/simplepie/pull/763))
+- No URL Decode for enclosure links (by @Alkarex in [#768](https://github.com/simplepie/simplepie/pull/768))
+- Sanitize thumbnail URL (by @Alkarex in [#770](https://github.com/simplepie/simplepie/pull/770))
+- Fix case of multiple RSS2.0 enclosures (by @Alkarex in [#769](https://github.com/simplepie/simplepie/pull/769))
+- Fix broken phpdoc references (by @jtojnar in [#771](https://github.com/simplepie/simplepie/pull/771))
 
 ### Deprecated
 
@@ -76,9 +135,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- ROADMAP.md removed by @Art4 in [#748](https://github.com/simplepie/simplepie/pull/748)
-- remove check for E_USER_DEPRECATED definition by @Art4 in [#750](https://github.com/simplepie/simplepie/pull/750)
-- remove broken BC code in Registry by @Art4 in [#764](https://github.com/simplepie/simplepie/pull/764)
+- ROADMAP.md removed (by @Art4 in [#748](https://github.com/simplepie/simplepie/pull/748))
+- remove check for E_USER_DEPRECATED definition (by @Art4 in [#750](https://github.com/simplepie/simplepie/pull/750))
+- remove broken BC code in Registry (by @Art4 in [#764](https://github.com/simplepie/simplepie/pull/764))
 
 ## [1.7.0](https://github.com/simplepie/simplepie/compare/1.6.0...1.7.0) - 2022-09-30
 
@@ -89,17 +148,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Do not use magic values for state machine state by @jtojnar in [#735](https://github.com/simplepie/simplepie/pull/735)
-- Use PSR-4 classes in Registry by @Art4 in [#736](https://github.com/simplepie/simplepie/pull/736)
-- GH Actions: run tests against PHP 8.2 by @jrfnl in [#739](https://github.com/simplepie/simplepie/pull/739)
-- Change code style to PSR-12 by @Art4 in [#738](https://github.com/simplepie/simplepie/pull/738)
+- Do not use magic values for state machine state (by @jtojnar in [#735](https://github.com/simplepie/simplepie/pull/735))
+- Use PSR-4 classes in Registry (by @Art4 in [#736](https://github.com/simplepie/simplepie/pull/736))
+- GH Actions: run tests against PHP 8.2 (by @jrfnl in [#739](https://github.com/simplepie/simplepie/pull/739))
+- Change code style to PSR-12 (by @Art4 in [#738](https://github.com/simplepie/simplepie/pull/738))
 
 ### Fixed
 
-- Fix status_code type by @Alkarex in [#728](https://github.com/simplepie/simplepie/pull/728)
-- Fix parsing of HTTP Links by @Alkarex in [#729](https://github.com/simplepie/simplepie/pull/729)
-- Fix using the best base link for an item content by @Alkarex in [#744](https://github.com/simplepie/simplepie/pull/744)
-- Fix .editorconfig regression by @Alkarex in [#745](https://github.com/simplepie/simplepie/pull/745)
+- Fix status_code type (by @Alkarex in [#728](https://github.com/simplepie/simplepie/pull/728))
+- Fix parsing of HTTP Links (by @Alkarex in [#729](https://github.com/simplepie/simplepie/pull/729))
+- Fix using the best base link for an item content (by @Alkarex in [#744](https://github.com/simplepie/simplepie/pull/744))
+- Fix .editorconfig regression (by @Alkarex in [#745](https://github.com/simplepie/simplepie/pull/745))
 
 ### Deprecated
 
@@ -113,55 +172,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- New methods `SimplePie::rename_attributes()` and `SimplePie_Sanitize::rename_attributes()` allow renaming attributes by @math-GH in [#717](https://github.com/simplepie/simplepie/pull/717)
-- Add audio, video @src elements/attribute for URL resolution by @rdalverny in [#716](https://github.com/simplepie/simplepie/pull/716)
-- Added new namespaced aliases and PSR-4 support for every class by @Art4 in [#711](https://github.com/simplepie/simplepie/pull/711)
-- Add .editorconfig by @Alkarex in [#724](https://github.com/simplepie/simplepie/pull/724)
-- Upload compiled file as release asset by @Art4 in [#725](https://github.com/simplepie/simplepie/pull/725)
+- New methods `SimplePie::rename_attributes()` and `SimplePie_Sanitize::rename_attributes()` allow renaming attributes (by @math-GH in [#717](https://github.com/simplepie/simplepie/pull/717))
+- Add audio, video @src elements/attribute for URL resolution (by @rdalverny in [#716](https://github.com/simplepie/simplepie/pull/716))
+- Added new namespaced aliases and PSR-4 support for every class (by @Art4 in [#711](https://github.com/simplepie/simplepie/pull/711))
+- Add .editorconfig (by @Alkarex in [#724](https://github.com/simplepie/simplepie/pull/724))
+- Upload compiled file as release asset (by @Art4 in [#725](https://github.com/simplepie/simplepie/pull/725))
 
 ### Changed
 
-- GH Actions: version update for ramsey/composer-install by @jrfnl in [#713](https://github.com/simplepie/simplepie/pull/713)
+- GH Actions: version update for ramsey/composer-install (by @jrfnl in [#713](https://github.com/simplepie/simplepie/pull/713))
 
 ### Fixed
 
-- Bugfix in MySQL cache by @Art4 in [#720](https://github.com/simplepie/simplepie/pull/720)
-- Re-enable xml:base for all supported RSS formats by @Alkarex in [#723](https://github.com/simplepie/simplepie/pull/723)
+- Bugfix in MySQL cache (by @Art4 in [#720](https://github.com/simplepie/simplepie/pull/720))
+- Re-enable xml:base for all supported RSS formats (by @Alkarex in [#723](https://github.com/simplepie/simplepie/pull/723))
 
 ## [1.5.8](https://github.com/simplepie/simplepie/compare/1.5.7...1.5.8) - 2021-12-24
 
 ### Changed
 
-- Update CHANGELOG.md, follow keepachangelog format by @Art4 in [#709](https://github.com/simplepie/simplepie/pull/709)
+- Update CHANGELOG.md, follow keepachangelog format (by @Art4 in [#709](https://github.com/simplepie/simplepie/pull/709))
 
 ### Fixed
 
-- Fix a small typo in the error() function Docblock by @audrasjb in [#712](https://github.com/simplepie/simplepie/pull/712)
-- Fix/708 version bump for constant `SIMPLEPIE_VERSION` for 1.5.8 release by @faisal-alvi in [#710](https://github.com/simplepie/simplepie/pull/710)
+- Fix a small typo in the error() function Docblock (by @audrasjb in [#712](https://github.com/simplepie/simplepie/pull/712))
+- Fix/708 version bump for constant `SIMPLEPIE_VERSION` for 1.5.8 release (by @faisal-alvi in [#710](https://github.com/simplepie/simplepie/pull/710))
 
 ## [1.5.7](https://github.com/simplepie/simplepie/compare/1.5.6...1.5.7) - 2021-12-19
 
-* Fix PHP8 crash due to insufficient isset test by @Alkarex in [#670](https://github.com/simplepie/simplepie/pull/670)
-* gitignore tests by @Alkarex in [#671](https://github.com/simplepie/simplepie/pull/671)
-* Reduce memory when parsing large feeds by @Alkarex in [#672](https://github.com/simplepie/simplepie/pull/672)
-* PHP8 catch ValueError for loadHTML() by @Alkarex in [#673](https://github.com/simplepie/simplepie/pull/673)
-* Provide access to HTTP status code by @Alkarex in [#674](https://github.com/simplepie/simplepie/pull/674)
-* Fix wrong type hint by @Alkarex in [#678](https://github.com/simplepie/simplepie/pull/678)
-* Force HTTPS for selected domains by @Alkarex in [#676](https://github.com/simplepie/simplepie/pull/676)
-* Prevent cache pollution by @Alkarex in [#675](https://github.com/simplepie/simplepie/pull/675)
-* Fix typo in comment by @Alkarex in [#680](https://github.com/simplepie/simplepie/pull/680)
-* Remove HTTP credentials in HTTP Referer by @Alkarex in [#681](https://github.com/simplepie/simplepie/pull/681)
-* CI: switch to GH Actions by @jrfnl in [#688](https://github.com/simplepie/simplepie/pull/688)
-* PHP 8.1: fix "passing null to non-nullable" deprecation notice by @jrfnl in [#689](https://github.com/simplepie/simplepie/pull/689)
-* Tests: PHPUnit cross-version compatibility by @jrfnl in [#690](https://github.com/simplepie/simplepie/pull/690)
-* Tests: use strict assertions by @jrfnl in [#692](https://github.com/simplepie/simplepie/pull/692)
-* CacheTest: handle different exceptions PHP cross-version by @jrfnl in [#691](https://github.com/simplepie/simplepie/pull/691)
-* GH Actions: don't allow builds to fail on PHP 8.0 or 8.1 by @jrfnl in [#693](https://github.com/simplepie/simplepie/pull/693)
-* Tests: use the correct parameter order by @jrfnl in [#694](https://github.com/simplepie/simplepie/pull/694)
-* PHPUnit: update configuration by @jrfnl in [#696](https://github.com/simplepie/simplepie/pull/696)
-* fix: better deal with proxy returning proxy headers (in response to cURL's Proxy-Connection header) by @shunf4 in [#698](https://github.com/simplepie/simplepie/pull/698)
-* Handle multiple Link headers by @voegelas in [#700](https://github.com/simplepie/simplepie/pull/700)
-* PHP 8.2: explicitly declare properties by @jrfnl in [#705](https://github.com/simplepie/simplepie/pull/705)
+* Fix PHP8 crash due to insufficient isset test (by @Alkarex in [#670](https://github.com/simplepie/simplepie/pull/670))
+* gitignore tests (by @Alkarex in [#671](https://github.com/simplepie/simplepie/pull/671))
+* Reduce memory when parsing large feeds (by @Alkarex in [#672](https://github.com/simplepie/simplepie/pull/672))
+* PHP8 catch ValueError for loadHTML() (by @Alkarex in [#673](https://github.com/simplepie/simplepie/pull/673))
+* Provide access to HTTP status code (by @Alkarex in [#674](https://github.com/simplepie/simplepie/pull/674))
+* Fix wrong type hint (by @Alkarex in [#678](https://github.com/simplepie/simplepie/pull/678))
+* Force HTTPS for selected domains (by @Alkarex in [#676](https://github.com/simplepie/simplepie/pull/676))
+* Prevent cache pollution (by @Alkarex in [#675](https://github.com/simplepie/simplepie/pull/675))
+* Fix typo in comment (by @Alkarex in [#680](https://github.com/simplepie/simplepie/pull/680))
+* Remove HTTP credentials in HTTP Referer (by @Alkarex in [#681](https://github.com/simplepie/simplepie/pull/681))
+* CI: switch to GH Actions (by @jrfnl in [#688](https://github.com/simplepie/simplepie/pull/688))
+* PHP 8.1: fix "passing null to non-nullable" deprecation notice (by @jrfnl in [#689](https://github.com/simplepie/simplepie/pull/689))
+* Tests: PHPUnit cross-version compatibility (by @jrfnl in [#690](https://github.com/simplepie/simplepie/pull/690))
+* Tests: use strict assertions (by @jrfnl in [#692](https://github.com/simplepie/simplepie/pull/692))
+* CacheTest: handle different exceptions PHP cross-version (by @jrfnl in [#691](https://github.com/simplepie/simplepie/pull/691))
+* GH Actions: don't allow builds to fail on PHP 8.0 or 8.1 (by @jrfnl in [#693](https://github.com/simplepie/simplepie/pull/693))
+* Tests: use the correct parameter order (by @jrfnl in [#694](https://github.com/simplepie/simplepie/pull/694))
+* PHPUnit: update configuration (by @jrfnl in [#696](https://github.com/simplepie/simplepie/pull/696))
+* fix: better deal with proxy returning proxy headers (in response to cURL's Proxy-Connection header) (by @shunf4 in [#698](https://github.com/simplepie/simplepie/pull/698))
+* Handle multiple Link headers (by @voegelas in [#700](https://github.com/simplepie/simplepie/pull/700))
+* PHP 8.2: explicitly declare properties (by @jrfnl in [#705](https://github.com/simplepie/simplepie/pull/705))
 * New Contributor: @shunf4 made their first contribution in [#698](https://github.com/simplepie/simplepie/pull/698)
 * New Contributor: @voegelas made their first contribution in [#700](https://github.com/simplepie/simplepie/pull/700)
 

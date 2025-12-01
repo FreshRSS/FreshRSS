@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Säilytä edelliset määritykset',
 		'next_step' => 'Siirry seuraavaan vaiheeseen',
 		'reinstall' => 'Asenna FreshRSS uudelleen',
-	),
-	'auth' => array(
-		'form' => 'Web-lomake (perinteinen, käyttää JavaScriptiä)',
-		'http' => 'HTTP (tai HTTPS edistyneille käyttäjille)',
-		'none' => 'Ei mitään (vaarallinen)',
-		'password_form' => 'Salasana<br /><small>(Web-lomakkeella kirjautumista varten)</small>',
-		'password_format' => 'Vähintään 7 merkkiä',
-		'type' => 'Todentamismenetelmä',
 	),
 	'bdd' => array(
 		'_' => 'Tietokanta',

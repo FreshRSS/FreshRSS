@@ -107,7 +107,7 @@ class IRI
      */
     public function __toString()
     {
-        return $this->get_iri();
+        return (string) $this->get_iri();
     }
 
     /**
@@ -119,8 +119,9 @@ class IRI
      */
     public function __set(string $name, $value)
     {
-        if (method_exists($this, 'set_' . $name)) {
-            call_user_func([$this, 'set_' . $name], $value);
+        $callable = [$this, 'set_' . $name];
+        if (is_callable($callable)) {
+            call_user_func($callable, $value);
         } elseif (
             $name === 'iauthority'
             || $name === 'iuserinfo'
@@ -169,7 +170,7 @@ class IRI
             $return = null;
         }
 
-        if ($return === null && isset($this->normalization[$this->scheme][$name])) {
+        if ($return === null && isset($this->scheme, $this->normalization[$this->scheme][$name])) {
             return $this->normalization[$this->scheme][$name];
         }
 
@@ -195,8 +196,9 @@ class IRI
      */
     public function __unset(string $name)
     {
-        if (method_exists($this, 'set_' . $name)) {
-            call_user_func([$this, 'set_' . $name], '');
+        $callable = [$this, 'set_' . $name];
+        if (is_callable($callable)) {
+            call_user_func($callable, '');
         }
     }
 
@@ -292,7 +294,13 @@ class IRI
      * Parse an IRI into scheme/authority/path/query/fragment segments
      *
      * @param string $iri
-     * @return array<string, mixed>|false
+     * @return array{
+     *   scheme: string|null,
+     *   authority: string|null,
+     *   path: string,
+     *   query: string|null,
+     *   fragment: string|null,
+     * }|false
      */
     protected function parse_iri(string $iri)
     {
@@ -367,9 +375,11 @@ class IRI
     {
         // Normalize as many pct-encoded sections as possible
         $string = preg_replace_callback('/(?:%[A-Fa-f0-9]{2})+/', [$this, 'remove_iunreserved_percent_encoded'], $string);
+        \assert(\is_string($string), "For PHPStan: Should not occur, the regex is valid");
 
         // Replace invalid percent characters
         $string = preg_replace('/%(?![A-Fa-f0-9]{2})/', '%25', $string);
+        \assert(\is_string($string), "For PHPStan: Should not occur, the regex is valid");
 
         // Add unreserved and % to $extra_chars (the latter is safe because all
         // pct-encoded sections are now valid).
@@ -484,7 +494,7 @@ class IRI
      * Removes sequences of percent encoded bytes that represent UTF-8
      * encoded characters in iunreserved
      *
-     * @param array<int, string> $match PCRE match
+     * @param array{string} $match PCRE match, a capture group #0 consisting of a sequence of valid percent-encoded bytes
      * @return string Replacement
      */
     protected function remove_iunreserved_percent_encoded(array $match)
@@ -590,7 +600,8 @@ class IRI
                     }
                 } else {
                     for ($j = $start; $j <= $i; $j++) {
-                        $string .= chr(hexdec($bytes[$j]));
+                        // Cast for PHPStan, this will always be a number between 0 and 0xFF so hexdec will return int.
+                        $string .= chr((int) hexdec($bytes[$j]));
                     }
                 }
             }
@@ -612,6 +623,10 @@ class IRI
      */
     protected function scheme_normalization()
     {
+        if ($this->scheme === null) {
+            return;
+        }
+
         if (isset($this->normalization[$this->scheme]['iuserinfo']) && $this->iuserinfo === $this->normalization[$this->scheme]['iuserinfo']) {
             $this->iuserinfo = null;
         }
@@ -782,7 +797,9 @@ class IRI
 
         $remaining = $authority;
         if (($iuserinfo_end = strrpos($remaining, '@')) !== false) {
-            $iuserinfo = substr($remaining, 0, $iuserinfo_end);
+            // Cast for PHPStan on PHP < 8.0. It does not detect that
+            // the range is not flipped so substr cannot return false.
+            $iuserinfo = (string) substr($remaining, 0, $iuserinfo_end);
             $remaining = substr($remaining, $iuserinfo_end + 1);
         } else {
             $iuserinfo = null;
@@ -885,7 +902,7 @@ class IRI
         if ($port === null) {
             $this->port = null;
             return true;
-        } elseif (strspn($port, '0123456789') === strlen($port)) {
+        } elseif (strspn((string) $port, '0123456789') === strlen((string) $port)) {
             $this->port = (int) $port;
             $this->scheme_normalization();
             return true;
@@ -1026,7 +1043,7 @@ class IRI
      */
     public function get_uri()
     {
-        return $this->to_uri($this->get_iri());
+        return $this->to_uri((string) $this->get_iri());
     }
 
     /**

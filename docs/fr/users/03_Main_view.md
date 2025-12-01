@@ -205,8 +205,10 @@ the search field.
 Il est possible d’utiliser le champ de recherche pour raffiner les résultats :
 
 * par ID de flux : `f:123` ou plusieurs flux (*ou*) : `f:123,234,345`
+* by ID de catégorie : `c:23` ou plusieurs catégories (*ou*): `c:23,34,45`
 * par auteur : `author:nom` ou `author:'nom composé'`
 * par titre : `intitle:mot` ou `intitle:'mot composé'`
+* par texte (contenu) : `intext:mot` ou `intext:'mot composé'`
 * par URL : `inurl:mot` ou `inurl:'mot composé'`
 * par tag : `#tag` ou `#'tag avec espace'`
 * par texte libre : `mot` ou `'mot composé'`
@@ -242,12 +244,18 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats 
 		* `date:PT30M/` (depuis trente minutes)
 		* `date:PT90S/` (depuis 90 secondes)
 		* `date:P1DT1H/` (depuis un jour et une heure)
+	* Depuis le plus ancien jusqu’à une période donnée avant maintenant :
+		* `!date:P1M` (plus ancien qu’un mois avant maintenant, en utilisant une négation)
+			* Note : la syntaxe ~~`date:/P1M`~~ n’est pas supportée
+	* Les contraintes de date peuvent être combinées :
+		* `date:P1Y !date:P1M` (depuis un an avant maintenant jusqu’à un mois avant maintenant)
 * par date de publication, avec la même syntaxe : `pubdate:<date-interval>`
+* par date de modification par l’utilisateur, avec la même syntaxe : `userdate:<date-interval>`
 * par ID d’étiquette : `L:12` ou de plusieurs étiquettes : `L:12,13,14` ou avec n’importe quelle étiquette : `L:*`
 * par nom d’étiquette : `label:étiquette`, `label:"mon étiquette"` ou d’une étiquette parmi une liste (*ou*) : `labels:"mon étiquette,mon autre étiquette"`
 * par plusieurs noms d’étiquettes (*et*) : `label:"mon étiquette" label:"mon autre étiquette"`
 * par ID d’article (entrée) : `e:1639310674957894` ou de plusieurs articles (*ou*) : `e:1639310674957894,1639310674957893`
-* par nom de filtre utilisateur (recherche enregistrée) : `search:maRecherche`, `search:"Ma recherche"` ou par ID de recherche : `S:3`
+* par nom de filtre utilisateur (recherche enregistrée) : `search:maRecherche`, `search:"Ma recherche"` ou par ID de recherche : `S:3`, ou multiple IDs : `S:1,2`
 	* en interne, ces références sont remplacées par le filtre utilisateur correspondant dans l’expression de recherche
 
 Attention à ne pas introduire d’espace entre l’opérateur et la valeur
@@ -291,6 +299,8 @@ Le mode multilignes peut être activé avec l’option de recherche `m` comme : 
 
 Exemple pour rechercher des articles dont le titre commence par le mot *Lol* avec un nombre indéterminé de *o*: `intitle:/^Lo+l/i`
 
+Exemple pour rechercher des articles dont le contenu est vide : `intext:/^\s*$/`
+
 Contrairement aux recherches normales, les caractères spéciaux XML `<&">` ne sont pas encodés dans les recherches regex, afin de permettre de chercher du code HTML, comme : `/Bonjour <span>à tous<\/span>/`
 
 > ℹ️ Une barre oblique (slash) doit être échappée comme suit : `\/`
@@ -303,3 +313,5 @@ Contrairement aux recherches normales, les caractères spéciaux XML `<&">` ne s
 	* [Pour PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP) ;
 	* [Pour MariaDB](https://mariadb.com/kb/en/pcre/) ;
 	* [Pour MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
+
+> ℹ️ Même avec PostgreSQL, vous pouvez utiliser `\b` pour les limites de mots (et `\B` pour l’inverse), car une traduction automatique est effectuée vers `\y` et `\Y`.

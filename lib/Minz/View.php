@@ -247,7 +247,7 @@ class Minz_View {
 	/**
 	 * @param string|array{dark?:string,light?:string,default?:string} $themeColors
 	 */
-	public static function appendThemeColors($themeColors): void {
+	public static function appendThemeColors(string|array $themeColors): void {
 		self::$themeColors = $themeColors;
 	}
 

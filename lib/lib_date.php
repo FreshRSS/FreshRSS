@@ -74,7 +74,7 @@ function _dateRelative(?string $d1, ?string $d2): ?string {
 	if ($d2 === null) {
 		return $d1 !== null && $d1[0] !== 'P' ? $d1 : null;
 	}
-	if ($d2 !== '' && $d2[0] != 'P' && $d1 !== null && $d1[0] !== 'P') {
+	if ($d2 !== '' && $d2[0] !== 'P' && $d1 !== null && $d1[0] !== 'P') {
 		$y2 = substr($d2, 0, 4);
 		if (strlen($y2) < 4 || !ctype_digit($y2)) {	//Does not start by a year
 			$d2 = _noDelimit($d2);
@@ -91,7 +91,7 @@ function _dateRelative(?string $d1, ?string $d2): ?string {
  */
 function parseDateInterval(string $dateInterval): array {
 	$dateInterval = trim($dateInterval);
-	$dateInterval = str_replace('--', '/', $dateInterval);
+	$dateInterval = str_replace(['--', ' '], ['/', 'T'], $dateInterval);
 	$dateInterval = strtoupper($dateInterval);
 	$min = null;
 	$max = null;

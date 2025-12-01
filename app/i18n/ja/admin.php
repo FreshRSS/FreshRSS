@@ -1,22 +1,22 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'デフォルトのユーザーの記事がログインしていないときでも読めるようにします。 (%s)',
 		'allow_anonymous_refresh' => '未ログインユーザーでも記事を更新できるようにします。',
-		'api_enabled' => '<abbr>API</abbr>からのアクセスを許可する <small>(モバイルアプリが必要です and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => '<abbr>API</abbr>アクセスを許可する <small>(モバイルアプリやユーザークエリの共有に必要)</small>',
 		'form' => 'ウェブフォーム (JavaScriptが必要です)',
-		'http' => 'HTTP (上級者はHTTPSでも)',
+		'http' => 'HTTP (上級者向け: Webサーバー, OIDC, SSO等で管理します)',
 		'none' => 'なし (危険)',
 		'title' => '認証',
 		'token' => 'マスター認証用のトークン',
@@ -116,8 +116,9 @@ return array(
 		'description' => '説明',
 		'disabled' => '無効',
 		'empty_list' => 'インストールされている拡張機能はありません',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => '拡張機能リストが表示されない原因を特定するために、ログを確認してください。',
 		'enabled' => '有効',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'インストール済み',
 		'name' => '名前',
 		'no_configure_view' => 'この拡張機能は設定できません.',
@@ -134,28 +135,33 @@ return array(
 		'_' => '統計',
 		'all_feeds' => 'すべてのフィード',
 		'category' => 'カテゴリ',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'エントリの統計',
 		'entry_per_category' => 'カテゴリのエントリ',
 		'entry_per_day' => '日にちごとのエントリ (直近30日間)',
 		'entry_per_day_of_week' => '週あたり (平均: %.2f メッセージ)',
 		'entry_per_hour' => '時間当たり (平均: %.2f メッセージ)',
 		'entry_per_month' => '月あたり (平均: %.2f メッセージ)',
-		'entry_repartition' => 'エントリの仕切り',
+		'entry_repartition' => 'エントリの割合',
 		'feed' => 'フィード',
 		'feed_per_category' => 'カテゴリごとのフィード',
-		'idle' => '未使用のフィード',
+		'idle' => '休止中のフィード',
 		'main' => '主な統計',
 		'main_stream' => '主なストリーム',
-		'no_idle' => '未使用のフィードはありません!',
+		'nb_unreads' => 'Number of unread articles',	// TODO
+		'no_idle' => '休止中のフィードはありません!',
 		'number_entries' => '%d 記事',
+		'overview' => '概要',
 		'percent_of_total' => '% 総計',
-		'repartition' => '記事の仕切り',
+		'repartition' => '記事の割合: %s',
 		'status_favorites' => 'お気に入り',
 		'status_read' => '既読',
 		'status_total' => 'すべて',
 		'status_unread' => '未読',
-		'title' => '仕切り',
+		'title' => '統計',
 		'top_feed' => '上位10位のフィード',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'システム設定',
@@ -166,7 +172,7 @@ return array(
 		),
 		'cookie-duration' => array(
 			'help' => '秒',
-			'number' => 'ログを残す間隔',
+			'number' => 'ログイン状態維持時間',
 		),
 		'force_email_validation' => 'Eメールアドレスの検証を強制します',
 		'instance-name' => 'インスタンス名',

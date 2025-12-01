@@ -40,7 +40,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 *   - id (default: false)
 	 *   - get (default: false) /(c_\d+|f_\d+|s|a)/
 	 *   - nextGet (default: $get)
-	 *   - idMax (default: 0)
+	 *   - idMax (default: '0')
+	 *   - maxPubDate (default: 0)
 	 *   - is_read (default: true)
 	 */
 	public function readAction(): void {
@@ -52,6 +53,12 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 		$is_read = Minz_Request::paramTernary('is_read') ?? true;
 		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
+		$maxPubDate = Minz_Request::paramInt('maxPubDate');
+		if ($maxPubDate > 0) {
+			$search = new FreshRSS_Search('');
+			$search->setMaxPubdate($maxPubDate);
+			FreshRSS_Context::$search->prepend($search);
+		}
 
 		FreshRSS_Context::$state = Minz_Request::paramInt('state');
 		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)) {
@@ -101,7 +108,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						break;
 					case 'Z':
-						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_ARCHIVED, FreshRSS_Feed::PRIORITY_IMPORTANT,
+						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_HIDDEN, FreshRSS_Feed::PRIORITY_IMPORTANT,
 							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						break;
 					case 'i':
@@ -114,7 +121,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 						// so the next unread tag calculation is deferred by passing next_get = 'a' instead of the current get ID.
 						if ($next_get === 'a' && $is_read) {
 							$tagDAO = FreshRSS_Factory::createTagDao();
-							$tagsList = $tagDAO->listTags() ?: [];
+							$tagsList = $tagDAO->listTags();
 							$found_tag = false;
 							foreach ($tagsList as $tag) {
 								if ($found_tag) {
@@ -174,7 +181,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			}
 			$entryDAO->markRead($ids, $is_read);
 			$tagDAO = FreshRSS_Factory::createTagDao();
-			$tagsForEntries = $tagDAO->getTagsForEntries($ids) ?: [];
+			$tagsForEntries = $tagDAO->getTagsForEntries($ids) ?? [];
 			$tags = [];
 			foreach ($tagsForEntries as $line) {
 				$tags['t_' . $line['id_tag']][] = (string)$line['id_entry'];
@@ -183,13 +190,21 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
+			if (Minz_Request::hasParam('order')) {
+				$params['order'] = Minz_Request::paramString('order', plaintext: true);
+			}
+			if (Minz_Request::hasParam('sort')) {
+				$params['sort'] = Minz_Request::paramString('sort', plaintext: true);
+			}
 			Minz_Request::good(
 				$is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
 				[
 					'c' => 'index',
 					'a' => 'index',
 					'params' => $params,
-				]
+				],
+				notificationName: 'readAction ',
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 			);
 		}
 	}
@@ -247,16 +262,23 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.admin.optimization_complete'), $url_redirect);
+		Minz_Request::good(
+			_t('feedback.admin.optimization_complete'),
+			$url_redirect,
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
 	 * This action purges old entries from feeds.
 	 *
-	 * @todo should be a POST request
 	 * @todo should be in feedController
 	 */
 	public function purgeAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(403);
+			return;
+		}
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
 		}
@@ -280,9 +302,10 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$databaseDAO->minorDbMaintenance();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), [
-			'c' => 'configure',
-			'a' => 'archiving',
-		]);
+		Minz_Request::good(
+			_t('feedback.sub.purge_completed', $nb_total),
+			['c' => 'configure', 'a' => 'archiving'],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 }

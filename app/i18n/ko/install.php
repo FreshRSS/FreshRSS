@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => '이전 설정 유지',
 		'next_step' => '다음 단계',
 		'reinstall' => 'FreshRSS 다시 설치',
-	),
-	'auth' => array(
-		'form' => '웹폼 (전통적인 방식, 자바스크립트 필요)',
-		'http' => 'HTTP (HTTPS를 사용하는 고급 사용자용)',
-		'none' => '사용하지 않음 (위험)',
-		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
-		'password_format' => '7 글자 이상이어야 합니다',
-		'type' => '인증 방식',
 	),
 	'bdd' => array(
 		'_' => '데이터베이스',

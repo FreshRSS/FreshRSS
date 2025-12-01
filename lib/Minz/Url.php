@@ -170,11 +170,11 @@ class Minz_Url {
 	}
 }
 
-function _url(string $controller, string $action, int|string ...$args): string|false {
+function _url(string $controller, string $action, int|string ...$args): string {
 	$nb_args = count($args);
 
 	if ($nb_args % 2 !== 0) {
-		return false;
+		return '';
 	}
 
 	$params = [];

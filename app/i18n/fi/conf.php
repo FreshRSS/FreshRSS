@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -74,7 +74,7 @@ return array(
 		'website' => array(
 			'full' => 'Kuvake ja nimi',
 			'icon' => 'Vain kuvake',
-			'label' => 'Siuvsto',
+			'label' => 'Sivusto',
 			'name' => 'Vain nimi',
 			'none' => 'Ei mitään',
 		),
@@ -99,6 +99,22 @@ return array(
 			'previous' => 'Edellinen',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“Merkitse kaikki luetuiksi” -painike',
+		'big' => 'Iso',
+		'none' => 'Ei mitään',
+		'small' => 'Pieni',
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Näytä varoituspalkki',
+			'seconds' => 'sekuntia (vähintään 1)',
+		),
+		'good' => array(
+			'label' => 'Näytä hyväksyntäpalkki',
+			'seconds' => 'sekuntia (0 - ei näytetä)',
+		),
+	),
 	'privacy' => array(
 		'_' => 'Tietosuoja',
 		'retrieve_extension_list' => 'Nouda laajennusluettelo',
@@ -107,18 +123,23 @@ return array(
 		'_' => 'Profiilien hallinta',
 		'api' => array(
 			'_' => 'API-hallinta',
-			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
-			'disabled' => 'The API access is disabled.',	// TODO
-			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'api_not_set' => 'API-salasanaa ei ole määritetty',
+			'api_set' => 'API-salasana on määritetty',
+			'check_link' => 'Tarkista API:n tila: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'API on poistettu käytöstä.',
+			'documentation_link' => 'Katso lisätietoja <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ohjeesta ja tunnettujen sovellusten luettelosta</a>',
+			'help' => 'Katso <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ohje</a>',
 		),
+		'change_password' => 'Vaihda salasana',
+		'confirm_new_password' => 'Vahvista uusi salasana',
+		'current_password' => 'Nykyinen salasana<br /><small>(web-lomakekirjautumista varten)</small>',
 		'delete' => array(
 			'_' => 'Tilin poisto',
 			'warn' => 'Tilisi ja kaikki siihen kuuluvat tiedot poistetaan.',
 		),
 		'email' => 'Sähköpostiosoite',
+		'new_password' => 'Uusi salasana',
 		'password_api' => 'API-salasana<br /><small>(esimerkiksi kännykkäsovelluksille)</small>',
-		'password_form' => 'Salasana<br /><small>(Web-lomakkeella kirjautumista varten)</small>',
 		'password_format' => 'Vähintään 7 merkkiä',
 		'title' => 'Profiili',
 	),
@@ -131,6 +152,7 @@ return array(
 			'categories' => 'Näytä luokan mukaan',
 			'feeds' => 'Näytä syötteen mukaan',
 			'order' => 'Lajittele päivämäärän mukaan',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Lauseke',
 			'shareOpml' => 'Jaa kyselyä vastaavat luokat ja syötteet OPML-muodossa',
 			'shareRss' => 'Jaa HTML &amp; RSS -muodossa',
@@ -138,8 +160,8 @@ return array(
 			'tags' => 'Näytä merkinnän mukaan',
 			'type' => 'Laji',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => 'Näytä kaikki syötteet, myös ne, jotka näkyvät omassa luokassaan',
+		'get_Z' => 'Näytä kaikki syötteet, myös arkistoidut',
 		'get_all' => 'Näytä kaikki artikkelit',
 		'get_all_labels' => 'Näytä artikkelit, joissa on mikä tahansa merkintä',
 		'get_category' => 'Näytä luokka “%s”',
@@ -152,8 +174,8 @@ return array(
 		'name' => 'Nimi',
 		'no_filter' => 'Ei suodatinta',
 		'no_queries' => array(
-			'_' => 'No user queries are saved yet.',	// TODO
-			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+			'_' => 'Käyttäjän kyselyitä ei ole vielä tallennettu.',
+			'help' => 'Katso <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">ohje</a>',
 		),
 		'number' => 'Kysely %d',
 		'order_asc' => 'Näytä vanhimmat artikkelit ensin',
@@ -162,11 +184,11 @@ return array(
 		'share' => array(
 			'_' => 'Jaa kysely linkin avulla',
 			'disabled' => array(
-				'_' => 'disabled',	// TODO
-				'title' => 'Sharing',	// TODO
+				'_' => 'poistettu käytöstä',
+				'title' => 'Jakaminen',
 			),
 			'greader' => 'Linkki GReader JSON -muotoon jaettavaksi',
-			'help' => 'Voit jakaa kyselyn muiden kanssa antamalle heille tämän linkin',
+			'help' => 'Voit jakaa kyselyn muiden kanssa antamalla heille tämän linkin',
 			'html' => 'Jaettava linkki HTML-sivuun',
 			'opml' => 'Jaettava linkki syötteiden OPML-luetteloon',
 			'rss' => 'Jaettava linkki RSS-syötteeseen',
@@ -259,13 +281,13 @@ return array(
 		'show' => array(
 			'_' => 'Näytettävät artikkelit',
 			'active_category' => 'Käytössä oleva luokka',
-			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
+			'adaptive' => 'Näytä lukemattomat (jos on, muutoin kaikki artikkelit)',
 			'all_articles' => 'Näytä kaikki artikkelit',
 			'all_categories' => 'Kaikki luokat',
 			'no_category' => 'Ei luokkaa',
 			'remember_categories' => 'Muista avoinna olevat luokat',
 			'unread' => 'Näytä vain lukemattomat',
-			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
+			'unread_or_favorite' => 'Näytä lukemattomat ja suosikit',
 		),
 		'show_fav_unread_help' => 'Koskee myös merkintöjä',
 		'sides_close_article' => 'Artikkeli sulkeutuu napsauttamalla sen ulkopuolelle',
@@ -289,7 +311,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Jakaminen',
 		'add' => 'Lisää jakamistapa',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Tämä palvelu on vanhentunut, ja se poistetaan FreshRSS-sovelluksen <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Lisätietoja ohjeissa" target="_blank">tulevasta versiosta</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Sähköposti',
@@ -310,7 +332,7 @@ return array(
 		'article_action' => 'Artikkelitoiminnot',
 		'auto_share' => 'Jaa',
 		'auto_share_help' => 'Jos jakamistapoja on vain yksi, sitä käytetään automaattisesti. Muussa tapauksessa jakamistavan voi valita numerolla.',
-		'close_dropdown' => 'Sulje valikot',
+		'close_menus' => 'Sulje valikot',
 		'collapse_article' => 'Sulje',
 		'first_article' => 'Avaa ensimmäinen artikkeli',
 		'focus_search' => 'Siirry hakukenttään',

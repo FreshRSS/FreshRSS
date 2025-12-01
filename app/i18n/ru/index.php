@@ -1,22 +1,31 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'about' => array(
 		'_' => 'О проекте',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
+		'bug_reports' => array(
+			'environment_information' => array(
+				'_' => 'Информация о системе',
+				'browser' => 'Браузер',
+				'database' => 'База данных',
+				'server_software' => 'ПО сервера',
+				'version_curl' => 'Версия cURL',
+				'version_frss' => 'Версия FreshRSS',
+				'version_php' => 'Версия PHP',
+			),
+		),
 		'bugs_reports' => 'Баг репорты',
-		'credits' => 'Авторство',
-		'credits_content' => 'Некоторые элементы дизайна взяты из <a href="http://twitter.github.io/bootstrap/">Bootstrap</a>, хотя FreshRSS не использует этот фреймворк. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Иконки</a> взяты из <a href="https://www.gnome.org/">проекта GNOME</a>. Шрифт <em>Open Sans</em> создан <a href="https://fonts.google.com/specimen/Open+Sans">Стивом Мэттесоном</a>. FreshRSS основан на <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, PHP-фреймворке.',
 		'documentation' => 'Документация',
 		'freshrss_description' => 'FreshRSS — агрегатор RSS-лент для размещения на своём сервере. Лёгкий и простой в использовании, будучи при этом мощным и настраиваемым инструментом.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">в GitHub</a>',
@@ -27,15 +36,26 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Нет статей для отображения.',
+		'published' => array(
+			'_' => 'Опубликовано',
+			'future' => 'Опубликовано в будущем',
+			'today' => 'Опубликовано сегодня',
+			'yesterday' => 'Опубликовано вчера',
+		),
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'_' => 'Получено',
+			'today' => 'Получено сегодня',
+			'yesterday' => 'Получено вчера',
 		),
 		'rss_of' => 'RSS-лента %s',
 		'title' => 'Основной поток',
 		'title_fav' => 'Избранное',
 		'title_global' => 'Глобальный вид',
+		'userModified' => array(
+			'_' => 'Изменено пользователем',
+			'today' => 'Изменено пользователем сегодня',
+			'yesterday' => 'Изменено пользователем вчера',
+		),
 	),
 	'log' => array(
 		'_' => 'Журнал',
@@ -56,6 +76,7 @@ return array(
 		'mark_cat_read' => 'Отметить категорию прочитанной',
 		'mark_feed_read' => 'Отметить ленту прочитанной',
 		'mark_selection_unread' => 'Отметить выделение прочитанным',
+		'mylabels' => 'Мои метки',
 		'newer_first' => 'Сначала новые',
 		'non-starred' => 'Показать неизбранное',
 		'normal_view' => 'Обычный вид',
@@ -66,21 +87,32 @@ return array(
 		'rss_view' => 'RSS-лента',
 		'search_short' => 'Поиск',
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
-			'date_asc' => 'Publication date 1→9',	// TODO
-			'date_desc' => 'Publication date 9→1',	// TODO
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
-			'rand' => 'Random order',	// TODO
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
+			'_' => 'Критерии сортировки',
+			'c' => array(
+				'name_asc' => 'Категории, названия лент А→Я',
+				'name_desc' => 'Категории, названия лент Я→А',
+			),
+			'date_asc' => 'Дата публикации 1→9',
+			'date_desc' => 'Дата публикации 9→1',
+			'f' => array(
+				'name_asc' => 'Названия лент А→Я',
+				'name_desc' => 'Названия лент Я→А',
+			),
+			'id_asc' => 'Недавно полученные последними',
+			'id_desc' => 'Недавно полученные первыми',
+			'length_asc' => 'Длина контента 1→9',
+			'length_desc' => 'Длина контента 9→1',
+			'link_asc' => 'Ссылка А→Я',
+			'link_desc' => 'Ссылка Я→А',
+			'rand' => 'Случайный порядок',
+			'title_asc' => 'Заголовок А→Я',
+			'title_desc' => 'Заголовок Я→А',
+			'user_modified_asc' => 'Изменено пользователем 1→9',
+			'user_modified_desc' => 'Изменено пользователем 9→1',
 		),
 		'starred' => 'Показать избранное',
 		'stats' => 'Статистика',
 		'subscription' => 'Управление подписками',
-		'tags' => 'Мои метки',
 		'unread' => 'Показать непрочитанное',
 	),
 	'share' => 'Обмен',

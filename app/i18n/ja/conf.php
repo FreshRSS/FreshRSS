@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -99,26 +99,47 @@ return array(
 			'previous' => '前へ',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“すべてに既読を付ける” button',	// DIRTY
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
 	'privacy' => array(
-		'_' => 'Privacy',	// TODO
-		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'_' => 'プライバシー',
+		'retrieve_extension_list' => '拡張機能リストを取得する',
 	),
 	'profile' => array(
 		'_' => 'プロフィール',
 		'api' => array(
 			'_' => 'API管理',
-			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
-			'disabled' => 'The API access is disabled.',	// TODO
-			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
+			'check_link' => 'APIステータスを確認する: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'APIアクセスは無効です。',
+			'documentation_link' => '既知のアプリの一覧は<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',
+			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ドキュメント</a>を参照します',
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'アカウント消去',
 			'warn' => 'あなたのアカウントとそれに関連したデータが消去されます。',
 		),
 		'email' => 'Eメールアドレス',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'APIのパスワード<br /><small>(モバイルアプリなど)</small>',
-		'password_form' => 'パスワード<br /><small>(Web-formのログイン時に使われます)</small>',
 		'password_format' => '最低7文字必要です',
 		'title' => 'プロフィール',
 	),
@@ -131,6 +152,7 @@ return array(
 			'categories' => 'カテゴリごとに表示する',
 			'feeds' => 'フィードごとに表示する',
 			'order' => '日付ごとにソートする',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => '式',
 			'shareOpml' => 'カテゴリとフィードのOPMLによる共有を有効にする',
 			'shareRss' => 'HTMLとRSSによる共有を有効にする',
@@ -138,8 +160,8 @@ return array(
 			'tags' => 'タグごとに表示する',
 			'type' => 'タイプ',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => 'カテゴリで表示するものも含め、すべてのフィードを表示する',
+		'get_Z' => 'アーカイブも含め、すべてのフィードを表示する',
 		'get_all' => 'すべての記事を表示する',
 		'get_all_labels' => '任意のラベルで記事を表示する',
 		'get_category' => 'カテゴリ“%s”を表示する',
@@ -152,8 +174,8 @@ return array(
 		'name' => '名前',
 		'no_filter' => 'フィルターはありません',
 		'no_queries' => array(
-			'_' => 'No user queries are saved yet.',	// TODO
-			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+			'_' => 'まだユーザークエリは保存されていません。',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">ドキュメント</a>を参照してください',
 		),
 		'number' => 'クエリ n°%d',
 		'order_asc' => '古い記事を最初に表示する',
@@ -162,10 +184,10 @@ return array(
 		'share' => array(
 			'_' => 'このクエリをリンクで共有する',
 			'disabled' => array(
-				'_' => 'disabled',	// TODO
-				'title' => 'Sharing',	// TODO
+				'_' => '無効',
+				'title' => '共有',
 			),
-			'greader' => 'Shareable link to the GReader JSON',	// TODO
+			'greader' => 'GReader用JSONファイルへの共有リンク',
 			'help' => 'このクエリを誰かと共有したい場合は、このリンクを提供してください',
 			'html' => 'HTMLページへの共有リンク',
 			'opml' => 'フィードのOPMLリストへの共有リンク',
@@ -193,7 +215,7 @@ return array(
 		'_' => 'リーディング',
 		'after_onread' => '“すべてに既読を付ける”を押した後,',
 		'always_show_favorites' => 'デフォルトですべてのお気に入りの記事を表示する',
-		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
+		'apply_to_individual_feed' => '個々のフィードに適用する',
 		'article' => array(
 			'authors_date' => array(
 				'_' => '著者と日付',
@@ -253,19 +275,19 @@ return array(
 			'upon_gone' => 'ニュースフィードの提供元がなくなったとき',
 			'upon_reception' => '記事を受け取ったとき',
 			'when' => '記事を既読にする…',
-			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => 'すでに同一タイトルが上位n件の最新記事に存在するとき (of the feed)',	// DIRTY
+			'when_same_title_in_category' => 'すでに同一タイトルがカテゴリ内上位<i>n</i>件の最新記事に存在するとき',
+			'when_same_title_in_feed' => 'すでに同一タイトルがフィード内上位<i>n</i>件の最新記事に存在するとき',
 		),
 		'show' => array(
 			'_' => '記事を表示する',
 			'active_category' => 'アクティブなカテゴリ',
-			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
+			'adaptive' => '未読を表示し、無ければすべての記事を表示する',
 			'all_articles' => 'すべての記事を表示する',
 			'all_categories' => 'すべてのカテゴリ',
 			'no_category' => '未分類',
 			'remember_categories' => '前回開いたカテゴリ',
 			'unread' => '未読のみ表示する',
-			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
+			'unread_or_favorite' => '未読とお気に入りを表示する',
 		),
 		'show_fav_unread_help' => 'ラベルも適用する',
 		'sides_close_article' => '記事の外をクリックすると記事を閉じるようにする',
@@ -275,7 +297,7 @@ return array(
 			'older_first' => '最古のものを先頭にする',
 		),
 		'star' => array(
-			'when' => 'Mark an article as favourite…',	// TODO
+			'when' => '記事をお気に入りに登録する。',
 		),
 		'sticky_post' => '開いたときにトップを記事にする',
 		'title' => 'リーディング',
@@ -289,7 +311,7 @@ return array(
 	'sharing' => array(
 		'_' => '共有',
 		'add' => '共有方法を追加する',
-		'bluesky' => 'Bluesky',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'このサービスは非推奨でFreshRSSの<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">将来のリリース</a>から削除される予定です。',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',
@@ -310,7 +332,7 @@ return array(
 		'article_action' => '記事のアクション',
 		'auto_share' => '共有',
 		'auto_share_help' => '共有方法が一つしか設定されていないときにはそれが使われます。そうではなければ、番号によって共有方法にアクセスできます。',
-		'close_dropdown' => 'メニューを閉じる',
+		'close_menus' => 'メニューを閉じる',
 		'collapse_article' => '折りたたむ',
 		'first_article' => '初めの記事を開く',
 		'focus_search' => '検索ボックスにアクセスする',

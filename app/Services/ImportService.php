@@ -41,6 +41,7 @@ class FreshRSS_Import_Service {
 		$opml_array = [];
 		try {
 			$libopml = new \marienfressinaud\LibOpml\LibOpml(false);
+			/** @var array{body:array<array<mixed>>} $opml_array */
 			$opml_array = $libopml->parseString($opml_file);
 		} catch (\marienfressinaud\LibOpml\Exception $e) {
 			self::log($e->getMessage());
@@ -58,7 +59,7 @@ class FreshRSS_Import_Service {
 
 		// Get the categories by names so we can use this array to retrieve
 		// existing categories later.
-		$categories = $this->catDAO->listCategories(false) ?: [];
+		$categories = $this->catDAO->listCategories(prePopulateFeeds: false);
 		$categories_by_names = [];
 		foreach ($categories as $category) {
 			$categories_by_names[$category->name()] = $category;
@@ -176,6 +177,24 @@ class FreshRSS_Import_Service {
 					break;
 			}
 
+			$feed->_priority(match (strtolower($feed_elt['frss:priority'] ?? '')) {
+				FreshRSS_Export_Service::PRIORITY_IMPORTANT => FreshRSS_Feed::PRIORITY_IMPORTANT,
+				FreshRSS_Export_Service::PRIORITY_MAIN_STREAM => FreshRSS_Feed::PRIORITY_MAIN_STREAM,
+				FreshRSS_Export_Service::PRIORITY_CATEGORY => FreshRSS_Feed::PRIORITY_CATEGORY,
+				FreshRSS_Export_Service::PRIORITY_FEED => FreshRSS_Feed::PRIORITY_FEED,
+				FreshRSS_Export_Service::PRIORITY_HIDDEN => FreshRSS_Feed::PRIORITY_HIDDEN,
+				default => FreshRSS_Feed::PRIORITY_MAIN_STREAM,
+			});
+
+			if (isset($feed_elt['frss:unicityCriteria']) && $feed_elt['frss:unicityCriteria'] !== 'id'
+				&& preg_match('/^[a-z:_-]{2,64}$/', $feed_elt['frss:unicityCriteria'])) {
+				$feed->_attribute('unicityCriteria', $feed_elt['frss:unicityCriteria']);
+			}
+
+			if (filter_var($feed_elt['frss:unicityCriteriaForced'] ?? '', FILTER_VALIDATE_BOOLEAN)) {
+				$feed->_attribute('unicityCriteriaForced', true);
+			}
+
 			if (isset($feed_elt['frss:cssFullContent'])) {
 				$feed->_pathEntries(Minz_Helper::htmlspecialchars_utf8($feed_elt['frss:cssFullContent']));
 			}
@@ -274,7 +293,8 @@ class FreshRSS_Import_Service {
 				$curl_params[CURLOPT_COOKIE] = $feed_elt['frss:CURLOPT_COOKIE'];
 			}
 			if (isset($feed_elt['frss:CURLOPT_COOKIEFILE'])) {
-				$curl_params[CURLOPT_COOKIEFILE] = $feed_elt['frss:CURLOPT_COOKIEFILE'];
+				// Allow only an empty value just to enable the libcurl cookie engine
+				$curl_params[CURLOPT_COOKIEFILE] = '';
 			}
 			if (isset($feed_elt['frss:CURLOPT_FOLLOWLOCATION'])) {
 				$curl_params[CURLOPT_FOLLOWLOCATION] = (bool)$feed_elt['frss:CURLOPT_FOLLOWLOCATION'];
@@ -296,6 +316,9 @@ class FreshRSS_Import_Service {
 			}
 			if (isset($feed_elt['frss:CURLOPT_PROXYTYPE'])) {
 				$curl_params[CURLOPT_PROXYTYPE] = (int)$feed_elt['frss:CURLOPT_PROXYTYPE'];
+				if ($curl_params[CURLOPT_PROXYTYPE] === 3) {	// Legacy for NONE
+					$curl_params[CURLOPT_PROXYTYPE] = -1;
+				}
 			}
 			if (isset($feed_elt['frss:CURLOPT_USERAGENT'])) {
 				$curl_params[CURLOPT_USERAGENT] = $feed_elt['frss:CURLOPT_USERAGENT'];
@@ -306,9 +329,12 @@ class FreshRSS_Import_Service {
 
 			// Call the extension hook
 			/** @var FreshRSS_Feed|null */
-			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
+			$feed = Minz_ExtensionManager::callHook(Minz_HookType::FeedBeforeInsert, $feed);
 
 			if ($dry_run) {
+				if ($feed !== null) {
+					$category->addFeed($feed);
+				}
 				return $feed;
 			}
 
@@ -346,7 +372,7 @@ class FreshRSS_Import_Service {
 		$category = new FreshRSS_Category($name);
 
 		if (isset($category_element['frss:opmlUrl'])) {
-			$opml_url = checkUrl($category_element['frss:opmlUrl']);
+			$opml_url = FreshRSS_http_Util::checkUrl($category_element['frss:opmlUrl']);
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$category->_attribute('opml_url', $opml_url);
@@ -376,13 +402,16 @@ class FreshRSS_Import_Service {
 	 *
 	 * @param array<array<mixed>> $outlines The outlines from which to extract the outlines.
 	 * @param string $parent_category_name The name of the parent category of the current outlines.
-	 * @return array{0:array<string,array<string,string>>,1:array<string,array<array<string,string>>>}
+	 * @return array{0:array<string,array<string,string>>,1:array<string,list<array<string,string>>>}
 	 */
 	private function loadFromOutlines(array $outlines, string $parent_category_name): array {
 		$categories_elements = [];
 		$categories_to_feeds = [];
 
 		foreach ($outlines as $outline) {
+			if (!is_array($outline)) {
+				continue;
+			}
 			// Get the categories and feeds from the child outline (it may
 			// return several categories and feeds if the outline is a category).
 			[$outline_categories, $outline_categories_to_feeds] = $this->loadFromOutline($outline, $parent_category_name);
@@ -392,10 +421,12 @@ class FreshRSS_Import_Service {
 			$categories_elements = array_merge($categories_elements, $outline_categories);
 
 			foreach ($outline_categories_to_feeds as $category_name => $feeds) {
+				if (!is_string($category_name) || !is_array($feeds)) {
+					continue;
+				}
 				if (!isset($categories_to_feeds[$category_name])) {
 					$categories_to_feeds[$category_name] = [];
 				}
-
 				$categories_to_feeds[$category_name] = array_merge(
 					$categories_to_feeds[$category_name],
 					$feeds
@@ -418,7 +449,7 @@ class FreshRSS_Import_Service {
 	 * @param array<mixed> $outline The outline from which to extract the categories and feeds outlines.
 	 * @param string $parent_category_name The name of the parent category of the current outline.
 	 *
-	 * @return array{0:array<string,array<string,string>>,1:array<array<string,array<string,string>>>}
+	 * @return array{0:array<string,array<string,string>>,1:array<string,list<array<string,string>>>}
 	 */
 	private function loadFromOutline(array $outline, string $parent_category_name): array {
 		$categories_elements = [];
@@ -435,7 +466,7 @@ class FreshRSS_Import_Service {
 			];
 		}
 
-		if (isset($outline['@outlines'])) {
+		if (is_array($outline['@outlines'] ?? null)) {
 			// The outline has children, it’s probably a category
 			if (!empty($outline['text']) && is_string($outline['text'])) {
 				$category_name = $outline['text'];
@@ -445,10 +476,11 @@ class FreshRSS_Import_Service {
 				$category_name = $parent_category_name;
 			}
 
-			[$categories_elements, $categories_to_feeds] = $this->loadFromOutlines($outline['@outlines'], $category_name);
+			$children = array_filter($outline['@outlines'], 'is_array');
+			[$categories_elements, $categories_to_feeds] = $this->loadFromOutlines($children, $category_name);
 
 			unset($outline['@outlines']);
-			$categories_elements[$category_name] = $outline;
+			$categories_elements[$category_name] = array_filter($outline, static fn($value, $key) => is_string($key) && is_string($value), ARRAY_FILTER_USE_BOTH);
 		}
 
 		// The xmlUrl means it’s a feed URL: add the outline to the array if it exists.
@@ -456,8 +488,8 @@ class FreshRSS_Import_Service {
 			if (!isset($categories_to_feeds[$parent_category_name])) {
 				$categories_to_feeds[$parent_category_name] = [];
 			}
-
-			$categories_to_feeds[$parent_category_name][] = $outline;
+			$feed = array_filter($outline, static fn($value, $key) => is_string($key) && is_string($value), ARRAY_FILTER_USE_BOTH);
+			$categories_to_feeds[$parent_category_name][] = $feed;
 		}
 
 		return [$categories_elements, $categories_to_feeds];

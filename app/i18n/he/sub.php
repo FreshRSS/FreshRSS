@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'HTTP סיסמה',
 			'username' => 'HTTP שם משתמש',
 		),
+		'change_favicon' => 'Change…',	// TODO
 		'clear_cache' => 'Always clear cache',	// TODO
 		'content_action' => array(
 			'_' => 'Content action when fetching the article content',	// TODO
@@ -74,12 +75,16 @@ return array(
 			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
 			'label' => 'Export as OPML',	// TODO
 		),
+		'ext_favicon' => 'Set automatically',	// TODO
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'Filter actions',	// TODO
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// TODO
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
+		'icon' => 'Icon',	// TODO
 		'information' => 'מידע',
 		'keep_min' => 'מסםר מינימלי של מאמרים לשמור',
 		'kind' => array(
@@ -88,7 +93,7 @@ return array(
 				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
 				'xpath' => array(
 					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>//script[@type="application/json"]</code>',	// TODO
+					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// TODO
 				),
 			),
 			'html_xpath' => array(
@@ -205,13 +210,15 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => 'Visibility',	// TODO
-			'archived' => 'Do not show (archived)',	// TODO
 			'category' => 'Show in its category',	// TODO
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'Do not show',	// TODO
 			'important' => 'Show in important feeds',	// TODO
 			'main_stream' => 'הצגה בזרם המרכזי',
 		),
 		'proxy' => 'Set a proxy for fetching this feed',	// TODO
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// TODO
+		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',	// TODO
 			'show_rendered' => 'Show content',	// TODO
@@ -236,9 +243,15 @@ return array(
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => 'Standard ID (default)',	// TODO
 			'link' => 'Link',	// TODO
+			'sha1:content' => 'Content',	// TODO
+			'sha1:content_published' => 'Content + Date',	// TODO
 			'sha1:link_published' => 'Link + Date',	// TODO
 			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
 			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
+			'sha1:published' => 'Date',	// TODO
+			'sha1:title' => 'Title',	// TODO
+			'sha1:title_published' => 'Title + Date',	// TODO
+			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
 		),
 		'url' => 'הזנה URL',
 		'useragent' => 'Set the user agent for fetching this feed',	// TODO
@@ -270,6 +283,7 @@ return array(
 			'idle' => 'הזנות שלא עודכנו',
 			'main' => 'סטטיסטיקות ראשיות',
 			'repartition' => 'חלוקת המאמרים',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => 'ניהול הרשמות',
 		'subscription_tools' => 'Subscription tools',	// TODO
@@ -288,9 +302,8 @@ return array(
 		'add_feed' => 'Add a feed',	// TODO
 		'add_label' => 'Add a label',	// TODO
 		'add_opml_category' => 'OPML category name',	// TODO
-		'delete_label' => 'Delete a label',	// TODO
+		'delete_label' => 'Delete this label',	// TODO
 		'feed_management' => 'ניהול הזנות RSS',
-		'rename_label' => 'Rename a label',	// TODO
 		'subscription_tools' => 'Subscription tools',	// TODO
 	),
 );

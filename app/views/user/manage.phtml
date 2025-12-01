@@ -6,7 +6,7 @@
 <main class="post">
 	<h1><?= _t('gen.menu.user_management') ?></h1>
 	<h2><?= _t('admin.user.create') ?></h2>
-	<form method="post" action="<?= _url('user', 'create') ?>" autocomplete="off">
+	<form method="post" action="<?= _url('user', 'create') ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" name="originController" value="<?= Minz_Request::controllerName() ?>" />
 		<input type="hidden" name="originAction" value="<?= Minz_Request::actionName() ?>" />
@@ -42,7 +42,7 @@
 			<label class="group-name" for="new_user_name"><?= _t('admin.user.username') ?></label>
 			<div class="group-controls">
 				<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off"
-					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" placeholder="demo" />
+					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>">
 			</div>
 		</div>
 
@@ -71,7 +71,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="new-password" pattern=".{7,}" />
-					<button type="button" class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></button>
+					<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>

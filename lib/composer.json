@@ -1,30 +1,29 @@
 {
-    "name": "freshrss.org/freshrss",
-    "description": "A free, self-hostable aggregator",
-    "type": "project",
-    "homepage": "https://freshrss.org/",
-    "license": "AGPL-3.0",
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/FreshRSS/simplepie.git"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/PhpGt/CssXPath.git"
-        }
-    ],
-    "require": {
-        "marienfressinaud/lib_opml": "0.5.1",
-        "phpgt/cssxpath": "dev-master#45f3ac151fc21d459e2515c3aff97cd4bf877bf8",
-        "phpmailer/phpmailer": "6.9.3",
-        "simplepie/simplepie": "dev-freshrss#dd86e5e9efb8d082ebd214b81cc5aa746f02fc26"
-    },
-    "config": {
-        "sort-packages": true,
-        "vendor-dir": "./"
-    },
-    "scripts": {
-        "post-update-cmd": "git clean -d -f -X ."
-    }
+	"name": "freshrss.org/freshrss",
+	"description": "A free, self-hostable aggregator",
+	"type": "project",
+	"homepage": "https://freshrss.org/",
+	"license": "AGPL-3.0",
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/FreshRSS/simplepie.git"
+		}
+	],
+	"require": {
+		"marienfressinaud/lib_opml": "0.5.1",
+		"phpgt/cssxpath": "v1.4.0",
+		"phpmailer/phpmailer": "7.0.0",
+		"simplepie/simplepie": "dev-freshrss#e7b26b4f01d377dc8174d5d4aee961604534d065"
+	},
+	"config": {
+		"sort-packages": true,
+		"vendor-dir": "./"
+	},
+	"scripts": {
+		"post-update-cmd": [
+			"git clean -d -ff -X .",
+			"find . -name '.git' -type d -exec rm -rf {} + || true"
+		]
+	}
 }

@@ -19,12 +19,20 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	}
 
 	public function actualizeAction(): void {
+		if (!FreshRSS_Auth::hasAccess() && !(
+			FreshRSS_Context::systemConf()->allow_anonymous
+			&& FreshRSS_Context::systemConf()->allow_anonymous_refresh
+			)) {
+			Minz_Error::error(403);
+			return;
+		}
+
 		header('Content-Type: application/json; charset=UTF-8');
 		Minz_Session::_param('actualize_feeds', false);
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 		$databaseDAO->minorDbMaintenance();
-		Minz_ExtensionManager::callHookVoid('freshrss_user_maintenance');
+		Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssUserMaintenance);
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$this->view->categories = $catDAO->listCategoriesOrderUpdate(FreshRSS_Context::userConf()->dynamic_opml_ttl_default);
@@ -34,11 +42,16 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	}
 
 	public function nbUnreadsPerFeedAction(): void {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
+			Minz_Error::error(403);
+			return;
+		}
+
 		header('Content-Type: application/json; charset=UTF-8');
 		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$this->view->categories = $catDAO->listCategories(true, false) ?: [];
+		$this->view->categories = $catDAO->listCategories(prePopulateFeeds: true, details: false);
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$this->view->tags = $tagDAO->listTags(true) ?: [];
+		$this->view->tags = $tagDAO->listTags(precounts: true);
 	}
 
 	//For Web-form login
@@ -53,20 +66,19 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
 		header('Pragma: no-cache');
 
-		$user = $_GET['user'] ?? '';
-		if (!is_string($user) || $user === '') {
+		$user = Minz_Request::paramString('user');
+		if ($user === '') {
 			Minz_Error::error(400);
 			return;
 		}
-		FreshRSS_Context::initUser($user);
-		if (FreshRSS_Context::hasUserConf()) {
+		$user_conf = FreshRSS_UserConfiguration::getForUser($user);
+		if ($user_conf !== null) {
 			try {
-				$salt = FreshRSS_Context::systemConf()->salt;
-				$s = FreshRSS_Context::userConf()->passwordHash;
+				$s = $user_conf->passwordHash;
 				if (strlen($s) >= 60) {
 					//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
 					$this->view->salt1 = substr($s, 0, 29);
-					$this->view->nonce = sha1($salt . uniqid('' . mt_rand(), true));
+					$this->view->nonce = hash('sha256', FreshRSS_Context::systemConf()->salt . $user . random_bytes(32));
 					Minz_Session::_param('nonce', $this->view->nonce);
 					return;	//Success
 				}
@@ -82,7 +94,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		for ($i = 22; $i > 0; $i--) {
 			$this->view->salt1 .= $alphabet[random_int(0, 63)];
 		}
-		$this->view->nonce = sha1('' . mt_rand());
+		$this->view->nonce = hash('sha256', 'failure' . rand());
 		Minz_Session::_param('nonce', $this->view->nonce);
 	}
 }

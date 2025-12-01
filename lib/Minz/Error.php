@@ -52,7 +52,7 @@ class Minz_Error {
 	 * @param string|array<'error'|'warning'|'notice',list<string>> $logs logs sorted by category (error, warning, notice)
 	 * @return list<string> list of matching logs, without the category, according to environment preferences (production / development)
 	 */
-	private static function processLogs($logs): array {
+	private static function processLogs(string|array $logs): array {
 		if (is_string($logs)) {
 			return [$logs];
 		}

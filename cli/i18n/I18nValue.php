@@ -15,7 +15,7 @@ class I18nValue implements \Stringable {
 	private ?string $state = null;
 
 	/** @param I18nValue|string $data */
-	public function __construct($data) {
+	public function __construct(I18nValue|string $data) {
 		if ($data instanceof I18nValue) {
 			$data = $data->__toString();
 		}

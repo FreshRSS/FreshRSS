@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Διατήρηση των προηγούμενων ρυθμίσεων',
 		'next_step' => 'Μεταβείτε στο επόμενο βήμα',
 		'reinstall' => 'Επανεγκατάσταση του FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Web form (σύνηθες, απαιτεί JavaScript)',
-		'http' => 'HTTP (για έμπειρους χρήστες με HTTPS)',
-		'none' => 'Καμία (ριψοκίνδυνο)',
-		'password_form' => 'Κωδικός Πρόσβασης<br /><small>(για την μέθοδο σύνδεσης με Web-form)</small>',
-		'password_format' => 'Τουλάχιστον 7 χαρακτήρες',
-		'type' => 'Μέθοδος Πιστοποίησης',
 	),
 	'bdd' => array(
 		'_' => 'Βάση Δεδομένων',

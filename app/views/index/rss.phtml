@@ -3,9 +3,8 @@
 	/** @var FreshRSS_View $this */
 ?>
 <?= '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/"
-	<?= $this->rss_base == '' ? '' : ' xml:base="' . $this->rss_base . '"' ?>
->
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" <?=
+	$this->rss_base === '' ? '' : ' xml:base="' . $this->rss_base . '"' ?>>
 	<channel>
 		<title><?= $this->rss_title ?></title>
 		<link><?= $this->html_url ?></link>
@@ -24,7 +23,7 @@
 foreach ($this->entries as $item) {
 	if (!$this->internal_rendering) {
 		/** @var FreshRSS_Entry|null $item */
-		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		$item = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $item);
 		if ($item === null) {
 			continue;
 		}
@@ -40,14 +39,24 @@ foreach ($this->entries as $item) {
 						echo "\t\t\t", '<dc:creator>', $author, '</dc:creator>', "\n";
 					}
 				}
-				$categories = $item->tags();
-				if (is_array($categories)) {
-					foreach ($categories as $category) {
-						echo "\t\t\t", '<category>', $category, '</category>', "\n";
+
+				if ($this->publishLabelsInsteadOfTags) {
+					$categories = $this->entryIdsTagNames['e_' . $item->id()] ?? [];
+					if (is_array($categories)) {
+						foreach ($categories as $category) {
+							echo "\t\t\t", '<category>', $category, '</category>', "\n";
+						}
+					}
+				} else {
+					$categories = $item->tags();
+					if (is_array($categories)) {
+						foreach ($categories as $category) {
+							echo "\t\t\t", '<category>', $category, '</category>', "\n";
+						}
 					}
 				}
 
-				$enclosures = iterator_to_array($item->enclosures(false));
+				$enclosures = iterator_to_array($item->enclosures(false), preserve_keys: false);	// TODO: Optimise: avoid iterator_to_array if possible
 				$thumbnail = $item->thumbnail(false);
 				if (!empty($thumbnail['url'])) {
 					// https://www.rssboard.org/media-rss#media-thumbnails

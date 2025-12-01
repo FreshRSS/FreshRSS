@@ -21,6 +21,10 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
+		if (FreshRSS_Auth::requestReauth()) {
+			return;
+		}
+
 		FreshRSS_View::prependTitle(_t('admin.auth.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
@@ -52,7 +56,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			invalidateHttpCache();
 
 			if ($ok) {
-				Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'auth', 'a' => 'index' ]);
+				Minz_Request::good(
+					_t('feedback.conf.updated'),
+					[ 'c' => 'auth', 'a' => 'index' ],
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Request::bad(_t('feedback.conf.error'), [ 'c' => 'auth', 'a' => 'index' ]);
 			}
@@ -66,7 +74,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 * the user is already connected.
 	 */
 	public function loginAction(): void {
-		if (FreshRSS_Auth::hasAccess() && Minz_Request::paramString('u') === '') {
+		if (FreshRSS_Auth::hasAccess() && !(FreshRSS_Context::systemConf()->unsafe_autologin_enabled && Minz_Request::paramString('u') !== '')) {
 			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
 		}
 
@@ -77,8 +85,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			'http_auth' => Minz_Error::error(403, [
 					'error' => [
 						_t('feedback.access.denied'),
-						' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(false), ENT_NOQUOTES, 'UTF-8') .
-						' ; Remote IP address=' . connectionRemoteAddress() . ']'
+						' [HTTP Remote-User=' . htmlspecialchars(FreshRSS_http_Util::httpAuthUser(onlyTrusted: false), ENT_NOQUOTES, 'UTF-8') .
+						' ; Remote IP address=' . Minz_Request::connectionRemoteAddress() . ']'
 					]
 				], false),
 			'none' => Minz_Error::error(404),	// It should not happen!
@@ -105,7 +113,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		invalidateHttpCache();
 
 		FreshRSS_View::prependTitle(_t('gen.auth.login') . ' · ');
-		FreshRSS_View::appendScript(Minz_Url::display('/scripts/bcrypt.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/bcrypt.min.js')));
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/bcrypt.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/bcrypt.js')));
 
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->view->cookie_days = (int)round($limits['cookie_duration'] / 86400, 1);
@@ -148,6 +156,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			);
 			if ($ok) {
 				// Set session parameter to give access to the user.
+				Minz_Session::regenerateID('FreshRSS');
 				Minz_Session::_params([
 					Minz_User::CURRENT_USER => $username,
 					'passwordHash' => FreshRSS_Context::userConf()->passwordHash,
@@ -164,12 +173,18 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 				Minz_Translate::init(FreshRSS_Context::userConf()->language);
 
+				FreshRSS_UserDAO::touch();
+
 				// All is good, go back to the original request or the index.
 				$url = Minz_Url::unserialize(Minz_Request::paramString('original_request'));
 				if (empty($url)) {
 					$url = [ 'c' => 'index', 'a' => 'index' ];
 				}
-				Minz_Request::good(_t('feedback.auth.login.success'), $url);
+				Minz_Request::good(
+					_t('feedback.auth.login.success'),
+					$url,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}");
 				header('HTTP/1.1 403 Forbidden');
@@ -197,6 +212,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			$ok = password_verify($password, $s);
 			unset($password);
 			if ($ok) {
+				Minz_Session::regenerateID('FreshRSS');
 				Minz_Session::_params([
 					Minz_User::CURRENT_USER => $username,
 					'passwordHash' => $s,
@@ -206,7 +222,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 				Minz_Translate::init(FreshRSS_Context::userConf()->language);
 
-				Minz_Request::good(_t('feedback.auth.login.success'), ['c' => 'index', 'a' => 'index']);
+				Minz_Request::good(
+					_t('feedback.auth.login.success'),
+					['c' => 'index', 'a' => 'index'],
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning('Unsafe password mismatch for user ' . $username);
 				Minz_Request::bad(
@@ -217,13 +237,52 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	public function reauthAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+			return;
+		}
+		/** @var array{c?: string, a?: string, params?: array<string, mixed>} $redirect */
+		$redirect = Minz_Url::unserialize(Minz_Request::paramString('r'));
+		if (!FreshRSS_Auth::needsReauth()) {
+			Minz_Request::forward($redirect, true);
+			return;
+		}
+		if (Minz_Request::isPost()) {
+			$username = Minz_User::name() ?? '';
+			$nonce = Minz_Session::paramString('nonce');
+			$challenge = Minz_Request::paramString('challenge');
+			if (!FreshRSS_FormAuth::checkCredentials(
+				$username, FreshRSS_Context::userConf()->passwordHash, $nonce, $challenge
+				)) {
+				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
+			} else {
+				Minz_Session::regenerateID('FreshRSS');
+				Minz_Session::_param('lastReauth', time());
+				Minz_Request::forward($redirect, true);
+				return;
+			}
+		}
+		FreshRSS_View::prependTitle(_t('gen.auth.reauth.title') . ' · ');
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/bcrypt.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/bcrypt.js')));
+	}
+
 	/**
 	 * This action removes all accesses of the current user.
 	 */
 	public function logoutAction(): void {
-		invalidateHttpCache();
-		FreshRSS_Auth::removeAccess();
-		Minz_Request::good(_t('feedback.auth.logout.success'), [ 'c' => 'index', 'a' => 'index' ]);
+		if (Minz_Request::isPost()) {
+			invalidateHttpCache();
+			FreshRSS_Auth::removeAccess();
+			Minz_Session::regenerateID('FreshRSS');
+			Minz_Request::good(
+				_t('feedback.auth.logout.success'),
+				[ 'c' => 'index', 'a' => 'index' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
+		} else {
+			Minz_Error::error(403);
+		}
 	}
 
 	/**
@@ -238,7 +297,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
 		}
 
-		if (max_registrations_reached()) {
+		if (FreshRSS_user_Controller::max_registrations_reached()) {
 			Minz_Error::error(403);
 		}
 
@@ -255,7 +314,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			# The trailing slash is necessary so that we don’t redirect to http://.
 			# https://bz.apache.org/bugzilla/show_bug.cgi?id=61355#c13
 		} else {
-			return _url('auth', 'logout') ?: '';
+			return _url('auth', 'logout');
 		}
 	}
 }

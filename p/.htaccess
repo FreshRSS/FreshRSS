@@ -18,8 +18,10 @@ AddDefaultCharset	UTF-8
 	AddCharset	UTF-8	.js
 </IfModule>
 
-<IfModule mod_deflate.c>
-	AddOutputFilterByType DEFLATE application/javascript application/json application/xhtml+xml image/svg+xml text/css text/html
+<IfModule mod_filter.c>
+	<IfModule mod_deflate.c>
+		AddOutputFilterByType DEFLATE application/javascript application/json application/xhtml+xml image/svg+xml text/css text/html
+	</IfModule>
 </IfModule>
 
 <IfModule mod_expires.c>
@@ -37,6 +39,10 @@ AddDefaultCharset	UTF-8
 <IfModule mod_headers.c>
 	<FilesMatch "\.(css|gif|html|ico|js|png|svg|woff|woff2)$">
 		Header	merge Cache-Control "public"
+		<If "%{QUERY_STRING} =~ /^[0-9]+$/">
+			# For requests like `frss.css?1746304092`
+			Header merge Cache-Control "immutable"
+		</If>
 	</FilesMatch>
 	Header edit Set-Cookie ^(.*)$ "$1; SameSite=Lax"
 </IfModule>
@@ -48,7 +54,6 @@ AddDefaultCharset	UTF-8
 </IfModule>
 <IfModule !mod_rewrite.c>
 	<IfModule mod_setenvif.c>
-		# If you run an old Apache 2.2-, disable mod_setenvif and enable mod_rewrite, or comment out next line
 		SetEnvIfExpr "%{CONN_REMOTE_ADDR} =~ /(.*)/" CONN_REMOTE_ADDR=$1
 	</IfModule>
 </IfModule>

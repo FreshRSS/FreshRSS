@@ -97,8 +97,13 @@ class Cache
      */
     public static function parse_URL(string $url)
     {
-        $params = parse_url($url);
-        $params['extras'] = [];
+        $parsedUrl = parse_url($url);
+
+        if ($parsedUrl === false) {
+            return [];
+        }
+
+        $params = array_merge($parsedUrl, ['extras' => []]);
         if (isset($params['query'])) {
             parse_str($params['query'], $params['extras']);
         }

@@ -55,7 +55,7 @@ class Minz_Paginator {
 		$view = APP_PATH . '/views/helpers/' . $view;
 
 		if (file_exists($view)) {
-			include($view);
+			include $view;
 		}
 	}
 
@@ -64,11 +64,11 @@ class Minz_Paginator {
 	 * @param Minz_Model $item l'élément à retrouver
 	 * @return int|false la page à laquelle se trouve l’élément, false si non trouvé
 	 */
-	public function pageByItem($item): int|false {
+	public function pageByItem(Minz_Model $item): int|false {
 		$i = 0;
 
 		do {
-			if ($item == $this->items[$i]) {
+			if ($item === $this->items[$i]) {
 				return (int)(ceil(($i + 1) / $this->nbItemsPerPage));
 			}
 			$i++;
@@ -82,11 +82,11 @@ class Minz_Paginator {
 	 * @param Minz_Model $item the element to search
 	 * @return int|false the position of the element, or false if not found
 	 */
-	public function positionByItem($item): int|false {
+	public function positionByItem(Minz_Model $item): int|false {
 		$i = 0;
 
 		do {
-			if ($item == $this->items[$i]) {
+			if ($item === $this->items[$i]) {
 				return $i;
 			}
 			$i++;

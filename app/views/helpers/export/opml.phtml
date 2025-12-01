@@ -38,6 +38,23 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 				break;
 		}
 
+		$outline['frss:priority'] = match ($feed->priority()) {
+			FreshRSS_Feed::PRIORITY_IMPORTANT => FreshRSS_Export_Service::PRIORITY_IMPORTANT,
+			FreshRSS_Feed::PRIORITY_MAIN_STREAM => null,	// Default
+			FreshRSS_Feed::PRIORITY_CATEGORY => FreshRSS_Export_Service::PRIORITY_CATEGORY,
+			FreshRSS_Feed::PRIORITY_FEED => FreshRSS_Export_Service::PRIORITY_FEED,
+			FreshRSS_Feed::PRIORITY_HIDDEN => FreshRSS_Export_Service::PRIORITY_HIDDEN,
+			default => null,
+		};
+
+		if ($feed->attributeString('unicityCriteria') != '' && $feed->attributeString('unicityCriteria') !== 'id') {
+			$outline['frss:unicityCriteria'] = $feed->attributeString('unicityCriteria');
+		}
+
+		if ($feed->attributeBoolean('unicityCriteriaForced')) {
+			$outline['frss:unicityCriteriaForced'] = 'true';
+		}
+
 		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
 			/** @var array<string,string> */
 			$xPathSettings = $feed->attributeArray('xpath') ?? [];
@@ -107,6 +124,9 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:CURLOPT_POSTFIELDS'] = $curl_params[CURLOPT_POSTFIELDS] ?? null;
 			$outline['frss:CURLOPT_PROXY'] = $curl_params[CURLOPT_PROXY] ?? null;
 			$outline['frss:CURLOPT_PROXYTYPE'] = $curl_params[CURLOPT_PROXYTYPE] ?? null;
+			if ($outline['frss:CURLOPT_PROXYTYPE'] === 3) {	// Legacy for NONE
+				$outline['frss:CURLOPT_PROXYTYPE'] = -1;
+			}
 			$outline['frss:CURLOPT_USERAGENT'] = $curl_params[CURLOPT_USERAGENT] ?? null;
 
 			if (!empty($curl_params[CURLOPT_HTTPHEADER]) && is_array($curl_params[CURLOPT_HTTPHEADER])) {

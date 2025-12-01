@@ -1,22 +1,31 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'about' => array(
 		'_' => 'Over',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
+		'bug_reports' => array(
+			'environment_information' => array(
+				'_' => 'Systeeminformatie',
+				'browser' => 'Browser',	// IGNORE
+				'database' => 'Database',	// IGNORE
+				'server_software' => 'Serversoftware',
+				'version_curl' => 'cURL-versie',
+				'version_frss' => 'FreshRSS-versie',
+				'version_php' => 'PHP-versie',
+			),
+		),
 		'bugs_reports' => 'Rapporteer fouten',
-		'credits' => 'Waarderingen',
-		'credits_content' => 'Sommige ontwerp elementen komen van <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> alhoewel FreshRSS dit raamwerk niet gebruikt. <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">Pictogrammen</a> komen van het <a href="https://www.gnome.org/">GNOME project</a>. <em>De Open Sans</em> font police is gemaakt door <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS is gebaseerd op <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, een PHP raamwerk. Nederlandse vertaling door Wanabo, <a href="http://www.nieuwskop.be" title="NieuwsKop">NieuwsKop.be</a>. Link naar de Nederlandse vertaling, <a href="https://github.com/Wanabo/FreshRSS-Dutch-translation/tree/master">FreshRSS-Dutch-translation</a>.',
 		'documentation' => 'Documentatie',
 		'freshrss_description' => 'FreshRSS is een RSS-feed aggregator om zelf te hosten. Het gebruikt weinig systeembronnen en is makkelijk te beheren terwijl het een krachtig en makkelijk te configureren programma is.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">op GitHub</a>',
@@ -27,15 +36,26 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Er is geen artikel om te laten zien.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Received before yesterday',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'_' => 'Received',	// TODO
+			'today' => 'Vandaag ontvangen',
+			'yesterday' => 'Gisteren ontvangen',
 		),
 		'rss_of' => 'RSS-feed van %s',
 		'title' => 'Overzicht',
 		'title_fav' => 'Favorieten',
 		'title_global' => 'Globale weergave',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Log bestanden',
@@ -56,6 +76,7 @@ return array(
 		'mark_cat_read' => 'Markeer categorie als gelezen',
 		'mark_feed_read' => 'Markeer feed als gelezen',
 		'mark_selection_unread' => 'Markeer selectie als ongelezen',
+		'mylabels' => 'Mijn labels',
 		'newer_first' => 'Nieuwste eerst',
 		'non-starred' => 'Laat alles zien behalve favorieten',
 		'normal_view' => 'Normale weergave',
@@ -67,20 +88,31 @@ return array(
 		'search_short' => 'Zoeken',
 		'sort' => array(
 			'_' => 'Sorteercriteria',
+			'c' => array(
+				'name_asc' => 'Categorie, feedtitels A→Z',
+				'name_desc' => 'Categorie, feedtitels Z→A',
+			),
 			'date_asc' => 'Publicatiedatum 1→9',
 			'date_desc' => 'Publicatiedatum 9→1',
+			'f' => array(
+				'name_asc' => 'Feedtitel A→Z',
+				'name_desc' => 'Feedtitel Z→A',
+			),
 			'id_asc' => 'Nieuw ontvangen laatst',
 			'id_desc' => 'Nieuw ontvangen eerst',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Willekeurige volgorde',
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
+			'user_modified_asc' => 'Aangepast door gebruiker 1→9',
+			'user_modified_desc' => 'Aangepast door gebruiker 9→1',
 		),
 		'starred' => 'Laat alleen favorieten zien',
 		'stats' => 'Statistieken',
 		'subscription' => 'Abonnementen beheer',
-		'tags' => 'Mijn labels',
 		'unread' => 'Laat alleen ongelezen zien',
 	),
 	'share' => 'Delen',

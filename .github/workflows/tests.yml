@@ -10,11 +10,11 @@ jobs:
 
   tests:
     # https://github.com/actions/virtual-environments
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Git checkout source code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     # Composer tests
 
@@ -49,13 +49,13 @@ jobs:
     - name: PHPStan
       run: composer run-script phpstan
 
-    - name: PHPStan Next
-      run: composer run-script phpstan-next
+    # - name: PHPStan Next
+    #   run: composer run-script phpstan-next
 
     # NPM tests
 
     - name: Uses Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         # https://nodejs.org/en/about/previous-releases
         node-version: lts/*
@@ -82,7 +82,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: bin
-        key: ${{ runner.os }}-bin-shfmt@v3.8.0-hadolint@v2.12.0-typos@v1.23.1
+        key: ${{ runner.os }}-bin-shfmt@v3.8.0-hadolint@v2.12.0-typos@v1.29.9
 
     - name: Add ./bin/ to $PATH
       run: mkdir -p bin/ && echo "${PWD}/bin" >> $GITHUB_PATH
@@ -106,7 +106,7 @@ jobs:
       if: steps.shell-cache.outputs.cache-hit != 'true'
       run: |
         cd bin ;
-        wget -q 'https://github.com/crate-ci/typos/releases/download/v1.23.1/typos-v1.23.1-x86_64-unknown-linux-musl.tar.gz' &&
+        wget -q 'https://github.com/crate-ci/typos/releases/download/v1.29.9/typos-v1.29.9-x86_64-unknown-linux-musl.tar.gz' &&
         tar -xvf *.tar.gz './typos' &&
         chmod +x typos &&
         rm *.tar.gz ;

@@ -60,6 +60,11 @@ SQL;
 	}
 
 	#[\Override]
+	protected function selectVersion(): string {
+		return $this->fetchValue('SELECT version()') ?? '';
+	}
+
+	#[\Override]
 	public function size(bool $all = false): int {
 		if ($all) {
 			$db = FreshRSS_Context::systemConf()->db;

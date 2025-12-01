@@ -63,7 +63,7 @@ class Minz_Request {
 
 	/**
 	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
-	 * @return array<string|int,string|array<string,string|int|bool>>
+	 * @return array<string|int,string|array<int|string,string|int|bool>>
 	 */
 	public static function paramArray(string $key, bool $plaintext = false): array {
 		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
@@ -76,7 +76,7 @@ class Minz_Request {
 			} elseif (is_array($v)) {
 				$vs = [];
 				foreach ($v as $k2 => $v2) {
-					if (is_string($k2) && (is_string($v2) || is_int($v2) || is_bool($v2))) {
+					if (is_string($v2) || is_int($v2) || is_bool($v2)) {
 						$vs[$k2] = $v2;
 					}
 				}
@@ -99,6 +99,18 @@ class Minz_Request {
 		return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
 	}
 
+	/**
+	 * @return list<int>
+	 */
+	public static function paramArrayInt(string $key): array {
+		if (empty(self::$params[$key]) || !is_array(self::$params[$key])) {
+			return [];
+		}
+		$result = array_filter(self::$params[$key], 'is_numeric');
+		$result = array_map('intval', $result);
+		return array_values($result);
+	}
+
 	public static function paramTernary(string $key): ?bool {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
@@ -118,6 +130,10 @@ class Minz_Request {
 			return false;
 		}
 		return $value;
+	}
+
+	public static function paramIntNull(string $key): ?int {
+		return is_numeric(self::$params[$key] ?? null) ? (int)self::$params[$key] : null;
 	}
 
 	public static function paramInt(string $key): int {
@@ -239,6 +255,20 @@ class Minz_Request {
 	}
 
 	/**
+	 * Use CONN_REMOTE_ADDR (if available, to be robust even when using Apache mod_remoteip) or REMOTE_ADDR environment variable to determine the connection IP.
+	 */
+	public static function connectionRemoteAddress(): string {
+		$remoteIp = is_string($_SERVER['CONN_REMOTE_ADDR'] ?? null) ? $_SERVER['CONN_REMOTE_ADDR'] : '';
+		if ($remoteIp == '') {
+			$remoteIp = is_string($_SERVER['REMOTE_ADDR'] ?? null) ? $_SERVER['REMOTE_ADDR'] : '';
+		}
+		if ($remoteIp == 0) {
+			$remoteIp = '';
+		}
+		return $remoteIp;
+	}
+
+	/**
 	 * Return true if the request is over HTTPS, false otherwise (HTTP)
 	 */
 	public static function isHttps(): bool {
@@ -339,14 +369,37 @@ class Minz_Request {
 	}
 
 	/**
-	 * Test if a given server address is publicly accessible.
+	 * Resolve a hostname to its first found IP address (IPv4 or IPv6).
 	 *
-	 * Note: for the moment it tests only if address is corresponding to a
-	 * localhost address.
+	 * @param string $hostname the hostname to resolve (from IP to DNS)
+	 * @return string|null the resolved IP address, or null if resolution fails
+	 */
+	private static function resolveHostname(string $hostname): ?string {
+		if (filter_var($hostname, FILTER_VALIDATE_IP) !== false) {
+			return $hostname;	// Already an IP address
+		}
+
+		$fqdn = rtrim($hostname, '.') . '.';	// Ensure fully qualified domain name
+		$records = @dns_get_record($fqdn, DNS_A + DNS_AAAA);
+		if (!is_array($records) || empty($records)) {
+			return null;
+		}
+
+		// Return the first resolved IP (IPv4 or IPv6)
+		if (is_string($records[0]['ip'] ?? null)) {
+			return $records[0]['ip'];
+		}
+		if (is_string($records[0]['ipv6'] ?? null)) {
+			return $records[0]['ipv6'];
+		}
+		return null;
+	}
+
+	/**
+	 * Test whether a given server address appears to be publicly accessible.
 	 *
-	 * @param string $address the address to test, can be an IP or a URL.
-	 * @return bool true if server is accessible, false otherwise.
-	 * @todo improve test with a more valid technique (e.g. test with an external server?)
+	 * @param string $address the address to test, which can be an URL with a DNS or an IP.
+	 * @return bool true if server does not appear to be on some kind of local network, false otherwise (probably public).
 	 */
 	public static function serverIsPublic(string $address): bool {
 		if (strlen($address) < strlen('http://a.bc')) {
@@ -357,18 +410,20 @@ class Minz_Request {
 			return false;
 		}
 
-		$is_public = !in_array($host, [
-			'localhost',
-			'localhost.localdomain',
-			'[::1]',
-			'ip6-localhost',
-			'localhost6',
-			'localhost6.localdomain6',
-		], true);
+		$is_public = (str_contains($host, '.') || str_contains($host, ':'))	// TLD
+			&& !preg_match('/(^|\\.)(ipv6-)?(internal|intranet|lan|local|localdomain|localhost)6?$/', $host)	// DNS
+			&& !preg_match('/^(10|127|172[.](1[6-9]|2[0-9]|3[01])|192[.]168)[.]/', $host)	// IPv4
+			&& !preg_match('/^(\\[)?(::1|f[c-d][0-9a-f]{2}:|fe80:)(\\])?/i', $host);	// IPv6
 
-		if ($is_public) {
-			$is_public &= !preg_match('/^(10|127|172[.]16|192[.]168)[.]/', $host);
-			$is_public &= !preg_match('/^(\[)?(::1$|fc00::|fe80::)/i', $host);
+		// If $host looks public and is not an IP address, try to resolve it
+		if ($is_public && filter_var($host, FILTER_VALIDATE_IP) === false) {
+			$resolvedIp = self::resolveHostname($host);
+			if ($resolvedIp !== null && $resolvedIp !== $host) {
+				$resolvedAddress = str_contains($resolvedIp, ':') ? "http://[{$resolvedIp}]/" : "http://{$resolvedIp}/";
+				if ($resolvedAddress !== $address) {
+					$is_public &= self::serverIsPublic($resolvedAddress);
+				}
+			}
 		}
 
 		return (bool)$is_public;
@@ -381,33 +436,33 @@ class Minz_Request {
 		return $_GET['rid'];
 	}
 
-	private static function setNotification(string $type, string $content): void {
+	private static function setNotification(string $type, string $content, string $notificationName = ''): void {
 		Minz_Session::lock();
 		$requests = Minz_Session::paramArray('requests');
 		$requests[self::requestId()] = [
 				'time' => time(),
-				'notification' => [ 'type' => $type, 'content' => $content ],
+				'notification' => [ 'type' => $type, 'content' => $content, 'notificationName' => $notificationName ],
 			];
 		Minz_Session::_param('requests', $requests);
 		Minz_Session::unlock();
 	}
 
-	public static function setGoodNotification(string $content): void {
-		self::setNotification('good', $content);
+	public static function setGoodNotification(string $content, string $notificationName = ''): void {
+		self::setNotification('good', $content, $notificationName);
 	}
 
-	public static function setBadNotification(string $content): void {
-		self::setNotification('bad', $content);
+	public static function setBadNotification(string $content, string $notificationName = ''): void {
+		self::setNotification('bad', $content, $notificationName);
 	}
 
 	/**
 	 * @param $pop true (default) to remove the notification, false to keep it.
-	 * @return array{type:string,content:string}|null
+	 * @return array{type:string,content:string,notificationName:string}|null
 	 */
 	public static function getNotification(bool $pop = true): ?array {
 		$notif = null;
 		Minz_Session::lock();
-		/** @var array<string,array{time:int,notification:array{type:string,content:string}}> */
+		/** @var array<string,array{time:int,notification:array{type:string,content:string,notificationName:string}}> */
 		$requests = Minz_Session::paramArray('requests');
 		if (!empty($requests)) {
 			//Delete abandoned notifications
@@ -432,7 +487,7 @@ class Minz_Request {
 	 * @param bool $redirect If true, uses an HTTP redirection, and if false (default), performs an internal dispatcher redirection.
 	 * @throws Minz_ConfigurationException
 	 */
-	public static function forward($url = [], bool $redirect = false): void {
+	public static function forward(array $url = [], bool $redirect = false): void {
 		if (empty(Minz_Request::originalRequest())) {
 			self::$originalRequest = $url;
 		}
@@ -457,8 +512,10 @@ class Minz_Request {
 	 * @param string $msg notification content
 	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $url url array to where we should be forwarded
 	 */
-	public static function good(string $msg, array $url = []): void {
-		Minz_Request::setGoodNotification($msg);
+	public static function good(string $msg, array $url = [], string $notificationName = '', bool $showNotification = true): void {
+		if ($showNotification) {
+			Minz_Request::setGoodNotification($msg);
+		}
 		Minz_Request::forward($url, true);
 	}
 
@@ -467,8 +524,8 @@ class Minz_Request {
 	 * @param string $msg notification content
 	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $url url array to where we should be forwarded
 	 */
-	public static function bad(string $msg, array $url = []): void {
-		Minz_Request::setBadNotification($msg);
+	public static function bad(string $msg, array $url = [], string $notificationName = ''): void {
+		Minz_Request::setBadNotification($msg, $notificationName);
 		Minz_Request::forward($url, true);
 	}
 
@@ -511,6 +568,6 @@ class Minz_Request {
 		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $acceptLanguage, $matches) > 0) {
 			return $matches['lang'];
 		}
-		return ['en'];
+		return [Minz_Translate::DEFAULT_LANGUAGE];
 	}
 }

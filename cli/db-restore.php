@@ -1,13 +1,13 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
 $cliOptions = new class extends CliOptionsParser {
-	public string $deleteBackup;
-	public string $forceOverwrite;
+	public bool $deleteBackup;
+	public bool $forceOverwrite;
 
 	public function __construct() {
 		$this->addOption('deleteBackup', (new CliOption('delete-backup'))->withValueNone());
@@ -37,7 +37,7 @@ if (!$ok) {
 	fail('FreshRSS database error: ' . (is_string($_SESSION['bd_error'] ?? null) ? $_SESSION['bd_error'] : 'Unknown error'));
 }
 
-foreach (listUsers() as $username) {
+foreach (FreshRSS_user_Controller::listUsers() as $username) {
 	$username = cliInitUser($username);
 	$filename = DATA_PATH . "/users/{$username}/backup.sqlite";
 	if (!file_exists($filename)) {
@@ -49,10 +49,9 @@ foreach (listUsers() as $username) {
 	echo 'FreshRSS restore database from SQLite for user “', $username, "”…\n";
 
 	$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
-	$clearFirst = isset($cliOptions->forceOverwrite);
-	$ok &= $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_IMPORT, $clearFirst);
+	$ok &= $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_IMPORT, clearFirst: $cliOptions->forceOverwrite);
 	if ($ok) {
-		if (isset($cliOptions->deleteBackup)) {
+		if ($cliOptions->deleteBackup) {
 			unlink($filename);
 		}
 	} else {

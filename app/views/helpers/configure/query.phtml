@@ -11,7 +11,7 @@
 		<a href="<?= $this->query->getUrl() ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('configure', 'query', 'id', $this->queryId, '#', 'slider') ?>" autocomplete="off">
+	<form method="post" action="<?= _url('configure', 'query', 'id', $this->queryId, '#', 'slider') ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">
@@ -46,9 +46,13 @@
 						<?php if ($this->query->sharedUrlRss() !== ''): ?>
 						<ul>
 							<li><a href="<?= $this->query->sharedUrlHtml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.html') ?></a></li>
-							<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
 							<li><a href="<?= $this->query->sharedUrlGreader() ?>"><?= _i('link') ?> <?= _t('conf.query.share.greader') ?></a></li>
+							<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
 						</ul>
+						<label class="checkbox" for="publishLabelsInsteadOfTags">
+							<input type="checkbox" name="query[publishLabelsInsteadOfTags]" id="publishLabelsInsteadOfTags" value="1" <?= $this->query->publishLabelsInsteadOfTags() ? 'checked="checked"' : ''?> />
+							<?= _t('conf.query.filter.publish_labels_instead_of_tags') ?>
+						</label>
 						<?php endif; ?>
 					</div>
 					<div class="group-controls">
@@ -126,7 +130,7 @@
 						<option value="a" <?= in_array($this->query->getGet(), ['', 'a'], true) ? 'selected="selected"' : '' ?>><?= _t('index.feed.title') ?></option>
 						<option value="i" <?= 'i' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.menu.important') ?></option>
 						<option value="s" <?= 's' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.feed.title_fav') ?></option>
-						<option value="T" <?= 'T' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.menu.tags') ?></option>
+						<option value="T" <?= 'T' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.menu.mylabels') ?></option>
 						<optgroup label="<?= _t('conf.query.filter.tags') ?>">
 							<?php foreach ($this->tags as $tag): ?>
 								<option value="t_<?= $tag->id() ?>" <?= "t_{$tag->id()}" === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= $tag->name() ?></option>

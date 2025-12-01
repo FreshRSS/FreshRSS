@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace SimplePie;
 
+use InvalidArgumentException;
 use SimplePie\Content\Type\Sniffer;
 use SimplePie\Parse\Date;
 use SimplePie\XML\Declaration\Parser as DeclarationParser;
@@ -161,9 +162,13 @@ class Registry
             return null;
         }
 
+        // For PHPStan: values in $default should be subtypes of keys.
+        /** @var class-string<T> */
         $class = $this->default[$type];
 
         if (array_key_exists($type, $this->classes)) {
+            // For PHPStan: values in $classes should be subtypes of keys.
+            /** @var class-string<T> */
             $class = $this->classes[$type];
         }
 
@@ -181,11 +186,20 @@ class Registry
     public function &create($type, array $parameters = [])
     {
         $class = $this->get_class($type);
+        if ($class === null) {
+            throw new InvalidArgumentException(sprintf(
+                '%s(): Argument #1 ($type) "%s" not found in class list.',
+                __METHOD__,
+                $type
+            ), 1);
+        }
 
         if (!method_exists($class, '__construct')) {
             $instance = new $class();
         } else {
             $reflector = new \ReflectionClass($class);
+            // For PHPStan: $class is T.
+            /** @var T */
             $instance = $reflector->newInstanceArgs($parameters);
         }
 
@@ -195,6 +209,7 @@ class Registry
             trigger_error(sprintf('Using the method "set_registry()" without implementing "%s" is deprecated since SimplePie 1.8.0, implement "%s" in "%s".', RegistryAware::class, RegistryAware::class, $class), \E_USER_DEPRECATED);
             $instance->set_registry($this);
         }
+
         return $instance;
     }
 
@@ -209,6 +224,13 @@ class Registry
     public function &call($type, string $method, array $parameters = [])
     {
         $class = $this->get_class($type);
+        if ($class === null) {
+            throw new InvalidArgumentException(sprintf(
+                '%s(): Argument #1 ($type) "%s" not found in class list.',
+                __METHOD__,
+                $type
+            ), 1);
+        }
 
         if (in_array($class, $this->legacy)) {
             switch ($type) {
@@ -217,6 +239,8 @@ class Registry
                     // Cache::create() methods in PHP < 8.0.
                     // No longer supported as of PHP 8.0.
                     if ($method === 'get_handler') {
+                        // Fixing this PHPStan error breaks CacheTest::testDirectOverrideLegacy()
+                        /** @phpstan-ignore argument.type */
                         $result = @call_user_func_array([$class, 'create'], $parameters);
                         return $result;
                     }
@@ -224,7 +248,9 @@ class Registry
             }
         }
 
-        $result = call_user_func_array([$class, $method], $parameters);
+        $callable = [$class, $method];
+        assert(is_callable($callable), 'For PHPstan');
+        $result = call_user_func_array($callable, $parameters);
         return $result;
     }
 }

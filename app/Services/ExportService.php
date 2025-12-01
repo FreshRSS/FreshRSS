@@ -23,6 +23,12 @@ class FreshRSS_Export_Service {
 	final public const TYPE_JSONFEED = 'JSONFeed';
 	final public const TYPE_HTML_XPATH_JSON_DOTNOTATION = 'HTML+XPath+JSON+DotNotation';
 
+	final public const PRIORITY_IMPORTANT = 'important';
+	final public const PRIORITY_MAIN_STREAM = 'main';
+	final public const PRIORITY_CATEGORY = 'category';
+	final public const PRIORITY_FEED = 'feed';
+	final public const PRIORITY_HIDDEN = 'hidden';
+
 	/**
 	 * Initialize the service for the given user.
 	 */
@@ -40,7 +46,7 @@ class FreshRSS_Export_Service {
 	public function generateOpml(): array {
 		$view = new FreshRSS_View();
 		$day = date('Y-m-d');
-		$view->categories = $this->category_dao->listCategories(true, true) ?: [];
+		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true, details: true);
 		$view->excludeMutedFeeds = false;
 
 		return [
@@ -64,7 +70,7 @@ class FreshRSS_Export_Service {
 	 */
 	public function generateStarredEntries(string $type): array {
 		$view = new FreshRSS_View();
-		$view->categories = $this->category_dao->listCategories(true) ?: [];
+		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true);
 		$day = date('Y-m-d');
 
 		$view->list_title = _t('sub.import_export.starred_list');
@@ -89,7 +95,7 @@ class FreshRSS_Export_Service {
 	 */
 	public function generateFeedEntries(int $feed_id, int $max_number_entries): ?array {
 		$view = new FreshRSS_View();
-		$view->categories = $this->category_dao->listCategories(true) ?: [];
+		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true);
 
 		$feed = FreshRSS_Category::findFeed($view->categories, $feed_id);
 		if ($feed === null) {

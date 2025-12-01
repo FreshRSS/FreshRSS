@@ -1,22 +1,22 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Pozwól na anonimowy odczyt wiadomości domyślnego użytkownika (%s)',
 		'allow_anonymous_refresh' => 'Pozwól na anonimowe odświeżanie wiadomości',
-		'api_enabled' => 'Pozwól na dostęp przez <abbr>API</abbr> <small>(wymagane dla aplikacji na telefon and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Pozwól na dostęp przez <abbr>API</abbr> <small>(wymagane dla aplikacji na telefon i udostępniania zapytań użytkownika)</small>',
 		'form' => 'Formularz na stronie (tradycyjna, wymagany JavaScript)',
-		'http' => 'HTTP (dla zaawansowanych użytkowników, z wykorzystaniem HTTPS)',
+		'http' => 'HTTP (zaawansowane: zarządzane przez serwer WWW, OIDC, SSO…)',
 		'none' => 'Brak (niebezpieczna)',
 		'title' => 'Uwierzytelnianie',
 		'token' => 'Główny token uwierzytelniania',
@@ -26,88 +26,88 @@ return array(
 	),
 	'check_install' => array(
 		'cache' => array(
-			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',	// TODO
-			'ok' => 'Permissions on the cache directory are good.',	// TODO
+			'nok' => 'Sprawdz uprawnienia dla katalogu <em>./data/cache</em>. Serwer WWW musi miec uprawnienia do zapisu.',
+			'ok' => 'Uprawnienia dla katalogu pamięci podręcznej się zgadzają.',
 		),
 		'categories' => array(
-			'nok' => 'Category table is improperly configured.',	// TODO
-			'ok' => 'Category table is okay.',	// TODO
+			'nok' => 'Tabela kategorii jest nieprawidłowo skonfigurowana.',
+			'ok' => 'Tabela kategorii jest OK.',
 		),
 		'connection' => array(
-			'nok' => 'Connection to the database cannot be established.',	// TODO
-			'ok' => 'Connection to the database is okay.',	// TODO
+			'nok' => 'Nie udało się połączyć z bazą danych.',
+			'ok' => 'Połączenie z bazą danych się powiodło.',
 		),
 		'ctype' => array(
-			'nok' => 'Cannot find a required library for character type checking (php-ctype).',	// TODO
-			'ok' => 'You have the required library for character type checking (ctype).',	// TODO
+			'nok' => 'Nie znaleziono wymaganej biblioteki do sprawdzania rodzajów znaków (php-ctype).',
+			'ok' => 'Znaleziono wymaganą bibliotekę do sprawdzania rodzajów znaków (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',	// TODO
-			'ok' => 'You have the cURL library.',	// TODO
+			'nok' => 'Nie znaleziono biblioteki cURL (paczka php-curl).',
+			'ok' => 'Znaleziono bibliotekę cURL.',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',	// TODO
-			'ok' => 'Permissions on the data directory are good.',	// TODO
+			'nok' => 'Sprawdź uprawnienia dla katalogu <em>./data</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
+			'ok' => 'Uprawienia dla katalogu danych się zgadzają.',
 		),
-		'database' => 'Database installation',	// TODO
+		'database' => 'Instalacja bazy danych',
 		'dom' => array(
-			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',	// TODO
-			'ok' => 'You have the required library to browse the DOM.',	// TODO
+			'nok' => 'Nie znaleziono wymaganej biblioteki do korzystania z DOM-u (paczka php-xml).',
+			'ok' => 'Znaleziono wymaganą bibliotekę do korzystania z DOM-u.',
 		),
 		'entries' => array(
-			'nok' => 'Entry table is improperly configured.',	// TODO
-			'ok' => 'Entry table is okay.',	// TODO
+			'nok' => 'Tabela wpisów jest nieprawidłowo skonfigurowana.',
+			'ok' => 'Tabela wpisów jest OK.',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// TODO
-			'ok' => 'Permissions on the favicons directory are good.',	// TODO
+			'nok' => 'Sprawdź uprawnienia dla katalogu <em>./data/favicons</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
+			'ok' => 'Uprawnienia dla katalogu ikonek kanałów się zgadzają.',
 		),
 		'feeds' => array(
-			'nok' => 'Feed table is improperly configured.',	// TODO
-			'ok' => 'Feed table is okay.',	// TODO
+			'nok' => 'Tabela kanałów jest nieprawidłowo skonfigurowana.',
+			'ok' => 'Tabela kanałów jest OK.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO
-			'ok' => 'You have the fileinfo library.',	// TODO
+			'nok' => 'Nie znaleziono biblioteki fileinfo dla PHP (paczka fileinfo).',
+			'ok' => 'Znaleziono bibliotekę fileinfo.',
 		),
-		'files' => 'File installation',	// TODO
+		'files' => 'Instalacja plików',
 		'json' => array(
-			'nok' => 'Cannot find JSON (php-json package).',	// TODO
-			'ok' => 'You have the JSON extension.',	// TODO
+			'nok' => 'Nie znaleziono biblioteki do przetwarzania JSON-a.',
+			'ok' => 'Znaleziono bibliotekę do przetwarzania JSON-a.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO
+			'nok' => 'Nie znaleziono wymaganej biblioteki mbstring do obsługi Unicode.',
+			'ok' => 'Znaleziono wymaganą bibliotekę mbstring do obsługi Unicode.',
 		),
 		'pcre' => array(
-			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',	// TODO
-			'ok' => 'You have the required library for regular expressions (PCRE).',	// TODO
+			'nok' => 'Nie znaleziono wymaganej biblioteki do obsługi wyrażeń regularnych (php-pcre).',
+			'ok' => 'Znaleziono wymaganą bibliotekę do obsługi wyrażeń regularnych (PCRE).',
 		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO
+			'nok' => 'Nie znaleziono PDO ani żadnego wspieranego sterownika bazy danych (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'ok' => 'Znaleziono PDO oraz przynajmniej jeden z wspieranych sterowników bazy danych (pdo_mysql, pdo_sqlite, pdo_pgsql).',
 		),
 		'php' => array(
-			'_' => 'PHP installation',	// TODO
-			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// TODO
-			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// TODO
+			'_' => 'Instalacja PHP',
+			'nok' => 'Twoja wersja PHP to %s, lecz FreshRSS wymaga co najmniej wersji %s.',
+			'ok' => 'Twoja wersja PHP (%s) jest kompatybilna z FreshRSS.',
 		),
 		'tables' => array(
-			'nok' => 'There are one or more missing tables in the database.',	// TODO
-			'ok' => 'The appropriate tables exist in the database.',	// TODO
+			'nok' => 'W bazie danych brakuje jednej bądź więcej wymaganych tabeli.',
+			'ok' => 'Odpowiednie tabele znajdują się w bazie danych.',
 		),
-		'title' => 'Installation check',	// TODO
+		'title' => 'Weryfikacja instalacji',
 		'tokens' => array(
-			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO
-			'ok' => 'Permissions on the tokens directory are good.',	// TODO
+			'nok' => 'Sprawdź uprawnienia dla katalogu <em>./data/tokens</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
+			'ok' => 'Uprawnienia dla katalogu tokenów się zgadzają.',
 		),
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// TODO
-			'ok' => 'Permissions on the users directory are good.',	// TODO
+			'nok' => 'Sprawdź uprawnienia dla katalogu <em>./data/users</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
+			'ok' => 'Uprawnienia dla katalogu użytkownika się zgadzają.',
 		),
 		'zip' => array(
-			'nok' => 'Cannot find the ZIP extension (php-zip package).',	// TODO
-			'ok' => 'You have the ZIP extension.',	// TODO
+			'nok' => 'Nie znaleziono rozszerzenia ZIP (paczka php-zip).',
+			'ok' => 'Znaleziono rozszerzenie ZIP.',
 		),
 	),
 	'extensions' => array(
@@ -116,8 +116,9 @@ return array(
 		'description' => 'Opis',
 		'disabled' => 'Wyłączone',
 		'empty_list' => 'Brak zainstalowanych rozszerzeń',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Sprawdź dziennik, aby ustalić powód pustej listy rozszerzeń.',
 		'enabled' => 'Włączone',
+		'is_compatible' => 'Jest kompatybilne',
 		'latest' => 'Zainstalowane',
 		'name' => 'Nazwa',
 		'no_configure_view' => 'To rozszerzenie nie jest konfigurowalne.',
@@ -134,6 +135,8 @@ return array(
 		'_' => 'Statystyki',
 		'all_feeds' => 'Wszystkie kanały',
 		'category' => 'Kategoria',
+		'date_published' => 'Data publikacji',
+		'date_received' => 'Data otrzymania',
 		'entry_count' => 'Liczba wiadomości',
 		'entry_per_category' => 'Wiadomości w podziale na kategorie',
 		'entry_per_day' => 'Wiadomości na dzień (przez ostatnie 30 dni)',
@@ -146,20 +149,23 @@ return array(
 		'idle' => 'Bezczynne kanały',
 		'main' => 'Główne statystyki',
 		'main_stream' => 'Kanał główny',
+		'nb_unreads' => 'Ilość nieprzeczytanych artykułów',
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
+		'overview' => 'Podsumowanie',
 		'percent_of_total' => '% wszystkich',
-		'repartition' => 'Podział wiadomości',
+		'repartition' => 'Podział wiadomości: %s',
 		'status_favorites' => 'Ulubione',
 		'status_read' => 'Przeczytane',
 		'status_total' => 'Wszystkie',
 		'status_unread' => 'Nieprzeczytane',
 		'title' => 'Statystyki',
 		'top_feed' => '10 największych kanałów',
+		'unread_dates' => 'Daty z największą ilością nieprzeczytanych artykułów',
 	),
 	'system' => array(
-		'_' => 'Konfiguracja serwisu',
-		'auto-update-url' => 'Adres serwera automatycznej aktualizacji',
+		'_' => 'Konfiguracja serwera',
+		'auto-update-url' => 'Adres serwera aktualizacji',
 		'base-url' => array(
 			'_' => 'Baza URL-a',
 			'recommendation' => 'Automatyczne zalecenie: <kbd>%s</kbd>',
@@ -192,7 +198,7 @@ return array(
 		'tos' => array(
 			'disabled' => 'nie zostały ustalone',
 			'enabled' => '<a href="./?a=tos">włączone</a>',
-			'help' => 'W jaki sposób włączyć <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Warunki użytkowania</a>',
+			'help' => 'zobacz, jak utworzyć <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">warunki użytkowania</a>',
 		),
 		'websub' => array(
 			'help' => 'O protokole <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
@@ -204,7 +210,7 @@ return array(
 		'changelog' => 'lista zmian',
 		'check' => 'Szukaj uaktualnień',
 		'copiedFromURL' => 'update.php skopiowany z %s do ./data',
-		'current_version' => 'Używana wersja',
+		'current_version' => 'Aktualna wersja',
 		'last' => 'Ostatnie sprawdzenie',
 		'loading' => 'Aktualizowanie…',
 		'none' => 'Brak nowych aktualizacji',
@@ -231,8 +237,8 @@ return array(
 		'list' => 'Lista użytkowników',
 		'number' => 'Liczba aktywnych kont: %d',
 		'numbers' => 'Liczba aktywnych kont: %d',
-		'password_form' => 'Hasło<br /><small>(dla logowania przez formularz na stronie)</small>',
-		'password_format' => 'Przynajmniej 7 znaków',
+		'password_form' => 'Hasło<br /><small>(do logowania przez formularz na stronie)</small>',
+		'password_format' => 'przynajmniej 7 znaków',
 		'title' => 'Zarządzanie użytkownikami',
 		'username' => 'Nazwa użytkownika',
 	),

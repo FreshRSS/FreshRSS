@@ -34,6 +34,7 @@ class FreshRSS extends Minz_FrontController {
 			// Relax Content Security Policy to allow external images if a custom logo HTML is used
 			Minz_ActionController::_defaultCsp([
 				'default-src' => "'self'",
+				'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 				'img-src' => '* data:',
 			]);
 		}
@@ -65,7 +66,7 @@ class FreshRSS extends Minz_FrontController {
 			self::checkEmailValidated();
 		}
 
-		Minz_ExtensionManager::callHookVoid('freshrss_init');
+		Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssInit);
 	}
 
 	private static function initAuth(): void {
@@ -148,7 +149,7 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	public static function preLayout(): void {
-		header("X-Content-Type-Options: nosniff");
+		header('X-Content-Type-Options: nosniff');
 
 		FreshRSS_Share::load(join_path(APP_PATH, 'shares.php'));
 		self::loadStylesAndScripts();

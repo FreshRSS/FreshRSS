@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -50,6 +50,7 @@ return array(
 			'password' => 'Mot de passe HTTP',
 			'username' => 'Identifiant HTTP',
 		),
+		'change_favicon' => 'Changer…',
 		'clear_cache' => 'Toujours vider le cache',
 		'content_action' => array(
 			'_' => 'Action à effectuer pour la réception du contenu des articles',
@@ -74,12 +75,16 @@ return array(
 			'help' => 'Fichier XML (données partielles. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Voir documentation</a>)',
 			'label' => 'Exporter en OPML',
 		),
+		'ext_favicon' => 'Définie automatiquement',
+		'favicon_changed_by_ext' => 'L’icône a été définie par l’extension <b>%s</b>.',
 		'filteractions' => array(
 			'_' => 'Filtres d’action',
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
+			'view_filter' => 'Aperçu des filtres sur les articles existants (nouvelle fenêtre)',
 		),
 		'http_headers' => 'Entêtes HTTP',
 		'http_headers_help' => 'Un entête HTTP par ligne, avec le nom et la valeur séparés par un deux-points (ex. : <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icône',
 		'information' => 'Informations',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'kind' => array(
@@ -88,7 +93,7 @@ return array(
 				'_' => 'HTML + XPath + JSON notation point (JSON dans HTML)',
 				'xpath' => array(
 					'_' => 'XPath pour JSON dans HTML',
-					'help' => 'Exemple : <code>//script[@type="application/json"]</code>',
+					'help' => 'Exemple : <code>normalize-space(//script[@type="application/json"])</code> (JSON unique)<br />ou : <code>//script[@type="application/ld+json"]</code> (un objet JSON par article)',
 				),
 			),
 			'html_xpath' => array(
@@ -205,13 +210,15 @@ return array(
 		'path_entries_conditions' => 'Conditions pour la récupération de contenu',
 		'priority' => array(
 			'_' => 'Visibilité',
-			'archived' => 'Ne pas afficher (archivé)',
 			'category' => 'Afficher dans sa catégorie',
+			'feed' => 'Afficher dans son flux',
+			'hidden' => 'Ne pas afficher',
 			'important' => 'Afficher dans les flux importants',
 			'main_stream' => 'Afficher dans les flux principaux',
 		),
 		'proxy' => 'Utiliser un proxy pour télécharger ce flux',
 		'proxy_help' => 'Sélectionner un protocole (ex : SOCKS5) et entrer l’adresse du proxy (ex. : <kbd>127.0.0.1:1080</kbd> ou <kbd>utilisateur:mot-de-passe@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Réinitialiser',
 		'selector_preview' => array(
 			'show_raw' => 'Afficher le code source',
 			'show_rendered' => 'Afficher le contenu',
@@ -236,9 +243,15 @@ return array(
 			'help' => 'Utile pour les flux invalides.<br />⚠️ Changer le critère peut créer des doublons.',
 			'id' => 'ID standard (défaut)',
 			'link' => 'Lien',
+			'sha1:content' => 'Contenu',
+			'sha1:content_published' => 'Contenu + Date',
 			'sha1:link_published' => 'Lien + Date',
 			'sha1:link_published_title' => 'Lien + Date + Titre',
 			'sha1:link_published_title_content' => 'Lien + Date + Titre + Contenu',
+			'sha1:published' => 'Date',	// IGNORE
+			'sha1:title' => 'Titre',
+			'sha1:title_published' => 'Titre + Date',
+			'sha1:title_published_content' => 'Titre + Date + Contenu',
 		),
 		'url' => 'URL du flux',
 		'useragent' => 'Sélectionner l’agent utilisateur pour télécharger ce flux',
@@ -270,6 +283,7 @@ return array(
 			'idle' => 'Flux inactifs',
 			'main' => 'Statistiques principales',
 			'repartition' => 'Répartition des articles',
+			'unread_dates' => 'Dates non lues',
 		),
 		'subscription_management' => 'Gestion des abonnements',
 		'subscription_tools' => 'Outils d’abonnement',
@@ -288,9 +302,8 @@ return array(
 		'add_feed' => 'Ajouter un flux',
 		'add_label' => 'Ajouter une étiquette',
 		'add_opml_category' => 'Nom de la catégorie OPML',
-		'delete_label' => 'Supprimer une étiquette',
+		'delete_label' => 'Supprimer l’étiquette',
 		'feed_management' => 'Gestion des flux RSS',
-		'rename_label' => 'Renommer une étiquette',
 		'subscription_tools' => 'Outils d’abonnement',
 	),
 );

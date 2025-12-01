@@ -46,8 +46,10 @@ It is possible to filter articles by their content by inputting a string in the 
 You can use the search field to further refine results:
 
 * by feed ID: `f:123` or multiple feed IDs (*or*): `f:123,234,345`
+* by category ID: `c:23` or multiple category IDs (*or*): `c:23,34,45`
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
+* by text (content): `intext:keyword` or `intext:'composed keyword'`
 * by URL: `inurl:keyword` or `inurl:'composed keyword'`
 * by tag: `#tag` or `#tag+with+whitespace` or `#'tag with whitespace'`
 * by free-text: `keyword` or `'composed keyword'`
@@ -83,12 +85,18 @@ You can use the search field to further refine results:
 		* `date:PT30M/` (past thirty minutes)
 		* `date:PT90S/` (past ninety seconds)
 		* `date:P1DT1H/` (past one day and one hour)
+	* From the oldest until some time before now:
+		* `!date:P1M` (older than one month before now, using a negation)
+			* Note: the syntax ~~`date:/P1M`~~ is not supported
+	* Date constraints may be combined:
+		* `date:P1Y !date:P1M` (from one year before now until one month before now)
 * by date of publication, using the same format: `pubdate:<date-interval>`
+* by date of user modification, using the same format: `userdate:<date-interval>`
 * by custom label ID `L:12` or multiple label IDs: `L:12,13,14` or with any label: `L:*`
 * by custom label name `label:label`, `label:"my label"` or any label name from a list (*or*): `labels:"my label,my other label"`
 * by several label names (*and*): `label:"my label" label:"my other label"`
 * by entry (article) ID: `e:1639310674957894` or multiple entry IDs  (*or*): `e:1639310674957894,1639310674957893`
-* by user query (saved search) name: `search:myQuery`, `search:"My query"` or saved search ID: `S:3`
+* by user query (saved search) name: `search:myQuery`, `search:"My query"` or saved search ID: `S:3` or multiple search IDs: `S:1,2`
 	* internally, those references are replaced by the corresponding user query in the search expression
 
 Be careful not to enter a space between the operator and the search value.
@@ -97,7 +105,7 @@ Some operators can be used negatively, to exclude articles, with the same syntax
 `!f:234`, `-author:name`, `-intitle:keyword`, `-inurl:keyword`, `-#tag`, `!keyword`, `!date:2019`, `!date:P1W`, `!pubdate:P3d/`.
 
 It is also possible to combine keywords to create a more precise filter.
-For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `inurl:`, `#`, and free-text.
+For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `intext:`, `inurl:`, `#`, and free-text.
 
 Combining several search criteria implies a logical *and*, but the keyword ` OR `
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
@@ -132,6 +140,8 @@ Supports multiline mode with `m` modifier, like: `/^Alice/m`
 
 Example to search entries, which title starts with the *Lol* word, with any number of *o*: `intitle:/^Lo+l/i`
 
+Example to search empty entries (where the body of articles is blank): `intext:/^\s*$/`
+
 As opposed to normal searches, special XML characters `<&">` are not escaped in regex searches, to allow searching HTML code, like: `/Hello <span>world<\/span>/`
 
 > ℹ️ A literal slash needs to be escaped, like `\/`
@@ -144,6 +154,8 @@ As opposed to normal searches, special XML characters `<&">` are not escaped in 
 	* [For PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP);
 	* [For MariaDB](https://mariadb.com/kb/en/pcre/);
 	* [For MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
+
+> ℹ️ Even with PostgreSQL, you are welcome to use `\b` for word boundary (and `\B` for the opposite), as there is an automatic translation to `\y` and `\Y`.
 
 ## By sorting by date
 

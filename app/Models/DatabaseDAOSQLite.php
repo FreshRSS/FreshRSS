@@ -37,10 +37,9 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	public function getSchema(string $table): array {
 		$sql = 'PRAGMA table_info(' . $table . ')';
 		$stm = $this->pdo->query($sql);
-		if ($stm !== false) {
-			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+		if ($stm !== false && ($res = $stm->fetchAll(PDO::FETCH_ASSOC)) !== false) {
 			/** @var list<array{name:string,type:string,notnull:bool,dflt_value:string|int|bool|null}> $res */
-			return $this->listDaoToSchema($res ?: []);
+			return $this->listDaoToSchema($res);
 		}
 		return [];
 	}
@@ -71,6 +70,11 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 			'notnull' => empty($dao['notnull']),
 			'default' => is_scalar($dao['dflt_value'] ?? null) ? $dao['dflt_value'] : null,
 		];
+	}
+
+	#[\Override]
+	protected function selectVersion(): string {
+		return $this->fetchValue('SELECT sqlite_version()') ?? '';
 	}
 
 	#[\Override]

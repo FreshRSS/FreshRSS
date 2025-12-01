@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => '前の設定を保持する',
 		'next_step' => '次のステップへ進む',
 		'reinstall' => 'FreshRSSを再インストールする',
-	),
-	'auth' => array(
-		'form' => 'Webフォーム (Javascriptが必要です)',
-		'http' => 'HTTP (上級者向けのHTTPS)',
-		'none' => 'なし (危険)',
-		'password_form' => 'パスワード<br /><small>(fWeb-formログインメソッド)</small>',
-		'password_format' => '最低限7文字必要です',
-		'type' => '認証メソッド',
 	),
 	'bdd' => array(
 		'_' => 'データベース',
