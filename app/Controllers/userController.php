@@ -812,7 +812,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle($username . ' · ' . _t('gen.menu.user_management') . ' · ');
 	}
 
-	/** @return array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
+	/** @return array{feed_count:?int,article_count:?int,database_size:?int,language:string,mail_login:string,enabled:bool,is_admin:bool,last_user_activity:string,is_default:bool} */
 	private function retrieveUserDetails(string $username, bool $fast = false): array {
 		if ($fast) {
 			$feedDAO = null;
@@ -830,9 +830,9 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 
 		return [
-			'feed_count' => isset($feedDAO) ? $feedDAO->count() : -1,
-			'article_count' => isset($entryDAO) ? $entryDAO->count() : -1,
-			'database_size' => isset($databaseDAO) ? $databaseDAO->size() : -1,
+			'feed_count' => isset($feedDAO) ? $feedDAO->count() : null,
+			'article_count' => isset($entryDAO) ? $entryDAO->count() : null,
+			'database_size' => isset($databaseDAO) ? $databaseDAO->size() : null,
 			'language' => $userConfiguration->language,
 			'mail_login' => $userConfiguration->mail_login,
 			'enabled' => $userConfiguration->enabled,

@@ -112,9 +112,9 @@
 						<td><?= $values['is_admin'] ? '✔' : ' ' ?></td>
 						<td><?= $values['mail_login'] ?></td>
 						<td><?= _t("gen.lang.{$values['language']}") ?></td>
-						<td><?= format_number($values['feed_count']) ?></td>
-						<td><?= format_number($values['article_count']) ?></td>
-						<td><?= format_bytes($values['database_size']) ?></td>
+						<td><?= is_numeric($values['feed_count']) ? format_number($values['feed_count']) : '?' ?></td>
+						<td><?= is_numeric($values['article_count']) ? format_number($values['article_count']) : '?' ?></td>
+						<td><?= is_numeric($values['database_size']) ? format_bytes($values['database_size']) : '?' ?></td>
 						<td><?= $values['last_user_activity'] ?></td>
 					</tr>
 				<?php endforeach ?>
