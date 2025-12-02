@@ -2,7 +2,7 @@
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	if ($this->feed === null) {
-		return;
+	return;
 	}
 ?>
 <div class="post" id="feed_update" data-feed-id="<?= $this->feed->id() ?>">
@@ -44,8 +44,8 @@
 					$currentIconUrl = $this->feed->favicon();
 					$originalIconUrl = '';
 					if ($this->feed->customFavicon()) {
-						$this->feed->_attribute('customFavicon', false);
-						$this->feed->resetFaviconHash();
+					$this->feed->_attribute('customFavicon', false);
+					$this->feed->resetFaviconHash();
 					}
 					$originalIconUrl = $this->feed->favicon();
 					$this->feed->_attribute('customFavicon', $currentIconUrl !== $originalIconUrl);
@@ -130,46 +130,44 @@
 				</div>
 			</div>
 
+
 			<div class="form-group">
-				<label class="group-name" for="default_sort"><?= _t('sub.feed.preferred_sort')?> </label>
+				<label class="group-name" for="defaultOrder"><?= _t('sub.feed.preferred_order')?> </label>
 				<div class="group-controls">
-					<select name="default_sort_option" id="default_sort_feed" class="w50">
-						<option value="id|DESC" <?=
-							$this->feed->get_default_sort() === 'id' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.id_desc') ?></option>
-						<option value= "date|DESC" <?=
-							$this->feed->get_default_sort() === 'date' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.date_desc') ?></option>
-						<option value="lastUserModified|DESC" <?=
-							$this->feed->get_default_sort() === 'lastUserModified' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.user_modified_desc') ?></option>
-						<option value= "length|DESC" <?=
-							$this->feed->get_default_sort() === 'length' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.length_desc') ?></option>
-						<option value="link|DESC" <?=
-							$this->feed->get_default_sort() === 'link' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.link_desc') ?></option>
-						<option value= "title|DESC" <?=
-							$this->feed->get_default_sort() === 'title' && $this->feed->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.title_desc') ?></option>
-						<option value="id|ASC" <?=
-							$this->feed->get_default_sort() === 'id' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.id_asc') ?></option>
-						<option value= "date|ASC" <?=
-							$this->feed->get_default_sort() === 'date' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.date_asc') ?></option>
-						<option value="lastUserModified|ASC" <?=
-							$this->feed->get_default_sort() === 'lastUserModified' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.user_modified_asc') ?></option>
-						<option value= "length|ASC" <?=
-							$this->feed->get_default_sort() === 'length' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.length_asc') ?></option>
-						<option value="link|ASC" <?=
-							$this->feed->get_default_sort() === 'link' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.link_asc') ?></option>
-						<option value= "title|ASC" <?=
-							$this->feed->get_default_sort() === 'title' && $this->feed->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.feed.preferred_sort.title_asc')?></option>
+					<select name="defaultOrder" id="defaultOrderFeed" class="w50">
+						<option value="DESC" <?=
+							$this->feed->defaultOrder() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort_order.newer_first') ?></option>
+						<option value= "ASC" <?=
+							$this->feed->defaultOrder() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort_order.older_first') ?></option>
+					</select>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label class="group-name" for="defaultSort"><?= _t('sub.feed.preferred_sort')?> </label>
+				<div class="group-controls">
+					<select name="defaultSort" id="defaultSortFeed" class="w50">
+						<option value="id" <?=
+							$this->feed->defaultSort() === 'id' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.id') ?></option>
+						<option value= "date" <?=
+							$this->feed->defaultSort() === 'date' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.date') ?></option>
+						<option value="lastUserModified" <?=
+							$this->feed->defaultSort() === 'lastUserModified' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.last_modified') ?></option>
+						<option value= "length" <?=
+							$this->feed->defaultSort() === 'length' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.length') ?></option>
+						<option value="link" <?=
+							$this->feed->defaultSort() === 'link' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.link') ?></option>
+						<option value= "title" <?=
+							$this->feed->defaultSort() === 'title' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.title') ?></option>
 					</select>
 				</div>
 			</div>
@@ -179,7 +177,7 @@
 				<?php
 					$unicityCriteria = $this->feed->attributeString('unicityCriteria');
 					if ($this->feed->attributeBoolean('hasBadGuids')) {	// Legacy
-						$unicityCriteria = 'link';
+					$unicityCriteria = 'link';
 					}
 				?>
 				<div class="group-controls">
@@ -214,13 +212,13 @@
 								36000 => '10h', 43200 => '12h', 64800 => '18h',
 								86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
 								604800 => '1wk', 1209600 => '2wk', 1814400 => '3wk', 2419200 => '4wk', 2629744 => '1mo'] as $v => $t) {
-							echo '<option value="' . $v . ($this->feed->ttl() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
-							if ($this->feed->ttl() == $v) {
-								$found = true;
+						echo '<option value="' . $v . ($this->feed->ttl() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
+						if ($this->feed->ttl() == $v) {
+							$found = true;
 							}
 						}
 						if (!$found) {
-							echo '<option value="' . intval($this->feed->ttl()) . '" selected="selected">' . intval($this->feed->ttl()) . 's</option>';
+						echo '<option value="' . intval($this->feed->ttl()) . '" selected="selected">' . intval($this->feed->ttl()) . 's</option>';
 						}
 					?></select>
 					<label for="mute">
@@ -391,9 +389,9 @@
 				$archiving = $this->feed->attributeArray('archiving');
 				/** @var array{default?:bool,keep_period?:string,keep_max?:int,keep_min?:int,keep_favourites?:bool,keep_labels?:bool,keep_unreads?:bool}|null $archiving */
 				if (empty($archiving)) {
-					$archiving = [ 'default' => true ];
+				$archiving = [ 'default' => true ];
 				} else {
-					$archiving['default'] = false;
+				$archiving['default'] = false;
 				}
 				$volatile = [
 					'enable_keep_period' => false,
@@ -815,12 +813,12 @@
 						defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2);	// Compatibility cURL 7.51
 						$type = $curlParams[CURLOPT_PROXYTYPE] ?? '';
 						if ($type === 3) {	// Legacy for NONE
-							$type = -1;
+						$type = -1;
 						}
 						foreach (['' => '', -1 => 'NONE', CURLPROXY_HTTP => 'HTTP', CURLPROXY_HTTPS => 'HTTPS',
 							CURLPROXY_SOCKS4 => 'SOCKS4', CURLPROXY_SOCKS4A => 'SOCKS4A', CURLPROXY_SOCKS5 => 'SOCKS5',
 							CURLPROXY_SOCKS5_HOSTNAME => 'SOCKS5H'] as $k => $v) {
-							echo '<option value="' . $k . ($type === $k ? '" selected="selected' : '' ) . '">' . $v . '</option>';
+						echo '<option value="' . $k . ($type === $k ? '" selected="selected' : '' ) . '">' . $v . '</option>';
 						}
 					?>
 					</select>
@@ -848,7 +846,7 @@
 						<?php
 							$postFields = $this->feed->attributeArray('curl_params')[CURLOPT_POSTFIELDS] ?? '';
 							if (!is_string($postFields)) {
-								$postFields = '';
+							$postFields = '';
 							}
 						?>
 						<input type="text" name="curl_fields" id="curl_fields" value="<?=
@@ -883,7 +881,7 @@
 					<?php
 						$httpHeaders = $this->feed->attributeArray('curl_params')[CURLOPT_HTTPHEADER] ?? [];
 						if (!is_array($httpHeaders)) {
-							$httpHeaders = [];
+						$httpHeaders = [];
 						}
 						$httpHeaders = array_filter($httpHeaders, 'is_string');
 						// Remove headers problematic for security
@@ -892,7 +890,7 @@
 					?>
 					<textarea class="w100" id="http_headers" name="http_headers" rows="3" spellcheck="false"><?php
 						foreach ($httpHeaders as $header) {
-							echo htmlspecialchars($header, ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+						echo htmlspecialchars($header, ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.http_headers_help') ?></p>

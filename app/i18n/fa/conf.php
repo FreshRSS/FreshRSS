@@ -293,7 +293,7 @@ return array(
 		'show_fav_unread_help' => ' روی برچسب ها نیز اعمال می شود',
 		'sides_close_article' => ' با کلیک کردن خارج از ناحیه متن مقاله',
 		'sort' => array(
-			'_' => 'Primary sort',	// TODO
+			'_' => 'Primary sort',	// DIRTY
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),

@@ -293,11 +293,11 @@ return array(
 		'show_fav_unread_help' => 'Ook toepassen op labels',
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
 		'sort' => array(
-			'_' => 'Primary sort',	// TODO
+			'_' => 'Primary sort',	// DIRTY
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
-			'Date' => 'date',	// TODO
+			'date' => 'Date',	// TODO
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),

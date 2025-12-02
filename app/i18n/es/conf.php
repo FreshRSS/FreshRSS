@@ -293,7 +293,7 @@ return array(
 		'show_fav_unread_help' => 'Se aplica también en las etiquetas',
 		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',
 		'sort' => array(
-			'_' => 'Primary sort',	// TODO
+			'_' => 'Primary sort',	// DIRTY
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),

@@ -293,7 +293,7 @@ return array(
 		'show_fav_unread_help' => 'Auch auf Labels anwenden',
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
 		'sort' => array(
-			'_' => 'Primary sort',	// TODO
+			'_' => 'Primary sort',	// DIRTY
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),

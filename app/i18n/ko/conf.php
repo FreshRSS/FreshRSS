@@ -293,11 +293,11 @@ return array(
 		'show_fav_unread_help' => '라벨에도 적용하기',
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
 		'sort' => array(
-			'_' => 'Primary sort',	// TODO
+			'_' => 'Primary sort',	// DIRTY
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
-			'Date' => 'date',	// TODO
+			'date' => 'Date',	// TODO
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),

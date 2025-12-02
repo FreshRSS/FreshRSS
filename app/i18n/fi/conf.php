@@ -293,7 +293,7 @@ return array(
 		'show_fav_unread_help' => 'Koskee myös merkintöjä',
 		'sides_close_article' => 'Artikkeli sulkeutuu napsauttamalla sen ulkopuolelle',
 		'sort' => array(
-			'_' => 'Primary sort',	// TODO
+			'_' => 'Primary sort',	// DIRTY
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
@@ -301,7 +301,7 @@ return array(
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),
-			'id' => 'id',	// TODO
+			'id' => 'id',	// DIRTY
 			'last_modified' => 'Last user modified',	// TODO
 			'length' => 'Length',	// TODO
 			'link' => 'Link',	// TODO

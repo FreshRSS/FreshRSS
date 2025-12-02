@@ -293,11 +293,11 @@ return array(
 		'show_fav_unread_help' => '同样适用于标签',
 		'sides_close_article' => '点击文章文本区域外关闭文章',
 		'sort' => array(
-			'_' => 'Primary sort',	// TODO
+			'_' => 'Primary sort',	// DIRTY
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
-			'Date' => 'date',	// TODO
+			'date' => 'Date',	// TODO
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),

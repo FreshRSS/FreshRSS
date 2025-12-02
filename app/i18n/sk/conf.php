@@ -293,11 +293,11 @@ return array(
 		'show_fav_unread_help' => 'Týka sa aj štítkov',
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
 		'sort' => array(
-			'_' => 'Primary sort',	// TODO
+			'_' => 'Primary sort',	// DIRTY
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
-			'Date' => 'date',	// TODO
+			'date' => 'Date',	// TODO
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),

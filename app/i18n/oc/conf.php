@@ -293,11 +293,11 @@ return array(
 		'show_fav_unread_help' => 'Aplicar tanben a las etiquetas',
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',
 		'sort' => array(
-			'_' => 'Primary sort',	// TODO
+			'_' => 'Primary sort',	// DIRTY
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
-			'Date' => 'date',	// TODO
+			'date' => 'Date',	// TODO
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),

@@ -37,51 +37,44 @@
 			</div>
 
 			<div class="form-group">
-				<label class="group-name" for="default_sort"><?= _t('sub.category.preferred_sort')?> </label>
+				<label class="group-name" for="defaultOrder"><?= _t('sub.feed.preferred_order')?> </label>
 				<div class="group-controls">
-					<select name="default_sort_option" id="default_sort_category" class="w50">
-						<option value="id|DESC" <?=
-							$this->category->get_default_sort() === 'id' && $this->category->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.id_desc') ?></option>
-						<option value= "date|DESC" <?=
-							$this->category->get_default_sort() === 'date' && $this->category->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.date_desc') ?></option>
-						<option value="lastUserModified|DESC" <?=
-							$this->category->get_default_sort() === 'lastUserModified' && $this->category->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.user_modified_desc') ?></option>
-						<option value= "length|DESC" <?=
-							$this->category->get_default_sort() === 'length' && $this->category->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.length_desc') ?></option>
-						<option value="link|DESC" <?=
-							$this->category->get_default_sort() === 'link' && $this->category->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.link_desc') ?></option>
-						<option value= "title|DESC" <?=
-							$this->category->get_default_sort() === 'title' && $this->category->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.title_desc') ?></option>
-						<option value= "f.name|DESC" <?=
-							$this->category->get_default_sort() === 'f.name' && $this->category->get_default_order() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.f.name_desc') ?></option>
-						<option value="id|ASC" <?=
-							$this->category->get_default_sort() === 'id' && $this->category->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.id_asc') ?></option>
-						<option value= "date|ASC" <?=
-							$this->category->get_default_sort() === 'date' && $this->category->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.date_asc') ?></option>
-						<option value="lastUserModified|ASC" <?=
-							$this->category->get_default_sort() === 'lastUserModified' && $this->category->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.user_modified_asc') ?></option>
-						<option value= "length|ASC" <?=
-							$this->category->get_default_sort() === 'length' && $this->category->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.length_asc') ?></option>
-						<option value="link|ASC" <?=
-							$this->category->get_default_sort() === 'link' && $this->category->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.link_asc') ?></option>
-						<option value= "title|ASC" <?=
-							$this->category->get_default_sort() === 'title' && $this->category->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.title_asc') ?></option>
-						<option value= "f.name|ASC" <?=
-							$this->category->get_default_sort() === 'f.name' && $this->category->get_default_order() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
-							_t('sub.category.preferred_sort.f.name_asc') ?></option>
+					<select name="defaultOrder" id="defaultOrderCategory" class="w50">
+						<option value="DESC" <?=
+							$this->category->defaultOrder() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort_order.newer_first') ?></option>
+						<option value= "ASC" <?=
+							$this->category->defaultOrder() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort_order.older_first') ?></option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="defaultSort"><?= _t('sub.feed.preferred_sort')?> </label>
+				<div class="group-controls">
+					<select name="defaultSort" id="defaultSortCategory" class="w50">
+						<option value="id" <?=
+							$this->category->defaultSort() === 'id' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.id') ?></option>
+						<option value= "date" <?=
+							$this->category->defaultSort() === 'date' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.date') ?></option>
+						<option value="lastUserModified" <?=
+							$this->category->defaultSort() === 'lastUserModified' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.last_modified') ?></option>
+						<option value= "length" <?=
+							$this->category->defaultSort() === 'length' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.length') ?></option>
+						<option value="link" <?=
+							$this->category->defaultSort() === 'link' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.link') ?></option>
+						<option value= "title" <?=
+							$this->category->defaultSort() === 'title' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.title') ?></option>
+						<option value= "f.name" <?=
+							$this->category->defaultSort() === 'f.name' ? 'selected="selected"' : ''  ?>><?=
+							_t('conf.reading.sort.f.name') ?></option>
 					</select>
 				</div>
 			</div>

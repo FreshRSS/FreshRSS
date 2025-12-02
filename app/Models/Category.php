@@ -155,10 +155,10 @@ class FreshRSS_Category extends Minz_Model {
 		$this->sortFeeds();
 	}
 
-	public function get_default_sort(): string {
+	public function defaultSort(): string {
 		return $this->attributeString('defaultSort') ?? FreshRSS_Context::userConf()->sort ?? 'id';
 	}
-	public function get_default_order(): string {
+	public function defaultOrder(): string {
 		return $this->attributeString('defaultOrder') ?? FreshRSS_Context::userConf()->sort_order ?? 'DESC';
 	}
 

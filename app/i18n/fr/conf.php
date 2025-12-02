@@ -293,11 +293,11 @@ return array(
 		'show_fav_unread_help' => 'S’applique aussi aux étiquettes',
 		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
 		'sort' => array(
-			'_' => 'Primary sort',	// TODO
+			'_' => 'Primary sort',	// DIRTY
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
-			'Date' => 'date',	// TODO
+			'date' => 'Date',	// TODO
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),

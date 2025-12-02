@@ -153,17 +153,16 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			} else {
 				FreshRSS_Context::userConf()->sort_order = 'DESC';
 			}
-			if (in_array(Minz_Request::paramString('secondary_sort_order'), ['ASC', 'DESC'], true)) {
-				FreshRSS_Context::userConf()->secondary_sort_order = Minz_Request::paramString('secondary_sort_order');
+			if (in_array(Minz_Request::paramString('sort'), ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'length'], true)) {
+				FreshRSS_Context::userConf()->sort = Minz_Request::paramString('sort');
 			} else {
-				FreshRSS_Context::userConf()->secondary_sort_order = 'DESC';
+				FreshRSS_Context::userConf()->sort = 'id';
 			}
 			if (in_array(Minz_Request::paramString('secondary_sort'), ['id', 'date', 'lastUserModified', 'link', 'title', 'length'], true)) {
 				FreshRSS_Context::userConf()->secondary_sort = Minz_Request::paramString('secondary_sort');
 			} else {
 				FreshRSS_Context::userConf()->secondary_sort = 'id';
 			}
-
 			FreshRSS_Context::userConf()->mark_when = [
 				'article' => Minz_Request::paramBoolean('mark_open_article'),
 				'gone' => Minz_Request::paramBoolean('read_upon_gone'),
