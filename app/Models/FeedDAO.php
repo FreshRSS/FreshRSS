@@ -487,7 +487,8 @@ SQL;
 			$whereEntryIdFeeds = 'id_feed IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
 		}
 		$sql = <<<SQL
-			WITH entry_counts AS (
+			UPDATE `_feed`
+			LEFT JOIN (
 				SELECT
 					id_feed,
 					COUNT(*) AS total_entries,
@@ -495,18 +496,9 @@ SQL;
 				FROM `_entry`
 				WHERE $whereEntryIdFeeds
 				GROUP BY id_feed
-			)
-			UPDATE `_feed`
-			SET `cache_nbEntries` = COALESCE((
-					SELECT c.total_entries
-					FROM entry_counts AS c
-					WHERE c.id_feed = `_feed`.id
-				), 0),
-				`cache_nbUnreads` = COALESCE((
-					SELECT c.unread_entries
-					FROM entry_counts AS c
-					WHERE c.id_feed = `_feed`.id
-				), 0)
+			) AS entry_counts ON entry_counts.id_feed = `_feed`.id
+			SET `cache_nbEntries` = COALESCE(entry_counts.total_entries, 0),
+				`cache_nbUnreads` = COALESCE(entry_counts.unread_entries, 0)
 			WHERE $whereFeedIds
 			SQL;
 		$stm = $this->pdo->prepare($sql);

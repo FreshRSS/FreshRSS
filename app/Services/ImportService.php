@@ -186,6 +186,15 @@ class FreshRSS_Import_Service {
 				default => FreshRSS_Feed::PRIORITY_MAIN_STREAM,
 			});
 
+			if (isset($feed_elt['frss:unicityCriteria']) && $feed_elt['frss:unicityCriteria'] !== 'id'
+				&& preg_match('/^[a-z:_-]{2,64}$/', $feed_elt['frss:unicityCriteria'])) {
+				$feed->_attribute('unicityCriteria', $feed_elt['frss:unicityCriteria']);
+			}
+
+			if (filter_var($feed_elt['frss:unicityCriteriaForced'] ?? '', FILTER_VALIDATE_BOOLEAN)) {
+				$feed->_attribute('unicityCriteriaForced', true);
+			}
+
 			if (isset($feed_elt['frss:cssFullContent'])) {
 				$feed->_pathEntries(Minz_Helper::htmlspecialchars_utf8($feed_elt['frss:cssFullContent']));
 			}

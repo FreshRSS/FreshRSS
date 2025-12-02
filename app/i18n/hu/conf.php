@@ -107,12 +107,12 @@ return array(
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Figyelmeztető sáv megjelenítése',
+			'seconds' => 'másodpercek (legalább 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Megerősítő sáv megjelenítése',
+			'seconds' => 'másodpercek (0 azt jelenti, hogy nincs megjelenítve)',
 		),
 	),
 	'privacy' => array(
@@ -152,7 +152,7 @@ return array(
 			'categories' => 'Rendezés kategória szerint',
 			'feeds' => 'Rendezés hírforrás szerint',
 			'order' => 'Rendezés dátum szerint',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => 'A megosztott RSS-ben a <i>hírforrás-címkéket</i> <i>felhasználói címkékre</i> cserélje',
 			'search' => 'Kifejezés',
 			'shareOpml' => 'Engedélyezze a megfelelő kategóriák és hírcsatornák OPML-alapú megosztását',
 			'shareRss' => 'Engedélyezze a HTML &amp; RSS megosztást',

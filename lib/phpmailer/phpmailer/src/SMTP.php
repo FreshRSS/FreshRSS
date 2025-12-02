@@ -34,8 +34,9 @@ class SMTP
      * The PHPMailer SMTP version number.
      *
      * @var string
+     * @deprecated This constant will be removed in PHPMailer 8.0. Use `PHPMailer::VERSION` instead.
      */
-    const VERSION = '7.0.0';
+    const VERSION = '7.0.1';
 
     /**
      * SMTP line break constant.
@@ -494,7 +495,9 @@ class SMTP
         //PHP 5.6.7 dropped inclusion of TLS 1.1 and 1.2 in STREAM_CRYPTO_METHOD_TLS_CLIENT
         //so add them back in manually if we can
         if (defined('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT')) {
+            // phpcs:ignore PHPCompatibility.Constants.NewConstants.stream_crypto_method_tlsv1_2_clientFound
             $crypto_method |= STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
+            // phpcs:ignore PHPCompatibility.Constants.NewConstants.stream_crypto_method_tlsv1_1_clientFound
             $crypto_method |= STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT;
         }
 
@@ -633,7 +636,13 @@ class SMTP
                 if (null === $OAuth) {
                     return false;
                 }
-                $oauth = $OAuth->getOauth64();
+                try {
+                    $oauth = $OAuth->getOauth64();
+                } catch (\Exception $e) {
+                    // We catch all exceptions and convert them to PHPMailer exceptions to be able to
+                    // handle them correctly later
+                    throw new Exception("SMTP authentication error", 0, $e);
+                }
                 /*
                  * An SMTP command line can have a maximum length of 512 bytes, including the command name,
                  * so the base64-encoded OAUTH token has a maximum length of:

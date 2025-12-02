@@ -414,6 +414,7 @@ class FreshRSS_Search implements \Stringable {
 		} else {
 			$value = trim(str_replace('+', ' ', $value));
 		}
+		// @phpstan-ignore return.type
 		return $value;
 	}
 

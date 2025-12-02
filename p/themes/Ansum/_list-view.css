@@ -17,10 +17,16 @@
 
 	&.current {
 		background: var(--white);
-		border-left-color: var(--main-first);
+		border-left: 2px solid var(--main-first);
+		transition: unset;
 
 		&:not(.active) {
 			background: var(--grey-lighter);
+		}
+
+		.flux_header {
+			background-color: unset;
+			margin-left: -2px; /* Compensate increased border-left-width */
 		}
 	}
 
@@ -52,8 +58,6 @@
 
 	&.favorite {
 		border-left-color: var(--fav-bg);
-
-		transition: all 0.15s ease-in-out;
 	}
 
 	&.favorite:not(.current) {
