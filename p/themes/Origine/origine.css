@@ -886,6 +886,25 @@ button:hover .icon,
 	background-color: var(--favorite-article-background-color-hover);
 }
 
+/* stylelint-disable-next-line no-duplicate-selectors */
+.flux.current {
+	border-left-width: 5px;
+	border-left-style: double;
+}
+
+.flux.current > .flux_header {
+	background: linear-gradient(to right, transparent 0, transparent 3px, var(--background-color-hover) 3px);
+	margin-left: -3px; /* Compensate increased border-left-width */
+}
+
+.flux.not_read.current > .flux_header, .flux.not_read.current > .flux_header:hover {
+	background: linear-gradient(to right, transparent 0, transparent 3px, var(--unread-article-background-color-hover) 3px);
+}
+
+.flux.favorite.current > .flux_header, .flux.favorite.current > .flux_header:hover {
+	background: linear-gradient(to right, transparent 0, transparent 3px, var(--favorite-article-background-color-hover) 3px);
+}
+
 .flux_header {
 	font-size: 0.9rem;
 	border-top: 1px solid var(--border-color);

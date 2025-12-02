@@ -16,7 +16,13 @@
 
 	&.current {
 		background: var(--grey-lighter);
-		border-left-color: var(--main-first);
+		border-left: 2px solid var(--main-first);
+		transition: unset;
+
+		.flux_header {
+			background-color: unset;
+			margin-left: -2px; /* Compensate increased border-left-width */
+		}
 	}
 
 	&.not_read:not(.current) {
@@ -48,8 +54,6 @@
 
 	&.favorite {
 		border-left-color: var(--fav-bg);
-
-		transition: all 0.15s ease-in-out;
 	}
 
 	&.favorite:not(.current) {
