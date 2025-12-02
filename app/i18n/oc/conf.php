@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents (of the feed)',	// DIRTY
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Articles de mostrar',
 			'active_category' => 'Activar categoria',

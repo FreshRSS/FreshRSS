@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => 'eğer aynı başlık beslemedeki en yeni <i>n</i> makalede zaten varsa',
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Gösterilecek makaleler',
 			'active_category' => 'Etkin kategori',

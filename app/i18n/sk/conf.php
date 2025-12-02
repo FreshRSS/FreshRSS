@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => 'ak rovnaký nadpis už existuje v TOP <i>n</i> najnovších článkoch (of the feed)',	// DIRTY
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Článkov na zobrazenie',
 			'active_category' => 'Aktívna kategória',

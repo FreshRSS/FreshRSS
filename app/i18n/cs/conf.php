@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => 'když shodný název již existuje v top <i>n</i> nejnovějších článcích (of the feed)',	// DIRTY
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Počet zobrazených článků',
 			'active_category' => 'Aktivní kategorie',

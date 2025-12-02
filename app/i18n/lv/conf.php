@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => 'ja identisks virsraksts jau ir jaunākajos <i>n</i> rakstos (of the feed)',	// DIRTY
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Rādāmie raksti',
 			'active_category' => 'Aktīvā kategorija',

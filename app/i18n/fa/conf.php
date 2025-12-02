@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => ' اگر عنوان یکسانی از قبل در <i>n</i> جدیدترین مقالات بالا وجود داشته باشد (از فید)',
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => ' مقالات برای نمایش',
 			'active_category' => ' دسته فعال',

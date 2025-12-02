@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => 'якщо котрась зі стількох найновіших статей стрічки має такий самий заголовок',
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Статті для показу',
 			'active_category' => 'Активна категорія',

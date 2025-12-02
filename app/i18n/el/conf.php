@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',	// TODO
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Articles to display',	// TODO
 			'active_category' => 'Active category',	// TODO
@@ -309,7 +310,7 @@ return array(
 			'title' => 'Title',	// TODO
 		),
 		'sort_order' => array(
-			'_' => 'Sort order',	// TODO
+			'_' => 'Sort order',	// DIRTY
 			'newer_first' => 'Newest first',	// TODO
 			'older_first' => 'Oldest first',	// TODO
 		),

@@ -110,6 +110,16 @@
 			</div>
 			</div>
 
+			<div class="form-group">
+				<label class="group-name" for="secondary_sort_order"><?= _t('conf.reading.secondary_sort_order') ?></label>
+				<div class="group-controls">
+					<select name="secondary_sort_order" id="secondary_sort_order">
+						<option value="DESC"<?= FreshRSS_Context::userConf()->secondary_sort_order === 'DESC' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.sort_order.newer_first') ?></option>
+						<option value="ASC"<?= FreshRSS_Context::userConf()->secondary_sort_order === 'ASC' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.sort_order.older_first') ?></option>
+					</select>
+				</div>
+			</div>
+
 			
 			<div class="form-group">
 			<label class="group-name" for="secondary_sort"><?= _t('conf.reading.secondary_sort') ?></label>

@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => '已存在 n 條相同標題文章 (of the feed)',	// DIRTY
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => '文章顯示',
 			'active_category' => '啟用的分類',

@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => 'falls der identische Titel bereits in den <i>n</i> neusten Artikel (im Feed) vorhanden ist.',
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Artikel zum Anzeigen',
 			'active_category' => 'Aktive Kategorie',

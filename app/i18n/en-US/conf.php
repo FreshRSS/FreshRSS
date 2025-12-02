@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',	// IGNORE
 		),
 		'secondary_sort' => 'Secondary sort',	// IGNORE
+		'secondary_sort_order' => 'Secondary sort order',	// IGNORE
 		'show' => array(
 			'_' => 'Articles to display',	// IGNORE
 			'active_category' => 'Active category',	// IGNORE
@@ -305,7 +306,7 @@ return array(
 			'last_modified' => 'Last user modified',	// IGNORE
 			'length' => 'Length',	// IGNORE
 			'link' => 'Link',	// IGNORE
-			'rand' => 'Random',	// TODO
+			'rand' => 'Random',	// IGNORE
 			'title' => 'Title',	// IGNORE
 		),
 		'sort_order' => array(

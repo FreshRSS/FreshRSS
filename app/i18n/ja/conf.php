@@ -279,6 +279,7 @@ return array(
 			'when_same_title_in_feed' => 'すでに同一タイトルがフィード内上位<i>n</i>件の最新記事に存在するとき',
 		),
 		'secondary_sort' => 'Secondary sort',	// TODO
+		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => '記事を表示する',
 			'active_category' => 'アクティブなカテゴリ',

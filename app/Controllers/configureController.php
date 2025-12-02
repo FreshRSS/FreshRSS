@@ -158,6 +158,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			} else {
 				FreshRSS_Context::userConf()->sort = 'id';
 			}
+			if (in_array(Minz_Request::paramString('secondary_sort_order'), ['ASC', 'DESC'], true)) {
+				FreshRSS_Context::userConf()->secondary_sort_order = Minz_Request::paramString('secondary_sort_order');
+			} else {
+				FreshRSS_Context::userConf()->secondary_sort_order = 'DESC';
+			}
 			if (in_array(Minz_Request::paramString('secondary_sort'), ['id', 'date', 'lastUserModified', 'link', 'title', 'length'], true)) {
 				FreshRSS_Context::userConf()->secondary_sort = Minz_Request::paramString('secondary_sort');
 			} else {
