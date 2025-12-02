@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'Mostra in homepage',
 		),
 		'proxy' => 'Imposta un proxy per recuperare questo feed',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Seleziona un protocollo (e.g: SOCKS5) ed inserisci l’indirizzo del proxy (es.: <kbd>127.0.0.1:1080</kbd> o <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Reimposta al default',
 		'selector_preview' => array(

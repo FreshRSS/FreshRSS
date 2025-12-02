@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'Zichtbaar in het overzicht',
 		),
 		'proxy' => 'Proxy instellen om deze feed op te halen',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Selecteer een protocol (bv. SOCKS5) en voer een proxy-adres in (b.v. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'reset_favicon' => 'Terugzetten naar standaard',
 		'selector_preview' => array(

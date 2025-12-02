@@ -217,6 +217,8 @@ return array(
 			'main_stream' => '在首页中显示',
 		),
 		'proxy' => '获取订阅源时的代理',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => '选择协议（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd> 或者 <kbd>username:password@127.0.0.1:1080</kbd>）',
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(

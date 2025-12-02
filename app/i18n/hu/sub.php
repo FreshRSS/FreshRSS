@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'Megjelenítés a Minden cikk között',
 		),
 		'proxy' => 'Állíts be egy proxy-t a hírforráshoz ',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Válassz egy protokollt (pl.: SOCKS5) és add meg a proxy címét (pl.: <kbd>127.0.0.1:1080</kbd> vagy <kbd>felhasználónév:jelszó@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Visszaállítás alapértelmezettre',
 		'selector_preview' => array(

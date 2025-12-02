@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'הצגה בזרם המרכזי',
 		),
 		'proxy' => 'Set a proxy for fetching this feed',	// TODO
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// TODO
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(

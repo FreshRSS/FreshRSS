@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'In Haupt-Feeds zeigen',
 		),
 		'proxy' => 'Verwende einen Proxy, um den Feed abzuholen',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Wähle ein Protokoll (z.B. SOCKS5) und einen Proxy mit Port (z.B. <kbd>127.0.0.1:1080</kbd> oder <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Auf Standard zurücksetzen',
 		'selector_preview' => array(

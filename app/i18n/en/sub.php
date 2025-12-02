@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'Show in main stream',
 		),
 		'proxy' => 'Set a proxy for fetching this feed',
+		'preferred_order'=> "Preferred order",
+		'preferred_sort'=> "Preferred sort",
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Reset to default',
 		'selector_preview' => array(

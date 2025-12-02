@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'Показывать в основном потоке',
 		),
 		'proxy' => 'Указать прокси для извлечения этой ленты',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> или <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Сбросить на значение по умолчанию',
 		'selector_preview' => array(

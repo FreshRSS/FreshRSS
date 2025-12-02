@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'Ana akışta göster',
 		),
 		'proxy' => 'Bu beslemeyi almak için bir proxy ayarlayın',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Bir protokol seçin (örneğin: SOCKS5) ve proxy adresini girin (örneğin: <kbd>127.0.0.1:1080</kbd> veya <kbd>kullanıcıadı:parola@127.0.0.1:1080</kbd>).',
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(

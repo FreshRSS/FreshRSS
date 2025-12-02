@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'Mostar al flux màger',
 		),
 		'proxy' => 'Definir un servidor proxy per trapar aqueste flux',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Seleccionatz un protocòl (ex : SOCKS5) e picatz l’adreça del proxy (ex : <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(

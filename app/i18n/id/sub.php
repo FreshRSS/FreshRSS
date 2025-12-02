@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'Tampilkan di bagian utama',
 		),
 		'proxy' => 'Atur proksi untuk mengambil umpan ini',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Pilih protokol (contoh: SOCKS5) dan masukkan alamat proksi (contoh: <kbd>127.0.0.1:1080</kbd> atau <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Atur ulang ke yang baku',
 		'selector_preview' => array(

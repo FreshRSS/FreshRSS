@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'Afficher dans les flux principaux',
 		),
 		'proxy' => 'Utiliser un proxy pour télécharger ce flux',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Sélectionner un protocole (ex : SOCKS5) et entrer l’adresse du proxy (ex. : <kbd>127.0.0.1:1080</kbd> ou <kbd>utilisateur:mot-de-passe@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Réinitialiser',
 		'selector_preview' => array(

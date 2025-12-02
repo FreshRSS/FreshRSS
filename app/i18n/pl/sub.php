@@ -217,6 +217,8 @@ return array(
 			'main_stream' => 'Pokaż w kanale głównym',
 		),
 		'proxy' => 'Serwer proxy używany podczas pobierania kanału',
+		'preferred_order'=> "Preferred order", // TODO
+		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Wybierz protokół (np. SOCKS5) i podaj adres serwera proxy (np. <kbd>127.0.0.1:1080</kbd> lub <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Przywróć domyślną',
 		'selector_preview' => array(
