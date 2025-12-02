@@ -208,7 +208,7 @@ return array(
 		'number_entries' => '%d Artikel',
 		'open_feed' => 'Feed %s öffnen',
 		'path_entries_conditions' => 'Bedingungen für den Inhaltsabruf',
-		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_order' => 'Preferred sort order',	// TODO
 		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Sichtbarkeit',

@@ -208,7 +208,7 @@ return array(
 		'number_entries' => '%d articles',
 		'open_feed' => 'Open feed %s',
 		'path_entries_conditions' => 'Conditions for content retrieval',
-		'preferred_order' => 'Preferred order',
+		'preferred_order' => 'Preferred sort order',
 		'preferred_sort' => 'Preferred sort',
 		'priority' => array(
 			'_' => 'Visibility',

@@ -208,7 +208,7 @@ return array(
 		'number_entries' => 'Статей: %d',
 		'open_feed' => 'Відкрити стрічку %s',
 		'path_entries_conditions' => 'Умови завантаження тексту',
-		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_order' => 'Preferred sort order',	// TODO
 		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Видимість',

@@ -208,7 +208,7 @@ return array(
 		'number_entries' => '%d 記事数',
 		'open_feed' => 'フィードを開く %s',
 		'path_entries_conditions' => 'コンテンツを取得する条件',
-		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_order' => 'Preferred sort order',	// TODO
 		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => '表示する場所',

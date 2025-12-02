@@ -208,7 +208,7 @@ return array(
 		'number_entries' => '%d статей',
 		'open_feed' => 'Открыть ленту %s',
 		'path_entries_conditions' => 'Условия для получения содержимого',
-		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_order' => 'Preferred sort order',	// TODO
 		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Видимость',

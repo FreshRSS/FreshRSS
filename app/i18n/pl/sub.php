@@ -208,7 +208,7 @@ return array(
 		'number_entries' => '%d wiadomości',
 		'open_feed' => 'Otwórz kanał %s',
 		'path_entries_conditions' => 'Warunki dla pobrania zawartości',
-		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_order' => 'Preferred sort order',	// TODO
 		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Widoczność',

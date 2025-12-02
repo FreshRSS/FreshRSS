@@ -208,7 +208,7 @@ return array(
 		'number_entries' => '%d artikkelia',
 		'open_feed' => 'Avaa syöte %s',
 		'path_entries_conditions' => 'Sisällön noutamisen ehdot',
-		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_order' => 'Preferred sort order',	// TODO
 		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Näkyvyys',
