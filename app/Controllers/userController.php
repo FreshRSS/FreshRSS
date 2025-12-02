@@ -331,7 +331,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$fast = false;
 		$startTime = time();
 		foreach (self::listUsers() as $user) {
-			if (!$fast && (time() - $startTime >= 3)) {
+			if (!$fast && (time() - $startTime >= 2)) {
 				// Disable detailed user statistics if it takes too long, and will retrieve them asynchronously via JavaScript
 				$fast = true;
 			}

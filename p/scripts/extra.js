@@ -524,6 +524,27 @@ function init_details_attributes() {
 	});
 }
 
+function init_user_stats() {
+	const rows = document.querySelectorAll('tr[data-need-ajax]');
+	rows.forEach(async row => {
+		row.removeAttribute('data-need-ajax');
+		const username = row.querySelector('.username').textContent.trim();
+		const url = '?c=user&a=details&username=' + encodeURIComponent(username) + '&ajax=1';
+
+		try {
+			const response = await fetch(url);
+			const html = await response.text();
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(html, 'text/html');
+			row.querySelector('.feed-count').innerHTML = doc.querySelector('.feed_count').innerHTML;
+			row.querySelector('.article-count').innerHTML = doc.querySelector('.article_count').innerHTML;
+			row.querySelector('.database-size').innerHTML = doc.querySelector('.database_size').innerHTML;
+		} catch (err) {
+			console.error('Error fetching user stats', err);
+		}
+	});
+}
+
 function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
@@ -544,6 +565,7 @@ function init_extra_afterDOM() {
 		init_2stateButton();
 		init_update_feed();
 		init_details_attributes();
+		init_user_stats();
 
 		data_auto_leave_validation(document.body);
 
