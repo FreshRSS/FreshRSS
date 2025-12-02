@@ -291,11 +291,28 @@ return array(
 		),
 		'show_fav_unread_help' => 'A címkékre is vonatkozik',
 		'sides_close_article' => 'A cikk szövegrészén kívüli kattintás bezárja a cikket',
-		'sort' => array(
+		'sort_order' => array(
 			'_' => 'Rendezési sorrend',
 			'newer_first' => 'Újabb elöl',
 			'older_first' => 'Régebbi elöl',
 		),
+		'sort' => array(
+			'_' => 'Sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+			'rand' => 'random',
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+		),
+		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Cikk megjelölése kedvencnek…',
 		),

@@ -291,11 +291,28 @@ return array(
 		),
 		'show_fav_unread_help' => 'Ook toepassen op labels',
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
-		'sort' => array(
+		'sort_order' => array(
 			'_' => 'Sorteer volgorde',
 			'newer_first' => 'Nieuwste eerst',
 			'older_first' => 'Oudste eerst',
 		),
+		'sort' => array(
+			'_' => 'Sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+			'rand' => 'random',
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+		),
+		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Markeer een artikel als favoriet…',
 		),

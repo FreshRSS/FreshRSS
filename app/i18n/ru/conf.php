@@ -291,11 +291,28 @@ return array(
 		),
 		'show_fav_unread_help' => 'Также относится к меткам',
 		'sides_close_article' => 'Нажатия мышью за пределами текста статьи закрывают статью',
-		'sort' => array(
+		'sort_order' => array(
 			'_' => 'Порядок сортировки',
 			'newer_first' => 'Сначала новые',
 			'older_first' => 'Сначала старые',
 		),
+		'sort' => array(
+			'_' => 'Default sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+			'rand' => 'random',
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+		),
+		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Отмечать статью избранной…',
 		),

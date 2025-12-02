@@ -291,11 +291,28 @@ return array(
 		),
 		'show_fav_unread_help' => 'Aplicar também nas tags',
 		'sides_close_article' => 'Clicando fora da área do texto do artigo fecha o mesmo',
-		'sort' => array(
+		'sort_order' => array(
 			'_' => 'Ordem de visualização',
 			'newer_first' => 'Novos primeiro',
 			'older_first' => 'Antigos primeiro',
 		),
+		'sort' => array(
+			'_' => 'Default sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+			'rand' => 'random',
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+		),
+		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),

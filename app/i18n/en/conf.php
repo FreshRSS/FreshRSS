@@ -291,11 +291,28 @@ return array(
 		),
 		'show_fav_unread_help' => 'Applies also on labels',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
-		'sort' => array(
+		'sort_order' => array(
 			'_' => 'Sort order',
 			'newer_first' => 'Newest first',
 			'older_first' => 'Oldest first',
 		),
+		'sort' => array(
+			'_' => 'Sort',
+			'date' => 'date',
+			'id' => 'id',
+			'last_modified' => 'last user modified',
+			'length' => 'length',
+			'link' => 'link',
+			'title' => 'title',
+			'rand' => 'random',
+			'c' => array(
+				'name' => 'Category title',
+			),
+			'f' => array(
+				'name' => 'Feed title',
+			),
+		),
+		'secondary_sort' => 'Secondary Sort',	
 		'star' => array(
 			'when' => 'Mark an article as favourite…',
 		),

@@ -291,11 +291,28 @@ return array(
 		),
 		'show_fav_unread_help' => 'Auch auf Labels anwenden',
 		'sides_close_article' => 'Klick außerhalb des Artikel-Textes schließt den Artikel',
-		'sort' => array(
+		'sort_order' => array(
 			'_' => 'Sortierreihenfolge',
 			'newer_first' => 'Neuere zuerst',
 			'older_first' => 'Ältere zuerst',
 		),
+		'sort' => array(
+			'_' => 'Sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+			'rand' => 'random',
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+		),
+		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Markiere einen Artikel als Favoriten…',
 		),

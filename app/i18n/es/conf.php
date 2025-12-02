@@ -291,11 +291,28 @@ return array(
 		),
 		'show_fav_unread_help' => 'Se aplica también en las etiquetas',
 		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',
-		'sort' => array(
+		'sort_order' => array(
 			'_' => 'Orden',
 			'newer_first' => 'Nuevos primero',
 			'older_first' => 'Antiguos primero',
 		),
+		'sort' => array(
+			'_' => 'Sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+			'rand' => 'random',
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+		),
+		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Marca un árticulo como favorito…',
 		),

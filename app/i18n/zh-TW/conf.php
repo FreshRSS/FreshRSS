@@ -291,11 +291,28 @@ return array(
 		),
 		'show_fav_unread_help' => '同樣適用於標籤',
 		'sides_close_article' => '點擊文章區域外以關閉',
-		'sort' => array(
+		'sort_order' => array(
 			'_' => '排列順序',
 			'newer_first' => '由新至舊',
 			'older_first' => '由舊至新',
 		),
+		'sort' => array(
+			'_' => 'Default sort',	// TODO
+			'date' => 'date',	// TODO
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'title' => 'title',	// TODO
+			'rand' => 'random',
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+		),
+		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => '標記一篇文章為最愛…',
 		),
