@@ -208,6 +208,8 @@ return array(
 		'number_entries' => '%d článků',
 		'open_feed' => 'Open feed %s',	// TODO
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Viditelnost',
 			'category' => 'Zobrazit v jeho kategorii',
@@ -216,8 +218,6 @@ return array(
 			'important' => 'Zobrazit v důležitých kanálech',
 			'main_stream' => 'Zobrazit ve hlavním kanálu',
 		),
-		'preferred_order'=> "Preferred order", // TODO
-		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy' => 'Nastavete proxy pro načítání tohoto kanálu',
 		'proxy_help' => 'Vyberte protokol (např.: SOCKS5) a zadejte adresu proxy (např.: <kbd>127.0.0.1:1080</kbd> nebo <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Reset to default',	// TODO

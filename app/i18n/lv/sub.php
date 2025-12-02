@@ -208,6 +208,8 @@ return array(
 		'number_entries' => '%d raksti',
 		'open_feed' => 'Open feed %s',	// TODO
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Prioritāte',
 			'category' => 'Rādīt kategorijā',
@@ -217,8 +219,6 @@ return array(
 			'main_stream' => 'Rādīt galvenajā plūsmā',
 		),
 		'proxy' => 'Iestatīt starpniekserveri šīs plūsmas iegūšanai',
-		'preferred_order'=> "Preferred order", // TODO
-		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Izvēlieties protokolu (piemēram, SOCKS5) un ievadiet starpniekservera adresi (piemēram, <kbd>127.0.0.0.1:1080</kbd>).',
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(

@@ -208,6 +208,8 @@ return array(
 		'number_entries' => 'Статей: %d',
 		'open_feed' => 'Відкрити стрічку %s',
 		'path_entries_conditions' => 'Умови завантаження тексту',
+		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Видимість',
 			'category' => 'Показати в категорії',
@@ -217,8 +219,6 @@ return array(
 			'main_stream' => 'Показати в головному потоці',
 		),
 		'proxy' => 'Налаштувати проксі для завантаження стрічки',
-		'preferred_order'=> "Preferred order", // TODO
-		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Оберіть протокол (наприклад, SOCKS5) і введіть адресу проксі (наприклад, <kbd>127.0.0.1:1080</kbd> чи <kbd>логін:пароль@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Відновити типову',
 		'selector_preview' => array(

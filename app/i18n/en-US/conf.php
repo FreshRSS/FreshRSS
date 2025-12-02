@@ -278,6 +278,7 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// IGNORE
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',	// IGNORE
 		),
+		'secondary_sort' => 'Secondary Sort',	// IGNORE
 		'show' => array(
 			'_' => 'Articles to display',	// IGNORE
 			'active_category' => 'Active category',	// IGNORE
@@ -291,28 +292,27 @@ return array(
 		),
 		'show_fav_unread_help' => 'Applies also on labels',	// IGNORE
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// IGNORE
+		'sort' => array(
+			'_' => 'Sort',	// IGNORE
+			'c' => array(
+				'name' => 'Category title',	// IGNORE
+			),
+			'date' => 'date',	// IGNORE
+			'f' => array(
+				'name' => 'Feed title',	// IGNORE
+			),
+			'id' => 'id',	// IGNORE
+			'last_modified' => 'last user modified',	// IGNORE
+			'length' => 'length',	// IGNORE
+			'link' => 'link',	// IGNORE
+			'rand' => 'random',	// TODO
+			'title' => 'title',	// IGNORE
+		),
 		'sort_order' => array(
 			'_' => 'Sort order',	// IGNORE
 			'newer_first' => 'Newest first',	// IGNORE
 			'older_first' => 'Oldest first',	// IGNORE
 		),
-		'sort' => array(
-			'_' => 'Sort',	// IGNORE
-			'date' => 'date',	// IGNORE
-			'id' => 'id',	// IGNORE
-			'last_modified' => 'last user modified',	// IGNORE
-			'length' => 'length',	// IGNORE
-			'link' => 'link',	// IGNORE
-			'title' => 'title',	// IGNORE
-			'rand' => 'random',
-			'c' => array(
-				'name' => 'Category title',	// IGNORE
-			),
-			'f' => array(
-				'name' => 'Feed title',	// IGNORE
-			),
-		),
-		'secondary_sort' => 'Secondary Sort',	// IGNORE	
 		'star' => array(
 			'when' => 'Mark an article as favorite…',
 		),

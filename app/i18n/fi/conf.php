@@ -278,6 +278,7 @@ return array(
 			'when_same_title_in_category' => 'jos jollakin luokan <i>n</i> uusimmalla artikkelilla on sama otsikko',
 			'when_same_title_in_feed' => 'jos jollakin syötteen <i>n</i> uusimmalla artikkelilla on sama otsikko',
 		),
+		'secondary_sort' => 'Secondary Sort',	// TODO
 		'show' => array(
 			'_' => 'Näytettävät artikkelit',
 			'active_category' => 'Käytössä oleva luokka',
@@ -291,28 +292,27 @@ return array(
 		),
 		'show_fav_unread_help' => 'Koskee myös merkintöjä',
 		'sides_close_article' => 'Artikkeli sulkeutuu napsauttamalla sen ulkopuolelle',
+		'sort' => array(
+			'_' => 'Sort',	// TODO
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'date' => 'date',	// TODO
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'rand' => 'random',	// TODO
+			'title' => 'title',	// TODO
+		),
 		'sort_order' => array(
 			'_' => 'Lajittelujärjestys',
 			'newer_first' => 'Uusimmat ensin',
 			'older_first' => 'Vanhimmat ensin',
 		),
-		'sort' => array(
-			'_' => 'Sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-			'rand' => 'random',
-			'c' => array(
-				'name' => 'Category title',	// TODO
-			),
-			'f' => array(
-				'name' => 'Feed title',	// TODO
-			),
-		),
-		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Merkitse artikkeli suosikiksi…',
 		),

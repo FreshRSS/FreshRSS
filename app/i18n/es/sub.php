@@ -208,6 +208,8 @@ return array(
 		'number_entries' => '%d artículos',
 		'open_feed' => 'Fuente abierta %s',
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Visibilidad',
 			'category' => 'Mostrar en su categoría',
@@ -217,8 +219,6 @@ return array(
 			'main_stream' => 'Mostrar en salida principal',
 		),
 		'proxy' => 'Establecer un proxy para obtener esta fuente',
-		'preferred_order'=> "Preferred order", // TODO
-		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Seleccione un protocolo (e.g: SOCKS5) e introduzca la dirección del proxy (e.g: <kbd>127.0.0.1:1080</kbd> o <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(

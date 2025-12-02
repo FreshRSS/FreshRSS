@@ -278,6 +278,7 @@ return array(
 			'when_same_title_in_category' => 'якщо котрась зі стількох найновіших статей категорії має такий самий заголовок',
 			'when_same_title_in_feed' => 'якщо котрась зі стількох найновіших статей стрічки має такий самий заголовок',
 		),
+		'secondary_sort' => 'Secondary Sort',	// TODO
 		'show' => array(
 			'_' => 'Статті для показу',
 			'active_category' => 'Активна категорія',
@@ -291,28 +292,27 @@ return array(
 		),
 		'show_fav_unread_help' => 'Впливає також на мітки',
 		'sides_close_article' => 'Натиск за межами тексту статті закриває статтю',
+		'sort' => array(
+			'_' => 'Default sort',	// DIRTY
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'date' => 'date',	// TODO
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'rand' => 'random',	// TODO
+			'title' => 'title',	// TODO
+		),
 		'sort_order' => array(
 			'_' => 'Порядок',
 			'newer_first' => 'Спершу новіші',
 			'older_first' => 'Спершу старіші',
 		),
-		'sort' => array(
-			'_' => 'Default sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-			'rand' => 'random',
-			'c' => array(
-				'name' => 'Category title',	// TODO
-			),
-			'f' => array(
-				'name' => 'Feed title',	// TODO
-			),
-		),
-		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Вподобати статтю…',
 		),

@@ -278,6 +278,7 @@ return array(
 			'when_same_title_in_category' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach kategorii',
 			'when_same_title_in_feed' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach (kanału RSS)',
 		),
+		'secondary_sort' => 'Secondary Sort',	// TODO
 		'show' => array(
 			'_' => 'Wiadomości do wyświetlenia',
 			'active_category' => 'Aktualna',
@@ -291,28 +292,27 @@ return array(
 		),
 		'show_fav_unread_help' => 'Stosuje się również do etykiet',
 		'sides_close_article' => 'Kliknięcie poza zawartością wiadomości zamyka widok wiadomości',
+		'sort' => array(
+			'_' => 'Default sort',	// DIRTY
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'date' => 'date',	// TODO
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'rand' => 'random',	// TODO
+			'title' => 'title',	// TODO
+		),
 		'sort_order' => array(
 			'_' => 'Porządek sortowania',
 			'newer_first' => 'Najpierw najnowsze',
 			'older_first' => 'Najpierw najstarsze',
 		),
-		'sort' => array(
-			'_' => 'Default sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-			'rand' => 'random',
-			'c' => array(
-				'name' => 'Category title',	// TODO
-			),
-			'f' => array(
-				'name' => 'Feed title',	// TODO
-			),
-		),
-		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Oznacz artykuł jako ulubiony…',
 		),

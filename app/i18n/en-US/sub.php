@@ -208,6 +208,8 @@ return array(
 		'number_entries' => '%d articles',	// IGNORE
 		'open_feed' => 'Open feed %s',	// IGNORE
 		'path_entries_conditions' => 'Conditions for content retrieval',	// IGNORE
+		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Visibility',	// IGNORE
 			'category' => 'Show in its category',	// IGNORE
@@ -217,8 +219,6 @@ return array(
 			'main_stream' => 'Show in main stream',	// IGNORE
 		),
 		'proxy' => 'Set a proxy for fetching this feed',	// IGNORE
-		'preferred_order'=> "Preferred order", // IGNORE
-		'preferred_sort'=> "Preferred sort", // IGNORE
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// IGNORE
 		'reset_favicon' => 'Reset to default',	// IGNORE
 		'selector_preview' => array(

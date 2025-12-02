@@ -208,6 +208,8 @@ return array(
 		'number_entries' => '%d artikkelia',
 		'open_feed' => 'Avaa syöte %s',
 		'path_entries_conditions' => 'Sisällön noutamisen ehdot',
+		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Näkyvyys',
 			'category' => 'Näytä luokassaan',
@@ -217,8 +219,6 @@ return array(
 			'main_stream' => 'Näytä pääsyötevirrassa',
 		),
 		'proxy' => 'Nouda syöte käyttämällä välityspalvelinta',
-		'preferred_order'=> "Preferred order", // TODO
-		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Valitse protokolla (esimerkki: SOCKS5) ja kirjoita välityspalvelimen osoite (esimerkki: <kbd>127.0.0.1:1080</kbd> tai <kbd>käyttäjätunnus:salasana@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Palauta oletuskuvakkeeksi',
 		'selector_preview' => array(

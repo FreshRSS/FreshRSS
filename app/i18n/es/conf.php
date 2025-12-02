@@ -278,6 +278,7 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes (of the feed)',	// DIRTY
 		),
+		'secondary_sort' => 'Secondary Sort',	// TODO
 		'show' => array(
 			'_' => 'Artículos a mostrar',
 			'active_category' => 'Categoría activa',
@@ -291,28 +292,27 @@ return array(
 		),
 		'show_fav_unread_help' => 'Se aplica también en las etiquetas',
 		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',
+		'sort' => array(
+			'_' => 'Sort',	// TODO
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'date' => 'date',	// TODO
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'rand' => 'random',	// TODO
+			'title' => 'title',	// TODO
+		),
 		'sort_order' => array(
 			'_' => 'Orden',
 			'newer_first' => 'Nuevos primero',
 			'older_first' => 'Antiguos primero',
 		),
-		'sort' => array(
-			'_' => 'Sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-			'rand' => 'random',
-			'c' => array(
-				'name' => 'Category title',	// TODO
-			),
-			'f' => array(
-				'name' => 'Feed title',	// TODO
-			),
-		),
-		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Marca un árticulo como favorito…',
 		),

@@ -278,6 +278,7 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => '已存在 n 条相同标题文章 (of the feed)',	// DIRTY
 		),
+		'secondary_sort' => 'Secondary Sort',	// TODO
 		'show' => array(
 			'_' => '文章显示',
 			'active_category' => '活跃的分类',
@@ -291,28 +292,27 @@ return array(
 		),
 		'show_fav_unread_help' => '同样适用于标签',
 		'sides_close_article' => '点击文章文本区域外关闭文章',
+		'sort' => array(
+			'_' => 'Default sort',	// DIRTY
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'date' => 'date',	// TODO
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'rand' => 'random',	// TODO
+			'title' => 'title',	// TODO
+		),
 		'sort_order' => array(
 			'_' => '排列顺序',
 			'newer_first' => '由新至旧',
 			'older_first' => '由旧至新',
 		),
-		'sort' => array(
-			'_' => 'Default sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-			'rand' => 'random',
-			'c' => array(
-				'name' => 'Category title',	// TODO
-			),
-			'f' => array(
-				'name' => 'Feed title',	// TODO
-			),
-		),
-		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),

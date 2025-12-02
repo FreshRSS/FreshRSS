@@ -278,6 +278,7 @@ return array(
 			'when_same_title_in_category' => 'ha már létezik azonos cím a <i>n</i> kategória legfrissebb cikkeiben',
 			'when_same_title_in_feed' => 'ha egy azonos című cikk már létezik a legújabb <i>n</i> számú cikk között (a hírforrásban)',
 		),
+		'secondary_sort' => 'Secondary Sort',	// TODO
 		'show' => array(
 			'_' => 'Megjelenített cikkek',
 			'active_category' => 'Aktív kategória',
@@ -291,28 +292,27 @@ return array(
 		),
 		'show_fav_unread_help' => 'A címkékre is vonatkozik',
 		'sides_close_article' => 'A cikk szövegrészén kívüli kattintás bezárja a cikket',
+		'sort' => array(
+			'_' => 'Sort',	// TODO
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'date' => 'date',	// TODO
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'rand' => 'random',	// TODO
+			'title' => 'title',	// TODO
+		),
 		'sort_order' => array(
 			'_' => 'Rendezési sorrend',
 			'newer_first' => 'Újabb elöl',
 			'older_first' => 'Régebbi elöl',
 		),
-		'sort' => array(
-			'_' => 'Sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-			'rand' => 'random',
-			'c' => array(
-				'name' => 'Category title',	// TODO
-			),
-			'f' => array(
-				'name' => 'Feed title',	// TODO
-			),
-		),
-		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'Cikk megjelölése kedvencnek…',
 		),

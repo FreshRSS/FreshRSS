@@ -208,6 +208,8 @@ return array(
 		'number_entries' => ' %d مقاله',
 		'open_feed' => 'باز کردن فید %s',
 		'path_entries_conditions' => 'شرایط بازیابی محتوا',
+		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => ' دید',
 			'category' => ' نمایش در دسته بندی خود',
@@ -217,8 +219,6 @@ return array(
 			'main_stream' => ' نمایش در جریان اصلی',
 		),
 		'proxy' => ' یک پروکسی برای واکشی این فید تنظیم کنید',
-		'preferred_order'=> "Preferred order", // TODO
-		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => ' یک پروتکل (به عنوان مثال: SOCKS5) انتخاب کنید و آدرس پراکسی را وارد کنید (به عنوان مثال: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'تنظیم مجدد به حالت پیش‌فرض',
 		'selector_preview' => array(

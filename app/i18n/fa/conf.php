@@ -278,6 +278,7 @@ return array(
 			'when_same_title_in_category' => 'اگر عنوان مشابهی در بخش بالا وجود دارد <i>n</i> تازه‌ترین مقالات این دسته',
 			'when_same_title_in_feed' => ' اگر عنوان یکسانی از قبل در <i>n</i> جدیدترین مقالات بالا وجود داشته باشد (از فید)',
 		),
+		'secondary_sort' => 'Secondary Sort',	// TODO
 		'show' => array(
 			'_' => ' مقالات برای نمایش',
 			'active_category' => ' دسته فعال',
@@ -291,28 +292,27 @@ return array(
 		),
 		'show_fav_unread_help' => ' روی برچسب ها نیز اعمال می شود',
 		'sides_close_article' => ' با کلیک کردن خارج از ناحیه متن مقاله',
+		'sort' => array(
+			'_' => 'Sort',	// TODO
+			'c' => array(
+				'name' => 'Category title',	// TODO
+			),
+			'date' => 'date',	// TODO
+			'f' => array(
+				'name' => 'Feed title',	// TODO
+			),
+			'id' => 'id',	// TODO
+			'last_modified' => 'last user modified',	// TODO
+			'length' => 'length',	// TODO
+			'link' => 'link',	// TODO
+			'rand' => 'random',	// TODO
+			'title' => 'title',	// TODO
+		),
 		'sort_order' => array(
 			'_' => ' ترتیب مرتب سازی',
 			'newer_first' => ' ابتدا جدیدترین',
 			'older_first' => ' اول قدیمی ترین',
 		),
-		'sort' => array(
-			'_' => 'Sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-			'rand' => 'random',
-			'c' => array(
-				'name' => 'Category title',	// TODO
-			),
-			'f' => array(
-				'name' => 'Feed title',	// TODO
-			),
-		),
-		'secondary_sort' => 'Secondary Sort',	// TODO	
 		'star' => array(
 			'when' => 'یک مطلب را به عنوان مورد علاقه علامت‌گذاری کن...',
 		),

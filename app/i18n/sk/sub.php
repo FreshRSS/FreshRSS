@@ -208,6 +208,8 @@ return array(
 		'number_entries' => 'Počet článkov: %d',
 		'open_feed' => 'Open feed %s',	// TODO
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Viditeľnosť',
 			'category' => 'Zobraziť vo svojej kategórii',
@@ -217,8 +219,6 @@ return array(
 			'main_stream' => 'Zobraziť v prehľade kanálov',
 		),
 		'proxy' => 'Na sťahovanie tohto kanálu nastaviť proxy',
-		'preferred_order'=> "Preferred order", // TODO
-		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'Vyberte protokol (napr.: SOCKS5) a zadajte adresu proxy servera (napr.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(

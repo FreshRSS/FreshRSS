@@ -208,6 +208,8 @@ return array(
 		'number_entries' => '%d 記事数',
 		'open_feed' => 'フィードを開く %s',
 		'path_entries_conditions' => 'コンテンツを取得する条件',
+		'preferred_order' => 'Preferred order',	// TODO
+		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => '表示する場所',
 			'category' => 'カテゴリで表示する',
@@ -217,8 +219,6 @@ return array(
 			'main_stream' => 'メインストリームで表示する',
 		),
 		'proxy' => 'フィードを取得するときのプロキシ',
-		'preferred_order'=> "Preferred order", // TODO
-		'preferred_sort'=> "Preferred sort", // TODO
 		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) プロキシアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd> や <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(

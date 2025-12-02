@@ -278,6 +278,7 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',
 		),
+		'secondary_sort' => 'Secondary Sort',
 		'show' => array(
 			'_' => 'Articles to display',
 			'active_category' => 'Active category',
@@ -291,28 +292,27 @@ return array(
 		),
 		'show_fav_unread_help' => 'Applies also on labels',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
+		'sort' => array(
+			'_' => 'Sort',
+			'c' => array(
+				'name' => 'Category title',
+			),
+			'date' => 'date',
+			'f' => array(
+				'name' => 'Feed title',
+			),
+			'id' => 'id',
+			'last_modified' => 'last user modified',
+			'length' => 'length',
+			'link' => 'link',
+			'rand' => 'random',
+			'title' => 'title',
+		),
 		'sort_order' => array(
 			'_' => 'Sort order',
 			'newer_first' => 'Newest first',
 			'older_first' => 'Oldest first',
 		),
-		'sort' => array(
-			'_' => 'Sort',
-			'date' => 'date',
-			'id' => 'id',
-			'last_modified' => 'last user modified',
-			'length' => 'length',
-			'link' => 'link',
-			'title' => 'title',
-			'rand' => 'random',
-			'c' => array(
-				'name' => 'Category title',
-			),
-			'f' => array(
-				'name' => 'Feed title',
-			),
-		),
-		'secondary_sort' => 'Secondary Sort',	
 		'star' => array(
 			'when' => 'Mark an article as favourite…',
 		),
