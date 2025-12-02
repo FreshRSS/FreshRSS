@@ -13,7 +13,7 @@ jobs:
     if: github.repository_owner == 'FreshRSS'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
 
     - name: Update repo description
       uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa
