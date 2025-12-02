@@ -298,21 +298,21 @@
         },
         {
             "name": "phpstan/phpstan-phpunit",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-phpunit.git",
-                "reference": "9a9b161baee88a5f5c58d816943cff354ff233dc"
+                "reference": "2fe9fbeceaf76dd1ebaa7bbbb25e2fb5e59db2fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/9a9b161baee88a5f5c58d816943cff354ff233dc",
-                "reference": "9a9b161baee88a5f5c58d816943cff354ff233dc",
+                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/2fe9fbeceaf76dd1ebaa7bbbb25e2fb5e59db2fe",
+                "reference": "2fe9fbeceaf76dd1ebaa7bbbb25e2fb5e59db2fe",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
-                "phpstan/phpstan": "^2.1.18"
+                "phpstan/phpstan": "^2.1.32"
             },
             "conflict": {
                 "phpunit/phpunit": "<7.0"
@@ -345,9 +345,9 @@
             "description": "PHPUnit extensions and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-phpunit/issues",
-                "source": "https://github.com/phpstan/phpstan-phpunit/tree/2.0.7"
+                "source": "https://github.com/phpstan/phpstan-phpunit/tree/2.0.8"
             },
-            "time": "2025-07-13T11:31:46+00:00"
+            "time": "2025-11-11T07:55:22+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
