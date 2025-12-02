@@ -278,20 +278,6 @@ return array(
 			'when_same_title_in_category' => 'اگر عنوان مشابهی در بخش بالا وجود دارد <i>n</i> تازه‌ترین مقالات این دسته',
 			'when_same_title_in_feed' => ' اگر عنوان یکسانی از قبل در <i>n</i> جدیدترین مقالات بالا وجود داشته باشد (از فید)',
 		),
-		'secondary_sort' => array(
-			'_' => 'Secondary Sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-		),
-		'secondary_sort_order' => array(
-			'_' => 'Secondary Sort Order',	// TODO
-			'asc' => 'ASC',	// TODO
-			'desc' => 'DESC',	// TODO
-		),
 		'show' => array(
 			'_' => ' مقالات برای نمایش',
 			'active_category' => ' دسته فعال',

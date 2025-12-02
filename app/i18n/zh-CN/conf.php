@@ -278,20 +278,6 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => '已存在 n 条相同标题文章 (of the feed)',	// DIRTY
 		),
-		'secondary_sort' => array(
-			'_' => 'Secondary Sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-		),
-		'secondary_sort_order' => array(
-			'_' => 'Secondary Sort Order',	// TODO
-			'asc' => 'ASC',	// TODO
-			'desc' => 'DESC',	// TODO
-		),
 		'show' => array(
 			'_' => '文章显示',
 			'active_category' => '活跃的分类',

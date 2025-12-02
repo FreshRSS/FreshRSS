@@ -278,20 +278,6 @@ return array(
 			'when_same_title_in_category' => 'ha már létezik azonos cím a <i>n</i> kategória legfrissebb cikkeiben',
 			'when_same_title_in_feed' => 'ha egy azonos című cikk már létezik a legújabb <i>n</i> számú cikk között (a hírforrásban)',
 		),
-		'secondary_sort' => array(
-			'_' => 'Secondary Sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-		),
-		'secondary_sort_order' => array(
-			'_' => 'Secondary Sort Order',	// TODO
-			'asc' => 'ASC',	// TODO
-			'desc' => 'DESC',	// TODO
-		),
 		'show' => array(
 			'_' => 'Megjelenített cikkek',
 			'active_category' => 'Aktív kategória',

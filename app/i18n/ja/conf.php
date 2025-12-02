@@ -278,20 +278,6 @@ return array(
 			'when_same_title_in_category' => 'すでに同一タイトルがカテゴリ内上位<i>n</i>件の最新記事に存在するとき',
 			'when_same_title_in_feed' => 'すでに同一タイトルがフィード内上位<i>n</i>件の最新記事に存在するとき',
 		),
-		'secondary_sort' => array(
-			'_' => 'Secondary Sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-		),
-		'secondary_sort_order' => array(
-			'_' => 'Secondary Sort Order',	// TODO
-			'asc' => 'ASC',	// TODO
-			'desc' => 'DESC',	// TODO
-		),
 		'show' => array(
 			'_' => '記事を表示する',
 			'active_category' => 'アクティブなカテゴリ',

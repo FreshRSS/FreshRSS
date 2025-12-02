@@ -278,20 +278,6 @@ return array(
 			'when_same_title_in_category' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dalam kategori',
 			'when_same_title_in_feed' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dari umpan',
 		),
-		'secondary_sort' => array(
-			'_' => 'Secondary Sort',	// TODO
-			'date' => 'date',	// TODO
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'title' => 'title',	// TODO
-		),
-		'secondary_sort_order' => array(
-			'_' => 'Secondary Sort Order',	// TODO
-			'asc' => 'ASC',	// TODO
-			'desc' => 'DESC',	// TODO
-		),
 		'show' => array(
 			'_' => 'Artikel yang ditampilkan',
 			'active_category' => 'Kategori aktif',
