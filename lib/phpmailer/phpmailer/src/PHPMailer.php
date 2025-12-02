@@ -768,7 +768,7 @@ class PHPMailer
      *
      * @var string
      */
-    const VERSION = '7.0.0';
+    const VERSION = '7.0.1';
 
     /**
      * Error severity: message only, continue processing.
@@ -876,6 +876,7 @@ class PHPMailer
     private function mailPassthru($to, $subject, $body, $header, $params)
     {
         //Check overloading of mail function to avoid double-encoding
+        // phpcs:ignore PHPCompatibility.IniDirectives.RemovedIniDirectives.mbstring_func_overloadDeprecatedRemoved
         if ((int)ini_get('mbstring.func_overload') & 1) {
             $subject = $this->secureHeader($subject);
         } else {
@@ -1242,7 +1243,9 @@ class PHPMailer
      * @see https://www.andrew.cmu.edu/user/agreen1/testing/mrbs/web/Mail/RFC822.php A more careful implementation
      *
      * @param string $addrstr The address list string
-     * @param null   $useimap Deprecated argument since 6.11.0.
+     * @param null   $useimap Unused. Argument has been deprecated in PHPMailer 6.11.0.
+     *                        Previously this argument determined whether to use
+     *                        the IMAP extension to parse the list and accepted a boolean value.
      * @param string $charset The charset to use when decoding the address list string.
      *
      * @return array
@@ -1250,13 +1253,15 @@ class PHPMailer
     public static function parseAddresses($addrstr, $useimap = null, $charset = self::CHARSET_ISO88591)
     {
         if ($useimap !== null) {
-            trigger_error(self::lang('deprecated_argument'), E_USER_DEPRECATED);
+            trigger_error(self::lang('deprecated_argument') . '$useimap', E_USER_DEPRECATED);
         }
         $addresses = [];
         if (function_exists('imap_rfc822_parse_adrlist')) {
             //Use this built-in parser if it's available
+            // phpcs:ignore PHPCompatibility.FunctionUse.RemovedFunctions.imap_rfc822_parse_adrlistRemoved -- wrapped in function_exists()
             $list = imap_rfc822_parse_adrlist($addrstr, '');
             // Clear any potential IMAP errors to get rid of notices being thrown at end of script.
+            // phpcs:ignore PHPCompatibility.FunctionUse.RemovedFunctions.imap_errorsRemoved -- wrapped in function_exists()
             imap_errors();
             foreach ($list as $address) {
                 if (
@@ -1583,9 +1588,11 @@ class PHPMailer
                     );
                 } elseif (defined('INTL_IDNA_VARIANT_2003')) {
                     //Fall back to this old, deprecated/removed encoding
+                    // phpcs:ignore PHPCompatibility.Constants.RemovedConstants.intl_idna_variant_2003DeprecatedRemoved
                     $punycode = idn_to_ascii($domain, $errorcode, \INTL_IDNA_VARIANT_2003);
                 } else {
                     //Fall back to a default we don't know about
+                    // phpcs:ignore PHPCompatibility.ParameterValues.NewIDNVariantDefault.NotSet
                     $punycode = idn_to_ascii($domain, $errorcode);
                 }
                 if (false !== $punycode) {
@@ -2482,7 +2489,7 @@ class PHPMailer
             'no_smtputf8' => 'Server does not support SMTPUTF8 needed to send to Unicode addresses',
             'imap_recommended' => 'Using simplified address parser is not recommended. ' .
                 'Install the PHP IMAP extension for full RFC822 parsing.',
-            'deprecated_argument' => 'Argument $useimap is deprecated',
+            'deprecated_argument' => 'Deprecated Argument: ',
         ];
         if (empty($lang_path)) {
             //Calculate an absolute path so it can work if CWD is not here
@@ -2956,6 +2963,7 @@ class PHPMailer
         $bytes = '';
         if (function_exists('random_bytes')) {
             try {
+                // phpcs:ignore PHPCompatibility.FunctionUse.NewFunctions.random_bytesFound -- Wrapped in function_exists.
                 $bytes = random_bytes($len);
             } catch (\Exception $e) {
                 //Do nothing
@@ -4590,10 +4598,10 @@ class PHPMailer
      * Converts data-uri images into embedded attachments.
      * If you don't want to apply these transformations to your HTML, just set Body and AltBody directly.
      *
-     * @param string        $message  HTML message string
-     * @param string        $basedir  Absolute path to a base directory to prepend to relative paths to images
-     * @param bool|callable $advanced Whether to use the internal HTML to text converter
-     *                                or your own custom converter
+     * @param string        $message    HTML message string
+     * @param string        $basedir    Absolute path to a base directory to prepend to relative paths to images
+     * @param bool|callable $advanced   Whether to use the internal HTML to text converter
+     *                                  or your own custom converter
      * @return string The transformed message body
      *
      * @throws Exception
@@ -4602,6 +4610,12 @@ class PHPMailer
      */
     public function msgHTML($message, $basedir = '', $advanced = false)
     {
+        $cid_domain = 'phpmailer.0';
+        if (filter_var($this->From, FILTER_VALIDATE_EMAIL)) {
+            //prepend with a character to create valid RFC822 string in order to validate
+            $cid_domain = substr($this->From, strrpos($this->From, '@') + 1);
+        }
+
         preg_match_all('/(?<!-)(src|background)=["\'](.*)["\']/Ui', $message, $images);
         if (array_key_exists(2, $images)) {
             if (strlen($basedir) > 1 && '/' !== substr($basedir, -1)) {
@@ -4623,7 +4637,7 @@ class PHPMailer
                     }
                     //Hash the decoded data, not the URL, so that the same data-URI image used in multiple places
                     //will only be embedded once, even if it used a different encoding
-                    $cid = substr(hash('sha256', $data), 0, 32) . '@phpmailer.0'; //RFC2392 S 2
+                    $cid = substr(hash('sha256', $data), 0, 32) . '@' . $cid_domain; //RFC2392 S 2
 
                     if (!$this->cidExists($cid)) {
                         $this->addStringEmbeddedImage(
@@ -4657,7 +4671,7 @@ class PHPMailer
                         $directory = '';
                     }
                     //RFC2392 S 2
-                    $cid = substr(hash('sha256', $url), 0, 32) . '@phpmailer.0';
+                    $cid = substr(hash('sha256', $url), 0, 32) . '@' . $cid_domain;
                     if (strlen($basedir) > 1 && '/' !== substr($basedir, -1)) {
                         $basedir .= '/';
                     }
@@ -5105,12 +5119,14 @@ class PHPMailer
         }
         if (openssl_sign($signHeader, $signature, $privKey, 'sha256WithRSAEncryption')) {
             if (\PHP_MAJOR_VERSION < 8) {
+                // phpcs:ignore PHPCompatibility.FunctionUse.RemovedFunctions.openssl_pkey_freeDeprecated
                 openssl_pkey_free($privKey);
             }
 
             return base64_encode($signature);
         }
         if (\PHP_MAJOR_VERSION < 8) {
+            // phpcs:ignore PHPCompatibility.FunctionUse.RemovedFunctions.openssl_pkey_freeDeprecated
             openssl_pkey_free($privKey);
         }
 
