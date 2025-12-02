@@ -278,7 +278,7 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'ak rovnaký nadpis už existuje v TOP <i>n</i> najnovších článkoch (of the feed)',	// DIRTY
 		),
-		'secondary_sort' => 'Secondary Sort',	// TODO
+		'secondary_sort' => 'Secondary sort',	// TODO
 		'show' => array(
 			'_' => 'Článkov na zobrazenie',
 			'active_category' => 'Aktívna kategória',
@@ -293,20 +293,20 @@ return array(
 		'show_fav_unread_help' => 'Týka sa aj štítkov',
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
 		'sort' => array(
-			'_' => 'Default sort',	// DIRTY
+			'_' => 'Primary sort',	// TODO
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
-			'date' => 'date',	// TODO
+			'Date' => 'date',	// TODO
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'rand' => 'random',	// TODO
-			'title' => 'title',	// TODO
+			'id' => 'Id',	// TODO
+			'last_modified' => 'Last user modified',	// TODO
+			'length' => 'Length',	// TODO
+			'link' => 'Link',	// TODO
+			'rand' => 'Random',	// TODO
+			'title' => 'Title',	// TODO
 		),
 		'sort_order' => array(
 			'_' => 'Poradie',

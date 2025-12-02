@@ -278,7 +278,7 @@ return array(
 			'when_same_title_in_category' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach kategorii',
 			'when_same_title_in_feed' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach (kanału RSS)',
 		),
-		'secondary_sort' => 'Secondary Sort',	// TODO
+		'secondary_sort' => 'Secondary sort',	// TODO
 		'show' => array(
 			'_' => 'Wiadomości do wyświetlenia',
 			'active_category' => 'Aktualna',
@@ -293,20 +293,20 @@ return array(
 		'show_fav_unread_help' => 'Stosuje się również do etykiet',
 		'sides_close_article' => 'Kliknięcie poza zawartością wiadomości zamyka widok wiadomości',
 		'sort' => array(
-			'_' => 'Default sort',	// DIRTY
+			'_' => 'Primary sort',	// TODO
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
-			'date' => 'date',	// TODO
+			'Date' => 'date',	// TODO
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'rand' => 'random',	// TODO
-			'title' => 'title',	// TODO
+			'id' => 'Id',	// TODO
+			'last_modified' => 'Last user modified',	// TODO
+			'length' => 'Length',	// TODO
+			'link' => 'Link',	// TODO
+			'rand' => 'Random',	// TODO
+			'title' => 'Title',	// TODO
 		),
 		'sort_order' => array(
 			'_' => 'Porządek sortowania',

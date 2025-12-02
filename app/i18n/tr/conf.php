@@ -278,7 +278,7 @@ return array(
 			'when_same_title_in_category' => 'eğer aynı başlık kategorideki en yeni <i>n</i> makalede zaten varsa',
 			'when_same_title_in_feed' => 'eğer aynı başlık beslemedeki en yeni <i>n</i> makalede zaten varsa',
 		),
-		'secondary_sort' => 'Secondary Sort',	// TODO
+		'secondary_sort' => 'Secondary sort',	// TODO
 		'show' => array(
 			'_' => 'Gösterilecek makaleler',
 			'active_category' => 'Etkin kategori',
@@ -293,20 +293,20 @@ return array(
 		'show_fav_unread_help' => 'Etiketler için de geçerlidir',
 		'sides_close_article' => 'Makale metin alanının dışına tıklayınca makaleyi kapat',
 		'sort' => array(
-			'_' => 'Default sort',	// DIRTY
+			'_' => 'Primary sort',	// TODO
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
-			'date' => 'date',	// TODO
+			'Date' => 'date',	// TODO
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'rand' => 'random',	// TODO
-			'title' => 'title',	// TODO
+			'id' => 'Id',	// TODO
+			'last_modified' => 'Last user modified',	// TODO
+			'length' => 'Length',	// TODO
+			'link' => 'Link',	// TODO
+			'rand' => 'Random',	// TODO
+			'title' => 'Title',	// TODO
 		),
 		'sort_order' => array(
 			'_' => 'Sıralama düzeni',

@@ -278,7 +278,7 @@ return array(
 			'when_same_title_in_category' => 'se un titolo identico esiste già nei primi <i>n</i> articoli più recenti della categoria',
 			'when_same_title_in_feed' => 'se un titolo identico esiste già tra i <i>n</i> articoli più recenti (del feed)',
 		),
-		'secondary_sort' => 'Secondary Sort',	// TODO
+		'secondary_sort' => 'Secondary sort',	// TODO
 		'show' => array(
 			'_' => 'Articoli da visualizzare',
 			'active_category' => 'Categoria attiva',
@@ -293,20 +293,20 @@ return array(
 		'show_fav_unread_help' => 'Si applica anche alle etichette',
 		'sides_close_article' => 'Cliccare fuori dall’area di testo dell’articolo chiude l’articolo',
 		'sort' => array(
-			'_' => 'Sort',	// TODO
+			'_' => 'Primary sort',	// TODO
 			'c' => array(
 				'name' => 'Category title',	// TODO
 			),
-			'date' => 'date',	// TODO
+			'Date' => 'date',	// TODO
 			'f' => array(
 				'name' => 'Feed title',	// TODO
 			),
-			'id' => 'id',	// TODO
-			'last_modified' => 'last user modified',	// TODO
-			'length' => 'length',	// TODO
-			'link' => 'link',	// TODO
-			'rand' => 'random',	// TODO
-			'title' => 'title',	// TODO
+			'id' => 'Id',	// TODO
+			'last_modified' => 'Last user modified',	// TODO
+			'length' => 'Length',	// TODO
+			'link' => 'Link',	// TODO
+			'rand' => 'Random',	// TODO
+			'title' => 'Title',	// TODO
 		),
 		'sort_order' => array(
 			'_' => 'Ordinamento',
