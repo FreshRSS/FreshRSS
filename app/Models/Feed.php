@@ -1035,6 +1035,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$view->rss_url = htmlspecialchars($feedSourceUrl, ENT_COMPAT, 'UTF-8');
 		$view->html_url = $view->rss_url;
 		$view->entries = [];
+		// As DOMDocument is designed for XML rather than HTML, not having this header makes it detect wrong encoding
+		$html = '<?xml version="1.0" encoding="UTF-8" ?>' . $html;
 
 		try {
 			$doc = new DOMDocument();
