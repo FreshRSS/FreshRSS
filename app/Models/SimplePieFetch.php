@@ -1,8 +1,33 @@
 <?php
 declare(strict_types=1);
 
-final class FreshRSS_SimplePieResponse extends \SimplePie\File
+final class FreshRSS_SimplePieFetch extends \SimplePie\File
 {
+	public function __construct(string $url, int $timeout = 10, int $redirects = 5,
+		?array $headers = null, ?string $useragent = null, bool $force_fsockopen = false, array $curl_options = []) {
+
+		// Remove case-insensitively default HTTP headers passed by $headers if they are overridden by $curl_options[CURLOPT_HTTPHEADER]
+		if (is_array($curl_options[CURLOPT_HTTPHEADER] ?? null) && is_array($headers)) {
+			$existingKeys = [];
+			foreach ($curl_options[CURLOPT_HTTPHEADER] as $headerLine) {
+				if (!is_string($headerLine)) {
+					continue;
+				}
+				$parts = explode(':', $headerLine, 2);
+				if (count($parts) >= 2) {
+					$existingKeys[strtolower(trim($parts[0]))] = true;
+				}
+			}
+			foreach ($headers as $key => $value) {
+				if (isset($existingKeys[strtolower($key)])) {
+					unset($headers[$key]);
+				}
+			}
+		}
+
+		parent::__construct($url, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
+	}
+
 	#[\Override]
 	protected function on_http_response($response, array $curl_options = []): void {
 		if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {

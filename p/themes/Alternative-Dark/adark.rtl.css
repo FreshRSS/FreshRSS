@@ -753,7 +753,7 @@ kbd {
 }
 
 .flux .flux_header:hover {
-	background: var(--background-color-hover) !important;
+	background: var(--background-color-hover);
 }
 
 .flux.current {
@@ -799,6 +799,19 @@ kbd {
 
 .flux.favorite:not(.current) {
 	background: var(--background-color-dark);
+}
+
+/* stylelint-disable-next-line no-duplicate-selectors */
+.flux.current {
+	border-right-width: 5px;
+	border-right-style: double;
+}
+
+.flux.current > .flux_header,
+.flux.not_read.current > .flux_header, .flux.not_read.current > .flux_header:hover,
+.flux.favorite.current > .flux_header, .flux.favorite.current > .flux_header:hover {
+	background: linear-gradient(to left, transparent 0, transparent 3px, var(--background-color-hover) 3px);
+	margin-right: -3px; /* Compensate increased border-left-width */
 }
 
 .flux_header {

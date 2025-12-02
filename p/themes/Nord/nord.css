@@ -809,6 +809,12 @@ li.item.active {
 
 .flux.current {
 	background: var(--accent-bg);
+	border-left: 1px solid var(--highlight);
+}
+
+.flux.current > .flux_header {
+	background: linear-gradient(to right, transparent 0, transparent 1px, var(--accent-bg) 1px);
+	margin-left: -1px; /* Compensate increased border-left-width */
 }
 
 .flux:not(.current):hover .item .title {
