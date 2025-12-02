@@ -12,6 +12,7 @@
 		"maximum": 2
 	},
 	"no-trailing-spaces": true,
+	"table-column-style": false,
 	"ul-indent": false,
 	"ul-style": {
 		"style": "consistent"
