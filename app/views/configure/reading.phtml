@@ -106,6 +106,15 @@
 					<option value= "length" <?= FreshRSS_Context::userConf()->sort === 'length' ? 'selected="selected"' : '' ?>>
 						<?= _t('conf.reading.sort.length') ?>
 					</option>
+					<option value= "f.name" <?= FreshRSS_Context::userConf()->sort === 'f.name' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.reading.sort.f.name') ?>
+					</option>
+					<option value= "c.name" <?= FreshRSS_Context::userConf()->sort === 'c.name' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.reading.sort.c.name') ?>
+					</option>
+					<option value= "rand" <?= FreshRSS_Context::userConf()->sort === 'rand' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.reading.sort.rand') ?>
+					</option>
 				</select>
 			</div>
 			</div>
