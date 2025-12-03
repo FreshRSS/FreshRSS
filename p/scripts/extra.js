@@ -524,34 +524,58 @@ function init_details_attributes() {
 	});
 }
 
-async function init_user_stats() {
+function init_user_stats() {
 	const active = new Set();
-	for (const row of document.querySelectorAll('tr[data-need-ajax]')) {
-		if (active.size >= 10) {
-			// Ensure not too many concurrent requests
-			await Promise.race(active);
+	const queue = [];
+	const limit = 10;	// Ensure not too many concurrent requests
+
+	const processQueue = () => {
+		while (queue.length > 0 && active.size < limit) {
+			const row = queue.shift();
+			const promise = (async () => {
+				row.removeAttribute('data-need-ajax');
+				try {
+					const username = row.querySelector('.username').textContent.trim();
+					const url = '?c=user&a=details&username=' + encodeURIComponent(username) + '&ajax=1';
+					const response = await fetch(url);
+					const html = await response.text();
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(html, 'text/html');
+					row.querySelector('.feed-count').innerHTML = doc.querySelector('.feed_count').innerHTML;
+					row.querySelector('.article-count').innerHTML = doc.querySelector('.article_count').innerHTML;
+					row.querySelector('.database-size').innerHTML = doc.querySelector('.database_size').innerHTML;
+				} catch (err) {
+					console.error('Error fetching user stats', err);
+				}
+			})();
+
+			promise.finally(() => {
+				active.delete(promise);
+				processQueue();
+			});
+			active.add(promise);
 		}
+	};
 
-		const promise = (async () => {
-			row.removeAttribute('data-need-ajax');
-			try {
-				const username = row.querySelector('.username').textContent.trim();
-				const url = '?c=user&a=details&username=' + encodeURIComponent(username) + '&ajax=1';
-				const response = await fetch(url);
-				const html = await response.text();
-				const parser = new DOMParser();
-				const doc = parser.parseFromString(html, 'text/html');
-				row.querySelector('.feed-count').innerHTML = doc.querySelector('.feed_count').innerHTML;
-				row.querySelector('.article-count').innerHTML = doc.querySelector('.article_count').innerHTML;
-				row.querySelector('.database-size').innerHTML = doc.querySelector('.database_size').innerHTML;
-			} catch (err) {
-				console.error('Error fetching user stats', err);
+	// Retrieve user stats when the row becomes visible
+	const timers = new WeakMap();
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const timer = setTimeout(() => {
+					// But wait a bit to avoid triggering on fast scrolls
+					observer.unobserve(entry.target);
+					queue.push(entry.target);
+					processQueue();
+				}, 100);
+				timers.set(entry.target, timer);
+			} else {
+				clearTimeout(timers.get(entry.target));
 			}
-		})();
+		});
+	});
 
-		promise.finally(() => active.delete(promise));
-		active.add(promise);
-	}
+	document.querySelectorAll('tr[data-need-ajax]').forEach(row => observer.observe(row));
 }
 
 function init_extra_afterDOM() {
