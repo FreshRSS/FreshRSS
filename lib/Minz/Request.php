@@ -569,7 +569,7 @@ class Minz_Request {
 		if ($username === null) {
 			return false;
 		}
-		$conf = get_user_configuration($username);
+		$conf = FreshRSS_UserConfiguration::getForUser($username);
 		if ($conf === null || !hash_equals($conf->token, $token_param)) {
 			return false;
 		}
