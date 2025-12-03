@@ -737,6 +737,17 @@ th {
 	text-align: center;
 }
 
+/* stylelint-disable-next-line no-duplicate-selectors */
+.flux.current {
+	border-left-width: 5px;
+	border-left-style: double;
+}
+
+.flux.current > .flux_header {
+	background: linear-gradient(to right, transparent 0, transparent 3px, #fff 3px);
+	margin-left: -3px; /* Compensate increased border-left-width */
+}
+
 /*=== Content of feed articles */
 .content {
 	padding: 20px 10px;

@@ -90,6 +90,8 @@ A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are 
 ### Miscellaneous
 
 * `frss:priority`: Used for priority / visibility of the articles of that feed. Can be: `important`, `main` (default), `category`, `feed`, `hidden`.
+* `frss:unicityCriteria`: Criteria used for the unicity of articles. E.g. `id` (default), `link`, `sha1:link_published`, `sha1:link_published_title`, `sha1:title`, [etc](https://github.com/FreshRSS/FreshRSS/blob/1c92d55917029d291d00009b674d8552934a69ec/app/Models/Feed.php#L652-L666).
+* `frss:unicityCriteriaForced`: Boolean to force the usage of the selected unicity criterion even in the case of many duplicates (otherwise, the default behaviour is to fall back to a more precise unicity criteria).
 * `frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to enable the download and extraction of the matching HTML section of each articles’ Web address.
 	* Example: `div.main, .summary`
 * `frss:cssContentFilter`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to remove the matching HTML elements from the article content or from the full content retrieved by `frss:cssFullContent`.

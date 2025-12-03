@@ -13,7 +13,7 @@ SQL;
 
 	#[\Override]
 	public function updateCachedValues(int ...$feedIds): int|false {
-		// Faster than the MySQL version
+		// Compatible PostgreSQL, SQLite, MySQL 8.0+, but not MariaDB as of version 12.2.
 		if (empty($feedIds)) {
 			$whereFeedIds = 'true';
 			$whereEntryIdFeeds = 'true';
@@ -32,10 +32,17 @@ SQL;
 				GROUP BY id_feed
 			)
 			UPDATE `_feed`
-			SET `cache_nbEntries` = COALESCE(c.total_entries, 0),
-				`cache_nbUnreads` = COALESCE(c.unread_entries, 0)
-			FROM entry_counts c
-			WHERE id = c.id_feed AND $whereFeedIds
+			SET `cache_nbEntries` = COALESCE((
+					SELECT c.total_entries
+					FROM entry_counts AS c
+					WHERE c.id_feed = `_feed`.id
+				), 0),
+				`cache_nbUnreads` = COALESCE((
+					SELECT c.unread_entries
+					FROM entry_counts AS c
+					WHERE c.id_feed = `_feed`.id
+				), 0)
+			WHERE $whereFeedIds
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute(array_merge($feedIds, $feedIds))) {
