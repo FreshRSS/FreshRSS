@@ -361,7 +361,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$configPath = '';
 
 		if ($ok) {
-			if (!Minz_Translate::exists(is_string($userConfig['language']) ? $userConfig['language'] : '')) {
+			if (!Minz_Translate::exists(is_string($userConfig['language'] ?? null) ? $userConfig['language'] : '')) {
 				$userConfig['language'] = Minz_Translate::DEFAULT_LANGUAGE;
 			}
 
