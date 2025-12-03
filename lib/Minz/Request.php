@@ -561,12 +561,12 @@ class Minz_Request {
 	}
 
 	public static function tokenIsOk(): bool {
-		$token_param = self::paramStringNull('token');
-		if ($token_param === null) {
+		$token_param = self::paramString('token');
+		if ($token_param == '') {
 			return false;
 		}
-		$username = self::paramStringNull('user');
-		if ($username === null) {
+		$username = self::paramString('user');
+		if ($username == '') {
 			return false;
 		}
 		$conf = FreshRSS_UserConfiguration::getForUser($username);
