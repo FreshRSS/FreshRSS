@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Er is geen artikel om te laten zien.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Ontvangen vóór gisteren',
+			'_' => 'Received',	// TODO
 			'today' => 'Vandaag ontvangen',
 			'yesterday' => 'Gisteren ontvangen',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Overzicht',
 		'title_fav' => 'Favorieten',
 		'title_global' => 'Globale weergave',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Log bestanden',

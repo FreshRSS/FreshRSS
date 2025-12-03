@@ -145,7 +145,7 @@ class File implements Response
                 $responseHeaders .= "\r\n";
                 if (curl_errno($fp) === CURLE_WRITE_ERROR || curl_errno($fp) === CURLE_BAD_CONTENT_ENCODING) {
                     $this->error = 'cURL error ' . curl_errno($fp) . ': ' . curl_error($fp); // FreshRSS
-                    $this->on_http_response($responseBody === false ? false : $responseHeaders . $responseBody);
+                    $this->on_http_response($responseBody === false ? false : $responseHeaders . $responseBody, $curl_options);
                     $this->error = null; // FreshRSS
                     curl_setopt($fp, CURLOPT_ENCODING, 'none');
                     $responseHeaders = '';
@@ -156,7 +156,7 @@ class File implements Response
                 if (curl_errno($fp) !== CURLE_OK) {
                     $this->error = 'cURL error ' . curl_errno($fp) . ': ' . curl_error($fp);
                     $this->success = false;
-                    $this->on_http_response($responseBody === false ? false : $responseHeaders . $responseBody);
+                    $this->on_http_response($responseBody === false ? false : $responseHeaders . $responseBody, $curl_options);
                 } else {
                     // For PHPStan: `curl_exec` returns `false` only on error so the `is_string` check will always pass.
                     \assert(is_string($responseBody));
@@ -164,7 +164,7 @@ class File implements Response
                         // TODO: Replace with `CURLOPT_SUPPRESS_CONNECT_HEADERS` once PHP 7.2 support is dropped.
                         $responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders($responseHeaders);
                     }
-                    $this->on_http_response($responseHeaders . $responseBody);
+                    $this->on_http_response($responseHeaders . $responseBody, $curl_options);
                     if (\PHP_VERSION_ID < 80000) {
                         curl_close($fp);
                     }
@@ -332,8 +332,9 @@ class File implements Response
      * Triggered just after an HTTP response is received.
      * @param string|false $response The raw HTTP response headers and body, or false in case of failure (as returned by curl_exec()).
      * FreshRSS.
+     * @param array<int, mixed> $curl_options
      */
-    protected function on_http_response($response): void
+    protected function on_http_response($response, array $curl_options = []): void
     {
     }
 

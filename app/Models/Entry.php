@@ -873,23 +873,6 @@ HTML;
 		$feed->applyFilterActions($this);
 	}
 
-	public function isDay(int $day, int $today): bool {
-		$date = $this->dateAdded(true);
-		switch ($day) {
-			case FreshRSS_Days::TODAY:
-				$tomorrow = $today + 86400;
-				return $date >= $today && $date < $tomorrow;
-			case FreshRSS_Days::YESTERDAY:
-				$yesterday = $today - 86400;
-				return $date >= $yesterday && $date < $today;
-			case FreshRSS_Days::BEFORE_YESTERDAY:
-				$yesterday = $today - 86400;
-				return $date < $yesterday;
-			default:
-				return false;
-		}
-	}
-
 	/**
 	 * @param string $url Overridden URL. Will default to the entry URL.
 	 * @throws Minz_Exception
@@ -921,7 +904,7 @@ HTML;
 		}
 
 		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
-		$response = httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
+		$response = FreshRSS_http_Util::httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
 		$html = $response['body'];
 		if ($html !== '') {
 			$doc = new DOMDocument();
@@ -996,7 +979,7 @@ HTML;
 			}
 
 			unset($xpath, $doc);
-			$html = sanitizeHTML($html, $base);
+			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
 
 			if ($path_entries_filter !== '') {
 				// Remove unwanted elements again after sanitizing, for CSS selectors to also match sanitized content

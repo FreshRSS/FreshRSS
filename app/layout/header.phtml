@@ -40,7 +40,7 @@
 			<?php } ?>
 			<div class="stick">
 				<input type="search" name="search" id="search"
-					value="<?= htmlspecialchars(htmlspecialchars_decode(Minz_Request::paramString('search'), ENT_QUOTES), ENT_COMPAT, 'UTF-8') ?>"
+					value="<?= Minz_Request::paramString('search') ?>"
 					placeholder="<?= _t('gen.menu.search') ?>" />
 				<button class="btn" type="submit"><?= _i('search') ?></button>
 			</div>

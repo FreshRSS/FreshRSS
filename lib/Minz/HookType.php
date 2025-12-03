@@ -26,8 +26,8 @@ enum Minz_HookType: string {
 	case NavMenu = 'nav_menu';	// function() -> string
 	case NavReadingModes = 'nav_reading_modes';	// function($readingModes = array) -> array | null
 	case PostUpdate = 'post_update';	// function(none) -> none
-	case SimplepieAfterInit = 'simplepie_after_init';	// function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed, bool $result): void
-	case SimplepieBeforeInit = 'simplepie_before_init';	// function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed): void
+	case SimplepieAfterInit = 'simplepie_after_init';	// function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed, bool $result): void
+	case SimplepieBeforeInit = 'simplepie_before_init';	// function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed): void
 	case ViewModes = 'view_modes';	// function($viewModes = array) -> array | null
 
 	public function signature(): Minz_HookSignature {

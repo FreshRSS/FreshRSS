@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Brak wiadomości do wyświetlenia.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Otrzymane przedwczoraj',
+			'_' => 'Received',	// TODO
 			'today' => 'Otrzymane dzisiaj',
 			'yesterday' => 'Otrzymane wczoraj',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Kanał główny',
 		'title_fav' => 'Ulubione',
 		'title_global' => 'Widok globalny',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Dziennik',

@@ -118,7 +118,7 @@ return array(
 		'empty_list' => 'Non ci sono estensioni installate',
 		'empty_list_help' => 'Controllare i log per determinare il motivo della lista estensioni vuota.',
 		'enabled' => 'Abilitata',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'È compatibile',
 		'latest' => 'Installato',
 		'name' => 'Nome',
 		'no_configure_view' => 'Questa estensioni non può essere configurata.',

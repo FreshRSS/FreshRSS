@@ -71,7 +71,7 @@ SQL;
 			$valuesTmp['category'],
 			mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8'),
 			$valuesTmp['website'],
-			sanitizeHTML($valuesTmp['description'], ''),
+			FreshRSS_SimplePieCustom::sanitizeHTML($valuesTmp['description'], ''),
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? (int)$valuesTmp['priority'] : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
 			mb_strcut($valuesTmp['pathEntries'], 0, 4096, 'UTF-8'),
@@ -479,17 +479,30 @@ SQL;
 	 * Update cached values for selected feeds, or all feeds if no feed ID is provided.
 	 */
 	public function updateCachedValues(int ...$feedIds): int|false {
-		//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
-		$sql = <<<SQL
-UPDATE `_feed`
-SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `_entry` e1 WHERE e1.id_feed=`_feed`.id),
-	`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)
-SQL;
-		if (count($feedIds) > 0) {
-			$sql .= ' WHERE id IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
+		if (empty($feedIds)) {
+			$whereFeedIds = 'true';
+			$whereEntryIdFeeds = 'true';
+		} else {
+			$whereFeedIds = 'id IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
+			$whereEntryIdFeeds = 'id_feed IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
 		}
+		$sql = <<<SQL
+			UPDATE `_feed`
+			LEFT JOIN (
+				SELECT
+					id_feed,
+					COUNT(*) AS total_entries,
+					SUM(CASE WHEN is_read = 0 THEN 1 ELSE 0 END) AS unread_entries
+				FROM `_entry`
+				WHERE $whereEntryIdFeeds
+				GROUP BY id_feed
+			) AS entry_counts ON entry_counts.id_feed = `_feed`.id
+			SET `cache_nbEntries` = COALESCE(entry_counts.total_entries, 0),
+				`cache_nbUnreads` = COALESCE(entry_counts.unread_entries, 0)
+			WHERE $whereFeedIds
+			SQL;
 		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $stm->execute($feedIds)) {
+		if ($stm !== false && $stm->execute(array_merge($feedIds, $feedIds))) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();

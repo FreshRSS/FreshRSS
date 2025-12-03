@@ -210,13 +210,21 @@ class Minz_Configuration {
 	 * Save the current configuration in the configuration file.
 	 */
 	public function save(): bool {
+		$tmp_filename = $this->config_filename . '.tmp.php';
 		$back_filename = $this->config_filename . '.bak.php';
-		@rename($this->config_filename, $back_filename);
 
-		if (file_put_contents($this->config_filename,
-			"<?php\nreturn " . var_export($this->data, true) . ';', LOCK_EX) === false) {
+		if (!file_put_contents($tmp_filename,
+			"<?php\nreturn " . var_export($this->data, true) . ';', LOCK_EX)) {
+			@unlink($tmp_filename);
 			return false;
 		}
+
+		if (!copy($this->config_filename, $back_filename)) {
+			@unlink($tmp_filename);
+			return false;
+		}
+
+		@rename($tmp_filename, $this->config_filename);
 
 		// Clear PHP cache for include
 		if (function_exists('opcache_invalidate')) {

@@ -121,7 +121,7 @@
 							<?php } else {?>
 								placeholder="<?= _t('conf.profile.api.api_not_set') ?>"
 							<?php } ?>
-							pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
+							pattern=".{7,}" <?= FreshRSS_password_Util::cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
 						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 					<p class="help"><?= _i('help') ?> <?= _t('conf.profile.api.check_link', Minz_Url::display('/api/', 'html', true)) ?></p>

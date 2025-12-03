@@ -154,7 +154,7 @@ return array(
 		'labels_empty' => 'Nessun tag',
 		'new_article' => 'Sono disponibili nuovi articoli, clicca qui per caricarli.',
 		'should_be_activated' => 'JavaScript deve essere abilitato',
-		'unsafe_csp_header' => 'L\'header CSP attualmente utilizzato non è sicuro e quindi FreshRSS può essere vulnerabile ad attacchi XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Vedi la documentazione</a>',
+		'unsafe_csp_header' => 'L’header CSP attualmente utilizzato non è sicuro e quindi FreshRSS può essere vulnerabile ad attacchi XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Vedi la documentazione</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -189,7 +189,7 @@ return array(
 		'about' => 'Informazioni',
 		'account' => 'Profilo',
 		'admin' => 'Amministrazione',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Ricerca avanzata',
 		'archiving' => 'Archiviazione',
 		'authentication' => 'Autenticazione',
 		'check_install' => 'Installazione',
@@ -223,31 +223,31 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'Questo modulo aiuta nella costruzione delle ricerche, ma le ricerche manuali sono ancora più potenti.',
+		'authors' => 'Autori',
+		'categories' => 'Categorie',
+		'content' => 'Contenuto',
+		'date_from' => 'Da',
+		'date_past' => 'Nel passato',
+		'date_published' => 'Data di pubblicazione',
+		'date_range' => 'Intervallo date',
+		'date_received' => 'Data di ricezione',
+		'date_to' => 'A',
+		'date_user' => 'Data di modifica dell’utente',
+		'feeds' => 'Feeds',	// IGNORE
+		'free_text' => 'Testo libero',
+		'free_text_help' => 'Cerca sia nel titolo che nel contenuto',
+		'full_documentation' => 'Guarda la <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentazione sulla ricerca completa</a>',
+		'labels' => 'Le mie etichette',
+		'multiple_help' => 'Seleziona una o più (tieni premuto <kbd>Ctrl</kbd> o <kbd>Cmd</kbd>)',
+		'sources' => 'Fonti',
+		'tags' => 'Tag degli articoli',
+		'text' => 'Ricerca testuale',
+		'text_help' => 'Righe multiple sono combinate tramite degli <i>o</i> logici. Supporta anche le <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">espressioni regolari</a>.',
+		'text_placeholder' => 'Parola chiave',
+		'title' => 'Titolo',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Ricerche dell’utente',
 	),
 	'share' => array(
 		'Known' => 'Siti basati su Known',

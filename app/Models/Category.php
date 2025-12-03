@@ -176,7 +176,7 @@ class FreshRSS_Category extends Minz_Model {
 	 * @throws FreshRSS_Context_Exception
 	 */
 	public function cacheFilename(string $url): string {
-		$simplePie = customSimplePie($this->attributes(), $this->curlOptions());
+		$simplePie = new FreshRSS_SimplePieCustom($this->attributes(), $this->curlOptions());
 		$filename = $simplePie->get_cache_filename($url);
 		return CACHE_PATH . '/' . $filename . '.opml.xml';
 	}
@@ -188,7 +188,7 @@ class FreshRSS_Category extends Minz_Model {
 		}
 		$ok = true;
 		$cachePath = $this->cacheFilename($url);
-		$opml = httpGet($url, $cachePath, 'opml', $this->attributes(), $this->curlOptions())['body'];
+		$opml = FreshRSS_http_Util::httpGet($url, $cachePath, 'opml', $this->attributes(), $this->curlOptions())['body'];
 		if ($opml == '') {
 			Minz_Log::warning('Error getting dynamic OPML for category ' . $this->id() . '! ' .
 				\SimplePie\Misc::url_remove_credentials($url));
