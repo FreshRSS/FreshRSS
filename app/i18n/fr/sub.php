@@ -208,8 +208,8 @@ return array(
 		'number_entries' => '%d articles',	// IGNORE
 		'open_feed' => 'Ouvrir le flux %s',
 		'path_entries_conditions' => 'Conditions pour la récupération de contenu',
-		'preferred_order' => 'Preferred sort order',	// TODO
-		'preferred_sort' => 'Preferred sort',	// TODO
+		'preferred_order' => 'Ordre de tri préféré',
+		'preferred_sort' => 'Tri préféré',
 		'priority' => array(
 			'_' => 'Visibilité',
 			'category' => 'Afficher dans sa catégorie',
