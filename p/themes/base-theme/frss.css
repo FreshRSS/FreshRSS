@@ -2342,6 +2342,7 @@ html.slider-active {
 	padding-right: 0.5rem;
 	background: inherit;
 	text-align: center;
+	position: relative;
 }
 
 .nav_menu .stick {
@@ -2351,6 +2352,15 @@ html.slider-active {
 .nav_menu select {
 	max-width: 300px;
 	width: 60%;
+}
+
+.nav_menu #nav_menu_toggle_aside {
+	position: absolute;
+	left: 1rem;
+}
+
+.nav_menu > :nth-child(2) {
+	margin-left: 3rem;
 }
 
 .nav_mobile {
