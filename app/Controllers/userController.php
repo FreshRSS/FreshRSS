@@ -814,15 +814,9 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 	/** @return array{feed_count:?int,article_count:?int,database_size:?int,language:string,mail_login:string,enabled:bool,is_admin:bool,last_user_activity:string,is_default:bool} */
 	private function retrieveUserDetails(string $username, bool $fast = false): array {
-		if ($fast) {
-			$feedDAO = null;
-			$entryDAO = null;
-			$databaseDAO = null;
-		} else {
-			$feedDAO = FreshRSS_Factory::createFeedDao($username);
-			$entryDAO = FreshRSS_Factory::createEntryDao($username);
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
-		}
+		$feedDAO = $fast ? null : FreshRSS_Factory::createFeedDao($username);
+		$entryDAO = $fast ? null : FreshRSS_Factory::createEntryDao($username);
+		$databaseDAO = $fast ? null : FreshRSS_Factory::createDatabaseDAO($username);
 
 		$userConfiguration = FreshRSS_UserConfiguration::getForUser($username);
 		if ($userConfiguration === null) {
