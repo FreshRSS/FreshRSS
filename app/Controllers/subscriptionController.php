@@ -334,14 +334,22 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$feed->resetCustomFavicon();
 			}
 
-			$default_sort = Minz_Request::paramString('defaultSort') ?: FreshRSS_Context::userConf()->sort;
-			$feed->_attribute('defaultSort', in_array(
-				$default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length'], true
-			) ? $default_sort : 'id');
-			$default_order = Minz_Request::paramString('defaultOrder') ?: FreshRSS_Context::userConf()->sort_order;
-			$feed->_attribute('defaultOrder', in_array(
-				$default_order, ['ASC', 'DESC'], true
-			) ? $default_order : 'DESC');
+			$default_sort = Minz_Request::paramString('defaultSort');
+			if ($default_sort === "null") {
+				$feed->_attribute('defaultSort');
+			} else {
+				$feed->_attribute('defaultSort', in_array(
+					$default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length'], true
+				) ? $default_sort : 'id');
+			}
+			$default_order = Minz_Request::paramString('defaultOrder');
+			if ($default_order === "null") {
+				$feed->_attribute('defaultOrder');
+			} else {
+				$feed->_attribute('defaultOrder', in_array(
+					$default_order, ['ASC', 'DESC'], true
+				) ? $default_order : 'DESC');
+			}
 
 			$values = [
 				'name' => Minz_Request::paramString('name'),

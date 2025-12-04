@@ -135,6 +135,9 @@
 				<label class="group-name" for="defaultOrder"><?= _t('sub.feed.preferred_order')?> </label>
 				<div class="group-controls">
 					<select name="defaultOrder" id="defaultOrderFeed" class="w50">
+						<option value="null" <?=
+							$this->feed->defaultOrder() === null ? 'selected="selected"' : ''  ?>>
+							</option>
 						<option value="DESC" <?=
 							$this->feed->defaultOrder() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
 							_t('conf.reading.sort_order.newer_first') ?></option>
@@ -150,6 +153,9 @@
 				<label class="group-name" for="defaultSort"><?= _t('sub.feed.preferred_sort')?> </label>
 				<div class="group-controls">
 					<select name="defaultSort" id="defaultSortFeed" class="w50">
+						<option value="null" <?=
+							$this->feed->defaultOrder() === null ? 'selected="selected"' : ''  ?>>
+							</option>
 						<option value="id" <?=
 							$this->feed->defaultSort() === 'id' ? 'selected="selected"' : ''  ?>><?=
 							_t('conf.reading.sort.id') ?></option>
