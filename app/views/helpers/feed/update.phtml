@@ -2,7 +2,7 @@
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	if ($this->feed === null) {
-	return;
+		return;
 	}
 ?>
 <div class="post" id="feed_update" data-feed-id="<?= $this->feed->id() ?>">
@@ -44,8 +44,8 @@
 					$currentIconUrl = $this->feed->favicon();
 					$originalIconUrl = '';
 					if ($this->feed->customFavicon()) {
-					$this->feed->_attribute('customFavicon', false);
-					$this->feed->resetFaviconHash();
+						$this->feed->_attribute('customFavicon', false);
+						$this->feed->resetFaviconHash();
 					}
 					$originalIconUrl = $this->feed->favicon();
 					$this->feed->_attribute('customFavicon', $currentIconUrl !== $originalIconUrl);
@@ -177,7 +177,7 @@
 				<?php
 					$unicityCriteria = $this->feed->attributeString('unicityCriteria');
 					if ($this->feed->attributeBoolean('hasBadGuids')) {	// Legacy
-					$unicityCriteria = 'link';
+						$unicityCriteria = 'link';
 					}
 				?>
 				<div class="group-controls">
@@ -212,13 +212,13 @@
 								36000 => '10h', 43200 => '12h', 64800 => '18h',
 								86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
 								604800 => '1wk', 1209600 => '2wk', 1814400 => '3wk', 2419200 => '4wk', 2629744 => '1mo'] as $v => $t) {
-						echo '<option value="' . $v . ($this->feed->ttl() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
-						if ($this->feed->ttl() == $v) {
-							$found = true;
+							echo '<option value="' . $v . ($this->feed->ttl() === $v ? '" selected="selected' : '') . '">' . $t . '</option>';
+							if ($this->feed->ttl() == $v) {
+								$found = true;
 							}
 						}
 						if (!$found) {
-						echo '<option value="' . intval($this->feed->ttl()) . '" selected="selected">' . intval($this->feed->ttl()) . 's</option>';
+							echo '<option value="' . intval($this->feed->ttl()) . '" selected="selected">' . intval($this->feed->ttl()) . 's</option>';
 						}
 					?></select>
 					<label for="mute">
@@ -389,9 +389,9 @@
 				$archiving = $this->feed->attributeArray('archiving');
 				/** @var array{default?:bool,keep_period?:string,keep_max?:int,keep_min?:int,keep_favourites?:bool,keep_labels?:bool,keep_unreads?:bool}|null $archiving */
 				if (empty($archiving)) {
-				$archiving = [ 'default' => true ];
+					$archiving = [ 'default' => true ];
 				} else {
-				$archiving['default'] = false;
+					$archiving['default'] = false;
 				}
 				$volatile = [
 					'enable_keep_period' => false,
@@ -813,12 +813,12 @@
 						defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2);	// Compatibility cURL 7.51
 						$type = $curlParams[CURLOPT_PROXYTYPE] ?? '';
 						if ($type === 3) {	// Legacy for NONE
-						$type = -1;
+							$type = -1;
 						}
 						foreach (['' => '', -1 => 'NONE', CURLPROXY_HTTP => 'HTTP', CURLPROXY_HTTPS => 'HTTPS',
 							CURLPROXY_SOCKS4 => 'SOCKS4', CURLPROXY_SOCKS4A => 'SOCKS4A', CURLPROXY_SOCKS5 => 'SOCKS5',
 							CURLPROXY_SOCKS5_HOSTNAME => 'SOCKS5H'] as $k => $v) {
-						echo '<option value="' . $k . ($type === $k ? '" selected="selected' : '' ) . '">' . $v . '</option>';
+							echo '<option value="' . $k . ($type === $k ? '" selected="selected' : '' ) . '">' . $v . '</option>';
 						}
 					?>
 					</select>
@@ -846,7 +846,7 @@
 						<?php
 							$postFields = $this->feed->attributeArray('curl_params')[CURLOPT_POSTFIELDS] ?? '';
 							if (!is_string($postFields)) {
-							$postFields = '';
+								$postFields = '';
 							}
 						?>
 						<input type="text" name="curl_fields" id="curl_fields" value="<?=
@@ -881,7 +881,7 @@
 					<?php
 						$httpHeaders = $this->feed->attributeArray('curl_params')[CURLOPT_HTTPHEADER] ?? [];
 						if (!is_array($httpHeaders)) {
-						$httpHeaders = [];
+							$httpHeaders = [];
 						}
 						$httpHeaders = array_filter($httpHeaders, 'is_string');
 						// Remove headers problematic for security
@@ -890,7 +890,7 @@
 					?>
 					<textarea class="w100" id="http_headers" name="http_headers" rows="3" spellcheck="false"><?php
 						foreach ($httpHeaders as $header) {
-						echo htmlspecialchars($header, ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+							echo htmlspecialchars($header, ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.http_headers_help') ?></p>
