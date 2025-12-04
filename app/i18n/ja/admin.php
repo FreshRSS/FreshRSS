@@ -22,7 +22,6 @@ return array(
 		'token' => 'マスター認証用のトークン',
 		'token_help' => 'ユーザーのすべての RSS 出力へのアクセスと、認証なしのフィードの更新を許可します',
 		'type' => '認証メソッド',
-		'unsafe_autologin' => '危険な自動ログインを有効にします',
 	),
 	'check_install' => array(
 		'cache' => array(

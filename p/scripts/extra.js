@@ -524,6 +524,60 @@ function init_details_attributes() {
 	});
 }
 
+function init_user_stats() {
+	const active = new Set();
+	const queue = [];
+	const limit = 10;	// Ensure not too many concurrent requests
+
+	const processQueue = () => {
+		while (queue.length > 0 && active.size < limit) {
+			const row = queue.shift();
+			const promise = (async () => {
+				row.removeAttribute('data-need-ajax');
+				try {
+					const username = row.querySelector('.username').textContent.trim();
+					const url = '?c=user&a=details&username=' + encodeURIComponent(username) + '&ajax=1';
+					const response = await fetch(url);
+					const html = await response.text();
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(html, 'text/html');
+					row.querySelector('.feed-count').innerHTML = doc.querySelector('.feed_count').innerHTML;
+					row.querySelector('.article-count').innerHTML = doc.querySelector('.article_count').innerHTML;
+					row.querySelector('.database-size').innerHTML = doc.querySelector('.database_size').innerHTML;
+				} catch (err) {
+					console.error('Error fetching user stats', err);
+				}
+			})();
+
+			promise.finally(() => {
+				active.delete(promise);
+				processQueue();
+			});
+			active.add(promise);
+		}
+	};
+
+	// Retrieve user stats when the row becomes visible
+	const timers = new WeakMap();
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const timer = setTimeout(() => {
+					// But wait a bit to avoid triggering on fast scrolls
+					observer.unobserve(entry.target);
+					queue.push(entry.target);
+					processQueue();
+				}, 100);
+				timers.set(entry.target, timer);
+			} else {
+				clearTimeout(timers.get(entry.target));
+			}
+		});
+	});
+
+	document.querySelectorAll('tr[data-need-ajax]').forEach(row => observer.observe(row));
+}
+
 function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
@@ -544,6 +598,7 @@ function init_extra_afterDOM() {
 		init_2stateButton();
 		init_update_feed();
 		init_details_attributes();
+		init_user_stats();
 
 		data_auto_leave_validation(document.body);
 

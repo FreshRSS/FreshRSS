@@ -22,7 +22,6 @@ return array(
 		'token' => 'Hoofdauthenticatietoken',
 		'token_help' => 'Geeft toegang tot alle RSS-uitvoer van de gebruiker en kan feeds verversen zonder authenticatie:',
 		'type' => 'Authenticatie methode',
-		'unsafe_autologin' => 'Sta onveilige automatische log in toe met het volgende formaat: ',
 	),
 	'check_install' => array(
 		'cache' => array(

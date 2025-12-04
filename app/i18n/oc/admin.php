@@ -22,7 +22,6 @@ return array(
 		'token' => 'Master authentication token',	// TODO
 		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Mòde d’autentification',
-		'unsafe_autologin' => 'Autorizar las connexions automaticas pas seguras al format : ',
 	),
 	'check_install' => array(
 		'cache' => array(

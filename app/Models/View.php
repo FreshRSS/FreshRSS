@@ -44,12 +44,12 @@ class FreshRSS_View extends Minz_View {
 	public bool $signalError;
 
 	// Manage users
-	/** @var array{feed_count:int,article_count:int,database_size:int,language:string,mail_login:string,enabled:bool,is_admin:bool,last_user_activity:string,is_default:bool} */
+	/** @var array{feed_count:?int,article_count:?int,database_size:?int,language:string,mail_login:string,enabled:bool,is_admin:bool,last_user_activity:string,is_default:bool} */
 	public array $details;
 	public bool $disable_aside;
 	public bool $show_email_field;
 	public string $username;
-	/** @var array<array{language:string,enabled:bool,is_admin:bool,enabled:bool,article_count:int,database_size:int,last_user_activity:string,mail_login:string,feed_count:int,is_default:bool}> */
+	/** @var array<array{language:string,enabled:bool,is_admin:bool,enabled:bool,article_count:?int,database_size:?int,last_user_activity:string,mail_login:string,feed_count:?int,is_default:bool}> */
 	public array $users;
 
 	// Updates

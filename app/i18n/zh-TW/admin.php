@@ -22,7 +22,6 @@ return array(
 		'token' => '主要驗證權杖',
 		'token_help' => '允許存取使用者的所有 RSS 輸出以及重整源而無需身份驗證:',
 		'type' => '認證方式',
-		'unsafe_autologin' => '允許不安全的自動登入方式：',
 	),
 	'check_install' => array(
 		'cache' => array(

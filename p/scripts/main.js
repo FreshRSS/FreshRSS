@@ -922,6 +922,64 @@ function init_posts() {
 	}
 }
 
+function toggle_aside_click(manual = true) {
+	const aside = document.querySelector('.aside');
+	const toggle_aside = document.querySelector('#nav_menu_toggle_aside button');
+	if (!toggle_aside) {
+		return;
+	}
+
+	const active = toggle_aside.classList.contains('active');
+	if (active) {
+		toggle_aside.classList.remove('active');
+		aside.classList.remove('visible');
+		aside.style.display = 'none';
+	} else {
+		toggle_aside.classList.add('active');
+		aside.classList.add('visible');
+		aside.style.display = '';
+	}
+
+	if (manual && ['normal', 'reader'].includes(context.current_view)) {
+		sessionStorage.setItem(`FreshRSS_aside-toggled_${context.current_view}`, !active ? 1 : 0);
+	}
+}
+
+function init_nav_menu() {
+	const aside = document.querySelector('.aside');
+	const toggle_aside = document.querySelector('#nav_menu_toggle_aside button');
+	if (!toggle_aside) {
+		return;
+	}
+
+	function sync(e) {
+		const active = toggle_aside.classList.contains('active');
+		if ((e.matches && active) || (!e.matches && !active)) {
+			toggle_aside_click(false);
+		}
+	}
+
+	const media = window.matchMedia('(max-width: 840px)');
+	media.onchange = sync;
+
+	const state = sessionStorage.getItem(`FreshRSS_aside-toggled_${context.current_view}`);
+	if (state !== null) {
+		const active = toggle_aside.classList.contains('active');
+		if (state != active) toggle_aside_click(false);
+	}
+	if (getComputedStyle(aside).display !== 'none') {
+		if (context.current_view === 'normal') aside.classList.add('visible');
+		sync(media);
+	}
+	const close_aside = [
+		document.querySelector('.aside a.toggle_aside'),
+		document.querySelector('a.close-aside'), // background of aside (#close)
+	];
+
+	toggle_aside.addEventListener('click', toggle_aside_click);
+	close_aside.forEach(close => close.addEventListener('click', toggle_aside_click));
+}
+
 function rememberOpenCategory(category_id, isOpen) {
 	if (context.display_categories === 'remember') {
 		const open_categories = JSON.parse(localStorage.getItem('FreshRSS_open_categories') || '{}');
@@ -1204,6 +1262,7 @@ function init_shortcuts() {
 		if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); ev.preventDefault(); return; }
 		if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); ev.preventDefault(); return; }
 		if (k === s.toggle_media) { toggle_media(); ev.preventDefault(); }
+		if (k === s.toggle_aside) { toggle_aside_click(); ev.preventDefault(); }
 	});
 }
 
@@ -2226,6 +2285,7 @@ function init_main_afterDOM() {
 	init_notifications();
 	init_csp_alert();
 	init_confirm_action();
+	init_nav_menu();
 	const stream = document.getElementById('stream');
 	if (stream) {
 		init_load_more(stream);

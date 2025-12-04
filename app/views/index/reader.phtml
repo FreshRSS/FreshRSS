@@ -59,3 +59,13 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 	</div>
 </main>
 <?php endif; ?>
+
+<?php $class = $this->displaySlider ? ' active' : ''; ?>
+<aside id="slider" class="<?= $class ?>">
+	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
+	<div id="slider-content">
+	</div>
+</aside>
+<a href="#" id="close-slider" class="<?= $class ?>">
+	<?= _i('close') ?>
+</a>

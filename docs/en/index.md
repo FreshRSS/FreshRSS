@@ -1,3 +1,7 @@
+---
+lang: en
+---
+
 ![FreshRSS logo](img/logo_freshrss.png)
 
 # FreshRSS manual (English)
