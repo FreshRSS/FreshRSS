@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Zaměřit na další bez otevření',
 		'skip_previous_article' => 'Zaměřit na předchozí bez otevření',
 		'title' => 'Zkratky',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Přehrát/pozastavit médium',
 		'user_filter' => 'Přístup k uživatelským dotazům',
 		'user_filter_help' => 'Pokud je pouze jeden uživatelský dotaz, je použit. Jinak jsou dotazy dostupné podle jejich čísla.',

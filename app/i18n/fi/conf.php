@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Siirry seuraavaan, mutta älä avaa',
 		'skip_previous_article' => 'Siirry edelliseen, mutta älä avaa',
 		'title' => 'Pikanäppäimet',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Toista/keskeytä media',
 		'user_filter' => 'Siirry käyttäjän kyselyihin',
 		'user_filter_help' => 'Jos kyselyitä on vain yksi, sitä käytetään automaattisesti. Muussa tapauksessa kyselyn voi valita numerolla.',

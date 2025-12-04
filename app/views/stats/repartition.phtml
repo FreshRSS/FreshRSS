@@ -6,7 +6,12 @@
 ?>
 
 <nav class="nav_menu">
-	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
+	<div id="nav_menu_toggle_aside" class="nav_mobile">
+		<button class="btn">
+			<?= _i('category') ?>
+		</button>
+	</div>
+
 
 	<select id="feed_select" class="select-change">
 		<option data-url="<?= _url('stats', 'repartition') ?>"><?= _t('admin.stats.all_feeds') ?></option>

@@ -118,7 +118,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($ok) {
-				$tag->_filtersAction('label', Minz_Request::paramTextToArray('filteractions_label'));
+				$tag->_filtersAction('label', Minz_Request::paramTextToArray('filteractions_label'));	// Keep as HTML
 				$ok = $tagDAO->updateTagAttributes($tag->id(), $tag->attributes()) !== false;
 			}
 

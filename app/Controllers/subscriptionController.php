@@ -247,7 +247,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				]);
 			}
 
-			$feed->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
+			$feed->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));	// Keep as HTML
 
 			$feed->_kind(Minz_Request::paramInt('feed_kind') ?: FreshRSS_Feed::KIND_RSS);
 			if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
@@ -415,7 +415,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(400);
 			return;
 		}
-		$filteractions = Minz_Request::paramTextToArray('filteractions_read');
+		$filteractions = Minz_Request::paramTextToArray('filteractions_read', plaintext: true);
 		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
 		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
 		$search = "f:$id (";

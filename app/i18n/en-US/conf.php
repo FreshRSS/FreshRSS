@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',	// IGNORE
 		'skip_previous_article' => 'Focus previous without opening',	// IGNORE
 		'title' => 'Shortcuts',	// IGNORE
+		'toggle_aside' => 'Toggle sidebar',	// IGNORE
 		'toggle_media' => 'Play/pause media',	// IGNORE
 		'user_filter' => 'Access user queries',	// IGNORE
 		'user_filter_help' => 'If there is only one user query, it is used. Otherwise, queries are accessible by their number.',	// IGNORE

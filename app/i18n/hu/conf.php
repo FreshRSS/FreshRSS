@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Ugrás a következőre megnyitás nélkül',
 		'skip_previous_article' => 'Ugrás az előzőre megnyitás nélkül',
 		'title' => 'Gyorsgombok',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Média indítás/megállítás',
 		'user_filter' => 'Felhasználói lekérdezések elfogadása',
 		'user_filter_help' => 'Ha csak egy felhasználói lekérdezés van, akkor az kerül felhasználásra. Ellenkező esetben a lekérdezések a számuk alapján érhetőek el.',

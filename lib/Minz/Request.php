@@ -560,6 +560,22 @@ class Minz_Request {
 		return 'POST' === ($_SERVER['REQUEST_METHOD'] ?? '');
 	}
 
+	public static function tokenIsOk(): bool {
+		$token_param = self::paramString('token');
+		if ($token_param == '') {
+			return false;
+		}
+		$username = self::paramString('user');
+		if ($username == '') {
+			return false;
+		}
+		$conf = FreshRSS_UserConfiguration::getForUser($username);
+		if ($conf === null || !hash_equals($conf->token, $token_param)) {
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * @return list<string>
 	 */

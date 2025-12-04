@@ -200,14 +200,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public function rssAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-		$token = FreshRSS_Context::userConf()->token;
-		$token_param = Minz_Request::paramString('token');
-		$token_is_ok = ($token != '' && $token === $token_param);
 
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() &&
-				!$allow_anonymous &&
-				!$token_is_ok) {
+		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
 			Minz_Error::error(403);
 		}
 
@@ -241,12 +236,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public function opmlAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-		$token = FreshRSS_Context::userConf()->token;
-		$token_param = Minz_Request::paramString('token');
-		$token_is_ok = ($token != '' && $token === $token_param);
 
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !$token_is_ok) {
+		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
 			Minz_Error::error(403);
 		}
 
