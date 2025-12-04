@@ -55,12 +55,11 @@ return array (
 
 	# 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length'
 	'sort' => 'id',
-	'mark_read_button' => 'big',
 	'sort_order' => 'DESC',
-
 	# 'id'|'date'|'link'|'title'|'rand'|'lastUserModified'|'length'
 	'secondary_sort' => 'id',
 	'secondary_sort_order' => 'DESC',
+
 	'anon_access' => false,
 	'mark_when' => array (
 		'article' => true,
@@ -109,6 +108,7 @@ return array (
 	# Hide the dropdown configuration menu and favicon in the aside list in case of many feeds, for UI performance
 	'simplify_over_n_feeds' => 1000,
 
+	'mark_read_button' => 'big',
 	'topline_read' => true,
 	'topline_favorite' => true,
 	'topline_myLabels' => false,
