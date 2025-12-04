@@ -110,7 +110,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$category->_attribute('read_when_same_title_in_category', null);
 			}
 
-			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
+			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));	// Keep as HTML
 
 			if (Minz_Request::paramBoolean('use_default_purge_options')) {
 				$category->_attribute('archiving', null);
@@ -177,7 +177,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(400);
 			return;
 		}
-		$filteractions = Minz_Request::paramTextToArray('filteractions_read');
+		$filteractions = Minz_Request::paramTextToArray('filteractions_read', plaintext: true);
 		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
 		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
 		$search = "c:$id (";

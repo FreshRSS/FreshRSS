@@ -981,6 +981,10 @@ main.post .drop-section li.item.feed a:hover .icon {
 			filter: brightness(1);
 		}
 	}
+
+	.btn {
+		box-sizing: content-box;
+	}
 }
 
 .flux {

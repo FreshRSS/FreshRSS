@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => '次の記事を開かずにフォーカスする',
 		'skip_previous_article' => '前の記事を開かずにフォーカスする',
 		'title' => 'ショートカット',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'メディアの 再生/停止',
 		'user_filter' => 'ユーザークエリにアクセスする',
 		'user_filter_help' => 'ユーザークエリが一つしかなければ、それを使う。そうではなければ、番号でクエリを選択する。',

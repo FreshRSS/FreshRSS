@@ -5,7 +5,9 @@
 <nav class="nav_menu">
 	<?php if ($actual_view === 'normal' || $actual_view === 'reader') { ?>
 		<div id="nav_menu_toggle_aside" class="group">
-			<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
+			<button class="btn<?= $actual_view === 'normal' ? ' active' : '' ?>" title="<?= _t('conf.shortcut.toggle_aside') ?>">
+				<?= _i('category') ?>
+			</button>
 		</div>
 	<?php } ?>
 

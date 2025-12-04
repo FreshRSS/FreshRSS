@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Evidenzia il prossimo senza aprire',
 		'skip_previous_article' => 'Evidenzia il precedente senza aprire',
 		'title' => 'Comandi da tastiera',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Riproduci/Metti in pausa i media',
 		'user_filter' => 'Accedi alle ricerche personali',
 		'user_filter_help' => 'Se è presente una sola ricerca personale verrà usata quella, altrimenti usare anche il numero associato.',

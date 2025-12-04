@@ -13,12 +13,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
-			// Token is useful in the case that anonymous refresh is forbidden
-			// and CRON task cannot be used with php command so the user can
-			// set a CRON task to refresh his feeds by using token inside url
-			$token = FreshRSS_Context::userConf()->token;
-			$token_param = Minz_Request::paramString('token');
-			$token_is_ok = ($token != '' && $token == $token_param);
 			$action = Minz_Request::actionName();
 			$allow_anonymous_refresh = FreshRSS_Context::systemConf()->allow_anonymous_refresh;
 
@@ -28,8 +22,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			if ($action !== 'actualize' ||
-					!($allow_anonymous_refresh || $token_is_ok)) {
+			if ($action !== 'actualize' || !$allow_anonymous_refresh) {
 				Minz_Error::error(403);
 			}
 		}

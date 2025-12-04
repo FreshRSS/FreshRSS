@@ -164,8 +164,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'site' => Minz_Request::paramBoolean('mark_open_site'),
 				'focus' => Minz_Request::paramBoolean('mark_focus'),
 			];
-			FreshRSS_Context::userConf()->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
-			FreshRSS_Context::userConf()->_filtersAction('star', Minz_Request::paramTextToArray('filteractions_star'));
+			FreshRSS_Context::userConf()->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));	// Keep as HTML
+			FreshRSS_Context::userConf()->_filtersAction('star', Minz_Request::paramTextToArray('filteractions_star'));	// Keep as HTML
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
@@ -183,7 +183,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	public function viewFilterAction(): void {
 		$search = '';
 		$filters_name = Minz_Request::paramString('filters_name', plaintext: true);
-		$filteractions = Minz_Request::paramTextToArray($filters_name);
+		$filteractions = Minz_Request::paramTextToArray($filters_name, plaintext: true);
 		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
 		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
 		foreach ($filteractions as $action) {

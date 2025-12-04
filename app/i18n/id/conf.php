@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Fokus berikutnya tanpa membuka',
 		'skip_previous_article' => 'Fokus sebelumnya tanpa membuka',
 		'title' => 'Pintasan',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Putar/jeda media',
 		'user_filter' => 'Akses pencarian pengguna',
 		'user_filter_help' => 'Jika hanya ada satu pencarian pengguna, maka itu akan digunakan. Jika tidak, pencarian dapat diakses dengan nomornya',

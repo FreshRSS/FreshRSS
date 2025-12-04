@@ -359,6 +359,7 @@ return array(
 		'skip_next_article' => 'Focar o próximo sem abri-lo',
 		'skip_previous_article' => 'Focar o anterior sem abri-lo',
 		'title' => 'Atalhos',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Reproduzir/pausar mídia',
 		'user_filter' => 'Acesse filtros de utilizador',
 		'user_filter_help' => 'Se há apenas um filtro, ele é utilizado. Caso contrário, os filtros serão acessíveis pelos seus números.',

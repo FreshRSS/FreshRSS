@@ -96,6 +96,7 @@ return array (
 		'global_view' => '2',
 		'reading_view' => '3',
 		'toggle_media' => 'v',
+		'toggle_aside' => 't',
 	),
 
 	# Disabling favicons and using emojis instead of icons improves performance for users with many feeds

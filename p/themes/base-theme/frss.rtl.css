@@ -1913,6 +1913,10 @@ a.website:hover .favicon {
 	z-index: 50;
 }
 
+.aside:not(.visible) ~ #nav_entries {
+	display: none;
+}
+
 #nav_entries button {
 	background-color: transparent;
 	display: table-cell;
@@ -2356,7 +2360,6 @@ html.slider-active {
 .nav-login,
 .aside .toggle_aside,
 #slider .toggle_aside,
-.nav_menu .toggle_aside,
 .configure .dropdown-header-close {
 	display: none;
 }
@@ -2372,28 +2375,13 @@ html.slider-active {
 
 /*=== READER */
 /*===========*/
-.reader .nav_menu .toggle_aside {
-	display: inline-block;
-}
-
-.reader .aside .toggle_aside {
-	padding: 1rem 0px;
-	display: block;
-	width: 100%;
-}
-
 .reader .aside {
 	display: none;
-	width: 0;
 }
 
-.reader .aside:target {
+.reader .aside.visible {
 	display: table-cell;
 	width: 300px;
-}
-
-.reader .aside_feed .configure-feeds {
-	margin-top: 10px;
 }
 
 .reader .flux {
@@ -2478,7 +2466,7 @@ html.slider-active {
 		display: none;
 	}
 
-	.aside:target {
+	.aside.visible {
 		box-shadow: -3px 3px 5px var(--frss-box-shadow-color-transparent);
 	}
 
@@ -2668,7 +2656,7 @@ html.slider-active {
 		display: inline-block;
 	}
 
-	.aside:target + .close-aside,
+	.aside.visible + .close-aside,
 	.configure .dropdown-target:target ~ .dropdown-close {
 		background-color: var(--frss-modal-background-color-transparent);
 		display: block;
@@ -2682,8 +2670,12 @@ html.slider-active {
 		z-index: 99;
 	}
 
-	.nav_mobile {
+	.nav_menu.nav_mobile {
 		display: block;
+	}
+
+	.nav_mobile {
+		display: initial;
 	}
 
 	.aside {
@@ -2695,8 +2687,8 @@ html.slider-active {
 		z-index: 100;
 	}
 
-	.aside:target,
-	.reader .aside:target {
+	.aside.visible,
+	.reader .aside.visible {
 		width: 90%;
 		height: 100vh;
 	}
@@ -2743,6 +2735,7 @@ html.slider-active {
 	}
 
 	#nav_entries {
+		display: table !important;
 		width: 100%;
 	}
 

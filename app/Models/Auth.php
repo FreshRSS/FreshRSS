@@ -170,18 +170,8 @@ class FreshRSS_Auth {
 			'REMOTE_USER' => false,
 		]);
 
-		$username = '';
-		$token_param = Minz_Request::paramString('token');
-		if ($token_param != '') {
-			$username = Minz_Request::paramString('user');
-			if ($username != '') {
-				$conf = FreshRSS_UserConfiguration::getForUser($username);
-				if ($conf == null) {
-					$username = '';
-				}
-			}
-		}
-		if ($username == '') {
+		$username = Minz_Request::paramString('user');
+		if (!Minz_Request::tokenIsOk()) {
 			$username = FreshRSS_Context::systemConf()->default_user;
 		}
 		Minz_User::change($username);
