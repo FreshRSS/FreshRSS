@@ -347,13 +347,8 @@ SQL;
 						//SQLite is the only one with database-level optimization, instead of at table level.
 						$this->optimize();
 					}
-				} else {
-					if ($databaseDAO->exits()) {
-						$nbEntries = $entryDAO->countUnreadRead();
-						if (isset($nbEntries['all']) && $nbEntries['all'] > 0) {
-							$error = 'Error: Destination database already contains some entries!';
-						}
-					}
+				} elseif ($databaseDAO->exits() && $entryDAO->count() > 0) {
+					$error = 'Error: Destination database already contains some entries!';
 				}
 				break;
 			default:

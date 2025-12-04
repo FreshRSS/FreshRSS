@@ -369,7 +369,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->size_user = $databaseDAO->size();
 
 		if (FreshRSS_Auth::hasAccess('admin')) {
-			$this->view->size_total = $databaseDAO->size(true);
+			$this->view->size_total = $databaseDAO->size(all: true);
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.archiving.title') . ' · ');
