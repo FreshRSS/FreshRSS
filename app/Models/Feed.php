@@ -538,10 +538,10 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function defaultSort(): ?string {
-		return $this->attributeString('defaultSort') ?? 'null';
+		return $this->attributeString('defaultSort');
 	}
 	public function defaultOrder(): ?string {
-		return $this->attributeString('defaultOrder') ?? 'null';
+		return $this->attributeString('defaultOrder');
 	}
 
 	/**
