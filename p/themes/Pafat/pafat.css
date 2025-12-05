@@ -1087,19 +1087,23 @@ a.signin {
 		padding: 0;
 	}
 
-	.nav_menu .btn {
-		margin: 5px 10px;
-	}
+	.nav_menu {
+		padding-left: 0;
 
-	.nav_menu .stick,
-	.nav_menu .group {
-		margin: 0 10px;
-		min-width: 0;
-	}
+		.nav_menu .btn {
+			margin: 5px 10px;
+		}
 
-	.nav_menu .stick .btn,
-	.nav_menu .group .btn {
-		margin: 5px 0;
+		.nav_menu .stick,
+		.nav_menu .group {
+			margin: 0 10px;
+			min-width: 0;
+		}
+
+		.nav_menu .stick .btn,
+		.nav_menu .group .btn {
+			margin: 5px 0;
+		}
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {

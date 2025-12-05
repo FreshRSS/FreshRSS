@@ -1477,6 +1477,10 @@ main.global {
 				width: 100%;
 			}
 		}
+
+		#nav_menu_toggle_aside {
+			position: absolute;
+		}
 	}
 
 	#overlay .close,
