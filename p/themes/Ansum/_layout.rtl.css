@@ -154,7 +154,7 @@ main.prompt {
 /*=== Index menu */
 .nav_menu {
 	text-align: center;
-	padding: 5px 0;
+	padding: 5px 3.75rem 5px 0;
 
 	.btn {
 		border-right-width: 0;

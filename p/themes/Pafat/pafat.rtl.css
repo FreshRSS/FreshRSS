@@ -784,7 +784,7 @@ a.signin {
 
 /*=== Index menu */
 .nav_menu {
-	padding: 5px 0;
+	padding: 5px 2.5rem 0 0;
 	background-color: var(--background-color-grey-light);
 	border-bottom: 1px solid var(--border-color-grey-dark);
 	text-align: center;
