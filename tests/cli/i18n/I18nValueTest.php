@@ -58,7 +58,6 @@ final class I18nValueTest extends \PHPUnit\Framework\TestCase {
 
 	public static function testStates(): void {
 		$reflectionProperty = new ReflectionProperty(I18nValue::class, 'state');
-		$reflectionProperty->setAccessible(true);
 
 		$value = new I18nValue('some value');
 		self::assertNull($reflectionProperty->getValue($value));
