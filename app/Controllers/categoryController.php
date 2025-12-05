@@ -151,15 +151,15 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			}
 
 			$default_sort = Minz_Request::paramString('defaultSort');
-			if ($default_sort === 'null') {
+			if ($default_sort === '') {
 				$category->_attribute('defaultSort');
 			} else {
 				$category->_attribute('defaultSort', in_array(
-					$default_sort, ['id', 'date', 'f.name', 'lastUserModified', 'link', 'title', 'length'], true
+					$default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'f.name'], true
 				) ? $default_sort : null);
 			}
 			$default_order = Minz_Request::paramString('defaultOrder');
-			if ($default_order === 'null') {
+			if ($default_order === '') {
 				$category->_attribute('defaultOrder');
 			} else {
 				$category->_attribute('defaultOrder', in_array(

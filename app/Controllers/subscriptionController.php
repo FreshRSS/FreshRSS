@@ -335,7 +335,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 
 			$default_sort = Minz_Request::paramString('defaultSort');
-			if ($default_sort === "null") {
+			if ($default_sort === '') {
 				$feed->_attribute('defaultSort');
 			} else {
 				$feed->_attribute('defaultSort', in_array(
@@ -343,7 +343,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				) ? $default_sort : null);
 			}
 			$default_order = Minz_Request::paramString('defaultOrder');
-			if ($default_order === "null") {
+			if ($default_order === '') {
 				$feed->_attribute('defaultOrder');
 			} else {
 				$feed->_attribute('defaultOrder', in_array(

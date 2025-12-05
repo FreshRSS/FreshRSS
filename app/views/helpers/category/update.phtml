@@ -40,9 +40,7 @@
 				<label class="group-name" for="defaultOrder"><?= _t('sub.feed.preferred_order')?> </label>
 				<div class="group-controls">
 					<select name="defaultOrder" id="defaultOrderCategory" class="w50">
-						<option value="null" <?=
-							$this->category->defaultOrder() === null ? 'selected="selected"' : ''  ?>>
-							</option>
+						<option value=""></option>
 						<option value="DESC" <?=
 							$this->category->defaultOrder() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
 							_t('conf.reading.sort_order.newer_first') ?></option>
@@ -57,9 +55,7 @@
 				<label class="group-name" for="defaultSort"><?= _t('sub.feed.preferred_sort')?> </label>
 				<div class="group-controls">
 					<select name="defaultSort" id="defaultSortCategory" class="w50">
-						<option value="null" <?=
-							$this->category->defaultSort() === null ? 'selected="selected"' : ''  ?>>
-							</option>
+						<option value=""></option>
 						<option value="id" <?=
 							$this->category->defaultSort() === 'id' ? 'selected="selected"' : ''  ?>><?=
 							_t('conf.reading.sort.id') ?></option>
