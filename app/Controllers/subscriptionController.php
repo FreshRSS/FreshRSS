@@ -339,7 +339,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$feed->_attribute('defaultSort');
 			} else {
 				$feed->_attribute('defaultSort', in_array(
-					$default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length'], true
+					$default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'rand'], true
 				) ? $default_sort : null);
 			}
 			$default_order = Minz_Request::paramString('defaultOrder');

@@ -155,7 +155,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$category->_attribute('defaultSort');
 			} else {
 				$category->_attribute('defaultSort', in_array(
-					$default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'f.name'], true
+					$default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'f.name', 'rand'], true
 				) ? $default_sort : null);
 			}
 			$default_order = Minz_Request::paramString('defaultOrder');
