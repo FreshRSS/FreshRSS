@@ -1432,6 +1432,7 @@ input[type="search"] {
 }
 
 .transition-next {
+	margin-right: .5em;
 	opacity: 0.5;
 }
 
