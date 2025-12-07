@@ -7,7 +7,7 @@ declare(strict_types=1);
 class FreshRSS_BooleanSearch implements \Stringable {
 
 	private string $raw_input = '';
-	/** @var list<FreshRSS_BooleanSearch|FreshRSS_Search> */
+	/** @var list<FreshRSS_BooleanSearch>|list<FreshRSS_Search> */
 	private array $searches = [];
 
 	/**
@@ -410,7 +410,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	/**
 	 * Either a list of FreshRSS_BooleanSearch combined by implicit AND
 	 * or a series of FreshRSS_Search combined by explicit OR
-	 * @return list<FreshRSS_BooleanSearch|FreshRSS_Search>
+	 * @return list<FreshRSS_BooleanSearch>|list<FreshRSS_Search>
 	 */
 	public function searches(): array {
 		return $this->searches;
@@ -438,24 +438,35 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	 */
 	public function enforce(FreshRSS_Search $search): self {
 		$result = clone $this;
-		if (
-			count($result->searches) === 0 ||
-			!($result->searches[0] instanceof FreshRSS_Search) || !$result->searches[0]->hasSameOperators($search) || (
-				count($result->searches) > 1 && (!($result->searches[1] instanceof FreshRSS_BooleanSearch) ||
-				!in_array($result->operator(), ['AND', 'AND NOT'], true))
-			)
-		) {
-			// Wrap the existing searches in a new BooleanSearch
-			$wrap = new FreshRSS_BooleanSearch('', 0, 'AND');
-			foreach ($result->searches as $existingSearch) {
-				$wrap->add($existingSearch);
-			}
-			$result->searches = [$search];
-			if (count($wrap->searches()) > 0) {
-				$result->searches[] = $wrap;
-			}
-		} else {
+
+		if (count($result->searches) === 1 && $result->searches[0] instanceof FreshRSS_Search &&
+			$result->searches[0]->hasSameOperators($search)) {
 			$result->searches[0] = $search;
+			return $result;
+		}
+		if (count($result->searches) === 2) {
+			foreach ($result->searches as $booleanSearch) {
+				if (!($booleanSearch instanceof FreshRSS_BooleanSearch)) {
+					break;
+				}
+				if ($booleanSearch->operator() === 'AND') {
+					if (count($booleanSearch->searches) === 1 && $booleanSearch->searches[0] instanceof FreshRSS_Search &&
+						$booleanSearch->searches[0]->hasSameOperators($search)) {
+						$booleanSearch->searches[0] = $search;
+						return $result;
+					}
+				}
+			}
+		}
+
+		// Wrap the existing searches in a new BooleanSearch
+		$wrap = new FreshRSS_BooleanSearch('');
+		foreach ($result->searches as $existingSearch) {
+			$wrap->add($existingSearch);
+		}
+		$result->searches = [$search];
+		if (count($wrap->searches) > 0) {
+			$result->searches[] = $wrap;
 		}
 		return $result;
 	}
