@@ -1431,6 +1431,10 @@ input[type="search"] {
 	text-overflow: ellipsis;
 }
 
+.transition-next {
+	opacity: 0.5;
+}
+
 /*=== Feed article header and footer */
 .flux_header {
 	background: inherit;
