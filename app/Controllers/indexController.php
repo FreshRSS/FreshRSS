@@ -106,7 +106,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'params' => [
 				'sort' => FreshRSS_Context::$sort,
 				'order' => FreshRSS_Context::$order,
-				'search' => $searchString . (FreshRSS_Context::$search->getRawInput() === '' ? '' : ' (' . FreshRSS_Context::$search->getRawInput() . ')'),
+				'search' => FreshRSS_Context::$search->getRawInput() === '' ? $searchString :
+					FreshRSS_Context::$search->enforce(new FreshRSS_Search($searchString))->__toString(),
 			],
 		]);
 	}
