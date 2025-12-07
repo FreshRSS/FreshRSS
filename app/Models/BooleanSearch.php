@@ -431,9 +431,60 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		$this->searches[] = $search;
 	}
 
+	/**
+	 * Modify the first compatible search of the Boolean expression, or add it at the beginning.
+	 * Useful to modify some search parameters.
+	 */
+	public function enforce(FreshRSS_Search $search): self {
+		if (
+			count($this->searches) === 0 ||
+			!($this->searches[0] instanceof FreshRSS_Search) || !$this->searches[0]->hasSameOperators($search) || (
+				count($this->searches) > 1 && (!($this->searches[1] instanceof FreshRSS_BooleanSearch) ||
+				!in_array($this->operator(), ['AND', 'AND NOT'], true))
+			)
+		) {
+			// Wrap the existing searches in a new BooleanSearch
+			$wrap = new FreshRSS_BooleanSearch('', 0, 'AND');
+			foreach ($this->searches as $existingSearch) {
+				$wrap->add($existingSearch);
+			}
+			$this->searches = [$search];
+			if (count($wrap->searches()) > 0) {
+				$this->searches[] = $wrap;
+			}
+		} else {
+			$this->searches[0] = $search;
+		}
+		return $this;
+	}
+
 	#[\Override]
 	public function __toString(): string {
-		return $this->getRawInput();
+		$result = '';
+		foreach ($this->searches as $search) {
+			$part = $search->__toString();
+			$operator = 'OR';
+			if ($search instanceof FreshRSS_BooleanSearch) {
+				$part = '(' . $part . ')';
+				$operator = $search->operator();
+			}
+
+			if ($result !== '') {
+				if ($operator === 'OR') {
+					$result .= ' OR ';
+				} elseif ($operator === 'AND NOT') {
+					$result .= ' -';
+				} elseif ($operator === 'OR NOT') {
+					$result .= ' OR -';
+				} else {
+					$result .= ' ';
+				}
+			} elseif (in_array($operator, ['AND NOT', 'OR NOT'], true)) {
+				$result .= '-';
+			}
+			$result .= $part;
+		}
+		return $result;
 	}
 
 	/** @return string Plain text search query. Must be XML-encoded or URL-encoded depending on the situation */
