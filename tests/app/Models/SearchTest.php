@@ -1012,6 +1012,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['(inurl:a) (intitle:a)', 'intitle:b', '(inurl:a) (intitle:b)'],
 			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
 			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
+			['date:2024/', 'date:/2025', 'date:/2025-12-31T23:59:59'],
 		];
 	}
 }
