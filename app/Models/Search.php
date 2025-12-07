@@ -183,6 +183,7 @@ class FreshRSS_Search implements \Stringable {
 		$properties = array_keys(get_object_vars($this));
 		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
 		foreach ($properties as $property) {
+			// @phpstan-ignore property.dynamicName, property.dynamicName
 			if (($this->$property === null) <=> ($search->$property === null)) {
 				return false;
 			}
