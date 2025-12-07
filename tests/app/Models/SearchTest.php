@@ -987,4 +987,28 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['intitle:a intext:b', 'intitle:c inurl:d', false],
 		];
 	}
+
+	#[DataProvider('provideBooleanSearchEnforce')]
+	public function testBooleanSearchEnforce(string $initialInput, string $enforceInput, string $expectedOutput): void {
+		$booleanSearch = new FreshRSS_BooleanSearch($initialInput);
+		$searchToEnforce = new FreshRSS_Search($enforceInput);
+		$newBooleanSearch = $booleanSearch->enforce($searchToEnforce);
+		self::assertNotSame($booleanSearch, $newBooleanSearch);
+		self::assertSame($expectedOutput, $newBooleanSearch->__toString());
+	}
+
+	/**
+	 * @return array<array{string,string,string}>
+	 */
+	public static function provideBooleanSearchEnforce(): array {
+		return [
+			['', 'intitle:b', 'intitle:b'],
+			['intitle:a', 'intitle:b', 'intitle:b'],
+			['intitle:a intext:a', 'intitle:b', 'intitle:b (intitle:a intext:a)'],
+			['intitle:a inurl:a', 'intitle:b', 'intitle:b (intitle:a inurl:a)'],
+			['intitle:a OR inurl:a', 'intitle:b', 'intitle:b (intitle:a OR inurl:a)'],
+			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
+			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
+		];
+	}
 }
