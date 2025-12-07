@@ -185,7 +185,16 @@ class FreshRSS_Search implements \Stringable {
 		foreach ($properties as $property) {
 			// @phpstan-ignore property.dynamicName, property.dynamicName
 			if (gettype($this->$property) !== gettype($search->$property)) {
-				return false;
+				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+					// Process {min_*, max_*} pairs together (for dates)
+					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
+					// @phpstan-ignore property.dynamicName, property.dynamicName, property.dynamicName, property.dynamicName
+					if (($this->$property !== null || $this->$mate !== null) !== ($search->$property !== null || $search->$mate !== null)) {
+						return false;
+					}
+				} else {
+					return false;
+				}
 			}
 			// @phpstan-ignore property.dynamicName, property.dynamicName
 			if (is_array($this->$property) && is_array($search->$property)) {
