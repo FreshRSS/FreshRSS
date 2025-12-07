@@ -72,17 +72,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public static function transitionLink(FreshRSS_Entry $entry, int $offset = 0): string {
 		if (in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
-			return Minz_Url::display([
-				'params' => [
-					'get' => match (FreshRSS_Context::$sort) {
-						'c.name' => 'c_' . ($entry->feed()?->category()?->id() ?? '0'),
-						'f.name' => 'f_' . ($entry->feed()?->id() ?? '0'),
-					},
-					'sort' => Minz_Request::paramString('sort', plaintext: true) ?: null,
-					'order' => Minz_Request::paramString('order', plaintext: true) ?: null,
-					'search' => Minz_Request::paramString('search', plaintext: true) ?: null,
-				],
-			]);
+			return Minz_Url::display(Minz_Request::modifiedCurrentRequest([
+				'get' => match (FreshRSS_Context::$sort) {
+					'c.name' => 'c_' . ($entry->feed()?->category()?->id() ?? '0'),
+					'f.name' => 'f_' . ($entry->feed()?->id() ?? '0'),
+				},
+			]));
 		}
 		$operator = match (FreshRSS_Context::$sort) {
 			'id' => 'date',
@@ -98,14 +93,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			default => throw new InvalidArgumentException('Unsupported sort criterion for transition: ' . FreshRSS_Context::$sort),
 		};
 		$searchString = $operator . ':' . ($offset < 0 ? '/' : '') . date('Y-m-d', $timestamp + ($offset * 86400)) . ($offset > 0 ? '/' : '');
-		return Minz_Url::display([
-			'params' => [
-				'sort' => Minz_Request::paramString('sort', plaintext: true) ?: null,
-				'order' => Minz_Request::paramString('order', plaintext: true) ?: null,
-				'search' => FreshRSS_Context::$search->getRawInput() === '' ? $searchString :
-					FreshRSS_Context::$search->enforce(new FreshRSS_Search($searchString))->__toString(),
-			],
-		]);
+		return Minz_Url::display(Minz_Request::modifiedCurrentRequest([
+			'search' => FreshRSS_Context::$search->getRawInput() === '' ? $searchString :
+				FreshRSS_Context::$search->enforce(new FreshRSS_Search($searchString))->__toString(),
+			]));
 	}
 
 	/**
