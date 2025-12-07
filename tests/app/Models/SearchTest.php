@@ -1007,6 +1007,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['intitle:a intext:a', 'intitle:b', 'intitle:b (intitle:a intext:a)'],
 			['intitle:a inurl:a', 'intitle:b', 'intitle:b (intitle:a inurl:a)'],
 			['intitle:a OR inurl:a', 'intitle:b', 'intitle:b (intitle:a OR inurl:a)'],
+			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', '(intitle:b) ((inurl:a) (intitle:c))'],
+			['(intitle:a) (inurl:a)', 'intitle:b', '(intitle:b) (inurl:a)'],
+			['(inurl:a) (intitle:a)', 'intitle:b', '(inurl:a) (intitle:b)'],
 			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
 			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
 		];
