@@ -94,7 +94,7 @@ function httpConditional(int $UnixTimeStamp, int $cacheSeconds = 0, int $cachePr
 	$nbCond = 0;
 
 	//rfc2616-sec3.html#sec3.3.1
-	$dateLastModif = gmdate('D, d M Y H:i:s \G\M\T', $UnixTimeStamp);
+	$dateLastModif = gmdate('D, d M Y H:i:s \\G\\M\\T', $UnixTimeStamp);
 	$dateCacheClient = 'Thu, 10 Jan 1980 20:30:40 GMT';
 
 	//rfc2616-sec14.html#sec14.19 //='"0123456789abcdef0123456789abcdef"'
@@ -169,7 +169,7 @@ function httpConditional(int $UnixTimeStamp, int $cacheSeconds = 0, int $cachePr
 			else $cache = '';
 			$cache .= 'max-age=' . floor($cacheSeconds);
 		}
-		//header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T',time()+$cacheSeconds)); //HTTP/1.0 //rfc2616-sec14.html#sec14.21
+		//header('Expires: '.gmdate('D, d M Y H:i:s \\G\\M\\T',time()+$cacheSeconds)); //HTTP/1.0 //rfc2616-sec14.html#sec14.21
 		header('Cache-Control: ' . $cache); //rfc2616-sec14.html#sec14.9
 		header('Last-Modified: ' . $dateLastModif);
 		header('Etag: ' . $etagServer);
@@ -204,7 +204,7 @@ function httpConditionalRefresh(int $UnixTimeStamp): void {
 	elseif (is_string($_SERVER['PATH_TRANSLATED'] ?? null)) $scriptName = $_SERVER['PATH_TRANSLATED'];
 	else return;
 
-	$dateLastModif = gmdate('D, d M Y H:i:s \G\M\T', $UnixTimeStamp);
+	$dateLastModif = gmdate('D, d M Y H:i:s \\G\\M\\T', $UnixTimeStamp);
 
 	if (is_string($_SERVER['QUERY_STRING'] ?? null)) $myQuery = '?' . $_SERVER['QUERY_STRING'];
 	else $myQuery = '';
