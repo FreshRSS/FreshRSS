@@ -1418,6 +1418,10 @@ input[type="search"] {
 	background: inherit;
 }
 
+.transition a, .transition a:hover {
+	color: inherit;
+}
+
 .transition .name {
 	position: absolute;
 	right: 0;

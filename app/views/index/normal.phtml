@@ -59,14 +59,17 @@ $today = @strtotime('today');
 			$this->entry->feed() ?? FreshRSS_Feed::default();
 		$this->entry->_feed($this->feed);
 
-		if ($last_transition !== ($transition = FreshRSS_index_Controller::transition($this->entry, FreshRSS_Context::$sort))) {
+		if ($last_transition !== ($transition = FreshRSS_index_Controller::transition($this->entry))) {
 			$last_transition = $transition;
 			?><div class="transition">
 			<span class="transition-value">
 				<?php if (FreshRSS_Context::$sort === 'f.name' && FreshRSS_Context::userConf()->show_favicons): ?>
 				<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
 				<?php endif;?>
-				<?= $transition ?>
+				<a href="<?= FreshRSS_index_Controller::transitionLink($this->entry) ?>"><?= $transition ?></a>
+				<?php if (in_array(FreshRSS_Context::$sort, ['id', 'date', 'lastUserModified'], true)): ?>
+					<a class="transition-next" href="<?= FreshRSS_index_Controller::transitionLink($this->entry, offset: 1) ?>">⏭</a>
+				<?php endif; ?>
 			</span>
 			<span class="name"><?= FreshRSS_Context::$name ?></span>
 			</div><?php
