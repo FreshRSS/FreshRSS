@@ -992,8 +992,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	public function testBooleanSearchEnforce(string $initialInput, string $enforceInput, string $expectedOutput): void {
 		$booleanSearch = new FreshRSS_BooleanSearch($initialInput);
 		$searchToEnforce = new FreshRSS_Search($enforceInput);
-		$booleanSearch->enforce($searchToEnforce);
-		self::assertSame($expectedOutput, $booleanSearch->__toString());
+		$newBooleanSearch = $booleanSearch->enforce($searchToEnforce);
+		self::assertNotSame($booleanSearch, $newBooleanSearch);
+		self::assertSame($expectedOutput, $newBooleanSearch->__toString());
 	}
 
 	/**

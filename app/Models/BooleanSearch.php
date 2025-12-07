@@ -434,28 +434,30 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	/**
 	 * Modify the first compatible search of the Boolean expression, or add it at the beginning.
 	 * Useful to modify some search parameters.
+	 * @return FreshRSS_BooleanSearch a new instance, modified.
 	 */
 	public function enforce(FreshRSS_Search $search): self {
+		$result = clone $this;
 		if (
-			count($this->searches) === 0 ||
-			!($this->searches[0] instanceof FreshRSS_Search) || !$this->searches[0]->hasSameOperators($search) || (
-				count($this->searches) > 1 && (!($this->searches[1] instanceof FreshRSS_BooleanSearch) ||
-				!in_array($this->operator(), ['AND', 'AND NOT'], true))
+			count($result->searches) === 0 ||
+			!($result->searches[0] instanceof FreshRSS_Search) || !$result->searches[0]->hasSameOperators($search) || (
+				count($result->searches) > 1 && (!($result->searches[1] instanceof FreshRSS_BooleanSearch) ||
+				!in_array($result->operator(), ['AND', 'AND NOT'], true))
 			)
 		) {
 			// Wrap the existing searches in a new BooleanSearch
 			$wrap = new FreshRSS_BooleanSearch('', 0, 'AND');
-			foreach ($this->searches as $existingSearch) {
+			foreach ($result->searches as $existingSearch) {
 				$wrap->add($existingSearch);
 			}
-			$this->searches = [$search];
+			$result->searches = [$search];
 			if (count($wrap->searches()) > 0) {
-				$this->searches[] = $wrap;
+				$result->searches[] = $wrap;
 			}
 		} else {
-			$this->searches[0] = $search;
+			$result->searches[0] = $search;
 		}
-		return $this;
+		return $result;
 	}
 
 	#[\Override]
