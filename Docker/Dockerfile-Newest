@@ -21,7 +21,6 @@ ARG FRESHRSS_VERSION
 ARG SOURCE_COMMIT
 
 LABEL \
-	org.opencontainers.image.authors="Alkarex" \
 	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
 	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
 	org.opencontainers.image.licenses="AGPL-3.0" \
