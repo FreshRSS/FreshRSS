@@ -1,5 +1,6 @@
 # Test image for development
-FROM archlinux:latest
+# hadolint ignore=DL3006
+FROM archlinux
 
 ENV TZ=UTC
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
