@@ -524,7 +524,7 @@ function printStep1(): void {
 	<div class="form-group form-actions">
 		<div class="group-controls">
 			<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>" tabindex="1">
-				<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" loading="lazy" />
+				<?= _i('refresh') ?>
 			</a>
 		</div>
 	</div>
@@ -795,7 +795,7 @@ if (_t('gen.dir') === 'rtl') {
 
 <div id="global">
 	<nav class="nav nav-list aside" id="aside">
-		<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+		<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 		<ul>
 			<li class="item nav-section">
 				<div class="nav-header"><?= _t('install.steps') ?></div>
