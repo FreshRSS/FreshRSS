@@ -4,6 +4,7 @@ declare(strict_types=1);
 class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	public const DEFAULTCATEGORYID = 1;
+	public const DEFAULT_CATEGORY_NAME = 'Uncategorized';
 
 	public function sqlResetSequence(): bool {
 		return true;	// Nothing to do for MySQL
@@ -14,7 +15,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		$stm = $this->pdo->prepare('UPDATE `_category` SET name = :name WHERE id = :id');
 		if ($stm !== false) {
 			$stm->bindValue(':id', self::DEFAULTCATEGORYID, PDO::PARAM_INT);
-			$stm->bindValue(':name', 'Uncategorized');
+			$stm->bindValue(':name', self::DEFAULT_CATEGORY_NAME);
 		}
 		return $stm !== false && $stm->execute();
 	}
@@ -94,6 +95,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				if (str_contains($errorLines[0], 'f.')) {	// Coming from a feed sub-query
+					$feedDao = FreshRSS_Factory::createFeedDao();
+					if ($feedDao->autoUpdateDb($errorInfo)) {
+						return true;
+					}
+				}
 				foreach (['kind', 'lastUpdate', 'error', 'attributes'] as $column) {
 					if (str_contains($errorLines[0], $column)) {
 						return $this->addColumn($column);

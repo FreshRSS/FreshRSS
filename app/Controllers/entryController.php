@@ -40,7 +40,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 *   - id (default: false)
 	 *   - get (default: false) /(c_\d+|f_\d+|s|a)/
 	 *   - nextGet (default: $get)
-	 *   - idMax (default: 0)
+	 *   - idMax (default: '0')
+	 *   - maxPubDate (default: 0)
 	 *   - is_read (default: true)
 	 */
 	public function readAction(): void {
@@ -52,6 +53,12 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 		$is_read = Minz_Request::paramTernary('is_read') ?? true;
 		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
+		$maxPubDate = Minz_Request::paramInt('maxPubDate');
+		if ($maxPubDate > 0) {
+			$search = new FreshRSS_Search('');
+			$search->setMaxPubdate($maxPubDate);
+			FreshRSS_Context::$search->prepend($search);
+		}
 
 		FreshRSS_Context::$state = Minz_Request::paramInt('state');
 		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)) {

@@ -22,7 +22,6 @@ return array(
 		'token' => '마스터 인증 토큰',
 		'token_help' => '인증 없이 사용자의 모든 RSS 내용과 피드 새로고침 권한을 허용합니다.:',
 		'type' => '인증',
-		'unsafe_autologin' => '다음과 같은 안전하지 않은 방식의 로그인을 허가합니다: ',
 	),
 	'check_install' => array(
 		'cache' => array(
@@ -118,6 +117,7 @@ return array(
 		'empty_list' => '설치된 확장 기능이 없습니다',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => '활성화됨',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => '설치됨',
 		'name' => '이름',
 		'no_configure_view' => '이 확장 기능은 설정이 없습니다.',
@@ -134,6 +134,8 @@ return array(
 		'_' => '통계',
 		'all_feeds' => '모든 피드',
 		'category' => '카테고리',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => '글 개수',
 		'entry_per_category' => '카테고리별 글 개수',
 		'entry_per_day' => '일일 글 개수 (최근 30 일)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => '유휴 피드',
 		'main' => '주요 통계',
 		'main_stream' => '메인 스트림',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => '유휴 피드가 없습니다!',
 		'number_entries' => '%d 개의 글',
 		'overview' => 'Overview',	// TODO
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => '읽지 않음',
 		'title' => '통계',
 		'top_feed' => '상위 10 개 피드',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => '시스템 설정',

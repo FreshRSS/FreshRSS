@@ -53,6 +53,7 @@ return array (
 	#	Set to `true` to mark it unread, or `false` to leave it as-is.
 	'mark_updated_article_unread' => false, //TODO: -1 => ignore, 0 => update, 1 => update and mark as unread
 
+	# 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length'
 	'sort' => 'id',
 	'mark_read_button' => 'big',
 	'sort_order' => 'DESC',
@@ -95,6 +96,7 @@ return array (
 		'global_view' => '2',
 		'reading_view' => '3',
 		'toggle_media' => 'v',
+		'toggle_aside' => 't',
 	),
 
 	# Disabling favicons and using emojis instead of icons improves performance for users with many feeds

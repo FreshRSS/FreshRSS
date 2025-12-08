@@ -10,6 +10,9 @@
 
 .vscode/
 
+/docs/_site/
+/docs/.sass-cache/
+
 # Temp files
 *~
 *.bak
@@ -24,5 +27,3 @@
 *.save
 *.autosav
 *.autosave
-*.sass-cache
-sass.sh

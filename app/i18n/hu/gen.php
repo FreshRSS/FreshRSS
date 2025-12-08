@@ -136,7 +136,6 @@ return array(
 		'yesterday' => 'Tegnap',
 	),
 	'dir' => 'ltr',	// IGNORE
-	'flag' => '🇭🇺',
 	'freshrss' => array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS névjegy',
@@ -162,7 +161,7 @@ return array(
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
 		'fi' => 'Suomi',	// IGNORE
@@ -177,19 +176,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
-		'pt-pt' => 'Português (Portugal)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
 		'uk' => 'Українська',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Névjegy',
 		'account' => 'Fiók',
 		'admin' => 'Adminisztráció',
+		'advanced_search' => 'Haladó keresés',
 		'archiving' => 'Archiválás',
 		'authentication' => 'Hitelesítés',
 		'check_install' => 'Telepítés ellenőrzése',
@@ -217,6 +217,38 @@ return array(
 		'weeks' => 'hét',
 		'years' => 'év',
 	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'Ez az űrlap segít a keresési lekérdezések összeállításában, de a kézzel írt lekérdezések még nagyobb szabadságot adnak.',
+		'authors' => 'Szerzők',
+		'categories' => 'Kategóriák',
+		'content' => 'Tartalom',
+		'date_from' => 'Dátumtól',
+		'date_past' => 'A múltban',
+		'date_published' => 'Közzététel dátuma',
+		'date_range' => 'Dátumtartomány',
+		'date_received' => 'Beérkezés dátuma',
+		'date_to' => 'Dátumig',
+		'date_user' => 'Felhasználói módosítás dátuma',
+		'feeds' => 'Hírforrások',
+		'free_text' => 'Szabad szöveg',
+		'free_text_help' => 'Keresés címben és tartalomban egyaránt',
+		'full_documentation' => 'Lásd <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">teljes keresési dokumentáció</a>',
+		'labels' => 'Saját címkék',
+		'multiple_help' => 'Válasszon egyet vagy többet (tartsa lenyomva a <kbd>Ctrl</kbd> vagy <kbd>Cmd</kbd> billentyűt)',
+		'sources' => 'Források',
+		'tags' => 'Cikk címkék',
+		'text' => 'Szöveges keresés',
+		'text_help' => 'A több sor logikai <i>vagy</i> kapcsolattal lesz összekapcsolva. Támogatja a <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">reguláris kifejezéseket</a> is.',
+		'text_placeholder' => 'Kulcsszó',
+		'title' => 'Cím',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Felhasználói lekérdezések',
+	),
 	'share' => array(
 		'Known' => 'Ismert weboldalak',
 		'archiveIS' => 'archive.is',	// IGNORE
@@ -239,7 +271,6 @@ return array(
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Print',	// IGNORE
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE

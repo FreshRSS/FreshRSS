@@ -22,7 +22,6 @@ return array(
 		'token' => 'Master authentication token',
 		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',
 		'type' => 'Authentication method',
-		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',
 	),
 	'check_install' => array(
 		'cache' => array(
@@ -118,6 +117,7 @@ return array(
 		'empty_list' => 'There are no installed extensions',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',
 		'enabled' => 'Enabled',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Installed',
 		'name' => 'Name',
 		'no_configure_view' => 'This extension cannot be configured.',
@@ -134,6 +134,8 @@ return array(
 		'_' => 'Statistics',
 		'all_feeds' => 'All feeds',
 		'category' => 'Category',
+		'date_published' => 'Publication date',
+		'date_received' => 'Received date',
 		'entry_count' => 'Entry count',
 		'entry_per_category' => 'Entries per category',
 		'entry_per_day' => 'Entries per day (last 30 days)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Idle feeds',
 		'main' => 'Main statistics',
 		'main_stream' => 'Main stream',
+		'nb_unreads' => 'Number of unread articles',
 		'no_idle' => 'There are no idle feeds!',
 		'number_entries' => '%d articles',
 		'overview' => 'Overview',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Unread',
 		'title' => 'Statistics',
 		'top_feed' => 'Top ten feeds',
+		'unread_dates' => 'Dates with most unread articles',
 	),
 	'system' => array(
 		'_' => 'System configuration',

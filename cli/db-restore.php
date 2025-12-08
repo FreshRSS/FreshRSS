@@ -37,7 +37,7 @@ if (!$ok) {
 	fail('FreshRSS database error: ' . (is_string($_SESSION['bd_error'] ?? null) ? $_SESSION['bd_error'] : 'Unknown error'));
 }
 
-foreach (listUsers() as $username) {
+foreach (FreshRSS_user_Controller::listUsers() as $username) {
 	$username = cliInitUser($username);
 	$filename = DATA_PATH . "/users/{$username}/backup.sqlite";
 	if (!file_exists($filename)) {

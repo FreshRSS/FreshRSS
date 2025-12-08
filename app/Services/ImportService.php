@@ -177,6 +177,24 @@ class FreshRSS_Import_Service {
 					break;
 			}
 
+			$feed->_priority(match (strtolower($feed_elt['frss:priority'] ?? '')) {
+				FreshRSS_Export_Service::PRIORITY_IMPORTANT => FreshRSS_Feed::PRIORITY_IMPORTANT,
+				FreshRSS_Export_Service::PRIORITY_MAIN_STREAM => FreshRSS_Feed::PRIORITY_MAIN_STREAM,
+				FreshRSS_Export_Service::PRIORITY_CATEGORY => FreshRSS_Feed::PRIORITY_CATEGORY,
+				FreshRSS_Export_Service::PRIORITY_FEED => FreshRSS_Feed::PRIORITY_FEED,
+				FreshRSS_Export_Service::PRIORITY_HIDDEN => FreshRSS_Feed::PRIORITY_HIDDEN,
+				default => FreshRSS_Feed::PRIORITY_MAIN_STREAM,
+			});
+
+			if (isset($feed_elt['frss:unicityCriteria']) && $feed_elt['frss:unicityCriteria'] !== 'id'
+				&& preg_match('/^[a-z:_-]{2,64}$/', $feed_elt['frss:unicityCriteria'])) {
+				$feed->_attribute('unicityCriteria', $feed_elt['frss:unicityCriteria']);
+			}
+
+			if (filter_var($feed_elt['frss:unicityCriteriaForced'] ?? '', FILTER_VALIDATE_BOOLEAN)) {
+				$feed->_attribute('unicityCriteriaForced', true);
+			}
+
 			if (isset($feed_elt['frss:cssFullContent'])) {
 				$feed->_pathEntries(Minz_Helper::htmlspecialchars_utf8($feed_elt['frss:cssFullContent']));
 			}
@@ -354,7 +372,7 @@ class FreshRSS_Import_Service {
 		$category = new FreshRSS_Category($name);
 
 		if (isset($category_element['frss:opmlUrl'])) {
-			$opml_url = checkUrl($category_element['frss:opmlUrl']);
+			$opml_url = FreshRSS_http_Util::checkUrl($category_element['frss:opmlUrl']);
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$category->_attribute('opml_url', $opml_url);

@@ -36,15 +36,26 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Nincs megjeleníthető cikk.',
+		'published' => array(
+			'_' => 'Közzétéve',
+			'future' => 'A jövőben közzétéve',
+			'today' => 'Ma közzétéve',
+			'yesterday' => 'Tegnap közzétéve',
+		),
 		'received' => array(
-			'before_yesterday' => 'Tegnapelőtt fogadva',
-			'today' => 'Ma fogadva',
-			'yesterday' => 'Tegnap fogadva',
+			'_' => 'Beérkezett',
+			'today' => 'Ma beérkezett',
+			'yesterday' => 'Tegnap beérkezett',
 		),
 		'rss_of' => 'RSS hírforrás %s',
 		'title' => 'Minden cikk',
 		'title_fav' => 'Kedvencek',
 		'title_global' => 'Globális nézet',
+		'userModified' => array(
+			'_' => 'Felhasználó által módosítva',
+			'today' => 'Felhasználó által módosítva ma',
+			'yesterday' => 'Felhasználó által módosítva tegnap',
+		),
 	),
 	'log' => array(
 		'_' => 'Log-ok',
@@ -89,11 +100,15 @@ return array(
 			),
 			'id_asc' => 'Frissen fogadott utoljára',
 			'id_desc' => 'Frissen fogadott először',
+			'length_asc' => 'Tartalom hossza 1→9',
+			'length_desc' => 'Tartalom hossza 9→1',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Véletlen sorrend',
 			'title_asc' => 'Cím A→Z',
 			'title_desc' => 'Cím Z→A',
+			'user_modified_asc' => 'Felhasználói módosítás 1→9',
+			'user_modified_desc' => 'Felhasználói módosítás 9→1',
 		),
 		'starred' => 'Kedvencek megjelenítése',
 		'stats' => 'Statisztika',

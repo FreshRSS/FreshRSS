@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Gösterilecek makale yok.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Dünden önceki gün alınanlar',
+			'_' => 'Received',	// TODO
 			'today' => 'Bugün alınanlar',
 			'yesterday' => 'Dün alınanlar',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Ana akış',
 		'title_fav' => 'Favoriler',
 		'title_global' => 'Genel görünüm',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Günlükler',
@@ -89,11 +100,15 @@ return array(
 			),
 			'id_asc' => 'Son alınanlar en sonda',
 			'id_desc' => 'Son alınanlar başta',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Bağlantı A→Z',
 			'link_desc' => 'Bağlantı Z→A',
 			'rand' => 'Rastgele sıralama',
 			'title_asc' => 'Başlık A→Z',
 			'title_desc' => 'Başlık Z→A',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Favorileri göster',
 		'stats' => 'İstatistikler',

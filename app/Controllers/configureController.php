@@ -164,8 +164,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'site' => Minz_Request::paramBoolean('mark_open_site'),
 				'focus' => Minz_Request::paramBoolean('mark_focus'),
 			];
-			FreshRSS_Context::userConf()->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
-			FreshRSS_Context::userConf()->_filtersAction('star', Minz_Request::paramTextToArray('filteractions_star'));
+			FreshRSS_Context::userConf()->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));	// Keep as HTML
+			FreshRSS_Context::userConf()->_filtersAction('star', Minz_Request::paramTextToArray('filteractions_star'));	// Keep as HTML
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
@@ -178,6 +178,25 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 
 		$this->view->viewModes = FreshRSS_ViewMode::getAllModes();
 		FreshRSS_View::prependTitle(_t('conf.reading.title') . ' · ');
+	}
+
+	public function viewFilterAction(): void {
+		$search = '';
+		$filters_name = Minz_Request::paramString('filters_name', plaintext: true);
+		$filteractions = Minz_Request::paramTextToArray($filters_name, plaintext: true);
+		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
+		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
+		foreach ($filteractions as $action) {
+			$search .= "($action) OR ";
+		}
+		$search = preg_replace('/ OR $/', '', $search);
+		Minz_Request::forward([
+			'c' => 'index',
+			'a' => 'index',
+			'params' => [
+				'search' => $search,
+			],
+		], redirect: true);
 	}
 
 	/**
@@ -217,6 +236,30 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('conf.sharing.title') . ' · ');
 	}
 
+	private const SHORTCUT_KEYS = [
+			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+			'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+			'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+			'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12',
+			'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Backspace', 'Delete',
+			'End', 'Enter', 'Escape', 'Home', 'Insert', 'PageDown', 'PageUp', 'Space', 'Tab',
+		];
+
+	/**
+	 * @param array<string> $shortcuts
+	 * @return list<string>
+	 */
+	public static function getNonStandardShortcuts(array $shortcuts): array {
+		$standard = strtolower(implode(' ', self::SHORTCUT_KEYS));
+
+		$nonStandard = array_filter($shortcuts, static function (string $shortcut) use ($standard) {
+			$shortcut = trim($shortcut);
+			return $shortcut !== '' && stripos($standard, $shortcut) === false;
+		});
+
+		return array_values($nonStandard);
+	}
+
 	/**
 	 * This action handles the shortcut configuration page.
 	 *
@@ -230,7 +273,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * tab and up.
 	 */
 	public function shortcutAction(): void {
-		$this->view->list_keys = SHORTCUT_KEYS;
+		$this->view->list_keys = self::SHORTCUT_KEYS;
 
 		if (Minz_Request::isPost()) {
 			$shortcuts = Minz_Request::paramArray('shortcuts', plaintext: true);
@@ -326,7 +369,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->size_user = $databaseDAO->size();
 
 		if (FreshRSS_Auth::hasAccess('admin')) {
-			$this->view->size_total = $databaseDAO->size(true);
+			$this->view->size_total = $databaseDAO->size(all: true);
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.archiving.title') . ' · ');
@@ -346,7 +389,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
 
 		if (Minz_Request::isPost()) {
-			/** @var array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string}> $params */
+			/** @var array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+			 * 		shareRss?:bool|numeric-string,shareOpml?:bool|numeric-string,description?:string,imageUrl?:string}> $params */
 			$params = Minz_Request::paramArray('queries');
 
 			$queries = [];
@@ -358,6 +402,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				if (!empty($query['search'])) {
 					$query['search'] = urldecode($query['search']);
 				}
+				$shareRss = $query['shareRss'] ?? null;
+				$query['shareRss'] = (is_string($shareRss) && ctype_digit($shareRss)) ? (bool)$shareRss : false;
+				$shareOpml = $query['shareOpml'] ?? null;
+				$query['shareOpml'] = (is_string($shareOpml) && ctype_digit($shareOpml)) ? (bool)$shareOpml : false;
 				$queries[$key] = (new FreshRSS_UserQuery($query, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
 			}
 			FreshRSS_Context::userConf()->queries = $queries;
@@ -453,6 +501,9 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			if (!empty($params['shareRss']) && ctype_digit($params['shareRss'])) {
 				$queryParams['shareRss'] = (bool)$params['shareRss'];
 			}
+			if (!empty($params['publishLabelsInsteadOfTags']) && ctype_digit($params['publishLabelsInsteadOfTags'])) {
+				$queryParams['publishLabelsInsteadOfTags'] = (bool)$params['publishLabelsInsteadOfTags'];
+			}
 
 			$queries = FreshRSS_Context::userConf()->queries;
 			$queries[$id] = (new FreshRSS_UserQuery($queryParams, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
@@ -513,7 +564,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$params = array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
 		unset($params['name']);
 		unset($params['rid']);
-		/** @var array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $params */
+		/** @var array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool,publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string} $params */
 		$params['url'] = Minz_Url::display(['params' => $params]);
 		$params['name'] = _t('conf.query.number', count($queries) + 1);
 		$queries[] = (new FreshRSS_UserQuery($params, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();

@@ -49,7 +49,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		$this->_csp([
 			'default-src' => "'self'",
 			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
-			'img-src' => "'self' blob:",
+			'img-src' => "'self' data: blob:",
 		]);
 
 		$this->view->onlyFeedsWithError = Minz_Request::paramBoolean('error');
@@ -119,7 +119,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		$this->_csp([
 			'default-src' => "'self'",
 			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
-			'img-src' => "'self' blob:",
+			'img-src' => "'self' data: blob:",
 		]);
 
 		if (Minz_Request::isPost()) {
@@ -247,7 +247,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				]);
 			}
 
-			$feed->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
+			$feed->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));	// Keep as HTML
 
 			$feed->_kind(Minz_Request::paramInt('feed_kind') ?: FreshRSS_Feed::KIND_RSS);
 			if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
@@ -337,9 +337,9 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$values = [
 				'name' => Minz_Request::paramString('name'),
 				'kind' => $feed->kind(),
-				'description' => sanitizeHTML(Minz_Request::paramString('description', true)),
-				'website' => checkUrl(Minz_Request::paramString('website')) ?: '',
-				'url' => checkUrl(Minz_Request::paramString('url')) ?: '',
+				'description' => FreshRSS_SimplePieCustom::sanitizeHTML(Minz_Request::paramString('description', true)),
+				'website' => FreshRSS_http_Util::checkUrl(Minz_Request::paramString('website')) ?: '',
+				'url' => FreshRSS_http_Util::checkUrl(Minz_Request::paramString('url')) ?: '',
 				'category' => Minz_Request::paramInt('category'),
 				'pathEntries' => Minz_Request::paramString('path_entries'),
 				'priority' => Minz_Request::paramTernary('priority') === null ? FreshRSS_Feed::PRIORITY_MAIN_STREAM : Minz_Request::paramInt('priority'),
@@ -407,6 +407,30 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.sub.feed.error'), $url_redirect);
 			}
 		}
+	}
+
+	public function viewFilterAction(): void {
+		$id = Minz_Request::paramInt('id');
+		if ($id === 0) {
+			Minz_Error::error(400);
+			return;
+		}
+		$filteractions = Minz_Request::paramTextToArray('filteractions_read', plaintext: true);
+		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
+		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
+		$search = "f:$id (";
+		foreach ($filteractions as $action) {
+			$search .= "($action) OR ";
+		}
+		$search = preg_replace('/ OR $/', '', $search);
+		$search .= ')';
+		Minz_Request::forward([
+			'c' => 'index',
+			'a' => 'index',
+			'params' => [
+				'search' => $search,
+			],
+		], redirect: true);
 	}
 
 	/**

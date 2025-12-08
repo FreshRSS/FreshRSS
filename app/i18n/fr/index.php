@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Il n’y a aucun article à afficher.',
+		'published' => array(
+			'_' => 'Publié',
+			'future' => 'Publié dans le futur',
+			'today' => 'Publié aujourd’hui',
+			'yesterday' => 'Publié hier',
+		),
 		'received' => array(
-			'before_yesterday' => 'Reçu avant avant-hier',
+			'_' => 'Reçu',
 			'today' => 'Reçu aujourd’hui',
 			'yesterday' => 'Reçu hier',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Flux principal',
 		'title_fav' => 'Favoris',
 		'title_global' => 'Vue globale',
+		'userModified' => array(
+			'_' => 'Modifié par l’utilisateur',
+			'today' => 'Modifié par l’utilisateur aujourd’hui',
+			'yesterday' => 'Modifié par l’utilisateur hier',
+		),
 	),
 	'log' => array(
 		'_' => 'Logs',	// IGNORE
@@ -89,11 +100,15 @@ return array(
 			),
 			'id_asc' => 'Reçus récemment en dernier',
 			'id_desc' => 'Reçus récemment en premier',
+			'length_asc' => 'Longueur du contenu 1→9',
+			'length_desc' => 'Longueur du contenu 9→1',
 			'link_asc' => 'Lien A→Z',
 			'link_desc' => 'Lien Z→A',
 			'rand' => 'Ordre aléatoire',
 			'title_asc' => 'Titre A→Z',
 			'title_desc' => 'Titre Z→A',
+			'user_modified_asc' => 'Modifié par l’utilisateur 1→9',
+			'user_modified_desc' => 'Modifié par l’utilisateur 9→1',
 		),
 		'starred' => 'Afficher les favoris',
 		'stats' => 'Statistiques',

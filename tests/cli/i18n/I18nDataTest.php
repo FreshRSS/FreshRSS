@@ -34,6 +34,16 @@ final class I18nDataTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	public function testMoveKey(): void {
+		$data = new I18nData($this->referenceData);
+		$value = $data->getData()['en']['file2.php']['file2.l1.l2.k2'];
+		self::assertTrue($data->isKnown('file2.l1.l2.k2'));
+		self::assertFalse($data->isKnown('file2.l1.nkl2'));
+		$data->moveKey('file2.l1.l2.k2', 'file2.l1.nkl2');
+		self::assertFalse($data->isKnown('file2.l1.l2.k2'));
+		self::assertTrue($data->isKnown('file2.l1.nkl2'));
+	}
+
 	public function testConstructWhenReferenceOnly(): void {
 		$data = new I18nData($this->referenceData);
 		self::assertSame($this->referenceData, $data->getData());
@@ -302,7 +312,7 @@ final class I18nDataTest extends \PHPUnit\Framework\TestCase {
 
 	public function testAddLanguageWhenLanguageExists(): void {
 		$this->expectException(\Exception::class);
-		$this->expectExceptionMessage('The selected language already exist.');
+		$this->expectExceptionMessage('The selected language already exists.');
 		$data = new I18nData($this->referenceData);
 		$data->addLanguage('en');
 	}
@@ -430,7 +440,7 @@ final class I18nDataTest extends \PHPUnit\Framework\TestCase {
 
 	public function testAddKeyWhenKeyExists(): void {
 		$this->expectException(\Exception::class);
-		$this->expectExceptionMessage('The selected key already exist.');
+		$this->expectExceptionMessage('The selected key already exists.');
 		$data = new I18nData($this->referenceData);
 		$data->addKey('file2.l1.l2.k1', 'value');
 	}

@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Нема статей для показу.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Отримано раніше за вчора',
+			'_' => 'Received',	// TODO
 			'today' => 'Отримано сьогодні',
 			'yesterday' => 'Отримано вчора',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Головний потік',
 		'title_fav' => 'Вподобані',
 		'title_global' => 'Глобальний показ',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Журнали',
@@ -89,11 +100,15 @@ return array(
 			),
 			'id_asc' => 'Спершу найдавніше отримані',
 			'id_desc' => 'Спершу щойно отримані',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Посилання А→Я',
 			'link_desc' => 'Посилання Я→А',
 			'rand' => 'Довільний порядок',
 			'title_asc' => 'Заголовок А→Я',
 			'title_desc' => 'Заголовок Я→А',
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
 		'starred' => 'Показати вподобані',
 		'stats' => 'Статистика',

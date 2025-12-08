@@ -44,7 +44,8 @@ declare(strict_types=1);
  * @property bool $onread_jump_next
  * @property string $passwordHash
  * @property int $posts_per_page
- * @property array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string}> $queries
+ * @property array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+ * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string}> $queries
  * @property bool $reading_confirm
  * @property int $since_hours_posts_per_rss
  * @property bool $show_fav_unread
@@ -54,7 +55,7 @@ declare(strict_types=1);
  * @property bool $show_nav_buttons
  * @property 'big'|'small'|'none' $mark_read_button
  * @property 'ASC'|'DESC' $sort_order
- * @property 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand' $sort
+ * @property 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'length' $sort
  * @property array<int,array<string,string>> $sharing
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article
@@ -74,7 +75,6 @@ declare(strict_types=1);
  * @property string $topline_thumbnail
  * @property int $ttl_default
  * @property int $dynamic_opml_ttl_default
- * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode
  * @property array<string,bool|int|string> $volatile
  * @property array<string,array<string,mixed>> $extensions
@@ -106,5 +106,33 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 			$default_user_conf = FreshRSS_UserConfiguration::get($namespace);
 		}
 		return $default_user_conf;
+	}
+
+	/**
+	 * Register and return the configuration for a given user.
+	 *
+	 * Note this function has been created to generate temporary configuration
+	 * objects. If you need a long-time configuration, please don't use this function.
+	 *
+	 * @param string $username the name of the user of which we want the configuration.
+	 * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
+	 * @throws Minz_ConfigurationNamespaceException
+	 */
+	public static function getForUser(string $username): ?FreshRSS_UserConfiguration {
+		if (!FreshRSS_user_Controller::checkUsername($username)) {
+			return null;
+		}
+		$namespace = 'user_' . $username;
+		try {
+			FreshRSS_UserConfiguration::register($namespace,
+				USERS_PATH . '/' . $username . '/config.php',
+				FRESHRSS_PATH . '/config-user.default.php');
+		} catch (Minz_FileNotExistException $e) {
+			Minz_Log::warning($e->getMessage(), ADMIN_LOG);
+			return null;
+		}
+
+		$user_conf = FreshRSS_UserConfiguration::get($namespace);
+		return $user_conf;
 	}
 }

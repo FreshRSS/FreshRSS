@@ -254,7 +254,7 @@ SQL;
 		$values = [':table_schema' => $db['base']];
 		if (!$all) {
 			$sql .= ' AND table_name LIKE :table_name';
-			$values[':table_name'] = $this->pdo->prefix() . '%';
+			$values[':table_name'] = addcslashes($this->pdo->prefix(), '\\%_') . '%';
 		}
 		$res = $this->fetchColumn($sql, 0, $values);
 		return isset($res[0]) ? (int)($res[0]) : -1;
@@ -347,13 +347,8 @@ SQL;
 						//SQLite is the only one with database-level optimization, instead of at table level.
 						$this->optimize();
 					}
-				} else {
-					if ($databaseDAO->exits()) {
-						$nbEntries = $entryDAO->countUnreadRead();
-						if (isset($nbEntries['all']) && $nbEntries['all'] > 0) {
-							$error = 'Error: Destination database already contains some entries!';
-						}
-					}
+				} elseif ($databaseDAO->exits() && $entryDAO->count() > 0) {
+					$error = 'Error: Destination database already contains some entries!';
 				}
 				break;
 			default:

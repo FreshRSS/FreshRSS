@@ -152,6 +152,7 @@ return array(
 			'categories' => '카테고리별로 표시',
 			'feeds' => '피드별로 표시',
 			'order' => '날짜순으로 정렬',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => '정규 표현식',
 			'shareOpml' => '해당 카테고리와 피드에 대한 OPML 공유 활성화',
 			'shareRss' => 'HTML 및 RSS 공유 활성화',
@@ -358,6 +359,7 @@ return array(
 		'skip_next_article' => '다음 글로 커서 이동',
 		'skip_previous_article' => '이전 글로 커서 이동',
 		'title' => '단축키',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => '미디어 재생/일시정지',
 		'user_filter' => '사용자 필터 사용하기',
 		'user_filter_help' => '사용자 필터가 하나만 설정되어 있다면 해당 필터를 사용하고, 그렇지 않다면 필터를 번호로 선택할 수 있습니다.',

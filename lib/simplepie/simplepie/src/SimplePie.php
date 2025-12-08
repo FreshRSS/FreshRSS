@@ -568,7 +568,7 @@ class SimplePie
     public $input_encoding = false;
 
     /**
-     * @var self::LOCATOR_* Feed Autodiscovery Level
+     * @var int-mask-of<self::LOCATOR_*> Feed Autodiscovery Level
      * @see SimplePie::set_autodiscovery_level()
      * @access private
      */
@@ -662,6 +662,35 @@ class SimplePie
      * @access private
      */
     public $rename_attributes = [];
+
+    /**
+     * @var array<string,string[]> Stores allowed tags and attributes.
+     * Preferred over $strip_htmltags and $strip_attributes.
+     * Note that `<html>`, `<head>`, `<body>`, `<div>` are always allowed.
+     * @see SimplePie::allowed_html_elements_with_attributes()
+     * @access private
+     */
+    public $allowed_html_elements_with_attributes = [];
+
+    /**
+     * @var string[] Stores array of default allowed attributes.
+     * @see SimplePie::allowed_html_attributes()
+     * @access private
+     */
+    public $allowed_html_attributes = [];
+
+    /**
+     * @var bool Whether `data-*` attributes should be allowed or not
+     * @see SimplePie::allow_data_attr()
+     * @access private
+     */
+    public $allow_data_attr = true;
+    /**
+     * @var bool Whether `aria-*` attributes should be allowed or not
+     * @see SimplePie::allow_aria_attr()
+     * @access private
+     */
+    public $allow_aria_attr = true;
 
     /**
      * @var bool Should we throw exceptions, or use the old-style error property?
@@ -1122,7 +1151,7 @@ class SimplePie
      * @see self::LOCATOR_REMOTE_EXTENSION
      * @see self::LOCATOR_REMOTE_BODY
      * @see self::LOCATOR_ALL
-     * @param self::LOCATOR_* $level Feed Autodiscovery Level (level can be a combination of the above constants, see bitwise OR operator)
+     * @param int-mask-of<self::LOCATOR_*> $level Feed Autodiscovery Level (level can be a combination of the above constants, see bitwise OR operator)
      * @return void
      */
     public function set_autodiscovery_level(int $level = self::LOCATOR_ALL)
@@ -1525,6 +1554,42 @@ class SimplePie
     }
 
     /**
+     * @param array<string,string[]> $tags Set array of allowed tags and attributes.
+     * Note that `<html>`, `<head>`, `<body>`, `<div>` are always allowed.
+     * Preferred over {@see SimplePie::allowed_html_attributes()} and {@see SimplePie::strip_attributes()}.
+     *
+     * Example: `['a' => ['href', 'title'], 'img' => ['src', 'alt']]`
+     */
+    public function allowed_html_elements_with_attributes(array $tags = []): void
+    {
+        $this->sanitize->allowed_html_elements_with_attributes($tags);
+    }
+
+    /**
+     * @param string[] $attrs Set default array of allowed attributes.
+     */
+    public function allowed_html_attributes(array $attrs = []): void
+    {
+        $this->sanitize->allowed_html_attributes($attrs);
+    }
+
+    /**
+     * @param bool $allow Whether `data-*` attributes should be allowed or not
+     */
+    public function allow_data_attr(bool $allow = true): void
+    {
+        $this->sanitize->allow_data_attr($allow);
+    }
+
+    /**
+     * @param bool $allow Whether `aria-*` attributes should be allowed or not
+     */
+    public function allow_aria_attr(bool $allow = true): void
+    {
+        $this->sanitize->allow_aria_attr($allow);
+    }
+
+    /**
      * @return void
      */
     public function encode_instead_of_strip(bool $enable = true)
@@ -1650,6 +1715,8 @@ class SimplePie
 
     /**
      * Set the limit for items returned per-feed with multifeeds
+     *
+     * @deprecated since SimplePie 1.10.0, this does nothing outside multifeeds.
      *
      * @param int $limit The maximum number of items to return.
      * @return void
@@ -2982,6 +3049,13 @@ class SimplePie
                     $this->data['links'][substr($key, 41)] = &$this->data['links'][$key];
                 }
                 $this->data['links'][$key] = array_unique($this->data['links'][$key]);
+            }
+
+            // Apply HTTPS policy to all links
+            foreach ($this->data['links'] as &$links) {
+                foreach ($links as &$link) {
+                    $link = $this->sanitize->https_url($link);
+                }
             }
         }
 

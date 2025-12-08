@@ -59,7 +59,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.tag.name_exists', $cat->name()), $url_redirect);
 			}
 
-			$opml_url = checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
+			$opml_url = FreshRSS_http_Util::checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
 			if ($opml_url != '') {
 				$cat->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$cat->_attribute('opml_url', $opml_url);
@@ -110,7 +110,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$category->_attribute('read_when_same_title_in_category', null);
 			}
 
-			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
+			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));	// Keep as HTML
 
 			if (Minz_Request::paramBoolean('use_default_purge_options')) {
 				$category->_attribute('archiving', null);
@@ -141,7 +141,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			$position = Minz_Request::paramInt('position') ?: null;
 			$category->_attribute('position', $position);
 
-			$opml_url = checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
+			$opml_url = FreshRSS_http_Util::checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$category->_attribute('opml_url', $opml_url);
@@ -169,6 +169,30 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
 			}
 		}
+	}
+
+	public function viewFilterAction(): void {
+		$id = Minz_Request::paramInt('id');
+		if ($id === 0) {
+			Minz_Error::error(400);
+			return;
+		}
+		$filteractions = Minz_Request::paramTextToArray('filteractions_read', plaintext: true);
+		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
+		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
+		$search = "c:$id (";
+		foreach ($filteractions as $action) {
+			$search .= "($action) OR ";
+		}
+		$search = preg_replace('/ OR $/', '', $search);
+		$search .= ')';
+		Minz_Request::forward([
+			'c' => 'index',
+			'a' => 'index',
+			'params' => [
+				'search' => $search,
+			],
+		], redirect: true);
 	}
 
 	/**
@@ -205,7 +229,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			}
 
 			// Remove related queries.
-			$queries = remove_query_by_get('c_' . $id, FreshRSS_Context::userConf()->queries);
+			$queries = FreshRSS_UserQuery::remove_query_by_get('c_' . $id, FreshRSS_Context::userConf()->queries);
 			FreshRSS_Context::userConf()->queries = $queries;
 			FreshRSS_Context::userConf()->save();
 
@@ -250,7 +274,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 				// Remove related queries
 				foreach ($feeds as $feed) {
-					$queries = remove_query_by_get('f_' . $feed->id(), FreshRSS_Context::userConf()->queries);
+					$queries = FreshRSS_UserQuery::remove_query_by_get('f_' . $feed->id(), FreshRSS_Context::userConf()->queries);
 					FreshRSS_Context::userConf()->queries = $queries;
 				}
 				FreshRSS_Context::userConf()->save();

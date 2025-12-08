@@ -22,7 +22,6 @@ return array(
 		'token' => 'به نوعی دارایی دیجیتال اشاره دارد که از ویژگی حفظ ارزش و انتقال به دیگران برخوردار است. توکن ابزار دیجیتالی است که بر روی بلاک چین رمزگذاری می‌شود. می‌توان گفت که توکن همان ارزدیجیتال با ویژگی‌های منحصر به فرد است.',
 		'token_help' => 'اجازه دسترسی به تمام خروجی های ار اس اس کاربر و همچنین به روزرسانی فید ها را بدون احراز هویت می دهد',
 		'type' => ' روش احراز هویت',
-		'unsafe_autologin' => ' اجازه ورود خودکار ناامن را با استفاده از قالب:',
 	),
 	'check_install' => array(
 		'cache' => array(
@@ -118,6 +117,7 @@ return array(
 		'empty_list' => ' هیچ برنامه افزودنی نصب شده ای وجود ندارد',
 		'empty_list_help' => 'لاگ‌ها را بررسی کنید تا دلیل خالی بودن لیست افزونه‌ها مشخص شود',
 		'enabled' => ' فعال است',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => ' نصب شده است',
 		'name' => ' نام',
 		'no_configure_view' => ' این برنامه افزودنی قابل پیکربندی نیست.',
@@ -134,6 +134,8 @@ return array(
 		'_' => 'آمار',
 		'all_feeds' => ' همه فیدها',
 		'category' => ' دسته',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => ' تعداد ورودی',
 		'entry_per_category' => ' ورودی در هر دسته',
 		'entry_per_day' => ' ورودی در روز (30 روز گذشته)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => ' تغذیه بیکار',
 		'main' => ' آمار اصلی',
 		'main_stream' => ' جریان اصلی',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => ' هیچ فید بیکار وجود ندارد!',
 		'number_entries' => ' %d مقاله',
 		'overview' => 'بررسی اجمالی',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => ' خوانده نشده',
 		'title' => 'آمار',
 		'top_feed' => ' ده فید برتر',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => ' پیکربندی سیستم',

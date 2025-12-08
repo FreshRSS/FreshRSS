@@ -152,6 +152,7 @@ return array(
 			'categories' => 'カテゴリごとに表示する',
 			'feeds' => 'フィードごとに表示する',
 			'order' => '日付ごとにソートする',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => '式',
 			'shareOpml' => 'カテゴリとフィードのOPMLによる共有を有効にする',
 			'shareRss' => 'HTMLとRSSによる共有を有効にする',
@@ -358,6 +359,7 @@ return array(
 		'skip_next_article' => '次の記事を開かずにフォーカスする',
 		'skip_previous_article' => '前の記事を開かずにフォーカスする',
 		'title' => 'ショートカット',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'メディアの 再生/停止',
 		'user_filter' => 'ユーザークエリにアクセスする',
 		'user_filter_help' => 'ユーザークエリが一つしかなければ、それを使う。そうではなければ、番号でクエリを選択する。',

@@ -35,6 +35,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	#[\Override]
+	public static function sqlGreatest(string $a, string $b): string {
+		return 'MAX(' . $a . ', ' . $b . ')';
+	}
+
+	#[\Override]
 	public static function sqlRandom(): string {
 		return 'RANDOM()';
 	}
@@ -64,7 +69,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) !== false && ($columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1)) !== false) {
-			foreach (['attributes'] as $column) {
+			foreach (['attributes', 'lastUserModified'] as $column) {
 				if (!in_array($column, $columns, true)) {
 					return $this->addColumn($column);
 				}
@@ -76,20 +81,20 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	#[\Override]
 	public function commitNewEntries(): bool {
 		$sql = <<<'SQL'
-DROP TABLE IF EXISTS `tmp`;
-CREATE TEMP TABLE `tmp` AS
-	SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
-	FROM `_entrytmp`
-	ORDER BY date, id;
-INSERT OR IGNORE INTO `_entry`
-	(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
-	SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
-	guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
-	FROM `tmp`
-	ORDER BY date, id;
-DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
-DROP TABLE IF EXISTS `tmp`;
-SQL;
+			DROP TABLE IF EXISTS `tmp`;
+			CREATE TEMP TABLE `tmp` AS
+				SELECT id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+				FROM `_entrytmp`
+				ORDER BY date, id;
+			INSERT OR IGNORE INTO `_entry`
+				(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
+				SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
+				guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+				FROM `tmp` t
+				ORDER BY t.date, t.id;
+			DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
+			DROP TABLE IF EXISTS `tmp`;
+			SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
 			$this->pdo->beginTransaction();
@@ -124,8 +129,8 @@ SQL;
 		} else {
 			FreshRSS_UserDAO::touch();
 			$this->pdo->beginTransaction();
-			$sql = 'UPDATE `_entry` SET is_read=? WHERE id=? AND is_read=?';
-			$values = [$is_read ? 1 : 0, $ids, $is_read ? 0 : 1];
+			$sql = 'UPDATE `_entry` SET is_read=?, `lastUserModified` = ? WHERE id=? AND is_read=?';
+			$values = [$is_read ? 1 : 0, time(), $ids, $is_read ? 0 : 1];
 			$stm = $this->pdo->prepare($sql);
 			if ($stm === false || !$stm->execute($values)) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -165,11 +170,11 @@ SQL;
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` SET is_read = ? WHERE is_read <> ? AND id <= ? AND '
+		$sql = 'UPDATE `_entry` SET is_read = ?, `lastUserModified` = ? WHERE is_read <> ? AND id <= ? AND '
 			 . 'id IN (SELECT et.id_entry FROM `_entrytag` et '
 			 . ($id == 0 ? '' : 'WHERE et.id_tag = ?')
 			 . ')';
-		$values = [$is_read ? 1 : 0, $is_read ? 1 : 0, $idMax];
+		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax];
 		if ($id != 0) {
 			$values[] = $id;
 		}

@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/simplepie/simplepie/compare/1.9.0...master)
 
+### Added
+
 Nothing yet.
+
+### Changed
+
+Nothing yet.
+
+### Fixed
+
+Nothing yet.
+
+### Deprecated
+
+- `SimplePie\SimplePie::set_item_limit()` is deprecated since it only affects multi-feed mode, which has been deprecated in SimplePie 1.9 (by @jtojnar in [#954](https://github.com/simplepie/simplepie/pull/954))
 
 ## [1.9.0](https://github.com/simplepie/simplepie/compare/1.8.1...1.9.0) - 2025-09-12
 

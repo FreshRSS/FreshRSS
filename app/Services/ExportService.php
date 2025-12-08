@@ -23,6 +23,12 @@ class FreshRSS_Export_Service {
 	final public const TYPE_JSONFEED = 'JSONFeed';
 	final public const TYPE_HTML_XPATH_JSON_DOTNOTATION = 'HTML+XPath+JSON+DotNotation';
 
+	final public const PRIORITY_IMPORTANT = 'important';
+	final public const PRIORITY_MAIN_STREAM = 'main';
+	final public const PRIORITY_CATEGORY = 'category';
+	final public const PRIORITY_FEED = 'feed';
+	final public const PRIORITY_HIDDEN = 'hidden';
+
 	/**
 	 * Initialize the service for the given user.
 	 */

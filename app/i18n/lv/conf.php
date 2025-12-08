@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Rādīt pēc kategorijas',
 			'feeds' => 'Rādīt pēc barotnes',
 			'order' => 'Kārtot pēc datuma',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Izteiksme',
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
@@ -358,6 +359,7 @@ return array(
 		'skip_next_article' => 'Fokusēt nākamo bez atvēršanas',
 		'skip_previous_article' => 'Fokusēt iepriekšējo bez atvēršanas',
 		'title' => 'Saīsnes',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Mēdiju atskaņošana/pauze',
 		'user_filter' => 'Piekļuve lietotāju pieprasījumiem',
 		'user_filter_help' => 'Ja ir tikai viens lietotāja pieprasījums, tiek izmantots tas. Pretējā gadījumā pieprasījumi ir pieejami pēc to numura.',

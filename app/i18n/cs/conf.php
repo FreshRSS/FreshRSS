@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Zobrazit podle kategorie',
 			'feeds' => 'Zobrazit podle kanálu',
 			'order' => 'Seřadit podle data',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Výraz',
 			'shareOpml' => 'Povolit sdílení příslušných kategorií a kanálů pomocí OPML',
 			'shareRss' => 'Povolit sdílení pomocí HTML &amp; RSS',
@@ -358,6 +359,7 @@ return array(
 		'skip_next_article' => 'Zaměřit na další bez otevření',
 		'skip_previous_article' => 'Zaměřit na předchozí bez otevření',
 		'title' => 'Zkratky',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Přehrát/pozastavit médium',
 		'user_filter' => 'Přístup k uživatelským dotazům',
 		'user_filter_help' => 'Pokud je pouze jeden uživatelský dotaz, je použit. Jinak jsou dotazy dostupné podle jejich čísla.',

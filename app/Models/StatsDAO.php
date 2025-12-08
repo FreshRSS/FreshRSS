@@ -5,6 +5,30 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 
 	public const ENTRY_COUNT_PERIOD = 30;
 
+	/** Get the number of seconds to add to UTC to get the user's local time */
+	protected function getTimezoneOffset(): int {
+		$timezone = new DateTimeZone(date_default_timezone_get());
+		return $timezone->getOffset(new DateTime('now', new DateTimeZone('UTC')));
+	}
+
+	/**
+	 * @param string $field to use for the date
+	 * @param int $precision to apply to the timestamp (1 for seconds, 1000 for milliseconds, 1000000 for microseconds)
+	 * @param 'day'|'month'|'year' $granularity of the date intervals
+	 */
+	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
+		if (!preg_match('/^[a-zA-Z0-9_]+$/', $field)) {
+			throw new InvalidArgumentException('Invalid date field!');
+		}
+		$offset = $this->getTimezoneOffset();
+		return match ($granularity) {
+			'day' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y-%m-%d')",
+			'month' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y-%m')",
+			'year' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y')",
+			default => throw new InvalidArgumentException('Invalid date granularity!'),
+		};
+	}
+
 	protected function sqlFloor(string $s): string {
 		return "FLOOR($s)";
 	}
@@ -132,8 +156,9 @@ SQL;
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
 		}
+		$offset = $this->getTimezoneOffset();
 		$sql = <<<SQL
-SELECT DATE_FORMAT(FROM_UNIXTIME(e.date), '{$period}') AS period
+SELECT DATE_FORMAT(FROM_UNIXTIME(e.date + {$offset}), '{$period}') AS period
 , COUNT(1) AS count
 FROM `_entry` AS e
 {$restrict}
@@ -355,5 +380,27 @@ SQL;
 		$translated = array_map(static fn(string $a) => _t('gen.date.' . $a), $data);
 
 		return $translated;
+	}
+
+	/**
+	 * Gets the date intervals with the largest number of unread articles.
+	 * @param 'id'|'date' $field to use for the date
+	 * @param 'day'|'month'|'year' $granularity of the date intervals
+	 * @return list<array{'granularity':string,'unread_count':int}>
+	 */
+	public function getMaxUnreadDates(string $field, string $granularity, int $max = 100): array {
+		$sql = <<<SQL
+SELECT
+	{$this->sqlDateToIsoGranularity($field, precision: $field === 'id' ? 1000000 : 1, granularity: $granularity)} AS granularity,
+	COUNT(*) AS unread_count
+FROM `_entry`
+WHERE is_read = 0
+GROUP BY granularity
+ORDER BY unread_count DESC, granularity DESC
+LIMIT $max;
+SQL;
+		$res = $this->fetchAssoc($sql);
+		/** @var list<array{granularity:string,unread_count:int}>|null $res */
+		return is_array($res) ? $res : [];
 	}
 }

@@ -74,13 +74,13 @@
 	font-size: 0.7rem;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	font-size: 0.9rem;
 	line-height: 2;
 }
 
-.day .name {
+.transition .name {
 	font-size: 1em;
 	opacity: 0.6;
 }

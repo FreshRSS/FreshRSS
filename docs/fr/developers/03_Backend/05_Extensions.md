@@ -267,11 +267,13 @@ The following events are available:
 	the header dropdown menu (i.e. after the "About" entry), the returned
 	string must be valid HTML (e.g. `<li class="item active"><a href="url">New
 	entry</a></li>`)
+* `nav_entries` (`function() -> string`): ajoute des éléments DOM avant les boutons de navigation.
+* `nav_menu` (`function() -> string`): sera exécuté si la navigation est générée.
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO**
 	add documentation
 * `post_update` (`function(none) -> none`): **TODO** add documentation
-* `simplepie_after_init` (`function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed, bool $result): void`): Triggered after fetching an RSS/Atom feed with SimplePie. Useful for instance to get the HTTP response headers (e.g. `$simplePie->data['headers']`).
-* `simplepie_before_init` (`function(\SimplePie\SimplePie $simplePie, FreshRSS_Feed $feed): void`): Triggered before fetching an RSS/Atom feed with SimplePie.
+* `simplepie_after_init` (`function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed, bool $result): void`): Triggered after fetching an RSS/Atom feed with SimplePie. Useful for instance to get the HTTP response headers (e.g. `$simplePie->data['headers']`).
+* `simplepie_before_init` (`function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed): void`): Triggered before fetching an RSS/Atom feed with SimplePie.
 * `view_modes` (`function(array<FreshRSS_ViewMode> $viewModes): array|null`): permet aux extensions de déclarer d’autres modes de vue que *normale*, *lecture*, *globale*.
 
 > ℹ️ Note: the `simplepie_*` hooks are only fired for feeds using SimplePie via pull, i.e. normal RSS/Atom feeds. This excludes WebSub (push), and the various HTML or JSON Web scraping methods.

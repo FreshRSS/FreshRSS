@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 /**
  * The extension base class.
+ *
+ * @phpstan-type ExtensionMetadata array{name:string,entrypoint:string,author?:string,description?:string,version?:string,type?:'system'|'user',path:string}
  */
 abstract class Minz_Extension {
 	private string $name;
@@ -41,7 +43,7 @@ abstract class Minz_Extension {
 	 * - version: a version for the current extension.
 	 * - type: "system" or "user" (default).
 	 *
-	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'} $meta_info
+	 * @param ExtensionMetadata $meta_info
 	 * contains information about the extension.
 	 */
 	final public function __construct(array $meta_info) {

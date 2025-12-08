@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Kategoriye göre göster',
 			'feeds' => 'Beslemeye göre göster',
 			'order' => 'Tarihe göre sırala',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'İfade',
 			'shareOpml' => 'İlgili kategori ve beslemelerin OPML ile paylaşımını etkinleştir',
 			'shareRss' => 'HTML ve RSS ile paylaşımı etkinleştir',
@@ -358,6 +359,7 @@ return array(
 		'skip_next_article' => 'Açmadan sonrakine odaklan',
 		'skip_previous_article' => 'Açmadan öncesine odaklan',
 		'title' => 'Kısayollar',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Medyayı oynat/duraklat',
 		'user_filter' => 'Kullanıcı sorgularına eriş',
 		'user_filter_help' => 'Eğer yalnızca bir kullanıcı sorgusu varsa, o kullanılır. Aksi takdirde, sorgular numaralarıyla erişilebilir.',

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 require __DIR__ . '/_cli.php';
 
-$users = listUsers();
+$users = FreshRSS_user_Controller::listUsers();
 sort($users);
 if (FreshRSS_Context::systemConf()->default_user !== ''
 	&& in_array(FreshRSS_Context::systemConf()->default_user, $users, true)) {

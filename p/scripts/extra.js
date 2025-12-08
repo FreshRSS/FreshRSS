@@ -17,6 +17,11 @@ function forgetOpenCategories() {
 }
 
 function init_crypto_forms() {
+	const crypto_forms = document.querySelectorAll('.crypto-form');
+	if (crypto_forms.length === 0) {
+		return;
+	}
+
 	if (!(window.bcrypt)) {
 		if (window.console) {
 			console.log('FreshRSS waiting for bcrypt.js…');
@@ -26,7 +31,6 @@ function init_crypto_forms() {
 	}
 
 	/* globals bcrypt */
-	const crypto_forms = document.querySelectorAll('.crypto-form');
 	crypto_forms.forEach(crypto_form => {
 		const submit_button = crypto_form.querySelector('[type="submit"]');
 		if (submit_button) {
@@ -96,6 +100,19 @@ function init_crypto_forms() {
 // </crypto form (Web login)>
 
 // <show password>
+
+function init_display(parent) {
+	const theme = parent.querySelector('select#theme');
+	if (!theme) {
+		return;
+	}
+	theme.addEventListener('change', (e) => {
+		const picked = parent.querySelector('.preview-container.picked');
+		picked.classList.remove('picked');
+		parent.querySelector(`[data-theme-preview="${e.target.value}"]`).classList.add('picked');
+	});
+}
+
 function togglePW(btn) {
 	if (btn.classList.contains('active')) {
 		hidePW(btn);
@@ -245,26 +262,27 @@ function init_update_feed() {
 	});
 
 	if (faviconExtBtn) {
-		faviconExtBtn.onclick = function (e) {
+		faviconExtBtn.onclick = async function (e) {
 			e.preventDefault();
 			faviconExtBtn.disabled = true;
-			fetch(faviconExtBtn.dataset.extensionUrl, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json; charset=utf-8'
-				},
-				body: JSON.stringify({
-					'_csrf': context.csrf,
-					'extAction': 'query_icon_info',
-					'id': +feed_update.dataset.feedId
-				}),
-			}).then(resp => {
+			try {
+				const resp = await fetch(faviconExtBtn.dataset.extensionUrl, {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json; charset=UTF-8',
+					},
+					body: JSON.stringify({
+						'_csrf': context.csrf,
+						'extAction': 'query_icon_info',
+						'id': +feed_update.dataset.feedId
+					}),
+				});
 				if (!resp.ok) {
 					faviconExtBtn.disabled = false;
-					return Promise.reject(resp);
+					throw new Error(`Custom favicons HTTP error ${resp.status}: ${resp.statusText}`);
 				}
-				return resp.json();
-			}).then(json => {
+				const json = await resp.json();
 				clearUploadedIcon();
 				const resetField = feed_update.querySelector('input[name="resetFavicon"]');
 				if (resetField) {
@@ -277,7 +295,9 @@ function init_update_feed() {
 				extension.dataset.initialExt = extension.innerText;
 				extension.innerText = json.extName;
 				favicon.src = json.iconUrl;
-			});
+			} catch (error) {
+				faviconExtBtn.disabled = false;
+			}
 		};
 		faviconExtBtn.form.onsubmit = async function (e) {
 			const extChanged = faviconExtBtn.disabled;
@@ -504,6 +524,60 @@ function init_details_attributes() {
 	});
 }
 
+function init_user_stats() {
+	const active = new Set();
+	const queue = [];
+	const limit = 10;	// Ensure not too many concurrent requests
+
+	const processQueue = () => {
+		while (queue.length > 0 && active.size < limit) {
+			const row = queue.shift();
+			const promise = (async () => {
+				row.removeAttribute('data-need-ajax');
+				try {
+					const username = row.querySelector('.username').textContent.trim();
+					const url = '?c=user&a=details&username=' + encodeURIComponent(username) + '&ajax=1';
+					const response = await fetch(url);
+					const html = await response.text();
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(html, 'text/html');
+					row.querySelector('.feed-count').innerHTML = doc.querySelector('.feed_count').innerHTML;
+					row.querySelector('.article-count').innerHTML = doc.querySelector('.article_count').innerHTML;
+					row.querySelector('.database-size').innerHTML = doc.querySelector('.database_size').innerHTML;
+				} catch (err) {
+					console.error('Error fetching user stats', err);
+				}
+			})();
+
+			promise.finally(() => {
+				active.delete(promise);
+				processQueue();
+			});
+			active.add(promise);
+		}
+	};
+
+	// Retrieve user stats when the row becomes visible
+	const timers = new WeakMap();
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const timer = setTimeout(() => {
+					// But wait a bit to avoid triggering on fast scrolls
+					observer.unobserve(entry.target);
+					queue.push(entry.target);
+					processQueue();
+				}, 100);
+				timers.set(entry.target, timer);
+			} else {
+				clearTimeout(timers.get(entry.target));
+			}
+		});
+	});
+
+	document.querySelectorAll('tr[data-need-ajax]').forEach(row => observer.observe(row));
+}
+
 function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
@@ -524,6 +598,7 @@ function init_extra_afterDOM() {
 		init_2stateButton();
 		init_update_feed();
 		init_details_attributes();
+		init_user_stats();
 
 		data_auto_leave_validation(document.body);
 
@@ -536,6 +611,7 @@ function init_extra_afterDOM() {
 			init_archiving(slider);
 			init_url_observers(slider);
 		} else {
+			init_display(document.body);
 			init_archiving(document.body);
 			init_url_observers(document.body);
 		}

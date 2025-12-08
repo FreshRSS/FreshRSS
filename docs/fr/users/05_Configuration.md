@@ -25,10 +25,13 @@ Les langues disponibles sont:
 | Allemand                | Deutsch                | de                                   |
 | Grec                    | Ελληνικά               | el                                   |
 | Anglais                 | English                | en                                   |
-| Anglais (États-Unis)    | English (United States) | en-us                               |
+| Anglais (États-Unis)    | English (United States) | en-US                               |
 | Espagnol                | Español                | es                                   |
+| Farsi                   | فارسی                  | fa                                   |
+| Finnois                 | Suomi                  | fi                                   |
 | Français                | Français               | fr                                   |
 | Hébreu                  | עברית                  | he                                   |
+| Hongrois                | Magyar                 | hu                                   |
 | Indonésien              | Bahasa Indonesia       | id                                   |
 | Italien                 | Italiano               | it                                   |
 | Japonais                | 日本語                  | ja                                   |
@@ -37,12 +40,16 @@ Les langues disponibles sont:
 | Néerlandais             | Nederlands             | nl                                   |
 | Occitan                 | Occitan                | oc                                   |
 | Polonais                | Polski                 | pl                                   |
-| Portugais brésilien     | Português (Brasil)     | pt-br                                |
+| Portugais brésilien     | Português (Brasil)     | pt-BR                                |
+| Portugais               | Português (Portugal)   | pt-PT                                |
 | Russe                   | Русский                | ru                                   |
 | Slovaque                | Slovenčina             | sk                                   |
 | Turc                    | Türkçe                 | tr                                   |
-| Chinois (simplifié, République populaire de Chine) | 简体中文      | zh-cn               |
-| Chinois (traditionnel, Taïwan) | 正體中文          | zh-tw                               |
+| Ukrainien               | Українська             | uk                                   |
+| Chinois (simplifié, République populaire de Chine) | 简体中文      | zh-CN               |
+| Chinois (traditionnel, Taïwan) | 正體中文          | zh-TW                               |
+
+**Note** pour les langues régionales, nous suivons les recommandations de _ISO-639-1_ et _ISO-3166-1 alpha-2_.
 
 ### Thème
 

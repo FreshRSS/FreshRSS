@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Brak wiadomości do wyświetlenia.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Otrzymane przedwczoraj',
+			'_' => 'Received',	// TODO
 			'today' => 'Otrzymane dzisiaj',
 			'yesterday' => 'Otrzymane wczoraj',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Kanał główny',
 		'title_fav' => 'Ulubione',
 		'title_global' => 'Widok globalny',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Dziennik',
@@ -89,11 +100,15 @@ return array(
 			),
 			'id_asc' => 'Najpożniej otrzymane',
 			'id_desc' => 'Najwcześniej otrzymane',
+			'length_asc' => 'Długość zawartości 1→9',
+			'length_desc' => 'Długość zawartości 9→1',
 			'link_asc' => 'Odnośnik A→Z',
 			'link_desc' => 'Odnośnik Z→A',
 			'rand' => 'Losowa kolejność',
 			'title_asc' => 'Tytuł A→Z',
 			'title_desc' => 'Tytuł Z→A',
+			'user_modified_asc' => 'Zmodyfikowane przez użytkownika 1→9',
+			'user_modified_desc' => 'Zmodyfikowane przez użytkownika 9→1',
 		),
 		'starred' => 'Pokaż ulubione',
 		'stats' => 'Statystyki',

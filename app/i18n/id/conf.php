@@ -152,6 +152,7 @@ return array(
 			'categories' => 'Tampilkan berdasarkan kategori',
 			'feeds' => 'Tampilkan berdasarkan umpan',
 			'order' => 'Urutkan berdasarkan tanggal',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Ekspresi Pencarian',
 			'shareOpml' => 'Aktifkan berbagi melalui OPML dari kategori dan umpan terkait',
 			'shareRss' => 'Aktifkan berbagi melalui HTML &amp; RSS',
@@ -358,6 +359,7 @@ return array(
 		'skip_next_article' => 'Fokus berikutnya tanpa membuka',
 		'skip_previous_article' => 'Fokus sebelumnya tanpa membuka',
 		'title' => 'Pintasan',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Putar/jeda media',
 		'user_filter' => 'Akses pencarian pengguna',
 		'user_filter_help' => 'Jika hanya ada satu pencarian pengguna, maka itu akan digunakan. Jika tidak, pencarian dapat diakses dengan nomornya',

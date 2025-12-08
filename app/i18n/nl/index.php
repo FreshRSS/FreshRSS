@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Er is geen artikel om te laten zien.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
 		'received' => array(
-			'before_yesterday' => 'Ontvangen vóór gisteren',
+			'_' => 'Received',	// TODO
 			'today' => 'Vandaag ontvangen',
 			'yesterday' => 'Gisteren ontvangen',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Overzicht',
 		'title_fav' => 'Favorieten',
 		'title_global' => 'Globale weergave',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Log bestanden',
@@ -89,11 +100,15 @@ return array(
 			),
 			'id_asc' => 'Nieuw ontvangen laatst',
 			'id_desc' => 'Nieuw ontvangen eerst',
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Willekeurige volgorde',
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
+			'user_modified_asc' => 'Aangepast door gebruiker 1→9',
+			'user_modified_desc' => 'Aangepast door gebruiker 9→1',
 		),
 		'starred' => 'Laat alleen favorieten zien',
 		'stats' => 'Statistieken',

@@ -22,7 +22,6 @@ return array(
 		'token' => 'Master-Authentifizierungs-Token',
 		'token_help' => 'Zugriff auf alle vom Nutzer erstellten RSS-Feeds freigeben (inkl. Aktualisierung ohne Authenthentifizierung):',
 		'type' => 'Authentifizierungsmethode',
-		'unsafe_autologin' => 'Erlaube unsicheres automatisches Anmelden mit folgendem Format: ',
 	),
 	'check_install' => array(
 		'cache' => array(
@@ -118,6 +117,7 @@ return array(
 		'empty_list' => 'Es gibt keine installierte Erweiterung.',
 		'empty_list_help' => 'Siehe Protokolle für weitere Infos, warum die Erweiterungsliste leer ist.',
 		'enabled' => 'Aktiviert',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Installiert',
 		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'Diese Erweiterung kann nicht konfiguriert werden.',
@@ -134,6 +134,8 @@ return array(
 		'_' => 'Statistiken',
 		'all_feeds' => 'Alle Feeds',
 		'category' => 'Kategorie',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Anzahl der Einträge',
 		'entry_per_category' => 'Einträge pro Kategorie',
 		'entry_per_day' => 'Einträge pro Tag (letzten 30 Tage)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
 		'main_stream' => 'Haupt-Feeds',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Es gibt keinen inaktiven Feed!',
 		'number_entries' => '%d Artikel',
 		'overview' => 'Übersicht',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Ungelesen',
 		'title' => 'Statistiken',
 		'top_feed' => 'Top 10-Feeds',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Systemeinstellungen',

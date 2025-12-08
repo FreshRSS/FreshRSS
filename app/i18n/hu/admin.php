@@ -22,7 +22,6 @@ return array(
 		'token' => 'Fő hitelesítési token',
 		'token_help' => 'Lehetővé teszi a hozzáférést a felhasználó összes RSS-kimenetéhez, valamint a hírfolyamok frissítéséhez hitelesítés nélkül:',
 		'type' => 'Hitelesítési módszer',
-		'unsafe_autologin' => 'Engedélyezze a nem biztonságos automata bejelentkezést a következő formátummal: ',
 	),
 	'check_install' => array(
 		'cache' => array(
@@ -118,6 +117,7 @@ return array(
 		'empty_list' => 'Nincsenek telepített kiegészítők',
 		'empty_list_help' => 'Ellenőrizd a naplókat, hogy megállapítsd az üres bővítménylista mögött meghúzódó okot.',
 		'enabled' => 'Bekapcsolva',
+		'is_compatible' => 'Kompatibilis',
 		'latest' => 'Telepítve',
 		'name' => 'Név',
 		'no_configure_view' => 'Ezt a kiegészítőt nem lehet konfigurálni.',
@@ -134,6 +134,8 @@ return array(
 		'_' => 'Statisztika',
 		'all_feeds' => 'Minden hírforrás',
 		'category' => 'Kategória',
+		'date_published' => 'Publikálás dátuma',
+		'date_received' => 'Beérkezés dátuma',
 		'entry_count' => 'Bejegyzések száma',
 		'entry_per_category' => 'Bejegyzések kategóriánként',
 		'entry_per_day' => 'Bejegyzések naponta (utolsó 30 nap)',
@@ -146,6 +148,7 @@ return array(
 		'idle' => 'Tétlen hírforrások',
 		'main' => 'Fő statisztika',
 		'main_stream' => 'Minden cikk',
+		'nb_unreads' => 'Olvasatlan cikkek száma',
 		'no_idle' => 'Nincsenek tétlen hírforrások!',
 		'number_entries' => '%d cikk',
 		'overview' => 'Áttekintés',
@@ -157,6 +160,7 @@ return array(
 		'status_unread' => 'Olvasatlan',
 		'title' => 'Statisztika',
 		'top_feed' => 'Top 10 hírforrás',
+		'unread_dates' => 'Dátumok a legtöbb olvasatlan cikkel',
 	),
 	'system' => array(
 		'_' => 'Rendszer konfiguráció',
