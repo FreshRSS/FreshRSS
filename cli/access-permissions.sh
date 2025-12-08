@@ -22,12 +22,12 @@ fi
 
 mkdir -p "${data_path}/users/_/"
 
-if getent group www-data > /dev/null; then
-	www_group="www-data"	# Debian, Alpine
-elif getent group apache > /dev/null; then
-	www_group="apache"	# Alpine
-elif getent group http > /dev/null; then
-	www_group="http"	# Arch Linux
+if getent group www-data >/dev/null; then
+	www_group="www-data" # Debian, Alpine
+elif getent group apache >/dev/null; then
+	www_group="apache" # Alpine
+elif getent group http >/dev/null; then
+	www_group="http" # Arch Linux
 else
 	echo >&2 '⛔ No Apache group {www-data, apache, http} found!'
 	exit 4

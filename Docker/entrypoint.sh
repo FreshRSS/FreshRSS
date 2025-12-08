@@ -46,10 +46,10 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 
 	# Debian
 	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||
-	# Alpine
-	(mv /etc/apache2/conf.d/mod-auth-openidc.conf.bak /etc/apache2/conf.d/mod-auth-openidc.conf && echo 'Enabling module auth_openidc.') ||
-	# Misc.
-	(echo '❌ Failed to enable auth_openidc module!' && exit 12)
+		# Alpine
+		(mv /etc/apache2/conf.d/mod-auth-openidc.conf.bak /etc/apache2/conf.d/mod-auth-openidc.conf && echo 'Enabling module auth_openidc.') ||
+		# Misc.
+		(echo '❌ Failed to enable auth_openidc module!' && exit 12)
 
 	if [ -n "$OIDC_SCOPES" ]; then
 		# Compatibility with : as separator instead of space
