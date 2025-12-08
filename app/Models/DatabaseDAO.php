@@ -254,7 +254,7 @@ SQL;
 		$values = [':table_schema' => $db['base']];
 		if (!$all) {
 			$sql .= ' AND table_name LIKE :table_name';
-			$values[':table_name'] = addcslashes($this->pdo->prefix(), '%_') . '%';
+			$values[':table_name'] = addcslashes($this->pdo->prefix(), '\\%_') . '%';
 		}
 		$res = $this->fetchColumn($sql, 0, $values);
 		return isset($res[0]) ? (int)($res[0]) : -1;

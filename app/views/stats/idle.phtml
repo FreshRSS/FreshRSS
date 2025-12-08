@@ -61,7 +61,7 @@
 
 <?php $class = isset($this->feed) ? ' active' : ''; ?>
 <aside id="slider" class="<?= $class ?>">
-	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 	<div id="slider-content">
 		<?php
 		if (isset($this->feed)) {
@@ -70,6 +70,6 @@
 		?>
 	</div>
 </aside>
-<a href="#" id="close-slider" class="<?= $class ?>">
+<a href="#close" id="close-slider" class="<?= $class ?>">
 	<?= _i('close') ?>
 </a>
