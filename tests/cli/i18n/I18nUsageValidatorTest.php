@@ -20,13 +20,11 @@ final class I18nUsageValidatorTest extends \PHPUnit\Framework\TestCase {
 		self::assertSame("There is no data.\n", $validator->displayReport());
 
 		$reflectionTotalEntries = new ReflectionProperty(I18nUsageValidator::class, 'totalEntries');
-		$reflectionTotalEntries->setAccessible(true);
 		$reflectionTotalEntries->setValue($validator, 100);
 
 		self::assertSame("  0.0% of translation keys are unused.\n", $validator->displayReport());
 
 		$reflectionFailedEntries = new ReflectionProperty(I18nUsageValidator::class, 'failedEntries');
-		$reflectionFailedEntries->setAccessible(true);
 		$reflectionFailedEntries->setValue($validator, 25);
 
 		self::assertSame(" 25.0% of translation keys are unused.\n", $validator->displayReport());

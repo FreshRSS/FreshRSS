@@ -22,7 +22,6 @@ return array(
 		'token' => 'Token de autentificación Master',
 		'token_help' => 'Permite el acceso a todas las salidas RSS del usuario así como la actualización de fuentes sin autenticación:',
 		'type' => 'Método de identificación',
-		'unsafe_autologin' => 'Permite la identificación automática insegura usando el formato: ',
 	),
 	'check_install' => array(
 		'cache' => array(

@@ -1,0 +1,77 @@
+{% if page.lang == 'en' %}
+	<ul>
+		<li><a href="{{ '/en/' | relative_url }}">Home</a></li>
+		<li>
+			<a href="{{ '/en/users/02_First_steps.html' | relative_url }}">User documentation</a>
+			<ul>
+				{% for page in site.pages %}
+					{% if page.url contains '/en/users/' and page.title != nil and page.url != "/en/users/02_First_steps.html" %}
+						<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</li>
+		<li>
+			<a href="{{ '/en/admins/01_Index.html' | relative_url }}">Administrator documentation</a>
+			<ul>
+				{% for page in site.pages %}
+					{% if page.url contains '/en/admins/' and page.url != "/en/admins/01_Index.html" and page.title != nil %}
+						<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</li>
+		<li>
+			<a href="{{ '/en/developers/01_Index.html' | relative_url }}">Developer documentation</a>
+			<ul>
+				{% for page in site.pages %}
+					{% if page.url contains '/en/developers/' and page.url != "/en/developers/01_Index.html" and page.title != nil %}
+						<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</li>
+		<li>
+			<a href="{{ '/en/contributing.html' | relative_url}}">Contributor guidelines</a>
+		</li>
+	</ul>
+{% elsif page.lang == 'fr' %}
+	<ul>
+		<li><a href="{{ '/fr/' | relative_url }}">Accueil</a></li>
+		<li>
+			<a href="{{ '/fr/users/02_First_steps.html' | relative_url }}">Documentation utilisateur</a>
+			<ul>
+				{% for page in site.pages %}
+					{% if page.url contains '/fr/users/' and page.title != nil and page.url != "/fr/users/02_First_steps.html" %}
+						<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</li>
+		<!-- TODO: French doesn't have admin docs -->
+		<!-- <li> -->
+			<!-- <a href="{{ '/fr/admins/01_Index.html' | relative_url }}">Administrator documentation</a> -->
+			<!-- <ul> -->
+				<!-- {% for page in site.pages %} -->
+					<!-- {% if page.url contains '/fr/admins/' and page.url != "/fr/admins/01_Index.html" and page.title != nil %} -->
+						<!-- <li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li> -->
+					<!-- {% endif %} -->
+				<!-- {% endfor %} -->
+			<!-- </ul> -->
+		<!-- </li> -->
+		<li>
+			<a href="{{ '/fr/developers/01_First_steps.html' | relative_url }}">Documentation développeur</a>
+			<ul>
+				{% for page in site.pages %}
+					{% if page.url contains '/fr/developers/' and page.url != "/fr/developers/01_First_steps.html" and page.title != nil %}
+						<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</li>
+		<li>
+			<a href="{{ '/fr/contributing.html' | relative_url}}">Directives pour les contributeurs</a>
+		</li>
+	</ul>
+{% endif %}
+

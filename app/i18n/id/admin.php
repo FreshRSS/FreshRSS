@@ -22,7 +22,6 @@ return array(
 		'token' => 'Token autentikasi utama',
 		'token_help' => 'Mengizinkan akses ke semua RSS pengguna serta menyegarkan umpan tanpa autentikasi:',
 		'type' => 'Metode autentikasi',
-		'unsafe_autologin' => 'Izinkan masuk otomatis tidak aman menggunakan format: ',
 	),
 	'check_install' => array(
 		'cache' => array(

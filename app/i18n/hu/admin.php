@@ -22,7 +22,6 @@ return array(
 		'token' => 'Fő hitelesítési token',
 		'token_help' => 'Lehetővé teszi a hozzáférést a felhasználó összes RSS-kimenetéhez, valamint a hírfolyamok frissítéséhez hitelesítés nélkül:',
 		'type' => 'Hitelesítési módszer',
-		'unsafe_autologin' => 'Engedélyezze a nem biztonságos automata bejelentkezést a következő formátummal: ',
 	),
 	'check_install' => array(
 		'cache' => array(

@@ -22,7 +22,6 @@ return array(
 		'token' => '마스터 인증 토큰',
 		'token_help' => '인증 없이 사용자의 모든 RSS 내용과 피드 새로고침 권한을 허용합니다.:',
 		'type' => '인증',
-		'unsafe_autologin' => '다음과 같은 안전하지 않은 방식의 로그인을 허가합니다: ',
 	),
 	'check_install' => array(
 		'cache' => array(

@@ -61,6 +61,8 @@
 	}
 
 	.nav_menu {
+		padding-right: 0;
+
 		.btn {
 			margin: 0;
 			padding: 0.85rem 1.25rem;

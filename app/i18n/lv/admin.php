@@ -22,7 +22,6 @@ return array(
 		'token' => 'Master authentication token',	// TODO
 		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Autentifikācijas metode',
-		'unsafe_autologin' => 'Atļaut nedrošu automātisku pieteikšanos, izmantojot formātu: ',
 	),
 	'check_install' => array(
 		'cache' => array(

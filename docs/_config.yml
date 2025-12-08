@@ -1,9 +1,53 @@
-theme: jekyll-theme-cayman
 title: FreshRSS
 description: Documentation center
+baseurl: /FreshRSS
 
 logo: /img/FreshRSS-logo.png
-show_downloads: true
 
 include: [contributing.md]
-exclude: [CHANGELOG*.md]
+exclude: [CHANGELOG*.md, README.md, vendor]
+
+defaults:
+  -
+    scope:
+      path: "/en/*"
+    values:
+      lang: "en"
+  -
+    scope:
+      path: "/fr/*"
+    values:
+      lang: "fr"
+
+translations:
+  en:
+    back_to_freshrss: Back to freshrss.org
+    search_docs: Search docs…
+    search: Search
+    toggle_aside: Toggle sidebar
+    close: Close
+    choose_language: Choose language
+    copy_to_clipboard: Copy to clipboard
+  fr:
+    back_to_freshrss: Retour à freshrss.org
+    search_docs: Rechercher dans la documentation…
+    search: Rechercher
+    toggle_aside: Afficher/masquer le panneau
+    close: Fermer
+    choose_language: Choisir la langue
+    copy_to_clipboard: Copier dans le presse-papiers
+
+plugins:
+  # gh
+  - jekyll-coffeescript
+  - jekyll-commonmark-ghpages
+  - jekyll-gist
+  - jekyll-github-metadata
+  - jekyll-paginate
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
+  # custom
+  - jekyll-i18n_tags

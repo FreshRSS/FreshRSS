@@ -22,7 +22,6 @@ return array(
 		'token' => 'Master authentication token',	// TODO
 		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// TODO
 		'type' => 'Μέθοδος Πιστοποίησης',
-		'unsafe_autologin' => 'Επιτρέψτε την μη ασφαλή αυτόματη σύνδεση με την χρήση της μορφής: ',
 	),
 	'check_install' => array(
 		'cache' => array(

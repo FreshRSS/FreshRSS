@@ -22,7 +22,6 @@ return array(
 		'token' => 'Hlavní ověřovací token',
 		'token_help' => 'Umožňuje přístup ke všem výstupům RSS uživatele i obnovování kanálů bez ověřování:',
 		'type' => 'Metoda ověřování',
-		'unsafe_autologin' => 'Povolit nebezpečné automatické přihlášení pomocí formátu: ',
 	),
 	'check_install' => array(
 		'cache' => array(
