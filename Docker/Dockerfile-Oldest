@@ -1,3 +1,4 @@
+# Test image for development
 FROM alpine:3.16
 
 ENV TZ=UTC

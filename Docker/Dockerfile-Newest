@@ -1,3 +1,4 @@
+# Test image for development
 FROM alpine:edge
 
 ENV TZ=UTC

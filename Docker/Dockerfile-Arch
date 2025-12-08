@@ -1,4 +1,4 @@
-# This is to test under Arch Linux.
+# Test image for development
 FROM archlinux:latest
 
 ENV TZ=UTC
