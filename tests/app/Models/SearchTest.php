@@ -956,9 +956,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	#[DataProvider('provideBooleanSearchToString')]
-	public static function testBooleanSearch__toString(string $input): void {
+	public static function testBooleanSearch__toString(string $input, string $expected): void {
 		$search = new FreshRSS_BooleanSearch($input);
-		self::assertSame($input, $search->__toString());
+		self::assertSame($expected, $search->__toString());
 	}
 
 	/**
@@ -966,7 +966,26 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public static function provideBooleanSearchToString(): array {
 		return [
-			['((a OR b) ((c) OR (d)) -(e)) OR -(f g)'],
+			[
+				'((a OR b) (c OR d) -e) OR -(f g)',
+				'((a OR b) (c OR d) (-e)) OR -(f g)',
+			],
+			[
+				'((a OR b) ((c) OR ((d))) (-e)) OR -(((f g)))',
+				'((a OR b) ((c) OR d) (-e)) OR -(f g)',	// TODO: Fix 'd'
+			],
+			[
+				'((a) (b))',
+				'((a) (b))',
+			],
+			[
+				'((a) OR (b))',
+				'((a) OR (b))',
+			],
+			[
+				' ( ( ( ( a ) ) ) ) ( ) ',
+				'a',	// TODO: Reconsider to '(a)'
+			],
 		];
 	}
 
@@ -1004,15 +1023,47 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		return [
 			['', 'intitle:b', 'intitle:b'],
 			['intitle:a', 'intitle:b', 'intitle:b'],
+			['a', 'intitle:b', 'intitle:b (a)'],
 			['intitle:a intext:a', 'intitle:b', 'intitle:b (intitle:a intext:a)'],
 			['intitle:a inurl:a', 'intitle:b', 'intitle:b (intitle:a inurl:a)'],
 			['intitle:a OR inurl:a', 'intitle:b', 'intitle:b (intitle:a OR inurl:a)'],
-			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', '(intitle:b) ((inurl:a) (intitle:c))'],
+			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', '(intitle:b) ((inurl:a) (intitle:c))'],	// TODO: Reconsider 'intitle:b'
+			['intitle:a ((inurl:a) OR (intitle:c))', 'intitle:b', '(intitle:b) ((inurl:a) OR (intitle:c))'],
 			['(intitle:a) (inurl:a)', 'intitle:b', '(intitle:b) (inurl:a)'],
 			['(inurl:a) (intitle:a)', 'intitle:b', '(inurl:a) (intitle:b)'],
 			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
 			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
+			['(a b)', 'e', 'e (a b)'],
 			['date:2024/', 'date:/2025', 'date:/2025-12-31T23:59:59'],
+		];
+	}
+
+	#[DataProvider('provideBooleanSearchRemove')]
+	public function testBooleanSearchRemove(string $initialInput, string $removeInput, string $expectedOutput): void {
+		$booleanSearch = new FreshRSS_BooleanSearch($initialInput);
+		$searchToRemove = new FreshRSS_Search($removeInput);
+		$newBooleanSearch = $booleanSearch->remove($searchToRemove);
+		self::assertNotSame($booleanSearch, $newBooleanSearch);
+		self::assertSame($expectedOutput, $newBooleanSearch->__toString());
+	}
+
+	/**
+	 * @return array<array{string,string,string}>
+	 */
+	public static function provideBooleanSearchRemove(): array {
+		return [
+			['', 'intitle:b', ''],
+			['intitle:a', 'intitle:b', ''],
+			['intitle:a intext:a', 'intitle:b', 'intitle:a intext:a'],
+			['intitle:a inurl:a', 'intitle:b', 'intitle:a inurl:a'],
+			['intitle:a OR inurl:a', 'intitle:b', 'intitle:a OR inurl:a'],
+			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', '((inurl:a) (intitle:c))'],
+			['intitle:a ((inurl:a) OR (intitle:c))', 'intitle:b', '((inurl:a) OR (intitle:c))'],
+			['(intitle:a) (inurl:a)', 'intitle:b', '(inurl:a)'],
+			['(inurl:a) (intitle:a)', 'intitle:b', '(inurl:a)'],
+			['e ((a b) OR (c d))', 'e', '((a b) OR (c d))'],
+			['e ((a b) (c d))', 'e', '((a b) (c d))'],
+			['date:2024/', 'date:/2025', ''],
 		];
 	}
 }

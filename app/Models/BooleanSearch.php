@@ -7,7 +7,7 @@ declare(strict_types=1);
 class FreshRSS_BooleanSearch implements \Stringable {
 
 	private string $raw_input = '';
-	/** @var list<FreshRSS_BooleanSearch>|list<FreshRSS_Search> */
+	/** @var list<FreshRSS_BooleanSearch|FreshRSS_Search> */
 	private array $searches = [];
 
 	/**
@@ -410,7 +410,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	/**
 	 * Either a list of FreshRSS_BooleanSearch combined by implicit AND
 	 * or a series of FreshRSS_Search combined by explicit OR
-	 * @return list<FreshRSS_BooleanSearch>|list<FreshRSS_Search>
+	 * @return list<FreshRSS_BooleanSearch|FreshRSS_Search>
 	 */
 	public function searches(): array {
 		return $this->searches;
@@ -459,14 +459,46 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			}
 		}
 
-		// Wrap the existing searches in a new BooleanSearch
-		$wrap = new FreshRSS_BooleanSearch('');
-		foreach ($result->searches as $existingSearch) {
-			$wrap->add($existingSearch);
+		if (count($result->searches) > 1 || (count($result->searches) > 0 && $result->searches[0] instanceof FreshRSS_Search)) {
+			// Wrap the existing searches in a new BooleanSearch if needed
+			$wrap = new FreshRSS_BooleanSearch('');
+			foreach ($result->searches as $existingSearch) {
+				$wrap->add($existingSearch);
+			}
+			if (count($wrap->searches) > 0) {
+				$result->searches = [$wrap];
+			}
 		}
-		$result->searches = [$search];
-		if (count($wrap->searches) > 0) {
-			$result->searches[] = $wrap;
+		array_unshift($result->searches, $search);
+		return $result;
+	}
+
+	/**
+	 * Remove the first compatible search of the Boolean expression, if any.
+	 * Useful to modify some search parameters.
+	 * @return FreshRSS_BooleanSearch a new instance, modified.
+	 */
+	public function remove(FreshRSS_Search $search): self {
+		$result = clone $this;
+
+		if (count($result->searches) === 1 && $result->searches[0] instanceof FreshRSS_Search &&
+			$result->searches[0]->hasSameOperators($search)) {
+			array_shift($result->searches);
+			return $result;
+		}
+		if (count($result->searches) === 2) {
+			foreach ($result->searches as $booleanSearch) {
+				if (!($booleanSearch instanceof FreshRSS_BooleanSearch)) {
+					break;
+				}
+				if ($booleanSearch->operator() === 'AND') {
+					if (count($booleanSearch->searches) === 1 && $booleanSearch->searches[0] instanceof FreshRSS_Search &&
+						$booleanSearch->searches[0]->hasSameOperators($search)) {
+						array_shift($booleanSearch->searches);
+						return $result;
+					}
+				}
+			}
 		}
 		return $result;
 	}
@@ -476,9 +508,17 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		$result = '';
 		foreach ($this->searches as $search) {
 			$part = $search->__toString();
+			if ($part === '') {
+				continue;
+			}
 			$operator = 'OR';
 			if ($search instanceof FreshRSS_BooleanSearch) {
-				$part = '(' . $part . ')';
+				if (count($search->searches) > 1 || (
+						count($search->searches) > 0 &&
+						$search->searches[0] instanceof FreshRSS_Search &&
+						(str_contains($part, ' ') || count($this->searches) > 1))) {
+					$part = '(' . $part . ')';
+				}
 				$operator = $search->operator();
 			}
 
@@ -497,7 +537,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			}
 			$result .= $part;
 		}
-		return $result;
+		return trim($result);
 	}
 
 	/** @return string Plain text search query. Must be XML-encoded or URL-encoded depending on the situation */
