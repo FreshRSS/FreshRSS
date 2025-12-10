@@ -40,7 +40,7 @@
 			<?php } ?>
 			<div class="stick">
 				<input type="search" name="search" id="search"
-					value="<?= Minz_Request::paramString('search') ?>"
+					value="<?= FreshRSS_Context::$search->__toString() ?>"
 					placeholder="<?= _t('gen.menu.search') ?>" />
 				<button class="btn" type="submit"><?= _i('search') ?></button>
 			</div>

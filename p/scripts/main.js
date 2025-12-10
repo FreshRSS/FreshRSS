@@ -1255,7 +1255,7 @@ function init_shortcuts() {
 		if (k === s.close_menus && (
 			(hash === 'slider' && close_slider_listener()) ||
 			hash.startsWith('dropdown')
-		)) { location.hash = ''; ev.preventDefault(); return; }
+		)) { location.hash = 'close'; ev.preventDefault(); return; }
 		if (k === s.help) { window.open(context.urls.help); ev.preventDefault(); return; }
 		if (k === s.focus_search) { document.getElementById('search').focus(); ev.preventDefault(); return; }
 		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); ev.preventDefault(); return; }

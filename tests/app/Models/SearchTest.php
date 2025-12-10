@@ -972,19 +972,31 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				'((a OR b) ((c) OR ((d))) (-e)) OR -(((f g)))',
-				'((a OR b) ((c) OR d) (-e)) OR -(f g)',	// TODO: Fix 'd'
+				'((a OR b) (c OR d) (-e)) OR -(f g)',
+			],
+			[
+				'!((b c))',
+				'-(b c)',
+			],
+			[
+				'(a) OR !((b c))',
+				'a OR -(b c)',
 			],
 			[
 				'((a) (b))',
-				'((a) (b))',
+				'a b',
 			],
 			[
 				'((a) OR (b))',
-				'((a) OR (b))',
+				'a OR b',
 			],
 			[
-				' ( ( ( ( a ) ) ) ) ( ) ',
-				'a',	// TODO: Reconsider to '(a)'
+				' ( !( !( ( a ) ) ) ) ( ) ',
+				'-(-a)',
+			],
+			[
+				'-intitle:a -inurl:b',
+				'-intitle:a -inurl:b',
 			],
 		];
 	}
@@ -1023,18 +1035,19 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		return [
 			['', 'intitle:b', 'intitle:b'],
 			['intitle:a', 'intitle:b', 'intitle:b'],
-			['a', 'intitle:b', 'intitle:b (a)'],
-			['intitle:a intext:a', 'intitle:b', 'intitle:b (intitle:a intext:a)'],
-			['intitle:a inurl:a', 'intitle:b', 'intitle:b (intitle:a inurl:a)'],
+			['a', 'intitle:b', 'intitle:b a'],
+			['intitle:a intext:a', 'intitle:b', 'intitle:b intext:a'],
+			['intitle:a inurl:a', 'intitle:b', 'intitle:b inurl:a'],
 			['intitle:a OR inurl:a', 'intitle:b', 'intitle:b (intitle:a OR inurl:a)'],
-			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', '(intitle:b) ((inurl:a) (intitle:c))'],	// TODO: Reconsider 'intitle:b'
-			['intitle:a ((inurl:a) OR (intitle:c))', 'intitle:b', '(intitle:b) ((inurl:a) OR (intitle:c))'],
-			['(intitle:a) (inurl:a)', 'intitle:b', '(intitle:b) (inurl:a)'],
-			['(inurl:a) (intitle:a)', 'intitle:b', '(inurl:a) (intitle:b)'],
+			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', 'intitle:b (inurl:a intitle:c)'],
+			['intitle:a ((inurl:a) OR (intitle:c))', 'intitle:b', 'intitle:b (inurl:a OR intitle:c)'],
+			['(intitle:a) (inurl:a)', 'intitle:b', 'intitle:b inurl:a'],
+			['(inurl:a) (intitle:a)', 'intitle:b', 'inurl:a intitle:b'],
 			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
 			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
 			['(a b)', 'e', 'e (a b)'],
 			['date:2024/', 'date:/2025', 'date:/2025-12-31T23:59:59'],
+			['a', 'date:/2025', 'date:/2025-12-31T23:59:59 a'],
 		];
 	}
 
@@ -1054,16 +1067,17 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		return [
 			['', 'intitle:b', ''],
 			['intitle:a', 'intitle:b', ''],
-			['intitle:a intext:a', 'intitle:b', 'intitle:a intext:a'],
-			['intitle:a inurl:a', 'intitle:b', 'intitle:a inurl:a'],
+			['intitle:a intext:a', 'intitle:b', 'intext:a'],
+			['intitle:a inurl:a', 'intitle:b', 'inurl:a'],
 			['intitle:a OR inurl:a', 'intitle:b', 'intitle:a OR inurl:a'],
-			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', '((inurl:a) (intitle:c))'],
-			['intitle:a ((inurl:a) OR (intitle:c))', 'intitle:b', '((inurl:a) OR (intitle:c))'],
-			['(intitle:a) (inurl:a)', 'intitle:b', '(inurl:a)'],
-			['(inurl:a) (intitle:a)', 'intitle:b', '(inurl:a)'],
+			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', '(inurl:a intitle:c)'],
+			['intitle:a ((inurl:a) OR (intitle:c))', 'intitle:b', '(inurl:a OR intitle:c)'],
+			['(intitle:a) (inurl:a)', 'intitle:b', 'inurl:a'],
+			['(inurl:a) (intitle:a)', 'intitle:b', 'inurl:a'],
 			['e ((a b) OR (c d))', 'e', '((a b) OR (c d))'],
 			['e ((a b) (c d))', 'e', '((a b) (c d))'],
 			['date:2024/', 'date:/2025', ''],
+			['date:2024/ a', 'date:/2025', 'a'],
 		];
 	}
 }
