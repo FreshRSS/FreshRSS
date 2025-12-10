@@ -207,6 +207,56 @@ class FreshRSS_Search implements \Stringable {
 		return true;
 	}
 
+	/**
+	 * Modifies this search by enforcing the constraint parameters of another search.
+	 * @return FreshRSS_Search a new instance, modified.
+	 */
+	public function enforce(FreshRSS_Search $search): self {
+		$result = clone $this;
+		$properties = array_keys(get_object_vars($result));
+		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
+		$result->raw_input = '';
+		foreach ($properties as $property) {
+			// @phpstan-ignore property.dynamicName
+			if ($search->$property !== null) {
+				// @phpstan-ignore property.dynamicName, property.dynamicName
+				$result->$property = $search->$property;
+				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+					// Process {min_*, max_*} pairs together (for dates)
+					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
+					// @phpstan-ignore property.dynamicName, property.dynamicName
+					$result->$mate = $search->$mate;
+				}
+			}
+		}
+		return $result;
+	}
+
+	/**
+	 * Modifies this search by removing the constraints given by another search.
+	 * @return FreshRSS_Search a new instance, modified.
+	 */
+	public function remove(FreshRSS_Search $search): self {
+		$result = clone $this;
+		$properties = array_keys(get_object_vars($result));
+		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
+		$result->raw_input = '';
+		foreach ($properties as $property) {
+			// @phpstan-ignore property.dynamicName
+			if ($search->$property !== null) {
+				// @phpstan-ignore property.dynamicName
+				$result->$property = null;
+				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+					// Process {min_*, max_*} pairs together (for dates)
+					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
+					// @phpstan-ignore property.dynamicName
+					$result->$mate = null;
+				}
+			}
+		}
+		return $result;
+	}
+
 	#[\Override]
 	public function __toString(): string {
 		$result = '';
