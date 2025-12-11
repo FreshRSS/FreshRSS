@@ -85,14 +85,14 @@ return array(
 		'rss_view' => 'Flux RSS',
 		'search_short' => 'Rechercher',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'Ascendant',
 			'c' => array(
 				'name_asc' => 'Catégorie, flux (titres) A→Z',
 				'name_desc' => 'Catégorie, flux (titres) Z→A',
 			),
 			'date_asc' => 'Date de publication 1→9',
 			'date_desc' => 'Date de publication 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => 'Descendant',
 			'f' => array(
 				'name_asc' => 'Flux (titre) A→Z',
 				'name_desc' => 'Flux (titre) Z→A',
@@ -103,9 +103,9 @@ return array(
 			'length_desc' => 'Longueur du contenu 9→1',
 			'link_asc' => 'Lien A→Z',
 			'link_desc' => 'Lien Z→A',
-			'primary' => 'Sorting criterion',	// TODO
+			'primary' => 'Critère de tri',
 			'rand' => 'Ordre aléatoire',
-			'secondary' => 'Secondary sorting criterion',	// TODO
+			'secondary' => 'Critère de tri secondaire',
 			'title_asc' => 'Titre A→Z',
 			'title_desc' => 'Titre Z→A',
 			'user_modified_asc' => 'Modifié par l’utilisateur 1→9',
