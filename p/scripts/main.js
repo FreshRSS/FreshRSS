@@ -1028,17 +1028,17 @@ function init_column_categories() {
 
 	const sidebar_scrollTop = sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
 	if (sidebar_scrollTop) {
-		// Restore sidebar scroll position (navigated from sidebar)
+		// Restore sidebar scroll position (navigated from sidebar or nav menu)
 		document.querySelector('ul#sidebar').scrollTop = +sidebar_scrollTop;
 		sessionStorage.removeItem('FreshRSS_sidebar_scrollTop');
 	} else {
-		// Scroll into filtered feed/category on sidebar (navigated from anywhere)
+		// Scroll into filtered feed/category/label on sidebar (navigated from anywhere)
 		const params = new URLSearchParams(location.search);
 		const get = params.get('get');
-		if (params.has('get') && (get.startsWith('f_') || get.startsWith('c_'))) {
+		if (params.has('get') && (get.startsWith('f_') || get.startsWith('c_') || get.startsWith('t_'))) {
 			const selectedEl = document.getElementById(get);
 			if (selectedEl) {
-				selectedEl.scrollIntoView({ block: get.startsWith('f_') ? 'center' : 'start' });
+				selectedEl.scrollIntoView({ block: !get.startsWith('c_') ? 'center' : 'start' });
 			}
 		}
 	}
@@ -2261,6 +2261,15 @@ function init_normal() {
 			const target = e.target.closest('a.item-title, a.tree-folder-title');
 			if (target) {
 				// A page navigation should occur now, save the sidebar scroll position
+				sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
+			}
+		});
+	}
+	const nav_menu = document.querySelector('nav.nav_menu');
+	if (nav_menu) {
+		nav_menu.addEventListener('click', (e) => {
+			const target = e.target.closest('a.btn:not(#actualize):not(.dropdown-toggle), button[type="submit"]');
+			if (target) {
 				sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
 			}
 		});
