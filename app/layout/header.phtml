@@ -40,7 +40,7 @@
 			<?php } ?>
 			<div class="stick">
 				<input type="search" name="search" id="search"
-					value="<?= FreshRSS_Context::$search->__toString() ?>"
+					value="<?= htmlspecialchars(FreshRSS_Context::$search->__toString(), ENT_COMPAT, 'UTF-8') ?>"
 					placeholder="<?= _t('gen.menu.search') ?>" />
 				<button class="btn" type="submit"><?= _i('search') ?></button>
 			</div>
