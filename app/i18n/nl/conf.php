@@ -278,8 +278,6 @@ return array(
 			'when_same_title_in_category' => 'als een identieke titel al voorkomt in de top <i>n</i> nieuwste artikelen van de categorie',
 			'when_same_title_in_feed' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen (of the feed)',	// DIRTY
 		),
-		'secondary_sort' => 'Secondary sort',	// TODO
-		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Artikelen om te tonen',
 			'active_category' => 'Actieve categorie',
@@ -293,27 +291,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Ook toepassen op labels',
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
-		'sort' => array(
-			'_' => 'Primary sort',	// DIRTY
-			'c' => array(
-				'name' => 'Category title',	// TODO
-			),
-			'date' => 'Date',	// TODO
-			'f' => array(
-				'name' => 'Feed title',	// TODO
-			),
-			'id' => 'Id',	// TODO
-			'last_modified' => 'Last user modified',	// TODO
-			'length' => 'Length',	// TODO
-			'link' => 'Link',	// TODO
-			'rand' => 'Random',	// TODO
-			'title' => 'Title',	// TODO
-		),
-		'sort_order' => array(
-			'_' => 'Sorteer volgorde',
-			'newer_first' => 'Nieuwste eerst',
-			'older_first' => 'Oudste eerst',
-		),
 		'star' => array(
 			'when' => 'Markeer een artikel als favoriet…',
 		),

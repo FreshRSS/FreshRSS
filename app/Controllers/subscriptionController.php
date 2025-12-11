@@ -334,21 +334,20 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$feed->resetCustomFavicon();
 			}
 
-			$default_sort = Minz_Request::paramString('defaultSort', plaintext: true);
-			if ($default_sort === '') {
-				$feed->_attribute('defaultSort');
+			$defaultSortOrder = Minz_Request::paramString('defaultSortOrder', plaintext: true);
+			if (str_ends_with($defaultSortOrder, '_asc')) {
+				$feed->_attribute('defaultOrder', 'ASC');
+				$defaultSortOrder = substr($defaultSortOrder, 0, -strlen('_asc'));
+			} elseif (str_ends_with($defaultSortOrder, '_desc')) {
+				$feed->_attribute('defaultOrder', 'DESC');
+				$defaultSortOrder = substr($defaultSortOrder, 0, -strlen('_desc'));
 			} else {
-				$feed->_attribute('defaultSort', in_array(
-					$default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'rand'], true
-				) ? $default_sort : null);
-			}
-			$default_order = Minz_Request::paramString('defaultOrder', plaintext: true);
-			if ($default_order === '') {
 				$feed->_attribute('defaultOrder');
+			}
+			if (in_array($defaultSortOrder, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'rand'], true)) {
+				$feed->_attribute('defaultSort', $defaultSortOrder);
 			} else {
-				$feed->_attribute('defaultOrder', in_array(
-					$default_order, ['ASC', 'DESC'], true
-				) ? $default_order : null);
+				$feed->_attribute('defaultSort');
 			}
 
 			$values = [

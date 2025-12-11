@@ -278,8 +278,6 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'když shodný název již existuje v top <i>n</i> nejnovějších článcích (of the feed)',	// DIRTY
 		),
-		'secondary_sort' => 'Secondary sort',	// TODO
-		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Počet zobrazených článků',
 			'active_category' => 'Aktivní kategorie',
@@ -293,27 +291,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Použije se také na popisky',
 		'sides_close_article' => 'Kliknutí mimo oblast textu článku zavře článek',
-		'sort' => array(
-			'_' => 'Primary sort',	// DIRTY
-			'c' => array(
-				'name' => 'Category title',	// TODO
-			),
-			'date' => 'Date',	// TODO
-			'f' => array(
-				'name' => 'Feed title',	// TODO
-			),
-			'id' => 'Id',	// TODO
-			'last_modified' => 'Last user modified',	// TODO
-			'length' => 'Length',	// TODO
-			'link' => 'Link',	// TODO
-			'rand' => 'Random',	// TODO
-			'title' => 'Title',	// TODO
-		),
-		'sort_order' => array(
-			'_' => 'Pořadí řazení',
-			'newer_first' => 'Nejdříve nejnovější',
-			'older_first' => 'Nejdříve nejstarší',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),

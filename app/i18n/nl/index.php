@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Markeer feed als gelezen',
 		'mark_selection_unread' => 'Markeer selectie als ongelezen',
 		'mylabels' => 'Mijn labels',
-		'newer_first' => 'Nieuwste eerst',
 		'non-starred' => 'Laat alles zien behalve favorieten',
 		'normal_view' => 'Normale weergave',
-		'older_first' => 'Oudste eerst',
 		'queries' => 'Gebruikers queries',
 		'read' => 'Laat alleen gelezen zien',
 		'reader_view' => 'Lees modus',
 		'rss_view' => 'RSS-feed',
 		'search_short' => 'Zoeken',
 		'sort' => array(
-			'_' => 'Sorteercriteria',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Categorie, feedtitels A→Z',
 				'name_desc' => 'Categorie, feedtitels Z→A',
 			),
 			'date_asc' => 'Publicatiedatum 1→9',
 			'date_desc' => 'Publicatiedatum 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Feedtitel A→Z',
 				'name_desc' => 'Feedtitel Z→A',
@@ -104,7 +103,9 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
+			'primary' => 'Sorting criterion',	// TODO
 			'rand' => 'Willekeurige volgorde',
+			'secondary' => 'Secondary sorting criterion',	// TODO
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
 			'user_modified_asc' => 'Aangepast door gebruiker 1→9',

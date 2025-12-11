@@ -278,8 +278,6 @@ return array(
 			'when_same_title_in_category' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents de la catégorie',
 			'when_same_title_in_feed' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents du flux',
 		),
-		'secondary_sort' => 'Tri secondaire',
-		'secondary_sort_order' => 'Ordre du tri secondaire',
 		'show' => array(
 			'_' => 'Articles à afficher',
 			'active_category' => 'La catégorie active',
@@ -293,27 +291,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'S’applique aussi aux étiquettes',
 		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
-		'sort' => array(
-			'_' => 'Tri principal',
-			'c' => array(
-				'name' => 'Titre de la catégorie',
-			),
-			'date' => 'Date',	// IGNORE
-			'f' => array(
-				'name' => 'Titre du flux',
-			),
-			'id' => 'Id',	// IGNORE
-			'last_modified' => 'Dernière modification par l’utilisateur',
-			'length' => 'Longueur',
-			'link' => 'Lien',
-			'rand' => 'Aléatoire',
-			'title' => 'Titre',
-		),
-		'sort_order' => array(
-			'_' => 'Ordre de tri',
-			'newer_first' => 'Plus récents en premier',
-			'older_first' => 'Plus anciens en premier',
-		),
 		'star' => array(
 			'when' => 'Marquer un article comme favori…',
 		),

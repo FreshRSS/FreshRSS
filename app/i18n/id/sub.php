@@ -208,8 +208,6 @@ return array(
 		'number_entries' => '%d artikel',
 		'open_feed' => 'Buka umpan %s',
 		'path_entries_conditions' => 'Kondisi untuk pengambilan konten',
-		'preferred_order' => 'Preferred sort order',	// TODO
-		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Ketampakan',
 			'category' => 'Tampilkan hanya di kategorinya saja',

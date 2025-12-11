@@ -208,8 +208,6 @@ return array(
 		'number_entries' => ' %d مقاله',
 		'open_feed' => 'باز کردن فید %s',
 		'path_entries_conditions' => 'شرایط بازیابی محتوا',
-		'preferred_order' => 'Preferred sort order',	// TODO
-		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => ' دید',
 			'category' => ' نمایش در دسته بندی خود',

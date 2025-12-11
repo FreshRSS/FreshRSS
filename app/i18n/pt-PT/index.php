@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Marcar feed com lido',
 		'mark_selection_unread' => 'Marcar seleção como não lida',
 		'mylabels' => 'Minhas etiquetas',
-		'newer_first' => 'Novos primeiro',
 		'non-starred' => 'Mostrar todos, exceto favoritos',
 		'normal_view' => 'visualização normal',
-		'older_first' => 'Antigos primeiro',
 		'queries' => 'Queries do utilizador',
 		'read' => 'Mostrar apenas lidos',
 		'reader_view' => 'Visualização de leitura',
 		'rss_view' => 'Feed RSS',
 		'search_short' => 'Pesquisar',
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Category, feed titles A→Z',	// TODO
 				'name_desc' => 'Category, feed titles Z→A',	// TODO
 			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Feed title A→Z',	// TODO
 				'name_desc' => 'Feed title Z→A',	// TODO
@@ -104,7 +103,9 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
 			'link_desc' => 'Link Z→A',	// TODO
+			'primary' => 'Sorting criterion',	// TODO
 			'rand' => 'Random order',	// TODO
+			'secondary' => 'Secondary sorting criterion',	// TODO
 			'title_asc' => 'Title A→Z',	// TODO
 			'title_desc' => 'Title Z→A',	// TODO
 			'user_modified_asc' => 'User modified 1→9',	// TODO

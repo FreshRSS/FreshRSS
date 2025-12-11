@@ -208,8 +208,6 @@ return array(
 		'number_entries' => '%d 개의 글',
 		'open_feed' => 'Open feed %s',	// TODO
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
-		'preferred_order' => 'Preferred sort order',	// TODO
-		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => '표시',
 			'category' => '피드가 속한 카테고리에만 표시하기',

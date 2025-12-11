@@ -278,8 +278,6 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents (of the feed)',	// DIRTY
 		),
-		'secondary_sort' => 'Secondary sort',	// TODO
-		'secondary_sort_order' => 'Secondary sort order',	// TODO
 		'show' => array(
 			'_' => 'Articles de mostrar',
 			'active_category' => 'Activar categoria',
@@ -293,27 +291,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Aplicar tanben a las etiquetas',
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',
-		'sort' => array(
-			'_' => 'Primary sort',	// DIRTY
-			'c' => array(
-				'name' => 'Category title',	// TODO
-			),
-			'date' => 'Date',	// TODO
-			'f' => array(
-				'name' => 'Feed title',	// TODO
-			),
-			'id' => 'Id',	// TODO
-			'last_modified' => 'Last user modified',	// TODO
-			'length' => 'Length',	// TODO
-			'link' => 'Link',	// TODO
-			'rand' => 'Random',	// TODO
-			'title' => 'Title',	// TODO
-		),
-		'sort_order' => array(
-			'_' => 'Òrdre de tria',
-			'newer_first' => 'Mai recents en primièr',
-			'older_first' => 'Mai ancians en primièr',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),

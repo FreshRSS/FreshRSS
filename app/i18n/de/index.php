@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Feed als gelesen markieren',
 		'mark_selection_unread' => 'Auswahl als ungelesen markieren',
 		'mylabels' => 'Meine Labels',
-		'newer_first' => 'Neuere zuerst',
 		'non-starred' => 'Alle außer Favoriten zeigen',
 		'normal_view' => 'Normale Ansicht',
-		'older_first' => 'Ältere zuerst',
 		'queries' => 'Benutzerabfragen',
 		'read' => 'Nur gelesene zeigen',
 		'reader_view' => 'Lese-Ansicht',
 		'rss_view' => 'RSS-Feed',
 		'search_short' => 'Suchen',
 		'sort' => array(
-			'_' => 'Sortierkriterien',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Kategorie, Feed-Titel A→Z',
 				'name_desc' => 'Kategorie, Feed-Titel Z→A',
 			),
 			'date_asc' => 'Veröffentlichungsdatum 1→9',
 			'date_desc' => 'Veröffentlichungsdatum 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Feed-Titel A→Z',
 				'name_desc' => 'Feed-Titel Z→A',
@@ -104,7 +103,9 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
+			'primary' => 'Sorting criterion',	// TODO
 			'rand' => 'Zufällige Reihenfolge',
+			'secondary' => 'Secondary sorting criterion',	// TODO
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

@@ -208,8 +208,6 @@ return array(
 		'number_entries' => '%d artikelen',
 		'open_feed' => 'Feed %s openen',
 		'path_entries_conditions' => 'Voorwaarden voor inhoudsophaling',
-		'preferred_order' => 'Preferred sort order',	// TODO
-		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Zichtbaarheid',
 			'category' => 'Toon in categorie',

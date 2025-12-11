@@ -208,8 +208,6 @@ return array(
 		'number_entries' => '%d makale',
 		'open_feed' => '%s beslemesini aç',
 		'path_entries_conditions' => 'İçerik alma koşulları',
-		'preferred_order' => 'Preferred sort order',	// TODO
-		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Görünürlük',
 			'category' => 'Kategorisinde göster',

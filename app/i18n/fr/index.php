@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Marquer le flux comme lu',
 		'mark_selection_unread' => 'Marquer la sélection comme non-lue',
 		'mylabels' => 'Mes étiquettes',
-		'newer_first' => 'Plus récents en premier',
 		'non-starred' => 'Afficher les non-favoris',
 		'normal_view' => 'Vue normale',
-		'older_first' => 'Plus anciens en premier',
 		'queries' => 'Filtres utilisateurs',
 		'read' => 'Afficher les lus',
 		'reader_view' => 'Vue lecture',
 		'rss_view' => 'Flux RSS',
 		'search_short' => 'Rechercher',
 		'sort' => array(
-			'_' => 'Critère de tri',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Catégorie, flux (titres) A→Z',
 				'name_desc' => 'Catégorie, flux (titres) Z→A',
 			),
 			'date_asc' => 'Date de publication 1→9',
 			'date_desc' => 'Date de publication 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Flux (titre) A→Z',
 				'name_desc' => 'Flux (titre) Z→A',
@@ -104,7 +103,9 @@ return array(
 			'length_desc' => 'Longueur du contenu 9→1',
 			'link_asc' => 'Lien A→Z',
 			'link_desc' => 'Lien Z→A',
+			'primary' => 'Sorting criterion',	// TODO
 			'rand' => 'Ordre aléatoire',
+			'secondary' => 'Secondary sorting criterion',	// TODO
 			'title_asc' => 'Titre A→Z',
 			'title_desc' => 'Titre Z→A',
 			'user_modified_asc' => 'Modifié par l’utilisateur 1→9',

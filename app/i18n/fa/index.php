@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => ' فید را به عنوان خوانده شده علامت گذاری کنید',
 		'mark_selection_unread' => ' انتخاب را به عنوان خوانده نشده علامت گذاری کنید',
 		'mylabels' => ' برچسب های من',
-		'newer_first' => ' ابتدا جدیدتر',
 		'non-starred' => ' موارد غیر مورد علاقه را نشان دهید',
 		'normal_view' => ' نمای عادی',
-		'older_first' => ' اول مسن ترین',
 		'queries' => ' پرس و جوهای کاربر',
 		'read' => ' نمایش خوانده شده',
 		'reader_view' => ' مشاهده خواندن',
 		'rss_view' => ' خوراک RSS',
 		'search_short' => ' جستجو',
 		'sort' => array(
-			'_' => 'معیارهای مرتب‌سازی',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'دسته بندی، عناوین فید A→Z',
 				'name_desc' => 'دسته بندی، عناوین فید Z→A',
 			),
 			'date_asc' => 'تاریخ انتشار ۱→۹',
 			'date_desc' => 'تاریخ انتشار ۹→۱',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'عنوان فید A→Z',
 				'name_desc' => 'عنوان فید Z→A',
@@ -104,7 +103,9 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'لینک A→Z',
 			'link_desc' => 'لینک Z→A',
+			'primary' => 'Sorting criterion',	// TODO
 			'rand' => 'ترتیب تصادفی',
+			'secondary' => 'Secondary sorting criterion',	// TODO
 			'title_asc' => 'عنوانA→Z',
 			'title_desc' => 'عنوان Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

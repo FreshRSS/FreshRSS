@@ -208,8 +208,6 @@ return array(
 		'number_entries' => 'Статей: %d',
 		'open_feed' => 'Відкрити стрічку %s',
 		'path_entries_conditions' => 'Умови завантаження тексту',
-		'preferred_order' => 'Preferred sort order',	// TODO
-		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Видимість',
 			'category' => 'Показати в категорії',

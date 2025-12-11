@@ -208,8 +208,6 @@ return array(
 		'number_entries' => '%d cikkek',
 		'open_feed' => 'Hírforrás megnyitása %s',
 		'path_entries_conditions' => 'Tartalom beszerzési feltételek',
-		'preferred_order' => 'Preferred sort order',	// TODO
-		'preferred_sort' => 'Preferred sort',	// TODO
 		'priority' => array(
 			'_' => 'Láthatóság',
 			'category' => 'Jelenjen meg a saját kategóriájában',

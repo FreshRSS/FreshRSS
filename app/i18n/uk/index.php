@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Позначити стрічку прочитаною',
 		'mark_selection_unread' => 'Позначити вибрані непрочитаними',
 		'mylabels' => 'Мої мітки',
-		'newer_first' => 'Спершу новіші',
 		'non-starred' => 'Показати невподобані',
 		'normal_view' => 'Звичайний показ',
-		'older_first' => 'Спершу старіші',
 		'queries' => 'Користувацькі запити',
 		'read' => 'Показати прочитані',
 		'reader_view' => 'Читацький показ',
 		'rss_view' => 'RSS-стрічка',
 		'search_short' => 'Пошук',
 		'sort' => array(
-			'_' => 'Критерії впорядкування',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Заголовки категорії та стрічки А→Я',
 				'name_desc' => 'Заголовки категорії та стрічки Я→А',
 			),
 			'date_asc' => 'Дата оприлюднення 1→9',
 			'date_desc' => 'Дата оприлюднення 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Назва стрічки A→Z',
 				'name_desc' => 'Назва стрічки Z→A',
@@ -104,7 +103,9 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Посилання А→Я',
 			'link_desc' => 'Посилання Я→А',
+			'primary' => 'Sorting criterion',	// TODO
 			'rand' => 'Довільний порядок',
+			'secondary' => 'Secondary sorting criterion',	// TODO
 			'title_asc' => 'Заголовок А→Я',
 			'title_desc' => 'Заголовок Я→А',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

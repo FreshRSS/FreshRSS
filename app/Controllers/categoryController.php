@@ -150,21 +150,20 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$category->_attribute('opml_url', null);
 			}
 
-			$default_sort = Minz_Request::paramString('defaultSort', plaintext: true);
-			if ($default_sort === '') {
-				$category->_attribute('defaultSort');
+			$defaultSortOrder = Minz_Request::paramString('defaultSortOrder', plaintext: true);
+			if (str_ends_with($defaultSortOrder, '_asc')) {
+				$category->_attribute('defaultOrder', 'ASC');
+				$defaultSortOrder = substr($defaultSortOrder, 0, -strlen('_asc'));
+			} elseif (str_ends_with($defaultSortOrder, '_desc')) {
+				$category->_attribute('defaultOrder', 'DESC');
+				$defaultSortOrder = substr($defaultSortOrder, 0, -strlen('_desc'));
 			} else {
-				$category->_attribute('defaultSort', in_array(
-					$default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'f.name', 'rand'], true
-				) ? $default_sort : null);
-			}
-			$default_order = Minz_Request::paramString('defaultOrder', plaintext: true);
-			if ($default_order === '') {
 				$category->_attribute('defaultOrder');
+			}
+			if (in_array($defaultSortOrder, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'f.name', 'rand'], true)) {
+				$category->_attribute('defaultSort', $defaultSortOrder);
 			} else {
-				$category->_attribute('defaultOrder', in_array(
-					$default_order, ['ASC', 'DESC'], true
-				) ? $default_order : null);
+				$category->_attribute('defaultSort');
 			}
 
 			$values = [
