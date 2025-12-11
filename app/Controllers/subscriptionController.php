@@ -344,7 +344,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			} else {
 				$feed->_attribute('defaultOrder');
 			}
-			if (in_array($defaultSortOrder, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'rand'], true)) {
+			if (in_array($defaultSortOrder, ['id', 'date', 'link', 'title', 'length', 'rand'], true)) {
 				$feed->_attribute('defaultSort', $defaultSortOrder);
 			} else {
 				$feed->_attribute('defaultSort');

@@ -160,7 +160,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			} else {
 				$category->_attribute('defaultOrder');
 			}
-			if (in_array($defaultSortOrder, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'f.name', 'rand'], true)) {
+			if (in_array($defaultSortOrder, ['id', 'date', 'link', 'title', 'length', 'f.name', 'rand'], true)) {
 				$category->_attribute('defaultSort', $defaultSortOrder);
 			} else {
 				$category->_attribute('defaultSort');

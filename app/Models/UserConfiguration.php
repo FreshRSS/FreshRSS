@@ -57,7 +57,7 @@ declare(strict_types=1);
  * @property 'ASC'|'DESC' $sort_order
  * @property 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'length' $sort
  * @property 'ASC'|'DESC' $secondary_sort_order
- * @property 'id'|'date'|'lastUserModified'|'link'|'title'|'length' $secondary_sort
+ * @property 'id'|'date'|'link'|'title'|'length' $secondary_sort
  * @property array<int,array<string,string>> $sharing
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article
