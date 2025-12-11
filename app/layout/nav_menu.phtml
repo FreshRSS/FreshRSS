@@ -233,15 +233,6 @@
 			$title = _t('index.menu.newer_first');
 		}
 		$url_order = Minz_Request::currentRequest();
-		unset($url_order['params']['rid']);
-		if (!empty($url_order['params']['search'])) {
-			// Clean some search data parameters used for transitions
-			$url_order['params']['search'] = FreshRSS_Context::$search
-				->remove(new FreshRSS_Search('date:1'))
-				->remove(new FreshRSS_Search('pubdate:1'))
-				->remove(new FreshRSS_Search('userdate:1'))
-				->__toString();
-		}
 	?>
 	<div id="nav_menu_sort" class="group">
 		<div class="dropdown">
