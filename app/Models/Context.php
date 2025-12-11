@@ -250,19 +250,34 @@ final class FreshRSS_Context {
 
 		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
 
-		if (self::$current_get['feed']) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$feed = $feedDAO->searchById(self::$current_get['feed']);
-			$backtrack_order = $feed !== null && $feed->defaultOrder() !== null ? $feed->defaultOrder() : FreshRSS_Context::userConf()->sort_order;
-			$backtrack_sort = $feed !== null && $feed->defaultSort() !== null ? $feed->defaultSort() : FreshRSS_Context::userConf()->sort;
-		} elseif (self::$current_get['category']) {
-			$categoryDAO = FreshRSS_Factory::createCategoryDao();
-			$category = $categoryDAO->searchById(self::$current_get['category']);
-			$backtrack_order = $category !== null && $category->defaultOrder() !== null ? $category->defaultOrder() : FreshRSS_Context::userConf()->sort_order;
-			$backtrack_sort = $category !== null && $category->defaultSort() !== null ? $category->defaultSort() : FreshRSS_Context::userConf()->sort;
+		if (Minz_Request::paramString('order', plaintext: true) === '' || Minz_Request::paramString('sort', plaintext: true) === '') {
+			if (!empty(self::$current_get['feed'])) {
+				$id = self::$current_get['feed'];
+				// We most likely already have the feed object in cache
+				$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id);
+				if ($feed === null) {
+					$feedDAO = FreshRSS_Factory::createFeedDao();
+					$feed = $feedDAO->searchById($id);
+				}
+				$backtrack_order = $feed !== null && $feed->defaultOrder() !== null ? $feed->defaultOrder() : FreshRSS_Context::userConf()->sort_order;
+				$backtrack_sort = $feed !== null && $feed->defaultSort() !== null ? $feed->defaultSort() : FreshRSS_Context::userConf()->sort;
+			} elseif (!empty(self::$current_get['category'])) {
+				$id = self::$current_get['category'];
+				// We most likely already have the category object in cache
+				$category = FreshRSS_Context::categories()[$id] ?? null;
+				if ($category === null) {
+					$categoryDAO = FreshRSS_Factory::createCategoryDao();
+					$category = $categoryDAO->searchById($id);
+				}
+				$backtrack_order = $category !== null && $category->defaultOrder() !== null ? $category->defaultOrder() : FreshRSS_Context::userConf()->sort_order;
+				$backtrack_sort = $category !== null && $category->defaultSort() !== null ? $category->defaultSort() : FreshRSS_Context::userConf()->sort;
+			} else {
+				$backtrack_order = FreshRSS_Context::userConf()->sort_order;
+				$backtrack_sort = FreshRSS_Context::userConf()->sort;
+			}
 		} else {
-			$backtrack_order = FreshRSS_Context::userConf()->sort_order;
-			$backtrack_sort = FreshRSS_Context::userConf()->sort;
+			$backtrack_order = '';
+			$backtrack_sort = '';
 		}
 
 		$order = Minz_Request::paramString('order', plaintext: true) ?: $backtrack_order;
