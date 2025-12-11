@@ -61,7 +61,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	 */
 	public function nonceAction(): void {
 		header('Content-Type: application/json; charset=UTF-8');
-		header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T'));
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s \\G\\M\\T'));
 		header('Expires: 0');
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
 		header('Pragma: no-cache');

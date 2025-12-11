@@ -2338,19 +2338,25 @@ html.slider-active {
 .nav_menu {
 	padding-top: var(--frss-padding-top-bottom);
 	padding-bottom: var(--frss-padding-top-bottom);
-	padding-right: 0.5rem;
+	padding-right: 3rem;
 	padding-left: 0.5rem;
 	background: inherit;
 	text-align: center;
-}
+	position: relative;
 
-.nav_menu .stick {
-	max-width: 500px;
-}
+	.stick {
+		max-width: 500px;
+	}
 
-.nav_menu select {
-	max-width: 300px;
-	width: 60%;
+	select {
+		max-width: 300px;
+		width: 60%;
+	}
+
+	#nav_menu_toggle_aside {
+		position: absolute;
+		right: 0.5rem;
+	}
 }
 
 .nav_mobile {
@@ -2652,8 +2658,16 @@ html.slider-active {
 		display: block;
 	}
 
-	.nav_menu .toggle_aside {
-		display: inline-block;
+	.nav_menu {
+		padding-right: 0.5rem;
+
+		.toggle_aside {
+			display: inline-block;
+		}
+
+		#nav_menu_toggle_aside {
+			position: unset;
+		}
 	}
 
 	.aside.visible + .close-aside,

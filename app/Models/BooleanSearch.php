@@ -52,6 +52,12 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		$this->parseParentheses($input, $level) || $this->parseOrSegments($input);
 	}
 
+	public function __clone() {
+		foreach ($this->searches as $key => $search) {
+			$this->searches[$key] = clone $search;
+		}
+	}
+
 	/**
 	 * Parse the user queries (saved searches) by name and expand them in the input string.
 	 */
@@ -431,9 +437,101 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		$this->searches[] = $search;
 	}
 
+	/**
+	 * Modify the first compatible search of the Boolean expression, or add it at the beginning.
+	 * Useful to modify some search parameters.
+	 * @return FreshRSS_BooleanSearch a new instance, modified.
+	 */
+	public function enforce(FreshRSS_Search $search): self {
+		$result = clone $this;
+		$result->raw_input = '';
+
+		if (count($result->searches) === 1 && $result->searches[0] instanceof FreshRSS_Search) {
+			$result->searches[0] = $result->searches[0]->enforce($search);
+			return $result;
+		}
+		if (count($result->searches) === 2) {
+			foreach ($result->searches as $booleanSearch) {
+				if (!($booleanSearch instanceof FreshRSS_BooleanSearch)) {
+					break;
+				}
+				if ($booleanSearch->operator() === 'AND') {
+					if (count($booleanSearch->searches) === 1 && $booleanSearch->searches[0] instanceof FreshRSS_Search &&
+						$booleanSearch->searches[0]->hasSameOperators($search)) {
+						$booleanSearch->searches[0] = $search;
+						return $result;
+					}
+				}
+			}
+		}
+
+		if (count($result->searches) > 1 || (count($result->searches) > 0 && $result->searches[0] instanceof FreshRSS_Search)) {
+			// Wrap the existing searches in a new BooleanSearch if needed
+			$wrap = new FreshRSS_BooleanSearch('');
+			foreach ($result->searches as $existingSearch) {
+				$wrap->add($existingSearch);
+			}
+			if (count($wrap->searches) > 0) {
+				$result->searches = [$wrap];
+			}
+		}
+		array_unshift($result->searches, $search);
+		return $result;
+	}
+
+	/**
+	 * Remove the first compatible search of the Boolean expression, if any.
+	 * Useful to modify some search parameters.
+	 * @return FreshRSS_BooleanSearch a new instance, modified.
+	 */
+	public function remove(FreshRSS_Search $search): self {
+		$result = clone $this;
+		$result->raw_input = '';
+
+		if (count($result->searches) === 1 && $result->searches[0] instanceof FreshRSS_Search) {
+			$result->searches[0] = $result->searches[0]->remove($search);
+			return $result;
+		}
+		if (count($result->searches) === 2) {
+			foreach ($result->searches as $booleanSearch) {
+				if (!($booleanSearch instanceof FreshRSS_BooleanSearch)) {
+					break;
+				}
+				if ($booleanSearch->operator() === 'AND') {
+					if (count($booleanSearch->searches) === 1 && $booleanSearch->searches[0] instanceof FreshRSS_Search &&
+						$booleanSearch->searches[0]->hasSameOperators($search)) {
+						array_shift($booleanSearch->searches);
+						return $result;
+					}
+				}
+			}
+		}
+		return $result;
+	}
+
 	#[\Override]
 	public function __toString(): string {
-		return $this->getRawInput();
+		$result = '';
+		foreach ($this->searches as $search) {
+			$part = $search->__toString();
+			if ($part === '') {
+				continue;
+			}
+			$operator = $search instanceof FreshRSS_BooleanSearch ? $search->operator() : 'OR';
+
+			if ((str_contains($part, ' ') || str_starts_with($part, '-')) && (count($this->searches) > 1 || in_array($operator, ['OR NOT', 'AND NOT'], true))) {
+				$part = '(' . $part . ')';
+			}
+
+			$result .= match ($operator) {
+				'OR' => $result === '' ? '' : ' OR ',
+				'OR NOT' => $result === '' ? '-' : ' OR -',
+				'AND NOT' => $result === '' ? '-' : ' -',
+				'AND' => $result === '' ? '' : ' ',
+				default => throw new InvalidArgumentException('Invalid operator: ' . $operator),
+			} . $part;
+		}
+		return trim($result);
 	}
 
 	/** @return string Plain text search query. Must be XML-encoded or URL-encoded depending on the situation */

@@ -36,6 +36,36 @@ function initCharts() {
 		/* eslint-enable no-new */
 	}
 
+	// Force resize after clicking enlarge button (needed since chart.js v4)
+	for (const id in Chart.instances) {
+		const instance = Chart.instances[id];
+		const boxTitle = instance.canvas.parentElement.previousElementSibling;
+		const enlargeBtns = boxTitle.querySelectorAll('a.btn');
+
+		function forceResize() {
+			function waitHash() {
+				requestAnimationFrame(() => instance.resize());
+				window.removeEventListener('hashchange', waitHash);
+			}
+			instance.resize(); // try early resize
+			window.addEventListener('hashchange', waitHash);
+		}
+		for (const btn of enlargeBtns) {
+			btn.addEventListener('click', forceResize);
+		}
+	}
+
+	window.addEventListener('resize', () => {
+		for (const id in Chart.instances) {
+			const instance = Chart.instances[id];
+
+			// Workaround for a chart.js bug which makes the canvas blurry if
+			// page was loaded with very low zoom level and later zoomed in
+			instance.update();
+			instance.resize();
+		}
+	});
+
 	if (window.console) {
 		console.log('Chart.js finished');
 	}

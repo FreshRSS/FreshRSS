@@ -104,9 +104,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = FreshRSS_Context::$name;
-		$search = Minz_Request::paramString('search');
+		$search = FreshRSS_Context::$search->__toString();
 		if ($search !== '') {
-			$title = '“' . $search . '”';
+			$title = '“' . htmlspecialchars($search, ENT_COMPAT, 'UTF-8') . '”';
 		}
 		if (FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;

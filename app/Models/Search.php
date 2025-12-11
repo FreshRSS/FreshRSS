@@ -154,9 +154,296 @@ class FreshRSS_Search implements \Stringable {
 		$this->parseSearch($input);
 	}
 
+	private static function quote(string $s): string {
+		if (str_contains($s, ' ') || $s === '') {
+			return '"' . addcslashes($s, '\\"') . '"';
+		}
+		return $s;
+	}
+
+	private static function dateIntervalToString(?int $min, ?int $max): string {
+		if ($min === null && $max === null) {
+			return '';
+		}
+		$s = '';
+		if ($min !== null) {
+			$s .= date('Y-m-d\\TH:i:s', $min);
+		}
+		$s .= '/';
+		if ($max !== null) {
+			$s .= date('Y-m-d\\TH:i:s', $max);
+		}
+		return $s;
+	}
+
+	/**
+	 * Return true if both searches have the same constraint parameters (even if the values differ), false otherwise.
+	 */
+	public function hasSameOperators(FreshRSS_Search $search): bool {
+		$properties = array_keys(get_object_vars($this));
+		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
+		foreach ($properties as $property) {
+			// @phpstan-ignore property.dynamicName, property.dynamicName
+			if (gettype($this->$property) !== gettype($search->$property)) {
+				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+					// Process {min_*, max_*} pairs together (for dates)
+					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
+					// @phpstan-ignore property.dynamicName, property.dynamicName, property.dynamicName, property.dynamicName
+					if (($this->$property !== null || $this->$mate !== null) !== ($search->$property !== null || $search->$mate !== null)) {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			}
+			// @phpstan-ignore property.dynamicName, property.dynamicName
+			if (is_array($this->$property) && is_array($search->$property)) {
+				// @phpstan-ignore property.dynamicName, property.dynamicName
+				if (count($this->$property) !== count($search->$property)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Modifies this search by enforcing the constraint parameters of another search.
+	 * @return FreshRSS_Search a new instance, modified.
+	 */
+	public function enforce(FreshRSS_Search $search): self {
+		$result = clone $this;
+		$properties = array_keys(get_object_vars($result));
+		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
+		$result->raw_input = '';
+		foreach ($properties as $property) {
+			// @phpstan-ignore property.dynamicName
+			if ($search->$property !== null) {
+				// @phpstan-ignore property.dynamicName, property.dynamicName
+				$result->$property = $search->$property;
+				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+					// Process {min_*, max_*} pairs together (for dates)
+					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
+					// @phpstan-ignore property.dynamicName, property.dynamicName
+					$result->$mate = $search->$mate;
+				}
+			}
+		}
+		return $result;
+	}
+
+	/**
+	 * Modifies this search by removing the constraints given by another search.
+	 * @return FreshRSS_Search a new instance, modified.
+	 */
+	public function remove(FreshRSS_Search $search): self {
+		$result = clone $this;
+		$properties = array_keys(get_object_vars($result));
+		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
+		$result->raw_input = '';
+		foreach ($properties as $property) {
+			// @phpstan-ignore property.dynamicName
+			if ($search->$property !== null) {
+				// @phpstan-ignore property.dynamicName
+				$result->$property = null;
+				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+					// Process {min_*, max_*} pairs together (for dates)
+					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
+					// @phpstan-ignore property.dynamicName
+					$result->$mate = null;
+				}
+			}
+		}
+		return $result;
+	}
+
 	#[\Override]
 	public function __toString(): string {
-		return $this->getRawInput();
+		$result = '';
+
+		if ($this->getEntryIds() !== null) {
+			$result .= ' e:' . implode(',', $this->getEntryIds());
+		}
+		if ($this->getFeedIds() !== null) {
+			$result .= ' f:' . implode(',', $this->getFeedIds());
+		}
+		if ($this->getCategoryIds() !== null) {
+			$result .= ' c:' . implode(',', $this->getCategoryIds());
+		}
+		if ($this->getLabelIds() !== null) {
+			foreach ($this->getLabelIds() as $ids) {
+				$result .= ' L:' . (is_array($ids) ? implode(',', $ids) : $ids);
+			}
+		}
+		if ($this->getLabelNames() !== null) {
+			foreach ($this->getLabelNames() as $names) {
+				$result .= ' labels:' . self::quote(implode(',', $names));
+			}
+		}
+
+		if ($this->getMinUserdate() !== null || $this->getMaxUserdate() !== null) {
+			$result .= ' userdate:' . self::dateIntervalToString($this->getMinUserdate(), $this->getMaxUserdate());
+		}
+		if ($this->getMinPubdate() !== null || $this->getMaxPubdate() !== null) {
+			$result .= ' pubdate:' . self::dateIntervalToString($this->getMinPubdate(), $this->getMaxPubdate());
+		}
+		if ($this->getMinDate() !== null || $this->getMaxDate() !== null) {
+			$result .= ' date:' . self::dateIntervalToString($this->getMinDate(), $this->getMaxDate());
+		}
+
+		if ($this->getIntitleRegex() !== null) {
+			foreach ($this->getIntitleRegex() as $s) {
+				$result .= ' intitle:' . $s;
+			}
+		}
+		if ($this->getIntitle() !== null) {
+			foreach ($this->getIntitle() as $s) {
+				$result .= ' intitle:' . self::quote($s);
+			}
+		}
+		if ($this->getIntextRegex() !== null) {
+			foreach ($this->getIntextRegex() as $s) {
+				$result .= ' intext:' . $s;
+			}
+		}
+		if ($this->getIntext() !== null) {
+			foreach ($this->getIntext() as $s) {
+				$result .= ' intext:' . self::quote($s);
+			}
+		}
+		if ($this->getAuthorRegex() !== null) {
+			foreach ($this->getAuthorRegex() as $s) {
+				$result .= ' author:' . $s;
+			}
+		}
+		if ($this->getAuthor() !== null) {
+			foreach ($this->getAuthor() as $s) {
+				$result .= ' author:' . self::quote($s);
+			}
+		}
+		if ($this->getInurlRegex() !== null) {
+			foreach ($this->getInurlRegex() as $s) {
+				$result .= ' inurl:' . $s;
+			}
+		}
+		if ($this->getInurl() !== null) {
+			foreach ($this->getInurl() as $s) {
+				$result .= ' inurl:' . self::quote($s);
+			}
+		}
+		if ($this->getTagsRegex() !== null) {
+			foreach ($this->getTagsRegex() as $s) {
+				$result .= ' #' . $s;
+			}
+		}
+		if ($this->getTags() !== null) {
+			foreach ($this->getTags() as $s) {
+				$result .= ' #' . self::quote($s);
+			}
+		}
+		if ($this->getSearchRegex() !== null) {
+			foreach ($this->getSearchRegex() as $s) {
+				$result .= ' ' . $s;
+			}
+		}
+		if ($this->getSearch() !== null) {
+			foreach ($this->getSearch() as $s) {
+				$result .= ' ' . self::quote($s);
+			}
+		}
+
+		if ($this->getNotEntryIds() !== null) {
+			$result .= ' -e:' . implode(',', $this->getNotEntryIds());
+		}
+		if ($this->getNotFeedIds() !== null) {
+			$result .= ' -f:' . implode(',', $this->getNotFeedIds());
+		}
+		if ($this->getNotCategoryIds() !== null) {
+			$result .= ' -c:' . implode(',', $this->getNotCategoryIds());
+		}
+		if ($this->getNotLabelIds() !== null) {
+			foreach ($this->getNotLabelIds() as $ids) {
+				$result .= ' -L:' . (is_array($ids) ? implode(',', $ids) : $ids);
+			}
+		}
+		if ($this->getNotLabelNames() !== null) {
+			foreach ($this->getNotLabelNames() as $names) {
+				$result .= ' -labels:' . self::quote(implode(',', $names));
+			}
+		}
+
+		if ($this->getNotMinUserdate() !== null || $this->getNotMaxUserdate() !== null) {
+			$result .= ' -userdate:' . self::dateIntervalToString($this->getNotMinUserdate(), $this->getNotMaxUserdate());
+		}
+		if ($this->getNotMinPubdate() !== null || $this->getNotMaxPubdate() !== null) {
+			$result .= ' -pubdate:' . self::dateIntervalToString($this->getNotMinPubdate(), $this->getNotMaxPubdate());
+		}
+		if ($this->getNotMinDate() !== null || $this->getNotMaxDate() !== null) {
+			$result .= ' -date:' . self::dateIntervalToString($this->getNotMinDate(), $this->getNotMaxDate());
+		}
+
+		if ($this->getNotIntitleRegex() !== null) {
+			foreach ($this->getNotIntitleRegex() as $s) {
+				$result .= ' -intitle:' . $s;
+			}
+		}
+		if ($this->getNotIntitle() !== null) {
+			foreach ($this->getNotIntitle() as $s) {
+				$result .= ' -intitle:' . self::quote($s);
+			}
+		}
+		if ($this->getNotIntextRegex() !== null) {
+			foreach ($this->getNotIntextRegex() as $s) {
+				$result .= ' -intext:' . $s;
+			}
+		}
+		if ($this->getNotIntext() !== null) {
+			foreach ($this->getNotIntext() as $s) {
+				$result .= ' -intext:' . self::quote($s);
+			}
+		}
+		if ($this->getNotAuthorRegex() !== null) {
+			foreach ($this->getNotAuthorRegex() as $s) {
+				$result .= ' -author:' . $s;
+			}
+		}
+		if ($this->getNotAuthor() !== null) {
+			foreach ($this->getNotAuthor() as $s) {
+				$result .= ' -author:' . self::quote($s);
+			}
+		}
+		if ($this->getNotInurlRegex() !== null) {
+			foreach ($this->getNotInurlRegex() as $s) {
+				$result .= ' -inurl:' . $s;
+			}
+		}
+		if ($this->getNotInurl() !== null) {
+			foreach ($this->getNotInurl() as $s) {
+				$result .= ' -inurl:' . self::quote($s);
+			}
+		}
+		if ($this->getNotTagsRegex() !== null) {
+			foreach ($this->getNotTagsRegex() as $s) {
+				$result .= ' -#' . $s;
+			}
+		}
+		if ($this->getNotTags() !== null) {
+			foreach ($this->getNotTags() as $s) {
+				$result .= ' -#' . self::quote($s);
+			}
+		}
+		if ($this->getNotSearchRegex() !== null) {
+			foreach ($this->getNotSearchRegex() as $s) {
+				$result .= ' -' . $s;
+			}
+		}
+		if ($this->getNotSearch() !== null) {
+			foreach ($this->getNotSearch() as $s) {
+				$result .= ' -' . self::quote($s);
+			}
+		}
+
+		return trim($result);
 	}
 
 	public function getRawInput(): string {

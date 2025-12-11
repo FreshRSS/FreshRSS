@@ -955,7 +955,7 @@ main.post .drop-section li.item.feed a:hover .icon {
 
 
 .nav_menu {
-	padding: 0;
+	padding: 0 0 0 2rem;
 	width: 100%;
 	font-size: 0;
 	background-color: var(--color-background-nav);
@@ -973,6 +973,10 @@ main.post .drop-section li.item.feed a:hover .icon {
 			border-width: 0;
 			line-height: 1.95;
 		}
+	}
+
+	#nav_menu_toggle_aside {
+		left: 0;
 	}
 
 	#toggle-unread,
@@ -1472,6 +1476,10 @@ main.global {
 			input {
 				width: 100%;
 			}
+		}
+
+		#nav_menu_toggle_aside {
+			position: absolute;
 		}
 	}
 
