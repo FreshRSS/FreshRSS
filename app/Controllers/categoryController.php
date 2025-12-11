@@ -150,7 +150,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$category->_attribute('opml_url', null);
 			}
 
-			$default_sort = Minz_Request::paramString('defaultSort');
+			$default_sort = Minz_Request::paramString('defaultSort', plaintext: true);
 			if ($default_sort === '') {
 				$category->_attribute('defaultSort');
 			} else {
@@ -158,7 +158,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 					$default_sort, ['id', 'date', 'lastUserModified', 'link', 'title', 'length', 'f.name', 'rand'], true
 				) ? $default_sort : null);
 			}
-			$default_order = Minz_Request::paramString('defaultOrder');
+			$default_order = Minz_Request::paramString('defaultOrder', plaintext: true);
 			if ($default_order === '') {
 				$category->_attribute('defaultOrder');
 			} else {
