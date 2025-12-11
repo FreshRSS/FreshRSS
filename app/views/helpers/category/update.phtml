@@ -37,48 +37,48 @@
 			</div>
 
 			<div class="form-group">
-				<label class="group-name" for="defaultOrder"><?= _t('sub.feed.preferred_order')?> </label>
+				<label class="group-name" for="defaultOrder"><?= _t('sub.feed.preferred_order')?></label>
 				<div class="group-controls">
 					<select name="defaultOrder" id="defaultOrderCategory" class="w50">
 						<option value=""></option>
 						<option value="DESC" <?=
-							$this->category->defaultOrder() === 'DESC' ? 'selected="selected"' : ''  ?>><?=
+							$this->category->defaultOrder() === 'DESC' ? 'selected="selected"' : '' ?>><?=
 							_t('conf.reading.sort_order.newer_first') ?></option>
 						<option value= "ASC" <?=
-							$this->category->defaultOrder() === 'ASC' ? 'selected="selected"' : ''  ?>><?=
+							$this->category->defaultOrder() === 'ASC' ? 'selected="selected"' : '' ?>><?=
 							_t('conf.reading.sort_order.older_first') ?></option>
 					</select>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label class="group-name" for="defaultSort"><?= _t('sub.feed.preferred_sort')?> </label>
+				<label class="group-name" for="defaultSort"><?= _t('sub.feed.preferred_sort')?></label>
 				<div class="group-controls">
 					<select name="defaultSort" id="defaultSortCategory" class="w50">
 						<option value=""></option>
 						<option value="id" <?=
-							$this->category->defaultSort() === 'id' ? 'selected="selected"' : ''  ?>><?=
+							$this->category->defaultSort() === 'id' ? 'selected="selected"' : '' ?>><?=
 							_t('conf.reading.sort.id') ?></option>
 						<option value= "date" <?=
-							$this->category->defaultSort() === 'date' ? 'selected="selected"' : ''  ?>><?=
+							$this->category->defaultSort() === 'date' ? 'selected="selected"' : '' ?>><?=
 							_t('conf.reading.sort.date') ?></option>
 						<option value="lastUserModified" <?=
-							$this->category->defaultSort() === 'lastUserModified' ? 'selected="selected"' : ''  ?>><?=
+							$this->category->defaultSort() === 'lastUserModified' ? 'selected="selected"' : '' ?>><?=
 							_t('conf.reading.sort.last_modified') ?></option>
 						<option value= "length" <?=
-							$this->category->defaultSort() === 'length' ? 'selected="selected"' : ''  ?>><?=
+							$this->category->defaultSort() === 'length' ? 'selected="selected"' : '' ?>><?=
 							_t('conf.reading.sort.length') ?></option>
 						<option value="link" <?=
-							$this->category->defaultSort() === 'link' ? 'selected="selected"' : ''  ?>><?=
+							$this->category->defaultSort() === 'link' ? 'selected="selected"' : '' ?>><?=
 							_t('conf.reading.sort.link') ?></option>
 						<option value= "title" <?=
-							$this->category->defaultSort() === 'title' ? 'selected="selected"' : ''  ?>><?=
+							$this->category->defaultSort() === 'title' ? 'selected="selected"' : '' ?>><?=
 							_t('conf.reading.sort.title') ?></option>
 						<option value= "f.name" <?=
-							$this->category->defaultSort() === 'f.name' ? 'selected="selected"' : ''  ?>><?=
+							$this->category->defaultSort() === 'f.name' ? 'selected="selected"' : '' ?>><?=
 							_t('conf.reading.sort.f.name') ?></option>
 						<option value= "rand" <?=
-							$this->category->defaultSort() === 'rand' ? 'selected="selected"' : ''  ?>><?=
+							$this->category->defaultSort() === 'rand' ? 'selected="selected"' : '' ?>><?=
 							_t('conf.reading.sort.rand') ?></option>
 					</select>
 				</div>

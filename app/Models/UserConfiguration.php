@@ -47,8 +47,6 @@ declare(strict_types=1);
  * @property array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
  * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string}> $queries
  * @property bool $reading_confirm
- * @property 'id'|'date'|'lastUserModified'|'link'|'title'|'length' $secondary_sort
- * @property 'ASC'|'DESC' $secondary_sort_order
  * @property int $since_hours_posts_per_rss
  * @property bool $show_fav_unread
  * @property bool $show_favicons
@@ -58,6 +56,8 @@ declare(strict_types=1);
  * @property 'big'|'small'|'none' $mark_read_button
  * @property 'ASC'|'DESC' $sort_order
  * @property 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'length' $sort
+ * @property 'ASC'|'DESC' $secondary_sort_order
+ * @property 'id'|'date'|'lastUserModified'|'link'|'title'|'length' $secondary_sort
  * @property array<int,array<string,string>> $sharing
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article
