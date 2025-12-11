@@ -90,7 +90,9 @@
 						<option value="title_desc" <?= $userSortCombined === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
 						<option value="f.name_desc" <?= $userSortCombined === 'f.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_desc') ?></option>
 						<option value="c.name_desc" <?= $userSortCombined === 'c.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.c.name_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
 						<option value="rand" <?= $userSortCombined === 'rand' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
 						<option value="id_asc" <?= $userSortCombined === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
 						<option value="date_asc" <?= $userSortCombined === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
 						<option value="length_asc" <?= $userSortCombined === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
@@ -108,7 +110,7 @@
 				$userSecondarySortCombined = $userSecondarySort === 'rand' ? 'rand' : $userSecondarySort . '_' . strtolower($userSecondarySortOrder ?? 'desc');
 			?>
 			<div class="form-group">
-				<label class="group-name" for="secondary_sort"><?= _t('index.menu.sort.primary') ?></label>
+				<label class="group-name" for="secondary_sort"><?= _t('index.menu.sort.secondary') ?></label>
 				<div class="group-controls">
 					<select name="secondary_sort" id="secondary_sort">
 						<option value="id_desc" <?= $userSecondarySortCombined === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
