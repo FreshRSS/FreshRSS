@@ -138,7 +138,7 @@ final class FeverDAO extends Minz_ModelPdo
  */
 final class FeverAPI
 {
-	public const API_LEVEL = 3;
+	public const API_LEVEL = 4;
 	public const STATUS_OK = 1;
 	public const STATUS_ERR = 0;
 
@@ -227,9 +227,19 @@ final class FeverAPI
 			$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 		}
 
-		if (is_string($_REQUEST['mark'] ?? null) && is_string($_REQUEST['as'] ?? null) && is_string($_REQUEST['id'] ?? null) && ctype_digit($_REQUEST['id'])) {
-			$id = $_REQUEST['id'];
-			$before = is_numeric($_REQUEST['before'] ?? null) ? (int)$_REQUEST['before'] : 0;
+		if (is_string($_REQUEST['mark'] ?? null) &&
+		    is_string($_REQUEST['as'] ?? null) &&
+		    (is_string($_REQUEST['id'] ?? null) ||
+		     is_string($_REQUEST['with_ids'] ?? null))) {
+			if (is_string($_REQUEST['id'] ?? null)) {
+			    $id = $_REQUEST['id'];
+			} else {
+			    $id = explode(',', $_REQUEST['with_ids']);
+			    // N.B., this will make tagging of feeds
+			    //  or groups unhappy.
+			}
+			$before = is_numeric($_REQUEST['before'] ?? null) ?
+			    (int)$_REQUEST['before'] : 0;
 			switch (strtolower($_REQUEST['mark'])) {
 				case 'item':
 					switch ($_REQUEST['as']) {
@@ -440,28 +450,28 @@ final class FeverAPI
 	/**
 	 * @param numeric-string $id
 	 */
-	private function setItemAsRead(string $id): int|false {
+	private function setItemAsRead(array|string $id): int|false {
 		return $this->entryDAO->markRead($id, true);
 	}
 
 	/**
 	 * @param numeric-string $id
 	 */
-	private function setItemAsUnread(string $id): int|false {
+	private function setItemAsUnread(array|string $id): int|false {
 		return $this->entryDAO->markRead($id, false);
 	}
 
 	/**
 	 * @param numeric-string $id
 	 */
-	private function setItemAsSaved(string $id): int|false {
+	private function setItemAsSaved(array|string $id): int|false {
 		return $this->entryDAO->markFavorite($id, true);
 	}
 
 	/**
 	 * @param numeric-string $id
 	 */
-	private function setItemAsUnsaved(string $id): int|false {
+	private function setItemAsUnsaved(array|string $id): int|false {
 		return $this->entryDAO->markFavorite($id, false);
 	}
 
