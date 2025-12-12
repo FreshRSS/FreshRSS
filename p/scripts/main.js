@@ -1018,15 +1018,29 @@ function init_column_categories() {
 		return;
 	}
 
-	// Restore sidebar scroll position
-	document.getElementById('sidebar').scrollTop = +sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
-
 	// Restore open categories
 	if (context.display_categories === 'remember') {
 		const open_categories = JSON.parse(localStorage.getItem('FreshRSS_open_categories') || '{}');
 		Object.keys(open_categories).forEach(function (category_id) {
 			openCategory(category_id);
 		});
+	}
+
+	const sidebar_scrollTop = sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
+	if (sidebar_scrollTop) {
+		// Restore sidebar scroll position (navigated from sidebar)
+		document.querySelector('ul#sidebar').scrollTop = +sidebar_scrollTop;
+		sessionStorage.removeItem('FreshRSS_sidebar_scrollTop');
+	} else {
+		// Scroll into filtered feed/category on sidebar (navigated from anywhere)
+		const params = new URLSearchParams(location.search);
+		const get = params.get('get');
+		if (params.has('get') && (get.startsWith('f_') || get.startsWith('c_'))) {
+			const selectedEl = document.getElementById(get);
+			if (selectedEl) {
+				selectedEl.scrollIntoView({ block: get.startsWith('f_') ? 'center' : 'start' });
+			}
+		}
 	}
 
 	document.getElementById('aside_feed').onclick = function (ev) {
@@ -2237,12 +2251,23 @@ function init_normal() {
 	init_actualize();
 	faviconNbUnread();
 
-	document.addEventListener("visibilitychange", () => {
-		if (document.visibilityState === "hidden") {
-			const sidebar = document.getElementById('sidebar');
-			if (sidebar) {	// Save sidebar scroll position
+	const sidebar = document.querySelector('ul#sidebar');
+	if (sidebar) {
+		sidebar.addEventListener('click', (e) => {
+			if (!e.isTrusted) {
+				// Event was likely called via a keyboard shortcut shift+j/k using click()
+				return;
+			}
+			const target = e.target.closest('a.item-title, a.tree-folder-title');
+			if (target) {
+				// A page navigation should occur now, save the sidebar scroll position
 				sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
 			}
+		});
+	}
+
+	document.addEventListener("visibilitychange", () => {
+		if (document.visibilityState === "hidden") {
 			if (mark_read_queue && mark_read_queue.length > 0) {
 				clearTimeout(send_mark_read_queue_timeout);
 				send_mark_queue_tick(null);

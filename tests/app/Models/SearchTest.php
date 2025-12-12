@@ -65,6 +65,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			["intitle:'word1 word2' word3'", ['word1 word2'], ["word3'"]],
 			['intitle:"word1 word2\' word3"', ["word1 word2' word3"], null],
 			["intitle:'word1 word2\" word3'", ['word1 word2" word3'], null],
+			['intitle:"< & >"', ['&lt; &amp; &gt;'], null],
 			["intitle:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['intitle:word1+word2', ['word1+word2'], null],
 		];
@@ -561,10 +562,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%']
 			],
 			[
-				'&quot;ab&quot; &quot;cd&quot; (&quot;ef&quot;) intitle:&quot;gh&quot; !&quot;ij&quot; -&quot;kl&quot;',
-				'(((e.title LIKE ? OR e.content LIKE ?) AND (e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-					'AND ((e.title LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? ))',
-				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%']
+				'intitle:"é & \' è" intext:/<&>/ \'< & " >\'',
+				'(e.title LIKE ? AND e.content ~ ? AND (e.title LIKE ? OR e.content LIKE ?) )',
+				['%é &amp; \' è%', '<&>', '%&lt; &amp; " &gt;%', '%&lt; &amp; " &gt;%']
 			],
 			[
 				'/^(ab|cd) [(] \\) (ef|gh)/',
@@ -934,8 +934,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					userdate:2025-01-01T00:00:00/2026-01-01T00:00:00
 					pubdate:2025-02-01T00:00:00/2026-01-01T00:00:00
 					date:2025-03-01T00:00:00/2026-01-01T00:00:00
-					intitle:/Interesting/i intitle:good
-					intext:/Interesting/i intext:good
+					intitle:/<Inter&sting>/i intitle:"g ' & d"
+					intext:/<Inter&sting>/i intext:g&d
 					author:/Bob/ author:Alice
 					inurl:/https/ inurl:example.net
 					#/tag2/ #tag1
@@ -944,8 +944,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
 					-pubdate:2025-06-01T00:00:00/2025-09-01T00:00:00
 					-date:2025-06-01T00:00:00/2025-09-01T00:00:00
-					-intitle:/Spam/i -intitle:bad
-					-intext:/Spam/i -intext:bad
+					-intitle:/Spam/i -intitle:"'bad"
+					-intext:/Spam/i -intext:"'bad"
 					-author:/Dave/i -author:Charlie
 					-inurl:/ftp/ -inurl:example.com
 					-#/tag4/ -#tag3

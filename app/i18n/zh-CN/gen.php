@@ -16,14 +16,14 @@ return array(
 		'add' => '添加',
 		'back_to_rss_feeds' => '← 返回订阅源',
 		'cancel' => '取消',
-		'close' => 'Close',	// TODO
+		'close' => '关闭',
 		'create' => '创建',
-		'delete_all_feeds' => 'Delete all feeds',	// TODO
-		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
+		'delete_all_feeds' => '删除所有订阅源',
+		'delete_errored_feeds' => '删除出错的订阅源',
 		'delete_muted_feeds' => '删除已暂停的订阅源',
 		'demote' => '撤销管理员',
 		'disable' => '禁用',
-		'download' => 'Download',	// TODO
+		'download' => '下载',
 		'empty' => '清空',
 		'enable' => '启用',
 		'export' => '导出',
@@ -36,8 +36,8 @@ return array(
 			'open' => 'Open menu',	// TODO
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
+			'next' => '下一篇文章',
+			'prev' => '上一篇文章',
 			'up' => 'Go up',	// TODO
 		),
 		'open_url' => '打开链接',
@@ -62,9 +62,9 @@ return array(
 			'format' => '<small>至少 7 个字符</small>',
 		),
 		'reauth' => array(
-			'header' => 'Reauthentication is required',	// TODO
-			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
-			'title' => 'Reauthentication',	// TODO
+			'header' => '需要重新认证',
+			'tip' => '在<u>%d 分钟</u>内不会再要求您登录。',
+			'title' => '重新认证',
 		),
 		'registration' => array(
 			'_' => '新用户',
@@ -144,7 +144,7 @@ return array(
 		'category_empty' => '清空分类',
 		'confirm_action' => '你确定要执行此操作吗？这将不可撤销！',
 		'confirm_action_feed_cat' => '你确定要执行此操作吗？你将丢失相关的收藏和自定义查询，这将不可撤销！',
-		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
+		'confirm_exit_slider' => '您确定要放弃未保存的设置吗？',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待阅读。',
 			'body_unread_articles' => '(未读: %%d)',
@@ -189,7 +189,7 @@ return array(
 		'about' => '关于',
 		'account' => '账户',
 		'admin' => '管理',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => '高级搜索',
 		'archiving' => '归档',
 		'authentication' => '认证',
 		'check_install' => '环境检查',
@@ -197,7 +197,7 @@ return array(
 		'display' => '显示',
 		'extensions' => '扩展',
 		'logs' => '日志',
-		'privacy' => 'Privacy',	// TODO
+		'privacy' => '隐私',
 		'queries' => '自定义查询',
 		'reading' => '阅读',
 		'search' => '搜索内容或#文章标签',
@@ -224,8 +224,8 @@ return array(
 	),
 	'search' => array(
 		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
+		'authors' => '作者',
+		'categories' => '类别',
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
 		'date_past' => 'In the past',	// TODO
