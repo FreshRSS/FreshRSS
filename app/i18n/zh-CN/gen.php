@@ -144,7 +144,7 @@ return array(
 		'category_empty' => '清空分类',
 		'confirm_action' => '你确定要执行此操作吗？这将不可撤销！',
 		'confirm_action_feed_cat' => '你确定要执行此操作吗？你将丢失相关的收藏和自定义查询，这将不可撤销！',
-		'confirm_exit_slider' => '您确定要放弃未保存的设置吗？',	
+		'confirm_exit_slider' => '您确定要放弃未保存的设置吗？',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待阅读。',
 			'body_unread_articles' => '(未读: %%d)',
@@ -197,7 +197,7 @@ return array(
 		'display' => '显示',
 		'extensions' => '扩展',
 		'logs' => '日志',
-		'privacy' => '隐私',	
+		'privacy' => '隐私',
 		'queries' => '自定义查询',
 		'reading' => '阅读',
 		'search' => '搜索内容或#文章标签',
@@ -224,7 +224,7 @@ return array(
 	),
 	'search' => array(
 		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => '作者',	
+		'authors' => '作者',
 		'categories' => '类别',
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
