@@ -8,17 +8,33 @@ find /etc/php*/ -type f -name php.ini -exec sed -i -E \
 	-e "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" \
 	-e "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
 
+while read -r config_path _; do
+	if [ -f "$config_path" ]; then
+		APACHE_CONFIG="$config_path"
+		break
+	fi
+done <<EOF
+/etc/apache2/sites-available/FreshRSS.Apache.conf # Debian
+/etc/apache2/conf.d/FreshRSS.Apache.conf          # Alpine
+/etc/httpd/conf/conf.d/FreshRSS.Apache.conf       # Arch
+EOF
+
+if [ -z "$APACHE_CONFIG" ]; then
+	echo '❌ Apache configuration file not found!'
+	exit 11
+fi
+
 if [ -n "$LISTEN" ]; then
-	find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^Listen#s#^.*#Listen $LISTEN#" {} \;
+	sed -r -i "\\#^Listen#s#^.*#Listen $LISTEN#" "$APACHE_CONFIG"
 fi
 
 if [ -n "$TRUSTED_PROXY" ]; then
 	if [ "$TRUSTED_PROXY" = "0" ]; then
 		# Disable RemoteIPHeader and RemoteIPInternalProxy
-		find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "/^\s*RemoteIP.*$/s/^/#/" {} \;
+		sed -r -i "/^\s*RemoteIP.*$/s/^/#/" "$APACHE_CONFIG"
 	else
 		# Custom list for RemoteIPInternalProxy
-		find /etc/apache2/ -type f -name FreshRSS.Apache.conf -exec sed -r -i "\\#^\s*RemoteIPInternalProxy#s#^.*#\tRemoteIPInternalProxy $TRUSTED_PROXY#" {} \;
+		sed -r -i "\\#^\s*RemoteIPInternalProxy#s#^.*#\tRemoteIPInternalProxy $TRUSTED_PROXY#" "$APACHE_CONFIG"
 	fi
 fi
 
@@ -31,7 +47,10 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 	# Debian
 	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||
 		# Alpine
-		(mv /etc/apache2/conf.d/mod-auth-openidc.conf.bak /etc/apache2/conf.d/mod-auth-openidc.conf && echo 'Enabling module auth_openidc.')
+		(mv /etc/apache2/conf.d/mod-auth-openidc.conf.bak /etc/apache2/conf.d/mod-auth-openidc.conf && echo 'Enabling module auth_openidc.') ||
+		# Misc.
+		(echo '❌ Failed to enable auth_openidc module!' && exit 12)
+
 	if [ -n "$OIDC_SCOPES" ]; then
 		# Compatibility with : as separator instead of space
 		OIDC_SCOPES=$(echo "$OIDC_SCOPES" | tr ':' ' ')

@@ -214,6 +214,7 @@ class Minz_Request {
 		if (null !== $extraParams) {
 			$currentRequest['params'] = array_merge($currentRequest['params'], $extraParams);
 		}
+		unset($currentRequest['params']['rid']);
 		return $currentRequest;
 	}
 
