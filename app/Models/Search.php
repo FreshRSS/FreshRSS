@@ -492,25 +492,25 @@ class FreshRSS_Search implements \Stringable {
 		return $this->not_label_ids;
 	}
 	/** @return list<list<string>>|null */
-	public function getLabelNames(bool $raw = false): ?array {
-		return $raw ? $this->label_names : Minz_Helper::htmlspecialchars_utf8($this->label_names, ENT_NOQUOTES);
+	public function getLabelNames(bool $plaintext = false): ?array {
+		return $plaintext ? $this->label_names : Minz_Helper::htmlspecialchars_utf8($this->label_names, ENT_NOQUOTES);
 	}
 	/** @return list<list<string>>|null */
-	public function getNotLabelNames(bool $raw = false): ?array {
-		return $raw ? $this->not_label_names : Minz_Helper::htmlspecialchars_utf8($this->not_label_names, ENT_NOQUOTES);
+	public function getNotLabelNames(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_label_names : Minz_Helper::htmlspecialchars_utf8($this->not_label_names, ENT_NOQUOTES);
 	}
 
 	/** @return list<string>|null */
-	public function getIntitle(bool $raw = false): ?array {
-		return $raw ? $this->intitle : Minz_Helper::htmlspecialchars_utf8($this->intitle, ENT_NOQUOTES);
+	public function getIntitle(bool $plaintext = false): ?array {
+		return $plaintext ? $this->intitle : Minz_Helper::htmlspecialchars_utf8($this->intitle, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getIntitleRegex(): ?array {
 		return $this->intitle_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotIntitle(bool $raw = false): ?array {
-		return $raw ? $this->not_intitle : Minz_Helper::htmlspecialchars_utf8($this->not_intitle, ENT_NOQUOTES);
+	public function getNotIntitle(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_intitle : Minz_Helper::htmlspecialchars_utf8($this->not_intitle, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotIntitleRegex(): ?array {
@@ -518,16 +518,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	/** @return list<string>|null */
-	public function getIntext(bool $raw = false): ?array {
-		return $raw ? $this->intext : Minz_Helper::htmlspecialchars_utf8($this->intext, ENT_NOQUOTES);
+	public function getIntext(bool $plaintext = false): ?array {
+		return $plaintext ? $this->intext : Minz_Helper::htmlspecialchars_utf8($this->intext, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getIntextRegex(): ?array {
 		return $this->intext_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotIntext(bool $raw = false): ?array {
-		return $raw ? $this->not_intext : Minz_Helper::htmlspecialchars_utf8($this->not_intext, ENT_NOQUOTES);
+	public function getNotIntext(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_intext : Minz_Helper::htmlspecialchars_utf8($this->not_intext, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotIntextRegex(): ?array {
@@ -586,16 +586,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	/** @return list<string>|null */
-	public function getInurl(bool $raw = false): ?array {
-		return $raw ? $this->inurl : Minz_Helper::htmlspecialchars_utf8($this->inurl, ENT_NOQUOTES);
+	public function getInurl(bool $plaintext = false): ?array {
+		return $plaintext ? $this->inurl : Minz_Helper::htmlspecialchars_utf8($this->inurl, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getInurlRegex(): ?array {
 		return $this->inurl_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotInurl(bool $raw = false): ?array {
-		return $raw ? $this->not_inurl : Minz_Helper::htmlspecialchars_utf8($this->not_inurl, ENT_NOQUOTES);
+	public function getNotInurl(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_inurl : Minz_Helper::htmlspecialchars_utf8($this->not_inurl, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotInurlRegex(): ?array {
@@ -603,16 +603,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	/** @return list<string>|null */
-	public function getAuthor(bool $raw = false): ?array {
-		return $raw ? $this->author : Minz_Helper::htmlspecialchars_utf8($this->author, ENT_NOQUOTES);
+	public function getAuthor(bool $plaintext = false): ?array {
+		return $plaintext ? $this->author : Minz_Helper::htmlspecialchars_utf8($this->author, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getAuthorRegex(): ?array {
 		return $this->author_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotAuthor(bool $raw = false): ?array {
-		return $raw ? $this->not_author : Minz_Helper::htmlspecialchars_utf8($this->not_author, ENT_NOQUOTES);
+	public function getNotAuthor(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_author : Minz_Helper::htmlspecialchars_utf8($this->not_author, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotAuthorRegex(): ?array {
@@ -620,16 +620,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	/** @return list<string>|null */
-	public function getTags(bool $raw = false): ?array {
-		return $raw ? $this->tags : Minz_Helper::htmlspecialchars_utf8($this->tags, ENT_NOQUOTES);
+	public function getTags(bool $plaintext = false): ?array {
+		return $plaintext ? $this->tags : Minz_Helper::htmlspecialchars_utf8($this->tags, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getTagsRegex(): ?array {
 		return $this->tags_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotTags(bool $raw = false): ?array {
-		return $raw ? $this->not_tags : Minz_Helper::htmlspecialchars_utf8($this->not_tags, ENT_NOQUOTES);
+	public function getNotTags(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_tags : Minz_Helper::htmlspecialchars_utf8($this->not_tags, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotTagsRegex(): ?array {
@@ -637,16 +637,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	/** @return list<string>|null */
-	public function getSearch(bool $raw = false): ?array {
-		return $raw ? $this->search : Minz_Helper::htmlspecialchars_utf8($this->search, ENT_NOQUOTES);
+	public function getSearch(bool $plaintext = false): ?array {
+		return $plaintext ? $this->search : Minz_Helper::htmlspecialchars_utf8($this->search, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getSearchRegex(): ?array {
 		return $this->search_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotSearch(bool $raw = false): ?array {
-		return $raw ? $this->not_search : Minz_Helper::htmlspecialchars_utf8($this->not_search, ENT_NOQUOTES);
+	public function getNotSearch(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_search : Minz_Helper::htmlspecialchars_utf8($this->not_search, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotSearchRegex(): ?array {
