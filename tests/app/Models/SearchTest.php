@@ -65,6 +65,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			["intitle:'word1 word2' word3'", ['word1 word2'], ["word3'"]],
 			['intitle:"word1 word2\' word3"', ["word1 word2' word3"], null],
 			["intitle:'word1 word2\" word3'", ['word1 word2" word3'], null],
+			['intitle:"< & >"', ['&lt; &amp; &gt;'], null],
 			["intitle:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['intitle:word1+word2', ['word1+word2'], null],
 		];
@@ -580,10 +581,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%']
 			],
 			[
-				'&quot;ab&quot; &quot;cd&quot; (&quot;ef&quot;) intitle:&quot;gh&quot; !&quot;ij&quot; -&quot;kl&quot;',
-				'(((e.title LIKE ? OR e.content LIKE ?) AND (e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-					'AND ((e.title LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? ))',
-				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%']
+				'intitle:"é & \' è" intext:/<&>/ \'< & " >\'',
+				'(e.title LIKE ? AND e.content ~ ? AND (e.title LIKE ? OR e.content LIKE ?) )',
+				['%é &amp; \' è%', '<&>', '%&lt; &amp; " &gt;%', '%&lt; &amp; " &gt;%']
 			],
 			[
 				'/^(ab|cd) [(] \\) (ef|gh)/',
@@ -958,6 +958,171 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'(e.content REGEXP ? )',
 				['/^ab\\b/']
 			],
+		];
+	}
+
+	#[DataProvider('provideToString')]
+	public static function test__toString(string $input): void {
+		$search = new FreshRSS_Search($input);
+		$expected = str_replace("\n", ' ', $input);
+		self::assertSame($expected, $search->__toString());
+	}
+
+	/**
+	 * @return array<array<string>>
+	 */
+	public static function provideToString(): array {
+		return [
+			[
+				<<<'EOD'
+					e:1,2 f:10,11 c:20,21 L:30,31 labels:"My label,My other label"
+					userdate:2025-01-01T00:00:00/2026-01-01T00:00:00
+					pubdate:2025-02-01T00:00:00/2026-01-01T00:00:00
+					date:2025-03-01T00:00:00/2026-01-01T00:00:00
+					intitle:/<Inter&sting>/i intitle:"g ' & d"
+					intext:/<Inter&sting>/i intext:g&d
+					author:/Bob/ author:Alice
+					inurl:/https/ inurl:example.net
+					#/tag2/ #tag1
+					/search_regex/i "quoted search" search
+					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
+					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-pubdate:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-date:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-intitle:/Spam/i -intitle:"'bad"
+					-intext:/Spam/i -intext:"'bad"
+					-author:/Dave/i -author:Charlie
+					-inurl:/ftp/ -inurl:example.com
+					-#/tag4/ -#tag3
+					-/not_regex/i -"not quoted" -not_search
+					EOD
+			],
+		];
+	}
+
+	#[DataProvider('provideBooleanSearchToString')]
+	public static function testBooleanSearch__toString(string $input, string $expected): void {
+		$search = new FreshRSS_BooleanSearch($input);
+		self::assertSame($expected, $search->__toString());
+	}
+
+	/**
+	 * @return array<array<string>>
+	 */
+	public static function provideBooleanSearchToString(): array {
+		return [
+			[
+				'((a OR b) (c OR d) -e) OR -(f g)',
+				'((a OR b) (c OR d) (-e)) OR -(f g)',
+			],
+			[
+				'((a OR b) ((c) OR ((d))) (-e)) OR -(((f g)))',
+				'((a OR b) (c OR d) (-e)) OR -(f g)',
+			],
+			[
+				'!((b c))',
+				'-(b c)',
+			],
+			[
+				'(a) OR !((b c))',
+				'a OR -(b c)',
+			],
+			[
+				'((a) (b))',
+				'a b',
+			],
+			[
+				'((a) OR (b))',
+				'a OR b',
+			],
+			[
+				' ( !( !( ( a ) ) ) ) ( ) ',
+				'-(-a)',
+			],
+			[
+				'-intitle:a -inurl:b',
+				'-intitle:a -inurl:b',
+			],
+		];
+	}
+
+	#[DataProvider('provideHasSameOperators')]
+	public function testHasSameOperators(string $input1, string $input2, bool $expected): void {
+		$search1 = new FreshRSS_Search($input1);
+		$search2 = new FreshRSS_Search($input2);
+		self::assertSame($expected, $search1->hasSameOperators($search2));
+	}
+
+	/**
+	 * @return array<array{string,string,bool}>
+	 */
+	public static function provideHasSameOperators(): array {
+		return [
+			['', '', true],
+			['intitle:a intext:b', 'intitle:c intext:d', true],
+			['intitle:a intext:b', 'intitle:c inurl:d', false],
+		];
+	}
+
+	#[DataProvider('provideBooleanSearchEnforce')]
+	public function testBooleanSearchEnforce(string $initialInput, string $enforceInput, string $expectedOutput): void {
+		$booleanSearch = new FreshRSS_BooleanSearch($initialInput);
+		$searchToEnforce = new FreshRSS_Search($enforceInput);
+		$newBooleanSearch = $booleanSearch->enforce($searchToEnforce);
+		self::assertNotSame($booleanSearch, $newBooleanSearch);
+		self::assertSame($expectedOutput, $newBooleanSearch->__toString());
+	}
+
+	/**
+	 * @return array<array{string,string,string}>
+	 */
+	public static function provideBooleanSearchEnforce(): array {
+		return [
+			['', 'intitle:b', 'intitle:b'],
+			['intitle:a', 'intitle:b', 'intitle:b'],
+			['a', 'intitle:b', 'intitle:b a'],
+			['intitle:a intext:a', 'intitle:b', 'intitle:b intext:a'],
+			['intitle:a inurl:a', 'intitle:b', 'intitle:b inurl:a'],
+			['intitle:a OR inurl:a', 'intitle:b', 'intitle:b (intitle:a OR inurl:a)'],
+			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', 'intitle:b (inurl:a intitle:c)'],
+			['intitle:a ((inurl:a) OR (intitle:c))', 'intitle:b', 'intitle:b (inurl:a OR intitle:c)'],
+			['(intitle:a) (inurl:a)', 'intitle:b', 'intitle:b inurl:a'],
+			['(inurl:a) (intitle:a)', 'intitle:b', 'inurl:a intitle:b'],
+			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
+			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
+			['(a b)', 'e', 'e (a b)'],
+			['date:2024/', 'date:/2025', 'date:/2025-12-31T23:59:59'],
+			['a', 'date:/2025', 'date:/2025-12-31T23:59:59 a'],
+		];
+	}
+
+	#[DataProvider('provideBooleanSearchRemove')]
+	public function testBooleanSearchRemove(string $initialInput, string $removeInput, string $expectedOutput): void {
+		$booleanSearch = new FreshRSS_BooleanSearch($initialInput);
+		$searchToRemove = new FreshRSS_Search($removeInput);
+		$newBooleanSearch = $booleanSearch->remove($searchToRemove);
+		self::assertNotSame($booleanSearch, $newBooleanSearch);
+		self::assertSame($expectedOutput, $newBooleanSearch->__toString());
+	}
+
+	/**
+	 * @return array<array{string,string,string}>
+	 */
+	public static function provideBooleanSearchRemove(): array {
+		return [
+			['', 'intitle:b', ''],
+			['intitle:a', 'intitle:b', ''],
+			['intitle:a intext:a', 'intitle:b', 'intext:a'],
+			['intitle:a inurl:a', 'intitle:b', 'inurl:a'],
+			['intitle:a OR inurl:a', 'intitle:b', 'intitle:a OR inurl:a'],
+			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', '(inurl:a intitle:c)'],
+			['intitle:a ((inurl:a) OR (intitle:c))', 'intitle:b', '(inurl:a OR intitle:c)'],
+			['(intitle:a) (inurl:a)', 'intitle:b', 'inurl:a'],
+			['(inurl:a) (intitle:a)', 'intitle:b', 'inurl:a'],
+			['e ((a b) OR (c d))', 'e', '((a b) OR (c d))'],
+			['e ((a b) (c d))', 'e', '((a b) (c d))'],
+			['date:2024/', 'date:/2025', ''],
+			['date:2024/ a', 'date:/2025', 'a'],
 		];
 	}
 }

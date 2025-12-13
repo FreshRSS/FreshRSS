@@ -1,0 +1,69 @@
+# Test image for development
+# hadolint ignore=DL3006
+FROM archlinux
+
+ENV TZ=UTC
+SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
+
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm \
+	cronie \
+	apache php-apache \
+	php \
+	php-sqlite php-pgsql \
+	&& pacman -Scc --noconfirm
+
+RUN mkdir -p /var/www/FreshRSS /run/httpd/
+WORKDIR /var/www/FreshRSS
+
+COPY --chown=root:http . /var/www/FreshRSS
+COPY ./Docker/*.Apache.conf /etc/httpd/conf/conf.d/
+
+ARG FRESHRSS_VERSION
+ARG SOURCE_COMMIT
+
+LABEL \
+	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
+	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
+	org.opencontainers.image.licenses="AGPL-3.0" \
+	org.opencontainers.image.revision="${SOURCE_COMMIT}" \
+	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
+	org.opencontainers.image.title="FreshRSS" \
+	org.opencontainers.image.url="https://freshrss.org/" \
+	org.opencontainers.image.vendor="FreshRSS" \
+	org.opencontainers.image.version="$FRESHRSS_VERSION"
+
+RUN \
+	# Disable unwanted Apache modules and configurations
+	sed -r -i "/^\s*LoadModule .*mod_(alias|autoindex|negotiation|status).so$/s/^/#/" /etc/httpd/conf/httpd.conf && \
+	sed -r -i "/^\s*Include .*\/(httpd-autoindex|httpd-languages|httpd-multilang-errordoc|httpd-userdir|proxy-html).conf$/s/^/#/" /etc/httpd/conf/httpd.conf && \
+	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/httpd/conf/httpd.conf && \
+	# Enable required Apache modules
+	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|filter|headers|mime|remoteip|setenvif).so$/s/^\s*#//" /etc/httpd/conf/httpd.conf && \
+	# Configure PHP for Apache
+	sed -r -i 's|^#?LoadModule mpm_event_module|#LoadModule mpm_event_module|' /etc/httpd/conf/httpd.conf && \
+	sed -r -i 's|^#?LoadModule mpm_prefork_module|LoadModule mpm_prefork_module|' /etc/httpd/conf/httpd.conf && \
+	sed -r -i '/LoadModule mpm_prefork_module.*/a LoadModule php_module modules/libphp.so\nAddHandler php-script .php' /etc/httpd/conf/httpd.conf && \
+	# Enable required PHP extensions
+	sed -r -i "/;extension=(curl|gmp|iconv|intl|pdo_mysql|pdo_pgsql|pdo_sqlite|zip)$/s/^;//" /etc/php/php.ini && \
+	# Disable built-in FreshRSS updates when using Docker, as the full image is supposed to be updated instead
+	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
+	touch /var/www/FreshRSS/Docker/env.txt && \
+	echo "17,47 * * * * . /var/www/FreshRSS/Docker/env.txt; \
+		su http -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /etc/crontab.freshrss.default
+
+ENV COPY_LOG_TO_SYSLOG=On
+ENV COPY_SYSLOG_TO_STDERR=On
+ENV CRON_MIN=''
+ENV DATA_PATH=''
+ENV FRESHRSS_ENV=''
+ENV LISTEN=''
+ENV OIDC_ENABLED=''
+ENV TRUSTED_PROXY=''
+
+ENTRYPOINT ["./Docker/entrypoint.sh"]
+
+EXPOSE 80
+# hadolint ignore=DL3025
+CMD ([ -z "$CRON_MIN" ] || crond) && \
+	exec httpd -D FOREGROUND
