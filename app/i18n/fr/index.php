@@ -103,9 +103,15 @@ return array(
 			'length_desc' => 'Longueur du contenu 9→1',
 			'link_asc' => 'Lien A→Z',
 			'link_desc' => 'Lien Z→A',
-			'primary' => 'Critère de tri',
+			'primary' => array(
+				'_' => 'Critère de tri',
+				'help' => 'Le tri par date de <em>réception</em> est recommandé dans la plupart des cas, pour une meilleure cohérence et performance',
+			),
 			'rand' => 'Ordre aléatoire',
-			'secondary' => 'Critère de tri secondaire',
+			'secondary' => array(
+				'_' => 'Critère de tri secondaire',
+				'help' => 'Seulemement pertinent lorsque le critère de tri principal est sur les titres des catégories ou des flux',
+			),
 			'title_asc' => 'Titre A→Z',
 			'title_desc' => 'Titre Z→A',
 			'user_modified_asc' => 'Modifié par l’utilisateur 1→9',

@@ -103,9 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// IGNORE
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
-			'primary' => 'Sorting criterion',	// IGNORE
+			'primary' => array(
+				'_' => 'Sorting criterion',	// IGNORE
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// IGNORE
+			),
 			'rand' => 'Random order',	// IGNORE
-			'secondary' => 'Secondary sorting criterion',	// IGNORE
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// IGNORE
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// IGNORE
+			),
 			'title_asc' => 'Title A→Z',	// IGNORE
 			'title_desc' => 'Title Z→A',	// IGNORE
 			'user_modified_asc' => 'User modified 1→9',	// IGNORE

@@ -103,9 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Посилання А→Я',
 			'link_desc' => 'Посилання Я→А',
-			'primary' => 'Sorting criterion',	// TODO
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Довільний порядок',
-			'secondary' => 'Secondary sorting criterion',	// TODO
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Заголовок А→Я',
 			'title_desc' => 'Заголовок Я→А',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

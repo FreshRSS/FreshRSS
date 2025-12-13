@@ -101,6 +101,7 @@
 						<option value="f.name_asc" <?= $userSortCombined === 'f.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_asc') ?></option>
 						<option value="c.name_asc" <?= $userSortCombined === 'c.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.c.name_asc') ?></option>
 					</select>
+					<p class="help"><?= _i('help') ?> <?= _t('index.menu.sort.primary.help') ?></p>
 				</div>
 			</div>
 
@@ -118,12 +119,14 @@
 						<option value="length_desc" <?= $userSecondarySortCombined === 'length_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_desc') ?></option>
 						<option value="link_desc" <?= $userSecondarySortCombined === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
 						<option value="title_desc" <?= $userSecondarySortCombined === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
 						<option value="id_asc" <?= $userSecondarySortCombined === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
 						<option value="date_asc" <?= $userSecondarySortCombined === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
 						<option value="length_asc" <?= $userSecondarySortCombined === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
 						<option value="link_asc" <?= $userSecondarySortCombined === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
 						<option value="title_asc" <?= $userSecondarySortCombined === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
 					</select>
+					<p class="help"><?= _i('help') ?> <?= _t('index.menu.sort.secondary.help') ?></p>
 				</div>
 			</div>
 		</fieldset>

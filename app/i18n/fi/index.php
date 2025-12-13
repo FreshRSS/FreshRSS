@@ -103,9 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Linkki A→Ö',
 			'link_desc' => 'Linkki Ö→A',
-			'primary' => 'Sorting criterion',	// TODO
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Satunnainen järjestys',
-			'secondary' => 'Secondary sorting criterion',	// TODO
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Otsikko A→Ö',
 			'title_desc' => 'Otsikko Ö→A',
 			'user_modified_asc' => 'Käyttäjä muokannut 1→9',

@@ -103,9 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'لینک A→Z',
 			'link_desc' => 'لینک Z→A',
-			'primary' => 'Sorting criterion',	// TODO
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'ترتیب تصادفی',
-			'secondary' => 'Secondary sorting criterion',	// TODO
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'عنوانA→Z',
 			'title_desc' => 'عنوان Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

@@ -103,9 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Tautan A→Z',
 			'link_desc' => 'Tautan Z→A',
-			'primary' => 'Sorting criterion',	// TODO
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Acak',
-			'secondary' => 'Secondary sorting criterion',	// TODO
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Judul A→Z',
 			'title_desc' => 'Judul Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

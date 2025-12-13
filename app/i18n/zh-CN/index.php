@@ -103,9 +103,15 @@ return array(
 			'length_desc' => '内容长度 9→1',
 			'link_asc' => '链接 A→Z',
 			'link_desc' => '链接 Z→A',
-			'primary' => 'Sorting criterion',	// TODO
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => '随机顺序',
-			'secondary' => 'Secondary sorting criterion',	// TODO
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => '标题 A→Z',
 			'title_desc' => '标题 Z→A',
 			'user_modified_asc' => '用户修改 1→9',

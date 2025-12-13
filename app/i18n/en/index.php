@@ -103,9 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',
 			'link_asc' => 'Link A→Z',
 			'link_desc' => 'Link Z→A',
-			'primary' => 'Sorting criterion',
+			'primary' => array(
+				'_' => 'Sorting criterion',
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',
+			),
 			'rand' => 'Random order',
-			'secondary' => 'Secondary sorting criterion',
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',
+			),
 			'title_asc' => 'Title A→Z',
 			'title_desc' => 'Title Z→A',
 			'user_modified_asc' => 'User modified 1→9',
