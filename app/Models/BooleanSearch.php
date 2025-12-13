@@ -26,16 +26,6 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		if ($input === '') {
 			return;
 		}
-		if ($level === 0) {
-			$input = preg_replace('/:&quot;(.*?)&quot;/', ':"\1"', $input);
-			if (!is_string($input)) {
-				return;
-			}
-			$input = preg_replace('/(?<=[\s(!-]|^)&quot;(.*?)&quot;/', '"\1"', $input);
-			if (!is_string($input)) {
-				return;
-			}
-		}
 		$this->raw_input = $input;
 
 		if ($level === 0) {
@@ -517,7 +507,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			if ($part === '') {
 				continue;
 			}
-			$operator = $search instanceof FreshRSS_BooleanSearch ? $search->operator() : 'OR';
+			$operator = $search instanceof FreshRSS_BooleanSearch ? $search->operator : 'OR';
 
 			if ((str_contains($part, ' ') || str_starts_with($part, '-')) && (count($this->searches) > 1 || in_array($operator, ['OR NOT', 'AND NOT'], true))) {
 				$part = '(' . $part . ')';

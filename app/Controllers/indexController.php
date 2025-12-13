@@ -52,10 +52,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * Content for displaying a transition between entries when sorting by specific criteria.
-	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
 	 */
-	public static function transition(FreshRSS_Entry $entry, string $sort): string {
-		return match ($sort) {
+	public static function transition(FreshRSS_Entry $entry): string {
+		return match (FreshRSS_Context::$sort) {
 			'id' => _t('index.feed.received' . self::dayRelative($entry->dateAdded(raw: true), mayBeFuture: false)) .
 				' — ' . timestamptodate($entry->dateAdded(raw: true), hour: false),
 			'date' => _t('index.feed.published' . self::dayRelative($entry->date(raw: true), mayBeFuture: true)) .
@@ -66,6 +65,38 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'f.name' => $entry->feed()?->name() ?? '',
 			default => '',
 		};
+	}
+
+	/**
+	 * Produce a hyperlink to the next transition of entries.
+	 */
+	public static function transitionLink(FreshRSS_Entry $entry, int $offset = 0): string {
+		if (in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
+			return Minz_Url::display(Minz_Request::modifiedCurrentRequest([
+				'get' => match (FreshRSS_Context::$sort) {
+					'c.name' => 'c_' . ($entry->feed()?->category()?->id() ?? '0'),
+					'f.name' => 'f_' . ($entry->feed()?->id() ?? '0'),
+				},
+			]));
+		}
+		$operator = match (FreshRSS_Context::$sort) {
+			'id' => 'date',
+			'date' => 'pubdate',
+			'lastUserModified' => 'userdate',
+			default => throw new InvalidArgumentException('Unsupported sort criterion for transition: ' . FreshRSS_Context::$sort),
+		};
+		$offset = FreshRSS_Context::$order === 'ASC' ? $offset : -$offset;
+		$timestamp = match (FreshRSS_Context::$sort) {
+			'id' => $entry->dateAdded(raw: true),
+			'date' => $entry->date(raw: true),
+			'lastUserModified' => $entry->lastUserModified(),
+			default => throw new InvalidArgumentException('Unsupported sort criterion for transition: ' . FreshRSS_Context::$sort),
+		};
+		$searchString = $operator . ':' . ($offset < 0 ? '/' : '') . date('Y-m-d', $timestamp + ($offset * 86400)) . ($offset > 0 ? '/' : '');
+		return Minz_Url::display(Minz_Request::modifiedCurrentRequest([
+			'search' => FreshRSS_Context::$search->getRawInput() === '' ? $searchString :
+				FreshRSS_Context::$search->enforce(new FreshRSS_Search($searchString))->__toString(),
+			]));
 	}
 
 	/**

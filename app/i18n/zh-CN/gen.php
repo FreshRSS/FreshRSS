@@ -33,12 +33,12 @@ return array(
 		'manage' => '管理',
 		'mark_read' => '标记已读',
 		'menu' => array(
-			'open' => 'Open menu',	// TODO
+			'open' => '打开菜单',
 		),
 		'nav_buttons' => array(
 			'next' => '下一篇文章',
 			'prev' => '上一篇文章',
-			'up' => 'Go up',	// TODO
+			'up' => '向上',
 		),
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
@@ -154,7 +154,7 @@ return array(
 		'labels_empty' => '无标签',
 		'new_article' => '发现新文章，点击刷新页面。',
 		'should_be_activated' => '必须启用 JavaScript',
-		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
+		'unsafe_csp_header' => '当前使用的 CSP 头部不安全，FreshRSS 可能容易受到 XSS 攻击。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">查看文档</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -223,31 +223,31 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
+		'advanced_search_help' => '此表单帮助构建搜索查询，但手写查询更加强大。',
 		'authors' => '作者',
 		'categories' => '类别',
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'content' => '内容',
+		'date_from' => '从',
+		'date_past' => '过去',	// DIRTY
+		'date_published' => '发布日期',
+		'date_range' => '日期范围',
+		'date_received' => '接收日期',
+		'date_to' => '到',
+		'date_user' => '用户修改日期',
+		'feeds' => '订阅源',
+		'free_text' => '自由文本',	// DIRTY
+		'free_text_help' => '在标题和内容中搜索',
+		'full_documentation' => '查看 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">完整搜索文档</a>',
+		'labels' => '我的标签',
+		'multiple_help' => '选择一个或多个（按住 <kbd>Ctrl</kbd> 或 <kbd>Cmd</kbd>）',
+		'sources' => '来源',
+		'tags' => '文章标签',
+		'text' => '文本搜索',
+		'text_help' => '多行通过逻辑 <i>或</i> 组合。也支持 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">正则表达式</a>。',
+		'text_placeholder' => '关键词',
+		'title' => '标题',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => '用户查询',
 	),
 	'share' => array(
 		'Known' => '基于 Known 的站点',

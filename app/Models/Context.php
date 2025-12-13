@@ -248,7 +248,7 @@ final class FreshRSS_Context {
 			}
 		}
 
-		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
+		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true));
 		$order = Minz_Request::paramString('order', plaintext: true) ?: FreshRSS_Context::userConf()->sort_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		$sort = Minz_Request::paramString('sort', plaintext: true) ?: FreshRSS_Context::userConf()->sort;
