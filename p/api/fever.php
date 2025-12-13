@@ -227,19 +227,17 @@ final class FeverAPI
 			$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 		}
 
-		if (is_string($_REQUEST['mark'] ?? null) &&
-		    is_string($_REQUEST['as'] ?? null) &&
-		    (is_string($_REQUEST['id'] ?? null) ||
-		     is_string($_REQUEST['with_ids'] ?? null))) {
+		if (is_string($_REQUEST['mark'] ?? null) && is_string($_REQUEST['as'] ?? null) && (is_string($_REQUEST['id'] ?? null) || is_string($_REQUEST['with_ids'] ?? null))) {
+
 			if (is_string($_REQUEST['id'] ?? null)) {
-			    $id = $_REQUEST['id'];
+				$id = $_REQUEST['id'];
 			} else {
-			    $id = explode(',', $_REQUEST['with_ids']);
-			    // N.B., this will make tagging of feeds
-			    //  or groups unhappy.
+				$id = explode(',', $_REQUEST['with_ids']);
+				// N.B., this will make tagging of feeds
+				//  or groups unhappy.
 			}
 			$before = is_numeric($_REQUEST['before'] ?? null) ?
-			    (int)$_REQUEST['before'] : 0;
+			(int)$_REQUEST['before'] : 0;
 			switch (strtolower($_REQUEST['mark'])) {
 				case 'item':
 					switch ($_REQUEST['as']) {
