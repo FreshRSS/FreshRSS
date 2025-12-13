@@ -14,9 +14,9 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => '允许匿名阅读默认用户（%s）的文章',
 		'allow_anonymous_refresh' => '允许匿名刷新文章',
-		'api_enabled' => '允许 <abbr>API</abbr> 访问 <small>（用于手机应用 and sharing user queries）</small>',	// DIRTY
+		'api_enabled' => '允许 <abbr>API</abbr> 访问 <small>（用于手机应用和分享用户查询）</small>',
 		'form' => '网页表单（传统方式, 需要 JavaScript)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP（高级：由 Web 服务器、OIDC、SSO 管理…）',
 		'none' => '无（危险）',
 		'title' => '认证',
 		'token' => '主验证 token',
@@ -115,9 +115,9 @@ return array(
 		'description' => '描述',
 		'disabled' => '已禁用',
 		'empty_list' => '没有已安装的扩展',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => '检查日志以确定扩展列表为空的原因。',
 		'enabled' => '已启用',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => '兼容',	// DIRTY
 		'latest' => '已安装',
 		'name' => '名称',
 		'no_configure_view' => '此扩展无法配置。',
@@ -134,8 +134,8 @@ return array(
 		'_' => '统计数据',
 		'all_feeds' => '所有订阅源',
 		'category' => '分类',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => '发布日期',
+		'date_received' => '接收日期',
 		'entry_count' => '文章数',
 		'entry_per_category' => '各分类文章数',
 		'entry_per_day' => '每日文章数（近三十日）',
@@ -148,10 +148,10 @@ return array(
 		'idle' => '长期无更新订阅源',
 		'main' => '主要统计数据',
 		'main_stream' => '首页',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => '未读文章数',
 		'no_idle' => '订阅源近期皆有更新！',
 		'number_entries' => '%d 篇文章',
-		'overview' => 'Overview',	// TODO
+		'overview' => '概览',
 		'percent_of_total' => '%',
 		'repartition' => '文章分布: %s',	// DIRTY
 		'status_favorites' => '收藏',
@@ -160,7 +160,7 @@ return array(
 		'status_unread' => '未读',
 		'title' => '统计',
 		'top_feed' => '前十订阅源',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => '未读文章最多的日期',
 	),
 	'system' => array(
 		'_' => '系统配置',
@@ -219,7 +219,7 @@ return array(
 			'latest' => '稳定版本 (“latest”)',
 		),
 		'title' => '更新系统',
-		'viaGit' => '开始通过 git and GitHub.com 更新',
+		'viaGit' => '开始通过 git 和 GitHub.com 更新',
 	),
 	'user' => array(
 		'admin' => '管理员',

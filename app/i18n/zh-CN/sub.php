@@ -29,9 +29,9 @@ return array(
 			'help' => '使用 URL 上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
-		'expand' => 'Expand category',	// TODO
+		'expand' => '展开分类',
 		'information' => '信息',
-		'open' => 'Open category',	// TODO
+		'open' => '打开分类',
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '显示位置',
 		'position_help' => '控制分类排列顺序',
@@ -50,7 +50,7 @@ return array(
 			'password' => 'HTTP 密码',
 			'username' => 'HTTP 用户名',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => '修改…',
 		'clear_cache' => '总是清除缓存',
 		'content_action' => array(
 			'_' => '获取原文后的操作',
@@ -58,7 +58,7 @@ return array(
 			'prepend' => '添加在现有内容前部',
 			'replace' => '替换现有内容',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
+		'content_retrieval' => '内容获取',
 		'css_cookie' => '获取原文时的 Cookies',
 		'css_cookie_help' => '例：<kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => '用于获取全文（注意，这将耗费更多时间！）',
@@ -72,28 +72,28 @@ return array(
 		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',	// DIRTY
 		'export-as-opml' => array(
 			'download' => '下载',
-			'help' => 'XML 文件 (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'XML 文件（数据子集。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">查看文档</a>)',
 			'label' => '导出为 OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => '自动设置',
+		'favicon_changed_by_ext' => '图标已由 <b>%s</b> 扩展设置。',
 		'filteractions' => array(
 			'_' => '过滤动作',
 			'help' => '每行写一条过滤规则，过滤规则可见 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">文档</a>。',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => '在现有文章上预览过滤器（新窗口）',
 		),
-		'http_headers' => 'HTTP Headers',	// TODO
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
-		'icon' => 'Icon',	// TODO
+		'http_headers' => 'HTTP 头部',
+		'http_headers_help' => '头部之间用换行符分隔，头部名称和值用冒号分隔（例如：<kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>）。',
+		'icon' => '图标',
 		'information' => '信息',
 		'keep_min' => '至少保存的文章数',
 		'kind' => array(
 			'_' => '订阅源类型',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'_' => 'HTML + XPath + JSON 点表示法（HTML 中的 JSON）',	// DIRTY
 				'xpath' => array(
-					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// TODO
+					'_' => '用于 HTML 中 JSON 的 XPath',	// DIRTY
+					'help' => '示例：<code>normalize-space(//script[@type="application/json"])</code>（单个 JSON）<br />或：<code>//script[@type="application/ld+json"]</code>（每篇文章一个 JSON 对象）',
 				),
 			),
 			'html_xpath' => array(
@@ -152,7 +152,7 @@ return array(
 				'help' => 'JSON 点表达式（JSON 路径）在对象之间使用点，在数组中使用中括号 (例如 <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => '寻找新的 <strong>文章</strong><br /><small>(最重要的参数)</small>',
-					'help' => '包含文章数组的 JSON 路径， 例如 <code>$</code> or <code>newsItems</code>',	// DIRTY
+					'help' => '包含文章数组的 JSON 路径，例如 <code>$</code> 或 <code>newsItems</code>',	// DIRTY
 				),
 				'item_author' => '文章作者',
 				'item_categories' => '文章标签',
@@ -202,23 +202,23 @@ return array(
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => array(
 			'_' => '暂停',
-			'state_is_muted' => 'This feed is muted',	// TODO
+			'state_is_muted' => '此订阅源已静音',	// DIRTY
 		),
 		'no_selected' => '未选择订阅源',
 		'number_entries' => '%d 篇文章',
-		'open_feed' => 'Open feed %s',	// TODO
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'open_feed' => '打开订阅源 %s',
+		'path_entries_conditions' => '内容检索条件',
 		'priority' => array(
 			'_' => '可见性',
 			'category' => '在分类中显示',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => '在其订阅源中显示',	// DIRTY
 			'hidden' => '不显示',
 			'important' => '在“重要的订阅”中显示',
 			'main_stream' => '在首页中显示',
 		),
 		'proxy' => '获取订阅源时的代理',
 		'proxy_help' => '选择协议（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd> 或者 <kbd>username:password@127.0.0.1:1080</kbd>）',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => '重置为默认',
 		'selector_preview' => array(
 			'show_raw' => '显示源码',
 			'show_rendered' => '显示内容',
@@ -238,20 +238,20 @@ return array(
 		'title_add' => '添加订阅源',
 		'ttl' => '最小自动更新间隔',
 		'unicityCriteria' => array(
-			'_' => 'Article unicity criteria',	// TODO
-			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
-			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
-			'id' => 'Standard ID (default)',	// TODO
-			'link' => 'Link',	// TODO
-			'sha1:content' => 'Content',	// TODO
-			'sha1:content_published' => 'Content + Date',	// TODO
-			'sha1:link_published' => 'Link + Date',	// TODO
-			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
-			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
-			'sha1:published' => 'Date',	// TODO
-			'sha1:title' => 'Title',	// TODO
-			'sha1:title_published' => 'Title + Date',	// TODO
-			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
+			'_' => '文章唯一性标准',
+			'forced' => '<span title="阻止唯一性标准，即使订阅源有重复文章">强制</span>',
+			'help' => '适用于无效的订阅源。<br />⚠️ 更改策略将创建重复项。',
+			'id' => '标准 ID（默认）',
+			'link' => '链接',
+			'sha1:content' => '内容',
+			'sha1:content_published' => '内容 + 日期',
+			'sha1:link_published' => '链接 + 日期',
+			'sha1:link_published_title' => '链接 + 日期 + 标题',
+			'sha1:link_published_title_content' => '链接 + 日期 + 标题 + 内容',
+			'sha1:published' => '日期',
+			'sha1:title' => '标题',
+			'sha1:title_published' => '标题 + 日期',
+			'sha1:title_published_content' => '标题 + 日期 + 内容',
 		),
 		'url' => '源地址',
 		'useragent' => '设置用于获取此源的 User Agent',
@@ -263,7 +263,7 @@ return array(
 	'import_export' => array(
 		'export' => array(
 			'_' => '导出',
-			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite' => '导出用户数据库为 SQLite 文件',
 		),
 		'export_labelled' => '导出有标签的文章',
 		'export_opml' => '导出订阅源列表（OPML）',
@@ -283,7 +283,7 @@ return array(
 			'idle' => '长期无更新订阅源',
 			'main' => '主要统计',
 			'repartition' => '文章分布',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => '未读日期',
 		),
 		'subscription_management' => '订阅管理',
 		'subscription_tools' => '订阅工具',
@@ -301,7 +301,7 @@ return array(
 		'add_dynamic_opml' => '添加订阅源动态列表',
 		'add_feed' => '添加订阅源',
 		'add_label' => '打标签',
-		'add_opml_category' => 'OPML category name',	// TODO
+		'add_opml_category' => 'OPML 分类名称',
 		'delete_label' => '删除标签',
 		'feed_management' => '订阅源管理',
 		'subscription_tools' => '订阅工具',

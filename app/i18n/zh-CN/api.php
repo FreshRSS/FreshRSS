@@ -12,22 +12,22 @@
 
 return array(
 	'information' => array(
-		'address' => 'Your API address:',	// TODO
+		'address' => '你的 API 地址：',
 		'output' => array(
-			'encoding-support' => '⚠️ WARN: no <code>%2F</code> support, some clients might not work!',	// TODO
-			'invalid-configuration' => '⚠️ WARN: Probable invalid base URL in ./data/config.php',	// TODO
-			'pass' => '✔️ PASS',	// TODO
-			'unknown-error' => '❌ ',	// TODO
+			'encoding-support' => '⚠️ 警告：<code>%2F</code> 支持缺失，部分客户端可能无法正常工作!',
+			'invalid-configuration' => '⚠️ 警告：./data/config.php 中可能存在无效的 base URL',	// DIRTY
+			'pass' => '✔️ 通过',
+			'unknown-error' => '❌ ',	// IGNORE
 		),
 		'test' => array(
-			'fever' => 'Fever API configuration test:',	// TODO
-			'greader' => 'Google Reader API configuration test:',	// TODO
+			'fever' => 'Fever API 配置测试：',
+			'greader' => 'Google Reader API 配置测试',
 		),
 		'title' => array(
-			'_' => 'FreshRSS API endpoints',	// TODO
-			'extension' => 'API for extensions',	// TODO
-			'fever' => 'Fever compatible API',	// TODO
-			'greader' => 'Google Reader compatible API',	// TODO
+			'_' => 'FreshRSS API 端点',	// DIRTY
+			'extension' => '供拓展使用的 API',
+			'fever' => 'Fever 兼容的 API',
+			'greader' => 'Google Reader 兼容的 API',
 		),
 	),
 );
