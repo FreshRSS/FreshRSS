@@ -79,8 +79,10 @@ final class FeverDAO extends Minz_ModelPdo
 	}
 
 	/**
-	 * @param array<string|int> $feed_ids
-	 * @param array<string> $entry_ids
+	 * @param array<numeric-string|int> $feed_ids
+	 * @param array<numeric-string> $entry_ids
+	 * @param numeric-string|'' $max_id
+	 * @param numeric-string|'' $since_id
 	 * @return FreshRSS_Entry[]
 	 */
 	public function findEntries(array $feed_ids, array $entry_ids, string $max_id, string $since_id): array {
@@ -227,17 +229,16 @@ final class FeverAPI
 			$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 		}
 
-		if (is_string($_REQUEST['mark'] ?? null) && is_string($_REQUEST['as'] ?? null) &&
-			(is_string($_REQUEST['id'] ?? null) || is_string($_REQUEST['with_ids'] ?? null))) {
-			if (is_string($_REQUEST['id'] ?? null)) {
+		if (is_string($_REQUEST['mark'] ?? null) && is_string($_REQUEST['as'] ?? null)) {
+			if (is_string($_REQUEST['id'] ?? null) && ctype_digit($_REQUEST['id'])) {
 				$id = $_REQUEST['id'];
+			} elseif (is_string($_REQUEST['with_ids'] ?? null)) {
+				$id = array_values(array_filter(explode(',', $_REQUEST['with_ids']), 'ctype_digit'));
+				// N.B., this will make tagging of feeds or groups unhappy.
 			} else {
-				$id = explode(',', $_REQUEST['with_ids']);
-				// N.B., this will make tagging of feeds
-				//  or groups unhappy.
+				$id = '0';
 			}
-			$before = is_numeric($_REQUEST['before'] ?? null) ?
-			(int)$_REQUEST['before'] : 0;
+			$before = is_numeric($_REQUEST['before'] ?? null) ? (int)$_REQUEST['before'] : 0;
 			switch (strtolower($_REQUEST['mark'])) {
 				case 'item':
 					switch ($_REQUEST['as']) {
@@ -446,28 +447,28 @@ final class FeverAPI
 	}
 
 	/**
-	 * @param numeric-string $id
+	 * @param list<numeric-string>|numeric-string $id
 	 */
 	private function setItemAsRead(array|string $id): int|false {
 		return $this->entryDAO->markRead($id, true);
 	}
 
 	/**
-	 * @param numeric-string $id
+	 * @param list<numeric-string>|numeric-string $id
 	 */
 	private function setItemAsUnread(array|string $id): int|false {
 		return $this->entryDAO->markRead($id, false);
 	}
 
 	/**
-	 * @param numeric-string $id
+	 * @param list<numeric-string>|numeric-string $id
 	 */
 	private function setItemAsSaved(array|string $id): int|false {
 		return $this->entryDAO->markFavorite($id, true);
 	}
 
 	/**
-	 * @param numeric-string $id
+	 * @param list<numeric-string>|numeric-string $id
 	 */
 	private function setItemAsUnsaved(array|string $id): int|false {
 		return $this->entryDAO->markFavorite($id, false);
@@ -481,7 +482,7 @@ final class FeverAPI
 		$since_id = '';
 
 		if (is_string($_REQUEST['feed_ids'] ?? null)) {
-			$feed_ids = explode(',', $_REQUEST['feed_ids']);
+			$feed_ids = array_filter(explode(',', $_REQUEST['feed_ids']), 'ctype_digit');
 		} elseif (is_string($_REQUEST['group_ids'] ?? null)) {
 			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$group_ids = explode(',', $_REQUEST['group_ids']);
@@ -508,7 +509,7 @@ final class FeverAPI
 				$max_id = '';
 			}
 		} elseif (is_string($_REQUEST['with_ids'] ?? null)) {
-			$entry_ids = explode(',', $_REQUEST['with_ids']);
+			$entry_ids = array_filter(explode(',', $_REQUEST['with_ids']), 'ctype_digit');
 		} elseif (is_string($_REQUEST['since_id'] ?? null)) {
 			// use the since_id argument to request the next $item_limit items
 			$since_id = $_REQUEST['since_id'];
