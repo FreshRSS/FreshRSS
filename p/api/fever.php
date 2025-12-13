@@ -227,7 +227,8 @@ final class FeverAPI
 			$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 		}
 
-		if (is_string($_REQUEST['mark'] ?? null) && is_string($_REQUEST['as'] ?? null) && (is_string($_REQUEST['id'] ?? null) || is_string($_REQUEST['with_ids'] ?? null))) {
+		if (is_string($_REQUEST['mark'] ?? null) && is_string($_REQUEST['as'] ?? null) &&
+			(is_string($_REQUEST['id'] ?? null) || is_string($_REQUEST['with_ids'] ?? null))) {
 			if (is_string($_REQUEST['id'] ?? null)) {
 				$id = $_REQUEST['id'];
 			} else {
