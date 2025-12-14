@@ -44,6 +44,10 @@ final class FreshRSS_Context {
 	public static string $order = 'DESC';
 	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' */
 	public static string $sort = 'id';
+	/** @var 'ASC'|'DESC' */
+	public static string $secondary_sort_order = 'DESC';
+	/** @var 'id'|'date'|'link'|'title'|'length' */
+	public static string $secondary_sort = 'id';
 	public static int $number = 0;
 	public static int $offset = 0;
 	public static FreshRSS_BooleanSearch $search;
@@ -279,6 +283,15 @@ final class FreshRSS_Context {
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		$sort = Minz_Request::paramString('sort', plaintext: true) ?: $default_sort ?: FreshRSS_Context::userConf()->sort;
 		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
+
+		if (in_array(self::$sort, ['c.name', 'f.name'], true)) {
+			self::$secondary_sort = FreshRSS_Context::userConf()->secondary_sort;
+			self::$secondary_sort_order = FreshRSS_Context::userConf()->secondary_sort_order;
+			if ($order !== ($default_order ?: FreshRSS_Context::userConf()->sort_order)) {
+				// User swapped order so swap secondary order as well
+				self::$secondary_sort_order = self::$secondary_sort_order === 'DESC' ? 'ASC' : 'DESC';
+			}
+		}
 
 		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
 		if (self::$number > FreshRSS_Context::userConf()->max_posts_per_rss) {

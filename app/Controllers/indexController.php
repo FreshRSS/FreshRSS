@@ -371,9 +371,19 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					'lastUserModified' => $pagingEntry->lastUserModified(),
 					'length' => $pagingEntry->sqlContentLength() ?? 0,
 				};
-				if ($pagingEntry !== null && FreshRSS_Context::$sort === 'c.name') {
-					// Secondary sort criterion
-					$continuation_values[] = $pagingEntry->feed()?->name() ?? '';
+				if (FreshRSS_Context::$sort === 'c.name') {
+					// Internal secondary sort criterion for category name
+					$continuation_values[] = $pagingEntry?->feed()?->name() ?? '';
+				}
+				if (in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
+					// User secondary sort criterion
+					$continuation_values[] = $pagingEntry === null ? 0 : match (FreshRSS_Context::$secondary_sort) {
+						'id' => $pagingEntry->id(),
+						'date' => $pagingEntry->date(raw: true),
+						'link' => $pagingEntry->link(raw: true),
+						'title' => $pagingEntry->title(),
+						'length' => $pagingEntry->sqlContentLength() ?? 0,
+					};
 				}
 			} elseif (FreshRSS_Context::$sort === 'rand') {
 				FreshRSS_Context::$continuation_id = '0';
