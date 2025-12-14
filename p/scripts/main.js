@@ -1039,6 +1039,7 @@ function init_column_categories() {
 			const selectedEl = document.getElementById(get);
 			if (selectedEl) {
 				selectedEl.scrollIntoView({ block: !get.startsWith('c_') ? 'center' : 'start' });
+				document.documentElement.scrollTop = 0; // Prevent unwanted scroll of page
 			}
 		}
 	}
