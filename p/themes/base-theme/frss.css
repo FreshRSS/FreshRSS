@@ -1418,6 +1418,10 @@ input[type="search"] {
 	background: inherit;
 }
 
+.transition a, .transition a:hover {
+	color: inherit;
+}
+
 .transition .name {
 	position: absolute;
 	right: 0;
@@ -1425,6 +1429,11 @@ input[type="search"] {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+
+.transition-next {
+	margin-left: .5em;
+	opacity: 0.5;
 }
 
 /*=== Feed article header and footer */
