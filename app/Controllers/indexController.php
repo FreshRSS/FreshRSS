@@ -365,7 +365,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					'c.name' => $pagingEntry->feed()?->categoryId() === FreshRSS_CategoryDAO::DEFAULTCATEGORYID ?
 						FreshRSS_CategoryDAO::DEFAULT_CATEGORY_NAME : $pagingEntry->feed()?->category()?->name() ?? '',
 					'date' => $pagingEntry->date(raw: true),
-					'f.name' => $pagingEntry->feed()?->name() ?? '',
+					'f.name' => $pagingEntry->feed()?->name(raw: true) ?? '',
 					'link' => $pagingEntry->link(raw: true),
 					'title' => $pagingEntry->title(),
 					'lastUserModified' => $pagingEntry->lastUserModified(),
@@ -373,7 +373,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				};
 				if (FreshRSS_Context::$sort === 'c.name') {
 					// Internal secondary sort criterion for category name
-					$continuation_values[] = $pagingEntry?->feed()?->name() ?? '';
+					$continuation_values[] = $pagingEntry?->feed()?->name(raw: true) ?? '';
 				}
 				if (in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
 					// User secondary sort criterion
