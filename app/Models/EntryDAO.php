@@ -1268,7 +1268,8 @@ SQL;
 	 */
 	protected function sqlListEntriesWhere(string $alias = '', int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-		string $continuation_id = '0', array $continuation_values = []): array {
+		string $continuation_id = '0', array $continuation_values = [],
+		string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): array {
 		$search = ' ';
 		$values = [];
 		if ($state & FreshRSS_Entry::STATE_ANDS) {
@@ -1338,6 +1339,7 @@ SQL;
 				default => $alias . $sort,
 			};
 			// Keyset pagination (Compatibility syntax due to poor performance of tuple syntax in MySQL https://bugs.mysql.com/bug.php?id=104128)
+			// TODO: Implement user-defined secondary sort
 			if ($sort === 'c.name') {
 				// Includes a secondary sort by feed name
 				$search .= "AND ((c.name {$sign} ?) OR (c.name = ? AND f.name {$sign} ?) OR (c.name = ? AND f.name = ? AND {$alias}id {$sign}= ?)) ";
@@ -1381,7 +1383,8 @@ SQL;
 	 */
 	private function sqlListWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 			string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-			string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): array {
+			string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0,
+			string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): array {
 		if (!$state) {
 			$state = FreshRSS_Entry::STATE_ALL;
 		}
@@ -1441,7 +1444,8 @@ SQL;
 			default => 'e.' . $sort,
 		};
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters, id_min: $id_min, id_max: $id_max,
-			sort: $sort, order: $order, continuation_id: $continuation_id, continuation_values: $continuation_values);
+			sort: $sort, order: $order, continuation_id: $continuation_id, continuation_values: $continuation_values,
+			secondary_sort: $secondary_sort, secondary_sort_order: $secondary_sort_order);
 
 		// Help MySQL/MariaDB's optimizer with the query plan:
 		$useEntryIndex = $this->pdo->dbType() === 'mysql' ? 'USE INDEX (entry_feed_read_index) ' : '';
@@ -1477,12 +1481,14 @@ SQL;
 	 */
 	private function listWhereRaw(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): PDOStatement|false {
+		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0,
+		string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): PDOStatement|false {
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
-			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
+			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset,
+			secondary_sort: $secondary_sort, secondary_sort_order: $secondary_sort_order);
 
 		$orderBy = match ($sort) {
 			'c.name' => 'c0.name',
@@ -1542,9 +1548,11 @@ SQL;
 	 */
 	public function listWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 			string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-			string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): Traversable {
+			string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0,
+			string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): Traversable {
 		$stm = $this->listWhereRaw($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
-			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
+			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset,
+			secondary_sort: $secondary_sort, secondary_sort_order: $secondary_sort_order);
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
 				/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
@@ -1610,9 +1618,11 @@ SQL;
 	 */
 	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $order = 'DESC',
-		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): ?array {
+		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0,
+		string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): ?array {
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, order: $order,
-			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
+			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset,
+			secondary_sort: $secondary_sort, secondary_sort_order: $secondary_sort_order);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
 			/** @var list<int|numeric-string> $res */

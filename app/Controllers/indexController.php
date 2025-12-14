@@ -394,7 +394,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
 					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
 					continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
-					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset) as $entry) {
+					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset,
+					secondary_sort: FreshRSS_Context::$secondary_sort, secondary_sort_order: FreshRSS_Context::$secondary_sort_order) as $entry) {
 			yield $entry;
 		}
 	}
