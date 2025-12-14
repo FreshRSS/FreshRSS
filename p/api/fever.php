@@ -259,14 +259,14 @@ final class FeverAPI
 				case 'feed':
 					switch ($_REQUEST['as']) {
 						case 'read':
-							$this->setFeedAsRead((int)$id, $before);
+							$this->setFeedAsRead(is_numeric($id) ? (int)$id : 0, $before);
 							break;
 					}
 					break;
 				case 'group':
 					switch ($_REQUEST['as']) {
 						case 'read':
-							$this->setGroupAsRead((int)$id, $before);
+							$this->setGroupAsRead(is_numeric($id) ? (int)$id : 0, $before);
 							break;
 					}
 					break;
@@ -488,6 +488,9 @@ final class FeverAPI
 			$group_ids = explode(',', $_REQUEST['group_ids']);
 			$feeds = [];
 			foreach ($group_ids as $id) {
+				if (!is_numeric($id)) {
+					continue;
+				}
 				$category = $categoryDAO->searchById((int)$id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
 				if ($category === null) {
 					continue;
