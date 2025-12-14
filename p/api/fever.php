@@ -234,7 +234,7 @@ final class FeverAPI
 				$id = $_REQUEST['id'];
 			} elseif (is_string($_REQUEST['with_ids'] ?? null)) {
 				$id = array_values(array_filter(explode(',', $_REQUEST['with_ids']), 'ctype_digit'));
-				// N.B., this will make tagging of feeds or groups unhappy.
+				// N.B.: Not supported by 'feed' and 'group' functions
 			} else {
 				$id = '0';
 			}
