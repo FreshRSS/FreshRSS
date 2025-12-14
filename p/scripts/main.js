@@ -2252,6 +2252,7 @@ function init_normal() {
 	init_actualize();
 	faviconNbUnread();
 
+	// Keep exact sidebar scroll state for specific navigations
 	const sidebar = document.querySelector('ul#sidebar');
 	if (sidebar) {
 		sidebar.addEventListener('click', (e) => {
@@ -2273,6 +2274,12 @@ function init_normal() {
 			if (target) {
 				sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
 			}
+		});
+	}
+	const new_article = document.querySelector('div#new-article');
+	if (new_article) {
+		new_article.addEventListener('click', () => {
+			sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
 		});
 	}
 
