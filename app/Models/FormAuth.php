@@ -11,7 +11,7 @@ class FreshRSS_FormAuth {
 			return false;
 		}
 
-		return password_verify($nonce . $hash, $challenge);
+		return password_verify($hash . $nonce, $challenge);
 	}
 
 	/** @return list<string> */
