@@ -150,16 +150,16 @@ function safe_ascii(?string $text): string {
 }
 
 if (function_exists('mb_convert_encoding')) {
-	function safe_utf8(string $text): string {
-		return mb_convert_encoding($text, 'UTF-8', 'UTF-8') ?: '';
+	function safe_utf8(?string $text): string {
+		return $text === null ? '' : (mb_convert_encoding($text, 'UTF-8', 'UTF-8') ?: '');
 	}
 } elseif (function_exists('iconv')) {
-	function safe_utf8(string $text): string {
-		return iconv('UTF-8', 'UTF-8//IGNORE', $text) ?: '';
+	function safe_utf8(?string $text): string {
+		return $text === null ? '' : (iconv('UTF-8', 'UTF-8//IGNORE', $text) ?: '');
 	}
 } else {
-	function safe_utf8(string $text): string {
-		return $text;
+	function safe_utf8(?string $text): string {
+		return $text ?? '';
 	}
 }
 
