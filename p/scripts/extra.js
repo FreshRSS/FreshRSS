@@ -75,7 +75,7 @@ function init_crypto_forms() {
 						try {
 							const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
 							const s = bcrypt.hashSync(crypto_form.querySelector('.passwordPlain').value, json.salt1);
-							const c = bcrypt.hashSync(json.nonce + s, strong ? bcrypt.genSaltSync(4) : poormanSalt());
+							const c = bcrypt.hashSync(s + json.nonce, strong ? bcrypt.genSaltSync(4) : poormanSalt());
 							challenge.value = c;
 							if (!s || !c) {
 								openNotification('Crypto error!', 'bad');
