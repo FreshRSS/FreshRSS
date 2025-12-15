@@ -107,16 +107,16 @@ return array(
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => '显示警告横幅',
+			'seconds' => '秒（至少 1）',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => '显示确认横幅',
+			'seconds' => '秒（0 表示不显示）',
 		),
 	),
 	'privacy' => array(
-		'_' => 'Privacy',	// TODO
+		'_' => '隐私',
 		'retrieve_extension_list' => '获取扩展列表',
 	),
 	'profile' => array(
@@ -125,14 +125,14 @@ return array(
 			'_' => 'API 管理',
 			'api_not_set' => 'API密码未设置',
 			'api_set' => 'API密码已设置',
-			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
-			'disabled' => 'The API access is disabled.',	// TODO
-			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'check_link' => '通过以下地址检查 API 状态：<kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'API 访问已禁用。',
+			'documentation_link' => '查看 <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">文档和已知应用列表</a>',
+			'help' => '查看 <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>文档</a>',
 		),
 		'change_password' => '修改密码',
 		'confirm_new_password' => '确认新密码',
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'current_password' => '当前密码<br /><small>（用于网页表单登录方式）</small>',
 		'delete' => array(
 			'_' => '账户删除',
 			'warn' => '你的帐户以及所有相关数据将被删除。',
@@ -146,13 +146,13 @@ return array(
 	'query' => array(
 		'_' => '自定义查询',
 		'deprecated' => '此查询不再有效。相关的分类或订阅源已被删除。',
-		'description' => 'Description',	// TODO
+		'description' => '描述',
 		'filter' => array(
 			'_' => '生效的过滤器：',
 			'categories' => '按分类显示',
 			'feeds' => '按订阅源显示',
 			'order' => '按日期排序',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => '在共享的 RSS 中用 <i>用户标签</i> 替换 <i>订阅源标签</i>',	// DIRTY
 			'search' => '表达式',
 			'shareOpml' => '启用相应类别和 feed 的 OPML 分享',
 			'shareRss' => '启用 HTML 和 RSS 分享',
@@ -160,8 +160,8 @@ return array(
 			'tags' => '按标签显示',
 			'type' => '类型',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => '显示所有订阅源，包括仅其分类中显示的订阅源',
+		'get_Z' => '显示所有订阅源，包括已归档的订阅源',
 		'get_all' => '显示所有文章',
 		'get_all_labels' => '显示所有打了标签的文章',
 		'get_category' => '显示分类“%s”',
@@ -170,12 +170,12 @@ return array(
 		'get_important' => '显示来自“重要的订阅”的文章',
 		'get_label' => '显示打了“%s”标签的文章',
 		'help' => '参见文档： <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">queries and resharing by HTML / RSS / OPML</a>.',
-		'image_url' => 'Image URL',	// TODO
+		'image_url' => '图片 URL',
 		'name' => '名称',
 		'no_filter' => '无过滤器',
 		'no_queries' => array(
-			'_' => 'No user queries are saved yet.',	// TODO
-			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+			'_' => '尚未保存任何用户查询。',
+			'help' => '查看 <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">文档</a>',
 		),
 		'number' => '查询 n°%d',
 		'order_asc' => '由旧至新显示文章',
@@ -187,7 +187,7 @@ return array(
 				'_' => '已禁用',
 				'title' => '分享',
 			),
-			'greader' => 'Shareable link to the GReader JSON',	// TODO
+			'greader' => 'GReader JSON 的分享链接',	// DIRTY
 			'help' => '获取此自定义查询的分享链接',
 			'html' => 'HTML 页面的分享链接',
 			'opml' => '订阅源 OPML 的分享链接',
@@ -215,7 +215,7 @@ return array(
 		'_' => '阅读',
 		'after_onread' => '“全部标记为已读”后',
 		'always_show_favorites' => '默认显示收藏夹中所有的文章',
-		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
+		'apply_to_individual_feed' => '单独应用于各订阅源',
 		'article' => array(
 			'authors_date' => array(
 				'_' => '作者和日期',
@@ -275,8 +275,8 @@ return array(
 			'upon_gone' => '在被原订阅源被移除后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
-			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => '已存在 n 条相同标题文章 (of the feed)',	// DIRTY
+			'when_same_title_in_category' => '如果分类中已经存在相同标题的最新 <i>n</i> 篇文章',
+			'when_same_title_in_feed' => '如果订阅源中已经存在相同标题的最新 <i>n</i> 篇文章',
 		),
 		'show' => array(
 			'_' => '文章显示',
@@ -297,7 +297,7 @@ return array(
 			'older_first' => '由旧至新',
 		),
 		'star' => array(
-			'when' => 'Mark an article as favourite…',	// TODO
+			'when' => '将文章标记为收藏时…',
 		),
 		'sticky_post' => '打开文章时将其置顶',
 		'title' => '阅读',
@@ -359,7 +359,7 @@ return array(
 		'skip_next_article' => '跳转到下一篇文章而不打开',
 		'skip_previous_article' => '跳转到上一篇文章而不打开',
 		'title' => '快捷键',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => '切换侧边栏',
 		'toggle_media' => '播放/暂停媒体',
 		'user_filter' => '显示自定义查询',
 		'user_filter_help' => '如果有多个自定义过滤器，则会按照它们的序号依次访问。',

@@ -41,16 +41,16 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
 
     - name: Run PHP unit tests
-      run: composer run-script phpunit
+      run: composer run-script phpunit -- --no-progress
 
     - name: PHP_CodeSniffer
       run: composer run-script phpcs
 
     - name: PHPStan
-      run: composer run-script phpstan
+      run: composer run-script phpstan -- --no-progress
 
     # - name: PHPStan Next
-    #   run: composer run-script phpstan-next
+    #   run: composer run-script phpstan-next -- --no-progress
 
     # NPM tests
 
