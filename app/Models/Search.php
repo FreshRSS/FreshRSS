@@ -452,6 +452,7 @@ class FreshRSS_Search implements \Stringable {
 		return trim($result);
 	}
 
+	#[Deprecated('Use __tostring() instead')]
 	public function getRawInput(): string {
 		return $this->raw_input;
 	}

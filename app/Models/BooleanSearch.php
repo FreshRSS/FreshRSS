@@ -525,6 +525,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	}
 
 	/** @return string Plain text search query. Must be XML-encoded or URL-encoded depending on the situation */
+	#[Deprecated('Use __tostring() instead')]
 	public function getRawInput(): string {
 		return $this->raw_input;
 	}
