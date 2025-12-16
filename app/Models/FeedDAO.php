@@ -39,7 +39,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array{id?:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority?:int,
-	 * 	pathEntries?:string,httpAuth:string,error:int|bool,ttl?:int,attributes?:string|array<string|mixed>} $valuesTmp
+	 * 	pathEntries?:string,httpAuth?:string,error:int|bool,ttl?:int,attributes?:string|array<string|mixed>} $valuesTmp
 	 */
 	public function addFeed(array $valuesTmp): int|false {
 		if (empty($valuesTmp['id'])) {	// Auto-generated ID
@@ -315,7 +315,7 @@ SQL;
 	}
 
 	/** @return Traversable<array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority?:int,
-	 * 	pathEntries?:string,httpAuth:string,error:int|bool,ttl?:int,attributes?:string}> */
+	 * 	pathEntries?:string,httpAuth?:string,error:int|bool,ttl?:int,attributes?:string}> */
 	public function selectAll(): Traversable {
 		$sql = <<<'SQL'
 SELECT id, url, kind, category, name, website, description, `lastUpdate`,
@@ -326,7 +326,7 @@ SQL;
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
 				/** @var array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority?:int,
-				 *	pathEntries?:string,httpAuth:string,error:int,ttl?:int,attributes?:string} $row */
+				 *	pathEntries?:string,httpAuth?:string,error:int,ttl?:int,attributes?:string} $row */
 				yield $row;
 			}
 		} else {
