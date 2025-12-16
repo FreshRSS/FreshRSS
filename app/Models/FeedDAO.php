@@ -75,7 +75,7 @@ SQL;
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? (int)$valuesTmp['priority'] : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
 			mb_strcut($valuesTmp['pathEntries'], 0, 4096, 'UTF-8'),
-			base64_encode($valuesTmp['httpAuth']),
+			base64_encode($valuesTmp['httpAuth'] ?? ''),
 			isset($valuesTmp['error']) ? (int)$valuesTmp['error'] : 0,
 			isset($valuesTmp['ttl']) ? (int)$valuesTmp['ttl'] : FreshRSS_Feed::TTL_DEFAULT,
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
@@ -181,7 +181,7 @@ SQL;
 			$set .= '`' . $key . '`=?, ';
 
 			if ($key === 'httpAuth') {
-				$valuesTmp[$key] = base64_encode($v);
+				$valuesTmp[$key] = is_string($v) ? base64_encode($v) : '';
 			} elseif ($key === 'attributes') {
 				$valuesTmp[$key] = is_string($valuesTmp[$key]) ? $valuesTmp[$key] : json_encode($valuesTmp[$key], JSON_UNESCAPED_SLASHES);
 			}
