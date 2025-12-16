@@ -251,7 +251,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
 		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
 		$newUserConf->queries = $queries;
-		FreshRSS_Context::$user_conf = $newUserConf;
+		FreshRSS_Context::setUserConf($newUserConf);
 
 		try {
 			$search = new FreshRSS_BooleanSearch($input);
@@ -259,7 +259,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			self::assertSame($expectedResult[0], trim($actualSql));
 			self::assertSame($expectedResult[1], $actualValues);
 		} finally {
-			FreshRSS_Context::$user_conf = $previousUserConf;
+			FreshRSS_Context::setUserConf($previousUserConf);
 		}
 	}
 

@@ -160,7 +160,8 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		return $title;
 	}
-	/** @deprecated */
+
+	#[Deprecated('Use authors() instead')]
 	public function author(): string {
 		return $this->authors(true);
 	}
@@ -540,7 +541,8 @@ HTML;
 		$this->hash = '';
 		$this->title = trim($value);
 	}
-	/** @deprecated */
+
+	#[Deprecated('Use _authors() instead')]
 	public function _author(string $value): void {
 		$this->_authors($value);
 	}

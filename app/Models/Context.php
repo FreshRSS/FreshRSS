@@ -57,11 +57,13 @@ final class FreshRSS_Context {
 	/**
 	 * @access private
 	 * @deprecated Will be made `private`; use `FreshRSS_Context::systemConf()` instead.
+	 * @internal
 	 */
 	public static ?FreshRSS_SystemConfiguration $system_conf = null;
 	/**
 	 * @access private
 	 * @deprecated Will be made `private`; use `FreshRSS_Context::userConf()` instead.
+	 * @internal
 	 */
 	public static ?FreshRSS_UserConfiguration $user_conf = null;
 
@@ -184,6 +186,13 @@ final class FreshRSS_Context {
 
 	public static function clearUserConf(): void {
 		FreshRSS_Context::$user_conf = null;
+	}
+
+	/**
+	 * @internal
+	 */
+	public static function setUserConf(?FreshRSS_UserConfiguration $user_conf): void {
+		FreshRSS_Context::$user_conf = $user_conf;
 	}
 
 	/** @return array<int,FreshRSS_Category> where the key is the category ID */

@@ -26,7 +26,7 @@ class Minz_Configuration {
 	 * @param string $namespace the name of the current configuration
 	 * @param string $config_filename the filename of the configuration
 	 * @param string $default_filename a filename containing default values for the configuration
-	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
+	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration @deprecated
 	 * @throws Minz_FileNotExistException
 	 */
 	public static function register(string $namespace, string $config_filename, ?string $default_filename = null,
@@ -102,7 +102,7 @@ class Minz_Configuration {
 	 * @param string $namespace the name of the current configuration.
 	 * @param string $config_filename the file containing configuration values.
 	 * @param string $default_filename the file containing default values, null by default.
-	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration
+	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration @deprecated
 	 * @throws Minz_FileNotExistException
 	 */
 	final private function __construct(string $namespace, string $config_filename, ?string $default_filename = null,
@@ -138,6 +138,7 @@ class Minz_Configuration {
 		}
 	}
 
+	#[Deprecated]
 	public function configurationSetter(): ?Minz_ConfigurationSetterInterface {
 		return $this->configuration_setter;
 	}
@@ -155,13 +156,12 @@ class Minz_Configuration {
 	 * @param string $key the name of the param.
 	 * @param mixed $default default value to return if key does not exist.
 	 * @return array|mixed value corresponding to the key.
-	 * @access private
-	 * @deprecated Use `attribute*()` methods instead.
 	 */
+	#[Deprecated('Use `attribute*()` methods instead.')]
 	public function param(string $key, mixed $default = null): mixed {
 		if (isset($this->data[$key])) {
 			return $this->data[$key];
-		} elseif (!is_null($default)) {
+		} elseif ($default !== null) {
 			return $default;
 		} else {
 			Minz_Log::warning($key . ' does not exist in configuration');
@@ -170,13 +170,14 @@ class Minz_Configuration {
 	}
 
 	/**
-	 * A wrapper for param().
 	 * @return array|mixed
-	 * @access private
-	 * @deprecated
 	 */
 	public function __get(string $key): mixed {
-		return $this->param($key);
+		if (isset($this->data[$key])) {
+			return $this->data[$key];
+		}
+		Minz_Log::warning($key . ' does not exist in configuration');
+		return null;
 	}
 
 	/**
@@ -184,13 +185,12 @@ class Minz_Configuration {
 	 *
 	 * @param string $key the param name to set.
 	 * @param mixed $value the value to set. If null, the key is removed from the configuration.
-	 * @access private
-	 * @deprecated Use `_attribute()` instead.
 	 */
+	#[Deprecated('Use `_attribute()` instead.')]
 	public function _param(string $key, mixed $value = null): void {
 		if ($this->configuration_setter !== null && $this->configuration_setter->support($key)) {
 			$this->configuration_setter->handle($this->data, $key, $value);
-		} elseif (isset($this->data[$key]) && is_null($value)) {
+		} elseif (isset($this->data[$key]) && $value === null) {
 			unset($this->data[$key]);
 		} elseif ($value !== null) {
 			$this->data[$key] = $value;
@@ -198,12 +198,16 @@ class Minz_Configuration {
 	}
 
 	/**
-	 * A wrapper for _param().
-	 * @access private
-	 * @deprecated
+	 * {@see Minz_Configuration::_attribute()} instead.
+	 * @param string $key the param name to set.
+	 * @param mixed $value the value to set. If null, the key is removed.
 	 */
 	public function __set(string $key, mixed $value): void {
-		$this->_param($key, $value);
+		if ($value === null) {
+			unset($this->data[$key]);
+		} else {
+			$this->data[$key] = $value;
+		}
 	}
 
 	/**
@@ -266,6 +270,10 @@ class Minz_Configuration {
 	 * @param array<string,mixed>|mixed|null $value Value, not HTML-encoded
 	 */
 	public function _attribute(string $key, $value = null): void {
-		self::_param($key, $value);
+		if (isset($this->data[$key]) && $value === null) {
+			unset($this->data[$key]);
+		} elseif ($value !== null) {
+			$this->data[$key] = $value;
+		}
 	}
 }

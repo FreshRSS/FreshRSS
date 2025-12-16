@@ -307,16 +307,12 @@ function invalidateHttpCache(string $username = ''): bool {
 	return FreshRSS_UserDAO::ctouch($username);
 }
 
-/**
- * @deprecated Use {@see Minz_Request::connectionRemoteAddress()} instead.
- */
+#[Deprecated('Use Minz_Request::connectionRemoteAddress() instead.')]
 function connectionRemoteAddress(): string {
 	return Minz_Request::connectionRemoteAddress();
 }
 
-/**
- * @deprecated Use {@see FreshRSS_http_Util::checkTrustedIP()} instead.
- */
+#[Deprecated('Use FreshRSS_http_Util::checkTrustedIP() instead.')]
 function checkTrustedIP(): bool {
 	return FreshRSS_http_Util::checkTrustedIP();
 }

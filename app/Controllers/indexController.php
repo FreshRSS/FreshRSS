@@ -227,8 +227,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action displays the RSS feed of FreshRSS.
-	 * @deprecated See user query RSS sharing instead
 	 */
+	#[Deprecated('See user query RSS sharing instead')]
 	public function rssAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
 
@@ -262,9 +262,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
 
-	/**
-	 * @deprecated See user query OPML sharing instead
-	 */
+	#[Deprecated('See user query OPML sharing instead')]
 	public function opmlAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
 

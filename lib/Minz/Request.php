@@ -42,8 +42,8 @@ class Minz_Request {
 	 * @param mixed $default default value, if no parameter is given
 	 * @param bool $specialchars `true` to return special characters, `false` (default) to XML-encode them
 	 * @return mixed value of the parameter
-	 * @deprecated use typed versions instead
 	 */
+	#[Deprecated('Use typed versions instead')]
 	public static function param(string $key, mixed $default = false, bool $specialchars = false): mixed {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
