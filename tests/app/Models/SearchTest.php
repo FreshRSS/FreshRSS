@@ -1033,7 +1033,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public static function provideBooleanSearchEnforce(): array {
 		return [
+			['', '', ''],
 			['', 'intitle:b', 'intitle:b'],
+			['intitle:a', '', 'intitle:a'],
 			['intitle:a', 'intitle:b', 'intitle:b'],
 			['a', 'intitle:b', 'intitle:b a'],
 			['intitle:a intext:a', 'intitle:b', 'intitle:b intext:a'],
