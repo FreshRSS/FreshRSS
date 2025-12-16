@@ -65,7 +65,7 @@ trait FreshRSS_FilterActionsTrait {
 		if ($action === '') {
 			return;
 		}
-		$filters = array_unique(array_map('trim', $filters), SORT_STRING);
+		$filters = array_values(array_unique(array_map('trim', $filters), SORT_STRING));
 		$filterActions = $this->filterActions();
 
 		//Check existing filters
