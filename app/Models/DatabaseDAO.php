@@ -488,11 +488,8 @@ SQL;
 	 * Example: `café` becomes `cafe`.
 	 */
 	private static function removeAccents(string $str): string {
-		if (class_exists('Normalizer', autoload: false)) {
-			// Decompose characters (é → e + combining accent)
-			$str = Normalizer::normalize($str, Normalizer::NFD) ?: $str;
-			// Remove combining diacritical marks (Unicode category Mn)
-			return preg_replace('/\p{Mn}/u', '', $str) ?? $str;
+		if (function_exists('transliterator_transliterate')) {
+			return transliterator_transliterate('NFD; [:Nonspacing Mark:] Remove; NFC', $str) ?: $str;
 		}
 		return strtr($str,
 			'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
