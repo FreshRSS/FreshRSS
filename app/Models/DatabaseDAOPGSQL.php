@@ -99,4 +99,12 @@ SQL;
 		}
 		return $ok;
 	}
+
+	#[\Override]
+	public static function strilike(string $haystack, string $needle): bool {
+		if (function_exists('mb_stripos')) {
+			return mb_stripos($haystack, $needle, 0, 'UTF-8') !== false;
+		}
+		return stripos($haystack, $needle) !== false;
+	}
 }

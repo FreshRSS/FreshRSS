@@ -482,4 +482,35 @@ SQL;
 
 		return true;
 	}
+
+	/**
+	 * Remove accents from characters. Relevant for emulating MySQL.
+	 * Example: `café` becomes `cafe`.
+	 */
+	private static function removeAccents(string $str): string {
+		if (class_exists('Normalizer', autoload: false)) {
+			// Decompose characters (é → e + combining accent)
+			$str = Normalizer::normalize($str, Normalizer::NFD) ?: $str;
+			// Remove combining diacritical marks (Unicode category Mn)
+			return preg_replace('/\p{Mn}/u', '', $str) ?? $str;
+		}
+		return strtr($str,
+			'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
+			'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn'
+		);
+	}
+
+	/**
+	 * PHP emulation of the SQL ILIKE operation of the selected database.
+	 * Note that it depends on the database collation settings and Unicode extensions.
+	 */
+	public static function strilike(string $haystack, string $needle): bool {
+		// Implementation approximating MySQL/MariaDB `LIKE` with `utf8mb4_unicode_ci` collation.
+		$haystack = self::removeAccents($haystack);
+		$needle = self::removeAccents($needle);
+		if (function_exists('mb_stripos')) {
+			return mb_stripos($haystack, $needle, 0, 'UTF-8') !== false;
+		}
+		return stripos($haystack, $needle) !== false;
+	}
 }
