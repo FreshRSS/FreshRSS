@@ -105,6 +105,13 @@ SQL;
 		if (function_exists('mb_stripos')) {
 			return mb_stripos($haystack, $needle, 0, 'UTF-8') !== false;
 		}
+		if (function_exists('transliterator_transliterate')) {
+			$haystack = transliterator_transliterate('Lower', $haystack);
+			$needle = transliterator_transliterate('Lower', $needle);
+			if ($haystack !== false && $needle !== false) {
+				return str_contains($haystack, $needle);
+			}
+		}
 		return stripos($haystack, $needle) !== false;
 	}
 }

@@ -484,17 +484,21 @@ SQL;
 	}
 
 	/**
-	 * Remove accents from characters. Relevant for emulating MySQL.
-	 * Example: `café` becomes `cafe`.
+	 * Remove accents from characters and lowercase. Relevant for emulating MySQL.
+	 * Example: `Café` becomes `cafe`.
 	 */
-	private static function removeAccents(string $str): string {
+	private static function removeAccentsLower(string $str): string {
 		if (function_exists('transliterator_transliterate')) {
-			return transliterator_transliterate('NFD; [:Nonspacing Mark:] Remove; NFC', $str) ?: $str;
+			// https://unicode-org.github.io/icu/userguide/transforms/general/#overview
+			$transliterated = transliterator_transliterate('NFD; [:Nonspacing Mark:] Remove; NFC; Lower', $str);
+			if ($transliterated !== false) {
+				return $transliterated;
+			}
 		}
-		return strtr($str,
+		return strtolower(strtr($str,
 			'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
 			'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn'
-		);
+		));
 	}
 
 	/**
@@ -503,11 +507,8 @@ SQL;
 	 */
 	public static function strilike(string $haystack, string $needle): bool {
 		// Implementation approximating MySQL/MariaDB `LIKE` with `utf8mb4_unicode_ci` collation.
-		$haystack = self::removeAccents($haystack);
-		$needle = self::removeAccents($needle);
-		if (function_exists('mb_stripos')) {
-			return mb_stripos($haystack, $needle, 0, 'UTF-8') !== false;
-		}
-		return stripos($haystack, $needle) !== false;
+		$haystack = self::removeAccentsLower($haystack);
+		$needle = self::removeAccentsLower($needle);
+		return str_contains($haystack, $needle);
 	}
 }
