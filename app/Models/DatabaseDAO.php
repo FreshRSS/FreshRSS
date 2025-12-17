@@ -484,7 +484,7 @@ SQL;
 	}
 
 	/**
-	 * Remove accents from characters and lowercase. Relevant for emulating MySQL.
+	 * Remove accents from characters and lowercase. Relevant for emulating MySQL utf8mb4_unicode_ci collation.
 	 * Example: `Café` becomes `cafe`.
 	 */
 	private static function removeAccentsLower(string $str): string {
