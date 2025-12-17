@@ -10,7 +10,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
 		$search = new FreshRSS_Search($input);
-		self::assertSame('', $search->getRawInput());
+		self::assertSame('', $search->__toString());
 		self::assertNull($search->getIntitle());
 		self::assertNull($search->getMinDate());
 		self::assertNull($search->getMaxDate());
@@ -327,7 +327,6 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		self::assertSame($max_pubdate_value, $search->getMaxPubdate());
 		self::assertSame($tags_value, $search->getTags());
 		self::assertSame($search_value, $search->getSearch());
-		self::assertSame($input, $search->getRawInput());
 	}
 
 	/** @return list<list<mixed>> */
@@ -1033,7 +1032,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public static function provideBooleanSearchEnforce(): array {
 		return [
+			['', '', ''],
 			['', 'intitle:b', 'intitle:b'],
+			['intitle:a', '', 'intitle:a'],
 			['intitle:a', 'intitle:b', 'intitle:b'],
 			['a', 'intitle:b', 'intitle:b a'],
 			['intitle:a intext:a', 'intitle:b', 'intitle:b intext:a'],
