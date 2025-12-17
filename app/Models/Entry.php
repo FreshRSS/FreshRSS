@@ -626,8 +626,8 @@ HTML;
 
 	public function matches(FreshRSS_BooleanSearch $booleanSearch): bool {
 		static $databaseDao = null;
-		if ($databaseDao === null) {
-			$databaseDao = FreshRSS_Factory::createDatabaseDao();
+		if (!($databaseDao instanceof FreshRSS_DatabaseDAO)) {
+			$databaseDao = FreshRSS_Factory::createDatabaseDAO();
 		}
 		$ok = true;
 		foreach ($booleanSearch->searches() as $filter) {
