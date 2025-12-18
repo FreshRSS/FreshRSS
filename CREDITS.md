@@ -251,6 +251,7 @@ People are sorted by name so please keep this order.
 * [sirideain](https://github.com/sirideain): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sirideain)
 * [skrlet13](https://github.com/skrlet13): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:skrlet13), [Web](https://www.skrlet13.cl/)
 * [Sp3r4z](https://github.com/Sp3r4z): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Sp3r4z)
+* [stag-enterprises](https://github.com/stag-enterprises): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:stag-enterprises), [Web](https://stag.lol)
 * [Steve Jones](https://github.com/squaregoldfish): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:squaregoldfish)
 * [Strubbl](https://github.com/Strubbl): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Strubbl)
 * [Stunkymonkey](https://github.com/Stunkymonkey): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Stunkymonkey)
