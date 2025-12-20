@@ -64,8 +64,8 @@ return array(
 		),
 		'files' => 'File installation',	// IGNORE
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// IGNORE
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// IGNORE
+			'nok' => 'Cannot find the recommended library php-intl for internationalization.',
+			'ok' => 'You have the recommended library php-intl for internationalization.',
 		),
 		'json' => array(
 			'nok' => 'Cannot find the required library to parse JSON.',	// IGNORE
