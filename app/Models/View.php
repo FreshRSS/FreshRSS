@@ -54,9 +54,9 @@ class FreshRSS_View extends Minz_View {
 
 	// Updates
 	public string $last_update_time;
-	/** @var array<string,bool> */
+	/** @var array<string,'ok'|'ko'|'warn'> */
 	public array $status_files;
-	/** @var array<string,bool> */
+	/** @var array<string,'ok'|'ko'|'warn'> */
 	public array $status_php;
 	public bool $update_to_apply;
 	/** @var array<string,bool> */

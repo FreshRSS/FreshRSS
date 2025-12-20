@@ -4,8 +4,8 @@ declare(strict_types=1);
 /**
  * Manage configuration for the application.
  * @property string $base_url
- * @property array{'type':string,'host':string,'user':string,'password':string,'base':string,'prefix':string,
- *  'connection_uri_params':string,'pdo_options':array<int,int|string|bool>} $db
+ * @property array{type:'mysql'|'pgsql'|'sqlite',host:string,user:string,password:string,base:string,prefix:string,
+ *  connection_uri_params:string,pdo_options:array<int,int|string|bool>} $db
  * @property bool $disable_update
  * @property string $environment
  * @property array<string,bool> $extensions_enabled

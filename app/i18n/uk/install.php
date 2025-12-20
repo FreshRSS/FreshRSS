@@ -62,6 +62,11 @@ return array(
 			'nok' => 'Не вдалося знайти бібліотеку PHP fileinfo (пакунок fileinfo).',
 			'ok' => 'У вас є бібліотека fileinfo.',
 		),
+		'files' => 'Встановлення файлів',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'Не вдалося знайти бажану бібліотеку розпізнання JSON.',
 			'ok' => 'У вас є бажана бібліотека розпізнання JSON.',
@@ -74,18 +79,33 @@ return array(
 			'nok' => 'Не вдалося знайти необхідну бібліотеку регулярних виразів (php-pcre).',
 			'ok' => 'У вас є необхідна бібліотека регулярних виразів (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
 			'nok' => 'Не вдалося знайти PDO чи один із підтримуваних драйверів (pdo_mysql, pdo_sqlite чи pdo_pgsql).',
 			'ok' => 'У вас є PDO та принаймні один із підтримуваних драйверів (pdo_mysql, pdo_sqlite чи pdo_pgsql).',
 		),
 		'php' => array(
-			'nok' => 'У вас PHP версії %s, проте для FreshRSS треба принаймні %s.',
-			'ok' => 'Ваша версія PHP, %s, сумісна з FreshRSS.',
+			'_' => 'Встановлення PHP',
+			'nok' => 'У вас PHP версії %s, але для FreshRSS треба принаймні %s.',
+			'ok' => 'Версія PHP (%s) сумісна з FreshRSS.',
 		),
 		'reload' => 'Повторити перевірку',
 		'tmp' => array(
 			'nok' => 'Перевірте доступ до каталога <em>%1$s</em> для користувача <em>%2$s</em>. HTTP-серверу потрібен дозвіл на запис.',
 			'ok' => 'Доступ до тимчасового каталога працює.',
+		),
+		'tokens' => array(
+			'nok' => 'Перевірте доступ до каталога <em>./data/tokens</em>. HTTP-серверу треба дозвіл на запис',
+			'ok' => 'Доступ до каталога токенів працює.',
 		),
 		'unknown_process_username' => 'невідомо',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Не вдалося знайти необхідну бібліотеку розпізнання XML.',
 			'ok' => 'У вас є необхідна бібліотека розпізнання XML.',
+		),
+		'zip' => array(
+			'nok' => 'Не вдалося знайти ZIP-розширення (пакунок php-zip).',
+			'ok' => 'У вас є ZIP-розширення.',
 		),
 	),
 	'conf' => array(

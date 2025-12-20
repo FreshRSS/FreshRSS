@@ -62,6 +62,11 @@ return array(
 			'nok' => 'fileinfo 라이브러리를 찾을 수 없습니다 (fileinfo 패키지).',
 			'ok' => 'fileinfo 라이브러리가 설치되어 있습니다.',
 		),
+		'files' => '파일 시스템 설치 요구사항',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php-json 패키지).',
 			'ok' => 'JSON 확장 기능이 설치되어 있습니다.',
@@ -74,18 +79,33 @@ return array(
 			'nok' => '정규표현식을 위한 라이브러리를 찾을 수 없습니다 (php-pcre).',
 			'ok' => '정규표현식을 위한 라이브러리가 설치되어 있습니다 (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => '지원가능한 드라이버나 PDO를 찾을 수 없습니다 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => '최소 하나의 지원가능한 드라이버와 PDO가 설치되어 있습니다 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => '지원가능한 드라이버나 PDO를 찾을 수 없습니다 (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => '최소 하나의 지원가능한 드라이버와 PDO가 설치되어 있습니다 (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'PHP 설치 요구사항',
 			'nok' => 'PHP 버전은 %s 이지만, FreshRSS에는 최소 %s의 버전이 필요합니다.',
-			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환 가능합니다.',
+			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환가능 합니다.',
 		),
 		'reload' => '다시 확인',
 		'tmp' => array(
 			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
 			'ok' => 'temp 디렉토리의 권한이 올바르게 설정되었습니다.',
+		),
+		'tokens' => array(
+			'nok' => '<em>./data/tokens</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'ok' => 'tokens 디렉토리의 권한이 올바르게 설정되어 있습니다',
 		),
 		'unknown_process_username' => '알 수 없음',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'XML 해석을 위한 라이브러리르 찾을 수 없습니다.',
 			'ok' => 'XML 해석을 위한 라이브러리가 설치되어 있습니다.',
+		),
+		'zip' => array(
+			'nok' => 'ZIP 확장 기능을 찾을 수 없습니다 (php-zip 패키지).',
+			'ok' => 'ZIP 확장 기능이 설치되어 있습니다.',
 		),
 	),
 	'conf' => array(

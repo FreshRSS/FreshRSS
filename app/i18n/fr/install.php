@@ -39,46 +39,62 @@ return array(
 			'ok' => 'Les droits sur le répertoire de cache sont bons.',
 		),
 		'ctype' => array(
-			'nok' => 'Impossible de trouver une librairie pour la vérification des types de caractères (php-ctype).',
-			'ok' => 'Vous disposez de la librairie pour la vérification des types de caractères (ctype).',
+			'nok' => 'Impossible de trouver la librairie requise pour la vérification des types de caractères (php-ctype).',
+			'ok' => 'Vous disposez de la librairie requise pour la vérification des types de caractères (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Vous ne disposez pas de cURL (paquet php-curl).',
-			'ok' => 'Vous disposez de cURL.',
+			'nok' => 'Vous ne disposez pas de la librairie requise cURL (paquet php-curl).',
+			'ok' => 'Vous disposez de la librairie requise cURL.',
 		),
 		'data' => array(
 			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
 			'ok' => 'Les droits sur le répertoire de data sont bons.',
 		),
 		'dom' => array(
-			'nok' => 'Impossible de trouver une librairie pour parcourir le DOM.',
-			'ok' => 'Vous disposez de la librairie pour parcourir le DOM.',
+			'nok' => 'Impossible de trouver la librairie requise pour parcourir le DOM.',
+			'ok' => 'Vous disposez de la librairie requise pour parcourir le DOM.',
 		),
 		'favicons' => array(
 			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
 			'ok' => 'Les droits sur le répertoire des favicons sont bons.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Vous ne disposez pas de PHP fileinfo (paquet fileinfo).',
-			'ok' => 'Vous disposez de fileinfo.',
+			'nok' => 'Vous ne disposez pas de la librairie recommendée php-fileinfo.',
+			'ok' => 'Vous disposez de la librairie recommendée php-fileinfo.',
+		),
+		'files' => 'Installation des fichiers',
+		'intl' => array(
+			'nok' => ' Impossible de trouver la librairie recommandée php-intl pour l’internationalisation.',
+			'ok' => 'Vous disposez de la librairie recommandée php-intl pour l’internationalisation.',
 		),
 		'json' => array(
-			'nok' => 'Vous ne disposez pas de l’extension recommandée JSON (paquet php-json).',
-			'ok' => 'Vous disposez de l’extension recommandée JSON.',
+			'nok' => 'Vous ne disposez pas de l’extension requise JSON (paquet php-json).',
+			'ok' => 'Vous disposez de l’extension requise JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Impossible de trouver la librairie recommandée mbstring pour Unicode.',
 			'ok' => 'Vouz disposez de la librairie recommandée mbstring pour Unicode.',
 		),
 		'pcre' => array(
-			'nok' => 'Impossible de trouver une librairie pour les expressions régulières (php-pcre).',
-			'ok' => 'Vous disposez de la librairie pour les expressions régulières (PCRE).',
+			'nok' => 'Impossible de trouver la librairie requise pour les expressions régulières (php-pcre).',
+			'ok' => 'Vous disposez de la librairie requise pour les expressions régulières (PCRE).',
+		),
+		'pdo-mysql' => array(
+			'nok' => ' Impossible de trouver le pilote PDO requis pour MySQL/MariaDB.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Impossible de trouver le pilote PDO requis pour PostgreSQL.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Impossible de trouver le pilote PDO pour SQLite.',
+			'ok' => 'Vous disposez du pilote PDO pour SQLite.',
 		),
 		'pdo' => array(
-			'nok' => 'Vous ne disposez pas de PDO ou d’un des drivers supportés (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Vous disposez de PDO et d’au moins un des drivers supportés (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Impossible de trouver PDO avec au moins un des pilotes requis (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Vous disposez de PDO et d’au moins un des pilotes requis (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Installation de PHP',
 			'nok' => 'Votre version de PHP est la %s mais FreshRSS requiert au moins la version %s.',
 			'ok' => 'Votre version de PHP est la %s, qui est compatible avec FreshRSS.',
 		),
@@ -87,14 +103,22 @@ return array(
 			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
 			'ok' => 'Les droits sur le répertoire temporaire sont bons.',
 		),
+		'tokens' => array(
+			'nok' => 'Veuillez vérifier les droits sur le répertoire <em>./data/tokens</em>. Le serveur HTTP doit être capable d’écrire dedans',
+			'ok' => 'Les droits sur le répertoire des tokens sont bons.',
+		),
 		'unknown_process_username' => 'inconnu',
 		'users' => array(
 			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
 			'ok' => 'Les droits sur le répertoire des utilisateurs sont bons.',
 		),
 		'xml' => array(
-			'nok' => 'Impossible de trouver une librairie requise pour XML.',
-			'ok' => 'Vouz disposez de la librairie requise pour XML.',
+			'nok' => 'Impossible de trouver la librairie requise pour XML.',
+			'ok' => 'Vous disposez de la librairie requise pour XML.',
+		),
+		'zip' => array(
+			'nok' => 'Vous ne disposez pas de l’extension recommandée pour ZIP (paquet php-zip).',
+			'ok' => 'Vous disposez de l’extension recommandée pour ZIP (paquet php-zip).',
 		),
 	),
 	'conf' => array(

@@ -62,6 +62,11 @@ return array(
 			'nok' => 'PHP fileinfoライブラリが見つかりませんでした。 (fileinfo package).',
 			'ok' => 'fileinfoライブラリは正しく設定されています。',
 		),
+		'files' => 'ファイルインストール',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'JSONをパースするライブラリが見つかりませんでした。',
 			'ok' => 'JSONをパースするライブラリはインストールされています。',
@@ -74,18 +79,33 @@ return array(
 			'nok' => '正規表現ライブラリが見つかりませんでした。 (php-pcre).',
 			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'PDOまたはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'PDOとサポートされているドライバーはインストールされています。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'PDOまたはサポートされているドライバーが見つかりませんでした。 (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'PDOとサポートされているドライバーはインストールされています。 (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'PHPインストール',
 			'nok' => 'あなたのPHPのバージョンは %s ですが、FreshRSSが動作する最低限のバージョンは %s です。',
-			'ok' => 'あなたのPHPのバージョンは、 %s でFreshRSSと互換性があるバージョンです。',
+			'ok' => 'あなたのPHPのバージョン (%s) はFreshRSSが動作することができるバージョンです。',
 		),
 		'reload' => '再度確かめる',
 		'tmp' => array(
 			'nok' => 'この <em>%1$s</em> ディレクトリの <em>%2$s</em> ユーザーのアクセス権限を確認してください。HTTPサーバーは編集権限を必要としています。',
 			'ok' => 'tempディレクトリの権限は正しく設定されています。',
+		),
+		'tokens' => array(
+			'nok' => '<em>./data/tokens</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',
+			'ok' => 'tokensディレクトリのパーミッションは正しく設定されています。',
 		),
 		'unknown_process_username' => '不明',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'XMLをパースするライブラリが見つかりませんでした。',
 			'ok' => 'XMLをパースするライブラリが見つかりました。',
+		),
+		'zip' => array(
+			'nok' => 'ZIP拡張が見つかりませんでした。 (php-zip package).',
+			'ok' => 'ZIP拡張はインストールされています。',
 		),
 	),
 	'conf' => array(

@@ -62,6 +62,11 @@ return array(
 			'nok' => 'PHP fileinfo kütüphanesi (fileinfo paketi) bulunamadı.',
 			'ok' => 'Fileinfo kütüphaneniz var.',
 		),
+		'files' => 'Dosya kurulumu',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'JSON ayrıştırmak için önerilen kütüphane bulunamadı.',
 			'ok' => 'JSON ayrıştırmak için önerilen kütüphaneniz var.',
@@ -74,18 +79,33 @@ return array(
 			'nok' => 'Düzenli ifadeler için gerekli kütüphane (php-pcre) bulunamadı.',
 			'ok' => 'Düzenli ifadeler için gerekli kütüphaneniz (PCRE) var.',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'PDO veya desteklenen sürücülerden biri (pdo_mysql, pdo_sqlite, pdo_pgsql) bulunamadı.',
-			'ok' => 'PDO ve desteklenen sürücülerden en az biri (pdo_mysql, pdo_sqlite, pdo_pgsql) var.',
+			'nok' => 'PDO veya desteklenen sürücülerden biri (pdo_sqlite, pdo_pgsql, pdo_mysql) bulunamadı.',
+			'ok' => 'PDO ve desteklenen sürücülerden en az biri (pdo_sqlite, pdo_pgsql, pdo_mysql) var.',
 		),
 		'php' => array(
+			'_' => 'PHP kurulumu',
 			'nok' => 'PHP sürümünüz %s, ancak FreshRSS en az %s sürümünü gerektiriyor.',
-			'ok' => 'PHP sürümünüz, %s, FreshRSS ile uyumlu.',
+			'ok' => 'PHP sürümünüz (%s) FreshRSS ile uyumlu.',
 		),
 		'reload' => 'Tekrar kontrol et',
 		'tmp' => array(
 			'nok' => '<em>%2$s</em> kullanıcısı için <em>%1$s</em> dizinindeki izinleri kontrol edin. HTTP sunucusunun yazma izni olmalı.',
 			'ok' => 'Geçici dizindeki izinler uygun.',
+		),
+		'tokens' => array(
+			'nok' => '<em>./data/tokens</em> dizinindeki izinleri kontrol edin. HTTP sunucusunun yazma izni olmalı',
+			'ok' => 'Belirteçler dizinindeki izinler uygun.',
 		),
 		'unknown_process_username' => 'bilinmeyen',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'XML ayrıştırmak için gerekli kütüphane bulunamadı.',
 			'ok' => 'XML ayrıştırmak için gerekli kütüphaneniz var.',
+		),
+		'zip' => array(
+			'nok' => 'ZIP uzantısı bulunamadı (php-zip paketi).',
+			'ok' => 'ZIP uzantınız var.',
 		),
 	),
 	'conf' => array(

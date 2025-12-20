@@ -82,10 +82,7 @@ class Minz_ModelPdo {
 				$this->pdo->setPrefix($db['prefix'] . $this->current_user . '_');
 				break;
 			default:
-				throw new Minz_PDOConnectionException(
-					'Invalid database type!',
-					$db['user'], Minz_Exception::ERROR
-				);
+				throw new Minz_PDOConnectionException('Invalid database type!', is_string($db['user'] ?? null) ? $db['user'] : '', Minz_Exception::ERROR);
 		}
 		if (self::$usesSharedPdo) {
 			self::$sharedPdo = $this->pdo;
