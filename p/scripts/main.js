@@ -1083,7 +1083,7 @@ function init_column_categories() {
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
 		if (a) {
 			const div = a.parentElement;
-			const dropdownMenu = div.querySelector('.dropdown-menu');
+			let dropdownMenu = div.querySelector('.dropdown-menu');
 
 			if (!dropdownMenu) {
 				loadJs('extra.js');
@@ -1095,6 +1095,8 @@ function init_column_categories() {
 				const template = document.getElementById(templateId)
 					.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
 				div.insertAdjacentHTML('beforeend', template);
+				dropdownMenu = div.querySelector('.dropdown-menu');
+				dropdownMenu.style.opacity = '0%'; // Hide initially to prevent dropdown flashing
 				if (feed_web == '') {
 					const website = div.querySelector('.item.link.website');
 					if (website) {
@@ -1106,6 +1108,27 @@ function init_column_categories() {
 					b.disabled = false;
 				}
 			}
+
+			window.addEventListener('hashchange', () => {
+				const dropdownBottom = dropdownMenu.getBoundingClientRect().bottom;
+				const toggleHeight = a.getBoundingClientRect().height;
+
+				// If there is no space to display the dropdown below, display it above
+				if (dropdownBottom > window.innerHeight) {
+					dropdownMenu.style.bottom = `${toggleHeight + 2}px`;
+					dropdownMenu.classList.add('arrow-bottom');
+				}
+
+				dropdownMenu.style.opacity = '';
+
+				// Wait for dropdown to be closed so it can be removed
+				// Dropdown visibility is based on CSS :target
+				window.addEventListener('hashchange', () => {
+					dropdownMenu.nextElementSibling.remove(); // dropdown close
+					dropdownMenu.remove();
+				}, { once: true });
+			}, { once: true });
+
 			return true;
 		}
 
