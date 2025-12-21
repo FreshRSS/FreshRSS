@@ -1112,9 +1112,10 @@ function init_column_categories() {
 			window.addEventListener('hashchange', () => {
 				const dropdownBottom = dropdownMenu.getBoundingClientRect().bottom;
 				const toggleHeight = a.getBoundingClientRect().height;
+				const navbarHeight = document.querySelector('nav#nav_entries')?.getBoundingClientRect()?.height || 0;
 
 				// If there is no space to display the dropdown below, display it above
-				if (dropdownBottom > window.innerHeight) {
+				if (dropdownBottom > window.innerHeight - navbarHeight) {
 					dropdownMenu.style.bottom = `${toggleHeight + 2}px`;
 					dropdownMenu.classList.add('arrow-bottom');
 				}
