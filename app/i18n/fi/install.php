@@ -62,6 +62,11 @@ return array(
 			'nok' => 'PHP fileinfo -kirjastoa (fileinfo-paketti) ei löydy.',
 			'ok' => 'Fileinfo-kirjasto löytyy.',
 		),
+		'files' => 'Tiedostojen asennus',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'JSON-sisällön jäsentämiseen suositeltua kirjastoa ei löydy.',
 			'ok' => 'JSON-sisällön jäsentämiseen suositeltu kirjasto löytyy.',
@@ -74,18 +79,33 @@ return array(
 			'nok' => 'Säännöllisiä lausekkeita varten tarvittavaa kirjastoa (php-pcre) ei löydy.',
 			'ok' => 'Säännöllisiä lausekkeita varten tarvittava kirjasto (PCRE) löytyy.',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'PDO:ta tai jotain tuettua ohjainta (pdo_mysql, pdo_sqlite, pdo_pgsql) ei löydy.',
-			'ok' => 'PDO ja ainakin yksi tuetuista ohjaimista (pdo_mysql, pdo_sqlite, pdo_pgsql) löytyy.',
+			'nok' => 'PDO:ta tai jotain tuettua ohjainta (pdo_sqlite, pdo_pgsql, pdo_mysql) ei löydy.',
+			'ok' => 'PDO ja ainakin yksi tuetuista ohjaimista (pdo_sqlite, pdo_pgsql, pdo_mysql) löytyy.',
 		),
 		'php' => array(
+			'_' => 'PHP-asennus',
 			'nok' => 'Asennettu PHP-versio on %s, mutta FreshRSS edellyttää vähintään versiota %s.',
-			'ok' => 'Asennettu PHP-versio, %s, on yhteensopiva FreshRSS-sovelluksen kanssa.',
+			'ok' => 'Asennettu PHP-versio (%s) on yhteensopiva FreshRSS-sovelluksen kanssa.',
 		),
 		'reload' => 'Tarkista uudelleen',
 		'tmp' => array(
 			'nok' => 'Tarkista käyttäjän <em>%2$s</em> oikeudet hakemistoon <em>%1$s</em>. HTTP-palvelimella on oltava kirjoitusoikeus.',
 			'ok' => 'Temp-hakemiston oikeudet ovat oikein.',
+		),
+		'tokens' => array(
+			'nok' => 'Tarkista hakemiston <em>./data/tokens</em> oikeudet. HTTP-palvelimella on oltava kirjoitusoikeus.',
+			'ok' => 'Tokens-hakemiston oikeudet ovat oikein.',
 		),
 		'unknown_process_username' => 'tuntematon',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'XML-sisällön jäsentämiseen tarvittavaa kirjastoa ei löydy.',
 			'ok' => 'XML-sisällön jäsentämiseen tarvittava kirjasto löytyy.',
+		),
+		'zip' => array(
+			'nok' => 'ZIP-laajennusta ei löydy (php-zip-paketti).',
+			'ok' => 'ZIP-laajennus on asennettu.',
 		),
 	),
 	'conf' => array(

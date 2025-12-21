@@ -10,7 +10,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
 		$search = new FreshRSS_Search($input);
-		self::assertSame('', $search->getRawInput());
+		self::assertSame('', $search->__toString());
 		self::assertNull($search->getIntitle());
 		self::assertNull($search->getMinDate());
 		self::assertNull($search->getMaxDate());
@@ -251,7 +251,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
 		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
 		$newUserConf->queries = $queries;
-		FreshRSS_Context::$user_conf = $newUserConf;
+		FreshRSS_Context::setUserConf($newUserConf);
 
 		try {
 			$search = new FreshRSS_BooleanSearch($input);
@@ -259,7 +259,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			self::assertSame($expectedResult[0], trim($actualSql));
 			self::assertSame($expectedResult[1], $actualValues);
 		} finally {
-			FreshRSS_Context::$user_conf = $previousUserConf;
+			FreshRSS_Context::setUserConf($previousUserConf);
 		}
 	}
 
@@ -327,7 +327,6 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		self::assertSame($max_pubdate_value, $search->getMaxPubdate());
 		self::assertSame($tags_value, $search->getTags());
 		self::assertSame($search_value, $search->getSearch());
-		self::assertSame($input, $search->getRawInput());
 	}
 
 	/** @return list<list<mixed>> */
@@ -1033,7 +1032,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public static function provideBooleanSearchEnforce(): array {
 		return [
+			['', '', ''],
 			['', 'intitle:b', 'intitle:b'],
+			['intitle:a', '', 'intitle:a'],
 			['intitle:a', 'intitle:b', 'intitle:b'],
 			['a', 'intitle:b', 'intitle:b a'],
 			['intitle:a intext:a', 'intitle:b', 'intitle:b intext:a'],

@@ -99,4 +99,9 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		}
 		return $ok;
 	}
+
+	#[\Override]
+	public static function strilike(string $haystack, string $needle): bool {
+		return stripos($haystack, $needle) !== false;
+	}
 }

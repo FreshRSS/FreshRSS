@@ -43,8 +43,8 @@ return array(
 			'ok' => 'You have the required library for character type checking (ctype).',	// IGNORE
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',	// IGNORE
-			'ok' => 'You have the cURL library.',	// IGNORE
+			'nok' => 'Cannot find the required cURL library (php-curl package).',	// IGNORE
+			'ok' => 'You have the required cURL library.',	// IGNORE
 		),
 		'data' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
@@ -59,12 +59,17 @@ return array(
 			'ok' => 'Permissions on the favicons directory are good.',	// IGNORE
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// IGNORE
-			'ok' => 'You have the fileinfo library.',	// IGNORE
+			'nok' => 'Cannot find the recommended PHP fileinfo library (fileinfo package).',	// IGNORE
+			'ok' => 'You have the recommended PHP fileinfo library (fileinfo package).',	// IGNORE
+		),
+		'files' => 'File installation',	// IGNORE
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalization.',
+			'ok' => 'You have the recommended library php-intl for internationalization.',
 		),
 		'json' => array(
-			'nok' => 'Cannot find the recommended library to parse JSON.',	// IGNORE
-			'ok' => 'You have the recommended library to parse JSON.',	// IGNORE
+			'nok' => 'Cannot find the required library to parse JSON.',	// IGNORE
+			'ok' => 'You have the required library to parse JSON.',	// IGNORE
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// IGNORE
@@ -74,18 +79,33 @@ return array(
 			'nok' => 'Cannot find the required library for regular expressions (php-pcre).',	// IGNORE
 			'ok' => 'You have the required library for regular expressions (PCRE).',	// IGNORE
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// IGNORE
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// IGNORE
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// IGNORE
+			'ok' => 'You have the PDO driver for SQLite',	// IGNORE
+		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// IGNORE
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// IGNORE
+			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_sqlite, pdo_pgsql, pdo_mysql).',	// IGNORE
+			'ok' => 'You have PDO and at least one of the supported drivers (pdo_sqlite, pdo_pgsql, pdo_mysql).',	// IGNORE
 		),
 		'php' => array(
-			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',	// IGNORE
-			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',	// IGNORE
+			'_' => 'PHP installation',	// IGNORE
+			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// IGNORE
+			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// IGNORE
 		),
 		'reload' => 'Check again',	// IGNORE
 		'tmp' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// IGNORE
 			'ok' => 'Permissions on the temp directory are good.',	// IGNORE
+		),
+		'tokens' => array(
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// IGNORE
+			'ok' => 'Permissions on the tokens directory are good.',	// IGNORE
 		),
 		'unknown_process_username' => 'unknown',	// IGNORE
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Cannot find the required library to parse XML.',	// IGNORE
 			'ok' => 'You have the required library to parse XML.',	// IGNORE
+		),
+		'zip' => array(
+			'nok' => 'Cannot find the recommended extension for ZIP (php-zip package).',	// IGNORE
+			'ok' => 'You have the recommended extension for ZIP (php-zip package).',	// IGNORE
 		),
 	),
 	'conf' => array(

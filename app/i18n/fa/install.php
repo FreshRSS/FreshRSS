@@ -62,6 +62,11 @@ return array(
 			'nok' => 'نمی‌توانم کتابخانه‌ی PHP fileinfo (بسته‌ی fileinfo) را پیدا کنم.',
 			'ok' => 'شما کتابخانه fileinfo را دارید.',
 		),
+		'files' => ' نصب فایل',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'کتابخانه پیشنهادی برای تجزیه JSON پیدا نشد.',
 			'ok' => 'شما کتابخانه پیشنهادی برای تجزیه JSON را دارید.',
@@ -74,18 +79,33 @@ return array(
 			'nok' => 'کتابخانه مورد نیاز برای عبارات منظم (php-pcre) را نمی‌توان پیدا کرد',
 			'ok' => 'شما کتابخانه مورد نیاز برای عبارات منظم (PCRE) را دارید.',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
 			'nok' => 'نمی‌توان PDO یا یکی از درایورهای پشتیبانی‌شده (pdo_mysql، pdo_sqlite، pdo_pgsql) را پیدا کرد.',
 			'ok' => 'شما PDO و حداقل یکی از درایورهای پشتیبانی شده (pdo_mysql، pdo_sqlite، pdo_pgsql) را دارید.',
 		),
 		'php' => array(
-			'nok' => 'نسخه PHP شما %s است، اما FreshRSS حداقل به نسخه %s نیاز دارد.',
-			'ok' => 'نسخه PHP شما، %s، با FreshRSS سازگار است.',
+			'_' => ' نصب پی اچ پی',
+			'nok' => ' نسخه PHP شما %s است اما FreshRSS حداقل به نسخه %s نیاز دارد.',
+			'ok' => ' نسخه PHP شما (%s) با FreshRSS سازگار است.',
 		),
 		'reload' => 'دوباره بررسی کنید',
 		'tmp' => array(
 			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور HTTP باید مجوزهای نوشتن داشته باشد.',
 			'ok' => 'مجوزهای مربوط به دایرکتوری موقت خوب است.',
+		),
+		'tokens' => array(
+			'nok' => ' مجوزهای دایرکتوری <em>./data/tokens</em> را بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد',
+			'ok' => ' مجوزهای دایرکتوری توکن ها خوب است.',
 		),
 		'unknown_process_username' => 'ناشناخته',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'کتابخانه مورد نیاز برای تجزیه XML پیدا نمی‌شود.',
 			'ok' => 'شما کتابخانه مورد نیاز برای تجزیه XML را دارید.',
+		),
+		'zip' => array(
+			'nok' => ' نمی توان پسوند ZIP (بسته php-zip) را پیدا کرد.',
+			'ok' => ' شما پسوند ZIP را دارید.',
 		),
 	),
 	'conf' => array(

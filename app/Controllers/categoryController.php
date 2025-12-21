@@ -110,7 +110,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$category->_attribute('read_when_same_title_in_category', null);
 			}
 
-			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));	// Keep as HTML
+			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read', plaintext: true));
 
 			if (Minz_Request::paramBoolean('use_default_purge_options')) {
 				$category->_attribute('archiving', null);

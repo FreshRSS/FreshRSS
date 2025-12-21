@@ -13,8 +13,8 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->get_registry()->register(\SimplePie\File::class, FreshRSS_SimplePieFetch::class);
 		$this->set_useragent(FRESHRSS_USERAGENT);
-		$this->set_cache_name_function('sha1');
-		$this->set_cache_location(CACHE_PATH);
+		$this->set_cache_name_function('sha1');	// @phpstan-ignore method.deprecated
+		$this->set_cache_location(CACHE_PATH);	// @phpstan-ignore method.deprecated
 		$this->set_cache_duration($limits['cache_duration'], $limits['cache_duration_min'], $limits['cache_duration_max']);
 		$this->enable_order_by_date(false);
 

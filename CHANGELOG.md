@@ -35,7 +35,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Security
 	* 💥 Move unsafe autologin to an extension [#7958](https://github.com/FreshRSS/FreshRSS/pull/7958)
 	* Fix some CSRFs [#8035](https://github.com/FreshRSS/FreshRSS/pull/8035)
-	* Strengthen some crypto (login, tokens, nonces) [#8061](https://github.com/FreshRSS/FreshRSS/pull/8061)
+	* Strengthen some crypto (login, tokens, nonces) [#8061](https://github.com/FreshRSS/FreshRSS/pull/8061), [#8320](https://github.com/FreshRSS/FreshRSS/pull/8320)
 	* Create separate HTTP `Retry-After` rules for proxies [#8029](https://github.com/FreshRSS/FreshRSS/pull/8029), [#8218](https://github.com/FreshRSS/FreshRSS/pull/8218)
 	* Add `data:` to CSP in subscription controller [#8253](https://github.com/FreshRSS/FreshRSS/pull/8253)
 	* Improve anonymous authentication logic [#8165](https://github.com/FreshRSS/FreshRSS/pull/8165)
@@ -55,6 +55,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix chart resize regression due to `chart.js` v4 update [#8298](https://github.com/FreshRSS/FreshRSS/pull/8298)
 	* Fix CLI user creation warning when language is not given [#8283](https://github.com/FreshRSS/FreshRSS/pull/8283)
 	* Fix merging of custom HTTP headers [#8251](https://github.com/FreshRSS/FreshRSS/pull/8251)
+	* Safer handling of database unexpected null content [#8319](https://github.com/FreshRSS/FreshRSS/pull/8319)
 * SimplePie
 	* Fix support of HTTP trailer headers [#7983](https://github.com/FreshRSS/FreshRSS/pull/7983), [simplepie#943](https://github.com/simplepie/simplepie/pull/943)
 	* Apply HTTPS policy also on GUIDs and permalinks [#8037](https://github.com/FreshRSS/FreshRSS/pull/8037), [simplepie#951](https://github.com/simplepie/simplepie/pull/951)
@@ -65,15 +66,19 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Docker default image updated to Debian 13 Trixie with PHP 8.4.11 and Apache 2.4.65 [#8032](https://github.com/FreshRSS/FreshRSS/pull/8032)
 	* Docker alternative image updated to Alpine 3.23 with PHP 8.4.15 and Apache 2.4.65 [#8285](https://github.com/FreshRSS/FreshRSS/pull/8285)
 	* Fix Docker healthcheck `cli/health.php` compatibility with OpenID Connect [#8040](https://github.com/FreshRSS/FreshRSS/pull/8040)
+	* Improve Docker for compatibility with other base images such as Arch Linux [#8299](https://github.com/FreshRSS/FreshRSS/pull/8299)
+		* Improve `cli/access-permissions.sh` to detect the correct permission Web group such as `www-data`, `apache`, or `http`
 	* Update PostgreSQL volume for Docker [#8216](https://github.com/FreshRSS/FreshRSS/pull/8216), [#8224](https://github.com/FreshRSS/FreshRSS/pull/8224)
 	* Catch lack of `exec()` function for git update [#8228](https://github.com/FreshRSS/FreshRSS/pull/8228)
 	* Work around `DOMDocument::saveHTML()` scrambling charset encoding in some versions of libxml2 [#8296](https://github.com/FreshRSS/FreshRSS/pull/8296)
 * UI
 	* New button for toggling sidebar on desktop view [#8201](https://github.com/FreshRSS/FreshRSS/pull/8201), [#8286](https://github.com/FreshRSS/FreshRSS/pull/8286)
 	* Better transitions between groups of articles [#8174](https://github.com/FreshRSS/FreshRSS/pull/8174)
+	* New links in transitions and jump to next transition [#8294](https://github.com/FreshRSS/FreshRSS/pull/8294)
 	* More visible selected article [#8230](https://github.com/FreshRSS/FreshRSS/pull/8230)
 	* Show the parsed search query instead of the original user input [#8293](https://github.com/FreshRSS/FreshRSS/pull/8293), [#8306](https://github.com/FreshRSS/FreshRSS/pull/8306)
 	* Show search query in the page title [#8217](https://github.com/FreshRSS/FreshRSS/pull/8217)
+	* Scroll into filtered feed/category on page load in the sidebar [#8281](https://github.com/FreshRSS/FreshRSS/pull/8281), [#8307](https://github.com/FreshRSS/FreshRSS/pull/8307)
 	* Fix autocomplete issues in change password form [#7812](https://github.com/FreshRSS/FreshRSS/pull/7812)
 	* Fix navigating between read feeds using shortcut <kbd>shift</kbd>+<kbd>j</kbd>/<kbd>k</kbd> [#8057](https://github.com/FreshRSS/FreshRSS/pull/8057)
 	* Dark background in Web app manifest to avoid white flash when opening [#8140](https://github.com/FreshRSS/FreshRSS/pull/8140)
@@ -87,6 +92,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Various UI and style improvements: [#8171](https://github.com/FreshRSS/FreshRSS/pull/8171), [#8185](https://github.com/FreshRSS/FreshRSS/pull/8185), [#8196](https://github.com/FreshRSS/FreshRSS/pull/8196)
 	* JavaScript finalise migration from `Promise` to `async`/`await`: [#8182](https://github.com/FreshRSS/FreshRSS/pull/8182)
 * API
+	* API performance optimisation: streaming of large responses [#8041](https://github.com/FreshRSS/FreshRSS/pull/8041)
+	* Fever API: Add `with_ids` parameter to mass-change read/unread/saved/unsaved on lists of articles [#8312](https://github.com/FreshRSS/FreshRSS/pull/8312)
 	* Misc API: better REST error semantics [#8232](https://github.com/FreshRSS/FreshRSS/pull/8232)
 * Extensions
 	* Add support for extension priority [#8038](https://github.com/FreshRSS/FreshRSS/pull/8038)
@@ -105,12 +112,15 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Improve Italian [#8115](https://github.com/FreshRSS/FreshRSS/pull/8115), [#8186](https://github.com/FreshRSS/FreshRSS/pull/8186)
 	* Improve Polish [#8134](https://github.com/FreshRSS/FreshRSS/pull/8134), [#8135](https://github.com/FreshRSS/FreshRSS/pull/8135)
 	* Improve Russian [#8155](https://github.com/FreshRSS/FreshRSS/pull/8155), [#8197](https://github.com/FreshRSS/FreshRSS/pull/8197)
+	* Improve Simplified Chinese [#8308](https://github.com/FreshRSS/FreshRSS/pull/8308), [#8313](https://github.com/FreshRSS/FreshRSS/pull/8313)
 * Misc.
+	* Add code to modify a search expression [#8293](https://github.com/FreshRSS/FreshRSS/pull/8293)
 	* Remove *Pocket* sharing service [#8127](https://github.com/FreshRSS/FreshRSS/pull/8127), [#8128](https://github.com/FreshRSS/FreshRSS/pull/8128)
 	* Update to PHPMailer 7.0.1 [#8048](https://github.com/FreshRSS/FreshRSS/pull/8048), [#8180](https://github.com/FreshRSS/FreshRSS/pull/8180), [#8272](https://github.com/FreshRSS/FreshRSS/pull/8272)
 	* 💥 Housekeeping of `lib_rss.php` with potential breaking changes for some extensions [#8193](https://github.com/FreshRSS/FreshRSS/pull/8193),
 	* Improve PHP code [#8156](https://github.com/FreshRSS/FreshRSS/pull/8156), [#8203](https://github.com/FreshRSS/FreshRSS/pull/8203), [#8284](https://github.com/FreshRSS/FreshRSS/pull/8284),
 		[#8292](https://github.com/FreshRSS/FreshRSS/pull/8292), [#8297](https://github.com/FreshRSS/FreshRSS/pull/8297)
+	* GitHub Actions: `--no-progress` [#8315](https://github.com/FreshRSS/FreshRSS/pull/8315)
 	* Update dev dependencies [#8043](https://github.com/FreshRSS/FreshRSS/pull/8043), [#8044](https://github.com/FreshRSS/FreshRSS/pull/8044),
 		[#8045](https://github.com/FreshRSS/FreshRSS/pull/8045), [#8046](https://github.com/FreshRSS/FreshRSS/pull/8046), [#8047](https://github.com/FreshRSS/FreshRSS/pull/8047),
 		[#8052](https://github.com/FreshRSS/FreshRSS/pull/8052), [#8176](https://github.com/FreshRSS/FreshRSS/pull/8176), [#8177](https://github.com/FreshRSS/FreshRSS/pull/8177),

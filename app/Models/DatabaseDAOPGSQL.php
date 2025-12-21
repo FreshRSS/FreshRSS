@@ -99,4 +99,19 @@ SQL;
 		}
 		return $ok;
 	}
+
+	#[\Override]
+	public static function strilike(string $haystack, string $needle): bool {
+		if (function_exists('mb_stripos')) {
+			return mb_stripos($haystack, $needle, 0, 'UTF-8') !== false;
+		}
+		if (function_exists('transliterator_transliterate')) {
+			$haystack_ = transliterator_transliterate('Lower', $haystack);
+			$needle_ = transliterator_transliterate('Lower', $needle);
+			if ($haystack_ !== false && $needle_ !== false) {
+				return str_contains($haystack_, $needle_);
+			}
+		}
+		return stripos($haystack, $needle) !== false;
+	}
 }

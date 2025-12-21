@@ -342,38 +342,20 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	/**
 	 * Check PHP and its extensions are well-installed.
 	 *
-	 * @return array<string,bool> of tested values.
+	 * @return array<string,'ok'|'ko'|'warn'> of tested values.
 	 */
 	private static function check_install_php(): array {
-		$pdo_mysql = extension_loaded('pdo_mysql');
-		$pdo_pgsql = extension_loaded('pdo_pgsql');
-		$pdo_sqlite = extension_loaded('pdo_sqlite');
-		return [
-			'php' => version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0,
-			'curl' => extension_loaded('curl'),
-			'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,
-			'pcre' => extension_loaded('pcre'),
-			'ctype' => extension_loaded('ctype'),
-			'fileinfo' => extension_loaded('fileinfo'),
-			'dom' => class_exists('DOMDocument'),
-			'json' => extension_loaded('json'),
-			'mbstring' => extension_loaded('mbstring'),
-			'zip' => extension_loaded('zip'),
-		];
+		require_once LIB_PATH . '/lib_install.php';
+		return checkRequirements(FreshRSS_Context::systemConf()->db['type'] ?? '', checkPhp: true, checkFiles: false);
 	}
 
 	/**
 	 * Check different data files and directories exist.
-	 * @return array<string,bool> of tested values.
+	 * @return array<string,'ok'|'ko'|'warn'> of tested values.
 	 */
 	private static function check_install_files(): array {
-		return [
-			'data' => is_dir(DATA_PATH) && touch(DATA_PATH . '/index.html'),	// is_writable() is not reliable for a folder on NFS
-			'cache' => is_dir(CACHE_PATH) && touch(CACHE_PATH . '/index.html'),
-			'users' => is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html'),
-			'favicons' => is_dir(DATA_PATH) && touch(DATA_PATH . '/favicons/index.html'),
-			'tokens' => is_dir(DATA_PATH) && touch(DATA_PATH . '/tokens/index.html'),
-		];
+		require_once LIB_PATH . '/lib_install.php';
+		return checkRequirements(FreshRSS_Context::systemConf()->db['type'] ?? '', checkPhp: false, checkFiles: true);
 	}
 
 	/**
@@ -414,7 +396,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	 * This action displays information about installation.
 	 */
 	public function checkInstallAction(): void {
-		FreshRSS_View::prependTitle(_t('admin.check_install.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('install.check._') . ' · ');
 
 		$this->view->status_php = self::check_install_php();
 		$this->view->status_files = self::check_install_files();

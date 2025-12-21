@@ -59,12 +59,17 @@ return array(
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO
-			'ok' => 'You have the fileinfo library.',	// TODO
+			'nok' => 'Cannot find the recommended PHP fileinfo library (fileinfo package).',	// TODO
+			'ok' => 'You have the recommended PHP fileinfo library (fileinfo package).',	// TODO
+		),
+		'files' => 'File installation',	// TODO
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
 		),
 		'json' => array(
-			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO
-			'ok' => 'You have the recommended library to parse JSON.',	// TODO
+			'nok' => 'Cannot find the required library to parse JSON.',	// TODO
+			'ok' => 'You have the required library to parse JSON.',	// TODO
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO
@@ -74,11 +79,22 @@ return array(
 			'nok' => 'הספרייה הנדרשת לביטויים רגולריים אינה מותקנת (php-pcre)',
 			'ok' => 'הספרייה הנדרשת לביטויים רגולריים מותקנת (PCRE)',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
 			'nok' => 'PDO אינו מותקן או שאחד ממנהלי ההתקנים שלו חסר (pdo_mysql, pdo_sqlite)',
 			'ok' => 'PDO מותקן ולפחות אחד ממנהלי ההתקן הנתמכים מותקן (pdo_mysql, pdo_sqlite)',
 		),
 		'php' => array(
+			'_' => 'PHP installation',	// TODO
 			'nok' => 'גירסת PHP שלכם היא %s אך FreshRSS דורש לפחות את גירסה %s',
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
 		),
@@ -86,6 +102,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
 			'ok' => 'Permissions on the temp directory are good.',	// TODO
+		),
+		'tokens' => array(
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO
+			'ok' => 'Permissions on the tokens directory are good.',	// TODO
 		),
 		'unknown_process_username' => 'unknown',	// TODO
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Cannot find the required library to parse XML.',	// TODO
 			'ok' => 'You have the required library to parse XML.',	// TODO
+		),
+		'zip' => array(
+			'nok' => 'Cannot find the recommended extension for ZIP (php-zip package).',	// TODO
+			'ok' => 'You have the recommended extension for ZIP (php-zip package).',	// TODO
 		),
 	),
 	'conf' => array(
