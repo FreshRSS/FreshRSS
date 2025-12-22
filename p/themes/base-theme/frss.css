@@ -829,6 +829,11 @@ input[type="checkbox"]:focus-visible {
 	transform: rotate(45deg);
 }
 
+.dropdown-menu.arrow-bottom::after {
+	top: unset;
+	transform: rotate(225deg);
+}
+
 .horizontal-list.bottom .dropdown-menu::after {
 	left: 0.5rem;
 	right: auto;
@@ -1418,6 +1423,10 @@ input[type="search"] {
 	background: inherit;
 }
 
+.transition a, .transition a:hover {
+	color: inherit;
+}
+
 .transition .name {
 	position: absolute;
 	right: 0;
@@ -1425,6 +1434,11 @@ input[type="search"] {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+
+.transition-next {
+	margin-left: .5em;
+	opacity: 0.5;
 }
 
 /*=== Feed article header and footer */

@@ -304,7 +304,7 @@
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"
 						placeholder="<?= _t('gen.short.blank_to_disable') ?>"><?php
 						foreach ($this->feed->filtersAction('read') as $filterRead) {
-							echo $filterRead->getRawInput(), PHP_EOL;
+							echo htmlspecialchars($filterRead->__toString(), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>

@@ -62,6 +62,11 @@ return array(
 			'nok' => '找不到 PHP fileinfo 庫（php-fileinfo）',
 			'ok' => '已找到 fileinfo 庫',
 		),
+		'files' => '文件相關',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => '找不到推薦的 JSON 解析庫',
 			'ok' => '已找到推薦的 JSON 解析庫',
@@ -74,18 +79,33 @@ return array(
 			'nok' => '找不到正則表達式解析庫（php-pcre）',
 			'ok' => '已找到正則表達式解析庫',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
 			'nok' => '找不到 PDO 或支持的驅動（pdo_mysql、pdo_sqlite、pdo_pgsql）',
 			'ok' => '已找到 PDO 和支持的至少一種驅動（pdo_mysql、pdo_sqlite、pdo_pgsql）',
 		),
 		'php' => array(
+			'_' => 'PHP 相關',
 			'nok' => '你的 PHP 版本為 %s，但 FreshRSS 最低需要 %s',
-			'ok' => '你的 PHP 版本為 %s，與 FreshRSS 兼容',
+			'ok' => '你的 PHP 版本為 %s，與 FreshRSS 相容',
 		),
 		'reload' => '再檢查一遍',
 		'tmp' => array(
 			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => '緩存目錄權限正常。',
+		),
+		'tokens' => array(
+			'nok' => '請檢查 <em>./data/tokens</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
+			'ok' => 'tokens 目錄權限正常',
 		),
 		'unknown_process_username' => '未知',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => '找不到用於 XML 解析庫',
 			'ok' => '已找到 XML 解析庫',
+		),
+		'zip' => array(
+			'nok' => '找不到 ZIP 擴展（php-zip）',
+			'ok' => '已找到 ZIP 擴展',
 		),
 	),
 	'conf' => array(

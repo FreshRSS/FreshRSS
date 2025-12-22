@@ -1018,15 +1018,30 @@ function init_column_categories() {
 		return;
 	}
 
-	// Restore sidebar scroll position
-	document.getElementById('sidebar').scrollTop = +sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
-
 	// Restore open categories
 	if (context.display_categories === 'remember') {
 		const open_categories = JSON.parse(localStorage.getItem('FreshRSS_open_categories') || '{}');
 		Object.keys(open_categories).forEach(function (category_id) {
 			openCategory(category_id);
 		});
+	}
+
+	const sidebar_scrollTop = sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
+	if (sidebar_scrollTop) {
+		// Restore sidebar scroll position (navigated from sidebar or nav menu)
+		document.querySelector('ul#sidebar').scrollTop = +sidebar_scrollTop;
+		sessionStorage.removeItem('FreshRSS_sidebar_scrollTop');
+	} else {
+		// Scroll into filtered feed/category/label on sidebar (navigated from anywhere)
+		const params = new URLSearchParams(location.search);
+		const get = params.get('get');
+		if (params.has('get') && (get.startsWith('f_') || get.startsWith('c_') || get.startsWith('t_'))) {
+			const selectedEl = document.getElementById(get);
+			if (selectedEl) {
+				selectedEl.scrollIntoView({ block: !get.startsWith('c_') ? 'center' : 'start' });
+				document.documentElement.scrollTop = 0; // Prevent unwanted scroll of page
+			}
+		}
 	}
 
 	document.getElementById('aside_feed').onclick = function (ev) {
@@ -1068,7 +1083,7 @@ function init_column_categories() {
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
 		if (a) {
 			const div = a.parentElement;
-			const dropdownMenu = div.querySelector('.dropdown-menu');
+			let dropdownMenu = div.querySelector('.dropdown-menu');
 
 			if (!dropdownMenu) {
 				loadJs('extra.js');
@@ -1080,6 +1095,8 @@ function init_column_categories() {
 				const template = document.getElementById(templateId)
 					.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
 				div.insertAdjacentHTML('beforeend', template);
+				dropdownMenu = div.querySelector('.dropdown-menu');
+				dropdownMenu.style.opacity = '0%'; // Hide initially to prevent dropdown flashing
 				if (feed_web == '') {
 					const website = div.querySelector('.item.link.website');
 					if (website) {
@@ -1091,6 +1108,28 @@ function init_column_categories() {
 					b.disabled = false;
 				}
 			}
+
+			window.addEventListener('hashchange', () => {
+				const dropdownBottom = dropdownMenu.getBoundingClientRect().bottom;
+				const toggleHeight = a.getBoundingClientRect().height;
+				const navbarHeight = document.querySelector('nav#nav_entries')?.getBoundingClientRect()?.height || 0;
+
+				// If there is no space to display the dropdown below, display it above
+				if (dropdownBottom > window.innerHeight - navbarHeight) {
+					dropdownMenu.style.bottom = `${toggleHeight + 2}px`;
+					dropdownMenu.classList.add('arrow-bottom');
+				}
+
+				dropdownMenu.style.opacity = '';
+
+				// Wait for dropdown to be closed so it can be removed
+				// Dropdown visibility is based on CSS :target
+				window.addEventListener('hashchange', () => {
+					dropdownMenu.nextElementSibling.remove(); // dropdown close
+					dropdownMenu.remove();
+				}, { once: true });
+			}, { once: true });
+
 			return true;
 		}
 
@@ -1255,7 +1294,7 @@ function init_shortcuts() {
 		if (k === s.close_menus && (
 			(hash === 'slider' && close_slider_listener()) ||
 			hash.startsWith('dropdown')
-		)) { location.hash = ''; ev.preventDefault(); return; }
+		)) { location.hash = 'close'; ev.preventDefault(); return; }
 		if (k === s.help) { window.open(context.urls.help); ev.preventDefault(); return; }
 		if (k === s.focus_search) { document.getElementById('search').focus(); ev.preventDefault(); return; }
 		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); ev.preventDefault(); return; }
@@ -2237,12 +2276,39 @@ function init_normal() {
 	init_actualize();
 	faviconNbUnread();
 
-	document.addEventListener("visibilitychange", () => {
-		if (document.visibilityState === "hidden") {
-			const sidebar = document.getElementById('sidebar');
-			if (sidebar) {	// Save sidebar scroll position
+	// Keep exact sidebar scroll state for specific navigations
+	const sidebar = document.querySelector('ul#sidebar');
+	if (sidebar) {
+		sidebar.addEventListener('click', (e) => {
+			if (!e.isTrusted) {
+				// Event was likely called via a keyboard shortcut shift+j/k using click()
+				return;
+			}
+			const target = e.target.closest('a.item-title, a.tree-folder-title');
+			if (target) {
+				// A page navigation should occur now, save the sidebar scroll position
 				sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
 			}
+		});
+	}
+	const nav_menu = document.querySelector('nav.nav_menu');
+	if (nav_menu) {
+		nav_menu.addEventListener('click', (e) => {
+			const target = e.target.closest('a.btn:not(#actualize):not(.dropdown-toggle), button[type="submit"]');
+			if (target) {
+				sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
+			}
+		});
+	}
+	const new_article = document.querySelector('div#new-article');
+	if (new_article) {
+		new_article.addEventListener('click', () => {
+			sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
+		});
+	}
+
+	document.addEventListener("visibilitychange", () => {
+		if (document.visibilityState === "hidden") {
 			if (mark_read_queue && mark_read_queue.length > 0) {
 				clearTimeout(send_mark_read_queue_timeout);
 				send_mark_queue_tick(null);

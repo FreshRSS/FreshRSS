@@ -154,11 +154,305 @@ class FreshRSS_Search implements \Stringable {
 		$this->parseSearch($input);
 	}
 
-	#[\Override]
-	public function __toString(): string {
-		return $this->getRawInput();
+	private static function quote(string $s): string {
+		if (strpbrk($s, ' "\'\\') !== false || $s === '') {
+			return '"' . addcslashes($s, '\\"') . '"';
+		}
+		return $s;
 	}
 
+	private static function dateIntervalToString(int|false|null $min, int|false|null $max): string {
+		if ($min === false) {
+			$min = null;
+		}
+		if ($max === false) {
+			$max = null;
+		}
+		if ($min === null && $max === null) {
+			return '';
+		}
+		$s = '';
+		if ($min !== null) {
+			$s .= date('Y-m-d\\TH:i:s', $min);
+		}
+		$s .= '/';
+		if ($max !== null) {
+			$s .= date('Y-m-d\\TH:i:s', $max);
+		}
+		return $s;
+	}
+
+	/**
+	 * Return true if both searches have the same constraint parameters (even if the values differ), false otherwise.
+	 */
+	public function hasSameOperators(FreshRSS_Search $search): bool {
+		$properties = array_keys(get_object_vars($this));
+		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
+		foreach ($properties as $property) {
+			// @phpstan-ignore property.dynamicName, property.dynamicName
+			if (gettype($this->$property) !== gettype($search->$property)) {
+				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+					// Process {min_*, max_*} pairs together (for dates)
+					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
+					// @phpstan-ignore property.dynamicName, property.dynamicName, property.dynamicName, property.dynamicName
+					if (($this->$property !== null || $this->$mate !== null) !== ($search->$property !== null || $search->$mate !== null)) {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			}
+			// @phpstan-ignore property.dynamicName, property.dynamicName
+			if (is_array($this->$property) && is_array($search->$property)) {
+				// @phpstan-ignore property.dynamicName, property.dynamicName
+				if (count($this->$property) !== count($search->$property)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Modifies this search by enforcing the constraint parameters of another search.
+	 * @return FreshRSS_Search a new instance, modified.
+	 */
+	public function enforce(FreshRSS_Search $search): self {
+		$result = clone $this;
+		$properties = array_keys(get_object_vars($result));
+		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
+		$result->raw_input = '';
+		foreach ($properties as $property) {
+			// @phpstan-ignore property.dynamicName
+			if ($search->$property !== null) {
+				// @phpstan-ignore property.dynamicName, property.dynamicName
+				$result->$property = $search->$property;
+				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+					// Process {min_*, max_*} pairs together (for dates)
+					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
+					// @phpstan-ignore property.dynamicName, property.dynamicName
+					$result->$mate = $search->$mate;
+				}
+			}
+		}
+		return $result;
+	}
+
+	/**
+	 * Modifies this search by removing the constraints given by another search.
+	 * @return FreshRSS_Search a new instance, modified.
+	 */
+	public function remove(FreshRSS_Search $search): self {
+		$result = clone $this;
+		$properties = array_keys(get_object_vars($result));
+		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
+		$result->raw_input = '';
+		foreach ($properties as $property) {
+			// @phpstan-ignore property.dynamicName
+			if ($search->$property !== null) {
+				// @phpstan-ignore property.dynamicName
+				$result->$property = null;
+				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+					// Process {min_*, max_*} pairs together (for dates)
+					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
+					// @phpstan-ignore property.dynamicName
+					$result->$mate = null;
+				}
+			}
+		}
+		return $result;
+	}
+
+	#[\Override]
+	public function __toString(): string {
+		$result = '';
+
+		if ($this->entry_ids !== null) {
+			$result .= ' e:' . implode(',', $this->entry_ids);
+		}
+		if ($this->feed_ids !== null) {
+			$result .= ' f:' . implode(',', $this->feed_ids);
+		}
+		if ($this->category_ids !== null) {
+			$result .= ' c:' . implode(',', $this->category_ids);
+		}
+		if ($this->label_ids !== null) {
+			foreach ($this->label_ids as $ids) {
+				$result .= ' L:' . (is_array($ids) ? implode(',', $ids) : $ids);
+			}
+		}
+		if ($this->label_names !== null) {
+			foreach ($this->label_names as $names) {
+				$result .= ' labels:' . self::quote(implode(',', $names));
+			}
+		}
+
+		if ($this->min_userdate !== null || $this->max_userdate !== null) {
+			$result .= ' userdate:' . self::dateIntervalToString($this->min_userdate, $this->max_userdate);
+		}
+		if ($this->min_pubdate !== null || $this->max_pubdate !== null) {
+			$result .= ' pubdate:' . self::dateIntervalToString($this->min_pubdate, $this->max_pubdate);
+		}
+		if ($this->min_date !== null || $this->max_date !== null) {
+			$result .= ' date:' . self::dateIntervalToString($this->min_date, $this->max_date);
+		}
+
+		if ($this->intitle_regex !== null) {
+			foreach ($this->intitle_regex as $s) {
+				$result .= ' intitle:' . $s;
+			}
+		}
+		if ($this->intitle !== null) {
+			foreach ($this->intitle as $s) {
+				$result .= ' intitle:' . self::quote($s);
+			}
+		}
+		if ($this->intext_regex !== null) {
+			foreach ($this->intext_regex as $s) {
+				$result .= ' intext:' . $s;
+			}
+		}
+		if ($this->intext !== null) {
+			foreach ($this->intext as $s) {
+				$result .= ' intext:' . self::quote($s);
+			}
+		}
+		if ($this->author_regex !== null) {
+			foreach ($this->author_regex as $s) {
+				$result .= ' author:' . $s;
+			}
+		}
+		if ($this->author !== null) {
+			foreach ($this->author as $s) {
+				$result .= ' author:' . self::quote($s);
+			}
+		}
+		if ($this->inurl_regex !== null) {
+			foreach ($this->inurl_regex as $s) {
+				$result .= ' inurl:' . $s;
+			}
+		}
+		if ($this->inurl !== null) {
+			foreach ($this->inurl as $s) {
+				$result .= ' inurl:' . self::quote($s);
+			}
+		}
+		if ($this->tags_regex !== null) {
+			foreach ($this->tags_regex as $s) {
+				$result .= ' #' . $s;
+			}
+		}
+		if ($this->tags !== null) {
+			foreach ($this->tags as $s) {
+				$result .= ' #' . self::quote($s);
+			}
+		}
+		if ($this->search_regex !== null) {
+			foreach ($this->search_regex as $s) {
+				$result .= ' ' . $s;
+			}
+		}
+		if ($this->search !== null) {
+			foreach ($this->search as $s) {
+				$result .= ' ' . self::quote($s);
+			}
+		}
+
+		if ($this->not_entry_ids !== null) {
+			$result .= ' -e:' . implode(',', $this->not_entry_ids);
+		}
+		if ($this->not_feed_ids !== null) {
+			$result .= ' -f:' . implode(',', $this->not_feed_ids);
+		}
+		if ($this->not_category_ids !== null) {
+			$result .= ' -c:' . implode(',', $this->not_category_ids);
+		}
+		if ($this->not_label_ids !== null) {
+			foreach ($this->not_label_ids as $ids) {
+				$result .= ' -L:' . (is_array($ids) ? implode(',', $ids) : $ids);
+			}
+		}
+		if ($this->not_label_names !== null) {
+			foreach ($this->not_label_names as $names) {
+				$result .= ' -labels:' . self::quote(implode(',', $names));
+			}
+		}
+
+		if ($this->not_min_userdate !== null || $this->not_max_userdate !== null) {
+			$result .= ' -userdate:' . self::dateIntervalToString($this->not_min_userdate, $this->not_max_userdate);
+		}
+		if ($this->not_min_pubdate !== null || $this->not_max_pubdate !== null) {
+			$result .= ' -pubdate:' . self::dateIntervalToString($this->not_min_pubdate, $this->not_max_pubdate);
+		}
+		if ($this->not_min_date !== null || $this->not_max_date !== null) {
+			$result .= ' -date:' . self::dateIntervalToString($this->not_min_date, $this->not_max_date);
+		}
+
+		if ($this->not_intitle_regex !== null) {
+			foreach ($this->not_intitle_regex as $s) {
+				$result .= ' -intitle:' . $s;
+			}
+		}
+		if ($this->not_intitle !== null) {
+			foreach ($this->not_intitle as $s) {
+				$result .= ' -intitle:' . self::quote($s);
+			}
+		}
+		if ($this->not_intext_regex !== null) {
+			foreach ($this->not_intext_regex as $s) {
+				$result .= ' -intext:' . $s;
+			}
+		}
+		if ($this->not_intext !== null) {
+			foreach ($this->not_intext as $s) {
+				$result .= ' -intext:' . self::quote($s);
+			}
+		}
+		if ($this->not_author_regex !== null) {
+			foreach ($this->not_author_regex as $s) {
+				$result .= ' -author:' . $s;
+			}
+		}
+		if ($this->not_author !== null) {
+			foreach ($this->not_author as $s) {
+				$result .= ' -author:' . self::quote($s);
+			}
+		}
+		if ($this->not_inurl_regex !== null) {
+			foreach ($this->not_inurl_regex as $s) {
+				$result .= ' -inurl:' . $s;
+			}
+		}
+		if ($this->not_inurl !== null) {
+			foreach ($this->not_inurl as $s) {
+				$result .= ' -inurl:' . self::quote($s);
+			}
+		}
+		if ($this->not_tags_regex !== null) {
+			foreach ($this->not_tags_regex as $s) {
+				$result .= ' -#' . $s;
+			}
+		}
+		if ($this->not_tags !== null) {
+			foreach ($this->not_tags as $s) {
+				$result .= ' -#' . self::quote($s);
+			}
+		}
+		if ($this->not_search_regex !== null) {
+			foreach ($this->not_search_regex as $s) {
+				$result .= ' -' . $s;
+			}
+		}
+		if ($this->not_search !== null) {
+			foreach ($this->not_search as $s) {
+				$result .= ' -' . self::quote($s);
+			}
+		}
+
+		return trim($result);
+	}
+
+	#[Deprecated('Use __tostring() instead')]
 	public function getRawInput(): string {
 		return $this->raw_input;
 	}
@@ -199,25 +493,25 @@ class FreshRSS_Search implements \Stringable {
 		return $this->not_label_ids;
 	}
 	/** @return list<list<string>>|null */
-	public function getLabelNames(): ?array {
-		return $this->label_names;
+	public function getLabelNames(bool $plaintext = false): ?array {
+		return $plaintext ? $this->label_names : Minz_Helper::htmlspecialchars_utf8($this->label_names, ENT_NOQUOTES);
 	}
 	/** @return list<list<string>>|null */
-	public function getNotLabelNames(): ?array {
-		return $this->not_label_names;
+	public function getNotLabelNames(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_label_names : Minz_Helper::htmlspecialchars_utf8($this->not_label_names, ENT_NOQUOTES);
 	}
 
 	/** @return list<string>|null */
-	public function getIntitle(): ?array {
-		return $this->intitle;
+	public function getIntitle(bool $plaintext = false): ?array {
+		return $plaintext ? $this->intitle : Minz_Helper::htmlspecialchars_utf8($this->intitle, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getIntitleRegex(): ?array {
 		return $this->intitle_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotIntitle(): ?array {
-		return $this->not_intitle;
+	public function getNotIntitle(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_intitle : Minz_Helper::htmlspecialchars_utf8($this->not_intitle, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotIntitleRegex(): ?array {
@@ -225,16 +519,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	/** @return list<string>|null */
-	public function getIntext(): ?array {
-		return $this->intext;
+	public function getIntext(bool $plaintext = false): ?array {
+		return $plaintext ? $this->intext : Minz_Helper::htmlspecialchars_utf8($this->intext, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getIntextRegex(): ?array {
 		return $this->intext_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotIntext(): ?array {
-		return $this->not_intext;
+	public function getNotIntext(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_intext : Minz_Helper::htmlspecialchars_utf8($this->not_intext, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotIntextRegex(): ?array {
@@ -293,16 +587,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	/** @return list<string>|null */
-	public function getInurl(): ?array {
-		return $this->inurl;
+	public function getInurl(bool $plaintext = false): ?array {
+		return $plaintext ? $this->inurl : Minz_Helper::htmlspecialchars_utf8($this->inurl, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getInurlRegex(): ?array {
 		return $this->inurl_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotInurl(): ?array {
-		return $this->not_inurl;
+	public function getNotInurl(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_inurl : Minz_Helper::htmlspecialchars_utf8($this->not_inurl, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotInurlRegex(): ?array {
@@ -310,16 +604,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	/** @return list<string>|null */
-	public function getAuthor(): ?array {
-		return $this->author;
+	public function getAuthor(bool $plaintext = false): ?array {
+		return $plaintext ? $this->author : Minz_Helper::htmlspecialchars_utf8($this->author, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getAuthorRegex(): ?array {
 		return $this->author_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotAuthor(): ?array {
-		return $this->not_author;
+	public function getNotAuthor(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_author : Minz_Helper::htmlspecialchars_utf8($this->not_author, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotAuthorRegex(): ?array {
@@ -327,16 +621,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	/** @return list<string>|null */
-	public function getTags(): ?array {
-		return $this->tags;
+	public function getTags(bool $plaintext = false): ?array {
+		return $plaintext ? $this->tags : Minz_Helper::htmlspecialchars_utf8($this->tags, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getTagsRegex(): ?array {
 		return $this->tags_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotTags(): ?array {
-		return $this->not_tags;
+	public function getNotTags(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_tags : Minz_Helper::htmlspecialchars_utf8($this->not_tags, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotTagsRegex(): ?array {
@@ -344,16 +638,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	/** @return list<string>|null */
-	public function getSearch(): ?array {
-		return $this->search;
+	public function getSearch(bool $plaintext = false): ?array {
+		return $plaintext ? $this->search : Minz_Helper::htmlspecialchars_utf8($this->search, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getSearchRegex(): ?array {
 		return $this->search_regex;
 	}
 	/** @return list<string>|null */
-	public function getNotSearch(): ?array {
-		return $this->not_search;
+	public function getNotSearch(bool $plaintext = false): ?array {
+		return $plaintext ? $this->not_search : Minz_Helper::htmlspecialchars_utf8($this->not_search, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotSearchRegex(): ?array {
@@ -382,14 +676,6 @@ class FreshRSS_Search implements \Stringable {
 		}
 		// @phpstan-ignore return.type
 		return $value;
-	}
-
-	/**
-	 * @param list<string> $strings
-	 * @return list<string>
-	 */
-	private static function htmlspecialchars_decodes(array $strings): array {
-		return array_map(static fn(string $s) => htmlspecialchars_decode($s, ENT_QUOTES), $strings);
 	}
 
 	/**
@@ -603,7 +889,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseIntitleSearch(string $input): string {
 		if (preg_match_all('#\\bintitle:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->intitle_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->intitle_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\\bintitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -623,7 +909,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotIntitleSearch(string $input): string {
 		if (preg_match_all('#(?<=[\\s(]|^)[!-]intitle:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->not_intitle_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->not_intitle_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]intitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -646,7 +932,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseIntextSearch(string $input): string {
 		if (preg_match_all('#\\bintext:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->intext_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->intext_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\\bintext:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -666,7 +952,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotIntextSearch(string $input): string {
 		if (preg_match_all('#(?<=[\\s(]|^)[!-]intext:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->not_intext_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->not_intext_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]intext:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -691,7 +977,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseAuthorSearch(string $input): string {
 		if (preg_match_all('#\\bauthor:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->author_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->author_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\\bauthor:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -711,7 +997,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotAuthorSearch(string $input): string {
 		if (preg_match_all('#(?<=[\\s(]|^)[!-]author:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->not_author_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->not_author_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]author:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -735,7 +1021,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseInurlSearch(string $input): string {
 		if (preg_match_all('#\\binurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->inurl_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->inurl_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/\\binurl:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -755,7 +1041,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotInurlSearch(string $input): string {
 		if (preg_match_all('#(?<=[\\s(]|^)[!-]inurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->not_inurl_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->not_inurl_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]inurl:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -859,7 +1145,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseTagsSearch(string $input): string {
 		if (preg_match_all('%#(?P<search>/.*?(?<!\\\\)/[im]*)%', $input, $matches)) {
-			$this->tags_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->tags_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/#(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -881,7 +1167,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotTagsSearch(string $input): string {
 		if (preg_match_all('%(?<=[\\s(]|^)[!-]#(?P<search>/.*?(?<!\\\\)/[im]*)%', $input, $matches)) {
-			$this->not_tags_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->not_tags_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]#(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
@@ -912,7 +1198,7 @@ class FreshRSS_Search implements \Stringable {
 			return '';
 		}
 		if (preg_match_all('#(?<=[\\s(]|^)(?<![!-\\\\])(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->search_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->search_regex = $matches['search'];
 			//TODO: Replace all those str_replace with PREG_OFFSET_CAPTURE
 			$input = str_replace($matches[0], '', $input);
 		}
@@ -947,7 +1233,7 @@ class FreshRSS_Search implements \Stringable {
 			return '';
 		}
 		if (preg_match_all('#(?<=[\\s(]|^)[!-](?P<search>(?<!\\\\)/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
-			$this->not_search_regex = self::htmlspecialchars_decodes($matches['search']);
+			$this->not_search_regex = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-](?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {

@@ -11,13 +11,16 @@ RUN apk add --no-cache \
 	php-pdo_sqlite php-pdo_mysql php-pdo_pgsql \
 	bash composer curl docker-cli-buildx git gpg make nodejs npm shellcheck shfmt sudo
 
-RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
+RUN \
+	# Disable unwanted Apache modules and configurations
+	rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/conf.d/status.conf /etc/apache2/conf.d/userdir.conf && \
 	sed -r -i "/^\s*LoadModule .*mod_(alias|autoindex|negotiation|status).so$/s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|filter|headers|mime|remoteip|setenvif).so$/s/^\s*#//" \
-		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
+		/etc/apache2/httpd.conf && \
+	# Enable required Apache modules
+	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|filter|headers|mime|remoteip|setenvif).so$/s/^\s*#//" \
 		/etc/apache2/httpd.conf
 
 RUN adduser --ingroup www-data --disabled-password developer && \

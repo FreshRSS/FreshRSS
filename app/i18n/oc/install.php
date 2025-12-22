@@ -62,6 +62,11 @@ return array(
 			'nok' => 'Avètz pas PHP fileinfo (paquet fileinfo).',
 			'ok' => 'Avètz la bibliotèca fileinfo.',
 		),
+		'files' => 'Installacion dels fichièrs',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'Impossible de trobar l’extension recomandada JSON (paquet php-json).',
 			'ok' => 'Avètz l’exension recomandada JSON.',
@@ -74,18 +79,33 @@ return array(
 			'nok' => 'Impossible de trobar una bibliotèca per las expressions regulara (php-pcre).',
 			'ok' => 'Avètz la bibliotèca per las expressions regularas (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Impossible de trobar PDO o un dels drivers compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Avètz PDO e almens un des drivers compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Impossible de trobar PDO o un dels drivers compatibles (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Avètz PDO e almens un des drivers compatibles (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'nok' => 'Vòstra version PHP es la %s mas FreshRSS demanda almens la version %s.',
+			'_' => 'Installacion PHP',
+			'nok' => 'Vòstra version PHP es la %s más FreshRSS demanda almens la versión %s.',
 			'ok' => 'Vòstra version PHP es %s, qu’es compatibla amb FreshRSS.',
 		),
 		'reload' => 'Revérifier',
 		'tmp' => array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Las permissions sul repertòri temporari son bonas.',
+		),
+		'tokens' => array(
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/tokens</em>. Lo servidor HTTP deu poder escriure dedins',
+			'ok' => 'Los dreches sul repertòri dels getons son bons.',
 		),
 		'unknown_process_username' => 'desconegut',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Impossible de trobar una bibliotèca necessària per XML.',
 			'ok' => 'Avètz la bibliotèca per percórrer los XML.',
+		),
+		'zip' => array(
+			'nok' => 'Avètz pas l’extension ZIP (paquet php-zip).',
+			'ok' => 'Avètz l’exension ZIP.',
 		),
 	),
 	'conf' => array(

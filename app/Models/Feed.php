@@ -40,7 +40,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public const PRIORITY_CATEGORY = 0;
 	public const PRIORITY_FEED = -5;
 	public const PRIORITY_HIDDEN = -10;
-	/** @deprecated use PRIORITY_HIDDEN instead */
+	#[Deprecated('Use PRIORITY_HIDDEN instead')]
 	public const PRIORITY_ARCHIVED = -10;
 
 	public const TTL_DEFAULT = 0;

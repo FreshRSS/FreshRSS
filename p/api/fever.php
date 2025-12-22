@@ -79,8 +79,10 @@ final class FeverDAO extends Minz_ModelPdo
 	}
 
 	/**
-	 * @param array<string|int> $feed_ids
-	 * @param array<string> $entry_ids
+	 * @param array<numeric-string|int> $feed_ids
+	 * @param array<numeric-string> $entry_ids
+	 * @param numeric-string|'' $max_id
+	 * @param numeric-string|'' $since_id
 	 * @return FreshRSS_Entry[]
 	 */
 	public function findEntries(array $feed_ids, array $entry_ids, string $max_id, string $since_id): array {
@@ -138,7 +140,7 @@ final class FeverDAO extends Minz_ModelPdo
  */
 final class FeverAPI
 {
-	public const API_LEVEL = 3;
+	public const API_LEVEL = 4;
 	public const STATUS_OK = 1;
 	public const STATUS_ERR = 0;
 
@@ -227,8 +229,15 @@ final class FeverAPI
 			$response_arr['saved_item_ids'] = $this->getSavedItemIds();
 		}
 
-		if (is_string($_REQUEST['mark'] ?? null) && is_string($_REQUEST['as'] ?? null) && is_string($_REQUEST['id'] ?? null) && ctype_digit($_REQUEST['id'])) {
-			$id = $_REQUEST['id'];
+		if (is_string($_REQUEST['mark'] ?? null) && is_string($_REQUEST['as'] ?? null)) {
+			if (is_string($_REQUEST['id'] ?? null) && ctype_digit($_REQUEST['id'])) {
+				$id = $_REQUEST['id'];
+			} elseif (is_string($_REQUEST['with_ids'] ?? null)) {
+				$id = array_values(array_filter(explode(',', $_REQUEST['with_ids']), 'ctype_digit'));
+				// N.B.: Not supported by 'feed' and 'group' functions
+			} else {
+				$id = '0';
+			}
 			$before = is_numeric($_REQUEST['before'] ?? null) ? (int)$_REQUEST['before'] : 0;
 			switch (strtolower($_REQUEST['mark'])) {
 				case 'item':
@@ -250,14 +259,14 @@ final class FeverAPI
 				case 'feed':
 					switch ($_REQUEST['as']) {
 						case 'read':
-							$this->setFeedAsRead((int)$id, $before);
+							$this->setFeedAsRead(is_numeric($id) ? (int)$id : 0, $before);
 							break;
 					}
 					break;
 				case 'group':
 					switch ($_REQUEST['as']) {
 						case 'read':
-							$this->setGroupAsRead((int)$id, $before);
+							$this->setGroupAsRead(is_numeric($id) ? (int)$id : 0, $before);
 							break;
 					}
 					break;
@@ -438,30 +447,30 @@ final class FeverAPI
 	}
 
 	/**
-	 * @param numeric-string $id
+	 * @param list<numeric-string>|numeric-string $id
 	 */
-	private function setItemAsRead(string $id): int|false {
+	private function setItemAsRead(array|string $id): int|false {
 		return $this->entryDAO->markRead($id, true);
 	}
 
 	/**
-	 * @param numeric-string $id
+	 * @param list<numeric-string>|numeric-string $id
 	 */
-	private function setItemAsUnread(string $id): int|false {
+	private function setItemAsUnread(array|string $id): int|false {
 		return $this->entryDAO->markRead($id, false);
 	}
 
 	/**
-	 * @param numeric-string $id
+	 * @param list<numeric-string>|numeric-string $id
 	 */
-	private function setItemAsSaved(string $id): int|false {
+	private function setItemAsSaved(array|string $id): int|false {
 		return $this->entryDAO->markFavorite($id, true);
 	}
 
 	/**
-	 * @param numeric-string $id
+	 * @param list<numeric-string>|numeric-string $id
 	 */
-	private function setItemAsUnsaved(string $id): int|false {
+	private function setItemAsUnsaved(array|string $id): int|false {
 		return $this->entryDAO->markFavorite($id, false);
 	}
 
@@ -473,12 +482,15 @@ final class FeverAPI
 		$since_id = '';
 
 		if (is_string($_REQUEST['feed_ids'] ?? null)) {
-			$feed_ids = explode(',', $_REQUEST['feed_ids']);
+			$feed_ids = array_filter(explode(',', $_REQUEST['feed_ids']), 'ctype_digit');
 		} elseif (is_string($_REQUEST['group_ids'] ?? null)) {
 			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$group_ids = explode(',', $_REQUEST['group_ids']);
 			$feeds = [];
 			foreach ($group_ids as $id) {
+				if (!is_numeric($id)) {
+					continue;
+				}
 				$category = $categoryDAO->searchById((int)$id);	//TODO: Transform to SQL query without loop! Consider FreshRSS_CategoryDAO::listCategories(true)
 				if ($category === null) {
 					continue;
@@ -500,7 +512,7 @@ final class FeverAPI
 				$max_id = '';
 			}
 		} elseif (is_string($_REQUEST['with_ids'] ?? null)) {
-			$entry_ids = explode(',', $_REQUEST['with_ids']);
+			$entry_ids = array_filter(explode(',', $_REQUEST['with_ids']), 'ctype_digit');
 		} elseif (is_string($_REQUEST['since_id'] ?? null)) {
 			// use the since_id argument to request the next $item_limit items
 			$since_id = $_REQUEST['since_id'];

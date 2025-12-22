@@ -16,13 +16,13 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_curl' => 'cURL version',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => '系统信息',
+				'browser' => '浏览器',
+				'database' => '数据库',
+				'server_software' => '服务器软件',
+				'version_curl' => 'cURL 版本',
+				'version_frss' => 'FreshRSS 版本',
+				'version_php' => 'PHP 版本',
 			),
 		),
 		'bugs_reports' => '报告错误',
@@ -37,24 +37,24 @@ return array(
 	'feed' => array(
 		'empty' => '没有文章可以显示。',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => '已发布',
+			'future' => '未来发布',
+			'today' => '今日发布',
+			'yesterday' => '昨日发布',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'_' => '已接收',
+			'today' => '今日接收',
+			'yesterday' => '昨日接收',
 		),
 		'rss_of' => '%s 的订阅源',
 		'title' => '首页',
 		'title_fav' => '收藏',
 		'title_global' => '全局视图',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => '用户已修改',
+			'today' => '用户今日修改',
+			'yesterday' => '用户昨日修改',
 		),
 	),
 	'log' => array(
@@ -87,28 +87,28 @@ return array(
 		'rss_view' => '订阅源',
 		'search_short' => '搜索',
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
+			'_' => '排序标准',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => '分类、订阅源标题 A→Z',
+				'name_desc' => '分类、订阅源标题 Z→A',
 			),
-			'date_asc' => 'Publication date 1→9',	// TODO
-			'date_desc' => 'Publication date 9→1',	// TODO
+			'date_asc' => '发布日期 1→9',
+			'date_desc' => '发布日期 9→1',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => '订阅源标题 A→Z',
+				'name_desc' => '订阅源标题 Z→A',
 			),
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
-			'rand' => 'Random order',	// TODO
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'id_asc' => '最新接收在后',
+			'id_desc' => '最新接收在前',
+			'length_asc' => '内容长度 1→9',
+			'length_desc' => '内容长度 9→1',
+			'link_asc' => '链接 A→Z',
+			'link_desc' => '链接 Z→A',
+			'rand' => '随机顺序',
+			'title_asc' => '标题 A→Z',
+			'title_desc' => '标题 Z→A',
+			'user_modified_asc' => '用户修改 1→9',
+			'user_modified_desc' => '用户修改 9→1',
 		),
 		'starred' => '显示收藏',
 		'stats' => '统计',

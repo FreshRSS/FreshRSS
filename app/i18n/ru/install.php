@@ -62,6 +62,11 @@ return array(
 			'nok' => 'У вас нет расширения PHP fileinfo (пакет fileinfo).',
 			'ok' => 'У вас установлено расширение fileinfo.',
 		),
+		'files' => 'Установка файлов',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'У вас нет рекомендуемой библиотеки для разбора JSON.',
 			'ok' => 'У вас установлена необходимая библиотека для разбора JSON.',
@@ -74,11 +79,22 @@ return array(
 			'nok' => 'У вас не установлена необходимая библиотека для работы с регулярными выражениями (php-pcre).',
 			'ok' => 'У вас установлена необходимая библиотека для работы с регулярными выражениями (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Инсталляция PHP',
 			'nok' => 'У вас установлен PHP версии %s, но FreshRSS необходима версия не ниже %s.',
 			'ok' => 'У вас установлен PHP версии %s, который совместим с FreshRSS.',
 		),
@@ -86,6 +102,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на папку temp в порядке.',
+		),
+		'tokens' => array(
+			'nok' => 'Проверьте права доступа к папке <em>./data/tokens</em> . Веб-сервер должен иметь право на запись в эту папку.',
+			'ok' => 'Права на папку tokens в порядке.',
 		),
 		'unknown_process_username' => 'неизвестно',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'У вас нет необходимой библиотеки для разбора XML.',
 			'ok' => 'У вас установлена необходимая библиотека для разбора XML.',
+		),
+		'zip' => array(
+			'nok' => 'У вас не установлено расширение ZIP (пакет php-zip).',
+			'ok' => 'У вас установлено расширение ZIP.',
 		),
 	),
 	'conf' => array(

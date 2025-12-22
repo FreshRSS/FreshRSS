@@ -126,7 +126,7 @@
 
 <?php $class = ($this->query != null) ? ' active' : ''; ?>
 <aside id="slider" class="<?= $class ?>">
-<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 	<div id="slider-content">
 		<?php
 			if ($this->query != null) {

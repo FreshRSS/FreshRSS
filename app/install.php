@@ -444,6 +444,9 @@ function printStep1Template(string $key, string $value, array $messageParams = [
 	if ('ok' === $value) {
 		$message = _t("install.check.{$key}.ok", ...$messageParams);
 		?><p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= $message ?></p><?php
+	} elseif ($value === 'warn') {
+		$message = _t("install.check.{$key}.nok", ...$messageParams);
+		?><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= $message ?></p><?php
 	} else {
 		$message = _t("install.check.{$key}.nok", ...$messageParams);
 		?><p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= $message ?></p><?php
@@ -473,7 +476,7 @@ function getProcessUsername(): string {
 function printStep1(): void {
 	$res = checkRequirements();
 ?>
-	<h2><?= _t('admin.check_install.php') ?></h2>
+	<h2><?= _t('install.check.php') ?></h2>
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.javascript_is_better') ?></p></noscript>
 	<?php
 	printStep1Template('php', $res['php'], [PHP_VERSION, FRESHRSS_MIN_PHP_VERSION]);
@@ -487,9 +490,11 @@ function printStep1(): void {
 	printStep1Template('dom', $res['dom']);
 	printStep1Template('xml', $res['xml']);
 	printStep1Template('mbstring', $res['mbstring']);
+	printStep1Template('intl', $res['intl']);
 	printStep1Template('fileinfo', $res['fileinfo']);
+	printStep1Template('zip', $res['zip']);
 	?>
-	<h2><?= _t('admin.check_install.files') ?></h2>
+	<h2><?= _t('install.check.files') ?></h2>
 	<?php
 	$processUsername = getProcessUsername();
 	printStep1Template('data', $res['data'], [DATA_PATH, $processUsername]);
@@ -524,7 +529,7 @@ function printStep1(): void {
 	<div class="form-group form-actions">
 		<div class="group-controls">
 			<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>" tabindex="1">
-				<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" loading="lazy" />
+				<?= _i('refresh') ?>
 			</a>
 		</div>
 	</div>
@@ -795,7 +800,7 @@ if (_t('gen.dir') === 'rtl') {
 
 <div id="global">
 	<nav class="nav nav-list aside" id="aside">
-		<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+		<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 		<ul>
 			<li class="item nav-section">
 				<div class="nav-header"><?= _t('install.steps') ?></div>

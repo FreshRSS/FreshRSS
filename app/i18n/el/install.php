@@ -62,6 +62,11 @@ return array(
 			'nok' => 'Δεν βρέθηκε η βιβλιοθήκη PHP fileinfo (fileinfo package).',
 			'ok' => 'Βρέθηκε η βιβλιοθήκη fileinfo.',
 		),
+		'files' => 'Εγκατάσταση αρχείων',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'Δεν βρέθηκε η συνιστώμενη βιβλιοθήκη για ανάλυση JSON.',
 			'ok' => 'Βρέθηκε η συνιστώμενη βιβλιοθήκη για ανάλυση JSON.',
@@ -74,11 +79,22 @@ return array(
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για regular expressions (php-pcre).',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για regular expressions (php-pcre).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Δεν βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Δεν βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Εγκατάσταση PHP',
 			'nok' => 'Η έκδοση της PHP σας είναι %s, αλλά το FreshRSS απαιτεί τουλάχιστον έκδοση %s.',
 			'ok' => 'Η έκδοση της PHP σας, %s, είναι συμβατή με το FreshRSS.',
 		),
@@ -86,6 +102,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>%1$s</em> για τον χρήστη <em>%2$s</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής.',
 			'ok' => 'Τα δικαιώματα στον κατάλογο προσωρινών αρχείων (temp) είναι εντάξει.',
+		),
+		'tokens' => array(
+			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data/tokens</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής',
+			'ok' => 'Τα δικαιώματα στον κατάλογο διακριτικών (tokens) είναι εντάξει.',
 		),
 		'unknown_process_username' => 'άγνωστο',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για ανάλυση XML.',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για ανάλυση XML.',
+		),
+		'zip' => array(
+			'nok' => 'Δεν βρέθηκε η επέκταση ZIP (php-zip package).',
+			'ok' => 'Βρέθηκε η επέκταση ZIP .',
 		),
 	),
 	'conf' => array(

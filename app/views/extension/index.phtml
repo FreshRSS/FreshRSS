@@ -82,7 +82,7 @@
 <?php $class = isset($this->extension) ? ' active' : ''; ?>
 <?php $closelink = isset($this->extension) ? _url('extension', 'index') : ''; ?>
 <aside id="slider">
-<a class="toggle_aside" href="<?= $closelink ?>#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+<a class="toggle_aside" href="<?= $closelink ?>#close"><?= _i('close') ?></a>
 	<div id="slider-content">
 		<?php
 			if (isset($this->extension)) {

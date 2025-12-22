@@ -62,6 +62,11 @@ return array(
 			'nok' => 'Não foi possível encontrar a biblioteca fileinfo do PHP (fileinfo).',
 			'ok' => 'Você tem a biblioteca fileinfo.',
 		),
+		'files' => 'Instalação de arquivos',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'Não foi possível encontrar JSON (php-json).',
 			'ok' => 'Você tem a extensão JSON.',
@@ -74,11 +79,22 @@ return array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessário para expressões regulares (php-pcre).',
 			'ok' => 'Você tem a biblioteca necessária para expressões regulares (php-pcre).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Não foi encontrado o PDO ou um dos drivers suportados (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Você tem o PDO e ao menos um dos drivers suportados (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Não foi encontrado o PDO ou um dos drivers suportados (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Você tem o PDO e ao menos um dos drivers suportados (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Instação do PHP',
 			'nok' => 'Sua versão do PHP é %s mas FreshRSS requer ao menos a versão %s.',
 			'ok' => 'Sua versão do PHP é %s, que é compatível com o FreshRSS.',
 		),
@@ -86,6 +102,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Verifiquei as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'As permissões para o diretório temporário estão certas.',
+		),
+		'tokens' => array(
+			'nok' => 'Verifique as permissões no diretório <em>./data/tokens</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
+			'ok' => 'Permissões no diretório tokens estão corretos.',
 		),
 		'unknown_process_username' => 'Desconhecido',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Não foi possível encontrar a biblioteca necessária para parse o XML.',
 			'ok' => 'Você tem a biblioteca necessária para parse o XML.',
+		),
+		'zip' => array(
+			'nok' => 'Não foi possível localizar a extensão ZIP (php-zip).',
+			'ok' => 'Você tem a extensão ZIP.',
 		),
 	),
 	'conf' => array(

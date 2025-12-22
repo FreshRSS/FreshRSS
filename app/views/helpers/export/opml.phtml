@@ -89,7 +89,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 		if (!empty($feed->filtersAction('read'))) {
 			$filters = '';
 			foreach ($feed->filtersAction('read') as $filterRead) {
-				$filters .= $filterRead->getRawInput() . "\n";
+				$filters .= $filterRead->__toString() . "\n";
 			}
 			$filters = trim($filters);
 			$outline['frss:filtersActionRead'] = $filters;

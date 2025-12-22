@@ -203,8 +203,8 @@ final class FreshRSS_http_Util {
 			}
 		}
 		if ($httpCharsetNormalized === 'UTF-8') {
-			// Save encoding information as XML declaration
-			return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+			// Save encoding information as Unicode BOM
+			return "\xEF\xBB\xBF" . $html;
 		}
 		// Give up
 		return $html;
@@ -241,7 +241,19 @@ final class FreshRSS_http_Util {
 				$doc->documentElement->insertBefore($base, $doc->documentElement->firstChild);
 			}
 		}
-		return $doc->saveHTML() ?: $html;
+
+		// Save the start of HTML because libxml2 saveHTML() risks scrambling it
+		$htmlPos = stripos($html, '<html');
+		$htmlStart = $htmlPos === false || $htmlPos > 512 ? '' : substr($html, 0, $htmlPos);
+
+		$html = $doc->saveHTML() ?: $html;
+		if ($htmlStart !== '' && !str_starts_with($html, $htmlStart)) {
+			// libxml2 saveHTML() risks removing Unicode BOM and XML declaration,
+			// which affects future detection of charset encoding, so manually restore it
+			$htmlPos = stripos($html, '<html');
+			$html = $htmlPos === false || $htmlPos > 512 ? $html : $htmlStart . substr($html, $htmlPos);
+		}
+		return $html;
 	}
 
 	/**
