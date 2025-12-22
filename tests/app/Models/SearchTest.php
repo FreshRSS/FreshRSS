@@ -800,6 +800,11 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'(e.title ~* ? ) OR (e.title ~* ? )',
 				['^A B OR C D', '^A B OR C D']
 			],
+			[	// Quote with literal 'OR'
+				'intitle:"A B OR C D" OR intitle:"E or F"',
+				'(e.title LIKE ? ) OR (e.title LIKE ? )',
+				['%A B OR C D%', '%E or F%']
+			],
 		];
 	}
 

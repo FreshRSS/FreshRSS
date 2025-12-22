@@ -144,7 +144,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	}
 
 	/**
-	 * Temporarily escape parentheses and OR used in regex expressions or inside quoted strings.
+	 * Temporarily escape parentheses and 'OR' used in regex expressions or inside "quoted strings".
 	 */
 	public static function escapeLiterals(string $input): string {
 		return preg_replace_callback('%(?<=[\\s(:#!-]|^)(?<![\\\\])(?P<delim>[\'"/]).+?(?<!\\\\)(?P=delim)[im]*%',
