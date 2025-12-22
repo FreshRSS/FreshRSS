@@ -790,6 +790,16 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'((e.title LIKE ? OR e.content LIKE ?) )',
 				['%https://example.net/test/%', '%https://example.net/test/%']
 			],
+			[	// Regex with literal 'or'
+				'intitle:/^A or B/i',
+				'(e.title ~* ? )',
+				['^A or B']
+			],
+			[	// Regex with literal 'OR'
+				'intitle:/^A B OR C D/i OR intitle:/^A B OR C D/i',
+				'(e.title ~* ? ) OR (e.title ~* ? )',
+				['^A B OR C D', '^A B OR C D']
+			],
 		];
 	}
 
@@ -996,6 +1006,14 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			[
 				'-intitle:a -inurl:b',
 				'-intitle:a -inurl:b',
+			],
+			[
+				'intitle:/^A or B/i',
+				'intitle:/^A or B/i',
+			],
+			[
+				'intitle:/^A B OR C D/i',
+				'intitle:/^A B OR C D/i',
 			],
 		];
 	}

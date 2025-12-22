@@ -114,7 +114,7 @@ class FreshRSS_Search implements \Stringable {
 	public function __construct(string $input) {
 		$input = self::cleanSearch($input);
 		$input = self::unescape($input);
-		$input = FreshRSS_BooleanSearch::unescapeLiteralParentheses($input);
+		$input = FreshRSS_BooleanSearch::unescapeLiterals($input);
 		$this->raw_input = $input;
 
 		$input = $this->parseNotEntryIds($input);
