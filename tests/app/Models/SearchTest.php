@@ -956,8 +956,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					/search_regex/i "quoted search" search
 					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
 					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
-					-pubdate:2025-06-01T00:00:00/2025-09-01T00:00:00
-					-date:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-pubdate:2025
+					-date:P30D
 					-intitle:/Spam/i -intitle:"'bad"
 					-intext:/Spam/i -intext:"'bad"
 					-author:/Dave/i -author:Charlie
@@ -1070,8 +1070,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
 			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
 			['(a b)', 'e', 'e (a b)'],
-			['date:2024/', 'date:/2025', 'date:/2025-12-31T23:59:59'],
-			['a', 'date:/2025', 'date:/2025-12-31T23:59:59 a'],
+			['date:2024/', 'date:/2025', 'date:/2025'],
+			['a', 'date:/2025', 'date:/2025 a'],
 		];
 	}
 
