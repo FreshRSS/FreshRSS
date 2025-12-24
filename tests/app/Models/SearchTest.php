@@ -790,6 +790,21 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'((e.title LIKE ? OR e.content LIKE ?) )',
 				['%https://example.net/test/%', '%https://example.net/test/%']
 			],
+			[	// Regex with literal 'or'
+				'intitle:/^A or B/i',
+				'(e.title ~* ? )',
+				['^A or B']
+			],
+			[	// Regex with literal 'OR'
+				'intitle:/^A B OR C D/i OR intitle:/^A B OR C D/i',
+				'(e.title ~* ? ) OR (e.title ~* ? )',
+				['^A B OR C D', '^A B OR C D']
+			],
+			[	// Quote with literal 'OR'
+				'intitle:"A B OR C D" OR intitle:"E or F"',
+				'(e.title LIKE ? ) OR (e.title LIKE ? )',
+				['%A B OR C D%', '%E or F%']
+			],
 		];
 	}
 
@@ -941,8 +956,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					/search_regex/i "quoted search" search
 					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
 					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
-					-pubdate:2025-06-01T00:00:00/2025-09-01T00:00:00
-					-date:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-pubdate:2025
+					-date:P30D
 					-intitle:/Spam/i -intitle:"'bad"
 					-intext:/Spam/i -intext:"'bad"
 					-author:/Dave/i -author:Charlie
@@ -997,6 +1012,14 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'-intitle:a -inurl:b',
 				'-intitle:a -inurl:b',
 			],
+			[
+				'intitle:/^A or B/i',
+				'intitle:/^A or B/i',
+			],
+			[
+				'intitle:/^A B OR C D/i',
+				'intitle:/^A B OR C D/i',
+			],
 		];
 	}
 
@@ -1047,8 +1070,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
 			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
 			['(a b)', 'e', 'e (a b)'],
-			['date:2024/', 'date:/2025', 'date:/2025-12-31T23:59:59'],
-			['a', 'date:/2025', 'date:/2025-12-31T23:59:59 a'],
+			['date:2024/', 'date:/2025', 'date:/2025'],
+			['a', 'date:/2025', 'date:/2025 a'],
 		];
 	}
 

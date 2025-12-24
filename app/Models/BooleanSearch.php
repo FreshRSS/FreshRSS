@@ -29,7 +29,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		$this->raw_input = $input;
 
 		if ($level === 0) {
-			$input = self::escapeLiteralParentheses($input);
+			$input = self::escapeLiterals($input);
 			$input = $this->parseUserQueryNames($input, $allowUserQueries);
 			$input = $this->parseUserQueryIds($input, $allowUserQueries);
 			$input = trim($input);
@@ -79,7 +79,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 					if (!empty($queries[$name])) {
 						$fromS[] = $matches[0][$i];
 						if ($allowUserQueries) {
-							$toS[] = '(' . self::escapeLiteralParentheses($queries[$name]) . ')';
+							$toS[] = '(' . self::escapeLiterals($queries[$name]) . ')';
 						} else {
 							$toS[] = '';
 						}
@@ -130,7 +130,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 
 					$fromS[] = $matches[0][$i];
 					if ($allowUserQueries) {
-						$escapedQueries = array_map(fn(string $query): string => self::escapeLiteralParentheses($query), $matchedQueries);
+						$escapedQueries = array_map(fn(string $query): string => self::escapeLiterals($query), $matchedQueries);
 						$toS[] = '(' . implode(') OR (', $escapedQueries) . ')';
 					} else {
 						$toS[] = '';
@@ -144,17 +144,29 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	}
 
 	/**
-	 * Temporarily escape parentheses used in regex expressions or inside quoted strings.
+	 * Temporarily escape parentheses and 'OR' used in regex expressions or inside "quoted strings".
 	 */
-	public static function escapeLiteralParentheses(string $input): string {
+	public static function escapeLiterals(string $input): string {
 		return preg_replace_callback('%(?<=[\\s(:#!-]|^)(?<![\\\\])(?P<delim>[\'"/]).+?(?<!\\\\)(?P=delim)[im]*%',
-			fn(array $matches): string => str_replace(['(', ')'], ['\\u0028', '\\u0029'], $matches[0]),
+			function (array $matches): string {
+				$match = $matches[0];
+				$match = str_replace(['(', ')'], ['\\u0028', '\\u0029'], $match);
+				$match = preg_replace_callback('/\bOR\b/i', fn(array $ms): string =>
+					str_replace(['O', 'o', 'R', 'r'], ['\\u004f', '\\u006f', '\\u0052', '\\u0072'], $ms[0]),
+					$match
+				) ?? '';
+				return $match;
+			},
 			$input
 		) ?? '';
 	}
 
-	public static function unescapeLiteralParentheses(string $input): string {
-		return str_replace(['\\u0028', '\\u0029'], ['(', ')'], $input);
+	public static function unescapeLiterals(string $input): string {
+		return str_replace(
+			['\\u0028', '\\u0029', '\\u004f', '\\u006f', '\\u0052', '\\u0072'],
+			['(', ')', 'O', 'o', 'R', 'r'],
+			$input
+		);
 	}
 
 	/**
