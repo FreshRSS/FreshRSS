@@ -42,7 +42,7 @@ RUN \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
 	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
 	# Enable required Apache modules
-	a2enmod -q fcgid proxy_fcgi deflate expires filter headers mime remoteip setenvif && \
+	a2enmod -q fcgid proxy_fcgi deflate expires filter headers mime remoteip setenvif http2 && \
 	# Enable php-fpm
 	a2enconf -q php8.4-fpm && \
 	# Enable FreshRSS configuration for Apache
