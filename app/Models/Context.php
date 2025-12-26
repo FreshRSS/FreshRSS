@@ -570,7 +570,7 @@ final class FreshRSS_Context {
 							continue;
 						}
 
-						if ($cat->nbNotRead() > 0) {
+						if ($cat->nbNotRead(minPriority: FreshRSS_Feed::PRIORITY_CATEGORY) > 0) {
 							$another_unread_id = $cat->id();
 							if ($found_current_get) {
 								// Unread articles and the current category has
