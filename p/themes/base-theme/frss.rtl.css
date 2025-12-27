@@ -829,6 +829,11 @@ input[type="checkbox"]:focus-visible {
 	transform: rotate(-45deg);
 }
 
+.dropdown-menu.arrow-bottom::after {
+	top: unset;
+	transform: rotate(-225deg);
+}
+
 .horizontal-list.bottom .dropdown-menu::after {
 	right: 0.5rem;
 	left: auto;

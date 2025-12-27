@@ -482,4 +482,33 @@ SQL;
 
 		return true;
 	}
+
+	/**
+	 * Remove accents from characters and lowercase. Relevant for emulating MySQL utf8mb4_unicode_ci collation.
+	 * Example: `Café` becomes `cafe`.
+	 */
+	private static function removeAccentsLower(string $str): string {
+		if (function_exists('transliterator_transliterate')) {
+			// https://unicode-org.github.io/icu/userguide/transforms/general/#overview
+			$transliterated = transliterator_transliterate('NFD; [:Nonspacing Mark:] Remove; NFC; Lower', $str);
+			if ($transliterated !== false) {
+				return $transliterated;
+			}
+		}
+		return strtolower(strtr($str,
+			'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
+			'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn'
+		));
+	}
+
+	/**
+	 * PHP emulation of the SQL ILIKE operation of the selected database.
+	 * Note that it depends on the database collation settings and Unicode extensions.
+	 */
+	public static function strilike(string $haystack, string $needle): bool {
+		// Implementation approximating MySQL/MariaDB `LIKE` with `utf8mb4_unicode_ci` collation.
+		$haystack = self::removeAccentsLower($haystack);
+		$needle = self::removeAccentsLower($needle);
+		return str_contains($haystack, $needle);
+	}
 }

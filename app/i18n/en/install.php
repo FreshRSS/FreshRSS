@@ -43,8 +43,8 @@ return array(
 			'ok' => 'You have the required library for character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',
-			'ok' => 'You have the cURL library.',
+			'nok' => 'Cannot find the required cURL library (php-curl package).',
+			'ok' => 'You have the required cURL library.',
 		),
 		'data' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',
@@ -59,12 +59,17 @@ return array(
 			'ok' => 'Permissions on the favicons directory are good.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
-			'ok' => 'You have the fileinfo library.',
+			'nok' => 'Cannot find the recommended PHP fileinfo library (fileinfo package).',
+			'ok' => 'You have the recommended PHP fileinfo library (fileinfo package).',
+		),
+		'files' => 'File installation',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',
+			'ok' => 'You have the recommended library php-intl for internationalisation.',
 		),
 		'json' => array(
-			'nok' => 'Cannot find the recommended library to parse JSON.',
-			'ok' => 'You have the recommended library to parse JSON.',
+			'nok' => 'Cannot find the required library to parse JSON.',
+			'ok' => 'You have the required library to parse JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
@@ -74,18 +79,33 @@ return array(
 			'nok' => 'Cannot find the required library for regular expressions (php-pcre).',
 			'ok' => 'You have the required library for regular expressions (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',
+			'ok' => 'You have the PDO driver for SQLite',
+		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'You have PDO and at least one of the supported drivers (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',
-			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',
+			'_' => 'PHP installation',
+			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
+			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',
 		),
 		'reload' => 'Check again',
 		'tmp' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the temp directory are good.',
+		),
+		'tokens' => array(
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',
+			'ok' => 'Permissions on the tokens directory are good.',
 		),
 		'unknown_process_username' => 'unknown',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Cannot find the required library to parse XML.',
 			'ok' => 'You have the required library to parse XML.',
+		),
+		'zip' => array(
+			'nok' => 'Cannot find the recommended extension for ZIP (php-zip package).',
+			'ok' => 'You have the recommended extension for ZIP (php-zip package).',
 		),
 	),
 	'conf' => array(

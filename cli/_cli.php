@@ -58,18 +58,42 @@ function done(bool $ok = true): never {
 	exit($ok ? 0 : 1);
 }
 
+function requirementStatus(string $key, string $status): string {
+	if ($key === 'php') {
+		return _t('install.check.' . $key . '.' . ($status === 'ok' ? 'ok' : 'nok'), PHP_VERSION, FRESHRSS_MIN_PHP_VERSION);
+	}
+	return _t('install.check.' . $key . '.' . ($status === 'ok' ? 'ok' : 'nok'));
+}
+
 function performRequirementCheck(string $databaseType): void {
+	if (!in_array($databaseType, ['mysql', 'pgsql', 'sqlite'], true)) {
+		fail('Invalid database type!');
+	}
 	$requirements = checkRequirements($databaseType);
-	if ($requirements['all'] !== 'ok') {
-		$message = 'FreshRSS failed requirements:' . "\n";
+	$message = '';
+
+	if (in_array('warn', array_values($requirements), true)) {
+		$message .= 'FreshRSS failed recommendations:' . "\n";
 		foreach ($requirements as $requirement => $check) {
-			if ($check !== 'ok' && !in_array($requirement, ['all', 'pdo', 'message'], true)) {
-				$message .= '• ' . $requirement . "\n";
+			if ($check === 'warn') {
+				$message .= '⚠ ' . $requirement . ': ' . requirementStatus($requirement, $check) . "\n";
 			}
 		}
-		if (!empty($requirements['message']) && $requirements['message'] !== 'ok') {
-			$message .= '• ' . $requirements['message'] . "\n";
+		$message .= "\n";
+	}
+
+	if ($requirements['all'] !== 'ok') {
+		$message .= 'FreshRSS failed requirements:' . "\n";
+		foreach ($requirements as $requirement => $check) {
+			if ($check === 'ko' && !in_array($requirement, ['all'], true)) {
+				$message .= '❌ ' . $requirement . ': ' . requirementStatus($requirement, $check) . "\n";
+			}
 		}
 		fail($message);
+	}
+
+	$message = trim($message);
+	if ($message !== '') {
+		fwrite(STDERR, $message . "\n");
 	}
 }

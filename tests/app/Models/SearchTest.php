@@ -10,7 +10,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
 		$search = new FreshRSS_Search($input);
-		self::assertSame('', $search->getRawInput());
+		self::assertSame('', $search->__toString());
 		self::assertNull($search->getIntitle());
 		self::assertNull($search->getMinDate());
 		self::assertNull($search->getMaxDate());
@@ -270,7 +270,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
 		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
 		$newUserConf->queries = $queries;
-		FreshRSS_Context::$user_conf = $newUserConf;
+		FreshRSS_Context::setUserConf($newUserConf);
 
 		try {
 			$search = new FreshRSS_BooleanSearch($input);
@@ -278,7 +278,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			self::assertSame($expectedResult[0], trim($actualSql));
 			self::assertSame($expectedResult[1], $actualValues);
 		} finally {
-			FreshRSS_Context::$user_conf = $previousUserConf;
+			FreshRSS_Context::setUserConf($previousUserConf);
 		}
 	}
 
@@ -346,7 +346,6 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		self::assertSame($max_pubdate_value, $search->getMaxPubdate());
 		self::assertSame($tags_value, $search->getTags());
 		self::assertSame($search_value, $search->getSearch());
-		self::assertSame($input, $search->getRawInput());
 	}
 
 	/** @return list<list<mixed>> */
@@ -836,6 +835,21 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'((e.title LIKE ? OR e.content LIKE ?) )',
 				['%https://example.net/test/%', '%https://example.net/test/%']
 			],
+			[	// Regex with literal 'or'
+				'intitle:/^A or B/i',
+				'(e.title ~* ? )',
+				['^A or B']
+			],
+			[	// Regex with literal 'OR'
+				'intitle:/^A B OR C D/i OR intitle:/^A B OR C D/i',
+				'(e.title ~* ? ) OR (e.title ~* ? )',
+				['^A B OR C D', '^A B OR C D']
+			],
+			[	// Quote with literal 'OR'
+				'intitle:"A B OR C D" OR intitle:"E or F"',
+				'(e.title LIKE ? ) OR (e.title LIKE ? )',
+				['%A B OR C D%', '%E or F%']
+			],
 		];
 	}
 
@@ -987,8 +1001,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					/search_regex/i "quoted search" search
 					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
 					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
-					-pubdate:2025-06-01T00:00:00/2025-09-01T00:00:00
-					-date:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-pubdate:2025
+					-date:P30D
 					-intitle:/Spam/i -intitle:"'bad"
 					-intext:/Spam/i -intext:"'bad"
 					-author:/Dave/i -author:Charlie
@@ -1043,6 +1057,14 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'-intitle:a -inurl:b',
 				'-intitle:a -inurl:b',
 			],
+			[
+				'intitle:/^A or B/i',
+				'intitle:/^A or B/i',
+			],
+			[
+				'intitle:/^A B OR C D/i',
+				'intitle:/^A B OR C D/i',
+			],
 		];
 	}
 
@@ -1078,7 +1100,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public static function provideBooleanSearchEnforce(): array {
 		return [
+			['', '', ''],
 			['', 'intitle:b', 'intitle:b'],
+			['intitle:a', '', 'intitle:a'],
 			['intitle:a', 'intitle:b', 'intitle:b'],
 			['a', 'intitle:b', 'intitle:b a'],
 			['intitle:a intext:a', 'intitle:b', 'intitle:b intext:a'],
@@ -1091,8 +1115,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
 			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
 			['(a b)', 'e', 'e (a b)'],
-			['date:2024/', 'date:/2025', 'date:/2025-12-31T23:59:59'],
-			['a', 'date:/2025', 'date:/2025-12-31T23:59:59 a'],
+			['date:2024/', 'date:/2025', 'date:/2025'],
+			['a', 'date:/2025', 'date:/2025 a'],
 		];
 	}
 

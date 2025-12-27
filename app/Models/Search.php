@@ -35,22 +35,18 @@ class FreshRSS_Search implements \Stringable {
 	private ?array $intext = null;
 	/** @var list<string>|null */
 	private ?array $intext_regex = null;
-	/** @var int|false|null */
-	private $min_date = null;
-	/** @var int|false|null */
-	private $max_date = null;
-	/** @var int|false|null */
-	private $min_pubdate = null;
-	/** @var int|false|null */
-	private $max_pubdate = null;
-	/** @var int|false|null */
-	private $min_userdate = null;
-	/** @var int|false|null */
-	private $max_userdate = null;
-	/** @var int|false|null */
-	private $min_modified_date = null;
-	/** @var int|false|null */
-	private $max_modified_date = null;
+	private ?string $input_date = null;
+	private int|false|null $min_date = null;
+	private int|false|null $max_date = null;
+	private ?string $input_pubdate = null;
+	private int|false|null $min_pubdate = null;
+	private int|false|null $max_pubdate = null;
+	private ?string $input_userdate = null;
+	private int|false|null $min_userdate = null;
+	private int|false|null $max_userdate = null;
+	private ?string $input_modified_date = null;
+	private int|false|null $min_modified_date = null;
+	private int|false|null $max_modified_date = null;
 	/** @var list<string>|null */
 	private ?array $inurl = null;
 	/** @var list<string>|null */
@@ -86,22 +82,18 @@ class FreshRSS_Search implements \Stringable {
 	private ?array $not_intext = null;
 	/** @var list<string>|null */
 	private ?array $not_intext_regex = null;
-	/** @var int|false|null */
-	private $not_min_date = null;
-	/** @var int|false|null */
-	private $not_max_date = null;
-	/** @var int|false|null */
-	private $not_min_pubdate = null;
-	/** @var int|false|null */
-	private $not_max_pubdate = null;
-	/** @var int|false|null */
-	private $not_min_userdate = null;
-	/** @var int|false|null */
-	private $not_max_userdate = null;
-	/** @var int|false|null */
-	private $not_min_modified_date = null;
-	/** @var int|false|null */
-	private $not_max_modified_date = null;
+	private ?string $input_not_date = null;
+	private int|false|null $not_min_date = null;
+	private int|false|null $not_max_date = null;
+	private ?string $input_not_pubdate = null;
+	private int|false|null $not_min_pubdate = null;
+	private int|false|null $not_max_pubdate = null;
+	private ?string $input_not_userdate = null;
+	private int|false|null $not_min_userdate = null;
+	private int|false|null $not_max_userdate = null;
+	private ?string $input_not_modified_date = null;
+	private int|false|null $not_min_modified_date = null;
+	private int|false|null $not_max_modified_date = null;
 	/** @var list<string>|null */
 	private ?array $not_inurl = null;
 	/** @var list<string>|null */
@@ -122,7 +114,7 @@ class FreshRSS_Search implements \Stringable {
 	public function __construct(string $input) {
 		$input = self::cleanSearch($input);
 		$input = self::unescape($input);
-		$input = FreshRSS_BooleanSearch::unescapeLiteralParentheses($input);
+		$input = FreshRSS_BooleanSearch::unescapeLiterals($input);
 		$this->raw_input = $input;
 
 		$input = $this->parseNotEntryIds($input);
@@ -171,26 +163,27 @@ class FreshRSS_Search implements \Stringable {
 		return $s;
 	}
 
-	private static function dateIntervalToString(int|false|null $min, int|false|null $max): string {
-		if ($min === false) {
-			$min = null;
-		}
-		if ($max === false) {
-			$max = null;
-		}
-		if ($min === null && $max === null) {
-			return '';
-		}
-		$s = '';
-		if ($min !== null) {
-			$s .= date('Y-m-d\\TH:i:s', $min);
-		}
-		$s .= '/';
-		if ($max !== null) {
-			$s .= date('Y-m-d\\TH:i:s', $max);
-		}
-		return $s;
-	}
+	// TODO: Reuse as option for a string representation resolving and expanding date intervals
+	// private static function dateIntervalToString(int|false|null $min, int|false|null $max): string {
+	// 	if ($min === false) {
+	// 		$min = null;
+	// 	}
+	// 	if ($max === false) {
+	// 		$max = null;
+	// 	}
+	// 	if ($min === null && $max === null) {
+	// 		return '';
+	// 	}
+	// 	$s = '';
+	// 	if ($min !== null) {
+	// 		$s .= date('Y-m-d\\TH:i:s', $min);
+	// 	}
+	// 	$s .= '/';
+	// 	if ($max !== null) {
+	// 		$s .= date('Y-m-d\\TH:i:s', $max);
+	// 	}
+	// 	return $s;
+	// }
 
 	/**
 	 * Return true if both searches have the same constraint parameters (even if the values differ), false otherwise.
@@ -297,14 +290,17 @@ class FreshRSS_Search implements \Stringable {
 			}
 		}
 
-		if ($this->min_userdate !== null || $this->max_userdate !== null) {
-			$result .= ' userdate:' . self::dateIntervalToString($this->min_userdate, $this->max_userdate);
+		if ($this->input_userdate !== null) {
+			$result .= ' userdate:' . $this->input_userdate;
 		}
-		if ($this->min_pubdate !== null || $this->max_pubdate !== null) {
-			$result .= ' pubdate:' . self::dateIntervalToString($this->min_pubdate, $this->max_pubdate);
+		if ($this->input_modified_date !== null) {
+			$result .= ' mdate:' . $this->input_modified_date;
 		}
-		if ($this->min_date !== null || $this->max_date !== null) {
-			$result .= ' date:' . self::dateIntervalToString($this->min_date, $this->max_date);
+		if ($this->input_pubdate !== null) {
+			$result .= ' pubdate:' . $this->input_pubdate;
+		}
+		if ($this->input_date !== null) {
+			$result .= ' date:' . $this->input_date;
 		}
 
 		if ($this->intitle_regex !== null) {
@@ -388,14 +384,17 @@ class FreshRSS_Search implements \Stringable {
 			}
 		}
 
-		if ($this->not_min_userdate !== null || $this->not_max_userdate !== null) {
-			$result .= ' -userdate:' . self::dateIntervalToString($this->not_min_userdate, $this->not_max_userdate);
+		if ($this->input_not_userdate !== null) {
+			$result .= ' -userdate:' . $this->input_not_userdate;
 		}
-		if ($this->not_min_pubdate !== null || $this->not_max_pubdate !== null) {
-			$result .= ' -pubdate:' . self::dateIntervalToString($this->not_min_pubdate, $this->not_max_pubdate);
+		if ($this->input_not_modified_date !== null) {
+			$result .= ' -mdate:' . $this->input_not_modified_date;
 		}
-		if ($this->not_min_date !== null || $this->not_max_date !== null) {
-			$result .= ' -date:' . self::dateIntervalToString($this->not_min_date, $this->not_max_date);
+		if ($this->input_not_pubdate !== null) {
+			$result .= ' -pubdate:' . $this->input_not_pubdate;
+		}
+		if ($this->input_not_date !== null) {
+			$result .= ' -date:' . $this->input_not_date;
 		}
 
 		if ($this->not_intitle_regex !== null) {
@@ -462,6 +461,7 @@ class FreshRSS_Search implements \Stringable {
 		return trim($result);
 	}
 
+	#[Deprecated('Use __tostring() instead')]
 	public function getRawInput(): string {
 		return $this->raw_input;
 	}
@@ -1102,6 +1102,9 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->min_date, $this->max_date] = parseDateInterval($dates[0]);
+				if (is_int($this->min_date) || is_int($this->max_date)) {
+					$this->input_date = $dates[0];
+				}
 			}
 		}
 		return $input;
@@ -1113,6 +1116,9 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_date, $this->not_max_date] = parseDateInterval($dates[0]);
+				if (is_int($this->not_min_date) || is_int($this->not_max_date)) {
+					$this->input_not_date = $dates[0];
+				}
 			}
 		}
 		return $input;
@@ -1129,6 +1135,9 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->min_pubdate, $this->max_pubdate] = parseDateInterval($dates[0]);
+				if (is_int($this->min_pubdate) || is_int($this->max_pubdate)) {
+					$this->input_pubdate = $dates[0];
+				}
 			}
 		}
 		return $input;
@@ -1140,6 +1149,9 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_pubdate, $this->not_max_pubdate] = parseDateInterval($dates[0]);
+				if (is_int($this->not_min_pubdate) || is_int($this->not_max_pubdate)) {
+					$this->input_not_pubdate = $dates[0];
+				}
 			}
 		}
 		return $input;
@@ -1177,6 +1189,9 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->min_userdate, $this->max_userdate] = parseDateInterval($dates[0]);
+				if (is_int($this->min_userdate) || is_int($this->max_userdate)) {
+					$this->input_userdate = $dates[0];
+				}
 			}
 		}
 		return $input;
@@ -1188,6 +1203,9 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_userdate, $this->not_max_userdate] = parseDateInterval($dates[0]);
+				if (is_int($this->not_min_userdate) || is_int($this->not_max_userdate)) {
+					$this->input_not_userdate = $dates[0];
+				}
 			}
 		}
 		return $input;

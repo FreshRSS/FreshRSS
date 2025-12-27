@@ -58,6 +58,7 @@
 		"ext-tokenizer": "*",
 		"ext-xmlwriter": "*",
 		"phpstan/phpstan": "^2.1",
+		"phpstan/phpstan-deprecation-rules": "^2.0",
 		"phpstan/phpstan-phpunit": "^2.0",
 		"phpstan/phpstan-strict-rules": "^2.0",
 		"phpunit/phpunit": "^10",
@@ -70,7 +71,7 @@
 		"phpcbf": "phpcbf . -p -s",
 		"phpstan": "phpstan analyse --memory-limit 512M .",
 		"phpstan-next": "phpstan analyse --memory-limit 512M -c phpstan-next.neon .",
-		"phpunit": "phpunit --bootstrap ./tests/bootstrap.php --display-notices --display-phpunit-deprecations ./tests",
+		"phpunit": "phpunit --bootstrap ./tests/bootstrap.php --display-notices --display-deprecations --display-phpunit-deprecations ./tests",
 		"translations": "cli/manipulate.translation.php --action format && cli/check.translation.php --generate-readme",
 		"test": [
 			"@php-lint",

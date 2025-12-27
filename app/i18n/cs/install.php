@@ -62,6 +62,11 @@ return array(
 			'nok' => 'Nelze nalézt knihovnu PHP fileinfo (balíček fileinfo).',
 			'ok' => 'Máte knihovnu fileinfo.',
 		),
+		'files' => 'Instalace souborů',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'Nelze nalézt doporučenou knihovnu pro analýzu JSON.',
 			'ok' => 'Máte doporučenou knihovnu pro analýzu JSON.',
@@ -74,18 +79,33 @@ return array(
 			'nok' => 'Nelze nalézt požadovanou knihovnu pro regulární výrazy (php-pcre).',
 			'ok' => 'Máte požadovanou knihovnu pro regulární výrazy (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Nelze nalézt PDO nebo některý z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Nelze nalézt PDO nebo některý z podporovaných ovladačů (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Instalace PHP',
 			'nok' => 'Vaše verze PHP je %s, ale FreshRSS vyžaduje alespoň verzi %s.',
-			'ok' => 'Vaše verze PHP %s je kompatibilní s FreshRSS.',
+			'ok' => 'Vaše verze PHP je %s a je kompatibilní s FreshRSS.',
 		),
 		'reload' => 'Znovu zkontrolujte',
 		'tmp' => array(
 			'nok' => 'Zkontrolujte oprávnění adresáře <em>%1$s</em> pro uživatele <em>%2$s</em>. Server HTTP musí mít oprávnění pro zápis.',
 			'ok' => 'Oprávnění adresáře temp jsou v pořádku.',
+		),
+		'tokens' => array(
+			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/tokens</em>. Server HTTP musí mít oprávnění pro zápis.',
+			'ok' => 'Oprávnění adresáře tokens jsou v pořádku.',
 		),
 		'unknown_process_username' => 'neznámý',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Nelze nalézt požadovanou knihovnu pro analýzu XML.',
 			'ok' => 'Máte požadovanou knihovnu pro analýzu XML.',
+		),
+		'zip' => array(
+			'nok' => 'Nelze nalézt rozšíření ZIP (balíček php-zip).',
+			'ok' => 'Máte rozšíření ZIP.',
 		),
 	),
 	'conf' => array(

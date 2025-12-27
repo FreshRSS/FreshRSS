@@ -94,7 +94,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		};
 		$searchString = $operator . ':' . ($offset < 0 ? '/' : '') . date('Y-m-d', $timestamp + ($offset * 86400)) . ($offset > 0 ? '/' : '');
 		return Minz_Url::display(Minz_Request::modifiedCurrentRequest([
-			'search' => FreshRSS_Context::$search->getRawInput() === '' ? $searchString :
+			'search' => FreshRSS_Context::$search->__toString() === '' ? $searchString :
 				FreshRSS_Context::$search->enforce(new FreshRSS_Search($searchString))->__toString(),
 			]));
 	}
@@ -149,8 +149,13 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->callbackBeforeFeeds = static function (FreshRSS_View $view) {
-			$view->tags = FreshRSS_Context::labels(true);
 			$view->nbUnreadTags = 0;
+			if (Minz_Request::paramBoolean('ajax')) {
+				// Disable label counts for AJAX requests: faster and not needed
+				$view->tags = FreshRSS_Context::labels(precounts: false);
+				return;
+			}
+			$view->tags = FreshRSS_Context::labels(precounts: true);
 			foreach ($view->tags as $tag) {
 				$view->nbUnreadTags += $tag->nbUnread();
 			}
@@ -227,8 +232,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action displays the RSS feed of FreshRSS.
-	 * @deprecated See user query RSS sharing instead
 	 */
+	#[Deprecated('See user query RSS sharing instead')]
 	public function rssAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
 
@@ -262,9 +267,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
 
-	/**
-	 * @deprecated See user query OPML sharing instead
-	 */
+	#[Deprecated('See user query OPML sharing instead')]
 	public function opmlAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
 

@@ -173,7 +173,8 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		return $title;
 	}
-	/** @deprecated */
+
+	#[Deprecated('Use authors() instead')]
 	public function author(): string {
 		return $this->authors(true);
 	}
@@ -553,7 +554,8 @@ HTML;
 		$this->hash = '';
 		$this->title = trim($value);
 	}
-	/** @deprecated */
+
+	#[Deprecated('Use _authors() instead')]
 	public function _author(string $value): void {
 		$this->_authors($value);
 	}
@@ -641,6 +643,10 @@ HTML;
 	}
 
 	public function matches(FreshRSS_BooleanSearch $booleanSearch): bool {
+		static $databaseDao = null;
+		if (!($databaseDao instanceof FreshRSS_DatabaseDAO)) {
+			$databaseDao = FreshRSS_Factory::createDatabaseDAO();
+		}
 		$ok = true;
 		foreach ($booleanSearch->searches() as $filter) {
 			if ($filter instanceof FreshRSS_BooleanSearch) {
@@ -723,7 +729,7 @@ HTML;
 				}
 				if ($ok && $filter->getAuthor() !== null) {
 					foreach ($filter->getAuthor() as $author) {
-						$ok &= stripos(implode(';', $this->authors), $author) !== false;
+						$ok &= $databaseDao::strilike(implode(';', $this->authors), $author);
 					}
 				}
 				if ($ok && $filter->getAuthorRegex() !== null) {
@@ -733,7 +739,7 @@ HTML;
 				}
 				if ($ok && $filter->getNotAuthor() !== null) {
 					foreach ($filter->getNotAuthor() as $author) {
-						$ok &= stripos(implode(';', $this->authors), $author) === false;
+						$ok &= !$databaseDao::strilike(implode(';', $this->authors), $author);
 					}
 				}
 				if ($ok && $filter->getNotAuthorRegex() !== null) {
@@ -743,7 +749,7 @@ HTML;
 				}
 				if ($ok && $filter->getIntitle() !== null) {
 					foreach ($filter->getIntitle() as $title) {
-						$ok &= stripos($this->title, $title) !== false;
+						$ok &= $databaseDao::strilike($this->title, $title);
 					}
 				}
 				if ($ok && $filter->getIntitleRegex() !== null) {
@@ -753,7 +759,7 @@ HTML;
 				}
 				if ($ok && $filter->getNotIntitle() !== null) {
 					foreach ($filter->getNotIntitle() as $title) {
-						$ok &= stripos($this->title, $title) === false;
+						$ok &= !$databaseDao::strilike($this->title, $title);
 					}
 				}
 				if ($ok && $filter->getNotIntitleRegex() !== null) {
@@ -763,7 +769,7 @@ HTML;
 				}
 				if ($ok && $filter->getIntext() !== null) {
 					foreach ($filter->getIntext() as $content) {
-						$ok &= stripos($this->content, $content) !== false;
+						$ok &= $databaseDao::strilike($this->content, $content);
 					}
 				}
 				if ($ok && $filter->getIntextRegex() !== null) {
@@ -773,7 +779,7 @@ HTML;
 				}
 				if ($ok && $filter->getNotIntext() !== null) {
 					foreach ($filter->getNotIntext() as $content) {
-						$ok &= stripos($this->content, $content) === false;
+						$ok &= !$databaseDao::strilike($this->content, $content);
 					}
 				}
 				if ($ok && $filter->getNotIntextRegex() !== null) {
@@ -786,7 +792,7 @@ HTML;
 						$found = false;
 						foreach ($this->tags as $tag1) {
 							$tag1 = ltrim($tag1, '#');
-							if (strcasecmp($tag1, $tag2) === 0) {
+							if ($databaseDao::strilike($tag1, $tag2)) {
 								$found = true;
 								break;
 							}
@@ -812,7 +818,7 @@ HTML;
 						$found = false;
 						foreach ($this->tags as $tag1) {
 							$tag1 = ltrim($tag1, '#');
-							if (strcasecmp($tag1, $tag2) === 0) {
+							if ($databaseDao::strilike($tag1, $tag2)) {
 								$found = true;
 								break;
 							}
@@ -855,12 +861,12 @@ HTML;
 				}
 				if ($ok && $filter->getSearch() !== null) {
 					foreach ($filter->getSearch() as $needle) {
-						$ok &= (stripos($this->title, $needle) !== false || stripos($this->content, $needle) !== false);
+						$ok &= ($databaseDao::strilike($this->title, $needle) || $databaseDao::strilike($this->content, $needle));
 					}
 				}
 				if ($ok && $filter->getNotSearch() !== null) {
 					foreach ($filter->getNotSearch() as $needle) {
-						$ok &= (stripos($this->title, $needle) === false && stripos($this->content, $needle) === false);
+						$ok &= (!$databaseDao::strilike($this->title, $needle) && !$databaseDao::strilike($this->content, $needle));
 					}
 				}
 				if ($ok && $filter->getSearchRegex() !== null) {
