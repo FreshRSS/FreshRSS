@@ -4,6 +4,15 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 202X-XX-XX FreshRSS 1.28.1
 
+* Features
+	* Handle Web scraping of `text/plain` as `<pre class="text-plain">` [#8340](https://github.com/FreshRSS/FreshRSS/pull/8340)
+* Bug fixing
+	* Auto-add `lastUserModified` database column also during mark-as-read action [#8346](https://github.com/FreshRSS/FreshRSS/pull/8346)
+* Performance
+	* Disable counting articles in user labels for Ajax requests (unused) [#8352](https://github.com/FreshRSS/FreshRSS/pull/8352)
+* Security
+	* Change `Content-Disposition: inline` to `attachment` in `f.php` [#8344](https://github.com/FreshRSS/FreshRSS/pull/8344)
+
 
 ## 2025-12-24 FreshRSS 1.28.0
 
@@ -50,7 +59,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix OpenID Connect with Debian 13 [#8032](https://github.com/FreshRSS/FreshRSS/pull/8032)
 	* Fix MySQL / MariaDB bug wrongly sorting new articles [#8223](https://github.com/FreshRSS/FreshRSS/pull/8223)
 	* Fix MySQL / MariaDB database size calculation [#8282](https://github.com/FreshRSS/FreshRSS/pull/8282)
-	* Fix SQLite bind bug when adding tag [#8101](https://github.com/FreshRSS/FreshRSS/pull/8101)
+	* Fix SQLite bind bug when adding user label [#8101](https://github.com/FreshRSS/FreshRSS/pull/8101)
 	* Fix SQL auto-update of field `f.kind` to ease migrations from FreshRSS versions older than 1.20.0 [#8148](https://github.com/FreshRSS/FreshRSS/pull/8148)
 	* Fix search encoding and quoting [#8311](https://github.com/FreshRSS/FreshRSS/pull/8311), [#8324](https://github.com/FreshRSS/FreshRSS/pull/8324), [#8338](https://github.com/FreshRSS/FreshRSS/pull/8338)
 	* Fix handling of database unexpected null content (during migrations) [#8319](https://github.com/FreshRSS/FreshRSS/pull/8319), [#8321](https://github.com/FreshRSS/FreshRSS/pull/8321)
@@ -82,7 +91,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * UI
 	* New button for toggling sidebar on desktop view [#8201](https://github.com/FreshRSS/FreshRSS/pull/8201), [#8286](https://github.com/FreshRSS/FreshRSS/pull/8286)
 	* Better transitions between groups of articles [#8174](https://github.com/FreshRSS/FreshRSS/pull/8174)
-	* New links in transitions and jump to next transition [#8294](https://github.com/FreshRSS/FreshRSS/pull/8294)
+	* New links in transitions and jump ⏭ to next transition [#8294](https://github.com/FreshRSS/FreshRSS/pull/8294)
 	* More visible selected article [#8230](https://github.com/FreshRSS/FreshRSS/pull/8230)
 	* Show the parsed search query instead of the original user input [#8293](https://github.com/FreshRSS/FreshRSS/pull/8293),
 		[#8306](https://github.com/FreshRSS/FreshRSS/pull/8306), [#8341](https://github.com/FreshRSS/FreshRSS/pull/8341)

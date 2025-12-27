@@ -149,8 +149,13 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->callbackBeforeFeeds = static function (FreshRSS_View $view) {
-			$view->tags = FreshRSS_Context::labels(true);
 			$view->nbUnreadTags = 0;
+			if (Minz_Request::paramBoolean('ajax')) {
+				// Disable label counts for AJAX requests: faster and not needed
+				$view->tags = FreshRSS_Context::labels(precounts: false);
+				return;
+			}
+			$view->tags = FreshRSS_Context::labels(precounts: true);
 			foreach ($view->tags as $tag) {
 				$view->nbUnreadTags += $tag->nbUnread();
 			}

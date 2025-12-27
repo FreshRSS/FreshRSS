@@ -410,9 +410,14 @@ SQL;
 		return isset($res[0]) ? (int)$res[0] : -1;
 	}
 
-	public function countNotRead(int $id): int {
-		$sql = 'SELECT COUNT(*) AS count FROM `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id WHERE category=:id AND e.is_read=0';
-		$res = $this->fetchColumn($sql, 0, [':id' => $id]);
+	public function countNotRead(int $id, int $minPriority = FreshRSS_Feed::PRIORITY_CATEGORY): int {
+		$sql = <<<'SQL'
+			SELECT COUNT(*) AS count FROM `_entry` e
+			INNER JOIN `_feed` f ON e.id_feed=f.id
+			WHERE f.category=:id AND e.is_read=0
+			AND f.priority>=:minPriority
+		SQL;
+		$res = $this->fetchColumn($sql, 0, [':id' => $id, ':minPriority' => $minPriority]);
 		return isset($res[0]) ? (int)$res[0] : -1;
 	}
 
