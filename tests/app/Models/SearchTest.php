@@ -991,6 +991,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				<<<'EOD'
 					e:1,2 f:10,11 c:20,21 L:30,31 labels:"My label,My other label"
 					userdate:2025-01-01T00:00:00/2026-01-01T00:00:00
+					mdate:2025-12
 					pubdate:2025-02-01T00:00:00/2026-01-01T00:00:00
 					date:2025-03-01T00:00:00/2026-01-01T00:00:00
 					intitle:/<Inter&sting>/i intitle:"g ' & d"
@@ -1001,6 +1002,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					/search_regex/i "quoted search" search
 					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
 					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-mdate:2025-12-27
 					-pubdate:2025
 					-date:P30D
 					-intitle:/Spam/i -intitle:"'bad"

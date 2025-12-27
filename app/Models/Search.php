@@ -1163,6 +1163,9 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->min_modified_date, $this->max_modified_date] = parseDateInterval($dates[0]);
+				if (is_int($this->min_modified_date) || is_int($this->max_modified_date)) {
+					$this->input_modified_date = $dates[0];
+				}
 			}
 		}
 		return $input;
@@ -1174,6 +1177,9 @@ class FreshRSS_Search implements \Stringable {
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_modified_date, $this->not_max_modified_date] = parseDateInterval($dates[0]);
+				if (is_int($this->not_min_modified_date) || is_int($this->not_max_modified_date)) {
+					$this->input_not_modified_date = $dates[0];
+				}
 			}
 		}
 		return $input;
