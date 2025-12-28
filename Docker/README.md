@@ -30,7 +30,7 @@ Example running FreshRSS (or scroll down to the [Docker Compose](#docker-compose
 
 ```sh
 docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -p 8080:80 \
+  -p 8080:8080 \
   -e TZ=Europe/Paris \
   -e 'CRON_MIN=1,31' \
   -v freshrss_data:/var/www/FreshRSS/data \
@@ -97,7 +97,7 @@ and with newer packages in general (Apache, PHP).
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
-* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
+* `LISTEN`: (default is `8080`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
@@ -138,7 +138,7 @@ while reading the source code from your local (git) directory, like the followin
 ```sh
 cd ./FreshRSS/
 docker run --rm \
-  -p 8080:80 \
+  -p 8080:8080 \
   -e FRESHRSS_ENV=development \
   -e TZ=Europe/Paris \
   -e 'CRON_MIN=1,31' \
@@ -332,7 +332,7 @@ services:
       - ./config-user.custom.php:/var/www/FreshRSS/data/config-user.custom.php
     ports:
       # If you want to open a port 8080 on the local machine:
-      - "8080:80"
+      - "8080:8080"
     environment:
       # A timezone http://php.net/timezones (default is UTC)
       TZ: Europe/Paris
@@ -341,7 +341,7 @@ services:
       # Optional 'development' for additional logs; default is 'production'
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
-      LISTEN: 0.0.0.0:80
+      LISTEN: 0.0.0.0:8080
       # Optional parameter, remove for automatic settings, set to 0 to disable,
       # or (if you use a proxy) to a space-separated list of trusted IP ranges
       # compatible with https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy
@@ -507,7 +507,7 @@ upstream freshrss {
 }
 
 server {
-	listen 80;
+	listen 8080;
 
 	location / {
 		return 301 https://$host$request_uri;
@@ -557,7 +557,7 @@ upstream freshrss {
 }
 
 server {
-	listen 80;
+	listen 8080;
 
 	location / {
 		return 301 https://$host$request_uri;
@@ -708,3 +708,4 @@ docker compose -f docker-compose.yml -f docker-compose-db.yml \
 # Restart a new FreshRSS container after maintenance
 docker compose -f docker-compose.yml -f docker-compose-db.yml up -d freshrss
 ```
+

@@ -3,20 +3,34 @@ FROM alpine:edge
 
 ENV TZ=UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
+ARG TARGETARCH
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
 	apk add --no-cache \
-	tzdata \
+	tzdata sed \
 	apache2 php85-apache2 \
 	apache-mod-auth-openidc \
 	php85 php85-curl php85-gmp php85-intl php85-mbstring php85-xml php85-zip \
 	php85-ctype php85-dom php85-fileinfo php85-iconv php85-json php85-openssl php85-phar php85-session php85-simplexml php85-xmlreader php85-xmlwriter php85-xml php85-tokenizer php85-zlib \
-	php85-pdo_sqlite php85-pdo_mysql php85-pdo_pgsql
+	php85-pdo_sqlite php85-pdo_mysql php85-pdo_pgsql && \
+	# Install supercronic for rootless cron
+	wget -q -O /usr/local/bin/supercronic https://github.com/aptible/supercronic/releases/download/v0.2.33/supercronic-linux-${TARGETARCH} && \
+	chmod +x /usr/local/bin/supercronic
 
-RUN mkdir -p /var/www/FreshRSS /run/apache2/
+# Create non-root user
+RUN adduser -D -u 1000 -G apache freshrss && \
+	mkdir -p /var/www/FreshRSS /run/apache2/ && \
+	chown -R freshrss:apache /run/apache2/
 WORKDIR /var/www/FreshRSS
 
-COPY --chown=root:www-data . /var/www/FreshRSS
-COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
+COPY --chown=freshrss:apache . /var/www/FreshRSS
+COPY --chown=freshrss:apache ./Docker/*.Apache.conf /etc/apache2/conf.d/
+
+# Create data directories with proper permissions
+RUN mkdir -p ./data/cache ./data/extensions-data ./data/favicons ./data/fever \
+	./data/PubSubHubbub/feeds ./data/PubSubHubbub/keys ./data/Retry-After \
+	./data/tokens ./data/users/_ && \
+	chown -R freshrss:apache ./data ./extensions && \
+	chmod -R 775 ./data ./extensions
 
 ARG FRESHRSS_VERSION
 ARG SOURCE_COMMIT
@@ -44,16 +58,15 @@ RUN \
 	# Enable required Apache modules
 	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|filter|headers|mime|remoteip|setenvif).so$/s/^\s*#//" \
 		/etc/apache2/httpd.conf && \
-	# PHP configuration
+	# PHP configuration (done at build time for non-root)
 	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php85 /usr/bin/php; else true; fi && \
-	echo 'memory_limit = 256M' > /etc/php85/conf.d/10_memory.ini && \
+	echo -e 'memory_limit = 256M\npost_max_size = 32M\nupload_max_filesize = 32M' > /etc/php85/conf.d/10_freshrss.ini && \
 	# Disable built-in FreshRSS updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
-	# Configure cron job
-	touch /var/www/FreshRSS/Docker/env.txt && \
-	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
-		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
-		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /etc/crontab.freshrss.default
+	# Configure supercronic crontab (no user field needed, runs as current user)
+	echo '27,57 * * * * php /var/www/FreshRSS/app/actualize_script.php 2>&1' > /var/www/FreshRSS/Docker/crontab.freshrss.default && \
+	chown freshrss:apache /var/www/FreshRSS/Docker/crontab.freshrss.default && \
+	chmod +x /var/www/FreshRSS/Docker/entrypoint-nonroot.sh
 
 ENV COPY_LOG_TO_SYSLOG=On
 ENV COPY_SYSLOG_TO_STDERR=On
@@ -64,9 +77,13 @@ ENV LISTEN=''
 ENV OIDC_ENABLED=''
 ENV TRUSTED_PROXY=''
 
-ENTRYPOINT ["./Docker/entrypoint.sh"]
+ENTRYPOINT ["./Docker/entrypoint-nonroot.sh"]
 
-EXPOSE 80
+EXPOSE 8080
+
+USER freshrss
+
 # hadolint ignore=DL3025
-CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
+CMD ([ -z "$CRON_MIN" ] || supercronic /var/www/FreshRSS/Docker/crontab.freshrss &) && \
 	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo "-D OIDC_ENABLED")
+
