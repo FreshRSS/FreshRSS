@@ -17,7 +17,7 @@ if ($ch === false) {
 curl_setopt_array($ch, [
 	CURLOPT_CONNECTTIMEOUT => is_numeric($options['connect_timeout'] ?? null) ? (int)$options['connect_timeout'] : 3,
 	CURLOPT_TIMEOUT => is_numeric($options['timeout'] ?? null) ? (int)$options['timeout'] : 5,
-	CURLOPT_ENCODING => '',	//Enable all encodings
+	CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 	CURLOPT_HTTPHEADER => [
 		'Connection: close',
 	],

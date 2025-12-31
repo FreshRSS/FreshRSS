@@ -339,7 +339,7 @@ final class FreshRSS_http_Util {
 			CURLOPT_MAXREDIRS => 4,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_ENCODING => '',	//Enable all encodings
+			CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 			//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 		]);
 
