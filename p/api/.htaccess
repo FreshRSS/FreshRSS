@@ -6,5 +6,7 @@
 	<IfModule mod_rewrite.c>
 		RewriteEngine on
 		RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+		RewriteCond %{HTTP:Authorization} "^GoogleLogin auth=([^/]+)" [NC]
+		RewriteRule .* - [E=REMOTE_USER:%1]
 	</IfModule>
 </IfModule>
