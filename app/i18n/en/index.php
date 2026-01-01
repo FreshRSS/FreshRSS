@@ -67,7 +67,7 @@ return array(
 		'about' => 'About FreshRSS',
 		'before_one_day' => 'Older than one day',
 		'before_one_month' => 'Older than one month',
-'before_one_week' => 'Older than one week',
+		'before_one_week' => 'Older than one week',
 		'before_three_days' => 'Older than three days',
 		'before_two_days' => 'Older than two days',
 		'bookmark_query' => 'Bookmark current query',
