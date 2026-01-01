@@ -37,7 +37,7 @@
 		"eslint": "^9.39.2",
 		"@eslint/js": "^9.20.0",
 		"globals": "^17.0.0",
-		"markdownlint-cli": "^0.46.0",
+		"markdownlint-cli": "^0.47.0",
 		"neostandard": "^0.12.2",
 		"rtlcss": "^4.3.0",
 		"stylelint": "^16.26.1",
