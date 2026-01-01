@@ -66,10 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'À propos de FreshRSS',
 		'before_one_day' => 'Antérieurs à 1 jour',
-		'before_one_month' => 'Older than one month',	// TODO
+		'before_one_month' => 'Antérieurs à 1 mois',
 		'before_one_week' => 'Antérieurs à 1 semaine',
-		'before_three_days' => 'Older than three days',	// TODO
-		'before_two_days' => 'Older than two days',	// TODO
+		'before_three_days' => 'Antérieurs à 3 jours',
+		'before_two_days' => ''Antérieurs à 2 jours',
 		'bookmark_query' => 'Enregistrer la recherche courante',
 		'favorites' => 'Articles favoris (%s)',
 		'global_view' => 'Vue globale',
