@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'About FreshRSS',	// TODO
 		'before_one_day' => 'Older than one day',	// TODO
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Older than one week',	// TODO
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Bookmark current query',	// TODO
 		'favorites' => 'Favourites (%s)',	// TODO
 		'global_view' => 'Global view',	// TODO

@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'אודות FreshRSS',
 		'before_one_day' => 'אתמול',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'לפני שבוע',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Bookmark current query',	// TODO
 		'favorites' => 'מועדפים (%s)',
 		'global_view' => 'תצוגה גלובלית',

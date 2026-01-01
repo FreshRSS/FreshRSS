@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'Par FreshRSS',
 		'before_one_day' => 'Vecāks par vienu dienu',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Vecāks par vienu nedēļu',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Pievienot grāmatzīmi pašreizējam pieprasījumam',
 		'favorites' => 'Mīļākie (%s)',
 		'global_view' => 'Globālais skats',

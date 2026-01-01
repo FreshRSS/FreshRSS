@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'Tentang FreshRSS',
 		'before_one_day' => 'Lebih lama dari satu hari',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Lebih lama dari satu minggu',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Markah pencarian saat ini',
 		'favorites' => 'Favorit (%s)',
 		'global_view' => 'Tampilan Global',

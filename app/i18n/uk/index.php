@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'Про FreshRSS',
 		'before_one_day' => 'Старіші за день',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Старіші за тиждень',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Додати поточний запит у закладки',
 		'favorites' => 'Вподобані (%s)',
 		'global_view' => 'Загальний показ',

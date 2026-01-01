@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => '關於 FreshRSS',
 		'before_one_day' => '一天前',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => '一週前',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => '收藏當前查詢',
 		'favorites' => '收藏（%s）',
 		'global_view' => '全局視圖',

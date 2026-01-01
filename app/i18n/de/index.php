@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'Über FreshRSS',
 		'before_one_day' => 'Vor einem Tag',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Vor einer Woche',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Aktuelle Abfrage speichern',
 		'favorites' => 'Favoriten (%s)',
 		'global_view' => 'Globale Ansicht',

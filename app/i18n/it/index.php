@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'Informazioni',
 		'before_one_day' => 'Giorno precedente',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Settimana precedente',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Inserisci la ricerca corrente nei segnalibri',
 		'favorites' => 'Preferiti (%s)',
 		'global_view' => 'Vista globale per categorie',

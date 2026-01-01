@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'О FreshRSS',
 		'before_one_day' => 'Старше одного дня',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Старше одной недели',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Сохранить текущий запрос',
 		'favorites' => 'Избранное (%s)',
 		'global_view' => 'Глобальный вид',

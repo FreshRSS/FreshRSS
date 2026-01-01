@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'O FreshRSS',
 		'before_one_day' => 'Pred 1 dňom',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Pred 1 týždňom',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Pridať aktuálny dopyt do obľúbených',
 		'favorites' => 'Obľúbené (%s)',
 		'global_view' => 'Prehľad',

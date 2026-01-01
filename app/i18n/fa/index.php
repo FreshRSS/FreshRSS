@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => ' درباره FreshRSS',
 		'before_one_day' => ' بزرگتر از یک روز',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => ' بزرگتر از یک هفته',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => ' درخواست فعلی را نشانک‌گذاری کنید',
 		'favorites' => ' موارد دلخواه (%s)',
 		'global_view' => ' نمای جهانی',
