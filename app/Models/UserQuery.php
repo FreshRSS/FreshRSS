@@ -123,7 +123,7 @@ class FreshRSS_UserQuery {
 			'get' => $this->get,
 			'name' => $this->name,
 			'order' => $this->order,
-			'search' => $this->search->__toString(),
+			'search' => $this->search->toString(expandUserQueries: false),
 			'state' => $this->state,
 			'url' => $this->url,
 			'token' => $this->token,
@@ -221,7 +221,7 @@ class FreshRSS_UserQuery {
 	 * Check if there is a search in the search object
 	 */
 	public function hasSearch(): bool {
-		return $this->search->__toString() !== '';
+		return $this->search->toString() !== '';
 	}
 
 	public function getGet(): string {

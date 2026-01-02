@@ -94,8 +94,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		};
 		$searchString = $operator . ':' . ($offset < 0 ? '/' : '') . date('Y-m-d', $timestamp + ($offset * 86400)) . ($offset > 0 ? '/' : '');
 		return Minz_Url::display(Minz_Request::modifiedCurrentRequest([
-			'search' => FreshRSS_Context::$search->__toString() === '' ? $searchString :
-				FreshRSS_Context::$search->enforce(new FreshRSS_Search($searchString))->__toString(),
+			'search' => FreshRSS_Context::$search->toString() === '' ? $searchString :
+				FreshRSS_Context::$search->enforce(new FreshRSS_Search($searchString))->toString(),
 			]));
 	}
 
@@ -135,7 +135,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = FreshRSS_Context::$name;
-		$search = FreshRSS_Context::$search->__toString();
+		$search = FreshRSS_Context::$search->toString(expandUserQueries: false);
 		if ($search !== '') {
 			$title = '“' . htmlspecialchars($search, ENT_COMPAT, 'UTF-8') . '”';
 		}

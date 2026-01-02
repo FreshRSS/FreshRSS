@@ -45,7 +45,7 @@
 				<div class="group-controls">
 					<textarea name="filteractions_label" id="filteractions_label" class="w100"><?php
 						foreach ($this->tag->filtersAction('label') as $filterRead) {
-							echo htmlspecialchars($filterRead->__toString(), ENT_NOQUOTES, 'UTF-8') . PHP_EOL;
+							echo htmlspecialchars($filterRead->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8') . PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
