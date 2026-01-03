@@ -2,16 +2,23 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 202X-XX-XX FreshRSS 1.28.1
+## 2026-01-XX FreshRSS 1.28.1
 
 * Features
 	* Handle Web scraping of `text/plain` as `<pre class="text-plain">` [#8340](https://github.com/FreshRSS/FreshRSS/pull/8340)
 * Bug fixing
+	* Fix encoding of filter actions for labels [#8368](https://github.com/FreshRSS/FreshRSS/pull/8368)
 	* Auto-add `lastUserModified` database column also during mark-as-read action [#8346](https://github.com/FreshRSS/FreshRSS/pull/8346)
+	* Do not include hidden feeds when counting unread articles in categories [#8357](https://github.com/FreshRSS/FreshRSS/pull/8357)
 * Performance
 	* Disable counting articles in user labels for Ajax requests (unused) [#8352](https://github.com/FreshRSS/FreshRSS/pull/8352)
 * Security
 	* Change `Content-Disposition: inline` to `attachment` in `f.php` [#8344](https://github.com/FreshRSS/FreshRSS/pull/8344)
+* Extensions
+	* Update `.gitignore` to ignore installed extensions [#8372](https://github.com/FreshRSS/FreshRSS/pull/8372)
+* Misc.
+	* Update dev dependencies [#8387](https://github.com/FreshRSS/FreshRSS/pull/8387), [#8388](https://github.com/FreshRSS/FreshRSS/pull/8388), [#8389](https://github.com/FreshRSS/FreshRSS/pull/8389),
+		[#8390](https://github.com/FreshRSS/FreshRSS/pull/8390), [#8391](https://github.com/FreshRSS/FreshRSS/pull/8391), [#8393](https://github.com/FreshRSS/FreshRSS/pull/8393)
 
 
 ## 2025-12-24 FreshRSS 1.28.0
