@@ -38,6 +38,7 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 		?>" id="flux_<?= $this->entry->id()
 		?>" data-entry="<?= $this->entry->id()
 		?>" data-feed="<?= $this->feed->id()
+		?>" data-category="<?= $this->feed->categoryId()
 		?>" data-priority="<?= $this->feed->priority()
 		?>"><?php $this->renderHelper('index/article'); ?>
 	</div><?php
