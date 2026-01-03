@@ -2240,7 +2240,7 @@ class SimplePie
                             // We need to unset this so that if SimplePie::set_file() has
                             // been called that object is untouched
                             unset($file);
-                            $this->error = "A feed could not be found at `$this->feed_url`; the status code is `$copyStatusCode` and content-type is `$copyContentType`xxxxxxxxxxxxxx`$this->dbg`";
+                            $this->error = "A feed could not be found at `$this->feed_url`; the status code is `$copyStatusCode` and content-type is `$copyContentType`";
                             $this->registry->call(Misc::class, 'error', [$this->error, E_USER_NOTICE, __FILE__, __LINE__]);
                             return false;
                         }
