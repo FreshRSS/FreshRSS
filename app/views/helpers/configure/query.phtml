@@ -92,7 +92,8 @@
 			<div class="form-group">
 				<label class="group-name" for=""><?= _t('conf.query.filter.search') ?></label>
 				<div class="group-controls">
-					<input type="text" class="w100" id="query_search" name="query[search]" value="<?= htmlspecialchars($this->query->getSearch()->__toString(), ENT_COMPAT, 'UTF-8') ?>"/>
+					<input type="text" class="w100" id="query_search" name="query[search]" value="<?=
+						htmlspecialchars($this->query->getSearch()->toString(expandUserQueries: false), ENT_COMPAT, 'UTF-8') ?>"/>
 					<p class="help"><?= _i('help') ?> <?= _t('gen.menu.search_help') ?></a></p>
 				</div>
 			</div>

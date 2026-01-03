@@ -22,7 +22,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			if ($action !== 'actualize' || !$allow_anonymous_refresh) {
+			if ($action !== 'actualize' || (!$allow_anonymous_refresh && !Minz_Request::tokenIsOk())) {
 				Minz_Error::error(403);
 			}
 		}

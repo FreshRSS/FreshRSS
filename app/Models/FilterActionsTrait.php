@@ -71,7 +71,7 @@ trait FreshRSS_FilterActionsTrait {
 		//Check existing filters
 		for ($i = count($filterActions) - 1; $i >= 0; $i--) {
 			$filterAction = $filterActions[$i];
-			if ($filterAction === null || !is_array($filterAction->actions()) || $filterAction->booleanSearch()->__toString() === '') {
+			if ($filterAction === null || !is_array($filterAction->actions()) || $filterAction->booleanSearch()->toString() === '') {
 				array_splice($filterActions, $i, 1);
 				continue;
 			}
@@ -85,7 +85,7 @@ trait FreshRSS_FilterActionsTrait {
 			//Update existing filter with new action
 			for ($k = count($filters) - 1; $k >= 0; $k--) {
 				$filter = $filters[$k];
-				if ($filter === $filterAction->booleanSearch()->__toString()) {
+				if ($filter === $filterAction->booleanSearch()->toString()) {
 					$actions[] = $action;
 					array_splice($filters, $k, 1);
 				}
