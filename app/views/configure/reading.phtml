@@ -349,7 +349,7 @@
 				<div class="group-controls">
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
 						foreach (FreshRSS_Context::userConf()->filtersAction('read') as $filterRead) {
-							echo htmlspecialchars($filterRead->__toString(), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+							echo htmlspecialchars($filterRead->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
@@ -366,7 +366,7 @@
 				<div class="group-controls">
 					<textarea name="filteractions_star" id="filteractions_star" class="w100"><?php
 						foreach (FreshRSS_Context::userConf()->filtersAction('star') as $filterStar) {
-							echo htmlspecialchars($filterStar->__toString(), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+							echo htmlspecialchars($filterStar->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>

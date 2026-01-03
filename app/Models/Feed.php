@@ -1415,7 +1415,7 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 				CURLOPT_MAXREDIRS => 10,
 				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_ENCODING => '',	//Enable all encodings
+				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 			]);
 			$response = curl_exec($ch);
