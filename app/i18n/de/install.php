@@ -62,6 +62,11 @@ return array(
 			'nok' => 'Ihnen fehlt PHP fileinfo (Paket fileinfo).',
 			'ok' => 'Sie haben die fileinfo-Erweiterung.',
 		),
+		'files' => 'Datei-Installation',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'Ihnen fehlt eine empfohlene Bibliothek um JSON zu parsen.',
 			'ok' => 'Sie haben eine empfohlene Bibliothek um JSON zu parsen.',
@@ -74,11 +79,22 @@ return array(
 			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für reguläre Ausdrücke (php-pcre).',
 			'ok' => 'Sie haben die benötigte Bibliothek für reguläre Ausdrücke (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'PHP-Installation',
 			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
 			'ok' => 'Ihre PHP-Version ist %s, welche kompatibel mit FreshRSS ist.',
 		),
@@ -86,6 +102,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
 			'ok' => 'Die Berechtigungen des Temp Verzeichnisses sind in Ordnung.',
+		),
+		'tokens' => array(
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/tokens</em>. Der HTTP-Server muss Schreibrechte besitzen.',
+			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/tokens</em> sind in Ordnung.',
 		),
 		'unknown_process_username' => 'unbekannt',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Ihnen fehlt die benötigte Bibliothek um XML zu parsen.',
 			'ok' => 'Sie haben die benötigte Bibliothek um XML zu parsen.',
+		),
+		'zip' => array(
+			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php-zip).',
+			'ok' => 'Sie haben die ZIP-Erweiterung.',
 		),
 	),
 	'conf' => array(

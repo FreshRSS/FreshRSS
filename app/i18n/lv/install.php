@@ -62,6 +62,11 @@ return array(
 			'nok' => 'Nevar atrast PHP fileinfo bibliotēku (fileinfo pakotne).',
 			'ok' => 'Jums ir fileinfo bibliotēka.',
 		),
+		'files' => 'Failu instalācija',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'Nevar atrast JSON (php-json pakete).',
 			'ok' => 'Jums ir JSON paplašinājums.',
@@ -74,11 +79,22 @@ return array(
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku regulārajām izteiksmēm (php-pcre).',
 			'ok' => 'Jums ir nepieciešamā regulāro izteiksmju bibliotēka (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Nevar atrast PDO vai kādu no atbalstītajiem draiveriem (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Jums ir PDO un vismaz viens no atbalstītajiem draiveriem (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Nevar atrast PDO vai kādu no atbalstītajiem draiveriem (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Jums ir PDO un vismaz viens no atbalstītajiem draiveriem (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'PHP instalācija',
 			'nok' => 'Jūsu PHP versija ir %s, bet FreshRSS nepieciešama vismaz %s versija.',
 			'ok' => 'Jūsu PHP versija (%s) ir saderīga ar FreshRSS.',
 		),
@@ -86,6 +102,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar pagaidu mapes atļaujām viss ir kārtībā.',
+		),
+		'tokens' => array(
+			'nok' => 'Pārbaudiet atļaujas <em>./data/tokens</em> mapē. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
+			'ok' => 'Ar žetonu mapes atļaujām viss ir kārtībā.',
 		),
 		'unknown_process_username' => 'unknown',	// TODO
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku XML analizēšanai.',
 			'ok' => 'Jums ir XML analizēšanai nepieciešamā bibliotēka.',
+		),
+		'zip' => array(
+			'nok' => 'Nevar atrast ZIP paplašinājumu (php-zip pakete).',
+			'ok' => 'Jums ir ZIP paplašinājums.',
 		),
 	),
 	'conf' => array(

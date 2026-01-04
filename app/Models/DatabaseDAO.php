@@ -254,7 +254,7 @@ SQL;
 		$values = [':table_schema' => $db['base']];
 		if (!$all) {
 			$sql .= ' AND table_name LIKE :table_name';
-			$values[':table_name'] = $this->pdo->prefix() . '%';
+			$values[':table_name'] = addcslashes($this->pdo->prefix(), '\\%_') . '%';
 		}
 		$res = $this->fetchColumn($sql, 0, $values);
 		return isset($res[0]) ? (int)($res[0]) : -1;
@@ -347,13 +347,8 @@ SQL;
 						//SQLite is the only one with database-level optimization, instead of at table level.
 						$this->optimize();
 					}
-				} else {
-					if ($databaseDAO->exits()) {
-						$nbEntries = $entryDAO->countUnreadRead();
-						if (isset($nbEntries['all']) && $nbEntries['all'] > 0) {
-							$error = 'Error: Destination database already contains some entries!';
-						}
-					}
+				} elseif ($databaseDAO->exits() && $entryDAO->count() > 0) {
+					$error = 'Error: Destination database already contains some entries!';
 				}
 				break;
 			default:
@@ -486,5 +481,34 @@ SQL;
 		$tagTo->commit();
 
 		return true;
+	}
+
+	/**
+	 * Remove accents from characters and lowercase. Relevant for emulating MySQL utf8mb4_unicode_ci collation.
+	 * Example: `Café` becomes `cafe`.
+	 */
+	private static function removeAccentsLower(string $str): string {
+		if (function_exists('transliterator_transliterate')) {
+			// https://unicode-org.github.io/icu/userguide/transforms/general/#overview
+			$transliterated = transliterator_transliterate('NFD; [:Nonspacing Mark:] Remove; NFC; Lower', $str);
+			if ($transliterated !== false) {
+				return $transliterated;
+			}
+		}
+		return strtolower(strtr($str,
+			'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
+			'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn'
+		));
+	}
+
+	/**
+	 * PHP emulation of the SQL ILIKE operation of the selected database.
+	 * Note that it depends on the database collation settings and Unicode extensions.
+	 */
+	public static function strilike(string $haystack, string $needle): bool {
+		// Implementation approximating MySQL/MariaDB `LIKE` with `utf8mb4_unicode_ci` collation.
+		$haystack = self::removeAccentsLower($haystack);
+		$needle = self::removeAccentsLower($needle);
+		return str_contains($haystack, $needle);
 	}
 }

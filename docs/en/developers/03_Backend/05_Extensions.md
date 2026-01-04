@@ -24,7 +24,7 @@ Note: it is quite conceivable that the functionalities of an extension can later
 
 ## Minz Framework
 
-see [Minz documentation](/docs/en/developers/Minz/index.md)
+see [Minz documentation](../Minz/index.md)
 
 ## Write an extension for FreshRSS
 

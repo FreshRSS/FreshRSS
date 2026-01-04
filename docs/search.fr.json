@@ -1,0 +1,13 @@
+---
+layout: none
+---
+[
+{% assign pages = site.pages | where_exp: "p", "p.title != nil" | where: "lang", "fr" %}
+{% for page in pages %}
+  {
+    "title": "{{ page.title | escape }}",
+    "url": "{{ site.baseurl }}{{ page.url }}",
+    "content": {{ page.content | markdownify | strip_html | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]

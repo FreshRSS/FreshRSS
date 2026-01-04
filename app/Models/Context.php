@@ -57,11 +57,13 @@ final class FreshRSS_Context {
 	/**
 	 * @access private
 	 * @deprecated Will be made `private`; use `FreshRSS_Context::systemConf()` instead.
+	 * @internal
 	 */
 	public static ?FreshRSS_SystemConfiguration $system_conf = null;
 	/**
 	 * @access private
 	 * @deprecated Will be made `private`; use `FreshRSS_Context::userConf()` instead.
+	 * @internal
 	 */
 	public static ?FreshRSS_UserConfiguration $user_conf = null;
 
@@ -186,6 +188,13 @@ final class FreshRSS_Context {
 		FreshRSS_Context::$user_conf = null;
 	}
 
+	/**
+	 * @internal
+	 */
+	public static function setUserConf(?FreshRSS_UserConfiguration $user_conf): void {
+		FreshRSS_Context::$user_conf = $user_conf;
+	}
+
 	/** @return array<int,FreshRSS_Category> where the key is the category ID */
 	public static function categories(): array {
 		if (empty(self::$categories)) {
@@ -248,7 +257,7 @@ final class FreshRSS_Context {
 			}
 		}
 
-		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
+		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true));
 		$order = Minz_Request::paramString('order', plaintext: true) ?: FreshRSS_Context::userConf()->sort_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		$sort = Minz_Request::paramString('sort', plaintext: true) ?: FreshRSS_Context::userConf()->sort;
@@ -561,7 +570,7 @@ final class FreshRSS_Context {
 							continue;
 						}
 
-						if ($cat->nbNotRead() > 0) {
+						if ($cat->nbNotRead(minPriority: FreshRSS_Feed::PRIORITY_CATEGORY) > 0) {
 							$another_unread_id = $cat->id();
 							if ($found_current_get) {
 								// Unread articles and the current category has

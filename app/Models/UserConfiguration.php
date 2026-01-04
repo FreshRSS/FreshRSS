@@ -75,7 +75,6 @@ declare(strict_types=1);
  * @property string $topline_thumbnail
  * @property int $ttl_default
  * @property int $dynamic_opml_ttl_default
- * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode
  * @property array<string,bool|int|string> $volatile
  * @property array<string,array<string,mixed>> $extensions

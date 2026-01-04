@@ -39,7 +39,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array{id?:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority?:int,
-	 * 	pathEntries?:string,httpAuth:string,error:int|bool,ttl?:int,attributes?:string|array<string|mixed>} $valuesTmp
+	 * 	pathEntries?:string,httpAuth?:string,error:int|bool,ttl?:int,attributes?:string|array<string|mixed>} $valuesTmp
 	 */
 	public function addFeed(array $valuesTmp): int|false {
 		if (empty($valuesTmp['id'])) {	// Auto-generated ID
@@ -75,7 +75,7 @@ SQL;
 			$valuesTmp['lastUpdate'],
 			isset($valuesTmp['priority']) ? (int)$valuesTmp['priority'] : FreshRSS_Feed::PRIORITY_MAIN_STREAM,
 			mb_strcut($valuesTmp['pathEntries'], 0, 4096, 'UTF-8'),
-			base64_encode($valuesTmp['httpAuth']),
+			base64_encode($valuesTmp['httpAuth'] ?? ''),
 			isset($valuesTmp['error']) ? (int)$valuesTmp['error'] : 0,
 			isset($valuesTmp['ttl']) ? (int)$valuesTmp['ttl'] : FreshRSS_Feed::TTL_DEFAULT,
 			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
@@ -181,7 +181,7 @@ SQL;
 			$set .= '`' . $key . '`=?, ';
 
 			if ($key === 'httpAuth') {
-				$valuesTmp[$key] = base64_encode($v);
+				$valuesTmp[$key] = is_string($v) ? base64_encode($v) : '';
 			} elseif ($key === 'attributes') {
 				$valuesTmp[$key] = is_string($valuesTmp[$key]) ? $valuesTmp[$key] : json_encode($valuesTmp[$key], JSON_UNESCAPED_SLASHES);
 			}
@@ -315,7 +315,7 @@ SQL;
 	}
 
 	/** @return Traversable<array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority?:int,
-	 * 	pathEntries?:string,httpAuth:string,error:int|bool,ttl?:int,attributes?:string}> */
+	 * 	pathEntries?:string,httpAuth?:string,error:int|bool,ttl?:int,attributes?:string}> */
 	public function selectAll(): Traversable {
 		$sql = <<<'SQL'
 SELECT id, url, kind, category, name, website, description, `lastUpdate`,
@@ -326,7 +326,7 @@ SQL;
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
 				/** @var array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority?:int,
-				 *	pathEntries?:string,httpAuth:string,error:int,ttl?:int,attributes?:string} $row */
+				 *	pathEntries?:string,httpAuth?:string,error:int,ttl?:int,attributes?:string} $row */
 				yield $row;
 			}
 		} else {
@@ -479,17 +479,30 @@ SQL;
 	 * Update cached values for selected feeds, or all feeds if no feed ID is provided.
 	 */
 	public function updateCachedValues(int ...$feedIds): int|false {
-		//2 sub-requests with FOREIGN KEY(e.id_feed), INDEX(e.is_read) faster than 1 request with GROUP BY or CASE
-		$sql = <<<SQL
-UPDATE `_feed`
-SET `cache_nbEntries`=(SELECT COUNT(e1.id) FROM `_entry` e1 WHERE e1.id_feed=`_feed`.id),
-	`cache_nbUnreads`=(SELECT COUNT(e2.id) FROM `_entry` e2 WHERE e2.id_feed=`_feed`.id AND e2.is_read=0)
-SQL;
-		if (count($feedIds) > 0) {
-			$sql .= ' WHERE id IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
+		if (empty($feedIds)) {
+			$whereFeedIds = 'true';
+			$whereEntryIdFeeds = 'true';
+		} else {
+			$whereFeedIds = 'id IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
+			$whereEntryIdFeeds = 'id_feed IN (' . str_repeat('?,', count($feedIds) - 1) . '?)';
 		}
+		$sql = <<<SQL
+			UPDATE `_feed`
+			LEFT JOIN (
+				SELECT
+					id_feed,
+					COUNT(*) AS total_entries,
+					SUM(CASE WHEN is_read = 0 THEN 1 ELSE 0 END) AS unread_entries
+				FROM `_entry`
+				WHERE $whereEntryIdFeeds
+				GROUP BY id_feed
+			) AS entry_counts ON entry_counts.id_feed = `_feed`.id
+			SET `cache_nbEntries` = COALESCE(entry_counts.total_entries, 0),
+				`cache_nbUnreads` = COALESCE(entry_counts.unread_entries, 0)
+			WHERE $whereFeedIds
+			SQL;
 		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $stm->execute($feedIds)) {
+		if ($stm !== false && $stm->execute(array_merge($feedIds, $feedIds))) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();

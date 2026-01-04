@@ -62,6 +62,11 @@ return array(
 			'nok' => 'Tidak dapat menemukan pustaka PHP fileinfo (fileinfo).',
 			'ok' => 'Anda memiliki pustaka fileinfo.',
 		),
+		'files' => 'Pemasangan Berkas',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'Tidak dapat menemukan pustaka yang direkomendasikan untuk membaca JSON.',
 			'ok' => 'Anda memiliki pustaka yang direkomendasikan untuk membaca JSON.',
@@ -74,11 +79,22 @@ return array(
 			'nok' => 'Tidak dapat menemukan pustaka untuk ekspresi regular (regex) (php-pcre).',
 			'ok' => 'Anda memiliki pustaka untuk ekspresi regular (regex) (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Tidak dapat menemukan PDO atau sejenisnya untuk basis data yang didukung (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Anda memiliki PDO atau sejenisnya untuk basis data yang didukung (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Tidak dapat menemukan PDO atau sejenisnya untuk basis data yang didukung (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Anda memiliki PDO atau sejenisnya untuk basis data yang didukung (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Pemasangan PHP.',
 			'nok' => 'Versi PHP Anda adalah %s tapi FreshRSS membutuhkan setidaknya versi %s.',
 			'ok' => 'Versi PHP Anda (%s) cocok dengan FreshRSS.',
 		),
@@ -86,6 +102,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
 			'ok' => 'Izin pada direktori tmp sudah bagus.',
+		),
+		'tokens' => array(
+			'nok' => 'Periksa izin direktori <em>./data/tokens</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'ok' => 'Izin pada direktori token sudah bagus.',
 		),
 		'unknown_process_username' => 'tidak diketahui',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Tidak dapat menemukan pustaka yang diperlukan untuk membaca XML.',
 			'ok' => 'Anda memiliki pustaka yang diperlukan untuk membaca XML.',
+		),
+		'zip' => array(
+			'nok' => 'Tidak dapat menemukan pustaka ekstensi zip (php-zip).',
+			'ok' => 'Anda memiliki pustaka ekstensi zip.',
 		),
 	),
 	'conf' => array(

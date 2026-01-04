@@ -248,18 +248,18 @@ SQL;
 
 	public function commitNewEntries(): bool {
 		$sql = <<<'SQL'
-SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`);
+			SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`);
 
-INSERT IGNORE INTO `_entry` (
-	id, guid, title, author, content_bin, link, date, `lastSeen`,
-	hash, is_read, is_favorite, id_feed, tags, attributes
-)
-SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
-FROM `_entrytmp`
-ORDER BY date, id;
+			INSERT IGNORE INTO `_entry` (
+				id, guid, title, author, content_bin, link, date, `lastSeen`,
+				hash, is_read, is_favorite, id_feed, tags, attributes
+			)
+			SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+			FROM `_entrytmp` etmp
+			ORDER BY etmp.date, etmp.id;
 
-DELETE FROM `_entrytmp` WHERE id <= @rank;
-SQL;
+			DELETE FROM `_entrytmp` WHERE id <= @rank;
+			SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
 			$this->pdo->beginTransaction();
@@ -491,8 +491,13 @@ SQL;
 			$stm = $this->pdo->prepare($sql);
 			if ($stm === false || !$stm->execute($values)) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
-				return false;
+				/** @var array{0:string,1:int,2:string} $info */
+				if ($this->autoUpdateDb($info)) {
+					return $this->markRead($ids, $is_read);
+				} else {
+					Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
+					return false;
+				}
 			}
 			$affected = $stm->rowCount();
 			if (($affected > 0) && (!$this->updateCacheUnreads(null, null))) {
@@ -511,8 +516,13 @@ SQL;
 				return $stm->rowCount();
 			} else {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
-				return false;
+				/** @var array{0:string,1:int,2:string} $info */
+				if ($this->autoUpdateDb($info)) {
+					return $this->markRead($ids, $is_read);
+				} else {
+					Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
+					return false;
+				}
 			}
 		}
 	}
@@ -1443,11 +1453,14 @@ SQL;
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters, id_min: $id_min, id_max: $id_max,
 			sort: $sort, order: $order, continuation_id: $continuation_id, continuation_values: $continuation_values);
 
+		// Help MySQL/MariaDB's optimizer with the query plan:
+		$useEntryIndex = $this->pdo->dbType() === 'mysql' ? 'USE INDEX (entry_feed_read_index) ' : '';
+
 		return [array_merge($values, $searchValues), 'SELECT '
 			. ($type === 'T' ? 'DISTINCT ' : '')
 			. 'e.id'
 			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
-			. ' FROM `_entry` e '
+			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
 			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
@@ -1676,7 +1689,13 @@ SQL;
 			}
 			return $affected;
 		}
-		$sql = 'UPDATE `_entry` SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1) . '?)';
+
+		// Reduce MySQL deadlock probability by ensuring consistent lock ordering
+		$orderBy = $this->pdo->dbType() === 'mysql' ? ' ORDER BY id DESC' : '';
+
+		$sql = 'UPDATE `_entry` ' .
+			'SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1) . '?)' .
+			$orderBy;
 		$stm = $this->pdo->prepare($sql);
 		if ($mtime <= 0) {
 			$mtime = time();
@@ -1724,29 +1743,35 @@ SQL;
 		}
 	}
 
-	/** @return array<string,int> */
-	public function countUnreadRead(): array {
+	/** @return array{all:int,unread:int,read:int,favorites:int} */
+	public function countAsStates(?int $minPriority = null): array {
+		$values = [];
 		$sql = <<<'SQL'
-SELECT COUNT(e.id) AS count FROM `_entry` e
-	INNER JOIN `_feed` f ON e.id_feed=f.id
-	WHERE f.priority > 0
-UNION
-SELECT COUNT(e.id) AS count FROM `_entry` e
-	INNER JOIN `_feed` f ON e.id_feed=f.id
-	WHERE f.priority > 0 AND e.is_read=0
-SQL;
-		$res = $this->fetchColumn($sql, 0);
-		if ($res === null) {
-			return ['all' => -1, 'unread' => -1, 'read' => -1];
+			SELECT
+				COUNT(*) AS total,
+				COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS unread,
+				COUNT(CASE WHEN e.is_favorite = 1 THEN 1 END) AS favorites
+			FROM `_entry` e
+			SQL;
+		if ($minPriority !== null) {
+			$sql .= <<<'SQL'
+			INNER JOIN `_feed` f ON e.id_feed = f.id
+			WHERE f.priority > :priority
+			SQL;
+			$values[':priority'] = $minPriority;
 		}
-		rsort($res);
-		$all = (int)($res[0] ?? 0);
-		$unread = (int)($res[1] ?? 0);
-		return ['all' => $all, 'unread' => $unread, 'read' => $all - $unread];
+		$res = $this->fetchAssoc($sql, $values);
+		if ($res === null || !isset($res[0])) {
+			return ['all' => -1, 'unread' => -1, 'read' => -1, 'favorites' => -1];
+		}
+		$all = (int)($res[0]['total'] ?? 0);
+		$unread = (int)($res[0]['unread'] ?? 0);
+		$favorites = (int)($res[0]['favorites'] ?? 0);
+		return ['all' => $all, 'unread' => $unread, 'read' => $all - $unread, 'favorites' => $favorites];
 	}
 
 	public function count(?int $minPriority = null): int {
-		$sql = 'SELECT COUNT(e.id) AS count FROM `_entry` e';
+		$sql = 'SELECT COUNT(*) AS count FROM `_entry` e';
 		$values = [];
 		if ($minPriority !== null) {
 			$sql .= ' INNER JOIN `_feed` f ON e.id_feed=f.id';
@@ -1757,51 +1782,22 @@ SQL;
 		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
-	public function countNotRead(?int $minPriority = null): int {
-		$sql = 'SELECT COUNT(e.id) AS count FROM `_entry` e';
-		if ($minPriority !== null) {
-			$sql .= ' INNER JOIN `_feed` f ON e.id_feed=f.id';
-		}
-		$sql .= ' WHERE e.is_read=0';
-		$values = [];
-		if ($minPriority !== null) {
-			$sql .= ' AND f.priority > :priority';
-			$values[':priority'] = $minPriority;
-		}
-		$res = $this->fetchColumn($sql, 0, $values);
-		return isset($res[0]) ? (int)($res[0]) : -1;
-	}
-
 	/** @return array{'all':int,'read':int,'unread':int} */
 	public function countUnreadReadFavorites(): array {
 		$sql = <<<'SQL'
-SELECT c FROM (
-	SELECT COUNT(e1.id) AS c, 1 AS o
-		FROM `_entry` AS e1
-		JOIN `_feed` AS f1 ON e1.id_feed = f1.id
-		WHERE e1.is_favorite = 1
-		AND f1.priority >= :priority1
-	UNION
-	SELECT COUNT(e2.id) AS c, 2 AS o
-		FROM `_entry` AS e2
-		JOIN `_feed` AS f2 ON e2.id_feed = f2.id
-		WHERE e2.is_favorite = 1
-		AND e2.is_read = 0 AND f2.priority >= :priority2
-	) u
-ORDER BY o
-SQL;
-		//Binding a value more than once is not standard and does not work with native prepared statements (e.g. MySQL) https://bugs.php.net/bug.php?id=40417
-		$res = $this->fetchColumn($sql, 0, [
-			':priority1' => FreshRSS_Feed::PRIORITY_CATEGORY,
-			':priority2' => FreshRSS_Feed::PRIORITY_CATEGORY,
-		]);
-		if ($res === null) {
+			SELECT
+				COUNT(*) AS total,
+				COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS unread
+			FROM `_entry` e
+			JOIN `_feed` f ON e.id_feed = f.id
+			WHERE e.is_favorite = 1 AND f.priority > :priority
+			SQL;
+		$res = $this->fetchAssoc($sql, [':priority' => FreshRSS_Feed::PRIORITY_HIDDEN]);
+		if ($res === null || !isset($res[0])) {
 			return ['all' => -1, 'unread' => -1, 'read' => -1];
 		}
-
-		rsort($res);
-		$all = (int)($res[0] ?? 0);
-		$unread = (int)($res[1] ?? 0);
+		$all = (int)($res[0]['total'] ?? 0);
+		$unread = (int)($res[0]['unread'] ?? 0);
 		return ['all' => $all, 'unread' => $unread, 'read' => $all - $unread];
 	}
 }

@@ -164,8 +164,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'site' => Minz_Request::paramBoolean('mark_open_site'),
 				'focus' => Minz_Request::paramBoolean('mark_focus'),
 			];
-			FreshRSS_Context::userConf()->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
-			FreshRSS_Context::userConf()->_filtersAction('star', Minz_Request::paramTextToArray('filteractions_star'));
+			FreshRSS_Context::userConf()->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read', plaintext: true));
+			FreshRSS_Context::userConf()->_filtersAction('star', Minz_Request::paramTextToArray('filteractions_star', plaintext: true));
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
@@ -183,7 +183,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	public function viewFilterAction(): void {
 		$search = '';
 		$filters_name = Minz_Request::paramString('filters_name', plaintext: true);
-		$filteractions = Minz_Request::paramTextToArray($filters_name);
+		$filteractions = Minz_Request::paramTextToArray($filters_name, plaintext: true);
 		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
 		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
 		foreach ($filteractions as $action) {
@@ -369,7 +369,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->size_user = $databaseDAO->size();
 
 		if (FreshRSS_Auth::hasAccess('admin')) {
-			$this->view->size_total = $databaseDAO->size(true);
+			$this->view->size_total = $databaseDAO->size(all: true);
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.archiving.title') . ' · ');
@@ -382,7 +382,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * configuration values then sends a notification to the user then
 	 * redirect to the same page.
 	 * If this action is not reached through a POST request, it displays the
-	 * configuration page and verifies that every user query is runable by
+	 * configuration page and verifies that every user query is runnable by
 	 * checking if categories and feeds are still in use.
 	 */
 	public function queriesAction(): void {

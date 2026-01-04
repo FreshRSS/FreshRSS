@@ -1,3 +1,6 @@
+---
+lang: fr
+---
 ![Logo de FreshRSS](img/logo_freshrss.png)
 
 FreshRSS est un agrégateur et lecteur de flux RSS. Il permet de regrouper

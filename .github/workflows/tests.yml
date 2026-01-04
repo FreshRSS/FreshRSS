@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Git checkout source code
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     # Composer tests
 
@@ -29,7 +29,7 @@ jobs:
 
     - name: Use Composer cache
       id: composer-cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -41,16 +41,16 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
 
     - name: Run PHP unit tests
-      run: composer run-script phpunit
+      run: composer run-script phpunit -- --no-progress
 
     - name: PHP_CodeSniffer
       run: composer run-script phpcs
 
     - name: PHPStan
-      run: composer run-script phpstan
+      run: composer run-script phpstan -- --no-progress
 
     # - name: PHPStan Next
-    #   run: composer run-script phpstan-next
+    #   run: composer run-script phpstan-next -- --no-progress
 
     # NPM tests
 
@@ -79,7 +79,7 @@ jobs:
 
     - name: Use shell cache
       id: shell-cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: bin
         key: ${{ runner.os }}-bin-shfmt@v3.8.0-hadolint@v2.12.0-typos@v1.29.9

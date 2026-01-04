@@ -57,3 +57,12 @@ AddDefaultCharset	UTF-8
 		SetEnvIfExpr "%{CONN_REMOTE_ADDR} =~ /(.*)/" CONN_REMOTE_ADDR=$1
 	</IfModule>
 </IfModule>
+
+# Log remote user with same priority as FreshRSS_http_Util::httpAuthUser(). See also api/.htaccess
+<IfModule mod_setenvif.c>
+	SetEnvIfExpr "reqenv('LOG_REMOTE_USER') == ''" LOG_REMOTE_USER=-
+	SetEnvIfExpr "reqenv('LOG_REMOTE_USER') == '-' && reqenv('REMOTE_USER') =~ /(.+)/" LOG_REMOTE_USER=$1
+	SetEnvIfExpr "reqenv('LOG_REMOTE_USER') == '-' && reqenv('REDIRECT_REMOTE_USER') =~ /(.+)/" LOG_REMOTE_USER=$1
+	SetEnvIfExpr "reqenv('LOG_REMOTE_USER') == '-' && req('Remote-User') =~ /(.+)/" LOG_REMOTE_USER=$1
+	SetEnvIfExpr "reqenv('LOG_REMOTE_USER') == '-' && req('X-WebAuth-User') =~ /(.+)/" LOG_REMOTE_USER=$1
+</IfModule>

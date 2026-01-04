@@ -47,6 +47,14 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			default => null,
 		};
 
+		if ($feed->attributeString('unicityCriteria') != '' && $feed->attributeString('unicityCriteria') !== 'id') {
+			$outline['frss:unicityCriteria'] = $feed->attributeString('unicityCriteria');
+		}
+
+		if ($feed->attributeBoolean('unicityCriteriaForced')) {
+			$outline['frss:unicityCriteriaForced'] = 'true';
+		}
+
 		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
 			/** @var array<string,string> */
 			$xPathSettings = $feed->attributeArray('xpath') ?? [];
@@ -81,7 +89,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 		if (!empty($feed->filtersAction('read'))) {
 			$filters = '';
 			foreach ($feed->filtersAction('read') as $filterRead) {
-				$filters .= $filterRead->getRawInput() . "\n";
+				$filters .= $filterRead->toString(expandUserQueries: false) . "\n";
 			}
 			$filters = trim($filters);
 			$outline['frss:filtersActionRead'] = $filters;

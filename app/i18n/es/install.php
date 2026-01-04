@@ -62,6 +62,11 @@ return array(
 			'nok' => 'No se ha podido localizar la librería PHP fileinfo (paquete fileinfo).',
 			'ok' => 'Dispones de la librería fileinfo.',
 		),
+		'files' => 'Instalación de Archivos',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'No se ha podido localizar la librería para procesar JSON.',
 			'ok' => 'Dispones de la librería recomendada para procesar JSON.',
@@ -74,18 +79,33 @@ return array(
 			'nok' => 'No se ha podido encontrar la librería necesaria para las expresiones regulares (php-pcre).',
 			'ok' => 'Dispones de la librería necesaria para las expresiones regulares (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'No se ha podido localizar PDO o uno de los controladores compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Dispones de PDO y al menos uno de los controladores compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'No se ha podido localizar PDO o uno de los controladores compatibles (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Dispones de PDO y al menos uno de los controladores compatibles (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'nok' => 'Dispones de la versión PHP %s, pero FreshRSS necesita de, al menos, la versión %s.',
+			'_' => 'Instalación PHP',
+			'nok' => 'Dispones de la versión PHP %s pero FreshRSS requiere de, al menos, la versión %s.',
 			'ok' => 'Dispones de la versión PHP %s, que es compatible con FreshRSS.',
 		),
 		'reload' => 'Revisar otra vez',
 		'tmp' => array(
 			'nok' => 'Revisa los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos en el directorio temp son buenos.',
+		),
+		'tokens' => array(
+			'nok' => 'Comprueba los permisos en el directorio <em>./data/tokens</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'ok' => 'Los permisos en el directorio de tokens de identificación son correctos.',
 		),
 		'unknown_process_username' => 'desconocido',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'No se ha podido localizar la librería necesaria para procesar XML.',
 			'ok' => 'Dispones de la librería necesaria para procesar XML.',
+		),
+		'zip' => array(
+			'nok' => 'No se ha podido localizar la extensión ZIP (paquete php-zip).',
+			'ok' => 'Dispones de la extensión ZIP.',
 		),
 	),
 	'conf' => array(

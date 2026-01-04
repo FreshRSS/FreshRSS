@@ -121,7 +121,9 @@ class File implements Response
                     }
                     unset($curl_options[CURLOPT_HTTPHEADER]);
                 }
-                if (version_compare(\SimplePie\Misc::get_curl_version(), '7.10.5', '>=')) {
+                if (version_compare(\SimplePie\Misc::get_curl_version(), '7.21.6', '>=')) {
+                    curl_setopt($fp, CURLOPT_ACCEPT_ENCODING, '');
+                } elseif (version_compare(\SimplePie\Misc::get_curl_version(), '7.10.5', '>=')) {
                     curl_setopt($fp, CURLOPT_ENCODING, '');
                 }
                 curl_setopt($fp, CURLOPT_URL, $url);
@@ -147,7 +149,11 @@ class File implements Response
                     $this->error = 'cURL error ' . curl_errno($fp) . ': ' . curl_error($fp); // FreshRSS
                     $this->on_http_response($responseBody === false ? false : $responseHeaders . $responseBody, $curl_options);
                     $this->error = null; // FreshRSS
-                    curl_setopt($fp, CURLOPT_ENCODING, 'none');
+                    if (version_compare(\SimplePie\Misc::get_curl_version(), '7.21.6', '>=')) {
+                        curl_setopt($fp, CURLOPT_ACCEPT_ENCODING, null);
+                    } else {
+                        curl_setopt($fp, CURLOPT_ENCODING, null);
+                    }
                     $responseHeaders = '';
                     $responseBody = curl_exec($fp);
                     $responseHeaders .= "\r\n";

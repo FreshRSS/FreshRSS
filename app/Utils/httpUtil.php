@@ -10,11 +10,14 @@ final class FreshRSS_http_Util {
 		if (!is_string($domain) || $domain === '') {
 			return '';
 		}
+		$domainWide = Minz_Request::serverIsPublic($domain);
 		$port = parse_url($url, PHP_URL_PORT);
 		if (is_int($port)) {
 			$domain .= ':' . $port;
 		}
-		return self::RETRY_AFTER_PATH . urlencode($domain) . (empty($proxy) ? '' : ('_' . urlencode($proxy))) . '.txt';
+		return self::RETRY_AFTER_PATH . urlencode($domain) .
+			($domainWide ? '' : '_' . hash('sha256', $url)) .
+			(empty($proxy) ? '' : '_' . urlencode($proxy)) . '.txt';
 	}
 
 	/**
@@ -200,8 +203,8 @@ final class FreshRSS_http_Util {
 			}
 		}
 		if ($httpCharsetNormalized === 'UTF-8') {
-			// Save encoding information as XML declaration
-			return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+			// Save encoding information as Unicode BOM
+			return "\xEF\xBB\xBF" . $html;
 		}
 		// Give up
 		return $html;
@@ -238,7 +241,19 @@ final class FreshRSS_http_Util {
 				$doc->documentElement->insertBefore($base, $doc->documentElement->firstChild);
 			}
 		}
-		return $doc->saveHTML() ?: $html;
+
+		// Save the start of HTML because libxml2 saveHTML() risks scrambling it
+		$htmlPos = stripos($html, '<html');
+		$htmlStart = $htmlPos === false || $htmlPos > 512 ? '' : substr($html, 0, $htmlPos);
+
+		$html = $doc->saveHTML() ?: $html;
+		if ($htmlStart !== '' && !str_starts_with($html, $htmlStart)) {
+			// libxml2 saveHTML() risks removing Unicode BOM and XML declaration,
+			// which affects future detection of charset encoding, so manually restore it
+			$htmlPos = stripos($html, '<html');
+			$html = $htmlPos === false || $htmlPos > 512 ? $html : $htmlStart . substr($html, $htmlPos);
+		}
+		return $html;
 	}
 
 	/**
@@ -270,7 +285,7 @@ final class FreshRSS_http_Util {
 		$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] ?? null) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
 		if (is_array($attributes['curl_params'] ?? null)) {
 			$options = self::sanitizeCurlParams($attributes['curl_params']);
-			$proxy = is_string($options[CURLOPT_PROXY]) ? $options[CURLOPT_PROXY] : '';
+			$proxy = is_string($options[CURLOPT_PROXY] ?? null) ? $options[CURLOPT_PROXY] : '';
 			if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
 				// Remove headers problematic for security
 				$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
@@ -324,7 +339,7 @@ final class FreshRSS_http_Util {
 			CURLOPT_MAXREDIRS => 4,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_ENCODING => '',	//Enable all encodings
+			CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 			//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 		]);
 
@@ -392,7 +407,12 @@ final class FreshRSS_http_Util {
 				$body = self::enforceHttpEncoding($body, $c_content_type);
 			}
 			if (in_array($type, ['html'], true)) {
-				$body = self::enforceHtmlBase($body, $c_effective_url);
+				if (stripos($c_content_type, 'text/plain') !== false) {
+					// Plain text to be displayed as preformatted text. Prefixed with UTF-8 BOM
+					$body = "\xEF\xBB\xBF" . '<pre class="text-plain">' . htmlspecialchars($body, ENT_NOQUOTES, 'UTF-8') . '</pre>';
+				} else {
+					$body = self::enforceHtmlBase($body, $c_effective_url);
+				}
 			}
 		}
 
