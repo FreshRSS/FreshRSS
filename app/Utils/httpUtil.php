@@ -256,6 +256,42 @@ final class FreshRSS_http_Util {
 		return $html;
 	}
 
+
+	public static function getCurlResolveInfo(string $url): string|null|false {
+		$parsed = parse_url($url);
+		if ($parsed === false) {
+			return null;
+		}
+		$host = $parsed['host'] ?? null;
+		$scheme = $parsed['scheme'] ?? null;
+		if ($host === null || $scheme === null) {
+			return null;
+		}
+		$port = parse_url($url)['port'] ?? null;
+		if ($port === null) {
+			$port = match ($scheme) {
+				'http' => 80,
+				'https' => 443,
+				default => 0,
+			};
+		}
+		$ip = '';
+		if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
+			$ip = $host;
+		} else {
+			$ip = gethostbyname($host);
+			if ($host === $ip) {
+				// Failed to resolve domain
+				return false;
+			}
+		}
+		if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+			return null;
+		}
+		return $host . ':' . $port . ':' . $ip;
+	}
+
+
 	/**
 	 * @param non-empty-string $url
 	 * @param string $type {html,ico,json,opml,xml}
@@ -325,102 +361,121 @@ final class FreshRSS_http_Util {
 				break;
 		}
 
-		// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
-		$ch = curl_init();
-		if ($ch === false) {
-			return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true];
-		}
-		curl_setopt_array($ch, [
-			CURLOPT_URL => $url,
-			CURLOPT_HTTPHEADER => ['Accept: ' . $accept],
-			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
-			CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-			CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-			CURLOPT_MAXREDIRS => 4,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
-			//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
-		]);
-
-		curl_setopt_array($ch, $options);
-		curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
-
-		$responseHeaders = '';
-		curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
-			if (trim($header) !== '') {	// Skip e.g. separation with trailer headers
-				$responseHeaders .= $header;
+		$fail = false;
+		$redirs = 0;
+		while ($redirs <= 4) {
+			$url = is_string($url) ? $url : '';
+			$resolve = self::getCurlResolveInfo($url);
+			if ($resolve === null) {
+				Minz_Log::warning('Fetching ' . $url . ' not allowed, because the host is on the blocklist.');
+				return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
 			}
-			return strlen($header);
-		});
-
-		if (isset($attributes['ssl_verify'])) {
-			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, empty($attributes['ssl_verify']) ? 0 : 2);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (bool)$attributes['ssl_verify']);
-			if (empty($attributes['ssl_verify'])) {
-				curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
+			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
+			$ch = curl_init();
+			if ($ch === false || $url === '') {
+				return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true];
 			}
-		}
+			curl_setopt_array($ch, [
+				CURLOPT_URL => $url,
+				CURLOPT_HTTPHEADER => ['Accept: ' . $accept],
+				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+				CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+				CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_FOLLOWLOCATION => false,
+				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
+				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
+				CURLOPT_RESOLVE => [$resolve], // Prevent DNS rebinding
+			]);
 
-		curl_setopt_array($ch, $curl_options);
+			curl_setopt_array($ch, $options);
+			curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
 
-		$body = curl_exec($ch);
-		$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$c_content_type = '' . curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-		$c_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
-		$c_redirect_count = curl_getinfo($ch, CURLINFO_REDIRECT_COUNT);
-		$c_error = curl_error($ch);
-
-		$headers = [];
-		if ($body !== false) {
-			assert($c_redirect_count >= 0);
-			$responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders($responseHeaders, $c_redirect_count + 1);
-			$parser = new \SimplePie\HTTP\Parser($responseHeaders);
-			if ($parser->parse()) {
-				$headers = $parser->headers;
-			}
-		}
-
-		$fail = $c_status != 200 || $c_error != '' || $body === false;
-		if ($fail) {
-			$body = '';
-			Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
-			if (in_array($c_status, [429, 503], true)) {
-				$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $proxy, $headers['retry-after'] ?? '');
-				if ($c_status === 429) {
-					$errorMessage = 'HTTP 429 Too Many Requests! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
-				} elseif ($c_status === 503) {
-					$errorMessage = 'HTTP 503 Service Unavailable! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
+			$responseHeaders = '';
+			curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
+				if (trim($header) !== '') {	// Skip e.g. separation with trailer headers
+					$responseHeaders .= $header;
 				}
-				if ($retryAfter > 0) {
-					$errorMessage .= ' We may retry after ' . date('c', $retryAfter);
+				return strlen($header);
+			});
+
+			if (isset($attributes['ssl_verify'])) {
+				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, empty($attributes['ssl_verify']) ? 0 : 2);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (bool)$attributes['ssl_verify']);
+				if (empty($attributes['ssl_verify'])) {
+					curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
 				}
 			}
-			// TODO: Implement HTTP 410 Gone
-		} elseif (!is_string($body) || strlen($body) === 0) {
-			$body = '';
-		} else {
-			if (in_array($type, ['html', 'json', 'opml', 'xml'], true)) {
-				$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
-			}
-			if (in_array($type, ['html', 'xml', 'opml'], true)) {
-				$body = self::enforceHttpEncoding($body, $c_content_type);
-			}
-			if (in_array($type, ['html'], true)) {
-				if (stripos($c_content_type, 'text/plain') !== false) {
-					// Plain text to be displayed as preformatted text. Prefixed with UTF-8 BOM
-					$body = "\xEF\xBB\xBF" . '<pre class="text-plain">' . htmlspecialchars($body, ENT_NOQUOTES, 'UTF-8') . '</pre>';
-				} else {
-					$body = self::enforceHtmlBase($body, $c_effective_url);
+
+			curl_setopt_array($ch, $curl_options);
+
+			$body = curl_exec($ch);
+			$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			$c_content_type = '' . curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+			$c_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+			$c_error = curl_error($ch);
+
+			$headers = [];
+			if ($body !== false) {
+				$responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders($responseHeaders);
+				$parser = new \SimplePie\HTTP\Parser($responseHeaders);
+				if ($parser->parse()) {
+					$headers = $parser->headers;
 				}
 			}
+
+			if (in_array($c_status, [301, 302, 303, 307, 308], true)) {
+				// Handle the redirect by making another request
+				$location = \SimplePie\Misc::absolutize_url($headers['location'] ?? $url, $url);
+				if ($location === false) {
+					$location = $url;
+				}
+				$url = $location;
+				$redirs++;
+				continue;
+			}
+
+			$fail = $c_status != 200 || $c_error != '' || $body === false;
+			if ($fail) {
+				$body = '';
+				Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+				if (in_array($c_status, [429, 503], true)) {
+					$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $proxy, $headers['retry-after'] ?? '');
+					if ($c_status === 429) {
+						$errorMessage = 'HTTP 429 Too Many Requests! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
+					} elseif ($c_status === 503) {
+						$errorMessage = 'HTTP 503 Service Unavailable! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
+					}
+					if ($retryAfter > 0) {
+						$errorMessage .= ' We may retry after ' . date('c', $retryAfter);
+					}
+				}
+			} elseif (!is_string($body) || strlen($body) === 0) { // TODO: Implement HTTP 410 Gone
+				$body = '';
+			} else {
+				if (in_array($type, ['html', 'json', 'opml', 'xml'], true)) {
+					$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
+				}
+				if (in_array($type, ['html', 'xml', 'opml'], true)) {
+					$body = self::enforceHttpEncoding($body, $c_content_type);
+				}
+				if (in_array($type, ['html'], true)) {
+					if (stripos($c_content_type, 'text/plain') !== false) {
+						// Plain text to be displayed as preformatted text. Prefixed with UTF-8 BOM
+						$body = "\xEF\xBB\xBF" . '<pre class="text-plain">' . htmlspecialchars($body, ENT_NOQUOTES, 'UTF-8') . '</pre>';
+					} else {
+						$body = self::enforceHtmlBase($body, $c_effective_url);
+					}
+				}
+			}
+			break;
 		}
 
 		if (file_put_contents($cachePath, $body) === false) {
 			Minz_Log::warning("Error saving cache $cachePath for $url");
 		}
 
-		return ['body' => $body, 'effective_url' => $c_effective_url, 'redirect_count' => $c_redirect_count, 'fail' => $fail];
+		return ['body' => is_string($body) ? $body : '', 'effective_url' => $c_effective_url, 'redirect_count' => $redirs, 'fail' => $fail];
 	}
 
 	/**
