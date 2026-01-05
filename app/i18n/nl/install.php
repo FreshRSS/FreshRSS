@@ -64,11 +64,11 @@ return array(
 		),
 		'files' => 'Bestanden installatie',
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'De aanbevolen bibliotheek php-intl voor internationalisering kan niet worden gevonden.',
+			'ok' => 'U beschikt over de aanbevolen bibliotheek php-intl voor internationalisering.',
 		),
 		'json' => array(
-			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
+			'nok' => 'U mist een benodigde bibliotheek om JSON te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
 		),
 		'mbstring' => array(
@@ -80,7 +80,7 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor regular expressions (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'De vereiste PDO-driver voor MySQL/MariaDB kan niet worden gevonden.',
 		),
 		'pdo-pgsql' => array(
 			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
