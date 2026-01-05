@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'A prepaus de FreshRSS',
 		'before_one_day' => '1 jorn en arrièr',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => '1 setmana en arrièr',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Marcar aquesta requèsta',
 		'favorites' => 'Favorits (%s)',
 		'global_view' => 'Vista generala',

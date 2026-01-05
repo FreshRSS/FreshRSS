@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'FreshRSS névjegy',
 		'before_one_day' => 'Egy napnál régebbiek',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Egy hétnél régebbiek',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Jelenlegi lekérdezés könyvjelzőzése',
 		'favorites' => 'Kedvencek (%s)',
 		'global_view' => 'Globális nézet',

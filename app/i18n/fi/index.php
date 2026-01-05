@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'Tietoja FreshRSS-sovelluksesta',
 		'before_one_day' => 'Vanhemmat kuin yksi päivä',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Vanhemmat kuin yksi viikko',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Tallenna tämä kysely kirjanmerkiksi',
 		'favorites' => 'Suosikit (%s)',
 		'global_view' => 'Yleisnäkymä',

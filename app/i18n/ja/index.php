@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'FreshRSSについて',
 		'before_one_day' => '一日以上前',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => '一週間以上前',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => '現在のブックマーククエリ',
 		'favorites' => 'お気に入り (%s)',
 		'global_view' => 'グローバルビュー',

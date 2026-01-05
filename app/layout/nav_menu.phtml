@@ -157,15 +157,24 @@
 	$mark_read_enabled = in_array(FreshRSS_Context::$sort, ['id', 'date'], true);
 	$today = @strtotime('today');
 	$mark_before_today = $mark_read_url;
+	$mark_before_two_days = $mark_read_url;
+	$mark_before_three_days = $mark_read_url;
 	$mark_before_one_week = $mark_read_url;
+	$mark_before_one_month = $mark_read_url;
 	switch (FreshRSS_Context::$sort) {
 		case 'id':
 			$mark_before_today['params']['idMax'] = $today . '000000';
+			$mark_before_two_days['params']['idMax'] = ($today - 172800) . '000000';
+			$mark_before_three_days['params']['idMax'] = ($today - 259200) . '000000';
 			$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
+			$mark_before_one_month['params']['idMax'] = ($today - 2592000) . '000000';
 			break;
 		case 'date':
 			$mark_before_today['params']['maxPubDate'] = $today;
+			$mark_before_two_days['params']['maxPubDate'] = $today - 172800;
+			$mark_before_three_days['params']['maxPubDate'] = $today - 259200;
 			$mark_before_one_week['params']['maxPubDate'] = $today - 604800;
+			$mark_before_one_month['params']['maxPubDate'] = $today - 2592000;
 			break;
 	}
 	$mark_unread_enabled = FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) ||
@@ -180,8 +189,26 @@
 				<li class="item">
 					<button class="as-link <?= $mark_read_enabled ? $confirm : '" disabled="disabled' ?>"
 						form="mark-read-menu"
+						formaction="<?= Minz_Url::display($mark_before_two_days) ?>"
+						type="submit"><?= _t('index.menu.before_two_days') ?></button>
+				</li>
+				<li class="item">
+					<button class="as-link <?= $mark_read_enabled ? $confirm : '" disabled="disabled' ?>"
+						form="mark-read-menu"
+						formaction="<?= Minz_Url::display($mark_before_three_days) ?>"
+						type="submit"><?= _t('index.menu.before_three_days') ?></button>
+				</li>
+				<li class="item">
+					<button class="as-link <?= $mark_read_enabled ? $confirm : '" disabled="disabled' ?>"
+						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_before_one_week) ?>"
 						type="submit"><?= _t('index.menu.before_one_week') ?></button>
+				</li>
+				<li class="item">
+					<button class="as-link <?= $mark_read_enabled ? $confirm : '" disabled="disabled' ?>"
+						form="mark-read-menu"
+						formaction="<?= Minz_Url::display($mark_before_one_month) ?>"
+						type="submit"><?= _t('index.menu.before_one_month') ?></button>
 				</li>
 				<li class="item separator">
 					<button class="as-link <?= $mark_unread_enabled ? $confirm : '" disabled="disabled' ?>"

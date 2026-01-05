@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'About FreshRSS',	// IGNORE
 		'before_one_day' => 'Older than one day',	// IGNORE
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => 'Older than one week',	// IGNORE
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => 'Bookmark current query',	// IGNORE
 		'favorites' => 'Favorites (%s)',
 		'global_view' => 'Global view',	// IGNORE

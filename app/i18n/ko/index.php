@@ -66,7 +66,10 @@ return array(
 	'menu' => array(
 		'about' => 'FreshRSS 정보',
 		'before_one_day' => '하루 전',
+		'before_one_month' => 'Older than one month',	// TODO
 		'before_one_week' => '일주일 전',
+		'before_three_days' => 'Older than three days',	// TODO
+		'before_two_days' => 'Older than two days',	// TODO
 		'bookmark_query' => '현재 쿼리 북마크',
 		'favorites' => '즐겨찾기 (%s)',
 		'global_view' => '전체 모드',
