@@ -83,11 +83,11 @@ return array(
 			'nok' => 'De vereiste PDO-driver voor MySQL/MariaDB kan niet worden gevonden.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'De vereiste PDO-driver voor PostgreSQL kan niet worden gevonden.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'nok' => 'De PDO-driver voor SQLite kan niet worden gevonden.',
+			'ok' => 'U hebt het PDO-stuurprogramma voor SQLite',
 		),
 		'pdo' => array(
 			'nok' => 'U mist PDO of één van de ondersteunde (pdo_sqlite, pdo_pgsql, pdo_mysql).',
