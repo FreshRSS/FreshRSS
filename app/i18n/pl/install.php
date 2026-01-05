@@ -64,8 +64,8 @@ return array(
 		),
 		'files' => 'Instalacja plików',
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Nie znaleziono zalecanej biblioteki php-intl do internacjonalizacji.',
+			'ok' => 'Znaleziono zalecaną bibliotekę php-intl do internacjonalizacji.',
 		),
 		'json' => array(
 			'nok' => 'Nie znaleziono zalecanej biblioteki do przetwarzania JSON-a.',
@@ -80,14 +80,14 @@ return array(
 			'ok' => 'Znaleziono wymaganą bibliotekę do obsługi wyrażeń regularnych (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Nie znaleziono wymaganego sterownika PDO dla MySQL/MariaDB.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Nie znaleziono wymaganego sterownika PDO dla PostgreSQL.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'nok' => 'Nie znaleziono sterownika PDO dla SQLite.',
+			'ok' => 'Znaleziono sterownik PDO dla SQLite',
 		),
 		'pdo' => array(
 			'nok' => 'Nie znaleziono PDO ani żadnego wspieranego sterownika bazy danych (pdo_sqlite, pdo_pgsql, pdo_mysql).',
