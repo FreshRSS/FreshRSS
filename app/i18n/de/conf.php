@@ -112,7 +112,8 @@ return array(
 		),
 		'good' => array(
 			'label' => 'Zeige Anerkennungsbanner',
-			'seconds' => 'Sekunden (0 für nicht gezeigt)',		),
+			'seconds' => 'Sekunden (0 für nicht gezeigt)',
+		),
 	),
 	'privacy' => array(
 		'_' => 'Privatsphäre',
