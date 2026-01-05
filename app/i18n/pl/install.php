@@ -87,7 +87,7 @@ return array(
 		),
 		'pdo-sqlite' => array(
 			'nok' => 'Nie znaleziono sterownika PDO dla SQLite.',
-			'ok' => 'Znaleziono sterownik PDO dla SQLite',
+			'ok' => 'Znaleziono sterownik PDO dla SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'Nie znaleziono PDO ani żadnego wspieranego sterownika bazy danych (pdo_sqlite, pdo_pgsql, pdo_mysql).',

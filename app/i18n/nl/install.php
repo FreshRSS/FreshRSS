@@ -87,7 +87,7 @@ return array(
 		),
 		'pdo-sqlite' => array(
 			'nok' => 'De PDO-driver voor SQLite kan niet worden gevonden.',
-			'ok' => 'U hebt het PDO-stuurprogramma voor SQLite',
+			'ok' => 'U hebt het PDO-stuurprogramma voor SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'U mist PDO of één van de ondersteunde (pdo_sqlite, pdo_pgsql, pdo_mysql).',
