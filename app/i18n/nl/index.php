@@ -37,13 +37,13 @@ return array(
 	'feed' => array(
 		'empty' => 'Er is geen artikel om te laten zien.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Gepubliceerd',
+			'future' => 'In de toekomst gepubliceerd',
+			'today' => 'Vandaag gepubliceerd',
+			'yesterday' => 'Gisteren gepubliceerd',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'Ontvangen',
 			'today' => 'Vandaag ontvangen',
 			'yesterday' => 'Gisteren ontvangen',
 		),
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'Favorieten',
 		'title_global' => 'Globale weergave',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Aangepast door gebruiker',
+			'today' => 'Vandaag aangepast door gebruiker',
+			'yesterday' => 'Gisteren aangepast door gebruiker',
 		),
 	),
 	'log' => array(
@@ -100,8 +100,8 @@ return array(
 			),
 			'id_asc' => 'Nieuw ontvangen laatst',
 			'id_desc' => 'Nieuw ontvangen eerst',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'length_asc' => 'Lengte van inhoud 1→9',
+			'length_desc' => 'Lengte van inhoud 9→1',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Willekeurige volgorde',
