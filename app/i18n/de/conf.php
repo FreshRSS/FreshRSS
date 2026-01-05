@@ -286,7 +286,7 @@ return array(
 			'all_categories' => 'Alle Kategorien',
 			'no_category' => 'Keine Kategorie',
 			'remember_categories' => 'Geöffnete Kategorien merken',
-			'unread' => 'Nur ungelesene zeigen',
+			'unread' => 'ngelesene zeigen',
 			'unread_or_favorite' => 'Ungelesene Artikel und Favoriten anzeigen',
 		),
 		'show_fav_unread_help' => 'Auch auf Labels anwenden',
