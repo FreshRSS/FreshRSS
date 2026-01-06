@@ -102,8 +102,8 @@ return array(
 			'id_desc' => 'Recebido recentemente primeiro',
 			'length_asc' => 'Comprimento do conteúdo 1→9',
 			'length_desc' => 'Comprimento do conteúdo 9→1',
-			'link_asc' => 'Link A→Z',
-			'link_desc' => 'Link Z→A',
+			'link_asc' => 'Link A→Z',	// IGNORE
+			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Ordem aleatória',
 			'title_asc' => 'Título A→Z',
 			'title_desc' => 'Título Z→A',

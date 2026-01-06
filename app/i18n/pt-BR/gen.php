@@ -234,7 +234,7 @@ return array(
 		'date_received' => 'Data de recebimento',
 		'date_to' => 'Até',
 		'date_user' => 'Data de modificação pelo usuário',
-		'feeds' => 'Feeds',
+		'feeds' => 'Feeds',	// IGNORE
 		'free_text' => 'Texto livre',
 		'free_text_help' => 'Pesquisar tanto no título quanto no conteúdo',
 		'full_documentation' => 'Ver <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentação completa da pesquisa</a>',
