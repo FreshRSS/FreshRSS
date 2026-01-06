@@ -286,7 +286,7 @@ return array(
 			'all_categories' => 'Exibir todas as categorias',
 			'no_category' => 'Nenhuma categoria',
 			'remember_categories' => 'lembrar de abrir as categorias',
-			'unread' => 'Exibir apenas não lido',
+			'unread' => 'Exibir não lido',
 			'unread_or_favorite' => 'Exibir não lidos e favoritos',
 		),
 		'show_fav_unread_help' => 'Aplicar também nas tags',
