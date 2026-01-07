@@ -54,6 +54,7 @@ People are sorted by name so please keep this order.
 * [Chris Francy](https://github.com/zoredache): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zoredache)
 * [Christian König](https://github.com/yubiuser): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yubiuser)
 * [Çılga İşcan Tercanlı](https://github.com/CilgaIscan): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:CilgaIscan)
+* [Ciro Mota](https://github.com/ciro-mota): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr%20author%3Aciro-mota)
 * [Clemens Neubauer](https://github.com/cn-tools): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cn-tools), [Web](http://cn-tools.eu/)
 * [Corentin Garcia](https://github.com/corenting): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:corenting), [Web](http://corenting.fr/)
 * [Craig Andrews](https://github.com/candrews): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:candrews), [Web](http://candrews.integralblue.com/)
