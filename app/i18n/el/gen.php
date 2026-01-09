@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Προσοχή!',
 		'blank_to_disable' => 'Αφήστε το κενό για απενεργοποίηση',
-		'by_author' => 'Από:',
+		'by_author' => 'Από: ',
 		'by_default' => 'Ώς προεπιλεγμένο',
 		'damn' => 'Ούπς!',
 		'default_category' => 'Μη κατηγοριοποιημένα',

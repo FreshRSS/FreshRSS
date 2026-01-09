@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => '경고!',
 		'blank_to_disable' => '빈 칸으로 두면 비활성화',
-		'by_author' => '글쓴이:',
+		'by_author' => '글쓴이: ',
 		'by_default' => '기본값',
 		'damn' => '이런!',
 		'default_category' => '분류 없음',

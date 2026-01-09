@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Atenção!',
 		'blank_to_disable' => 'Deixe em branco para desativar',
-		'by_author' => 'Por:',
+		'by_author' => 'Por: ',
 		'by_default' => 'Por padrão',
 		'damn' => 'Buumm!',
 		'default_category' => 'Sem categoria',

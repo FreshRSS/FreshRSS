@@ -68,7 +68,7 @@
 									<?php if (!empty($theme['deprecated'])) { ?>
 										<span class="deprecated error"><?= _t('conf.display.theme.deprecated') ?>:</span>
 									<?php } ?>
-									<?= sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), ' ', $theme['author']) ?>
+									<?= sprintf('%s — %s %s', $theme['name'], _t('gen.short.by_author'), $theme['author']) ?>
 								</div>
 								<div>
 									<?php if (!empty($theme['deprecated'])) { ?>

@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Предупреждение!',
 		'blank_to_disable' => 'Оставьте поле пустым, чтобы отключить',
-		'by_author' => 'От:',
+		'by_author' => 'От: ',
 		'by_default' => 'По умолчанию',
 		'damn' => 'О нет!',
 		'default_category' => 'Без категории',

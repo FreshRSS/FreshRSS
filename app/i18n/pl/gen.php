@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Uwaga!',
 		'blank_to_disable' => 'Pozostaw puste, by wyłączyć',
-		'by_author' => 'Autor:',
+		'by_author' => 'Autor: ',
 		'by_default' => 'Domyślnie',
 		'damn' => 'Niech to!',
 		'default_category' => 'Brak kategorii',

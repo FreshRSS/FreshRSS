@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Uyarı!',
 		'blank_to_disable' => 'Devre dışı bırakmak için boş bırakın',
-		'by_author' => 'Yazar:',
+		'by_author' => 'Yazar: ',
 		'by_default' => 'Varsayılan olarak',
 		'damn' => 'Lanet olsun!',
 		'default_category' => 'Kategorisiz',

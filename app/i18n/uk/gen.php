@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Увага!',
 		'blank_to_disable' => 'Щоб вимкнути, залиште порожнім',
-		'by_author' => 'Від:',
+		'by_author' => 'Від: ',
 		'by_default' => 'Типово',
 		'damn' => 'Йой!',
 		'default_category' => 'Без категорії',
