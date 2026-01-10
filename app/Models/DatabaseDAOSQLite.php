@@ -102,6 +102,6 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 
 	#[\Override]
 	public static function strilike(string $haystack, string $needle, bool $contains = false): bool {
-		return $contains ? stripos($haystack, $needle) !== false : strcasecmp($haystack, $needle) === 0;
+		return $contains ? (stripos($haystack, $needle) !== false) : (strcasecmp($haystack, $needle) === 0);
 	}
 }
