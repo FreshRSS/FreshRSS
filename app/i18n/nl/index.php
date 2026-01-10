@@ -37,13 +37,13 @@ return array(
 	'feed' => array(
 		'empty' => 'Er is geen artikel om te laten zien.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Gepubliceerd',
+			'future' => 'In de toekomst gepubliceerd',
+			'today' => 'Vandaag gepubliceerd',
+			'yesterday' => 'Gisteren gepubliceerd',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'Ontvangen',
 			'today' => 'Vandaag ontvangen',
 			'yesterday' => 'Gisteren ontvangen',
 		),
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'Favorieten',
 		'title_global' => 'Globale weergave',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Aangepast door gebruiker',
+			'today' => 'Vandaag aangepast door gebruiker',
+			'yesterday' => 'Gisteren aangepast door gebruiker',
 		),
 	),
 	'log' => array(
@@ -78,12 +78,12 @@ return array(
 		'mark_selection_unread' => 'Markeer selectie als ongelezen',
 		'mylabels' => 'Mijn labels',
 		'newer_first' => 'Nieuwste eerst',
-		'non-starred' => 'Laat alles zien behalve favorieten',
+		'non-starred' => 'Niet-favorieten tonen',
 		'normal_view' => 'Normale weergave',
 		'older_first' => 'Oudste eerst',
 		'queries' => 'Gebruikers queries',
-		'read' => 'Laat alleen gelezen zien',
-		'reader_view' => 'Lees modus',
+		'read' => 'Gelezen tonen',
+		'reader_view' => 'Leesmodus',
 		'rss_view' => 'RSS-feed',
 		'search_short' => 'Zoeken',
 		'sort' => array(
@@ -100,8 +100,8 @@ return array(
 			),
 			'id_asc' => 'Nieuw ontvangen laatst',
 			'id_desc' => 'Nieuw ontvangen eerst',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'length_asc' => 'Lengte van inhoud 1→9',
+			'length_desc' => 'Lengte van inhoud 9→1',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Willekeurige volgorde',
@@ -110,10 +110,10 @@ return array(
 			'user_modified_asc' => 'Aangepast door gebruiker 1→9',
 			'user_modified_desc' => 'Aangepast door gebruiker 9→1',
 		),
-		'starred' => 'Laat alleen favorieten zien',
+		'starred' => 'Favorieten tonen',
 		'stats' => 'Statistieken',
-		'subscription' => 'Abonnementen beheer',
-		'unread' => 'Laat alleen ongelezen zien',
+		'subscription' => 'Abonnementenbeheer',
+		'unread' => 'Ongelezen tonen',
 	),
 	'share' => 'Delen',
 	'tag' => array(

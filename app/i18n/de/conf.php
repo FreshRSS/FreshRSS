@@ -107,12 +107,12 @@ return array(
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Zeige Warnbanner',
+			'seconds' => 'Sekundne (mind. 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Zeige Anerkennungsbanner',
+			'seconds' => 'Sekunden (0 für nicht gezeigt)',
 		),
 	),
 	'privacy' => array(
@@ -152,7 +152,7 @@ return array(
 			'categories' => 'Nach Kategorie filtern',
 			'feeds' => 'Nach Feed filtern',
 			'order' => 'Nach Datum sortieren',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => 'Ersetze <i>feed tags</i> durch <i>user labels</i> im geteilten RSS',
 			'search' => 'Suchbegriff',
 			'shareOpml' => 'Teilen via OPML mit zugehörigen Kategorien und Feeds aktivieren',
 			'shareRss' => 'Teilen via HTML &amp; RSS aktivieren',
@@ -286,7 +286,7 @@ return array(
 			'all_categories' => 'Alle Kategorien',
 			'no_category' => 'Keine Kategorie',
 			'remember_categories' => 'Geöffnete Kategorien merken',
-			'unread' => 'Nur ungelesene zeigen',
+			'unread' => 'Ungelesene zeigen',
 			'unread_or_favorite' => 'Ungelesene Artikel und Favoriten anzeigen',
 		),
 		'show_fav_unread_help' => 'Auch auf Labels anwenden',
@@ -359,7 +359,7 @@ return array(
 		'skip_next_article' => 'Nächsten markieren ohne zu öffnen',
 		'skip_previous_article' => 'Vorherigen markieren ohne zu öffnen',
 		'title' => 'Tastenkombination',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Seitenleiste an/aus',
 		'toggle_media' => 'Medien abspielen/anhalten',
 		'user_filter' => 'Auf Benutzerfilter zugreifen',
 		'user_filter_help' => 'Wenn es nur einen Benutzerfilter gibt, wird dieser verwendet. Ansonsten sind die Filter über ihre Nummer erreichbar.',

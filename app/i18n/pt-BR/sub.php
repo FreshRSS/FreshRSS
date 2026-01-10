@@ -29,9 +29,9 @@ return array(
 			'help' => 'Forneça uma URL para <a href="http://opml.org/" target="_blank">o arquivo OPML </a> para preencher dinamicamente esta categoria com feeds',
 		),
 		'empty' => 'Categoria vazia',
-		'expand' => 'Expand category',	// TODO
+		'expand' => 'Expandir categoria',
 		'information' => 'Informações',
-		'open' => 'Open category',	// TODO
+		'open' => 'Abrir categoria',
 		'opml_url' => 'URL de OPML',
 		'position' => 'Posição de exibição',
 		'position_help' => 'Para controlar a ordem de exibição',
@@ -39,7 +39,7 @@ return array(
 	),
 	'feed' => array(
 		'accept_cookies' => 'Aceitar cookies',
-		'accept_cookies_help' => 'Permitir que o servidor de Feed defina os cookies (sarmazenados na memória apenas durante a solicitação)',
+		'accept_cookies_help' => 'Permitir que o servidor de Feed defina os cookies (armazenados na memória apenas durante a solicitação)',
 		'add' => 'Adicionar um feed',
 		'advanced' => 'Avançado',
 		'archiving' => 'Arquivar',
@@ -50,7 +50,7 @@ return array(
 			'password' => 'Senha HTTP',
 			'username' => 'Usuário HTTP',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'Alterar…',
 		'clear_cache' => 'Sempre limpar o cache',
 		'content_action' => array(
 			'_' => 'Ações ao buscar pelo conteúdo de artigos',
@@ -58,7 +58,7 @@ return array(
 			'prepend' => 'Adicionar antes do conteúdo existente',
 			'replace' => 'Substituir o conteúdo existente',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
+		'content_retrieval' => 'Recuperação de conteúdo',
 		'css_cookie' => 'Usar cookies ao buscar pelo conteúdo de artigos',
 		'css_cookie_help' => 'Exemplo: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Retorna RSS feeds truncados (atenção, requer mais tempo!)',
@@ -69,31 +69,31 @@ return array(
 		),
 		'description' => 'Descrição',
 		'empty' => 'Este feed está vazio. Por favor verifique ele ainda é mantido.',
-		'error' => 'Este feed encontra-se com problema. Por favor verifique se ele ainda está disponível.',	// DIRTY
+		'error' => 'Este feed encontrou um problema. Se a situação persistir, verifique se ainda é possível acessá-lo.',
 		'export-as-opml' => array(
 			'download' => 'Download',	// IGNORE
-			'help' => 'Arquivo XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'Arquivo XML (subconjunto de dados. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Consulte a documentação</a>)',
 			'label' => 'Exportar como OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => 'Definir automaticamente',
+		'favicon_changed_by_ext' => 'O ícone foi definido pela extensão <b>%s</b>.',
 		'filteractions' => array(
 			'_' => 'Ações do filtro',
-			'help' => 'Escreva um filtro de pesquisa por linha. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'help' => 'Escreva um filtro de pesquisa por linha. Operadores <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">consulte a documentação</a>.',
+			'view_filter' => 'Visualizar filtros em artigos existentes (nova janela)',
 		),
-		'http_headers' => 'HTTP Headers',	// TODO
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
-		'icon' => 'Icon',	// TODO
+		'http_headers' => 'Cabeçalhos HTTP',
+		'http_headers_help' => 'Os cabeçalhos são separados por uma nova linha, e o nome e o valor de um cabeçalho são separados por dois pontos (ex: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Ícone',
 		'information' => 'Informações',
 		'keep_min' => 'Número mínimo de artigos para manter',
 		'kind' => array(
 			'_' => 'Tipo de fonte de alimentação do Feed',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'_' => 'HTML + XPath + notação de ponto JSON (JSON em HTML)',
 				'xpath' => array(
-					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// TODO
+					'_' => 'XPath para JSON em HTML',
+					'help' => 'Exemplo: <code>normalize-space(//script[@type="application/json"])</code> (JSON único)<br />ou: <code>//script[@type="application/ld+json"]</code> (um objeto JSON por artigo)',
 				),
 			),
 			'html_xpath' => array(
@@ -121,8 +121,8 @@ return array(
 					'help' => 'Exemplo: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Formato de data/hora personalizado',
+					'help' => 'Opcional. Um formato suportado por <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> assim como <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'Data do Item',
@@ -152,7 +152,7 @@ return array(
 				'help' => 'Um JSON na notação de ponto usa pontos entre os objetos e colchetes para arrays (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'encontrando novidades <strong>itens</strong><br /><small>(mais importante)</small>',
-					'help' => 'Caminho do JSON para o array contendo os itens, e.g. <code>$</code> or <code>newsItems</code>',	// DIRTY
+					'help' => 'Caminho do JSON para o array contendo os itens, e.g. <code>$</code> ou <code>newsItems</code>',
 				),
 				'item_author' => 'autor do item',
 				'item_categories' => 'tags dos itens',
@@ -170,7 +170,7 @@ return array(
 				),
 				'item_timestamp' => array(
 					'_' => 'data do item',
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'help' => 'O resultado será analisado por <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'título do item',
 				'item_uid' => 'ID único do item',
@@ -202,23 +202,23 @@ return array(
 		'moved_category_deleted' => 'Quando você deleta uma categoria, seus feeds são automaticamente classificados como <em>%s</em>.',
 		'mute' => array(
 			'_' => 'silenciar',
-			'state_is_muted' => 'This feed is muted',	// TODO
+			'state_is_muted' => 'Este feed está silenciado',
 		),
 		'no_selected' => 'Nenhum feed selecionado.',
 		'number_entries' => '%d artigos',
-		'open_feed' => 'Open feed %s',	// TODO
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'open_feed' => 'Abrir feed %s',
+		'path_entries_conditions' => 'Condições para recuperação de conteúdo',
 		'priority' => array(
 			'_' => 'Visibilidade',
 			'category' => 'Mostrar na sua categoria',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => 'Mostrar no seu feed',
 			'hidden' => 'Não exibir',
 			'important' => 'Mostrar feeds importantes',
 			'main_stream' => 'Mostrar na tela principal',
 		),
 		'proxy' => 'Defina um proxy para buscar esse feed',
 		'proxy_help' => 'Selecione um protocolo (e.g: SOCKS5) e digite o endereço do proxy (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => 'Redefinir para o padrão',
 		'selector_preview' => array(
 			'show_raw' => 'Mostrar fonte',
 			'show_rendered' => 'Mostrar conteúdo',
@@ -238,20 +238,20 @@ return array(
 		'title_add' => 'Adicionar o RSS feed',
 		'ttl' => 'Não atualize automaticamente mais que',
 		'unicityCriteria' => array(
-			'_' => 'Article unicity criteria',	// TODO
-			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
-			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
-			'id' => 'Standard ID (default)',	// TODO
-			'link' => 'Link',	// TODO
-			'sha1:content' => 'Content',	// TODO
-			'sha1:content_published' => 'Content + Date',	// TODO
-			'sha1:link_published' => 'Link + Date',	// TODO
-			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
-			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
-			'sha1:published' => 'Date',	// TODO
-			'sha1:title' => 'Title',	// TODO
-			'sha1:title_published' => 'Title + Date',	// TODO
-			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
+			'_' => 'Critério de unicidade do artigo',
+			'forced' => '<span title="Bloquear os critérios de unicidade, mesmo quando o feed tiver artigos duplicados">forçado</span>',
+			'help' => 'Relevante para feeds inválidos.<br />⚠️ Alterar a política criará duplicatas.',
+			'id' => 'ID padrão (padrão)',
+			'link' => 'Link',	// IGNORE
+			'sha1:content' => 'Conteúdo',
+			'sha1:content_published' => 'Conteúdo + Data',
+			'sha1:link_published' => 'Link + Data',
+			'sha1:link_published_title' => 'Link + Data + Título',
+			'sha1:link_published_title_content' => 'Link + Data + Título + Conteúdo',
+			'sha1:published' => 'Data',
+			'sha1:title' => 'Título',
+			'sha1:title_published' => 'Título + Data',
+			'sha1:title_published_content' => 'Título + Data + Conteúdo',
 		),
 		'url' => 'URL do Feed',
 		'useragent' => 'Defina um usuário para buscar este feed',
@@ -263,7 +263,7 @@ return array(
 	'import_export' => array(
 		'export' => array(
 			'_' => 'Exportar',
-			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite' => 'Baixar banco de dados do usuário como SQLite',
 		),
 		'export_labelled' => 'Exportar seus artigos etiquetados',
 		'export_opml' => 'Exporta a lista dos feeds (OPML)',
@@ -283,7 +283,7 @@ return array(
 			'idle' => 'Feeds inativos',
 			'main' => 'Estatísticas principais',
 			'repartition' => 'Repartição de artigos',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => 'Datas não lidas',
 		),
 		'subscription_management' => 'Gerenciamento de inscrições',
 		'subscription_tools' => 'Ferramentas de inscrição',
@@ -301,7 +301,7 @@ return array(
 		'add_dynamic_opml' => 'Adicionar OPML dinâmico',
 		'add_feed' => 'Adicionar um feed',
 		'add_label' => 'Adicionar uma etiqueta',
-		'add_opml_category' => 'OPML category name',	// TODO
+		'add_opml_category' => 'Nome da categoria OPML',
 		'delete_label' => 'Deletar uma etiqueta',
 		'feed_management' => 'Gerenciamento dos RSS feeds',
 		'subscription_tools' => 'Ferramentas de inscrição',

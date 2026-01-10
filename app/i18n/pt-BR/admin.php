@@ -14,9 +14,9 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Permitir a leitura anônima dos artigos pelo usuário padrão (%s)',
 		'allow_anonymous_refresh' => 'Permitir atualização anônima dos artigos',
-		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessáiro para aplicativos móveis and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessário para aplicativos móveis e compartilhamento de consultas de usuários)</small>',
 		'form' => 'Formulário Web(tradicional, Necessita de JavaScript)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP (avançado: gerenciado por servidor web, OIDC, SSO…)',
 		'none' => 'Nenhum (Perigoso)',
 		'title' => 'Autenticação',
 		'token' => 'Token de autenticação principal',
@@ -29,9 +29,9 @@ return array(
 		'description' => 'Descrição',
 		'disabled' => 'Desabilitado',
 		'empty_list' => 'Não há extensões instaladas',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Verifique os registros para determinar o motivo da lista de extensões estar vazia.',
 		'enabled' => 'Habilitada',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'É compatível',
 		'latest' => 'Instalado',
 		'name' => 'Nome',
 		'no_configure_view' => 'Esta extensão não pode ser configurada.',
@@ -48,8 +48,8 @@ return array(
 		'_' => 'Estatísticas',
 		'all_feeds' => 'Todos os feeds',
 		'category' => 'Categoria',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Data de publicação',
+		'date_received' => 'Data de recebimento',
 		'entry_count' => 'Contagem de entrada',
 		'entry_per_category' => 'Entradas por categoria',
 		'entry_per_day' => 'Entradas por dia (últimos 30 dias)',
@@ -62,10 +62,10 @@ return array(
 		'idle' => 'Feeds inativos',
 		'main' => 'Estatísticas principais',
 		'main_stream' => 'Stream principal',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Número de artigos não lidos',
 		'no_idle' => 'Não há nenhum feed inativo!',
 		'number_entries' => '%d artigos',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Visão geral',
 		'percent_of_total' => '% do total',
 		'repartition' => 'Repartição de artigos: %s',
 		'status_favorites' => 'Favoritos',
@@ -74,7 +74,7 @@ return array(
 		'status_unread' => 'Não lidos',
 		'title' => 'Estatísticas',
 		'top_feed' => 'Top10 Feeds',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Datas com mais artigos não lidos',
 	),
 	'system' => array(
 		'_' => 'Configuração do sistema',

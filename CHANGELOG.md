@@ -11,6 +11,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix encoding of filter actions for labels [#8368](https://github.com/FreshRSS/FreshRSS/pull/8368)
 	* Auto-add `lastUserModified` database column also during mark-as-read action [#8346](https://github.com/FreshRSS/FreshRSS/pull/8346)
 	* Do not include hidden feeds when counting unread articles in categories [#8357](https://github.com/FreshRSS/FreshRSS/pull/8357)
+	* Remove wrong PHP deprecation of OPML export action [#8399](https://github.com/FreshRSS/FreshRSS/pull/8399)
 * Performance
 	* Disable counting articles in user labels for Ajax requests (unused) [#8352](https://github.com/FreshRSS/FreshRSS/pull/8352)
 * Security
@@ -22,6 +23,13 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Update of `CURLOPT_ACCEPT_ENCODING` [#8376](https://github.com/FreshRSS/FreshRSS/pull/8376), [simplepie#960](https://github.com/simplepie/simplepie/pull/960), [simplepie#962](https://github.com/simplepie/simplepie/pull/962)
 * Extensions
 	* Update `.gitignore` to ignore installed extensions [#8372](https://github.com/FreshRSS/FreshRSS/pull/8372)
+* UI
+	* Add `data-category="3"` to ease custom CSS styling of articles [#8397](https://github.com/FreshRSS/FreshRSS/pull/8397)
+* I18n
+	* Improve Dutch [#8403](https://github.com/FreshRSS/FreshRSS/pull/8403)
+	* Improve German [#8402](https://github.com/FreshRSS/FreshRSS/pull/8402)
+	* Improve Polish [#8408](https://github.com/FreshRSS/FreshRSS/pull/8408)
+	* Improve Brazilian Portuguese [#8411](https://github.com/FreshRSS/FreshRSS/pull/8411)
 * Misc.
 	* Update dev dependencies [#8387](https://github.com/FreshRSS/FreshRSS/pull/8387), [#8388](https://github.com/FreshRSS/FreshRSS/pull/8388), [#8389](https://github.com/FreshRSS/FreshRSS/pull/8389),
 		[#8390](https://github.com/FreshRSS/FreshRSS/pull/8390), [#8391](https://github.com/FreshRSS/FreshRSS/pull/8391), [#8393](https://github.com/FreshRSS/FreshRSS/pull/8393)
