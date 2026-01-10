@@ -495,10 +495,44 @@ SQL;
 				return $transliterated;
 			}
 		}
-		return strtolower(strtr($str,
-			'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
-			'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn'
-		));
+		// Fallback covering only Latin: Windows-1252 / ISO-8859-15 / ISO-8859-1, Windows-1250 / ISO-8859-2, Windows-1257 / ISO-8859-13, Windows-1254 / ISO-8859-9
+		// phpcs:disable PSR12.Operators.OperatorSpacing.NoSpaceBefore, PSR12.Operators.OperatorSpacing.NoSpaceAfter, Squiz.WhiteSpace.OperatorSpacing.NoSpaceBefore, Squiz.WhiteSpace.OperatorSpacing.NoSpaceAfter
+		$replacements = [
+			'A' => 'a', 'À'=>'a', 'Á'=>'a', 'Â'=>'a', 'Ä'=>'a', 'Ã'=>'a', 'Å'=>'a', 'Ă'=>'a', 'Ą'=>'a', 'Ā'=>'a',
+			'à'=>'a', 'á'=>'a', 'â'=>'a', 'ä'=>'a', 'ã'=>'a', 'å'=>'a', 'ă'=>'a', 'ą'=>'a', 'ā'=>'a',
+			'B' => 'b',
+			'C' => 'c', 'Ç'=>'c', 'Ć'=>'c', 'Č'=>'c', 'ç'=>'c', 'ć'=>'c', 'č'=>'c',
+			'D' => 'd', 'Ď'=>'d', 'Đ'=>'d', 'ď'=>'d', 'đ'=>'d',
+			'E' => 'e', 'È'=>'e', 'É'=>'e', 'Ê'=>'e', 'Ë'=>'e', 'Ę'=>'e', 'Ě'=>'e', 'Ē'=>'e', 'Ė'=>'e',
+			'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ę'=>'e', 'ě'=>'e', 'ē'=>'e', 'ė'=>'e',
+			'F' => 'f',
+			'G' => 'g', 'Ğ'=>'g', 'Ģ'=>'g', 'ğ'=>'g', 'ģ'=>'g',
+			'H' => 'h',
+			'I' => 'i', 'Ì'=>'i', 'Í'=>'i', 'Î'=>'i', 'Ï'=>'i', 'İ'=>'i', 'Ī'=>'i', 'Į'=>'i',
+			'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ı'=>'i', 'ī'=>'i', 'į'=>'i',
+			'J' => 'j',
+			'K' => 'k', 'Ķ'=>'k', 'ķ'=>'k',
+			'L' => 'l', 'Ĺ'=>'l', 'Ľ'=>'l', 'Ł'=>'l', 'Ļ'=>'l', 'ĺ'=>'l', 'ľ'=>'l', 'ł'=>'l', 'ļ'=>'l',
+			'M' => 'm',
+			'N' => 'n', 'Ñ'=>'n', 'Ń'=>'n', 'Ň'=>'n', 'Ņ'=>'n', 'ñ'=>'n', 'ń'=>'n', 'ň'=>'n', 'ņ'=>'n',
+			'O' => 'o', 'Ò'=>'o', 'Ó'=>'o', 'Ô'=>'o', 'Ö'=>'o', 'Õ'=>'o', 'Ø'=>'o', 'Ő'=>'o', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'ö'=>'o', 'õ'=>'o', 'ø'=>'o', 'ő'=>'o',
+			'P' => 'p',
+			'Q' => 'q',
+			'R' => 'r', 'Ŕ'=>'r', 'Ř'=>'r', 'ŕ'=>'r', 'ř'=>'r',
+			'S' => 's', 'Ś'=>'s', 'Š'=>'s', 'Ş'=>'s', 'ß'=>'ss', 'ś'=>'s', 'š'=>'s', 'ş'=>'s',
+			'T' => 't', 'Ť'=>'t', 'Ţ'=>'t', 'ť'=>'t', 'ţ'=>'t',
+			'U' => 'u', 'Ù'=>'u', 'Ú'=>'u', 'Û'=>'u', 'Ü'=>'u', 'Ů'=>'u', 'Ű'=>'u', 'Ū'=>'u', 'Ų'=>'u',
+			'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ü'=>'u', 'ů'=>'u', 'ű'=>'u', 'ū'=>'u', 'ų'=>'u',
+			'V' => 'v',
+			'W' => 'w',
+			'X' => 'x',
+			'Y' => 'y', 'Ý'=>'y', 'Ÿ'=>'y', 'ý'=>'y', 'ÿ'=>'y',
+			'Z' => 'z', 'Ź'=>'z', 'Ż'=>'z', 'Ž'=>'z', 'ź'=>'z', 'ż'=>'z', 'ž'=>'z',
+			'Æ'=>'ae', 'æ'=>'ae',
+			'Œ'=>'oe', 'œ'=>'oe',
+		];
+		// phpcs:enable PSR12.Operators.OperatorSpacing.NoSpaceBefore, PSR12.Operators.OperatorSpacing.NoSpaceAfter, Squiz.WhiteSpace.OperatorSpacing.NoSpaceBefore, Squiz.WhiteSpace.OperatorSpacing.NoSpaceAfter
+		return strtr($str, $replacements);
 	}
 
 	/**
