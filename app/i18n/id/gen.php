@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Peringatan!',
 		'blank_to_disable' => 'Biarkan kosong untuk menonaktifkan',
-		'by_author' => 'Oleh: ',
+		'by_author' => 'Oleh:',
 		'by_default' => 'Secara baku',
 		'damn' => 'Sial!',
 		'default_category' => 'Tidak ada kategori',

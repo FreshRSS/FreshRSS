@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Varoitus!',
 		'blank_to_disable' => 'Poista käytöstä jättämällä tämä tyhjäksi',
-		'by_author' => 'Kirjoittaja: ',
+		'by_author' => 'Kirjoittaja:',
 		'by_default' => 'Oletusarvo',
 		'damn' => 'Pahus!',
 		'default_category' => 'Luokittelematon',

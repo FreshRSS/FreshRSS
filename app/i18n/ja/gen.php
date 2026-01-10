@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => '警告!',
 		'blank_to_disable' => '空白のままにすると無効になります',
-		'by_author' => '著者: ',
+		'by_author' => '著者:',
 		'by_default' => 'デフォルト',
 		'damn' => '終了!',
 		'default_category' => '未分類',

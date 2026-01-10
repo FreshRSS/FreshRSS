@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Warning!',	// IGNORE
 		'blank_to_disable' => 'Leave blank to disable',	// IGNORE
-		'by_author' => 'By: ',	// IGNORE
+		'by_author' => 'By:',	// IGNORE
 		'by_default' => 'By default',	// IGNORE
 		'damn' => 'Blast!',	// IGNORE
 		'default_category' => 'Uncategorized',	// IGNORE

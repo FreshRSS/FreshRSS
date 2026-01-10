@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Upozornění!',
 		'blank_to_disable' => 'Ponechte prázdné pro zakázání',
-		'by_author' => 'Od: ',
+		'by_author' => 'Od:',
 		'by_default' => 'Výchozí',
 		'damn' => 'Sakra!',
 		'default_category' => 'Nezařazeno',

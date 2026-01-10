@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Figyelmeztetés!',
 		'blank_to_disable' => 'Hagyd üresen a kikapcsoláshoz',
-		'by_author' => 'Készítette: ',
+		'by_author' => 'Készítette:',
 		'by_default' => 'Alapértelmezés',
 		'damn' => 'A fenébe!',
 		'default_category' => 'Kategória nélküli',

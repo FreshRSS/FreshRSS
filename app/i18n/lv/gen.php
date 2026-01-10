@@ -286,7 +286,7 @@ return array(
 	'short' => array(
 		'attention' => 'Brīdinājums!',
 		'blank_to_disable' => 'Atstāj tukšu, lai atspējotu',
-		'by_author' => 'No: ',
+		'by_author' => 'No:',
 		'by_default' => 'Pēc noklusējuma',
 		'damn' => 'Velns!',
 		'default_category' => 'Neklasificēts',
