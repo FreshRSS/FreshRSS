@@ -504,11 +504,13 @@ SQL;
 	/**
 	 * PHP emulation of the SQL ILIKE operation of the selected database.
 	 * Note that it depends on the database collation settings and Unicode extensions.
+	 * @param bool $contains If true, checks whether $haystack contains $needle (`'Testing' ILIKE '%Test%'`),
+	 *  otherwise checks whether they are alike (`'Testing' ILIKE 'Test'`).
 	 */
-	public static function strilike(string $haystack, string $needle): bool {
+	public static function strilike(string $haystack, string $needle, bool $contains = false): bool {
 		// Implementation approximating MySQL/MariaDB `LIKE` with `utf8mb4_unicode_ci` collation.
 		$haystack = self::removeAccentsLower($haystack);
 		$needle = self::removeAccentsLower($needle);
-		return str_contains($haystack, $needle);
+		return $contains ? str_contains($haystack, $needle) : ($haystack === $needle);
 	}
 }
