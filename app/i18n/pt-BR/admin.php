@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Força verificação do endereço de email',
 		'instance-name' => 'Nome da instância',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Limite de categorias por usuário',
 		'max-feeds' => 'Limite de Feeds por usuário',
 		'registration' => array(

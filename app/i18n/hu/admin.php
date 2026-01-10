@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Kötelező email cím visszaigazolás',
 		'instance-name' => 'Instance név',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Maximális kategóriák száma felhasználónkét',
 		'max-feeds' => 'Maximális hírforrások száma felhasználónként',
 		'registration' => array(

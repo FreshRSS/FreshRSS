@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Обязать подтверждать адрес электронной почты',
 		'instance-name' => 'Название экземпляра',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Максимальное количество категорий на пользователя',
 		'max-feeds' => 'Максимальное количество лент на пользователя',
 		'registration' => array(

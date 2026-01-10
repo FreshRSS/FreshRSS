@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Emailadresvalidatie forceren',
 		'instance-name' => 'Voorbeeld naam',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Categorielimiet per gebruiker',
 		'max-feeds' => 'Feedlimiet per gebruiker',
 		'registration' => array(

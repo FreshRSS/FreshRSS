@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Force email address validation',	// IGNORE
 		'instance-name' => 'Instance name',	// IGNORE
+		'internal-host-allowlist' => 'Internal host allowlist',	// IGNORE
 		'max-categories' => 'Max number of categories per user',	// IGNORE
 		'max-feeds' => 'Max number of feeds per user',	// IGNORE
 		'registration' => array(

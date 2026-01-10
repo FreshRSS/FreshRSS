@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => ' اعتبارسنجی آدرس ایمیل اجباری',
 		'instance-name' => ' نام نمونه',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => ' حداکثر تعداد دسته ها برای هر کاربر',
 		'max-feeds' => ' حداکثر تعداد فید برای هر کاربر',
 		'registration' => array(

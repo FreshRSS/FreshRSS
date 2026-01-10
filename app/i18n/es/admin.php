@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Forzar la validación de direcciones de correo electrónico',
 		'instance-name' => 'Nombre de la fuente',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',
 		'registration' => array(

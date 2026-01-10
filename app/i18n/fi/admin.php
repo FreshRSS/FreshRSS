@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Pakota sähköpostiosoitteen vahvistus',
 		'instance-name' => 'Instanssin nimi',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Luokkien enimmäismäärä käyttäjää kohti',
 		'max-feeds' => 'Syötteiden enimmäismäärä käyttäjää kohti',
 		'registration' => array(

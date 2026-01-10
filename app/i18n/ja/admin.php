@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Eメールアドレスの検証を強制します',
 		'instance-name' => 'インスタンス名',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => '1ユーザーごとのカテゴリの最大値',
 		'max-feeds' => '1ユーザーごとのフィードの最大値',
 		'registration' => array(

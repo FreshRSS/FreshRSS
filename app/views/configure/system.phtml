@@ -64,6 +64,13 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="internal-host-allowlist"><?= _t('admin.system.internal-host-allowlist') ?></label>
+			<div class="group-controls">
+				<textarea id="internal-host-allowlist" name="internal-host-allowlist"><?= implode("\n", FreshRSS_Context::systemConf()->internal_host_allowlist) ?></textarea>
+			</div>
+		</div>
+
 		<h2><?= _t('admin.system.registration.title') ?></h2>
 
 		<div class="form-group">

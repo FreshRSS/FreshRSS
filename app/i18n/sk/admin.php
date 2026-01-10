@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Vynútiť overenie e-mailovej adresy',
 		'instance-name' => 'Názov inštancie',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Limit počtu kategórií pre používateľa',
 		'max-feeds' => 'Limit počtu kanálov pre používateľov',
 		'registration' => array(

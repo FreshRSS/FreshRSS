@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => '이메일 주소 확인 강제화',
 		'instance-name' => '인스턴스 이름',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => '사용자별 카테고리 개수 제한',
 		'max-feeds' => '사용자별 피드 개수 제한',
 		'registration' => array(

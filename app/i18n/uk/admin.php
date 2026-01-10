@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Підтверджувати адресу електронної пошти',
 		'instance-name' => 'Назва сервера',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Максимум категорій у користувача',
 		'max-feeds' => 'Максимум стрічок у користувача',
 		'registration' => array(

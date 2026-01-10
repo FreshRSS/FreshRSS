@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Επιβολή επιβεβαίωσης διεύθυνσης email',
 		'instance-name' => 'Instance name',	// TODO
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Μέγιστος αριθμός κατηγοριών ανά χρήστη',
 		'max-feeds' => 'Μέγιστος αριθμός τροφοδοσιών ανά χρήστη',
 		'registration' => array(

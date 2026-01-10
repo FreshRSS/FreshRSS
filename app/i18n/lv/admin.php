@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Piespiedu e-pasta adreses validēšana',
 		'instance-name' => 'Instances nosaukums',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Maksimālais kategoriju skaits vienam lietotājam',
 		'max-feeds' => 'Maksimālais barotņu skaits vienam lietotājam',
 		'registration' => array(

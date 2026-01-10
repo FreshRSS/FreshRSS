@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Paksa verifikasi alamat surel',
 		'instance-name' => 'Nama peladen',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Jumlah kategori maksimal per pengguna',
 		'max-feeds' => 'Jumlah umpan maksimal per pengguna',
 		'registration' => array(

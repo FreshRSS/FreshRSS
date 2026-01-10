@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => '強制驗證郵箱地址',
 		'instance-name' => '實例名稱',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => '各使用者分類數限制',
 		'max-feeds' => '各使用者訂閱源數限制',
 		'registration' => array(

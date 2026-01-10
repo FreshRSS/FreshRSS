@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'E-posta adresi doğrulamasını zorunlu kıl',
 		'instance-name' => 'Örnek adı',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Kullanıcı başına maksimum kategori sayısı',
 		'max-feeds' => 'Kullanıcı başına maksimum besleme sayısı',
 		'registration' => array(

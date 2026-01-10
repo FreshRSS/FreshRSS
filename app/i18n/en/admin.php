@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Force email address validation',
 		'instance-name' => 'Instance name',
+		'internal-host-allowlist' => 'Internal host allowlist',
 		'max-categories' => 'Max number of categories per user',
 		'max-feeds' => 'Max number of feeds per user',
 		'registration' => array(

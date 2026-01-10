@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => 'Forçar la validacion de las adreças electronicas',
 		'instance-name' => 'Nom de l’instància',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Limita de categoria per utilizaire',
 		'max-feeds' => 'Limita de fluxes per utilizaire',
 		'registration' => array(

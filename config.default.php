@@ -228,5 +228,15 @@ return [
 	'trusted_sources' => [
 		'127.0.0.0/8',
 		'::1/128',
-	]
+	],
+
+	# Requests to internal hosts such as 127.0.0.1 are blocked by default
+	# Blocked ranges include:
+	# - 10.0.0.0/8
+	# - 172.16.0.0/12
+	# - 192.168.0.0/16
+	#
+	# Here you can add overrides for particular ip/domain:port combinations
+	# Examples: 127.0.0.1:8080, rssbridge.local:443 etc.
+	'internal_host_allowlist' => []
 ];

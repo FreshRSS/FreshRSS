@@ -89,6 +89,7 @@ return array(
 		),
 		'force_email_validation' => '强制验证邮箱地址',
 		'instance-name' => '实例名称',
+		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => '各用户分类数限制',
 		'max-feeds' => '各用户订阅源数限制',
 		'registration' => array(

@@ -285,7 +285,11 @@ final class FreshRSS_http_Util {
 				return false;
 			}
 		}
-		if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+		$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
+		if (in_array($host . ':' . $port, $internal_host_allowlist, true)
+			|| in_array($ip . ':' . $port, $internal_host_allowlist, true)) {
+			// fallthrough
+		} elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
 			return null;
 		}
 		return $host . ':' . $port . ':' . $ip;
