@@ -112,6 +112,6 @@ SQL;
 				return $contains ? str_contains($haystack_, $needle_) : ($haystack_ === $needle_);
 			}
 		}
-		return $contains ? stripos($haystack, $needle) !== false : strtolower($haystack) === strtolower($needle);
+		return $contains ? stripos($haystack, $needle) !== false : strcasecmp($haystack, $needle) === 0;
 	}
 }
