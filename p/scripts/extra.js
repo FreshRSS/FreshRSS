@@ -398,29 +398,15 @@ function close_slider_listener(ev) {
 // overwrites the href attribute from the url input
 function updateHref(ev) {
 	const urlField = document.getElementById(this.getAttribute('data-input'));
-	const url = urlField.value;
-	if (url.length > 0) {
+	const rawUrl = urlField.value;
+	const prefix = this.getAttribute('data-prefix') || '';
+	const shouldEncode = this.getAttribute('data-encode') === '1';
+	const url = prefix + (shouldEncode ? encodeURIComponent(rawUrl) : rawUrl);
+	if (rawUrl.length > 0) {
 		this.href = url;
 		return true;
 	} else {
 		urlField.focus();
-		this.removeAttribute('href');
-		ev.preventDefault();
-		return false;
-	}
-}
-
-function updateValidatorHref(ev) {
-	const urlField = document.getElementById(this.getAttribute('data-input'));
-	const url = urlField ? urlField.value : '';
-	if (url.length > 0) {
-		const prefix = this.getAttribute('data-prefix') || '';
-		this.href = prefix + encodeURIComponent(url);
-		return true;
-	} else {
-		if (urlField) {
-			urlField.focus();
-		}
 		this.removeAttribute('href');
 		ev.preventDefault();
 		return false;
@@ -432,13 +418,6 @@ function init_url_observers(parent) {
 	parent.querySelectorAll('.open-url').forEach(function (btn) {
 		btn.addEventListener('mouseover', updateHref);
 		btn.addEventListener('click', updateHref);
-	});
-}
-
-function init_validator_observers(parent) {
-	parent.querySelectorAll('.open-validator').forEach(function (btn) {
-		btn.addEventListener('mouseover', updateValidatorHref);
-		btn.addEventListener('click', updateValidatorHref);
 	});
 }
 
@@ -634,12 +613,10 @@ function init_extra_afterDOM() {
 			init_slider(slider);
 			init_archiving(slider);
 			init_url_observers(slider);
-			init_validator_observers(slider);
 		} else {
 			init_display(document.body);
 			init_archiving(document.body);
 			init_url_observers(document.body);
-			init_validator_observers(document.body);
 		}
 	}
 
