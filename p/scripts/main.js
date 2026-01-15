@@ -2327,7 +2327,7 @@ function init_csp_alert() {
 		Function();
 	} catch (_) {
 		// Exit if 'script-src' is set and 'unsafe-eval' isn't set in CSP
-		console.info("If you see a 'unsafe-eval' warning, everything is working as intended.\nSee https://github.com/FreshRSS/FreshRSS/blob/edge/docs/en/admins/10_ServerConfig.md#security");
+		console.info("If you see a 'unsafe-eval' warning, everything is working as intended.\nSee https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security");
 		return;
 	}
 
