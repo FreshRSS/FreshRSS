@@ -395,7 +395,7 @@ function close_slider_listener(ev) {
 }
 // </slider>
 
-// overwrites the href attribute from the url input
+// updates href from the input value, with optional prefix/encoding
 function updateHref(ev) {
 	const urlField = document.getElementById(this.getAttribute('data-input'));
 	const rawUrl = urlField.value;
