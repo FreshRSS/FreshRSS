@@ -289,6 +289,7 @@ People are sorted by name so please keep this order.
 * [tonitonae](https://github.com/tonitonae): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tonitonae)
 * [Troy Engel](https://github.com/troyengel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:troyengel)
 * [TryAllTheThings](https://github.com/tryallthethings): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tryallthethings)
+* [Tsung-Han Yu](https://github.com/johan456789): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:johan456789), [Web](https://tsunghanyu.com/)
 * [Twilek-de](https://github.com/Twilek-de): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Twilek-de)
 * [Uncovery](https://github.com/uncovery): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:uncovery)
 * [upskaling](https://github.com/upskaling): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:upskaling)
