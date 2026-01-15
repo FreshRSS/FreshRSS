@@ -2325,9 +2325,9 @@ function init_csp_alert() {
 	try {
 		// eslint-disable-next-line no-new-func
 		Function();
-		// See https://github.com/FreshRSS/FreshRSS/blob/edge/docs/en/admins/10_ServerConfig.md#security
 	} catch (_) {
 		// Exit if 'script-src' is set and 'unsafe-eval' isn't set in CSP
+		console.info("If you see a 'unsafe-eval' warning, everything is working as intended.\nSee https://github.com/FreshRSS/FreshRSS/blob/edge/docs/en/admins/10_ServerConfig.md#security");
 		return;
 	}
 
