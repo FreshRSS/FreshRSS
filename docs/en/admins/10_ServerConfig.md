@@ -125,7 +125,7 @@ Debug your own CSP header:
 * With DevTools network tab: press F12
 * [CSP Evaluator](https://csp-evaluator.withgoogle.com/)
 
-If you’re aware of the risks or haven’t overwritten the CSP header and want to ignore the warning shown to admin users, change the `suppress_csp_warning` setting to `true` in `./data/config.php`.
+If you’re aware of the risks and want to ignore the warning shown to admin users, change the `suppress_csp_warning` setting to `true` in `./data/config.php`.
 
 Note that FreshRSS already ships with a secure CSP configuration, therefore it’s not necessary to make any adjustments to CSP unless you’re writing an extension.
 
