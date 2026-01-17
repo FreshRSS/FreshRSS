@@ -123,7 +123,7 @@ class File implements Response
                 }
                 if (version_compare(\SimplePie\Misc::get_curl_version(), '7.21.6', '>=')) {
                     curl_setopt($fp, CURLOPT_ACCEPT_ENCODING, '');
-                } elseif (version_compare(\SimplePie\Misc::get_curl_version(), '7.10.5', '>=')) {
+                } else {
                     curl_setopt($fp, CURLOPT_ENCODING, '');
                 }
                 curl_setopt($fp, CURLOPT_URL, $url);
