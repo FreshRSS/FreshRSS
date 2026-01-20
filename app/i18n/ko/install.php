@@ -87,7 +87,7 @@ return array(
 		),
 		'pdo-sqlite' => array(
 			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
 		),
 		'pdo' => array(
 			'nok' => '지원가능한 드라이버나 PDO를 찾을 수 없습니다 (pdo_sqlite, pdo_pgsql, pdo_mysql).',

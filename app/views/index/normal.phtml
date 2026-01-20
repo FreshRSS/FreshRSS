@@ -79,6 +79,7 @@ $today = @strtotime('today');
 		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
 		?>" id="flux_<?= $this->entry->id()
 		?>" data-entry="<?= $this->entry->id()
+		?>" data-category="<?= $this->feed->categoryId()
 		?>" data-feed="<?= $this->feed->id()
 		?>" data-priority="<?= $this->feed->priority()
 		?>" data-link="<?= $this->entry->link()

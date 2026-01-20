@@ -134,9 +134,14 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$stm = $this->pdo->prepare($sql);
 			if ($stm === false || !$stm->execute($values)) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
-				$this->pdo->rollBack();
-				return false;
+				/** @var array{0:string,1:int,2:string} $info */
+				if ($this->autoUpdateDb($info)) {
+					return $this->markRead($ids, $is_read);
+				} else {
+					Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
+					$this->pdo->rollBack();
+					return false;
+				}
 			}
 			$affected = $stm->rowCount();
 			if ($affected > 0) {

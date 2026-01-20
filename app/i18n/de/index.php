@@ -78,11 +78,11 @@ return array(
 		'mark_selection_unread' => 'Auswahl als ungelesen markieren',
 		'mylabels' => 'Meine Labels',
 		'newer_first' => 'Neuere zuerst',
-		'non-starred' => 'Alle außer Favoriten zeigen',
+		'non-starred' => 'Nicht-Favoriten zeigen',
 		'normal_view' => 'Normale Ansicht',
 		'older_first' => 'Ältere zuerst',
 		'queries' => 'Benutzerabfragen',
-		'read' => 'Nur gelesene zeigen',
+		'read' => 'Gelesene zeigen',
 		'reader_view' => 'Lese-Ansicht',
 		'rss_view' => 'RSS-Feed',
 		'search_short' => 'Suchen',
@@ -110,10 +110,10 @@ return array(
 			'user_modified_asc' => 'User modified 1→9',	// TODO
 			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
-		'starred' => 'Nur Favoriten zeigen',
+		'starred' => 'Favoriten zeigen',
 		'stats' => 'Statistiken',
 		'subscription' => 'Abonnementverwaltung',
-		'unread' => 'Nur ungelesene zeigen',
+		'unread' => 'Ungelesene zeigen',
 	),
 	'share' => 'Teilen',
 	'tag' => array(

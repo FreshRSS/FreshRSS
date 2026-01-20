@@ -189,7 +189,7 @@ return array(
 		'about' => 'Over',
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administratie',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Geavanceerd zoeken',
 		'archiving' => 'Archiveren',
 		'authentication' => 'Authenticatie',
 		'check_install' => 'Installatiecontrole',
@@ -223,31 +223,31 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'Dit formulier helpt bij het opstellen van zoekopdrachten, maar handmatige zoekopdrachten zijn nog krachtiger.',
+		'authors' => 'Auteurs',
+		'categories' => 'Categorieën',
+		'content' => 'Inhoud',
+		'date_from' => 'Van',
+		'date_past' => 'In het verleden',
+		'date_published' => 'Publicatiedatum',
+		'date_range' => 'Datumbereik',
+		'date_received' => 'Datum ontvangen',
+		'date_to' => 'Tot',
+		'date_user' => 'Datum van wijziging door gebruiker',
+		'feeds' => 'Feeds',	// IGNORE
+		'free_text' => 'Vrije tekst',
+		'free_text_help' => 'Zoeken in zowel titel als inhoud',
+		'full_documentation' => 'Zie de <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">volledige zoekdocumentatie</a>',
+		'labels' => 'Mijn labels',
+		'multiple_help' => 'Selecteer een of meer (houd <kbd>Ctrl</kbd> of <kbd>Cmd</kbd> ingedrukt)',
+		'sources' => 'Bronnen',
+		'tags' => 'Artikel-tags',
+		'text' => 'Tekst zoeken',
+		'text_help' => 'Meerdere regels worden gecombineerd door een logische <i>or</i> (en. voor <i>of</i>). Ondersteunt ook <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">reguliere expressies</a>.',
+		'text_placeholder' => 'Sleutelwoord',
+		'title' => 'Titel',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Gebruikersqueries',
 	),
 	'share' => array(
 		'Known' => 'Known-gebaseerde sites',

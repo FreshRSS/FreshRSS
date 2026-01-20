@@ -5,6 +5,7 @@ parameters:
         - library/
         - src/
         - tests/
+        - utils/
 
     ignoreErrors:
         # Ignore that only one const exists atm

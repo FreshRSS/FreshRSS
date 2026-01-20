@@ -339,7 +339,7 @@ final class FreshRSS_http_Util {
 			CURLOPT_MAXREDIRS => 4,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_ENCODING => '',	//Enable all encodings
+			CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 			//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 		]);
 
@@ -407,7 +407,12 @@ final class FreshRSS_http_Util {
 				$body = self::enforceHttpEncoding($body, $c_content_type);
 			}
 			if (in_array($type, ['html'], true)) {
-				$body = self::enforceHtmlBase($body, $c_effective_url);
+				if (stripos($c_content_type, 'text/plain') !== false) {
+					// Plain text to be displayed as preformatted text. Prefixed with UTF-8 BOM
+					$body = "\xEF\xBB\xBF" . '<pre class="text-plain">' . htmlspecialchars($body, ENT_NOQUOTES, 'UTF-8') . '</pre>';
+				} else {
+					$body = self::enforceHtmlBase($body, $c_effective_url);
+				}
 			}
 		}
 

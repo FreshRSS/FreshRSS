@@ -16,13 +16,13 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_curl' => 'cURL version',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => 'Informações do sistema',
+				'browser' => 'Navegador',
+				'database' => 'Banco de dados',
+				'server_software' => 'Software do servidor',
+				'version_curl' => 'Versão do cURL',
+				'version_frss' => 'Versão do FreshRSS',
+				'version_php' => 'Versão do PHP',
 			),
 		),
 		'bugs_reports' => 'Reportar Bugs',
@@ -37,24 +37,24 @@ return array(
 	'feed' => array(
 		'empty' => 'Não há nenhum artigo para mostrar.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Publicado',
+			'future' => 'Publicado no futuro',
+			'today' => 'Publicado hoje',
+			'yesterday' => 'Publicado ontem',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'_' => 'Recebido',
+			'today' => 'Recebido hoje',
+			'yesterday' => 'Recebido ontem',
 		),
 		'rss_of' => 'RSS feed do %s',
 		'title' => 'Stream principal',
 		'title_fav' => 'Favoritos',
 		'title_global' => 'Visualização Global',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Modificado pelo usuário',
+			'today' => 'Modificado pelo usuário hoje',
+			'yesterday' => 'Modificado pelo usuário ontem',
 		),
 	),
 	'log' => array(
@@ -78,42 +78,42 @@ return array(
 		'mark_selection_unread' => 'Marcar seleção como não lida',
 		'mylabels' => 'Minhas etiquetas',
 		'newer_first' => 'Novos primeiro',
-		'non-starred' => 'Mostrar todos, exceto favoritos',
+		'non-starred' => 'Mostrar itens que não são favoritos',
 		'normal_view' => 'visualização normal',
 		'older_first' => 'Antigos primeiro',
 		'queries' => 'Queries do usuário',
-		'read' => 'Mostrar apenas lidos',
+		'read' => 'Mostrar leitura',
 		'reader_view' => 'Visualização de leitura',
 		'rss_view' => 'Feed RSS',
 		'search_short' => 'Buscar',
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
+			'_' => 'Critérios de ordenação',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Categoria, títulos dos feeds A→Z',
+				'name_desc' => 'Categoria, títulos dos feeds Z→A',
 			),
-			'date_asc' => 'Publication date 1→9',	// TODO
-			'date_desc' => 'Publication date 9→1',	// TODO
+			'date_asc' => 'Data de publicação 1→9',
+			'date_desc' => 'Data de publicação 9→1',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Título do feed A→Z',
+				'name_desc' => 'Título do feed Z→A',
 			),
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
-			'rand' => 'Random order',	// TODO
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'id_asc' => 'Recebido recentemente por último',
+			'id_desc' => 'Recebido recentemente primeiro',
+			'length_asc' => 'Comprimento do conteúdo 1→9',
+			'length_desc' => 'Comprimento do conteúdo 9→1',
+			'link_asc' => 'Link A→Z',	// IGNORE
+			'link_desc' => 'Link Z→A',	// IGNORE
+			'rand' => 'Ordem aleatória',
+			'title_asc' => 'Título A→Z',
+			'title_desc' => 'Título Z→A',
+			'user_modified_asc' => 'Modificado pelo usuário 1→9',
+			'user_modified_desc' => 'Modificado pelo usuário 9→1',
 		),
-		'starred' => 'Mostrar apenas os favoritos',
+		'starred' => 'Mostrar favoritos',
 		'stats' => 'Estatísticas',
 		'subscription' => 'Gerenciamento de inscrições',
-		'unread' => 'Mostrar apenas os não lidos',
+		'unread' => 'Mostrar não lido',
 	),
 	'share' => 'Compartilhar',
 	'tag' => array(

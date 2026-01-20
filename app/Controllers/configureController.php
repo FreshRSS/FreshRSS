@@ -382,7 +382,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * configuration values then sends a notification to the user then
 	 * redirect to the same page.
 	 * If this action is not reached through a POST request, it displays the
-	 * configuration page and verifies that every user query is runable by
+	 * configuration page and verifies that every user query is runnable by
 	 * checking if categories and feeds are still in use.
 	 */
 	public function queriesAction(): void {

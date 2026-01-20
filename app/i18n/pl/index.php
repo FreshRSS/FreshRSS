@@ -37,13 +37,13 @@ return array(
 	'feed' => array(
 		'empty' => 'Brak wiadomości do wyświetlenia.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Opublikowane',
+			'future' => 'Opublikowane w przyszłości',
+			'today' => 'Opublikowane dzisiaj',
+			'yesterday' => 'Opublikowane wczoraj',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'Otrzymane',
 			'today' => 'Otrzymane dzisiaj',
 			'yesterday' => 'Otrzymane wczoraj',
 		),
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'Ulubione',
 		'title_global' => 'Widok globalny',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Zmodyfikowane przez użytkownika',
+			'today' => 'Zmodyfikowane przez użytkownika dzisiaj',
+			'yesterday' => 'Zmodyfikowane przez użytkownika wczoraj',
 		),
 	),
 	'log' => array(

@@ -125,7 +125,6 @@ class Registry
             return false;
         }
 
-        /** @var string */
         $base_class = $this->default[$type];
 
         if (!is_subclass_of($class, $base_class)) {

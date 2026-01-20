@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => 'Modo noturno automático',
 			'auto' => 'Automático',
-			'help' => 'For compatible themes only',	// TODO
+			'help' => 'Somente para temas compatíveis',
 			'no' => 'Não',
 		),
 		'icon' => array(
@@ -88,7 +88,7 @@ return array(
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Nivel de Registro',
+			'level' => 'Nível de Registro',
 			'message' => 'Mensagem de Registro',
 			'timestamp' => 'Data e Hora',
 		),
@@ -100,45 +100,45 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '“marcar todos como lido” button',	// DIRTY
-		'big' => 'Big',	// TODO
-		'none' => 'None',	// TODO
-		'small' => 'Small',	// TODO
+		'_' => 'Botão “Marcar tudo como lido”',
+		'big' => 'Grande',
+		'none' => 'Nenhum',
+		'small' => 'Pequeno',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Mostrar banner de aviso',
+			'seconds' => 'segundos (pelo menos 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Mostrar banner de confirmação',
+			'seconds' => 'segundos (0 significa não mostrado)',
 		),
 	),
 	'privacy' => array(
-		'_' => 'Privacy',	// TODO
-		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'_' => 'Privacidade',
+		'retrieve_extension_list' => 'Recuperar lista de extensões',
 	),
 	'profile' => array(
 		'_' => 'Gerenciamento de perfil',
 		'api' => array(
 			'_' => 'Administração da API',
-			'api_not_set' => 'API password not set',	// TODO
-			'api_set' => 'API password set',	// TODO
-			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
-			'disabled' => 'The API access is disabled.',	// TODO
-			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'api_not_set' => 'Senha da API não definida',
+			'api_set' => 'Senha da API definida',
+			'check_link' => 'Verificar status da API via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'O acesso à API está desativado.',
+			'documentation_link' => 'Veja a <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentação e lista de aplicativos conhecidos</a>',
+			'help' => 'Veja a <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentação</a>',
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'change_password' => 'Alterar senha',
+		'confirm_new_password' => 'Confirmar nova senha',
+		'current_password' => 'Senha atual<br /><small>(para o método de login via formulário Web)</small>',
 		'delete' => array(
 			'_' => 'Remover conta',
 			'warn' => 'Sua conta e todos os dados relacionados serão removidos.',
 		),
 		'email' => 'Endereço de e-mail',
-		'new_password' => 'New password',	// TODO
+		'new_password' => 'Nova senha',
 		'password_api' => 'Senha da API<br /><small>(p.s., para aplicativos móveis)</small>',
 		'password_format' => 'Ao menos 7 caracteres',
 		'title' => 'Perfil',
@@ -146,13 +146,13 @@ return array(
 	'query' => array(
 		'_' => 'Consultas do usuário',
 		'deprecated' => 'Esta não é mais válida. A categoria ou feed relacionado foi deletado.',
-		'description' => 'Description',	// TODO
+		'description' => 'Descrição',
 		'filter' => array(
 			'_' => 'Filtro aplicado:',
 			'categories' => 'Exibir por categoria',
 			'feeds' => 'Exibir por feed',
 			'order' => 'Ordenar por data',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => 'Substitua <i>tags de feed</i> por <i>rótulos de usuário</i> no RSS compartilhado.',
 			'search' => 'Expressão',
 			'shareOpml' => 'Habilita o compartilhamento por OPML de categorias e feeds correspondentes',
 			'shareRss' => 'Habilita o compartilhamento por HTML &amp; RSS',
@@ -160,8 +160,8 @@ return array(
 			'tags' => 'Exibir por tag',
 			'type' => 'Tipo',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => 'Mostrar todos os feeds, incluindo aqueles exibidos em sua categoria.',
+		'get_Z' => 'Mostrar todos os feeds, incluindo os arquivados',
 		'get_all' => 'Mostrar todos os artigos',
 		'get_all_labels' => 'Exibir artigos com qualquer rótulo',
 		'get_category' => 'Visualizar “%s” categoria',
@@ -170,12 +170,12 @@ return array(
 		'get_important' => 'Exibir artigos de feeds importantes',
 		'get_label' => 'Exibir artigos com rótulo “%s”',
 		'help' => 'Veja a <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentação para consultas de usuários e recompartilhamentos por HTML / RSS / OPML</a>.',
-		'image_url' => 'Image URL',	// TODO
+		'image_url' => 'URL da imagem',
 		'name' => 'Nome',
 		'no_filter' => 'Sem filtro',
 		'no_queries' => array(
-			'_' => 'No user queries are saved yet.',	// TODO
-			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+			'_' => 'Nenhuma consulta de usuário foi salva ainda.',
+			'help' => 'Veja a <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentação</a>',
 		),
 		'number' => 'Consulta n°%d',
 		'order_asc' => 'Exibir artigos mais antigos primeiro',
@@ -184,10 +184,10 @@ return array(
 		'share' => array(
 			'_' => 'Compartilhar esta consulta por link',
 			'disabled' => array(
-				'_' => 'disabled',	// TODO
-				'title' => 'Sharing',	// TODO
+				'_' => 'desativado',
+				'title' => 'Compartilhamento',
 			),
-			'greader' => 'Shareable link to the GReader JSON',	// TODO
+			'greader' => 'Link compartilhável para o JSON do GReader',
 			'help' => 'Forneça este link se quiser compartilhar esta consulta com alguém',
 			'html' => 'Link compartilhável para a página HTML',
 			'opml' => 'Link compartilhável para a lista de feeds OPML',
@@ -214,8 +214,8 @@ return array(
 	'reading' => array(
 		'_' => 'Leitura',
 		'after_onread' => 'Depois de “marcar todos como lido”,',
-		'always_show_favorites' => 'Mostrar todos os artivos nos favoritos por padrão',
-		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
+		'always_show_favorites' => 'Mostrar todos os artigos nos favoritos por padrão',
+		'apply_to_individual_feed' => 'Aplica-se a feeds individualmente',
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Autores e Data',
@@ -231,9 +231,9 @@ return array(
 			),
 			'feed_title' => 'Título do Feed',
 			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'_' => 'Posição dos ícones do artigo<br /><small>(Apenas na visualização de leitura)</small>',
+				'above_title' => 'Acima do título',
+				'with_authors' => 'Na linha de autores e data',
 			),
 			'tags' => array(
 				'_' => 'Tag',
@@ -275,19 +275,19 @@ return array(
 			'upon_gone' => 'Quando não estiver mais no feed de notícias principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
-			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => 'Se um título idêntico já existir nos últimos <i>n</i> artigos mais novos (of the feed)',	// DIRTY
+			'when_same_title_in_category' => 'se um título idêntico já existir entre os <i>n</i> artigos mais recentes da categoria',
+			'when_same_title_in_feed' => 'Se um título idêntico já existir nos últimos <i>n</i> artigos mais novos (do feed)',
 		),
 		'show' => array(
 			'_' => 'Artigos para exibir',
 			'active_category' => 'Categoria ativa',
-			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
+			'adaptive' => 'Mostrar artigos não lidos, se houver; caso contrário, mostrar todos os artigos.',
 			'all_articles' => 'Exibir todos os artigos',
 			'all_categories' => 'Exibir todas as categorias',
 			'no_category' => 'Nenhuma categoria',
 			'remember_categories' => 'lembrar de abrir as categorias',
-			'unread' => 'Exibir apenas não lido',
-			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
+			'unread' => 'Exibir não lido',
+			'unread_or_favorite' => 'Exibir não lidos e favoritos',
 		),
 		'show_fav_unread_help' => 'Aplicar também nas tags',
 		'sides_close_article' => 'Clicando fora da área do texto do artigo fecha o mesmo',
@@ -297,7 +297,7 @@ return array(
 			'older_first' => 'Antigos primeiro',
 		),
 		'star' => array(
-			'when' => 'Mark an article as favourite…',	// TODO
+			'when' => 'Marque um artigo como favorito…',
 		),
 		'sticky_post' => 'Coloque o artigo no topo quando aberto',
 		'title' => 'Lendo',
@@ -359,7 +359,7 @@ return array(
 		'skip_next_article' => 'Focar o próximo sem abri-lo',
 		'skip_previous_article' => 'Focar o anterior sem abri-lo',
 		'title' => 'Atalhos',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Alternar barra lateral',
 		'toggle_media' => 'Reproduzir/pausar mídia',
 		'user_filter' => 'Acesse filtros de usuário',
 		'user_filter_help' => 'Se há apenas um filtro, ele é utilizado. Caso contrário, os filtros serão acessíveis pelos seus números.',

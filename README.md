@@ -123,7 +123,7 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 | Language | Progress | |
 | - | - | - |
 | Čeština (cs) | ￭￭￭￭￭￭￭￭･･ 84% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fcs+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Deutsch (de) | ￭￭￭￭￭￭￭￭￭･ 94% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fde+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Deutsch (de) | ￭￭￭￭￭￭￭￭￭･ 95% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fde+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Ελληνικά (el) | ￭￭￭･･･････ 38% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fel+%2F%28TODO%7CDIRTY%29%24%2F) |
 | English (en) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fen+%2F%28TODO%7CDIRTY%29%24%2F) |
 | English (United States) (en-US) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fen-US+%2F%28TODO%7CDIRTY%29%24%2F) |
@@ -138,10 +138,10 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 | 日本語 (ja) | ￭￭￭￭￭￭￭￭￭･ 90% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fja+%2F%28TODO%7CDIRTY%29%24%2F) |
 | 한국어 (ko) | ￭￭￭￭￭￭￭￭･･ 84% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fko+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Latviešu (lv) | ￭￭￭￭￭￭￭･･･ 78% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Flv+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Nederlands (nl) | ￭￭￭￭￭￭￭￭￭･ 95% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fnl+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Nederlands (nl) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fnl+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Occitan (oc) | ￭￭￭￭￭￭￭･･･ 76% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Foc+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Polski (pl) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpl+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Português (Brasil) (pt-BR) | ￭￭￭￭￭￭￭￭･･ 83% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-BR+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Polski (pl) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpl+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Português (Brasil) (pt-BR) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-BR+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Português (Portugal) (pt-PT) | ￭￭￭￭￭￭￭￭･･ 83% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-PT+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Русский (ru) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fru+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Slovenčina (sk) | ￭￭￭￭￭￭￭￭･･ 84% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fsk+%2F%28TODO%7CDIRTY%29%24%2F) |
@@ -160,8 +160,8 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/developers/06_Fever_API.h
 
 | App                                                                                   | Platform    | Free Software                                                 | Maintained & Developed | API              | Works offline | Fast sync | Fetch more in individual views | Fetch read articles | Favourites | Labels | Podcasts | Manage feeds |
 |:--------------------------------------------------------------------------------------|:-----------:|:-------------------------------------------------------------:|:----------------------:|:----------------:|:-------------:|:---------:|:------------------------------:|:-------------------:|:----------:|:------:|:--------:|:------------:|
+| [Capy Reader](https://github.com/jocmp/capyreader)                                    | Android     | [✔️](https://github.com/jocmp/capyreader)                     | ✔️✔️                   | GReader          | ✔️            | ⭐⭐⭐    | ✔️                             | ✔️                  | ✔️         | ✔️     | ➖       | ✔️           |
 | [Readrops](https://github.com/readrops/Readrops)                                      | Android     | [✔️](https://github.com/readrops/Readrops)                    | ✔️✔️                   | GReader          | ✔️            | ⭐⭐⭐    | ➖                             | ✔️                  | ✔️         | [➖](https://github.com/readrops/Readrops/issues/54) | ➖       | ✔️           |
-| [Capy Reader](https://github.com/jocmp/capyreader)                                    | Android     | [✔️](https://github.com/jocmp/capyreader)                     | ✔️✔️                   | GReader          | ✔️            | ⭐⭐      | ✔️							 | ✔️                  | ✔️         | ✔️	| ➖       | ✔️           |
 | [FeedMe](https://play.google.com/store/apps/details?id=com.seazon.feedme)             | Android     | [➖](https://github.com/seazon/FeedMe)                        | ✔️✔️                   | GReader          | ✔️            | ⭐⭐       | ➖                             | ➖                  | ✔️         | [✓](https://github.com/seazon/FeedMe/issues/348) | ✔️       | ✔️           |
 | [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader)  | Android     | ➖                                                            | ✔️✔️                   | GReader          | ✔️            | ⭐⭐       | ➖                             | ➖                  | ✔️         | ✓     | ✓       | ✔️           |
 | [Your News](https://yournews.app/)                                                    | Android, iOS| ➖                                                            | ✔️✔️                   | GReader          | ➖️            | ⭐        | ✔️                             | ✔️                  | ✔️        | ➖     | ➖      | ➖        |
