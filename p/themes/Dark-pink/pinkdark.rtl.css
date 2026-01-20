@@ -23,7 +23,8 @@
 	background-color: #ffb6c1;
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: #ffb6c1;
 }
 
@@ -39,11 +40,6 @@
 	filter: sepia(21%) brightness(94%) hue-rotate(112deg) saturate(1000%) contrast(132%) invert(100%)
 }
 
-.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
-.aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
-	background-color: #000;
-}
-
 #new-article {
 	background: #ffa1af;
 }
@@ -56,11 +52,11 @@
 	background: #ff92a2;
 }
 
-.day {
+.transition {
 	color: #ffb6c1;
 }
 
-.day .name {
+.transition .name {
 	color: #ffb6c1;
 }
 
@@ -72,7 +68,7 @@
 	box-shadow: 0 2px 5px #ffb6c1;
 }
 
-#bigMarkAsRead {
+#bigMarkAsRead.big {
 	color: #787394;
 }
 
@@ -87,6 +83,30 @@ input:focus {
 
 .notification.good {
 	border-color: #ffb6c1;
+}
+
+.notification.bad {
+	border-color: #ff449a;
+}
+
+.notification.good .close:hover {
+	background: #ffb6c1;
+}
+
+.notification.bad .close:hover {
+	background: #ff449a;
+}
+
+.notification.good .close:hover .icon {
+	filter: brightness(0.3);
+}
+
+.notification.bad .close .icon {
+	filter: brightness(0.3);
+}
+
+.notification.bad .close:hover .icon {
+	filter: brightness(3);
 }
 
 .stick .btn-important:first-child {
@@ -106,6 +126,7 @@ input:focus {
 .icon[src*="/all"],
 .icon[src*="/down"],
 .icon[src*="/help"],
+.icon[src*="/label"],
 .icon[src*="/link"],
 .icon[src*="/login"],
 .icon[src*="/logout"],
@@ -138,4 +159,8 @@ input:focus {
 
 #btn-add > img {
 	filter: brightness(0.75);
+}
+
+.theme-preview-list .nav label.btn:hover {
+	background-color: var(--background-color-hover);
 }

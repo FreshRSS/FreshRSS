@@ -48,11 +48,12 @@ trait FreshRSS_AttributesTrait {
 	}
 
 	/** @param string|array<string,mixed> $values Values, not HTML-encoded */
-	public function _attributes($values): void {
+	public function _attributes(string|array $values): void {
 		if (is_string($values)) {
 			$values = json_decode($values, true);
 		}
 		if (is_array($values)) {
+			$values = array_filter($values, 'is_string', ARRAY_FILTER_USE_KEY);
 			$this->attributes = $values;
 		}
 	}

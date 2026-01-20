@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 $dirs = [
 	'/',
@@ -12,6 +12,7 @@ $dirs = [
 	'/PubSubHubbub',
 	'/PubSubHubbub/feeds',
 	'/PubSubHubbub/keys',
+	'/Retry-After',
 	'/tokens',
 	'/users',
 	'/users/_',
@@ -25,17 +26,7 @@ foreach ($dirs as $dir) {
 }
 
 file_put_contents(DATA_PATH . '/.htaccess', <<<'EOF'
-# Apache 2.2
-<IfModule !mod_authz_core.c>
-	Order	Allow,Deny
-	Deny	from all
-	Satisfy	all
-</IfModule>
-
-# Apache 2.4
-<IfModule mod_authz_core.c>
-	Require all denied
-</IfModule>
+Require all denied
 
 EOF
 );

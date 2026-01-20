@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace SimplePie\HTTP;
 
 use InvalidArgumentException;
-use SimplePie\Exception\HttpException;
 use SimplePie\File;
 use SimplePie\Misc;
 use SimplePie\Registry;
@@ -42,7 +41,7 @@ final class FileClient implements Client
      * @param Client::METHOD_* $method
      * @param array<string, string> $headers
      *
-     * @throws HttpException if anything goes wrong requesting the data
+     * @throws ClientException if anything goes wrong requesting the data
      */
     public function request(string $method, string $url, array $headers = []): Response
     {
@@ -66,11 +65,11 @@ final class FileClient implements Client
                 $this->options['curl_options'] ?? []
             ]);
         } catch (Throwable $th) {
-            throw new HttpException($th->getMessage(), $th->getCode(), $th);
+            throw new ClientException($th->getMessage(), $th->getCode(), $th);
         }
 
-        if (!$file->success) {
-            throw new HttpException($file->error);
+        if ($file->error !== null && $file->get_status_code() === 0) {
+            throw new ClientException($file->error);
         }
 
         return $file;

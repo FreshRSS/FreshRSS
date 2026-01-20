@@ -3,11 +3,7 @@
 	/** @var FreshRSS_View $this */
 	$this->partial('aside_subscription');
 ?>
-<main class="post drop-section">
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-	</div>
-
+<main class="post drop-section" data-auto-leave-validation="1">
 	<h1><?= _t('sub.menu.add') ?></h1>
 	<h2><?= _t('sub.title.add_category') ?></h2>
 	<form action="<?= _url('category', 'create') ?>" method="post">
@@ -73,6 +69,7 @@
 						<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_JSONFEED ?>"><?= _t('sub.feed.kind.jsonfeed') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" data-show="json_dotnotation"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ?>" data-show="json_dotnotation xPathToJsonGroup"><?= _t('sub.feed.kind.html_json') ?></option>
 					</select>
 				</div>
 			</div>
@@ -167,6 +164,14 @@
 				</div>
 			</fieldset>
 			<fieldset id="json_dotnotation">
+				<div class="form-group" id="xPathToJsonGroup">
+					<label class="group-name" for="xPathToJson"><?= _t('sub.feed.kind.html_json.xpath') ?></label>
+					<div class="group-controls">
+						<textarea class="valid-xpath" name="xPathToJson" id="xPathToJson" rows="2" cols="64" spellcheck="false"></textarea>
+						<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_json.xpath.help') ?></p>
+					</div>
+				</div>
+
 				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.json_dotnotation.help') ?></p>
 				<div class="form-group">
 					<label class="group-name" for="jsonFeedTitle"><small><?= _t('sub.feed.kind.json_dotnotation.json') ?></small><br />
@@ -272,7 +277,7 @@
 				<div class="group-controls">
 					<div class="stick">
 						<input id="http_pass" name="http_pass" type="password" value="" autocomplete="new-password" />
-						<button type="button" class="btn toggle-password" data-toggle="http_pass"><?= _i('key') ?></button>
+						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
 				</div>
 			</div>
@@ -301,7 +306,7 @@
 			<div class="form-group">
 				<label class="group-name" for="curl_params_useragent"><?= _t('sub.feed.useragent') ?></label>
 				<div class="group-controls">
-					<input type="text" name="curl_params_useragent" id="curl_params_useragent" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<input type="text" name="curl_params_useragent" id="curl_params_useragent" value="" placeholder="<?= _t('gen.short.by_default') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.useragent_help') ?></p>
 				</div>
 			</div>
@@ -310,12 +315,15 @@
 				<label class="group-name" for="proxy_type"><?= _t('sub.feed.proxy') ?></label>
 				<div class="group-controls">
 					<select class="number" name="proxy_type" id="proxy_type"><?php
-						foreach (['' => '', 3 => 'NONE', 0 => 'HTTP', 2 => 'HTTPS', 4 => 'SOCKS4', 6 => 'SOCKS4A', 5 => 'SOCKS5', 7 => 'SOCKS5H'] as $k => $v) {
+						defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2);	// Compatibility cURL 7.51
+						foreach (['' => '', -1 => 'NONE', CURLPROXY_HTTP => 'HTTP', CURLPROXY_HTTPS => 'HTTPS',
+							CURLPROXY_SOCKS4 => 'SOCKS4', CURLPROXY_SOCKS4A => 'SOCKS4A', CURLPROXY_SOCKS5 => 'SOCKS5',
+							CURLPROXY_SOCKS5_HOSTNAME => 'SOCKS5H'] as $k => $v) {
 							echo '<option value="' . $k . '">' . $v . '</option>';
 						}
 					?>
 					</select>
-					<input type="text" name="curl_params" id="curl_params" value="" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
+					<input type="text" name="curl_params" id="curl_params" value="" placeholder="<?= _t('gen.short.by_default') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
 				</div>
 			</div>
@@ -357,7 +365,7 @@
 			<div class="form-group">
 				<label class="group-name" for="http_headers"><?= _t('sub.feed.http_headers') ?></label>
 				<div class="group-controls">
-					<textarea class="valid-json" id="http_headers" name="http_headers" rows="3" cols="64" spellcheck="false"></textarea>
+					<textarea id="http_headers" name="http_headers" rows="3" cols="64" spellcheck="false"></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.http_headers_help') ?></p>
 				</div>
 			</div>
@@ -377,7 +385,7 @@
 	<form action="<?= _url('category', 'create') ?>" method="post">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
-			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
+			<label class="group-name" for="new-category"><?= _t('sub.title.add_opml_category') ?></label>
 			<div class="group-controls">
 				<input id="new-category" name="new-category" type="text" required="required" autocomplete="off" />
 			</div>

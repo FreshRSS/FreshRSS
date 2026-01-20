@@ -6,24 +6,6 @@
 	}
 ?>
 <main class="post content<?= !FreshRSS_Auth::hasAccess() ? ' centered' : ''?>">
-	<?php if (FreshRSS_Auth::hasAccess()) {?>
-		<div class="link-back-wrapper">
-			<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-		</div>
-	<?php } elseif ($this->can_register) { ?>
-		<div class="link-back-wrapper">
-			<a href="<?= _url('auth', 'register') ?>">
-				<?= _t('gen.action.back') ?>
-			</a>
-		</div>
-	<?php } else { ?>
-		<div class="link-back-wrapper">
-			<a href="<?= _url('index', 'index') ?>">
-				<?= _t('gen.action.back') ?>
-			</a>
-		</div>
-	<?php } ?>
-
 	<h1><?= _t('index.tos.title')?></h1>
 	<?= $this->terms_of_service ?>
 </main>

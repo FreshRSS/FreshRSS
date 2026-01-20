@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
 
-require_once(LIB_PATH . '/lib_date.php');
+require_once LIB_PATH . '/lib_date.php';
 
-class SearchTest extends PHPUnit\Framework\TestCase {
+final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
 		$search = new FreshRSS_Search($input);
-		self::assertEquals('', $search->getRawInput());
+		self::assertSame('', $search->__toString());
 		self::assertNull($search->getIntitle());
 		self::assertNull($search->getMinDate());
 		self::assertNull($search->getMaxDate());
@@ -40,12 +40,12 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	#[DataProvider('provideIntitleSearch')]
 	public static function test__construct_whenInputContainsIntitle_setsIntitleProperty(string $input, ?array $intitle_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
-		self::assertEquals($intitle_value, $search->getIntitle());
-		self::assertEquals($search_value, $search->getSearch());
+		self::assertSame($intitle_value, $search->getIntitle());
+		self::assertSame($search_value, $search->getSearch());
 	}
 
 	/**
-	 * @return array<array<mixed>>
+	 * @return list<list<mixed>>
 	 */
 	public static function provideIntitleSearch(): array {
 		return [
@@ -65,8 +65,30 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			["intitle:'word1 word2' word3'", ['word1 word2'], ["word3'"]],
 			['intitle:"word1 word2\' word3"', ["word1 word2' word3"], null],
 			["intitle:'word1 word2\" word3'", ['word1 word2" word3'], null],
+			['intitle:"< & >"', ['&lt; &amp; &gt;'], null],
 			["intitle:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['intitle:word1+word2', ['word1+word2'], null],
+		];
+	}
+
+	/**
+	 * @param array<string>|null $intext_value
+	 * @param array<string>|null $search_value
+	 */
+	#[DataProvider('provideIntextSearch')]
+	public static function test__construct_whenInputContainsIntext(string $input, ?array $intext_value, ?array $search_value): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($intext_value, $search->getIntext());
+		self::assertSame($search_value, $search->getSearch());
+	}
+
+	/**
+	 * @return list<list<mixed>>
+	 */
+	public static function provideIntextSearch(): array {
+		return [
+			['intext:word1', ['word1'], null],
+			['intext:"word1 word2"', ['word1 word2'], null],
 		];
 	}
 
@@ -77,12 +99,12 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	#[DataProvider('provideAuthorSearch')]
 	public static function test__construct_whenInputContainsAuthor_setsAuthorValue(string $input, ?array $author_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
-		self::assertEquals($author_value, $search->getAuthor());
-		self::assertEquals($search_value, $search->getSearch());
+		self::assertSame($author_value, $search->getAuthor());
+		self::assertSame($search_value, $search->getSearch());
 	}
 
 	/**
-	 * @return array<array<mixed>>
+	 * @return list<list<mixed>>
 	 */
 	public static function provideAuthorSearch(): array {
 		return [
@@ -114,12 +136,12 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	#[DataProvider('provideInurlSearch')]
 	public static function test__construct_whenInputContainsInurl_setsInurlValue(string $input, ?array $inurl_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
-		self::assertEquals($inurl_value, $search->getInurl());
-		self::assertEquals($search_value, $search->getSearch());
+		self::assertSame($inurl_value, $search->getInurl());
+		self::assertSame($search_value, $search->getSearch());
 	}
 
 	/**
-	 * @return array<array<mixed>>
+	 * @return list<list<mixed>>
 	 */
 	public static function provideInurlSearch(): array {
 		return [
@@ -137,43 +159,60 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	#[DataProvider('provideDateSearch')]
 	public static function test__construct_whenInputContainsDate_setsDateValues(string $input, ?int $min_date_value, ?int $max_date_value): void {
 		$search = new FreshRSS_Search($input);
-		self::assertEquals($min_date_value, $search->getMinDate());
-		self::assertEquals($max_date_value, $search->getMaxDate());
+		self::assertSame($min_date_value, $search->getMinDate());
+		self::assertSame($max_date_value, $search->getMaxDate());
 	}
 
 	/**
-	 * @return array<array<mixed>>
+	 * @return list<list<mixed>>
 	 */
 	public static function provideDateSearch(): array {
-		return array(
-			array('date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800),
-			array('date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799),
-			array('date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', 1172754001, 1210519800),
-			array('date:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1),
-			array('date:2007-03-01/', strtotime('2007-03-01'), null),
-			array('date:/2008-05-11', null, strtotime('2008-05-12') - 1),
-		);
+		return [
+			['date:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['date:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:29:59Z')],
+			['date:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:01Z'), strtotime('2008-05-11T15:30:00Z')],
+			['date:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1],
+			['date:2007-03-01/', strtotime('2007-03-01'), null],
+			['date:/2008-05-11', null, strtotime('2008-05-12') - 1],
+		];
 	}
 
 	#[DataProvider('providePubdateSearch')]
 	public static function test__construct_whenInputContainsPubdate_setsPubdateValues(string $input, ?int $min_pubdate_value, ?int $max_pubdate_value): void {
 		$search = new FreshRSS_Search($input);
-		self::assertEquals($min_pubdate_value, $search->getMinPubdate());
-		self::assertEquals($max_pubdate_value, $search->getMaxPubdate());
+		self::assertSame($min_pubdate_value, $search->getMinPubdate());
+		self::assertSame($max_pubdate_value, $search->getMaxPubdate());
 	}
 
 	/**
-	 * @return array<array<mixed>>
+	 * @return list<list<mixed>>
 	 */
 	public static function providePubdateSearch(): array {
-		return array(
-			array('pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', 1172754000, 1210519800),
-			array('pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', 1172754000, 1210519799),
-			array('pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', 1172754001, 1210519800),
-			array('pubdate:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1),
-			array('pubdate:2007-03-01/', strtotime('2007-03-01'), null),
-			array('pubdate:/2008-05-11', null, strtotime('2008-05-12') - 1),
-		);
+		return [
+			['pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['pubdate:2007-03-01T13:00:00Z/P1Y2M10DT2H30M', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:29:59Z')],
+			['pubdate:P1Y2M10DT2H30M/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:01Z'), strtotime('2008-05-11T15:30:00Z')],
+			['pubdate:2007-03-01/2008-05-11', strtotime('2007-03-01'), strtotime('2008-05-12') - 1],
+			['pubdate:2007-03-01/', strtotime('2007-03-01'), null],
+			['pubdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
+		];
+	}
+
+	#[DataProvider('provideUserdateSearch')]
+	public static function test__construct_whenInputContainsUserdate(string $input, ?int $min_userdate_value, ?int $max_userdate_value): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($min_userdate_value, $search->getMinUserdate());
+		self::assertSame($max_userdate_value, $search->getMaxUserdate());
+	}
+
+	/**
+	 * @return list<list<mixed>>
+	 */
+	public static function provideUserdateSearch(): array {
+		return [
+			['userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['userdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
+		];
 	}
 
 	/**
@@ -183,12 +222,12 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	#[DataProvider('provideTagsSearch')]
 	public static function test__construct_whenInputContainsTags_setsTagsValue(string $input, ?array $tags_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
-		self::assertEquals($tags_value, $search->getTags());
-		self::assertEquals($search_value, $search->getSearch());
+		self::assertSame($tags_value, $search->getTags());
+		self::assertSame($search_value, $search->getSearch());
 	}
 
 	/**
-	 * @return array<array<string|array<string>|null>>
+	 * @return list<list<string|list<string>|null>>
 	 */
 	public static function provideTagsSearch(): array {
 		return [
@@ -204,6 +243,92 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	}
 
 	/**
+	 * @param list<array{search:string,name?:string}> $queries
+	 * @param array{0:string,1:list<string|int>} $expectedResult
+	 */
+	#[DataProvider('provideSavedQueriesExpansion')]
+	public static function test__construct_whenInputContainsSavedQueries_expandsSavedSearches(array $queries, string $input, array $expectedResult): void {
+		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
+		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
+		$newUserConf->queries = $queries;
+		FreshRSS_Context::setUserConf($newUserConf);
+
+		try {
+			$search = new FreshRSS_BooleanSearch($input);
+			[$actualValues, $actualSql] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $search);
+			self::assertSame($expectedResult[0], trim($actualSql));
+			self::assertSame($expectedResult[1], $actualValues);
+		} finally {
+			FreshRSS_Context::setUserConf($previousUserConf);
+		}
+	}
+
+	/**
+	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>}}>
+	 */
+	public static function provideSavedQueriesExpansion(): array {
+		return [
+			'not found ID' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'S:3',
+				[
+					'',
+					[],
+				],
+			],
+			'not found name' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:Third',
+				[
+					'',
+					[],
+				],
+			],
+			'expanded single group name' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:First OR search:Second',
+				[
+					'((e.author LIKE ? )) OR ((e.title LIKE ? ))',
+					['%Alice%', '%World%'],
+				],
+			],
+			'separate groups with OR' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+					['search' => 'inurl:Example'],
+					['search' => 'author:Bob'],
+				],
+				'S:0,1 OR S:2,3,5',
+				[
+					'((e.author LIKE ? )) OR ((e.title LIKE ? )) OR ((e.link LIKE ? )) OR ((e.author LIKE ? ))',
+					['%Alice%', '%World%', '%Example%', '%Bob%'],
+				],
+			],
+			'mixed with other clauses' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'intitle:Hello S:0,1 date:2025-10',
+				[
+					'((e.title LIKE ? )) AND ((e.author LIKE ? )) OR ((e.title LIKE ? )) AND ((e.id >= ? AND e.id <= ? ))',
+					['%Hello%', '%Alice%', '%World%', strtotime('2025-10-01') . '000000', (strtotime('2025-11-01') - 1) . '000000'],
+				],
+			],
+		];
+	}
+
+	/**
 	 * @param array<string>|null $author_value
 	 * @param array<string> $intitle_value
 	 * @param array<string>|null $inurl_value
@@ -215,78 +340,77 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			?int $max_date_value, ?array $intitle_value, ?array $inurl_value, ?int $min_pubdate_value,
 			?int $max_pubdate_value, ?array $tags_value, ?array $search_value): void {
 		$search = new FreshRSS_Search($input);
-		self::assertEquals($author_value, $search->getAuthor());
-		self::assertEquals($min_date_value, $search->getMinDate());
-		self::assertEquals($max_date_value, $search->getMaxDate());
-		self::assertEquals($intitle_value, $search->getIntitle());
-		self::assertEquals($inurl_value, $search->getInurl());
-		self::assertEquals($min_pubdate_value, $search->getMinPubdate());
-		self::assertEquals($max_pubdate_value, $search->getMaxPubdate());
-		self::assertEquals($tags_value, $search->getTags());
-		self::assertEquals($search_value, $search->getSearch());
-		self::assertEquals($input, $search->getRawInput());
+		self::assertSame($author_value, $search->getAuthor());
+		self::assertSame($min_date_value, $search->getMinDate());
+		self::assertSame($max_date_value, $search->getMaxDate());
+		self::assertSame($intitle_value, $search->getIntitle());
+		self::assertSame($inurl_value, $search->getInurl());
+		self::assertSame($min_pubdate_value, $search->getMinPubdate());
+		self::assertSame($max_pubdate_value, $search->getMaxPubdate());
+		self::assertSame($tags_value, $search->getTags());
+		self::assertSame($search_value, $search->getSearch());
 	}
 
-	/** @return array<array<mixed>> */
+	/** @return list<list<mixed>> */
 	public static function provideMultipleSearch(): array {
-		return array(
-			array(
+		return [
+			[
 				'author:word1 date:2007-03-01/2008-05-11 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 #word5',
-				array('word1'),
+				['word1'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word2'),
-				array('word3'),
+				['word2'],
+				['word3'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word4', 'word5'),
-				null,
-			),
-			array(
+				['word4', 'word5'],
+				null
+			],
+			[
 				'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 date:2007-03-01/2008-05-11',
-				array('word1'),
+				['word1'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word2'),
-				array('word3'),
+				['word2'],
+				['word3'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word4', 'word5'),
-				array('word6'),
-			),
-			array(
+				['word4', 'word5'],
+				['word6']
+			],
+			[
 				'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 word7 date:2007-03-01/2008-05-11',
-				array('word1'),
+				['word1'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word2'),
-				array('word3'),
+				['word2'],
+				['word3'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word4', 'word5'),
-				array('word6', 'word7'),
-			),
-			array(
+				['word4', 'word5'],
+				['word6', 'word7']
+			],
+			[
 				'word6 intitle:word2 inurl:word3 pubdate:2007-03-01/2008-05-11 #word4 author:word1 #word5 "word7 word8" date:2007-03-01/2008-05-11',
-				array('word1'),
+				['word1'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word2'),
-				array('word3'),
+				['word2'],
+				['word3'],
 				strtotime('2007-03-01'),
 				strtotime('2008-05-12') - 1,
-				array('word4', 'word5'),
-				array('word7 word8', 'word6'),
-			),
-		);
+				['word4', 'word5'],
+				['word7 word8', 'word6']
+			]
+		];
 	}
 
 	#[DataProvider('provideAddOrParentheses')]
 	public static function test__addOrParentheses(string $input, string $output): void {
-		self::assertEquals($output, FreshRSS_BooleanSearch::addOrParentheses($input));
+		self::assertSame($output, FreshRSS_BooleanSearch::addOrParentheses($input));
 	}
 
-	/** @return array<array{string,string}> */
+	/** @return list<list{string,string}> */
 	public static function provideAddOrParentheses(): array {
 		return [
 			['ab', 'ab'],
@@ -302,10 +426,10 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideconsistentOrParentheses')]
 	public static function test__consistentOrParentheses(string $input, string $output): void {
-		self::assertEquals($output, FreshRSS_BooleanSearch::consistentOrParentheses($input));
+		self::assertSame($output, FreshRSS_BooleanSearch::consistentOrParentheses($input));
 	}
 
-	/** @return array<array{string,string}> */
+	/** @return list<list{string,string}> */
 	public static function provideconsistentOrParentheses(): array {
 		return [
 			['ab cd ef', 'ab cd ef'],
@@ -332,24 +456,29 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	#[DataProvider('provideParentheses')]
 	public function test__parentheses(string $input, string $sql, array $values): void {
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
-		self::assertEquals(trim($sql), trim($filterSearch));
-		self::assertEquals($values, $filterValues);
+		self::assertSame(trim($sql), trim($filterSearch));
+		self::assertSame($values, $filterValues);
 	}
 
-	/** @return array<array<mixed>> */
+	/** @return list<list<mixed>> */
 	public static function provideParentheses(): array {
 		return [
 			[
 				'f:1 (f:2 OR f:3 OR f:4) (f:5 OR (f:6 OR f:7))',
 				' ((e.id_feed IN (?) )) AND ((e.id_feed IN (?) ) OR (e.id_feed IN (?) ) OR (e.id_feed IN (?) )) AND' .
 					' (((e.id_feed IN (?) )) OR ((e.id_feed IN (?) ) OR (e.id_feed IN (?) ))) ',
-				['1', '2', '3', '4', '5', '6', '7']
+				[1, 2, 3, 4, 5, 6, 7]
+			],
+			[
+				'c:1 OR c:2,3',
+				' (e.id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category IN (?)) ) OR (e.id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category IN (?,?)) ) ',
+				[1, 2, 3]
 			],
 			[
 				'#tag Hello OR (author:Alice inurl:example) OR (f:3 intitle:World) OR L:12',
 				" ((TRIM(e.tags) || ' #' LIKE ? AND (e.title LIKE ? OR e.content LIKE ?) )) OR ((e.author LIKE ? AND e.link LIKE ? )) OR" .
 					' ((e.id_feed IN (?) AND e.title LIKE ? )) OR ((e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) )) ',
-				['%tag #%','%Hello%', '%Hello%', '%Alice%', '%example%', '3', '%World%', '12']
+				['%tag #%', '%Hello%', '%Hello%', '%Alice%', '%example%', 3, '%World%', 12]
 			],
 			[
 				'#tag Hello (author:Alice inurl:example) (f:3 intitle:World) label:Bleu',
@@ -357,7 +486,7 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 					' ((e.author LIKE ? AND e.link LIKE ? )) AND' .
 					' ((e.id_feed IN (?) AND e.title LIKE ? )) AND' .
 					' ((e.id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (?)) )) ',
-				['%tag #%', '%Hello%', '%Hello%', '%Alice%', '%example%', '3', '%World%', 'Bleu']
+				['%tag #%', '%Hello%', '%Hello%', '%Alice%', '%example%', 3, '%World%', 'Bleu']
 			],
 			[
 				'!((author:Alice intitle:hello) OR (author:Bob intitle:world))',
@@ -370,13 +499,18 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				['%Alice%', '%hello%', '%Bob%', '%world%'],
 			],
 			[
-				'intitle:"\\(test\\)"',
+				'intitle:"(test)"',
 				'(e.title LIKE ? )',
 				['%(test)%'],
 			],
 			[
 				'intitle:\'"hello world"\'',
 				'(e.title LIKE ? )',
+				['%"hello world"%'],
+			],
+			[
+				'intext:\'"hello world"\'',
+				'(e.content LIKE ? )',
 				['%"hello world"%'],
 			],
 			[
@@ -412,13 +546,13 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			[
 				'(ab) cd OR ef OR (gh)',
 				'(((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-				'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+					'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
 			],
 			[
 				'(ab) OR cd OR ef OR (gh)',
 				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-				'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+					'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
 			],
 			[
@@ -439,20 +573,163 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 			[
 				'(ab (!cd OR ef OR (gh))) OR !(ij OR kl)',
 				'((((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title NOT LIKE ? AND e.content NOT LIKE ? )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-				'OR (((e.title LIKE ? OR e.content LIKE ?) )))) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+					'OR (((e.title LIKE ? OR e.content LIKE ?) )))) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%'],
 			],
 			[
 				'"ab" "cd" ("ef") intitle:"gh" !"ij" -"kl"',
 				'(((e.title LIKE ? OR e.content LIKE ?) AND (e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-				'AND ((e.title LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? ))',
+					'AND ((e.title LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? ))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%']
 			],
 			[
-				'&quot;ab&quot; &quot;cd&quot; (&quot;ef&quot;) intitle:&quot;gh&quot; !&quot;ij&quot; -&quot;kl&quot;',
-				'(((e.title LIKE ? OR e.content LIKE ?) AND (e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-				'AND ((e.title LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? ))',
-				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%']
+				'intitle:"é & \' è" intext:/<&>/ \'< & " >\'',
+				'(e.title LIKE ? AND e.content ~ ? AND (e.title LIKE ? OR e.content LIKE ?) )',
+				['%é &amp; \' è%', '<&>', '%&lt; &amp; " &gt;%', '%&lt; &amp; " &gt;%']
+			],
+			[
+				'/^(ab|cd) [(] \\) (ef|gh)/',
+				'((e.title ~ ? OR e.content ~ ?) )',
+				['^(ab|cd) [(] \\) (ef|gh)', '^(ab|cd) [(] \\) (ef|gh)']
+			],
+			[
+				'!/^(ab|cd)/',
+				'(NOT e.title ~ ? AND NOT e.content ~ ? )',
+				['^(ab|cd)', '^(ab|cd)']
+			],
+			[
+				'intitle:/^(ab|cd)/',
+				'(e.title ~ ? )',
+				['^(ab|cd)']
+			],
+			[
+				'intext:/^(ab|cd)/',
+				'(e.content ~ ? )',
+				['^(ab|cd)']
+			],
+			[
+				'L:1 L:2',
+				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) AND ' .
+					'e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) )',
+				[1, 2]
+			],
+			[
+				'L:1,2',
+				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?,?)) )',
+				[1, 2]
+			],
+		];
+	}
+
+	/**
+	 * @param array<string> $values
+	 */
+	#[DataProvider('provideDateOperators')]
+	public function test__date_operators(string $input, string $sql, array $values): void {
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		self::assertSame(trim($sql), trim($filterSearch));
+		self::assertSame($values, $filterValues);
+	}
+
+	/** @return list<list<mixed>> */
+	public static function provideDateOperators(): array {
+		return [
+			// Basic date operator tests
+			[
+				'date:2007-03-01/2008-05-11',
+				'(e.id >= ? AND e.id <= ? )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z') . '000000'],
+			],
+			[
+				'date:2007-03-01/',
+				'(e.id >= ? )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000'],
+			],
+			[
+				'date:/2008-05-11',
+				'(e.id <= ? )',
+				[strtotime('2008-05-11T23:59:59Z') . '000000'],
+			],
+			// Basic pubdate operator tests
+			[
+				'pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'(e.date >= ? AND e.date <= ? )',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'pubdate:2007-03-01/',
+				'(e.date >= ? )',
+				[strtotime('2007-03-01T00:00:00Z')],
+			],
+			[
+				'pubdate:/2008-05-11',
+				'(e.date <= ? )',
+				[strtotime('2008-05-11T23:59:59Z')],
+			],
+			// Basic userdate operator tests
+			[
+				'userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'(e.`lastUserModified` >= ? AND e.`lastUserModified` <= ? )',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'userdate:2007-03-01/',
+				'(e.`lastUserModified` >= ? )',
+				[strtotime('2007-03-01T00:00:00Z')],
+			],
+			[
+				'userdate:/2008-05-11',
+				'(e.`lastUserModified` <= ? )',
+				[strtotime('2008-05-11T23:59:59Z')],
+			],
+			// Negative date operator tests
+			[
+				'-date:2007-03-01/2008-05-11',
+				'((e.id < ? OR e.id > ?) )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z') . '000000'],
+			],
+			[
+				'!pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'((e.date < ? OR e.date > ?) )',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'!userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'((e.`lastUserModified` < ? OR e.`lastUserModified` > ?) )',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			// Combined date operators
+			[
+				'date:2007-03-01/ pubdate:/2008-05-11',
+				'(e.id >= ? AND e.date <= ? )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z')],
+			],
+			[
+				'pubdate:2007-03-01/ userdate:/2008-05-11',
+				'(e.date >= ? AND e.`lastUserModified` <= ? )',
+				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
+			],
+			[
+				'date:2007-03-01/ userdate:2007-06-01/',
+				'(e.id >= ? AND e.`lastUserModified` >= ? )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2007-06-01T00:00:00Z')],
+			],
+			// Complex combinations with other operators
+			[
+				'intitle:test date:2007-03-01/ pubdate:/2008-05-11',
+				'(e.id >= ? AND e.date <= ? AND e.title LIKE ? )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z'), '%test%'],
+			],
+			[
+				'author:john userdate:2007-03-01/2008-05-11',
+				'(e.`lastUserModified` >= ? AND e.`lastUserModified` <= ? AND e.author LIKE ? )',
+				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z'), '%john%'],
+			],
+			// Mixed positive and negative date operators
+			[
+				'date:2007-03-01/ !pubdate:2008-01-01/2008-05-11',
+				'(e.id >= ? AND (e.date < ? OR e.date > ?) )',
+				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-01-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
 			],
 		];
 	}
@@ -463,11 +740,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function test__regex_postgresql(string $input, string $sql, array $values): void {
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
-		self::assertEquals(trim($sql), trim($filterSearch));
-		self::assertEquals($values, $filterValues);
+		self::assertSame(trim($sql), trim($filterSearch));
+		self::assertSame($values, $filterValues);
 	}
 
-	/** @return array<array<mixed>> */
+	/** @return list<list<mixed>> */
 	public static function provideRegexPostreSQL(): array {
 		return [
 			[
@@ -491,6 +768,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				['^ab\\M']
 			],
 			[
+				'intext:/^ab\\M/',
+				'(e.content ~ ? )',
+				['^ab\\M']
+			],
+			[
+				'intitle:/\\b\\d+/',
+				'(e.title ~ ? )',
+				['\\y\\d+']
+			],
+			[
 				'author:/^ab$/',
 				"(REPLACE(e.author, ';', '\n') ~ ? )",
 				['^ab$']
@@ -510,6 +797,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'(NOT e.title ~ ? AND NOT e.content ~ ? )',
 				['^ab$', '^ab$']
 			],
+			[
+				'#/^a(b|c)$/im',
+				"(REPLACE(REPLACE(e.tags, ' #', '#'), '#', '\n') ~* ? )",
+				['(?m)^a(b|c)$']
+			],
 			[	// Not a regex
 				'inurl:https://example.net/test/',
 				'(e.link LIKE ? )',
@@ -519,6 +811,21 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'https://example.net/test/',
 				'((e.title LIKE ? OR e.content LIKE ?) )',
 				['%https://example.net/test/%', '%https://example.net/test/%']
+			],
+			[	// Regex with literal 'or'
+				'intitle:/^A or B/i',
+				'(e.title ~* ? )',
+				['^A or B']
+			],
+			[	// Regex with literal 'OR'
+				'intitle:/^A B OR C D/i OR intitle:/^A B OR C D/i',
+				'(e.title ~* ? ) OR (e.title ~* ? )',
+				['^A B OR C D', '^A B OR C D']
+			],
+			[	// Quote with literal 'OR'
+				'intitle:"A B OR C D" OR intitle:"E or F"',
+				'(e.title LIKE ? ) OR (e.title LIKE ? )',
+				['%A B OR C D%', '%E or F%']
 			],
 		];
 	}
@@ -531,11 +838,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 		FreshRSS_DatabaseDAO::$dummyConnection = true;
 		FreshRSS_DatabaseDAO::setStaticVersion('11.4.3-MariaDB-ubu2404');
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAO::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
-		self::assertEquals(trim($sql), trim($filterSearch));
-		self::assertEquals($values, $filterValues);
+		self::assertSame(trim($sql), trim($filterSearch));
+		self::assertSame($values, $filterValues);
 	}
 
-	/** @return array<array<mixed>> */
+	/** @return list<list<mixed>> */
 	public static function provideRegexMariaDB(): array {
 		return [
 			[
@@ -553,6 +860,16 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				"(e.title REGEXP ? )",
 				['(?-i)(?m)^ab$']
 			],
+			[
+				'intitle:/\\b\\d+/',
+				"(e.title REGEXP ? )",
+				['(?-i)\\b\\d+']
+			],
+			[
+				'intext:/^ab$/m',
+				'(UNCOMPRESS(e.content_bin) REGEXP ?) )',
+				['(?-i)(?m)^ab$']
+			],
 		];
 	}
 
@@ -564,11 +881,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 		FreshRSS_DatabaseDAO::$dummyConnection = true;
 		FreshRSS_DatabaseDAO::setStaticVersion('9.0.1');
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAO::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
-		self::assertEquals(trim($sql), trim($filterSearch));
-		self::assertEquals($values, $filterValues);
+		self::assertSame(trim($sql), trim($filterSearch));
+		self::assertSame($values, $filterValues);
 	}
 
-	/** @return array<array<mixed>> */
+	/** @return list<list<mixed>> */
 	public static function provideRegexMySQL(): array {
 		return [
 			[
@@ -586,6 +903,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				"(REGEXP_LIKE(e.title,?,'mc') )",
 				['^ab$']
 			],
+			[
+				'intext:/^ab$/m',
+				"(REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc')) )",
+				['^ab$']
+			],
 		];
 	}
 
@@ -595,11 +917,11 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function test__regex_sqlite(string $input, string $sql, array $values): void {
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAOSQLite::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
-		self::assertEquals(trim($sql), trim($filterSearch));
-		self::assertEquals($values, $filterValues);
+		self::assertSame(trim($sql), trim($filterSearch));
+		self::assertSame($values, $filterValues);
 	}
 
-	/** @return array<array<mixed>> */
+	/** @return list<list<mixed>> */
 	public static function provideRegexSQLite(): array {
 		return [
 			[
@@ -622,6 +944,250 @@ class SearchTest extends PHPUnit\Framework\TestCase {
 				'(e.title REGEXP ? )',
 				['/^ab\\b/']
 			],
+			[
+				'intext:/^ab\\b/',
+				'(e.content REGEXP ? )',
+				['/^ab\\b/']
+			],
+		];
+	}
+
+	#[DataProvider('provideToString')]
+	public static function test__toString(string $input): void {
+		$search = new FreshRSS_Search($input);
+		$expected = str_replace("\n", ' ', $input);
+		self::assertSame($expected, $search->__toString());
+	}
+
+	/**
+	 * @return array<array<string>>
+	 */
+	public static function provideToString(): array {
+		return [
+			[
+				<<<'EOD'
+					e:1,2 f:10,11 c:20,21 L:30,31 labels:"My label,My other label"
+					userdate:2025-01-01T00:00:00/2026-01-01T00:00:00
+					pubdate:2025-02-01T00:00:00/2026-01-01T00:00:00
+					date:2025-03-01T00:00:00/2026-01-01T00:00:00
+					intitle:/<Inter&sting>/i intitle:"g ' & d"
+					intext:/<Inter&sting>/i intext:g&d
+					author:/Bob/ author:Alice
+					inurl:/https/ inurl:example.net
+					#/tag2/ #tag1
+					/search_regex/i "quoted search" search
+					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
+					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-pubdate:2025
+					-date:P30D
+					-intitle:/Spam/i -intitle:"'bad"
+					-intext:/Spam/i -intext:"'bad"
+					-author:/Dave/i -author:Charlie
+					-inurl:/ftp/ -inurl:example.com
+					-#/tag4/ -#tag3
+					-/not_regex/i -"not quoted" -not_search
+					EOD
+			],
+		];
+	}
+
+	#[DataProvider('provideBooleanSearchToString')]
+	public static function testBooleanSearchToString(string $input, string $expected): void {
+		$search = new FreshRSS_BooleanSearch($input);
+		self::assertSame($expected, $search->toString());
+	}
+
+	/**
+	 * @return array<array<string>>
+	 */
+	public static function provideBooleanSearchToString(): array {
+		return [
+			[
+				'((a OR b) (c OR d) -e) OR -(f g)',
+				'((a OR b) (c OR d) (-e)) OR -(f g)',
+			],
+			[
+				'((a OR b) ((c) OR ((d))) (-e)) OR -(((f g)))',
+				'((a OR b) (c OR d) (-e)) OR -(f g)',
+			],
+			[
+				'!((b c))',
+				'-(b c)',
+			],
+			[
+				'(a) OR !((b c))',
+				'a OR -(b c)',
+			],
+			[
+				'((a) (b))',
+				'a b',
+			],
+			[
+				'((a) OR (b))',
+				'a OR b',
+			],
+			[
+				' ( !( !( ( a ) ) ) ) ( ) ',
+				'-(-a)',
+			],
+			[
+				'-intitle:a -inurl:b',
+				'-intitle:a -inurl:b',
+			],
+			[
+				'intitle:/^A or B/i',
+				'intitle:/^A or B/i',
+			],
+			[
+				'intitle:/^A B OR C D/i',
+				'intitle:/^A B OR C D/i',
+			],
+		];
+	}
+
+	/**
+	 * @param list<array{search:string,name?:string}> $queries
+	 */
+	#[DataProvider('provideBooleanSearchToStringExpansion')]
+	public static function testBooleanSearchToStringExpansion(array $queries, string $input,
+		string $expectedNotExpanded, string $expectedExpanded): void {
+		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
+		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
+		$newUserConf->queries = $queries;
+		FreshRSS_Context::setUserConf($newUserConf);
+
+		try {
+			$booleanSearch = new FreshRSS_BooleanSearch($input);
+			self::assertSame($expectedNotExpanded, $booleanSearch->toString(expandUserQueries: false));
+			self::assertSame($expectedExpanded, $booleanSearch->toString());
+		} finally {
+			FreshRSS_Context::setUserConf($previousUserConf);
+		}
+	}
+
+	/**
+	 * @return array<string,array{0:list<array{search:string,name?:string}>,1:string,2:string,3:string}>
+	 */
+	public static function provideBooleanSearchToStringExpansion(): array {
+		return [
+			'Not found ID' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'S:3 S:4,5 ',
+				'S:3 S:4,5',
+				'',
+			],
+			'Not found name' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:Third ',
+				'search:Third',
+				'',
+			],
+			'Found IDs' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'S:0,1 ',
+				'S:0,1',
+				'author:Alice OR intitle:World',
+			],
+			'Found names' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:First search:Second ',
+				'search:First search:Second',
+				'author:Alice intitle:World',
+			],
+		];
+	}
+
+	#[DataProvider('provideHasSameOperators')]
+	public function testHasSameOperators(string $input1, string $input2, bool $expected): void {
+		$search1 = new FreshRSS_Search($input1);
+		$search2 = new FreshRSS_Search($input2);
+		self::assertSame($expected, $search1->hasSameOperators($search2));
+	}
+
+	/**
+	 * @return array<array{string,string,bool}>
+	 */
+	public static function provideHasSameOperators(): array {
+		return [
+			['', '', true],
+			['intitle:a intext:b', 'intitle:c intext:d', true],
+			['intitle:a intext:b', 'intitle:c inurl:d', false],
+		];
+	}
+
+	#[DataProvider('provideBooleanSearchEnforce')]
+	public function testBooleanSearchEnforce(string $initialInput, string $enforceInput, string $expectedOutput): void {
+		$booleanSearch = new FreshRSS_BooleanSearch($initialInput);
+		$searchToEnforce = new FreshRSS_Search($enforceInput);
+		$newBooleanSearch = $booleanSearch->enforce($searchToEnforce);
+		self::assertNotSame($booleanSearch, $newBooleanSearch);
+		self::assertSame($expectedOutput, $newBooleanSearch->toString());
+	}
+
+	/**
+	 * @return array<array{string,string,string}>
+	 */
+	public static function provideBooleanSearchEnforce(): array {
+		return [
+			['', '', ''],
+			['', 'intitle:b', 'intitle:b'],
+			['intitle:a', '', 'intitle:a'],
+			['intitle:a', 'intitle:b', 'intitle:b'],
+			['a', 'intitle:b', 'intitle:b a'],
+			['intitle:a intext:a', 'intitle:b', 'intitle:b intext:a'],
+			['intitle:a inurl:a', 'intitle:b', 'intitle:b inurl:a'],
+			['intitle:a OR inurl:a', 'intitle:b', 'intitle:b (intitle:a OR inurl:a)'],
+			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', 'intitle:b (inurl:a intitle:c)'],
+			['intitle:a ((inurl:a) OR (intitle:c))', 'intitle:b', 'intitle:b (inurl:a OR intitle:c)'],
+			['(intitle:a) (inurl:a)', 'intitle:b', 'intitle:b inurl:a'],
+			['(inurl:a) (intitle:a)', 'intitle:b', 'inurl:a intitle:b'],
+			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
+			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
+			['(a b)', 'e', 'e (a b)'],
+			['date:2024/', 'date:/2025', 'date:/2025'],
+			['a', 'date:/2025', 'date:/2025 a'],
+		];
+	}
+
+	#[DataProvider('provideBooleanSearchRemove')]
+	public function testBooleanSearchRemove(string $initialInput, string $removeInput, string $expectedOutput): void {
+		$booleanSearch = new FreshRSS_BooleanSearch($initialInput);
+		$searchToRemove = new FreshRSS_Search($removeInput);
+		$newBooleanSearch = $booleanSearch->remove($searchToRemove);
+		self::assertNotSame($booleanSearch, $newBooleanSearch);
+		self::assertSame($expectedOutput, $newBooleanSearch->toString());
+	}
+
+	/**
+	 * @return array<array{string,string,string}>
+	 */
+	public static function provideBooleanSearchRemove(): array {
+		return [
+			['', 'intitle:b', ''],
+			['intitle:a', 'intitle:b', ''],
+			['intitle:a intext:a', 'intitle:b', 'intext:a'],
+			['intitle:a inurl:a', 'intitle:b', 'inurl:a'],
+			['intitle:a OR inurl:a', 'intitle:b', 'intitle:a OR inurl:a'],
+			['intitle:a ((inurl:a) (intitle:c))', 'intitle:b', '(inurl:a intitle:c)'],
+			['intitle:a ((inurl:a) OR (intitle:c))', 'intitle:b', '(inurl:a OR intitle:c)'],
+			['(intitle:a) (inurl:a)', 'intitle:b', 'inurl:a'],
+			['(inurl:a) (intitle:a)', 'intitle:b', 'inurl:a'],
+			['e ((a b) OR (c d))', 'e', '((a b) OR (c d))'],
+			['e ((a b) (c d))', 'e', '((a b) (c d))'],
+			['date:2024/', 'date:/2025', ''],
+			['date:2024/ a', 'date:/2025', 'a'],
 		];
 	}
 }

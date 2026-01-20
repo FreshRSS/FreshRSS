@@ -25,9 +25,7 @@ else
 	DOCKERFILE=Dockerfile
 endif
 
-############
-## Docker ##
-############
+##@ Docker
 .PHONY: build
 build: ## Build a Docker image
 	docker build \
@@ -55,41 +53,36 @@ stop: ## Stop FreshRSS container if any
 	docker stop freshrss-dev || true
 	docker network rm $(NETWORK) || true
 
-######################
-## Tests and linter ##
-######################
-.PHONY: test
-test: vendor/bin/phpunit ## Run the test suite
-	$(PHP) vendor/bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
-
+##@ Tests and linter
 .PHONY: lint
-lint: vendor/bin/phpcs ## Run the linter on the PHP files
-	$(PHP) vendor/bin/phpcs . -p -s
+lint: bin/phpcs ## Run the linter on PHP files
+	$(PHP) bin/phpcs . -p -s
 
 .PHONY: lint-fix
-lint-fix: vendor/bin/phpcbf ## Fix the errors detected by the linter
-	$(PHP) vendor/bin/phpcbf . -p -s
+lint-fix: bin/phpcbf ## Fix the errors detected by the linter
+	$(PHP) bin/phpcbf . -p -s
+
+.PHONY: test
+test: bin/phpunit ## Run the test suite
+	$(PHP) bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
 
 bin/composer:
 	mkdir -p bin/
-	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/1a26c0dcb361332cb504e4861ed0f758281575aa/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/a5abae68b349213793dca4a1afcaada0ad11143b/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
 
-vendor/bin/phpunit: bin/composer
+# building any of these builds them all
+vendor/bin/phpunit vendor/bin/phpcs vendor/bin/phpcbf vendor/bin/phpstan &: bin/composer
 	bin/composer install --prefer-dist --no-progress
-	ln -s ../vendor/bin/phpunit bin/phpunit
 
-vendor/bin/phpcs: bin/composer
-	bin/composer install --prefer-dist --no-progress
-	ln -s ../vendor/bin/phpcs bin/phpcs
-
-vendor/bin/phpcbf: bin/composer
-	bin/composer install --prefer-dist --no-progress
-	ln -s ../vendor/bin/phpcbf bin/phpcbf
+# Any of these depend on the vendor/ target, and then symlink the vendor/bin/ to the bin/.
+# use -sf so if the symlink already exists it won't error out. Running this from a container often won't properly detect it already exists
+bin/phpunit bin/phpcs bin/phpcbf bin/phpstan : % : vendor/%
+	ln -sf $< $@
 
 bin/typos:
 	mkdir -p bin/
 	cd bin ; \
-	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.23.1/typos-v1.23.1-x86_64-unknown-linux-musl.tar.gz' && \
+	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.29.9/typos-v1.29.9-x86_64-unknown-linux-musl.tar.gz' && \
 	tar -xvf *.tar.gz './typos' && \
 	chmod +x typos && \
 	rm *.tar.gz ; \
@@ -101,24 +94,14 @@ node_modules/.bin/eslint:
 node_modules/.bin/rtlcss:
 	npm install
 
-vendor/bin/phpstan: bin/composer
-	bin/composer install --prefer-dist --no-progress
-
-##########
-## I18N ##
-##########
-.PHONY: i18n-format
-i18n-format: ## Format I18N files
-	@$(PHP) ./cli/manipulate.translation.php -a format
-	@echo Files formatted.
-
-.PHONY: i18n-add-language
-i18n-add-language: ## Add a new supported language
-ifndef lang
-	$(error To add a new language, you need to provide one in the "lang" variable)
+##@ I18n
+.PHONY: i18n-add-file
+i18n-add-file: ## Add a new translation file to all supported languages
+ifndef key
+	$(error To add a new file, you need to provide one in the "key" variable)
 endif
-	$(PHP) ./cli/manipulate.translation.php -a add -l $(lang) -o $(ref)
-	@echo Language added.
+	@$(PHP) ./cli/manipulate.translation.php --action add --key $(key)
+	@echo File added.
 
 .PHONY: i18n-add-key
 i18n-add-key: ## Add a translation key to all supported languages
@@ -128,15 +111,65 @@ endif
 ifndef value
 	$(error To add a key, you need to provide its value in the "value" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v "$(value)"
+	@$(PHP) ./cli/manipulate.translation.php --action add --key $(key) --value "$(value)"
 	@echo Key added.
+
+.PHONY: i18n-move-key
+i18n-move-key: ## Move an existing key into a new location
+ifndef key
+	$(error To move a key, you need to provide one in the "key" variable)
+endif
+ifndef new-key
+	$(error To specify a location to move the key to, you need to provide it in the "new-key" variable)
+endif
+	@$(PHP) ./cli/manipulate.translation.php --action move --key $(key) --new-key "$(new-key)"
+	@echo Key moved.
+
+.PHONY: i18n-add-language
+i18n-add-language: ## Add a new supported language
+ifndef lang
+	$(error To add a new language, you need to provide one in the "lang" variable)
+endif
+	$(PHP) ./cli/manipulate.translation.php --action add --language $(lang) --origin-language $(ref)
+	@echo Language added.
+
+.PHONY: i18n-format
+i18n-format: ## Format I18N files
+	@$(PHP) ./cli/manipulate.translation.php --action format
+	@echo Files formatted.
+
+.PHONY: i18n-ignore-key
+i18n-ignore-key: ## Ignore a translation key for the selected language
+ifndef lang
+	$(error To ignore a key, you need to provide a language in the "lang" variable)
+endif
+ifndef key
+	$(error To ignore a key, you need to provide one in the "key" variable)
+endif
+	@$(PHP) ./cli/manipulate.translation.php --action ignore --key $(key) --language $(lang)
+	@echo Key ignored.
+
+.PHONY: i18n-ignore-unmodified-keys
+i18n-ignore-unmodified-keys: ## Ignore all unmodified translation keys for the selected language
+ifndef lang
+	$(error To ignore unmodified keys, you need to provide a language in the "lang" variable)
+endif
+	@$(PHP) ./cli/manipulate.translation.php --action ignore_unmodified --language $(lang)
+	@echo Unmodified keys ignored.
+
+.PHONY: i18n-key-exists
+i18n-key-exists: ## Check if a translation key exists
+ifndef key
+	$(error To check if a key exists, you need to provide one in the "key" variable)
+endif
+	@$(PHP) ./cli/manipulate.translation.php --action exist --key $(key)
 
 .PHONY: i18n-remove-key
 i18n-remove-key: ## Remove a translation key from all supported languages
 ifndef key
 	$(error To remove a key, you need to provide one in the "key" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a delete -k $(key)
+	@$(PHP) ./cli/manipulate.translation.php --action delete --key $(key)
 	@echo Key removed.
 
 .PHONY: i18n-update-key
@@ -147,49 +180,25 @@ endif
 ifndef value
 	$(error To update a key, you need to provide its value in the "value" variable)
 endif
-	@$(PHP) ./cli/manipulate.translation.php -a add -k $(key) -v "$(value)" -l en
+	@$(PHP) ./cli/manipulate.translation.php --action add --key $(key) --value "$(value)" --language en
 	@echo Key updated.
 
-.PHONY: i18n-ignore-key
-i18n-ignore-key: ## Ignore a translation key for the selected language
-ifndef lang
-	$(error To ignore a key, you need to provide a language in the "lang" variable)
-endif
-ifndef key
-	$(error To ignore a key, you need to provide one in the "key" variable)
-endif
-	@$(PHP) ./cli/manipulate.translation.php -a ignore -k $(key) -l $(lang)
-	@echo Key ignored.
-
-.PHONY: i18n-ignore-unmodified-keys
-i18n-ignore-unmodified-keys: ## Ignore all unmodified translation keys for the selected language
-ifndef lang
-	$(error To ignore unmodified keys, you need to provide a language in the "lang" variable)
-endif
-	@$(PHP) ./cli/manipulate.translation.php -a ignore_unmodified -l $(lang)
-	@echo Unmodified keys ignored.
-
-.PHONY: i18n-key-exists
-i18n-key-exists: ## Check if a translation key exists
-ifndef key
-	$(error To check if a key exists, you need to provide one in the "key" variable)
-endif
-	@$(PHP) ./cli/manipulate.translation.php -a exist -k $(key)
-
-###########
-## TOOLS ##
-###########
-.PHONY: rtl
-rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
-	npm run-script rtlcss
-
+##@ Tools
 .PHONY: pot
 pot: ## Generate POT templates for docs
 	cd docs && ../cli/translation-update.sh
 
+.PHONY: readme
+readme: ## Generate translation progress in README file
+	@$(PHP) ./cli/check.translation.php --generate-readme
+
 .PHONY: refresh
 refresh: ## Refresh feeds by fetching new messages
 	@$(PHP) ./app/actualize_script.php
+
+.PHONY: rtl
+rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
+	npm run-script rtlcss
 
 ###############################
 ## New commands aligned on CI #
@@ -198,11 +207,11 @@ refresh: ## Refresh feeds by fetching new messages
 
 # TODO: Add composer install
 .PHONY: composer-test
-composer-test: vendor/bin/phpstan
+composer-test: bin/phpstan bin/composer
 	bin/composer run-script test
 
 .PHONY: composer-fix
-composer-fix:
+composer-fix: bin/composer
 	bin/composer run-script fix
 
 .PHONY: npm-test
@@ -224,10 +233,7 @@ test-all: composer-test npm-test typos-test
 .PHONY: fix-all
 fix-all: composer-fix npm-fix
 
-
-##########
-## HELP ##
-##########
+##@ Help
 .PHONY: help
-help:
-	@grep --extended-regexp '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+help: ## Display this help
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-30s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)

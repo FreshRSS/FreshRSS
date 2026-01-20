@@ -35,7 +35,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		$url_redirect = ['c' => 'subscription', 'a' => 'add'];
 
 		$limits = FreshRSS_Context::systemConf()->limits;
-		$this->view->categories = $catDAO->listCategories(false) ?: [];
+		$this->view->categories = $catDAO->listCategories(prePopulateFeeds: false);
 
 		if (count($this->view->categories) >= $limits['max_categories']) {
 			Minz_Request::bad(_t('feedback.sub.category.over_max', $limits['max_categories']), $url_redirect);
@@ -59,7 +59,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.tag.name_exists', $cat->name()), $url_redirect);
 			}
 
-			$opml_url = checkUrl(Minz_Request::paramString('opml_url'));
+			$opml_url = FreshRSS_http_Util::checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
 			if ($opml_url != '') {
 				$cat->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$cat->_attribute('opml_url', $opml_url);
@@ -70,7 +70,11 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			if ($catDAO->addCategoryObject($cat)) {
 				$url_redirect['a'] = 'index';
-				Minz_Request::good(_t('feedback.sub.category.created', $cat->name()), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.sub.category.created', $cat->name()),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
 			}
@@ -100,14 +104,20 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle($category->name() . ' · ' . _t('sub.title') . ' · ');
 
 		if (Minz_Request::isPost()) {
-			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
+			if (Minz_Request::paramBoolean('enable_read_when_same_title_in_category')) {
+				$category->_attribute('read_when_same_title_in_category', Minz_Request::paramInt('read_when_same_title_in_category'));
+			} else {
+				$category->_attribute('read_when_same_title_in_category', null);
+			}
+
+			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read', plaintext: true));
 
 			if (Minz_Request::paramBoolean('use_default_purge_options')) {
 				$category->_attribute('archiving', null);
 			} else {
 				if (!Minz_Request::paramBoolean('enable_keep_max')) {
 					$keepMax = false;
-				} elseif (($keepMax = Minz_Request::paramInt('keep_max')) !== 0) {
+				} elseif (($keepMax = Minz_Request::paramInt('keep_max')) === 0) {
 					$keepMax = FreshRSS_Feed::ARCHIVING_RETENTION_COUNT_LIMIT;
 				}
 				if (Minz_Request::paramBoolean('enable_keep_period')) {
@@ -131,7 +141,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			$position = Minz_Request::paramInt('position') ?: null;
 			$category->_attribute('position', $position);
 
-			$opml_url = checkUrl(Minz_Request::paramString('opml_url'));
+			$opml_url = FreshRSS_http_Util::checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$category->_attribute('opml_url', $opml_url);
@@ -150,11 +160,39 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id, 'type' => 'category']];
 			if (false !== $categoryDAO->updateCategory($id, $values)) {
-				Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.sub.category.updated'),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
 			}
 		}
+	}
+
+	public function viewFilterAction(): void {
+		$id = Minz_Request::paramInt('id');
+		if ($id === 0) {
+			Minz_Error::error(400);
+			return;
+		}
+		$filteractions = Minz_Request::paramTextToArray('filteractions_read', plaintext: true);
+		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
+		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
+		$search = "c:$id (";
+		foreach ($filteractions as $action) {
+			$search .= "($action) OR ";
+		}
+		$search = preg_replace('/ OR $/', '', $search);
+		$search .= ')';
+		Minz_Request::forward([
+			'c' => 'index',
+			'a' => 'index',
+			'params' => [
+				'search' => $search,
+			],
+		], redirect: true);
 	}
 
 	/**
@@ -191,12 +229,15 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			}
 
 			// Remove related queries.
-			/** @var array<array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}> $queries */
-			$queries = remove_query_by_get('c_' . $id, FreshRSS_Context::userConf()->queries);
+			$queries = FreshRSS_UserQuery::remove_query_by_get('c_' . $id, FreshRSS_Context::userConf()->queries);
 			FreshRSS_Context::userConf()->queries = $queries;
 			FreshRSS_Context::userConf()->save();
 
-			Minz_Request::good(_t('feedback.sub.category.deleted'), $url_redirect);
+			Minz_Request::good(
+				_t('feedback.sub.category.deleted'),
+				$url_redirect,
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 
 		Minz_Request::forward($url_redirect, true);
@@ -223,22 +264,26 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			}
 
 			$muted = Minz_Request::paramTernary('muted');
+			$errored = Minz_Request::paramTernary('errored');
 
 			// List feeds to remove then related user queries.
-			$feeds = $feedDAO->listByCategory($id, $muted);
+			$feeds = $feedDAO->listByCategory($id, $muted, $errored);
 
-			if ($feedDAO->deleteFeedByCategory($id, $muted)) {
+			if ($feedDAO->deleteFeedByCategory($id, $muted, $errored)) {
 				// TODO: Delete old favicons
 
 				// Remove related queries
 				foreach ($feeds as $feed) {
-					/** @var array<array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}> */
-					$queries = remove_query_by_get('f_' . $feed->id(), FreshRSS_Context::userConf()->queries);
+					$queries = FreshRSS_UserQuery::remove_query_by_get('f_' . $feed->id(), FreshRSS_Context::userConf()->queries);
 					FreshRSS_Context::userConf()->queries = $queries;
 				}
 				FreshRSS_Context::userConf()->save();
 
-				Minz_Request::good(_t('feedback.sub.category.emptied'), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.sub.category.emptied'),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
 			}
@@ -279,7 +324,11 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$this->view->_layout(null);
 			} else {
 				if ($ok) {
-					Minz_Request::good(_t('feedback.sub.category.updated'), $url_redirect);
+					Minz_Request::good(
+						_t('feedback.sub.category.updated'),
+						$url_redirect,
+						showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+					);
 				} else {
 					Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
 				}

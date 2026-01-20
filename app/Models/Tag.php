@@ -17,8 +17,8 @@ class FreshRSS_Tag extends Minz_Model {
 		return $this->id;
 	}
 
-	public function _id(int|string $value): void {
-		$this->id = (int)$value;
+	public function _id(int $value): void {
+		$this->id = $value;
 	}
 
 	public function name(): string {
@@ -37,8 +37,8 @@ class FreshRSS_Tag extends Minz_Model {
 		return $this->nbEntries;
 	}
 
-	public function _nbEntries(int|string $value): void {
-		$this->nbEntries = (int)$value;
+	public function _nbEntries(int $value): void {
+		$this->nbEntries = $value;
 	}
 
 	public function nbUnread(): int {
@@ -49,6 +49,7 @@ class FreshRSS_Tag extends Minz_Model {
 		return $this->nbUnread;
 	}
 
+	/** @param int|numeric-string $value */
 	public function _nbUnread(int|string $value): void {
 		$this->nbUnread = (int)$value;
 	}

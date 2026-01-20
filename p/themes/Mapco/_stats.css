@@ -1,0 +1,16 @@
+/*=== STATISTICS */
+/*===============*/
+.stat {
+	margin: 10px 0 20px;
+}
+
+.stat th,
+.stat td,
+.stat tr {
+	border: none;
+}
+
+.stat > table td,
+.stat > table th {
+	border-bottom: 1px solid var(--grey-medium-light);
+}

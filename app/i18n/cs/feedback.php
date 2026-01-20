@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s nelze povolit. Pro podrobnosti <a href="%s">zkontrolujte protokoly FreshRSS</a>.',
 			'ok' => '%s je nyní povoleno',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'Nemáte přístup k %s',
 		'not_enabled' => '%s není povoleno',
 		'not_found' => '%s neexistuje',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Váš profil nelze změnit',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Váš profil byl změněn',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> mezipaměť byla vymazána',
 			'deleted' => 'Kanál byl odstraněn',
 			'error' => 'Kanál nelze aktualizovat',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'Informační kanál nelze přidat. Pro podrobnosti <a href="%s">zkontrolujte protokoly FreshRSS</a>. Můžete zkusit vynucení přidání připojením <code>#force_feed</code> k adrese URL.',
 			'invalid_url' => 'Adresa URL <em>%s</em> je neplatná',
 			'n_actualized' => '%d kanálů bylo aktualizováno',

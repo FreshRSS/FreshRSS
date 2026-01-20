@@ -4,15 +4,11 @@
 	$this->partial('aside_subscription');
 ?>
 <main class="post">
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-	</div>
-
 	<h1><?= _t('admin.stats.idle') ?></h1>
 
 	<?php
 		$current_url = Minz_Url::display(
-			array('c' => 'stats', 'a' => 'idle'),
+			['c' => 'stats', 'a' => 'idle'],
 			'php', true
 		);
 		$nothing = true;
@@ -43,9 +39,9 @@
 						$mute_class = ($feed !== null && $feed->mute()) ? ' mute' : '';
 				?>
 					<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>">
-						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a>
-						<?php if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>" alt="✇" loading="lazy" /><?php endif; ?>
-						<span title="<?= timestamptodate((int)($feedInPeriod['last_date']), false) ?>"><?= $feedInPeriod['name'] ?>
+						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a><?php
+						if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>" alt="✇" loading="lazy" /><?php
+						endif; ?><span title="<?= timestamptodate((int)($feedInPeriod['last_date']), hour: false) ?>"><?= $feedInPeriod['name'] ?>
 							(<?= _t('admin.stats.number_entries', $feedInPeriod['nb_articles']) ?>)</span>
 					</li>
 				<?php } ?>
@@ -65,7 +61,7 @@
 
 <?php $class = isset($this->feed) ? ' active' : ''; ?>
 <aside id="slider" class="<?= $class ?>">
-	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 	<div id="slider-content">
 		<?php
 		if (isset($this->feed)) {
@@ -74,6 +70,6 @@
 		?>
 	</div>
 </aside>
-<a href="#" id="close-slider" class="<?= $class ?>">
+<a href="#close" id="close-slider" class="<?= $class ?>">
 	<?= _i('close') ?>
 </a>

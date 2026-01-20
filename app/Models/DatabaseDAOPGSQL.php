@@ -34,7 +34,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		return count(array_keys($tables, true, true)) === count($tables);
 	}
 
-	/** @return array<array{name:string,type:string,notnull:bool,default:mixed}> */
+	/** @return list<array{name:string,type:string,notnull:bool,default:mixed}> */
 	#[\Override]
 	public function getSchema(string $table): array {
 		$sql = <<<'SQL'
@@ -52,11 +52,16 @@ SQL;
 	#[\Override]
 	public function daoToSchema(array $dao): array {
 		return [
-			'name' => (string)($dao['field']),
-			'type' => strtolower((string)($dao['type'])),
-			'notnull' => (bool)$dao['null'],
-			'default' => $dao['default'],
+			'name' => is_string($dao['field'] ?? null) ? $dao['field'] : '',
+			'type' => is_string($dao['type'] ?? null) ? strtolower($dao['type']) : '',
+			'notnull' => empty($dao['null']),
+			'default' => is_scalar($dao['default'] ?? null) ? $dao['default'] : null,
 		];
+	}
+
+	#[\Override]
+	protected function selectVersion(): string {
+		return $this->fetchValue('SELECT version()') ?? '';
 	}
 
 	#[\Override]
@@ -93,5 +98,21 @@ SQL;
 			}
 		}
 		return $ok;
+	}
+
+	#[\Override]
+	public static function strilike(string $haystack, string $needle, bool $contains = false): bool {
+		if (function_exists('mb_stripos')) {
+			return $contains ? (mb_stripos($haystack, $needle, 0, 'UTF-8') !== false) :
+				(mb_strtolower($haystack, 'UTF-8') === mb_strtolower($needle, 'UTF-8'));
+		}
+		if (function_exists('transliterator_transliterate')) {
+			$haystack_ = transliterator_transliterate('Lower', $haystack);
+			$needle_ = transliterator_transliterate('Lower', $needle);
+			if ($haystack_ !== false && $needle_ !== false) {
+				return $contains ? str_contains($haystack_, $needle_) : ($haystack_ === $needle_);
+			}
+		}
+		return $contains ? (stripos($haystack, $needle) !== false) : (strcasecmp($haystack, $needle) === 0);
 	}
 }

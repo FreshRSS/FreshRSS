@@ -13,13 +13,13 @@ gratuits.
 
 ### Utilisation et authentification
 
-Avant de pouvoir commencer à utiliser cette API, vvous devez activer et
+Avant de pouvoir commencer à utiliser cette API, vous devez activer et
 configurer l’accès à l’API, qui est [documenté
-ici](https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html), et
+ici](06_Mobile_access.md), et
 réinitialisez ensuite le mot de passe API de l’utilisateur.
 
 Connectez ensuite votre application mobile en utilisant l’adresse de l’API
-(e.g. `https://freshrss.example.net/api/fever.php`).
+(ex. `https://freshrss.example.net/api/fever.php`).
 
 ## Clients compatibles Fever
 
@@ -30,8 +30,10 @@ Connectez ensuite votre application mobile en utilisant l’adresse de l’API
 |[Read You](https://github.com/Ashinch/ReadYou/)                                     |Android              |[GPLv3](https://github.com/Ashinch/ReadYou/blob/main/LICENSE)|
 |[Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)       |iOS                  |Source fermée                                             |
 |[Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)                 |iOS                  |Source fermée                                             |
-|[Reeder](https://www.reederapp.com/)                                                |iOS                  |Source fermée                                              |
+|[Reeder Classic](https://www.reederapp.com/classic/)                                |iOS                  |Source fermée                                              |
 |[ReadKit](https://apps.apple.com/app/readkit/id588726889)                           |macOS                |Source fermée                                              |
+
+> ℹ️ Voir une [meilleure liste des applications mobiles compatibles](https://github.com/FreshRSS/FreshRSS/blob/edge/README.fr.md#apis-et-applications-natives).
 
 ## Fonctionnalités
 

@@ -3,6 +3,17 @@ declare(strict_types=1);
 
 class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 
+	#[\Override]
+	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
+		$offset = $this->getTimezoneOffset();
+		return match ($granularity) {
+			'day' => "to_char(to_timestamp(($field / $precision) + $offset), 'YYYY-MM-DD')",
+			'month' => "to_char(to_timestamp(($field / $precision) + $offset), 'YYYY-MM')",
+			'year' => "to_char(to_timestamp(($field / $precision) + $offset), 'YYYY')",
+			default => throw new InvalidArgumentException('Invalid date granularity'),
+		};
+	}
+
 	/**
 	 * Calculates the number of article per hour of the day per feed
 	 *
@@ -43,8 +54,9 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
 		}
+		$offset = $this->getTimezoneOffset();
 		$sql = <<<SQL
-SELECT extract( {$period} from to_timestamp(e.date)) AS period
+SELECT extract( {$period} from to_timestamp(e.date + {$offset})) AS period
 , COUNT(1) AS count
 FROM `_entry` AS e
 {$restrict}
@@ -57,19 +69,12 @@ SQL;
 			return [];
 		}
 
-		switch ($period) {
-			case 'hour':
-				$periodMax = 24;
-				break;
-			case 'day':
-				$periodMax = 7;
-				break;
-			case 'month':
-				$periodMax = 12;
-				break;
-			default:
-				$periodMax = 30;
-		}
+		$periodMax = match ($period) {
+			'hour' => 24,
+			'day' => 7,
+			'month' => 12,
+			default => 30,
+		};
 
 		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {

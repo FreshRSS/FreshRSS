@@ -15,13 +15,13 @@ class Minz_Error {
 	/**
 	* Permet de lancer une erreur
 	* @param int $code le type de l'erreur, par défaut 404 (page not found)
-	* @param string|array<'error'|'warning'|'notice',array<string>> $logs logs d'erreurs découpés de la forme
+	* @param string|array<'error'|'warning'|'notice',list<string>> $logs logs d'erreurs découpés de la forme
 	*      > $logs['error']
 	*      > $logs['warning']
 	*      > $logs['notice']
 	* @param bool $redirect indique s'il faut forcer la redirection (les logs ne seront pas transmis)
 	*/
-	public static function error(int $code = 404, $logs = [], bool $redirect = true): void {
+	public static function error(int $code = 404, string|array $logs = [], bool $redirect = true): void {
 		$logs = self::processLogs($logs);
 		$error_filename = APP_PATH . '/Controllers/errorController.php';
 
@@ -49,10 +49,10 @@ class Minz_Error {
 
 	/**
 	 * Returns filtered logs
-	 * @param string|array<'error'|'warning'|'notice',array<string>> $logs logs sorted by category (error, warning, notice)
-	 * @return array<string> list of matching logs, without the category, according to environment preferences (production / development)
+	 * @param string|array<'error'|'warning'|'notice',list<string>> $logs logs sorted by category (error, warning, notice)
+	 * @return list<string> list of matching logs, without the category, according to environment preferences (production / development)
 	 */
-	private static function processLogs($logs): array {
+	private static function processLogs(string|array $logs): array {
 		if (is_string($logs)) {
 			return [$logs];
 		}
@@ -61,13 +61,13 @@ class Minz_Error {
 		$warning = [];
 		$notice = [];
 
-		if (isset($logs['error']) && is_array($logs['error'])) {
+		if (is_array($logs['error'] ?? null)) {
 			$error = $logs['error'];
 		}
-		if (isset($logs['warning']) && is_array($logs['warning'])) {
+		if (is_array($logs['warning'] ?? null)) {
 			$warning = $logs['warning'];
 		}
-		if (isset($logs['notice']) && is_array($logs['notice'])) {
+		if (is_array($logs['notice'] ?? null)) {
 			$notice = $logs['notice'];
 		}
 

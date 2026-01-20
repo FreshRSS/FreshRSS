@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Előző konfiguráció megtartása',
 		'next_step' => 'Ugrás a következő lépésre',
 		'reinstall' => 'FreshRSS újratelepítése',
-	),
-	'auth' => array(
-		'form' => 'Webes űrlap (hagyományos, JavaScript-et igényel)',
-		'http' => 'HTTP (haladó felhasználóknak HTTPS-el)',
-		'none' => 'Egyik sem (veszélyes)',
-		'password_form' => 'Jelszó<br /><small>(a Webes űrlap belépési módszerhez)</small>',
-		'password_format' => 'Legalább 7 karakter',
-		'type' => 'Hitelesítési mód',
 	),
 	'bdd' => array(
 		'_' => 'Adatbázis',
@@ -70,6 +62,11 @@ return array(
 			'nok' => 'A PHP fileinfo könyvtár nem található (fileinfo csomag).',
 			'ok' => 'A fileinfo könyvtár telepítve van.',
 		),
+		'files' => 'Fájl telepítés',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'Nem található a JSON elemző könyvtár.',
 			'ok' => 'A JSON elemző könyvtár telepítve van.',
@@ -82,18 +79,33 @@ return array(
 			'nok' => 'A reguláris kifejezésekhez használt könyvtár nem található (php-pcre).',
 			'ok' => 'A reguláris kifejezésekhez használt könyvtár megvan (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Nem található PDO vagy legalább egy támogató driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'A PDO telepítve és van legalább egy támogatott driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Nem található PDO vagy legalább egy támogató driver (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'A PDO telepítve és van legalább egy támogatott driver (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'nok' => 'A PHP verzió %s, de a FreshRSS számára szükséges verzió %s.',
-			'ok' => 'A PHP verzió, %s, kompatibilis a FreshRSS-el.',
+			'_' => 'PHP telepítés',
+			'nok' => 'A PHP verzió %s de a FreshRSS számára szükséges verzió %s.',
+			'ok' => 'A PHP verzió (%s) kompatibilis a FreshRSS-el.',
 		),
 		'reload' => 'Újra ellenőrzés',
 		'tmp' => array(
 			'nok' => 'Ellenőrizd a(z) <em>%1$s</em> könyvtár jogosultságait a(z) <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'A temp könyvtár jogosultságai rendben vannak.',
+		),
+		'tokens' => array(
+			'nok' => 'Ellenőrizd a <em>./data/tokens</em> könyvtár jogosultságait. A HTTP szervernek szüksége van írási jogosultságra.',
+			'ok' => 'A token könyvtár írási jogosultságai rendben vannak.',
 		),
 		'unknown_process_username' => 'ismeretlen',
 		'users' => array(
@@ -103,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Nem található az XML elemző könyvtár.',
 			'ok' => 'Az XML elemző könyvtár telepítve van.',
+		),
+		'zip' => array(
+			'nok' => 'Nem található ZIP kiegészítő (php-zip csomag).',
+			'ok' => 'A ZIP kiegészítő telepítve van.',
 		),
 	),
 	'conf' => array(

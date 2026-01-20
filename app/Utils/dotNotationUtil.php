@@ -18,8 +18,38 @@ final class FreshRSS_dotNotation_Util
 			return static::value($default);
 		}
 		/** @var \ArrayAccess<string,mixed>|array<string,mixed> $array */
-		if (in_array($key, [null, '', '.', '$'], true)) {
+		if ($key === null) {
 			return $array;
+		}
+		$key = trim($key);
+
+		if (in_array($key, ['', '.', '$'], true)) {
+			return $array;
+		}
+
+		// If the key is a simple string, return the text
+		if (preg_match('/^(?P<delim>[\'"])(?P<text>[^&]*)(?P=delim)$/', $key, $matches)) {
+			$text = $matches['text'];
+			$text = str_replace('＆', '&', $text);	// Unescape `&`
+			return $text;
+		}
+
+		// Escape `&` operator
+		$key = preg_replace_callback('/(?P<delim>[\'"])(?P<text>.*?)(?P=delim)/',
+			fn(array $matches): string => str_replace('&', '＆', $matches[0]),
+			$key) ?? $key;
+
+		// If the key contains string concatenations with `&`, process them
+		$concats = explode('&', $key);
+		if (count($concats) > 1) {
+			$text = '';
+			foreach ($concats as $concat) {
+				$result = static::get($array, $concat, $default);
+				if (is_scalar($result)) {
+					$text .= (string)$result;
+				}
+			}
+			return $text;
 		}
 
 		// Compatibility with brackets path such as `items[0].value`
@@ -31,7 +61,7 @@ final class FreshRSS_dotNotation_Util
 		if (static::exists($array, $key)) {
 			return $array[$key];
 		}
-		if (strpos($key, '.') === false) {
+		if (str_contains($key, '.') === false) {
 			return $array[$key] ?? static::value($default);
 		}
 		foreach (explode('.', $key) as $segment) {
@@ -65,6 +95,7 @@ final class FreshRSS_dotNotation_Util
 	 * Determine if the given key exists in the provided array.
 	 *
 	 * @param \ArrayAccess<string,mixed>|array<string,mixed>|mixed $array
+	 * @phpstan-assert-if-true \ArrayAccess<string,mixed>|array<string,mixed> $array
 	 */
 	private static function exists($array, string $key): bool {
 		if ($array instanceof \ArrayAccess) {
@@ -85,7 +116,7 @@ final class FreshRSS_dotNotation_Util
 	 * mapping fields from the JSON object into RSS equivalents
 	 * according to the dot-separated paths
 	 *
-	 * @param array<string> $jf json feed
+	 * @param array<int|string,mixed> $jf json feed
 	 * @param string $feedSourceUrl the source URL for the feed
 	 * @param array<string,string> $dotNotation dot notation to map JSON into RSS
 	 * @param string $defaultRssTitle Default title of the RSS feed, if not already provided in dotNotation `feedTitle`
@@ -128,6 +159,10 @@ final class FreshRSS_dotNotation_Util
 				: $rssItem['content'];
 
 			if (isset($dotNotation['itemTimeFormat']) && is_string($dotNotation['itemTimeFormat'])) {
+				if ($dotNotation['itemTimeFormat'] === 'U' && strlen($rssItem['timestamp']) > 10) {
+					// Compatibility with Unix timestamp in milliseconds
+					$rssItem['timestamp'] = substr($rssItem['timestamp'], 0, -3);
+				}
 				$dateTime = DateTime::createFromFormat($dotNotation['itemTimeFormat'], $rssItem['timestamp']);
 				if ($dateTime != false) {
 					$rssItem['timestamp'] = $dateTime->format(DateTime::ATOM);

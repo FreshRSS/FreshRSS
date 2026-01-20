@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class I18nValue {
+class I18nValue implements \Stringable {
 	private const STATE_DIRTY = 'dirty';
 	public const STATE_IGNORE = 'ignore';
 	private const STATE_TODO = 'todo';
@@ -11,11 +11,11 @@ class I18nValue {
 		self::STATE_TODO,
 	];
 
-	private string $value;
+	private readonly string $value;
 	private ?string $state = null;
 
 	/** @param I18nValue|string $data */
-	public function __construct($data) {
+	public function __construct(I18nValue|string $data) {
 		if ($data instanceof I18nValue) {
 			$data = $data->__toString();
 		}

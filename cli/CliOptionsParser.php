@@ -24,6 +24,7 @@ abstract class CliOptionsParser {
 
 	private function parseInput(): void {
 		$getoptInputs = $this->getGetoptInputs();
+		// @phpstan-ignore argument.type
 		$this->getoptOutputTransformer(getopt($getoptInputs['short'], $getoptInputs['long']));
 		$this->checkForDeprecatedAliasUse();
 	}
@@ -83,7 +84,11 @@ abstract class CliOptionsParser {
 		foreach ($this->inputs as $name => $input) {
 			$values = $input['values'] ?? $input['defaultInput'] ?? null;
 			$types = $this->options[$name]->getTypes();
-			if (!empty($values)) {
+
+			if ($this->options[$name]->getValueTaken() === CliOption::VALUE_NONE) {
+				// @phpstan-ignore property.dynamicName
+				$this->$name = $values !== null;
+			} elseif (!empty($values)) {
 				$validValues = [];
 				$typedValues = [];
 
@@ -117,6 +122,7 @@ abstract class CliOptionsParser {
 			foreach ($this->options as $name => $data) {
 				if (in_array($alias, $data->getAliases(), true)) {
 					$this->inputs[$name]['aliasUsed'] = $alias;
+					// @phpstan-ignore assign.propertyType (PHPStan error?)
 					$this->inputs[$name]['values'] = $value === false
 						? [$data->getOptionalValueDefault()]
 						: (is_array($value)
@@ -129,7 +135,7 @@ abstract class CliOptionsParser {
 
 	/**
 	 * @param array<string> $userInputs
-	 * @return array<string>
+	 * @return list<string>
 	 */
 	private function getAliasesUsed(array $userInputs, string $regex): array {
 		$foundAliases = [];
@@ -211,8 +217,8 @@ abstract class CliOptionsParser {
 		}
 
 		return [
-			'long' => array_filter($long),
-			'short' => $short
+			'long' => array_filter($long, fn(string $v): bool => trim($v) !== ''),
+			'short' => $short,
 		];
 	}
 

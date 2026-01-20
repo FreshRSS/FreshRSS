@@ -11,7 +11,7 @@ declare(strict_types=1);
  */
 class Minz_Paginator {
 	/**
-	 * @var array<Minz_Model> tableau des éléments à afficher/gérer
+	 * @var list<Minz_Model> tableau des éléments à afficher/gérer
 	 */
 	private array $items = [];
 
@@ -37,7 +37,7 @@ class Minz_Paginator {
 
 	/**
 	 * Constructeur
-	 * @param array<Minz_Model> $items les éléments à gérer
+	 * @param list<Minz_Model> $items les éléments à gérer
 	 */
 	public function __construct(array $items) {
 		$this->_items($items);
@@ -55,7 +55,7 @@ class Minz_Paginator {
 		$view = APP_PATH . '/views/helpers/' . $view;
 
 		if (file_exists($view)) {
-			include($view);
+			include $view;
 		}
 	}
 
@@ -64,11 +64,11 @@ class Minz_Paginator {
 	 * @param Minz_Model $item l'élément à retrouver
 	 * @return int|false la page à laquelle se trouve l’élément, false si non trouvé
 	 */
-	public function pageByItem($item): int|false {
+	public function pageByItem(Minz_Model $item): int|false {
 		$i = 0;
 
 		do {
-			if ($item == $this->items[$i]) {
+			if ($item === $this->items[$i]) {
 				return (int)(ceil(($i + 1) / $this->nbItemsPerPage));
 			}
 			$i++;
@@ -82,11 +82,11 @@ class Minz_Paginator {
 	 * @param Minz_Model $item the element to search
 	 * @return int|false the position of the element, or false if not found
 	 */
-	public function positionByItem($item): int|false {
+	public function positionByItem(Minz_Model $item): int|false {
 		$i = 0;
 
 		do {
-			if ($item == $this->items[$i]) {
+			if ($item === $this->items[$i]) {
 				return $i;
 			}
 			$i++;
@@ -116,10 +116,10 @@ class Minz_Paginator {
 	 */
 	/**
 	 * @param bool $all si à true, retourne tous les éléments sans prendre en compte la pagination
-	 * @return array<Minz_Model>
+	 * @return list<Minz_Model>
 	 */
 	public function items(bool $all = false): array {
-		$array = array ();
+		$array = [];
 		$nbItems = $this->nbItems();
 
 		if ($nbItems <= $this->nbItemsPerPage || $all) {
@@ -129,9 +129,9 @@ class Minz_Paginator {
 			$counter = 0;
 			$i = 0;
 
-			foreach ($this->items as $key => $item) {
+			foreach ($this->items as $item) {
 				if ($i >= $begin) {
-					$array[$key] = $item;
+					$array[] = $item;
 					$counter++;
 				}
 				if ($counter >= $this->nbItemsPerPage) {
@@ -159,7 +159,7 @@ class Minz_Paginator {
 	/**
 	 * SETTEURS
 	 */
-	/** @param array<Minz_Model> $items */
+	/** @param list<Minz_Model> $items */
 	public function _items(?array $items): void {
 		$this->items = $items ?? [];
 		$this->_nbPage();

@@ -18,8 +18,8 @@ use SimplePie\Cache\BaseDataCache;
 use SimplePie\Cache\CallableNameFilter;
 use SimplePie\Cache\DataCache;
 use SimplePie\Cache\NameFilter;
-use SimplePie\Exception\HttpException;
 use SimplePie\HTTP\Client;
+use SimplePie\HTTP\ClientException;
 use SimplePie\HTTP\FileClient;
 use SimplePie\HTTP\Psr18Client;
 
@@ -50,6 +50,14 @@ class Sanitize implements RegistryAware
     public $strip_attributes = ['bgsound', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc'];
     /** @var string[] */
     public $rename_attributes = [];
+    /** @var array<string, string[]> */
+    public $allowed_html_elements_with_attributes = [];
+    /** @var string[] */
+    public $allowed_html_attributes = [];
+    /** @var bool */
+    public $allow_data_attr = true;
+    /** @var bool */
+    public $allow_aria_attr = true;
     /** @var array<string, array<string, string>> */
     public $add_attributes = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']];
     /** @var bool */
@@ -60,7 +68,7 @@ class Sanitize implements RegistryAware
     public $enable_cache = true;
     /** @var string */
     public $cache_location = './cache';
-    /** @var string */
+    /** @var string&(callable(string): string) */
     public $cache_name_function = 'md5';
 
     /**
@@ -144,7 +152,7 @@ class Sanitize implements RegistryAware
     }
 
     /**
-     * @param string|NameFilter $cache_name_function
+     * @param (string&(callable(string): string))|NameFilter $cache_name_function
      * @param class-string<Cache> $cache_class
      * @return void
      */
@@ -168,7 +176,7 @@ class Sanitize implements RegistryAware
         // BC: $cache_name_function could be a callable as string
         if (is_string($cache_name_function)) {
             // trigger_error(sprintf('Providing $cache_name_function as string in "%s()" is deprecated since SimplePie 1.8.0, provide as "%s" instead.', __METHOD__, NameFilter::class), \E_USER_DEPRECATED);
-            $this->cache_name_function = (string) $cache_name_function;
+            $this->cache_name_function = $cache_name_function;
 
             $cache_name_function = new CallableNameFilter($cache_name_function);
         }
@@ -220,7 +228,7 @@ class Sanitize implements RegistryAware
     }
 
     /**
-     * @param string[]|string $tags
+     * @param string[]|string|false $tags Set a list of tags to strip, or set empty string to use default tags, or false to strip nothing.
      * @return void
      */
     public function strip_htmltags($tags = ['base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style'])
@@ -234,6 +242,42 @@ class Sanitize implements RegistryAware
         } else {
             $this->strip_htmltags = [];
         }
+    }
+
+    /**
+     * @param array<string,string[]> $tags Set array of allowed HTML elements with their allowed attributes.
+     * Note that `<html>`, `<head>`, `<body>`, `<div>` are always allowed.
+     * Preferred over {@see Sanitize::strip_htmltags()}.
+     */
+    public function allowed_html_elements_with_attributes(array $tags = []): void
+    {
+        $this->strip_htmltags = [];
+        $this->strip_attributes = [];
+        $this->allowed_html_elements_with_attributes = $tags;
+    }
+
+    /**
+     * @param string[] $attrs Set default array of allowed HTML attributes.
+     */
+    public function allowed_html_attributes(array $attrs = []): void
+    {
+        $this->allowed_html_attributes = $attrs;
+    }
+
+    /**
+     * @param bool $allow Whether data-* should be allowed or not
+     */
+    public function allow_data_attr(bool $allow = true): void
+    {
+        $this->allow_data_attr = $allow;
+    }
+
+    /**
+     * @param bool $allow Whether aria-* should be allowed or not
+     */
+    public function allow_aria_attr(bool $allow = true): void
+    {
+        $this->allow_aria_attr = $allow;
     }
 
     /**
@@ -411,7 +455,7 @@ class Sanitize implements RegistryAware
     /**
      * @param int-mask-of<SimplePie::CONSTRUCT_*> $type
      * @param string $base
-     * @return string|bool|string[]
+     * @return string Sanitized data; false if output encoding is changed to something other than UTF-8 and conversion fails
      */
     public function sanitize(string $data, int $type, string $base = '')
     {
@@ -436,6 +480,10 @@ class Sanitize implements RegistryAware
                 $document = new \DOMDocument();
                 $document->encoding = 'UTF-8';
 
+                // PHPStan seems to have trouble resolving int-mask because bitwise
+                // operators are used when operators are used when passing this parameter.
+                // https://github.com/phpstan/phpstan/issues/9384
+                /** @var int-mask-of<SimplePie::CONSTRUCT_*> $type */
                 $data = $this->preprocess($data, $type);
 
                 set_error_handler([Misc::class, 'silence_errors']);
@@ -446,11 +494,24 @@ class Sanitize implements RegistryAware
 
                 // Strip comments
                 if ($this->strip_comments) {
+                    /** @var \DOMNodeList<\DOMComment> */
                     $comments = $xpath->query('//comment()');
 
                     foreach ($comments as $comment) {
-                        $comment->parentNode->removeChild($comment);
+                        $parentNode = $comment->parentNode;
+                        assert($parentNode !== null, 'For PHPStan, comment must have a parent');
+                        $parentNode->removeChild($comment);
                     }
+                }
+
+                if (!empty($this->rename_attributes)) {
+                    foreach ($this->rename_attributes as $attrib) {
+                        $this->rename_attr($attrib, $xpath);
+                    }
+                }
+
+                if (!empty($this->allowed_html_elements_with_attributes)) {
+                    $this->enforce_allowed_html_nodes($document, $this->allow_data_attr, $this->allow_aria_attr);
                 }
 
                 // Strip out HTML tags and attributes that might cause various security problems.
@@ -459,12 +520,6 @@ class Sanitize implements RegistryAware
                 if ($this->strip_htmltags) {
                     foreach ($this->strip_htmltags as $tag) {
                         $this->strip_tag($tag, $document, $xpath, $type);
-                    }
-                }
-
-                if ($this->rename_attributes) {
-                    foreach ($this->rename_attributes as $attrib) {
-                        $this->rename_attr($attrib, $xpath);
                     }
                 }
 
@@ -504,7 +559,7 @@ class Sanitize implements RegistryAware
                                         $img->getAttribute('src'),
                                         ['X-FORWARDED-FOR' => $_SERVER['REMOTE_ADDR']]
                                     );
-                                } catch (HttpException $th) {
+                                } catch (ClientException $th) {
                                     continue;
                                 }
 
@@ -521,18 +576,23 @@ class Sanitize implements RegistryAware
                 }
 
                 // Get content node
-                $div = $document->getElementsByTagName('body')->item(0)->firstChild;
+                $div = null;
+                if (($item = $document->getElementsByTagName('body')->item(0)) !== null) {
+                    $div = $item->firstChild;
+                }
                 // Finally, convert to a HTML string
-                $data = trim($document->saveHTML($div));
+                $data = trim((string) $document->saveHTML($div));
 
                 if ($this->remove_div) {
                     $data = preg_replace('/^<div' . \SimplePie\SimplePie::PCRE_XML_ATTRIBUTE . '>/', '', $data);
-                    $data = preg_replace('/<\/div>$/', '', $data);
+                    // Cast for PHPStan, it is unable to validate a non-literal regex above.
+                    $data = preg_replace('/<\/div>$/', '', (string) $data);
                 } else {
                     $data = preg_replace('/^<div' . \SimplePie\SimplePie::PCRE_XML_ATTRIBUTE . '>/', '<div>', $data);
                 }
 
-                $data = str_replace('</source>', '', $data);
+                // Cast for PHPStan, it is unable to validate a non-literal regex above.
+                $data = str_replace('</source>', '', (string) $data);
             }
 
             if ($type & \SimplePie\SimplePie::CONSTRUCT_IRI) {
@@ -547,6 +607,8 @@ class Sanitize implements RegistryAware
             }
 
             if ($this->output_encoding !== 'UTF-8') {
+                // This really returns string|false but changing encoding is uncommon and we are going to deprecate it, so let’s just lie to PHPStan in the interest of cleaner annotations.
+                /** @var string */
                 $data = $this->registry->call(Misc::class, 'change_encoding', [$data, 'UTF-8', $this->output_encoding]);
             }
         }
@@ -626,20 +688,86 @@ class Sanitize implements RegistryAware
     }
 
     /**
+     * Keep only allowed HTML elements (tags) and their allowed attributes.
+     */
+    protected function enforce_allowed_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true): void
+    {
+        if ($element instanceof \DOMElement) {
+            $tag = $element->tagName;
+            $parent = $element->parentNode;
+            if (!in_array($tag, ['html', 'head', 'body', 'div'], true)
+                && !isset($this->allowed_html_elements_with_attributes[$tag])) {
+                if (!in_array($tag, ['script', 'style', 'svg', 'math', 'template'], true)) {
+                    // Preserve children inside the disallowed element
+                    for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
+                        $child = $element->childNodes->item($i);
+                        if ($child === null) {
+                            continue;
+                        }
+                        if ($child instanceof \DOMText) {
+                            $child->nodeValue = htmlspecialchars($child->nodeValue ?? '', ENT_QUOTES, 'UTF-8');
+                        }
+                        if ($parent !== null) {
+                            $parent->insertBefore($child, $element);
+                        }
+                        $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
+                    }
+                }
+                if ($parent !== null) {
+                    $parent->removeChild($element);
+                    return;
+                }
+            }
+            $allowed_attrs = array_merge($this->allowed_html_elements_with_attributes[$tag] ?? [], $this->allowed_html_attributes);
+            for ($i = $element->attributes->length - 1; $i >= 0; $i--) {
+                $attr = $element->attributes[$i]->nodeName;
+                // Skip data-*, aria-* if allowed
+                if (($allow_data_attr && str_starts_with($attr, 'data-'))
+                    || ($allow_aria_attr && str_starts_with($attr, 'aria-'))) {
+                    continue;
+                }
+
+                if (!in_array($attr, $allowed_attrs, true)) {
+                    $element->removeAttributeNode($element->attributes[$i]);
+                }
+            }
+        }
+        if ($element instanceof \DOMElement || $element instanceof \DOMDocument) {
+            for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
+                $child = $element->childNodes->item($i);
+                if ($child !== null) {
+                    $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
+                }
+            }
+        }
+    }
+
+    /**
      * @param int-mask-of<SimplePie::CONSTRUCT_*> $type
      * @return void
      */
     protected function strip_tag(string $tag, DOMDocument $document, DOMXPath $xpath, int $type)
     {
         $elements = $xpath->query('body//' . $tag);
+
+        if ($elements === false) {
+            throw new \SimplePie\Exception(sprintf(
+                '%s(): Possibly malformed expression, check argument #1 ($tag)',
+                __METHOD__
+            ), 1);
+        }
+
         if ($this->encode_instead_of_strip) {
             foreach ($elements as $element) {
+                if (!($element instanceof \DOMNode)) {
+                    continue;
+                }
                 $fragment = $document->createDocumentFragment();
 
                 // For elements which aren't script or style, include the tag itself
                 if (!in_array($tag, ['script', 'style'])) {
                     $text = '<' . $tag;
-                    if ($element->hasAttributes()) {
+                    if ($element->attributes !== null) {
                         $attrs = [];
                         foreach ($element->attributes as $name => $attr) {
                             $value = $attr->value;
@@ -665,34 +793,45 @@ class Sanitize implements RegistryAware
 
                 $number = $element->childNodes->length;
                 for ($i = $number; $i > 0; $i--) {
-                    $child = $element->childNodes->item(0);
-                    $fragment->appendChild($child);
+                    if (($child = $element->childNodes->item(0)) !== null) {
+                        $fragment->appendChild($child);
+                    }
                 }
 
                 if (!in_array($tag, ['script', 'style'])) {
                     $fragment->appendChild(new \DOMText('</' . $tag . '>'));
                 }
 
-                $element->parentNode->replaceChild($fragment, $element);
+                if (($parentNode = $element->parentNode) !== null) {
+                    $parentNode->replaceChild($fragment, $element);
+                }
             }
 
             return;
         } elseif (in_array($tag, ['script', 'style'])) {
             foreach ($elements as $element) {
-                $element->parentNode->removeChild($element);
+                if (($parentNode = $element->parentNode) !== null) {
+                    $parentNode->removeChild($element);
+                }
             }
 
             return;
         } else {
             foreach ($elements as $element) {
+                if (!($element instanceof \DOMNode)) {
+                    continue;
+                }
                 $fragment = $document->createDocumentFragment();
                 $number = $element->childNodes->length;
                 for ($i = $number; $i > 0; $i--) {
-                    $child = $element->childNodes->item(0);
-                    $fragment->appendChild($child);
+                    if (($child = $element->childNodes->item(0)) !== null) {
+                        $fragment->appendChild($child);
+                    }
                 }
 
-                $element->parentNode->replaceChild($fragment, $element);
+                if (($parentNode = $element->parentNode) !== null) {
+                    $parentNode->replaceChild($fragment, $element);
+                }
             }
         }
     }
@@ -703,6 +842,13 @@ class Sanitize implements RegistryAware
     protected function strip_attr(string $attrib, DOMXPath $xpath)
     {
         $elements = $xpath->query('//*[@' . $attrib . ']');
+
+        if ($elements === false) {
+            throw new \SimplePie\Exception(sprintf(
+                '%s(): Possibly malformed expression, check argument #1 ($attrib)',
+                __METHOD__
+            ), 1);
+        }
 
         /** @var \DOMElement $element */
         foreach ($elements as $element) {
@@ -716,6 +862,13 @@ class Sanitize implements RegistryAware
     protected function rename_attr(string $attrib, DOMXPath $xpath)
     {
         $elements = $xpath->query('//*[@' . $attrib . ']');
+
+        if ($elements === false) {
+            throw new \SimplePie\Exception(sprintf(
+                '%s(): Possibly malformed expression, check argument #1 ($attrib)',
+                __METHOD__
+            ), 1);
+        }
 
         /** @var \DOMElement $element */
         foreach ($elements as $element) {

@@ -1,26 +1,29 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
 		'actualize' => 'Aggiorna feeds',
 		'add' => 'Aggiungi',
-		'back' => '← Torna indietro',
 		'back_to_rss_feeds' => '← Indietro',
 		'cancel' => 'Annulla',
+		'close' => 'Chiudere',
 		'create' => 'Crea',
+		'delete_all_feeds' => 'Cancella tutti i feed',
+		'delete_errored_feeds' => 'Cancella i feed con errori',
 		'delete_muted_feeds' => 'Cancella i feed mutati',
 		'demote' => 'Retrocedi',
 		'disable' => 'Disabilita',
+		'download' => 'Download',	// IGNORE
 		'empty' => 'Vuoto',
 		'enable' => 'Abilita',
 		'export' => 'Esporta',
@@ -30,12 +33,12 @@ return array(
 		'manage' => 'Gestisci',
 		'mark_read' => 'Segna come letto',
 		'menu' => array(
-			'open' => 'Open menu',	// TODO
+			'open' => 'Aprire il menu',
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'Articolo successivo',
+			'prev' => 'Articolo precedente',
+			'up' => 'Salire',
 		),
 		'open_url' => 'Apri URL',
 		'promote' => 'Promuovi',
@@ -57,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Password',	// IGNORE
 			'format' => '<small>almeno 7 caratteri</small>',
+		),
+		'reauth' => array(
+			'header' => 'Nuova autenticazione richiesta',
+			'tip' => 'Non ti verrà richiesto di autenticarti nuovamente per <u>%d minuti</u>',
+			'title' => 'Nuova autenticazione',
 		),
 		'registration' => array(
 			'_' => 'Nuovo profilo',
@@ -136,6 +144,7 @@ return array(
 		'category_empty' => 'Categoria vuota',
 		'confirm_action' => 'Sei sicuro di voler continuare?',
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
+		'confirm_exit_slider' => 'Sei sicuro di voler perdere le impostazioni non salvate?',
 		'feedback' => array(
 			'body_new_articles' => 'Ci sono %%d nuovi articoli da leggere.',
 			'body_unread_articles' => '(non letti: %%d)',
@@ -145,15 +154,17 @@ return array(
 		'labels_empty' => 'Nessun tag',
 		'new_article' => 'Sono disponibili nuovi articoli, clicca qui per caricarli.',
 		'should_be_activated' => 'JavaScript deve essere abilitato',
+		'unsafe_csp_header' => 'L’header CSP attualmente utilizzato non è sicuro e quindi FreshRSS può essere vulnerabile ad attacchi XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Vedi la documentazione</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
 		'hu' => 'Magyar',	// IGNORE
@@ -165,17 +176,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Informazioni',
 		'account' => 'Profilo',
 		'admin' => 'Amministrazione',
+		'advanced_search' => 'Ricerca avanzata',
 		'archiving' => 'Archiviazione',
 		'authentication' => 'Autenticazione',
 		'check_install' => 'Installazione',
@@ -183,6 +197,7 @@ return array(
 		'display' => 'Visualizzazione',
 		'extensions' => 'Estensioni',
 		'logs' => 'Log',
+		'privacy' => 'Privacy',	// IGNORE
 		'queries' => 'Ricerche personali',
 		'reading' => 'Lettura',
 		'search' => 'Ricerca parole o #tags',
@@ -202,11 +217,44 @@ return array(
 		'weeks' => 'settimane',
 		'years' => 'anni',
 	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'Questo modulo aiuta nella costruzione delle ricerche, ma le ricerche manuali sono ancora più potenti.',
+		'authors' => 'Autori',
+		'categories' => 'Categorie',
+		'content' => 'Contenuto',
+		'date_from' => 'Da',
+		'date_past' => 'Nel passato',
+		'date_published' => 'Data di pubblicazione',
+		'date_range' => 'Intervallo date',
+		'date_received' => 'Data di ricezione',
+		'date_to' => 'A',
+		'date_user' => 'Data di modifica dell’utente',
+		'feeds' => 'Feeds',	// IGNORE
+		'free_text' => 'Testo libero',
+		'free_text_help' => 'Cerca sia nel titolo che nel contenuto',
+		'full_documentation' => 'Guarda la <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentazione sulla ricerca completa</a>',
+		'labels' => 'Le mie etichette',
+		'multiple_help' => 'Seleziona una o più (tieni premuto <kbd>Ctrl</kbd> o <kbd>Cmd</kbd>)',
+		'sources' => 'Fonti',
+		'tags' => 'Tag degli articoli',
+		'text' => 'Ricerca testuale',
+		'text_help' => 'Righe multiple sono combinate tramite degli <i>o</i> logici. Supporta anche le <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">espressioni regolari</a>.',
+		'text_placeholder' => 'Parola chiave',
+		'title' => 'Titolo',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Ricerche dell’utente',
+	),
 	'share' => array(
 		'Known' => 'Siti basati su Known',
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Appunti',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -223,7 +271,6 @@ return array(
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Stampa',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE

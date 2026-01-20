@@ -33,11 +33,6 @@ label {
 	color: #444;
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 input, select, textarea {
 	padding: 5px;
 	background: #fff;
@@ -47,8 +42,7 @@ input, select, textarea {
 	border-right-color: #ddd;
 	border-radius: 5px;
 	min-height: 25px;
-	line-height: 25px;
-	vertical-align: middle;
+	line-height: 1;
 }
 
 option {
@@ -174,7 +168,7 @@ th {
 
 .btn {
 	margin: 0;
-	padding: 5px 10px;
+	padding: 0.25rem 0.5rem;
 	background: #3498db;
 	color: #fff;
 	font-size: 0.9rem;
@@ -257,16 +251,19 @@ th {
 }
 
 .nav-list .item a:hover,
+.nav-list .item .as-link:hover,
 .nav-list .item.active {
 	background: #2980b9;
 	color: #fff;
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: #fff;
 }
 
-.nav-list .item > a {
+.nav-list .item > a,
+.nav-list .item > .as-link {
 	padding: 0 1rem;
 }
 
@@ -333,8 +330,11 @@ th {
 	margin-bottom: 0.5rem;
 }
 
+.dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
+.dropdown-menu .item > button:focus:not([disabled]),
 .dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background: #2980b9;
 	color: #fff;
@@ -655,15 +655,15 @@ th {
 	background: #2980b9;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 0 10px;
 	font-weight: bold;
 	line-height: 3em;
 	border-right: 2px solid #ecf0f1;
 }
 
-.day .name {
+.transition .name {
 	padding: 0 0 0 10px;
 	color: #aab;
 	font-size: 1.8em;
@@ -735,6 +735,17 @@ th {
 .flux .bottom {
 	font-size: 0.8rem;
 	text-align: center;
+}
+
+/* stylelint-disable-next-line no-duplicate-selectors */
+.flux.current {
+	border-right-width: 5px;
+	border-right-style: double;
+}
+
+.flux.current > .flux_header {
+	background: linear-gradient(to left, transparent 0, transparent 3px, #fff 3px);
+	margin-right: -3px; /* Compensate increased border-left-width */
 }
 
 /*=== Content of feed articles */
@@ -813,20 +824,28 @@ th {
 	color: #000;
 }
 
-.notification a.close {
+.notification .close {
 	border-radius: 3px 0 0 3px;
 }
 
-.notification.good a.close:hover {
+.notification.good .close:hover {
 	background: #16a085;
 }
 
-.notification.bad a.close:hover {
+.notification .close .icon {
+	filter: brightness(2.5);
+}
+
+.notification.bad .close:hover {
 	background: #c0392b;
 }
 
+.notification .close:hover .icon {
+	filter: brightness(4);
+}
+
 /*=== "Load more" part */
-#bigMarkAsRead {
+#bigMarkAsRead.big {
 	text-align: center;
 	text-decoration: none;
 	background: #ecf0f1;
@@ -850,7 +869,7 @@ th {
 	border: none;
 }
 
-#stream.reader .flux .content {
+#stream.reader .flux .flux_content {
 	background-color: #fff;
 	border-color: #ecf0f1;
 }
@@ -983,7 +1002,7 @@ th {
 		bottom: -19px;
 	}
 
-	.day .name {
+	.transition .name {
 		font-size: 1.1rem;
 	}
 
@@ -991,17 +1010,17 @@ th {
 		border-radius: 0;
 	}
 
-	.notification a.close {
+	.notification .close {
 		background: transparent;
 		display: block;
 		right: 0;
 	}
 
-	.notification a.close:hover {
+	.notification .close:hover {
 		opacity: 0.5;
 	}
 
-	.notification a.close .icon {
+	.notification .close .icon {
 		display: none;
 	}
 

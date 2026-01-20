@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 /**
  * The extension base class.
+ *
+ * @phpstan-type ExtensionMetadata array{name:string,entrypoint:string,author?:string,description?:string,version?:string,type?:'system'|'user',path:string}
  */
 abstract class Minz_Extension {
 	private string $name;
@@ -26,7 +28,7 @@ abstract class Minz_Extension {
 
 	private bool $is_enabled;
 
-	/** @var string[] */
+	/** @var array<string,string> */
 	protected array $csp_policies = [];
 
 	/**
@@ -41,7 +43,7 @@ abstract class Minz_Extension {
 	 * - version: a version for the current extension.
 	 * - type: "system" or "user" (default).
 	 *
-	 * @param array{'name':string,'entrypoint':string,'path':string,'author'?:string,'description'?:string,'version'?:string,'type'?:'system'|'user'} $meta_info
+	 * @param ExtensionMetadata $meta_info
 	 * contains information about the extension.
 	 */
 	final public function __construct(array $meta_info) {
@@ -91,6 +93,10 @@ abstract class Minz_Extension {
 		$this->is_enabled = true;
 	}
 
+	final public function disable(): void {
+		$this->is_enabled = false;
+	}
+
 	/**
 	 * Return if the extension is currently enabled.
 	 *
@@ -112,7 +118,7 @@ abstract class Minz_Extension {
 		}
 
 		ob_start();
-		include($filename);
+		include $filename;
 		return ob_get_clean();
 	}
 
@@ -174,12 +180,26 @@ abstract class Minz_Extension {
 	}
 
 	/** Return whether a user-specific, extension-specific, file exists */
-	final protected function hasFile(string $filename): bool {
+	final public function hasFile(string $filename): bool {
+		if ($filename === '' || str_contains($filename, '..')) {
+			return false;
+		}
 		return file_exists($this->getExtensionUserPath() . '/' . $filename);
 	}
 
-	/** Return the user-specific, extension-specific, file content, or null if it does not exist */
-	final protected function getFile(string $filename): ?string {
+	/** Return the motification time of the user-specific, extension-specific, file or null if it does not exist */
+	final public function mtimeFile(string $filename): ?int {
+		if (!$this->hasFile($filename)) {
+			return null;
+		}
+		return @filemtime($this->getExtensionUserPath() . '/' . $filename) ?: null;
+	}
+
+	/** Return the user-specific, extension-specific, file content or null if it does not exist */
+	final public function getFile(string $filename): ?string {
+		if (!$this->hasFile($filename)) {
+			return null;
+		}
 		$content = @file_get_contents($this->getExtensionUserPath() . '/' . $filename);
 		return is_string($content) ? $content : null;
 	}
@@ -188,26 +208,27 @@ abstract class Minz_Extension {
 	 * Return the url for a given file.
 	 *
 	 * @param string $filename name of the file to serve.
-	 * @param 'css'|'js'|'svg' $type the type (js or css or svg) of the file to serve.
+	 * @param '' $type MIME type of the file to serve. Deprecated: always use the file extension.
 	 * @param bool $isStatic indicates if the file is a static file or a user file. Default is static.
 	 * @return string url corresponding to the file.
 	 */
-	final public function getFileUrl(string $filename, string $type, bool $isStatic = true): string {
+	final public function getFileUrl(string $filename, string $type = '', bool $isStatic = true): string {
 		if ($isStatic) {
 			$dir = basename($this->path);
 			$file_name_url = urlencode("{$dir}/static/{$filename}");
 			$mtime = @filemtime("{$this->path}/static/{$filename}");
+			return Minz_Url::display("/ext.php?f={$file_name_url}&amp;{$mtime}", 'php');
 		} else {
 			$username = Minz_User::name();
 			if ($username == null) {
 				return '';
 			}
-			$path = $this->getExtensionUserPath() . "/{$filename}";
-			$file_name_url = urlencode("{$username}/extensions/{$this->getEntrypoint()}/{$filename}");
-			$mtime = @filemtime($path);
+			return Minz_Url::display(['c' => 'extension', 'a' => 'serve', 'params' => [
+				'x' => $this->getName(),
+				'f' => $filename,
+				'm' => $this->mtimeFile($filename),	// cache-busting
+			]]);
 		}
-
-		return Minz_Url::display("/ext.php?f={$file_name_url}&amp;t={$type}&amp;{$mtime}", 'php');
 	}
 
 	/**
@@ -239,9 +260,10 @@ abstract class Minz_Extension {
 	 *
 	 * @param string $hook_name the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
+	 * @param int $priority the priority of the hook, default priority is 0, the higher the value the lower the priority
 	 */
-	final protected function registerHook(string $hook_name, $hook_function): void {
-		Minz_ExtensionManager::addHook($hook_name, $hook_function);
+	final protected function registerHook(string $hook_name, $hook_function, int $priority = Minz_Hook::DEFAULT_PRIORITY): void {
+		Minz_ExtensionManager::addHook($hook_name, $hook_function, $priority);
 	}
 
 	/** @param 'system'|'user' $type */
@@ -253,6 +275,8 @@ abstract class Minz_Extension {
 		switch ($type) {
 			case 'system': return FreshRSS_Context::hasSystemConf();
 			case 'user': return FreshRSS_Context::hasUserConf();
+			default:
+				return false;
 		}
 	}
 
@@ -411,11 +435,11 @@ abstract class Minz_Extension {
 	}
 
 	/**
-	 * @param string[] $policies
+	 * @param array<string,string> $policies
 	 */
 	public function amendCsp(array &$policies): void {
 		foreach ($this->csp_policies as $policy => $source) {
-			if (array_key_exists($policy, $policies)) {
+			if (isset($policies[$policy])) {
 				$policies[$policy] .= ' ' . $source;
 			} else {
 				$policies[$policy] = $source;

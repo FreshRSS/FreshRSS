@@ -47,7 +47,7 @@ cd /usr/share/FreshRSS
 # --db-type can be: 'sqlite' (default), 'mysql' (MySQL or MariaDB), 'pgsql' (PostgreSQL).
 # --db-host URL of the database server. Default is 'localhost'.
 # --db-user sets database user.
-# --db-password sets database password.
+# --db-API password sets database password.
 # --db-base sets database name.
 # --db-prefix is an optional prefix in front of the names of the tables. We suggest using 'freshrss_' (default).
 # This command does not create the default user. Do that with ./cli/create-user.php.
@@ -65,8 +65,8 @@ cd /usr/share/FreshRSS
 
 ./cli/create-user.php --user username [ --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --no-default-feeds --purge-after-months 3 --feed-min-articles-default 50 --feed-ttl-default 3600 --since-hours-posts-per-rss 168 --max-posts-per-rss 400 ]
 # --user must be alphanumeric, not longer than 38 characters. The name of the user to be created/updated.
-# --password sets the user's password.
-# --api-password sets the user's api password.
+# --API password sets the user's password.
+# --api-API password sets the user's api password.
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/).
 # --email sets an email for the user which will be used email validation if it forced email validation is enabled.
 # --no-default-feeds do not add this FreshRSS instance's default feeds to the user during creation.
@@ -95,6 +95,8 @@ cd /usr/share/FreshRSS
 # -h, --human-readable display output in a human readable format
 # --header outputs some columns headers.
 # --json JSON format (disables --header and --human-readable but uses ISO Zulu format for dates).
+# --no-db-size for faster responses by disabling database size calculation.
+# --no-db-counts for faster responses by disabling counting the different types of articles in database.
 # --user indicates a username, and can be repeated.
 # Returns: 1) a * if the user is admin, 2) the name of the user,
 #  3) the date/time of last user action, 4) the size occupied,
@@ -149,12 +151,13 @@ cd /usr/share/FreshRSS
 # -r, --revert revert the action (only used with ignore action).
 # -o, --origin-language selects the origin language (only used with add language action).
 
-./cli/check-translation.php [ ---display-result --help --language fr --display-report ]
+./cli/check.translation.php [ ---display-result --help --language fr --display-report --generate-readme ]
 # Check if translation files have missing keys or missing translations.
 # -d, --display-result display results of check.
 # -h, --help display help text and exit.
 # -l, --language set the language check.
 # -r, --display-report display completion report.
+# -g, --generate-readme generate translation progress section in readme.
 ```
 
 ## Note about cron

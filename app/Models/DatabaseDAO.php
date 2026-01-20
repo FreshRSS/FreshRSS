@@ -21,14 +21,18 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
-		require_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
+		require_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		$db = FreshRSS_Context::systemConf()->db;
 
 		try {
-			$sql = sprintf($GLOBALS['SQL_CREATE_DB'], empty($db['base']) ? '' : $db['base']);
+			$sql = $GLOBALS['SQL_CREATE_DB'];
+			if (!is_string($sql)) {
+				throw new Exception('SQL_CREATE_DB is not a string!');
+			}
+			$sql = sprintf($sql, empty($db['base']) ? '' : $db['base']);
 			return $this->pdo->exec($sql) === false ? 'Error during CREATE DATABASE' : '';
 		} catch (Exception $e) {
-			syslog(LOG_DEBUG, __method__ . ' notice: ' . $e->getMessage());
+			syslog(LOG_DEBUG, __METHOD__ . ' notice: ' . $e->getMessage());
 			return $e->getMessage();
 		}
 	}
@@ -43,7 +47,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 			return $res == false ? 'Error during SQL connection fetch test!' : '';
 		} catch (Exception $e) {
-			syslog(LOG_DEBUG, __method__ . ' warning: ' . $e->getMessage());
+			syslog(LOG_DEBUG, __METHOD__ . ' warning: ' . $e->getMessage());
 			return $e->getMessage();
 		}
 	}
@@ -81,7 +85,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return count(array_keys($tables, true, true)) === count($tables);
 	}
 
-	/** @return array<array{name:string,type:string,notnull:bool,default:mixed}> */
+	/** @return list<array{name:string,type:string,notnull:bool,default:mixed}> */
 	public function getSchema(string $table): array {
 		$res = $this->fetchAssoc('DESC `_' . $table . '`');
 		return $res == null ? [] : $this->listDaoToSchema($res);
@@ -164,16 +168,16 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	 */
 	public function daoToSchema(array $dao): array {
 		return [
-			'name' => (string)($dao['Field']),
-			'type' => strtolower((string)($dao['Type'])),
-			'notnull' => (bool)$dao['Null'],
-			'default' => $dao['Default'],
+			'name' => is_string($dao['Field'] ?? null) ? $dao['Field'] : '',
+			'type' => is_string($dao['Type'] ?? null) ? strtolower($dao['Type']) : '',
+			'notnull' => empty($dao['Null']),
+			'default' => is_scalar($dao['Default'] ?? null) ? $dao['Default'] : null,
 		];
 	}
 
 	/**
 	 * @param array<array<string,string|int|bool|null>> $listDAO
-	 * @return array<array{name:string,type:string,notnull:bool,default:mixed}>
+	 * @return list<array{name:string,type:string,notnull:bool,default:mixed}>
 	 */
 	public function listDaoToSchema(array $listDAO): array {
 		$list = [];
@@ -193,20 +197,41 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		self::$staticVersion = $version;
 	}
 
+	protected function selectVersion(): string {
+		return $this->fetchValue('SELECT version()') ?? '';
+	}
+
 	public function version(): string {
 		if (self::$staticVersion !== null) {
 			return self::$staticVersion;
 		}
 		static $version = null;
-		if ($version === null) {
-			$version = $this->fetchValue('SELECT version()') ?? '';
+		if (!is_string($version)) {
+			$version = $this->selectVersion();
 		}
 		return $version;
+	}
+
+	public function pdoClientVersion(): string {
+		$version = $this->pdo->getAttribute(PDO::ATTR_CLIENT_VERSION);
+		return is_string($version) ? $version : '';
 	}
 
 	final public function isMariaDB(): bool {
 		// MariaDB includes its name in version, but not MySQL
 		return str_contains($this->version(), 'MariaDB');
+	}
+
+	/**
+	 * @return bool true if the database PDO driver returns typed integer values as it should, false otherwise.
+	 */
+	final public function testTyping(): bool {
+		$sql = 'SELECT 2 + 3';
+		if (($stm = $this->pdo->query($sql)) !== false) {
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			return ($res[0] ?? null) === 5;
+		}
+		return false;
 	}
 
 	public function size(bool $all = false): int {
@@ -229,7 +254,7 @@ SQL;
 		$values = [':table_schema' => $db['base']];
 		if (!$all) {
 			$sql .= ' AND table_name LIKE :table_name';
-			$values[':table_name'] = $this->pdo->prefix() . '%';
+			$values[':table_name'] = addcslashes($this->pdo->prefix(), '\\%_') . '%';
 		}
 		$res = $this->fetchColumn($sql, 0, $values);
 		return isset($res[0]) ? (int)($res[0]) : -1;
@@ -255,8 +280,8 @@ SQL;
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
-		include_once(APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php');
-		if (!empty($GLOBALS['SQL_UPDATE_MINOR'])) {
+		include_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
+		if (!empty($GLOBALS['SQL_UPDATE_MINOR']) && is_string($GLOBALS['SQL_UPDATE_MINOR'])) {
 			$sql = $GLOBALS['SQL_UPDATE_MINOR'];
 			$isMariaDB = false;
 
@@ -272,7 +297,7 @@ SQL;
 			if ($this->pdo->exec($sql) === false) {
 				$info = $this->pdo->errorInfo();
 				if ($this->pdo->dbType() === 'mysql' &&
-					!$isMariaDB && !empty($info[2]) && (stripos($info[2], "Can't DROP ") !== false)) {
+					!$isMariaDB && is_string($info[2] ?? null) && (stripos($info[2], "Can't DROP ") !== false)) {
 					// Too bad for MySQL, but ignore error
 					return;
 				}
@@ -322,13 +347,8 @@ SQL;
 						//SQLite is the only one with database-level optimization, instead of at table level.
 						$this->optimize();
 					}
-				} else {
-					if ($databaseDAO->exits()) {
-						$nbEntries = $entryDAO->countUnreadRead();
-						if (isset($nbEntries['all']) && $nbEntries['all'] > 0) {
-							$error = 'Error: Destination database already contains some entries!';
-						}
-					}
+				} elseif ($databaseDAO->exits() && $entryDAO->count() > 0) {
+					$error = 'Error: Destination database already contains some entries!';
 				}
 				break;
 			default:
@@ -384,19 +404,17 @@ SQL;
 		$userTo->createUser();
 
 		$catTo->beginTransaction();
+		$catTo->deleteCategory(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+		$catTo->sqlResetSequence();
 		foreach ($catFrom->selectAll() as $category) {
-			$cat = $catTo->searchByName($category['name']);	//Useful for the default category
-			if ($cat != null) {
-				$catId = $cat->id();
-			} else {
-				$catId = $catTo->addCategory($category);
-				if ($catId == false) {
-					$error = 'Error during SQLite copy of categories!';
-					return self::stdError($error);
-				}
+			$catId = $catTo->addCategory($category);
+			if ($catId === false) {
+				$error = 'Error during SQLite copy of categories!';
+				return self::stdError($error);
 			}
 			$idMaps['c' . $category['id']] = $catId;
 		}
+		$catTo->sqlResetSequence();
 		foreach ($feedFrom->selectAll() as $feed) {
 			$feed['category'] = empty($idMaps['c' . $feed['category']]) ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $idMaps['c' . $feed['category']];
 			$feedId = $feedTo->addFeed($feed);
@@ -406,26 +424,35 @@ SQL;
 			}
 			$idMaps['f' . $feed['id']] = $feedId;
 		}
+		$feedTo->sqlResetSequence();
 		$catTo->commit();
 
 		$nbEntries = $entryFrom->count();
 		$n = 0;
+		$brokenEntries = 0;
 		$entryTo->beginTransaction();
-		foreach ($entryFrom->selectAll() as $entry) {
-			$n++;
-			if (!empty($idMaps['f' . $entry['id_feed']])) {
-				$entry['id_feed'] = $idMaps['f' . $entry['id_feed']];
-				if (!$entryTo->addEntry($entry, false)) {
-					$error = 'Error during SQLite copy of entries!';
-					return self::stdError($error);
+		while ($n < $nbEntries) {
+			foreach ($entryFrom->selectAll(offset: $n) as $entry) {
+				$n++;
+				if (!empty($idMaps['f' . $entry['id_feed']])) {
+					$entry['id_feed'] = $idMaps['f' . $entry['id_feed']];
+					if (!$entryTo->addEntry($entry, false)) {
+						$error = 'Error during SQLite copy of entries!';
+						return self::stdError($error);
+					}
+				}
+				if ($n % 100 === 1 && defined('STDERR') && $verbose) {	//Display progression
+					fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . ($brokenEntries > 0 ? " ($brokenEntries broken)" : ''));
 				}
 			}
-			if ($n % 100 === 1 && defined('STDERR') && $verbose) {	//Display progression
-				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries);
+			if ($n < $nbEntries) {
+				$brokenEntries++;
+				// Attempt to skip broken records in the case of corrupted database
+				$n++;
 			}
-		}
-		if (defined('STDERR') && $verbose) {
-			fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . "\n");
+			if (defined('STDERR') && $verbose) {
+				fwrite(STDERR, "\033[0G" . $n . '/' . $nbEntries . ($brokenEntries > 0 ? " ($brokenEntries broken)" : '') . PHP_EOL);
+			}
 		}
 		$entryTo->commit();
 		$feedTo->updateCachedValues();
@@ -444,41 +471,80 @@ SQL;
 		foreach ($tagFrom->selectEntryTag() as $entryTag) {
 			if (!empty($idMaps['t' . $entryTag['id_tag']])) {
 				$entryTag['id_tag'] = $idMaps['t' . $entryTag['id_tag']];
-				if (!$tagTo->tagEntry($entryTag['id_tag'], $entryTag['id_entry'])) {
+				if (!$tagTo->tagEntry($entryTag['id_tag'], (string)$entryTag['id_entry'])) {
 					$error = 'Error during SQLite copy of entry-tags!';
 					return self::stdError($error);
 				}
 			}
 		}
+		$tagTo->sqlResetSequence();
 		$tagTo->commit();
 
 		return true;
 	}
 
 	/**
-	 * Ensure that some PDO columns are `int` and not `string`.
-	 * Compatibility with PHP 7.
-	 * @param array<string|int|null> $table
-	 * @param array<string> $columns
+	 * Remove accents from characters and lowercase. Relevant for emulating MySQL utf8mb4_unicode_ci collation.
+	 * Example: `Café` becomes `cafe`.
 	 */
-	public static function pdoInt(array &$table, array $columns): void {
-		foreach ($columns as $column) {
-			if (isset($table[$column]) && is_string($table[$column])) {
-				$table[$column] = (int)$table[$column];
+	private static function removeAccentsLower(string $str): string {
+		if (function_exists('transliterator_transliterate')) {
+			// https://unicode-org.github.io/icu/userguide/transforms/general/#overview
+			$transliterated = transliterator_transliterate('NFD; [:Nonspacing Mark:] Remove; NFC; Lower', $str);
+			if ($transliterated !== false) {
+				return $transliterated;
 			}
 		}
+		// Fallback covering only Latin: Windows-1252 / ISO-8859-15 / ISO-8859-1, Windows-1250 / ISO-8859-2, Windows-1257 / ISO-8859-13, Windows-1254 / ISO-8859-9
+		// phpcs:disable PSR12.Operators.OperatorSpacing.NoSpaceBefore, PSR12.Operators.OperatorSpacing.NoSpaceAfter, Squiz.WhiteSpace.OperatorSpacing.NoSpaceBefore, Squiz.WhiteSpace.OperatorSpacing.NoSpaceAfter
+		$replacements = [
+			'A' => 'a', 'À'=>'a', 'Á'=>'a', 'Â'=>'a', 'Ä'=>'a', 'Ã'=>'a', 'Å'=>'a', 'Ă'=>'a', 'Ą'=>'a', 'Ā'=>'a',
+			'à'=>'a', 'á'=>'a', 'â'=>'a', 'ä'=>'a', 'ã'=>'a', 'å'=>'a', 'ă'=>'a', 'ą'=>'a', 'ā'=>'a',
+			'B' => 'b',
+			'C' => 'c', 'Ç'=>'c', 'Ć'=>'c', 'Č'=>'c', 'ç'=>'c', 'ć'=>'c', 'č'=>'c',
+			'D' => 'd', 'Ď'=>'d', 'Đ'=>'d', 'ď'=>'d', 'đ'=>'d',
+			'E' => 'e', 'È'=>'e', 'É'=>'e', 'Ê'=>'e', 'Ë'=>'e', 'Ę'=>'e', 'Ě'=>'e', 'Ē'=>'e', 'Ė'=>'e',
+			'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ę'=>'e', 'ě'=>'e', 'ē'=>'e', 'ė'=>'e',
+			'F' => 'f',
+			'G' => 'g', 'Ğ'=>'g', 'Ģ'=>'g', 'ğ'=>'g', 'ģ'=>'g',
+			'H' => 'h',
+			'I' => 'i', 'Ì'=>'i', 'Í'=>'i', 'Î'=>'i', 'Ï'=>'i', 'İ'=>'i', 'Ī'=>'i', 'Į'=>'i',
+			'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ı'=>'i', 'ī'=>'i', 'į'=>'i',
+			'J' => 'j',
+			'K' => 'k', 'Ķ'=>'k', 'ķ'=>'k',
+			'L' => 'l', 'Ĺ'=>'l', 'Ľ'=>'l', 'Ł'=>'l', 'Ļ'=>'l', 'ĺ'=>'l', 'ľ'=>'l', 'ł'=>'l', 'ļ'=>'l',
+			'M' => 'm',
+			'N' => 'n', 'Ñ'=>'n', 'Ń'=>'n', 'Ň'=>'n', 'Ņ'=>'n', 'ñ'=>'n', 'ń'=>'n', 'ň'=>'n', 'ņ'=>'n',
+			'O' => 'o', 'Ò'=>'o', 'Ó'=>'o', 'Ô'=>'o', 'Ö'=>'o', 'Õ'=>'o', 'Ø'=>'o', 'Ő'=>'o', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'ö'=>'o', 'õ'=>'o', 'ø'=>'o', 'ő'=>'o',
+			'P' => 'p',
+			'Q' => 'q',
+			'R' => 'r', 'Ŕ'=>'r', 'Ř'=>'r', 'ŕ'=>'r', 'ř'=>'r',
+			'S' => 's', 'Ś'=>'s', 'Š'=>'s', 'Ş'=>'s', 'ß'=>'ss', 'ś'=>'s', 'š'=>'s', 'ş'=>'s',
+			'T' => 't', 'Ť'=>'t', 'Ţ'=>'t', 'ť'=>'t', 'ţ'=>'t',
+			'U' => 'u', 'Ù'=>'u', 'Ú'=>'u', 'Û'=>'u', 'Ü'=>'u', 'Ů'=>'u', 'Ű'=>'u', 'Ū'=>'u', 'Ų'=>'u',
+			'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ü'=>'u', 'ů'=>'u', 'ű'=>'u', 'ū'=>'u', 'ų'=>'u',
+			'V' => 'v',
+			'W' => 'w',
+			'X' => 'x',
+			'Y' => 'y', 'Ý'=>'y', 'Ÿ'=>'y', 'ý'=>'y', 'ÿ'=>'y',
+			'Z' => 'z', 'Ź'=>'z', 'Ż'=>'z', 'Ž'=>'z', 'ź'=>'z', 'ż'=>'z', 'ž'=>'z',
+			'Æ'=>'ae', 'æ'=>'ae',
+			'Œ'=>'oe', 'œ'=>'oe',
+		];
+		// phpcs:enable PSR12.Operators.OperatorSpacing.NoSpaceBefore, PSR12.Operators.OperatorSpacing.NoSpaceAfter, Squiz.WhiteSpace.OperatorSpacing.NoSpaceBefore, Squiz.WhiteSpace.OperatorSpacing.NoSpaceAfter
+		return strtr($str, $replacements);
 	}
 
 	/**
-	 * Ensure that some PDO columns are `string` and not `bigint`.
-	 * @param array<string|int|null> $table
-	 * @param array<string> $columns
+	 * PHP emulation of the SQL ILIKE operation of the selected database.
+	 * Note that it depends on the database collation settings and Unicode extensions.
+	 * @param bool $contains If true, checks whether $haystack contains $needle (`'Testing' ILIKE '%Test%'`),
+	 *  otherwise checks whether they are alike (`'Testing' ILIKE 'Test'`).
 	 */
-	public static function pdoString(array &$table, array $columns): void {
-		foreach ($columns as $column) {
-			if (isset($table[$column])) {
-				$table[$column] = (string)$table[$column];
-			}
-		}
+	public static function strilike(string $haystack, string $needle, bool $contains = false): bool {
+		// Implementation approximating MySQL/MariaDB `LIKE` with `utf8mb4_unicode_ci` collation.
+		$haystack = self::removeAccentsLower($haystack);
+		$needle = self::removeAccentsLower($needle);
+		return $contains ? str_contains($haystack, $needle) : ($haystack === $needle);
 	}
 }

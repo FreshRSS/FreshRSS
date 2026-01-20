@@ -1,26 +1,29 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
 		'actualize' => 'Update feeds',
 		'add' => 'Add',
-		'back' => '← Go back',
 		'back_to_rss_feeds' => '← Go back to your RSS feeds',
 		'cancel' => 'Cancel',
+		'close' => 'Close',
 		'create' => 'Create',
+		'delete_all_feeds' => 'Delete all feeds',
+		'delete_errored_feeds' => 'Delete feeds with errors',
 		'delete_muted_feeds' => 'Delete muted feeds',
 		'demote' => 'Demote',
 		'disable' => 'Disable',
+		'download' => 'Download',
 		'empty' => 'Empty',
 		'enable' => 'Enable',
 		'export' => 'Export',
@@ -33,9 +36,9 @@ return array(
 			'open' => 'Open menu',
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'Next article',
+			'prev' => 'Previous article',
+			'up' => 'Go up',
 		),
 		'open_url' => 'Open URL',
 		'promote' => 'Promote',
@@ -57,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Password',
 			'format' => '<small>At least 7 characters</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',
+			'title' => 'Reauthentication',
 		),
 		'registration' => array(
 			'_' => 'New account',
@@ -136,6 +144,7 @@ return array(
 		'category_empty' => 'Empty category',
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be cancelled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',
 		'feedback' => array(
 			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
 			'body_unread_articles' => '(unread: %%d)',
@@ -145,15 +154,17 @@ return array(
 		'labels_empty' => 'No labels',
 		'new_article' => 'There are new articles available, click to refresh the page.',
 		'should_be_activated' => 'JavaScript must be enabled',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',
 		'de' => 'Deutsch',
 		'el' => 'Ελληνικά',
 		'en' => 'English',
-		'en-us' => 'English (United States)',
+		'en-US' => 'English (United States)',
 		'es' => 'Español',
 		'fa' => 'فارسی',
+		'fi' => 'Suomi',
 		'fr' => 'Français',
 		'he' => 'עברית',
 		'hu' => 'Magyar',
@@ -165,17 +176,20 @@ return array(
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
 		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
+		'pt-BR' => 'Português (Brasil)',
+		'pt-PT' => 'Português (Portugal)',
 		'ru' => 'Русский',
 		'sk' => 'Slovenčina',
 		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
-		'zh-tw' => '正體中文',
+		'uk' => 'Українська',
+		'zh-CN' => '简体中文',
+		'zh-TW' => '正體中文',
 	),
 	'menu' => array(
 		'about' => 'About',
 		'account' => 'Account',
 		'admin' => 'Administration',
+		'advanced_search' => 'Advanced Search',
 		'archiving' => 'Archiving',
 		'authentication' => 'Authentication',
 		'check_install' => 'Installation check',
@@ -183,6 +197,7 @@ return array(
 		'display' => 'Display',
 		'extensions' => 'Extensions',
 		'logs' => 'Logs',
+		'privacy' => 'Privacy',
 		'queries' => 'User queries',
 		'reading' => 'Reading',
 		'search' => 'Search words or #tags',
@@ -202,11 +217,44 @@ return array(
 		'weeks' => 'weeks',
 		'years' => 'years',
 	),
+	'readme' => array(
+		'contribute' => 'contribute',
+		'language' => 'Language',
+		'translated' => 'Progress',
+	),
+	'search' => array(
+		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',
+		'authors' => 'Authors',
+		'categories' => 'Categories',
+		'content' => 'Content',
+		'date_from' => 'From',
+		'date_past' => 'In the past',
+		'date_published' => 'Publication Date',
+		'date_range' => 'Date Range',
+		'date_received' => 'Received Date',
+		'date_to' => 'To',
+		'date_user' => 'User Modification Date',
+		'feeds' => 'Feeds',
+		'free_text' => 'Free Text',
+		'free_text_help' => 'Search both in title and content',
+		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',
+		'labels' => 'My Labels',
+		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',
+		'sources' => 'Sources',
+		'tags' => 'Article Tags',
+		'text' => 'Text Search',
+		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',
+		'text_placeholder' => 'Keyword',
+		'title' => 'Title',
+		'url' => 'URL',
+		'user_queries' => 'User Queries',
+	),
 	'share' => array(
 		'Known' => 'Known based sites',
 		'archiveIS' => 'archive.is',
 		'archiveORG' => 'archive.org',
 		'archivePH' => 'archive.ph',
+		'bluesky' => 'Bluesky',
 		'buffer' => 'Buffer',
 		'clipboard' => 'Clipboard',
 		'diaspora' => 'Diaspora*',
@@ -223,7 +271,6 @@ return array(
 		'omnivore' => 'Omnivore',
 		'pinboard' => 'Pinboard',
 		'pinterest' => 'Pinterest',
-		'pocket' => 'Pocket',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
 		'reddit' => 'Reddit',

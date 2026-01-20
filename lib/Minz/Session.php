@@ -61,8 +61,8 @@ class Minz_Session {
 	 * @param string $p the parameter to retrieve
 	 * @param mixed|false $default the default value if the parameter doesn’t exist
 	 * @return mixed|false the value of the session variable, false if doesn’t exist
-	 * @deprecated Use typed versions instead
 	 */
+	#[Deprecated('Use typed versions instead')]
 	public static function param(string $p, $default = false): mixed {
 		return $_SESSION[$p] ?? $default;
 	}
@@ -72,7 +72,13 @@ class Minz_Session {
 		if (empty($_SESSION[$key]) || !is_array($_SESSION[$key])) {
 			return [];
 		}
-		return $_SESSION[$key];
+		$result = [];
+		foreach ($_SESSION[$key] as $k => $v) {
+			if (is_string($v) || (is_array($v) && is_array_keys_string($v))) {
+				$result[$k] = $v;
+			}
+		}
+		return $result;
 	}
 
 	public static function paramTernary(string $key): ?bool {
@@ -97,10 +103,7 @@ class Minz_Session {
 	}
 
 	public static function paramInt(string $key): int {
-		if (!empty($_SESSION[$key])) {
-			return intval($_SESSION[$key]);
-		}
-		return 0;
+		return empty($_SESSION[$key]) || !is_numeric($_SESSION[$key]) ? 0 : (int)$_SESSION[$key];
 	}
 
 	public static function paramString(string $key): string {
@@ -164,7 +167,7 @@ class Minz_Session {
 		if (!self::$volatile) {
 			session_destroy();
 		}
-		$_SESSION = array();
+		$_SESSION = [];
 
 		if (!$force) {
 			self::_param('language', $language);
@@ -175,10 +178,10 @@ class Minz_Session {
 	public static function getCookieDir(): string {
 		// Get the script_name (e.g. /p/i/index.php) and keep only the path.
 		$cookie_dir = '';
-		if (!empty($_SERVER['HTTP_X_FORWARDED_PREFIX'])) {
+		if (!empty($_SERVER['HTTP_X_FORWARDED_PREFIX']) && is_string($_SERVER['HTTP_X_FORWARDED_PREFIX'])) {
 			$cookie_dir .= rtrim($_SERVER['HTTP_X_FORWARDED_PREFIX'], '/ ');
 		}
-		$cookie_dir .= empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
+		$cookie_dir .= empty($_SERVER['REQUEST_URI']) || !is_string($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
 		if (substr($cookie_dir, -1) !== '/') {
 			$cookie_dir = dirname($cookie_dir) . '/';
 		}
@@ -195,10 +198,25 @@ class Minz_Session {
 
 	/**
 	 * Regenerate a session id.
-	 * Useful to call session_set_cookie_params after session_start()
 	 */
-	public static function regenerateID(): void {
+	public static function regenerateID(string $name): void {
+		if (self::$volatile || self::$locked) {
+			return;
+		}
+		// Ensure that regenerating the session won't send multiple cookies so we can send one ourselves instead
+		ini_set('session.use_cookies', '0');
+		session_name($name);
+		session_start();
 		session_regenerate_id(true);
+		session_write_close();
+		$newId = session_id();
+		if ($newId === false) {
+			Minz_Error::error(500);
+			return;
+		}
+		$lifetime = session_get_cookie_params()['lifetime'];
+		$expire = $lifetime > 0 ? time() + $lifetime : 0;
+		setcookie($name, $newId, $expire, self::getCookieDir(), '', Minz_Request::isHttps(), true);
 	}
 
 	public static function deleteLongTermCookie(string $name): void {
@@ -210,7 +228,7 @@ class Minz_Session {
 	}
 
 	public static function getLongTermCookie(string $name): string {
-		return $_COOKIE[$name] ?? '';
+		return is_string($_COOKIE[$name] ?? null) ? $_COOKIE[$name] : '';
 	}
 
 }

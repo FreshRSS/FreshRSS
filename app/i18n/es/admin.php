@@ -1,114 +1,27 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Permitir la lectura anónima de los artículos del usuario por defecto (%s)',
 		'allow_anonymous_refresh' => 'Permitir la actualización anónima de los artículos',
-		'api_enabled' => 'Concederle acceso a la <abbr>API</abbr> <small>(necesario para apps de móvil)</small>',
+		'api_enabled' => 'Concederle acceso a la <abbr>API</abbr> <small>(necesario para apps de móvil and sharing user queries)</small>',	// DIRTY
 		'form' => 'Formulario Web (el más habitual, requiere JavaScript)',
-		'http' => 'HTTP (para usuarios avanzados con HTTPS)',
+		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Ninguno (peligroso)',
 		'title' => 'Identificación',
 		'token' => 'Token de autentificación Master',
 		'token_help' => 'Permite el acceso a todas las salidas RSS del usuario así como la actualización de fuentes sin autenticación:',
 		'type' => 'Método de identificación',
-		'unsafe_autologin' => 'Permite la identificación automática insegura usando el formato: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Comprueba los permisos en el directorio <em>./data/cache</em> . El servidor HTTP debe contar con permiso de escritura',
-			'ok' => 'Los permisos en el cache son correctos.',
-		),
-		'categories' => array(
-			'nok' => 'La tabla Categorías está configurada de forma incorrecta.',
-			'ok' => 'La tabla Categorías está correcta.',
-		),
-		'connection' => array(
-			'nok' => 'No se pudo establecer una conexión con la base de datos.',
-			'ok' => 'La conexión con la base de datos es correcta.',
-		),
-		'ctype' => array(
-			'nok' => 'No se puedo encontrar la librería necesaria para compropbar el tipo de caracteres (php-ctype).',
-			'ok' => 'Dispones de la librería necesaria para la verificación del tipo de caracteres (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'No se pudo encontrar la librería cURL (paquete php-curl).',
-			'ok' => 'Dispones de la librería cURL.',
-		),
-		'data' => array(
-			'nok' => 'Comprueba los permisos en el directorio <em>./data</em>. El servidor HTTP debe contar con permisos de escritura.',
-			'ok' => 'Los permisos en el directorio data son correctos.',
-		),
-		'database' => 'Instalación de la base de datos',
-		'dom' => array(
-			'nok' => 'No se ha podido localizar la librería necesaria para explorar el DOM (paquete php-xml).',
-			'ok' => 'Dispones de la librería necesaria para explorar el DOM.',
-		),
-		'entries' => array(
-			'nok' => 'La tabla de entrada no está configurada correctamente.',
-			'ok' => 'La tabla de entrada está correcta.',
-		),
-		'favicons' => array(
-			'nok' => 'Comprueba los permisos en el directorio <em>./data/favicons</em>. El servidor HTTP debe contar con permisos de escritura.',
-			'ok' => 'Los permisos en el directorio favicons son correctos.',
-		),
-		'feeds' => array(
-			'nok' => 'La tabla Fuentes está configurada de forma incorrecta.',
-			'ok' => 'La tabla Fuentes está correcta.',
-		),
-		'fileinfo' => array(
-			'nok' => 'No se ha podido localizar la librería PHP fileinfo (paquete fileinfo).',
-			'ok' => 'Dispones de la librería fileinfo.',
-		),
-		'files' => 'Instalación de Archivos',
-		'json' => array(
-			'nok' => 'No se ha podido localizar JSON (paquete php-json).',
-			'ok' => 'Dispones de la extensión JSON.',
-		),
-		'mbstring' => array(
-			'nok' => 'No se puede encontrar la biblioteca mbstring recomendada para Unicode.',
-			'ok' => 'Tiene la biblioteca mbstring recomendada para Unicode.',
-		),
-		'pcre' => array(
-			'nok' => 'No se ha podido localizar la librería para las expresiones regulares (php-pcre).',
-			'ok' => 'Dispones de la librería necesaria para expresiones regulares (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'No se ha podido localiar PDO o uno de los controladores compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Dispones de PDO y, al menos, de uno de los controladores compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'Instalación PHP',
-			'nok' => 'Dispones de la versión PHP %s pero FreshRSS requiere de, al menos, la versión %s.',
-			'ok' => 'Dispones de la versión PHP %s, que es compatible con FreshRSS.',
-		),
-		'tables' => array(
-			'nok' => 'Falta al menos una tabla en la base de datos.',
-			'ok' => 'Todas las tablas necesarias están disponibles en la base de datos.',
-		),
-		'title' => 'Verificación de instalación',
-		'tokens' => array(
-			'nok' => 'Comprueba los permisos en el directorio <em>./data/tokens</em>. El servidor HTTP debe contar con permisos de escritura.',
-			'ok' => 'Los permisos en el directorio de tokens de identificación son correctos.',
-		),
-		'users' => array(
-			'nok' => 'Comprueba los permisos en el directorio <em>./data/users</em>. El servidor HTTP debe contar con permisos de escritura.',
-			'ok' => 'Los permisos en el directorio users son correctos.',
-		),
-		'zip' => array(
-			'nok' => 'No se ha podido localizar la extensión ZIP (paquete php-zip).',
-			'ok' => 'Dispones de la extensión ZIP.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Autor',
@@ -116,7 +29,9 @@ return array(
 		'description' => 'Descripción',
 		'disabled' => 'Desactivado',
 		'empty_list' => 'No hay extensiones instaladas',
+		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
 		'enabled' => 'Activado',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Instalado',
 		'name' => 'Nombre',
 		'no_configure_view' => 'Esta extensión no puede ser configurada.',
@@ -133,6 +48,8 @@ return array(
 		'_' => 'Estadísticas',
 		'all_feeds' => 'Todas las fuentes',
 		'category' => 'Categoría',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Cómputo total',
 		'entry_per_category' => 'Entradas por categoría',
 		'entry_per_day' => 'Entradas por día (últimos 30 días)',
@@ -145,16 +62,19 @@ return array(
 		'idle' => 'Fuentes inactivas',
 		'main' => 'Estadísticas principales',
 		'main_stream' => 'Salida principal',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
+		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '% del total',
-		'repartition' => 'Reparto de artículos',
+		'repartition' => 'Reparto de artículos: %s',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Leídos',
 		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Pendientes',
 		'title' => 'Estadísticas',
 		'top_feed' => 'Las 10 fuentes más activas',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Configuración del sistema',

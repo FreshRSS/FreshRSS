@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Mantieni configurazione precedente',
 		'next_step' => 'Vai al prossimo passaggio',
 		'reinstall' => 'Reinstalla FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Web form (tradizionale, richiede JavaScript)',
-		'http' => 'HTTP (per gli utenti avanzati con HTTPS)',
-		'none' => 'Nessuno (pericoloso)',
-		'password_form' => 'Password<br /><small>(per il login tramite Web-form tradizionale)</small>',
-		'password_format' => 'Almeno 7 caratteri',
-		'type' => 'Metodo di autenticazione',
 	),
 	'bdd' => array(
 		'_' => 'Database',	// IGNORE
@@ -70,6 +62,11 @@ return array(
 			'nok' => 'Manca il supporto per PHP fileinfo (pacchetto fileinfo).',
 			'ok' => 'Estensione fileinfo presente.',
 		),
+		'files' => 'Installazione files',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
 		'json' => array(
 			'nok' => 'Manca la libreria consigliata per effettuare la lettura del JSON.',
 			'ok' => 'La libreria consigliata per la lettura del JSON è presente.',
@@ -82,18 +79,33 @@ return array(
 			'nok' => 'Manca una libreria richiesta per le regular expressions (php-pcre).',
 			'ok' => 'Libreria richiesta per le regular expressions presente (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'PDO e altri driver supportati (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'nok' => 'Versione di PHP %s FreshRSS richiede almeno la versione %s.',
-			'ok' => 'Versione di PHP %s, compatibile con FreshRSS.',
+			'_' => 'Installazione PHP',
+			'nok' => 'Versione PHP %s FreshRSS richiede almeno la versione %s.',
+			'ok' => 'Versione PHP %s, compatibile con FreshRSS.',
 		),
 		'reload' => 'Controlla di nuovo',
 		'tmp' => array(
 			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
 			'ok' => 'I permessi sulla cartella temp sono corretti.',
+		),
+		'tokens' => array(
+			'nok' => 'Verifica i permessi sulla cartella <em>./data/tokens</em>. Il server HTTP deve avere i permessi per scriverci dentro',
+			'ok' => 'I permessi sulla cartella tokens sono corretti.',
 		),
 		'unknown_process_username' => 'sconosciuto',
 		'users' => array(
@@ -103,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'La libreria richiesta per leggere gli XML non è presente.',
 			'ok' => 'La libreria richiesta per leggere gli XML è presente.',
+		),
+		'zip' => array(
+			'nok' => 'Manca estensione ZIP (pacchetto php-zip).',
+			'ok' => 'Estensione ZIP presente.',
 		),
 	),
 	'conf' => array(

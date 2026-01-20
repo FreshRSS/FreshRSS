@@ -4,10 +4,28 @@ See: [What is OpenID Connect?](https://openid.net/connect/).
 
 This is one of the [access control methods](09_AccessControl.md) supported by FreshRSS.
 
-OIDC support is provided by [mod_auth_openidc](https://github.com/OpenIDC/mod_auth_openidc).
+OIDC support is provided by the Apache module [mod_auth_openidc](https://github.com/OpenIDC/mod_auth_openidc).
+This documentation is about OIDC as available in our official Docker image, or when using an Apache Web server.
 Additional documentation can be found in that project.
 
 The callback URL is `https://<your-domain>/i/oidc/`.
+
+## Initial Setup Process
+
+When setting up a new FreshRSS instance with OIDC, follow these steps carefully to ensure proper administrator access:
+
+1. Configure your OIDC environment variables (see configuration section below)
+2. Start your FreshRSS instance
+3. Access the Web interface – it will immediately attempt to authenticate you via your OIDC provider
+4. After successful authentication, you’ll be directed to the setup wizard
+5. In the authentication setup step (currently *step 4*):
+   * Enter the exact username that matches your OIDC identity (e.g., `admin@idm.example.com`) as the default user
+   * The password field can contain any random value as it won’t be used with OIDC
+   * Select *HTTP Authentication Method* as the authentication method
+   * If configured correctly, you should see your current username displayed as: `HTTP (for advanced users with HTTPS) (REMOTE_USER='admin@idm.example.com')`. If it doesn’t, recheck your OIDC setup and the variables to avoid locking yourself out from administrator access.
+6. Complete the remaining setup steps
+
+> ⚠️ Important: Using a random username instead of your actual OIDC identity as the default user may result in no administrator access to your instance.
 
 ## Using Docker
 
@@ -15,7 +33,7 @@ OIDC support in Docker is activated by the presence of a non-empty non-zero `OID
 
 > ℹ️ Only available in our default Debian image (not Alpine) for `x86_64` ([help welcome](https://github.com/FreshRSS/FreshRSS/issues/5722)).
 
-## The config is done with these environment variables
+## Configuration Environment Variables
 
 * `OIDC_ENABLED`: Activates OIDC support.
 * `OIDC_PROVIDER_METADATA_URL`: The config URL. Usually looks like: `<issuer>/.well-known/openid-configuration`
@@ -35,16 +53,10 @@ You may add additional custom configuration in a new `./FreshRSS/p/i/.htaccess` 
 
 See our reference [Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) for more information.
 
-## Setup
-
-After being properly configured, OIDC support can be activated in FreshRSS.
-
-During a new FreshRSS install, the **HTTP Authentication Method** must be picked.
-
-After install, the method can be changed in *Administration > Authentication*. Note that this option will be greyed out if Apache is unable to read the `REMOTE_USER` variable.
-
 ## Identity Provider
 
 See specific instructions for:
 
-* Authentik : [here](16_OpenID-Connect-Authentik.md) or [here](https://goauthentik.io/integrations/services/freshrss/)
+* Authentik: [here (freshrss.org)](16_OpenID-Connect-Authentik.md) or [here (goauthentik.io)](https://goauthentik.io/integrations/services/freshrss/)
+* Authelia: [here (authelia.com)](https://www.authelia.com/integration/openid-connect/freshrss/)
+* Pocket ID: [here (freshrss.org)](18_Pocket-ID.md)

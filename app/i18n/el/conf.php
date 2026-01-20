@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -99,16 +99,47 @@ return array(
 			'previous' => 'Previous',	// TODO
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“Mark all as read” button',	// TODO
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+	),
 	'profile' => array(
 		'_' => 'Profile management',	// TODO
-		'api' => 'API management',	// TODO
+		'api' => array(
+			'_' => 'API management',	// DIRTY
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
+			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
+			'disabled' => 'The API access is disabled.',	// TODO
+			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
+			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Account deletion',	// TODO
 			'warn' => 'Your account and all related data will be deleted.',	// TODO
 		),
 		'email' => 'Email address',	// TODO
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',	// TODO
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'password_format' => 'At least 7 characters',	// TODO
 		'title' => 'Profile',	// TODO
 	),
@@ -121,6 +152,7 @@ return array(
 			'categories' => 'Display by category',	// TODO
 			'feeds' => 'Display by feed',	// TODO
 			'order' => 'Sort by date',	// TODO
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Expression',	// TODO
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
@@ -128,6 +160,8 @@ return array(
 			'tags' => 'Display by label',	// TODO
 			'type' => 'Type',	// TODO
 		),
+		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
+		'get_Z' => 'Show all feeds, also archived ones',	// TODO
 		'get_all' => 'Display all articles',	// TODO
 		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Display “%s” category',	// TODO
@@ -139,12 +173,20 @@ return array(
 		'image_url' => 'Image URL',	// TODO
 		'name' => 'Name',	// TODO
 		'no_filter' => 'No filter',	// TODO
+		'no_queries' => array(
+			'_' => 'No user queries are saved yet.',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+		),
 		'number' => 'Query n°%d',	// TODO
 		'order_asc' => 'Display oldest articles first',	// TODO
 		'order_desc' => 'Display newest articles first',	// TODO
 		'search' => 'Search for “%s”',	// TODO
 		'share' => array(
 			'_' => 'Share this query by link',	// TODO
+			'disabled' => array(
+				'_' => 'disabled',	// TODO
+				'title' => 'Sharing',	// TODO
+			),
 			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
@@ -173,6 +215,7 @@ return array(
 		'_' => 'Reading',	// TODO
 		'after_onread' => 'After “mark all as read”,',	// TODO
 		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Authors and date',	// TODO
@@ -220,7 +263,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',	// TODO
 		'img_with_lazyload' => 'Use <em>lazy load</em> mode to load pictures',	// TODO
-		'jump_next' => 'jump to next unread sibling (feed or category)',	// TODO
+		'jump_next' => 'jump to next unread sibling',	// TODO
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// TODO
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',	// TODO
 		'read' => array(
@@ -232,17 +275,19 @@ return array(
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'upon receiving the article',	// TODO
 			'when' => 'Mark an article as read…',	// TODO
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',	// TODO
 		),
 		'show' => array(
 			'_' => 'Articles to display',	// TODO
 			'active_category' => 'Active category',	// TODO
-			'adaptive' => 'Adjust showing',	// TODO
+			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
 			'all_articles' => 'Show all articles',	// TODO
 			'all_categories' => 'All categories',	// TODO
 			'no_category' => 'No category',	// TODO
 			'remember_categories' => 'Remember open categories',	// TODO
-			'unread' => 'Show only unread',	// TODO
+			'unread' => 'Show unreads',	// TODO
+			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
 		),
 		'show_fav_unread_help' => 'Applies also on labels',	// TODO
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO
@@ -266,6 +311,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Sharing',	// TODO
 		'add' => 'Add a sharing method',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// TODO
 		'email' => 'Email',	// TODO
@@ -286,7 +332,7 @@ return array(
 		'article_action' => 'Article actions',	// TODO
 		'auto_share' => 'Share',	// TODO
 		'auto_share_help' => 'If there is only one sharing mode, it is used. Otherwise, modes are accessible by their number.',	// TODO
-		'close_dropdown' => 'Close menus',	// TODO
+		'close_menus' => 'Close menus',	// TODO
 		'collapse_article' => 'Collapse',	// TODO
 		'first_article' => 'Open the first article',	// TODO
 		'focus_search' => 'Access search box',	// TODO
@@ -313,6 +359,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',	// TODO
 		'skip_previous_article' => 'Focus previous without opening',	// TODO
 		'title' => 'Shortcuts',	// TODO
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Play/pause media',	// TODO
 		'user_filter' => 'Access user queries',	// TODO
 		'user_filter_help' => 'If there is only one user query, it is used. Otherwise, queries are accessible by their number.',	// TODO
