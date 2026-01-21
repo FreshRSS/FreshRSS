@@ -1322,17 +1322,16 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
-	function isSameHost(string $url1, string $url2): bool {
-	    $hubHost  = parse_url($url1, PHP_URL_HOST);
-	    $baseHost = parse_url($url2, PHP_URL_HOST);
-	
-	    return (
-	        $hubHost !== null &&
-	        $baseHost !== null &&
-	        strcasecmp($hubHost, $baseHost) === 0
-	    );
+	private function isSameHost(string $url1, string $url2): bool {
+		$hubHost  = parse_url($url1, PHP_URL_HOST);
+		$baseHost = parse_url($url2, PHP_URL_HOST);
+		return (
+			$hubHost !== null &&
+			$baseHost !== null &&
+		strcasecmp($hubHost, $baseHost) === 0
+		);
 	}
-	
+
 	public function pubSubHubbubPrepare(): string|false {
 		$key = '';
 		$baseUrl = FreshRSS_Context::systemConf()->base_url;
@@ -1391,7 +1390,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$baseUrl = FreshRSS_Context::systemConf()->base_url;
 		//if they have same host, they can reach each other. eg localhost
-		if ($url !== '' && (Minz_Request::serverIsPublic($baseUrl) || isSameHost($url,$baseUrl) || !$state)) {
+		if ($url !== '' && (Minz_Request::serverIsPublic($baseUrl) || isSameHost($url, $baseUrl) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
