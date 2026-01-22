@@ -105,6 +105,9 @@ return array(
 		'none' => '无',
 		'small' => '小',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => '显示警告横幅',
