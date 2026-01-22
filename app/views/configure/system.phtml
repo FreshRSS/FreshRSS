@@ -93,6 +93,19 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="closed_registration_message"><?= _t('admin.system.closed_registration_message') ?></label>
+			<div class="group-controls">
+				<textarea
+				id="closed_registration_message"
+				name="closed_registration_message"
+				rows="4"
+				cols="50"><?= !empty(FreshRSS_Context::systemConf()->limits['closed_registration_message'])
+				? FreshRSS_Context::systemConf()->limits['closed_registration_message']
+				: _t('admin.system.default_closed_registration_message') ?></textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name"><?= _t('index.tos.title') ?></label>
 			<div class="group-controls">
 				<?php if (file_exists(TOS_FILENAME)) { ?>
@@ -102,21 +115,6 @@
 					<?= _t('admin.system.tos.disabled') ?>
 					<p class="help"><?= _i('help') ?> <?= _t('admin.system.tos.help') ?></p>
 				<?php } ?>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="group-controls">
-				<label class="checkbox" for="force-email-validation">
-					<input
-						type="checkbox"
-						name="force-email-validation"
-						id="force-email-validation"
-						value="1"
-						<?= FreshRSS_Context::systemConf()->force_email_validation ? 'checked="checked"' : '' ?>
-					/>
-					<?= _t('admin.system.force_email_validation') ?>
-				</label>
 			</div>
 		</div>
 

@@ -83,10 +83,12 @@ return array(
 			'_' => 'Základná URL',
 			'recommendation' => 'Automatické odporúčanie: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Registration Full Message',	// TODO
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Dobra, počas ktorej ste prihlásený',
 		),
+		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
 		'force_email_validation' => 'Vynútiť overenie e-mailovej adresy',
 		'instance-name' => 'Názov inštancie',
 		'max-categories' => 'Limit počtu kategórií pre používateľa',

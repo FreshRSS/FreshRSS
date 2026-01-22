@@ -83,10 +83,12 @@ return array(
 			'_' => '基本URL',
 			'recommendation' => '自動推薦: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Registration Full Message',	// TODO
 		'cookie-duration' => array(
 			'help' => '單位（秒）',
 			'number' => '保持登錄的時長',
 		),
+		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
 		'force_email_validation' => '強制驗證郵箱地址',
 		'instance-name' => '實例名稱',
 		'max-categories' => '各使用者分類數限制',

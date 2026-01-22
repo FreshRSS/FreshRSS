@@ -83,10 +83,12 @@ return array(
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
 		),
+		'closed_registration_message' => 'Registration Full Message',	// TODO
 		'cookie-duration' => array(
 			'help' => 'sekundēs',
 			'number' => 'Pieteikšanās ilgums',
 		),
+		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
 		'force_email_validation' => 'Piespiedu e-pasta adreses validēšana',
 		'instance-name' => 'Instances nosaukums',
 		'max-categories' => 'Maksimālais kategoriju skaits vienam lietotājam',

@@ -9,6 +9,12 @@
 		<div class="link-registration">
 			<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
 		</div>
+	<?php } else { ?>
+		<div class="link-registration-disabled">
+		<?= !empty(FreshRSS_Context::systemConf()->limits['closed_registration_message'])
+		? FreshRSS_Context::systemConf()->limits['closed_registration_message']
+		: _t('admin.system.default_closed_registration_message') ?>
+		</div>
 	<?php } ?>
 
 	<form class="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
