@@ -76,7 +76,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->show_nav_buttons = Minz_Request::paramBoolean('show_nav_buttons');
 			FreshRSS_Context::userConf()->html5_notif_timeout = max(0, Minz_Request::paramInt('html5_notif_timeout'));
 
-			FreshRSS_Context::userConf()->html5_disable_notif = !Minz_Request::paramBoolean('html5_enable_notif');
+			FreshRSS_Context::userConf()->html5_enable_notif = Minz_Request::paramBoolean('html5_enable_notif');
 			FreshRSS_Context::userConf()->good_notification_timeout = max(0, Minz_Request::paramInt('good_notification_timeout'));
 			FreshRSS_Context::userConf()->bad_notification_timeout = max(1, Minz_Request::paramInt('bad_notification_timeout'));
 			FreshRSS_Context::userConf()->save();

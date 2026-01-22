@@ -235,7 +235,7 @@
 			<div class="group-controls">
 				<label class="checkbox" for="html5_enable_notif">
 					<input type="checkbox" name="html5_enable_notif" id="html5_enable_notif" value="1"<?=
-						!FreshRSS_Context::userConf()->html5_disable_notif ? ' checked="checked"' : '' ?> />
+						FreshRSS_Context::userConf()->html5_enable_notif ? ' checked="checked"' : '' ?> />
 					<?= _t('conf.notification.html5_enable_notif') ?>
 				</label>
 			</div>
