@@ -1454,7 +1454,7 @@ SQL;
 			sort: $sort, order: $order, continuation_id: $continuation_id, continuation_values: $continuation_values);
 
 		// Help MySQL/MariaDB's optimizer with the query plan:
-		$useEntryIndex = $this->pdo->dbType() === 'mysql' ? 'USE INDEX (entry_feed_read_index) ' : '';
+		$useEntryIndex = $this->pdo->dbType() === 'mysql' && in_array($type, ['a', 'A', 'Z', 'i', 'c', 'f'], true) ? 'USE INDEX (entry_feed_read_index) ' : '';
 
 		return [array_merge($values, $searchValues), 'SELECT '
 			. ($type === 'T' ? 'DISTINCT ' : '')
