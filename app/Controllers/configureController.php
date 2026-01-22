@@ -603,13 +603,13 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			$limits = FreshRSS_Context::systemConf()->limits;
 			$limits['max_registrations'] = Minz_Request::paramIntNull('max-registrations') ?? 1;
-			$limits['closed_registration_message'] = Minz_Request::paramString('closed_registration_message') ?: '';
 			$limits['max_feeds'] = Minz_Request::paramInt('max-feeds') ?: 16384;
 			$limits['max_categories'] = Minz_Request::paramInt('max-categories') ?: 16384;
 			$limits['cookie_duration'] = Minz_Request::paramInt('cookie-duration') ?: FreshRSS_Auth::DEFAULT_COOKIE_DURATION;
 			FreshRSS_Context::systemConf()->limits = $limits;
 			FreshRSS_Context::systemConf()->title = Minz_Request::paramString('instance-name') ?: 'FreshRSS';
 			FreshRSS_Context::systemConf()->force_email_validation = Minz_Request::paramBoolean('force-email-validation');
+			FreshRSS_Context::systemConf()->closed_registration_message = Minz_Request::paramString('closed_registration_message') ?: '';
 			FreshRSS_Context::systemConf()->save();
 
 			invalidateHttpCache();

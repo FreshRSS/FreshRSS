@@ -27,8 +27,8 @@
 		} else {
 			?>
 			<div>
-			<?= !empty(FreshRSS_Context::systemConf()->limits['closed_registration_message'])
-			? FreshRSS_Context::systemConf()->limits['closed_registration_message']
+			<?= !empty(FreshRSS_Context::systemConf()->closed_registration_message)
+			? FreshRSS_Context::systemConf()->closed_registration_message
 			: _t('admin.system.default_closed_registration_message') ?>
 			</div>
 			<?php

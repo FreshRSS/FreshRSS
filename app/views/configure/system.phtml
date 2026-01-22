@@ -99,8 +99,8 @@
 				id="closed_registration_message"
 				name="closed_registration_message"
 				rows="4"
-				cols="50"><?= !empty(FreshRSS_Context::systemConf()->limits['closed_registration_message'])
-				? FreshRSS_Context::systemConf()->limits['closed_registration_message']
+				cols="50"><?= !empty(FreshRSS_Context::systemConf()->closed_registration_message)
+				? FreshRSS_Context::systemConf()->closed_registration_message
 				: _t('admin.system.default_closed_registration_message') ?></textarea>
 			</div>
 		</div>
