@@ -8,7 +8,11 @@ PORT ?= 8080
 NETWORK ?= freshrss-network
 
 # detect docker or podman
-DOCKER ?= $(shell command -v podman 2>/dev/null || command -v docker)
+DOCKER ?= $(shell which docker 2>/dev/null || which podman 2>/dev/null)
+
+ifeq ($(DOCKER),)
+NO_DOCKER := 1
+endif
 
 ifdef NO_DOCKER
 	PHP = $(shell which php)
