@@ -578,6 +578,37 @@ function init_user_stats() {
 	document.querySelectorAll('tr[data-need-ajax]').forEach(row => observer.observe(row));
 }
 
+function init_enable_notify_button() {
+	const notify_button = document.getElementById('html5_enable_notif');
+	if (!notify_button) return;
+	// it means unsupported in browser
+	if (!notifs_html5_is_supported()) {
+		notify_button.checked = false;
+		return;
+	}
+
+	// Not granted, uncheck even if it is saved in server so browser asks for permission
+	if (Notification.permission !== 'granted') {
+		notify_button.checked = false;
+	}
+
+	notify_button.addEventListener('change', function() {
+		if (this.checked) {
+			Notification.requestPermission().then(function(permission) {
+				notifs_html5_permission = permission;
+				// Uncheck if user denied
+				if (permission !== 'granted') {
+					notify_button.checked = false;
+				}
+			});
+		} else {
+			// User disabled notifications
+			notifs_html5_permission = 'denied';
+		}
+	});
+
+}
+
 function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
@@ -599,6 +630,7 @@ function init_extra_afterDOM() {
 		init_update_feed();
 		init_details_attributes();
 		init_user_stats();
+		init_enable_notify_button()
 
 		data_auto_leave_validation(document.body);
 

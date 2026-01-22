@@ -1972,15 +1972,16 @@ function notifs_html5_is_supported() {
 }
 
 function notifs_html5_ask_permission() {
-	try {
-		window.Notification.requestPermission(function () {
-			notifs_html5_permission = window.Notification.permission;
-		});
-	} catch (e) {
-	}
+	window.Notification.requestPermission(function (permission) {
+		notifs_html5_permission = permission;
+	}).catch(function(e){
+		// User denied
+		notifs_html5_permission = 'denied';
+	});
 }
 
 function notifs_html5_show(nb, nb_new) {
+	if (!context.html5_enable_notif)return;//from config
 	if (notifs_html5_permission !== 'granted') {
 		return;
 	}
@@ -2010,11 +2011,15 @@ function notifs_html5_show(nb, nb_new) {
 }
 
 function init_notifs_html5() {
-	if (!notifs_html5_is_supported()) {
-		return;
+	if (!notifs_html5_is_supported())return;
+	//from config, 1st run this should be true
+	if (!context.html5_enable_notif)return;
+	notifs_html5_permission = Notification.permission;
+	// Only ask if the user hasn't answered yet
+	// else they need to ask from settings > disply
+	if (notifs_html5_permission === 'default') {
+		notifs_html5_ask_permission();
 	}
-
-	notifs_html5_permission = notifs_html5_ask_permission();
 }
 // </notifs html5>
 

@@ -105,6 +105,9 @@ return array(
 		'none' => 'Не показувати',
 		'small' => 'Мала',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO

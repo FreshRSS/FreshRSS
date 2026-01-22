@@ -127,6 +127,8 @@ return array (
 	'queries' => array (
 	),
 	'html5_notif_timeout' => 0,
+	# Had to start with true, if during 1st time user accepts it is ok.
+	'html5_enable_notif' => true,
 	'good_notification_timeout' => 3,
 	'bad_notification_timeout' => 8,
 	'show_nav_buttons' => true,
