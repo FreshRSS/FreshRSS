@@ -304,6 +304,7 @@ return array(
 		'view' => array(
 			'default' => 'Domyślny widok',
 			'global' => 'Widok globalny',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Widok normalny',
 			'reader' => 'Widok czytania',
 		),

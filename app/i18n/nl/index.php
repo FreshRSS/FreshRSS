@@ -70,6 +70,7 @@ return array(
 		'bookmark_query' => 'Huidige query opslaan',
 		'favorites' => 'Favorieten (%s)',
 		'global_view' => 'Globale weergave',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => 'Belangrijke feeds',
 		'main_stream' => 'Overzicht',
 		'mark_all_read' => 'Markeer alles als gelezen',

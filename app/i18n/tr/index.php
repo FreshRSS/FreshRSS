@@ -70,6 +70,7 @@ return array(
 		'bookmark_query' => 'Geçerli sorguyu yer imlerine ekle',
 		'favorites' => 'Favoriler (%s)',
 		'global_view' => 'Genel görünüm',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => 'Önemli beslemeler',
 		'main_stream' => 'Ana akış',
 		'mark_all_read' => 'Tümünü okundu olarak işaretle',

@@ -304,6 +304,7 @@ return array(
 		'view' => array(
 			'default' => 'Типовий показ',
 			'global' => 'Глобальний показ',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Звичайний показ',
 			'reader' => 'Читацький показ',
 		),

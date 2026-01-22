@@ -304,6 +304,7 @@ return array(
 		'view' => array(
 			'default' => 'Varsayılan görünüm',
 			'global' => 'Genel görünüm',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Normal görünüm',
 			'reader' => 'Okuma görünümü',
 		),

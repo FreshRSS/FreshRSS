@@ -304,6 +304,7 @@ return array(
 		'view' => array(
 			'default' => 'Oletusnäkymä',
 			'global' => 'Yleinen näkymä',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Tavallinen näkymä',
 			'reader' => 'Lukunäkymä',
 		),

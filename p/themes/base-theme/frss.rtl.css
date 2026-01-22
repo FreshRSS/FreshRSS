@@ -2422,6 +2422,91 @@ html.slider-active {
 	padding: 0 3rem;
 }
 
+#stream.grid {
+	padding: 1rem 2rem;
+}
+
+.grid main {
+	position: relative;
+}
+
+.grid .flux {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.grid .card {
+	margin: 0 0 2rem 1rem;
+	padding: 1rem;
+	width: 350px;
+	height: 350px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	border: 1px solid var(--border-color);
+}
+
+.grid .flux.active .card {
+	height: calc(350px + 2rem);
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.grid .card .article-header-topline {
+	margin-bottom: 0.5rem;
+}
+
+.grid .card .article-header-topline .manage a {
+	padding: 0 0 0.25rem 0.25rem;
+	margin-left: 0.5rem;
+}
+
+.grid .card .thumbnail img {
+	width: 335px;
+	height: 200px;
+	object-fit: cover;
+}
+
+.grid .card .thumbnail .noThumbnail img {
+	margin: 3rem;
+	width: calc(335px - 6rem);
+	height: calc(200px - 6rem);
+	object-fit: contain;
+}
+
+.grid .card .date {
+	padding: 0.25rem 0;
+	font-size: 0.7rem;
+}
+
+.grid .card .title {
+	color: var(--frss-font-color-dark);
+}
+
+.grid .flux.active {
+	margin-bottom: 50vh;
+}
+
+.grid .flux.active .flux_content {
+	background: white;
+	display: inline-block;
+	position: absolute;
+	margin-top: -2.2rem;
+	height: 50vh;
+	left: 2rem;
+	right: 2rem;
+	overflow-y: scroll;
+	z-index: 999;
+	border: 1px solid var(--border-color)
+}
+
+.grid .flux.active .flux_content .content {
+	min-height: 46vh;
+}
+
+.grid .flux.not_read .card .title {
+	font-weight: bold;
+}
+
 #loglist-wrapper {
 	overflow-x: auto;
 }

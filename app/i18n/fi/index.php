@@ -70,6 +70,7 @@ return array(
 		'bookmark_query' => 'Tallenna tämä kysely kirjanmerkiksi',
 		'favorites' => 'Suosikit (%s)',
 		'global_view' => 'Yleisnäkymä',
+		'grid_view' => 'Grid view',	// TODO
 		'important' => 'Tärkeät syötteet',
 		'main_stream' => 'Pääsyötevirta',
 		'mark_all_read' => 'Merkitse kaikki luetuiksi',

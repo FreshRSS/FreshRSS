@@ -304,6 +304,7 @@ return array(
 		'view' => array(
 			'default' => 'Tampilan baku',
 			'global' => 'Tampilan global',
+			'grid' => 'Grid view',	// TODO
 			'normal' => 'Tampilan normal',
 			'reader' => 'Tampilan membaca',
 		),
