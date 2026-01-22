@@ -83,10 +83,12 @@ return array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => '자동 추천: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Registration Full Message',	// TODO
 		'cookie-duration' => array(
 			'help' => '초',
 			'number' => '로그인 유지 시간',
 		),
+		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
 		'force_email_validation' => '이메일 주소 확인 강제화',
 		'instance-name' => '인스턴스 이름',
 		'max-categories' => '사용자별 카테고리 개수 제한',

@@ -83,10 +83,12 @@ return array(
 			'_' => 'Основной URL-адрес',
 			'recommendation' => 'Автоматическая рекомендация: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Registration Full Message',	// TODO
 		'cookie-duration' => array(
 			'help' => 'в секундах',
 			'number' => 'Оставаться в системе на протяжении',
 		),
+		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
 		'force_email_validation' => 'Обязать подтверждать адрес электронной почты',
 		'instance-name' => 'Название экземпляра',
 		'max-categories' => 'Максимальное количество категорий на пользователя',

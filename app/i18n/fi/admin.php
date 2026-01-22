@@ -83,10 +83,12 @@ return array(
 			'_' => 'URL-pääosoite',
 			'recommendation' => 'Automaattinen suositus: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Registration Full Message',	// TODO
 		'cookie-duration' => array(
 			'help' => 'sekunteina',
 			'number' => 'Sisäänkirjauksen kesto',
 		),
+		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
 		'force_email_validation' => 'Pakota sähköpostiosoitteen vahvistus',
 		'instance-name' => 'Instanssin nimi',
 		'max-categories' => 'Luokkien enimmäismäärä käyttäjää kohti',

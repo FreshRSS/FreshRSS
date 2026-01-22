@@ -83,10 +83,12 @@ return array(
 			'_' => 'URL de la racine',
 			'recommendation' => 'Recommandation automatique : <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Registration Full Message',	// TODO
 		'cookie-duration' => array(
 			'help' => 'en secondes',
 			'number' => 'Durée avant expiration de la session',
 		),
+		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
 		'force_email_validation' => 'Forcer la validation des adresses email',
 		'instance-name' => 'Nom de l’instance',
 		'max-categories' => 'Limite de catégories par utilisateur',

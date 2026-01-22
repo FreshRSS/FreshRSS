@@ -83,10 +83,12 @@ return array(
 			'_' => 'Базова URL-адреса',
 			'recommendation' => 'Автоматична порада: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Registration Full Message',	// TODO
 		'cookie-duration' => array(
 			'help' => 'секунд',
 			'number' => 'Тривалість сеансу',
 		),
+		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
 		'force_email_validation' => 'Підтверджувати адресу електронної пошти',
 		'instance-name' => 'Назва сервера',
 		'max-categories' => 'Максимум категорій у користувача',

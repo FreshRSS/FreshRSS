@@ -83,10 +83,12 @@ return array(
 			'_' => 'Basis-url',
 			'recommendation' => 'Automatische aanbeveling: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Registration Full Message',	// TODO
 		'cookie-duration' => array(
 			'help' => 'in seconden',
 			'number' => 'Tijdsduur om ingelogd te blijven',
 		),
+		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
 		'force_email_validation' => 'Emailadresvalidatie forceren',
 		'instance-name' => 'Voorbeeld naam',
 		'max-categories' => 'Categorielimiet per gebruiker',

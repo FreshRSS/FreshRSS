@@ -83,10 +83,12 @@ return array(
 			'_' => 'ベースURL',
 			'recommendation' => '自動的に推薦: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Registration Full Message',	// TODO
 		'cookie-duration' => array(
 			'help' => '秒',
 			'number' => 'ログイン状態維持時間',
 		),
+		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
 		'force_email_validation' => 'Eメールアドレスの検証を強制します',
 		'instance-name' => 'インスタンス名',
 		'max-categories' => '1ユーザーごとのカテゴリの最大値',
