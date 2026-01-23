@@ -83,12 +83,12 @@ return array(
 			'_' => 'آدرس پایه',
 			'recommendation' => 'توصیه: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Registration Full Message',	// TODO
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => ' در ثانیه',
 			'number' => ' مدت زمان ورود به سیستم',
 		),
-		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => ' اعتبارسنجی آدرس ایمیل اجباری',
 		'instance-name' => ' نام نمونه',
 		'max-categories' => ' حداکثر تعداد دسته ها برای هر کاربر',

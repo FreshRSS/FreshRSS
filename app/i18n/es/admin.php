@@ -83,12 +83,12 @@ return array(
 			'_' => 'URL Base',
 			'recommendation' => 'Recomendación automática: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Registration Full Message',	// TODO
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'en segundos',
 			'number' => 'Duración para mantenerse conectado',
 		),
-		'default_closed_registration_message' => 'Registration Closed. Please try again later.',	// TODO
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Forzar la validación de direcciones de correo electrónico',
 		'instance-name' => 'Nombre de la fuente',
 		'max-categories' => 'Límite de categorías por usuario',
