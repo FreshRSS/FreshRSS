@@ -62,11 +62,7 @@ final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
 			['ÄÖ', 'äö', false, true],	// Finnish
 			['ÀÂÆÇÈÉÊËÎÏÔŒÙÛÜŸ', 'àâæçèéêëîïôœùûüÿ', false, true],	// French
 			['ÄÖÜ', 'äöü', false, true],	// German
-			['ΑΆΒΓΔΕΈΖΗΉΘΙΊΪΚΛΜΝΞΟΌΠΡΣΤΥΎΫΦΧΨΩΏ',
-				'αάβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ',
-				false,
-				true
-			],	// Greek
+			['ΑΆΒΓΔΕΈΖΗΉΘΙΊΪΚΛΜΝΞΟΌΠΡΣΤΥΎΫΦΧΨΩΏ', 'αάβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ', false, true],	// Greek
 			['ÁÉÍÓÖŐÚÜŰ', 'áéíóöőúüű', false, true],	// Hungarian
 			['ÁÉÍÓÚ', 'áéíóú', false, true],	// Irish
 			['ÀÈÉÌÒÓÙ', 'àèéìòóù', false, true],	// Italian
