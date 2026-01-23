@@ -5,37 +5,19 @@
 <main class="prompt">
 	<h1><?= _t('gen.auth.login') ?></h1>
 
-	<?php
-	$max = FreshRSS_Context::systemConf()->limits['max_registrations'];
-	$currentUsers = count(FreshRSS_user_Controller::listUsers());
-
-	if ($max === 0) {
-		// No limit → always show registration link
-		?>
-		<div class="link-registration">
-		<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
-		</div>
-		<?php
-	} elseif ($max > 1) {
-		// Max users set → show link only if limit not reached
-		if ($currentUsers < $max) {
-			?>
+	<?php if ((FreshRSS_Context::systemConf()->limits['max_registrations'] ?? 1) !== 1): ?>
+		<?php if (FreshRSS_user_Controller::max_registrations_reached()): ?>
+			<div><?=
+				empty(FreshRSS_Context::systemConf()->closed_registration_message)
+				? _t('admin.system.default_closed_registration_message')
+				: FreshRSS_Context::systemConf()->closed_registration_message
+			?></div>
+		<?php else: ?>
 			<div class="link-registration">
-			<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
+				<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
 			</div>
-			<?php
-		} else {
-			?>
-			<div>
-			<?= !empty(FreshRSS_Context::systemConf()->closed_registration_message)
-			? FreshRSS_Context::systemConf()->closed_registration_message
-			: _t('admin.system.default_closed_registration_message') ?>
-			</div>
-			<?php
-		}
-	}
-	// else $max === 1 → no form, show nothing
-	?>
+		<?php endif; ?>
+	<?php endif; ?>
 
 	<form class="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
