@@ -8,9 +8,8 @@
 	<?php if ((FreshRSS_Context::systemConf()->limits['max_registrations'] ?? 1) !== 1): ?>
 		<?php if (FreshRSS_user_Controller::max_registrations_reached()): ?>
 			<div><?=
-				empty(FreshRSS_Context::systemConf()->closed_registration_message)
-				? _t('admin.system.default_closed_registration_message')
-				: FreshRSS_Context::systemConf()->closed_registration_message
+				FreshRSS_Context::systemConf()->attributeString('closed_registration_message') ?:
+				_t('admin.system.default_closed_registration_message')
 			?></div>
 		<?php else: ?>
 			<div class="link-registration">
