@@ -13,10 +13,13 @@ namespace SimplePie\Cache;
 final class CallableNameFilter implements NameFilter
 {
     /**
-     * @var callable
+     * @var callable(string): string
      */
     private $callable;
 
+    /**
+     * @param callable(string): string $callable
+     */
     public function __construct(callable $callable)
     {
         $this->callable = $callable;

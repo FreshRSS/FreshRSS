@@ -23,7 +23,7 @@
 	<rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
 		<exclude-pattern>./library/</exclude-pattern>
 	</rule>
-	<rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
+	<rule ref="Squiz.Classes.ValidClassName.NotPascalCase">
 		<exclude-pattern>./library/</exclude-pattern>
 	</rule>
 </ruleset>

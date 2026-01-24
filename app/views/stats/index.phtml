@@ -112,7 +112,7 @@ function generateColorPalette(int $count): array {
 }
 
 // 1. Get all unique category labels and sort them
-$allLabels = array_unique(array_merge($this->feedByCategory['label'], $this->entryByCategory['label']));
+$allLabels = array_unique(array_merge($this->feedByCategory['label'] ?? [], $this->entryByCategory['label'] ?? []));
 sort($allLabels); // Ensure consistent order
 
 // 2. Generate a color palette based on the number of unique categories
@@ -123,11 +123,11 @@ $colorMap = array_combine($allLabels, $colorPalette);
 
 // 4. Align data and labels for both charts
 $feedData = array_fill_keys($allLabels, 0); // Initialize data with all categories
-foreach ($this->feedByCategory['label'] as $index => $label) {
+foreach ($this->feedByCategory['label'] ?? [] as $index => $label) {
 	$feedData[$label] = $this->feedByCategory['data'][$index];
 }
 $entryData = array_fill_keys($allLabels, 0); // Initialize data with all categories
-foreach ($this->entryByCategory['label'] as $index => $label) {
+foreach ($this->entryByCategory['label'] ?? [] as $index => $label) {
 	$entryData[$label] = $this->entryByCategory['data'][$index];
 }
 

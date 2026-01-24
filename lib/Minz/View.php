@@ -39,8 +39,9 @@ class Minz_View {
 	}
 
 	/**
-	 * @deprecated Change the view file based on controller and action.
+	 * Change the view file based on controller and action.
 	 */
+	#[Deprecated('Use Minz_View::_path() instead.')]
 	public function change_view(string $controller_name, string $action_name): void {
 		Minz_Log::warning('Minz_View::change_view is deprecated, it will be removed in a future version. Please use Minz_View::_path instead.');
 		$this->_path($controller_name . '/' . $action_name . '.phtml');
@@ -170,9 +171,9 @@ class Minz_View {
 
 	/**
 	 * Choose if we want to use the layout or not.
-	 * @deprecated Please use the `_layout` function instead.
 	 * @param bool $use true if we want to use the layout, false else
 	 */
+	#[Deprecated('Use Minz_View::_layout() instead.')]
 	public function _useLayout(bool $use): void {
 		Minz_Log::warning('Minz_View::_useLayout is deprecated, it will be removed in a future version. Please use Minz_View::_layout instead.');
 		if ($use) {

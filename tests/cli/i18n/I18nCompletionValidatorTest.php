@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-require_once __DIR__ . '/../../../cli/i18n/I18nCompletionValidator.php';
-require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nCompletionValidator.php';
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nValue.php';
 
-class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
+final class I18nCompletionValidatorTest extends \PHPUnit\Framework\TestCase {
 	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
 	private $value;
 
@@ -20,13 +20,11 @@ class I18nCompletionValidatorTest extends PHPUnit\Framework\TestCase {
 		self::assertSame("There is no data.\n", $validator->displayReport());
 
 		$reflectionTotalEntries = new ReflectionProperty(I18nCompletionValidator::class, 'totalEntries');
-		$reflectionTotalEntries->setAccessible(true);
 		$reflectionTotalEntries->setValue($validator, 100);
 
 		self::assertSame("Translation is   0.0% complete.\n", $validator->displayReport());
 
 		$reflectionPassEntries = new ReflectionProperty(I18nCompletionValidator::class, 'passEntries');
-		$reflectionPassEntries->setAccessible(true);
 		$reflectionPassEntries->setValue($validator, 25);
 
 		self::assertSame("Translation is  25.0% complete.\n", $validator->displayReport());

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -60,6 +60,11 @@ return array(
 		'password' => array(
 			'_' => 'Hasło',
 			'format' => '<small>przynajmniej 7 znaków</small>',
+		),
+		'reauth' => array(
+			'header' => 'Wymagane ponowne logowanie',
+			'tip' => 'Nie będziesz proszony o ponowne logowanie przez <u>%d minut</u>',
+			'title' => 'Ponowne logowanie',
 		),
 		'registration' => array(
 			'_' => 'Tworzenie konta',
@@ -139,6 +144,7 @@ return array(
 		'category_empty' => 'Pusta kategoria',
 		'confirm_action' => 'Czy jesteś pewien, że chcesz przeprowadzić daną operację? Nie można cofnąć jej rezultatów!',
 		'confirm_action_feed_cat' => 'Czy jesteś pewien, że chcesz przeprowadzić daną operację? Stracisz powiązane zapytania i ulubione wiadomości. Tych zmian nie można wycofać!',
+		'confirm_exit_slider' => 'Czy na pewno chcesz odrzucić niezapisane ustawienia?',
 		'feedback' => array(
 			'body_new_articles' => 'W FreshRSS znajduje się %%d wiadomości do przeczytania.',
 			'body_unread_articles' => '(Nieprzeczytane: %%d)',
@@ -148,13 +154,14 @@ return array(
 		'labels_empty' => 'Brak tagów',
 		'new_article' => 'Dostępne są nowe wiadomości. Kliknij, aby odświeżyć stronę.',
 		'should_be_activated' => 'JavaScript musi być włączony',
+		'unsafe_csp_header' => 'Używany nagłówek CSP jest niebezpieczny i FreshRSS może być podatny na ataki XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Zobacz dokumentację</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
 		'fi' => 'Suomi',	// IGNORE
@@ -169,18 +176,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
-		'pt-pt' => 'Português (Portugal)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'O serwisie',
 		'account' => 'Konto',
 		'admin' => 'Administracja',
+		'advanced_search' => 'Zaawansowane wyszukiwanie',
 		'archiving' => 'Archiwizacja',
 		'authentication' => 'Uwierzytelnianie',
 		'check_install' => 'Sprawdzenie instalacji',
@@ -208,6 +217,38 @@ return array(
 		'weeks' => 'tygodnie',
 		'years' => 'lata',
 	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'Ten formularz pomaga w konstruowaniu zapytań dla wyszukiwarki, ale ręczne zapytania są jeszcze potężniejsze.',
+		'authors' => 'Autorzy',
+		'categories' => 'Kategorie',
+		'content' => 'Zawartość',
+		'date_from' => 'Od',
+		'date_past' => 'W przeszłych',
+		'date_published' => 'Data publikacji',
+		'date_range' => 'Zasięg dat',
+		'date_received' => 'Data otrzymania',
+		'date_to' => 'Do',
+		'date_user' => 'Data modyfikacji przez użytkownika',
+		'feeds' => 'Kanały',
+		'free_text' => 'Dowolny tekst',
+		'free_text_help' => 'Szukaj zarówno w tytule jak i zawartości',
+		'full_documentation' => 'Zobacz <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">pełną dokumentację o wyszukiwaniu</a>',
+		'labels' => 'Własne etykiety',
+		'multiple_help' => 'Zaznacz jedną lub więcej opcji (przytrzymaj <kbd>Ctrl</kbd> lub <kbd>Cmd</kbd>)',
+		'sources' => 'Źródła',
+		'tags' => 'Tagi artykułów',
+		'text' => 'Szukanie w tekście',
+		'text_help' => 'Wiele linii są łączone poprzez logiczne <i>or</i>. Wspierane są również <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">wyrażenia regularne</a>.',
+		'text_placeholder' => 'Słowo kluczowe',
+		'title' => 'Tytuł',
+		'url' => 'Adres URL',
+		'user_queries' => 'Zapisane zapytania',
+	),
 	'share' => array(
 		'Known' => 'Strony bazujące na usłudze Known',
 		'archiveIS' => 'archive.is',	// IGNORE
@@ -230,7 +271,6 @@ return array(
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Wydruk',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE

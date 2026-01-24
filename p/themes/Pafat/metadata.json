@@ -1,8 +1,8 @@
 {
-  "name": "Pafat",
-  "author": "Plopoyop",
-  "description": "Un thème pour FreshRSS",
-  "version": 0.2,
-  "files": ["_frss.css", "pafat.css"],
-  "theme-color": "#f4f4f4"
+	"name": "Pafat",
+	"author": "Plopoyop",
+	"description": "Un thème pour FreshRSS",
+	"version": 0.2,
+	"files": ["_frss.css", "pafat.css"],
+	"theme-color": "#f4f4f4"
 }

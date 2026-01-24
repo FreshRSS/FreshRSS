@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -105,6 +105,16 @@ return array(
 		'none' => 'Tidak ditampilkan',
 		'small' => 'Kecil',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
 	'privacy' => array(
 		'_' => 'Privasi',
 		'retrieve_extension_list' => 'Ambil daftar ekstensi',
@@ -120,13 +130,16 @@ return array(
 			'documentation_link' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentasi dan daftar aplikasi yang diketahui</a>',
 			'help' => 'Lihat <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentasi</a>',
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Hapus akun',
 			'warn' => 'Akun Anda dan semua data terkait akan dihapus.',
 		),
 		'email' => 'Alamat surel',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'Sandi API<br /><small>(contoh: untuk aplikasi ponsel)</small>',
-		'password_form' => 'Kata sandi<br /><small>(untuk metode masuk formulir web)</small>',
 		'password_format' => 'Minimal 7 karakter',
 		'title' => 'Profil',
 	),
@@ -139,6 +152,7 @@ return array(
 			'categories' => 'Tampilkan berdasarkan kategori',
 			'feeds' => 'Tampilkan berdasarkan umpan',
 			'order' => 'Urutkan berdasarkan tanggal',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Ekspresi Pencarian',
 			'shareOpml' => 'Aktifkan berbagi melalui OPML dari kategori dan umpan terkait',
 			'shareRss' => 'Aktifkan berbagi melalui HTML &amp; RSS',
@@ -318,7 +332,7 @@ return array(
 		'article_action' => 'Tindakan artikel',
 		'auto_share' => 'Berbagi',
 		'auto_share_help' => 'Jika hanya ada satu layanan berbagi, maka itu akan digunakan. Jika tidak, mode dapat diakses dengan nomornya.',
-		'close_dropdown' => 'Tutup menu',
+		'close_menus' => 'Tutup menu',
 		'collapse_article' => 'Tutup',
 		'first_article' => 'Buka artikel pertama',
 		'focus_search' => 'Akses kotak pencarian',
@@ -345,6 +359,7 @@ return array(
 		'skip_next_article' => 'Fokus berikutnya tanpa membuka',
 		'skip_previous_article' => 'Fokus sebelumnya tanpa membuka',
 		'title' => 'Pintasan',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Putar/jeda media',
 		'user_filter' => 'Akses pencarian pengguna',
 		'user_filter_help' => 'Jika hanya ada satu pencarian pengguna, maka itu akan digunakan. Jika tidak, pencarian dapat diakses dengan nomornya',

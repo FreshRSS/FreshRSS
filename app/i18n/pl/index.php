@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'about' => array(
@@ -36,8 +36,14 @@ return array(
 	),
 	'feed' => array(
 		'empty' => 'Brak wiadomości do wyświetlenia.',
+		'published' => array(
+			'_' => 'Opublikowane',
+			'future' => 'Opublikowane w przyszłości',
+			'today' => 'Opublikowane dzisiaj',
+			'yesterday' => 'Opublikowane wczoraj',
+		),
 		'received' => array(
-			'before_yesterday' => 'Otrzymane przedwczoraj',
+			'_' => 'Otrzymane',
 			'today' => 'Otrzymane dzisiaj',
 			'yesterday' => 'Otrzymane wczoraj',
 		),
@@ -45,6 +51,11 @@ return array(
 		'title' => 'Kanał główny',
 		'title_fav' => 'Ulubione',
 		'title_global' => 'Widok globalny',
+		'userModified' => array(
+			'_' => 'Zmodyfikowane przez użytkownika',
+			'today' => 'Zmodyfikowane przez użytkownika dzisiaj',
+			'yesterday' => 'Zmodyfikowane przez użytkownika wczoraj',
+		),
 	),
 	'log' => array(
 		'_' => 'Dziennik',
@@ -77,15 +88,27 @@ return array(
 		'search_short' => 'Szukaj',
 		'sort' => array(
 			'_' => 'Kryteria sortowania',
+			'c' => array(
+				'name_asc' => 'Tytuł kategorii i kanału A→Z',
+				'name_desc' => 'Tytuł kategorii i kanału Z→A',
+			),
 			'date_asc' => 'Data publikacji 1→9',
 			'date_desc' => 'Data publikacji 9→1',
+			'f' => array(
+				'name_asc' => 'Tytuł kanału A→Z',
+				'name_desc' => 'Tytuł kanału Z→A',
+			),
 			'id_asc' => 'Najpożniej otrzymane',
 			'id_desc' => 'Najwcześniej otrzymane',
+			'length_asc' => 'Długość zawartości 1→9',
+			'length_desc' => 'Długość zawartości 9→1',
 			'link_asc' => 'Odnośnik A→Z',
 			'link_desc' => 'Odnośnik Z→A',
 			'rand' => 'Losowa kolejność',
 			'title_asc' => 'Tytuł A→Z',
 			'title_desc' => 'Tytuł Z→A',
+			'user_modified_asc' => 'Zmodyfikowane przez użytkownika 1→9',
+			'user_modified_desc' => 'Zmodyfikowane przez użytkownika 9→1',
 		),
 		'starred' => 'Pokaż ulubione',
 		'stats' => 'Statystyki',

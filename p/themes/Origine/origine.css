@@ -120,18 +120,11 @@ textarea:hover {
 	color: var(--font-color);
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
 input, select, textarea {
-	padding: 7px;
 	background-color: var(--background-color-light);
 	color: var(--font-color-grey);
 	border: 1px solid var(--border-color);
 	border-radius: 3px;
-	vertical-align: middle;
 }
 
 option {
@@ -290,7 +283,9 @@ th {
 	text-decoration: none;
 }
 
-a:hover .icon {
+a:hover .icon,
+button:hover .icon,
+.btn:hover .icon {
 	filter: brightness(1.5);
 	transition: 0.1s linear;
 }
@@ -313,6 +308,10 @@ a:hover .icon {
 
 .dropdown-target:target ~ .btn.dropdown-toggle .icon {
 	filter: brightness(1.1);
+}
+
+.btn.active, .btn:active {
+	filter: brightness(0.95);
 }
 
 .btn.active .icon,
@@ -805,8 +804,8 @@ a:hover .icon {
 	background-color: var(--contrast-background-color-hover);
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 0 10px;
 	font-weight: bold;
 	line-height: 3;
@@ -814,15 +813,15 @@ a:hover .icon {
 	border-top: 1px solid var(--border-color);
 }
 
-.day span {
+.transition span {
 	line-height: 1.5;
 }
 
-#new-article + .day {
+#new-article + .transition {
 	border-top: none;
 }
 
-.day .name {
+.transition .name {
 	padding: 0 10px 0 0;
 	color: var(--font-color-light-shadowed);
 	font-size: 1.8em;
@@ -887,6 +886,25 @@ a:hover .icon {
 	background-color: var(--favorite-article-background-color-hover);
 }
 
+/* stylelint-disable-next-line no-duplicate-selectors */
+.flux.current {
+	border-left-width: 5px;
+	border-left-style: double;
+}
+
+.flux.current > .flux_header {
+	background: linear-gradient(to right, transparent 0, transparent 3px, var(--background-color-hover) 3px);
+	margin-left: -3px; /* Compensate increased border-left-width */
+}
+
+.flux.not_read.current > .flux_header, .flux.not_read.current > .flux_header:hover {
+	background: linear-gradient(to right, transparent 0, transparent 3px, var(--unread-article-background-color-hover) 3px);
+}
+
+.flux.favorite.current > .flux_header, .flux.favorite.current > .flux_header:hover {
+	background: linear-gradient(to right, transparent 0, transparent 3px, var(--favorite-article-background-color-hover) 3px);
+}
+
 .flux_header {
 	font-size: 0.9rem;
 	border-top: 1px solid var(--border-color);
@@ -919,6 +937,12 @@ a:hover .icon {
 .content pre {
 	border: 1px solid var(--border-color);
 	border-radius: 3px;
+}
+
+.content pre code {
+	background: transparent;
+	color: var(--font-color);
+	border: none;
 }
 
 .content code {
@@ -1168,6 +1192,10 @@ a:hover .icon {
 		margin-bottom: 3rem;
 	}
 
+	.item.configure .dropdown .dropdown-menu {
+		border-radius: 0;
+	}
+
 	#nav_menu_read_all .btn {
 		border-left: 1px solid var(--border-color-shadow-side);
 		border-radius: 3px;
@@ -1184,7 +1212,7 @@ a:hover .icon {
 		padding-right: 15px;
 	}
 
-	.day .name {
+	.transition .name {
 		font-size: 1.1rem;
 		text-shadow: none;
 	}

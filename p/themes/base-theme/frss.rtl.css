@@ -291,6 +291,10 @@ input[type=number] {
 	width: 6em;
 }
 
+textarea {
+	height: 7rem;
+}
+
 textarea,
 input[type="file"],
 input.long {
@@ -298,14 +302,21 @@ input.long {
 }
 
 input, select, textarea {
+	padding: 0.5rem;
+	vertical-align: middle;
 	display: inline-block;
-	max-width: 100%;
+	max-width: 85vw;
 	font-size: 0.8rem;
 	box-sizing: border-box;
 }
 
 select {
 	min-width: 6em;
+}
+
+textarea.h50 {
+	height: 50vh;
+	min-height: 7rem;
 }
 
 input.w50,
@@ -354,7 +365,6 @@ textarea:invalid {
 .prompt input,
 .prompt select,
 .prompt .stick {
-	margin: 5px auto;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -432,6 +442,10 @@ button.as-link[disabled] {
 /*=== Tables */
 .table-wrapper {
 	overflow-x: auto;
+}
+
+.table-wrapper th {
+	white-space: nowrap;
 }
 
 table {
@@ -529,6 +543,13 @@ input#favicon-upload {
 
 .favicon-controls {
 	display: inline;
+}
+
+input.ignore-auto-complete {
+	position: absolute;
+	right: -9999px;
+	pointer-events: none;
+	user-select: none;
 }
 
 /*=== Buttons */
@@ -806,6 +827,11 @@ input[type="checkbox"]:focus-visible {
 	left: 13px;
 	z-index: -10;
 	transform: rotate(-45deg);
+}
+
+.dropdown-menu.arrow-bottom::after {
+	top: unset;
+	transform: rotate(-225deg);
 }
 
 .horizontal-list.bottom .dropdown-menu::after {
@@ -1368,6 +1394,11 @@ input[type="search"] {
 	opacity: 1;
 }
 
+.aside_feed .tree-folder-items .item .no-dropdown-toggle {
+	display: inline-block;
+	width: 2.25rem;
+}
+
 .aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
@@ -1387,18 +1418,27 @@ input[type="search"] {
 	display: block;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	background: inherit;
 }
 
-.day .name {
+.transition a, .transition a:hover {
+	color: inherit;
+}
+
+.transition .name {
 	position: absolute;
 	left: 0;
 	width: 50%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+
+.transition-next {
+	margin-right: .5em;
+	opacity: 0.5;
 }
 
 /*=== Feed article header and footer */
@@ -1601,7 +1641,7 @@ a.website:hover .favicon {
 	min-height: 20rem;
 	margin: auto;
 	line-height: 1.5;
-	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 .content .text {
@@ -1887,6 +1927,10 @@ a.website:hover .favicon {
 	z-index: 50;
 }
 
+.aside:not(.visible) ~ #nav_entries {
+	display: none;
+}
+
 #nav_entries button {
 	background-color: transparent;
 	display: table-cell;
@@ -2078,6 +2122,7 @@ html.slider-active {
 /*=== SLIDESHOW Theme Preview */
 /*==============*/
 .theme-preview-list {
+	margin: 0.5rem 0;
 	padding: 0;
 	display: block;
 	max-width: 640px;
@@ -2085,11 +2130,6 @@ html.slider-active {
 	border: 1px solid var(--frss-border-color);
 	position: relative;
 	min-width: 260px;
-	margin-bottom: 30px;
-}
-
-.theme-preview-list input {
-	display: none;
 }
 
 .theme-preview-list .preview-container {
@@ -2103,32 +2143,11 @@ html.slider-active {
 	top: 0;
 	opacity: 0;
 	position: absolute;
-	transform: scale(0);
-	transition: all .7s ease-in-out;
 }
 
 .theme-preview-list .preview img {
 	width: 100%;
 	height: 100%;
-}
-
-.theme-preview-list .nav label {
-	padding: 0;
-	display: none;
-	width: 65px;
-	height: 100%;
-	color: var(--frss-font-color-light);
-	font-family: "Varela Round", sans-serif;
-	font-size: 9rem;
-	position: absolute;
-	opacity: 0;
-	z-index: 9;
-	cursor: pointer;
-	transition: opacity .2s;
-	text-align: center;
-	line-height: 2;
-	background-color: var(--frss-background-color-transparent);
-	text-shadow: 0px 0px 15px rgb(119, 119, 119);
 }
 
 .theme-preview-list .properties {
@@ -2143,35 +2162,13 @@ html.slider-active {
 	backdrop-filter: blur(3px);
 }
 
-.theme-preview-list .properties .page-number {
-	left: 5px;
-	top: 0;
-	position: absolute;
-}
-
-.theme-preview-list .preview + .nav label {
-	opacity: 0.5;
-}
-
-.theme-preview-list .nav label:hover {
-	opacity: 1;
-}
-
-.theme-preview-list .nav .next {
-	left: 0;
-}
-
-.theme-preview-list input:checked + .preview-container .preview {
+.preview-container.picked .preview {
 	opacity: 1;
 	transform: scale(1);
-	transition: opacity 1s ease-in-out;
+	transition: opacity .5s ease-in-out;
 }
 
-.theme-preview-list input:checked + .preview-container .nav label {
-	display: block;
-}
-
-.theme-preview-list input:checked + .preview-container .properties {
+.preview-container.picked .properties {
 	display: block;
 }
 
@@ -2355,19 +2352,25 @@ html.slider-active {
 .nav_menu {
 	padding-top: var(--frss-padding-top-bottom);
 	padding-bottom: var(--frss-padding-top-bottom);
-	padding-right: 0.5rem;
+	padding-right: 3rem;
 	padding-left: 0.5rem;
 	background: inherit;
 	text-align: center;
-}
+	position: relative;
 
-.nav_menu .stick {
-	max-width: 500px;
-}
+	.stick {
+		max-width: 500px;
+	}
 
-.nav_menu select {
-	max-width: 300px;
-	width: 60%;
+	select {
+		max-width: 300px;
+		width: 60%;
+	}
+
+	#nav_menu_toggle_aside {
+		position: absolute;
+		right: 0.5rem;
+	}
 }
 
 .nav_mobile {
@@ -2377,7 +2380,6 @@ html.slider-active {
 .nav-login,
 .aside .toggle_aside,
 #slider .toggle_aside,
-.nav_menu .toggle_aside,
 .configure .dropdown-header-close {
 	display: none;
 }
@@ -2393,28 +2395,13 @@ html.slider-active {
 
 /*=== READER */
 /*===========*/
-.reader .nav_menu .toggle_aside {
-	display: inline-block;
-}
-
-.reader .aside .toggle_aside {
-	padding: 1rem 0px;
-	display: block;
-	width: 100%;
-}
-
 .reader .aside {
 	display: none;
-	width: 0;
 }
 
-.reader .aside:target {
+.reader .aside.visible {
 	display: table-cell;
 	width: 300px;
-}
-
-.reader .aside_feed .configure-feeds {
-	margin-top: 10px;
 }
 
 .reader .flux {
@@ -2470,9 +2457,10 @@ html.slider-active {
 	}
 
 	.flux_header .item.website span,
-	.item .date, .day .date,
+	.item .date,
 	.dropdown-menu > .no-mobile,
-	.no-mobile {
+	.no-mobile,
+	.aside_feed .tree-folder-items .item .no-dropdown-toggle {
 		display: none;
 	}
 
@@ -2498,7 +2486,7 @@ html.slider-active {
 		display: none;
 	}
 
-	.aside:target {
+	.aside.visible {
 		box-shadow: -3px 3px 5px var(--frss-box-shadow-color-transparent);
 	}
 
@@ -2511,6 +2499,23 @@ html.slider-active {
 		width: 100%;
 		border-bottom: 1px solid var(--frss-border-color);
 		text-align: center;
+	}
+
+	.aside:not(.aside_feed) {
+		overflow-y: scroll;
+	}
+
+	nav.configure > .dropdown li.item.dropdown-section:last-child,
+	nav#aside_feed > ul li.item.nav-section:last-child {
+		margin-bottom: 6rem;
+	}
+
+	#dropdown-search-wrapper .dropdown-menu span {
+		text-wrap: wrap;
+	}
+
+	.form-advanced-title {
+		text-align: right;
 	}
 
 	.aside .feed .item-title {
@@ -2626,9 +2631,9 @@ html.slider-active {
 		width: 90%;
 		height: 100vh;
 		top: 0;
-		left: 0;
+		left: 0 !important;
 		bottom: 0;
-		right: auto;
+		right: auto !important;
 		position: fixed;
 		padding-top: 0;
 		margin-top: 0;
@@ -2667,11 +2672,19 @@ html.slider-active {
 		display: block;
 	}
 
-	.nav_menu .toggle_aside {
-		display: inline-block;
+	.nav_menu {
+		padding-right: 0.5rem;
+
+		.toggle_aside {
+			display: inline-block;
+		}
+
+		#nav_menu_toggle_aside {
+			position: unset;
+		}
 	}
 
-	.aside:target + .close-aside,
+	.aside.visible + .close-aside,
 	.configure .dropdown-target:target ~ .dropdown-close {
 		background-color: var(--frss-modal-background-color-transparent);
 		display: block;
@@ -2685,8 +2698,12 @@ html.slider-active {
 		z-index: 99;
 	}
 
-	.nav_mobile {
+	.nav_menu.nav_mobile {
 		display: block;
+	}
+
+	.nav_mobile {
+		display: initial;
 	}
 
 	.aside {
@@ -2698,8 +2715,8 @@ html.slider-active {
 		z-index: 100;
 	}
 
-	.aside:target,
-	.reader .aside:target {
+	.aside.visible,
+	.reader .aside.visible {
 		width: 90%;
 		height: 100vh;
 	}
@@ -2746,6 +2763,7 @@ html.slider-active {
 	}
 
 	#nav_entries {
+		display: table !important;
 		width: 100%;
 	}
 
@@ -2779,13 +2797,30 @@ html.slider-active {
 /*============*/
 
 @media print {
+	/* This hides the headers and footers in the printed document on Chrome */
+	/* Supported since Chrome 131: https://developer.chrome.com/release-notes/131#page_margin_boxes */
+
+	@page {
+		/* Firefox and Safari do not support those yet */
+		/* See: https://developer.mozilla.org/en-US/docs/Web/CSS/@page#browser_compatibility */
+
+		@top-left { content: ''; }
+
+		@top-right { content: ''; }
+
+		@bottom-left { content: ''; }
+
+		@bottom-right { content: ''; }
+	}
+
 	.header, .aside,
-	.nav_menu, .day,
+	.nav_menu, .transition,
 	.flux_header,
 	.flux_content .bottom,
 	.pagination,
 	#stream-footer,
-	#nav_entries {
+	#nav_entries,
+	.dropdown-toggle {
 		display: none;
 	}
 

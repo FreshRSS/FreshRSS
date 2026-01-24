@@ -83,7 +83,7 @@ make i18n-ignore-key lang=fr key=index.about.version
 
 This command adds an IGNORE comment on the translation so the key can be considered as translated.
 
-## Add/remove/update a key
+## Add/remove/update/rename a key
 
 If you’re developing a new part of the application, you might want to declare a new translation key. Your first impulse would be to add the key to each file manually: don’t do that, it’s very painful. We provide another command:
 
@@ -106,6 +106,11 @@ make i18n-update-key key=the.key.to.change value='The new string in English'
 ```
 
 The key will simply be removed and added back with the new value.
+
+If you want to move/rename a key, you can use:
+```sh
+make i18n-move-key key=the.key.to.move new-key=new.location.of.the.key
+```
 
 ## How to access a translation programmatically
 

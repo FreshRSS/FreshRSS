@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nValue.php';
 
-class I18nValueTest extends PHPUnit\Framework\TestCase {
+final class I18nValueTest extends \PHPUnit\Framework\TestCase {
 	public static function testConstructorWithoutState(): void {
 		$value = new I18nValue('some value');
 		self::assertSame('some value', $value->getValue());
@@ -58,7 +58,6 @@ class I18nValueTest extends PHPUnit\Framework\TestCase {
 
 	public static function testStates(): void {
 		$reflectionProperty = new ReflectionProperty(I18nValue::class, 'state');
-		$reflectionProperty->setAccessible(true);
 
 		$value = new I18nValue('some value');
 		self::assertNull($reflectionProperty->getValue($value));

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -22,93 +22,6 @@ return array(
 		'token' => 'Ana kimlik doğrulama belirteci',
 		'token_help' => 'Kullanıcının tüm RSS çıktılarına ve beslemeleri kimlik doğrulaması olmadan yenilemeye erişim sağlar:',
 		'type' => 'Kimlik doğrulama yöntemi',
-		'unsafe_autologin' => 'Güvenli olmayan otomatik girişe izin ver; şu formatı kullan: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => '<em>./data/cache</em> dizinindeki izinleri kontrol edin. HTTP sunucusunun yazma izni olmalı.',
-			'ok' => 'Önbellek dizinindeki izinler uygun.',
-		),
-		'categories' => array(
-			'nok' => 'Kategori tablosu yanlış yapılandırılmış.',
-			'ok' => 'Kategori tablosu uygun.',
-		),
-		'connection' => array(
-			'nok' => 'Veritabanına bağlantı kurulamıyor.',
-			'ok' => 'Veritabanına bağlantı uygun.',
-		),
-		'ctype' => array(
-			'nok' => 'Karakter türü kontrolü için gerekli kütüphane bulunamadı (php-ctype).',
-			'ok' => 'Karakter türü kontrolü için gerekli kütüphaneniz var (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'cURL kütüphanesi bulunamadı (php-curl paketi).',
-			'ok' => 'cURL kütüphaneniz var.',
-		),
-		'data' => array(
-			'nok' => '<em>./data</em> dizinindeki izinleri kontrol edin. HTTP sunucusunun yazma izni olmalı.',
-			'ok' => 'Veri dizinindeki izinler uygun.',
-		),
-		'database' => 'Veritabanı kurulumu',
-		'dom' => array(
-			'nok' => 'DOM’u taramak için gerekli kütüphane bulunamadı (php-xml paketi).',
-			'ok' => 'DOM’u taramak için gerekli kütüphaneniz var.',
-		),
-		'entries' => array(
-			'nok' => 'Giriş tablosu yanlış yapılandırılmış.',
-			'ok' => 'Giriş tablosu uygun.',
-		),
-		'favicons' => array(
-			'nok' => '<em>./data/favicons</em> dizinindeki izinleri kontrol edin. HTTP sunucusunun yazma izni olmalı.',
-			'ok' => 'Favori simgeler dizinindeki izinler uygun.',
-		),
-		'feeds' => array(
-			'nok' => 'Besleme tablosu yanlış yapılandırılmış.',
-			'ok' => 'Besleme tablosu uygun.',
-		),
-		'fileinfo' => array(
-			'nok' => 'PHP fileinfo kütüphanesi bulunamadı (fileinfo paketi).',
-			'ok' => 'Fileinfo kütüphaneniz var.',
-		),
-		'files' => 'Dosya kurulumu',
-		'json' => array(
-			'nok' => 'JSON bulunamadı (php-json paketi).',
-			'ok' => 'JSON uzantınız var.',
-		),
-		'mbstring' => array(
-			'nok' => 'Unicode için önerilen mbstring kütüphanesi bulunamadı.',
-			'ok' => 'Unicode için önerilen mbstring kütüphaneniz var.',
-		),
-		'pcre' => array(
-			'nok' => 'Düzenli ifadeler için gerekli kütüphane bulunamadı (php-pcre).',
-			'ok' => 'Düzenli ifadeler için gerekli kütüphaneniz var (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'PDO veya desteklenen sürücülerden biri bulunamadı (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'PDO ve desteklenen sürücülerden en az biri var (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'PHP kurulumu',
-			'nok' => 'PHP sürümünüz %s, ancak FreshRSS en az %s sürümünü gerektiriyor.',
-			'ok' => 'PHP sürümünüz (%s) FreshRSS ile uyumlu.',
-		),
-		'tables' => array(
-			'nok' => 'Veritabanında bir veya daha fazla eksik tablo var.',
-			'ok' => 'Veritabanında uygun tablolar mevcut.',
-		),
-		'title' => 'Kurulum kontrolü',
-		'tokens' => array(
-			'nok' => '<em>./data/tokens</em> dizinindeki izinleri kontrol edin. HTTP sunucusunun yazma izni olmalı',
-			'ok' => 'Belirteçler dizinindeki izinler uygun.',
-		),
-		'users' => array(
-			'nok' => '<em>./data/users</em> dizinindeki izinleri kontrol edin. HTTP sunucusunun yazma izni olmalı',
-			'ok' => 'Kullanıcılar dizinindeki izinler uygun.',
-		),
-		'zip' => array(
-			'nok' => 'ZIP uzantısı bulunamadı (php-zip paketi).',
-			'ok' => 'ZIP uzantınız var.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Yazar',
@@ -118,6 +31,7 @@ return array(
 		'empty_list' => 'Yüklü eklenti yok',
 		'empty_list_help' => 'Eklenti listesinin neden boş olduğunu belirlemek için günlükleri kontrol edin.',
 		'enabled' => 'Etkin',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Yüklü',
 		'name' => 'İsim',
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
@@ -134,6 +48,8 @@ return array(
 		'_' => 'İstatistikler',
 		'all_feeds' => 'Tüm beslemeler',
 		'category' => 'Kategori',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Giriş sayısı',
 		'entry_per_category' => 'Kategorilere göre girişler',
 		'entry_per_day' => 'Günlük girişler (son 30 gün)',
@@ -146,6 +62,7 @@ return array(
 		'idle' => 'Boşta beslemeler',
 		'main' => 'Ana istatistikler',
 		'main_stream' => 'Ana akış',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Boşta besleme yok!',
 		'number_entries' => '%d makale',
 		'overview' => 'Genel Bakış',
@@ -157,6 +74,7 @@ return array(
 		'status_unread' => 'Okunmadı',
 		'title' => 'İstatistikler',
 		'top_feed' => 'En iyi on besleme',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Sistem yapılandırması',
@@ -165,10 +83,12 @@ return array(
 			'_' => 'Temel URL',
 			'recommendation' => 'Otomatik öneri: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'saniye cinsinden',
 			'number' => 'Oturum açık kalma süresi',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'E-posta adresi doğrulamasını zorunlu kıl',
 		'instance-name' => 'Örnek adı',
 		'max-categories' => 'Kullanıcı başına maksimum kategori sayısı',

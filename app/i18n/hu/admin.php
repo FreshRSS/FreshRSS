@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -22,93 +22,6 @@ return array(
 		'token' => 'Fő hitelesítési token',
 		'token_help' => 'Lehetővé teszi a hozzáférést a felhasználó összes RSS-kimenetéhez, valamint a hírfolyamok frissítéséhez hitelesítés nélkül:',
 		'type' => 'Hitelesítési módszer',
-		'unsafe_autologin' => 'Engedélyezze a nem biztonságos automata bejelentkezést a következő formátummal: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Ellenőrizd a <em>./data/cache</em> könyvtárat. A HTTP szervernek írási jogosultságra van szüksége.',
-			'ok' => 'A jogosultságok a gyorsítótár könyvtáron rendben vannak.',
-		),
-		'categories' => array(
-			'nok' => 'A kategória tábla nincs helyesen konfigurálva.',
-			'ok' => 'A kategória tábla rendben van.',
-		),
-		'connection' => array(
-			'nok' => 'Nem lehet kapcsolódni az adatbázishoz.',
-			'ok' => 'A kapcsolat az adatbázissal rendben van.',
-		),
-		'ctype' => array(
-			'nok' => 'Nem található a karakter típus ellenőrző könyvtár (php-ctype).',
-			'ok' => 'A karakter típus ellenőrző könyvtár rendben van (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'Nem található a cURL könyvtár (php-curl csomag).',
-			'ok' => 'A cURL könyvtár rendben van.',
-		),
-		'data' => array(
-			'nok' => 'Ellenőrizd a <em>./data</em> könyvtár jogosultságait. A HTTP szervernek szüksége van írási jogosultságra.',
-			'ok' => 'A data könyvtár jogosultságai megfelelőek.',
-		),
-		'database' => 'Adatbázis telepítés',
-		'dom' => array(
-			'nok' => 'A DOM böngészéséhez nem található a könyvtár. (php-xml csomag).',
-			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',
-		),
-		'entries' => array(
-			'nok' => 'A belépési tábla nincs helyesen konfigurálva.',
-			'ok' => 'A belépési tábla rendben van.',
-		),
-		'favicons' => array(
-			'nok' => 'Ellenőrizd a <em>./data/favicons</em> könyvtár jogosultságait.A HTTP szervernek szüksége van írási jogosultságra.',
-			'ok' => 'A favicons könyvtár jogosultságai megfelelőek.',
-		),
-		'feeds' => array(
-			'nok' => 'A hírforrás tábla nincs megfelelően konfigurálva.',
-			'ok' => 'A hírforrás tábla ok.',
-		),
-		'fileinfo' => array(
-			'nok' => 'A PHP fileinfo könyvtár nem található (fileinfo csomag).',
-			'ok' => 'A fileinfo könyvtár rendben van.',
-		),
-		'files' => 'Fájl telepítés',
-		'json' => array(
-			'nok' => 'A JSON nem található (php-json csomag).',
-			'ok' => 'A JSON kiegészítő telepítve van.',
-		),
-		'mbstring' => array(
-			'nok' => 'Az ajánlott mbstring könyvtár nem található a Unicode kódoláshoz.',
-			'ok' => 'Az ajánlott mbstring könyvtár a Unicode kódoláshoz megvan.',
-		),
-		'pcre' => array(
-			'nok' => 'A reguláris kifejezésekhez használt könyvtár nem található (php-pcre).',
-			'ok' => 'A reguláris kifejezésekhez használt könyvtár megvan (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'Nem található PDO vagy legalább egy támogató driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'A PDO telepítve és van legalább egy támogatott driver (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'PHP telepítés',
-			'nok' => 'A PHP verzió %s de a FreshRSS számára szükséges verzió %s.',
-			'ok' => 'A PHP verzió (%s) kompatibilis a FreshRSS-el.',
-		),
-		'tables' => array(
-			'nok' => 'Egy vagy több tábla hiányzik az adatbázisból.',
-			'ok' => 'A megfelelő táblák léteznek az adatbázisban.',
-		),
-		'title' => 'Telepítés ellenőrzése',
-		'tokens' => array(
-			'nok' => 'Ellenőrizd a <em>./data/tokens</em> könyvtár jogosultságait. A HTTP szervernek szüksége van írási jogosultságra.',
-			'ok' => 'A token könyvtár írási jogosultságai rendben vannak.',
-		),
-		'users' => array(
-			'nok' => 'Ellenőrizd a <em>./data/users</em> könyvtár írási jogosultságait. A HTTP szervernek szüksége van írási jogosultságra.',
-			'ok' => 'A users könyvtár írási jogosultságai rendben vannak.',
-		),
-		'zip' => array(
-			'nok' => 'Nem található ZIP kiegészítő (php-zip csomag).',
-			'ok' => 'A ZIP kiegészítő telepítve van.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Szerző',
@@ -118,6 +31,7 @@ return array(
 		'empty_list' => 'Nincsenek telepített kiegészítők',
 		'empty_list_help' => 'Ellenőrizd a naplókat, hogy megállapítsd az üres bővítménylista mögött meghúzódó okot.',
 		'enabled' => 'Bekapcsolva',
+		'is_compatible' => 'Kompatibilis',
 		'latest' => 'Telepítve',
 		'name' => 'Név',
 		'no_configure_view' => 'Ezt a kiegészítőt nem lehet konfigurálni.',
@@ -134,6 +48,8 @@ return array(
 		'_' => 'Statisztika',
 		'all_feeds' => 'Minden hírforrás',
 		'category' => 'Kategória',
+		'date_published' => 'Publikálás dátuma',
+		'date_received' => 'Beérkezés dátuma',
 		'entry_count' => 'Bejegyzések száma',
 		'entry_per_category' => 'Bejegyzések kategóriánként',
 		'entry_per_day' => 'Bejegyzések naponta (utolsó 30 nap)',
@@ -146,6 +62,7 @@ return array(
 		'idle' => 'Tétlen hírforrások',
 		'main' => 'Fő statisztika',
 		'main_stream' => 'Minden cikk',
+		'nb_unreads' => 'Olvasatlan cikkek száma',
 		'no_idle' => 'Nincsenek tétlen hírforrások!',
 		'number_entries' => '%d cikk',
 		'overview' => 'Áttekintés',
@@ -157,6 +74,7 @@ return array(
 		'status_unread' => 'Olvasatlan',
 		'title' => 'Statisztika',
 		'top_feed' => 'Top 10 hírforrás',
+		'unread_dates' => 'Dátumok a legtöbb olvasatlan cikkel',
 	),
 	'system' => array(
 		'_' => 'Rendszer konfiguráció',
@@ -165,10 +83,12 @@ return array(
 			'_' => 'Alap URL',
 			'recommendation' => 'Automatikus ajánlás: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'másodpercekben',
 			'number' => 'Bejelentkezve maradás időtartam',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Kötelező email cím visszaigazolás',
 		'instance-name' => 'Instance név',
 		'max-categories' => 'Maximális kategóriák száma felhasználónkét',

@@ -38,6 +38,9 @@ class FreshRSS_Feed extends Minz_Model {
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
 	public const PRIORITY_CATEGORY = 0;
+	public const PRIORITY_FEED = -5;
+	public const PRIORITY_HIDDEN = -10;
+	#[Deprecated('Use PRIORITY_HIDDEN instead')]
 	public const PRIORITY_ARCHIVED = -10;
 
 	public const TTL_DEFAULT = 0;
@@ -176,6 +179,8 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$attributesOnly = $contents === null && $tmpPath === '';
+
+		require_once LIB_PATH . '/favicons.php';
 		if (!$attributesOnly && !isImgMime(is_string($contents) ? $contents : '')) {
 			throw new FreshRSS_UnsupportedImageFormat_Exception();
 		}
@@ -195,7 +200,6 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->_attribute('customFaviconExt', $extName);
 		$this->_attribute('customFaviconDisallowDel', $disallowDelete);
 
-		require_once(LIB_PATH . '/favicons.php');
 		$newPath = FAVICONS_DIR . $this->hashFavicon(skipCache: true) . '.ico';
 		if ($attributesOnly && !file_exists($newPath)) {
 			$updateFeed = false;
@@ -251,7 +255,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$params = '';
 			if ($this->customFavicon()) {
 				$current = $this->id . Minz_User::name();
-				$hookParams = Minz_ExtensionManager::callHook('custom_favicon_hash', $this);
+				$hookParams = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconHash, $this);
 				$params = $hookParams !== null ? $hookParams : $current;
 			} else {
 				$params = $this->website(fallback: true) . $this->proxyParam();
@@ -286,15 +290,6 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->category?->id() ?: $this->categoryId;
 	}
 
-	/**
-	 * @return list<FreshRSS_Entry>|null
-	 * @deprecated
-	 */
-	public function entries(): ?array {
-		Minz_Log::warning(__METHOD__ . ' is deprecated since FreshRSS 1.16.1!');
-		$simplePie = $this->load(false, true);
-		return $simplePie == null ? [] : array_values(iterator_to_array($this->loadEntries($simplePie)));
-	}
 	public function name(bool $raw = false): string {
 		return $raw || $this->name != '' ? $this->name : (preg_replace('%^https?://(www[.])?%i', '', $this->url) ?? '');
 	}
@@ -400,11 +395,16 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function faviconPrepare(bool $force = false): void {
-		require_once(LIB_PATH . '/favicons.php');
+		require_once LIB_PATH . '/favicons.php';
 		if ($this->customFavicon()) {
 			return;
 		}
-		$url = $this->website(fallback: true);
+		$url = $this->website(fallback: false);
+		if ($url === '' || $url === $this->url) {
+			// Get root URL from the feed URL
+			$url = preg_replace('%^(https?://[^/]+).*$%i', '$1/', $this->url) ?? $this->url;
+		}
+
 		$txt = FAVICONS_DIR . $this->hashFavicon() . '.txt';
 		if (@file_get_contents($txt) !== $url) {
 			file_put_contents($txt, $url);
@@ -432,7 +432,7 @@ class FreshRSS_Feed extends Minz_Model {
 		@unlink($path . '.ico');
 		@unlink($path . '.txt');
 	}
-	public function favicon(): string {
+	public function favicon(bool $absolute = false): string {
 		$hash = $this->hashFavicon();
 		$url = '/f.php?h=' . $hash;
 		if ($this->customFavicon()
@@ -440,7 +440,7 @@ class FreshRSS_Feed extends Minz_Model {
 			&& !$this->attributeBoolean('customFaviconDisallowDel')) {
 			$url .= '&t=' . @filemtime(DATA_PATH . '/favicons/' . $hash . '.ico');
 		}
-		return Minz_Url::display($url);
+		return Minz_Url::display($url, absolute: $absolute);
 	}
 
 	public function _id(int $value): void {
@@ -455,12 +455,16 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->hashFavicon = '';
 		$url = $value;
 		if ($validate) {
-			$url = checkUrl($url);
+			$url = FreshRSS_http_Util::checkUrl($url);
 		}
 		if ($url == false) {
 			throw new FreshRSS_BadUrl_Exception($value);
 		}
 		$this->url = $url;
+	}
+
+	public function _selfUrl(string $value): void {
+		$this->selfUrl = $value;
 	}
 
 	public function _kind(int $value): void {
@@ -484,7 +488,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _website(string $value, bool $validate = true): void {
 		$this->hashFavicon = '';
 		if ($validate) {
-			$value = checkUrl($value);
+			$value = FreshRSS_http_Util::checkUrl($value);
 		}
 		if ($value == false) {
 			$value = '';
@@ -537,7 +541,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @throws Minz_FileNotExistException
 	 * @throws FreshRSS_Feed_Exception
 	 */
-	public function load(bool $loadDetails = false, bool $noCache = false): ?\SimplePie\SimplePie {
+	public function load(bool $loadDetails = false, bool $noCache = false): ?FreshRSS_SimplePieCustom {
 		if ($this->url != '') {
 			/**
 			 * @throws Minz_FileNotExistException
@@ -548,7 +552,11 @@ class FreshRSS_Feed extends Minz_Model {
 					Minz_Exception::ERROR
 				);
 			} else {
-				$simplePie = customSimplePie($this->attributes(), $this->curlOptions());
+				if (($retryAfter = FreshRSS_http_Util::getRetryAfter($this->url, $this->proxyParam())) > 0) {
+					throw new FreshRSS_Feed_Exception('For that domain, will first retry after ' . date('c', $retryAfter) .
+						'. ' . $this->url(includeCredentials: false), code: 503);
+				}
+				$simplePie = new FreshRSS_SimplePieCustom($this->attributes(), $this->curlOptions());
 				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);
 				if (str_ends_with($url, '#force_feed')) {
 					$simplePie->force_feed(true);
@@ -562,28 +570,34 @@ class FreshRSS_Feed extends Minz_Model {
 					// Do not use `$simplePie->enable_cache(false);` as it would prevent caching in multiuser context
 					$this->clearCache();
 				}
-				Minz_ExtensionManager::callHook('simplepie_before_init', $simplePie, $this);
+				Minz_ExtensionManager::callHook(Minz_HookType::SimplepieBeforeInit, $simplePie, $this);
 				$simplePieResult = $simplePie->init();
-				Minz_ExtensionManager::callHook('simplepie_after_init', $simplePie, $this, $simplePieResult);
+				Minz_ExtensionManager::callHook(Minz_HookType::SimplepieAfterInit, $simplePie, $this, $simplePieResult);
 
 				if ($simplePieResult === false || $simplePie->get_hash() === '' || !empty($simplePie->error())) {
-					$errorMessage = $simplePie->error();
-					if (empty($errorMessage)) {
-						$errorMessage = '';
-					} elseif (is_array($errorMessage)) {
-						$errorMessage = json_encode($errorMessage, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS) ?: '';
+					if ($simplePie->status_code() === 429) {
+						$errorMessage = 'HTTP 429 Too Many Requests!';
+					} elseif ($simplePie->status_code() === 503) {
+						$errorMessage = 'HTTP 503 Service Unavailable!';
+					} else {
+						$errorMessage = $simplePie->error();
+						if (empty($errorMessage)) {
+							$errorMessage = '';
+						} elseif (is_array($errorMessage)) {
+							$errorMessage = json_encode($errorMessage, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS) ?: '';
+						}
 					}
 					throw new FreshRSS_Feed_Exception(
 						($errorMessage == '' ? 'Unknown error for feed' : $errorMessage) .
-							' [' . \SimplePie\Misc::url_remove_credentials($this->url) . ']',
+							' [' . $this->url(includeCredentials: false) . ']',
 						$simplePie->status_code()
 					);
 				}
 
 				$links = $simplePie->get_links('self');
-				$this->selfUrl = empty($links[0]) ? '' : (checkUrl($links[0]) ?: '');
+				$this->selfUrl = empty($links[0]) ? '' : (FreshRSS_http_Util::checkUrl($links[0]) ?: '');
 				$links = $simplePie->get_links('hub');
-				$this->hubUrl = empty($links[0]) ? '' : (checkUrl($links[0]) ?: '');
+				$this->hubUrl = empty($links[0]) ? '' : (FreshRSS_http_Util::checkUrl($links[0]) ?: '');
 
 				if ($loadDetails) {
 					// si on a utilisé l’auto-discover, notre url va avoir changé
@@ -641,6 +655,12 @@ class FreshRSS_Feed extends Minz_Model {
 			'sha1:link_published'               => sha1($item->get_permalink() . $item->get_date('U')),
 			'sha1:link_published_title'         => sha1($item->get_permalink() . $item->get_date('U') . $item->get_title()),
 			'sha1:link_published_title_content' => sha1($item->get_permalink() . $item->get_date('U') . $item->get_title() . $item->get_content()),
+			'sha1:title'                        => sha1($item->get_title() ?? ''),
+			'sha1:title_published'              => sha1($item->get_title() . $item->get_date('U')),
+			'sha1:title_published_content'      => sha1($item->get_title() . $item->get_date('U') . $item->get_content()),
+			'sha1:content'                      => sha1($item->get_content() ?? ''),
+			'sha1:content_published'            => sha1($item->get_content() . $item->get_date('U')),
+			'sha1:published'                    => sha1((string)($item->get_date('U') ?? '')),
 			default => $entryId,
 		};
 
@@ -673,7 +693,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * The default value of 5% rounded was chosen to allow 1 invalid GUID for feeds of 10 articles, which is a frequently observed amount of articles.
 	 * @return list<string>
 	 */
-	public function loadGuids(\SimplePie\SimplePie $simplePie, float $invalidGuidsTolerance = 0.05): array {
+	public function loadGuids(FreshRSS_SimplePieCustom $simplePie, float $invalidGuidsTolerance = 0.05): array {
 		$invalidGuids = 0;
 		$testGuids = [];
 		$guids = [];
@@ -697,7 +717,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		if ($invalidGuids > 0) {
-			Minz_Log::warning("Feed has {$invalidGuids} invalid GUIDs: " . $this->url);
+			Minz_Log::warning("Feed has {$invalidGuids} invalid GUIDs: " . $this->url(includeCredentials: false));
 			if (!$this->attributeBoolean('unicityCriteriaForced') && $invalidGuids > round($invalidGuidsTolerance * count($items))) {
 				$unicityCriteria = $this->attributeString('unicityCriteria');
 				if ($this->attributeBoolean('hasBadGuids')) {	// Legacy
@@ -715,7 +735,8 @@ class FreshRSS_Feed extends Minz_Model {
 				if ($newUnicityCriteria !== $unicityCriteria) {
 					$this->_attribute('hasBadGuids', null);	// Remove legacy
 					$this->_attribute('unicityCriteria', $newUnicityCriteria);
-					Minz_Log::warning('Feed unicity policy degraded (' . ($unicityCriteria ?: 'id') . ' → ' . $newUnicityCriteria . '): ' . $this->url);
+					Minz_Log::warning('Feed unicity policy degraded (' . ($unicityCriteria ?: 'id') . ' → ' . $newUnicityCriteria . '): ' .
+						$this->url(includeCredentials: false));
 					return $this->loadGuids($simplePie, $invalidGuidsTolerance);
 				}
 			}
@@ -726,7 +747,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/** @return Traversable<FreshRSS_Entry> */
-	public function loadEntries(\SimplePie\SimplePie $simplePie): Traversable {
+	public function loadEntries(FreshRSS_SimplePieCustom $simplePie): Traversable {
 		$items = $simplePie->get_items();
 		if (empty($items)) {
 			return;
@@ -868,8 +889,8 @@ class FreshRSS_Feed extends Minz_Model {
 	 * returns a SimplePie initialized already with that content
 	 * @param string $feedContent the content of the feed, typically generated via FreshRSS_View::renderToString()
 	 */
-	private function simplePieFromContent(string $feedContent): \SimplePie\SimplePie {
-		$simplePie = customSimplePie();
+	private function simplePieFromContent(string $feedContent): FreshRSS_SimplePieCustom {
+		$simplePie = new FreshRSS_SimplePieCustom();
 		$simplePie->enable_cache(false);
 		$simplePie->set_raw_data($feedContent);
 		$simplePie->init();
@@ -922,6 +943,9 @@ class FreshRSS_Feed extends Minz_Model {
 			// If the result is a list, then aggregate as a JSON array
 			$result = [];
 			foreach ($jsonFragments as $node) {
+				if (!($node instanceof DOMNode)) {
+					continue;
+				}
 				$json = json_decode($node->textContent, true);
 				if (json_last_error() === JSON_ERROR_NONE && is_array($json)) {
 					$result[] = $json;
@@ -932,7 +956,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return null;
 	}
 
-	public function loadJson(): ?\SimplePie\SimplePie {
+	public function loadJson(): ?FreshRSS_SimplePieCustom {
 		if ($this->url == '') {
 			return null;
 		}
@@ -942,7 +966,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$httpAccept = $this->kind() === FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ? 'html' : 'json';
-		$content = httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions())['body'];
+		$content = FreshRSS_http_Util::httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions())['body'];
 		if (strlen($content) <= 0) {
 			return null;
 		}
@@ -971,7 +995,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->simplePieFromContent($feedContent);
 	}
 
-	public function loadHtmlXpath(): ?\SimplePie\SimplePie {
+	public function loadHtmlXpath(): ?FreshRSS_SimplePieCustom {
 		if ($this->url == '') {
 			return null;
 		}
@@ -1000,7 +1024,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		$httpAccept = $this->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'xml' : 'html';
-		$html = httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions())['body'];
+		$html = FreshRSS_http_Util::httpGet($feedSourceUrl, $this->cacheFilename(), $httpAccept, $this->attributes(), $this->curlOptions())['body'];
 		if (strlen($html) <= 0) {
 			return null;
 		}
@@ -1046,6 +1070,9 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 
 			foreach ($nodes as $node) {
+				if (!($node instanceof DOMNode)) {
+					continue;
+				}
 				$item = [];
 				$item['title'] = $xPathItemTitle == '' ? '' : $xpathEvaluateString($xPathItemTitle, $node);
 
@@ -1056,7 +1083,9 @@ class FreshRSS_Feed extends Minz_Model {
 						// List of nodes, save as HTML
 						$content = '';
 						foreach ($result as $child) {
-							$content .= $doc->saveHTML($child) . "\n";
+							if ($child instanceof DOMNode) {
+								$content .= $doc->saveHTML($child) . "\n";
+							}
 						}
 						$item['content'] = $content;
 					} elseif (is_string($result) || is_int($result) || is_bool($result)) {
@@ -1069,6 +1098,10 @@ class FreshRSS_Feed extends Minz_Model {
 				$item['author'] = $xPathItemAuthor == '' ? '' : $xpathEvaluateString($xPathItemAuthor, $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : $xpathEvaluateString($xPathItemTimestamp, $node);
 				if ($xPathItemTimeFormat != '') {
+					if ($xPathItemTimeFormat === 'U' && strlen($item['timestamp']) > 10) {
+						// Compatibility with Unix timestamp in milliseconds
+						$item['timestamp'] = substr($item['timestamp'], 0, -3);
+					}
 					$dateTime = DateTime::createFromFormat($xPathItemTimeFormat, $item['timestamp']);
 					if ($dateTime != false) {
 						$item['timestamp'] = $dateTime->format(DateTime::ATOM);
@@ -1082,7 +1115,9 @@ class FreshRSS_Feed extends Minz_Model {
 					} elseif ($itemCategories instanceof DOMNodeList && $itemCategories->length > 0) {
 						$item['tags'] = [];
 						foreach ($itemCategories as $itemCategory) {
-							$item['tags'][] = $itemCategory->textContent;
+							if ($itemCategory instanceof DOMNode) {
+								$item['tags'][] = $itemCategory->textContent;
+							}
 						}
 					}
 				}
@@ -1163,7 +1198,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$affected = $feedDAO->markAsReadNotSeen($this->id(), $minLastSeen);
 		}
 		if ($affected > 0) {
-			Minz_Log::debug(__METHOD__ . " $affected items" . ($upstreamIsEmpty ? ' (all)' : '') . ' [' . $this->url(false) . ']');
+			Minz_Log::debug(__METHOD__ . " $affected items" . ($upstreamIsEmpty ? ' (all)' : '') . ' [' . $this->url(includeCredentials: false) . ']');
 		}
 		return $affected;
 	}
@@ -1199,7 +1234,7 @@ class FreshRSS_Feed extends Minz_Model {
 	 * @throws FreshRSS_Context_Exception
 	 */
 	public function cacheFilename(string $url = ''): string {
-		$simplePie = customSimplePie($this->attributes(), $this->curlOptions());
+		$simplePie = new FreshRSS_SimplePieCustom($this->attributes(), $this->curlOptions());
 		if ($url !== '') {
 			$filename = $simplePie->get_cache_filename($url);
 			return CACHE_PATH . '/' . $filename . '.html';
@@ -1354,7 +1389,7 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::warning('Invalid JSON for WebSub: ' . $this->url);
 				return false;
 			}
-			$callbackUrl = checkUrl(Minz_Request::getBaseUrl() . '/api/pshb.php?k=' . $hubJson['key']);
+			$callbackUrl = FreshRSS_http_Util::checkUrl(Minz_Request::getBaseUrl() . '/api/pshb.php?k=' . $hubJson['key']);
 			if ($callbackUrl == '') {
 				Minz_Log::warning('Invalid callback for WebSub: ' . $this->url);
 				return false;
@@ -1380,7 +1415,7 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 				CURLOPT_MAXREDIRS => 10,
 				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_ENCODING => '',	//Enable all encodings
+				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 			]);
 			$response = curl_exec($ch);

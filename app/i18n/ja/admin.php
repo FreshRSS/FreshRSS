@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -22,93 +22,6 @@ return array(
 		'token' => 'マスター認証用のトークン',
 		'token_help' => 'ユーザーのすべての RSS 出力へのアクセスと、認証なしのフィードの更新を許可します',
 		'type' => '認証メソッド',
-		'unsafe_autologin' => '危険な自動ログインを有効にします',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => '<em>./data/cache</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集権限を必要としています。',
-			'ok' => 'キャッシュディレクトリのパーミッションは正しく設定されています。',
-		),
-		'categories' => array(
-			'nok' => 'カテゴリテーブルが不適切な設定をされています。',
-			'ok' => 'カテゴリテーブルは正しく設定されています。',
-		),
-		'connection' => array(
-			'nok' => 'データベースへの接続ができませんでした。',
-			'ok' => 'データベースへの接続が正しく行われました。',
-		),
-		'ctype' => array(
-			'nok' => '必要とされている文字タイプを確認するライブラリが見つかりませんでした。(php-ctype)',
-			'ok' => '必要とされている文字タイプを確認するライブラリが見つかりました。(ctype)',
-		),
-		'curl' => array(
-			'nok' => 'cURLライブラリが見つかりませんでした(php-curl package)',
-			'ok' => 'cURLライブラリが見つかりました。',
-		),
-		'data' => array(
-			'nok' => '<em>./data</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',
-			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',
-		),
-		'database' => 'データベースインストール',
-		'dom' => array(
-			'nok' => 'DOMを検索するライブラリが見つかりませんでした。 (php-xml package).',
-			'ok' => 'DOMを検索するライブラリが見つかりました。',
-		),
-		'entries' => array(
-			'nok' => 'エントリテーブルが不適切な設定をされています。',
-			'ok' => 'エントリテーブルは正しく設定されています。',
-		),
-		'favicons' => array(
-			'nok' => '<em>./data/favicons</em>ディレクトリのパーミッションを確認してください。 HTTP serverは編集パーミッションを必要としています。',
-			'ok' => 'ファビコンディレクトリのパーミッションは正しく設定されています。',
-		),
-		'feeds' => array(
-			'nok' => 'フィードテーブルが不適切な設定をされています。',
-			'ok' => 'フィードテーブルは正しく設定されています。',
-		),
-		'fileinfo' => array(
-			'nok' => 'PHP fileinfoライブラリが見つかりませんでした。 (fileinfo package).',
-			'ok' => 'fileinfoライブラリは正しく設定されています。',
-		),
-		'files' => 'ファイルインストール',
-		'json' => array(
-			'nok' => 'JSONをパースするライブラリが見つかりませんでした。 (php-json package).',
-			'ok' => 'JSONをパースするライブラリはインストールされています。',
-		),
-		'mbstring' => array(
-			'nok' => 'mbstringライブラリが見つかりませんでした。',
-			'ok' => 'mbstringライブラリはインストールされています。',
-		),
-		'pcre' => array(
-			'nok' => '正規表現ライブラリが見つかりませんでした。 (php-pcre).',
-			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'PD0またはサポートされているドライバーが見つかりませんでした。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'PD0とサポートされているドライバーはインストールされています。 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'PHPインストール',
-			'nok' => 'あなたのPHPのバージョンは %s ですが、FreshRSSが動作する最低限のバージョンは %s です。',
-			'ok' => 'あなたのPHPのバージョン (%s) はFreshRSSが動作することができるバージョンです。',
-		),
-		'tables' => array(
-			'nok' => 'データベースには1つ以上の失われたテーブルが存在します。',
-			'ok' => '適切なテーブルがデータベースに存在します。',
-		),
-		'title' => 'インストールチェック',
-		'tokens' => array(
-			'nok' => '<em>./data/tokens</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',
-			'ok' => 'tokensディレクトリのパーミッションは正しく設定されています。',
-		),
-		'users' => array(
-			'nok' => '<em>./data/users</em>ディレクトリのパーミッションを確認してください。HTTP serverは編集パーミッションを必要としています。',
-			'ok' => 'usersディレクトリのパーミッションは正しく設定されています。',
-		),
-		'zip' => array(
-			'nok' => 'ZIP拡張が見つかりませんでした。 (php-zip package).',
-			'ok' => 'ZIP拡張はインストールされています。',
-		),
 	),
 	'extensions' => array(
 		'author' => '作者',
@@ -118,6 +31,7 @@ return array(
 		'empty_list' => 'インストールされている拡張機能はありません',
 		'empty_list_help' => '拡張機能リストが表示されない原因を特定するために、ログを確認してください。',
 		'enabled' => '有効',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'インストール済み',
 		'name' => '名前',
 		'no_configure_view' => 'この拡張機能は設定できません.',
@@ -134,6 +48,8 @@ return array(
 		'_' => '統計',
 		'all_feeds' => 'すべてのフィード',
 		'category' => 'カテゴリ',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'エントリの統計',
 		'entry_per_category' => 'カテゴリのエントリ',
 		'entry_per_day' => '日にちごとのエントリ (直近30日間)',
@@ -146,6 +62,7 @@ return array(
 		'idle' => '休止中のフィード',
 		'main' => '主な統計',
 		'main_stream' => '主なストリーム',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => '休止中のフィードはありません!',
 		'number_entries' => '%d 記事',
 		'overview' => '概要',
@@ -157,6 +74,7 @@ return array(
 		'status_unread' => '未読',
 		'title' => '統計',
 		'top_feed' => '上位10位のフィード',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'システム設定',
@@ -165,10 +83,12 @@ return array(
 			'_' => 'ベースURL',
 			'recommendation' => '自動的に推薦: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => '秒',
-			'number' => 'ログを残す間隔',
+			'number' => 'ログイン状態維持時間',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Eメールアドレスの検証を強制します',
 		'instance-name' => 'インスタンス名',
 		'max-categories' => '1ユーザーごとのカテゴリの最大値',

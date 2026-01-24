@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -16,99 +16,12 @@ return array(
 		'allow_anonymous_refresh' => 'Разрешить анонимное обновление статей',
 		'api_enabled' => 'Позволить <abbr>API</abbr> доступ <small>(необходимо для мобильных приложений and sharing user queries)</small>',
 		'form' => 'Веб-форма (традиционный, необходим JavaScript)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP (продвинутый: управляется веб-сервером, OIDC, SSO…)',
 		'none' => 'Без аутентификации (небезопасно)',
 		'title' => 'Аутентификации',
 		'token' => 'Главный токен аутентификации',
 		'token_help' => 'Обеспечивает доступ ко всем выходным данным RSS пользователя, а также к обновлению лент без проверки подлинности:',
 		'type' => 'Способ аутентификации',
-		'unsafe_autologin' => 'Разрешить небезопасный автоматический вход с использованием следующего формата: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/cache</em>. Веб-сервер должен иметь право на запись в эту папку',
-			'ok' => 'Права на <em>./data/cache</em> в порядке.',
-		),
-		'categories' => array(
-			'nok' => 'Таблица категорий настроена неправильно.',
-			'ok' => 'Таблица категорий настроена правильно.',
-		),
-		'connection' => array(
-			'nok' => 'Подключение к базе данных не может быть установлено.',
-			'ok' => 'Подключение к базе данных в порядке.',
-		),
-		'ctype' => array(
-			'nok' => 'У вас не установлена библиотека для проверки типов символов (php-ctype).',
-			'ok' => 'У вас не установлена библиотека для проверки типов символов (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'У вас не установлено расширение cURL (пакет php-curl).',
-			'ok' => 'У вас установлено расширение cURL.',
-		),
-		'data' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data</em> . Веб-сервер должен иметь право на запись в эту папку.',
-			'ok' => 'Права на <em>./data/</em> в порядке.',
-		),
-		'database' => 'Установка базы данных',
-		'dom' => array(
-			'nok' => 'У вас не установлена библиотека для просмотра DOM (пакет php-xml).',
-			'ok' => 'У вас установлена библиотека для просмотра DOM.',
-		),
-		'entries' => array(
-			'nok' => 'Таблица статей (entry) неправильно настроена.',
-			'ok' => 'Таблица статей (entry) настроена правильно.',
-		),
-		'favicons' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/favicons</em> . Веб-сервер должен иметь право на запись в эту папку.',
-			'ok' => 'Права на папку значков в порядке.',
-		),
-		'feeds' => array(
-			'nok' => 'Таблица подписок (feed) неправильно настроена.',
-			'ok' => 'Таблица подписок (feed) настроена правильно.',
-		),
-		'fileinfo' => array(
-			'nok' => 'У вас не установлено расширение PHP fileinfo (пакет fileinfo).',
-			'ok' => 'У вас установлено расширение fileinfo.',
-		),
-		'files' => 'Установка файлов',
-		'json' => array(
-			'nok' => 'У вас не установлена библиотека для работы с JSON (пакет php-json).',
-			'ok' => 'У вас установлена библиотека для работы с JSON.',
-		),
-		'mbstring' => array(
-			'nok' => 'У вас не установлена рекомендуемая библиотека mbstring для Unicode.',
-			'ok' => 'У вас установлена рекомендуемая библиотека mbstring для Unicode.',
-		),
-		'pcre' => array(
-			'nok' => 'У вас не установлена необходимая библиотека для работы с регулярными выражениями (php-pcre).',
-			'ok' => 'У вас установлена необходимая библиотека для работы с регулярными выражениями (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'Инсталляция PHP',
-			'nok' => 'У вас установлен PHP версии %s, но FreshRSS необходима версия не ниже %s.',
-			'ok' => 'У вас установлен PHP версии %s, который совместим с FreshRSS.',
-		),
-		'tables' => array(
-			'nok' => 'В базе данных отсуствует одна или больше таблица.',
-			'ok' => 'Все таблицы есть в базе данных.',
-		),
-		'title' => 'Проверка установки и настройки',
-		'tokens' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/tokens</em> . Веб-сервер должен иметь право на запись в эту папку.',
-			'ok' => 'Права на папку tokens в порядке.',
-		),
-		'users' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/users</em> . Веб-сервер должен иметь право на запись в эту папку.',
-			'ok' => 'Права на папку users в порядке.',
-		),
-		'zip' => array(
-			'nok' => 'У вас не установлено расширение ZIP (пакет php-zip).',
-			'ok' => 'У вас установлено расширение ZIP.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Автор',
@@ -116,8 +29,9 @@ return array(
 		'description' => 'Описание',
 		'disabled' => 'Отключены',
 		'empty_list' => 'Нет установленных расширений',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Проверьте логи, чтобы определить причину пустого списка расширений.',
 		'enabled' => 'Включены',
+		'is_compatible' => 'Совместимо',
 		'latest' => 'Установлено',
 		'name' => 'Название',
 		'no_configure_view' => 'Это расширение не требует настройки.',
@@ -134,6 +48,8 @@ return array(
 		'_' => 'Статистика',
 		'all_feeds' => 'Все подписки',
 		'category' => 'Категория',
+		'date_published' => 'Дата публикации',
+		'date_received' => 'Дата получения',
 		'entry_count' => 'Количество статей',
 		'entry_per_category' => 'Статей в категории',
 		'entry_per_day' => 'Статей за день (за последние 30 дней)',
@@ -146,9 +62,10 @@ return array(
 		'idle' => 'Неактивные ленты',
 		'main' => 'Основная статистика',
 		'main_stream' => 'Основной поток',
+		'nb_unreads' => 'Количество непрочитанных статей',
 		'no_idle' => 'Нет неактивных лент!',
 		'number_entries' => 'статей: %d',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Обзор',
 		'percent_of_total' => '% от всего',
 		'repartition' => 'Распределение статей: %s',
 		'status_favorites' => 'В избранном',
@@ -157,6 +74,7 @@ return array(
 		'status_unread' => 'Не прочитано',
 		'title' => 'Статистика',
 		'top_feed' => '10 лучших лент',
+		'unread_dates' => 'Даты с наибольшим количеством непрочитанных статей',
 	),
 	'system' => array(
 		'_' => 'Системные настройки',
@@ -165,10 +83,12 @@ return array(
 			'_' => 'Основной URL-адрес',
 			'recommendation' => 'Автоматическая рекомендация: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'в секундах',
 			'number' => 'Оставаться в системе на протяжении',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Обязать подтверждать адрес электронной почты',
 		'instance-name' => 'Название экземпляра',
 		'max-categories' => 'Максимальное количество категорий на пользователя',

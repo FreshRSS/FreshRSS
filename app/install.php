@@ -1,13 +1,18 @@
 <?php
 declare(strict_types=1);
 
+if (isset($_SESSION) || basename(is_string($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '') !== 'index.php') {
+	header('HTTP/1.1 403 Forbidden');
+	exit('Forbidden');
+}
+
 if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
 header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
 header('Referrer-Policy: same-origin');
 
-require(LIB_PATH . '/lib_install.php');
+require LIB_PATH . '/lib_install.php';
 
 Minz_Session::init('FreshRSS');
 
@@ -35,7 +40,7 @@ function initTranslate(): void {
 	}
 
 	if (!in_array(Minz_Session::paramString('language'), $available_languages, true)) {
-		Minz_Session::_param('language', 'en');
+		Minz_Session::_param('language', Minz_Translate::DEFAULT_LANGUAGE);
 	}
 
 	Minz_Translate::reset(Minz_Session::paramString('language'));
@@ -144,7 +149,7 @@ function saveStep2(): void {
 
 		$customConfigPath = DATA_PATH . '/config.custom.php';
 		if (file_exists($customConfigPath)) {
-			$customConfig = include($customConfigPath);
+			$customConfig = include $customConfigPath;
 			if (is_array($customConfig)) {
 				$config_array = array_merge($customConfig, $config_array);
 				if (!is_string($config_array['default_user'] ?? null)) {
@@ -219,12 +224,12 @@ function saveStep3(): bool {
 		}
 
 		if (FreshRSS_Context::systemConf()->auth_type === 'http_auth' &&
-			connectionRemoteAddress() !== '' &&
+			Minz_Request::connectionRemoteAddress() !== '' &&
 			empty($_SERVER['REMOTE_USER']) && empty($_SERVER['REDIRECT_REMOTE_USER']) &&	// No safe authentication HTTP headers
 			(!empty($_SERVER['HTTP_REMOTE_USER']) || !empty($_SERVER['HTTP_X_WEBAUTH_USER']))	// but has unsafe authentication HTTP headers
 		) {
 			// Trust by default the remote IP address (e.g. last proxy) used during install to provide remote user name via unsafe HTTP header
-			FreshRSS_Context::systemConf()->trusted_sources[] = connectionRemoteAddress();
+			FreshRSS_Context::systemConf()->trusted_sources[] = Minz_Request::connectionRemoteAddress();
 			FreshRSS_Context::systemConf()->trusted_sources = array_unique(FreshRSS_Context::systemConf()->trusted_sources);
 		}
 
@@ -439,6 +444,9 @@ function printStep1Template(string $key, string $value, array $messageParams = [
 	if ('ok' === $value) {
 		$message = _t("install.check.{$key}.ok", ...$messageParams);
 		?><p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= $message ?></p><?php
+	} elseif ($value === 'warn') {
+		$message = _t("install.check.{$key}.nok", ...$messageParams);
+		?><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= $message ?></p><?php
 	} else {
 		$message = _t("install.check.{$key}.nok", ...$messageParams);
 		?><p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= $message ?></p><?php
@@ -468,7 +476,7 @@ function getProcessUsername(): string {
 function printStep1(): void {
 	$res = checkRequirements();
 ?>
-	<h2><?= _t('admin.check_install.php') ?></h2>
+	<h2><?= _t('install.check.php') ?></h2>
 	<noscript><p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('install.javascript_is_better') ?></p></noscript>
 	<?php
 	printStep1Template('php', $res['php'], [PHP_VERSION, FRESHRSS_MIN_PHP_VERSION]);
@@ -482,9 +490,11 @@ function printStep1(): void {
 	printStep1Template('dom', $res['dom']);
 	printStep1Template('xml', $res['xml']);
 	printStep1Template('mbstring', $res['mbstring']);
+	printStep1Template('intl', $res['intl']);
 	printStep1Template('fileinfo', $res['fileinfo']);
+	printStep1Template('zip', $res['zip']);
 	?>
-	<h2><?= _t('admin.check_install.files') ?></h2>
+	<h2><?= _t('install.check.files') ?></h2>
 	<?php
 	$processUsername = getProcessUsername();
 	printStep1Template('data', $res['data'], [DATA_PATH, $processUsername]);
@@ -519,7 +529,7 @@ function printStep1(): void {
 	<div class="form-group form-actions">
 		<div class="group-controls">
 			<a id="actualize" class="btn" href="./index.php?step=1" title="<?= _t('install.check.reload') ?>" tabindex="1">
-				<img class="icon" src="../themes/icons/refresh.svg" alt="🔃" loading="lazy" />
+				<?= _i('refresh') ?>
 			</a>
 		</div>
 	</div>
@@ -656,7 +666,7 @@ function printStep3(): void {
 			<div class="group-controls">
 				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
 					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= $default_user ?>"
-					placeholder="<?= httpAuthUser(false) == '' ? 'alice' : httpAuthUser(false) ?>" tabindex="1" />
+					placeholder="<?= FreshRSS_http_Util::httpAuthUser(false) == '' ? 'alice' : FreshRSS_http_Util::httpAuthUser(false) ?>" tabindex="1" />
 				<p class="help"><?= _i('help') ?> <?= _t('install.default_user.max_char') ?></p>
 			</div>
 		</div>
@@ -665,12 +675,12 @@ function printStep3(): void {
 			<label class="group-name" for="auth_type"><?= _t('admin.auth.type') ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" tabindex="2">
-					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && cryptAvailable()) ? ' selected="selected"' : '',
-						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
+					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && FreshRSS_password_Util::cryptAvailable()) ? ' selected="selected"' : '',
+						FreshRSS_password_Util::cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
-						httpAuthUser(false) == '' ? ' disabled="disabled"' : '' ?>>
-							<?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= httpAuthUser(false) ?>')</option>
-					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !cryptAvailable()) ? ' selected="selected"' : ''
+						FreshRSS_http_Util::httpAuthUser(false) == '' ? ' disabled="disabled"' : '' ?>>
+							<?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= FreshRSS_http_Util::httpAuthUser(false) ?>')</option>
+					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !FreshRSS_password_Util::cryptAvailable()) ? ' selected="selected"' : ''
 						?>><?= _t('admin.auth.none') ?></option>
 				</select>
 			</div>
@@ -790,7 +800,7 @@ if (_t('gen.dir') === 'rtl') {
 
 <div id="global">
 	<nav class="nav nav-list aside" id="aside">
-		<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+		<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 		<ul>
 			<li class="item nav-section">
 				<div class="nav-header"><?= _t('install.steps') ?></div>

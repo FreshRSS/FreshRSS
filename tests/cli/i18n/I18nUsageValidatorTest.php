@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
-require_once __DIR__ . '/../../../cli/i18n/I18nUsageValidator.php';
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nValue.php';
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nUsageValidator.php';
 
-class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
+final class I18nUsageValidatorTest extends \PHPUnit\Framework\TestCase {
 
 	private I18nValue $value;
 
@@ -20,13 +20,11 @@ class I18nUsageValidatorTest extends PHPUnit\Framework\TestCase {
 		self::assertSame("There is no data.\n", $validator->displayReport());
 
 		$reflectionTotalEntries = new ReflectionProperty(I18nUsageValidator::class, 'totalEntries');
-		$reflectionTotalEntries->setAccessible(true);
 		$reflectionTotalEntries->setValue($validator, 100);
 
 		self::assertSame("  0.0% of translation keys are unused.\n", $validator->displayReport());
 
 		$reflectionFailedEntries = new ReflectionProperty(I18nUsageValidator::class, 'failedEntries');
-		$reflectionFailedEntries->setAccessible(true);
 		$reflectionFailedEntries->setValue($validator, 25);
 
 		self::assertSame(" 25.0% of translation keys are unused.\n", $validator->displayReport());

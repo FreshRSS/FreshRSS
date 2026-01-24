@@ -8,9 +8,7 @@ if (!Minz_Request::paramBoolean('ajax')) {
 
 call_user_func($this->callbackBeforeEntries, $this);
 
-$display_today = FreshRSS_Context::$sort === 'id';
-$display_yesterday = $display_today;
-$display_others = $display_today;
+$last_transition = '';
 $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
 
 $today = @strtotime('today');
@@ -47,7 +45,7 @@ $today = @strtotime('today');
 	$nbEntries = 0;
 	foreach ($this->entries as $item):
 		/** @var FreshRSS_Entry|null $item */
-		$item = Minz_ExtensionManager::callHook('entry_before_display', $item);
+		$item = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $item);
 		if ($item === null) {
 			continue;
 		}
@@ -59,37 +57,32 @@ $today = @strtotime('today');
 		// We most likely already have the feed object in cache, otherwise make a request
 		$this->feed = FreshRSS_Category::findFeed($this->categories, $this->entry->feedId()) ??
 			$this->entry->feed() ?? FreshRSS_Feed::default();
+		$this->entry->_feed($this->feed);
 
-		if ($display_today && $this->entry->isDay(FreshRSS_Days::TODAY, $today)) {
-			?><div class="day" id="day_today"><?php
-				echo _t('index.feed.received.today');
-				?><span class="date"> — <?= timestamptodate(time(), false) ?></span><?php
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
-			$display_today = false;
-		}
-		if ($display_yesterday && $this->entry->isDay(FreshRSS_Days::YESTERDAY, $today)) {
-			?><div class="day" id="day_yesterday"><?php
-				echo _t('index.feed.received.yesterday');
-				?><span class="date"> — <?= timestamptodate(time() - 86400, false) ?></span><?php
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
-			$display_yesterday = false;
-		}
-		if ($display_others && $this->entry->isDay(FreshRSS_Days::BEFORE_YESTERDAY, $today)) {
-			?><div class="day" id="day_before_yesterday"><?php
-				echo _t('index.feed.received.before_yesterday');
-				?><span class="name"><?= FreshRSS_Context::$name ?></span><?php
-			?></div><?php
-			$display_others = false;
+		if ($last_transition !== ($transition = FreshRSS_index_Controller::transition($this->entry))) {
+			$last_transition = $transition;
+			?><div class="transition">
+			<span class="transition-value">
+				<?php if (FreshRSS_Context::$sort === 'f.name' && FreshRSS_Context::userConf()->show_favicons): ?>
+				<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
+				<?php endif;?>
+				<a href="<?= FreshRSS_index_Controller::transitionLink($this->entry) ?>"><?= $transition ?></a>
+				<?php if (in_array(FreshRSS_Context::$sort, ['id', 'date', 'lastUserModified'], true)): ?>
+					<a class="transition-next" href="<?= FreshRSS_index_Controller::transitionLink($this->entry, offset: 1) ?>">⏭</a>
+				<?php endif; ?>
+			</span>
+			<span class="name"><?= FreshRSS_Context::$name ?></span>
+			</div><?php
 		}
 	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
 		?><?= $this->entry->isFavorite() ? ' favorite' : ''
 		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
 		?>" id="flux_<?= $this->entry->id()
 		?>" data-entry="<?= $this->entry->id()
+		?>" data-category="<?= $this->feed->categoryId()
 		?>" data-feed="<?= $this->feed->id()
 		?>" data-priority="<?= $this->feed->priority()
+		?>" data-link="<?= $this->entry->link()
 		?>"><?php
 			$this->renderHelper('index/normal/entry_header');
 			if ($this->feed === null || $this->entry === null) {
@@ -197,15 +190,18 @@ $today = @strtotime('today');
 
 <?php $class = $this->displaySlider ? ' active' : ''; ?>
 <aside id="slider" class="<?= $class ?>">
-	<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 		<div id="slider-content">
 		</div>
 </aside>
-<a href="#" id="close-slider" class="<?= $class ?>">
+<a href="#close" id="close-slider" class="<?= $class ?>">
 	<?= _i('close') ?>
 </a>
 
 <?php
-	if ($nbEntries > 0 && FreshRSS_Context::userConf()->show_nav_buttons) {
-		$this->partial('nav_entries');
+	if ($nbEntries > 0) {
+		echo Minz_ExtensionManager::callHookString(Minz_HookType::NavEntries);
+		if (FreshRSS_Context::userConf()->show_nav_buttons) {
+			$this->partial('nav_entries');
+		}
 	}

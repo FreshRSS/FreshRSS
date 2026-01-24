@@ -40,18 +40,25 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 *   - id (default: false)
 	 *   - get (default: false) /(c_\d+|f_\d+|s|a)/
 	 *   - nextGet (default: $get)
-	 *   - idMax (default: 0)
+	 *   - idMax (default: '0')
+	 *   - maxPubDate (default: 0)
 	 *   - is_read (default: true)
 	 */
 	public function readAction(): void {
-		$get = Minz_Request::paramString('get');
-		$next_get = Minz_Request::paramString('nextGet') ?: $get;
-		$id_max = Minz_Request::paramString('idMax');
+		$get = Minz_Request::paramString('get', plaintext: true);
+		$next_get = Minz_Request::paramString('nextGet', plaintext: true) ?: $get;
+		$id_max = Minz_Request::paramString('idMax', plaintext: true);
 		if (!ctype_digit($id_max)) {
 			$id_max = '0';
 		}
 		$is_read = Minz_Request::paramTernary('is_read') ?? true;
-		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
+		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true));
+		$maxPubDate = Minz_Request::paramInt('maxPubDate');
+		if ($maxPubDate > 0) {
+			$search = new FreshRSS_Search('');
+			$search->setMaxPubdate($maxPubDate);
+			FreshRSS_Context::$search->prepend($search);
+		}
 
 		FreshRSS_Context::$state = Minz_Request::paramInt('state');
 		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)) {
@@ -101,7 +108,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						break;
 					case 'Z':
-						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_ARCHIVED, FreshRSS_Feed::PRIORITY_IMPORTANT,
+						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_HIDDEN, FreshRSS_Feed::PRIORITY_IMPORTANT,
 							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						break;
 					case 'i':
@@ -163,8 +170,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			}
 		} else {
 			/** @var list<numeric-string> $idArray */
-			$idArray = Minz_Request::paramArrayString('id');
-			$idString = Minz_Request::paramString('id');
+			$idArray = Minz_Request::paramArrayString('id', plaintext: true);
+			$idString = Minz_Request::paramString('id', plaintext: true);
 			if (count($idArray) > 0) {
 				$ids = $idArray;
 			} elseif (ctype_digit($idString)) {
@@ -183,6 +190,12 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
+			if (Minz_Request::hasParam('order')) {
+				$params['order'] = Minz_Request::paramString('order', plaintext: true);
+			}
+			if (Minz_Request::hasParam('sort')) {
+				$params['sort'] = Minz_Request::paramString('sort', plaintext: true);
+			}
 			Minz_Request::good(
 				$is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
 				[
@@ -190,7 +203,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 					'a' => 'index',
 					'params' => $params,
 				],
-				'readAction'
+				notificationName: 'readAction ',
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 			);
 		}
 	}
@@ -204,7 +218,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 * If id is false, nothing happened.
 	 */
 	public function bookmarkAction(): void {
-		$id = Minz_Request::paramString('id');
+		$id = Minz_Request::paramString('id', plaintext: true);
 		$is_favourite = Minz_Request::paramTernary('is_favorite') ?? true;
 		if ($id != '' && ctype_digit($id)) {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
@@ -248,16 +262,23 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$feedDAO->updateCachedValues();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.admin.optimization_complete'), $url_redirect);
+		Minz_Request::good(
+			_t('feedback.admin.optimization_complete'),
+			$url_redirect,
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
 	 * This action purges old entries from feeds.
 	 *
-	 * @todo should be a POST request
 	 * @todo should be in feedController
 	 */
 	public function purgeAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(403);
+			return;
+		}
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
 		}
@@ -281,9 +302,10 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		$databaseDAO->minorDbMaintenance();
 
 		invalidateHttpCache();
-		Minz_Request::good(_t('feedback.sub.purge_completed', $nb_total), [
-			'c' => 'configure',
-			'a' => 'archiving',
-		]);
+		Minz_Request::good(
+			_t('feedback.sub.purge_completed', $nb_total),
+			['c' => 'configure', 'a' => 'archiving'],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 }

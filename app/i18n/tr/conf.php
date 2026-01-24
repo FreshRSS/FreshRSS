@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -105,6 +105,16 @@ return array(
 		'none' => 'Yok',
 		'small' => 'Küçük',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
 	'privacy' => array(
 		'_' => 'Gizlilik',
 		'retrieve_extension_list' => 'Eklenti listesini al',
@@ -120,13 +130,16 @@ return array(
 			'documentation_link' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri ve bilinen uygulamaların listesini</a> gör',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri</a> gör',
 		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Hesap silme',
 			'warn' => 'Hesabınız ve ilgili tüm veriler silinecek.',
 		),
 		'email' => 'E-posta adresi',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'API parolası<br /><small>(örneğin, mobil uygulamalar için)</small>',
-		'password_form' => 'Parola<br /><small>(Web formuyla giriş yöntemi için)</small>',
 		'password_format' => 'En az 7 karakter',
 		'title' => 'Profil',
 	),
@@ -139,6 +152,7 @@ return array(
 			'categories' => 'Kategoriye göre göster',
 			'feeds' => 'Beslemeye göre göster',
 			'order' => 'Tarihe göre sırala',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'İfade',
 			'shareOpml' => 'İlgili kategori ve beslemelerin OPML ile paylaşımını etkinleştir',
 			'shareRss' => 'HTML ve RSS ile paylaşımı etkinleştir',
@@ -318,7 +332,7 @@ return array(
 		'article_action' => 'Makale eylemleri',
 		'auto_share' => 'Paylaş',
 		'auto_share_help' => 'Eğer yalnızca bir paylaşım modu varsa, o kullanılır. Aksi takdirde, modlar numaralarıyla erişilebilir.',
-		'close_dropdown' => 'Menüleri kapat',
+		'close_menus' => 'Menüleri kapat',
 		'collapse_article' => 'Daralt',
 		'first_article' => 'İlk makaleyi aç',
 		'focus_search' => 'Arama kutusuna eriş',
@@ -345,6 +359,7 @@ return array(
 		'skip_next_article' => 'Açmadan sonrakine odaklan',
 		'skip_previous_article' => 'Açmadan öncesine odaklan',
 		'title' => 'Kısayollar',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Medyayı oynat/duraklat',
 		'user_filter' => 'Kullanıcı sorgularına eriş',
 		'user_filter_help' => 'Eğer yalnızca bir kullanıcı sorgusu varsa, o kullanılır. Aksi takdirde, sorgular numaralarıyla erişilebilir.',

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -62,8 +62,13 @@ return array(
 			'nok' => 'U mist PHP fileinfo (fileinfo package).',
 			'ok' => 'U hebt de fileinfo uitbreiding.',
 		),
+		'files' => 'Bestanden installatie',
+		'intl' => array(
+			'nok' => 'De aanbevolen bibliotheek php-intl voor internationalisering kan niet worden gevonden.',
+			'ok' => 'U beschikt over de aanbevolen bibliotheek php-intl voor internationalisering.',
+		),
 		'json' => array(
-			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
+			'nok' => 'U mist een benodigde bibliotheek om JSON te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
 		),
 		'mbstring' => array(
@@ -74,11 +79,22 @@ return array(
 			'nok' => 'U mist een benodigde bibliotheek voor regular expressions (php-pcre).',
 			'ok' => 'U hebt de benodigde bibliotheek voor regular expressions (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'De vereiste PDO-driver voor MySQL/MariaDB kan niet worden gevonden.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'De vereiste PDO-driver voor PostgreSQL kan niet worden gevonden.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'De PDO-driver voor SQLite kan niet worden gevonden.',
+			'ok' => 'U hebt het PDO-stuurprogramma voor SQLite.',
+		),
 		'pdo' => array(
-			'nok' => 'U mist PDO of één van de ondersteunde (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'U mist PDO of één van de ondersteunde (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'PHP installatie',
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',
 			'ok' => 'Uw PHP versie is %s, welke compatibel is met FreshRSS.',
 		),
@@ -86,6 +102,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de temp-map zijn goed.',
+		),
+		'tokens' => array(
+			'nok' => 'Controleer de permissies op de <em>./data/tokens</em> map. HTTP server moet rechten hebben om hierin te schrijven',
+			'ok' => 'Permissies op de tokens map zijn goed.',
 		),
 		'unknown_process_username' => 'onbekend',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'U mist de benodigde bibliotheek om XML te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om XML te gebruiken.',
+		),
+		'zip' => array(
+			'nok' => 'U mist ZIP uitbreiding (php-zip package).',
+			'ok' => 'U hebt ZIP uitbreiding.',
 		),
 	),
 	'conf' => array(

@@ -6,7 +6,7 @@
 <main class="post">
 	<h1><?= _t('gen.menu.user_management') ?></h1>
 	<h2><?= _t('admin.user.create') ?></h2>
-	<form method="post" action="<?= _url('user', 'create') ?>" autocomplete="off">
+	<form method="post" action="<?= _url('user', 'create') ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" name="originController" value="<?= Minz_Request::controllerName() ?>" />
 		<input type="hidden" name="originAction" value="<?= Minz_Request::actionName() ?>" />
@@ -42,7 +42,7 @@
 			<label class="group-name" for="new_user_name"><?= _t('admin.user.username') ?></label>
 			<div class="group-controls">
 				<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off"
-					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" placeholder="demo" />
+					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>">
 			</div>
 		</div>
 
@@ -71,7 +71,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="new-password" pattern=".{7,}" />
-					<button type="button" class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></button>
+					<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
@@ -105,16 +105,17 @@
 			</thead>
 			<tbody>
 				<?php foreach ($this->users as $username => $values): ?>
-					<tr <?= $values['is_default'] ? 'class="default-user"' : '' ?>>
+					<tr <?= $values['is_default'] ? 'class="default-user"' : '' ?>
+						<?= is_numeric($values['feed_count']) ? '' : 'data-need-ajax="1"' ?>>
 						<td><a href="<?= _url('user', 'details', 'username', $username) ?>" class="configure open-slider" ><?= _i('configure') ?></a></td>
-						<td><?= $username ?></td>
+						<td class="username"><?= $username ?></td>
 						<td><?= $values['enabled'] ? '✔' : ' ' ?></td>
 						<td><?= $values['is_admin'] ? '✔' : ' ' ?></td>
 						<td><?= $values['mail_login'] ?></td>
 						<td><?= _t("gen.lang.{$values['language']}") ?></td>
-						<td><?= format_number($values['feed_count']) ?></td>
-						<td><?= format_number($values['article_count']) ?></td>
-						<td><?= format_bytes($values['database_size']) ?></td>
+						<td class="feed-count"><?= is_numeric($values['feed_count']) ? format_number($values['feed_count']) : '?' ?></td>
+						<td class="article-count"><?= is_numeric($values['article_count']) ? format_number($values['article_count']) : '?' ?></td>
+						<td class="database-size"><?= is_numeric($values['database_size']) ? format_bytes($values['database_size']) : '?' ?></td>
 						<td><?= $values['last_user_activity'] ?></td>
 					</tr>
 				<?php endforeach ?>
@@ -125,7 +126,7 @@
 
 <?php $class = ($this->query != null) ? ' active' : ''; ?>
 <aside id="slider" class="<?= $class ?>">
-<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 	<div id="slider-content">
 		<?php
 			if ($this->query != null) {
@@ -134,6 +135,6 @@
 		?>
 	</div>
 </aside>
-<a href="#" id="close-slider">
+<a href="#close" id="close-slider">
 	<?= _i('close') ?>
 </a>

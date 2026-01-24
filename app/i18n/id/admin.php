@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
@@ -22,93 +22,6 @@ return array(
 		'token' => 'Token autentikasi utama',
 		'token_help' => 'Mengizinkan akses ke semua RSS pengguna serta menyegarkan umpan tanpa autentikasi:',
 		'type' => 'Metode autentikasi',
-		'unsafe_autologin' => 'Izinkan masuk otomatis tidak aman menggunakan format: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Periksa izin direktori <em>./data/cache</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
-			'ok' => 'Izin untuk direktori tembolok sudah bagus.',
-		),
-		'categories' => array(
-			'nok' => 'Tabel kategori dikonfigurasi secara tidak tepat.',
-			'ok' => 'Tabel kategori baik-baik saja.',
-		),
-		'connection' => array(
-			'nok' => 'Koneksi ke basis data tidak dapat dibuat.',
-			'ok' => 'Koneksi ke basis data berhasil.',
-		),
-		'ctype' => array(
-			'nok' => 'Tidak dapat menemukan pustaka yang diperlukan untuk pemeriksaan jenis karakter (php-ctype).',
-			'ok' => 'Anda memiliki pustaka untuk pemeriksaan jenis karakter (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'Tidak dapat menemukan pustaka cURL (php-curl).',
-			'ok' => 'Anda memiliki pustaka cURL.',
-		),
-		'data' => array(
-			'nok' => 'Periksa izin direktori <em>./data</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
-			'ok' => 'Izin untuk direktori data sudah bagus.',
-		),
-		'database' => 'Pemasangan Basis Data',
-		'dom' => array(
-			'nok' => 'Tidak dapat menemukan pustaka yang diperlukan untuk menelusuri DOM (php-xml).',
-			'ok' => 'Anda memiliki pustaka yang diperlukan untuk menelusuri DOM.',
-		),
-		'entries' => array(
-			'nok' => 'Tabel entri dikonfigurasi secara tidak tepat.',
-			'ok' => 'Tabel entri baik-baik saja.',
-		),
-		'favicons' => array(
-			'nok' => 'Periksa izin direktori <em>./data/favicons</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
-			'ok' => 'Izin untuk direktori favicon sudah bagus.',
-		),
-		'feeds' => array(
-			'nok' => 'Tabel umpan dikonfigurasi secara tidak tepat.',
-			'ok' => 'Tabel umpan baik-baik saja.',
-		),
-		'fileinfo' => array(
-			'nok' => 'Tidak dapat menemukan pustaka PHP fileinfo (fileinfo).',
-			'ok' => 'Anda memiliki pustaka fileinfo.',
-		),
-		'files' => 'Pemasangan Berkas',
-		'json' => array(
-			'nok' => 'Tidak dapat menemukan pustaka JSON (php-json).',
-			'ok' => 'Anda memiliki pustaka ekstensi JSON.',
-		),
-		'mbstring' => array(
-			'nok' => 'Tidak dapat menemukan pustaka mbstring untuk Unicode.',
-			'ok' => 'Anda memiliki pustaka mbstring untuk Unicode yang direkomendasikan.',
-		),
-		'pcre' => array(
-			'nok' => 'Tidak dapat menemukan pustaka untuk ekspresi regular (regex) (php-pcre).',
-			'ok' => 'Anda memiliki pustaka untuk ekspresi regular (regex) (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'Tidak dapat menemukan PDO atau sejenisnya untuk basis data yang didukung (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Anda memiliki PDO atau sejenisnya untuk basis data yang didukung (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'Pemasangan PHP.',
-			'nok' => 'Versi PHP Anda adalah %s tapi FreshRSS membutuhkan setidaknya versi %s.',
-			'ok' => 'Versi PHP Anda (%s) cocok dengan FreshRSS.',
-		),
-		'tables' => array(
-			'nok' => 'Ada satu atau lebih tabel yang hilang dalam basis data.',
-			'ok' => 'Tabel yang sesuai sudah ada dalam basis data.',
-		),
-		'title' => 'Pengecekan Pemasangan.',
-		'tokens' => array(
-			'nok' => 'Periksa izin direktori <em>./data/tokens</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
-			'ok' => 'Izin pada direktori token sudah bagus.',
-		),
-		'users' => array(
-			'nok' => 'Periksa izin direktori <em>./data/users</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
-			'ok' => 'Izin pada direktori pengguna sudah bagus.',
-		),
-		'zip' => array(
-			'nok' => 'Tidak dapat menemukan pustaka ekstensi zip (php-zip).',
-			'ok' => 'Anda memiliki pustaka ekstensi zip.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Pengembang',
@@ -118,6 +31,7 @@ return array(
 		'empty_list' => 'Tidak ada ekstensi yang terpasang',
 		'empty_list_help' => 'Periksa log untuk menemukan alasan daftar ekstensi yang kosong.',
 		'enabled' => 'Diaktifkan',
+		'is_compatible' => 'Is compatible',	// TODO
 		'latest' => 'Terpasang',
 		'name' => 'Nama',
 		'no_configure_view' => 'Ekstensi ini tidak dapat dikonfigurasi.',
@@ -134,6 +48,8 @@ return array(
 		'_' => 'Statistik',
 		'all_feeds' => 'Semua umpan',
 		'category' => 'Kategori',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
 		'entry_count' => 'Jumlah entri',
 		'entry_per_category' => 'Entri per kategori',
 		'entry_per_day' => 'Entri per hari (30 hari terakhir)',
@@ -146,6 +62,7 @@ return array(
 		'idle' => 'Umpan Tak Terbarukan',
 		'main' => 'Statistik utama',
 		'main_stream' => 'Bagian utama',
+		'nb_unreads' => 'Number of unread articles',	// TODO
 		'no_idle' => 'Tidak ada umpan tak terbarukan!',
 		'number_entries' => '%d artikel',
 		'overview' => 'Ringkasan',
@@ -157,6 +74,7 @@ return array(
 		'status_unread' => 'Belum Terbaca',
 		'title' => 'Statistik',
 		'top_feed' => 'Sepuluh umpan teratas',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Konfigurasi Sistem',
@@ -165,10 +83,12 @@ return array(
 			'_' => 'URL peladen',
 			'recommendation' => 'Rekomendasi Otomatis: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'dalam detik',
 			'number' => 'Durasi untuk terus masuk',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Paksa verifikasi alamat surel',
 		'instance-name' => 'Nama peladen',
 		'max-categories' => 'Jumlah kategori maksimal per pengguna',

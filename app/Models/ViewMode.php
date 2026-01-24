@@ -51,7 +51,7 @@ final class FreshRSS_ViewMode {
 		$modes = self::getDefaultModes();
 
 		// Allow extensions to add their own view modes
-		$extensionModes = Minz_ExtensionManager::callHook('view_modes', []);
+		$extensionModes = Minz_ExtensionManager::callHook(Minz_HookType::ViewModes, []);
 		if (is_array($extensionModes)) {
 			foreach ($extensionModes as $mode) {
 				if ($mode instanceof FreshRSS_ViewMode) {

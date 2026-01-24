@@ -28,6 +28,11 @@ final class RawTextResponse implements Response
     private $permanent_url;
 
     /**
+     * @var array<non-empty-array<string>>
+     */
+    private $headers = [];
+
+    /**
      * @var string
      */
     private $requested_url;
@@ -56,22 +61,34 @@ final class RawTextResponse implements Response
 
     public function get_headers(): array
     {
-        return [];
+        return $this->headers;
     }
 
     public function has_header(string $name): bool
     {
-        return false;
+        return isset($this->headers[strtolower($name)]);
     }
 
     public function get_header(string $name): array
     {
-        return [];
+        return isset($this->headers[strtolower($name)]) ? $this->headers[$name] : [];
+    }
+
+    public function with_header(string $name, $value)
+    {
+        $new = clone $this;
+
+        $newHeader = [
+            strtolower($name) => (array) $value,
+        ];
+        $new->headers = $newHeader + $this->headers;
+
+        return $new;
     }
 
     public function get_header_line(string $name): string
     {
-        return '';
+        return isset($this->headers[strtolower($name)]) ? implode(", ", $this->headers[$name]) : '';
     }
 
     public function get_body_content(): string

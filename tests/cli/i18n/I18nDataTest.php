@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-require_once __DIR__ . '/../../../cli/i18n/I18nData.php';
-require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nData.php';
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nValue.php';
 
-class I18nDataTest extends PHPUnit\Framework\TestCase {
+final class I18nDataTest extends \PHPUnit\Framework\TestCase {
 	/** @var array<string,array<string,array<string,I18nValue>>> */
 	private array $referenceData;
 	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
@@ -32,6 +32,16 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 				],
 			],
 		];
+	}
+
+	public function testMoveKey(): void {
+		$data = new I18nData($this->referenceData);
+		$value = $data->getData()['en']['file2.php']['file2.l1.l2.k2'];
+		self::assertTrue($data->isKnown('file2.l1.l2.k2'));
+		self::assertFalse($data->isKnown('file2.l1.nkl2'));
+		$data->moveKey('file2.l1.l2.k2', 'file2.l1.nkl2');
+		self::assertFalse($data->isKnown('file2.l1.l2.k2'));
+		self::assertTrue($data->isKnown('file2.l1.nkl2'));
 	}
 
 	public function testConstructWhenReferenceOnly(): void {
@@ -302,7 +312,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 
 	public function testAddLanguageWhenLanguageExists(): void {
 		$this->expectException(\Exception::class);
-		$this->expectExceptionMessage('The selected language already exist.');
+		$this->expectExceptionMessage('The selected language already exists.');
 		$data = new I18nData($this->referenceData);
 		$data->addLanguage('en');
 	}
@@ -430,7 +440,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 
 	public function testAddKeyWhenKeyExists(): void {
 		$this->expectException(\Exception::class);
-		$this->expectExceptionMessage('The selected key already exist.');
+		$this->expectExceptionMessage('The selected key already exists.');
 		$data = new I18nData($this->referenceData);
 		$data->addKey('file2.l1.l2.k1', 'value');
 	}
@@ -483,6 +493,30 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		self::assertSame('value', $enValue->getValue());
 		self::assertTrue($enValue->isTodo());
 		self::assertSame($frValue, $enValue);
+	}
+
+	public function testAddFileWhenNotPhpFile(): void {
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('The selected file name is not supported.');
+
+		$data = new I18nData($this->referenceData);
+		$data->addFile('file2');
+	}
+
+	public function testAddFileWhenAlreadyExists(): void {
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('The selected file exists already.');
+
+		$data = new I18nData($this->referenceData);
+		self::assertTrue($data->exists('file2.php'));
+		$data->addFile('file2.php');
+	}
+
+	public function testAddFileWhenNotExists(): void {
+		$data = new I18nData($this->referenceData);
+		self::assertFalse($data->exists('newfile.php'));
+		$data->addFile('newfile.php');
+		self::assertTrue($data->exists('newfile.php'));
 	}
 
 	public function testAddValueWhenLanguageDoesNotExist(): void {

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -80,6 +80,7 @@ return array(
 		'filteractions' => array(
 			'_' => 'Filter actions',
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',
 		),
 		'http_headers' => 'HTTP Headers',
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
@@ -209,8 +210,9 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',
 		'priority' => array(
 			'_' => 'Visibility',
-			'archived' => 'Do not show (archived)',
 			'category' => 'Show in its category',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'Do not show',
 			'important' => 'Show in important feeds',
 			'main_stream' => 'Show in main stream',
 		),
@@ -237,13 +239,19 @@ return array(
 		'ttl' => 'Do not automatically refresh more often than',
 		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',
-			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
-			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',
 			'id' => 'Standard ID (default)',
 			'link' => 'Link',
+			'sha1:content' => 'Content',
+			'sha1:content_published' => 'Content + Date',
 			'sha1:link_published' => 'Link + Date',
 			'sha1:link_published_title' => 'Link + Date + Title',
 			'sha1:link_published_title_content' => 'Link + Date + Title + Content',
+			'sha1:published' => 'Date',
+			'sha1:title' => 'Title',
+			'sha1:title_published' => 'Title + Date',
+			'sha1:title_published_content' => 'Title + Date + Content',
 		),
 		'url' => 'Feed URL',
 		'useragent' => 'Set the user agent for fetching this feed',
@@ -255,7 +263,7 @@ return array(
 	'import_export' => array(
 		'export' => array(
 			'_' => 'Export',
-			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite' => 'Download user database as SQLite',
 		),
 		'export_labelled' => 'Export your labelled articles',
 		'export_opml' => 'Export list of feeds (OPML)',
@@ -275,6 +283,7 @@ return array(
 			'idle' => 'Idle feeds',
 			'main' => 'Main statistics',
 			'repartition' => 'Articles repartition',
+			'unread_dates' => 'Unread dates',
 		),
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',
@@ -293,9 +302,8 @@ return array(
 		'add_feed' => 'Add a feed',
 		'add_label' => 'Add a label',
 		'add_opml_category' => 'OPML category name',
-		'delete_label' => 'Delete a label',
+		'delete_label' => 'Delete this label',
 		'feed_management' => 'RSS feeds management',
-		'rename_label' => 'Rename a label',
 		'subscription_tools' => 'Subscription tools',
 	),
 );

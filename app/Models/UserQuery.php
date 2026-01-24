@@ -21,6 +21,7 @@ class FreshRSS_UserQuery {
 	private string $token = '';
 	private bool $shareRss = false;
 	private bool $shareOpml = false;
+	private bool $publishLabelsInsteadOfTags = false;
 	/** @var array<int,FreshRSS_Category> $categories where the key is the category ID */
 	private array $categories;
 	/** @var array<int,FreshRSS_Tag> $labels where the key is the label ID */
@@ -43,7 +44,7 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * @param array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
-	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $query
+	 * 	shareRss?:bool,shareOpml?:bool,publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string} $query
 	 * @param array<FreshRSS_Category> $categories
 	 * @param array<FreshRSS_Tag> $labels
 	 */
@@ -75,6 +76,7 @@ class FreshRSS_UserQuery {
 				unset($link['name']);
 				unset($link['shareOpml']);
 				unset($link['shareRss']);
+				unset($link['publishLabelsInsteadOfTags']);
 				$this->url = Minz_Url::display(['params' => $link]);
 			}
 		} else {
@@ -91,6 +93,9 @@ class FreshRSS_UserQuery {
 		}
 		if (isset($query['shareOpml'])) {
 			$this->shareOpml = $query['shareOpml'];
+		}
+		if (isset($query['publishLabelsInsteadOfTags'])) {
+			$this->publishLabelsInsteadOfTags = (bool)$query['publishLabelsInsteadOfTags'];
 		}
 		if (isset($query['description'])) {
 			$this->description = $query['description'];
@@ -109,22 +114,25 @@ class FreshRSS_UserQuery {
 	/**
 	 * Convert the current object to an array.
 	 *
-	 * @return array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string,'token'?:string}
+	 * @return array{get?:string,name?:string,order?:string,search?:string,
+	 * 	state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool,
+	 * 	publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string}
 	 */
 	public function toArray(): array {
 		return array_filter([
 			'get' => $this->get,
 			'name' => $this->name,
 			'order' => $this->order,
-			'search' => $this->search->getRawInput(),
+			'search' => $this->search->toString(expandUserQueries: false),
 			'state' => $this->state,
 			'url' => $this->url,
 			'token' => $this->token,
 			'shareRss' => $this->shareRss,
 			'shareOpml' => $this->shareOpml,
+			'publishLabelsInsteadOfTags' => $this->publishLabelsInsteadOfTags,
 			'description' => $this->description,
 			'imageUrl' => $this->imageUrl,
-		]);
+		], fn($v): bool => $v !== '' && $v !== 0 && $v !== false);
 	}
 
 	/**
@@ -140,10 +148,10 @@ class FreshRSS_UserQuery {
 				case 'a':	// All PRIORITY_MAIN_STREAM
 					$this->get_type = 'all';
 					break;
-				case 'A':	// All except PRIORITY_ARCHIVED
+				case 'A':	// All except PRIORITY_HIDDEN
 					$this->get_type = 'A';
 					break;
-				case 'Z':	// All including PRIORITY_ARCHIVED
+				case 'Z':	// All including PRIORITY_HIDDEN
 					$this->get_type = 'Z';
 					break;
 				case 'c':
@@ -213,7 +221,7 @@ class FreshRSS_UserQuery {
 	 * Check if there is a search in the search object
 	 */
 	public function hasSearch(): bool {
-		return $this->search->getRawInput() !== '';
+		return $this->search->toString() !== '';
 	}
 
 	public function getGet(): string {
@@ -279,6 +287,14 @@ class FreshRSS_UserQuery {
 		return $this->shareOpml;
 	}
 
+	public function setPublishLabelsInsteadOfTags(bool $publishLabelsInsteadOfTags): void {
+		$this->publishLabelsInsteadOfTags = $publishLabelsInsteadOfTags;
+	}
+
+	public function publishLabelsInsteadOfTags(): bool {
+		return $this->publishLabelsInsteadOfTags;
+	}
+
 	protected function sharedUrl(bool $xmlEscaped = true): string {
 		$currentUser = Minz_User::name() ?? '';
 		return Minz_Url::display("/api/query.php?user={$currentUser}&t={$this->token}", $xmlEscaped ? 'html' : '', true);
@@ -333,5 +349,23 @@ class FreshRSS_UserQuery {
 
 	public function setImageUrl(string $imageUrl): void {
 		$this->imageUrl = $imageUrl;
+	}
+
+	/**
+	 * Remove queries where $get is appearing.
+	 * @param string $get the get attribute which should be removed.
+	 * @param array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string}> $queries an array of queries.
+	 * @return array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string}> without queries where $get is appearing.
+	 */
+	public static function remove_query_by_get(string $get, array $queries): array {
+		$final_queries = [];
+		foreach ($queries as $query) {
+			if (empty($query['get']) || $query['get'] !== $get) {
+				$final_queries[] = $query;
+			}
+		}
+		return $final_queries;
 	}
 }

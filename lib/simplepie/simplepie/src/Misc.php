@@ -71,7 +71,7 @@ class Misc
      * @deprecated since SimplePie 1.3, use DOMDocument instead (parsing HTML with regex is bad!)
      * @param string $realname Element name (including namespace prefix if applicable)
      * @param string $string HTML document
-     * @return array<array{tag: string, self_closing: bool, attribs: array<string, array{data: string}>, content: string}>
+     * @return array<array{tag: string, self_closing: bool, attribs: array<string, array{data: string}>, content?: string}>
      */
     public static function get_element(string $realname, string $string)
     {
@@ -92,11 +92,11 @@ class Misc
                 }
                 $return[$i]['attribs'] = [];
                 if (isset($matches[$i][2][0]) && preg_match_all('/[\x09\x0A\x0B\x0C\x0D\x20]+([^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3D\x3E]*)(?:[\x09\x0A\x0B\x0C\x0D\x20]*=[\x09\x0A\x0B\x0C\x0D\x20]*(?:"([^"]*)"|\'([^\']*)\'|([^\x09\x0A\x0B\x0C\x0D\x20\x22\x27\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x3E]*)?))?/', ' ' . $matches[$i][2][0] . ' ', $attribs, PREG_SET_ORDER)) {
-                    for ($j = 0, $total_attribs = count($attribs); $j < $total_attribs; $j++) {
-                        if (count($attribs[$j]) === 2) {
-                            $attribs[$j][2] = $attribs[$j][1];
+                    foreach ($attribs as $attrib) {
+                        if (count($attrib) === 2) {
+                            $attrib[2] = $attrib[1];
                         }
-                        $return[$i]['attribs'][strtolower($attribs[$j][1])]['data'] = Misc::entities_decode(end($attribs[$j]));
+                        $return[$i]['attribs'][strtolower($attrib[1])]['data'] = Misc::entities_decode(end($attrib));
                     }
                 }
             }
@@ -261,7 +261,8 @@ class Misc
     {
         $integer = hexdec($match[1]);
         if ($integer >= 0x41 && $integer <= 0x5A || $integer >= 0x61 && $integer <= 0x7A || $integer >= 0x30 && $integer <= 0x39 || $integer === 0x2D || $integer === 0x2E || $integer === 0x5F || $integer === 0x7E) {
-            return chr($integer);
+            // Cast for PHPStan, the value would only be float when above PHP_INT_MAX, which would not go in this branch.
+            return chr((int) $integer);
         }
 
         return strtoupper($match[0]);
@@ -287,7 +288,7 @@ class Misc
      * @param string $data Raw data in $input encoding
      * @param string $input Encoding of $data
      * @param string $output Encoding you want
-     * @return string|bool False if we can't convert it
+     * @return string|false False if we can't convert it
      */
     public static function change_encoding(string $data, string $input, string $output)
     {
@@ -391,7 +392,8 @@ class Misc
     public static function encoding(string $charset)
     {
         // Normalization from UTS #22
-        switch (strtolower(preg_replace('/(?:[^a-zA-Z0-9]+|([^0-9])0+)/', '\1', $charset))) {
+        // Cast for PHPStan, the regex should not fail.
+        switch (strtolower((string) preg_replace('/(?:[^a-zA-Z0-9]+|([^0-9])0+)/', '\1', $charset))) {
             case 'adobestandardencoding':
             case 'csadobestandardencoding':
                 return 'Adobe-Standard-Encoding';
@@ -1737,7 +1739,7 @@ class Misc
     }
 
     /**
-     * @return int|bool
+     * @return int|false
      */
     public static function parse_date(string $dt)
     {
@@ -2097,7 +2099,7 @@ class Misc
         header('Cache-Control: must-revalidate');
         header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 604800) . ' GMT'); // 7 days
 
-        $body = <<<END
+        $body = <<<JS
 function embed_quicktime(type, bgcolor, width, height, link, placeholder, loop) {
 	if (placeholder != '') {
 		document.writeln('<embed type="'+type+'" style="cursor:hand; cursor:pointer;" href="'+link+'" src="'+placeholder+'" width="'+width+'" height="'+height+'" autoplay="false" target="myself" controller="false" loop="'+loop+'" scale="aspect" bgcolor="'+bgcolor+'" pluginspage="http://www.apple.com/quicktime/download/"></embed>');
@@ -2118,7 +2120,7 @@ function embed_flv(width, height, link, placeholder, loop, player) {
 function embed_wmedia(width, height, link) {
 	document.writeln('<embed type="application/x-mplayer2" src="'+link+'" autosize="1" width="'+width+'" height="'+height+'" showcontrols="1" showstatusbar="0" showdisplay="0" autostart="0"></embed>');
 }
-END;
+JS;
         echo $body;
     }
 
@@ -2162,7 +2164,8 @@ END;
         $info = 'SimplePie ' . \SimplePie\SimplePie::VERSION . ' Build ' . static::get_build() . "\n";
         $info .= 'PHP ' . PHP_VERSION . "\n";
         if ($sp->error() !== null) {
-            $info .= 'Error occurred: ' . $sp->error() . "\n";
+            // TODO: Remove cast with multifeeds.
+            $info .= 'Error occurred: ' . implode(', ', (array) $sp->error()) . "\n";
         } else {
             $info .= "No error found.\n";
         }
@@ -2176,11 +2179,8 @@ END;
                         $info .= '      Version ' . PCRE_VERSION . "\n";
                         break;
                     case 'curl':
-                        $version = curl_version();
+                        $version = (array) curl_version();
                         $info .= '      Version ' . $version['version'] . "\n";
-                        break;
-                    case 'mbstring':
-                        $info .= '      Overloading: ' . mb_get_info('func_overload') . "\n";
                         break;
                     case 'iconv':
                         $info .= '      Version ' . ICONV_VERSION . "\n";
@@ -2212,7 +2212,10 @@ END;
      */
     public static function url_remove_credentials(string $url)
     {
-        return preg_replace('#^(https?://)[^/:@]+:[^/:@]+@#i', '$1', $url);
+        // Cast for PHPStan: I do not think this can fail.
+        // The regex is valid and there should be no backtracking.
+        // https://github.com/phpstan/phpstan/issues/11547
+        return (string) preg_replace('#^(https?://)[^/:@]+:[^/:@]+@#i', '$1', $url);
     }
 }
 

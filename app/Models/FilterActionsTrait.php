@@ -65,14 +65,13 @@ trait FreshRSS_FilterActionsTrait {
 		if ($action === '') {
 			return;
 		}
-		$filters = array_unique(array_map('trim', $filters), SORT_STRING);
+		$filters = array_values(array_unique(array_map('trim', $filters), SORT_STRING));
 		$filterActions = $this->filterActions();
 
 		//Check existing filters
 		for ($i = count($filterActions) - 1; $i >= 0; $i--) {
 			$filterAction = $filterActions[$i];
-			if ($filterAction == null || !is_array($filterAction->actions()) ||
-				$filterAction->booleanSearch() == null || trim($filterAction->booleanSearch()->getRawInput()) == '') {
+			if ($filterAction === null || !is_array($filterAction->actions()) || $filterAction->booleanSearch()->toString() === '') {
 				array_splice($filterActions, $i, 1);
 				continue;
 			}
@@ -86,7 +85,7 @@ trait FreshRSS_FilterActionsTrait {
 			//Update existing filter with new action
 			for ($k = count($filters) - 1; $k >= 0; $k--) {
 				$filter = $filters[$k];
-				if ($filter === $filterAction->booleanSearch()->getRawInput()) {
+				if ($filter === $filterAction->booleanSearch()->toString()) {
 					$actions[] = $action;
 					array_splice($filters, $k, 1);
 				}
@@ -132,7 +131,7 @@ trait FreshRSS_FilterActionsTrait {
 						case 'read':
 							if (!$entry->isRead()) {
 								$entry->_isRead(true);
-								Minz_ExtensionManager::callHook('entry_auto_read', $entry, 'filter');
+								Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $entry, 'filter');
 							}
 							break;
 						case 'star':

@@ -161,11 +161,12 @@ class Item implements RegistryAware
      * @see \SimplePie\SimplePie::sanitize()
      * @param string $data Data to sanitize
      * @param int-mask-of<SimplePie::CONSTRUCT_*> $type
-     * @param string|null $base Base URL to resolve URLs against
+     * @param string $base Base URL to resolve URLs against
      * @return string Sanitized data
      */
-    public function sanitize(string $data, int $type, ?string $base = '')
+    public function sanitize(string $data, int $type, string $base = '')
     {
+        // This really returns string|false but changing encoding is uncommon and we are going to deprecate it, so let’s just lie to PHPStan in the interest of cleaner annotations.
         return $this->feed->sanitize($data, $type, $base);
     }
 
@@ -200,18 +201,23 @@ class Item implements RegistryAware
     public function get_id(bool $hash = false, $fn = 'md5')
     {
         if (!$hash) {
+            $guid = '';
             if ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_ATOM_10, 'id')) {
-                return $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             } elseif ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_ATOM_03, 'id')) {
-                return $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             } elseif ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_RSS_20, 'guid')) {
-                return $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             } elseif ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_DC_11, 'identifier')) {
-                return $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             } elseif ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_DC_10, 'identifier')) {
-                return $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($return[0]['data'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
             } elseif (isset($this->data['attribs'][\SimplePie\SimplePie::NAMESPACE_RDF]['about'])) {
-                return $this->sanitize($this->data['attribs'][\SimplePie\SimplePie::NAMESPACE_RDF]['about'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                $guid = $this->sanitize($this->data['attribs'][\SimplePie\SimplePie::NAMESPACE_RDF]['about'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+            }
+            if ($guid !== '') {
+                // If the ID looks like a URL, apply HTTPS policy to it.
+                return $this->get_sanitize()->https_url($guid);
             }
         }
         if ($fn === false) {
@@ -347,7 +353,7 @@ class Item implements RegistryAware
      * Uses `<media:thumbnail>`
      *
      *
-     * @return array<string, mixed>|null
+     * @return array{url: string, height?: string, width?: string, time?: string}|null
      */
     public function get_thumbnail()
     {
@@ -632,7 +638,7 @@ class Item implements RegistryAware
      * @since Beta 2 (previously called `get_item_date` since 0.8)
      *
      * @param string $date_format Supports any PHP date format from {@see http://php.net/date} (empty for the raw data)
-     * @return int|string|null
+     * @return ($date_format is 'U' ? ?int : ?string)
      */
     public function get_date(string $date_format = 'j F Y, g:i a')
     {
@@ -671,7 +677,7 @@ class Item implements RegistryAware
                     return $this->data['date']['parsed'];
 
                 default:
-                    return date($date_format, $this->data['date']['parsed']);
+                    return $this->data['date']['parsed'] !== null ? date($date_format, $this->data['date']['parsed']) : null;
             }
         }
 
@@ -687,7 +693,7 @@ class Item implements RegistryAware
      * {@see get_gmdate}
      *
      * @param string $date_format Supports any PHP date format from {@see http://php.net/date} (empty for the raw data)
-     * @return int|string|null
+     * @return ($date_format is 'U' ? ?int : ?string)
      */
     public function get_updated_date(string $date_format = 'j F Y, g:i a')
     {
@@ -730,12 +736,16 @@ class Item implements RegistryAware
      * @since 1.0
      *
      * @param string $date_format Supports any PHP date format from {@see http://php.net/strftime} (empty for the raw data)
-     * @return int|string|null
+     * @return string|null|false see `strftime` for when this can return `false`
      */
     public function get_local_date(string $date_format = '%c')
     {
-        if (!$date_format) {
-            return $this->sanitize($this->get_date(''), \SimplePie\SimplePie::CONSTRUCT_TEXT);
+        if ($date_format === '') {
+            if (($raw_date = $this->get_date('')) === null) {
+                return null;
+            }
+
+            return $this->sanitize($raw_date, \SimplePie\SimplePie::CONSTRUCT_TEXT);
         } elseif (($date = $this->get_date('U')) !== null && $date !== false) {
             return strftime($date_format, $date);
         }
@@ -748,7 +758,7 @@ class Item implements RegistryAware
      *
      * @see get_date
      * @param string $date_format Supports any PHP date format from {@see http://php.net/date}
-     * @return int|string|null
+     * @return string|null
      */
     public function get_gmdate(string $date_format = 'j F Y, g:i a')
     {
@@ -765,7 +775,7 @@ class Item implements RegistryAware
      *
      * @see get_updated_date
      * @param string $date_format Supports any PHP date format from {@see http://php.net/date}
-     * @return int|string|null
+     * @return string|null
      */
     public function get_updated_gmdate(string $date_format = 'j F Y, g:i a')
     {
@@ -867,10 +877,17 @@ class Item implements RegistryAware
                     } else {
                         $this->data['links'][\SimplePie\SimplePie::IANA_LINK_RELATIONS_REGISTRY . $key] = &$this->data['links'][$key];
                     }
-                } elseif (substr($key, 0, 41) === \SimplePie\SimplePie::IANA_LINK_RELATIONS_REGISTRY) {
-                    $this->data['links'][substr($key, 41)] = &$this->data['links'][$key];
+                } elseif (substr((string) $key, 0, 41) === \SimplePie\SimplePie::IANA_LINK_RELATIONS_REGISTRY) {
+                    $this->data['links'][substr((string) $key, 41)] = &$this->data['links'][$key];
                 }
                 $this->data['links'][$key] = array_unique($this->data['links'][$key]);
+            }
+
+            // Apply HTTPS policy to all links
+            foreach ($this->data['links'] as &$links) {
+                foreach ($links as &$link) {
+                    $link = $this->get_sanitize()->https_url($link);
+                }
             }
         }
         if (isset($this->data['links'][$rel])) {
@@ -2348,7 +2365,7 @@ class Item implements RegistryAware
         $this->sanitize = $sanitize;
     }
 
-    protected function get_sanitize(): Sanitize
+    public function get_sanitize(): Sanitize
     {
         if ($this->sanitize === null) {
             $this->sanitize = new Sanitize();

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -105,6 +105,16 @@ return array(
 		'none' => 'Brak',
 		'small' => 'Mały',
 	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Pokaż baner ostrzeżenia',
+			'seconds' => 'sekundy (przynajmniej 1)',
+		),
+		'good' => array(
+			'label' => 'Pokaż baner potwierdzający',
+			'seconds' => 'sekundy (0 oznacza nie pokazuj)',
+		),
+	),
 	'privacy' => array(
 		'_' => 'Prywatność',
 		'retrieve_extension_list' => 'Pobieraj listę rozszerzeń',
@@ -120,13 +130,16 @@ return array(
 			'documentation_link' => 'Zobacz <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentację i listę aplikacji na telefon</a>',
 			'help' => 'Zobacz <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentację</a>',
 		),
+		'change_password' => 'Zmień hasło',
+		'confirm_new_password' => 'Potwierdź nowe hasło',
+		'current_password' => 'Obecne hasło<br /><small>(do logowania przez formularz na stronie)</small>',
 		'delete' => array(
 			'_' => 'Usunięcie konta',
 			'warn' => 'Twoje konto i wszystkie powiązane z nim dane zostaną usunięte.',
 		),
 		'email' => 'Adres e-mail',
+		'new_password' => 'Nowe hasło',
 		'password_api' => 'Hasło API<br /><small>(np. do aplikacji na telefony)</small>',
-		'password_form' => 'Hasło<br /><small>(do logowania przez formularz na stronie)</small>',
 		'password_format' => 'przynajmniej 7 znaków',
 		'title' => 'Profil',
 	),
@@ -139,6 +152,7 @@ return array(
 			'categories' => 'Według kategorii',
 			'feeds' => 'Według kanału',
 			'order' => 'Sortowanie wg daty',
+			'publish_labels_instead_of_tags' => 'Zamień <i>tagi kanałów</i> na <i>własne etykiety</i> w udostępnionym RSS',
 			'search' => 'Wyrażenie',
 			'shareOpml' => 'Włącz udostępnianie OPML-ów zawierających kategorie i kanały',
 			'shareRss' => 'Włącz udostępnianie przez HTML i RSS',
@@ -318,7 +332,7 @@ return array(
 		'article_action' => 'Akcje wiadomości',
 		'auto_share' => 'Udostępnij',
 		'auto_share_help' => 'Gdy jest dostępna tylko jedna metoda udostępniania jest ona od razu wykorzystywana. W pozostałych przypadkach poszczególne metody są dostępne przez wybranie ich numeru.',
-		'close_dropdown' => 'Zamknięcie menu',
+		'close_menus' => 'Zamknięcie menu',
 		'collapse_article' => 'Zwinięcie',
 		'first_article' => 'Otworzenie pierwszej wiadomości',
 		'focus_search' => 'Przejdź do pola wyszukiwania',
@@ -345,6 +359,7 @@ return array(
 		'skip_next_article' => 'Przejdź do następnej wiadomości bez otwierania',
 		'skip_previous_article' => 'Przejdź do poprzedniej wiadomości bez otwierania',
 		'title' => 'Skróty klawiszowe',
+		'toggle_aside' => 'Pokaż/ukryj pasek boczny',
 		'toggle_media' => 'Odtwarzanie/pauza mediów',
 		'user_filter' => 'Przejdź do zapisanych zapytań',
 		'user_filter_help' => 'Gdy zapisane jest tylko jedno zapytanie jest ono od razu wykorzystywane. W przeciwnym przypadku zapytania są dostępne przez wybranie ich numeru.',

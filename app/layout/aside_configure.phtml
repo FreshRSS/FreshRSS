@@ -52,7 +52,7 @@
 				<li class="item<?= Minz_Request::controllerName() === 'extension' ? ' active' : '' ?>">
 					<a href="<?= _url('extension', 'index') ?>"><?= _t('gen.menu.extensions') ?></a>
 				</li>
-				<li class="item<?= Minz_Request::controllerName() === 'privacy' ? ' active' : '' ?>">
+				<li class="item<?= Minz_Request::actionName() === 'privacy' ? ' active' : '' ?>">
 					<a href="<?= _url('configure', 'privacy') ?>"><?= _t('gen.menu.privacy') ?></a>
 				</li>
 				<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
@@ -60,7 +60,7 @@
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
 				<?php } ?>
-				<?= Minz_ExtensionManager::callHookString('menu_configuration_entry') ?>
+				<?= Minz_ExtensionManager::callHookString(Minz_HookType::MenuConfigurationEntry) ?>
 			</ul>
 		</li>
 
@@ -88,7 +88,7 @@
 				<li class="item<?= Minz_Request::actionName() === 'logs' ? ' active' : '' ?>">
 					<a href="<?= _url('index', 'logs') ?>"><?= _t('gen.menu.logs') ?></a>
 				</li>
-				<?= Minz_ExtensionManager::callHookString('menu_admin_entry') ?>
+				<?= Minz_ExtensionManager::callHookString(Minz_HookType::MenuAdminEntry) ?>
 			</ul>
 		</li>
 		<?php } ?>
@@ -109,6 +109,11 @@
 	</ul>
 </nav>
 <a class="close-aside" href="#close">❌</a>
+
 <nav class="nav_menu nav_mobile">
-	<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
+	<div id="nav_menu_toggle_aside" class="group">
+		<button class="btn" title="<?= _t('conf.shortcut.toggle_aside') ?>">
+			<?= _i('category') ?>
+		</button>
+	</div>
 </nav>

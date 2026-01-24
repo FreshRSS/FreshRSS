@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class FeedDAOTest extends PHPUnit\Framework\TestCase {
+final class FeedDAOTest extends \PHPUnit\Framework\TestCase {
 	public static function test_ttl_min(): void {
 		$feed = new FreshRSS_Feed('https://example.net/', false);
 		$feed->_ttl(-5);
