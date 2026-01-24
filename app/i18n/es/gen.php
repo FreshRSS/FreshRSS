@@ -246,7 +246,7 @@ return array(
 		'text_help' => 'Las líneas múltiples se combinan mediante un <i>or</i> lógico. También admite <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">expresiones regulares</a>.',
 		'text_placeholder' => 'Palabra clave',
 		'title' => 'Título',
-		'url' => 'URL',
+		'url' => 'URL',	// IGNORE
 		'user_queries' => 'Vistas de usuario',
 	),
 	'share' => array(

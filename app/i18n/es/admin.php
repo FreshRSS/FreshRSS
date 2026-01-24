@@ -70,7 +70,7 @@ return array(
 		'repartition' => 'Reparto de artículos: %s',
 		'status_favorites' => 'Favoritos',
 		'status_read' => 'Leídos',
-		'status_total' => 'Total',
+		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Pendientes',
 		'title' => 'Estadísticas',
 		'top_feed' => 'Las 10 fuentes más activas',

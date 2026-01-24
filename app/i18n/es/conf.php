@@ -100,7 +100,7 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' =>  'botón “marcar todos como leídos”',
+		'_' => 'botón “marcar todos como leídos”',
 		'big' => 'Grande',
 		'none' => 'Nada',
 		'small' => 'Pequeño',
@@ -276,7 +276,7 @@ return array(
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',
 			'when_same_title_in_category' => 'si ya existe un título idéntico en los <i>n</i> artículos más recientes de la categoría',
-			'when_same_title_in_feed' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes (de la fuente)'
+			'when_same_title_in_feed' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes (de la fuente)',
 		),
 		'show' => array(
 			'_' => 'Artículos a mostrar',
