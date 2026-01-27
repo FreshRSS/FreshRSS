@@ -215,7 +215,8 @@ class Minz_Session {
 			return;
 		}
 		$lifetime = session_get_cookie_params()['lifetime'];
-		setcookie($name, $newId, $lifetime, self::getCookieDir(), '', Minz_Request::isHttps(), true);
+		$expire = $lifetime > 0 ? time() + $lifetime : 0;
+		setcookie($name, $newId, $expire, self::getCookieDir(), '', Minz_Request::isHttps(), true);
 	}
 
 	public static function deleteLongTermCookie(string $name): void {

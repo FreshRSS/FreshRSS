@@ -50,7 +50,7 @@ return array(
 			'ko' => '%s no se puede activar. <a href="%s">Revisa el registro de FreshRSS</a> para más información.',
 			'ok' => '%s ha quedado activado',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => 'Modo de vista inválido “%s”! Se usará “Vista normal”.',
 		'no_access' => 'No tienes acceso a %s',
 		'not_enabled' => '%s no está activado',
 		'not_found' => '%s no existe',
@@ -66,7 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Tu perfil no puede ser modificado',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'Las contraseñas no coinciden',
 		'updated' => 'Tu perfil ha sido modificado',
 	),
 	'sub' => array(
@@ -97,8 +97,8 @@ return array(
 			'deleted' => 'Fuente eliminada',
 			'error' => 'No es posible actualizar la fuente',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => 'El icono subido es demasiado grande. El tamaño máximo de archivo es <em>%s</em>.',
+				'unsupported_format' => '¡Formato de archivo de imagen no soportado!',
 			),
 			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información. Puedes probar de forzarlo añadiendo la etiqueta <code>#force_feed</code> a la URL.',
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
@@ -113,7 +113,7 @@ return array(
 				'http_error' => 'Error al cargar el contenido del sitio web.',
 				'no_entries' => 'No hay artículos en esta fuente. Necesitas al menos un artículo para crear una vista previa.',
 				'no_feed' => 'Error interno (no se puede encontrar la fuente).',
-				'no_result' => 'El selector no coincidió con nada. Como reserva, se mostrará el texto original de la fuente en su lugar.',
+				'no_result' => 'El selector no coincidió con nada. Como precaución, se mostrará el texto original de la fuente en su lugar.',
 				'selector_empty' => 'El selector está vacío. Debe definir uno para crear una vista previa.',
 			),
 			'updated' => 'Fuente actualizada',

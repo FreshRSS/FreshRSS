@@ -107,12 +107,12 @@ return array(
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Waarschuwingsbalk tonen',
+			'seconds' => 'seconden (ten minste 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Bevestigingsbalk tonen',
+			'seconds' => 'seconden (0 betekent niet tonen)',
 		),
 	),
 	'privacy' => array(
@@ -152,7 +152,7 @@ return array(
 			'categories' => 'Weergeven op categorie',
 			'feeds' => 'Weergeven op feed',
 			'order' => 'Sorteren op datum',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => 'Vervang <i>feedtags</i> door <i>gebruikerslabels</i> in de gedeelde RSS',
 			'search' => 'Expressie',
 			'shareOpml' => 'Via OPML delen van bijbehorende categorieën en feeds aanzetten',
 			'shareRss' => 'Via HTML &amp; RSS delen aanzetten',
@@ -286,8 +286,8 @@ return array(
 			'all_categories' => 'Alle categorieën',
 			'no_category' => 'Geen categorie',
 			'remember_categories' => 'Open categorieën herinneren',
-			'unread' => 'Bekijk alleen ongelezen',
-			'unread_or_favorite' => 'Toon ongelezen en favorieten',
+			'unread' => 'Ongelezen tonen',
+			'unread_or_favorite' => 'Ongelezen en favorieten tonen',
 		),
 		'show_fav_unread_help' => 'Ook toepassen op labels',
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
@@ -359,7 +359,7 @@ return array(
 		'skip_next_article' => 'Volgend artikel focusen zonder openen',
 		'skip_previous_article' => 'Vorig artikel focusen zonder openen',
 		'title' => 'Verwijzingen',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Zijbalk schakelen',
 		'toggle_media' => 'Media afspelen/pauzeren',
 		'user_filter' => 'Toegang gebruikers filters',
 		'user_filter_help' => 'Als er slechts één gebruikersfilter is, dan wordt die gebruikt. Anders zijn ze toegankelijk met hun nummer.',

@@ -558,7 +558,7 @@ function next_unread_entry(skipping) {
 		do new_active = new_active.nextElementSibling;
 		while (new_active && !new_active.classList.contains('not_read'));
 		if (!new_active) {
-			next_feed();
+			next_feed(true);
 		}
 	} else {
 		new_active = document.querySelector('.not_read');
@@ -2327,6 +2327,8 @@ function init_csp_alert() {
 		Function();
 	} catch (_) {
 		// Exit if 'script-src' is set and 'unsafe-eval' isn't set in CSP
+		console.info(`If you see a 'unsafe-eval' warning, everything is working as intended:
+see https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security`);
 		return;
 	}
 

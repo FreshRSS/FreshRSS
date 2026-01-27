@@ -83,10 +83,12 @@ return array(
 			'_' => 'URL peladen',
 			'recommendation' => 'Rekomendasi Otomatis: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'dalam detik',
 			'number' => 'Durasi untuk terus masuk',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Paksa verifikasi alamat surel',
 		'instance-name' => 'Nama peladen',
 		'max-categories' => 'Jumlah kategori maksimal per pengguna',

@@ -16,13 +16,13 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_curl' => 'cURL version',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => 'Información del sistema',
+				'browser' => 'Navegador',
+				'database' => 'Base de datos',
+				'server_software' => 'Programas del servidor',
+				'version_curl' => 'Versión de cURL',
+				'version_frss' => 'Versión de FreshRSS',
+				'version_php' => 'Versión de PHP',
 			),
 		),
 		'bugs_reports' => 'Informe de fallos',
@@ -30,31 +30,31 @@ return array(
 		'freshrss_description' => 'FreshRSS es un agregador de fuentes RSS de alojamiento privado. Es una herramienta potente, pero ligera y fácil de usar y configurar.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">en GitHub</a>',
 		'license' => 'Licencia',
-		'project_website' => 'Web del proyecto',
+		'project_website' => 'Página del proyecto',
 		'title' => 'Acerca de',
 		'version' => 'Versión',
 	),
 	'feed' => array(
 		'empty' => 'No hay artículos a mostrar.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Publicado',
+			'future' => 'Publicado en el futuro',
+			'today' => 'Publicado hoy',
+			'yesterday' => 'Publicado ayer',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'_' => 'Recibido',
+			'today' => 'Recibido hoy',
+			'yesterday' => 'Recibido ayer',
 		),
 		'rss_of' => 'Fuente RSS de %s',
-		'title' => 'Salida Principal',
+		'title' => 'Bandeja principal',
 		'title_fav' => 'Favoritos',
 		'title_global' => 'Vista global',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Modificado por usuario',
+			'today' => 'Modificado por usuario hoy',
+			'yesterday' => 'Modificado por usuario ayer',
 		),
 	),
 	'log' => array(
@@ -67,11 +67,11 @@ return array(
 		'about' => 'Acerca de FreshRSS',
 		'before_one_day' => 'Con más de 1 día',
 		'before_one_week' => 'Con más de una semana',
-		'bookmark_query' => 'Marcar consulta actual',
+		'bookmark_query' => 'Guardar vista actual',
 		'favorites' => 'Favoritos (%s)',
-		'global_view' => 'Vista Global',
+		'global_view' => 'Vista global',
 		'important' => 'Fuentes importantes',
-		'main_stream' => 'Salida Principal',
+		'main_stream' => 'Bandeja principal',
 		'mark_all_read' => 'Marcar todo como leído',
 		'mark_cat_read' => 'Marcar categoría como leída',
 		'mark_feed_read' => 'Marcar fuente como leída',
@@ -81,34 +81,34 @@ return array(
 		'non-starred' => 'Mostrar todos menos los favoritos',
 		'normal_view' => 'Vista normal',
 		'older_first' => 'Más antiguos primero',
-		'queries' => 'Peticiones de usuario',
+		'queries' => 'Búsquedas de usuario',
 		'read' => 'Mostrar solo los leídos',
 		'reader_view' => 'Vista de lectura',
 		'rss_view' => 'Fuente RSS',
 		'search_short' => 'Buscar',
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
+			'_' => 'Criterios de ordenación',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Categoría, títulos de fuentes A→Z',
+				'name_desc' => 'Categoría, títulos de fuentes Z→A',
 			),
-			'date_asc' => 'Publication date 1→9',	// TODO
-			'date_desc' => 'Publication date 9→1',	// TODO
+			'date_asc' => 'Fecha de publicación 1→9',
+			'date_desc' => 'Fecha de publicación 9→1',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Título de fuente A→Z',
+				'name_desc' => 'Título de fuente Z→A',
 			),
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
-			'rand' => 'Random order',	// TODO
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'id_asc' => 'Recién recibido último',
+			'id_desc' => 'Recién recibido primero',
+			'length_asc' => 'Longitud de contenido 1→9',
+			'length_desc' => 'Longitud de contenido 9→1',
+			'link_asc' => 'Enlace A→Z',
+			'link_desc' => 'Enlace Z→A',
+			'rand' => 'Orden aleatorio',
+			'title_asc' => 'Título A→Z',
+			'title_desc' => 'Título Z→A',
+			'user_modified_asc' => 'Modificado por usuario 1→9',
+			'user_modified_desc' => 'Modificado por usuario 9→1',
 		),
 		'starred' => 'Mostrar solo los favoritos',
 		'stats' => 'Estadísticas',

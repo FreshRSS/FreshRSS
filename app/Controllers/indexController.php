@@ -232,14 +232,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action displays the RSS feed of FreshRSS.
+	 * @deprecated See user query RSS sharing instead
 	 */
-	#[Deprecated('See user query RSS sharing instead')]
 	public function rssAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
 
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Error::error(403);
+		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
+			Minz_Error::error(403, redirect: false);
 		}
 
 		try {
@@ -267,13 +267,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
 
-	#[Deprecated('See user query OPML sharing instead')]
 	public function opmlAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
 
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Error::error(403);
+		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
+			Minz_Error::error(403, redirect: false);
 		}
 
 		try {

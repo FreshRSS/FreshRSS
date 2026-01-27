@@ -83,10 +83,12 @@ return array(
 			'_' => '基础 URL',
 			'recommendation' => '推荐: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => '单位：秒',
 			'number' => '保持登录的时长',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => '强制验证邮箱地址',
 		'instance-name' => '实例名称',
 		'max-categories' => '各用户分类数限制',

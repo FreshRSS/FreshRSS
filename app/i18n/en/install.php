@@ -87,7 +87,7 @@ return array(
 		),
 		'pdo-sqlite' => array(
 			'nok' => 'Cannot find the PDO driver for SQLite.',
-			'ok' => 'You have the PDO driver for SQLite',
+			'ok' => 'You have the PDO driver for SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_sqlite, pdo_pgsql, pdo_mysql).',
