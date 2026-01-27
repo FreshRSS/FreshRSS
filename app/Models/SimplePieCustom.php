@@ -220,7 +220,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'iframe' => [
 				'allow' => 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
 				'sandbox' => 'allow-scripts allow-same-origin',
-				'allowfullscreen' = > 'allowfullscreen',			  
+				'allowfullscreen' => 'allowfullscreen',			  
 			],
 			'video' => ['controls' => 'controls', 'preload' => 'none'],
 		]);
