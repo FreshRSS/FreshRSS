@@ -291,6 +291,7 @@ People are sorted by name so please keep this order.
 * [ThomasSmallert](https://github.com/ThomasSmallert): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ThomasSmallert)
 * [Ths2-9Y-LqJt6](https://github.com/Ths2-9Y-LqJt6): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Ths2-9Y-LqJt6)
 * [Tibor Repček](https://github.com/tiborepcek): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tiborepcek)
+* [Tomáš Odehnal](https://github.com/tomasodehnal): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tomasodehnal)
 * [tomgue](https://github.com/tomgue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tomgue)
 * [Tommaso Ferrari](https://github.com/raspo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:raspo), [Web](https://tommasoferrari.com)
 * [tonitonae](https://github.com/tonitonae): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tonitonae)
