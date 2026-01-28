@@ -77,10 +77,10 @@ return array(
 		'mark_feed_read' => 'Feed als gelesen markieren',
 		'mark_selection_unread' => 'Auswahl als ungelesen markieren',
 		'mylabels' => 'Meine Labels',
-		'non-starred' => 'Alle außer Favoriten zeigen',
+		'non-starred' => 'Nicht-Favoriten zeigen',
 		'normal_view' => 'Normale Ansicht',
 		'queries' => 'Benutzerabfragen',
-		'read' => 'Nur gelesene zeigen',
+		'read' => 'Gelesene zeigen',
 		'reader_view' => 'Lese-Ansicht',
 		'rss_view' => 'RSS-Feed',
 		'search_short' => 'Suchen',
@@ -117,10 +117,10 @@ return array(
 			'user_modified_asc' => 'User modified 1→9',	// TODO
 			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
-		'starred' => 'Nur Favoriten zeigen',
+		'starred' => 'Favoriten zeigen',
 		'stats' => 'Statistiken',
 		'subscription' => 'Abonnementverwaltung',
-		'unread' => 'Nur ungelesene zeigen',
+		'unread' => 'Ungelesene zeigen',
 	),
 	'share' => 'Teilen',
 	'tag' => array(

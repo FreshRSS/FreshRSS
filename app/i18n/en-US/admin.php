@@ -83,10 +83,12 @@ return array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// IGNORE
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// IGNORE
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// IGNORE
 			'number' => 'Duration to keep logged in',	// IGNORE
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// IGNORE
 		'force_email_validation' => 'Force email address validation',	// IGNORE
 		'instance-name' => 'Instance name',	// IGNORE
 		'max-categories' => 'Max number of categories per user',	// IGNORE

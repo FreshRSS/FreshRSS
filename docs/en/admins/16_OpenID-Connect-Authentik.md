@@ -26,6 +26,7 @@ Without the port number, Authentik will give a `redirect_url` error.
 You will need to choose a signing key.
 If you don’t have one, generate one under *System > Certificates*.
 The default `authentik Self-Signed Certificate` will also work.
+If using a self-signed certificate issued by your own CA, you will need to mount the following file to the FreshRSS container: `/etc/ssl/certs/ca-certificates.crt:ro`. *Note: The `ca-certificates.crt` need to be mounted as read-only `:ro` to avoid any unwanted modification.*
 
 Under *Advanced Protocol Settings > Scopes* you will see that email, openid and profile are selected by default.
 These are the scopes you will set later in the docker config file.
@@ -125,6 +126,7 @@ services:
     volumes:
       - freshrss-data:/var/www/FreshRSS/data
       - freshrss-extensions:/var/www/FreshRSS/extensions
+	  - /etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro # If using self-signed authentik signing-key issued by your own CA
     # # Portainer defines the env file as show below, but not needed if using the default `.env`
     # env_file:
     #   - ../stack.env
