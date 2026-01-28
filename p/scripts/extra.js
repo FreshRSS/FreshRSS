@@ -595,9 +595,9 @@ function init_enable_notify_button() {
 		notify_button.checked = false;
 	}
 
-	notify_button.addEventListener('change', function() {
+	notify_button.addEventListener('change', function () {
 		if (this.checked) {
-			Notification.requestPermission().then(function(permission) {
+			Notification.requestPermission().then(function (permission) {
 				notifs_html5_permission = permission;
 				// Uncheck if user denied
 				if (permission !== 'granted') {
@@ -609,7 +609,6 @@ function init_enable_notify_button() {
 			notifs_html5_permission = 'denied';
 		}
 	});
-
 }
 
 function init_extra_afterDOM() {
@@ -633,7 +632,7 @@ function init_extra_afterDOM() {
 		init_update_feed();
 		init_details_attributes();
 		init_user_stats();
-		init_enable_notify_button()
+		init_enable_notify_button();
 
 		data_auto_leave_validation(document.body);
 
