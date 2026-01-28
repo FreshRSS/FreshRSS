@@ -68,7 +68,7 @@ Special parameters to configure the script - all parameters can be combined:
 
 - Parameters `user` and `token`
   <https://freshrss.example.net/i/?c=feed&a=actualize&user=alice&token=token123>
-  Security parameters that allow a user to refresh their feed when *Web form* authentication is set. For detailed Documentation see "Form authentication" below.
+  Security parameters that allow a user to refresh their feed when *Web form* authentication is set. For detailed Documentation see “Form authentication” below.
 
 ### For Form Authentication (Web form)
 
@@ -84,7 +84,7 @@ Alternatively, but not recommended, you can also allow anonymous users to update
 
 ![Anonymous access configuration](../img/users/anonymous_access.1.png)
 
-This allows anyone to update the feeds of the default user's subscriptions.
+This allows anyone to update the feeds of the default user’s subscriptions.
 
 ### For HTTP authentication
 
