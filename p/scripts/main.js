@@ -2022,7 +2022,7 @@ function init_notifs_html5() {
 	}
 	context.notifs_html5_permission = Notification.permission;
 	// Only ask if the user hasn't answered yet
-	// else they need to ask from settings > disply
+	// otherwise they need to ask from settings > display
 	if (context.notifs_html5_permission === 'default') {
 		notifs_html5_ask_permission();
 	}
