@@ -558,7 +558,7 @@ function next_unread_entry(skipping) {
 		do new_active = new_active.nextElementSibling;
 		while (new_active && !new_active.classList.contains('not_read'));
 		if (!new_active) {
-			next_feed();
+			next_feed(true);
 		}
 	} else {
 		new_active = document.querySelector('.not_read');
