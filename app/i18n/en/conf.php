@@ -106,16 +106,16 @@ return array(
 		'small' => 'Small',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Enable notification',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Show warning banner',
+			'seconds' => 'seconds (at least 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Show acknowledgement banner',
+			'seconds' => 'seconds (0 means not shown)',
 		),
 	),
 	'privacy' => array(
