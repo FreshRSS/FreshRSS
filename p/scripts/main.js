@@ -1965,7 +1965,7 @@ function init_notifications() {
 // </notification>
 
 // <notifs html5>
-let notifs_html5_permission = 'denied';
+context.notifs_html5_permission = 'denied';
 
 function notifs_html5_is_supported() {
 	return window.Notification !== undefined;
@@ -1973,10 +1973,10 @@ function notifs_html5_is_supported() {
 
 async function notifs_html5_ask_permission() {
 	try {
-		notifs_html5_permission = await window.Notification.requestPermission();
+		context.notifs_html5_permission = await window.Notification.requestPermission();
 	} catch (e) {
 		// User denied
-		notifs_html5_permission = 'denied';
+		context.notifs_html5_permission = 'denied';
 	}
 }
 
@@ -1984,7 +1984,7 @@ function notifs_html5_show(nb, nb_new) {
 	if (!context.html5_enable_notif) {
 		return;	// from config
 	}
-	if (notifs_html5_permission !== 'granted') {
+	if (context.notifs_html5_permission !== 'granted') {
 		return;
 	}
 
@@ -2020,10 +2020,10 @@ function init_notifs_html5() {
 	if (!context.html5_enable_notif) {
 		return;
 	}
-	notifs_html5_permission = Notification.permission;
+	context.notifs_html5_permission = Notification.permission;
 	// Only ask if the user hasn't answered yet
 	// else they need to ask from settings > disply
-	if (notifs_html5_permission === 'default') {
+	if (context.notifs_html5_permission === 'default') {
 		notifs_html5_ask_permission();
 	}
 }
