@@ -83,10 +83,12 @@ return array(
 			'_' => 'Základní adresa URL',
 			'recommendation' => 'Automatické doporučení: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Trvání ponechání přihlášení',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Vynutit ověření e-mailové adresy',
 		'instance-name' => 'Název instance',
 		'max-categories' => 'Maximální počet kategorií na uživatele',

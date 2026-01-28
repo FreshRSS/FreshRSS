@@ -50,7 +50,7 @@
 						<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 					</div>
 					<br />
-					<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?= $this->feed->url() ?>"><?= _t('sub.feed.validator') ?></a>
+					<a class="btn open-url" target="_blank" rel="noreferrer" data-input="url" data-prefix="https://validator.w3.org/feed/check.cgi?url=" data-encode="1" href="https://validator.w3.org/feed/check.cgi?url=<?= $this->feed->url() ?>"><?= _t('sub.feed.validator') ?></a>
 				</div>
 			</div>
 			<div class="form-group">
