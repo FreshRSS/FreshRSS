@@ -44,7 +44,6 @@ AddDefaultCharset	UTF-8
 			Header merge Cache-Control "immutable"
 		</If>
 	</FilesMatch>
-	Header edit Set-Cookie ^(.*)$ "$1; SameSite=Lax"
 </IfModule>
 
 # Provide the true IP address of the connection (e.g. last proxy), even when using mod_remoteip
