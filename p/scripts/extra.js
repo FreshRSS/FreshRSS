@@ -595,15 +595,14 @@ function init_enable_notify_button() {
 		notify_button.checked = false;
 	}
 
-	notify_button.addEventListener('change', function () {
+	notify_button.addEventListener('change', async function () {
 		if (this.checked) {
-			Notification.requestPermission().then(function (permission) {
-				context.notifs_html5_permission = permission;
-				// Uncheck if user denied
-				if (permission !== 'granted') {
-					notify_button.checked = false;
-				}
-			});
+			const permission = await Notification.requestPermission();
+			context.notifs_html5_permission = permission;
+			// Uncheck if user denied
+			if (permission !== 'granted') {
+				notify_button.checked = false;
+			}
 		} else {
 			// User disabled notifications
 			context.notifs_html5_permission = 'denied';
