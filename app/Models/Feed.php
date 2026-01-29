@@ -1331,7 +1331,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function pubSubHubbubPrepare(): string|false {
 		$key = '';
 		$baseUrl = FreshRSS_Context::systemConf()->base_url;
-		// if they have same host they can reach each other. eg localhost to localhost
+		// If they have the same host, they can reach each other (e.g., localhost to localhost)
 		if ((Minz_Request::serverIsPublic($baseUrl) || self::isSameHost($this->hubUrl, $baseUrl)) &&
 			$this->hubUrl !== '' && $this->selfUrl !== '' && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
@@ -1385,7 +1385,7 @@ class FreshRSS_Feed extends Minz_Model {
 			$url = $this->url;	//Always use current URL during unsubscribe
 		}
 		$baseUrl = FreshRSS_Context::systemConf()->base_url;
-		//if they have same host, they can reach each other. eg localhost
+		// If they have the same host, they can reach each other (e.g., localhost to localhost)
 		if ($url !== '' && (Minz_Request::serverIsPublic($baseUrl) || self::isSameHost($url, $baseUrl) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
