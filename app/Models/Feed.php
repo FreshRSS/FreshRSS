@@ -1322,9 +1322,17 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
+	private static function isSameHost(string $url1, string $url2): bool {
+		$hubHost  = parse_url($url1, PHP_URL_HOST);
+		$baseHost = parse_url($url2, PHP_URL_HOST);
+		return ($hubHost != null && $baseHost != null && strcasecmp($hubHost, $baseHost) === 0);
+	}
+
 	public function pubSubHubbubPrepare(): string|false {
 		$key = '';
-		if (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) &&
+		$baseUrl = FreshRSS_Context::systemConf()->base_url;
+		// If they have the same host, they can reach each other (e.g., localhost to localhost)
+		if ((Minz_Request::serverIsPublic($baseUrl) || self::isSameHost($this->hubUrl, $baseUrl)) &&
 			$this->hubUrl !== '' && $this->selfUrl !== '' && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
@@ -1376,7 +1384,9 @@ class FreshRSS_Feed extends Minz_Model {
 		} else {
 			$url = $this->url;	//Always use current URL during unsubscribe
 		}
-		if ($url !== '' && (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) || !$state)) {
+		$baseUrl = FreshRSS_Context::systemConf()->base_url;
+		// If they have the same host, they can reach each other (e.g., localhost to localhost)
+		if ($url !== '' && (Minz_Request::serverIsPublic($baseUrl) || self::isSameHost($url, $baseUrl) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
