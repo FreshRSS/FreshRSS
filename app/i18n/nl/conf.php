@@ -105,6 +105,9 @@ return array(
 		'none' => 'Geen',
 		'small' => 'Klein',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Waarschuwingsbalk tonen',
