@@ -160,7 +160,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			} else {
 				FreshRSS_Context::userConf()->sort_order = 'DESC';
 			}
-			if (in_array($sorting, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'length'], true)) {
+			if (in_array($sorting, ['id', 'c.name', 'date', 'f.name', 'length', 'link', 'title', 'rand'], true)) {
 				FreshRSS_Context::userConf()->sort = $sorting;
 			} else {
 				FreshRSS_Context::userConf()->sort = 'id';
