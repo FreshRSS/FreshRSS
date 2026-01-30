@@ -384,7 +384,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 						'date' => $pagingEntry->date(raw: true),
 						'link' => $pagingEntry->link(raw: true),
 						'title' => $pagingEntry->title(),
-						'length' => $pagingEntry->sqlContentLength() ?? 0,
 					};
 				}
 			} elseif (FreshRSS_Context::$sort === 'rand') {

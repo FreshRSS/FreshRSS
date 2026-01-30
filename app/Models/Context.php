@@ -42,11 +42,11 @@ final class FreshRSS_Context {
 	public static int $state = 0;
 	/** @var 'ASC'|'DESC' */
 	public static string $order = 'DESC';
-	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' */
+	/** @var 'id'|'c.name'|'date'|'f.name'|'lastUserModified'|'length'|'link'|'rand'|'title' */
 	public static string $sort = 'id';
 	/** @var 'ASC'|'DESC' */
 	public static string $secondary_sort_order = 'DESC';
-	/** @var 'id'|'date'|'link'|'title'|'length' */
+	/** @var 'id'|'date'|'link'|'title' */
 	public static string $secondary_sort = 'id';
 	public static int $number = 0;
 	public static int $offset = 0;
