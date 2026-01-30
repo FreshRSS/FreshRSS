@@ -106,7 +106,7 @@ return array(
 		'small' => '小',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => '启用通知',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
