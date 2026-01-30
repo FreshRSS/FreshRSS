@@ -86,7 +86,7 @@ return array(
 			'nok' => '无法找到 PostgreSQL 所需的 PDO 驱动。',
 		),
 		'pdo-sqlite' => array(
-			'nok' => ''无法找到 SQLite 的 PDO 驱动。',
+			'nok' => '无法找到 SQLite 的 PDO 驱动。',
 			'ok' => '已找到 SQLite 的 PDO 驱动。',
 		),
 		'pdo' => array(
