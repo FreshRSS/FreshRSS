@@ -31,7 +31,7 @@ return array(
 		'empty_list' => 'Er zijn geïnstalleerde uitbreidingen',
 		'empty_list_help' => 'Controleer de logbestanden om de reden voor de lege extensielijst te achterhalen.',
 		'enabled' => 'Ingeschakeld',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Is compatibel',
 		'latest' => 'Geïnstalleerd',
 		'name' => 'Naam',
 		'no_configure_view' => 'Deze uitbreiding kan niet worden geconfigureerd.',
@@ -48,8 +48,8 @@ return array(
 		'_' => 'Statistieken',
 		'all_feeds' => 'Alle feeds',
 		'category' => 'Categorie',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Publicatiedatum',
+		'date_received' => 'Ontvangstdatum',
 		'entry_count' => 'Invoer aantallen',
 		'entry_per_category' => 'Aantallen per categorie',
 		'entry_per_day' => 'Aantallen per dag (laatste 30 dagen)',
@@ -62,7 +62,7 @@ return array(
 		'idle' => 'Gepauzeerde feeds',
 		'main' => 'Hoofd statistieken',
 		'main_stream' => 'Overzicht',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Aantal ongelezen artikelen',
 		'no_idle' => 'Er is geen gepauzeerde feed!',
 		'number_entries' => '%d artikelen',
 		'overview' => 'Overzicht',
@@ -74,7 +74,7 @@ return array(
 		'status_unread' => 'Ongelezen',
 		'title' => 'Statistieken',
 		'top_feed' => 'Top tien feeds',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Data met de meeste ongelezen artikelen',
 	),
 	'system' => array(
 		'_' => 'Systeem configuratie',
@@ -83,10 +83,12 @@ return array(
 			'_' => 'Basis-url',
 			'recommendation' => 'Automatische aanbeveling: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'in seconden',
 			'number' => 'Tijdsduur om ingelogd te blijven',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Emailadresvalidatie forceren',
 		'instance-name' => 'Voorbeeld naam',
 		'max-categories' => 'Categorielimiet per gebruiker',

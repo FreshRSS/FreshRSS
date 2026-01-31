@@ -96,7 +96,7 @@
 				<div class="group-controls">
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
 						foreach ($this->category->filtersAction('read') as $filterRead) {
-							echo htmlspecialchars($filterRead->__toString(), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+							echo htmlspecialchars($filterRead->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>

@@ -105,6 +105,9 @@ return array(
 		'none' => 'None',	// IGNORE
 		'small' => 'Small',	// IGNORE
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// IGNORE
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// IGNORE

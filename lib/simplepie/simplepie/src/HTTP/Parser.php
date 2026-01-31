@@ -243,7 +243,7 @@ class Parser
             $headers[$name][] = $value;
         } else {
             // For PHPStan: should be enforced by template parameter but PHPStan is not smart enough.
-            /** @var array<string, string>) */
+            /** @var array<string,string> */
             $headers = &$this->headers;
             $headers[$name] .= ', ' . $value;
         }
@@ -258,7 +258,7 @@ class Parser
             $headers[$name] = [$value];
         } else {
             // For PHPStan: should be enforced by template parameter but PHPStan is not smart enough.
-            /** @var array<string, string>) */
+            /** @var array<string,string> */
             $headers = &$this->headers;
             $headers[$name] = $value;
         }

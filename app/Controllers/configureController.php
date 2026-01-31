@@ -75,6 +75,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->bottomline_link = Minz_Request::paramBoolean('bottomline_link');
 			FreshRSS_Context::userConf()->show_nav_buttons = Minz_Request::paramBoolean('show_nav_buttons');
 			FreshRSS_Context::userConf()->html5_notif_timeout = max(0, Minz_Request::paramInt('html5_notif_timeout'));
+			FreshRSS_Context::userConf()->html5_enable_notif = Minz_Request::paramBoolean('html5_enable_notif');
 			FreshRSS_Context::userConf()->good_notification_timeout = max(0, Minz_Request::paramInt('good_notification_timeout'));
 			FreshRSS_Context::userConf()->bad_notification_timeout = max(1, Minz_Request::paramInt('bad_notification_timeout'));
 			FreshRSS_Context::userConf()->save();
@@ -382,7 +383,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * configuration values then sends a notification to the user then
 	 * redirect to the same page.
 	 * If this action is not reached through a POST request, it displays the
-	 * configuration page and verifies that every user query is runable by
+	 * configuration page and verifies that every user query is runnable by
 	 * checking if categories and feeds are still in use.
 	 */
 	public function queriesAction(): void {
@@ -609,6 +610,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::systemConf()->limits = $limits;
 			FreshRSS_Context::systemConf()->title = Minz_Request::paramString('instance-name') ?: 'FreshRSS';
 			FreshRSS_Context::systemConf()->force_email_validation = Minz_Request::paramBoolean('force-email-validation');
+			FreshRSS_Context::systemConf()->closed_registration_message = Minz_Request::paramString('closed_registration_message') ?: '';
 			FreshRSS_Context::systemConf()->save();
 
 			invalidateHttpCache();

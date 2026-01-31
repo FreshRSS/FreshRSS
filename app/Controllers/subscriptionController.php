@@ -421,7 +421,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		$actionsSearch = new FreshRSS_BooleanSearch('', operator: 'AND');
 		foreach ($filteractions as $action) {
 			$actionSearch = new FreshRSS_BooleanSearch($action, operator: 'OR');
-			if ($actionSearch->__toString() === '') {
+			if ($actionSearch->toString() === '') {
 				continue;
 			}
 			$actionsSearch->add($actionSearch);
@@ -433,7 +433,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			'c' => 'index',
 			'a' => 'index',
 			'params' => [
-				'search' => $search->__toString(),
+				'search' => $search->toString(),
 			],
 		], redirect: true);
 	}

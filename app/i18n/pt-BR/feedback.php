@@ -50,7 +50,7 @@ return array(
 			'ko' => '%s não pode ser habilitado. <a href="%s">verifique os logs do FreshRSS</a> para detalhes.',
 			'ok' => '%s agora está habilitado',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => 'Modo de visualização inválido “%s”! Retornando ao modo de visualização “Normal”.',
 		'no_access' => 'Você não tem acesso ao %s',
 		'not_enabled' => '%s não está habilitado',
 		'not_found' => '%s não existe',
@@ -58,15 +58,15 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'extensão ZIP não está presente em seu servidor. Por favor tente exportar os arquivos um por vez.',
-		'feeds_imported' => 'Seus feeds foram importados e serão atualizados agora / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Seus feeds foram importados, mas alguns erros ocorreram / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'Seus feeds foram importados e serão atualizados agora. Se você terminou de importar, pode clicar no botão <i>Atualizar feeds</i>.',
+		'feeds_imported_with_errors' => 'Seus feeds foram importados, mas alguns erros ocorreram. Se você terminou de importar, pode clicar no botão <i>Atualizar feeds</i>.',
 		'file_cannot_be_uploaded' => 'Arquivo não pôde ser enviado',
 		'no_zip_extension' => 'extensão ZIP não está presente em seu servidor.',
 		'zip_error' => 'Um erro ocorreu durante a importação do arquivo ZIP.',
 	),
 	'profile' => array(
 		'error' => 'Seu perfil não pode ser editado',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'As senhas não coincidem',
 		'updated' => 'Seu perfil foi editado com sucesso',
 	),
 	'sub' => array(
@@ -97,10 +97,10 @@ return array(
 			'deleted' => 'o feed foi deletado',
 			'error' => 'O feed não pode ser atualizado',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => 'O ícone carregado é muito grande. O tamanho máximo do arquivo é <em>%s</em>.',
+				'unsupported_format' => 'Formato de arquivo de imagem não suportado!',
 			),
-			'internal_problem' => 'O feed RSS não pôde ser adicionado. <a href="%s">Verifique os logs do FreshRSS</a> para detalhes. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
+			'internal_problem' => 'O feed RSS não pôde ser adicionado. <a href="%s">Verifique os logs do FreshRSS</a> para detalhes. Você pode tentar forçar a adição anexando <code>#force_feed</code> à URL.',
 			'invalid_url' => 'URL <em>%s</em> é inválida',
 			'n_actualized' => '%d feeds foram atualizados',
 			'n_entries_deleted' => '%d artigos foram deletados',

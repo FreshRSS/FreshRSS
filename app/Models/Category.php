@@ -18,11 +18,11 @@ class FreshRSS_Category extends Minz_Model {
 	private int $kind = 0;
 	private string $name;
 	private int $nbFeeds = -1;
+	/** Number of unread articles in feeds with visibility FreshRSS_Feed::PRIORITY_FEED */
 	private int $nbNotRead = -1;
 	/** @var array<int,FreshRSS_Feed>|null where the key is the feed ID */
 	private ?array $feeds = null;
-	/** @var bool|int */
-	private $hasFeedsWithError = false;
+	private bool|int $hasFeedsWithError = false;
 	private int $lastUpdate = 0;
 	private bool $error = false;
 
@@ -39,8 +39,10 @@ class FreshRSS_Category extends Minz_Model {
 			foreach ($feeds as $feed) {
 				$feed->_category($this);
 				$this->nbFeeds++;
-				$this->nbNotRead += $feed->nbNotRead();
-				$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
+				if ($feed->priority() > FreshRSS_Feed::PRIORITY_HIDDEN) {
+					$this->nbNotRead += $feed->nbNotRead();
+					$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
+				}
 			}
 		}
 	}
@@ -90,13 +92,25 @@ class FreshRSS_Category extends Minz_Model {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public function nbNotRead(): int {
-		if ($this->nbNotRead < 0) {
-			$catDAO = FreshRSS_Factory::createCategoryDao();
-			$this->nbNotRead = $catDAO->countNotRead($this->id());
+	public function nbNotRead(int $minPriority = FreshRSS_Feed::PRIORITY_FEED): int {
+		if ($this->nbNotRead > 0 && $minPriority === FreshRSS_Feed::PRIORITY_FEED) {
+			return $this->nbNotRead;
 		}
-
-		return $this->nbNotRead;
+		if ($this->feeds === null) {
+			$catDAO = FreshRSS_Factory::createCategoryDao();
+			$nb = $catDAO->countNotRead($this->id(), $minPriority);
+			if ($minPriority === FreshRSS_Feed::PRIORITY_FEED) {
+				$this->nbNotRead = $nb;
+			}
+			return $nb;
+		}
+		$nb = 0;
+		foreach ($this->feeds as $feed) {
+			if ($feed->priority() >= $minPriority) {
+				$nb += $feed->nbNotRead();
+			}
+		}
+		return $nb;
 	}
 
 	/** @return array<int,mixed> */
@@ -117,8 +131,10 @@ class FreshRSS_Category extends Minz_Model {
 			$this->nbNotRead = 0;
 			foreach ($this->feeds as $feed) {
 				$this->nbFeeds++;
-				$this->nbNotRead += $feed->nbNotRead();
-				$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
+				if ($feed->priority() > FreshRSS_Feed::PRIORITY_HIDDEN) {
+					$this->nbNotRead += $feed->nbNotRead();
+					$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
+				}
 			}
 			$this->sortFeeds();
 		}
@@ -290,14 +306,10 @@ class FreshRSS_Category extends Minz_Model {
 	/**
 	 * @param array<FreshRSS_Category> $categories
 	 */
-	public static function countUnread(array $categories, int $minPriority = 0): int {
+	public static function countUnread(array $categories, int $minPriority = FreshRSS_Feed::PRIORITY_FEED): int {
 		$n = 0;
 		foreach ($categories as $category) {
-			foreach ($category->feeds() as $feed) {
-				if ($feed->priority() >= $minPriority) {
-					$n += $feed->nbNotRead();
-				}
-			}
+			$n += $category->nbNotRead($minPriority);
 		}
 		return $n;
 	}

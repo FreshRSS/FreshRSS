@@ -105,6 +105,9 @@ return array(
 		'none' => 'Brak',
 		'small' => 'Mały',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Pokaż baner ostrzeżenia',

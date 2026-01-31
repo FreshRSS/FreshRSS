@@ -491,8 +491,13 @@ SQL;
 			$stm = $this->pdo->prepare($sql);
 			if ($stm === false || !$stm->execute($values)) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
-				return false;
+				/** @var array{0:string,1:int,2:string} $info */
+				if ($this->autoUpdateDb($info)) {
+					return $this->markRead($ids, $is_read);
+				} else {
+					Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
+					return false;
+				}
 			}
 			$affected = $stm->rowCount();
 			if (($affected > 0) && (!$this->updateCacheUnreads(null, null))) {
@@ -511,8 +516,13 @@ SQL;
 				return $stm->rowCount();
 			} else {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
-				return false;
+				/** @var array{0:string,1:int,2:string} $info */
+				if ($this->autoUpdateDb($info)) {
+					return $this->markRead($ids, $is_read);
+				} else {
+					Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
+					return false;
+				}
 			}
 		}
 	}
@@ -1444,7 +1454,10 @@ SQL;
 			sort: $sort, order: $order, continuation_id: $continuation_id, continuation_values: $continuation_values);
 
 		// Help MySQL/MariaDB's optimizer with the query plan:
-		$useEntryIndex = $this->pdo->dbType() === 'mysql' ? 'USE INDEX (entry_feed_read_index) ' : '';
+		$useEntryIndex = ($this->pdo->dbType() === 'mysql' &&	// Only relevant for MySQL/MariaDB,
+				in_array($type, ['a', 'A', 'Z', 'i', 's', 'f'], true) &&	// for some of the queries using the feed table,
+				preg_match('/is_read\\s*=\\s*[01]\\b/', $search))	// where is_read is a criteria
+			? 'USE INDEX (entry_feed_read_index) ' : '';
 
 		return [array_merge($values, $searchValues), 'SELECT '
 			. ($type === 'T' ? 'DISTINCT ' : '')

@@ -24,6 +24,7 @@ echo json_encode([
 		'does_lazyload' => !!FreshRSS_Context::userConf()->lazyload ,
 		'sides_close_article' => !!FreshRSS_Context::userConf()->sides_close_article,
 		'sticky_post' => !!FreshRSS_Context::isStickyPostEnabled(),
+		'html5_enable_notif' => FreshRSS_Context::userConf()->html5_enable_notif,
 		'html5_notif_timeout' => FreshRSS_Context::userConf()->html5_notif_timeout,
 		'closeNotification' => [
 			'good' => FreshRSS_Context::userConf()->good_notification_timeout * 1000,

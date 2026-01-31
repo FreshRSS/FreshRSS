@@ -65,7 +65,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * Return if the maximum number of registrations has been reached.
 	 * Note a max_registrations of 0 means there is no limit.
 	 *
-	 * @return bool true if number of users >= max registrations, false else.
+	 * @return bool true if number of users >= max registrations, false otherwise.
 	 */
 	public static function max_registrations_reached(): bool {
 		$limit_registrations = FreshRSS_Context::systemConf()->limits['max_registrations'];

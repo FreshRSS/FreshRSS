@@ -19,6 +19,7 @@ declare(strict_types=1);
  * @property-read bool $http_auth_auto_register
  * @property-read string $http_auth_auto_register_email_field
  * @property string $language
+ * @property string $closed_registration_message
  * @property array<string,int> $limits
  * @property-read string $logo_html
  * @property-read string $meta_description

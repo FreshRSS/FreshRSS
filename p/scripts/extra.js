@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, openNotification, xmlHttpRequestJson */
+/* globals context, notifs_html5_is_supported, openNotification, xmlHttpRequestJson */
 
 // <crypto form (Web login)>
 function poormanSalt() {	// If crypto.getRandomValues is not available
@@ -395,11 +395,14 @@ function close_slider_listener(ev) {
 }
 // </slider>
 
-// overwrites the href attribute from the url input
+// updates href from the input value, with optional prefix/encoding
 function updateHref(ev) {
 	const urlField = document.getElementById(this.getAttribute('data-input'));
-	const url = urlField.value;
-	if (url.length > 0) {
+	const rawUrl = urlField.value;
+	const prefix = this.getAttribute('data-prefix') || '';
+	const shouldEncode = this.getAttribute('data-encode') === '1';
+	const url = prefix + (shouldEncode ? encodeURIComponent(rawUrl) : rawUrl);
+	if (rawUrl.length > 0) {
 		this.href = url;
 		return true;
 	} else {
@@ -578,6 +581,35 @@ function init_user_stats() {
 	document.querySelectorAll('tr[data-need-ajax]').forEach(row => observer.observe(row));
 }
 
+function init_enable_notify_button() {
+	const notify_button = document.getElementById('html5_enable_notif');
+	if (!notify_button) return;
+	// it means unsupported in browser
+	if (!notifs_html5_is_supported()) {
+		notify_button.checked = false;
+		return;
+	}
+
+	// Not granted, uncheck even if it is saved in server so browser asks for permission
+	if (Notification.permission !== 'granted') {
+		notify_button.checked = false;
+	}
+
+	notify_button.addEventListener('change', async function () {
+		if (this.checked) {
+			const permission = await Notification.requestPermission();
+			context.notifs_html5_permission = permission;
+			// Uncheck if user denied
+			if (permission !== 'granted') {
+				notify_button.checked = false;
+			}
+		} else {
+			// User disabled notifications
+			context.notifs_html5_permission = 'denied';
+		}
+	});
+}
+
 function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
@@ -599,6 +631,7 @@ function init_extra_afterDOM() {
 		init_update_feed();
 		init_details_attributes();
 		init_user_stats();
+		init_enable_notify_button();
 
 		data_auto_leave_validation(document.body);
 

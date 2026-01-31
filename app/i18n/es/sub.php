@@ -50,7 +50,7 @@ return array(
 			'password' => 'Contraseña HTTP',
 			'username' => 'Nombre de usuario HTTP',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'Cambiar…',
 		'clear_cache' => 'Borrar siempre la memoria caché',
 		'content_action' => array(
 			'_' => 'Acción de contenido al obtener el contenido del artículo',
@@ -58,7 +58,7 @@ return array(
 			'prepend' => 'Añadir antes del contenido existente',
 			'replace' => 'Reemplazar contenido existente',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
+		'content_retrieval' => 'Descarga de contenido',
 		'css_cookie' => 'Usar cookies al obtener el contenido del artículo',
 		'css_cookie_help' => 'Ejemplo: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Recibir fuentes RSS truncadas (aviso, ¡necesita más tiempo!)',
@@ -69,31 +69,31 @@ return array(
 		),
 		'description' => 'Descripción',
 		'empty' => 'La fuente está vacía. Por favor, verifica que siga activa.',
-		'error' => 'Hay un problema con esta fuente. Por favor, verifica que esté disponible.',	// DIRTY
+		'error' => 'Hay un problema con esta fuente. Por favor, verifica que esté disponible.',
 		'export-as-opml' => array(
 			'download' => 'Descargar',
 			'help' => 'archivo XML (conjunto de datos. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Ver la documentación</a>)',
 			'label' => 'Exportar como OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => 'Establecer automáticamente',
+		'favicon_changed_by_ext' => 'El icono ha sido establecido por la extensión <b>%s</b>.',
 		'filteractions' => array(
 			'_' => 'Filtrar acciones',
 			'help' => 'Escribir un filtro de búsqueda por línea. Ver <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentación de operadores de búsqueda</a>.',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => 'Vista previa de filtros en artículos existentes (nueva ventana)',
 		),
-		'http_headers' => 'HTTP Headers',	// IGNORE
-		'http_headers_help' => 'Los Headers son separados por un salto de linea, y el nombre y valor de un Header son separados con dos puntos (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
-		'icon' => 'Icon',	// TODO
+		'http_headers' => 'Cabeceras HTTP',
+		'http_headers_help' => 'Las cabeceras son separadas por un salto de línea, y el nombre y valor de una cabecera son separadas por dos puntos (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icono',
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',
 		'kind' => array(
 			'_' => 'Tipo de origen de la fuente',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON dot notation (JSON en HTML)',
+				'_' => 'HTML + XPath + notación dot JSON (JSON en HTML)',
 				'xpath' => array(
 					'_' => 'XPath para JSON en HTML',
-					'help' => 'Ejemplo: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// DIRTY
+					'help' => 'Ejemplo: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (un objecto JSON por artículo)',
 				),
 			),
 			'html_xpath' => array(
@@ -108,7 +108,7 @@ return array(
 					'help' => 'Ejemplo: <code>//div[@class="elemento-noticias"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'author del elemento',
+					'_' => 'autor del elemento',
 					'help' => 'También puede ser un texto estático. Ejemplo: <code>"Anónimo"</code>',
 				),
 				'item_categories' => 'etiquetas del elemento',
@@ -130,10 +130,10 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'título del elemento',
-					'help' => 'Usar en particular el <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">eje XPath</a> <code>descendant::</code> como <code>descendant::h2</code>',
+					'help' => 'Usar <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">eje XPath</a> <code>descendant::</code> como <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
-					'_' => 'ID único del elemento',
+					'_' => 'Identificador único del elemento',
 					'help' => 'Opcional. Ejemplo: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
@@ -149,7 +149,7 @@ return array(
 					'_' => 'título de la fuente',
 					'help' => 'Ejemplo: <code>meta.title</code> o texto estático: <code>"Fuente personalizada"</code>',
 				),
-				'help' => 'Un punto JSON anotado utiliza puntos entre objetos y corchetes para matrices (ejemplo: <code>data.items[0].title</code>)',
+				'help' => 'Una notación de JSON anotada utiliza puntos entre objetos y corchetes para matrices (ejemplo: <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'buscando nuevos <strong>items</strong><br /><small>(más importante)</small>',
 					'help' => 'Ruta JSON a la matriz que contiene los elementos, ejemplo: <code>$</code> o <code>newsItems</code>',
@@ -207,18 +207,18 @@ return array(
 		'no_selected' => 'No hay fuentes seleccionadas.',
 		'number_entries' => '%d artículos',
 		'open_feed' => 'Fuente abierta %s',
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'path_entries_conditions' => 'Condiciones para descarga de contenidos',
 		'priority' => array(
 			'_' => 'Visibilidad',
 			'category' => 'Mostrar en su categoría',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => 'Mostrar en su fuente',
 			'hidden' => 'No mostrar',
 			'important' => 'Mostrar en fuentes importantes',
-			'main_stream' => 'Mostrar en salida principal',
+			'main_stream' => 'Mostrar en bandeja principal',
 		),
 		'proxy' => 'Establecer un proxy para obtener esta fuente',
 		'proxy_help' => 'Seleccione un protocolo (e.g: SOCKS5) e introduzca la dirección del proxy (e.g: <kbd>127.0.0.1:1080</kbd> o <kbd>username:password@127.0.0.1:1080</kbd>)',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => 'Restablecer a predeterminado',
 		'selector_preview' => array(
 			'show_raw' => 'Mostrar código fuente',
 			'show_rendered' => 'Mostrar contenido',
@@ -263,7 +263,7 @@ return array(
 	'import_export' => array(
 		'export' => array(
 			'_' => 'Exportar',
-			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite' => 'Descargar base de datos de usuario en formato SQLite',
 		),
 		'export_labelled' => 'Exporta tus artículos etiquetados',
 		'export_opml' => 'Exportar la lista de fuentes (OPML)',
@@ -283,7 +283,7 @@ return array(
 			'idle' => 'Fuentes inactivas',
 			'main' => 'Estadísticas principales',
 			'repartition' => 'Reparto de artículos',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => 'Fechas no leídas',
 		),
 		'subscription_management' => 'Administración de suscripciones',
 		'subscription_tools' => 'Herramientas de suscripción',
@@ -301,7 +301,7 @@ return array(
 		'add_dynamic_opml' => 'Agrega un OPML dinámico',
 		'add_feed' => 'Añadir una fuente',
 		'add_label' => 'Añadir una etiqueta',
-		'add_opml_category' => 'OPML category name',	// TODO
+		'add_opml_category' => 'Nombre de la categoría OPML',
 		'delete_label' => 'Eliminar una etiqueta',
 		'feed_management' => 'Administración de fuentes RSS',
 		'subscription_tools' => 'Herramientas de suscripción',

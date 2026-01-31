@@ -20,7 +20,8 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		string $input,
 		int $level = 0,
 		private readonly string $operator = 'AND',
-		bool $allowUserQueries = true
+		bool $allowUserQueries = true,
+		bool $expandUserQueries = true
 	) {
 		$input = trim($input);
 		if ($input === '') {
@@ -29,9 +30,11 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		$this->raw_input = $input;
 
 		if ($level === 0) {
-			$input = self::escapeLiteralParentheses($input);
-			$input = $this->parseUserQueryNames($input, $allowUserQueries);
-			$input = $this->parseUserQueryIds($input, $allowUserQueries);
+			$input = self::escapeLiterals($input);
+			if ($expandUserQueries || !$allowUserQueries) {
+				$input = $this->parseUserQueryNames($input, $allowUserQueries);
+				$input = $this->parseUserQueryIds($input, $allowUserQueries);
+			}
 			$input = trim($input);
 		}
 
@@ -46,6 +49,8 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		foreach ($this->searches as $key => $search) {
 			$this->searches[$key] = clone $search;
 		}
+		$this->expanded = null;
+		$this->notExpanded = null;
 	}
 
 	/**
@@ -76,13 +81,11 @@ class FreshRSS_BooleanSearch implements \Stringable {
 				}
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
 					$name = trim($matches['search'][$i]);
-					if (!empty($queries[$name])) {
-						$fromS[] = $matches[0][$i];
-						if ($allowUserQueries) {
-							$toS[] = '(' . self::escapeLiteralParentheses($queries[$name]) . ')';
-						} else {
-							$toS[] = '';
-						}
+					$fromS[] = $matches[0][$i];
+					if ($allowUserQueries && !empty($queries[$name])) {
+						$toS[] = '(' . self::escapeLiterals($queries[$name]) . ')';
+					} else {
+						$toS[] = '';
 					}
 				}
 			}
@@ -124,13 +127,10 @@ class FreshRSS_BooleanSearch implements \Stringable {
 							$matchedQueries[] = $queries[$id];
 						}
 					}
-					if (empty($matchedQueries)) {
-						continue;
-					}
 
 					$fromS[] = $matches[0][$i];
-					if ($allowUserQueries) {
-						$escapedQueries = array_map(fn(string $query): string => self::escapeLiteralParentheses($query), $matchedQueries);
+					if ($allowUserQueries && !empty($matchedQueries)) {
+						$escapedQueries = array_map(fn(string $query): string => self::escapeLiterals($query), $matchedQueries);
 						$toS[] = '(' . implode(') OR (', $escapedQueries) . ')';
 					} else {
 						$toS[] = '';
@@ -144,17 +144,29 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	}
 
 	/**
-	 * Temporarily escape parentheses used in regex expressions or inside quoted strings.
+	 * Temporarily escape parentheses and 'OR' used in regex expressions or inside "quoted strings".
 	 */
-	public static function escapeLiteralParentheses(string $input): string {
+	public static function escapeLiterals(string $input): string {
 		return preg_replace_callback('%(?<=[\\s(:#!-]|^)(?<![\\\\])(?P<delim>[\'"/]).+?(?<!\\\\)(?P=delim)[im]*%',
-			fn(array $matches): string => str_replace(['(', ')'], ['\\u0028', '\\u0029'], $matches[0]),
+			function (array $matches): string {
+				$match = $matches[0];
+				$match = str_replace(['(', ')'], ['\\u0028', '\\u0029'], $match);
+				$match = preg_replace_callback('/\bOR\b/i', fn(array $ms): string =>
+					str_replace(['O', 'o', 'R', 'r'], ['\\u004f', '\\u006f', '\\u0052', '\\u0072'], $ms[0]),
+					$match
+				) ?? '';
+				return $match;
+			},
 			$input
 		) ?? '';
 	}
 
-	public static function unescapeLiteralParentheses(string $input): string {
-		return str_replace(['\\u0028', '\\u0029'], ['(', ')'], $input);
+	public static function unescapeLiterals(string $input): string {
+		return str_replace(
+			['\\u0028', '\\u0029', '\\u004f', '\\u006f', '\\u0052', '\\u0072'],
+			['(', ')', 'O', 'o', 'R', 'r'],
+			$input
+		);
 	}
 
 	/**
@@ -435,6 +447,8 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	public function enforce(FreshRSS_Search $search): self {
 		$result = clone $this;
 		$result->raw_input = '';
+		$result->expanded = null;
+		$result->notExpanded = null;
 
 		if (count($result->searches) === 1 && $result->searches[0] instanceof FreshRSS_Search) {
 			$result->searches[0] = $result->searches[0]->enforce($search);
@@ -477,6 +491,8 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	public function remove(FreshRSS_Search $search): self {
 		$result = clone $this;
 		$result->raw_input = '';
+		$result->expanded = null;
+		$result->notExpanded = null;
 
 		if (count($result->searches) === 1 && $result->searches[0] instanceof FreshRSS_Search) {
 			$result->searches[0] = $result->searches[0]->remove($search);
@@ -499,33 +515,53 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		return $result;
 	}
 
+	private ?string $expanded = null;
+
 	#[\Override]
 	public function __toString(): string {
-		$result = '';
-		foreach ($this->searches as $search) {
-			$part = $search->__toString();
-			if ($part === '') {
-				continue;
-			}
-			$operator = $search instanceof FreshRSS_BooleanSearch ? $search->operator : 'OR';
+		if ($this->expanded === null) {
+			$result = '';
+			foreach ($this->searches as $search) {
+				$part = $search->__toString();
+				if ($part === '') {
+					continue;
+				}
+				$operator = $search instanceof FreshRSS_BooleanSearch ? $search->operator : 'OR';
 
-			if ((str_contains($part, ' ') || str_starts_with($part, '-')) && (count($this->searches) > 1 || in_array($operator, ['OR NOT', 'AND NOT'], true))) {
-				$part = '(' . $part . ')';
-			}
+				if ((str_contains($part, ' ') || str_starts_with($part, '-')) && (count($this->searches) > 1 || in_array($operator, ['OR NOT', 'AND NOT'], true))) {
+					$part = '(' . $part . ')';
+				}
 
-			$result .= match ($operator) {
-				'OR' => $result === '' ? '' : ' OR ',
-				'OR NOT' => $result === '' ? '-' : ' OR -',
-				'AND NOT' => $result === '' ? '-' : ' -',
-				'AND' => $result === '' ? '' : ' ',
-				default => throw new InvalidArgumentException('Invalid operator: ' . $operator),
-			} . $part;
+				$result .= match ($operator) {
+					'OR' => $result === '' ? '' : ' OR ',
+					'OR NOT' => $result === '' ? '-' : ' OR -',
+					'AND NOT' => $result === '' ? '-' : ' -',
+					'AND' => $result === '' ? '' : ' ',
+					default => throw new InvalidArgumentException('Invalid operator: ' . $operator),
+				} . $part;
+			}
+			$this->expanded = trim($result);
 		}
-		return trim($result);
+		return $this->expanded;
+	}
+
+	private ?string $notExpanded = null;
+
+	/**
+	 * @param bool $expandUserQueries Whether to expand user queries (saved searches) or not
+	 */
+	public function toString(bool $expandUserQueries = true): string {
+		if ($expandUserQueries) {
+			return $this->__toString();
+		}
+		if ($this->notExpanded === null) {
+			$this->notExpanded = (new FreshRSS_BooleanSearch($this->raw_input, expandUserQueries: false))->__toString();
+		}
+		return $this->notExpanded;
 	}
 
 	/** @return string Plain text search query. Must be XML-encoded or URL-encoded depending on the situation */
-	#[Deprecated('Use __tostring() instead')]
+	#[Deprecated('Use __toString(expanded: false) instead')]
 	public function getRawInput(): string {
 		return $this->raw_input;
 	}

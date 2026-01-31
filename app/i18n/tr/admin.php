@@ -83,10 +83,12 @@ return array(
 			'_' => 'Temel URL',
 			'recommendation' => 'Otomatik öneri: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'saniye cinsinden',
 			'number' => 'Oturum açık kalma süresi',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'E-posta adresi doğrulamasını zorunlu kıl',
 		'instance-name' => 'Örnek adı',
 		'max-categories' => 'Kullanıcı başına maksimum kategori sayısı',

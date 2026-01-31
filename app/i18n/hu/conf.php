@@ -105,6 +105,9 @@ return array(
 		'none' => 'Egyik sem',
 		'small' => 'Kicsi',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Figyelmeztető sáv megjelenítése',

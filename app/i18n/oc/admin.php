@@ -83,10 +83,12 @@ return array(
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'en segondas',
 			'number' => 'Durada de téner d’ésser connectat',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Forçar la validacion de las adreças electronicas',
 		'instance-name' => 'Nom de l’instància',
 		'max-categories' => 'Limita de categoria per utilizaire',

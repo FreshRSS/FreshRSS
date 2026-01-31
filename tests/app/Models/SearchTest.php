@@ -243,11 +243,11 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @param list<array{search:string}> $queries
+	 * @param list<array{search:string,name?:string}> $queries
 	 * @param array{0:string,1:list<string|int>} $expectedResult
 	 */
-	#[DataProvider('provideSavedQueryIdExpansion')]
-	public static function test__construct_whenInputContainsSavedQueryIds_expandsSavedSearches(array $queries, string $input, array $expectedResult): void {
+	#[DataProvider('provideSavedQueriesExpansion')]
+	public static function test__construct_whenInputContainsSavedQueries_expandsSavedSearches(array $queries, string $input, array $expectedResult): void {
 		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
 		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
 		$newUserConf->queries = $queries;
@@ -266,14 +266,36 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>}}>
 	 */
-	public static function provideSavedQueryIdExpansion(): array {
+	public static function provideSavedQueriesExpansion(): array {
 		return [
-			'expanded single group' => [
+			'not found ID' => [
 				[
 					['search' => 'author:Alice'],
 					['search' => 'intitle:World'],
 				],
-				'S:0,1',
+				'S:3',
+				[
+					'',
+					[],
+				],
+			],
+			'not found name' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:Third',
+				[
+					'',
+					[],
+				],
+			],
+			'expanded single group name' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:First OR search:Second',
 				[
 					'((e.author LIKE ? )) OR ((e.title LIKE ? ))',
 					['%Alice%', '%World%'],
@@ -286,7 +308,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					['search' => 'inurl:Example'],
 					['search' => 'author:Bob'],
 				],
-				'S:0,1 OR S:2,3',
+				'S:0,1 OR S:2,3,5',
 				[
 					'((e.author LIKE ? )) OR ((e.title LIKE ? )) OR ((e.link LIKE ? )) OR ((e.author LIKE ? ))',
 					['%Alice%', '%World%', '%Example%', '%Bob%'],
@@ -790,6 +812,21 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'((e.title LIKE ? OR e.content LIKE ?) )',
 				['%https://example.net/test/%', '%https://example.net/test/%']
 			],
+			[	// Regex with literal 'or'
+				'intitle:/^A or B/i',
+				'(e.title ~* ? )',
+				['^A or B']
+			],
+			[	// Regex with literal 'OR'
+				'intitle:/^A B OR C D/i OR intitle:/^A B OR C D/i',
+				'(e.title ~* ? ) OR (e.title ~* ? )',
+				['^A B OR C D', '^A B OR C D']
+			],
+			[	// Quote with literal 'OR'
+				'intitle:"A B OR C D" OR intitle:"E or F"',
+				'(e.title LIKE ? ) OR (e.title LIKE ? )',
+				['%A B OR C D%', '%E or F%']
+			],
 		];
 	}
 
@@ -941,8 +978,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					/search_regex/i "quoted search" search
 					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
 					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
-					-pubdate:2025-06-01T00:00:00/2025-09-01T00:00:00
-					-date:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-pubdate:2025
+					-date:P30D
 					-intitle:/Spam/i -intitle:"'bad"
 					-intext:/Spam/i -intext:"'bad"
 					-author:/Dave/i -author:Charlie
@@ -955,9 +992,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	#[DataProvider('provideBooleanSearchToString')]
-	public static function testBooleanSearch__toString(string $input, string $expected): void {
+	public static function testBooleanSearchToString(string $input, string $expected): void {
 		$search = new FreshRSS_BooleanSearch($input);
-		self::assertSame($expected, $search->__toString());
+		self::assertSame($expected, $search->toString());
 	}
 
 	/**
@@ -997,6 +1034,78 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'-intitle:a -inurl:b',
 				'-intitle:a -inurl:b',
 			],
+			[
+				'intitle:/^A or B/i',
+				'intitle:/^A or B/i',
+			],
+			[
+				'intitle:/^A B OR C D/i',
+				'intitle:/^A B OR C D/i',
+			],
+		];
+	}
+
+	/**
+	 * @param list<array{search:string,name?:string}> $queries
+	 */
+	#[DataProvider('provideBooleanSearchToStringExpansion')]
+	public static function testBooleanSearchToStringExpansion(array $queries, string $input,
+		string $expectedNotExpanded, string $expectedExpanded): void {
+		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
+		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
+		$newUserConf->queries = $queries;
+		FreshRSS_Context::setUserConf($newUserConf);
+
+		try {
+			$booleanSearch = new FreshRSS_BooleanSearch($input);
+			self::assertSame($expectedNotExpanded, $booleanSearch->toString(expandUserQueries: false));
+			self::assertSame($expectedExpanded, $booleanSearch->toString());
+		} finally {
+			FreshRSS_Context::setUserConf($previousUserConf);
+		}
+	}
+
+	/**
+	 * @return array<string,array{0:list<array{search:string,name?:string}>,1:string,2:string,3:string}>
+	 */
+	public static function provideBooleanSearchToStringExpansion(): array {
+		return [
+			'Not found ID' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'S:3 S:4,5 ',
+				'S:3 S:4,5',
+				'',
+			],
+			'Not found name' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:Third ',
+				'search:Third',
+				'',
+			],
+			'Found IDs' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'S:0,1 ',
+				'S:0,1',
+				'author:Alice OR intitle:World',
+			],
+			'Found names' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:First search:Second ',
+				'search:First search:Second',
+				'author:Alice intitle:World',
+			],
 		];
 	}
 
@@ -1024,7 +1133,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		$searchToEnforce = new FreshRSS_Search($enforceInput);
 		$newBooleanSearch = $booleanSearch->enforce($searchToEnforce);
 		self::assertNotSame($booleanSearch, $newBooleanSearch);
-		self::assertSame($expectedOutput, $newBooleanSearch->__toString());
+		self::assertSame($expectedOutput, $newBooleanSearch->toString());
 	}
 
 	/**
@@ -1047,8 +1156,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['(a b) OR (c d)', 'e', 'e ((a b) OR (c d))'],
 			['(a b) (c d)', 'e', 'e ((a b) (c d))'],
 			['(a b)', 'e', 'e (a b)'],
-			['date:2024/', 'date:/2025', 'date:/2025-12-31T23:59:59'],
-			['a', 'date:/2025', 'date:/2025-12-31T23:59:59 a'],
+			['date:2024/', 'date:/2025', 'date:/2025'],
+			['a', 'date:/2025', 'date:/2025 a'],
 		];
 	}
 
@@ -1058,7 +1167,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		$searchToRemove = new FreshRSS_Search($removeInput);
 		$newBooleanSearch = $booleanSearch->remove($searchToRemove);
 		self::assertNotSame($booleanSearch, $newBooleanSearch);
-		self::assertSame($expectedOutput, $newBooleanSearch->__toString());
+		self::assertSame($expectedOutput, $newBooleanSearch->toString());
 	}
 
 	/**
