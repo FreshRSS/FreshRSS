@@ -11,11 +11,11 @@ It is supposed to be installed on a modest server (mostly, but not limited to, L
 
 It is written in PHP to make it easy to deploy and easy to contribute to.
 
-More information can be found in the [README](README.md) and in the [documentation](docs/en/) published at <https://freshrss.github.io/FreshRSS/>
+More information can be found in the [README](README.md) and in the [documentation](docs/en/) published at <https://freshrss.github.io/FreshRSS/en/>
 
 ## Instruction structure for AI agents and humans
 
-* [`.github/instructions/`](.github/instructions/) contain the instructions that primarily apply to a filename patterns.
+* [`.github/instructions/`](.github/instructions/) contain the instructions that primarily match filename patterns.
 * [`.github/skills/`](.github/skills/) contain the skills to achieve higher-level goals, potentially combining multiple instructions.
 * **`AGENTS.md`** is the entry point description for AI coding agents and contributors, referencing other documents such as instructions and skills.
 * Favour standard conventions over vendor-specific ones.
@@ -30,14 +30,12 @@ More information can be found in the [README](README.md) and in the [documentati
 * `app/views/helpers/` – Reusable view elements with `$this->partial('name')`
 * `lib/core-extensions/` or `extensions/` – FreshRSS extensions
 * `lib/Minz/` – Core framework: routing, sessions, translations, extensions, PDO abstraction
-* `p/` – Public web root. Only the content of this folder should be exposed if possible (`p/` should not be visible in the public URL)
+* `lib/lib_rss.php` – Contain `spl_autoload_register` and other global functions
+* `p/` – Public Web root. Only the content of this folder should be exposed if possible (`p/` should not be visible in the public URL)
 	* Only the `p/i/` path should be access controlled. The main entry point is `p/i/index.php`
 	* `p/api/greader.php` – Primary API for mobile clients
 	* `p/api/pshb.php` – Receive realtime pushes via WebSub
 	* `p/themes/` – UI themes
-
-Note:
-* `spl_autoload_register` is defined in [`lib/lib_rss.php`](lib/lib_rss.php)
 
 ### Configuration data
 

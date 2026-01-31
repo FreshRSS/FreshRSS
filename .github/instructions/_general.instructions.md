@@ -16,7 +16,7 @@ description: General instructions
 
 ## Style and formatting
 
-* Indentation and white-space: obey [`.editorconfig`](../../.editorconfig) (some of it can be automatically fixed with `make fix-all`).
+* When editing files, obey indentation and white-space as defined in [`.editorconfig`](../../.editorconfig) (some of it can be automatically fixed with `make fix-all`).
 
 ## Spelling
 

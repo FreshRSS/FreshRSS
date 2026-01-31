@@ -54,6 +54,7 @@ FreshRSS comes with absolutely no warranty.
 * [Administrator documentation](https://freshrss.github.io/FreshRSS/en/admins/01_Index.html) for detailed installation and maintenance related tasks
 * [Developer documentation](https://freshrss.github.io/FreshRSS/en/developers/01_Index.html) to guide you in the source code of FreshRSS and to help you if you want to contribute
 * [Contributor guidelines](https://freshrss.github.io/FreshRSS/en/contributing.html) for those who want to help improve FreshRSS
+	* Check [`AGENTS.md`](AGENTS.md) for coding conventions (both for humans and AI agents).
 
 # Requirements
 

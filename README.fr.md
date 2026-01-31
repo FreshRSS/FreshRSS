@@ -54,6 +54,7 @@ FreshRSS n’est fourni avec aucune garantie.
 * La [documentation administrateurs](https://freshrss.github.io/FreshRSS/fr/users/01_Installation.html) pour l’installation et la maintenance de FreshRSS.
 * La [documentation développeurs](https://freshrss.github.io/FreshRSS/fr/developers/01_First_steps.html) pour savoir comment contribuer et mieux comprendre le code source de FreshRSS.
 * Le [guide de contribution](https://freshrss.github.io/FreshRSS/fr/contributing.html) pour nous aider à développer FreshRSS.
+	* Voir [`AGENTS.md`](AGENTS.md) pour les conventions de code (à la fois pour les humains et agents IA).
 
 ## Prérequis
 

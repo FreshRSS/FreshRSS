@@ -6,7 +6,6 @@ description: Editing PHP files
 # PHP files
 
 * See minimum PHP version and available PHP extensions in [`composer.json`](../../composer.json)
-* `spl_autoload_register` is defined in [`lib/lib_rss.php`](../../lib/lib_rss.php)
 * Obey formatting rules defined in [`phpcs.xml`](../../phpcs.xml)
 * Automatic fixes can be done with:
 	```sh
@@ -25,3 +24,14 @@ description: Editing PHP files
 	```sh
 	composer run-script phpunit -- tests/app/Models/SearchTest.php
 	```
+
+## Autoloader
+
+* `spl_autoload_register` is defined in [`lib/lib_rss.php`](../../lib/lib_rss.php)
+
+Minimal example:
+
+```php
+require dirname(__DIR__) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
+```
