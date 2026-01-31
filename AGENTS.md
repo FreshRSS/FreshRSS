@@ -1,94 +1,57 @@
 ---
-description: Coding instructions for FreshRSS contributors and AI agents
+description: FreshRSS introduction and conventions for AI agents and human contributors
 ---
 
-# FreshRSS Coding Instructions
+# FreshRSS introduction and conventions
 
-## Architecture Overview
+FreshRSS is an open-source news aggregator supporting RSS/ATOM/WebSub and also Web scraping.
 
-FreshRSS is a self-hosted RSS aggregator built on **Minz**, a custom lightweight MVC framework in `lib/Minz/`.
-The application follows a traditional MVC pattern with these key directories:
+The market segment is mostly self-hosting, although multiple user accounts are supported.
+It is supposed to be installed on a modest server (mostly, but not limited to, Linux) and can be accessed through a Web UI and an API.
 
-- **`app/Controllers/`** – Controllers extend `FreshRSS_ActionController` (which extends `Minz_ActionController`). Named as `{name}Controller.php` with class `FreshRSS_{name}_Controller`
-- **`app/Models/`** – Domain models extend `Minz_Model`. DAOs follow database-specific inheritance: `*DAO.php` (base) → `*DAOSQLite.php`, `*DAOPGSQL.php`
-- **`app/views/{controller}/`** – View templates are `.phtml` files mixing PHP and HTML
-- **`lib/Minz/`** – Core framework: routing, sessions, translations, extensions, PDO abstraction
-- **`p/`** – Public web root (only the content of this folder should be exposed). Entry point is `p/i/index.php`
+It is written in PHP to make it easy to deploy and easy to contribute to.
 
-## Naming Conventions
+More information can be found in the [README](README.md) and in the [documentation](docs/en/) published at <https://freshrss.github.io/FreshRSS/>
 
-- **Classes**: Use `FreshRSS_` prefix for app classes, `Minz_` for framework classes
-- **Controllers**: `FreshRSS_{name}_Controller` in `{name}Controller.php`
-- **Models/DAOs**: `FreshRSS_{Entity}` and `FreshRSS_{Entity}DAO` with database-specific variants
-- **View helpers**: `$this->partial('name')` loads from `app/views/helpers/`
-- **Method prefixes**: `_methodName()` indicates internal/private-like usage (convention, not enforced)
+## Instruction structure for AI agents and humans
 
-## Translation System (i18n)
+* [`.github/instructions/`](.github/instructions/) contain the instructions that primarily apply to a filename patterns.
+* [`.github/skills/`](.github/skills/) contain the skills to achieve higher-level goals, potentially combining multiple instructions.
+* **`AGENTS.md`** is the entry point description for AI coding agents and contributors, referencing other documents such as instructions and skills.
+* Favour standard conventions over vendor-specific ones.
+* To reduce duplication, refer to enforceable configuration files instead of excessive free-text repetitions.
 
-Translations live in `app/i18n/{lang}/` as PHP arrays. Use `_t('key.subkey')` in code/views:
+## Code structure
 
-```php
-_t('gen.action.save')  // Returns translated string
-_i('configure')        // Returns icon HTML with translation
-```
+* `app/Controllers/` – Controllers extend `FreshRSS_ActionController`, named as `{name}Controller.php` with class `FreshRSS_{name}_Controller`
+* `app/Models/` – Domain models extend `Minz_Model`.
+	* DAOs may have some database-specific inheritance, e.g.: `*DAO.php` (base or MySQL), `*DAOSQLite.php` (SQLite), `*DAOPGSQL.php` (PostgreSQL)
+* `app/views/{controller}/` – View templates are `.phtml` files mixing PHP and HTML
+* `app/views/helpers/` – Reusable view elements with `$this->partial('name')`
+* `lib/core-extensions/` or `extensions/` – FreshRSS extensions
+* `lib/Minz/` – Core framework: routing, sessions, translations, extensions, PDO abstraction
+* `p/` – Public web root. Only the content of this folder should be exposed if possible (`p/` should not be visible in the public URL)
+	* Only the `p/i/` path should be access controlled. The main entry point is `p/i/index.php`
+	* `p/api/greader.php` – Primary API for mobile clients
+	* `p/api/pshb.php` – Receive realtime pushes via WebSub
+	* `p/themes/` – UI themes
 
-To add/modify translations, use Makefile targets:
-```sh
-make i18n-add-key key=gen.action.new_key value="Default English"
-make i18n-format  # Formats all i18n files
-```
+Note:
+* `spl_autoload_register` is defined in [`lib/lib_rss.php`](lib/lib_rss.php)
 
-## Development Commands
+### Configuration data
 
-```sh
-# Start development server (Docker, see Docker/README.md for details)
-make start          # Runs on http://localhost:8080
+* Constants: [`constants.php`](constants.php) overridden in `constants.local.php`
+* System config: [`config.default.php`](config.default.php) overridden in `data/config.php`
+* User config: [`config-user.default.php`](config-user.default.php) overridden in `data/users/{username}/config.php`
 
-# Testing - easiest way to run everything
-make test-all       # Runs all tests: PHPUnit, PHPCS, PHPStan, typos
+> ℹ Access via `FreshRSS_Context::systemConf()` and `FreshRSS_Context::userConf()`
 
-# Auto-fix trivial issues (whitespace, RTL CSS, translations)
-make fix-all        # Recommended before committing
-
-# See also:
-make help
-```
-
-Targeted tests can also be run via:
-- `composer` - see [`composer.json`](composer.json) scripts (PHPUnit, PHPSta, PHPCS)
-- `npm` - see [`package.json`](package.json) scripts (ESLint, Markdownlint, Stylelint)
-
-A Dev Container is available under [`.devcontainer/`](`.devcontainer/`).
-
-CI/CD is defined in [`.github/workflows/tests.yml`](.github/workflows/tests.yml)
-
-More documentation:
-- [`docs/en/`](./docs/en/), published at <https://freshrss.github.io/FreshRSS/>
-- [Docker](Docker/README.md)
-- [CLI](cli/README.md)
-
-## Code Style
-
-- **Indentation**: Obey [`.editorconfig`](.editorconfig) (some of it can be automatically fixed with `make fix-all`)
-- **PHP**:
-	- Obey [`phpcs.xml`](./phpcs.xml)
-	- See minimum PHP version and available PHP extensions in [`composer.json`](composer.json)
-	- `spl_autoload_register` is defined in [`lib/lib_rss.php`](lib/lib_rss.php)
-- **JavaScript**: Obey [`eslint.config.js`](eslint.config.js)
-- **CSS**: Obey [`.stylelintrc.json`](.stylelintrc.json)
-- **Markdown**: Obey [`.markdownlint.json`](.markdownlint.json)
-
-## Extension System
-
-Extensions in `extensions/` or `lib/core-extensions/` extend `Minz_Extension`. Each needs:
-- `metadata.json` with name, entrypoint, author, description
-- Main class extending `Minz_Extension` with `init()` method
-- Register hooks via `Minz_ExtensionManager::callHook()`
-
-## Database Patterns
+## Database patterns
 
 Three database backends supported: SQLite, PostgreSQL, MySQL/MariaDB.
 The SQL differences are implemented through inheritance:
+
 ```php
 // Base DAO with common queries
 class FreshRSS_EntryDAO extends Minz_ModelPdo { }
@@ -97,34 +60,55 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO { }
 class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAO { }
 ```
 
-Factory pattern selects correct DAO:
+A factory pattern selects correct the DAO, e.g.:
+
 ```php
 FreshRSS_Factory::createEntryDao();
 ```
 
-In database, most VARCHAR/TEXT fields are HTML-encoded,
-except `attributes` fields, which contain JSON, and which sub-strings are not HTML-encoded.
+**Important**: in database, VARCHAR/TEXT fields are HTML-encoded, except `attributes` fields, which contain JSON, and which sub-strings are not HTML-encoded.
 
-## Configuration
+## Main development commands
 
-- **System config**: `data/config.php` (from `config.default.php`)
-- **User config**: `data/users/{username}/config.php` (from `config-user.default.php`)
-- **Constants**: Override via `constants.local.php`
-- Access via `FreshRSS_Context::systemConf()` and `FreshRSS_Context::userConf()`
+> ℹ Recommended before committing
+
+```sh
+# Runs all tests: PHPUnit, PHPCS, PHPStan, typos
+make test-all
+
+# Auto-fix all trivial issues (whitespace, RTL CSS, translations)
+make fix-all
+
+# See a list of commands:
+make help
+```
+
+CI/CD is defined in [`.github/workflows/tests.yml`](.github/workflows/tests.yml)
+
+A Dev Container is available under [`.devcontainer/`](`.devcontainer/`).
+
+## Docker
+
+* Check [Docker documentation](Docker/README.md).
 
 ## CLI Tools
 
-Scripts in `cli/` for admin tasks. Run as web server user:
+There are scripts in `cli/` for admin tasks, such as:
+
 ```sh
-sudo -u www-data ./cli/list-users.php
-sudo -u www-data ./cli/actualize-user.php --user username
-./cli/access-permissions.sh  # Fix permissions after CLI operations
+./cli/list-users.php
 ```
 
-## Key Integration Points
+* Check [CLI documentation](cli/README.md).
 
-- **Feed fetching**: `app/Models/SimplePieCustom.php` wraps SimplePie library
-- **Google Reader API**: Primary API for mobile clients (`p/api/greader.php`). See `docs/en/developers/06_GoogleReader_API.md` for protocol details and compatible clients
-- **Fever API**: Legacy API (`p/api/fever.php`), less powerful than Google Reader
-- **WebSub/PubSubHubbub**: Real-time push (`p/api/pshb.php`)
-- **Themes**: `p/themes/` with `metadata.json` and CSS files
+When possible, it is best to run as Web server user:
+
+```sh
+sudo -u www-data ./cli/actualize-user.php --user alice
+```
+
+or at least re-apply the file permissions after CLI operations:
+
+```sh
+./cli/access-permissions.sh
+```
