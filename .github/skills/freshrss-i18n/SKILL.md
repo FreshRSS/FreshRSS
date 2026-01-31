@@ -11,7 +11,7 @@ For instructions and commands to work with translations, make sure to obey [i18n
 Translations strings are in `app/i18n/{lang}/` as PHP arrays, used with:
 
 ```php
-_t('key.subkey')`
+_t('key.subkey')
 ```
 
 ## When to use this skill

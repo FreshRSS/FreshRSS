@@ -60,7 +60,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO { }
 class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAO { }
 ```
 
-A factory pattern selects correct the DAO, e.g.:
+A factory pattern selects the correct DAO, e.g.:
 
 ```php
 FreshRSS_Factory::createEntryDao();
@@ -85,7 +85,7 @@ make help
 
 CI/CD is defined in [`.github/workflows/tests.yml`](.github/workflows/tests.yml)
 
-A Dev Container is available under [`.devcontainer/`](`.devcontainer/`).
+A Dev Container is available under [`.devcontainer/`](.devcontainer/).
 
 ## Docker
 
