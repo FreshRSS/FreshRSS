@@ -1,0 +1,21 @@
+volumes:
+  mysql_data:
+
+services:
+  freshrss-db:
+    image: mariadb:12
+    container_name: freshrss-db
+    hostname: freshrss-db
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-freshrss}
+      MYSQL_DATABASE: ${DB_BASE:-fresh}
+      MYSQL_USER: ${DB_USER:-freshrss}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-freshrss}
+
+
