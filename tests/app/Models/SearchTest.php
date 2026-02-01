@@ -812,6 +812,11 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'((e.title LIKE ? OR e.content LIKE ?) )',
 				['%https://example.net/test/%', '%https://example.net/test/%']
 			],
+			[	// Not a regex
+				"author:'/u/alice'",
+				"(e.author LIKE ? )",
+				['%/u/alice%'],
+			],
 			[	// Regex with literal 'or'
 				'intitle:/^A or B/i',
 				'(e.title ~* ? )',
@@ -972,7 +977,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					date:2025-03-01T00:00:00/2026-01-01T00:00:00
 					intitle:/<Inter&sting>/i intitle:"g ' & d"
 					intext:/<Inter&sting>/i intext:g&d
-					author:/Bob/ author:Alice
+					author:/Bob/ author:"/u/Alice" author:Alice
 					inurl:/https/ inurl:example.net
 					#/tag2/ #tag1
 					/search_regex/i "quoted search" search
@@ -982,7 +987,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					-date:P30D
 					-intitle:/Spam/i -intitle:"'bad"
 					-intext:/Spam/i -intext:"'bad"
-					-author:/Dave/i -author:Charlie
+					-author:/Dave/i -author:"/u/Charlie" -author:Charlie
 					-inurl:/ftp/ -inurl:example.com
 					-#/tag4/ -#tag3
 					-/not_regex/i -"not quoted" -not_search

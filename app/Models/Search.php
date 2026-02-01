@@ -149,7 +149,7 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	private static function quote(string $s): string {
-		if (strpbrk($s, ' "\'\\') !== false || $s === '') {
+		if (strpbrk($s, ' "\'\\/') !== false || $s === '') {
 			return '"' . addcslashes($s, '\\"') . '"';
 		}
 		return $s;
