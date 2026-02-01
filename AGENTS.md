@@ -11,7 +11,7 @@ It is supposed to be installed on a modest server (mostly, but not limited to, L
 
 It is written in PHP to make it easy to deploy and easy to contribute to.
 
-More information can be found in the [README](README.md) and in the [documentation](docs/en/) published at <https://freshrss.github.io/FreshRSS/en/>
+More information can be found in [README](README.md) and in the [documentation](docs/en/) published at <https://freshrss.github.io/FreshRSS/en/>
 
 ## Instruction structure for AI agents and humans
 
@@ -74,7 +74,7 @@ FreshRSS_Factory::createEntryDao();
 # Runs all tests: PHPUnit, PHPCS, PHPStan, typos
 make test-all
 
-# Auto-fix all trivial issues (whitespace, RTL CSS, translations)
+# Auto-fix all trivial issues: whitespace, RTL CSS, translations
 make fix-all
 
 # See a list of commands:
@@ -87,7 +87,7 @@ A Dev Container is available under [`.devcontainer/`](.devcontainer/).
 
 ## Docker
 
-* Check [Docker documentation](Docker/README.md).
+> ℹ Check [Docker documentation](Docker/README.md).
 
 ## CLI Tools
 
@@ -97,16 +97,16 @@ There are scripts in `cli/` for admin tasks, such as:
 ./cli/list-users.php
 ```
 
-* Check [CLI documentation](cli/README.md).
+> ℹ Check [CLI documentation](cli/README.md).
 
 When possible, it is best to run as Web server user:
 
 ```sh
-sudo -u www-data ./cli/actualize-user.php --user alice
+sudo -u www-data cli/actualize-user.php --user alice
 ```
 
 or at least re-apply the file permissions after CLI operations:
 
 ```sh
-./cli/access-permissions.sh
+cli/access-permissions.sh
 ```
