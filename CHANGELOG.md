@@ -2,7 +2,23 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-0X-XX FreshRSS 1.28.2-dev
+## 2026-0X-XX FreshRSS 1.29.0-dev
+
+* Features
+	* New sort order preferences at global, category, and feed levels [#8234](https://github.com/FreshRSS/FreshRSS/pull/8234)
+	* Add option to enable/disable notifications, also for PWA [#8458](https://github.com/FreshRSS/FreshRSS/pull/8458)
+	* Allow WebSub hub push from same private network [#8450](https://github.com/FreshRSS/FreshRSS/pull/8450)
+* Bug fixing
+	* Fix wrong search `toString` in case of regex-looking string [#8479](https://github.com/FreshRSS/FreshRSS/pull/8479)
+* Security
+	* Add `allowfullscreen` to `<iframe>` [#8467](https://github.com/FreshRSS/FreshRSS/pull/8467)
+	* Rewrite `Set-Cookie` using native PHP support of `SameSite` [#8447](https://github.com/FreshRSS/FreshRSS/pull/8447)
+		* Sanitize lifetime of session cookies from `session.cookie-lifetime` in `php.ini`
+* I18n
+	* Improve Simplified Chinese [#8474](https://github.com/FreshRSS/FreshRSS/pull/8474), [#8475](https://github.com/FreshRSS/FreshRSS/pull/8475), [#8476](https://github.com/FreshRSS/FreshRSS/pull/8476)
+* Misc.
+	* Initial conventions for AI agents and humans: `AGENTS.md`, `SKILLS.md`, `instructions.md` [#8478](https://github.com/FreshRSS/FreshRSS/pull/8478)
+	* Update dev dependencies [#8469](https://github.com/FreshRSS/FreshRSS/pull/8469), [#8480](https://github.com/FreshRSS/FreshRSS/pull/8480)
 
 
 ## 2026-01-25 FreshRSS 1.28.1
