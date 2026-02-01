@@ -130,6 +130,36 @@
 				</div>
 			</div>
 
+
+			<?php
+				$feedDefaultSort = $this->feed->defaultSort();
+				$feedDefaultOrder = $this->feed->defaultOrder();
+				$feedDefaultSortOrder = $feedDefaultSort !== null
+					? ($feedDefaultSort === 'rand' ? 'rand' : $feedDefaultSort . '_' . strtolower($feedDefaultOrder ?? 'desc'))
+					: '';
+			?>
+			<div class="form-group">
+				<label class="group-name" for="defaultSortOrder"><?= _t('index.menu.sort.primary') ?></label>
+				<div class="group-controls">
+					<select name="defaultSortOrder" id="defaultSortOrderFeed" class="w50">
+						<option value=""></option>
+						<option value="id_desc" <?= $feedDefaultSortOrder === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc" <?= $feedDefaultSortOrder === 'date_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc" <?= $feedDefaultSortOrder === 'length_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc" <?= $feedDefaultSortOrder === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc" <?= $feedDefaultSortOrder === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand" <?= $feedDefaultSortOrder === 'rand' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc" <?= $feedDefaultSortOrder === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc" <?= $feedDefaultSortOrder === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc" <?= $feedDefaultSortOrder === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc" <?= $feedDefaultSortOrder === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc" <?= $feedDefaultSortOrder === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
+					</select>
+				</div>
+			</div>
+
 			<div class="form-group">
 				<label class="group-name" for="unicityCriteria"><?= _t('sub.feed.unicityCriteria') ?></label>
 				<?php

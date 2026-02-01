@@ -150,6 +150,22 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$category->_attribute('opml_url', null);
 			}
 
+			$defaultSortOrder = Minz_Request::paramString('defaultSortOrder', plaintext: true);
+			if (str_ends_with($defaultSortOrder, '_asc')) {
+				$category->_attribute('defaultOrder', 'ASC');
+				$defaultSortOrder = substr($defaultSortOrder, 0, -strlen('_asc'));
+			} elseif (str_ends_with($defaultSortOrder, '_desc')) {
+				$category->_attribute('defaultOrder', 'DESC');
+				$defaultSortOrder = substr($defaultSortOrder, 0, -strlen('_desc'));
+			} else {
+				$category->_attribute('defaultOrder');
+			}
+			if (in_array($defaultSortOrder, ['id', 'date', 'link', 'title', 'length', 'f.name', 'rand'], true)) {
+				$category->_attribute('defaultSort', $defaultSortOrder);
+			} else {
+				$category->_attribute('defaultSort');
+			}
+
 			$values = [
 				'kind' => $category->kind(),
 				'name' => Minz_Request::paramString('name'),

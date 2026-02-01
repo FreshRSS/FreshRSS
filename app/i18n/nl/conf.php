@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Ook toepassen op labels',
 		'sides_close_article' => 'Sluit het artikel door buiten de artikeltekst te klikken',
-		'sort' => array(
-			'_' => 'Sorteer volgorde',
-			'newer_first' => 'Nieuwste eerst',
-			'older_first' => 'Oudste eerst',
-		),
 		'star' => array(
 			'when' => 'Markeer een artikel als favoriet…',
 		),

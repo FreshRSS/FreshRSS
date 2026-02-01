@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => '同樣適用於標籤',
 		'sides_close_article' => '點擊文章區域外以關閉',
-		'sort' => array(
-			'_' => '排列順序',
-			'newer_first' => '由新至舊',
-			'older_first' => '由舊至新',
-		),
 		'star' => array(
 			'when' => '標記一篇文章為最愛…',
 		),

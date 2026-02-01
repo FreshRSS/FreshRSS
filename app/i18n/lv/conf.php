@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Attiecas arī uz birkām',
 		'sides_close_article' => 'Spiežot ārpus raksta teksta apgabala, raksts tiek aizvērts',
-		'sort' => array(
-			'_' => 'Kārtošanas kārtība',
-			'newer_first' => 'Sākumā jaunākos',
-			'older_first' => 'Sākumā vecākos',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),

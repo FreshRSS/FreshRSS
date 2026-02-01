@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => '同样适用于标签',
 		'sides_close_article' => '点击文章文本区域外关闭文章',
-		'sort' => array(
-			'_' => '排列顺序',
-			'newer_first' => '由新至旧',
-			'older_first' => '由旧至新',
-		),
 		'star' => array(
 			'when' => '将文章标记为收藏时…',
 		),

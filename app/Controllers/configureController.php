@@ -149,11 +149,39 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->reading_confirm = Minz_Request::paramBoolean('reading_confirm');
 			FreshRSS_Context::userConf()->auto_remove_article = Minz_Request::paramBoolean('auto_remove_article');
 			FreshRSS_Context::userConf()->mark_updated_article_unread = Minz_Request::paramBoolean('mark_updated_article_unread');
-			if (in_array(Minz_Request::paramString('sort_order'), ['ASC', 'DESC'], true)) {
-				FreshRSS_Context::userConf()->sort_order = Minz_Request::paramString('sort_order');
+
+			$sorting = Minz_Request::paramString('primary_sort', plaintext: true);
+			if (str_ends_with($sorting, '_asc')) {
+				FreshRSS_Context::userConf()->sort_order = 'ASC';
+				$sorting = substr($sorting, 0, -strlen('_asc'));
+			} elseif (str_ends_with($sorting, '_desc')) {
+				FreshRSS_Context::userConf()->sort_order = 'DESC';
+				$sorting = substr($sorting, 0, -strlen('_desc'));
 			} else {
 				FreshRSS_Context::userConf()->sort_order = 'DESC';
 			}
+			if (in_array($sorting, ['id', 'c.name', 'date', 'f.name', 'length', 'link', 'title', 'rand'], true)) {
+				FreshRSS_Context::userConf()->sort = $sorting;
+			} else {
+				FreshRSS_Context::userConf()->sort = 'id';
+			}
+
+			$sorting = Minz_Request::paramString('secondary_sort', plaintext: true);
+			if (str_ends_with($sorting, '_asc')) {
+				FreshRSS_Context::userConf()->secondary_sort_order = 'ASC';
+				$sorting = substr($sorting, 0, -strlen('_asc'));
+			} elseif (str_ends_with($sorting, '_desc')) {
+				FreshRSS_Context::userConf()->secondary_sort_order = 'DESC';
+				$sorting = substr($sorting, 0, -strlen('_desc'));
+			} else {
+				FreshRSS_Context::userConf()->secondary_sort_order = 'DESC';
+			}
+			if (in_array($sorting, ['id', 'date', 'link', 'title'], true)) {
+				FreshRSS_Context::userConf()->secondary_sort = $sorting;
+			} else {
+				FreshRSS_Context::userConf()->secondary_sort = 'id';
+			}
+
 			FreshRSS_Context::userConf()->mark_when = [
 				'article' => Minz_Request::paramBoolean('mark_open_article'),
 				'gone' => Minz_Request::paramBoolean('read_upon_gone'),

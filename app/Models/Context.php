@@ -42,8 +42,12 @@ final class FreshRSS_Context {
 	public static int $state = 0;
 	/** @var 'ASC'|'DESC' */
 	public static string $order = 'DESC';
-	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' */
+	/** @var 'id'|'c.name'|'date'|'f.name'|'lastUserModified'|'length'|'link'|'rand'|'title' */
 	public static string $sort = 'id';
+	/** @var 'ASC'|'DESC' */
+	public static string $secondary_sort_order = 'DESC';
+	/** @var 'id'|'date'|'link'|'title' */
+	public static string $secondary_sort = 'id';
 	public static int $number = 0;
 	public static int $offset = 0;
 	public static FreshRSS_BooleanSearch $search;
@@ -258,10 +262,46 @@ final class FreshRSS_Context {
 		}
 
 		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true));
-		$order = Minz_Request::paramString('order', plaintext: true) ?: FreshRSS_Context::userConf()->sort_order;
+
+		$default_order = null;
+		$default_sort = null;
+		if (Minz_Request::paramString('order', plaintext: true) === '' || Minz_Request::paramString('sort', plaintext: true) === '') {
+			if (!empty(self::$current_get['feed'])) {
+				$id = self::$current_get['feed'];
+				// We most likely already have the feed object in cache
+				$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id);
+				if ($feed === null) {
+					$feedDAO = FreshRSS_Factory::createFeedDao();
+					$feed = $feedDAO->searchById($id);
+				}
+				$default_order = $feed?->defaultOrder();
+				$default_sort = $feed?->defaultSort();
+			} elseif (!empty(self::$current_get['category'])) {
+				$id = self::$current_get['category'];
+				// We most likely already have the category object in cache
+				$category = FreshRSS_Context::categories()[$id] ?? null;
+				if ($category === null) {
+					$categoryDAO = FreshRSS_Factory::createCategoryDao();
+					$category = $categoryDAO->searchById($id);
+				}
+				$default_order = $category?->defaultOrder();
+				$default_sort = $category?->defaultSort();
+			}
+		}
+		$order = Minz_Request::paramString('order', plaintext: true) ?: $default_order ?: FreshRSS_Context::userConf()->sort_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = Minz_Request::paramString('sort', plaintext: true) ?: FreshRSS_Context::userConf()->sort;
-		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
+		$sort = Minz_Request::paramString('sort', plaintext: true) ?: $default_sort ?: FreshRSS_Context::userConf()->sort;
+		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'lastUserModified', 'length', 'link', 'title', 'rand'], true) ? $sort : 'id';
+
+		if (in_array(self::$sort, ['c.name', 'f.name'], true)) {
+			self::$secondary_sort = FreshRSS_Context::userConf()->secondary_sort;
+			self::$secondary_sort_order = FreshRSS_Context::userConf()->secondary_sort_order;
+			if ($order !== ($default_order ?: FreshRSS_Context::userConf()->sort_order)) {
+				// User swapped order so swap secondary order as well
+				self::$secondary_sort_order = self::$secondary_sort_order === 'DESC' ? 'ASC' : 'DESC';
+			}
+		}
+
 		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
 		if (self::$number > FreshRSS_Context::userConf()->max_posts_per_rss) {
 			self::$number = max(

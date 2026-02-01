@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'ラベルも適用する',
 		'sides_close_article' => '記事の外をクリックすると記事を閉じるようにする',
-		'sort' => array(
-			'_' => '順序',
-			'newer_first' => '最新のものを先頭にする',
-			'older_first' => '最古のものを先頭にする',
-		),
 		'star' => array(
 			'when' => '記事をお気に入りに登録する。',
 		),

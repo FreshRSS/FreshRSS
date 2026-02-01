@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => '라벨에도 적용하기',
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
-		'sort' => array(
-			'_' => '정렬 순서',
-			'newer_first' => '최근 글 먼저',
-			'older_first' => '오래된 글 먼저',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),

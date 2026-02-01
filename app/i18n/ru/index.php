@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Отметить ленту прочитанной',
 		'mark_selection_unread' => 'Отметить выделение прочитанным',
 		'mylabels' => 'Мои метки',
-		'newer_first' => 'Сначала новые',
 		'non-starred' => 'Показать неизбранное',
 		'normal_view' => 'Обычный вид',
-		'older_first' => 'Сначала старые',
 		'queries' => 'Запросы',
 		'read' => 'Показать прочитанное',
 		'reader_view' => 'Вид для чтения',
 		'rss_view' => 'RSS-лента',
 		'search_short' => 'Поиск',
 		'sort' => array(
-			'_' => 'Критерии сортировки',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Категории, названия лент А→Я',
 				'name_desc' => 'Категории, названия лент Я→А',
 			),
 			'date_asc' => 'Дата публикации 1→9',
 			'date_desc' => 'Дата публикации 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Названия лент А→Я',
 				'name_desc' => 'Названия лент Я→А',
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Длина контента 9→1',
 			'link_asc' => 'Ссылка А→Я',
 			'link_desc' => 'Ссылка Я→А',
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Случайный порядок',
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Заголовок А→Я',
 			'title_desc' => 'Заголовок Я→А',
 			'user_modified_asc' => 'Изменено пользователем 1→9',

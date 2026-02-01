@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Koskee myös merkintöjä',
 		'sides_close_article' => 'Artikkeli sulkeutuu napsauttamalla sen ulkopuolelle',
-		'sort' => array(
-			'_' => 'Lajittelujärjestys',
-			'newer_first' => 'Uusimmat ensin',
-			'older_first' => 'Vanhimmat ensin',
-		),
 		'star' => array(
 			'when' => 'Merkitse artikkeli suosikiksi…',
 		),

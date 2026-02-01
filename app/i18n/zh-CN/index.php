@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => '此订阅源设为已读',
 		'mark_selection_unread' => '将筛选结果标记为未读',
 		'mylabels' => '我的标签',
-		'newer_first' => '由新至旧',
 		'non-starred' => '显示未收藏',
 		'normal_view' => '普通视图',
-		'older_first' => '由旧至新',
 		'queries' => '自定义查询',
 		'read' => '显示已读',
 		'reader_view' => '阅读视图',
 		'rss_view' => '订阅源',
 		'search_short' => '搜索',
 		'sort' => array(
-			'_' => '排序标准',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => '分类、订阅源标题 A→Z',
 				'name_desc' => '分类、订阅源标题 Z→A',
 			),
 			'date_asc' => '发布日期 1→9',
 			'date_desc' => '发布日期 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => '订阅源标题 A→Z',
 				'name_desc' => '订阅源标题 Z→A',
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => '内容长度 9→1',
 			'link_asc' => '链接 A→Z',
 			'link_desc' => '链接 Z→A',
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => '随机顺序',
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => '标题 A→Z',
 			'title_desc' => '标题 Z→A',
 			'user_modified_asc' => '用户修改 1→9',

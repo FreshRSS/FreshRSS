@@ -226,6 +226,7 @@ People are sorted by name so please keep this order.
 * [PedroPMS](https://github.com/PedroPMS): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:PedroPMS)
 * [perrinjerome](https://github.com/perrinjerome): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:perrinjerome)
 * [Peter Stoinov](https://github.com/stoinov): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:stoinov), [Web](https://stoinov.com)
+* [Peter Vaverčák](https://github.com/PeterVavercak): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3APeterVavercak)
 * [Petra Lamborn](https://github.com/petraoleum): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:petraoleum), [Web](https://petras.space)
 * [Pim Snel](https://github.com/mipmip): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3Amipmip), [Web](https://www.pimsnel.com)
 * [plopoyop](https://github.com/plopoyop): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:plopoyop)

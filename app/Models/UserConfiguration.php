@@ -56,7 +56,9 @@ declare(strict_types=1);
  * @property bool $show_nav_buttons
  * @property 'big'|'small'|'none' $mark_read_button
  * @property 'ASC'|'DESC' $sort_order
- * @property 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'length' $sort
+ * @property 'id'|'c.name'|'date'|'f.name'|'length'|'link'|'rand'|'title' $sort
+ * @property 'ASC'|'DESC' $secondary_sort_order
+ * @property 'id'|'date'|'link'|'title' $secondary_sort
  * @property array<int,array<string,string>> $sharing
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article

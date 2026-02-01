@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Segna il feed come letto',
 		'mark_selection_unread' => 'Segna i selezionati come non letti',
 		'mylabels' => 'Le mie etichette',
-		'newer_first' => 'Mostra prima i recenti',
 		'non-starred' => 'Escludi preferiti',
 		'normal_view' => 'Vista elenco',
-		'older_first' => 'Ordina per meno recenti',
 		'queries' => 'Chiavi di ricerca',
 		'read' => 'Mostra solo letti',
 		'reader_view' => 'Modalità di lettura',
 		'rss_view' => 'Feed RSS',
 		'search_short' => 'Cerca',
 		'sort' => array(
-			'_' => 'Ordina per',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Categoria, titolo del feed A→Z',
 				'name_desc' => 'Categoria, titolo del feed Z→A',
 			),
 			'date_asc' => 'Data di pubblicazione 1→9',
 			'date_desc' => 'Data di pubblicazione 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Titolo del feed A→Z',
 				'name_desc' => 'Titolo del feed Z→A',
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Lunghezza contenuto 9→1',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Ordine casuale',
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Titolo A→Z',
 			'title_desc' => 'Titolo Z→A',
 			'user_modified_asc' => 'Modificato dall’utente 1→9',

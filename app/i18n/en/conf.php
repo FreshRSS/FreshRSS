@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Applies also on labels',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
-		'sort' => array(
-			'_' => 'Sort order',
-			'newer_first' => 'Newest first',
-			'older_first' => 'Oldest first',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',
 		),

@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Marcar lo flux coma legit',
 		'mark_selection_unread' => 'Marcar la seleccion coma pas legida',
 		'mylabels' => 'Mas etiquetas',
-		'newer_first' => 'Mai recents en primièr',
 		'non-starred' => 'Mostrar los pas favorits',
 		'normal_view' => 'Vista normala',
-		'older_first' => 'Mai ancians en primièr',
 		'queries' => 'Filtres utilizaire',
 		'read' => 'Mostrar los legits',
 		'reader_view' => 'Vista lectura',
 		'rss_view' => 'Flux RSS',
 		'search_short' => 'Recercar',
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Category, feed titles A→Z',	// TODO
 				'name_desc' => 'Category, feed titles Z→A',	// TODO
 			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Feed title A→Z',	// TODO
 				'name_desc' => 'Feed title Z→A',	// TODO
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
 			'link_desc' => 'Link Z→A',	// TODO
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Random order',	// TODO
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Title A→Z',	// TODO
 			'title_desc' => 'Title Z→A',	// TODO
 			'user_modified_asc' => 'User modified 1→9',	// TODO

@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'A címkékre is vonatkozik',
 		'sides_close_article' => 'A cikk szövegrészén kívüli kattintás bezárja a cikket',
-		'sort' => array(
-			'_' => 'Rendezési sorrend',
-			'newer_first' => 'Újabb elöl',
-			'older_first' => 'Régebbi elöl',
-		),
 		'star' => array(
 			'when' => 'Cikk megjelölése kedvencnek…',
 		),

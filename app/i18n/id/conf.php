@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Berlaku juga pada label',
 		'sides_close_article' => 'Klik di luar area teks artikel untuk menutup artikel',
-		'sort' => array(
-			'_' => 'Kriteria pengurutan',
-			'newer_first' => 'Terbaru dulu',
-			'older_first' => 'Terlama dulu',
-		),
 		'star' => array(
 			'when' => 'Tandai artikel sebagai favorit…',
 		),

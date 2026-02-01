@@ -53,10 +53,13 @@ return array (
 	#	Set to `true` to mark it unread, or `false` to leave it as-is.
 	'mark_updated_article_unread' => false, //TODO: -1 => ignore, 0 => update, 1 => update and mark as unread
 
-	# 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length'
+	# 'id'|'c.name'|'date'|'f.name'|'length'|'link'|'rand'|'title'
 	'sort' => 'id',
-	'mark_read_button' => 'big',
 	'sort_order' => 'DESC',
+	# 'id'|'date'|'link'|'title'
+	'secondary_sort' => 'id',
+	'secondary_sort_order' => 'DESC',
+
 	'anon_access' => false,
 	'mark_when' => array (
 		'article' => true,
@@ -105,6 +108,7 @@ return array (
 	# Hide the dropdown configuration menu and favicon in the aside list in case of many feeds, for UI performance
 	'simplify_over_n_feeds' => 1000,
 
+	'mark_read_button' => 'big',
 	'topline_read' => true,
 	'topline_favorite' => true,
 	'topline_myLabels' => false,

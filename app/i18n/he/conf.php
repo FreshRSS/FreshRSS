@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Applies also on labels',	// TODO
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO
-		'sort' => array(
-			'_' => 'סדר המיון',
-			'newer_first' => 'חדשים בראש',
-			'older_first' => 'ישנים יותר בראש',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),

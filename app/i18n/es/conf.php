@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Se aplica también en las etiquetas',
 		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',
-		'sort' => array(
-			'_' => 'Orden',
-			'newer_first' => 'Nuevos primero',
-			'older_first' => 'Antiguos primero',
-		),
 		'star' => array(
 			'when' => 'Marca un artículo como favorito…',
 		),

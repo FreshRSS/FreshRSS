@@ -294,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Týka sa aj štítkov',
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
-		'sort' => array(
-			'_' => 'Poradie',
-			'newer_first' => 'Novšie hore',
-			'older_first' => 'Staršie hore',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
