@@ -813,9 +813,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				['%https://example.net/test/%', '%https://example.net/test/%']
 			],
 			[	// Not a regex
-				"author:'/u/alice'",
+				"author:'/u/Alice'",
 				"(e.author LIKE ? )",
-				['%/u/alice%'],
+				['%/u/Alice%'],
 			],
 			[	// Regex with literal 'or'
 				'intitle:/^A or B/i',
