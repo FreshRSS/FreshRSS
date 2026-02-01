@@ -28,6 +28,7 @@ declare(strict_types=1);
  * @property string $feverKey
  * @property bool $hide_read_feeds
  * @property int $html5_notif_timeout
+ * @property bool $html5_enable_notif
  * @property int $good_notification_timeout
  * @property int $bad_notification_timeout
  * @property-read bool $is_admin

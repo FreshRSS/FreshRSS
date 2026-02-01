@@ -63,7 +63,7 @@ lint-fix: bin/phpcbf ## Fix the errors detected by the linter
 	$(PHP) bin/phpcbf . -p -s
 
 .PHONY: test
-test: bin/phpunit ## Run the test suite
+test: bin/phpunit ## Run the PHP test suite
 	$(PHP) bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
 
 bin/composer:
@@ -93,6 +93,34 @@ node_modules/.bin/eslint:
 
 node_modules/.bin/rtlcss:
 	npm install
+
+# TODO: Add composer install
+.PHONY: composer-test
+composer-test: bin/phpstan bin/composer
+	bin/composer run-script test
+
+.PHONY: composer-fix
+composer-fix: bin/composer
+	bin/composer run-script fix
+
+.PHONY: npm-test
+npm-test: node_modules/.bin/eslint
+	npm test
+
+.PHONY: npm-fix
+npm-fix: node_modules/.bin/eslint
+	npm run fix
+
+.PHONY: typos-test
+typos-test: bin/typos
+	bin/typos
+
+# TODO: Add shellcheck, shfmt, hadolint
+.PHONY: test-all
+test-all: composer-test npm-test typos-test ## Run all tests
+
+.PHONY: fix-all
+fix-all: composer-fix npm-fix ## Run all fixes
 
 ##@ I18n
 .PHONY: i18n-add-file
@@ -199,39 +227,6 @@ refresh: ## Refresh feeds by fetching new messages
 .PHONY: rtl
 rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
 	npm run-script rtlcss
-
-###############################
-## New commands aligned on CI #
-##     Work in progress       #
-###############################
-
-# TODO: Add composer install
-.PHONY: composer-test
-composer-test: bin/phpstan bin/composer
-	bin/composer run-script test
-
-.PHONY: composer-fix
-composer-fix: bin/composer
-	bin/composer run-script fix
-
-.PHONY: npm-test
-npm-test: node_modules/.bin/eslint
-	npm test
-
-.PHONY: npm-fix
-npm-fix: node_modules/.bin/eslint
-	npm run fix
-
-.PHONY: typos-test
-typos-test: bin/typos
-	bin/typos
-
-# TODO: Add shellcheck, shfmt, hadolint
-.PHONY: test-all
-test-all: composer-test npm-test typos-test
-
-.PHONY: fix-all
-fix-all: composer-fix npm-fix
 
 ##@ Help
 .PHONY: help
