@@ -17,8 +17,8 @@ services:
       options:
         max-size: 10m
     volumes:
-      - data:/var/www/FreshRSS/data
-      - extensions:/var/www/FreshRSS/extensions
+      - data:/config/www/freshrss/data
+      - extensions:/config/www/freshrss/extensions
     environment:
       TZ: Europe/Paris
       CRON_MIN: '3,33'
