@@ -106,7 +106,7 @@ return array(
 		'small' => 'Klein',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Benachrichtigungen aktivieren',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
