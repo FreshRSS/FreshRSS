@@ -3,7 +3,7 @@ volumes:
 
 services:
   freshrss-db:
-    image: mariadb:12
+    image: mariadb:10.3 # 5x performance regression from 10.3 to 10.11
     container_name: freshrss-db
     hostname: freshrss-db
     restart: unless-stopped

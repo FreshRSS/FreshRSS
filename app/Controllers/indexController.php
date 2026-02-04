@@ -54,6 +54,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * Content for displaying a transition between entries when sorting by specific criteria.
 	 */
 	public static function transition(FreshRSS_Entry $entry): string {
+		if (FreshRSS_Context::$order === 'SHUF'){
+			return '';
+			//TODO: remove this special case by making SHUF a sort of sort.
+		}
 		return match (FreshRSS_Context::$sort) {
 			'id' => _t('index.feed.received' . self::dayRelative($entry->dateAdded(raw: true), mayBeFuture: false)) .
 				' — ' . timestamptodate($entry->dateAdded(raw: true), hour: false),
