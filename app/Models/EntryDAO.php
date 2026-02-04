@@ -1481,7 +1481,7 @@ SQL;
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where . ($order === 'SHUF' ? ' AND (e.is_read=0 OR e.lastSeen > UNIX_TIMESTAMP() - (24 * 60 * 60))' : '')
 			. $search
-			. ' ORDER BY ' . 
+			. ' ORDER BY '
 			. ($order === 'SHUF' ? ' shuffleOrderKey ' : ($orderBy . ' ' . $order) )
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Secondary sort
 			. ($sort === 'id' ? '' : ', e.id ' . $order)	// For keyset pagination
@@ -1521,17 +1521,18 @@ SQL;
 			//TODO: shuf should be a type of sort
 		};
 		$content = static::isCompressed() ? 'UNCOMPRESS(e0.content_bin) AS content' : 'e0.content';
+		$shuffleKeyExpression = ($order === 'SHUF' ? ' shuffleOrderKey, ' : ' ' )
 		$hash = static::sqlHexEncode('e0.hash');
 		$sql = <<<SQL
-SELECT e0.id, e0.guid, e0.title, e0.author, {($order === 'SHUF' ? ' shuffleOrderKey, ' : ' ' )} {$content}, e0.link,
+SELECT e0.id, e0.guid, e0.title, e0.author, {$shuffleKeyExpression} {$content}, e0.link,
 	e0.date, e0.`lastSeen`, e0.`lastUserModified`, {$hash} AS hash, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes
 FROM `_entry` e0 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
 
 SQL;
 		if($order === 'SHUF') {
-			$sql .= {($outerSearch != ' ' ? ' WHERE ' . $outerSearch : ' ' )}
-			$sql .= ' ORDER BY shuffleOrderKey '
-			$sql .= {($limit > 0 ? ' LIMIT ' . intval($limit) : '')}
+			$sql .= ($outerSearch != ' ' ? ' WHERE ' . $outerSearch : ' ' );
+			$sql .= ' ORDER BY shuffleOrderKey ';
+			$sql .= ($limit > 0 ? ' LIMIT ' . intval($limit) : '');
 		} else {
 			if ($sort === 'f.name' || $sort === 'c.name') {
 				$sql .= ' INNER JOIN `_feed` f0 ON f0.id = e0.id_feed ';
