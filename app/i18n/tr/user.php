@@ -1,44 +1,54 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
 	'email' => array(
 		'feedback' => array(
-			'invalid' => 'This email address is invalid.',	// TODO - Translation
-			'required' => 'An email address is required.',	// TODO - Translation
+			'invalid' => 'Bu e-posta adresi geçersiz.',
+			'required' => 'Bir e-posta adresi gerekli.',
 		),
 		'validation' => array(
-			'change_email' => 'You can change your email address <a href="%s">on the profile page</a>.',	// TODO - Translation
-			'email_sent_to' => 'We sent you an email at <strong>%s</strong>. Please follow its instructions to validate your address.',	// TODO - Translation
+			'change_email' => 'E-posta adresinizi <a href="%s">profil sayfasından</a> değiştirebilirsiniz.',
+			'email_sent_to' => 'Size <strong>%s</strong> adresine bir e-posta gönderdik. Lütfen adresinizi doğrulamak için talimatları takip edin.',
 			'feedback' => array(
-				'email_failed' => 'We couldn’t send you an email because of a server configuration error.',	// TODO - Translation
-				'email_sent' => 'An email has been sent to your address.',	// TODO - Translation
-				'error' => 'Email address validation failed.',	// TODO - Translation
-				'ok' => 'This email address has been validated.',	// TODO - Translation
-				'unneccessary' => 'This email address was already validated.',	// TODO - Translation
-				'wrong_token' => 'This email address failed to be validated due to a wrong token.',	// TODO - Translation
+				'email_failed' => 'Sunucu yapılandırma hatası nedeniyle size e-posta gönderemedik.',
+				'email_sent' => 'E-posta adresinize bir mesaj gönderildi.',
+				'error' => 'E-posta adresi doğrulama başarısız oldu.',
+				'ok' => 'Bu e-posta adresi doğrulandı.',
+				'unnecessary' => 'Bu e-posta adresi zaten doğrulanmıştı.',
+				'wrong_token' => 'Yanlış bir token nedeniyle bu e-posta adresi doğrulanamadı.',
 			),
-			'need_to' => 'You need to validate your email address before being able to use %s.',	// TODO - Translation
-			'resend_email' => 'Resend the email',	// TODO - Translation
-			'title' => 'Email address validation',	// TODO - Translation
+			'need_to' => '%s kullanabilmek için önce e-posta adresinizi doğrulamanız gerekiyor.',
+			'resend_email' => 'E-postayı yeniden gönder',
+			'title' => 'E-posta adresi doğrulama',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'You’ve just registered on %s, but you still need to validate your email address. For that, just follow the link:',	// TODO - Translation
-			'title' => 'You need to validate your account',	// TODO - Translation
-			'welcome' => 'Welcome %s,',	// TODO - Translation
+			'body' => '%s sitesine yeni kaydoldunuz, ancak e-posta adresinizi hâlâ doğrulamanız gerekiyor. Bunun için şu bağlantıyı takip etmeniz yeterli:',
+			'title' => 'Hesabınızı doğrulamanız gerekiyor',
+			'welcome' => 'Hoş geldiniz %s,',
 		),
 	),
 	'password' => array(
-		'invalid' => 'The password is invalid.',	// TODO - Translation
+		'invalid' => 'Parola geçersiz.',
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'You must accept the Terms of Service to be able to register.',	// TODO - Translation
+			'invalid' => 'Kayıt olabilmek için Hizmet Şartları’nı kabul etmeniz gerekiyor.',
 		),
 	),
 	'username' => array(
-		'invalid' => 'This username is invalid.',	// TODO - Translation
-		'taken' => 'This username, %s, is taken.',	// TODO - Translation
+		'invalid' => 'Bu kullanıcı adı geçersiz.',
+		'taken' => 'Bu kullanıcı adı, %s, zaten alınmış.',
 	),
 );

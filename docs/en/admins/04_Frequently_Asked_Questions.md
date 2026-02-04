@@ -15,7 +15,7 @@ You only have to do is to run the following command:
 
 Alternatively, you can edit configuration files manually.
 To do so, you need to change the *default_user* value in the file *./data/config.php*.
-As the file is a PHP file, you have to make sure that it's still valid after the update by running the following command:
+As the file is a PHP file, you have to make sure that it’s still valid after the update by running the following command:
 ```sh
 php -l ./data/config.php
 ```

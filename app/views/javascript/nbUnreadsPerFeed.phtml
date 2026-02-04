@@ -1,8 +1,11 @@
 <?php
-$result = array(
-	'feeds' => array(),
-	'tags' => array(),
-);
+declare(strict_types=1);
+/** @var FreshRSS_ViewJavascript $this */
+
+$result = [
+	'feeds' => [],
+	'tags' => [],
+];
 foreach ($this->categories as $cat) {
 	foreach ($cat->feeds() as $feed) {
 		$result['feeds'][$feed->id()] = $feed->nbNotRead();

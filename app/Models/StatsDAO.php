@@ -1,23 +1,48 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_StatsDAO extends Minz_ModelPdo {
 
-	const ENTRY_COUNT_PERIOD = 30;
+	public const ENTRY_COUNT_PERIOD = 30;
 
-	protected function sqlFloor($s) {
+	/** Get the number of seconds to add to UTC to get the user's local time */
+	protected function getTimezoneOffset(): int {
+		$timezone = new DateTimeZone(date_default_timezone_get());
+		return $timezone->getOffset(new DateTime('now', new DateTimeZone('UTC')));
+	}
+
+	/**
+	 * @param string $field to use for the date
+	 * @param int $precision to apply to the timestamp (1 for seconds, 1000 for milliseconds, 1000000 for microseconds)
+	 * @param 'day'|'month'|'year' $granularity of the date intervals
+	 */
+	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
+		if (!preg_match('/^[a-zA-Z0-9_]+$/', $field)) {
+			throw new InvalidArgumentException('Invalid date field!');
+		}
+		$offset = $this->getTimezoneOffset();
+		return match ($granularity) {
+			'day' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y-%m-%d')",
+			'month' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y-%m')",
+			'year' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y')",
+			default => throw new InvalidArgumentException('Invalid date granularity!'),
+		};
+	}
+
+	protected function sqlFloor(string $s): string {
 		return "FLOOR($s)";
 	}
 
 	/**
 	 * Calculates entry repartition for all feeds and for main stream.
 	 *
-	 * @return array
+	 * @return array{'main_stream':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false,'all_feeds':array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false}
 	 */
-	public function calculateEntryRepartition() {
-		return array(
+	public function calculateEntryRepartition(): array {
+		return [
 			'main_stream' => $this->calculateEntryRepartitionPerFeed(null, true),
 			'all_feeds' => $this->calculateEntryRepartitionPerFeed(null, false),
-		);
+		];
 	}
 
 	/**
@@ -28,16 +53,14 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 *   - unread entries
 	 *   - favorite entries
 	 *
-	 * @param null|integer $feed feed id
-	 * @param boolean $only_main
-	 * @return array
+	 * @return array{total:int,count_unreads:int,count_reads:int,count_favorites:int}|false
 	 */
-	public function calculateEntryRepartitionPerFeed($feed = null, $only_main = false) {
+	public function calculateEntryRepartitionPerFeed(?int $feed = null, bool $only_main = false): array|false {
 		$filter = '';
 		if ($only_main) {
 			$filter .= 'AND f.priority = 10';
 		}
-		if (!is_null($feed)) {
+		if ($feed !== null) {
 			$filter .= "AND e.id_feed = {$feed}";
 		}
 		$sql = <<<SQL
@@ -49,21 +72,22 @@ FROM `_entry` AS e, `_feed` AS f
 WHERE e.id_feed = f.id
 {$filter}
 SQL;
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		return $res[0];
+		$res = $this->fetchAssoc($sql);
+		if (is_array($res) && !empty($res[0]) && is_array($res[0])) {
+			$dao = array_map('intval', $res[0]);
+			/** @var array{total:int,count_unreads:int,count_reads:int,count_favorites:int} $dao */
+			return $dao;
+		}
+		return false;
 	}
 
 	/**
 	 * Calculates entry count per day on a 30 days period.
-	 * Returns the result as a JSON object.
-	 *
-	 * @return JSON object
+	 * @return array<int,int>
 	 */
-	public function calculateEntryCount() {
+	public function calculateEntryCount(): array {
 		$count = $this->initEntryCountArray();
-		$midnight = mktime(0, 0, 0);
+		$midnight = mktime(0, 0, 0) ?: 0;
 		$oldest = $midnight - (self::ENTRY_COUNT_PERIOD * 86400);
 
 		// Get stats per day for the last 30 days
@@ -76,69 +100,65 @@ WHERE date >= {$oldest} AND date < {$midnight}
 GROUP BY day
 ORDER BY day ASC
 SQL;
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		foreach ($res as $value) {
-			$count[$value['day']] = (int) $value['count'];
+		$res = $this->fetchAssoc($sql);
+		if (!is_array($res)) {
+			return [];
 		}
-
+		/** @var list<array{day:int,count:int}> $res */
+		foreach ($res as $value) {
+			$count[(int)($value['day'])] = (int)($value['count']);
+		}
 		return $count;
 	}
 
 	/**
 	 * Initialize an array for the entry count.
-	 *
-	 * @return array
+	 * @return array<int,int>
 	 */
-	protected function initEntryCountArray() {
+	protected function initEntryCountArray(): array {
 		return $this->initStatsArray(-self::ENTRY_COUNT_PERIOD, -1);
 	}
 
 	/**
 	 * Calculates the number of article per hour of the day per feed
-	 *
-	 * @param integer $feed id
-	 * @return string
+	 * @return array<int,int>
 	 */
-	public function calculateEntryRepartitionPerFeedPerHour($feed = null) {
+	public function calculateEntryRepartitionPerFeedPerHour(?int $feed = null): array {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('%H', $feed);
 	}
 
 	/**
 	 * Calculates the number of article per day of week per feed
-	 *
-	 * @param integer $feed id
-	 * @return string
+	 * @return array<int,int>
 	 */
-	public function calculateEntryRepartitionPerFeedPerDayOfWeek($feed = null) {
+	public function calculateEntryRepartitionPerFeedPerDayOfWeek(?int $feed = null): array {
 		return $this->calculateEntryRepartitionPerFeedPerPeriod('%w', $feed);
 	}
 
 	/**
 	 * Calculates the number of article per month per feed
-	 *
-	 * @param integer $feed
-	 * @return string
+	 * @return array<int,int>
 	 */
-	public function calculateEntryRepartitionPerFeedPerMonth($feed = null) {
-		return $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
+	public function calculateEntryRepartitionPerFeedPerMonth(?int $feed = null): array {
+		$monthRepartition = $this->calculateEntryRepartitionPerFeedPerPeriod('%m', $feed);
+		// cut out the 0th month (Jan=1, Dec=12)
+		\array_splice($monthRepartition, 0, 1);
+		return $monthRepartition;
 	}
 
 	/**
 	 * Calculates the number of article per period per feed
-	 *
 	 * @param string $period format string to use for grouping
-	 * @param integer $feed id
-	 * @return string
+	 * @return array<int,int>
 	 */
-	protected function calculateEntryRepartitionPerFeedPerPeriod($period, $feed = null) {
+	protected function calculateEntryRepartitionPerFeedPerPeriod(string $period, ?int $feed = null): array {
 		$restrict = '';
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
 		}
+		$offset = $this->getTimezoneOffset();
 		$sql = <<<SQL
-SELECT DATE_FORMAT(FROM_UNIXTIME(e.date), '{$period}') AS period
+SELECT DATE_FORMAT(FROM_UNIXTIME(e.date + {$offset}), '{$period}') AS period
 , COUNT(1) AS count
 FROM `_entry` AS e
 {$restrict}
@@ -146,12 +166,20 @@ GROUP BY period
 ORDER BY period ASC
 SQL;
 
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_NAMED);
+		$res = $this->fetchAssoc($sql);
+		if ($res == false) {
+			return [];
+		}
+		$periodMax = match ($period) {
+			'%H' => 24,
+			'%w' => 7,
+			'%m' => 12,
+			default => 30,
+		};
 
-		$repartition = array();
+		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {
-			$repartition[(int) $value['period']] = (int) $value['count'];
+			$repartition[(int)$value['period']] = (int)$value['count'];
 		}
 
 		return $repartition;
@@ -159,42 +187,30 @@ SQL;
 
 	/**
 	 * Calculates the average number of article per hour per feed
-	 *
-	 * @param integer $feed id
-	 * @return integer
 	 */
-	public function calculateEntryAveragePerFeedPerHour($feed = null) {
+	public function calculateEntryAveragePerFeedPerHour(?int $feed = null): float {
 		return $this->calculateEntryAveragePerFeedPerPeriod(1 / 24, $feed);
 	}
 
 	/**
 	 * Calculates the average number of article per day of week per feed
-	 *
-	 * @param integer $feed id
-	 * @return integer
 	 */
-	public function calculateEntryAveragePerFeedPerDayOfWeek($feed = null) {
+	public function calculateEntryAveragePerFeedPerDayOfWeek(?int $feed = null): float {
 		return $this->calculateEntryAveragePerFeedPerPeriod(7, $feed);
 	}
 
 	/**
 	 * Calculates the average number of article per month per feed
-	 *
-	 * @param integer $feed id
-	 * @return integer
 	 */
-	public function calculateEntryAveragePerFeedPerMonth($feed = null) {
+	public function calculateEntryAveragePerFeedPerMonth(?int $feed = null): float {
 		return $this->calculateEntryAveragePerFeedPerPeriod(30, $feed);
 	}
 
 	/**
 	 * Calculates the average number of article per feed
-	 *
 	 * @param float $period number used to divide the number of day in the period
-	 * @param integer $feed id
-	 * @return integer
 	 */
-	protected function calculateEntryAveragePerFeedPerPeriod($period, $feed = null) {
+	protected function calculateEntryAveragePerFeedPerPeriod(float $period, ?int $feed = null): float {
 		$restrict = '';
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
@@ -206,43 +222,38 @@ SELECT COUNT(1) AS count
 FROM `_entry` AS e
 {$restrict}
 SQL;
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetch(PDO::FETCH_NAMED);
+		$res = $this->fetchAssoc($sql);
+		if ($res == null || empty($res[0])) {
+			return -1.0;
+		}
 		$date_min = new \DateTime();
-		$date_min->setTimestamp($res['date_min']);
+		$date_min->setTimestamp((int)($res[0]['date_min']));
 		$date_max = new \DateTime();
-		$date_max->setTimestamp($res['date_max']);
+		$date_max->setTimestamp((int)($res[0]['date_max']));
 		$interval = $date_max->diff($date_min, true);
-		$interval_in_days = $interval->format('%a');
+		$interval_in_days = (float)($interval->format('%a'));
 		if ($interval_in_days <= 0) {
 			// Surely only one article.
 			// We will return count / (period/period) == count.
 			$interval_in_days = $period;
 		}
 
-		return $res['count'] / ($interval_in_days / $period);
+		return (int)$res[0]['count'] / ($interval_in_days / $period);
 	}
 
 	/**
 	 * Initialize an array for statistics depending on a range
-	 *
-	 * @param integer $min
-	 * @param integer $max
-	 * @return array
+	 * @return array<int,int>
 	 */
-	protected function initStatsArray($min, $max) {
-		return array_map(function () {
-			return 0;
-		}, array_flip(range($min, $max)));
+	protected function initStatsArray(int $min, int $max): array {
+		return array_map(fn() => 0, array_flip(range($min, $max)));
 	}
 
 	/**
 	 * Calculates feed count per category.
-	 * Returns the result as a JSON object.
-	 *
-	 * @return JSON object
+	 * @return list<array{'label':string,'data':int}>
 	 */
-	public function calculateFeedByCategory() {
+	public function calculateFeedByCategory(): array {
 		$sql = <<<SQL
 SELECT c.name AS label
 , COUNT(f.id) AS data
@@ -251,19 +262,16 @@ WHERE c.id = f.category
 GROUP BY label
 ORDER BY data DESC
 SQL;
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		return $res;
+		/** @var list<array{'label':string,'data':int}>|null @res */
+		$res = $this->fetchAssoc($sql);
+		return $res == null ? [] : $res;
 	}
 
 	/**
 	 * Calculates entry count per category.
-	 * Returns the result as a JSON string.
-	 *
-	 * @return JSON object
+	 * @return list<array{'label':string,'data':int}>
 	 */
-	public function calculateEntryByCategory() {
+	public function calculateEntryByCategory(): array {
 		$sql = <<<SQL
 SELECT c.name AS label
 , COUNT(e.id) AS data
@@ -273,18 +281,16 @@ AND f.id = e.id_feed
 GROUP BY label
 ORDER BY data DESC
 SQL;
-		$stm = $this->pdo->query($sql);
-		$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-		return $res;
+		$res = $this->fetchAssoc($sql);
+		/** @var list<array{'label':string,'data':int}>|null $res */
+		return $res == null ? [] : $res;
 	}
 
 	/**
 	 * Calculates the 10 top feeds based on their number of entries
-	 *
-	 * @return array
+	 * @return list<array{'id':int,'name':string,'category':string,'count':int}>
 	 */
-	public function calculateTopFeed() {
+	public function calculateTopFeed(): array {
 		$sql = <<<SQL
 SELECT f.id AS id
 , MAX(f.name) AS name
@@ -297,16 +303,19 @@ GROUP BY f.id
 ORDER BY count DESC
 LIMIT 10
 SQL;
-		$stm = $this->pdo->query($sql);
-		return $stm->fetchAll(PDO::FETCH_ASSOC);
+		$res = $this->fetchAssoc($sql);
+		/** @var list<array{'id':int,'name':string,'category':string,'count':int}>|null $res */
+		if (is_array($res)) {
+			return $res;
+		}
+		return [];
 	}
 
 	/**
 	 * Calculates the last publication date for each feed
-	 *
-	 * @return array
+	 * @return list<array{'id':int,'name':string,'last_date':int,'nb_articles':int}>
 	 */
-	public function calculateFeedLastDate() {
+	public function calculateFeedLastDate(): array {
 		$sql = <<<SQL
 SELECT MAX(f.id) as id
 , MAX(f.name) AS name
@@ -317,17 +326,20 @@ WHERE f.id = e.id_feed
 GROUP BY f.id
 ORDER BY name
 SQL;
-		$stm = $this->pdo->query($sql);
-		return $stm->fetchAll(PDO::FETCH_ASSOC);
+		$res = $this->fetchAssoc($sql);
+		/** @var list<array{'id':int,'name':string,'last_date':int,'nb_articles':int}>|null $res */
+		if (is_array($res)) {
+			return $res;
+		}
+		return [];
 	}
 
 	/**
 	 * Gets days ready for graphs
-	 *
-	 * @return string
+	 * @return list<string>
 	 */
-	public function getDays() {
-		return $this->convertToTranslatedJson(array(
+	public function getDays(): array {
+		return $this->convertToTranslatedJson([
 			'sun',
 			'mon',
 			'tue',
@@ -335,16 +347,15 @@ SQL;
 			'thu',
 			'fri',
 			'sat',
-		));
+		]);
 	}
 
 	/**
 	 * Gets months ready for graphs
-	 *
-	 * @return string
+	 * @return list<string>
 	 */
-	public function getMonths() {
-		return $this->convertToTranslatedJson(array(
+	public function getMonths(): array {
+		return $this->convertToTranslatedJson([
 			'jan',
 			'feb',
 			'mar',
@@ -357,21 +368,39 @@ SQL;
 			'oct',
 			'nov',
 			'dec',
-		));
+		]);
 	}
 
 	/**
 	 * Translates array content
-	 *
-	 * @param array $data
-	 * @return JSON object
+	 * @param list<string> $data
+	 * @return list<string>
 	 */
-	private function convertToTranslatedJson($data = array()) {
-		$translated = array_map(function($a) {
-			return _t('gen.date.' . $a);
-		}, $data);
+	private function convertToTranslatedJson(array $data = []): array {
+		$translated = array_map(static fn(string $a) => _t('gen.date.' . $a), $data);
 
 		return $translated;
 	}
 
+	/**
+	 * Gets the date intervals with the largest number of unread articles.
+	 * @param 'id'|'date' $field to use for the date
+	 * @param 'day'|'month'|'year' $granularity of the date intervals
+	 * @return list<array{'granularity':string,'unread_count':int}>
+	 */
+	public function getMaxUnreadDates(string $field, string $granularity, int $max = 100): array {
+		$sql = <<<SQL
+SELECT
+	{$this->sqlDateToIsoGranularity($field, precision: $field === 'id' ? 1000000 : 1, granularity: $granularity)} AS granularity,
+	COUNT(*) AS unread_count
+FROM `_entry`
+WHERE is_read = 0
+GROUP BY granularity
+ORDER BY unread_count DESC, granularity DESC
+LIMIT $max;
+SQL;
+		$res = $this->fetchAssoc($sql);
+		/** @var list<array{granularity:string,unread_count:int}>|null $res */
+		return is_array($res) ? $res : [];
+	}
 }

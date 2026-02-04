@@ -1,0 +1,44 @@
+// For format details, see https://aka.ms/devcontainer.json
+{
+	"name": "FreshRSS-dev-Alpine",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"containerEnv": {
+		"DATA_PATH": "/home/developer/freshrss-data"
+	},
+	"customizations": {
+		"codespaces": {
+			"openFiles": [
+				".devcontainer/README.md"
+			]
+		},
+		"vscode": {
+			"extensions": [
+				"bmewburn.vscode-intelephense-client",
+				"DavidAnson.vscode-markdownlint",
+				"dbaeumer.vscode-eslint",
+				"eamodio.gitlens",
+				"EditorConfig.EditorConfig",
+				"foxundermoon.shell-format",
+				"GitHub.vscode-pull-request-github",
+				"mrmlnc.vscode-apache",
+				"ms-azuretools.vscode-docker",
+				"redhat.vscode-yaml",
+				"timonwong.shellcheck",
+				"ValeryanM.vscode-phpsab"
+			]
+		}
+	},
+	"forwardPorts": [
+		8080
+	],
+	"portsAttributes": {
+		"8080": {
+			"label": "FreshRSS Apache",
+			"onAutoForward": "notify"
+		}
+	},
+	"remoteUser": "developer",
+	"postCreateCommand": "sudo .devcontainer/postCreateCommand.sh"
+}

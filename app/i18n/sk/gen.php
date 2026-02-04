@@ -1,35 +1,58 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
 	'action' => array(
-		'actualize' => 'Aktualizovať',
-		'add' => 'Add',	// TODO - Translation
-		'back' => '← Go back',	// TODO - Translation
+		'actualize' => 'Aktualizovať kanály',
+		'add' => 'Pridať',
 		'back_to_rss_feeds' => '← Späť na vaše RSS kanály',
 		'cancel' => 'Zrušiť',
+		'close' => 'Close',	// TODO
 		'create' => 'Vytvoriť',
-		'demote' => 'Demote',	// TODO - Translation
+		'delete_all_feeds' => 'Delete all feeds',	// TODO
+		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
+		'delete_muted_feeds' => 'Vymazať stíšené kanály',
+		'demote' => 'Degradovať',
 		'disable' => 'Zakázať',
+		'download' => 'Download',	// TODO
 		'empty' => 'Vyprázdniť',
 		'enable' => 'Povoliť',
 		'export' => 'Exportovať',
 		'filter' => 'Filtrovať',
 		'import' => 'Importovať',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'load_default_shortcuts' => 'Načítať prednastavené klávesové skratky',
 		'manage' => 'Spravovať',
-		'mark_favorite' => 'Označiť ako obľúbené',
 		'mark_read' => 'Označiť ako prečítané',
-		'promote' => 'Promote',	// TODO - Translation
-		'purge' => 'Purge',	// TODO - Translation
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
+		'open_url' => 'Otvoriť URL',
+		'promote' => 'Podporiť',
+		'purge' => 'Vymazať',
+		'refresh_opml' => 'Obnoviť OPML',
 		'remove' => 'Odstrániť',
-		'rename' => 'Rename',	// TODO - Translation
+		'rename' => 'Premenovať',
 		'see_website' => 'Zobraziť webovú stránku',
 		'submit' => 'Poslať',
 		'truncate' => 'Vymazať všetky články',
 		'update' => 'Aktualizovať',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
+		'accept_tos' => 'Prijímam <a href="%s">Podmienky služby</a>.',
 		'email' => 'E-mailová adresa',
 		'keep_logged_in' => 'Zostať prihlásený <small>(počet dní: %s)</small>',
 		'login' => 'Prihlásiť',
@@ -38,70 +61,73 @@ return array(
 			'_' => 'Heslo',
 			'format' => '<small>Najmenej 7 znakov</small>',
 		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
+		),
 		'registration' => array(
 			'_' => 'Nový účet',
 			'ask' => 'Vytvoriť účet?',
 			'title' => 'Vytvorenie účtu',
 		),
-		'reset' => 'Reset prihlásenia',
 		'username' => array(
 			'_' => 'Používateľské meno',
-			'admin' => 'Administrátorské používateľské meno',
 			'format' => '<small>Maximálne 16 alfanumerických znakov</small>',
 		),
 	),
 	'date' => array(
 		'Apr' => '\\A\\p\\r\\í\\l',
-		'Aug' => '\\A\\u\\g\\u\\s\\t',
-		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',
+		'Aug' => '\\A\\u\\g\\u\\s\\t',	// IGNORE
+		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// IGNORE
 		'Feb' => '\\F\\e\\b\\r\\u\\á\\r',
 		'Jan' => '\\J\\a\\n\\u\\á\\r',
 		'Jul' => '\\J\\ú\\l',
 		'Jun' => '\\J\\ú\\n',
 		'Mar' => '\\M\\a\\r\\e\\c',
 		'May' => '\\M\\á\\j',
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// IGNORE
 		'Oct' => '\\O\\k\\t\\ó\\b\\e\\r',
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',
-		'apr' => 'Apr.',
+		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// IGNORE
+		'apr' => 'Apr.',	// IGNORE
 		'april' => 'Apríl',
-		'aug' => 'Aug.',
-		'august' => 'August',
+		'aug' => 'Aug.',	// IGNORE
+		'august' => 'August',	// IGNORE
 		'before_yesterday' => 'Predvčerom',
-		'dec' => 'Dec.',
-		'december' => 'December',
-		'feb' => 'Feb.',
+		'dec' => 'Dec.',	// IGNORE
+		'december' => 'December',	// IGNORE
+		'feb' => 'Feb.',	// IGNORE
 		'february' => 'Február',
-		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
-		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',
+		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',	// IGNORE
+		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',	// IGNORE
 		'fri' => 'Pi',
-		'jan' => 'Jan.',
+		'jan' => 'Jan.',	// IGNORE
 		'january' => 'Január',
 		'jul' => 'Júl',
 		'july' => 'Júl',
 		'jun' => 'Jún',
 		'june' => 'Jún',
-		'last_2_year' => 'Last two years',	// TODO - Translation
+		'last_2_year' => 'Posledné 2 roky',
 		'last_3_month' => 'Posledné 3 mesiace',
-		'last_3_year' => 'Last three years',	// TODO - Translation
-		'last_5_year' => 'Last five years',	// TODO - Translation
+		'last_3_year' => 'Posledné 3 roky',
+		'last_5_year' => 'Posledných 5 rokov',
 		'last_6_month' => 'Posledných 6 mesiacov',
 		'last_month' => 'Posledný mesiac',
 		'last_week' => 'Posledný týždeň',
 		'last_year' => 'Posledný rok',
-		'mar' => 'Mar.',
+		'mar' => 'Mar.',	// IGNORE
 		'march' => 'Marec',
 		'may' => 'Máj',
 		'may_' => 'Máj',
 		'mon' => 'Po',
 		'month' => 'mesiace',
-		'nov' => 'Nov.',
-		'november' => 'November',
+		'nov' => 'Nov.',	// IGNORE
+		'november' => 'November',	// IGNORE
 		'oct' => 'Okt.',
 		'october' => 'Október',
 		'sat' => 'So',
-		'sep' => 'Sept.',
-		'september' => 'September',
+		'sep' => 'Sept.',	// IGNORE
+		'september' => 'September',	// IGNORE
 		'sun' => 'Ne',
 		'thu' => 'Št',
 		'today' => 'Dnes',
@@ -109,45 +135,61 @@ return array(
 		'wed' => 'St',
 		'yesterday' => 'Včera',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Prázdna kategória',
 		'confirm_action' => 'Určite chcete vykonať túto akciu? Zmeny budú nezvratné!',
 		'confirm_action_feed_cat' => 'Určite chcete vykonať túto akciu? Prídete o súvisiace obľúbené a používateľské dopyty. Zmeny budú nezvratné!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'Počet nových článkov v čítačke FreshRSS: %%d',
+			'body_unread_articles' => '(neprečítané: %%d)',
 			'request_failed' => 'Nepodarilo sa spracovať váš dopyt, pravdepodobne kvôli problému s pripojením do internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
+		'labels_empty' => 'Žiadne štítky',
 		'new_article' => 'Našli sa nové články. Kliknite na obnovenie stránky.',
 		'should_be_activated' => 'Musíte povoliť JavaScript',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'kr' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cs' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'O FreshRSS',
+		'account' => 'Konto',
 		'admin' => 'Administrácia',
+		'advanced_search' => 'Advanced Search',	// TODO
 		'archiving' => 'Archivácia',
 		'authentication' => 'Prihlásenie',
 		'check_install' => 'Kontrola inštalácie',
@@ -155,9 +197,11 @@ return array(
 		'display' => 'Zobrazenie',
 		'extensions' => 'Rozšírenia',
 		'logs' => 'Záznamy',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Používateľské dopyty',
 		'reading' => 'Čítanie',
 		'search' => 'Hľadajte slová alebo #značky',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'Zdieľanie',
 		'shortcuts' => 'Skratky',
 		'stats' => 'Štatistiky',
@@ -166,42 +210,78 @@ return array(
 		'user_management' => 'Spravovať používateľov',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'Prvý',
-		'last' => 'Posledný',
-		'load_more' => 'Načítať viac článkov',
-		'mark_all_read' => 'Označiť všetko prečítané',
-		'next' => 'Ďalší',
-		'nothing_to_load' => 'Žiadne nové články',
-		'previous' => 'Predošlý',
-	),
 	'period' => array(
-		'days' => 'days',	// TODO - Translation
-		'hours' => 'hours',	// TODO - Translation
-		'months' => 'months',	// TODO - Translation
-		'weeks' => 'weeks',	// TODO - Translation
-		'years' => 'years',	// TODO - Translation
+		'days' => 'dni',
+		'hours' => 'hodiny',
+		'months' => 'mesiace',
+		'weeks' => 'týždne',
+		'years' => 'roky',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
+		'authors' => 'Authors',	// TODO
+		'categories' => 'Categories',	// TODO
+		'content' => 'Content',	// TODO
+		'date_from' => 'From',	// TODO
+		'date_past' => 'In the past',	// TODO
+		'date_published' => 'Publication Date',	// TODO
+		'date_range' => 'Date Range',	// TODO
+		'date_received' => 'Received Date',	// TODO
+		'date_to' => 'To',	// TODO
+		'date_user' => 'User Modification Date',	// TODO
+		'feeds' => 'Feeds',	// TODO
+		'free_text' => 'Free Text',	// TODO
+		'free_text_help' => 'Search both in title and content',	// TODO
+		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
+		'labels' => 'My Labels',	// TODO
+		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
+		'sources' => 'Sources',	// TODO
+		'tags' => 'Article Tags',	// TODO
+		'text' => 'Text Search',	// TODO
+		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
+		'text_placeholder' => 'Keyword',	// TODO
+		'title' => 'Title',	// TODO
+		'url' => 'URL',	// TODO
+		'user_queries' => 'User Queries',	// TODO
 	),
 	'share' => array(
 		'Known' => 'Stránky založené na Known',
-		'blogotext' => 'Blogotext',
-		'clipboard' => 'Clipboard',	// TODO - Translation
-		'diaspora' => 'Diaspora*',
-		'email' => 'E-mail',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',	// TODO - Translation
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
-		'print' => 'Print',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'archiveIS' => 'archive.is',	// IGNORE
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
+		'clipboard' => 'Schránka',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'E-mail',	// IGNORE
+		'email-webmail-firefox-fix' => 'Email (webmail - oprava pre Firefox)',
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
+		'print' => 'Print',	// IGNORE
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Systémové zdieľanie',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Upozornenie!',
@@ -215,5 +295,10 @@ return array(
 		'ok' => 'OK',
 		'or' => 'alebo',
 		'yes' => 'Áno',
+	),
+	'stream' => array(
+		'load_more' => 'Načítať viac článkov',
+		'mark_all_read' => 'Označiť všetko prečítané',
+		'nothing_to_load' => 'Žiadne nové články',
 	),
 );

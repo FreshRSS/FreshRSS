@@ -1,59 +1,113 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 
-	public function hasNativeHex() {
+	#[\Override]
+	public static function hasNativeHex(): bool {
 		return true;
 	}
 
-	public function sqlHexDecode($x) {
+	#[\Override]
+	public static function sqlHexDecode(string $x): string {
 		return 'decode(' . $x . ", 'hex')";
 	}
 
-	public function sqlHexEncode($x) {
+	#[\Override]
+	public static function sqlHexEncode(string $x): string {
 		return 'encode(' . $x . ", 'hex')";
 	}
 
-	public function sqlIgnoreConflict($sql) {
+	#[\Override]
+	public static function sqlIgnoreConflict(string $sql): string {
 		return rtrim($sql, ' ;') . ' ON CONFLICT DO NOTHING';
 	}
 
-	protected function autoUpdateDb($errorInfo) {
+	#[\Override]
+	protected static function sqlLimitAll(): string {
+		// https://www.postgresql.org/docs/current/queries-limit.html
+		return 'ALL';
+	}
+
+	#[\Override]
+	public static function sqlGreatest(string $a, string $b): string {
+		return 'GREATEST(' . $a . ', ' . $b . ')';
+	}
+
+	#[\Override]
+	public static function sqlRandom(): string {
+		return 'RANDOM()';
+	}
+
+	#[\Override]
+	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
+		$matches = static::regexToSql($regex);
+		if (isset($matches['pattern'])) {
+			$replacements = [	// Convert some of the PCRE regex syntax to PostgreSQL
+				'\\b' => '\\y', // matches only at the beginning or end of a word (was: backspace)
+				'\\B' => '\\Y', // matches only at a point that is not the beginning or end of a word (was: backslash)
+			];
+			$matches['pattern'] = str_replace(array_keys($replacements), array_values($replacements), $matches['pattern']);
+
+			$matchType = $matches['matchType'] ?? '';
+			if (str_contains($matchType, 'm')) {
+				// newline-sensitive matching
+				$matches['pattern'] = '(?m)' . $matches['pattern'];
+			}
+			$values[] = $matches['pattern'];
+			if (str_contains($matchType, 'i')) {
+				// case-insensitive matching
+				return "{$expression} ~* ?";
+			} else {
+				// case-sensitive matching
+				return "{$expression} ~ ?";
+			}
+		}
+		return '';
+	}
+
+	#[\Override]
+	protected function registerSqlFunctions(string $sql): void {
+		// Nothing to do for PostgreSQL
+	}
+
+	/** @param array{0:string,1:int,2:string} $errorInfo */
+	#[\Override]
+	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_TABLE) {
-				if (stripos($errorInfo[2], 'tag') !== false) {
-					$tagDAO = FreshRSS_Factory::createTagDao();
-					return $tagDAO->createTagTable();	//v1.12.0
-				} elseif (stripos($errorInfo[2], 'entrytmp') !== false) {
-					return $this->createEntryTempTable();	//v1.7.0
+			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
+				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
+				foreach (['attributes', 'lastUserModified'] as $column) {
+					if (str_contains($errorLines[0], $column)) {
+						return $this->addColumn($column);
+					}
 				}
 			}
 		}
 		return false;
 	}
 
-	protected function addColumn($name) {
-		return false;
-	}
-
-	public function commitNewEntries() {
+	#[\Override]
+	public function commitNewEntries(): bool {
 		//TODO: Update to PostgreSQL 9.5+ syntax with ON CONFLICT DO NOTHING
-		$sql = 'DO $$
-DECLARE
-maxrank bigint := (SELECT MAX(id) FROM `_entrytmp`);
-rank bigint := (SELECT maxrank - COUNT(*) FROM `_entrytmp`);
-BEGIN
-	INSERT INTO `_entry`
-		(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags)
-		(SELECT rank + row_number() OVER(ORDER BY date) AS id, guid, title, author, content,
-			link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags
-			FROM `_entrytmp` AS etmp
-			WHERE NOT EXISTS (
-				SELECT 1 FROM `_entry` AS ereal
-				WHERE (etmp.id = ereal.id) OR (etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid))
-			ORDER BY date);
-	DELETE FROM `_entrytmp` WHERE id <= maxrank;
-END $$;';
+		$sql = <<<'SQL'
+			DO $$
+			DECLARE
+			maxrank bigint := (SELECT MAX(id) FROM `_entrytmp`);
+			rank bigint := (SELECT maxrank - COUNT(*) FROM `_entrytmp`);
+			BEGIN
+				INSERT INTO `_entry`
+					(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
+					(SELECT rank + row_number() OVER(ORDER BY etmp.date, etmp.id) AS id, guid, title, author, content,
+						link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+						FROM `_entrytmp` AS etmp
+						WHERE NOT EXISTS (
+							SELECT 1 FROM `_entry` AS ereal
+							WHERE (etmp.id = ereal.id) OR (etmp.id_feed = ereal.id_feed AND etmp.guid = ereal.guid))
+						ORDER BY etmp.date, etmp.id);
+				DELETE FROM `_entrytmp` WHERE id <= maxrank;
+			END $$;
+			SQL;
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
 			$this->pdo->beginTransaction();

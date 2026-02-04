@@ -1,206 +1,160 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Öntanımlı kullanıcının makalelerinin anonim okunmasına izin ver (%s)',
-		'allow_anonymous_refresh' => 'Anonim makale yenilemesine izin ver',
-		'api_enabled' => '<abbr>API</abbr> erişimine izin ver <small>(mobil uygulamalar için gerekli)</small>',
+		'allow_anonymous' => 'Varsayılan kullanıcının makalelerinin (%s) anonim okunmasına izin ver',
+		'allow_anonymous_refresh' => 'Makalelerin anonim olarak yenilenmesine izin ver',
+		'api_enabled' => '<abbr>API</abbr> erişimine izin ver <small>(mobil uygulamalar ve kullanıcı sorgularını paylaşmak için gereklidir)</small>',
 		'form' => 'Web formu (geleneksel, JavaScript gerektirir)',
-		'http' => 'HTTP (ileri kullanıcılar için, HTTPS)',
-		'none' => 'Hiçbiri (tehlikeli)',
-		'title' => 'Kimlik doğrulama',
-		'title_reset' => 'Kimlik doğrulama sıfırla',
-		'token' => 'Kimlik doğrulama işareti',
-		'token_help' => 'Kimlik doğrulama olmaksızın öntanımlı kullanıcının RSS çıktısına erişime izin ver:',
+		'http' => 'HTTP (gelişmiş: Web sunucusu, OIDC, SSO vb. tarafından yönetilir)',
+		'none' => 'Yok (tehlikeli)',
+		'title' => 'Kimlik Doğrulama',
+		'token' => 'Ana kimlik doğrulama belirteci',
+		'token_help' => 'Kullanıcının tüm RSS çıktılarına ve beslemeleri kimlik doğrulaması olmadan yenilemeye erişim sağlar:',
 		'type' => 'Kimlik doğrulama yöntemi',
-		'unsafe_autologin' => 'Güvensiz otomatik girişe izin ver: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => '<em>./data/cache</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
-			'ok' => 'Önbellek klasörü yetkileri sorunsuz.',
-		),
-		'categories' => array(
-			'nok' => 'Kategori tablosu kötü yapılandırılmış.',
-			'ok' => 'Kategori tablosu sorunsuz.',
-		),
-		'connection' => array(
-			'nok' => 'Veritabanı ile bağlantı kurulamıyor.',
-			'ok' => 'Veritabanı ile bağlantı sorunsuz.',
-		),
-		'ctype' => array(
-			'nok' => 'Karakter yazım kontrolü için kütüphane eksik (php-ctype).',
-			'ok' => 'Karakter yazım kontrolü için kütüphane sorunsuz (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'cURL eksik (php-curl package).',
-			'ok' => 'cURL eklentisi sorunsuz.',
-		),
-		'data' => array(
-			'nok' => '<em>./data</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
-			'ok' => 'Veri klasörü yetkileri sorunsuz.',
-		),
-		'database' => 'Veritabanı kurulumu',
-		'dom' => array(
-			'nok' => 'DOM kütüpbanesi eksik (php-xml package).',
-			'ok' => 'DOM kütüphanesi sorunsuz.',
-		),
-		'entries' => array(
-			'nok' => 'Giriş tablosu kötü yapılandırılmış.',
-			'ok' => 'Giriş tablosu sorunsuz.',
-		),
-		'favicons' => array(
-			'nok' => '<em>./data/favicons</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
-			'ok' => 'Site ikonu klasörü yetkileri sorunsuz.',
-		),
-		'feeds' => array(
-			'nok' => 'Akış tablosu kötü yapılandırılmış.',
-			'ok' => 'Akış tablosu sorunsuz.',
-		),
-		'fileinfo' => array(
-			'nok' => 'PHP fileinfo eksik (fileinfo package).',
-			'ok' => 'fileinfo eklentisi sorunsuz.',
-		),
-		'files' => 'Dosya kurulumu',
-		'json' => array(
-			'nok' => 'JSON eklentisi eksik (php-json package).',
-			'ok' => 'JSON eklentisi sorunsuz.',
-		),
-		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// TODO - Translation
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// TODO - Translation
-		),
-		'pcre' => array(
-			'nok' => 'Düzenli ifadeler kütüphanesi eksik (php-pcre).',
-			'ok' => 'Düzenli ifadeler kütüphanesi sorunsuz (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'PDO veya PDO destekli bir sürücü eksik (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'PDO sorunsuz (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'PHP kurulumu',
-			'nok' => 'PHP versiyonunuz %s fakat FreshRSS için gerekli olan en düşük sürüm %s.',
-			'ok' => 'PHP versiyonunuz %s, FreshRSS ile tam uyumlu.',
-		),
-		'tables' => array(
-			'nok' => 'Veritabanında bir veya daha fazla tablo eksik.',
-			'ok' => 'Veritabanı tabloları sorunsuz.',
-		),
-		'title' => 'Kurulum kontrolü',
-		'tokens' => array(
-			'nok' => '<em>./data/tokens</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
-			'ok' => 'İşaretler klasörü yetkileri sorunsuz..',
-		),
-		'users' => array(
-			'nok' => '<em>./data/users</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
-			'ok' => 'Kullanıcılar klasörü yetkileri sorunsuz.',
-		),
-		'zip' => array(
-			'nok' => 'ZIP eklentisi eksik (php-zip package).',
-			'ok' => 'ZIP eklentisi sorunsuz.',
-		),
 	),
 	'extensions' => array(
-		'author' => 'Author',	// TODO - Translation
-		'community' => 'Available community extensions',	// TODO - Translation
-		'description' => 'Description',	// TODO - Translation
-		'disabled' => 'Pasif',
-		'empty_list' => 'Yüklenmiş eklenti bulunmamaktadır',
-		'enabled' => 'Aktif',
-		'latest' => 'Installed',	// TODO - Translation
-		'name' => 'Name',	// TODO - Translation
+		'author' => 'Yazar',
+		'community' => 'Mevcut topluluk eklentileri',
+		'description' => 'Açıklama',
+		'disabled' => 'Devre dışı',
+		'empty_list' => 'Yüklü eklenti yok',
+		'empty_list_help' => 'Eklenti listesinin neden boş olduğunu belirlemek için günlükleri kontrol edin.',
+		'enabled' => 'Etkin',
+		'is_compatible' => 'Is compatible',	// TODO
+		'latest' => 'Yüklü',
+		'name' => 'İsim',
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
 		'system' => array(
 			'_' => 'Sistem eklentileri',
-			'no_rights' => 'Sistem eklentileri (düzenleme hakkınız yok)',
+			'no_rights' => 'Sistem eklentisi (gerekli izinlere sahip değilsiniz)',
 		),
 		'title' => 'Eklentiler',
-		'update' => 'Update available',	// TODO - Translation
+		'update' => 'Güncelleme mevcut',
 		'user' => 'Kullanıcı eklentileri',
-		'version' => 'Version',	// TODO - Translation
+		'version' => 'Sürüm',
 	),
 	'stats' => array(
 		'_' => 'İstatistikler',
-		'all_feeds' => 'Tüm akış',
+		'all_feeds' => 'Tüm beslemeler',
 		'category' => 'Kategori',
-		'entry_count' => 'Makale sayısı',
-		'entry_per_category' => 'Kategori başı makale sayısı',
-		'entry_per_day' => 'Günlük makale sayısı (last 30 days)',
-		'entry_per_day_of_week' => 'Haftanın günü (ortalama: %.2f makale)',
-		'entry_per_hour' => 'Saatlik (ortalama: %.2f makale)',
-		'entry_per_month' => 'Aylık (average: %.2f makale)',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
+		'entry_count' => 'Giriş sayısı',
+		'entry_per_category' => 'Kategorilere göre girişler',
+		'entry_per_day' => 'Günlük girişler (son 30 gün)',
+		'entry_per_day_of_week' => 'Haftanın günlerine göre (ortalama: %.2f mesaj)',
+		'entry_per_hour' => 'Saatlik (ortalama: %.2f mesaj)',
+		'entry_per_month' => 'Aylık (ortalama: %.2f mesaj)',
 		'entry_repartition' => 'Giriş dağılımı',
-		'feed' => 'Akış',
-		'feed_per_category' => 'Kategoriye göre akışlar',
-		'idle' => 'Boştaki akışlar',
+		'feed' => 'Besleme',
+		'feed_per_category' => 'Kategorilere göre beslemeler',
+		'idle' => 'Boşta beslemeler',
 		'main' => 'Ana istatistikler',
 		'main_stream' => 'Ana akış',
-		'menu' => array(
-			'idle' => 'Boştaki akışlar',
-			'main' => 'Ana istatistikler',
-			'repartition' => 'Makale dağılımı',
-		),
-		'no_idle' => 'Boşta akış yok!',
+		'nb_unreads' => 'Number of unread articles',	// TODO
+		'no_idle' => 'Boşta besleme yok!',
 		'number_entries' => '%d makale',
-		'percent_of_total' => '%% toplamın yüzdesi',
-		'repartition' => 'Makale dağılımı',
+		'overview' => 'Genel Bakış',
+		'percent_of_total' => 'Toplamın yüzdesi',
+		'repartition' => 'Makale dağılımı: %s',
 		'status_favorites' => 'Favoriler',
-		'status_read' => 'Okunmuş',
+		'status_read' => 'Okundu',
 		'status_total' => 'Toplam',
-		'status_unread' => 'Okunmamış',
+		'status_unread' => 'Okunmadı',
 		'title' => 'İstatistikler',
-		'top_feed' => 'İlk 10 akış',
+		'top_feed' => 'En iyi on besleme',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
 	),
 	'system' => array(
 		'_' => 'Sistem yapılandırması',
-		'auto-update-url' => 'Otomatik güncelleme sunucu URL',
-		'cookie-duration' => array(
-			'help' => 'in seconds',	// TODO - Translation
-			'number' => 'Duration to keep logged in',	// TODO - Translation
+		'auto-update-url' => 'Otomatik güncelleme sunucu URL’si',
+		'base-url' => array(
+			'_' => 'Temel URL',
+			'recommendation' => 'Otomatik öneri: <kbd>%s</kbd>',
 		),
-		'force_email_validation' => 'Force email address validation',	// TODO - Translation
-		'instance-name' => 'Örnek isim',
-		'max-categories' => 'Kullanıcı başına kategori limiti',
-		'max-feeds' => 'Kullanıcı başına akış limiti',
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
+		'cookie-duration' => array(
+			'help' => 'saniye cinsinden',
+			'number' => 'Oturum açık kalma süresi',
+		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
+		'force_email_validation' => 'E-posta adresi doğrulamasını zorunlu kıl',
+		'instance-name' => 'Örnek adı',
+		'max-categories' => 'Kullanıcı başına maksimum kategori sayısı',
+		'max-feeds' => 'Kullanıcı başına maksimum besleme sayısı',
 		'registration' => array(
-			'help' => '0 sınır yok anlamındadır',
-			'number' => 'En fazla hesap sayısı',
+			'number' => 'Maksimum hesap sayısı',
+			'select' => array(
+				'label' => 'Kayıt formu',
+				'option' => array(
+					'noform' => 'Devre dışı: Kayıt formu yok',
+					'nolimit' => 'Etkin: Hesap sınırlaması yok',
+					'setaccountsnumber' => 'Maksimum hesap sayısını ayarla',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Form devre dışı',
+				'enabled' => 'Form etkin',
+			),
+			'title' => 'Kullanıcı kayıt formu',
+		),
+		'sensitive-parameter' => 'Hassas parametre. <kbd>./data/config.php</kbd> dosyasında manuel olarak düzenleyin',
+		'tos' => array(
+			'disabled' => 'verilmedi',
+			'enabled' => '<a href="./?a=tos">etkin</a>',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Hizmet Şartlarını nasıl etkinleştiririm</a>',
+		),
+		'websub' => array(
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a> hakkında',
 		),
 	),
 	'update' => array(
-		'_' => 'Sistem güncelleme',
-		'apply' => 'Uygula',
-		'check' => 'Güncelleme kontrolü',
-		'current_version' => 'Mevcut FreshRSS sürümünüz %s.',
-		'last' => 'Son kontrol: %s',
-		'none' => 'Yeni güncelleme yok',
-		'title' => 'Sistem güncelleme',
+		'_' => 'FreshRSS’yi Güncelle',
+		'apply' => 'Güncellemeyi başlat',
+		'changelog' => 'Değişiklik günlüğü',
+		'check' => 'Yeni güncellemeleri kontrol et',
+		'copiedFromURL' => 'update.php, %s adresinden ./data’ya kopyalandı',
+		'current_version' => 'Mevcut yüklü sürüm',
+		'last' => 'Son kontrol',
+		'loading' => 'Güncelleniyor…',
+		'none' => 'Güncelleme yok',
+		'releaseChannel' => array(
+			'_' => 'Yayın kanalı',
+			'edge' => 'Sürekli yayın (“edge”)',
+			'latest' => 'Kararlı yayın (“latest”)',
+		),
+		'title' => 'FreshRSS’yi Güncelle',
+		'viaGit' => 'Git ve GitHub.com üzerinden güncelleme başlatıldı',
 	),
 	'user' => array(
-		'admin' => 'Administrator',	// TODO - Translation
-		'article_count' => 'Articles',	// TODO - Translation
-		'articles_and_size' => '%s makale (%s)',
-		'back_to_manage' => '← Return to user list',	// TODO - Translation
+		'admin' => 'Yönetici',
+		'article_count' => 'Makaleler',
+		'back_to_manage' => '← Kullanıcı listesine dön',
 		'create' => 'Yeni kullanıcı oluştur',
-		'database_size' => 'Database size',	// TODO - Translation
-		'delete_users' => 'Delete user',	// TODO - Translation
-		'email' => 'Email address',	// TODO - Translation
-		'enabled' => 'Enabled',	// TODO - Translation
-		'feed_count' => 'Feeds',	// TODO - Translation
-		'is_admin' => 'Is admin',	// TODO - Translation
+		'database_size' => 'Veritabanı boyutu',
+		'email' => 'E-posta adresi',
+		'enabled' => 'Etkin',
+		'feed_count' => 'Beslemeler',
+		'is_admin' => 'Yönetici mi',
 		'language' => 'Dil',
-		'last_user_activity' => 'Last user activity',	// TODO - Translation
-		'list' => 'User list',	// TODO - Translation
-		'number' => 'Oluşturulmuş %d hesap var',
-		'numbers' => 'Oluşturulmuş %d hesap var',
-		'password_form' => 'Şifre<br /><small>(Tarayıcı girişi için)</small>',
+		'last_user_activity' => 'Son kullanıcı etkinliği',
+		'list' => 'Kullanıcı listesi',
+		'number' => '%d hesap oluşturuldu',
+		'numbers' => '%d hesap oluşturuldu',
+		'password_form' => 'Parola<br /><small>(Web formuyla giriş yöntemi için)</small>',
 		'password_format' => 'En az 7 karakter',
-		'selected' => 'Selected user',	// TODO - Translation
 		'title' => 'Kullanıcıları yönet',
-		'update_users' => 'Update user',	// TODO - Translation
-		'user_list' => 'Kullanıcı listesi',
 		'username' => 'Kullanıcı adı',
-		'users' => 'Kullanıcılar',
 	),
 );

@@ -1,15 +1,29 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
 	'action' => array(
-		'actualize' => 'Actualiseren',
+		'actualize' => 'Feeds actualiseren',
 		'add' => 'Toevoegen',
-		'back' => '← Terug',
 		'back_to_rss_feeds' => '← Ga terug naar je RSS feeds',
 		'cancel' => 'Annuleren',
+		'close' => 'Sluiten',
 		'create' => 'Opslaan',
+		'delete_all_feeds' => 'Alle feeds verwijderen',
+		'delete_errored_feeds' => 'Feeds met fouten verwijderen',
+		'delete_muted_feeds' => 'Gedempte feeds verwijderen',
 		'demote' => 'Degraderen',
 		'disable' => 'Uitzetten',
+		'download' => 'Downloaden',
 		'empty' => 'Leeg',
 		'enable' => 'Aanzetten',
 		'export' => 'Exporteren',
@@ -17,10 +31,19 @@ return array(
 		'import' => 'Importeren',
 		'load_default_shortcuts' => 'Standaardshortcuts laden',
 		'manage' => 'Beheren',
-		'mark_favorite' => 'Markeer als favoriet',
 		'mark_read' => 'Markeer als gelezen',
+		'menu' => array(
+			'open' => 'Menu openen',
+		),
+		'nav_buttons' => array(
+			'next' => 'Volgend artikel',
+			'prev' => 'Vorig artikel',
+			'up' => 'Omhoog',
+		),
+		'open_url' => 'URL openen',
 		'promote' => 'Bevorderen',
 		'purge' => 'Zuiveren',
+		'refresh_opml' => 'OPML vernieuwen',
 		'remove' => 'Verwijderen',
 		'rename' => 'Hernoemen',
 		'see_website' => 'Bekijk website',
@@ -38,31 +61,34 @@ return array(
 			'_' => 'Wachtwoord',
 			'format' => '<small>Ten minste 7 tekens</small>',
 		),
+		'reauth' => array(
+			'header' => 'Opnieuw aanmelden vereist',
+			'tip' => 'Er zal de komende <u>%d minuten</u> niet opnieuw worden gevraagd om in te loggen',
+			'title' => 'Opnieuw aanmelden',
+		),
 		'registration' => array(
 			'_' => 'Nieuw account',
 			'ask' => 'Maak een account?',
 			'title' => 'Account maken',
 		),
-		'reset' => 'Authenticatie reset',
 		'username' => array(
 			'_' => 'Gebruikersnaam',
-			'admin' => 'Beheerdersgebruikersnaam',
 			'format' => '<small>Maximaal 16 alfanumerieke tekens</small>',
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',
+		'Apr' => '\\A\\p\\r\\i\\l',	// IGNORE
 		'Aug' => '\\A\\u\\g\\u\\s\\t\\u\\s',
-		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',
+		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// IGNORE
 		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\i',
 		'Jan' => '\\J\\a\\n\\u\\a\\r\\i',
 		'Jul' => '\\J\\u\\l\\i',
 		'Jun' => '\\J\\u\\n\\i',
 		'Mar' => '\\M\\a\\a\\r\\t',
 		'May' => '\\M\\e\\i',
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// IGNORE
 		'Oct' => '\\O\\k\\t\\o\\b\\e\\r',
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',
+		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// IGNORE
 		'apr' => 'apr',
 		'april' => 'Apr',
 		'aug' => 'aug',
@@ -72,8 +98,8 @@ return array(
 		'december' => 'Dec',
 		'feb' => 'feb',
 		'february' => 'Feb',
-		'format_date' => 'j %s Y',
-		'format_date_hour' => 'j %s Y \\o\\m H\\:i',
+		'format_date' => 'j %s Y',	// IGNORE
+		'format_date_hour' => 'j %s Y \\o\\m H\\:i',	// IGNORE
 		'fri' => 'Vr',
 		'jan' => 'jan',
 		'january' => 'Jan',
@@ -109,45 +135,61 @@ return array(
 		'wed' => 'Wo',
 		'yesterday' => 'Gisteren',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Over FreshRSS',
 	),
 	'js' => array(
 		'category_empty' => 'Lege categorie',
 		'confirm_action' => 'Weet u zeker dat u dit wilt doen? Het kan niet ongedaan worden gemaakt!',
 		'confirm_action_feed_cat' => 'Weet u zeker dat u dit wilt doen? U verliest alle gereleteerde favorieten en gebruikers informatie. Het kan niet ongedaan worden gemaakt!',
+		'confirm_exit_slider' => 'Weet u zeker dat u de niet opgeslagen instellingen wilt negeren?',
 		'feedback' => array(
 			'body_new_articles' => 'Er zijn %%d nieuwe artikelen om te lezen op FreshRSS.',
+			'body_unread_articles' => '(ongelezen: %%d)',
 			'request_failed' => 'Een opdracht is mislukt, mogelijk door Internet verbindings problemen.',
 			'title_new_articles' => 'FreshRSS: nieuwe artikelen!',
 		),
+		'labels_empty' => 'Geen labels',
 		'new_article' => 'Er zijn nieuwe artikelen beschikbaar. Klik om de pagina te vernieuwen.',
 		'should_be_activated' => 'JavaScript moet aanstaan',
+		'unsafe_csp_header' => 'De gebruikte CSP-header is onveilig en FreshRSS kan kwetsbaar zijn voor XSS-aanvallen. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Zie documentatie</a>',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'kr' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cs' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Over',
+		'account' => 'Account',	// IGNORE
 		'admin' => 'Administratie',
+		'advanced_search' => 'Geavanceerd zoeken',
 		'archiving' => 'Archiveren',
 		'authentication' => 'Authenticatie',
 		'check_install' => 'Installatiecontrole',
@@ -155,9 +197,11 @@ return array(
 		'display' => 'Opmaak',
 		'extensions' => 'Uitbreidingen',
 		'logs' => 'Log boeken',
+		'privacy' => 'Privacy',	// IGNORE
 		'queries' => 'Gebruikers informatie',
 		'reading' => 'Lezen',
 		'search' => 'Zoek woorden of #labels',
+		'search_help' => 'Zie de documentatie voor geavanceerde <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">zoekparameters</a>',
 		'sharing' => 'Delen',
 		'shortcuts' => 'Snelle toegang',
 		'stats' => 'Statistieken',
@@ -166,15 +210,6 @@ return array(
 		'user_management' => 'Gebruikersbeheer',
 		'user_profile' => 'Profiel',
 	),
-	'pagination' => array(
-		'first' => 'Eerste',
-		'last' => 'Laatste',
-		'load_more' => 'Laad meer artikelen',
-		'mark_all_read' => 'Markeer alle als gelezen',
-		'next' => 'Volgende',
-		'nothing_to_load' => 'Er zijn geen artikelen meer',
-		'previous' => 'Vorige',
-	),
 	'period' => array(
 		'days' => 'dagen',
 		'hours' => 'uren',
@@ -182,26 +217,71 @@ return array(
 		'weeks' => 'weken',
 		'years' => 'jaren',
 	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'Dit formulier helpt bij het opstellen van zoekopdrachten, maar handmatige zoekopdrachten zijn nog krachtiger.',
+		'authors' => 'Auteurs',
+		'categories' => 'Categorieën',
+		'content' => 'Inhoud',
+		'date_from' => 'Van',
+		'date_past' => 'In het verleden',
+		'date_published' => 'Publicatiedatum',
+		'date_range' => 'Datumbereik',
+		'date_received' => 'Datum ontvangen',
+		'date_to' => 'Tot',
+		'date_user' => 'Datum van wijziging door gebruiker',
+		'feeds' => 'Feeds',	// IGNORE
+		'free_text' => 'Vrije tekst',
+		'free_text_help' => 'Zoeken in zowel titel als inhoud',
+		'full_documentation' => 'Zie de <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">volledige zoekdocumentatie</a>',
+		'labels' => 'Mijn labels',
+		'multiple_help' => 'Selecteer een of meer (houd <kbd>Ctrl</kbd> of <kbd>Cmd</kbd> ingedrukt)',
+		'sources' => 'Bronnen',
+		'tags' => 'Artikel-tags',
+		'text' => 'Tekst zoeken',
+		'text_help' => 'Meerdere regels worden gecombineerd door een logische <i>or</i> (en. voor <i>of</i>). Ondersteunt ook <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">reguliere expressies</a>.',
+		'text_placeholder' => 'Sleutelwoord',
+		'title' => 'Titel',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Gebruikersqueries',
+	),
 	'share' => array(
 		'Known' => 'Known-gebaseerde sites',
-		'blogotext' => 'Blogotext',
+		'archiveIS' => 'archive.is',	// IGNORE
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Klembord',
-		'diaspora' => 'Diaspora*',
-		'email' => 'Email',
-		'facebook' => 'Facebook',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'lemmy' => 'Lemmy',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pinboard' => 'Pinboard',
-		'pocket' => 'Pocket',
-		'print' => 'Print',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Email',	// IGNORE
+		'email-webmail-firefox-fix' => 'Email (webmail - fix voor Firefox)',
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
+		'print' => 'Print',	// IGNORE
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Delen van systeem',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'Attentie!',
@@ -212,8 +292,13 @@ return array(
 		'default_category' => 'Niet ingedeeld',
 		'no' => 'Nee',
 		'not_applicable' => 'Niet aanwezig',
-		'ok' => 'Ok!',
+		'ok' => 'Ok!',	// IGNORE
 		'or' => 'of',
 		'yes' => 'Ja',
+	),
+	'stream' => array(
+		'load_more' => 'Laad meer artikelen',
+		'mark_all_read' => 'Markeer alle als gelezen',
+		'nothing_to_load' => 'Er zijn geen artikelen meer',
 	),
 );

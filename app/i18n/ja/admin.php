@@ -1,0 +1,160 @@
+<?php
+
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
+return array(
+	'auth' => array(
+		'allow_anonymous' => 'デフォルトのユーザーの記事がログインしていないときでも読めるようにします。 (%s)',
+		'allow_anonymous_refresh' => '未ログインユーザーでも記事を更新できるようにします。',
+		'api_enabled' => '<abbr>API</abbr>アクセスを許可する <small>(モバイルアプリやユーザークエリの共有に必要)</small>',
+		'form' => 'ウェブフォーム (JavaScriptが必要です)',
+		'http' => 'HTTP (上級者向け: Webサーバー, OIDC, SSO等で管理します)',
+		'none' => 'なし (危険)',
+		'title' => '認証',
+		'token' => 'マスター認証用のトークン',
+		'token_help' => 'ユーザーのすべての RSS 出力へのアクセスと、認証なしのフィードの更新を許可します',
+		'type' => '認証メソッド',
+	),
+	'extensions' => array(
+		'author' => '作者',
+		'community' => 'コミュニティ製の拡張機能',
+		'description' => '説明',
+		'disabled' => '無効',
+		'empty_list' => 'インストールされている拡張機能はありません',
+		'empty_list_help' => '拡張機能リストが表示されない原因を特定するために、ログを確認してください。',
+		'enabled' => '有効',
+		'is_compatible' => 'Is compatible',	// TODO
+		'latest' => 'インストール済み',
+		'name' => '名前',
+		'no_configure_view' => 'この拡張機能は設定できません.',
+		'system' => array(
+			'_' => 'システムの拡張機能',
+			'no_rights' => 'システムの拡張機能 (あなたは権限を所持していません',
+		),
+		'title' => '拡張機能',
+		'update' => 'アップデート可能',
+		'user' => 'ユーザー拡張機能',
+		'version' => 'バージョン',
+	),
+	'stats' => array(
+		'_' => '統計',
+		'all_feeds' => 'すべてのフィード',
+		'category' => 'カテゴリ',
+		'date_published' => 'Publication date',	// TODO
+		'date_received' => 'Received date',	// TODO
+		'entry_count' => 'エントリの統計',
+		'entry_per_category' => 'カテゴリのエントリ',
+		'entry_per_day' => '日にちごとのエントリ (直近30日間)',
+		'entry_per_day_of_week' => '週あたり (平均: %.2f メッセージ)',
+		'entry_per_hour' => '時間当たり (平均: %.2f メッセージ)',
+		'entry_per_month' => '月あたり (平均: %.2f メッセージ)',
+		'entry_repartition' => 'エントリの割合',
+		'feed' => 'フィード',
+		'feed_per_category' => 'カテゴリごとのフィード',
+		'idle' => '休止中のフィード',
+		'main' => '主な統計',
+		'main_stream' => '主なストリーム',
+		'nb_unreads' => 'Number of unread articles',	// TODO
+		'no_idle' => '休止中のフィードはありません!',
+		'number_entries' => '%d 記事',
+		'overview' => '概要',
+		'percent_of_total' => '% 総計',
+		'repartition' => '記事の割合: %s',
+		'status_favorites' => 'お気に入り',
+		'status_read' => '既読',
+		'status_total' => 'すべて',
+		'status_unread' => '未読',
+		'title' => '統計',
+		'top_feed' => '上位10位のフィード',
+		'unread_dates' => 'Dates with most unread articles',	// TODO
+	),
+	'system' => array(
+		'_' => 'システム設定',
+		'auto-update-url' => '自動アップグレードするサーバーのURL',
+		'base-url' => array(
+			'_' => 'ベースURL',
+			'recommendation' => '自動的に推薦: <kbd>%s</kbd>',
+		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
+		'cookie-duration' => array(
+			'help' => '秒',
+			'number' => 'ログイン状態維持時間',
+		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
+		'force_email_validation' => 'Eメールアドレスの検証を強制します',
+		'instance-name' => 'インスタンス名',
+		'max-categories' => '1ユーザーごとのカテゴリの最大値',
+		'max-feeds' => '1ユーザーごとのフィードの最大値',
+		'registration' => array(
+			'number' => 'アカウントの最大値',
+			'select' => array(
+				'label' => '登録フォーム',
+				'option' => array(
+					'noform' => '無効: 登録されたフォームはありません',
+					'nolimit' => '有効: アカウントの上限はありません',
+					'setaccountsnumber' => 'アカウントの上限数に達しました',
+				),
+			),
+			'status' => array(
+				'disabled' => 'フォームは無効です',
+				'enabled' => 'フォームは有効です',
+			),
+			'title' => 'ユーザー登録',
+		),
+		'sensitive-parameter' => 'センシティブなパラメーターです。<kbd>./data/config.php</kbd> を手動で編集してください',
+		'tos' => array(
+			'disabled' => '無効化',
+			'enabled' => '<a href="./?a=tos">有効化</a>',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">利用規約を有効にする方法</a>',
+		),
+		'websub' => array(
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSubについて</a>',
+		),
+	),
+	'update' => array(
+		'_' => 'システムアップデート',
+		'apply' => '適用',
+		'changelog' => '変更履歴',
+		'check' => 'アップデートを確認する',
+		'copiedFromURL' => 'update.php が %s から ./data にコピーされました。',
+		'current_version' => '現在のバージョン',
+		'last' => '最近の検証',
+		'loading' => '更新中…',
+		'none' => '更新を適用できません',
+		'releaseChannel' => array(
+			'_' => 'リリースチャンネル',
+			'edge' => 'ローリングリリース (“edge”)',
+			'latest' => '安定版リリース (“latest”)',
+		),
+		'title' => 'アップデートシステム',
+		'viaGit' => 'gitとGitHub.comによるアップデートを開始',
+	),
+	'user' => array(
+		'admin' => '管理者',
+		'article_count' => '記事',
+		'back_to_manage' => '← ユーザーリストに戻る',
+		'create' => '新規ユーザーを作成',
+		'database_size' => 'データベースサイズ',
+		'email' => 'Eメールアドレス',
+		'enabled' => '有効',
+		'feed_count' => 'フィード',
+		'is_admin' => '管理者',
+		'language' => '言語',
+		'last_user_activity' => '最近のユーザーアクティビティ',
+		'list' => 'ユーザーリスト',
+		'number' => '%d 人のアカウントがあります',
+		'numbers' => '%d 人のアカウントが作られました',
+		'password_form' => 'パスワード<br /><small>(Web-formログインメソッド)</small>',
+		'password_format' => '最低限7文字必要です',
+		'title' => '管理するユーザー',
+		'username' => 'ユーザー名',
+	),
+);

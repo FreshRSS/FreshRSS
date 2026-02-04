@@ -1,0 +1,10 @@
+<?php
+declare(strict_types=1);
+/** @var FreshRSS_View $this */
+
+if (!Minz_Request::paramBoolean('ajax')) {
+	$this->partial('aside_subscription');
+}
+if ($this->category !== null) {
+	$this->renderHelper('category/update');
+}

@@ -1,8 +1,21 @@
-<?php FreshRSS::preLayout(); ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	FreshRSS::preLayout();
+	$class = '';
+	$dir = '';
+	if (_t('gen.dir') === 'rtl') {
+		$dir = ' dir="rtl"';
+		$class = ' rtl ';
+	}
+	if (FreshRSS_Context::userConf()->darkMode !== 'no') {
+		$class .= ' darkMode_' . FreshRSS_Context::userConf()->darkMode;
+	}
+?>
 <!DOCTYPE html>
-<html class="preview_background" lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>">
+<html class="preview_background<?= $class ?>" lang="<?= FreshRSS_Context::userConf()->language ?>"<?= $dir ?> xml:lang="<?= FreshRSS_Context::userConf()->language ?>">
 	<head>
-		<?= self::headStyle() ?>
+		<?= FreshRSS_View::headStyle() ?>
 		<script src="<?= Minz_Url::display('/scripts/preview.js?' . @filemtime(PUBLIC_PATH . '/scripts/preview.js')) ?>"></script>
 	</head>
 	<body class="preview_background">
@@ -27,7 +40,7 @@
 				</label>
 			</div>
 
-			<div class="content large">
+			<div class="content content_large">
 				<div dir="auto" id="freshrss_rendered_view"><?= $this->htmlContent ?></div>
 				<pre id="freshrss_raw_view" hidden="hidden"> <?= htmlspecialchars($this->htmlContent) ?></pre>
 			</div>

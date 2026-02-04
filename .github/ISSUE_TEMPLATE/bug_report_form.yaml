@@ -1,0 +1,56 @@
+name: Bug Report
+description: Create a report to help us improve
+type: Bug
+title: "[Bug] "
+labels: ["Bug (unconfirmed)"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report to help FreshRSS improve!
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: "A clear and concise description of what the bug is.\n\nIf applicable, add screenshots to help explain your problem."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior. (Screenshots could help to explain the steps.)
+      placeholder: "1. Go to '…'\n2. Click on '…'\n3. Scroll down to '…'\n4. See error"
+      value: "1. Go to '…'\n2. Click on '…'\n3. Scroll down to '…'\n4. See error"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: false
+  - type: input
+    id: freshRSS
+    attributes:
+      label: FreshRSS version
+      description: Which FreshRSS version is installed?
+      placeholder: e.g. 1.23.1
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: System information
+      description: Please complete the following information
+      value: "- Database version: [e.g. SQLite, PostgreSQL 17]\n- PHP version: [e.g. PHP 8.2]\n- Installation type: [e.g. Docker, Docker image source, git, Yunohost]\n- Web server type: [e.g. Apache, nginx]\n- Device: [e.g. iPhone13]\n- OS: [e.g. Ubuntu 24.04, Win11, MacOS14]\n- Browser: [e.g. Firefox 134]"
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
+    validations:
+      required: false

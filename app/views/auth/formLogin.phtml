@@ -1,12 +1,26 @@
-<div class="prompt">
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
+<main class="prompt">
 	<h1><?= _t('gen.auth.login') ?></h1>
 
-	<?php if (!max_registrations_reached()) { ?>
-		<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
-	<?php } ?>
+	<?php if ((FreshRSS_Context::systemConf()->limits['max_registrations'] ?? 1) !== 1): ?>
+		<?php if (FreshRSS_user_Controller::max_registrations_reached()): ?>
+			<div><?=
+				FreshRSS_Context::systemConf()->attributeString('closed_registration_message') ?:
+				_t('admin.system.default_closed_registration_message')
+			?></div>
+		<?php else: ?>
+			<div class="link-registration">
+				<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
 
-	<form id="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
+	<form class="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="original_request" value="<?= Minz_Url::serialize(Minz_Request::originalRequest())?>" />
 
 		<div class="form-group">
 			<label for="username"><?= _t('gen.auth.username') ?></label>
@@ -17,8 +31,8 @@
 		<div class="form-group">
 			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="stick">
-				<input type="password" id="passwordPlain" required="required" />
-				<a class="btn toggle-password" data-toggle="passwordPlain"><?= _i('key') ?></a>
+				<input type="password" id="passwordPlain" class="passwordPlain" required="required" />
+				<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 			</div>
 			<input type="hidden" id="challenge" name="challenge" />
 			<noscript><strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
@@ -31,12 +45,19 @@
 			</label>
 		</div>
 
+		<?= Minz_ExtensionManager::callHookString(Minz_HookType::BeforeLoginBtn) ?>
+
 		<div class="form-group form-group-actions">
 			<button id="loginButton" type="submit" class="btn btn-important" disabled="disabled">
 				<?= _t('gen.auth.login') ?>
 			</button>
 		</div>
 	</form>
+</main>
 
-	<p><a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a></p>
-</div>
+<footer class="main-footer">
+	<a href="<?= _url('index', 'about') ?>"><?= _t('gen.freshrss.about') ?></a>
+	<?php if (file_exists(TOS_FILENAME)) { ?>
+		| <a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>
+	<?php } ?>
+</footer>

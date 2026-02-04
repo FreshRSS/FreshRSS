@@ -1,52 +1,78 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
 	'action' => array(
-		'actualize' => 'Yenile',
-		'add' => 'Add',	// TODO - Translation
-		'back' => '← Go back',	// TODO - Translation
-		'back_to_rss_feeds' => '← RSS akışlarınız için geri gidin',
-		'cancel' => 'İptal',
+		'actualize' => 'Beslemeleri güncelle',
+		'add' => 'Ekle',
+		'back_to_rss_feeds' => '← RSS beslemelerinize geri dön',
+		'cancel' => 'İptal et',
+		'close' => 'Kapat',
 		'create' => 'Oluştur',
-		'demote' => 'Demote',	// TODO - Translation
-		'disable' => 'Pasif',
-		'empty' => 'Boş',
-		'enable' => 'Aktif',
-		'export' => 'Dışa Aktar',
+		'delete_all_feeds' => 'Tüm beslemeleri sil',
+		'delete_errored_feeds' => 'Hatalı beslemeleri sil',
+		'delete_muted_feeds' => 'Sessize alınmış beslemeleri sil',
+		'demote' => 'Düşür',
+		'disable' => 'Devre dışı bırak',
+		'download' => 'İndir',
+		'empty' => 'Boşalt',
+		'enable' => 'Etkinleştir',
+		'export' => 'Dışa aktar',
 		'filter' => 'Filtrele',
-		'import' => 'İçe Aktar',
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO - Translation
+		'import' => 'İçe aktar',
+		'load_default_shortcuts' => 'Varsayılan kısayolları yükle',
 		'manage' => 'Yönet',
-		'mark_favorite' => 'Favoriye ekle',
 		'mark_read' => 'Okundu olarak işaretle',
-		'promote' => 'Promote',	// TODO - Translation
-		'purge' => 'Purge',	// TODO - Translation
-		'remove' => 'Sil',
-		'rename' => 'Rename',	// TODO - Translation
-		'see_website' => 'Siteyi gör',
-		'submit' => 'Onayla',
+		'menu' => array(
+			'open' => 'Menüyü aç',
+		),
+		'nav_buttons' => array(
+			'next' => 'Sonraki makale',
+			'prev' => 'Önceki makale',
+			'up' => 'Yukarı çık',
+		),
+		'open_url' => 'URL’yi aç',
+		'promote' => 'Yükselt',
+		'purge' => 'Temizle',
+		'refresh_opml' => 'OPML’yi yenile',
+		'remove' => 'Kaldır',
+		'rename' => 'Yeniden adlandır',
+		'see_website' => 'Web sitesini gör',
+		'submit' => 'Gönder',
 		'truncate' => 'Tüm makaleleri sil',
-		'update' => 'Update',	// TODO - Translation
+		'update' => 'Güncelle',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO - Translation
-		'email' => 'Email adresleri',
-		'keep_logged_in' => '<small>(%s günler)</small> oturumu açık tut',
-		'login' => 'Giriş',
-		'logout' => 'Çıkış',
+		'accept_tos' => '<a href="%s">Hizmet Şartları</a>’nı kabul ediyorum.',
+		'email' => 'E-posta adresi',
+		'keep_logged_in' => 'Beni oturumda tut <small>(%s gün)</small>',
+		'login' => 'Giriş yap',
+		'logout' => 'Çıkış yap',
 		'password' => array(
-			'_' => 'Şifre',
+			'_' => 'Parola',
 			'format' => '<small>En az 7 karakter</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
 		),
 		'registration' => array(
 			'_' => 'Yeni hesap',
-			'ask' => 'Yeni bir hesap oluştur',
+			'ask' => 'Hesap oluştur?',
 			'title' => 'Hesap oluşturma',
 		),
-		'reset' => 'Kimlik doğrulama sıfırla',
 		'username' => array(
-			'_' => 'Kullancı adı',
-			'admin' => 'Yönetici kullanıcı adı',
+			'_' => 'Kullanıcı adı',
 			'format' => '<small>En fazla 16 alfanümerik karakter</small>',
 		),
 	),
@@ -63,157 +89,216 @@ return array(
 		'Nov' => '\\K\\a\\s\\ı\\m',
 		'Oct' => '\\E\\k\\i\\m',
 		'Sep' => '\\E\\y\\l\\ü\\l',
-		'apr' => 'nis',
-		'april' => 'Nis',
-		'aug' => 'ağu',
-		'august' => 'Ağu',
+		'apr' => 'Nis.',
+		'april' => 'Nisan',
+		'aug' => 'Ağu.',
+		'august' => 'Ağustos',
 		'before_yesterday' => 'Dünden önceki gün',
-		'dec' => 'ara',
-		'december' => 'Ara',
-		'feb' => 'şub',
-		'february' => 'Şub',
-		'format_date' => 'j %s Y',
-		'format_date_hour' => 'j %s Y \\a\\t H\\:i',
+		'dec' => 'Ara.',
+		'december' => 'Aralık',
+		'feb' => 'Şub.',
+		'february' => 'Şubat',
+		'format_date' => 'j %s Y',	// IGNORE
+		'format_date_hour' => 'j %s Y \\s\\a\\a\\t H\\:i',
 		'fri' => 'Cum',
-		'jan' => 'oca',
-		'january' => 'Oca',
-		'jul' => 'tem',
-		'july' => 'Tem',
-		'jun' => 'haz',
-		'june' => 'Haz',
-		'last_2_year' => 'Last two years',	// TODO - Translation
-		'last_3_month' => 'Son 3 ay',
-		'last_3_year' => 'Last three years',	// TODO - Translation
-		'last_5_year' => 'Last five years',	// TODO - Translation
-		'last_6_month' => 'Son 6 ay',
-		'last_month' => 'Geçen ay',
-		'last_week' => 'Geçen hafta',
-		'last_year' => 'Geçen yıl',
-		'mar' => 'mar',
-		'march' => 'Mar',
-		'may' => 'Mayıs',
-		'may_' => 'May',	// TODO - Translation
+		'jan' => 'Oca.',
+		'january' => 'Ocak',
+		'jul' => 'Tem.',
+		'july' => 'Temmuz',
+		'jun' => 'Haz.',
+		'june' => 'Haziran',
+		'last_2_year' => 'Son iki yıl',
+		'last_3_month' => 'Son üç ay',
+		'last_3_year' => 'Son üç yıl',
+		'last_5_year' => 'Son beş yıl',
+		'last_6_month' => 'Son altı ay',
+		'last_month' => 'Son ay',
+		'last_week' => 'Son hafta',
+		'last_year' => 'Son yıl',
+		'mar' => 'Mar.',	// IGNORE
+		'march' => 'Mart',
+		'may' => 'May.',
+		'may_' => 'Mayıs',
 		'mon' => 'Pzt',
 		'month' => 'ay',
-		'nov' => 'kas',
-		'november' => 'Kas',
-		'oct' => 'ekm',
-		'october' => 'Ekm',
-		'sat' => 'Cts',
-		'sep' => 'eyl',
-		'september' => 'Eyl',
-		'sun' => 'Pzr',
+		'nov' => 'Kas.',
+		'november' => 'Kasım',
+		'oct' => 'Eki.',
+		'october' => 'Ekim',
+		'sat' => 'Cmt',
+		'sep' => 'Eyl.',
+		'september' => 'Eylül',
+		'sun' => 'Paz',
 		'thu' => 'Per',
 		'today' => 'Bugün',
 		'tue' => 'Sal',
 		'wed' => 'Çar',
 		'yesterday' => 'Dün',
 	),
-	'dir' => 'ltr',
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',	// TODO - Translation
-		'about' => 'FreshRSS hakkında',
+		'_' => 'FreshRSS',	// IGNORE
+		'about' => 'FreshRSS Hakkında',
 	),
 	'js' => array(
 		'category_empty' => 'Boş kategori',
-		'confirm_action' => 'Bunu yapmak istediğinize emin misiniz ? Daha sonra iptal edilemez!',
-		'confirm_action_feed_cat' => 'Bunu yapmak istediğinize emin misiniz ? Favorileriniz ve sorgularınız silinecek. Daha sonra iptal edilemez!',
+		'confirm_action' => 'Bu eylemi gerçekleştirmek istediğinizden emin misiniz? Bu işlem geri alınamaz!',
+		'confirm_action_feed_cat' => 'Bu eylemi gerçekleştirmek istediğinizden emin misiniz? İlgili favoriler ve kullanıcı sorguları kaybolacak. Bu işlem geri alınamaz!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS de okunmaz üzere %%d yeni makale var.',
-			'request_failed' => 'Hata. İnternet bağlantınızı kontrol edin.',
+			'body_new_articles' => 'FreshRSS’de okunacak %%d yeni makale var.',
+			'body_unread_articles' => '(okunmamış: %%d)',
+			'request_failed' => 'Bir istek başarısız oldu, bu internet bağlantı sorunlarından kaynaklanmış olabilir.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
 		),
-		'new_article' => 'Yeni makaleler mevcut. Sayfayı yenilemek için tıklayın.',
-		'should_be_activated' => 'JavaScript aktif olmalıdır.',
+		'labels_empty' => 'Etiket yok',
+		'new_article' => 'Yeni makaleler mevcut, sayfayı yenilemek için tıklayın.',
+		'should_be_activated' => 'JavaScript etkinleştirilmiş olmalı',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'en-us' => 'English (United States)',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'kr' => '한국어',
-		'nl' => 'Nederlands',
-		'oc' => 'Occitan',
-		'pl' => 'Polski',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'sk' => 'Slovenčina',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'cs' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Hakkında',
+		'account' => 'Hesap',
 		'admin' => 'Yönetim',
-		'archiving' => 'Arşiv',
+		'advanced_search' => 'Advanced Search',	// TODO
+		'archiving' => 'Arşivleme',
 		'authentication' => 'Kimlik doğrulama',
 		'check_install' => 'Kurulum kontrolü',
 		'configuration' => 'Yapılandırma',
-		'display' => 'Görünüm',
+		'display' => 'Görüntüleme',
 		'extensions' => 'Eklentiler',
-		'logs' => 'Log kayıtları',
+		'logs' => 'Günlükler',
+		'privacy' => 'Gizlilik',
 		'queries' => 'Kullanıcı sorguları',
 		'reading' => 'Okuma',
 		'search' => 'Kelime veya #etiket ara',
+		'search_help' => 'Gelişmiş <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">arama parametreleri</a> için belgelere bakın',
 		'sharing' => 'Paylaşım',
 		'shortcuts' => 'Kısayollar',
 		'stats' => 'İstatistikler',
 		'system' => 'Sistem yapılandırması',
-		'update' => 'Güncelleme',
+		'update' => 'Güncelle',
 		'user_management' => 'Kullanıcıları yönet',
 		'user_profile' => 'Profil',
 	),
-	'pagination' => array(
-		'first' => 'İlk',
-		'last' => 'Son',
-		'load_more' => 'Daha fazla makale yükle',
-		'mark_all_read' => 'Tümünü okundu say',
-		'next' => 'Sonraki',
-		'nothing_to_load' => 'Başka makale yok',
-		'previous' => 'Önceki',
-	),
 	'period' => array(
-		'days' => 'days',	// TODO - Translation
-		'hours' => 'hours',	// TODO - Translation
-		'months' => 'months',	// TODO - Translation
-		'weeks' => 'weeks',	// TODO - Translation
-		'years' => 'years',	// TODO - Translation
+		'days' => 'gün',
+		'hours' => 'saat',
+		'months' => 'ay',
+		'weeks' => 'hafta',
+		'years' => 'yıl',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
+		'authors' => 'Authors',	// TODO
+		'categories' => 'Categories',	// TODO
+		'content' => 'Content',	// TODO
+		'date_from' => 'From',	// TODO
+		'date_past' => 'In the past',	// TODO
+		'date_published' => 'Publication Date',	// TODO
+		'date_range' => 'Date Range',	// TODO
+		'date_received' => 'Received Date',	// TODO
+		'date_to' => 'To',	// TODO
+		'date_user' => 'User Modification Date',	// TODO
+		'feeds' => 'Feeds',	// TODO
+		'free_text' => 'Free Text',	// TODO
+		'free_text_help' => 'Search both in title and content',	// TODO
+		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
+		'labels' => 'My Labels',	// TODO
+		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
+		'sources' => 'Sources',	// TODO
+		'tags' => 'Article Tags',	// TODO
+		'text' => 'Text Search',	// TODO
+		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
+		'text_placeholder' => 'Keyword',	// TODO
+		'title' => 'Title',	// TODO
+		'url' => 'URL',	// TODO
+		'user_queries' => 'User Queries',	// TODO
 	),
 	'share' => array(
-		'Known' => 'Known based sites',	// TODO - Translation
-		'blogotext' => 'Blogotext',	// TODO - Translation
-		'clipboard' => 'Clipboard',	// TODO - Translation
-		'diaspora' => 'Diaspora*',	// TODO - Translation
-		'email' => 'Email',	// TODO - Translation
-		'facebook' => 'Facebook',	// TODO - Translation
-		'gnusocial' => 'GNU social',	// TODO - Translation
-		'jdh' => 'Journal du hacker',	// TODO - Translation
-		'lemmy' => 'Lemmy',	// TODO - Translation
-		'linkedin' => 'LinkedIn',	// TODO - Translation
-		'mastodon' => 'Mastodon',	// TODO - Translation
-		'movim' => 'Movim',	// TODO - Translation
-		'pinboard' => 'Pinboard',	// TODO - Translation
-		'pocket' => 'Pocket',	// TODO - Translation
-		'print' => 'Print',	// TODO - Translation
-		'shaarli' => 'Shaarli',	// TODO - Translation
-		'twitter' => 'Twitter',	// TODO - Translation
-		'wallabag' => 'wallabag v1',	// TODO - Translation
-		'wallabagv2' => 'wallabag v2',	// TODO - Translation
+		'Known' => 'Bilinen tabanlı siteler',
+		'archiveIS' => 'archive.is',	// IGNORE
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
+		'clipboard' => 'Pano',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'E-posta',
+		'email-webmail-firefox-fix' => 'E-posta (webmail - Firefox için düzeltme)',
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
+		'print' => 'Yazdır',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Sistem paylaşımı',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
-		'attention' => 'Tehlike!',
-		'blank_to_disable' => 'Devredışı bırakmak için boş bırakın',
-		'by_author' => 'Tarafından:',
-		'by_default' => 'Öntanımlı',
-		'damn' => 'Hay aksi!',
+		'attention' => 'Uyarı!',
+		'blank_to_disable' => 'Devre dışı bırakmak için boş bırakın',
+		'by_author' => 'Yazar:',
+		'by_default' => 'Varsayılan olarak',
+		'damn' => 'Lanet olsun!',
 		'default_category' => 'Kategorisiz',
 		'no' => 'Hayır',
-		'not_applicable' => 'Uygun değil',
+		'not_applicable' => 'Uygulanamaz',
 		'ok' => 'Tamam!',
-		'or' => 'ya da',
+		'or' => 'veya',
 		'yes' => 'Evet',
+	),
+	'stream' => array(
+		'load_more' => 'Daha fazla makale yükle',
+		'mark_all_read' => 'Tümünü okundu olarak işaretle',
+		'nothing_to_load' => 'Yüklenecek başka makale yok',
 	),
 );

@@ -1,2 +1,4 @@
 <?php
-echo json_encode(array('salt1' => $this->salt1, 'nonce' => $this->nonce));
+declare(strict_types=1);
+/** @var FreshRSS_ViewJavascript $this */
+echo json_encode(['salt1' => $this->salt1, 'nonce' => $this->nonce]);

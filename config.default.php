@@ -1,8 +1,9 @@
 <?php
 
 # Do not modify this file, which defines default values,
-# but edit `./data/config.php` instead, after the install process is completed.
-return array(
+# but instead edit `./data/config.php` after the install process is completed,
+# or edit `./data/config.custom.php` before the install process.
+return [
 
 	# Set to `development` to get additional error messages,
 	#	or to `production` to get only the most important messages.
@@ -30,14 +31,17 @@ return array(
 	# Meta description used when `allow_robots` is true.
 	'meta_description' => '',
 
-	# Name of the user that has administration rights.
+	# Override logo of this FreshRSS instance in the Web user interface.
+	# It is rendered inside an <a>...</a> element and must be valid HTML or text.
+	# Example: '<img class="logo" src="https://example.net/Hello.png" alt="Logo Example" /> Hello'
+	'logo_html' => '',
+
+	# Name of the default user. Also used as the public user for anonymous reading.
 	'default_user' => '_',
 
 	# Force users to validate their email address. If `true`, an email with a
 	# validation URL is sent during registration, and users cannot access their
-	# feed if they didn't access this URL.
-	# Note: it is recommended to not enable it with PHP < 5.5 (emails cannot be
-	# sent).
+	# feed if they didn’t access this URL.
 	'force_email_validation' => false,
 
 	# Allow or not visitors without login to see the articles
@@ -50,10 +54,17 @@ return array(
 	# Login method:
 	#	`none` is without password and shows only the default user;
 	#	`form` is a conventional Web login form;
-	#	`http_auth` is an access controled by the HTTP Web server (e.g. `/FreshRSS/p/i/.htaccess` for Apache)
+	#	`http_auth` is an access controlled by the HTTP Web server (e.g. `/FreshRSS/p/i/.htaccess` for Apache)
 	#		if you use `http_auth`, remember to protect only `/FreshRSS/p/i/`,
 	#		and in particular not protect `/FreshRSS/p/api/` if you would like to use the API (different login system).
 	'auth_type' => 'form',
+
+	# Whether reauthentication is required for performing sensitive actions e.g. promoting a user or applying an update
+	'reauth_required' => true,
+
+	# Time before asking for reauth
+	#    Default: 1200s (20 min)
+	'reauth_time' => 1200,
 
 	# When using http_auth, automatically register any unknown user
 	'http_auth_auto_register' => true,
@@ -64,13 +75,16 @@ return array(
 
 	# Allow or not the use of the API, used for mobile apps.
 	#	End-point is https://freshrss.example.net/api/greader.php
-	#	You need to set the user's API password.
+	#	You need to set the user’s API password.
 	'api_enabled' => false,
 
-	# Allow or not the use of an unsafe login,
-	#	by providing username and password in the login URL:
-	#	http://example.net/FreshRSS/p/i/?c=auth&a=login&u=alice&p=1234
-	'unsafe_autologin_enabled' => false,
+	# By default, FreshRSS will display a warning to logged-in admin users if the CSP policy is insecure.
+	#	This setting can disable the warning.
+	#	For more information see: https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security
+	'suppress_csp_warning' => false,
+
+	# Content-Security-Policy frame-ancestors
+	'csp.frame-ancestors' => "'none'",
 
 	# Enable or not the use of syslog to log the activity of
 	#	SimplePie, which is retrieving RSS feeds via HTTP requests.
@@ -86,25 +100,37 @@ return array(
 	# If true does nothing, if false restricts HTTP Referer via: meta referrer origin
 	'allow_referrer' => false,
 
-	'limits' => array(
+	# Number of feeds to refresh in parallel from the Web user interface.
+	# Faster with higher values. Reduce for server with little memory or database issues.
+	'nb_parallel_refresh' => 10,
+
+	'limits' => [
 
 		# Duration in seconds of the login cookie.
 		'cookie_duration' => FreshRSS_Auth::DEFAULT_COOKIE_DURATION,
 
-		# Duration in seconds of the SimplePie cache,
-		#	during which a query to the RSS feed will return the local cached version.
+		# Duration in seconds of the SimplePie cache, during which a query to the RSS feed will return the local cached version.
 		# Especially important for multi-user setups.
+		# Might be overridden by HTTP response headers.
 		'cache_duration' => 800,
+		# Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`.
+		'cache_duration_min' => 60,
+		# Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`.
+		'cache_duration_max' => 86400,
+		# Default rate limit duration (in seconds), when HTTP response header `Retry-After` is absent.
+		'retry_after_default' => 1500,
+		# Maximal rate limit duration (in seconds), overriding HTTP response header `Retry-After`.
+		'retry_after_max' => 172800,
 
 		# SimplePie HTTP request timeout in seconds.
-		'timeout' => 15,
+		'timeout' => 20,
 
 		# If a user has not used FreshRSS for more than x seconds,
 		#	then its feeds are not refreshed anymore.
 		'max_inactivity' => PHP_INT_MAX,
 
 		# Max number of feeds for a user.
-		'max_feeds' => 16384,
+		'max_feeds' => 131072,
 
 		# Max number of categories for a user.
 		'max_categories' => 16384,
@@ -113,11 +139,14 @@ return array(
 		#   0 for an unlimited number of accounts
 		#   1 is to not allow user registrations (1 is corresponding to the admin account)
 		'max_registrations' => 1,
-	),
+
+		# Max amount of bytes that are allowed for upload of custom favicon
+		'max_favicon_upload_size' => 1048576,	# 1 MiB
+	],
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
-	# http://php.net/manual/function.curl-setopt
-	'curl_options' => array(
+	# https://php.net/manual/function.curl-setopt
+	'curl_options' => [
 		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
 		//CURLOPT_SSL_VERIFYHOST => 0,
 		//CURLOPT_SSL_VERIFYPEER => false,
@@ -128,7 +157,7 @@ return array(
 		//CURLOPT_PROXYPORT => 8080,
 		//CURLOPT_PROXYAUTH => CURLAUTH_BASIC,
 		//CURLOPT_PROXYUSERPWD => 'user:password',
-	),
+	],
 
 	'db' => [
 
@@ -163,13 +192,13 @@ return array(
 
 	],
 
-	# Configuration to send emails. Be aware that PHP < 5.5 are not supported.
+	# Configuration to send emails.
 	# These options are basically a mapping of the PHPMailer class attributes
 	# from the PHPMailer library.
 	#
-	# See http://phpmailer.github.io/PHPMailer/classes/PHPMailer.PHPMailer.PHPMailer.html#properties
+	# See https://phpmailer.github.io/PHPMailer/classes/PHPMailer-PHPMailer-PHPMailer.html#properties
 	'mailer' => 'mail', // 'mail' or 'smtp'
-	'smtp' => array(
+	'smtp' => [
 		'hostname' => '', // the domain used in the Message-ID header
 		'host' => 'localhost', // the SMTP server address
 		'port' => 25,
@@ -179,14 +208,25 @@ return array(
 		'password' => '',
 		'secure' => '', // '', 'ssl' or 'tls'
 		'from' => 'root@localhost',
-	),
+	],
 
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [
-		'Google-Groups' => true,
-		'Tumblr-GDPR' => true,
 	],
+	# Extensions configurations
+	'extensions' => [],
 
 	# Disable self-update,
 	'disable_update' => false,
-);
+
+	# Trusted IPs (e.g. of last proxy) that are allowed to send unsafe HTTP headers.
+	# The connection IP used during FreshRSS setup is automatically added to this list.
+	# Will be checked against CONN_REMOTE_ADDR (if available, to be robust even when using Apache mod_remoteip)
+	# or REMOTE_ADDR environment variable.
+	# This array can be overridden by the TRUSTED_PROXY environment variable.
+	# Read the documentation before configuring this https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
+	'trusted_sources' => [
+		'127.0.0.0/8',
+		'::1/128',
+	]
+];

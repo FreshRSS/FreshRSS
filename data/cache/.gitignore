@@ -1,1 +1,6 @@
+*.html
+*.ico
+*.json
 *.spc
+*.xml
+!index.html

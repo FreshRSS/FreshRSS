@@ -1,6 +1,10 @@
-# ignore SASS-generated CSS
-p/themes/Ansum/*.css
-p/themes/Mapco/*.css
-p/themes/Swage/*.css
+.git/
+extensions/
+node_modules/
+p/scripts/vendor/
+vendor/
 # Ignore RTLCSS auto-generated CSS
 *.rtl.css
+
+# actual location is docs/_includes/docs.css
+docs/assets/css/docs.css

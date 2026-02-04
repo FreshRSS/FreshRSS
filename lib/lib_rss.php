@@ -1,152 +1,210 @@
 <?php
-if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
-	die(sprintf('FreshRSS error: FreshRSS requires PHP %s+!', FRESHRSS_MIN_PHP_VERSION));
-}
+declare(strict_types=1);
 
 if (!function_exists('mb_strcut')) {
-	function mb_strcut($str, $start, $length = null, $encoding = 'UTF-8') {
-		return substr($str, $start, $length);
+	function mb_strcut(string $str, int $start, ?int $length = null, string $encoding = 'UTF-8'): string {
+		return substr($str, $start, $length) ?: '';
 	}
 }
 
-if (COPY_SYSLOG_TO_STDERR) {
-	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
-} else {
-	openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID, LOG_USER);
+if (!function_exists('syslog')) {
+	if (COPY_SYSLOG_TO_STDERR && !defined('STDERR')) {
+		define('STDERR', fopen('php://stderr', 'w'));
+	}
+	function syslog(int $priority, string $message): bool {
+		if (COPY_SYSLOG_TO_STDERR && defined('STDERR') && is_resource(STDERR)) {
+			return fwrite(STDERR, $message . "\n") != false;
+		}
+		return false;
+	}
+}
+
+if (function_exists('openlog')) {
+	if (COPY_SYSLOG_TO_STDERR) {
+		openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID | LOG_PERROR, LOG_USER);
+	} else {
+		openlog('FreshRSS', LOG_CONS | LOG_ODELAY | LOG_PID, LOG_USER);
+	}
 }
 
 /**
  * Build a directory path by concatenating a list of directory names.
  *
- * @param $path_parts a list of directory names
- * @return a string corresponding to the final pathname
+ * @param string ...$path_parts a list of directory names
+ * @return string corresponding to the final pathname
  */
-function join_path() {
-	$path_parts = func_get_args();
+function join_path(...$path_parts): string {
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
 
 //<Auto-loading>
-function classAutoloader($class) {
-	if (strpos($class, 'FreshRSS') === 0) {
+function classAutoloader(string $class): void {
+	if (str_starts_with($class, 'FreshRSS')) {
 		$components = explode('_', $class);
 		switch (count($components)) {
 			case 1:
-				include(APP_PATH . '/' . $components[0] . '.php');
+				include APP_PATH . '/' . $components[0] . '.php';
 				return;
 			case 2:
-				include(APP_PATH . '/Models/' . $components[1] . '.php');
+				include APP_PATH . '/Models/' . $components[1] . '.php';
 				return;
 			case 3:	//Controllers, Exceptions
-				include(APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php');
+				include APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php';
 				return;
 		}
-	} elseif (strpos($class, 'Minz') === 0) {
-		include(LIB_PATH . '/' . str_replace('_', '/', $class) . '.php');
-	} elseif (strpos($class, 'SimplePie') === 0) {
-		include(LIB_PATH . '/SimplePie/' . str_replace('_', '/', $class) . '.php');
-	} elseif (strpos($class, 'PHPMailer') === 0) {
-		include(LIB_PATH . '/' . str_replace('\\', '/', $class) . '.php');
+	} elseif (str_starts_with($class, 'Minz')) {
+		include LIB_PATH . '/' . str_replace('_', '/', $class) . '.php';
+	} elseif (str_starts_with($class, 'SimplePie\\')) {
+		$prefix = 'SimplePie\\';
+		$base_dir = LIB_PATH . '/simplepie/simplepie/src/';
+		$relative_class_name = substr($class, strlen($prefix));
+		include $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
+	} elseif (str_starts_with($class, 'Gt\\CssXPath\\')) {
+		$prefix = 'Gt\\CssXPath\\';
+		$base_dir = LIB_PATH . '/phpgt/cssxpath/src/';
+		$relative_class_name = substr($class, strlen($prefix));
+		include $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
+	} elseif (str_starts_with($class, 'marienfressinaud\\LibOpml\\')) {
+		$prefix = 'marienfressinaud\\LibOpml\\';
+		$base_dir = LIB_PATH . '/marienfressinaud/lib_opml/src/LibOpml/';
+		$relative_class_name = substr($class, strlen($prefix));
+		include $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
+	} elseif (str_starts_with($class, 'PHPMailer\\PHPMailer\\')) {
+		$prefix = 'PHPMailer\\PHPMailer\\';
+		$base_dir = LIB_PATH . '/phpmailer/phpmailer/src/';
+		$relative_class_name = substr($class, strlen($prefix));
+		include $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
 	}
 }
 
 spl_autoload_register('classAutoloader');
 //</Auto-loading>
 
-function idn_to_puny($url) {
-	if (function_exists('idn_to_ascii')) {
-		$idn = parse_url($url, PHP_URL_HOST);
-		if ($idn != '') {
-			// https://wiki.php.net/rfc/deprecate-and-remove-intl_idna_variant_2003
-			if (defined('INTL_IDNA_VARIANT_UTS46')) {
-				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
-			} elseif (defined('INTL_IDNA_VARIANT_2003')) {
-				$puny = idn_to_ascii($idn, IDNA_DEFAULT, INTL_IDNA_VARIANT_2003);
-			} else {
-				$puny = idn_to_ascii($idn);
-			}
-			$pos = strpos($url, $idn);
-			if ($puny != '' && $pos !== false) {
-				$url = substr_replace($url, $puny, $pos, strlen($idn));
-			}
+/**
+ * @param array<mixed,mixed> $array
+ * @phpstan-assert-if-true array<string,mixed> $array
+ */
+function is_array_keys_string(array $array): bool {
+	foreach ($array as $key => $value) {
+		if (!is_string($key)) {
+			return false;
 		}
 	}
-	return $url;
+	return true;
 }
 
-function checkUrl($url, $fixScheme = true) {
-	$url = trim($url);
-	if ($url == '') {
-		return '';
+/**
+ * @param array<mixed,mixed> $array
+ * @phpstan-assert-if-true array<mixed,string> $array
+ */
+function is_array_values_string(array $array): bool {
+	foreach ($array as $value) {
+		if (!is_string($value)) {
+			return false;
+		}
 	}
-	if ($fixScheme && !preg_match('#^https?://#i', $url)) {
-		$url = 'https://' . ltrim($url, '/');
+	return true;
+}
+
+/**
+ * Memory efficient replacement of `echo json_encode(...)`
+ * @param array<mixed>|mixed $json
+ * @param int $optimisationDepth Number of levels for which to perform memory optimisation
+ * before calling the faster native JSON serialisation.
+ * Set to negative value for infinite depth.
+ */
+function echoJson($json, int $optimisationDepth = -1): void {
+	if ($optimisationDepth === 0 || !is_array($json)) {
+		echo json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+		return;
 	}
-
-	$url = idn_to_puny($url);	//PHP bug #53474 IDN
-	$urlRelaxed = str_replace('_', 'z', $url);	//PHP discussion #64948 Underscore
-
-	if (filter_var($urlRelaxed, FILTER_VALIDATE_URL)) {
-		return $url;
+	$first = true;
+	if (array_is_list($json)) {
+		echo '[';
+		foreach ($json as $item) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo ',';
+			}
+			echoJson($item, $optimisationDepth - 1);
+		}
+		echo ']';
 	} else {
-		return false;
+		echo '{';
+		foreach ($json as $key => $value) {
+			if ($first) {
+				$first = false;
+			} else {
+				echo ',';
+			}
+			echo json_encode($key, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), ':';
+			echoJson($value, $optimisationDepth - 1);
+		}
+		echo '}';
 	}
 }
 
-function safe_ascii($text) {
-	return filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
+function safe_ascii(?string $text): string {
+	return $text === null ? '' : (filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
 }
 
 if (function_exists('mb_convert_encoding')) {
-	function safe_utf8($text) { return mb_convert_encoding($text, 'UTF-8', 'UTF-8'); }
+	function safe_utf8(?string $text): string {
+		return $text === null ? '' : (mb_convert_encoding($text, 'UTF-8', 'UTF-8') ?: '');
+	}
 } elseif (function_exists('iconv')) {
-	function safe_utf8($text) { return iconv('UTF-8', 'UTF-8//IGNORE', $text); }
+	function safe_utf8(?string $text): string {
+		return $text === null ? '' : (iconv('UTF-8', 'UTF-8//IGNORE', $text) ?: '');
+	}
 } else {
-	function safe_utf8($text) { return $text; }
+	function safe_utf8(?string $text): string {
+		return $text ?? '';
+	}
 }
 
-function escapeToUnicodeAlternative($text, $extended = true) {
+function escapeToUnicodeAlternative(string $text, bool $extended = true): string {
 	$text = htmlspecialchars_decode($text, ENT_QUOTES);
 
 	//Problematic characters
-	$problem = array('&', '<', '>');
+	$problem = ['&', '<', '>'];
 	//Use their fullwidth Unicode form instead:
-	$replace = array('＆', '＜', '＞');
+	$replace = ['＆', '＜', '＞'];
 
 	// https://raw.githubusercontent.com/mihaip/google-reader-api/master/wiki/StreamId.wiki
 	if ($extended) {
-		$problem += array("'", '"', '^', '?', '\\', '/', ',', ';');
-		$replace += array("’", '＂', '＾', '？', '＼', '／', '，', '；');
+		$problem += ["'", '"', '^', '?', '\\', '/', ',', ';'];
+		$replace += ["’", '＂', '＾', '？', '＼', '／', '，', '；'];
 	}
 
 	return trim(str_replace($problem, $replace, $text));
 }
 
-function format_number($n, $precision = 0) {
+function format_number(int|float $n, int $precision = 0): string {
 	// number_format does not seem to be Unicode-compatible
-	return str_replace(' ', ' ',	//Espace fine insécable
-		number_format($n, $precision, '.', ' ')
+	return str_replace(' ', ' ',	// Thin non-breaking space
+		number_format((float)$n, $precision, '.', ' ')
 	);
 }
 
-function format_bytes($bytes, $precision = 2, $system = 'IEC') {
+function format_bytes(int $bytes, int $precision = 2, string $system = 'IEC'): string {
 	if ($system === 'IEC') {
 		$base = 1024;
-		$units = array('B', 'KiB', 'MiB', 'GiB', 'TiB');
+		$units = ['B', 'KiB', 'MiB', 'GiB', 'TiB'];
 	} elseif ($system === 'SI') {
 		$base = 1000;
-		$units = array('B', 'KB', 'MB', 'GB', 'TB');
+		$units = ['B', 'KB', 'MB', 'GB', 'TB'];
 	} else {
 		return format_number($bytes, $precision);
 	}
 	$bytes = max(intval($bytes), 0);
-	$pow = $bytes === 0 ? 0 : floor(log($bytes) / log($base));
-	$pow = min($pow, count($units) - 1);
+	$pow = $bytes === 0 ? 0 : (int)floor(log($bytes) / log($base));
+	$pow = min(max(0, $pow), count($units) - 1);
 	$bytes /= pow($base, $pow);
 	return format_number($bytes, $precision) . ' ' . $units[$pow];
 }
 
-function timestamptodate ($t, $hour = true) {
+function timestamptodate(int $t, bool $hour = true): string {
 	$month = _t('gen.date.' . date('M', $t));
 	if ($hour) {
 		$date = _t('gen.date.format_date_hour', $month);
@@ -154,10 +212,14 @@ function timestamptodate ($t, $hour = true) {
 		$date = _t('gen.date.format_date', $month);
 	}
 
-	return @date ($date, $t);
+	return @date($date, $t) ?: '';
 }
 
-function html_only_entity_decode($text) {
+/**
+ * Decode HTML entities but preserve XML entities.
+ */
+function html_only_entity_decode(?string $text): string {
+	/** @var array<string,string>|null $htmlEntitiesOnly */
 	static $htmlEntitiesOnly = null;
 	if ($htmlEntitiesOnly === null) {
 		$htmlEntitiesOnly = array_flip(array_diff(
@@ -165,323 +227,114 @@ function html_only_entity_decode($text) {
 			get_html_translation_table(HTML_SPECIALCHARS, ENT_NOQUOTES, 'UTF-8')	//Preserve XML entities
 		));
 	}
-	return strtr($text, $htmlEntitiesOnly);
-}
-
-function customSimplePie($attributes = array()) {
-	$limits = FreshRSS_Context::$system_conf->limits;
-	$simplePie = new SimplePie();
-	$simplePie->set_useragent(FRESHRSS_USERAGENT);
-	$simplePie->set_syslog(FreshRSS_Context::$system_conf->simplepie_syslog_enabled);
-	$simplePie->set_cache_name_function('sha1');
-	$simplePie->set_cache_location(CACHE_PATH);
-	$simplePie->set_cache_duration($limits['cache_duration']);
-
-	$feed_timeout = empty($attributes['timeout']) ? 0 : intval($attributes['timeout']);
-	$simplePie->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
-
-	$curl_options = FreshRSS_Context::$system_conf->curl_options;
-	if (isset($attributes['ssl_verify'])) {
-		$curl_options[CURLOPT_SSL_VERIFYHOST] = $attributes['ssl_verify'] ? 2 : 0;
-		$curl_options[CURLOPT_SSL_VERIFYPEER] = $attributes['ssl_verify'] ? true : false;
-		if (!$attributes['ssl_verify']) {
-			$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
-		}
-	}
-	if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
-		foreach ($attributes['curl_params'] as $co => $v) {
-			$curl_options[$co] = $v;
-		}
-	}
-	$simplePie->set_curl_options($curl_options);
-
-	$simplePie->strip_comments(true);
-	$simplePie->strip_htmltags(array(
-		'base', 'blink', 'body', 'doctype', 'embed',
-		'font', 'form', 'frame', 'frameset', 'html',
-		'link', 'input', 'marquee', 'meta', 'noscript',
-		'object', 'param', 'plaintext', 'script', 'style',
-		'svg',	//TODO: Support SVG after sanitizing and URL rewriting of xlink:href
-	));
-	$simplePie->strip_attributes(array_merge($simplePie->strip_attributes, array(
-		'autoplay', 'class', 'onload', 'onunload', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup',
-		'onmouseover', 'onmousemove', 'onmouseout', 'onfocus', 'onblur',
-		'onkeypress', 'onkeydown', 'onkeyup', 'onselect', 'onchange', 'seamless', 'sizes', 'srcset')));
-	$simplePie->add_attributes(array(
-		'audio' => array('controls' => 'controls', 'preload' => 'none'),
-		'iframe' => array('sandbox' => 'allow-scripts allow-same-origin'),
-		'video' => array('controls' => 'controls', 'preload' => 'none'),
-	));
-	$simplePie->set_url_replacements(array(
-		'a' => 'href',
-		'area' => 'href',
-		'audio' => 'src',
-		'blockquote' => 'cite',
-		'del' => 'cite',
-		'form' => 'action',
-		'iframe' => 'src',
-		'img' => array(
-			'longdesc',
-			'src'
-		),
-		'input' => 'src',
-		'ins' => 'cite',
-		'q' => 'cite',
-		'source' => 'src',
-		'track' => 'src',
-		'video' => array(
-			'poster',
-			'src',
-		),
-	));
-	$https_domains = array();
-	$force = @file(FRESHRSS_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	if (is_array($force)) {
-		$https_domains = array_merge($https_domains, $force);
-	}
-	$force = @file(DATA_PATH . '/force-https.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-	if (is_array($force)) {
-		$https_domains = array_merge($https_domains, $force);
-	}
-	$simplePie->set_https_domains($https_domains);
-	return $simplePie;
-}
-
-function sanitizeHTML($data, $base = '', $maxLength = false) {
-	if (!is_string($data) || ($maxLength !== false && $maxLength <= 0)) {
-		return '';
-	}
-	if ($maxLength !== false) {
-		$data = mb_strcut($data, 0, $maxLength, 'UTF-8');
-	}
-	static $simplePie = null;
-	if ($simplePie == null) {
-		$simplePie = customSimplePie();
-		$simplePie->init();
-	}
-	$result = html_only_entity_decode($simplePie->sanitize->sanitize($data, SIMPLEPIE_CONSTRUCT_HTML, $base));
-	if ($maxLength !== false && strlen($result) > $maxLength) {
-		//Sanitizing has made the result too long so try again shorter
-		$data = mb_strcut($result, 0, (2 * $maxLength) - strlen($result) - 2, 'UTF-8');
-		return sanitizeHTML($data, $base, $maxLength);
-	}
-	return $result;
+	return $text == null ? '' : strtr($text, $htmlEntitiesOnly);
 }
 
 /**
- * Validate an email address, supports internationalized addresses.
- *
- * @param string $email The address to validate
- *
- * @return bool true if email is valid, else false
+ * Remove passwords in FreshRSS logs.
+ * See also ../cli/sensitive-log.sh for Web server logs.
+ * @param array<string,mixed>|string $log
+ * @return array<string,mixed>|string
  */
-function validateEmailAddress($email) {
-	$mailer = new PHPMailer\PHPMailer\PHPMailer();
-	$mailer->Charset = 'utf-8';
-	$punyemail = $mailer->punyencodeAddress($email);
-	return PHPMailer\PHPMailer\PHPMailer::validateAddress($punyemail, 'html5');
+function sensitive_log(array|string $log): array|string {
+	if (is_array($log)) {
+		foreach ($log as $k => $v) {
+			if (in_array($k, ['api_key', 'Passwd', 'T'], true)) {
+				$log[$k] = '██';
+			} elseif ((is_array($v) && is_array_keys_string($v)) || is_string($v)) {
+				$log[$k] = sensitive_log($v);
+			} else {
+				return '';
+			}
+		}
+	} elseif (is_string($log)) {
+		$log = preg_replace([
+				'/\b(auth=.*?\/)[^&]+/i',
+				'/\b(Passwd=)[^&]+/i',
+				'/\b(Authorization)[^&]+/i',
+			], '$1█', $log) ?? '';
+	}
+	return $log;
+}
+
+function cleanCache(int $hours = 720): void {
+	// N.B.: GLOB_BRACE is not available on all platforms
+	$files = glob(CACHE_PATH . '/*.*', GLOB_NOSORT) ?: [];
+	foreach ($files as $file) {
+		if (str_ends_with($file, 'index.html')) {
+			continue;
+		}
+		$cacheMtime = @filemtime($file);
+		if ($cacheMtime !== false && $cacheMtime < time() - (3600 * $hours)) {
+			unlink($file);
+		}
+	}
 }
 
 /**
  * Add support of image lazy loading
- * Move content from src attribute to data-original
- * @param content is the text we want to parse
+ * Move content from src/poster attribute to data-original
+ * @param string $content is the text we want to parse
  */
-function lazyimg($content) {
-	return preg_replace(
-		'/<((?:img|iframe)[^>]+?)src=[\'"]([^"\']+)[\'"]([^>]*)>/i',
-		'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+function lazyimg(string $content): string {
+	return preg_replace([
+			'/<((?:img|image|iframe|track)[^>]+?)src="([^"]+)"([^>]*)>/i',
+			"/<((?:img|image|iframe|track)[^>]+?)src='([^']+)'([^>]*)>/i",
+			'/<((?:video)[^>]+?)poster="([^"]+)"([^>]*)>/i',
+			"/<((?:video)[^>]+?)poster='([^']+)'([^>]*)>/i",
+		], [
+			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+			'<$1poster="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+			"<$1poster='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+		],
 		$content
-	);
+	) ?? '';
 }
 
-function uTimeString() {
-	$t = @gettimeofday();
-	return $t['sec'] . str_pad($t['usec'], 6, '0', STR_PAD_LEFT);
+/** @return numeric-string */
+function uTimeString(): string {
+	$t = gettimeofday();
+	// @phpstan-ignore return.type
+	return ((string)$t['sec']) . str_pad((string)$t['usec'], 6, '0', STR_PAD_LEFT);
 }
 
-function invalidateHttpCache($username = '') {
+function invalidateHttpCache(string $username = ''): bool {
 	if (!FreshRSS_user_Controller::checkUsername($username)) {
 		Minz_Session::_param('touch', uTimeString());
-		$username = Minz_Session::param('currentUser', '_');
+		$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 	}
-	$ok = @touch(DATA_PATH . '/users/' . $username . '/log.txt');
-	//if (!$ok) {
-		//TODO: Display notification error on front-end
-	//}
-	return $ok;
+	return FreshRSS_UserDAO::ctouch($username);
 }
 
-function listUsers() {
-	$final_list = array();
-	$base_path = join_path(DATA_PATH, 'users');
-	$dir_list = array_values(array_diff(
-		scandir($base_path),
-		array('..', '.', '_')
-	));
-	foreach ($dir_list as $file) {
-		if ($file[0] !== '.' && is_dir(join_path($base_path, $file)) && file_exists(join_path($base_path, $file, 'config.php'))) {
-			$final_list[] = $file;
-		}
-	}
-	return $final_list;
+#[Deprecated('Use Minz_Request::connectionRemoteAddress() instead.')]
+function connectionRemoteAddress(): string {
+	return Minz_Request::connectionRemoteAddress();
 }
 
-
-/**
- * Return if the maximum number of registrations has been reached.
- *
- * Note a max_regstrations of 0 means there is no limit.
- *
- * @return true if number of users >= max registrations, false else.
- */
-function max_registrations_reached() {
-	$limit_registrations = FreshRSS_Context::$system_conf->limits['max_registrations'];
-	$number_accounts = count(listUsers());
-
-	return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
-}
-
-
-/**
- * Register and return the configuration for a given user.
- *
- * Note this function has been created to generate temporary configuration
- * objects. If you need a long-time configuration, please don't use this function.
- *
- * @param $username the name of the user of which we want the configuration.
- * @return a Minz_Configuration object, null if the configuration cannot be loaded.
- */
-function get_user_configuration($username) {
-	if (!FreshRSS_user_Controller::checkUsername($username)) {
-		return null;
-	}
-	$namespace = 'user_' . $username;
-	try {
-		Minz_Configuration::register($namespace,
-			USERS_PATH . '/' . $username . '/config.php',
-			FRESHRSS_PATH . '/config-user.default.php');
-	} catch (Minz_ConfigurationNamespaceException $e) {
-		// namespace already exists, do nothing.
-		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
-	} catch (Minz_FileNotExistException $e) {
-		Minz_Log::warning($e->getMessage(), USERS_PATH . '/_/log.txt');
-		return null;
-	}
-
-	return Minz_Configuration::get($namespace);
-}
-
-
-function httpAuthUser() {
-	if (!empty($_SERVER['REMOTE_USER'])) {
-		return $_SERVER['REMOTE_USER'];
-	} elseif (!empty($_SERVER['REDIRECT_REMOTE_USER'])) {
-		return $_SERVER['REDIRECT_REMOTE_USER'];
-	} elseif (!empty($_SERVER['HTTP_X_WEBAUTH_USER'])) {
-		return $_SERVER['HTTP_X_WEBAUTH_USER'];
-	}
-	return '';
-}
-
-function cryptAvailable() {
-	try {
-		$hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
-		return $hash === @crypt('password', $hash);
-	} catch (Exception $e) {
-		Minz_Log::warning($e->getMessage());
-	}
-	return false;
-}
-
-
-/**
- * Check PHP and its extensions are well-installed.
- *
- * @return array of tested values.
- */
-function check_install_php() {
-	$pdo_mysql = extension_loaded('pdo_mysql');
-	$pdo_pgsql = extension_loaded('pdo_pgsql');
-	$pdo_sqlite = extension_loaded('pdo_sqlite');
-	return array(
-		'php' => version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0,
-		'curl' => extension_loaded('curl'),
-		'pdo' => $pdo_mysql || $pdo_sqlite || $pdo_pgsql,
-		'pcre' => extension_loaded('pcre'),
-		'ctype' => extension_loaded('ctype'),
-		'fileinfo' => extension_loaded('fileinfo'),
-		'dom' => class_exists('DOMDocument'),
-		'json' => extension_loaded('json'),
-		'mbstring' => extension_loaded('mbstring'),
-		'zip' => extension_loaded('zip'),
-	);
-}
-
-
-/**
- * Check different data files and directories exist.
- *
- * @return array of tested values.
- */
-function check_install_files() {
-	return array(
-		'data' => DATA_PATH && is_writable(DATA_PATH),
-		'cache' => CACHE_PATH && is_writable(CACHE_PATH),
-		'users' => USERS_PATH && is_writable(USERS_PATH),
-		'favicons' => is_writable(DATA_PATH . '/favicons'),
-		'tokens' => is_writable(DATA_PATH . '/tokens'),
-	);
-}
-
-
-/**
- * Check database is well-installed.
- *
- * @return array of tested values.
- */
-function check_install_database() {
-	$status = array(
-		'connection' => true,
-		'tables' => false,
-		'categories' => false,
-		'feeds' => false,
-		'entries' => false,
-		'entrytmp' => false,
-		'tag' => false,
-		'entrytag' => false,
-	);
-
-	try {
-		$dbDAO = FreshRSS_Factory::createDatabaseDAO();
-
-		$status['tables'] = $dbDAO->tablesAreCorrect();
-		$status['categories'] = $dbDAO->categoryIsCorrect();
-		$status['feeds'] = $dbDAO->feedIsCorrect();
-		$status['entries'] = $dbDAO->entryIsCorrect();
-		$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
-		$status['tag'] = $dbDAO->tagIsCorrect();
-		$status['entrytag'] = $dbDAO->entrytagIsCorrect();
-	} catch(Minz_PDOConnectionException $e) {
-		$status['connection'] = false;
-	}
-
-	return $status;
+#[Deprecated('Use FreshRSS_http_Util::checkTrustedIP() instead.')]
+function checkTrustedIP(): bool {
+	return FreshRSS_http_Util::checkTrustedIP();
 }
 
 /**
  * Remove a directory recursively.
- *
  * From http://php.net/rmdir#110489
- *
- * @param $dir the directory to remove
  */
-function recursive_unlink($dir) {
+function recursive_unlink(string $dir): bool {
 	if (!is_dir($dir)) {
 		return true;
 	}
 
-	$files = array_diff(scandir($dir), array('.', '..'));
+	if (is_link($dir)) {
+		if (PHP_OS_FAMILY === "Windows") {
+			return rmdir($dir);
+		}
+
+		return unlink($dir);
+	}
+
+	$files = array_diff(scandir($dir) ?: [], ['.', '..']);
 	foreach ($files as $filename) {
 		$filename = $dir . '/' . $filename;
 		if (is_dir($filename)) {
@@ -495,97 +348,39 @@ function recursive_unlink($dir) {
 	return rmdir($dir);
 }
 
-/**
- * Remove queries where $get is appearing.
- * @param $get the get attribute which should be removed.
- * @param $queries an array of queries.
- * @return the same array whithout those where $get is appearing.
- */
-function remove_query_by_get($get, $queries) {
-	$final_queries = array();
-	foreach ($queries as $key => $query) {
-		if (empty($query['get']) || $query['get'] !== $get) {
-			$final_queries[$key] = $query;
-		}
-	}
-	return $final_queries;
+function _i(string $icon, int $type = FreshRSS_Themes::ICON_DEFAULT): string {
+	return FreshRSS_Themes::icon($icon, $type);
 }
 
-//RFC 4648
-function base64url_encode($data) {
-	return strtr(rtrim(base64_encode($data), '='), '+/', '-_');
-}
-//RFC 4648
-function base64url_decode($data) {
-	return base64_decode(strtr($data, '-_', '+/'));
-}
-
-function _i($icon, $url_only = false) {
-	return FreshRSS_Themes::icon($icon, $url_only);
-}
-
-
-const SHORTCUT_KEYS = [
-			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-			'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-			'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-			'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12',
-			'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Backspace', 'Delete',
-			'End', 'Enter', 'Escape', 'Home', 'Insert', 'PageDown', 'PageUp', 'Space', 'Tab',
-		];
-
-function validateShortcutList($shortcuts) {
-	$legacy = array(
-			'down' => 'ArrowDown', 'left' => 'ArrowLeft', 'page_down' => 'PageDown', 'page_up' => 'PageUp',
-			'right' => 'ArrowRight', 'up' => 'ArrowUp',
-		);
-	$upper = null;
-	$shortcuts_ok = array();
-
-	foreach ($shortcuts as $key => $value) {
-		if ('' === $value) {
-			$shortcuts_ok[$key] = $value;
-		} elseif (in_array($value, SHORTCUT_KEYS)) {
-			$shortcuts_ok[$key] = $value;
-		} elseif (isset($legacy[$value])) {
-			$shortcuts_ok[$key] = $legacy[$value];
-		} else {	//Case-insensitive search
-			if ($upper === null) {
-				$upper = array_map('strtoupper', SHORTCUT_KEYS);
-			}
-			$i = array_search(strtoupper($value), $upper);
-			if ($i !== false) {
-				$shortcuts_ok[$key] = SHORTCUT_KEYS[$i];
-			}
-		}
-	}
-	return $shortcuts_ok;
-}
-
-function errorMessage($errorTitle, $error = '') {
-	// Prevent empty <h2> tags by checking if error isn't empty first
-	if ('' !== $error) {
-		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8');
-		$error = "<h2>{$error}</h2>";
-	}
+function errorMessageInfo(string $errorTitle, string $error = ''): string {
 	$errorTitle = htmlspecialchars($errorTitle, ENT_NOQUOTES, 'UTF-8');
+
+	$message = '';
+	$details = '';
+	$error = trim($error);
+	// Prevent empty tags by checking if error is not empty first
+	if ($error !== '') {
+		$error = htmlspecialchars($error, ENT_NOQUOTES, 'UTF-8') . "\n";
+
+		// First line is the main message, other lines are the details
+		list($message, $details) = explode("\n", $error, 2);
+
+		$message = "<h2>{$message}</h2>";
+		$details = "<pre>{$details}</pre>";
+	}
+
+	header("Content-Security-Policy: default-src 'self'; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
+	header('Referrer-Policy: same-origin');
+
 	return <<<MSG
-	<h1>{$errorTitle}</h1>
-	{$error}
-	<h2>Common problems</h2>
-	<p>A typical problem leading to this message is wrong file permissions in the <code>./FreshRSS/data/</code> folder
-	so make sure the Web server can write there and in sub-directories.</p>
-	<h2>Common locations for additional logs</h2>
-	<p><strong>N.B.:</strong> Adapt names and paths according to your local setup.</p>
-	<ul>
-	<li>If using Docker: <code>docker logs -f freshrss</code></li>
-	<li>To check Web server logs on a Linux system using systemd: <code>journalctl -xeu apache2</code>
-	and if you are using php-fpm: <code>journalctl -xeu php-fpm</code></li>
-	<li>Otherwise, Web server logs are typically located in <code>/var/log/apache2/</code> or similar</li>
-	<li>System logs may also contain relevant information in <code>/var/log/syslog</code>, or if using systemd: <code>sudo journalctl -xe</code></li>
-	</ul>
-	<p>More logs can be generated by enabling <code>'environment' => 'development',</code> in <code>./FreshRSS/data/config.php</code></p>
-	<p>Running the feed update script (with the same user and PHP version as your Web server) might provide other hints, e.g.:
-		<code>sudo -u www-data /usr/bin/php ./FreshRSS/app/actualize_script.php</code></p>
+	<!DOCTYPE html><html><header><title>HTTP 500: {$errorTitle}</title></header><body>
+	<h1>HTTP 500: {$errorTitle}</h1>
+	{$message}
+	{$details}
+	<hr />
+	<small>For help see the documentation: <a href="https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html" target="_blank">
+	https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html</a></small>
+	</body></html>
 MSG;
 }

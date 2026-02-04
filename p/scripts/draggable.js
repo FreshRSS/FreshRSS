@@ -1,8 +1,7 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
-"use strict";
-/* jshint esversion:6, strict:global */
+'use strict';
 
-const init_draggable_list = function() {
+const init_draggable_list = function () {
 	if (!window.context) {
 		if (window.console) {
 			console.log('FreshRSS draggable list waiting for JS…');
@@ -14,9 +13,11 @@ const init_draggable_list = function() {
 	let source;
 	const draggableList = document.querySelector('.draggableList');
 	const addMarker = (position, element) => {
-		const hr = draggableList.querySelector('hr.drag-drop-marker');
-		if (null === hr) {
-			element.insertAdjacentHTML(position, '<hr class="drag-drop-marker" />');
+		if (source) {
+			const hr = draggableList.querySelector('hr.drag-drop-marker');
+			if (null === hr) {
+				element.insertAdjacentHTML(position, '<hr class="drag-drop-marker" />');
+			}
 		}
 	};
 	const removeMarker = () => {
@@ -28,8 +29,14 @@ const init_draggable_list = function() {
 
 	draggableList.addEventListener('dragstart', event => {
 		source = event.target.closest('[draggable="true"]');
-		event.dataTransfer.setData('text/html', source.outerHTML);
-		event.dataTransfer.effectAllowed = 'move';
+		if (source) {
+			const dragbox = source.closest('.dragbox');
+			if (dragbox) {
+				source = dragbox;
+			}
+			event.dataTransfer.setData('text/html', source.outerHTML);
+			event.dataTransfer.effectAllowed = 'move';
+		}
 	});
 	draggableList.addEventListener('dragover', event => {
 		event.preventDefault();
@@ -37,7 +44,11 @@ const init_draggable_list = function() {
 			return;
 		}
 
-		const draggableItem = event.target.closest('[draggable="true"]');
+		let draggableItem = event.target.closest('[draggable="true"]');
+		const dragbox = event.target.closest('.dragbox');
+		if (dragbox) {
+			draggableItem = dragbox;
+		}
 		if (null === draggableItem || source === draggableItem) {
 			return;
 		}
@@ -60,8 +71,13 @@ const init_draggable_list = function() {
 			return;
 		}
 
-		const draggableItem = event.target.closest('[draggable="true"]');
-		if (null === draggableItem || source === draggableItem) {
+		let draggableItem = event.target.closest('[draggable="true"]');
+		const dragbox = event.target.closest('.dragbox');
+		if (dragbox) {
+			draggableItem = dragbox;
+		}
+		if (!source || null === draggableItem || source === draggableItem) {
+			removeMarker();
 			return;
 		}
 

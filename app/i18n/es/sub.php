@@ -1,108 +1,271 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
-	'add' => 'Feed and category creation has been moved <a href=\'%s\'>here</a>. It is also accessible from the menu on the left and from the ✚ icon available on the main page.',	// TODO - Translation
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO - Translation
-		'title' => 'API',	// TODO - Translation
+		'documentation' => 'Copie la siguiente URL para usarla dentro de una herramienta externa.',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click the "Subscribe" button in any page you want to subscribe to.',	// TODO - Translation
-		'label' => 'Subscribe',	// TODO - Translation
-		'title' => 'Bookmarklet',	// TODO - Translation
+		'documentation' => 'Arrastre este botón a la barra de herramientas de marcadores o haga clic derecho en él y elija “Marcar este enlace”. Luego haga clic en el botón “Suscribirse” en cualquier página a la que desee suscribirse.',
+		'label' => 'Subscribirse',
+		'title' => 'Bookmarklet',	// IGNORE
 	),
 	'category' => array(
 		'_' => 'Categoría',
-		'add' => 'Añadir a la categoría',
+		'add' => 'Añadir categoría',
 		'archiving' => 'Archivo',
+		'dynamic_opml' => array(
+			'_' => 'OPML dinámico',
+			'help' => 'Provee la URL a un <a href=http://opml.org/ target="_blank">archivo OPML</a> para llenar dinámicamente esta categoría con fuentes',
+		),
 		'empty' => 'Vaciar categoría',
+		'expand' => 'Expandir categoría',
 		'information' => 'Información',
-		'position' => 'Display position',	// TODO - Translation
-		'position_help' => 'To control category sort order',	// TODO - Translation
+		'open' => 'Abrir categoría',
+		'opml_url' => 'URL del OPML',
+		'position' => 'Posición de visualización',
+		'position_help' => 'Para controlar el orden de clasificación de categorías',
 		'title' => 'Título',
 	),
 	'feed' => array(
-		'add' => 'Añadir fuente RSS',
+		'accept_cookies' => 'Aceptar cookies',
+		'accept_cookies_help' => 'Permitir que el servidor de fuentes configure las cookies (guardadas en memoria únicamente para el tiempo de vida de la solicitud)',
+		'add' => 'Añadir fuente',
 		'advanced' => 'Avanzado',
 		'archiving' => 'Archivo',
 		'auth' => array(
+			'configuration' => 'Identificación',
 			'help' => 'Permitir acceso a fuentes RSS protegidas con HTTP',
 			'http' => 'Identificación HTTP',
 			'password' => 'Contraseña HTTP',
 			'username' => 'Nombre de usuario HTTP',
 		),
-		'clear_cache' => 'Always clear cache',	// TODO - Translation
+		'change_favicon' => 'Cambiar…',
+		'clear_cache' => 'Borrar siempre la memoria caché',
 		'content_action' => array(
-			'_' => 'Content action when fetching the article content',	// TODO - Translation
-			'append' => 'Add after existing content',	// TODO - Translation
-			'prepend' => 'Add before existing content',	// TODO - Translation
-			'replace' => 'Replace existing content',	// TODO - Translation
+			'_' => 'Acción de contenido al obtener el contenido del artículo',
+			'append' => 'Añadir después del contenido existente',
+			'prepend' => 'Añadir antes del contenido existente',
+			'replace' => 'Reemplazar contenido existente',
 		),
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO - Translation
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO - Translation
+		'content_retrieval' => 'Descarga de contenido',
+		'css_cookie' => 'Usar cookies al obtener el contenido del artículo',
+		'css_cookie_help' => 'Ejemplo: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Recibir fuentes RSS truncadas (aviso, ¡necesita más tiempo!)',
 		'css_path' => 'Ruta a la CSS de los artículos en la web original',
+		'css_path_filter' => array(
+			'_' => 'Selector CSS de los elementos a remover',
+			'help' => 'Un selector CSS puede ser una lista, por ejemplo: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
+		),
 		'description' => 'Descripción',
 		'empty' => 'La fuente está vacía. Por favor, verifica que siga activa.',
-		'error' => 'Hay un problema con esta fuente. Por favor, veritica que esté disponible y prueba de nuevo.',
-		'filteractions' => array(
-			'_' => 'Filter actions',	// TODO - Translation
-			'help' => 'Write one search filter per line.',	// TODO - Translation
+		'error' => 'Hay un problema con esta fuente. Por favor, verifica que esté disponible.',
+		'export-as-opml' => array(
+			'download' => 'Descargar',
+			'help' => 'archivo XML (conjunto de datos. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Ver la documentación</a>)',
+			'label' => 'Exportar como OPML',
 		),
+		'ext_favicon' => 'Establecer automáticamente',
+		'favicon_changed_by_ext' => 'El icono ha sido establecido por la extensión <b>%s</b>.',
+		'filteractions' => array(
+			'_' => 'Filtrar acciones',
+			'help' => 'Escribir un filtro de búsqueda por línea. Ver <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentación de operadores de búsqueda</a>.',
+			'view_filter' => 'Vista previa de filtros en artículos existentes (nueva ventana)',
+		),
+		'http_headers' => 'Cabeceras HTTP',
+		'http_headers_help' => 'Las cabeceras son separadas por un salto de línea, y el nombre y valor de una cabecera son separadas por dos puntos (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icono',
 		'information' => 'Información',
 		'keep_min' => 'Número mínimo de artículos a conservar',
+		'kind' => array(
+			'_' => 'Tipo de origen de la fuente',
+			'html_json' => array(
+				'_' => 'HTML + XPath + notación dot JSON (JSON en HTML)',
+				'xpath' => array(
+					'_' => 'XPath para JSON en HTML',
+					'help' => 'Ejemplo: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (un objecto JSON por artículo)',
+				),
+			),
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web scraping)',	// IGNORE
+				'feed_title' => array(
+					'_' => 'Título de la fuente',
+					'help' => 'Ejemplo: <code>//title</code> o un texto estático: <code>"Mi fuente personalizada"</code>',
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> es un lenguaje de consulta estándar para usuarios avanzados, el cual FreshRSS soporta para habilitar Web scraping',
+				'item' => array(
+					'_' => 'encontrando <strong>noticias</strong> <br /><small>(más importante)</small>',
+					'help' => 'Ejemplo: <code>//div[@class="elemento-noticias"]</code>',
+				),
+				'item_author' => array(
+					'_' => 'autor del elemento',
+					'help' => 'También puede ser un texto estático. Ejemplo: <code>"Anónimo"</code>',
+				),
+				'item_categories' => 'etiquetas del elemento',
+				'item_content' => array(
+					'_' => 'contenido del elemento',
+					'help' => 'Ejemplo para tomar el elemento completo: <code>.</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'miniatura del elemento',
+					'help' => 'Ejemplo: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Formato personalizado de fecha y hora',
+					'help' => 'Opcional. Un formato compatible con <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> como <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'fecha del elemento',
+					'help' => 'El resultado será analizado por <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => array(
+					'_' => 'título del elemento',
+					'help' => 'Usar <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">eje XPath</a> <code>descendant::</code> como <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => 'Identificador único del elemento',
+					'help' => 'Opcional. Ejemplo: <code>descendant::div/@data-uri</code>',
+				),
+				'item_uri' => array(
+					'_' => 'enlace del elemento (URL)',
+					'help' => 'Ejemplo: <code>descendant::a/@href</code>',
+				),
+				'relative' => 'XPath (relativo al elemento) para:',
+				'xpath' => 'XPath para:',
+			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (notación de punto)',
+				'feed_title' => array(
+					'_' => 'título de la fuente',
+					'help' => 'Ejemplo: <code>meta.title</code> o texto estático: <code>"Fuente personalizada"</code>',
+				),
+				'help' => 'Una notación de JSON anotada utiliza puntos entre objetos y corchetes para matrices (ejemplo: <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'buscando nuevos <strong>items</strong><br /><small>(más importante)</small>',
+					'help' => 'Ruta JSON a la matriz que contiene los elementos, ejemplo: <code>$</code> o <code>newsItems</code>',
+				),
+				'item_author' => 'autor del item',
+				'item_categories' => 'etiquetas del item',
+				'item_content' => array(
+					'_' => 'contenido del item',
+					'help' => 'Clave bajo la cual se encuentra el contenido, ejemplo: <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'miniatura del item',
+					'help' => 'Ejemplo: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'fecha/hora personalizada',
+					'help' => 'Opcional. Formato soportado por <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> como <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'fecha del item',
+					'help' => 'El resultado será analizado por <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'título del item',
+				'item_uid' => 'ID único del item',
+				'item_uri' => array(
+					'_' => 'enlace del item (URL)',
+					'help' => 'Ejemplo: <code>permalink</code>',
+				),
+				'json' => 'notación de punto por:',
+				'relative' => 'ruta de notación con puntos (relativa al elemento) para:',
+			),
+			'jsonfeed' => 'Fuente JSON',
+			'rss' => 'RSS / Atom (por defecto)',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
+		),
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO - Translation
-			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO - Translation
-			'reload_articles' => 'Reload articles',	// TODO - Translation
-			'reload_articles_help' => 'Reload articles and fetch complete content if a selector is defined.',	// TODO - Translation
-			'title' => 'Maintenance',	// TODO - Translation
+			'clear_cache' => 'Borrar caché',
+			'clear_cache_help' => 'Borrar la memoria caché de esta fuente.',
+			'reload_articles' => 'Recargar artículos',
+			'reload_articles_help' => 'Vuelve a cargar artículos y obtiene contenido completo si se define un selector.',
+			'title' => 'Mantenimiento',
 		),
+		'max_http_redir' => 'Máximas redirecciones HTTP',
+		'max_http_redir_help' => 'Escribir 0 o dejarlo en blanco para deshabilitar, -1 para redirecciones ilimitadas',
+		'method' => array(
+			'_' => 'HTTP Method',	// IGNORE
+		),
+		'method_help' => 'La carga útil del POST tiene soporte automático para <code>application/x-www-form-urlencoded</code> y <code>application/json</code>',
+		'method_postparams' => 'Carga útil para POST',
 		'moved_category_deleted' => 'Al borrar una categoría todas sus fuentes pasan automáticamente a la categoría <em>%s</em>.',
-		'mute' => 'mute',	// TODO - Translation
-		'no_selected' => 'No hay funentes seleccionadas.',
-		'number_entries' => '%d artículos',
-		'priority' => array(
-			'_' => 'Visibility',	// TODO - Translation
-			'archived' => 'Do not show (archived)',	// TODO - Translation
-			'main_stream' => 'Mostrar en salida principal',
-			'normal' => 'Show in its category',	// TODO - Translation
+		'mute' => array(
+			'_' => 'silenciar',
+			'state_is_muted' => 'Esta fuente está silenciada',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO - Translation
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO - Translation
+		'no_selected' => 'No hay fuentes seleccionadas.',
+		'number_entries' => '%d artículos',
+		'open_feed' => 'Fuente abierta %s',
+		'path_entries_conditions' => 'Condiciones para descarga de contenidos',
+		'priority' => array(
+			'_' => 'Visibilidad',
+			'category' => 'Mostrar en su categoría',
+			'feed' => 'Mostrar en su fuente',
+			'hidden' => 'No mostrar',
+			'important' => 'Mostrar en fuentes importantes',
+			'main_stream' => 'Mostrar en bandeja principal',
+		),
+		'proxy' => 'Establecer un proxy para obtener esta fuente',
+		'proxy_help' => 'Seleccione un protocolo (e.g: SOCKS5) e introduzca la dirección del proxy (e.g: <kbd>127.0.0.1:1080</kbd> o <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Restablecer a predeterminado',
 		'selector_preview' => array(
-			'show_raw' => 'Show source code',	// TODO - Translation
-			'show_rendered' => 'Show content',	// TODO - Translation
+			'show_raw' => 'Mostrar código fuente',
+			'show_rendered' => 'Mostrar contenido',
 		),
 		'show' => array(
-			'all' => 'Show all feeds',	// TODO - Translation
-			'error' => 'Show only feeds with errors',	// TODO - Translation
+			'all' => 'Mostrar todas las fuentes',
+			'error' => 'Mostrar solo fuentes con errores',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with errors',	// TODO - Translation
+			'error' => 'Mostrar solo fuentes con errores',
 		),
-		'ssl_verify' => 'Verify SSL security',	// TODO - Translation
+		'ssl_verify' => 'Verificar la seguridad SSL',
 		'stats' => 'Estadísticas',
 		'think_to_add' => 'Puedes añadir fuentes.',
-		'timeout' => 'Timeout in seconds',	// TODO - Translation
+		'timeout' => 'Tiempo de espera en segundos',
 		'title' => 'Título',
 		'title_add' => 'Añadir fuente RSS',
 		'ttl' => 'No actualizar de forma automática con una frecuencia mayor a',
+		'unicityCriteria' => array(
+			'_' => 'Criterio de único artículo',
+			'forced' => '<span title="Bloquea el criterio de unicidad, aún cuando la fuente tiene artículos duplicados">forced</span>',
+			'help' => 'Relevante para fuentes inválidas.<br />⚠️ Cambiar la política creara duplicados.',
+			'id' => 'ID Estándar (por defecto)',
+			'link' => 'Link',	// IGNORE
+			'sha1:content' => 'Contenido',
+			'sha1:content_published' => 'Contenido + Fecha',
+			'sha1:link_published' => 'Link + Fecha',
+			'sha1:link_published_title' => 'Link + Fecha + Título',
+			'sha1:link_published_title_content' => 'Link + Fecha + Título + Contenido',
+			'sha1:published' => 'Fecha',
+			'sha1:title' => 'Título',
+			'sha1:title_published' => 'Título + Fecha',
+			'sha1:title_published_content' => 'Título + Fecha + Contenido',
+		),
 		'url' => 'URL de la fuente',
-		'useragent' => 'Selecciona el agente de usario por recuperar la fuente',
+		'useragent' => 'Selecciona el agente de usuario por recuperar la fuente',
 		'useragent_help' => 'Ejemplo: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Verifica la validez de la fuente',
 		'website' => 'Web de la URL',
-		'websub' => 'Notificación inmedaiata con WebSub',
-	),
-	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',	// TODO - Translation
-		'obsolete_63' => 'From version 63 and onwards, Firefox has removed the ability to add your own subscription services that are not standalone programs.',	// TODO - Translation
-		'title' => 'Firefox feed reader',	// TODO - Translation
+		'websub' => 'Notificación inmediata con WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Exportar',
-		'export_labelled' => 'Export your labelled articles',	// TODO - Translation
+		'export' => array(
+			'_' => 'Exportar',
+			'sqlite' => 'Descargar base de datos de usuario en formato SQLite',
+		),
+		'export_labelled' => 'Exporta tus artículos etiquetados',
 		'export_opml' => 'Exportar la lista de fuentes (OPML)',
 		'export_starred' => 'Exportar tus favoritos',
 		'feed_list' => 'Lista de %s artículos',
@@ -113,28 +276,34 @@ return array(
 		'title' => 'Importar / exportar',
 	),
 	'menu' => array(
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'bookmark' => 'Suscribirse (favorito FreshRSS)',
+		'add' => 'Añadir una fuente o categoría',
 		'import_export' => 'Importar / exportar',
-		'label_management' => 'Label management',	// TODO - Translation
+		'label_management' => 'Gestión de etiquetas',
+		'stats' => array(
+			'idle' => 'Fuentes inactivas',
+			'main' => 'Estadísticas principales',
+			'repartition' => 'Reparto de artículos',
+			'unread_dates' => 'Fechas no leídas',
+		),
 		'subscription_management' => 'Administración de suscripciones',
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'subscription_tools' => 'Herramientas de suscripción',
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO - Translation
-		'new_name' => 'New name',	// TODO - Translation
-		'old_name' => 'Old name',	// TODO - Translation
+		'auto_label' => 'Añadir esta etiqueta a nuevos artículos',
+		'name' => 'Nombre',
+		'new_name' => 'Nuevo nombre',
+		'old_name' => 'Nombre antiguo',
 	),
 	'title' => array(
 		'_' => 'Administración de suscripciones',
-		'add' => 'Add a feed or category',	// TODO - Translation
-		'add_category' => 'Add a category',	// TODO - Translation
-		'add_feed' => 'Add a feed',	// TODO - Translation
-		'add_label' => 'Add a label',	// TODO - Translation
-		'delete_label' => 'Delete a label',	// TODO - Translation
+		'add' => 'Añadir una fuente o categoría',
+		'add_category' => 'Añadir una categoría',
+		'add_dynamic_opml' => 'Agrega un OPML dinámico',
+		'add_feed' => 'Añadir una fuente',
+		'add_label' => 'Añadir una etiqueta',
+		'add_opml_category' => 'Nombre de la categoría OPML',
+		'delete_label' => 'Eliminar una etiqueta',
 		'feed_management' => 'Administración de fuentes RSS',
-		'rename_label' => 'Rename a label',	// TODO - Translation
-		'subscription_tools' => 'Subscription tools',	// TODO - Translation
+		'subscription_tools' => 'Herramientas de suscripción',
 	),
 );

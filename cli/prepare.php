@@ -1,8 +1,9 @@
 #!/usr/bin/env php
 <?php
-require(__DIR__ . '/_cli.php');
+declare(strict_types=1);
+require __DIR__ . '/_cli.php';
 
-$dirs = array(
+$dirs = [
 	'/',
 	'/cache',
 	'/extensions-data',
@@ -11,10 +12,11 @@ $dirs = array(
 	'/PubSubHubbub',
 	'/PubSubHubbub/feeds',
 	'/PubSubHubbub/keys',
+	'/Retry-After',
 	'/tokens',
 	'/users',
 	'/users/_',
-);
+];
 
 $ok = true;
 
@@ -23,24 +25,12 @@ foreach ($dirs as $dir) {
 	$ok &= touch(DATA_PATH . $dir . '/index.html');
 }
 
-if (!is_file(DATA_PATH . '/config.php')) {
-	$ok &= touch(DATA_PATH . '/do-install.txt');
-}
+file_put_contents(DATA_PATH . '/.htaccess', <<<'EOF'
+Require all denied
 
-file_put_contents(DATA_PATH . '/.htaccess',
-"# Apache 2.2\n" .
-"<IfModule !mod_authz_core.c>\n" .
-"	Order	Allow,Deny\n" .
-"	Deny	from all\n" .
-"	Satisfy	all\n" .
-"</IfModule>\n" .
-"\n" .
-"# Apache 2.4\n" .
-"<IfModule mod_authz_core.c>\n" .
-"	Require all denied\n" .
-"</IfModule>\n"
+EOF
 );
 
 accessRights();
 
-done($ok);
+done((bool)$ok);

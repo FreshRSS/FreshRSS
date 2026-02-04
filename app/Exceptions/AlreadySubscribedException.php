@@ -1,14 +1,13 @@
 <?php
+declare(strict_types=1);
 
-class FreshRSS_AlreadySubscribed_Exception extends Exception {
-	private $feedName = '';
+class FreshRSS_AlreadySubscribed_Exception extends Minz_Exception {
 
-	public function __construct($url, $feedName) {
+	public function __construct(string $url, private readonly string $feedName) {
 		parent::__construct('Already subscribed! ' . $url, 2135);
-		$this->feedName = $feedName;
 	}
 
-	public function feedName() {
+	public function feedName(): string {
 		return $this->feedName;
 	}
 }

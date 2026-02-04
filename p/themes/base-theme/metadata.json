@@ -1,7 +1,8 @@
 {
-  "name": "",
-  "author": "Your name",
-  "description": "A wonderful base theme",
-  "version": 0.1,
-  "files": ["template.css", "base.css"]
+	"name": "",
+	"author": "Your name",
+	"description": "A wonderful base theme",
+	"version": 0.1,
+	"files": ["frss.css", "base.css"],
+	"theme-color": "#123456"
 }

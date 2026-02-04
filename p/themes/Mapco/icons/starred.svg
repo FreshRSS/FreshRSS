@@ -1,5 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="15" viewBox="0 0 16 15" version="1.1">
-<g id="surface2">
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(32.54902%,32.54902%,32.54902%);fill-opacity:1;" d="M 0 5.765625 L 6.097656 5.710938 L 7.964844 0 L 9.902344 5.691406 L 16 5.671875 L 11.097656 9.242188 L 13 14.941406 L 8.035156 11.457031 L 3.109375 15 L 4.945312 9.277344 Z M 0 5.765625 "/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15">
+  <path fill="#666" d="m0 5.766 6.098-.055L7.965 0l1.937 5.691L16 5.671l-4.902 3.571 1.902 5.7-4.965-3.485L3.11 15l1.836-5.723Zm0 0"/>
 </svg>

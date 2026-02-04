@@ -1,0 +1,152 @@
+<?php
+
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
+return array(
+	'action' => array(
+		'finish' => 'مراحل نصب به پایان رسید',
+		'fix_errors_before' => 'لطفاً تمام خطاها را قبل از رفتن به مرحله بعد برطرف کنید.',
+		'keep_install' => 'پیکربندی قبلی را حفظ کنید',
+		'next_step' => 'به مرحله بعد بروید',
+		'reinstall' => 'نصب مجدد FreshRSS',
+	),
+	'bdd' => array(
+		'_' => 'پایگاه داده',
+		'conf' => array(
+			'_' => 'پیکربندی پایگاه داده',
+			'ko' => 'یکربندی پایگاه داده خود را تأیید کنید.',
+			'ok' => 'تنظیمات پایگاه داده ذخیره شد.',
+		),
+		'host' => 'هاست',
+		'password' => 'رمز عبور پایگاه داده',
+		'prefix' => 'پیشوند جدول',
+		'type' => 'نوع پایگاه داده',
+		'username' => 'نام کاربری پایگاه داده',
+	),
+	'check' => array(
+		'_' => 'بررسی‌ها',
+		'already_installed' => 'ما تشخیص دادم FreshRSS قبلا نصب شده',
+		'cache' => array(
+			'nok' => 'بررسی مجوزها در <em>%1$s</em> دایرکتوری برای <em>%2$s</em> کاربر.سرور وب نیاز به دسترسی نوشتن دارد',
+			'ok' => 'مجوزهای موجود در فهرست حافظه پنهان خوب است.',
+		),
+		'ctype' => array(
+			'nok' => 'کتابخانه مورد نیاز برای بررسی نوع کاراکتر (php-ctype) را نمی‌توان پیدا کرد.',
+			'ok' => 'شما کتابخانه مورد نیاز برای بررسی نوع کاراکتر (ctype) را دارید.',
+		),
+		'curl' => array(
+			'nok' => 'کتابخانه cURL (بسته php-curl)را نمی‌تواند پیدا کند.',
+			'ok' => 'شما کتابخانه cURL را دارید.',
+		),
+		'data' => array(
+			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد.',
+			'ok' => 'مجوزهای مربوط به دایرکتوری داده خوب است.',
+		),
+		'dom' => array(
+			'nok' => 'کتابخانه مورد نیاز برای مرور DOM را نمی‌توان پیدا کرد.',
+			'ok' => 'شما کتابخانه مورد نیاز برای مرور DOM را دارید.',
+		),
+		'favicons' => array(
+			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد.',
+			'ok' => 'دسترسی‌ها به پوشه‌ی favicons خوب است.',
+		),
+		'fileinfo' => array(
+			'nok' => 'نمی‌توانم کتابخانه‌ی PHP fileinfo (بسته‌ی fileinfo) را پیدا کنم.',
+			'ok' => 'شما کتابخانه fileinfo را دارید.',
+		),
+		'files' => ' نصب فایل',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+		),
+		'json' => array(
+			'nok' => 'کتابخانه پیشنهادی برای تجزیه JSON پیدا نشد.',
+			'ok' => 'شما کتابخانه پیشنهادی برای تجزیه JSON را دارید.',
+		),
+		'mbstring' => array(
+			'nok' => 'کتابخانه ضروری mbstring جهت پشتیبانی از یونیکد پیدا نشد',
+			'ok' => 'کتابخانه توصیه شده mbstring برای یونیکد روی سیستم شما نصب است.',
+		),
+		'pcre' => array(
+			'nok' => 'کتابخانه مورد نیاز برای عبارات منظم (php-pcre) را نمی‌توان پیدا کرد',
+			'ok' => 'شما کتابخانه مورد نیاز برای عبارات منظم (PCRE) را دارید.',
+		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+		),
+		'pdo' => array(
+			'nok' => 'نمی‌توان PDO یا یکی از درایورهای پشتیبانی‌شده (pdo_mysql، pdo_sqlite، pdo_pgsql) را پیدا کرد.',
+			'ok' => 'شما PDO و حداقل یکی از درایورهای پشتیبانی شده (pdo_mysql، pdo_sqlite، pdo_pgsql) را دارید.',
+		),
+		'php' => array(
+			'_' => ' نصب پی اچ پی',
+			'nok' => ' نسخه PHP شما %s است اما FreshRSS حداقل به نسخه %s نیاز دارد.',
+			'ok' => ' نسخه PHP شما (%s) با FreshRSS سازگار است.',
+		),
+		'reload' => 'دوباره بررسی کنید',
+		'tmp' => array(
+			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور HTTP باید مجوزهای نوشتن داشته باشد.',
+			'ok' => 'مجوزهای مربوط به دایرکتوری موقت خوب است.',
+		),
+		'tokens' => array(
+			'nok' => ' مجوزهای دایرکتوری <em>./data/tokens</em> را بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد',
+			'ok' => ' مجوزهای دایرکتوری توکن ها خوب است.',
+		),
+		'unknown_process_username' => 'ناشناخته',
+		'users' => array(
+			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور HTTP باید مجوزهای نوشتن داشته باشد.',
+			'ok' => 'مجوزهای مربوط به دایرکتوری کاربران خوب است.',
+		),
+		'xml' => array(
+			'nok' => 'کتابخانه مورد نیاز برای تجزیه XML پیدا نمی‌شود.',
+			'ok' => 'شما کتابخانه مورد نیاز برای تجزیه XML را دارید.',
+		),
+		'zip' => array(
+			'nok' => ' نمی توان پسوند ZIP (بسته php-zip) را پیدا کرد.',
+			'ok' => ' شما پسوند ZIP را دارید.',
+		),
+	),
+	'conf' => array(
+		'_' => 'پیکربندی عمومی',
+		'ok' => 'پیکربندی عمومی ذخیره شده است.',
+	),
+	'congratulations' => 'تبریک می‌گویم!',
+	'default_user' => array(
+		'_' => 'نام کاربری کاربر پیش‌فرض',
+		'max_char' => 'حداکثر ۱۶ کاراکتر الفبایی-عددی',
+	),
+	'fix_errors_before' => 'لطفا قبل از رفتن به مرحله بعدی، خطاها را برطرف کنید.',
+	'javascript_is_better' => 'FreshRSS با فعال بودن جاوا اسکریپت، کار امد تر است.',
+	'js' => array(
+		'confirm_reinstall' => 'با نصب مجدد FreshRSS، تنظیمات قبلی خود را از دست خواهید داد. آیا مطمئن هستید که می‌خواهید ادامه دهید؟',
+	),
+	'language' => array(
+		'_' => 'زبان',
+		'choose' => 'یک زبان برای FreshRSS انتخاب کنید',
+		'defined' => 'زبان تعریف شده است.',
+	),
+	'missing_applied_migrations' => 'مشکلی پیش آمده است؛ شما باید یک فایل خالی <em>%s</em> به صورت دستی ایجاد کنید.',
+	'ok' => 'مراحل نصب با موفقیت انجام شد.',
+	'session' => array(
+		'nok' => 'به نظر می‌رسد وب سرور برای کوکی‌های مورد نیاز برای جلسات PHP به طور نادرست پیکربندی شده است!',
+	),
+	'step' => 'مرحله %d',
+	'steps' => 'مراحل',
+	'this_is_the_end' => 'پایان',
+	'title' => 'نصب · FreshRSS',
+);

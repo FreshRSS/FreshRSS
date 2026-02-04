@@ -1,225 +1,219 @@
 <?php
+declare(strict_types=1);
+
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of UserQueryTest
  */
-class UserQueryTest extends PHPUnit\Framework\TestCase {
+class UserQueryTest extends TestCase {
 
-	public function test__construct_whenAllQuery_storesAllParameters() {
-		$query = array('get' => 'a');
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertEquals('all', $user_query->getGetName());
-		$this->assertEquals('all', $user_query->getGetType());
+	public static function test__construct_whenAllQuery_storesAllParameters(): void {
+		$query = ['get' => 'a'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame('all', $user_query->getGetType());
 	}
 
-	public function test__construct_whenFavoriteQuery_storesFavoriteParameters() {
-		$query = array('get' => 's');
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertEquals('favorite', $user_query->getGetName());
-		$this->assertEquals('favorite', $user_query->getGetType());
+	public static function test__construct_whenFavoriteQuery_storesFavoriteParameters(): void {
+		$query = ['get' => 's'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame('favorite', $user_query->getGetType());
 	}
 
-	public function test__construct_whenCategoryQueryAndNoDao_throwsException() {
-		$this->expectException(FreshRSS_DAO_Exception::class);
-		$this->expectExceptionMessage('Category DAO is not loaded in UserQuery');
-
-		$query = array('get' => 'c_1');
-		new FreshRSS_UserQuery($query);
-	}
-
-	public function test__construct_whenCategoryQuery_storesCategoryParameters() {
+	public function test__construct_whenCategoryQuery_storesCategoryParameters(): void {
 		$category_name = 'some category name';
-		$cat = $this->createMock('FreshRSS_Category');
-		$cat->expects($this->atLeastOnce())
+		/** @var FreshRSS_Category&PHPUnit\Framework\MockObject\MockObject */
+		$cat = $this->createMock(FreshRSS_Category::class);
+		$cat->method('id')->withAnyParameters()->willReturn(1);
+		$cat->expects(self::atLeastOnce())
 			->method('name')
 			->withAnyParameters()
 			->willReturn($category_name);
-		$cat_dao = $this->createMock('FreshRSS_Searchable');
-		$cat_dao->expects($this->atLeastOnce())
-			->method('searchById')
-			->withAnyParameters()
-			->willReturn($cat);
-		$query = array('get' => 'c_1');
-		$user_query = new FreshRSS_UserQuery($query, null, $cat_dao);
-		$this->assertEquals($category_name, $user_query->getGetName());
-		$this->assertEquals('category', $user_query->getGetType());
+		$query = ['get' => 'c_1'];
+		$user_query = new FreshRSS_UserQuery($query, [$cat], []);
+		self::assertSame($category_name, $user_query->getGetName());
+		self::assertSame('category', $user_query->getGetType());
 	}
 
-	public function test__construct_whenFeedQueryAndNoDao_throwsException() {
-		$this->expectException(FreshRSS_DAO_Exception::class);
-		$this->expectExceptionMessage('Feed DAO is not loaded in UserQuery');
-
-		$query = array('get' => 'f_1');
-		new FreshRSS_UserQuery($query);
-	}
-
-	public function test__construct_whenFeedQuery_storesFeedParameters() {
+	public function test__construct_whenFeedQuery_storesFeedParameters(): void {
 		$feed_name = 'some feed name';
-		$feed = $this->createMock('FreshRSS_Feed', array(), array('', false));
-		$feed->expects($this->atLeastOnce())
+		/** @var FreshRSS_Feed&PHPUnit\Framework\MockObject\MockObject */
+		$feed = $this->createMock(FreshRSS_Feed::class);
+		$feed->expects(self::atLeastOnce())
+			->method('id')
+			->withAnyParameters()
+			->willReturn(1);
+		$feed->expects(self::atLeastOnce())
 			->method('name')
 			->withAnyParameters()
 			->willReturn($feed_name);
-		$feed_dao = $this->createMock('FreshRSS_Searchable');
-		$feed_dao->expects($this->atLeastOnce())
-			->method('searchById')
+		/** @var FreshRSS_Category&PHPUnit\Framework\MockObject\MockObject */
+		$cat = $this->createMock(FreshRSS_Category::class);
+		$cat->method('id')->withAnyParameters()->willReturn(1);
+		$cat->expects(self::atLeastOnce())
+			->method('feeds')
 			->withAnyParameters()
-			->willReturn($feed);
-		$query = array('get' => 'f_1');
-		$user_query = new FreshRSS_UserQuery($query, $feed_dao, null);
-		$this->assertEquals($feed_name, $user_query->getGetName());
-		$this->assertEquals('feed', $user_query->getGetType());
+			->willReturn([1 => $feed]);
+		$query = ['get' => 'f_1'];
+		$user_query = new FreshRSS_UserQuery($query, [$cat], []);
+		self::assertSame($feed_name, $user_query->getGetName());
+		self::assertSame('feed', $user_query->getGetType());
 	}
 
-	public function test__construct_whenUnknownQuery_doesStoreParameters() {
-		$query = array('get' => 'q');
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertNull($user_query->getGetName());
-		$this->assertNull($user_query->getGetType());
+	public static function test__construct_whenUnknownQuery_doesStoreParameters(): void {
+		$query = ['get' => 'q'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertEmpty($user_query->getGetName());
+		self::assertEmpty($user_query->getGetType());
 	}
 
-	public function test__construct_whenName_storesName() {
+	public static function test__construct_whenName_storesName(): void {
 		$name = 'some name';
-		$query = array('name' => $name);
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertEquals($name, $user_query->getName());
+		$query = ['name' => $name];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame($name, $user_query->getName());
 	}
 
-	public function test__construct_whenOrder_storesOrder() {
+	public static function test__construct_whenOrder_storesOrder(): void {
 		$order = 'some order';
-		$query = array('order' => $order);
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertEquals($order, $user_query->getOrder());
+		$query = ['order' => $order];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame($order, $user_query->getOrder());
 	}
 
-	public function test__construct_whenState_storesState() {
-		$state = 'some state';
-		$query = array('state' => $state);
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertEquals($state, $user_query->getState());
+	public static function test__construct_whenState_storesState(): void {
+		$state = FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_FAVORITE;
+		$query = ['state' => $state];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame($state, $user_query->getState());
 	}
 
-	public function test__construct_whenUrl_storesUrl() {
+	public static function test__construct_whenUrl_storesUrl(): void {
 		$url = 'some url';
-		$query = array('url' => $url);
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertEquals($url, $user_query->getUrl());
+		$query = ['url' => $url];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame($url, $user_query->getUrl());
 	}
 
-	public function testToArray_whenNoData_returnsEmptyArray() {
-		$user_query = new FreshRSS_UserQuery(array());
-		$this->assertIsIterable($user_query->toArray());
-		$this->assertCount(0, $user_query->toArray());
+	public static function testToArray_whenNoData_returnsEmptyArray(): void {
+		$user_query = new FreshRSS_UserQuery([], [], []);
+		self::assertCount(0, $user_query->toArray());
 	}
 
-	public function testToArray_whenData_returnsArray() {
-		$query = array(
+	public static function testToArray_whenData_returnsArray(): void {
+		$query = [
 			'get' => 's',
 			'name' => 'some name',
 			'order' => 'some order',
 			'search' => 'some search',
-			'state' => 'some state',
+			'state' => FreshRSS_Entry::STATE_ALL,
 			'url' => 'some url',
-		);
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertIsIterable($user_query->toArray());
-		$this->assertCount(6, $user_query->toArray());
-		$this->assertEquals($query, $user_query->toArray());
+		];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertCount(6, $user_query->toArray());
+		self::assertSame($query, $user_query->toArray());
 	}
 
-	public function testHasSearch_whenSearch_returnsTrue() {
-		$query = array(
-			'search' => 'some search',
-		);
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertTrue($user_query->hasSearch());
+	public static function testHasSearch_whenSearch_returnsTrue(): void {
+		$query = ['search' => 'some search'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertTrue($user_query->hasSearch());
 	}
 
-	public function testHasSearch_whenNoSearch_returnsFalse() {
-		$user_query = new FreshRSS_UserQuery(array());
-		$this->assertFalse($user_query->hasSearch());
+	public static function testHasSearch_whenNoSearch_returnsFalse(): void {
+		$user_query = new FreshRSS_UserQuery([], [], []);
+		self::assertFalse($user_query->hasSearch());
 	}
 
-	public function testHasParameters_whenAllQuery_returnsFalse() {
-		$query = array('get' => 'a');
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertFalse($user_query->hasParameters());
+	public static function testHasParameters_whenAllQuery_returnsFalse(): void {
+		$query = ['get' => 'a'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertFalse($user_query->hasParameters());
 	}
 
-	public function testHasParameters_whenNoParameter_returnsFalse() {
-		$query = array();
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertFalse($user_query->hasParameters());
+	public static function testHasParameters_whenNoParameter_returnsFalse(): void {
+		$query = [];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertFalse($user_query->hasParameters());
 	}
 
-	public function testHasParameters_whenParameter_returnTrue() {
-		$query = array('get' => 's');
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertTrue($user_query->hasParameters());
+	public static function testHasParameters_whenParameter_returnTrue(): void {
+		$query = ['get' => 's'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertTrue($user_query->hasParameters());
 	}
 
-	public function testIsDeprecated_whenCategoryExists_returnFalse() {
-		$cat = $this->createMock('FreshRSS_Category');
-		$cat_dao = $this->createMock('FreshRSS_Searchable');
-		$cat_dao->expects($this->atLeastOnce())
-			->method('searchById')
+	public function testIsDeprecated_whenCategoryExists_returnFalse(): void {
+		/** @var FreshRSS_Category&PHPUnit\Framework\MockObject\MockObject */
+		$cat = $this->createMock(FreshRSS_Category::class);
+		$cat->method('id')->withAnyParameters()->willReturn(1);
+		$cat->expects(self::atLeastOnce())
+			->method('name')
 			->withAnyParameters()
-			->willReturn($cat);
-		$query = array('get' => 'c_1');
-		$user_query = new FreshRSS_UserQuery($query, null, $cat_dao);
-		$this->assertFalse($user_query->isDeprecated());
+			->willReturn('cat 1');
+		$query = ['get' => 'c_1'];
+		$user_query = new FreshRSS_UserQuery($query, [$cat], []);
+		self::assertFalse($user_query->isDeprecated());
 	}
 
-	public function testIsDeprecated_whenCategoryDoesNotExist_returnTrue() {
-		$cat_dao = $this->createMock('FreshRSS_Searchable');
-		$cat_dao->expects($this->atLeastOnce())
-			->method('searchById')
+	public static function testIsDeprecated_whenCategoryDoesNotExist_returnTrue(): void {
+		$query = ['get' => 'c_1'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertTrue($user_query->isDeprecated());
+	}
+
+	public function testIsDeprecated_whenFeedExists_returnFalse(): void {
+		/** @var FreshRSS_Feed&PHPUnit\Framework\MockObject\MockObject */
+		$feed = $this->createMock(FreshRSS_Feed::class);
+		$feed->expects(self::atLeastOnce())
+			->method('id')
 			->withAnyParameters()
-			->willReturn(null);
-		$query = array('get' => 'c_1');
-		$user_query = new FreshRSS_UserQuery($query, null, $cat_dao);
-		$this->assertTrue($user_query->isDeprecated());
-	}
-
-	public function testIsDeprecated_whenFeedExists_returnFalse() {
-		$feed = $this->createMock('FreshRSS_Feed', array(), array('', false));
-		$feed_dao = $this->createMock('FreshRSS_Searchable');
-		$feed_dao->expects($this->atLeastOnce())
-			->method('searchById')
+			->willReturn(1);
+		$feed->expects(self::atLeastOnce())
+			->method('name')
 			->withAnyParameters()
-			->willReturn($feed);
-		$query = array('get' => 'f_1');
-		$user_query = new FreshRSS_UserQuery($query, $feed_dao, null);
-		$this->assertFalse($user_query->isDeprecated());
-	}
-
-	public function testIsDeprecated_whenFeedDoesNotExist_returnTrue() {
-		$feed_dao = $this->createMock('FreshRSS_Searchable');
-		$feed_dao->expects($this->atLeastOnce())
-			->method('searchById')
+			->willReturn('feed 1');
+		/** @var FreshRSS_Category&PHPUnit\Framework\MockObject\MockObject */
+		$cat = $this->createMock(FreshRSS_Category::class);
+		$cat->method('id')->withAnyParameters()->willReturn(1);
+		$cat->expects(self::atLeastOnce())
+			->method('feeds')
 			->withAnyParameters()
-			->willReturn(null);
-		$query = array('get' => 'f_1');
-		$user_query = new FreshRSS_UserQuery($query, $feed_dao, null);
-		$this->assertTrue($user_query->isDeprecated());
+			->willReturn([1 => $feed]);
+		$query = ['get' => 'f_1'];
+		$user_query = new FreshRSS_UserQuery($query, [$cat], []);
+		self::assertFalse($user_query->isDeprecated());
 	}
 
-	public function testIsDeprecated_whenAllQuery_returnFalse() {
-		$query = array('get' => 'a');
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertFalse($user_query->isDeprecated());
+	public function testIsDeprecated_whenFeedDoesNotExist_returnTrue(): void {
+		/** @var FreshRSS_Category&PHPUnit\Framework\MockObject\MockObject */
+		$cat = $this->createMock(FreshRSS_Category::class);
+		$cat->method('id')->withAnyParameters()->willReturn(1);
+		$cat->expects(self::atLeastOnce())
+			->method('feeds')
+			->withAnyParameters()
+			->willReturn([]);
+		$query = ['get' => 'f_1'];
+		$user_query = new FreshRSS_UserQuery($query, [$cat], []);
+		self::assertTrue($user_query->isDeprecated());
 	}
 
-	public function testIsDeprecated_whenFavoriteQuery_returnFalse() {
-		$query = array('get' => 's');
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertFalse($user_query->isDeprecated());
+	public static function testIsDeprecated_whenAllQuery_returnFalse(): void {
+		$query = ['get' => 'a'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertFalse($user_query->isDeprecated());
 	}
 
-	public function testIsDeprecated_whenUnknownQuery_returnFalse() {
-		$query = array('get' => 'q');
-		$user_query = new FreshRSS_UserQuery($query);
-		$this->assertFalse($user_query->isDeprecated());
+	public static function testIsDeprecated_whenFavoriteQuery_returnFalse(): void {
+		$query = ['get' => 's'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertFalse($user_query->isDeprecated());
+	}
+
+	public static function testIsDeprecated_whenUnknownQuery_returnFalse(): void {
+		$query = ['get' => 'q'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertFalse($user_query->isDeprecated());
 	}
 
 }
