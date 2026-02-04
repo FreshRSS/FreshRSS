@@ -1521,7 +1521,7 @@ SQL;
 			//TODO: shuf should be a type of sort
 		};
 		$content = static::isCompressed() ? 'UNCOMPRESS(e0.content_bin) AS content' : 'e0.content';
-		$shuffleKeyExpression = ($order === 'SHUF' ? ' shuffleOrderKey, ' : ' ' )
+		$shuffleKeyExpression = ($order === 'SHUF' ? ' shuffleOrderKey, ' : ' ' );
 		$hash = static::sqlHexEncode('e0.hash');
 		$sql = <<<SQL
 SELECT e0.id, e0.guid, e0.title, e0.author, {$shuffleKeyExpression} {$content}, e0.link,
