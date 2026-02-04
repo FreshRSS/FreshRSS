@@ -795,7 +795,7 @@ SQL;
 	public function selectAll(string $order = 'ASC', int $limit = -1, int $offset = 0): Traversable {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
-		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'ASC';
+		$order = in_array($order, ['ASC', 'DESC', 'SHUF'], true) ? $order : 'ASC';
 		$sqlLimit = static::sqlLimit($limit, $offset);
 		$sql = <<<SQL
 SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
@@ -1450,7 +1450,7 @@ SQL;
 				throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
 		}
 
-		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
+		$order = in_array($order, ['ASC', 'DESC', 'SHUF'], true) ? $order : 'DESC';
 		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 		$orderBy = match ($sort) {
 			'c.name' => 'c.name',
@@ -1505,7 +1505,7 @@ SQL;
 	private function listWhereRaw(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
 		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): PDOStatement|false {
-		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
+		$order = in_array($order, ['ASC', 'DESC', 'SHUF'], true) ? $order : 'DESC';
 		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 
 		[$values, $sql, $outerSearch] = $this->sqlListWhere($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
@@ -1610,7 +1610,7 @@ SQL;
 			}
 			return;
 		}
-		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
+		$order = in_array($order, ['ASC', 'DESC', 'SHUF'], true) ? $order : 'DESC';
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
 		$repeats = str_repeat('?,', count($ids) - 1) . '?';

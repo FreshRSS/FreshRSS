@@ -148,7 +148,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->reading_confirm = Minz_Request::paramBoolean('reading_confirm');
 			FreshRSS_Context::userConf()->auto_remove_article = Minz_Request::paramBoolean('auto_remove_article');
 			FreshRSS_Context::userConf()->mark_updated_article_unread = Minz_Request::paramBoolean('mark_updated_article_unread');
-			if (in_array(Minz_Request::paramString('sort_order'), ['ASC', 'DESC'], true)) {
+			if (in_array(Minz_Request::paramString('sort_order'), ['ASC', 'DESC', 'SHUF'], true)) {
 				FreshRSS_Context::userConf()->sort_order = Minz_Request::paramString('sort_order');
 			} else {
 				FreshRSS_Context::userConf()->sort_order = 'DESC';
