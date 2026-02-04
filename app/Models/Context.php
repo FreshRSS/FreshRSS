@@ -40,7 +40,7 @@ final class FreshRSS_Context {
 
 	public static string $next_get = 'a';
 	public static int $state = 0;
-	/** @var 'ASC'|'DESC' */
+	/** @var 'ASC'|'DESC'|'SHUF' */
 	public static string $order = 'DESC';
 	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' */
 	public static string $sort = 'id';
@@ -259,7 +259,7 @@ final class FreshRSS_Context {
 
 		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true));
 		$order = Minz_Request::paramString('order', plaintext: true) ?: FreshRSS_Context::userConf()->sort_order;
-		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
+		self::$order = in_array($order, ['ASC', 'DESC', 'SHUF'], true) ? $order : 'DESC';
 		$sort = Minz_Request::paramString('sort', plaintext: true) ?: FreshRSS_Context::userConf()->sort;
 		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
