@@ -1333,7 +1333,7 @@ SQL;
 		if ($continuation_id !== '0' && $sort === 'id' && $order === 'SHUF') {
 			/* the window function condition must happen outside the subquery */
 			/* no logic here for prepending AND */
-			$outerSearch .= ' shuffleOrderKey >= ? '; // used to be shuffleOrderKey
+			$outerSearch .= ' shuffleOrderKey > ? '; // used to be shuffleOrderKey
 			$outerValues[] = $id_max === '0' ? $continuation_id : min($id_max, $continuation_id);
 			//TODO: make SHUF behave as a case for $order and use $continuation_id as appropriate.
 			//NOTE: shuffleOrderKey and continuation_id may serve a similar purpose

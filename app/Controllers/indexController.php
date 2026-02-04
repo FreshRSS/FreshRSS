@@ -182,7 +182,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				//We have enough entries: we discard the last one to use it for the next articles' page
 				ob_clean();
 				if (FreshRSS_Context::$order === 'SHUF') {
-					FreshRSS_Context::$continuation_id = $lastEntry->shuffleOrderKey();
+					FreshRSS_Context::$continuation_id = (string)$lastEntry->shuffleOrderKey();
 				} else {
 					FreshRSS_Context::$continuation_id = $lastEntry->id();
 				}

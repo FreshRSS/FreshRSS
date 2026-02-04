@@ -92,7 +92,8 @@ class FreshRSS_Entry extends Minz_Model {
 			$dao['date'] ?? 0,
 			$dao['is_read'] ?? false,
 			$dao['is_favorite'] ?? false,
-			$dao['tags'] ?? ''
+			$dao['tags'] ?? '',
+			$dao['shuffleOrderKey'] ?? ''
 		);
 		if (!empty($dao['id']) && is_numeric($dao['id'])) {
 			$entry->_id($dao['id']);
