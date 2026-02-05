@@ -1284,6 +1284,7 @@ SQL;
 		$outerValues = array();
 		$outerSearch = ' ';
 		if($order === 'SHUF'){
+			$origAlias = $alias;
 			$alias = 'e0.'; //TODO: this ruins generality of this function
 		}
 		if ($state & FreshRSS_Entry::STATE_ANDS) {
@@ -1316,6 +1317,7 @@ SQL;
 			}
 		}
 
+		$alias = $origAlias;
 		if($order !== 'SHUF'){
 			$search .= $outerSearch;
 		}
