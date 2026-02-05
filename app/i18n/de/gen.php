@@ -226,13 +226,13 @@ return array(
 		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
 		'authors' => 'Authoren',
 		'categories' => 'Kategorien',
-		'content' => 'Inhalt',	
+		'content' => 'Inhalt',
 		'date_from' => 'Ab',
 		'date_past' => 'In der Vergangenheit',
 		'date_published' => 'Veröffentlichungsdatum',
 		'date_range' => 'Zeitraum',
 		'date_received' => 'Empfangen am',
-		'date_to' => 'Bis',	
+		'date_to' => 'Bis',
 		'date_user' => 'User Modification Date',	// TODO
 		'feeds' => 'Feeds',	// IGNORE
 		'free_text' => 'Freitext',

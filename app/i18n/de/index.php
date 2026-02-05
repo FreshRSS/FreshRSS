@@ -43,7 +43,7 @@ return array(
 			'yesterday' => 'Published yesterday',	// TODO
 		),
 		'received' => array(
-			'_' => 'Empfangen',	
+			'_' => 'Empfangen',
 			'today' => 'Heute empfangen',
 			'yesterday' => 'Gestern empfangen',
 		),
@@ -92,7 +92,7 @@ return array(
 			),
 			'date_asc' => 'Veröffentlichungsdatum 1→9',
 			'date_desc' => 'Veröffentlichungsdatum 9→1',
-			'desc' => 'Absteigend',	
+			'desc' => 'Absteigend',
 			'f' => array(
 				'name_asc' => 'Feed-Titel A→Z',
 				'name_desc' => 'Feed-Titel Z→A',

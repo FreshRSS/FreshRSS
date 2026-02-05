@@ -49,7 +49,7 @@ return array(
 		'all_feeds' => 'Alle Feeds',
 		'category' => 'Kategorie',
 		'date_published' => 'Veröffentlicht am',
-		'date_received' => 'Erhalten am',	
+		'date_received' => 'Erhalten am',
 		'entry_count' => 'Anzahl der Einträge',
 		'entry_per_category' => 'Einträge pro Kategorie',
 		'entry_per_day' => 'Einträge pro Tag (letzten 30 Tage)',
@@ -74,7 +74,7 @@ return array(
 		'status_unread' => 'Ungelesen',
 		'title' => 'Statistiken',
 		'top_feed' => 'Top 10-Feeds',
-		'unread_dates' => 'Datum mit den meisten ungelesenen Artikeln',	
+		'unread_dates' => 'Datum mit den meisten ungelesenen Artikeln',
 	),
 	'system' => array(
 		'_' => 'Systemeinstellungen',
@@ -83,12 +83,12 @@ return array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => 'Automatische Empfehlung: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Nachricht bei geschlossener Registrierung',	
+		'closed_registration_message' => 'Nachricht bei geschlossener Registrierung',
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
 			'number' => 'Eingeloggt bleiben für',
 		),
-		'default_closed_registration_message' => 'Dieser Server akzeptiert momentan keine neuen Registrierungen.',	
+		'default_closed_registration_message' => 'Dieser Server akzeptiert momentan keine neuen Registrierungen.',
 		'force_email_validation' => 'E-Mail Adressvalidierung erzwingen',
 		'instance-name' => 'Bezeichnung',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
