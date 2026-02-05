@@ -231,6 +231,9 @@
 		} else if (FreshRSS_Context::$order === 'SHUF') {
 			$icon = 'shuffle';
 			$title = _t('index.menu.sort.shuffle');
+		} else if (FreshRSS_Context::$sort === 'rand'){
+			$icon = 'dice-solid';
+			$title = _t('index.menu.sort.rand');
 		} else {
 			$icon = 'sort-down';
 			$title = _t('index.menu.newer_first');
@@ -262,7 +265,7 @@
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'c.name' ? 'true' : 'false' ?>">
 					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'c.name', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.c.name_desc') ?></a></li>
 				<li class="item separator" role="radio" aria-checked="<?= FreshRSS_Context::$sort === 'rand' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'rand', 'order' => null]]) ?>"><?= _t('index.menu.sort.rand') ?></a></li>
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'rand', 'order' => null]]) ?>"><?= _t('index.menu.sort.rand') ?> <?php echo _i('dice-solid'); ?> </a></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'SHUF' ? 'true' : 'false' ?>">
 					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'id', 'order' => 'SHUF']]) ?>"><?= _t('index.menu.sort.shuffle') ?> <?php echo _i('shuffle'); ?> </a></li>
 				<li class="item separator" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'id' ? 'true' : 'false' ?>">

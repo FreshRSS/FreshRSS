@@ -152,6 +152,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'view-reader' => '📜',
 			'warning' => '⚠️',	//△
 			'shuffle' => '🔀',
+			'dice-solid' => '🎲',
 		];
 		return $alts[$name] ?? '';
 	}
