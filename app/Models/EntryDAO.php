@@ -1283,8 +1283,8 @@ SQL;
 		$values = [];
 		$outerValues = array();
 		$outerSearch = ' ';
+		$origAlias = $alias;
 		if($order === 'SHUF'){
-			$origAlias = $alias;
 			$alias = 'e0.'; //TODO: this ruins generality of this function
 		}
 		if ($state & FreshRSS_Entry::STATE_ANDS) {
