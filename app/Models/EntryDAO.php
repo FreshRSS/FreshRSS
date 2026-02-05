@@ -1283,34 +1283,41 @@ SQL;
 		$values = [];
 		$outerValues = array();
 		$outerSearch = ' ';
+		if($order === 'SHUF'){
+			$alias = 'e0.'; //TODO: this ruins generality of this function
+		}
 		if ($state & FreshRSS_Entry::STATE_ANDS) {
 			if ($state & FreshRSS_Entry::STATE_NOT_READ) {
 				if (!($state & FreshRSS_Entry::STATE_READ)) {
-					$search .= 'AND (' . $alias . 'is_read=0) ';
+					$outerSearch .= 'AND (' . $alias . 'is_read=0) ';
 				}
 			} elseif ($state & FreshRSS_Entry::STATE_READ) {
-				$search .= 'AND (' . $alias . 'is_read=1) ';
+				$outerSearch .= 'AND (' . $alias . 'is_read=1) ';
 			}
 			if ($state & FreshRSS_Entry::STATE_FAVORITE) {
 				if (!($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) {
-					$search .= 'AND (' . $alias . 'is_favorite=1) ';
+					$outerSearch .= 'AND (' . $alias . 'is_favorite=1) ';
 				}
 			} elseif ($state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
-				$search .= 'AND (' . $alias . 'is_favorite=0) ';
+				$outerSearch .= 'AND (' . $alias . 'is_favorite=0) ';
 			}
 		}
 		if ($state & FreshRSS_Entry::STATE_ORS) {
 			if (trim($search) === '') {
-				$search = 'AND (1=0) ';
+				$outerSearch = 'AND (1=0) ';
 			}
 			if ($state & FreshRSS_Entry::STATE_OR_NOT_READ) {
-				$search = rtrim($search, ') ');
-				$search .= ' OR ' . $alias . 'is_read=0) ';
+				$outerSearch = rtrim($outerSearch, ') ');
+				$outerSearch .= ' OR ' . $alias . 'is_read=0) ';
 			}
 			if ($state & FreshRSS_Entry::STATE_OR_FAVORITE) {
-				$search = rtrim($search, ') ');
-				$search .= ' OR ' . $alias . 'is_favorite=1) ';
+				$outerSearch = rtrim($outerSearch, ') ');
+				$outerSearch .= ' OR ' . $alias . 'is_favorite=1) ';
 			}
+		}
+
+		if($order !== 'SHUF'){
+			$search .= $outerSearch;
 		}
 
 		if (!ctype_digit($id_min)) {
@@ -1330,22 +1337,24 @@ SQL;
 				$id_max = $id_max === '0' ? $continuation_id : min($id_max, $continuation_id);
 			}
 		}
-		if ($continuation_id !== '0' && $sort === 'id' && $order === 'SHUF') {
-			/* the window function condition must happen outside the subquery */
-			/* no logic here for prepending AND */
-			$outerSearch .= ' shuffleOrderKey > ? '; // used to be shuffleOrderKey
-			$outerValues[] = $id_max === '0' ? $continuation_id : min($id_max, $continuation_id);
-			//TODO: make SHUF behave as a case for $order and use $continuation_id as appropriate.
-			//NOTE: shuffleOrderKey and continuation_id may serve a similar purpose
-		}
-
-		if ($id_max !== '0') {
-			$search .= 'AND ' . $alias . 'id <= ? ';
-			$values[] = $id_max;
-		}
-		if ($id_min !== '0') {
-			$search .= 'AND ' . $alias . 'id >= ? ';
-			$values[] = $id_min;
+		if($order === 'SHUF'){
+			if ($continuation_id !== '0' && $sort === 'id') {
+				/* the window function condition must happen outside the subquery */
+				/* no logic here for prepending AND */
+				$outerSearch .= 'AND shuffleOrderKey > ? '; // used to be shuffleOrderKey
+				$outerValues[] = $id_max === '0' ? $continuation_id : min($id_max, $continuation_id);
+				//TODO: make SHUF behave as a case for $order and use $continuation_id as appropriate.
+				//NOTE: shuffleOrderKey and continuation_id may serve a similar purpose
+			}
+		} else {
+			if ($id_max !== '0') {
+				$search .= 'AND ' . $alias . 'id <= ? ';
+				$values[] = $id_max;
+			}
+			if ($id_min !== '0') {
+				$search .= 'AND ' . $alias . 'id >= ? ';
+				$values[] = $id_min;
+			}
 		}
 
 		if ($continuation_id !== '0' && in_array($sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified', 'length'], true)) {
@@ -1486,7 +1495,7 @@ SQL;
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Secondary sort
 			. ($sort === 'id' ? '' : ', e.id ' . $order)	// For keyset pagination
 			. ($order !== 'SHUF' ? ($limit > 0 ? ' LIMIT ' . $limit : ''). ($offset > 0 ? ' OFFSET ' . $offset : '') : ' '), // Limit can't work with SHUF's ranking.
-			$outerSearch 
+			' 1=1 ' . $outerSearch 
 		];
 		//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
@@ -1549,6 +1558,7 @@ SQL;
 				$sql .= ', e0.id ' . $order;
 			}
 		}
+		Minz_Log::debug('Prepared SQL ' . __METHOD__ . ' : ' . $sql);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
 			return $stm;
