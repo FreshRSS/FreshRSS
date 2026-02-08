@@ -1125,8 +1125,8 @@ function init_column_categories() {
 				// Wait for dropdown to be closed so it can be removed
 				// Dropdown visibility is based on CSS :target
 				window.addEventListener('hashchange', () => {
-					dropdownMenu.nextElementSibling.remove(); // dropdown close
-					dropdownMenu.remove();
+					dropdownMenu?.nextElementSibling?.remove(); // dropdown close
+					dropdownMenu?.remove();
 				}, { once: true });
 			}, { once: true });
 
@@ -2359,12 +2359,25 @@ function init_main_beforeDOM() {
 	}
 }
 
+function init_navigation_handler() {
+	navigation.addEventListener('navigate', (e) => {
+		if (!(e.canIntercept && e.hashChange && e.navigationType === 'traverse')) {
+			return;
+		}
+
+		if (location.hash.substr(1) === 'slider' && !close_slider_listener()) {
+			e.preventDefault();
+		}
+	});
+}
+
 function init_main_afterDOM() {
 	removeFirstLoadSpinner();
 	init_notifications();
 	init_csp_alert();
 	init_confirm_action();
 	init_nav_menu();
+	init_navigation_handler();
 	const stream = document.getElementById('stream');
 	if (stream) {
 		init_load_more(stream);
