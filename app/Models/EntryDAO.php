@@ -1284,7 +1284,7 @@ SQL;
 		$outerValues = array();
 		$outerSearch = ' ';
 		$origAlias = $alias;
-		if($order === 'SHUF'){
+		if ($order === 'SHUF') {
 			$alias = 'e0.'; //TODO: this ruins generality of this function
 		}
 		if ($state & FreshRSS_Entry::STATE_ANDS) {
@@ -1318,7 +1318,7 @@ SQL;
 		}
 
 		$alias = $origAlias;
-		if($order !== 'SHUF'){
+		if ($order !== 'SHUF') {
 			$search .= $outerSearch;
 		}
 
@@ -1339,7 +1339,7 @@ SQL;
 				$id_max = $id_max === '0' ? $continuation_id : min($id_max, $continuation_id);
 			}
 		}
-		if($order === 'SHUF'){
+		if ($order === 'SHUF') {
 			if ($continuation_id !== '0' && $sort === 'id') {
 				/* the window function condition must happen outside the subquery */
 				/* no logic here for prepending AND */
@@ -1496,8 +1496,8 @@ SQL;
 			. ($order === 'SHUF' ? ' shuffleOrderKey ' : ($orderBy . ' ' . $order) )
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Secondary sort
 			. ($sort === 'id' ? '' : ', e.id ' . $order)	// For keyset pagination
-			. ($order !== 'SHUF' ? ($limit > 0 ? ' LIMIT ' . $limit : ''). ($offset > 0 ? ' OFFSET ' . $offset : '') : ' '), // Limit can't work with SHUF's ranking.
-			' 1=1 ' . $outerSearch 
+			. ($order !== 'SHUF' ? ($limit > 0 ? ' LIMIT ' . $limit : '') . ($offset > 0 ? ' OFFSET ' . $offset : '') : ' '), // Limit can't work with SHUF's ranking.
+			' 1=1 ' . $outerSearch
 		];
 		//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 	}
@@ -1540,7 +1540,7 @@ SELECT e0.id, e0.guid, e0.title, e0.author, {$shuffleKeyExpression} {$content}, 
 FROM `_entry` e0 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
 
 SQL;
-		if($order === 'SHUF') {
+		if ($order === 'SHUF') {
 			$sql .= ($outerSearch != ' ' ? ' WHERE ' . $outerSearch : ' ' );
 			$sql .= ' ORDER BY shuffleOrderKey ';
 			$sql .= ($limit > 0 ? ' LIMIT ' . intval($limit) : '');
@@ -1662,8 +1662,8 @@ SQL;
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, order: $order,
 			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
 		$stm = $this->pdo->prepare($sql
-			. ($order === 'SHUF' && $limit > 0 ? ' LIMIT ' . intval($limit) : '') // When SHUF, move limit down here.
-		);
+			. ($order === 'SHUF' && $limit > 0 ? ' LIMIT ' . intval($limit) : '')); // When SHUF, move limit down here.
+
 		if ($stm !== false && $stm->execute($values)) {
 			/** @var list<int|numeric-string> $res */
 			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);

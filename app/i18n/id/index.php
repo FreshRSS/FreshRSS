@@ -105,6 +105,7 @@ return array(
 			'link_asc' => 'Tautan A→Z',
 			'link_desc' => 'Tautan Z→A',
 			'rand' => 'Acak',
+			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'Judul A→Z',
 			'title_desc' => 'Judul Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

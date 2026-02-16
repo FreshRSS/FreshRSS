@@ -105,6 +105,7 @@ return array(
 			'link_asc' => 'Ссылка А→Я',
 			'link_desc' => 'Ссылка Я→А',
 			'rand' => 'Случайный порядок',
+			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'Заголовок А→Я',
 			'title_desc' => 'Заголовок Я→А',
 			'user_modified_asc' => 'Изменено пользователем 1→9',

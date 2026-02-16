@@ -105,6 +105,7 @@ return array(
 			'link_asc' => 'لینک A→Z',
 			'link_desc' => 'لینک Z→A',
 			'rand' => 'ترتیب تصادفی',
+			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'عنوانA→Z',
 			'title_desc' => 'عنوان Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

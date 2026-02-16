@@ -91,7 +91,7 @@
 				<?php
 					$classSeparator = '';
 					if (count(FreshRSS_Context::userConf()->queries) > 0) {
-						$classSeparator = ' separator';
+					$classSeparator = ' separator';
 					}
 
 					$url_query = Minz_Request::currentRequest();
@@ -159,14 +159,14 @@
 	$mark_before_today = $mark_read_url;
 	$mark_before_one_week = $mark_read_url;
 	switch (FreshRSS_Context::$sort) {
-		case 'id':
-			$mark_before_today['params']['idMax'] = $today . '000000';
-			$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
-			break;
-		case 'date':
-			$mark_before_today['params']['maxPubDate'] = $today;
-			$mark_before_one_week['params']['maxPubDate'] = $today - 604800;
-			break;
+			case 'id':
+				$mark_before_today['params']['idMax'] = $today . '000000';
+				$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
+				break;
+			case 'date':
+				$mark_before_today['params']['maxPubDate'] = $today;
+				$mark_before_one_week['params']['maxPubDate'] = $today - 604800;
+				break;
 	}
 	$mark_unread_enabled = FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) ||
 		(!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) && !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_OR_NOT_READ));
@@ -226,17 +226,17 @@
 
 	<?php
 		if (FreshRSS_Context::$order === 'ASC') {
-			$icon = 'sort-up';
-			$title = _t('index.menu.older_first');
-		} else if (FreshRSS_Context::$order === 'SHUF') {
-			$icon = 'shuffle';
-			$title = _t('index.menu.sort.shuffle');
-		} else if (FreshRSS_Context::$sort === 'rand'){
-			$icon = 'dice-solid';
-			$title = _t('index.menu.sort.rand');
+		$icon = 'sort-up';
+		$title = _t('index.menu.older_first');
+		} elseif (FreshRSS_Context::$order === 'SHUF') {
+		$icon = 'shuffle';
+		$title = _t('index.menu.sort.shuffle');
+		} elseif (FreshRSS_Context::$sort === 'rand') {
+		$icon = 'dice-solid';
+		$title = _t('index.menu.sort.rand');
 		} else {
-			$icon = 'sort-down';
-			$title = _t('index.menu.newer_first');
+		$icon = 'sort-down';
+		$title = _t('index.menu.newer_first');
 		}
 		$url_order = Minz_Request::currentRequest();
 		$url_shuffle = Minz_Request::currentRequest();

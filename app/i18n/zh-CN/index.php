@@ -105,6 +105,7 @@ return array(
 			'link_asc' => '链接 A→Z',
 			'link_desc' => '链接 Z→A',
 			'rand' => '随机顺序',
+			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => '标题 A→Z',
 			'title_desc' => '标题 Z→A',
 			'user_modified_asc' => '用户修改 1→9',

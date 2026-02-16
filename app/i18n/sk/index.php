@@ -105,6 +105,7 @@ return array(
 			'link_asc' => 'Link A→Z',	// TODO
 			'link_desc' => 'Link Z→A',	// TODO
 			'rand' => 'Random order',	// TODO
+			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'Title A→Z',	// TODO
 			'title_desc' => 'Title Z→A',	// TODO
 			'user_modified_asc' => 'User modified 1→9',	// TODO

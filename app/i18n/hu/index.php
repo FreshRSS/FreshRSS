@@ -105,6 +105,7 @@ return array(
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Véletlen sorrend',
+			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'Cím A→Z',
 			'title_desc' => 'Cím Z→A',
 			'user_modified_asc' => 'Felhasználói módosítás 1→9',

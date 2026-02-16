@@ -105,6 +105,7 @@ return array(
 			'link_asc' => 'リンクURL順 A→Z',
 			'link_desc' => 'リンクURL順 Z→A',
 			'rand' => 'ランダムに並べる',
+			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'タイトル順 A→Z',
 			'title_desc' => 'タイトル順 Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

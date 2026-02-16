@@ -105,6 +105,7 @@ return array(
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'rand' => 'Willekeurige volgorde',
+			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
 			'user_modified_asc' => 'Aangepast door gebruiker 1→9',

@@ -105,6 +105,7 @@ return array(
 			'link_asc' => 'Odnośnik A→Z',
 			'link_desc' => 'Odnośnik Z→A',
 			'rand' => 'Losowa kolejność',
+			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'Tytuł A→Z',
 			'title_desc' => 'Tytuł Z→A',
 			'user_modified_asc' => 'Zmodyfikowane przez użytkownika 1→9',
