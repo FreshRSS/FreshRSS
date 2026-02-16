@@ -215,6 +215,7 @@ class Minz_Request {
 			$currentRequest['params'] = array_merge($currentRequest['params'], $extraParams);
 		}
 		unset($currentRequest['params']['rid']);
+		unset($currentRequest['params']['utime']);
 		return $currentRequest;
 	}
 
@@ -437,6 +438,13 @@ class Minz_Request {
 		return $_GET['rid'];
 	}
 
+	public static function serverTimestamp(): string {
+		if (!is_string($_GET['utime'] ?? null) || !ctype_xdigit($_GET['utime'])) {
+			$_GET['utime'] = uTimeString();
+		}
+		return $_GET['utime'];
+	}
+
 	private static function setNotification(string $type, string $content, string $notificationName = ''): void {
 		Minz_Session::lock();
 		$requests = Minz_Session::paramArray('requests');
@@ -495,6 +503,7 @@ class Minz_Request {
 
 		$url = Minz_Url::checkControllerUrl($url);
 		$url['params']['rid'] = self::requestId();
+		$url['params']['utime'] = self::serverTimestamp();
 
 		if ($redirect) {
 			header('Location: ' . Minz_Url::display($url, 'php', 'root'));
