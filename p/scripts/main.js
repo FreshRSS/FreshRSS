@@ -879,7 +879,7 @@ function onScroll() {
 	let streamFooter;
 	if (context.auto_load_more && (streamFooter = document.getElementById('stream-footer'))) {
 		if (box_to_follow.offsetHeight > 0 &&
-			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
+			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight * 2) >= streamFooter.offsetTop) {
 			// Too close to the last pre-loaded article
 			load_more_posts();
 		} else {
@@ -896,11 +896,11 @@ let lastScroll = 0;	// Throttle
 let timerId = 0;
 function debouncedOnScroll() {
 	clearTimeout(timerId);
-	if (lastScroll + 500 < Date.now()) {
+	if (lastScroll + 250 < Date.now()) {
 		lastScroll = Date.now();
 		onScroll();
 	} else {
-		timerId = setTimeout(onScroll, 500);
+		timerId = setTimeout(onScroll, 250);
 	}
 }
 
@@ -2167,6 +2167,7 @@ function load_more_posts() {
 		}
 
 		load_more = false;
+		debouncedOnScroll();
 	};
 	req.send();
 }
