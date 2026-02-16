@@ -1493,7 +1493,7 @@ SQL;
 			. 'WHERE ' . $where . ($order === 'SHUF' ? ' AND (e.is_read=0 OR e.lastUserModified > ' . Minz_Request::serverTimestamp() . ' / 1000000 ) AND e.id < ' . Minz_Request::serverTimestamp() . ' ' : '')
 			. $search
 			. ' ORDER BY '
-			. ($order === 'SHUF' ? ' shuffleOrderKey ' : ($orderBy . ' ' . $order) )
+			. ($order === 'SHUF' ? ' shuffleOrderKey, e.id ' : ($orderBy . ' ' . $order) )
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Secondary sort
 			. ($sort === 'id' ? '' : ', e.id ' . $order)	// For keyset pagination
 			. ($order !== 'SHUF' ? ($limit > 0 ? ' LIMIT ' . $limit : '') . ($offset > 0 ? ' OFFSET ' . $offset : '') : ' '), // Limit can't work with SHUF's ranking.
