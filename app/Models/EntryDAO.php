@@ -1490,7 +1490,7 @@ SQL;
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
 			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
-			. 'WHERE ' . $where . ($order === 'SHUF' ? ' AND (e.is_read=0 OR e.lastUserModified > UNIX_TIMESTAMP() - (24 * 60 * 60)) AND e.id < ' . Minz_Request::serverTimestamp() . ' ' : '')
+			. 'WHERE ' . $where . ($order === 'SHUF' ? ' AND (e.is_read=0 OR e.lastUserModified > ' . Minz_Request::serverTimestamp() . ' / 1000000 ) AND e.id < ' . Minz_Request::serverTimestamp() . ' ' : '')
 			. $search
 			. ' ORDER BY '
 			. ($order === 'SHUF' ? ' shuffleOrderKey ' : ($orderBy . ' ' . $order) )
