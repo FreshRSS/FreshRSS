@@ -439,7 +439,7 @@ class Minz_Request {
 	}
 
 	public static function serverTimestamp(): string {
-		if (!is_string($_GET['utime'] ?? null) || !ctype_xdigit($_GET['utime'])) {
+		if (!is_string($_GET['utime'] ?? null) || !ctype_digit($_GET['utime'])) {
 			$_GET['utime'] = uTimeString();
 		}
 		return $_GET['utime'];
