@@ -47,14 +47,41 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	#[\Override]
 	public function entryIsCorrect(): bool {
 		return $this->checkTable('entry', [
-			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read', 'is_favorite', 'id_feed', 'tags',
+			'id',
+			'guid',
+			'title',
+			'author',
+			'content',//not content_bin
+			'link',
+			'date',
+			'lastSeen',
+			'lastUserModified',
+			'hash',
+			'is_read',
+			'is_favorite',
+			'id_feed',
+			'tags',
+			'attributes',
 		]);
 	}
 
 	#[\Override]
 	public function entrytmpIsCorrect(): bool {
 		return $this->checkTable('entrytmp', [
-			'id', 'guid', 'title', 'author', 'content', 'link', 'date', 'lastSeen', 'hash', 'is_read', 'is_favorite', 'id_feed', 'tags'
+			'id',
+			'guid',
+			'title',
+			'author',
+			'content',//not content_bin
+			'link',
+			'date',
+			'lastSeen',
+			'hash',
+			'is_read',
+			'is_favorite',
+			'id_feed',
+			'tags',
+			'attributes',
 		]);
 	}
 

@@ -45,6 +45,47 @@ SQL;
 		return $res == null ? [] : $this->listDaoToSchema($res);
 	}
 
+	#[\Override]
+	public function entryIsCorrect(): bool {
+		return $this->checkTable('entry', [
+			'id',
+			'guid',
+			'title',
+			'author',
+			'content',//not content_bin
+			'link',
+			'date',
+			'lastSeen',
+			'lastUserModified',
+			'hash',
+			'is_read',
+			'is_favorite',
+			'id_feed',
+			'tags',
+			'attributes',
+		]);
+	}
+
+	#[\Override]
+	public function entrytmpIsCorrect(): bool {
+		return $this->checkTable('entrytmp', [
+			'id',
+			'guid',
+			'title',
+			'author',
+			'content',//not content_bin
+			'link',
+			'date',
+			'lastSeen',
+			'hash',
+			'is_read',
+			'is_favorite',
+			'id_feed',
+			'tags',
+			'attributes',
+		]);
+	}
+
 	/**
 	 * @param array<string,string|int|bool|null> $dao
 	 * @return array{'name':string,'type':string,'notnull':bool,'default':mixed}
