@@ -51,18 +51,18 @@ return array(
 			'ok' => 'Les droits sur le répertoire de data sont bons.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Erreur de connexion à la base de données.',
+			'ok' => 'La connexion à la base de données est bonne.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'La table de la base de données "%s" est incomplète.',
+			'ok' => 'La table de la base de données "%s" est correcte.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Certaines tables de la base de données sont manquantes.',
+			'ok' => 'Toutes les tables de la base de données existent.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Base de données',
 		'dom' => array(
 			'nok' => 'Impossible de trouver la librairie requise pour parcourir le DOM.',
 			'ok' => 'Vous disposez de la librairie requise pour parcourir le DOM.',
@@ -72,8 +72,8 @@ return array(
 			'ok' => 'Les droits sur le répertoire des favicons sont bons.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Vous ne disposez pas de la librairie recommendée php-fileinfo.',
-			'ok' => 'Vous disposez de la librairie recommendée php-fileinfo.',
+			'nok' => 'Vous ne disposez pas de la librairie recommandéee php-fileinfo.',
+			'ok' => 'Vous disposez de la librairie recommandéee php-fileinfo.',
 		),
 		'files' => 'Installation des fichiers',
 		'intl' => array(

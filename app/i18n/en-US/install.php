@@ -51,18 +51,18 @@ return array(
 			'ok' => 'Permissions on the data directory are good.',	// IGNORE
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Database connection error.',	// IGNORE
+			'ok' => 'Database connection is good.',	// IGNORE
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Database table "%s" is incomplete.',	// IGNORE
+			'ok' => 'Database table "%s" is good.',	// IGNORE
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Some database tables are missing.',	// IGNORE
+			'ok' => 'All database tables exist.',	// IGNORE
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Database',	// IGNORE
 		'dom' => array(
 			'nok' => 'Cannot find the required library to browse the DOM.',	// IGNORE
 			'ok' => 'You have the required library to browse the DOM.',	// IGNORE
