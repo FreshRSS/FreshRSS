@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
 			'ok' => 'Les droits sur le répertoire de data sont bons.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'Impossible de trouver la librairie requise pour parcourir le DOM.',
 			'ok' => 'Vous disposez de la librairie requise pour parcourir le DOM.',
