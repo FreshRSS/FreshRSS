@@ -7,15 +7,22 @@ endif
 PORT ?= 8080
 NETWORK ?= freshrss-network
 
+# detect docker or podman
+DOCKER ?= $(shell which docker 2>/dev/null || which podman 2>/dev/null)
+
+ifeq ($(DOCKER),)
+NO_DOCKER := 1
+endif
+
 ifdef NO_DOCKER
 	PHP = $(shell which php)
 else
-	PHP = docker run \
+	PHP = $(DOCKER) run \
 		--rm \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
 		--env FRESHRSS_ENV=development \
 		--name freshrss-php-cli \
-		freshrss/freshrss:$(TAG) \
+		docker.io/freshrss/freshrss:$(TAG) \
 		php
 endif
 
@@ -28,16 +35,16 @@ endif
 ##@ Docker
 .PHONY: build
 build: ## Build a Docker image
-	docker build \
+	$(DOCKER) build \
 		--pull \
 		--tag freshrss/freshrss:$(TAG) \
 		--file Docker/$(DOCKERFILE) .
 
 .PHONY: start
 start: ## Start the development environment (use Docker)
-	docker network create --driver bridge $(NETWORK) || true
+	$(DOCKER) network create --driver bridge $(NETWORK) || true
 	$(foreach extension,$(extensions),$(eval volumes=$(volumes) --volume $(extension):/var/www/FreshRSS/extensions/$(notdir $(extension)):z))
-	docker run \
+	$(DOCKER) run \
 		-it \
 		--rm \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
@@ -46,12 +53,12 @@ start: ## Start the development environment (use Docker)
 		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
 		--network $(NETWORK) \
-		freshrss/freshrss:$(TAG)
+		docker.io/freshrss/freshrss:$(TAG)
 
 .PHONY: stop
 stop: ## Stop FreshRSS container if any
-	docker stop freshrss-dev || true
-	docker network rm $(NETWORK) || true
+	$(DOCKER) stop freshrss-dev || true
+	$(DOCKER) network rm $(NETWORK) || true
 
 ##@ Tests and linter
 .PHONY: lint
