@@ -4,8 +4,15 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-0X-XX FreshRSS 1.29.0-dev
 
+* Warnings ⚠️
+	* The auto-update of the database might take a few minutes for big databases on slow servers, so just be patient.
+		The best is to update FreshRSS without the Web UI open and then let the cron job update all users in the background.
 * Features
 	* New sort order preferences at global, category, and feed levels [#8234](https://github.com/FreshRSS/FreshRSS/pull/8234)
+	* New filtering by date of *Server modification date* [#8131](https://github.com/FreshRSS/FreshRSS/pull/8131)
+		* Corresponding search operator, e.g. `mdate:P1D` for finding articles modified by the author / server during the past day.
+		* Especially useful for optimising the API synchronisation.
+		* ⚠️ Automatically add and populate an SQL column, which may take a few minutes per user.
 	* Add option to enable/disable notifications, also for PWA [#8458](https://github.com/FreshRSS/FreshRSS/pull/8458)
 	* Allow WebSub hub push from same private network [#8450](https://github.com/FreshRSS/FreshRSS/pull/8450)
 * Bug fixing
@@ -71,18 +78,11 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2025-12-24 FreshRSS 1.28.0
 
-* Warnings ⚠️
-	* The auto-update of the database might take a few minutes for big databases on slow servers, so just be patient.
-		The best is to update FreshRSS without the Web UI open and then let the cron job update all users in the background.
 * Features
 	* New sorting and filtering by *User modification date* [#7886](https://github.com/FreshRSS/FreshRSS/pull/7886), [#8090](https://github.com/FreshRSS/FreshRSS/pull/8090),
 		[#8105](https://github.com/FreshRSS/FreshRSS/pull/8105), [#8118](https://github.com/FreshRSS/FreshRSS/pull/8118), [#8130](https://github.com/FreshRSS/FreshRSS/pull/8130)
 		* Corresponding search operator, e.g. `userdate:PT1H` for the past hour [#8093](https://github.com/FreshRSS/FreshRSS/pull/8093)
 		* Allows finding articles marked by the local user as read/unread or starred/unstarred at specific dates for e.g. undo action.
-	* New filtering by date of *Server modification date* [#8131](https://github.com/FreshRSS/FreshRSS/pull/8131)
-		* Corresponding search operator, e.g. `mdate:P1D` for finding articles modified by the author / server during the past day.
-		* Especially useful for optimising the API synchronisation.
-		* ⚠️ Automatically add and populate an SQL column, which may take a few minutes per user.
 	* New sorting by article length [#8119](https://github.com/FreshRSS/FreshRSS/pull/8119)
 	* New advanced search form [#8103](https://github.com/FreshRSS/FreshRSS/pull/8103), [#8122](https://github.com/FreshRSS/FreshRSS/pull/8122), [#8226](https://github.com/FreshRSS/FreshRSS/pull/8226)
 	* Add compatibility with PCRE word boundary `\b` and `\B` for regex search using PostgreSQL [#8141](https://github.com/FreshRSS/FreshRSS/pull/8141)
