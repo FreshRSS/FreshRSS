@@ -31,7 +31,7 @@ return array(
 		'empty_list' => 'Es gibt keine installierte Erweiterung.',
 		'empty_list_help' => 'Siehe Protokolle für weitere Infos, warum die Erweiterungsliste leer ist.',
 		'enabled' => 'Aktiviert',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Ist kompatibel',
 		'latest' => 'Installiert',
 		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'Diese Erweiterung kann nicht konfiguriert werden.',
@@ -48,8 +48,8 @@ return array(
 		'_' => 'Statistiken',
 		'all_feeds' => 'Alle Feeds',
 		'category' => 'Kategorie',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Veröffentlicht am',
+		'date_received' => 'Erhalten am',
 		'entry_count' => 'Anzahl der Einträge',
 		'entry_per_category' => 'Einträge pro Kategorie',
 		'entry_per_day' => 'Einträge pro Tag (letzten 30 Tage)',
@@ -62,7 +62,7 @@ return array(
 		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
 		'main_stream' => 'Haupt-Feeds',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Anzahl ungelesener Artikel',
 		'no_idle' => 'Es gibt keinen inaktiven Feed!',
 		'number_entries' => '%d Artikel',
 		'overview' => 'Übersicht',
@@ -74,7 +74,7 @@ return array(
 		'status_unread' => 'Ungelesen',
 		'title' => 'Statistiken',
 		'top_feed' => 'Top 10-Feeds',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Datum mit den meisten ungelesenen Artikeln',
 	),
 	'system' => array(
 		'_' => 'Systemeinstellungen',
@@ -83,12 +83,12 @@ return array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => 'Automatische Empfehlung: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Message if registrations are closed',	// TODO
+		'closed_registration_message' => 'Nachricht bei geschlossener Registrierung',
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
 			'number' => 'Eingeloggt bleiben für',
 		),
-		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
+		'default_closed_registration_message' => 'Dieser Server akzeptiert momentan keine neuen Registrierungen.',
 		'force_email_validation' => 'E-Mail Adressvalidierung erzwingen',
 		'instance-name' => 'Bezeichnung',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',

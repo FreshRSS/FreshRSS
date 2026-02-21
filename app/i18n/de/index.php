@@ -43,7 +43,7 @@ return array(
 			'yesterday' => 'Published yesterday',	// TODO
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'Empfangen',
 			'today' => 'Heute empfangen',
 			'yesterday' => 'Gestern empfangen',
 		),
@@ -85,14 +85,14 @@ return array(
 		'rss_view' => 'RSS-Feed',
 		'search_short' => 'Suchen',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'Aufsteigend',
 			'c' => array(
 				'name_asc' => 'Kategorie, Feed-Titel A→Z',
 				'name_desc' => 'Kategorie, Feed-Titel Z→A',
 			),
 			'date_asc' => 'Veröffentlichungsdatum 1→9',
 			'date_desc' => 'Veröffentlichungsdatum 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => 'Absteigend',
 			'f' => array(
 				'name_asc' => 'Feed-Titel A→Z',
 				'name_desc' => 'Feed-Titel Z→A',

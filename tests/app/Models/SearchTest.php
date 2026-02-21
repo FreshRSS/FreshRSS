@@ -1021,7 +1021,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					mdate:2025-12
 					pubdate:2025-02-01T00:00:00/2026-01-01T00:00:00
 					date:2025-03-01T00:00:00/2026-01-01T00:00:00
-					intitle:/<Inter&sting>/i intitle:"g ' & d"
+					intitle:/<Inter&sting>/i intitle:"g ' & d\\:"
 					intext:/<Inter&sting>/i intext:g&d
 					author:/Bob/ author:"/u/Alice" author:Alice
 					inurl:/https/ inurl:example.net

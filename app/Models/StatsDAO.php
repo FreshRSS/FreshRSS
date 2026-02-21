@@ -17,7 +17,7 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 * @param 'day'|'month'|'year' $granularity of the date intervals
 	 */
 	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
-		if (!preg_match('/^[a-zA-Z0-9_]+$/', $field)) {
+		if (!preg_match('/^[a-zA-Z0-9_.]+$/', $field)) {
 			throw new InvalidArgumentException('Invalid date field!');
 		}
 		$offset = $this->getTimezoneOffset();
@@ -388,19 +388,28 @@ SQL;
 	 * @param 'day'|'month'|'year' $granularity of the date intervals
 	 * @return list<array{'granularity':string,'unread_count':int}>
 	 */
-	public function getMaxUnreadDates(string $field, string $granularity, int $max = 100): array {
+	public function getMaxUnreadDates(string $field, string $granularity, int $max = 100, int $minPriority = FreshRSS_Feed::PRIORITY_HIDDEN): array {
 		$sql = <<<SQL
-SELECT
-	{$this->sqlDateToIsoGranularity($field, precision: $field === 'id' ? 1000000 : 1, granularity: $granularity)} AS granularity,
-	COUNT(*) AS unread_count
-FROM `_entry`
-WHERE is_read = 0
-GROUP BY granularity
-ORDER BY unread_count DESC, granularity DESC
-LIMIT $max;
-SQL;
-		$res = $this->fetchAssoc($sql);
-		/** @var list<array{granularity:string,unread_count:int}>|null $res */
-		return is_array($res) ? $res : [];
+		SELECT
+			{$this->sqlDateToIsoGranularity('e.' . $field, precision: $field === 'id' ? 1000000 : 1, granularity: $granularity)} AS granularity,
+			COUNT(*) AS unread_count
+		FROM `_entry` e
+		INNER JOIN `_feed` f ON e.id_feed = f.id
+		WHERE e.is_read = 0 AND f.priority >= :min_priority
+		GROUP BY granularity
+		ORDER BY unread_count DESC, granularity DESC
+		LIMIT :max
+		SQL;
+		if (($stm = $this->pdo->prepare($sql)) !== false &&
+			$stm->bindValue(':min_priority', $minPriority, PDO::PARAM_INT) &&
+			$stm->bindValue(':max', $max, PDO::PARAM_INT) &&
+			$stm->execute() && is_array($res = $stm->fetchAll(PDO::FETCH_ASSOC))) {
+			/** @var list<array{granularity:string,unread_count:int}> $res */
+			return $res;
+		} else {
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			return [];
+		}
 	}
 }
