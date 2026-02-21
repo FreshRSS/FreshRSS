@@ -92,9 +92,9 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 			rank bigint := (SELECT maxrank - COUNT(*) FROM `_entrytmp`);
 			BEGIN
 				INSERT INTO `_entry`
-					(id, guid, title, author, content, link, date, `lastSeen`, `lastModified`, hash, is_read, is_favorite, id_feed, tags, attributes)
+					(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
 					(SELECT rank + row_number() OVER(ORDER BY etmp.date, etmp.id) AS id, guid, title, author, content,
-						link, date, `lastSeen`, `lastModified`, hash, is_read, is_favorite, id_feed, tags, attributes
+						link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 						FROM `_entrytmp` AS etmp
 						WHERE NOT EXISTS (
 							SELECT 1 FROM `_entry` AS ereal
