@@ -640,6 +640,41 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	public function test__add_single_search_combines_conditions_with_and(): void {
+		$startTime = strtotime('2026-02-21T12:00:00Z');
+		$searches = new FreshRSS_BooleanSearch('');
+
+		$search = new FreshRSS_Search('');
+		$search->setMinDate($startTime);
+		$search->setMinModifiedDate($startTime);
+		$searches->add($search);
+
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
+
+		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
+		self::assertSame('(e.id >= ? AND e.`lastModified` >= ? )', $filterSearch);
+		self::assertSame([$startTime . '000000', $startTime], $filterValues);
+	}
+
+	public function test__add_multiple_searches_combines_conditions_with_or(): void {
+		$startTime = strtotime('2026-02-21T12:00:00Z');
+		$searches = new FreshRSS_BooleanSearch('');
+
+		$search = new FreshRSS_Search('');
+		$search->setMinDate($startTime);
+		$searches->add($search);
+
+		$search = new FreshRSS_Search('');
+		$search->setMinModifiedDate($startTime);
+		$searches->add($search);
+
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
+
+		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
+		self::assertSame('(e.id >= ? ) OR (e.`lastModified` >= ? )', $filterSearch);
+		self::assertSame([$startTime . '000000', $startTime], $filterValues);
+	}
+
 	/**
 	 * @param array<string> $values
 	 */
@@ -688,7 +723,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			// Basic modified date operator tests
 			[
 				'mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
-				'(e.`lastModified` >= ? AND e.`lastModified` <= ? )',
+				'(e.`lastModified` >= ? AND COALESCE(e.`lastModified`, 0) <= ? )',
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
@@ -698,7 +733,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				'mdate:/2008-05-11',
-				'(e.`lastModified` <= ? )',
+				'(COALESCE(e.`lastModified`, 0) <= ? )',
 				[strtotime('2008-05-11T23:59:59Z')],
 			],
 			// Basic userdate operator tests
@@ -730,12 +765,12 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				'!mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
-				'((e.`lastModified` < ? OR e.`lastModified` > ?) )',
+				'((COALESCE(e.`lastModified`, 0) < ? OR e.`lastModified` > ?) )',
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
 				'!userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
-				'((e.`lastUserModified` < ? OR e.`lastUserModified` > ?) )',
+				'((COALESCE(e.`lastUserModified`, 0) < ? OR e.`lastUserModified` > ?) )',
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			// Combined date operators
@@ -751,7 +786,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				'userdate:2007-03-01/ mdate:/2008-05-11',
-				'(e.`lastModified` <= ? AND e.`lastUserModified` >= ? )',
+				'(COALESCE(e.`lastModified`, 0) <= ? AND e.`lastUserModified` >= ? )',
 				[strtotime('2008-05-11T23:59:59Z'), strtotime('2007-03-01T00:00:00Z')],
 			],
 			[

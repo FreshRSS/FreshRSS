@@ -659,12 +659,17 @@ final class GReaderAPI {
 		$searches = new FreshRSS_BooleanSearch('');
 		if ($start_time !== 0) {
 			$search = new FreshRSS_Search('');
-			// TODO: Make OR of the different dates (received, server modified, user modified)
+			$search->setMinDate($start_time);
+			$searches->add($search);
+			// OR
+			$search = new FreshRSS_Search('');
 			$search->setMinModifiedDate($start_time);
 			$searches->add($search);
 		}
 		if ($stop_time !== 0) {
 			$search = new FreshRSS_Search('');
+			$search->setMaxDate($stop_time);
+			// AND
 			$search->setMaxModifiedDate($stop_time);
 			$searches->add($search);
 		}

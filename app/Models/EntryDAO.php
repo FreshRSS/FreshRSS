@@ -948,7 +948,7 @@ SQL;
 				$values[] = $filter->getMinModifiedDate();
 			}
 			if ($filter->getMaxModifiedDate() !== null) {
-				$sub_search .= 'AND ' . $alias . '`lastModified` <= ? ';
+				$sub_search .= 'AND COALESCE(' . $alias . '`lastModified`, 0) <= ? ';
 				$values[] = $filter->getMaxModifiedDate();
 			}
 			if ($filter->getMinUserdate() !== null) {
@@ -994,7 +994,7 @@ SQL;
 			if ($filter->getNotMinModifiedDate() !== null || $filter->getNotMaxModifiedDate() !== null) {
 				$sub_search .= 'AND (';
 				if ($filter->getNotMinModifiedDate() !== null) {
-					$sub_search .= $alias . '`lastModified` < ?';
+					$sub_search .= 'COALESCE(' . $alias . '`lastModified`, 0) < ?';
 					$values[] = $filter->getNotMinModifiedDate();
 					if ($filter->getNotMaxModifiedDate()) {
 						$sub_search .= ' OR ';
@@ -1009,7 +1009,7 @@ SQL;
 			if ($filter->getNotMinUserdate() !== null || $filter->getNotMaxUserdate() !== null) {
 				$sub_search .= 'AND (';
 				if ($filter->getNotMinUserdate() !== null) {
-					$sub_search .= $alias . '`lastUserModified` < ?';
+					$sub_search .= 'COALESCE(' . $alias . '`lastUserModified`, 0) < ?';
 					$values[] = $filter->getNotMinUserdate();
 					if ($filter->getNotMaxUserdate()) {
 						$sub_search .= ' OR ';
