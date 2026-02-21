@@ -185,10 +185,10 @@ SQL;
 			$sql = static::sqlIgnoreConflict(
 				'INSERT INTO `_' . ($useTmpTable ? 'entrytmp' : 'entry') . '` (id, guid, title, author, '
 				. (static::isCompressed() ? 'content_bin' : 'content')
-				. ', link, date, `lastSeen`, `lastModified`, hash, is_read, is_favorite, id_feed, tags, attributes) '
+				. ', link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes) '
 				. 'VALUES(:id, :guid, :title, :author, '
 				. (static::isCompressed() ? 'COMPRESS(:content)' : ':content')
-				. ', :link, :date, :last_seen, :last_modified, '
+				. ', :link, :date, :last_seen, '
 				. static::sqlHexDecode(':hash')
 				. ', :is_read, :is_favorite, :id_feed, :tags, :attributes)');
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
@@ -214,10 +214,6 @@ SQL;
 				$valuesTmp['lastSeen'] = time();
 			}
 			$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
-			if (empty($valuesTmp['lastModified']) && is_string($valuesTmp['id'])) {
-				$valuesTmp['lastModified'] = substr($valuesTmp['id'], 0, -6);	// Microseconds to seconds
-			}
-			$this->addEntryPrepared->bindParam(':last_modified', $valuesTmp['lastModified'], PDO::PARAM_INT);
 			$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
 			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
 			$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;
@@ -262,11 +258,10 @@ SQL;
 			SET @rank=(SELECT MAX(id) - COUNT(*) FROM `_entrytmp`);
 
 			INSERT IGNORE INTO `_entry` (
-				id, guid, title, author, content_bin, link, date, `lastSeen`, `lastModified`,
+				id, guid, title, author, content_bin, link, date, `lastSeen`,
 				hash, is_read, is_favorite, id_feed, tags, attributes
 			)
-			SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, `lastModified`,
-				hash, is_read, is_favorite, id_feed, tags, attributes
+			SELECT @rank:=@rank+1 AS id, guid, title, author, content_bin, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 			FROM `_entrytmp` etmp
 			ORDER BY etmp.date, etmp.id;
 
