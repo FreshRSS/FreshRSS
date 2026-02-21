@@ -1536,6 +1536,9 @@ SQL;
 			'link' => 'e.link',
 			'title' => 'e.title',
 		};
+		if (in_array($sort, ['lastModified', 'lastUserModified'], true)) {
+			$where = $orderBy . ' IS NOT NULL AND ' . $where;
+		}
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters, id_min: $id_min, id_max: $id_max,
 			sort: $sort, order: $order, continuation_id: $continuation_id, continuation_values: $continuation_values,
 			secondary_sort: $secondary_sort, secondary_sort_order: $secondary_sort_order);
