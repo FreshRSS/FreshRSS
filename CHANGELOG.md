@@ -4,15 +4,11 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-0X-XX FreshRSS 1.29.0-dev
 
-* Warnings ⚠️
-	* The auto-update of the database might take a few minutes for big databases on slow servers, so just be patient.
-		The best is to update FreshRSS without the Web UI open and then let the cron job update all users in the background.
 * Features
 	* New sort order preferences at global, category, and feed levels [#8234](https://github.com/FreshRSS/FreshRSS/pull/8234)
 	* New filtering by date of *Server modification date* [#8131](https://github.com/FreshRSS/FreshRSS/pull/8131)
 		* Corresponding search operator, e.g. `mdate:P1D` for finding articles modified by the author / server during the past day.
 		* Especially useful for optimising the API synchronisation.
-		* ⚠️ Automatically add and populate an SQL column, which may take a few minutes per user.
 	* Add option to enable/disable notifications, also for PWA [#8458](https://github.com/FreshRSS/FreshRSS/pull/8458)
 	* Allow WebSub hub push from same private network [#8450](https://github.com/FreshRSS/FreshRSS/pull/8450)
 * Bug fixing
