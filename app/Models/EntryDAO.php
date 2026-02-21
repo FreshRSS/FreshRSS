@@ -139,7 +139,7 @@ SQL;
 				}
 				return $this->pdo->exec($sql) !== false;
 			}
-			if ($name === 'lastModified') {	//v1.28.0
+			if ($name === 'lastModified') {	//v1.29.0
 				$sql = $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] ?? null;
 				if (!is_string($sql)) {
 					throw new Exception('ALTER_TABLE_ENTRY_LAST_MODIFIED is not a string!');

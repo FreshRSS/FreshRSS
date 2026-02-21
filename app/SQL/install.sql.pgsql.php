@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	"link" VARCHAR(16383) NOT NULL,
 	"date" BIGINT,
 	"lastSeen" BIGINT DEFAULT 0,
-	"lastModified" BIGINT,	-- v1.28.0
+	"lastModified" BIGINT,	-- v1.29.0
 	"lastUserModified" BIGINT,	-- v1.28.0
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
@@ -108,7 +108,7 @@ CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` (`lastU
 SQL;
 
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
-ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastModified` BIGINT;	-- 1.28.0
+ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastModified` BIGINT;	-- 1.29.0
 CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` (`lastModified`);
 SQL;
 
