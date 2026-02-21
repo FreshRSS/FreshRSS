@@ -24,8 +24,8 @@ class FreshRSS_Entry extends Minz_Model {
 	private string $link;
 	private int $date;
 	private int $lastSeen = 0;
-	private int $lastModified = 0;
-	private int $lastUserModified = 0;
+	private ?int $lastModified = null;
+	private ?int $lastUserModified = null;
 	/** In microseconds */
 	private string $date_added = '0';
 	private string $hash = '';
@@ -108,14 +108,10 @@ class FreshRSS_Entry extends Minz_Model {
 		} else {
 			$entry->_lastSeen($dao['lastSeen']);
 		}
-		if (empty($dao['lastModified'])) {
-			$entry->_lastModified($entry->id() == '0' ?
-				min($entry->date(raw: true), time()) : // Fall back to publication date
-				(int)substr($entry->id(), 0, -6));	// Microseconds to seconds
-		} else {
+		if (!empty($dao['lastModified'])) {
 			$entry->_lastModified($dao['lastModified']);
 		}
-		if (isset($dao['lastUserModified'])) {
+		if (!empty($dao['lastUserModified'])) {
 			$entry->_lastUserModified($dao['lastUserModified']);
 		}
 		if (!empty($dao['attributes'])) {
@@ -448,7 +444,11 @@ HTML;
 		return $this->lastSeen;
 	}
 
-	public function lastUserModified(): int {
+	public function lastModified(): ?int {
+		return $this->lastModified;
+	}
+
+	public function lastUserModified(): ?int {
 		return $this->lastUserModified;
 	}
 
@@ -598,12 +598,12 @@ HTML;
 
 	public function _lastModified(int|string $value): void {
 		$value = (int)$value;
-		$this->lastModified = $value > 0 ? $value : 0;
+		$this->lastModified = $value > 0 ? $value : null;
 	}
 
 	public function _lastUserModified(int|string $value): void {
 		$value = (int)$value;
-		$this->lastUserModified = $value > 0 ? $value : 0;
+		$this->lastUserModified = $value > 0 ? $value : null;
 	}
 
 	/** @param int|numeric-string $value */
@@ -692,28 +692,28 @@ HTML;
 					$ok &= $this->date > $filter->getNotMaxPubdate();
 				}
 				if ($ok && $filter->getMinModifiedDate() !== null) {
-					$ok &= $this->lastModified >= $filter->getMinModifiedDate();
+					$ok &= ($this->lastModified ?? 0) >= $filter->getMinModifiedDate();
 				}
 				if ($ok && $filter->getNotMinModifiedDate() !== null) {
-					$ok &= $this->lastModified < $filter->getNotMinModifiedDate();
+					$ok &= ($this->lastModified ?? 0) < $filter->getNotMinModifiedDate();
 				}
 				if ($ok && $filter->getMaxModifiedDate() !== null) {
-					$ok &= $this->lastModified <= $filter->getMaxModifiedDate();
+					$ok &= ($this->lastModified ?? 0) <= $filter->getMaxModifiedDate();
 				}
 				if ($ok && $filter->getNotMaxModifiedDate() !== null) {
-					$ok &= $this->lastModified > $filter->getNotMaxModifiedDate();
+					$ok &= ($this->lastModified ?? 0) > $filter->getNotMaxModifiedDate();
 				}
 				if ($ok && $filter->getMinUserdate() !== null) {
-					$ok &= $this->lastUserModified >= $filter->getMinUserdate();
+					$ok &= ($this->lastUserModified ?? 0) >= $filter->getMinUserdate();
 				}
 				if ($ok && $filter->getNotMinUserdate() !== null) {
-					$ok &= $this->lastUserModified < $filter->getNotMinUserdate();
+					$ok &= ($this->lastUserModified ?? 0) < $filter->getNotMinUserdate();
 				}
 				if ($ok && $filter->getMaxUserdate() !== null) {
-					$ok &= $this->lastUserModified <= $filter->getMaxUserdate();
+					$ok &= ($this->lastUserModified ?? 0) <= $filter->getMaxUserdate();
 				}
 				if ($ok && $filter->getNotMaxUserdate() !== null) {
-					$ok &= $this->lastUserModified > $filter->getNotMaxUserdate();
+					$ok &= ($this->lastUserModified ?? 0) > $filter->getNotMaxUserdate();
 				}
 				if ($ok && $filter->getFeedIds() !== null) {
 					$ok &= in_array($this->feedId, $filter->getFeedIds(), true);
@@ -1138,7 +1138,7 @@ HTML;
 
 	/**
 	 * @return array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
-	 * 	lastSeen:int,lastUserModified:int,
+	 * 	lastSeen:int,lastModified:?int,lastUserModified:?int,
 	 * 	hash:string,is_read:?bool,is_favorite:?bool,id_feed:int,tags:string,attributes:array<string,mixed>}
 	 */
 	public function toArray(): array {
@@ -1151,6 +1151,7 @@ HTML;
 			'link' => $this->link(raw: true),
 			'date' => $this->date(true),
 			'lastSeen' => $this->lastSeen(),
+			'lastModified' => $this->lastModified(),
 			'lastUserModified' => $this->lastUserModified(),
 			'hash' => $this->hash(),
 			'is_read' => $this->isRead(),

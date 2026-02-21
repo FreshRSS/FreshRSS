@@ -42,10 +42,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return "LIMIT {$limit} OFFSET {$offset}";
 	}
 
-	public static function sqlGreatest(string $a, string $b): string {
-		return 'GREATEST(' . $a . ', ' . $b . ')';
-	}
-
 	public static function sqlRandom(): string {
 		return 'RAND()';
 	}
@@ -178,7 +174,7 @@ SQL;
 
 	private PDOStatement|null|false $addEntryPrepared = null;
 
-	/** @param array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,lastModified?:int,hash:string,
+	/** @param array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,hash:string,
 	 *		is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes?:null|string|array<string,mixed>} $valuesTmp */
 	public function addEntry(array $valuesTmp, bool $useTmpTable = true): bool {
 		if ($this->addEntryPrepared == null) {
@@ -239,7 +235,7 @@ SQL;
 			return true;
 		} else {
 			$info = $this->addEntryPrepared == false ? $this->pdo->errorInfo() : $this->addEntryPrepared->errorInfo();
-			/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,lastModified:int,hash:string,
+			/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,hash:string,
 			 * 	is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes?:null|string|array<string,mixed>} $valuesTmp */
 			/** @var array{0:string,1:int,2:string} $info */
 			if ($this->autoUpdateDb($info)) {
@@ -282,7 +278,7 @@ SQL;
 
 	/**
 	 * @param array{id:string,guid:string,title:string,author:string,content:string,link:string,
-	 * 	date:int,lastSeen:int,lastModified?:int,lastUserModified?:int,hash:string,
+	 * 	date:int,lastSeen:int,lastModified?:?int,lastUserModified?:?int,hash:string,
 	 * 	is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes:array<string,mixed>} $valuesTmp
 	 */
 	public function updateEntry(array $valuesTmp): bool {
@@ -292,19 +288,19 @@ SQL;
 		if (!isset($valuesTmp['is_favorite'])) {
 			$valuesTmp['is_favorite'] = null;
 		}
-		if (empty($valuesTmp['lastModified'])) {
-			$valuesTmp['lastModified'] = time();
+		if (!isset($valuesTmp['lastUserModified'])) {
+			$valuesTmp['lastUserModified'] = null;
 		}
-		if (empty($valuesTmp['lastUserModified'])) {
-			$valuesTmp['lastUserModified'] = 0;
+		if (!isset($valuesTmp['lastModified'])) {
+			$valuesTmp['lastModified'] = null;
 		}
-
 		if ($this->updateEntryPrepared == null) {
 			$sql = 'UPDATE `_entry` '
 				. 'SET title=:title, author=:author, '
 				. (static::isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
-				. ', link=:link, date=:date, `lastSeen`=:last_seen, `lastModified`=:last_modified'
-				. ', `lastUserModified`=' . static::sqlGreatest(':last_user_modified', '`lastUserModified`')
+				. ', link=:link, date=:date, `lastSeen`=:last_seen'
+				. ', `lastModified`=COALESCE(:last_modified, `lastModified`)'
+				. ', `lastUserModified`=COALESCE(:last_user_modified, `lastUserModified`)'
 				. ', hash=' . static::sqlHexDecode(':hash')
 				. ', is_read=COALESCE(:is_read, is_read)'
 				. ', is_favorite=COALESCE(:is_favorite, is_favorite)'
@@ -329,8 +325,16 @@ SQL;
 			$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
 			$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 			$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
-			$this->updateEntryPrepared->bindParam(':last_modified', $valuesTmp['lastModified'], PDO::PARAM_INT);
-			$this->updateEntryPrepared->bindParam(':last_user_modified', $valuesTmp['lastUserModified'], PDO::PARAM_INT);
+			if ($valuesTmp['lastModified'] === null) {
+				$this->updateEntryPrepared->bindValue(':last_modified', null, PDO::PARAM_NULL);
+			} else {
+				$this->updateEntryPrepared->bindValue(':last_modified', $valuesTmp['lastModified'], PDO::PARAM_INT);
+			}
+			if ($valuesTmp['lastUserModified'] === null) {
+				$this->updateEntryPrepared->bindValue(':last_user_modified', null, PDO::PARAM_NULL);
+			} else {
+				$this->updateEntryPrepared->bindValue(':last_user_modified', $valuesTmp['lastUserModified'], PDO::PARAM_INT);
+			}
 			if ($valuesTmp['is_read'] === null) {
 				$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
 			} else {
