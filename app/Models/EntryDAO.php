@@ -1305,7 +1305,7 @@ SQL;
 					$isOpen = true;
 				}
 				// Remove superfluous leading 'AND '
-				$search .= '(' . substr($sub_search, 4) . ')';
+				$search .= '(' . trim(substr($sub_search, 4)) . ')';
 			}
 		}
 
