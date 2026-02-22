@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	INDEX (`is_read`),	-- v0.7
 	INDEX `entry_lastSeen_index` (`lastSeen`),	-- v1.1.1
 	INDEX `entry_last_user_modified_index` (`lastUserModified`),	-- v1.28.0
-	INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7
+	INDEX `entry_feed_read_index` (`id_feed`,`is_read`,`id`)	-- v1.29.0
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
@@ -125,6 +125,7 @@ DROP PROCEDURE IF EXISTS update_minor;
 CREATE PROCEDURE update_minor()
 BEGIN
 	DECLARE up_to_date INT;
+	DECLARE index_up_to_date INT;
 
 	SELECT COUNT(*) INTO up_to_date FROM information_schema.COLUMNS
 		WHERE TABLE_SCHEMA = DATABASE()
@@ -159,6 +160,19 @@ BEGIN
 		ALTER TABLE `_feed`
 			DROP INDEX IF EXISTS `url`, -- IF EXISTS works with MariaDB but not with MySQL, so needs PHP workaround
 			MODIFY COLUMN `url` VARCHAR(32768) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
+	END IF;
+
+	SELECT COUNT(*) INTO index_up_to_date FROM information_schema.STATISTICS
+		WHERE TABLE_SCHEMA = DATABASE()
+		AND TABLE_NAME = REPLACE('`_entry`', '`', '')
+		AND INDEX_NAME = 'entry_feed_read_index';
+
+	IF index_up_to_date > 0 AND index_up_to_date < 3 THEN
+		ALTER TABLE `_entry` DROP INDEX `entry_feed_read_index`;
+		SET index_up_to_date = 0;
+	END IF;
+	IF index_up_to_date = 0 THEN
+		ALTER TABLE `_entry` ADD INDEX `entry_feed_read_index` (`id_feed`,`is_read`,`id`);	-- v1.29.0
 	END IF;
 END;
 CALL update_minor();
