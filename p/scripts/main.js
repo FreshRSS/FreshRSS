@@ -2360,6 +2360,9 @@ function init_main_beforeDOM() {
 }
 
 function init_navigation_handler() {
+	if (!('navigation' in window)) {
+		return;
+	}
 	navigation.addEventListener('navigate', (e) => {
 		if (!(e.canIntercept && e.hashChange && e.navigationType === 'traverse')) {
 			return;
