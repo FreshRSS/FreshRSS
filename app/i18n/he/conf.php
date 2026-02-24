@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 התראה פג תוקף',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'ערכת נושא',
 			'deprecated' => array(

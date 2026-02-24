@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
 		'show_nav_buttons' => 'Zeige Navigations-Buttons',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Layout',
 			'deprecated' => array(

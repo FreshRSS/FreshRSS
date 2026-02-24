@@ -249,6 +249,7 @@ People are sorted by name so please keep this order.
 * [rdmitr](https://github.com/rdmitr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rdmitr)
 * [Rebecca Scott](https://github.com/becdetat): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:becdetat), [Web](https://becdetat.com)
 * [Rezad](https://github.com/rezad1393): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rezad1393)
+* [rid3r45](https://github.com/rid3r45): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rid3r45)
 * [Rob Loach](https://github.com/RobLoach): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:RobLoach), [Web](https://robloach.net/)
 * [Robert Kaussow](https://github.com/xoxys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xoxys), [Web](https://geeklabor.de/)
 * [robertdahlem](https://github.com/robertdahlem): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:robertdahlem)

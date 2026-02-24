@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 paziņojuma laika ierobežojums',
 		),
 		'show_nav_buttons' => 'Rādīt navigācijas pogas',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tēma',
 			'deprecated' => array(

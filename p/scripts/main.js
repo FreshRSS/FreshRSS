@@ -971,6 +971,10 @@ function init_nav_menu() {
 		if (context.current_view === 'normal') aside.classList.add('visible');
 		sync(media);
 	}
+	if (state === null && context.sidebar_hidden_by_default && ['normal', 'reader'].includes(context.current_view)) {
+		const active = toggle_aside.classList.contains('active');
+		if (active) toggle_aside_click(false);
+	}
 	const close_aside = [
 		document.querySelector('.aside a.toggle_aside'),
 		document.querySelector('a.close-aside'), // background of aside (#close)

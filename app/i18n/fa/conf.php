@@ -54,6 +54,7 @@ return array(
 			'timeout' => ' وقفه اعلان HTML5',
 		),
 		'show_nav_buttons' => ' دکمه های ناوبری را نشان دهید',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => ' موضوع',
 			'deprecated' => array(
