@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Hírforrás megjelölése olvasottként',
 		'mark_selection_unread' => 'Kijelöltek olvasatlanná tétele',
 		'mylabels' => 'Címkék',
-		'newer_first' => 'Újabbak elöl',
 		'non-starred' => 'Nem kedvencek megjelenítése',
 		'normal_view' => 'Normál nézet',
-		'older_first' => 'Régebbiek elöl',
 		'queries' => 'Felhasználói lekérdezések',
 		'read' => 'Olvasottak megjelenítése',
 		'reader_view' => 'Olvasó nézet',
 		'rss_view' => 'RSS hírforrás',
 		'search_short' => 'Keresés',
 		'sort' => array(
-			'_' => 'Rendezési sorrend',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Kategória, feed címek A→Z',
 				'name_desc' => 'Kategória, feed címek Z→A',
 			),
 			'date_asc' => 'Kiadás dátuma 1→9',
 			'date_desc' => 'Kiadás dátuma 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Feed cím A→Z',
 				'name_desc' => 'Feed cím Z→A',
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Tartalom hossza 9→1',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Véletlen sorrend',
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Cím A→Z',
 			'title_desc' => 'Cím Z→A',
 			'user_modified_asc' => 'Felhasználói módosítás 1→9',

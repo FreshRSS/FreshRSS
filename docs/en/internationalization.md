@@ -43,6 +43,8 @@ Each value can be referenced by a key: it consists of a series of identifiers se
 
 You should not have to write the array by yourself and we provide several commands to ease the manipulation of these files. Let’s see some common use cases.
 
+> ℹ Check [`freshrss-i18n/SKILL.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/skills/freshrss-i18n/SKILL.md) for detailed coding conventions (both for humans and AI agents).
+
 ## Add support for a new language
 
 If you want to add support for a language which isn’t supported by FreshRSS yet, you can run this command:

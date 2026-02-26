@@ -558,7 +558,7 @@ function next_unread_entry(skipping) {
 		do new_active = new_active.nextElementSibling;
 		while (new_active && !new_active.classList.contains('not_read'));
 		if (!new_active) {
-			next_feed();
+			next_feed(true);
 		}
 	} else {
 		new_active = document.querySelector('.not_read');
@@ -1125,8 +1125,8 @@ function init_column_categories() {
 				// Wait for dropdown to be closed so it can be removed
 				// Dropdown visibility is based on CSS :target
 				window.addEventListener('hashchange', () => {
-					dropdownMenu.nextElementSibling.remove(); // dropdown close
-					dropdownMenu.remove();
+					dropdownMenu?.nextElementSibling?.remove(); // dropdown close
+					dropdownMenu?.remove();
 				}, { once: true });
 			}, { once: true });
 
@@ -1965,23 +1965,26 @@ function init_notifications() {
 // </notification>
 
 // <notifs html5>
-let notifs_html5_permission = 'denied';
+context.notifs_html5_permission = 'denied';
 
 function notifs_html5_is_supported() {
 	return window.Notification !== undefined;
 }
 
-function notifs_html5_ask_permission() {
+async function notifs_html5_ask_permission() {
 	try {
-		window.Notification.requestPermission(function () {
-			notifs_html5_permission = window.Notification.permission;
-		});
+		context.notifs_html5_permission = await window.Notification.requestPermission();
 	} catch (e) {
+		// User denied
+		context.notifs_html5_permission = 'denied';
 	}
 }
 
 function notifs_html5_show(nb, nb_new) {
-	if (notifs_html5_permission !== 'granted') {
+	if (!context.html5_enable_notif) {
+		return;	// from config
+	}
+	if (context.notifs_html5_permission !== 'granted') {
 		return;
 	}
 
@@ -2013,8 +2016,16 @@ function init_notifs_html5() {
 	if (!notifs_html5_is_supported()) {
 		return;
 	}
-
-	notifs_html5_permission = notifs_html5_ask_permission();
+	// from config, 1st run this should be true
+	if (!context.html5_enable_notif) {
+		return;
+	}
+	context.notifs_html5_permission = Notification.permission;
+	// Only ask if the user hasn’t answered yet
+	// otherwise they need to ask from settings > display
+	if (context.notifs_html5_permission === 'default') {
+		notifs_html5_ask_permission();
+	}
 }
 // </notifs html5>
 
@@ -2348,12 +2359,28 @@ function init_main_beforeDOM() {
 	}
 }
 
+function init_navigation_handler() {
+	if (!('navigation' in window)) {
+		return;
+	}
+	navigation.addEventListener('navigate', (e) => {
+		if (!(e.canIntercept && e.hashChange && e.navigationType === 'traverse')) {
+			return;
+		}
+
+		if (location.hash.substr(1) === 'slider' && !close_slider_listener()) {
+			e.preventDefault();
+		}
+	});
+}
+
 function init_main_afterDOM() {
 	removeFirstLoadSpinner();
 	init_notifications();
 	init_csp_alert();
 	init_confirm_action();
 	init_nav_menu();
+	init_navigation_handler();
 	const stream = document.getElementById('stream');
 	if (stream) {
 		init_load_more(stream);

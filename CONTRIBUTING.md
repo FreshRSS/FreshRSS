@@ -35,6 +35,8 @@ Did you want to fix a bug? To keep a great coordination between collaborators, y
 
 If you have to write code, please follow [our coding style recommendations](https://freshrss.github.io/FreshRSS/en/developers/02_First_steps.html).
 
+> ℹ Check [`AGENTS.md`](AGENTS.md) for detailed coding conventions (both for humans and AI agents).
+
 **Tip:** if you are searching for bugs easy to fix, have a look at the « [Good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=label%3A%22good+first+issue+%3Ababy%3A%22) » and/or « [Help wanted](https://github.com/FreshRSS/FreshRSS/issues?q=label%3A%22help+wanted+%3Aoctocat%3A%22) » ticket labels.
 
 ## Submit an idea

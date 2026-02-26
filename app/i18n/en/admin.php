@@ -31,7 +31,7 @@ return array(
 		'empty_list' => 'There are no installed extensions',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',
 		'enabled' => 'Enabled',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Is compatible',
 		'latest' => 'Installed',
 		'name' => 'Name',
 		'no_configure_view' => 'This extension cannot be configured.',
@@ -83,10 +83,12 @@ return array(
 			'_' => 'Base URL',
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',
 		'cookie-duration' => array(
 			'help' => 'in seconds',
 			'number' => 'Duration to keep logged in',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',
 		'force_email_validation' => 'Force email address validation',
 		'instance-name' => 'Instance name',
 		'max-categories' => 'Max number of categories per user',

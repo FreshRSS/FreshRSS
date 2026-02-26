@@ -105,6 +105,9 @@ return array(
 		'none' => 'Aucun',
 		'small' => 'Petit',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Activer les notifications',
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Afficher la bannière d’avertissement',
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'S’applique aussi aux étiquettes',
 		'sides_close_article' => 'Cliquer hors de la zone de texte ferme l’article',
-		'sort' => array(
-			'_' => 'Ordre de tri',
-			'newer_first' => 'Plus récents en premier',
-			'older_first' => 'Plus anciens en premier',
-		),
 		'star' => array(
 			'when' => 'Marquer un article comme favori…',
 		),

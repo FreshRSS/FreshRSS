@@ -112,9 +112,13 @@ apk add git make npm php-cli php-curl php-ctype php-dom php-mbstring php-openssl
 
 ### Tests summary
 
+> ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).
+
 A short (not complete) summary:
 
 #### PHP
+
+> ℹ Check [`php.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/php.instructions.md) for detailed coding conventions (both for humans and AI agents).
 
 - Syntax of `php` and `phtml` files is checked.
 - translation files (`i18n`) are checked ([more information about i18n files](internationalization.html)).
@@ -125,6 +129,8 @@ A short (not complete) summary:
 
 ### CSS
 
+> ℹ Check [`css.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/css.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
 - Linter:
   - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)
   - via npm `.styleintrc.json`
@@ -132,15 +138,21 @@ A short (not complete) summary:
 
 ### JavaScript
 
+> ℹ Check [`javascript.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/javascript.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
 - Linter:
   - via npm `.styleintrc.json` ([ECMAScript 2017](https://en.wikipedia.org/wiki/ECMAScript#8th_Edition_%E2%80%93_ECMAScript_2017))
 
 ### Markdown
 
+> ℹ Check [`markdown.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/markdown.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
 - Linter:
   - via npm `.markdownlint.json`
 
 ## Spaces, tabs and other whitespace characters
+
+> ℹ Check [`_general.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/_general.instructions.md) for detailed coding conventions (both for humans and AI agents).
 
 ### Indentation
 

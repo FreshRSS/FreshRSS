@@ -83,10 +83,12 @@ return array(
 			'_' => 'URL de la racine',
 			'recommendation' => 'Recommandation automatique : <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message si les nouvelles inscriptions sont fermées',
 		'cookie-duration' => array(
 			'help' => 'en secondes',
 			'number' => 'Durée avant expiration de la session',
 		),
+		'default_closed_registration_message' => 'Ce serveur n’accepte plus de nouvelles inscriptions pour le moment.',
 		'force_email_validation' => 'Forcer la validation des adresses email',
 		'instance-name' => 'Nom de l’instance',
 		'max-categories' => 'Limite de catégories par utilisateur',

@@ -105,6 +105,9 @@ return array(
 		'none' => 'Отсутствует',
 		'small' => 'Маленькая',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Показывать баннер предупреждения',
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Также относится к меткам',
 		'sides_close_article' => 'Нажатия мышью за пределами текста статьи закрывают статью',
-		'sort' => array(
-			'_' => 'Порядок сортировки',
-			'newer_first' => 'Сначала новые',
-			'older_first' => 'Сначала старые',
-		),
 		'star' => array(
 			'when' => 'Отмечать статью избранной…',
 		),
