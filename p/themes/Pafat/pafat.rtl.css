@@ -797,7 +797,6 @@ a.signin {
 }
 
 .flux .flux_header:hover,
-.flux:not(.current):hover .flux_header .title,
 .flux.current .flux_header {
 	background-color: var(--background-color-grey-hover);
 }
