@@ -699,7 +699,7 @@ HTML;
 				}
 				if ($ok && $filter->getAuthor() !== null) {
 					foreach ($filter->getAuthor() as $author) {
-						$ok &= $databaseDao::strilike(implode(';', $this->authors), $author);
+						$ok &= $databaseDao::strilike(implode(';', $this->authors), $author, contains: true);
 					}
 				}
 				if ($ok && $filter->getAuthorRegex() !== null) {
@@ -709,7 +709,7 @@ HTML;
 				}
 				if ($ok && $filter->getNotAuthor() !== null) {
 					foreach ($filter->getNotAuthor() as $author) {
-						$ok &= !$databaseDao::strilike(implode(';', $this->authors), $author);
+						$ok &= !$databaseDao::strilike(implode(';', $this->authors), $author, contains: true);
 					}
 				}
 				if ($ok && $filter->getNotAuthorRegex() !== null) {
@@ -719,7 +719,7 @@ HTML;
 				}
 				if ($ok && $filter->getIntitle() !== null) {
 					foreach ($filter->getIntitle() as $title) {
-						$ok &= $databaseDao::strilike($this->title, $title);
+						$ok &= $databaseDao::strilike($this->title, $title, contains: true);
 					}
 				}
 				if ($ok && $filter->getIntitleRegex() !== null) {
@@ -729,7 +729,7 @@ HTML;
 				}
 				if ($ok && $filter->getNotIntitle() !== null) {
 					foreach ($filter->getNotIntitle() as $title) {
-						$ok &= !$databaseDao::strilike($this->title, $title);
+						$ok &= !$databaseDao::strilike($this->title, $title, contains: true);
 					}
 				}
 				if ($ok && $filter->getNotIntitleRegex() !== null) {
@@ -739,7 +739,7 @@ HTML;
 				}
 				if ($ok && $filter->getIntext() !== null) {
 					foreach ($filter->getIntext() as $content) {
-						$ok &= $databaseDao::strilike($this->content, $content);
+						$ok &= $databaseDao::strilike($this->content, $content, contains: true);
 					}
 				}
 				if ($ok && $filter->getIntextRegex() !== null) {
@@ -749,7 +749,7 @@ HTML;
 				}
 				if ($ok && $filter->getNotIntext() !== null) {
 					foreach ($filter->getNotIntext() as $content) {
-						$ok &= !$databaseDao::strilike($this->content, $content);
+						$ok &= !$databaseDao::strilike($this->content, $content, contains: true);
 					}
 				}
 				if ($ok && $filter->getNotIntextRegex() !== null) {
@@ -762,7 +762,7 @@ HTML;
 						$found = false;
 						foreach ($this->tags as $tag1) {
 							$tag1 = ltrim($tag1, '#');
-							if ($databaseDao::strilike($tag1, $tag2)) {
+							if ($databaseDao::strilike($tag1, $tag2, contains: false)) {
 								$found = true;
 								break;
 							}
@@ -788,7 +788,7 @@ HTML;
 						$found = false;
 						foreach ($this->tags as $tag1) {
 							$tag1 = ltrim($tag1, '#');
-							if ($databaseDao::strilike($tag1, $tag2)) {
+							if ($databaseDao::strilike($tag1, $tag2, contains: false)) {
 								$found = true;
 								break;
 							}
@@ -831,12 +831,12 @@ HTML;
 				}
 				if ($ok && $filter->getSearch() !== null) {
 					foreach ($filter->getSearch() as $needle) {
-						$ok &= ($databaseDao::strilike($this->title, $needle) || $databaseDao::strilike($this->content, $needle));
+						$ok &= ($databaseDao::strilike($this->title, $needle, contains: true) || $databaseDao::strilike($this->content, $needle, contains: true));
 					}
 				}
 				if ($ok && $filter->getNotSearch() !== null) {
 					foreach ($filter->getNotSearch() as $needle) {
-						$ok &= (!$databaseDao::strilike($this->title, $needle) && !$databaseDao::strilike($this->content, $needle));
+						$ok &= (!$databaseDao::strilike($this->title, $needle, contains: true) && !$databaseDao::strilike($this->content, $needle, contains: true));
 					}
 				}
 				if ($ok && $filter->getSearchRegex() !== null) {

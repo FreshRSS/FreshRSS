@@ -105,6 +105,9 @@ return array(
 		'none' => 'Ei mitään',
 		'small' => 'Pieni',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Näytä varoituspalkki',
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Koskee myös merkintöjä',
 		'sides_close_article' => 'Artikkeli sulkeutuu napsauttamalla sen ulkopuolelle',
-		'sort' => array(
-			'_' => 'Lajittelujärjestys',
-			'newer_first' => 'Uusimmat ensin',
-			'older_first' => 'Vanhimmat ensin',
-		),
 		'star' => array(
 			'when' => 'Merkitse artikkeli suosikiksi…',
 		),

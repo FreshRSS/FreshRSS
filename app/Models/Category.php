@@ -171,6 +171,13 @@ class FreshRSS_Category extends Minz_Model {
 		$this->sortFeeds();
 	}
 
+	public function defaultSort(): ?string {
+		return $this->attributeString('defaultSort');
+	}
+	public function defaultOrder(): ?string {
+		return $this->attributeString('defaultOrder');
+	}
+
 	/**
 	 * To manually add feeds to this category (not committing to database).
 	 */

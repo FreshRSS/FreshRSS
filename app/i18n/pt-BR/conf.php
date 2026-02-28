@@ -105,6 +105,9 @@ return array(
 		'none' => 'Nenhum',
 		'small' => 'Pequeno',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Mostrar banner de aviso',
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Aplicar também nas tags',
 		'sides_close_article' => 'Clicando fora da área do texto do artigo fecha o mesmo',
-		'sort' => array(
-			'_' => 'Ordem de visualização',
-			'newer_first' => 'Novos primeiro',
-			'older_first' => 'Antigos primeiro',
-		),
 		'star' => array(
 			'when' => 'Marque um artigo como favorito…',
 		),

@@ -36,6 +36,37 @@
 				</div>
 			</div>
 
+			<?php
+				$categoryDefaultSort = $this->category->defaultSort();
+				$categoryDefaultOrder = $this->category->defaultOrder();
+				$categoryDefaultSortOrder = $categoryDefaultSort !== null
+					? ($categoryDefaultSort === 'rand' ? 'rand' : $categoryDefaultSort . '_' . strtolower($categoryDefaultOrder ?? 'desc'))
+					: '';
+			?>
+			<div class="form-group">
+				<label class="group-name" for="defaultSortOrder"><?= _t('index.menu.sort.primary') ?></label>
+				<div class="group-controls">
+					<select name="defaultSortOrder" id="defaultSortOrderCategory" class="w50">
+						<option value=""></option>
+						<option value="id_desc" <?= $categoryDefaultSortOrder === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc" <?= $categoryDefaultSortOrder === 'date_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc" <?= $categoryDefaultSortOrder === 'length_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc" <?= $categoryDefaultSortOrder === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc" <?= $categoryDefaultSortOrder === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option value="f.name_desc" <?= $categoryDefaultSortOrder === 'f.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand" <?= $categoryDefaultSortOrder === 'rand' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc" <?= $categoryDefaultSortOrder === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc" <?= $categoryDefaultSortOrder === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc" <?= $categoryDefaultSortOrder === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc" <?= $categoryDefaultSortOrder === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc" <?= $categoryDefaultSortOrder === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
+						<option value="f.name_asc" <?= $categoryDefaultSortOrder === 'f.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_asc') ?></option>
+					</select>
+				</div>
+			</div>
+
 			<div class="form-group form-actions">
 				<div class="group-controls">
 					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>

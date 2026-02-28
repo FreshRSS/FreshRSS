@@ -48,7 +48,7 @@ return array(
 		),
 	),
 	'username' => array(
-		'invalid' => '无效用户名',
-		'taken' => '已存在此用户名',
+		'invalid' => '此用户名无效',
+		'taken' => '此用户名已存在',
 	),
 );

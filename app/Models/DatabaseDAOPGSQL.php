@@ -101,17 +101,18 @@ SQL;
 	}
 
 	#[\Override]
-	public static function strilike(string $haystack, string $needle): bool {
+	public static function strilike(string $haystack, string $needle, bool $contains = false): bool {
 		if (function_exists('mb_stripos')) {
-			return mb_stripos($haystack, $needle, 0, 'UTF-8') !== false;
+			return $contains ? (mb_stripos($haystack, $needle, 0, 'UTF-8') !== false) :
+				(mb_strtolower($haystack, 'UTF-8') === mb_strtolower($needle, 'UTF-8'));
 		}
 		if (function_exists('transliterator_transliterate')) {
 			$haystack_ = transliterator_transliterate('Lower', $haystack);
 			$needle_ = transliterator_transliterate('Lower', $needle);
 			if ($haystack_ !== false && $needle_ !== false) {
-				return str_contains($haystack_, $needle_);
+				return $contains ? str_contains($haystack_, $needle_) : ($haystack_ === $needle_);
 			}
 		}
-		return stripos($haystack, $needle) !== false;
+		return $contains ? (stripos($haystack, $needle) !== false) : (strcasecmp($haystack, $needle) === 0);
 	}
 }

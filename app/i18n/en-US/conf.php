@@ -105,6 +105,9 @@ return array(
 		'none' => 'None',	// IGNORE
 		'small' => 'Small',	// IGNORE
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// IGNORE
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// IGNORE
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Applies also on labels',	// IGNORE
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// IGNORE
-		'sort' => array(
-			'_' => 'Sort order',	// IGNORE
-			'newer_first' => 'Newest first',	// IGNORE
-			'older_first' => 'Oldest first',	// IGNORE
-		),
 		'star' => array(
 			'when' => 'Mark an article as favorite…',
 		),

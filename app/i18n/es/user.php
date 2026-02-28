@@ -44,7 +44,7 @@ return array(
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'Debe aceptar los Términos de Servicio para poder registrarse.',
+			'invalid' => 'Debe aceptar los términos de servicio para poder registrarse.',
 		),
 	),
 	'username' => array(

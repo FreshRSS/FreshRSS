@@ -189,7 +189,7 @@ return array(
 		'about' => 'Info',
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administration',	// IGNORE
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Erweiterte Suche',
 		'archiving' => 'Archivierung',
 		'authentication' => 'Authentifizierung',
 		'check_install' => 'Installationsüberprüfung',
@@ -224,29 +224,29 @@ return array(
 	),
 	'search' => array(
 		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
+		'authors' => 'Authoren',
+		'categories' => 'Kategorien',
+		'content' => 'Inhalt',
+		'date_from' => 'Ab',
+		'date_past' => 'In der Vergangenheit',
+		'date_published' => 'Veröffentlichungsdatum',
+		'date_range' => 'Zeitraum',
+		'date_received' => 'Empfangen am',
+		'date_to' => 'Bis',
 		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
+		'feeds' => 'Feeds',	// IGNORE
+		'free_text' => 'Freitext',
+		'free_text_help' => 'Durchsucht sowohl Inhalt als auch Titel',
 		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
+		'labels' => 'Meine Label',
 		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
+		'sources' => 'Quellen',
 		'tags' => 'Article Tags',	// TODO
 		'text' => 'Text Search',	// TODO
 		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
 		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
+		'title' => 'Titel',
+		'url' => 'URL',	// IGNORE
 		'user_queries' => 'User Queries',	// TODO
 	),
 	'share' => array(

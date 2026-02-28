@@ -232,14 +232,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * This action displays the RSS feed of FreshRSS.
+	 * @deprecated See user query RSS sharing instead
 	 */
-	#[Deprecated('See user query RSS sharing instead')]
 	public function rssAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
 
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Error::error(403);
+		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
+			Minz_Error::error(403, redirect: false);
 		}
 
 		try {
@@ -271,8 +271,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
 
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Error::error(403);
+		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
+			Minz_Error::error(403, redirect: false);
 		}
 
 		try {
@@ -367,15 +367,24 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					'c.name' => $pagingEntry->feed()?->categoryId() === FreshRSS_CategoryDAO::DEFAULTCATEGORYID ?
 						FreshRSS_CategoryDAO::DEFAULT_CATEGORY_NAME : $pagingEntry->feed()?->category()?->name() ?? '',
 					'date' => $pagingEntry->date(raw: true),
-					'f.name' => $pagingEntry->feed()?->name() ?? '',
+					'f.name' => $pagingEntry->feed()?->name(raw: true) ?? '',
 					'link' => $pagingEntry->link(raw: true),
 					'title' => $pagingEntry->title(),
 					'lastUserModified' => $pagingEntry->lastUserModified(),
 					'length' => $pagingEntry->sqlContentLength() ?? 0,
 				};
-				if ($pagingEntry !== null && FreshRSS_Context::$sort === 'c.name') {
-					// Secondary sort criterion
-					$continuation_values[] = $pagingEntry->feed()?->name() ?? '';
+				if (FreshRSS_Context::$sort === 'c.name') {
+					// Internal secondary sort criterion for category name
+					$continuation_values[] = $pagingEntry?->feed()?->name(raw: true) ?? '';
+				}
+				if (in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
+					// User secondary sort criterion
+					$continuation_values[] = $pagingEntry === null ? 0 : match (FreshRSS_Context::$secondary_sort) {
+						'id' => $pagingEntry->id(),
+						'date' => $pagingEntry->date(raw: true),
+						'link' => $pagingEntry->link(raw: true),
+						'title' => $pagingEntry->title(),
+					};
 				}
 			} elseif (FreshRSS_Context::$sort === 'rand') {
 				FreshRSS_Context::$continuation_id = '0';
@@ -386,7 +395,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
 					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
 					continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
-					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset) as $entry) {
+					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset,
+					secondary_sort: FreshRSS_Context::$secondary_sort, secondary_sort_order: FreshRSS_Context::$secondary_sort_order) as $entry) {
 			yield $entry;
 		}
 	}

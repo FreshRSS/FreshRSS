@@ -74,16 +74,59 @@
 				</div>
 			</div>
 
+			<?php
+				$userSort = FreshRSS_Context::userConf()->sort;
+				$userSortOrder = FreshRSS_Context::userConf()->sort_order;
+				$userSortCombined = $userSort === 'rand' ? 'rand' : $userSort . '_' . strtolower($userSortOrder ?? 'desc');
+			?>
 			<div class="form-group">
-				<label class="group-name" for="sort_order"><?= _t('conf.reading.sort') ?></label>
+				<label class="group-name" for="primary_sort"><?= _t('index.menu.sort.primary') ?></label>
 				<div class="group-controls">
-					<select name="sort_order" id="sort_order">
-						<option value="DESC"<?= FreshRSS_Context::userConf()->sort_order === 'DESC' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.sort.newer_first') ?></option>
-						<option value="ASC"<?= FreshRSS_Context::userConf()->sort_order === 'ASC' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.sort.older_first') ?></option>
+					<select name="primary_sort" id="primary_sort">
+						<option value="id_desc" <?= $userSortCombined === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc" <?= $userSortCombined === 'date_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc" <?= $userSortCombined === 'length_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc" <?= $userSortCombined === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc" <?= $userSortCombined === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option value="f.name_desc" <?= $userSortCombined === 'f.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_desc') ?></option>
+						<option value="c.name_desc" <?= $userSortCombined === 'c.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.c.name_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand" <?= $userSortCombined === 'rand' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc" <?= $userSortCombined === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc" <?= $userSortCombined === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc" <?= $userSortCombined === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc" <?= $userSortCombined === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc" <?= $userSortCombined === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
+						<option value="f.name_asc" <?= $userSortCombined === 'f.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_asc') ?></option>
+						<option value="c.name_asc" <?= $userSortCombined === 'c.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.c.name_asc') ?></option>
 					</select>
+					<p class="help"><?= _i('help') ?> <?= _t('index.menu.sort.primary.help') ?></p>
 				</div>
 			</div>
 
+			<?php
+				$userSecondarySort = FreshRSS_Context::userConf()->secondary_sort;
+				$userSecondarySortOrder = FreshRSS_Context::userConf()->secondary_sort_order;
+				$userSecondarySortCombined = $userSecondarySort === 'rand' ? 'rand' : $userSecondarySort . '_' . strtolower($userSecondarySortOrder ?? 'desc');
+			?>
+			<div class="form-group">
+				<label class="group-name" for="secondary_sort"><?= _t('index.menu.sort.secondary') ?></label>
+				<div class="group-controls">
+					<select name="secondary_sort" id="secondary_sort">
+						<option value="id_desc" <?= $userSecondarySortCombined === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc" <?= $userSecondarySortCombined === 'date_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="link_desc" <?= $userSecondarySortCombined === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc" <?= $userSecondarySortCombined === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc" <?= $userSecondarySortCombined === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc" <?= $userSecondarySortCombined === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="link_asc" <?= $userSecondarySortCombined === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc" <?= $userSecondarySortCombined === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
+					</select>
+					<p class="help"><?= _i('help') ?> <?= _t('index.menu.sort.secondary.help') ?></p>
+				</div>
+			</div>
 		</fieldset>
 
 		<fieldset>

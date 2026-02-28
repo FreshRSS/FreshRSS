@@ -2,16 +2,45 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-01-XX FreshRSS 1.28.1-dev
+## 2026-0X-XX FreshRSS 1.29.0-dev
+
+* Features
+	* New sort order preferences at global, category, and feed levels [#8234](https://github.com/FreshRSS/FreshRSS/pull/8234)
+	* Add option to enable/disable notifications, also for PWA [#8458](https://github.com/FreshRSS/FreshRSS/pull/8458)
+	* Allow WebSub hub push from same private network [#8450](https://github.com/FreshRSS/FreshRSS/pull/8450)
+* Bug fixing
+	* Fix wrong search `toString` in case of regex-looking string [#8479](https://github.com/FreshRSS/FreshRSS/pull/8479)
+* Security
+	* Add `allowfullscreen` to `<iframe>` [#8467](https://github.com/FreshRSS/FreshRSS/pull/8467)
+	* Rewrite `Set-Cookie` using native PHP support of `SameSite` [#8447](https://github.com/FreshRSS/FreshRSS/pull/8447)
+		* Sanitize lifetime of session cookies from `session.cookie-lifetime` in `php.ini`
+* I18n
+	* Improve Simplified Chinese [#8474](https://github.com/FreshRSS/FreshRSS/pull/8474), [#8475](https://github.com/FreshRSS/FreshRSS/pull/8475), [#8476](https://github.com/FreshRSS/FreshRSS/pull/8476)
+* Misc.
+	* Initial conventions for AI agents and humans: `AGENTS.md`, `SKILLS.md`, `instructions.md` [#8478](https://github.com/FreshRSS/FreshRSS/pull/8478)
+	* Update to PHPMailer 7.0.2 [#8483](https://github.com/FreshRSS/FreshRSS/pull/8483)
+	* Update dev dependencies [#8469](https://github.com/FreshRSS/FreshRSS/pull/8469), [#8480](https://github.com/FreshRSS/FreshRSS/pull/8480)
+
+
+## 2026-01-25 FreshRSS 1.28.1
 
 * Features
 	* Handle Web scraping of `text/plain` as `<pre class="text-plain">` [#8340](https://github.com/FreshRSS/FreshRSS/pull/8340)
+	* New customisable message for closed registrations [#8462](https://github.com/FreshRSS/FreshRSS/pull/8462)
 * Bug fixing
 	* Fix unwanted expansion of user queries (saved searches) applied to filters [#8395](https://github.com/FreshRSS/FreshRSS/pull/8395)
 	* Fix encoding of filter actions for labels [#8368](https://github.com/FreshRSS/FreshRSS/pull/8368)
+	* Fix searching of tags [#8425](https://github.com/FreshRSS/FreshRSS/pull/8425)
+	* Fix refreshing feeds with token while anonymous refresh is disabled [#8371](https://github.com/FreshRSS/FreshRSS/pull/8371)
+	* Fix RSS and OPML access by token [#8434](https://github.com/FreshRSS/FreshRSS/pull/8434)
+	* Fix MySQL/MariaDB `transliterator_transliterate` fallback (when the `php-intl` extension is unavailable) [#8427](https://github.com/FreshRSS/FreshRSS/pull/8427)
+	* Fix regression with MySQL/MariaDB index hint [#8460](https://github.com/FreshRSS/FreshRSS/pull/8460)
 	* Auto-add `lastUserModified` database column also during mark-as-read action [#8346](https://github.com/FreshRSS/FreshRSS/pull/8346)
 	* Do not include hidden feeds when counting unread articles in categories [#8357](https://github.com/FreshRSS/FreshRSS/pull/8357)
 	* Remove wrong PHP deprecation of OPML export action [#8399](https://github.com/FreshRSS/FreshRSS/pull/8399)
+	* Fix shortcut for next unread article [#8466](https://github.com/FreshRSS/FreshRSS/pull/8466)
+	* Fix custom `session.cookie-lifetime` [#8446](https://github.com/FreshRSS/FreshRSS/pull/8446)
+	* Fix feed validator button when changing the feed URL [#8436](https://github.com/FreshRSS/FreshRSS/pull/8436)
 * Performance
 	* Disable counting articles in user labels for Ajax requests (unused) [#8352](https://github.com/FreshRSS/FreshRSS/pull/8352)
 * Security
@@ -21,18 +50,23 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Add username in Apache access logs (also in Docker logs): for GReader API, and for HTTP Basic Auth from reverse proxy [#8392](https://github.com/FreshRSS/FreshRSS/pull/8392)
 * SimplePie
 	* Update of `CURLOPT_ACCEPT_ENCODING` [#8376](https://github.com/FreshRSS/FreshRSS/pull/8376), [simplepie#960](https://github.com/simplepie/simplepie/pull/960), [simplepie#962](https://github.com/simplepie/simplepie/pull/962)
+	* Fix don’t preserve children inside disallowed `<template>` element [#8443](https://github.com/FreshRSS/FreshRSS/pull/8443)
+	* Fixes before PHPStan 2 [#8445](https://github.com/FreshRSS/FreshRSS/pull/8445), [simplepie#957](https://github.com/simplepie/simplepie/pull/957)
 * Extensions
 	* Update `.gitignore` to ignore installed extensions [#8372](https://github.com/FreshRSS/FreshRSS/pull/8372)
 * UI
 	* Add `data-category="3"` to ease custom CSS styling of articles [#8397](https://github.com/FreshRSS/FreshRSS/pull/8397)
+	* Fix space between *By:* and the author’s name [#8422](https://github.com/FreshRSS/FreshRSS/pull/8422)
 * I18n
+	* Improve Brazilian Portuguese [#8411](https://github.com/FreshRSS/FreshRSS/pull/8411)
 	* Improve Dutch [#8403](https://github.com/FreshRSS/FreshRSS/pull/8403)
 	* Improve German [#8402](https://github.com/FreshRSS/FreshRSS/pull/8402)
 	* Improve Polish [#8408](https://github.com/FreshRSS/FreshRSS/pull/8408)
-	* Improve Brazilian Portuguese [#8411](https://github.com/FreshRSS/FreshRSS/pull/8411)
+	* Improve Spanish [#8464](https://github.com/FreshRSS/FreshRSS/pull/8464)
 * Misc.
 	* Update dev dependencies [#8387](https://github.com/FreshRSS/FreshRSS/pull/8387), [#8388](https://github.com/FreshRSS/FreshRSS/pull/8388), [#8389](https://github.com/FreshRSS/FreshRSS/pull/8389),
-		[#8390](https://github.com/FreshRSS/FreshRSS/pull/8390), [#8391](https://github.com/FreshRSS/FreshRSS/pull/8391), [#8393](https://github.com/FreshRSS/FreshRSS/pull/8393)
+		[#8390](https://github.com/FreshRSS/FreshRSS/pull/8390), [#8391](https://github.com/FreshRSS/FreshRSS/pull/8391), [#8393](https://github.com/FreshRSS/FreshRSS/pull/8393),
+		[#8453](https://github.com/FreshRSS/FreshRSS/pull/8453)
 
 
 ## 2025-12-24 FreshRSS 1.28.0

@@ -149,8 +149,12 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	private static function quote(string $s): string {
-		if (strpbrk($s, ' "\'\\') !== false || $s === '') {
-			return '"' . addcslashes($s, '\\"') . '"';
+		if (str_starts_with($s, 'S:') || str_starts_with($s, 'search:')) {
+			// Discard user queries
+			return $s;
+		}
+		if (strpbrk($s, ' "\'\\/:') !== false || $s === '') {
+			return '"' . addcslashes($s, '"') . '"';
 		}
 		return $s;
 	}
@@ -186,7 +190,7 @@ class FreshRSS_Search implements \Stringable {
 		foreach ($properties as $property) {
 			// @phpstan-ignore property.dynamicName, property.dynamicName
 			if (gettype($this->$property) !== gettype($search->$property)) {
-				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+				if (is_string($property) && (str_contains($property, 'min_') || str_contains($property, 'max_'))) {
 					// Process {min_*, max_*} pairs together (for dates)
 					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
 					// @phpstan-ignore property.dynamicName, property.dynamicName, property.dynamicName, property.dynamicName
@@ -222,7 +226,7 @@ class FreshRSS_Search implements \Stringable {
 			if ($search->$property !== null) {
 				// @phpstan-ignore property.dynamicName, property.dynamicName
 				$result->$property = $search->$property;
-				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+				if (is_string($property) && (str_contains($property, 'min_') || str_contains($property, 'max_'))) {
 					// Process {min_*, max_*} pairs together (for dates)
 					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
 					// @phpstan-ignore property.dynamicName, property.dynamicName
@@ -247,7 +251,7 @@ class FreshRSS_Search implements \Stringable {
 			if ($search->$property !== null) {
 				// @phpstan-ignore property.dynamicName
 				$result->$property = null;
-				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+				if (is_string($property) && (str_contains($property, 'min_') || str_contains($property, 'max_'))) {
 					// Process {min_*, max_*} pairs together (for dates)
 					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
 					// @phpstan-ignore property.dynamicName

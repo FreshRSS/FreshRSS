@@ -232,6 +232,16 @@
 		</div>
 
 		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="html5_enable_notif">
+					<input type="checkbox" name="html5_enable_notif" id="html5_enable_notif" value="1"<?=
+						FreshRSS_Context::userConf()->html5_enable_notif ? ' checked="checked"' : '' ?> />
+					<?= _t('conf.notification.html5_enable_notif') ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="html5_notif_timeout"><?= _t('conf.display.notif_html5.timeout') ?></label>
 			<div class="group-controls">
 				<input type="number" min="0" max="60" id="html5_notif_timeout" name="html5_notif_timeout" value="<?=

@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'フィードを既読にする',
 		'mark_selection_unread' => '選択した記事を未読にする',
 		'mylabels' => 'ラベル',
-		'newer_first' => '最新の記事を先頭にする',
 		'non-starred' => 'お気に入りに登録されてない記事を表示する',
 		'normal_view' => 'ノーマルビュー',
-		'older_first' => '最古の記事を先頭にする',
 		'queries' => 'ユーザークエリ',
 		'read' => '既読の記事を表示する',
 		'reader_view' => 'リーディングビュー',
 		'rss_view' => 'RSSフィード',
 		'search_short' => '検索',
 		'sort' => array(
-			'_' => '並べ替え',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Category, feed titles A→Z',	// TODO
 				'name_desc' => 'Category, feed titles Z→A',	// TODO
 			),
 			'date_asc' => '公開日順 1→9',
 			'date_desc' => '公開日順 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Feed title A→Z',	// TODO
 				'name_desc' => 'Feed title Z→A',	// TODO
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'リンクURL順 A→Z',
 			'link_desc' => 'リンクURL順 Z→A',
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'ランダムに並べる',
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'タイトル順 A→Z',
 			'title_desc' => 'タイトル順 Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

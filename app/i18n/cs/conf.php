@@ -105,6 +105,9 @@ return array(
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Použije se také na popisky',
 		'sides_close_article' => 'Kliknutí mimo oblast textu článku zavře článek',
-		'sort' => array(
-			'_' => 'Pořadí řazení',
-			'newer_first' => 'Nejdříve nejnovější',
-			'older_first' => 'Nejdříve nejstarší',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),

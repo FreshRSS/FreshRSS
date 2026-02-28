@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Tandai umpan sebagai sudah dibaca',
 		'mark_selection_unread' => 'Tandai yang dipilih sebagai belum dibaca',
 		'mylabels' => 'Label Saya',
-		'newer_first' => 'Yang terbaru dulu',
 		'non-starred' => 'Tampilkan yang tidak difavoritkan',
 		'normal_view' => 'Tampilan Normal',
-		'older_first' => 'Yang terlama dulu',
 		'queries' => 'Pencarian pengguna',
 		'read' => 'Tampilkan yang sudah dibaca',
 		'reader_view' => 'Tampilan Membaca',
 		'rss_view' => 'Umpan RSS',
 		'search_short' => 'Cari',
 		'sort' => array(
-			'_' => 'Kriteria pengurutan',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Category, feed titles A→Z',	// TODO
 				'name_desc' => 'Category, feed titles Z→A',	// TODO
 			),
 			'date_asc' => 'Tanggal publikasi 1→9',
 			'date_desc' => 'Tanggal publikasi 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Feed title A→Z',	// TODO
 				'name_desc' => 'Feed title Z→A',	// TODO
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Tautan A→Z',
 			'link_desc' => 'Tautan Z→A',
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Acak',
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Judul A→Z',
 			'title_desc' => 'Judul Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

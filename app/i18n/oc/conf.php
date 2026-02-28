@@ -105,6 +105,9 @@ return array(
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Aplicar tanben a las etiquetas',
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',
-		'sort' => array(
-			'_' => 'Òrdre de tria',
-			'newer_first' => 'Mai recents en primièr',
-			'older_first' => 'Mai ancians en primièr',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),

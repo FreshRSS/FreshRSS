@@ -185,9 +185,9 @@ return [
 
 		# Additional PDO parameters, such as offered by MySQL https://php.net/ref.pdo-mysql
 		'pdo_options' => [
-			//PDO::MYSQL_ATTR_SSL_KEY	=> '/path/to/client-key.pem',
-			//PDO::MYSQL_ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
-			//PDO::MYSQL_ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
+			//Pdo\Mysql::ATTR_SSL_KEY	=> '/path/to/client-key.pem',
+			//Pdo\Mysql::ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
+			//Pdo\Mysql::ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
 		],
 
 	],

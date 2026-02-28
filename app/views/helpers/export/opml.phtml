@@ -182,7 +182,7 @@ if (!empty($this->feeds)) {
 	$opml_array['body'] = array_merge($opml_array['body'], feedsToOutlines($this->feeds, $this->excludeMutedFeeds));
 }
 
-$libopml = new \marienfressinaud\LibOpml\LibOpml(true);
+$libopml = new \marienfressinaud\LibOpml\LibOpml(strict: false);
 $opml = $libopml->render($opml_array);
 /** @var string $opml */
 echo $opml;

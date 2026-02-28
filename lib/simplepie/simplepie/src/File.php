@@ -128,14 +128,15 @@ class File implements Response
                 }
                 if (version_compare(\SimplePie\Misc::get_curl_version(), '7.21.6', '>=')) {
                     curl_setopt($fp, CURLOPT_ACCEPT_ENCODING, '');
-                } elseif (version_compare(\SimplePie\Misc::get_curl_version(), '7.10.5', '>=')) {
+                } else {
                     curl_setopt($fp, CURLOPT_ENCODING, '');
                 }
+                /** @var non-empty-string $url */
                 curl_setopt($fp, CURLOPT_URL, $url);
                 curl_setopt($fp, CURLOPT_RESOLVE, [$resolve]); // FreshRSS
                 curl_setopt($fp, CURLOPT_FOLLOWLOCATION, false); // FreshRSS
-                curl_setopt($fp, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($fp, CURLOPT_FAILONERROR, 1);
+                curl_setopt($fp, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($fp, CURLOPT_FAILONERROR, true);
                 curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);
                 curl_setopt($fp, CURLOPT_CONNECTTIMEOUT, $timeout);
                 // curl_setopt($fp, CURLOPT_REFERER, \SimplePie\Misc::url_remove_credentials($url)); // FreshRSS removed

@@ -105,6 +105,9 @@ return array(
 		'none' => 'Не показувати',
 		'small' => 'Мала',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Впливає також на мітки',
 		'sides_close_article' => 'Натиск за межами тексту статті закриває статтю',
-		'sort' => array(
-			'_' => 'Порядок',
-			'newer_first' => 'Спершу новіші',
-			'older_first' => 'Спершу старіші',
-		),
 		'star' => array(
 			'when' => 'Вподобати статтю…',
 		),

@@ -227,17 +227,17 @@
 	<?php
 		if (FreshRSS_Context::$order === 'ASC') {
 			$icon = 'sort-up';
-			$title = _t('index.menu.older_first');
+			$title = _t('index.menu.sort.asc');
 		} else {
 			$icon = 'sort-down';
-			$title = _t('index.menu.newer_first');
+			$title = _t('index.menu.sort.desc');
 		}
 		$url_order = Minz_Request::currentRequest();
 	?>
 	<div id="nav_menu_sort" class="group">
 		<div class="dropdown">
 			<div id="dropdown-sort" class="dropdown-target"></div>
-			<a id="toggle-order" class="dropdown-toggle btn" href="#dropdown-sort" title="<?= _t('index.menu.sort') ?>"><?= _i($icon) ?></a>
+			<a id="toggle-order" class="dropdown-toggle btn" href="#dropdown-sort" title="<?= _t('index.menu.sort.primary') ?>"><?= _i($icon) ?></a>
 			<ul class="dropdown-menu" role="radiogroup">
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'id' ? 'true' : 'false' ?>">
 					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'id', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.id_desc') ?></a></li>
