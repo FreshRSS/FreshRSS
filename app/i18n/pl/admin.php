@@ -22,93 +22,6 @@ return array(
 		'token' => 'Główny token uwierzytelniania',
 		'token_help' => 'Umożliwia dostęp do wszystkich kanałów RSS użytkownika, jak również odświeżanie kanałów bez uwierzytelnienia:',
 		'type' => 'Metoda uwierzytelniania',
-		'unsafe_autologin' => 'Pozwól na niebezpieczne automatyczne logowanie następującym schematem: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Sprawdz uprawnienia dla katalogu <em>./data/cache</em>. Serwer WWW musi miec uprawnienia do zapisu.',
-			'ok' => 'Uprawnienia dla katalogu pamięci podręcznej się zgadzają.',
-		),
-		'categories' => array(
-			'nok' => 'Tabela kategorii jest nieprawidłowo skonfigurowana.',
-			'ok' => 'Tabela kategorii jest OK.',
-		),
-		'connection' => array(
-			'nok' => 'Nie udało się połączyć z bazą danych.',
-			'ok' => 'Połączenie z bazą danych się powiodło.',
-		),
-		'ctype' => array(
-			'nok' => 'Nie znaleziono wymaganej biblioteki do sprawdzania rodzajów znaków (php-ctype).',
-			'ok' => 'Znaleziono wymaganą bibliotekę do sprawdzania rodzajów znaków (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'Nie znaleziono biblioteki cURL (paczka php-curl).',
-			'ok' => 'Znaleziono bibliotekę cURL.',
-		),
-		'data' => array(
-			'nok' => 'Sprawdź uprawnienia dla katalogu <em>./data</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
-			'ok' => 'Uprawienia dla katalogu danych się zgadzają.',
-		),
-		'database' => 'Instalacja bazy danych',
-		'dom' => array(
-			'nok' => 'Nie znaleziono wymaganej biblioteki do korzystania z DOM-u (paczka php-xml).',
-			'ok' => 'Znaleziono wymaganą bibliotekę do korzystania z DOM-u.',
-		),
-		'entries' => array(
-			'nok' => 'Tabela wpisów jest nieprawidłowo skonfigurowana.',
-			'ok' => 'Tabela wpisów jest OK.',
-		),
-		'favicons' => array(
-			'nok' => 'Sprawdź uprawnienia dla katalogu <em>./data/favicons</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
-			'ok' => 'Uprawnienia dla katalogu ikonek kanałów się zgadzają.',
-		),
-		'feeds' => array(
-			'nok' => 'Tabela kanałów jest nieprawidłowo skonfigurowana.',
-			'ok' => 'Tabela kanałów jest OK.',
-		),
-		'fileinfo' => array(
-			'nok' => 'Nie znaleziono biblioteki fileinfo dla PHP (paczka fileinfo).',
-			'ok' => 'Znaleziono bibliotekę fileinfo.',
-		),
-		'files' => 'Instalacja plików',
-		'json' => array(
-			'nok' => 'Nie znaleziono biblioteki do przetwarzania JSON-a.',
-			'ok' => 'Znaleziono bibliotekę do przetwarzania JSON-a.',
-		),
-		'mbstring' => array(
-			'nok' => 'Nie znaleziono wymaganej biblioteki mbstring do obsługi Unicode.',
-			'ok' => 'Znaleziono wymaganą bibliotekę mbstring do obsługi Unicode.',
-		),
-		'pcre' => array(
-			'nok' => 'Nie znaleziono wymaganej biblioteki do obsługi wyrażeń regularnych (php-pcre).',
-			'ok' => 'Znaleziono wymaganą bibliotekę do obsługi wyrażeń regularnych (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'Nie znaleziono PDO ani żadnego wspieranego sterownika bazy danych (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Znaleziono PDO oraz przynajmniej jeden z wspieranych sterowników bazy danych (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'Instalacja PHP',
-			'nok' => 'Twoja wersja PHP to %s, lecz FreshRSS wymaga co najmniej wersji %s.',
-			'ok' => 'Twoja wersja PHP (%s) jest kompatybilna z FreshRSS.',
-		),
-		'tables' => array(
-			'nok' => 'W bazie danych brakuje jednej bądź więcej wymaganych tabeli.',
-			'ok' => 'Odpowiednie tabele znajdują się w bazie danych.',
-		),
-		'title' => 'Weryfikacja instalacji',
-		'tokens' => array(
-			'nok' => 'Sprawdź uprawnienia dla katalogu <em>./data/tokens</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
-			'ok' => 'Uprawnienia dla katalogu tokenów się zgadzają.',
-		),
-		'users' => array(
-			'nok' => 'Sprawdź uprawnienia dla katalogu <em>./data/users</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
-			'ok' => 'Uprawnienia dla katalogu użytkownika się zgadzają.',
-		),
-		'zip' => array(
-			'nok' => 'Nie znaleziono rozszerzenia ZIP (paczka php-zip).',
-			'ok' => 'Znaleziono rozszerzenie ZIP.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Autor',
@@ -170,10 +83,12 @@ return array(
 			'_' => 'Baza URL-a',
 			'recommendation' => 'Automatyczne zalecenie: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'w sekundach',
 			'number' => 'Czas przez który użytkownik pozostanie zalogowany',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Wymuś weryfikację adresu e-mail',
 		'instance-name' => 'Nazwa instancji',
 		'max-categories' => 'Maksymalna liczba kategorii na użytkownika',

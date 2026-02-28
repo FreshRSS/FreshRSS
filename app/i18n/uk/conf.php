@@ -105,6 +105,9 @@ return array(
 		'none' => 'Не показувати',
 		'small' => 'Мала',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Впливає також на мітки',
 		'sides_close_article' => 'Натиск за межами тексту статті закриває статтю',
-		'sort' => array(
-			'_' => 'Порядок',
-			'newer_first' => 'Спершу новіші',
-			'older_first' => 'Спершу старіші',
-		),
 		'star' => array(
 			'when' => 'Вподобати статтю…',
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => 'Сфокусувати наступну не відкриваючи',
 		'skip_previous_article' => 'Сфокусувати попередню не відкриваючи',
 		'title' => 'Клавіші',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Почати/зупинити відтворення',
 		'user_filter' => 'Користувацькі запити',
 		'user_filter_help' => 'Якщо користувацький запит лише один, використовується одразу він. Інакше обирайте запити їхніми номерами.',

@@ -61,7 +61,7 @@ If you do not have one, you need to create one.
 		},
 		"response": {
 			"status": 200,
-			"bodyFileName": "{{request.pathSegments.[0]}}",
+			"bodyFileName": "{{ '{{' }}request.pathSegments.[0]}}",
 			"transformers": ["response-template"],
 			"headers": {
 				"Content-Type": "application/rss+xml"

@@ -105,6 +105,9 @@ return array(
 		'none' => 'Tidak ditampilkan',
 		'small' => 'Kecil',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Berlaku juga pada label',
 		'sides_close_article' => 'Klik di luar area teks artikel untuk menutup artikel',
-		'sort' => array(
-			'_' => 'Kriteria pengurutan',
-			'newer_first' => 'Terbaru dulu',
-			'older_first' => 'Terlama dulu',
-		),
 		'star' => array(
 			'when' => 'Tandai artikel sebagai favorit…',
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => 'Fokus berikutnya tanpa membuka',
 		'skip_previous_article' => 'Fokus sebelumnya tanpa membuka',
 		'title' => 'Pintasan',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Putar/jeda media',
 		'user_filter' => 'Akses pencarian pengguna',
 		'user_filter_help' => 'Jika hanya ada satu pencarian pengguna, maka itu akan digunakan. Jika tidak, pencarian dapat diakses dengan nomornya',

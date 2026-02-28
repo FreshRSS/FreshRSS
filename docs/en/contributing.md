@@ -33,6 +33,8 @@ Would you like to fix a bug? For optimum coordination between collaborators, you
 
 If you have to write code, please follow [our coding style recommendations](developers/02_First_steps.md).
 
+> ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).
+
 **Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)” ticket label.
 
 ## Submit an idea

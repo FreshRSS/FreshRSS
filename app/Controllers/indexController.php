@@ -52,10 +52,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * Content for displaying a transition between entries when sorting by specific criteria.
-	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
 	 */
-	public static function transition(FreshRSS_Entry $entry, string $sort): string {
-		return match ($sort) {
+	public static function transition(FreshRSS_Entry $entry): string {
+		return match (FreshRSS_Context::$sort) {
 			'id' => _t('index.feed.received' . self::dayRelative($entry->dateAdded(raw: true), mayBeFuture: false)) .
 				' — ' . timestamptodate($entry->dateAdded(raw: true), hour: false),
 			'date' => _t('index.feed.published' . self::dayRelative($entry->date(raw: true), mayBeFuture: true)) .
@@ -66,6 +65,38 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'f.name' => $entry->feed()?->name() ?? '',
 			default => '',
 		};
+	}
+
+	/**
+	 * Produce a hyperlink to the next transition of entries.
+	 */
+	public static function transitionLink(FreshRSS_Entry $entry, int $offset = 0): string {
+		if (in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
+			return Minz_Url::display(Minz_Request::modifiedCurrentRequest([
+				'get' => match (FreshRSS_Context::$sort) {
+					'c.name' => 'c_' . ($entry->feed()?->category()?->id() ?? '0'),
+					'f.name' => 'f_' . ($entry->feed()?->id() ?? '0'),
+				},
+			]));
+		}
+		$operator = match (FreshRSS_Context::$sort) {
+			'id' => 'date',
+			'date' => 'pubdate',
+			'lastUserModified' => 'userdate',
+			default => throw new InvalidArgumentException('Unsupported sort criterion for transition: ' . FreshRSS_Context::$sort),
+		};
+		$offset = FreshRSS_Context::$order === 'ASC' ? $offset : -$offset;
+		$timestamp = match (FreshRSS_Context::$sort) {
+			'id' => $entry->dateAdded(raw: true),
+			'date' => $entry->date(raw: true),
+			'lastUserModified' => $entry->lastUserModified(),
+			default => throw new InvalidArgumentException('Unsupported sort criterion for transition: ' . FreshRSS_Context::$sort),
+		};
+		$searchString = $operator . ':' . ($offset < 0 ? '/' : '') . date('Y-m-d', $timestamp + ($offset * 86400)) . ($offset > 0 ? '/' : '');
+		return Minz_Url::display(Minz_Request::modifiedCurrentRequest([
+			'search' => FreshRSS_Context::$search->toString() === '' ? $searchString :
+				FreshRSS_Context::$search->enforce(new FreshRSS_Search($searchString))->toString(),
+			]));
 	}
 
 	/**
@@ -104,9 +135,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = FreshRSS_Context::$name;
-		$search = Minz_Request::paramString('search');
+		$search = FreshRSS_Context::$search->toString(expandUserQueries: false);
 		if ($search !== '') {
-			$title = '“' . $search . '”';
+			$title = '“' . htmlspecialchars($search, ENT_COMPAT, 'UTF-8') . '”';
 		}
 		if (FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
@@ -118,8 +149,13 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->callbackBeforeFeeds = static function (FreshRSS_View $view) {
-			$view->tags = FreshRSS_Context::labels(true);
 			$view->nbUnreadTags = 0;
+			if (Minz_Request::paramBoolean('ajax')) {
+				// Disable label counts for AJAX requests: faster and not needed
+				$view->tags = FreshRSS_Context::labels(precounts: false);
+				return;
+			}
+			$view->tags = FreshRSS_Context::labels(precounts: true);
 			foreach ($view->tags as $tag) {
 				$view->nbUnreadTags += $tag->nbUnread();
 			}
@@ -200,15 +236,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public function rssAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-		$token = FreshRSS_Context::userConf()->token;
-		$token_param = Minz_Request::paramString('token');
-		$token_is_ok = ($token != '' && $token === $token_param);
 
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() &&
-				!$allow_anonymous &&
-				!$token_is_ok) {
-			Minz_Error::error(403);
+		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
+			Minz_Error::error(403, redirect: false);
 		}
 
 		try {
@@ -236,18 +267,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		header('Content-Type: application/rss+xml; charset=utf-8');
 	}
 
-	/**
-	 * @deprecated See user query OPML sharing instead
-	 */
 	public function opmlAction(): void {
 		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-		$token = FreshRSS_Context::userConf()->token;
-		$token_param = Minz_Request::paramString('token');
-		$token_is_ok = ($token != '' && $token === $token_param);
 
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !$token_is_ok) {
-			Minz_Error::error(403);
+		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
+			Minz_Error::error(403, redirect: false);
 		}
 
 		try {
@@ -342,15 +367,24 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					'c.name' => $pagingEntry->feed()?->categoryId() === FreshRSS_CategoryDAO::DEFAULTCATEGORYID ?
 						FreshRSS_CategoryDAO::DEFAULT_CATEGORY_NAME : $pagingEntry->feed()?->category()?->name() ?? '',
 					'date' => $pagingEntry->date(raw: true),
-					'f.name' => $pagingEntry->feed()?->name() ?? '',
+					'f.name' => $pagingEntry->feed()?->name(raw: true) ?? '',
 					'link' => $pagingEntry->link(raw: true),
 					'title' => $pagingEntry->title(),
 					'lastUserModified' => $pagingEntry->lastUserModified(),
 					'length' => $pagingEntry->sqlContentLength() ?? 0,
 				};
-				if ($pagingEntry !== null && FreshRSS_Context::$sort === 'c.name') {
-					// Secondary sort criterion
-					$continuation_values[] = $pagingEntry->feed()?->name() ?? '';
+				if (FreshRSS_Context::$sort === 'c.name') {
+					// Internal secondary sort criterion for category name
+					$continuation_values[] = $pagingEntry?->feed()?->name(raw: true) ?? '';
+				}
+				if (in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
+					// User secondary sort criterion
+					$continuation_values[] = $pagingEntry === null ? 0 : match (FreshRSS_Context::$secondary_sort) {
+						'id' => $pagingEntry->id(),
+						'date' => $pagingEntry->date(raw: true),
+						'link' => $pagingEntry->link(raw: true),
+						'title' => $pagingEntry->title(),
+					};
 				}
 			} elseif (FreshRSS_Context::$sort === 'rand') {
 				FreshRSS_Context::$continuation_id = '0';
@@ -361,7 +395,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
 					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
 					continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
-					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset) as $entry) {
+					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset,
+					secondary_sort: FreshRSS_Context::$secondary_sort, secondary_sort_order: FreshRSS_Context::$secondary_sort_order) as $entry) {
 			yield $entry;
 		}
 	}

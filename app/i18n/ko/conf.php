@@ -105,6 +105,9 @@ return array(
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => '라벨에도 적용하기',
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
-		'sort' => array(
-			'_' => '정렬 순서',
-			'newer_first' => '최근 글 먼저',
-			'older_first' => '오래된 글 먼저',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => '다음 글로 커서 이동',
 		'skip_previous_article' => '이전 글로 커서 이동',
 		'title' => '단축키',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => '미디어 재생/일시정지',
 		'user_filter' => '사용자 필터 사용하기',
 		'user_filter_help' => '사용자 필터가 하나만 설정되어 있다면 해당 필터를 사용하고, 그렇지 않다면 필터를 번호로 선택할 수 있습니다.',

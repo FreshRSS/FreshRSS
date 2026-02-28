@@ -40,7 +40,7 @@ class FreshRSS_Import_Service {
 		$this->lastStatus = true;
 		$opml_array = [];
 		try {
-			$libopml = new \marienfressinaud\LibOpml\LibOpml(false);
+			$libopml = new \marienfressinaud\LibOpml\LibOpml(strict: false);
 			/** @var array{body:array<array<mixed>>} $opml_array */
 			$opml_array = $libopml->parseString($opml_file);
 		} catch (\marienfressinaud\LibOpml\Exception $e) {

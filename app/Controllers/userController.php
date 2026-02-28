@@ -65,7 +65,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * Return if the maximum number of registrations has been reached.
 	 * Note a max_registrations of 0 means there is no limit.
 	 *
-	 * @return bool true if number of users >= max registrations, false else.
+	 * @return bool true if number of users >= max registrations, false otherwise.
 	 */
 	public static function max_registrations_reached(): bool {
 		$limit_registrations = FreshRSS_Context::systemConf()->limits['max_registrations'];
@@ -328,8 +328,14 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$this->view->show_email_field = FreshRSS_Context::systemConf()->force_email_validation;
 		$this->view->current_user = Minz_Request::paramString('u');
 
+		$fast = false;
+		$startTime = time();
 		foreach (self::listUsers() as $user) {
-			$this->view->users[$user] = $this->retrieveUserDetails($user);
+			if (!$fast && (time() - $startTime >= 3)) {
+				// Disable detailed user statistics if it takes too long, and will retrieve them asynchronously via JavaScript
+				$fast = true;
+			}
+			$this->view->users[$user] = $this->retrieveUserDetails($user, $fast);
 		}
 	}
 
@@ -361,7 +367,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$configPath = '';
 
 		if ($ok) {
-			if (!Minz_Translate::exists(is_string($userConfig['language']) ? $userConfig['language'] : '')) {
+			if (!Minz_Translate::exists(is_string($userConfig['language'] ?? null) ? $userConfig['language'] : '')) {
 				$userConfig['language'] = Minz_Translate::DEFAULT_LANGUAGE;
 			}
 
@@ -806,11 +812,11 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle($username . ' · ' . _t('gen.menu.user_management') . ' · ');
 	}
 
-	/** @return array{'feed_count':int,'article_count':int,'database_size':int,'language':string,'mail_login':string,'enabled':bool,'is_admin':bool,'last_user_activity':string,'is_default':bool} */
-	private function retrieveUserDetails(string $username): array {
-		$feedDAO = FreshRSS_Factory::createFeedDao($username);
-		$entryDAO = FreshRSS_Factory::createEntryDao($username);
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
+	/** @return array{feed_count:?int,article_count:?int,database_size:?int,language:string,mail_login:string,enabled:bool,is_admin:bool,last_user_activity:string,is_default:bool} */
+	private function retrieveUserDetails(string $username, bool $fast = false): array {
+		$feedDAO = $fast ? null : FreshRSS_Factory::createFeedDao($username);
+		$entryDAO = $fast ? null : FreshRSS_Factory::createEntryDao($username);
+		$databaseDAO = $fast ? null : FreshRSS_Factory::createDatabaseDAO($username);
 
 		$userConfiguration = FreshRSS_UserConfiguration::getForUser($username);
 		if ($userConfiguration === null) {
@@ -818,9 +824,9 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 
 		return [
-			'feed_count' => $feedDAO->count(),
-			'article_count' => $entryDAO->count(),
-			'database_size' => $databaseDAO->size(),
+			'feed_count' => isset($feedDAO) ? $feedDAO->count() : null,
+			'article_count' => isset($entryDAO) ? $entryDAO->count() : null,
+			'database_size' => isset($databaseDAO) ? $databaseDAO->size() : null,
 			'language' => $userConfiguration->language,
 			'mail_login' => $userConfiguration->mail_login,
 			'enabled' => $userConfiguration->enabled,

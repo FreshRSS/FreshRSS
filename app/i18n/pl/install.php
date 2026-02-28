@@ -62,6 +62,11 @@ return array(
 			'nok' => 'Nie znaleziono biblioteki fileinfo dla PHP (paczka fileinfo).',
 			'ok' => 'Znaleziono bibliotekę fileinfo.',
 		),
+		'files' => 'Instalacja plików',
+		'intl' => array(
+			'nok' => 'Nie znaleziono zalecanej biblioteki php-intl do internacjonalizacji.',
+			'ok' => 'Znaleziono zalecaną bibliotekę php-intl do internacjonalizacji.',
+		),
 		'json' => array(
 			'nok' => 'Nie znaleziono zalecanej biblioteki do przetwarzania JSON-a.',
 			'ok' => 'Znaleziono zalecaną bibliotekę do przetwarzania JSON-a.',
@@ -74,18 +79,33 @@ return array(
 			'nok' => 'Nie znaleziono wymaganej biblioteki do obsługi wyrażeń regularnych (php-pcre).',
 			'ok' => 'Znaleziono wymaganą bibliotekę do obsługi wyrażeń regularnych (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Nie znaleziono wymaganego sterownika PDO dla MySQL/MariaDB.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Nie znaleziono wymaganego sterownika PDO dla PostgreSQL.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Nie znaleziono sterownika PDO dla SQLite.',
+			'ok' => 'Znaleziono sterownik PDO dla SQLite.',
+		),
 		'pdo' => array(
-			'nok' => 'Nie znaleziono PDO ani żadnego wspieranego sterownika bazy danych (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Znaleziono PDO oraz przynajmniej jeden z wspieranych sterowników bazy danych (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Nie znaleziono PDO ani żadnego wspieranego sterownika bazy danych (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Znaleziono PDO oraz przynajmniej jeden z wspieranych sterowników bazy danych (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Instalacja PHP',
 			'nok' => 'Twoja wersja PHP to %s, lecz FreshRSS wymaga co najmniej wersji %s.',
-			'ok' => 'Twoja wersja PHP, %s, jest kompatybilna z FreshRSS.',
+			'ok' => 'Twoja wersja PHP (%s) jest kompatybilna z FreshRSS.',
 		),
 		'reload' => 'Sprawdź ponownie',
 		'tmp' => array(
 			'nok' => 'Sprawdź uprawnienia użytkownika <em>%2$s</em> dla katalogu <em>%1$s</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
 			'ok' => 'Uprawienia dla katalogu plików tymczasowych się zgadzają.',
+		),
+		'tokens' => array(
+			'nok' => 'Sprawdź uprawnienia dla katalogu <em>./data/tokens</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
+			'ok' => 'Uprawnienia dla katalogu tokenów się zgadzają.',
 		),
 		'unknown_process_username' => 'nieznany',
 		'users' => array(
@@ -95,6 +115,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Nie znaleziono wymaganej biblioteki do przetwarzania XML-a.',
 			'ok' => 'Znaleziono wymaganą bibliotekę do przetwarzania XML-a.',
+		),
+		'zip' => array(
+			'nok' => 'Nie znaleziono rozszerzenia ZIP (paczka php-zip).',
+			'ok' => 'Znaleziono rozszerzenie ZIP.',
 		),
 	),
 	'conf' => array(

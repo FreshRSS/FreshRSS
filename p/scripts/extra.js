@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, openNotification, xmlHttpRequestJson */
+/* globals context, notifs_html5_is_supported, openNotification, xmlHttpRequestJson */
 
 // <crypto form (Web login)>
 function poormanSalt() {	// If crypto.getRandomValues is not available
@@ -75,7 +75,7 @@ function init_crypto_forms() {
 						try {
 							const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
 							const s = bcrypt.hashSync(crypto_form.querySelector('.passwordPlain').value, json.salt1);
-							const c = bcrypt.hashSync(json.nonce + s, strong ? bcrypt.genSaltSync(4) : poormanSalt());
+							const c = bcrypt.hashSync(s + json.nonce, strong ? bcrypt.genSaltSync(4) : poormanSalt());
 							challenge.value = c;
 							if (!s || !c) {
 								openNotification('Crypto error!', 'bad');
@@ -362,6 +362,18 @@ function open_slider_listener(ev) {
 					f.insertAdjacentHTML('afterbegin', '<input type="hidden" name="slider" value="1" />');
 				});
 				context.ajax_loading = false;
+
+				window.addEventListener('hashchange', () => {
+					if (location.hash.substr(1) === 'slider') {
+						// Triggers when slider is closed
+						window.addEventListener('hashchange', () => {
+							location.hash = 'close';
+							slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
+							document.documentElement.classList.remove('slider-active');
+						}, { once: true });
+					}
+				}, { once: true });
+
 				slider.dispatchEvent(freshrssSliderLoadEvent);
 			};
 			req.send();
@@ -384,8 +396,6 @@ function init_slider(slider) {
 function close_slider_listener(ev) {
 	const slider = document.getElementById('slider');
 	if (data_leave_validation(slider) || confirm(context.i18n.confirm_exit_slider)) {
-		slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
-		document.documentElement.classList.remove('slider-active');
 		return true;
 	}
 	if (ev) {
@@ -395,11 +405,14 @@ function close_slider_listener(ev) {
 }
 // </slider>
 
-// overwrites the href attribute from the url input
+// updates href from the input value, with optional prefix/encoding
 function updateHref(ev) {
 	const urlField = document.getElementById(this.getAttribute('data-input'));
-	const url = urlField.value;
-	if (url.length > 0) {
+	const rawUrl = urlField.value;
+	const prefix = this.getAttribute('data-prefix') || '';
+	const shouldEncode = this.getAttribute('data-encode') === '1';
+	const url = prefix + (shouldEncode ? encodeURIComponent(rawUrl) : rawUrl);
+	if (rawUrl.length > 0) {
 		this.href = url;
 		return true;
 	} else {
@@ -524,6 +537,89 @@ function init_details_attributes() {
 	});
 }
 
+function init_user_stats() {
+	const active = new Set();
+	const queue = [];
+	const limit = 10;	// Ensure not too many concurrent requests
+
+	const processQueue = () => {
+		while (queue.length > 0 && active.size < limit) {
+			const row = queue.shift();
+			const promise = (async () => {
+				row.removeAttribute('data-need-ajax');
+				try {
+					const username = row.querySelector('.username').textContent.trim();
+					const url = '?c=user&a=details&username=' + encodeURIComponent(username) + '&ajax=1';
+					const response = await fetch(url);
+					const html = await response.text();
+					const parser = new DOMParser();
+					const doc = parser.parseFromString(html, 'text/html');
+					row.querySelector('.feed-count').innerHTML = doc.querySelector('.feed_count').innerHTML;
+					row.querySelector('.article-count').innerHTML = doc.querySelector('.article_count').innerHTML;
+					row.querySelector('.database-size').innerHTML = doc.querySelector('.database_size').innerHTML;
+				} catch (err) {
+					console.error('Error fetching user stats', err);
+				}
+			})();
+
+			promise.finally(() => {
+				active.delete(promise);
+				processQueue();
+			});
+			active.add(promise);
+		}
+	};
+
+	// Retrieve user stats when the row becomes visible
+	const timers = new WeakMap();
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const timer = setTimeout(() => {
+					// But wait a bit to avoid triggering on fast scrolls
+					observer.unobserve(entry.target);
+					queue.push(entry.target);
+					processQueue();
+				}, 100);
+				timers.set(entry.target, timer);
+			} else {
+				clearTimeout(timers.get(entry.target));
+			}
+		});
+	});
+
+	document.querySelectorAll('tr[data-need-ajax]').forEach(row => observer.observe(row));
+}
+
+function init_enable_notify_button() {
+	const notify_button = document.getElementById('html5_enable_notif');
+	if (!notify_button) return;
+	// it means unsupported in browser
+	if (!notifs_html5_is_supported()) {
+		notify_button.checked = false;
+		return;
+	}
+
+	// Not granted, uncheck even if it is saved in server so browser asks for permission
+	if (Notification.permission !== 'granted') {
+		notify_button.checked = false;
+	}
+
+	notify_button.addEventListener('change', async function () {
+		if (this.checked) {
+			const permission = await Notification.requestPermission();
+			context.notifs_html5_permission = permission;
+			// Uncheck if user denied
+			if (permission !== 'granted') {
+				notify_button.checked = false;
+			}
+		} else {
+			// User disabled notifications
+			context.notifs_html5_permission = 'denied';
+		}
+	});
+}
+
 function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
@@ -544,6 +640,8 @@ function init_extra_afterDOM() {
 		init_2stateButton();
 		init_update_feed();
 		init_details_attributes();
+		init_user_stats();
+		init_enable_notify_button();
 
 		data_auto_leave_validation(document.body);
 

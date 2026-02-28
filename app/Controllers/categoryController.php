@@ -110,7 +110,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$category->_attribute('read_when_same_title_in_category', null);
 			}
 
-			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read'));
+			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read', plaintext: true));
 
 			if (Minz_Request::paramBoolean('use_default_purge_options')) {
 				$category->_attribute('archiving', null);
@@ -150,6 +150,22 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$category->_attribute('opml_url', null);
 			}
 
+			$defaultSortOrder = Minz_Request::paramString('defaultSortOrder', plaintext: true);
+			if (str_ends_with($defaultSortOrder, '_asc')) {
+				$category->_attribute('defaultOrder', 'ASC');
+				$defaultSortOrder = substr($defaultSortOrder, 0, -strlen('_asc'));
+			} elseif (str_ends_with($defaultSortOrder, '_desc')) {
+				$category->_attribute('defaultOrder', 'DESC');
+				$defaultSortOrder = substr($defaultSortOrder, 0, -strlen('_desc'));
+			} else {
+				$category->_attribute('defaultOrder');
+			}
+			if (in_array($defaultSortOrder, ['id', 'date', 'link', 'title', 'length', 'f.name', 'rand'], true)) {
+				$category->_attribute('defaultSort', $defaultSortOrder);
+			} else {
+				$category->_attribute('defaultSort');
+			}
+
 			$values = [
 				'kind' => $category->kind(),
 				'name' => Minz_Request::paramString('name'),
@@ -177,7 +193,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(400);
 			return;
 		}
-		$filteractions = Minz_Request::paramTextToArray('filteractions_read');
+		$filteractions = Minz_Request::paramTextToArray('filteractions_read', plaintext: true);
 		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
 		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
 		$search = "c:$id (";

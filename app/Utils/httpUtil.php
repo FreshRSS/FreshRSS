@@ -203,8 +203,8 @@ final class FreshRSS_http_Util {
 			}
 		}
 		if ($httpCharsetNormalized === 'UTF-8') {
-			// Save encoding information as XML declaration
-			return '<' . '?xml version="1.0" encoding="' . $httpCharsetNormalized . '" ?' . ">\n" . $html;
+			// Save encoding information as Unicode BOM
+			return "\xEF\xBB\xBF" . $html;
 		}
 		// Give up
 		return $html;
@@ -241,7 +241,19 @@ final class FreshRSS_http_Util {
 				$doc->documentElement->insertBefore($base, $doc->documentElement->firstChild);
 			}
 		}
-		return $doc->saveHTML() ?: $html;
+
+		// Save the start of HTML because libxml2 saveHTML() risks scrambling it
+		$htmlPos = stripos($html, '<html');
+		$htmlStart = $htmlPos === false || $htmlPos > 512 ? '' : substr($html, 0, $htmlPos);
+
+		$html = $doc->saveHTML() ?: $html;
+		if ($htmlStart !== '' && !str_starts_with($html, $htmlStart)) {
+			// libxml2 saveHTML() risks removing Unicode BOM and XML declaration,
+			// which affects future detection of charset encoding, so manually restore it
+			$htmlPos = stripos($html, '<html');
+			$html = $htmlPos === false || $htmlPos > 512 ? $html : $htmlStart . substr($html, $htmlPos);
+		}
+		return $html;
 	}
 
 	/**
@@ -327,7 +339,7 @@ final class FreshRSS_http_Util {
 			CURLOPT_MAXREDIRS => 4,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_ENCODING => '',	//Enable all encodings
+			CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 			//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 		]);
 
@@ -395,7 +407,12 @@ final class FreshRSS_http_Util {
 				$body = self::enforceHttpEncoding($body, $c_content_type);
 			}
 			if (in_array($type, ['html'], true)) {
-				$body = self::enforceHtmlBase($body, $c_effective_url);
+				if (stripos($c_content_type, 'text/plain') !== false) {
+					// Plain text to be displayed as preformatted text. Prefixed with UTF-8 BOM
+					$body = "\xEF\xBB\xBF" . '<pre class="text-plain">' . htmlspecialchars($body, ENT_NOQUOTES, 'UTF-8') . '</pre>';
+				} else {
+					$body = self::enforceHtmlBase($body, $c_effective_url);
+				}
 			}
 		}
 

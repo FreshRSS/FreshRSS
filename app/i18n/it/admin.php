@@ -22,93 +22,6 @@ return array(
 		'token' => 'Token di autenticazione principale',
 		'token_help' => 'Consente l’accesso a tutti gli output RSS dell’utente e di aggiornare i feed senza autenticazione:',
 		'type' => 'Metodo di autenticazione',
-		'unsafe_autologin' => 'Consenti accesso automatico non sicuro usando il formato: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>./data/cache</em>. Il server HTTP deve avere i permessi per scriverci dentro',
-			'ok' => 'I permessi sulla cartella della cache sono corretti.',
-		),
-		'categories' => array(
-			'nok' => 'La tabella delle categorie ha una configurazione errata.',
-			'ok' => 'Tabella delle categorie OK.',
-		),
-		'connection' => array(
-			'nok' => 'La connessione al database non può essere stabilita.',
-			'ok' => 'Connessione al database OK',
-		),
-		'ctype' => array(
-			'nok' => 'Manca una libreria richiesta per il controllo dei caratteri (php-ctype).',
-			'ok' => 'Libreria richiesta per il controllo dei caratteri presente (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'Manca il supporto per cURL (pacchetto php-curl).',
-			'ok' => 'Estensione cURL presente.',
-		),
-		'data' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>./data</em>. Il server HTTP deve avere i permessi per scriverci dentro',
-			'ok' => 'I permessi sulla cartella data sono corretti.',
-		),
-		'database' => 'Installazione database',
-		'dom' => array(
-			'nok' => 'Manca una libreria richiesta per leggere DOM (pacchetto php-xml).',
-			'ok' => 'Libreria richiesta per leggere DOM presente.',
-		),
-		'entries' => array(
-			'nok' => 'La tabella Entry ha una configurazione errata.',
-			'ok' => 'Tabella Entry OK.',
-		),
-		'favicons' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>./data/favicons</em>. Il server HTTP deve avere i permessi per scriverci dentro',
-			'ok' => 'I permessi sulla cartella favicons sono corretti.',
-		),
-		'feeds' => array(
-			'nok' => 'La tabella Feed ha una configurazione errata.',
-			'ok' => 'Tabella Feed OK.',
-		),
-		'fileinfo' => array(
-			'nok' => 'Manca il supporto per PHP fileinfo (pacchetto fileinfo).',
-			'ok' => 'Estensione fileinfo presente.',
-		),
-		'files' => 'Installazione files',
-		'json' => array(
-			'nok' => 'Manca il supoorto a JSON (pacchetto php-json).',
-			'ok' => 'Estensione JSON presente.',
-		),
-		'mbstring' => array(
-			'nok' => 'Non è possibile trovare la libreria mbstring raccomandata per Unicode.',
-			'ok' => 'Ha la libreria mbstring raccomandata per Unicode.',
-		),
-		'pcre' => array(
-			'nok' => 'Manca una libreria richiesta per le regular expressions (php-pcre).',
-			'ok' => 'Libreria richiesta per le regular expressions presente (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'Installazione PHP',
-			'nok' => 'Versione PHP %s FreshRSS richiede almeno la versione %s.',
-			'ok' => 'Versione PHP %s, compatibile con FreshRSS.',
-		),
-		'tables' => array(
-			'nok' => 'Rilevate tabelle mancanti nel database.',
-			'ok' => 'Tutte le tabelle sono presenti nel database.',
-		),
-		'title' => 'Verifica installazione',
-		'tokens' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>./data/tokens</em>. Il server HTTP deve avere i permessi per scriverci dentro',
-			'ok' => 'I permessi sulla cartella tokens sono corretti.',
-		),
-		'users' => array(
-			'nok' => 'Verifica i permessi sulla cartella <em>./data/users</em>. Il server HTTP deve avere i permessi per scriverci dentro',
-			'ok' => 'I permessi sulla cartella users sono corretti.',
-		),
-		'zip' => array(
-			'nok' => 'Manca estensione ZIP (pacchetto php-zip).',
-			'ok' => 'Estensione ZIP presente.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Autore',
@@ -170,10 +83,12 @@ return array(
 			'_' => 'URL base',
 			'recommendation' => 'Suggerimento automatico: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Messaggio visualizzato se le registrazioni sono chiuse',
 		'cookie-duration' => array(
 			'help' => 'in secondi',
 			'number' => 'Tempo in cui rimanere loggati',
 		),
+		'default_closed_registration_message' => 'Questo server non accetta nuove registrazioni per il momento.',
 		'force_email_validation' => 'Forza la validazione dell’indirizzo mail',
 		'instance-name' => 'Nome istanza',
 		'max-categories' => 'Limite categorie per utente',

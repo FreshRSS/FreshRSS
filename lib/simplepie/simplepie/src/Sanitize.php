@@ -713,7 +713,7 @@ class Sanitize implements RegistryAware
             $parent = $element->parentNode;
             if (!in_array($tag, ['html', 'head', 'body', 'div'], true)
                 && !isset($this->allowed_html_elements_with_attributes[$tag])) {
-                if (!in_array($tag, ['script', 'style', 'svg', 'math'], true)) {
+                if (!in_array($tag, ['script', 'style', 'svg', 'math', 'template'], true)) {
                     // Preserve children inside the disallowed element
                     for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
                         $child = $element->childNodes->item($i);
@@ -820,6 +820,9 @@ class Sanitize implements RegistryAware
 
         if ($this->encode_instead_of_strip) {
             foreach ($elements as $element) {
+                if (!($element instanceof \DOMNode)) {
+                    continue;
+                }
                 $fragment = $document->createDocumentFragment();
 
                 // For elements which aren't script or style, include the tag itself
@@ -876,6 +879,9 @@ class Sanitize implements RegistryAware
             return;
         } else {
             foreach ($elements as $element) {
+                if (!($element instanceof \DOMNode)) {
+                    continue;
+                }
                 $fragment = $document->createDocumentFragment();
                 $number = $element->childNodes->length;
                 for ($i = $number; $i > 0; $i--) {

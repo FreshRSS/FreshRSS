@@ -42,8 +42,8 @@ class Minz_Request {
 	 * @param mixed $default default value, if no parameter is given
 	 * @param bool $specialchars `true` to return special characters, `false` (default) to XML-encode them
 	 * @return mixed value of the parameter
-	 * @deprecated use typed versions instead
 	 */
+	#[Deprecated('Use typed versions instead')]
 	public static function param(string $key, mixed $default = false, bool $specialchars = false): mixed {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
@@ -214,6 +214,7 @@ class Minz_Request {
 		if (null !== $extraParams) {
 			$currentRequest['params'] = array_merge($currentRequest['params'], $extraParams);
 		}
+		unset($currentRequest['params']['rid']);
 		return $currentRequest;
 	}
 
@@ -558,6 +559,22 @@ class Minz_Request {
 
 	public static function isPost(): bool {
 		return 'POST' === ($_SERVER['REQUEST_METHOD'] ?? '');
+	}
+
+	public static function tokenIsOk(): bool {
+		$token_param = self::paramString('token');
+		if ($token_param == '') {
+			return false;
+		}
+		$username = self::paramString('user');
+		if ($username == '') {
+			return false;
+		}
+		$conf = FreshRSS_UserConfiguration::getForUser($username);
+		if ($conf === null || !hash_equals($conf->token, $token_param)) {
+			return false;
+		}
+		return true;
 	}
 
 	/**

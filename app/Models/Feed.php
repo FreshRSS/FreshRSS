@@ -40,7 +40,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public const PRIORITY_CATEGORY = 0;
 	public const PRIORITY_FEED = -5;
 	public const PRIORITY_HIDDEN = -10;
-	/** @deprecated use PRIORITY_HIDDEN instead */
+	#[Deprecated('Use PRIORITY_HIDDEN instead')]
 	public const PRIORITY_ARCHIVED = -10;
 
 	public const TTL_DEFAULT = 0;
@@ -535,6 +535,13 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _nbEntries(int $value): void {
 		$this->nbEntries = $value;
+	}
+
+	public function defaultSort(): ?string {
+		return $this->attributeString('defaultSort');
+	}
+	public function defaultOrder(): ?string {
+		return $this->attributeString('defaultOrder');
 	}
 
 	/**
@@ -1098,6 +1105,10 @@ class FreshRSS_Feed extends Minz_Model {
 				$item['author'] = $xPathItemAuthor == '' ? '' : $xpathEvaluateString($xPathItemAuthor, $node);
 				$item['timestamp'] = $xPathItemTimestamp == '' ? '' : $xpathEvaluateString($xPathItemTimestamp, $node);
 				if ($xPathItemTimeFormat != '') {
+					if ($xPathItemTimeFormat === 'U' && strlen($item['timestamp']) > 10) {
+						// Compatibility with Unix timestamp in milliseconds
+						$item['timestamp'] = substr($item['timestamp'], 0, -3);
+					}
 					$dateTime = DateTime::createFromFormat($xPathItemTimeFormat, $item['timestamp']);
 					if ($dateTime != false) {
 						$item['timestamp'] = $dateTime->format(DateTime::ATOM);
@@ -1318,9 +1329,17 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
+	private static function isSameHost(string $url1, string $url2): bool {
+		$hubHost  = parse_url($url1, PHP_URL_HOST);
+		$baseHost = parse_url($url2, PHP_URL_HOST);
+		return ($hubHost != null && $baseHost != null && strcasecmp($hubHost, $baseHost) === 0);
+	}
+
 	public function pubSubHubbubPrepare(): string|false {
 		$key = '';
-		if (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) &&
+		$baseUrl = FreshRSS_Context::systemConf()->base_url;
+		// If they have the same host, they can reach each other (e.g., localhost to localhost)
+		if ((Minz_Request::serverIsPublic($baseUrl) || self::isSameHost($this->hubUrl, $baseUrl)) &&
 			$this->hubUrl !== '' && $this->selfUrl !== '' && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
@@ -1372,7 +1391,9 @@ class FreshRSS_Feed extends Minz_Model {
 		} else {
 			$url = $this->url;	//Always use current URL during unsubscribe
 		}
-		if ($url !== '' && (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) || !$state)) {
+		$baseUrl = FreshRSS_Context::systemConf()->base_url;
+		// If they have the same host, they can reach each other (e.g., localhost to localhost)
+		if ($url !== '' && (Minz_Request::serverIsPublic($baseUrl) || self::isSameHost($url, $baseUrl) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
@@ -1411,7 +1432,7 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 				CURLOPT_MAXREDIRS => 10,
 				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_ENCODING => '',	//Enable all encodings
+				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 			]);
 			$response = curl_exec($ch);

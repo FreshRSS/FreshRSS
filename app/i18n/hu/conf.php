@@ -105,6 +105,9 @@ return array(
 		'none' => 'Egyik sem',
 		'small' => 'Kicsi',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Figyelmeztető sáv megjelenítése',
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'A címkékre is vonatkozik',
 		'sides_close_article' => 'A cikk szövegrészén kívüli kattintás bezárja a cikket',
-		'sort' => array(
-			'_' => 'Rendezési sorrend',
-			'newer_first' => 'Újabb elöl',
-			'older_first' => 'Régebbi elöl',
-		),
 		'star' => array(
 			'when' => 'Cikk megjelölése kedvencnek…',
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => 'Ugrás a következőre megnyitás nélkül',
 		'skip_previous_article' => 'Ugrás az előzőre megnyitás nélkül',
 		'title' => 'Gyorsgombok',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Média indítás/megállítás',
 		'user_filter' => 'Felhasználói lekérdezések elfogadása',
 		'user_filter_help' => 'Ha csak egy felhasználói lekérdezés van, akkor az kerül felhasználásra. Ellenkező esetben a lekérdezések a számuk alapján érhetőek el.',

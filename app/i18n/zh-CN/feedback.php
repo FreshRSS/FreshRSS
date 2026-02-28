@@ -50,7 +50,7 @@ return array(
 			'ko' => '%s 启用失败。<a href="%s">检查 FreshRSS 日志</a> 查看详情。',
 			'ok' => '%s 现已启用',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => '无效的视图 "%s"！回退到"普通视图"。',
 		'no_access' => '你无权访问 %s',
 		'not_enabled' => '%s 未启用',
 		'not_found' => '%s 不存在',
@@ -66,7 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => '你的帐户无法修改',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => '密码不匹配',
 		'updated' => '你的帐户已修改',
 	),
 	'sub' => array(
@@ -97,8 +97,8 @@ return array(
 			'deleted' => '已删除订阅源',
 			'error' => '订阅源更新失败',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => '上传的图标过大。最大文件大小为 <em>%s</em>。',
+				'unsupported_format' => '不支持的图片文件格式！',
 			),
 			'internal_problem' => '订阅源添加失败，<a href="%s">检查 FreshRSS 日志</a> 查看详情。你可以在 URL 后添加 <code>#force_feed</code> 尝试强制添加。',
 			'invalid_url' => 'URL <em>%s</em> 无效',

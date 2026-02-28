@@ -108,7 +108,7 @@ foreach ($values as $name => $value) {
 				}
 				break;
 		}
-		// @phpstan-ignore assign.propertyType, property.dynamicName
+		// @phpstan-ignore assign.propertyType
 		$systemConf->$name = $value;
 	}
 }
@@ -118,6 +118,7 @@ $db = array_merge(FreshRSS_Context::systemConf()->db,
 
 performRequirementCheck($db['type']);
 
+assert(in_array($db['type'], ['mysql', 'pgsql', 'sqlite'], true));
 FreshRSS_Context::systemConf()->db = $db;
 
 FreshRSS_Context::systemConf()->save();

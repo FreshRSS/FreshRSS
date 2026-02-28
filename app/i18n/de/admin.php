@@ -22,93 +22,6 @@ return array(
 		'token' => 'Master-Authentifizierungs-Token',
 		'token_help' => 'Zugriff auf alle vom Nutzer erstellten RSS-Feeds freigeben (inkl. Aktualisierung ohne Authenthentifizierung):',
 		'type' => 'Authentifizierungsmethode',
-		'unsafe_autologin' => 'Erlaube unsicheres automatisches Anmelden mit folgendem Format: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/cache</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/cache</em> sind in Ordnung.',
-		),
-		'categories' => array(
-			'nok' => 'Die Tabelle <em>category</em> ist schlecht konfiguriert.',
-			'ok' => 'Die Tabelle <em>category</em> ist korrekt konfiguriert.',
-		),
-		'connection' => array(
-			'nok' => 'Verbindung zur Datenbank kann nicht aufgebaut werden.',
-			'ok' => 'Verbindung zur Datenbank konnte aufgebaut werden.',
-		),
-		'ctype' => array(
-			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für die Überprüfung von Zeichentypen (php-ctype).',
-			'ok' => 'Sie haben die benötigte Bibliothek für die Überprüfung von Zeichentypen (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'Ihnen fehlt cURL (Paket php-curl).',
-			'ok' => 'Sie haben die cURL-Erweiterung.',
-		),
-		'data' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data</em> sind in Ordnung.',
-		),
-		'database' => 'Datenbank-Installation',
-		'dom' => array(
-			'nok' => 'Ihnen fehlt eine benötigte Bibliothek um DOM zu durchstöbern (Paket php-xml).',
-			'ok' => 'Sie haben die benötigte Bibliothek um DOM zu durchstöbern.',
-		),
-		'entries' => array(
-			'nok' => 'Die Tabelle <em>entry</em> ist schlecht konfiguriert.',
-			'ok' => 'Die Tabelle <em>entry</em> ist korrekt konfiguriert.',
-		),
-		'favicons' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/favicons</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/favicons</em> sind in Ordnung.',
-		),
-		'feeds' => array(
-			'nok' => 'Die Tabelle <em>feed</em> ist schlecht konfiguriert.',
-			'ok' => 'Die Tabelle <em>feed</em> ist korrekt konfiguriert.',
-		),
-		'fileinfo' => array(
-			'nok' => 'Ihnen fehlt PHP fileinfo (Paket fileinfo).',
-			'ok' => 'Sie haben die fileinfo-Erweiterung.',
-		),
-		'files' => 'Datei-Installation',
-		'json' => array(
-			'nok' => 'Ihnen fehlt die JSON-Erweiterung (Paket php-json).',
-			'ok' => 'Sie haben die JSON-Erweiterung.',
-		),
-		'mbstring' => array(
-			'nok' => 'Ihnen fehlt die mbstring-Bibliothek für Unicode.',
-			'ok' => 'Sie haben die empfohlene mbstring-Bliothek für Unicode.',
-		),
-		'pcre' => array(
-			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für reguläre Ausdrücke (php-pcre).',
-			'ok' => 'Sie haben die benötigte Bibliothek für reguläre Ausdrücke (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'PHP-Installation',
-			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
-			'ok' => 'Ihre PHP-Version ist %s, welche kompatibel mit FreshRSS ist.',
-		),
-		'tables' => array(
-			'nok' => 'Es fehlen eine oder mehrere Tabellen in der Datenbank.',
-			'ok' => 'Tabellen existieren in der Datenbank.',
-		),
-		'title' => 'Installationsüberprüfung',
-		'tokens' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/tokens</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/tokens</em> sind in Ordnung.',
-		),
-		'users' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/users</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
-		),
-		'zip' => array(
-			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php-zip).',
-			'ok' => 'Sie haben die ZIP-Erweiterung.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Autor',
@@ -118,7 +31,7 @@ return array(
 		'empty_list' => 'Es gibt keine installierte Erweiterung.',
 		'empty_list_help' => 'Siehe Protokolle für weitere Infos, warum die Erweiterungsliste leer ist.',
 		'enabled' => 'Aktiviert',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Ist kompatibel',
 		'latest' => 'Installiert',
 		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'Diese Erweiterung kann nicht konfiguriert werden.',
@@ -135,8 +48,8 @@ return array(
 		'_' => 'Statistiken',
 		'all_feeds' => 'Alle Feeds',
 		'category' => 'Kategorie',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Veröffentlicht am',
+		'date_received' => 'Erhalten am',
 		'entry_count' => 'Anzahl der Einträge',
 		'entry_per_category' => 'Einträge pro Kategorie',
 		'entry_per_day' => 'Einträge pro Tag (letzten 30 Tage)',
@@ -149,7 +62,7 @@ return array(
 		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
 		'main_stream' => 'Haupt-Feeds',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Anzahl ungelesener Artikel',
 		'no_idle' => 'Es gibt keinen inaktiven Feed!',
 		'number_entries' => '%d Artikel',
 		'overview' => 'Übersicht',
@@ -161,7 +74,7 @@ return array(
 		'status_unread' => 'Ungelesen',
 		'title' => 'Statistiken',
 		'top_feed' => 'Top 10-Feeds',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Datum mit den meisten ungelesenen Artikeln',
 	),
 	'system' => array(
 		'_' => 'Systemeinstellungen',
@@ -170,10 +83,12 @@ return array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => 'Automatische Empfehlung: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Nachricht bei geschlossener Registrierung',
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
 			'number' => 'Eingeloggt bleiben für',
 		),
+		'default_closed_registration_message' => 'Dieser Server akzeptiert momentan keine neuen Registrierungen.',
 		'force_email_validation' => 'E-Mail Adressvalidierung erzwingen',
 		'instance-name' => 'Bezeichnung',
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',

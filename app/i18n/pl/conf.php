@@ -105,6 +105,9 @@ return array(
 		'none' => 'Brak',
 		'small' => 'Mały',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Pokaż baner ostrzeżenia',
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Stosuje się również do etykiet',
 		'sides_close_article' => 'Kliknięcie poza zawartością wiadomości zamyka widok wiadomości',
-		'sort' => array(
-			'_' => 'Porządek sortowania',
-			'newer_first' => 'Najpierw najnowsze',
-			'older_first' => 'Najpierw najstarsze',
-		),
 		'star' => array(
 			'when' => 'Oznacz artykuł jako ulubiony…',
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => 'Przejdź do następnej wiadomości bez otwierania',
 		'skip_previous_article' => 'Przejdź do poprzedniej wiadomości bez otwierania',
 		'title' => 'Skróty klawiszowe',
+		'toggle_aside' => 'Pokaż/ukryj pasek boczny',
 		'toggle_media' => 'Odtwarzanie/pauza mediów',
 		'user_filter' => 'Przejdź do zapisanych zapytań',
 		'user_filter_help' => 'Gdy zapisane jest tylko jedno zapytanie jest ono od razu wykorzystywane. W przeciwnym przypadku zapytania są dostępne przez wybranie ich numeru.',

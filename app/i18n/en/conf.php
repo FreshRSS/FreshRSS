@@ -105,14 +105,17 @@ return array(
 		'none' => 'None',
 		'small' => 'Small',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',
+	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Show warning banner',
+			'seconds' => 'seconds (at least 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Show acknowledgement banner',
+			'seconds' => 'seconds (0 means not shown)',
 		),
 	),
 	'privacy' => array(
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Applies also on labels',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
-		'sort' => array(
-			'_' => 'Sort order',
-			'newer_first' => 'Newest first',
-			'older_first' => 'Oldest first',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',
 		'skip_previous_article' => 'Focus previous without opening',
 		'title' => 'Shortcuts',
+		'toggle_aside' => 'Toggle sidebar',
 		'toggle_media' => 'Play/pause media',
 		'user_filter' => 'Access user queries',
 		'user_filter_help' => 'If there is only one user query, it is used. Otherwise, queries are accessible by their number.',

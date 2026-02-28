@@ -29,22 +29,22 @@
 
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.feed_count') ?></label>
-			<div class="group-controls">
-				<?= format_number($this->details['feed_count'] ?: 0) ?>
+			<div class="group-controls feed_count">
+				<?= is_numeric($this->details['feed_count']) ? format_number($this->details['feed_count']) : '?' ?>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.article_count') ?></label>
-			<div class="group-controls">
-				<?= format_number($this->details['article_count'] ?: 0) ?>
+			<div class="group-controls article_count">
+				<?= is_numeric($this->details['article_count']) ? format_number($this->details['article_count']) : '?' ?>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.database_size') ?></label>
-			<div class="group-controls">
-				<?= format_bytes($this->details['database_size']) ?>
+			<div class="group-controls database_size">
+				<?= is_numeric($this->details['database_size']) ? format_bytes($this->details['database_size']) : '?' ?>
 			</div>
 		</div>
 

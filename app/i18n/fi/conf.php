@@ -105,6 +105,9 @@ return array(
 		'none' => 'Ei mitään',
 		'small' => 'Pieni',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Näytä varoituspalkki',
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Koskee myös merkintöjä',
 		'sides_close_article' => 'Artikkeli sulkeutuu napsauttamalla sen ulkopuolelle',
-		'sort' => array(
-			'_' => 'Lajittelujärjestys',
-			'newer_first' => 'Uusimmat ensin',
-			'older_first' => 'Vanhimmat ensin',
-		),
 		'star' => array(
 			'when' => 'Merkitse artikkeli suosikiksi…',
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => 'Siirry seuraavaan, mutta älä avaa',
 		'skip_previous_article' => 'Siirry edelliseen, mutta älä avaa',
 		'title' => 'Pikanäppäimet',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Toista/keskeytä media',
 		'user_filter' => 'Siirry käyttäjän kyselyihin',
 		'user_filter_help' => 'Jos kyselyitä on vain yksi, sitä käytetään automaattisesti. Muussa tapauksessa kyselyn voi valita numerolla.',

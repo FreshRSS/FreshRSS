@@ -22,93 +22,6 @@ return array(
 		'token' => 'Master authentication token',	// IGNORE
 		'token_help' => 'Allows access to all RSS outputs of the user as well as refreshing feeds without authentication:',	// IGNORE
 		'type' => 'Authentication method',	// IGNORE
-		'unsafe_autologin' => 'Allow unsafe automatic login using the format: ',	// IGNORE
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have write permission.',	// IGNORE
-			'ok' => 'Permissions on the cache directory are good.',	// IGNORE
-		),
-		'categories' => array(
-			'nok' => 'Category table is improperly configured.',	// IGNORE
-			'ok' => 'Category table is okay.',	// IGNORE
-		),
-		'connection' => array(
-			'nok' => 'Connection to the database cannot be established.',	// IGNORE
-			'ok' => 'Connection to the database is okay.',	// IGNORE
-		),
-		'ctype' => array(
-			'nok' => 'Cannot find a required library for character type checking (php-ctype).',	// IGNORE
-			'ok' => 'You have the required library for character type checking (ctype).',	// IGNORE
-		),
-		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',	// IGNORE
-			'ok' => 'You have the cURL library.',	// IGNORE
-		),
-		'data' => array(
-			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have write permission.',	// IGNORE
-			'ok' => 'Permissions on the data directory are good.',	// IGNORE
-		),
-		'database' => 'Database installation',	// IGNORE
-		'dom' => array(
-			'nok' => 'Cannot find a required library to browse the DOM (php-xml package).',	// IGNORE
-			'ok' => 'You have the required library to browse the DOM.',	// IGNORE
-		),
-		'entries' => array(
-			'nok' => 'Entry table is improperly configured.',	// IGNORE
-			'ok' => 'Entry table is okay.',	// IGNORE
-		),
-		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have write permission.',	// IGNORE
-			'ok' => 'Permissions on the favicons directory are good.',	// IGNORE
-		),
-		'feeds' => array(
-			'nok' => 'Feed table is improperly configured.',	// IGNORE
-			'ok' => 'Feed table is okay.',	// IGNORE
-		),
-		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// IGNORE
-			'ok' => 'You have the fileinfo library.',	// IGNORE
-		),
-		'files' => 'File installation',	// IGNORE
-		'json' => array(
-			'nok' => 'Cannot find JSON (php-json package).',	// IGNORE
-			'ok' => 'You have the JSON extension.',	// IGNORE
-		),
-		'mbstring' => array(
-			'nok' => 'Cannot find the recommended mbstring library for Unicode.',	// IGNORE
-			'ok' => 'You have the recommended mbstring library for Unicode.',	// IGNORE
-		),
-		'pcre' => array(
-			'nok' => 'Cannot find a required library for regular expressions (php-pcre).',	// IGNORE
-			'ok' => 'You have the required library for regular expressions (PCRE).',	// IGNORE
-		),
-		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// IGNORE
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// IGNORE
-		),
-		'php' => array(
-			'_' => 'PHP installation',	// IGNORE
-			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',	// IGNORE
-			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',	// IGNORE
-		),
-		'tables' => array(
-			'nok' => 'There are one or more missing tables in the database.',	// IGNORE
-			'ok' => 'The appropriate tables exist in the database.',	// IGNORE
-		),
-		'title' => 'Installation check',	// IGNORE
-		'tokens' => array(
-			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// IGNORE
-			'ok' => 'Permissions on the tokens directory are good.',	// IGNORE
-		),
-		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have write permission',	// IGNORE
-			'ok' => 'Permissions on the users directory are good.',	// IGNORE
-		),
-		'zip' => array(
-			'nok' => 'Cannot find the ZIP extension (php-zip package).',	// IGNORE
-			'ok' => 'You have the ZIP extension.',	// IGNORE
-		),
 	),
 	'extensions' => array(
 		'author' => 'Author',	// IGNORE
@@ -170,10 +83,12 @@ return array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// IGNORE
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// IGNORE
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// IGNORE
 			'number' => 'Duration to keep logged in',	// IGNORE
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// IGNORE
 		'force_email_validation' => 'Force email address validation',	// IGNORE
 		'instance-name' => 'Instance name',	// IGNORE
 		'max-categories' => 'Max number of categories per user',	// IGNORE

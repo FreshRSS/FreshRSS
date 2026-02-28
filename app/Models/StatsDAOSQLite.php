@@ -5,6 +5,9 @@ class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 
 	#[\Override]
 	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
+		if (!preg_match('/^[a-zA-Z0-9_.]+$/', $field)) {
+			throw new InvalidArgumentException('Invalid date field!');
+		}
 		$offset = $this->getTimezoneOffset();
 		return match ($granularity) {
 			'day' => "strftime('%Y-%m-%d', ($field / $precision) + $offset, 'unixepoch')",

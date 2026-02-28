@@ -22,93 +22,6 @@ return array(
 		'token' => 'Hlavní ověřovací token',
 		'token_help' => 'Umožňuje přístup ke všem výstupům RSS uživatele i obnovování kanálů bez ověřování:',
 		'type' => 'Metoda ověřování',
-		'unsafe_autologin' => 'Povolit nebezpečné automatické přihlášení pomocí formátu: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/cache</em>. Server HTTP musí mít oprávnění pro zápis.',
-			'ok' => 'Oprávnění adresáře cache jsou v pořádku.',
-		),
-		'categories' => array(
-			'nok' => 'Tabulka kategorií je nastavena špatně.',
-			'ok' => 'Tabulka kategorií je v pořádku.',
-		),
-		'connection' => array(
-			'nok' => 'Nelze navázat spojení s databází.',
-			'ok' => 'Spojení s databází je v pořádku.',
-		),
-		'ctype' => array(
-			'nok' => 'Nelze nalézt požadovanou knihovnu pro ověřování typu znaků (php-ctype).',
-			'ok' => 'Máte požadovanou knihovnu pro ověřování typu znaků (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'Nelze nalézt knihovnu cURL (balíček php-curl).',
-			'ok' => 'Máte knihovnu cURL.',
-		),
-		'data' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data</em>. Server HTTP musí mít oprávnění pro zápis.',
-			'ok' => 'Oprávnění adresáře data jsou v pořádku.',
-		),
-		'database' => 'Instalace databáze',
-		'dom' => array(
-			'nok' => 'Nelze nalézt požadovanou knihovnu pro procházení DOM (balíček php-xml).',
-			'ok' => 'Máte požadovanou knihovnu pro procházení DOM.',
-		),
-		'entries' => array(
-			'nok' => 'Tabulka položek je nastavena špatně.',
-			'ok' => 'Tabulka položek je v pořádku.',
-		),
-		'favicons' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/favicons</em>. Server HTTP musí mít oprávnění pro zápis.',
-			'ok' => 'Oprávnění adresáře favicons jsou v pořádku.',
-		),
-		'feeds' => array(
-			'nok' => 'Tabulka kanálů je nastavena špatně.',
-			'ok' => 'Tabulka kanálů je v pořádku.',
-		),
-		'fileinfo' => array(
-			'nok' => 'Nelze nalézt knihovnu PHP fileinfo (balíček fileinfo).',
-			'ok' => 'Máte knihovnu fileinfo.',
-		),
-		'files' => 'Instalace souborů',
-		'json' => array(
-			'nok' => 'Nelze nalézt JSON (balíček php-json).',
-			'ok' => 'Máte rozšíření JSON.',
-		),
-		'mbstring' => array(
-			'nok' => 'Nelze nalézt doporučenou knihovnu mbstring pro Unicode.',
-			'ok' => 'Máte doporučenou knihovnu mbstring pro Unicode.',
-		),
-		'pcre' => array(
-			'nok' => 'Nelze nalézt požadovanou knihovnu pro regulární výrazy (php-pcre).',
-			'ok' => 'Máte požadovanou knihovnu pro regulární výrazy (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'Nelze nalézt PDO nebo některý z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Máte PDO a alespoň jeden z podporovaných ovladačů (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'Instalace PHP',
-			'nok' => 'Vaše verze PHP je %s, ale FreshRSS vyžaduje alespoň verzi %s.',
-			'ok' => 'Vaše verze PHP je %s a je kompatibilní s FreshRSS.',
-		),
-		'tables' => array(
-			'nok' => 'V databázi chybí jedna nevo více tabulek.',
-			'ok' => 'V databázi jsou všechny tabulky.',
-		),
-		'title' => 'Kontrola instalace',
-		'tokens' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/tokens</em>. Server HTTP musí mít oprávnění pro zápis.',
-			'ok' => 'Oprávnění adresáře tokens jsou v pořádku.',
-		),
-		'users' => array(
-			'nok' => 'Zkontrolujte oprávnění adresáře <em>./data/users</em>. Server HTTP musí mít oprávnění pro zápis.',
-			'ok' => 'Oprávnění adresáře users jsou v pořádku.',
-		),
-		'zip' => array(
-			'nok' => 'Nelze nalézt rozšíření ZIP (balíček php-zip).',
-			'ok' => 'Máte rozšíření ZIP.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Autor',
@@ -170,10 +83,12 @@ return array(
 			'_' => 'Základní adresa URL',
 			'recommendation' => 'Automatické doporučení: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Trvání ponechání přihlášení',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Vynutit ověření e-mailové adresy',
 		'instance-name' => 'Název instance',
 		'max-categories' => 'Maximální počet kategorií na uživatele',

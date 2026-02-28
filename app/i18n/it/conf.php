@@ -105,6 +105,9 @@ return array(
 		'none' => 'Nessuno',
 		'small' => 'Piccolo',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Abilita notifiche',
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Mostra banner con le segnalazioni',
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Si applica anche alle etichette',
 		'sides_close_article' => 'Cliccare fuori dall’area di testo dell’articolo chiude l’articolo',
-		'sort' => array(
-			'_' => 'Ordinamento',
-			'newer_first' => 'Prima i più recenti',
-			'older_first' => 'Prima i più vecchi',
-		),
 		'star' => array(
 			'when' => 'Segna un articolo come preferito…',
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => 'Evidenzia il prossimo senza aprire',
 		'skip_previous_article' => 'Evidenzia il precedente senza aprire',
 		'title' => 'Comandi da tastiera',
+		'toggle_aside' => 'Mostra/nascondi la barra laterale',
 		'toggle_media' => 'Riproduci/Metti in pausa i media',
 		'user_filter' => 'Accedi alle ricerche personali',
 		'user_filter_help' => 'Se è presente una sola ricerca personale verrà usata quella, altrimenti usare anche il numero associato.',

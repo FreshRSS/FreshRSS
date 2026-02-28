@@ -22,93 +22,6 @@ return array(
 		'token' => '主要驗證權杖',
 		'token_help' => '允許存取使用者的所有 RSS 輸出以及重整源而無需身份驗證:',
 		'type' => '認證方式',
-		'unsafe_autologin' => '允許不安全的自動登入方式：',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => '請檢查 <em>./data/cache</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
-			'ok' => 'cache 目錄權限正常',
-		),
-		'categories' => array(
-			'nok' => 'Category 表配置錯誤',
-			'ok' => 'Category 表正常',
-		),
-		'connection' => array(
-			'nok' => '資料庫連接失敗',
-			'ok' => '資料庫連接正常',
-		),
-		'ctype' => array(
-			'nok' => '找不到字元類型檢測庫（php-ctype）',
-			'ok' => '已找到字元類型檢測庫 （php-ctype）',
-		),
-		'curl' => array(
-			'nok' => '找不到 cURL 庫(php-cURL)',
-			'ok' => '已找到 cURL 庫(php-cURL)',
-		),
-		'data' => array(
-			'nok' => '請檢查 <em>./data</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
-			'ok' => 'data 目錄權限正常',
-		),
-		'database' => '資料庫相關',
-		'dom' => array(
-			'nok' => '找不到用於瀏覽 DOM 的庫（php-xml）',
-			'ok' => '已找到用於瀏覽 DOM 的庫(php-xml)',
-		),
-		'entries' => array(
-			'nok' => 'Entry 表配置錯誤',
-			'ok' => 'Entry 表正常',
-		),
-		'favicons' => array(
-			'nok' => '請檢查 <em>./data/favicons</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
-			'ok' => 'favicons 目錄權限正常',
-		),
-		'feeds' => array(
-			'nok' => 'Feed 表配置錯誤',
-			'ok' => 'Feed 表正常',
-		),
-		'fileinfo' => array(
-			'nok' => '找不到 fileinfo 庫（php-fileinfo）',
-			'ok' => '已找到 fileinfo 庫(php-fileinfo)',
-		),
-		'files' => '文件相關',
-		'json' => array(
-			'nok' => '找不到 JSON 擴展（php-json ）',
-			'ok' => '已找到 JSON 擴展(php-json)',
-		),
-		'mbstring' => array(
-			'nok' => '找不到推薦的 Unicode 解析庫（mbstring)',
-			'ok' => '已找到推薦的 Unicode 解析庫（mbstring)',
-		),
-		'pcre' => array(
-			'nok' => '找不到正則表達式解析庫（php-pcre）',
-			'ok' => '已找到正則表達式解析庫（php-pcre）',
-		),
-		'pdo' => array(
-			'nok' => '找不到 PDO 或支持的驅動（pdo_mysql、pdo_sqlite、pdo_pgsql）',
-			'ok' => '已找到 PDO 和支持的至少一種驅動（pdo_mysql、pdo_sqlite、pdo_pgsql）',
-		),
-		'php' => array(
-			'_' => 'PHP 相關',
-			'nok' => '你的 PHP 版本為 %s，但 FreshRSS 最低需要 %s',
-			'ok' => '你的 PHP 版本為 %s，與 FreshRSS 相容',
-		),
-		'tables' => array(
-			'nok' => '資料庫中缺少一個或多個表',
-			'ok' => '資料庫中相關表存在',
-		),
-		'title' => '環境檢查',
-		'tokens' => array(
-			'nok' => '請檢查 <em>./data/tokens</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
-			'ok' => 'tokens 目錄權限正常',
-		),
-		'users' => array(
-			'nok' => '請檢查 <em>./data/users</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
-			'ok' => 'users 目錄權限正常',
-		),
-		'zip' => array(
-			'nok' => '找不到 ZIP 擴展（php-zip）',
-			'ok' => '已找到 ZIP 擴展',
-		),
 	),
 	'extensions' => array(
 		'author' => '作者',
@@ -170,10 +83,12 @@ return array(
 			'_' => '基本URL',
 			'recommendation' => '自動推薦: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => '單位（秒）',
 			'number' => '保持登錄的時長',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => '強制驗證郵箱地址',
 		'instance-name' => '實例名稱',
 		'max-categories' => '各使用者分類數限制',

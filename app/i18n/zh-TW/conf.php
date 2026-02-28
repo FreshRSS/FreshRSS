@@ -105,6 +105,9 @@ return array(
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => '同樣適用於標籤',
 		'sides_close_article' => '點擊文章區域外以關閉',
-		'sort' => array(
-			'_' => '排列順序',
-			'newer_first' => '由新至舊',
-			'older_first' => '由舊至新',
-		),
 		'star' => array(
 			'when' => '標記一篇文章為最愛…',
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => '跳轉到下一篇文章而不打開',
 		'skip_previous_article' => '跳轉到上一篇文章而不打開',
 		'title' => '快捷鍵',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => '播放/暫停媒體',
 		'user_filter' => '顯示自定義查詢',
 		'user_filter_help' => '如果有多個自定義過濾器，則會按照它們的序號依次訪問。',

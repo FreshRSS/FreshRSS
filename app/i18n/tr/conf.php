@@ -105,6 +105,9 @@ return array(
 		'none' => 'Yok',
 		'small' => 'Küçük',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Etiketler için de geçerlidir',
 		'sides_close_article' => 'Makale metin alanının dışına tıklayınca makaleyi kapat',
-		'sort' => array(
-			'_' => 'Sıralama düzeni',
-			'newer_first' => 'Önce yeniler',
-			'older_first' => 'Önce eskiler',
-		),
 		'star' => array(
 			'when' => 'Bir makaleyi favori olarak işaretle…',
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => 'Açmadan sonrakine odaklan',
 		'skip_previous_article' => 'Açmadan öncesine odaklan',
 		'title' => 'Kısayollar',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Medyayı oynat/duraklat',
 		'user_filter' => 'Kullanıcı sorgularına eriş',
 		'user_filter_help' => 'Eğer yalnızca bir kullanıcı sorgusu varsa, o kullanılır. Aksi takdirde, sorgular numaralarıyla erişilebilir.',

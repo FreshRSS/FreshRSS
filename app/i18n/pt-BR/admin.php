@@ -14,101 +14,14 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Permitir a leitura anônima dos artigos pelo usuário padrão (%s)',
 		'allow_anonymous_refresh' => 'Permitir atualização anônima dos artigos',
-		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessáiro para aplicativos móveis and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessário para aplicativos móveis e compartilhamento de consultas de usuários)</small>',
 		'form' => 'Formulário Web(tradicional, Necessita de JavaScript)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP (avançado: gerenciado por servidor web, OIDC, SSO…)',
 		'none' => 'Nenhum (Perigoso)',
 		'title' => 'Autenticação',
 		'token' => 'Token de autenticação principal',
 		'token_help' => 'Permite acesso a todos as saídas RSS do usuário bem como atualização dos feeds sem autenticação:',
 		'type' => 'Método de autenticação',
-		'unsafe_autologin' => 'Permitir login automático inseguro usando o seguinte formato: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Verifique as permissões no diretório <em>./data/cache</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
-			'ok' => 'Permissões no diretório cache estão corretos.',
-		),
-		'categories' => array(
-			'nok' => 'Tabela Category está configurada incorretamente.',
-			'ok' => 'Tabela Category está ok.',
-		),
-		'connection' => array(
-			'nok' => 'Conexão ao banco de dados não pode ser estabelecida.',
-			'ok' => 'Conexão ao banco de dados está ok.',
-		),
-		'ctype' => array(
-			'nok' => 'Não foi possível encontrar uma biblioteca necessária para verificação do tipo de caractere (php-ctype).',
-			'ok' => 'Você tem a biblioteca necessária para verificação do tipo de caractere (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'Não foi possível encontrar a biblioteca cURL (php-curl).',
-			'ok' => 'Você tem a biblioteca cURL.',
-		),
-		'data' => array(
-			'nok' => 'Verifique as permissões no diretório <em>./data</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
-			'ok' => 'Permissões no diretório data estão corretos.',
-		),
-		'database' => 'Instalação do banco de dados',
-		'dom' => array(
-			'nok' => 'Não foi possível encontrar uma biblioteca necessária para navegar pelo DOM (php-xml).',
-			'ok' => 'Você tem a biblioteca necessária para navegar pelo DOM.',
-		),
-		'entries' => array(
-			'nok' => 'Tabela Entry está configurada incorretamente.',
-			'ok' => 'Tabela Entry está ok.',
-		),
-		'favicons' => array(
-			'nok' => 'Verifique as permissões no diretório <em>./data/favicons</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
-			'ok' => 'Permissões no diretório favicons estão corretos.',
-		),
-		'feeds' => array(
-			'nok' => 'Tabela Feed está configurada incorretamente.',
-			'ok' => 'Tabela Feed está ok.',
-		),
-		'fileinfo' => array(
-			'nok' => 'Não foi possível encontrar a biblioteca fileinfo do PHP (fileinfo).',
-			'ok' => 'Você tem a biblioteca fileinfo.',
-		),
-		'files' => 'Instalação de arquivos',
-		'json' => array(
-			'nok' => 'Não foi possível encontrar JSON (php-json).',
-			'ok' => 'Você tem a extensão JSON.',
-		),
-		'mbstring' => array(
-			'nok' => 'Não foi possível encontrar a biblioteca recomendada para Unicode (mbstring).',
-			'ok' => 'Você tem a biblioteca recomendada para Unicode (mbstring).',
-		),
-		'pcre' => array(
-			'nok' => 'Não foi possível encontrar uma biblioteca necessário para expressões regulares (php-pcre).',
-			'ok' => 'Você tem a biblioteca necessária para expressões regulares (php-pcre).',
-		),
-		'pdo' => array(
-			'nok' => 'Não foi encontrado o PDO ou um dos drivers suportados (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Você tem o PDO e ao menos um dos drivers suportados (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'Instação do PHP',
-			'nok' => 'Sua versão do PHP é %s mas FreshRSS requer ao menos a versão %s.',
-			'ok' => 'Sua versão do PHP é %s, que é compatível com o FreshRSS.',
-		),
-		'tables' => array(
-			'nok' => 'Há uma ou mais tabelas inexistentes no banco de dados.',
-			'ok' => 'As tabelas apropriadas existem no banco de dados.',
-		),
-		'title' => 'Verificação de instalação',
-		'tokens' => array(
-			'nok' => 'Verifique as permissões no diretório <em>./data/tokens</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
-			'ok' => 'Permissões no diretório tokens estão corretos.',
-		),
-		'users' => array(
-			'nok' => 'Verifiquei as permissões no diretório <em>./data/users</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
-			'ok' => 'Permissões no diretório users estão corretos.',
-		),
-		'zip' => array(
-			'nok' => 'Não foi possível localizar a extensão ZIP (php-zip).',
-			'ok' => 'Você tem a extensão ZIP.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Autor',
@@ -116,9 +29,9 @@ return array(
 		'description' => 'Descrição',
 		'disabled' => 'Desabilitado',
 		'empty_list' => 'Não há extensões instaladas',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Verifique os registros para determinar o motivo da lista de extensões estar vazia.',
 		'enabled' => 'Habilitada',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'É compatível',
 		'latest' => 'Instalado',
 		'name' => 'Nome',
 		'no_configure_view' => 'Esta extensão não pode ser configurada.',
@@ -135,8 +48,8 @@ return array(
 		'_' => 'Estatísticas',
 		'all_feeds' => 'Todos os feeds',
 		'category' => 'Categoria',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Data de publicação',
+		'date_received' => 'Data de recebimento',
 		'entry_count' => 'Contagem de entrada',
 		'entry_per_category' => 'Entradas por categoria',
 		'entry_per_day' => 'Entradas por dia (últimos 30 dias)',
@@ -149,10 +62,10 @@ return array(
 		'idle' => 'Feeds inativos',
 		'main' => 'Estatísticas principais',
 		'main_stream' => 'Stream principal',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Número de artigos não lidos',
 		'no_idle' => 'Não há nenhum feed inativo!',
 		'number_entries' => '%d artigos',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Visão geral',
 		'percent_of_total' => '% do total',
 		'repartition' => 'Repartição de artigos: %s',
 		'status_favorites' => 'Favoritos',
@@ -161,7 +74,7 @@ return array(
 		'status_unread' => 'Não lidos',
 		'title' => 'Estatísticas',
 		'top_feed' => 'Top10 Feeds',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Datas com mais artigos não lidos',
 	),
 	'system' => array(
 		'_' => 'Configuração do sistema',
@@ -170,10 +83,12 @@ return array(
 			'_' => 'URL Base',
 			'recommendation' => 'Recomendação automática: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'em segundos',
 			'number' => 'Manter seção ativa durante',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Força verificação do endereço de email',
 		'instance-name' => 'Nome da instância',
 		'max-categories' => 'Limite de categorias por usuário',

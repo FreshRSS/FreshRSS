@@ -1,0 +1,210 @@
+:root {
+	--aside-width: 300px;
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 300 800;
+	font-stretch: 100%;
+	font-display: swap;
+	src: url('{{ "/assets/fonts/OpenSans.woff2" | relative_url }}') format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* layout */
+html, body {
+	overflow-x: hidden;
+}
+
+body {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+	line-height: 1.5;
+	min-height: 100vh;
+}
+
+aside {
+	padding: 1rem;
+	width: var(--aside-width);
+	height: 100vh;
+	border-right: 1px solid black;
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin-right: 1rem;
+}
+
+aside > nav.docs {
+	overflow-y: scroll;
+	max-height: 90vh;
+}
+
+aside > nav.docs > ul {
+	margin-bottom: 10rem; /* extra scroll space */
+}
+
+aside > nav.docs ul {
+	padding-left: 1rem;
+	margin-right: 1rem;
+}
+
+main {
+	margin-left: calc(var(--aside-width) + 50px);
+	max-width: 70vw;
+}
+
+img {
+	max-width: 100%;
+}
+
+section.search {
+	margin-top: 1rem;
+	border-bottom: 1px solid black;
+}
+
+div.nojs-search {
+	margin-bottom: 1rem;
+}
+
+nav.mobile-nav {
+	display: none;
+}
+
+nav.lang-dropdown {
+	display: none;
+}
+
+div.lang-dropdown:target nav {
+	padding: 0.2rem;
+	display: block;
+	border: 1px solid black;
+	border-radius: 6px;
+	position: absolute;
+	background-color: white;
+	z-index: 100;
+	text-wrap: nowrap;
+}
+
+div#mobile-language:target nav {
+	right: 0.2rem;
+}
+
+div.lang-dropdown:target nav a:hover {
+	background-color: silver;
+}
+
+div.lang-dropdown:target a.close {
+	display: block;
+	cursor: default;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 99; /* just below language dropdown */
+}
+
+nav.lang-dropdown ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+/* mobile layout */
+
+@media (max-width: 1200px) {
+	aside {
+		display: none;
+	}
+
+	aside a.close {
+		display: block;
+	}
+
+	aside a.lang-btn {
+		display: none;
+	}
+
+	html:has(aside:target) {
+		overflow-y: hidden;
+	}
+
+	body:has(aside:target) > a.close {
+		display: block;
+		cursor: default;
+		position: fixed;
+		top: 0;
+		background-color: black;
+		opacity: 0.3;
+		width: 100vw;
+		height: 100vh;
+		z-index: 99; /* just below aside */
+	}
+
+	aside:target {
+		display: block;
+		position: fixed;
+		background-color: white;
+		z-index: 100;
+	}
+
+	main {
+		margin-left: 1rem;
+		max-width: 90vw;
+	}
+
+	nav.mobile-nav {
+		display: block;
+		border-bottom: 1px dashed black;
+	}
+
+	nav.mobile-nav > a.toggle-aside {
+		color: black;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	nav.mobile-nav > a.toggle-aside svg {
+		width: 2rem;
+		height: 2rem;
+	}
+}
+
+/* general styling */
+a {
+	text-decoration: none;
+	color: #00e;
+}
+
+a.close {
+	display: none;
+}
+
+aside a.close {
+	float: right;
+	color: #f00;
+	font-size: 24px;
+	position: relative;
+	bottom: 4px;
+}
+
+table, th, tr, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th, tr, td {
+	padding: 0.3rem;
+}
+
+button.copy {
+	margin: 0.5rem;
+	float: right;
+}
+
+div.lang-dropdown {
+	float: right;
+}
+
+a.lang-btn {
+	color: black;
+}

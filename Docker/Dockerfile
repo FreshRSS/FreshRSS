@@ -23,7 +23,6 @@ ARG FRESHRSS_VERSION
 ARG SOURCE_COMMIT
 
 LABEL \
-	org.opencontainers.image.authors="Alkarex" \
 	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
 	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
 	org.opencontainers.image.licenses="AGPL-3.0" \
@@ -34,18 +33,23 @@ LABEL \
 	org.opencontainers.image.vendor="FreshRSS" \
 	org.opencontainers.image.version="$FRESHRSS_VERSION"
 
-RUN a2dismod -q -f alias autoindex negotiation status && \
+RUN \
+	# Disable unwanted Apache modules and configurations
+	a2dismod -q -f alias autoindex negotiation status && \
 	a2dismod -q auth_openidc && \
-	phpdismod calendar exif ffi ftp gettext mysqli posix readline shmop sockets sysvmsg sysvsem sysvshm xsl && \
-	a2enmod -q deflate expires filter headers mime remoteip setenvif && \
 	a2disconf -q '*' && \
 	a2dissite -q '*' && \
-	a2ensite -q 'FreshRSS*'
-
-RUN sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
+	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
 	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
-	# Disable built-in updates when using Docker, as the full image is supposed to be updated instead.
+	# Enable required Apache modules
+	a2enmod -q deflate expires filter headers mime remoteip setenvif && \
+	# Enable FreshRSS configuration for Apache
+	a2ensite -q 'FreshRSS*' && \
+	# Disable unwanted PHP modules
+	phpdismod calendar exif ffi ftp gettext mysqli posix readline shmop sockets sysvmsg sysvsem sysvshm xsl && \
+	# Disable built-in FreshRSS updates when using Docker, as the full image is supposed to be updated instead
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
+	# Configure cron job
 	touch /var/www/FreshRSS/Docker/env.txt && \
 	echo "7,37 * * * * . /var/www/FreshRSS/Docker/env.txt; \
 		su www-data -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \

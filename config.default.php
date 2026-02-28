@@ -78,11 +78,6 @@ return [
 	#	You need to set the user’s API password.
 	'api_enabled' => false,
 
-	# Allow or not the use of an unsafe login,
-	#	by providing username and password in the login URL:
-	#	https://example.net/FreshRSS/p/i/?c=auth&a=login&u=alice&p=1234
-	'unsafe_autologin_enabled' => false,
-
 	# By default, FreshRSS will display a warning to logged-in admin users if the CSP policy is insecure.
 	#	This setting can disable the warning.
 	#	For more information see: https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security
@@ -190,9 +185,9 @@ return [
 
 		# Additional PDO parameters, such as offered by MySQL https://php.net/ref.pdo-mysql
 		'pdo_options' => [
-			//PDO::MYSQL_ATTR_SSL_KEY	=> '/path/to/client-key.pem',
-			//PDO::MYSQL_ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
-			//PDO::MYSQL_ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
+			//Pdo\Mysql::ATTR_SSL_KEY	=> '/path/to/client-key.pem',
+			//Pdo\Mysql::ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
+			//Pdo\Mysql::ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
 		],
 
 	],

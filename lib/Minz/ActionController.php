@@ -27,6 +27,8 @@ abstract class Minz_ActionController {
 	 * Gives the possibility to override the default view model type.
 	 * @var class-string
 	 * @deprecated Use constructor with view type instead
+	 * @access private
+	 * @internal
 	 */
 	public static string $defaultViewType = Minz_View::class;
 
@@ -43,8 +45,8 @@ abstract class Minz_ActionController {
 				$view = null;
 			}
 		}
-		if ($view === null && class_exists(self::$defaultViewType)) {
-			$view = new self::$defaultViewType();
+		if ($view === null && class_exists(self::$defaultViewType)) {	/// @phpstan-ignore staticProperty.deprecated
+			$view = new self::$defaultViewType();	// @phpstan-ignore staticProperty.deprecated
 			if (!($view instanceof Minz_View)) {
 				$view = null;
 			}

@@ -13,8 +13,8 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->get_registry()->register(\SimplePie\File::class, FreshRSS_SimplePieFetch::class);
 		$this->set_useragent(FRESHRSS_USERAGENT);
-		$this->set_cache_name_function('sha1');
-		$this->set_cache_location(CACHE_PATH);
+		$this->set_cache_name_function('sha1');	// @phpstan-ignore method.deprecated
+		$this->set_cache_location(CACHE_PATH);	// @phpstan-ignore method.deprecated
 		$this->set_cache_duration($limits['cache_duration'], $limits['cache_duration_min'], $limits['cache_duration_max']);
 		$this->enable_order_by_date(false);
 
@@ -115,7 +115,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'hgroup' => [],
 			'hr' => ['align', 'noshade', 'size', 'width'],
 			'i' => [],
-			'iframe' => ['src', 'align', 'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'scrolling'],
+			'iframe' => ['src', 'align', 'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'scrolling', 'allowfullscreen'],
 			'image' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
 			'img' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
 			'ins' => ['cite', 'datetime'],
@@ -221,6 +221,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'iframe' => [
 				'allow' => 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
 				'sandbox' => 'allow-scripts allow-same-origin',
+				'allowfullscreen' => 'allowfullscreen',
 			],
 			'video' => ['controls' => 'controls', 'preload' => 'none'],
 		]);

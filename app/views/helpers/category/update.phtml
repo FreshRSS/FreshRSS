@@ -31,8 +31,39 @@
 			<div class="form-group">
 				<label class="group-name" for="position"><?= _t('sub.category.position') ?></label>
 				<div class="group-controls">
-					<input type="number" name="position" id="position" min="1" value="<?= $this->category->attributeInt('position') ?>" />
+					<input type="number" name="position" id="position" value="<?= $this->category->attributeInt('position') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.category.position_help') ?></p>
+				</div>
+			</div>
+
+			<?php
+				$categoryDefaultSort = $this->category->defaultSort();
+				$categoryDefaultOrder = $this->category->defaultOrder();
+				$categoryDefaultSortOrder = $categoryDefaultSort !== null
+					? ($categoryDefaultSort === 'rand' ? 'rand' : $categoryDefaultSort . '_' . strtolower($categoryDefaultOrder ?? 'desc'))
+					: '';
+			?>
+			<div class="form-group">
+				<label class="group-name" for="defaultSortOrder"><?= _t('index.menu.sort.primary') ?></label>
+				<div class="group-controls">
+					<select name="defaultSortOrder" id="defaultSortOrderCategory" class="w50">
+						<option value=""></option>
+						<option value="id_desc" <?= $categoryDefaultSortOrder === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc" <?= $categoryDefaultSortOrder === 'date_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc" <?= $categoryDefaultSortOrder === 'length_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc" <?= $categoryDefaultSortOrder === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc" <?= $categoryDefaultSortOrder === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option value="f.name_desc" <?= $categoryDefaultSortOrder === 'f.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand" <?= $categoryDefaultSortOrder === 'rand' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc" <?= $categoryDefaultSortOrder === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc" <?= $categoryDefaultSortOrder === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc" <?= $categoryDefaultSortOrder === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc" <?= $categoryDefaultSortOrder === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc" <?= $categoryDefaultSortOrder === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
+						<option value="f.name_asc" <?= $categoryDefaultSortOrder === 'f.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_asc') ?></option>
+					</select>
 				</div>
 			</div>
 
@@ -96,7 +127,7 @@
 				<div class="group-controls">
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
 						foreach ($this->category->filtersAction('read') as $filterRead) {
-							echo $filterRead->getRawInput(), PHP_EOL;
+							echo htmlspecialchars($filterRead->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>

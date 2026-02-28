@@ -95,7 +95,7 @@
 						<input type="url" name="url" id="url" value="<?= $this->feed->url() ?>" required="required" />
 						<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 					</div>
-					<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?=
+					<a class="btn open-url" target="_blank" rel="noreferrer" data-input="url" data-prefix="https://validator.w3.org/feed/check.cgi?url=" data-encode="1" href="https://validator.w3.org/feed/check.cgi?url=<?=
 						rawurlencode(htmlspecialchars_decode($this->feed->url(), ENT_QUOTES)) ?>"><?= _t('sub.feed.validator') ?></a>
 				</div>
 			</div>
@@ -127,6 +127,36 @@
 							FreshRSS_Feed::PRIORITY_HIDDEN === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.hidden') ?></option>
 					</select>
 					<?= _i('important') ?>
+				</div>
+			</div>
+
+
+			<?php
+				$feedDefaultSort = $this->feed->defaultSort();
+				$feedDefaultOrder = $this->feed->defaultOrder();
+				$feedDefaultSortOrder = $feedDefaultSort !== null
+					? ($feedDefaultSort === 'rand' ? 'rand' : $feedDefaultSort . '_' . strtolower($feedDefaultOrder ?? 'desc'))
+					: '';
+			?>
+			<div class="form-group">
+				<label class="group-name" for="defaultSortOrder"><?= _t('index.menu.sort.primary') ?></label>
+				<div class="group-controls">
+					<select name="defaultSortOrder" id="defaultSortOrderFeed" class="w50">
+						<option value=""></option>
+						<option value="id_desc" <?= $feedDefaultSortOrder === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc" <?= $feedDefaultSortOrder === 'date_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc" <?= $feedDefaultSortOrder === 'length_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc" <?= $feedDefaultSortOrder === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc" <?= $feedDefaultSortOrder === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand" <?= $feedDefaultSortOrder === 'rand' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc" <?= $feedDefaultSortOrder === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc" <?= $feedDefaultSortOrder === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc" <?= $feedDefaultSortOrder === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc" <?= $feedDefaultSortOrder === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc" <?= $feedDefaultSortOrder === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
+					</select>
 				</div>
 			</div>
 
@@ -304,7 +334,7 @@
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"
 						placeholder="<?= _t('gen.short.blank_to_disable') ?>"><?php
 						foreach ($this->feed->filtersAction('read') as $filterRead) {
-							echo $filterRead->getRawInput(), PHP_EOL;
+							echo htmlspecialchars($filterRead->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>

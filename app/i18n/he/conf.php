@@ -105,6 +105,9 @@ return array(
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Applies also on labels',	// TODO
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO
-		'sort' => array(
-			'_' => 'סדר המיון',
-			'newer_first' => 'חדשים בראש',
-			'older_first' => 'ישנים יותר בראש',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',	// TODO
 		'skip_previous_article' => 'Focus previous without opening',	// TODO
 		'title' => 'קיצורי דרך',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Play/pause media',	// TODO
 		'user_filter' => 'גישה למססנים',
 		'user_filter_help' => 'אם יש רק מזנן אחד הוא יהיה בשימוש. אחרת המסננים ישמשו על בסיס המספר שלהם.',

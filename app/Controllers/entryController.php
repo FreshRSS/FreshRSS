@@ -45,14 +45,14 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 *   - is_read (default: true)
 	 */
 	public function readAction(): void {
-		$get = Minz_Request::paramString('get');
-		$next_get = Minz_Request::paramString('nextGet') ?: $get;
-		$id_max = Minz_Request::paramString('idMax');
+		$get = Minz_Request::paramString('get', plaintext: true);
+		$next_get = Minz_Request::paramString('nextGet', plaintext: true) ?: $get;
+		$id_max = Minz_Request::paramString('idMax', plaintext: true);
 		if (!ctype_digit($id_max)) {
 			$id_max = '0';
 		}
 		$is_read = Minz_Request::paramTernary('is_read') ?? true;
-		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'));
+		FreshRSS_Context::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true));
 		$maxPubDate = Minz_Request::paramInt('maxPubDate');
 		if ($maxPubDate > 0) {
 			$search = new FreshRSS_Search('');
@@ -170,8 +170,8 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			}
 		} else {
 			/** @var list<numeric-string> $idArray */
-			$idArray = Minz_Request::paramArrayString('id');
-			$idString = Minz_Request::paramString('id');
+			$idArray = Minz_Request::paramArrayString('id', plaintext: true);
+			$idString = Minz_Request::paramString('id', plaintext: true);
 			if (count($idArray) > 0) {
 				$ids = $idArray;
 			} elseif (ctype_digit($idString)) {
@@ -218,7 +218,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 	 * If id is false, nothing happened.
 	 */
 	public function bookmarkAction(): void {
-		$id = Minz_Request::paramString('id');
+		$id = Minz_Request::paramString('id', plaintext: true);
 		$is_favourite = Minz_Request::paramTernary('is_favorite') ?? true;
 		if ($id != '' && ctype_digit($id)) {
 			$entryDAO = FreshRSS_Factory::createEntryDao();

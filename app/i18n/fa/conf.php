@@ -105,6 +105,9 @@ return array(
 		'none' => 'هیچ',
 		'small' => 'کوچک',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -291,11 +294,6 @@ return array(
 		),
 		'show_fav_unread_help' => ' روی برچسب ها نیز اعمال می شود',
 		'sides_close_article' => ' با کلیک کردن خارج از ناحیه متن مقاله',
-		'sort' => array(
-			'_' => ' ترتیب مرتب سازی',
-			'newer_first' => ' ابتدا جدیدترین',
-			'older_first' => ' اول قدیمی ترین',
-		),
 		'star' => array(
 			'when' => 'یک مطلب را به عنوان مورد علاقه علامت‌گذاری کن...',
 		),
@@ -359,6 +357,7 @@ return array(
 		'skip_next_article' => ' فوکوس بعدی بدون باز کردن',
 		'skip_previous_article' => ' فوکوس قبلی بدون باز کردن',
 		'title' => ' میانبرها',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => ' پخش/مکث رسانه',
 		'user_filter' => ' به درخواست های کاربر دسترسی پیدا کنید',
 		'user_filter_help' => ' اگر فقط یک درخواست کاربر وجود داشته باشد',
