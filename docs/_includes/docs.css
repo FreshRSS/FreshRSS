@@ -35,7 +35,7 @@ aside {
 }
 
 aside > nav.docs {
-	overflow-y: scroll;
+	overflow-y: auto;
 	max-height: 90vh;
 }
 

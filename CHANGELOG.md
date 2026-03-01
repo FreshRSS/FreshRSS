@@ -6,6 +6,9 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 * Features
 	* New sort order preferences at global, category, and feed levels [#8234](https://github.com/FreshRSS/FreshRSS/pull/8234)
+	* New filtering by date of *Server modification date* [#8131](https://github.com/FreshRSS/FreshRSS/pull/8131)
+		* Corresponding search operator, e.g. `mdate:P1D` for finding articles modified by the author / server during the past day.
+		* Especially useful for optimising the API synchronisation.
 	* Add option to enable/disable notifications, also for PWA [#8458](https://github.com/FreshRSS/FreshRSS/pull/8458)
 	* Allow WebSub hub push from same private network [#8450](https://github.com/FreshRSS/FreshRSS/pull/8450)
 * Bug fixing
@@ -72,7 +75,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 ## 2025-12-24 FreshRSS 1.28.0
 
 * Features
-	* New sorting and filtering by date of *User modified* [#7886](https://github.com/FreshRSS/FreshRSS/pull/7886), [#8090](https://github.com/FreshRSS/FreshRSS/pull/8090),
+	* New sorting and filtering by *User modification date* [#7886](https://github.com/FreshRSS/FreshRSS/pull/7886), [#8090](https://github.com/FreshRSS/FreshRSS/pull/8090),
 		[#8105](https://github.com/FreshRSS/FreshRSS/pull/8105), [#8118](https://github.com/FreshRSS/FreshRSS/pull/8118), [#8130](https://github.com/FreshRSS/FreshRSS/pull/8130)
 		* Corresponding search operator, e.g. `userdate:PT1H` for the past hour [#8093](https://github.com/FreshRSS/FreshRSS/pull/8093)
 		* Allows finding articles marked by the local user as read/unread or starred/unstarred at specific dates for e.g. undo action.

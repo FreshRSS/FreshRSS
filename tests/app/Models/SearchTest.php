@@ -198,6 +198,25 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+
+
+	#[DataProvider('provideModifiedDateSearch')]
+	public static function test__construct_whenInputContainsModifiedDate(string $input, ?int $min_modified_value, ?int $max_modified_value): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($min_modified_value, $search->getMinModifiedDate());
+		self::assertSame($max_modified_value, $search->getMaxModifiedDate());
+	}
+
+	/**
+	 * @return list<list<mixed>>
+	 */
+	public static function provideModifiedDateSearch(): array {
+		return [
+			['mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['mdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
+		];
+	}
+
 	#[DataProvider('provideUserdateSearch')]
 	public static function test__construct_whenInputContainsUserdate(string $input, ?int $min_userdate_value, ?int $max_userdate_value): void {
 		$search = new FreshRSS_Search($input);
@@ -666,6 +685,41 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	public function test__add_single_search_combines_conditions_with_and(): void {
+		$startTime = strtotime('2026-02-21T12:00:00Z');
+		$searches = new FreshRSS_BooleanSearch('');
+
+		$search = new FreshRSS_Search('');
+		$search->setMinDate($startTime);
+		$search->setMinModifiedDate($startTime);
+		$searches->add($search);
+
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
+
+		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
+		self::assertSame('(e.id >= ? AND e.`lastModified` >= ?)', $filterSearch);
+		self::assertSame([$startTime . '000000', $startTime], $filterValues);
+	}
+
+	public function test__add_multiple_searches_combines_conditions_with_or(): void {
+		$startTime = strtotime('2026-02-21T12:00:00Z');
+		$searches = new FreshRSS_BooleanSearch('');
+
+		$search = new FreshRSS_Search('');
+		$search->setMinDate($startTime);
+		$searches->add($search);
+
+		$search = new FreshRSS_Search('');
+		$search->setMinModifiedDate($startTime);
+		$searches->add($search);
+
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
+
+		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
+		self::assertSame('(e.id >= ?) OR (e.`lastModified` >= ?)', $filterSearch);
+		self::assertSame([$startTime . '000000', $startTime], $filterValues);
+	}
+
 	/**
 	 * @param array<string> $values
 	 */
@@ -711,6 +765,22 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'(e.date <= ?)',
 				[strtotime('2008-05-11T23:59:59Z')],
 			],
+			// Basic modified date operator tests
+			[
+				'mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'(e.`lastModified` >= ? AND COALESCE(e.`lastModified`, 0) <= ?)',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'mdate:2007-03-01/',
+				'(e.`lastModified` >= ?)',
+				[strtotime('2007-03-01T00:00:00Z')],
+			],
+			[
+				'mdate:/2008-05-11',
+				'(COALESCE(e.`lastModified`, 0) <= ?)',
+				[strtotime('2008-05-11T23:59:59Z')],
+			],
 			// Basic userdate operator tests
 			[
 				'userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
@@ -739,8 +809,13 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
+				'!mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'((COALESCE(e.`lastModified`, 0) < ? OR e.`lastModified` > ?))',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
 				'!userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
-				'((e.`lastUserModified` < ? OR e.`lastUserModified` > ?))',
+				'((COALESCE(e.`lastUserModified`, 0) < ? OR e.`lastUserModified` > ?))',
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			// Combined date operators
@@ -753,6 +828,11 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'pubdate:2007-03-01/ userdate:/2008-05-11',
 				'(e.date >= ? AND e.`lastUserModified` <= ?)',
 				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
+			],
+			[
+				'userdate:2007-03-01/ mdate:/2008-05-11',
+				'(COALESCE(e.`lastModified`, 0) <= ? AND e.`lastUserModified` >= ?)',
+				[strtotime('2008-05-11T23:59:59Z'), strtotime('2007-03-01T00:00:00Z')],
 			],
 			[
 				'date:2007-03-01/ userdate:2007-06-01/',
@@ -1018,6 +1098,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				<<<'EOD'
 					e:1,2 f:10,11 c:20,21 L:30,31 labels:"My label,My other label"
 					userdate:2025-01-01T00:00:00/2026-01-01T00:00:00
+					mdate:2025-12
 					pubdate:2025-02-01T00:00:00/2026-01-01T00:00:00
 					date:2025-03-01T00:00:00/2026-01-01T00:00:00
 					intitle:/<Inter&sting>/i intitle:"g ' & d\\:"
@@ -1028,6 +1109,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					/search_regex/i "quoted search" search search:"A user search" search:U1
 					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
 					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-mdate:2025-12-27
 					-pubdate:2025
 					-date:P30D
 					-intitle:/Spam/i -intitle:"'bad"

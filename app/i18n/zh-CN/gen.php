@@ -228,6 +228,7 @@ return array(
 		'categories' => '类别',
 		'content' => '内容',
 		'date_from' => '从',
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => '过去',	// DIRTY
 		'date_published' => '发布日期',
 		'date_range' => '日期范围',
