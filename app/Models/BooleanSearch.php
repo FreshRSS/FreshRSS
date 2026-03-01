@@ -131,7 +131,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 					$fromS[] = $matches[0][$i];
 					if ($allowUserQueries && !empty($matchedQueries)) {
 						$escapedQueries = array_map(fn(string $query): string => self::escapeLiterals($query), $matchedQueries);
-						$toS[] = '(' . implode(') OR (', $escapedQueries) . ')';
+						$toS[] = '((' . implode(') OR (', $escapedQueries) . '))';
 					} else {
 						$toS[] = '';
 					}

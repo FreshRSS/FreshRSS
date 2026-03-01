@@ -247,7 +247,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 * @param array{0:string,1:list<string|int>} $expectedResult
 	 */
 	#[DataProvider('provideSavedQueriesExpansion')]
-	public static function test__construct_whenInputContainsSavedQueries_expandsSavedSearches(array $queries, string $input, array $expectedResult): void {
+	public static function test__construct_whenInputContainsSavedQueries_expandsSavedSearches(array $queries, string $input,
+		array $expectedResult, string $expectedToString): void {
 		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
 		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
 		$newUserConf->queries = $queries;
@@ -258,13 +259,14 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			[$actualValues, $actualSql] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $search);
 			self::assertSame($expectedResult[0], trim($actualSql));
 			self::assertSame($expectedResult[1], $actualValues);
+			self::assertSame($expectedToString, $search->toString(expandUserQueries: false));
 		} finally {
 			FreshRSS_Context::setUserConf($previousUserConf);
 		}
 	}
 
 	/**
-	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>}}>
+	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>},3:string}>
 	 */
 	public static function provideSavedQueriesExpansion(): array {
 		return [
@@ -278,6 +280,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					'',
 					[],
 				],
+				'S:3',
 			],
 			'not found name' => [
 				[
@@ -289,6 +292,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					'',
 					[],
 				],
+				'search:Third',
 			],
 			'expanded single group name' => [
 				[
@@ -300,6 +304,33 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					'((e.author LIKE ?)) OR ((e.title LIKE ?))',
 					['%Alice%', '%World%'],
 				],
+				'search:First OR search:Second',
+			],
+			'expanded single group name quotes' => [
+				[
+					['search' => 'author:Alice', 'name' => 'A First'],
+					['search' => 'intitle:World', 'name' => 'A Second'],
+				],
+				'search:"A First" OR search:\'A Second\'',
+				[
+					'((e.author LIKE ?)) OR ((e.title LIKE ?))',
+					['%Alice%', '%World%'],
+				],
+				'(search:"A First") OR (search:"A Second")',
+			],
+			'separate groups with AND' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+					['search' => 'inurl:Example'],
+					['search' => 'author:Bob'],
+				],
+				'S:0,1 S:2,3,5',
+				[
+					'(((e.author LIKE ?)) OR ((e.title LIKE ?))) AND (((e.link LIKE ?)) OR ((e.author LIKE ?)))',
+					['%Alice%', '%World%', '%Example%', '%Bob%'],
+				],
+				'S:0,1 S:2,3,5',
 			],
 			'separate groups with OR' => [
 				[
@@ -310,20 +341,22 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				],
 				'S:0,1 OR S:2,3,5',
 				[
-					'((e.author LIKE ?)) OR ((e.title LIKE ?)) OR ((e.link LIKE ?)) OR ((e.author LIKE ?))',
+					'(((e.author LIKE ?)) OR ((e.title LIKE ?))) OR (((e.link LIKE ?)) OR ((e.author LIKE ?)))',
 					['%Alice%', '%World%', '%Example%', '%Bob%'],
 				],
+				'S:0,1 OR S:2,3,5',
 			],
 			'mixed with other clauses' => [
 				[
 					['search' => 'author:Alice'],
 					['search' => 'intitle:World'],
 				],
-				'intitle:Hello S:0,1 date:2025-10',
+				'date:2025-10 intitle:Hello S:0,1',
 				[
-					'((e.title LIKE ?)) AND ((e.author LIKE ?)) OR ((e.title LIKE ?)) AND ((e.id >= ? AND e.id <= ?))',
-					['%Hello%', '%Alice%', '%World%', strtotime('2025-10-01') . '000000', (strtotime('2025-11-01') - 1) . '000000'],
+					'((e.id >= ? AND e.id <= ? AND e.title LIKE ?)) AND (((e.author LIKE ?)) OR ((e.title LIKE ?)))',
+					[strtotime('2025-10-01') . '000000', (strtotime('2025-11-01') - 1) . '000000', '%Hello%', '%Alice%', '%World%'],
 				],
+				'date:2025-10 intitle:Hello S:0,1',
 			],
 		];
 	}
@@ -980,7 +1013,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					author:/Bob/ author:"/u/Alice" author:Alice
 					inurl:/https/ inurl:example.net
 					#/tag2/ #tag1
-					/search_regex/i "quoted search" search
+					/search_regex/i "quoted search" search search:"A user search" search:U1
 					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
 					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
 					-pubdate:2025
@@ -990,7 +1023,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					-author:/Dave/i -author:"/u/Charlie" -author:Charlie
 					-inurl:/ftp/ -inurl:example.com
 					-#/tag4/ -#tag3
-					-/not_regex/i -"not quoted" -not_search
+					-/not_regex/i -"not quoted" -not_search -search:"Negative user search" -search:U2
 					EOD
 			],
 		];

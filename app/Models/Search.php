@@ -27,6 +27,10 @@ class FreshRSS_Search implements \Stringable {
 	private $label_ids = null;
 	/** @var list<list<string>>|null */
 	private ?array $label_names = null;
+	/** @var list<list<int>|'*'>|null */
+	private $user_query_ids = null;
+	/** @var list<list<string>>|null */
+	private ?array $user_query_names = null;
 	/** @var list<string>|null */
 	private ?array $intitle = null;
 	/** @var list<string>|null */
@@ -71,6 +75,10 @@ class FreshRSS_Search implements \Stringable {
 	private $not_label_ids = null;
 	/** @var list<list<string>>|null */
 	private ?array $not_label_names = null;
+	/** @var list<list<int>|'*'>|null */
+	private $not_user_query_ids = null;
+	/** @var list<list<string>>|null */
+	private ?array $not_user_query_names = null;
 	/** @var list<string>|null */
 	private ?array $not_intitle = null;
 	/** @var list<string>|null */
@@ -116,6 +124,8 @@ class FreshRSS_Search implements \Stringable {
 		$input = $this->parseNotCategoryIds($input);
 		$input = $this->parseNotLabelIds($input);
 		$input = $this->parseNotLabelNames($input);
+		$input = $this->parseNotUserQueryIds($input);
+		$input = $this->parseNotUserQueryNames($input);
 
 		$input = $this->parseNotUserdateSearch($input);
 		$input = $this->parseNotPubdateSearch($input);
@@ -132,6 +142,8 @@ class FreshRSS_Search implements \Stringable {
 		$input = $this->parseCategoryIds($input);
 		$input = $this->parseLabelIds($input);
 		$input = $this->parseLabelNames($input);
+		$input = $this->parseUserQueryIds($input);
+		$input = $this->parseUserQueryNames($input);
 
 		$input = $this->parseUserdateSearch($input);
 		$input = $this->parsePubdateSearch($input);
@@ -356,6 +368,16 @@ class FreshRSS_Search implements \Stringable {
 				$result .= ' ' . self::quote($s);
 			}
 		}
+		if ($this->user_query_ids !== null) {
+			foreach ($this->user_query_ids as $ids) {
+				$result .= ' S:' . (is_array($ids) ? implode(',', $ids) : $ids);
+			}
+		}
+		if ($this->user_query_names !== null) {
+			foreach ($this->user_query_names as $names) {
+				$result .= ' search:' . self::quote(implode(',', $names));
+			}
+		}
 
 		if ($this->not_entry_ids !== null) {
 			$result .= ' -e:' . implode(',', $this->not_entry_ids);
@@ -445,6 +467,16 @@ class FreshRSS_Search implements \Stringable {
 		if ($this->not_search !== null) {
 			foreach ($this->not_search as $s) {
 				$result .= ' -' . self::quote($s);
+			}
+		}
+		if ($this->not_user_query_ids !== null) {
+			foreach ($this->not_user_query_ids as $ids) {
+				$result .= ' -S:' . (is_array($ids) ? implode(',', $ids) : $ids);
+			}
+		}
+		if ($this->not_user_query_names !== null) {
+			foreach ($this->not_user_query_names as $names) {
+				$result .= ' -search:' . self::quote(implode(',', $names));
 			}
 		}
 
@@ -778,6 +810,105 @@ class FreshRSS_Search implements \Stringable {
 				$category_ids = array_map('intval', $category_ids);
 				if (!empty($category_ids)) {
 					$this->not_category_ids = array_merge($this->not_category_ids, $category_ids);
+				}
+			}
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find user query IDs.
+	 */
+	private function parseUserQueryIds(string $input): string {
+		if (preg_match_all('/\\b[S]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = $matches['search'];
+			$this->user_query_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				if ($ids_list === '*') {
+					$this->user_query_ids[] = '*';
+					break;
+				}
+				$user_query_ids = explode(',', $ids_list);
+				$user_query_ids = self::removeEmptyValues($user_query_ids);
+				/** @var list<int> $user_query_ids */
+				$user_query_ids = array_map('intval', $user_query_ids);
+				if (!empty($user_query_ids)) {
+					$this->user_query_ids[] = $user_query_ids;
+				}
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotUserQueryIds(string $input): string {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-][S]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = $matches['search'];
+			$this->not_user_query_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				if ($ids_list === '*') {
+					$this->not_user_query_ids[] = '*';
+					break;
+				}
+				$user_query_ids = explode(',', $ids_list);
+				$user_query_ids = self::removeEmptyValues($user_query_ids);
+				/** @var list<int> $user_query_ids */
+				$user_query_ids = array_map('intval', $user_query_ids);
+				if (!empty($user_query_ids)) {
+					$this->not_user_query_ids[] = $user_query_ids;
+				}
+			}
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find user query names.
+	 */
+	private function parseUserQueryNames(string $input): string {
+		$names_lists = [];
+		if (preg_match_all('/\\bsearch?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$names_lists = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/\\bsearch?:(?P<search>[^\s"]*)/', $input, $matches)) {
+			$names_lists = array_merge($names_lists, $matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (!empty($names_lists)) {
+			$this->user_query_names = [];
+			foreach ($names_lists as $names_list) {
+				$names_array = explode(',', $names_list);
+				$names_array = self::removeEmptyValues($names_array);
+				if (!empty($names_array)) {
+					$this->user_query_names[] = $names_array;
+				}
+			}
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find user query names to exclude.
+	 */
+	private function parseNotUserQueryNames(string $input): string {
+		$names_lists = [];
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]search?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$names_lists = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]search?:(?P<search>[^\\s"]*)/', $input, $matches)) {
+			$names_lists = array_merge($names_lists, $matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (!empty($names_lists)) {
+			$this->not_user_query_names = [];
+			foreach ($names_lists as $names_list) {
+				$names_array = explode(',', $names_list);
+				$names_array = self::removeEmptyValues($names_array);
+				if (!empty($names_array)) {
+					$this->not_user_query_names[] = $names_array;
 				}
 			}
 		}
