@@ -71,10 +71,6 @@ suggestion :
 * Il se peut que les logs puissent révéler des informations plus ou moins
 	confidentielles, **faites attention à ne rien divulguer de sensible.**
 
-De plus, face à un bug, je ne peux que vous encourager à suivre le format de
-message suivant (tiré du [site de Sam &
-Max](https://web.archive.org/web/20210511141431/https://sametmax.com/template-de-demande-daide-en-informatique/)) :
-
 ### Quel est mon objectif ?
 
 Donnez le contexte général de ce que vous essayiez de faire.
