@@ -318,6 +318,18 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				],
 				'(search:"A First") OR (search:"A Second")',
 			],
+			'expanded single group name quotes special characters' => [
+				[
+					['search' => 'author:Alice', 'name' => 'A or B'],
+					['search' => 'intitle:World', 'name' => '(C OR D)'],
+				],
+				'search:"A or B" OR search:\'(C OR D)\'',
+				[
+					'((e.author LIKE ?)) OR ((e.title LIKE ?))',
+					['%Alice%', '%World%'],
+				],
+				'(search:"A or B") OR (search:"(C OR D)")',
+			],
 			'separate groups with AND' => [
 				[
 					['search' => 'author:Alice'],
