@@ -971,13 +971,19 @@ input[type="checkbox"]:focus-visible {
 	padding: 0;
 	display: table;
 	table-layout: fixed;
+}
+
+.pagination .item:not(:has(a)) {
 	text-align: center;
+}
+
+.pagination-wrapper {
+	overflow-x: auto;
 }
 
 .pagination .item {
 	display: table-cell;
 	width: 3em;
-	font-style: italic;
 }
 
 .pagination .item.active {
