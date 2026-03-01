@@ -100,7 +100,7 @@ Parfait, maintenant vous êtes autentifié et vous pouvez commencer à tester
 les fonctions avancées. Pour cela, il suffit de changer l’adresse en lui
 ajoutant les paramètres nécessaires à la réalisation des actions
 supportées. Pour plus d’information, veuillez vous référer à la
-[documentation officielle de Fever](https://feedafever.com/api).
+[documentation officielle de Fever](https://web.archive.org/web/20230616124016/https://feedafever.com/api).
 
 Voici quelques exemples simples d’appels réalisables :
 
