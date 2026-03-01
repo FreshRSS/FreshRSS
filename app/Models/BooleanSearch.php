@@ -61,7 +61,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		if (preg_match_all('/\bsearch:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
 		}
-		if (preg_match_all('/\bsearch:(?P<search>[^\s"]*)/', $input, $matchesFound)) {
+		if (preg_match_all('/\bsearch:(?P<search>[^\s"\']*)/', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
 		}
 
@@ -81,6 +81,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 				}
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
 					$name = trim($matches['search'][$i]);
+					$name = self::unescapeLiterals($name);
 					$fromS[] = $matches[0][$i];
 					if ($allowUserQueries && !empty($queries[$name])) {
 						$toS[] = '(' . self::escapeLiterals($queries[$name]) . ')';
@@ -131,7 +132,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 					$fromS[] = $matches[0][$i];
 					if ($allowUserQueries && !empty($matchedQueries)) {
 						$escapedQueries = array_map(fn(string $query): string => self::escapeLiterals($query), $matchedQueries);
-						$toS[] = '(' . implode(') OR (', $escapedQueries) . ')';
+						$toS[] = '((' . implode(') OR (', $escapedQueries) . '))';
 					} else {
 						$toS[] = '';
 					}

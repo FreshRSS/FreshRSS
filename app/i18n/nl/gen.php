@@ -228,6 +228,7 @@ return array(
 		'categories' => 'Categorieën',
 		'content' => 'Inhoud',
 		'date_from' => 'Van',
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In het verleden',
 		'date_published' => 'Publicatiedatum',
 		'date_range' => 'Datumbereik',

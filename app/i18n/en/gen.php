@@ -228,6 +228,7 @@ return array(
 		'categories' => 'Categories',
 		'content' => 'Content',
 		'date_from' => 'From',
+		'date_modified' => 'Server Modification Date',
 		'date_past' => 'In the past',
 		'date_published' => 'Publication Date',
 		'date_range' => 'Date Range',
