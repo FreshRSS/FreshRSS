@@ -184,7 +184,7 @@ Minz_Request::bad($feedback_bad, $url_array);
 
 ## Translation Management
 
-This part [is explained here](/docs/en/internationalization.md).
+This part [is explained here](../../internationalization.md).
 
 ## Migration
 

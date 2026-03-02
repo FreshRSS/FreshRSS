@@ -42,10 +42,6 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return "LIMIT {$limit} OFFSET {$offset}";
 	}
 
-	public static function sqlGreatest(string $a, string $b): string {
-		return 'GREATEST(' . $a . ', ' . $b . ')';
-	}
-
 	public static function sqlRandom(): string {
 		return 'RAND()';
 	}
@@ -139,6 +135,13 @@ SQL;
 				}
 				return $this->pdo->exec($sql) !== false;
 			}
+			if ($name === 'lastModified') {	//v1.29.0
+				$sql = $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] ?? null;
+				if (!is_string($sql)) {
+					throw new Exception('ALTER_TABLE_ENTRY_LAST_MODIFIED is not a string!');
+				}
+				return $this->pdo->exec($sql) !== false;
+			}
 		} catch (Exception $e) {
 			Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
 		}
@@ -151,7 +154,7 @@ SQL;
 		if (isset($errorInfo[0])) {
 			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
-				foreach (['attributes', 'lastUserModified'] as $column) {
+				foreach (['attributes', 'lastUserModified', 'lastModified'] as $column) {
 					if (str_contains($errorLines[0], $column)) {
 						return $this->addColumn($column);
 					}
@@ -171,8 +174,8 @@ SQL;
 
 	private PDOStatement|null|false $addEntryPrepared = null;
 
-	/** @param array{'id':string,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,'lastSeen':int,'hash':string,
-	 *		'is_read':bool|int|null,'is_favorite':bool|int|null,'id_feed':int,'tags':string,'attributes'?:null|string|array<string,mixed>} $valuesTmp */
+	/** @param array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,hash:string,
+	 *		is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes?:null|string|array<string,mixed>} $valuesTmp */
 	public function addEntry(array $valuesTmp, bool $useTmpTable = true): bool {
 		if ($this->addEntryPrepared == null) {
 			$sql = static::sqlIgnoreConflict(
@@ -275,7 +278,7 @@ SQL;
 
 	/**
 	 * @param array{id:string,guid:string,title:string,author:string,content:string,link:string,
-	 * 	date:int,lastSeen:int,lastUserModified?:int,hash:string,
+	 * 	date:int,lastSeen:int,lastModified?:?int,lastUserModified?:?int,hash:string,
 	 * 	is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes:array<string,mixed>} $valuesTmp
 	 */
 	public function updateEntry(array $valuesTmp): bool {
@@ -285,16 +288,19 @@ SQL;
 		if (!isset($valuesTmp['is_favorite'])) {
 			$valuesTmp['is_favorite'] = null;
 		}
-		if (empty($valuesTmp['lastUserModified'])) {
-			$valuesTmp['lastUserModified'] = 0;
+		if (!isset($valuesTmp['lastUserModified'])) {
+			$valuesTmp['lastUserModified'] = null;
 		}
-
+		if (!isset($valuesTmp['lastModified'])) {
+			$valuesTmp['lastModified'] = null;
+		}
 		if ($this->updateEntryPrepared == null) {
 			$sql = 'UPDATE `_entry` '
 				. 'SET title=:title, author=:author, '
 				. (static::isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
 				. ', link=:link, date=:date, `lastSeen`=:last_seen'
-				. ', `lastUserModified`=' . static::sqlGreatest(':last_user_modified', '`lastUserModified`')
+				. ', `lastModified`=COALESCE(:last_modified, `lastModified`)'
+				. ', `lastUserModified`=COALESCE(:last_user_modified, `lastUserModified`)'
 				. ', hash=' . static::sqlHexDecode(':hash')
 				. ', is_read=COALESCE(:is_read, is_read)'
 				. ', is_favorite=COALESCE(:is_favorite, is_favorite)'
@@ -319,7 +325,16 @@ SQL;
 			$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
 			$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
 			$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
-			$this->updateEntryPrepared->bindParam(':last_user_modified', $valuesTmp['lastUserModified'], PDO::PARAM_INT);
+			if ($valuesTmp['lastModified'] === null) {
+				$this->updateEntryPrepared->bindValue(':last_modified', null, PDO::PARAM_NULL);
+			} else {
+				$this->updateEntryPrepared->bindValue(':last_modified', $valuesTmp['lastModified'], PDO::PARAM_INT);
+			}
+			if ($valuesTmp['lastUserModified'] === null) {
+				$this->updateEntryPrepared->bindValue(':last_user_modified', null, PDO::PARAM_NULL);
+			} else {
+				$this->updateEntryPrepared->bindValue(':last_user_modified', $valuesTmp['lastUserModified'], PDO::PARAM_INT);
+			}
 			if ($valuesTmp['is_read'] === null) {
 				$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
 			} else {
@@ -353,7 +368,7 @@ SQL;
 		} else {
 			$info = $this->updateEntryPrepared == false ? $this->pdo->errorInfo() : $this->updateEntryPrepared->errorInfo();
 			/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,
-			 * 	date:int,lastSeen:int,lastUserModified:int,hash:string,
+			 * 	date:int,lastSeen:int,lastModified:int,lastUserModified:int,hash:string,
 			 * 	is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes:array<string,mixed>} $valuesTmp */
 			/** @var array{0:string,1:int,2:string} $info */
 			if ($this->autoUpdateDb($info)) {
@@ -789,7 +804,7 @@ SQL;
 	/**
 	 * @param 'ASC'|'DESC' $order
 	 * @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,
-	 * 	date:int,lastSeen:int,lastUserModified:int,
+	 * 	date:int,lastSeen:int,lastModified:int,lastUserModified:int,
 	 *	hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}>
 	 */
 	public function selectAll(string $order = 'ASC', int $limit = -1, int $offset = 0): Traversable {
@@ -798,14 +813,15 @@ SQL;
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'ASC';
 		$sqlLimit = static::sqlLimit($limit, $offset);
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
+SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastModified`, `lastUserModified`,
+	{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
 FROM `_entry`
 ORDER BY id {$order} {$sqlLimit}
 SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
-				/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,lastUserModified:int,
+				/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,lastModified:int,lastUserModified:int,
 				 *	hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string} $row */
 				yield $row;
 			}
@@ -825,13 +841,16 @@ SQL;
 		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
+SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastModified`, `lastUserModified`,
+	{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
 	{$contentLength}
 FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid
 SQL;
 		$res = $this->fetchAssoc($sql, [':id_feed' => $id_feed, ':guid' => $guid]);
-		/** @var list<array{id:string,id_feed:int,guid:string,title:string,author:string,content:string,link:string,date:int,
-		 * 		is_read:int,is_favorite:int,tags:string,attributes:?string,content_length:int}> $res */
+		/** @var list<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
+		 *		lastSeen:int,lastModified:int,lastUserModified:int,hash:string,is_read:int,is_favorite:int,id_feed:int,
+		 * 		tags:string,attributes:?string,
+		 * 		content_length:int}> $res */
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
@@ -840,13 +859,16 @@ SQL;
 		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
+SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastModified`, `lastUserModified`,
+	{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
 	{$contentLength}
 FROM `_entry` WHERE id=:id
 SQL;
 		$res = $this->fetchAssoc($sql, [':id' => $id]);
-		/** @var list<array{id:string,id_feed:int,guid:string,title:string,author:string,content:string,link:string,date:int,
-		 * 		is_read:int,is_favorite:int,tags:string,attributes:?string,content_length:int}> $res */
+		/** @var list<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
+		 *		lastSeen:int,lastModified:int,lastUserModified:int,hash:string,is_read:int,is_favorite:int,id_feed:int,
+		 * 		tags:string,attributes:?string,
+		 * 		content_length:int}> $res */
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
@@ -920,6 +942,14 @@ SQL;
 				$sub_search .= 'AND ' . $alias . 'date <= ? ';
 				$values[] = $filter->getMaxPubdate();
 			}
+			if ($filter->getMinModifiedDate() !== null) {
+				$sub_search .= 'AND ' . $alias . '`lastModified` >= ? ';
+				$values[] = $filter->getMinModifiedDate();
+			}
+			if ($filter->getMaxModifiedDate() !== null) {
+				$sub_search .= 'AND COALESCE(' . $alias . '`lastModified`, 0) <= ? ';
+				$values[] = $filter->getMaxModifiedDate();
+			}
 			if ($filter->getMinUserdate() !== null) {
 				$sub_search .= 'AND ' . $alias . '`lastUserModified` >= ? ';
 				$values[] = $filter->getMinUserdate();
@@ -960,10 +990,25 @@ SQL;
 				}
 				$sub_search .= ') ';
 			}
+			if ($filter->getNotMinModifiedDate() !== null || $filter->getNotMaxModifiedDate() !== null) {
+				$sub_search .= 'AND (';
+				if ($filter->getNotMinModifiedDate() !== null) {
+					$sub_search .= 'COALESCE(' . $alias . '`lastModified`, 0) < ?';
+					$values[] = $filter->getNotMinModifiedDate();
+					if ($filter->getNotMaxModifiedDate()) {
+						$sub_search .= ' OR ';
+					}
+				}
+				if ($filter->getNotMaxModifiedDate() !== null) {
+					$sub_search .= $alias . '`lastModified` > ?';
+					$values[] = $filter->getNotMaxModifiedDate();
+				}
+				$sub_search .= ') ';
+			}
 			if ($filter->getNotMinUserdate() !== null || $filter->getNotMaxUserdate() !== null) {
 				$sub_search .= 'AND (';
 				if ($filter->getNotMinUserdate() !== null) {
-					$sub_search .= $alias . '`lastUserModified` < ?';
+					$sub_search .= 'COALESCE(' . $alias . '`lastUserModified`, 0) < ?';
 					$values[] = $filter->getNotMinUserdate();
 					if ($filter->getNotMaxUserdate()) {
 						$sub_search .= ' OR ';
@@ -1270,7 +1315,7 @@ SQL;
 	/**
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'c.name'|'date'|'f.name'|'lastUserModified'|'length'|'link'|'rand'|'title' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'lastModified'|'lastUserModified'|'length'|'link'|'rand'|'title' $sort
 	 * @param 'ASC'|'DESC' $order
 	 * @param numeric-string $continuation_id
 	 * @param list<string|int> $continuation_values
@@ -1341,13 +1386,14 @@ SQL;
 			$values[] = $id_min;
 		}
 
-		if ($continuation_id !== '0' && in_array($sort, ['c.name', 'date', 'f.name', 'lastUserModified', 'length', 'link', 'title'], true)) {
+		if ($continuation_id !== '0' && in_array($sort, ['c.name', 'date', 'f.name', 'lastModified', 'lastUserModified', 'length', 'link', 'title'], true)) {
 			$sign = $order === 'ASC' ? '>' : '<';
 			$sign2 = $secondary_sort_order === 'ASC' ? '>' : '<';
 			$orderBy = match ($sort) {
 				'c.name' => 'c.name',
 				'date' => $alias . 'date',
 				'f.name' => 'f.name',
+				'lastModified' => $alias . '`lastModified`',
 				'lastUserModified' => $alias . '`lastUserModified`',
 				'length' => 'LENGTH(' . $alias . (static::isCompressed() ? 'content_bin' : 'content') . ')',
 				'link' => $alias . 'link',
@@ -1409,7 +1455,7 @@ SQL;
 	 * @param int $id category/feed/tag ID
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'c.name'|'date'|'f.name'|'lastUserModified'|'length'|'link'|'rand'|'title' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'lastModified'|'lastUserModified'|'length'|'link'|'rand'|'title' $sort
 	 * @param 'ASC'|'DESC' $order
 	 * @param numeric-string $continuation_id
 	 * @param list<string|int> $continuation_values
@@ -1477,6 +1523,7 @@ SQL;
 			'c.name' => 'c.name',
 			'date' => 'e.date',
 			'f.name' => 'f.name',
+			'lastModified' => 'e.`lastModified`',
 			'lastUserModified' => 'e.`lastUserModified`',
 			'length' => 'LENGTH(e.' . (static::isCompressed() ? 'content_bin' : 'content') . ')',
 			'link' => 'e.link',
@@ -1489,6 +1536,9 @@ SQL;
 			'link' => 'e.link',
 			'title' => 'e.title',
 		};
+		if (in_array($sort, ['lastModified', 'lastUserModified'], true)) {
+			$where = $orderBy . ' IS NOT NULL AND ' . $where;
+		}
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters, id_min: $id_min, id_max: $id_max,
 			sort: $sort, order: $order, continuation_id: $continuation_id, continuation_values: $continuation_values,
 			secondary_sort: $secondary_sort, secondary_sort_order: $secondary_sort_order);
@@ -1523,7 +1573,7 @@ SQL;
 	 * @param int $id category/feed/tag ID
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
-	 * @param 'id'|'c.name'|'date'|'f.name'|'lastUserModified'|'length'|'link'|'rand'|'title' $sort
+	 * @param 'id'|'c.name'|'date'|'f.name'|'lastModified'|'lastUserModified'|'length'|'link'|'rand'|'title' $sort
 	 * @param 'ASC'|'DESC' $order
 	 * @param numeric-string $continuation_id
 	 * @param list<string|int> $continuation_values
@@ -1547,6 +1597,7 @@ SQL;
 			'c.name' => 'c0.name',
 			'date' => 'e0.date',
 			'f.name' => 'f0.name',
+			'lastModified' => 'e0.`lastModified`',
 			'lastUserModified' => 'e0.`lastUserModified`',
 			'length' => 'LENGTH(e0.' . (static::isCompressed() ? 'content_bin' : 'content') . ')',
 			'link' => 'e0.link',
@@ -1563,7 +1614,7 @@ SQL;
 		$hash = static::sqlHexEncode('e0.hash');
 		$sql = <<<SQL
 SELECT e0.id, e0.guid, e0.title, e0.author, {$content}, e0.link,
-	e0.date, e0.`lastSeen`, e0.`lastUserModified`, {$hash} AS hash, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes
+	e0.date, e0.`lastSeen`, e0.`lastModified`, e0.`lastUserModified`, {$hash} AS hash, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes
 FROM `_entry` e0 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
 SQL;
 		if ($sort === 'f.name' || $sort === 'c.name') {
@@ -1622,8 +1673,9 @@ SQL;
 			secondary_sort: $secondary_sort, secondary_sort_order: $secondary_sort_order);
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
-				/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-				 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes'?:?string} $row */
+				/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
+				 * 		lastSeen:int,lastModified:int,lastUserModified:int,hash:string,is_read:int,is_favorite:int,id_feed:int,
+				 * 		tags:string,attributes:?string} $row */
 				yield FreshRSS_Entry::fromArray($row);
 			}
 		}
@@ -1654,7 +1706,8 @@ SQL;
 		$hash = static::sqlHexEncode('hash');
 		$repeats = str_repeat('?,', count($ids) - 1) . '?';
 		$sql = <<<SQL
-SELECT id, guid, title, author, link, date, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, {$content}, `lastUserModified`
+SELECT id, guid, title, author, link, date, `lastModified`, `lastUserModified`,
+	{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, {$content}
 FROM `_entry`
 WHERE id IN ({$repeats})
 ORDER BY id {$order}
@@ -1666,8 +1719,9 @@ SQL;
 			return;
 		}
 		while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
-			/** @var array{'id':string,'id_feed':int,'guid':string,'title':string,'author':string,'content':string,'link':string,'date':int,
-			 *		'hash':string,'is_read':int,'is_favorite':int,'tags':string,'attributes':?string} $row */
+			/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
+			 * 		lastSeen:int,lastModified:int,lastUserModified:int,hash:string,is_read:int,is_favorite:int,id_feed:int,
+			 * 		tags:string,attributes:?string} $row */
 			yield FreshRSS_Entry::fromArray($row);
 		}
 	}
