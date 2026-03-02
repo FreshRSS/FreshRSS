@@ -55,6 +55,7 @@ People are sorted by name so please keep this order.
 * [chemical1979](https://github.com/chemical1979): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:chemical1979)
 * [Chris Francy](https://github.com/zoredache): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zoredache)
 * [Christian König](https://github.com/yubiuser): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yubiuser)
+* [Christian Weiske](https://github.com/cweiske): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cweiske), [Web](https://cweiske.de/)
 * [Ciro Mota](https://github.com/ciro-mota): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr%20author%3Aciro-mota)
 * [Çılga İşcan Tercanlı](https://github.com/CilgaIscan): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:CilgaIscan)
 * [Clemens Neubauer](https://github.com/cn-tools): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cn-tools), [Web](http://cn-tools.eu/)
