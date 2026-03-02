@@ -200,7 +200,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 				$is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
 				[
 					'c' => 'index',
-					'a' => 'index',
+					'a' => Minz_Request::paramStringNull('from') ?? 'index',
 					'params' => $params,
 				],
 				notificationName: 'readAction ',
