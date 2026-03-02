@@ -361,7 +361,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	/**
 	 * Check database is well-installed.
 	 *
-	 * @return array<string,array<string, bool>|bool> of tested values.
+	 * @return array<string,array<string,bool>|bool> of tested values.
 	 */
 	private static function check_install_database(): array {
 		$status = [

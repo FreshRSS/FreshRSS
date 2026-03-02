@@ -13,7 +13,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 	#[\Override]
 	public function tablesAreCorrect(): bool {
 		$db = FreshRSS_Context::systemConf()->db;
-		$sql = 'SELECT * FROM pg_catalog.pg_tables where tableowner=:tableowner';
+		$sql = 'SELECT tablename FROM pg_catalog.pg_tables where tableowner=:tableowner';
 		$res = $this->fetchAssoc($sql, [':tableowner' => $db['user']]);
 		if ($res == null) {
 			return false;
