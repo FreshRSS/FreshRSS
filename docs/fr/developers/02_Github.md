@@ -71,10 +71,6 @@ suggestion :
 * Il se peut que les logs puissent révéler des informations plus ou moins
 	confidentielles, **faites attention à ne rien divulguer de sensible.**
 
-De plus, face à un bug, je ne peux que vous encourager à suivre le format de
-message suivant (tiré du [site de Sam &
-Max](http://sametmax.com/template-de-demande-daide-en-informatique/)) :
-
 ### Quel est mon objectif ?
 
 Donnez le contexte général de ce que vous essayiez de faire.
@@ -110,8 +106,8 @@ Pensez à donner les informations suivantes si vous les connaissez :
 Si vous êtes novice dans Git, voici quelques ressources qui pourraient vous
 être utiles :
 
-* [Article du blog de GitHub](https://github.com/blog/120-new-to-git)
-* <http://try.github.com/>
+* [Article du blog de GitHub](https://github.blog/news-insights/the-library/new-to-git/)
+* <https://docs.github.com/en/github/getting-started-with-github/set-up-git>
 * <http://sixrevisions.com/resources/git-tutorials-beginners/>
 * <http://rogerdudler.github.io/git-guide/>
 

@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Перевірте доступ до каталога <em>%1$s</em> для користувача <em>%2$s</em>. HTTP-серверу потрібен дозвіл на запис.',
 			'ok' => 'Доступ до каталога даних працює.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'Не вдалося знайти необхідну бібліотеку роботи з DOM.',
 			'ok' => 'У вас є необхідна бібліотека роботи з DOM.',

@@ -361,30 +361,32 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	/**
 	 * Check database is well-installed.
 	 *
-	 * @return array<string,bool> of tested values.
+	 * @return array<string,array<string,bool>|bool> of tested values.
 	 */
 	private static function check_install_database(): array {
 		$status = [
 			'connection' => true,
 			'tables' => false,
-			'categories' => false,
-			'feeds' => false,
-			'entries' => false,
-			'entrytmp' => false,
-			'tag' => false,
-			'entrytag' => false,
+			'table' => [
+				'categories' => false,
+				'feeds' => false,
+				'entries' => false,
+				'entrytmp' => false,
+				'tag' => false,
+				'entrytag' => false,
+			],
 		];
 
 		try {
 			$dbDAO = FreshRSS_Factory::createDatabaseDAO();
 
 			$status['tables'] = $dbDAO->tablesAreCorrect();
-			$status['categories'] = $dbDAO->categoryIsCorrect();
-			$status['feeds'] = $dbDAO->feedIsCorrect();
-			$status['entries'] = $dbDAO->entryIsCorrect();
-			$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
-			$status['tag'] = $dbDAO->tagIsCorrect();
-			$status['entrytag'] = $dbDAO->entrytagIsCorrect();
+			$status['table']['categories'] = $dbDAO->categoryIsCorrect();
+			$status['table']['feeds'] = $dbDAO->feedIsCorrect();
+			$status['table']['entries'] = $dbDAO->entryIsCorrect();
+			$status['table']['entrytmp'] = $dbDAO->entrytmpIsCorrect();
+			$status['table']['tag'] = $dbDAO->tagIsCorrect();
+			$status['table']['entrytag'] = $dbDAO->entrytagIsCorrect();
 		} catch (Minz_PDOConnectionException $e) {
 			$status['connection'] = false;
 		}

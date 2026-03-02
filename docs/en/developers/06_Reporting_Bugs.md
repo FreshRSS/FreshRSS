@@ -39,8 +39,6 @@ Here are some tips to help you present your bug report or suggestion:
 * If you report a feed problem, it will be easier if you could provide a snapshot of its content in a text file.
 See [further down](#how-to-provide-feed-data) for more information.
 
-In addition, when facing a bug, you’re encouraged to follow this message format (from the [Sam & Max website](http://sametmax.com/template-de-demande-daide-en-informatique/):
-
 ### What’s my goal?
 
 Give the general context of what you were trying to do.
