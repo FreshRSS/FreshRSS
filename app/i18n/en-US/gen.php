@@ -228,6 +228,7 @@ return array(
 		'categories' => 'Categories',	// IGNORE
 		'content' => 'Content',	// IGNORE
 		'date_from' => 'From',	// IGNORE
+		'date_modified' => 'Server Modification Date',	// IGNORE
 		'date_past' => 'In the past',	// IGNORE
 		'date_published' => 'Publication Date',	// IGNORE
 		'date_range' => 'Date Range',	// IGNORE

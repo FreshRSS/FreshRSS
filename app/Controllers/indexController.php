@@ -59,8 +59,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				' — ' . timestamptodate($entry->dateAdded(raw: true), hour: false),
 			'date' => _t('index.feed.published' . self::dayRelative($entry->date(raw: true), mayBeFuture: true)) .
 				' — ' . timestamptodate($entry->date(raw: true), hour: false),
-			'lastUserModified' => _t('index.feed.userModified' . self::dayRelative($entry->lastUserModified(), mayBeFuture: false)) .
-				' — ' . timestamptodate($entry->lastUserModified(), hour: false),
+			'lastUserModified' => _t('index.feed.userModified' . self::dayRelative($entry->lastUserModified() ?? 0, mayBeFuture: false)) .
+				' — ' . timestamptodate($entry->lastUserModified() ?? 0, hour: false),
 			'c.name' => $entry->feed()?->category()?->name() ?? '',
 			'f.name' => $entry->feed()?->name() ?? '',
 			default => '',
@@ -89,7 +89,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		$timestamp = match (FreshRSS_Context::$sort) {
 			'id' => $entry->dateAdded(raw: true),
 			'date' => $entry->date(raw: true),
-			'lastUserModified' => $entry->lastUserModified(),
+			'lastUserModified' => $entry->lastUserModified() ?? 0,
 			default => throw new InvalidArgumentException('Unsupported sort criterion for transition: ' . FreshRSS_Context::$sort),
 		};
 		$searchString = $operator . ':' . ($offset < 0 ? '/' : '') . date('Y-m-d', $timestamp + ($offset * 86400)) . ($offset > 0 ? '/' : '');
@@ -370,7 +370,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					'f.name' => $pagingEntry->feed()?->name(raw: true) ?? '',
 					'link' => $pagingEntry->link(raw: true),
 					'title' => $pagingEntry->title(),
-					'lastUserModified' => $pagingEntry->lastUserModified(),
+					'lastUserModified' => $pagingEntry->lastUserModified() ?? 0,
 					'length' => $pagingEntry->sqlContentLength() ?? 0,
 				};
 				if (FreshRSS_Context::$sort === 'c.name') {

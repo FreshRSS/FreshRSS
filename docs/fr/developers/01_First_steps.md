@@ -58,7 +58,7 @@ make stop
 ```
 
 Si la configuration vous intéresse, les commandes `make` sont définies dans
-le fichier [`Makefile`](/Makefile).
+le fichier [`Makefile`](https://github.com/FreshRSS/FreshRSS/blob/edge/Makefile).
 
 Si vous avez besoin d’utiliser une image Docker identifiée par un tag
 différent (par défaut `alpine`), vous pouvez surcharger de la manière

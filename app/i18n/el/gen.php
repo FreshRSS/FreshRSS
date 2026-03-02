@@ -228,6 +228,7 @@ return array(
 		'categories' => 'Κατηγορίες',
 		'content' => 'Περιεχόμενο',
 		'date_from' => 'Από',
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'Στο παρελθόν',
 		'date_published' => 'Ημερομηνία έκδοσης',
 		'date_range' => 'Διάστημα ημερομηνίας',

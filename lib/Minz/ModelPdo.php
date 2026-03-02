@@ -57,8 +57,12 @@ class Minz_ModelPdo {
 				if (!empty($dbServer['port'])) {
 					$dsn .= ';port=' . $dbServer['port'];
 				}
-				$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';
-				$this->pdo = new Minz_PdoMysql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);
+				if (class_exists('Pdo\Mysql')) {
+					$driver_options[Pdo\Mysql::ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';	// @phpstan-ignore offsetAccess.invalidOffset
+				} else {
+					$driver_options[PDO::MYSQL_ATTR_INIT_COMMAND] = 'SET NAMES utf8mb4';	// PHP < 8.4
+				}
+				$this->pdo = new Minz_PdoMysql($dsn . $dsnParams, $db['user'], $db['password'], $driver_options);	// @phpstan-ignore argument.type
 				$this->pdo->setPrefix($db['prefix'] . $this->current_user . '_');
 				break;
 			case 'sqlite':

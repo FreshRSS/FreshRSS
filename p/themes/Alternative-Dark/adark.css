@@ -777,10 +777,6 @@ kbd {
 	background: var(--background-color-hover);
 }
 
-.flux:not(.current):hover .item .title {
-	background: var(--background-color-hover);
-}
-
 .flux.current:not(.active) {
 	background: var(--background-color-hover);
 }

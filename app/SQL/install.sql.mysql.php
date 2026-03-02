@@ -49,7 +49,8 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	`link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
 	`date` BIGINT,
 	`lastSeen` BIGINT DEFAULT 0,
-	`lastUserModified` BIGINT DEFAULT 0,	-- v1.28.0
+	`lastModified` BIGINT,	-- v1.29.0
+	`lastUserModified` BIGINT,	-- v1.28.0
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
@@ -62,7 +63,8 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`),	-- v0.7
 	INDEX `entry_lastSeen_index` (`lastSeen`),	-- v1.1.1
-	INDEX `entry_last_user_modified_index` (`lastUserModified`),	-- v1.28.0
+	INDEX `entry_last_modified_index` (`lastModified`),
+	INDEX `entry_last_user_modified_index` (`lastUserModified`),
 	INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
@@ -112,8 +114,14 @@ ENGINE = INNODB;
 SQL;
 
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
-ALTER TABLE `_entry` ADD `lastUserModified` BIGINT DEFAULT 0;	-- 1.28.0
-CREATE INDEX IF NOT EXISTS `entry_last_user_modified_index` ON `_entry` (`lastUserModified`);	-- //v1.28.0
+ALTER TABLE `_entry`
+	ADD COLUMN IF NOT EXISTS `lastUserModified` BIGINT,	-- 1.28.0
+	ADD INDEX `entry_last_user_modified_index` (`lastUserModified`);	-- IF NOT EXISTS works with MariaDB but not with MySQL
+SQL;
+
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastModified` BIGINT;	-- 1.29.0
+ALTER TABLE `_entry` ADD INDEX `entry_last_modified_index` (`lastModified`);	-- IF NOT EXISTS works with MariaDB but not with MySQL
 SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
