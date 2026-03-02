@@ -1500,7 +1500,7 @@ function init_stream(stream) {
 		}
 	};
 
-	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
+	stream.onmouseup = stream.onauxclick = function (ev) {	// Auxclick enables us to catch middle click
 		if (ev.altKey || ev.metaKey || ev.shiftKey) {
 			return;
 		}
@@ -1515,7 +1515,7 @@ function init_stream(stream) {
 				} else {
 					el.parentElement.click();	// Normal click, just toggle article.
 				}
-			} else if (ev.which == 2 && !ev.ctrlKey) {	// Simple middle click: same behaviour as CTRL+click
+			} else if (ev.type === 'auxclick' && ev.which == 2 && !ev.ctrlKey) {	// Simple middle click: same behaviour as CTRL+click
 				if (context.auto_mark_article) {
 					const new_active = el.closest('.flux');
 					mark_read(new_active, true, false);
