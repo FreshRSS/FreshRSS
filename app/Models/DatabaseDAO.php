@@ -146,12 +146,13 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function entryIsCorrect(): bool {
+		$entryDAO = FreshRSS_Factory::createEntryDao();
 		return $this->checkTable('entry', [
 			'id',
 			'guid',
 			'title',
 			'author',
-			'content_bin',
+			$entryDAO::isCompressed() ? 'content_bin' : 'content',
 			'link',
 			'date',
 			'lastSeen',
@@ -166,12 +167,13 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function entrytmpIsCorrect(): bool {
+		$entryDAO = FreshRSS_Factory::createEntryDao();
 		return $this->checkTable('entrytmp', [
 			'id',
 			'guid',
 			'title',
 			'author',
-			'content_bin',
+			$entryDAO::isCompressed() ? 'content_bin' : 'content',
 			'link',
 			'date',
 			'lastSeen',
