@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на <em>./data/</em> в порядке.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'У вас не установлена необходимая библиотека для просмотра DOM (пакет php-xml).',
 			'ok' => 'У вас установлена необходимая библиотека для просмотра DOM.',

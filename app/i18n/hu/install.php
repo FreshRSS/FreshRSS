@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Ellenőrizd a(z) <em>%1$s</em> könyvtáron a(z) <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'A data könyvtár jogosultságai rendben vannak.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'A DOM böngészéséhez nem található a könyvtár.',
 			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',

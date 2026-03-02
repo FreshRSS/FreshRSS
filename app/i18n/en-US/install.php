@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the data directory are good.',	// IGNORE
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// IGNORE
+			'ok' => 'Database connection is good.',	// IGNORE
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// IGNORE
+			'ok' => 'Database table "%s" is good.',	// IGNORE
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// IGNORE
+			'ok' => 'All database tables exist.',	// IGNORE
+		),
+		'database-title' => 'Database',	// IGNORE
 		'dom' => array(
 			'nok' => 'Cannot find the required library to browse the DOM.',	// IGNORE
 			'ok' => 'You have the required library to browse the DOM.',	// IGNORE

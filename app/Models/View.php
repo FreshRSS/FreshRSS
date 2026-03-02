@@ -59,7 +59,7 @@ class FreshRSS_View extends Minz_View {
 	/** @var array<string,'ok'|'ko'|'warn'> */
 	public array $status_php;
 	public bool $update_to_apply;
-	/** @var array<string,bool> */
+	/** @var array<string,array<string, bool>|bool> */
 	public array $status_database;
 	public bool $is_release_channel_stable;
 
