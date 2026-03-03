@@ -131,7 +131,7 @@ return array(
 		),
 		'zip' => array(
 			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php-zip).',
-			'ok' => 'Sie haben die ZIP-Erweiterung.',
+			'ok' => 'Sie haben die empfohlene Erweiterung für ZIP (php-zip-Paket).',
 		),
 	),
 	'conf' => array(
