@@ -78,7 +78,7 @@ return array(
 		'files' => 'Datei-Installation',
 		'intl' => array(
 			'nok' => 'Die empfohlene Bibliothek php-intl für die Internationalisierung kann nicht gefunden werden.',
-			'ok' => 'Sie haben die empfohlene Bibliothek php-intl für die Internationalisierung.',	// TODO
+			'ok' => 'Sie haben die empfohlene Bibliothek php-intl für die Internationalisierung.',
 		),
 		'json' => array(
 			'nok' => 'Ihnen fehlt eine empfohlene Bibliothek um JSON zu parsen.',
@@ -131,7 +131,7 @@ return array(
 		),
 		'zip' => array(
 			'nok' => 'Die empfohlene Erweiterung für ZIP (php-zip-Paket) kann nicht gefunden werden.',
-			'ok' => 'You have the recommended extension for ZIP (php-zip package).',
+			'ok' => 'You have the recommended extension for ZIP (php-zip package).',	// TODO
 		),
 	),
 	'conf' => array(

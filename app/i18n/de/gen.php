@@ -248,7 +248,7 @@ return array(
 		'text_placeholder' => 'Stichwort',
 		'title' => 'Titel',
 		'url' => 'URL',	// IGNORE
-		'user_queries' => 'Benutzerabfragen',	// TODO
+		'user_queries' => 'Benutzerabfragen',
 	),
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
