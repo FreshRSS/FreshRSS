@@ -62,7 +62,7 @@ return array(
 			'nok' => 'Alcune tavole del database sono mancanti.',
 			'ok' => 'Tutte le tavole del database esistono.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Titolo del database',
 		'dom' => array(
 			'nok' => 'Manca una libreria richiesta per leggere DOM.',
 			'ok' => 'Libreria richiesta per leggere DOM presente.',
