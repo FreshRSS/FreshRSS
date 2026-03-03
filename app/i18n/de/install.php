@@ -130,8 +130,8 @@ return array(
 			'ok' => 'Sie haben die benötigte Bibliothek um XML zu parsen.',
 		),
 		'zip' => array(
-			'nok' => 'Die empfohlene Erweiterung für ZIP (php-zip-Paket) kann nicht gefunden werden.',
-			'ok' => 'You have the recommended extension for ZIP (php-zip package).',	// TODO
+			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php-zip).',
+			'ok' => 'Sie haben die empfohlene Erweiterung für ZIP (php-zip-Paket).',
 		),
 	),
 	'conf' => array(
