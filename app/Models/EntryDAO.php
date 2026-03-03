@@ -1485,7 +1485,7 @@ SQL;
 			. ($type === 'T' ? 'DISTINCT ' : '')
 			. 'e.id'
 			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
-			. ($order === 'SHUF' ? ', (((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) DIV 3) * 8693) + ((709*(e.id+ ' . Minz_Request::serverTimestamp() . ' )) MOD 509) as shuffleOrderKey ' : ' ' )
+			. ($order === 'SHUF' ? ', (floor((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) / 3) * 512) + ((709*(e.id+ ' . Minz_Request::serverTimestamp() . ' )) % 509) as shuffleOrderKey ' : ' ' )
 			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
 			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
