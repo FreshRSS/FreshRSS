@@ -83,7 +83,7 @@ return array(
 			'content' => 'Inhaltsbreite',
 			'large' => 'Groß',
 			'medium' => 'Mittel',
-			'no_limit' => 'Volle Breite',
+			'no_limit' => 'Gesamte Breite',
 			'thin' => 'Klein',
 		),
 	),
