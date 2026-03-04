@@ -99,7 +99,7 @@ return array(
 				'label' => 'Registrierungsformular',
 				'option' => array(
 					'noform' => 'Deaktiviert: Keine Registrierung möglich',
-					'nolimit' => 'Aktiviert: Keine Begrenzung der Accounts',
+					'nolimit' => 'Aktiviert: Unbegrenzte Anzahl neuer Accounts',
 					'setaccountsnumber' => 'Anzahl maximaler Benutzer-Acounts festlegen',
 				),
 			),
