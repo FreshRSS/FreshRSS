@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Časový limit HTML5 oznámení',
 		),
 		'show_nav_buttons' => 'Zobrazit navigační tlačítka',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Motiv',
 			'deprecated' => array(

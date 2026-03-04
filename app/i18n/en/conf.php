@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 notification timeout',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',
 		'theme' => array(
 			'_' => 'Theme',
 			'deprecated' => array(

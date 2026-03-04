@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Batas waktu pemberitahuan HTML5',
 		),
 		'show_nav_buttons' => 'Tampilkan tombol navigasi',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(

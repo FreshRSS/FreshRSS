@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
+		'sidebar_hidden_by_default' => 'Masquer la barre latérale par défaut',
 		'theme' => array(
 			'_' => 'Thème',
 			'deprecated' => array(
