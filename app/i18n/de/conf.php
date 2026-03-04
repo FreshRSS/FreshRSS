@@ -28,7 +28,7 @@ return array(
 		'policy_warning' => 'Ohne Archivierungsrichtlinien werden alle Artikel behalten',
 		'purge_now' => 'Jetzt bereinigen',
 		'title' => 'Archivierung',
-		'ttl' => 'Automatsich aktualisieren nicht öfter als',
+		'ttl' => 'Automatisch aktualisieren nicht öfter als',
 	),
 	'display' => array(
 		'_' => 'Anzeige',
