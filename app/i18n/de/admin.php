@@ -109,7 +109,7 @@ return array(
 			),
 			'title' => 'Benutzer-Registrierungsformular',
 		),
-		'sensitive-parameter' => 'Sensitive Einstellung. Manuell in <kbd>./data/config.php</kbd> anpassbar.',
+		'sensitive-parameter' => 'Kritische Einstellung. Manuell in <kbd>./data/config.php</kbd> anpassbar.',
 		'tos' => array(
 			'disabled' => 'sind nicht aktiviert',
 			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
