@@ -323,7 +323,7 @@ return array(
 		'share_name' => 'Zobrazený název pro sdílení',
 		'share_url' => 'Použitá adresa URL pro sdílení',
 		'title' => 'Sdílení',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'Wallabag',	// IGNORE
 	),
 	'shortcut' => array(

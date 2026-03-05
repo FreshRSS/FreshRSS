@@ -323,7 +323,7 @@ return array(
 		'share_name' => 'Nom du partage à afficher',
 		'share_url' => 'URL du partage à utiliser',
 		'title' => 'Partage',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

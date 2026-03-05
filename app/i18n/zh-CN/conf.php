@@ -323,7 +323,7 @@ return array(
 		'share_name' => '显示名称',
 		'share_url' => '用于分享的 URL',
 		'title' => '分享',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

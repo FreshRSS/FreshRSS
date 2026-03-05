@@ -323,7 +323,7 @@ return array(
 		'share_name' => 'Nome condivisione',
 		'share_url' => 'URL condivisione',
 		'title' => 'Condividi',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

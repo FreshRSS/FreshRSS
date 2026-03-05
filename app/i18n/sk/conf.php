@@ -323,7 +323,7 @@ return array(
 		'share_name' => 'Meno pre zobrazenie',
 		'share_url' => 'Zdieľaný odkaz',
 		'title' => 'Zdieľanie',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

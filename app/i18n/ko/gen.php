@@ -277,7 +277,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => '기기 내장 공유 기능',
