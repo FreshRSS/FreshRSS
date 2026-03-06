@@ -283,7 +283,7 @@ return array(
 			'idle' => 'Inaktive Feeds',
 			'main' => 'Haupt-Statistiken',
 			'repartition' => 'Artikel-Verteilung',
-			'unread_dates' => 'Ungelesene Artikel',	// TODO
+			'unread_dates' => 'Ungelesene Artikel',
 		),
 		'subscription_management' => 'Abonnementverwaltung',
 		'subscription_tools' => 'Abonnement-Tools',
