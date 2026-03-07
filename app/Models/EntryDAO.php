@@ -125,8 +125,8 @@ SQL;
 			$databaseDao = new FreshRSS_DatabaseDAO();
 			$isMySQL = !$databaseDao->isMariaDB();
 		}
+		$result = false;
 		try {
-			$result = 0;
 			if ($name === 'attributes') {	//v1.20.0
 				$sql = <<<'SQL'
 ALTER TABLE `_entry` ADD COLUMN attributes TEXT;
@@ -154,15 +154,11 @@ SQL;
 			}
 			if ($result === false) {
 				Minz_Log::error(__METHOD__ . ' error: ' . json_encode($this->pdo->errorInfo()));
-				return false;
-			}
-			if ($result > 0) {
-				return true;
 			}
 		} catch (Exception $e) {
 			Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
 		}
-		return false;
+		return $result !== false;
 	}
 
 	//TODO: Move the database auto-updates to DatabaseDAO
