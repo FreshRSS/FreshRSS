@@ -14,6 +14,10 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 $today = @strtotime('today');
 ?>
 
+<template id="dynamic_favicon_base">
+	<?= file_get_contents(PUBLIC_PATH . '/themes/icons/favicon.svg') ?>
+</template>
+
 <datalist id="datalist-labels"></datalist>
 
 <template id="share_article_template">
