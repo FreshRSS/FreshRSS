@@ -111,7 +111,9 @@ class File implements Response
             if (!$force_fsockopen && function_exists('curl_exec')) {
                 $resolve = \FreshRSS_http_Util::getCurlResolveInfo($url); // FreshRSS
                 if ($resolve === null) {
-                    \Minz_Log::warning('Fetching ' . $url . ' is not allowed, because the host is on the blocklist.');
+                    \Minz_Log::warning("Fetching $url is not allowed, because the host's IP is not on the allowlist.");
+                    return;
+                } elseif ($resolve === false) {
                     return;
                 }
                 $this->method = \SimplePie\SimplePie::FILE_SOURCE_REMOTE | \SimplePie\SimplePie::FILE_SOURCE_CURL;
@@ -133,7 +135,7 @@ class File implements Response
                 }
                 /** @var non-empty-string $url */
                 curl_setopt($fp, CURLOPT_URL, $url);
-                curl_setopt($fp, CURLOPT_RESOLVE, [$resolve]); // FreshRSS
+                curl_setopt($fp, CURLOPT_RESOLVE, $resolve); // FreshRSS
                 curl_setopt($fp, CURLOPT_FOLLOWLOCATION, false); // FreshRSS
                 curl_setopt($fp, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($fp, CURLOPT_FAILONERROR, true);

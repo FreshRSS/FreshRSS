@@ -4,6 +4,20 @@ declare(strict_types=1);
 final class FreshRSS_http_Util {
 
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
+	private const PRIVATE_SUBNETS = [
+		'127.0.0.0/8',    // RFC1700 (Loopback)
+		'10.0.0.0/8',     // RFC1918
+		'192.168.0.0/16', // RFC1918
+		'172.16.0.0/12',  // RFC1918
+		'169.254.0.0/16', // RFC3927
+		'0.0.0.0/8',      // RFC5735
+		'240.0.0.0/4',    // RFC1112
+		'::1/128',        // Loopback
+		'fc00::/7',       // Unique Local Address
+		'fe80::/10',      // Link Local Address
+		'::ffff:0:0/96',  // IPv4 translations
+		'::/128',         // Unspecified address
+	];
 
 	private static function getRetryAfterFile(string $url, string $proxy): string {
 		$domain = parse_url($url, PHP_URL_HOST);
@@ -256,16 +270,37 @@ final class FreshRSS_http_Util {
 		return $html;
 	}
 
+	public static function compareURLOrigins(string $url1, string $url2): bool {
+		$url1 = parse_url($url1);
+		$url2 = parse_url($url2);
+		if ($url1 === false || $url2 === false) {
+			return false;
+		}
+		return ($url1['scheme'] ?? '') === ($url2['scheme'] ?? '') &&
+			($url1['host'] ?? '') === ($url2['host'] ?? '') &&
+			($url1['port'] ?? '') === ($url2['port'] ?? '');
+	}
 
-	public static function getCurlResolveInfo(string $url): string|null|false {
+	/**
+	 * Returns a value for CURLOPT_RESOLVE as an array, null if a disallowed IP address was found in DNS records, false if the domain failed to resolve
+	 *
+	 * @return array<string>|null|false
+	 */
+	public static function getCurlResolveInfo(string $url): array|null|false {
 		$parsed = parse_url($url);
 		if ($parsed === false) {
-			return null;
+			return false;
 		}
 		$host = $parsed['host'] ?? null;
 		$scheme = $parsed['scheme'] ?? null;
 		if ($host === null || $scheme === null) {
-			return null;
+			return false;
+		}
+		if (str_starts_with($host, '[') && str_ends_with($host, ']')) {
+			if (strlen($host) === 2) {
+				return false;
+			}
+			$host = substr($host, 1, strlen($host) - 2);
 		}
 		$port = parse_url($url)['port'] ?? null;
 		if ($port === null) {
@@ -275,24 +310,57 @@ final class FreshRSS_http_Util {
 				default => 0,
 			};
 		}
-		$ip = '';
+		$resolve_str = "$host:$port:";
+		$ips_ok = [];
+		$ips = [];
+		$records = [];
 		if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
-			$ip = $host;
+			$ips[] = $host;
 		} else {
-			$ip = gethostbyname($host);
-			if ($host === $ip) {
-				// Failed to resolve domain
+			$records = dns_get_record($host, DNS_A + DNS_AAAA);
+			if ($records === false) {
 				return false;
+			}
+			foreach ($records as $record) {
+				$ip = $record['ip'] ?? $record['ipv6'];
+				if (is_string($ip)) {
+					$ips[] = $ip;
+				}
 			}
 		}
 		$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
-		if (in_array($host . ':' . $port, $internal_host_allowlist, true)
-			|| in_array($ip . ':' . $port, $internal_host_allowlist, true)) {
-			// fallthrough
-		} elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
-			return null;
+		foreach ($ips as $ip) {
+			$allowlist_str = "$ip:$port";
+			$add_ip = $ip;
+			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
+				$allowlist_str = "[$ip]:$port";
+				$add_ip = "[$ip]";
+			}
+			if (in_array($allowlist_str, $internal_host_allowlist, true)) {
+				$ips_ok[] = $add_ip;
+				continue;
+			}
+
+			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+				return null;
+			}
+			// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
+			// Workaround is available by using `FILTER_FLAG_GLOBAL_RANGE` instead, but that was only added in PHP 8.2, and we need to support PHP 8.1+
+			foreach (self::PRIVATE_SUBNETS as $cidr) {
+				if (self::checkCIDR($ip, $cidr)) {
+					return null;
+				}
+			}
+
+			$ips_ok[] = $add_ip;
 		}
-		return $host . ':' . $port . ':' . $ip;
+
+		if (count($ips_ok) > 0 && count($records) > 0) {
+			$resolve_str .= implode(',', $ips_ok);
+			return [$resolve_str];
+		}
+
+		return [];
 	}
 
 
@@ -365,13 +433,16 @@ final class FreshRSS_http_Util {
 				break;
 		}
 
+		$original_url = $url;
 		$fail = false;
 		$redirs = 0;
 		while ($redirs <= 4) {
 			$url = is_string($url) ? $url : '';
 			$resolve = self::getCurlResolveInfo($url);
 			if ($resolve === null) {
-				Minz_Log::warning('Fetching ' . $url . ' not allowed, because the host is on the blocklist.');
+				Minz_Log::warning("Fetching $url is not allowed, because the host's IP is not on the allowlist.");
+				return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
+			} elseif ($resolve === false) {
 				return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
 			}
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
@@ -389,7 +460,7 @@ final class FreshRSS_http_Util {
 				CURLOPT_FOLLOWLOCATION => false,
 				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
-				CURLOPT_RESOLVE => [$resolve], // Prevent DNS rebinding
+				CURLOPT_RESOLVE => $resolve, // Prevent DNS rebinding
 			]);
 
 			curl_setopt_array($ch, $options);
@@ -421,6 +492,7 @@ final class FreshRSS_http_Util {
 
 			$headers = [];
 			if ($body !== false) {
+				$responseHeaders .= "\r\n";
 				$responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders($responseHeaders);
 				$parser = new \SimplePie\HTTP\Parser($responseHeaders);
 				if ($parser->parse()) {
@@ -434,8 +506,14 @@ final class FreshRSS_http_Util {
 				if ($location === false) {
 					$location = $url;
 				}
-				$url = $location;
+				if (!self::compareURLOrigins($url, $location)) {
+					unset($options[CURLOPT_COOKIE]);
+				}
 				$redirs++;
+				if (!($redirs <= 4)) {
+					Minz_Log::warning("Error fetching content: $original_url hit too many redirects");
+				}
+				$url = $location;
 				continue;
 			}
 
