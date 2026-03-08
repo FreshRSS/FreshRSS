@@ -50,6 +50,19 @@ return array(
 			'nok' => '請檢查 <em>%s</em> 目錄權限。HTTP 伺服器必須有其寫入權限。',
 			'ok' => 'data 目錄權限正常',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => '找不到用於瀏覽 DOM 的庫（php-xml）',
 			'ok' => '已找到用於瀏覽 DOM 的庫',

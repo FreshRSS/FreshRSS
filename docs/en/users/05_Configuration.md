@@ -105,6 +105,12 @@ By default, FreshRSS displays buttons to ease the article navigation when browsi
 
 If you don’t use those buttons because you never browse on mobile or because you browse with gestures, you can disable them from the interface.
 
+### Hide sidebar by default
+
+By default, the sidebar is visible when opening FreshRSS. If you prefer to have more reading space on load, you can hide it by default.
+
+When this option is enabled, the sidebar will be hidden at the start of each new session in the normal and reader views. You can still toggle it at any time using the sidebar button in the navigation bar.
+
 ## Reading
 
 ### Number of articles per page

@@ -91,29 +91,44 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return $res == null ? [] : $this->listDaoToSchema($res);
 	}
 
-	/** @param array<string> $schema */
-	public function checkTable(string $table, array $schema): bool {
-		$columns = $this->getSchema($table);
-		if (count($columns) === 0 || count($schema) === 0) {
+	/**
+	 * Verify that database table has at least the given columns
+	 *
+	 * @param string $table
+	 * @param array<string> $expectedColumns
+	 */
+	public function checkTable(string $table, array $expectedColumns): bool {
+		$columnInfo = $this->getSchema($table);
+		$exististingColumns = array_column($columnInfo, 'name');
+		if (count($exististingColumns) === 0 || count($expectedColumns) === 0) {
 			return false;
 		}
 
-		$ok = count($columns) === count($schema);
-		foreach ($columns as $c) {
-			$ok &= in_array($c['name'], $schema, true);
+		//allow for extensions adding additional columns
+		$ok = count($exististingColumns) >= count($expectedColumns);
+		foreach ($expectedColumns as $name) {
+			$ok &= in_array($name, $exististingColumns, true);
 		}
 
 		return (bool)$ok;
 	}
 
 	public function categoryIsCorrect(): bool {
-		return $this->checkTable('category', ['id', 'name']);
+		return $this->checkTable('category', [
+			'id',
+			'name',
+			'kind',
+			'lastUpdate',
+			'error',
+			'attributes',
+		]);
 	}
 
 	public function feedIsCorrect(): bool {
 		return $this->checkTable('feed', [
 			'id',
 			'url',
+			'kind',
 			'category',
 			'name',
 			'website',
@@ -131,12 +146,34 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function entryIsCorrect(): bool {
+		$entryDAO = FreshRSS_Factory::createEntryDao();
 		return $this->checkTable('entry', [
 			'id',
 			'guid',
 			'title',
 			'author',
-			'content_bin',
+			$entryDAO::isCompressed() ? 'content_bin' : 'content',
+			'link',
+			'date',
+			'lastSeen',
+			'lastUserModified',
+			'hash',
+			'is_read',
+			'is_favorite',
+			'id_feed',
+			'tags',
+			'attributes',
+		]);
+	}
+
+	public function entrytmpIsCorrect(): bool {
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		return $this->checkTable('entrytmp', [
+			'id',
+			'guid',
+			'title',
+			'author',
+			$entryDAO::isCompressed() ? 'content_bin' : 'content',
 			'link',
 			'date',
 			'lastSeen',
@@ -145,12 +182,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			'is_favorite',
 			'id_feed',
 			'tags',
-		]);
-	}
-
-	public function entrytmpIsCorrect(): bool {
-		return $this->checkTable('entrytmp', [
-			'id', 'guid', 'title', 'author', 'content_bin', 'link', 'date', 'lastSeen', 'hash', 'is_read', 'is_favorite', 'id_feed', 'tags'
+			'attributes',
 		]);
 	}
 

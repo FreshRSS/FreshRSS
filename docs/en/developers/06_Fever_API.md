@@ -24,11 +24,11 @@ Then point your mobile application to the `fever.php` address (e.g. `https://fre
 |[Fluent Reader](https://hyliu.me/fluent-reader/)                                    |Windows, Linux, macOS|[BSD-3-Clause](https://github.com/yang991178/fluent-reader/blob/master/LICENSE)|
 |[Fluent Reader lite](https://hyliu.me/fluent-reader-lite/)                          |Android, iOS         |[BSD-3-Clause](https://github.com/yang991178/fluent-reader-lite)|
 |[Read You](https://github.com/Ashinch/ReadYou/)                                     |Android              |[GPLv3](https://github.com/Ashinch/ReadYou/blob/main/LICENSE)|
-|[Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)       |iOS                  |Closed Source                                             |
+|[Fiery Feeds](https://voidstern.net/fiery-feeds)       |iOS                  |Closed Source                                             |
 |[Newsflash](https://gitlab.com/news-flash/news_flash_gtk/)                          |Linux                |[GPLv3](https://gitlab.com/news-flash/news_flash_gtk/)|
-|[Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)                 |iOS                  |Closed Source                                             |
+|[Unread](https://www.goldenhillsoftware.com/unread/)                 |iOS                  |Closed Source                                             |
 |[Reeder Classic](https://www.reederapp.com/classic/)                                |iOS                  |Closed Source                                              |
-|[ReadKit](https://apps.apple.com/app/readkit/id588726889)                           |macOS                |Closed Source                                              |
+|[ReadKit](https://readkit.app/)                           |macOS                |Closed Source                                              |
 |[FreshRSS Python API Client](https://github.com/thiswillbeyourgithub/freshrss_python_api)                           |Python                |[GPLv3](https://github.com/thiswillbeyourgithub/freshrss_python_api)                                              |
 
 ## Features
@@ -83,7 +83,7 @@ This should give:
 	"last_refreshed_on_time": "1520013061"
 }
 ```
-Perfect, you’re now authenticated and you can start testing the more advanced features. To do so, change the URL and append the possible API actions to your request parameters. Please refer to the [original Fever documentation](https://feedafever.com/api) for more information.
+Perfect, you’re now authenticated and you can start testing the more advanced features. To do so, change the URL and append the possible API actions to your request parameters. Please refer to the [original Fever documentation](https://web.archive.org/web/20230616124016/https://feedafever.com/api) for more information.
 
 Some basic calls are:
 

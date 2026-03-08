@@ -54,6 +54,7 @@ declare(strict_types=1);
  * @property bool $icons_as_emojis
  * @property int $simplify_over_n_feeds
  * @property bool $show_nav_buttons
+ * @property bool $sidebar_hidden_by_default
  * @property 'big'|'small'|'none' $mark_read_button
  * @property 'ASC'|'DESC' $sort_order
  * @property 'id'|'c.name'|'date'|'f.name'|'length'|'link'|'rand'|'title' $sort

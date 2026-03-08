@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 notificatie stop',
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Thema',
 			'deprecated' => array(

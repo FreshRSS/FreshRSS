@@ -240,10 +240,10 @@ Minz_Request::bad($feedback_bad, $url_array);
 
 ## Gestion de la traduction
 
-Cette partie est [expliquée dans la page dédiée](/docs/fr/internationalization.md).
+Cette partie est [expliquée dans la page dédiée](../../internationalization.md).
 
 ## Migration
 
 Existing documentation includes:
 
-* [How to manage migrations](migrations.md)
+* [How to manage migrations](../../../en/developers/Minz/migrations.html)

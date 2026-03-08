@@ -35,11 +35,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	#[\Override]
-	public static function sqlGreatest(string $a, string $b): string {
-		return 'MAX(' . $a . ', ' . $b . ')';
-	}
-
-	#[\Override]
 	public static function sqlRandom(): string {
 		return 'RANDOM()';
 	}
@@ -69,7 +64,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) !== false && ($columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1)) !== false) {
-			foreach (['attributes', 'lastUserModified'] as $column) {
+			foreach (['attributes', 'lastUserModified', 'lastModified'] as $column) {
 				if (!in_array($column, $columns, true)) {
 					return $this->addColumn($column);
 				}
@@ -89,7 +84,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			INSERT OR IGNORE INTO `_entry`
 				(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
 				SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
-				guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+					guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 				FROM `tmp` t
 				ORDER BY t.date, t.id;
 			DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);

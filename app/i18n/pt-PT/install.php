@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Verifique as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório data estão corretos.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para navegar pelo DOM (php-xml).',
 			'ok' => 'Tem a biblioteca necessária para navegar pelo DOM.',

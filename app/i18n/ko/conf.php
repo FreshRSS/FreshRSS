@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 알림 타임아웃',
 		),
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => '테마',
 			'deprecated' => array(

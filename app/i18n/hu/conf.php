@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 értesítés hossza',
 		),
 		'show_nav_buttons' => 'Navigációs gombok megjelenítése',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Téma',
 			'deprecated' => array(

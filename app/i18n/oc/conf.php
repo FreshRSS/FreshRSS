@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Temps d’afichatge de las notificacions HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tèma',
 			'deprecated' => array(

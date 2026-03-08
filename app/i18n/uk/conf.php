@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Тайм-аут сповіщення HTML5',
 		),
 		'show_nav_buttons' => 'Показати кнопки навігації',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Тема',
 			'deprecated' => array(

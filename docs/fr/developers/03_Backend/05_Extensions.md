@@ -38,7 +38,7 @@ facilement.
 
 ## Minz Framework
 
-see [Minz documentation](/docs/fr/developers/Minz/index.md)
+see [Minz documentation](../Minz/index.md)
 
 ## Écrire une extension pour FreshRSS
 
