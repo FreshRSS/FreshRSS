@@ -336,7 +336,8 @@ final class FreshRSS_http_Util {
 				$allowlist_str = "[$ip]:$port";
 				$add_ip = "[$ip]";
 			}
-			if (in_array($allowlist_str, $internal_host_allowlist, true)) {
+			if (in_array($allowlist_str, $internal_host_allowlist, true) ||
+				in_array("$host:$port", $internal_host_allowlist, true)) {
 				$ips_ok[] = $add_ip;
 				continue;
 			}
