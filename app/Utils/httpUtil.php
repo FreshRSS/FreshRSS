@@ -514,6 +514,15 @@ final class FreshRSS_http_Util {
 				if (!($redirs <= 4)) {
 					Minz_Log::warning("Error fetching content: $original_url hit too many redirects");
 				}
+				unset($options[CURLOPT_POST]);
+				unset($options[CURLOPT_POSTFIELDS]);
+				if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
+					$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
+						!str_starts_with(
+							strtolower(trim(is_string($header) ? $header : '')),
+							'content-type:'
+						));
+				}
 				$url = $location;
 				continue;
 			}
