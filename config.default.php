@@ -238,5 +238,5 @@ return [
 	#
 	# Here you can add overrides for particular ip/domain:port combinations
 	# Examples: 127.0.0.1:8080, rssbridge.local:443 etc.
-	'internal_host_allowlist' => []
+	'internal_host_allowlist' => [],
 ];
