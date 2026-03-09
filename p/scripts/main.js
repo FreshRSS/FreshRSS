@@ -2234,39 +2234,45 @@ function faviconNbUnread(n) {
 		const t = document.querySelector('.category.all .title');
 		n = t ? str2int(t.getAttribute('data-unread')) : 0;
 	}
-	// http://remysharp.com/2010/08/24/dynamic-favicons/
-	const canvas = document.createElement('canvas');
+	const svgBase = document.querySelector('template#dynamic_favicon_base').innerHTML;
 	const link = document.getElementById('favicon').cloneNode(true);
-	const ratio = window.devicePixelRatio;
-	if (canvas.getContext && link) {
-		canvas.height = canvas.width = 16 * ratio;
-		const img = document.createElement('img');
-		img.onload = function () {
-			const ctx = canvas.getContext('2d');
-			ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
-			if (n > 0) {
-				let text = '';
-				if (n < 1000) {
-					text = n;
-				} else if (n < 100000) {
-					text = Math.floor(n / 1000) + 'k';
-				} else {
-					text = 'E' + Math.floor(Math.log10(n));
-				}
-				ctx.font = 'bold ' + 9 * ratio + 'px "Arial", sans-serif';
-				ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-				ctx.fillRect(0, 7 * ratio, ctx.measureText(text).width, 9 * ratio);
-				ctx.fillStyle = '#F00';
-				ctx.fillText(text, 0, canvas.height - 1);
+	if (link) {
+		let svgOutput = '';
+		if (n > 0) {
+			let text = '';
+			if (n < 1000) {
+				text = n;
+			} else if (n < 100000) {
+				text = Math.floor(n / 1000) + 'k';
+			} else {
+				text = 'E' + Math.floor(Math.log10(n));
 			}
-			link.href = canvas.toDataURL('image/png');
-			// Check if data URI has generated a real favicon and if not, fallback to standard icon
-			if (link.href.length > 180) {
-				document.querySelector('link[rel~=icon]').remove();
-				document.head.appendChild(link);
-			}
-		};
-		img.src = '../favicon.ico';
+
+			const temp = document.createElement('div');
+			temp.innerHTML = svgBase;
+			document.body.append(temp);
+
+			const svg = temp.querySelector('svg');
+			svg.setAttribute('width', 24);
+			svg.setAttribute('height', 24);
+
+			svg.insertAdjacentHTML('beforeend', `
+			<text id="unreadCount" x="0" y="255" font-family="Arial, sans-serif" font-weight="bold" font-size="150" fill="#F00">${text}</text>
+			`);
+
+			const svgHeight = svg.getBBox().height;
+			const uc = svg.querySelector('text#unreadCount');
+			const ucBBox = uc.getBBox(); // note: doesn't contain actual text height, so the rect is slightly higher
+			uc.insertAdjacentHTML('beforebegin', `
+			<rect x="0" y="${svgHeight - ucBBox.height}" width="${ucBBox.width}" height="${ucBBox.height}" fill="rgba(255, 255, 255, 0.8)" />
+			`);
+
+			svgOutput = svg.outerHTML;
+			temp.remove();
+		}
+		link.href = `data:image/svg+xml;base64,${btoa(svgOutput || svgBase)}`;
+		document.querySelector('#favicon').remove();
+		document.head.appendChild(link);
 	}
 }
 

@@ -98,6 +98,7 @@ People are sorted by name so please keep this order.
 * [François-Xavier Payet](https://github.com/foux): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:foux)
 * [Frans de Jonge](https://github.com/Frenzie): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Frenzie), [Web](http://fransdejonge.com/)
 * [FromTheMoon85](https://github.com/FromTheMoon85): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:FromTheMoon85)
+* [Gabriele Biggio](https://github.com/gabbihive): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gabbihive)
 * [Gaurav Thakur](https://github.com/notfoss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:notfoss), [Web](https://blog.notfoss.com/)
 * [Gianni Scolaro](https://github.com/giannidsp): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:giannidsp)
 * [Glyn Normington](https://github.com/glyn): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:glyn), [Web](https://underlap.org/)

@@ -120,32 +120,45 @@ SQL;
 		}
 		Minz_Log::warning(__METHOD__ . ': ' . $name);
 		require APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
+		$isMySQL = false;
+		if ($this->pdo->dbType() === 'mysql') {
+			$databaseDao = new FreshRSS_DatabaseDAO();
+			$isMySQL = !$databaseDao->isMariaDB();
+		}
+		$result = false;
 		try {
 			if ($name === 'attributes') {	//v1.20.0
 				$sql = <<<'SQL'
 ALTER TABLE `_entry` ADD COLUMN attributes TEXT;
 ALTER TABLE `_entrytmp` ADD COLUMN attributes TEXT;
 SQL;
-				return $this->pdo->exec($sql) !== false;
-			}
-			if ($name === 'lastUserModified') {	//v1.28.0
+				$result = $this->pdo->exec($sql);
+			} elseif ($name === 'lastUserModified') {	//v1.28.0
 				$sql = $GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'];
 				if (!is_string($sql)) {
 					throw new Exception('ALTER_TABLE_ENTRY_LAST_USER_MODIFIED is not a string!');
 				}
-				return $this->pdo->exec($sql) !== false;
-			}
-			if ($name === 'lastModified') {	//v1.29.0
+				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/9.6/en/alter-table.html
+					$sql = str_replace(' IF NOT EXISTS ', ' ', $sql);
+				}
+				$result = $this->pdo->exec($sql);
+			} elseif ($name === 'lastModified') {	//v1.29.0
 				$sql = $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] ?? null;
 				if (!is_string($sql)) {
 					throw new Exception('ALTER_TABLE_ENTRY_LAST_MODIFIED is not a string!');
 				}
-				return $this->pdo->exec($sql) !== false;
+				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/9.6/en/alter-table.html
+					$sql = str_replace(' IF NOT EXISTS ', ' ', $sql);
+				}
+				$result = $this->pdo->exec($sql);
+			}
+			if ($result === false) {
+				Minz_Log::error(__METHOD__ . ' error: ' . json_encode($this->pdo->errorInfo()));
 			}
 		} catch (Exception $e) {
 			Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
 		}
-		return false;
+		return $result !== false;
 	}
 
 	//TODO: Move the database auto-updates to DatabaseDAO
@@ -1644,8 +1657,8 @@ SQL;
 				return $this->listWhereRaw($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
 					continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
 			}
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($sql));
+			Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($info));
+			Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($sql));
 			return false;
 		}
 	}

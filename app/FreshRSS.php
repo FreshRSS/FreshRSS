@@ -165,7 +165,8 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Request::is('user', 'delete') ||
 			Minz_Request::is('auth', 'logout') ||
 			Minz_Request::is('feed', 'actualize') ||
-			Minz_Request::is('javascript', 'nonce')
+			Minz_Request::is('javascript', 'nonce') ||
+			Minz_Request::is('error', 'index')
 		);
 		if ($email_not_verified && !$action_is_allowed) {
 			Minz_Request::forward([
