@@ -1489,7 +1489,8 @@ SQL;
 			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
 			. ($order === 'SHUF' ? ', 
 				(floor((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) / 3) * 2048) + 
-				((1601 * ABS(' . Minz_Request::serverTimestamp() . ' - e.id )) % 2039) as `shuffleOrderKey` ' : ' '
+				((1259 * ABS(' . Minz_Request::serverTimestamp() . ' - e.id )) % 2048) as `shuffleOrderKey` ' : ' '
+				# In the style of Knuth's multiplicative hashing method, 1259 is a prime, related by the golden ratio, to 2048, a power of 2.
 			)
 			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
