@@ -1503,13 +1503,19 @@ SQL;
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
 			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
-			. 'WHERE ' . $where . ($order === 'SHUF' ? ' AND (e.is_read=0 OR e.`lastUserModified` > ' . Minz_Request::serverTimestamp() . ' / 1000000 ) AND e.id < ' . Minz_Request::serverTimestamp() . ' ' : '')
+			. 'WHERE '
+				. $where
+				. ($order === 'SHUF' ?
+					' AND (e.is_read=0 OR e.`lastUserModified` > ' . Minz_Request::serverTimestamp() . ' / 1000000 ) 
+					AND e.id < ' . Minz_Request::serverTimestamp() . ' '
+					: '')
 			. $search
 			. ' ORDER BY '
 			. ($order === 'SHUF' ? ' `shuffleOrderKey`, e.id ' : ($orderBy . ' ' . $order) )
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Secondary sort
 			. ($sort === 'id' ? '' : ', e.id ' . $order)	// For keyset pagination
-			. ($order !== 'SHUF' ? ($limit > 0 ? ' LIMIT ' . $limit : '') . ($offset > 0 ? ' OFFSET ' . $offset : '') : ' '), // Limit can't work with SHUF's ranking.
+			. ($order !== 'SHUF' ? ($limit > 0 ? ' LIMIT ' . $limit : '') . ($offset > 0 ? ' OFFSET ' . $offset : '') : ' '),
+			// Limit can't work with SHUF's ranking.
 			' 1=1 ' . $outerSearch
 		];
 		//TODO: See http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
