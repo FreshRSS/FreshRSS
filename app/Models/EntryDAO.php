@@ -1489,7 +1489,7 @@ SQL;
 			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
 			. ($order === 'SHUF' ? ', 
 				(floor((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) / 3) * 2048) + 
-				((2053 * (e.id+ ' . Minz_Request::serverTimestamp() . ' )) % 2039) as `shuffleOrderKey` ' : ' '
+				((1601 * ABS(' . Minz_Request::serverTimestamp() . ' - e.id )) % 2039) as `shuffleOrderKey` ' : ' '
 			)
 			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
@@ -1668,8 +1668,8 @@ SQL;
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, order: $order,
 			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
 		$stm = $this->pdo->prepare($sql
-			. ($order === 'SHUF' && $limit > 0 ? ' LIMIT ' . intval($limit) : '') // When SHUF, move limit down here.
-		);
+			. ($order === 'SHUF' && $limit > 0 ? ' LIMIT ' . intval($limit) : '')); // When SHUF, move limit down here.
+
 		if ($stm !== false && $stm->execute($values)) {
 			/** @var list<int|numeric-string> $res */
 			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
