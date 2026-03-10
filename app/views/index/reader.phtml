@@ -24,7 +24,10 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 		if ($entry === null) {
 			continue;
 		}
-		ob_flush();
+		if (FreshRSS_Context::$order !== 'SHUF' || $lastEntry?->shuffleOrderKey() != $entry?->shuffleOrderKey()) {
+			// Postpone writing so in the event the final entries share a shuffle key they can all be discarded by callbackBeforePagination.
+			ob_flush();
+		}
 		$this->entry = $entry;
 		$lastEntry = $entry;
 		$nbEntries++;

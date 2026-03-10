@@ -1343,7 +1343,7 @@ SQL;
 			if ($continuation_id !== '0' && $sort === 'id') {
 				/* the window function condition must happen outside the subquery */
 				/* no logic here for prepending AND */
-				$outerSearch .= 'AND `shuffleOrderKey` > CAST(? AS INTEGER) ';
+				$outerSearch .= 'AND `shuffleOrderKey` >= CAST(? AS INTEGER) ';
 				$outerValues[] = (int)$continuation_id;
 				//TODO: make SHUF behave as a case for $order and use $continuation_id as appropriate.
 				//NOTE: shuffleOrderKey and continuation_id may serve a similar purpose
