@@ -1,8 +1,0 @@
-services:
-  freshrss:
-    volumes:
-      - ../..:/var/www/FreshRSS
-  freshrss-db:
-    ports:
-      - 3306:3306
-
