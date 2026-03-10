@@ -1343,10 +1343,12 @@ SQL;
 			if ($continuation_id !== '0' && $sort === 'id') {
 				/* the window function condition must happen outside the subquery */
 				/* no logic here for prepending AND */
-				$outerSearch .= 'AND shuffleOrderKey > ? ';
-				$outerValues[] = $id_max === '0' ? $continuation_id : min($id_max, $continuation_id);
+				$outerSearch .= 'AND `shuffleOrderKey` > CAST(? AS INTEGER) ';
+				$outerValues[] = (int)$continuation_id;
 				//TODO: make SHUF behave as a case for $order and use $continuation_id as appropriate.
 				//NOTE: shuffleOrderKey and continuation_id may serve a similar purpose
+				//NOTE: this has changed the meaning of continuation_id since it can't be used as a lookup
+				//NOTE: using CAST seems necessary for sqlite. PDO presents all params as strings
 			}
 		} else {
 			if ($id_max !== '0') {
@@ -1485,15 +1487,18 @@ SQL;
 			. ($type === 'T' ? 'DISTINCT ' : '')
 			. 'e.id'
 			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
-			. ($order === 'SHUF' ? ', (floor((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) / 3) * 512) + ((709*(e.id+ ' . Minz_Request::serverTimestamp() . ' )) % 509) as shuffleOrderKey ' : ' ' )
+			. ($order === 'SHUF' ? ', 
+				(floor((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) / 3) * 2048) + 
+				((2053 * (e.id+ ' . Minz_Request::serverTimestamp() . ' )) % 2039) as `shuffleOrderKey` ' : ' '
+			)
 			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
 			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
-			. 'WHERE ' . $where . ($order === 'SHUF' ? ' AND (e.is_read=0 OR e.lastUserModified > ' . Minz_Request::serverTimestamp() . ' / 1000000 ) AND e.id < ' . Minz_Request::serverTimestamp() . ' ' : '')
+			. 'WHERE ' . $where . ($order === 'SHUF' ? ' AND (e.is_read=0 OR e.`lastUserModified` > ' . Minz_Request::serverTimestamp() . ' / 1000000 ) AND e.id < ' . Minz_Request::serverTimestamp() . ' ' : '')
 			. $search
 			. ' ORDER BY '
-			. ($order === 'SHUF' ? ' shuffleOrderKey, e.id ' : ($orderBy . ' ' . $order) )
+			. ($order === 'SHUF' ? ' `shuffleOrderKey`, e.id ' : ($orderBy . ' ' . $order) )
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Secondary sort
 			. ($sort === 'id' ? '' : ', e.id ' . $order)	// For keyset pagination
 			. ($order !== 'SHUF' ? ($limit > 0 ? ' LIMIT ' . $limit : '') . ($offset > 0 ? ' OFFSET ' . $offset : '') : ' '), // Limit can't work with SHUF's ranking.
@@ -1532,7 +1537,7 @@ SQL;
 			//TODO: shuf should be a type of sort
 		};
 		$content = static::isCompressed() ? 'UNCOMPRESS(e0.content_bin) AS content' : 'e0.content';
-		$shuffleKeyExpression = ($order === 'SHUF' ? ' shuffleOrderKey, ' : ' ' );
+		$shuffleKeyExpression = ($order === 'SHUF' ? ' `shuffleOrderKey`, ' : ' ' );
 		$hash = static::sqlHexEncode('e0.hash');
 		$sql = <<<SQL
 SELECT e0.id, e0.guid, e0.title, e0.author, {$shuffleKeyExpression} {$content}, e0.link,
@@ -1542,7 +1547,7 @@ FROM `_entry` e0 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
 SQL;
 		if ($order === 'SHUF') {
 			$sql .= ($outerSearch != ' ' ? ' WHERE ' . $outerSearch : ' ' );
-			$sql .= ' ORDER BY shuffleOrderKey ';
+			$sql .= ' ORDER BY `shuffleOrderKey`, e0.id ';
 			$sql .= ($limit > 0 ? ' LIMIT ' . intval($limit) : '');
 		} else {
 			if ($sort === 'f.name' || $sort === 'c.name') {
@@ -1560,8 +1565,9 @@ SQL;
 				$sql .= ', e0.id ' . $order;
 			}
 		}
-		Minz_Log::debug('Prepared SQL ' . __METHOD__ . ' : ' . $sql);
+
 		$stm = $this->pdo->prepare($sql);
+		Minz_Log::debug('SQL PRE ' . __METHOD__ . ' : ' . var_export(['stm' => $stm, 'values' => $values], true));
 		if ($stm !== false && $stm->execute($values)) {
 			return $stm;
 		} else {
