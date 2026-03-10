@@ -610,7 +610,7 @@ HTML;
 	public function _isFavorite(bool|int|null $value): void {
 		$this->is_favorite = $value === null ? null : (bool)$value;
 	}
-
+	
 	public function _shuffleOrderKey($value) {
 		$this->shuffleOrderKey = $value;
 	}

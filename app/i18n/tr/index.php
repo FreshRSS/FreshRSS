@@ -105,7 +105,6 @@ return array(
 			'link_asc' => 'Bağlantı A→Z',
 			'link_desc' => 'Bağlantı Z→A',
 			'rand' => 'Rastgele sıralama',
-			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'Başlık A→Z',
 			'title_desc' => 'Başlık Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

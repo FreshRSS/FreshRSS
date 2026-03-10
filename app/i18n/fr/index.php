@@ -105,7 +105,6 @@ return array(
 			'link_asc' => 'Lien A→Z',
 			'link_desc' => 'Lien Z→A',
 			'rand' => 'Ordre aléatoire',
-			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'Titre A→Z',
 			'title_desc' => 'Titre Z→A',
 			'user_modified_asc' => 'Modifié par l’utilisateur 1→9',

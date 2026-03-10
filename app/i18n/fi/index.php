@@ -105,7 +105,6 @@ return array(
 			'link_asc' => 'Linkki A→Ö',
 			'link_desc' => 'Linkki Ö→A',
 			'rand' => 'Satunnainen järjestys',
-			'shuffle' => 'Shuffle',	// TODO
 			'title_asc' => 'Otsikko A→Ö',
 			'title_desc' => 'Otsikko Ö→A',
 			'user_modified_asc' => 'Käyttäjä muokannut 1→9',
