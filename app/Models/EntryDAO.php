@@ -1488,9 +1488,16 @@ SQL;
 			. 'e.id'
 			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
 			. ($order === 'SHUF' ? ', 
-				(floor((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) / 3) * 2048) + 
-				((1259 * ABS(' . Minz_Request::serverTimestamp() . ' - e.id )) % 2048) as `shuffleOrderKey` ' : ' '
+				(
+					floor((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) / 3) * 2048
+				) + 
+				(
+					(1259 * ABS(' . Minz_Request::serverTimestamp() . ' - e.id ) + 
+					(1277 * (' . Minz_Request::serverTimestamp() . ' | e.id))
+				) % 2048) as `shuffleOrderKey` ' : ' '
+				# The expression with RANK() is taking the 3 newest entries from each feed, then the next 3, and so on.
 				# In the style of Knuth's multiplicative hashing method, 1259 is a prime, related by the golden ratio, to 2048, a power of 2.
+				# 1277 is a close prime, and it is multiplied by a bitwise operation so the timestamp seed can do more than just offset.
 			)
 			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
