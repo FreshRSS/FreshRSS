@@ -54,7 +54,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * Content for displaying a transition between entries when sorting by specific criteria.
 	 */
 	public static function transition(FreshRSS_Entry $entry): string {
-		if (FreshRSS_Context::$order === 'SHUF'){
+		if (FreshRSS_Context::$order === 'SHUF') {
 			return '';
 			//TODO: remove this special case by making SHUF a sort of sort.
 		}
@@ -170,7 +170,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				// +1 to account for paging logic
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext(FreshRSS_Context::$number + 1);
 				ob_start();	//Buffer "one entry at a time"
-
 			} catch (FreshRSS_EntriesGetter_Exception $e) {
 				Minz_Log::notice($e->getMessage());
 				Minz_Error::error(404);
