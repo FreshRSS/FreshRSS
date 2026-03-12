@@ -166,6 +166,10 @@
 <div id="first_load" class="loading"></div>
 <?php flush(); ?>
 
+<template id="dynamic_favicon_base">
+	<?= file_get_contents(PUBLIC_PATH . '/themes/icons/favicon.svg') ?>
+</template>
+
 <template id="tag_config_template">
 	<ul class="dropdown-menu">
 		<li class="item">
