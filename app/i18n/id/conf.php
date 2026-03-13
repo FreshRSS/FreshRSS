@@ -323,7 +323,7 @@ return array(
 		'share_name' => 'Nama layanan untuk ditampilkan',
 		'share_url' => 'URL berbagi yang digunakan',
 		'title' => 'Berbagi',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

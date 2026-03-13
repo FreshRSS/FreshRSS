@@ -323,7 +323,7 @@ return array(
 		'share_name' => 'Rādāmā dalīšanās nosaukums',
 		'share_url' => 'Dalīšanās URL, ko izmantot',
 		'title' => 'Dalīšanās',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
