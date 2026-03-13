@@ -437,7 +437,11 @@ final class FreshRSS_http_Util {
 		$original_url = $url;
 		$fail = false;
 		$redirs = 0;
-		while ($redirs <= 4) {
+		$max_redirs = $options[CURLOPT_MAXREDIRS] ?? 4;
+		if (!is_int($max_redirs)) {
+			$max_redirs = 4;
+		}
+		while (true) {
 			$url = is_string($url) ? $url : '';
 			$resolve = false;
 			if (empty($options[CURLOPT_PROXY] ?? null)) {
@@ -513,9 +517,12 @@ final class FreshRSS_http_Util {
 				if (!self::compareURLOrigins($url, $location)) {
 					unset($options[CURLOPT_COOKIE]);
 				}
-				$redirs++;
-				if (!($redirs <= 4)) {
+				if ($max_redirs >= 0) {
+					$redirs++;
+				}
+				if ($redirs > $max_redirs) {
 					Minz_Log::warning("Error fetching content: $original_url hit too many redirects");
+					break;
 				}
 				if (isset($options[CURLOPT_POST])) {
 					unset($options[CURLOPT_POST]);
