@@ -271,14 +271,13 @@ final class FreshRSS_Context {
 		self::$offset = Minz_Request::paramInt('offset');
 		$id_max = Minz_Request::paramString('idMax', plaintext: true);
 		self::$id_max = ctype_digit($id_max) ? $id_max : '0';
-		if (!empty(Minz_Request::paramString('cid'))){
+		if (!empty(Minz_Request::paramString('cid'))) {
 			self::$continuation_id = explode(',', Minz_Request::paramString('cid'));
 			// TODO: Is there support in the framework for multi-valued parameters?
 		} else {
 			self::$continuation_id = [];
 		}
 		self::$sinceHours = Minz_Request::paramInt('hours');
-		Minz_Log::debug('CONTEXT ' . __METHOD__ . ' : ' . var_export(['continuation_id' => self::$continuation_id, 'number' => self::$number], true));
 	}
 
 	/**
