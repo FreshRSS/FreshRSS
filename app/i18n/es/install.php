@@ -51,18 +51,18 @@ return array(
 			'ok' => 'Los permisos del directorio data son correctos.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Error de conexión a la base de datos.',
+			'ok' => 'La conexión a la base de datos es correcta.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'La tabla de la base de datos "%s" está incompleta.',
+			'ok' => 'La tabla de la base de datos "%s" es correcta.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Algunas tablas de la base de datos están ausentes.',
+			'ok' => 'Todas las tablas de la base de datos existen.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Base de datos',
 		'dom' => array(
 			'nok' => 'No se ha podido localizar la librería necesaria para explorar la DOM.',
 			'ok' => 'Dispones de la librería necesaria para explorar la DOM.',

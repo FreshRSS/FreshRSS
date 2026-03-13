@@ -28,7 +28,7 @@ return array(
 		'policy_warning' => 'Ohne Archivierungsrichtlinien werden alle Artikel behalten',
 		'purge_now' => 'Jetzt bereinigen',
 		'title' => 'Archivierung',
-		'ttl' => 'Aktualisiere automatisch nicht öfter als',
+		'ttl' => 'Automatisch aktualisieren nicht öfter als',
 	),
 	'display' => array(
 		'_' => 'Anzeige',
@@ -53,13 +53,13 @@ return array(
 			'seconds' => 'Sekunden (0 bedeutet keine Zeitüberschreitung)',
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
-		'show_nav_buttons' => 'Zeige Navigations-Buttons',
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'show_nav_buttons' => 'Navigations-Buttons anzeigen',
+		'sidebar_hidden_by_default' => 'Seitenleiste standardmäßig ausblenden',
 		'theme' => array(
 			'_' => 'Layout',
 			'deprecated' => array(
 				'_' => 'Veraltet',
-				'description' => 'Diese Layout wird nicht mehr länger aktualisiert und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">zukünftigen Version von FreshRSS</a> entfernt sein.',
+				'description' => 'Dieses Layout wird nicht mehr unterstützt und wird in einer <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">zukünftigen Version von FreshRSS nicht mehr verfügbar sein.',
 			),
 		),
 		'theme_not_available' => 'Das Erscheinungsbild „%s“ ist nicht mehr verfügbar. Bitte ein anderes auswählen.',
@@ -83,7 +83,7 @@ return array(
 			'content' => 'Inhaltsbreite',
 			'large' => 'Groß',
 			'medium' => 'Mittel',
-			'no_limit' => 'Keine Begrenzung',
+			'no_limit' => 'Gesamte Breite',
 			'thin' => 'Klein',
 		),
 	),
@@ -103,7 +103,7 @@ return array(
 	'mark_read_button' => array(
 		'_' => '„Alle als gelesen markieren“ Button',
 		'big' => 'Groß',
-		'none' => 'Keine',
+		'none' => 'Keiner',
 		'small' => 'Klein',
 	),
 	'notification' => array(
@@ -111,11 +111,11 @@ return array(
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Zeige Warnbanner',
-			'seconds' => 'Sekundne (mind. 1)',
+			'label' => 'Warnbanner anzeigen',
+			'seconds' => 'Sekunden (mind. 1)',
 		),
 		'good' => array(
-			'label' => 'Zeige Anerkennungsbanner',
+			'label' => 'Bestätigungsbanner anzeigen',
 			'seconds' => 'Sekunden (0 für nicht gezeigt)',
 		),
 	),
@@ -139,7 +139,7 @@ return array(
 		'current_password' => 'Aktuelles Passwort<br /><small>(für die Web-Formular-Anmeldemethode)</small>',
 		'delete' => array(
 			'_' => 'Accountlöschung',
-			'warn' => 'Dieser Account und alle damit bezogenen Daten werden gelöscht.',
+			'warn' => 'Dieser Account und alle zugehörigen Daten werden gelöscht.',
 		),
 		'email' => 'E-Mail-Adresse',
 		'new_password' => 'Neues Passwort',
@@ -156,7 +156,7 @@ return array(
 			'categories' => 'Nach Kategorie filtern',
 			'feeds' => 'Nach Feed filtern',
 			'order' => 'Nach Datum sortieren',
-			'publish_labels_instead_of_tags' => 'Ersetze <i>feed tags</i> durch <i>user labels</i> im geteilten RSS',
+			'publish_labels_instead_of_tags' => '<i>feed tags</i> durch <i>user labels</i> im geteilten RSS ersetzen',
 			'search' => 'Suchbegriff',
 			'shareOpml' => 'Teilen via OPML mit zugehörigen Kategorien und Feeds aktivieren',
 			'shareRss' => 'Teilen via HTML &amp; RSS aktivieren',
@@ -192,7 +192,7 @@ return array(
 				'title' => 'Teilen',
 			),
 			'greader' => 'Verteilbarer Link für GReader JSON',
-			'help' => 'Diesen Link verteilen, um in mit Jedem zu teilen',
+			'help' => 'Diesen Link verteilen, um ihn mit Jedem zu teilen',
 			'html' => 'Verteilbarer Link zur HTML-Seite',
 			'opml' => 'Verteilbarer Link zur OPML Liste der Feeds',
 			'rss' => 'Verteilbarer Link zum RSS-Feed',
@@ -248,7 +248,7 @@ return array(
 			),
 			'tags_max' => array(
 				'_' => 'Max Anzahl von Hashtags',
-				'help' => '0 bedeutet: Zeige alle Hashtags und fasse sie nicht zusammen',
+				'help' => '0 bedeutet: Alle Hashtags anzeigen und nicht einklappen',
 			),
 		),
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
@@ -266,9 +266,9 @@ return array(
 			'view' => 'Ansicht',
 		),
 		'hide_read_feeds' => 'Kategorien & Feeds ohne ungelesene Artikel verstecken (funktioniert nicht mit der Einstellung „Alle Artikel zeigen“)',
-		'img_with_lazyload' => 'Verwende die „träges Laden“-Methode zum Laden von Bildern',
+		'img_with_lazyload' => '„träges Laden“-Methode zum Laden von Bildern verwenden',
 		'jump_next' => 'springe zum nächsten ungelesenen Geschwisterelement',
-		'mark_updated_article_unread' => 'Markieren Sie aktualisierte Artikel als ungelesen',
+		'mark_updated_article_unread' => 'Aktualisierte Artikel als ungelesen markieren',
 		'number_divided_when_reader' => 'Geteilt durch 2 in der Lese-Ansicht.',
 		'read' => array(
 			'article_open_on_website' => 'wenn der Artikel auf der Original-Webseite geöffnet wird',
@@ -283,7 +283,7 @@ return array(
 			'when_same_title_in_feed' => 'falls der identische Titel bereits in den <i>n</i> neusten Artikel (im Feed) vorhanden ist.',
 		),
 		'show' => array(
-			'_' => 'Artikel zum Anzeigen',
+			'_' => 'Anzuzeigende Artikel',
 			'active_category' => 'Aktive Kategorie',
 			'adaptive' => 'Ungelesene Artikel anzeigen, falls vorhanden, sonst alle Artikel',
 			'all_articles' => 'Alle Artikel zeigen',
@@ -309,7 +309,7 @@ return array(
 	),
 	'sharing' => array(
 		'_' => 'Teilen',
-		'add' => 'Füge eine Teilen-Dienst hinzu',
+		'add' => 'Einen Teilen-Dienst hinzufügen',
 		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Dieser Dienst ist veraltet und wir in einer <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">zukünftigen FreshRSS-Version</a> entfernt.',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -318,12 +318,12 @@ return array(
 		'more_information' => 'Weitere Informationen',
 		'print' => 'Drucken',
 		'raindrop' => 'Raindrop.io',	// IGNORE
-		'remove' => 'Entferne Teilen-Dienst',
+		'remove' => 'Teilen-Dienst entfernen',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Anzuzeigender Teilen-Name',
 		'share_url' => 'Zu verwendende Teilen-URL',
 		'title' => 'Teilen',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
@@ -335,7 +335,7 @@ return array(
 		'collapse_article' => 'Einklappen',
 		'first_article' => 'Zum ersten Artikel springen',
 		'focus_search' => 'Auf das Suchfeld zugreifen',
-		'global_view' => 'Wechsle zur globalen Ansicht',
+		'global_view' => 'Zur globalen Ansicht wechseln',
 		'help' => 'Dokumentation anzeigen',
 		'javascript' => 'JavaScript muss aktiviert sein, um Tastaturkürzel benutzen zu können',
 		'last_article' => 'Zum letzten Artikel springen',
@@ -343,16 +343,16 @@ return array(
 		'mark_favorite' => 'Als Favorit auswählen/entfernen',
 		'mark_read' => 'Als (un-)gelesen markieren',
 		'navigation' => 'Navigation',	// IGNORE
-		'navigation_help' => 'Mit der <kbd>⇧ Umschalttaste</kbd> finden die Tastenkombination auf Feeds Anwendung.<br/>Mit der <kbd>Alt ⎇</kbd>-Taste finden die Tastenkombination auf Kategorien Anwendung.',
+		'navigation_help' => 'Mit der <kbd>⇧ Umschalttaste</kbd> finden die Tastenkombinationen auf Feeds Anwendung.<br/>Mit der <kbd>Alt ⎇</kbd>-Taste finden die Tastenkombinationen auf Kategorien Anwendung.',
 		'navigation_no_mod_help' => 'Die folgenden Navigationsverknüpfungen unterstützen keine Modifikatoren.',
 		'next_article' => 'Zum nächsten Artikel springen',
 		'next_unread_article' => 'Zum nächsten ungelesenen Artikel springen',
 		'non_standard' => 'Einige Tasten (<kbd>%s</kbd>) können nicht als Shortcut verwendet werden.',
-		'normal_view' => 'Wechsle zur normalen Ansicht',
+		'normal_view' => 'Zur normalen Ansicht wechseln',
 		'other_action' => 'Andere Aktionen',
 		'previous_article' => 'Zum vorherigen Artikel springen',
-		'reading_view' => 'Wechsle zur Lese-Ansicht',
-		'rss_view' => 'Öffne als RSS-Feed',
+		'reading_view' => 'Zur Lese-Ansicht wechseln',
+		'rss_view' => 'Aals RSS-Feed öffnen',
 		'see_on_website' => 'Auf der Original-Webseite ansehen',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> um vorherige Artikel als gelesen zu markieren<br />+ <kbd>⇧ Shift</kbd> um alle Artikel als gelesen zu markieren',
 		'skip_next_article' => 'Nächsten markieren ohne zu öffnen',
@@ -360,8 +360,8 @@ return array(
 		'title' => 'Tastenkombination',
 		'toggle_aside' => 'Seitenleiste an/aus',
 		'toggle_media' => 'Medien abspielen/anhalten',
-		'user_filter' => 'Auf Benutzerfilter zugreifen',
-		'user_filter_help' => 'Wenn es nur einen Benutzerfilter gibt, wird dieser verwendet. Ansonsten sind die Filter über ihre Nummer erreichbar.',
+		'user_filter' => 'Auf Benutzerabfragen zugreifen',
+		'user_filter_help' => 'Wenn es nur eine Benutzerabfrage gibt, wird diese verwendet. Ansonsten sind die Abfragen über ihre Nummer erreichbar.',
 		'views' => 'Ansichten',
 	),
 	'user' => array(

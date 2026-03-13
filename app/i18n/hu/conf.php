@@ -323,7 +323,7 @@ return array(
 		'share_name' => 'Megosztás neve',
 		'share_url' => 'URL megosztása a használathoz',
 		'title' => 'Sharing',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

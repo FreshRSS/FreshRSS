@@ -323,7 +323,7 @@ return array(
 		'share_name' => 'Підпис у меню',
 		'share_url' => 'URL-адреса поширення',
 		'title' => 'Поширення',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

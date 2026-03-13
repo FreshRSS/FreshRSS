@@ -6,23 +6,44 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 * Features
 	* New sort order preferences at global, category, and feed levels [#8234](https://github.com/FreshRSS/FreshRSS/pull/8234)
-	* New filtering by date of *Server modification date* [#8131](https://github.com/FreshRSS/FreshRSS/pull/8131)
+	* New filtering by date of *Server modification date* [#8131](https://github.com/FreshRSS/FreshRSS/pull/8131), [#8576](https://github.com/FreshRSS/FreshRSS/pull/8576)
 		* Corresponding search operator, e.g. `mdate:P1D` for finding articles modified by the author / server during the past day.
 		* Especially useful for optimising the API synchronisation.
+	* Add feed visibility filter to statistics view *unread dates* [#8489](https://github.com/FreshRSS/FreshRSS/pull/8489)
 	* Add option to enable/disable notifications, also for PWA [#8458](https://github.com/FreshRSS/FreshRSS/pull/8458)
 	* Allow WebSub hub push from same private network [#8450](https://github.com/FreshRSS/FreshRSS/pull/8450)
 * Bug fixing
 	* Fix wrong search `toString` in case of regex-looking string [#8479](https://github.com/FreshRSS/FreshRSS/pull/8479)
+	* Fix search expansion with backslash [#8497](https://github.com/FreshRSS/FreshRSS/pull/8497)
+	* Fix user query parsing [#8543](https://github.com/FreshRSS/FreshRSS/pull/8543)
+	* Fix redirect to wrong view after mark as read in *reader* and *global* views [#8552](https://github.com/FreshRSS/FreshRSS/pull/8552)
+	* Non-strict OPML export [#eedefb](https://github.com/FreshRSS/FreshRSS/commit/eedefbd9fedbb14d3387b6b036afa64f75de4610)
 * Security
 	* Add `allowfullscreen` to `<iframe>` [#8467](https://github.com/FreshRSS/FreshRSS/pull/8467)
 	* Rewrite `Set-Cookie` using native PHP support of `SameSite` [#8447](https://github.com/FreshRSS/FreshRSS/pull/8447)
 		* Sanitize lifetime of session cookies from `session.cookie-lifetime` in `php.ini`
+* UI
+	* Add option to hide sidebar by default [#8528](https://github.com/FreshRSS/FreshRSS/pull/8528)
+	* Improve slider behavior when using navigate back button [#8496](https://github.com/FreshRSS/FreshRSS/pull/8496), [#8524](https://github.com/FreshRSS/FreshRSS/pull/8524)
+	* Only display scrollbar everywhere if there's an overflow (especially for Chromium) [#8542](https://github.com/FreshRSS/FreshRSS/pull/8542)
+	* Various UI and style improvements: [#8537](https://github.com/FreshRSS/FreshRSS/pull/8537), [#8538](https://github.com/FreshRSS/FreshRSS/pull/8538), [#8541](https://github.com/FreshRSS/FreshRSS/pull/8541)
+* Deployment
+	* Improve support of PHP 8.5+ using `Pdo\Mysql` [#8526](https://github.com/FreshRSS/FreshRSS/pull/8526)
+	* Add support for Podman in Makefile [#8456](https://github.com/FreshRSS/FreshRSS/pull/8456)
+	* Re-add database status in installation check [#8510](https://github.com/FreshRSS/FreshRSS/pull/8510)
 * I18n
+	* Improve German [#8491](https://github.com/FreshRSS/FreshRSS/pull/8491)
+	* Improve Italian [#8517](https://github.com/FreshRSS/FreshRSS/pull/8517), [#8519](https://github.com/FreshRSS/FreshRSS/pull/8519), [#8554](https://github.com/FreshRSS/FreshRSS/pull/8554),
+		[#8555](https://github.com/FreshRSS/FreshRSS/pull/8555), [#8556](https://github.com/FreshRSS/FreshRSS/pull/8556)
+	* Improve Polish [#8536](https://github.com/FreshRSS/FreshRSS/pull/8536)
 	* Improve Simplified Chinese [#8474](https://github.com/FreshRSS/FreshRSS/pull/8474), [#8475](https://github.com/FreshRSS/FreshRSS/pull/8475), [#8476](https://github.com/FreshRSS/FreshRSS/pull/8476)
+	* Improve Spanish [#8572](https://github.com/FreshRSS/FreshRSS/pull/8572)
 * Misc.
 	* Initial conventions for AI agents and humans: `AGENTS.md`, `SKILLS.md`, `instructions.md` [#8478](https://github.com/FreshRSS/FreshRSS/pull/8478)
 	* Update to PHPMailer 7.0.2 [#8483](https://github.com/FreshRSS/FreshRSS/pull/8483)
-	* Update dev dependencies [#8469](https://github.com/FreshRSS/FreshRSS/pull/8469), [#8480](https://github.com/FreshRSS/FreshRSS/pull/8480)
+	* Trim SQL whitespace before parenthesis [#8522](https://github.com/FreshRSS/FreshRSS/pull/8522)
+	* Update dev dependencies [#8469](https://github.com/FreshRSS/FreshRSS/pull/8469), [#8480](https://github.com/FreshRSS/FreshRSS/pull/8480), [#8499](https://github.com/FreshRSS/FreshRSS/pull/8499),
+		[#8545](https://github.com/FreshRSS/FreshRSS/pull/8545), [#8546](https://github.com/FreshRSS/FreshRSS/pull/8546), [#8547](https://github.com/FreshRSS/FreshRSS/pull/8547)
 
 
 ## 2026-01-25 FreshRSS 1.28.1
