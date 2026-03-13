@@ -139,7 +139,6 @@ class File implements Response
                 }
                 /** @var non-empty-string $url */
                 curl_setopt($fp, CURLOPT_URL, $url);
-                curl_setopt($fp, CURLOPT_FOLLOWLOCATION, false); // FreshRSS
                 curl_setopt($fp, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($fp, CURLOPT_FAILONERROR, true);
                 curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);
@@ -155,6 +154,7 @@ class File implements Response
                 foreach ($curl_options as $curl_param => $curl_value) {
                     curl_setopt($fp, $curl_param, $curl_value);
                 }
+                curl_setopt($fp, CURLOPT_FOLLOWLOCATION, false); // FreshRSS
 
                 $responseBody = curl_exec($fp);
                 $responseHeaders .= "\r\n";
@@ -191,7 +191,7 @@ class File implements Response
                     if ($parser->parse()) {
                         $this->set_headers($parser->headers);
                         $this->body = $responseBody;
-                        if ((in_array($this->status_code, [300, 301, 302, 303, 307]) || $this->status_code > 307 && $this->status_code < 400) && ($locationHeader = $this->get_header_line('location')) !== '' && $this->redirects < $redirects) {
+                        if ((in_array($this->status_code, [300, 301, 302, 303, 307]) || $this->status_code > 307 && $this->status_code < 400) && ($locationHeader = $this->get_header_line('location')) !== '' && ($this->redirects < $redirects || $redirects === -1)) { // FreshRSS: added infinite redirects for -1
                             $this->redirects++;
                             $location = \SimplePie\Misc::absolutize_url($locationHeader, $url);
                             if ($location === false) {
