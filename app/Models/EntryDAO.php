@@ -1272,13 +1272,14 @@ SQL;
 	 * @param numeric-string $id_max
 	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
 	 * @param 'ASC'|'DESC'|'SHUF' $order
-	 * @param numeric-string $continuation_id
+	 * @param list<numeric-string> $continuation_id
 	 * @param list<string|int> $continuation_values
 	 * @return array{0:list<int|string>,1:string}
 	 */
 	protected function sqlListEntriesWhere(string $alias = '', int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-		string $continuation_id = '0', array $continuation_values = []): array {
+		array $continuation_id = [], array $continuation_values = []): array {
+		Minz_Log::debug('CALLED ' . __METHOD__ . ' : ' . var_export(func_get_args(), true));
 		$search = ' ';
 		$values = [];
 		$outerValues = array();
@@ -1328,23 +1329,21 @@ SQL;
 		if (!ctype_digit($id_max)) {
 			$id_max = '0';
 		}
-		if (!ctype_digit($continuation_id)) {
-			$continuation_id = '0';
-		}
-
-		if ($continuation_id !== '0' && $sort === 'id' && $order !== 'SHUF') {
+		if (!empty($continuation_id) && $sort === 'id' && $order !== 'SHUF') {
 			if ($order === 'ASC') {
-				$id_min = $id_min === '0' ? $continuation_id : max($id_min, $continuation_id);
+				$id_min = $id_min === '0' ? $continuation_id[0] : max($id_min, $continuation_id[0]);
 			} else {
-				$id_max = $id_max === '0' ? $continuation_id : min($id_max, $continuation_id);
+				$id_max = $id_max === '0' ? $continuation_id[0] : min($id_max, $continuation_id[0]);
 			}
 		}
 		if ($order === 'SHUF') {
-			if ($continuation_id !== '0' && $sort === 'id') {
+			if (!empty($continuation_id) && $sort === 'id') {
 				/* the window function condition must happen outside the subquery */
 				/* no logic here for prepending AND */
-				$outerSearch .= 'AND `shuffleOrderKey` >= CAST(? AS INTEGER) ';
-				$outerValues[] = (int)$continuation_id;
+				$outerSearch .= 'AND (`shuffleOrderKeyA`, `shuffleOrderKeyB`, e0.id) >= ( CAST(? AS INTEGER), CAST(? AS INTEGER), ? ) ';
+				$outerValues[] = $continuation_id[1];
+				$outerValues[] = $continuation_id[2];
+				$outerValues[] = $continuation_id[0];
 				//TODO: make SHUF behave as a case for $order and use $continuation_id as appropriate.
 				//NOTE: shuffleOrderKey and continuation_id may serve a similar purpose
 				//NOTE: this has changed the meaning of continuation_id since it can't be used as a lookup
@@ -1361,7 +1360,7 @@ SQL;
 			}
 		}
 
-		if ($continuation_id !== '0' && in_array($sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified', 'length'], true)) {
+		if (!empty($continuation_id) && in_array($sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified', 'length'], true)) {
 			$sign = $order === 'ASC' ? '>' : '<';
 			$orderBy = match ($sort) {
 				'c.name' => 'c.name',
@@ -1379,12 +1378,12 @@ SQL;
 				$values[] = $continuation_values[1];
 				$values[] = $continuation_values[0];
 				$values[] = $continuation_values[1];
-				$values[] = $continuation_id;
+				$values[] = $continuation_id[0];
 			} else {
 				$search .= "AND ({$orderBy} {$sign} ? OR ({$orderBy} = ? AND {$alias}id {$sign}= ?)) ";
 				$values[] = $continuation_values[0];
 				$values[] = $continuation_values[0];
-				$values[] = $continuation_id;
+				$values[] = $continuation_id[0];
 			}
 		}
 
@@ -1407,14 +1406,14 @@ SQL;
 	 * @param numeric-string $id_max
 	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
 	 * @param 'ASC'|'DESC' $order
-	 * @param numeric-string $continuation_id
+	 * @param list<numeric-string> $continuation_id
 	 * @param list<string|int> $continuation_values
 	 * @return array{0:list<int|string>,1:string}
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	private function sqlListWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 			string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-			string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): array {
+			array $continuation_id = [], array $continuation_values = [], int $limit = 1, int $offset = 0): array {
 		if (!$state) {
 			$state = FreshRSS_Entry::STATE_ALL;
 		}
@@ -1488,13 +1487,13 @@ SQL;
 			. 'e.id'
 			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
 			. ($order === 'SHUF' ? ', 
-				(
-					floor((RANK() over (partition by e.id_feed order by e.id DESC) -1 ) / 3) * 2048
-				) + 
-				(
+				cast(floor(
+					(RANK() over (partition by e.id_feed order by e.id DESC) -1 ) / 3
+				) as integer) as `shuffleOrderKeyA`, 
+				cast((
 					(1259 * ABS(' . Minz_Request::serverTimestamp() . ' - e.id ) + 
 					(1277 * (' . Minz_Request::serverTimestamp() . ' | e.id))
-				) % 2048) as `shuffleOrderKey` ' : ' '
+				) % 2048) as integer) as `shuffleOrderKeyB` ' : ' '
 				# The expression with RANK() is taking the 3 newest entries from each feed, then the next 3, and so on.
 				# In the style of Knuth's multiplicative hashing method, 1259 is a prime, related by the golden ratio, to 2048, a power of 2.
 				# 1277 is a close prime, and it is multiplied by a bitwise operation so the timestamp seed can do more than just offset.
@@ -1511,7 +1510,7 @@ SQL;
 					: '')
 			. $search
 			. ' ORDER BY '
-			. ($order === 'SHUF' ? ' `shuffleOrderKey`, e.id ' : ($orderBy . ' ' . $order) )
+			. ($order === 'SHUF' ? ' `shuffleOrderKeyA`, `shuffleOrderKeyB`, e.id ' : ($orderBy . ' ' . $order) )
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Secondary sort
 			. ($sort === 'id' ? '' : ', e.id ' . $order)	// For keyset pagination
 			. ($order !== 'SHUF' ? ($limit > 0 ? ' LIMIT ' . $limit : '') . ($offset > 0 ? ' OFFSET ' . $offset : '') : ' '),
@@ -1528,13 +1527,13 @@ SQL;
 	 * @param numeric-string $id_max
 	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
 	 * @param 'ASC'|'DESC'|'SHUF' $order
-	 * @param numeric-string $continuation_id
+	 * @param list<numeric-string> $continuation_id
 	 * @param list<string|int> $continuation_values
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	private function listWhereRaw(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): PDOStatement|false {
+		array $continuation_id = [], array $continuation_values = [], int $limit = 1, int $offset = 0): PDOStatement|false {
 		$order = in_array($order, ['ASC', 'DESC', 'SHUF'], true) ? $order : 'DESC';
 		$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
 
@@ -1551,7 +1550,7 @@ SQL;
 			//TODO: shuf should be a type of sort
 		};
 		$content = static::isCompressed() ? 'UNCOMPRESS(e0.content_bin) AS content' : 'e0.content';
-		$shuffleKeyExpression = ($order === 'SHUF' ? ' `shuffleOrderKey`, ' : ' ' );
+		$shuffleKeyExpression = ($order === 'SHUF' ? ' `shuffleOrderKeyA`, `shuffleOrderKeyB`, ' : ' ' );
 		$hash = static::sqlHexEncode('e0.hash');
 		$sql = <<<SQL
 SELECT e0.id, e0.guid, e0.title, e0.author, {$shuffleKeyExpression} {$content}, e0.link,
@@ -1561,7 +1560,7 @@ FROM `_entry` e0 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
 SQL;
 		if ($order === 'SHUF') {
 			$sql .= ($outerSearch != ' ' ? ' WHERE ' . $outerSearch : ' ' );
-			$sql .= ' ORDER BY `shuffleOrderKey`, e0.id ';
+			$sql .= ' ORDER BY `shuffleOrderKeyA`, `shuffleOrderKeyB`, e0.id ';
 			$sql .= ($limit > 0 ? ' LIMIT ' . intval($limit) : '');
 		} else {
 			if ($sort === 'f.name' || $sort === 'c.name') {
@@ -1603,14 +1602,14 @@ SQL;
 	 * @param numeric-string $id_max
 	 * @param 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' $sort
 	 * @param 'ASC'|'DESC' $order
-	 * @param numeric-string $continuation_id
+	 * @param list<numeric-string> $continuation_id
 	 * @param list<string|int> $continuation_values
 	 * @return Traversable<FreshRSS_Entry>
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	public function listWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 			string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
-			string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): Traversable {
+			array $continuation_id = [], array $continuation_values = [], int $limit = 1, int $offset = 0): Traversable {
 		$stm = $this->listWhereRaw($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
 			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
 		if ($stm !== false) {
@@ -1671,14 +1670,14 @@ SQL;
 	 * @param numeric-string $id_min
 	 * @param numeric-string $id_max
 	 * @param 'ASC'|'DESC'|'SHUF' $order
-	 * @param numeric-string $continuation_id
+	 * @param list<numeric-string> $continuation_id
 	 * @param list<string|int> $continuation_values
 	 * @return list<numeric-string>|null
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
 	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $order = 'DESC',
-		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0): ?array {
+		array $continuation_id = [], array $continuation_values = [], int $limit = 1, int $offset = 0): ?array {
 		[$values, $sql] = $this->sqlListWhere($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, order: $order,
 			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
 		$stm = $this->pdo->prepare($sql

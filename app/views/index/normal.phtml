@@ -52,10 +52,9 @@ $today = @strtotime('today');
 		if ($item === null) {
 			continue;
 		}
-		if (FreshRSS_Context::$order !== 'SHUF' || $lastEntry?->shuffleOrderKey() != $item?->shuffleOrderKey()) {
-			// Postpone writing so in the event the final entries share a shuffle key all will be discarded by callbackBeforePagination.
-			ob_flush();
-		}
+
+		ob_flush();
+
 		$this->entry = $item;
 		$lastEntry = $item;
 		$nbEntries++;

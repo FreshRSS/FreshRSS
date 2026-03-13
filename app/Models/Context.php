@@ -47,8 +47,8 @@ final class FreshRSS_Context {
 	public static int $number = 0;
 	public static int $offset = 0;
 	public static FreshRSS_BooleanSearch $search;
-	/** @var numeric-string */
-	public static string $continuation_id = '0';
+	/** @var list<numeric-string> **/
+	public static array $continuation_id = [];
 	/** @var numeric-string */
 	public static string $id_max = '0';
 	public static int $sinceHours = 0;
@@ -271,9 +271,14 @@ final class FreshRSS_Context {
 		self::$offset = Minz_Request::paramInt('offset');
 		$id_max = Minz_Request::paramString('idMax', plaintext: true);
 		self::$id_max = ctype_digit($id_max) ? $id_max : '0';
-		$continuation_id = Minz_Request::paramString('cid', plaintext: true);
-		self::$continuation_id = ctype_digit($continuation_id) ? $continuation_id : '0';
+		if (!empty(Minz_Request::paramString('cid'))){
+			self::$continuation_id = explode(',', Minz_Request::paramString('cid'));
+			// TODO: Is there support in the framework for multi-valued parameters?
+		} else {
+			self::$continuation_id = [];
+		}
 		self::$sinceHours = Minz_Request::paramInt('hours');
+		Minz_Log::debug('CONTEXT ' . __METHOD__ . ' : ' . var_export(['continuation_id' => self::$continuation_id, 'number' => self::$number], true));
 	}
 
 	/**

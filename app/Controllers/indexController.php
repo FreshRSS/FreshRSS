@@ -177,16 +177,19 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		};
 
 		$this->view->callbackBeforePagination = static function (?FreshRSS_View $view, int $nbEntries, FreshRSS_Entry $lastEntry) {
+			// Minz_Log::debug('CALLED ' . __METHOD__ . ' : ' . var_export(['lastEntryId' => $lastEntry, 'nbEntries' => $nbEntries], true));
 			if ($nbEntries > FreshRSS_Context::$number) {
 				//We have enough entries: we discard the last one to use it for the next articles' page
 				ob_clean();
 				if (FreshRSS_Context::$order === 'SHUF') {
-					FreshRSS_Context::$continuation_id = (string)$lastEntry->shuffleOrderKey();
+					FreshRSS_Context::$continuation_id = [
+						$lastEntry->id(), $lastEntry->shuffleOrderKey()[0], $lastEntry->shuffleOrderKey()[1],
+					];
 				} else {
-					FreshRSS_Context::$continuation_id = $lastEntry->id();
+					FreshRSS_Context::$continuation_id = [$lastEntry->id()];
 				}
 			} else {
-				FreshRSS_Context::$continuation_id = '0';
+				FreshRSS_Context::$continuation_id = [];
 			}
 
 			ob_end_flush();
@@ -360,9 +363,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$continuation_values = [];
-		if (FreshRSS_Context::$continuation_id !== '0') {
+		if (!empty(FreshRSS_Context::$continuation_id)) {
 			if (in_array(FreshRSS_Context::$sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified', 'length'], true)) {
-				$pagingEntry = $entryDAO->searchById(FreshRSS_Context::$continuation_id);
+				$pagingEntry = $entryDAO->searchById(FreshRSS_Context::$continuation_id[0]);
 
 				if ($pagingEntry !== null && in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
 					// We most likely already have the feed object in cache
@@ -387,7 +390,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 					$continuation_values[] = $pagingEntry->feed()?->name() ?? '';
 				}
 			} elseif (FreshRSS_Context::$sort === 'rand') {
-				FreshRSS_Context::$continuation_id = '0';
+				FreshRSS_Context::$continuation_id = [];
 			}
 		}
 

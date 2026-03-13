@@ -16,7 +16,10 @@ class FreshRSS_Entry extends Minz_Model {
 
 	/** @var numeric-string */
 	private string $id = '0';
-	private $shuffleOrderKey;
+	/** @var numeric-string */
+	private $shuffleOrderKeyA;
+	/** @var numeric-string */
+	private $shuffleOrderKeyB;
 	private string $guid;
 	private string $title;
 	/** @var array<string> */
@@ -41,9 +44,11 @@ class FreshRSS_Entry extends Minz_Model {
 	/**
 	 * @param string|array<string> $tags
 	 * @param int|numeric-string $pubdate
+	 * @param numeric-string $shuffleOrderKeyA
+	 * @param numeric-string $shuffleOrderKeyB
 	 */
 	public function __construct(int $feedId = 0, string $guid = '', string $title = '', string $authors = '', string $content = '',
-			string $link = '', int|string $pubdate = 0, bool|int|null $is_read = false, bool|int|null $is_favorite = false, $tags = '', $shuffleOrderKey = '') {
+			string $link = '', int|string $pubdate = 0, bool|int|null $is_read = false, bool|int|null $is_favorite = false, $tags = '', string|int $shuffleOrderKeyA = '0', string|int $shuffleOrderKeyB = '0') {
 		$this->_title($title);
 		$this->_authors($authors);
 		$this->_content($content);
@@ -54,7 +59,8 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->_feedId($feedId);
 		$this->_tags($tags);
 		$this->_guid($guid);
-		$this->_shuffleOrderKey($shuffleOrderKey);
+		$this->_shuffleOrderKeyA((string)$shuffleOrderKeyA);
+		$this->_shuffleOrderKeyB((string)$shuffleOrderKeyB);
 	}
 
 	/** @param array{id?:string,id_feed?:int,guid?:string,title?:string,author?:string,content?:string,link?:string,
@@ -93,7 +99,8 @@ class FreshRSS_Entry extends Minz_Model {
 			$dao['is_read'] ?? false,
 			$dao['is_favorite'] ?? false,
 			$dao['tags'] ?? '',
-			$dao['shuffleOrderKey'] ?? ''
+			$dao['shuffleOrderKeyA'] ?? '0',
+			$dao['shuffleOrderKeyB'] ?? '0'
 		);
 		if (!empty($dao['id']) && is_numeric($dao['id'])) {
 			$entry->_id($dao['id']);
@@ -137,8 +144,9 @@ class FreshRSS_Entry extends Minz_Model {
 	public function id(): string {
 		return $this->id;
 	}
+	/** @return list<numeric-string> **/
 	public function shuffleOrderKey() {
-		return $this->shuffleOrderKey;
+		return [$this->shuffleOrderKeyA, $this->shuffleOrderKeyB];
 	}
 	public function guid(): string {
 		return $this->guid;
@@ -611,8 +619,14 @@ HTML;
 		$this->is_favorite = $value === null ? null : (bool)$value;
 	}
 
-	public function _shuffleOrderKey($value) {
-		$this->shuffleOrderKey = $value;
+	/** @param numeric-string $value */
+	public function _shuffleOrderKeyA(string $value): void {
+		$this->shuffleOrderKeyA = $value;
+	}
+
+	/** @param numeric-string $value */
+	public function _shuffleOrderKeyB(string $value): void {
+		$this->shuffleOrderKeyB = $value;
 	}
 
 	public function _feed(?FreshRSS_Feed $feed): void {

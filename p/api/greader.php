@@ -700,7 +700,7 @@ final class GReaderAPI {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$entries = $entryDAO->listWhere($type, $include_target, $state, $searches,
 			order: $order === 'o' ? 'ASC' : 'DESC',
-			continuation_id: $continuation,
+			continuation_id: [$continuation,],
 			limit: $count);
 
 		$items = self::entriesToArray($entries);
@@ -799,7 +799,7 @@ TXT;
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$ids = $entryDAO->listIdsWhere($type, $id, $state, $searches,
 			order: $order === 'o' ? 'ASC' : 'DESC',
-			continuation_id: $continuation,
+			continuation_id: [$continuation,],
 			limit: $count);
 		if ($ids === null) {
 			self::internalServerError();
