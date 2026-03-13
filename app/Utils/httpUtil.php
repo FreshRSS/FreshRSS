@@ -440,7 +440,7 @@ final class FreshRSS_http_Util {
 		while ($redirs <= 4) {
 			$url = is_string($url) ? $url : '';
 			$resolve = false;
-			if (!empty($options[CURLOPT_PROXY] ?? null)) {
+			if (empty($options[CURLOPT_PROXY] ?? null)) {
 				$resolve = self::getCurlResolveInfo($url);
 				if ($resolve === null) {
 					Minz_Log::warning("Fetching $url is not allowed, because the host's IP is not on the allowlist.");

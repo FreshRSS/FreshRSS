@@ -110,7 +110,7 @@ class File implements Response
             }
             if (!$force_fsockopen && function_exists('curl_exec')) {
                 $resolve = false; // FreshRSS
-                if (!empty($curl_options[CURLOPT_PROXY] ?? null)) { // FreshRSS
+                if (empty($curl_options[CURLOPT_PROXY] ?? null)) { // FreshRSS
                     $resolve = \FreshRSS_http_Util::getCurlResolveInfo($url);
                     if ($resolve === null) {
                         \Minz_Log::warning("Fetching $url is not allowed, because the host's IP is not on the allowlist.");
