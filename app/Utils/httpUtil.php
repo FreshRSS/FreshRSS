@@ -439,12 +439,16 @@ final class FreshRSS_http_Util {
 		$redirs = 0;
 		while ($redirs <= 4) {
 			$url = is_string($url) ? $url : '';
-			$resolve = self::getCurlResolveInfo($url);
-			if ($resolve === null) {
-				Minz_Log::warning("Fetching $url is not allowed, because the host's IP is not on the allowlist.");
-				return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
-			} elseif ($resolve === false) {
-				return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
+			$resolve = false;
+			if (!empty($options[CURLOPT_PROXY] ?? null)) {
+				$resolve = self::getCurlResolveInfo($url);
+				if ($resolve === null) {
+					Minz_Log::warning("Fetching $url is not allowed, because the host's IP is not on the allowlist.");
+					return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
+				} elseif ($resolve === false) {
+					return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
+				}
+				$curl_options[CURLOPT_RESOLVE] = $resolve; // Prevent DNS rebinding
 			}
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 			$ch = curl_init();
@@ -461,7 +465,6 @@ final class FreshRSS_http_Util {
 				CURLOPT_FOLLOWLOCATION => false,
 				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
-				CURLOPT_RESOLVE => $resolve, // Prevent DNS rebinding
 			]);
 
 			curl_setopt_array($ch, $options);
