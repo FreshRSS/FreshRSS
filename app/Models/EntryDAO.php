@@ -1648,14 +1648,16 @@ SQL;
 			$sql .= ', e0.id ' . $order;
 		}
 		$stm = $this->pdo->prepare($sql);
-		foreach ($values as $index => $value) {
-			$type = PDO::PARAM_STR;
-			if (is_null($value)) {
-				$type = PDO::PARAM_NULL;
-			} elseif (is_int($value) || is_bool($value)) {
-				$type = PDO::PARAM_INT;
+		if ($stm !== false) {
+			foreach ($values as $index => $value) {
+				$paramType = PDO::PARAM_STR;
+				if (is_null($value)) {
+					$paramType = PDO::PARAM_NULL;
+				} elseif (is_int($value) || is_bool($value)) {
+					$paramType = PDO::PARAM_INT;
+				}
+				$stm->bindValue($index + 1, $value, $paramType);
 			}
-			$stm->bindValue($index + 1, $value, $type);
 		}
 		if ($stm !== false && $stm->execute()) {
 			// TODO: Consider adding an option for SQL debugging
