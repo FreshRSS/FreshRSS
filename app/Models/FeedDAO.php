@@ -225,15 +225,15 @@ SQL;
 	 * @see updateCachedValues()
 	 */
 	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0): int|false {
-		$sql = 'UPDATE `_feed` SET `lastUpdate`=?, error=? WHERE id=?';
-		$values = [
-			$mtime <= 0 ? time() : $mtime,
-			$inError ? 1 : 0,
-			$id,
-		];
+		$sql = <<<'SQL'
+		UPDATE `_feed` SET `lastUpdate`=:last_update, error=:error WHERE id=:id
+		SQL;
 		$stm = $this->pdo->prepare($sql);
-
-		if ($stm !== false && $stm->execute($values)) {
+		if ($stm !== false &&
+			$stm->bindValue(':last_update', $mtime <= 0 ? time() : $mtime, PDO::PARAM_INT) &&
+			$stm->bindValue(':error', $inError ? 1 : 0, PDO::PARAM_INT) &&
+			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
+			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -257,15 +257,14 @@ SQL;
 			return false;
 		}
 
-		$sql = 'UPDATE `_feed` SET category=? WHERE category=?';
+		$sql = <<<'SQL'
+		UPDATE `_feed` SET category=:new_category WHERE category=:old_category
+		SQL;
 		$stm = $this->pdo->prepare($sql);
-
-		$values = [
-			$newCat->id(),
-			$idOldCat,
-		];
-
-		if ($stm !== false && $stm->execute($values)) {
+		if ($stm !== false &&
+			$stm->bindValue(':new_category', $newCat->id(), PDO::PARAM_INT) &&
+			$stm->bindValue(':old_category', $idOldCat, PDO::PARAM_INT) &&
+			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -275,12 +274,13 @@ SQL;
 	}
 
 	public function deleteFeed(int $id): int|false {
-		$sql = 'DELETE FROM `_feed` WHERE id=?';
+		$sql = <<<'SQL'
+		DELETE FROM `_feed` WHERE id=:id
+		SQL;
 		$stm = $this->pdo->prepare($sql);
-
-		$values = [$id];
-
-		if ($stm !== false && $stm->execute($values)) {
+		if ($stm !== false &&
+			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
+			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -294,7 +294,9 @@ SQL;
 	 * @param bool|null $errored to include only errored feeds
 	 */
 	public function deleteFeedByCategory(int $id, ?bool $muted = null, ?bool $errored = null): int|false {
-		$sql = 'DELETE FROM `_feed` WHERE category=?';
+		$sql = <<<'SQL'
+		DELETE FROM `_feed` WHERE category=:category
+		SQL;
 		if ($muted) {
 			$sql .= ' AND ttl < 0';
 		}
@@ -302,10 +304,9 @@ SQL;
 			$sql .= ' AND error <> 0';
 		}
 		$stm = $this->pdo->prepare($sql);
-
-		$values = [$id];
-
-		if ($stm !== false && $stm->execute($values)) {
+		if ($stm !== false &&
+			$stm->bindValue(':category', $id, PDO::PARAM_INT) &&
+			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();

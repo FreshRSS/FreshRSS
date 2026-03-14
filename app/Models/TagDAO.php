@@ -121,12 +121,13 @@ SQL;
 		if ($id <= 0) {
 			return false;
 		}
-		$sql = 'DELETE FROM `_tag` WHERE id=?';
+		$sql = <<<'SQL'
+		DELETE FROM `_tag` WHERE id=:id
+		SQL;
 		$stm = $this->pdo->prepare($sql);
-
-		$values = [$id];
-
-		if ($stm !== false && $stm->execute($values)) {
+		if ($stm !== false &&
+			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
+			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -137,7 +138,9 @@ SQL;
 
 	/** @return Traversable<array{id:int,name:string,attributes?:array<string,mixed>}> */
 	public function selectAll(): Traversable {
-		$sql = 'SELECT id, name, attributes FROM `_tag`';
+		$sql = <<<'SQL'
+		SELECT id, name, attributes FROM `_tag`
+		SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm === false) {
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
@@ -165,22 +168,28 @@ SQL;
 
 	public function updateEntryTag(int $oldTagId, int $newTagId): int|false {
 		$sql = <<<'SQL'
-DELETE FROM `_entrytag` WHERE EXISTS (
-	SELECT 1 FROM `_entrytag` AS e
-	WHERE e.id_entry = `_entrytag`.id_entry AND e.id_tag = ? AND `_entrytag`.id_tag = ?)
-SQL;
+		DELETE FROM `_entrytag` WHERE EXISTS (
+			SELECT 1 FROM `_entrytag` AS e
+			WHERE e.id_entry = `_entrytag`.id_entry AND e.id_tag = :new_tag_id AND `_entrytag`.id_tag = :old_tag_id)
+		SQL;
 		$stm = $this->pdo->prepare($sql);
-
-		if ($stm === false || !$stm->execute([$newTagId, $oldTagId])) {
+		if ($stm === false ||
+			!$stm->bindValue(':new_tag_id', $newTagId, PDO::PARAM_INT) ||
+			!$stm->bindValue(':old_tag_id', $oldTagId, PDO::PARAM_INT) ||
+			!$stm->execute()) {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
 			return false;
 		}
 
-		$sql = 'UPDATE `_entrytag` SET id_tag = ? WHERE id_tag = ?';
+		$sql = <<<'SQL'
+		UPDATE `_entrytag` SET id_tag = :new_tag_id WHERE id_tag = :old_tag_id
+		SQL;
 		$stm = $this->pdo->prepare($sql);
-
-		if ($stm !== false && $stm->execute([$newTagId, $oldTagId])) {
+		if ($stm !== false &&
+			$stm->bindValue(':new_tag_id', $newTagId, PDO::PARAM_INT) &&
+			$stm->bindValue(':old_tag_id', $oldTagId, PDO::PARAM_INT) &&
+			$stm->execute()) {
 			return $stm->rowCount();
 		}
 		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -262,43 +271,47 @@ SQL;
 	}
 
 	public function countEntries(int $id): int {
-		$sql = 'SELECT COUNT(*) AS count FROM `_entrytag` WHERE id_tag=:id_tag';
-		$res = $this->fetchAssoc($sql, [':id_tag' => $id]);
-		if ($res == null || !isset($res[0]['count'])) {
+		$sql = <<<'SQL'
+		SELECT COUNT(*) AS count FROM `_entrytag` WHERE id_tag=:id_tag
+		SQL;
+		$res = $this->fetchColumn($sql, 0, [':id_tag' => $id]);
+		if (!isset($res[0])) {
 			return -1;
 		}
-		return (int)$res[0]['count'];
+		return (int)$res[0];
 	}
 
 	public function countNotRead(?int $id = null): int {
 		$sql = <<<'SQL'
-SELECT COUNT(*) AS count FROM `_entrytag` et
-INNER JOIN `_entry` e ON et.id_entry=e.id
-WHERE e.is_read=0
-SQL;
+		SELECT COUNT(*) AS count FROM `_entrytag` et
+		INNER JOIN `_entry` e ON et.id_entry=e.id
+		WHERE e.is_read=0
+		SQL;
 		$values = [];
 		if (null !== $id) {
 			$sql .= ' AND et.id_tag=:id_tag';
 			$values[':id_tag'] = $id;
 		}
 
-		$res = $this->fetchAssoc($sql, $values);
-		if ($res == null || !isset($res[0]['count'])) {
+		$res = $this->fetchColumn($sql, 0, $values);
+		if (!isset($res[0])) {
 			return -1;
 		}
-		return (int)$res[0]['count'];
+		return (int)$res[0];
 	}
 
 	public function tagEntry(int $id_tag, string $id_entry, bool $checked = true): bool {
 		if ($checked) {
-			$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `_entrytag`(id_tag, id_entry) VALUES(?, ?)';
+			$sql = 'INSERT ' . $this->sqlIgnore() . ' INTO `_entrytag`(id_tag, id_entry) VALUES(:id_tag, :id_entry)';
 		} else {
-			$sql = 'DELETE FROM `_entrytag` WHERE id_tag=? AND id_entry=?';
+			$sql = 'DELETE FROM `_entrytag` WHERE id_tag=:id_tag AND id_entry=:id_entry';
 		}
 		$stm = $this->pdo->prepare($sql);
-		$values = [$id_tag, $id_entry];
 
-		if ($stm !== false && $stm->execute($values)) {
+		if ($stm !== false &&
+			$stm->bindValue(':id_tag', $id_tag, PDO::PARAM_INT) &&
+			$stm->bindValue(':id_entry', $id_entry, PDO::PARAM_STR) &&
+			$stm->execute()) {
 			return true;
 		}
 		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -340,16 +353,13 @@ SQL;
 	 */
 	public function getTagsForEntry(string $id_entry): array {
 		$sql = <<<'SQL'
-SELECT t.id, t.name, et.id_entry IS NOT NULL as checked
-FROM `_tag` t
-LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id AND et.id_entry=?
-ORDER BY t.name
-SQL;
-
-		$stm = $this->pdo->prepare($sql);
-		$values = [$id_entry];
-
-		if ($stm !== false && $stm->execute($values) && ($lines = $stm->fetchAll(PDO::FETCH_ASSOC)) !== false) {
+		SELECT t.id, t.name, et.id_entry IS NOT NULL as checked
+		FROM `_tag` t
+		LEFT OUTER JOIN `_entrytag` et ON et.id_tag = t.id AND et.id_entry=:id_entry
+		ORDER BY t.name
+		SQL;
+		$lines = $this->fetchAssoc($sql, [':id_entry' => $id_entry]);
+		if ($lines !== null) {
 			$result = [];
 			foreach ($lines as $line) {
 				/** @var array{id:int,name:string,checked:int} $line */
@@ -361,7 +371,7 @@ SQL;
 			}
 			return $result;
 		}
-		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+		$info = $this->pdo->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return [];
 	}

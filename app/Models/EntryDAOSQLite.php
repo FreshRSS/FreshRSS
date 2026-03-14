@@ -125,10 +125,17 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		} else {
 			FreshRSS_UserDAO::touch();
 			$this->pdo->beginTransaction();
-			$sql = 'UPDATE `_entry` SET is_read=?, `lastUserModified` = ? WHERE id=? AND is_read=?';
-			$values = [$is_read ? 1 : 0, time(), $ids, $is_read ? 0 : 1];
+			$sql = <<<'SQL'
+			UPDATE `_entry` SET is_read=:is_read, `lastUserModified` = :last_user_modified
+			WHERE id=:id AND is_read=:previous_is_read
+			SQL;
 			$stm = $this->pdo->prepare($sql);
-			if ($stm === false || !$stm->execute($values)) {
+			if ($stm === false ||
+				!$stm->bindValue(':is_read', $is_read ? 1 : 0, PDO::PARAM_INT) ||
+				!$stm->bindValue(':last_user_modified', time(), PDO::PARAM_INT) ||
+				!$stm->bindValue(':id', $ids, PDO::PARAM_STR) ||
+				!$stm->bindValue(':previous_is_read', $is_read ? 0 : 1, PDO::PARAM_INT) ||
+				!$stm->execute()) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				/** @var array{0:string,1:int,2:string} $info */
 				if ($this->autoUpdateDb($info)) {
@@ -142,10 +149,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$affected = $stm->rowCount();
 			if ($affected > 0) {
 				$sql = 'UPDATE `_feed` SET `cache_nbUnreads`=`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
-				 . 'WHERE id=(SELECT e.id_feed FROM `_entry` e WHERE e.id=?)';
-				$values = [$ids];
+				 . 'WHERE id=(SELECT e.id_feed FROM `_entry` e WHERE e.id=:id)';
 				$stm = $this->pdo->prepare($sql);
-				if ($stm === false || !$stm->execute($values)) {
+				if ($stm === false ||
+					!$stm->bindValue(':id', $ids, PDO::PARAM_STR) ||
+					!$stm->execute()) {
 					$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 					Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
 					$this->pdo->rollBack();

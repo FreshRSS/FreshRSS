@@ -182,24 +182,24 @@ SQL;
 	public function updateCategory(int $id, array $valuesTmp): int|false {
 		// No tag of the same name
 		$sql = <<<'SQL'
-UPDATE `_category` SET name=?, kind=?, attributes=? WHERE id=?
-AND NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = ?)
-SQL;
+		UPDATE `_category` SET name=:name, kind=:kind, attributes=:attributes WHERE id=:id
+		AND NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = :name2)
+		SQL;
 		$stm = $this->pdo->prepare($sql);
 
 		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		if (empty($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
-		$values = [
-			$valuesTmp['name'],
-			$valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL,
-			is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] : json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
-			$id,
-			$valuesTmp['name'],
-		];
 
-		if ($stm !== false && $stm->execute($values)) {
+		if ($stm !== false &&
+			$stm->bindValue(':name', $valuesTmp['name'], PDO::PARAM_STR) &&
+			$stm->bindValue(':kind', $valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL, PDO::PARAM_INT) &&
+			$stm->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), PDO::PARAM_STR) &&
+			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':name2', $valuesTmp['name'], PDO::PARAM_STR) &&
+			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -213,15 +213,15 @@ SQL;
 	}
 
 	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0): int|false {
-		$sql = 'UPDATE `_category` SET `lastUpdate`=?, error=? WHERE id=?';
-		$values = [
-			$mtime <= 0 ? time() : $mtime,
-			$inError ? 1 : 0,
-			$id,
-		];
+		$sql = <<<'SQL'
+		UPDATE `_category` SET `lastUpdate`=:last_update, error=:error WHERE id=:id
+		SQL;
 		$stm = $this->pdo->prepare($sql);
-
-		if ($stm !== false && $stm->execute($values)) {
+		if ($stm !== false &&
+			$stm->bindValue(':last_update', $mtime <= 0 ? time() : $mtime, PDO::PARAM_INT) &&
+			$stm->bindValue(':error', $inError ? 1 : 0, PDO::PARAM_INT) &&
+			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
+			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -373,15 +373,13 @@ SQL;
 		if ($def_cat == null) {
 			$cat = new FreshRSS_Category(_t('gen.short.default_category'), self::DEFAULTCATEGORYID);
 
-			$sql = 'INSERT INTO `_category`(id, name) VALUES(?, ?)';
+			$sql = 'INSERT INTO `_category`(id, name) VALUES(:id, :name)';
 			$stm = $this->pdo->prepare($sql);
 
-			$values = [
-				$cat->id(),
-				$cat->name(),
-			];
-
-			if ($stm !== false && $stm->execute($values)) {
+			if ($stm !== false &&
+				$stm->bindValue(':id', $cat->id(), PDO::PARAM_INT) &&
+				$stm->bindValue(':name', $cat->name(), PDO::PARAM_STR) &&
+				$stm->execute()) {
 				$catId = $this->pdo->lastInsertId('`_category_id_seq`');
 				$this->sqlResetSequence();
 				return $catId === false ? false : (int)$catId;
