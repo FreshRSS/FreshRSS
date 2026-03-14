@@ -1421,7 +1421,7 @@ SQL;
 			// Keyset pagination (Compatibility syntax due to poor performance of tuple syntax in MySQL https://bugs.mysql.com/bug.php?id=104128)
 			if ($sort === 'c.name') {
 				// Includes the feed-name sort and a user secondary sort
-				$search .= "AND ((c.name {$sign} ?) OR (c.name = ? AND f.name {$sign} ?) OR (c.name = ? AND f.name = ? AND {$orderBy2} {$sign2}= ?) " .
+				$search .= "AND ((c.name {$sign} ?) OR (c.name = ? AND f.name {$sign} ?) OR (c.name = ? AND f.name = ? AND {$orderBy2} {$sign2} ?) " .
 					"OR (c.name = ? AND f.name = ? AND {$orderBy2} = ? AND {$alias}id {$sign}= ?)) ";
 				$values[] = $continuation_values[0];	// c.name (primary sort)
 				$values[] = $continuation_values[0];	// c.name (primary sort)
