@@ -658,11 +658,7 @@ SQL;
 
 	public function count(): int {
 		$sql = 'SELECT COUNT(e.id) AS count FROM `_feed` e';
-		$stm = $this->pdo->query($sql);
-		if ($stm === false) {
-			return -1;
-		}
-		$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+		$res = $this->fetchColumn($sql, 0);
 		return is_numeric($res[0] ?? null) ? (int)$res[0] : 0;
 	}
 }

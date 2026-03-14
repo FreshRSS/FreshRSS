@@ -215,8 +215,8 @@ SQL;
 			$sql = 'SELECT * FROM `_tag` ORDER BY name';
 		}
 
-		$stm = $this->pdo->query($sql);
-		if ($stm !== false && ($res = $stm->fetchAll(PDO::FETCH_ASSOC)) !== false) {
+		$res = $this->fetchAssoc($sql);
+		if ($res !== null) {
 			/** @var list<array{id:int,name:string,unreads:int}> $res */
 			return self::daoToTags($res);
 		} else {
@@ -252,11 +252,9 @@ SQL;
 
 	public function count(): int {
 		$sql = 'SELECT COUNT(*) AS count FROM `_tag`';
-		$stm = $this->pdo->query($sql);
-		if ($stm !== false) {
-			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
-			/** @var list<array{count:int|numeric-string}> $res */
-			return (int)$res[0]['count'];
+		$res = $this->fetchColumn($sql, 0);
+		if ($res !== null && isset($res[0])) {
+			return (int)$res[0];
 		}
 		$info = $this->pdo->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));

@@ -63,7 +63,8 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	/** @param array{0:string,1:int,2:string} $errorInfo */
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
-		if (($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) !== false && ($columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1)) !== false) {
+		$columns = $this->fetchColumn("PRAGMA table_info('entry')", 1);
+		if ($columns !== null) {
 			foreach (['attributes', 'lastUserModified', 'lastModified'] as $column) {
 				if (!in_array($column, $columns, true)) {
 					return $this->addColumn($column);

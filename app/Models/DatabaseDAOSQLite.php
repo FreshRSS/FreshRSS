@@ -9,9 +9,8 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	#[\Override]
 	public function tablesAreCorrect(): bool {
 		$sql = "SELECT name FROM sqlite_master WHERE type='table'";
-		$stm = $this->pdo->query($sql);
-		$res = $stm !== false ? $stm->fetchAll(PDO::FETCH_ASSOC) : false;
-		if ($res === false) {
+		$res = $this->fetchAssoc($sql);
+		if ($res === null) {
 			return false;
 		}
 
@@ -36,9 +35,9 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	#[\Override]
 	public function getSchema(string $table): array {
 		$sql = 'PRAGMA table_info(' . $table . ')';
-		$stm = $this->pdo->query($sql);
-		if ($stm !== false && ($res = $stm->fetchAll(PDO::FETCH_ASSOC)) !== false) {
-			/** @var list<array{name:string,type:string,notnull:bool,dflt_value:string|int|bool|null}> $res */
+		$res = $this->fetchAssoc($sql);
+		if ($res !== null) {
+			/** @var list<array{name:string,type:string,notnull:bool|int,dflt_value:string|int|bool|null}> $res */
 			return $this->listDaoToSchema($res);
 		}
 		return [];

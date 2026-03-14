@@ -236,7 +236,7 @@ class Minz_ModelPdo {
 
 	/**
 	 * @param array<string,int|string|null> $values
-	 * @return list<array<string,int|string|null>>|null
+	 * @return list<array<string,bool|int|string|null>>|null
 	 */
 	public function fetchAssoc(string $sql, array $values = []): ?array {
 		return $this->fetchAny($sql, $values, PDO::FETCH_ASSOC);
