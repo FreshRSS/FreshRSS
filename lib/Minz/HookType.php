@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 enum Minz_HookType: string {
+	case ActionExecute = 'action_execute'; // function(Minz_ActionController $controller): bool
 	case ApiMisc = 'api_misc';	// function(): void
 	case BeforeLoginBtn = 'before_login_btn';	// function(): string
 	case CheckUrlBeforeAdd = 'check_url_before_add';	// function(string $url) -> string | null
@@ -32,6 +33,8 @@ enum Minz_HookType: string {
 
 	public function signature(): Minz_HookSignature {
 		switch ($this) {
+			case self::ActionExecute:
+				return Minz_HookSignature::OneToOne;
 			case self::ApiMisc:
 			case self::FreshrssInit:
 			case self::FreshrssUserMaintenance:

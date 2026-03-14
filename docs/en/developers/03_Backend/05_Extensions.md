@@ -167,6 +167,9 @@ final class HelloWorldExtension extends Minz_Extension
 
 The following events are available:
 
+* `action_execute` (`function(Minz_Controller $controller): bool`): Called before an action is executed in `Minz_Dispatcher::launchAction()`.
+	By returning `true`, you allow the original action to proceed further; `false` stops further execution of the action.
+	This hook can be used for adding extra functionality to an existing action. See also: `Minz_Request::is()`, `Minz_Request::controllerName()`, `Minz_Request::actionName()`.
 * `api_misc` (`function(): void`): to allow extensions to have their own API endpoint
 	on `/api/misc.php/Extension%20Name/` or `/api/misc.php?ext=Extension%20Name`.
 * `before_login_btn` (`function(): string`): Allows to insert HTML before the login button. Applies to the create button on the register page as well. Example use case is inserting a captcha widget.
