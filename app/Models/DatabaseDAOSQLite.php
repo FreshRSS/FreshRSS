@@ -34,7 +34,9 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 	/** @return list<array{name:string,type:string,notnull:bool,default:mixed}> */
 	#[\Override]
 	public function getSchema(string $table): array {
-		$sql = 'PRAGMA table_info(' . $table . ')';
+		$sql = <<<SQL
+			PRAGMA table_info('{$table}')
+			SQL;
 		$res = $this->fetchAssoc($sql);
 		if ($res !== null) {
 			/** @var list<array{name:string,type:string,notnull:bool|int,dflt_value:string|int|bool|null}> $res */

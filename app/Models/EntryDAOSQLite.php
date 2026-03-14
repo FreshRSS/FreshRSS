@@ -126,9 +126,9 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			FreshRSS_UserDAO::touch();
 			$this->pdo->beginTransaction();
 			$sql = <<<'SQL'
-			UPDATE `_entry` SET is_read=:is_read, `lastUserModified` = :last_user_modified
-			WHERE id=:id AND is_read=:previous_is_read
-			SQL;
+				UPDATE `_entry` SET is_read=:is_read, `lastUserModified` = :last_user_modified
+				WHERE id=:id AND is_read=:previous_is_read
+				SQL;
 			$stm = $this->pdo->prepare($sql);
 			if ($stm === false ||
 				!$stm->bindValue(':is_read', $is_read ? 1 : 0, PDO::PARAM_INT) ||
@@ -148,8 +148,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			}
 			$affected = $stm->rowCount();
 			if ($affected > 0) {
-				$sql = 'UPDATE `_feed` SET `cache_nbUnreads`=`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
-				 . 'WHERE id=(SELECT e.id_feed FROM `_entry` e WHERE e.id=:id)';
+				$delta = $is_read ? '-1' : '+1';
+				$sql = <<<SQL
+					UPDATE `_feed` SET `cache_nbUnreads`=`cache_nbUnreads` {$delta}
+					WHERE id=(SELECT e.id_feed FROM `_entry` e WHERE e.id=:id)
+					SQL;
 				$stm = $this->pdo->prepare($sql);
 				if ($stm === false ||
 					!$stm->bindValue(':id', $ids, PDO::PARAM_STR) ||
@@ -179,10 +182,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` SET is_read = ?, `lastUserModified` = ? WHERE is_read <> ? AND id <= ? AND '
-			 . 'id IN (SELECT et.id_entry FROM `_entrytag` et '
-			 . ($id == 0 ? '' : 'WHERE et.id_tag = ?')
-			 . ')';
+		$tagCondition = $id == 0 ? '' : 'WHERE et.id_tag = ?';
+		$sql = <<<SQL
+			UPDATE `_entry` SET is_read = ?, `lastUserModified` = ? WHERE is_read <> ? AND id <= ?
+			AND id IN (SELECT et.id_entry FROM `_entrytag` et {$tagCondition})
+			SQL;
 		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax];
 		if ($id != 0) {
 			$values[] = $id;

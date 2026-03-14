@@ -102,9 +102,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		Minz_Log::warning('Update MySQL table to use MEDIUMBLOB...');
 
 		$sql = <<<'SQL'
-ALTER TABLE `_entry` MODIFY `content_bin` MEDIUMBLOB;
-ALTER TABLE `_entrytmp` MODIFY `content_bin` MEDIUMBLOB;
-SQL;
+			ALTER TABLE `_entry` MODIFY `content_bin` MEDIUMBLOB;
+			ALTER TABLE `_entrytmp` MODIFY `content_bin` MEDIUMBLOB;
+			SQL;
 		try {
 			$ok = $this->pdo->exec($sql) !== false;
 		} catch (Exception $e) {
@@ -129,9 +129,9 @@ SQL;
 		try {
 			if ($name === 'attributes') {	//v1.20.0
 				$sql = <<<'SQL'
-ALTER TABLE `_entry` ADD COLUMN attributes TEXT;
-ALTER TABLE `_entrytmp` ADD COLUMN attributes TEXT;
-SQL;
+					ALTER TABLE `_entry` ADD COLUMN attributes TEXT;
+					ALTER TABLE `_entrytmp` ADD COLUMN attributes TEXT;
+					SQL;
 				$result = $this->pdo->exec($sql);
 			} elseif ($name === 'lastUserModified') {	//v1.28.0
 				$sql = $GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'];
@@ -308,17 +308,19 @@ SQL;
 			$valuesTmp['lastModified'] = null;
 		}
 		if ($this->updateEntryPrepared == null) {
-			$sql = 'UPDATE `_entry` '
-				. 'SET title=:title, author=:author, '
-				. (static::isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content')
-				. ', link=:link, date=:date, `lastSeen`=:last_seen'
-				. ', `lastModified`=COALESCE(:last_modified, `lastModified`)'
-				. ', `lastUserModified`=COALESCE(:last_user_modified, `lastUserModified`)'
-				. ', hash=' . static::sqlHexDecode(':hash')
-				. ', is_read=COALESCE(:is_read, is_read)'
-				. ', is_favorite=COALESCE(:is_favorite, is_favorite)'
-				. ', tags=:tags, attributes=:attributes '
-				. 'WHERE id_feed=:id_feed AND guid=:guid';
+			$contentAssign = static::isCompressed() ? 'content_bin=COMPRESS(:content)' : 'content=:content';
+			$hashExpr = static::sqlHexDecode(':hash');
+			$sql = <<<SQL
+				UPDATE `_entry`
+				SET title=:title, author=:author, {$contentAssign}, link=:link, date=:date, `lastSeen`=:last_seen,
+					`lastModified`=COALESCE(:last_modified, `lastModified`),
+					`lastUserModified`=COALESCE(:last_user_modified, `lastUserModified`),
+					hash={$hashExpr},
+					is_read=COALESCE(:is_read, is_read),
+					is_favorite=COALESCE(:is_favorite, is_favorite),
+					tags=:tags, attributes=:attributes
+				WHERE id_feed=:id_feed AND guid=:guid
+				SQL;
 			$this->updateEntryPrepared = $this->pdo->prepare($sql);
 		}
 		if ($this->updateEntryPrepared != false) {
@@ -398,8 +400,8 @@ SQL;
 	 */
 	public function countNewEntries(): int {
 		$sql = <<<'SQL'
-		SELECT COUNT(id) AS nb_entries FROM `_entrytmp`
-		SQL;
+			SELECT COUNT(id) AS nb_entries FROM `_entrytmp`
+			SQL;
 		$res = $this->fetchColumn($sql, 0);
 		return isset($res[0]) ? (int)$res[0] : -1;
 	}
@@ -429,9 +431,12 @@ SQL;
 			}
 			return $affected;
 		}
-		$sql = 'UPDATE `_entry` '
-			. 'SET is_favorite=?, `lastUserModified`=? '
-			. 'WHERE id IN (' . str_repeat('?,', count($ids) - 1) . '?)';
+		$idPlaceholders = str_repeat('?,', count($ids) - 1) . '?';
+		$sql = <<<SQL
+			UPDATE `_entry`
+			SET is_favorite=?, `lastUserModified`=?
+			WHERE id IN ({$idPlaceholders})
+			SQL;
 		$values = [$is_favorite ? 1 : 0];
 		$values[] = time();
 		$values = array_merge($values, $ids);
@@ -456,27 +461,27 @@ SQL;
 		$useIndex = $this->pdo->dbType() === 'mysql' ? 'USE INDEX (entry_feed_read_index)' : '';
 
 		$sql = <<<SQL
-UPDATE `_feed`
-SET `cache_nbUnreads`=(
-	SELECT COUNT(*) AS nbUnreads FROM `_entry` e {$useIndex}
-	WHERE e.id_feed=`_feed`.id AND e.is_read=0)
-SQL;
-		$hasWhere = false;
-		$values = [];
+			UPDATE `_feed`
+			SET `cache_nbUnreads`=(
+				SELECT COUNT(*) AS nbUnreads FROM `_entry` e {$useIndex}
+				WHERE e.id_feed=`_feed`.id AND e.is_read=0)
+			WHERE 1=1
+			SQL;
 		if ($feedId != null) {
-			$sql .= ' WHERE';
-			$hasWhere = true;
-			$sql .= ' id=?';
-			$values[] = $feedId;
+			$sql .= "\n" . <<<'SQL'
+				AND id=:feed_id
+				SQL;
 		}
 		if ($catId != null) {
-			$sql .= $hasWhere ? ' AND' : ' WHERE';
-			$hasWhere = true;
-			$sql .= ' category=?';
-			$values[] = $catId;
+			$sql .= "\n" . <<<'SQL'
+				AND category=:cat_id
+				SQL;
 		}
 		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $stm->execute($values)) {
+		if ($stm !== false &&
+			($catId == null || $stm->bindValue(':cat_id', $catId, PDO::PARAM_INT)) &&
+			($feedId == null || $stm->bindValue(':feed_id', $feedId, PDO::PARAM_INT)) &&
+			 $stm->execute()) {
 			return true;
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -511,9 +516,12 @@ SQL;
 			}
 
 			FreshRSS_UserDAO::touch();
-			$sql = 'UPDATE `_entry` '
-				 . 'SET is_read=?, `lastUserModified`=? '
-				 . 'WHERE is_read<>? AND id IN (' . str_repeat('?,', count($ids) - 1) . '?)';
+			$idPlaceholders = str_repeat('?,', count($ids) - 1) . '?';
+			$sql = <<<SQL
+				UPDATE `_entry`
+				SET is_read=?, `lastUserModified`=?
+				WHERE is_read<>? AND id IN ({$idPlaceholders})
+				SQL;
 			$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0];
 			$values = array_merge($values, $ids);
 			$stm = $this->pdo->prepare($sql);
@@ -534,13 +542,20 @@ SQL;
 			return $affected;
 		} else {
 			FreshRSS_UserDAO::touch();
-			$sql = 'UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id '
-				 . 'SET e.is_read=?,`lastUserModified`=?,'
-				 . 'f.`cache_nbUnreads`=f.`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
-				 . 'WHERE e.id=? AND e.is_read=?';
-			$values = [$is_read ? 1 : 0, time(), $ids, $is_read ? 0 : 1];
+			$delta = $is_read ? '-1' : '+1';
+			$sql = <<<SQL
+				UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id
+				SET e.is_read=:is_read,`lastUserModified`=:last_user_modified,
+				f.`cache_nbUnreads`=f.`cache_nbUnreads` {$delta}
+				WHERE e.id=:id AND e.is_read=:old_is_read
+				SQL;
 			$stm = $this->pdo->prepare($sql);
-			if ($stm !== false && $stm->execute($values)) {
+			if ($stm !== false &&
+				$stm->bindValue(':is_read', $is_read ? 1 : 0, PDO::PARAM_INT) &&
+				$stm->bindValue(':last_user_modified', time(), PDO::PARAM_INT) &&
+				$stm->bindValue(':id', $ids) &&
+				$stm->bindValue(':old_is_read', $is_read ? 0 : 1, PDO::PARAM_INT) &&
+				$stm->execute()) {
 				return $stm->rowCount();
 			} else {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -576,22 +591,34 @@ SQL;
 			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` SET is_read = ?, `lastUserModified`=? WHERE is_read <> ? AND id <= ?';
+		$sql = <<<'SQL'
+			UPDATE `_entry` SET is_read = ?, `lastUserModified`=? WHERE is_read <> ? AND id <= ?
+			SQL;
 		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax];
 		if ($onlyFavorites) {
-			$sql .= ' AND is_favorite=1';
+			$sql .= "\n" . <<<'SQL'
+				AND is_favorite=1
+				SQL;
 		}
 		if ($priorityMin !== null || $priorityMax !== null) {
-			$sql .= ' AND id_feed IN (SELECT f.id FROM `_feed` f WHERE 1=1';
+			$sql .= "\n" . <<<'SQL'
+				AND id_feed IN (SELECT f.id FROM `_feed` f WHERE 1=1
+				SQL;
 			if ($priorityMin !== null) {
-				$sql .= ' AND f.priority >= ?';
+				$sql .= "\n" . <<<'SQL'
+					AND f.priority >= ?
+					SQL;
 				$values[] = $priorityMin;
 			}
 			if ($priorityMax !== null) {
-				$sql .= ' AND f.priority < ?';
+				$sql .= "\n" . <<<'SQL'
+					AND f.priority < ?
+					SQL;
 				$values[] = $priorityMax;
 			}
-			$sql .= ')';
+			$sql .= "\n" . <<<'SQL'
+				)
+				SQL;
 		}
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
@@ -628,11 +655,11 @@ SQL;
 		}
 
 		$sql = <<<'SQL'
-UPDATE `_entry`
-SET is_read = ?, `lastUserModified` = ?
-WHERE is_read <> ? AND id <= ?
-AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=? AND f.priority >= ? AND f.priority < ?)
-SQL;
+			UPDATE `_entry`
+			SET is_read = ?, `lastUserModified` = ?
+			WHERE is_read <> ? AND id <= ?
+			AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=? AND f.priority >= ? AND f.priority < ?)
+			SQL;
 		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax, $id, FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Feed::PRIORITY_IMPORTANT];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
@@ -672,9 +699,11 @@ SQL;
 			$this->pdo->beginTransaction();
 		}
 
-		$sql = 'UPDATE `_entry` '
-			 . 'SET is_read=?, `lastUserModified`=? '
-			 . 'WHERE id_feed=? AND is_read <> ? AND id <= ?';
+		$sql = <<<'SQL'
+			UPDATE `_entry`
+			SET is_read=?, `lastUserModified`=?
+			WHERE id_feed=? AND is_read <> ? AND id <= ?
+			SQL;
 		$values = [$is_read ? 1 : 0, time(), $id_feed, $is_read ? 1 : 0, $idMax];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
@@ -689,9 +718,11 @@ SQL;
 		$affected = $stm->rowCount();
 
 		if ($affected > 0) {
-			$sql = 'UPDATE `_feed` '
-				 . 'SET `cache_nbUnreads`=`cache_nbUnreads`-' . $affected
-				 . ' WHERE id=:id';
+			$sql = <<<SQL
+				UPDATE `_feed`
+				SET `cache_nbUnreads`=`cache_nbUnreads`-{$affected}
+				WHERE id=:id
+				SQL;
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm !== false &&
 				$stm->bindParam(':id', $id_feed, PDO::PARAM_INT) &&
@@ -723,11 +754,12 @@ SQL;
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` e INNER JOIN `_entrytag` et ON et.id_entry = e.id '
-			 . 'SET e.is_read = ?, `lastUserModified` = ? '
-			 . 'WHERE '
-			 . ($id == 0 ? '' : 'et.id_tag = ? AND ')
-			 . 'e.is_read <> ? AND e.id <= ?';
+		$tagCondition = $id == 0 ? '' : 'et.id_tag = ? AND ';
+		$sql = <<<SQL
+			UPDATE `_entry` e INNER JOIN `_entrytag` et ON et.id_entry = e.id
+			SET e.is_read = ?, `lastUserModified` = ?
+			WHERE {$tagCondition} e.is_read <> ? AND e.id <= ?
+			SQL;
 		$values = [$is_read ? 1 : 0, time()];
 		if ($id != 0) {
 			$values[] = $id;
@@ -755,49 +787,69 @@ SQL;
 	 * @param array<string,bool|int|string> $options
 	 */
 	public function cleanOldEntries(int $id_feed, array $options = []): int|false {
-		$sql = 'DELETE FROM `_entry` WHERE id_feed = :id_feed1';	//No alias for MySQL / MariaDB
+		$sql = <<<'SQL'
+			DELETE FROM `_entry` WHERE id_feed = :id_feed1
+			SQL;	//No alias for MySQL / MariaDB
 		$params = [];
 		$params[':id_feed1'] = $id_feed;
 
 		//==Exclusions==
 		if (!empty($options['keep_favourites'])) {
-			$sql .= ' AND is_favorite = 0';
+			$sql .= "\n" . <<<'SQL'
+				AND is_favorite = 0
+				SQL;
 		}
 		if (!empty($options['keep_unreads'])) {
-			$sql .= ' AND is_read = 1';
+			$sql .= "\n" . <<<'SQL'
+				AND is_read = 1
+				SQL;
 		}
 		if (!empty($options['keep_labels'])) {
-			$sql .= ' AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = id)';
+			$sql .= "\n" . <<<'SQL'
+				AND NOT EXISTS (SELECT 1 FROM `_entrytag` WHERE id_entry = id)
+				SQL;
 		}
 		if (!empty($options['keep_min']) && $options['keep_min'] > 0) {
 			//Double SELECT for MySQL workaround ERROR 1093 (HY000)
-			$sql .= ' AND `lastSeen` < (SELECT `lastSeen`'
-				. ' FROM (SELECT e2.`lastSeen` FROM `_entry` e2 WHERE e2.id_feed = :id_feed2'
-				. ' ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min) last_seen2)';
+			$sql .= "\n" . <<<'SQL'
+				AND `lastSeen` < (SELECT `lastSeen`
+				FROM (SELECT e2.`lastSeen` FROM `_entry` e2 WHERE e2.id_feed = :id_feed2
+				ORDER BY e2.`lastSeen` DESC LIMIT 1 OFFSET :keep_min) last_seen2)
+				SQL;
 			$params[':id_feed2'] = $id_feed;
 			$params[':keep_min'] = (int)$options['keep_min'];
 		}
 		//Keep at least the articles seen at the last refresh
-		$sql .= ' AND `lastSeen` < (SELECT maxlastseen'
-			. ' FROM (SELECT MAX(e3.`lastSeen`) AS maxlastseen FROM `_entry` e3 WHERE e3.id_feed = :id_feed3) last_seen3)';
+		$sql .= "\n" . <<<'SQL'
+			AND `lastSeen` < (SELECT maxlastseen
+			FROM (SELECT MAX(e3.`lastSeen`) AS maxlastseen FROM `_entry` e3 WHERE e3.id_feed = :id_feed3) last_seen3)
+			SQL;
 		$params[':id_feed3'] = $id_feed;
 
 		//==Inclusions==
-		$sql .= ' AND (1=0';
+		$sql .= "\n" . <<<'SQL'
+			AND (1=0
+			SQL;
 		if (!empty($options['keep_period']) && is_string($options['keep_period'])) {
-			$sql .= ' OR `lastSeen` < :max_last_seen';
+			$sql .= "\n" . <<<'SQL'
+				OR `lastSeen` < :max_last_seen
+				SQL;
 			$now = new DateTime('now');
 			$now->sub(new DateInterval($options['keep_period']));
 			$params[':max_last_seen'] = $now->format('U');
 		}
 		if (!empty($options['keep_max']) && $options['keep_max'] > 0) {
-			$sql .= ' OR `lastSeen` <= (SELECT `lastSeen`'
-				. ' FROM (SELECT e4.`lastSeen` FROM `_entry` e4 WHERE e4.id_feed = :id_feed4'
-				. ' ORDER BY e4.`lastSeen` DESC LIMIT 1 OFFSET :keep_max) last_seen4)';
+			$sql .= "\n" . <<<'SQL'
+				OR `lastSeen` <= (SELECT `lastSeen`
+				FROM (SELECT e4.`lastSeen` FROM `_entry` e4 WHERE e4.id_feed = :id_feed4
+				ORDER BY e4.`lastSeen` DESC LIMIT 1 OFFSET :keep_max) last_seen4)
+				SQL;
 			$params[':id_feed4'] = $id_feed;
 			$params[':keep_max'] = (int)$options['keep_max'];
 		}
-		$sql .= ')';
+		$sql .= "\n" . <<<'SQL'
+			)
+			SQL;
 
 		$stm = $this->pdo->prepare($sql);
 
@@ -826,11 +878,11 @@ SQL;
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'ASC';
 		$sqlLimit = static::sqlLimit($limit, $offset);
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastModified`, `lastUserModified`,
-	{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
-FROM `_entry`
-ORDER BY id {$order} {$sqlLimit}
-SQL;
+			SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastModified`, `lastUserModified`,
+				{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
+			FROM `_entry`
+			ORDER BY id {$order} {$sqlLimit}
+			SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
@@ -854,11 +906,11 @@ SQL;
 		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastModified`, `lastUserModified`,
-	{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
-	{$contentLength}
-FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid
-SQL;
+			SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastModified`, `lastUserModified`,
+				{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
+				{$contentLength}
+			FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid
+			SQL;
 		$res = $this->fetchAssoc($sql, [':id_feed' => $id_feed, ':guid' => $guid]);
 		/** @var list<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
 		 *		lastSeen:int,lastModified:int,lastUserModified:int,hash:string,is_read:int,is_favorite:int,id_feed:int,
@@ -872,11 +924,11 @@ SQL;
 		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';
 		$hash = static::sqlHexEncode('hash');
 		$sql = <<<SQL
-SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastModified`, `lastUserModified`,
-	{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
-	{$contentLength}
-FROM `_entry` WHERE id=:id
-SQL;
+			SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastModified`, `lastUserModified`,
+				{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes,
+				{$contentLength}
+			FROM `_entry` WHERE id=:id
+			SQL;
 		$res = $this->fetchAssoc($sql, [':id' => $id]);
 		/** @var list<array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
 		 *		lastSeen:int,lastModified:int,lastUserModified:int,hash:string,is_read:int,is_favorite:int,id_feed:int,
@@ -886,7 +938,9 @@ SQL;
 	}
 
 	public function searchIdByGuid(int $id_feed, string $guid): ?string {
-		$sql = 'SELECT id FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid';
+		$sql = <<<'SQL'
+			SELECT id FROM `_entry` WHERE id_feed=:id_feed AND guid=:guid
+			SQL;
 		$res = $this->fetchColumn($sql, 0, [':id_feed' => $id_feed, ':guid' => $guid]);
 		return empty($res[0]) ? null : (string)($res[0]);
 	}
@@ -1626,26 +1680,38 @@ SQL;
 		$content = static::isCompressed() ? 'UNCOMPRESS(e0.content_bin) AS content' : 'e0.content';
 		$hash = static::sqlHexEncode('e0.hash');
 		$sql = <<<SQL
-SELECT e0.id, e0.guid, e0.title, e0.author, {$content}, e0.link,
-	e0.date, e0.`lastSeen`, e0.`lastModified`, e0.`lastUserModified`, {$hash} AS hash, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes
-FROM `_entry` e0 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
-SQL;
+			SELECT e0.id, e0.guid, e0.title, e0.author, {$content}, e0.link,
+				e0.date, e0.`lastSeen`, e0.`lastModified`, e0.`lastUserModified`, {$hash} AS hash, e0.is_read, e0.is_favorite, e0.id_feed, e0.tags, e0.attributes
+			FROM `_entry` e0 INNER JOIN ({$sql}) e2 ON e2.id=e0.id
+			SQL;
 		if ($sort === 'f.name' || $sort === 'c.name') {
-			$sql .= ' INNER JOIN `_feed` f0 ON f0.id = e0.id_feed ';
+			$sql .= "\n" . <<<'SQL'
+				INNER JOIN `_feed` f0 ON f0.id = e0.id_feed
+				SQL;
 		}
 		if ($sort === 'c.name') {
-			$sql .= ' INNER JOIN `_category` c0 ON c0.id = f0.category ';
+			$sql .= "\n" . <<<'SQL'
+				INNER JOIN `_category` c0 ON c0.id = f0.category
+				SQL;
 		}
-		$sql .= ' ORDER BY ' . $orderBy . ' ' . $order;
+		$sql .= "\n" . <<<SQL
+			ORDER BY {$orderBy} {$order}
+			SQL;
 		if ($sort === 'c.name') {
-			$sql .= ', f0.name ' . $order;	// Internal secondary sort
+			$sql .= "\n" . <<<SQL
+				, f0.name {$order}
+				SQL;	// Internal secondary sort
 		}
 		if (in_array($sort, ['c.name', 'f.name'], true)) {
-			$sql .= ', ' . $orderBy2 . ' ' . $secondary_sort_order;	// User secondary sort
+			$sql .= "\n" . <<<SQL
+				, {$orderBy2} {$secondary_sort_order}
+				SQL;	// User secondary sort
 		}
 		if ($sort !== 'id') {
 			// For keyset pagination
-			$sql .= ', e0.id ' . $order;
+			$sql .= "\n" . <<<SQL
+				, e0.id {$order}
+				SQL;
 		}
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false) {
@@ -1731,14 +1797,14 @@ SQL;
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
-		$repeats = str_repeat('?,', count($ids) - 1) . '?';
+		$idPlaceholders = str_repeat('?,', count($ids) - 1) . '?';
 		$sql = <<<SQL
-SELECT id, guid, title, author, link, date, `lastModified`, `lastUserModified`,
-	{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, {$content}
-FROM `_entry`
-WHERE id IN ({$repeats})
-ORDER BY id {$order}
-SQL;
+			SELECT id, guid, title, author, link, date, `lastModified`, `lastUserModified`,
+				{$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes, {$content}
+			FROM `_entry`
+			WHERE id IN ({$idPlaceholders})
+			ORDER BY id {$order}
+			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm === false || !$stm->execute($ids)) {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -1803,8 +1869,13 @@ SQL;
 			return $result;
 		}
 		$guids = array_unique($guids);
-		$sql = 'SELECT guid, ' . static::sqlHexEncode('hash') .
-			' AS hex_hash FROM `_entry` WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1) . '?)';
+		$hexHashExpr = static::sqlHexEncode('hash');
+		$guidPlaceholders = str_repeat('?,', count($guids) - 1) . '?';
+		$sql = <<<SQL
+			SELECT guid, {$hexHashExpr} AS hex_hash
+			FROM `_entry`
+			WHERE id_feed=? AND guid IN ({$guidPlaceholders})
+			SQL;
 		$stm = $this->pdo->prepare($sql);
 		$values = [$id_feed];
 		$values = array_merge($values, $guids);
@@ -1842,10 +1913,12 @@ SQL;
 
 		// Reduce MySQL deadlock probability by ensuring consistent lock ordering
 		$orderBy = $this->pdo->dbType() === 'mysql' ? ' ORDER BY id DESC' : '';
+		$guidPlaceholders = str_repeat('?,', count($guids) - 1) . '?';
 
-		$sql = 'UPDATE `_entry` ' .
-			'SET `lastSeen`=? WHERE id_feed=? AND guid IN (' . str_repeat('?,', count($guids) - 1) . '?)' .
-			$orderBy;
+		$sql = <<<SQL
+			UPDATE `_entry`
+			SET `lastSeen`=? WHERE id_feed=? AND guid IN ({$guidPlaceholders}){$orderBy}
+			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($mtime <= 0) {
 			$mtime = time();
@@ -1870,12 +1943,12 @@ SQL;
 	 */
 	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0): int|false {
 		$sql = <<<'SQL'
-UPDATE `_entry` SET `lastSeen` = :mtime
-WHERE id_feed = :id_feed1 AND `lastSeen` = (
-	SELECT `lastUpdate` FROM `_feed` f
-	WHERE f.id = :id_feed2
-)
-SQL;
+			UPDATE `_entry` SET `lastSeen` = :mtime
+			WHERE id_feed = :id_feed1 AND `lastSeen` = (
+				SELECT `lastUpdate` FROM `_feed` f
+				WHERE f.id = :id_feed2
+			)
+			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($mtime <= 0) {
 			$mtime = time();
@@ -1904,10 +1977,10 @@ SQL;
 			FROM `_entry` e
 			SQL;
 		if ($minPriority !== null) {
-			$sql .= <<<'SQL'
-			INNER JOIN `_feed` f ON e.id_feed = f.id
-			WHERE f.priority > :priority
-			SQL;
+			$sql .= "\n" . <<<'SQL'
+				INNER JOIN `_feed` f ON e.id_feed = f.id
+				WHERE f.priority > :priority
+				SQL;
 			$values[':priority'] = $minPriority;
 		}
 		$res = $this->fetchAssoc($sql, $values);
@@ -1921,11 +1994,15 @@ SQL;
 	}
 
 	public function count(?int $minPriority = null): int {
-		$sql = 'SELECT COUNT(*) AS count FROM `_entry` e';
+		$sql = <<<'SQL'
+			SELECT COUNT(*) AS count FROM `_entry` e
+			SQL;
 		$values = [];
 		if ($minPriority !== null) {
-			$sql .= ' INNER JOIN `_feed` f ON e.id_feed=f.id';
-			$sql .= ' WHERE f.priority > :priority';
+			$sql .= "\n" . <<<'SQL'
+				INNER JOIN `_feed` f ON e.id_feed=f.id
+				WHERE f.priority > :priority
+				SQL;
 			$values[':priority'] = $minPriority;
 		}
 		$res = $this->fetchColumn($sql, 0, $values);
