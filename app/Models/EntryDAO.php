@@ -1648,7 +1648,21 @@ SQL;
 			$sql .= ', e0.id ' . $order;
 		}
 		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $stm->execute($values)) {
+		if ($stm !== false) {
+			foreach ($values as $index => $value) {
+				$paramType = PDO::PARAM_STR;
+				if (is_null($value)) {
+					$paramType = PDO::PARAM_NULL;
+				} elseif (is_int($value) || is_bool($value)) {
+					$paramType = PDO::PARAM_INT;
+				}
+				$stm->bindValue($index + 1, $value, $paramType);
+			}
+		}
+		if ($stm !== false && $stm->execute()) {
+			// TODO: Consider adding an option for SQL debugging
+			// Minz_Log::debug('SQL params ' . __METHOD__ . ' ' . json_encode($values));
+			// Minz_Log::debug('SQL query ' . __METHOD__ . ' ' . json_encode($sql));
 			return $stm;
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();

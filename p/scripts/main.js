@@ -1048,7 +1048,11 @@ function init_column_categories() {
 		}
 	}
 
-	document.getElementById('aside_feed').onclick = function (ev) {
+	const asideFeed = document.getElementById('aside_feed');
+	if (!asideFeed) {
+		return;
+	}
+	asideFeed.onclick = function (ev) {
 		let a = ev.target.closest('.tree-folder > .tree-folder-title > button.dropdown-toggle');
 		if (a) {
 			const icon = a.querySelector('.icon');
@@ -2158,7 +2162,9 @@ function load_more_posts() {
 
 		const streamFooterOld = streamFooter.querySelector('.stream-footer-inner');
 		const streamFooterNew = streamAdopted.querySelector('.stream-footer-inner');
-		streamFooter.replaceChild(streamFooterNew, streamFooterOld);
+		if (streamFooterOld !== null && streamFooterNew !== null) {
+			streamFooter.replaceChild(streamFooterNew, streamFooterOld);
+		}
 
 		const bigMarkAsRead = document.getElementById('bigMarkAsRead');
 		const readAll = document.querySelector('#nav_menu_read_all .read_all');
@@ -2234,8 +2240,12 @@ function faviconNbUnread(n) {
 		const t = document.querySelector('.category.all .title');
 		n = t ? str2int(t.getAttribute('data-unread')) : 0;
 	}
-	const svgBase = document.querySelector('template#dynamic_favicon_base').innerHTML;
-	const link = document.getElementById('favicon').cloneNode(true);
+	const dynamicFaviconBase = document.querySelector('template#dynamic_favicon_base');
+	if (!dynamicFaviconBase) {
+		return;
+	}
+	const svgBase = dynamicFaviconBase.innerHTML;
+	const link = document.getElementById('favicon')?.cloneNode(true);
 	if (link) {
 		let svgOutput = '';
 		if (n > 0) {
