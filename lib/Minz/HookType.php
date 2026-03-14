@@ -55,7 +55,6 @@ enum Minz_HookType: string {
 			case self::JsVars:
 			case self::NavReadingModes:
 			case self::ActionExecute:
-				return Minz_HookSignature::OneToOne;
 			case self::ViewModes:
 				return Minz_HookSignature::OneToOne;
 			case self::CustomFaviconBtnUrl:
