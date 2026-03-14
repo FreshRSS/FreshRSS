@@ -2768,7 +2768,7 @@ html.slider-active {
 	}
 
 	#nav_entries {
-		display: table !important;
+		display: flex !important;
 		width: 100%;
 	}
 
