@@ -258,7 +258,7 @@ abstract class Minz_Extension {
 	/**
 	 * Register a new hook.
 	 *
-	 * @param string $hook_name the hook name (must exist).
+	 * @param Minz_HookType|string $hook_name the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
 	 * @param int $priority the priority of the hook, default priority is 0, the higher the value the lower the priority
 	 */
