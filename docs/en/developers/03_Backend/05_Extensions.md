@@ -119,7 +119,7 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 * `getFileUrl(string $filename, bool $isStatic = true): string` will return the URL to a file in the `static` directory.
 	The first parameter is the name of the file (without `static/`).
 	Set `$isStatic` to true for user-independent files, and to `false` for files saved in a user’s own directory.
-* the `registerController` method register an extension controller in FreshRSS. The selected controller must be defined in the extension *Controllers* folder, its file name must be `\<name\>Controller.php`, and its class name must be `FreshExtension_\<name\>_Controller`.
+* the `registerController` method registers an extension controller in FreshRSS. The selected controller must be defined in the extension *Controllers* folder, its file name must be `<name>Controller.php`, and its class name must be `FreshExtension_<name>_Controller`.
 * the `registerViews` method registers the extension views in FreshRSS.
 * the `registerTranslates` method registers the extension translation files in FreshRSS.
 * the `registerHook` method registers hook actions in different part of the application.
@@ -203,7 +203,7 @@ Example response for a `query_icon_info` request:
 * `Minz_HookType::SimplepieBeforeInit` (`function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed): void`): Triggered before fetching an RSS/Atom feed with SimplePie.
 * `Minz_HookType::ViewModes` (`function(array<FreshRSS_ViewMode> $viewModes): array|null`): Allow extensions to register additional view modes than *normal*, *reader*, *global*.
 
-> ℹ️ Note: the `simplepie_*` hooks are only fired for feeds using SimplePie via pull, i.e. normal RSS/Atom feeds. This excludes WebSub (push), and the various HTML or JSON Web scraping methods.
+> ℹ️ Note: the `Minz_HookType::Simplepie*` hooks are only fired for feeds using SimplePie via pull, i.e. normal RSS/Atom feeds. This excludes WebSub (push), and the various HTML or JSON Web scraping methods.
 
 ### JavaScript events
 
@@ -221,7 +221,7 @@ if (document.readyState && document.readyState !== 'loading' && typeof window.co
 
 The following events are available:
 
-* `freshrss:globalContextLoaded`: will be dispatched after load the global `context` variable, useful for referencing variables injected with the `js_vars` hook.
+* `freshrss:globalContextLoaded`: will be dispatched after load the global `context` variable, useful for referencing variables injected with the `Minz_HookType::JsVars` hook.
 
 ### Injecting CDN content
 
