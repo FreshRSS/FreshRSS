@@ -87,7 +87,7 @@ abstract class Minz_ActionController {
 	 *
 	 * @param array<string,string> $policies An array where keys are directives and values are sources.
 	 */
-	protected function _csp(array $policies): void {
+	public function _csp(array $policies): void {
 		if (!isset($policies['default-src']) || !isset($policies['frame-ancestors'])) {
 			$action = Minz_Request::controllerName() . '#' . Minz_Request::actionName();
 			Minz_Log::warning(
