@@ -91,8 +91,7 @@ final class FeverDAO extends Minz_ModelPdo
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$contentField = $entryDAO::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$sql = <<<SQL
-			SELECT id, guid, title, author,
-				{$contentField}, link, date, is_read, is_favorite, id_feed, attributes
+			SELECT id, guid, title, author, {$contentField}, link, date, is_read, is_favorite, id_feed, attributes
 			FROM `_entry` WHERE
 			SQL;
 

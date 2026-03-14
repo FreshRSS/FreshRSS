@@ -235,7 +235,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			DELETE FROM `_category` WHERE id=:id
 			SQL;
 		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $stm->bindParam(':id', $id, PDO::PARAM_INT) && $stm->execute()) {
+		if ($stm !== false && $stm->bindValue(':id', $id, PDO::PARAM_INT) && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();

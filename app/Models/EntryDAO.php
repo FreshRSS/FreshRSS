@@ -203,34 +203,34 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$this->addEntryPrepared = $this->pdo->prepare($sql);
 		}
 		if ($this->addEntryPrepared != false) {
-			$this->addEntryPrepared->bindParam(':id', $valuesTmp['id']);
+			$this->addEntryPrepared->bindValue(':id', $valuesTmp['id']);
 			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 767);
 			$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
-			$this->addEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
+			$this->addEntryPrepared->bindValue(':guid', $valuesTmp['guid']);
 			$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 8192, 'UTF-8');
 			$valuesTmp['title'] = safe_utf8($valuesTmp['title']);
-			$this->addEntryPrepared->bindParam(':title', $valuesTmp['title']);
+			$this->addEntryPrepared->bindValue(':title', $valuesTmp['title']);
 			$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 1024, 'UTF-8');
 			$valuesTmp['author'] = safe_utf8($valuesTmp['author']);
-			$this->addEntryPrepared->bindParam(':author', $valuesTmp['author']);
+			$this->addEntryPrepared->bindValue(':author', $valuesTmp['author']);
 			$valuesTmp['content'] = safe_utf8($valuesTmp['content']);
-			$this->addEntryPrepared->bindParam(':content', $valuesTmp['content']);
+			$this->addEntryPrepared->bindValue(':content', $valuesTmp['content']);
 			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 16383);
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
-			$this->addEntryPrepared->bindParam(':link', $valuesTmp['link']);
-			$this->addEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
+			$this->addEntryPrepared->bindValue(':link', $valuesTmp['link']);
+			$this->addEntryPrepared->bindValue(':date', $valuesTmp['date'], PDO::PARAM_INT);
 			if (empty($valuesTmp['lastSeen'])) {
 				$valuesTmp['lastSeen'] = time();
 			}
-			$this->addEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+			$this->addEntryPrepared->bindValue(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
 			$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
-			$this->addEntryPrepared->bindParam(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
+			$this->addEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
 			$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;
-			$this->addEntryPrepared->bindParam(':is_favorite', $valuesTmp['is_favorite'], PDO::PARAM_INT);
-			$this->addEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
+			$this->addEntryPrepared->bindValue(':is_favorite', $valuesTmp['is_favorite'], PDO::PARAM_INT);
+			$this->addEntryPrepared->bindValue(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
 			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 2048, 'UTF-8');
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
-			$this->addEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
+			$this->addEntryPrepared->bindValue(':tags', $valuesTmp['tags']);
 			if (!isset($valuesTmp['attributes'])) {
 				$valuesTmp['attributes'] = [];
 			}
@@ -238,10 +238,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 
 			if (static::hasNativeHex()) {
-				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
+				$this->addEntryPrepared->bindValue(':hash', $valuesTmp['hash']);
 			} else {
 				$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
-				$this->addEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
+				$this->addEntryPrepared->bindValue(':hash', $valuesTmp['hashBin']);
 			}
 		}
 		if ($this->addEntryPrepared != false && $this->addEntryPrepared->execute()) {
@@ -326,20 +326,20 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if ($this->updateEntryPrepared != false) {
 			$valuesTmp['guid'] = substr($valuesTmp['guid'], 0, 767);
 			$valuesTmp['guid'] = safe_ascii($valuesTmp['guid']);
-			$this->updateEntryPrepared->bindParam(':guid', $valuesTmp['guid']);
+			$this->updateEntryPrepared->bindValue(':guid', $valuesTmp['guid']);
 			$valuesTmp['title'] = mb_strcut($valuesTmp['title'], 0, 8192, 'UTF-8');
 			$valuesTmp['title'] = safe_utf8($valuesTmp['title']);
-			$this->updateEntryPrepared->bindParam(':title', $valuesTmp['title']);
+			$this->updateEntryPrepared->bindValue(':title', $valuesTmp['title']);
 			$valuesTmp['author'] = mb_strcut($valuesTmp['author'], 0, 1024, 'UTF-8');
 			$valuesTmp['author'] = safe_utf8($valuesTmp['author']);
-			$this->updateEntryPrepared->bindParam(':author', $valuesTmp['author']);
+			$this->updateEntryPrepared->bindValue(':author', $valuesTmp['author']);
 			$valuesTmp['content'] = safe_utf8($valuesTmp['content']);
-			$this->updateEntryPrepared->bindParam(':content', $valuesTmp['content']);
+			$this->updateEntryPrepared->bindValue(':content', $valuesTmp['content']);
 			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 16383);
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
-			$this->updateEntryPrepared->bindParam(':link', $valuesTmp['link']);
-			$this->updateEntryPrepared->bindParam(':date', $valuesTmp['date'], PDO::PARAM_INT);
-			$this->updateEntryPrepared->bindParam(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+			$this->updateEntryPrepared->bindValue(':link', $valuesTmp['link']);
+			$this->updateEntryPrepared->bindValue(':date', $valuesTmp['date'], PDO::PARAM_INT);
+			$this->updateEntryPrepared->bindValue(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
 			if ($valuesTmp['lastModified'] === null) {
 				$this->updateEntryPrepared->bindValue(':last_modified', null, PDO::PARAM_NULL);
 			} else {
@@ -360,10 +360,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			} else {
 				$this->updateEntryPrepared->bindValue(':is_favorite', $valuesTmp['is_favorite'] ? 1 : 0, PDO::PARAM_INT);
 			}
-			$this->updateEntryPrepared->bindParam(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
+			$this->updateEntryPrepared->bindValue(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
 			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 2048, 'UTF-8');
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
-			$this->updateEntryPrepared->bindParam(':tags', $valuesTmp['tags']);
+			$this->updateEntryPrepared->bindValue(':tags', $valuesTmp['tags']);
 			if (!isset($valuesTmp['attributes'])) {
 				$valuesTmp['attributes'] = [];
 			}
@@ -371,10 +371,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 
 			if (static::hasNativeHex()) {
-				$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hash']);
+				$this->updateEntryPrepared->bindValue(':hash', $valuesTmp['hash']);
 			} else {
 				$valuesTmp['hashBin'] = hex2bin($valuesTmp['hash']);
-				$this->updateEntryPrepared->bindParam(':hash', $valuesTmp['hashBin']);
+				$this->updateEntryPrepared->bindValue(':hash', $valuesTmp['hashBin']);
 			}
 		}
 
@@ -724,7 +724,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				SQL;
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm !== false &&
-				$stm->bindParam(':id', $id_feed, PDO::PARAM_INT) &&
+				$stm->bindValue(':id', $id_feed, PDO::PARAM_INT) &&
 				$stm->execute())) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));

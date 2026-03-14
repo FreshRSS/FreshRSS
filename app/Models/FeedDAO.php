@@ -591,9 +591,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			SQL;
 
 		if (($stm = $this->pdo->prepare($sql)) !== false &&
-			$stm->bindParam(':id_feed1', $id, PDO::PARAM_INT) &&
-			$stm->bindParam(':id_feed2', $id, PDO::PARAM_INT) &&
-			$stm->bindParam(':limit', $n, PDO::PARAM_INT) &&
+			$stm->bindValue(':id_feed1', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':id_feed2', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':limit', $n, PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
@@ -632,7 +632,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$stm = $this->pdo->prepare($sql);
 		$this->pdo->beginTransaction();
 		if (!($stm !== false &&
-			$stm->bindParam(':id', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
 			$stm->execute())) {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
@@ -646,7 +646,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if (!($stm !== false &&
-			$stm->bindParam(':id', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
 			$stm->execute())) {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
