@@ -166,7 +166,7 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 			SQL;
 
 		$res = $this->fetchAssoc($sql);
-		if ($res == null) {
+		if (empty($res)) {
 			return [];
 		}
 		$periodMax = match ($period) {
