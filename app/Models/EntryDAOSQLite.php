@@ -133,7 +133,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			if ($stm === false ||
 				!$stm->bindValue(':is_read', $is_read ? 1 : 0, PDO::PARAM_INT) ||
 				!$stm->bindValue(':last_user_modified', time(), PDO::PARAM_INT) ||
-				!$stm->bindValue(':id', $ids, PDO::PARAM_STR) ||
+				!$stm->bindValue(':id', $ids, PDO::PARAM_STR) ||	// TODO: Test PDO::PARAM_INT on 32-bit platform
 				!$stm->bindValue(':previous_is_read', $is_read ? 0 : 1, PDO::PARAM_INT) ||
 				!$stm->execute()) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();

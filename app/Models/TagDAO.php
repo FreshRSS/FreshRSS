@@ -273,24 +273,14 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 		$sql = <<<'SQL'
 			SELECT COUNT(*) AS count FROM `_tag`
 			SQL;
-		$res = $this->fetchColumn($sql, 0);
-		if ($res !== null && isset($res[0])) {
-			return (int)$res[0];
-		}
-		$info = $this->pdo->errorInfo();
-		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
-		return -1;
+		return $this->fetchInt($sql) ?? -1;
 	}
 
 	public function countEntries(int $id): int {
 		$sql = <<<'SQL'
 			SELECT COUNT(*) AS count FROM `_entrytag` WHERE id_tag=:id_tag
 			SQL;
-		$res = $this->fetchColumn($sql, 0, [':id_tag' => $id]);
-		if (!isset($res[0])) {
-			return -1;
-		}
-		return (int)$res[0];
+		return $this->fetchInt($sql, [':id_tag' => $id]) ?? -1;
 	}
 
 	public function countNotRead(?int $id = null): int {
@@ -306,12 +296,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 				SQL;
 			$values[':id_tag'] = $id;
 		}
-
-		$res = $this->fetchColumn($sql, 0, $values);
-		if (!isset($res[0])) {
-			return -1;
-		}
-		return (int)$res[0];
+		return $this->fetchInt($sql, $values) ?? -1;
 	}
 
 	public function tagEntry(int $id_tag, string $id_entry, bool $checked = true): bool {

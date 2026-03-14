@@ -528,16 +528,14 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$sql = <<<'SQL'
 			SELECT COUNT(*) AS count FROM `_entry` WHERE id_feed=:id_feed
 			SQL;
-		$res = $this->fetchColumn($sql, 0, ['id_feed' => $id]);
-		return isset($res[0]) ? (int)($res[0]) : -1;
+		return $this->fetchInt($sql, ['id_feed' => $id]) ?? -1;
 	}
 
 	public function countNotRead(int $id): int {
 		$sql = <<<'SQL'
 			SELECT COUNT(*) AS count FROM `_entry` WHERE id_feed=:id_feed AND is_read=0
 			SQL;
-		$res = $this->fetchColumn($sql, 0, ['id_feed' => $id]);
-		return isset($res[0]) ? (int)($res[0]) : -1;
+		return $this->fetchInt($sql, ['id_feed' => $id]) ?? -1;
 	}
 
 	/**
@@ -733,7 +731,6 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		$sql = <<<'SQL'
 			SELECT COUNT(e.id) AS count FROM `_feed` e
 			SQL;
-		$res = $this->fetchColumn($sql, 0);
-		return is_numeric($res[0] ?? null) ? (int)$res[0] : 0;
+		return $this->fetchInt($sql) ?? -1;
 	}
 }

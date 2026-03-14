@@ -402,8 +402,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$sql = <<<'SQL'
 			SELECT COUNT(id) AS nb_entries FROM `_entrytmp`
 			SQL;
-		$res = $this->fetchColumn($sql, 0);
-		return isset($res[0]) ? (int)$res[0] : -1;
+		return $this->fetchInt($sql) ?? -1;
 	}
 
 	/**
@@ -553,7 +552,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($stm !== false &&
 				$stm->bindValue(':is_read', $is_read ? 1 : 0, PDO::PARAM_INT) &&
 				$stm->bindValue(':last_user_modified', time(), PDO::PARAM_INT) &&
-				$stm->bindValue(':id', $ids) &&
+				$stm->bindValue(':id', $ids, PDO::PARAM_STR) &&	// TODO: Test PDO::PARAM_INT on 32-bit platform
 				$stm->bindValue(':old_is_read', $is_read ? 0 : 1, PDO::PARAM_INT) &&
 				$stm->execute()) {
 				return $stm->rowCount();
@@ -2005,8 +2004,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				SQL;
 			$values[':priority'] = $minPriority;
 		}
-		$res = $this->fetchColumn($sql, 0, $values);
-		return isset($res[0]) ? (int)($res[0]) : -1;
+		return $this->fetchInt($sql, $values) ?? -1;
 	}
 
 	/** @return array{'all':int,'read':int,'unread':int} */

@@ -61,7 +61,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 
 	#[\Override]
 	protected function selectVersion(): string {
-		return $this->fetchValue('SELECT sqlite_version()') ?? '';
+		return $this->fetchString('SELECT sqlite_version()') ?? '';
 	}
 
 	#[\Override]

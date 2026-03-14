@@ -63,7 +63,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 
 	#[\Override]
 	protected function selectVersion(): string {
-		return $this->fetchValue('SELECT version()') ?? '';
+		return $this->fetchString('SELECT version()') ?? '';
 	}
 
 	#[\Override]

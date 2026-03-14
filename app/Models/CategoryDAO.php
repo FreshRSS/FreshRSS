@@ -415,16 +415,14 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		$sql = <<<'SQL'
 			SELECT COUNT(*) AS count FROM `_category`
 			SQL;
-		$res = $this->fetchColumn($sql, 0);
-		return isset($res[0]) ? (int)$res[0] : -1;
+		return $this->fetchInt($sql) ?? -1;
 	}
 
 	public function countFeed(int $id): int {
 		$sql = <<<'SQL'
 			SELECT COUNT(*) AS count FROM `_feed` WHERE category=:id
 			SQL;
-		$res = $this->fetchColumn($sql, 0, [':id' => $id]);
-		return isset($res[0]) ? (int)$res[0] : -1;
+		return $this->fetchInt($sql, [':id' => $id]) ?? -1;
 	}
 
 	public function countNotRead(int $id, int $minPriority = FreshRSS_Feed::PRIORITY_CATEGORY): int {
@@ -434,8 +432,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			WHERE f.category=:id AND e.is_read=0
 			AND f.priority>=:minPriority
 			SQL;
-		$res = $this->fetchColumn($sql, 0, [':id' => $id, ':minPriority' => $minPriority]);
-		return isset($res[0]) ? (int)$res[0] : -1;
+		return $this->fetchInt($sql, [':id' => $id, ':minPriority' => $minPriority]) ?? -1;
 	}
 
 	/** @return list<string> */
