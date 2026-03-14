@@ -13,11 +13,10 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	public function resetDefaultCategoryName(): bool {
 		//FreshRSS 1.15.1
 		$stm = $this->pdo->prepare('UPDATE `_category` SET name = :name WHERE id = :id');
-		if ($stm !== false) {
-			$stm->bindValue(':id', self::DEFAULTCATEGORYID, PDO::PARAM_INT);
-			$stm->bindValue(':name', self::DEFAULT_CATEGORY_NAME);
-		}
-		return $stm !== false && $stm->execute();
+		return $stm !== false &&
+			$stm->bindValue(':id', self::DEFAULTCATEGORYID, PDO::PARAM_INT) &&
+			$stm->bindValue(':name', self::DEFAULT_CATEGORY_NAME) &&
+			$stm->execute();
 	}
 
 	protected function addColumn(string $name): bool {
@@ -136,18 +135,15 @@ SQL;
 		if (!isset($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
-		if ($stm !== false) {
-			if (!empty($valuesTmp['id'])) {
-				$stm->bindValue(':id', $valuesTmp['id'], PDO::PARAM_INT);
-			}
-			$stm->bindValue(':name1', $valuesTmp['name'], PDO::PARAM_STR);
-			$stm->bindValue(':kind', $valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL, PDO::PARAM_INT);
-			$attributes = is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
-				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-			$stm->bindValue(':attributes', $attributes, PDO::PARAM_STR);
-			$stm->bindValue(':name2', $valuesTmp['name'], PDO::PARAM_STR);
-		}
-		if ($stm !== false && $stm->execute() && $stm->rowCount() > 0) {
+
+		if ($stm !== false &&
+			(empty($valuesTmp['id']) || $stm->bindValue(':id', $valuesTmp['id'], PDO::PARAM_INT)) &&
+			$stm->bindValue(':name1', $valuesTmp['name'], PDO::PARAM_STR) &&
+			$stm->bindValue(':kind', $valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL, PDO::PARAM_INT) &&
+			$stm->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), PDO::PARAM_STR) &&
+			$stm->bindValue(':name2', $valuesTmp['name'], PDO::PARAM_STR) &&
+			$stm->execute() && $stm->rowCount() > 0) {
 			if (empty($valuesTmp['id'])) {
 				// Auto-generated ID
 				$catId = $this->pdo->lastInsertId('`_category_id_seq`');
