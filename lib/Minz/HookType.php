@@ -33,8 +33,6 @@ enum Minz_HookType: string {
 
 	public function signature(): Minz_HookSignature {
 		switch ($this) {
-			case self::ActionExecute:
-				return Minz_HookSignature::OneToOne;
 			case self::ApiMisc:
 			case self::FreshrssInit:
 			case self::FreshrssUserMaintenance:
@@ -56,6 +54,8 @@ enum Minz_HookType: string {
 			case self::FeedBeforeInsert:
 			case self::JsVars:
 			case self::NavReadingModes:
+			case self::ActionExecute:
+				return Minz_HookSignature::OneToOne;
 			case self::ViewModes:
 				return Minz_HookSignature::OneToOne;
 			case self::CustomFaviconBtnUrl:
