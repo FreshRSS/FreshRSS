@@ -1938,7 +1938,7 @@ a.website:hover .favicon {
 
 #nav_entries button {
 	background-color: transparent;
-	width: 33.3%;
+	flex: 1;
 	height: 3rem;
 	border: 0;
 	cursor: pointer;
