@@ -39,7 +39,9 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function testConnection(): string {
 		try {
-			$sql = 'SELECT 1';
+			$sql = <<<'SQL'
+				SELECT 1
+				SQL;
 			$stm = $this->pdo->query($sql);
 			if ($stm === false) {
 				return 'Error during SQL connection test!';
@@ -53,7 +55,9 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function exits(): bool {
-		$sql = 'SELECT * FROM `_entry` LIMIT 1';
+		$sql = <<<'SQL'
+			SELECT * FROM `_entry` LIMIT 1
+			SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
@@ -230,7 +234,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	protected function selectVersion(): string {
-		return $this->fetchValue('SELECT version()') ?? '';
+		return $this->fetchString('SELECT version()') ?? '';
 	}
 
 	public function version(): string {
@@ -258,7 +262,9 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	 * @return bool true if the database PDO driver returns typed integer values as it should, false otherwise.
 	 */
 	final public function testTyping(): bool {
-		$sql = 'SELECT 2 + 3';
+		$sql = <<<'SQL'
+			SELECT 2 + 3
+			SQL;
 		if (($stm = $this->pdo->query($sql)) !== false) {
 			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
 			return ($res[0] ?? null) === 5;
@@ -271,8 +277,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 		// MariaDB does not refresh size information automatically
 		$sql = <<<'SQL'
-ANALYZE TABLE `_category`, `_feed`, `_entry`, `_entrytmp`, `_tag`, `_entrytag`
-SQL;
+			ANALYZE TABLE `_category`, `_feed`, `_entry`, `_entrytmp`, `_tag`, `_entrytag`
+			SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
 			$stm->fetchAll();
@@ -280,12 +286,14 @@ SQL;
 
 		//MySQL:
 		$sql = <<<'SQL'
-SELECT SUM(DATA_LENGTH + INDEX_LENGTH + DATA_FREE)
-FROM information_schema.TABLES WHERE TABLE_SCHEMA=:table_schema
-SQL;
+			SELECT SUM(DATA_LENGTH + INDEX_LENGTH + DATA_FREE)
+			FROM information_schema.TABLES WHERE TABLE_SCHEMA=:table_schema
+			SQL;
 		$values = [':table_schema' => $db['base']];
 		if (!$all) {
-			$sql .= ' AND table_name LIKE :table_name';
+			$sql .= "\n" . <<<'SQL'
+				AND table_name LIKE :table_name
+				SQL;
 			$values[':table_name'] = addcslashes($this->pdo->prefix(), '\\%_') . '%';
 		}
 		$res = $this->fetchColumn($sql, 0, $values);
@@ -297,7 +305,9 @@ SQL;
 		$tables = ['category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag'];
 
 		foreach ($tables as $table) {
-			$sql = 'OPTIMIZE TABLE `_' . $table . '`';	//MySQL
+			$sql = <<<SQL
+				OPTIMIZE TABLE `_{$table}`
+				SQL;	//MySQL
 			$stm = $this->pdo->query($sql);
 			if ($stm === false || $stm->fetchAll(PDO::FETCH_ASSOC) == false) {
 				$ok = false;

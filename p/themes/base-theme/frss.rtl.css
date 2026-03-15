@@ -1924,11 +1924,10 @@ a.website:hover .favicon {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	display: table;
+	display: flex;
 	position: fixed;
 	bottom: 0; right: 0;
 	width: 300px;
-	table-layout: fixed;
 	padding-bottom: env(safe-area-inset-bottom);
 	z-index: 50;
 }
@@ -1939,8 +1938,7 @@ a.website:hover .favicon {
 
 #nav_entries button {
 	background-color: transparent;
-	display: table-cell;
-	width: 33.3%;
+	flex: 1;
 	height: 3rem;
 	border: 0;
 	cursor: pointer;
@@ -2769,7 +2767,7 @@ html.slider-active {
 	}
 
 	#nav_entries {
-		display: table !important;
+		display: flex !important;
 		width: 100%;
 	}
 
