@@ -1925,7 +1925,6 @@ a.website:hover .favicon {
 /*=== Navigation menu (for articles) */
 #nav_entries {
 	display: flex;
-	justify-content: space-evenly;
 	position: fixed;
 	bottom: 0; left: 0;
 	width: 300px;
