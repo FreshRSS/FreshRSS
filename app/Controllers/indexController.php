@@ -293,7 +293,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			case 'Z':	// All including PRIORITY_HIDDEN
 				$this->view->categories = FreshRSS_Context::categories();
 				break;
-			case 'c':
+			case 'c':	// Category
 				$cat = FreshRSS_Context::categories()[$id] ?? null;
 				if ($cat == null) {
 					Minz_Error::error(404);
@@ -301,7 +301,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				}
 				$this->view->categories = [$cat->id() => $cat];
 				break;
-			case 'f':
+			case 'f':	// Feed
 				// We most likely already have the feed object in cache
 				$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id);
 				if ($feed === null) {
@@ -314,9 +314,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				}
 				$this->view->feeds = [$feed->id() => $feed];
 				break;
-			case 's':
-			case 't':
-			case 'T':
 			default:
 				Minz_Error::error(404);
 				return;
