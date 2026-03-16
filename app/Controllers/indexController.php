@@ -111,10 +111,17 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$id = Minz_Request::paramInt('id');
 		if ($id !== 0) {
-			$view = Minz_Request::paramString('a');
-			$url_redirect = ['c' => 'subscription', 'a' => 'feed', 'params' => ['id' => (string)$id, 'from' => $view]];
-			Minz_Request::forward($url_redirect, true);
-			return;
+			if (Minz_Request::paramString('type') === 'tag') {
+				$tagDAO = FreshRSS_Factory::createTagDao();
+				$tag = $tagDAO->searchById($id);
+				$this->view->tag = $tag;
+			} else {
+				$feedDAO = FreshRSS_Factory::createFeedDao();
+				$feed = $feedDAO->searchById($id);
+				$this->view->feed = $feed;
+			}
+			$this->view->displaySlider = true;
+			$this->view->cfrom = Minz_Request::actionName();
 		}
 
 		try {

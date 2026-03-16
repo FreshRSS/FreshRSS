@@ -2069,6 +2069,7 @@ html.slider-active {
 #slider.active:target {
 	width: 750px;
 	box-shadow: 3px 3px 5px var(--frss-box-shadow-color-transparent);
+	outline: none;
 }
 
 #slider.sliding {

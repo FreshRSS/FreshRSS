@@ -2,7 +2,7 @@
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	if ($this->feed === null) {
-		return;
+	return;
 	}
 ?>
 <div class="post" id="feed_update" data-feed-id="<?= $this->feed->id() ?>">
@@ -24,14 +24,22 @@
 
 	<?php
 	$from = Minz_Request::paramString('from');
+	$slider = ['#', 'slider'];
+	$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
+	if (!$ajax) {
+		$from = 'feed';
+		$slider = [];
+	} elseif ($from === '') {
+		$from = $this->cfrom ?: 'index';
+	}
 	if ($from === '') {
-		$url = _url('subscription', 'feed', 'id', $this->feed->id(), '#', 'slider');
+		$url = _url('subscription', 'feed', 'id', $this->feed->id(), ...$slider);
 	} else {
 		$get = Minz_Request::paramString('get');
 		if ($get === '') {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, '#', 'slider');
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, ...$slider);
 		} else {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, '#', 'slider');
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, ...$slider);
 		}
 	}
 	?>

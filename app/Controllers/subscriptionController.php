@@ -375,13 +375,16 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				case 'reader':
 					$get = Minz_Request::paramString('get');
 					if ($get !== '') {
-						$url_redirect = ['c' => 'index', 'a' => $from, 'params' => ['get' => $get]];
+						$url_redirect = ['c' => 'index', 'a' => $from, 'params' => ['id' => $id, 'get' => $get]];
 					} else {
-						$url_redirect = ['c' => 'index', 'a' => $from];
+						$url_redirect = ['c' => 'index', 'a' => $from, 'params' => ['id' => $id]];
 					}
 					break;
-				default:
+				case 'index':
 					$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id]];
+					break;
+				default:
+					$url_redirect = ['c' => 'subscription', 'a' => 'feed', 'params' => ['id' => $id]];
 			}
 
 			if ($favicon_uploaded && !$resetFavicon) {
