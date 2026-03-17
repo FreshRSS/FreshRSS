@@ -381,7 +381,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 					}
 					break;
 				case 'index':
-					$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id]];
+					$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id, 'error' => Minz_Request::paramBoolean('error') ? 1 : 0]];
 					break;
 				default:
 					$url_redirect = ['c' => 'subscription', 'a' => 'feed', 'params' => ['id' => $id]];

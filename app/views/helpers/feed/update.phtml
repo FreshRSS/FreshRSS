@@ -37,7 +37,7 @@
 	} else {
 		$get = Minz_Request::paramString('get');
 		if ($get === '') {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, ...$slider);
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'error', Minz_Request::paramBoolean('error') ? 1 : 0, ...$slider);
 		} else {
 			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, ...$slider);
 		}
