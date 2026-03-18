@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'Aktualizovat OPML',
 		'remove' => 'Odebrat',
 		'rename' => 'Přejmenovat',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'Zobrazit webovou stránku',
 		'submit' => 'Odeslat',
 		'truncate' => 'Odstranit všechny články',

@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'OPMLをリフレッシュする',
 		'remove' => '消去',
 		'rename' => '名前を変更する',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'Webサイトを開く',
 		'submit' => '保存',
 		'truncate' => 'すべての記事を消去する',

@@ -634,7 +634,7 @@ function printStep2(): void {
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important" tabindex="8" ><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn" tabindex="9" ><?= _t('gen.action.cancel') ?></button>
+				<button type="reset" class="btn" tabindex="9" ><?= _t('gen.action.reset') ?></button>
 				<?php if ($s2['all'] == 'ok') { ?>
 				<a class="next-step" href="?step=3" tabindex="10" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>
@@ -702,7 +702,7 @@ function printStep3(): void {
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important" tabindex="5" ><?= _t('gen.action.submit') ?></button>
-				<button type="reset" class="btn" tabindex="6" ><?= _t('gen.action.cancel') ?></button>
+				<button type="reset" class="btn" tabindex="6" ><?= _t('gen.action.reset') ?></button>
 				<?php if ($s3['all'] == 'ok') { ?>
 				<a class="next-step" href="?step=4" tabindex="7" ><?= _t('install.action.next_step') ?></a>
 				<?php } ?>

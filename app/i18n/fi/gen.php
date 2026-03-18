@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'Päivitä OPML',
 		'remove' => 'Poista',
 		'rename' => 'Nimeä uudelleen',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'Siirry sivustolle',
 		'submit' => 'Lähetä',
 		'truncate' => 'Poista kaikki artikkelit',

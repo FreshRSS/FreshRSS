@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'Rafraîchir OPML',
 		'remove' => 'Supprimer',
 		'rename' => 'Renommer',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'Voir le site',
 		'submit' => 'Valider',
 		'truncate' => 'Supprimer tous les articles',

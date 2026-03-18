@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => '更新訂閱源動態列表',
 		'remove' => '刪除',
 		'rename' => '重命名',
+		'reset' => 'Reset',	// TODO
 		'see_website' => '網站中查看',
 		'submit' => '提交',
 		'truncate' => '刪除所有文章',

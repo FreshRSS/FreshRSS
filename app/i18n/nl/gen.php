@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'OPML vernieuwen',
 		'remove' => 'Verwijderen',
 		'rename' => 'Hernoemen',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',
 		'truncate' => 'Verwijder alle artikelen',

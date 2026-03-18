@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => '刷新订阅源动态列表',
 		'remove' => '删除',
 		'rename' => '重命名',
+		'reset' => 'Reset',	// TODO
 		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',

@@ -325,3 +325,4 @@ People are sorted by name so please keep this order.
 * [нездалисько](https://github.com/crisukbot): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:crisukbot), [Web](https://noleron.com/)
 * [石渠清心](https://github.com/Felix2yu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Felix2yu), [Web](https://yufei.im/)
 * [xtmd](https://github.com/xtmd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xtmd), [Web](https://iblog.cc/)
+* [matheusroberson](https://github.com/matheusroberson): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:matheusroberson)

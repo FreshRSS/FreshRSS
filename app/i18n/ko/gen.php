@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'OPML 새로고침',
 		'remove' => '삭제',
 		'rename' => '이름 바꾸기',
+		'reset' => 'Reset',	// TODO
 		'see_website' => '웹사이트 열기',
 		'submit' => '설정 저장',
 		'truncate' => '모든 글 삭제',

@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'Pārlādēt OPML',
 		'remove' => 'Noņemt',
 		'rename' => 'Pārdēvēt',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'Skatīt mājaslapu',
 		'submit' => 'Iesniegt',
 		'truncate' => 'Izdzēst visus rakstus',

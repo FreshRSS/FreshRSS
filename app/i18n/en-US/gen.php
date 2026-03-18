@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'Refresh OPML',	// IGNORE
 		'remove' => 'Remove',	// IGNORE
 		'rename' => 'Rename',	// IGNORE
+		'reset' => 'Reset',	// IGNORE
 		'see_website' => 'See website',	// IGNORE
 		'submit' => 'Submit',	// IGNORE
 		'truncate' => 'Delete all articles',	// IGNORE

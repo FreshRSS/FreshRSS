@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'Φρεσκάρισμα OPML',
 		'remove' => 'Αφαίρεση',
 		'rename' => 'Μετονομασία',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'Προβολή ιστοσελίδας',
 		'submit' => 'Καταχώρηση',
 		'truncate' => 'Διαγραφή όλων των άρθρων',

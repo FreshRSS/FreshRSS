@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'Refresh OPML',	// TODO
 		'remove' => 'Remove',	// TODO
 		'rename' => 'Rename',	// TODO
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'ראו אתר',
 		'submit' => 'אישור',
 		'truncate' => 'מחיקת כל המאמרים',

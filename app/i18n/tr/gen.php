@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'OPML’yi yenile',
 		'remove' => 'Kaldır',
 		'rename' => 'Yeniden adlandır',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'Web sitesini gör',
 		'submit' => 'Gönder',
 		'truncate' => 'Tüm makaleleri sil',

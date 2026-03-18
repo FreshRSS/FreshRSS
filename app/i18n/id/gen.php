@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'Segarkan OPML',
 		'remove' => 'Hapus',
 		'rename' => 'Ubah nama',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'Lihat situs',
 		'submit' => 'Kirim',
 		'truncate' => 'Hapus semua artikel',

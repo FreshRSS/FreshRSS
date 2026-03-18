@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => 'OPML frissítése',
 		'remove' => 'Eltávolít',
 		'rename' => 'Átnevez',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'Ugrás a forrásra',
 		'submit' => 'Mentés',
 		'truncate' => 'Minden cikk törlése',
