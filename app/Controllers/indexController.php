@@ -149,7 +149,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		if (FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
-		FreshRSS_View::prependTitle($title . ' · ');
+		if (strlen($title) > 0) {
+			FreshRSS_View::prependTitle($title . ' · ');
+		}
 
 		if (FreshRSS_Context::$id_max === '0') {
 			FreshRSS_Context::$id_max = uTimeString();
