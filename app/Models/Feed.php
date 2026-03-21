@@ -53,6 +53,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private int $kind = 0;
 	private int $categoryId = 0;
 	private ?FreshRSS_Category $category = null;
+	private array $categoryIds = [];
 	private int $nbEntries = -1;
 	private int $nbNotRead = -1;
 	private string $name = '';
@@ -292,6 +293,15 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->category?->id() ?: $this->categoryId;
 	}
 
+	/** @return array<int> */
+	public function categoryIds(): array {
+		if (empty($this->categoryIds)) {
+			$primary = $this->categoryId();
+			return $primary > 0 ? [$primary] : [];
+		}
+		return $this->categoryIds;
+	}
+
 	public function name(bool $raw = false): string {
 		return $raw || $this->name != '' ? $this->name : (preg_replace('%^https?://(www[.])?%i', '', $this->url) ?? '');
 	}
@@ -487,6 +497,15 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _categoryId(int|string $id): void {
 		$this->category = null;
 		$this->categoryId = (int)$id;
+	}
+
+	/** @param array<int> $ids */
+	public function _categoryIds(array $ids): void {
+		$this->categoryIds = array_values(array_unique(array_map('intval', $ids)));
+		if (!empty($this->categoryIds)) {
+			$this->category = null;
+			$this->categoryId = $this->categoryIds[0];
+		}
 	}
 
 	public function _name(string $value): void {
