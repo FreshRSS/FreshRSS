@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => '사용자 쿼리',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => '이 쿼리는 더 이상 유효하지 않습니다. 해당하는 카테고리나 피드가 삭제되었습니다.',
 		'description' => 'Description',	// TODO
 		'filter' => array(

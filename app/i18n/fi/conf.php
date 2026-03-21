@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Käyttäjän kyselyt',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Kysely ei enää kelpaa. Siinä käytetty luokka tai syöte on poistettu.',
 		'description' => 'Kuvaus',
 		'filter' => array(

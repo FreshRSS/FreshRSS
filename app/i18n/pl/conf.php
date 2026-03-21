@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Zapisane zapytania',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'To zapytanie nie jest już poprawne. Kategoria lub kanał do którego się odnosi już nie istnieje.',
 		'description' => 'Opis',
 		'filter' => array(

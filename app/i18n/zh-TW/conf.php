@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => '自定義查詢',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => '此查詢不再有效。相關的分類或訂閱源已被刪除。',
 		'description' => 'Description',	// TODO
 		'filter' => array(
