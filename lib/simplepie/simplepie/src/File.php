@@ -111,11 +111,9 @@ class File implements Response
             if (!$force_fsockopen && function_exists('curl_exec')) {
                 $resolve = false; // FreshRSS
                 if (empty($curl_options[CURLOPT_PROXY] ?? null)) { // FreshRSS
-                    $resolve = \FreshRSS_http_Util::getCurlResolveInfo($url);
-                    if ($resolve === null) {
-                        \Minz_Log::warning("Fetching $url is not allowed, because the host's IP is not on the allowlist.");
-                        return;
-                    } elseif ($resolve === false) {
+                    if (!$this->is_url_resolve_allowed($url)) {
+                        $this->error = 'URL is not allowed to be resolved: ' . \SimplePie\Misc::url_remove_credentials($url);
+                        $this->success = false;
                         return;
                     }
                     $curl_options[CURLOPT_RESOLVE] = $resolve; // Prevent DNS rebinding
@@ -191,7 +189,8 @@ class File implements Response
                     if ($parser->parse()) {
                         $this->set_headers($parser->headers);
                         $this->body = $responseBody;
-                        if ((in_array($this->status_code, [300, 301, 302, 303, 307]) || $this->status_code > 307 && $this->status_code < 400) && ($locationHeader = $this->get_header_line('location')) !== '' && ($this->redirects < $redirects || $redirects === -1)) { // FreshRSS: added infinite redirects for -1
+                        if ((in_array($this->status_code, [300, 301, 302, 303, 307]) || $this->status_code > 307 && $this->status_code < 400) &&
+                            ($locationHeader = $this->get_header_line('location')) !== '' && ($this->redirects < $redirects || $redirects === -1)) { // FreshRSS: added infinite redirects for -1
                             $this->redirects++;
                             $location = \SimplePie\Misc::absolutize_url($locationHeader, $url);
                             if ($location === false) {
@@ -355,6 +354,16 @@ class File implements Response
      */
     protected function on_http_response($response, array $curl_options = []): void
     {
+    }
+
+    /**
+     * Event to allow inheriting classes to block fetching certain URLs.
+     * @param string $url
+     * @return bool Whether the URL is allowed to be resolved and fetched.
+     */
+    protected function is_url_resolve_allowed(string $url): bool
+    {
+       return true;
     }
 
     public function get_permanent_uri(): string
