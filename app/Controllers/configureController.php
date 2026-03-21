@@ -588,11 +588,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		}
 
 		$queries = FreshRSS_Context::userConf()->queries;
-		$id = sizeOf($queries);
+		$id = count($queries);
 
 		/** @var array{get?:string,name?:string,order?:string,search?:string,state?:int,shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $params */
 		$params = Minz_Request::paramArray('query') ?: array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
-		$name = $params['name'] ?: _t('conf.query.number', $id + 1);
+		$name = ($params['name'] ?? '') ?: _t('conf.query.number', $id + 1);
 		$queryParams = [];
 
 		if (is_string($params['get'] ?? null)) {
@@ -617,10 +617,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		if (is_string($params['imageUrl'] ?? null)) {
 			$queryParams['imageUrl'] = $params['imageUrl'];
 		}
-		if (ctype_digit($params['shareOpml'] ?? null)) {
+		if (ctype_digit($params['shareOpml'] ?? '')) {
 			$queryParams['shareOpml'] = (bool)$params['shareOpml'];
 		}
-		if (ctype_digit($params['shareRss'] ?? null)) {
+		if (ctype_digit($params['shareRss'] ?? '')) {
 			$queryParams['shareRss'] = (bool)$params['shareRss'];
 		}
 
