@@ -630,7 +630,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_Context::userConf()->save();
 
 		Minz_Request::good(
-			_t('feedback.conf.query_created', $queries[$id]['name']),
+			_t('feedback.conf.query_created', $name),
 			[ 'c' => 'configure', 'a' => 'queries' ],
 			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 		);
