@@ -595,34 +595,32 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$name = $params['name'] ?: _t('conf.query.number', $id + 1);
 		$queryParams = [];
 
-		if (!empty($params['get']) && is_string($params['get'])) {
+		if (is_string($params['get'] ?? null)) {
 			$queryParams['get'] = $params['get'];
 		}
-		if (!empty($params['order']) && is_string($params['order'])) {
+		if (is_string($params['order'] ?? null)) {
 			$queryParams['order'] = $params['order'];
 		}
-		if (!empty($params['search']) && is_string($params['search'])) {
+		if (is_string($params['search'] ?? null)) {
 			// Search must be as plain text to be XML-encoded or URL-encoded depending on the situation
 			$queryParams['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
 		}
-		if (!empty($params['state']) && is_array($params['state'])) {
+		if (is_array($params['state'] ?? null)) {
 			$queryParams['state'] = (int)array_sum(array_map('intval', $params['state']));
 		}
-		if (empty($params['token']) || !is_string($params['token'])) {
-			$queryParams['token'] = FreshRSS_UserQuery::generateToken($name);
-		}
+		$queryParams['token'] = FreshRSS_UserQuery::generateToken($name);
 		$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
 		$queryParams['name'] = $name;
-		if (!empty($params['description']) && is_string($params['description'])) {
+		if (is_string($params['description'] ?? null)) {
 			$queryParams['description'] = $params['description'];
 		}
-		if (!empty($params['imageUrl']) && is_string($params['imageUrl'])) {
+		if (is_string($params['imageUrl'] ?? null)) {
 			$queryParams['imageUrl'] = $params['imageUrl'];
 		}
-		if (!empty($params['shareOpml']) && ctype_digit($params['shareOpml'])) {
+		if (ctype_digit($params['shareOpml'] ?? null)) {
 			$queryParams['shareOpml'] = (bool)$params['shareOpml'];
 		}
-		if (!empty($params['shareRss']) && ctype_digit($params['shareRss'])) {
+		if (ctype_digit($params['shareRss'] ?? null)) {
 			$queryParams['shareRss'] = (bool)$params['shareRss'];
 		}
 
