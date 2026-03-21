@@ -477,7 +477,24 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 		/** @var list<array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority:int,
 		 * 	pathEntries:string,httpAuth:string,error:int,ttl:int,attributes?:string,cache_nbUnreads:int,cache_nbEntries:int}> $res */
-		return self::daoToFeeds($res);
+		$feeds = self::daoToFeeds($res);
+		// Populate categoryIds from join table in one query
+		$sql2 = <<<'SQL'
+			SELECT feed_id, category_id FROM `_feed_category`
+			SQL;
+		$catRows = $this->fetchAssoc($sql2);
+		if (is_array($catRows)) {
+			$catMap = [];
+			foreach ($catRows as $row) {
+				$catMap[(int)$row['feed_id']][] = (int)$row['category_id'];
+			}
+			foreach ($feeds as $feed) {
+				if (isset($catMap[$feed->id()])) {
+					$feed->_categoryIds($catMap[$feed->id()]);
+				}
+			}
+		}
+		return $feeds;
 	}
 
 	/** @return array<string,string> */
