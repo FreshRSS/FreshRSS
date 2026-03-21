@@ -102,15 +102,15 @@ CREATE TABLE IF NOT EXISTS `entrytag` (
 );
 CREATE INDEX IF NOT EXISTS entrytag_id_entry_index ON `entrytag` (`id_entry`);
 
-CREATE TABLE IF NOT EXISTS `feed_category` (
+CREATE TABLE IF NOT EXISTS `_feed_category` (
 	`feed_id`     INTEGER NOT NULL,
 	`category_id` INTEGER NOT NULL,
 	PRIMARY KEY (`feed_id`, `category_id`),
-	FOREIGN KEY (`feed_id`) REFERENCES `feed`(`id`) ON DELETE CASCADE,
-	FOREIGN KEY (`category_id`) REFERENCES `category`(`id`) ON DELETE CASCADE
+	FOREIGN KEY (`feed_id`) REFERENCES `_feed`(`id`) ON DELETE CASCADE,
+	FOREIGN KEY (`category_id`) REFERENCES `_category`(`id`) ON DELETE CASCADE
 );
-INSERT OR IGNORE INTO `feed_category` (feed_id, category_id)
-	SELECT id, category FROM `feed` WHERE category IS NOT NULL AND category != 0;
+INSERT OR IGNORE INTO `_feed_category` (feed_id, category_id)
+	SELECT id, category FROM `_feed` WHERE category IS NOT NULL AND category != 0;
 SQL;
 
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
