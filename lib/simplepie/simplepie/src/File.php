@@ -111,8 +111,13 @@ class File implements Response
             if (!$force_fsockopen && function_exists('curl_exec')) {
                 $resolve = false; // FreshRSS
                 if (empty($curl_options[CURLOPT_PROXY] ?? null)) { // FreshRSS
-                    if (!$this->is_url_resolve_allowed($url)) {
+                    $resolve = $this->get_curl_resolve_info($url);
+                    if ($resolve === null) {
                         $this->error = 'URL is not allowed to be resolved: ' . \SimplePie\Misc::url_remove_credentials($url);
+                        $this->success = false;
+                        return;
+                    } else if ($resolve === false) {
+                        $this->error = 'Failed to resolve domain: ' . \SimplePie\Misc::url_remove_credentials($url);
                         $this->success = false;
                         return;
                     }
@@ -357,13 +362,13 @@ class File implements Response
     }
 
     /**
-     * Event to allow inheriting classes to block fetching certain URLs.
+     * Event to allow inheriting classes to control fetching certain URLs.
      * @param string $url
-     * @return bool Whether the URL is allowed to be resolved and fetched.
+     * @return array<string>|null|bool A value for CURLOPT_RESOLVE as an array, null if a disallowed IP address was found in DNS records, false if the domain failed to resolve
      */
-    protected function is_url_resolve_allowed(string $url): bool
+    protected function get_curl_resolve_info(string $url): array|null|false
     {
-       return true;
+       return [];
     }
 
     public function get_permanent_uri(): string

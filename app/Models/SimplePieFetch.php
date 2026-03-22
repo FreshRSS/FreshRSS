@@ -35,15 +35,8 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 	}
 
 	#[\Override]
-	protected function is_url_resolve_allowed(string $url): bool {
-		$resolve = \FreshRSS_http_Util::getCurlResolveInfo($url);
-		if ($resolve === null) {
-			Minz_Log::warning('Fetching that URL is not allowed, because the host’s IP is not on the allowlist: ' . \SimplePie\Misc::url_remove_credentials($url));
-			return false;
-		} elseif ($resolve === false) {
-			return false;
-		}
-		return parent::is_url_resolve_allowed($url);
+	protected function get_curl_resolve_info(string $url): array|null|false {
+		return FreshRSS_http_Util::getCurlResolveInfo($url);
 	}
 
 	#[\Override]

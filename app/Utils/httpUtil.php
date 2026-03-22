@@ -442,7 +442,7 @@ final class FreshRSS_http_Util {
 		}
 		while (true) {
 			$url = is_string($url) ? $url : '';
-			$resolve = false;
+			$resolve = [];
 			if (empty($options[CURLOPT_PROXY] ?? null)) {
 				$resolve = self::getCurlResolveInfo($url);
 				if ($resolve === null) {
