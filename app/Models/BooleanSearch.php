@@ -516,6 +516,29 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		return $result;
 	}
 
+	/**
+	 * Return the minimum visibility (priority) level needed for this Boolean search, or null if it does not require any specific visibility level.
+	 * For instance, if the search includes some feed IDs then it will return PRIORITY_HIDDEN,
+	 * and if it includes some category IDs then it will return PRIORITY_CATEGORY.
+	 */
+	public function needVisibility(): ?int {
+		$minVisibility = FreshRSS_Feed::PRIORITY_IMPORTANT + 1;
+		foreach ($this->searches as $search) {
+			if ($search instanceof FreshRSS_BooleanSearch) {
+				$visibility = $search->needVisibility();
+				if ($visibility !== null) {
+					$minVisibility = min($minVisibility, $visibility);
+				}
+			} elseif ($search instanceof FreshRSS_Search) {
+				$visibility = $search->needVisibility();
+				if ($visibility !== null) {
+					$minVisibility = min($minVisibility, $visibility);
+				}
+			}
+		}
+		return $minVisibility < FreshRSS_Feed::PRIORITY_IMPORTANT ? $minVisibility : null;
+	}
+
 	private ?string $expanded = null;
 
 	#[\Override]

@@ -89,33 +89,45 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 				$type_get = $get[0];
 				$get = (int)substr($get, 2);
 				switch ($type_get) {
-					case 'c':
-						$entryDAO->markReadCat($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					case 'c':	// Category
+						$entryDAO->markReadCat($get, $id_max,
+							priorityMin: min(FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT),
+							filters: FreshRSS_Context::$search, state: FreshRSS_Context::$state, is_read: $is_read);
 						break;
-					case 'f':
+					case 'f':	// Feed
 						$entryDAO->markReadFeed($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						break;
-					case 's':
-						$entryDAO->markReadEntries($id_max, true, null, FreshRSS_Feed::PRIORITY_IMPORTANT,
-							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					case 's':	// Starred. Deprecated: use $state instead
+						$entryDAO->markReadEntries($id_max, onlyFavorites: true,
+							priorityMin: null,
+							priorityMax: null,
+							filters: FreshRSS_Context::$search, state: FreshRSS_Context::$state, is_read: $is_read);
 						break;
-					case 'a':
-						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Feed::PRIORITY_IMPORTANT,
-							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					case 'a':	// All PRIORITY_MAIN_STREAM
+						$entryDAO->markReadEntries($id_max, onlyFavorites: false,
+							priorityMin: min(FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT),
+							priorityMax: null,
+							filters: FreshRSS_Context::$search, state: FreshRSS_Context::$state, is_read: $is_read);
 						break;
-					case 'A':
-						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Feed::PRIORITY_IMPORTANT,
-							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					case 'A':	// All except PRIORITY_HIDDEN
+						$entryDAO->markReadEntries($id_max, onlyFavorites: false,
+							priorityMin: min(FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT),
+							priorityMax: null,
+							filters: FreshRSS_Context::$search, state: FreshRSS_Context::$state, is_read: $is_read);
 						break;
-					case 'Z':
-						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_HIDDEN, FreshRSS_Feed::PRIORITY_IMPORTANT,
-							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					case 'Z':	// All including PRIORITY_HIDDEN
+						$entryDAO->markReadEntries($id_max, onlyFavorites: false,
+							priorityMin: FreshRSS_Feed::PRIORITY_HIDDEN,
+							priorityMax: null,
+							filters: FreshRSS_Context::$search, state: FreshRSS_Context::$state, is_read: $is_read);
 						break;
-					case 'i':
-						$entryDAO->markReadEntries($id_max, false, FreshRSS_Feed::PRIORITY_IMPORTANT, null,
-							FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
+					case 'i':	// Priority important feeds
+						$entryDAO->markReadEntries($id_max, onlyFavorites: false,
+							priorityMin: min(FreshRSS_Feed::PRIORITY_IMPORTANT, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT),
+							priorityMax: null,
+							filters: FreshRSS_Context::$search, state: FreshRSS_Context::$state, is_read: $is_read);
 						break;
-					case 't':
+					case 't':	// Tag (label)
 						$entryDAO->markReadTag($get, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						// Marking all entries in a tag as read can result in other tags also having all entries marked as read,
 						// so the next unread tag calculation is deferred by passing next_get = 'a' instead of the current get ID.
@@ -157,7 +169,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 							}
 						}
 						break;
-					case 'T':
+					case 'T':	// Any tag (label)
 						$entryDAO->markReadTag(0, $id_max, FreshRSS_Context::$search, FreshRSS_Context::$state, $is_read);
 						break;
 				}

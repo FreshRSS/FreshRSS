@@ -173,7 +173,7 @@
 <template id="tag_config_template">
 	<ul class="dropdown-menu">
 		<li class="item">
-			<a class="configure open-slider" href="<?= _url('tag', 'update', 'id', '------') ?>"><?= _t('gen.action.manage') ?></a>
+			<a class="configure open-slider" href="<?= _url('tag', 'update', 'id', '------', 'from', Minz_Request::actionName()) ?>"><?= _t('gen.action.manage') ?></a>
 		</li>
 	</ul>
 	<a class="dropdown-close" href="#close">❌</a>

@@ -9,6 +9,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* New filtering by date of *Server modification date* [#8131](https://github.com/FreshRSS/FreshRSS/pull/8131), [#8576](https://github.com/FreshRSS/FreshRSS/pull/8576)
 		* Corresponding search operator, e.g. `mdate:P1D` for finding articles modified by the author / server during the past day.
 		* Especially useful for optimising the API synchronisation.
+	* Automatic feed visibility/priority during search [#8609](https://github.com/FreshRSS/FreshRSS/pull/8609)
 	* Add feed visibility filter to statistics view *unread dates* [#8489](https://github.com/FreshRSS/FreshRSS/pull/8489)
 	* Add option to enable/disable notifications, also for PWA [#8458](https://github.com/FreshRSS/FreshRSS/pull/8458)
 	* Allow WebSub hub push from same private network [#8450](https://github.com/FreshRSS/FreshRSS/pull/8450)
@@ -17,33 +18,47 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix search expansion with backslash [#8497](https://github.com/FreshRSS/FreshRSS/pull/8497)
 	* Fix user query parsing [#8543](https://github.com/FreshRSS/FreshRSS/pull/8543)
 	* Fix redirect to wrong view after mark as read in *reader* and *global* views [#8552](https://github.com/FreshRSS/FreshRSS/pull/8552)
+	* Fix SQLite paging when sorting by article length [#8594](https://github.com/FreshRSS/FreshRSS/pull/8594)
+	* Fix SQL keyset pagination when sorting by category name [#8597](https://github.com/FreshRSS/FreshRSS/pull/8597)
+	* Update user modify date when changing UserJS/UserCSS [#8607](https://github.com/FreshRSS/FreshRSS/pull/8607)
 	* Non-strict OPML export [#eedefb](https://github.com/FreshRSS/FreshRSS/commit/eedefbd9fedbb14d3387b6b036afa64f75de4610)
 * Security
+	* Fix email validation and allow error page for unverified email users [#8582](https://github.com/FreshRSS/FreshRSS/pull/8582)
 	* Add `allowfullscreen` to `<iframe>` [#8467](https://github.com/FreshRSS/FreshRSS/pull/8467)
 	* Rewrite `Set-Cookie` using native PHP support of `SameSite` [#8447](https://github.com/FreshRSS/FreshRSS/pull/8447)
 		* Sanitize lifetime of session cookies from `session.cookie-lifetime` in `php.ini`
 * UI
 	* Add option to hide sidebar by default [#8528](https://github.com/FreshRSS/FreshRSS/pull/8528)
-	* Improve slider behavior when using navigate back button [#8496](https://github.com/FreshRSS/FreshRSS/pull/8496), [#8524](https://github.com/FreshRSS/FreshRSS/pull/8524)
+	* Improve slider behaviour when using navigate back button [#8496](https://github.com/FreshRSS/FreshRSS/pull/8496), [#8524](https://github.com/FreshRSS/FreshRSS/pull/8524)
+	* Improve consistency of slider behaviour after submitting form [#8612](https://github.com/FreshRSS/FreshRSS/pull/8612)
+	* Create dynamic favicons from SVG instead of PNG canvas [#8577](https://github.com/FreshRSS/FreshRSS/pull/8577), [#8588](https://github.com/FreshRSS/FreshRSS/pull/8588)
 	* Only display scrollbar everywhere if there's an overflow (especially for Chromium) [#8542](https://github.com/FreshRSS/FreshRSS/pull/8542)
+	* Fix CSS padding of `.content pre code` [#8620](https://github.com/FreshRSS/FreshRSS/pull/8620)
+	* Fix wrong navigation buttons layout on Chromium [#8606](https://github.com/FreshRSS/FreshRSS/pull/8606)
+	* More robust JS [#8595](https://github.com/FreshRSS/FreshRSS/pull/8595)
 	* Various UI and style improvements: [#8537](https://github.com/FreshRSS/FreshRSS/pull/8537), [#8538](https://github.com/FreshRSS/FreshRSS/pull/8538), [#8541](https://github.com/FreshRSS/FreshRSS/pull/8541)
 * Deployment
 	* Improve support of PHP 8.5+ using `Pdo\Mysql` [#8526](https://github.com/FreshRSS/FreshRSS/pull/8526)
 	* Add support for Podman in Makefile [#8456](https://github.com/FreshRSS/FreshRSS/pull/8456)
 	* Re-add database status in installation check [#8510](https://github.com/FreshRSS/FreshRSS/pull/8510)
+* Extensions
+	* Add new hook: `Minz_HookType::ActionExecute` [#8599](https://github.com/FreshRSS/FreshRSS/pull/8599), [#8603](https://github.com/FreshRSS/FreshRSS/pull/8603)
+	* Allow passing `Minz_HookType` as hook name in `registerHook()` [#8600](https://github.com/FreshRSS/FreshRSS/pull/8600)
 * I18n
-	* Improve German [#8491](https://github.com/FreshRSS/FreshRSS/pull/8491)
+	* Improve German [#8491](https://github.com/FreshRSS/FreshRSS/pull/8491), [#8557](https://github.com/FreshRSS/FreshRSS/pull/8557)
 	* Improve Italian [#8517](https://github.com/FreshRSS/FreshRSS/pull/8517), [#8519](https://github.com/FreshRSS/FreshRSS/pull/8519), [#8554](https://github.com/FreshRSS/FreshRSS/pull/8554),
-		[#8555](https://github.com/FreshRSS/FreshRSS/pull/8555), [#8556](https://github.com/FreshRSS/FreshRSS/pull/8556)
+		[#8555](https://github.com/FreshRSS/FreshRSS/pull/8555), [#8556](https://github.com/FreshRSS/FreshRSS/pull/8556), [#8566](https://github.com/FreshRSS/FreshRSS/pull/8566)
 	* Improve Polish [#8536](https://github.com/FreshRSS/FreshRSS/pull/8536)
 	* Improve Simplified Chinese [#8474](https://github.com/FreshRSS/FreshRSS/pull/8474), [#8475](https://github.com/FreshRSS/FreshRSS/pull/8475), [#8476](https://github.com/FreshRSS/FreshRSS/pull/8476)
 	* Improve Spanish [#8572](https://github.com/FreshRSS/FreshRSS/pull/8572)
 * Misc.
 	* Initial conventions for AI agents and humans: `AGENTS.md`, `SKILLS.md`, `instructions.md` [#8478](https://github.com/FreshRSS/FreshRSS/pull/8478)
 	* Update to PHPMailer 7.0.2 [#8483](https://github.com/FreshRSS/FreshRSS/pull/8483)
+	* SQL improve PHP syntax uniformity [#8604](https://github.com/FreshRSS/FreshRSS/pull/8604)
 	* Trim SQL whitespace before parenthesis [#8522](https://github.com/FreshRSS/FreshRSS/pull/8522)
 	* Update dev dependencies [#8469](https://github.com/FreshRSS/FreshRSS/pull/8469), [#8480](https://github.com/FreshRSS/FreshRSS/pull/8480), [#8499](https://github.com/FreshRSS/FreshRSS/pull/8499),
-		[#8545](https://github.com/FreshRSS/FreshRSS/pull/8545), [#8546](https://github.com/FreshRSS/FreshRSS/pull/8546), [#8547](https://github.com/FreshRSS/FreshRSS/pull/8547)
+		[#8545](https://github.com/FreshRSS/FreshRSS/pull/8545), [#8546](https://github.com/FreshRSS/FreshRSS/pull/8546), [#8547](https://github.com/FreshRSS/FreshRSS/pull/8547),
+		[#8617](https://github.com/FreshRSS/FreshRSS/pull/8617)
 
 
 ## 2026-01-25 FreshRSS 1.28.1

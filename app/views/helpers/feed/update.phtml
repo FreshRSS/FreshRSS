@@ -24,14 +24,22 @@
 
 	<?php
 	$from = Minz_Request::paramString('from');
+	$slider = ['#', 'slider'];
+	$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
+	if (!$ajax) {
+		$from = 'feed';
+		$slider = [];
+	} elseif ($from === '') {
+		$from = $this->cfrom ?: 'index';
+	}
 	if ($from === '') {
-		$url = _url('subscription', 'feed', 'id', $this->feed->id(), '#', 'slider');
+		$url = _url('subscription', 'feed', 'id', $this->feed->id(), ...$slider);
 	} else {
 		$get = Minz_Request::paramString('get');
 		if ($get === '') {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, '#', 'slider');
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'error', Minz_Request::paramBoolean('error') ? 1 : 0, ...$slider);
 		} else {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, '#', 'slider');
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, ...$slider);
 		}
 	}
 	?>
