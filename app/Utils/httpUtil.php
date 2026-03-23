@@ -18,6 +18,8 @@ final class FreshRSS_http_Util {
 		'::ffff:0:0/96',  // IPv4 translations
 		'::/128',         // Unspecified address
 	];
+	/** @var array<string, string[]> $resolve_ok */
+	private static array $resolve_ok = [];
 
 	private static function getRetryAfterFile(string $url, string $proxy): string {
 		$domain = parse_url($url, PHP_URL_HOST);
@@ -315,6 +317,8 @@ final class FreshRSS_http_Util {
 		$records = [];
 		if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
 			$ips[] = $host;
+		} elseif (isset(self::$resolve_ok[$host])) {
+			$ips = self::$resolve_ok[$host];
 		} else {
 			$records = dns_get_record($host, DNS_A + DNS_AAAA);
 			if ($records === false) {
@@ -326,7 +330,9 @@ final class FreshRSS_http_Util {
 					$ips[] = $ip;
 				}
 			}
+			self::$resolve_ok[$host] = $ips;
 		}
+
 		$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
 		$cidr_allowlist = array_filter($internal_host_allowlist, fn($v, $_) => str_contains($v, '/'), ARRAY_FILTER_USE_BOTH);
 		foreach ($ips as $ip) {
