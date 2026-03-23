@@ -238,5 +238,8 @@ return [
 	#
 	# Here you can add overrides for particular ip/domain:port combinations
 	# Examples: 127.0.0.1:8080, rssbridge.local:443 etc.
+	#
+	# CIDR is permitted too
+	# Examples: 0.0.0.0/0, ::/0 (adding both disables SSRF checks entirely)
 	'internal_host_allowlist' => [],
 ];

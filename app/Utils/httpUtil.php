@@ -328,12 +328,19 @@ final class FreshRSS_http_Util {
 			}
 		}
 		$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
+		$cidr_allowlist = array_filter($internal_host_allowlist, fn($v, $_) => str_contains($v, '/'), ARRAY_FILTER_USE_BOTH);
 		foreach ($ips as $ip) {
 			$allowlist_str = "$ip:$port";
 			$add_ip = $ip;
 			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
 				$allowlist_str = "[$ip]:$port";
 				$add_ip = "[$ip]";
+			}
+			foreach ($cidr_allowlist as $cidr) {
+				if (self::checkCIDR($ip, $cidr)) {
+					$ips_ok[] = $add_ip;
+					continue 2;
+				}
 			}
 			if (in_array($allowlist_str, $internal_host_allowlist, true) ||
 				in_array("$host:$port", $internal_host_allowlist, true)) {
@@ -612,10 +619,9 @@ final class FreshRSS_http_Util {
 		}
 		$binary_subnet = self::ipToBits($subnet);
 
-		$mask_bits = $split[1] ?? '';
-		$mask_bits = (int)$mask_bits;
+		$mask_bits = (int)($split[1] ?? '');
 		if ($mask_bits === 0) {
-			$mask_bits = null;
+			return true;
 		}
 
 		$ip_net_bits = substr($binary_ip, 0, $mask_bits);
