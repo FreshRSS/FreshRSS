@@ -71,19 +71,19 @@
 				<label class="group-name"><?= _t('conf.query.filter.state') ?></label>
 				<div class="group-controls">
 					<label class="checkbox" for="new_show_read">
-					<input type="checkbox" name="query[state][]" id="new_show_read" value="<?= FreshRSS_Entry::STATE_READ ?>"/>
+					<input type="checkbox" name="query[state][]" id="new_show_read" value="<?= FreshRSS_Entry::STATE_READ ?>" checked="checked" />
 						<?= _t('index.menu.read') ?>
 					</label>
 					<label class="checkbox" for="new_show_not_read">
-						<input type="checkbox" name="query[state][]" id="new_show_not_read" value="<?= FreshRSS_Entry::STATE_NOT_READ ?>"/>
+						<input type="checkbox" name="query[state][]" id="new_show_not_read" value="<?= FreshRSS_Entry::STATE_NOT_READ ?>" checked="checked" />
 						<?= _t('index.menu.unread') ?>
 					</label>
 					<label class="checkbox" for="new_show_favorite">
-						<input type="checkbox" name="query[state][]" id="new_show_favorite"	value="<?= FreshRSS_Entry::STATE_FAVORITE ?>" />
+						<input type="checkbox" name="query[state][]" id="new_show_favorite"	value="<?= FreshRSS_Entry::STATE_FAVORITE ?>" checked="checked" />
 						<?= _t('index.menu.starred') ?>
 					</label>
 					<label class="checkbox" for="new_show_not_favorite">
-						<input type="checkbox" name="query[state][]" id="new_show_not_favorite" value="<?= FreshRSS_Entry::STATE_NOT_FAVORITE ?>"/>
+						<input type="checkbox" name="query[state][]" id="new_show_not_favorite" value="<?= FreshRSS_Entry::STATE_NOT_FAVORITE ?>" checked="checked" />
 						<?= _t('index.menu.non-starred') ?>
 					</label>
 				</div>
@@ -101,17 +101,17 @@
 						<optgroup label="<?= _t('conf.query.filter.tags') ?>">
 							<?php foreach ($this->tags as $key => $tag): ?>
 								<option value="t_<?= $tag->id() ?>"><?= $tag->name() ?></option>
-							<?php endforeach?>
+							<?php endforeach ?>
 						</optgroup>
 						<optgroup label="<?= _t('conf.query.filter.categories') ?>">
 							<?php foreach ($this->categories as $key => $category): ?>
 								<option value="c_<?= $category->id() ?>" ><?= $category->name() ?></option>
-							<?php endforeach?>
+							<?php endforeach ?>
 						</optgroup>
 						<optgroup label="<?= _t('conf.query.filter.feeds') ?>">
 							<?php foreach ($this->feeds as $key => $feed): ?>
 								<option value="f_<?= $feed->id() ?>" ><?= $feed->name() ?></option>
-							<?php endforeach?>
+							<?php endforeach ?>
 						</optgroup>
 					</select>
 				</div>
