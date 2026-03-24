@@ -2282,7 +2282,8 @@ class SimplePie
             $headers[$key] = implode(', ', $values);
         }
 
-        $sniffer = $this->registry->create(Sniffer::class, [&$file]);
+        $fileResponse = File::fromResponse($file);
+        $sniffer = $this->registry->create(Sniffer::class, [$fileResponse]);
         $sniffed = $sniffer->get_type();
 
         return [$headers, $sniffed];
