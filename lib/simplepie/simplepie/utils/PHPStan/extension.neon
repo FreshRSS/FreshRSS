@@ -1,3 +1,5 @@
+includes:
+    - version_dependent.php
 
 services:
     -

@@ -27,26 +27,17 @@ class Sniffer
     /**
      * File object
      *
-     * @var File|Response
+     * @var File
      */
     public $file;
 
     /**
      * Create an instance of the class with the input file
      *
-     * @param File|Response $file Input file
+     * @param File $file Input file
      */
-    public function __construct(/* File */ $file)
+    public function __construct(File $file)
     {
-        if (!is_object($file) || !$file instanceof Response) {
-            // For BC we're asking for `File`, but internally we accept every `Response` implementation
-            throw new InvalidArgumentException(sprintf(
-                '%s(): Argument #1 ($file) must be of type %s',
-                __METHOD__,
-                File::class
-            ), 1);
-        }
-
         $this->file = $file;
     }
 
