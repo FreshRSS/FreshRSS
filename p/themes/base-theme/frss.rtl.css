@@ -2549,7 +2549,6 @@ html.slider-active {
 			"website   website manage-read  manage-bookmark  manage-share  manage-labels  link"
 			"thumbnail content content      content          content       content        content";
 		align-items: start;
-		gap: 8px;
 		list-style: none;
 	}
 	/** Show feed name */
