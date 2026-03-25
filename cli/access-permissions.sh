@@ -35,12 +35,12 @@ fi
 
 # Based on group access
 chown -R :$www_group "$data_path" "$to_update" ||
-	echo >&2 "⚠️: Could not change group ownership on '$data_path' or '$to_update'"
+	echo >&2 "⚠️ Could not change group ownership on '$data_path' or '$to_update'"
 
 # Read files, and directory traversal
 chmod -R g+rX "$data_path" "$to_update" ||
-	echo >&2 "⚠️: Could not set read/traversal permissions on '$data_path' or '$to_update'"
+	echo >&2 "⚠️ Could not set read/traversal permissions on '$data_path' or '$to_update'"
 
 # Write access to data
 chmod -R g+w "$data_path" ||
-	echo >&2 "⚠️: Could not set write permissions on '$data_path'"
+	echo >&2 "⚠️ Could not set write permissions on '$data_path'"
