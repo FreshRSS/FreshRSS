@@ -744,7 +744,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($simplePie != null) {
-				$feedImageUrl = html_only_entity_decode($simplePie->get_image_url() ?? '');
+				$feedImageUrl = htmlspecialchars_decode($simplePie->get_image_url() ?? '', ENT_COMPAT);
 				$feedImageUrl = $feedImageUrl !== '' ? (FreshRSS_http_Util::checkUrl($feedImageUrl) ?: '') : '';
 				if ($feedImageUrl !== ($feed->attributeString('feedIconUrl') ?? '')) {
 					$feed->_attribute('feedIconUrl', $feedImageUrl !== '' ? $feedImageUrl : null);
