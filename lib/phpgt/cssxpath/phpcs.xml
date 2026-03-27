@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ruleset name="PHP.Gt Standard" namespace="Gt\CS\Standard">
+	<description>Created from PHP.Gt/Styleguide</description>
+	<arg name="extensions" value="php" />
+
+	<rule ref="Generic.Classes.DuplicateClassName" />
+	<rule ref="Generic.Classes.OpeningBraceSameLine" />
+	<rule ref="Generic.CodeAnalysis.EmptyPHPStatement" />
+	<rule ref="Generic.CodeAnalysis.EmptyStatement" />
+	<rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop" />
+	<rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall" />
+	<rule ref="Generic.CodeAnalysis.JumbledIncrementer" />
+	<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement" />
+	<rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier" />
+	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter" />
+	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod" />
+	<rule ref="Generic.ControlStructures.InlineControlStructure" />
+	<rule ref="Generic.Files.ByteOrderMark" />
+	<rule ref="Generic.Files.EndFileNewline" />
+	<rule ref="Generic.Files.InlineHTML" />
+	<rule ref="Generic.Files.LineEndings" />
+		<rule ref="Generic.Files.LineLength" />
+	<rule ref="Generic.Files.OneClassPerFile" />
+	<rule ref="Generic.Files.OneInterfacePerFile" />
+	<rule ref="Generic.Files.OneObjectStructurePerFile" />
+	<rule ref="Generic.Files.OneTraitPerFile" />
+	<rule ref="Generic.Formatting.DisallowMultipleStatements" />
+	<rule ref="Generic.Functions.FunctionCallArgumentSpacing" />
+	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
+	<rule ref="Generic.Metrics.CyclomaticComplexity" />
+	<rule ref="Generic.Metrics.NestingLevel" />
+	<rule ref="Generic.NamingConventions.CamelCapsFunctionName" />
+	<rule ref="Generic.NamingConventions.ConstructorName" />
+	<rule ref="Generic.NamingConventions.UpperCaseConstantName" />
+	<rule ref="Generic.PHP.BacktickOperator" />
+	<rule ref="Generic.PHP.CharacterBeforePHPOpeningTag" />
+	<rule ref="Generic.PHP.DisallowAlternativePHPTags" />
+	<rule ref="Generic.PHP.DisallowRequestSuperglobal" />
+	<rule ref="Generic.PHP.DisallowShortOpenTag" />
+	<rule ref="Generic.PHP.DiscourageGoto" />
+	<rule ref="Generic.PHP.ForbiddenFunctions">
+		<properties>
+			<property name="forbiddenFunctions" type="array">
+				<element key="die" value="null"/>
+				<element key="exit" value="null"/>
+			</property>
+		</properties>
+	</rule>
+	<rule ref="Generic.PHP.LowerCaseConstant" />
+	<rule ref="Generic.PHP.LowerCaseKeyword" />
+	<rule ref="Generic.PHP.LowerCaseType" />
+	<rule ref="Generic.PHP.NoSilencedErrors" />
+	<rule ref="Generic.PHP.Syntax" />
+	<rule ref="Generic.PHP.Syntax" />
+	<rule ref="Generic.VersionControl.GitMergeConflict" />
+	<rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing" />
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent" />
+	<rule ref="Generic.WhiteSpace.IncrementDecrementSpacing" />
+	<rule ref="Generic.WhiteSpace.LanguageConstructSpacing" />
+</ruleset>
