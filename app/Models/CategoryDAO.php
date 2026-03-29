@@ -30,7 +30,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			} elseif ($name === 'lastUpdate') {	//v1.20.0
 				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN `lastUpdate` BIGINT DEFAULT 0') !== false;
 			} elseif ($name === 'error') {	//v1.20.0
-				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN `error` BIGINT DEFAULT 0') !== false;
+				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN error BIGINT DEFAULT 0') !== false;
 			} elseif ('attributes' === $name) {	//v1.15.0
 				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
 
