@@ -148,7 +148,7 @@ class LibOpml
         $dom->encoding = 'UTF-8';
 
         try {
-            $result = @$dom->loadXML($xml, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
+            $result = @$dom->loadXML($xml, LIBXML_NONET | LIBXML_NOWARNING);
         } catch (\Exception | \Error $e) {
             $result = false;
         }
