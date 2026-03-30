@@ -104,12 +104,12 @@ return array(
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'primary' => array(
-				'_' => 'Critério de Classificação',	
+				'_' => 'Critério de Classificação',
 				'help' => 'Classificar por <em>recebido</em> data é recomendado namaioria dos casos, por consistência e performace',
 			),
 			'rand' => 'Ordem aleatória',
 			'secondary' => array(
-				'_' => 'Critério secundário de classificação',	
+				'_' => 'Critério secundário de classificação',
 				'help' => 'Relevante apenas quando o critério principal de classificação forem categorias ou títulos de feeds.',
 			),
 			'title_asc' => 'Título A→Z',
