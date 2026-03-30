@@ -886,7 +886,21 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 		return (bool)$ok;
 	}
-
+	
+	/**
+	 * Normalize entry titles to improve duplicate detection across different feeds.
+	 * Decodes HTML, collapses multiple spaces, and converts to lowercase.
+	 * @param string $title The raw entry title.
+	 * @return string The normalized title for comparison.
+	 */
+	public static function normalizeTitle(string $title): string {
+		$title = html_entity_decode($title, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+		$title = preg_replace('/\s+/u', ' ', $title);
+		$title = trim($title);
+		$title = mb_strtolower($title, 'UTF-8');
+		return $title;
+	}
+	
 	/** @param array<string,bool|int> $titlesAsRead */
 	public function applyFilterActions(array $titlesAsRead = []): void {
 		$feed = $this->feed;
@@ -898,8 +912,9 @@ class FreshRSS_Entry extends Minz_Model {
 				$this->_isRead(true);
 				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'upon_reception');
 			}
-			if (!empty($titlesAsRead[$this->title()])) {
-				Minz_Log::debug('Mark title as read: ' . $this->title());
+			$titleNorm = self::normalizeTitle($this->title());
+			if (!empty($titlesAsRead[$titleNorm])) {
+				Minz_Log::debug('Mark normalized title as read: ' . $titleNorm);
 				$this->_isRead(true);
 				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'same_title_in_feed');
 			}
