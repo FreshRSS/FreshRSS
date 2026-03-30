@@ -2541,7 +2541,7 @@ html.slider-active {
 		padding-right: 1rem;
 	}
 
-	.flux .flux_header:has(.thumbnail):has(.summary) {
+	.flux .flux_header.has-thumbnail.has-summary {
 		display: grid;
 		grid-template-columns: auto 1fr auto auto auto;
 		grid-template-rows: auto auto;
@@ -2551,42 +2551,42 @@ html.slider-active {
 		list-style: none;
 	}
 
-	.flux .flux_header:has(.thumbnail):has(.summary) li.website .websiteName {
+	.flux .flux_header.has-thumbnail.has-summary li.website .websiteName {
 		display: inline;
 	}
 
 	/** place all the elements in their respective template areas */
-	.flux .flux_header:has(.thumbnail):has(.summary) li.website {
+	.flux .flux_header.has-thumbnail.has-summary li.website {
 		grid-area: website;
 		/** Show feed name */
 		width: auto;
 	}
 
-	.flux .flux_header:has(.thumbnail):has(.summary) li.thumbnail {
+	.flux .flux_header.has-thumbnail.has-summary li.thumbnail {
 		grid-area: thumbnail;
 	}
 
-	.flux .flux_header:has(.thumbnail):has(.summary) li.titleAuthorSummaryDate {
+	.flux .flux_header.has-thumbnail.has-summary li.titleAuthorSummaryDate {
 		grid-area: content;
 	}
 
-	.flux .flux_header:has(.thumbnail):has(.summary) li.manage:has(.read) {
+	.flux .flux_header.has-thumbnail.has-summary li.manage:has(.read) {
 		grid-area: manage-read;
 	}
 
-	.flux .flux_header:has(.thumbnail):has(.summary) li.manage:has(.bookmark) {
+	.flux .flux_header.has-thumbnail.has-summary li.manage:has(.bookmark) {
 		grid-area: manage-bookmark;
 	}
 
-	.flux .flux_header:has(.thumbnail):has(.summary) li.link {
+	.flux .flux_header.has-thumbnail.has-summary li.link {
 		grid-area: link;
 	}
 
-	.flux .flux_header:has(.thumbnail):has(.summary) li.labels {
+	.flux .flux_header.has-thumbnail.has-summary li.labels {
 		grid-area: manage-labels
 	}
 
-	.flux .flux_header:has(.thumbnail):has(.summary) li.share {
+	.flux .flux_header.has-thumbnail.has-summary li.share {
 		grid-area: manage-share
 	}
 
