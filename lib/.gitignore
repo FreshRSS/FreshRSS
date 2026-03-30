@@ -12,6 +12,7 @@ marienfressinaud/lib_opml/tests/
 phpgt/cssxpath/.*
 phpgt/cssxpath/composer.json
 phpgt/cssxpath/CONTRIBUTING.md
+phpgt/cssxpath/phpmd.xml
 phpgt/cssxpath/phpunit.xml
 phpgt/cssxpath/SECURITY*
 phpgt/cssxpath/test/

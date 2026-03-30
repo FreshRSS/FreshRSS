@@ -90,7 +90,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'id' => $entry->dateAdded(raw: true),
 			'date' => $entry->date(raw: true),
 			'lastUserModified' => $entry->lastUserModified() ?? 0,
-			default => throw new InvalidArgumentException('Unsupported sort criterion for transition: ' . FreshRSS_Context::$sort),
 		};
 		$searchString = $operator . ':' . ($offset < 0 ? '/' : '') . date('Y-m-d', $timestamp + ($offset * 86400)) . ($offset > 0 ? '/' : '');
 		return Minz_Url::display(Minz_Request::modifiedCurrentRequest([

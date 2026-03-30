@@ -1623,15 +1623,16 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			? 'USE INDEX (entry_feed_read_index) ' : '';
 
 		return [array_merge($values, $searchValues), 'SELECT '
-			. ($type === 'T' ? 'DISTINCT ' : '')
+			. ($type === 'T' && $sort !== 'rand' ? 'DISTINCT ' : '')
 			. 'e.id'
-			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
+			. ($type === 'T' && !in_array($sort, ['id', 'rand'], true) ? ', ' . $orderBy : '')	// SELECT DISTINCT, ORDER BY expressions must appear in SELECT
 			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
 			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where
 			. $search
+			. ($type === 'T' && $sort === 'rand' ? ' GROUP BY e.id ' : '')	// DISTINCT does not work with RAND()
 			. 'ORDER BY ' . $orderBy . ' ' . $order
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Internal secondary sort
 			. (in_array($sort, ['c.name', 'f.name'], true) ? ', ' . $orderBy2 . ' ' . $order2 : '')	// User secondary sort
