@@ -12,10 +12,17 @@
 	$topline_date = FreshRSS_Context::userConf()->topline_date;
 	$topline_link = FreshRSS_Context::userConf()->topline_link;
 	$lazyload = FreshRSS_Context::userConf()->lazyload;
+	$headerClasses = ['horizontal-list', 'flux_header', 'website' . $topline_website];
+	if ($topline_thumbnail !== 'none') {
+		$headerClasses[] = 'has-thumbnail';
+	}
+	if ($topline_summary) {
+		$headerClasses[] = 'has-summary';
+	}
 	if ($this->feed === null || $this->entry === null) {
 		return;
 	}
-?><ul class="horizontal-list flux_header website<?= $topline_website ?>" data-website-name="<?= $this->feed->name() ?>" data-article-authors="<?= implode(' · ', $this->entry->authors()) ?>"><?php
+?><ul class="<?= implode(' ', $headerClasses) ?>" data-website-name="<?= $this->feed->name() ?>" data-article-authors="<?= implode(' · ', $this->entry->authors()) ?>"><?php
 	if (FreshRSS_Auth::hasAccess()) {
 		if ($topline_read) {
 			?><li class="item manage"><?php
