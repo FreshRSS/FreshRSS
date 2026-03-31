@@ -80,6 +80,22 @@ function searchFavicon(string $url): string {
 	return '';
 }
 
+/**
+ * Downloads a favicon directly from a known image URL (e.g. from a feed's <image><url> or icon field).
+ * Returns false without any fallback if the URL does not point to a valid image.
+ */
+function download_favicon_from_image_url(string $imageUrl, string $dest): bool {
+	$imageUrl = trim($imageUrl);
+	if ($imageUrl === '') {
+		return false;
+	}
+	$favicon = FreshRSS_http_Util::httpGet($imageUrl, faviconCachePath($imageUrl), 'ico')['body'];
+	if (!isImgMime($favicon)) {
+		return false;
+	}
+	return file_put_contents($dest, $favicon) > 0;
+}
+
 function download_favicon(string $url, string $dest): bool {
 	$url = trim($url);
 	$favicon = searchFavicon($url);
