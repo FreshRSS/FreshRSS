@@ -254,6 +254,7 @@ The following events are available:
 * `feed_before_insert` (`function($feed) -> Feed | null`): will be executed
 	when a new feed is imported into the database. The new feed (instance of
 	FreshRSS\_Feed) will be passed as parameter.
+* `feeds_list_before_actualize` (`function($feedList) -> array | null`): sera exécuté avant FreshRSS essaie actualiser des flux. La liste des flux (array avec (instance of FreshRSS\_Feed)) à actualiser sera passé comme le 	paramètre. Utile pour modifier l'ordre dans lequel les flux seront mis à jour  
 * `freshrss_init` (`function() -> none`): will be executed at the end of the
 	initialization of FreshRSS, useful to initialize components or to do
 	additional access checks
