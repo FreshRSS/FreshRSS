@@ -38,6 +38,7 @@ class FreshRSS_View extends Minz_View {
 	public array $labels;
 
 	// Subscriptions
+	public string $cfrom = '';
 	public bool $displaySlider = false;
 	public bool $load_ok;
 	public bool $onlyFeedsWithError;

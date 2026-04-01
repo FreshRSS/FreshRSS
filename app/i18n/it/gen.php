@@ -228,7 +228,7 @@ return array(
 		'categories' => 'Categorie',
 		'content' => 'Contenuto',
 		'date_from' => 'Da',
-		'date_modified' => 'Server Modification Date',	// TODO
+		'date_modified' => 'Data di modifica da parte del server',
 		'date_past' => 'Nel passato',
 		'date_published' => 'Data di pubblicazione',
 		'date_range' => 'Intervallo date',
@@ -277,7 +277,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Condivisione di sistema',

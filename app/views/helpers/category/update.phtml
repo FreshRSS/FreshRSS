@@ -15,7 +15,19 @@
 		<a href="<?= _url('index', 'index', 'get', 'c_' . $this->category->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('category', 'update', 'id', $this->category->id(), '#', 'slider') ?>" autocomplete="off" data-auto-leave-validation="1">
+	<?php
+		$from = Minz_Request::paramString('from');
+		$slider = ['#', 'slider'];
+		$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
+		if (!$ajax) {
+			$from = 'update';
+			$slider = [];
+		} elseif ($from === '') {
+			$from = 'index';
+		}
+	?>
+
+	<form method="post" action="<?= _url('category', 'update', 'id', $this->category->id(), 'from', $from, ...$slider) ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<fieldset>
 			<legend><?= _t('sub.category.information') ?></legend>

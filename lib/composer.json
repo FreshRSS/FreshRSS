@@ -12,9 +12,9 @@
 	],
 	"require": {
 		"marienfressinaud/lib_opml": "0.5.1",
-		"phpgt/cssxpath": "v1.4.0",
+		"phpgt/cssxpath": "v1.5.0",
 		"phpmailer/phpmailer": "7.0.2",
-		"simplepie/simplepie": "dev-freshrss#dbcf155c82a17872f0bf8562723cc809842064ee"
+		"simplepie/simplepie": "dev-freshrss#731f1a60b8d011238bb5a2cb3b7cdea619e02b94"
 	},
 	"config": {
 		"sort-packages": true,

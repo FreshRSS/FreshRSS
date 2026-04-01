@@ -54,7 +54,7 @@ return array(
 			'timeout' => 'Notificación de fin de espera HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botones de navegación',
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'sidebar_hidden_by_default' => 'Ocultar barra lateral por defecto',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -107,7 +107,7 @@ return array(
 		'small' => 'Pequeño',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Activar notificaciones',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
@@ -323,7 +323,7 @@ return array(
 		'share_name' => 'Compartir nombre a mostrar',
 		'share_url' => 'Compartir URL a usar',
 		'title' => 'Compartir',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'Wallabag',	// IGNORE
 	),
 	'shortcut' => array(

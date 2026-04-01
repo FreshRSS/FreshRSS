@@ -496,9 +496,10 @@ final class FreshRSS_http_Util {
 	}
 
 	public static function httpAuthUser(bool $onlyTrusted = true): string {
-		$auths = array_unique(
-			array_intersect_key($_SERVER, ['REMOTE_USER' => '', 'REDIRECT_REMOTE_USER' => '', 'HTTP_REMOTE_USER' => '', 'HTTP_X_WEBAUTH_USER' => ''])
-		);
+		$auths = array_unique(array_filter(
+			array_intersect_key($_SERVER, ['REMOTE_USER' => '', 'REDIRECT_REMOTE_USER' => '', 'HTTP_REMOTE_USER' => '', 'HTTP_X_WEBAUTH_USER' => '']),
+			fn($value) => is_string($value) && $value !== ''
+		));
 		if (count($auths) > 1) {
 			Minz_Log::warning('Multiple HTTP authentication headers!');
 			return '';

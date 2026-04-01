@@ -174,7 +174,9 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			invalidateHttpCache();
 
-			$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id, 'type' => 'category']];
+			$from = Minz_Request::paramString('from');
+			$prev_controller = $from === 'update' ? 'category' : 'subscription';
+			$url_redirect = ['c' => $prev_controller, 'a' => $from, 'params' => ['id' => $id, 'type' => 'category']];
 			if (false !== $categoryDAO->updateCategory($id, $values)) {
 				Minz_Request::good(
 					_t('feedback.sub.category.updated'),

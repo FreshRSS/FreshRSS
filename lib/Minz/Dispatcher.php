@@ -114,7 +114,9 @@ final class Minz_Dispatcher {
 				Minz_Exception::ERROR
 			);
 		}
-		call_user_func($call);
+		if (Minz_ExtensionManager::callHook(Minz_HookType::ActionExecute, $this->controller) !== false) {
+			call_user_func($call);
+		}
 	}
 
 	/**

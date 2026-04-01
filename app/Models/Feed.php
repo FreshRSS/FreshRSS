@@ -258,7 +258,9 @@ class FreshRSS_Feed extends Minz_Model {
 				$hookParams = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconHash, $this);
 				$params = $hookParams !== null ? $hookParams : $current;
 			} else {
-				$params = $this->website(fallback: true) . $this->proxyParam();
+				$feedIconUrl = $this->attributeString('feedIconUrl') ?? '';
+				$params = $feedIconUrl !== '' ? $feedIconUrl . $this->proxyParam()
+					: $this->website(fallback: true) . $this->proxyParam();
 			}
 			$this->hashFavicon = hash('crc32b', $salt . (is_string($params) ? $params : ''));
 		}
@@ -399,11 +401,13 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($this->customFavicon()) {
 			return;
 		}
-		$url = $this->website(fallback: false);
-		if ($url === '' || $url === $this->url) {
+		$feedIconUrl = $this->attributeString('feedIconUrl') ?? '';
+		$websiteUrl = $this->website(fallback: false);
+		if ($websiteUrl === '' || $websiteUrl === $this->url) {
 			// Get root URL from the feed URL
-			$url = preg_replace('%^(https?://[^/]+).*$%i', '$1/', $this->url) ?? $this->url;
+			$websiteUrl = preg_replace('%^(https?://[^/]+).*$%i', '$1/', $this->url) ?? $this->url;
 		}
+		$url = $feedIconUrl !== '' ? $feedIconUrl : $websiteUrl;
 
 		$txt = FAVICONS_DIR . $this->hashFavicon() . '.txt';
 		if (@file_get_contents($txt) !== $url) {
@@ -416,8 +420,11 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($txt_mtime != false &&
 				($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (14 * 86400)))) {
 				// no ico file or we should download a new one.
-				$url = file_get_contents($txt);
-				if ($url == false || !download_favicon($url, $ico)) {
+				if ($feedIconUrl !== '' && download_favicon_from_image_url($feedIconUrl, $ico)) {
+					return;
+				}
+				// Fall back to website favicon search
+				if (!download_favicon($websiteUrl, $ico)) {
 					touch($ico);
 				}
 			}
@@ -908,6 +915,8 @@ class FreshRSS_Feed extends Minz_Model {
 	private function dotNotationForStandardJsonFeed(): array {
 		return [
 			'feedTitle' => 'title',
+			'feedImage' => 'icon',
+			'feedImageFallback' => 'favicon',
 			'item' => 'items',
 			'itemTitle' => 'title',
 			'itemContent' => 'content_text',

@@ -542,7 +542,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 
 			Minz_Request::good(
 				_t('feedback.conf.updated'),
-				[ 'c' => 'configure', 'a' => 'queries', 'params' => ['id' => (string)$id] ],
+				[ 'c' => 'configure', 'a' => Minz_Request::paramStringNull('from') ?? 'queries', 'params' => ['id' => (string)$id] ],
 				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 		}
 

@@ -13,7 +13,9 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 	#[\Override]
 	public function tablesAreCorrect(): bool {
 		$db = FreshRSS_Context::systemConf()->db;
-		$sql = 'SELECT tablename FROM pg_catalog.pg_tables where tableowner=:tableowner';
+		$sql = <<<'SQL'
+			SELECT tablename FROM pg_catalog.pg_tables where tableowner=:tableowner
+			SQL;
 		$res = $this->fetchAssoc($sql, [':tableowner' => $db['user']]);
 		if ($res == null) {
 			return false;
@@ -38,9 +40,9 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 	#[\Override]
 	public function getSchema(string $table): array {
 		$sql = <<<'SQL'
-SELECT column_name AS field, data_type AS type, column_default AS default, is_nullable AS null
-FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = :table_name
-SQL;
+			SELECT column_name AS field, data_type AS type, column_default AS default, is_nullable AS null
+			FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = :table_name
+			SQL;
 		$res = $this->fetchAssoc($sql, [':table_name' => $this->pdo->prefix() . $table]);
 		return $res == null ? [] : $this->listDaoToSchema($res);
 	}
@@ -61,7 +63,7 @@ SQL;
 
 	#[\Override]
 	protected function selectVersion(): string {
-		return $this->fetchValue('SELECT version()') ?? '';
+		return $this->fetchString('SELECT version()') ?? '';
 	}
 
 	#[\Override]
@@ -71,14 +73,14 @@ SQL;
 			$res = $this->fetchColumn('SELECT pg_database_size(:base)', 0, [':base' => $db['base']]);
 		} else {
 			$sql = <<<SQL
-SELECT
-pg_total_relation_size('`{$this->pdo->prefix()}category`') +
-pg_total_relation_size('`{$this->pdo->prefix()}feed`') +
-pg_total_relation_size('`{$this->pdo->prefix()}entry`') +
-pg_total_relation_size('`{$this->pdo->prefix()}entrytmp`') +
-pg_total_relation_size('`{$this->pdo->prefix()}tag`') +
-pg_total_relation_size('`{$this->pdo->prefix()}entrytag`')
-SQL;
+				SELECT
+				pg_total_relation_size('`{$this->pdo->prefix()}category`') +
+				pg_total_relation_size('`{$this->pdo->prefix()}feed`') +
+				pg_total_relation_size('`{$this->pdo->prefix()}entry`') +
+				pg_total_relation_size('`{$this->pdo->prefix()}entrytmp`') +
+				pg_total_relation_size('`{$this->pdo->prefix()}tag`') +
+				pg_total_relation_size('`{$this->pdo->prefix()}entrytag`')
+				SQL;
 			$res = $this->fetchColumn($sql, 0);
 		}
 		return (int)($res[0] ?? -1);
@@ -90,7 +92,9 @@ SQL;
 		$tables = ['category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag'];
 
 		foreach ($tables as $table) {
-			$sql = 'VACUUM `_' . $table . '`';
+			$sql = <<<SQL
+				VACUUM `_{$table}`
+				SQL;
 			if ($this->pdo->exec($sql) === false) {
 				$ok = false;
 				$info = $this->pdo->errorInfo();

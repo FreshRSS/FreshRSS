@@ -323,7 +323,7 @@ return array(
 		'share_name' => '共有する方法',
 		'share_url' => 'URLを共有する',
 		'title' => '共有',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

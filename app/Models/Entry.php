@@ -229,12 +229,12 @@ class FreshRSS_Entry extends Minz_Model {
 			$elink = $thumbnailAttribute['url'];
 			if (is_string($elink) && ($allowDuplicateEnclosures || !self::containsLink($content, $elink))) {
 				$content .= <<<HTML
-<figure class="enclosure">
-	<p class="enclosure-content">
-		<img class="enclosure-thumbnail" src="{$elink}" alt="" />
-	</p>
-</figure>
-HTML;
+					<figure class="enclosure">
+						<p class="enclosure-content">
+							<img class="enclosure-thumbnail" src="{$elink}" alt="" />
+						</p>
+					</figure>
+					HTML;
 			}
 		}
 

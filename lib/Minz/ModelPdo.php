@@ -180,32 +180,42 @@ class Minz_ModelPdo {
 	}
 
 	/**
+	 * If $values is not empty, will use a prepared statement, otherwise will execute the query directly.
 	 * @param array<string,int|string|null> $values
 	 * @phpstan-return ($mode is PDO::FETCH_ASSOC ? list<array<string,int|string|null>>|null : list<int|string|null>|null)
 	 * @return list<array<string,int|string|null>>|list<int|string|null>|null
 	 */
 	private function fetchAny(string $sql, array $values, int $mode, int $column = 0): ?array {
-		$stm = $this->pdo->prepare($sql);
-		$ok = $stm !== false;
-		if ($ok && !empty($values)) {
-			foreach ($values as $name => $value) {
-				if (is_int($value)) {
-					$type = PDO::PARAM_INT;
-				} elseif (is_string($value)) {
-					$type = PDO::PARAM_STR;
-				} elseif (is_null($value)) {
-					$type = PDO::PARAM_NULL;
-				} else {
-					$ok = false;
-					break;
-				}
-				if (!$stm->bindValue($name, $value, $type)) {
-					$ok = false;
-					break;
+		$ok = true;
+		$stm = false;
+		if (empty($values)) {
+			$stm = $this->pdo->query($sql);
+		} else {
+			$stm = $this->pdo->prepare($sql);
+			$ok = $stm !== false;
+			if ($ok) {
+				foreach ($values as $name => $value) {
+					if (is_int($value)) {
+						$type = PDO::PARAM_INT;
+					} elseif (is_string($value)) {
+						$type = PDO::PARAM_STR;
+					} elseif (is_null($value)) {
+						$type = PDO::PARAM_NULL;
+					} else {
+						$ok = false;
+						break;
+					}
+					if (!$stm->bindValue($name, $value, $type)) {
+						$ok = false;
+						break;
+					}
 				}
 			}
+			if ($ok && $stm !== false) {
+				$stm = $stm->execute() ? $stm : false;
+			}
 		}
-		if ($ok && $stm !== false && $stm->execute()) {
+		if ($ok && $stm !== false) {
 			switch ($mode) {
 				case PDO::FETCH_COLUMN:
 					$res = $stm->fetchAll(PDO::FETCH_COLUMN, $column);
@@ -236,7 +246,7 @@ class Minz_ModelPdo {
 
 	/**
 	 * @param array<string,int|string|null> $values
-	 * @return list<array<string,int|string|null>>|null
+	 * @return list<array<string,bool|int|string|null>>|null
 	 */
 	public function fetchAssoc(string $sql, array $values = []): ?array {
 		return $this->fetchAny($sql, $values, PDO::FETCH_ASSOC);
@@ -250,18 +260,26 @@ class Minz_ModelPdo {
 		return $this->fetchAny($sql, $values, PDO::FETCH_COLUMN, $column);
 	}
 
-	/** For retrieving a single value without prepared statement such as `SELECT version()` */
+	/**
+	 * For retrieving a single integer value with or without prepared statement such as `SELECT COUNT(*) FROM ...`
+	 * @param array<string,int|string|null> $values Array of values to bind. If not empty, will use a prepared statement
+	 */
+	public function fetchInt(string $sql, array $values = []): ?int {
+		$column = $this->fetchAny($sql, $values, PDO::FETCH_COLUMN, column: 0);
+		return is_numeric($column[0] ?? null) ? (int)$column[0] : null;
+	}
+
+	/**
+	 * For retrieving a single value with or without prepared statement such as `SELECT version()`
+	 * @param array<string,int|string|null> $values Array of values to bind. If not empty, will use a prepared statement
+	 */
+	public function fetchString(string $sql, array $values = []): ?string {
+		$column = $this->fetchAny($sql, $values, PDO::FETCH_COLUMN, column: 0);
+		return is_scalar($column[0] ?? null) ? (string)$column[0] : null;
+	}
+
+	#[Deprecated('Use `fetchString()` instead.')]
 	public function fetchValue(string $sql): ?string {
-		$stm = $this->pdo->query($sql);
-		if ($stm === false) {
-			Minz_Log::error('SQL error ' . json_encode($this->pdo->errorInfo()) . ' during ' . $sql);
-			return null;
-		}
-		$columns = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-		if ($columns === false) {
-			Minz_Log::error('SQL error ' . json_encode($stm->errorInfo()) . ' during ' . $sql);
-			return null;
-		}
-		return is_scalar($columns[0] ?? null) ? (string)$columns[0] : null;
+		return $this->fetchString($sql);
 	}
 }

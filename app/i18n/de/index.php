@@ -26,8 +26,8 @@ return array(
 			),
 		),
 		'bugs_reports' => 'Fehlerberichte',
-		'documentation' => 'Handbuch',
-		'freshrss_description' => 'FreshRSS ist ein RSS-Feedsaggregator zum selbst hosten. Er ist leicht und einfach zu handhaben und gleichzeitig ein leistungsstarkes und konfigurierbares Werkzeug.',
+		'documentation' => 'Dokumentation',
+		'freshrss_description' => 'FreshRSS ist ein selbst hostbarer RSS-Aggregator und -Reader. Damit können Sie mehrere Nachrichten-Websites auf einen Blick lesen und verfolgen, ohne von einer Website zur nächsten wechseln zu müssen. FreshRSS ist leichtgewichtig, konfigurierbar und benutzerfreundlich.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">auf GitHub</a>',
 		'license' => 'Lizenz',
 		'project_website' => 'Projekt-Website',
@@ -35,12 +35,12 @@ return array(
 		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
+		'empty' => 'Keine Artikel vorhanden.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Veröffentlicht',
+			'future' => 'In Zukunft veröffentlicht',
+			'today' => 'Heute veröffentlicht',
+			'yesterday' => 'Gestern veröffentlicht',
 		),
 		'received' => array(
 			'_' => 'Empfangen',
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'Favoriten',
 		'title_global' => 'Globale Ansicht',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Vom Benutzer geändert',
+			'today' => 'Heute vom Benutzer geändert',
+			'yesterday' => 'Gestern vom Benutzer geändert',
 		),
 	),
 	'log' => array(
@@ -99,28 +99,28 @@ return array(
 			),
 			'id_asc' => 'Älteste zuerst',
 			'id_desc' => 'Neueste zuerst',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'length_asc' => 'Inhaltslänge 1→9',
+			'length_desc' => 'Inhaltslänge 9→1',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => 'Sortierkriterium',
+				'help' => 'In den meisten Fällen wird aus Gründen der Konsistenz und Leistung die Sortierung nach dem <em>Empfangsdatum</em> empfohlen.',
 			),
 			'rand' => 'Zufällige Reihenfolge',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => 'Zusätzliches Sortierkritiserium',
+				'help' => 'Nur relevant, wenn das Hauptsortierkriterium Kategorien oder Feed-Titel sind.',
 			),
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => 'Vom Benutzer geändert 1→9',
+			'user_modified_desc' => 'Vom Benutzer geändert 9→1',
 		),
 		'starred' => 'Favoriten zeigen',
 		'stats' => 'Statistiken',
 		'subscription' => 'Abonnementverwaltung',
-		'unread' => 'Ungelesene zeigen',
+		'unread' => 'Ungelesene anzeigen',
 	),
 	'share' => 'Teilen',
 	'tag' => array(
