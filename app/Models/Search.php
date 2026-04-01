@@ -529,6 +529,21 @@ class FreshRSS_Search implements \Stringable {
 		return $this->not_category_ids;
 	}
 
+	/**
+	 * Return the minimum visibility (priority) level needed for this search,
+	 * or null if it does not require any specific visibility level.
+	 * For instance, if the search includes some feed IDs then it will return PRIORITY_HIDDEN,
+	 * and if it includes some category IDs then it will return PRIORITY_CATEGORY.
+	 */
+	public function needVisibility(): ?int {
+		if ($this->feed_ids !== null && count($this->feed_ids) > 0) {
+			return FreshRSS_Feed::PRIORITY_HIDDEN;
+		} elseif ($this->category_ids !== null && count($this->category_ids) > 0) {
+			return FreshRSS_Feed::PRIORITY_CATEGORY;
+		}
+		return null;
+	}
+
 	/** @return list<list<int>|'*'>|null */
 	public function getLabelIds(): array|null {
 		return $this->label_ids;

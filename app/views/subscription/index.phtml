@@ -62,7 +62,7 @@
 				?>
 				<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $title ?>"
 					draggable="true" data-feed-id="<?= $feed->id() ?>" data-priority="<?= $feed->priority() ?>">
-					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id(), 'error', $feed->inError() ? 1 : 0) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a><?php
+					<a class="configure open-slider" href="<?= _url('subscription', 'feed', 'id', $feed->id(), 'error', Minz_Request::paramBoolean('error') ? 1 : 0) ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a><?php
 					if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 					endif; ?><span class="item-title"><?= $feed->name() ?></span>
 				</li>

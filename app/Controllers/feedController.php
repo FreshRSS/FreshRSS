@@ -744,6 +744,14 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($simplePie != null) {
+				$feedImageUrl = htmlspecialchars_decode($simplePie->get_icon_url() ?? '', ENT_QUOTES);
+				$feedImageUrl = $feedImageUrl !== '' ? (FreshRSS_http_Util::checkUrl($feedImageUrl) ?: '') : '';
+				if ($feedImageUrl !== ($feed->attributeString('feedIconUrl') ?? '')) {
+					$feed->_attribute('feedIconUrl', $feedImageUrl !== '' ? $feedImageUrl : null);
+					$feed->resetFaviconHash();
+					$feedProperties['attributes'] = $feed->attributes();
+				}
+
 				if ($feed->name(true) === '') {
 					//HTML to HTML-PRE	//ENT_COMPAT except '&'
 					$name = strtr(html_only_entity_decode($simplePie->get_title()), ['<' => '&lt;', '>' => '&gt;', '"' => '&quot;']);

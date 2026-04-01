@@ -90,7 +90,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			'id' => $entry->dateAdded(raw: true),
 			'date' => $entry->date(raw: true),
 			'lastUserModified' => $entry->lastUserModified() ?? 0,
-			default => throw new InvalidArgumentException('Unsupported sort criterion for transition: ' . FreshRSS_Context::$sort),
 		};
 		$searchString = $operator . ':' . ($offset < 0 ? '/' : '') . date('Y-m-d', $timestamp + ($offset * 86400)) . ($offset > 0 ? '/' : '');
 		return Minz_Url::display(Minz_Request::modifiedCurrentRequest([
@@ -149,7 +148,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		if (FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
-		FreshRSS_View::prependTitle($title . ' · ');
+		if (strlen($title) > 0) {
+			FreshRSS_View::prependTitle($title . ' · ');
+		}
 
 		if (FreshRSS_Context::$id_max === '0') {
 			FreshRSS_Context::$id_max = uTimeString();
@@ -300,7 +301,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			case 'Z':	// All including PRIORITY_HIDDEN
 				$this->view->categories = FreshRSS_Context::categories();
 				break;
-			case 'c':
+			case 'c':	// Category
 				$cat = FreshRSS_Context::categories()[$id] ?? null;
 				if ($cat == null) {
 					Minz_Error::error(404);
@@ -308,7 +309,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				}
 				$this->view->categories = [$cat->id() => $cat];
 				break;
-			case 'f':
+			case 'f':	// Feed
 				// We most likely already have the feed object in cache
 				$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id);
 				if ($feed === null) {
@@ -321,9 +322,6 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 				}
 				$this->view->feeds = [$feed->id() => $feed];
 				break;
-			case 's':
-			case 't':
-			case 'T':
 			default:
 				Minz_Error::error(404);
 				return;

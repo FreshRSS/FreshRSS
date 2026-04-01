@@ -110,52 +110,27 @@ class File implements Response
             }
             if (!$force_fsockopen && function_exists('curl_exec')) {
                 $this->method = \SimplePie\SimplePie::FILE_SOURCE_REMOTE | \SimplePie\SimplePie::FILE_SOURCE_CURL;
-                $fp = curl_init();
-                $headers2 = [];
-                foreach ($headers as $key => $value) {
-                    $headers2[] = "$key: $value";
-                }
-                if (isset($curl_options[CURLOPT_HTTPHEADER])) {
-                    if (is_array($curl_options[CURLOPT_HTTPHEADER])) {
-                        $headers2 = array_merge($headers2, $curl_options[CURLOPT_HTTPHEADER]);
-                    }
-                    unset($curl_options[CURLOPT_HTTPHEADER]);
-                }
-                if (version_compare(\SimplePie\Misc::get_curl_version(), '7.21.6', '>=')) {
-                    curl_setopt($fp, CURLOPT_ACCEPT_ENCODING, '');
-                } else {
-                    curl_setopt($fp, CURLOPT_ENCODING, '');
-                }
-                /** @var non-empty-string $url */
-                curl_setopt($fp, CURLOPT_URL, $url);
-                curl_setopt($fp, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($fp, CURLOPT_FAILONERROR, true);
-                curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);
-                curl_setopt($fp, CURLOPT_CONNECTTIMEOUT, $timeout);
-                // curl_setopt($fp, CURLOPT_REFERER, \SimplePie\Misc::url_remove_credentials($url)); // FreshRSS removed
-                curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
-                curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
+                $fp = self::curlInit($url, $timeout, $headers, $useragent, $curl_options);
                 $responseHeaders = '';
                 curl_setopt($fp, CURLOPT_HEADERFUNCTION, function ($ch, string $header) use (&$responseHeaders) {
                     $responseHeaders .= $header;
                     return strlen($header);
                 });
-                foreach ($curl_options as $curl_param => $curl_value) {
-                    curl_setopt($fp, $curl_param, $curl_value);
-                }
-
                 $responseBody = curl_exec($fp);
                 $responseHeaders .= "\r\n";
                 if (curl_errno($fp) === CURLE_WRITE_ERROR || curl_errno($fp) === CURLE_BAD_CONTENT_ENCODING) {
                     $this->error = 'cURL error ' . curl_errno($fp) . ': ' . curl_error($fp); // FreshRSS
                     $this->on_http_response($responseBody === false ? false : $responseHeaders . $responseBody, $curl_options);
                     $this->error = null; // FreshRSS
-                    if (version_compare(\SimplePie\Misc::get_curl_version(), '7.21.6', '>=')) {
-                        curl_setopt($fp, CURLOPT_ACCEPT_ENCODING, null);
-                    } else {
-                        curl_setopt($fp, CURLOPT_ENCODING, null);
+                    if (\PHP_VERSION_ID < 80000) {
+                        curl_close($fp);
                     }
+                    $fp = self::curlInit($url, $timeout, $headers, $useragent, $curl_options, false);
                     $responseHeaders = '';
+                    curl_setopt($fp, CURLOPT_HEADERFUNCTION, function ($ch, string $header) use (&$responseHeaders) {
+                        $responseHeaders .= $header;
+                        return strlen($header);
+                    });
                     $responseBody = curl_exec($fp);
                     $responseHeaders .= "\r\n";
                 }
@@ -315,7 +290,7 @@ class File implements Response
         } else {
             $this->method = \SimplePie\SimplePie::FILE_SOURCE_LOCAL | \SimplePie\SimplePie::FILE_SOURCE_FILE_GET_CONTENTS;
             $filebody = false;
-            if (empty($url) || !is_readable($url) ||  false === $filebody = file_get_contents($url)) {
+            if (empty($url) || !is_readable($url) || false === ($filebody = file_get_contents($url))) {
                 $this->body = '';
                 $this->error = sprintf('file "%s" is not readable', $url);
                 $this->success = false;
@@ -459,10 +434,8 @@ class File implements Response
      */
     final public static function fromResponse(Response $response): self
     {
-        $headers = [];
-
-        foreach ($response->get_headers() as $name => $header) {
-            $headers[$name] = implode(', ', $header);
+        if ($response instanceof self) {
+            return $response;
         }
 
         /** @var File */
@@ -470,12 +443,60 @@ class File implements Response
 
         $file->url = $response->get_final_requested_uri();
         $file->useragent = null;
-        $file->headers = $headers;
+        $file->set_headers($response->get_headers());
         $file->body = $response->get_body_content();
         $file->status_code = $response->get_status_code();
         $file->permanent_url = $response->get_permanent_uri();
 
         return $file;
+    }
+
+    /**
+     * @param array<string, string> $headers
+     * @param array<int, mixed> $curl_options
+     * @return \CurlHandle
+     */
+    private static function curlInit(
+        string $url,
+        int $timeout,
+        array $headers,
+        string $useragent,
+        array $curl_options,
+        bool $setAcceptEncoding = true
+    ) {
+        $fp = curl_init();
+
+        $headers2 = [];
+        foreach ($headers as $key => $value) {
+            $headers2[] = "$key: $value";
+        }
+        if (isset($curl_options[CURLOPT_HTTPHEADER])) {
+            if (is_array($curl_options[CURLOPT_HTTPHEADER])) {
+                $headers2 = array_merge($headers2, $curl_options[CURLOPT_HTTPHEADER]);
+            }
+            unset($curl_options[CURLOPT_HTTPHEADER]);
+        }
+        if ($setAcceptEncoding) {
+            if (version_compare(\SimplePie\Misc::get_curl_version(), '7.21.6', '>=')) {
+                curl_setopt($fp, CURLOPT_ACCEPT_ENCODING, '');
+            } else {
+                curl_setopt($fp, CURLOPT_ENCODING, '');
+            }
+        }
+        /** @var non-empty-string $url */
+        curl_setopt($fp, CURLOPT_URL, $url);
+        curl_setopt($fp, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($fp, CURLOPT_FAILONERROR, true);
+        curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($fp, CURLOPT_CONNECTTIMEOUT, $timeout);
+        // curl_setopt($fp, CURLOPT_REFERER, \SimplePie\Misc::url_remove_credentials($url)); // FreshRSS removed
+        curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
+        curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
+        foreach ($curl_options as $curl_param => $curl_value) {
+            curl_setopt($fp, $curl_param, $curl_value);
+        }
+
+        return $fp;
     }
 }
 
