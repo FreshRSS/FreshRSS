@@ -32,13 +32,13 @@ final class Psr7Response implements Response
     /**
      * @var string
      */
-    private $requested_url;
+    private $final_requested_url;
 
-    public function __construct(ResponseInterface $response, string $permanent_url, string $requested_url)
+    public function __construct(ResponseInterface $response, string $permanent_url, string $final_requested_url)
     {
         $this->response = $response;
         $this->permanent_url = $permanent_url;
-        $this->requested_url = $requested_url;
+        $this->final_requested_url = $final_requested_url;
     }
 
     public function get_permanent_uri(): string
@@ -48,7 +48,7 @@ final class Psr7Response implements Response
 
     public function get_final_requested_uri(): string
     {
-        return $this->requested_url;
+        return $this->final_requested_url;
     }
 
     public function get_status_code(): int
@@ -71,7 +71,7 @@ final class Psr7Response implements Response
 
     public function with_header(string $name, $value)
     {
-        return new self($this->response->withHeader($name, $value), $this->permanent_url, $this->requested_url);
+        return new self($this->response->withHeader($name, $value), $this->permanent_url, $this->final_requested_url);
     }
 
     public function get_header(string $name): array
@@ -86,6 +86,6 @@ final class Psr7Response implements Response
 
     public function get_body_content(): string
     {
-        return $this->response->getBody()->__toString();
+        return (string) $this->response->getBody();
     }
 }

@@ -12,6 +12,7 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
+use SimplePie\Misc;
 use Throwable;
 
 /**
@@ -82,7 +83,7 @@ final class Psr18Client implements Client
             ), 1);
         }
 
-        if (preg_match('/^http(s)?:\/\//i', $url)) {
+        if (Misc::is_remote_uri($url)) {
             return $this->requestUrl($method, $url, $headers);
         }
 
@@ -119,7 +120,7 @@ final class Psr18Client implements Client
             $statusCode = $response->getStatusCode();
 
             // If we have a redirect
-            if (in_array($statusCode, [300, 301, 302, 303, 307]) && $response->hasHeader('Location')) {
+            if (in_array($statusCode, [300, 301, 302, 303, 307, 308]) && $response->hasHeader('Location')) {
                 // Prevent infinity redirect loops
                 if ($remainingRedirects <= 0) {
                     break;
@@ -130,7 +131,7 @@ final class Psr18Client implements Client
 
                 $requestedUrl = $response->getHeaderLine('Location');
 
-                if ($statusCode === 301) {
+                if ($statusCode === 301 || $statusCode === 308) {
                     $permanentUrl = $requestedUrl;
                 }
 
