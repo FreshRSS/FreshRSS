@@ -320,7 +320,7 @@ final class FreshRSS_http_Util {
 		} elseif (isset(self::$resolve_ok[$host])) {
 			$ips = self::$resolve_ok[$host];
 		} else {
-			$records = dns_get_record($host, DNS_A + DNS_AAAA);
+			$records = @dns_get_record($host, DNS_A + DNS_AAAA);
 			if ($records === false) {
 				return false;
 			}
