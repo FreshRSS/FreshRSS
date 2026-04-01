@@ -469,9 +469,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		/** @var array<int,array<string,true>> */
 		$categoriesEntriesTitle = [];
 
-		/** @var array<int,FreshRSS_Feed> */
 		$feeds = Minz_ExtensionManager::callHook(Minz_HookType::FeedsListBeforeActualize, $feeds);
-		if (!is_array($feeds)) {
+		if (is_array($feeds)) {
+			$feeds = array_filter($feeds, static fn($feed): bool => $feed instanceof FreshRSS_Feed);
+		} else {
 			$feeds = [];
 		}
 
