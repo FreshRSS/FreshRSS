@@ -381,8 +381,8 @@ final class FreshRSS_http_Util {
 	/**
 	 * @param non-empty-string $url
 	 * @param string $type {html,ico,json,opml,xml}
-	 * @param array<string,mixed> $attributes
-	 * @param array<int,mixed> $curl_options
+	 * @param array<string,mixed> $attributes May contain user-defined cURL options in `$attributes['curl_params']`
+	 * @param array<int,mixed> $curl_options Internal overrides of cURL options
 	 * @return array{body:string,effective_url:string,redirect_count:int,fail:bool}
 	 */
 	public static function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = [], array $curl_options = []): array {
@@ -402,12 +402,12 @@ final class FreshRSS_http_Util {
 			cleanCache(CLEANCACHE_HOURS);
 		}
 
-		$options = [];
 		$accept = '';
 		$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] ?? null) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
+		$options = [];	// User-defined cURL options
 		if (is_array($attributes['curl_params'] ?? null)) {
 			$options = self::sanitizeCurlParams($attributes['curl_params']);
-			$proxy = is_string($options[CURLOPT_PROXY] ?? null) ? $options[CURLOPT_PROXY] : '';
+			$proxy = is_string($options[CURLOPT_PROXY] ?? null) ? $options[CURLOPT_PROXY] : $proxy;
 			if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
 				// Remove headers problematic for security
 				$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
@@ -418,6 +418,7 @@ final class FreshRSS_http_Util {
 				}
 			}
 		}
+		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
@@ -450,14 +451,14 @@ final class FreshRSS_http_Util {
 		$original_url = $url;
 		$fail = false;
 		$redirs = 0;
-		$max_redirs = $options[CURLOPT_MAXREDIRS] ?? 4;
+		$max_redirs = $curl_options[CURLOPT_MAXREDIRS] ?? $options[CURLOPT_MAXREDIRS] ?? FreshRSS_Context::systemConf()->curl_options[CURLOPT_MAXREDIRS] ?? null;
 		if (!is_int($max_redirs)) {
 			$max_redirs = 4;
 		}
 		while (true) {
 			$url = is_string($url) ? $url : '';
 			$resolve = [];
-			if (empty($options[CURLOPT_PROXY] ?? null)) {
+			if ($proxy === '') {
 				$resolve = self::getCurlResolveInfo($url);
 				if ($resolve === null) {
 					Minz_Log::warning("Fetching $url is not allowed, because the host’s IP is not in the allowlist.");
