@@ -62,7 +62,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private int $priority = self::PRIORITY_MAIN_STREAM;
 	private string $pathEntries = '';
 	private string $httpAuth = '';
-	private bool $error = false;
+	private int $error = 0;
 	private int $ttl = self::TTL_DEFAULT;
 	private bool $mute = false;
 	private string $hash = '';
@@ -354,8 +354,11 @@ class FreshRSS_Feed extends Minz_Model {
 		return $curl_options;
 	}
 
+	/**
+	 * If the feed has an error
+	 */
 	public function inError(): bool {
-		return $this->error;
+		return $this->error > 0;
 	}
 
 	/**
@@ -525,8 +528,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->httpAuth = $value;
 	}
 
-	public function _error(bool|int $value): void {
-		$this->error = (bool)$value;
+	public function _error(int $value): void {
+		$this->error = $value;
 	}
 	public function _mute(bool $value): void {
 		$this->mute = $value;
@@ -754,7 +757,7 @@ class FreshRSS_Feed extends Minz_Model {
 					return $this->loadGuids($simplePie, $invalidGuidsTolerance);
 				}
 			}
-			$this->_error(true);
+			$this->_error(time());
 		}
 
 		return $guids;

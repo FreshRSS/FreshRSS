@@ -468,7 +468,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	/**
 	 * @param array<array{c_name:string,c_id:int,c_kind:int,c_last_update:int,c_error:int|bool,c_attributes?:string,
 	 * 	id?:int,name?:string,url?:string,kind?:int,website?:string,priority?:int,
-	 * 	error?:int|bool,attributes?:string,cache_nbEntries?:int,cache_nbUnreads?:int,ttl?:int}> $listDAO
+	 * 	error?:int,attributes?:string,cache_nbEntries?:int,cache_nbUnreads?:int,ttl?:int}> $listDAO
 	 * @return array<int,FreshRSS_Category> where the key is the category ID
 	 */
 	private static function daoToCategoriesPrepopulated(array $listDAO): array {
