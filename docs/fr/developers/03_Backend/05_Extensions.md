@@ -249,11 +249,14 @@ The following events are available:
 * `entries_favorite` (`function(array $ids, bool $is_favorite): void`):
 	will be executed when some entries are marked or unmarked as favorites (starred)
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be
-	executed when a feed is updated. The feed (instance of FreshRSS\_Feed)
+	executed when a feed is updated. The feed (instance of `FreshRSS_Feed`)
 	will be passed as parameter.
 * `feed_before_insert` (`function($feed) -> Feed | null`): will be executed
 	when a new feed is imported into the database. The new feed (instance of
 	FreshRSS\_Feed) will be passed as parameter.
+* `feeds_list_before_actualize` (`function(array<FreshRSS_Feed> $feedList) -> array | null`) : exécuté avant que FreshRSS actualise les flux.
+	La liste des flux (tableau 	de `FreshRSS_Feed`) à actualiser sera passé comme le paramètre.
+	Utile pour modifier l’ordre dans lequel les flux seront mis à jour
 * `freshrss_init` (`function() -> none`): will be executed at the end of the
 	initialization of FreshRSS, useful to initialize components or to do
 	additional access checks

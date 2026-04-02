@@ -30,7 +30,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			} elseif ($name === 'lastUpdate') {	//v1.20.0
 				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN `lastUpdate` BIGINT DEFAULT 0') !== false;
 			} elseif ($name === 'error') {	//v1.20.0
-				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN error SMALLINT DEFAULT 0') !== false;
+				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN error BIGINT DEFAULT 0') !== false;
 			} elseif ('attributes' === $name) {	//v1.15.0
 				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
 
@@ -212,14 +212,30 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0): int|false {
+	public function updateLastUpdate(int $id, int $mtime = 0): int|false {
 		$sql = <<<'SQL'
-			UPDATE `_category` SET `lastUpdate`=:last_update, error=:error WHERE id=:id
+			UPDATE `_category` SET `lastUpdate`=:last_update, error=0 WHERE id=:id
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false &&
 			$stm->bindValue(':last_update', $mtime <= 0 ? time() : $mtime, PDO::PARAM_INT) &&
-			$stm->bindValue(':error', $inError ? 1 : 0, PDO::PARAM_INT) &&
+			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
+			$stm->execute()) {
+			return $stm->rowCount();
+		} else {
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			return false;
+		}
+	}
+
+	public function updateLastError(int $id, ?int $mtime = null): int|false {
+		$sql = <<<'SQL'
+			UPDATE `_category` SET error=:last_update WHERE id=:id
+			SQL;
+		$stm = $this->pdo->prepare($sql);
+		if ($stm !== false &&
+			$stm->bindValue(':last_update', $mtime === null || $mtime < 0 ? time() : $mtime, PDO::PARAM_INT) &&
 			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
