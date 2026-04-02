@@ -374,7 +374,7 @@ final class FreshRSS_http_Util {
 			return [$resolve_str];
 		}
 
-		return [];
+		return false;
 	}
 
 
