@@ -437,7 +437,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return timestamptodate($this->date);
 	}
 	public function machineReadableDate(): string {
-		return @date(DATE_ATOM, $this->date);
+		return timestamptomachinedate($this->date);
 	}
 
 	public function lastSeen(): int {

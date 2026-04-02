@@ -215,6 +215,10 @@ function timestamptodate(int $t, bool $hour = true): string {
 	return @date($date, $t) ?: '';
 }
 
+function timestamptomachinedate(int $t): string {
+	return @date(DATE_ATOM, $t);
+}
+
 /**
  * Decode HTML entities but preserve XML entities.
  */
