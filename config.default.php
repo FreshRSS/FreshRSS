@@ -236,7 +236,7 @@ return [
 	# - 172.16.0.0/12
 	# - 192.168.0.0/16
 	#
-	# Here you can add overrides for particular ip/domain:port combinations
+	# Here you can add overrides for particular IP/domain:port combinations
 	# Examples: 127.0.0.1:8080, rssbridge.local:443 etc.
 	#
 	# CIDR is permitted too
