@@ -375,9 +375,14 @@ final class FreshRSS_http_Util {
 			$ips_ok[] = $add_ip;
 		}
 
-		if (count($ips_ok) > 0 && count($records) > 0) {
-			$resolve_str .= implode(',', $ips_ok);
-			return [$resolve_str];
+		if (count($ips_ok) > 0) {
+			if (count($records) > 0) {
+				$resolve_str .= implode(',', $ips_ok);
+				return [$resolve_str];
+			}
+			if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
+				return [];
+			}
 		}
 
 		return false;
