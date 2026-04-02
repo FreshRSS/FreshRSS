@@ -619,6 +619,9 @@ final class FreshRSS_http_Util {
 	 */
 	private static function checkCIDR(string $ip, string $range): bool {
 		$binary_ip = self::ipToBits($ip);
+		if ($binary_ip === '') {
+			return false;
+		}
 		$split = explode('/', $range);
 
 		$subnet = $split[0] ?? '';
@@ -626,8 +629,22 @@ final class FreshRSS_http_Util {
 			return false;
 		}
 		$binary_subnet = self::ipToBits($subnet);
+		if ($binary_subnet === '') {
+			return false;
+		}
+		if (strlen($binary_ip) !== strlen($binary_subnet)) {
+			return false;	// Do not mix IPv4 and IPv6
+		}
 
-		$mask_bits = (int)($split[1] ?? '');
+		$mask_bits_str = $split[1] ?? '';
+		if (!ctype_digit($mask_bits_str)) {
+			return false;
+		}
+		$mask_bits = (int)$mask_bits_str;
+		$max_mask_bits = str_contains($ip, ':') ? 128 : 32;
+		if ($mask_bits < 0 || $mask_bits > $max_mask_bits) {
+			return false;	// Reject invalid mask bits lengths
+		}
 		if ($mask_bits === 0) {
 			return true;
 		}
