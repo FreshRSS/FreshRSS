@@ -140,6 +140,22 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Over FreshRSS',
 	),
+	'interval' => array(
+		'ago' => '%s ago',	// TODO
+		'day' => '%d day',	// TODO
+		'days' => '%d days',	// TODO
+		'hour' => '%d hour',	// TODO
+		'hours' => '%d hours',	// TODO
+		'justnow' => 'just now',	// TODO
+		'minute' => '%d minute',	// TODO
+		'minutes' => '%d minutes',	// TODO
+		'month' => '%d month',	// TODO
+		'months' => '%d months',	// TODO
+		'second' => '%d second',	// TODO
+		'seconds' => '%d seconds',	// TODO
+		'year' => '%d year',	// TODO
+		'years' => '%d years',	// TODO
+	),
 	'js' => array(
 		'category_empty' => 'Lege categorie',
 		'confirm_action' => 'Weet u zeker dat u dit wilt doen? Het kan niet ongedaan worden gemaakt!',

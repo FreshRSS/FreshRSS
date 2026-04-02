@@ -70,6 +70,7 @@ return array(
 		'description' => 'Deskripsi',
 		'empty' => 'Umpan ini kosong. Periksa apakah umpan ini masih ada',
 		'error' => 'Ada masalah dengan umpan ini. Jika masih terus-menerus, periksa apakah umpan ini masih ada.',
+		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => 'Unduh',
 			'help' => 'Berkas XML (subset data. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Lihat dokumentasi</a>)',

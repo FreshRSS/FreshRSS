@@ -70,6 +70,7 @@ return array(
 		'description' => '描述',
 		'empty' => '此源为空。请确认它是否正常更新。',
 		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',	// DIRTY
+		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => '下载',
 			'help' => 'XML 文件（数据子集。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">查看文档</a>)',

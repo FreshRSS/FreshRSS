@@ -70,6 +70,7 @@ return array(
 		'description' => 'Açıklama',
 		'empty' => 'Bu besleme boş. Lütfen hala güncel olup olmadığını kontrol edin.',
 		'error' => 'Bu beslemede bir sorun oluştu. Eğer bu durum devam ederse, lütfen hala erişilebilir olup olmadığını kontrol edin.',
+		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => 'İndir',
 			'help' => 'XML dosyası (veri alt kümesi. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Belgelere bakın</a>)',

@@ -140,6 +140,22 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '關於 FreshRSS',
 	),
+	'interval' => array(
+		'ago' => '%s ago',	// TODO
+		'day' => '%d day',	// TODO
+		'days' => '%d days',	// TODO
+		'hour' => '%d hour',	// TODO
+		'hours' => '%d hours',	// TODO
+		'justnow' => 'just now',	// TODO
+		'minute' => '%d minute',	// TODO
+		'minutes' => '%d minutes',	// TODO
+		'month' => '%d month',	// TODO
+		'months' => '%d months',	// TODO
+		'second' => '%d second',	// TODO
+		'seconds' => '%d seconds',	// TODO
+		'year' => '%d year',	// TODO
+		'years' => '%d years',	// TODO
+	),
 	'js' => array(
 		'category_empty' => '清空分類',
 		'confirm_action' => '你確定要執行此操作嗎？這將不可撤銷！',

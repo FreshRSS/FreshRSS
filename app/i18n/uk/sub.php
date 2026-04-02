@@ -70,6 +70,7 @@ return array(
 		'description' => 'Опис',
 		'empty' => 'Стрічка порожня. Перевірте, чи її все ще ведуть.',
 		'error' => 'Зі стрічкою виникла проблема. Якщо це повторюватиметься, перевірте, чи стрічка все ще доступна.',
+		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => 'Завантажити',
 			'help' => 'XML-файл (підмножина даних. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Перегляньте документацію</a>)',

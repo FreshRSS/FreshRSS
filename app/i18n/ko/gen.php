@@ -140,6 +140,22 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '정보',
 	),
+	'interval' => array(
+		'ago' => '%s ago',	// TODO
+		'day' => '%d day',	// TODO
+		'days' => '%d days',	// TODO
+		'hour' => '%d hour',	// TODO
+		'hours' => '%d hours',	// TODO
+		'justnow' => 'just now',	// TODO
+		'minute' => '%d minute',	// TODO
+		'minutes' => '%d minutes',	// TODO
+		'month' => '%d month',	// TODO
+		'months' => '%d months',	// TODO
+		'second' => '%d second',	// TODO
+		'seconds' => '%d seconds',	// TODO
+		'year' => '%d year',	// TODO
+		'years' => '%d years',	// TODO
+	),
 	'js' => array(
 		'category_empty' => '빈 카테고리',
 		'confirm_action' => '정말 이 작업을 수행하시겠습니까? 이 작업은 되돌릴 수 없습니다!',

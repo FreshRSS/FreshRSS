@@ -70,6 +70,7 @@ return array(
 		'description' => 'Opis',
 		'empty' => 'Ten kanał jest pusty. Należy sprawdzić czy kanał w dalszym ciągu działa.',
 		'error' => 'Wystąpił błąd podczas pobierania kanału. Należy sprawdzić czy kanał jest nadal dostępny.',
+		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => 'Pobierz',
 			'help' => 'Plik XML (podzbiór danych. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Zobacz dokumentację</a>)',
