@@ -461,7 +461,7 @@ final class FreshRSS_http_Util {
 			if ($proxy === '') {
 				$resolve = self::getCurlResolveInfo($url);
 				if ($resolve === null) {
-					Minz_Log::warning("Fetching $url is not allowed, because the host’s IP is not in the allowlist.");
+					Minz_Log::warning('Fetching ' . \SimplePie\Misc::url_remove_credentials($url) . ' is not allowed, because the host’s IP is not in the allowlist.');
 					return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
 				} elseif ($resolve === false) {
 					return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
@@ -535,7 +535,7 @@ final class FreshRSS_http_Util {
 					$redirs++;
 				}
 				if ($redirs > $max_redirs) {
-					Minz_Log::warning("Error fetching content: $original_url hit too many redirects");
+					Minz_Log::warning('Error fetching content: ' . \SimplePie\Misc::url_remove_credentials($original_url) . ' hit too many redirects');
 					break;
 				}
 				if (isset($options[CURLOPT_POST]) && in_array($c_status, [301, 302, 303], true)) {	// Not for 307 and 308, which must not change the HTTP method
