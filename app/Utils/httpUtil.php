@@ -272,8 +272,8 @@ final class FreshRSS_http_Util {
 	}
 
 	public static function compareURLOrigins(string $url1, string $url2): bool {
-		$url1 = parse_url($url1);
-		$url2 = parse_url($url2);
+		$url1 = parse_url(strtolower($url1));
+		$url2 = parse_url(strtolower($url2));
 		if ($url1 === false || $url2 === false) {
 			return false;
 		}
@@ -288,6 +288,7 @@ final class FreshRSS_http_Util {
 	 * @return array<string>|null|false
 	 */
 	public static function getCurlResolveInfo(string $url): array|null|false {
+		$url = strtolower($url);
 		$parsed = parse_url($url);
 		if ($parsed === false) {
 			return false;

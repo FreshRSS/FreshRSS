@@ -342,7 +342,7 @@ class File implements Response
      */
     protected function get_curl_resolve_info(string $url): array|null|false
     {
-       return [];
+        return [];
     }
 
     public function get_permanent_uri(): string
