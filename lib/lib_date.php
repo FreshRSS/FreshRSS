@@ -141,3 +141,43 @@ function parseDateInterval(string $dateInterval): array {
 	}
 	return [$min, $max];
 }
+
+/**
+ * Human readable string how long this timestamp is ago ("5 years ago").
+ */
+function timeago(int $t, string $base = 'now'): string {
+	$dt = DateTime::createFromFormat('U', (string) $t);
+	if ($dt === false) {
+		return 'date error';
+	}
+
+	$interval = (new DateTime($base))->diff($dt);
+	switch (true) {
+		case $interval->y > 1: $format = 'years'; $value = $interval->y; break;
+		case $interval->y > 0: $format = 'year'; $value = $interval->y; break;
+
+		case $interval->m > 1: $format = 'months'; $value = $interval->m; break;
+		case $interval->m > 0: $format = 'month'; $value = $interval->m; break;
+
+		case $interval->d > 1: $format = 'days'; $value = $interval->d; break;
+		case $interval->d > 0: $format = 'day'; $value = $interval->d; break;
+
+		case $interval->h > 1: $format = 'hours'; $value = $interval->h; break;
+		case $interval->h > 0: $format = 'hour'; $value = $interval->h; break;
+
+		case $interval->i > 1: $format = 'minutes'; $value = $interval->i; break;
+		case $interval->i > 0: $format = 'minute'; $value = $interval->i; break;
+
+		case $interval->s > 1: $format = 'seconds'; $value = $interval->s; break;
+		case $interval->s > 0: $format = 'second'; $value = $interval->s; break;
+
+		default:
+			$format = 'justnow'; $value = '';
+	}
+
+	$diff = _t('gen.interval.' . $format, $value);
+	if ($format === 'justnow') {
+		return $diff;
+	}
+	return _t('gen.interval.ago', $diff);
+}

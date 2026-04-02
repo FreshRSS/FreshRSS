@@ -70,6 +70,7 @@ return array(
 		'description' => 'Beschreibung',
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',
 		'error' => 'Bei diesem Feed ist ein Problem aufgetreten. Sollte dieses Problem weiterhin bestehen, überprüfen Sie bitte, ob er noch erreichbar ist.',
+		'error-details' => 'Letzte erfolgreiche Aktualisierung <time datetime="%1$s" title="%1$s">%2$s</time>, letzte fehlerhafte Aktualisierung <time datetime="%3$s" title="%3$s">%4$s</time>.',
 		'export-as-opml' => array(
 			'download' => 'Download',	// IGNORE
 			'help' => 'XML Datei (ausgewählte Daten. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Siehe Dokumentation</a>)',

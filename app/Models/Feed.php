@@ -355,6 +355,13 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
+	 * Timestamp of last update error
+	 */
+	public function error(): int {
+		return $this->error;
+	}
+
+	/**
 	 * If the feed has an error
 	 */
 	public function inError(): bool {

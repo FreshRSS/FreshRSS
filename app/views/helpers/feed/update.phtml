@@ -17,7 +17,11 @@
 	<?php $nbEntries = $this->feed->nbEntries(); ?>
 
 	<?php if ($this->feed->inError()) { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('sub.feed.error') ?></p>
+		<p class="alert alert-error">
+			<span class="alert-head"><?= _t('gen.short.damn') ?></span>
+			<?= _t('sub.feed.error') ?><br/>
+			<?= _t('sub.feed.error-details', timestamptomachinedate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate()), timestamptomachinedate($this->feed->error()), timeago($this->feed->error())) ?>
+		</p>
 	<?php } elseif ($nbEntries === 0) { ?>
 	<p class="alert alert-warn"><?= _t('sub.feed.empty') ?></p>
 	<?php } ?>
