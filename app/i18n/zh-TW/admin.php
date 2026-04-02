@@ -94,6 +94,7 @@ return array(
 		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => '各使用者分類數限制',
 		'max-feeds' => '各使用者訂閱源數限制',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => '最大使用者數',
 			'select' => array(

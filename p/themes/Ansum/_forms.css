@@ -100,7 +100,7 @@ input:invalid, select:invalid {
 	box-shadow: none;
 }
 
-input:disabled, select:disabled {
+input:disabled, select:disabled, textarea:disabled {
 	color: var(--grey-medium-dark);
 	border-color: var(--grey-medium-dark);
 }

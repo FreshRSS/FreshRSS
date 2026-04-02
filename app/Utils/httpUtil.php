@@ -334,7 +334,13 @@ final class FreshRSS_http_Util {
 			self::$resolve_ok[$host] = $ips;
 		}
 
-		$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
+		$internal_host_allowlist = getenv('INTERNAL_HOST_ALLOWLIST');
+		if ($internal_host_allowlist != 0 && is_string($internal_host_allowlist)) {
+			$internal_host_allowlist = preg_split('/\s+/', $internal_host_allowlist, -1, PREG_SPLIT_NO_EMPTY);
+		}
+		if (!is_array($internal_host_allowlist) || empty($internal_host_allowlist)) {
+			$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
+		}
 		$cidr_allowlist = array_filter($internal_host_allowlist, fn($v, $_) => str_contains($v, '/'), ARRAY_FILTER_USE_BOTH);
 		foreach ($ips as $ip) {
 			$allowlist_str = "$ip:$port";

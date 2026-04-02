@@ -94,6 +94,7 @@ return array(
 		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Μέγιστος αριθμός κατηγοριών ανά χρήστη',
 		'max-feeds' => 'Μέγιστος αριθμός τροφοδοσιών ανά χρήστη',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Μέγιστος αριθμός λογαριασμών',
 			'select' => array(

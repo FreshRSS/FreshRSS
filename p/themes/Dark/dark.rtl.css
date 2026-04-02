@@ -142,7 +142,7 @@ input, select, textarea {
 	box-shadow: 0 2px 2px var(--dark-form-element-box-shadow-inset) inset;
 }
 
-input:disabled, select:disabled {
+input:disabled, select:disabled, textarea:disabled {
 	background-color: var(--dark-background-color2);
 	color: var(--dark-font-colorA);
 	border-style: solid;

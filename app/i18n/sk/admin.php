@@ -94,6 +94,7 @@ return array(
 		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Limit počtu kategórií pre používateľa',
 		'max-feeds' => 'Limit počtu kanálov pre používateľov',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Maximálny počt účtov',
 			'select' => array(

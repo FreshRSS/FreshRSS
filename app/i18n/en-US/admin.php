@@ -94,6 +94,7 @@ return array(
 		'internal-host-allowlist' => 'Internal host allowlist',	// IGNORE
 		'max-categories' => 'Max number of categories per user',	// IGNORE
 		'max-feeds' => 'Max number of feeds per user',	// IGNORE
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// IGNORE
 		'registration' => array(
 			'number' => 'Max number of accounts',	// IGNORE
 			'select' => array(

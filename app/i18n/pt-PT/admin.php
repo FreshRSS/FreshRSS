@@ -94,6 +94,7 @@ return array(
 		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Limite de categorias por utilizador',
 		'max-feeds' => 'Limite de Feeds por utilizador',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Máximo número de contas',
 			'select' => array(

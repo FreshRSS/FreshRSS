@@ -94,6 +94,7 @@ return array(
 		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Kullanıcı başına maksimum kategori sayısı',
 		'max-feeds' => 'Kullanıcı başına maksimum besleme sayısı',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Maksimum hesap sayısı',
 			'select' => array(

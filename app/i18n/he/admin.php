@@ -94,6 +94,7 @@ return array(
 		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
 		'max-categories' => 'Max number of categories per user',	// TODO
 		'max-feeds' => 'Max number of feeds per user',	// TODO
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Max number of accounts',	// TODO
 			'select' => array(

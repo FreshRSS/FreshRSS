@@ -94,6 +94,7 @@ return array(
 		'internal-host-allowlist' => 'Lista dozwolonych hostów wewnętrznych',
 		'max-categories' => 'Maksymalna liczba kategorii na użytkownika',
 		'max-feeds' => 'Maksymalna liczba kanałów na użytkownika',
+		'override-by-env-var' => 'To ustawienie jest ustawione przez zmienną środowiskową <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Maksymalna liczba kont',
 			'select' => array(

@@ -171,7 +171,7 @@ label {
 	}
 }
 
-:is(input, select) {
+:is(textarea, input, select) {
 	&:invalid {
 		padding-right: 5px;
 		color: var(--color-text-bad);

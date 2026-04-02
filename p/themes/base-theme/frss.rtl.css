@@ -370,6 +370,7 @@ textarea:invalid {
 }
 
 input:disabled,
+textarea:disabled,
 select:disabled {
 	background-color: transparent;
 	min-width: 75px;
@@ -553,12 +554,12 @@ input.ignore-auto-complete {
 }
 
 /*=== Buttons */
-button[disabled] {
+button:disabled {
 	opacity: 0.5;
 	color: var(--frss-font-color-disabled);
 }
 
-button[disabled]:hover, input[disabled]:hover {
+button:disabled:hover, textarea:disabled:hover, input:disabled:hover {
 	cursor: not-allowed;
 }
 
