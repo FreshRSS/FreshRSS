@@ -268,6 +268,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->minorDbMaintenance();
 		$databaseDAO->optimize();
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -295,6 +296,9 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			@set_time_limit(300);
 		}
 
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->minorDbMaintenance();
+
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeeds();
 		$nb_total = 0;
@@ -309,9 +313,6 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 		$feedDAO->updateCachedValues();
 		$feedDAO->commit();
-
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-		$databaseDAO->minorDbMaintenance();
 
 		invalidateHttpCache();
 		Minz_Request::good(
