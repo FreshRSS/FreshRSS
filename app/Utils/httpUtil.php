@@ -335,7 +335,7 @@ final class FreshRSS_http_Util {
 		}
 
 		$internal_host_allowlist = getenv('INTERNAL_HOST_ALLOWLIST');
-		if ($internal_host_allowlist != 0 && is_string($internal_host_allowlist)) {
+		if (is_string($internal_host_allowlist) && $internal_host_allowlist !== '') {
 			$internal_host_allowlist = preg_split('/\s+/', $internal_host_allowlist, -1, PREG_SPLIT_NO_EMPTY);
 		}
 		if (!is_array($internal_host_allowlist) || empty($internal_host_allowlist)) {
