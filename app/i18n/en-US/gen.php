@@ -141,20 +141,20 @@ return array(
 		'about' => 'About FreshRSS',	// IGNORE
 	),
 	'interval' => array(
-		'ago' => '%s ago',	// TODO
-		'day' => '%d day',	// TODO
-		'days' => '%d days',	// TODO
-		'hour' => '%d hour',	// TODO
-		'hours' => '%d hours',	// TODO
-		'justnow' => 'just now',	// TODO
-		'minute' => '%d minute',	// TODO
-		'minutes' => '%d minutes',	// TODO
-		'month' => '%d month',	// TODO
-		'months' => '%d months',	// TODO
-		'second' => '%d second',	// TODO
-		'seconds' => '%d seconds',	// TODO
-		'year' => '%d year',	// TODO
-		'years' => '%d years',	// TODO
+		'ago' => '%s ago',	// IGNORE
+		'day' => '%d day',	// IGNORE
+		'days' => '%d days',	// IGNORE
+		'hour' => '%d hour',	// IGNORE
+		'hours' => '%d hours',	// IGNORE
+		'justnow' => 'just now',	// IGNORE
+		'minute' => '%d minute',	// IGNORE
+		'minutes' => '%d minutes',	// IGNORE
+		'month' => '%d month',	// IGNORE
+		'months' => '%d months',	// IGNORE
+		'second' => '%d second',	// IGNORE
+		'seconds' => '%d seconds',	// IGNORE
+		'year' => '%d year',	// IGNORE
+		'years' => '%d years',	// IGNORE
 	),
 	'js' => array(
 		'category_empty' => 'Empty category',	// IGNORE
