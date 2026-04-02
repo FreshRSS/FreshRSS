@@ -227,14 +227,30 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	/**
 	 * @see updateCachedValues()
 	 */
-	public function updateLastUpdate(int $id, bool $inError = false, int $mtime = 0): int|false {
+	public function updateLastUpdate(int $id, int $mtime = 0): int|false {
 		$sql = <<<'SQL'
-			UPDATE `_feed` SET `lastUpdate`=:last_update, error=:error WHERE id=:id
+			UPDATE `_feed` SET `lastUpdate`=:last_update, error=0 WHERE id=:id
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false &&
 			$stm->bindValue(':last_update', $mtime <= 0 ? time() : $mtime, PDO::PARAM_INT) &&
-			$stm->bindValue(':error', $inError ? 1 : 0, PDO::PARAM_INT) &&
+			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
+			$stm->execute()) {
+			return $stm->rowCount();
+		} else {
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+			return false;
+		}
+	}
+
+	public function updateLastError(int $id, ?int $mtime = null): int|false {
+		$sql = <<<'SQL'
+			UPDATE `_feed` SET error=:last_update WHERE id=:id
+			SQL;
+		$stm = $this->pdo->prepare($sql);
+		if ($stm !== false &&
+			$stm->bindValue(':last_update', $mtime === null || $mtime < 0 ? time() : $mtime, PDO::PARAM_INT) &&
 			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
@@ -445,6 +461,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	public function listFeedsOrderUpdate(int $defaultCacheDuration = 3600, int $limit = 0): array {
 		$ttlDefault = FreshRSS_Feed::TTL_DEFAULT;
 		$refreshThreshold = time() + 60;
+		$lastAttemptExpression = '(CASE WHEN error > `lastUpdate` THEN error ELSE `lastUpdate` END)';
 
 		$sql = <<<SQL
 			SELECT * FROM `_feed`
@@ -452,11 +469,11 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		if ($defaultCacheDuration >= 0) {
 			$sql .= "\n" . <<<SQL
 				WHERE ttl >= {$ttlDefault}
-				AND `lastUpdate` < ({$refreshThreshold}-(CASE WHEN ttl={$ttlDefault} THEN {$defaultCacheDuration} ELSE ttl END))
+				AND {$lastAttemptExpression} < ({$refreshThreshold}-(CASE WHEN ttl={$ttlDefault} THEN {$defaultCacheDuration} ELSE ttl END))
 				SQL;
 		}
 		$sql .= "\n" . <<<SQL
-			ORDER BY `lastUpdate`
+			ORDER BY {$lastAttemptExpression} ASC
 			SQL;
 		if ($limit > 0) {
 			$sql .= "\n" . <<<SQL

@@ -567,7 +567,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$mtime = $feed->cacheModifiedTime() ?: time();
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::warning($e->getMessage());
-				$feedDAO->updateLastUpdate($feed->id(), true);
+				$feedDAO->updateLastError($feed->id());
 				if ($e->getCode() === 410) {
 					// HTTP 410 Gone
 					Minz_Log::warning('Muting gone feed: ' . $feed->url(false));
@@ -720,10 +720,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				}
 			}
 
-			$feedDAO->updateLastUpdate($feed->id(), false, $mtime);
-			if ($simplePiePush === null) {
+			if ($simplePiePush === null) {	// Not WebSub
+				$feedDAO->updateLastUpdate($feed->id(), $mtime);
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
 				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($feedIsEmpty, $mtime) != false);
+			} elseif ($feed->inError()) {
+				// Reset feed error state in case of successful WebSub push
+				$feedDAO->updateLastError($feed->id(), 0);
 			}
 			if ($needFeedCacheRefresh) {
 				$feedsCacheToRefresh[] = $feed;
@@ -928,12 +931,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$feedDAO->updateCachedValues();
 		} else {
-			if ($id === 0 && $url === '') {
-				// Case of a batch refresh (e.g. cron)
+			if (!$noCommit) {
 				$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
 				$databaseDAO->minorDbMaintenance();
 				Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssUserMaintenance);
-
+			}
+			if ($id === 0 && $url === '') {
+				// Case of a batch refresh (e.g. cron)
 				FreshRSS_feed_Controller::commitNewEntries();
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$feedDAO->updateCachedValues();

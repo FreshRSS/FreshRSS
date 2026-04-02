@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `_category` (
 	`name` VARCHAR(191) NOT NULL,	-- Max index length for Unicode is 191 characters (767 bytes) FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE
 	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`lastUpdate` BIGINT DEFAULT 0,	-- 1.20.0
-	`error` SMALLINT DEFAULT 0,	-- 1.20.0
+	`error` BIGINT DEFAULT 0,	-- Date, v1.29.0
 	`attributes` TEXT,	-- v1.15.0
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)	-- v0.7
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
 	`pathEntries` VARCHAR(4096) DEFAULT NULL,
 	`httpAuth` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
-	`error` BOOLEAN DEFAULT 0,
+	`error` BIGINT DEFAULT 0,	-- Date, v1.29.0
 	`ttl` INT NOT NULL DEFAULT 0,	-- v0.7.3
 	`attributes` TEXT,	-- v1.11.0
 	`cache_nbEntries` INT DEFAULT 0,	-- v0.7
@@ -137,14 +137,17 @@ BEGIN
 
 	SELECT COUNT(*) INTO up_to_date FROM information_schema.COLUMNS
 		WHERE TABLE_SCHEMA = DATABASE()
-		AND TABLE_NAME = REPLACE('`_tag`', '`', '')
-		AND COLUMN_NAME = 'name'
-		AND COLUMN_TYPE = 'VARCHAR(191)';
+		AND TABLE_NAME = REPLACE('`_feed`', '`', '')
+		AND COLUMN_NAME = 'error'
+		AND DATA_TYPE = 'bigint';
 
 	IF up_to_date = 0 THEN
+		ALTER TABLE `_category`
+			MODIFY COLUMN `error` BIGINT DEFAULT 0;	-- v1.29.0
 		ALTER TABLE `_feed`
 			MODIFY COLUMN `website` TEXT CHARACTER SET latin1 COLLATE latin1_bin,
 			MODIFY COLUMN `lastUpdate` BIGINT DEFAULT 0,
+			MODIFY COLUMN `error` BIGINT DEFAULT 0,	-- v1.29.0
 			MODIFY COLUMN `pathEntries` VARCHAR(4096),
 			MODIFY COLUMN `httpAuth` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL;
 		ALTER TABLE `_entry`
