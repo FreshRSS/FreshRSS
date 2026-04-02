@@ -461,7 +461,8 @@ final class FreshRSS_http_Util {
 			if ($proxy === '') {
 				$resolve = self::getCurlResolveInfo($url);
 				if ($resolve === null) {
-					Minz_Log::warning('Fetching ' . \SimplePie\Misc::url_remove_credentials($url) . ' is not allowed, because the host’s IP is not in the allowlist.');
+					Minz_Log::warning('Fetching ' .
+						\SimplePie\Misc::url_remove_credentials($url) . ' is not allowed, because the host’s IP is not in the allowlist.');
 					return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
 				} elseif ($resolve === false) {
 					return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
