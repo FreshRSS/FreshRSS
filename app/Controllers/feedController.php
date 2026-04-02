@@ -589,7 +589,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					$readWhenSameTitleInFeed = $feed->attributeInt('read_when_same_title_in_feed') ?? 0;
 				}
 				if ($readWhenSameTitleInFeed > 0) {
-					$titlesAsRead = array_fill_keys($feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed), true);
+					$titlesAsRead = array_fill_keys(
+						array_map([FreshRSS_Entry::class, 'normalizeTitle'], $feedDAO->listTitles($feed->id(), $readWhenSameTitleInFeed)),
+						true
+					);
 				} else {
 					$titlesAsRead = [];
 				}
@@ -597,7 +600,10 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$category = $feed->category();
 				if (!isset($categoriesEntriesTitle[$feed->categoryId()]) && $category !== null && $category->hasAttribute('read_when_same_title_in_category')) {
 					$categoriesEntriesTitle[$feed->categoryId()] = array_fill_keys(
-						$catDAO->listTitles($feed->categoryId(), $category->attributeInt('read_when_same_title_in_category') ?? 0),
+						array_map([FreshRSS_Entry::class, 'normalizeTitle'], $catDAO->listTitles(
+							$feed->categoryId(), 
+							$category->attributeInt('read_when_same_title_in_category') ?? 0
+						)),
 						true
 					);
 				}
@@ -641,10 +647,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							// NB: Do not mark updated articles as read based on their title, as the duplicate title maybe be from the same article.
 							$entry->applyFilterActions([]);
 							if ($readWhenSameTitleInFeed > 0) {
-								$titlesAsRead[$entry->title()] = true;
+								$titlesAsRead[FreshRSS_Entry::normalizeTitle($entry->title())] = true;
 							}
 							if (isset($categoriesEntriesTitle[$feed->categoryId()])) {
-								$categoriesEntriesTitle[$feed->categoryId()][$entry->title()] = true;
+								$categoriesEntriesTitle[$feed->categoryId()][
+									FreshRSS_Entry::normalizeTitle($entry->title())
+								] = true;
 							}
 
 							if (!$entry->isRead()) {
@@ -676,10 +684,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 						$entry->applyFilterActions(array_merge($titlesAsRead, $categoriesEntriesTitle[$feed->categoryId()] ?? []));
 						if ($readWhenSameTitleInFeed > 0) {
-							$titlesAsRead[$entry->title()] = true;
+							$titlesAsRead[FreshRSS_Entry::normalizeTitle($entry->title())] = true;
 						}
 						if (isset($categoriesEntriesTitle[$feed->categoryId()])) {
-							$categoriesEntriesTitle[$feed->categoryId()][$entry->title()] = true;
+							$categoriesEntriesTitle[$feed->categoryId()][
+								FreshRSS_Entry::normalizeTitle($entry->title())
+							] = true;
 						}
 
 						$needFeedCacheRefresh = true;
