@@ -94,7 +94,7 @@ return array(
 		'internal-host-allowlist' => 'Liste d’adresses internes autorisées',
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
-		'override-by-env-var' => ' Cette option est définie par la variable d’environnement <kbd>%s</kbd>.',
+		'override-by-env-var' => 'Cette option est définie par la variable d’environnement <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Nombre max de comptes',
 			'select' => array(
