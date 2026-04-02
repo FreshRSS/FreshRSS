@@ -480,7 +480,6 @@ final class FreshRSS_http_Util {
 				CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 				CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
 				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_FOLLOWLOCATION => false,
 				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 			]);
@@ -505,6 +504,7 @@ final class FreshRSS_http_Util {
 			}
 
 			curl_setopt_array($ch, $curl_options);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 
 			$body = curl_exec($ch);
 			$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
