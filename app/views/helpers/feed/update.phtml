@@ -27,7 +27,6 @@
 		</p>
 	<?php else: ?>
 		<p class="alert alert-success">
-			<span class="alert-head">
 			<?= _t('sub.feed.last-update',
 				timestampToMachineDate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate())) ?>
 		</p>
