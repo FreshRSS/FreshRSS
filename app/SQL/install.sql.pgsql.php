@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `_category` (
 	"name" VARCHAR(191) UNIQUE NOT NULL,
 	"kind" SMALLINT DEFAULT 0,	-- 1.20.0
 	"lastUpdate" BIGINT DEFAULT 0,	-- 1.20.0
-	"error" SMALLINT DEFAULT 0,	-- 1.20.0
+	"error" BIGINT DEFAULT 0,	-- Date, v1.29.0
 	"attributes" TEXT	-- v1.15.0
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	"priority" SMALLINT NOT NULL DEFAULT 10,
 	"pathEntries" VARCHAR(4096) DEFAULT NULL,
 	"httpAuth" VARCHAR(1024) DEFAULT NULL,
-	"error" SMALLINT DEFAULT 0,
+	"error" BIGINT DEFAULT 0,	-- Date, v1.29.0
 	"ttl" INT NOT NULL DEFAULT 0,
 	"attributes" TEXT,	-- v1.11.0
 	"cache_nbEntries" INT DEFAULT 0,
@@ -122,18 +122,20 @@ BEGIN
 	IF NOT EXISTS (
 		SELECT 1 FROM information_schema.columns
 		WHERE table_schema = 'public'
-			AND table_name = REPLACE('`_tag`', '"', '')
-			AND column_name = 'name'
-			AND character_maximum_length = 191
+			AND table_name = REPLACE('`_feed`', '"', '')
+			AND column_name = 'error'
+			AND data_type = 'bigint'
 	) THEN
 		ALTER TABLE `_category`
-			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191);
+			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191),
+			ALTER COLUMN "error" SET DATA TYPE BIGINT;
 		ALTER TABLE `_feed`
 			DROP CONSTRAINT IF EXISTS `_feed_url_key`,
 			ALTER COLUMN "url" SET DATA TYPE VARCHAR(32768),
 			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191),
 			ALTER COLUMN "website" SET DATA TYPE VARCHAR(32768),
 			ALTER COLUMN "lastUpdate" SET DATA TYPE BIGINT,
+			ALTER COLUMN "error" SET DATA TYPE BIGINT,
 			ALTER COLUMN "pathEntries" SET DATA TYPE VARCHAR(4096),
 			ALTER COLUMN "httpAuth" SET DATA TYPE VARCHAR(1024);
 		ALTER TABLE `_entry`
