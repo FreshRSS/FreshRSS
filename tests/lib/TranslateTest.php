@@ -38,4 +38,13 @@ final class TranslateTest extends \PHPUnit\Framework\TestCase {
 		Minz_Translate::reset('fr');
 		self::assertSame('il y a 2 jours', timeago(0, 2 * 86400));
 	}
+
+	public function testCompiledPluralFileProvidesRuntimeCallable(): void {
+		$pluralData = include APP_PATH . '/i18n/cs/plurals.php';
+
+		self::assertIsArray($pluralData);
+		self::assertSame(3, $pluralData['nplurals']);
+		self::assertInstanceOf(Closure::class, $pluralData['plural']);
+		self::assertSame(1, $pluralData['plural'](3));
+	}
 }

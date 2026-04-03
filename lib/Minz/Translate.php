@@ -44,14 +44,9 @@ class Minz_Translate {
 
 	private static bool $plural_catalogue_loaded = false;
 
-	private static ?string $plural_forms = null;
-
-	private static bool $plural_rule_loaded = false;
-
 	private static ?int $plural_count = null;
 
-	/** @var array<string,mixed>|null */
-	private static ?array $plural_expression_tree = null;
+	private static ?\Closure $plural_function = null;
 
 	/**
 	 * Init the translation object.
@@ -299,10 +294,8 @@ class Minz_Translate {
 	 */
 	private static function resetPluralCache(): void {
 		self::$plural_catalogue_loaded = false;
-		self::$plural_forms = null;
-		self::$plural_rule_loaded = false;
 		self::$plural_count = null;
-		self::$plural_expression_tree = null;
+		self::$plural_function = null;
 	}
 
 	/**
@@ -314,7 +307,8 @@ class Minz_Translate {
 		}
 
 		self::$plural_catalogue_loaded = true;
-		$fallbackPluralForms = null;
+		$fallbackPluralCount = null;
+		$fallbackPluralFunction = null;
 
 		foreach (self::$plural_files as $pluralFile) {
 			$pluralData = include $pluralFile['path'];
@@ -323,334 +317,42 @@ class Minz_Translate {
 				continue;
 			}
 
-			$pluralForms = $pluralData['plural-forms'] ?? null;
-			if (!is_string($pluralForms) || $pluralForms === '') {
+			$pluralCount = $pluralData['nplurals'] ?? null;
+			$pluralFunction = $pluralData['plural'] ?? null;
+			if (!is_int($pluralCount) || $pluralCount < 1 || !($pluralFunction instanceof \Closure)) {
+				Minz_Log::warning('Invalid compiled plural data in `' . $pluralFile['path'] . '`. Run `make fix-all`.');
 				continue;
 			}
 
 			if ($pluralFile['use_formula']) {
-				if (self::$plural_forms === null) {
-					self::$plural_forms = $pluralForms;
-				} elseif (self::$plural_forms !== $pluralForms) {
-					Minz_Log::warning('Conflicting plural formula in `' . $pluralFile['path'] . '`');
+				if (self::$plural_function === null) {
+					self::$plural_count = $pluralCount;
+					self::$plural_function = $pluralFunction;
+				} elseif (self::$plural_count !== $pluralCount) {
+					Minz_Log::warning('Conflicting compiled plural count in `' . $pluralFile['path'] . '`');
 				}
-			} elseif ($fallbackPluralForms === null) {
-				$fallbackPluralForms = $pluralForms;
+			} elseif ($fallbackPluralFunction === null) {
+				$fallbackPluralCount = $pluralCount;
+				$fallbackPluralFunction = $pluralFunction;
 			}
 		}
 
-		if (self::$plural_forms === null) {
-			self::$plural_forms = $fallbackPluralForms;
-		}
-	}
-
-	/**
-	 * Parse the plural rule into an evaluable syntax tree.
-	 */
-	private static function loadPluralRule(): bool {
-		if (self::$plural_rule_loaded) {
-			return self::$plural_count !== null && self::$plural_expression_tree !== null;
-		}
-
-		self::$plural_rule_loaded = true;
-		self::loadPluralCatalogue();
-
-		if (!is_string(self::$plural_forms) || self::$plural_forms === '') {
-			return false;
-		}
-
-		if (!preg_match('/^\s*nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*(.+?)\s*;\s*$/', self::$plural_forms, $matches)) {
-			Minz_Log::warning('Invalid plural formula: ' . self::$plural_forms);
-			return false;
-		}
-
-		self::$plural_count = max(1, (int)$matches[1]);
-		self::$plural_expression_tree = self::parsePluralExpression($matches[2]);
-
-		return true;
-	}
-
-	/**
-	 * Tokenise and parse a gettext plural expression.
-	 * @return array<string,mixed>
-	 */
-	private static function parsePluralExpression(string $expression): array {
-		$tokens = [];
-		$offset = 0;
-		$length = strlen($expression);
-		$pattern = '/\G\s*(\d+|n|==|!=|<=|>=|\|\||&&|[?:()!%+\-*\/<>=])\s*/A';
-
-		while ($offset < $length) {
-			if (preg_match($pattern, $expression, $matches, 0, $offset) !== 1) {
-				throw new RuntimeException('Unable to parse plural expression near `' . substr($expression, $offset) . '`');
-			}
-			$tokens[] = $matches[1];
-			$offset += strlen($matches[0]);
-		}
-
-		$position = 0;
-		$tree = self::parsePluralTernary($tokens, $position, $expression);
-		if ($position !== count($tokens)) {
-			throw new RuntimeException('Unexpected token in plural expression `' . $expression . '`');
-		}
-
-		return $tree;
-	}
-
-	/**
-	 * @param array<string,mixed> $node
-	 * @return array<string,mixed>
-	 */
-	private static function childPluralNode(array $node, string $key): array {
-		$child = $node[$key] ?? [];
-		if (!is_array($child)) {
-			return [];
-		}
-
-		/** @var array<string,mixed> $child */
-		return $child;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private static function parsePluralTernary(array $tokens, int &$position, string $expression): array {
-		$condition = self::parsePluralLogicalOr($tokens, $position, $expression);
-		if (($tokens[$position] ?? null) !== '?') {
-			return $condition;
-		}
-
-		$position++;
-		$ifTrue = self::parsePluralTernary($tokens, $position, $expression);
-		if (($tokens[$position] ?? null) !== ':') {
-			throw new RuntimeException('Missing `:` in plural expression `' . $expression . '`');
-		}
-		$position++;
-		$ifFalse = self::parsePluralTernary($tokens, $position, $expression);
-
-		return [
-			'type' => 'ternary',
-			'condition' => $condition,
-			'if_true' => $ifTrue,
-			'if_false' => $ifFalse,
-		];
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private static function parsePluralLogicalOr(array $tokens, int &$position, string $expression): array {
-		$node = self::parsePluralLogicalAnd($tokens, $position, $expression);
-		while (($tokens[$position] ?? null) === '||') {
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => '||',
-				'left' => $node,
-				'right' => self::parsePluralLogicalAnd($tokens, $position, $expression),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private static function parsePluralLogicalAnd(array $tokens, int &$position, string $expression): array {
-		$node = self::parsePluralEquality($tokens, $position, $expression);
-		while (($tokens[$position] ?? null) === '&&') {
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => '&&',
-				'left' => $node,
-				'right' => self::parsePluralEquality($tokens, $position, $expression),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private static function parsePluralEquality(array $tokens, int &$position, string $expression): array {
-		$node = self::parsePluralRelational($tokens, $position, $expression);
-		while (in_array($tokens[$position] ?? null, ['==', '!='], true)) {
-			$operator = $tokens[$position] ?? '';
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => $operator,
-				'left' => $node,
-				'right' => self::parsePluralRelational($tokens, $position, $expression),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private static function parsePluralRelational(array $tokens, int &$position, string $expression): array {
-		$node = self::parsePluralAdditive($tokens, $position, $expression);
-		while (in_array($tokens[$position] ?? null, ['<', '<=', '>', '>='], true)) {
-			$operator = $tokens[$position] ?? '';
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => $operator,
-				'left' => $node,
-				'right' => self::parsePluralAdditive($tokens, $position, $expression),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private static function parsePluralAdditive(array $tokens, int &$position, string $expression): array {
-		$node = self::parsePluralMultiplicative($tokens, $position, $expression);
-		while (in_array($tokens[$position] ?? null, ['+', '-'], true)) {
-			$operator = $tokens[$position] ?? '';
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => $operator,
-				'left' => $node,
-				'right' => self::parsePluralMultiplicative($tokens, $position, $expression),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private static function parsePluralMultiplicative(array $tokens, int &$position, string $expression): array {
-		$node = self::parsePluralUnary($tokens, $position, $expression);
-		while (in_array($tokens[$position] ?? null, ['*', '/', '%'], true)) {
-			$operator = $tokens[$position] ?? '';
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => $operator,
-				'left' => $node,
-				'right' => self::parsePluralUnary($tokens, $position, $expression),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private static function parsePluralUnary(array $tokens, int &$position, string $expression): array {
-		$token = $tokens[$position] ?? null;
-		if ($token === '!' || $token === '-') {
-			$position++;
-			return [
-				'type' => 'unary',
-				'operator' => $token,
-				'operand' => self::parsePluralUnary($tokens, $position, $expression),
-			];
-		}
-
-		return self::parsePluralPrimary($tokens, $position, $expression);
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private static function parsePluralPrimary(array $tokens, int &$position, string $expression): array {
-		$token = $tokens[$position] ?? null;
-		if ($token === null) {
-			throw new RuntimeException('Unexpected end of plural expression `' . $expression . '`');
-		}
-
-		if (ctype_digit($token)) {
-			$position++;
-			return ['type' => 'number', 'value' => (int)$token];
-		}
-
-		if ($token === 'n') {
-			$position++;
-			return ['type' => 'variable'];
-		}
-
-		if ($token === '(') {
-			$position++;
-			$node = self::parsePluralTernary($tokens, $position, $expression);
-			if (($tokens[$position] ?? null) !== ')') {
-				throw new RuntimeException('Missing `)` in plural expression `' . $expression . '`');
-			}
-			$position++;
-			return $node;
-		}
-
-		throw new RuntimeException('Unexpected token `' . $token . '` in plural expression `' . $expression . '`');
-	}
-
-	/**
-	 * @param array<string,mixed> $node
-	 */
-	private static function evaluatePluralExpression(array $node, int $value): int {
-		switch ($node['type'] ?? null) {
-			case 'number':
-				return is_int($node['value'] ?? null) ? $node['value'] : 0;
-			case 'variable':
-				return $value;
-			case 'unary':
-				$operand = self::evaluatePluralExpression(self::childPluralNode($node, 'operand'), $value);
-				return ($node['operator'] ?? '') === '!' ? ($operand === 0 ? 1 : 0) : -$operand;
-			case 'ternary':
-				$condition = self::evaluatePluralExpression(self::childPluralNode($node, 'condition'), $value);
-				return self::evaluatePluralExpression(self::childPluralNode($node, $condition !== 0 ? 'if_true' : 'if_false'), $value);
-			case 'binary':
-				$left = self::evaluatePluralExpression(self::childPluralNode($node, 'left'), $value);
-				$right = self::evaluatePluralExpression(self::childPluralNode($node, 'right'), $value);
-				return match ($node['operator'] ?? '') {
-					'||' => $left !== 0 || $right !== 0 ? 1 : 0,
-					'&&' => $left !== 0 && $right !== 0 ? 1 : 0,
-					'==' => $left === $right ? 1 : 0,
-					'!=' => $left !== $right ? 1 : 0,
-					'<' => $left < $right ? 1 : 0,
-					'<=' => $left <= $right ? 1 : 0,
-					'>' => $left > $right ? 1 : 0,
-					'>=' => $left >= $right ? 1 : 0,
-					'+' => $left + $right,
-					'-' => $left - $right,
-					'*' => $left * $right,
-					'/' => $right === 0 ? 0 : intdiv($left, $right),
-					'%' => $right === 0 ? 0 : $left % $right,
-					default => 0,
-				};
-			default:
-				return 0;
+		if (self::$plural_function === null) {
+			self::$plural_count = $fallbackPluralCount;
+			self::$plural_function = $fallbackPluralFunction;
 		}
 	}
 
 	private static function pluralIndex(int $value): ?int {
-		if (!self::loadPluralRule() || self::$plural_count === null || self::$plural_expression_tree === null) {
+		self::loadPluralCatalogue();
+		if (self::$plural_count === null || self::$plural_function === null) {
 			return null;
 		}
 
-		$index = self::evaluatePluralExpression(self::$plural_expression_tree, $value);
+		$index = (self::$plural_function)($value);
+		if (!is_int($index)) {
+			return null;
+		}
 		$index = max(0, $index);
 		return min($index, self::$plural_count - 1);
 	}
