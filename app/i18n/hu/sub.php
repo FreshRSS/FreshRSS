@@ -70,7 +70,6 @@ return array(
 		'description' => 'Leírás',
 		'empty' => 'Ez a hírforrás üres. Ellenőrizd hogy van e tartalom rajta.',
 		'error' => 'Ez a hírforrás nem működik. Ellenőrizd az elérhetőségét.',
-		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => 'Letöltés',
 			'help' => 'XML fájl (adat részhalmaz. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Lásd dokumentáció</a>)',
@@ -186,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (alapértelmezett)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Gyorsítótár törlése',
 			'clear_cache_help' => 'Gyorsítótár törlése ehhez a hírforráshoz.',

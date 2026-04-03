@@ -70,7 +70,6 @@ return array(
 		'description' => ' توضیحات',
 		'empty' => ' این فید خالی است. لطفاً بررسی کنید که هنوز نگهداری می شود.',
 		'error' => ' این فید با مشکل مواجه شده است. لطفاً بررسی کنید که همیشه در دسترس است و سپس آن را به روز کنید.',	// DIRTY
-		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => 'دانلود',
 			'help' => 'فایل XML (زیرمجموعه داده‌ها. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">مستندات را ببینید</a>)',
@@ -186,6 +185,8 @@ return array(
 			'rss' => ' RSS / Atom (پیش‌فرض)',
 			'xml_xpath' => ' XML + XPath',
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => ' کش را پاک کنید',
 			'clear_cache_help' => ' کش این فید را پاک کنید.',

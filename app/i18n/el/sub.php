@@ -70,7 +70,6 @@ return array(
 		'description' => 'Description',	// TODO
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// TODO
 		'error' => 'This feed has encountered a problem. If this situation persists, please verify that it is still reachable.',	// TODO
-		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => 'Download',	// TODO
 			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
@@ -186,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (default)',	// TODO
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// TODO
 			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO

@@ -70,7 +70,6 @@ return array(
 		'description' => 'Kuvaus',
 		'empty' => 'Syöte on tyhjä. Varmista, että sitä ylläpidetään edelleen.',
 		'error' => 'Syötteessä on ilmennyt ongelma. Jos tilanne jatkuu, varmista, että syöte on edelleen käytettävissä.',
-		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => 'Lataa',
 			'help' => 'XML-tiedosto (osa tiedoista. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Katso ohje</a>)',
@@ -186,6 +185,8 @@ return array(
 			'rss' => 'RSS/Atom (oletus)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Tyhjennä välimuisti',
 			'clear_cache_help' => 'Tyhjennä syötteen välimuisti.',

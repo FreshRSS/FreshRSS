@@ -14,19 +14,29 @@
 		<a href="<?= _url('stats', 'repartition', 'id', $this->feed->id()) ?>"><?= _i('stats') ?> <?= _t('sub.feed.stats') ?></a>
 	</div>
 
-	<?php $nbEntries = $this->feed->nbEntries(); ?>
-
-	<?php if ($this->feed->inError()) { ?>
+	<?php if ($this->feed->inError()): ?>
 		<p class="alert alert-error">
 			<span class="alert-head"><?= _t('gen.short.damn') ?></span>
 			<?= _t('sub.feed.error') ?><br />
-			<?= _t('sub.feed.error-details',
-				timestampToMachineDate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate()),
-				timestampToMachineDate($this->feed->error()), timeago($this->feed->error())) ?>
+			<?= _t('sub.feed.last-update',
+				timestampToMachineDate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate())) ?>
+			<?php if ($this->feed->error() > 0) { ?><br />
+				<?= _t('sub.feed.last-error-date',
+					timestampToMachineDate($this->feed->error()), timeago($this->feed->error())) ?>
+			<?php } ?>
 		</p>
-	<?php } elseif ($nbEntries === 0) { ?>
-	<p class="alert alert-warn"><?= _t('sub.feed.empty') ?></p>
-	<?php } ?>
+	<?php else: ?>
+		<p class="alert alert-success">
+			<span class="alert-head">
+			<?= _t('sub.feed.last-update',
+				timestampToMachineDate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate())) ?>
+		</p>
+	<?php endif; ?>
+
+	<?php $nbEntries = $this->feed->nbEntries(); ?>
+	<?php if ($nbEntries === 0): ?>
+		<p class="alert alert-warn"><?= _t('sub.feed.empty') ?></p>
+	<?php endif; ?>
 
 	<?php
 	$from = Minz_Request::paramString('from');

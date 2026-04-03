@@ -70,7 +70,6 @@ return array(
 		'description' => '설명',
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
 		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',	// DIRTY
-		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => '다운로드',
 			'help' => 'XML 파일 (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
@@ -186,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (기본값)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => '캐쉬 지우기',
 			'clear_cache_help' => '이 피드의 캐쉬 지우기.',

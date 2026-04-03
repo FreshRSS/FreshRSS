@@ -70,7 +70,6 @@ return array(
 		'description' => 'Description',	// IGNORE
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// IGNORE
 		'error' => 'This feed has encountered a problem. If this situation persists, please verify that it is still reachable.',	// IGNORE
-		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// IGNORE
 		'export-as-opml' => array(
 			'download' => 'Download',	// IGNORE
 			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// IGNORE
@@ -186,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (default)',	// IGNORE
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// IGNORE
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// IGNORE
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// IGNORE
 			'clear_cache_help' => 'Clear the cache for this feed.',	// IGNORE

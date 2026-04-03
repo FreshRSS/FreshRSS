@@ -70,7 +70,6 @@ return array(
 		'description' => 'Omschrijving',
 		'empty' => 'Deze feed is leeg. Controleer of deze nog actueel is.',
 		'error' => 'Deze feed heeft een probleem ondervonden. Als deze situatie aanhoudt, controleer dan of de feed nog steeds bereikbaar is.',
-		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => 'Downloaden',
 			'help' => 'XML-bestand (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
@@ -186,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (standaard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Cache leegmaken',
 			'clear_cache_help' => 'Cache voor deze feed leegmaken.',

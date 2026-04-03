@@ -70,7 +70,6 @@ return array(
 		'description' => 'Deskripsi',
 		'empty' => 'Umpan ini kosong. Periksa apakah umpan ini masih ada',
 		'error' => 'Ada masalah dengan umpan ini. Jika masih terus-menerus, periksa apakah umpan ini masih ada.',
-		'error-details' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>, last erroneous update <time datetime="%3$s" title="%3$s">%4$s</time>.',	// TODO
 		'export-as-opml' => array(
 			'download' => 'Unduh',
 			'help' => 'Berkas XML (subset data. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Lihat dokumentasi</a>)',
@@ -186,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (baku)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Bersihkan tembolok',
 			'clear_cache_help' => 'Bersihkan tembolok untuk umpan ini.',
