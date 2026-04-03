@@ -355,9 +355,10 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/**
-	 * Timestamp of last update error
+	 * Timestamp of last update error.
+	 * Legacy: may return 1 if the feed has an error but the timestamp is not available.
 	 */
-	public function error(): int {
+	public function lastError(): int {
 		return $this->error;
 	}
 
