@@ -267,31 +267,37 @@ PHP;
 	/**
 	 * @param array<string,mixed> $node
 	 */
-	private function renderPhpExpression(array $node): string {
+	private function renderPhpExpression(array $node, bool $asCondition = false): string {
 		switch ($node['type'] ?? null) {
 			case 'number':
-				return (string)(is_int($node['value'] ?? null) ? $node['value'] : 0);
+				$expression = (string)(is_int($node['value'] ?? null) ? $node['value'] : 0);
+				return $asCondition ? '(' . $expression . ' != 0)' : $expression;
 			case 'variable':
-				return '$n';
+				return $asCondition ? '($n != 0)' : '$n';
 			case 'unary':
+				$operator = is_string($node['operator'] ?? null) ? $node['operator'] : '';
+				if ($operator === '!') {
+					$operand = $this->renderPhpExpression($this->childNode($node, 'operand'), true);
+					return $asCondition ? '(!' . $operand . ')' : '((!' . $operand . ') ? 1 : 0)';
+				}
+
 				$operand = $this->renderPhpExpression($this->childNode($node, 'operand'));
-				return match (is_string($node['operator'] ?? null) ? $node['operator'] : '') {
-					'!' => '((' . $operand . ') ? 0 : 1)',
-					'-' => '(-(' . $operand . '))',
-					default => '(' . $operand . ')',
-				};
+				$expression = $operator === '-' ? '(-' . $operand . ')' : '(' . $operand . ')';
+				return $asCondition ? '(' . $expression . ' != 0)' : $expression;
 			case 'ternary':
-				return '((' . $this->renderPhpExpression($this->childNode($node, 'condition')) . ') ? ('
-					. $this->renderPhpExpression($this->childNode($node, 'if_true')) . ') : ('
-					. $this->renderPhpExpression($this->childNode($node, 'if_false')) . '))';
+				$expression = '(' . $this->renderPhpExpression($this->childNode($node, 'condition'), true) . ' ? '
+					. $this->renderPhpExpression($this->childNode($node, 'if_true')) . ' : '
+					. $this->renderPhpExpression($this->childNode($node, 'if_false')) . ')';
+				return $asCondition ? '(' . $expression . ' != 0)' : $expression;
 			case 'binary':
 				return $this->renderBinaryExpression(
 					is_string($node['operator'] ?? null) ? $node['operator'] : '',
 					$this->childNode($node, 'left'),
-					$this->childNode($node, 'right')
+					$this->childNode($node, 'right'),
+					$asCondition
 				);
 			default:
-				return '0';
+				return $asCondition ? '(0 != 0)' : '0';
 		}
 	}
 
@@ -299,7 +305,13 @@ PHP;
 	 * @param array<string,mixed> $leftNode
 	 * @param array<string,mixed> $rightNode
 	 */
-	private function renderBinaryExpression(string $operator, array $leftNode, array $rightNode): string {
+	private function renderBinaryExpression(string $operator, array $leftNode, array $rightNode, bool $asCondition = false): string {
+		if (in_array($operator, ['||', '&&'], true)) {
+			$expression = '(' . $this->renderPhpExpression($leftNode, true) . ' ' . $operator . ' '
+				. $this->renderPhpExpression($rightNode, true) . ')';
+			return $asCondition ? $expression : '(' . $expression . ' ? 1 : 0)';
+		}
+
 		$left = $this->renderPhpExpression($leftNode);
 		$right = $this->renderPhpExpression($rightNode);
 		$rightConstant = ($rightNode['type'] ?? null) === 'number' && is_int($rightNode['value'] ?? null)
@@ -307,11 +319,19 @@ PHP;
 			: null;
 
 		return match ($operator) {
-			'||', '&&', '==', '!=', '<', '<=', '>', '>=' => '(((' . $left . ') ' . $operator . ' (' . $right . ')) ? 1 : 0)',
-			'/' => $this->renderDivisionExpression($left, $right, $rightConstant),
-			'%' => $this->renderModuloExpression($left, $right, $rightConstant),
-			'+', '-', '*' => '((' . $left . ') ' . $operator . ' (' . $right . '))',
-			default => '0',
+			'==', '!=', '<', '<=', '>', '>=' => $asCondition
+				? '(' . $left . ' ' . $operator . ' ' . $right . ')'
+				: '((' . $left . ' ' . $operator . ' ' . $right . ') ? 1 : 0)',
+			'/' => $asCondition
+				? '(' . $this->renderDivisionExpression($left, $right, $rightConstant) . ' != 0)'
+				: $this->renderDivisionExpression($left, $right, $rightConstant),
+			'%' => $asCondition
+				? '(' . $this->renderModuloExpression($left, $right, $rightConstant) . ' != 0)'
+				: $this->renderModuloExpression($left, $right, $rightConstant),
+			'+', '-', '*' => $asCondition
+				? '((' . $left . ' ' . $operator . ' ' . $right . ') != 0)'
+				: '(' . $left . ' ' . $operator . ' ' . $right . ')',
+			default => $asCondition ? '(0 != 0)' : '0',
 		};
 	}
 
@@ -321,10 +341,10 @@ PHP;
 		}
 
 		if ($rightConstant !== null) {
-			return 'intdiv((' . $left . '), ' . $rightConstant . ')';
+			return 'intdiv(' . $left . ', ' . $rightConstant . ')';
 		}
 
-		return '(((' . $right . ') == 0) ? 0 : intdiv((' . $left . '), (' . $right . ')))';
+		return '((' . $right . ' == 0) ? 0 : intdiv(' . $left . ', ' . $right . '))';
 	}
 
 	private function renderModuloExpression(string $left, string $right, ?int $rightConstant): string {
@@ -333,10 +353,10 @@ PHP;
 		}
 
 		if ($rightConstant !== null) {
-			return '((' . $left . ') % ' . $rightConstant . ')';
+			return '(' . $left . ' % ' . $rightConstant . ')';
 		}
 
-		return '(((' . $right . ') == 0) ? 0 : ((' . $left . ') % (' . $right . ')))';
+		return '((' . $right . ' == 0) ? 0 : (' . $left . ' % ' . $right . '))';
 	}
 
 	/**

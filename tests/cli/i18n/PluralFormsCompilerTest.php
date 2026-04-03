@@ -9,6 +9,10 @@ final class PluralFormsCompilerTest extends \PHPUnit\Framework\TestCase {
 
 		self::assertSame('nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;', $compiled['formula']);
 		self::assertSame(3, $compiled['nplurals']);
+		self::assertSame(
+			'static fn (int $n): int => (($n == 1) ? 0 : ((($n >= 2) && ($n <= 4)) ? 1 : 2))',
+			$compiled['lambda']
+		);
 
 		$lambda = eval('return ' . $compiled['lambda'] . ';');
 		self::assertInstanceOf(Closure::class, $lambda);
