@@ -262,6 +262,7 @@ class Minz_Translate {
 
 	/**
 	 * Type of plural to apply for a given value in a given language, inspired by ICU/CLDR plural rules.
+	 * https://cldr.unicode.org/index/cldr-spec/plural-rules
 	 * For instance in English, 1 is 'one' and all other values are 'other',
 	 * but in Ukrainian, 1 is 'one', 2-4 are 'few' and all other values are 'many'.
 	 * @return 'zero'|'one'|'two'|'few'|'many'|'other'
