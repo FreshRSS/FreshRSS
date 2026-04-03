@@ -275,60 +275,48 @@ class Minz_Translate {
 
 		if (in_array($baseLang, ['de', 'el', 'en', 'es', 'fi', 'hu', 'it', 'nl', 'oc', 'tr'], true)) {
 			return $value === 1 ? 'one' : 'other';	// Shortcut for the most common plural rule
-		}
-		if (in_array($baseLang, ['fa', 'fr'], true) || $lang === 'pt-br') {
+		} elseif (in_array($baseLang, ['fa', 'fr'], true) || $lang === 'pt-br') {
 			return ($value === 0 || $value === 1) ? 'one' : 'other';
-		}
-		if (in_array($baseLang, ['id', 'ja', 'ko', 'zh'], true)) {
+		} elseif (in_array($baseLang, ['id', 'ja', 'ko', 'zh'], true)) {
 			return 'other';
-		}
-		if (in_array($baseLang, ['cs', 'sk'], true)) {
+		} elseif (in_array($baseLang, ['cs', 'sk'], true)) {
 			if ($value === 1) {
 				return 'one';
-			}
-			if ($value >= 2 && $value <= 4) {
+			} elseif ($value >= 2 && $value <= 4) {
 				return 'few';
 			}
 			return 'other';
-		}
-		if ($baseLang === 'he') {
+		} elseif ($baseLang === 'he') {
 			if ($value === 1) {
 				return 'one';
-			}
-			if ($value === 2) {
+			} elseif ($value === 2) {
 				return 'two';
 			}
 			return 'other';
-		}
-		if ($baseLang === 'lv') {
+		} elseif ($baseLang === 'lv') {
 			$mod10 = $value % 10;
 			$mod100 = $value % 100;
 			if ($mod10 === 0 || ($mod100 >= 11 && $mod100 <= 19)) {
 				return 'zero';
-			}
-			if ($mod10 === 1) {
+			} elseif ($mod10 === 1) {
 				return 'one';
 			}
 			return 'other';
-		}
-		if ($baseLang === 'pl') {
+		} elseif ($baseLang === 'pl') {
 			$mod10 = $value % 10;
 			$mod100 = $value % 100;
 			if ($value === 1) {
 				return 'one';
-			}
-			if ($mod10 >= 2 && $mod10 <= 4 && !($mod100 >= 12 && $mod100 <= 14)) {
+			} elseif ($mod10 >= 2 && $mod10 <= 4 && !($mod100 >= 12 && $mod100 <= 14)) {
 				return 'few';
 			}
 			return 'many';
-		}
-		if (in_array($baseLang, ['ru', 'uk'], true)) {
+		} elseif (in_array($baseLang, ['ru', 'uk'], true)) {
 			$mod10 = $value % 10;
 			$mod100 = $value % 100;
 			if ($mod10 === 1 && $mod100 !== 11) {
 				return 'one';
-			}
-			if ($mod10 >= 2 && $mod10 <= 4 && !($mod100 >= 12 && $mod100 <= 14)) {
+			} elseif ($mod10 >= 2 && $mod10 <= 4 && !($mod100 >= 12 && $mod100 <= 14)) {
 				return 'few';
 			}
 			return 'many';
