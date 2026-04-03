@@ -143,53 +143,23 @@ return array(
 	'interval' => array(
 		'ago' => '%s前',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d天',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d天',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d小时',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d小时',
 		),
 		'justnow' => '刚刚',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d分钟',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d分钟',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d个月',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d个月',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d秒',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d秒',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d年',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d年',
 		),
 	),
 	'js' => array(

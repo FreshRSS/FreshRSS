@@ -143,53 +143,35 @@ return array(
 	'interval' => array(
 		'ago' => '%s тому',
 		'day' => array(
-			'few' => '%d дні',
-			'many' => '%d днів',
-			'one' => '%d день',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d день',
+			1 => '%d дні',
+			2 => '%d днів',
 		),
 		'hour' => array(
-			'few' => '%d години',
-			'many' => '%d годин',
-			'one' => '%d година',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d година',
+			1 => '%d години',
+			2 => '%d годин',
 		),
 		'justnow' => 'щойно',
 		'minute' => array(
-			'few' => '%d хвилини',
-			'many' => '%d хвилин',
-			'one' => '%d хвилина',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d хвилина',
+			1 => '%d хвилини',
+			2 => '%d хвилин',
 		),
 		'month' => array(
-			'few' => '%d місяці',
-			'many' => '%d місяців',
-			'one' => '%d місяць',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d місяць',
+			1 => '%d місяці',
+			2 => '%d місяців',
 		),
 		'second' => array(
-			'few' => '%d секунди',
-			'many' => '%d секунд',
-			'one' => '%d секунда',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d секунда',
+			1 => '%d секунди',
+			2 => '%d секунд',
 		),
 		'year' => array(
-			'few' => '%d роки',
-			'many' => '%d років',
-			'one' => '%d рік',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d рік',
+			1 => '%d роки',
+			2 => '%d років',
 		),
 	),
 	'js' => array(

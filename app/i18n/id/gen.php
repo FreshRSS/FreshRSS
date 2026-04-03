@@ -143,53 +143,23 @@ return array(
 	'interval' => array(
 		'ago' => '%s yang lalu',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d hari',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d hari',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d jam',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d jam',
 		),
 		'justnow' => 'baru saja',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d menit',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d menit',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d bulan',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d bulan',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d detik',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d detik',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d tahun',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d tahun',
 		),
 	),
 	'js' => array(

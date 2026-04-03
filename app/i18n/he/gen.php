@@ -143,53 +143,29 @@ return array(
 	'interval' => array(
 		'ago' => 'לפני %s',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d יום',
-			'other' => '%d ימים',
-			'two' => '%d ימים',
-			'zero' => '',	// IGNORE
+			0 => '%d יום',
+			1 => '%d ימים',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d שעה',
-			'other' => '%d שעות',
-			'two' => '%d שעות',
-			'zero' => '',	// IGNORE
+			0 => '%d שעה',
+			1 => '%d שעות',
 		),
 		'justnow' => 'הרגע',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d דקה',
-			'other' => '%d דקות',
-			'two' => '%d דקות',
-			'zero' => '',	// IGNORE
+			0 => '%d דקה',
+			1 => '%d דקות',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d חודש',
-			'other' => '%d חודשים',
-			'two' => '%d חודשים',
-			'zero' => '',	// IGNORE
+			0 => '%d חודש',
+			1 => '%d חודשים',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d שנייה',
-			'other' => '%d שניות',
-			'two' => '%d שניות',
-			'zero' => '',	// IGNORE
+			0 => '%d שנייה',
+			1 => '%d שניות',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d שנה',
-			'other' => '%d שנים',
-			'two' => '%d שנים',
-			'zero' => '',	// IGNORE
+			0 => '%d שנה',
+			1 => '%d שנים',
 		),
 	),
 	'js' => array(

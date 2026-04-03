@@ -143,53 +143,29 @@ return array(
 	'interval' => array(
 		'ago' => 'πριν από %s',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d ημέρα',
-			'other' => '%d ημέρες',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d ημέρα',
+			1 => '%d ημέρες',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d ώρα',
-			'other' => '%d ώρες',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d ώρα',
+			1 => '%d ώρες',
 		),
 		'justnow' => 'μόλις τώρα',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d λεπτό',
-			'other' => '%d λεπτά',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d λεπτό',
+			1 => '%d λεπτά',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d μήνας',
-			'other' => '%d μήνες',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d μήνας',
+			1 => '%d μήνες',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d δευτερόλεπτο',
-			'other' => '%d δευτερόλεπτα',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d δευτερόλεπτο',
+			1 => '%d δευτερόλεπτα',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d έτος',
-			'other' => '%d έτη',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d έτος',
+			1 => '%d έτη',
 		),
 	),
 	'js' => array(

@@ -140,4 +140,23 @@ final class I18nCompletionValidatorTest extends \PHPUnit\Framework\TestCase {
 		self::assertTrue($validator->validate());
 		self::assertSame('', $validator->displayResult());
 	}
+
+	public function testValidateIgnoresPluralVariantKeys(): void {
+		$validator = new I18nCompletionValidator([
+			'gen.php' => [
+				'gen.interval.day.0' => $this->value,
+				'gen.interval.day.1' => $this->value,
+			],
+		], [
+			'gen.php' => [
+				'gen.interval.day.0' => $this->value,
+				'gen.interval.day.1' => $this->value,
+				'gen.interval.day.2' => $this->value,
+			],
+		]);
+
+		self::assertTrue($validator->validate());
+		self::assertSame('', $validator->displayResult());
+		self::assertSame("There is no data.\n", $validator->displayReport());
+	}
 }

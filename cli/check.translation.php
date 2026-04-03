@@ -49,7 +49,13 @@ $percentage = [];
 
 foreach ($languages as $language) {
 	if ($language === $i18nData::REFERENCE_LANGUAGE) {
-		$i18nValidator = new I18nUsageValidator($i18nData->getReferenceLanguage(), findUsedTranslations());
+		$usedTranslations = findUsedTranslations();
+		$referenceLanguage = $i18nData->getReferenceLanguage();
+		$pluralFamilies = loadPluralReferenceFamilies($referenceLanguage);
+		if ($pluralFamilies !== []) {
+			$referenceLanguage['plurals.php'] = $pluralFamilies;
+		}
+		$i18nValidator = new I18nUsageValidator($referenceLanguage, $usedTranslations['keys'], $usedTranslations['prefixes']);
 	} else {
 		$i18nValidator = new I18nCompletionValidator($i18nData->getReferenceLanguage(), $i18nData->getLanguage($language));
 	}
@@ -150,13 +156,14 @@ if (!$isValidated) {
  * Iterates through all php and phtml files in the whole project and extracts all
  * translation keys used.
  *
- * @return list<string>
+ * @return array{keys:list<string>,prefixes:list<string>}
  */
 function findUsedTranslations(): array {
-	$directory = new RecursiveDirectoryIterator(__DIR__ . '/..');
-	$iterator = new RecursiveIteratorIterator($directory);
+	$directory = new RecursiveDirectoryIterator(__DIR__ . '/..', FilesystemIterator::SKIP_DOTS);
+	$iterator = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::LEAVES_ONLY, RecursiveIteratorIterator::CATCH_GET_CHILD);
 	$regex = new RegexIterator($iterator, '/^.+\.(php|phtml)$/i', RecursiveRegexIterator::GET_MATCH);
 	$usedI18n = [];
+	$usedPrefixes = [];
 	foreach ($regex as $file => $value) {
 		if (!is_string($file) || $file === '') {
 			continue;
@@ -167,8 +174,53 @@ function findUsedTranslations(): array {
 		}
 		preg_match_all('/_t\([\'"](?P<strings>[^\'"]+)[\'"]/', $fileContent, $matches);
 		$usedI18n = array_merge($usedI18n, $matches['strings']);
+		preg_match_all('/Minz_Translate::plural\(\s*[\'"](?P<string>[^\'"]+)[\'"](?P<dynamic>\s*\.)?/', $fileContent, $pluralMatches, PREG_SET_ORDER);
+		foreach ($pluralMatches as $match) {
+			$string = $match['string'];
+			if (($match['dynamic'] ?? '') !== '') {
+				$usedPrefixes[] = $string;
+			} else {
+				$usedI18n[] = $string;
+			}
+		}
 	}
-	return $usedI18n;
+	return [
+		'keys' => array_values(array_unique($usedI18n)),
+		'prefixes' => array_values(array_unique($usedPrefixes)),
+	];
+}
+
+/**
+ * @param array<string,array<string,I18nValue>> $referenceLanguage
+ * @return array<string,I18nValue>
+ */
+function loadPluralReferenceFamilies(array $referenceLanguage): array {
+	$pluralFamilies = [];
+	foreach ($referenceLanguage as $values) {
+		foreach ($values as $key => $value) {
+			if (preg_match('/^(?P<base>.+)\.(?P<index>\d+)$/', $key, $matches) !== 1) {
+				continue;
+			}
+			$baseKey = $matches['base'];
+			$index = $matches['index'];
+			$pluralFamilies[$baseKey][(int)$index] = $value->__toString();
+		}
+	}
+
+	$normalisedFamilies = [];
+	foreach ($pluralFamilies as $baseKey => $messageFamily) {
+		$messages = [];
+		ksort($messageFamily);
+		foreach ($messageFamily as $message) {
+			if ($message !== '') {
+				$messages[] = $message;
+			}
+		}
+
+		$normalisedFamilies[$baseKey] = new I18nValue(implode(' | ', $messages));
+	}
+
+	return $normalisedFamilies;
 }
 
 /**

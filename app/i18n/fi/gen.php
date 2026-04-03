@@ -143,53 +143,29 @@ return array(
 	'interval' => array(
 		'ago' => '%s sitten',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d päivä',
-			'other' => '%d päivää',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d päivä',
+			1 => '%d päivää',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d tunti',
-			'other' => '%d tuntia',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d tunti',
+			1 => '%d tuntia',
 		),
 		'justnow' => 'juuri nyt',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d minuutti',
-			'other' => '%d minuuttia',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d minuutti',
+			1 => '%d minuuttia',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d kuukausi',
-			'other' => '%d kuukautta',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d kuukausi',
+			1 => '%d kuukautta',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d sekunti',
-			'other' => '%d sekuntia',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d sekunti',
+			1 => '%d sekuntia',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d vuosi',
-			'other' => '%d vuotta',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d vuosi',
+			1 => '%d vuotta',
 		),
 	),
 	'js' => array(

@@ -143,53 +143,23 @@ return array(
 	'interval' => array(
 		'ago' => '%s 전',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d일',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d일',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d시간',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d시간',
 		),
 		'justnow' => '방금 전',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d분',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d분',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d개월',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d개월',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d초',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d초',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '',	// IGNORE
-			'other' => '%d년',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d년',
 		),
 	),
 	'js' => array(

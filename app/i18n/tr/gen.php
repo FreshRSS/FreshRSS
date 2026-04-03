@@ -143,53 +143,29 @@ return array(
 	'interval' => array(
 		'ago' => '%s once',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d gün',
-			'other' => '%d gün',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d gün',
+			1 => '%d gün',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d saat',
-			'other' => '%d saat',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d saat',
+			1 => '%d saat',
 		),
 		'justnow' => 'az once',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d dakika',
-			'other' => '%d dakika',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d dakika',
+			1 => '%d dakika',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d ay',
-			'other' => '%d ay',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d ay',
+			1 => '%d ay',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d saniye',
-			'other' => '%d saniye',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d saniye',
+			1 => '%d saniye',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d yıl',
-			'other' => '%d yıl',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d yıl',
+			1 => '%d yıl',
 		),
 	),
 	'js' => array(

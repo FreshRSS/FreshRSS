@@ -192,6 +192,29 @@ final class I18nDataTest extends \PHPUnit\Framework\TestCase {
 		], $data->getData());
 	}
 
+	public function testConstructorKeepsLocalePluralVariants(): void {
+		$rawData = [
+			'en' => [
+				'gen.php' => [
+					'gen.interval.day.0' => $this->value,
+					'gen.interval.day.1' => $this->value,
+				],
+			],
+			'ru' => [
+				'gen.php' => [
+					'gen.interval.day.0' => $this->value,
+					'gen.interval.day.1' => $this->value,
+					'gen.interval.day.2' => $this->value,
+				],
+			],
+		];
+
+		$data = new I18nData($rawData);
+
+		self::assertArrayHasKey('gen.interval.day.2', $data->getLanguage('ru')['gen.php']);
+		self::assertArrayNotHasKey('gen.interval.day.2', $data->getReferenceLanguage()['gen.php']);
+	}
+
 	public function testConstructorWhenValueIsIdenticalAndIsMarkedAsIgnore(): void {
 		$value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()

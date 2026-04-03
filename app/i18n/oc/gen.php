@@ -143,53 +143,29 @@ return array(
 	'interval' => array(
 		'ago' => 'fa %s',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d jorn',
-			'other' => '%d jorns',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d jorn',
+			1 => '%d jorns',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d ora',
-			'other' => '%d oras',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d ora',
+			1 => '%d oras',
 		),
 		'justnow' => 'ara meteis',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d minuta',
-			'other' => '%d minutas',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d minuta',
+			1 => '%d minutas',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d mes',
-			'other' => '%d meses',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d mes',
+			1 => '%d meses',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d segonda',
-			'other' => '%d segondas',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d segonda',
+			1 => '%d segondas',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d an',
-			'other' => '%d ans',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d an',
+			1 => '%d ans',
 		),
 	),
 	'js' => array(

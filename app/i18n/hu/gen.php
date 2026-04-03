@@ -143,53 +143,29 @@ return array(
 	'interval' => array(
 		'ago' => '%s ezelőtt',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d nap',
-			'other' => '%d nap',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d nap',
+			1 => '%d nap',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d óra',
-			'other' => '%d óra',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d óra',
+			1 => '%d óra',
 		),
 		'justnow' => 'épp most',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d perc',
-			'other' => '%d perc',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d perc',
+			1 => '%d perc',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d hónap',
-			'other' => '%d hónap',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d hónap',
+			1 => '%d hónap',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d másodperc',
-			'other' => '%d másodperc',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d másodperc',
+			1 => '%d másodperc',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d év',
-			'other' => '%d év',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d év',
+			1 => '%d év',
 		),
 	),
 	'js' => array(

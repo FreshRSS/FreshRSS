@@ -19,6 +19,10 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 	) {
 	}
 
+	private static function isPluralVariantKey(string $key): bool {
+		return preg_match('/\.\d+$/', $key) === 1;
+	}
+
 	#[\Override]
 	public function displayReport(bool $percentage_only = false): string {
 		if ($this->passEntries > $this->totalEntries) {
@@ -43,6 +47,9 @@ class I18nCompletionValidator implements I18nValidatorInterface {
 	public function validate(): bool {
 		foreach ($this->reference as $file => $data) {
 			foreach ($data as $refKey => $refValue) {
+				if (self::isPluralVariantKey($refKey)) {
+					continue;
+				}
 				$this->totalEntries++;
 				if (!array_key_exists($file, $this->language) || !array_key_exists($refKey, $this->language[$file])) {
 					$this->result .= "Missing key $refKey" . PHP_EOL;

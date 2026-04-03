@@ -143,53 +143,35 @@ return array(
 	'interval' => array(
 		'ago' => 'pirms %s',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d diena',
-			'other' => '%d dienas',
-			'two' => '',	// IGNORE
-			'zero' => '%d dienu',
+			0 => '%d diena',
+			1 => '%d dienas',
+			2 => '%d dienu',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d stunda',
-			'other' => '%d stundas',
-			'two' => '',	// IGNORE
-			'zero' => '%d stundu',
+			0 => '%d stunda',
+			1 => '%d stundas',
+			2 => '%d stundu',
 		),
 		'justnow' => 'tikko',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d minūte',
-			'other' => '%d minūtes',
-			'two' => '',	// IGNORE
-			'zero' => '%d minūšu',
+			0 => '%d minūte',
+			1 => '%d minūtes',
+			2 => '%d minūšu',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d mēnesis',
-			'other' => '%d mēneši',
-			'two' => '',	// IGNORE
-			'zero' => '%d mēnešu',
+			0 => '%d mēnesis',
+			1 => '%d mēneši',
+			2 => '%d mēnešu',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d sekunde',
-			'other' => '%d sekundes',
-			'two' => '',	// IGNORE
-			'zero' => '%d sekunžu',
+			0 => '%d sekunde',
+			1 => '%d sekundes',
+			2 => '%d sekunžu',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d gads',
-			'other' => '%d gadi',
-			'two' => '',	// IGNORE
-			'zero' => '%d gadu',
+			0 => '%d gads',
+			1 => '%d gadi',
+			2 => '%d gadu',
 		),
 	),
 	'js' => array(

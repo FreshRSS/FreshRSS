@@ -143,53 +143,35 @@ return array(
 	'interval' => array(
 		'ago' => 'pred %s',
 		'day' => array(
-			'few' => '%d dni',
-			'many' => '',	// IGNORE
-			'one' => '%d deň',
-			'other' => '%d dní',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d deň',
+			1 => '%d dni',
+			2 => '%d dní',
 		),
 		'hour' => array(
-			'few' => '%d hodiny',
-			'many' => '',	// IGNORE
-			'one' => '%d hodina',
-			'other' => '%d hodín',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d hodina',
+			1 => '%d hodiny',
+			2 => '%d hodín',
 		),
 		'justnow' => 'práve teraz',
 		'minute' => array(
-			'few' => '%d minúty',
-			'many' => '',	// IGNORE
-			'one' => '%d minúta',
-			'other' => '%d minút',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d minúta',
+			1 => '%d minúty',
+			2 => '%d minút',
 		),
 		'month' => array(
-			'few' => '%d mesiace',
-			'many' => '',	// IGNORE
-			'one' => '%d mesiac',
-			'other' => '%d mesiacov',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d mesiac',
+			1 => '%d mesiace',
+			2 => '%d mesiacov',
 		),
 		'second' => array(
-			'few' => '%d sekundy',
-			'many' => '',	// IGNORE
-			'one' => '%d sekunda',
-			'other' => '%d sekúnd',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d sekunda',
+			1 => '%d sekundy',
+			2 => '%d sekúnd',
 		),
 		'year' => array(
-			'few' => '%d roky',
-			'many' => '',	// IGNORE
-			'one' => '%d rok',
-			'other' => '%d rokov',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d rok',
+			1 => '%d roky',
+			2 => '%d rokov',
 		),
 	),
 	'js' => array(

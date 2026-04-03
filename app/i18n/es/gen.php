@@ -143,53 +143,29 @@ return array(
 	'interval' => array(
 		'ago' => 'hace %s',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d día',
-			'other' => '%d días',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d día',
+			1 => '%d días',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d hora',
-			'other' => '%d horas',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d hora',
+			1 => '%d horas',
 		),
 		'justnow' => 'justo ahora',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d minuto',
-			'other' => '%d minutos',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d minuto',
+			1 => '%d minutos',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d mes',
-			'other' => '%d meses',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d mes',
+			1 => '%d meses',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d segundo',
-			'other' => '%d segundos',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d segundo',
+			1 => '%d segundos',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d año',
-			'other' => '%d años',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d año',
+			1 => '%d años',
 		),
 	),
 	'js' => array(

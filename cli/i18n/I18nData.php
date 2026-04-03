@@ -13,6 +13,10 @@ class I18nData {
 		$this->processValueStates();
 	}
 
+	private static function isPluralVariantKey(string $key): bool {
+		return preg_match('/\.\d+$/', $key) === 1;
+	}
+
 	/**
 	 * @return array<string,array<string,array<string,I18nValue>>>
 	 */
@@ -26,6 +30,9 @@ class I18nData {
 
 		foreach ($reference as $file => $refValues) {
 			foreach ($refValues as $key => $refValue) {
+				if (self::isPluralVariantKey($key)) {
+					continue;
+				}
 				foreach ($languages as $language) {
 					if (!array_key_exists($file, $this->data[$language]) || !array_key_exists($key, $this->data[$language][$file])) {
 						$this->data[$language][$file][$key] = clone $refValue;
@@ -44,6 +51,9 @@ class I18nData {
 		foreach ($this->getNonReferenceLanguages() as $language) {
 			foreach ($this->getLanguage($language) as $file => $values) {
 				foreach ($values as $key => $value) {
+					if (self::isPluralVariantKey($key)) {
+						continue;
+					}
 					if (!array_key_exists($key, $reference[$file])) {
 						unset($this->data[$language][$file][$key]);
 					}
@@ -58,6 +68,9 @@ class I18nData {
 
 		foreach ($reference as $file => $refValues) {
 			foreach ($refValues as $key => $refValue) {
+				if (self::isPluralVariantKey($key)) {
+					continue;
+				}
 				foreach ($languages as $language) {
 					$value = $this->data[$language][$file][$key];
 					if ($refValue->equal($value) && !$value->isIgnore()) {

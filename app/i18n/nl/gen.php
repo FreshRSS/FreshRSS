@@ -143,53 +143,29 @@ return array(
 	'interval' => array(
 		'ago' => '%s geleden',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d dag',
-			'other' => '%d dagen',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d dag',
+			1 => '%d dagen',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d uur',
-			'other' => '%d uur',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d uur',
+			1 => '%d uur',
 		),
 		'justnow' => 'zojuist',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d minuut',
-			'other' => '%d minuten',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d minuut',
+			1 => '%d minuten',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d maand',
-			'other' => '%d maanden',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d maand',
+			1 => '%d maanden',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d seconde',
-			'other' => '%d seconden',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d seconde',
+			1 => '%d seconden',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d jaar',
-			'other' => '%d jaar',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d jaar',
+			1 => '%d jaar',
 		),
 	),
 	'js' => array(

@@ -143,53 +143,29 @@ return array(
 	'interval' => array(
 		'ago' => '%s پیش',
 		'day' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d روز',
-			'other' => '%d روز',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d روز',
+			1 => '%d روز',
 		),
 		'hour' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d ساعت',
-			'other' => '%d ساعت',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d ساعت',
+			1 => '%d ساعت',
 		),
 		'justnow' => 'همین الان',
 		'minute' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d دقیقه',
-			'other' => '%d دقیقه',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d دقیقه',
+			1 => '%d دقیقه',
 		),
 		'month' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d ماه',
-			'other' => '%d ماه',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d ماه',
+			1 => '%d ماه',
 		),
 		'second' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d ثانیه',
-			'other' => '%d ثانیه',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d ثانیه',
+			1 => '%d ثانیه',
 		),
 		'year' => array(
-			'few' => '',	// IGNORE
-			'many' => '',	// IGNORE
-			'one' => '%d سال',
-			'other' => '%d سال',
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d سال',
+			1 => '%d سال',
 		),
 	),
 	'js' => array(

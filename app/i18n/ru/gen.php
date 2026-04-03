@@ -143,53 +143,35 @@ return array(
 	'interval' => array(
 		'ago' => '%s назад',
 		'day' => array(
-			'few' => '%d дня',
-			'many' => '%d дней',
-			'one' => '%d день',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d день',
+			1 => '%d дня',
+			2 => '%d дней',
 		),
 		'hour' => array(
-			'few' => '%d часа',
-			'many' => '%d часов',
-			'one' => '%d час',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d час',
+			1 => '%d часа',
+			2 => '%d часов',
 		),
 		'justnow' => 'только что',
 		'minute' => array(
-			'few' => '%d минуты',
-			'many' => '%d минут',
-			'one' => '%d минута',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d минута',
+			1 => '%d минуты',
+			2 => '%d минут',
 		),
 		'month' => array(
-			'few' => '%d месяца',
-			'many' => '%d месяцев',
-			'one' => '%d месяц',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d месяц',
+			1 => '%d месяца',
+			2 => '%d месяцев',
 		),
 		'second' => array(
-			'few' => '%d секунды',
-			'many' => '%d секунд',
-			'one' => '%d секунда',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d секунда',
+			1 => '%d секунды',
+			2 => '%d секунд',
 		),
 		'year' => array(
-			'few' => '%d года',
-			'many' => '%d лет',
-			'one' => '%d год',
-			'other' => '',	// IGNORE
-			'two' => '',	// IGNORE
-			'zero' => '',	// IGNORE
+			0 => '%d год',
+			1 => '%d года',
+			2 => '%d лет',
 		),
 	),
 	'js' => array(
