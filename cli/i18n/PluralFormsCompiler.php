@@ -2,21 +2,38 @@
 declare(strict_types=1);
 
 final class PluralFormsCompiler {
+	private const FORMULA_PATTERN = '/^\s*nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*(.+?)\s*;\s*$/';
+
+	private const COMMENT_PATTERN = '/^\s*\/\/\s*Plural-Forms:\s*(?P<formula>.+?)\s*$/mi';
+
+	private const COMMENT_PREFIX_PATTERN = '/^\s*\/\/\s*/';
+
+	private const TOKEN_PATTERN = '/\G\s*(\d+|n|==|!=|<=|>=|\|\||&&|[?:()!%+\-*\/<>=])\s*/A';
+
+	/**
+	 * Ordered from lowest to highest precedence.
+	 * @var list<list<string>>
+	 */
+	private const BINARY_OPERATORS = [
+		['||'],
+		['&&'],
+		['==', '!='],
+		['<', '<=', '>', '>='],
+		['+', '-'],
+		['*', '/', '%'],
+	];
+
 	/**
 	 * @return array{formula:string,nplurals:int,lambda:string}
 	 */
 	public function compileFormula(string $pluralForms): array {
-		$pluralForms = $this->normalisePluralForms($pluralForms);
-
-		if (!preg_match('/^\s*nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*(.+?)\s*;\s*$/', $pluralForms, $matches)) {
-			throw new InvalidArgumentException('Invalid plural formula: ' . $pluralForms);
-		}
-
-		$expressionTree = $this->parsePluralExpression($matches[2], $pluralForms);
+		['formula' => $formula, 'nplurals' => $pluralCount, 'expression' => $expression] =
+			$this->parsePluralHeader($pluralForms);
+		$expressionTree = $this->parsePluralExpression($expression, $formula);
 
 		return [
-			'formula' => $pluralForms,
-			'nplurals' => max(1, (int)$matches[1]),
+			'formula' => $formula,
+			'nplurals' => $pluralCount,
 			'lambda' => 'static fn (int $n): int => ' . $this->renderPhpExpression($expressionTree),
 		];
 	}
@@ -68,17 +85,11 @@ final class PluralFormsCompiler {
 			throw new RuntimeException('Unable to read plural file: ' . $filePath);
 		}
 
-		if (preg_match('/^\s*\/\/\s*Plural-Forms:\s*(?P<formula>.+?)\s*$/mi', $fileContent, $matches) === 1) {
+		if (preg_match(self::COMMENT_PATTERN, $fileContent, $matches) === 1) {
 			return $this->normalisePluralForms($matches['formula']);
 		}
 
-		$pluralData = include $filePath;
-		$pluralForms = is_array($pluralData) ? ($pluralData['plural-forms'] ?? null) : null;
-		if (!is_string($pluralForms) || $pluralForms === '') {
-			throw new RuntimeException('No plural formula found in `' . $filePath . '`');
-		}
-
-		return $this->normalisePluralForms($pluralForms);
+		return $this->extractGetTextPluralFormsFromFile($filePath);
 	}
 
 	/**
@@ -100,9 +111,25 @@ return array(
 PHP;
 	}
 
+	/**
+	 * @return array{formula:string,nplurals:int,expression:string}
+	 */
+	private function parsePluralHeader(string $pluralForms): array {
+		$formula = $this->normalisePluralForms($pluralForms);
+		if (!preg_match(self::FORMULA_PATTERN, $formula, $matches)) {
+			throw new InvalidArgumentException('Invalid plural formula: ' . $formula);
+		}
+
+		return [
+			'formula' => $formula,
+			'nplurals' => max(1, (int)$matches[1]),
+			'expression' => $matches[2],
+		];
+	}
+
 	private function normalisePluralForms(string $pluralForms): string {
 		$pluralForms = trim($pluralForms);
-		$pluralForms = preg_replace('/^\s*\/\/\s*/', '', $pluralForms) ?? $pluralForms;
+		$pluralForms = preg_replace(self::COMMENT_PREFIX_PATTERN, '', $pluralForms) ?? $pluralForms;
 		if (preg_match('/^\s*Plural-Forms:\s*(?P<formula>.+?)\s*$/i', $pluralForms, $matches) === 1) {
 			$pluralForms = $matches['formula'];
 		}
@@ -110,23 +137,21 @@ PHP;
 		return trim($pluralForms);
 	}
 
+	private function extractGetTextPluralFormsFromFile(string $filePath): string {
+		$pluralData = include $filePath;
+		$pluralForms = is_array($pluralData) ? ($pluralData['plural-forms'] ?? null) : null;
+		if (!is_string($pluralForms) || $pluralForms === '') {
+			throw new RuntimeException('No plural formula found in `' . $filePath . '`');
+		}
+
+		return $this->normalisePluralForms($pluralForms);
+	}
+
 	/**
 	 * @return array<string,mixed>
 	 */
 	private function parsePluralExpression(string $expression, string $pluralForms): array {
-		$tokens = [];
-		$offset = 0;
-		$length = strlen($expression);
-		$pattern = '/\G\s*(\d+|n|==|!=|<=|>=|\|\||&&|[?:()!%+\-*\/<>=])\s*/A';
-
-		while ($offset < $length) {
-			if (preg_match($pattern, $expression, $matches, 0, $offset) !== 1) {
-				throw new RuntimeException('Unable to parse plural expression near `' . substr($expression, $offset) . '`');
-			}
-			$tokens[] = $matches[1];
-			$offset += strlen($matches[0]);
-		}
-
+		$tokens = $this->tokeniseExpression($expression);
 		$position = 0;
 		$tree = $this->parsePluralTernary($tokens, $position, $pluralForms);
 		if ($position !== count($tokens)) {
@@ -141,7 +166,7 @@ PHP;
 	 * @return array<string,mixed>
 	 */
 	private function parsePluralTernary(array $tokens, int &$position, string $pluralForms): array {
-		$condition = $this->parsePluralLogicalOr($tokens, $position, $pluralForms);
+		$condition = $this->parseBinaryExpression($tokens, $position, $pluralForms, 0);
 		if (($tokens[$position] ?? null) !== '?') {
 			return $condition;
 		}
@@ -166,114 +191,22 @@ PHP;
 	 * @param list<string> $tokens
 	 * @return array<string,mixed>
 	 */
-	private function parsePluralLogicalOr(array $tokens, int &$position, string $pluralForms): array {
-		$node = $this->parsePluralLogicalAnd($tokens, $position, $pluralForms);
-		while (($tokens[$position] ?? null) === '||') {
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => '||',
-				'left' => $node,
-				'right' => $this->parsePluralLogicalAnd($tokens, $position, $pluralForms),
-			];
+	private function parseBinaryExpression(array $tokens, int &$position, string $pluralForms, int $precedenceIndex): array {
+		if (!isset(self::BINARY_OPERATORS[$precedenceIndex])) {
+			return $this->parsePluralUnary($tokens, $position, $pluralForms);
 		}
 
-		return $node;
-	}
+		$node = $this->parseBinaryExpression($tokens, $position, $pluralForms, $precedenceIndex + 1);
+		$operators = self::BINARY_OPERATORS[$precedenceIndex];
 
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private function parsePluralLogicalAnd(array $tokens, int &$position, string $pluralForms): array {
-		$node = $this->parsePluralEquality($tokens, $position, $pluralForms);
-		while (($tokens[$position] ?? null) === '&&') {
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => '&&',
-				'left' => $node,
-				'right' => $this->parsePluralEquality($tokens, $position, $pluralForms),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private function parsePluralEquality(array $tokens, int &$position, string $pluralForms): array {
-		$node = $this->parsePluralRelational($tokens, $position, $pluralForms);
-		while (in_array($tokens[$position] ?? null, ['==', '!='], true)) {
-			$operator = $tokens[$position] ?? '';
+		while (in_array($tokens[$position] ?? null, $operators, true)) {
+			$operator = $tokens[$position];
 			$position++;
 			$node = [
 				'type' => 'binary',
 				'operator' => $operator,
 				'left' => $node,
-				'right' => $this->parsePluralRelational($tokens, $position, $pluralForms),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private function parsePluralRelational(array $tokens, int &$position, string $pluralForms): array {
-		$node = $this->parsePluralAdditive($tokens, $position, $pluralForms);
-		while (in_array($tokens[$position] ?? null, ['<', '<=', '>', '>='], true)) {
-			$operator = $tokens[$position] ?? '';
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => $operator,
-				'left' => $node,
-				'right' => $this->parsePluralAdditive($tokens, $position, $pluralForms),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private function parsePluralAdditive(array $tokens, int &$position, string $pluralForms): array {
-		$node = $this->parsePluralMultiplicative($tokens, $position, $pluralForms);
-		while (in_array($tokens[$position] ?? null, ['+', '-'], true)) {
-			$operator = $tokens[$position] ?? '';
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => $operator,
-				'left' => $node,
-				'right' => $this->parsePluralMultiplicative($tokens, $position, $pluralForms),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private function parsePluralMultiplicative(array $tokens, int &$position, string $pluralForms): array {
-		$node = $this->parsePluralUnary($tokens, $position, $pluralForms);
-		while (in_array($tokens[$position] ?? null, ['*', '/', '%'], true)) {
-			$operator = $tokens[$position] ?? '';
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => $operator,
-				'left' => $node,
-				'right' => $this->parsePluralUnary($tokens, $position, $pluralForms),
+				'right' => $this->parseBinaryExpression($tokens, $position, $pluralForms, $precedenceIndex + 1),
 			];
 		}
 
@@ -335,10 +268,6 @@ PHP;
 	 * @param array<string,mixed> $node
 	 */
 	private function renderPhpExpression(array $node): string {
-		$operator = is_string($node['operator'] ?? null) ? $node['operator'] : '';
-		$rightNode = $this->childNode($node, 'right');
-		$rightConstant = $this->nodeNumberValue($rightNode);
-
 		switch ($node['type'] ?? null) {
 			case 'number':
 				return (string)(is_int($node['value'] ?? null) ? $node['value'] : 0);
@@ -346,57 +275,87 @@ PHP;
 				return '$n';
 			case 'unary':
 				$operand = $this->renderPhpExpression($this->childNode($node, 'operand'));
-				return match ($operator) {
-					'!' => '(((' . $operand . ') != 0) ? 0 : 1)',
+				return match (is_string($node['operator'] ?? null) ? $node['operator'] : '') {
+					'!' => '((' . $operand . ') ? 0 : 1)',
 					'-' => '(-(' . $operand . '))',
 					default => '(' . $operand . ')',
 				};
 			case 'ternary':
-				$condition = $this->renderPhpExpression($this->childNode($node, 'condition'));
-				$ifTrue = $this->renderPhpExpression($this->childNode($node, 'if_true'));
-				$ifFalse = $this->renderPhpExpression($this->childNode($node, 'if_false'));
-				return '(((' . $condition . ') != 0) ? (' . $ifTrue . ') : (' . $ifFalse . '))';
+				return '((' . $this->renderPhpExpression($this->childNode($node, 'condition')) . ') ? ('
+					. $this->renderPhpExpression($this->childNode($node, 'if_true')) . ') : ('
+					. $this->renderPhpExpression($this->childNode($node, 'if_false')) . '))';
 			case 'binary':
-				$left = $this->renderPhpExpression($this->childNode($node, 'left'));
-				$right = $this->renderPhpExpression($rightNode);
-				return match ($operator) {
-					'||' => '(((' . $left . ') != 0 || (' . $right . ') != 0) ? 1 : 0)',
-					'&&' => '(((' . $left . ') != 0 && (' . $right . ') != 0) ? 1 : 0)',
-					'==' => '(((' . $left . ') == (' . $right . ')) ? 1 : 0)',
-					'!=' => '(((' . $left . ') != (' . $right . ')) ? 1 : 0)',
-					'<' => '(((' . $left . ') < (' . $right . ')) ? 1 : 0)',
-					'<=' => '(((' . $left . ') <= (' . $right . ')) ? 1 : 0)',
-					'>' => '(((' . $left . ') > (' . $right . ')) ? 1 : 0)',
-					'>=' => '(((' . $left . ') >= (' . $right . ')) ? 1 : 0)',
-					'/' => $rightConstant === 0
-						? '0'
-						: ($rightConstant !== null
-							? 'intdiv((' . $left . '), ' . $rightConstant . ')'
-							: '(((' . $right . ') == 0) ? 0 : intdiv((' . $left . '), (' . $right . ')))'),
-					'%' => $rightConstant === 0
-						? '0'
-						: ($rightConstant !== null
-							? '((' . $left . ') % ' . $rightConstant . ')'
-							: '(((' . $right . ') == 0) ? 0 : ((' . $left . ') % (' . $right . ')))'),
-					'+' => '((' . $left . ') + (' . $right . '))',
-					'-' => '((' . $left . ') - (' . $right . '))',
-					'*' => '((' . $left . ') * (' . $right . '))',
-					default => '0',
-				};
+				return $this->renderBinaryExpression(
+					is_string($node['operator'] ?? null) ? $node['operator'] : '',
+					$this->childNode($node, 'left'),
+					$this->childNode($node, 'right')
+				);
 			default:
 				return '0';
 		}
 	}
 
 	/**
-	 * @param array<string,mixed> $node
+	 * @param array<string,mixed> $leftNode
+	 * @param array<string,mixed> $rightNode
 	 */
-	private function nodeNumberValue(array $node): ?int {
-		if (($node['type'] ?? null) !== 'number') {
-			return null;
+	private function renderBinaryExpression(string $operator, array $leftNode, array $rightNode): string {
+		$left = $this->renderPhpExpression($leftNode);
+		$right = $this->renderPhpExpression($rightNode);
+		$rightConstant = ($rightNode['type'] ?? null) === 'number' && is_int($rightNode['value'] ?? null)
+			? $rightNode['value']
+			: null;
+
+		return match ($operator) {
+			'||', '&&', '==', '!=', '<', '<=', '>', '>=' => '(((' . $left . ') ' . $operator . ' (' . $right . ')) ? 1 : 0)',
+			'/' => $this->renderDivisionExpression($left, $right, $rightConstant),
+			'%' => $this->renderModuloExpression($left, $right, $rightConstant),
+			'+', '-', '*' => '((' . $left . ') ' . $operator . ' (' . $right . '))',
+			default => '0',
+		};
+	}
+
+	private function renderDivisionExpression(string $left, string $right, ?int $rightConstant): string {
+		if ($rightConstant === 0) {
+			return '0';
 		}
 
-		return is_int($node['value'] ?? null) ? $node['value'] : null;
+		if ($rightConstant !== null) {
+			return 'intdiv((' . $left . '), ' . $rightConstant . ')';
+		}
+
+		return '(((' . $right . ') == 0) ? 0 : intdiv((' . $left . '), (' . $right . ')))';
+	}
+
+	private function renderModuloExpression(string $left, string $right, ?int $rightConstant): string {
+		if ($rightConstant === 0) {
+			return '0';
+		}
+
+		if ($rightConstant !== null) {
+			return '((' . $left . ') % ' . $rightConstant . ')';
+		}
+
+		return '(((' . $right . ') == 0) ? 0 : ((' . $left . ') % (' . $right . ')))';
+	}
+
+	/**
+	 * @return list<string>
+	 */
+	private function tokeniseExpression(string $expression): array {
+		$tokens = [];
+		$offset = 0;
+		$length = strlen($expression);
+
+		while ($offset < $length) {
+			if (preg_match(self::TOKEN_PATTERN, $expression, $matches, 0, $offset) !== 1) {
+				throw new RuntimeException('Unable to parse plural expression near `' . substr($expression, $offset) . '`');
+			}
+			$tokens[] = $matches[1];
+			$offset += strlen($matches[0]);
+		}
+
+		return $tokens;
 	}
 
 	/**

@@ -17,6 +17,32 @@ final class PluralFormsCompilerTest extends \PHPUnit\Framework\TestCase {
 		self::assertSame(2, $lambda(5));
 	}
 
+	public function testCompileFormulaNormalisesPluralFormsComment(): void {
+		$compiler = new PluralFormsCompiler();
+		$compiled = $compiler->compileFormula('// Plural-Forms: nplurals=2; plural=(n != 1);');
+
+		self::assertSame('nplurals=2; plural=(n != 1);', $compiled['formula']);
+
+		$lambda = eval('return ' . $compiled['lambda'] . ';');
+		self::assertInstanceOf(Closure::class, $lambda);
+		self::assertSame(0, $lambda(1));
+		self::assertSame(1, $lambda(2));
+	}
+
+	public function testCompileFormulaHandlesModuloAndLogicalOperators(): void {
+		$compiler = new PluralFormsCompiler();
+		$compiled = $compiler->compileFormula(
+			'nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);'
+		);
+
+		$lambda = eval('return ' . $compiled['lambda'] . ';');
+		self::assertInstanceOf(Closure::class, $lambda);
+		self::assertSame(0, $lambda(1));
+		self::assertSame(1, $lambda(2));
+		self::assertSame(2, $lambda(5));
+		self::assertSame(2, $lambda(11));
+	}
+
 	public function testCompileFileMigratesLegacyPluralFile(): void {
 		$compiler = new PluralFormsCompiler();
 		$tempFile = tempnam(sys_get_temp_dir(), 'plural-forms-');
