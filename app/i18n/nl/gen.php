@@ -141,20 +141,56 @@ return array(
 		'about' => 'Over FreshRSS',
 	),
 	'interval' => array(
-		'ago' => '%s ago',	// TODO
-		'day' => '%d day',	// TODO
-		'days' => '%d days',	// TODO
-		'hour' => '%d hour',	// TODO
-		'hours' => '%d hours',	// TODO
-		'justnow' => 'just now',	// TODO
-		'minute' => '%d minute',	// TODO
-		'minutes' => '%d minutes',	// TODO
-		'month' => '%d month',	// TODO
-		'months' => '%d months',	// TODO
-		'second' => '%d second',	// TODO
-		'seconds' => '%d seconds',	// TODO
-		'year' => '%d year',	// TODO
-		'years' => '%d years',	// TODO
+		'ago' => '%s geleden',
+		'day' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d dag',
+			'other' => '%d dagen',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'hour' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d uur',
+			'other' => '%d uur',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'justnow' => 'zojuist',
+		'minute' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d minuut',
+			'other' => '%d minuten',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'month' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d maand',
+			'other' => '%d maanden',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'second' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d seconde',
+			'other' => '%d seconden',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'year' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d jaar',
+			'other' => '%d jaar',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
 	),
 	'js' => array(
 		'category_empty' => 'Lege categorie',

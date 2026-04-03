@@ -141,20 +141,56 @@ return array(
 		'about' => 'درباره FreshRSS',
 	),
 	'interval' => array(
-		'ago' => '%s ago',	// TODO
-		'day' => '%d day',	// TODO
-		'days' => '%d days',	// TODO
-		'hour' => '%d hour',	// TODO
-		'hours' => '%d hours',	// TODO
-		'justnow' => 'just now',	// TODO
-		'minute' => '%d minute',	// TODO
-		'minutes' => '%d minutes',	// TODO
-		'month' => '%d month',	// TODO
-		'months' => '%d months',	// TODO
-		'second' => '%d second',	// TODO
-		'seconds' => '%d seconds',	// TODO
-		'year' => '%d year',	// TODO
-		'years' => '%d years',	// TODO
+		'ago' => '%s پیش',
+		'day' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d روز',
+			'other' => '%d روز',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'hour' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d ساعت',
+			'other' => '%d ساعت',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'justnow' => 'همین الان',
+		'minute' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d دقیقه',
+			'other' => '%d دقیقه',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'month' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d ماه',
+			'other' => '%d ماه',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'second' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d ثانیه',
+			'other' => '%d ثانیه',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'year' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d سال',
+			'other' => '%d سال',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
 	),
 	'js' => array(
 		'category_empty' => ' دسته خالی',

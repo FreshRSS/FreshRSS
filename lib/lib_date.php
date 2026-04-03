@@ -141,39 +141,3 @@ function parseDateInterval(string $dateInterval): array {
 	}
 	return [$min, $max];
 }
-
-/**
- * Human readable string how long this timestamp is ago ("5 years ago").
- */
-function timeago(int $t, string $base = 'now'): string {
-	$dt = DateTime::createFromFormat('U', (string) $t);
-	if ($dt === false) {
-		return 'date error';
-	}
-
-	$interval = (new DateTime($base))->diff($dt);
-	$units = [
-		[$interval->y, 'year', 'years'],
-		[$interval->m, 'month', 'months'],
-		[$interval->d, 'day', 'days'],
-		[$interval->h, 'hour', 'hours'],
-		[$interval->i, 'minute', 'minutes'],
-		[$interval->s, 'second', 'seconds'],
-	];
-
-	$format = 'justnow';
-	$value = '';
-	foreach ($units as [$unitValue, $singular, $plural]) {
-		if ($unitValue > 0) {
-			$format = $unitValue > 1 ? $plural : $singular;
-			$value = $unitValue;
-			break;
-		}
-	}
-
-	$diff = _t('gen.interval.' . $format, $value);
-	if ($format === 'justnow') {
-		return $diff;
-	}
-	return _t('gen.interval.ago', $diff);
-}

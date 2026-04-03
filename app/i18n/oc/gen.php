@@ -141,20 +141,56 @@ return array(
 		'about' => 'A prepaus de FreshRSS',
 	),
 	'interval' => array(
-		'ago' => '%s ago',	// TODO
-		'day' => '%d day',	// TODO
-		'days' => '%d days',	// TODO
-		'hour' => '%d hour',	// TODO
-		'hours' => '%d hours',	// TODO
-		'justnow' => 'just now',	// TODO
-		'minute' => '%d minute',	// TODO
-		'minutes' => '%d minutes',	// TODO
-		'month' => '%d month',	// TODO
-		'months' => '%d months',	// TODO
-		'second' => '%d second',	// TODO
-		'seconds' => '%d seconds',	// TODO
-		'year' => '%d year',	// TODO
-		'years' => '%d years',	// TODO
+		'ago' => 'fa %s',
+		'day' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d jorn',
+			'other' => '%d jorns',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'hour' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d ora',
+			'other' => '%d oras',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'justnow' => 'ara meteis',
+		'minute' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d minuta',
+			'other' => '%d minutas',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'month' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d mes',
+			'other' => '%d meses',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'second' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d segonda',
+			'other' => '%d segondas',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'year' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d an',
+			'other' => '%d ans',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
 	),
 	'js' => array(
 		'category_empty' => 'Categoria voida',

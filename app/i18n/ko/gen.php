@@ -141,20 +141,56 @@ return array(
 		'about' => '정보',
 	),
 	'interval' => array(
-		'ago' => '%s ago',	// TODO
-		'day' => '%d day',	// TODO
-		'days' => '%d days',	// TODO
-		'hour' => '%d hour',	// TODO
-		'hours' => '%d hours',	// TODO
-		'justnow' => 'just now',	// TODO
-		'minute' => '%d minute',	// TODO
-		'minutes' => '%d minutes',	// TODO
-		'month' => '%d month',	// TODO
-		'months' => '%d months',	// TODO
-		'second' => '%d second',	// TODO
-		'seconds' => '%d seconds',	// TODO
-		'year' => '%d year',	// TODO
-		'years' => '%d years',	// TODO
+		'ago' => '%s 전',
+		'day' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '',	// IGNORE
+			'other' => '%d일',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'hour' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '',	// IGNORE
+			'other' => '%d시간',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'justnow' => '방금 전',
+		'minute' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '',	// IGNORE
+			'other' => '%d분',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'month' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '',	// IGNORE
+			'other' => '%d개월',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'second' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '',	// IGNORE
+			'other' => '%d초',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'year' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '',	// IGNORE
+			'other' => '%d년',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
 	),
 	'js' => array(
 		'category_empty' => '빈 카테고리',

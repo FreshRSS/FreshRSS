@@ -141,20 +141,56 @@ return array(
 		'about' => 'О FreshRSS',
 	),
 	'interval' => array(
-		'ago' => '%s ago',	// TODO
-		'day' => '%d day',	// TODO
-		'days' => '%d days',	// TODO
-		'hour' => '%d hour',	// TODO
-		'hours' => '%d hours',	// TODO
-		'justnow' => 'just now',	// TODO
-		'minute' => '%d minute',	// TODO
-		'minutes' => '%d minutes',	// TODO
-		'month' => '%d month',	// TODO
-		'months' => '%d months',	// TODO
-		'second' => '%d second',	// TODO
-		'seconds' => '%d seconds',	// TODO
-		'year' => '%d year',	// TODO
-		'years' => '%d years',	// TODO
+		'ago' => '%s назад',
+		'day' => array(
+			'few' => '%d дня',
+			'many' => '%d дней',
+			'one' => '%d день',
+			'other' => '',	// IGNORE
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'hour' => array(
+			'few' => '%d часа',
+			'many' => '%d часов',
+			'one' => '%d час',
+			'other' => '',	// IGNORE
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'justnow' => 'только что',
+		'minute' => array(
+			'few' => '%d минуты',
+			'many' => '%d минут',
+			'one' => '%d минута',
+			'other' => '',	// IGNORE
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'month' => array(
+			'few' => '%d месяца',
+			'many' => '%d месяцев',
+			'one' => '%d месяц',
+			'other' => '',	// IGNORE
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'second' => array(
+			'few' => '%d секунды',
+			'many' => '%d секунд',
+			'one' => '%d секунда',
+			'other' => '',	// IGNORE
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'year' => array(
+			'few' => '%d года',
+			'many' => '%d лет',
+			'one' => '%d год',
+			'other' => '',	// IGNORE
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
 	),
 	'js' => array(
 		'category_empty' => 'Пустая категория',

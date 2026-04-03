@@ -142,19 +142,55 @@ return array(
 	),
 	'interval' => array(
 		'ago' => 'vor %s',
-		'day' => '%d Tag',
-		'days' => '%d Tage',
-		'hour' => '%d Stunde',
-		'hours' => '%d Stunden',
+		'day' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d Tag',
+			'other' => '%d Tage',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'hour' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d Stunde',
+			'other' => '%d Stunden',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
 		'justnow' => 'gerade eben',
-		'minute' => '%d Minute',
-		'minutes' => '%d Minuten',
-		'month' => '%d Monat',
-		'months' => '%d Monate',
-		'second' => '%d Sekunde',
-		'seconds' => '%d Sekunden',
-		'year' => '%d Jahre',
-		'years' => '%d Jahren',
+		'minute' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d Minute',
+			'other' => '%d Minuten',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'month' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d Monat',
+			'other' => '%d Monate',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'second' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d Sekunde',
+			'other' => '%d Sekunden',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'year' => array(
+			'few' => '',	// IGNORE
+			'many' => '',	// IGNORE
+			'one' => '%d Jahr',
+			'other' => '%d Jahre',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
 	),
 	'js' => array(
 		'category_empty' => 'Kategorie leeren',

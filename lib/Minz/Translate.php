@@ -259,6 +259,105 @@ class Minz_Translate {
 	public static function language(): string {
 		return self::$lang_name;
 	}
+
+	/**
+	 * Type of plural to apply for a given value in a given language, inspired by ICU/CLDR plural rules.
+	 * For instance in English, 1 is 'one' and all other values are 'other',
+	 * but in Ukrainian, 1 is 'one', 2-4 are 'few' and all other values are 'many'.
+	 * @return 'zero'|'one'|'two'|'few'|'many'|'other'
+	 */
+	protected static function pluralType(int $value, ?string $lang = null): string {
+		$lang = $lang ?? Minz_Translate::language();
+		$dashPos = strpos($lang, '-');
+		$baseLang = $dashPos === false ? $lang : substr($lang, 0, $dashPos);
+		$baseLang = strtolower($baseLang);
+
+		if (in_array($baseLang, ['de', 'el', 'en', 'es', 'fi', 'hu', 'it', 'nl', 'oc', 'tr'], true)) {
+			return $value === 1 ? 'one' : 'other';	// Shortcut for the most common plural rule
+		}
+		if (in_array($baseLang, ['fa', 'fr'], true) || $lang === 'pt-br') {
+			return ($value === 0 || $value === 1) ? 'one' : 'other';
+		}
+		if (in_array($baseLang, ['id', 'ja', 'ko', 'zh'], true)) {
+			return 'other';
+		}
+		if (in_array($baseLang, ['cs', 'sk'], true)) {
+			if ($value === 1) {
+				return 'one';
+			}
+			if ($value >= 2 && $value <= 4) {
+				return 'few';
+			}
+			return 'other';
+		}
+		if ($baseLang === 'he') {
+			if ($value === 1) {
+				return 'one';
+			}
+			if ($value === 2) {
+				return 'two';
+			}
+			return 'other';
+		}
+		if ($baseLang === 'lv') {
+			$mod10 = $value % 10;
+			$mod100 = $value % 100;
+			if ($mod10 === 0 || ($mod100 >= 11 && $mod100 <= 19)) {
+				return 'zero';
+			}
+			if ($mod10 === 1) {
+				return 'one';
+			}
+			return 'other';
+		}
+		if ($baseLang === 'pl') {
+			$mod10 = $value % 10;
+			$mod100 = $value % 100;
+			if ($value === 1) {
+				return 'one';
+			}
+			if ($mod10 >= 2 && $mod10 <= 4 && !($mod100 >= 12 && $mod100 <= 14)) {
+				return 'few';
+			}
+			return 'many';
+		}
+		if (in_array($baseLang, ['ru', 'uk'], true)) {
+			$mod10 = $value % 10;
+			$mod100 = $value % 100;
+			if ($mod10 === 1 && $mod100 !== 11) {
+				return 'one';
+			}
+			if ($mod10 >= 2 && $mod10 <= 4 && !($mod100 >= 12 && $mod100 <= 14)) {
+				return 'few';
+			}
+			return 'many';
+		}
+		return $value === 1 ? 'one' : 'other';
+	}
+
+	/**
+	 * Translate a count-based key with plural-type fallback.
+	 * Expected translation keys are: `.zero`, `.one`, `.two`, `.few`, `.many`, `.other`.
+	 * @param string $baseKey Base i18n key without plural suffix (e.g. `gen.interval.second`).
+	 * @param int $value Count used for plural category and `%d` substitution.
+	 * @return string|null Translated string or null if no translation is found.
+	 */
+	public static function plural(string $baseKey, int $value): ?string {
+		$category = self::pluralType($value);
+		$key = $baseKey . '.' . $category;
+		$translation = self::t($key, $value);
+		if ($translation !== $key && $translation !== '') {
+			return $translation;
+		}
+
+		$key = $baseKey . '.other';
+		$translation = self::t($key, $value);
+		if ($translation !== $key && $translation !== '') {
+			return $translation;
+		}
+
+		return null;
+	}
 }
 
 

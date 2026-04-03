@@ -141,20 +141,56 @@ return array(
 		'about' => 'O FreshRSS',
 	),
 	'interval' => array(
-		'ago' => '%s ago',	// TODO
-		'day' => '%d day',	// TODO
-		'days' => '%d days',	// TODO
-		'hour' => '%d hour',	// TODO
-		'hours' => '%d hours',	// TODO
-		'justnow' => 'just now',	// TODO
-		'minute' => '%d minute',	// TODO
-		'minutes' => '%d minutes',	// TODO
-		'month' => '%d month',	// TODO
-		'months' => '%d months',	// TODO
-		'second' => '%d second',	// TODO
-		'seconds' => '%d seconds',	// TODO
-		'year' => '%d year',	// TODO
-		'years' => '%d years',	// TODO
+		'ago' => 'pred %s',
+		'day' => array(
+			'few' => '%d dni',
+			'many' => '',	// IGNORE
+			'one' => '%d deň',
+			'other' => '%d dní',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'hour' => array(
+			'few' => '%d hodiny',
+			'many' => '',	// IGNORE
+			'one' => '%d hodina',
+			'other' => '%d hodín',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'justnow' => 'práve teraz',
+		'minute' => array(
+			'few' => '%d minúty',
+			'many' => '',	// IGNORE
+			'one' => '%d minúta',
+			'other' => '%d minút',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'month' => array(
+			'few' => '%d mesiace',
+			'many' => '',	// IGNORE
+			'one' => '%d mesiac',
+			'other' => '%d mesiacov',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'second' => array(
+			'few' => '%d sekundy',
+			'many' => '',	// IGNORE
+			'one' => '%d sekunda',
+			'other' => '%d sekúnd',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
+		'year' => array(
+			'few' => '%d roky',
+			'many' => '',	// IGNORE
+			'one' => '%d rok',
+			'other' => '%d rokov',
+			'two' => '',	// IGNORE
+			'zero' => '',	// IGNORE
+		),
 	),
 	'js' => array(
 		'category_empty' => 'Prázdna kategória',
