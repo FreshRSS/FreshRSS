@@ -18,17 +18,14 @@
 		<p class="alert alert-error">
 			<span class="alert-head"><?= _t('gen.short.damn') ?></span>
 			<?= _t('sub.feed.error') ?><br />
-			<?= _t('sub.feed.last-update',
-				timestampToMachineDate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate())) ?>
+			<?= _t('sub.feed.last-update', timestampToMachineDate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate())) ?>
 			<?php if ($this->feed->error() > 0) { ?><br />
-				<?= _t('sub.feed.last-error-date',
-					timestampToMachineDate($this->feed->error()), timeago($this->feed->error())) ?>
+				<?= _t('sub.feed.last-error-date', timestampToMachineDate($this->feed->error()), timeago($this->feed->error())) ?>
 			<?php } ?>
 		</p>
 	<?php else: ?>
 		<p class="alert alert-success">
-			<?= _t('sub.feed.last-update',
-				timestampToMachineDate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate())) ?>
+			<?= _t('sub.feed.last-update', timestampToMachineDate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate())) ?>
 		</p>
 	<?php endif; ?>
 
