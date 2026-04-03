@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Prywatność',
 		'retrieve_extension_list' => 'Pobieraj listę rozszerzeń',
+		'send_referrer_allowlist' => 'Strony, które mogą zobaczyć twój adres serwera (%s)',
 	),
 	'profile' => array(
 		'_' => 'Zarządzanie profilem',

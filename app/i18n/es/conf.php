@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacidad',
 		'retrieve_extension_list' => 'Obtener lista de extensiones',
+		'send_referrer_allowlist' => 'Sites allowed to see your origin (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Administración de perfiles',
