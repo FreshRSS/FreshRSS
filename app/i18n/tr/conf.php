@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili kategori veya besleme silinmiş.',
 		'description' => 'Açıklama',
 		'filter' => array(

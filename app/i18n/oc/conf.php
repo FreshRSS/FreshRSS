@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Filtres utilizaires',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Aqueste filtre es pas valid. La categoria o lo flux concernit es estat suprimit.',
 		'description' => 'Description',	// TODO
 		'filter' => array(

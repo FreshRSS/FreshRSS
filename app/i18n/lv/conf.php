@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Lietotāja pieprasījumi',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Šis pieprasījums vairs nav derīgs. Norādītā kategorija vai barotne ir dzēsta.',
 		'description' => 'Description',	// TODO
 		'filter' => array(

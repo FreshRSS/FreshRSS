@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Uživatelské dotazy',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Tento dotaz již není platný. Odkazovaná kategorie nebo kanál byly odstraněny.',
 		'description' => 'Description',	// TODO
 		'filter' => array(

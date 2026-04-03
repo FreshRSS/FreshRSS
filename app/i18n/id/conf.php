@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Pencarian Pengguna',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Pencarian ini tidak valid lagi. Kategori atau umpan yang dirujuk telah dihapus.',
 		'description' => 'Deskripsi',
 		'filter' => array(

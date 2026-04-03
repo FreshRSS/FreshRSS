@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Felhasználói lekérdezések',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Ez a lekérdezés már nem érvényes. A hivatkozott kategória vagy hírforrás törölve lett.',
 		'description' => 'Leírás',
 		'filter' => array(

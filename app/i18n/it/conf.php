@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Ricerche personali',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
 		'description' => 'Descrizione',
 		'filter' => array(

@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => ' پرس و جوهای کاربر',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => ' این عبارت دیگر معتبر نیست. دسته یا فید ارجاع شده حذف شده است.',
 		'description' => 'توضیحات',
 		'filter' => array(
