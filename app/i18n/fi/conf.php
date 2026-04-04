@@ -280,6 +280,7 @@ return array(
 			'upon_gone' => 'kun artikkeli ei ole enää alkuperäisessä uutissyötteessä',
 			'upon_reception' => 'kun artikkeli on vastaanotettu',
 			'when' => 'Merkitse artikkeli luetuksi…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'jos jollakin luokan <i>n</i> uusimmalla artikkelilla on sama otsikko',
 			'when_same_title_in_feed' => 'jos jollakin syötteen <i>n</i> uusimmalla artikkelilla on sama otsikko',
 		),

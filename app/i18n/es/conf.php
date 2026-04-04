@@ -280,6 +280,7 @@ return array(
 			'upon_gone' => 'cuando ya no está disponible en la fuente de noticias previa',
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',
+			'when_same_guid_in_category' => 'si ya existe un GUID idéntico en los <i>n</i> artículos más recientes de la categoría',	// DIRTY
 			'when_same_title_in_category' => 'si ya existe un título idéntico en los <i>n</i> artículos más recientes de la categoría',
 			'when_same_title_in_feed' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes (de la fuente)',
 		),

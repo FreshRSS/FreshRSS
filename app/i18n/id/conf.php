@@ -280,6 +280,7 @@ return array(
 			'upon_gone' => 'saat artikel hilang dari umpan situs aslinya',
 			'upon_reception' => 'saat menerima artikel',
 			'when' => 'Tandai artikel sebagai sudah dibaca…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dalam kategori',
 			'when_same_title_in_feed' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dari umpan',
 		),
