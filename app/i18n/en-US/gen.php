@@ -142,29 +142,29 @@ return array(
 	),
 	'interval' => array(
 		'day' => array(
-			0 => '%d day ago',
-			1 => '%d days ago',
+			0 => '%d day ago',	// TODO
+			1 => '%d days ago',	// TODO
 		),
 		'hour' => array(
-			0 => '%d hour ago',
-			1 => '%d hours ago',
+			0 => '%d hour ago',	// TODO
+			1 => '%d hours ago',	// TODO
 		),
 		'justnow' => 'just now',	// TODO
 		'minute' => array(
-			0 => '%d minute ago',
-			1 => '%d minutes ago',
+			0 => '%d minute ago',	// TODO
+			1 => '%d minutes ago',	// TODO
 		),
 		'month' => array(
-			0 => '%d month ago',
-			1 => '%d months ago',
+			0 => '%d month ago',	// TODO
+			1 => '%d months ago',	// TODO
 		),
 		'second' => array(
-			0 => '%d second ago',
-			1 => '%d seconds ago',
+			0 => '%d second ago',	// TODO
+			1 => '%d seconds ago',	// TODO
 		),
 		'year' => array(
-			0 => '%d year ago',
-			1 => '%d years ago',
+			0 => '%d year ago',	// TODO
+			1 => '%d years ago',	// TODO
 		),
 	),
 	'js' => array(
