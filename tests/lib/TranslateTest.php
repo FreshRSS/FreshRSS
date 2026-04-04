@@ -9,17 +9,17 @@ final class TranslateTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public static function providePluralTranslations(): array {
 		return [
-			['en', 1, '1 day'],
-			['en', 2, '2 days'],
-			['fr', 0, '0 jour'],
-			['fr', 2, '2 jours'],
-			['id', 5, '5 hari'],
-			['lv', 0, '0 dienu'],
-			['lv', 1, '1 diena'],
-			['lv', 2, '2 dienas'],
-			['he', 2, '2 ימים'],
-			['ru', 5, '5 дней'],
-			['zh-CN', 3, '3天'],
+			['en', 1, '1 day ago'],
+			['en', 2, '2 days ago'],
+			['fr', 0, 'il y a 0 jour'],
+			['fr', 2, 'il y a 2 jours'],
+			['id', 5, '5 hari yang lalu'],
+			['lv', 0, 'pirms 0 dienu'],
+			['lv', 1, 'pirms 1 diena'],
+			['lv', 2, 'pirms 2 dienas'],
+			['he', 2, 'לפני 2 ימים'],
+			['ru', 5, '5 дней назад'],
+			['zh-CN', 3, '3天前'],
 		];
 	}
 

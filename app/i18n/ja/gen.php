@@ -141,25 +141,24 @@ return array(
 		'about' => 'FreshRSSについて',
 	),
 	'interval' => array(
-		'ago' => '%s前',
 		'day' => array(
-			0 => '%d日',
+			0 => '%d日前',
 		),
 		'hour' => array(
-			0 => '%d時間',
+			0 => '%d時間前',
 		),
 		'justnow' => 'たった今',
 		'minute' => array(
-			0 => '%d分',
+			0 => '%d分前',
 		),
 		'month' => array(
-			0 => '%dか月',
+			0 => '%dか月前',
 		),
 		'second' => array(
-			0 => '%d秒',
+			0 => '%d秒前',
 		),
 		'year' => array(
-			0 => '%d年',
+			0 => '%d年前',
 		),
 	),
 	'js' => array(

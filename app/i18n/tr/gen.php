@@ -141,31 +141,30 @@ return array(
 		'about' => 'FreshRSS Hakkında',
 	),
 	'interval' => array(
-		'ago' => '%s once',
 		'day' => array(
-			0 => '%d gün',
-			1 => '%d gün',
+			0 => '%d gün once',
+			1 => '%d gün once',
 		),
 		'hour' => array(
-			0 => '%d saat',
-			1 => '%d saat',
+			0 => '%d saat once',
+			1 => '%d saat once',
 		),
 		'justnow' => 'az once',
 		'minute' => array(
-			0 => '%d dakika',
-			1 => '%d dakika',
+			0 => '%d dakika once',
+			1 => '%d dakika once',
 		),
 		'month' => array(
-			0 => '%d ay',
-			1 => '%d ay',
+			0 => '%d ay once',
+			1 => '%d ay once',
 		),
 		'second' => array(
-			0 => '%d saniye',
-			1 => '%d saniye',
+			0 => '%d saniye once',
+			1 => '%d saniye once',
 		),
 		'year' => array(
-			0 => '%d yıl',
-			1 => '%d yıl',
+			0 => '%d yıl once',
+			1 => '%d yıl once',
 		),
 	),
 	'js' => array(

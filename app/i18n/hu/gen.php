@@ -141,31 +141,30 @@ return array(
 		'about' => 'FreshRSS névjegy',
 	),
 	'interval' => array(
-		'ago' => '%s ezelőtt',
 		'day' => array(
-			0 => '%d nap',
-			1 => '%d nap',
+			0 => '%d nap ezelőtt',
+			1 => '%d nap ezelőtt',
 		),
 		'hour' => array(
-			0 => '%d óra',
-			1 => '%d óra',
+			0 => '%d óra ezelőtt',
+			1 => '%d óra ezelőtt',
 		),
 		'justnow' => 'épp most',
 		'minute' => array(
-			0 => '%d perc',
-			1 => '%d perc',
+			0 => '%d perc ezelőtt',
+			1 => '%d perc ezelőtt',
 		),
 		'month' => array(
-			0 => '%d hónap',
-			1 => '%d hónap',
+			0 => '%d hónap ezelőtt',
+			1 => '%d hónap ezelőtt',
 		),
 		'second' => array(
-			0 => '%d másodperc',
-			1 => '%d másodperc',
+			0 => '%d másodperc ezelőtt',
+			1 => '%d másodperc ezelőtt',
 		),
 		'year' => array(
-			0 => '%d év',
-			1 => '%d év',
+			0 => '%d év ezelőtt',
+			1 => '%d év ezelőtt',
 		),
 	),
 	'js' => array(

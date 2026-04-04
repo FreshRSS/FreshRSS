@@ -141,25 +141,24 @@ return array(
 		'about' => '정보',
 	),
 	'interval' => array(
-		'ago' => '%s 전',
 		'day' => array(
-			0 => '%d일',
+			0 => '%d일 전',
 		),
 		'hour' => array(
-			0 => '%d시간',
+			0 => '%d시간 전',
 		),
 		'justnow' => '방금 전',
 		'minute' => array(
-			0 => '%d분',
+			0 => '%d분 전',
 		),
 		'month' => array(
-			0 => '%d개월',
+			0 => '%d개월 전',
 		),
 		'second' => array(
-			0 => '%d초',
+			0 => '%d초 전',
 		),
 		'year' => array(
-			0 => '%d년',
+			0 => '%d년 전',
 		),
 	),
 	'js' => array(

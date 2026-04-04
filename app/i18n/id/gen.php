@@ -141,25 +141,24 @@ return array(
 		'about' => 'Tentang FreshRSS',
 	),
 	'interval' => array(
-		'ago' => '%s yang lalu',
 		'day' => array(
-			0 => '%d hari',
+			0 => '%d hari yang lalu',
 		),
 		'hour' => array(
-			0 => '%d jam',
+			0 => '%d jam yang lalu',
 		),
 		'justnow' => 'baru saja',
 		'minute' => array(
-			0 => '%d menit',
+			0 => '%d menit yang lalu',
 		),
 		'month' => array(
-			0 => '%d bulan',
+			0 => '%d bulan yang lalu',
 		),
 		'second' => array(
-			0 => '%d detik',
+			0 => '%d detik yang lalu',
 		),
 		'year' => array(
-			0 => '%d tahun',
+			0 => '%d tahun yang lalu',
 		),
 	),
 	'js' => array(

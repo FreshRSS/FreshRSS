@@ -141,31 +141,30 @@ return array(
 		'about' => 'Informazioni',
 	),
 	'interval' => array(
-		'ago' => '%s fa',
 		'day' => array(
-			0 => '%d giorno',
-			1 => '%d giorni',
+			0 => '%d giorno fa',
+			1 => '%d giorni fa',
 		),
 		'hour' => array(
-			0 => '%d ora',
-			1 => '%d ore',
+			0 => '%d ora fa',
+			1 => '%d ore fa',
 		),
 		'justnow' => 'proprio adesso',
 		'minute' => array(
-			0 => '%d minuto',
-			1 => '%d minuti',
+			0 => '%d minuto fa',
+			1 => '%d minuti fa',
 		),
 		'month' => array(
-			0 => '%d mese',
-			1 => '%d mesi',
+			0 => '%d mese fa',
+			1 => '%d mesi fa',
 		),
 		'second' => array(
-			0 => '%d secondo',
-			1 => '%d secondi',
+			0 => '%d secondo fa',
+			1 => '%d secondi fa',
 		),
 		'year' => array(
-			0 => '%d anno',
-			1 => '%d anni',
+			0 => '%d anno fa',
+			1 => '%d anni fa',
 		),
 	),
 	'js' => array(

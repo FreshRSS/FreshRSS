@@ -141,31 +141,30 @@ return array(
 		'about' => 'A prepaus de FreshRSS',
 	),
 	'interval' => array(
-		'ago' => 'fa %s',
 		'day' => array(
-			0 => '%d jorn',
-			1 => '%d jorns',
+			0 => 'fa %d jorn',
+			1 => 'fa %d jorns',
 		),
 		'hour' => array(
-			0 => '%d ora',
-			1 => '%d oras',
+			0 => 'fa %d ora',
+			1 => 'fa %d oras',
 		),
 		'justnow' => 'ara meteis',
 		'minute' => array(
-			0 => '%d minuta',
-			1 => '%d minutas',
+			0 => 'fa %d minuta',
+			1 => 'fa %d minutas',
 		),
 		'month' => array(
-			0 => '%d mes',
-			1 => '%d meses',
+			0 => 'fa %d mes',
+			1 => 'fa %d meses',
 		),
 		'second' => array(
-			0 => '%d segonda',
-			1 => '%d segondas',
+			0 => 'fa %d segonda',
+			1 => 'fa %d segondas',
 		),
 		'year' => array(
-			0 => '%d an',
-			1 => '%d ans',
+			0 => 'fa %d an',
+			1 => 'fa %d ans',
 		),
 	),
 	'js' => array(

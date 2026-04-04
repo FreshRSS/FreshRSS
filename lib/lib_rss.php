@@ -238,7 +238,7 @@ function timeago(int $timestamp, ?int $baseTimestamp = null): string {
 	foreach ($units as [$unitSeconds, $unit]) {
 		if ($delta >= $unitSeconds) {
 			$unitValue = intdiv($delta, $unitSeconds);
-			$diff = Minz_Translate::plural('gen.interval.' . $unit, $unitValue) ?? $unitValue . ' ' . $unit;
+			$diff = Minz_Translate::plural('gen.interval.' . $unit, $unitValue) ?? ($unitValue . ' ' . $unit . ' ago');
 			break;
 		}
 	}
@@ -246,7 +246,7 @@ function timeago(int $timestamp, ?int $baseTimestamp = null): string {
 	if ($diff === '') {
 		return Minz_Translate::t('gen.interval.justnow');
 	}
-	return Minz_Translate::t('gen.interval.ago', $diff);
+	return $diff;
 }
 
 /**

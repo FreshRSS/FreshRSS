@@ -141,31 +141,30 @@ return array(
 		'about' => 'Über FreshRSS',
 	),
 	'interval' => array(
-		'ago' => 'vor %s',
 		'day' => array(
-			0 => '%d Tag',
-			1 => '%d Tage',
+			0 => 'vor %d Tag',
+			1 => 'vor %d Tage',
 		),
 		'hour' => array(
-			0 => '%d Stunde',
-			1 => '%d Stunden',
+			0 => 'vor %d Stunde',
+			1 => 'vor %d Stunden',
 		),
 		'justnow' => 'gerade eben',
 		'minute' => array(
-			0 => '%d Minute',
-			1 => '%d Minuten',
+			0 => 'vor %d Minute',
+			1 => 'vor %d Minuten',
 		),
 		'month' => array(
-			0 => '%d Monat',
-			1 => '%d Monate',
+			0 => 'vor %d Monat',
+			1 => 'vor %d Monate',
 		),
 		'second' => array(
-			0 => '%d Sekunde',
-			1 => '%d Sekunden',
+			0 => 'vor %d Sekunde',
+			1 => 'vor %d Sekunden',
 		),
 		'year' => array(
-			0 => '%d Jahr',
-			1 => '%d Jahre',
+			0 => 'vor %d Jahr',
+			1 => 'vor %d Jahre',
 		),
 	),
 	'js' => array(

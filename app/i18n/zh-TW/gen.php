@@ -141,25 +141,24 @@ return array(
 		'about' => '關於 FreshRSS',
 	),
 	'interval' => array(
-		'ago' => '%s前',
 		'day' => array(
-			0 => '%d天',
+			0 => '%d天前',
 		),
 		'hour' => array(
-			0 => '%d小時',
+			0 => '%d小時前',
 		),
 		'justnow' => '剛剛',
 		'minute' => array(
-			0 => '%d分鐘',
+			0 => '%d分鐘前',
 		),
 		'month' => array(
-			0 => '%d個月',
+			0 => '%d個月前',
 		),
 		'second' => array(
-			0 => '%d秒',
+			0 => '%d秒前',
 		),
 		'year' => array(
-			0 => '%d年',
+			0 => '%d年前',
 		),
 	),
 	'js' => array(
