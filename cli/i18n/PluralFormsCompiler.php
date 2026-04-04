@@ -8,20 +8,7 @@ final class PluralFormsCompiler {
 
 	private const COMMENT_PREFIX_PATTERN = '/^\s*\/\/\s*/';
 
-	private const TOKEN_PATTERN = '/\G\s*(\d+|n|==|!=|<=|>=|\|\||&&|[?:()!%+\-*\/<>=])\s*/A';
-
-	/**
-	 * Ordered from lowest to highest precedence.
-	 * @var list<list<string>>
-	 */
-	private const BINARY_OPERATORS = [
-		['||'],
-		['&&'],
-		['==', '!='],
-		['<', '<=', '>', '>='],
-		['+', '-'],
-		['*', '/', '%'],
-	];
+	private const ALLOWED_EXPRESSION_PATTERN = '/^[0-9n\s!<>=&|?:()%+*\/-]+$/';
 
 	/**
 	 * @return array{formula:string,nplurals:int,lambda:string}
@@ -29,12 +16,16 @@ final class PluralFormsCompiler {
 	public function compileFormula(string $pluralForms): array {
 		['formula' => $formula, 'nplurals' => $pluralCount, 'expression' => $expression] =
 			$this->parsePluralHeader($pluralForms);
-		$expressionTree = $this->parsePluralExpression($expression, $formula);
+		$this->validatePluralExpression($expression, $formula);
+
+		$lambdaExpression = $pluralCount === 2 && !str_contains($expression, '?')
+			? '((' . $this->transpileLeafExpression($expression) . ') ? 1 : 0)'
+			: $this->transpileExpression($expression);
 
 		return [
 			'formula' => $formula,
 			'nplurals' => $pluralCount,
-			'lambda' => 'static fn (int $n): int => ' . $this->renderPhpExpression($expressionTree),
+			'lambda' => 'static fn (int $n): int => ' . $lambdaExpression,
 		];
 	}
 
@@ -148,247 +139,132 @@ PHP;
 	}
 
 	/**
-	 * @return array<string,mixed>
+	 * Lightweight validation only. The compiler transpiles real shipped formulas heuristically.
 	 */
-	private function parsePluralExpression(string $expression, string $pluralForms): array {
-		$tokens = $this->tokeniseExpression($expression);
-		$position = 0;
-		$tree = $this->parsePluralTernary($tokens, $position, $pluralForms);
-		if ($position !== count($tokens)) {
-			throw new RuntimeException('Unexpected token in plural expression `' . $pluralForms . '`');
+	private function validatePluralExpression(string $expression, string $pluralForms): void {
+		if (!preg_match(self::ALLOWED_EXPRESSION_PATTERN, $expression)) {
+			throw new RuntimeException('Unsupported token in plural expression `' . $pluralForms . '`');
 		}
 
-		return $tree;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private function parsePluralTernary(array $tokens, int &$position, string $pluralForms): array {
-		$condition = $this->parseBinaryExpression($tokens, $position, $pluralForms, 0);
-		if (($tokens[$position] ?? null) !== '?') {
-			return $condition;
-		}
-
-		$position++;
-		$ifTrue = $this->parsePluralTernary($tokens, $position, $pluralForms);
-		if (($tokens[$position] ?? null) !== ':') {
-			throw new RuntimeException('Missing `:` in plural expression `' . $pluralForms . '`');
-		}
-		$position++;
-		$ifFalse = $this->parsePluralTernary($tokens, $position, $pluralForms);
-
-		return [
-			'type' => 'ternary',
-			'condition' => $condition,
-			'if_true' => $ifTrue,
-			'if_false' => $ifFalse,
-		];
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private function parseBinaryExpression(array $tokens, int &$position, string $pluralForms, int $precedenceIndex): array {
-		if (!isset(self::BINARY_OPERATORS[$precedenceIndex])) {
-			return $this->parsePluralUnary($tokens, $position, $pluralForms);
-		}
-
-		$node = $this->parseBinaryExpression($tokens, $position, $pluralForms, $precedenceIndex + 1);
-		$operators = self::BINARY_OPERATORS[$precedenceIndex];
-
-		while (in_array($tokens[$position] ?? null, $operators, true)) {
-			$operator = $tokens[$position];
-			$position++;
-			$node = [
-				'type' => 'binary',
-				'operator' => $operator,
-				'left' => $node,
-				'right' => $this->parseBinaryExpression($tokens, $position, $pluralForms, $precedenceIndex + 1),
-			];
-		}
-
-		return $node;
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private function parsePluralUnary(array $tokens, int &$position, string $pluralForms): array {
-		$token = $tokens[$position] ?? null;
-		if ($token === '!' || $token === '-') {
-			$position++;
-			return [
-				'type' => 'unary',
-				'operator' => $token,
-				'operand' => $this->parsePluralUnary($tokens, $position, $pluralForms),
-			];
-		}
-
-		return $this->parsePluralPrimary($tokens, $position, $pluralForms);
-	}
-
-	/**
-	 * @param list<string> $tokens
-	 * @return array<string,mixed>
-	 */
-	private function parsePluralPrimary(array $tokens, int &$position, string $pluralForms): array {
-		$token = $tokens[$position] ?? null;
-		if ($token === null) {
-			throw new RuntimeException('Unexpected end of plural expression `' . $pluralForms . '`');
-		}
-
-		if (ctype_digit($token)) {
-			$position++;
-			return ['type' => 'number', 'value' => (int)$token];
-		}
-
-		if ($token === 'n') {
-			$position++;
-			return ['type' => 'variable'];
-		}
-
-		if ($token === '(') {
-			$position++;
-			$node = $this->parsePluralTernary($tokens, $position, $pluralForms);
-			if (($tokens[$position] ?? null) !== ')') {
-				throw new RuntimeException('Missing `)` in plural expression `' . $pluralForms . '`');
-			}
-			$position++;
-			return $node;
-		}
-
-		throw new RuntimeException('Unexpected token `' . $token . '` in plural expression `' . $pluralForms . '`');
-	}
-
-	/**
-	 * @param array<string,mixed> $node
-	 */
-	private function renderPhpExpression(array $node, bool $asCondition = false): string {
-		switch ($node['type'] ?? null) {
-			case 'number':
-				$expression = (string)(is_int($node['value'] ?? null) ? $node['value'] : 0);
-				return $asCondition ? '(' . $expression . ' != 0)' : $expression;
-			case 'variable':
-				return $asCondition ? '($n != 0)' : '$n';
-			case 'unary':
-				$operator = is_string($node['operator'] ?? null) ? $node['operator'] : '';
-				if ($operator === '!') {
-					$operand = $this->renderPhpExpression($this->childNode($node, 'operand'), true);
-					return $asCondition ? '(!' . $operand . ')' : '((!' . $operand . ') ? 1 : 0)';
+		$depth = 0;
+		$length = strlen($expression);
+		for ($index = 0; $index < $length; $index++) {
+			$character = $expression[$index];
+			if ($character === '(') {
+				$depth++;
+			} elseif ($character === ')') {
+				$depth--;
+				if ($depth < 0) {
+					throw new RuntimeException('Unbalanced parentheses in plural expression `' . $pluralForms . '`');
 				}
-
-				$operand = $this->renderPhpExpression($this->childNode($node, 'operand'));
-				$expression = $operator === '-' ? '(-' . $operand . ')' : '(' . $operand . ')';
-				return $asCondition ? '(' . $expression . ' != 0)' : $expression;
-			case 'ternary':
-				$expression = '(' . $this->renderPhpExpression($this->childNode($node, 'condition'), true) . ' ? '
-					. $this->renderPhpExpression($this->childNode($node, 'if_true')) . ' : '
-					. $this->renderPhpExpression($this->childNode($node, 'if_false')) . ')';
-				return $asCondition ? '(' . $expression . ' != 0)' : $expression;
-			case 'binary':
-				return $this->renderBinaryExpression(
-					is_string($node['operator'] ?? null) ? $node['operator'] : '',
-					$this->childNode($node, 'left'),
-					$this->childNode($node, 'right'),
-					$asCondition
-				);
-			default:
-				return $asCondition ? '(0 != 0)' : '0';
+			}
 		}
+
+		if ($depth !== 0) {
+			throw new RuntimeException('Unbalanced parentheses in plural expression `' . $pluralForms . '`');
+		}
+
+		if (substr_count($expression, '?') !== substr_count($expression, ':')) {
+			throw new RuntimeException('Unbalanced ternary operators in plural expression `' . $pluralForms . '`');
+		}
+
+		if (str_contains($expression, '/')) {
+			throw new RuntimeException('Operator `/` is not supported in plural expression `' . $pluralForms . '`');
+		}
+	}
+
+	private function transpileExpression(string $expression): string {
+		$expression = $this->stripOuterParentheses(trim($expression));
+		[$condition, $ifTrue, $ifFalse] = $this->splitTopLevelTernary($expression);
+		if ($condition === null) {
+			return $this->transpileLeafExpression($expression);
+		}
+
+		return '(' . $this->transpileLeafExpression($condition) . ' ? ' . $this->transpileExpression($ifTrue) . ' : '
+			. $this->transpileExpression($ifFalse) . ')';
+	}
+
+	private function transpileLeafExpression(string $expression): string {
+		$expression = $this->stripOuterParentheses(trim($expression));
+		$expression = preg_replace('/\bn\b/', '$n', $expression) ?? $expression;
+		$expression = preg_replace('/\s*(==|!=|<=|>=|\|\||&&|[%*+\-<>])\s*/', ' $1 ', $expression) ?? $expression;
+		$expression = preg_replace('/\s+/', ' ', trim($expression)) ?? trim($expression);
+		return $expression;
 	}
 
 	/**
-	 * @param array<string,mixed> $leftNode
-	 * @param array<string,mixed> $rightNode
+	 * @return array{0:?string,1:string,2:string}
 	 */
-	private function renderBinaryExpression(string $operator, array $leftNode, array $rightNode, bool $asCondition = false): string {
-		if (in_array($operator, ['||', '&&'], true)) {
-			$expression = '(' . $this->renderPhpExpression($leftNode, true) . ' ' . $operator . ' '
-				. $this->renderPhpExpression($rightNode, true) . ')';
-			return $asCondition ? $expression : '(' . $expression . ' ? 1 : 0)';
-		}
-
-		$left = $this->renderPhpExpression($leftNode);
-		$right = $this->renderPhpExpression($rightNode);
-		$rightConstant = ($rightNode['type'] ?? null) === 'number' && is_int($rightNode['value'] ?? null)
-			? $rightNode['value']
-			: null;
-
-		return match ($operator) {
-			'==', '!=', '<', '<=', '>', '>=' => $asCondition
-				? '(' . $left . ' ' . $operator . ' ' . $right . ')'
-				: '((' . $left . ' ' . $operator . ' ' . $right . ') ? 1 : 0)',
-			'/' => $asCondition
-				? '(' . $this->renderDivisionExpression($left, $right, $rightConstant) . ' != 0)'
-				: $this->renderDivisionExpression($left, $right, $rightConstant),
-			'%' => $asCondition
-				? '(' . $this->renderModuloExpression($left, $right, $rightConstant) . ' != 0)'
-				: $this->renderModuloExpression($left, $right, $rightConstant),
-			'+', '-', '*' => $asCondition
-				? '((' . $left . ' ' . $operator . ' ' . $right . ') != 0)'
-				: '(' . $left . ' ' . $operator . ' ' . $right . ')',
-			default => $asCondition ? '(0 != 0)' : '0',
-		};
-	}
-
-	private function renderDivisionExpression(string $left, string $right, ?int $rightConstant): string {
-		if ($rightConstant === 0) {
-			return '0';
-		}
-
-		if ($rightConstant !== null) {
-			return 'intdiv(' . $left . ', ' . $rightConstant . ')';
-		}
-
-		return '((' . $right . ' == 0) ? 0 : intdiv(' . $left . ', ' . $right . '))';
-	}
-
-	private function renderModuloExpression(string $left, string $right, ?int $rightConstant): string {
-		if ($rightConstant === 0) {
-			return '0';
-		}
-
-		if ($rightConstant !== null) {
-			return '(' . $left . ' % ' . $rightConstant . ')';
-		}
-
-		return '((' . $right . ' == 0) ? 0 : (' . $left . ' % ' . $right . '))';
-	}
-
-	/**
-	 * @return list<string>
-	 */
-	private function tokeniseExpression(string $expression): array {
-		$tokens = [];
-		$offset = 0;
+	private function splitTopLevelTernary(string $expression): array {
+		$questionPosition = null;
+		$depth = 0;
+		$ternaryDepth = 0;
 		$length = strlen($expression);
 
-		while ($offset < $length) {
-			if (preg_match(self::TOKEN_PATTERN, $expression, $matches, 0, $offset) !== 1) {
-				throw new RuntimeException('Unable to parse plural expression near `' . substr($expression, $offset) . '`');
+		for ($index = 0; $index < $length; $index++) {
+			$character = $expression[$index];
+			if ($character === '(') {
+				$depth++;
+				continue;
 			}
-			$tokens[] = $matches[1];
-			$offset += strlen($matches[0]);
+
+			if ($character === ')') {
+				$depth--;
+				continue;
+			}
+
+			if ($depth !== 0) {
+				continue;
+			}
+
+			if ($character === '?') {
+				$questionPosition ??= $index;
+				$ternaryDepth++;
+				continue;
+			}
+
+			if ($character === ':' && $questionPosition !== null) {
+				$ternaryDepth--;
+				if ($ternaryDepth === 0) {
+					return [
+						trim(substr($expression, 0, $questionPosition)),
+						trim(substr($expression, $questionPosition + 1, $index - $questionPosition - 1)),
+						trim(substr($expression, $index + 1)),
+					];
+				}
+			}
 		}
 
-		return $tokens;
+		return [null, '', ''];
 	}
 
-	/**
-	 * @param array<string,mixed> $node
-	 * @return array<string,mixed>
-	 */
-	private function childNode(array $node, string $key): array {
-		$child = $node[$key] ?? [];
-		if (!is_array($child)) {
-			return [];
+	private function stripOuterParentheses(string $expression): string {
+		$expression = trim($expression);
+		while (str_starts_with($expression, '(') && str_ends_with($expression, ')')) {
+			$depth = 0;
+			$isWrapped = true;
+			$length = strlen($expression);
+			for ($index = 0; $index < $length; $index++) {
+				$character = $expression[$index];
+				if ($character === '(') {
+					$depth++;
+				} elseif ($character === ')') {
+					$depth--;
+				}
+
+				if ($depth === 0 && $index < $length - 1) {
+					$isWrapped = false;
+					break;
+				}
+			}
+
+			if (!$isWrapped) {
+				break;
+			}
+
+			$expression = trim(substr($expression, 1, -1));
 		}
 
-		/** @var array<string,mixed> $child */
-		return $child;
+		return $expression;
 	}
 }
