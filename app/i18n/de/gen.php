@@ -156,7 +156,7 @@ return array(
 		),
 		'month' => array(
 			0 => 'vor %d Monat',
-			1 => 'vor %d Monate',
+			1 => 'vor %d Monaten',
 		),
 		'second' => array(
 			0 => 'vor %d Sekunde',
