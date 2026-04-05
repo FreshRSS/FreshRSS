@@ -228,7 +228,7 @@ The following events are available:
 	parameter. This way a website known to have feeds which doesn’t advertise
 	it in the header can still be automatically supported.
 * `entry_auto_read` (`function(FreshRSS_Entry $entry, string $why): void`):
-	Appelé lorsqu’une entrée est automatiquement marquée comme lue. Le paramètre *why* supporte les règles {`filter`, `upon_reception`, `same_title_in_feed`}.
+	Appelé lorsqu’une entrée est automatiquement marquée comme lue. Le paramètre *why* supporte les règles {`filter`, `upon_reception`, `same_title_in_feed`, `same_guid_in_category`}.
 * `entry_auto_unread` (`function(FreshRSS_Entry $entry, string $why): void`):
 	Appelé lorsqu’une entrée est automatiquement marquée comme non-lue. Le paramètre *why* supporte les règles {`updated_article`}.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be

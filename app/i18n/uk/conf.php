@@ -280,6 +280,7 @@ return array(
 			'upon_gone' => 'коли статті більше нема в оригінальній стрічці новин',
 			'upon_reception' => 'при отриманні статті',
 			'when' => 'Позначити статтю прочитаною…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'якщо котрась зі стількох найновіших статей категорії має такий самий заголовок',
 			'when_same_title_in_feed' => 'якщо котрась зі стількох найновіших статей стрічки має такий самий заголовок',
 		),
