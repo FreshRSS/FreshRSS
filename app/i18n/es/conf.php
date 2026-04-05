@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Vistas de usuario',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Esta vista ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
 		'description' => 'Descripción',
 		'filter' => array(

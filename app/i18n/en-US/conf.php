@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'User queries',	// IGNORE
+		'create' => 'Create new user query',	// IGNORE
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',	// IGNORE
 		'description' => 'Description',	// IGNORE
 		'filter' => array(

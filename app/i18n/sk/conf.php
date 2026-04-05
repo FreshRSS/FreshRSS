@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Dopyty používateľa',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Tento dopyt už nie je platný. Kategória alebo kanál boli vymazané.',
 		'description' => 'Description',	// TODO
 		'filter' => array(

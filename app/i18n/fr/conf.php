@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Filtres utilisateurs',
+		'create' => 'Créer un nouveau filtre utilisateur',
 		'deprecated' => 'Ce filtre n’est plus valide. La catégorie ou le flux concerné a été supprimé.',
 		'description' => 'Description',	// IGNORE
 		'filter' => array(

@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Consultas do usuário',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Esta não é mais válida. A categoria ou feed relacionado foi deletado.',
 		'description' => 'Descrição',
 		'filter' => array(

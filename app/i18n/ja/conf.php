@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'ユーザークエリ',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'このクエリは有効ではありません。参照されているカテゴリやフィードはすでに消去されました。',
 		'description' => '説明',
 		'filter' => array(

@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => '自定义查询',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => '此查询不再有效。相关的分类或订阅源已被删除。',
 		'description' => '描述',
 		'filter' => array(

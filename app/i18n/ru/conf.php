@@ -149,6 +149,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Пользовательские запросы',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Этот запрос больше не действителен. Связанная категория или лента была удалена.',
 		'description' => 'Описание',
 		'filter' => array(
