@@ -474,9 +474,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$feeds = [];
 		}
 
+		$firstFeed = null;
 		foreach ($feeds as $feed) {
 			if (!($feed instanceof FreshRSS_Feed)) {
 				continue;
+			}
+			if (null === $firstFeed) {
+				$firstFeed = $feed;
 			}
 			$feed = Minz_ExtensionManager::callHook(Minz_HookType::FeedBeforeActualize, $feed);
 			if (!($feed instanceof FreshRSS_Feed)) {
@@ -812,7 +816,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				break;
 			}
 		}
-		return [$nbUpdatedFeeds, reset($feeds) ?: null, $nbNewArticles, $feedsCacheToRefresh];
+		return [$nbUpdatedFeeds, $firstFeed, $nbNewArticles, $feedsCacheToRefresh];
 	}
 
 	/**
