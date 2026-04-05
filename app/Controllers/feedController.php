@@ -685,7 +685,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							continue;
 						}
 
-						$entry->applyFilterActions(array_merge($titlesAsRead, $categoriesEntriesTitle[$feed->categoryId()] ?? []), $categoriesEntriesGuid[$feed->categoryId()] ?? []);
+						$entry->applyFilterActions(array_merge($titlesAsRead, $categoriesEntriesTitle[$feed->categoryId()] ?? []),
+							$categoriesEntriesGuid[$feed->categoryId()] ?? []);
 						if ($readWhenSameTitleInFeed > 0) {
 							$titlesAsRead[$entry->title()] = true;
 						}
