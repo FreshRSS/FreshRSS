@@ -122,7 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Tietosuoja',
 		'retrieve_extension_list' => 'Nouda laajennusluettelo',
-		'send_referrer_allowlist' => 'Sites allowed to see your origin (%s)',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Profiilien hallinta',
