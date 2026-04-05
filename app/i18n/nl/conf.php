@@ -150,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Gebruikersquery’s (informatie aanvragen)',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
 		'description' => 'Beschrijving',
 		'filter' => array(

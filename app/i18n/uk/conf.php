@@ -150,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Користувацькі запити',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Запит більше не чинний. Згадану категорію чи стрічку видалено.',
 		'description' => 'Опис',
 		'filter' => array(

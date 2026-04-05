@@ -150,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'שאילתות',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'שאילתה זו אינה בתוקף יותר, הפיד או הקטגוריה לייחוס נמחקו.',
 		'description' => 'Description',	// TODO
 		'filter' => array(

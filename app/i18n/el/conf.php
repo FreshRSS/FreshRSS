@@ -150,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'User queries',	// TODO
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',	// TODO
 		'description' => 'Description',	// TODO
 		'filter' => array(

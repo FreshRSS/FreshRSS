@@ -150,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Benutzerabfragen',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Diese Abfrage ist nicht länger gültig. Die referenzierte Kategorie oder der Feed ist gelöscht worden.',
 		'description' => 'Beschreibung',
 		'filter' => array(
