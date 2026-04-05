@@ -887,9 +887,9 @@ class FreshRSS_Entry extends Minz_Model {
 		return (bool)$ok;
 	}
 
-	/** 
-	 * @param array<string,bool|int> $titlesAsRead 
-	 * @param array<string,bool|int> $guidsAsRead 
+	/**
+	 * @param array<string,bool|int> $titlesAsRead
+	 * @param array<string,bool|int> $guidsAsRead
 	 */
 	public function applyFilterActions(array $titlesAsRead = [], array $guidsAsRead = []): void {
 		$feed = $this->feed;
