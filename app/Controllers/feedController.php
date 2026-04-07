@@ -340,8 +340,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				// We stay in add feed while maintaining some fields
 				$url_redirect['params']['cat_id'] = $feed->categoryId();
 				$url_redirect['params']['keep_adding_feed'] = $keep_adding_feed;
-			}
-			else {
+			} else {
 				// we redirect to feed configuration page.
 				$url_redirect['a'] = 'feed';
 				$url_redirect['params']['id'] = '' . $feed->id();
