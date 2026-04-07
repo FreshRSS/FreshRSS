@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Over FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d dag geleden',
+			1 => '%d dagen geleden',
+		),
+		'hour' => array(
+			0 => '%d uur geleden',
+			1 => '%d uur geleden',
+		),
+		'justnow' => 'zojuist',
+		'minute' => array(
+			0 => '%d minuut geleden',
+			1 => '%d minuten geleden',
+		),
+		'month' => array(
+			0 => '%d maand geleden',
+			1 => '%d maanden geleden',
+		),
+		'second' => array(
+			0 => '%d seconde geleden',
+			1 => '%d seconden geleden',
+		),
+		'year' => array(
+			0 => '%d jaar geleden',
+			1 => '%d jaar geleden',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Lege categorie',
 		'confirm_action' => 'Weet u zeker dat u dit wilt doen? Het kan niet ongedaan worden gemaakt!',

@@ -185,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (par défaut)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Dernière mise à jour erronée <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Dernière mise à jour réussie <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Vider le cache',
 			'clear_cache_help' => 'Supprime le cache de ce flux.',

@@ -185,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (預設)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => '清理暫存',
 			'clear_cache_help' => '清除該feed的暫存',

@@ -185,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (prednastavené)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Vymazať vyrovnáciu pamäť',
 			'clear_cache_help' => 'Vymazať vyrovnáciu pamäť pre tento kanál.',

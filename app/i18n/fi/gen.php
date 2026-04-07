@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Tietoja FreshRSS-sovelluksesta',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d päivä sitten',
+			1 => '%d päivää sitten',
+		),
+		'hour' => array(
+			0 => '%d tunti sitten',
+			1 => '%d tuntia sitten',
+		),
+		'justnow' => 'juuri nyt',
+		'minute' => array(
+			0 => '%d minuutti sitten',
+			1 => '%d minuuttia sitten',
+		),
+		'month' => array(
+			0 => '%d kuukausi sitten',
+			1 => '%d kuukautta sitten',
+		),
+		'second' => array(
+			0 => '%d sekunti sitten',
+			1 => '%d sekuntia sitten',
+		),
+		'year' => array(
+			0 => '%d vuosi sitten',
+			1 => '%d vuotta sitten',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Tyhjennä luokka',
 		'confirm_action' => 'Haluatko varmasti toteuttaa toiminnon? Sitä ei voi peruuttaa!',

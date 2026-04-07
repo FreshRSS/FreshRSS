@@ -140,6 +140,39 @@ return array(
 		'_' => 'FreshRSS',	// TODO
 		'about' => 'Par FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'pirms %d diena',
+			1 => 'pirms %d dienas',
+			2 => 'pirms %d dienu',
+		),
+		'hour' => array(
+			0 => 'pirms %d stunda',
+			1 => 'pirms %d stundas',
+			2 => 'pirms %d stundu',
+		),
+		'justnow' => 'tikko',
+		'minute' => array(
+			0 => 'pirms %d minūte',
+			1 => 'pirms %d minūtes',
+			2 => 'pirms %d minūšu',
+		),
+		'month' => array(
+			0 => 'pirms %d mēnesis',
+			1 => 'pirms %d mēneši',
+			2 => 'pirms %d mēnešu',
+		),
+		'second' => array(
+			0 => 'pirms %d sekunde',
+			1 => 'pirms %d sekundes',
+			2 => 'pirms %d sekunžu',
+		),
+		'year' => array(
+			0 => 'pirms %d gads',
+			1 => 'pirms %d gadi',
+			2 => 'pirms %d gadu',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Tukša kategorija',
 		'confirm_action' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? To nevar atcelt!',

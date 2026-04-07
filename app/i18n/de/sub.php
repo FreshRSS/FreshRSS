@@ -185,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (Standard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Letzte fehlerhafte Aktualisierung <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Letzte erfolgreiche Aktualisierung <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Zwischenspeicher leeren',
 			'clear_cache_help' => 'Zwischenspeicher für diesen Feed leeren.',

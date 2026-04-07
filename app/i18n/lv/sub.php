@@ -185,6 +185,8 @@ return array(
 			'rss' => 'RSS / Atom (noklusējums)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Iztīrīt kešatmiņu',
 			'clear_cache_help' => 'Iztīrīt kešatmiņu priekš šīs barotnes.',
