@@ -6,5 +6,5 @@
 
 return array(
 	'nplurals' => 2,
-	'plural' => static fn (int $n): int => (($n != 1) ? 1 : 0),
+	'plural' => static fn (int $n): int => (($n !== 1) ? 1 : 0),
 );

@@ -6,5 +6,5 @@
 
 return array(
 	'nplurals' => 3,
-	'plural' => static fn (int $n): int => ($n == 1 ? 0 : ($n >= 2 && $n <= 4 ? 1 : 2)),
+	'plural' => static fn (int $n): int => ($n === 1 ? 0 : ($n >= 2 && $n <= 4 ? 1 : 2)),
 );

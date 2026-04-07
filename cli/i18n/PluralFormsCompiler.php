@@ -199,8 +199,15 @@ final class PluralFormsCompiler {
 
 	private function transpileLeafExpression(string $expression): string {
 		$expression = $this->stripOuterParentheses(trim($expression));
+		// Convert gettext variable name to PHP variable syntax
 		$expression = preg_replace('/\bn\b/', '$n', $expression) ?? $expression;
-		$expression = preg_replace('/\s*(==|!=|<=|>=|\|\||&&|[%*+\-<>])\s*/', ' $1 ', $expression) ?? $expression;
+		// Enforce strict equality
+		$expression = preg_replace('/(?<![=!<>])==(?!=)/', '===', $expression) ?? $expression;
+		// Enforce strict inequality
+		$expression = preg_replace('/!=(?!=)/', '!==', $expression) ?? $expression;
+		// Normalise operator spacing
+		$expression = preg_replace('/\s*(===|!==|==|!=|<=|>=|\|\||&&|[%*+\-<>])\s*/', ' $1 ', $expression) ?? $expression;
+		// Collapse repeated whitespace
 		$expression = preg_replace('/\s+/', ' ', trim($expression)) ?? trim($expression);
 		return $expression;
 	}
