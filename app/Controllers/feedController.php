@@ -472,7 +472,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$categoriesEntriesGuid = [];
 
 		$feeds = Minz_ExtensionManager::callHook(Minz_HookType::FeedsListBeforeActualize, $feeds);
-		if (!is_array($feeds) && !($feeds instanceof Traversable)) {
+		if (!is_iterable($feeds)) {
 			$feeds = [];
 		}
 
