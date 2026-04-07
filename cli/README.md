@@ -156,6 +156,7 @@ cd /usr/share/FreshRSS
 # Plural source files are driven by a leading comment such as:
 #   // Plural-Forms: nplurals=2; plural=(n != 1);
 # Run this command, or `make fix-all`, after editing those comments.
+# See examples: https://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html
 
 ./cli/check.translation.php [ ---display-result --help --language fr --display-report --generate-readme ]
 # Check if translation files have missing keys or missing translations.

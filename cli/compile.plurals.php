@@ -65,6 +65,10 @@ EXAMPLES
 	php $file --formula 'nplurals=2; plural=(n != 1);'
 	php $file --file app/i18n/en/plurals.php
 	php $file --all
+
+REFERENCES
+	https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+	https://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html
 HELP, PHP_EOL;
 	exit();
 }

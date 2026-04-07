@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+/**
+ * Plural form inspired by GNU gettext plural forms, converted into PHP lambdas.
+ * https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+ */
 final class PluralFormsCompiler {
 	private const FORMULA_PATTERN = '/^\s*nplurals\s*=\s*(\d+)\s*;\s*plural\s*=\s*(.+?)\s*;\s*$/';
 
