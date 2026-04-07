@@ -41,7 +41,6 @@ return array(
 		'accept_cookies' => 'Accept cookies',
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',
 		'add' => 'Add a feed',
-		'keep_adding_feed' => 'Keep adding feeds',
 		'advanced' => 'Advanced',
 		'archiving' => 'Archiving',
 		'auth' => array(
@@ -87,6 +86,7 @@ return array(
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icon',
 		'information' => 'Information',
+		'keep_adding_feed' => 'Keep adding feeds',
 		'keep_min' => 'Minimum number of articles to keep',
 		'kind' => array(
 			'_' => 'Type of feed source',
