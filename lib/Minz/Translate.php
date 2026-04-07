@@ -264,7 +264,7 @@ class Minz_Translate {
 			$top_level = array_shift($group) ?? '';
 		}
 
-		if (empty(self::$translates[$top_level])) {
+		if ((self::$translates[$top_level] ?? null) === null) {
 			$res = self::loadKey($top_level);
 			if (!$res) {
 				return null;
