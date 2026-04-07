@@ -472,13 +472,18 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$categoriesEntriesGuid = [];
 
 		$feeds = Minz_ExtensionManager::callHook(Minz_HookType::FeedsListBeforeActualize, $feeds);
-		if (is_array($feeds)) {
-			$feeds = array_filter($feeds, static fn($feed): bool => $feed instanceof FreshRSS_Feed);
-		} else {
+		if (!is_iterable($feeds)) {
 			$feeds = [];
 		}
 
+		$firstFeed = null;
 		foreach ($feeds as $feed) {
+			if (!($feed instanceof FreshRSS_Feed)) {
+				continue;
+			}
+			if (null === $firstFeed) {
+				$firstFeed = $feed;
+			}
 			$feed = Minz_ExtensionManager::callHook(Minz_HookType::FeedBeforeActualize, $feed);
 			if (!($feed instanceof FreshRSS_Feed)) {
 				continue;
@@ -570,10 +575,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			} catch (FreshRSS_Feed_Exception $e) {
 				Minz_Log::warning($e->getMessage());
 				$feedDAO->updateLastError($feed->id());
+				$feed->_error(time());
 				if ($e->getCode() === 410) {
 					// HTTP 410 Gone
 					Minz_Log::warning('Muting gone feed: ' . $feed->url(false));
 					$feedDAO->mute($feed->id(), true);
+					$feed->_ttl(-abs($feed->ttl())); // Replicate behavior of line above which acts directly into the DB
 				}
 				$feed->unlock();
 				continue;
@@ -737,11 +744,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 			if ($simplePiePush === null) {	// Not WebSub
 				$feedDAO->updateLastUpdate($feed->id(), $mtime);
+				$feed->_lastUpdate($mtime);
 				// Do not call for WebSub events, as we do not know the list of articles still on the upstream feed.
 				$needFeedCacheRefresh |= ($feed->markAsReadUponGone($feedIsEmpty, $mtime) != false);
 			} elseif ($feed->inError()) {
 				// Reset feed error state in case of successful WebSub push
 				$feedDAO->updateLastError($feed->id(), 0);
+				$feed->_error(0);
 			}
 			if ($needFeedCacheRefresh) {
 				$feedsCacheToRefresh[] = $feed;
@@ -802,9 +811,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if (!empty($feedProperties) || $feedIsNew) {
 				$feedProperties['attributes'] = $feed->attributes();
 				$ok = $feedDAO->updateFeed($feed->id(), $feedProperties);
+				// No need to update $feed object, since $feedProperties are taken from the object itself
 				if (!$ok && $feedIsNew) {
 					//Cancel adding new feed in case of database error at first actualize
 					$feedDAO->deleteFeed($feed->id());
+					// TODO: Reflect in the $feed object the feed has been deleted.
 					$feed->unlock();
 					break;
 				}
@@ -826,7 +837,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				break;
 			}
 		}
-		return [$nbUpdatedFeeds, reset($feeds) ?: null, $nbNewArticles, $feedsCacheToRefresh];
+		return [$nbUpdatedFeeds, $firstFeed, $nbNewArticles, $feedsCacheToRefresh];
 	}
 
 	/**
