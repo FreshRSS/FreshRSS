@@ -5,23 +5,6 @@
 ?>
 <main class="post drop-section" data-auto-leave-validation="1">
 	<h1><?= _t('sub.menu.add') ?></h1>
-	<h2><?= _t('sub.title.add_category') ?></h2>
-	<form action="<?= _url('category', 'create') ?>" method="post">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<div class="form-group">
-			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
-			<div class="group-controls">
-				<input id="new-category" name="new-category" type="text" required="required" autocomplete="off" />
-			</div>
-		</div>
-
-		<div class="form-group form-actions">
-			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?= _t('gen.action.add') ?></button>
-			</div>
-		</div>
-	</form>
-
 	<h2><?= _t('sub.title.add_feed') ?></h2>
 	<form id="add_rss" method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
 
@@ -370,6 +353,23 @@
 				</div>
 			</div>
 		</details>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.add') ?></button>
+			</div>
+		</div>
+	</form>
+
+	<h2><?= _t('sub.title.add_category') ?></h2>
+	<form action="<?= _url('category', 'create') ?>" method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<div class="form-group">
+			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
+			<div class="group-controls">
+				<input id="new-category" name="new-category" type="text" required="required" autocomplete="off" />
+			</div>
+		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
