@@ -327,3 +327,4 @@ People are sorted by name so please keep this order.
 * [zukizukizuki](https://github.com/zukizukizuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zukizukizuki), [Web](https://zukkie.link/)
 * [нездалисько](https://github.com/crisukbot): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:crisukbot), [Web](https://noleron.com/)
 * [石渠清心](https://github.com/Felix2yu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Felix2yu), [Web](https://yufei.im/)
+* [DenuxPlays](https://github.com/DenuxPlays): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3ADenuxPlays), [Web](https://denux.dev/)
