@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Приватність',
 		'retrieve_extension_list' => 'Завантажувати список розширень',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Керування профілем',

@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacidade',
 		'retrieve_extension_list' => 'Recuperar lista de extensões',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Gerenciamento de perfil',

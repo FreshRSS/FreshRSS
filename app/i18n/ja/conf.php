@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'プライバシー',
 		'retrieve_extension_list' => '拡張機能リストを取得する',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'プロフィール',

@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privasi',
 		'retrieve_extension_list' => 'Ambil daftar ekstensi',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Pengelolaan Profil',

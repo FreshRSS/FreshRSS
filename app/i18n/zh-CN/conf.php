@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => '隐私',
 		'retrieve_extension_list' => '获取扩展列表',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => '账户管理',

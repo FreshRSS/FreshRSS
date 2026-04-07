@@ -4,6 +4,7 @@ declare(strict_types=1);
 $mark = FreshRSS_Context::userConf()->mark_when;
 $s = FreshRSS_Context::userConf()->shortcuts;
 $extData = Minz_ExtensionManager::callHook(Minz_HookType::JsVars, []);
+$canView = FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous;
 echo json_encode([
 	'context' => [
 		'anonymous' => !FreshRSS_Auth::hasAccess(),
@@ -21,7 +22,7 @@ echo json_encode([
 		'auto_load_more' => FreshRSS_Context::userConf()->auto_load_more && FreshRSS_Context::$sort !== 'rand',
 		'auto_actualize_feeds' => Minz_Session::paramBoolean('actualize_feeds'),
 		'nb_parallel_refresh' => max(1, FreshRSS_Context::systemConf()->nb_parallel_refresh),
-		'does_lazyload' => !!FreshRSS_Context::userConf()->lazyload ,
+		'does_lazyload' => FreshRSS_Context::userConf()->lazyload && !Minz_Request::is('index', 'reader'), // TODO: currently no lazy-loading is being done in reader view
 		'sides_close_article' => !!FreshRSS_Context::userConf()->sides_close_article,
 		'sidebar_hidden_by_default' => !!FreshRSS_Context::userConf()->sidebar_hidden_by_default,
 		'sticky_post' => !!FreshRSS_Context::isStickyPostEnabled(),
@@ -39,6 +40,7 @@ echo json_encode([
 			'extra.js' => @filemtime(PUBLIC_PATH . '/scripts/extra.js'),
 			'feed.js' => @filemtime(PUBLIC_PATH . '/scripts/feed.js'),
 		],
+		'send_referrer_allowlist' => $canView ? FreshRSS_Context::userConf()->send_referrer_allowlist : [],
 		'max_favicon_upload_size' => FreshRSS_Context::systemConf()->limits['max_favicon_upload_size'],
 		'version' => FRESHRSS_VERSION,
 	],

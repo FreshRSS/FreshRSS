@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Gizlilik',
 		'retrieve_extension_list' => 'Eklenti listesini al',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Profil yönetimi',

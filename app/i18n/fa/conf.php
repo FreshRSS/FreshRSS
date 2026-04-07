@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'حریم خصوصی',
 		'retrieve_extension_list' => 'بازیابی لیست افزونه‌ها',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => ' مدیریت پروفایل',
