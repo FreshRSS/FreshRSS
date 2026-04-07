@@ -33,24 +33,37 @@ final class PluralFormsCompiler {
 		return $this->compileFormula($pluralForms)['lambda'];
 	}
 
-	public function compileFile(string $filePath): bool {
-		if (!is_file($filePath)) {
-			throw new InvalidArgumentException('Plural file not found: ' . $filePath);
-		}
+	public function compileFile(string $filePath, bool $throwOnError = true): bool {
+		try {
+			if (!is_file($filePath)) {
+				throw new InvalidArgumentException('Plural file not found: ' . $filePath);
+			}
 
-		$compiled = $this->compileFormula($this->extractPluralFormsFromFile($filePath));
-		$newContent = $this->renderCompiledFile($compiled);
-		$currentContent = file_get_contents($filePath);
-		if (!is_string($currentContent)) {
-			throw new RuntimeException('Unable to read plural file: ' . $filePath);
-		}
+			$compiled = $this->compileFormula($this->extractPluralFormsFromFile($filePath));
+			$newContent = $this->renderCompiledFile($compiled);
+			$currentContent = file_get_contents($filePath);
+			if (!is_string($currentContent)) {
+				throw new RuntimeException('Unable to read plural file: ' . $filePath);
+			}
 
-		if ($currentContent === $newContent) {
+			if ($currentContent === $newContent) {
+				return false;
+			}
+
+			if (file_put_contents($filePath, $newContent) === false) {
+				throw new RuntimeException('Unable to write plural file: ' . $filePath);
+			}
+		} catch (Throwable $e) {
+			if ($throwOnError) {
+				throw $e;
+			}
+			$message = 'Error compiling plural file `' . $filePath . '`: ' . $e->getMessage() . "\n";
+			if (defined('STDERR')) {
+				fwrite(STDERR, $message);
+			} else {
+				echo $message;
+			}
 			return false;
-		}
-
-		if (file_put_contents($filePath, $newContent) === false) {
-			throw new RuntimeException('Unable to write plural file: ' . $filePath);
 		}
 
 		return true;
@@ -62,7 +75,7 @@ final class PluralFormsCompiler {
 
 		$changed = 0;
 		foreach ($files as $filePath) {
-			if ($this->compileFile($filePath)) {
+			if ($this->compileFile($filePath, throwOnError: false)) {
 				$changed++;
 			}
 		}
