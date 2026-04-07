@@ -2154,6 +2154,7 @@ function load_more_posts() {
 		let lastTransition = transitions.length > 0 ? transitions[transitions.length - 1] : null;
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
+		enforce_referrer_allowlist(streamAdopted);
 		streamAdopted.querySelectorAll('.flux, .transition').forEach(function (div) {
 			if (lastTransition !== null && div.classList.contains('transition') && div.textContent === lastTransition.textContent) {
 				lastTransition = null;
@@ -2295,6 +2296,24 @@ function removeFirstLoadSpinner() {
 	}
 }
 
+function enforce_referrer_allowlist(stream) {
+	for (const iframe of stream.querySelectorAll('div.content iframe[src], div.content iframe[data-original]')) {
+		let hostname;
+		try {
+			hostname = new URL(context.does_lazyload ? iframe.getAttribute('data-original') : iframe.src).hostname;
+		} catch (_) {
+			continue;
+		}
+		if (context.send_referrer_allowlist.includes(hostname) && !iframe.hasAttribute('referrerpolicy')) {
+			iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+			if (!context.does_lazyload) {
+				// iframe must be reloaded to apply the `referrerpolicy` change
+				iframe.src = iframe.src; // eslint-disable-line no-self-assign
+			}
+		}
+	}
+}
+
 function init_normal() {
 	const stream = document.getElementById('stream');
 	if (!stream) {
@@ -2306,6 +2325,7 @@ function init_normal() {
 	}
 	init_column_categories();
 	init_stream(stream);
+	enforce_referrer_allowlist(stream);
 	init_actualize();
 	faviconNbUnread();
 

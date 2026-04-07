@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Vie privée',
 		'retrieve_extension_list' => 'Récupération de la liste des extensions',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
@@ -280,6 +281,7 @@ return array(
 			'upon_gone' => 'lorsqu’il n’est plus dans le flux d’actualités en amont',
 			'upon_reception' => 'dès la réception du nouvel article',
 			'when' => 'Marquer un article comme lu…',
+			'when_same_guid_in_category' => 'si un même GUID existe déjà dans les <i>n</i> articles plus récents de la catégorie',
 			'when_same_title_in_category' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents de la catégorie',
 			'when_same_title_in_feed' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents du flux',
 		),

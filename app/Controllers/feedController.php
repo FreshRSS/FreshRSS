@@ -468,6 +468,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		$feedsCacheToRefresh = [];
 		/** @var array<int,array<string,true>> */
 		$categoriesEntriesTitle = [];
+		/** @var array<int,array<string,true>> */
+		$categoriesEntriesGuid = [];
 
 		$feeds = Minz_ExtensionManager::callHook(Minz_HookType::FeedsListBeforeActualize, $feeds);
 		if (is_array($feeds)) {
@@ -601,6 +603,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 						true
 					);
 				}
+				if (!isset($categoriesEntriesGuid[$feed->categoryId()]) && $category !== null && $category->hasAttribute('read_when_same_guid_in_category')) {
+					$categoriesEntriesGuid[$feed->categoryId()] = array_fill_keys(
+						$catDAO->listGuids($feed->categoryId(), $category->attributeInt('read_when_same_guid_in_category') ?? 0),
+						true
+					);
+				}
 
 				$mark_updated_article_unread = $feed->attributeBoolean('mark_updated_article_unread') ?? FreshRSS_Context::userConf()->mark_updated_article_unread;
 
@@ -646,6 +654,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							if (isset($categoriesEntriesTitle[$feed->categoryId()])) {
 								$categoriesEntriesTitle[$feed->categoryId()][$entry->title()] = true;
 							}
+							if (isset($categoriesEntriesGuid[$feed->categoryId()])) {
+								$categoriesEntriesGuid[$feed->categoryId()][$entry->guid()] = true;
+							}
 
 							if (!$entry->isRead()) {
 								$needFeedCacheRefresh = true;	//Maybe
@@ -674,12 +685,16 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 							continue;
 						}
 
-						$entry->applyFilterActions(array_merge($titlesAsRead, $categoriesEntriesTitle[$feed->categoryId()] ?? []));
+						$entry->applyFilterActions(array_merge($titlesAsRead, $categoriesEntriesTitle[$feed->categoryId()] ?? []),
+							$categoriesEntriesGuid[$feed->categoryId()] ?? []);
 						if ($readWhenSameTitleInFeed > 0) {
 							$titlesAsRead[$entry->title()] = true;
 						}
 						if (isset($categoriesEntriesTitle[$feed->categoryId()])) {
 							$categoriesEntriesTitle[$feed->categoryId()][$entry->title()] = true;
+						}
+						if (isset($categoriesEntriesGuid[$feed->categoryId()])) {
+							$categoriesEntriesGuid[$feed->categoryId()][$entry->guid()] = true;
 						}
 
 						$needFeedCacheRefresh = true;

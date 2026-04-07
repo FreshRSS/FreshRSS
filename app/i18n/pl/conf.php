@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Prywatność',
 		'retrieve_extension_list' => 'Pobieraj listę rozszerzeń',
+		'send_referrer_allowlist' => 'Strony, które mogą zobaczyć twój adres serwera (%s)',
 	),
 	'profile' => array(
 		'_' => 'Zarządzanie profilem',
@@ -280,6 +281,7 @@ return array(
 			'upon_gone' => 'gdy nie jest już wyświetlana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach kategorii',
 			'when_same_title_in_feed' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach (kanału RSS)',
 		),

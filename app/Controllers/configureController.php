@@ -682,6 +682,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	public function privacyAction(): void {
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::userConf()->retrieve_extension_list = Minz_Request::paramBoolean('retrieve_extension_list');
+			FreshRSS_Context::userConf()->send_referrer_allowlist = Minz_Request::paramTextToArray('send_referrer_allowlist');
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
