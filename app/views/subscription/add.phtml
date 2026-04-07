@@ -35,6 +35,10 @@
 				</option>
 				<?php } ?>
 				</select>
+				<label for="keep_adding_feed">
+					<input type="checkbox" name="keep_adding_feed" id="keep_adding_feed" value="1" <?= Minz_Request::paramBoolean('keep_adding_feed') ? "checked" : "" ?> />
+					<?= _t('sub.feed.keep_adding_feed') ?>
+				</label>
 			</div>
 		</div>
 
