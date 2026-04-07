@@ -151,7 +151,7 @@ class Minz_Translate {
 		$selected_lang_path = $path . '/' . self::$lang_name;
 		$lang_path = $path . '/' . self::$lang_name;
 		$uses_selected_language = self::$lang_name !== '' && is_dir($selected_lang_path);
-		if (self::$lang_name === '' || !$uses_selected_language) {
+		if (!$uses_selected_language) {
 			// The lang path does not exist, fallback to English ('en')
 			$lang_path = $path . '/en';
 			if (!is_dir($lang_path)) {
