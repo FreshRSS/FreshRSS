@@ -42,6 +42,12 @@ class Minz_Translate {
 	 */
 	private static array $translates = [];
 
+	/**
+	 * Cache of normalised plural message families by i18n key.
+	 * @var array<string,array<int,string>>
+	 */
+	private static array $plural_message_families = [];
+
 	private static bool $plural_catalogue_loaded = false;
 
 	private static ?int $plural_count = null;
@@ -57,6 +63,7 @@ class Minz_Translate {
 		self::$lang_files = [];
 		self::$plural_files = [];
 		self::$translates = [];
+		self::$plural_message_families = [];
 		self::resetPluralCache();
 		self::registerPath(APP_PATH . '/i18n');
 		foreach (self::$path_list as $path) {
@@ -73,6 +80,7 @@ class Minz_Translate {
 		self::$lang_files = [];
 		self::$plural_files = [];
 		self::$translates = [];
+		self::$plural_message_families = [];
 		self::resetPluralCache();
 		foreach (self::$path_list as $path) {
 			self::loadLang($path);
@@ -164,6 +172,7 @@ class Minz_Translate {
 			scandir($lang_path) ?: [],
 			['..', '.']
 		));
+		self::$plural_message_families = [];
 
 		// Each file basename correspond to a top-level i18n key. For each of
 		// these keys we store the file pathname and mark translations must be
@@ -344,7 +353,6 @@ class Minz_Translate {
 	}
 
 	private static function pluralIndex(int $value): ?int {
-		self::loadPluralCatalogue();
 		if (self::$plural_count === null || self::$plural_function === null) {
 			return null;
 		}
@@ -365,37 +373,43 @@ class Minz_Translate {
 	 */
 	public static function plural(string $baseKey, int $value): ?string {
 		self::loadPluralCatalogue();
-		$rawMessageFamily = self::resolveKey($baseKey);
-		if (!is_array($rawMessageFamily) || $rawMessageFamily === []) {
-			Minz_Log::debug($baseKey . ' is not a valid plural key');
-			return null;
+
+		if (!isset(self::$plural_message_families[$baseKey])) {
+			$rawMessageFamily = self::resolveKey($baseKey);
+			if (!is_array($rawMessageFamily) || $rawMessageFamily === []) {
+				Minz_Log::debug($baseKey . ' is not a valid plural key');
+				return null;
+			}
+
+			/** @var array<int,string> $messageFamily */
+			$messageFamily = [];
+			foreach ($rawMessageFamily as $index => $message) {
+				if (is_int($index)) {
+					$integerIndex = $index;
+				} elseif (ctype_digit($index)) {
+					$integerIndex = (int)$index;
+				} else {
+					$integerIndex = null;
+				}
+				if ($integerIndex === null) {
+					continue;
+				}
+				if (!is_string($message)) {
+					continue;
+				}
+				$messageFamily[$integerIndex] = $message;
+			}
+
+			if ($messageFamily === []) {
+				Minz_Log::debug($baseKey . ' is not a valid plural key');
+				return null;
+			}
+
+			ksort($messageFamily);
+			self::$plural_message_families[$baseKey] = $messageFamily;
 		}
 
-		/** @var array<int,string> $messageFamily */
-		$messageFamily = [];
-		foreach ($rawMessageFamily as $index => $message) {
-			if (is_int($index)) {
-				$integerIndex = $index;
-			} elseif (ctype_digit($index)) {
-				$integerIndex = (int)$index;
-			} else {
-				$integerIndex = null;
-			}
-			if ($integerIndex === null) {
-				continue;
-			}
-			if (!is_string($message)) {
-				continue;
-			}
-			$messageFamily[$integerIndex] = $message;
-		}
-
-		if ($messageFamily === []) {
-			Minz_Log::debug($baseKey . ' is not a valid plural key');
-			return null;
-		}
-
-		ksort($messageFamily);
+		$messageFamily = self::$plural_message_families[$baseKey];
 
 		$index = self::pluralIndex($value);
 		if ($index !== null && isset($messageFamily[$index]) && $messageFamily[$index] !== '') {
