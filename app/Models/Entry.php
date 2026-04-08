@@ -167,7 +167,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 			}
 		}
-		return $title;
+		return html_entity_decode($title, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 	}
 
 	#[Deprecated('Use authors() instead')]
