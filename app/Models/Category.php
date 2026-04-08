@@ -28,6 +28,7 @@ class FreshRSS_Category extends Minz_Model {
 
 	/**
 	 * @param array<FreshRSS_Feed>|null $feeds
+	 * @param string|array<string,mixed> $attributes
 	 */
 	public function __construct(string $name = '', int $id = 0, ?array $feeds = null, string|array|null $attributes = null) {
 		$this->_id($id);
@@ -284,13 +285,16 @@ class FreshRSS_Category extends Minz_Model {
 			return;
 		}
 		$order = $this->attributeString('feedsOrder') ?? '[]';
+		/** @var array<int> */
 		$order = json_decode($order);
 		if (empty($order)) {
 			uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
 		} else {
 			$feeds = [];
 			foreach ($order as $value) {
-				$feeds[] = array_find($this->feeds, static fn(FreshRSS_Feed $feed) => $feed->id() == $value);
+				$feed = array_filter($this->feeds, static fn(FreshRSS_Feed $feed) => $feed->id() == $value)[0] ?? null;
+				if (null === $feed) continue;
+				$feeds[$feed->id()] = $feed;
 			}
 			$this->feeds = $feeds;
 		}
