@@ -496,10 +496,10 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 				$cat = new FreshRSS_Category(
 					$previousLine['c_name'],
 					$previousLine['c_id'],
-					$feedDao::daoToFeeds($feedsDao, $previousLine['c_id'])
+					$feedDao::daoToFeeds($feedsDao, $previousLine['c_id']),
+					$previousLine['c_attributes'] ?? '[]'
 				);
 				$cat->_kind($previousLine['c_kind']);
-				$cat->_attributes($previousLine['c_attributes'] ?? '[]');
 				$list[$cat->id()] = $cat;
 
 				$feedsDao = [];	//Prepare for next category
