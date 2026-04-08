@@ -191,7 +191,6 @@ function end_category_sorting(event) {
 	const catId = feedsElement.getAttribute('data-cat-id');
 	const feedsArray = Array.from(feedsElement.children);
 
-	
 	fetch('./?c=category&a=updateSort', {
 		method: 'POST',
 		headers: {
@@ -211,7 +210,7 @@ function end_category_sorting(event) {
 		element.ondragend = undefined;
 		element.ondragover = undefined;
 		element.ondrop = undefined;
-	}
+	};
 
 	for (const element of feedsElement.children) {
 		clearDnD(element);
@@ -239,10 +238,10 @@ function setup_category_sorting(feedsElement) {
 		}
 		feed.ondragstart = () => {
 			feedBeingSorted = feed;
-		}
+		};
 		feed.ondragend = () => {
 			feedBeingSorted = null;
-		}
+		};
 
 		const topDiv = feed.getElementsByClassName('drag-top')[0];
 		const botDiv = feed.getElementsByClassName('drag-bot')[0];
@@ -260,16 +259,16 @@ function setup_category_sorting(feedsElement) {
 
 			if (currDiv == topDiv) {
 				feed.highlightTop();
-				if (topElement && topElement.hasOwnProperty('highlightBot')) {
+				if (topElement && Object.prototype.hasOwnProperty.call(topElement, 'highlightBot')) {
 					topElement.highlightBot();
 				}
 			} else {
 				feed.highlightBot();
-				if (botElement && botElement.hasOwnProperty('highlightTop')) {
+				if (botElement && Object.prototype.hasOwnProperty.call(botElement, 'highlightTop')) {
 					botElement.highlightTop();
 				}
 			}
-		}
+		};
 		const ondrop = (event) => {
 			const dropAfter = event.target === botDiv;
 			clearHighlight();
@@ -292,7 +291,7 @@ function setup_category_sorting(feedsElement) {
 				feedsElement.prepend(element);
 			}
 			setup_category_sorting(feedsElement);
-		}
+		};
 		topDiv.ondragover = ondragover;
 		topDiv.ondrop = ondrop;
 		botDiv.ondragover = ondragover;
@@ -303,11 +302,11 @@ function setup_category_sorting(feedsElement) {
 		feed.highlightTop = () => {
 			topDiv.classList.add('drag-highlight');
 			botDiv.classList.remove('drag-highlight');
-		}
+		};
 		feed.highlightBot = () => {
 			topDiv.classList.remove('drag-highlight');
 			botDiv.classList.add('drag-highlight');
-		}
+		};
 	}
 }
 
