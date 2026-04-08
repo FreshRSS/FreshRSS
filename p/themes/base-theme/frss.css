@@ -1051,6 +1051,11 @@ input[type="checkbox"]:focus-visible {
 	margin-bottom: 0.25rem;
 }
 
+.box .box-title .force-right {
+	position: absolute;
+	right: 0.5rem;
+}
+
 .box .box-title h2 {
 	display: inline;
 	font-size: 1.2rem;
@@ -1087,6 +1092,7 @@ input[type="checkbox"]:focus-visible {
 	font-size: 0.9rem;
 	line-height: 1.5;
 	text-indent: -3rem;
+	position: relative;
 }
 
 .box .box-content .item.feed.emptyCategory {
@@ -1172,6 +1178,27 @@ li.drag-hover {
 	100% {
 		background-color: none;
 	}
+}
+
+.drag-top {
+	height:50%; 
+	width:100%; 
+	position:absolute; 
+	top:0; 
+	right:0;
+}
+
+.drag-bot {
+	height:50%; 
+	width:100%; 
+	position:absolute; 
+	top:50%; 
+	right:0;
+}
+
+.drag-highlight {
+	opacity: 50%;
+	background-color: var(--frss-dragdrop-color);
 }
 
 /*=== Scrollbar */

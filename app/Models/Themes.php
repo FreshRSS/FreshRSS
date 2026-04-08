@@ -111,6 +111,8 @@ class FreshRSS_Themes extends Minz_Model {
 		$alts = [
 			'add' => '➕',	//✚
 			'all' => '☰',
+			'arrow-double-vertical' => '↕️', // ↕
+			'arrow-up-down' => '⇅',
 			'bookmark-add' => '➕',	//✚
 			'bookmark-tag' => '📑',
 			'category' => '🗂️',	//☷
@@ -120,6 +122,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'down' => '🔽',	//▽
 			'error' => '❌',
 			'favorite' => '⭐',	//★
+			'floppy' => '💾',
 			'FreshRSS-logo' => '⊚',
 			'help' => 'ℹ️',	//ⓘ
 			'icon' => '⊚',
