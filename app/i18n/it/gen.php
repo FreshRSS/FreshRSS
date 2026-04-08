@@ -140,6 +140,33 @@ return array(
 		'_' => 'Feed RSS Reader',
 		'about' => 'Informazioni',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d giorno fa',
+			1 => '%d giorni fa',
+		),
+		'hour' => array(
+			0 => '%d ora fa',
+			1 => '%d ore fa',
+		),
+		'justnow' => 'proprio adesso',
+		'minute' => array(
+			0 => '%d minuto fa',
+			1 => '%d minuti fa',
+		),
+		'month' => array(
+			0 => '%d mese fa',
+			1 => '%d mesi fa',
+		),
+		'second' => array(
+			0 => '%d secondo fa',
+			1 => '%d secondi fa',
+		),
+		'year' => array(
+			0 => '%d anno fa',
+			1 => '%d anni fa',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Categoria vuota',
 		'confirm_action' => 'Sei sicuro di voler continuare?',

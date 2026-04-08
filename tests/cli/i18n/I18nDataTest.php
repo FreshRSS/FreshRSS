@@ -192,6 +192,107 @@ final class I18nDataTest extends \PHPUnit\Framework\TestCase {
 		], $data->getData());
 	}
 
+	public function testConstructorKeepsLocalePluralVariants(): void {
+		$rawData = [
+			'en' => [
+				'gen.php' => [
+					'gen.interval.day.0' => $this->value,
+					'gen.interval.day.1' => $this->value,
+				],
+			],
+			'ru' => [
+				'gen.php' => [
+					'gen.interval.day.0' => $this->value,
+					'gen.interval.day.1' => $this->value,
+					'gen.interval.day.2' => $this->value,
+				],
+			],
+		];
+
+		$data = new I18nData($rawData);
+
+		self::assertArrayHasKey('gen.interval.day.2', $data->getLanguage('ru')['gen.php']);
+		self::assertArrayNotHasKey('gen.interval.day.2', $data->getReferenceLanguage()['gen.php']);
+	}
+
+	public function testConstructorPrefillsMissingLocalePluralVariantsFromEnglishPlural(): void {
+		$rawData = [
+			'en' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d day ago'),
+					'gen.interval.day.1' => new I18nValue('%d days ago'),
+					'gen.interval.hour.0' => new I18nValue('%d hour ago'),
+					'gen.interval.hour.1' => new I18nValue('%d hours ago'),
+				],
+			],
+			'ru' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d день назад'),
+					'gen.interval.day.1' => new I18nValue('%d дня назад'),
+					'gen.interval.day.2' => new I18nValue('%d дней назад'),
+				],
+			],
+		];
+
+		$data = new I18nData($rawData);
+		$ruTranslations = $data->getLanguage('ru')['gen.php'];
+
+		self::assertSame('%d hour ago', $ruTranslations['gen.interval.hour.0']->getValue());
+		self::assertSame('%d hours ago', $ruTranslations['gen.interval.hour.1']->getValue());
+		self::assertSame('%d hours ago', $ruTranslations['gen.interval.hour.2']->getValue());
+		self::assertTrue($ruTranslations['gen.interval.hour.0']->isTodo());
+		self::assertTrue($ruTranslations['gen.interval.hour.1']->isTodo());
+		self::assertTrue($ruTranslations['gen.interval.hour.2']->isTodo());
+	}
+
+	public function testConstructorMarksHigherLocalePluralVariantsAsTodoWhenEqualToEnglishPlural(): void {
+		$rawData = [
+			'en' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d day ago'),
+					'gen.interval.day.1' => new I18nValue('%d days ago'),
+				],
+			],
+			'ru' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d день назад'),
+					'gen.interval.day.1' => new I18nValue('%d дня назад'),
+					'gen.interval.day.2' => new I18nValue('%d days ago'),
+				],
+			],
+		];
+
+		$data = new I18nData($rawData);
+		$ruTranslations = $data->getLanguage('ru')['gen.php'];
+
+		self::assertFalse($ruTranslations['gen.interval.day.0']->isTodo());
+		self::assertFalse($ruTranslations['gen.interval.day.1']->isTodo());
+		self::assertTrue($ruTranslations['gen.interval.day.2']->isTodo());
+	}
+
+	public function testConstructorSkipsEnglishPluralVariantsNotUsedByOneFormLanguage(): void {
+		$rawData = [
+			'en' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d day ago'),
+					'gen.interval.day.1' => new I18nValue('%d days ago'),
+				],
+			],
+			'id' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d hari yang lalu'),
+				],
+			],
+		];
+
+		$data = new I18nData($rawData);
+		$idTranslations = $data->getLanguage('id')['gen.php'];
+
+		self::assertArrayHasKey('gen.interval.day.0', $idTranslations);
+		self::assertArrayNotHasKey('gen.interval.day.1', $idTranslations);
+		self::assertFalse($idTranslations['gen.interval.day.0']->isTodo());
+	}
+
 	public function testConstructorWhenValueIsIdenticalAndIsMarkedAsIgnore(): void {
 		$value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()

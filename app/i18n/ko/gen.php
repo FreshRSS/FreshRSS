@@ -140,6 +140,27 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '정보',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d일 전',
+		),
+		'hour' => array(
+			0 => '%d시간 전',
+		),
+		'justnow' => '방금 전',
+		'minute' => array(
+			0 => '%d분 전',
+		),
+		'month' => array(
+			0 => '%d개월 전',
+		),
+		'second' => array(
+			0 => '%d초 전',
+		),
+		'year' => array(
+			0 => '%d년 전',
+		),
+	),
 	'js' => array(
 		'category_empty' => '빈 카테고리',
 		'confirm_action' => '정말 이 작업을 수행하시겠습니까? 이 작업은 되돌릴 수 없습니다!',

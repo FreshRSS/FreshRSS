@@ -140,6 +140,27 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '关于 FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d天前',
+		),
+		'hour' => array(
+			0 => '%d小时前',
+		),
+		'justnow' => '刚刚',
+		'minute' => array(
+			0 => '%d分钟前',
+		),
+		'month' => array(
+			0 => '%d个月前',
+		),
+		'second' => array(
+			0 => '%d秒前',
+		),
+		'year' => array(
+			0 => '%d年前',
+		),
+	),
 	'js' => array(
 		'category_empty' => '清空分类',
 		'confirm_action' => '你确定要执行此操作吗？这将不可撤销！',

@@ -140,4 +140,40 @@ final class I18nCompletionValidatorTest extends \PHPUnit\Framework\TestCase {
 		self::assertTrue($validator->validate());
 		self::assertSame('', $validator->displayResult());
 	}
+
+	public function testValidateFlagsHigherPluralVariantWhenEqualToEnglishPlural(): void {
+		$validator = new I18nCompletionValidator([
+			'gen.php' => [
+				'gen.interval.day.0' => new I18nValue('%d day ago'),
+				'gen.interval.day.1' => new I18nValue('%d days ago'),
+			],
+		], [
+			'gen.php' => [
+				'gen.interval.day.0' => new I18nValue('%d dzień temu'),
+				'gen.interval.day.1' => new I18nValue('%d dni temu'),
+				'gen.interval.day.2' => new I18nValue('%d days ago'),
+			],
+		]);
+
+		self::assertFalse($validator->validate());
+		self::assertSame("Untranslated key gen.interval.day.2 - %d days ago\n", $validator->displayResult());
+		self::assertSame("Translation is  66.7% complete.\n", $validator->displayReport());
+	}
+
+	public function testValidateSkipsEnglishPluralVariantsMissingFromOneFormLanguage(): void {
+		$validator = new I18nCompletionValidator([
+			'gen.php' => [
+				'gen.interval.day.0' => new I18nValue('%d day ago'),
+				'gen.interval.day.1' => new I18nValue('%d days ago'),
+			],
+		], [
+			'gen.php' => [
+				'gen.interval.day.0' => new I18nValue('%d hari yang lalu'),
+			],
+		]);
+
+		self::assertTrue($validator->validate());
+		self::assertSame('', $validator->displayResult());
+		self::assertSame("Translation is 100.0% complete.\n", $validator->displayReport());
+	}
 }

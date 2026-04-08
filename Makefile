@@ -168,9 +168,15 @@ endif
 	$(PHP) ./cli/manipulate.translation.php --action add --language $(lang) --origin-language $(ref)
 	@echo Language added.
 
+.PHONY: i18n-compile-plurals
+i18n-compile-plurals: ## Compile plural formulas from app/i18n/*/plurals.php
+	@$(PHP) ./cli/compile.plurals.php --all
+	@echo Plural files compiled.
+
 .PHONY: i18n-format
 i18n-format: ## Format I18N files
 	@$(PHP) ./cli/manipulate.translation.php --action format
+	@$(PHP) ./cli/compile.plurals.php --all
 	@echo Files formatted.
 
 .PHONY: i18n-ignore-key

@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => '隐私',
 		'retrieve_extension_list' => '获取扩展列表',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => '账户管理',
@@ -280,6 +281,7 @@ return array(
 			'upon_gone' => '在被原订阅源被移除后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => '如果分类中已经存在相同标题的最新 <i>n</i> 篇文章',
 			'when_same_title_in_feed' => '如果订阅源中已经存在相同标题的最新 <i>n</i> 篇文章',
 		),

@@ -151,6 +151,13 @@ cd /usr/share/FreshRSS
 # -r, --revert revert the action (only used with ignore action).
 # -o, --origin-language selects the origin language (only used with add language action).
 
+./cli/compile.plurals.php [ --all --file app/i18n/en/plurals.php --formula 'nplurals=2; plural=(n != 1);' ]
+# Compile gettext plural formulas into PHP callables for runtime use.
+# Plural source files are driven by a leading comment such as:
+#   // Plural-Forms: nplurals=2; plural=(n != 1);
+# Run this command, or `make fix-all`, after editing those comments.
+# See examples: https://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html
+
 ./cli/check.translation.php [ ---display-result --help --language fr --display-report --generate-readme ]
 # Check if translation files have missing keys or missing translations.
 # -d, --display-result display results of check.

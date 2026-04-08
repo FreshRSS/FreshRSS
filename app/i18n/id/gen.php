@@ -140,6 +140,27 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Tentang FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d hari yang lalu',
+		),
+		'hour' => array(
+			0 => '%d jam yang lalu',
+		),
+		'justnow' => 'baru saja',
+		'minute' => array(
+			0 => '%d menit yang lalu',
+		),
+		'month' => array(
+			0 => '%d bulan yang lalu',
+		),
+		'second' => array(
+			0 => '%d detik yang lalu',
+		),
+		'year' => array(
+			0 => '%d tahun yang lalu',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Kategori kosong',
 		'confirm_action' => 'Apakah Anda yakin ingin melakukan ini? Ini tidak dapat dibatalkan!',

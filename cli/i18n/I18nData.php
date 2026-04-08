@@ -9,8 +9,27 @@ class I18nData {
 	/** @param array<string,array<string,array<string,I18nValue>>> $data */
 	public function __construct(private array $data) {
 		$this->addMissingKeysFromReference();
+		$this->addMissingPluralVariantsFromReference();
 		$this->removeExtraKeysFromOtherLanguages();
 		$this->processValueStates();
+	}
+
+	private static function isPluralVariantKey(string $key): bool {
+		return self::parsePluralVariantKey($key) !== null;
+	}
+
+	/**
+	 * @return array{base:string,index:int}|null
+	 */
+	private static function parsePluralVariantKey(string $key): ?array {
+		if (preg_match('/^(?P<base>.+)\.(?P<index>\d+)$/', $key, $matches) !== 1) {
+			return null;
+		}
+
+		return [
+			'base' => $matches['base'],
+			'index' => (int)$matches['index'],
+		];
 	}
 
 	/**
@@ -26,6 +45,9 @@ class I18nData {
 
 		foreach ($reference as $file => $refValues) {
 			foreach ($refValues as $key => $refValue) {
+				if (self::isPluralVariantKey($key)) {
+					continue;
+				}
 				foreach ($languages as $language) {
 					if (!array_key_exists($file, $this->data[$language]) || !array_key_exists($key, $this->data[$language][$file])) {
 						$this->data[$language][$file][$key] = clone $refValue;
@@ -39,11 +61,52 @@ class I18nData {
 		}
 	}
 
+	private function addMissingPluralVariantsFromReference(): void {
+		$reference = $this->getReferenceLanguage();
+
+		foreach ($this->getNonReferenceLanguages() as $language) {
+			$expectedIndexes = $this->pluralVariantIndexesForLanguage($language);
+			foreach ($reference as $file => $refValues) {
+				$pluralBases = [];
+				foreach ($refValues as $key => $refValue) {
+					$parsedKey = self::parsePluralVariantKey($key);
+					if ($parsedKey === null) {
+						continue;
+					}
+					$pluralBases[$parsedKey['base']] = true;
+				}
+
+				if (!array_key_exists($file, $this->data[$language])) {
+					$this->data[$language][$file] = [];
+				}
+
+				foreach (array_keys($pluralBases) as $pluralBase) {
+					foreach ($expectedIndexes as $index) {
+						$pluralKey = $pluralBase . '.' . $index;
+						if (array_key_exists($pluralKey, $this->data[$language][$file])) {
+							continue;
+						}
+
+						$referenceValue = $this->referenceValueForKey($refValues, $pluralKey);
+						if ($referenceValue === null) {
+							continue;
+						}
+
+						$this->data[$language][$file][$pluralKey] = clone $referenceValue;
+					}
+				}
+			}
+		}
+	}
+
 	private function removeExtraKeysFromOtherLanguages(): void {
 		$reference = $this->getReferenceLanguage();
 		foreach ($this->getNonReferenceLanguages() as $language) {
 			foreach ($this->getLanguage($language) as $file => $values) {
 				foreach ($values as $key => $value) {
+					if (self::isPluralVariantKey($key)) {
+						continue;
+					}
 					if (!array_key_exists($key, $reference[$file])) {
 						unset($this->data[$language][$file][$key]);
 					}
@@ -59,18 +122,118 @@ class I18nData {
 		foreach ($reference as $file => $refValues) {
 			foreach ($refValues as $key => $refValue) {
 				foreach ($languages as $language) {
+					if (!$this->pluralVariantAppliesToLanguage($language, $key)) {
+						continue;
+					}
+
 					$value = $this->data[$language][$file][$key];
-					if ($refValue->equal($value) && !$value->isIgnore()) {
-						$value->markAsTodo();
-						continue;
-					}
-					if (!$refValue->equal($value) && $value->isTodo()) {
-						$value->markAsDirty();
-						continue;
-					}
+					$this->syncValueState($refValue, $value);
 				}
 			}
 		}
+
+		foreach ($languages as $language) {
+			foreach ($this->getLanguage($language) as $file => $values) {
+				$referenceValues = $reference[$file] ?? [];
+				foreach ($values as $key => $value) {
+					if (!self::isPluralVariantKey($key) || array_key_exists($key, $referenceValues)) {
+						continue;
+					}
+
+					$referenceValue = $this->referenceValueForKey($referenceValues, $key);
+					if ($referenceValue === null) {
+						continue;
+					}
+
+					$this->syncValueState($referenceValue, $value);
+				}
+			}
+		}
+	}
+
+	private function syncValueState(I18nValue $referenceValue, I18nValue $value): void {
+		if ($referenceValue->equal($value) && !$value->isIgnore()) {
+			$value->markAsTodo();
+			return;
+		}
+
+		if (!$referenceValue->equal($value) && $value->isTodo()) {
+			$value->markAsDirty();
+		}
+	}
+
+	private function pluralVariantAppliesToLanguage(string $language, string $key): bool {
+		$parsedKey = self::parsePluralVariantKey($key);
+		if ($parsedKey === null) {
+			return true;
+		}
+
+		return in_array($parsedKey['index'], $this->pluralVariantIndexesForLanguage($language), true);
+	}
+
+	/**
+	 * @param array<string,I18nValue> $referenceValues
+	 */
+	private function referenceValueForKey(array $referenceValues, string $key): ?I18nValue {
+		if (array_key_exists($key, $referenceValues)) {
+			return $referenceValues[$key];
+		}
+
+		$parsedKey = self::parsePluralVariantKey($key);
+		if ($parsedKey === null) {
+			return null;
+		}
+
+		$pluralKey = $parsedKey['base'] . '.1';
+		if (array_key_exists($pluralKey, $referenceValues)) {
+			return $referenceValues[$pluralKey];
+		}
+
+		$singularKey = $parsedKey['base'] . '.0';
+		return $referenceValues[$singularKey] ?? null;
+	}
+
+	/**
+	 * @return list<int>
+	 */
+	private function pluralVariantIndexesForLanguage(string $language): array {
+		$pluralCount = $this->pluralCountForLanguage($language);
+		if ($pluralCount !== null) {
+			return range(0, $pluralCount - 1);
+		}
+
+		$indexes = [];
+		foreach ($this->data[$language] as $values) {
+			foreach (array_keys($values) as $key) {
+				$parsedKey = self::parsePluralVariantKey($key);
+				if ($parsedKey === null) {
+					continue;
+				}
+				$indexes[$parsedKey['index']] = true;
+			}
+		}
+
+		if ($indexes === []) {
+			return [0];
+		}
+
+		ksort($indexes, SORT_NUMERIC);
+		return array_map('intval', array_keys($indexes));
+	}
+
+	private function pluralCountForLanguage(string $language): ?int {
+		if (!defined('I18N_PATH')) {
+			return null;
+		}
+
+		$pluralFile = I18N_PATH . '/' . $language . '/plurals.php';
+		if (!is_file($pluralFile)) {
+			return null;
+		}
+
+		$pluralData = include $pluralFile;
+		$pluralCount = is_array($pluralData) ? ($pluralData['nplurals'] ?? null) : null;
+		return is_int($pluralCount) && $pluralCount > 0 ? $pluralCount : null;
 	}
 
 	/**
