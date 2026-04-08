@@ -280,7 +280,17 @@ class FreshRSS_Category extends Minz_Model {
 		if ($this->feeds === null) {
 			return;
 		}
-		uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		$order = $this->attributeString('feedsOrder') ?? '[]';
+		$order = json_decode($order);
+		if (empty($order)) {
+			uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		} else {
+			$feeds = [];
+			foreach ($order as $value) {
+				$feeds[] = array_find($this->feeds, static fn(FreshRSS_Feed $feed) => $feed->id() == $value);
+			}
+			$this->feeds = $feeds;
+		}
 	}
 
 	/**
