@@ -143,7 +143,7 @@ return array(
 	'interval' => array(
 		'day' => array(
 			0 => 'vor %d Tag',
-			1 => 'vor %d Tage',
+			1 => 'vor %d Tagen',
 		),
 		'hour' => array(
 			0 => 'vor %d Stunde',
@@ -164,7 +164,7 @@ return array(
 		),
 		'year' => array(
 			0 => 'vor %d Jahr',
-			1 => 'vor %d Jahre',
+			1 => 'vor %d Jahren',
 		),
 	),
 	'js' => array(
