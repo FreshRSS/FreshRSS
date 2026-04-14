@@ -209,7 +209,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			return;
 		}
 
-		$category->_attribute('feedsOrder', json_encode($order));
+		$category->_attribute('feedsOrder', $order);
 		$values = [
 			'kind' => $category->kind(),
 			'name' => $category->name(),
