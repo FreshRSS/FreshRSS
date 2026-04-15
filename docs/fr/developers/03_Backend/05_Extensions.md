@@ -205,7 +205,7 @@ final class HelloWorldExtension extends Minz_Extension
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
-		$message = $this->getUserConfigurationValue('message');
+		$message = $this->getUserConfigurationString('message');
 		$entry->_content("<h1>{$message}</h1>" . $entry->content());
 		return $entry;
 	}
