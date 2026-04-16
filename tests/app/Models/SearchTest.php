@@ -1322,4 +1322,22 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['date:2024/ a', 'date:/2025', 'a'],
 		];
 	}
+
+	#[DataProvider('provideNeedVisibility')]
+	public function testNeedVisibility(string $input, ?int $expected): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($expected, $search->needVisibility());
+	}
+
+	/** @return list<list<string|int|null>> */
+	public static function provideNeedVisibility(): array {
+		return [
+			['', null],
+			['f:1', FreshRSS_Feed::PRIORITY_HIDDEN],
+			['c:2', FreshRSS_Feed::PRIORITY_CATEGORY],
+			['f:1 c:2', FreshRSS_Feed::PRIORITY_HIDDEN],
+			['-f:1', null],
+			['-c:2', null],
+		];
+	}
 }

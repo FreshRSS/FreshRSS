@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Tajuk dipisahkan dengan baris baru dan nama dan nilai dari tajuk dipisahkan dengan titik dua (contoh: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Ikon',
 		'information' => 'Informasi',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Jumlah minimum artikel yang harus disimpan',
 		'kind' => array(
 			'_' => 'Jenis sumber umpan',
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (baku)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Bersihkan tembolok',
 			'clear_cache_help' => 'Bersihkan tembolok untuk umpan ini.',

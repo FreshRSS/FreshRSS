@@ -33,6 +33,7 @@
 		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine"/>
 		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR12.Files.FileHeader.IncorrectOrder"/><!-- Consider using PSR12 defaults instead -->
+		<exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/><!-- Legacy PHPCS 3 -->
 		<exclude name="PSR12.Files.FileHeader.SpacingAfterDeclareBlock"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR12.Files.FileHeader.SpacingAfterTagBlock"/><!-- Consider using PSR12 defaults instead -->
 		<exclude name="PSR12.Traits.UseDeclaration.MultipleImport"/>
@@ -46,6 +47,7 @@
 		<exclude name="PSR2.Methods.FunctionCallSignature.Indent"/>
 		<exclude name="PSR2.Methods.FunctionCallSignature.MultipleArguments"/>
 		<exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
+		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/><!-- Legacy PHPCS 3 -->
 		<exclude name="Squiz.Classes.ValidClassName.NotPascalCase"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.CloseBracketLine"/>

@@ -122,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Gestão de perfil',
@@ -149,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Consultas do utilizador',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Esta não é válida. A categoria ou feed relacionado foi apagado.',
 		'description' => 'Description',	// TODO
 		'filter' => array(
@@ -279,6 +281,7 @@ return array(
 			'upon_gone' => 'Quando não estiver mais no feed de notícias principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'Se um título idêntico já existir nos últimos <i>n</i> artigos mais novos (no feed)',
 		),

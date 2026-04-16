@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Headers werden durch einen Zeilenumbruch getrennt. Name und Wert des Headers werden per Doppelpunkt getrennt (z.B: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icon',	// IGNORE
 		'information' => 'Informationen',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'kind' => array(
 			'_' => 'Art der Feed-Quelle',
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (Standard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Letzte fehlerhafte Aktualisierung <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Letzte erfolgreiche Aktualisierung <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Zwischenspeicher leeren',
 			'clear_cache_help' => 'Zwischenspeicher für diesen Feed leeren.',

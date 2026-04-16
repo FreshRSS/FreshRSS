@@ -1082,14 +1082,11 @@ input[type="checkbox"]:focus-visible {
 }
 
 .box .box-content .feed.item {
+	padding: var(--frss-padding-top-bottom) 2rem calc(var(--frss-padding-top-bottom) / 2) 0;
+	display: block;
 	font-size: 0.9rem;
 	line-height: 1.5;
 	text-indent: -3rem;
-}
-
-.box .box-content .item.feed {
-	padding: var(--frss-padding-top-bottom) 2rem calc(var(--frss-padding-top-bottom) / 2) 0;
-	display: block;
 }
 
 .box .box-content .item.feed.emptyCategory {
@@ -1807,6 +1804,11 @@ a.website:hover .favicon {
 	border: 1px solid var(--frss-border-color);
 }
 
+.content pre code {
+	padding: 0;
+	border: none;
+}
+
 .subtitle > div {
 	display: inline;
 }
@@ -2069,6 +2071,7 @@ html.slider-active {
 #slider.active:target {
 	width: 750px;
 	box-shadow: 3px 3px 5px var(--frss-box-shadow-color-transparent);
+	outline: none;
 }
 
 #slider.sliding {
@@ -2536,6 +2539,55 @@ html.slider-active {
 
 	.flux .flux_header .item .title:has(~.date) {
 		padding-left: 1rem;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary {
+		display: grid;
+		grid-template-columns: auto 1fr auto auto auto;
+		grid-template-rows: auto auto;
+		grid-template-areas: "website website manage-read manage-bookmark manage-share manage-labels link"
+			"thumbnail content content content content content content";
+		align-items: start;
+		list-style: none;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.website .websiteName {
+		display: inline;
+	}
+
+	/** place all the elements in their respective template areas */
+	.flux .flux_header.has-thumbnail.has-summary li.website {
+		grid-area: website;
+		/** Show feed name */
+		width: auto;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.thumbnail {
+		grid-area: thumbnail;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.titleAuthorSummaryDate {
+		grid-area: content;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.manage:has(.read) {
+		grid-area: manage-read;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.manage:has(.bookmark) {
+		grid-area: manage-bookmark;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.link {
+		grid-area: link;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.labels {
+		grid-area: manage-labels
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.share {
+		grid-area: manage-share
 	}
 
 	#overlay .close {

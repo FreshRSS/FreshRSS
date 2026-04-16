@@ -140,6 +140,39 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'před %d den',
+			1 => 'před %d dny',
+			2 => 'před %d dní',
+		),
+		'hour' => array(
+			0 => 'před %d hodina',
+			1 => 'před %d hodiny',
+			2 => 'před %d hodin',
+		),
+		'justnow' => 'právě teď',
+		'minute' => array(
+			0 => 'před %d minuta',
+			1 => 'před %d minuty',
+			2 => 'před %d minut',
+		),
+		'month' => array(
+			0 => 'před %d měsíc',
+			1 => 'před %d měsíce',
+			2 => 'před %d měsíců',
+		),
+		'second' => array(
+			0 => 'před %d sekunda',
+			1 => 'před %d sekundy',
+			2 => 'před %d sekund',
+		),
+		'year' => array(
+			0 => 'před %d rok',
+			1 => 'před %d roky',
+			2 => 'před %d let',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Prázdná kategorie',
 		'confirm_action' => 'Opravdu chcete provést tuto akci? Toto nelze zrušit!',

@@ -1504,38 +1504,40 @@ function init_stream(stream) {
 		}
 	};
 
-	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
-		if (ev.altKey || ev.metaKey || ev.shiftKey) {
+	stream.onmouseup = function (ev) {	// Mouseup enables us to catch control+click in IE/Edge
+		if (ev.altKey || ev.metaKey || ev.shiftKey || ev.which != 1) {
+			return;
+		}
+
+		const el = ev.target.closest('.item a.title');
+		if (el) {
+			if (ev.ctrlKey) {	// Control+click
+				if (context.auto_mark_site) {
+					mark_read(el.closest('.flux'), true, false);
+				}
+			} else {
+				el.parentElement.click();	// Normal click, just toggle article.
+			}
+		}
+	};
+
+	stream.onauxclick = function (ev) {	// Auxclick enables us to catch middle click
+		if (ev.altKey || ev.metaKey || ev.shiftKey || ev.which != 2 || ev.ctrlKey) {
 			return;
 		}
 
 		let el = ev.target.closest('.item a.title');
 		if (el) {
-			if (ev.which == 1) {
-				if (ev.ctrlKey) {	// Control+click
-					if (context.auto_mark_site) {
-						mark_read(el.closest('.flux'), true, false);
-					}
-				} else {
-					el.parentElement.click();	// Normal click, just toggle article.
-				}
-			} else if (ev.which == 2 && !ev.ctrlKey) {	// Simple middle click: same behaviour as CTRL+click
-				if (context.auto_mark_article) {
-					const new_active = el.closest('.flux');
-					mark_read(new_active, true, false);
-				}
+			if (context.auto_mark_article) {
+				const new_active = el.closest('.flux');
+				mark_read(new_active, true, false);
 			}
 			return;
 		}
 
 		if (context.auto_mark_site) {
-			// catch mouseup instead of click so we can have the correct behaviour
-			// with middle button click (scroll button).
 			el = ev.target.closest('.flux .link > a');
 			if (el) {
-				if (ev.which == 3) {
-					return;
-				}
 				mark_read(el.closest('.flux'), true, false);
 			}
 		}
@@ -2152,6 +2154,7 @@ function load_more_posts() {
 		let lastTransition = transitions.length > 0 ? transitions[transitions.length - 1] : null;
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
+		enforce_referrer_allowlist(streamAdopted);
 		streamAdopted.querySelectorAll('.flux, .transition').forEach(function (div) {
 			if (lastTransition !== null && div.classList.contains('transition') && div.textContent === lastTransition.textContent) {
 				lastTransition = null;
@@ -2293,6 +2296,24 @@ function removeFirstLoadSpinner() {
 	}
 }
 
+function enforce_referrer_allowlist(stream) {
+	for (const iframe of stream.querySelectorAll('div.content iframe[src], div.content iframe[data-original]')) {
+		let hostname;
+		try {
+			hostname = new URL(context.does_lazyload ? iframe.getAttribute('data-original') : iframe.src).hostname;
+		} catch (_) {
+			continue;
+		}
+		if (context.send_referrer_allowlist.includes(hostname) && !iframe.hasAttribute('referrerpolicy')) {
+			iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+			if (!context.does_lazyload) {
+				// iframe must be reloaded to apply the `referrerpolicy` change
+				iframe.src = iframe.src; // eslint-disable-line no-self-assign
+			}
+		}
+	}
+}
+
 function init_normal() {
 	const stream = document.getElementById('stream');
 	if (!stream) {
@@ -2304,6 +2325,7 @@ function init_normal() {
 	}
 	init_column_categories();
 	init_stream(stream);
+	enforce_referrer_allowlist(stream);
 	init_actualize();
 	faviconNbUnread();
 

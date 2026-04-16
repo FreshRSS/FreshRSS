@@ -644,9 +644,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 *
 	 * @param int $id category ID
 	 * @param numeric-string $idMax fail safe article ID
+	 * @param int $priorityMin minimum feed priority to include
 	 * @return int|false affected rows
 	 */
-	public function markReadCat(int $id, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
+	public function markReadCat(int $id, string $idMax = '0', int $priorityMin = FreshRSS_Feed::PRIORITY_CATEGORY,
+		?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
 		FreshRSS_UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = uTimeString();
@@ -659,7 +661,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			WHERE is_read <> ? AND id <= ?
 			AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=? AND f.priority >= ? AND f.priority < ?)
 			SQL;
-		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax, $id, FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Feed::PRIORITY_IMPORTANT];
+		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax, $id, $priorityMin, FreshRSS_Feed::PRIORITY_IMPORTANT];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
@@ -1541,41 +1543,46 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$values = [];
 		switch ($type) {
 			case 'a':	// All PRIORITY_MAIN_STREAM
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_MAIN_STREAM . ' ';
+				$where .= 'f.priority >= ' .
+					min(FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
 				break;
 			case 'A':	// All except PRIORITY_HIDDEN
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_FEED . ' ';
+				$where .= 'f.priority >= ' .
+					min(FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
 				break;
 			case 'Z':	// All including PRIORITY_HIDDEN
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_HIDDEN . ' ';
+				$where .= '1=1 ';
 				break;
 			case 'i':	// Priority important feeds
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_IMPORTANT . ' ';
+				$where .= 'f.priority >= ' .
+					min(FreshRSS_Feed::PRIORITY_IMPORTANT, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
 				break;
-			case 's':	//Starred. Deprecated: use $state instead
-				$where .= 'f.priority > ' . FreshRSS_Feed::PRIORITY_HIDDEN . ' ';
+			case 's':	// Starred. Deprecated: use $state instead
+				$where .= 'f.priority > ' .
+					min(FreshRSS_Feed::PRIORITY_HIDDEN, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
 				$where .= 'AND e.is_favorite=1 ';
 				break;
-			case 'S':	//Starred
+			case 'S':	// Starred
 				$where .= 'e.is_favorite=1 ';
 				break;
-			case 'c':	//Category
-				$where .= 'f.priority >= ' . FreshRSS_Feed::PRIORITY_CATEGORY . ' ';
+			case 'c':	// Category
+				$where .= 'f.priority >= ' .
+					min(FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
 				$where .= 'AND f.category=? ';
 				$values[] = $id;
 				break;
-			case 'f':	//Feed
+			case 'f':	// Feed
 				$where .= 'e.id_feed=? ';
 				$values[] = $id;
 				break;
-			case 't':	//Tag (label)
+			case 't':	// Tag (label)
 				$where .= 'et.id_tag=? ';
 				$values[] = $id;
 				break;
-			case 'T':	//Any tag (label)
+			case 'T':	// Any tag (label)
 				$where .= '1=1 ';
 				break;
-			case 'ST':	//Starred or tagged (label)
+			case 'ST':	// Starred or tagged (label)
 				$where .= 'e.is_favorite=1 OR EXISTS (SELECT et2.id_tag FROM `_entrytag` et2 WHERE et2.id_entry = e.id) ';
 				break;
 			default:
@@ -1616,15 +1623,16 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			? 'USE INDEX (entry_feed_read_index) ' : '';
 
 		return [array_merge($values, $searchValues), 'SELECT '
-			. ($type === 'T' ? 'DISTINCT ' : '')
+			. ($type === 'T' && $sort !== 'rand' ? 'DISTINCT ' : '')
 			. 'e.id'
-			. ($type === 'T' && $sort !== 'id' ? ', ' . $orderBy : '') // SELECT DISTINCT, ORDER BY expressions must appear in SELECT
+			. ($type === 'T' && !in_array($sort, ['id', 'rand'], true) ? ', ' . $orderBy : '')	// SELECT DISTINCT, ORDER BY expressions must appear in SELECT
 			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
 			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where
 			. $search
+			. ($type === 'T' && $sort === 'rand' ? ' GROUP BY e.id ' : '')	// DISTINCT does not work with RAND()
 			. 'ORDER BY ' . $orderBy . ' ' . $order
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Internal secondary sort
 			. (in_array($sort, ['c.name', 'f.name'], true) ? ', ' . $orderBy2 . ' ' . $order2 : '')	// User secondary sort
@@ -1943,7 +1951,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0): int|false {
 		$sql = <<<'SQL'
 			UPDATE `_entry` SET `lastSeen` = :mtime
-			WHERE id_feed = :id_feed1 AND `lastSeen` = (
+			WHERE id_feed = :id_feed1 AND `lastSeen` >= (
 				SELECT `lastUpdate` FROM `_feed` f
 				WHERE f.id = :id_feed2
 			)

@@ -140,6 +140,27 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSSについて',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d日前',
+		),
+		'hour' => array(
+			0 => '%d時間前',
+		),
+		'justnow' => 'たった今',
+		'minute' => array(
+			0 => '%d分前',
+		),
+		'month' => array(
+			0 => '%dか月前',
+		),
+		'second' => array(
+			0 => '%d秒前',
+		),
+		'year' => array(
+			0 => '%d年前',
+		),
+	),
 	'js' => array(
 		'category_empty' => '空白のカテゴリ',
 		'confirm_action' => '本当に実行してもいいですか?キャンセルはできません!',

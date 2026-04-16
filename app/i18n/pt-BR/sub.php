@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Os cabeçalhos são separados por uma nova linha, e o nome e o valor de um cabeçalho são separados por dois pontos (ex: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Ícone',
 		'information' => 'Informações',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Número mínimo de artigos para manter',
 		'kind' => array(
 			'_' => 'Tipo de fonte de alimentação do Feed',
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (padrão)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Limpar o cache',
 			'clear_cache_help' => 'Limpar o cache em disco deste feed',

@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Başlıklar yeni bir satırla ayrılır ve bir başlığın adı ile değeri iki nokta üst üste ile ayrılır (örneğin: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icon',	// TODO
 		'information' => 'Bilgi',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Saklanacak minimum makale sayısı',
 		'kind' => array(
 			'_' => 'Besleme kaynağı türü',
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (varsayılan)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Önbelleği temizle',
 			'clear_cache_help' => 'Bu besleme için önbelleği temizle.',

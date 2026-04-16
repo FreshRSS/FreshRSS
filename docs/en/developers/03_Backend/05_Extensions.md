@@ -181,7 +181,7 @@ Example response for a `query_icon_info` request:
 * `Minz_HookType::CustomFaviconHash` (`function(FreshRSS_Feed $feed): string | null`): Enables the modification of custom favicon hashes by returning params from the hook function. The hook should check if the `customFaviconExt` attribute of `$feed` is set to the extension's name before returning a custom value. Otherwise, the return value should be null.
 * `Minz_HookType::EntriesFavorite` (`function(array $ids, bool $is_favorite): void`):
 	will be executed when some entries are marked or unmarked as favorites (starred)
-* `Minz_HookType::EntryAutoRead` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as read. The *why* parameter supports the rules {`filter`, `upon_reception`, `same_title_in_feed`}.
+* `Minz_HookType::EntryAutoRead` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as read. The *why* parameter supports the rules {`filter`, `upon_reception`, `same_title_in_feed`, `same_guid_in_category`}.
 * `Minz_HookType::EntryAutoUnread` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as unread. The *why* parameter supports the rules {`updated_article`}.
 * `Minz_HookType::EntryBeforeDisplay` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
 * `Minz_HookType::EntryBeforeInsert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
@@ -189,6 +189,7 @@ Example response for a `query_icon_info` request:
 * `Minz_HookType::EntryBeforeUpdate` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and just before an entry is updated in the database. Useful for reading the final state of the entry after filter actions have been applied. The updated entry (instance of FreshRSS\_Entry) will be passed as parameter.
 * `Minz_HookType::FeedBeforeActualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.
 * `Minz_HookType::FeedBeforeInsert` (`function($feed) -> Feed | null`): will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS\_Feed) will be passed as parameter.
+* `Minz_HookType::FeedsListBeforeActualize` (`function(array<FreshRSS_Feed> $feedList) -> array | null`): will be executed before FreshRSS tries to update feeds. The list of feeds (array of `FreshRSS_Feed`) to update will be passed as a parameter. Useful for modifying the order in which the feeds will be updated.
 * `Minz_HookType::FreshrssInit` (`function() -> none`): will be executed at the end of the initialization of FreshRSS, useful to initialize components or to do additional access checks.
 * `Minz_HookType::FreshrssUserMaintenance` (`function() -> none`): will be executed for each user during the `actualize_script`, useful to run some maintenance tasks on the user.
 * `Minz_HookType::JsVars` (`function($vars = array) -> array | null`): will be executed if the `jsonVars` in the header will be generated.
