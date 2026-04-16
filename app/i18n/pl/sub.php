@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Nagłówki są oddzielane przez nową linię, a nazwa i wartość nagłówka są oddzielane przez dwukropek (np: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer jakiś-token</code></kbd>).',
 		'icon' => 'Ikona',
 		'information' => 'Informacja',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Minimalna liczba wiadomości do przechowywania',
 		'kind' => array(
 			'_' => 'Rodzaj źródła kanału',
