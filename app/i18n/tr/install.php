@@ -50,6 +50,19 @@ return array(
 			'nok' => '<em>%2$s</em> kullanıcısı için <em>%1$s</em> dizinindeki izinleri kontrol edin. HTTP sunucusunun yazma izni olmalı.',
 			'ok' => 'Veri dizinindeki izinler uygun.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'DOM’u taramak için gerekli kütüphane bulunamadı.',
 			'ok' => 'DOM’u taramak için gerekli kütüphaneniz var.',

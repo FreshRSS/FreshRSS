@@ -109,6 +109,11 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			} else {
 				$category->_attribute('read_when_same_title_in_category', null);
 			}
+			if (Minz_Request::paramBoolean('enable_read_when_same_guid_in_category')) {
+				$category->_attribute('read_when_same_guid_in_category', Minz_Request::paramInt('read_when_same_guid_in_category'));
+			} else {
+				$category->_attribute('read_when_same_guid_in_category', null);
+			}
 
 			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read', plaintext: true));
 
@@ -174,7 +179,9 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			invalidateHttpCache();
 
-			$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id, 'type' => 'category']];
+			$from = Minz_Request::paramString('from');
+			$prev_controller = $from === 'update' ? 'category' : 'subscription';
+			$url_redirect = ['c' => $prev_controller, 'a' => $from, 'params' => ['id' => $id, 'type' => 'category']];
 			if (false !== $categoryDAO->updateCategory($id, $values)) {
 				Minz_Request::good(
 					_t('feedback.sub.category.updated'),

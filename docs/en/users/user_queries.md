@@ -5,7 +5,17 @@
 Read about [the filters](./10_filter.md) to learn the different ways to search and filter
 articles in FreshRSS.
 
-## Bookmark the current query
+## Create an user query
+
+### Bookmark the user query
+
+It is possible to create any search query by filling out the form.
+
+![User queries form](../img/users/user.queries.form.empty.png)
+
+Then click submit to save the query
+
+### Bookmark the current query
 
 Once you have a search query with a filter, it can be saved.
 

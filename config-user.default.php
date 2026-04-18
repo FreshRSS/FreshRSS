@@ -135,9 +135,12 @@ return array (
 	'good_notification_timeout' => 3,
 	'bad_notification_timeout' => 8,
 	'show_nav_buttons' => true,
+	'sidebar_hidden_by_default' => false,
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [],
+	# Privacy settings
 	'retrieve_extension_list' => true,
+	'send_referrer_allowlist' => [],
 	# Extensions configurations
 	'extensions' => [],
 );

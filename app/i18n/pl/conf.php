@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Czas wyświetlania powiadomienia HTML5',
 		),
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
+		'sidebar_hidden_by_default' => 'Ukryj pasek boczny domyślnie',
 		'theme' => array(
 			'_' => 'Motyw',
 			'deprecated' => array(
@@ -106,7 +107,7 @@ return array(
 		'small' => 'Mały',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Włącz powiadomienie',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
@@ -121,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Prywatność',
 		'retrieve_extension_list' => 'Pobieraj listę rozszerzeń',
+		'send_referrer_allowlist' => 'Strony, które mogą zobaczyć twój adres serwera (%s)',
 	),
 	'profile' => array(
 		'_' => 'Zarządzanie profilem',
@@ -148,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Zapisane zapytania',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'To zapytanie nie jest już poprawne. Kategoria lub kanał do którego się odnosi już nie istnieje.',
 		'description' => 'Opis',
 		'filter' => array(
@@ -278,6 +281,7 @@ return array(
 			'upon_gone' => 'gdy nie jest już wyświetlana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach kategorii',
 			'when_same_title_in_feed' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach (kanału RSS)',
 		),
@@ -322,7 +326,7 @@ return array(
 		'share_name' => 'Wyświetlana nazwa serwisu',
 		'share_url' => 'Adres API serwisu',
 		'title' => 'Udostępnianie',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

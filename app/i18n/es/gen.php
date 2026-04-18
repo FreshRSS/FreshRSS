@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Acerca de FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'hace %d día',
+			1 => 'hace %d días',
+		),
+		'hour' => array(
+			0 => 'hace %d hora',
+			1 => 'hace %d horas',
+		),
+		'justnow' => 'justo ahora',
+		'minute' => array(
+			0 => 'hace %d minuto',
+			1 => 'hace %d minutos',
+		),
+		'month' => array(
+			0 => 'hace %d mes',
+			1 => 'hace %d meses',
+		),
+		'second' => array(
+			0 => 'hace %d segundo',
+			1 => 'hace %d segundos',
+		),
+		'year' => array(
+			0 => 'hace %d año',
+			1 => 'hace %d años',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Vaciar categoría',
 		'confirm_action' => '¿Seguro que quieres hacerlo? No hay marcha atrás…',
@@ -228,6 +255,7 @@ return array(
 		'categories' => 'Categorías',
 		'content' => 'Contenido',
 		'date_from' => 'Desde',
+		'date_modified' => 'Fecha de modificación del servidor',
 		'date_past' => 'En el pasado',
 		'date_published' => 'Fecha de publicación',
 		'date_range' => 'Rango de fechas',
@@ -276,7 +304,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Web Sharing API',

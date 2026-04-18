@@ -455,12 +455,13 @@ class FreshRSS_Import_Service {
 		$categories_elements = [];
 		$categories_to_feeds = [];
 
-		if ($parent_category_name === '' && isset($outline['category']) && is_array($outline['category'])) {
+		if ($parent_category_name === '' && is_array($outline['category'] ?? null)) {
 			// The outline has no parent category, but its OPML category
 			// attribute is set, so we use it as the category name.
 			// lib_opml parses this attribute as an array of strings, so we
 			// rebuild a string here.
-			$parent_category_name = implode(', ', $outline['category']);
+			$category_names = array_filter($outline['category'], 'is_string');
+			$parent_category_name = implode(', ', $category_names);
 			$categories_elements[$parent_category_name] = [
 				'text' => $parent_category_name,
 			];

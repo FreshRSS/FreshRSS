@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de data map zijn goed.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM.',
 			'ok' => 'U hebt de benodigde bibliotheek om te bladeren in de DOM.',

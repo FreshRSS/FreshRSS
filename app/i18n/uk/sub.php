@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'По заголовку на рядок. Назву й значення відокремлено двокрапкою (наприклад, <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer деякий-токен</code></kbd>).',
 		'icon' => 'Піктограма',
 		'information' => 'Інформація',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Мінімум збережених статей',
 		'kind' => array(
 			'_' => 'Тип джерела стрічки',
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS/Atom (типово)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Очистити кеш',
 			'clear_cache_help' => 'Спорожнити кеш стрічки.',

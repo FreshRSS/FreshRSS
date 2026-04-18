@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'icon' => 'Icon',	// TODO
 		'information' => 'מידע',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'מסםר מינימלי של מאמרים לשמור',
 		'kind' => array(
 			'_' => 'Type of feed source',	// TODO
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (default)',	// TODO
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// TODO
 			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO

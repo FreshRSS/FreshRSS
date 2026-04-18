@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// IGNORE
 		'icon' => 'Icon',	// IGNORE
 		'information' => 'Information',	// IGNORE
+		'keep_adding_feed' => 'Then add more feeds',	// IGNORE
 		'keep_min' => 'Minimum number of articles to keep',	// IGNORE
 		'kind' => array(
 			'_' => 'Type of feed source',	// IGNORE
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (default)',	// IGNORE
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// IGNORE
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// IGNORE
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// IGNORE
 			'clear_cache_help' => 'Clear the cache for this feed.',	// IGNORE

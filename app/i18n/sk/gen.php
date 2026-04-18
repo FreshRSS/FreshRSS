@@ -140,6 +140,39 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'pred %d deň',
+			1 => 'pred %d dni',
+			2 => 'pred %d dní',
+		),
+		'hour' => array(
+			0 => 'pred %d hodina',
+			1 => 'pred %d hodiny',
+			2 => 'pred %d hodín',
+		),
+		'justnow' => 'práve teraz',
+		'minute' => array(
+			0 => 'pred %d minúta',
+			1 => 'pred %d minúty',
+			2 => 'pred %d minút',
+		),
+		'month' => array(
+			0 => 'pred %d mesiac',
+			1 => 'pred %d mesiace',
+			2 => 'pred %d mesiacov',
+		),
+		'second' => array(
+			0 => 'pred %d sekunda',
+			1 => 'pred %d sekundy',
+			2 => 'pred %d sekúnd',
+		),
+		'year' => array(
+			0 => 'pred %d rok',
+			1 => 'pred %d roky',
+			2 => 'pred %d rokov',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Prázdna kategória',
 		'confirm_action' => 'Určite chcete vykonať túto akciu? Zmeny budú nezvratné!',
@@ -228,6 +261,7 @@ return array(
 		'categories' => 'Categories',	// TODO
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In the past',	// TODO
 		'date_published' => 'Publication Date',	// TODO
 		'date_range' => 'Date Range',	// TODO
@@ -276,7 +310,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Systémové zdieľanie',

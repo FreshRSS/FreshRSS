@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'A fejléceket újsor választja el, a fejléc nevét és értékét kettőspont választja el (pl: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icon',	// IGNORE
 		'information' => 'Információ',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Megtartandó cikkek minimális száma',
 		'kind' => array(
 			'_' => 'Hírforrás típusa',
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (alapértelmezett)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Gyorsítótár törlése',
 			'clear_cache_help' => 'Gyorsítótár törlése ehhez a hírforráshoz.',

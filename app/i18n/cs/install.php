@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Zkontrolujte oprávnění adresáře <em>%1$s</em> pro uživatele <em>%2$s</em>. Server HTTP musí mít oprávnění pro zápis.',
 			'ok' => 'Oprávnění adresáře data jsou v pořádku.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'Nelze nalézt požadovanou knihovnu pro procházení DOM.',
 			'ok' => 'Máte požadovanou knihovnu pro procházení DOM.',

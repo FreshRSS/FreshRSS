@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 通知超时时间',
 		),
 		'show_nav_buttons' => '显示导航按钮',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => '主题',
 			'deprecated' => array(
@@ -121,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => '隐私',
 		'retrieve_extension_list' => '获取扩展列表',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => '账户管理',
@@ -148,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => '自定义查询',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => '此查询不再有效。相关的分类或订阅源已被删除。',
 		'description' => '描述',
 		'filter' => array(
@@ -278,6 +281,7 @@ return array(
 			'upon_gone' => '在被原订阅源被移除后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => '如果分类中已经存在相同标题的最新 <i>n</i> 篇文章',
 			'when_same_title_in_feed' => '如果订阅源中已经存在相同标题的最新 <i>n</i> 篇文章',
 		),
@@ -322,7 +326,7 @@ return array(
 		'share_name' => '显示名称',
 		'share_url' => '用于分享的 URL',
 		'title' => '分享',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

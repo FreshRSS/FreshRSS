@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS Hakkında',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d gün once',
+			1 => '%d gün once',
+		),
+		'hour' => array(
+			0 => '%d saat once',
+			1 => '%d saat once',
+		),
+		'justnow' => 'az once',
+		'minute' => array(
+			0 => '%d dakika once',
+			1 => '%d dakika once',
+		),
+		'month' => array(
+			0 => '%d ay once',
+			1 => '%d ay once',
+		),
+		'second' => array(
+			0 => '%d saniye once',
+			1 => '%d saniye once',
+		),
+		'year' => array(
+			0 => '%d yıl once',
+			1 => '%d yıl once',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Boş kategori',
 		'confirm_action' => 'Bu eylemi gerçekleştirmek istediğinizden emin misiniz? Bu işlem geri alınamaz!',
@@ -228,6 +255,7 @@ return array(
 		'categories' => 'Categories',	// TODO
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In the past',	// TODO
 		'date_published' => 'Publication Date',	// TODO
 		'date_range' => 'Date Range',	// TODO
@@ -276,7 +304,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Sistem paylaşımı',

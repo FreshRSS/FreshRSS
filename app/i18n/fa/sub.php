@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'سر برگ ها با یک خط جدید از هم جدا می‌شوند و نام و مقدار سربرگ ها با یک دونقطه از هم جدا می‌شوند (مثلاً: <kbd><code>پذیرش: application/atom+xml<br />مجوز: Bearer some-token</code></kbd>).',
 		'icon' => 'آیکون',
 		'information' => ' اطلاعات',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => ' حداقل تعداد مقالات برای نگهداری',
 		'kind' => array(
 			'_' => ' نوع منبع خوراک',
@@ -185,6 +186,8 @@ return array(
 			'rss' => ' RSS / Atom (پیش‌فرض)',
 			'xml_xpath' => ' XML + XPath',
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => ' کش را پاک کنید',
 			'clear_cache_help' => ' کش این فید را پاک کنید.',

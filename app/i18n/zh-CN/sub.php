@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => '头部之间用换行符分隔，头部名称和值用冒号分隔（例如：<kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>）。',
 		'icon' => '图标',
 		'information' => '信息',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => '至少保存的文章数',
 		'kind' => array(
 			'_' => '订阅源类型',
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (默认)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => '清理缓存',
 			'clear_cache_help' => '清除该feed的缓存',

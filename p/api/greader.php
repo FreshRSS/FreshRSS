@@ -50,7 +50,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	}
 }
 
-const JSON_OPTIONS = JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+const JSON_OPTIONS = JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_SUBSTITUTE | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
 function headerVariable(string $headerName, string $varName): string {
 	$header = '';
@@ -661,10 +661,16 @@ final class GReaderAPI {
 			$search = new FreshRSS_Search('');
 			$search->setMinDate($start_time);
 			$searches->add($search);
+			// OR
+			$search = new FreshRSS_Search('');
+			$search->setMinModifiedDate($start_time);
+			$searches->add($search);
 		}
 		if ($stop_time !== 0) {
 			$search = new FreshRSS_Search('');
 			$search->setMaxDate($stop_time);
+			// AND
+			$search->setMaxModifiedDate($stop_time);
 			$searches->add($search);
 		}
 

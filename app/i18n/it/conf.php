@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Notifica timeout HTML5',
 		),
 		'show_nav_buttons' => 'Mostra i pulsanti di navigazione',
+		'sidebar_hidden_by_default' => 'Nascondi la barra laterale di default',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -121,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// IGNORE
 		'retrieve_extension_list' => 'Recupero dell’elenco delle estensioni',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Gestione profili',
@@ -148,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Ricerche personali',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
 		'description' => 'Descrizione',
 		'filter' => array(
@@ -278,6 +281,7 @@ return array(
 			'upon_gone' => 'quando non si trova più nel feed di notizie in alto',
 			'upon_reception' => 'Alla ricezione del contenuto',
 			'when' => 'Segna articoli come letti…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'se un titolo identico esiste già nei primi <i>n</i> articoli più recenti della categoria',
 			'when_same_title_in_feed' => 'se un titolo identico esiste già tra i <i>n</i> articoli più recenti (del feed)',
 		),
@@ -322,7 +326,7 @@ return array(
 		'share_name' => 'Nome condivisione',
 		'share_url' => 'URL condivisione',
 		'title' => 'Condividi',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Headers worden gescheiden door een regeleinde, en de naam en waarde van een header worden gescheiden door een dubbele punt (bijv.: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer een-token</code></kbd>).',
 		'icon' => 'Pictogram',
 		'information' => 'Informatie',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'kind' => array(
 			'_' => 'Feedbron-type',
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (standaard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Cache leegmaken',
 			'clear_cache_help' => 'Cache voor deze feed leegmaken.',

@@ -28,10 +28,10 @@ Connectez ensuite votre application mobile en utilisant l’adresse de l’API
 |[Fluent Reader](https://hyliu.me/fluent-reader/)                                    |Windows, Linux, macOS|[BSD-3-Clause](https://github.com/yang991178/fluent-reader/blob/master/LICENSE)|
 |[Fluent Reader lite](https://hyliu.me/fluent-reader-lite/)                          |Android, iOS         |[BSD-3-Clause](https://github.com/yang991178/fluent-reader-lite)|
 |[Read You](https://github.com/Ashinch/ReadYou/)                                     |Android              |[GPLv3](https://github.com/Ashinch/ReadYou/blob/main/LICENSE)|
-|[Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303)       |iOS                  |Source fermée                                             |
-|[Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)                 |iOS                  |Source fermée                                             |
+|[Fiery Feeds](https://voidstern.net/fiery-feeds)       |iOS                  |Source fermée                                             |
+|[Unread](https://www.goldenhillsoftware.com/unread/)                 |iOS                  |Source fermée                                             |
 |[Reeder Classic](https://www.reederapp.com/classic/)                                |iOS                  |Source fermée                                              |
-|[ReadKit](https://apps.apple.com/app/readkit/id588726889)                           |macOS                |Source fermée                                              |
+|[ReadKit](https://readkit.app/)                           |macOS                |Source fermée                                              |
 
 > ℹ️ Voir une [meilleure liste des applications mobiles compatibles](https://github.com/FreshRSS/FreshRSS/blob/edge/README.fr.md#apis-et-applications-natives).
 
@@ -100,7 +100,7 @@ Parfait, maintenant vous êtes autentifié et vous pouvez commencer à tester
 les fonctions avancées. Pour cela, il suffit de changer l’adresse en lui
 ajoutant les paramètres nécessaires à la réalisation des actions
 supportées. Pour plus d’information, veuillez vous référer à la
-[documentation officielle de Fever](https://feedafever.com/api).
+[documentation officielle de Fever](https://web.archive.org/web/20230616124016/https://feedafever.com/api).
 
 Voici quelques exemples simples d’appels réalisables :
 

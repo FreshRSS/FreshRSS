@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar datu mapes atļaujām viss ir kārtībā.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku, lai pārlūkotu DOM (php-xml pakete).',
 			'ok' => 'Jums ir nepieciešamā bibliotēka, lai pārlūkotu DOM.',

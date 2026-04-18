@@ -215,6 +215,40 @@ function timestamptodate(int $t, bool $hour = true): string {
 	return @date($date, $t) ?: '';
 }
 
+function timestampToMachineDate(int $t): string {
+	return @date(DATE_ATOM, $t);
+}
+
+/**
+ * Human readable string how long this timestamp is ago ("5 years ago").
+ */
+function timeago(int $timestamp, ?int $baseTimestamp = null): string {
+	$baseTimestamp ??= time();
+	$delta = abs($baseTimestamp - $timestamp);
+
+	$units = [
+		[31536000, 'year'],
+		[2592000, 'month'],
+		[86400, 'day'],
+		[3600, 'hour'],
+		[60, 'minute'],
+	];
+
+	$diff = '';
+	foreach ($units as [$unitSeconds, $unit]) {
+		if ($delta >= $unitSeconds) {
+			$unitValue = intdiv($delta, $unitSeconds);
+			$diff = Minz_Translate::plural('gen.interval.' . $unit, $unitValue) ?? ($unitValue . ' ' . $unit . ' ago');
+			break;
+		}
+	}
+
+	if ($diff === '') {
+		return Minz_Translate::t('gen.interval.justnow');
+	}
+	return $diff;
+}
+
 /**
  * Decode HTML entities but preserve XML entities.
  */

@@ -359,7 +359,7 @@ class Item implements RegistryAware
     {
         if (!isset($this->data['thumbnail'])) {
             if ($return = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_MEDIARSS, 'thumbnail')) {
-                $thumbnail = $return[0]['attribs'][''];
+                $thumbnail = $return[0]['attribs'][''] ?? [];
                 if (empty($thumbnail['url'])) {
                     $this->data['thumbnail'] = null;
                 } else {
@@ -1458,10 +1458,10 @@ class Item implements RegistryAware
                                 $bitrate = $this->sanitize($content['attribs']['']['bitrate'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
                             }
                             if (isset($content['attribs']['']['channels'])) {
-                                $channels = $this->sanitize($content['attribs']['']['channels'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                                $channels = (int) $this->sanitize($content['attribs']['']['channels'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
                             }
                             if (isset($content['attribs']['']['duration'])) {
-                                $duration = $this->sanitize($content['attribs']['']['duration'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                                $duration = (int) $this->sanitize($content['attribs']['']['duration'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
                             } else {
                                 $duration = $duration_parent;
                             }
@@ -1915,10 +1915,10 @@ class Item implements RegistryAware
                             $bitrate = $this->sanitize($content['attribs']['']['bitrate'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
                         }
                         if (isset($content['attribs']['']['channels'])) {
-                            $channels = $this->sanitize($content['attribs']['']['channels'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                            $channels = (int) $this->sanitize($content['attribs']['']['channels'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
                         }
                         if (isset($content['attribs']['']['duration'])) {
-                            $duration = $this->sanitize($content['attribs']['']['duration'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
+                            $duration = (int) $this->sanitize($content['attribs']['']['duration'], \SimplePie\SimplePie::CONSTRUCT_TEXT);
                         } else {
                             $duration = $duration_parent;
                         }

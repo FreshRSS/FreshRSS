@@ -38,7 +38,7 @@ facilement.
 
 ## Minz Framework
 
-see [Minz documentation](/docs/fr/developers/Minz/index.md)
+see [Minz documentation](../Minz/index.md)
 
 ## Écrire une extension pour FreshRSS
 
@@ -205,7 +205,7 @@ final class HelloWorldExtension extends Minz_Extension
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
-		$message = $this->getUserConfigurationValue('message');
+		$message = $this->getUserConfigurationString('message');
 		$entry->_content("<h1>{$message}</h1>" . $entry->content());
 		return $entry;
 	}
@@ -228,7 +228,7 @@ The following events are available:
 	parameter. This way a website known to have feeds which doesn’t advertise
 	it in the header can still be automatically supported.
 * `entry_auto_read` (`function(FreshRSS_Entry $entry, string $why): void`):
-	Appelé lorsqu’une entrée est automatiquement marquée comme lue. Le paramètre *why* supporte les règles {`filter`, `upon_reception`, `same_title_in_feed`}.
+	Appelé lorsqu’une entrée est automatiquement marquée comme lue. Le paramètre *why* supporte les règles {`filter`, `upon_reception`, `same_title_in_feed`, `same_guid_in_category`}.
 * `entry_auto_unread` (`function(FreshRSS_Entry $entry, string $why): void`):
 	Appelé lorsqu’une entrée est automatiquement marquée comme non-lue. Le paramètre *why* supporte les règles {`updated_article`}.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be
@@ -249,11 +249,14 @@ The following events are available:
 * `entries_favorite` (`function(array $ids, bool $is_favorite): void`):
 	will be executed when some entries are marked or unmarked as favorites (starred)
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be
-	executed when a feed is updated. The feed (instance of FreshRSS\_Feed)
+	executed when a feed is updated. The feed (instance of `FreshRSS_Feed`)
 	will be passed as parameter.
 * `feed_before_insert` (`function($feed) -> Feed | null`): will be executed
 	when a new feed is imported into the database. The new feed (instance of
 	FreshRSS\_Feed) will be passed as parameter.
+* `feeds_list_before_actualize` (`function(array<FreshRSS_Feed> $feedList) -> array | null`) : exécuté avant que FreshRSS actualise les flux.
+	La liste des flux (tableau 	de `FreshRSS_Feed`) à actualiser sera passé comme le paramètre.
+	Utile pour modifier l’ordre dans lequel les flux seront mis à jour
 * `freshrss_init` (`function() -> none`): will be executed at the end of the
 	initialization of FreshRSS, useful to initialize components or to do
 	additional access checks

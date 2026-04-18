@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 התראה פג תוקף',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'ערכת נושא',
 			'deprecated' => array(
@@ -121,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Profile management',	// TODO
@@ -148,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'שאילתות',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'שאילתה זו אינה בתוקף יותר, הפיד או הקטגוריה לייחוס נמחקו.',
 		'description' => 'Description',	// TODO
 		'filter' => array(
@@ -278,6 +281,7 @@ return array(
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'כאשר המאמר מתקבל',
 			'when' => 'סימון מאמרים כנקראו…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',	// TODO
 		),
@@ -322,7 +326,7 @@ return array(
 		'share_name' => 'שיתוף שם לתצוגה',
 		'share_url' => 'לשימוש שתפו URL',
 		'title' => 'שיתוף',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

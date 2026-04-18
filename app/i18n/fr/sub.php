@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Un entête HTTP par ligne, avec le nom et la valeur séparés par un deux-points (ex. : <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icône',
 		'information' => 'Informations',
+		'keep_adding_feed' => 'Puis ajouter d’autres flux',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'kind' => array(
 			'_' => 'Type de source de flux',
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (par défaut)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Dernière mise à jour erronée <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Dernière mise à jour réussie <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Vider le cache',
 			'clear_cache_help' => 'Supprime le cache de ce flux.',

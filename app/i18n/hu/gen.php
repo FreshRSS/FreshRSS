@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS névjegy',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d nap ezelőtt',
+			1 => '%d nap ezelőtt',
+		),
+		'hour' => array(
+			0 => '%d óra ezelőtt',
+			1 => '%d óra ezelőtt',
+		),
+		'justnow' => 'épp most',
+		'minute' => array(
+			0 => '%d perc ezelőtt',
+			1 => '%d perc ezelőtt',
+		),
+		'month' => array(
+			0 => '%d hónap ezelőtt',
+			1 => '%d hónap ezelőtt',
+		),
+		'second' => array(
+			0 => '%d másodperc ezelőtt',
+			1 => '%d másodperc ezelőtt',
+		),
+		'year' => array(
+			0 => '%d év ezelőtt',
+			1 => '%d év ezelőtt',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Üres kategória',
 		'confirm_action' => 'Biztos vagy benne hogy végrehajtod ezt a műveletet? A művelet nem megszakítható!',
@@ -228,6 +255,7 @@ return array(
 		'categories' => 'Kategóriák',
 		'content' => 'Tartalom',
 		'date_from' => 'Dátumtól',
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'A múltban',
 		'date_published' => 'Közzététel dátuma',
 		'date_range' => 'Dátumtartomány',
@@ -276,7 +304,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'System sharing',	// IGNORE

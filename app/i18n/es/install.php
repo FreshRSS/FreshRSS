@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Comprueba los permisos del directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos del directorio data son correctos.',
 		),
+		'database-connection' => array(
+			'nok' => 'Error de conexión a la base de datos.',
+			'ok' => 'La conexión a la base de datos es correcta.',
+		),
+		'database-table' => array(
+			'nok' => 'La tabla de la base de datos "%s" está incompleta.',
+			'ok' => 'La tabla de la base de datos "%s" es correcta.',
+		),
+		'database-tables' => array(
+			'nok' => 'Algunas tablas de la base de datos están ausentes.',
+			'ok' => 'Todas las tablas de la base de datos existen.',
+		),
+		'database-title' => 'Base de datos',
 		'dom' => array(
 			'nok' => 'No se ha podido localizar la librería necesaria para explorar la DOM.',
 			'ok' => 'Dispones de la librería necesaria para explorar la DOM.',

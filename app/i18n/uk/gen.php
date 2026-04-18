@@ -140,6 +140,39 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Про FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d день тому',
+			1 => '%d дні тому',
+			2 => '%d днів тому',
+		),
+		'hour' => array(
+			0 => '%d година тому',
+			1 => '%d години тому',
+			2 => '%d годин тому',
+		),
+		'justnow' => 'щойно',
+		'minute' => array(
+			0 => '%d хвилина тому',
+			1 => '%d хвилини тому',
+			2 => '%d хвилин тому',
+		),
+		'month' => array(
+			0 => '%d місяць тому',
+			1 => '%d місяці тому',
+			2 => '%d місяців тому',
+		),
+		'second' => array(
+			0 => '%d секунда тому',
+			1 => '%d секунди тому',
+			2 => '%d секунд тому',
+		),
+		'year' => array(
+			0 => '%d рік тому',
+			1 => '%d роки тому',
+			2 => '%d років тому',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Порожня категорія',
 		'confirm_action' => 'Точно виконати цю дію? Її неможливо скасувати!',
@@ -228,6 +261,7 @@ return array(
 		'categories' => 'Categories',	// TODO
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In the past',	// TODO
 		'date_published' => 'Publication Date',	// TODO
 		'date_range' => 'Date Range',	// TODO
@@ -276,7 +310,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Системне поширення',

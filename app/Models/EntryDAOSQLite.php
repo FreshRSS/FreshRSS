@@ -35,11 +35,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	}
 
 	#[\Override]
-	public static function sqlGreatest(string $a, string $b): string {
-		return 'MAX(' . $a . ', ' . $b . ')';
-	}
-
-	#[\Override]
 	public static function sqlRandom(): string {
 		return 'RANDOM()';
 	}
@@ -68,8 +63,9 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	/** @param array{0:string,1:int,2:string} $errorInfo */
 	#[\Override]
 	protected function autoUpdateDb(array $errorInfo): bool {
-		if (($tableInfo = $this->pdo->query("PRAGMA table_info('entry')")) !== false && ($columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1)) !== false) {
-			foreach (['attributes', 'lastUserModified'] as $column) {
+		$columns = $this->fetchColumn("PRAGMA table_info('entry')", 1);
+		if ($columns !== null) {
+			foreach (['attributes', 'lastUserModified', 'lastModified'] as $column) {
 				if (!in_array($column, $columns, true)) {
 					return $this->addColumn($column);
 				}
@@ -89,7 +85,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			INSERT OR IGNORE INTO `_entry`
 				(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
 				SELECT rowid + (SELECT MAX(id) - COUNT(*) FROM `tmp`) AS id,
-				guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
+					guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
 				FROM `tmp` t
 				ORDER BY t.date, t.id;
 			DELETE FROM `_entrytmp` WHERE id <= (SELECT MAX(id) FROM `tmp`);
@@ -129,10 +125,17 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		} else {
 			FreshRSS_UserDAO::touch();
 			$this->pdo->beginTransaction();
-			$sql = 'UPDATE `_entry` SET is_read=?, `lastUserModified` = ? WHERE id=? AND is_read=?';
-			$values = [$is_read ? 1 : 0, time(), $ids, $is_read ? 0 : 1];
+			$sql = <<<'SQL'
+				UPDATE `_entry` SET is_read=:is_read, `lastUserModified` = :last_user_modified
+				WHERE id=:id AND is_read=:previous_is_read
+				SQL;
 			$stm = $this->pdo->prepare($sql);
-			if ($stm === false || !$stm->execute($values)) {
+			if ($stm === false ||
+				!$stm->bindValue(':is_read', $is_read ? 1 : 0, PDO::PARAM_INT) ||
+				!$stm->bindValue(':last_user_modified', time(), PDO::PARAM_INT) ||
+				!$stm->bindValue(':id', $ids, PDO::PARAM_STR) ||	// TODO: Test PDO::PARAM_INT on 32-bit platform
+				!$stm->bindValue(':previous_is_read', $is_read ? 0 : 1, PDO::PARAM_INT) ||
+				!$stm->execute()) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				/** @var array{0:string,1:int,2:string} $info */
 				if ($this->autoUpdateDb($info)) {
@@ -145,11 +148,15 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			}
 			$affected = $stm->rowCount();
 			if ($affected > 0) {
-				$sql = 'UPDATE `_feed` SET `cache_nbUnreads`=`cache_nbUnreads`' . ($is_read ? '-' : '+') . '1 '
-				 . 'WHERE id=(SELECT e.id_feed FROM `_entry` e WHERE e.id=?)';
-				$values = [$ids];
+				$delta = $is_read ? '-1' : '+1';
+				$sql = <<<SQL
+					UPDATE `_feed` SET `cache_nbUnreads`=`cache_nbUnreads` {$delta}
+					WHERE id=(SELECT e.id_feed FROM `_entry` e WHERE e.id=:id)
+					SQL;
 				$stm = $this->pdo->prepare($sql);
-				if ($stm === false || !$stm->execute($values)) {
+				if ($stm === false ||
+					!$stm->bindValue(':id', $ids, PDO::PARAM_STR) ||
+					!$stm->execute()) {
 					$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 					Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
 					$this->pdo->rollBack();
@@ -175,10 +182,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
-		$sql = 'UPDATE `_entry` SET is_read = ?, `lastUserModified` = ? WHERE is_read <> ? AND id <= ? AND '
-			 . 'id IN (SELECT et.id_entry FROM `_entrytag` et '
-			 . ($id == 0 ? '' : 'WHERE et.id_tag = ?')
-			 . ')';
+		$tagCondition = $id == 0 ? '' : 'WHERE et.id_tag = ?';
+		$sql = <<<SQL
+			UPDATE `_entry` SET is_read = ?, `lastUserModified` = ? WHERE is_read <> ? AND id <= ?
+			AND id IN (SELECT et.id_entry FROM `_entrytag` et {$tagCondition})
+			SQL;
 		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax];
 		if ($id != 0) {
 			$values[] = $id;

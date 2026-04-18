@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'icon' => 'Icon',	// TODO
 		'information' => 'Informace',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Minimální počet článků pro ponechání',
 		'kind' => array(
 			'_' => 'Typ zdroje feedu',
@@ -185,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (výchozí)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Vymazat mezipaměť',
 			'clear_cache_help' => 'Vymazat mezipaměť pro tento kanál.',

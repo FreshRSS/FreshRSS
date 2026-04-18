@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Таймаут уведомлений HTML5',
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Тема',
 			'deprecated' => array(
@@ -121,6 +122,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Конфиденциальность',
 		'retrieve_extension_list' => 'Получить список расширений',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Настройки профиля',
@@ -148,6 +150,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Пользовательские запросы',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Этот запрос больше не действителен. Связанная категория или лента была удалена.',
 		'description' => 'Описание',
 		'filter' => array(
@@ -278,6 +281,7 @@ return array(
 			'upon_gone' => 'когда это больше не в новостной ленте',
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'если идентичный заголовок уже существует среди <i>n</i> новейших статей категории',
 			'when_same_title_in_feed' => 'если идентичный заголовок уже существует среди <i>n</i> новейших статей ленты',
 		),
@@ -322,7 +326,7 @@ return array(
 		'share_name' => 'Отображаемое имя',
 		'share_url' => 'Используемый URL',
 		'title' => 'Обмен',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

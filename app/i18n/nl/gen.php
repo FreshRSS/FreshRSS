@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Over FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d dag geleden',
+			1 => '%d dagen geleden',
+		),
+		'hour' => array(
+			0 => '%d uur geleden',
+			1 => '%d uur geleden',
+		),
+		'justnow' => 'zojuist',
+		'minute' => array(
+			0 => '%d minuut geleden',
+			1 => '%d minuten geleden',
+		),
+		'month' => array(
+			0 => '%d maand geleden',
+			1 => '%d maanden geleden',
+		),
+		'second' => array(
+			0 => '%d seconde geleden',
+			1 => '%d seconden geleden',
+		),
+		'year' => array(
+			0 => '%d jaar geleden',
+			1 => '%d jaar geleden',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Lege categorie',
 		'confirm_action' => 'Weet u zeker dat u dit wilt doen? Het kan niet ongedaan worden gemaakt!',
@@ -228,6 +255,7 @@ return array(
 		'categories' => 'Categorieën',
 		'content' => 'Inhoud',
 		'date_from' => 'Van',
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In het verleden',
 		'date_published' => 'Publicatiedatum',
 		'date_range' => 'Datumbereik',
@@ -276,7 +304,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Delen van systeem',
