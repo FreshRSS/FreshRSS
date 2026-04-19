@@ -14,17 +14,17 @@ return array(
 	'information' => array(
 		'address' => 'API-Adresse:',
 		'output' => array(
-			'encoding-support' => '⚠️ WARNUNG: Kein <code>%2F</code> Support, Einige Clients/Apps funktionieren ggf. nicht!',
+			'encoding-support' => '⚠️ WARNUNG: Keine <code>%2F</code>-Unterstützung, einige Clients/Apps funktionieren ggf. nicht!',
 			'invalid-configuration' => '⚠️ WARNUNG: Die Base URL in ./data/config.php könnte ungültig sein',
 			'pass' => '✔️ OK',
 			'unknown-error' => '❌ ',	// IGNORE
 		),
 		'test' => array(
-			'fever' => 'Prüfung der Fever API Einstellungen:',
-			'greader' => 'Prüfung der Google Reader API Einstellungen:',
+			'fever' => 'Prüfung der Fever-API-Einstellungen:',
+			'greader' => 'Prüfung der Google-Reader-API-Einstellungen:',
 		),
 		'title' => array(
-			'_' => 'FreshRSS API-Endpoints',
+			'_' => 'FreshRSS-API-Endpunkte',
 			'extension' => 'API für Erweiterungen',
 			'fever' => 'Fever kompatible API',
 			'greader' => 'Google Reader kompatible API',
