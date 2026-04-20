@@ -609,7 +609,7 @@ final class FreshRSS_http_Util {
 			Minz_Log::warning("Error saving cache $cachePath for $url");
 		}
 
-		return ['body' => $body, 'effective_url' => $c_effective_url, 'redirect_count' => $redirs,
+		return ['body' => is_string($body) ? $body : '', 'effective_url' => $c_effective_url, 'redirect_count' => $redirs,
 			'fail' => $fail, 'status' => $c_status, 'error' => $c_error];
 	}
 
