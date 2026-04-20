@@ -376,7 +376,7 @@ final class FreshRSS_http_Util {
 		}
 
 		if (count($ips_ok) > 0) {
-			if (count($records) > 0) {
+			if (count($records) > 0 || isset(self::$resolve_ok[$host])) {
 				$resolve_str .= implode(',', $ips_ok);
 				return [$resolve_str];
 			}
