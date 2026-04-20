@@ -123,11 +123,11 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 * the `registerViews` method registers the extension views in FreshRSS.
 * the `registerTranslates` method registers the extension translation files in FreshRSS.
 * the `registerHook` method registers hook actions in different part of the application.
-* the `getSystemConfiguration` method retrieves the extension configuration for the system.
-* the `setSystemConfiguration` method stores the extension configuration for the system.
+* the `getSystemConfiguration*()` family of methods retrieve typed extension configuration values for the system.
+* the `setSystemConfigurationValue()` method stores an extension configuration value for the system.
 * the `removeSystemConfiguration` method removes the extension configuration for the system.
-* the `getUserConfiguration` method retrieves the extension configuration for the current user.
-* the `setUserConfiguration` method stores the extension configuration for the current user.
+* the `getUserConfiguration*()` family of methods retrieve typed extension configuration values for the current user.
+* the `setUserConfigurationValue()` method stores an extension configuration value for the current user.
 * the `removeUserConfiguration` method removes the extension configuration for the current user.
 
 > Note that if you modify the later set of methods, you might break the extension system. Thus making FreshRSS unusable. So it’s highly recommended to let those unmodified.
@@ -151,7 +151,7 @@ final class HelloWorldExtension extends Minz_Extension
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
-		$message = $this->getUserConfigurationValue('message');
+		$message = $this->getUserConfigurationString('message');
 		$entry->_content("<h1>{$message}</h1>" . $entry->content());
 		return $entry;
 	}

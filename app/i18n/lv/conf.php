@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => 'Automātiskais tumšais režīms',
 			'auto' => 'Auto',	// IGNORE
-			'help' => 'For compatible themes only',	// TODO
+			'help' => 'Tikai saderīgām tēmām',
 			'no' => 'Nē',
 		),
 		'icon' => array(
@@ -152,7 +152,7 @@ return array(
 		'_' => 'Lietotāja pieprasījumi',
 		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Šis pieprasījums vairs nav derīgs. Norādītā kategorija vai barotne ir dzēsta.',
-		'description' => 'Description',	// TODO
+		'description' => 'Apraksts',
 		'filter' => array(
 			'_' => 'Piemērotais filtrs:',
 			'categories' => 'Rādīt pēc kategorijas',
@@ -160,8 +160,8 @@ return array(
 			'order' => 'Kārtot pēc datuma',
 			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Izteiksme',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Iespējot dalīšanos, izmantojot OPML atbilstošajām kategorijām un barotnēm',
+			'shareRss' => 'Iespējojiet koplietošanu ar HTML &amp; RSS',
 			'state' => 'Stāvoklis',
 			'tags' => 'Rādīt pēc birkas',
 			'type' => 'Veids',
@@ -169,14 +169,14 @@ return array(
 		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
 		'get_Z' => 'Show all feeds, also archived ones',	// TODO
 		'get_all' => 'Rādīt visus rakstus',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Rādīt rakstus ar jebkuru birku',
 		'get_category' => 'Rādīt kategoriju “%s”',
 		'get_favorite' => 'Rādīt mīļākos rakstus',
 		'get_feed' => 'Rādīt barotni “%s”',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
-		'image_url' => 'Image URL',	// TODO
+		'get_important' => 'Rādīt rakstus no svarīgām barotnēm',
+		'get_label' => 'Rādīt rakstus ar “%s” birku',
+		'help' => 'Skatiet <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">lietotāju pieprasījumu un koplietošanas dokumentāciju, izmantojot HTML / RSS / OPML</a>.',
+		'image_url' => 'Attēla URL',
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',
 		'no_queries' => array(
@@ -188,16 +188,16 @@ return array(
 		'order_desc' => 'Vispirms rādīt jaunākos rakstus',
 		'search' => 'Meklēt “%s”',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
+			'_' => 'Kopīgot šo pieprasījumu ar saiti',
 			'disabled' => array(
 				'_' => 'disabled',	// TODO
 				'title' => 'Sharing',	// TODO
 			),
 			'greader' => 'Shareable link to the GReader JSON',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'help' => 'Dodiet šo saiti, ja vēlaties kopīgot šo vaicājumu ar jebkuru',
+			'html' => 'Kopīgojama saite uz HTML lapu',
+			'opml' => 'Kopīgojama saite uz OPML barotņu sarakstu',
+			'rss' => 'Kopīgojama saite uz RSS barotni',
 		),
 		'state_0' => 'Rādīt visus rakstus',
 		'state_1' => 'Rādīt lasītos rakstus',
@@ -275,9 +275,9 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'kad raksts tiek atvērts tā sākotnējā mājaslapā',
 			'article_viewed' => 'kad raksts tiek skatīts',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'kad fokusēts (izņemot svarīgas barotnes)',
 			'keep_max_n_unread' => 'Maksimālais nelasīto rakstu skaits',
-			'scroll' => 'ritināšanas laikā (except for important feeds)',	// DIRTY
+			'scroll' => 'ritināšanas laikā (izņemot svarīgas barotnes)',
 			'upon_gone' => 'kad tas vairs nav augšupējā ziņu barotnē',
 			'upon_reception' => 'pēc raksta saņemšanas',
 			'when' => 'Atzīmēt rakstu kā izlasītu…',

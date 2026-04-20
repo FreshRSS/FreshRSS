@@ -59,6 +59,7 @@ Some parameters can be manually added to the URL:
 * `nb`: Number of articles to return. Limited by `max_posts_per_rss` in the user configuration. Can be used in combination with `offset` for pagination.
 * `offset`: Skip a number of articles. Used in particular by the HTML view for pagination.
 * `order`: Show the newest articles at the top with `DESC`, or the oldest articles at the top with `ASC`. By default, will use the sort order defined by the user query.
+* `search`: Filter the user query results based on search filter. See [Filtering articles](./10_filter.md) for more details.
 
 ## Sharing with a master token (deprecated)
 

@@ -394,7 +394,11 @@ final class FreshRSS_http_Util {
 	 * @param string $type {html,ico,json,opml,xml}
 	 * @param array<string,mixed> $attributes May contain user-defined cURL options in `$attributes['curl_params']`
 	 * @param array<int,mixed> $curl_options Internal overrides of cURL options
-	 * @return array{body:string,effective_url:string,redirect_count:int,fail:bool}
+	 * @return array{body:string,effective_url:string,redirect_count:int,fail:bool,status:int,error:string}
+	 *   `status` is the HTTP response code (e.g. 200, 404), or a custom negative value:
+	 *   * `-200` served from local cache;
+	 *   * `-429` blocked by active `Retry-After` period;
+	 *   * `-500` `curl_init()` failure.
 	 */
 	public static function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = [], array $curl_options = []): array {
 		$limits = FreshRSS_Context::systemConf()->limits;
@@ -405,7 +409,7 @@ final class FreshRSS_http_Util {
 			$body = @file_get_contents($cachePath);
 			if ($body != false) {
 				syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
-				return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false];
+				return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false, 'status' => -200, 'error' => ''];
 			}
 		}
 
@@ -433,7 +437,7 @@ final class FreshRSS_http_Util {
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
-			return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
+			return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true, 'status' => -429, 'error' => ''];
 		}
 
 		if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
@@ -474,16 +478,16 @@ final class FreshRSS_http_Util {
 				if ($resolve === null) {
 					Minz_Log::warning('Fetching this URL is not allowed, because the host’s IP is not in the allowlist [' .
 						\SimplePie\Misc::url_remove_credentials($url) . ']');
-					return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 				} elseif ($resolve === false) {
-					return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 				}
 				$curl_options[CURLOPT_RESOLVE] = $resolve; // Prevent DNS rebinding
 			}
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 			$ch = curl_init();
 			if ($ch === false || $url === '') {
-				return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true];
+				return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 			}
 			curl_setopt_array($ch, [
 				CURLOPT_URL => $url,
@@ -605,7 +609,8 @@ final class FreshRSS_http_Util {
 			Minz_Log::warning("Error saving cache $cachePath for $url");
 		}
 
-		return ['body' => is_string($body) ? $body : '', 'effective_url' => $c_effective_url, 'redirect_count' => $redirs, 'fail' => $fail];
+		return ['body' => $body, 'effective_url' => $c_effective_url, 'redirect_count' => $redirs,
+			'fail' => $fail, 'status' => $c_status, 'error' => $c_error];
 	}
 
 	/**

@@ -86,6 +86,7 @@ return array(
 		'http_headers_help' => 'Otsikot erotellaan rivinvaihdoin, ja nimi ja arvo erotellaan kaksoispisteellä. Esimerkki: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Kuvake',
 		'information' => 'Tiedot',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Säilytettävien artikkeleiden vähimmäismäärä',
 		'kind' => array(
 			'_' => 'Syötteen lähteen laji',
