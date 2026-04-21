@@ -237,6 +237,7 @@ People are sorted by name so please keep this order.
 * [Pim Snel](https://github.com/mipmip): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3Amipmip), [Web](https://www.pimsnel.com)
 * [plopoyop](https://github.com/plopoyop): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:plopoyop)
 * [Pofilo](https://github.com/Pofilo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Pofilo), [Web](https://www.pofilo.fr/)
+* [polybjorn](https://github.com/polybjorn): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:polybjorn), [Web](https://polybjorn.com/)
 * [Poorchop](https://github.com/Poorchop): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Poorchop)
 * [Prashant Tholia](https://github.com/prashanttholia): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:prashanttholia)
 * [primaeval](https://github.com/primaeval): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:primaeval)

@@ -331,6 +331,14 @@ svg:hover {
 	border-bottom-left-radius: 0;
 }
 
+@media (max-width: 840px) {
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-left: 1px solid var(--border-elements);
+		border-top-left-radius: 6px;
+		border-bottom-left-radius: 6px;
+	}
+}
+
 
 .stick .btn:last-child {
 	margin-right: 0;
@@ -985,6 +993,10 @@ li.item.active {
 .nav_menu {
 	padding: 5px 0;
 	text-align: center;
+}
+
+.nav_menu #nav_menu_toggle_aside {
+	position: static;
 }
 
 .nav_menu .btn {
