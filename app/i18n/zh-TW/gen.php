@@ -12,48 +12,48 @@
 
 return array(
 	'action' => array(
-		'actualize' => '更新提要',
+		'actualize' => '更新訂閱源',
 		'add' => '新增',
-		'back_to_rss_feeds' => '← 返回訂閱源',
+		'back_to_rss_feeds' => '← 返回到您的 RSS 訂閱源',
 		'cancel' => '取消',
-		'close' => 'Close',	// TODO
-		'create' => '創建',
-		'delete_all_feeds' => 'Delete all feeds',	// TODO
-		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
-		'delete_muted_feeds' => '刪除已暫停的訂閱源',
-		'demote' => '撤銷管理員',
-		'disable' => '禁用',
-		'download' => 'Download',	// TODO
+		'close' => '關閉',
+		'create' => '建立',
+		'delete_all_feeds' => '刪除所有訂閱源',
+		'delete_errored_feeds' => '刪除有錯誤的訂閱源',
+		'delete_muted_feeds' => '刪除已靜音的訂閱源',
+		'demote' => '降級為使用者',
+		'disable' => '停用',
+		'download' => '下載',
 		'empty' => '清空',
 		'enable' => '啟用',
-		'export' => '導出',
+		'export' => '匯出',
 		'filter' => '過濾',
-		'import' => '導入',
-		'load_default_shortcuts' => '重置快捷鍵',
+		'import' => '匯入',
+		'load_default_shortcuts' => '載入預設快速鍵',
 		'manage' => '管理',
-		'mark_read' => '標記已讀',
+		'mark_read' => '標記為已讀',
 		'menu' => array(
 			'open' => '開啟選單',
 		),
 		'nav_buttons' => array(
-			'next' => '下一篇文章',
-			'prev' => '預覽文章',
-			'up' => '回上一篇',
+			'next' => '下篇文章',
+			'prev' => '上篇文章',
+			'up' => '回到上方',
 		),
-		'open_url' => '打開連結',
-		'promote' => '設為管理員',
+		'open_url' => '開啟 URL',
+		'promote' => '升級為管理員',
 		'purge' => '清理',
-		'refresh_opml' => '更新訂閱源動態列表',
-		'remove' => '刪除',
-		'rename' => '重命名',
-		'see_website' => '網站中查看',
+		'refresh_opml' => '刷新 OPML',
+		'remove' => '移除',
+		'rename' => '重新命名',
+		'see_website' => '查看網站',
 		'submit' => '提交',
 		'truncate' => '刪除所有文章',
-		'update' => '更新訂閱',
+		'update' => '更新',
 	),
 	'auth' => array(
 		'accept_tos' => '我接受 <a href="%s">服務條款</a>',
-		'email' => 'Email 地址',
+		'email' => '電子郵件位址',
 		'keep_logged_in' => '<small>%s</small> 天內保持登入',
 		'login' => '登入',
 		'logout' => '登出',
@@ -62,17 +62,17 @@ return array(
 			'format' => '<small>至少 7 個字元</small>',
 		),
 		'reauth' => array(
-			'header' => 'Reauthentication is required',	// TODO
-			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
-			'title' => 'Reauthentication',	// TODO
+			'header' => '需要重新驗證',
+			'tip' => '您在 <u>%d 分鐘</u> 內不會再被要求重新登入',
+			'title' => '重新驗證',
 		),
 		'registration' => array(
-			'_' => '新使用者',
-			'ask' => '創建新使用者？',
-			'title' => '使用者創建',
+			'_' => '新帳號',
+			'ask' => '建立帳號？',
+			'title' => '帳號建立',
 		),
 		'username' => array(
-			'_' => '帳號',
+			'_' => '使用者名稱',
 			'format' => '<small>最多 16 個數字或字母</small>',
 		),
 	),
@@ -142,40 +142,40 @@ return array(
 	),
 	'interval' => array(
 		'day' => array(
-			0 => '%d天前',
+			0 => '%d 天前',
 		),
 		'hour' => array(
-			0 => '%d小時前',
+			0 => '%d 小時前',
 		),
 		'justnow' => '剛剛',
 		'minute' => array(
-			0 => '%d分鐘前',
+			0 => '%d 分鐘前',
 		),
 		'month' => array(
-			0 => '%d個月前',
+			0 => '%d 個月前',
 		),
 		'second' => array(
-			0 => '%d秒前',
+			0 => '%d 秒前',
 		),
 		'year' => array(
-			0 => '%d年前',
+			0 => '%d 年前',
 		),
 	),
 	'js' => array(
 		'category_empty' => '清空分類',
-		'confirm_action' => '你確定要執行此操作嗎？這將不可撤銷！',
-		'confirm_action_feed_cat' => '你確定要執行此操作嗎？你將丟失相關的收藏和自定義查詢。這將不可撤銷！',
-		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
+		'confirm_action' => '您確定要執行此動作嗎？這無法被取消！',
+		'confirm_action_feed_cat' => '您確定要執行此操作嗎？您將丟失相關的收藏和使用者查詢。這無法被取消！',
+		'confirm_exit_slider' => '您確定要丟棄所有未儲存的設定嗎？',
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待閱讀。',
+			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章待閱讀。',
 			'body_unread_articles' => '(未讀: %%d)',
-			'request_failed' => '請求失敗，這可能是因為網絡連接問題。',
+			'request_failed' => '請求失敗，有可能是網路連線問題造成的。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
 		'labels_empty' => '沒有標籤',
-		'new_article' => '發現新文章，點擊刷新頁面。',
+		'new_article' => '有新文章可用，點擊以刷新頁面。',
 		'should_be_activated' => '必須啟用 JavaScript',
-		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
+		'unsafe_csp_header' => '目前使用的 CSP 標頭不安全，FreshRSS 可能會受到 XSS 攻擊。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">查看文件</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -210,26 +210,26 @@ return array(
 		'about' => '關於',
 		'account' => '帳號',
 		'admin' => '管理',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => '進階搜尋',
 		'archiving' => '歸檔',
-		'authentication' => '認證',
-		'check_install' => '環境檢查',
+		'authentication' => '驗證',
+		'check_install' => '安裝檢查',
 		'configuration' => '配置',
 		'display' => '顯示',
 		'extensions' => '擴充功能',
-		'logs' => '日誌',
-		'privacy' => 'Privacy',	// TODO
-		'queries' => '自定義查詢',
+		'logs' => '紀錄',
+		'privacy' => '隱私',
+		'queries' => '使用者查詢',
 		'reading' => '閱讀',
-		'search' => '搜尋內容或#標簽',
-		'search_help' => '請見文檔內的進階的<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">搜尋參數</a>',
+		'search' => '搜尋內容或#標籤',
+		'search_help' => '請參見文件內的進階<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">搜尋參數</a>',
 		'sharing' => '分享',
-		'shortcuts' => '快捷鍵',
+		'shortcuts' => '快速鍵',
 		'stats' => '統計',
 		'system' => '系統配置',
 		'update' => '更新',
-		'user_management' => '使用者管理',
-		'user_profile' => '使用者資訊',
+		'user_management' => '管理使用者',
+		'user_profile' => '使用者簡介',
 	),
 	'period' => array(
 		'days' => '天',
@@ -244,45 +244,45 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_modified' => 'Server Modification Date',	// TODO
+		'advanced_search_help' => '此表單旨在輔助建立搜尋查詢，但手動查詢效果更好。',
+		'authors' => '作者',
+		'categories' => '類別',
+		'content' => '內容',
+		'date_from' => '從',
+		'date_modified' => '伺服器修改日期',
 		'date_past' => 'In the past',	// TODO
 		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
+		'date_range' => '日期範圍',
 		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
+		'date_to' => '到',
+		'date_user' => '使用者修改日期',
+		'feeds' => '訂閱源',
 		'free_text' => 'Free Text',	// TODO
 		'free_text_help' => 'Search both in title and content',	// TODO
 		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
 		'labels' => 'My Labels',	// TODO
 		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
+		'sources' => '來源',
+		'tags' => '文章標籤',
+		'text' => '文字搜尋',
 		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'text_placeholder' => '關鍵字',
+		'title' => '標題',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => '使用者查詢',
 	),
 	'share' => array(
-		'Known' => '基於 Known 的站點',
+		'Known' => '基於已知的站點',
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
 		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
-		'clipboard' => '剪貼板',
+		'clipboard' => '剪貼簿',
 		'diaspora' => 'Diaspora*',	// IGNORE
-		'email' => '郵箱',	// IGNORE
-		'email-webmail-firefox-fix' => 'Email (webmail - Firefox專用修正)',
-		'facebook' => '臉書',	// IGNORE
+		'email' => 'Email',	// IGNORE
+		'email-webmail-firefox-fix' => '電子郵件 (webmail - Firefox 專用修正)',
+		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
@@ -293,34 +293,34 @@ return array(
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'print' => '打印',
+		'print' => '列印',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => '推特',	// IGNORE
+		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'Wallabag v1',	// IGNORE
 		'wallabagv2' => 'Wallabag v2',	// IGNORE
-		'web-sharing-api' => 'Web分享',
+		'web-sharing-api' => '系統分享',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
-		'attention' => '警告!',
-		'blank_to_disable' => '留空以禁用',
-		'by_author' => '作者',
+		'attention' => '警告！',
+		'blank_to_disable' => '留空以停用',
+		'by_author' => '作者:',
 		'by_default' => '預設',
 		'damn' => '錯誤！',
 		'default_category' => '未分類',
 		'no' => '否',
 		'not_applicable' => '不可用',
-		'ok' => '正常！',
+		'ok' => '沒問題！',
 		'or' => '或',
 		'yes' => '是',
 	),
 	'stream' => array(
 		'load_more' => '載入更多文章',
-		'mark_all_read' => '全部設為已讀',
-		'nothing_to_load' => '沒有更多文章',
+		'mark_all_read' => '全部標記為已讀',
+		'nothing_to_load' => '沒有更多文章了',
 	),
 );

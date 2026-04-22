@@ -16,26 +16,26 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_curl' => 'cURL version',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => '系統資訊',
+				'browser' => '瀏覽器',
+				'database' => '資料庫',
+				'server_software' => '伺服器軟體',
+				'version_curl' => 'cURL 版本',
+				'version_frss' => 'FreshRSS 版本',
+				'version_php' => 'PHP 版本',
 			),
 		),
-		'bugs_reports' => '報告錯誤',
-		'documentation' => 'Documentation',	// TODO
-		'freshrss_description' => 'FreshRSS 是一個自托管的 RSS 聚合服務。 它不僅輕快又易用，而且強大又易於配置。',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">GitHub Issues</a>',
+		'bugs_reports' => '漏洞報告',
+		'documentation' => '說明文件',
+		'freshrss_description' => 'FreshRSS 是個可自託管的 RSS 聚合器和閱讀器。它允許您一次閱讀和追蹤多個新聞網站而無需在不同網站之間切換。FreshRSS 輕量、可配置且易於使用。',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">在 GitHub 上</a>',
 		'license' => '授權',
-		'project_website' => '項目網站',
+		'project_website' => '專案網站',
 		'title' => '關於',
 		'version' => '版本',
 	),
 	'feed' => array(
-		'empty' => '暫時沒有文章可顯示。',
+		'empty' => '無文章可顯示。',
 		'published' => array(
 			'_' => 'Published',	// TODO
 			'future' => 'Published in the future',	// TODO
@@ -47,10 +47,10 @@ return array(
 			'today' => 'Received today',	// TODO
 			'yesterday' => 'Received yesterday',	// TODO
 		),
-		'rss_of' => '%s 的訂閱源',
-		'title' => '首頁',
+		'rss_of' => '%s 的 RSS 訂閱源',
+		'title' => '主資訊流',
 		'title_fav' => '收藏',
-		'title_global' => '全局視圖',
+		'title_global' => '全域檢視',
 		'userModified' => array(
 			'_' => 'Modified by user',	// TODO
 			'today' => 'Modified by user today',	// TODO
@@ -58,62 +58,62 @@ return array(
 		),
 	),
 	'log' => array(
-		'_' => '日誌',
-		'clear' => '清除日誌',
-		'empty' => '日誌文件為空',
-		'title' => '日誌',
+		'_' => '紀錄',
+		'clear' => '清除紀錄',
+		'empty' => '紀錄檔案為空',
+		'title' => '紀錄',
 	),
 	'menu' => array(
 		'about' => '關於 FreshRSS',
 		'before_one_day' => '一天前',
 		'before_one_week' => '一週前',
 		'bookmark_query' => '收藏當前查詢',
-		'favorites' => '收藏（%s）',
-		'global_view' => '全局視圖',
-		'important' => '重要的源',
-		'main_stream' => '首頁',
-		'mark_all_read' => '全部設為已讀',
-		'mark_cat_read' => '此分類設為已讀',
-		'mark_feed_read' => '此訂閱源設為已讀',
-		'mark_selection_unread' => '選中設為已讀',
+		'favorites' => '收藏 (%s)',
+		'global_view' => '全域檢視',
+		'important' => '重要訂閱源',
+		'main_stream' => '主資訊流',
+		'mark_all_read' => '標記全部為已讀',
+		'mark_cat_read' => '標記類別為已讀',
+		'mark_feed_read' => '標記訂閱源為已讀',
+		'mark_selection_unread' => '標記選取條目為已讀',
 		'mylabels' => '我的標籤',
 		'non-starred' => '顯示未收藏',
-		'normal_view' => '普通視圖',
-		'queries' => '自定義查詢',
+		'normal_view' => '普通檢視',
+		'queries' => '使用者查詢',
 		'read' => '顯示已讀',
-		'reader_view' => '閱讀視圖',
-		'rss_view' => '訂閱源',
+		'reader_view' => '閱讀檢視',
+		'rss_view' => 'RSS 訂閱源',
 		'search_short' => '搜尋',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => '升序',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => '類別、訂閱源標題 A→Z',
+				'name_desc' => '類別、訂閱源標題 Z→A',
 			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
-			'desc' => 'Descending',	// TODO
+			'desc' => '降序',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => '訂閱源標題 A→Z',
+				'name_desc' => '訂閱源標題 Z→A',
 			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
+			'length_asc' => '內容長度 1→9',
+			'length_desc' => '內容長度 9→1',
+			'link_asc' => '連結 A→Z',
+			'link_desc' => '連結 Z→A',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
+				'_' => '排序標準',
 				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
 			),
-			'rand' => 'Random order',	// TODO
+			'rand' => '隨機順序',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
+				'_' => '次要排序標準',
 				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
 			),
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
+			'title_asc' => '標題 A→Z',
+			'title_desc' => '標題 Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO
 			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),

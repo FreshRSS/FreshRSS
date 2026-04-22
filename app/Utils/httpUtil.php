@@ -391,6 +391,7 @@ final class FreshRSS_http_Util {
 
 	/**
 	 * @param non-empty-string $url
+	 * @param string|null $cachePath path to cache file, or `null` to disable caching
 	 * @param string $type {html,ico,json,opml,xml}
 	 * @param array<string,mixed> $attributes May contain user-defined cURL options in `$attributes['curl_params']`
 	 * @param array<int,mixed> $curl_options Internal overrides of cURL options
@@ -400,16 +401,18 @@ final class FreshRSS_http_Util {
 	 *   * `-429` blocked by active `Retry-After` period;
 	 *   * `-500` `curl_init()` failure.
 	 */
-	public static function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = [], array $curl_options = []): array {
+	public static function httpGet(string $url, ?string $cachePath = null, string $type = 'html', array $attributes = [], array $curl_options = []): array {
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
-		$cacheMtime = @filemtime($cachePath);
-		if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
-			$body = @file_get_contents($cachePath);
-			if ($body != false) {
-				syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
-				return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false, 'status' => -200, 'error' => ''];
+		if ($cachePath !== null) {
+			$cacheMtime = @filemtime($cachePath);
+			if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
+				$body = @file_get_contents($cachePath);
+				if ($body != false) {
+					syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
+					return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false, 'status' => -200, 'error' => ''];
+				}
 			}
 		}
 
@@ -605,7 +608,7 @@ final class FreshRSS_http_Util {
 			break;
 		}
 
-		if (file_put_contents($cachePath, $body) === false) {
+		if ($cachePath !== null && file_put_contents($cachePath, $body) === false) {
 			Minz_Log::warning("Error saving cache $cachePath for $url");
 		}
 
