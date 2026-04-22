@@ -70,7 +70,7 @@ function searchFavicon(string $url): string {
 		if ($iri == false) {
 			continue;
 		}
-		$iri = FreshRSS_http_Util::checkUrl($iri, false);
+		$iri = FreshRSS_http_Util::checkUrl($iri, fixScheme: false);
 		if (!is_string($iri) || $iri === '') {
 			continue;
 		}
