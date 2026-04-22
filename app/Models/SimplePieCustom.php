@@ -44,6 +44,20 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 				unset($curl_options[CURLOPT_PROXY]);
 			}
 		}
+		if (defined('CURLOPT_PROTOCOLS_STR')) {
+			$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+			if (defined('CURLOPT_REDIR_PROTOCOLS_STR')) {
+				$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+			}
+		} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
+			// Legacy PHP 8.2-
+			if (defined('CURLOPT_PROTOCOLS')) {
+				$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+			}
+			if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+				$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+			}
+		}
 		$this->set_curl_options($curl_options);
 
 		$this->strip_comments(true);
