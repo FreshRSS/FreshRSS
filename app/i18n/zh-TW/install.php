@@ -130,8 +130,8 @@ return array(
 			'ok' => '您擁有解析 XML 所需的函式庫。',
 		),
 		'zip' => array(
-			'nok' => '無法找到推薦的 ZIP 擴充功能 (php-zip package)。',
-			'ok' => '您擁有推薦的 ZIP 擴充功能 (php-zip package)。',
+			'nok' => '無法找到推薦的 ZIP 擴充功能 (php-zip 套件)。',
+			'ok' => '您擁有推薦的 ZIP 擴充功能 (php-zip 套件)。',
 		),
 	),
 	'conf' => array(
