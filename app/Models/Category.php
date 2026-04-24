@@ -291,7 +291,8 @@ class FreshRSS_Category extends Minz_Model {
 		} else {
 			$feeds = [];
 			foreach ($order as $value) {
-				$feed = reset(array_filter($this->feeds, static fn(FreshRSS_Feed $feed) => $feed->id() == $value));
+				$filtered = array_filter($this->feeds, static fn(FreshRSS_Feed $feed) => $feed->id() == $value);
+				$feed = reset($filtered);
 				if (false === $feed) continue;
 				$feeds[$feed->id()] = $feed;
 			}
