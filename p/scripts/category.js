@@ -210,6 +210,7 @@ function end_category_sorting(event) {
 		element.ondragend = undefined;
 		element.ondragover = undefined;
 		element.ondrop = undefined;
+		show_feed_manage_icon(element);
 	};
 
 	for (const element of feedsElement.children) {
@@ -236,6 +237,7 @@ function setup_category_sorting(feedsElement) {
 		if (!feed.hasAttribute('data-feed-id')) {
 			continue;
 		}
+		show_feed_manage_icon(feed, false);
 		feed.ondragstart = () => {
 			feedBeingSorted = feed;
 		};
@@ -307,6 +309,21 @@ function setup_category_sorting(feedsElement) {
 			topDiv.classList.remove('drag-highlight');
 			botDiv.classList.add('drag-highlight');
 		};
+	}
+}
+
+function show_feed_manage_icon(feed, show = true) {
+	const gearIcon = feed.querySelector('a.configure');
+	const slideIcon = feed.querySelector('a.drag-icon');
+	if (!gearIcon || !slideIcon) return;
+
+	if (show) {
+		gearIcon.classList.remove('hidden');
+		slideIcon.classList.add('hidden');
+	}
+	else {
+		gearIcon.classList.add('hidden');
+		slideIcon.classList.remove('hidden');
 	}
 }
 
