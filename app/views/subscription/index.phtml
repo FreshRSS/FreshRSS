@@ -32,8 +32,10 @@
 			<div class="box-title">
 				<a class="configure open-slider" href="<?= _url('category', 'update', 'id', $cat->id()) ?>" title="<?= _t('gen.action.manage') ?>" data-cat-position="<?= $cat->attributeString('position') ?>"><?= _i('configure') ?></a>
 				<h2><?= $cat->name() ?><?= $cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? ' ' . _i('opml-dyn') : '' ?></h2>
-				<a class="btn btn-sort-cat force-right" href="#" title="<?= _t('gen.action.manage') ?>"><?= _i('arrow-up-down') ?></a>
-				<!-- <a class="btn btn-save-sort force-right hidden" href="#" title="<?= _t('gen.action.manage') ?>"><?= _i('floppy') ?></a> -->
+				<div class="force-right">
+					<a class="btn btn-sort-cat" href="#" title="<?= _t('gen.action.manage') ?>"><?= _i('arrow-up-down') ?></a>
+					<a class="btn-save-sort hidden" href="#" title="<?= _t('gen.action.manage') ?>"><?= _i('floppy') ?></a>
+				</div>
 			</div>
 			<ul class="box-content drop-zone scrollbar-thin" dropzone="move" data-cat-id="<?= $cat->id() ?>">
 				<?php

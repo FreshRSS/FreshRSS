@@ -1045,6 +1045,10 @@ input[type="checkbox"]:focus-visible {
 .box .box-title {
 	position: relative;
 	padding: 0.25rem 1rem;
+
+	div {
+		display: inline-block;
+	}
 }
 
 .box .box-title .icon {

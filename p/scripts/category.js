@@ -161,10 +161,14 @@ function init_draggable() {
 }
 
 function category_sorting_btn_setup() {
-	const btns = document.querySelectorAll('.btn-sort-cat');
+	const btnsStartSort = document.querySelectorAll('.btn-sort-cat');
+	const btnsSaveSort = document.querySelectorAll('.btn-save-sort');
 
-	for (const element of btns) {
+	for (const element of btnsStartSort) {
 		element.addEventListener('click', start_category_sorting);
+	}
+	for (const element of btnsSaveSort) {
+		element.addEventListener('click', end_category_sorting);
 	}
 }
 
@@ -174,12 +178,7 @@ function start_category_sorting(event) {
 	const catBox = event.target.closest('.box');
 	const feedsElement = catBox.querySelector('ul');
 
-	event.target.removeEventListener('click', start_category_sorting);
-	event.target.addEventListener('click', end_category_sorting);
-
-	// const floppyIcon = catBox.getElementsByClassName('btn-save-sort')[0];
-	// floppyIcon.classList.remove('hidden');
-	// event.target.classList.add('hidden');
+	show_feed_sort_save_icon(catBox);
 
 	setup_category_sorting(feedsElement);
 }
@@ -225,8 +224,7 @@ function end_category_sorting(event) {
 	setTimeout(() => {
 		isSorting = false;
 	}, 100);
-	event.target.removeEventListener('click', end_category_sorting);
-	event.target.addEventListener('click', start_category_sorting);
+	show_feed_sort_save_icon(catBox, false);
 }
 
 function setup_category_sorting(feedsElement) {
@@ -324,6 +322,25 @@ function show_feed_manage_icon(feed, show = true) {
 	else {
 		gearIcon.classList.add('hidden');
 		slideIcon.classList.remove('hidden');
+	}
+}
+
+function show_feed_sort_save_icon(catBox, show = true) {
+	const sortIcon = catBox.getElementsByClassName('btn-sort-cat')[0];
+	
+	const floppyIcon = catBox.getElementsByClassName('btn-save-sort')[0];
+
+	if (show) {
+		floppyIcon.classList.remove('hidden');
+		floppyIcon.classList.add('btn');
+		sortIcon.classList.remove('hidden');
+		sortIcon.classList.add('btn');
+	}
+	else {
+		floppyIcon.classList.add('hidden');
+		floppyIcon.classList.remove('btn');
+		sortIcon.classList.remove('hidden');
+		sortIcon.classList.add('btn');
 	}
 }
 
