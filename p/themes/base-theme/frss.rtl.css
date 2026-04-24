@@ -1189,7 +1189,7 @@ li.drag-hover {
 	height: 50%;
 	position: absolute;
 	top: 0;
-	right: 0;
+	left: 0;
 }
 
 .drag-bot {
@@ -1197,7 +1197,7 @@ li.drag-hover {
 	height: 50%;
 	position: absolute;
 	top: 50%;
-	right: 0;
+	left: 0;
 }
 
 .drag-highlight {
