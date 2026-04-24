@@ -1185,19 +1185,19 @@ li.drag-hover {
 }
 
 .drag-top {
-	height:50%; 
-	width:100%; 
-	position:absolute; 
-	top:0; 
-	right:0;
+	height: 50%; 
+	width: 100%; 
+	position: absolute; 
+	top: 0; 
+	right: 0;
 }
 
 .drag-bot {
-	height:50%; 
-	width:100%; 
-	position:absolute; 
-	top:50%; 
-	right:0;
+	height: 50%; 
+	width: 100%; 
+	position: absolute; 
+	top: 50%; 
+	right: 0;
 }
 
 .drag-highlight {
