@@ -1055,7 +1055,7 @@ input[type="checkbox"]:focus-visible {
 	margin-bottom: 0.25rem;
 }
 
-.box .box-title .force-right {
+.box .box-title .force-end {
 	position: absolute;
 	right: 0.5rem;
 }
