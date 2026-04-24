@@ -318,8 +318,7 @@ function show_feed_manage_icon(feed, show = true) {
 	if (show) {
 		gearIcon.classList.remove('hidden');
 		slideIcon.classList.add('hidden');
-	}
-	else {
+	} else {
 		gearIcon.classList.add('hidden');
 		slideIcon.classList.remove('hidden');
 	}
@@ -327,7 +326,6 @@ function show_feed_manage_icon(feed, show = true) {
 
 function show_feed_sort_save_icon(catBox, show = true) {
 	const sortIcon = catBox.getElementsByClassName('btn-sort-cat')[0];
-	
 	const floppyIcon = catBox.getElementsByClassName('btn-save-sort')[0];
 
 	if (show) {
@@ -335,8 +333,7 @@ function show_feed_sort_save_icon(catBox, show = true) {
 		floppyIcon.classList.add('btn');
 		sortIcon.classList.remove('hidden');
 		sortIcon.classList.add('btn');
-	}
-	else {
+	} else {
 		floppyIcon.classList.add('hidden');
 		floppyIcon.classList.remove('btn');
 		sortIcon.classList.remove('hidden');
