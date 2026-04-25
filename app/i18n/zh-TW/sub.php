@@ -12,84 +12,84 @@
 
 return array(
 	'api' => array(
-		'documentation' => '複製以下地址，以供外部工具使用',
+		'documentation' => '複製下方的 URL 以供外部工具使用',
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => '拖動此書簽到你的書簽欄或者右鍵選擇「收藏此連結」，然後在你想要訂閱的頁面上點擊「訂閱」按鈕',
+		'documentation' => '拖放此按鈕到您的書籤工具列或右鍵點擊它並選擇「收藏此連結」。然後在您想要訂閱的任何頁面上點擊「訂閱」按鈕。',
 		'label' => '訂閱',
-		'title' => '書簽應用',
+		'title' => '書籤小程式',
 	),
 	'category' => array(
 		'_' => '分類',
-		'add' => '添加分類',
+		'add' => '新增分類',
 		'archiving' => '歸檔',
 		'dynamic_opml' => array(
-			'_' => '動態訂閱',
-			'help' => '使用地址上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的訂閱源填充這一分類',
+			'_' => '動態 OPML',
+			'help' => '提供指向 <a href="http://opml.org/" target="_blank">OPML 檔案</a> 的 URL 以便動態地為此類別填充訂閱',
 		),
 		'empty' => '空分類',
 		'expand' => '展開分類',
 		'information' => '資訊',
-		'open' => '打開分類',
-		'opml_url' => 'OPML 地址',
+		'open' => '開啟分類',
+		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '顯示位置',
-		'position_help' => '控制分類排列順序',
+		'position_help' => '用於控制類別排序',
 		'title' => '標題',
 	),
 	'feed' => array(
 		'accept_cookies' => '接受 Cookies',
-		'accept_cookies_help' => '允許提要伺服器設置 Cookies（僅在請求期間存儲在內存中）',
-		'add' => '添加訂閱源',
-		'advanced' => '高級',
+		'accept_cookies_help' => '允許訂閱源伺服器設定 cookies (僅請求期間儲存在記憶體中)',
+		'add' => '新增訂閱源',
+		'advanced' => '進階',
 		'archiving' => '歸檔',
 		'auth' => array(
-			'configuration' => '認證',
-			'help' => '用於連接啟用 HTTP 認證的訂閱源',
-			'http' => 'HTTP 認證',
+			'configuration' => '登入',
+			'help' => '允許存取 HTTP 保護的 RSS 訂閱源',
+			'http' => 'HTTP 身份驗證',
 			'password' => 'HTTP 密碼',
-			'username' => 'HTTP 用戶名',
+			'username' => 'HTTP 使用者名稱',
 		),
-		'change_favicon' => 'Change…',	// TODO
-		'clear_cache' => '總是清除暫存',
+		'change_favicon' => '變更…',
+		'clear_cache' => '總是清除快取',
 		'content_action' => array(
-			'_' => '獲取原文後的操作',
-			'append' => '添加在現有內容後部',
-			'prepend' => '添加在現有內容前部',
-			'replace' => '替換現有內容',
+			'_' => '取得文章內容後的動作',
+			'append' => '新增在現有內容後面',
+			'prepend' => '新增在現有內容前面',
+			'replace' => '取代現有內容',
 		),
 		'content_retrieval' => 'Content retrieval',	// TODO
-		'css_cookie' => '獲取原文時的 Cookies',
-		'css_cookie_help' => '例：<kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
-		'css_help' => '用於獲取全文（注意，這將耗費更多時間！）',
-		'css_path' => '原文的 CSS 選擇器',
+		'css_cookie' => '在取得文章內容時使用 Cookies',
+		'css_cookie_help' => '範例: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
+		'css_help' => '取得截斷的 RSS 訂閱源 (請注意，會需要更多時間)',
+		'css_path' => '原始網站上的文章 CSS 選擇器',
 		'css_path_filter' => array(
-			'_' => '需移除元素的 CSS 選擇器',
-			'help' => '可設置多個 CSS 選擇器，例如：<kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
+			'_' => '用於移除元素的 CSS 選擇器',
+			'help' => 'CSS 選擇器可以是清單，例如: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
 		'description' => '描述',
-		'empty' => '此源為空。請確認它是否正常更新。',
-		'error' => '此源遇到一些問題。請在確認是否能正常訪問後重試。',	// DIRTY
+		'empty' => '此訂閱源是空的。請驗證其是否仍在維護。',
+		'error' => '此訂閱源遇到問題。如果情況持續存在，請確認其是否仍然可存取。',
 		'export-as-opml' => array(
 			'download' => '下載',
-			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
-			'label' => '匯出為OPML',
+			'help' => 'XML 檔案 (資料子集合 <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">請看說明文件</a>)',
+			'label' => '匯出為 OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
+		'ext_favicon' => '自動設定',
 		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => '過濾動作',
-			'help' => '每行寫一條過濾搜尋 Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => '每行一個搜尋過濾器。運算子 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">請看說明文件</a>。',
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
-		'http_headers' => 'HTTP Headers',	// TODO
+		'http_headers' => 'HTTP 標頭',
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
-		'icon' => 'Icon',	// TODO
-		'information' => '信息',
+		'icon' => '圖示',
+		'information' => '資訊',
 		'keep_adding_feed' => 'Then add more feeds',	// TODO
-		'keep_min' => '至少保存的文章數',
+		'keep_min' => '保留的最小文章數',
 		'kind' => array(
-			'_' => '訂閱源類型',
+			'_' => '訂閱源來源類型',
 			'html_json' => array(
 				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
 				'xpath' => array(
@@ -100,55 +100,55 @@ return array(
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web 抓取)',
 				'feed_title' => array(
-					'_' => '提要標題',
-					'help' => '如 <code>//title</code> 或是靜態字元串如 <code>"My custom feed"</code>',
+					'_' => '訂閱源標題',
+					'help' => '範例: <code>//title</code> 或靜態字串: <code>"My custom feed"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是為資深用戶準備的標準查詢語言，FreshRSS 用以實現 Web 抓取.',
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> 是個適用於進階使用者的標準查詢語言，FreshRSS 支援它以啟用 Web 抓取',
 				'item' => array(
-					'_' => '以尋找 <strong>文章</strong><br /><small>(很重要)</small>',
-					'help' => '例如 <code>//div[@class="news-item"]</code>',
+					'_' => '尋找新聞 <strong>項目</strong><br /><small>(最重要)</small>',
+					'help' => '範例: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => '文章作者',
-					'help' => '可以是靜態字元串，例如 <code>"Anonymous"</code>',
+					'_' => '項目作者',
+					'help' => '也可以是個靜態字串。範例: <code>"Anonymous"</code>',
 				),
-				'item_categories' => '文章標籤',
+				'item_categories' => '項目標籤',
 				'item_content' => array(
-					'_' => '文章內容',
+					'_' => '項目內容',
 					'help' => '例如使用 <code>.</code> 將整個對象作為文章內容',
 				),
 				'item_thumbnail' => array(
-					'_' => '文章縮圖',
-					'help' => '例如 <code>descendant::img/@src</code>',
+					'_' => '項目縮圖',
+					'help' => '範例: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
 					'_' => '自訂日期/時間格式',
-					'help' => '可選的。支援的格式<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 例如 <code>d-m-Y H:i:s</code>',
+					'help' => '可選。一個被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支援的格式，例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => '文章日期：',
+					'_' => '項目日期',
 					'help' => '結果將被 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
 				),
 				'item_title' => array(
-					'_' => '文章標題',
+					'_' => '項目標題',
 					'help' => '注意使用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 軸</a> <code>descendant::</code>，例如 <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
-					'_' => '文章唯一標識',
-					'help' => '可選，例如: <code>descendant::div/@data-uri</code>',
+					'_' => '項目唯一 ID',
+					'help' => '可選。例如: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
-					'_' => '文章鏈接 (URL)',
-					'help' => '例如 <code>descendant::a/@href</code>',
+					'_' => '項目連結 (URL)',
+					'help' => '範例: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath（文章）：',
-				'xpath' => 'XPath 定位：',
+				'relative' => 'XPath (相對於項目) 用於:',
+				'xpath' => 'XPath 用於:',
 			),
 			'json_dotnotation' => array(
 				'_' => 'JSON (點「.」符號)',
 				'feed_title' => array(
-					'_' => '源標題',
-					'help' => '範例: <code>meta.title</code> 或固定的字串: <code>"My custom feed"</code>',
+					'_' => '訂閱源標題',
+					'help' => '範例: <code>meta.title</code> 或靜態字串: <code>"My custom feed"</code>',
 				),
 				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => array(
@@ -166,37 +166,37 @@ return array(
 					'help' => '範例: <code>image</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => '自訂 日期/時間 格式',
-					'help' => '選用項目。 支援以<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 表達的格式，例如 <code>d-m-Y H:i:s</code>',
+					'_' => '自訂日期/時間格式',
+					'help' => '可選。一個被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支援的格式，例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '項目日期',
 					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
 				),
 				'item_title' => '項目標題',
-				'item_uid' => '項目專用ID',
+				'item_uid' => '項目唯一 ID',
 				'item_uri' => array(
-					'_' => '項目連結(URL)',
-					'help' => '範例: <code>永久連結</code>',
+					'_' => '項目連結 (URL)',
+					'help' => '範例: <code>permalink</code>',
 				),
 				'json' => 'dot notation for:',	// TODO
 				'relative' => 'dot notated path (relative to item) for:',	// TODO
 			),
-			'jsonfeed' => 'JSON Feed',	// TODO
+			'jsonfeed' => 'JSON 訂閱源',
 			'rss' => 'RSS / Atom (預設)',
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
-			'clear_cache' => '清理暫存',
-			'clear_cache_help' => '清除該feed的暫存',
-			'reload_articles' => '重載文章',
-			'reload_articles_help' => '重載 n 篇文章並抓取內容（若設置了 CSS 選擇器）',
+			'clear_cache' => '清理快取',
+			'clear_cache_help' => '清除此訂閱源的快取',
+			'reload_articles' => '重新載入文章',
+			'reload_articles_help' => '重新載入 n 篇文章，並在指定選擇器存在時載入完整內容。',
 			'title' => '維護',
 		),
-		'max_http_redir' => '最大 HTTP 重定向',
-		'max_http_redir_help' => '設置為 0 或留空以禁用，-1 表示無限重定向',
+		'max_http_redir' => '最大 HTTP 重新導向數',
+		'max_http_redir_help' => '設定為 0 或留空以禁用，-1 表示無限重定向',
 		'method' => array(
 			'_' => 'HTTP 方法',
 		),
@@ -207,106 +207,106 @@ return array(
 			'_' => '暫停',
 			'state_is_muted' => 'This feed is muted',	// TODO
 		),
-		'no_selected' => '未選擇訂閱源',
+		'no_selected' => '未選擇訂閱源。',
 		'number_entries' => '%d 篇文章',
-		'open_feed' => 'Open feed %s',	// TODO
+		'open_feed' => '開啟訂閱源 %s',
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
-			'_' => '可見性',
+			'_' => '可見度',
 			'category' => '在分類中顯示',
 			'feed' => 'Show in its feed',	// TODO
-			'hidden' => '不顯示',
-			'important' => '顯示在重要的源',
-			'main_stream' => '在首頁中顯示',
+			'hidden' => '不要顯示',
+			'important' => '顯示在重要訂閱源',
+			'main_stream' => '顯示在首頁',
 		),
-		'proxy' => '獲取訂閱源時的代理',
-		'proxy_help' => '選擇協議（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>）',	// DIRTY
+		'proxy' => '取得訂閱源時的代理',
+		'proxy_help' => '選擇協定 (例如: SOCKS5) 並輸入代理位址 (例如: <kbd>127.0.0.1:1080</kbd> 或 <kbd>使用者名稱:密碼@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
-			'show_raw' => '顯示源碼',
+			'show_raw' => '顯示原始碼',
 			'show_rendered' => '顯示內容',
 		),
 		'show' => array(
-			'all' => '顯示所有訂閱源',
+			'all' => '所有訂閱源',
 			'error' => '僅顯示有錯誤的訂閱源',
 		),
 		'showing' => array(
 			'error' => '正在顯示有錯誤的訂閱源',
 		),
-		'ssl_verify' => '驗證 SSL 證書安全',
+		'ssl_verify' => '驗證 SSL 安全',
 		'stats' => '統計',
-		'think_to_add' => '你可以添加一些訂閱源。',
-		'timeout' => '超時時間（秒）',
+		'think_to_add' => '你可以新增一些訂閱源。',
+		'timeout' => '超時時間 (秒)',
 		'title' => '標題',
-		'title_add' => '添加訂閱源',
+		'title_add' => '新增 RSS 訂閱源',
 		'ttl' => '最小自動更新間隔',
 		'unicityCriteria' => array(
 			'_' => 'Article unicity criteria',	// TODO
 			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
-			'id' => 'Standard ID (default)',	// TODO
-			'link' => 'Link',	// TODO
-			'sha1:content' => 'Content',	// TODO
-			'sha1:content_published' => 'Content + Date',	// TODO
-			'sha1:link_published' => 'Link + Date',	// TODO
-			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
-			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
-			'sha1:published' => 'Date',	// TODO
-			'sha1:title' => 'Title',	// TODO
-			'sha1:title_published' => 'Title + Date',	// TODO
-			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
+			'id' => '標準 ID (預設)',
+			'link' => '連結',
+			'sha1:content' => '內容',
+			'sha1:content_published' => '內容 + 日期',
+			'sha1:link_published' => '連結 + 日期',
+			'sha1:link_published_title' => '連結 + 日期 + 標題',
+			'sha1:link_published_title_content' => '連結 + 日期 + 標題 + 內容',
+			'sha1:published' => '日期',
+			'sha1:title' => '標題',
+			'sha1:title_published' => '標題 + 日期',
+			'sha1:title_published_content' => '標題 + 日期 + 內容',
 		),
-		'url' => '源地址',
-		'useragent' => '設置用於獲取此源的 User Agent',
-		'useragent_help' => '例：<kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
+		'url' => '訂閱源 URL',
+		'useragent' => '設定用於取得此訂閱源的 user agent',
+		'useragent_help' => '範例: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => '檢查訂閱源有效性',
-		'website' => '網站地址',
+		'website' => '網站 URL',
 		'websub' => 'WebSub 即時通知',
 	),
 	'import_export' => array(
 		'export' => array(
-			'_' => '導出',
+			'_' => '匯出',
 			'sqlite' => 'Download user database as SQLite',	// TODO
 		),
-		'export_labelled' => '導出有標籤的文章',
-		'export_opml' => '導出訂閱源列表（OPML）',
-		'export_starred' => '導出你的收藏',
-		'feed_list' => '%s 文章列表',
-		'file_to_import' => '需要導入的文件<br />（OPML、JSON 或 ZIP）',
-		'file_to_import_no_zip' => '需要導入的文件<br />（OPML 或 JSON）',
-		'import' => '導入',
-		'starred_list' => '收藏文章列表',
-		'title' => '導入/導出',
+		'export_labelled' => '匯出有標籤的文章',
+		'export_opml' => '匯出訂閱源清單 (OPML)',
+		'export_starred' => '匯出你的收藏',
+		'feed_list' => '%s 文章清單',
+		'file_to_import' => '要匯入的檔案<br />(OPML、JSON 或 ZIP)',
+		'file_to_import_no_zip' => '要匯入的檔案<br />(OPML 或 JSON)',
+		'import' => '匯入',
+		'starred_list' => '收藏文章清單',
+		'title' => '匯入 / 匯出',
 	),
 	'menu' => array(
-		'add' => '添加訂閱源或分類',
-		'import_export' => '導入/導出',
+		'add' => '新增訂閱源或分類',
+		'import_export' => '匯入 / 匯出',
 		'label_management' => '標籤管理',
 		'stats' => array(
 			'idle' => '長期無更新訂閱源',
 			'main' => '主要統計',
-			'repartition' => '文章分布',
+			'repartition' => '文章分配',
 			'unread_dates' => 'Unread dates',	// TODO
 		),
 		'subscription_management' => '訂閱管理',
 		'subscription_tools' => '訂閱工具',
 	),
 	'tag' => array(
-		'auto_label' => '新增標籤給新文章',
+		'auto_label' => '新增標籤至新文章',
 		'name' => '名稱',
 		'new_name' => '新名稱',
 		'old_name' => '舊名稱',
 	),
 	'title' => array(
 		'_' => '訂閱管理',
-		'add' => '添加訂閱源或分類',
-		'add_category' => '添加分類',
-		'add_dynamic_opml' => '添加訂閱源動態列表',
-		'add_feed' => '添加訂閱源',
-		'add_label' => '添加標籤',
-		'add_opml_category' => 'OPML category name',	// TODO
-		'delete_label' => '刪除標籤',
-		'feed_management' => '訂閱源管理',
+		'add' => '新增訂閱源或分類',
+		'add_category' => '新增分類',
+		'add_dynamic_opml' => '新增動態 OPML',
+		'add_feed' => '新增訂閱源',
+		'add_label' => '新增標籤',
+		'add_opml_category' => 'OPML 類別名稱',
+		'delete_label' => '刪除此標籤',
+		'feed_management' => 'RSS 訂閱源管理',
 		'subscription_tools' => '訂閱工具',
 	),
 );
