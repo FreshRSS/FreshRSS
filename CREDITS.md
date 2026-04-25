@@ -123,6 +123,7 @@ People are sorted by name so please keep this order.
 * [Horváth Zsolt](https://github.com/horvi28): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3Ahorvi28)
 * [ibiruai](https://github.com/ibiruai): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ibiruai)
 * [id-konstantin-stepanov](https://github.com/id-konstantin-stepanov): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:id-konstantin-stepanov)
+* [IEEE-754](https://github.com/IEEE-754): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:IEEE-754)
 * [Ilias Vrachnis](https://github.com/vrachnis): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:vrachnis)
 * [Inverle](https://github.com/Inverle): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Inverle)
 * [Jackson Culbreth](https://github.com/culbrethj): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:culbrethj)
