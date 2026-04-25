@@ -67,12 +67,12 @@ return array(
 			'title' => 'Erneute Anmeldung',
 		),
 		'registration' => array(
-			'_' => 'Neues Konto',
-			'ask' => 'Ein Konto erstellen?',
-			'title' => 'Kontoerstellung',
+			'_' => 'Neuer Account',
+			'ask' => 'Einen Account erstellen?',
+			'title' => 'Accounterstellung',
 		),
 		'username' => array(
-			'_' => 'Benutzername',
+			'_' => 'Nutzername',
 			'format' => '<small>Maximal 16 alphanumerische Zeichen</small>',
 		),
 	),

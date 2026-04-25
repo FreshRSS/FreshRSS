@@ -35,7 +35,7 @@ return array(
 	'mailer' => array(
 		'email_need_validation' => array(
 			'body' => 'Sie haben sich gerade bei %s registriert und müssen nun noch Ihre E-Mail-Adresse bestätigen. Bitte klicken Sie dazu hier:',
-			'title' => 'Sie müssen Ihr Konto bestätigen',
+			'title' => 'Sie müssen Ihren Account bestätigen',
 			'welcome' => 'Willkommen, %s,',
 		),
 	),

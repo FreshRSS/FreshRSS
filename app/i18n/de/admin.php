@@ -20,7 +20,7 @@ return array(
 		'none' => 'Keine (gefährlich)',
 		'title' => 'Authentifizierung',
 		'token' => 'Master-Authentifizierungs-Token',
-		'token_help' => 'Erlaubt Zugriff auf alle RSS-Ausgaben des Benutzers sowie das Aktualisieren von Feeds ohne Authentifizierung:',
+		'token_help' => 'Erlaubt Zugriff auf alle RSS-Ausgaben des Nutzers sowie das Aktualisieren von Feeds ohne Authentifizierung:',
 		'type' => 'Authentifizierungsmethode',
 	),
 	'extensions' => array(
@@ -94,13 +94,13 @@ return array(
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
 		'registration' => array(
-			'number' => 'Maximale Anzahl an Konten',
+			'number' => 'Maximale Anzahl von Accounts',
 			'select' => array(
 				'label' => 'Registrierungsformular',
 				'option' => array(
 					'noform' => 'Deaktiviert: Keine Registrierung möglich',
-					'nolimit' => 'Aktiviert: Unbegrenzte Anzahl neuer Konten',
-					'setaccountsnumber' => 'Maximale Anzahl an Benutzerkonten festlegen',
+					'nolimit' => 'Aktiviert: Unbegrenzte Anzahl neuer Accounts',
+					'setaccountsnumber' => 'Maximale Anzahl an Benutzer-Accounts festlegen',
 				),
 			),
 			'status' => array(
@@ -150,11 +150,11 @@ return array(
 		'language' => 'Sprache',
 		'last_user_activity' => 'Letzte Benutzeraktivität',
 		'list' => 'Benutzerliste',
-		'number' => 'Bisher wurde %d Benutzerkonto erstellt',
-		'numbers' => 'Bisher wurden %d Benutzerkonten erstellt',
+		'number' => 'Bisher wurde %d Account erstellt',
+		'numbers' => 'Bisher wurden %d Accounts erstellt',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
 		'title' => 'Benutzer verwalten',
-		'username' => 'Benutzername',
+		'username' => 'Nutzername',
 	),
 );

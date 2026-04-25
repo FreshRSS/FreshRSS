@@ -48,7 +48,7 @@ return array(
 			'help' => 'Die Verbindung erlaubt Zugriff auf HTTP-geschützte RSS-Feeds',
 			'http' => 'HTTP-Authentifizierung',
 			'password' => 'HTTP-Passwort',
-			'username' => 'HTTP-Benutzername',
+			'username' => 'HTTP-Nutzername',
 		),
 		'change_favicon' => 'Ändern…',
 		'clear_cache' => 'Immer Zwischenspeicher leeren',

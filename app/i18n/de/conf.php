@@ -41,7 +41,7 @@ return array(
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
-			'entry' => 'Artikel-Symbol',
+			'entry' => 'Artikel-Icon',
 			'publication_date' => 'Datum der Veröffentlichung',
 			'related_tags' => 'Tags',
 			'sharing' => 'Teilen',
@@ -73,8 +73,8 @@ return array(
 		'timezone' => 'Zeitzone',
 		'title' => 'Anzeige',
 		'website' => array(
-			'full' => 'Symbol und Name',
-			'icon' => 'Nur Symbol',
+			'full' => 'Icon und Name',
+			'icon' => 'Nur Icon',
 			'label' => 'Website',	// TODO
 			'name' => 'Nur Name',
 			'none' => 'Keine',
@@ -139,8 +139,8 @@ return array(
 		'confirm_new_password' => 'Neues Passwort bestätigen',
 		'current_password' => 'Aktuelles Passwort<br /><small>(für die Web-Formular-Anmeldemethode)</small>',
 		'delete' => array(
-			'_' => 'Kontolöschung',
-			'warn' => 'Dieses Konto und alle zugehörigen Daten werden gelöscht.',
+			'_' => 'Accountlöschung',
+			'warn' => 'Dieser Account und alle zugehörigen Daten werden gelöscht.',
 		),
 		'email' => 'E-Mail-Adresse',
 		'new_password' => 'Neues Passwort',
@@ -237,7 +237,7 @@ return array(
 			),
 			'feed_title' => 'Feed-Titel',
 			'icons' => array(
-				'_' => 'Position der Artikelsymbole<br /><small>(nur in der Lese-Ansicht)</small>',
+				'_' => 'Artikel-Icon-Position<br /><small>(Nur in der Lese-Ansicht)</small>',
 				'above_title' => 'Über dem Titel',
 				'with_authors' => 'In der Autoren- und Datumszeile',
 			),
