@@ -229,7 +229,7 @@ return array(
 		'system' => '系統配置',
 		'update' => '更新',
 		'user_management' => '管理使用者',
-		'user_profile' => '使用者簡介',
+		'user_profile' => '使用者設定檔',
 	),
 	'period' => array(
 		'days' => '天',
@@ -251,7 +251,7 @@ return array(
 		'date_from' => '從',
 		'date_modified' => '伺服器修改日期',
 		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
+		'date_published' => '發表日期',
 		'date_range' => '日期範圍',
 		'date_received' => 'Received Date',	// TODO
 		'date_to' => '到',
@@ -259,9 +259,9 @@ return array(
 		'feeds' => '訂閱源',
 		'free_text' => 'Free Text',	// TODO
 		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
+		'full_documentation' => '檢視 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">完整搜尋說明文件</a>',
 		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
+		'multiple_help' => '選擇一個或更多 (按住 <kbd>Ctrl</kbd> 或 <kbd>Cmd</kbd>)',
 		'sources' => '來源',
 		'tags' => '文章標籤',
 		'text' => '文字搜尋',
@@ -320,7 +320,7 @@ return array(
 	),
 	'stream' => array(
 		'load_more' => '載入更多文章',
-		'mark_all_read' => '全部標記為已讀',
+		'mark_all_read' => '標記全部為已讀',
 		'nothing_to_load' => '沒有更多文章了',
 	),
 );

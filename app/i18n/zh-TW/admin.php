@@ -48,7 +48,7 @@ return array(
 		'_' => '統計',
 		'all_feeds' => '所有訂閱源',
 		'category' => '分類',
-		'date_published' => 'Publication date',	// TODO
+		'date_published' => '發表日期',
 		'date_received' => 'Received date',	// TODO
 		'entry_count' => '文章數',
 		'entry_per_category' => '每分類文章數',

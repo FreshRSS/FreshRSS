@@ -171,7 +171,7 @@ return array(
 				),
 				'item_timestamp' => array(
 					'_' => '項目日期',
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'help' => '結果將被 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
 				),
 				'item_title' => '項目標題',
 				'item_uid' => '項目唯一 ID',
@@ -196,7 +196,7 @@ return array(
 			'title' => '維護',
 		),
 		'max_http_redir' => '最大 HTTP 重新導向數',
-		'max_http_redir_help' => '設定為 0 或留空以禁用，-1 表示無限重定向',
+		'max_http_redir_help' => '設為 0 或留空以停用，-1 表示無限制重新導向',
 		'method' => array(
 			'_' => 'HTTP 方法',
 		),
@@ -221,7 +221,7 @@ return array(
 		),
 		'proxy' => '取得訂閱源時的代理',
 		'proxy_help' => '選擇協定 (例如: SOCKS5) 並輸入代理位址 (例如: <kbd>127.0.0.1:1080</kbd> 或 <kbd>使用者名稱:密碼@127.0.0.1:1080</kbd>)',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => '重設至預設',
 		'selector_preview' => array(
 			'show_raw' => '顯示原始碼',
 			'show_rendered' => '顯示內容',
@@ -239,9 +239,9 @@ return array(
 		'timeout' => '超時時間 (秒)',
 		'title' => '標題',
 		'title_add' => '新增 RSS 訂閱源',
-		'ttl' => '最小自動更新間隔',
+		'ttl' => '最小自動刷新間隔',
 		'unicityCriteria' => array(
-			'_' => 'Article unicity criteria',	// TODO
+			'_' => '文章唯一性標準',
 			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
 			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
 			'id' => '標準 ID (預設)',
@@ -266,7 +266,7 @@ return array(
 	'import_export' => array(
 		'export' => array(
 			'_' => '匯出',
-			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite' => '下載使用者資料庫為 SQLite 檔案',
 		),
 		'export_labelled' => '匯出有標籤的文章',
 		'export_opml' => '匯出訂閱源清單 (OPML)',
@@ -286,7 +286,7 @@ return array(
 			'idle' => '長期無更新訂閱源',
 			'main' => '主要統計',
 			'repartition' => '文章分配',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => '未讀日期',
 		),
 		'subscription_management' => '訂閱管理',
 		'subscription_tools' => '訂閱工具',
