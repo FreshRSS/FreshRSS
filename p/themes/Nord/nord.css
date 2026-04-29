@@ -987,6 +987,10 @@ li.item.active {
 	text-align: center;
 }
 
+.nav_menu #nav_menu_toggle_aside {
+	position: static;
+}
+
 .nav_menu .btn {
 	margin: .125rem;
 }
@@ -1285,6 +1289,12 @@ optgroup::before {
 
 	.nav_menu .btn {
 		margin-bottom: .5rem;
+	}
+
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-left: 1px solid var(--border-elements);
+		border-top-left-radius: 6px;
+		border-bottom-left-radius: 6px;
 	}
 
 	.nav_menu .search input {
