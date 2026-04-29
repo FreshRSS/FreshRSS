@@ -218,8 +218,8 @@ th {
 }
 
 .stick .btn + .dropdown > .btn,
-.group .btn + .dropdown > .btn,
-.group .dropdown + .dropdown > .btn {
+.group .btn + .dropdown:last-child > .btn,
+.group .dropdown + .dropdown:last-child > .btn {
 	border-left: none;
 	border-radius: 0 3px 3px 0;
 }
