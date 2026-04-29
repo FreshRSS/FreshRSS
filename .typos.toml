@@ -3,6 +3,7 @@ ot = "ot"
 Ths2 = "Ths2"
 
 [default.extend-words]
+ANDS = "ANDS"
 referer = "referer"
 
 [files]
@@ -19,6 +20,7 @@ extend-exclude = [
 	"app/i18n/el/",
 	"app/i18n/es/",
 	"app/i18n/fa/",
+	"app/i18n/fi/",
 	"app/i18n/fr/",
 	"app/i18n/he/",
 	"app/i18n/hu/",
@@ -30,21 +32,26 @@ extend-exclude = [
 	"app/i18n/nl/",
 	"app/i18n/oc/",
 	"app/i18n/pl/",
-	"app/i18n/pt-br/",
+	"app/i18n/pt-BR/",
+	"app/i18n/pt-PT/",
 	"app/i18n/ru/",
 	"app/i18n/sk/",
 	"app/i18n/tr/",
-	"app/i18n/zh-cn/",
-	"app/i18n/zh-tw/",
+	"app/i18n/uk/",
+	"app/i18n/zh-CN/",
+	"app/i18n/zh-TW/",
 	"bin/",
-	"CHANGELOG-old.md",
 	"composer.lock",
 	"data/",
+	"docs/CHANGELOG-old.md",
+	"docs/_config.yml",
+	"docs/_includes/",
+	"docs/assets/",
 	"docs/fr/",
 	"lib/marienfressinaud/",
 	"lib/phpgt/",
 	"lib/phpmailer/",
-	"lib/SimplePie/",
+	"lib/simplepie/",
 	"node_modules/",
 	"p/scripts/vendor/",
 	"package-lock.json",

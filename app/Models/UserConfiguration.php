@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * @property string $apiPasswordHash
- * @property array{'keep_period':string|false,'keep_max':int|false,'keep_min':int|false,'keep_favourites':bool,'keep_labels':bool,'keep_unreads':bool} $archiving
+ * @property array{keep_period:string|false,keep_max:int|false,keep_min:int|false,keep_favourites:bool,keep_labels:bool,keep_unreads:bool} $archiving
  * @property bool $auto_load_more
  * @property bool $auto_remove_article
  * @property bool $bottomline_date
@@ -28,6 +28,9 @@ declare(strict_types=1);
  * @property string $feverKey
  * @property bool $hide_read_feeds
  * @property int $html5_notif_timeout
+ * @property bool $html5_enable_notif
+ * @property int $good_notification_timeout
+ * @property int $bad_notification_timeout
  * @property-read bool $is_admin
  * @property int|null $keep_history_default
  * @property string $language
@@ -42,7 +45,8 @@ declare(strict_types=1);
  * @property bool $onread_jump_next
  * @property string $passwordHash
  * @property int $posts_per_page
- * @property array<array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string,'token'?:string}> $queries
+ * @property array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+ * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string}> $queries
  * @property bool $reading_confirm
  * @property int $since_hours_posts_per_rss
  * @property bool $show_fav_unread
@@ -51,8 +55,13 @@ declare(strict_types=1);
  * @property int $simplify_over_n_feeds
  * @property bool $show_nav_buttons
  * @property bool $show_title_unread
+ * @property bool $sidebar_hidden_by_default
+ * @property 'big'|'small'|'none' $mark_read_button
  * @property 'ASC'|'DESC' $sort_order
- * @property array<string,array<string>> $sharing
+ * @property 'id'|'c.name'|'date'|'f.name'|'length'|'link'|'rand'|'title' $sort
+ * @property 'ASC'|'DESC' $secondary_sort_order
+ * @property 'id'|'date'|'link'|'title' $secondary_sort
+ * @property array<int,array<string,string>> $sharing
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article
  * @property bool $sticky_post
@@ -62,6 +71,8 @@ declare(strict_types=1);
  * @property bool $topline_date
  * @property bool $topline_display_authors
  * @property bool $topline_favorite
+ * @property bool $topline_myLabels
+ * @property bool $topline_sharing
  * @property bool $topline_link
  * @property bool $topline_read
  * @property bool $topline_summary
@@ -69,10 +80,11 @@ declare(strict_types=1);
  * @property string $topline_thumbnail
  * @property int $ttl_default
  * @property int $dynamic_opml_ttl_default
- * @property-read bool $unsafe_autologin_enabled
  * @property string $view_mode
  * @property array<string,bool|int|string> $volatile
  * @property array<string,array<string,mixed>> $extensions
+ * @property bool $retrieve_extension_list
+ * @property array<string> $send_referrer_allowlist
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	use FreshRSS_FilterActionsTrait;
@@ -92,8 +104,9 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	 * @throws Minz_FileNotExistException
 	 */
 	public static function default(): FreshRSS_UserConfiguration {
+		/** @var FreshRSS_UserConfiguration|null $default_user_conf */
 		static $default_user_conf = null;
-		if ($default_user_conf == null) {
+		if ($default_user_conf === null) {
 			$namespace = 'user_default';
 			FreshRSS_UserConfiguration::register($namespace, '_', FRESHRSS_PATH . '/config-user.default.php');
 			$default_user_conf = FreshRSS_UserConfiguration::get($namespace);
@@ -102,37 +115,30 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	}
 
 	/**
-	 * @param non-empty-string $key
-	 * @return array<int|string,mixed>|null
+	 * Register and return the configuration for a given user.
+	 *
+	 * Note this function has been created to generate temporary configuration
+	 * objects. If you need a long-time configuration, please don't use this function.
+	 *
+	 * @param string $username the name of the user of which we want the configuration.
+	 * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
+	 * @throws Minz_ConfigurationNamespaceException
 	 */
-	public function attributeArray(string $key): ?array {
-		$a = parent::param($key, null);
-		return is_array($a) ? $a : null;
-	}
+	public static function getForUser(string $username): ?FreshRSS_UserConfiguration {
+		if (!FreshRSS_user_Controller::checkUsername($username)) {
+			return null;
+		}
+		$namespace = 'user_' . $username;
+		try {
+			FreshRSS_UserConfiguration::register($namespace,
+				USERS_PATH . '/' . $username . '/config.php',
+				FRESHRSS_PATH . '/config-user.default.php');
+		} catch (Minz_FileNotExistException $e) {
+			Minz_Log::warning($e->getMessage(), ADMIN_LOG);
+			return null;
+		}
 
-	/** @param non-empty-string $key */
-	public function attributeBool(string $key): ?bool {
-		$a = parent::param($key, null);
-		return is_bool($a) ? $a : null;
-	}
-
-	/** @param non-empty-string $key */
-	public function attributeInt(string $key): ?int {
-		$a = parent::param($key, null);
-		return is_numeric($a) ? (int)$a : null;
-	}
-
-	/** @param non-empty-string $key */
-	public function attributeString(string $key): ?string {
-		$a = parent::param($key, null);
-		return is_string($a) ? $a : null;
-	}
-
-	/**
-	 * @param non-empty-string $key
-	 * @param array<string,mixed>|mixed|null $value Value, not HTML-encoded
-	 */
-	public function _attribute(string $key, $value = null): void {
-		parent::_param($key, $value);
+		$user_conf = FreshRSS_UserConfiguration::get($namespace);
+		return $user_conf;
 	}
 }

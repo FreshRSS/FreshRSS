@@ -6,7 +6,7 @@ if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_subscription');
 }
 
-if ($this->feed) {
+if ($this->feed !== null) {
 	$this->renderHelper('feed/update');
 } else {
 ?>

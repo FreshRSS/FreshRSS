@@ -8,4 +8,8 @@ class FreshRSS_TagDAOSQLite extends FreshRSS_TagDAO {
 		return 'OR IGNORE';
 	}
 
+	#[\Override]
+	public function sqlResetSequence(): bool {
+		return true;	// Nothing to do for SQLite
+	}
 }

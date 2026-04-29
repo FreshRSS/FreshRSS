@@ -11,7 +11,7 @@ final class UserCSSExtension extends Minz_Extension {
 
 		$this->registerTranslates();
 		if ($this->hasFile(self::FILENAME)) {
-			Minz_View::appendStyle($this->getFileUrl(self::FILENAME, 'css', false));
+			Minz_View::appendStyle($this->getFileUrl(self::FILENAME, isStatic: false));
 		}
 	}
 
@@ -22,13 +22,14 @@ final class UserCSSExtension extends Minz_Extension {
 		$this->registerTranslates();
 
 		if (Minz_Request::isPost()) {
-			$css_rules = html_entity_decode(Minz_Request::paramString('css-rules'));
+			$css_rules = Minz_Request::paramString('css-rules', plaintext: true);
 			$this->saveFile(self::FILENAME, $css_rules);
+			FreshRSS_UserDAO::touch();
 		}
 
 		$this->css_rules = '';
 		if ($this->hasFile(self::FILENAME)) {
-			$this->css_rules = htmlentities($this->getFile(self::FILENAME) ?? '');
+			$this->css_rules = htmlspecialchars($this->getFile(self::FILENAME) ?? '', ENT_NOQUOTES, 'UTF-8');
 		}
 	}
 }

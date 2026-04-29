@@ -1,26 +1,29 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
 		'actualize' => ' فیدها را به روز کنید',
 		'add' => ' اضافه کنید',
-		'back' => '← به عقب برگرد',
 		'back_to_rss_feeds' => '← به فیدهای RSS خود برگردید',
 		'cancel' => ' لغو',
+		'close' => 'بستن',
 		'create' => ' ایجاد کنید',
+		'delete_all_feeds' => 'حذف تمام فیدها',
+		'delete_errored_feeds' => 'فیدهای دارای خطا را حذف کن',
 		'delete_muted_feeds' => ' فیدهای خاموش را حذف کنید',
 		'demote' => ' تنزل دادن',
 		'disable' => ' غیر فعال کردن',
+		'download' => 'دانلود',
 		'empty' => ' خالی',
 		'enable' => ' فعال کنید',
 		'export' => ' صادرات',
@@ -29,10 +32,13 @@ return array(
 		'load_default_shortcuts' => ' میانبرهای پیش فرض را بارگیری کنید',
 		'manage' => ' مدیریت',
 		'mark_read' => ' علامت گذاری به عنوان خوانده شده',
+		'menu' => array(
+			'open' => 'باز کردن منو',
+		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'مقاله بعدی',
+			'prev' => 'مقاله قبلی',
+			'up' => 'برو بالا',
 		),
 		'open_url' => ' URL را باز کنید',
 		'promote' => ' ترویج',
@@ -55,6 +61,11 @@ return array(
 			'_' => ' رمز عبور',
 			'format' => '<small>حداقل 7 نویسه</small>',
 		),
+		'reauth' => array(
+			'header' => 'احراز هویت مجدد لازم است',
+			'tip' => 'دیگر از شما خواسته نمی‌شود که دوباره وارد شوید <u>%d دقیقه</u>',
+			'title' => 'ورود مجدد',
+		),
 		'registration' => array(
 			'_' => ' حساب جدید',
 			'ask' => ' یک حساب کاربری ایجاد کنید؟',
@@ -66,18 +77,18 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',	// TODO
-		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO
-		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// TODO
-		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\y',	// TODO
-		'Jan' => '\\J\\a\\n\\u\\a\\r\\y',	// TODO
-		'Jul' => '\\J\\u\\l\\y',	// TODO
-		'Jun' => '\\J\\u\\n\\e',	// TODO
-		'Mar' => '\\M\\a\\r\\c\\h',	// TODO
-		'May' => '\\M\\a\\y',	// TODO
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// TODO
-		'Oct' => '\\O\\c\\t\\o\\b\\e\\r',	// TODO
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// TODO
+		'Apr' => 'آ/و/ر/ی/ل//',
+		'Aug' => 'آ/گ/و/س/ت//',
+		'Dec' => 'د/س/ا/م/ب/ر//',
+		'Feb' => 'ف/و/ر/ی/ه//',
+		'Jan' => 'ژ/ا/ن/و/ی/ه//',
+		'Jul' => 'ژ/و/ئ/ی/ه//',
+		'Jun' => 'ژ/و/ئ/ن//',
+		'Mar' => 'م/ا/ر/س//',
+		'May' => 'م/ی//',
+		'Nov' => 'ن/و/ا/م/ب/ر//',
+		'Oct' => 'ا/ک/ت/ب/ر//',
+		'Sep' => 'س/پ/ت/ا/م/ب/ر//',
 		'apr' => ' آوریل',
 		'april' => ' آوریل',
 		'aug' => ' آگوست',
@@ -87,8 +98,8 @@ return array(
 		'december' => ' دسامبر',
 		'feb' => ' فوریه',
 		'february' => ' فوریه',
-		'format_date' => 'j %s Y',	// TODO
-		'format_date_hour' => 'j %s Y \\a\\t H\\:i',	// TODO
+		'format_date' => 'j %s Y',	// IGNORE
+		'format_date_hour' => 'j %s Y \\a\\t H\\:i',	// IGNORE
 		'fri' => ' جمعه',
 		'jan' => ' ژانویه',
 		'january' => ' ژانویه',
@@ -129,28 +140,58 @@ return array(
 		'_' => ' FreshRSS',
 		'about' => 'درباره FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d روز پیش',
+			1 => '%d روز پیش',
+		),
+		'hour' => array(
+			0 => '%d ساعت پیش',
+			1 => '%d ساعت پیش',
+		),
+		'justnow' => 'همین الان',
+		'minute' => array(
+			0 => '%d دقیقه پیش',
+			1 => '%d دقیقه پیش',
+		),
+		'month' => array(
+			0 => '%d ماه پیش',
+			1 => '%d ماه پیش',
+		),
+		'second' => array(
+			0 => '%d ثانیه پیش',
+			1 => '%d ثانیه پیش',
+		),
+		'year' => array(
+			0 => '%d سال پیش',
+			1 => '%d سال پیش',
+		),
+	),
 	'js' => array(
 		'category_empty' => ' دسته خالی',
 		'confirm_action' => ' آیا مطمئن هستید که می خواهید این عمل را انجام دهید؟ نمی توان آن را لغو کرد!',
 		'confirm_action_feed_cat' => ' آیا مطمئن هستید که می خواهید این عمل را انجام دهید؟ موارد دلخواه و درخواست های کاربر مرتبط را از دست خواهید داد. نمی توان آن را لغو کرد!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => ' %%d مقاله جدید برای خواندن در FreshRSS وجود دارد.',
 			'body_unread_articles' => ' (خوانده نشده: %%d)',
 			'request_failed' => ' یک درخواست شکست خورده است',
 			'title_new_articles' => ' FreshRSS: مقالات جدید!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'بدون برچسب',
 		'new_article' => 'مقالات جدیدی موجود است',
 		'should_be_activated' => ' جاوا اسکریپت باید فعال باشد',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
 		'hu' => 'Magyar',	// IGNORE
@@ -162,17 +203,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => ' در مورد',
 		'account' => ' حساب',
 		'admin' => ' اداره',
+		'advanced_search' => 'Advanced Search',	// TODO
 		'archiving' => ' آرشیو',
 		'authentication' => ' احراز هویت',
 		'check_install' => ' بررسی نصب',
@@ -180,6 +224,7 @@ return array(
 		'display' => 'نمایش',
 		'extensions' => ' برنامه های افزودنی',
 		'logs' => ' سیاهههای مربوط',
+		'privacy' => 'حریم خصوصی',
 		'queries' => ' پرس و جوهای کاربر',
 		'reading' => ' خواندن',
 		'search' => ' کلمات یا #برچسب ها را جستجو کنید',
@@ -199,10 +244,45 @@ return array(
 		'weeks' => ' هفته',
 		'years' => ' سال',
 	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
+		'authors' => 'Authors',	// TODO
+		'categories' => 'Categories',	// TODO
+		'content' => 'Content',	// TODO
+		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
+		'date_past' => 'In the past',	// TODO
+		'date_published' => 'Publication Date',	// TODO
+		'date_range' => 'Date Range',	// TODO
+		'date_received' => 'Received Date',	// TODO
+		'date_to' => 'To',	// TODO
+		'date_user' => 'User Modification Date',	// TODO
+		'feeds' => 'Feeds',	// TODO
+		'free_text' => 'Free Text',	// TODO
+		'free_text_help' => 'Search both in title and content',	// TODO
+		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
+		'labels' => 'My Labels',	// TODO
+		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
+		'sources' => 'Sources',	// TODO
+		'tags' => 'Article Tags',	// TODO
+		'text' => 'Text Search',	// TODO
+		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
+		'text_placeholder' => 'Keyword',	// TODO
+		'title' => 'Title',	// TODO
+		'url' => 'URL',	// TODO
+		'user_queries' => 'User Queries',	// TODO
+	),
 	'share' => array(
 		'Known' => ' سایت های مبتنی بر شناخته شده',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => ' archive.org',
 		'archivePH' => ' archive.ph',
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => ' بافر',
 		'clipboard' => ' کلیپ بورد',
 		'diaspora' => ' دیاسپورا*',
@@ -219,11 +299,11 @@ return array(
 		'omnivore' => ' همه چیزخوار',
 		'pinboard' => ' پینبرد',
 		'pinterest' => ' پینترست',
-		'pocket' => ' جیبی',
 		'print' => ' چاپ',
 		'raindrop' => ' Raindrop.io',
 		'reddit' => ' Reddit',
 		'shaarli' => ' شعرلی',
+		'telegram' => 'Telegram',	// IGNORE
 		'twitter' => ' توییتر',
 		'wallabag' => ' wallabag نسخه 1',
 		'wallabagv2' => ' wallabag نسخه 2',

@@ -4,20 +4,22 @@ declare(strict_types=1);
 require_once __DIR__ . '/_cli.php';
 require_once __DIR__ . '/i18n/I18nData.php';
 require_once __DIR__ . '/i18n/I18nFile.php';
-require_once __DIR__ . '/../constants.php';
+require_once dirname(__DIR__) . '/constants.php';
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $action;
 	public string $key;
+	public string $newKey;
 	public string $value;
 	public string $language;
 	public string $originLanguage;
-	public string $revert;
-	public string $help;
+	public bool $revert;
+	public bool $help;
 
 	public function __construct() {
 		$this->addRequiredOption('action', (new CliOption('action', 'a')));
 		$this->addOption('key', (new CliOption('key', 'k')));
+		$this->addOption('newKey', (new CliOption('new-key', 'n')));
 		$this->addOption('value', (new CliOption('value', 'v')));
 		$this->addOption('language', (new CliOption('language', 'l')));
 		$this->addOption('originLanguage', (new CliOption('origin-language', 'o')));
@@ -30,7 +32,7 @@ $cliOptions = new class extends CliOptionsParser {
 if (!empty($cliOptions->errors)) {
 	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
-if (isset($cliOptions->help)) {
+if ($cliOptions->help) {
 	manipulateHelp();
 }
 
@@ -38,11 +40,13 @@ $data = new I18nFile();
 $i18nData = new I18nData($data->load());
 
 switch ($cliOptions->action) {
-	case 'add' :
+	case 'add':
 		if (isset($cliOptions->key) && isset($cliOptions->value) && isset($cliOptions->language)) {
 			$i18nData->addValue($cliOptions->key, $cliOptions->value, $cliOptions->language);
 		} elseif (isset($cliOptions->key) && isset($cliOptions->value)) {
 			$i18nData->addKey($cliOptions->key, $cliOptions->value);
+		} elseif (isset($cliOptions->key)) {
+			$i18nData->addFile($cliOptions->key);
 		} elseif (isset($cliOptions->language)) {
 			$reference = null;
 			if (isset($cliOptions->originLanguage)) {
@@ -54,7 +58,15 @@ switch ($cliOptions->action) {
 			exit;
 		}
 		break;
-	case 'delete' :
+	case 'move':
+		if (isset($cliOptions->key) && isset($cliOptions->newKey)) {
+			$i18nData->moveKey($cliOptions->key, $cliOptions->newKey);
+		} else {
+			error('You need to specify the key to move and its new location.');
+			exit;
+		}
+		break;
+	case 'delete':
 		if (isset($cliOptions->key)) {
 			$i18nData->removeKey($cliOptions->key);
 		} else {
@@ -75,25 +87,25 @@ switch ($cliOptions->action) {
 			exit;
 		}
 		break;
-	case 'format' :
+	case 'format':
 		break;
-	case 'ignore' :
+	case 'ignore':
 		if (isset($cliOptions->language) && isset($cliOptions->key)) {
-			$i18nData->ignore($cliOptions->key, $cliOptions->language, isset($cliOptions->revert));
+			$i18nData->ignore($cliOptions->key, $cliOptions->language, $cliOptions->revert);
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
 		}
 		break;
-	case 'ignore_unmodified' :
+	case 'ignore_unmodified':
 		if (isset($cliOptions->language)) {
-			$i18nData->ignore_unmodified($cliOptions->language, isset($cliOptions->revert));
+			$i18nData->ignore_unmodified($cliOptions->language, $cliOptions->revert);
 		} else {
 			error('You need to specify a valid set of options.');
 			exit;
 		}
 		break;
-	default :
+	default:
 		manipulateHelp();
 		exit;
 }
@@ -129,7 +141,7 @@ DESCRIPTION
 	Manipulate translation files.
 
 	-a, --action=ACTION
-				select the action to perform. Available actions are add, delete,
+				select the action to perform. Available actions are add, move, delete,
 				exist, format, ignore, and ignore_unmodified. This option is mandatory.
 	-k, --key=KEY		select the key to work on.
 	-v, --value=VAL		select the value to set.
@@ -166,12 +178,17 @@ Example 8:	ignore all unmodified keys. Adds IGNORE comments to all unmodified ke
 	php $file -a ignore_unmodified -l my_lang
 
 Example 9:	revert ignore on all unmodified keys. Removes IGNORE comments from all unmodified keys in the selected language.
-		Warning: will also revert individually added IGNOREs on unmodified keys.
+		Warning: will also revert individually added IGNORE(s) on unmodified keys.
 	php $file -a ignore_unmodified -r -l my_lang
 
 Example 10:	check if a key exist.
 	php $file -a exist -k my_key
 
-HELP;
+Example 11:	add a new file to all languages
+	php $file -a add -k my_file.php
+
+Example 12:\tmove an existing key into a new location
+	php $file -a move -k my_key -n new_location
+HELP, PHP_EOL;
 	exit();
 }

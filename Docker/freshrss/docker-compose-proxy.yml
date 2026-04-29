@@ -1,5 +1,3 @@
-version: "2.4"
-
 volumes:
   traefik-letsencrypt:
   traefik-tmp:
@@ -7,7 +5,7 @@ volumes:
 services:
 
   traefik:
-    image: traefik:3.0
+    image: traefik:3
     container_name: traefik
     restart: unless-stopped
     logging:
@@ -35,7 +33,7 @@ services:
       - --certificatesResolvers.letsEncrypt.acme.storage=/etc/traefik/acme/acme.json
       - --certificatesResolvers.letsEncrypt.acme.email=${ADMIN_EMAIL}
       - --certificatesResolvers.letsEncrypt.acme.tlsChallenge=true
-      - --providers.file.filename=/etc/traefik/tls.yaml
+      - --providers.file.filename=/etc/traefik/tls.yml
     labels:
       - traefik.enable=false
 
@@ -53,10 +51,10 @@ services:
       - traefik.http.routers.freshrss.entryPoints=https
       - traefik.http.routers.freshrss.tls.certResolver=letsEncrypt
       - traefik.http.routers.freshrss.tls=true
-      ## Option 1: server FreshRSS as sub-domain
+      # Option 1: server FreshRSS as sub-domain
       - traefik.http.routers.freshrss.middlewares=freshrssM1,freshrssM2
       - traefik.http.routers.freshrss.rule=Host(`${SERVER_DNS}`)
-      ## Option 2: serve FreshRSS as sub-path
+      # # Option 2: serve FreshRSS as sub-path
       # - traefik.http.middlewares.freshrssM3.stripprefix.prefixes=/freshrss
       # - traefik.http.routers.freshrss.middlewares=freshrssM1,freshrssM2,freshrssM3
       # - traefik.http.routers.freshrss.rule=PathPrefix(`/freshrss`)

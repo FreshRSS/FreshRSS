@@ -5,6 +5,6 @@ declare(strict_types=1);
 if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('aside_configure');
 }
-if ($this->query) {
+if ($this->query !== null) {
 	$this->renderHelper('configure/query');
 }

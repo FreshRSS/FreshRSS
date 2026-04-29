@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Conservar la configuración anterior',
 		'next_step' => 'Ir al siguiente paso',
 		'reinstall' => 'Reinstalar FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Formulario Web (método más habitual, requiere JavaScript)',
-		'http' => 'HTTP (para usuarios avanzados con HTTPS)',
-		'none' => 'Ninguna (peligroso)',
-		'password_form' => 'Contraseña<br /><small>(para el método de acceso mediante formulario web)</small>',
-		'password_format' => 'Al menos 7 caracteres',
-		'type' => 'Método de identificación',
 	),
 	'bdd' => array(
 		'_' => 'Base de datos',
@@ -58,6 +50,19 @@ return array(
 			'nok' => 'Comprueba los permisos del directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos del directorio data son correctos.',
 		),
+		'database-connection' => array(
+			'nok' => 'Error de conexión a la base de datos.',
+			'ok' => 'La conexión a la base de datos es correcta.',
+		),
+		'database-table' => array(
+			'nok' => 'La tabla de la base de datos "%s" está incompleta.',
+			'ok' => 'La tabla de la base de datos "%s" es correcta.',
+		),
+		'database-tables' => array(
+			'nok' => 'Algunas tablas de la base de datos están ausentes.',
+			'ok' => 'Todas las tablas de la base de datos existen.',
+		),
+		'database-title' => 'Base de datos',
 		'dom' => array(
 			'nok' => 'No se ha podido localizar la librería necesaria para explorar la DOM.',
 			'ok' => 'Dispones de la librería necesaria para explorar la DOM.',
@@ -69,6 +74,11 @@ return array(
 		'fileinfo' => array(
 			'nok' => 'No se ha podido localizar la librería PHP fileinfo (paquete fileinfo).',
 			'ok' => 'Dispones de la librería fileinfo.',
+		),
+		'files' => 'Instalación de Archivos',
+		'intl' => array(
+			'nok' => 'No se ha podido localizar la librería recomendada php-intl para internacionalización.',
+			'ok' => 'Dispones de la librería recomendada php-intl para internacionalización.',
 		),
 		'json' => array(
 			'nok' => 'No se ha podido localizar la librería para procesar JSON.',
@@ -82,18 +92,33 @@ return array(
 			'nok' => 'No se ha podido encontrar la librería necesaria para las expresiones regulares (php-pcre).',
 			'ok' => 'Dispones de la librería necesaria para las expresiones regulares (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'No se ha podido localizar el controlador PDO requerido para MySQL/MariaDB.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'No se ha podido localizar el controlador PDO requerido para PostgreSQL.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'No se ha podido localizar el controlador PDO requerido para SQLite.',
+			'ok' => 'Dispones del controlador PDO para SQLite.',
+		),
 		'pdo' => array(
-			'nok' => 'No se ha podido localizar PDO o uno de los controladores compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Dispones de PDO y al menos uno de los controladores compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'No se ha podido localizar PDO o uno de los controladores compatibles (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Dispones de PDO y al menos uno de los controladores compatibles (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'nok' => 'Dispones de la versión PHP %s, pero FreshRSS necesita de, al menos, la versión %s.',
+			'_' => 'Instalación PHP',
+			'nok' => 'Dispones de la versión PHP %s pero FreshRSS requiere de, al menos, la versión %s.',
 			'ok' => 'Dispones de la versión PHP %s, que es compatible con FreshRSS.',
 		),
 		'reload' => 'Revisar otra vez',
 		'tmp' => array(
 			'nok' => 'Revisa los permisos en el directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos en el directorio temp son buenos.',
+		),
+		'tokens' => array(
+			'nok' => 'Comprueba los permisos en el directorio <em>./data/tokens</em>. El servidor HTTP debe contar con permisos de escritura.',
+			'ok' => 'Los permisos en el directorio de tokens de identificación son correctos.',
 		),
 		'unknown_process_username' => 'desconocido',
 		'users' => array(
@@ -103,6 +128,10 @@ return array(
 		'xml' => array(
 			'nok' => 'No se ha podido localizar la librería necesaria para procesar XML.',
 			'ok' => 'Dispones de la librería necesaria para procesar XML.',
+		),
+		'zip' => array(
+			'nok' => 'No se ha podido localizar la extensión ZIP (paquete php-zip).',
+			'ok' => 'Dispones de la extensión ZIP.',
 		),
 	),
 	'conf' => array(

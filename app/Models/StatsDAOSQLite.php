@@ -4,6 +4,20 @@ declare(strict_types=1);
 class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 
 	#[\Override]
+	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
+		if (!preg_match('/^[a-zA-Z0-9_.]+$/', $field)) {
+			throw new InvalidArgumentException('Invalid date field!');
+		}
+		$offset = $this->getTimezoneOffset();
+		return match ($granularity) {
+			'day' => "strftime('%Y-%m-%d', ($field / $precision) + $offset, 'unixepoch')",
+			'month' => "strftime('%Y-%m', ($field / $precision) + $offset, 'unixepoch')",
+			'year' => "strftime('%Y', ($field / $precision) + $offset, 'unixepoch')",
+			default => throw new InvalidArgumentException('Invalid date granularity'),
+		};
+	}
+
+	#[\Override]
 	protected function sqlFloor(string $s): string {
 		return "CAST(($s) AS INT)";
 	}
@@ -18,33 +32,26 @@ class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 		} else {
 			$restrict = '';
 		}
+		$offset = $this->getTimezoneOffset();
 		$sql = <<<SQL
-SELECT strftime('{$period}', e.date, 'unixepoch') AS period
-, COUNT(1) AS count
-FROM `_entry` AS e
-{$restrict}
-GROUP BY period
-ORDER BY period ASC
-SQL;
+			SELECT strftime('{$period}', e.date + {$offset}, 'unixepoch') AS period, COUNT(1) AS count
+			FROM `_entry` AS e
+			{$restrict}
+			GROUP BY period
+			ORDER BY period ASC
+			SQL;
 
 		$res = $this->fetchAssoc($sql);
 		if ($res == null) {
 			return [];
 		}
 
-		switch ($period) {
-			case '%H':
-				$periodMax = 24;
-				break;
-			case '%w':
-				$periodMax = 7;
-				break;
-			case '%m':
-				$periodMax = 12;
-				break;
-			default:
-			$periodMax = 30;
-		}
+		$periodMax = match ($period) {
+			'%H' => 24,
+			'%w' => 7,
+			'%m' => 12,
+			default => 30,
+		};
 
 		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {
@@ -53,5 +60,4 @@ SQL;
 
 		return $repartition;
 	}
-
 }

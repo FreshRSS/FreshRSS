@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 
-class dotNotationUtilTest extends PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\Attributes\DataProvider;
+
+final class dotNotationUtilTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @return Traversable<array{array<string,mixed>,string,string}>
 	 */
-	public function provideJsonDots(): Traversable {
+	public static function provideJsonDots(): Traversable {
 		$json = <<<json
 		{
 			"hello": "world",
@@ -31,14 +33,17 @@ class dotNotationUtilTest extends PHPUnit\Framework\TestCase {
 		yield [$array, 'items[0].meta.title', 'first'];
 		yield [$array, 'items.1.meta.title', 'second'];
 		yield [$array, 'items[1].meta.title', 'second'];
+		yield [$array, '"Hello " & hello & \'!\'', 'Hello world!'];
+		yield [$array, '"Hello & goodbye " & hello & \'!\'', 'Hello & goodbye world!'];
+		yield [$array, '"Hello " & hello & deeper.hello & "!"', 'Hello worldagain!'];
 	}
 
 	/**
-	 * @dataProvider provideJsonDots
 	 * @param array<string,mixed> $array
 	 */
-	public function testJsonDots(array $array, string $key, string $expected): void {
+	#[DataProvider('provideJsonDots')]
+	public static function testJsonDots(array $array, string $key, string $expected): void {
 		$value = FreshRSS_dotNotation_Util::get($array, $key);
-		self::assertEquals($expected, $value);
+		self::assertSame($expected, $value);
 	}
 }

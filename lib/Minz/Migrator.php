@@ -19,9 +19,6 @@ class Minz_Migrator
 	/**
 	 * Execute a list of migrations, skipping versions indicated in a file
 	 *
-	 * @param string $migrations_path
-	 * @param string $applied_migrations_path
-	 *
 	 * @return true|string Returns true if execute succeeds to apply
 	 *                        migrations, or a string if it fails.
 	 * @throws DomainException if there is no migrations corresponding to the
@@ -31,12 +28,12 @@ class Minz_Migrator
 	 *
 	 * @throws BadFunctionCallException if a callback isn’t callable.
 	 */
-	public static function execute(string $migrations_path, string $applied_migrations_path) {
+	public static function execute(string $migrations_path, string $applied_migrations_path): string|bool {
 		$applied_migrations = @file_get_contents($applied_migrations_path);
 		if ($applied_migrations === false) {
 			return "Cannot open the {$applied_migrations_path} file";
 		}
-		$applied_migrations = array_filter(explode("\n", $applied_migrations));
+		$applied_migrations = array_filter(explode("\n", $applied_migrations), fn(string $migration): bool => trim($migration) !== '');
 
 		$migration_files = scandir($migrations_path) ?: [];
 		$migration_files = array_filter($migration_files, static function (string $filename) {
@@ -141,7 +138,7 @@ class Minz_Migrator
 			$migration_class = APP_NAME . "_Migration_" . $migration_version;
 			$migration_callback = $migration_class . '::migrate';
 
-			$include_result = @include_once($filepath);
+			$include_result = @include_once $filepath;
 			if (!$include_result) {
 				Minz_Log::error(
 					"{$filepath} migration file cannot be loaded.",
@@ -179,6 +176,7 @@ class Minz_Migrator
 	public function migrations(): array {
 		$migrations = $this->migrations;
 		uksort($migrations, 'strnatcmp');
+		/** @var array<string,callable> $migrations */
 		return $migrations;
 	}
 
@@ -240,7 +238,7 @@ class Minz_Migrator
 	 * considered as successful. It is considered as good practice to return
 	 * true on success though.
 	 *
-	 * @return array<string|bool> Return the results of each executed migration. If an
+	 * @return array<string,bool|string> Return the results of each executed migration. If an
 	 *               exception was raised in a migration, its result is set to
 	 *               the exception message.
 	 */
@@ -254,7 +252,7 @@ class Minz_Migrator
 
 			try {
 				$migration_result = $callback();
-				$result[$version] = $migration_result;
+				$result[$version] = (bool)$migration_result;
 			} catch (Exception $e) {
 				$migration_result = false;
 				$result[$version] = $e->getMessage();

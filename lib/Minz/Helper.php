@@ -18,17 +18,14 @@ final class Minz_Helper {
 	 * @phpstan-template T of mixed
 	 * @phpstan-param T $var
 	 * @phpstan-return T
-	 *
-	 * @param mixed $var
-	 * @return mixed
 	 */
-	public static function htmlspecialchars_utf8($var) {
+	public static function htmlspecialchars_utf8(mixed $var, int $flags = ENT_COMPAT): mixed {
 		if (is_array($var)) {
-			// @phpstan-ignore argument.type, return.type
-			return array_map([self::class, 'htmlspecialchars_utf8'], $var);
+			// @phpstan-ignore return.type
+			return array_map(fn($v) => self::htmlspecialchars_utf8($v, $flags), $var);
 		} elseif (is_string($var)) {
 			// @phpstan-ignore return.type
-			return htmlspecialchars($var, ENT_COMPAT, 'UTF-8');
+			return htmlspecialchars($var, $flags, 'UTF-8');
 		} else {
 			return $var;
 		}

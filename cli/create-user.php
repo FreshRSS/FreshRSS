@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $user;
@@ -58,7 +58,7 @@ if (!empty($cliOptions->errors)) {
 
 $username = $cliOptions->user;
 
-if (preg_grep("/^$username$/i", listUsers())) {
+if (!empty(preg_grep("/^$username$/i", FreshRSS_user_Controller::listUsers()))) {
 	fail('FreshRSS warning: username already exists “' . $username . '”', EXIT_CODE_ALREADY_EXISTS);
 }
 
@@ -75,14 +75,14 @@ $values = [
 	'max_posts_per_rss' => $cliOptions->maxPostsPerRss ?? null,
 ];
 
-$values = array_filter($values);
+$values = array_filter($values, fn($v): bool => $v !== null && $v !== '');
 
 $ok = FreshRSS_user_Controller::createUser(
 	$username,
-	isset($cliOptions->email) ? $cliOptions->email : null,
+	$cliOptions->email ?? null,
 	$cliOptions->password ?? '',
 	$values,
-	!isset($cliOptions->noDefaultFeeds)
+	!$cliOptions->noDefaultFeeds
 );
 
 if (!$ok) {

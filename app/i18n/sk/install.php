@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Použiť predošlé nastavenia',
 		'next_step' => 'Ďalší krok',
 		'reinstall' => 'Preinštalovať FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Webový formulár (tradičný, vyžaduje JavaScript)',
-		'http' => 'HTTP (pre pokročilých používateľov s HTTPS)',
-		'none' => 'Žiadny (nebezpečné)',
-		'password_form' => 'Heslo<br /><small>(pre prihlásenie cez webový formulár)</small>',
-		'password_format' => 'Najmenej 7 znakov',
-		'type' => 'Spôsob prihlásenia',
 	),
 	'bdd' => array(
 		'_' => 'Databáza',
@@ -58,6 +50,19 @@ return array(
 			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
 			'ok' => 'Oprávnenia prístupu do priečinku údajov sú OK.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu na prehliadanie DOM.',
 			'ok' => 'Našla sa požadovaná knižnica na prehliadanie DOM.',
@@ -69,6 +74,11 @@ return array(
 		'fileinfo' => array(
 			'nok' => 'Nepodarilo sa nájsť knižniuc PHP fileinfo (balík fileinfo).',
 			'ok' => 'Našla sa knižnica fileinfo.',
+		),
+		'files' => 'Inštalácia súborov',
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
 		),
 		'json' => array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu na spracovanie formátu JSON.',
@@ -82,11 +92,22 @@ return array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu pre regulárne výrazy (php-pcre).',
 			'ok' => 'Našla sa požadovaná knižnica pre regulárne výrazy (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Nepodarilo sa nájsť PDO alebo niektorý z podporovaných ovládačov (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Našiel sa PDO a aspoň jeden z podporovaných ovládačov (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Nepodarilo sa nájsť PDO alebo niektorý z podporovaných ovládačov (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Našiel sa PDO a aspoň jeden z podporovaných ovládačov (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Inštalácia PHP',
 			'nok' => 'Vaša verzia PHP je %s, ale FreshRSS vyžaduje minimálne verziu %s.',
 			'ok' => 'Vaša verzia PHP %s je kompatibilná s FreshRSS.',
 		),
@@ -94,6 +115,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>%s</em>. HTTP server musí mať právo doň zapisovať.',
 			'ok' => 'Oprávnenia pre dočasný priečinok sú OK.',
+		),
+		'tokens' => array(
+			'nok' => 'Skontrolujte oprávnenia prístupu do priečinku <em>./data/tokens</em>. HTTP server musí mať právo doň zapisovať.',
+			'ok' => 'Oprávnenia prístupu do priečinku tokens sú OK.',
 		),
 		'unknown_process_username' => 'neznámy',
 		'users' => array(
@@ -103,6 +128,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu na spracovanie formátu XML.',
 			'ok' => 'Našla sa požadovaná knižnica na spracovanie formátu XML.',
+		),
+		'zip' => array(
+			'nok' => 'Nepodarilo sa nájsť rozšírenie ZIP (balík php-zip).',
+			'ok' => 'Rozšírenie ZIP sa našlo.',
 		),
 	),
 	'conf' => array(

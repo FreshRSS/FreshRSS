@@ -94,6 +94,8 @@
 	--dark-font-colorA: #aaa;
 
 	--dark-notification-border-color: #c95;
+	--dark-notification-good-border-color: #484;
+	--dark-notification-bad-border-color: #a44;
 	--dark-notification-font-color: #c95;
 
 	--dark-notification-good-close-background-color-hover: #484;
@@ -114,6 +116,18 @@ body video,
 p.help .icon,
 .icon {
 	filter: brightness(.6) contrast(1.2);
+}
+
+.spinner {
+	filter: invert(1) brightness(.6) contrast(1.2);
+}
+
+.bookmark:hover > .spinner {
+	filter: invert(1) brightness(1.1);
+}
+
+a:hover .icon.spinner {
+	filter: invert(1) brightness(1.5);
 }
 
 /*=== Forms */
@@ -257,12 +271,14 @@ button.as-link[disabled] {
 }
 
 .nav-list .nav-section .item.active:hover a,
+.nav-list .nav-section .item.active:hover .as-link,
 .nav-list .item.active {
 	color: var(--font-color-link-hover);
 	background-color: var(--background-color-hover);
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 	color: var(--font-color-link-hover);
 }
 
@@ -286,8 +302,11 @@ button.as-link[disabled] {
 	color: var(--dark-font-color8);
 }
 
+.dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
+.dropdown-menu .item > button:focus:not([disabled]),
 .dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background-color: var(--dark-background-color-blue);
 	color: var(--dark-font-color8);
@@ -424,8 +443,8 @@ button.as-link[disabled] {
 	background-color: var(--dark-background-color3);
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	border-top: 1px solid var(--dark-border-color3);
 	border-bottom: 1px solid var(--dark-border-color3);
 }
@@ -482,11 +501,13 @@ button.as-link[disabled] {
 
 .content code {
 	background-color: var(--dark-background-color1);
-	border: 1px solid var(--dark-border-color3);
+	border-color: var(--dark-border-color3);
 }
 
 .content pre code {
+	background: transparent;
 	color: var(--dark-font-colorA);
+	border: none;
 }
 
 .content blockquote {
@@ -505,22 +526,32 @@ button.as-link[disabled] {
 
 .notification.good {
 	background-color: var(--dark-background-color1);
+	border-color: var(--dark-notification-good-border-color);
 }
 
 .notification.bad {
 	background-color: var(--dark-background-color1);
+	border-color: var(--dark-notification-bad-border-color);
 }
 
-.notification a.close:hover {
+.notification .close:hover {
 	background-color: var(--dark-background-color2);
 }
 
-.notification.good a.close:hover {
+.notification.good .close:hover {
 	background-color: var(--dark-notification-good-close-background-color-hover);
 }
 
-.notification.bad a.close:hover {
+.notification.bad .close:hover {
 	background-color: var(--dark-notification-bad-close-background-color-hover);
+}
+
+.notification .close .icon {
+	filter: brightness(0.6);
+}
+
+.notification .close:hover .icon {
+	filter: brightness(3);
 }
 
 /*=== "Load more" part */
@@ -543,7 +574,7 @@ button.as-link[disabled] {
 	background-color: var(--dark-background-color2);
 }
 
-#stream.reader .flux .content {
+#stream.reader .flux .flux_content {
 	background-color: var(--dark-background-color1);
 	border: none;
 }

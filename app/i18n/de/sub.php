@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -29,16 +29,18 @@ return array(
 			'help' => 'URL zu einer <a href="http://opml.org/" target="_blank">OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
 		),
 		'empty' => 'Leere Kategorie',
+		'expand' => 'Kategory aufklappen',
 		'information' => 'Information',	// IGNORE
+		'open' => 'Kategory öffnen',
 		'opml_url' => 'OPML-Datei URL',
 		'position' => 'Reihenfolge',
-		'position_help' => 'Steuert die Kategoriesortierung',
+		'position_help' => 'Sortierreihenfolge der Kategorien steuern',
 		'title' => 'Titel',
 	),
 	'feed' => array(
 		'accept_cookies' => 'Cookies zulassen',
 		'accept_cookies_help' => 'Erlaubt dem Feed-Server das Setzen von Cookies (wird nur für die Dauer der Anfrage im Speicher gehalten)',
-		'add' => 'Einen RSS-Feed hinzufügen',
+		'add' => 'Feed hinzufügen',
 		'advanced' => 'Erweitert',
 		'archiving' => 'Archivierung',
 		'auth' => array(
@@ -48,37 +50,53 @@ return array(
 			'password' => 'HTTP-Passwort',
 			'username' => 'HTTP-Nutzername',
 		),
-		'clear_cache' => 'Nicht cachen (für defekte Feeds)',
+		'change_favicon' => 'Ändern…',
+		'clear_cache' => 'Nicht cachen',
 		'content_action' => array(
-			'_' => 'Behandlung von Feed-Inhalt beim Herunterladen von Artikelinhalt',
-			'append' => 'Artikelinhalt nach Feed-Inhalt hinzufügen',
-			'prepend' => 'Artikelinhalt vor Feed-Inhalt hinzufügen',
-			'replace' => 'Artikelinhalt ersetzt Feed-Inhalt (Standard)',
+			'_' => 'Inhaltsaktion beim Abrufen des Artikelinhalts',
+			'append' => 'Nach bestehendem Inhalt einfügen',
+			'prepend' => 'Vor bestehendem Inhalt einfügen',
+			'replace' => 'Vorhandene Inhalte ersetzen',
 		),
-		'css_cookie' => 'Verwende Cookies beim Herunterladen des Feed-Inhalts mit CSS-Filtern',
+		'content_retrieval' => 'Inhaltsabruf',
+		'css_cookie' => 'Cookies beim Abrufen des Artikelinhalts verwenden',
 		'css_cookie_help' => 'Beispiel: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Ruft bei gekürzten RSS-Feeds den vollständigen Artikelinhalt ab (Achtung, benötigt mehr Zeit!)',
 		'css_path' => 'CSS-Selektor des Artikelinhaltes auf der Original-Webseite',
 		'css_path_filter' => array(
 			'_' => 'CSS-Selector für die Elemente, die entfernt werden sollen',
-			'help' => 'CSS-Selector könnte eine Liste sein, wie z.B.: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS-Selector könnte eine Liste sein, wie z.B.: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
 		'description' => 'Beschreibung',
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',
-		'error' => 'Dieser Feed ist auf ein Problem gestoßen. Bitte stellen Sie sicher, dass er immer lesbar ist und aktualisieren Sie ihn dann.',
+		'error' => 'Bei diesem Feed ist ein Problem aufgetreten. Sollte dieses Problem weiterhin bestehen, überprüfen Sie bitte, ob er noch erreichbar ist.',
 		'export-as-opml' => array(
 			'download' => 'Download',	// IGNORE
 			'help' => 'XML Datei (ausgewählte Daten. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Siehe Dokumentation</a>)',
-			'label' => 'Export als OPML',
+			'label' => 'EAls OPML exportieren',
 		),
+		'ext_favicon' => 'Automatisch festlegen',
+		'favicon_changed_by_ext' => 'Das Icon wurde von der Erweiterung <b>%s</b> festgelegt.',
 		'filteractions' => array(
 			'_' => 'Filteraktionen',
 			'help' => 'Ein Suchfilter pro Zeile. Operatoren <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">siehe Dokumentation</a>.',
+			'view_filter' => 'Filter für vorhandene Artikel in der Vorschau anzeigen (neues Fenster)',
 		),
-		'information' => 'Information',	// IGNORE
+		'http_headers' => 'HTTP Headers',	// IGNORE
+		'http_headers_help' => 'Headers werden durch einen Zeilenumbruch getrennt. Name und Wert des Headers werden per Doppelpunkt getrennt (z.B: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icon',	// IGNORE
+		'information' => 'Informationen',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'kind' => array(
 			'_' => 'Art der Feed-Quelle',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON Punkt-Notation (JSON in HTML)',
+				'xpath' => array(
+					'_' => 'XPath für JSON in HTML',
+					'help' => 'Beispiel: <code>normalize-space(//script[@type="application/json"])</code> (einzelnes JSON)<br />oder: <code>//script[@type="application/ld+json"]</code> (ein JSON-Objekt pro Artikel)</code>',
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Webseite scannen)',
 				'feed_title' => array(
@@ -135,7 +153,7 @@ return array(
 				'help' => 'JSON punktnotiert nutzt Punkte zwischen den Objekten und eckige Klammern für Arrays (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'News <strong>Items</strong> finden<br /><small>(sehr wichtig)</small>',
-					'help' => 'JSON-Pfad zum Array, das die Items enthält, z.B. <code>newsItems</code>',
+					'help' => 'JSON-Pfad zum Array, das die Einträge enthält, z. B. <code>$</code> oder <code>newsItems</code>',
 				),
 				'item_author' => 'Item Autor',
 				'item_categories' => 'Item Hashtags',
@@ -168,11 +186,13 @@ return array(
 			'rss' => 'RSS / Atom (Standard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Letzte fehlerhafte Aktualisierung <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Letzte erfolgreiche Aktualisierung <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Zwischenspeicher leeren',
 			'clear_cache_help' => 'Zwischenspeicher für diesen Feed leeren.',
-			'reload_articles' => 'Artikel neuladen',
-			'reload_articles_help' => 'Artikel neuladen und kompletten Inhalt laden, wenn ein Selektor festgelegt wurde.',
+			'reload_articles' => 'Artikel neu laden',
+			'reload_articles_help' => 'Artikel neu laden und kompletten Inhalt laden, wenn ein Selektor festgelegt wurde.',
 			'title' => 'Wartung',
 		),
 		'max_http_redir' => 'Max HTTP Umleitungen',
@@ -183,18 +203,25 @@ return array(
 		'method_help' => 'Der POST-Payload unterstützt automatisch <code>application/x-www-form-urlencoded</code> und <code>application/json</code>',
 		'method_postparams' => 'Payload für POST',
 		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',
-		'mute' => 'Stumm schalten',
+		'mute' => array(
+			'_' => 'Stumm schalten',
+			'state_is_muted' => 'Dieser Feed ist stummgeschaltet',
+		),
 		'no_selected' => 'Kein Feed ausgewählt.',
 		'number_entries' => '%d Artikel',
+		'open_feed' => 'Feed %s öffnen',
+		'path_entries_conditions' => 'Bedingungen für den Inhaltsabruf',
 		'priority' => array(
 			'_' => 'Sichtbarkeit',
-			'archived' => 'Nicht anzeigen (archiviert)',
-			'category' => 'Zeige in eigener Kategorie',
-			'important' => 'Zeige in "Wichtige Feeds"',
+			'category' => 'In eigener Kategorie anzeigen',
+			'feed' => 'In seinem Feed anzeigen',
+			'hidden' => 'Nicht anzeigen',
+			'important' => 'In "Wichtige Feeds" anzeigen',
 			'main_stream' => 'In Haupt-Feeds zeigen',
 		),
-		'proxy' => 'Verwende einen Proxy, um den Feed abzuholen',
-		'proxy_help' => 'Wähle ein Protokoll (z.B. SOCKS5) und einen Proxy mit Port (z.B. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy' => 'Proxy für das Abrufen dieses Feeds festlegen',
+		'proxy_help' => 'Wählen Sie ein Protokoll aus (z. B. SOCKS5) und geben Sie die Proxy-Adresse ein (z. B. <kbd>127.0.0.1:1080</kbd> oder <kbd>username:password@127.0.0.1:1080</kbd>).',
+		'reset_favicon' => 'Auf Standard zurücksetzen',
 		'selector_preview' => array(
 			'show_raw' => 'Quellcode anzeigen',
 			'show_rendered' => 'Inhalt anzeigen',
@@ -206,22 +233,41 @@ return array(
 		'showing' => array(
 			'error' => 'Nur Feeds mit Fehlern zeigen',
 		),
-		'ssl_verify' => 'Überprüfe SSL Sicherheit',
+		'ssl_verify' => 'SSL Sicherheit überprüfen',
 		'stats' => 'Statistiken',
 		'think_to_add' => 'Sie können Feeds hinzufügen.',
 		'timeout' => 'Zeitlimit in Sekunden',
 		'title' => 'Titel',
 		'title_add' => 'Einen RSS-Feed hinzufügen',
-		'ttl' => 'Aktualisiere automatisch nicht öfter als',
+		'ttl' => 'Automatisch aktualisieren nicht öfter als',
+		'unicityCriteria' => array(
+			'_' => 'Artikel-Eindeutigkeits-Kriterien',
+			'forced' => '<span title="Eindeutigkeitskriterien blockieren, auch wenn der Feed doppelte Artikel enthält">Erzwingen</span>',
+			'help' => 'Relevant für defekte Feeds.<br />⚠️ Eine Änderung der Richtlinie führt zu Duplikaten.',
+			'id' => 'Standard ID (Standardeinstellung)',
+			'link' => 'Link',	// IGNORE
+			'sha1:content' => 'Inhalt',
+			'sha1:content_published' => 'Inhalt + Datum',
+			'sha1:link_published' => 'Link + Datum',
+			'sha1:link_published_title' => 'Link + Datum + Titel',
+			'sha1:link_published_title_content' => 'Link + Datum + Titel + Inhalt',
+			'sha1:published' => 'Datum',
+			'sha1:title' => 'Titel',
+			'sha1:title_published' => 'Titel + Datum',
+			'sha1:title_published_content' => 'Titel + Datum + Inhalt',
+		),
 		'url' => 'Feed-URL',
 		'useragent' => 'Browser User Agent für den Abruf des Feeds verwenden',
 		'useragent_help' => 'Beispiel: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
-		'validator' => 'Überprüfen Sie die Gültigkeit des Feeds',
+		'validator' => 'Gültigkeit des Feeds überprüfen',
 		'website' => 'Webseiten-URL',
 		'websub' => 'Sofortbenachrichtigung mit WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Exportieren',
+		'export' => array(
+			'_' => 'Exportieren',
+			'sqlite' => 'Nutzer-Datenbank als SQLite herunterladen',
+		),
 		'export_labelled' => 'Artikel mit Labeln exportieren',
 		'export_opml' => 'Liste der Feeds exportieren (OPML)',
 		'export_starred' => 'Ihre Favoriten exportieren',
@@ -229,7 +275,7 @@ return array(
 		'file_to_import' => 'Zu importierende Datei<br />(OPML, JSON oder ZIP)',
 		'file_to_import_no_zip' => 'Zu importierende Datei<br />(OPML oder JSON)',
 		'import' => 'Importieren',
-		'starred_list' => 'Liste der Lieblingsartikel',
+		'starred_list' => 'Liste der Favoritenartikel',
 		'title' => 'Importieren / Exportieren',
 	),
 	'menu' => array(
@@ -240,6 +286,7 @@ return array(
 			'idle' => 'Inaktive Feeds',
 			'main' => 'Haupt-Statistiken',
 			'repartition' => 'Artikel-Verteilung',
+			'unread_dates' => 'Ungelesene Artikel',
 		),
 		'subscription_management' => 'Abonnementverwaltung',
 		'subscription_tools' => 'Abonnement-Tools',
@@ -254,12 +301,12 @@ return array(
 		'_' => 'Abonnementverwaltung',
 		'add' => 'Feed oder Kategorie hinzufügen',
 		'add_category' => 'Kategorie hinzufügen',
-		'add_dynamic_opml' => 'dynamisches OPML hinzufügen',
+		'add_dynamic_opml' => 'Dynamisches OPML hinzufügen',
 		'add_feed' => 'Feed hinzufügen',
 		'add_label' => 'Label hinzufügen',
-		'delete_label' => 'Label löschen',
-		'feed_management' => 'Verwaltung der RSS-Feeds',
-		'rename_label' => 'Label umbenennen',
+		'add_opml_category' => 'OPML Kategoriename',
+		'delete_label' => 'Dieses Label löschen',
+		'feed_management' => 'RSS-Feeds verwalten',
 		'subscription_tools' => 'Abonnement-Tools',
 	),
 );

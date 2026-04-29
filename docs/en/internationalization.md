@@ -43,6 +43,8 @@ Each value can be referenced by a key: it consists of a series of identifiers se
 
 You should not have to write the array by yourself and we provide several commands to ease the manipulation of these files. Let’s see some common use cases.
 
+> ℹ Check [`freshrss-i18n/SKILL.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/skills/freshrss-i18n/SKILL.md) for detailed coding conventions (both for humans and AI agents).
+
 ## Add support for a new language
 
 If you want to add support for a language which isn’t supported by FreshRSS yet, you can run this command:
@@ -83,7 +85,7 @@ make i18n-ignore-key lang=fr key=index.about.version
 
 This command adds an IGNORE comment on the translation so the key can be considered as translated.
 
-## Add/remove/update a key
+## Add/remove/update/rename a key
 
 If you’re developing a new part of the application, you might want to declare a new translation key. Your first impulse would be to add the key to each file manually: don’t do that, it’s very painful. We provide another command:
 
@@ -106,6 +108,11 @@ make i18n-update-key key=the.key.to.change value='The new string in English'
 ```
 
 The key will simply be removed and added back with the new value.
+
+If you want to move/rename a key, you can use:
+```sh
+make i18n-move-key key=the.key.to.move new-key=new.location.of.the.key
+```
 
 ## How to access a translation programmatically
 

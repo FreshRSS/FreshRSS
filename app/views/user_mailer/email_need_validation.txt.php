@@ -7,3 +7,4 @@
 <?= _t('user.mailer.email_need_validation.body', $this->site_title) ?>
 
 <?= $this->validation_url ?>
+<?php

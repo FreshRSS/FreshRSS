@@ -38,7 +38,7 @@ class FreshRSS_fever_Util {
 	 * @return string|false the Fever key, or false if the update failed
 	 * @throws FreshRSS_Context_Exception
 	 */
-	public static function updateKey(string $username, string $passwordPlain) {
+	public static function updateKey(string $username, string $passwordPlain): string|false {
 		if (!self::checkFeverPath()) {
 			return false;
 		}
@@ -62,7 +62,7 @@ class FreshRSS_fever_Util {
 	 * @throws FreshRSS_Context_Exception
 	 */
 	public static function deleteKey(string $username): bool {
-		$userConfig = get_user_configuration($username);
+		$userConfig = FreshRSS_UserConfiguration::getForUser($username);
 		if ($userConfig === null) {
 			return false;
 		}

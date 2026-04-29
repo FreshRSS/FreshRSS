@@ -1,3 +1,5 @@
+# Contributor Guidelines
+
 ## Report a bug
 
 Have you found a bug? Don’t panic, here are some steps to report it with ease:
@@ -31,6 +33,8 @@ Would you like to fix a bug? For optimum coordination between collaborators, you
 
 If you have to write code, please follow [our coding style recommendations](developers/02_First_steps.md).
 
+> ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).
+
 **Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)” ticket label.
 
 ## Submit an idea
@@ -52,7 +56,7 @@ If you want to give some help, meet us in the main repositories [docs directory]
 
 FreshRSS offers some official themes. If you have a good sense for great UI you are invited to share your theme with the community (via a [show&tell discussion thread](https://github.com/FreshRSS/FreshRSS/discussions/categories/show-and-tell) or as a [Pull Request](https://github.com/FreshRSS/FreshRSS/pulls)).
 
-Basic Information for creating a new theme are written [here](./developers/04_Frontend/02_Design.md).
+Check the [basic information for creating a new theme](./developers/04_Frontend/02_Design.md).
 
 This checklist is designed to ensure high-quality system themes while minimizing maintenance efforts.
 

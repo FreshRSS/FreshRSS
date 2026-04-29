@@ -34,6 +34,7 @@ class FreshRSS extends Minz_FrontController {
 			// Relax Content Security Policy to allow external images if a custom logo HTML is used
 			Minz_ActionController::_defaultCsp([
 				'default-src' => "'self'",
+				'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 				'img-src' => '* data:',
 			]);
 		}
@@ -65,7 +66,7 @@ class FreshRSS extends Minz_FrontController {
 			self::checkEmailValidated();
 		}
 
-		Minz_ExtensionManager::callHookVoid('freshrss_init');
+		Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssInit);
 	}
 
 	private static function initAuth(): void {
@@ -74,10 +75,10 @@ class FreshRSS extends Minz_FrontController {
 			if (!FreshRSS_Context::hasSystemConf() || !(FreshRSS_Auth::isCsrfOk() ||
 				(Minz_Request::controllerName() === 'auth' && Minz_Request::actionName() === 'login') ||
 				(Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'create' && !FreshRSS_Auth::hasAccess('admin')) ||
-				(Minz_Request::controllerName() === 'feed' && Minz_Request::actionName() === 'actualize'
-					&& FreshRSS_Context::systemConf()->allow_anonymous_refresh) ||
-				(Minz_Request::controllerName() === 'javascript' && Minz_Request::actionName() === 'actualize'
-					&& FreshRSS_Context::systemConf()->allow_anonymous)
+				(Minz_Request::controllerName() === 'feed' && Minz_Request::actionName() === 'actualize' &&
+					FreshRSS_Context::systemConf()->allow_anonymous_refresh) ||
+				(Minz_Request::controllerName() === 'javascript' && Minz_Request::actionName() === 'actualize' &&
+					FreshRSS_Context::systemConf()->allow_anonymous)
 				)) {
 				// Token-based protection against XSRF attacks, except for the login or self-create user forms
 				self::initI18n();
@@ -111,8 +112,8 @@ class FreshRSS extends Minz_FrontController {
 			return;
 		}
 		$theme = FreshRSS_Themes::load(FreshRSS_Context::userConf()->theme);
-		if ($theme) {
-			foreach(array_reverse($theme['files']) as $file) {
+		if (is_array($theme)) {
+			foreach (array_reverse($theme['files']) as $file) {
 				switch (substr($file, -3)) {
 					case '.js':
 						$theme_id = $theme['id'];
@@ -148,7 +149,7 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	public static function preLayout(): void {
-		header("X-Content-Type-Options: nosniff");
+		header('X-Content-Type-Options: nosniff');
 
 		FreshRSS_Share::load(join_path(APP_PATH, 'shares.php'));
 		self::loadStylesAndScripts();
@@ -164,7 +165,8 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Request::is('user', 'delete') ||
 			Minz_Request::is('auth', 'logout') ||
 			Minz_Request::is('feed', 'actualize') ||
-			Minz_Request::is('javascript', 'nonce')
+			Minz_Request::is('javascript', 'nonce') ||
+			Minz_Request::is('error', 'index')
 		);
 		if ($email_not_verified && !$action_is_allowed) {
 			Minz_Request::forward([

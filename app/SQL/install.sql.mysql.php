@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `_category` (
 	`name` VARCHAR(191) NOT NULL,	-- Max index length for Unicode is 191 characters (767 bytes) FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE
 	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`lastUpdate` BIGINT DEFAULT 0,	-- 1.20.0
-	`error` SMALLINT DEFAULT 0,	-- 1.20.0
+	`error` BIGINT DEFAULT 0,	-- Date, v1.29.0
 	`attributes` TEXT,	-- v1.15.0
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)	-- v0.7
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
 	`pathEntries` VARCHAR(4096) DEFAULT NULL,
 	`httpAuth` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
-	`error` BOOLEAN DEFAULT 0,
+	`error` BIGINT DEFAULT 0,	-- Date, v1.29.0
 	`ttl` INT NOT NULL DEFAULT 0,	-- v0.7.3
 	`attributes` TEXT,	-- v1.11.0
 	`cache_nbEntries` INT DEFAULT 0,	-- v0.7
@@ -49,6 +49,8 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	`link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
 	`date` BIGINT,
 	`lastSeen` BIGINT DEFAULT 0,
+	`lastModified` BIGINT,	-- v1.29.0
+	`lastUserModified` BIGINT,	-- v1.28.0
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
@@ -61,11 +63,13 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`),	-- v0.7
 	INDEX `entry_lastSeen_index` (`lastSeen`),	-- v1.1.1
+	INDEX `entry_last_modified_index` (`lastModified`),
+	INDEX `entry_last_user_modified_index` (`lastUserModified`),
 	INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
-INSERT IGNORE INTO `_category` (id, name) VALUES(1, "Uncategorized");
+INSERT IGNORE INTO `_category` (id, name) VALUES(1, 'Uncategorized');
 
 CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
@@ -109,35 +113,66 @@ CREATE TABLE IF NOT EXISTS `_entrytag` (	-- v1.12
 ENGINE = INNODB;
 SQL;
 
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry`
+	ADD COLUMN IF NOT EXISTS `lastUserModified` BIGINT,	-- 1.28.0
+	ADD INDEX IF NOT EXISTS `entry_last_user_modified_index` (`lastUserModified`);
+SQL;
+
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry`
+	ADD COLUMN IF NOT EXISTS `lastModified` BIGINT,	-- 1.29.0
+	ADD INDEX IF NOT EXISTS `entry_last_modified_index` (`lastModified`);
+SQL;
+
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
 SQL;
 
 $GLOBALS['SQL_UPDATE_MINOR'] = <<<'SQL'
-ALTER TABLE `_feed`
-	MODIFY COLUMN `website` TEXT CHARACTER SET latin1 COLLATE latin1_bin,
-	MODIFY COLUMN `lastUpdate` BIGINT DEFAULT 0,
-	MODIFY COLUMN `pathEntries` VARCHAR(4096),
-	MODIFY COLUMN `httpAuth` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL;
-ALTER TABLE `_entry`
-	MODIFY COLUMN `date` BIGINT,
-	MODIFY COLUMN `lastSeen` BIGINT DEFAULT 0,
-	MODIFY COLUMN `guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	MODIFY COLUMN `title` VARCHAR(8192) NOT NULL,
-	MODIFY COLUMN `author` VARCHAR(1024),
-	MODIFY COLUMN `link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	MODIFY COLUMN `tags` VARCHAR(2048);
-ALTER TABLE `_entrytmp`
-	MODIFY COLUMN `date` BIGINT,
-	MODIFY COLUMN `lastSeen` BIGINT DEFAULT 0,
-	MODIFY COLUMN `guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	MODIFY COLUMN `title` VARCHAR(8192) NOT NULL,
-	MODIFY COLUMN `author` VARCHAR(1024),
-	MODIFY COLUMN `link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-	MODIFY COLUMN `tags` VARCHAR(2048);
-ALTER TABLE `_tag`
-	MODIFY COLUMN `name` VARCHAR(191) NOT NULL;
-ALTER TABLE `_feed`
-	DROP INDEX IF EXISTS `url`, -- IF EXISTS works with MariaDB but not with MySQL, so needs PHP workaround
-	MODIFY COLUMN `url` VARCHAR(32768) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
+DROP PROCEDURE IF EXISTS update_minor;
+CREATE PROCEDURE update_minor()
+BEGIN
+	DECLARE up_to_date INT;
+
+	SELECT COUNT(*) INTO up_to_date FROM information_schema.COLUMNS
+		WHERE TABLE_SCHEMA = DATABASE()
+		AND TABLE_NAME = REPLACE('`_feed`', '`', '')
+		AND COLUMN_NAME = 'error'
+		AND DATA_TYPE = 'bigint';
+
+	IF up_to_date = 0 THEN
+		ALTER TABLE `_category`
+			MODIFY COLUMN `error` BIGINT DEFAULT 0;	-- v1.29.0
+		ALTER TABLE `_feed`
+			MODIFY COLUMN `website` TEXT CHARACTER SET latin1 COLLATE latin1_bin,
+			MODIFY COLUMN `lastUpdate` BIGINT DEFAULT 0,
+			MODIFY COLUMN `error` BIGINT DEFAULT 0,	-- v1.29.0
+			MODIFY COLUMN `pathEntries` VARCHAR(4096),
+			MODIFY COLUMN `httpAuth` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL;
+		ALTER TABLE `_entry`
+			MODIFY COLUMN `date` BIGINT,
+			MODIFY COLUMN `lastSeen` BIGINT DEFAULT 0,
+			MODIFY COLUMN `guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+			MODIFY COLUMN `title` VARCHAR(8192) NOT NULL,
+			MODIFY COLUMN `author` VARCHAR(1024),
+			MODIFY COLUMN `link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+			MODIFY COLUMN `tags` VARCHAR(2048);
+		ALTER TABLE `_entrytmp`
+			MODIFY COLUMN `date` BIGINT,
+			MODIFY COLUMN `lastSeen` BIGINT DEFAULT 0,
+			MODIFY COLUMN `guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+			MODIFY COLUMN `title` VARCHAR(8192) NOT NULL,
+			MODIFY COLUMN `author` VARCHAR(1024),
+			MODIFY COLUMN `link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+			MODIFY COLUMN `tags` VARCHAR(2048);
+		ALTER TABLE `_tag`
+			MODIFY COLUMN `name` VARCHAR(191) NOT NULL;
+		ALTER TABLE `_feed`
+			DROP INDEX IF EXISTS `url`, -- IF EXISTS works with MariaDB but not with MySQL, so needs PHP workaround
+			MODIFY COLUMN `url` VARCHAR(32768) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
+	END IF;
+END;
+CALL update_minor();
+DROP PROCEDURE update_minor;
 SQL;

@@ -22,15 +22,14 @@ class LogDAOTest extends TestCase {
 	}
 
 	public function test_lines_is_array_and_truncate_function_work(): void {
-		self::assertEquals(USERS_PATH . '/' . Minz_User::INTERNAL_USER . '/' . self::LOG_FILE_TEST, $this->logPath);
+		self::assertSame(USERS_PATH . '/' . Minz_User::INTERNAL_USER . '/' . self::LOG_FILE_TEST, $this->logPath);
 
 		$line = $this->logDAO::lines(self::LOG_FILE_TEST);
 
 		self::assertCount(1, $line);
-		self::assertInstanceOf(FreshRSS_Log::class, $line[0]);
-		self::assertEquals('Wed, 08 Feb 2023 15:35:05 +0000', $line[0]->date());
-		self::assertEquals('notice', $line[0]->level());
-		self::assertEquals("Migration 2019_12_22_FooBar: OK", $line[0]->info());
+		self::assertSame('Wed, 08 Feb 2023 15:35:05 +0000', $line[0]->date());
+		self::assertSame('notice', $line[0]->level());
+		self::assertSame("Migration 2019_12_22_FooBar: OK", $line[0]->info());
 
 		$this->logDAO::truncate(self::LOG_FILE_TEST);
 

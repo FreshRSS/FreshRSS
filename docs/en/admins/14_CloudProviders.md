@@ -17,4 +17,3 @@ You might also use a ready-to-go FreshRSS instance, shared between multiple user
 ## Other lists
 
 * [Framasoft CHATONS list](https://www.chatons.org/search/by-service?field_software_target_id=269)
-* [Marien’s list](https://app.flus.fr/collections/1698850762083905588)

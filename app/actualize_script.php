@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
-// declare(strict_types=1);	// Need to wait for PHP 8+ due to https://php.net/ob-implicit-flush
-require(__DIR__ . '/../cli/_cli.php');
+declare(strict_types=1);
+require dirname(__DIR__) . '/cli/_cli.php';
 
 session_cache_limiter('');
 ob_implicit_flush(false);
@@ -66,7 +66,7 @@ echo 'Results: ', "\n";	//Buffered
 
 // Create the list of users to actualize.
 // Users are processed in a random order but always start with default user
-$users = listUsers();
+$users = FreshRSS_user_Controller::listUsers();
 shuffle($users);
 if (FreshRSS_Context::systemConf()->default_user !== '') {
 	array_unshift($users, FreshRSS_Context::systemConf()->default_user);
@@ -96,7 +96,7 @@ foreach ($users as $user) {
 	// NB: Extensions and hooks are reinitialised there
 	$app->init();
 
-	Minz_ExtensionManager::addHook('feed_before_actualize', static function (FreshRSS_Feed $feed) use ($mutexFile) {
+	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile) {
 		touch($mutexFile);
 		return $feed;
 	});

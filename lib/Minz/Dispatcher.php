@@ -7,7 +7,7 @@ declare(strict_types=1);
 */
 
 /**
- * The Dispatcher is in charge of initialising the Controller and exectue the action as specified in the Request object.
+ * The Dispatcher is in charge of initialising the Controller and execute the action as specified in the Request object.
  * It is a singleton.
  */
 final class Minz_Dispatcher {
@@ -41,27 +41,24 @@ final class Minz_Dispatcher {
 			self::$needsReset = false;
 
 			try {
-				$this->createController (Minz_Request::controllerName ());
-				$this->controller->init ();
-				$this->controller->firstAction ();
-				// @phpstan-ignore booleanNot.alwaysTrue
+				$this->createController(Minz_Request::controllerName());
+				$this->controller->init();
+				$this->controller->firstAction();
 				if (!self::$needsReset) {
-					$this->launchAction (
-						Minz_Request::actionName ()
+					$this->launchAction(
+						Minz_Request::actionName()
 						. 'Action'
 					);
 				}
-				$this->controller->lastAction ();
+				$this->controller->lastAction();
 
-				// @phpstan-ignore booleanNot.alwaysTrue
 				if (!self::$needsReset) {
 					$this->controller->declareCspHeader();
-					$this->controller->view ()->build ();
+					$this->controller->view()->build();
 				}
 			} catch (Minz_Exception $e) {
 				throw $e;
 			}
-			// @phpstan-ignore doWhile.alwaysFalse
 		} while (self::$needsReset);
 	}
 
@@ -87,14 +84,14 @@ final class Minz_Dispatcher {
 		}
 
 		if (!class_exists($controller_name)) {
-			throw new Minz_ControllerNotExistException (
+			throw new Minz_ControllerNotExistException(
 				Minz_Exception::ERROR
 			);
 		}
 		$controller = new $controller_name();
 
 		if (!($controller instanceof Minz_ActionController)) {
-			throw new Minz_ControllerNotActionControllerException (
+			throw new Minz_ControllerNotActionControllerException(
 				$controller_name,
 				Minz_Exception::ERROR
 			);
@@ -111,13 +108,15 @@ final class Minz_Dispatcher {
 	private function launchAction(string $action_name): void {
 		$call = [$this->controller, $action_name];
 		if (!is_callable($call)) {
-			throw new Minz_ActionException (
+			throw new Minz_ActionException(
 				get_class($this->controller),
 				$action_name,
 				Minz_Exception::ERROR
 			);
 		}
-		call_user_func($call);
+		if (Minz_ExtensionManager::callHook(Minz_HookType::ActionExecute, $this->controller) !== false) {
+			call_user_func($call);
+		}
 	}
 
 	/**

@@ -36,6 +36,13 @@ return [
 		'form' => 'simple',
 		'method' => 'GET',
 	],
+	'archiveIS' => [
+		'url' => 'https://archive.is/submit/?url=~LINK~',
+		'transform' => [],
+		'help' => 'https://archive.is/',
+		'form' => 'simple',
+		'method' => 'GET',
+	],
 	'archivePH' => [
 		'url' => 'https://archive.ph/submit/?url=~LINK~',
 		'transform' => [],
@@ -43,8 +50,14 @@ return [
 		'form' => 'simple',
 		'method' => 'GET',
 	],
+	'bluesky' => [
+		'url' => 'https://bsky.app/intent/compose?text=~LINK~',
+		'transform' => ['urlencode'],
+		'form' => 'simple',
+		'method' => 'GET',
+	],
 	'buffer' => [
-		'url' => 'https://publish.buffer.com/compose?url=~LINK~&text=~TITLE~',
+		'url' => 'https://publish.buffer.com/compose?url=~LINK~&amp;text=~TITLE~',
 		'transform' => ['rawurlencode'],
 		'help' => 'https://support.buffer.com/hc/en-us/articles/360035587394-Scheduling-posts',
 		'form' => 'simple',
@@ -85,34 +98,34 @@ return [
 	'gnusocial' => [
 		'url' => '~URL~/notice/new?content=~TITLE~%20~LINK~',
 		'transform' => ['urlencode'],
-		'help' => 'https://gnu.io/social/',
+		'help' => 'https://gnusocial.rocks/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
 	'jdh' => [
-		'url' => 'https://www.journalduhacker.net/stories/new?url=~LINK~&title=~TITLE~',
+		'url' => 'https://www.journalduhacker.net/stories/new?url=~LINK~&amp;title=~TITLE~',
 		'transform' => ['rawurlencode'],
 		'form' => 'simple',
 		'method' => 'GET',
 	],
 	'Known' => [
-		'url' => '~URL~/share?share_url=~LINK~&share_title=~TITLE~',
+		'url' => '~URL~/share?share_url=~LINK~&amp;share_title=~TITLE~',
 		'transform' => ['rawurlencode'],
 		'help' => 'https://withknown.com/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
 	'lemmy' => [
-		'url' => '~URL~/create_post?url=~LINK~&title=~TITLE~',
+		'url' => '~URL~/create_post?url=~LINK~&amp;title=~TITLE~',
 		'transform' => ['rawurlencode'],
 		'help' => 'https://join-lemmy.org/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
 	'linkding' => [
-		'url' => '~URL~/bookmarks/new?url=~LINK~&title=~TITLE~&auto_close',
+		'url' => '~URL~/bookmarks/new?url=~LINK~&amp;title=~TITLE~&amp;auto_close',
 		'transform' => ['rawurlencode'],
-		'help' => 'https://github.com/sissbruecker/linkding/blob/master/docs/how-to.md',
+		'help' => 'https://linkding.link/how-to/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
@@ -123,7 +136,7 @@ return [
 		'method' => 'GET',
 	],
 	'mastodon' => [
-		'url' => '~URL~/share?title=~TITLE~&url=~LINK~',
+		'url' => '~URL~/share?title=~TITLE~&amp;url=~LINK~',
 		'transform' => ['rawurlencode'],
 		'help' => 'https://joinmastodon.org/',
 		'form' => 'advanced',
@@ -139,7 +152,7 @@ return [
 	'omnivore' => [
 		'url' => '~URL~/api/save?url=~LINK~',
 		'transform' => ['urlencode'],
-		'help' => 'https://omnivore.app/',
+		'help' => 'https://github.com/omnivore-app/omnivore',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
@@ -157,12 +170,6 @@ return [
 		'form' => 'simple',
 		'method' => 'GET',
 	],
-	'pocket' => [
-		'url' => 'https://getpocket.com/save?url=~LINK~&amp;title=~TITLE~',
-		'transform' => ['rawurlencode'],
-		'form' => 'simple',
-		'method' => 'GET',
-	],
 	'print' => [
 		'HTMLtag' => 'button',
 		'url' => '#',
@@ -171,7 +178,7 @@ return [
 		'method' => 'GET',
 	],
 	'raindrop' => [
-		'url' => 'https://app.raindrop.io/add?link=~LINK~&title=~TITLE~',
+		'url' => 'https://app.raindrop.io/add?link=~LINK~&amp;title=~TITLE~',
 		'transform' => ['rawurlencode'],
 		'form' => 'simple',
 		'method' => 'GET',
@@ -188,6 +195,12 @@ return [
 		'transform' => ['rawurlencode'],
 		'help' => 'http://sebsauvage.net/wiki/doku.php?id=php:shaarli',
 		'form' => 'advanced',
+		'method' => 'GET',
+	],
+	'telegram' => [
+		'url' => 'https://t.me/share/url?url=~LINK~&amp;text=~TITLE~',
+		'transform' => ['rawurlencode'],
+		'form' => 'simple',
 		'method' => 'GET',
 	],
 	'twitter' => [
@@ -218,7 +231,7 @@ return [
 		'method' => 'GET',
 	],
 	'whatsapp' => [
-		'url' => 'https://wa.me/?text=~TITLE~ | ~LINK~',
+		'url' => 'https://wa.me/?text=~TITLE~%20|%20~LINK~',
 		'transform' => ['rawurlencode'],
 		'help' => 'https://faq.whatsapp.com/iphone/how-to-link-to-whatsapp-from-a-different-app/?lang=en',
 		'form' => 'simple',

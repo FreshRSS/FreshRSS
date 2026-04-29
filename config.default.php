@@ -3,7 +3,7 @@
 # Do not modify this file, which defines default values,
 # but instead edit `./data/config.php` after the install process is completed,
 # or edit `./data/config.custom.php` before the install process.
-return array(
+return [
 
 	# Set to `development` to get additional error messages,
 	#	or to `production` to get only the most important messages.
@@ -42,8 +42,6 @@ return array(
 	# Force users to validate their email address. If `true`, an email with a
 	# validation URL is sent during registration, and users cannot access their
 	# feed if they didn’t access this URL.
-	# Note: it is recommended to not enable it with PHP < 5.5 (emails cannot be
-	# sent).
 	'force_email_validation' => false,
 
 	# Allow or not visitors without login to see the articles
@@ -61,6 +59,13 @@ return array(
 	#		and in particular not protect `/FreshRSS/p/api/` if you would like to use the API (different login system).
 	'auth_type' => 'form',
 
+	# Whether reauthentication is required for performing sensitive actions e.g. promoting a user or applying an update
+	'reauth_required' => true,
+
+	# Time before asking for reauth
+	#    Default: 1200s (20 min)
+	'reauth_time' => 1200,
+
 	# When using http_auth, automatically register any unknown user
 	'http_auth_auto_register' => true,
 
@@ -73,10 +78,13 @@ return array(
 	#	You need to set the user’s API password.
 	'api_enabled' => false,
 
-	# Allow or not the use of an unsafe login,
-	#	by providing username and password in the login URL:
-	#	https://example.net/FreshRSS/p/i/?c=auth&a=login&u=alice&p=1234
-	'unsafe_autologin_enabled' => false,
+	# By default, FreshRSS will display a warning to logged-in admin users if the CSP policy is insecure.
+	#	This setting can disable the warning.
+	#	For more information see: https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security
+	'suppress_csp_warning' => false,
+
+	# Content-Security-Policy frame-ancestors
+	'csp.frame-ancestors' => "'none'",
 
 	# Enable or not the use of syslog to log the activity of
 	#	SimplePie, which is retrieving RSS feeds via HTTP requests.
@@ -99,15 +107,23 @@ return array(
 	# Faster with higher values. Reduce for server with little memory or database issues.
 	'nb_parallel_refresh' => 10,
 
-	'limits' => array(
+	'limits' => [
 
 		# Duration in seconds of the login cookie.
 		'cookie_duration' => FreshRSS_Auth::DEFAULT_COOKIE_DURATION,
 
-		# Duration in seconds of the SimplePie cache,
-		#	during which a query to the RSS feed will return the local cached version.
+		# Duration in seconds of the SimplePie cache, during which a query to the RSS feed will return the local cached version.
 		# Especially important for multi-user setups.
+		# Might be overridden by HTTP response headers.
 		'cache_duration' => 800,
+		# Minimal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`.
+		'cache_duration_min' => 60,
+		# Maximal cache duration (in seconds), overriding HTTP response headers `Cache-Control` and `Expires`.
+		'cache_duration_max' => 86400,
+		# Default rate limit duration (in seconds), when HTTP response header `Retry-After` is absent.
+		'retry_after_default' => 1500,
+		# Maximal rate limit duration (in seconds), overriding HTTP response header `Retry-After`.
+		'retry_after_max' => 172800,
 
 		# SimplePie HTTP request timeout in seconds.
 		'timeout' => 20,
@@ -126,11 +142,14 @@ return array(
 		#   0 for an unlimited number of accounts
 		#   1 is to not allow user registrations (1 is corresponding to the admin account)
 		'max_registrations' => 1,
-	),
+
+		# Max amount of bytes that are allowed for upload of custom favicon
+		'max_favicon_upload_size' => 1048576,	# 1 MiB
+	],
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
 	# https://php.net/manual/function.curl-setopt
-	'curl_options' => array(
+	'curl_options' => [
 		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
 		//CURLOPT_SSL_VERIFYHOST => 0,
 		//CURLOPT_SSL_VERIFYPEER => false,
@@ -141,7 +160,7 @@ return array(
 		//CURLOPT_PROXYPORT => 8080,
 		//CURLOPT_PROXYAUTH => CURLAUTH_BASIC,
 		//CURLOPT_PROXYUSERPWD => 'user:password',
-	),
+	],
 
 	'db' => [
 
@@ -169,20 +188,20 @@ return array(
 
 		# Additional PDO parameters, such as offered by MySQL https://php.net/ref.pdo-mysql
 		'pdo_options' => [
-			//PDO::MYSQL_ATTR_SSL_KEY	=> '/path/to/client-key.pem',
-			//PDO::MYSQL_ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
-			//PDO::MYSQL_ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
+			//Pdo\Mysql::ATTR_SSL_KEY	=> '/path/to/client-key.pem',
+			//Pdo\Mysql::ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
+			//Pdo\Mysql::ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
 		],
 
 	],
 
-	# Configuration to send emails. Be aware that PHP < 5.5 are not supported.
+	# Configuration to send emails.
 	# These options are basically a mapping of the PHPMailer class attributes
 	# from the PHPMailer library.
 	#
 	# See https://phpmailer.github.io/PHPMailer/classes/PHPMailer-PHPMailer-PHPMailer.html#properties
 	'mailer' => 'mail', // 'mail' or 'smtp'
-	'smtp' => array(
+	'smtp' => [
 		'hostname' => '', // the domain used in the Message-ID header
 		'host' => 'localhost', // the SMTP server address
 		'port' => 25,
@@ -192,7 +211,7 @@ return array(
 		'password' => '',
 		'secure' => '', // '', 'ssl' or 'tls'
 		'from' => 'root@localhost',
-	),
+	],
 
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [
@@ -212,5 +231,5 @@ return array(
 	'trusted_sources' => [
 		'127.0.0.0/8',
 		'::1/128',
-	],
-);
+	]
+];

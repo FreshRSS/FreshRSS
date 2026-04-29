@@ -50,6 +50,8 @@ and the link would be `links[1]`.
 
 It is a similar syntax to the JavaScript way to access JSON: `object.object.array[2].property`.
 
+Support string concatenation with a syntax like: `meta.title & " some text"` using single-quotes or double-quotes.
+
 ## Tips & tricks
 
 - [Timezone of date](https://github.com/FreshRSS/FreshRSS/discussions/5483)
@@ -57,3 +59,4 @@ It is a similar syntax to the JavaScript way to access JSON: `object.object.arra
 ## Recommended external manuals
 
 - [XPath Scraping with FreshRSS, by Dan Q](https://danq.me/2022/09/27/freshrss-xpath/) (September 2022)
+- A [crowdsourced collection of XPath/scraping settings](https://codeberg.org/gedankenstuecke/freshrss-xpath-scraping-settings-examples) for various websites (incl. News pages). Also has OPML files to easily import settings. (August 2025)

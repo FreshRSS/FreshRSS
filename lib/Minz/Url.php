@@ -13,14 +13,18 @@ class Minz_Url {
 	 *                    $url['params'] = array of additional parameters
 	 *             or as a string
 	 * @param string $encoding how to encode & (& ou &amp; pour html)
-	 * @param bool|string $absolute
+	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $amend Parameters to add or replace in the URL in its array form
 	 * @return string Formatted URL
 	 * @throws Minz_ConfigurationException
 	 */
-	public static function display($url = [], string $encoding = 'html', $absolute = false): string {
+	public static function display(string|array $url = [], string $encoding = 'html', bool|string $absolute = false, array $amend = []): string {
 		$isArray = is_array($url);
 
 		if ($isArray) {
+			if (!empty($amend)) {
+				/** @var array{c?:string,a?:string,params?:array<string,mixed>} $url */
+				$url = array_replace_recursive($url, $amend);
+			}
 			$url = self::checkControllerUrl($url);
 		}
 
@@ -81,13 +85,13 @@ class Minz_Url {
 		}
 
 		if (isset($url['c']) && is_string($url['c'])
-		 && $url['c'] != Minz_Request::defaultControllerName()) {
+			&& $url['c'] != Minz_Request::defaultControllerName()) {
 			$uri .= $separator . 'c=' . $url['c'];
 			$separator = $and;
 		}
 
 		if (isset($url['a']) && is_string($url['a'])
-		 && $url['a'] != Minz_Request::defaultActionName()) {
+			&& $url['a'] != Minz_Request::defaultActionName()) {
 			$uri .= $separator . 'a=' . $url['a'];
 			$separator = $and;
 		}
@@ -146,10 +150,16 @@ class Minz_Url {
 	 * @return array{c?:string,a?:string,params?:array<string,string>} URL representation
 	 */
 	public static function build(): array {
+		$get = [];
+		foreach ($_GET as $key => $value) {
+			if (is_string($key) && is_string($value)) {
+				$get[$key] = $value;
+			}
+		}
 		$url = [
-			'c' => $_GET['c'] ?? Minz_Request::defaultControllerName(),
-			'a' => $_GET['a'] ?? Minz_Request::defaultActionName(),
-			'params' => $_GET,
+			'c' => is_string($_GET['c'] ?? null) ? $_GET['c'] : Minz_Request::defaultControllerName(),
+			'a' => is_string($_GET['a'] ?? null) ? $_GET['a'] : Minz_Request::defaultActionName(),
+			'params' => $get,
 		];
 
 		// post-traitement
@@ -160,20 +170,14 @@ class Minz_Url {
 	}
 }
 
-/**
- * @param string $controller
- * @param string $action
- * @param string|int ...$args
- * @return string|false
- */
-function _url(string $controller, string $action, ...$args) {
+function _url(string $controller, string $action, int|string ...$args): string {
 	$nb_args = count($args);
 
 	if ($nb_args % 2 !== 0) {
-		return false;
+		return '';
 	}
 
-	$params = array ();
+	$params = [];
 	for ($i = 0; $i < $nb_args; $i += 2) {
 		$arg = '' . $args[$i];
 		$params[$arg] = '' . $args[$i + 1];

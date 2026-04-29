@@ -14,14 +14,14 @@ You found a bug? Don’t panic, here are some steps to report it easily:
 2. If you find a similar bug, don’t hesitate to post a comment to add more importance to the related ticket.
 3. If you didn’t find it, [open a new ticket](https://github.com/FreshRSS/FreshRSS/issues/new).
 
-If you have to create a new ticket, try to apply the following advices:
+If you have to create a new ticket, try to apply the following advice:
 
 - Give an explicit title to the ticket so it will be easier to find it later.
 - Be as exhaustive as possible in the description: what did you do? What is the bug? What are the steps to reproduce the bug?
 - We also need some information:
 	- Your FreshRSS version (on about page or `constants.php` file)
 	- Your server configuration: type of hosting, PHP version
-	- Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
+	- Your storage system (SQLite, PostgreSQL, MariaDB, MySQL)
 	- If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
 ## Fix a bug
@@ -34,6 +34,8 @@ Did you want to fix a bug? To keep a great coordination between collaborators, y
 4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **edge branch**. Don’t forget to add your name to `CREDITS.md` if you’re contributing to FreshRSS for the very first time.
 
 If you have to write code, please follow [our coding style recommendations](https://freshrss.github.io/FreshRSS/en/developers/02_First_steps.html).
+
+> ℹ Check [`AGENTS.md`](AGENTS.md) for detailed coding conventions (both for humans and AI agents).
 
 **Tip:** if you are searching for bugs easy to fix, have a look at the « [Good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=label%3A%22good+first+issue+%3Ababy%3A%22) » and/or « [Help wanted](https://github.com/FreshRSS/FreshRSS/issues?q=label%3A%22help+wanted+%3Aoctocat%3A%22) » ticket labels.
 

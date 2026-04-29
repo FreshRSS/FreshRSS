@@ -4,7 +4,7 @@ This tutorial demonstrates commands for updating FreshRSS. It assumes that your 
 
 **Note that FreshRSS contains a built-in update system.** It’s easier to use if you don’t understand the commands that follow. It’s available through the web interface of your FreshRSS installation, Administration → Update.
 
-Please read the general advices from “[Backing Up and Updating FreshRSS](04_Updating.md)” before applying any command from this guide.
+Please read the general advice from “[Backing Up and Updating FreshRSS](04_Updating.md)” before applying any command from this guide.
 
 ## Pausing automatic feed updates
 

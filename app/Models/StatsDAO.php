@@ -5,6 +5,30 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 
 	public const ENTRY_COUNT_PERIOD = 30;
 
+	/** Get the number of seconds to add to UTC to get the user's local time */
+	protected function getTimezoneOffset(): int {
+		$timezone = new DateTimeZone(date_default_timezone_get());
+		return $timezone->getOffset(new DateTime('now', new DateTimeZone('UTC')));
+	}
+
+	/**
+	 * @param string $field to use for the date
+	 * @param int $precision to apply to the timestamp (1 for seconds, 1000 for milliseconds, 1000000 for microseconds)
+	 * @param 'day'|'month'|'year' $granularity of the date intervals
+	 */
+	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
+		if (!preg_match('/^[a-zA-Z0-9_.]+$/', $field)) {
+			throw new InvalidArgumentException('Invalid date field!');
+		}
+		$offset = $this->getTimezoneOffset();
+		return match ($granularity) {
+			'day' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y-%m-%d')",
+			'month' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y-%m')",
+			'year' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y')",
+			default => throw new InvalidArgumentException('Invalid date granularity!'),
+		};
+	}
+
 	protected function sqlFloor(string $s): string {
 		return "FLOOR($s)";
 	}
@@ -29,30 +53,29 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 *   - unread entries
 	 *   - favorite entries
 	 *
-	 * @return array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}|false
+	 * @return array{total:int,count_unreads:int,count_reads:int,count_favorites:int}|false
 	 */
-	public function calculateEntryRepartitionPerFeed(?int $feed = null, bool $only_main = false) {
+	public function calculateEntryRepartitionPerFeed(?int $feed = null, bool $only_main = false): array|false {
 		$filter = '';
 		if ($only_main) {
 			$filter .= 'AND f.priority = 10';
 		}
-		if (!is_null($feed)) {
+		if ($feed !== null) {
 			$filter .= "AND e.id_feed = {$feed}";
 		}
 		$sql = <<<SQL
-SELECT COUNT(1) AS total,
-COUNT(1) - SUM(e.is_read) AS count_unreads,
-SUM(e.is_read) AS count_reads,
-SUM(e.is_favorite) AS count_favorites
-FROM `_entry` AS e, `_feed` AS f
-WHERE e.id_feed = f.id
-{$filter}
-SQL;
+			SELECT COUNT(1) AS total,
+			COUNT(1) - SUM(e.is_read) AS count_unreads,
+			SUM(e.is_read) AS count_reads,
+			SUM(e.is_favorite) AS count_favorites
+			FROM `_entry` AS e, `_feed` AS f
+			WHERE e.id_feed = f.id
+			{$filter}
+			SQL;
 		$res = $this->fetchAssoc($sql);
-		if (!empty($res[0])) {
-			$dao = $res[0];
-			/** @var array<array{'total':int,'count_unreads':int,'count_reads':int,'count_favorites':int}> $res */
-			FreshRSS_DatabaseDAO::pdoInt($dao, ['total', 'count_unreads', 'count_reads', 'count_favorites']);
+		if (is_array($res) && !empty($res[0]) && is_array($res[0])) {
+			$dao = array_map('intval', $res[0]);
+			/** @var array{total:int,count_unreads:int,count_reads:int,count_favorites:int} $dao */
 			return $dao;
 		}
 		return false;
@@ -70,18 +93,18 @@ SQL;
 		// Get stats per day for the last 30 days
 		$sqlDay = $this->sqlFloor("(date - $midnight) / 86400");
 		$sql = <<<SQL
-SELECT {$sqlDay} AS day,
-COUNT(*) as count
-FROM `_entry`
-WHERE date >= {$oldest} AND date < {$midnight}
-GROUP BY day
-ORDER BY day ASC
-SQL;
+			SELECT {$sqlDay} AS day,
+			COUNT(*) as count
+			FROM `_entry`
+			WHERE date >= {$oldest} AND date < {$midnight}
+			GROUP BY day
+			ORDER BY day ASC
+			SQL;
 		$res = $this->fetchAssoc($sql);
-		if ($res == false) {
+		if (!is_array($res)) {
 			return [];
 		}
-		/** @var array<array{'day':int,'count':int}> $res */
+		/** @var list<array{day:int,count:int}> $res */
 		foreach ($res as $value) {
 			$count[(int)($value['day'])] = (int)($value['count']);
 		}
@@ -123,7 +146,6 @@ SQL;
 		return $monthRepartition;
 	}
 
-
 	/**
 	 * Calculates the number of article per period per feed
 	 * @param string $period format string to use for grouping
@@ -134,32 +156,25 @@ SQL;
 		if ($feed) {
 			$restrict = "WHERE e.id_feed = {$feed}";
 		}
+		$offset = $this->getTimezoneOffset();
 		$sql = <<<SQL
-SELECT DATE_FORMAT(FROM_UNIXTIME(e.date), '{$period}') AS period
-, COUNT(1) AS count
-FROM `_entry` AS e
-{$restrict}
-GROUP BY period
-ORDER BY period ASC
-SQL;
+			SELECT DATE_FORMAT(FROM_UNIXTIME(e.date + {$offset}), '{$period}') AS period, COUNT(1) AS count
+			FROM `_entry` AS e
+			{$restrict}
+			GROUP BY period
+			ORDER BY period ASC
+			SQL;
 
 		$res = $this->fetchAssoc($sql);
-		if ($res == false) {
+		if (empty($res)) {
 			return [];
 		}
-		switch ($period) {
-			case '%H':
-				$periodMax = 24;
-				break;
-			case '%w':
-				$periodMax = 7;
-				break;
-			case '%m':
-				$periodMax = 12;
-				break;
-			default:
-				$periodMax = 30;
-		}
+		$periodMax = match ($period) {
+			'%H' => 24,
+			'%w' => 7,
+			'%m' => 12,
+			default => 30,
+		};
 
 		$repartition = array_fill(0, $periodMax, 0);
 		foreach ($res as $value) {
@@ -200,12 +215,10 @@ SQL;
 			$restrict = "WHERE e.id_feed = {$feed}";
 		}
 		$sql = <<<SQL
-SELECT COUNT(1) AS count
-, MIN(date) AS date_min
-, MAX(date) AS date_max
-FROM `_entry` AS e
-{$restrict}
-SQL;
+			SELECT COUNT(1) AS count, MIN(date) AS date_min, MAX(date) AS date_max
+			FROM `_entry` AS e
+			{$restrict}
+			SQL;
 		$res = $this->fetchAssoc($sql);
 		if ($res == null || empty($res[0])) {
 			return -1.0;
@@ -235,64 +248,56 @@ SQL;
 
 	/**
 	 * Calculates feed count per category.
-	 * @return array<array{'label':string,'data':int}>
+	 * @return list<array{'label':string,'data':int}>
 	 */
 	public function calculateFeedByCategory(): array {
-		$sql = <<<SQL
-SELECT c.name AS label
-, COUNT(f.id) AS data
-FROM `_category` AS c, `_feed` AS f
-WHERE c.id = f.category
-GROUP BY label
-ORDER BY data DESC
-SQL;
-		/** @var array<array{'label':string,'data':int}>|null @res */
+		$sql = <<<'SQL'
+			SELECT c.name AS label, COUNT(f.id) AS data
+			FROM `_category` AS c, `_feed` AS f
+			WHERE c.id = f.category
+			GROUP BY label
+			ORDER BY data DESC
+			SQL;
+		/** @var list<array{'label':string,'data':int}>|null $res */
 		$res = $this->fetchAssoc($sql);
 		return $res == null ? [] : $res;
 	}
 
 	/**
 	 * Calculates entry count per category.
-	 * @return array<array{'label':string,'data':int}>
+	 * @return list<array{'label':string,'data':int}>
 	 */
 	public function calculateEntryByCategory(): array {
-		$sql = <<<SQL
-SELECT c.name AS label
-, COUNT(e.id) AS data
-FROM `_category` AS c, `_feed` AS f, `_entry` AS e
-WHERE c.id = f.category
-AND f.id = e.id_feed
-GROUP BY label
-ORDER BY data DESC
-SQL;
+		$sql = <<<'SQL'
+			SELECT c.name AS label, COUNT(e.id) AS data
+			FROM `_category` AS c, `_feed` AS f, `_entry` AS e
+			WHERE c.id = f.category
+			AND f.id = e.id_feed
+			GROUP BY label
+			ORDER BY data DESC
+			SQL;
 		$res = $this->fetchAssoc($sql);
-		/** @var array<array{'label':string,'data':int}>|null $res */
+		/** @var list<array{'label':string,'data':int}>|null $res */
 		return $res == null ? [] : $res;
 	}
 
 	/**
 	 * Calculates the 10 top feeds based on their number of entries
-	 * @return array<array{'id':int,'name':string,'category':string,'count':int}>
+	 * @return list<array{'id':int,'name':string,'category':string,'count':int}>
 	 */
 	public function calculateTopFeed(): array {
-		$sql = <<<SQL
-SELECT f.id AS id
-, MAX(f.name) AS name
-, MAX(c.name) AS category
-, COUNT(e.id) AS count
-FROM `_category` AS c, `_feed` AS f, `_entry` AS e
-WHERE c.id = f.category
-AND f.id = e.id_feed
-GROUP BY f.id
-ORDER BY count DESC
-LIMIT 10
-SQL;
+		$sql = <<<'SQL'
+			SELECT f.id AS id, MAX(f.name) AS name, MAX(c.name) AS category, COUNT(e.id) AS count
+			FROM `_category` AS c, `_feed` AS f, `_entry` AS e
+			WHERE c.id = f.category
+			AND f.id = e.id_feed
+			GROUP BY f.id
+			ORDER BY count DESC
+			LIMIT 10
+			SQL;
 		$res = $this->fetchAssoc($sql);
-		/** @var array<array{'id':int,'name':string,'category':string,'count':int}>|null $res */
+		/** @var list<array{'id':int,'name':string,'category':string,'count':int}>|null $res */
 		if (is_array($res)) {
-			foreach ($res as &$dao) {
-				FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'count']);
-			}
 			return $res;
 		}
 		return [];
@@ -300,25 +305,19 @@ SQL;
 
 	/**
 	 * Calculates the last publication date for each feed
-	 * @return array<array{'id':int,'name':string,'last_date':int,'nb_articles':int}>
+	 * @return list<array{'id':int,'name':string,'last_date':int,'nb_articles':int}>
 	 */
 	public function calculateFeedLastDate(): array {
-		$sql = <<<SQL
-SELECT MAX(f.id) as id
-, MAX(f.name) AS name
-, MAX(date) AS last_date
-, COUNT(*) AS nb_articles
-FROM `_feed` AS f, `_entry` AS e
-WHERE f.id = e.id_feed
-GROUP BY f.id
-ORDER BY name
-SQL;
+		$sql = <<<'SQL'
+			SELECT MAX(f.id) as id, MAX(f.name) AS name, MAX(date) AS last_date, COUNT(*) AS nb_articles
+			FROM `_feed` AS f, `_entry` AS e
+			WHERE f.id = e.id_feed
+			GROUP BY f.id
+			ORDER BY name
+			SQL;
 		$res = $this->fetchAssoc($sql);
-		/** @var array<array{'id':int,'name':string,'last_date':int,'nb_articles':int}>|null $res */
+		/** @var list<array{'id':int,'name':string,'last_date':int,'nb_articles':int}>|null $res */
 		if (is_array($res)) {
-			foreach ($res as &$dao) {
-				FreshRSS_DatabaseDAO::pdoInt($dao, ['id', 'last_date', 'nb_articles']);
-			}
 			return $res;
 		}
 		return [];
@@ -326,7 +325,7 @@ SQL;
 
 	/**
 	 * Gets days ready for graphs
-	 * @return array<string>
+	 * @return list<string>
 	 */
 	public function getDays(): array {
 		return $this->convertToTranslatedJson([
@@ -342,7 +341,7 @@ SQL;
 
 	/**
 	 * Gets months ready for graphs
-	 * @return array<string>
+	 * @return list<string>
 	 */
 	public function getMonths(): array {
 		return $this->convertToTranslatedJson([
@@ -363,8 +362,8 @@ SQL;
 
 	/**
 	 * Translates array content
-	 * @param array<string> $data
-	 * @return array<string>
+	 * @param list<string> $data
+	 * @return list<string>
 	 */
 	private function convertToTranslatedJson(array $data = []): array {
 		$translated = array_map(static fn(string $a) => _t('gen.date.' . $a), $data);
@@ -372,4 +371,34 @@ SQL;
 		return $translated;
 	}
 
+	/**
+	 * Gets the date intervals with the largest number of unread articles.
+	 * @param 'id'|'date' $field to use for the date
+	 * @param 'day'|'month'|'year' $granularity of the date intervals
+	 * @return list<array{'granularity':string,'unread_count':int}>
+	 */
+	public function getMaxUnreadDates(string $field, string $granularity, int $max = 100, int $minPriority = FreshRSS_Feed::PRIORITY_HIDDEN): array {
+		$sql = <<<SQL
+			SELECT
+				{$this->sqlDateToIsoGranularity('e.' . $field, precision: $field === 'id' ? 1000000 : 1, granularity: $granularity)} AS granularity,
+				COUNT(*) AS unread_count
+			FROM `_entry` e
+			INNER JOIN `_feed` f ON e.id_feed = f.id
+			WHERE e.is_read = 0 AND f.priority >= :min_priority
+			GROUP BY granularity
+			ORDER BY unread_count DESC, granularity DESC
+			LIMIT :max
+			SQL;
+		if (($stm = $this->pdo->prepare($sql)) !== false &&
+			$stm->bindValue(':min_priority', $minPriority, PDO::PARAM_INT) &&
+			$stm->bindValue(':max', $max, PDO::PARAM_INT) &&
+			$stm->execute() && is_array($res = $stm->fetchAll(PDO::FETCH_ASSOC))) {
+			/** @var list<array{granularity:string,unread_count:int}> $res */
+			return $res;
+		} else {
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			return [];
+		}
+	}
 }

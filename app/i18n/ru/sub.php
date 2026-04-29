@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -22,14 +22,16 @@ return array(
 	),
 	'category' => array(
 		'_' => 'Категория',
-		'add' => 'Добавить категория',
+		'add' => 'Добавить категорию',
 		'archiving' => 'Архивирование',
 		'dynamic_opml' => array(
 			'_' => 'Динамичный OPML',
 			'help' => 'Предоставьте ссылку на <a href="http://opml.org/" target="_blank">OPML файл</a> чтобы динамично заполнять эту категорию лентами',
 		),
 		'empty' => 'Пустая категория',
+		'expand' => 'Развернуть категорию',
 		'information' => 'Информация',
+		'open' => 'Открыть категорию',
 		'opml_url' => 'OPML ссылка',
 		'position' => 'Положение отображения',
 		'position_help' => 'Влияет на порядок отображения категорий',
@@ -38,7 +40,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Разрешить файлы cookies',
 		'accept_cookies_help' => 'Разрешить серверу ленты использовать cookies (файлы будут храниться в памяти лишь в течение запроса)',
-		'add' => 'Добавить RSS-ленту',
+		'add' => 'Добавить ленту',
 		'advanced' => 'Дополнительно',
 		'archiving' => 'Архивирование',
 		'auth' => array(
@@ -48,6 +50,7 @@ return array(
 			'password' => 'Пароль HTTP',
 			'username' => 'Имя пользователя HTTP',
 		),
+		'change_favicon' => 'Изменить…',
 		'clear_cache' => 'Всегда очищать кэш',
 		'content_action' => array(
 			'_' => 'Действие с содержимым, когда извлекается содержимое статьи',
@@ -55,30 +58,45 @@ return array(
 			'prepend' => 'Добавить перед существующим содержимым',
 			'replace' => 'Заменить существующее содержимое',
 		),
+		'content_retrieval' => 'Получение содержимого',
 		'css_cookie' => 'Использовать куки при извлечении содержимого статьи',
 		'css_cookie_help' => 'Пример: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Получает усечённые RSS-ленты (осторожно, требует больше времени!)',
 		'css_path' => 'CSS селектор статьи на сайте',
 		'css_path_filter' => array(
 			'_' => 'CSS селектор элемента для удаления',
-			'help' => 'CSS селектор может быть списком как: <kbd>.footer, .aside</kbd>',
+			'help' => 'CSS селектор может быть списком как: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
 		'description' => 'Описание',
 		'empty' => 'Лента пустая. Пожалуйста, убедитесь, что её до сих пор обслуживают.',
-		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она всегда досягаема. Затем снова обновите её.',
+		'error' => 'С этой лентой возникла проблема. Пожалуйста, убедитесь, что она доступна.',
 		'export-as-opml' => array(
 			'download' => 'Скачать',
-			'help' => 'XML файл (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'XML файл (подмножество данных. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">См. документацию</a>)',
 			'label' => 'Экспортировать как OPML',
 		),
+		'ext_favicon' => 'Установить автоматически',
+		'favicon_changed_by_ext' => 'Иконка была установлена расширением <b>%s</b>.',
 		'filteractions' => array(
 			'_' => 'Действия фильтрации',
 			'help' => 'Введите по одному поисковому фильтру в строке. См. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документацию</a>.',
+			'view_filter' => 'Предпросмотр фильтров на существующих статьях (новое окно)',
 		),
+		'http_headers' => 'HTTP-заголовки',
+		'http_headers_help' => 'Заголовки разделяются новой строкой, имя и значение заголовка разделяются двоеточием (например: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Иконка',
 		'information' => 'Информация',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Оставлять статей не менее',
 		'kind' => array(
 			'_' => 'Тип источника ленты',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON точечная нотация (JSON в HTML)',
+				'xpath' => array(
+					'_' => 'XPath для JSON в HTML',
+					'help' => 'Пример: <code>normalize-space(//script[@type="application/json"])</code> (один JSON)<br />или: <code>//script[@type="application/ld+json"]</code> (один JSON-объект на статью)',
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (парсинг веб-страниц)',
 				'feed_title' => array(
@@ -135,7 +153,7 @@ return array(
 				'help' => 'JSON с точечной нотацией использует точки между объектами и квадратные скобки для массивов (например: <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'Найти новые <strong>элементы</strong><br /><small>(самое важное)</small>',
-					'help' => 'JSON-путь к массиву, содержащему элементы, например: <code>newsItems</code>',
+					'help' => 'JSON-путь к массиву, содержащему элементы, например: <code>$</code> или <code>newsItems</code>',
 				),
 				'item_author' => 'автор элемента',
 				'item_categories' => 'теги элемента',
@@ -168,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (по умолчанию)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Очистить кэш',
 			'clear_cache_help' => 'Очистить кэш для этой ленты.',
@@ -183,18 +203,25 @@ return array(
 		'method_help' => 'Полезная нагрузка POST автоматически поддерживает <code>application/x-www-form-urlencoded</code> и <code>application/json</code>',
 		'method_postparams' => 'Полезная нагрузка POST',
 		'moved_category_deleted' => 'Когда вы удаляете категорию, ленты категории автоматически попадают в категорию <em>%s</em>.',
-		'mute' => 'заглушить',
+		'mute' => array(
+			'_' => 'заглушить',
+			'state_is_muted' => 'Эта лента заглушена',
+		),
 		'no_selected' => 'Ленты не выбраны.',
 		'number_entries' => '%d статей',
+		'open_feed' => 'Открыть ленту %s',
+		'path_entries_conditions' => 'Условия для получения содержимого',
 		'priority' => array(
 			'_' => 'Видимость',
-			'archived' => 'Не показывать (архивировано)',
 			'category' => 'Показывать в категории ленты',
+			'feed' => 'Показывать в своей ленте',
+			'hidden' => 'Не показывать',
 			'important' => 'Показывать в важных лентах',
 			'main_stream' => 'Показывать в основном потоке',
 		),
 		'proxy' => 'Указать прокси для извлечения этой ленты',
-		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> или <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> или <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Сбросить на значение по умолчанию',
 		'selector_preview' => array(
 			'show_raw' => 'Показать исходный код',
 			'show_rendered' => 'Показать содержимое',
@@ -213,6 +240,22 @@ return array(
 		'title' => 'Заголовок',
 		'title_add' => 'Добавить RSS-ленту',
 		'ttl' => 'Не обновлять автоматически чаще, чем каждые',
+		'unicityCriteria' => array(
+			'_' => 'Критерии уникальности статьи',
+			'forced' => '<span title="Блокировать критерии уникальности, даже когда в ленте есть дубликаты статей">принудительно</span>',
+			'help' => 'Актуально для некорректных лент.<br />⚠️ Изменение политики создаст дубликаты.',
+			'id' => 'Стандартный ID (по умолчанию)',
+			'link' => 'Ссылка',
+			'sha1:content' => 'Содержимое',
+			'sha1:content_published' => 'Содержимое + Дата',
+			'sha1:link_published' => 'Ссылка + Дата',
+			'sha1:link_published_title' => 'Ссылка + Дата + Заголовок',
+			'sha1:link_published_title_content' => 'Ссылка + Дата + Заголовок + Содержимое',
+			'sha1:published' => 'Дата',
+			'sha1:title' => 'Заголовок',
+			'sha1:title_published' => 'Заголовок + Дата',
+			'sha1:title_published_content' => 'Заголовок + Дата + Содержимое',
+		),
 		'url' => 'URL ленты',
 		'useragent' => 'Указать юзерагент для извлечения лент',
 		'useragent_help' => 'Пример: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
@@ -221,7 +264,10 @@ return array(
 		'websub' => 'Моментальные оповещения посредством WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Экспорт',
+		'export' => array(
+			'_' => 'Экспорт',
+			'sqlite' => 'Скачать базу данных пользователя в формате SQLite',
+		),
 		'export_labelled' => 'Экспортировать ваши помеченные статьи',
 		'export_opml' => 'Экспортировать список лент (OPML)',
 		'export_starred' => 'Экспортировать ваше избранное',
@@ -240,6 +286,7 @@ return array(
 			'idle' => 'Неактивные ленты',
 			'main' => 'Основная статистика',
 			'repartition' => 'Расределение статей',
+			'unread_dates' => 'Даты непрочтённых',
 		),
 		'subscription_management' => 'Управление подписками',
 		'subscription_tools' => 'Инструменты подписки',
@@ -257,9 +304,9 @@ return array(
 		'add_dynamic_opml' => 'Добавить динамичный OPML',
 		'add_feed' => 'Добавить ленту',
 		'add_label' => 'Добавить метку',
+		'add_opml_category' => 'Название категории OPML',
 		'delete_label' => 'Удалить метку',
 		'feed_management' => 'Управление RSS-лентами',
-		'rename_label' => 'Переименовать метку',
 		'subscription_tools' => 'Инструменты подписки',
 	),
 );

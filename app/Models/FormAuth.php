@@ -11,10 +11,10 @@ class FreshRSS_FormAuth {
 			return false;
 		}
 
-		return password_verify($nonce . $hash, $challenge);
+		return password_verify($hash . $nonce, $challenge);
 	}
 
-	/** @return array<string> */
+	/** @return list<string> */
 	public static function getCredentialsFromCookie(): array {
 		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
 		if (!ctype_alnum($token)) {
@@ -32,14 +32,13 @@ class FreshRSS_FormAuth {
 		}
 
 		$credentials = @file_get_contents($token_file);
-		if ($credentials !== false && self::renewCookie($token)) {
+		if ($credentials !== false && self::renewCookie($token) != false) {
 			return explode("\t", $credentials, 2);
 		}
 		return [];
 	}
 
-	/** @return string|false */
-	private static function renewCookie(string $token) {
+	private static function renewCookie(string $token): string|false {
 		$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		if (touch($token_file)) {
 			$limits = FreshRSS_Context::systemConf()->limits;
@@ -51,10 +50,9 @@ class FreshRSS_FormAuth {
 		return false;
 	}
 
-	/** @return string|false */
-	public static function makeCookie(string $username, string $password_hash) {
+	public static function makeCookie(string $username, string $password_hash): string|false {
 		do {
-			$token = sha1(FreshRSS_Context::systemConf()->salt . $username . uniqid('' . mt_rand(), true));
+			$token = hash('sha256', FreshRSS_Context::systemConf()->salt . $username . random_bytes(32));
 			$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
 		} while (file_exists($token_file));
 

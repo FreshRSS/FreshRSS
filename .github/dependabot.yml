@@ -13,10 +13,12 @@ updates:
     groups:
       eslint:
         patterns:
-          - "eslint*"
+          - "*eslint*"
+          - "globals"
+          - "neostandard"
       stylelint:
         patterns:
-          - "stylelint*"
+          - "*stylelint*"
   - package-ecosystem: "composer"
     directory: "/"
     schedule:

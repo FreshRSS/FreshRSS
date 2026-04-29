@@ -6,7 +6,7 @@
 FreshRSS is a self-hosted RSS feed aggregator.
 
 * Official website: [`freshrss.org`](https://freshrss.org/)
-* Official Docker images: [`hub.docker.com/r/freshrss/freshrss`](https://hub.docker.com/r/freshrss/freshrss/)
+* Official Docker images: [`hub.docker.com/r/freshrss/freshrss`](https://hub.docker.com/r/freshrss/freshrss/) [`ghcr.io/freshrss/freshrss`](https://github.com/FreshRSS/FreshRSS/pkgs/container/freshrss)
 * Repository: [`github.com/FreshRSS/FreshRSS`](https://github.com/FreshRSS/FreshRSS/)
 * Documentation: [`freshrss.github.io/FreshRSS`](https://freshrss.github.io/FreshRSS/)
 * License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
@@ -61,7 +61,7 @@ docker exec --user www-data freshrss cli/list-users.php
 Example of installation via command line:
 
 ```sh
-docker exec --user www-data freshrss cli/do-install.php --default_user freshrss
+docker exec --user www-data freshrss cli/do-install.php --default-user freshrss
 
 docker exec --user www-data freshrss cli/create-user.php --user freshrss --password freshrss
 ```
@@ -162,6 +162,10 @@ They need to be compiled manually:
 cd ./FreshRSS/
 docker build --pull --tag freshrss/freshrss:oldest -f Docker/Dockerfile-Oldest .
 docker build --pull --tag freshrss/freshrss:newest -f Docker/Dockerfile-Newest .
+
+# Example of use:
+make composer-test
+docker run --rm -e FRESHRSS_ENV=development -e TZ=UTC -v $(pwd):/var/www/FreshRSS freshrss/freshrss:oldest bin/composer test
 ```
 
 ## Supported databases
@@ -184,7 +188,7 @@ docker network connect freshrss-network postgres
 
 # Otherwise, start a new PostgreSQL instance, remembering to change the passwords:
 docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v pgsql_data:/var/lib/postgresql/data \
+  -v pgsql_data:/var/lib/postgresql \
   -e POSTGRES_DB=freshrss \
   -e POSTGRES_USER=freshrss \
   -e POSTGRES_PASSWORD=freshrss \
@@ -270,6 +274,7 @@ sudo nano /var/lib/docker/volumes/freshrss_data/_data/config.php
 First, put variables such as passwords in your `.env` file, which can live where your `docker-compose.yml` should be. See [`example.env`](./freshrss/example.env).
 
 ```ini
+BASE_URL=https://freshrss.example.net
 ADMIN_EMAIL=admin@example.net
 ADMIN_PASSWORD=freshrss
 ADMIN_API_PASSWORD=freshrss
@@ -299,8 +304,6 @@ docker compose down --remove-orphans
 Detailed (partial) example of Docker Compose for FreshRSS:
 
 ```yaml
-version: "2.4"
-
 volumes:
   data:
   extensions:
@@ -335,7 +338,7 @@ services:
       TZ: Europe/Paris
       # Cron job to refresh feeds at specified minutes
       CRON_MIN: '2,32'
-      # 'development' for additional logs; default is 'production'
+      # Optional 'development' for additional logs; default is 'production'
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
@@ -361,7 +364,7 @@ services:
         --db-password ${DB_PASSWORD}
         --db-type pgsql
         --db-user ${DB_USER}
-        --default_user admin
+        --default-user admin
         --language en
       FRESHRSS_USER: |-
         --api-password ${ADMIN_API_PASSWORD}
@@ -369,6 +372,14 @@ services:
         --language en
         --password ${ADMIN_PASSWORD}
         --user admin
+    # Optional healthcheck
+    healthcheck:
+      test: ["CMD", "cli/health.php"]
+      timeout: 10s
+      start_period: 60s
+      start_interval: 11s
+      interval: 75s
+      retries: 3
 ```
 
 ### Docker Compose with PostgreSQL

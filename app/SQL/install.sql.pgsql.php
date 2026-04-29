@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `_category` (
 	"name" VARCHAR(191) UNIQUE NOT NULL,
 	"kind" SMALLINT DEFAULT 0,	-- 1.20.0
 	"lastUpdate" BIGINT DEFAULT 0,	-- 1.20.0
-	"error" SMALLINT DEFAULT 0,	-- 1.20.0
+	"error" BIGINT DEFAULT 0,	-- Date, v1.29.0
 	"attributes" TEXT	-- v1.15.0
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `_feed` (
 	"priority" SMALLINT NOT NULL DEFAULT 10,
 	"pathEntries" VARCHAR(4096) DEFAULT NULL,
 	"httpAuth" VARCHAR(1024) DEFAULT NULL,
-	"error" SMALLINT DEFAULT 0,
+	"error" BIGINT DEFAULT 0,	-- Date, v1.29.0
 	"ttl" INT NOT NULL DEFAULT 0,
 	"attributes" TEXT,	-- v1.11.0
 	"cache_nbEntries" INT DEFAULT 0,
@@ -44,6 +44,8 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 	"link" VARCHAR(16383) NOT NULL,
 	"date" BIGINT,
 	"lastSeen" BIGINT DEFAULT 0,
+	"lastModified" BIGINT,	-- v1.29.0
+	"lastUserModified" BIGINT,	-- v1.28.0
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
@@ -56,6 +58,8 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 CREATE INDEX IF NOT EXISTS `_is_favorite_index` ON `_entry` ("is_favorite");
 CREATE INDEX IF NOT EXISTS `_is_read_index` ON `_entry` ("is_read");
 CREATE INDEX IF NOT EXISTS `_entry_lastSeen_index` ON `_entry` ("lastSeen");
+CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` ("lastModified");
+CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` ("lastUserModified");
 CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
 
 INSERT INTO `_category` (id, name)
@@ -98,37 +102,60 @@ CREATE TABLE IF NOT EXISTS `_entrytag` (
 CREATE INDEX IF NOT EXISTS `_entrytag_id_entry_index` ON `_entrytag` ("id_entry");
 SQL;
 
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastUserModified` BIGINT;	-- 1.28.0
+CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` (`lastUserModified`);
+SQL;
+
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastModified` BIGINT;	-- 1.29.0
+CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` (`lastModified`);
+SQL;
+
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
 DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
 SQL;
 
 $GLOBALS['SQL_UPDATE_MINOR'] = <<<'SQL'
-ALTER TABLE `_category`
-	ALTER COLUMN "name" SET DATA TYPE VARCHAR(191);
-ALTER TABLE `_feed`
-	DROP CONSTRAINT IF EXISTS `_feed_url_key`,
-	ALTER COLUMN "url" SET DATA TYPE VARCHAR(32768),
-	ALTER COLUMN "name" SET DATA TYPE VARCHAR(191),
-	ALTER COLUMN "website" SET DATA TYPE VARCHAR(32768),
-	ALTER COLUMN "lastUpdate" SET DATA TYPE BIGINT,
-	ALTER COLUMN "pathEntries" SET DATA TYPE VARCHAR(4096),
-	ALTER COLUMN "httpAuth" SET DATA TYPE VARCHAR(1024);
-ALTER TABLE `_entry`
-	ALTER COLUMN "date" SET DATA TYPE BIGINT,
-	ALTER COLUMN "lastSeen" SET DATA TYPE BIGINT,
-	ALTER COLUMN "guid" SET DATA TYPE VARCHAR(767),
-	ALTER COLUMN "title" SET DATA TYPE VARCHAR(8192),
-	ALTER COLUMN "author" SET DATA TYPE VARCHAR(1024),
-	ALTER COLUMN "link" SET DATA TYPE VARCHAR(16383),
-	ALTER COLUMN "tags" SET DATA TYPE VARCHAR(2048);
-ALTER TABLE `_entrytmp`
-	ALTER COLUMN "date" SET DATA TYPE BIGINT,
-	ALTER COLUMN "lastSeen" SET DATA TYPE BIGINT,
-	ALTER COLUMN "guid" SET DATA TYPE VARCHAR(767),
-	ALTER COLUMN "title" SET DATA TYPE VARCHAR(8192),
-	ALTER COLUMN "author" SET DATA TYPE VARCHAR(1024),
-	ALTER COLUMN "link" SET DATA TYPE VARCHAR(16383),
-	ALTER COLUMN "tags" SET DATA TYPE VARCHAR(2048);
-ALTER TABLE `_tag`
-	ALTER COLUMN "name" SET DATA TYPE VARCHAR(191);
+DO $$
+BEGIN
+	IF NOT EXISTS (
+		SELECT 1 FROM information_schema.columns
+		WHERE table_schema = 'public'
+			AND table_name = REPLACE('`_feed`', '"', '')
+			AND column_name = 'error'
+			AND data_type = 'bigint'
+	) THEN
+		ALTER TABLE `_category`
+			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191),
+			ALTER COLUMN "error" SET DATA TYPE BIGINT;
+		ALTER TABLE `_feed`
+			DROP CONSTRAINT IF EXISTS `_feed_url_key`,
+			ALTER COLUMN "url" SET DATA TYPE VARCHAR(32768),
+			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191),
+			ALTER COLUMN "website" SET DATA TYPE VARCHAR(32768),
+			ALTER COLUMN "lastUpdate" SET DATA TYPE BIGINT,
+			ALTER COLUMN "error" SET DATA TYPE BIGINT,
+			ALTER COLUMN "pathEntries" SET DATA TYPE VARCHAR(4096),
+			ALTER COLUMN "httpAuth" SET DATA TYPE VARCHAR(1024);
+		ALTER TABLE `_entry`
+			ALTER COLUMN "date" SET DATA TYPE BIGINT,
+			ALTER COLUMN "lastSeen" SET DATA TYPE BIGINT,
+			ALTER COLUMN "guid" SET DATA TYPE VARCHAR(767),
+			ALTER COLUMN "title" SET DATA TYPE VARCHAR(8192),
+			ALTER COLUMN "author" SET DATA TYPE VARCHAR(1024),
+			ALTER COLUMN "link" SET DATA TYPE VARCHAR(16383),
+			ALTER COLUMN "tags" SET DATA TYPE VARCHAR(2048);
+		ALTER TABLE `_entrytmp`
+			ALTER COLUMN "date" SET DATA TYPE BIGINT,
+			ALTER COLUMN "lastSeen" SET DATA TYPE BIGINT,
+			ALTER COLUMN "guid" SET DATA TYPE VARCHAR(767),
+			ALTER COLUMN "title" SET DATA TYPE VARCHAR(8192),
+			ALTER COLUMN "author" SET DATA TYPE VARCHAR(1024),
+			ALTER COLUMN "link" SET DATA TYPE VARCHAR(16383),
+			ALTER COLUMN "tags" SET DATA TYPE VARCHAR(2048);
+		ALTER TABLE `_tag`
+			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191);
+	END IF;
+END $$;
 SQL;

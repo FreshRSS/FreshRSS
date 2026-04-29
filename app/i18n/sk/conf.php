@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -55,6 +55,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Zobraziť tlačidlá oznámenia',
 		'show_title_unread' => 'Zobraziť počet neprečítaných článkov v názve',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Vzhľad',
 			'deprecated' => array(
@@ -100,21 +101,57 @@ return array(
 			'previous' => 'Predošlý',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“Označiť všetko ako prečítané” button',	// DIRTY
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+	),
 	'profile' => array(
 		'_' => 'Správca profilu',
-		'api' => 'Správa API',
+		'api' => array(
+			'_' => 'Správa API',
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
+			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
+			'disabled' => 'The API access is disabled.',	// TODO
+			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
+			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Vymazanie účtu',
 			'warn' => 'Váš účet a všetky údaje v ňom budú vymazané.',
 		),
 		'email' => 'E-mailová adresa',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'Heslo API<br /><small>(pre mobilné aplikácie)</small>',
-		'password_form' => 'Heslo<br /><small>(pre spôsob prihlásenia cez webový formulár)</small>',
 		'password_format' => 'Najmenej 7 znakov',
 		'title' => 'Profil',
 	),
 	'query' => array(
 		'_' => 'Dopyty používateľa',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Tento dopyt už nie je platný. Kategória alebo kanál boli vymazané.',
 		'description' => 'Description',	// TODO
 		'filter' => array(
@@ -122,6 +159,7 @@ return array(
 			'categories' => 'Zobraziť podľa kategórie',
 			'feeds' => 'Zobraziť podľa kanála',
 			'order' => 'Zobraziť podľa dátumu',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Výraz',
 			'shareOpml' => 'Povoliť zdieľanie prostredníctvom OPML zodpovedajúdich kategórií a kanálov',
 			'shareRss' => 'Povoliť zdieľanie prostredníctvom HTML &amp; RSS',
@@ -129,6 +167,8 @@ return array(
 			'tags' => 'Zobraziť podľa štítku',
 			'type' => 'Typ',
 		),
+		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
+		'get_Z' => 'Show all feeds, also archived ones',	// TODO
 		'get_all' => 'Zobraziť všetky články',
 		'get_all_labels' => 'Zobraziť články so všetkými štítkami',
 		'get_category' => 'Zobraziť kategóriu “%s”',
@@ -140,12 +180,21 @@ return array(
 		'image_url' => 'Image URL',	// TODO
 		'name' => 'Meno',
 		'no_filter' => 'Žiadny filter',
+		'no_queries' => array(
+			'_' => 'No user queries are saved yet.',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+		),
 		'number' => 'Dopyt číslo %d',
 		'order_asc' => 'Zobraziť staršie články hore',
 		'order_desc' => 'Zobraziť novšie články hore',
 		'search' => 'Vyhľadáva sa: “%s”',
 		'share' => array(
 			'_' => 'Zdieľať odkaz pre tento dopyt',
+			'disabled' => array(
+				'_' => 'disabled',	// TODO
+				'title' => 'Sharing',	// TODO
+			),
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Pošlite tento odkaz ak chcete zdielať dopyt s kýmkoľvek',
 			'html' => 'Zdielateľný odkaz na HTML stránku',
 			'opml' => 'Zdielateľný odkaz na OPML zoznam kanálov',
@@ -173,6 +222,7 @@ return array(
 		'_' => 'Čítanie',
 		'after_onread' => 'Po “Označiť všetko ako prečítané”,',
 		'always_show_favorites' => 'Automaticky zobraziť všetky články v obľúbených',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Authori a dátum',
@@ -220,7 +270,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Skryť kategórie a kanály s nulovým počtom neprečítaných článkov (nefunguje s nastaveným “Zobraziť všetky články”)',
 		'img_with_lazyload' => 'Pre načítanie obrázkov použiť <em>lazy load</em>',
-		'jump_next' => 'skočiť na ďalší neprečítaný (kanál ale kategóriu)',
+		'jump_next' => 'skočiť na ďalší neprečítaný',
 		'mark_updated_article_unread' => 'Označiť aktualizované články ako neprečítané',
 		'number_divided_when_reader' => 'V režime čítania predeliť na dve časti.',
 		'read' => array(
@@ -232,24 +282,25 @@ return array(
 			'upon_gone' => 'keď už nie je v hlavnom kanály noviniek',
 			'upon_reception' => 'po načítaní článku',
 			'when' => 'Označiť článok ako prečítaný…',
-			'when_same_title' => 'ak rovnaký nadpis už existuje v TOP <i>n</i> najnovších článkoch',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'ak rovnaký nadpis už existuje v TOP <i>n</i> najnovších článkoch (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => 'Článkov na zobrazenie',
 			'active_category' => 'Aktívna kategória',
-			'adaptive' => 'Vyberte zobrazenie',
+			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
 			'all_articles' => 'Zobraziť všetky články',
 			'all_categories' => 'Všetky kategórie',
 			'no_category' => 'Bez kategŕie',
 			'remember_categories' => 'Zapamätať otvorené kategórie',
 			'unread' => 'Zobraziť iba neprečítané',
+			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
 		),
 		'show_fav_unread_help' => 'Týka sa aj štítkov',
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
-		'sort' => array(
-			'_' => 'Poradie',
-			'newer_first' => 'Novšie hore',
-			'older_first' => 'Staršie hore',
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
 		'title' => 'Čítanie',
@@ -263,6 +314,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Zdieľanie',
 		'add' => 'Pridať spôsob zdieľania',
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Táto služba nie je podporovaná a bude z FreshRSS odstránená v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Pre viac informácií otvorte dokumentáciu" target="_blank">budúcich verziách</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',	// IGNORE
@@ -275,7 +327,7 @@ return array(
 		'share_name' => 'Meno pre zobrazenie',
 		'share_url' => 'Zdieľaný odkaz',
 		'title' => 'Zdieľanie',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
@@ -283,7 +335,7 @@ return array(
 		'article_action' => 'Akcie článku',
 		'auto_share' => 'Zdieľať',
 		'auto_share_help' => 'Ak je nastavený iba jeden spôsob zdieľania, použije sa. Inak si spôsoby zdieľania vyberá používateľ podľa čísla.',
-		'close_dropdown' => 'Zavrie menu',
+		'close_menus' => 'Zavrie menu',
 		'collapse_article' => 'Zroluje článok',
 		'first_article' => 'Otvorí prvý článok',
 		'focus_search' => 'Vyhľadávanie',
@@ -310,6 +362,7 @@ return array(
 		'skip_next_article' => 'Prejde na ďalší bez otvorenia',
 		'skip_previous_article' => 'Prejde na predošlý bez otvorenia',
 		'title' => 'Skratky',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Spustiť/zastaviť médium',
 		'user_filter' => 'Použiť používateľské filtre',
 		'user_filter_help' => 'Ak je nastavený iba jeden spôsob zdieľania, použije sa. Inak si spôsoby zdieľania vyberá používateľ podľa čísla.',

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -54,7 +54,8 @@ return array(
 			'timeout' => 'Temps d’afichatge de las notificacions HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
-		'show_title_unread' => 'Mostra lo nombre d'articles non legits dins lo títol',
+		'show_title_unread' => 'Mostra lo nombre d’articles non legits dins lo títol',
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tèma',
 			'deprecated' => array(
@@ -100,21 +101,57 @@ return array(
 			'previous' => 'Precedent',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '« o marcar tot coma legit » button',	// DIRTY
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+	),
 	'profile' => array(
 		'_' => 'Gestion del perfil',
-		'api' => 'Gestion API',
+		'api' => array(
+			'_' => 'Gestion API',
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
+			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
+			'disabled' => 'The API access is disabled.',	// TODO
+			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
+			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Supression del compte',
 			'warn' => 'Lo compte e totas las donadas ligadas seràn suprimits.',
 		),
 		'email' => 'Adreça de corrièl',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'Senhal API<br /><small>(ex. : per las aplicacions mobil)</small>',
-		'password_form' => 'Senhal API<br /><small>(ex. : per la connexion via formulari)</small>',
 		'password_format' => 'Almens 7 caractèrs',
 		'title' => 'Pefil',
 	),
 	'query' => array(
 		'_' => 'Filtres utilizaires',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Aqueste filtre es pas valid. La categoria o lo flux concernit es estat suprimit.',
 		'description' => 'Description',	// TODO
 		'filter' => array(
@@ -122,6 +159,7 @@ return array(
 			'categories' => 'Afichatge per categoria',
 			'feeds' => 'Afichatge per flux',
 			'order' => 'Triar per data',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
@@ -129,6 +167,8 @@ return array(
 			'tags' => 'Afichatge per etiqueta',
 			'type' => 'Tipe',
 		),
+		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
+		'get_Z' => 'Show all feeds, also archived ones',	// TODO
 		'get_all' => 'Mostrar totes los articles',
 		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'Mostrar la categoria « %s »',
@@ -140,12 +180,21 @@ return array(
 		'image_url' => 'Image URL',	// TODO
 		'name' => 'Nom',
 		'no_filter' => 'Cap de filtre aplicat',
+		'no_queries' => array(
+			'_' => 'No user queries are saved yet.',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+		),
 		'number' => 'Filtre n°%d',
 		'order_asc' => 'Mostrar los articles mai ancians en primièr',
 		'order_desc' => 'Mostrar los articles mai recents en primièr',
 		'search' => 'Recèrca de « %s »',
 		'share' => array(
 			'_' => 'Share this query by link',	// TODO
+			'disabled' => array(
+				'_' => 'disabled',	// TODO
+				'title' => 'Sharing',	// TODO
+			),
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
@@ -173,6 +222,7 @@ return array(
 		'_' => 'Lectura',
 		'after_onread' => 'Aprèp « marcar coma legit »,',
 		'always_show_favorites' => 'Mostrar totes los articles dels favorits per defaut',
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Autors e data',
@@ -220,7 +270,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Rescondre las categorias & fluxes sens articles pas legits (fonciona pas amb la configuracion « Mostrar totes los articles »)',
 		'img_with_lazyload' => 'Utilizar lo mòde “cargament tardiu” pels imatges',
-		'jump_next' => 'sautar al vesin venent pas legit (flux o categoria)',
+		'jump_next' => 'sautar al vesin venent pas legit',
 		'mark_updated_article_unread' => 'Marcar los articles actualizats coma pas legits',
 		'number_divided_when_reader' => 'Devisat per 2 dins la vista de lectura.',
 		'read' => array(
@@ -232,24 +282,25 @@ return array(
 			'upon_gone' => 'quand es pas mai dins lo flux de novèla font',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
-			'when_same_title' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents (of the feed)',	// DIRTY
 		),
 		'show' => array(
 			'_' => 'Articles de mostrar',
 			'active_category' => 'Activar categoria',
-			'adaptive' => 'Adaptar l’afichatge',
+			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
 			'all_articles' => 'Mostrar totes los articles',
 			'all_categories' => 'Totas las categorias',
 			'no_category' => 'Cap de categoria',
 			'remember_categories' => 'Se remembrar de las categorias dobèrtas',
 			'unread' => 'Mostrar pas que los pas legits',
+			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
 		),
 		'show_fav_unread_help' => 'Aplicar tanben a las etiquetas',
 		'sides_close_article' => 'Clicar fòra de la zòna de tèxte tampa l’article',
-		'sort' => array(
-			'_' => 'Òrdre de tria',
-			'newer_first' => 'Mai recents en primièr',
-			'older_first' => 'Mai ancians en primièr',
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Gardar l’article amont quand es dobèrt',
 		'title' => 'Lectura',
@@ -263,6 +314,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Partatge',
 		'add' => 'Ajustar un metòde de partatge',
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Aqueste servici es obsolèt e serà tirat de la <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Dobrir la documentacion per mai d’informacions" target="_blank">futura version de FreshRSS</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Corrièl',
@@ -275,7 +327,7 @@ return array(
 		'share_name' => 'Nom del partatge de mostrar',
 		'share_url' => 'URL del partatge d’utilizar',
 		'title' => 'Partatge',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
@@ -283,7 +335,7 @@ return array(
 		'article_action' => 'Accions ligadas a l’article',
 		'auto_share' => 'Partejar',
 		'auto_share_help' => 'S’i a pas qu’un mòde de partatge, aquel serà utilizat. Autrament los mòdes son accessibles per lor numèro.',
-		'close_dropdown' => 'Tampar los menús',
+		'close_menus' => 'Tampar los menús',
 		'collapse_article' => 'Replegar',
 		'first_article' => 'Passar al primièr article',
 		'focus_search' => 'Accedir a la recèrca',
@@ -310,6 +362,7 @@ return array(
 		'skip_next_article' => 'Centrar sul seguent sens lo dobrir',
 		'skip_previous_article' => 'Centrar sul precedent sens lo dobrir',
 		'title' => 'Acorchis',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Legir/arrestar mèdia',
 		'user_filter' => 'Accedir als filtres utilizaire',
 		'user_filter_help' => 'S’i a pas qu’un filtre utilizaire, aquel serà utilizat. Autrament los filtres son accessibles per lor numèro.',

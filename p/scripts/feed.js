@@ -66,9 +66,6 @@ function init_popup_preview_selector() {
 	});
 }
 
-/**
- * Allow a <select class="select-show"> to hide/show elements defined by <option data-show="elem-id"></option>
- */
 function init_disable_elements_on_update(parent) {
 	const inputs = parent.querySelectorAll('input[data-disable-update]');
 	for (const input of inputs) {
@@ -90,8 +87,11 @@ function init_select_show(parent) {
 		const options = select.querySelectorAll('option[data-show]');
 		const shows = {};	// To allow multiple options to show the same element
 		for (const option of options) {
-			if (!shows[option.dataset.show]) {
-				shows[option.dataset.show] = option.selected;
+			const targets = option.dataset.show.split(' ');	// Allow multiple targets
+			for (const target of targets) {
+				if (!shows[target]) {
+					shows[target] = option.selected;
+				}
 			}
 		}
 

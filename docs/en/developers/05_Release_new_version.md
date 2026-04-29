@@ -53,7 +53,7 @@ Here’s an example of a `versions.php` file:
 
 ```php
 <?php
-return array(
+return [
 	// STABLE
 	'0.8.0' => '1.0.0',
 	'0.8.1' => '1.0.0',
@@ -62,7 +62,7 @@ return array(
 	'1.1.2-dev' => 'dev',
 	'1.1.3-dev' => 'dev',
 	'1.1.4-dev' => 'dev',
-);
+];
 ```
 
 And here’s how this table works:

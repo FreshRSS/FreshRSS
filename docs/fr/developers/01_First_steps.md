@@ -58,7 +58,7 @@ make stop
 ```
 
 Si la configuration vous intéresse, les commandes `make` sont définies dans
-le fichier [`Makefile`](/Makefile).
+le fichier [`Makefile`](https://github.com/FreshRSS/FreshRSS/blob/edge/Makefile).
 
 Si vous avez besoin d’utiliser une image Docker identifiée par un tag
 différent (par défaut `alpine`), vous pouvez surcharger de la manière
@@ -94,14 +94,15 @@ Si vous souhaitez créer votre propre extension FreshRSS, consultez la
 
 ## Style de codage
 
+> ℹ Voir [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) pour les conventions de code (à la fois pour les humains et agents IA).
+
 Si vous désirez contribuer au code, il est important de respecter le style
 de codage suivant. Le code actuel ne le respecte pas entièrement mais il est
 de notre devoir à tous de le changer dès que l’occasion se présente.
 
-Aucune nouvelle contribution ne respectant pas ces règles ne sera acceptée
-tant que les corrections nécessaires ne sont pas appliquées.
-
 ### Espaces, tabulations et autres caractères blancs
+
+> ℹ Voir [`_general.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/_general.instructions.md) pour les conventions de code (à la fois pour les humains et agents IA).
 
 #### Indentation
 

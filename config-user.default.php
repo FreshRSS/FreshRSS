@@ -54,7 +54,13 @@ return array (
 	#	Set to `true` to mark it unread, or `false` to leave it as-is.
 	'mark_updated_article_unread' => false, //TODO: -1 => ignore, 0 => update, 1 => update and mark as unread
 
+	# 'id'|'c.name'|'date'|'f.name'|'length'|'link'|'rand'|'title'
+	'sort' => 'id',
 	'sort_order' => 'DESC',
+	# 'id'|'date'|'link'|'title'
+	'secondary_sort' => 'id',
+	'secondary_sort_order' => 'DESC',
+
 	'anon_access' => false,
 	'mark_when' => array (
 		'article' => true,
@@ -84,15 +90,17 @@ return array (
 		'last_entry' => 'end',
 		'collapse_entry' => 'c',
 		'load_more' => 'm',
+		'mylabels' => 'l',
 		'auto_share' => 's',
 		'focus_search' => 'a',
 		'user_filter' => 'u',
 		'help' => 'f1',
-		'close_dropdown' => 'escape',
+		'close_menus' => 'escape',
 		'normal_view' => '1',
 		'global_view' => '2',
 		'reading_view' => '3',
 		'toggle_media' => 'v',
+		'toggle_aside' => 't',
 	),
 
 	# Disabling favicons and using emojis instead of icons improves performance for users with many feeds
@@ -101,8 +109,11 @@ return array (
 	# Hide the dropdown configuration menu and favicon in the aside list in case of many feeds, for UI performance
 	'simplify_over_n_feeds' => 1000,
 
+	'mark_read_button' => 'big',
 	'topline_read' => true,
 	'topline_favorite' => true,
+	'topline_myLabels' => false,
+	'topline_sharing' => false,
 	'topline_website' => 'full',
 	'topline_thumbnail' => 'none',
 	'topline_summary' => false,
@@ -121,9 +132,16 @@ return array (
 	'queries' => array (
 	),
 	'html5_notif_timeout' => 0,
+	'html5_enable_notif' => true,
+	'good_notification_timeout' => 3,
+	'bad_notification_timeout' => 8,
 	'show_nav_buttons' => true,
+	'sidebar_hidden_by_default' => false,
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [],
+	# Privacy settings
+	'retrieve_extension_list' => true,
+	'send_referrer_allowlist' => [],
 	# Extensions configurations
 	'extensions' => [],
 );
