@@ -1147,6 +1147,16 @@ kbd {
 		margin: 5px 0;
 	}
 
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-left: 1px solid var(--border-color-middle);
+		border-top-left-radius: 3px;
+		border-bottom-left-radius: 3px;
+	}
+
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn:hover {
+		border-left-color: var(--contrast-border-color-hover);
+	}
+
 	.dropdown-target:target ~ .dropdown-toggle::after {
 		background-color: var(--background-color-active);
 		border-top: 2px solid var(--background-color-light);

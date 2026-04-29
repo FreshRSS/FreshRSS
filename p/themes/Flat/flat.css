@@ -977,6 +977,12 @@ th {
 		margin: 5px 0;
 	}
 
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-left-width: 0;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+	}
+
 	.nav_menu .search {
 		display: inline-block;
 		max-width: 97%;
