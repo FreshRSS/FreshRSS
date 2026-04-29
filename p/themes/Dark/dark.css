@@ -198,6 +198,15 @@ button.as-link[disabled] {
 	border: 1px solid var(--dark-border-color0);
 }
 
+.group > .btn:only-child,
+.group > .dropdown:only-child > .btn {
+	border-radius: 3px;
+}
+
+.group > .dropdown:only-child > .btn {
+	border-left: 1px solid var(--dark-border-color0);
+}
+
 .btn:hover {
 	background: linear-gradient(to top, var(--dark-background-color-button-hover-gradient1) 0%, var(--dark-background-color-button-hover-gradient2) 100%);
 }

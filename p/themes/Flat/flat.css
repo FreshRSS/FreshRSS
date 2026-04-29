@@ -149,6 +149,11 @@ th {
 	border-radius: 0 5px 5px 0;
 }
 
+.group > .btn:only-child,
+.group > .dropdown:only-child > .btn {
+	border-radius: 5px;
+}
+
 .stick .btn + .btn,
 .group .btn + .btn,
 .stick .btn + input,

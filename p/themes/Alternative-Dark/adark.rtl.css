@@ -178,6 +178,11 @@ th {
 	border-radius: 3px 0 0 3px;
 }
 
+.group > .btn:only-child,
+.group > .dropdown:only-child > .btn {
+	border-radius: 3px;
+}
+
 .stick .btn + .btn,
 .group .btn + .btn,
 .stick .btn + input,
