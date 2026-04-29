@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Тайм-аут сповіщення HTML5',
 		),
 		'show_nav_buttons' => 'Показати кнопки навігації',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Тема',

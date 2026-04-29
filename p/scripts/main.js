@@ -171,10 +171,12 @@ function incUnreadsFeed(article, feed_id, nb) {
 			return p1;
 		}
 	});
-	if (prevTitle) {
-		prevTitle = newTitle;
-	} else {
-		document.title = newTitle;
+	if (context.show_title_unread !== false) {
+		if (prevTitle) {
+			prevTitle = newTitle;
+		} else {
+			document.title = newTitle;
+		}
 	}
 	return isCurrentView;
 }
@@ -2239,6 +2241,10 @@ function init_confirm_action() {
 }
 
 function faviconNbUnread(n) {
+	if (context.show_title_unread === false) {
+		return;
+	}
+
 	if (typeof n === 'undefined') {
 		const t = document.querySelector('.category.all .title');
 		n = t ? str2int(t.getAttribute('data-unread')) : 0;

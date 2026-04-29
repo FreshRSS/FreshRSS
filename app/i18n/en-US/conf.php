@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 notification timeout',	// IGNORE
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// IGNORE
+		'show_title_unread' => 'Show number of unread articles in the title',	// IGNORE
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// IGNORE
 		'theme' => array(
 			'_' => 'Theme',	// IGNORE
