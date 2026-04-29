@@ -678,6 +678,10 @@ th {
 	padding: 5px 0;
 }
 
+.nav_menu #nav_menu_toggle_aside {
+	position: static;
+}
+
 .dropdown-menu .dropdown-header .icon {
 	filter: invert(0.6);
 }

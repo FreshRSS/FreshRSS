@@ -744,6 +744,10 @@ kbd {
 	text-align: center;
 }
 
+.nav_menu #nav_menu_toggle_aside {
+	position: static;
+}
+
 /*=== Feed articles */
 .flux {
 	background: var(--background-color-dark);
