@@ -171,10 +171,12 @@ function incUnreadsFeed(article, feed_id, nb) {
 			return p1;
 		}
 	});
-	if (prevTitle) {
-		prevTitle = newTitle;
-	} else {
-		document.title = newTitle;
+	if (context.show_title_unread !== false) {
+		if (prevTitle) {
+			prevTitle = newTitle;
+		} else {
+			document.title = newTitle;
+		}
 	}
 	return isCurrentView;
 }
