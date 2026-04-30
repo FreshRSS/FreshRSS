@@ -178,6 +178,11 @@ th {
 	border-radius: 3px 0 0 3px;
 }
 
+.group > .btn:only-child,
+.group > .dropdown:only-child > .btn {
+	border-radius: 3px;
+}
+
 .stick .btn + .btn:not(:hover),
 .group .btn + .btn:not(:hover),
 .stick .btn + input,
@@ -743,6 +748,10 @@ kbd {
 	text-align: center;
 }
 
+.nav_menu #nav_menu_toggle_aside {
+	position: static;
+}
+
 /*=== Feed articles */
 .flux {
 	background: var(--background-color-dark);
@@ -1144,6 +1153,16 @@ kbd {
 	.nav_menu .stick .btn,
 	.nav_menu .group .btn {
 		margin: 5px 0;
+	}
+
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-right: 1px solid var(--border-color-middle);
+		border-top-right-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
+
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn:hover {
+		border-right-color: var(--contrast-border-color-hover);
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {

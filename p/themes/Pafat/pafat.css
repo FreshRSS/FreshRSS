@@ -200,6 +200,11 @@ th {
 	border-radius: 0 3px 3px 0;
 }
 
+.group > .btn:only-child,
+.group > .dropdown:only-child > .btn {
+	border-radius: 3px;
+}
+
 .stick .btn + .btn,
 .group .btn + .btn,
 .stick .btn + input,
@@ -218,8 +223,8 @@ th {
 }
 
 .stick .btn + .dropdown > .btn,
-.group .btn + .dropdown > .btn,
-.group .dropdown + .dropdown > .btn {
+.group .btn + .dropdown:last-child > .btn,
+.group .dropdown + .dropdown:last-child > .btn {
 	border-left: none;
 	border-radius: 0 3px 3px 0;
 }
@@ -1108,6 +1113,12 @@ a.signin {
 	.dropdown-target:target ~ .dropdown-toggle::after {
 		border-top: 1px solid var(--border-color-grey-dark);
 		border-left: 1px solid var(--border-color-grey-dark);
+	}
+
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-left: 1px solid var(--border-color-grey-dark);
+		border-top-left-radius: 3px;
+		border-bottom-left-radius: 3px;
 	}
 
 	.transition .name {

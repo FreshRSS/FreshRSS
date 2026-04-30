@@ -105,6 +105,11 @@
 		background-image: none;
 	}
 
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-left-width: 0;
+		border-radius: 5px;
+	}
+
 	#stream {
 		.flux {
 			.flux_header {
