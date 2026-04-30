@@ -1093,19 +1093,20 @@ a.signin {
 
 	.nav_menu {
 		padding-left: 0;
+		padding-bottom: 5px;
 
-		.nav_menu .btn {
+		.btn {
 			margin: 5px 10px;
 		}
 
-		.nav_menu .stick,
-		.nav_menu .group {
+		.stick,
+		.group {
 			margin: 0 10px;
 			min-width: 0;
 		}
 
-		.nav_menu .stick .btn,
-		.nav_menu .group .btn {
+		.stick .btn,
+		.group .btn {
 			margin: 5px 0;
 		}
 	}
