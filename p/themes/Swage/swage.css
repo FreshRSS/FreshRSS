@@ -749,6 +749,9 @@ main.post .drop-section li.item.feed a:hover .icon {
 
 .header {
 	height: auto;
+	position: sticky;
+	top: 0;
+	z-index: 96; /* above .nav_menu (90) and .item.configure (95) */
 
 	> .item {
 		padding: 0;
@@ -781,7 +784,8 @@ main.post .drop-section li.item.feed a:hover .icon {
 	}
 
 	.item.configure {
-		position: fixed;
+		position: absolute;
+		top: 0;
 		right: 0;
 		z-index: 95;
 		width: 35px;
@@ -957,6 +961,7 @@ main.post .drop-section li.item.feed a:hover .icon {
 .nav_menu {
 	padding: 0 0 0 2rem;
 	width: 100%;
+	box-sizing: border-box;
 	font-size: 0;
 	background-color: var(--color-background-nav);
 	text-align: left;
@@ -1266,7 +1271,7 @@ main.global {
 @media (max-width: 840px) {
 	body:not(.formLogin, .register) {
 		.header {
-			.item .title {
+			.item.title {
 				display: none;
 			}
 		}
@@ -1289,10 +1294,14 @@ main.global {
 	}
 
 	#nav_menu_sort,
-	#nav_menu_sort .dropdown-menu,
 	#nav_menu_sort .dropdown,
 	#toggle-order {
 		position: fixed;
+		right: 0;
+	}
+
+	#nav_menu_sort .dropdown-menu {
+		position: absolute;
 		right: 0;
 	}
 
@@ -1381,7 +1390,6 @@ main.global {
 
 		.item.configure {
 			padding: 0;
-			position: fixed;
 
 			> .icon {
 				margin-top: 5px;
@@ -1397,10 +1405,6 @@ main.global {
 	.flux_header .item.website {
 		width: 35px;
 		text-align: center;
-	}
-
-	.flux:not(.current):hover .item .title {
-		top: auto !important;
 	}
 
 	.aside {
@@ -1577,6 +1581,43 @@ main.global {
 	div#nav_menu_views {
 		right: 32px;
 	}
+
+	body:is(.normal, .reader, .global) {
+		.nav_menu {
+			display: flex;
+			height: auto;
+			flex-wrap: wrap;
+			align-items: center;
+			row-gap: 2px;
+			padding-right: 3rem; /* room for absolute-positioned cog */
+		}
+
+		.nav_menu .item.search {
+			position: static;
+			top: auto;
+			width: auto;
+			flex: 1 1 140px;
+			min-width: 100px;
+			margin-left: 0;
+		}
+
+		.nav_menu form#mark-read-menu,
+		.nav_menu a#actualize,
+		.nav_menu div#nav_menu_actions,
+		.nav_menu div#nav_menu_views,
+		.nav_menu a#toggle-order,
+		.nav_menu #nav_menu_sort,
+		.nav_menu #nav_menu_sort .dropdown {
+			position: static;
+			top: auto;
+			right: auto;
+			left: auto;
+		}
+
+		.item.configure {
+			right: 0;
+		}
+	}
 }
 
 @media (max-width: 410px) {
@@ -1679,4 +1720,8 @@ button.as-link {
 	label {
 		min-height: initial;
 	}
+}
+
+body:has(.aside:not(.visible)) .header .item.title {
+	display: none;
 }
