@@ -134,6 +134,11 @@ cd /usr/share/FreshRSS
 
 ./cli/db-optimize.php --user username
 # Optimize database (reduces the size) for a given user (perform `OPTIMIZE TABLE` in MySQL, `VACUUM` in SQLite)
+
+./cli/purge.php --user username
+# Apply the purge policy (max number of articles, max age, exceptions) to all feeds of the given user.
+# Equivalent to clicking ‘Purge now’ in the GUI, but suitable for cron.
+# Purge queries are expensive and blocking; running daily or weekly is usually enough.
 ```
 
 ### Translation
