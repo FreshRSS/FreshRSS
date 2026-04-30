@@ -261,6 +261,15 @@ th {
 	border-radius: 3px 0 0 3px;
 }
 
+.group > .btn:only-child,
+.group > .dropdown:only-child > .btn {
+	border-radius: 3px;
+}
+
+.group > .dropdown:only-child > .btn {
+	border-right: 1px solid var(--border-color);
+}
+
 .btn {
 	margin: 0;
 	padding: 0.25rem 0.5rem;
