@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Tauko HTML5-ilmoitusten välissä',
 		),
 		'show_nav_buttons' => 'Näytä siirtymispainikkeet',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Teema',

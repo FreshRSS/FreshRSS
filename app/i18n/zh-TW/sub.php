@@ -16,22 +16,22 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => '拖放此按鈕到您的書籤工具列或右鍵點擊它並選擇「收藏此連結」。然後在您想要訂閱的任何頁面上點擊「訂閱」按鈕。',
+		'documentation' => '拖放此按鈕到您的書籤工具列或右鍵點擊它並選擇 "收藏此連結"。然後在您想要訂閱的任何頁面上點擊 "訂閱" 按鈕。',
 		'label' => '訂閱',
 		'title' => '書籤小程式',
 	),
 	'category' => array(
-		'_' => '分類',
-		'add' => '新增分類',
+		'_' => '類別',
+		'add' => '新增類別',
 		'archiving' => '歸檔',
 		'dynamic_opml' => array(
 			'_' => '動態 OPML',
 			'help' => '提供指向 <a href="http://opml.org/" target="_blank">OPML 檔案</a> 的 URL 以便動態地為此類別填充訂閱',
 		),
-		'empty' => '空分類',
-		'expand' => '展開分類',
+		'empty' => '空類別',
+		'expand' => '展開類別',
 		'information' => '資訊',
-		'open' => '開啟分類',
+		'open' => '開啟類別',
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '顯示位置',
 		'position_help' => '用於控制類別排序',
@@ -145,7 +145,7 @@ return array(
 				'xpath' => 'XPath 用於:',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (點「.」符號)',
+				'_' => 'JSON (點符號)',
 				'feed_title' => array(
 					'_' => '訂閱源標題',
 					'help' => '範例: <code>meta.title</code> 或靜態字串: <code>"My custom feed"</code>',
@@ -202,7 +202,7 @@ return array(
 		),
 		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
 		'method_postparams' => 'Payload for POST',	// TODO
-		'moved_category_deleted' => '刪除分類時，其中的訂閱源會自動歸類到 <em>%s</em>',
+		'moved_category_deleted' => '刪除類別時，其中的訂閱源會自動歸類到 <em>%s</em>',
 		'mute' => array(
 			'_' => '暫停',
 			'state_is_muted' => 'This feed is muted',	// TODO
@@ -213,7 +213,7 @@ return array(
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
 		'priority' => array(
 			'_' => '可見度',
-			'category' => '在分類中顯示',
+			'category' => '在類別中顯示',
 			'feed' => 'Show in its feed',	// TODO
 			'hidden' => '不要顯示',
 			'important' => '顯示在重要訂閱源',
@@ -279,7 +279,7 @@ return array(
 		'title' => '匯入 / 匯出',
 	),
 	'menu' => array(
-		'add' => '新增訂閱源或分類',
+		'add' => '新增訂閱源或類別',
 		'import_export' => '匯入 / 匯出',
 		'label_management' => '標籤管理',
 		'stats' => array(
@@ -299,8 +299,8 @@ return array(
 	),
 	'title' => array(
 		'_' => '訂閱管理',
-		'add' => '新增訂閱源或分類',
-		'add_category' => '新增分類',
+		'add' => '新增訂閱源或類別',
+		'add_category' => '新增類別',
 		'add_dynamic_opml' => '新增動態 OPML',
 		'add_feed' => '新增訂閱源',
 		'add_label' => '新增標籤',

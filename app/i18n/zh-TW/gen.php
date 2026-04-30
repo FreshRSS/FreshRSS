@@ -162,7 +162,7 @@ return array(
 		),
 	),
 	'js' => array(
-		'category_empty' => '清空分類',
+		'category_empty' => '清空類別',
 		'confirm_action' => '您確定要執行此動作嗎？這無法被取消！',
 		'confirm_action_feed_cat' => '您確定要執行此操作嗎？您將丟失相關的收藏和使用者查詢。這無法被取消！',
 		'confirm_exit_slider' => '您確定要丟棄所有未儲存的設定嗎？',
