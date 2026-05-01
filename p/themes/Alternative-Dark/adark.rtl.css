@@ -1139,7 +1139,7 @@ kbd {
 		filter: brightness(2);
 	}
 
-	.aside:target + .close-aside, .configure .dropdown-target:target ~ .dropdown-close {
+	.aside.visible + .close-aside, .configure .dropdown-target:target ~ .dropdown-close {
 		background-color: var(--background-color-slider-shadow);
 	}
 

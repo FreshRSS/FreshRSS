@@ -880,7 +880,7 @@ main.post .drop-section li.item.feed a:hover .icon {
 	margin-bottom: 1rem;
 }
 
-.aside:target .toggle_aside {
+.aside.visible .toggle_aside {
 	border-bottom: 1px solid var(--frss-border-color);
 }
 
@@ -1243,8 +1243,7 @@ body.reader {
 		text-align: center;
 	}
 
-	.aside:target {
-		width: var(--width-aside);
+	.aside.visible {
 		padding-top: 0;
 	}
 }

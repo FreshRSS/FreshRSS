@@ -1233,7 +1233,7 @@ optgroup::before {
 /*===========*/
 
 @media (max-width: 840px) {
-	.aside:target + .close-aside,
+	.aside.visible + .close-aside,
 	.configure .dropdown-target:target ~ .dropdown-close {
 		backdrop-filter: grayscale(60%) blur(1px);
 	}
@@ -1243,7 +1243,6 @@ optgroup::before {
 	}
 
 	.nav.aside {
-		max-width: 300px;
 		border-radius: 0;
 	}
 

@@ -1163,7 +1163,7 @@ button:hover .icon,
 		padding-bottom: 0;
 	}
 
-	.aside:target {
+	.aside.visible {
 		box-shadow: -3px 0 3px var(--text-shadow-color);
 	}
 
