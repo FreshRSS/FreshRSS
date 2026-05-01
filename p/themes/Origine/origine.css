@@ -846,6 +846,20 @@ button:hover .icon,
 	border-bottom: 1px solid var(--border-color);
 }
 
+.nav_menu .btn {
+	margin: 5px 10px;
+}
+
+.nav_menu .stick,
+.nav_menu .group {
+	margin: 0 10px;
+}
+
+.nav_menu .stick .btn,
+.nav_menu .group .btn {
+	margin: 5px 0;
+}
+
 /*=== Feed articles */
 .flux {
 	background-color: var(--background-color-light);
@@ -1175,19 +1189,8 @@ button:hover .icon,
 	}
 
 	.nav_menu .btn {
-		margin: 5px 10px;
 		padding: 3px 5px;
 		min-height: 0;
-	}
-
-	.nav_menu .stick,
-	.nav_menu .group {
-		margin: 0 10px;
-	}
-
-	.nav_menu .stick .btn,
-	.nav_menu .group .btn {
-		margin: 5px 0;
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {

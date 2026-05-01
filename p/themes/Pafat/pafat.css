@@ -793,6 +793,20 @@ a.signin {
 	background-color: var(--background-color-grey-light);
 	border-bottom: 1px solid var(--border-color-grey-dark);
 	text-align: center;
+
+	.btn {
+		margin: 5px 10px;
+	}
+
+	.stick,
+	.group {
+		margin: 0 10px;
+	}
+
+	.stick .btn,
+	.group .btn {
+		margin: 5px 0;
+	}
 }
 
 /*=== Feed articles */
@@ -1095,19 +1109,9 @@ a.signin {
 		padding-left: 0;
 		padding-bottom: 5px;
 
-		.btn {
-			margin: 5px 10px;
-		}
-
 		.stick,
 		.group {
-			margin: 0 10px;
 			min-width: 0;
-		}
-
-		.stick .btn,
-		.group .btn {
-			margin: 5px 0;
 		}
 	}
 

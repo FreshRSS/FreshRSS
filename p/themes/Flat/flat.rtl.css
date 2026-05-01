@@ -687,6 +687,20 @@ th {
 	position: static;
 }
 
+.nav_menu .btn {
+	margin: 5px 10px;
+}
+
+.nav_menu .stick,
+.nav_menu .group {
+	margin: 0 10px;
+}
+
+.nav_menu .stick .btn,
+.nav_menu .group .btn {
+	margin: 5px 0;
+}
+
 .dropdown-menu .dropdown-header .icon {
 	filter: invert(0.6);
 }
@@ -973,19 +987,8 @@ th {
 	}
 
 	.nav_menu .btn {
-		margin: 5px 10px;
 		padding: 3px 5px;
 		min-height: 0;
-	}
-
-	.nav_menu .stick,
-	.nav_menu .group {
-		margin: 0 10px;
-	}
-
-	.nav_menu .stick .btn,
-	.nav_menu .group .btn {
-		margin: 5px 0;
 	}
 
 	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
