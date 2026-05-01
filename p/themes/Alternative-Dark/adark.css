@@ -1116,7 +1116,6 @@ kbd {
 
 	.aside {
 		box-shadow: 3px 0 3px var(--background-color-active);
-		transition: width 200ms linear;
 	}
 
 	.aside .toggle_aside,
@@ -1142,10 +1141,6 @@ kbd {
 
 	.aside:target + .close-aside, .configure .dropdown-target:target ~ .dropdown-close {
 		background-color: var(--background-color-slider-shadow);
-	}
-
-	.aside.aside_feed {
-		padding: 0;
 	}
 
 	.configure .dropdown .dropdown-menu {

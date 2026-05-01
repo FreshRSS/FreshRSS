@@ -972,18 +972,10 @@ th {
 		padding-bottom: 0;
 	}
 
-	.aside {
-		transition: width 200ms linear;
-	}
-
 	.aside .toggle_aside,
 	#overlay .close,
 	.dropdown-menu .toggle_aside {
 		background: #2c3e50;
-	}
-
-	.aside.aside_feed {
-		padding: 0;
 	}
 
 	.nav_menu .btn {

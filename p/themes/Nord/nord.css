@@ -1240,11 +1240,6 @@ optgroup::before {
 
 	.aside {
 		left: 0;
-		transition: width 200ms linear;
-	}
-
-	.aside.aside_feed {
-		padding: 0;
 	}
 
 	.nav.aside {

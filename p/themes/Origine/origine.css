@@ -1163,10 +1163,6 @@ button:hover .icon,
 		padding-bottom: 0;
 	}
 
-	.aside {
-		transition: width 200ms linear;
-	}
-
 	.aside:target {
 		box-shadow: 3px 0 3px var(--text-shadow-color);
 	}
@@ -1177,10 +1173,6 @@ button:hover .icon,
 	#slider .toggle_aside {
 		background-color: var(--background-color-light-shadowed);
 		border-bottom: 1px solid var(--border-color);
-	}
-
-	.aside.aside_feed {
-		padding: 0;
 	}
 
 	.post {
