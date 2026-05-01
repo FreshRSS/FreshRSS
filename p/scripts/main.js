@@ -932,14 +932,15 @@ function toggle_aside_click(manual = true) {
 	}
 
 	const active = toggle_aside.classList.contains('active');
+	const isNarrow = window.matchMedia('(max-width: 840px)').matches;
 	if (active) {
 		toggle_aside.classList.remove('active');
 		aside.classList.remove('visible');
-		aside.style.display = 'none';
+		aside.classList.toggle('is-hidden', !isNarrow);
 	} else {
 		toggle_aside.classList.add('active');
 		aside.classList.add('visible');
-		aside.style.display = '';
+		aside.classList.remove('is-hidden');
 	}
 
 	if (manual && ['normal', 'reader'].includes(context.current_view)) {

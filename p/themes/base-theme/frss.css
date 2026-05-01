@@ -1330,6 +1330,10 @@ input[type="search"] {
 	vertical-align: top;
 }
 
+.aside.is-hidden {
+	display: none;
+}
+
 .aside + .close-aside {
 	display: none;
 }
