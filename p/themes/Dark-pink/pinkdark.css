@@ -164,3 +164,9 @@ input:focus {
 .theme-preview-list .nav label.btn:hover {
 	background-color: var(--background-color-hover);
 }
+
+@media (max-width: 840px) {
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn:hover {
+		border-left-color: #ff449a;
+	}
+}

@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
 		'show_nav_buttons' => 'Navigationsschaltflächen anzeigen',
+		'show_title_unread' => 'Anzahl ungelesener Artikel im Titel anzeigen',
 		'sidebar_hidden_by_default' => 'Seitenleiste standardmäßig ausblenden',
 		'theme' => array(
 			'_' => 'Layout',

@@ -2,6 +2,9 @@
 
 @charset "UTF-8";
 
+/* Scaffold for the base-theme fallback. Other themes do not load this file;
+   cross-theme defaults belong in frss.css. */
+
 /*=== GENERAL */
 /*============*/
 html, body {

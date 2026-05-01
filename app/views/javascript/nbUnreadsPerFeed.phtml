@@ -8,7 +8,9 @@ $result = [
 ];
 foreach ($this->categories as $cat) {
 	foreach ($cat->feeds() as $feed) {
-		$result['feeds'][$feed->id()] = $feed->nbNotRead();
+		if ($feed->priority() > FreshRSS_Feed::PRIORITY_HIDDEN) {
+			$result['feeds'][$feed->id()] = $feed->nbNotRead();
+		}
 	}
 }
 foreach ($this->tags as $tag) {

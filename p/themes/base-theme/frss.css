@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+/* Shared base loaded by every theme via the "_frss.css" entry in metadata.json. */
+
 /*=== GENERAL */
 /*============*/
 :root {
@@ -2769,12 +2771,17 @@ html.slider-active {
 		width: 0;
 		overflow: hidden;
 		z-index: 100;
+		transition: width 200ms linear;
 	}
 
 	.aside.visible,
 	.reader .aside.visible {
 		width: 90%;
 		height: 100vh;
+	}
+
+	.aside.aside_feed {
+		padding: 0;
 	}
 
 	.aside_feed .configure-feeds {

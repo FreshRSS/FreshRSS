@@ -149,6 +149,11 @@ th {
 	border-radius: 5px 0 0 5px;
 }
 
+.group > .btn:only-child,
+.group > .dropdown:only-child > .btn {
+	border-radius: 5px;
+}
+
 .stick .btn + .btn,
 .group .btn + .btn,
 .stick .btn + input,
@@ -678,6 +683,24 @@ th {
 	padding: 5px 0;
 }
 
+.nav_menu #nav_menu_toggle_aside {
+	position: static;
+}
+
+.nav_menu .btn {
+	margin: 5px 10px;
+}
+
+.nav_menu .stick,
+.nav_menu .group {
+	margin: 0 10px;
+}
+
+.nav_menu .stick .btn,
+.nav_menu .group .btn {
+	margin: 5px 0;
+}
+
 .dropdown-menu .dropdown-header .icon {
 	filter: invert(0.6);
 }
@@ -949,32 +972,21 @@ th {
 		padding-bottom: 0;
 	}
 
-	.aside {
-		transition: width 200ms linear;
-	}
-
 	.aside .toggle_aside,
 	#overlay .close,
 	.dropdown-menu .toggle_aside {
 		background: #2c3e50;
 	}
 
-	.aside.aside_feed {
-		padding: 0;
-	}
-
 	.nav_menu .btn {
-		margin: 5px 10px;
 		padding: 3px 5px;
 		min-height: 0;
 	}
 
-	.nav_menu .stick {
-		margin: 0 10px;
-	}
-
-	.nav_menu .stick .btn {
-		margin: 5px 0;
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-right-width: 0;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
 	}
 
 	.nav_menu .search {

@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'HTML5 értesítés hossza',
 		),
 		'show_nav_buttons' => 'Navigációs gombok megjelenítése',
+		'show_title_unread' => 'A meg nem nyitott cikkek számának megjelenítése a címben',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Téma',
