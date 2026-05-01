@@ -2499,7 +2499,10 @@ html.slider-active {
 		display: none;
 	}
 
+	/* Material navigation drawer: theme override or 320px cap, with 56px touch-peek */
 	.aside.visible {
+		width: min(var(--width-aside, 320px), calc(100vw - 56px));
+		height: 100vh;
 		box-shadow: -3px 3px 5px var(--frss-box-shadow-color-transparent);
 	}
 
@@ -2776,12 +2779,6 @@ html.slider-active {
 		overflow: hidden;
 		z-index: 100;
 		transition: width 200ms linear;
-	}
-
-	.aside.visible,
-	.reader .aside.visible {
-		width: 90%;
-		height: 100vh;
 	}
 
 	.aside.aside_feed {
