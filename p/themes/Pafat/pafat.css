@@ -1090,19 +1090,11 @@ a.signin {
 		padding-bottom: 0;
 	}
 
-	.aside {
-		transition: width 200ms linear;
-	}
-
 	.aside .toggle_aside,
 	#overlay .close,
 	.dropdown-menu .toggle_aside {
 		background-color: var(--background-color-grey);
 		border-bottom: 1px solid var(--border-color-grey-light);
-	}
-
-	.aside.aside_feed {
-		padding: 0;
 	}
 
 	.nav_menu {

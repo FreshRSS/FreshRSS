@@ -1410,7 +1410,6 @@ main.global {
 	.aside {
 		padding: 0;
 		width: 0;
-		transition: width 200ms linear;
 
 		.toggle_aside {
 			background-color: var(--color-background-aside);
