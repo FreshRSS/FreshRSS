@@ -758,7 +758,6 @@ main.post .drop-section li.item.feed a:hover .icon {
 		vertical-align: middle;
 
 		&.title {
-			width: var(--width-aside);
 			position: absolute;
 			text-align: center;
 
@@ -812,7 +811,6 @@ main.post .drop-section li.item.feed a:hover .icon {
 .aside {
 	background-color: var(--color-background-aside);
 	padding-top: 2.5rem;
-	width: var(--width-aside);
 
 	&.aside_feed {
 		.tree {
@@ -1124,7 +1122,6 @@ main.post .drop-section li.item.feed a:hover .icon {
 }
 
 #nav_entries {
-	width: var(--width-aside);
 	background-color: var(--color-background-aside);
 }
 

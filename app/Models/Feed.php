@@ -1457,9 +1457,9 @@ class FreshRSS_Feed extends Minz_Model {
 			]);
 
 			$curl_options = [];
-			if (defined('CURLOPT_PROTOCOLS_STR')) {
+			if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
 				$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
-				if (defined('CURLOPT_REDIR_PROTOCOLS_STR')) {
+				if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
 					$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
 				}
 			} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
