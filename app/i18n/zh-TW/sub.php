@@ -72,29 +72,29 @@ return array(
 		'error' => '此訂閱源遇到問題。如果情況持續存在，請確認其是否仍然可存取。',
 		'export-as-opml' => array(
 			'download' => '下載',
-			'help' => 'XML 檔案 (資料子集合 <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">請看說明文件</a>)',
+			'help' => 'XML 檔案 (資料子集合<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">請參閱說明文件</a>)',
 			'label' => '匯出為 OPML',
 		),
 		'ext_favicon' => '自動設定',
 		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => '過濾動作',
-			'help' => '每行一個搜尋過濾器。運算子 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">請看說明文件</a>。',
+			'help' => '每行一個搜尋過濾器。運算子<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">請參閱說明文件</a>。',
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'http_headers' => 'HTTP 標頭',
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'icon' => '圖示',
 		'information' => '資訊',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => '繼續新增更多訂閱源',
 		'keep_min' => '保留的最小文章數',
 		'kind' => array(
 			'_' => '訂閱源來源類型',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'_' => 'HTML + XPath + JSON 點表示法 (HTML 中的 JSON)',
 				'xpath' => array(
 					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// TODO
+					'help' => '範例: <code>normalize-space(//script[@type="application/json"])</code> (單個 JSON)<br />或者: <code>//script[@type="application/ld+json"]</code> (每篇文章一個 JSON 物件)',
 				),
 			),
 			'html_xpath' => array(
@@ -123,7 +123,7 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => '自訂日期/時間格式',
-					'help' => '可選。一個被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支援的格式，例如 <code>d-m-Y H:i:s</code>',
+					'help' => '可選。被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支援的格式，例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '項目日期',
@@ -145,21 +145,21 @@ return array(
 				'xpath' => 'XPath 用於:',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (點符號)',
+				'_' => 'JSON (點表示法)',
 				'feed_title' => array(
 					'_' => '訂閱源標題',
 					'help' => '範例: <code>meta.title</code> 或靜態字串: <code>"My custom feed"</code>',
 				),
 				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
 				'item' => array(
-					'_' => '找尋新聞 <strong>項目</strong><br /><small>(最重要的)</small>',
+					'_' => '尋找新聞<strong>項目</strong><br /><small>(最重要的)</small>',
 					'help' => 'JSON path to the array containing the items, e.g. <code>$</code> or <code>newsItems</code>',	// TODO
 				),
 				'item_author' => '項目作者',
 				'item_categories' => '項目標籤',
 				'item_content' => array(
 					'_' => '項目內容',
-					'help' => '可以在其下方找到內容的關鍵字, e.g. <code>content</code>',
+					'help' => '可以在其下方找到內容的關鍵字，例如 <code>content</code>',
 				),
 				'item_thumbnail' => array(
 					'_' => '項目縮圖',
@@ -167,7 +167,7 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => '自訂日期/時間格式',
-					'help' => '可選。一個被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支援的格式，例如 <code>d-m-Y H:i:s</code>',
+					'help' => '可選。被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支援的格式，例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '項目日期',
@@ -179,15 +179,15 @@ return array(
 					'_' => '項目連結 (URL)',
 					'help' => '範例: <code>permalink</code>',
 				),
-				'json' => 'dot notation for:',	// TODO
-				'relative' => 'dot notated path (relative to item) for:',	// TODO
+				'json' => '點表示法用於:',
+				'relative' => '點表示法標記路徑 (相對於項目) 用於:',
 			),
 			'jsonfeed' => 'JSON 訂閱源',
 			'rss' => 'RSS / Atom (預設)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-error-date' => '上次錯誤更新 <time datetime="%1$s" title="%1$s">%2$s</time>。',
+		'last-update' => '上次成功更新 <time datetime="%1$s" title="%1$s">%2$s</time>。',
 		'maintenance' => array(
 			'clear_cache' => '清理快取',
 			'clear_cache_help' => '清除此訂閱源的快取',
@@ -200,12 +200,12 @@ return array(
 		'method' => array(
 			'_' => 'HTTP 方法',
 		),
-		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',	// TODO
-		'method_postparams' => 'Payload for POST',	// TODO
+		'method_help' => 'POST 負載自動支援 <code>application/x-www-form-urlencoded</code> 和 <code>application/json</code>',
+		'method_postparams' => 'POST 負載',
 		'moved_category_deleted' => '刪除類別時，其中的訂閱源會自動歸類到 <em>%s</em>',
 		'mute' => array(
 			'_' => '暫停',
-			'state_is_muted' => 'This feed is muted',	// TODO
+			'state_is_muted' => '此訂閱源被靜音',
 		),
 		'no_selected' => '未選擇訂閱源。',
 		'number_entries' => '%d 篇文章',
@@ -217,7 +217,7 @@ return array(
 			'feed' => 'Show in its feed',	// TODO
 			'hidden' => '不要顯示',
 			'important' => '顯示在重要訂閱源',
-			'main_stream' => '顯示在首頁',
+			'main_stream' => '顯示在主資訊流',
 		),
 		'proxy' => '取得訂閱源時的代理',
 		'proxy_help' => '選擇協定 (例如: SOCKS5) 並輸入代理位址 (例如: <kbd>127.0.0.1:1080</kbd> 或 <kbd>使用者名稱:密碼@127.0.0.1:1080</kbd>)',
@@ -236,7 +236,7 @@ return array(
 		'ssl_verify' => '驗證 SSL 安全',
 		'stats' => '統計',
 		'think_to_add' => '你可以新增一些訂閱源。',
-		'timeout' => '超時時間 (秒)',
+		'timeout' => '逾時 (秒)',
 		'title' => '標題',
 		'title_add' => '新增 RSS 訂閱源',
 		'ttl' => '最小自動刷新間隔',

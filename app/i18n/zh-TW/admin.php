@@ -14,7 +14,7 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => '允許匿名閱讀預設使用者的文章 (%s)',
 		'allow_anonymous_refresh' => '允許匿名刷新文章',
-		'api_enabled' => '允許 <abbr>API</abbr> 存取 <small>(移動端應用程式與分享使用者查詢需要)</small>',
+		'api_enabled' => '允許 <abbr>API</abbr> 存取 <small>(行動應用程式與分享使用者查詢需要)</small>',
 		'form' => 'Web 表單 (傳統方式，需要 JavaScript)',
 		'http' => 'HTTP (進階: 由 Web 伺服器、OIDC、SSO 等管理)',
 		'none' => '無 (危險)',
@@ -59,7 +59,7 @@ return array(
 		'entry_repartition' => '文章分配',
 		'feed' => '訂閱源',
 		'feed_per_category' => '每個類別的訂閱源數',
-		'idle' => '閒置的訂閱源',
+		'idle' => '長期無更新訂閱源',
 		'main' => '主要統計',
 		'main_stream' => '主資訊流',
 		'nb_unreads' => '未讀文章數',
@@ -113,7 +113,7 @@ return array(
 		'tos' => array(
 			'disabled' => '未提供',
 			'enabled' => '<a href="./?a=tos">為已啟用</a>',
-			'help' => '如何 <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">啟用服務條款</a>',
+			'help' => '如何<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">啟用服務條款</a>',
 		),
 		'websub' => array(
 			'help' => '關於 <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
