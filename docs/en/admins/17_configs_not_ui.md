@@ -1,4 +1,4 @@
-# System Configurations without an User Interface
+# System configurations without a user interface
 
 Most of configurations are available in the user interface.
 

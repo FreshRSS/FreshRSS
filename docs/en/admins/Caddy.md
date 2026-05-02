@@ -1,4 +1,4 @@
-## Using Caddy as a Reverse Proxy
+# Using Caddy as a reverse proxy
 
 How to configure Caddy as a reverse proxy to serve FreshRSS through a subfolder or subdomain
 
