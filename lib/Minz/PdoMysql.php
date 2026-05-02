@@ -14,7 +14,7 @@ class Minz_PdoMysql extends Minz_Pdo {
 	public function __construct(string $dsn, ?string $username = null, ?string $passwd = null, ?array $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		if (class_exists('Pdo\Mysql')) {
-			assert(is_int(Pdo\Mysql::ATTR_USE_BUFFERED_QUERY));
+			assert(is_int(Pdo\Mysql::ATTR_USE_BUFFERED_QUERY));	// For PHPStan with PHP 8.4+
 			$this->setAttribute(Pdo\Mysql::ATTR_USE_BUFFERED_QUERY, false);
 		} else {
 			$this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);	// PHP < 8.4
