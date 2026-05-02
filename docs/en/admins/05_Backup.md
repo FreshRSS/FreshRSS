@@ -5,7 +5,7 @@
 - `./data/` - **required**. You can skip `cache/` and `favicons/`; FreshRSS rebuilds them.
 - `./extensions/` - **recommended** if you use third-party extensions.
 - `./i/themes/` - **optional**, only if you have added custom themes.
-- **External database** (MySQL, MariaDB, or PostgreSQL) - back up separately with `mysqldump`/`pg_dump`. SQLite is covered by `./data/` above. See [Exporting your data](#exporting-your-data) for per-user SQLite export.
+- **External database** (MySQL, MariaDB, PostgreSQL) - back up separately with [`./cli/db-backup.php`](#creating-a-database-backup) (portable SQLite per user) or `mysqldump`/`pg_dump`. SQLite is covered by `./data/` above.
 
 All other folders belong to the source code and are restored by a fresh install or upgrade.
 
