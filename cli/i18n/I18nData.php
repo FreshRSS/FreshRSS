@@ -247,6 +247,45 @@ class I18nData {
 	}
 
 	/**
+	 * Verify that the set of available language directories matches the set of
+	 * `gen.lang.<code>` keys in the reference language, case-sensitively.
+	 *
+	 * Catches two classes of mismatch:
+	 * - A language directory whose name has no matching `gen.lang.<code>` key
+	 *   (case-folding on case-insensitive filesystems such as macOS APFS, typo,
+	 *   or a new language added without its display name).
+	 * - A `gen.lang.<code>` key with no matching directory (orphan after a
+	 *   language was removed).
+	 *
+	 * @return list<string> Human-readable mismatches; empty when consistent.
+	 */
+	public function validateLanguageNames(): array {
+		$prefix = 'gen.lang.';
+		$declared = [];
+		foreach (array_keys($this->data[static::REFERENCE_LANGUAGE]['gen.php'] ?? []) as $key) {
+			if (str_starts_with((string)$key, $prefix)) {
+				$declared[] = substr((string)$key, strlen($prefix));
+			}
+		}
+		sort($declared);
+
+		$available = $this->getAvailableLanguages();
+		$issues = [];
+		foreach (array_diff($available, $declared) as $orphanDir) {
+			$issues[] = "Language directory `app/i18n/{$orphanDir}/` has no matching "
+				. "`gen.lang.{$orphanDir}` key in the reference language. Possible causes: "
+				. 'case mismatch (e.g. on macOS APFS), typo, or missing display-name key.';
+		}
+		foreach (array_diff($declared, $available) as $orphanKey) {
+			$issues[] = "Reference key `gen.lang.{$orphanKey}` has no matching "
+				. "`app/i18n/{$orphanKey}/` directory. Possible cause: orphan key after "
+				. 'a language was removed.';
+		}
+
+		return $issues;
+	}
+
+	/**
 	 * Return all available languages without the reference language
 	 * @return list<string>
 	 */
