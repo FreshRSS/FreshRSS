@@ -311,6 +311,7 @@ People are sorted by name so please keep this order.
 * [Twilek-de](https://github.com/Twilek-de): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Twilek-de)
 * [Uncovery](https://github.com/uncovery): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:uncovery)
 * [upskaling](https://github.com/upskaling): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:upskaling)
+* [Umaid Shahid](https://github.com/umaidshahid): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:umaidshahid), [Web](https://umaid.dev)
 * [UserRoot-Luca](https://github.com/UserRoot-Luca): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:UserRoot-Luca)
 * [Virgil Chen](https://github.com/VirgilChen97): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:VirgilChen97)
 * [VYSE V.E.O](https://github.com/V-E-O): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:V-E-O)

@@ -2408,6 +2408,10 @@ html.slider-active {
 	font-style: italic;
 }
 
+.disabled-user {
+	opacity: 0.5;
+}
+
 /*=== READER */
 /*===========*/
 .reader .aside {
