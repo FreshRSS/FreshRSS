@@ -146,7 +146,7 @@ function echoJson($json, int $optimisationDepth = -1): void {
 }
 
 function safe_ascii(?string $text): string {
-	return $text === null ? '' : (filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
+	return $text === null ? '' : (filter_var($text, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
 }
 
 if (function_exists('mb_convert_encoding')) {
