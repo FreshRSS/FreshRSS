@@ -355,9 +355,7 @@ final class FreshRSS_http_Util {
 
 		$responseHeaders = '';
 		curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
-			if (trim($header) !== '') {	// Skip e.g. separation with trailer headers
-				$responseHeaders .= $header;
-			}
+			$responseHeaders .= $header;
 			return strlen($header);
 		});
 
