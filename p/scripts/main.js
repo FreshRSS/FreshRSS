@@ -21,6 +21,11 @@ if (!Element.prototype.remove) Element.prototype.remove = function () { if (this
 // </Polyfills>
 
 // <Utils>
+const reducedMotionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+function scrollBehavior() {
+	return reducedMotionQuery.matches ? 'auto' : 'smooth';
+}
+
 function xmlHttpRequestJson(req) {
 	let json = req.response;
 	if (req.responseType !== 'json') {	// IE11
@@ -808,9 +813,9 @@ async function mylabels(key) {
 	const scrollTop = needsScroll(mylabelsDropdown.closest('.horizontal-list'));
 	if (scrollTop !== 0) {
 		if (mylabelsDropdown.closest('.horizontal-list.flux_header')) {
-			mylabelsDropdown.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "start" });
+			mylabelsDropdown.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
 		} else {
-			mylabelsDropdown.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "end" });
+			mylabelsDropdown.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: scrollBehavior(), block: "end" });
 		}
 	}
 
@@ -842,9 +847,9 @@ function auto_share(key) {
 		const scrollTop = needsScroll(share.closest('.horizontal-list'));
 		if (scrollTop !== 0) {
 			if (share.closest('.horizontal-list.flux_header')) {
-				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "start" });
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
 			} else {
-				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "end" });
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: scrollBehavior(), block: "end" });
 			}
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
