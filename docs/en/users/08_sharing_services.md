@@ -1,4 +1,4 @@
-# Sharing Services
+# Sharing services
 
 FreshRSS has the option to share links with a bunch of services.
 

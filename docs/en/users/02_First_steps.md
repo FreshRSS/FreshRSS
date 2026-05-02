@@ -1,4 +1,4 @@
-# User Documentation
+# User manual
 
 Learning how to handle a new application is not always easy. We’ve tried to make FreshRSS as intuitive as possible, but you might still need a little help to master the program.
 

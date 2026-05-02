@@ -1,4 +1,4 @@
-# Configuring the email address validation
+# Configuring email address validation
 
 FreshRSS can verify that users give a valid email address. It is not configured
 by default so you’ll have to follow these few steps to verify email addresses.

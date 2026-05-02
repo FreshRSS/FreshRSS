@@ -1,4 +1,4 @@
-# Default User
+# Default user
 
 Currently, we have one `main user`, also called `default user`, or `admin`. All the others are `regular users`.
 
