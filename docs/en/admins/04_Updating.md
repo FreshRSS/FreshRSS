@@ -25,10 +25,12 @@ Log in as admin, open the Settings menu (top right), choose Administration, then
 
 Use git to update, change branches, or switch to a specific version. From your FreshRSS install directory:
 
+> ⚠️ Make sure your backup is outside the FreshRSS directory before starting.
+
 ```sh
 git fetch --all
 git reset --hard          # discards local changes to tracked files
-git clean -f -d           # removes untracked files; back these up first if you want to keep any
+git clean -f -d           # removes untracked files (custom themes, extensions, local edits)
 git checkout edge         # or `latest` for stable, or a tag like `1.27.1` for a specific version
 git pull --ff-only        # skip for a tag checkout
 ```
