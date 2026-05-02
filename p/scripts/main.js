@@ -495,8 +495,44 @@ function toggleContent(new_active, old_active, skipping) {
 				removeArticle(old_active);
 			}
 		}
+		// Update URL hash when moving to a different article
+		// Use location.hash for first, history.replaceState for subsequent
+		// to maintain a single history entry for all article navigation
+		// Skip if this was triggered by hashchange (back/forward button)
+		if (!skipping && !articleHistoryIgnoreToggle) {
+			const articleId = new_active.id.replace(/^flux_/, '');
+			if (articleHistoryEntryPushed) {
+				history.replaceState({ }, '', '#article-' + articleId);
+			} else {
+				location.hash = 'article-' + articleId;
+				articleHistoryEntryPushed = true;
+			}
+		}
 	} else {
+		const wasActive = new_active.classList.contains('active');
 		new_active.classList.toggle('active');
+		// Update URL hash when expanding/collapsing an article
+		// Use location.hash for first expand, replaceState for subsequent
+		// Skip if this toggle was triggered by hashchange (back/forward button)
+		if (!skipping && !articleHistoryIgnoreToggle) {
+			const isNowActive = new_active.classList.contains('active');
+			if (wasActive !== isNowActive) {
+				if (isNowActive) {
+					// Expanded - set hash to article ID
+					const articleId = new_active.id.replace(/^flux_/, '');
+					if (articleHistoryEntryPushed) {
+						history.replaceState({ }, '', '#article-' + articleId);
+					} else {
+						location.hash = 'article-' + articleId;
+						articleHistoryEntryPushed = true;
+					}
+				} else {
+					// Collapsed - clear hash
+					location.hash = '';
+					articleHistoryEntryPushed = false;
+				}
+			}
+		}
 	}
 
 	const new_offsetTop = new_active.offsetTop;
@@ -2453,6 +2489,78 @@ see https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security`
 	`);
 }
 
+// Article history for back/forward button support
+let articleHistoryInited = false;
+let articleHistoryIgnoreToggle = false;
+let articleHistoryEntryPushed = false;
+
+function init_article_history() {
+	if (articleHistoryInited) {
+		return;
+	}
+	articleHistoryInited = true;
+
+	// Check initial hash on page load
+	const initialHash = location.hash.substring(1); // Remove leading #
+	if (initialHash.startsWith('article-')) {
+		const articleId = initialHash.substring(8); // Remove 'article-' prefix
+		const article = document.getElementById('flux_' + articleId);
+		if (article && !article.classList.contains('active')) {
+			// Expand the article, passing the current article as old_active
+			// so .current class is updated consistently with normal navigation
+			const currentArticle = document.querySelector('.flux.current');
+			articleHistoryIgnoreToggle = true;
+			toggleContent(article, currentArticle, false);
+			articleHistoryIgnoreToggle = false;
+			articleHistoryEntryPushed = true;
+		} else if (!article) {
+			// Article doesn't exist (e.g., was removed after being marked as read)
+			// Clear the invalid hash from URL
+			history.replaceState({ }, '', '');
+			articleHistoryEntryPushed = false;
+		}
+	}
+
+	// Use hashchange event for navigation
+	// This works with browser back/forward and also with location.hash changes
+	window.addEventListener('hashchange', function (ev) {
+		const oldHash = ev.oldURL ? ev.oldURL.split('#')[1] || '' : '';
+		const newHash = location.hash.substring(1); // Remove leading #
+
+		// If new hash is an article ID (starts with 'article-')
+		if (newHash.startsWith('article-')) {
+			const articleId = newHash.substring(8); // Remove 'article-' prefix
+			const article = document.getElementById('flux_' + articleId);
+			if (article) {
+				if (!article.classList.contains('active')) {
+					// Pass current article as old_active so .current is updated consistently
+					const currentArticle = document.querySelector('.flux.current');
+					articleHistoryIgnoreToggle = true;
+					toggleContent(article, currentArticle, false);
+					articleHistoryIgnoreToggle = false;
+				}
+				// We're now sitting on an article hash entry in history
+				articleHistoryEntryPushed = true;
+			} else {
+				// Article doesn't exist (e.g., due to filtering or pagination)
+				// Replace the invalid hash without pushing a new entry
+				history.replaceState({}, '', location.href.split('#')[0]);
+				articleHistoryEntryPushed = false;
+			}
+		} else if (oldHash.startsWith('article-') && newHash === '') {
+			// Hash cleared - collapse the article
+			const oldArticleId = oldHash.substring(8);
+			const article = document.getElementById('flux_' + oldArticleId);
+			if (article && article.classList.contains('active')) {
+				articleHistoryIgnoreToggle = true;
+				toggleContent(article, article, false);
+				articleHistoryIgnoreToggle = false;
+			}
+			articleHistoryEntryPushed = false;
+		}
+	});
+}
+
 function init_main_beforeDOM() {
 	history.scrollRestoration = 'manual';
 	document.scrollingElement.scrollTop = 0;
@@ -2484,6 +2592,7 @@ function init_main_afterDOM() {
 	init_confirm_action();
 	init_nav_menu();
 	init_navigation_handler();
+	init_article_history();
 	const stream = document.getElementById('stream');
 	if (stream) {
 		init_load_more(stream);
