@@ -38,7 +38,7 @@ jobs:
           cache-version: 0 # Increment this number if you need to re-download cached gems
           working-directory: docs
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Build with Jekyll
         run: |
           cd docs
