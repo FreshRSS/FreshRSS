@@ -24,6 +24,8 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		bool $expandUserQueries = true
 	) {
 		$input = trim($input);
+		$input = ltrim($input, ' )');
+		$input = rtrim($input, ' (\\');
 		if ($input === '') {
 			return;
 		}
