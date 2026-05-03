@@ -29,7 +29,10 @@ echo 'Generating configuration file for po4a…'
 	echo '[po4a_paths] i18n/templates/freshrss.pot $lang:i18n/freshrss.$lang.po'
 } >$CONFIGFILE
 
-for FILE in $(cd en && tree -f -i | grep ".md" | grep -v "admins"); do
+# Skip the admins/ section (no FR translation maintained) and the three EN
+# root files whose FR equivalents are intentionally hand-maintained with a
+# different structure than EN: index.md, contributing.md, internationalization.md.
+for FILE in $(cd en && tree -f -i | grep ".md" | grep -v "admins" | grep -v -E "^\./(index|contributing|internationalization)\.md$"); do
 	echo "[type: text] en/$FILE \$lang:\$lang/$FILE opt:\"-o markdown\" opt:\"-M utf-8\"" >>$CONFIGFILE
 done
 

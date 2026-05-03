@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FreshRSS\n"
 "Report-Msgid-Bugs-To: https://github.com/FreshRSS/FreshRSS/issues\n"
-"POT-Creation-Date: 2026-05-03 07:40+0300\n"
+"POT-Creation-Date: 2026-05-03 09:03+0300\n"
 "PO-Revision-Date: 2019-12-07 10:50+0100\n"
 "Last-Translator: Marien Fressinaud <dev@marienfressinaud.fr>\n"
 "Language-Team: French <>\n"
@@ -20,372 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Gtranslator 3.34.0\n"
-
-#. type: Title #
-#: en/./contributing.md:1
-#, fuzzy, no-wrap
-#| msgid "Contribute to documentation"
-msgid "Contributor guidelines"
-msgstr "Contribuer à la documentation"
-
-#. type: Title ##
-#: en/./contributing.md:3
-#, no-wrap
-msgid "Chat with us"
-msgstr ""
-
-#. type: Plain text
-#: en/./contributing.md:7
-#, fuzzy
-#| msgid ""
-#| "On [our Mattermost chat](https://framateam.org/signup_user_complete/?"
-#| "id=e2680d3e3128b9fac8fdb3003b0024ee)"
-msgid ""
-"Do you want to ask us some questions? Do you want to discuss with us? Don’t "
-"hesitate to [join our Mattermost chat](https://framateam.org/"
-"signup_user_complete/?id=e2680d3e3128b9fac8fdb3003b0024ee)!"
-msgstr ""
-"Sur [notre chat Mattermost](https://framateam.org/signup_user_complete/?"
-"id=e2680d3e3128b9fac8fdb3003b0024ee)"
-
-#. type: Title ##
-#: en/./contributing.md:8
-#, no-wrap
-msgid "Report a bug"
-msgstr "Signaler un bug"
-
-#. type: Plain text
-#: en/./contributing.md:11
-msgid ""
-"Have you found a bug? Don’t panic, here are some steps to report it with "
-"ease:"
-msgstr ""
-"Avez-vous trouvé un bogue ? Ne paniquez pas, voici quelques étapes pour le "
-"signaler facilement :"
-
-#. type: Bullet: '1. '
-#: en/./contributing.md:15
-msgid ""
-"Search for it on [the bug tracker](https://github.com/FreshRSS/FreshRSS/"
-"issues) (don’t forget to use the search bar)."
-msgstr ""
-"Cherche sur [le bug tracker](https://github.com/FreshRSS/FreshRSS/issues) "
-"(n’oubliez pas d’utiliser la barre de recherche)."
-
-#. type: Bullet: '2. '
-#: en/./contributing.md:15
-msgid ""
-"If you find a similar bug, don’t hesitate to post a comment to add more "
-"importance to the related ticket."
-msgstr ""
-"Si vous constatez un bogue similaire, n’hésitez pas à poster un commentaire "
-"pour ajouter de l’importance au ticket correspondant."
-
-#. type: Bullet: '3. '
-#: en/./contributing.md:15
-msgid ""
-"If you didn’t find it, [open a new ticket](https://github.com/FreshRSS/"
-"FreshRSS/issues/new)."
-msgstr ""
-"Si vous ne l’avez pas trouvé, [ouvrez un nouveau ticket](https://github.com/"
-"FreshRSS/FreshRSS/issues/new)."
-
-#. type: Plain text
-#: en/./contributing.md:17
-msgid ""
-"If you have to create a new ticket, please try to keep in mind the following "
-"advice:"
-msgstr ""
-"Si vous devez créer un nouveau ticket, essayez de garder les conseils "
-"suivants :"
-
-#. type: Bullet: '* '
-#: en/./contributing.md:20
-msgid ""
-"Give an explicit title to the ticket so it will be easier to find it later."
-msgstr ""
-"Donnez un titre explicite au ticket pour le retrouver plus facilement plus "
-"tard."
-
-#. type: Bullet: '* '
-#: en/./contributing.md:20
-msgid ""
-"Be as exhaustive as possible in the description: what did you do? What is "
-"the bug? What are the steps to reproduce the bug?"
-msgstr ""
-"Soyez aussi exhaustif que possible dans la description : qu’avez-vous fait ? "
-"Quel est le bogue ? Quelles sont les étapes pour reproduire le bogue ?"
-
-#. type: Plain text
-#: en/./contributing.md:22
-msgid "We also need some information:"
-msgstr "Nous avons aussi besoin de quelques informations :"
-
-#. type: Bullet: '* '
-#: en/./contributing.md:27
-msgid ""
-"Your FreshRSS version (on the about page or in the `constants.php` file)"
-msgstr ""
-"Votre version de FreshRSS (sur la page A propos) ou le fichier "
-"`constants.php`)"
-
-#. type: Bullet: '* '
-#: en/./contributing.md:27
-msgid "Your server configuration: the type of hosting and the PHP version"
-msgstr "Votre configuration de serveur : type d’hébergement, version PHP"
-
-#. type: Bullet: '* '
-#: en/./contributing.md:27
-msgid "Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)"
-msgstr ""
-"Quelle base de données : SQLite, MySQL, MariaDB, PostgreSQL ? Quelle "
-"version ?"
-
-#. type: Bullet: '* '
-#: en/./contributing.md:27
-msgid ""
-"If possible, the related logs (PHP logs and FreshRSS logs under `data/users/"
-"your_user/log.txt`)"
-msgstr ""
-"Si possible, les logs associés (logs PHP et logs FreshRSS sous `data/users/"
-"your_user/log.txt`)"
-
-#. type: Plain text
-#: en/./contributing.md:29
-msgid ""
-"For a more detailed guide on writing bug reports, please refer to [the in-"
-"depth guide on reporting bugs](developers/reporting-bugs)."
-msgstr ""
-
-#. type: Title ##
-#: en/./contributing.md:30
-#, no-wrap
-msgid "Fix a bug"
-msgstr "Corriger un bogue"
-
-#. type: Plain text
-#: en/./contributing.md:33
-msgid ""
-"Would you like to fix a bug? For optimum coordination between collaborators, "
-"you should follow these indications:"
-msgstr ""
-"Voulez-vous corriger un bogue ? Pour maintenir une grande coordination entre "
-"les collaborateurs, vous devrez suivre ces indications :"
-
-#. type: Bullet: '1. '
-#: en/./contributing.md:38
-msgid ""
-"Be sure the bug is associated with a ticket and indicate that you’ll work on "
-"it."
-msgstr ""
-"Assurez-vous que le bogue est associé à un ticket et indiquez que vous allez "
-"travailler sur le bogue."
-
-#. type: Bullet: '2. '
-#: en/./contributing.md:38
-msgid ""
-"[Fork the project repository](https://help.github.com/articles/fork-a-repo/)."
-msgstr ""
-"[Fork du répertoire de projet](https://help.github.com/articles/fork-a-"
-"repo/)."
-
-#. type: Bullet: '3. '
-#: en/./contributing.md:38
-msgid ""
-"[Create a new branch](https://help.github.com/articles/creating-and-deleting-"
-"branches-within-your-repository/). The name of the branch should be clear, "
-"and ideally prefixed by the related ticket id. For instance, `783-"
-"contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/"
-"issues/783)."
-msgstr ""
-"[Créez une nouvelle branche](https://help.github.com/articles/creating-and-"
-"deleting-branches-within-your-repository/). Le nom de la branche doit être "
-"clair, et idéalement préfixé par l’identifiant du ticket correspondant. Par "
-"exemple, `783-contributing-file` pour réparer [ticket #783](https://"
-"github.com/FreshRSS/FreshRSS/issues/783)."
-
-#. type: Bullet: '4. '
-#: en/./contributing.md:38
-#, fuzzy
-#| msgid ""
-#| "Make your changes to your fork and [send a pull request](https://"
-#| "help.github.com/articles/using-pull-requests/)."
-msgid ""
-"Make your changes to your fork and [send a pull request](https://"
-"help.github.com/articles/using-pull-requests/) on the **edge branch**. Don’t "
-"forget to add your name to `CREDITS.md` if you’re contributing to FreshRSS "
-"for the very first time."
-msgstr ""
-"Ajoutez vos modifications à votre fork et [ouvrez une demande de pull "
-"request](https://help.github.com/articles/using-pull-requests/)."
-
-#. type: Plain text
-#: en/./contributing.md:40
-#, fuzzy
-#| msgid ""
-#| "If you have to write code, please follow [our coding style "
-#| "recommendations](developers/01_First_steps.md)."
-msgid ""
-"If you have to write code, please follow [our coding style recommendations]"
-"(developers/first-steps.md)."
-msgstr ""
-"Si vous devez écrire du code, veuillez suivre [nos recommandations de style "
-"de codage](developers/01_First_steps.md)."
-
-#. type: Plain text
-#: en/./contributing.md:42 en/./developers/first-steps.md:122
-#, no-wrap
-msgid "> ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).\n"
-msgstr ""
-
-#. type: Plain text
-#: en/./contributing.md:44
-#, fuzzy, no-wrap
-#| msgid "**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)” ticket label.\n"
-msgid "**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)” and “[help wanted](https://github.com/FreshRSS/FreshRSS/issues?q=label%3A%22help+wanted+%3Aoctocat%3A%22)” ticket labels.\n"
-msgstr "**Conseil : **si vous cherchez des bugs faciles à corriger, jetez un coup d’oeil à la vignette « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) ».\n"
-
-#. type: Title ##
-#: en/./contributing.md:45
-#, no-wrap
-msgid "Submit an idea"
-msgstr "Soumettre une idée"
-
-#. type: Plain text
-#: en/./contributing.md:48
-msgid ""
-"You have great ideas, yes! Don’t be shy and open [a new ticket](https://"
-"github.com/FreshRSS/FreshRSS/issues/new) on our bug tracker to ask if we can "
-"implement it. The greatest ideas often come from the shyest suggestions!"
-msgstr ""
-"Vous avez de bonnes idées, oui ! Ne soyez pas timide et ouvrez [un nouveau "
-"ticket](https://github.com/FreshRSS/FreshRSS/issues/new) sur notre tracker "
-"bogue pour nous demander si nous pouvons le mettre en œuvre. Les plus "
-"grandes idées viennent souvent des suggestions les plus timides !"
-
-#. type: Plain text
-#: en/./contributing.md:50
-msgid "If your idea is nice, we’ll have a look at it."
-msgstr "Si votre idée est bonne, nous y jetterons un coup d’oeil."
-
-#. type: Title ##
-#: en/./contributing.md:51
-#, no-wrap
-msgid "Contribute to internationalization (i18n)"
-msgstr "Contribuer à l’internationalisation (i18n)"
-
-#. type: Plain text
-#: en/./contributing.md:54
-msgid ""
-"Learn how to contribute to translations in [the dedicated documentation](./"
-"internationalization.md)."
-msgstr ""
-
-#. type: Title ##
-#: en/./contributing.md:55
-#, fuzzy, no-wrap
-#| msgid "Contribute to documentation"
-msgid "Contribute to the documentation"
-msgstr "Contribuer à la documentation"
-
-#. type: Plain text
-#: en/./contributing.md:59
-msgid ""
-"The documentation needs a lot of improvements in order to be more useful to "
-"new contributors and we are working on it.  If you want to give some help, "
-"meet us in the main repositories [docs directory](https://github.com/"
-"FreshRSS/FreshRSS/tree/edge/docs)!"
-msgstr ""
-"Il ne vous aura pas échappé que la documentation est encore un peu vide… il "
-"y a énormément de choses à faire ! Si vous souhaitez aider à écrire quelques "
-"pages, rendez-vous dans les principaux dépôts[fichier docs](https://"
-"github.com/FreshRSS/FreshRSS/tree/edge/docs) !"
-
-#. type: Title ##
-#: en/./contributing.md:60
-#, no-wrap
-msgid "Contribute to the system themes"
-msgstr ""
-
-#. type: Plain text
-#: en/./contributing.md:63
-msgid ""
-"FreshRSS offers some official themes. If you have a good sense for great UI "
-"you are invited to share your theme with the community (via a [show&tell "
-"discussion thread](https://github.com/FreshRSS/FreshRSS/discussions/"
-"categories/show-and-tell) or as a [Pull Request](https://github.com/FreshRSS/"
-"FreshRSS/pulls))."
-msgstr ""
-
-#. type: Plain text
-#: en/./contributing.md:65
-msgid ""
-"Check the [basic information for creating a new theme](./developers/writing-"
-"themes.md)."
-msgstr ""
-
-#. type: Plain text
-#: en/./contributing.md:67
-msgid ""
-"This checklist is designed to ensure high-quality system themes while "
-"minimizing maintenance efforts."
-msgstr ""
-
-#. type: Bullet: '* '
-#: en/./contributing.md:76
-msgid ""
-"Essential files include: [metadata.json, loader.gif, original.png](./"
-"developers/writing-themes.md) (located in the `thumbs` directory)."
-msgstr ""
-
-#. type: Bullet: '* '
-#: en/./contributing.md:76
-msgid ""
-"Include _frss.css in the \"files\" section of [`metadata.json`](./developers/"
-"writing-themes.md)."
-msgstr ""
-
-#. type: Bullet: '* '
-#: en/./contributing.md:76
-msgid "Theme-specific icons reside in the `icons` directory."
-msgstr ""
-
-#. type: Bullet: '	* '
-#: en/./contributing.md:76
-msgid "Icons should be provided as `svg` files."
-msgstr ""
-
-#. type: Bullet: '		* '
-#: en/./contributing.md:76
-msgid ""
-"Ensure clean code without any unnecessary fragments; utilize tools like "
-"[SVGOMG](https://jakearchibald.github.io/svgomg/) for cleaning."
-msgstr ""
-
-#. type: Bullet: '		* '
-#: en/./contributing.md:76
-msgid ""
-"The default color for icons is `#666666`; employ CSS filters for recoloring."
-msgstr ""
-
-#. type: Bullet: '* '
-#: en/./contributing.md:76
-msgid ""
-"Utilize CSS variables for colors to facilitate easy color adjustments with "
-"[CustomCSS extension](https://github.com/FreshRSS/Extensions)."
-msgstr ""
-
-#. type: Bullet: '* '
-#: en/./contributing.md:76
-msgid "Implement a dark mode that aligns with the `.darkMode` CSS class."
-msgstr ""
-
-#. type: Bullet: '* '
-#: en/./contributing.md:76
-msgid ""
-"To streamline maintenance, avoid using CSS preprocessors; instead, employ "
-"well-structured plain CSS."
-msgstr ""
 
 #. type: Yaml Front Matter Hash Value: nav_order
 #: en/./developers/database-schema.md:1 en/./users/user-queries.md:1
@@ -553,7 +187,7 @@ msgid ""
 msgstr ""
 
 #. type: Title ##
-#: en/./developers/fever-api.md:40 en/./index.md:11
+#: en/./developers/fever-api.md:40
 #, no-wrap
 msgid "Features"
 msgstr "Fonctionnalités"
@@ -1290,6 +924,12 @@ msgstr ""
 #: en/./developers/first-steps.md:119
 #, no-wrap
 msgid "Tests summary"
+msgstr ""
+
+#. type: Plain text
+#: en/./developers/first-steps.md:122
+#, no-wrap
+msgid "> ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).\n"
 msgstr ""
 
 #. type: Plain text
@@ -6006,779 +5646,6 @@ msgstr "Indentation"
 msgid "see [](../admins/themes.md)"
 msgstr ""
 
-#. type: Yaml Front Matter Hash Value: lang
-#: en/./index.md:1
-#, no-wrap
-msgid "en"
-msgstr ""
-
-#. type: Plain text
-#: en/./index.md:6
-msgid "![FreshRSS logo](img/logo_freshrss.png)"
-msgstr "![Logo de FreshRSS](img/logo_freshrss.png)"
-
-#. type: Title #
-#: en/./index.md:7
-#, no-wrap
-msgid "FreshRSS manual (English)"
-msgstr ""
-
-#. type: Plain text
-#: en/./index.md:10
-msgid ""
-"FreshRSS is an RSS aggregator and reader. It allows you to read and follow "
-"several news websites at a glance without the need to browse from one "
-"website to another."
-msgstr ""
-"FreshRSS est un agrégateur et lecteur de flux RSS. Il permet de regrouper "
-"l’actualité de plusieurs sites différents dans un endroit unique pour que "
-"vous puissiez la lire sans devoir aller de site en site."
-
-#. type: Plain text
-#: en/./index.md:14
-msgid "FreshRSS has a lot of features including:"
-msgstr ""
-"FreshRSS a été conçu comme un agrégateur puissant et propose des tas de "
-"fonctionnalités :"
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-msgid "RSS and Atom aggregation"
-msgstr "Agrégation des flux RSS et Atom."
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-msgid ""
-"Mark article as favorite if you liked it or if you want to read it later"
-msgstr ""
-"Utilisez les favoris pour marquer les articles qui vous ont plu ou que vous "
-"souhaitez lire plus tard."
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-#, fuzzy
-#| msgid "Filter and search functionality helps to easily find articles"
-msgid ""
-"Filter and search functionality helps to easily find articles ([more "
-"information](./users/filtering-articles.html))"
-msgstr ""
-"Le système de filtrage et de recherche permettent de cibler exactement les "
-"articles que vous souhaitez lire."
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-msgid ""
-"Statistics to show you the publishing frequency all the websites you follow"
-msgstr ""
-"Les statistiques permettent de savoir en un coup d’œil quels sont les sites "
-"qui publient le plus, ou à l’inverse, le moins."
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-msgid ""
-"Import/export of your feeds into OPML format ([more information](./users/"
-"subscriptions.html#import--export))"
-msgstr ""
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-#, fuzzy
-#| msgid "Several themes created by the community"
-msgid ""
-"Several themes created by the community ([more information](./admins/"
-"themes.html))"
-msgstr "Multi-thèmes pour changer l’habillage de FreshRSS."
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-#, fuzzy
-#| msgid "Several themes created by the community"
-msgid ""
-"Several extensions created by the community ([more information](./admins/"
-"extensions.html))"
-msgstr "Multi-thèmes pour changer l’habillage de FreshRSS."
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-#, fuzzy
-#| msgid "\"Google Reader\"-like API to connect Android applications"
-msgid ""
-"\"Google Reader\"-like API to connect Android applications ([more "
-"information](./users/mobile-access.html#access-via-mobile-app))"
-msgstr "API Google Reader pour pouvoir y brancher des applications Android."
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-msgid ""
-"The application is \"responsive,\" which means it adapts to small screens so "
-"you can bring articles in your pocket"
-msgstr ""
-"« *Responsive design* » : l’application s’adapte aux petits écrans pour "
-"emporter FreshRSS dans votre poche."
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-#, fuzzy
-#| msgid ""
-#| "Self-hosted: the code is free (under AGPL3 licence), so you can host your "
-#| "own instance of FreshRSS"
-msgid ""
-"Self-hosted: the code is free ([under AGPL3 licence](https://github.com/"
-"FreshRSS/FreshRSS/blob/edge/LICENSE.txt)), so you can host your own instance "
-"of FreshRSS ([more information](./admins/prerequisites.md))"
-msgstr ""
-"Auto-hébergeable : le code source est libre (AGPL3) et vous pouvez donc "
-"l’héberger sur votre propre serveur."
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-#, fuzzy
-#| msgid "Multi-user, so you can also host for your friends and family"
-msgid ""
-"Multi-user, so you can also host for your friends and family ([more "
-"information](./admins/user-management.md))"
-msgstr ""
-"Multi-utilisateurs pour héberger plusieurs personnes sur une même "
-"installation."
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-msgid ""
-"share article links with a bunch of services ([more information](./users/"
-"sharing-services.md))"
-msgstr ""
-
-#. type: Bullet: '* '
-#: en/./index.md:28
-msgid "And a lot more!"
-msgstr "Et bien d’autres !"
-
-#. type: Title ##
-#: en/./index.md:29
-#, fuzzy, no-wrap
-#| msgid "Manual update"
-msgid "Manual Chapters"
-msgstr "Mise à jour manuelle"
-
-#. type: Plain text
-#: en/./index.md:32
-msgid "This documentation is split into different sections:"
-msgstr "Cette documentation est divisée en plusieurs parties :"
-
-#. type: Bullet: '* '
-#: en/./index.md:37
-#, fuzzy
-#| msgid ""
-#| "[User documentation](./users/02_First_steps.html), where you can discover "
-#| "all the possibilities offered by FreshRSS"
-msgid ""
-"[User manual](./users/), where you can discover all the possibilities "
-"offered by FreshRSS"
-msgstr ""
-"La [documentation utilisateurs](./users/02_First_steps.md) pour découvrir "
-"les fonctionnalités de FreshRSS."
-
-#. type: Bullet: '* '
-#: en/./index.md:37
-#, fuzzy
-#| msgid ""
-#| "[Administrator documentation](./admins/01_Index.html) for detailed "
-#| "installation and maintenance related tasks"
-msgid ""
-"[Administrator manual](./admins/01_Index.md) for detailed installation and "
-"maintenance related tasks"
-msgstr ""
-"La [documentation administrateurs](../en/admins/01_Installation.md) (en "
-"anglais) pour l’installation et la maintenance de FreshRSS."
-
-#. type: Bullet: '* '
-#: en/./index.md:37
-#, fuzzy
-#| msgid ""
-#| "[Developer documentation](./developers/01_First_steps.html) to guide you "
-#| "in the source code of FreshRSS and to help you if you want to contribute"
-msgid ""
-"[Developer manual](./developers/01_Index.md) to guide you in the source code "
-"of FreshRSS and to help you if you want to contribute"
-msgstr ""
-"La [documentation développeurs](./developers/01_First_steps.md) pour savoir "
-"comment contribuer et mieux comprendre le code source de FreshRSS."
-
-#. type: Bullet: '* '
-#: en/./index.md:37
-msgid ""
-"[Contributor guidelines](./contributing.md) for those who want to help "
-"improve FreshRSS"
-msgstr ""
-"Le [guide de contribution](./contributing.md) pour nous aider à développer "
-"FreshRSS."
-
-#. type: Title ##
-#: en/./index.md:38
-#, no-wrap
-msgid "Demo"
-msgstr ""
-
-#. type: Plain text
-#: en/./index.md:41
-msgid ""
-"The official demo of FreshRSS is available under [https://demo.freshrss.org/]"
-"(https://demo.freshrss.org/)."
-msgstr ""
-
-#. type: Plain text
-#: en/./index.md:43
-msgid "Login credentials:"
-msgstr ""
-
-#. type: Bullet: '* '
-#: en/./index.md:46
-msgid "Username: demo"
-msgstr ""
-
-#. type: Bullet: '* '
-#: en/./index.md:46
-msgid "Password: demodemo"
-msgstr ""
-
-#. type: Plain text
-#: en/./index.md:48
-msgid ""
-"Another chance to try out, but not official supported by FreshRSS: The "
-"application is listed on Softaculous [https://www.softaculous.com/apps/rss/"
-"FreshRSS](https://www.softaculous.com/apps/rss/FreshRSS)."
-msgstr ""
-
-#. type: Title ##
-#: en/./index.md:49
-#, no-wrap
-msgid "Licence"
-msgstr ""
-
-#. type: Plain text
-#: en/./index.md:51
-msgid ""
-"FreshRSS is licensed under the [GNU Affero General Public License v3.0]"
-"(https://github.com/FreshRSS/FreshRSS/blob/edge/LICENSE.txt)."
-msgstr ""
-
-#. type: Title #
-#: en/./internationalization.md:1
-#, fuzzy, no-wrap
-#| msgid "Contribute to internationalization (i18n)"
-msgid "Contributing to internationalization (i18n)"
-msgstr "Contribuer à l’internationalisation (i18n)"
-
-#. type: Plain text
-#: en/./internationalization.md:4
-msgid ""
-"Thanks to our contributors, FreshRSS is translated into [more than 20 "
-"languages](./users/configuration.md#language). This section will explain the "
-"basics of internationalization in FreshRSS, from translating the application "
-"to your own language to making a specific change."
-msgstr ""
-
-#. type: Title ##
-#: en/./internationalization.md:5
-#, fuzzy, no-wrap
-#| msgid "Reader view"
-msgid "Overview"
-msgstr "La vue lecture"
-
-#. type: Plain text
-#: en/./internationalization.md:8
-#, fuzzy
-#| msgid ""
-#| "It is common (and that’s an understatement) to want to show some text to "
-#| "the user. In the previous example, for example, we display feedback to "
-#| "the user based on the result of form validation. The problem is that "
-#| "FreshRSS has users of different nationalities. It is therefore necessary "
-#| "to be able to manage different languages in order not to remain confined "
-#| "to English or French."
-msgid ""
-"It is common (and that’s an understatement) to want to show some text to the "
-"user. The problem is that FreshRSS has users of different nationalities. It "
-"is therefore necessary to be able to manage different languages in order not "
-"to remain confined to English or French."
-msgstr ""
-"Il est fréquent (et c’est un euphémisme) de vouloir afficher des phrases à "
-"l’utilisateur. Dans l’exemple précédent par exemple, nous affichions un "
-"feedback à l’utilisateur en fonction du résultat d’une validation de "
-"formulaire. Le problème est que FreshRSS possède des utilisateurs de "
-"différentes nationalités. Il est donc nécessaire de pouvoir gérer "
-"différentes langues pour ne pas rester cantonné à l’Anglais ou au Français."
-
-#. type: Plain text
-#: en/./internationalization.md:10
-#, fuzzy
-#| msgid ""
-#| "The solution is to use the `Minz_Translate` class, which allows dynamic "
-#| "translation of FreshRSS (or any Minz-based application). Before using "
-#| "this module, it is necessary to know where to find the strings to be "
-#| "translated. Each language has its own subdirectory in a parent directory "
-#| "named `i18n`. For example, English language files are located in `i18n/fr/"
-#| "`. There are seven different files:"
-msgid ""
-"The solution is to use the `Minz_Translate` module, which allows dynamic "
-"translation of FreshRSS. Before using this module, it is necessary to know "
-"where to find the strings to be translated. Each language has its own "
-"subdirectory in a parent directory named `app/i18n/`. For example, English "
-"language files are located in [`app/i18n/en/`](/app/i18n/en/). There are "
-"seven different files:"
-msgstr ""
-"La solution consiste à utiliser la classe `Minz_Translate` qui permet de "
-"traduire dynamiquement FreshRSS (ou toute application basée sur Minz). Avant "
-"d’utiliser ce module, il est nécessaire de savoir où trouver les chaînes de "
-"caractères à traduire. Chaque langue possède son propre sous-répertoire dans "
-"un répertoire parent nommé `i18n`. Par exemple, les fichiers de langue en "
-"Français sont situés dans `i18n/fr/`. Il existe sept fichiers différents :"
-
-#. type: Bullet: '* '
-#: en/./internationalization.md:19
-msgid "`admin.php` for anything related to FreshRSS administration"
-msgstr ""
-"`admin.php` pour tout ce qui est relatif à l’administration de FreshRSS ;"
-
-#. type: Bullet: '* '
-#: en/./internationalization.md:19
-msgid "`conf.php` for configuration"
-msgstr "`conf.php` pour l’aspect configuration ;"
-
-#. type: Bullet: '* '
-#: en/./internationalization.md:19
-msgid "`feedback.php` contains translations of feedback messages"
-msgstr "`feedback.php` contient les traductions des messages de feedback ;"
-
-#. type: Bullet: '* '
-#: en/./internationalization.md:19
-#, fuzzy
-#| msgid "`gen.php` stores what is global to FreshRSS (gen for \"general\")"
-msgid ""
-"`gen.php` stores what is global to FreshRSS (`gen` stands for “general”)"
-msgstr "`gen.php` stocke ce qui est global à FreshRSS (gen pour « general ») ;"
-
-#. type: Bullet: '* '
-#: en/./internationalization.md:19
-msgid "`index.php` for the main page that lists feeds and the About page"
-msgstr ""
-"`index.php` pour la page principale qui liste les flux et la page « À "
-"propos » ;"
-
-#. type: Bullet: '* '
-#: en/./internationalization.md:19
-#, fuzzy
-#| msgid "`install.php` contains strings related FreshRSS installation"
-msgid "`install.php` contains strings related to the installation"
-msgstr ""
-"`install.php` contient les phrases relatives à l’installation de FreshRSS ;"
-
-#. type: Bullet: '* '
-#: en/./internationalization.md:19
-#, fuzzy
-#| msgid "`sub.php` for subscription management (sub for \"subscription\")"
-msgid "`sub.php` for subscription management (`sub` stands for “subscription”)"
-msgstr ""
-"`sub.php` pour l’aspect gestion des abonnements (sub pour « subscription »)."
-
-#. type: Bullet: '* '
-#: en/./internationalization.md:19
-#, fuzzy
-#| msgid "`install.php` contains strings related FreshRSS installation"
-msgid "`user.php` contains some strings related to the User model"
-msgstr ""
-"`install.php` contient les phrases relatives à l’installation de FreshRSS ;"
-
-#. type: Plain text
-#: en/./internationalization.md:21
-msgid ""
-"This organization makes it possible to avoid a single huge translation file."
-msgstr ""
-"Cette organisation permet de ne pas avoir un unique énorme fichier de "
-"traduction."
-
-#. type: Plain text
-#: en/./internationalization.md:23
-#, fuzzy
-#| msgid ""
-#| "The translation files are quite simple: it’s only a matter of returning a "
-#| "PHP table containing the translations. As an example, here’s an extract "
-#| "from `app/i18n/fr/gen.php`:"
-msgid ""
-"The translation files are quite simple: it’s only a matter of returning a "
-"PHP array containing the translations. As an example, here’s an extract from "
-"[`app/i18n/fr/gen.php`](/app/i18n/fr/gen.php):"
-msgstr ""
-"Les fichiers de traduction sont assez simples : il s’agit seulement de "
-"retourner un tableau PHP contenant les traductions. Extrait du fichier `app/"
-"i18n/fr/gen.php` :"
-
-#. type: Fenced code block (php)
-#: en/./internationalization.md:24
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<?php\n"
-#| "\n"
-#| "return array(\n"
-#| "\t'action' => [\n"
-#| "\t\t'actualize' => 'Actualiser',\n"
-#| "\t\t'back_to_rss_feeds' => '← Retour à vos flux RSS',\n"
-#| "\t\t'cancel' => 'Annuler',\n"
-#| "\t\t'create' => 'Créer',\n"
-#| "\t\t'disable' => 'Désactiver',\n"
-#| "\t),\n"
-#| "\t'freshrss' => array(\n"
-#| "\t\t'_' => 'FreshRSS',\n"
-#| "\t\t'about' => 'À propos de FreshRSS',\n"
-#| "\t),\n"
-#| "];\n"
-#| "\n"
-#| "?>\n"
-msgid ""
-"<?php\n"
-"return array(\n"
-"\t'action' => array(\n"
-"\t\t'actualize' => 'Actualiser',\n"
-"\t\t'back_to_rss_feeds' => '← Retour à vos flux RSS',\n"
-"\t\t'cancel' => 'Annuler',\n"
-"\t\t'create' => 'Créer',\n"
-"\t\t'disable' => 'Désactiver',\n"
-"\t),\n"
-"\t'freshrss' => array(\n"
-"\t\t'_' => 'FreshRSS',\n"
-"\t\t'about' => 'À propos de FreshRSS',\n"
-"\t),\n"
-"\t// ...\n"
-");\n"
-msgstr ""
-"<?php\n"
-"\n"
-"return array(\n"
-"\t'action' => [\n"
-"\t\t'actualize' => 'Actualiser',\n"
-"\t\t'back_to_rss_feeds' => '← Retour à vos flux RSS',\n"
-"\t\t'cancel' => 'Annuler',\n"
-"\t\t'create' => 'Créer',\n"
-"\t\t'disable' => 'Désactiver',\n"
-"\t),\n"
-"\t'freshrss' => array(\n"
-"\t\t'_' => 'FreshRSS',\n"
-"\t\t'about' => 'À propos de FreshRSS',\n"
-"\t),\n"
-"];\n"
-"\n"
-"?>\n"
-
-#. type: Plain text
-#: en/./internationalization.md:43
-#, fuzzy
-#| msgid ""
-#| "The string to pass to the `_t()` function consists of a series of "
-#| "identifiers separated by dots. The first identifier indicates from which "
-#| "file to extract the translation (in this case, `gen.php`), while the "
-#| "following ones indicate table entries. Thus `action` is an entry of the "
-#| "main array and `back_to_rss_feeds` is an entry of the `action` array. "
-#| "This allows us to further organize our translation files."
-msgid ""
-"Each value can be referenced by a key: it consists of a series of "
-"identifiers separated by dots. The first identifier indicates from which "
-"file to extract the translation, while the following ones indicate array "
-"entries. Thus, the `gen.freshrss.about` key is referencing the `about` entry "
-"from the `freshrss` entry which is part of the main array returned by the "
-"`gen.php` file. This allows us to further organize our translation files."
-msgstr ""
-"La chaîne à passer à la fonction `_t()` consiste en une série d’identifiants "
-"séparés par des points. Le premier identifiant indique de quel fichier on "
-"veut extraire la traduction (dans notre cas présent, de `gen.php`), tandis "
-"que les suivantes indiquent des entrées de tableaux. Ainsi `action` est une "
-"entrée du tableau principal et `back_to_rss_feeds` est une entrée du tableau "
-"`action`. Cela permet d’organiser encore un peu plus nos fichiers de "
-"traduction."
-
-#. type: Plain text
-#: en/./internationalization.md:45
-msgid ""
-"You should not have to write the array by yourself and we provide several "
-"commands to ease the manipulation of these files. Let’s see some common use "
-"cases."
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:47
-#, no-wrap
-msgid "> ℹ Check [`freshrss-i18n/SKILL.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/skills/freshrss-i18n/SKILL.md) for detailed coding conventions (both for humans and AI agents).\n"
-msgstr ""
-
-#. type: Title ##
-#: en/./internationalization.md:48
-#, no-wrap
-msgid "Add support for a new language"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:51
-msgid ""
-"If you want to add support for a language which isn’t supported by FreshRSS "
-"yet, you can run this command:"
-msgstr ""
-
-#. type: Fenced code block (sh)
-#: en/./internationalization.md:52
-#, no-wrap
-msgid "make i18n-add-language lang=[your language code]\n"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:57
-msgid ""
-"You must replace `[your language code]` by the language tag of your "
-"language. It must follow the [IETF BCP 47 standard](https://en.wikipedia.org/"
-"wiki/IETF_language_tag). For instance, English is `en` and French is `fr`. "
-"You can target a specific region with a subtag, for instance `pt-br` for "
-"Brazilian Portuguese. If you’re not sure of the code, Wikipedia might be a "
-"good start to find it or you can ask us for help too."
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:59
-msgid ""
-"The command will create a new subfolder under `app/i18n/` and copy the "
-"strings from the reference language (i.e. English). It will also mark all "
-"the translations with a special tag represented by a comment: `// TODO - "
-"Translation`. We’ll see in the next section how to translate the strings."
-msgstr ""
-
-#. type: Title ##
-#: en/./internationalization.md:60
-#, no-wrap
-msgid "Translate the interface"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:63
-msgid ""
-"You might have noticed some strings are not yet translated from English even "
-"though you’ve selected a different language. This is because we mostly speak "
-"English or French and it’s pretty difficult to us to speak all the different "
-"languages!"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:65
-msgid ""
-"To update a string, you just have to open its file, find the string, and "
-"change it (without removing the quotes around it!) You might want to remove "
-"the comment at the end of the line, but you should prefer to use the "
-"following command:"
-msgstr ""
-
-#. type: Fenced code block (sh)
-#: en/./internationalization.md:66
-#, no-wrap
-msgid "make i18n-format\n"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:71
-msgid ""
-"It will remove the comments on the lines that you’ve changed, and will "
-"reformat the file correctly. If you’ve made any mistakes, it will fix them "
-"automatically or it will tell you it can’t (well… the command will "
-"dramatically fail without any damage, don’t worry)."
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:73
-msgid ""
-"The strings to translate can be easily found in the translations files "
-"thanks to the tag we spoke about at the end of the previous section. Indeed, "
-"it indicates to our tools that the strings are not translated yet. This "
-"means you can find them with Git. For instance for the Greek language:"
-msgstr ""
-
-#. type: Fenced code block (sh)
-#: en/./internationalization.md:74
-#, no-wrap
-msgid "git grep TODO app/i18n/he\n"
-msgstr ""
-
-#. type: Title ##
-#: en/./internationalization.md:78
-#, no-wrap
-msgid "Acknowledge a false-positive"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:81
-msgid ""
-"Our tool detects if a string needs to be translated if it equals to the "
-"English version. For instance, the word “version” is the same in English and "
-"French. Thus, our tool would mark the French word to be translated. This is, "
-"in fact, the case for the `index.about.version` key. This case is considered "
-"as a false-positive because the word _is_ actually translated. To "
-"acknowledge such translations, you can run:"
-msgstr ""
-
-#. type: Fenced code block (sh)
-#: en/./internationalization.md:82
-#, no-wrap
-msgid "make i18n-ignore-key lang=fr key=index.about.version\n"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:87
-msgid ""
-"This command adds an IGNORE comment on the translation so the key can be "
-"considered as translated."
-msgstr ""
-
-#. type: Title ##
-#: en/./internationalization.md:88
-#, no-wrap
-msgid "Add/remove/update/rename a key"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:91
-msgid ""
-"If you’re developing a new part of the application, you might want to "
-"declare a new translation key. Your first impulse would be to add the key to "
-"each file manually: don’t do that, it’s very painful. We provide another "
-"command:"
-msgstr ""
-
-#. type: Fenced code block (sh)
-#: en/./internationalization.md:92
-#, no-wrap
-msgid "make i18n-add-key key=the.key.to.add value='Your string in English'\n"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:97
-msgid ""
-"This adds the key to all the files. It’ll be in English, waiting for other "
-"translators."
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:99
-msgid ""
-"Conversely, you may want to remove a key that is no longer used in the "
-"application with:"
-msgstr ""
-
-#. type: Fenced code block (sh)
-#: en/./internationalization.md:100
-#, no-wrap
-msgid "make i18n-remove-key key=the.key.to.remove\n"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:105
-msgid ""
-"Finally, if the English version of a string needs to be changed, you need to "
-"consider two cases. If the change doesn’t impact the meaning of the "
-"sentence, and therefore other languages don’t need to change (e.g. to fix a "
-"typo), you should make the change manually in the file. In any other case, "
-"you should use the following command:"
-msgstr ""
-
-#. type: Fenced code block (sh)
-#: en/./internationalization.md:106
-#, no-wrap
-msgid "make i18n-update-key key=the.key.to.change value='The new string in English'\n"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:111
-msgid "The key will simply be removed and added back with the new value."
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:113
-msgid "If you want to move/rename a key, you can use:"
-msgstr ""
-
-#. type: Fenced code block (sh)
-#: en/./internationalization.md:113
-#, no-wrap
-msgid "make i18n-move-key key=the.key.to.move new-key=new.location.of.the.key\n"
-msgstr ""
-
-#. type: Title ##
-#: en/./internationalization.md:117
-#, no-wrap
-msgid "How to access a translation programmatically"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:120
-msgid ""
-"To access these translations, you must use the `_t()` function (which is a "
-"shortcut for `Minz_Translate::t()`). Code example:"
-msgstr ""
-
-#. type: Fenced code block (html)
-#: en/./internationalization.md:121
-#, no-wrap
-msgid ""
-"<p>\n"
-"\t<?= _t('gen.freshrss.about') ?>\n"
-"</p>\n"
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:128
-#, fuzzy
-#| msgid ""
-#| "There is a small special case that sometimes makes life easier: the `_` "
-#| "identifier. This must necessarily be present at the end of the chain and "
-#| "gives a value to the higher-level identifier. It’s pretty hard to explain "
-#| "but very simple to understand. In the example given above, a `_` is "
-#| "associated with the value `FreshRSS`: this means that there is no need to "
-#| "write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices."
-msgid ""
-"The function expects a translation key, but there’s a special case that "
-"sometimes makes life easier: the `_` identifier. This must necessarily be "
-"present at the end of the chain and gives a value to the higher-level "
-"identifier. It’s pretty hard to explain but very simple to understand. In "
-"the example given above, an `_` is associated with the value `FreshRSS`: "
-"this means that there is no need to write `_t('gen.freshrss._')` but "
-"`_t('gen.freshrss')` suffices."
-msgstr ""
-"Il existe un petit cas particulier qui permet parfois de se simplifier la "
-"vie : le cas de l’identifiant `_`. Celui-ci doit nécessairement être présent "
-"en bout de chaîne et permet de donner une valeur à l’identifiant de niveau "
-"supérieur. C’est assez dur à expliquer mais très simple à comprendre. Dans "
-"l’exemple donné plus haut, un `_` est associé à la valeur `FreshRSS` : cela "
-"signifie qu’il n’y a pas besoin d’écrire `_t('gen.freshrss._')` mais "
-"`_t('gen.freshrss')` suffit."
-
-#. type: Plain text
-#: en/./internationalization.md:130
-msgid ""
-"`_t()` can take any number of variables. The variables will then be replaced "
-"in the translation if it contains some “conversion specifications” (usually "
-"`%s` or `%d`). You can learn more about these specifications in the "
-"[`sprintf()` PHP function documentation](https://www.php.net/manual/"
-"function.sprintf)."
-msgstr ""
-
-#. type: Plain text
-#: en/./internationalization.md:132
-#, no-wrap
-msgid "For instance, the English translation for `gen.auth.keep_logged_in` is `Keep me logged in <small>(%s days)</small>`. It means this translation expects a string to be passed as an argument to the `t()` function (well, it should be a `%d` because we want a number here, but it doesn’t matter). For instance:\n"
-msgstr ""
-
-#. type: Fenced code block (php)
-#: en/./internationalization.md:133
-#, no-wrap
-msgid ""
-"<label>\n"
-"\t<input type=\"checkbox\" name=\"keep_logged_in\" />\n"
-"\t<?= _t('gen.auth.keep_logged_in', 30) ?>\n"
-"</label>\n"
-msgstr ""
-
 #. type: Yaml Front Matter Array Element: redirect_from
 #: en/./users/configuration.md:1
 #, no-wrap
@@ -11053,6 +9920,574 @@ msgstr ""
 #: en/./users/websub.md:76
 msgid "<https://websub.rocks/hub/100>"
 msgstr ""
+
+#, fuzzy, no-wrap
+#~| msgid "Contribute to documentation"
+#~ msgid "Contributor guidelines"
+#~ msgstr "Contribuer à la documentation"
+
+#, fuzzy
+#~| msgid ""
+#~| "On [our Mattermost chat](https://framateam.org/signup_user_complete/?"
+#~| "id=e2680d3e3128b9fac8fdb3003b0024ee)"
+#~ msgid ""
+#~ "Do you want to ask us some questions? Do you want to discuss with us? "
+#~ "Don’t hesitate to [join our Mattermost chat](https://framateam.org/"
+#~ "signup_user_complete/?id=e2680d3e3128b9fac8fdb3003b0024ee)!"
+#~ msgstr ""
+#~ "Sur [notre chat Mattermost](https://framateam.org/signup_user_complete/?"
+#~ "id=e2680d3e3128b9fac8fdb3003b0024ee)"
+
+#, no-wrap
+#~ msgid "Report a bug"
+#~ msgstr "Signaler un bug"
+
+#~ msgid ""
+#~ "Have you found a bug? Don’t panic, here are some steps to report it with "
+#~ "ease:"
+#~ msgstr ""
+#~ "Avez-vous trouvé un bogue ? Ne paniquez pas, voici quelques étapes pour "
+#~ "le signaler facilement :"
+
+#~ msgid ""
+#~ "Search for it on [the bug tracker](https://github.com/FreshRSS/FreshRSS/"
+#~ "issues) (don’t forget to use the search bar)."
+#~ msgstr ""
+#~ "Cherche sur [le bug tracker](https://github.com/FreshRSS/FreshRSS/issues) "
+#~ "(n’oubliez pas d’utiliser la barre de recherche)."
+
+#~ msgid ""
+#~ "If you find a similar bug, don’t hesitate to post a comment to add more "
+#~ "importance to the related ticket."
+#~ msgstr ""
+#~ "Si vous constatez un bogue similaire, n’hésitez pas à poster un "
+#~ "commentaire pour ajouter de l’importance au ticket correspondant."
+
+#~ msgid ""
+#~ "If you didn’t find it, [open a new ticket](https://github.com/FreshRSS/"
+#~ "FreshRSS/issues/new)."
+#~ msgstr ""
+#~ "Si vous ne l’avez pas trouvé, [ouvrez un nouveau ticket](https://"
+#~ "github.com/FreshRSS/FreshRSS/issues/new)."
+
+#~ msgid ""
+#~ "If you have to create a new ticket, please try to keep in mind the "
+#~ "following advice:"
+#~ msgstr ""
+#~ "Si vous devez créer un nouveau ticket, essayez de garder les conseils "
+#~ "suivants :"
+
+#~ msgid ""
+#~ "Give an explicit title to the ticket so it will be easier to find it "
+#~ "later."
+#~ msgstr ""
+#~ "Donnez un titre explicite au ticket pour le retrouver plus facilement "
+#~ "plus tard."
+
+#~ msgid ""
+#~ "Be as exhaustive as possible in the description: what did you do? What is "
+#~ "the bug? What are the steps to reproduce the bug?"
+#~ msgstr ""
+#~ "Soyez aussi exhaustif que possible dans la description : qu’avez-vous "
+#~ "fait ? Quel est le bogue ? Quelles sont les étapes pour reproduire le "
+#~ "bogue ?"
+
+#~ msgid "We also need some information:"
+#~ msgstr "Nous avons aussi besoin de quelques informations :"
+
+#~ msgid ""
+#~ "Your FreshRSS version (on the about page or in the `constants.php` file)"
+#~ msgstr ""
+#~ "Votre version de FreshRSS (sur la page A propos) ou le fichier "
+#~ "`constants.php`)"
+
+#~ msgid "Your server configuration: the type of hosting and the PHP version"
+#~ msgstr "Votre configuration de serveur : type d’hébergement, version PHP"
+
+#~ msgid "Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)"
+#~ msgstr ""
+#~ "Quelle base de données : SQLite, MySQL, MariaDB, PostgreSQL ? Quelle "
+#~ "version ?"
+
+#~ msgid ""
+#~ "If possible, the related logs (PHP logs and FreshRSS logs under `data/"
+#~ "users/your_user/log.txt`)"
+#~ msgstr ""
+#~ "Si possible, les logs associés (logs PHP et logs FreshRSS sous `data/"
+#~ "users/your_user/log.txt`)"
+
+#, no-wrap
+#~ msgid "Fix a bug"
+#~ msgstr "Corriger un bogue"
+
+#~ msgid ""
+#~ "Would you like to fix a bug? For optimum coordination between "
+#~ "collaborators, you should follow these indications:"
+#~ msgstr ""
+#~ "Voulez-vous corriger un bogue ? Pour maintenir une grande coordination "
+#~ "entre les collaborateurs, vous devrez suivre ces indications :"
+
+#~ msgid ""
+#~ "Be sure the bug is associated with a ticket and indicate that you’ll work "
+#~ "on it."
+#~ msgstr ""
+#~ "Assurez-vous que le bogue est associé à un ticket et indiquez que vous "
+#~ "allez travailler sur le bogue."
+
+#~ msgid ""
+#~ "[Fork the project repository](https://help.github.com/articles/fork-a-"
+#~ "repo/)."
+#~ msgstr ""
+#~ "[Fork du répertoire de projet](https://help.github.com/articles/fork-a-"
+#~ "repo/)."
+
+#~ msgid ""
+#~ "[Create a new branch](https://help.github.com/articles/creating-and-"
+#~ "deleting-branches-within-your-repository/). The name of the branch should "
+#~ "be clear, and ideally prefixed by the related ticket id. For instance, "
+#~ "`783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/"
+#~ "FreshRSS/issues/783)."
+#~ msgstr ""
+#~ "[Créez une nouvelle branche](https://help.github.com/articles/creating-"
+#~ "and-deleting-branches-within-your-repository/). Le nom de la branche doit "
+#~ "être clair, et idéalement préfixé par l’identifiant du ticket "
+#~ "correspondant. Par exemple, `783-contributing-file` pour réparer [ticket "
+#~ "#783](https://github.com/FreshRSS/FreshRSS/issues/783)."
+
+#, fuzzy
+#~| msgid ""
+#~| "Make your changes to your fork and [send a pull request](https://"
+#~| "help.github.com/articles/using-pull-requests/)."
+#~ msgid ""
+#~ "Make your changes to your fork and [send a pull request](https://"
+#~ "help.github.com/articles/using-pull-requests/) on the **edge branch**. "
+#~ "Don’t forget to add your name to `CREDITS.md` if you’re contributing to "
+#~ "FreshRSS for the very first time."
+#~ msgstr ""
+#~ "Ajoutez vos modifications à votre fork et [ouvrez une demande de pull "
+#~ "request](https://help.github.com/articles/using-pull-requests/)."
+
+#, fuzzy
+#~| msgid ""
+#~| "If you have to write code, please follow [our coding style "
+#~| "recommendations](developers/01_First_steps.md)."
+#~ msgid ""
+#~ "If you have to write code, please follow [our coding style "
+#~ "recommendations](developers/first-steps.md)."
+#~ msgstr ""
+#~ "Si vous devez écrire du code, veuillez suivre [nos recommandations de "
+#~ "style de codage](developers/01_First_steps.md)."
+
+#, fuzzy, no-wrap
+#~| msgid "**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)” ticket label.\n"
+#~ msgid "**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)” and “[help wanted](https://github.com/FreshRSS/FreshRSS/issues?q=label%3A%22help+wanted+%3Aoctocat%3A%22)” ticket labels.\n"
+#~ msgstr "**Conseil : **si vous cherchez des bugs faciles à corriger, jetez un coup d’oeil à la vignette « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) ».\n"
+
+#, no-wrap
+#~ msgid "Submit an idea"
+#~ msgstr "Soumettre une idée"
+
+#~ msgid ""
+#~ "You have great ideas, yes! Don’t be shy and open [a new ticket](https://"
+#~ "github.com/FreshRSS/FreshRSS/issues/new) on our bug tracker to ask if we "
+#~ "can implement it. The greatest ideas often come from the shyest "
+#~ "suggestions!"
+#~ msgstr ""
+#~ "Vous avez de bonnes idées, oui ! Ne soyez pas timide et ouvrez [un "
+#~ "nouveau ticket](https://github.com/FreshRSS/FreshRSS/issues/new) sur "
+#~ "notre tracker bogue pour nous demander si nous pouvons le mettre en "
+#~ "œuvre. Les plus grandes idées viennent souvent des suggestions les plus "
+#~ "timides !"
+
+#~ msgid "If your idea is nice, we’ll have a look at it."
+#~ msgstr "Si votre idée est bonne, nous y jetterons un coup d’oeil."
+
+#, no-wrap
+#~ msgid "Contribute to internationalization (i18n)"
+#~ msgstr "Contribuer à l’internationalisation (i18n)"
+
+#, fuzzy, no-wrap
+#~| msgid "Contribute to documentation"
+#~ msgid "Contribute to the documentation"
+#~ msgstr "Contribuer à la documentation"
+
+#~ msgid ""
+#~ "The documentation needs a lot of improvements in order to be more useful "
+#~ "to new contributors and we are working on it.  If you want to give some "
+#~ "help, meet us in the main repositories [docs directory](https://"
+#~ "github.com/FreshRSS/FreshRSS/tree/edge/docs)!"
+#~ msgstr ""
+#~ "Il ne vous aura pas échappé que la documentation est encore un peu vide… "
+#~ "il y a énormément de choses à faire ! Si vous souhaitez aider à écrire "
+#~ "quelques pages, rendez-vous dans les principaux dépôts[fichier docs]"
+#~ "(https://github.com/FreshRSS/FreshRSS/tree/edge/docs) !"
+
+#~ msgid "![FreshRSS logo](img/logo_freshrss.png)"
+#~ msgstr "![Logo de FreshRSS](img/logo_freshrss.png)"
+
+#~ msgid ""
+#~ "FreshRSS is an RSS aggregator and reader. It allows you to read and "
+#~ "follow several news websites at a glance without the need to browse from "
+#~ "one website to another."
+#~ msgstr ""
+#~ "FreshRSS est un agrégateur et lecteur de flux RSS. Il permet de regrouper "
+#~ "l’actualité de plusieurs sites différents dans un endroit unique pour que "
+#~ "vous puissiez la lire sans devoir aller de site en site."
+
+#~ msgid "FreshRSS has a lot of features including:"
+#~ msgstr ""
+#~ "FreshRSS a été conçu comme un agrégateur puissant et propose des tas de "
+#~ "fonctionnalités :"
+
+#~ msgid "RSS and Atom aggregation"
+#~ msgstr "Agrégation des flux RSS et Atom."
+
+#~ msgid ""
+#~ "Mark article as favorite if you liked it or if you want to read it later"
+#~ msgstr ""
+#~ "Utilisez les favoris pour marquer les articles qui vous ont plu ou que "
+#~ "vous souhaitez lire plus tard."
+
+#, fuzzy
+#~| msgid "Filter and search functionality helps to easily find articles"
+#~ msgid ""
+#~ "Filter and search functionality helps to easily find articles ([more "
+#~ "information](./users/filtering-articles.html))"
+#~ msgstr ""
+#~ "Le système de filtrage et de recherche permettent de cibler exactement "
+#~ "les articles que vous souhaitez lire."
+
+#~ msgid ""
+#~ "Statistics to show you the publishing frequency all the websites you "
+#~ "follow"
+#~ msgstr ""
+#~ "Les statistiques permettent de savoir en un coup d’œil quels sont les "
+#~ "sites qui publient le plus, ou à l’inverse, le moins."
+
+#, fuzzy
+#~| msgid "Several themes created by the community"
+#~ msgid ""
+#~ "Several themes created by the community ([more information](./admins/"
+#~ "themes.html))"
+#~ msgstr "Multi-thèmes pour changer l’habillage de FreshRSS."
+
+#, fuzzy
+#~| msgid "Several themes created by the community"
+#~ msgid ""
+#~ "Several extensions created by the community ([more information](./admins/"
+#~ "extensions.html))"
+#~ msgstr "Multi-thèmes pour changer l’habillage de FreshRSS."
+
+#, fuzzy
+#~| msgid "\"Google Reader\"-like API to connect Android applications"
+#~ msgid ""
+#~ "\"Google Reader\"-like API to connect Android applications ([more "
+#~ "information](./users/mobile-access.html#access-via-mobile-app))"
+#~ msgstr "API Google Reader pour pouvoir y brancher des applications Android."
+
+#~ msgid ""
+#~ "The application is \"responsive,\" which means it adapts to small screens "
+#~ "so you can bring articles in your pocket"
+#~ msgstr ""
+#~ "« *Responsive design* » : l’application s’adapte aux petits écrans pour "
+#~ "emporter FreshRSS dans votre poche."
+
+#, fuzzy
+#~| msgid ""
+#~| "Self-hosted: the code is free (under AGPL3 licence), so you can host "
+#~| "your own instance of FreshRSS"
+#~ msgid ""
+#~ "Self-hosted: the code is free ([under AGPL3 licence](https://github.com/"
+#~ "FreshRSS/FreshRSS/blob/edge/LICENSE.txt)), so you can host your own "
+#~ "instance of FreshRSS ([more information](./admins/prerequisites.md))"
+#~ msgstr ""
+#~ "Auto-hébergeable : le code source est libre (AGPL3) et vous pouvez donc "
+#~ "l’héberger sur votre propre serveur."
+
+#, fuzzy
+#~| msgid "Multi-user, so you can also host for your friends and family"
+#~ msgid ""
+#~ "Multi-user, so you can also host for your friends and family ([more "
+#~ "information](./admins/user-management.md))"
+#~ msgstr ""
+#~ "Multi-utilisateurs pour héberger plusieurs personnes sur une même "
+#~ "installation."
+
+#~ msgid "And a lot more!"
+#~ msgstr "Et bien d’autres !"
+
+#, fuzzy, no-wrap
+#~| msgid "Manual update"
+#~ msgid "Manual Chapters"
+#~ msgstr "Mise à jour manuelle"
+
+#~ msgid "This documentation is split into different sections:"
+#~ msgstr "Cette documentation est divisée en plusieurs parties :"
+
+#, fuzzy
+#~| msgid ""
+#~| "[User documentation](./users/02_First_steps.html), where you can "
+#~| "discover all the possibilities offered by FreshRSS"
+#~ msgid ""
+#~ "[User manual](./users/), where you can discover all the possibilities "
+#~ "offered by FreshRSS"
+#~ msgstr ""
+#~ "La [documentation utilisateurs](./users/02_First_steps.md) pour découvrir "
+#~ "les fonctionnalités de FreshRSS."
+
+#, fuzzy
+#~| msgid ""
+#~| "[Administrator documentation](./admins/01_Index.html) for detailed "
+#~| "installation and maintenance related tasks"
+#~ msgid ""
+#~ "[Administrator manual](./admins/01_Index.md) for detailed installation "
+#~ "and maintenance related tasks"
+#~ msgstr ""
+#~ "La [documentation administrateurs](../en/admins/01_Installation.md) (en "
+#~ "anglais) pour l’installation et la maintenance de FreshRSS."
+
+#, fuzzy
+#~| msgid ""
+#~| "[Developer documentation](./developers/01_First_steps.html) to guide you "
+#~| "in the source code of FreshRSS and to help you if you want to contribute"
+#~ msgid ""
+#~ "[Developer manual](./developers/01_Index.md) to guide you in the source "
+#~ "code of FreshRSS and to help you if you want to contribute"
+#~ msgstr ""
+#~ "La [documentation développeurs](./developers/01_First_steps.md) pour "
+#~ "savoir comment contribuer et mieux comprendre le code source de FreshRSS."
+
+#~ msgid ""
+#~ "[Contributor guidelines](./contributing.md) for those who want to help "
+#~ "improve FreshRSS"
+#~ msgstr ""
+#~ "Le [guide de contribution](./contributing.md) pour nous aider à "
+#~ "développer FreshRSS."
+
+#, fuzzy, no-wrap
+#~| msgid "Contribute to internationalization (i18n)"
+#~ msgid "Contributing to internationalization (i18n)"
+#~ msgstr "Contribuer à l’internationalisation (i18n)"
+
+#, fuzzy, no-wrap
+#~| msgid "Reader view"
+#~ msgid "Overview"
+#~ msgstr "La vue lecture"
+
+#, fuzzy
+#~| msgid ""
+#~| "It is common (and that’s an understatement) to want to show some text to "
+#~| "the user. In the previous example, for example, we display feedback to "
+#~| "the user based on the result of form validation. The problem is that "
+#~| "FreshRSS has users of different nationalities. It is therefore necessary "
+#~| "to be able to manage different languages in order not to remain confined "
+#~| "to English or French."
+#~ msgid ""
+#~ "It is common (and that’s an understatement) to want to show some text to "
+#~ "the user. The problem is that FreshRSS has users of different "
+#~ "nationalities. It is therefore necessary to be able to manage different "
+#~ "languages in order not to remain confined to English or French."
+#~ msgstr ""
+#~ "Il est fréquent (et c’est un euphémisme) de vouloir afficher des phrases "
+#~ "à l’utilisateur. Dans l’exemple précédent par exemple, nous affichions un "
+#~ "feedback à l’utilisateur en fonction du résultat d’une validation de "
+#~ "formulaire. Le problème est que FreshRSS possède des utilisateurs de "
+#~ "différentes nationalités. Il est donc nécessaire de pouvoir gérer "
+#~ "différentes langues pour ne pas rester cantonné à l’Anglais ou au "
+#~ "Français."
+
+#, fuzzy
+#~| msgid ""
+#~| "The solution is to use the `Minz_Translate` class, which allows dynamic "
+#~| "translation of FreshRSS (or any Minz-based application). Before using "
+#~| "this module, it is necessary to know where to find the strings to be "
+#~| "translated. Each language has its own subdirectory in a parent directory "
+#~| "named `i18n`. For example, English language files are located in `i18n/"
+#~| "fr/`. There are seven different files:"
+#~ msgid ""
+#~ "The solution is to use the `Minz_Translate` module, which allows dynamic "
+#~ "translation of FreshRSS. Before using this module, it is necessary to "
+#~ "know where to find the strings to be translated. Each language has its "
+#~ "own subdirectory in a parent directory named `app/i18n/`. For example, "
+#~ "English language files are located in [`app/i18n/en/`](/app/i18n/en/). "
+#~ "There are seven different files:"
+#~ msgstr ""
+#~ "La solution consiste à utiliser la classe `Minz_Translate` qui permet de "
+#~ "traduire dynamiquement FreshRSS (ou toute application basée sur Minz). "
+#~ "Avant d’utiliser ce module, il est nécessaire de savoir où trouver les "
+#~ "chaînes de caractères à traduire. Chaque langue possède son propre sous-"
+#~ "répertoire dans un répertoire parent nommé `i18n`. Par exemple, les "
+#~ "fichiers de langue en Français sont situés dans `i18n/fr/`. Il existe "
+#~ "sept fichiers différents :"
+
+#~ msgid "`admin.php` for anything related to FreshRSS administration"
+#~ msgstr ""
+#~ "`admin.php` pour tout ce qui est relatif à l’administration de FreshRSS ;"
+
+#~ msgid "`conf.php` for configuration"
+#~ msgstr "`conf.php` pour l’aspect configuration ;"
+
+#~ msgid "`feedback.php` contains translations of feedback messages"
+#~ msgstr "`feedback.php` contient les traductions des messages de feedback ;"
+
+#, fuzzy
+#~| msgid "`gen.php` stores what is global to FreshRSS (gen for \"general\")"
+#~ msgid ""
+#~ "`gen.php` stores what is global to FreshRSS (`gen` stands for “general”)"
+#~ msgstr ""
+#~ "`gen.php` stocke ce qui est global à FreshRSS (gen pour « general ») ;"
+
+#~ msgid "`index.php` for the main page that lists feeds and the About page"
+#~ msgstr ""
+#~ "`index.php` pour la page principale qui liste les flux et la page « À "
+#~ "propos » ;"
+
+#, fuzzy
+#~| msgid "`install.php` contains strings related FreshRSS installation"
+#~ msgid "`install.php` contains strings related to the installation"
+#~ msgstr ""
+#~ "`install.php` contient les phrases relatives à l’installation de "
+#~ "FreshRSS ;"
+
+#, fuzzy
+#~| msgid "`sub.php` for subscription management (sub for \"subscription\")"
+#~ msgid ""
+#~ "`sub.php` for subscription management (`sub` stands for “subscription”)"
+#~ msgstr ""
+#~ "`sub.php` pour l’aspect gestion des abonnements (sub pour "
+#~ "« subscription »)."
+
+#, fuzzy
+#~| msgid "`install.php` contains strings related FreshRSS installation"
+#~ msgid "`user.php` contains some strings related to the User model"
+#~ msgstr ""
+#~ "`install.php` contient les phrases relatives à l’installation de "
+#~ "FreshRSS ;"
+
+#~ msgid ""
+#~ "This organization makes it possible to avoid a single huge translation "
+#~ "file."
+#~ msgstr ""
+#~ "Cette organisation permet de ne pas avoir un unique énorme fichier de "
+#~ "traduction."
+
+#, fuzzy
+#~| msgid ""
+#~| "The translation files are quite simple: it’s only a matter of returning "
+#~| "a PHP table containing the translations. As an example, here’s an "
+#~| "extract from `app/i18n/fr/gen.php`:"
+#~ msgid ""
+#~ "The translation files are quite simple: it’s only a matter of returning a "
+#~ "PHP array containing the translations. As an example, here’s an extract "
+#~ "from [`app/i18n/fr/gen.php`](/app/i18n/fr/gen.php):"
+#~ msgstr ""
+#~ "Les fichiers de traduction sont assez simples : il s’agit seulement de "
+#~ "retourner un tableau PHP contenant les traductions. Extrait du fichier "
+#~ "`app/i18n/fr/gen.php` :"
+
+#, fuzzy, no-wrap
+#~| msgid ""
+#~| "<?php\n"
+#~| "\n"
+#~| "return array(\n"
+#~| "\t'action' => [\n"
+#~| "\t\t'actualize' => 'Actualiser',\n"
+#~| "\t\t'back_to_rss_feeds' => '← Retour à vos flux RSS',\n"
+#~| "\t\t'cancel' => 'Annuler',\n"
+#~| "\t\t'create' => 'Créer',\n"
+#~| "\t\t'disable' => 'Désactiver',\n"
+#~| "\t),\n"
+#~| "\t'freshrss' => array(\n"
+#~| "\t\t'_' => 'FreshRSS',\n"
+#~| "\t\t'about' => 'À propos de FreshRSS',\n"
+#~| "\t),\n"
+#~| "];\n"
+#~| "\n"
+#~| "?>\n"
+#~ msgid ""
+#~ "<?php\n"
+#~ "return array(\n"
+#~ "\t'action' => array(\n"
+#~ "\t\t'actualize' => 'Actualiser',\n"
+#~ "\t\t'back_to_rss_feeds' => '← Retour à vos flux RSS',\n"
+#~ "\t\t'cancel' => 'Annuler',\n"
+#~ "\t\t'create' => 'Créer',\n"
+#~ "\t\t'disable' => 'Désactiver',\n"
+#~ "\t),\n"
+#~ "\t'freshrss' => array(\n"
+#~ "\t\t'_' => 'FreshRSS',\n"
+#~ "\t\t'about' => 'À propos de FreshRSS',\n"
+#~ "\t),\n"
+#~ "\t// ...\n"
+#~ ");\n"
+#~ msgstr ""
+#~ "<?php\n"
+#~ "\n"
+#~ "return array(\n"
+#~ "\t'action' => [\n"
+#~ "\t\t'actualize' => 'Actualiser',\n"
+#~ "\t\t'back_to_rss_feeds' => '← Retour à vos flux RSS',\n"
+#~ "\t\t'cancel' => 'Annuler',\n"
+#~ "\t\t'create' => 'Créer',\n"
+#~ "\t\t'disable' => 'Désactiver',\n"
+#~ "\t),\n"
+#~ "\t'freshrss' => array(\n"
+#~ "\t\t'_' => 'FreshRSS',\n"
+#~ "\t\t'about' => 'À propos de FreshRSS',\n"
+#~ "\t),\n"
+#~ "];\n"
+#~ "\n"
+#~ "?>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "The string to pass to the `_t()` function consists of a series of "
+#~| "identifiers separated by dots. The first identifier indicates from which "
+#~| "file to extract the translation (in this case, `gen.php`), while the "
+#~| "following ones indicate table entries. Thus `action` is an entry of the "
+#~| "main array and `back_to_rss_feeds` is an entry of the `action` array. "
+#~| "This allows us to further organize our translation files."
+#~ msgid ""
+#~ "Each value can be referenced by a key: it consists of a series of "
+#~ "identifiers separated by dots. The first identifier indicates from which "
+#~ "file to extract the translation, while the following ones indicate array "
+#~ "entries. Thus, the `gen.freshrss.about` key is referencing the `about` "
+#~ "entry from the `freshrss` entry which is part of the main array returned "
+#~ "by the `gen.php` file. This allows us to further organize our translation "
+#~ "files."
+#~ msgstr ""
+#~ "La chaîne à passer à la fonction `_t()` consiste en une série "
+#~ "d’identifiants séparés par des points. Le premier identifiant indique de "
+#~ "quel fichier on veut extraire la traduction (dans notre cas présent, de "
+#~ "`gen.php`), tandis que les suivantes indiquent des entrées de tableaux. "
+#~ "Ainsi `action` est une entrée du tableau principal et `back_to_rss_feeds` "
+#~ "est une entrée du tableau `action`. Cela permet d’organiser encore un peu "
+#~ "plus nos fichiers de traduction."
+
+#, fuzzy
+#~| msgid ""
+#~| "There is a small special case that sometimes makes life easier: the `_` "
+#~| "identifier. This must necessarily be present at the end of the chain and "
+#~| "gives a value to the higher-level identifier. It’s pretty hard to "
+#~| "explain but very simple to understand. In the example given above, a `_` "
+#~| "is associated with the value `FreshRSS`: this means that there is no "
+#~| "need to write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices."
+#~ msgid ""
+#~ "The function expects a translation key, but there’s a special case that "
+#~ "sometimes makes life easier: the `_` identifier. This must necessarily be "
+#~ "present at the end of the chain and gives a value to the higher-level "
+#~ "identifier. It’s pretty hard to explain but very simple to understand. In "
+#~ "the example given above, an `_` is associated with the value `FreshRSS`: "
+#~ "this means that there is no need to write `_t('gen.freshrss._')` but "
+#~ "`_t('gen.freshrss')` suffices."
+#~ msgstr ""
+#~ "Il existe un petit cas particulier qui permet parfois de se simplifier la "
+#~ "vie : le cas de l’identifiant `_`. Celui-ci doit nécessairement être "
+#~ "présent en bout de chaîne et permet de donner une valeur à l’identifiant "
+#~ "de niveau supérieur. C’est assez dur à expliquer mais très simple à "
+#~ "comprendre. Dans l’exemple donné plus haut, un `_` est associé à la "
+#~ "valeur `FreshRSS` : cela signifie qu’il n’y a pas besoin d’écrire "
+#~ "`_t('gen.freshrss._')` mais `_t('gen.freshrss')` suffit."
 
 #, fuzzy, no-wrap
 #~| msgid "FreshRSS - Fever API implementation"
