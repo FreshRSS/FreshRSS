@@ -1,6 +1,10 @@
-# Premier pas
+---
+nav_order: 10
+redirect_from:
+  - /en/developers/02_First_steps.html
+---
 
-## Configurer son environnement (Docker)
+# First steps
 
 FreshRSS est construit en PHP et utilise le framework Minz. Les
 dépendancessont directement incluses dans le code source, donc vous n’avez
@@ -57,8 +61,9 @@ Vous pouvez arrêter les conteneurs en tapant <kbd>Control</kbd> + <kbd>c</kbd> 
 make stop
 ```
 
-Si la configuration vous intéresse, les commandes `make` sont définies dans
-le fichier [`Makefile`](https://github.com/FreshRSS/FreshRSS/blob/edge/Makefile).
+If you’re interested in the configuration, the `make` commands are defined
+in the
+[`Makefile`](https://github.com/FreshRSS/FreshRSS/blob/edge/Makefile).
 
 Si vous avez besoin d’utiliser une image Docker identifiée par un tag
 différent (par défaut `alpine`), vous pouvez surcharger de la manière
@@ -79,36 +84,131 @@ suivante :
 make build
 ```
 
-La valeur de la variable `TAG` peut contenir n’importe quelle valeur (par
-exemple `local`). Vous pouvez cibler une architecture spécifique en ajoutant
-`-alpine` à la fin du tag (par exemple `local-alpine`).
+The `TAG` variable can be anything (e.g. `local`). You can target a specific
+architecture by adding `-alpine` at the end of the tag
+(e.g. `local-alpine`).
 
 ## Architecture du projet
 
-> **À FAIRE**
+- the PHP framework: [Minz](minz.md)
 
 ## Extensions
 
-Si vous souhaitez créer votre propre extension FreshRSS, consultez la
-[documentation de l’extension](03_Backend/05_Extensions.md).
+If you want to create your own FreshRSS extension, take a look at the
+[extension documentation](writing-extensions.md).
 
 ## Style de codage
-
-> ℹ Voir [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) pour les conventions de code (à la fois pour les humains et agents IA).
 
 Si vous désirez contribuer au code, il est important de respecter le style
 de codage suivant. Le code actuel ne le respecte pas entièrement mais il est
 de notre devoir à tous de le changer dès que l’occasion se présente.
 
-### Espaces, tabulations et autres caractères blancs
+Aucune nouvelle contribution ne respectant pas ces règles ne sera acceptée
+tant que les corrections nécessaires ne sont pas appliquées.
 
-> ℹ Voir [`_general.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/_general.instructions.md) pour les conventions de code (à la fois pour les humains et agents IA).
+## GitHub Actions
 
-#### Indentation
+The code will be checked for every pull request commit on GitHub via [GitHub
+Actions](https://github.com/FreshRSS/FreshRSS/actions).  See the
+configuration file
+[`tests.yml`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/workflows/tests.yml).
+
+## Running fixes & tests
+
+Tests can be run locally, e.g. by running `make test-all`, and several
+problems can be automatically fixed by running `make fix-all`.
+
+```sh
+make fix-all
+make test-all
+```
+
+This requires `make` and `npm` in addition to the FreshRSS requirements. See
+below for the precise requirements for a few platforms.
+
+### Debian / Ubuntu
+
+> ℹ️ Also applies to [Microsoft Windows](https://docs.microsoft.com/windows/wsl/install-win10) thanks to [WSL](https://ubuntu.com/wsl).
+
+Here are the dependencies that need to be manually installed prior to
+running the fixes & tests.
+
+```sh
+sudo apt update && sudo apt install --no-install-recommends -y make npm php-cli php-curl php-mbstring php-xml unzip wget
+```
+
+### Fedora / Red Hat
+
+```sh
+yum install -y git make npm php-cli php-curl php-mbstring php-xml php-pdo unzip wget
+```
+
+### Alpine Linux
+
+```sh
+apk add git make npm php-cli php-curl php-ctype php-dom php-mbstring php-openssl php-phar php-simplexml php-xml php-pdo php-tokenizer php-xmlreader php-xmlwriter unzip wget
+```
+
+### Partial fixes & tests
+
+- composer-based: `npm run fix && npm test` or see the [`scripts` section of
+  `composer.json`](https://github.com/FreshRSS/FreshRSS/blob/edge/composer.json)
+  for individual tests or fixes such as `composer phpstan`
+- npm-based: `npm run fix && npm test` or see the [`scripts` section of
+  `package.json`](https://github.com/FreshRSS/FreshRSS/blob/edge/package.json)
+  for individual tests or fixes such as `npm run rtlcss`
+
+### Tests summary
+
+> ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).
+
+A short (not complete) summary:
+
+#### PHP
+
+> ℹ Check [`php.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/php.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
+- Syntax of `php` and `phtml` files is checked.
+- translation files (`i18n`) are checked ([more information about i18n
+  files](../internationalization.html)).
+- unit test (`tests`) are run by [PHPunit](https://phpunit.de/).
+- Linter:
+  - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)
+  - [PHPstan](https://github.com/phpstan/phpstan)
+
+### CSS
+
+> ℹ Check [`css.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/css.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
+- Linter:
+  - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)
+  - via npm `.styleintrc.json`
+  - check that RTL (right-to-left) CSS files match to standard CSS files
+
+### JavaScript
+
+> ℹ Check [`javascript.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/javascript.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
+- Linter:
+  - via npm `.styleintrc.json` ([ECMAScript
+    2017](https://en.wikipedia.org/wiki/ECMAScript#8th_Edition_%E2%80%93_ECMAScript_2017))
+
+### Markdown
+
+> ℹ Check [`markdown.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/markdown.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
+- Linter:
+  - via npm `.markdownlint.json`
+
+## Espaces, tabulations et autres caractères blancs
+
+> ℹ Check [`_general.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/_general.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
+### Indentation
 
 L’indentation du code doit être faite impérativement avec des tabulations.
 
-#### Alignement
+### Alignement
 
 Une fois l’indentation faite, il peut être nécessaire de faire un alignement
 pour simplifier la lecture. Dans ce cas, il faut utiliser les espaces.
@@ -118,7 +218,7 @@ $resultat = une_fonction_avec_un_nom_long($param1, $param2,
                                           $param3, $param4);
 ```
 
-#### Fin de ligne
+### Fin de ligne
 
 Le caractère de fin de ligne doit être un saut de ligne (LF) qui est le
 caractère de fin de ligne des systèmes *NIX. Ce caractère ne doit pas être
@@ -134,15 +234,15 @@ git diff --check
 git diff --check --cached
 ```
 
-#### Fin de fichier
+### Fin de fichier
 
 Chaque fichier doit se terminer par une ligne vide.
 
-#### Le cas de la virgule, du point et du point-virgule
+### Le cas de la virgule, du point et du point-virgule
 
 Il n’y a pas d’espace avant ces caractères, il y en a un après.
 
-#### Le cas des opérateurs
+### Le cas des opérateurs
 
 Chaque opérateur est entouré d’espaces.
 
@@ -154,7 +254,7 @@ if ($a == 10) {
 echo $a ? 1 : 0;
 ```
 
-#### Le cas des parenthèses
+### Le cas des parenthèses
 
 Il n’y a pas d’espaces entre des parenthèses. Il n’y a pas d’espaces avant
 une parenthèse ouvrante sauf si elle est précédée d’un mot-clé. Il n’y a pas
@@ -171,13 +271,13 @@ if ((int)$a == 10) {
 }
 ```
 
-#### Le cas des fonctions chainées
+### Le cas des fonctions chainées
 
-Ce cas se présente le plus souvent en Javascript. Quand on a des fonctions
-chainées, des fonctions anonymes ainsi que des fonctions de rappels, il est
-très facile de se perdre. Dans ce cas là, on ajoute une indentation
-supplémentaire pour toute l’instruction et on revient au même niveau pour
-une instruction de même niveau.
+It happens most of the time in JavaScript files. When there are chained
+functions with closures and call-back functions, it’s hard to understand the
+code if not properly formatted. In those cases, we add a new indent level
+for the complete instruction and reset the indent for a new instruction on
+the same level.
 
 ```javascript
 // Première instruction
@@ -194,7 +294,7 @@ shortcut.add("shift+" + shortcuts.mark_read, function () {
 	});
 ```
 
-### Longueur des lignes
+## Longueur des lignes
 
 Les lignes ne doivent pas dépasser 80 caractères. Il est cependant autorisé
 exceptionnellement de dépasser cette limite s’il n’est pas possible de la
@@ -211,12 +311,12 @@ function ma_fonction($param_1, $param_2,
 }
 ```
 
-### Nommage
+## Nommage
 
 L’ensemble des éléments du code (fonctions, classes, méthodes et variables)
 doivent être nommés de manière à décrire leur usage de façon concise.
 
-#### Fonctions et variables
+### Fonctions et variables
 
 Les fonctions et les variables doivent suivre la convention "snake case".
 
@@ -229,7 +329,7 @@ function nom_de_la_fontion() {
 $nom_de_la_variable;
 ```
 
-#### Méthodes
+### Méthodes
 
 Les méthodes doivent suivre la convention "lower camel case".
 
@@ -239,7 +339,7 @@ private function nomDeLaMethode() {
 }
 ```
 
-#### Classes
+### Classes
 
 Les classes doivent suivre la convention "upper camel case".
 
@@ -247,18 +347,18 @@ Les classes doivent suivre la convention "upper camel case".
 abstract class NomDeLaClasse {}
 ```
 
-### Encodage
+## Encodage
 
 Les fichiers doivent être encodés en UTF-8.
 
-### Compatibilité PHP
+## Compatibilité PHP
 
 Assurez-vous que votre code fonctionne avec une version de PHP aussi
 ancienne que celle que FreshRSS supporte officiellement.
 
-### Divers
+## Divers
 
-#### Le cas des opérateurs sur plusieurs lignes
+### Operators on multiple lines
 
 Les opérateurs doivent être en fin de ligne dans le cas de conditions sur
 plusieurs lignes.
@@ -270,12 +370,12 @@ if ($a == 10 ||
 }
 ```
 
-#### Fin de fichier PHP
+### End of PHP file
 
 Si le fichier ne contient que du PHP, il ne doit pas comporter de balise
 fermante.
 
-#### Tableaux
+### Tableaux
 
 Lors de l’écriture de tableaux sur plusieurs lignes, tous les éléments
 doivent être suivis d’une virgule (même le dernier).

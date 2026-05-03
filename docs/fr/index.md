@@ -29,10 +29,10 @@ fonctionnalités :
 
 Cette documentation est divisée en plusieurs parties :
 
-* La [documentation utilisateurs](./users/02_First_steps.md) pour découvrir
+* La [documentation utilisateurs](./users/) pour découvrir
 	les fonctionnalités de FreshRSS.
-* La [documentation administrateurs](../en/admins/01_Index.html) (en
+* La [documentation administrateurs](../en/admins/) (en
 	anglais) pour l’installation et la maintenance de FreshRSS.
-* La [documentation développeurs](./developers/01_First_steps.md) pour
+* La [documentation développeurs](./developers/) pour
 	savoir comment contribuer et mieux comprendre le code source de FreshRSS.
 * Le [guide de contribution](./contributing.md) pour nous aider à développer FreshRSS.

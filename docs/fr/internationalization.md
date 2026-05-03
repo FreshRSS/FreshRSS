@@ -1,6 +1,6 @@
 # Gestion de la traduction
 
-Grâce à nos contributeurs, FreshRSS est traduit dans [plus de 20 langues](./users/05_Configuration.md#language).
+Grâce à nos contributeurs, FreshRSS est traduit dans [plus de 20 langues](./users/configuration.md#language).
 Cette section expliquera les bases de l’internationalisation dans FreshRSS, de la traduction de l’application dans votre propre langue à la réalisation d’un changement spécifique.
 
 ## Aperçu

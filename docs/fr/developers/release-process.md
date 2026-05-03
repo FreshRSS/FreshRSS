@@ -1,11 +1,17 @@
-# Préparer la sortie
+---
+nav_order: 50
+redirect_from:
+  - /en/developers/05_Release_new_version.html
+---
 
-Afin d’avoir le plus de retour possible avant une sortie, il est préférable
-de l’annoncer sur GitHub en créant un ticket dédié ([voir les
-exemples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)).
-Ceci est à faire **au moins une semaine à l’avance**.
+# Release process
 
-Il est aussi recommandé de faire l’annonce sur <mailing@freshrss.org>.
+In order to get as much feedback as possible before a release, it’s
+preferable to announce it on GitHub by creating a dedicated ticket ([see
+examples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)).
+This should be done **at least one week in advance**.
+
+It’s also recommended to make the announcement on <mailing@freshrss.org>.
 
 ## S’assurer de l’état de dev
 
@@ -36,16 +42,16 @@ $ git push && git push --tags
 Il est important de mettre à jour update.freshrss.org puisqu’il s’agit du
 service par défaut gérant les mises à jour automatiques de FreshRSS.
 
-Le dépot gérant le code se trouve sur GitHub :
+The repository managing the code is located on GitHub:
 [FreshRSS/update.freshrss.org](https://github.com/FreshRSS/update.freshrss.org/).
 
-### Écriture du script de mise à jour
+## Écriture du script de mise à jour
 
 Les scripts se trouvent dans le répertoire `./scripts/` et doivent être de
 la forme `update_to_x.y.z.php`. On trouve aussi dans ce répertoire
-`update_to_dev.php` destiné aux mises à jour de la branche `edge` (ce
-script ne doit pas inclure de code spécifique à une version particulière !)
-et `update_util.php` contenant une liste de fonctions utiles à tous les
+`update_to_dev.php` destiné aux mises à jour de la branche `edge` (ce script
+ne doit pas inclure de code spécifique à une version particulière !) et
+`update_util.php` contenant une liste de fonctions utiles à tous les
 scripts.
 
 Afin d’écrire un nouveau script, il est préférable de copier / coller celui
@@ -57,21 +63,21 @@ package FreshRSS (`PACKAGE_URL`). L’URL est de la forme
 Il existe ensuite 5 fonctions à remplir :
 
 * `apply_update()` qui se charge de sauvegarder le répertoire contenant les
-	données, de vérifier sa structure, de télécharger le package FreshRSS, de
-	le déployer et de tout nettoyer. Cette fonction est pré-remplie mais des
-	ajustements peuvent être faits si besoin est (ex. réorganisation de la
-	structure de `./data`). Elle retourne `true` si aucun problème n’est
-	survenu ou une chaîne de caractères indiquant un soucis ;
+  données, de vérifier sa structure, de télécharger le package FreshRSS, de
+  le déployer et de tout nettoyer. Cette fonction est pré-remplie mais des
+  ajustements peuvent être faits si besoin est (ex. réorganisation de la
+  structure de `./data`). Elle retourne `true` si aucun problème n’est
+  survenu ou une chaîne de caractères indiquant un soucis ;
 * `need_info_update()` retourne `true` si l’utilisateur doit intervenir
-	durant la mise à jour ou `false` sinon ;
+  durant la mise à jour ou `false` sinon ;
 * `ask_info_update()` affiche un formulaire à l’utilisateur si
-	`need_info_update()` a retourné `true` ;
+  `need_info_update()` a retourné `true` ;
 * `save_info_update()` est chargée de sauvegarder les informations
-	renseignées par l’utilisateur (issues du formulaire de
-	`ask_info_update()`) ;
+  renseignées par l’utilisateur (issues du formulaire de
+  `ask_info_update()`) ;
 * `do_post_update()` est exécutée à la fin de la mise à jour et prend en
-	compte le code de la nouvelle version (ex. si la nouvelle version modifie
-	l’objet `Minz_Configuration`, vous bénéficierez de ces améliorations).
+  compte le code de la nouvelle version (ex. si la nouvelle version modifie
+  l’objet `Minz_Configuration`, vous bénéficierez de ces améliorations).
 
 ## Mise à jour du fichier de versions
 
@@ -101,14 +107,14 @@ Et voici comment fonctionne cette table :
 * les versions `x.y.z-dev` sont **toutes** mises à jour vers `edge` ;
 * les versions stables sont mises à jour vers des versions stables ;
 * il est possible de sauter plusieurs versions d’un coup à condition que les
-	scripts de mise à jour le prennent en charge ;
+  scripts de mise à jour le prennent en charge ;
 * il est conseillé d’indiquer la correspondance de la version courante vers
-	sa potentielle future version en précisant que cette version n’existe pas
-	encore. Tant que le script correspondant n’existera pas, rien ne se
-	passera.
+  sa potentielle future version en précisant que cette version n’existe pas
+  encore. Tant que le script correspondant n’existera pas, rien ne se
+  passera.
 
-Il est **très fortement** indiqué de garder ce fichier rangé selon les
-numéros de versions en séparant les versions stables et de dev.
+It’s**very strongly** recommended to keep this file organized according to
+version numbers by separating stable and dev versions.
 
 ## Déploiement
 
@@ -134,12 +140,12 @@ update.freshrss.org :
 Lorsque tout fonctionne, il est temps d’annoncer la sortie au monde entier !
 
 * sur GitHub en créant [une nouvelle
-	release](https://github.com/FreshRSS/FreshRSS/releases/new) ;
+  release](https://github.com/FreshRSS/FreshRSS/releases/new) ;
 * sur le blog de freshrss.org au minimum pour les versions stables (écrire
-	l’article sur
-	[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org)).
+  l’article sur
+  [FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org)).
 * sur Twitter (compte [@FreshRSS](https://twitter.com/FreshRSS)) ;
-* et sur <mailing@freshrss.org> ;
+* and on <mailing@freshrss.org>
 
 ## Lancer la prochaine version de développement
 

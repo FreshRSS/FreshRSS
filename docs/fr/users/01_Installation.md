@@ -1,3 +1,7 @@
+---
+nav_order: 5
+---
+
 # Les pré-requis sur le serveur
 
 FreshRSS est un logiciel développé en PHP reposant sur le modèle client - serveur. C’est-à-dire qu’il vous faudra un serveur web pour en profiter. Ensuite, FreshRSS ne demande pas une configuration très fournie et peut donc, en théorie, tourner sur la plupart des serveurs mutualisés.

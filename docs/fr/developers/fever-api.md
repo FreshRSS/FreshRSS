@@ -1,39 +1,45 @@
-# FreshRSS - API compatible Fever
+---
+nav_order: 70
+redirect_from:
+  - /en/developers/06_Fever_API.html
+---
 
-Voir la page [sur notre API compatible Google Reader](06_Mobile_access.md)
-pour une autre possibilité et des généralités sur l’accès par API.
+# Fever API implementation
 
-## Clients compatibles GReader
+See [Mobile access](../users/mobile-access.md) for general aspects of API
+access.  Additionally [page about our Google Reader compatible
+API](googlereader-api.md) for another possibility.
 
-De nombreux clients RSS prennent en charge l’API Fever, mais ils semblent
-comprendre l’API Fever un peu différemment. Si votre client préféré ne
-fonctionne pas correctement avec cette API, veuiller créer un ticket et nous
-y jetterons un oeil. Mais nous ne pouvons le faire que pour les clients
-gratuits.
+
+## Clients compatibles
+
+There are many RSS clients that support the Fever API, but they seem to
+understand the Fever API a bit differently.  If your favourite client
+doesn’t work properly with this API, please create an issue and we’ll have a
+look.  But we can **only** do that for free clients.
 
 ### Utilisation et authentification
 
-Avant de pouvoir commencer à utiliser cette API, vous devez activer et
-configurer l’accès à l’API, qui est [documenté
-ici](06_Mobile_access.md), et
-réinitialisez ensuite le mot de passe API de l’utilisateur.
+Before you can start using this API, you have to enable and setup API
+access, which is [documented here](../users/mobile-access.md), and then
+reset the user’s API password.
 
 Connectez ensuite votre application mobile en utilisant l’adresse de l’API
-(ex. `https://freshrss.example.net/api/fever.php`).
+(e.g. `https://freshrss.example.net/api/fever.php`).
 
-## Clients compatibles Fever
+## Clients compatibles
 
 | App                                                                                | Platform            | License                                            |
 |:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
 |[Fluent Reader](https://hyliu.me/fluent-reader/)                                    |Windows, Linux, macOS|[BSD-3-Clause](https://github.com/yang991178/fluent-reader/blob/master/LICENSE)|
 |[Fluent Reader lite](https://hyliu.me/fluent-reader-lite/)                          |Android, iOS         |[BSD-3-Clause](https://github.com/yang991178/fluent-reader-lite)|
 |[Read You](https://github.com/Ashinch/ReadYou/)                                     |Android              |[GPLv3](https://github.com/Ashinch/ReadYou/blob/main/LICENSE)|
-|[Fiery Feeds](https://voidstern.net/fiery-feeds)       |iOS                  |Source fermée                                             |
-|[Unread](https://www.goldenhillsoftware.com/unread/)                 |iOS                  |Source fermée                                             |
-|[Reeder Classic](https://www.reederapp.com/classic/)                                |iOS                  |Source fermée                                              |
-|[ReadKit](https://readkit.app/)                           |macOS                |Source fermée                                              |
-
-> ℹ️ Voir une [meilleure liste des applications mobiles compatibles](https://github.com/FreshRSS/FreshRSS/blob/edge/README.fr.md#apis-et-applications-natives).
+|[Fiery Feeds](https://voidstern.net/fiery-feeds)       |iOS                  |Closed Source                                             |
+|[Newsflash](https://gitlab.com/news-flash/news_flash_gtk/)                          |Linux                |[GPLv3](https://gitlab.com/news-flash/news_flash_gtk/)|
+|[Unread](https://www.goldenhillsoftware.com/unread/)                 |iOS                  |Closed Source                                             |
+|[Reeder Classic](https://www.reederapp.com/classic/)                                |iOS                  |Closed Source                                              |
+|[ReadKit](https://readkit.app/)                           |macOS                |Closed Source                                              |
+|[FreshRSS Python API Client](https://github.com/thiswillbeyourgithub/freshrss_python_api)                           |Python                |[GPLv3](https://github.com/thiswillbeyourgithub/freshrss_python_api)                                              |
 
 ## Fonctionnalités
 
@@ -41,7 +47,8 @@ Les fonctionnalités suivantes sont implémentées :
 
 * récupération des catégories
 * récupération des flux
-* récupération des entrées (new, favorites, unread, by_id, by_feed, by_category,since)
+* récupération des entrées (new, favorites, unread, by_id, by_feed,
+  by_category,since)
 * récupération des favicons
 * marquage des entrées comme lues
 * marquage des entrées comme favoris
@@ -52,17 +59,16 @@ Les fonctionnalités suivantes sont implémentées :
 Les fonctionnalités suivantes ne sont pas implémentées :
 
 * « Hot Links » car il n’y a encore rien dans FreshRSS qui soit similaire ou
-	qui puisse être utilisé pour le simuler.
+  qui puisse être utilisé pour le simuler.
 
 ## Tester et déboguer
 
-Si l’API ne fonctionne pas comme attendu dans votre lecteur, il est possible
-de la tester manuellement avec un outil tel que
-[Postman](https://www.getpostman.com/).
+If this API does not work as expected in your RSS reader, you can test it
+manually with a tool like [Postman](https://www.getpostman.com/).
 
-Envoyer une requête POST à l’adresse
-<https://freshrss.example.net/api/fever.php?api> devrait vous renvoyer le
-résultat suivant :
+Configure a POST request to the URL
+<https://freshrss.example.net/api/fever.php?api> which should give you the
+result:
 ```json
 {
 	"api_version": 3,
@@ -96,11 +102,11 @@ Vous devriez obtenir le résultat suivant :
 	"last_refreshed_on_time": "1520013061"
 }
 ```
-Parfait, maintenant vous êtes autentifié et vous pouvez commencer à tester
-les fonctions avancées. Pour cela, il suffit de changer l’adresse en lui
-ajoutant les paramètres nécessaires à la réalisation des actions
-supportées. Pour plus d’information, veuillez vous référer à la
-[documentation officielle de Fever](https://web.archive.org/web/20230616124016/https://feedafever.com/api).
+Perfect, you’re now authenticated and you can start testing the more
+advanced features. To do so, change the URL and append the possible API
+actions to your request parameters. Please refer to the [original Fever
+documentation](https://web.archive.org/web/20230616124016/https://feedafever.com/api)
+for more information.
 
 Voici quelques exemples simples d’appels réalisables :
 

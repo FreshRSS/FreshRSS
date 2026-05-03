@@ -7,3 +7,8 @@ lib/simplepie/
 node_modules/
 p/scripts/vendor/
 vendor/
+
+# Translated docs are regenerated from .po files by cli/translation-update.sh.
+# Translation drift (stale msgids, missing translations) is a translator-workflow
+# concern, not a markdown-quality issue.
+docs/fr/

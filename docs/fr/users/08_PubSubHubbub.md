@@ -1,3 +1,7 @@
+---
+nav_order: 99
+---
+
 # Qu’est-ce que WebSub ?
 
 Derrière le nom de [WebSub](https://www.w3.org/TR/websub/) (anciennement [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub)) se cache un protocole qui vient compléter Atom et RSS.

@@ -1,4 +1,13 @@
-# Minz
+---
+nav_order: 150
+redirect_from:
+  - /en/developers/Minz/index.html
+  - /en/developers/Minz/
+---
+
+# Minz framework
+
+Minz is the homemade PHP framework used by FreshRSS.
 
 Cette fiche technique devrait renvoyer vers la documentation officielle de
 FreshRSS et de Minz (le framework PHP sur lequel repose
@@ -15,27 +24,27 @@ Minz repose et impose une architecture MVC pour les projets l’utilisant. On
 distingue dans cette architecture trois composants principaux :
 
 * Le Modèle : c’est l’objet de base que l’on va manipuler. Dans FreshRSS,
-	les catégories, les flux et les articles sont des modèles. La partie du
-	code qui permet de les manipuler en base de données fait aussi partie du
-	modèle mais est séparée du modèle de base : on parle de DAO (pour « Data
-	Access Object »). Les modèles sont stockés dans un répertoire `Models`.
+  les catégories, les flux et les articles sont des modèles. La partie du
+  code qui permet de les manipuler en base de données fait aussi partie du
+  modèle mais est séparée du modèle de base : on parle de DAO (pour « Data
+  Access Object »). Les modèles sont stockés dans un répertoire `Models`.
 * La Vue : c’est ce qui représente ce que verra l’utilisateur. La vue est
-	donc simplement du code HTML que l’on mixe avec du PHP pour afficher les
-	informations dynamiques. Les vues sont stockées dans un répertoire
-	`views`.
+  donc simplement du code HTML que l’on mixe avec du PHP pour afficher les
+  informations dynamiques. Les vues sont stockées dans un répertoire
+  `views`.
 * Le Contrôleur : c’est ce qui permet de lier modèles et vues entre
-	eux. Typiquement, un contrôleur va charger des modèles à partir de la base
-	de données (une liste d’articles par exemple) pour les « passer » à une
-	vue afin qu’elle les affiche. Les contrôleurs sont stockés dans un
-	répertoire `Controllers`.
+  eux. Typiquement, un contrôleur va charger des modèles à partir de la base
+  de données (une liste d’articles par exemple) pour les « passer » à une
+  vue afin qu’elle les affiche. Les contrôleurs sont stockés dans un
+  répertoire `Controllers`.
 
 ## Routage
 
-Afin de lier une URL à un contrôleur, on doit passer par une phase dite de «
-routage ». Dans FreshRSS, cela est particulièrement simple car il suffit
-d’indiquer le nom du contrôleur à charger dans l’URL à l’aide d’un paramètre `c`.
-Par exemple, l’adresse <http://exemple.com?c=hello> va exécuter le code
-contenu dans le contrôleur `hello`.
+In order to link a URL to a controller, first you have to go through a
+"routing" phase. In FreshRSS, this is particularly simple because it
+suffices to specify the name of the controller to load into the URL using a
+`c` parameter.  For example, the address <http://example.com?c=hello> will
+execute the code contained in the `hello` controller.
 
 Une notion qui n’a pas encore été évoquée est le système d'« actions ». Une
 action est exécutée *sur* un contrôleur. Concrètement, un contrôleur va être
@@ -60,12 +69,12 @@ class FreshRSS_hello_Controller extends FreshRSS_ActionController {
 ?>
 ```
 
-Si l’on charge l’adresse <http://exemple.com?c=hello&a=world>, l’action
-`world` va donc être exécutée sur le contrôleur `hello`.
+When loading the address <http://example.com?c=hello&a=world>, the `world`
+action is executed on the `hello` controller.
 
-Note : si `c` ou `a` n’est pas précisée, la valeur par défaut de chacune de
-ces variables est `index`. Ainsi l’adresse <http://exemple.com?c=hello> va
-exécuter l’action `index` du contrôleur `hello`.
+Note: if `c` or `a` is not specified, the default value for each of these
+variables is `index`.  So the address <http://example.com?c=hello> will
+execute the `index` action of the `hello` controller.
 
 Plus loin, sera utilisée la convention `hello/world` pour évoquer un couple
 contrôleur/action.
@@ -99,15 +108,15 @@ l’aide de la classe `Minz_Request`. Exemple de code :
 $default_value = 'foo';
 $param = Minz_Request::paramString('bar') ?: $default_value;
 
-// Affichera la valeur du paramètre `bar` (passé via GET ou POST)
-// ou "foo" si le paramètre n’existe pas.
+// Display the value of the parameter `bar` (passed via GET or POST)
+// or "foo" if the parameter does not exist.
 echo $param;
 
-// Force la valeur du paramètre `bar`
+// Sets the value of the `bar` parameter
 Minz_Request::_param('bar', 'baz');
 
-// Affichera forcément "baz" puisque nous venons de forcer sa valeur.
-// Notez que le second paramètre (valeur par défaut) est facultatif.
+// Will necessarily display "baz" since we have just forced its value.
+// Note that the second parameter (default) is optional.
 echo Minz_Request::paramString('bar');
 
 ?>
@@ -140,9 +149,9 @@ suivante doit être évitée :
 </p>
 ```
 
-Si un jour il est décidé d’utiliser un système d'« url rewriting » pour
-avoir des adresses au format <http://exemple.com/controller/action>, toutes
-les adresses précédentes deviendraient ineffectives !
+If one day it was decided to use a "url rewriting" system to have addresses
+in a <http://example.com/controller/action> format, all previous addresses
+would become ineffective!
 
 Préférez donc l’utilisation de la classe `Minz_Url` et de sa méthode
 `display()`. `Minz_Url::display()` prend en paramètre un tableau de la forme
@@ -226,12 +235,12 @@ $url_array = [
 	'c' => 'hello',
 	'a' => 'world',
 ];
-$feedback_good = 'Tout s’est bien passé !';
-$feedback_bad = 'Oups, quelque chose n’a pas marché.';
+$feedback_good = 'All went well!';
+$feedback_bad = 'Oops, something went wrong.';
 
 Minz_Request::good($feedback_good, $url_array, showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 
-// ou
+// or
 
 Minz_Request::bad($feedback_bad, $url_array);
 
@@ -240,10 +249,10 @@ Minz_Request::bad($feedback_bad, $url_array);
 
 ## Gestion de la traduction
 
-Cette partie est [expliquée dans la page dédiée](../../internationalization.md).
+This part [is explained here](../../internationalization.md).
 
 ## Migration
 
 Existing documentation includes:
 
-* [How to manage migrations](../../../en/developers/Minz/migrations.html)
+* [How to manage migrations](migrations.md)

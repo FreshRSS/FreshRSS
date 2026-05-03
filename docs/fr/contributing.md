@@ -44,7 +44,7 @@ les collaborateurs, vous devrez suivre ces indications :
 	[ouvrez une demande de pull request](https://help.github.com/articles/using-pull-requests/).
 
 Si vous devez écrire du code, veuillez suivre [nos recommandations de style
-de codage](developers/01_First_steps.md).
+de codage](developers/).
 
 > ℹ Voir [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) pour les conventions de code (à la fois pour les humains et agents IA).
 
