@@ -25,7 +25,7 @@ We also need some information:
 * Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
 * If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
-For a more detailed guide on writing bug reports, please refer to [the in-depth guide on reporting bugs](developers/06_Reporting_Bugs).
+For a more detailed guide on writing bug reports, please refer to [the in-depth guide on reporting bugs](developers/reporting-bugs).
 
 ## Fix a bug
 
@@ -36,7 +36,7 @@ Would you like to fix a bug? For optimum coordination between collaborators, you
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch should be clear, and ideally prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
 4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **edge branch**. Don’t forget to add your name to `CREDITS.md` if you’re contributing to FreshRSS for the very first time.
 
-If you have to write code, please follow [our coding style recommendations](developers/02_First_steps.md).
+If you have to write code, please follow [our coding style recommendations](developers/first-steps.md).
 
 > ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).
 
@@ -61,12 +61,12 @@ If you want to give some help, meet us in the main repositories [docs directory]
 
 FreshRSS offers some official themes. If you have a good sense for great UI you are invited to share your theme with the community (via a [show&tell discussion thread](https://github.com/FreshRSS/FreshRSS/discussions/categories/show-and-tell) or as a [Pull Request](https://github.com/FreshRSS/FreshRSS/pulls)).
 
-Check the [basic information for creating a new theme](./developers/04_Frontend/02_Design.md).
+Check the [basic information for creating a new theme](./developers/writing-themes.md).
 
 This checklist is designed to ensure high-quality system themes while minimizing maintenance efforts.
 
-* Essential files include: [metadata.json, loader.gif, original.png](./developers/04_Frontend/02_Design.md) (located in the `thumbs` directory).
-* Include _frss.css in the "files" section of [`metadata.json`](./developers/04_Frontend/02_Design.md).
+* Essential files include: [metadata.json, loader.gif, original.png](./developers/writing-themes.md) (located in the `thumbs` directory).
+* Include _frss.css in the "files" section of [`metadata.json`](./developers/writing-themes.md).
 * Theme-specific icons reside in the `icons` directory.
 	* Icons should be provided as `svg` files.
 		* Ensure clean code without any unnecessary fragments; utilize tools like [SVGOMG](https://jakearchibald.github.io/svgomg/) for cleaning.

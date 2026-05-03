@@ -49,5 +49,6 @@ plugins:
   - jekyll-readme-index
   - jekyll-default-layout
   - jekyll-titles-from-headings
+  - jekyll-redirect-from
   # custom
   - jekyll-i18n_tags

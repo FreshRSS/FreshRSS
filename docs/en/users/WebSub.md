@@ -1,3 +1,9 @@
+---
+nav_order: 100
+redirect_from:
+  - /en/users/WebSub.html
+---
+
 # The WebSub protocol
 
 [WebSub](https://www.w3.org/TR/websub/) (formerly [PubSubHubbub](https://github.com/pubsubhubbub/PubSubHubbub)) is a standard protocol

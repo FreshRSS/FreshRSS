@@ -1,0 +1,138 @@
+---
+nav_order: 100
+redirect_from:
+  - /en/admins/10_ServerConfig.html
+---
+
+# Web server configuration
+
+> ℹ️ For improved security, remove sensitive information in the Web server logs by using our [`sensitive-log.sh` script](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/sensitive-log.sh),
+on the model of our [reference Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) used for our official Docker images
+(see [`CustomLog`](https://httpd.apache.org/docs/current/mod/mod_log_config.html#customlog)).
+
+## Apache configuration
+
+This is an example Apache virtual hosts configuration file. It covers HTTP and HTTPS configuration.
+For more details, check our [reference Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) used for our official Docker images.
+
+```apache
+<VirtualHost *:80>
+	DocumentRoot /var/www/html/
+
+	#Default site...
+
+	ErrorLog ${APACHE_LOG_DIR}/error.default.log
+	CustomLog ${APACHE_LOG_DIR}/access.default.log vhost_combined
+</VirtualHost>
+
+<VirtualHost *:80>
+	ServerName rss.example.net
+	DocumentRoot /path/to/FreshRSS/p/
+
+	<Directory /path/to/FreshRSS/p>
+		AllowOverride AuthConfig FileInfo Indexes Limit
+		Require all granted
+	</Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
+	# Consider piping the logs for cleaning passwords; cf. comment higher up.
+	CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
+
+	AllowEncodedSlashes On
+</VirtualHost>
+
+<IfModule mod_ssl.c>
+	<VirtualHost *:443>
+		ServerName rss.example.net
+		DocumentRoot /path/to/FreshRSS/p/
+
+		<Directory /path/to/FreshRSS/p>
+			AllowOverride AuthConfig FileInfo Indexes Limit
+			Require all granted
+		</Directory>
+
+		ErrorLog ${APACHE_LOG_DIR}/freshrss_error.log
+		CustomLog ${APACHE_LOG_DIR}/freshrss_access.log combined
+
+		<IfModule mod_http2.c>
+			Protocols h2 http/1.1
+		</IfModule>
+
+		# For the API
+		AllowEncodedSlashes On
+
+		SSLEngine on
+		SSLCompression off
+		SSLCertificateFile /path/to/server.crt
+		SSLCertificateKeyFile /path/to/server.key
+		# Additional SSL configuration, e.g. with LetsEncrypt
+	</VirtualHost>
+</IfModule>
+```
+
+## Nginx configuration
+
+This is an example nginx configuration file. It covers HTTP, HTTPS, and php-fpm configuration.
+
+You can find simpler config file but they may be incompatible with FreshRSS API.
+
+```nginx
+server {
+	listen 80;
+	listen 443 ssl;
+
+	# HTTPS configuration
+	ssl on;
+	ssl_certificate /etc/nginx/server.crt;
+	ssl_certificate_key /etc/nginx/server.key;
+
+	# your server’s URL(s)
+	server_name rss.example.net;
+
+	# the folder p of your FreshRSS installation
+	root /srv/FreshRSS/p/;
+
+	index index.php index.html index.htm;
+
+	# nginx log files
+	access_log /var/log/nginx/rss.access.log;
+	error_log /var/log/nginx/rss.error.log;
+
+	# php files handling
+	# this regex is mandatory because of the API
+	location ~ ^.+?\.php(/.*)?$ {
+		fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+		fastcgi_split_path_info ^(.+\.php)(/.*)$;
+		# By default, the variable PATH_INFO is not set under PHP-FPM
+		# But FreshRSS APIs greader.php and misc.php need it. If you have a “Bad Request” error, double check this var!
+		# NOTE: the separate $path_info variable is required. For more details, see:
+		# https://trac.nginx.org/nginx/ticket/321
+		set $path_info $fastcgi_path_info;
+		fastcgi_param PATH_INFO $path_info;
+		include fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	}
+
+	location / {
+		try_files $uri $uri/ index.php;
+	}
+}
+```
+
+## Security
+
+Avoid overwriting the [`Content-Security-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) header with directives such as `more_set_headers "Content-Security-Policy: ..."` or `add_header 'Content-Security-Policy' '...'`.
+
+✅ Example of good CSP: `default-src 'self'; frame-ancestors 'self'`
+
+❌ Bad CSP: `upgrade-insecure-requests`
+
+Debug your own CSP header:
+* With DevTools network tab: press F12
+* [CSP Evaluator](https://csp-evaluator.withgoogle.com/)
+
+If you’re aware of the risks and want to ignore the warning shown to admin users, change the `suppress_csp_warning` setting to `true` in `./data/config.php`.
+
+Note that FreshRSS already ships with a secure CSP configuration, therefore it’s not necessary to make any adjustments to CSP unless you’re writing an extension.
+
+For that, look into the [`Minz_ActionController::_csp`](https://github.com/FreshRSS/FreshRSS/blob/d9197d7e32a97f29829ffd4cf4371b1853e51fa2/lib/Minz/ActionController.php#L76-L96) function and use it in individual actions.

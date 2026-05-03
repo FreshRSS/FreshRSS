@@ -2,32 +2,29 @@
 	<ul>
 		<li><a href="{{ '/en/' | relative_url }}">Home</a></li>
 		<li>
-			<a href="{{ '/en/users/02_First_steps.html' | relative_url }}">User manual</a>
+			<a href="{{ '/en/users/' | relative_url }}">User manual</a>
 			<ul>
-				{% for page in site.pages %}
-					{% if page.url contains '/en/users/' and page.title != nil and page.url != "/en/users/02_First_steps.html" %}
-						<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
-					{% endif %}
+				{% assign user_pages = site.pages | where_exp: "p", "p.url contains '/en/users/'" | where_exp: "p", "p.url != '/en/users/'" | where_exp: "p", "p.title" | sort: "nav_order" %}
+				{% for page in user_pages %}
+					<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
 				{% endfor %}
 			</ul>
 		</li>
 		<li>
-			<a href="{{ '/en/admins/01_Index.html' | relative_url }}">Administrator manual</a>
+			<a href="{{ '/en/admins/' | relative_url }}">Administrator manual</a>
 			<ul>
-				{% for page in site.pages %}
-					{% if page.url contains '/en/admins/' and page.url != "/en/admins/01_Index.html" and page.title != nil %}
-						<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
-					{% endif %}
+				{% assign admin_pages = site.pages | where_exp: "p", "p.url contains '/en/admins/'" | where_exp: "p", "p.url != '/en/admins/'" | where_exp: "p", "p.title" | sort: "nav_order" %}
+				{% for page in admin_pages %}
+					<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
 				{% endfor %}
 			</ul>
 		</li>
 		<li>
-			<a href="{{ '/en/developers/01_Index.html' | relative_url }}">Developer manual</a>
+			<a href="{{ '/en/developers/' | relative_url }}">Developer manual</a>
 			<ul>
-				{% for page in site.pages %}
-					{% if page.url contains '/en/developers/' and page.url != "/en/developers/01_Index.html" and page.title != nil %}
-						<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
-					{% endif %}
+				{% assign dev_pages = site.pages | where_exp: "p", "p.url contains '/en/developers/'" | where_exp: "p", "p.url != '/en/developers/'" | where_exp: "p", "p.title" | sort: "nav_order" %}
+				{% for page in dev_pages %}
+					<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
 				{% endfor %}
 			</ul>
 		</li>
@@ -39,12 +36,11 @@
 	<ul>
 		<li><a href="{{ '/fr/' | relative_url }}">Accueil</a></li>
 		<li>
-			<a href="{{ '/fr/users/02_First_steps.html' | relative_url }}">Documentation utilisateur</a>
+			<a href="{{ '/fr/users/' | relative_url }}">Documentation utilisateur</a>
 			<ul>
-				{% for page in site.pages %}
-					{% if page.url contains '/fr/users/' and page.title != nil and page.url != "/fr/users/02_First_steps.html" %}
-						<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
-					{% endif %}
+				{% assign user_pages_fr = site.pages | where_exp: "p", "p.url contains '/fr/users/'" | where_exp: "p", "p.url != '/fr/users/'" | where_exp: "p", "p.title" | sort: "nav_order" %}
+				{% for page in user_pages_fr %}
+					<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
 				{% endfor %}
 			</ul>
 		</li>
@@ -60,12 +56,11 @@
 			<!-- </ul> -->
 		<!-- </li> -->
 		<li>
-			<a href="{{ '/fr/developers/01_First_steps.html' | relative_url }}">Documentation développeur</a>
+			<a href="{{ '/fr/developers/' | relative_url }}">Documentation développeur</a>
 			<ul>
-				{% for page in site.pages %}
-					{% if page.url contains '/fr/developers/' and page.url != "/fr/developers/01_First_steps.html" and page.title != nil %}
-						<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
-					{% endif %}
+				{% assign dev_pages_fr = site.pages | where_exp: "p", "p.url contains '/fr/developers/'" | where_exp: "p", "p.url != '/fr/developers/'" | where_exp: "p", "p.title" | sort: "nav_order" %}
+				{% for page in dev_pages_fr %}
+					<li><a href="{{ page.url | relative_url }}">{{ page.title | escape }}</a></li>
 				{% endfor %}
 			</ul>
 		</li>

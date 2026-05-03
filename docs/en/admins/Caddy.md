@@ -1,3 +1,9 @@
+---
+nav_order: 110
+redirect_from:
+  - /en/admins/Caddy.html
+---
+
 # Using Caddy as a reverse proxy
 
 How to configure Caddy as a reverse proxy to serve FreshRSS through a subfolder or subdomain
