@@ -1,13 +1,14 @@
 source "https://rubygems.org"
 
+gem "jekyll", "~> 4.3"
 gem "kramdown-parser-gfm"
+gem "base64" # Stdlib in Ruby <= 3.3, gem in 3.4+; pulled in by safe_yaml.
 
 group :jekyll_plugins do
   gem 'jekyll-coffeescript'
-  gem 'jekyll-commonmark-ghpages'
+  gem 'jekyll-commonmark'
   gem 'jekyll-gist'
   gem 'jekyll-github-metadata'
-  gem 'jekyll-paginate'
   gem 'jekyll-relative-links'
   gem 'jekyll-optional-front-matter'
   gem 'jekyll-readme-index'
