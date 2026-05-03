@@ -1,4 +1,4 @@
-# Installation on Cloud Providers
+# Installation on cloud providers
 
 Some hosting platforms provide documentation to install FreshRSS, or even better, an installation wizard to enjoy your very own instance.
 

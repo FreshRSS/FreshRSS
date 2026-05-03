@@ -172,10 +172,10 @@ return array(
 			'request_failed' => '請求失敗，有可能是網路連線問題造成的。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
-		'labels_empty' => '沒有標籤',
+		'labels_empty' => '無標籤',
 		'new_article' => '有新文章可用，點擊以刷新頁面。',
 		'should_be_activated' => '必須啟用 JavaScript',
-		'unsafe_csp_header' => '目前使用的 CSP 標頭不安全，FreshRSS 可能會受到 XSS 攻擊。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">查看文件</a>',
+		'unsafe_csp_header' => '目前使用的 CSP 標頭不安全，FreshRSS 可能會受到 XSS 攻擊。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">請參閱說明文件</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -222,7 +222,7 @@ return array(
 		'queries' => '使用者查詢',
 		'reading' => '閱讀',
 		'search' => '搜尋內容或#標籤',
-		'search_help' => '請參見文件內的進階<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">搜尋參數</a>',
+		'search_help' => '請參閱說明文件內的進階<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">搜尋參數</a>',
 		'sharing' => '分享',
 		'shortcuts' => '快速鍵',
 		'stats' => '統計',

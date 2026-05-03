@@ -1,4 +1,4 @@
-# FreshRSS Development
+# Developer manual
 
 ## First Steps
 
@@ -16,8 +16,8 @@ Start by creating your development environment. A guide to setting up FreshRSSâ€
 
 ## Backend Development
 
-* [Making extensions for FreshRSS](03_Backend/05_Extensions.md)
-* [Database Schema](03_Backend/01_Database_schema.md)
+* [Writing extensions](03_Backend/05_Extensions.md)
+* [Database schema](03_Backend/01_Database_schema.md)
 * [External libraries](03_Backend/03_External_libraries.md)
 
 ## Frontend Development
@@ -27,7 +27,7 @@ Start by creating your development environment. A guide to setting up FreshRSSâ€
 
 ## Namespaces
 
-* [OPML FreshRSS namespace](OPML.md)
+* [OPML namespace](OPML.md)
 
 ## Minz
 

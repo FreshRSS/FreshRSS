@@ -1,4 +1,4 @@
-# Writing extensions for FreshRSS
+# Writing extensions
 
 ## About FreshRSS
 

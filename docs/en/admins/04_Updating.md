@@ -23,16 +23,21 @@ Log in as admin, open the Settings menu (top right), choose Administration, then
 
 ## Using git
 
-Use git to update, change branches, or switch to a specific version from the command line.
+Use git to update, change branches, or switch to a specific version. From your FreshRSS install directory:
 
 > ⚠️ Make sure your backup is outside the FreshRSS directory before starting.
 
-1. Change to your FreshRSS install directory and fetch updates.
-2. Checkout the branch or tag you wish to use (tags like `1.27.1` pin specific versions).
-3. Perform a hard reset to discard local changes.
-4. Delete files not tracked by git.
-5. Pull the new version.
-6. Re-apply file ownership and permissions.
+```sh
+git fetch --all
+git reset --hard          # discards local changes to tracked files
+git clean -f -d           # removes untracked files (custom themes, extensions, local edits)
+git checkout edge         # or `latest` for stable, or a tag like `1.27.1` for a specific version
+git pull --ff-only        # skip for a tag checkout
+```
+
+Then re-apply file ownership and permissions.
+
+See [Updating on Linux](07_LinuxUpdate.md#using-git) for the same flow with `sudo` and the FreshRSS permissions helper.
 
 ## Using a zip archive
 

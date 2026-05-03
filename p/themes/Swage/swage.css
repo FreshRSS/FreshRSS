@@ -758,7 +758,6 @@ main.post .drop-section li.item.feed a:hover .icon {
 		vertical-align: middle;
 
 		&.title {
-			width: var(--width-aside);
 			position: absolute;
 			text-align: center;
 
@@ -812,7 +811,6 @@ main.post .drop-section li.item.feed a:hover .icon {
 .aside {
 	background-color: var(--color-background-aside);
 	padding-top: 2.5rem;
-	width: var(--width-aside);
 
 	&.aside_feed {
 		.tree {
@@ -880,7 +878,7 @@ main.post .drop-section li.item.feed a:hover .icon {
 	margin-bottom: 1rem;
 }
 
-.aside:target .toggle_aside {
+.aside.visible .toggle_aside {
 	border-bottom: 1px solid var(--frss-border-color);
 }
 
@@ -1124,7 +1122,6 @@ main.post .drop-section li.item.feed a:hover .icon {
 }
 
 #nav_entries {
-	width: var(--width-aside);
 	background-color: var(--color-background-aside);
 }
 
@@ -1243,8 +1240,7 @@ body.reader {
 		text-align: center;
 	}
 
-	.aside:target {
-		width: var(--width-aside);
+	.aside.visible {
 		padding-top: 0;
 	}
 }

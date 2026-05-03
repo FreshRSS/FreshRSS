@@ -1,4 +1,4 @@
-# Contributor Guidelines
+# Contributor guidelines
 
 ## Chat with us
 

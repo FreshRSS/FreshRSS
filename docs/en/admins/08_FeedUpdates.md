@@ -1,4 +1,4 @@
-# Setting Up Automatic Feed Updating
+# Setting up automatic feed updating
 
 FreshRSS is updated by the `./app/actualize_script.php` script. Knowing this, we can periodically trigger it to ensure up-to-date feeds.
 

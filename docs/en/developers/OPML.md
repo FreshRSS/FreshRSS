@@ -1,4 +1,4 @@
-# OPML in FreshRSS
+# OPML
 
 FreshRSS supports the [OPML](https://en.wikipedia.org/wiki/OPML) format to export and import lists of RSS/Atom feeds in a standard way, compatible with several other RSS aggregators.
 
