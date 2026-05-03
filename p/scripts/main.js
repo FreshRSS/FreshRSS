@@ -970,7 +970,7 @@ function init_nav_menu() {
 		const active = toggle_aside.classList.contains('active');
 		if (state != active) toggle_aside_click(false);
 	}
-	if (getComputedStyle(aside).display !== 'none') {
+	if (toggle_aside.classList.contains('active')) {
 		if (context.current_view === 'normal') aside.classList.add('visible');
 		sync(media);
 	}
