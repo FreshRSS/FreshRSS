@@ -5,6 +5,96 @@ final class FreshRSS_http_Util {
 
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
 
+	private static ?\SimplePie\Sanitize $forceHttpsSanitize = null;
+	/** @var array{int,int} mtimes of the two source files when $forceHttpsSanitize was built */
+	private static array $forceHttpsMtimes = [0, 0];
+
+	/**
+	 * Load the list of domains for which HTTP must be rewritten to HTTPS.
+	 * Reads `force-https.default.txt` and `data/force-https.txt`, stripping
+	 * whitespace and comments starting with `#`, `;`, or `/`. Domains are
+	 * lower-cased for case-insensitive matching (RFC 3986 §3.2.2).
+	 * @return string[]
+	 */
+	public static function loadForceHttpsDomains(): array {
+		$domains = [];
+		$force = @file(FRESHRSS_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		if (is_array($force)) {
+			$domains = array_merge($domains, $force);
+		}
+		$force = @file(DATA_PATH . '/force-https.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		if (is_array($force)) {
+			$domains = array_merge($domains, $force);
+		}
+		$domains = preg_replace('%\\s+|[\/#;].*$%', '', $domains) ?? $domains;
+		$domains = array_filter($domains, static fn(string $v) => $v !== '');
+		return array_values(array_map('strtolower', $domains));
+	}
+
+	/**
+	 * Get a SimplePie\Sanitize seeded with the Force HTTPS domain list.
+	 * The instance is cached and rebuilt only when one of the source files'
+	 * mtime changes, so admin edits to `data/force-https.txt` take effect on
+	 * the next call (incl. mid-run for long CLI scripts) without paying the
+	 * trie-build cost on every fetch.
+	 */
+	private static function forceHttpsSanitize(): \SimplePie\Sanitize {
+		$mtimes = [
+			@filemtime(FRESHRSS_PATH . '/force-https.default.txt') ?: 0,
+			@filemtime(DATA_PATH . '/force-https.txt') ?: 0,
+		];
+		if (self::$forceHttpsSanitize === null || self::$forceHttpsMtimes !== $mtimes) {
+			self::$forceHttpsSanitize = new \SimplePie\Sanitize();
+			self::$forceHttpsSanitize->set_https_domains(self::loadForceHttpsDomains());
+			self::$forceHttpsMtimes = $mtimes;
+		}
+		return self::$forceHttpsSanitize;
+	}
+
+	/**
+	 * True if the URL's host is on the Force HTTPS list, regardless of scheme.
+	 * Used to tighten redirect protocols on forced hosts so libcurl cannot
+	 * silently follow an HTTPS to HTTP downgrade.
+	 */
+	public static function isForceHttpsHost(string $url): bool {
+		if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->force_https_list_enabled) {
+			return false;
+		}
+		$host = parse_url($url, PHP_URL_HOST);
+		if (!is_string($host) || $host === '') {
+			return false;
+		}
+		// Sanitize::https_url() applies only to http:// URLs; probe with a synthetic one.
+		$probe = 'http://' . strtolower($host) . '/';
+		return self::forceHttpsSanitize()->https_url($probe) !== $probe;
+	}
+
+	/**
+	 * Rewrite an `http://` URL to `https://` if its host matches the Force HTTPS list.
+	 * Reuses SimplePie's matching semantics so SimplePie-sanitised feed content and
+	 * direct fetches (favicons, Web scraping, OPML, …) behave identically.
+	 * Host is lower-cased prior to matching per RFC 3986 §3.2.2.
+	 * @phpstan-return ($url is non-empty-string ? non-empty-string : string)
+	 */
+	public static function forceHttps(string $url): string {
+		if (strncasecmp($url, 'http://', 7) !== 0) {
+			return $url;
+		}
+		if (FreshRSS_Context::hasSystemConf() && !FreshRSS_Context::systemConf()->force_https_list_enabled) {
+			return $url;
+		}
+		// Normalise host to lower-case per RFC 3986 §3.2.2 before matching,
+		// otherwise `http://GitHub.com/` would not match a `github.com` list entry.
+		$host = parse_url($url, PHP_URL_HOST);
+		if (is_string($host) && $host !== '' && $host !== strtolower($host)) {
+			$pos = strpos($url, $host);
+			if ($pos !== false) {
+				$url = substr_replace($url, strtolower($host), $pos, strlen($host));
+			}
+		}
+		return self::forceHttpsSanitize()->https_url($url);
+	}
+
 	private static function getRetryAfterFile(string $url, string $proxy): string {
 		$domain = parse_url($url, PHP_URL_HOST);
 		if (!is_string($domain) || $domain === '') {
@@ -269,6 +359,7 @@ final class FreshRSS_http_Util {
 	 *   * `-500` `curl_init()` failure.
 	 */
 	public static function httpGet(string $url, ?string $cachePath = null, string $type = 'html', array $attributes = [], array $curl_options = []): array {
+		$url = self::forceHttps($url);
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
@@ -367,10 +458,13 @@ final class FreshRSS_http_Util {
 			}
 		}
 
+		// On hosts in the Force HTTPS list, refuse to follow redirects to plain HTTP,
+		// otherwise libcurl would silently downgrade via a 30x Location header.
+		$forceHttpsHost = self::isForceHttpsHost($url);
 		if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
 			$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
 			if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
-				$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+				$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = $forceHttpsHost ? 'https' : 'http,https';
 			}
 		} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
 			// Legacy PHP 8.2-
@@ -378,7 +472,9 @@ final class FreshRSS_http_Util {
 				$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
 			}
 			if (defined('CURLOPT_REDIR_PROTOCOLS')) {
-				$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				$curl_options[CURLOPT_REDIR_PROTOCOLS] = $forceHttpsHost
+					? CURLPROTO_HTTPS
+					: (CURLPROTO_HTTP | CURLPROTO_HTTPS);
 			}
 		}
 

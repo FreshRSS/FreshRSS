@@ -90,6 +90,13 @@ return [
 	#	SimplePie, which is retrieving RSS feeds via HTTP requests.
 	'simplepie_syslog_enabled' => true,
 
+	# Apply the Force HTTPS list (`./force-https.default.txt` and
+	# `./data/force-https.txt`) to all FreshRSS HTTP fetches: feeds, favicons,
+	# Web scraping, OPML import, WebSub callbacks, the auto-update check, and
+	# rewrites inside SimplePie-sanitised feed content. When disabled, all
+	# HTTP URLs are fetched as-is without rewriting or redirect protection.
+	'force_https_list_enabled' => true,
+
 	# Enable or not support of PubSubHubbub.
 	# /!\ It should NOT be enabled if base_url is not reachable by an external server.
 	'pubsubhubbub_enabled' => false,

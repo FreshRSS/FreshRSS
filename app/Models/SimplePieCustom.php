@@ -264,21 +264,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 				'src',
 			],
 		]);
-		$https_domains = [];
-		$force = @file(FRESHRSS_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-		if (is_array($force)) {
-			$https_domains = array_merge($https_domains, $force);
-		}
-		$force = @file(DATA_PATH . '/force-https.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-		if (is_array($force)) {
-			$https_domains = array_merge($https_domains, $force);
-		}
-
-		// Remove whitespace and comments starting with # / ;
-		$https_domains = preg_replace('%\\s+|[\/#;].*$%', '', $https_domains) ?? $https_domains;
-		$https_domains = array_filter($https_domains, fn(string $v) => $v !== '');
-
-		$this->set_https_domains($https_domains);
+		$this->set_https_domains(FreshRSS_http_Util::loadForceHttpsDomains());
 	}
 
 	public static function sanitizeHTML(string $data, string $base = '', ?int $maxLength = null): string {

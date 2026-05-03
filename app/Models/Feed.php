@@ -1440,6 +1440,7 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::warning('curl_init() failed in ' . __METHOD__);
 				return false;
 			}
+			$hubJson['hub'] = FreshRSS_http_Util::forceHttps($hubJson['hub']);
 			curl_setopt_array($ch, [
 				CURLOPT_URL => $hubJson['hub'],
 				CURLOPT_RETURNTRANSFER => true,
