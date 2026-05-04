@@ -45,6 +45,8 @@
 	--frss-padding-top-bottom: 0.5rem;
 
 	--width-aside: 300px;
+	--height-header: 56px;
+	--aside-padding-y: 10px;
 
 	line-height: 1.5;
 }
@@ -2489,6 +2491,7 @@ html.slider-active {
 
 	.header > .item {
 		padding: 5px;
+		min-height: var(--height-header);
 	}
 
 	.header > .item.title {
@@ -2516,11 +2519,14 @@ html.slider-active {
 	#overlay .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
-		padding: 1rem 0;
-		display: block;
+		box-sizing: border-box;
+		height: var(--height-header);
+		padding: 0 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		width: 100%;
 		border-bottom: 1px solid var(--frss-border-color);
-		text-align: center;
 	}
 
 	.aside:not(.aside_feed) {
@@ -2787,12 +2793,12 @@ html.slider-active {
 		transition: width 200ms linear;
 	}
 
-	.aside.aside_feed {
+	:root .aside.aside_feed {
 		padding: 0;
 	}
 
 	.aside_feed .configure-feeds {
-		margin-top: 10px;
+		margin-top: var(--aside-padding-y);
 	}
 
 	.aside_feed .tree-folder-items .feed .favicon {

@@ -4,6 +4,7 @@
 /*============*/
 :root {
 	--frss-padding-top-bottom: 0.5rem;
+	--aside-padding-y: 0.5rem;
 
 	--background-color-light-gradient1: #fff;
 	--background-color-light-gradient2: #eee;
