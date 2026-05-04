@@ -581,10 +581,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$cat_name = trim($origin['category'] ?? '');
 		if ($cat_name !== '') {
 			$new_cat = $this->categoryDAO->searchByName($cat_name);
-			$new_cat_id = $new_cat === null ? $this->categoryDAO->addCategory(['name' => $cat_name]) : $new_cat->id();
-			if ($new_cat_id !== false) {
-				$cat_id = $new_cat_id;
-			}
+			$cat_id = $new_cat?->id() ?: $this->categoryDAO->addCategory(['name' => $cat_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
 		}
 
 		try {
