@@ -58,7 +58,7 @@ declare(strict_types=1);
  * @property bool $sidebar_hidden_by_default
  * @property 'big'|'small'|'none' $mark_read_button
  * @property 'ASC'|'DESC' $sort_order
- * @property 'id'|'c.name'|'date'|'f.name'|'length'|'link'|'rand'|'title' $sort
+ * @property 'id'|'c.name'|'date'|'f.name'|'lastUserModified'|'length'|'link'|'rand'|'title' $sort
  * @property 'ASC'|'DESC' $secondary_sort_order
  * @property 'id'|'date'|'link'|'title' $secondary_sort
  * @property array<int,array<string,string>> $sharing
