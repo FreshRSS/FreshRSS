@@ -4,7 +4,7 @@
 @media (max-width: 840px) {
 	.aside {
 
-		transition: all 0.2s ease-in-out;
+		transition: width 0.2s ease-in-out;
 
 		&.aside_feed {
 			padding: 0;
