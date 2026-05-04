@@ -415,10 +415,6 @@ svg:hover {
 	text-decoration: none;
 }
 
-.dropdown-close {
-	backdrop-filter: grayscale(25%) brightness(0.9);
-}
-
 .dropdown-close a:hover {
 	background: none;
 }

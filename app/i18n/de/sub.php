@@ -29,10 +29,10 @@ return array(
 			'help' => 'URL zu einer <a href="http://opml.org/" target="_blank">OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
 		),
 		'empty' => 'Leere Kategorie',
-		'expand' => 'Kategory aufklappen',
+		'expand' => 'Kategorie aufklappen',
 		'information' => 'Information',	// IGNORE
-		'open' => 'Kategory öffnen',
-		'opml_url' => 'OPML-Datei URL',
+		'open' => 'Kategorie öffnen',
+		'opml_url' => 'URL der OPML-Datei',
 		'position' => 'Reihenfolge',
 		'position_help' => 'Sortierreihenfolge der Kategorien steuern',
 		'title' => 'Titel',
@@ -51,7 +51,7 @@ return array(
 			'username' => 'HTTP-Nutzername',
 		),
 		'change_favicon' => 'Ändern…',
-		'clear_cache' => 'Nicht cachen',
+		'clear_cache' => 'Immer Zwischenspeicher leeren',
 		'content_action' => array(
 			'_' => 'Inhaltsaktion beim Abrufen des Artikelinhalts',
 			'append' => 'Nach bestehendem Inhalt einfügen',
@@ -62,10 +62,10 @@ return array(
 		'css_cookie' => 'Cookies beim Abrufen des Artikelinhalts verwenden',
 		'css_cookie_help' => 'Beispiel: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Ruft bei gekürzten RSS-Feeds den vollständigen Artikelinhalt ab (Achtung, benötigt mehr Zeit!)',
-		'css_path' => 'CSS-Selektor des Artikelinhaltes auf der Original-Webseite',
+		'css_path' => 'CSS-Selektor des Artikelinhalts auf der Original-Website',
 		'css_path_filter' => array(
-			'_' => 'CSS-Selector für die Elemente, die entfernt werden sollen',
-			'help' => 'CSS-Selector könnte eine Liste sein, wie z.B.: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
+			'_' => 'CSS-Selektor für Elemente, die entfernt werden sollen',
+			'help' => 'Der CSS-Selektor kann eine Liste sein, z. B. <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
 		'description' => 'Beschreibung',
 		'empty' => 'Dieser Feed ist leer. Bitte stellen Sie sicher, dass er noch gepflegt wird.',
@@ -73,7 +73,7 @@ return array(
 		'export-as-opml' => array(
 			'download' => 'Download',	// IGNORE
 			'help' => 'XML Datei (ausgewählte Daten. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Siehe Dokumentation</a>)',
-			'label' => 'EAls OPML exportieren',
+			'label' => 'Als OPML exportieren',
 		),
 		'ext_favicon' => 'Automatisch festlegen',
 		'favicon_changed_by_ext' => 'Das Icon wurde von der Erweiterung <b>%s</b> festgelegt.',
@@ -82,11 +82,11 @@ return array(
 			'help' => 'Ein Suchfilter pro Zeile. Operatoren <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">siehe Dokumentation</a>.',
 			'view_filter' => 'Filter für vorhandene Artikel in der Vorschau anzeigen (neues Fenster)',
 		),
-		'http_headers' => 'HTTP Headers',	// IGNORE
-		'http_headers_help' => 'Headers werden durch einen Zeilenumbruch getrennt. Name und Wert des Headers werden per Doppelpunkt getrennt (z.B: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'http_headers' => 'HTTP-Header',
+		'http_headers_help' => 'Header werden durch einen Zeilenumbruch getrennt. Name und Wert eines Headers werden durch einen Doppelpunkt getrennt, z. B. <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>.',
 		'icon' => 'Icon',	// IGNORE
 		'information' => 'Informationen',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'Danach weitere Feeds hinzufügen',
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'kind' => array(
 			'_' => 'Art der Feed-Quelle',
@@ -94,25 +94,25 @@ return array(
 				'_' => 'HTML + XPath + JSON Punkt-Notation (JSON in HTML)',
 				'xpath' => array(
 					'_' => 'XPath für JSON in HTML',
-					'help' => 'Beispiel: <code>normalize-space(//script[@type="application/json"])</code> (einzelnes JSON)<br />oder: <code>//script[@type="application/ld+json"]</code> (ein JSON-Objekt pro Artikel)</code>',
+					'help' => 'Beispiel: <code>normalize-space(//script[@type="application/json"])</code> (einzelnes JSON)<br />oder: <code>//script[@type="application/ld+json"]</code> (ein JSON-Objekt pro Artikel)',
 				),
 			),
 			'html_xpath' => array(
-				'_' => 'HTML + XPath (Webseite scannen)',
+				'_' => 'HTML + XPath (Website scannen)',
 				'feed_title' => array(
-					'_' => 'Feed Title',
+					'_' => 'Feed-Titel',
 					'help' => 'Beispiel: <code>//title</code> oder ein statischer Text: <code>"Mein eigener Feed"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> ist eine standardisierte Query-Sprache für fortgeschrittene Nutzer und wird von FreshRSS genutzt, um die Webseite abzuscannen.',
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> ist eine standardisierte Abfragesprache für fortgeschrittene Nutzer und wird von FreshRSS zum Auslesen von Webseiten verwendet.',
 				'item' => array(
-					'_' => 'News <strong>Artikel</strong> finden<br /><small>(Sehr wichtig)</small>',
+					'_' => 'News-<strong>Artikel</strong> finden<br /><small>(sehr wichtig)</small>',
 					'help' => 'Beispiel: <code>//div[@class="news-artikel"]</code>',
 				),
 				'item_author' => array(
 					'_' => 'Artikel-Autor:in',
 					'help' => 'Kann auch ein statischer Text sein: <code>"Unbekannt"</code>',
 				),
-				'item_categories' => 'Artikel-(Hash)Tags',
+				'item_categories' => 'Artikel-Tags',
 				'item_content' => array(
 					'_' => 'Artikelinhalt',
 					'help' => 'Beispiel, um den vollen Artikel zu nehmen: <code>.</code>',
@@ -147,22 +147,22 @@ return array(
 			'json_dotnotation' => array(
 				'_' => 'JSON (Punktnotation)',
 				'feed_title' => array(
-					'_' => 'Feed Name',
+					'_' => 'Feed-Titel',
 					'help' => 'Beispiel: <code>meta.title</code> oder ein statischer String: <code>"Mein Feed"</code>',
 				),
-				'help' => 'JSON punktnotiert nutzt Punkte zwischen den Objekten und eckige Klammern für Arrays (e.g. <code>data.items[0].title</code>)',
+				'help' => 'JSON-Punktnotation verwendet Punkte zwischen Objekten und eckige Klammern für Arrays, z. B. <code>data.items[0].title</code>',
 				'item' => array(
-					'_' => 'News <strong>Items</strong> finden<br /><small>(sehr wichtig)</small>',
+					'_' => 'News-<strong>Einträge</strong> finden<br /><small>(sehr wichtig)</small>',
 					'help' => 'JSON-Pfad zum Array, das die Einträge enthält, z. B. <code>$</code> oder <code>newsItems</code>',
 				),
-				'item_author' => 'Item Autor',
-				'item_categories' => 'Item Hashtags',
+				'item_author' => 'Autor des Eintrags',
+				'item_categories' => 'Tags des Eintrags',
 				'item_content' => array(
-					'_' => 'Item Inhalt',
-					'help' => 'Schlüsslwort unter dem der Inhalt gefunden wird, z.B. <code>content</code>',
+					'_' => 'Inhalt des Eintrags',
+					'help' => 'Schlüssel, unter dem der Inhalt gefunden wird, z. B. <code>content</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'Item Vorschaubild',
+					'_' => 'Vorschaubild des Eintrags',
 					'help' => 'Beispiel: <code>image</code>',
 				),
 				'item_timeFormat' => array(
@@ -170,13 +170,13 @@ return array(
 					'help' => 'Optional. Format, das von <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> unterstützt wird, wie z.B. <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'Item Datum',
+					'_' => 'Datum des Eintrags',
 					'help' => 'Das Ergebnis wird von <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> geparst.',
 				),
-				'item_title' => 'Item Titel',
-				'item_uid' => 'Item einmalige ID',
+				'item_title' => 'Titel des Eintrags',
+				'item_uid' => 'Eindeutige ID des Eintrags',
 				'item_uri' => array(
-					'_' => 'Item Link (URL)',
+					'_' => 'Link des Eintrags (URL)',
 					'help' => 'Beispiel: <code>permalink</code>',
 				),
 				'json' => 'Punktnotation für:',
@@ -198,13 +198,13 @@ return array(
 		'max_http_redir' => 'Max HTTP Umleitungen',
 		'max_http_redir_help' => '0 oder leeres Feld = deaktiviert; -1 für unendlich viele Umleitungen',
 		'method' => array(
-			'_' => 'HTTP Methode',
+			'_' => 'HTTP-Methode',
 		),
 		'method_help' => 'Der POST-Payload unterstützt automatisch <code>application/x-www-form-urlencoded</code> und <code>application/json</code>',
 		'method_postparams' => 'Payload für POST',
 		'moved_category_deleted' => 'Wenn Sie eine Kategorie entfernen, werden deren Feeds automatisch in die Kategorie <em>%s</em> eingefügt.',
 		'mute' => array(
-			'_' => 'Stumm schalten',
+			'_' => 'Stummschalten',
 			'state_is_muted' => 'Dieser Feed ist stummgeschaltet',
 		),
 		'no_selected' => 'Kein Feed ausgewählt.',
@@ -216,7 +216,7 @@ return array(
 			'category' => 'In eigener Kategorie anzeigen',
 			'feed' => 'In seinem Feed anzeigen',
 			'hidden' => 'Nicht anzeigen',
-			'important' => 'In "Wichtige Feeds" anzeigen',
+			'important' => 'In „Wichtige Feeds“ anzeigen',
 			'main_stream' => 'In Haupt-Feeds zeigen',
 		),
 		'proxy' => 'Proxy für das Abrufen dieses Feeds festlegen',
@@ -242,7 +242,7 @@ return array(
 		'ttl' => 'Automatisch aktualisieren nicht öfter als',
 		'unicityCriteria' => array(
 			'_' => 'Artikel-Eindeutigkeits-Kriterien',
-			'forced' => '<span title="Eindeutigkeitskriterien blockieren, auch wenn der Feed doppelte Artikel enthält">Erzwingen</span>',
+			'forced' => '<span title="Eindeutigkeitskriterien anwenden, auch wenn der Feed doppelte Artikel enthält">Erzwingen</span>',
 			'help' => 'Relevant für defekte Feeds.<br />⚠️ Eine Änderung der Richtlinie führt zu Duplikaten.',
 			'id' => 'Standard ID (Standardeinstellung)',
 			'link' => 'Link',	// IGNORE
@@ -257,10 +257,10 @@ return array(
 			'sha1:title_published_content' => 'Titel + Datum + Inhalt',
 		),
 		'url' => 'Feed-URL',
-		'useragent' => 'Browser User Agent für den Abruf des Feeds verwenden',
+		'useragent' => 'User-Agent des Browsers für den Abruf des Feeds verwenden',
 		'useragent_help' => 'Beispiel: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Gültigkeit des Feeds überprüfen',
-		'website' => 'Webseiten-URL',
+		'website' => 'Website-URL',
 		'websub' => 'Sofortbenachrichtigung mit WebSub',
 	),
 	'import_export' => array(
