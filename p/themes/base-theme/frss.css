@@ -2519,14 +2519,14 @@ html.slider-active {
 	#overlay .close,
 	.dropdown-menu .toggle_aside,
 	#slider .toggle_aside {
-		box-sizing: border-box;
-		height: var(--height-header);
 		padding: 0 1rem;
 		display: flex;
+		width: 100%;
+		height: var(--height-header);
+		border-bottom: 1px solid var(--frss-border-color);
+		box-sizing: border-box;
 		align-items: center;
 		justify-content: center;
-		width: 100%;
-		border-bottom: 1px solid var(--frss-border-color);
 	}
 
 	.aside:not(.aside_feed) {
