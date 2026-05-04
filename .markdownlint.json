@@ -6,7 +6,15 @@
 	"line-length": false,
 	"no-hard-tabs": false,
 	"no-inline-html": {
-		"allowed_elements": ["br", "img", "kbd", "translations", "meta"]
+		"allowed_elements": [
+			"br",
+			"details",
+			"img",
+			"kbd",
+			"meta",
+			"summary",
+			"translations"
+		]
 	},
 	"no-multiple-blanks": {
 		"maximum": 2
