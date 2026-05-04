@@ -129,6 +129,37 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(404);
 		}
 
+		if (Minz_Request::paramString('saveSort', plaintext: true) !== ''
+				&& Minz_Request::isPost()
+				&& FreshRSS_Auth::hasAccess()
+				&& FreshRSS_Auth::isCsrfOk()) {
+			$userConf = FreshRSS_Context::userConf();
+			if ($userConf->sort !== FreshRSS_Context::$sort || $userConf->sort_order !== FreshRSS_Context::$order) {
+				$userConf->sort = FreshRSS_Context::$sort;
+				$userConf->sort_order = FreshRSS_Context::$order;
+				$userConf->save();
+			}
+			$redirect = Minz_Request::currentRequest();
+			unset($redirect['params']['saveSort'], $redirect['params']['_csrf']);
+			$hasOverride = false;
+			if (!empty(FreshRSS_Context::$current_get['feed'])) {
+				$id = FreshRSS_Context::$current_get['feed'];
+				$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id)
+					?? FreshRSS_Factory::createFeedDao()->searchById($id);
+				$hasOverride = $feed?->defaultSort() !== null || $feed?->defaultOrder() !== null;
+			} elseif (!empty(FreshRSS_Context::$current_get['category'])) {
+				$id = FreshRSS_Context::$current_get['category'];
+				$category = FreshRSS_Context::categories()[$id]
+					?? FreshRSS_Factory::createCategoryDao()->searchById($id);
+				$hasOverride = $category?->defaultSort() !== null || $category?->defaultOrder() !== null;
+			}
+			if (!$hasOverride) {
+				unset($redirect['params']['sort'], $redirect['params']['order']);
+			}
+			Minz_Request::forward($redirect, redirect: true);
+			return;
+		}
+
 		$this->_csp([
 			'default-src' => "'self'",
 			'frame-src' => '*',

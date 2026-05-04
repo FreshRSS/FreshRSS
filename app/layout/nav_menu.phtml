@@ -234,7 +234,7 @@
 			$title = _t('index.menu.sort.desc');
 		}
 		$url_order = Minz_Request::currentRequest();
-		unset($url_order['params']['cid']);
+		unset($url_order['params']['cid'], $url_order['params']['saveSort']);
 	?>
 	<div id="nav_menu_sort" class="group">
 		<div class="dropdown">
@@ -242,39 +242,39 @@
 			<a id="toggle-order" class="dropdown-toggle btn" href="#dropdown-sort" title="<?= _t('index.menu.sort.primary') ?>"><?= _i($icon) ?></a>
 			<ul class="dropdown-menu" role="radiogroup">
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'id' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'id', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.id_desc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'id', 'order' => 'DESC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.id_desc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'date' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'date', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.date_desc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'date', 'order' => 'DESC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.date_desc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'lastUserModified' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'lastUserModified', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.user_modified_desc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'lastUserModified', 'order' => 'DESC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.user_modified_desc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'length' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'length', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.length_desc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'length', 'order' => 'DESC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.length_desc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'link' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'link', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.link_desc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'link', 'order' => 'DESC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.link_desc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'title' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'title', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.title_desc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'title', 'order' => 'DESC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.title_desc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'f.name' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'f.name', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.f.name_desc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'f.name', 'order' => 'DESC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.f.name_desc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'c.name' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'c.name', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.c.name_desc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'c.name', 'order' => 'DESC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.c.name_desc') ?></button></li>
 				<li class="item separator" role="radio" aria-checked="<?= FreshRSS_Context::$sort === 'rand' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'rand', 'order' => null]]) ?>"><?= _t('index.menu.sort.rand') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'rand', 'order' => null, 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.rand') ?></button></li>
 				<li class="item separator" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'id' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'id', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.id_asc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'id', 'order' => 'ASC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.id_asc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'date' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'date', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.date_asc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'date', 'order' => 'ASC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.date_asc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'lastUserModified' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'lastUserModified', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.user_modified_asc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'lastUserModified', 'order' => 'ASC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.user_modified_asc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'length' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'length', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.length_asc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'length', 'order' => 'ASC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.length_asc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'link' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'link', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.link_asc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'link', 'order' => 'ASC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.link_asc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'title' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'title', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.title_asc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'title', 'order' => 'ASC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.title_asc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'f.name' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'f.name', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.f.name_asc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'f.name', 'order' => 'ASC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.f.name_asc') ?></button></li>
 				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'c.name' ? 'true' : 'false' ?>">
-					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'c.name', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.c.name_asc') ?></a></li>
+					<button class="as-link" form="post-csrf" type="submit" formaction="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'c.name', 'order' => 'ASC', 'saveSort' => '1']]) ?>"><?= _t('index.menu.sort.c.name_asc') ?></button></li>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>

@@ -48,11 +48,11 @@
 		<?php } ?>
 	</div>
 
+	<form id="post-csrf" method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+	</form>
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
 	<nav class="item configure">
-		<form id="post-csrf" method="post">
-			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		</form>
 		<div class="dropdown">
 			<div id="dropdown-configure" class="dropdown-target"></div>
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><?= _i('configure') ?></a>
