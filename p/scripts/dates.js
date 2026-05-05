@@ -95,11 +95,18 @@
 		root.querySelectorAll('time[datetime]').forEach(scheduleElement);
 	}
 
+	// DOMContentLoaded for normal loads; pageshow covers bfcache restores where
+	// the browser re-uses a cached page without re-executing scripts.
 	if (document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', () => scheduleAll(document.body));
 	} else {
 		scheduleAll(document.body);
 	}
+	window.addEventListener('pageshow', (event) => {
+		if (event.persisted) {
+			scheduleAll(document.body);
+		}
+	});
 
 	// Watch for <time> elements added dynamically (e.g. infinite scroll).
 	const mutationObserver = new MutationObserver((mutations) => {
