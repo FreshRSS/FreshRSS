@@ -217,13 +217,15 @@ button.as-link[disabled] {
 
 .btn.active,
 .btn:active,
-.dropdown-target:target ~ .btn.dropdown-toggle {
+.dropdown-target:target ~ .btn.dropdown-toggle,
+:root:not(.aside_hidden) #nav_menu_toggle_aside .btn {
 	background-color: var(--dark-background-color3);
 	box-shadow: none;
 }
 
 .btn.active .icon,
-.dropdown-target:target ~ .btn.dropdown-toggle .icon {
+.dropdown-target:target ~ .btn.dropdown-toggle .icon,
+:root:not(.aside_hidden) #nav_menu_toggle_aside .btn .icon {
 	filter: brightness(1);
 }
 

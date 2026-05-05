@@ -231,7 +231,8 @@ th {
 
 .btn.active,
 .btn:active,
-.dropdown-target:target ~ .btn.dropdown-toggle {
+.dropdown-target:target ~ .btn.dropdown-toggle,
+:root:not(.aside_hidden) #nav_menu_toggle_aside .btn {
 	background: var(--background-color-light);
 }
 
@@ -1139,7 +1140,7 @@ kbd {
 		filter: brightness(2);
 	}
 
-	.aside.visible + .close-aside, .configure .dropdown-target:target ~ .dropdown-close {
+	:root:not(.aside_hidden) .aside + .close-aside, .configure .dropdown-target:target ~ .dropdown-close {
 		background-color: var(--background-color-slider-shadow);
 	}
 

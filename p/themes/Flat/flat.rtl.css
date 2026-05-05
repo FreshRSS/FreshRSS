@@ -194,7 +194,8 @@ th {
 .btn.active,
 .btn:active,
 .btn:hover,
-.dropdown-target:target ~ .btn.dropdown-toggle {
+.dropdown-target:target ~ .btn.dropdown-toggle,
+:root:not(.aside_hidden) #nav_menu_toggle_aside .btn {
 	background: #2980b9;
 }
 

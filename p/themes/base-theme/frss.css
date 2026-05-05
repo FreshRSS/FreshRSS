@@ -1334,7 +1334,7 @@ input[type="search"] {
 	vertical-align: top;
 }
 
-.aside.is-hidden {
+:root.aside_hidden .aside {
 	display: none;
 }
 
@@ -1942,7 +1942,7 @@ a.website:hover .favicon {
 	z-index: 50;
 }
 
-.aside:not(.visible) ~ #nav_entries {
+:root.aside_hidden .aside ~ #nav_entries {
 	display: none;
 }
 
@@ -2418,7 +2418,7 @@ html.slider-active {
 	display: none;
 }
 
-.reader .aside.visible {
+:root:not(.aside_hidden) .reader .aside {
 	display: table-cell;
 	width: var(--width-aside);
 }
@@ -2505,11 +2505,11 @@ html.slider-active {
 		display: none;
 	}
 
-	/* Material navigation drawer: theme width, capped at viewport minus 56px touch-peek */
-	.aside.visible {
-		width: min(var(--width-aside), calc(100vw - 56px));
-		height: 100vh;
-		box-shadow: 3px 3px 5px var(--frss-box-shadow-color-transparent);
+	/* Narrow drawer collapse: keep display so the width transition runs */
+	:root.aside_hidden .aside {
+		display: block;
+		width: 0;
+		box-shadow: none;
 	}
 
 	.aside .toggle_aside,
@@ -2755,7 +2755,7 @@ html.slider-active {
 		}
 	}
 
-	.aside.visible + .close-aside,
+	:root:not(.aside_hidden) .aside + .close-aside,
 	.configure .dropdown-target:target ~ .dropdown-close {
 		background-color: var(--frss-modal-background-color-transparent);
 		display: block;
@@ -2777,11 +2777,14 @@ html.slider-active {
 		display: initial;
 	}
 
+	/* Material navigation drawer: theme width, capped at viewport minus 56px touch-peek */
 	.aside {
 		position: fixed;
 		top: 0; bottom: 0;
 		left: -1px;
-		width: 0;
+		width: min(var(--width-aside), calc(100vw - 56px));
+		height: 100vh;
+		box-shadow: 3px 3px 5px var(--frss-box-shadow-color-transparent);
 		overflow: hidden;
 		z-index: 100;
 		transition: width 200ms linear;

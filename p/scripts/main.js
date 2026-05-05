@@ -924,67 +924,42 @@ function init_posts() {
 	}
 }
 
-function toggle_aside_click(manual = true) {
-	const aside = document.querySelector('.aside');
-	const toggle_aside = document.querySelector('#nav_menu_toggle_aside button');
-	if (!toggle_aside) {
-		return;
-	}
-
-	const active = toggle_aside.classList.contains('active');
-	const isNarrow = window.matchMedia('(max-width: 840px)').matches;
-	if (active) {
-		toggle_aside.classList.remove('active');
-		aside.classList.remove('visible');
-		aside.classList.toggle('is-hidden', !isNarrow);
-	} else {
-		toggle_aside.classList.add('active');
-		aside.classList.add('visible');
-		aside.classList.remove('is-hidden');
-	}
-
+function setAsideHidden(hidden, manual = true) {
+	document.documentElement.classList.toggle('aside_hidden', hidden);
 	if (manual && ['normal', 'reader'].includes(context.current_view)) {
-		sessionStorage.setItem(`FreshRSS_aside-toggled_${context.current_view}`, !active ? 1 : 0);
+		sessionStorage.setItem(`FreshRSS_aside-toggled_${context.current_view}`, hidden ? 0 : 1);
 	}
 }
 
+function toggle_aside_click(manual = true) {
+	setAsideHidden(!document.documentElement.classList.contains('aside_hidden'), manual);
+}
+
 function init_nav_menu() {
-	const aside = document.querySelector('.aside');
 	const toggle_aside = document.querySelector('#nav_menu_toggle_aside button');
 	if (!toggle_aside) {
 		return;
 	}
 
-	function sync(e) {
-		const active = toggle_aside.classList.contains('active');
-		if ((e.matches && active) || (!e.matches && !active)) {
-			toggle_aside_click(false);
-		}
-	}
-
+	// Re-evaluate the viewport-dependent fallback when the user has not made a session choice
 	const media = window.matchMedia('(max-width: 840px)');
-	media.onchange = sync;
+	media.onchange = () => {
+		const state = sessionStorage.getItem(`FreshRSS_aside-toggled_${context.current_view}`);
+		if (state !== null) return;
+		let shouldHide;
+		if (context.current_view === 'reader') shouldHide = true;
+		else if (media.matches) shouldHide = true;
+		else shouldHide = !!context.sidebar_hidden_by_default;
+		setAsideHidden(shouldHide, false);
+	};
 
-	const state = sessionStorage.getItem(`FreshRSS_aside-toggled_${context.current_view}`);
-	if (state !== null) {
-		const active = toggle_aside.classList.contains('active');
-		if (state != active) toggle_aside_click(false);
-	}
-	if (toggle_aside.classList.contains('active')) {
-		if (context.current_view === 'normal') aside.classList.add('visible');
-		sync(media);
-	}
-	if (state === null && context.sidebar_hidden_by_default && ['normal', 'reader'].includes(context.current_view)) {
-		const active = toggle_aside.classList.contains('active');
-		if (active) toggle_aside_click(false);
-	}
 	const close_aside = [
 		document.querySelector('.aside a.toggle_aside'),
 		document.querySelector('a.close-aside'), // background of aside (#close)
 	];
 
 	toggle_aside.addEventListener('click', toggle_aside_click);
-	close_aside.forEach(close => close.addEventListener('click', toggle_aside_click));
+	close_aside.forEach(close => close && close.addEventListener('click', toggle_aside_click));
 }
 
 function rememberOpenCategory(category_id, isOpen) {

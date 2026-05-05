@@ -214,7 +214,8 @@ table th, table td {
 	line-height: 25px;
 }
 
-.btn.active {
+.btn.active,
+:root:not(.aside_hidden) #nav_menu_toggle_aside .btn {
 	background-color: var(--main-background);
 	border: 1px solid var(--accent);
 }
@@ -1229,7 +1230,7 @@ optgroup::before {
 /*===========*/
 
 @media (max-width: 840px) {
-	.aside.visible + .close-aside,
+	:root:not(.aside_hidden) .aside + .close-aside,
 	.configure .dropdown-target:target ~ .dropdown-close {
 		backdrop-filter: grayscale(60%) blur(1px);
 	}

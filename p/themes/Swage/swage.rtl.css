@@ -878,7 +878,7 @@ main.post .drop-section li.item.feed a:hover .icon {
 	margin-bottom: 1rem;
 }
 
-.aside.visible .toggle_aside {
+:root:not(.aside_hidden) .aside .toggle_aside {
 	border-bottom: 1px solid var(--frss-border-color);
 }
 
@@ -1240,7 +1240,7 @@ body.reader {
 		text-align: center;
 	}
 
-	.aside.visible {
+	:root:not(.aside_hidden) .aside {
 		padding-top: 0;
 	}
 }
@@ -1426,9 +1426,8 @@ main.global {
 			margin-left: auto;
 		}
 
-		&:target {
-			width: 78% !important;
-			z-index: 1000;
+		:root:not(.aside_hidden) & {
+			width: min(var(--width-aside), calc(100vw - 56px));
 		}
 	}
 
@@ -1717,6 +1716,6 @@ button.as-link {
 	}
 }
 
-body:has(.aside:not(.visible)) .header .item.title {
+:root.aside_hidden .header .item.title {
 	display: none;
 }

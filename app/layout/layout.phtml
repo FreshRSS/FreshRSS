@@ -34,6 +34,7 @@
 		<script id="jsonVars" type="application/json">
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
+		<script src="<?= Minz_Url::display('/scripts/aside_init.js?' . @filemtime(PUBLIC_PATH . '/scripts/aside_init.js')) ?>"></script>
 		<?= FreshRSS_View::headScript() ?>
 		<link rel="manifest" href="<?= Minz_Url::display('/themes/manifest.json') ?>" />
 		<link rel="icon" id="favicon" type="image/svg+xml" href="<?= Minz_Url::display('/themes/icons/favicon.svg') ?>" />

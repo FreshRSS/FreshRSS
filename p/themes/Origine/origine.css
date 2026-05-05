@@ -310,7 +310,8 @@ button:hover .icon,
 
 .btn.active,
 .btn:active,
-.dropdown-target:target ~ .btn.dropdown-toggle {
+.dropdown-target:target ~ .btn.dropdown-toggle,
+:root:not(.aside_hidden) #nav_menu_toggle_aside .btn {
 	background-color: var(--background-color-grey);
 	box-shadow: 0px 2px 4px var(--box-shadow-color-inset) inset, 0px 1px 2px var(--background-color-grey);
 }
@@ -319,12 +320,14 @@ button:hover .icon,
 	filter: brightness(1.1);
 }
 
-.btn.active, .btn:active {
+.btn.active, .btn:active,
+:root:not(.aside_hidden) #nav_menu_toggle_aside .btn {
 	filter: brightness(0.95);
 }
 
 .btn.active .icon,
-.btn:active .icon {
+.btn:active .icon,
+:root:not(.aside_hidden) #nav_menu_toggle_aside .btn .icon {
 	filter: brightness(1.1);
 }
 
@@ -1163,7 +1166,7 @@ button:hover .icon,
 		padding-bottom: 0;
 	}
 
-	.aside.visible {
+	.aside {
 		box-shadow: 3px 0 3px var(--text-shadow-color);
 	}
 
@@ -1334,7 +1337,8 @@ button:hover .icon,
 
 	:root.darkMode_auto .nav_menu .btn.active,
 	:root.darkMode_auto .nav_menu .btn:active,
-	:root.darkMode_auto .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle {
+	:root.darkMode_auto .nav_menu .dropdown-target:target ~ .btn.dropdown-toggle,
+	:root.darkMode_auto:not(.aside_hidden) #nav_menu_toggle_aside .btn {
 		background: #292929;
 	}
 
@@ -1351,7 +1355,8 @@ button:hover .icon,
 	}
 
 	:root.darkMode_auto .btn.active .icon,
-	:root.darkMode_auto .btn:active .icon {
+	:root.darkMode_auto .btn:active .icon,
+	:root.darkMode_auto:not(.aside_hidden) #nav_menu_toggle_aside .btn .icon {
 		filter: brightness(1.4);
 	}
 
