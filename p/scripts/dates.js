@@ -26,24 +26,33 @@
 	const language = (vars?.i18n?.language || 'en').replace('_', '-');
 
 	// Build a BCP 47 locale tag with the calendar extension, e.g. 'fa-u-ca-persian'.
-	const locale = calendar === 'gregory'
+	// For Gregorian, keep the language as-is (it's the default calendar).
+	const localeWithCalendar = calendar === 'gregory'
 		? language
 		: language + '-u-ca-' + calendar;
 
+	const formatterOptions = {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
+		timeZone: timezone,
+	};
+
+	// Try the user's language + calendar first; if the browser rejects that
+	// locale/calendar combination, fall back to a language-neutral locale so
+	// at least the calendar system is applied.
 	let formatter;
-	try {
-		formatter = new Intl.DateTimeFormat(locale, {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric',
-			hour: '2-digit',
-			minute: '2-digit',
-			timeZone: timezone,
-		});
-	} catch (e) {
-		// Unsupported locale/calendar combination — bail gracefully.
-		return;
+	for (const loc of [localeWithCalendar, 'und-u-ca-' + calendar, 'en-u-ca-' + calendar]) {
+		try {
+			formatter = new Intl.DateTimeFormat(loc, formatterOptions);
+			break;
+		} catch (e) {
+			// Try next locale candidate.
+		}
 	}
+	if (!formatter) return;
 
 	/** Convert a single <time> element in-place. */
 	function convertElement(el) {
@@ -65,31 +74,61 @@
 		root.querySelectorAll('time[datetime]').forEach(convertElement);
 	}
 
+	// Use IntersectionObserver to defer conversion until elements are near the
+	// viewport — avoids doing work for off-screen articles in long lists.
+	const intersectionObserver = new IntersectionObserver((entries) => {
+		for (const entry of entries) {
+			if (entry.isIntersecting) {
+				convertElement(entry.target);
+				intersectionObserver.unobserve(entry.target);
+			}
+		}
+	}, { rootMargin: '100px' });
+
+	function scheduleElement(el) {
+		if (!el.dataset.intlDone) {
+			intersectionObserver.observe(el);
+		}
+	}
+
+	function scheduleAll(root) {
+		root.querySelectorAll('time[datetime]').forEach(scheduleElement);
+	}
+
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', () => convertAll(document.body));
+		document.addEventListener('DOMContentLoaded', () => scheduleAll(document.body));
 	} else {
-		convertAll(document.body);
+		scheduleAll(document.body);
 	}
 
 	// Watch for <time> elements added dynamically (e.g. infinite scroll).
-	const observer = new MutationObserver((mutations) => {
+	const mutationObserver = new MutationObserver((mutations) => {
 		for (const mutation of mutations) {
 			for (const node of mutation.addedNodes) {
 				if (node.nodeType !== 1) continue; // element nodes only
 				if (node.matches('time[datetime]')) {
-					convertElement(node);
+					scheduleElement(node);
 				}
-				// Descendants of the added node.
-				const times = node.querySelectorAll('time[datetime]');
-				if (times.length > 0) {
-					times.forEach(convertElement);
-				}
+				node.querySelectorAll('time[datetime]').forEach(scheduleElement);
 			}
 		}
 	});
 
-	observer.observe(document.body || document.documentElement, {
-		childList: true,
-		subtree: true,
+	function connectMutationObserver() {
+		mutationObserver.observe(document.body || document.documentElement, {
+			childList: true,
+			subtree: true,
+		});
+	}
+
+	connectMutationObserver();
+
+	// Pause observation while the tab is hidden; resume on return.
+	document.addEventListener('visibilitychange', () => {
+		if (document.hidden) {
+			mutationObserver.disconnect();
+		} else {
+			connectMutationObserver();
+		}
 	});
 })();

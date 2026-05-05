@@ -116,7 +116,7 @@
 						<td class="feed-count"><?= is_numeric($values['feed_count']) ? format_number($values['feed_count']) : '?' ?></td>
 						<td class="article-count"><?= is_numeric($values['article_count']) ? format_number($values['article_count']) : '?' ?></td>
 						<td class="database-size"><?= is_numeric($values['database_size']) ? format_bytes($values['database_size']) : '?' ?></td>
-						<td><?= $values['last_user_activity'] ?></td>
+						<td><?php $ts = strtotime($values['last_user_activity']); ?><?php if ($ts): ?><time datetime="<?= $values['last_user_activity'] ?>"><?= timestamptodate($ts) ?></time><?php else: ?>&nbsp;<?php endif; ?></td>
 					</tr>
 				<?php endforeach ?>
 			</tbody>
