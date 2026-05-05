@@ -11,15 +11,9 @@
 (function () {
 	const SETTINGS_CACHE_KEY = 'freshrss:intl-date-settings';
 
-	const jsonVars = document.getElementById('jsonVars');
-	if (!jsonVars) return;
-
-	let vars;
-	try {
-		vars = JSON.parse(jsonVars.textContent);
-	} catch (e) {
-		return;
-	}
+	// main.js removes #jsonVars from the DOM and stores its contents in the
+	// global `context` object. Read calendar settings from there instead.
+	if (typeof context === 'undefined') return;
 
 	function readCachedSettings() {
 		try {
@@ -77,19 +71,28 @@
 		return null;
 	}
 
-	const serverSettings = normaliseSettings({
-		intl_calendar: vars?.context?.intl_calendar,
-		timezone: vars?.context?.timezone,
-		language: vars?.i18n?.language,
+	// Always trust the server-side context for the current page load.
+	let activeSettings = normaliseSettings({
+		intl_calendar: context.intl_calendar,
+		timezone: context.timezone,
+		language: context.i18n?.language,
 	}, 'en');
-	const cachedSettings = readCachedSettings();
-	let activeSettings = cachedSettings
-		? normaliseSettings(cachedSettings, serverSettings.language)
-		: serverSettings;
 
 	let formatter = createFormatter(activeSettings);
 	if (!formatter) {
 		return;
+	}
+
+	// Persist current settings so bfcache-restored pages can update their formatter
+	// without a full page reload. No need for an inline script on the settings page.
+	try {
+		localStorage.setItem(SETTINGS_CACHE_KEY, JSON.stringify({
+			intl_calendar: activeSettings.intl_calendar,
+			timezone: activeSettings.timezone || '',
+			language: activeSettings.language,
+		}));
+	} catch (e) {
+		// Ignore localStorage errors (private mode, quota, etc.).
 	}
 
 	/** Convert a single <time> element in-place. */
@@ -139,33 +142,35 @@
 	} else {
 		scheduleAll(document.body);
 	}
-	// On bfcache restore, refresh formatter from cached settings instead of
-	// reloading the page.
+	// On bfcache restore, `context` is stale (it belongs to the cached page).
+	// Read the settings the user last saved to localStorage and reformat if they differ.
 	window.addEventListener('pageshow', (event) => {
-		if (event.persisted) {
-			const nextCached = readCachedSettings();
-			if (!nextCached) {
-				return;
-			}
-
-			const nextSettings = normaliseSettings(nextCached, activeSettings.language);
-			if (settingsSignature(nextSettings) === settingsSignature(activeSettings)) {
-				return;
-			}
-
-			const nextFormatter = createFormatter(nextSettings);
-			if (!nextFormatter) {
-				return;
-			}
-
-			activeSettings = nextSettings;
-			formatter = nextFormatter;
-
-			document.querySelectorAll('time[datetime]').forEach((el) => {
-				delete el.dataset.intlDone;
-				scheduleElement(el);
-			});
+		if (!event.persisted) {
+			return;
 		}
+
+		const nextCached = readCachedSettings();
+		if (!nextCached) {
+			return;
+		}
+
+		const nextSettings = normaliseSettings(nextCached, activeSettings.language);
+		if (settingsSignature(nextSettings) === settingsSignature(activeSettings)) {
+			return;
+		}
+
+		const nextFormatter = createFormatter(nextSettings);
+		if (!nextFormatter) {
+			return;
+		}
+
+		activeSettings = nextSettings;
+		formatter = nextFormatter;
+
+		document.querySelectorAll('time[datetime]').forEach((el) => {
+			delete el.dataset.intlDone;
+			scheduleElement(el);
+		});
 	});
 
 	// Watch for <time> elements added dynamically (e.g. infinite scroll).

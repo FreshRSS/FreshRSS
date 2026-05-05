@@ -324,25 +324,4 @@
 			</div>
 		</div>
 	</form>
-	<script>
-		(function () {
-			const SETTINGS_CACHE_KEY = 'freshrss:intl-date-settings';
-			const form = document.querySelector('form[action*="configure/display"]');
-			if (!form) {
-				return;
-			}
-
-			form.addEventListener('submit', () => {
-				try {
-					localStorage.setItem(SETTINGS_CACHE_KEY, JSON.stringify({
-						intl_calendar: document.getElementById('intl_calendar')?.value || '',
-						timezone: document.getElementById('timezone')?.value || '',
-						language: document.getElementById('language')?.value || 'en',
-					}));
-				} catch (e) {
-					// Ignore localStorage errors (private mode, quota, etc.).
-				}
-			});
-		})();
-	</script>
 </main>

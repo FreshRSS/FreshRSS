@@ -147,7 +147,8 @@ class FreshRSS extends Minz_FrontController {
 		}
 		FreshRSS_View::prependScript(Minz_Url::display('/scripts/main.js?' . @filemtime(PUBLIC_PATH . '/scripts/main.js')));
 		if ((FreshRSS_Context::userConf()->intl_calendar ?? '') !== '') {
-			FreshRSS_View::appendScript(Minz_Url::display('/scripts/dates.js?' . @filemtime(PUBLIC_PATH . '/scripts/dates.js')));
+			// async=false: must execute in order after main.js (which sets the global `context`)
+			FreshRSS_View::appendScript(Minz_Url::display('/scripts/dates.js?' . @filemtime(PUBLIC_PATH . '/scripts/dates.js')), async: false);
 		}
 	}
 
