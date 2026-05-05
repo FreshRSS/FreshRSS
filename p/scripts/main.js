@@ -941,14 +941,19 @@ function init_nav_menu() {
 		return;
 	}
 
-	// Re-evaluate the viewport-dependent fallback when the user has not made a session choice
 	const media = window.matchMedia('(max-width: 840px)');
-	media.onchange = () => {
+	media.onchange = (e) => {
+		if (e.matches) {
+			// Narrow: sidebar overlays content. Hide it without persisting,
+			// so the wide-view preference is preserved for the round trip.
+			setAsideHidden(true, false);
+			return;
+		}
 		const state = sessionStorage.getItem(`FreshRSS_aside-toggled_${context.current_view}`);
-		if (state !== null) return;
 		let shouldHide;
-		if (context.current_view === 'reader') shouldHide = true;
-		else if (media.matches) shouldHide = true;
+		if (state === '1') shouldHide = false;
+		else if (state === '0') shouldHide = true;
+		else if (context.current_view === 'reader') shouldHide = true;
 		else shouldHide = !!context.sidebar_hidden_by_default;
 		setAsideHidden(shouldHide, false);
 	};
