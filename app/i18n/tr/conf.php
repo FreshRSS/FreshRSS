@@ -48,7 +48,7 @@ return array(
 			'summary' => 'Özet',
 			'top_line' => 'Üst satır',
 		),
-		'intl_calendar' => 'Date calendar',	// TODO
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Dil',
 		'notif_html5' => array(
 			'seconds' => 'saniye (0, zaman aşımı yok anlamına gelir)',

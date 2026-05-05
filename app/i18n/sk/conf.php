@@ -48,7 +48,7 @@ return array(
 			'summary' => 'Zhrnutie',
 			'top_line' => 'Horný riadok',
 		),
-		'intl_calendar' => 'Date calendar',	// TODO
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Jazyk',
 		'notif_html5' => array(
 			'seconds' => 'sekundy (0 znamená bez limitu)',

@@ -48,7 +48,7 @@ return array(
 			'summary' => 'Zusammenfassung',
 			'top_line' => 'Kopfzeile',
 		),
-		'intl_calendar' => 'Date calendar',	// TODO
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Sprache',
 		'notif_html5' => array(
 			'seconds' => 'Sekunden (0 bedeutet keine Zeitüberschreitung)',

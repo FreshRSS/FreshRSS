@@ -48,7 +48,7 @@ return array(
 			'summary' => 'Összegzés',
 			'top_line' => 'Felső sor',
 		),
-		'intl_calendar' => 'Date calendar',	// TODO
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Nyelv',
 		'notif_html5' => array(
 			'seconds' => 'másodpercek (A 0 azt jelenti, hogy nincs időkorlát)',

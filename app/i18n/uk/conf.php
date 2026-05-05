@@ -48,7 +48,7 @@ return array(
 			'summary' => 'Підсумок',
 			'top_line' => 'Верхній рядок',
 		),
-		'intl_calendar' => 'Date calendar',	// TODO
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Мова',
 		'notif_html5' => array(
 			'seconds' => 'секунд (0 означає без тайм-ауту)',

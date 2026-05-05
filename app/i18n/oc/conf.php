@@ -48,7 +48,7 @@ return array(
 			'summary' => 'Resumit',
 			'top_line' => 'Linha amont',
 		),
-		'intl_calendar' => 'Date calendar',	// TODO
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Lenga',
 		'notif_html5' => array(
 			'seconds' => 'segondas (0 significa cap de timeout)',

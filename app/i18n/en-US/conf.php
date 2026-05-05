@@ -48,7 +48,7 @@ return array(
 			'summary' => 'Summary',	// IGNORE
 			'top_line' => 'Top line',	// IGNORE
 		),
-		'intl_calendar' => 'Date calendar',	// IGNORE
+		'intl_calendar' => 'Calendar',	// IGNORE
 		'language' => 'Language',	// IGNORE
 		'notif_html5' => array(
 			'seconds' => 'seconds (0 means no timeout)',	// IGNORE

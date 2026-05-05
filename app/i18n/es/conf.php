@@ -48,7 +48,7 @@ return array(
 			'summary' => 'Resumen',
 			'top_line' => 'Línea superior',
 		),
-		'intl_calendar' => 'Date calendar',	// TODO
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Idioma',
 		'notif_html5' => array(
 			'seconds' => 'segundos (0 significa sin límite de espera)',

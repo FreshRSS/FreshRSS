@@ -48,7 +48,7 @@ return array(
 			'summary' => 'Ringkasan',
 			'top_line' => 'Baris atas',
 		),
-		'intl_calendar' => 'Date calendar',	// TODO
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Bahasa',
 		'notif_html5' => array(
 			'seconds' => 'detik (0 berarti tanpa batas waktu)',
