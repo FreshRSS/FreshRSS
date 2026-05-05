@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'segundos (0 significa sem timeout)',
 			'timeout' => 'Notificação em HTML5 de timeout',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Mostrar botões de navegação',
 		'show_title_unread' => 'Mostrar o número de artigos não lidos no título',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

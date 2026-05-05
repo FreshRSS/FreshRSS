@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'saniye (0, zaman aşımı yok anlamına gelir)',
 			'timeout' => 'HTML5 bildirim zaman aşımı',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Gezinme düğmelerini göster',
 		'show_title_unread' => 'Başlıkta okunmamış makale sayısını göster',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

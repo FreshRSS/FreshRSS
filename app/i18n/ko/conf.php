@@ -53,6 +53,7 @@ return array(
 			'seconds' => '초 (0: 타임아웃 없음)',
 			'timeout' => 'HTML5 알림 타임아웃',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
 		'show_title_unread' => '제목에 읽지 않은 기사 수 표시',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

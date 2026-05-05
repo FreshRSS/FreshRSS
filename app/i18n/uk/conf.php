@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'секунд (0 означає без тайм-ауту)',
 			'timeout' => 'Тайм-аут сповіщення HTML5',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Показати кнопки навігації',
 		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

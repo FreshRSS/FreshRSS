@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'sekundes (0 nozīmē, ka nav laika ierobežojuma)',
 			'timeout' => 'HTML5 paziņojuma laika ierobežojums',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Rādīt navigācijas pogas',
 		'show_title_unread' => 'Rādīt nelasīto rakstu skaitu virsrakstā',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

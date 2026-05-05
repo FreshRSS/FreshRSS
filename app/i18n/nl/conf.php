@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'seconden (0 betekent geen stop)',
 			'timeout' => 'HTML5 notificatie stop',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'show_title_unread' => 'Aantal ongelezen artikelen in de titel weergeven',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

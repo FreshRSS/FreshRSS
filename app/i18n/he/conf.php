@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'שניות (0 משמעותה ללא פג תוקף)',
 			'timeout' => 'HTML5 התראה פג תוקף',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
 		'show_title_unread' => 'הצגת מספר המאמרים שלא נקראו בכותרת',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

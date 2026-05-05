@@ -171,6 +171,16 @@
 		</div>
 
 		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="show_favicons">
+					<input type="checkbox" name="show_favicons" id="show_favicons" value="1"<?=
+						FreshRSS_Context::userConf()->show_favicons ? ' checked="checked"' : '' ?> />
+					<?= _t('conf.display.show_feed_icons_in_lists') ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name"><?= _t('conf.display.icon.entry') ?></label>
 			<div class="group-controls">
 				<table class="config-articleicons">

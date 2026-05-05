@@ -63,6 +63,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->topline_date = Minz_Request::paramBoolean('topline_date');
 			FreshRSS_Context::userConf()->topline_link = Minz_Request::paramBoolean('topline_link');
 			FreshRSS_Context::userConf()->topline_website = Minz_Request::paramString('topline_website');
+			FreshRSS_Context::userConf()->show_favicons = Minz_Request::paramBoolean('show_favicons');
 			FreshRSS_Context::userConf()->topline_thumbnail = Minz_Request::paramString('topline_thumbnail');
 			FreshRSS_Context::userConf()->topline_summary = Minz_Request::paramBoolean('topline_summary');
 			FreshRSS_Context::userConf()->topline_display_authors = Minz_Request::paramBoolean('topline_display_authors');

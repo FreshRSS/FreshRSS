@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'sekuntia (0 - ei taukoa)',
 			'timeout' => 'Tauko HTML5-ilmoitusten välissä',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Näytä siirtymispainikkeet',
 		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

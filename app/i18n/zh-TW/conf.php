@@ -53,6 +53,7 @@ return array(
 			'seconds' => '秒 (0 代表無逾時)',
 			'timeout' => 'HTML5 通知逾時',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => '顯示導覽按鈕',
 		'show_title_unread' => '在標題中顯示未讀文章的數量',
 		'sidebar_hidden_by_default' => '預設隱藏側邊欄',

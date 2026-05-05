@@ -53,6 +53,7 @@ return array(
 			'seconds' => ' ثانیه (0 به معنای عدم وجود مهلت زمانی است)',
 			'timeout' => ' وقفه اعلان HTML5',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => ' دکمه های ناوبری را نشان دهید',
 		'show_title_unread' => 'نمایش تعداد مقالات خوانده نشده در عنوان',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

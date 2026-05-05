@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'sekund (0 znamená žádný časový limit)',
 			'timeout' => 'Časový limit HTML5 oznámení',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Zobrazit navigační tlačítka',
 		'show_title_unread' => 'Zobrazit počet nepřečtených článků v názvu',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'Sekunden (0 bedeutet keine Zeitüberschreitung)',
 			'timeout' => 'Zeitüberschreitung für HTML5-Benachrichtigung',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Navigationsschaltflächen anzeigen',
 		'show_title_unread' => 'Anzahl ungelesener Artikel im Titel anzeigen',
 		'sidebar_hidden_by_default' => 'Seitenleiste standardmäßig ausblenden',

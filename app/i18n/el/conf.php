@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'seconds (0 means no timeout)',	// TODO
 			'timeout' => 'HTML5 notification timeout',	// TODO
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
 		'show_title_unread' => 'Εμφάνιση αριθμού μη αναγνωσμένων άρθρων στον τίτλο',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'segondas (0 significa cap de timeout)',
 			'timeout' => 'Temps d’afichatge de las notificacions HTML5',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
 		'show_title_unread' => 'Mostra lo nombre d’articles non legits dins lo títol',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO

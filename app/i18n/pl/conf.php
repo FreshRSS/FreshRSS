@@ -53,6 +53,7 @@ return array(
 			'seconds' => 'sekund (0 oznacza wartość domyślną przeglądarki)',
 			'timeout' => 'Czas wyświetlania powiadomienia HTML5',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
 		'show_title_unread' => 'Pokaż liczbę nieprzeczytanych artykułów w tytule',
 		'sidebar_hidden_by_default' => 'Ukryj pasek boczny domyślnie',

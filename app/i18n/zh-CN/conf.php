@@ -53,6 +53,7 @@ return array(
 			'seconds' => '秒（0 表示不超时）',
 			'timeout' => 'HTML5 通知超时时间',
 		),
+		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
 		'show_nav_buttons' => '显示导航按钮',
 		'show_title_unread' => '在标题中显示未读文章的数量',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
