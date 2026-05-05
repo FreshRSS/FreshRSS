@@ -53,7 +53,7 @@ return array(
 			'seconds' => 'secondes (0 signifie aucun timeout)',
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
-		'show_feed_icons_in_lists' => 'Show feed icons in lists',	// TODO
+		'show_feed_icons_in_lists' => 'Afficher les favicônes des flux dans les listes',
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
 		'show_title_unread' => 'Afficher le nombre d’articles non lus dans le titre',
 		'sidebar_hidden_by_default' => 'Masquer la barre latérale par défaut',
