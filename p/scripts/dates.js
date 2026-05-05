@@ -11,10 +11,6 @@
 (function () {
 	const SETTINGS_CACHE_KEY = 'freshrss:intl-date-settings';
 
-	// main.js removes #jsonVars from the DOM and stores its contents in the
-	// global `context` object. Read calendar settings from there instead.
-	if (typeof context === 'undefined') return;
-
 	function readCachedSettings() {
 		try {
 			const value = localStorage.getItem(SETTINGS_CACHE_KEY);
@@ -71,136 +67,152 @@
 		return null;
 	}
 
-	// Always trust the server-side context for the current page load.
-	let activeSettings = normaliseSettings({
-		intl_calendar: context.intl_calendar,
-		timezone: context.timezone,
-		language: context.i18n?.language,
-	}, 'en');
+	// main.js removes #jsonVars and stores its contents in the global `context`,
+	// then dispatches `freshrss:globalContextLoaded`. main.js is async so it may
+	// run after this defer script; listen for the event as a safe entry point.
+	function init() {
+		if (typeof context === 'undefined') return;
 
-	let formatter = createFormatter(activeSettings);
-	if (!formatter) {
-		return;
-	}
+		// Always trust the server-side context for the current page load.
+		let activeSettings = normaliseSettings({
+			intl_calendar: context.intl_calendar,
+			timezone: context.timezone,
+			language: context.i18n?.language,
+		}, 'en');
 
-	// Persist current settings so bfcache-restored pages can update their formatter
-	// without a full page reload. No need for an inline script on the settings page.
-	try {
-		localStorage.setItem(SETTINGS_CACHE_KEY, JSON.stringify({
-			intl_calendar: activeSettings.intl_calendar,
-			timezone: activeSettings.timezone || '',
-			language: activeSettings.language,
-		}));
-	} catch (e) {
-		// Ignore localStorage errors (private mode, quota, etc.).
-	}
-
-	/** Convert a single <time> element in-place. */
-	function convertElement(el) {
-		if (el.dataset.intlDone) return;
-		const dt = el.getAttribute('datetime');
-		if (!dt) return;
-		const date = new Date(dt);
-		if (isNaN(date.getTime())) return;
-		el.dataset.intlDone = '1';
-		// Preserve original text as a tooltip for accessibility.
-		if (!el.hasAttribute('title')) {
-			el.setAttribute('title', el.textContent.trim());
-		}
-		el.textContent = formatter.format(date);
-	}
-
-	/** Convert all <time datetime> elements inside a root node. */
-	function convertAll(root) {
-		root.querySelectorAll('time[datetime]').forEach(convertElement);
-	}
-
-	// Use IntersectionObserver to defer conversion until elements are near the
-	// viewport — avoids doing work for off-screen articles in long lists.
-	const intersectionObserver = new IntersectionObserver((entries) => {
-		for (const entry of entries) {
-			if (entry.isIntersecting) {
-				convertElement(entry.target);
-				intersectionObserver.unobserve(entry.target);
+		// Persist or clear cached settings so bfcache-restored pages stay consistent.
+		// When the calendar is disabled, clear the key so bfcache pages don't re-apply
+		// a stale calendar.
+		try {
+			if (activeSettings.intl_calendar) {
+				localStorage.setItem(SETTINGS_CACHE_KEY, JSON.stringify({
+					intl_calendar: activeSettings.intl_calendar,
+					timezone: activeSettings.timezone || '',
+					language: activeSettings.language,
+				}));
+			} else {
+				localStorage.removeItem(SETTINGS_CACHE_KEY);
+				return; // Calendar disabled — nothing more to do.
 			}
+		} catch (e) {
+			// Ignore localStorage errors (private mode, quota, etc.).
+			if (!activeSettings.intl_calendar) return;
 		}
-	}, { rootMargin: '100px' });
 
-	function scheduleElement(el) {
-		if (!el.dataset.intlDone) {
-			intersectionObserver.observe(el);
-		}
-	}
-
-	function scheduleAll(root) {
-		root.querySelectorAll('time[datetime]').forEach(scheduleElement);
-	}
-
-	// DOMContentLoaded for normal loads.
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', () => scheduleAll(document.body));
-	} else {
-		scheduleAll(document.body);
-	}
-	// On bfcache restore, `context` is stale (it belongs to the cached page).
-	// Read the settings the user last saved to localStorage and reformat if they differ.
-	window.addEventListener('pageshow', (event) => {
-		if (!event.persisted) {
+		let formatter = createFormatter(activeSettings);
+		if (!formatter) {
 			return;
 		}
 
-		const nextCached = readCachedSettings();
-		if (!nextCached) {
-			return;
+		/** Convert a single <time> element in-place. */
+		function convertElement(el) {
+			if (el.dataset.intlDone) return;
+			const dt = el.getAttribute('datetime');
+			if (!dt) return;
+			const date = new Date(dt);
+			if (isNaN(date.getTime())) return;
+			el.dataset.intlDone = '1';
+			// Preserve original text as a tooltip for accessibility.
+			if (!el.hasAttribute('title')) {
+				el.setAttribute('title', el.textContent.trim());
+			}
+			el.textContent = formatter.format(date);
 		}
 
-		const nextSettings = normaliseSettings(nextCached, activeSettings.language);
-		if (settingsSignature(nextSettings) === settingsSignature(activeSettings)) {
-			return;
-		}
-
-		const nextFormatter = createFormatter(nextSettings);
-		if (!nextFormatter) {
-			return;
-		}
-
-		activeSettings = nextSettings;
-		formatter = nextFormatter;
-
-		document.querySelectorAll('time[datetime]').forEach((el) => {
-			delete el.dataset.intlDone;
-			scheduleElement(el);
-		});
-	});
-
-	// Watch for <time> elements added dynamically (e.g. infinite scroll).
-	const mutationObserver = new MutationObserver((mutations) => {
-		for (const mutation of mutations) {
-			for (const node of mutation.addedNodes) {
-				if (node.nodeType !== 1) continue; // element nodes only
-				if (node.matches('time[datetime]')) {
-					scheduleElement(node);
+		// Use IntersectionObserver to defer conversion until elements are near the
+		// viewport — avoids doing work for off-screen articles in long lists.
+		const intersectionObserver = new IntersectionObserver((entries) => {
+			for (const entry of entries) {
+				if (entry.isIntersecting) {
+					convertElement(entry.target);
+					intersectionObserver.unobserve(entry.target);
 				}
-				node.querySelectorAll('time[datetime]').forEach(scheduleElement);
+			}
+		}, { rootMargin: '100px' });
+
+		function scheduleElement(el) {
+			if (!el.dataset.intlDone) {
+				intersectionObserver.observe(el);
 			}
 		}
-	});
 
-	function connectMutationObserver() {
-		mutationObserver.observe(document.body || document.documentElement, {
-			childList: true,
-			subtree: true,
+		function scheduleAll(root) {
+			root.querySelectorAll('time[datetime]').forEach(scheduleElement);
+		}
+
+		// DOMContentLoaded for normal loads.
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', () => scheduleAll(document.body));
+		} else {
+			scheduleAll(document.body);
+		}
+
+		// On bfcache restore, `context` is stale (it belongs to the cached page).
+		// Read the settings last saved to localStorage and reformat if they differ.
+		window.addEventListener('pageshow', (event) => {
+			if (!event.persisted) {
+				return;
+			}
+
+			const nextCached = readCachedSettings();
+			if (!nextCached) {
+				return;
+			}
+
+			const nextSettings = normaliseSettings(nextCached, activeSettings.language);
+			if (settingsSignature(nextSettings) === settingsSignature(activeSettings)) {
+				return;
+			}
+
+			const nextFormatter = createFormatter(nextSettings);
+			if (!nextFormatter) {
+				return;
+			}
+
+			activeSettings = nextSettings;
+			formatter = nextFormatter;
+
+			document.querySelectorAll('time[datetime]').forEach((el) => {
+				delete el.dataset.intlDone;
+				scheduleElement(el);
+			});
+		});
+
+		// Watch for <time> elements added dynamically (e.g. infinite scroll).
+		const mutationObserver = new MutationObserver((mutations) => {
+			for (const mutation of mutations) {
+				for (const node of mutation.addedNodes) {
+					if (node.nodeType !== 1) continue; // element nodes only
+					if (node.matches('time[datetime]')) {
+						scheduleElement(node);
+					}
+					node.querySelectorAll('time[datetime]').forEach(scheduleElement);
+				}
+			}
+		});
+
+		function connectMutationObserver() {
+			mutationObserver.observe(document.body || document.documentElement, {
+				childList: true,
+				subtree: true,
+			});
+		}
+
+		connectMutationObserver();
+
+		// Pause observation while the tab is hidden; resume on return.
+		document.addEventListener('visibilitychange', () => {
+			if (document.hidden) {
+				mutationObserver.disconnect();
+			} else {
+				connectMutationObserver();
+			}
 		});
 	}
 
-	connectMutationObserver();
-
-	// Pause observation while the tab is hidden; resume on return.
-	document.addEventListener('visibilitychange', () => {
-		if (document.hidden) {
-			mutationObserver.disconnect();
-		} else {
-			connectMutationObserver();
-		}
-	});
+	if (typeof context !== 'undefined') {
+		init();
+	} else {
+		document.addEventListener('freshrss:globalContextLoaded', init, { once: true });
+	}
 })();
