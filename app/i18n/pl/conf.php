@@ -48,6 +48,7 @@ return array(
 			'summary' => 'Skrót wiadomości',
 			'top_line' => 'Górny margines',
 		),
+		'intl_calendar' => 'Date calendar',	// TODO
 		'language' => 'Język',
 		'notif_html5' => array(
 			'seconds' => 'sekund (0 oznacza wartość domyślną przeglądarki)',

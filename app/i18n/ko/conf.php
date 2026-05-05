@@ -48,6 +48,7 @@ return array(
 			'summary' => '요약',
 			'top_line' => '상단',
 		),
+		'intl_calendar' => 'Date calendar',	// TODO
 		'language' => '언어',
 		'notif_html5' => array(
 			'seconds' => '초 (0: 타임아웃 없음)',

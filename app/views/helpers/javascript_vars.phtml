@@ -44,6 +44,8 @@ echo json_encode([
 		'send_referrer_allowlist' => $canView ? FreshRSS_Context::userConf()->send_referrer_allowlist : [],
 		'max_favicon_upload_size' => FreshRSS_Context::systemConf()->limits['max_favicon_upload_size'],
 		'version' => FRESHRSS_VERSION,
+		'intl_calendar' => FreshRSS_Context::userConf()->intl_calendar ?? '',
+		'timezone' => FreshRSS_Context::userConf()->timezone ?: FreshRSS_Context::defaultTimeZone(),
 	],
 	'shortcuts' => [
 		'actualize' => $s['actualize'] ?? '',

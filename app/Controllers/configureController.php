@@ -50,6 +50,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				FreshRSS_Context::userConf()->language = $language;
 			}
 			FreshRSS_Context::userConf()->timezone = Minz_Request::paramString('timezone');
+			FreshRSS_Context::userConf()->intl_calendar = Minz_Request::paramString('intl_calendar');
 			$theme = Minz_Request::paramString('theme') ?: FreshRSS_Themes::$defaultTheme;
 			if (FreshRSS_Themes::exists($theme)) {
 				FreshRSS_Context::userConf()->theme = $theme;

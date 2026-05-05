@@ -48,6 +48,7 @@ return array(
 			'summary' => '摘要',
 			'top_line' => '顶栏',
 		),
+		'intl_calendar' => 'Date calendar',	// TODO
 		'language' => '语言',
 		'notif_html5' => array(
 			'seconds' => '秒（0 表示不超时）',

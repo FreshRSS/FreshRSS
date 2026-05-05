@@ -48,6 +48,7 @@ return array(
 			'summary' => 'Yhteenveto',
 			'top_line' => 'Ylin rivi',
 		),
+		'intl_calendar' => 'Date calendar',	// TODO
 		'language' => 'Kieli',
 		'notif_html5' => array(
 			'seconds' => 'sekuntia (0 - ei taukoa)',

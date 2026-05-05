@@ -9,6 +9,8 @@ return array (
 	'language' => 'en',
 	// A timezone identifier such as 'Europe/Paris' https://php.net/timezones or blank for server default
 	'timezone' => '',
+	// An Intl calendar identifier such as 'persian', 'chinese', 'islamic-civil', or blank to use server-side formatting
+	'intl_calendar' => '',
 	'archiving' => [
 		'keep_period' => 'P3M',
 		'keep_max' => 200,
