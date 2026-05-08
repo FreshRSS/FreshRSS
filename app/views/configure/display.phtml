@@ -46,7 +46,6 @@
 				<?php $intl_calendar = FreshRSS_Context::userConf()->intl_calendar ?? ''; ?>
 				<select name="intl_calendar" id="intl_calendar">
 					<option value=""<?= $intl_calendar === '' ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-					<option value="gregory"<?= $intl_calendar === 'gregory' ? ' selected="selected"' : '' ?>>Gregorian</option>
 					<option value="persian"<?= $intl_calendar === 'persian' ? ' selected="selected"' : '' ?>>Persian (Jalali)</option>
 					<option value="islamic-civil"<?= $intl_calendar === 'islamic-civil' ? ' selected="selected"' : '' ?>>Islamic (Civil)</option>
 					<option value="islamic-umalqura"<?= $intl_calendar === 'islamic-umalqura' ? ' selected="selected"' : '' ?>>Islamic (Umm al-Qura)</option>
