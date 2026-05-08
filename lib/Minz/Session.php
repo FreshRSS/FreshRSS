@@ -54,6 +54,15 @@ class Minz_Session {
 		session_set_cookie_params($params);
 
 		session_name($name);
+
+		// Delete legacy cookie (before 1.29.0) if it exists
+		if (isset($_COOKIE[$name])) {
+			$legacyDir = self::getLegacyCookieDir();
+			if ($legacyDir !== '' && $legacyDir !== '/') {
+				setcookie($name, '', ['expires' => 1, 'path' => $legacyDir]);
+			}
+		}
+
 		// When using cookies (default value), session_start() sends HTTP headers
 		session_start();
 		session_write_close();
@@ -178,6 +187,22 @@ class Minz_Session {
 			self::_param('language', $language);
 			Minz_Translate::reset($language);
 		}
+	}
+
+	/**
+	 * Kept only to delete legacy cookies from before 1.29.0
+	 */
+	protected static function getLegacyCookieDir(): string {
+		// Get the script_name (e.g. /p/i/index.php) and keep only the path.
+		$cookie_dir = '';
+		if (!empty($_SERVER['HTTP_X_FORWARDED_PREFIX']) && is_string($_SERVER['HTTP_X_FORWARDED_PREFIX'])) {
+			$cookie_dir .= rtrim($_SERVER['HTTP_X_FORWARDED_PREFIX'], '/ ');
+		}
+		$cookie_dir .= empty($_SERVER['REQUEST_URI']) || !is_string($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
+		if (substr($cookie_dir, -1) !== '/') {
+			$cookie_dir = dirname($cookie_dir) . '/';
+		}
+		return $cookie_dir;
 	}
 
 	/**

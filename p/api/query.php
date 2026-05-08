@@ -117,8 +117,10 @@ $view = new FreshRSS_View();
 
 try {
 	FreshRSS_Context::updateUsingRequest(false);
-	Minz_Request::_param('search', $userSearch->toString());	// Restore user search
 	$view->entries = FreshRSS_index_Controller::listEntriesByContext();
+	$view->entries->current();	// Init the generator to consume the aggregated search and catch potential exceptions
+	Minz_Request::_param('search', $userSearch->toString());	// Restore user search for display and exports
+	FreshRSS_Context::$search = $userSearch;	// Restore user search for display and exports
 } catch (Minz_Exception) {
 	Minz_Error::error(400, 'Bad user query!');
 	die();
