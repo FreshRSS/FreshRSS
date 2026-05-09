@@ -18,8 +18,8 @@
 		<p class="alert alert-error">
 			<span class="alert-head"><?= _t('gen.short.damn') ?></span>
 			<?= _t('sub.feed.error') ?><br />
-			<?php if ($this->feed->lastError() > 1) { ?><br />
-				<?= _t('sub.feed.last-error-date', timestampToMachineDate($this->feed->lastError()), timeago($this->feed->lastError())) ?>
+			<?php if ($this->feed->lastError() > 1) { ?>
+				<?= _t('sub.feed.last-error-date', timestampToMachineDate($this->feed->lastError()), timeago($this->feed->lastError())) ?><br />
 			<?php } ?>
 	<?php else: ?>
 		<p class="alert alert-success">
