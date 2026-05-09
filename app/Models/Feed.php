@@ -417,7 +417,7 @@ class FreshRSS_Feed extends Minz_Model {
 		return $newestArticleReceivedDate;
 	}
 
-	/** @return int Timestamp of the newest article publication date for this feed, or 0 if none */
+	/** @return int Timestamp of the Last article published for this feed, or 0 if none */
 	public function newestArticlePublicationDate(): int {
 		static $newestArticlePublicationDate = null;
 		if (!is_int($newestArticlePublicationDate)) {

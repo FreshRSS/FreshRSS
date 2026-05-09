@@ -563,7 +563,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		return $this->fetchInt($sql, ['id_feed' => $feedId]) ?? 0;
 	}
 
-	/** @return int Timestamp of the newest article publication date for the specified feed, or 0 if none */
+	/** @return int Timestamp of the Last article published for the specified feed, or 0 if none */
 	public function newestArticlePublicationDate(int $feedId): int {
 		$sql = <<<'SQL'
 			SELECT MAX(date) AS t FROM `_entry` WHERE id_feed=:id_feed
