@@ -186,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (par défaut)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Dernier article publié <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Dernier article reçu <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'last-error-date' => 'Dernière mise à jour erronée <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'last-update' => 'Dernière mise à jour réussie <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
