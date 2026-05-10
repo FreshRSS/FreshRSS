@@ -71,16 +71,16 @@
 	 * Used only to seed the binary-search window; ±3-year margin covers drift.
 	 */
 	const CALENDAR_GREG_OFFSETS = {
-		persian: 621,
+		"persian": 621,
 		'islamic-civil': 578,
 		'islamic-umalqura': 578,
-		hebrew: -3761,
-		buddhist: -543,
-		ethiopic: 7,
-		roc: 1911,
-		indian: 78,
-		japanese: 2018,
-		chinese: 0,
+		"hebrew": -3761,
+		"buddhist": -543,
+		"ethiopic": 7,
+		"roc": 1911,
+		"indian": 78,
+		"japanese": 2018,
+		"chinese": 0,
 	};
 
 	/** Formatter that returns numeric date parts in Latin (ASCII) numerals. */
@@ -118,9 +118,7 @@
 		while (low <= high) {
 			const mid = (low + high) >> 1;
 			const c = compare(mid);
-			if (c < 0) { low = mid + 1; }
-			else if (c > 0) { high = mid - 1; }
-			else { found = mid; high = mid - 1; }
+			if (c < 0) { low = mid + 1; } else if (c > 0) { high = mid - 1; } else { found = mid; high = mid - 1; }
 		}
 		return found;
 	}
@@ -131,9 +129,7 @@
 		while (low <= high) {
 			const mid = (low + high) >> 1;
 			const c = compare(mid);
-			if (c < 0) { low = mid + 1; }
-			else if (c > 0) { high = mid - 1; }
-			else { found = mid; low = mid + 1; }
+			if (c < 0) { low = mid + 1; } else if (c > 0) { high = mid - 1; } else { found = mid; low = mid + 1; }
 		}
 		return found;
 	}
@@ -270,8 +266,8 @@
 			}
 
 			// Generic range — show both endpoints
-			return sp.year + '-' + String(sp.month).padStart(2, '0') + '-' + String(sp.day).padStart(2, '0')
-				+ '/' + ep.year + '-' + String(ep.month).padStart(2, '0') + '-' + String(ep.day).padStart(2, '0');
+			return sp.year + '-' + String(sp.month).padStart(2, '0') + '-' + String(sp.day).padStart(2, '0') +
+				'/' + ep.year + '-' + String(ep.month).padStart(2, '0') + '-' + String(ep.day).padStart(2, '0');
 		}
 
 		// Single ISO date
