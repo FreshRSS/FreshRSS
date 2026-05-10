@@ -1564,7 +1564,6 @@ a.website:hover .favicon {
 	object-fit: cover;
 }
 
-
 .flux .flux_header .item.titleAuthorSummaryDate {
 	position: relative;
 	overflow: hidden;
@@ -2475,7 +2474,6 @@ html.slider-active {
 		--frss-padding-flux-items: 0.5rem;
 	}
 
-	.flux_header .item.website span,
 	.item .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile,
@@ -2499,7 +2497,6 @@ html.slider-active {
 	.header > .item.title .logo {
 		height: 24px;
 	}
-
 
 	header .item.search form {
 		display: none;
@@ -2564,10 +2561,6 @@ html.slider-active {
 			"thumbnail content content content content content content";
 		align-items: start;
 		list-style: none;
-	}
-
-	.flux .flux_header.has-thumbnail.has-summary li.website .websiteName {
-		display: inline;
 	}
 
 	/** place all the elements in their respective template areas */
@@ -2800,7 +2793,8 @@ html.slider-active {
 		padding: 0;
 	}
 
-	.flux_header .item.website {
+	/** Compensate for shrunk --frss-padding-flux-items so favicon cell stays 40px at narrow */
+	.flux_header.websiteicon .item.website {
 		width: 40px;
 	}
 
