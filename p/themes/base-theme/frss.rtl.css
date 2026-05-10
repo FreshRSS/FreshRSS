@@ -1969,9 +1969,33 @@ a.website:hover .favicon {
 
 #load_more.loading,
 #load_more.loading:hover {
-	padding: 10px 20px;
-	background: var(--frss-loading-image) center center no-repeat var(--frss-background-color);
+	position: relative;
+	min-width: 40px;
+	background: none;
+	border-color: transparent;
 	font-size: 0;
+}
+
+#load_more.loading::after {
+	background: radial-gradient(farthest-side, currentColor 94%, transparent) top/5px 5px no-repeat,
+		conic-gradient(transparent 30%, currentColor);
+	width: 24px;
+	border-radius: 50%;
+	content: "";
+	position: absolute;
+	top: calc(50% - 12px);
+	right: calc(50% - 12px);
+	aspect-ratio: 1;
+	mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 0);
+	animation: frss-spin 1s linear infinite;
+}
+
+@keyframes frss-spin {
+	to { transform: rotate(-1turn); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#load_more.loading::after { animation: none; }
 }
 
 .loading {

@@ -300,11 +300,6 @@ th {
 .pagination:last-child .item {
 }
 
-#load_more.loading,
-#load_more.loading:hover {
-	font-size: 0;
-}
-
 /*=== Boxes */
 .box {
 }

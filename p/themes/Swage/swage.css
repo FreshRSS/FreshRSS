@@ -564,12 +564,6 @@ li.item.separator {
 	}
 }
 
-#load_more.loading,
-#load_more.loading:hover {
-	background: url(loader.gif) center center no-repeat var(--color-background-aside);
-}
-
-
 .content {
 	padding: 20px 10px;
 
