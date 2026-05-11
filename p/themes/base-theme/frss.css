@@ -64,6 +64,10 @@ html, body {
 	font-size: 100%;
 }
 
+button, input, select, textarea {
+	font-family: inherit;
+}
+
 main#stream {
 	container-type: inline-size;
 	container-name: main;
