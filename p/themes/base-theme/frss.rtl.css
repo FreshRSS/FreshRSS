@@ -1984,7 +1984,7 @@ a.website:hover .favicon {
 	width: 24px;
 	height: 24px;
 	border: 3px solid currentColor;
-	border-right-color: transparent;
+	border-left-color: transparent;
 	border-radius: 50%;
 	opacity: 0.7;
 	animation: frss-spin 1s linear infinite;
