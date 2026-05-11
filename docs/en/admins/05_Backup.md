@@ -57,6 +57,25 @@ cd /usr/share/FreshRSS/
 ./cli/db-restore.php --delete-backup --force-overwrite
 ```
 
+## Automatic periodic SQLite export
+
+For ongoing on-server backups, separate from the one-shot `db-backup.php` / `db-restore.php` migration workflow, enable automatic SQLite export in `./data/config.php`:
+
+```php
+'auto_sqlite_export' => [
+    'enabled' => true,
+    'retention' => 7,
+],
+```
+
+Then schedule it (for example via cron):
+
+```sh
+./cli/export-sqlite-auto.php
+```
+
+Each run writes `./data/users/<username>/sqlite-backups/<YYYYMMDDTHHMMSSZ>.sqlite` (UTC) for every user and prunes older files to the configured `retention` count.
+
 ## Migrating the database
 
 First, back up all user databases to SQLite files:
