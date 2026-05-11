@@ -2823,6 +2823,12 @@ html.slider-active {
 		width: 40px;
 	}
 
+	/** Cap website column when feed name is shown, to leave room for the title */
+	.flux_header.websitename .item.website,
+	.flux_header.websitefull .item.website {
+		width: clamp(120px, 18vw, 150px);
+	}
+
 	.flux:not(.current):hover .item.title {
 		position: relative;
 		width: auto;
