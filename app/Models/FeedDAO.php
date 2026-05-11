@@ -555,6 +555,22 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		return $this->fetchInt($sql, ['id_feed' => $id]) ?? -1;
 	}
 
+	/** @return int Timestamp of the newest article received for the specified feed, or 0 if none */
+	public function newestArticleReceivedDate(int $feedId): int {
+		$sql = <<<'SQL'
+			SELECT MAX(id) / 1000000 AS t FROM `_entry` WHERE id_feed=:id_feed
+			SQL;
+		return $this->fetchInt($sql, ['id_feed' => $feedId]) ?? 0;
+	}
+
+	/** @return int Timestamp of the Last article published for the specified feed, or 0 if none */
+	public function newestArticlePublicationDate(int $feedId): int {
+		$sql = <<<'SQL'
+			SELECT MAX(date) AS t FROM `_entry` WHERE id_feed=:id_feed
+			SQL;
+		return $this->fetchInt($sql, ['id_feed' => $feedId]) ?? 0;
+	}
+
 	/**
 	 * Update cached values for selected feeds, or all feeds if no feed ID is provided.
 	 */

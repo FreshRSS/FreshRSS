@@ -1,4 +1,4 @@
-# Access Control
+# Access control
 
 FreshRSS offers three methods of Access control: Form Authentication using JavaScript, HTTP based Authentication, or an uncontrolled state with no authentication required.
 

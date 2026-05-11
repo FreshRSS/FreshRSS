@@ -103,8 +103,8 @@ return array(
 			'ok' => '您擁有 SQLite 的 PDO 驅動程式。',
 		),
 		'pdo' => array(
-			'nok' => '無法找到 PDO 或任何支援的驅動程式 (pdo_sqlite, pdo_pgsql, pdo_mysql)。',
-			'ok' => '您擁有 PDO 或至少一個支援的驅動程式 (pdo_sqlite, pdo_pgsql, pdo_mysql)。',
+			'nok' => '無法找到 PDO 或任何支援的驅動程式 (pdo_sqlite、pdo_pgsql、pdo_mysql)。',
+			'ok' => '您擁有 PDO 或至少一個支援的驅動程式 (pdo_sqlite、pdo_pgsql、pdo_mysql)。',
 		),
 		'php' => array(
 			'_' => 'PHP 安裝',

@@ -22,11 +22,11 @@ return array(
 		'_' => 'Datenbank',
 		'conf' => array(
 			'_' => 'Datenbank-Konfiguration',
-			'ko' => 'Überprüfen Sie Ihre Datenbank-Information.',
+			'ko' => 'Überprüfen Sie Ihre Datenbankangaben.',
 			'ok' => 'Datenbank-Konfiguration wurde gespeichert.',
 		),
 		'host' => 'Host',	// IGNORE
-		'password' => 'Datenbank-Password',
+		'password' => 'Datenbank-Passwort',
 		'prefix' => 'Tabellen-Präfix',
 		'type' => 'Datenbank-Typ',
 		'username' => 'Datenbank-Benutzername',
@@ -35,8 +35,8 @@ return array(
 		'_' => 'Überprüfungen',
 		'already_installed' => 'Wir haben festgestellt, dass FreshRSS bereits installiert wurde!',
 		'cache' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%1$s</em> für den Benutzer <em>%2$s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
+			'ok' => 'Die Berechtigungen des Cache-Verzeichnisses sind in Ordnung.',
 		),
 		'ctype' => array(
 			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für die Überprüfung von Zeichentypen (php-ctype).',
@@ -47,8 +47,8 @@ return array(
 			'ok' => 'Sie haben die cURL-Erweiterung.',
 		),
 		'data' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%1$s</em> für den Benutzer <em>%2$s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
+			'ok' => 'Die Berechtigungen des Datenverzeichnisses sind in Ordnung.',
 		),
 		'database-connection' => array(
 			'nok' => 'Fehler bei der Datenbankverbindung.',
@@ -64,12 +64,12 @@ return array(
 		),
 		'database-title' => 'Datenbank',
 		'dom' => array(
-			'nok' => 'Ihnen fehlt eine benötigte Bibliothek um DOM zu durchstöbern.',
-			'ok' => 'Sie haben die benötigte Bibliothek um DOM zu durchstöbern.',
+			'nok' => 'Ihnen fehlt die benötigte Bibliothek zum Durchsuchen des DOM.',
+			'ok' => 'Sie haben die benötigte Bibliothek zum Durchsuchen des DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%1$s</em> für den Benutzer <em>%2$s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
+			'ok' => 'Die Berechtigungen des Favicons-Verzeichnisses sind in Ordnung.',
 		),
 		'fileinfo' => array(
 			'nok' => 'Die empfohlene PHP-Bibliothek „fileinfo“ (Paket „fileinfo“) kann nicht gefunden werden.',
@@ -81,8 +81,8 @@ return array(
 			'ok' => 'Sie haben die empfohlene Bibliothek php-intl für die Internationalisierung.',
 		),
 		'json' => array(
-			'nok' => 'Ihnen fehlt eine empfohlene Bibliothek um JSON zu parsen.',
-			'ok' => 'Sie haben eine empfohlene Bibliothek um JSON zu parsen.',
+			'nok' => 'Ihnen fehlt die empfohlene Bibliothek zum Parsen von JSON.',
+			'ok' => 'Sie haben die empfohlene Bibliothek zum Parsen von JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Es fehlt die empfohlene mbstring-Bibliothek für Unicode.',
@@ -111,23 +111,23 @@ return array(
 			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
 			'ok' => 'Ihre PHP-Version ist %s, welche kompatibel mit FreshRSS ist.',
 		),
-		'reload' => 'Nochmal prüfen',
+		'reload' => 'Erneut prüfen',
 		'tmp' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Temp Verzeichnisses sind in Ordnung.',
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%1$s</em> für den Benutzer <em>%2$s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
+			'ok' => 'Die Berechtigungen des Temp-Verzeichnisses sind in Ordnung.',
 		),
 		'tokens' => array(
 			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/tokens</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/tokens</em> sind in Ordnung.',
+			'ok' => 'Die Berechtigungen des Token-Verzeichnisses sind in Ordnung.',
 		),
 		'unknown_process_username' => 'unbekannt',
 		'users' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>%s</em> sind in Ordnung.',
+			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%1$s</em> für den Benutzer <em>%2$s</em>. Der HTTP-Server muss Schreibrechte besitzen.',
+			'ok' => 'Die Berechtigungen des Benutzerverzeichnisses sind in Ordnung.',
 		),
 		'xml' => array(
-			'nok' => 'Ihnen fehlt die benötigte Bibliothek um XML zu parsen.',
-			'ok' => 'Sie haben die benötigte Bibliothek um XML zu parsen.',
+			'nok' => 'Ihnen fehlt die benötigte Bibliothek zum Parsen von XML.',
+			'ok' => 'Sie haben die benötigte Bibliothek zum Parsen von XML.',
 		),
 		'zip' => array(
 			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php-zip).',
@@ -160,6 +160,6 @@ return array(
 	),
 	'step' => 'Schritt %d',
 	'steps' => 'Schritte',
-	'this_is_the_end' => 'Das ist das Ende',
+	'this_is_the_end' => 'Das ist der letzte Schritt',
 	'title' => 'Installation · FreshRSS',	// IGNORE
 );

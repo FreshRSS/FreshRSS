@@ -1,4 +1,4 @@
-# FreshRSS - Google Reader compatible API implementation
+# Google Reader compatible API implementation
 
 See [Mobile access](../users/06_Mobile_access.md) for general aspects of API access.
 

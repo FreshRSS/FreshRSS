@@ -104,13 +104,13 @@ return array(
 			'link_asc' => '連結 A→Z',
 			'link_desc' => '連結 Z→A',
 			'primary' => array(
-				'_' => '排序標準',
+				'_' => '主要排序標準',
 				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
 			),
 			'rand' => '隨機順序',
 			'secondary' => array(
 				'_' => '次要排序標準',
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'help' => '僅當主要排序標準為類別或訂閱源標題時才適用',
 			),
 			'title_asc' => '標題 A→Z',
 			'title_desc' => '標題 Z→A',

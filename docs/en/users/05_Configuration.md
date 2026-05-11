@@ -58,7 +58,7 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 | Dark pink | Miicat_47 | |
 | Flat design | Marien Fressinaud | |
 | Mapco | Thomas Guesnon  | |
-| Nord theme | joelchrono12 | |
+| Nord | joelchrono12 | |
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |

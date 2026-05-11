@@ -19,6 +19,9 @@
 	if ($topline_summary) {
 		$headerClasses[] = 'has-summary';
 	}
+	if ($topline_date) {
+		$headerClasses[] = 'has-date';
+	}
 	if ($this->feed === null || $this->entry === null) {
 		return;
 	}
@@ -47,7 +50,7 @@
 	}
 
 	if ($topline_website !== 'none'):
-	?><li class="item website <?= $topline_website ?>">
+	?><li class="item website">
 		<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" class="item-element" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
 			<?php if (FreshRSS_Context::userConf()->show_favicons && 'name' !== $topline_website): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><?php if ('icon' !== $topline_website): ?><span class="websiteName"><?= $this->feed->name() ?></span><?php endif; ?>
 		</a>
@@ -64,7 +67,7 @@
 	?></li><?php
 	endif; ?>
 	<li class="item titleAuthorSummaryDate">
-		<a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element title<?= (($topline_thumbnail !== 'none') || $topline_summary) ? ' multiline' : '' ?>" dir="auto"><?= $this->entry->title() ?><?php
+		<a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element title" dir="auto"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
 			?> <span class="author"><?= implode(' · ', $this->entry->authors()) ?></span><?php
 		endif;

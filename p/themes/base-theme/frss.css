@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+/* Shared base loaded by every theme via the "_frss.css" entry in metadata.json. */
+
 /*=== GENERAL */
 /*============*/
 :root {
@@ -37,10 +39,10 @@
 	--frss-scrollbar-track: #0001;
 	--frss-scrollbar-track-hover: #0001;
 
-	--frss-loading-image: url("loader.gif");
-
 	--frss-padding-flux-items: 0.75rem;
 	--frss-padding-top-bottom: 0.5rem;
+
+	--width-aside: 300px;
 
 	line-height: 1.5;
 }
@@ -60,6 +62,10 @@ html, body {
 	height: 100%;
 	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 	font-size: 100%;
+}
+
+button, input, select, textarea {
+	font-family: inherit;
 }
 
 main#stream {
@@ -406,7 +412,7 @@ input[type="checkbox"] {
 	display: none;
 }
 
-.dropdown-menu .item label:not(.noHover):has(input[type="checkbox"]) {
+.dropdown-menu .item label:not(.noHover) {
 	padding-left: 2.5rem;
 	text-indent: -2.5rem;
 }
@@ -616,8 +622,7 @@ button:disabled:hover, textarea:disabled:hover, input:disabled:hover {
 }
 
 #button-update-loading {
-	background: var(--frss-loading-image) 0.5rem center no-repeat;
-	background-size: 1rem;
+	position: relative;
 	padding-left: 2rem;
 }
 
@@ -1279,7 +1284,7 @@ li.drag-hover {
 }
 
 .header > .item.title {
-	width: 300px;
+	width: var(--width-aside);
 	text-align: center;
 	white-space: nowrap;
 }
@@ -1327,8 +1332,12 @@ input[type="search"] {
 
 .aside {
 	display: table-cell;
-	width: 300px;
+	width: var(--width-aside);
 	vertical-align: top;
+}
+
+.aside.is-hidden {
+	display: none;
 }
 
 .aside + .close-aside {
@@ -1497,7 +1506,7 @@ a.website:hover .favicon {
 	font-weight: bold;
 }
 
-.flux:not(.current):hover .flux_header .item .title:has(~ .date) {
+.flux:not(.current):hover .flux_header.has-date .item .title {
 	padding-right: 0.5rem;
 	z-index: 2;
 }
@@ -1506,7 +1515,8 @@ a.website:hover .favicon {
 	background-color: inherit;
 }
 
-.flux .item:has(.multiline) {
+.flux .flux_header.has-thumbnail .item.titleAuthorSummaryDate,
+.flux .flux_header.has-summary .item.titleAuthorSummaryDate {
 	vertical-align: top;
 }
 
@@ -1557,7 +1567,6 @@ a.website:hover .favicon {
 	object-fit: cover;
 }
 
-
 .flux .flux_header .item.titleAuthorSummaryDate {
 	position: relative;
 	overflow: hidden;
@@ -1576,7 +1585,7 @@ a.website:hover .favicon {
 	text-decoration: none;
 }
 
-.flux .flux_header .item .title:has(~.date) {
+.flux .flux_header.has-date .item .title {
 	padding-right: 155px;
 }
 
@@ -1594,7 +1603,7 @@ a.website:hover .favicon {
 	margin-bottom: 0.5rem;
 }
 
-.flux .flux_header .item .summary:has(~.date) {
+.flux .flux_header.has-date .item .summary {
 	max-width: 90%;
 }
 
@@ -1930,7 +1939,7 @@ a.website:hover .favicon {
 	display: flex;
 	position: fixed;
 	bottom: 0; left: 0;
-	width: 300px;
+	width: var(--width-aside);
 	padding-bottom: env(safe-area-inset-bottom);
 	z-index: 50;
 }
@@ -1963,13 +1972,53 @@ a.website:hover .favicon {
 
 #load_more.loading,
 #load_more.loading:hover {
-	padding: 10px 20px;
-	background: var(--frss-loading-image) center center no-repeat var(--frss-background-color);
+	position: relative;
+	min-width: 40px;
+	background: none;
+	border-color: transparent;
 	font-size: 0;
 }
 
+#load_more.loading::after,
+#button-update-loading::after,
+.loading::after {
+	content: "";
+	position: absolute;
+	border: 3px solid currentColor;
+	border-right-color: transparent;
+	border-radius: 50%;
+	opacity: 0.7;
+	animation: frss-spin 1s linear infinite;
+}
+
+#load_more.loading::after,
+.loading::after {
+	top: calc(50% - 12px);
+	left: calc(50% - 12px);
+	width: 24px;
+	height: 24px;
+}
+
+#button-update-loading::after {
+	top: calc(50% - 0.5rem);
+	left: 0.5rem;
+	width: 1rem;
+	height: 1rem;
+	border-width: 2px;
+}
+
+@keyframes frss-spin {
+	to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#load_more.loading::after,
+	#button-update-loading::after,
+	.loading::after { animation: none; }
+}
+
 .loading {
-	background: var(--frss-loading-image) center center no-repeat;
+	position: relative;
 	font-size: 0;
 }
 
@@ -2104,13 +2153,6 @@ html.slider-active {
 	top: 0.5rem;
 	left: 0.5rem;
 	filter: grayscale(100%) brightness(2.5);
-}
-
-#slider-content .loader {
-	height: 90vh;
-	background-image: url('loader.gif');
-	background-repeat: no-repeat;
-	background-position: center;
 }
 
 /*=== Configuration pages */
@@ -2401,6 +2443,10 @@ html.slider-active {
 	font-style: italic;
 }
 
+.disabled-user {
+	opacity: 0.5;
+}
+
 /*=== READER */
 /*===========*/
 .reader .aside {
@@ -2409,7 +2455,7 @@ html.slider-active {
 
 .reader .aside.visible {
 	display: table-cell;
-	width: 300px;
+	width: var(--width-aside);
 }
 
 .reader .flux {
@@ -2464,7 +2510,6 @@ html.slider-active {
 		--frss-padding-flux-items: 0.5rem;
 	}
 
-	.flux_header .item.website span,
 	.item .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile,
@@ -2489,12 +2534,14 @@ html.slider-active {
 		height: 24px;
 	}
 
-
 	header .item.search form {
 		display: none;
 	}
 
+	/* Material navigation drawer: theme width, capped at viewport minus 56px touch-peek */
 	.aside.visible {
+		width: min(var(--width-aside), calc(100vw - 56px));
+		height: 100vh;
 		box-shadow: 3px 3px 5px var(--frss-box-shadow-color-transparent);
 	}
 
@@ -2538,7 +2585,7 @@ html.slider-active {
 		padding-right: 1rem;
 	}
 
-	.flux .flux_header .item .title:has(~.date) {
+	.flux .flux_header.has-date .item .title {
 		padding-right: 1rem;
 	}
 
@@ -2550,10 +2597,6 @@ html.slider-active {
 			"thumbnail content content content content content content";
 		align-items: start;
 		list-style: none;
-	}
-
-	.flux .flux_header.has-thumbnail.has-summary li.website .websiteName {
-		display: inline;
 	}
 
 	/** place all the elements in their respective template areas */
@@ -2770,12 +2813,11 @@ html.slider-active {
 		width: 0;
 		overflow: hidden;
 		z-index: 100;
+		transition: width 200ms linear;
 	}
 
-	.aside.visible,
-	.reader .aside.visible {
-		width: 90%;
-		height: 100vh;
+	.aside.aside_feed {
+		padding: 0;
 	}
 
 	.aside_feed .configure-feeds {
@@ -2787,8 +2829,15 @@ html.slider-active {
 		padding: 0;
 	}
 
-	.flux_header .item.website {
+	/** Compensate for shrunk --frss-padding-flux-items so favicon cell stays 40px at narrow */
+	.flux_header.websiteicon .item.website {
 		width: 40px;
+	}
+
+	/** Cap website column when feed name is shown, to leave room for the title */
+	.flux_header.websitename .item.website,
+	.flux_header.websitefull .item.website {
+		width: clamp(120px, 18vw, 150px);
 	}
 
 	.flux:not(.current):hover .item.title {

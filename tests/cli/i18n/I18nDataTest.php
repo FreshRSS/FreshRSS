@@ -869,4 +869,50 @@ final class I18nDataTest extends \PHPUnit\Framework\TestCase {
 		$data = new I18nData($rawData);
 		self::assertSame($this->referenceData['en'], $data->getReferenceLanguage());
 	}
+
+	/** @return array<string,array<string,array<string,I18nValue>>> */
+	private function dataWithLangKeys(string ...$langCodes): array {
+		$genFile = [];
+		foreach ($langCodes as $code) {
+			$genFile['gen.lang.' . $code] = $this->value;
+		}
+		return [
+			'en' => ['gen.php' => $genFile],
+		];
+	}
+
+	public function testValidateLanguageNamesPassesWhenDirsAndKeysMatch(): void {
+		$rawData = $this->dataWithLangKeys('en', 'fr', 'zh-TW');
+		$rawData['fr'] = [];
+		$rawData['zh-TW'] = [];
+		$data = new I18nData($rawData);
+		self::assertSame([], $data->validateLanguageNames());
+	}
+
+	public function testValidateLanguageNamesFlagsCaseMismatch(): void {
+		$rawData = $this->dataWithLangKeys('en', 'zh-TW');
+		$rawData['zh-tw'] = [];
+		$data = new I18nData($rawData);
+		$issues = $data->validateLanguageNames();
+		self::assertCount(2, $issues);
+		self::assertStringContainsString('app/i18n/zh-tw/', $issues[0]);
+		self::assertStringContainsString('gen.lang.zh-TW', $issues[1]);
+	}
+
+	public function testValidateLanguageNamesFlagsOrphanDirectory(): void {
+		$rawData = $this->dataWithLangKeys('en');
+		$rawData['fr'] = [];
+		$data = new I18nData($rawData);
+		$issues = $data->validateLanguageNames();
+		self::assertCount(1, $issues);
+		self::assertStringContainsString('app/i18n/fr/', $issues[0]);
+	}
+
+	public function testValidateLanguageNamesFlagsOrphanKey(): void {
+		$rawData = $this->dataWithLangKeys('en', 'fr');
+		$data = new I18nData($rawData);
+		$issues = $data->validateLanguageNames();
+		self::assertCount(1, $issues);
+		self::assertStringContainsString('gen.lang.fr', $issues[0]);
+	}
 }
