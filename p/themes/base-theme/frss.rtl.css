@@ -1513,7 +1513,8 @@ a.website:hover .favicon {
 	background-color: inherit;
 }
 
-.flux .item:has(.multiline) {
+.flux .flux_header.has-thumbnail .item.titleAuthorSummaryDate,
+.flux .flux_header.has-summary .item.titleAuthorSummaryDate {
 	vertical-align: top;
 }
 
