@@ -65,7 +65,7 @@ Check the [basic information for creating a new theme](./developers/04_Frontend/
 
 This checklist is designed to ensure high-quality system themes while minimizing maintenance efforts.
 
-* Essential files include: [metadata.json, loader.gif, original.png](./developers/04_Frontend/02_Design.md) (located in the `thumbs` directory).
+* Essential files include: [metadata.json, original.png](./developers/04_Frontend/02_Design.md) (located in the `thumbs` directory).
 * Include _frss.css in the "files" section of [`metadata.json`](./developers/04_Frontend/02_Design.md).
 * Theme-specific icons reside in the `icons` directory.
 	* Icons should be provided as `svg` files.

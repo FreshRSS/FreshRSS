@@ -39,8 +39,6 @@
 	--frss-scrollbar-track: #0001;
 	--frss-scrollbar-track-hover: #0001;
 
-	--frss-loading-image: url("loader.gif");
-
 	--frss-padding-flux-items: 0.75rem;
 	--frss-padding-top-bottom: 0.5rem;
 
@@ -619,8 +617,7 @@ button[disabled]:hover, input[disabled]:hover {
 }
 
 #button-update-loading {
-	background: var(--frss-loading-image) 0.5rem center no-repeat;
-	background-size: 1rem;
+	position: relative;
 	padding-left: 2rem;
 }
 
@@ -1977,13 +1974,11 @@ a.website:hover .favicon {
 	font-size: 0;
 }
 
-#load_more.loading::after {
+#load_more.loading::after,
+#button-update-loading::after,
+.loading::after {
 	content: "";
 	position: absolute;
-	top: calc(50% - 12px);
-	left: calc(50% - 12px);
-	width: 24px;
-	height: 24px;
 	border: 3px solid currentColor;
 	border-right-color: transparent;
 	border-radius: 50%;
@@ -1991,16 +1986,34 @@ a.website:hover .favicon {
 	animation: frss-spin 1s linear infinite;
 }
 
+#load_more.loading::after,
+.loading::after {
+	top: calc(50% - 12px);
+	left: calc(50% - 12px);
+	width: 24px;
+	height: 24px;
+}
+
+#button-update-loading::after {
+	top: calc(50% - 0.5rem);
+	left: 0.5rem;
+	width: 1rem;
+	height: 1rem;
+	border-width: 2px;
+}
+
 @keyframes frss-spin {
 	to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-	#load_more.loading::after { animation: none; }
+	#load_more.loading::after,
+	#button-update-loading::after,
+	.loading::after { animation: none; }
 }
 
 .loading {
-	background: var(--frss-loading-image) center center no-repeat;
+	position: relative;
 	font-size: 0;
 }
 
@@ -2135,13 +2148,6 @@ html.slider-active {
 	top: 0.5rem;
 	left: 0.5rem;
 	filter: grayscale(100%) brightness(2.5);
-}
-
-#slider-content .loader {
-	height: 90vh;
-	background-image: url('loader.gif');
-	background-repeat: no-repeat;
-	background-position: center;
 }
 
 /*=== Configuration pages */
