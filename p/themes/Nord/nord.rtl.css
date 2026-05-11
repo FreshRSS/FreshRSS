@@ -877,14 +877,6 @@ li.item.active {
 	margin: 0;
 }
 
-#load_more.loading {
-	background-color: var(--accent);
-}
-
-#load_more.loading:hover {
-	background-color: var(--highlight);
-}
-
 /*=== Notification and actualize notification */
 .notification {
 	background: var(--dropdown-bg);

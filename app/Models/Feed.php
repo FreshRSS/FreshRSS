@@ -407,6 +407,26 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 
+	/** @return int Timestamp of the newest article received for this feed, or 0 if none */
+	public function newestArticleReceivedDate(): int {
+		static $newestArticleReceivedDate = null;
+		if (!is_int($newestArticleReceivedDate)) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$newestArticleReceivedDate = $feedDAO->newestArticleReceivedDate($this->id());
+		}
+		return $newestArticleReceivedDate;
+	}
+
+	/** @return int Timestamp of the Last article published for this feed, or 0 if none */
+	public function newestArticlePublicationDate(): int {
+		static $newestArticlePublicationDate = null;
+		if (!is_int($newestArticlePublicationDate)) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$newestArticlePublicationDate = $feedDAO->newestArticlePublicationDate($this->id());
+		}
+		return $newestArticlePublicationDate;
+	}
+
 	public function faviconPrepare(bool $force = false): void {
 		require_once LIB_PATH . '/favicons.php';
 		if ($this->customFavicon()) {

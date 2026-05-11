@@ -186,6 +186,8 @@ return array(
 			'rss' => 'RSS / Atom (預設)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'last-error-date' => '上次錯誤更新 <time datetime="%1$s" title="%1$s">%2$s</time>。',
 		'last-update' => '上次成功更新 <time datetime="%1$s" title="%1$s">%2$s</time>。',
 		'maintenance' => array(

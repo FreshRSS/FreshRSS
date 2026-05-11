@@ -2,7 +2,10 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-05-XX FreshRSS 1.29.0-dev
+## 2026-0X-XX FreshRSS 1.29.1-dev
+
+
+## 2026-05-10 FreshRSS 1.29.0
 
 * Features
 	* New sort order preferences at global, category, and feed levels [#8234](https://github.com/FreshRSS/FreshRSS/pull/8234)
@@ -122,7 +125,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 		[#8667](https://github.com/FreshRSS/FreshRSS/pull/8667), [#8668](https://github.com/FreshRSS/FreshRSS/pull/8668), [#8685](https://github.com/FreshRSS/FreshRSS/pull/8685),
 		[#8752](https://github.com/FreshRSS/FreshRSS/pull/8752), [#8754](https://github.com/FreshRSS/FreshRSS/pull/8754), [#8755](https://github.com/FreshRSS/FreshRSS/pull/8755),
 		[#8756](https://github.com/FreshRSS/FreshRSS/pull/8756), [#8757](https://github.com/FreshRSS/FreshRSS/pull/8757), [#8758](https://github.com/FreshRSS/FreshRSS/pull/8758),
-		[#8772](https://github.com/FreshRSS/FreshRSS/pull/8772)
+		[#8772](https://github.com/FreshRSS/FreshRSS/pull/8772), [#8798](https://github.com/FreshRSS/FreshRSS/pull/8798)
 
 
 ## 2026-01-25 FreshRSS 1.28.1
