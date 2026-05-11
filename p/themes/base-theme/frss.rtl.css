@@ -409,7 +409,7 @@ input[type="checkbox"] {
 	display: none;
 }
 
-.dropdown-menu .item label:not(.noHover):has(input[type="checkbox"]) {
+.dropdown-menu .item label:not(.noHover) {
 	padding-right: 2.5rem;
 	text-indent: -2.5rem;
 }
