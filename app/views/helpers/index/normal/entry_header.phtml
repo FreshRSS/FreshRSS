@@ -19,6 +19,9 @@
 	if ($topline_summary) {
 		$headerClasses[] = 'has-summary';
 	}
+	if ($topline_date) {
+		$headerClasses[] = 'has-date';
+	}
 	if ($this->feed === null || $this->entry === null) {
 		return;
 	}

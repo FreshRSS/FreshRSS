@@ -1504,7 +1504,7 @@ a.website:hover .favicon {
 	font-weight: bold;
 }
 
-.flux:not(.current):hover .flux_header .item .title:has(~ .date) {
+.flux:not(.current):hover .flux_header.has-date .item .title {
 	padding-left: 0.5rem;
 	z-index: 2;
 }
@@ -1583,7 +1583,7 @@ a.website:hover .favicon {
 	text-decoration: none;
 }
 
-.flux .flux_header .item .title:has(~.date) {
+.flux .flux_header.has-date .item .title {
 	padding-left: 155px;
 }
 
@@ -1601,7 +1601,7 @@ a.website:hover .favicon {
 	margin-bottom: 0.5rem;
 }
 
-.flux .flux_header .item .summary:has(~.date) {
+.flux .flux_header.has-date .item .summary {
 	max-width: 90%;
 }
 
@@ -2574,7 +2574,7 @@ html.slider-active {
 		padding-left: 1rem;
 	}
 
-	.flux .flux_header .item .title:has(~.date) {
+	.flux .flux_header.has-date .item .title {
 		padding-left: 1rem;
 	}
 
