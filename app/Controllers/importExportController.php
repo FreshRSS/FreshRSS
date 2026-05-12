@@ -249,7 +249,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * so it can be imported through the existing OPML pipeline.
 	 */
 	private static function txtToOpml(string $contents): string {
-		$contents = preg_replace('/^\xEF\xBB\xBF/', '', $contents) ?? $contents;
+		$utf8BOM = "\xEF\xBB\xBF";
+		$contents = preg_replace('/^' . $utf8BOM . '/', '', $contents) ?? $contents;
 		$outlines = '';
 		foreach (preg_split('/\R/', $contents) ?: [] as $line) {
 			$url = trim($line);
