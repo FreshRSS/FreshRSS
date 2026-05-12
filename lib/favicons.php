@@ -25,35 +25,12 @@ function faviconCachePath(string $url): string {
 	return CACHE_PATH . '/' . sha1($url) . '.ico';
 }
 
-function searchFavicon(string $url): string {
-	$url = trim($url);
-	if ($url === '') {
-		return '';
-	}
-	$dom = new DOMDocument();
-	['body' => $html, 'effective_url' => $effective_url, 'fail' => $fail] =
-		FreshRSS_http_Util::httpGet($url, cachePath: CACHE_PATH . '/' . sha1($url) . '.html', type: 'html');
-	if ($fail || $html === '' || !@$dom->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
-		return '';
-	}
-
-	$xpath = new DOMXPath($dom);
-	$links = $xpath->query('//link[@href][translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="shortcut icon"'
-		. ' or translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="icon"]');
-	if (!($links instanceof DOMNodeList)) {
-		return '';
-	}
-
-	// Use the base element for relative paths, if there is one
-	$baseElements = $xpath->query('//base[@href]');
-	$baseElement = ($baseElements !== false && $baseElements->length > 0) ? $baseElements->item(0) : null;
-	$baseUrl = ($baseElement instanceof DOMElement) ? $baseElement->getAttribute('href') : $effective_url;
-
-	foreach ($links as $link) {
-		if (!$link instanceof DOMElement) {
-			continue;
-		}
-		$href = trim($link->getAttribute('href'));
+/**
+ * @param list<string> $linkHrefs candidate favicon URLs (relative or absolute), in document order
+ */
+function tryFaviconLinks(array $linkHrefs, string $baseUrl, string $effective_url): string {
+	foreach ($linkHrefs as $href) {
+		$href = trim($href);
 		$urlParts = parse_url($effective_url);
 
 		// Handle protocol-relative URLs by adding the current URL's scheme
@@ -82,6 +59,64 @@ function searchFavicon(string $url): string {
 		}
 	}
 	return '';
+}
+
+function searchFavicon(string $url): string {
+	$url = trim($url);
+	if ($url === '') {
+		return '';
+	}
+	['body' => $html, 'effective_url' => $effective_url, 'fail' => $fail] =
+		FreshRSS_http_Util::httpGet($url, cachePath: CACHE_PATH . '/' . sha1($url) . '.html', type: 'html');
+	if ($fail || $html === '') {
+		return '';
+	}
+
+	$linkXPath = '//link[@href][translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="shortcut icon"'
+		. ' or translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="icon"]';
+
+	if (class_exists('Dom\HTMLDocument')) {	// PHP 8.4+
+		// HTML_NO_DEFAULT_NS keeps elements in no namespace, so existing XPath queries (e.g. //link) still match.
+		$dom = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
+		$xpath = new Dom\XPath($dom);
+		$linkHrefs = [];
+		foreach ($xpath->query($linkXPath) as $link) {
+			if ($link instanceof Dom\Element) {
+				$linkHrefs[] = $link->getAttribute('href');
+			}
+		}
+		$baseUrl = $effective_url;
+		$baseElement = $xpath->query('//base[@href]')->item(0);
+		if ($baseElement instanceof Dom\Element) {
+			$baseUrl = $baseElement->getAttribute('href');
+		}
+		return tryFaviconLinks($linkHrefs, $baseUrl, $effective_url);
+	}
+
+	// PHP < 8.4
+	$dom = new DOMDocument();
+	if (!@$dom->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+		return '';
+	}
+
+	$xpath = new DOMXPath($dom);
+	$links = $xpath->query($linkXPath);
+	if (!($links instanceof DOMNodeList)) {
+		return '';
+	}
+
+	// Use the base element for relative paths, if there is one
+	$baseElements = $xpath->query('//base[@href]');
+	$baseElement = ($baseElements !== false && $baseElements->length > 0) ? $baseElements->item(0) : null;
+	$baseUrl = ($baseElement instanceof DOMElement) ? $baseElement->getAttribute('href') : $effective_url;
+
+	$linkHrefs = [];
+	foreach ($links as $link) {
+		if ($link instanceof DOMElement) {
+			$linkHrefs[] = $link->getAttribute('href');
+		}
+	}
+	return tryFaviconLinks($linkHrefs, $baseUrl, $effective_url);
 }
 
 /**

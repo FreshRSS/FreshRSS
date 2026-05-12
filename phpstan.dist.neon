@@ -68,6 +68,32 @@ parameters:
 				- lib/Minz/ModelPdo.php
 				- lib/Minz/PdoMysql.php
 			reportUnmatched: false
+		-
+			# PHP 8.4+ \Dom\* HTML5 parser, guarded by class_exists('Dom\HTMLDocument')
+			identifier: class.notFound
+			path: lib/favicons.php
+			reportUnmatched: false
+		-
+			identifier: foreach.nonIterable
+			path: lib/favicons.php
+			reportUnmatched: false
+		-
+			identifier: method.nonObject
+			path: lib/favicons.php
+			reportUnmatched: false
+		-
+			identifier: constant.notFound
+			path: lib/favicons.php
+			reportUnmatched: false
+		-
+			identifier: binaryOp.invalid
+			path: lib/favicons.php
+			reportUnmatched: false
+		-
+			identifier: argument.type
+			message: '#(list<mixed>|expects string, mixed given)#'
+			path: lib/favicons.php
+			reportUnmatched: false
 includes:
 	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
 	- vendor/phpstan/phpstan-phpunit/extension.neon
