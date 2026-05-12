@@ -127,6 +127,11 @@ cd /usr/share/FreshRSS
 # Back-up all users respective database to `data/users/*/backup.sqlite`
 # -q, --quiet suppress non-error messages
 
+./cli/export-sqlite-auto.php
+# Periodic SQLite export per user to `data/users/*/sqlite-backups/<YYYYMMDDTHHMMSSZ>.sqlite`, pruned to retention.
+# Gated by `auto_sqlite_export` in `data/config.php`.
+# -q, --quiet suppress non-error messages
+
 ./cli/db-restore.php --delete-backup --force-overwrite
 # Restore all users respective database from `data/users/*/backup.sqlite`
 # --delete-backup:	delete `data/users/*/backup.sqlite` after successful import
