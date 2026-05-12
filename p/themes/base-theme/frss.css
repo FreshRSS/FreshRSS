@@ -1506,7 +1506,7 @@ a.website:hover .favicon {
 }
 
 .flux:not(.current):hover .flux_header.has-date .item .title {
-	padding-right: 0.5rem;
+	grid-column: 1 / -1;
 	z-index: 2;
 }
 
@@ -1562,31 +1562,28 @@ a.website:hover .favicon {
 }
 
 .flux .flux_header .item.titleAuthorSummaryDate {
-	position: relative;
 	overflow: hidden;
 	flex: 1;
 	min-width: 0;
 	align-self: stretch;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-areas: "title date"
+		"summary .";
+	align-content: center;
 }
 
 .flux .flux_header .item .title {
-	display: inline-block;
-	max-width: 100%;
-	min-width: calc(100% - 155px);
+	grid-area: title;
 	color: var(--frss-font-color-dark);
-	position: absolute;
-	top: 0;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	box-sizing: border-box;
 	text-decoration: none;
 }
 
-.flux .flux_header.has-date .item .title {
-	padding-right: 155px;
-}
-
 .flux .flux_header .item .summary {
+	grid-area: summary;
 	display: -webkit-box;
 	color: var(--frss-font-color-grey-dark);
 	font-size: 0.9rem;
@@ -1596,12 +1593,7 @@ a.website:hover .favicon {
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	white-space: break-spaces;
-	margin-top: 2.25rem;
 	margin-bottom: 0.5rem;
-}
-
-.flux .flux_header.has-date .item .summary {
-	max-width: 90%;
 }
 
 .flux .flux_header .item .title .author {
@@ -1611,13 +1603,9 @@ a.website:hover .favicon {
 }
 
 .flux .flux_header .item .date {
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 155px;
+	grid-area: date;
 	text-align: right;
 	overflow: hidden;
-	z-index: 1;
 }
 
 .flux .flux_header .item > a {
@@ -2588,10 +2576,6 @@ html.slider-active {
 	}
 
 	.aside .feed .item-title[data-unread="0"] {
-		padding-right: 1rem;
-	}
-
-	.flux .flux_header.has-date .item .title {
 		padding-right: 1rem;
 	}
 
