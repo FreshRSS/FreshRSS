@@ -116,7 +116,7 @@ class File implements Response
                         $this->error = 'URL is not allowed to be resolved: ' . \SimplePie\Misc::url_remove_credentials($url);
                         $this->success = false;
                         return;
-                    } else if ($resolve === false) {
+                    } elseif ($resolve === false) {
                         $this->error = 'Failed to resolve domain: ' . \SimplePie\Misc::url_remove_credentials($url);
                         $this->success = false;
                         return;
