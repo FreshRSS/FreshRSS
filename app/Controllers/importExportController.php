@@ -266,7 +266,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				}
 				continue;
 			}
-			$escaped = htmlspecialchars($url, ENT_QUOTES | ENT_XML1, 'UTF-8');
+			$escaped = htmlspecialchars($url, ENT_COMPAT | ENT_XML1, 'UTF-8');
 			$outlines .= '<outline type="rss" text="' . $escaped . '" xmlUrl="' . $escaped . '" />' . "\n";
 		}
 		return '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
