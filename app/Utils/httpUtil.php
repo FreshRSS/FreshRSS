@@ -283,7 +283,7 @@ final class FreshRSS_http_Util {
 	}
 
 	/**
-	 * Returns a value for CURLOPT_RESOLVE as an array, null if a disallowed IP address was found in DNS records, false if the domain failed to resolve
+	 * Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
 	 *
 	 * @return array<string>|null|false
 	 */
@@ -362,13 +362,13 @@ final class FreshRSS_http_Util {
 			}
 
 			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
-				return null;
+				continue;
 			}
 			// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
 			// Workaround is available by using `FILTER_FLAG_GLOBAL_RANGE` instead, but that was only added in PHP 8.2, and we need to support PHP 8.1+
 			foreach (self::PRIVATE_SUBNETS as $cidr) {
 				if (self::checkCIDR($ip, $cidr)) {
-					return null;
+					continue 2;
 				}
 			}
 
@@ -381,11 +381,16 @@ final class FreshRSS_http_Util {
 				return [$resolve_str];
 			}
 			if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
+				// No resolve overrides since the URL only contained an IP, not a domain
 				return [];
 			}
 		}
 
-		return false;
+		if (count($ips) === 0) {
+			return false;
+		}
+
+		return null;
 	}
 
 
