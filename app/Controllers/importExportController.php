@@ -98,6 +98,11 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		} elseif ('zip' === $type_file) {
 			// ZIP extension is not loaded
 			throw new FreshRSS_ZipMissing_Exception();
+		} elseif ('txt' === $type_file) {
+			$contents = file_get_contents($path);
+			if (is_string($contents)) {
+				$list_files['opml'][] = self::txtToOpml($contents);
+			}
 		} elseif ('unknown' !== $type_file) {
 			$list_files[$type_file][] = file_get_contents($path);
 		}
@@ -219,6 +224,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	private static function guessFileType(string $filename): string {
 		if (str_ends_with($filename, '.zip')) {
 			return 'zip';
+		} elseif (str_ends_with($filename, '.txt')) {
+			return 'txt';
 		} elseif (stripos($filename, 'opml') !== false) {
 			return 'opml';
 		} elseif (str_ends_with($filename, '.json')) {
@@ -235,6 +242,37 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 		}
 		return 'unknown';
+	}
+
+	/**
+	 * Wraps a newline-separated list of feed URLs into a minimal OPML document
+	 * so it can be imported through the existing OPML pipeline.
+	 */
+	private static function txtToOpml(string $contents): string {
+		$utf8BOM = "\xEF\xBB\xBF";
+		$contents = preg_replace('/^' . $utf8BOM . '/', '', $contents) ?? $contents;
+		$outlines = '';
+		foreach (preg_split('/\R/', $contents) ?: [] as $line) {
+			$url = trim($line);
+			if ($url === '' || str_starts_with($url, '#')) {
+				continue;
+			}
+			if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+				$message = 'TXT import: skipping invalid URL “' . $url . '”';
+				if (FreshRSS_Context::$isCli) {
+					fwrite(STDERR, $message . "\n");
+				} else {
+					Minz_Log::warning($message);
+				}
+				continue;
+			}
+			$escaped = htmlspecialchars($url, ENT_COMPAT | ENT_XML1, 'UTF-8');
+			$outlines .= '<outline type="rss" text="' . $escaped . '" xmlUrl="' . $escaped . '" />' . "\n";
+		}
+		return '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+			. '<opml version="2.0"><body>' . "\n"
+			. $outlines
+			. '</body></opml>' . "\n";
 	}
 
 	private function ttrssXmlToJson(string $xml): string|false {
