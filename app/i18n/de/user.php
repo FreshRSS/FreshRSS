@@ -22,7 +22,7 @@ return array(
 			'feedback' => array(
 				'email_failed' => 'Wir konnten Ihnen aufgrund einer Fehlkonfiguration des Servers keine E-Mail schicken.',
 				'email_sent' => 'Wir haben Ihnen eine E-Mail geschickt.',
-				'error' => 'Die E-Mail Adresse konnte nicht verifiziert werden.',
+				'error' => 'Die E-Mail-Adresse konnte nicht verifiziert werden.',
 				'ok' => 'Die E-Mail-Adresse wurde verifiziert',
 				'unnecessary' => 'Die E-Mail-Adresse wurde bereits verifiziert.',
 				'wrong_token' => 'Die E-Mail-Adresse konnte aufgrund eines ungültigen Sicherheitstokens nicht verifiziert werden.',
@@ -34,8 +34,8 @@ return array(
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'Sie haben Sich gerade bei %s registriert und müssen nun nur noch Ihre E-Mail-Adresse verifizieren. Bitte klicken Sie hier:',
-			'title' => 'Sie müssen Ihren Account verifizieren',
+			'body' => 'Sie haben sich gerade bei %s registriert und müssen nun noch Ihre E-Mail-Adresse bestätigen. Bitte klicken Sie dazu hier:',
+			'title' => 'Sie müssen Ihren Account bestätigen',
 			'welcome' => 'Willkommen, %s,',
 		),
 	),

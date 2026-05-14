@@ -302,6 +302,8 @@ abstract class Minz_Extension {
 
 	/**
 	 * @return array<string,mixed>
+	 * @deprecated Use typed versions instead. Will soon be marked as private.
+	 * @internal
 	 */
 	final protected function getSystemConfiguration(): array {
 		if ($this->isConfigurationEnabled('system') && $this->isExtensionConfigured('system')) {
@@ -312,6 +314,8 @@ abstract class Minz_Extension {
 
 	/**
 	 * @return array<string,mixed>
+	 * @deprecated Use typed versions instead. Will soon be marked as private.
+	 * @internal
 	 */
 	final protected function getUserConfiguration(): array {
 		if ($this->isConfigurationEnabled('user') && $this->isExtensionConfigured('user')) {
@@ -320,6 +324,10 @@ abstract class Minz_Extension {
 		return [];
 	}
 
+	/**
+	 * @deprecated Use typed versions instead. Will soon be marked as private.
+	 * @internal
+	 */
 	final public function getSystemConfigurationValue(string $key, mixed $default = null): mixed {
 		if (!is_array($this->system_configuration)) {
 			$this->system_configuration = $this->getSystemConfiguration();
@@ -331,6 +339,41 @@ abstract class Minz_Extension {
 		return $default;
 	}
 
+	/**
+	 * @param non-empty-string $key
+	 * @return array<int|string,mixed>|null
+	 */
+	final public function getSystemConfigurationArray(string $key): ?array {
+		/** @phpstan-ignore method.deprecated */
+		$a = $this->getSystemConfigurationValue($key);
+		return is_array($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	final public function getSystemConfigurationBool(string $key): ?bool {
+		/** @phpstan-ignore method.deprecated */
+		$a = $this->getSystemConfigurationValue($key);
+		return is_bool($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	final public function getSystemConfigurationInt(string $key): ?int {
+		/** @phpstan-ignore method.deprecated */
+		$a = $this->getSystemConfigurationValue($key);
+		return is_numeric($a) ? (int)$a : null;
+	}
+
+	/** @param non-empty-string $key */
+	final public function getSystemConfigurationString(string $key): ?string {
+		/** @phpstan-ignore method.deprecated */
+		$a = $this->getSystemConfigurationValue($key);
+		return is_string($a) ? $a : null;
+	}
+
+	/**
+	 * @deprecated Use typed versions instead. Will soon be marked as private.
+	 * @internal
+	 */
 	final public function getUserConfigurationValue(string $key, mixed $default = null): mixed {
 		if (!is_array($this->user_configuration)) {
 			$this->user_configuration = $this->getUserConfiguration();
@@ -340,6 +383,37 @@ abstract class Minz_Extension {
 			return $this->user_configuration[$key];
 		}
 		return $default;
+	}
+
+	/**
+	 * @param non-empty-string $key
+	 * @return array<int|string,mixed>|null
+	 */
+	final public function getUserConfigurationArray(string $key): ?array {
+		// @phpstan-ignore-next-line method.deprecated
+		$a = $this->getUserConfigurationValue($key);
+		return is_array($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	final public function getUserConfigurationBool(string $key): ?bool {
+		// @phpstan-ignore-next-line method.deprecated
+		$a = $this->getUserConfigurationValue($key);
+		return is_bool($a) ? $a : null;
+	}
+
+	/** @param non-empty-string $key */
+	final public function getUserConfigurationInt(string $key): ?int {
+		// @phpstan-ignore-next-line method.deprecated
+		$a = $this->getUserConfigurationValue($key);
+		return is_numeric($a) ? (int)$a : null;
+	}
+
+	/** @param non-empty-string $key */
+	final public function getUserConfigurationString(string $key): ?string {
+		// @phpstan-ignore-next-line method.deprecated
+		$a = $this->getUserConfigurationValue($key);
+		return is_string($a) ? $a : null;
 	}
 
 	/**
@@ -369,16 +443,62 @@ abstract class Minz_Extension {
 		$conf->save();
 	}
 
-	/** @param array<string,mixed> $configuration */
+	/**
+	 * @param array<string,mixed> $configuration
+	 * @deprecated Use {@see setSystemConfigurationValue()} instead. Will soon be marked as private.
+	 * @internal
+	 */
 	final protected function setSystemConfiguration(array $configuration): void {
 		$this->setConfiguration('system', $configuration);
 		$this->system_configuration = $configuration;
 	}
 
-	/** @param array<string,mixed> $configuration */
+	/**
+	 * @param non-empty-string $key
+	 * @param array<string,mixed>|mixed|null $value
+	 */
+	final protected function setSystemConfigurationValue(string $key, $value = null): void {
+		if (!is_array($this->system_configuration)) {
+			/** @phpstan-ignore method.deprecated */
+			$this->system_configuration = $this->getSystemConfiguration();
+		}
+
+		if (isset($this->system_configuration[$key]) && $value === null) {
+			unset($this->system_configuration[$key]);
+		} elseif ($value !== null) {
+			$this->system_configuration[$key] = $value;
+		}
+
+		$this->setConfiguration('system', $this->system_configuration);
+	}
+
+	/**
+	 * @param array<string,mixed> $configuration
+	 * @deprecated Use {@see setUserConfigurationValue()} instead. Will soon be marked as private.
+	 * @internal
+	 */
 	final protected function setUserConfiguration(array $configuration): void {
 		$this->setConfiguration('user', $configuration);
 		$this->user_configuration = $configuration;
+	}
+
+	/**
+	 * @param non-empty-string $key
+	 * @param array<string,mixed>|mixed|null $value
+	 */
+	final protected function setUserConfigurationValue(string $key, $value = null): void {
+		if (!is_array($this->user_configuration)) {
+			/** @phpstan-ignore method.deprecated */
+			$this->user_configuration = $this->getUserConfiguration();
+		}
+
+		if (isset($this->user_configuration[$key]) && $value === null) {
+			unset($this->user_configuration[$key]);
+		} elseif ($value !== null) {
+			$this->user_configuration[$key] = $value;
+		}
+
+		$this->setConfiguration('user', $this->user_configuration);
 	}
 
 	/** @phpstan-param 'system'|'user' $type */

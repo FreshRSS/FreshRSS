@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
+		'show_title_unread' => 'Afficher le nombre d’articles non lus dans le titre',
 		'sidebar_hidden_by_default' => 'Masquer la barre latérale par défaut',
 		'theme' => array(
 			'_' => 'Thème',
@@ -122,6 +123,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Vie privée',
 		'retrieve_extension_list' => 'Récupération de la liste des extensions',
+		'send_referrer_allowlist' => 'Sites autorisés à voir l’adresse de votre serveur (%s)',
 	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
@@ -149,6 +151,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Filtres utilisateurs',
+		'create' => 'Créer un nouveau filtre utilisateur',
 		'deprecated' => 'Ce filtre n’est plus valide. La catégorie ou le flux concerné a été supprimé.',
 		'description' => 'Description',	// IGNORE
 		'filter' => array(
@@ -279,6 +282,7 @@ return array(
 			'upon_gone' => 'lorsqu’il n’est plus dans le flux d’actualités en amont',
 			'upon_reception' => 'dès la réception du nouvel article',
 			'when' => 'Marquer un article comme lu…',
+			'when_same_guid_in_category' => 'si un même GUID existe déjà dans les <i>n</i> articles plus récents de la catégorie',
 			'when_same_title_in_category' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents de la catégorie',
 			'when_same_title_in_feed' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents du flux',
 		),

@@ -887,8 +887,11 @@ class FreshRSS_Entry extends Minz_Model {
 		return (bool)$ok;
 	}
 
-	/** @param array<string,bool|int> $titlesAsRead */
-	public function applyFilterActions(array $titlesAsRead = []): void {
+	/**
+	 * @param array<string,bool|int> $titlesAsRead
+	 * @param array<string,bool|int> $guidsAsRead
+	 */
+	public function applyFilterActions(array $titlesAsRead = [], array $guidsAsRead = []): void {
 		$feed = $this->feed;
 		if ($feed === null) {
 			return;
@@ -902,6 +905,11 @@ class FreshRSS_Entry extends Minz_Model {
 				Minz_Log::debug('Mark title as read: ' . $this->title());
 				$this->_isRead(true);
 				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'same_title_in_feed');
+			}
+			if (!empty($guidsAsRead[$this->guid()])) {
+				Minz_Log::debug('Mark GUID as read: ' . $this->guid());
+				$this->_isRead(true);
+				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'same_guid_in_category');
 			}
 		}
 		FreshRSS_Context::userConf()->applyFilterActions($this);

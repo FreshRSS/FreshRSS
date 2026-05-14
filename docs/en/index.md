@@ -30,9 +30,9 @@ FreshRSS has a lot of features including:
 
 This documentation is split into different sections:
 
-* [User documentation](./users/02_First_steps.md), where you can discover all the possibilities offered by FreshRSS
-* [Administrator documentation](./admins/01_Index.md) for detailed installation and maintenance related tasks
-* [Developer documentation](./developers/01_Index.md) to guide you in the source code of FreshRSS and to help you if you want to contribute
+* [User manual](./users/02_First_steps.md), where you can discover all the possibilities offered by FreshRSS
+* [Administrator manual](./admins/01_Index.md) for detailed installation and maintenance related tasks
+* [Developer manual](./developers/01_Index.md) to guide you in the source code of FreshRSS and to help you if you want to contribute
 * [Contributor guidelines](./contributing.md) for those who want to help improve FreshRSS
 
 ## Demo

@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// TODO
 		'about' => 'אודות FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'לפני %d יום',
+			1 => 'לפני %d ימים',
+		),
+		'hour' => array(
+			0 => 'לפני %d שעה',
+			1 => 'לפני %d שעות',
+		),
+		'justnow' => 'הרגע',
+		'minute' => array(
+			0 => 'לפני %d דקה',
+			1 => 'לפני %d דקות',
+		),
+		'month' => array(
+			0 => 'לפני %d חודש',
+			1 => 'לפני %d חודשים',
+		),
+		'second' => array(
+			0 => 'לפני %d שנייה',
+			1 => 'לפני %d שניות',
+		),
+		'year' => array(
+			0 => 'לפני %d שנה',
+			1 => 'לפני %d שנים',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Empty category',	// TODO
 		'confirm_action' => 'האם אתם בטוחים שברצונכם לבצע פעולה זו? אין אפשרות לבטל אותה!',

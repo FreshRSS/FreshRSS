@@ -1,4 +1,4 @@
-# General Installation Instructions
+# General installation instructions
 
 These instructions are intended as general guidelines for installing FreshRSS. You may wish to consult the [Step-by-step Tutorial for installing FreshRSS on Debian 9/Ubuntu 16.04](06_LinuxInstall.md) if you don’t currently have a web server and don’t have experience setting one up.
 

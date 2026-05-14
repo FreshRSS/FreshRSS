@@ -127,6 +127,11 @@ cd /usr/share/FreshRSS
 # Back-up all users respective database to `data/users/*/backup.sqlite`
 # -q, --quiet suppress non-error messages
 
+./cli/export-sqlite-auto.php
+# Periodic SQLite export per user to `data/users/*/sqlite-backups/<YYYYMMDDTHHMMSSZ>.sqlite`, pruned to retention.
+# Gated by `auto_sqlite_export` in `data/config.php`.
+# -q, --quiet suppress non-error messages
+
 ./cli/db-restore.php --delete-backup --force-overwrite
 # Restore all users respective database from `data/users/*/backup.sqlite`
 # --delete-backup:	delete `data/users/*/backup.sqlite` after successful import
@@ -134,6 +139,11 @@ cd /usr/share/FreshRSS
 
 ./cli/db-optimize.php --user username
 # Optimize database (reduces the size) for a given user (perform `OPTIMIZE TABLE` in MySQL, `VACUUM` in SQLite)
+
+./cli/purge.php --user username
+# Apply the purge policy (max number of articles, max age, exceptions) to all feeds of the given user.
+# Equivalent to clicking ‘Purge now’ in the GUI, but suitable for cron.
+# Purge queries are expensive and blocking; running daily or weekly is usually enough.
 ```
 
 ### Translation
@@ -150,6 +160,13 @@ cd /usr/share/FreshRSS
 # -l, --language selects the language to work on.
 # -r, --revert revert the action (only used with ignore action).
 # -o, --origin-language selects the origin language (only used with add language action).
+
+./cli/compile.plurals.php [ --all --file app/i18n/en/plurals.php --formula 'nplurals=2; plural=(n != 1);' ]
+# Compile gettext plural formulas into PHP callables for runtime use.
+# Plural source files are driven by a leading comment such as:
+#   // Plural-Forms: nplurals=2; plural=(n != 1);
+# Run this command, or `make fix-all`, after editing those comments.
+# See examples: https://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html
 
 ./cli/check.translation.php [ ---display-result --help --language fr --display-report --generate-readme ]
 # Check if translation files have missing keys or missing translations.

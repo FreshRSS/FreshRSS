@@ -145,7 +145,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		if ($search !== '') {
 			$title = '“' . htmlspecialchars($search, ENT_COMPAT, 'UTF-8') . '”';
 		}
-		if (FreshRSS_Context::$get_unread > 0) {
+		if (FreshRSS_Context::userConf()->show_title_unread && FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
 		if (strlen($title) > 0) {
@@ -224,7 +224,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = _t('index.feed.title_global');
-		if (FreshRSS_Context::$get_unread > 0) {
+		if (FreshRSS_Context::userConf()->show_title_unread && FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
 		FreshRSS_View::prependTitle($title . ' · ');
@@ -258,6 +258,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		try {
 			$this->view->entries = FreshRSS_index_Controller::listEntriesByContext();
+			$this->view->entries->current();	// Init the generator to catch potential exceptions
 		} catch (FreshRSS_EntriesGetter_Exception $e) {
 			Minz_Log::notice($e->getMessage());
 			Minz_Error::error(404);
@@ -335,10 +336,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This method returns a list of entries based on the Context object.
 	 * @param int $postsPerPage override `FreshRSS_Context::$number`
-	 * @return Traversable<FreshRSS_Entry>
+	 * @return Generator<FreshRSS_Entry>
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
-	public static function listEntriesByContext(?int $postsPerPage = null): Traversable {
+	public static function listEntriesByContext(?int $postsPerPage = null): Generator {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);

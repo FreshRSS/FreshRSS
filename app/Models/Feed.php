@@ -62,7 +62,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private int $priority = self::PRIORITY_MAIN_STREAM;
 	private string $pathEntries = '';
 	private string $httpAuth = '';
-	private bool $error = false;
+	private int $error = 0;
 	private int $ttl = self::TTL_DEFAULT;
 	private bool $mute = false;
 	private string $hash = '';
@@ -354,8 +354,19 @@ class FreshRSS_Feed extends Minz_Model {
 		return $curl_options;
 	}
 
-	public function inError(): bool {
+	/**
+	 * Timestamp of last update error.
+	 * Legacy: may return 1 if the feed has an error but the timestamp is not available.
+	 */
+	public function lastError(): int {
 		return $this->error;
+	}
+
+	/**
+	 * If the feed has an error
+	 */
+	public function inError(): bool {
+		return $this->error > 0;
 	}
 
 	/**
@@ -394,6 +405,26 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		return $this->nbNotRead;
+	}
+
+	/** @return int Timestamp of the newest article received for this feed, or 0 if none */
+	public function newestArticleReceivedDate(): int {
+		static $newestArticleReceivedDate = null;
+		if (!is_int($newestArticleReceivedDate)) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$newestArticleReceivedDate = $feedDAO->newestArticleReceivedDate($this->id());
+		}
+		return $newestArticleReceivedDate;
+	}
+
+	/** @return int Timestamp of the Last article published for this feed, or 0 if none */
+	public function newestArticlePublicationDate(): int {
+		static $newestArticlePublicationDate = null;
+		if (!is_int($newestArticlePublicationDate)) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$newestArticlePublicationDate = $feedDAO->newestArticlePublicationDate($this->id());
+		}
+		return $newestArticlePublicationDate;
 	}
 
 	public function faviconPrepare(bool $force = false): void {
@@ -525,8 +556,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->httpAuth = $value;
 	}
 
-	public function _error(bool|int $value): void {
-		$this->error = (bool)$value;
+	public function _error(int $value): void {
+		$this->error = $value;
 	}
 	public function _mute(bool $value): void {
 		$this->mute = $value;
@@ -754,7 +785,7 @@ class FreshRSS_Feed extends Minz_Model {
 					return $this->loadGuids($simplePie, $invalidGuidsTolerance);
 				}
 			}
-			$this->_error(true);
+			$this->_error(time());
 		}
 
 		return $guids;
@@ -1444,6 +1475,24 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 			]);
+
+			$curl_options = [];
+			if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
+				$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+				if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+				}
+			} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
+				// Legacy PHP 8.2-
+				if (defined('CURLOPT_PROTOCOLS')) {
+					$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+				if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+			}
+			curl_setopt_array($ch, $curl_options);
+
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 			if (!is_array($info)) {

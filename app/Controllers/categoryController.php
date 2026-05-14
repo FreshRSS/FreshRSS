@@ -109,6 +109,11 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			} else {
 				$category->_attribute('read_when_same_title_in_category', null);
 			}
+			if (Minz_Request::paramBoolean('enable_read_when_same_guid_in_category')) {
+				$category->_attribute('read_when_same_guid_in_category', Minz_Request::paramInt('read_when_same_guid_in_category'));
+			} else {
+				$category->_attribute('read_when_same_guid_in_category', null);
+			}
 
 			$category->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read', plaintext: true));
 

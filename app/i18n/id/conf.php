@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Batas waktu pemberitahuan HTML5',
 		),
 		'show_nav_buttons' => 'Tampilkan tombol navigasi',
+		'show_title_unread' => 'Tampilkan jumlah artikel yang belum dibaca di judul',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tema',
@@ -122,6 +123,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privasi',
 		'retrieve_extension_list' => 'Ambil daftar ekstensi',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Pengelolaan Profil',
@@ -149,6 +151,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Pencarian Pengguna',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Pencarian ini tidak valid lagi. Kategori atau umpan yang dirujuk telah dihapus.',
 		'description' => 'Deskripsi',
 		'filter' => array(
@@ -279,6 +282,7 @@ return array(
 			'upon_gone' => 'saat artikel hilang dari umpan situs aslinya',
 			'upon_reception' => 'saat menerima artikel',
 			'when' => 'Tandai artikel sebagai sudah dibaca…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dalam kategori',
 			'when_same_title_in_feed' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dari umpan',
 		),

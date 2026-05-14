@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'About FreshRSS',	// IGNORE
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d day ago',	// IGNORE
+			1 => '%d days ago',	// IGNORE
+		),
+		'hour' => array(
+			0 => '%d hour ago',	// IGNORE
+			1 => '%d hours ago',	// IGNORE
+		),
+		'justnow' => 'just now',	// IGNORE
+		'minute' => array(
+			0 => '%d minute ago',	// IGNORE
+			1 => '%d minutes ago',	// IGNORE
+		),
+		'month' => array(
+			0 => '%d month ago',	// IGNORE
+			1 => '%d months ago',	// IGNORE
+		),
+		'second' => array(
+			0 => '%d second ago',	// IGNORE
+			1 => '%d seconds ago',	// IGNORE
+		),
+		'year' => array(
+			0 => '%d year ago',	// IGNORE
+			1 => '%d years ago',	// IGNORE
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Empty category',	// IGNORE
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be canceled!',

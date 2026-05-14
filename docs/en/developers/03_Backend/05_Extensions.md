@@ -1,4 +1,4 @@
-# Writing extensions for FreshRSS
+# Writing extensions
 
 ## About FreshRSS
 
@@ -123,11 +123,11 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 * the `registerViews` method registers the extension views in FreshRSS.
 * the `registerTranslates` method registers the extension translation files in FreshRSS.
 * the `registerHook` method registers hook actions in different part of the application.
-* the `getSystemConfiguration` method retrieves the extension configuration for the system.
-* the `setSystemConfiguration` method stores the extension configuration for the system.
+* the `getSystemConfiguration*()` family of methods retrieve typed extension configuration values for the system.
+* the `setSystemConfigurationValue()` method stores an extension configuration value for the system.
 * the `removeSystemConfiguration` method removes the extension configuration for the system.
-* the `getUserConfiguration` method retrieves the extension configuration for the current user.
-* the `setUserConfiguration` method stores the extension configuration for the current user.
+* the `getUserConfiguration*()` family of methods retrieve typed extension configuration values for the current user.
+* the `setUserConfigurationValue()` method stores an extension configuration value for the current user.
 * the `removeUserConfiguration` method removes the extension configuration for the current user.
 
 > Note that if you modify the later set of methods, you might break the extension system. Thus making FreshRSS unusable. So it’s highly recommended to let those unmodified.
@@ -151,7 +151,7 @@ final class HelloWorldExtension extends Minz_Extension
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
-		$message = $this->getUserConfigurationValue('message');
+		$message = $this->getUserConfigurationString('message');
 		$entry->_content("<h1>{$message}</h1>" . $entry->content());
 		return $entry;
 	}
@@ -181,7 +181,7 @@ Example response for a `query_icon_info` request:
 * `Minz_HookType::CustomFaviconHash` (`function(FreshRSS_Feed $feed): string | null`): Enables the modification of custom favicon hashes by returning params from the hook function. The hook should check if the `customFaviconExt` attribute of `$feed` is set to the extension's name before returning a custom value. Otherwise, the return value should be null.
 * `Minz_HookType::EntriesFavorite` (`function(array $ids, bool $is_favorite): void`):
 	will be executed when some entries are marked or unmarked as favorites (starred)
-* `Minz_HookType::EntryAutoRead` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as read. The *why* parameter supports the rules {`filter`, `upon_reception`, `same_title_in_feed`}.
+* `Minz_HookType::EntryAutoRead` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as read. The *why* parameter supports the rules {`filter`, `upon_reception`, `same_title_in_feed`, `same_guid_in_category`}.
 * `Minz_HookType::EntryAutoUnread` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as unread. The *why* parameter supports the rules {`updated_article`}.
 * `Minz_HookType::EntryBeforeDisplay` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
 * `Minz_HookType::EntryBeforeInsert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.

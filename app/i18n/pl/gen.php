@@ -140,6 +140,39 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O oprogramowaniu FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d dzień temu',
+			1 => '%d dni temu',
+			2 => '%d dni temu',
+		),
+		'hour' => array(
+			0 => '%d godzina temu',
+			1 => '%d godziny temu',
+			2 => '%d godzin temu',
+		),
+		'justnow' => 'przed chwilą',
+		'minute' => array(
+			0 => '%d minuta temu',
+			1 => '%d minuty temu',
+			2 => '%d minut temu',
+		),
+		'month' => array(
+			0 => '%d miesiąc temu',
+			1 => '%d miesiące temu',
+			2 => '%d miesięcy temu',
+		),
+		'second' => array(
+			0 => '%d sekunda temu',
+			1 => '%d sekundy temu',
+			2 => '%d sekund temu',
+		),
+		'year' => array(
+			0 => '%d rok temu',
+			1 => '%d lata temu',
+			2 => '%d lat temu',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Pusta kategoria',
 		'confirm_action' => 'Czy jesteś pewien, że chcesz przeprowadzić daną operację? Nie można cofnąć jej rezultatów!',

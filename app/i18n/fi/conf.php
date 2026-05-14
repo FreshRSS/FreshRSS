@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Tauko HTML5-ilmoitusten välissä',
 		),
 		'show_nav_buttons' => 'Näytä siirtymispainikkeet',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Teema',
@@ -122,6 +123,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Tietosuoja',
 		'retrieve_extension_list' => 'Nouda laajennusluettelo',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Profiilien hallinta',
@@ -149,6 +151,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Käyttäjän kyselyt',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Kysely ei enää kelpaa. Siinä käytetty luokka tai syöte on poistettu.',
 		'description' => 'Kuvaus',
 		'filter' => array(
@@ -279,6 +282,7 @@ return array(
 			'upon_gone' => 'kun artikkeli ei ole enää alkuperäisessä uutissyötteessä',
 			'upon_reception' => 'kun artikkeli on vastaanotettu',
 			'when' => 'Merkitse artikkeli luetuksi…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'jos jollakin luokan <i>n</i> uusimmalla artikkelilla on sama otsikko',
 			'when_same_title_in_feed' => 'jos jollakin syötteen <i>n</i> uusimmalla artikkelilla on sama otsikko',
 		),

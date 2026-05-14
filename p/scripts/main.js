@@ -171,10 +171,12 @@ function incUnreadsFeed(article, feed_id, nb) {
 			return p1;
 		}
 	});
-	if (prevTitle) {
-		prevTitle = newTitle;
-	} else {
-		document.title = newTitle;
+	if (context.show_title_unread !== false) {
+		if (prevTitle) {
+			prevTitle = newTitle;
+		} else {
+			document.title = newTitle;
+		}
 	}
 	return isCurrentView;
 }
@@ -930,14 +932,15 @@ function toggle_aside_click(manual = true) {
 	}
 
 	const active = toggle_aside.classList.contains('active');
+	const isNarrow = window.matchMedia('(max-width: 840px)').matches;
 	if (active) {
 		toggle_aside.classList.remove('active');
 		aside.classList.remove('visible');
-		aside.style.display = 'none';
+		aside.classList.toggle('is-hidden', !isNarrow);
 	} else {
 		toggle_aside.classList.add('active');
 		aside.classList.add('visible');
-		aside.style.display = '';
+		aside.classList.remove('is-hidden');
 	}
 
 	if (manual && ['normal', 'reader'].includes(context.current_view)) {
@@ -967,7 +970,7 @@ function init_nav_menu() {
 		const active = toggle_aside.classList.contains('active');
 		if (state != active) toggle_aside_click(false);
 	}
-	if (getComputedStyle(aside).display !== 'none') {
+	if (toggle_aside.classList.contains('active')) {
 		if (context.current_view === 'normal') aside.classList.add('visible');
 		sync(media);
 	}
@@ -1504,38 +1507,48 @@ function init_stream(stream) {
 		}
 	};
 
-	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
-		if (ev.altKey || ev.metaKey || ev.shiftKey) {
+	stream.onmouseup = function (ev) {	// Mouseup enables us to catch control+click in IE/Edge
+		if (ev.altKey || ev.metaKey || ev.shiftKey || ev.which != 1) {
 			return;
 		}
 
 		let el = ev.target.closest('.item a.title');
 		if (el) {
-			if (ev.which == 1) {
-				if (ev.ctrlKey) {	// Control+click
-					if (context.auto_mark_site) {
-						mark_read(el.closest('.flux'), true, false);
-					}
-				} else {
-					el.parentElement.click();	// Normal click, just toggle article.
+			if (ev.ctrlKey) {	// Control+click
+				if (context.auto_mark_site) {
+					mark_read(el.closest('.flux'), true, false);
 				}
-			} else if (ev.which == 2 && !ev.ctrlKey) {	// Simple middle click: same behaviour as CTRL+click
-				if (context.auto_mark_article) {
-					const new_active = el.closest('.flux');
-					mark_read(new_active, true, false);
-				}
+			} else {
+				el.parentElement.click();	// Normal click, just toggle article.
 			}
 			return;
 		}
 
 		if (context.auto_mark_site) {
-			// catch mouseup instead of click so we can have the correct behaviour
-			// with middle button click (scroll button).
 			el = ev.target.closest('.flux .link > a');
 			if (el) {
-				if (ev.which == 3) {
-					return;
-				}
+				mark_read(el.closest('.flux'), true, false);
+			}
+		}
+	};
+
+	stream.onauxclick = function (ev) {	// Auxclick enables us to catch middle click
+		if (ev.altKey || ev.metaKey || ev.shiftKey || ev.which != 2 || ev.ctrlKey) {
+			return;
+		}
+
+		let el = ev.target.closest('.item a.title');
+		if (el) {
+			if (context.auto_mark_article) {
+				const new_active = el.closest('.flux');
+				mark_read(new_active, true, false);
+			}
+			return;
+		}
+
+		if (context.auto_mark_site) {
+			el = ev.target.closest('.flux .link > a');
+			if (el) {
 				mark_read(el.closest('.flux'), true, false);
 			}
 		}
@@ -2152,6 +2165,7 @@ function load_more_posts() {
 		let lastTransition = transitions.length > 0 ? transitions[transitions.length - 1] : null;
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
+		enforce_referrer_allowlist(streamAdopted);
 		streamAdopted.querySelectorAll('.flux, .transition').forEach(function (div) {
 			if (lastTransition !== null && div.classList.contains('transition') && div.textContent === lastTransition.textContent) {
 				lastTransition = null;
@@ -2236,6 +2250,10 @@ function init_confirm_action() {
 }
 
 function faviconNbUnread(n) {
+	if (context.show_title_unread === false) {
+		return;
+	}
+
 	if (typeof n === 'undefined') {
 		const t = document.querySelector('.category.all .title');
 		n = t ? str2int(t.getAttribute('data-unread')) : 0;
@@ -2293,6 +2311,24 @@ function removeFirstLoadSpinner() {
 	}
 }
 
+function enforce_referrer_allowlist(stream) {
+	for (const iframe of stream.querySelectorAll('div.content iframe[src], div.content iframe[data-original]')) {
+		let hostname;
+		try {
+			hostname = new URL(context.does_lazyload ? iframe.getAttribute('data-original') : iframe.src).hostname;
+		} catch (_) {
+			continue;
+		}
+		if (context.send_referrer_allowlist.includes(hostname) && !iframe.hasAttribute('referrerpolicy')) {
+			iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+			if (!context.does_lazyload) {
+				// iframe must be reloaded to apply the `referrerpolicy` change
+				iframe.src = iframe.src; // eslint-disable-line no-self-assign
+			}
+		}
+	}
+}
+
 function init_normal() {
 	const stream = document.getElementById('stream');
 	if (!stream) {
@@ -2304,6 +2340,7 @@ function init_normal() {
 	}
 	init_column_categories();
 	init_stream(stream);
+	enforce_referrer_allowlist(stream);
 	init_actualize();
 	faviconNbUnread();
 

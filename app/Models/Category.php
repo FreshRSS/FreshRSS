@@ -267,7 +267,11 @@ class FreshRSS_Category extends Minz_Model {
 		}
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$catDAO->updateLastUpdate($this->id(), !$ok);
+		if ($ok) {
+			$catDAO->updateLastUpdate($this->id());
+		} else {
+			$catDAO->updateLastError($this->id());
+		}
 
 		return (bool)$ok;
 	}

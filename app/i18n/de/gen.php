@@ -54,7 +54,7 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'Ich akzeptiere die <a href="%s">Nutzungsbedingungen</a>.',
 		'email' => 'E-Mail-Adresse',
-		'keep_logged_in' => 'Eingeloggt bleiben für<small>(%s Tage)</small>',
+		'keep_logged_in' => 'Angemeldet bleiben <small>(%s Tage)</small>',
 		'login' => 'Anmelden',
 		'logout' => 'Abmelden',
 		'password' => array(
@@ -140,9 +140,36 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Über FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'vor %d Tag',
+			1 => 'vor %d Tagen',
+		),
+		'hour' => array(
+			0 => 'vor %d Stunde',
+			1 => 'vor %d Stunden',
+		),
+		'justnow' => 'gerade eben',
+		'minute' => array(
+			0 => 'vor %d Minute',
+			1 => 'vor %d Minuten',
+		),
+		'month' => array(
+			0 => 'vor %d Monat',
+			1 => 'vor %d Monaten',
+		),
+		'second' => array(
+			0 => 'vor %d Sekunde',
+			1 => 'vor %d Sekunden',
+		),
+		'year' => array(
+			0 => 'vor %d Jahr',
+			1 => 'vor %d Jahren',
+		),
+	),
 	'js' => array(
-		'category_empty' => 'Kategorie leeren',
-		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Diese Aktion kann nicht abgebrochen werden!',
+		'category_empty' => 'Leere Kategorie',
+		'confirm_action' => 'Möchten Sie diese Aktion wirklich ausführen? Sie kann nicht rückgängig gemacht werden.',
 		'confirm_action_feed_cat' => 'Möchten Sie diese Aktion wirklich ausführen? Sie verlieren damit alle zugehörigen Favoriten und Suchanfragen. Der Vorgang kann nicht rückgängig gemacht werden!',
 		'confirm_exit_slider' => 'Sollen die nicht gespeicherten Einstellungen wirklich verworfen werden?',
 		'feedback' => array(

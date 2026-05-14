@@ -31,10 +31,28 @@ class Minz_Translate {
 	private static array $lang_files = [];
 
 	/**
+	 * Dedicated plural catalogue files registered for the current language.
+	 * @var array<int,array{path:string,use_formula:bool}>
+	 */
+	private static array $plural_files = [];
+
+	/**
 	 * $translates is a cache for i18n translation.
 	 * @var array<string,mixed>
 	 */
 	private static array $translates = [];
+
+	/**
+	 * Cache of normalised plural message families by i18n key.
+	 * @var array<string,array<int,string>>
+	 */
+	private static array $plural_message_families = [];
+
+	private static bool $plural_catalogue_loaded = false;
+
+	private static ?int $plural_count = null;
+
+	private static ?\Closure $plural_function = null;
 
 	/**
 	 * Init the translation object.
@@ -43,7 +61,10 @@ class Minz_Translate {
 	public static function init(string $lang_name = ''): void {
 		self::$lang_name = $lang_name;
 		self::$lang_files = [];
+		self::$plural_files = [];
 		self::$translates = [];
+		self::$plural_message_families = [];
+		self::resetPluralCache();
 		self::registerPath(APP_PATH . '/i18n');
 		foreach (self::$path_list as $path) {
 			self::loadLang($path);
@@ -57,7 +78,10 @@ class Minz_Translate {
 	public static function reset(string $lang_name): void {
 		self::$lang_name = $lang_name;
 		self::$lang_files = [];
+		self::$plural_files = [];
 		self::$translates = [];
+		self::$plural_message_families = [];
+		self::resetPluralCache();
 		foreach (self::$path_list as $path) {
 			self::loadLang($path);
 		}
@@ -132,8 +156,10 @@ class Minz_Translate {
 	 * @param string $path the path containing i18n directories.
 	 */
 	private static function loadLang(string $path): void {
+		$selected_lang_path = $path . '/' . self::$lang_name;
 		$lang_path = $path . '/' . self::$lang_name;
-		if (self::$lang_name === '' || !is_dir($lang_path)) {
+		$uses_selected_language = self::$lang_name !== '' && is_dir($selected_lang_path);
+		if (!$uses_selected_language) {
 			// The lang path does not exist, fallback to English ('en')
 			$lang_path = $path . '/en';
 			if (!is_dir($lang_path)) {
@@ -146,11 +172,20 @@ class Minz_Translate {
 			scandir($lang_path) ?: [],
 			['..', '.']
 		));
+		self::$plural_message_families = [];
 
 		// Each file basename correspond to a top-level i18n key. For each of
 		// these keys we store the file pathname and mark translations must be
 		// reloaded (by setting $translates[$i18n_key] to null).
 		foreach ($list_i18n_files as $i18n_filename) {
+			if ($i18n_filename === 'plurals.php') {
+				self::$plural_files[] = [
+					'path' => $lang_path . '/' . $i18n_filename,
+					'use_formula' => $uses_selected_language || self::$lang_name === '',
+				];
+				self::resetPluralCache();
+				continue;
+			}
 			$i18n_key = basename($i18n_filename, '.php');
 			if (!isset(self::$lang_files[$i18n_key])) {
 				self::$lang_files[$i18n_key] = [];
@@ -198,51 +233,13 @@ class Minz_Translate {
 	 *         If no value is found, return the key itself.
 	 */
 	public static function t(string $key, ...$args): string {
-		$group = explode('.', $key);
-
-		if (count($group) < 2) {
-			Minz_Log::debug($key . ' is not in a valid format');
-			$top_level = 'gen';
-		} else {
-			$top_level = array_shift($group) ?? '';
-		}
-
-		// If $translates[$top_level] is null it means we have to load the
-		// corresponding files.
-		if (empty(self::$translates[$top_level])) {
-			$res = self::loadKey($top_level);
-			if (!$res) {
-				return $key;
-			}
-		}
-
-		// Go through the i18n keys to get the correct translation value.
-		$translates = self::$translates[$top_level];
-		if (!is_array($translates)) {
-			$translates = [];
-		}
-		$size_group = count($group);
-		$level_processed = 0;
-		$translation_value = $key;
-		foreach ($group as $i18n_level) {
-			if (!is_array($translates)) {
-				continue;	// Not needed. To help PHPStan
-			}
-			$level_processed++;
-			if (!isset($translates[$i18n_level])) {
-				Minz_Log::debug($key . ' is not a valid key');
-				return $key;
-			}
-
-			if ($level_processed < $size_group) {
-				$translates = $translates[$i18n_level];
-			} else {
-				$translation_value = $translates[$i18n_level];
-			}
+		$translation_value = self::resolveKey($key);
+		if ($translation_value === null) {
+			return $key;
 		}
 
 		if (!is_string($translation_value)) {
-			$translation_value = is_array($translation_value) ? ($translation_value['_'] ?? null) : null;
+			$translation_value = $translation_value['_'] ?? null;
 			if (!is_string($translation_value)) {
 				Minz_Log::debug($key . ' is not a valid key');
 				return $key;
@@ -254,10 +251,177 @@ class Minz_Translate {
 	}
 
 	/**
+	 * Resolve a translation key to its raw string or array value.
+	 * @return array<mixed>|string|null
+	 */
+	private static function resolveKey(string $key): array|string|null {
+		$group = explode('.', $key);
+
+		if (count($group) < 2) {
+			Minz_Log::debug($key . ' is not in a valid format');
+			$top_level = 'gen';
+		} else {
+			$top_level = array_shift($group) ?? '';
+		}
+
+		if ((self::$translates[$top_level] ?? null) === null) {
+			$res = self::loadKey($top_level);
+			if (!$res) {
+				return null;
+			}
+		}
+
+		$translationValue = self::$translates[$top_level] ?? null;
+		if (!is_array($translationValue)) {
+			return null;
+		}
+
+		foreach ($group as $i18n_level) {
+			if (!is_array($translationValue) || !array_key_exists($i18n_level, $translationValue)) {
+				Minz_Log::debug($key . ' is not a valid key');
+				return null;
+			}
+			$translationValue = $translationValue[$i18n_level];
+		}
+
+		if (!is_array($translationValue) && !is_string($translationValue)) {
+			return null;
+		}
+
+		return $translationValue;
+	}
+
+	/**
 	 * Return the current language.
 	 */
 	public static function language(): string {
 		return self::$lang_name;
+	}
+
+	/**
+	 * Reset all cached plural data.
+	 */
+	private static function resetPluralCache(): void {
+		self::$plural_catalogue_loaded = false;
+		self::$plural_count = null;
+		self::$plural_function = null;
+	}
+
+	/**
+	 * Load the plural catalogue for the current language.
+	 */
+	private static function loadPluralCatalogue(): void {
+		if (self::$plural_catalogue_loaded) {
+			return;
+		}
+
+		self::$plural_catalogue_loaded = true;
+		$fallbackPluralCount = null;
+		$fallbackPluralFunction = null;
+
+		foreach (self::$plural_files as $pluralFile) {
+			$pluralData = include $pluralFile['path'];
+			if (!is_array($pluralData)) {
+				Minz_Log::warning('`' . $pluralFile['path'] . '` does not contain a PHP array');
+				continue;
+			}
+
+			$pluralCount = $pluralData['nplurals'] ?? null;
+			$pluralFunction = $pluralData['plural'] ?? null;
+			if (!is_int($pluralCount) || $pluralCount < 1 || !($pluralFunction instanceof \Closure)) {
+				Minz_Log::warning('Invalid compiled plural data in `' . $pluralFile['path'] . '`. Run `make fix-all`.');
+				continue;
+			}
+
+			if ($pluralFile['use_formula']) {
+				if (self::$plural_function === null) {
+					self::$plural_count = $pluralCount;
+					self::$plural_function = $pluralFunction;
+				} elseif (self::$plural_count !== $pluralCount) {
+					Minz_Log::warning('Conflicting compiled plural count in `' . $pluralFile['path'] . '`');
+				}
+			} elseif ($fallbackPluralFunction === null) {
+				$fallbackPluralCount = $pluralCount;
+				$fallbackPluralFunction = $pluralFunction;
+			}
+		}
+
+		if (self::$plural_function === null) {
+			self::$plural_count = $fallbackPluralCount;
+			self::$plural_function = $fallbackPluralFunction;
+		}
+	}
+
+	private static function pluralIndex(int $value): ?int {
+		if (self::$plural_count === null || self::$plural_function === null) {
+			return null;
+		}
+
+		$index = (self::$plural_function)($value);
+		if (!is_int($index)) {
+			return null;
+		}
+		$index = max(0, $index);
+		return min($index, self::$plural_count - 1);
+	}
+
+	/**
+	 * Translate a count-based key using gettext plural indexes.
+	 * @param string $baseKey Base i18n key without plural suffix (e.g. `gen.interval.second`).
+	 * @param int $value Count used for plural category and `%d` substitution.
+	 * @return string|null Translated string or null if no translation is found.
+	 */
+	public static function plural(string $baseKey, int $value): ?string {
+		self::loadPluralCatalogue();
+
+		if (!isset(self::$plural_message_families[$baseKey])) {
+			$rawMessageFamily = self::resolveKey($baseKey);
+			if (!is_array($rawMessageFamily) || $rawMessageFamily === []) {
+				Minz_Log::debug($baseKey . ' is not a valid plural key');
+				return null;
+			}
+
+			/** @var array<int,string> $messageFamily */
+			$messageFamily = [];
+			foreach ($rawMessageFamily as $index => $message) {
+				if (is_int($index)) {
+					$integerIndex = $index;
+				} elseif (ctype_digit($index)) {
+					$integerIndex = (int)$index;
+				} else {
+					$integerIndex = null;
+				}
+				if ($integerIndex === null) {
+					continue;
+				}
+				if (!is_string($message)) {
+					continue;
+				}
+				$messageFamily[$integerIndex] = $message;
+			}
+
+			if ($messageFamily === []) {
+				Minz_Log::debug($baseKey . ' is not a valid plural key');
+				return null;
+			}
+
+			ksort($messageFamily);
+			self::$plural_message_families[$baseKey] = $messageFamily;
+		}
+
+		$messageFamily = self::$plural_message_families[$baseKey];
+
+		$index = self::pluralIndex($value);
+		if ($index !== null && isset($messageFamily[$index]) && $messageFamily[$index] !== '') {
+			return vsprintf($messageFamily[$index], [$value]);
+		}
+
+		$lastMessage = end($messageFamily);
+		if ($lastMessage === false || $lastMessage === '') {
+			return null;
+		}
+
+		return vsprintf($lastMessage, [$value]);
 	}
 }
 

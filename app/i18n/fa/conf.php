@@ -54,6 +54,7 @@ return array(
 			'timeout' => ' وقفه اعلان HTML5',
 		),
 		'show_nav_buttons' => ' دکمه های ناوبری را نشان دهید',
+		'show_title_unread' => 'نمایش تعداد مقالات خوانده نشده در عنوان',
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => ' موضوع',
@@ -122,6 +123,7 @@ return array(
 	'privacy' => array(
 		'_' => 'حریم خصوصی',
 		'retrieve_extension_list' => 'بازیابی لیست افزونه‌ها',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => ' مدیریت پروفایل',
@@ -149,6 +151,7 @@ return array(
 	),
 	'query' => array(
 		'_' => ' پرس و جوهای کاربر',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => ' این عبارت دیگر معتبر نیست. دسته یا فید ارجاع شده حذف شده است.',
 		'description' => 'توضیحات',
 		'filter' => array(
@@ -279,6 +282,7 @@ return array(
 			'upon_gone' => ' زمانی که دیگر در فید اخبار بالادستی نیست',
 			'upon_reception' => ' پس از دریافت مقاله',
 			'when' => ' علامت گذاری یک مقاله به عنوان خوانده شده…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'اگر عنوان مشابهی در بخش بالا وجود دارد <i>n</i> تازه‌ترین مقالات این دسته',
 			'when_same_title_in_feed' => ' اگر عنوان یکسانی از قبل در <i>n</i> جدیدترین مقالات بالا وجود داشته باشد (از فید)',
 		),

@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',
 		'about' => 'About FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d day ago',
+			1 => '%d days ago',
+		),
+		'hour' => array(
+			0 => '%d hour ago',
+			1 => '%d hours ago',
+		),
+		'justnow' => 'just now',
+		'minute' => array(
+			0 => '%d minute ago',
+			1 => '%d minutes ago',
+		),
+		'month' => array(
+			0 => '%d month ago',
+			1 => '%d months ago',
+		),
+		'second' => array(
+			0 => '%d second ago',
+			1 => '%d seconds ago',
+		),
+		'year' => array(
+			0 => '%d year ago',
+			1 => '%d years ago',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Empty category',
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be cancelled!',
@@ -276,7 +303,7 @@ return array(
 		'raindrop' => 'Raindrop.io',
 		'reddit' => 'Reddit',
 		'shaarli' => 'Shaarli',
-		'telegram' => 'Telegram',	// IGNORE
+		'telegram' => 'Telegram',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',

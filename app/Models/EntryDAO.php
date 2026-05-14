@@ -1951,7 +1951,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0): int|false {
 		$sql = <<<'SQL'
 			UPDATE `_entry` SET `lastSeen` = :mtime
-			WHERE id_feed = :id_feed1 AND `lastSeen` = (
+			WHERE id_feed = :id_feed1 AND `lastSeen` >= (
 				SELECT `lastUpdate` FROM `_feed` f
 				WHERE f.id = :id_feed2
 			)

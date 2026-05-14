@@ -54,6 +54,7 @@ return array(
 			'timeout' => 'Тайм-аут сповіщення HTML5',
 		),
 		'show_nav_buttons' => 'Показати кнопки навігації',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Тема',
@@ -122,6 +123,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Приватність',
 		'retrieve_extension_list' => 'Завантажувати список розширень',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Керування профілем',
@@ -149,6 +151,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Користувацькі запити',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Запит більше не чинний. Згадану категорію чи стрічку видалено.',
 		'description' => 'Опис',
 		'filter' => array(
@@ -279,6 +282,7 @@ return array(
 			'upon_gone' => 'коли статті більше нема в оригінальній стрічці новин',
 			'upon_reception' => 'при отриманні статті',
 			'when' => 'Позначити статтю прочитаною…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'якщо котрась зі стількох найновіших статей категорії має такий самий заголовок',
 			'when_same_title_in_feed' => 'якщо котрась зі стількох найновіших статей стрічки має такий самий заголовок',
 		),

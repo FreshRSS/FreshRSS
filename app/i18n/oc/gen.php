@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'A prepaus de FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'fa %d jorn',
+			1 => 'fa %d jorns',
+		),
+		'hour' => array(
+			0 => 'fa %d ora',
+			1 => 'fa %d oras',
+		),
+		'justnow' => 'ara meteis',
+		'minute' => array(
+			0 => 'fa %d minuta',
+			1 => 'fa %d minutas',
+		),
+		'month' => array(
+			0 => 'fa %d mes',
+			1 => 'fa %d meses',
+		),
+		'second' => array(
+			0 => 'fa %d segonda',
+			1 => 'fa %d segondas',
+		),
+		'year' => array(
+			0 => 'fa %d an',
+			1 => 'fa %d ans',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Categoria voida',
 		'confirm_action' => 'Volètz vertadièrament contunhar ? Aquesta accion se pòt pas anullar !',
