@@ -29,6 +29,7 @@ return array(
 			'help' => '使用 URL 上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => '展开分类',
 		'information' => '信息',
 		'open' => '打开分类',

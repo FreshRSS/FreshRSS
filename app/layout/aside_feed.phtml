@@ -99,8 +99,9 @@
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?= null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>">
 			<a href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>" class="tree-folder-title">
 				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($c_show ? 'up' : 'down') ?></button><?php
-				?><span title="<?= _t('sub.category.open') ?>" class="title<?= $cat->hasFeedsWithError() ? ' error' : '' ?>" data-unread="<?= format_number($cat->nbNotRead()) ?>" ><?=
-					$cat->name() ?><?= $cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? _i('opml-dyn') : ''
+				?><span title="<?= $cat->inError() ? _t('sub.category.error') : _t('sub.category.open') ?>" class="title<?=
+					$cat->hasFeedsWithError() || $cat->inError() ? ' error' : '' ?>" data-unread="<?= format_number($cat->nbNotRead()) ?>"><?=
+					$cat->name() ?><?= $cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? ' ' . _i('opml-dyn') : ''
 				?></span>
 			</a>
 

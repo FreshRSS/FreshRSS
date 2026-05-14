@@ -29,6 +29,7 @@ return array(
 			'help' => 'このカテゴリに動的フィードを追加するための<a href="http://opml.org/" target="_blank">OPMLファイル</a>のURLを指定します。',
 		),
 		'empty' => '空のカテゴリ',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'カテゴリを展開する',
 		'information' => 'インフォメーション',
 		'open' => 'カテゴリを開く',

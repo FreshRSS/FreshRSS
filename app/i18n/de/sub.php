@@ -29,6 +29,7 @@ return array(
 			'help' => 'URL zu einer <a href="http://opml.org/" target="_blank">OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
 		),
 		'empty' => 'Leere Kategorie',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Kategorie aufklappen',
 		'information' => 'Information',	// IGNORE
 		'open' => 'Kategorie öffnen',

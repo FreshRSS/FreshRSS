@@ -29,6 +29,7 @@ return array(
 			'help' => 'Geef de URL naar een <a href="http://opml.org/" target="_blank">OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
 		),
 		'empty' => 'Lege categorie',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Categorie uitklappen',
 		'information' => 'Informatie',
 		'open' => 'Categorie openen',

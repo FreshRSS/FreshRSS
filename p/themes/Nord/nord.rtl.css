@@ -965,7 +965,7 @@ li.item.active {
 
 /*=== DIVERS */
 /*===========*/
-.category .title.error::before {
+.title.error::before {
 	color: var(--red);
 }
 

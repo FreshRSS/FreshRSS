@@ -210,13 +210,11 @@ form {
 	}
 }
 
-.category {
-	.title.error::before {
-		display: inline-block;
-		padding-left: 7px;
-		width: 16px;
-		content: url(../Swage/icons/error.svg);
-	}
+.title.error::before {
+	display: inline-block;
+	padding-left: 7px;
+	width: 16px;
+	content: url(../Swage/icons/error.svg);
 }
 
 .form-group {

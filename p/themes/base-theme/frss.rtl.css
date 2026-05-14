@@ -150,7 +150,7 @@ h2 {
 h2 .icon,
 legend .icon {
 	height: 0.8em;
-	vertical-align: baseline;
+	vertical-align: middle;
 }
 
 h3 {
@@ -242,7 +242,7 @@ img.favicon.upload {
 	font-style: italic;
 }
 
-.category .title.error::before,
+.title.error::before,
 .item.feed.error .item-title .title::before,
 .box-content .item.feed.error .item-title::before {
 	content: " ⚠ ";
