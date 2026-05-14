@@ -2869,6 +2869,7 @@ html.slider-active {
 
 	#nav_entries {
 		display: flex !important;
+		top: auto;
 		width: 100%;
 	}
 
