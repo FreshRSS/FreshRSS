@@ -2122,7 +2122,7 @@ html.slider-active {
 }
 
 #slider.sliding {
-	transition: width 200ms linear;
+	transition: width 100ms ease-in;
 }
 
 #close-slider {
@@ -2810,7 +2810,7 @@ html.slider-active {
 		width: 0;
 		overflow: hidden;
 		z-index: 100;
-		transition: width 200ms linear;
+		transition: width 100ms ease-in;
 	}
 
 	.aside.aside_feed {
