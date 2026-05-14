@@ -782,7 +782,7 @@ class LibOpml
 
     /**
      * Return a formatted error if any libxml error is returned by
-     * libxml_get_errors().
+     * libxml_get_errors(). In non-strict mode, only fatal errors are reported.
      */
     private function getLibxmlError(): string
     {
@@ -790,6 +790,10 @@ class LibOpml
         $errors = libxml_get_errors();
 
         foreach ($errors as $error) {
+            if (!$this->strict && $error->level < LIBXML_ERR_FATAL) {
+                continue;
+            }
+
             $message = trim($error->message);
             $message .= " (line {$error->line}, column {$error->column}, code {$error->code})";
 
