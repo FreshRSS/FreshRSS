@@ -12,6 +12,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		parent::__construct();
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->get_registry()->register(\SimplePie\File::class, FreshRSS_SimplePieFetch::class);
+		$this->sanitize = new FreshRSS_SimplePieSanitize();
 		$this->set_useragent(FRESHRSS_USERAGENT);
 		$this->set_cache_name_function('sha1');	// @phpstan-ignore method.deprecated
 		$this->set_cache_location(CACHE_PATH);	// @phpstan-ignore method.deprecated
@@ -130,7 +131,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'i' => [],
 			'iframe' => ['src', 'align', 'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'scrolling', 'allowfullscreen'],
 			'image' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
-			'img' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
+			'img' => ['src', 'srcset', 'sizes', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
 			'ins' => ['cite', 'datetime'],
 			'kbd' => [],
 			'label' => [],
@@ -168,7 +169,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'section' => [],
 			'select' => ['disabled', 'multiple', 'size'],
 			'small' => [],
-			'source' => ['type', 'src', 'media', 'height', 'width'],
+			'source' => ['type', 'src', 'srcset', 'sizes', 'media', 'height', 'width'],
 			'span' => [],
 			'strike' => [],
 			'strong' => [],
