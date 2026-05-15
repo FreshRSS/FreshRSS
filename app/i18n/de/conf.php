@@ -135,6 +135,7 @@ return array(
 			'disabled' => 'Der API-Zugriff ist deaktiviert.',
 			'documentation_link' => 'Siehe die <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Dokumentation und die Liste der bekannten Apps</a>',
 			'help' => 'Siehe <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>Dokumentation</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Passwort ändern',
 		'confirm_new_password' => 'Neues Passwort bestätigen',

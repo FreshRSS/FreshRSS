@@ -135,6 +135,7 @@ return array(
 			'disabled' => 'APIアクセスは無効です。',
 			'documentation_link' => '既知のアプリの一覧は<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ドキュメント</a>を参照します',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO

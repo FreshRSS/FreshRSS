@@ -135,6 +135,7 @@ return array(
 			'disabled' => 'API 存取已停用',
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => '請參閱 <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>說明文件</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => '變更密碼',
 		'confirm_new_password' => '確認新密碼',

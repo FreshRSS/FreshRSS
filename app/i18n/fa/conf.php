@@ -135,6 +135,7 @@ return array(
 			'disabled' => 'غیرفعال',
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">مستندات و فهرست برنامه‌های شناخته‌شده</a>',	// IGNORE
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'تغییر رمز عبور',
 		'confirm_new_password' => 'تأیید رمز عبور جدید',
