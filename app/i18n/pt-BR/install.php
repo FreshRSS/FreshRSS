@@ -62,7 +62,7 @@ return array(
 			'nok' => 'Algumas tabelas do banco de dados estão faltando.',
 			'ok' => 'Todas as tabelas do banco de dados existem.',
 		),
-		'database-title' => 'Database',
+		'database-title' => 'Banco de Dados',
 		'dom' => array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para navegar pelo DOM (php-xml).',
 			'ok' => 'Você tem a biblioteca necessária para navegar pelo DOM.',
