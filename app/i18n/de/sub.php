@@ -29,7 +29,7 @@ return array(
 			'help' => 'URL zu einer <a href="http://opml.org/" target="_blank">OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
 		),
 		'empty' => 'Leere Kategorie',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'Diese dynamische OPML-Kategorie hat ein Problem. Prüfen Sie, ob die OPML-URL noch erreichbar ist und die maximale Anzahl an Feeds pro Nutzer nicht überschritten ist.',
 		'expand' => 'Kategorie aufklappen',
 		'information' => 'Information',	// IGNORE
 		'open' => 'Kategorie öffnen',
@@ -187,8 +187,8 @@ return array(
 			'rss' => 'RSS / Atom (Standard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Letzter Artikel veröffentlicht <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Letzter Artikel empfangen <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'last-error-date' => 'Letzte fehlerhafte Aktualisierung <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'last-update' => 'Letzte erfolgreiche Aktualisierung <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
