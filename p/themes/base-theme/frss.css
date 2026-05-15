@@ -2509,6 +2509,7 @@ html.slider-active {
 		--frss-padding-flux-items: 0.5rem;
 	}
 
+	.flux_header .item.website span,
 	.item .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile,
@@ -2596,6 +2597,10 @@ html.slider-active {
 			"thumbnail content content content content content content";
 		align-items: start;
 		list-style: none;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.website .websiteName {
+		display: inline;
 	}
 
 	/** place all the elements in their respective template areas */
@@ -2828,15 +2833,8 @@ html.slider-active {
 		padding: 0;
 	}
 
-	/** Compensate for shrunk --frss-padding-flux-items so favicon cell stays 40px at narrow */
-	.flux_header.websiteicon .item.website {
+	.flux_header .item.website {
 		width: 40px;
-	}
-
-	/** Cap website column when feed name is shown, to leave room for the title */
-	.flux_header.websitename .item.website,
-	.flux_header.websitefull .item.website {
-		width: clamp(120px, 18vw, 150px);
 	}
 
 	.flux:not(.current):hover .item.title {
@@ -2869,6 +2867,7 @@ html.slider-active {
 
 	#nav_entries {
 		display: flex !important;
+		top: auto;
 		width: 100%;
 	}
 
