@@ -17,7 +17,7 @@ return array(
 			'required' => '需要電子郵件位址。',
 		),
 		'validation' => array(
-			'change_email' => '您可以 <a href="%s">在簡介頁面</a> 變更電子郵件位址。',
+			'change_email' => '您可以 <a href="%s">在設定檔頁面</a> 變更電子郵件位址。',
 			'email_sent_to' => '我們已發送一封電子郵件到 <strong>%s</strong>。請遵循其說明驗證您的位址。',
 			'feedback' => array(
 				'email_failed' => '因為伺服器配置錯誤，我們無法給您發送電子郵件。',
