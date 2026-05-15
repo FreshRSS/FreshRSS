@@ -118,6 +118,11 @@ class FreshRSS_Category extends Minz_Model {
 		return [];	// TODO (e.g., credentials for Dynamic OPML)
 	}
 
+	public function showUnreadCount(): bool {
+		return $this->attributeBoolean('show_unread_count') ??
+			(FreshRSS_Context::userConf()->show_unread_count === 'all');
+	}
+
 	/**
 	 * @return array<int,FreshRSS_Feed> where the key is the feed ID
 	 * @throws Minz_ConfigurationNamespaceException

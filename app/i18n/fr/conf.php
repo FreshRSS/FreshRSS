@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
 		'show_title_unread' => 'Afficher le nombre d’articles non lus dans le titre',
+		'show_unread_count' => array(
+			'_' => 'Afficher le nombre d’articles non lus dans la barre latérale',
+			'all' => 'Pour toutes les catégories et tous les flux',
+			'important' => 'Pour les flux importants uniquement',
+			'important_locked' => 'Les flux importants affichent toujours leur nombre d’articles non lus.',
+			'none' => 'Jamais',
+		),
 		'sidebar_hidden_by_default' => 'Masquer la barre latérale par défaut',
 		'theme' => array(
 			'_' => 'Thème',

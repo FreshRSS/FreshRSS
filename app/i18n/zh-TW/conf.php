@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => '顯示導覽按鈕',
 		'show_title_unread' => '在標題中顯示未讀文章的數量',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For Important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => '預設隱藏側邊欄',
 		'theme' => array(
 			'_' => '主題',

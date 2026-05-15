@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',
 		'show_title_unread' => 'Show number of unread articles in the title',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',
+			'all' => 'For all categories and feeds',
+			'important' => 'For Important feeds only',
+			'important_locked' => 'Important feeds always show their unread count.',
+			'none' => 'Never',
+		),
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',
 		'theme' => array(
 			'_' => 'Theme',

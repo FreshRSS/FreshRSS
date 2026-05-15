@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Navigationsschaltflächen anzeigen',
 		'show_title_unread' => 'Anzahl ungelesener Artikel im Titel anzeigen',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For Important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Seitenleiste standardmäßig ausblenden',
 		'theme' => array(
 			'_' => 'Layout',

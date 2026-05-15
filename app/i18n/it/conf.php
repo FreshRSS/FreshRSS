@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Mostra i pulsanti di navigazione',
 		'show_title_unread' => 'Mostra il numero di articoli non letti nel titolo',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For Important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Nascondi la barra laterale di default',
 		'theme' => array(
 			'_' => 'Tema',

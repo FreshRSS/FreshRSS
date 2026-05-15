@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Tampilkan tombol navigasi',
 		'show_title_unread' => 'Tampilkan jumlah artikel yang belum dibaca di judul',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For Important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tema',
