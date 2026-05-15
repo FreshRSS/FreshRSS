@@ -1709,6 +1709,7 @@ button.as-link {
 	}
 }
 
-body:has(.aside:not(.visible)) .header .item.title {
+body:has(.aside:not(.visible)) .header .item.title,
+body.reader .header .item.title {
 	display: none;
 }
