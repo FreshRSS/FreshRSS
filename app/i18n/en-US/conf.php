@@ -58,7 +58,7 @@ return array(
 		'show_unread_count' => array(
 			'_' => 'Show unread counts in sidebar',	// IGNORE
 			'all' => 'For all categories and feeds',	// IGNORE
-			'important' => 'For Important feeds only',	// IGNORE
+			'important' => 'For important feeds only',	// IGNORE
 			'important_locked' => 'Important feeds always show their unread count.',	// IGNORE
 			'none' => 'Never',	// IGNORE
 		),
