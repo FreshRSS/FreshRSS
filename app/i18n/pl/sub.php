@@ -29,7 +29,7 @@ return array(
 			'help' => 'Podaj adres <a href="http://opml.org/" target="_blank">pliku OPML</a>, aby dynamicznie zapełnić tę kategorię kanałami',
 		),
 		'empty' => 'Pusta kategoria',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'Ta kategoria dynamicznego OPML napotkała problem. Sprawdź, czy adres URL tego OPML jest nadal dostępny oraz czy nie została przekroczona maksymalna liczba kanałów na użytkownika.',
 		'expand' => 'Rozszerz kategorię',
 		'information' => 'Informacje',
 		'open' => 'Otwórz kategorię',
@@ -87,7 +87,7 @@ return array(
 		'http_headers_help' => 'Nagłówki są oddzielane przez nową linię, a nazwa i wartość nagłówka są oddzielane przez dwukropek (np: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer jakiś-token</code></kbd>).',
 		'icon' => 'Ikona',
 		'information' => 'Informacja',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'Następnie dodaj więcej kanałów',
 		'keep_min' => 'Minimalna liczba wiadomości do przechowywania',
 		'kind' => array(
 			'_' => 'Rodzaj źródła kanału',
@@ -187,10 +187,10 @@ return array(
 			'rss' => 'RSS / Atom (domyślne)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Ostatni artykuł opublikowany <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Ostatni artykuł otrzymany <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Ostatnia nieudana aktualizacja <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Ostatnia pomyślna aktualizacja <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Wyczyść pamięć podręczną',
 			'clear_cache_help' => 'Czyści pamięć podręczną tego kanału.',
