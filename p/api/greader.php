@@ -1134,7 +1134,8 @@ TXT;
 				$passwd = $_POST['Passwd'] ?? $_GET['Passwd'] ?? null;
 				if (is_string($email) && is_string($passwd)) {
 					if (isset($_GET['Passwd'])) {
-						Minz_Log::warning('ClientLogin using GET method is deprecated: password may appear in logs. Use POST instead.', API_LOG);
+						$user_agent = is_string($_SERVER['HTTP_USER_AGENT'] ?? null) ? $_SERVER['HTTP_USER_AGENT'] : '';
+						Minz_Log::warning('ClientLogin using GET method is deprecated: password may appear in logs. Use POST instead. User-Agent: ' . $user_agent, API_LOG);
 					}
 					self::clientLogin($email, $passwd);
 				}
