@@ -1133,7 +1133,7 @@ TXT;
 				$email = $_POST['Email'] ?? $_GET['Email'] ?? null;
 				$passwd = $_POST['Passwd'] ?? $_GET['Passwd'] ?? null;
 				if (is_string($email) && is_string($passwd)) {
-					if (!isset($_POST['Passwd']) && isset($_GET['Passwd'])) {
+					if (isset($_GET['Passwd'])) {
 						Minz_Log::warning('ClientLogin using GET method is deprecated: password may appear in logs. Use POST instead.', API_LOG);
 					}
 					self::clientLogin($email, $passwd);
