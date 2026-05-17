@@ -135,7 +135,7 @@ return array(
 			'disabled' => 'De API-toegang is uitgeschakeld.',
 			'documentation_link' => 'Zie de <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentatie en lijst met bekende apps</a>',
 			'help' => 'Zie <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentatie</a>',
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'security_warning' => 'Gebruik HTTPS. Het API-wachtwoord wordt als tekst verzonden en kan in serverlogs terechtkomen als het via GET wordt verzonden.',
 		),
 		'change_password' => 'Wachtwoord wijzigen',
 		'confirm_new_password' => 'Nieuw wachtwoord bevestigen',
