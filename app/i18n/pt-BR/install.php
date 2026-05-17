@@ -51,18 +51,18 @@ return array(
 			'ok' => 'Permissões no diretório data estão corretos.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Erro de conexão com o banco de dados.',
+			'ok' => 'Conexão com o banco de dados está boa.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Tabela do banco de dados "%s" está incompleta.',
+			'ok' => 'Tabela do banco de dados "%s" está boa.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Algumas tabelas do banco de dados estão faltando.',
+			'ok' => 'Todas as tabelas do banco de dados existem.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Banco de Dados',
 		'dom' => array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para navegar pelo DOM (php-xml).',
 			'ok' => 'Você tem a biblioteca necessária para navegar pelo DOM.',

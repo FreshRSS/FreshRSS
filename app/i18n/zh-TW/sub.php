@@ -217,7 +217,7 @@ return array(
 		'priority' => array(
 			'_' => '可見度',
 			'category' => '在類別中顯示',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => '顯示在其訂閱源中',
 			'hidden' => '不要顯示',
 			'important' => '顯示在重要訂閱源',
 			'main_stream' => '顯示在主資訊流',

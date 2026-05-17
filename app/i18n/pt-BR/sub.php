@@ -29,7 +29,7 @@ return array(
 			'help' => 'Forneça uma URL para <a href="http://opml.org/" target="_blank">o arquivo OPML </a> para preencher dinamicamente esta categoria com feeds',
 		),
 		'empty' => 'Categoria vazia',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'Esta categoria OPML dinâmica encontrou um problema. Verifique se a URL OPML ainda está acessível e se o número máximo de feeds por usuário não foi excedido.',
 		'expand' => 'Expandir categoria',
 		'information' => 'Informações',
 		'open' => 'Abrir categoria',
@@ -87,7 +87,7 @@ return array(
 		'http_headers_help' => 'Os cabeçalhos são separados por uma nova linha, e o nome e o valor de um cabeçalho são separados por dois pontos (ex: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Ícone',
 		'information' => 'Informações',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'Em seguida, adicione mais feeds.',
 		'keep_min' => 'Número mínimo de artigos para manter',
 		'kind' => array(
 			'_' => 'Tipo de fonte de alimentação do Feed',
@@ -187,10 +187,10 @@ return array(
 			'rss' => 'RSS / Atom (padrão)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Último artigo publicado <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Último artigo recebido <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Última atualização com erro <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Última atualização bem-sucedida <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Limpar o cache',
 			'clear_cache_help' => 'Limpar o cache em disco deste feed',
