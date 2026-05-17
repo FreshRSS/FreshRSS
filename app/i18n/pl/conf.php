@@ -54,7 +54,7 @@ return array(
 			'timeout' => 'Czas wyświetlania powiadomienia HTML5',
 		),
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
-		'show_title_unread' => 'Pokaż liczbę nieprzeczytanych artykułów w tytule',
+		'show_title_unread' => 'Pokaż liczbę nieprzeczytanych wiadomości w tytule',
 		'sidebar_hidden_by_default' => 'Ukryj pasek boczny domyślnie',
 		'theme' => array(
 			'_' => 'Motyw',
@@ -238,7 +238,7 @@ return array(
 			),
 			'feed_title' => 'Nazwa kanału',
 			'icons' => array(
-				'_' => 'Pozycja ikonek artykułu<br /><small>(tylko w widoku czytania)</small>',
+				'_' => 'Pozycja ikonek wiadomości<br /><small>(tylko w widoku czytania)</small>',
 				'above_title' => 'Powyżej tytułu',
 				'with_authors' => 'W tej samej linii co autor i data',
 			),
@@ -289,7 +289,7 @@ return array(
 		'show' => array(
 			'_' => 'Wiadomości do wyświetlenia',
 			'active_category' => 'Aktualna',
-			'adaptive' => 'Pokaż istniejące nieprzeczytane artykuły, w przeciwnym razie wyświetl wszystkie',
+			'adaptive' => 'Pokaż istniejące nieprzeczytane wiadomości, w przeciwnym razie wyświetl wszystkie',
 			'all_articles' => 'Wszystkie wiadomości',
 			'all_categories' => 'Wszystkie',
 			'no_category' => 'Żadna',
@@ -300,7 +300,7 @@ return array(
 		'show_fav_unread_help' => 'Stosuje się również do etykiet',
 		'sides_close_article' => 'Kliknięcie poza zawartością wiadomości zamyka widok wiadomości',
 		'star' => array(
-			'when' => 'Oznacz artykuł jako ulubiony…',
+			'when' => 'Oznacz wiadomość jako ulubioną…',
 		),
 		'sticky_post' => 'Przesuń wiadomość na górę strony po otworzeniu',
 		'title' => 'Czytanie',
