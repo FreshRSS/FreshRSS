@@ -76,7 +76,7 @@ possibilité.
 Exemples de requêtes simples :
 
 ```sh
-# Authentification utilisant le mot de passe API (Email et Passwd peuvent être passés en GET, ou POST - mieux)
+# Authentification utilisant le mot de passe API via POST
 curl -X POST -d 'Email=alice&Passwd=Abcdef123456' 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin'
 SID=alice/8e6845e089457af25303abc6f53356eb60bdb5f8
 Auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8
