@@ -29,6 +29,7 @@ return array(
 			'help' => 'Zadajte URL adresu k <a href="http://opml.org/" target="_blank">OPML súboru</a>, z ktorého sa táto kategória automaticky naplní kanálmi.',
 		),
 		'empty' => 'Prázdna kategória',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Expand category',	// TODO
 		'information' => 'Informácia',
 		'open' => 'Open category',	// TODO

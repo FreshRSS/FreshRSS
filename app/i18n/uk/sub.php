@@ -29,6 +29,7 @@ return array(
 			'help' => 'Щоб динамічно заповнювати цю категорію стрічками, вкажіть URL-адресу <a href="http://opml.org/" target="_blank">OPML-файлу</a>',
 		),
 		'empty' => 'Порожня категорія',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Розгорнути категорію',
 		'information' => 'Інформація',
 		'open' => 'Відкрити категорію',

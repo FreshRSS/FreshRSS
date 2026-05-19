@@ -76,7 +76,7 @@ return array(
 		'website' => array(
 			'full' => 'Icon und Name',
 			'icon' => 'Nur Icon',
-			'label' => 'Website',	// TODO
+			'label' => 'Website',	// IGNORE
 			'name' => 'Nur Name',
 			'none' => 'Keine',
 		),

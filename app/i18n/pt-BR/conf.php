@@ -55,7 +55,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Mostrar botões de navegação',
 		'show_title_unread' => 'Mostrar o número de artigos não lidos no título',
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'sidebar_hidden_by_default' => 'Ocultar barra lateral por padrão',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -108,7 +108,7 @@ return array(
 		'small' => 'Pequeno',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Ativar notificações',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
@@ -123,7 +123,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacidade',
 		'retrieve_extension_list' => 'Recuperar lista de extensões',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => 'Sites autorizados a ver o endereço do seu servidor (%s)',
 	),
 	'profile' => array(
 		'_' => 'Gerenciamento de perfil',
@@ -151,7 +151,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Consultas do usuário',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Criar nova consulta de usuário',
 		'deprecated' => 'Esta não é mais válida. A categoria ou feed relacionado foi deletado.',
 		'description' => 'Descrição',
 		'filter' => array(
@@ -282,7 +282,7 @@ return array(
 			'upon_gone' => 'Quando não estiver mais no feed de notícias principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_guid_in_category' => 'se um GUID idêntico já existir entre os <i>n</i> artigos mais recentes da categoria',
 			'when_same_title_in_category' => 'se um título idêntico já existir entre os <i>n</i> artigos mais recentes da categoria',
 			'when_same_title_in_feed' => 'Se um título idêntico já existir nos últimos <i>n</i> artigos mais novos (do feed)',
 		),

@@ -253,14 +253,14 @@ return array(
 		'date_past' => 'In the past',	// TODO
 		'date_published' => '發表日期',
 		'date_range' => '日期範圍',
-		'date_received' => 'Received Date',	// TODO
+		'date_received' => '接收日期',
 		'date_to' => '到',
 		'date_user' => '使用者修改日期',
 		'feeds' => '訂閱源',
 		'free_text' => 'Free Text',	// TODO
 		'free_text_help' => 'Search both in title and content',	// TODO
 		'full_documentation' => '檢視 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">完整搜尋說明文件</a>',
-		'labels' => 'My Labels',	// TODO
+		'labels' => '我的標籤',
 		'multiple_help' => '選擇一個或更多 (按住 <kbd>Ctrl</kbd> 或 <kbd>Cmd</kbd>)',
 		'sources' => '來源',
 		'tags' => '文章標籤',

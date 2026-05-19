@@ -254,7 +254,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$outlines = '';
 		foreach (preg_split('/\R/', $contents) ?: [] as $line) {
 			$url = trim($line);
-			if ($url === '' || str_starts_with($url, '#')) {
+			if ($url === '' || str_starts_with($url, '#') || str_starts_with($url, '<')) {
 				continue;
 			}
 			if (filter_var($url, FILTER_VALIDATE_URL) === false) {

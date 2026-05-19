@@ -29,6 +29,7 @@ return array(
 			'help' => 'Sediakan URL ke <a href="http://opml.org/" target="_blank">berkas OPML</a> untuk memasukkan umpan ke kategori ini secara dinamis',
 		),
 		'empty' => 'Kategori kosong',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Kembangkan kategori',
 		'information' => 'Informasi',
 		'open' => 'Buka kategori',

@@ -29,6 +29,7 @@ return array(
 			'help' => 'Bu kategoriyi beslemelerle dinamik olarak doldurmak için bir <a href="http://opml.org/" target="_blank">OPML dosyası</a> URL’si sağlayın.',
 		),
 		'empty' => 'Boş kategori',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Kategoriyi genişlet',
 		'information' => 'Bilgi',
 		'open' => 'Kategoriyi aç',

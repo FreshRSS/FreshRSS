@@ -29,6 +29,7 @@ return array(
 			'help' => 'Adj meg egy URL-t az <a href="http://opml.org/" target="_blank">OPML fájlhoz</a> hogy automatikusan kitöltődjön ez a kategória hírforrásokkal',
 		),
 		'empty' => 'Üres kategória',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Kategória kinyitása',
 		'information' => 'Információ',
 		'open' => 'Kategória megnyitása',

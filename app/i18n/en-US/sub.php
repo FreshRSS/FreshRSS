@@ -29,6 +29,7 @@ return array(
 			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// IGNORE
 		),
 		'empty' => 'Empty category',	// IGNORE
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// IGNORE
 		'expand' => 'Expand category',	// IGNORE
 		'information' => 'Information',	// IGNORE
 		'open' => 'Open category',	// IGNORE
