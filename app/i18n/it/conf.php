@@ -123,7 +123,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// IGNORE
 		'retrieve_extension_list' => 'Recupero dell’elenco delle estensioni',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => 'Siti a cui è consentito vedere l\'indirizzo del tuo server (%s)',
 	),
 	'profile' => array(
 		'_' => 'Gestione profili',
@@ -151,7 +151,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Ricerche personali',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Crea nuova query utente',
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
 		'description' => 'Descrizione',
 		'filter' => array(
@@ -269,7 +269,7 @@ return array(
 			'view' => 'Vista',
 		),
 		'hide_read_feeds' => 'Nascondi categorie e feed con articoli già letti (non funziona se “Mostra tutti gli articoli” è selezionato)',
-		'img_with_lazyload' => 'Usa la modalità “caricamento ritardato” per le immagini',
+		'img_with_lazyload' => 'Usa la modalità <em>caricamento ritardato</em> per le immagini',
 		'jump_next' => 'Salta al successivo fratello non letto',
 		'mark_updated_article_unread' => 'Segna articoli aggiornati come non letti',
 		'number_divided_when_reader' => 'Diviso 2 nella modalità di lettura.',
@@ -282,7 +282,7 @@ return array(
 			'upon_gone' => 'quando non si trova più nel feed di notizie in alto',
 			'upon_reception' => 'Alla ricezione del contenuto',
 			'when' => 'Segna articoli come letti…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_guid_in_category' => 'se un GUID identico esiste già nei primi <i>n</i> articoli più recenti della categoria',
 			'when_same_title_in_category' => 'se un titolo identico esiste già nei primi <i>n</i> articoli più recenti della categoria',
 			'when_same_title_in_feed' => 'se un titolo identico esiste già tra i <i>n</i> articoli più recenti (del feed)',
 		),

@@ -29,7 +29,7 @@ return array(
 			'help' => 'Щоб динамічно заповнювати цю категорію стрічками, вкажіть URL-адресу <a href="http://opml.org/" target="_blank">OPML-файлу</a>',
 		),
 		'empty' => 'Порожня категорія',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'Ця динамічна категорія OPML зіткнулася з проблемою. Переконайтеся, що URL-адреса OPML все ще доступна і що не перевищено максимальну кількість стрічок на користувача.',
 		'expand' => 'Розгорнути категорію',
 		'information' => 'Інформація',
 		'open' => 'Відкрити категорію',
@@ -81,13 +81,13 @@ return array(
 		'filteractions' => array(
 			'_' => 'Автоматичний фільтр',
 			'help' => 'По одному фільтру на рядок. Перегляньте <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документацію операторів</a>.',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => 'Попередній перегляд фільтрів на існуючих статтях (у новому вікні)',
 		),
 		'http_headers' => 'HTTP-заголовки',
 		'http_headers_help' => 'По заголовку на рядок. Назву й значення відокремлено двокрапкою (наприклад, <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer деякий-токен</code></kbd>).',
 		'icon' => 'Піктограма',
 		'information' => 'Інформація',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'Потім додайте більше стрічок',
 		'keep_min' => 'Мінімум збережених статей',
 		'kind' => array(
 			'_' => 'Тип джерела стрічки',
@@ -187,10 +187,10 @@ return array(
 			'rss' => 'RSS/Atom (типово)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Остання опублікована стаття <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Остання отримана стаття <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Останнє помилкове оновлення <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Останнє успішне оновлення <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Очистити кеш',
 			'clear_cache_help' => 'Спорожнити кеш стрічки.',
@@ -217,7 +217,7 @@ return array(
 		'priority' => array(
 			'_' => 'Видимість',
 			'category' => 'Показати в категорії',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => 'Показувати в своїй стрічці',
 			'hidden' => 'Не показувати',
 			'important' => 'Показати у важливих стрічках',
 			'main_stream' => 'Показати в головному потоці',
@@ -289,7 +289,7 @@ return array(
 			'idle' => 'Неактивні стрічки',
 			'main' => 'Основна статистика',
 			'repartition' => 'Перерозподіл статей',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => 'Непрочитані дати',
 		),
 		'subscription_management' => 'Керування підписками',
 		'subscription_tools' => 'Засоби підписки',

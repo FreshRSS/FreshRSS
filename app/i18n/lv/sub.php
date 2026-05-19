@@ -29,10 +29,10 @@ return array(
 			'help' => 'Norādiet URL uz <a href="http://opml.org/" target="_blank">OPML failu</a>, lai dinamiski papildinātu šo kategoriju ar barotnēm.',
 		),
 		'empty' => 'Tukša kategorija',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
-		'expand' => 'Expand category',	// TODO
+		'error' => 'Šai dinamiskajai OPML kategorijai radās problēma. Pārbaudiet, vai OPML URL joprojām ir sasniedzams un vai nav pārsniegts maksimālais barotņu skaits vienam lietotājam.',
+		'expand' => 'Izvērst kategoriju',
 		'information' => 'Informācija',
-		'open' => 'Open category',	// TODO
+		'open' => 'Atvērt kategoriju',
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => 'Displeja pozīcija',
 		'position_help' => 'Lai pārvaldītu kategoriju šķirošanas secību',
@@ -51,7 +51,7 @@ return array(
 			'password' => 'HTTP parole',
 			'username' => 'HTTP lietotājvārds',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'Mainīt…',
 		'clear_cache' => 'Vienmēr iztīrīt kešatmiņu',
 		'content_action' => array(
 			'_' => 'Satura darbība, kad tiek iegūts raksta saturs',
@@ -59,7 +59,7 @@ return array(
 			'prepend' => 'Pievienot pirms esošā satura',
 			'replace' => 'Aizstāt esošo saturu',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
+		'content_retrieval' => 'Satura izgūšana',
 		'css_cookie' => 'Lietot sīkfailus, kad tiek iegūts raksta saturs',
 		'css_cookie_help' => 'Piemērs: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Iegūst saīsinātas RSS plūsmas (uzmanību, prasa vairāk laika!)',
@@ -70,32 +70,32 @@ return array(
 		),
 		'description' => 'Apraksts',
 		'empty' => 'Šī barotne ir tukša. Lūdzu, pārbaudiet, vai tā joprojām tiek uzturēta.',
-		'error' => 'Šajā barotnē ir radusies problēma. Lūdzu, pārbaudiet, vai tā vienmēr ir sasniedzama.',	// DIRTY
+		'error' => 'Šajā barotnē ir radusies problēma. Pārbaudiet, vai tā joprojām ir sasniedzama.',
 		'export-as-opml' => array(
 			'download' => 'Lejupielādēt',
 			'help' => 'XML fails (datu apakškopa. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Skatīt dokumentāciju</a>)',
 			'label' => 'Eksportēt kā OPML',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => 'Iestatīt automātiski',
+		'favicon_changed_by_ext' => 'Ikonu ir iestatījis <b>%s</b> paplašinājums.',
 		'filteractions' => array(
 			'_' => 'Filtra darbības',
-			'help' => 'Uzrakstiet vienu meklēšanas filtru katrā rindā. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'help' => 'Rakstiet vienu meklēšanas filtru katrā rindā. Operatorus skatiet <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dokumentācijā</a>.',
+			'view_filter' => 'Priekšskatīt filtrus esošajos rakstos (jauns logs)',
 		),
-		'http_headers' => 'HTTP Headers',	// TODO
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
-		'icon' => 'Icon',	// TODO
+		'http_headers' => 'HTTP galvenes',
+		'http_headers_help' => 'Galvenes ir atdalītas ar jaunu rindu, un galvenes nosaukums un vērtība ir atdalīti ar kolu (piemēram: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Ikona',
 		'information' => 'Informācija',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'Pēc tam pievienojiet vēl barotnes',
 		'keep_min' => 'Minimālais saglabājamo izstrādājumu skaits',
 		'kind' => array(
 			'_' => 'Barotnes avota veids',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'_' => 'HTML + XPath + JSON punktu notācija (JSON HTML dokumentā)',
 				'xpath' => array(
-					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// TODO
+					'_' => 'XPath JSON izgūšanai no HTML',
+					'help' => 'Piemērs: <code>normalize-space(//script[@type="application/json"])</code> (viens JSON)<br />vai: <code>//script[@type="application/ld+json"]</code> (viens JSON objekts katram rakstam)',
 				),
 			),
 			'html_xpath' => array(
@@ -146,7 +146,7 @@ return array(
 				'xpath' => 'XPath priekš:',
 			),
 			'json_dotnotation' => array(
-				'_' => 'JSON (dot notation)',	// TODO
+				'_' => 'JSON (punktu notācija)',
 				'feed_title' => array(
 					'_' => 'barotnes tituls',
 					'help' => 'Piemērs: <code>meta.title</code> vai statiska virkne: <code>"Mana pielāgotā plūsma"</code>',
@@ -187,10 +187,10 @@ return array(
 			'rss' => 'RSS / Atom (noklusējums)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Pēdējais publicētais raksts <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Pēdējais saņemtais raksts <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Pēdējais kļūdainais atjauninājums <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Pēdējais veiksmīgais atjauninājums <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Iztīrīt kešatmiņu',
 			'clear_cache_help' => 'Iztīrīt kešatmiņu priekš šīs barotnes.',
@@ -208,23 +208,23 @@ return array(
 		'moved_category_deleted' => 'Kad dzēšat kategoriju, tās plūsmas automātiski tiek automātiski klasificētas kategorijā <em>%s</em>.',
 		'mute' => array(
 			'_' => 'klusināt',
-			'state_is_muted' => 'This feed is muted',	// TODO
+			'state_is_muted' => 'Šī barotne ir apklusināta',
 		),
 		'no_selected' => 'Barotne nav izvēlēta.',
 		'number_entries' => '%d raksti',
-		'open_feed' => 'Open feed %s',	// TODO
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'open_feed' => 'Atvērt barotni %s',
+		'path_entries_conditions' => 'Nosacījumi satura izgūšanai',
 		'priority' => array(
 			'_' => 'Prioritāte',
 			'category' => 'Rādīt kategorijā',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => 'Rādīt savā barotnē',
 			'hidden' => 'Nerādīt',
 			'important' => 'Rādīt svarīgajās barotnēs',
 			'main_stream' => 'Rādīt galvenajā plūsmā',
 		),
 		'proxy' => 'Iestatīt starpniekserveri šīs plūsmas iegūšanai',
-		'proxy_help' => 'Izvēlieties protokolu (piemēram, SOCKS5) un ievadiet starpniekservera adresi (piemēram, <kbd>127.0.0.0.1:1080</kbd>).',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'proxy_help' => 'Izvēlieties protokolu (piemēram, SOCKS5) un ievadiet starpniekservera adresi (piemēram, <kbd>127.0.0.1:1080</kbd> vai <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Atiestatīt uz noklusējumu',
 		'selector_preview' => array(
 			'show_raw' => 'Rādīt avota kodu',
 			'show_rendered' => 'Rādīt saturu',
@@ -244,20 +244,20 @@ return array(
 		'title_add' => 'Pievienot RSS barotni',
 		'ttl' => 'Automātiski neatjaunināt biežāk par',
 		'unicityCriteria' => array(
-			'_' => 'Article unicity criteria',	// TODO
-			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
-			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
-			'id' => 'Standard ID (default)',	// TODO
-			'link' => 'Link',	// TODO
-			'sha1:content' => 'Content',	// TODO
-			'sha1:content_published' => 'Content + Date',	// TODO
-			'sha1:link_published' => 'Link + Date',	// TODO
-			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
-			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
-			'sha1:published' => 'Date',	// TODO
-			'sha1:title' => 'Title',	// TODO
-			'sha1:title_published' => 'Title + Date',	// TODO
-			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
+			'_' => 'Rakstu unikalitātes kritēriji',
+			'forced' => '<span title="Bloķēt unikalitātes kritērijus, pat tad, ja barotnē ir rakstu dublikāti">piespiests</span>',
+			'help' => 'Attiecas uz nederīgām barotnēm.<br />⚠️ Politikas maiņa radīs dublikātus.',
+			'id' => 'Standarta ID (noklusējums)',
+			'link' => 'Saite',
+			'sha1:content' => 'Saturs',
+			'sha1:content_published' => 'Saturs + Datums',
+			'sha1:link_published' => 'Saite + Datums',
+			'sha1:link_published_title' => 'Saite + Datums + Virsraksts',
+			'sha1:link_published_title_content' => 'Saite + Datums + Virsraksts + Saturs',
+			'sha1:published' => 'Datums',
+			'sha1:title' => 'Virsraksts',
+			'sha1:title_published' => 'Virsraksts + Datums',
+			'sha1:title_published_content' => 'Virsraksts + Datums + Saturs',
 		),
 		'url' => 'Barotnes URL',
 		'useragent' => 'Lietotāja aģenta iestatīšana šīs barotnes iegūšanai',
@@ -269,7 +269,7 @@ return array(
 	'import_export' => array(
 		'export' => array(
 			'_' => 'Eksportēt',
-			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite' => 'Lejupielādēt lietotāju datubāzi kā SQLite',
 		),
 		'export_labelled' => 'Eksportēt ar birku marķētus rakstus',
 		'export_opml' => 'Eksportēt barotņu sarakstu (OPML)',
@@ -289,7 +289,7 @@ return array(
 			'idle' => 'Neaktīvās barotnes',
 			'main' => 'Galvenās statistikas',
 			'repartition' => 'Rakstu pārdalīšana',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => 'Nelasītie datumi',
 		),
 		'subscription_management' => 'Abonementu pārvalde',
 		'subscription_tools' => 'Abonamentu rīki',
@@ -307,7 +307,7 @@ return array(
 		'add_dynamic_opml' => 'Pievienot dinamisku OPML',
 		'add_feed' => 'Pievienot barotni',
 		'add_label' => 'Pievienot birku',
-		'add_opml_category' => 'OPML category name',	// TODO
+		'add_opml_category' => 'OPML kategorijas nosaukums',
 		'delete_label' => 'Noņemt birku',
 		'feed_management' => 'RSS barotņu pārvalde',
 		'subscription_tools' => 'Abonamentu rīki',

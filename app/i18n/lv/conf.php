@@ -17,7 +17,7 @@ return array(
 		'help' => 'Vairākas opcijas ir pieejamas atsevišķas barotnes iestatījumos.',
 		'keep_favourites' => 'Nekad neizdzēst mīļākos',
 		'keep_labels' => 'Nekad neizdzēst birkas',
-		'keep_max' => 'Maksimālais saglabājamo rakstu skaits',	// DIRTY
+		'keep_max' => 'Maksimālais saglabājamo rakstu skaits vienā barotnē',
 		'keep_min_by_feed' => 'Minimālais rakstu skaits, kas jāsaglabā vienā barotnē',
 		'keep_period' => 'Maksimālais saglabājamo rakstu vecums',
 		'keep_unreads' => 'Nekad neizdzēst nelasītos rakstus',
@@ -55,7 +55,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Rādīt navigācijas pogas',
 		'show_title_unread' => 'Rādīt nelasīto rakstu skaitu virsrakstā',
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'sidebar_hidden_by_default' => 'Paslēpt sānjoslu pēc noklusējuma',
 		'theme' => array(
 			'_' => 'Tēma',
 			'deprecated' => array(
@@ -102,56 +102,56 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '"atzīmēt visus kā izlasītus" button',	// DIRTY
-		'big' => 'Big',	// TODO
-		'none' => 'None',	// TODO
-		'small' => 'Small',	// TODO
+		'_' => 'Poga "Atzīmēt visus kā izlasītus"',
+		'big' => 'Liels',
+		'none' => 'Nav',
+		'small' => 'Mazs',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Iespējot paziņojumus',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Rādīt brīdinājuma joslu',
+			'seconds' => 'sekundes (vismaz 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Rādīt apstiprinājuma joslu',
+			'seconds' => 'sekundes (0 nozīmē, ka netiek rādīts)',
 		),
 	),
 	'privacy' => array(
-		'_' => 'Privacy',	// TODO
-		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'_' => 'Privātums',
+		'retrieve_extension_list' => 'Iegūt paplašinājumu sarakstu',
+		'send_referrer_allowlist' => 'Vietnes, kurām atļauts redzēt jūsu servera adresi (%s)',
 	),
 	'profile' => array(
 		'_' => 'Profila pārvalde',
 		'api' => array(
 			'_' => 'API pārvalde',
-			'api_not_set' => 'API password not set',	// TODO
-			'api_set' => 'API password set',	// TODO
-			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
-			'disabled' => 'The API access is disabled.',	// TODO
-			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'api_not_set' => 'API parole nav iestatīta',
+			'api_set' => 'API parole ir iestatīta',
+			'check_link' => 'Pārbaudiet API statusu, izmantojot: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'API piekļuve ir atspējota.',
+			'documentation_link' => 'Skatiet <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentāciju un zināmo lietotņu sarakstu</a>',
+			'help' => 'Skatiet <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentāciju</a>',
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'change_password' => 'Mainīt paroli',
+		'confirm_new_password' => 'Apstiprināt jauno paroli',
+		'current_password' => 'Pašreizējā parole<br /><small>(tīmekļa veidlapas pieteikšanās metodei)</small>',
 		'delete' => array(
 			'_' => 'Konta dzēšana',
 			'warn' => 'Jūsu konts un visi saistītie dati tiks dzēsti..',
 		),
 		'email' => 'E-pasta adrese',
-		'new_password' => 'New password',	// TODO
+		'new_password' => 'Jauna parole',
 		'password_api' => 'API parole<br /><small>(piem., priekš mobilajām lietotnēm)</small>',
 		'password_format' => 'Vismaz 7 rakstzīmes',
 		'title' => 'Profils',
 	),
 	'query' => array(
 		'_' => 'Lietotāja pieprasījumi',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Izveidot jaunu lietotāja pieprasījumu',
 		'deprecated' => 'Šis pieprasījums vairs nav derīgs. Norādītā kategorija vai barotne ir dzēsta.',
 		'description' => 'Apraksts',
 		'filter' => array(
@@ -159,7 +159,7 @@ return array(
 			'categories' => 'Rādīt pēc kategorijas',
 			'feeds' => 'Rādīt pēc barotnes',
 			'order' => 'Kārtot pēc datuma',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => 'Aizstāt <i>barotnes birkas</i> ar <i>lietotāja birkām</i> koplietotajā RSS',
 			'search' => 'Izteiksme',
 			'shareOpml' => 'Iespējot dalīšanos, izmantojot OPML atbilstošajām kategorijām un barotnēm',
 			'shareRss' => 'Iespējojiet koplietošanu ar HTML &amp; RSS',
@@ -167,8 +167,8 @@ return array(
 			'tags' => 'Rādīt pēc birkas',
 			'type' => 'Veids',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => 'Rādīt visas barotnes, arī tās, kas parādītas to kategorijā',
+		'get_Z' => 'Rādīt visas barotnes, arī arhivētās',
 		'get_all' => 'Rādīt visus rakstus',
 		'get_all_labels' => 'Rādīt rakstus ar jebkuru birku',
 		'get_category' => 'Rādīt kategoriju “%s”',
@@ -181,8 +181,8 @@ return array(
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',
 		'no_queries' => array(
-			'_' => 'No user queries are saved yet.',	// TODO
-			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+			'_' => 'Vēl nav saglabātu lietotāju pieprasījumu.',
+			'help' => 'Skatiet <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentāciju</a>',
 		),
 		'number' => 'Pieprasījums nr. %d',
 		'order_asc' => 'Vispirms rādīt vecākos rakstus',
@@ -191,10 +191,10 @@ return array(
 		'share' => array(
 			'_' => 'Kopīgot šo pieprasījumu ar saiti',
 			'disabled' => array(
-				'_' => 'disabled',	// TODO
-				'title' => 'Sharing',	// TODO
+				'_' => 'atspējots',
+				'title' => 'Koplietošana',
 			),
-			'greader' => 'Shareable link to the GReader JSON',	// TODO
+			'greader' => 'Koplietojama saite uz GReader JSON',
 			'help' => 'Dodiet šo saiti, ja vēlaties kopīgot šo vaicājumu ar jebkuru',
 			'html' => 'Kopīgojama saite uz HTML lapu',
 			'opml' => 'Kopīgojama saite uz OPML barotņu sarakstu',
@@ -222,7 +222,7 @@ return array(
 		'_' => 'Lasīšana',
 		'after_onread' => 'Pēc "atzīmēt visus kā izlasītus",',
 		'always_show_favorites' => 'Pēc noklusējuma rādīt visus rakstus mīļāko sadaļā',
-		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
+		'apply_to_individual_feed' => 'Attiecas uz barotnēm atsevišķi',
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Autori un datums',
@@ -238,9 +238,9 @@ return array(
 			),
 			'feed_title' => 'Barotnes tituls',
 			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'_' => 'Raksta ikonu pozīcija<br /><small>(Tikai lasīšanas skatā)</small>',
+				'above_title' => 'Virs virsraksta',
+				'with_authors' => 'Autoru un datuma rindā',
 			),
 			'tags' => array(
 				'_' => 'Birkas',
@@ -282,25 +282,25 @@ return array(
 			'upon_gone' => 'kad tas vairs nav augšupējā ziņu barotnē',
 			'upon_reception' => 'pēc raksta saņemšanas',
 			'when' => 'Atzīmēt rakstu kā izlasītu…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => 'ja identisks virsraksts jau ir jaunākajos <i>n</i> rakstos (of the feed)',	// DIRTY
+			'when_same_guid_in_category' => 'ja identisks GUID jau eksistē kategorijas <i>n</i> jaunākajos rakstos',
+			'when_same_title_in_category' => 'ja identisks virsraksts jau eksistē kategorijas <i>n</i> jaunākajos rakstos',
+			'when_same_title_in_feed' => 'ja identisks virsraksts jau ir barotnes <i>n</i> jaunākajos rakstos',
 		),
 		'show' => array(
 			'_' => 'Rādāmie raksti',
 			'active_category' => 'Aktīvā kategorija',
-			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
+			'adaptive' => 'Rādīt nelasītos, ja ir, citādi visus rakstus',
 			'all_articles' => 'Rādīt visus rakstus',
 			'all_categories' => 'Visas kategorijas',
 			'no_category' => 'Bez kategorijas',
 			'remember_categories' => 'Iegaumēt atvērtās kategorijas',
 			'unread' => 'Rādīt tikai nelasītos',
-			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
+			'unread_or_favorite' => 'Rādīt nelasītos un mīļākos',
 		),
 		'show_fav_unread_help' => 'Attiecas arī uz birkām',
 		'sides_close_article' => 'Spiežot ārpus raksta teksta apgabala, raksts tiek aizvērts',
 		'star' => array(
-			'when' => 'Mark an article as favourite…',	// TODO
+			'when' => 'Atzīmēt rakstu kā mīļāko…',
 		),
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
 		'title' => 'Lasīšana',
@@ -362,7 +362,7 @@ return array(
 		'skip_next_article' => 'Fokusēt nākamo bez atvēršanas',
 		'skip_previous_article' => 'Fokusēt iepriekšējo bez atvēršanas',
 		'title' => 'Saīsnes',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Pārslēgt sānjoslu',
 		'toggle_media' => 'Mēdiju atskaņošana/pauze',
 		'user_filter' => 'Piekļuve lietotāju pieprasījumiem',
 		'user_filter_help' => 'Ja ir tikai viens lietotāja pieprasījums, tiek izmantots tas. Pretējā gadījumā pieprasījumi ir pieejami pēc to numura.',

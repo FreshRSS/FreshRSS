@@ -55,7 +55,7 @@ return array(
 		),
 		'show_nav_buttons' => 'Navigációs gombok megjelenítése',
 		'show_title_unread' => 'A meg nem nyitott cikkek számának megjelenítése a címben',
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'sidebar_hidden_by_default' => 'Oldalsáv elrejtése alapértelmezés szerint',
 		'theme' => array(
 			'_' => 'Téma',
 			'deprecated' => array(
@@ -108,7 +108,7 @@ return array(
 		'small' => 'Kicsi',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Értesítés engedélyezése',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
@@ -123,7 +123,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Adatvédelem',
 		'retrieve_extension_list' => 'Kiterjesztés lista beszerzése',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => 'Webhelyek, amelyek láthatják a szerver címét (%s)',
 	),
 	'profile' => array(
 		'_' => 'Profil kezelés',
@@ -151,7 +151,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Felhasználói lekérdezések',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Új felhasználói lekérdezés létrehozása',
 		'deprecated' => 'Ez a lekérdezés már nem érvényes. A hivatkozott kategória vagy hírforrás törölve lett.',
 		'description' => 'Leírás',
 		'filter' => array(
@@ -282,7 +282,7 @@ return array(
 			'upon_gone' => 'ha már nincs benne a hírforrásban',
 			'upon_reception' => 'a cikk beérkezésekor',
 			'when' => 'Jelöljön meg egy cikket olvasottként…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_guid_in_category' => 'ha egy azonos GUID már létezik a kategória legújabb <i>n</i> cikkében',
 			'when_same_title_in_category' => 'ha már létezik azonos cím a <i>n</i> kategória legfrissebb cikkeiben',
 			'when_same_title_in_feed' => 'ha egy azonos című cikk már létezik a legújabb <i>n</i> számú cikk között (a hírforrásban)',
 		),
@@ -362,7 +362,7 @@ return array(
 		'skip_next_article' => 'Ugrás a következőre megnyitás nélkül',
 		'skip_previous_article' => 'Ugrás az előzőre megnyitás nélkül',
 		'title' => 'Gyorsgombok',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Oldalsáv be-/kikapcsolása',
 		'toggle_media' => 'Média indítás/megállítás',
 		'user_filter' => 'Felhasználói lekérdezések elfogadása',
 		'user_filter_help' => 'Ha csak egy felhasználói lekérdezés van, akkor az kerül felhasználásra. Ellenkező esetben a lekérdezések a számuk alapján érhetőek el.',

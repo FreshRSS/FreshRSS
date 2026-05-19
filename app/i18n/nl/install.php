@@ -35,7 +35,7 @@ return array(
 		'_' => 'Controles',
 		'already_installed' => 'We hebben geconstateerd dat FreshRSS al is geïnstallerd!',
 		'cache' => array(
-			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
+			'nok' => 'Controleer de rechten op de map <em>%1$s</em> voor gebruiker <em>%2$s</em>. De HTTP-server moet schrijfrechten hebben.',
 			'ok' => 'Permissies van de cache map zijn goed.',
 		),
 		'ctype' => array(
@@ -47,28 +47,28 @@ return array(
 			'ok' => 'U hebt de cURL uitbreiding.',
 		),
 		'data' => array(
-			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
+			'nok' => 'Controleer de rechten op de map <em>%1$s</em> voor gebruiker <em>%2$s</em>. De HTTP-server moet schrijfrechten hebben.',
 			'ok' => 'Permissies van de data map zijn goed.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Databaseverbindingsfout.',
+			'ok' => 'Databaseverbinding is goed.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Databasetabel "%s" is onvolledig.',
+			'ok' => 'Databasetabel "%s" is in orde.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Enkele databasetabellen ontbreken.',
+			'ok' => 'Alle databasetabellen bestaan.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Database',	// IGNORE
 		'dom' => array(
 			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM.',
 			'ok' => 'U hebt de benodigde bibliotheek om te bladeren in de DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
+			'nok' => 'Controleer de rechten op de map <em>%1$s</em> voor gebruiker <em>%2$s</em>. De HTTP-server moet schrijfrechten hebben.',
 			'ok' => 'Permissies van de favicons map zijn goed.',
 		),
 		'fileinfo' => array(
@@ -113,7 +113,7 @@ return array(
 		),
 		'reload' => 'Controleer nog eens',
 		'tmp' => array(
-			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
+			'nok' => 'Controleer de rechten op de map <em>%1$s</em> voor gebruiker <em>%2$s</em>. De HTTP-server moet schrijfrechten hebben.',
 			'ok' => 'Permissies van de temp-map zijn goed.',
 		),
 		'tokens' => array(
@@ -122,7 +122,7 @@ return array(
 		),
 		'unknown_process_username' => 'onbekend',
 		'users' => array(
-			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
+			'nok' => 'Controleer de rechten op de map <em>%1$s</em> voor gebruiker <em>%2$s</em>. De HTTP-server moet schrijfrechten hebben.',
 			'ok' => 'Permissies van de users map zijn goed.',
 		),
 		'xml' => array(

@@ -123,7 +123,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacidad',
 		'retrieve_extension_list' => 'Obtener lista de extensiones',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => 'Sitios permitidos para ver la dirección de tu servidor (%s)',
 	),
 	'profile' => array(
 		'_' => 'Administración de perfiles',
@@ -151,7 +151,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Vistas de usuario',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Crear nueva consulta de usuario',
 		'deprecated' => 'Esta vista ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
 		'description' => 'Descripción',
 		'filter' => array(
@@ -269,7 +269,7 @@ return array(
 			'view' => 'Ver',
 		),
 		'hide_read_feeds' => 'Ocultar categorías y fuentes sin artículos no leídos (no funciona con la configuración “Mostrar todos los artículos”)',
-		'img_with_lazyload' => 'Usar el modo de carga diferida para las imágenes',
+		'img_with_lazyload' => 'Usar el modo <em>carga diferida</em> para las imágenes',
 		'jump_next' => 'saltar al siguiente archivo sin leer emparentado',
 		'mark_updated_article_unread' => 'Marcar artículos actualizados como no leídos',
 		'number_divided_when_reader' => 'Dividido en 2 en la vista de lectura.',
@@ -282,7 +282,7 @@ return array(
 			'upon_gone' => 'cuando ya no está disponible en la fuente de noticias previa',
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',
-			'when_same_guid_in_category' => 'si ya existe un GUID idéntico en los <i>n</i> artículos más recientes de la categoría',	// DIRTY
+			'when_same_guid_in_category' => 'si ya existe un GUID idéntico entre los <i>n</i> artículos más recientes de la categoría',
 			'when_same_title_in_category' => 'si ya existe un título idéntico en los <i>n</i> artículos más recientes de la categoría',
 			'when_same_title_in_feed' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes (de la fuente)',
 		),

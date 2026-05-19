@@ -255,7 +255,7 @@ return array(
 		'categories' => 'Kategóriák',
 		'content' => 'Tartalom',
 		'date_from' => 'Dátumtól',
-		'date_modified' => 'Server Modification Date',	// TODO
+		'date_modified' => 'Szerver módosításának dátuma',
 		'date_past' => 'A múltban',
 		'date_published' => 'Közzététel dátuma',
 		'date_range' => 'Dátumtartomány',

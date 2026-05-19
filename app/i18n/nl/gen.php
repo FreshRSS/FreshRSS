@@ -255,7 +255,7 @@ return array(
 		'categories' => 'Categorieën',
 		'content' => 'Inhoud',
 		'date_from' => 'Van',
-		'date_modified' => 'Server Modification Date',	// TODO
+		'date_modified' => 'Datum van serverwijziging',
 		'date_past' => 'In het verleden',
 		'date_published' => 'Publicatiedatum',
 		'date_range' => 'Datumbereik',
@@ -271,7 +271,7 @@ return array(
 		'sources' => 'Bronnen',
 		'tags' => 'Artikel-tags',
 		'text' => 'Tekst zoeken',
-		'text_help' => 'Meerdere regels worden gecombineerd door een logische <i>or</i> (en. voor <i>of</i>). Ondersteunt ook <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">reguliere expressies</a>.',
+		'text_help' => 'Meerdere regels worden gecombineerd met een logische <i>or</i>. Ondersteunt ook <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">reguliere expressies</a>.',
 		'text_placeholder' => 'Sleutelwoord',
 		'title' => 'Titel',
 		'url' => 'URL',	// IGNORE

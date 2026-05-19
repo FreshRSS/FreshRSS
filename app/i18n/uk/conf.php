@@ -54,8 +54,8 @@ return array(
 			'timeout' => 'Тайм-аут сповіщення HTML5',
 		),
 		'show_nav_buttons' => 'Показати кнопки навігації',
-		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'show_title_unread' => 'Показувати кількість непрочитаних статей у заголовку',
+		'sidebar_hidden_by_default' => 'Приховати бічну панель за замовчуванням',
 		'theme' => array(
 			'_' => 'Тема',
 			'deprecated' => array(
@@ -108,22 +108,22 @@ return array(
 		'small' => 'Мала',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Увімкнути сповіщення',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Показувати банер з попередженням',
+			'seconds' => 'секунд (щонайменше 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Показувати банер підтвердження',
+			'seconds' => 'секунд (0 означає не показувати)',
 		),
 	),
 	'privacy' => array(
 		'_' => 'Приватність',
 		'retrieve_extension_list' => 'Завантажувати список розширень',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => 'Сайти, яким дозволено бачити адресу вашого сервера (%s)',
 	),
 	'profile' => array(
 		'_' => 'Керування профілем',
@@ -151,7 +151,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Користувацькі запити',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Створити новий запит користувача',
 		'deprecated' => 'Запит більше не чинний. Згадану категорію чи стрічку видалено.',
 		'description' => 'Опис',
 		'filter' => array(
@@ -159,7 +159,7 @@ return array(
 			'categories' => 'Показати категорію',
 			'feeds' => 'Показати стрічку',
 			'order' => 'Впорядкувати за датою',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => 'Замінити <i>теги стрічок</i> на <i>мітки користувача</i> у спільному RSS',
 			'search' => 'Вираз',
 			'shareOpml' => 'Увімкнути OPML-поширення відповідних категорій і стрічок',
 			'shareRss' => 'Увімкнути поширення в форматі HTML і RSS',
@@ -269,7 +269,7 @@ return array(
 			'view' => 'Показ',
 		),
 		'hide_read_feeds' => 'Ховати категорії та стрічки, усі статті яких прочитано (не працює при виборі «Показати всі статті»)',
-		'img_with_lazyload' => 'Відкладати завантаження зображень до появи їх у видимій області',
+		'img_with_lazyload' => 'Використовувати режим <em>відкладеного завантаження</em> для зображень',
 		'jump_next' => 'перейти до наступного непрочитаного поруч',
 		'mark_updated_article_unread' => 'Позначати оновленні статті непрочитаними',
 		'number_divided_when_reader' => 'Ділиться на 2 в читацькому показі.',
@@ -282,9 +282,9 @@ return array(
 			'upon_gone' => 'коли статті більше нема в оригінальній стрічці новин',
 			'upon_reception' => 'при отриманні статті',
 			'when' => 'Позначити статтю прочитаною…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_category' => 'якщо котрась зі стількох найновіших статей категорії має такий самий заголовок',
-			'when_same_title_in_feed' => 'якщо котрась зі стількох найновіших статей стрічки має такий самий заголовок',
+			'when_same_guid_in_category' => 'якщо ідентичний GUID вже існує серед <i>n</i> найновіших статей категорії',
+			'when_same_title_in_category' => 'якщо ідентичний заголовок вже існує серед <i>n</i> найновіших статей категорії',
+			'when_same_title_in_feed' => 'якщо ідентичний заголовок вже існує серед <i>n</i> найновіших статей стрічки',
 		),
 		'show' => array(
 			'_' => 'Статті для показу',
@@ -362,7 +362,7 @@ return array(
 		'skip_next_article' => 'Сфокусувати наступну не відкриваючи',
 		'skip_previous_article' => 'Сфокусувати попередню не відкриваючи',
 		'title' => 'Клавіші',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Перемкнути бічну панель',
 		'toggle_media' => 'Почати/зупинити відтворення',
 		'user_filter' => 'Користувацькі запити',
 		'user_filter_help' => 'Якщо користувацький запит лише один, використовується одразу він. Інакше обирайте запити їхніми номерами.',
