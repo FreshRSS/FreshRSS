@@ -259,6 +259,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		try {
 			$this->view->entries = FreshRSS_index_Controller::listEntriesByContext();
 			$this->view->entries->current();	// Init the generator to catch potential exceptions
+			if (!$this->view->entries->valid()) {
+				$this->view->entries = (static function () { yield from []; })();
+			}
 		} catch (FreshRSS_EntriesGetter_Exception $e) {
 			Minz_Log::notice($e->getMessage());
 			Minz_Error::error(404);
