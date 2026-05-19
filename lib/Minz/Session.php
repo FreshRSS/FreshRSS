@@ -197,8 +197,8 @@ class Minz_Session {
 		return $cookie_dir;
 	}
 
+	/** Delete legacy cookie (before 1.29.0) if it exists */
 	public static function deleteLegacyCookie(string $name): void {
-		// Delete legacy cookie (before 1.29.0) if it exists
 		if (isset($_COOKIE[$name])) {
 			$legacyDir = self::getLegacyCookieDir();
 			if ($legacyDir !== '' && $legacyDir !== '/') {
