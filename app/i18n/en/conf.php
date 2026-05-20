@@ -48,6 +48,7 @@ return array(
 			'summary' => 'Summary',
 			'top_line' => 'Top line',
 		),
+		'intl_calendar' => 'Calendar',
 		'language' => 'Language',
 		'notif_html5' => array(
 			'seconds' => 'seconds (0 means no timeout)',

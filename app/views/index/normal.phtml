@@ -123,7 +123,7 @@ $today = @strtotime('today');
 							}
 						}
 						?>
-						<div class="date"><?= $this->entry->date() ?></div>
+						<time class="date" datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>
 					</div>
 					<?php } ?>
 				</header>
@@ -154,8 +154,8 @@ $today = @strtotime('today');
 										}
 									}
 								?>
-								<div class="date"><?= $this->entry->date() ?></div>
-							</div>
+								<time class="date" datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>
+						</div>
 						<?php
 						}
 						if ($display_tags) {

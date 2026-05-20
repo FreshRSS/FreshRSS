@@ -48,6 +48,7 @@ return array(
 			'summary' => 'Сводка',
 			'top_line' => 'Верхняя линия',
 		),
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Язык',
 		'notif_html5' => array(
 			'seconds' => 'секунд (0 - нет таймаута)',

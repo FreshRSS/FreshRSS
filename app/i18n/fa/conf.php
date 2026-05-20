@@ -48,6 +48,7 @@ return array(
 			'summary' => ' خلاصه',
 			'top_line' => ' خط بالا',
 		),
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => ' زبان',
 		'notif_html5' => array(
 			'seconds' => ' ثانیه (0 به معنای عدم وجود مهلت زمانی است)',

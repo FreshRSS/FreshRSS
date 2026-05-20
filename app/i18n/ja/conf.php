@@ -48,6 +48,7 @@ return array(
 			'summary' => '要約',
 			'top_line' => '行の先頭',
 		),
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => '言語',
 		'notif_html5' => array(
 			'seconds' => '秒 (0秒だとタイムアウトしません)',

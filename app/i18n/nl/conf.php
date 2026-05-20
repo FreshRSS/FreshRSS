@@ -48,6 +48,7 @@ return array(
 			'summary' => 'Samenvatting',
 			'top_line' => 'Bovenaan',
 		),
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Taal',
 		'notif_html5' => array(
 			'seconds' => 'seconden (0 betekent geen stop)',

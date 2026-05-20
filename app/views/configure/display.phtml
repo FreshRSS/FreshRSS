@@ -41,6 +41,26 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="intl_calendar"><?= _t('conf.display.intl_calendar') ?></label>
+			<div class="group-controls">
+				<?php $intl_calendar = FreshRSS_Context::userConf()->intl_calendar ?? ''; ?>
+				<select name="intl_calendar" id="intl_calendar">
+					<option value=""<?= $intl_calendar === '' ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+					<option value="persian"<?= $intl_calendar === 'persian' ? ' selected="selected"' : '' ?>>Persian (Jalali)</option>
+					<option value="islamic-civil"<?= $intl_calendar === 'islamic-civil' ? ' selected="selected"' : '' ?>>Islamic (Civil)</option>
+					<option value="islamic-umalqura"<?= $intl_calendar === 'islamic-umalqura' ? ' selected="selected"' : '' ?>>Islamic (Umm al-Qura)</option>
+					<option value="hebrew"<?= $intl_calendar === 'hebrew' ? ' selected="selected"' : '' ?>>Hebrew</option>
+					<option value="chinese"<?= $intl_calendar === 'chinese' ? ' selected="selected"' : '' ?>>Chinese</option>
+					<option value="japanese"<?= $intl_calendar === 'japanese' ? ' selected="selected"' : '' ?>>Japanese</option>
+					<option value="buddhist"<?= $intl_calendar === 'buddhist' ? ' selected="selected"' : '' ?>>Buddhist (Thai)</option>
+					<option value="ethiopic"<?= $intl_calendar === 'ethiopic' ? ' selected="selected"' : '' ?>>Ethiopic</option>
+					<option value="roc"<?= $intl_calendar === 'roc' ? ' selected="selected"' : '' ?>>Republic of China</option>
+					<option value="indian"<?= $intl_calendar === 'indian' ? ' selected="selected"' : '' ?>>Indian National</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name" for="theme"><?= _t('conf.display.theme') ?></label>
 			<div class="group-controls">
 				<select id="theme" name="theme">

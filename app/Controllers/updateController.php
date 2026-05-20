@@ -148,7 +148,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		$this->view->last_update_time = 'unknown';
 		$timestamp = @filemtime(join_path(DATA_PATH, self::LASTUPDATEFILE));
 		if ($timestamp !== false) {
-			$this->view->last_update_time = timestamptodate($timestamp);
+			$this->view->last_update_time = '<time datetime="' . timestampToMachineDate($timestamp) . '">' . timestamptodate($timestamp) . '</time>';
 		}
 	}
 

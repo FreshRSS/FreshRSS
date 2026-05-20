@@ -31,6 +31,7 @@ declare(strict_types=1);
  * @property bool $html5_enable_notif
  * @property int $good_notification_timeout
  * @property int $bad_notification_timeout
+ * @property string $intl_calendar
  * @property-read bool $is_admin
  * @property int|null $keep_history_default
  * @property string $language

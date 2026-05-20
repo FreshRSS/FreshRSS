@@ -54,13 +54,16 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * Content for displaying a transition between entries when sorting by specific criteria.
 	 */
 	public static function transition(FreshRSS_Entry $entry): string {
+		$timeTag = static function (int $timestamp): string {
+			return '<time datetime="' . timestampToMachineDate($timestamp) . '">' . timestamptodate($timestamp, hour: false) . '</time>';
+		};
 		return match (FreshRSS_Context::$sort) {
 			'id' => _t('index.feed.received' . self::dayRelative($entry->dateAdded(raw: true), mayBeFuture: false)) .
-				' — ' . timestamptodate($entry->dateAdded(raw: true), hour: false),
+				' — ' . $timeTag($entry->dateAdded(raw: true)),
 			'date' => _t('index.feed.published' . self::dayRelative($entry->date(raw: true), mayBeFuture: true)) .
-				' — ' . timestamptodate($entry->date(raw: true), hour: false),
+				' — ' . $timeTag($entry->date(raw: true)),
 			'lastUserModified' => _t('index.feed.userModified' . self::dayRelative($entry->lastUserModified() ?? 0, mayBeFuture: false)) .
-				' — ' . timestamptodate($entry->lastUserModified() ?? 0, hour: false),
+				' — ' . $timeTag($entry->lastUserModified() ?? 0),
 			'c.name' => $entry->feed()?->category()?->name() ?? '',
 			'f.name' => $entry->feed()?->name() ?? '',
 			default => '',

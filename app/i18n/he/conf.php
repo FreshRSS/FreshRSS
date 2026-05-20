@@ -48,6 +48,7 @@ return array(
 			'summary' => 'Summary',	// TODO
 			'top_line' => 'שורה עליונה',
 		),
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'שפה',
 		'notif_html5' => array(
 			'seconds' => 'שניות (0 משמעותה ללא פג תוקף)',

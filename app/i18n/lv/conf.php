@@ -48,6 +48,7 @@ return array(
 			'summary' => 'Kopsavilkums',
 			'top_line' => 'Augšējā līnija',
 		),
+		'intl_calendar' => 'Calendar',	// TODO
 		'language' => 'Valoda',
 		'notif_html5' => array(
 			'seconds' => 'sekundes (0 nozīmē, ka nav laika ierobežojuma)',
