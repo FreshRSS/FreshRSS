@@ -71,6 +71,9 @@ function formatValue(mixed $v): string {
 	if (is_bool($v)) {
 		return $v ? 'true' : 'false';
 	}
+	if (!is_scalar($v)) {
+		return '';
+	}
 	return (string) $v;
 }
 
@@ -85,12 +88,15 @@ if ($hasList) {
 }
 
 $key = $cliOptions->key;
+if ($key === '') {
+	fail('FreshRSS error: --key cannot be empty' . "\n" . $cliOptions->usage);
+}
 
 if (!$hasSet && !$hasUnset) {
 	if (!$userConf->hasParam($key)) {
 		fail('FreshRSS error: key not found: ' . $key, 2);
 	}
-	echo formatValue($userConf->$key), "\n";
+	echo formatValue($userConf->toArray()[$key] ?? null), "\n";
 	done();
 }
 
@@ -108,10 +114,10 @@ if (!$userConf->hasParam($key) && !$force) {
 
 $rawValue = $hasStdin
 	? rtrim((string) stream_get_contents(STDIN), "\n\r")
-	: (string) $cliOptions->value;
+	: $cliOptions->value;
 
 if ($userConf->hasParam($key)) {
-	$existing = $userConf->$key;
+	$existing = $userConf->toArray()[$key] ?? null;
 	if (is_array($existing)) {
 		fail('FreshRSS error: key "' . $key . '" is an array type and cannot be set via CLI');
 	} elseif (is_bool($existing)) {
