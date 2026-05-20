@@ -51,18 +51,18 @@ return array(
 			'ok' => 'Uprawnienia dla katalogu danych się zgadzają.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Wystąpił błąd podczas łączenia z bazą danych.',
+			'ok' => 'Połączenie z bazą danych się powiodło.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Tabela bazy danych "%s" jest niekompletna.',
+			'ok' => 'Tabela bazy danych "%s" jest prawidłowa.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Brakuje niektórych tabel w bazie danych.',
+			'ok' => 'Wszystkie tabele bazy danych istnieją.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Baza danych',
 		'dom' => array(
 			'nok' => 'Nie znaleziono wymaganej biblioteki do korzystania z DOM-u.',
 			'ok' => 'Znaleziono wymaganą bibliotekę do korzystania z DOM-u.',

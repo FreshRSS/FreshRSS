@@ -62,7 +62,7 @@ return array(
 			'important_locked' => 'Important feeds always show their unread count.',	// TODO
 			'none' => 'Never',	// TODO
 		),
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'sidebar_hidden_by_default' => 'Zijbalk standaard verbergen',
 		'theme' => array(
 			'_' => 'Thema',
 			'deprecated' => array(
@@ -109,13 +109,13 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '„markeer alles als gelezen” button',	// DIRTY
+		'_' => 'Knop „markeer alles als gelezen”',
 		'big' => 'Groot',
 		'none' => 'Geen',
 		'small' => 'Klein',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Melding inschakelen',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
@@ -130,7 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// IGNORE
 		'retrieve_extension_list' => 'Extensielijst ophalen',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => 'Sites die het serveradres mogen zien (%s)',
 	),
 	'profile' => array(
 		'_' => 'Profielbeheer',
@@ -142,6 +142,7 @@ return array(
 			'disabled' => 'De API-toegang is uitgeschakeld.',
 			'documentation_link' => 'Zie de <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentatie en lijst met bekende apps</a>',
 			'help' => 'Zie <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentatie</a>',
+			'security_warning' => 'Gebruik HTTPS. Het API-wachtwoord wordt als tekst verzonden en kan in serverlogs terechtkomen als het via GET wordt verzonden.',
 		),
 		'change_password' => 'Wachtwoord wijzigen',
 		'confirm_new_password' => 'Nieuw wachtwoord bevestigen',
@@ -158,7 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Gebruikersquery’s (informatie aanvragen)',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Nieuwe gebruikersquery aanmaken',
 		'deprecated' => 'Deze query (informatie aanvraag) is niet langer geldig. De bedoelde categorie of feed is al verwijderd.',
 		'description' => 'Beschrijving',
 		'filter' => array(
@@ -289,9 +290,9 @@ return array(
 			'upon_gone' => 'als het niet langer in de nieuwsfeed staat',
 			'upon_reception' => 'bij ontvangst van het artikel',
 			'when' => 'Markeer artikel als gelezen…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_guid_in_category' => 'als een identieke GUID al voorkomt in de top <i>n</i> nieuwste artikelen van de categorie',
 			'when_same_title_in_category' => 'als een identieke titel al voorkomt in de top <i>n</i> nieuwste artikelen van de categorie',
-			'when_same_title_in_feed' => 'als een zelfde titel al voorkomt in de top <i>n</i> nieuwste artikelen (of the feed)',	// DIRTY
+			'when_same_title_in_feed' => 'als een identieke titel al voorkomt in de top <i>n</i> nieuwste artikelen van de feed',
 		),
 		'show' => array(
 			'_' => 'Artikelen om te tonen',

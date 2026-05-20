@@ -755,14 +755,14 @@ input[type="checkbox"]:focus-visible {
 .horizontal-list {
 	margin: 0;
 	padding: 0;
-	display: table;
-	table-layout: fixed;
+	display: flex;
+	align-items: center;
 	width: 100%;
+	list-style: none;
 }
 
 .horizontal-list .item {
-	display: table-cell;
-	vertical-align: middle;
+	flex: 0 0 auto;
 }
 
 .horizontal-list .item .item-element {
@@ -1514,11 +1514,6 @@ a.website:hover .favicon {
 	background-color: inherit;
 }
 
-.flux .flux_header.has-thumbnail .item.titleAuthorSummaryDate,
-.flux .flux_header.has-summary .item.titleAuthorSummaryDate {
-	vertical-align: top;
-}
-
 .flux .flux_header .item.thumbnail {
 	line-height: 0;
 	padding: var(--frss-padding-top-bottom) var(--frss-padding-flux-items);
@@ -1569,6 +1564,9 @@ a.website:hover .favicon {
 .flux .flux_header .item.titleAuthorSummaryDate {
 	position: relative;
 	overflow: hidden;
+	flex: 1;
+	min-width: 0;
+	align-self: stretch;
 }
 
 .flux .flux_header .item .title {
@@ -1768,7 +1766,7 @@ a.website:hover .favicon {
 
 .content .article-header-topline.horizontal-list .item,
 .content .subtitle.horizontal-list .item {
-	vertical-align: top;
+	align-self: flex-start;
 }
 
 .content .article-header-topline.horizontal-list .item .website,

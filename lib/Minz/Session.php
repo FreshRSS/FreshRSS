@@ -55,14 +55,6 @@ class Minz_Session {
 
 		session_name($name);
 
-		// Delete legacy cookie (before 1.29.0) if it exists
-		if (isset($_COOKIE[$name])) {
-			$legacyDir = self::getLegacyCookieDir();
-			if ($legacyDir !== '' && $legacyDir !== '/') {
-				setcookie($name, '', ['expires' => 1, 'path' => $legacyDir]);
-			}
-		}
-
 		// When using cookies (default value), session_start() sends HTTP headers
 		session_start();
 		session_write_close();
@@ -203,6 +195,16 @@ class Minz_Session {
 			$cookie_dir = dirname($cookie_dir) . '/';
 		}
 		return $cookie_dir;
+	}
+
+	/** Delete legacy cookie (before 1.29.0) if it exists */
+	public static function deleteLegacyCookie(string $name): void {
+		if (isset($_COOKIE[$name])) {
+			$legacyDir = self::getLegacyCookieDir();
+			if ($legacyDir !== '' && $legacyDir !== '/') {
+				setcookie($name, '', ['expires' => 1, 'path' => $legacyDir]);
+			}
+		}
 	}
 
 	/**

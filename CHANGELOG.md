@@ -2,7 +2,39 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-0X-XX FreshRSS 1.29.1-dev
+## 2026-XX-XX FreshRSS 1.29.2-dev
+
+
+## 2026-05-20 FreshRSS 1.29.1
+
+* Features
+	* Accept `.txt` import of feed URLs in additional to e.g. OPML [#8818](https://github.com/FreshRSS/FreshRSS/pull/8818), [#8837](https://github.com/FreshRSS/FreshRSS/pull/8837)
+	* New CLI for automatic periodic SQLite export with retention [#8819](https://github.com/FreshRSS/FreshRSS/pull/8819)
+	* More feed info: last received date, publication date [#8799](https://github.com/FreshRSS/FreshRSS/pull/8799)
+* Bug fixing
+	* Fix cookies with some browsers [#8867](https://github.com/FreshRSS/FreshRSS/pull/8867)
+	* Fix search in shared user queries with empty results [#8863](https://github.com/FreshRSS/FreshRSS/pull/8863)
+	* Fix XML errors with loading invalid OPML in `lib_opml` library [#8652](https://github.com/FreshRSS/FreshRSS/pull/8652), [#8853](https://github.com/FreshRSS/FreshRSS/pull/8853),
+		[lib_opml#48](https://framagit.org/marienfressinaud/lib_opml/-/merge_requests/48), [lib_opml#51](https://framagit.org/marienfressinaud/lib_opml/-/merge_requests/51)
+	* Fix ensure maximum number of feeds also with Dynamic OPML [#8832](https://github.com/FreshRSS/FreshRSS/pull/8832)
+	* Fix click mark as read [#8817](https://github.com/FreshRSS/FreshRSS/pull/8817)
+* UI
+	* Improve browser compatibility to keep mobile navigation at the bottom [#8833](https://github.com/FreshRSS/FreshRSS/pull/8833)
+	* Improve support of older/simpler Web browsers/engines such as SeaMonkey [#8810](https://github.com/FreshRSS/FreshRSS/pull/8810),
+		[#8811](https://github.com/FreshRSS/FreshRSS/pull/8811), [#8813](https://github.com/FreshRSS/FreshRSS/pull/8813),
+	* Improve *Swage* theme [#8842](https://github.com/FreshRSS/FreshRSS/pull/8842)
+	* Rename *Nord theme* to *Nord* [#8805](https://github.com/FreshRSS/FreshRSS/pull/8805)
+	* Replace GIF spinner by CSS spinner [#8804](https://github.com/FreshRSS/FreshRSS/pull/8804), [#8812](https://github.com/FreshRSS/FreshRSS/pull/8812)
+	* Various UI and style improvements: [#8800](https://github.com/FreshRSS/FreshRSS/pull/8800), [#8816](https://github.com/FreshRSS/FreshRSS/pull/8816),
+* I18n
+	* Improve Brazilian Portuguese [#8846](https://github.com/FreshRSS/FreshRSS/pull/8846)
+	* Improve Dutch [#8868](https://github.com/FreshRSS/FreshRSS/pull/8868)
+	* Improve German [#8840](https://github.com/FreshRSS/FreshRSS/pull/8840)
+	* Improve Polish [#8854](https://github.com/FreshRSS/FreshRSS/pull/8854)
+	* Improve Russian [#8861](https://github.com/FreshRSS/FreshRSS/pull/8861)
+	* Improve Traditional Chinese [#8849](https://github.com/FreshRSS/FreshRSS/pull/8849)
+* Misc.
+	* Update dev dependencies [#8858](https://github.com/FreshRSS/FreshRSS/pull/8858), [#8864](https://github.com/FreshRSS/FreshRSS/pull/8864)
 
 
 ## 2026-05-10 FreshRSS 1.29.0

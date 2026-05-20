@@ -49,7 +49,7 @@ return array(
 		'all_feeds' => '所有訂閱源',
 		'category' => '類別',
 		'date_published' => '發表日期',
-		'date_received' => 'Received date',	// TODO
+		'date_received' => '接收日期',
 		'entry_count' => '文章數',
 		'entry_per_category' => '每個類別的文章數',
 		'entry_per_day' => '每日文章數 (過去 30 天)',
@@ -80,7 +80,7 @@ return array(
 		'_' => '系統配置',
 		'auto-update-url' => '自動升級伺服器 URL',
 		'base-url' => array(
-			'_' => '基本 URL',
+			'_' => '基礎 URL',
 			'recommendation' => '自動推薦: <kbd>%s</kbd>',
 		),
 		'closed_registration_message' => '註冊已關閉時顯示的訊息',
