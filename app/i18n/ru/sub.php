@@ -29,7 +29,7 @@ return array(
 			'help' => 'Предоставьте ссылку на <a href="http://opml.org/" target="_blank">OPML файл</a> чтобы динамично заполнять эту категорию лентами',
 		),
 		'empty' => 'Пустая категория',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'Эта динамическая категория OPML столкнулась с проблемой. Проверьте, что URL OPML всё ещё доступен и максимальное количество лент на пользователя не превышено.',
 		'expand' => 'Развернуть категорию',
 		'information' => 'Информация',
 		'open' => 'Открыть категорию',
@@ -87,7 +87,7 @@ return array(
 		'http_headers_help' => 'Заголовки разделяются новой строкой, имя и значение заголовка разделяются двоеточием (например: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Иконка',
 		'information' => 'Информация',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'Затем добавить ещё ленты',
 		'keep_min' => 'Оставлять статей не менее',
 		'kind' => array(
 			'_' => 'Тип источника ленты',
@@ -187,10 +187,10 @@ return array(
 			'rss' => 'RSS / Atom (по умолчанию)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Последняя опубликованная статья <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Последняя полученная статья <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Последняя ошибка обновления <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Последнее успешное обновление <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Очистить кэш',
 			'clear_cache_help' => 'Очистить кэш для этой ленты.',

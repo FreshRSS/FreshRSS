@@ -173,6 +173,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			try {
 				// +1 to account for paging logic
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext(FreshRSS_Context::$number + 1);
+				if (!$view->entries->valid()) {	// Init the generator to catch potential exceptions
+					$view->entries = new EmptyIterator();
+				}
 				ob_start();	//Buffer "one entry at a time"
 			} catch (FreshRSS_EntriesGetter_Exception $e) {
 				Minz_Log::notice($e->getMessage());
@@ -258,7 +261,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		try {
 			$this->view->entries = FreshRSS_index_Controller::listEntriesByContext();
-			$this->view->entries->current();	// Init the generator to catch potential exceptions
+			if (!$this->view->entries->valid()) {	// Init the generator to catch potential exceptions
+				$this->view->entries = new EmptyIterator();
+			}
 		} catch (FreshRSS_EntriesGetter_Exception $e) {
 			Minz_Log::notice($e->getMessage());
 			Minz_Error::error(404);
@@ -397,14 +402,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		foreach ($entryDAO->listWhere(
-					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
-					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
-					continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
-					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset,
-					secondary_sort: FreshRSS_Context::$secondary_sort, secondary_sort_order: FreshRSS_Context::$secondary_sort_order) as $entry) {
-			yield $entry;
-		}
+		yield from $entryDAO->listWhere(
+			$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
+			id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
+			continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
+			limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset,
+			secondary_sort: FreshRSS_Context::$secondary_sort, secondary_sort_order: FreshRSS_Context::$secondary_sort_order);
 	}
 
 	/**
