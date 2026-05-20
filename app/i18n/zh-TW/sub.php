@@ -29,6 +29,7 @@ return array(
 			'help' => '提供指向 <a href="http://opml.org/" target="_blank">OPML 檔案</a> 的 URL 以便動態地為此類別填充訂閱',
 		),
 		'empty' => '空類別',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => '展開類別',
 		'information' => '資訊',
 		'open' => '開啟類別',
@@ -216,7 +217,7 @@ return array(
 		'priority' => array(
 			'_' => '可見度',
 			'category' => '在類別中顯示',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => '顯示在其訂閱源中',
 			'hidden' => '不要顯示',
 			'important' => '顯示在重要訂閱源',
 			'main_stream' => '顯示在主資訊流',

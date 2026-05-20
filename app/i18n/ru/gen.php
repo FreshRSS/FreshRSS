@@ -261,7 +261,7 @@ return array(
 		'categories' => 'Категории',
 		'content' => 'Содержимое',
 		'date_from' => 'С',
-		'date_modified' => 'Server Modification Date',	// TODO
+		'date_modified' => 'Дата изменения на сервере',
 		'date_past' => 'За прошедший период',
 		'date_published' => 'Дата публикации',
 		'date_range' => 'Диапазон дат',

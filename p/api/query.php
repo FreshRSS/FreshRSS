@@ -118,7 +118,9 @@ $view = new FreshRSS_View();
 try {
 	FreshRSS_Context::updateUsingRequest(false);
 	$view->entries = FreshRSS_index_Controller::listEntriesByContext();
-	$view->entries->current();	// Init the generator to consume the aggregated search and catch potential exceptions
+	if (!$view->entries->valid()) {	// Init the generator to consume the aggregated search and catch potential exceptions
+		$view->entries = new EmptyIterator();
+	}
 	Minz_Request::_param('search', $userSearch->toString());	// Restore user search for display and exports
 	FreshRSS_Context::$search = $userSearch;	// Restore user search for display and exports
 } catch (Minz_Exception) {

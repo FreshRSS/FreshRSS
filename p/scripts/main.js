@@ -1512,7 +1512,7 @@ function init_stream(stream) {
 			return;
 		}
 
-		const el = ev.target.closest('.item a.title');
+		let el = ev.target.closest('.item a.title');
 		if (el) {
 			if (ev.ctrlKey) {	// Control+click
 				if (context.auto_mark_site) {
@@ -1520,6 +1520,14 @@ function init_stream(stream) {
 				}
 			} else {
 				el.parentElement.click();	// Normal click, just toggle article.
+			}
+			return;
+		}
+
+		if (context.auto_mark_site) {
+			el = ev.target.closest('.flux .link > a');
+			if (el) {
+				mark_read(el.closest('.flux'), true, false);
 			}
 		}
 	};

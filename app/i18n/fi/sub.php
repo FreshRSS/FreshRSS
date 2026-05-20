@@ -29,6 +29,7 @@ return array(
 			'help' => 'Voit tuoda syötteet tähän luokkaan automaattisesti antamalla <a href="http://opml.org/" target="_blank">OPML-tiedoston</a> URL-osoitteen',
 		),
 		'empty' => 'Tyhjä luokka',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Laajenna luokka',
 		'information' => 'Tiedot',
 		'open' => 'Avaa luokka',

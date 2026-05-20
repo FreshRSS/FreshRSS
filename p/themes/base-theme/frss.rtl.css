@@ -150,7 +150,7 @@ h2 {
 h2 .icon,
 legend .icon {
 	height: 0.8em;
-	vertical-align: baseline;
+	vertical-align: middle;
 }
 
 h3 {
@@ -242,7 +242,7 @@ img.favicon.upload {
 	font-style: italic;
 }
 
-.category .title.error::before,
+.title.error::before,
 .item.feed.error .item-title .title::before,
 .box-content .item.feed.error .item-title::before {
 	content: " ⚠ ";
@@ -756,14 +756,14 @@ input[type="checkbox"]:focus-visible {
 .horizontal-list {
 	margin: 0;
 	padding: 0;
-	display: table;
-	table-layout: fixed;
+	display: flex;
+	align-items: center;
 	width: 100%;
+	list-style: none;
 }
 
 .horizontal-list .item {
-	display: table-cell;
-	vertical-align: middle;
+	flex: 0 0 auto;
 }
 
 .horizontal-list .item .item-element {
@@ -1515,11 +1515,6 @@ a.website:hover .favicon {
 	background-color: inherit;
 }
 
-.flux .flux_header.has-thumbnail .item.titleAuthorSummaryDate,
-.flux .flux_header.has-summary .item.titleAuthorSummaryDate {
-	vertical-align: top;
-}
-
 .flux .flux_header .item.thumbnail {
 	line-height: 0;
 	padding: var(--frss-padding-top-bottom) var(--frss-padding-flux-items);
@@ -1570,6 +1565,9 @@ a.website:hover .favicon {
 .flux .flux_header .item.titleAuthorSummaryDate {
 	position: relative;
 	overflow: hidden;
+	flex: 1;
+	min-width: 0;
+	align-self: stretch;
 }
 
 .flux .flux_header .item .title {
@@ -1769,7 +1767,7 @@ a.website:hover .favicon {
 
 .content .article-header-topline.horizontal-list .item,
 .content .subtitle.horizontal-list .item {
-	vertical-align: top;
+	align-self: flex-start;
 }
 
 .content .article-header-topline.horizontal-list .item .website,
@@ -2125,7 +2123,7 @@ html.slider-active {
 }
 
 #slider.sliding {
-	transition: width 200ms linear;
+	transition: width 100ms ease-in;
 }
 
 #close-slider {
@@ -2322,6 +2320,14 @@ html.slider-active {
 	font-weight: initial;
 }
 
+/* Faint dot shown in place of the count badge when [data-unread-hide] is present */
+.aside .category .tree-folder-title .title[data-unread-hide]:not([data-unread="0"])::after,
+.aside .feed .item-title[data-unread-hide]:not([data-unread="0"])::after {
+	content: "·";
+	opacity: 0.5;
+	pointer-events: none;
+}
+
 .aside .category .title:not([data-unread="0"])::after {
 	margin: calc(0.125rem + var(--frss-padding-top-bottom)) 0 0 0;
 }
@@ -2510,6 +2516,7 @@ html.slider-active {
 		--frss-padding-flux-items: 0.5rem;
 	}
 
+	.flux_header .item.website span,
 	.item .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile,
@@ -2597,6 +2604,10 @@ html.slider-active {
 			"thumbnail content content content content content content";
 		align-items: start;
 		list-style: none;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.website .websiteName {
+		display: inline;
 	}
 
 	/** place all the elements in their respective template areas */
@@ -2813,7 +2824,7 @@ html.slider-active {
 		width: 0;
 		overflow: hidden;
 		z-index: 100;
-		transition: width 200ms linear;
+		transition: width 100ms ease-in;
 	}
 
 	.aside.aside_feed {
@@ -2829,15 +2840,8 @@ html.slider-active {
 		padding: 0;
 	}
 
-	/** Compensate for shrunk --frss-padding-flux-items so favicon cell stays 40px at narrow */
-	.flux_header.websiteicon .item.website {
+	.flux_header .item.website {
 		width: 40px;
-	}
-
-	/** Cap website column when feed name is shown, to leave room for the title */
-	.flux_header.websitename .item.website,
-	.flux_header.websitefull .item.website {
-		width: clamp(120px, 18vw, 150px);
 	}
 
 	.flux:not(.current):hover .item.title {
@@ -2870,6 +2874,7 @@ html.slider-active {
 
 	#nav_entries {
 		display: flex !important;
+		top: auto;
 		width: 100%;
 	}
 

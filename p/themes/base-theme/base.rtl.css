@@ -687,7 +687,7 @@ th {
 
 @media (max-width: 840px) {
 	.aside {
-		transition: width 200ms linear;
+		transition: width 100ms ease-in;
 	}
 
 	.aside .toggle_aside,
