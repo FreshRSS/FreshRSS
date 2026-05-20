@@ -482,15 +482,18 @@ function toggleContent(new_active, old_active, skipping) {
 	const relative_move = context.current_view === 'global';
 	const box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
 
-	if (context.sticky_post) {	// Stick the article to the top when opened
-		const prev_article = new_active.previousElementSibling;
-		const nav_menu = document.querySelector('.nav_menu');
-		let nav_menu_height = 0;
+	const prev_article = new_active.previousElementSibling;
+	const nav_menu = document.querySelector('.nav_menu');
+	let nav_menu_height = 0;
 
-		if (nav_menu && (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky')) {
-			nav_menu_height = nav_menu.offsetHeight;
-		}
+	if (nav_menu && (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky')) {
+		nav_menu_height = nav_menu.offsetHeight;
+	}
 
+	const flux_header = new_active.querySelector('.flux_header');
+	const header_off_screen = flux_header && flux_header.getBoundingClientRect().top < nav_menu_height;
+
+	if (context.sticky_post || header_off_screen) {	// Stick the article to the top when opened, or when header is off-screen
 		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop - nav_menu_height;
 
 		if (prev_article && prev_article.offsetParent && new_active.offsetTop - prev_article.offsetTop <= 150) {
