@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Mostra i pulsanti di navigazione',
 		'show_title_unread' => 'Mostra il numero di articoli non letti nel titolo',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Nascondi la barra laterale di default',
 		'theme' => array(
 			'_' => 'Tema',
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'L’accesso all’API è disabilitato.',
 			'documentation_link' => 'Vedi la <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentazione e l’elenco delle applicazioni</a>',
 			'help' => 'leggi la <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentazione</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Modifica password',
 		'confirm_new_password' => 'Conferma nuova password',

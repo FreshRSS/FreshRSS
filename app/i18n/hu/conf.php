@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Navigációs gombok megjelenítése',
 		'show_title_unread' => 'A meg nem nyitott cikkek számának megjelenítése a címben',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Téma',
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'Az API hozzáférés ki van kapcsolva.',
 			'documentation_link' => 'Lásd az <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ismert appok dokumentációját és listáját</a>',
 			'help' => 'Lásd a <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentációt</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Jelszó megváltoztatása',
 		'confirm_new_password' => 'Új jelszó megerősítése',

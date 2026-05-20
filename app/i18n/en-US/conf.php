@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// IGNORE
 		'show_title_unread' => 'Show number of unread articles in the title',	// IGNORE
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// IGNORE
+			'all' => 'For all categories and feeds',	// IGNORE
+			'important' => 'For important feeds only',	// IGNORE
+			'important_locked' => 'Important feeds always show their unread count.',	// IGNORE
+			'none' => 'Never',	// IGNORE
+		),
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// IGNORE
 		'theme' => array(
 			'_' => 'Theme',	// IGNORE
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'The API access is disabled.',	// IGNORE
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// IGNORE
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// IGNORE
 		),
 		'change_password' => 'Change password',	// IGNORE
 		'confirm_new_password' => 'Confirm new password',	// IGNORE

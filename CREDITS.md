@@ -332,6 +332,7 @@ People are sorted by name so please keep this order.
 * [xtmd](https://github.com/xtmd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xtmd), [Web](https://iblog.cc/)
 * [XtremeOwnage](https://github.com/XtremeOwnage): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:XtremeOwnageDotCom), [Web](https://static.xtremeownage.com/)
 * [Yamakuni](https://github.com/Yamakuni): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Yamakuni), [Web](https://ofanch.me/)
+* [Yixuan Xu](https://github.com/mzl2233): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mzl2233)
 * [yzqzss|一座桥在水上](https://github.com/yzqzss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yzqzss), [Web](https://blog.othing.xyz/)
 * [zanivann](https://github.com/zanivann): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zanivann)
 * [Zexin Yuan](https://github.com/yzx9): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yzx9)

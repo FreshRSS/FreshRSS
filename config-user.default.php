@@ -34,6 +34,8 @@ return array (
 	'default_state' => FreshRSS_Entry::STATE_NOT_READ,
 	'show_fav_unread' => false,
 	'show_title_unread' => true,
+	# Unread-count visibility in sidebar: 'all' | 'important' | 'none'
+	'show_unread_count' => 'all',
 	'auto_load_more' => true,
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }

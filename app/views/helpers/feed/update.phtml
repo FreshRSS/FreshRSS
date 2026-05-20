@@ -154,6 +154,24 @@
 				</div>
 			</div>
 
+			<?php
+				$suc = $this->feed->attributeBoolean('show_unread_count');
+				$sucLocked = $this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT &&
+					FreshRSS_Context::userConf()->show_unread_count !== 'none';
+			?>
+			<div class="form-group">
+				<label class="group-name" for="show_unread_count"><?= _t('conf.display.show_unread_count') ?></label>
+				<div class="group-controls">
+					<select name="show_unread_count" id="show_unread_count" class="w50"<?= $sucLocked ? ' disabled="disabled"' : '' ?>>
+						<option value=""<?= $suc === null && !$sucLocked ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="0"<?= $suc === false && !$sucLocked ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+						<option value="1"<?= $suc === true || $sucLocked ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					</select>
+					<?php if ($sucLocked): ?>
+						<small><?= _t('conf.display.show_unread_count.important_locked') ?></small>
+					<?php endif; ?>
+				</div>
+			</div>
 
 			<?php
 				$feedDefaultSort = $this->feed->defaultSort();

@@ -51,18 +51,18 @@ return array(
 			'ok' => 'Доступ до каталога даних працює.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Помилка зв\'язку з базою даних.',
+			'ok' => 'Зв\'язок із базою даних успішний.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Таблиця бази даних «%s» неповна.',
+			'ok' => 'Із таблицею бази даних «%s» усе гаразд.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'У базі даних бракує кількох таблиць.',
+			'ok' => 'Усі таблиці наявні в базі даних.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'База даних',
 		'dom' => array(
 			'nok' => 'Не вдалося знайти необхідну бібліотеку роботи з DOM.',
 			'ok' => 'У вас є необхідна бібліотека роботи з DOM.',
@@ -77,8 +77,8 @@ return array(
 		),
 		'files' => 'Встановлення файлів',
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Не вдалося знайти бажану бібліотеку php-intl для інтернаціоналізації.',
+			'ok' => 'У вас є бажана бібліотека php-intl для інтернаціоналізації.',
 		),
 		'json' => array(
 			'nok' => 'Не вдалося знайти бажану бібліотеку розпізнання JSON.',
@@ -93,14 +93,14 @@ return array(
 			'ok' => 'У вас є необхідна бібліотека регулярних виразів (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Не вдалося знайти необхідний PDO-драйвер MySQL/MariaDB.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Не вдалося знайти необхідний PDO-драйвер PostgreSQL.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'Не вдалося знайти PDO-драйвер SQLite.',
+			'ok' => 'У вас є PDO-драйвер SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'Не вдалося знайти PDO чи один із підтримуваних драйверів (pdo_mysql, pdo_sqlite чи pdo_pgsql).',

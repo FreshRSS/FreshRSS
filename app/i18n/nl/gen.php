@@ -255,13 +255,13 @@ return array(
 		'categories' => 'Categorieën',
 		'content' => 'Inhoud',
 		'date_from' => 'Van',
-		'date_modified' => 'Server Modification Date',	// TODO
+		'date_modified' => 'Wijzigingsdatum (server)',
 		'date_past' => 'In het verleden',
 		'date_published' => 'Publicatiedatum',
 		'date_range' => 'Datumbereik',
 		'date_received' => 'Datum ontvangen',
 		'date_to' => 'Tot',
-		'date_user' => 'Datum van wijziging door gebruiker',
+		'date_user' => 'Wijzigingsdatum (gebruiker)',
 		'feeds' => 'Feeds',	// IGNORE
 		'free_text' => 'Vrije tekst',
 		'free_text_help' => 'Zoeken in zowel titel als inhoud',
