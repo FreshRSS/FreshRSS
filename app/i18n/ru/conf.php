@@ -62,7 +62,7 @@ return array(
 			'important_locked' => 'Important feeds always show their unread count.',	// TODO
 			'none' => 'Never',	// TODO
 		),
-		'sidebar_hidden_by_default' => 'Скрывать боковую панель по умолчанию',	// DIRTY
+		'sidebar_hidden_by_default' => 'Скрывать боковую панель по умолчанию',
 		'theme' => array(
 			'_' => 'Тема',
 			'deprecated' => array(
