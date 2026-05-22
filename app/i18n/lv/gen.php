@@ -16,14 +16,14 @@ return array(
 		'add' => 'Pievienot',
 		'back_to_rss_feeds' => '← Atgriezieties pie RSS barotnēm',
 		'cancel' => 'Atcelt',
-		'close' => 'Close',	// TODO
+		'close' => 'Aizvērt',
 		'create' => 'Uztaisīt',
-		'delete_all_feeds' => 'Delete all feeds',	// TODO
-		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
+		'delete_all_feeds' => 'Dzēst visas barotnes',
+		'delete_errored_feeds' => 'Dzēst barotnes ar kļūdām',
 		'delete_muted_feeds' => 'Izdzēst izslēgtās barotnes',
 		'demote' => 'Pazemināt amatu',
 		'disable' => 'Izslēgt',
-		'download' => 'Download',	// TODO
+		'download' => 'Lejupielādēt',
 		'empty' => 'Iztukšot',
 		'enable' => 'Ieslēgt',
 		'export' => 'Eksportēt',
@@ -33,7 +33,7 @@ return array(
 		'manage' => 'Pārvaldīt',
 		'mark_read' => 'Atzīmēt kā izlasītu',
 		'menu' => array(
-			'open' => 'Open menu',	// TODO
+			'open' => 'Atvērt izvēlni',
 		),
 		'nav_buttons' => array(
 			'next' => 'Nākamais raksts',
@@ -54,7 +54,7 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'Es piekrītu <a href="%s">Pakalpojuma noteikumiem</a>.',
 		'email' => 'E-pasta adrese',
-		'keep_logged_in' => 'Turiet mani autorizētu <small>(%dienas)</small>',
+		'keep_logged_in' => 'Palikt pieteicies <small>(%s dienas)</small>',
 		'login' => 'Autorizēties',
 		'logout' => 'Izrakstīties',
 		'password' => array(
@@ -62,9 +62,9 @@ return array(
 			'format' => '<small>Vismaz 7 rakstzīmes</small>',
 		),
 		'reauth' => array(
-			'header' => 'Reauthentication is required',	// TODO
-			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
-			'title' => 'Reauthentication',	// TODO
+			'header' => 'Nepieciešama atkārtota autentifikācija',
+			'tip' => 'Jums netiks prasīts atkārtoti pieteikties <u>%d minūtes</u>',
+			'title' => 'Atkārtota autentifikācija',
 		),
 		'registration' => array(
 			'_' => 'Jauns konts',
@@ -177,7 +177,7 @@ return array(
 		'category_empty' => 'Tukša kategorija',
 		'confirm_action' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? To nevar atcelt!',
 		'confirm_action_feed_cat' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? Jūs zaudēsiet saistītos mīļākos rakstus un lietotāja pieprasījumus. To nevar atcelt!',
-		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
+		'confirm_exit_slider' => 'Vai tiešām vēlaties atmest nesaglabātos iestatījumus?',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS ir %%d jauni raksti lasīšanai.',
 			'body_unread_articles' => '(neizlasīti: %%d)',
@@ -187,7 +187,7 @@ return array(
 		'labels_empty' => 'Bez birku',
 		'new_article' => 'Ir pieejami jauni raksti, noklikšķiniet, lai atsvaidzinātu lapu..',
 		'should_be_activated' => 'JavaScript jābūt ieslēgtam',
-		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
+		'unsafe_csp_header' => 'Izmantotā CSP galvene nav droša, un FreshRSS var būt neaizsargāta pret XSS uzbrukumiem. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Skatiet dokumentāciju</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -222,7 +222,7 @@ return array(
 		'about' => 'Par',
 		'account' => 'Konts',
 		'admin' => 'Administrācija',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Paplašinātā meklēšana',
 		'archiving' => 'Arhivēšana',
 		'authentication' => 'Autentifikācija',
 		'check_install' => 'Uzstādīšanas pārbaude',
@@ -230,7 +230,7 @@ return array(
 		'display' => 'Displejs',
 		'extensions' => 'Paplašinājumi',
 		'logs' => 'Žurnāls',
-		'privacy' => 'Privacy',	// TODO
+		'privacy' => 'Privātums',
 		'queries' => 'Lietotāja pieprasījumi',
 		'reading' => 'Lasīšana',
 		'search' => 'Meklēt vārdus vai #birkas',
@@ -256,32 +256,32 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_modified' => 'Server Modification Date',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'Šī veidlapa palīdz veidot meklēšanas pieprasījumus, bet manuāli pieprasījumi ir vēl spēcīgāki.',
+		'authors' => 'Autori',
+		'categories' => 'Kategorijas',
+		'content' => 'Saturs',
+		'date_from' => 'No',
+		'date_modified' => 'Servera modificēšanas datums',
+		'date_past' => 'Pagātnē',
+		'date_published' => 'Publicēšanas datums',
+		'date_range' => 'Datumu diapazons',
+		'date_received' => 'Saņemšanas datums',
+		'date_to' => 'Līdz',
+		'date_user' => 'Lietotāja modificēšanas datums',
+		'feeds' => 'Barotnes',
+		'free_text' => 'Brīvs teksts',
+		'free_text_help' => 'Meklēt gan virsrakstā, gan saturā',
+		'full_documentation' => 'Skatiet <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">pilnu meklēšanas dokumentāciju</a>',
+		'labels' => 'Manas birkas',
+		'multiple_help' => 'Izvēlieties vienu vai vairākus (turiet <kbd>Ctrl</kbd> vai <kbd>Cmd</kbd>)',
+		'sources' => 'Avoti',
+		'tags' => 'Raksta birkas',
+		'text' => 'Teksta meklēšana',
+		'text_help' => 'Vairākas rindas ir apvienotas ar loģisko <i>VAI</i>. Atbalsta arī <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regulārās izteiksmes</a>.',
+		'text_placeholder' => 'Atslēgvārds',
+		'title' => 'Virsraksts',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Lietotāju pieprasījumi',
 	),
 	'share' => array(
 		'Known' => 'Zināmas vietnes',

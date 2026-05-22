@@ -51,18 +51,18 @@ return array(
 			'ok' => 'Ar datu mapes atļaujām viss ir kārtībā.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Datubāzes savienojuma kļūda.',
+			'ok' => 'Datubāzes savienojums ir kārtībā.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Datubāzes tabula "%s" ir nepilnīga.',
+			'ok' => 'Datubāzes tabula "%s" ir kārtībā.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Trūkst dažas datubāzes tabulas.',
+			'ok' => 'Visas datubāzes tabulas pastāv.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Datubāze',
 		'dom' => array(
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku, lai pārlūkotu DOM (php-xml pakete).',
 			'ok' => 'Jums ir nepieciešamā bibliotēka, lai pārlūkotu DOM.',
@@ -77,8 +77,8 @@ return array(
 		),
 		'files' => 'Failu instalācija',
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Nevar atrast ieteicamo bibliotēku php-intl internacionalizācijai.',
+			'ok' => 'Jums ir ieteicamā bibliotēka php-intl internacionalizācijai.',
 		),
 		'json' => array(
 			'nok' => 'Nevar atrast JSON (php-json pakete).',
@@ -93,14 +93,14 @@ return array(
 			'ok' => 'Jums ir nepieciešamā regulāro izteiksmju bibliotēka (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Nevar atrast MySQL/MariaDB nepieciešamo PDO draiveri.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Nevar atrast PostgreSQL nepieciešamo PDO draiveri.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'Nevar atrast SQLite PDO draiveri.',
+			'ok' => 'Jums ir SQLite PDO draiveris.',
 		),
 		'pdo' => array(
 			'nok' => 'Nevar atrast PDO vai kādu no atbalstītajiem draiveriem (pdo_sqlite, pdo_pgsql, pdo_mysql).',

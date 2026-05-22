@@ -16,13 +16,13 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_curl' => 'cURL version',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => 'Sistēmas informācija',
+				'browser' => 'Pārlūkprogramma',
+				'database' => 'Datubāze',
+				'server_software' => 'Servera programmatūra',
+				'version_curl' => 'cURL versija',
+				'version_frss' => 'FreshRSS versija',
+				'version_php' => 'PHP versija',
 			),
 		),
 		'bugs_reports' => 'Ziņojumi par kļūdām',
@@ -37,24 +37,24 @@ return array(
 	'feed' => array(
 		'empty' => 'Nav neviena raksta, ko parādīt.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Publicēts',
+			'future' => 'Publicēts nākotnē',
+			'today' => 'Publicēts šodien',
+			'yesterday' => 'Publicēts vakar',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'_' => 'Saņemts',
+			'today' => 'Saņemts šodien',
+			'yesterday' => 'Saņemts vakar',
 		),
 		'rss_of' => 'RSS plūsma %s',
 		'title' => 'Galvenā plūsma',
 		'title_fav' => 'Mīļākie',
 		'title_global' => 'Globālais skats',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Modificējis lietotājs',
+			'today' => 'Lietotājs modificējis šodien',
+			'yesterday' => 'Lietotājs modificējis vakar',
 		),
 	),
 	'log' => array(
@@ -85,37 +85,37 @@ return array(
 		'rss_view' => 'RSS barotne',
 		'search_short' => 'Meklēt',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'Augoši',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Kategorijas, barotņu virsraksti A→Z',
+				'name_desc' => 'Kategorijas, barotņu virsraksti Z→A',
 			),
-			'date_asc' => 'Publication date 1→9',	// TODO
-			'date_desc' => 'Publication date 9→1',	// TODO
-			'desc' => 'Descending',	// TODO
+			'date_asc' => 'Publicēšanas datums 1→9',
+			'date_desc' => 'Publicēšanas datums 9→1',
+			'desc' => 'Dilstoši',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Barotnes virsraksts A→Z',
+				'name_desc' => 'Barotnes virsraksts Z→A',
 			),
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
+			'id_asc' => 'Tikko saņemtie pēdējie',
+			'id_desc' => 'Tikko saņemtie pirmie',
+			'length_asc' => 'Satura garums 1→9',
+			'length_desc' => 'Satura garums 9→1',
+			'link_asc' => 'Saite A→Z',
+			'link_desc' => 'Saite Z→A',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => 'Šķirošanas kritērijs',
+				'help' => 'Šķirošana pēc <em>saņemšanas</em> datuma ir ieteicama lielākajā daļā gadījumu, lai nodrošinātu konsekvenci un veiktspēju',
 			),
-			'rand' => 'Random order',	// TODO
+			'rand' => 'Nejaušā secībā',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => 'Sekundārais šķirošanas kritērijs',
+				'help' => 'Atbilstoši tikai tad, ja galvenais šķirošanas kritērijs ir kategorijas vai barotņu virsraksti',
 			),
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'title_asc' => 'Virsraksts A→Z',
+			'title_desc' => 'Virsraksts Z→A',
+			'user_modified_asc' => 'Lietotāja mainīts 1→9',
+			'user_modified_desc' => 'Lietotāja mainīts 9→1',
 		),
 		'starred' => 'Rādīt mīļākos',
 		'stats' => 'Statistika',
