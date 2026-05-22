@@ -29,7 +29,7 @@ return array(
 			'help' => 'Adj meg egy URL-t az <a href="http://opml.org/" target="_blank">OPML fájlhoz</a> hogy automatikusan kitöltődjön ez a kategória hírforrásokkal',
 		),
 		'empty' => 'Üres kategória',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'Ez a dinamikus OPML kategória problémába ütközött. Ellenőrizze, hogy az OPML URL továbbra is elérhető-e, és hogy nem lépte-e túl a felhasználónkénti maximális hírfolyamszámot.',
 		'expand' => 'Kategória kinyitása',
 		'information' => 'Információ',
 		'open' => 'Kategória megnyitása',
@@ -87,7 +87,7 @@ return array(
 		'http_headers_help' => 'A fejléceket újsor választja el, a fejléc nevét és értékét kettőspont választja el (pl: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icon',	// IGNORE
 		'information' => 'Információ',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'Majd adjon hozzá további hírfolyamokat',
 		'keep_min' => 'Megtartandó cikkek minimális száma',
 		'kind' => array(
 			'_' => 'Hírforrás típusa',
@@ -187,10 +187,10 @@ return array(
 			'rss' => 'RSS / Atom (alapértelmezett)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Utolsó közzétett cikk <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Utolsó kapott cikk <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Utolsó hibás frissítés <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Utolsó sikeres frissítés <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Gyorsítótár törlése',
 			'clear_cache_help' => 'Gyorsítótár törlése ehhez a hírforráshoz.',
