@@ -4,6 +4,15 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-XX-XX FreshRSS 1.29.2-dev
 
+* Features
+	* New option to hide badges showing number of unread articles (*Phantom Obligation*) [#8844](https://github.com/FreshRSS/FreshRSS/pull/8844)
+* API
+	* Add a warning message to the API password section, add a log warning when a client uses GET instead of recommended POST [#8845](https://github.com/FreshRSS/FreshRSS/pull/8845)
+* UI
+	* Various UI and style improvements: [#8823](https://github.com/FreshRSS/FreshRSS/pull/8823)
+* I18n
+	* Improve Ukrainian [#8871](https://github.com/FreshRSS/FreshRSS/pull/8871)
+
 
 ## 2026-05-20 FreshRSS 1.29.1
 
