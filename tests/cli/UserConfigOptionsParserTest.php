@@ -103,7 +103,9 @@ class UserConfigOptionsParserTest extends TestCase {
 		$className = UserConfigCliOptionsTest::class;
 
 		$result = shell_exec("CLI_PARSER_TEST_OPTIONS_CLASS='$className' $command $cliOptions 2>/dev/null");
-		$result = is_string($result) ? unserialize($result) : new UserConfigCliOptionsTest();
+		$result = is_string($result) ?
+			unserialize($result, ['allowed_classes' => [UserConfigCliOptionsTest::class]]) :
+			new UserConfigCliOptionsTest();
 
 		/** @var UserConfigCliOptionsTest $result */
 		return $result;
