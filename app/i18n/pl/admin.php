@@ -93,7 +93,7 @@ return array(
 		'instance-name' => 'Nazwa instancji',
 		'internal-host-allowlist' => array(
 			'_' => 'Lista dozwolonych hostów wewnętrznych',
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rssbridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'help' => 'Jeden wpis na linię:<ul><li>Kombinacja <code>host:port</code>. Na przykład <code>127.0.0.1:8080</code> lub <code>rssbridge:80</code></li><li>Notacja CIDR. Na przykład <code>0.0.0.0/0</code>, by zezwolić na dowolny IPv4, <code>::/0</code>, by zezwolić na dowolny IPv6</li><li><code>*</code>, by zezwolić na dowolny host (niebezpieczne)</li></ul>',
 		),
 		'max-categories' => 'Maksymalna liczba kategorii na użytkownika',
 		'max-feeds' => 'Maksymalna liczba kanałów na użytkownika',
