@@ -14,24 +14,48 @@
 		<a href="<?= _url('stats', 'repartition', 'id', $this->feed->id()) ?>"><?= _i('stats') ?> <?= _t('sub.feed.stats') ?></a>
 	</div>
 
-	<?php $nbEntries = $this->feed->nbEntries(); ?>
+	<?php if ($this->feed->inError()): ?>
+		<p class="alert alert-error">
+			<span class="alert-head"><?= _t('gen.short.damn') ?></span>
+			<?= _t('sub.feed.error') ?><br />
+			<?php if ($this->feed->lastError() > 1) { ?>
+				<?= _t('sub.feed.last-error-date', timestampToMachineDate($this->feed->lastError()), timeago($this->feed->lastError())) ?><br />
+			<?php } ?>
+	<?php else: ?>
+		<p class="alert alert-success">
+	<?php endif; ?>
+			<?= _t('sub.feed.last-update', timestampToMachineDate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate())) ?>
+			<?php if ($this->feed->newestArticleReceivedDate() > 0): ?><br />
+				<?= _t('sub.feed.last-entry-received-date', timestampToMachineDate($this->feed->newestArticleReceivedDate()), timeago($this->feed->newestArticleReceivedDate())) ?>
+			<?php endif; ?>
+			<?php if ($this->feed->newestArticlePublicationDate() > 0): ?><br />
+				<?= _t('sub.feed.last-entry-publication-date', timestampToMachineDate($this->feed->newestArticlePublicationDate()), timeago($this->feed->newestArticlePublicationDate())) ?>
+			<?php endif; ?>
+		</p>
 
-	<?php if ($this->feed->inError()) { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('sub.feed.error') ?></p>
-	<?php } elseif ($nbEntries === 0) { ?>
-	<p class="alert alert-warn"><?= _t('sub.feed.empty') ?></p>
-	<?php } ?>
+	<?php $nbEntries = $this->feed->nbEntries(); ?>
+	<?php if ($nbEntries === 0): ?>
+		<p class="alert alert-warn"><?= _t('sub.feed.empty') ?></p>
+	<?php endif; ?>
 
 	<?php
 	$from = Minz_Request::paramString('from');
+	$slider = ['#', 'slider'];
+	$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
+	if (!$ajax) {
+		$from = 'feed';
+		$slider = [];
+	} elseif ($from === '') {
+		$from = $this->cfrom ?: 'index';
+	}
 	if ($from === '') {
-		$url = _url('subscription', 'feed', 'id', $this->feed->id(), '#', 'slider');
+		$url = _url('subscription', 'feed', 'id', $this->feed->id(), ...$slider);
 	} else {
 		$get = Minz_Request::paramString('get');
 		if ($get === '') {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, '#', 'slider');
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'error', Minz_Request::paramBoolean('error') ? 1 : 0, ...$slider);
 		} else {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, '#', 'slider');
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, ...$slider);
 		}
 	}
 	?>
@@ -95,7 +119,7 @@
 						<input type="url" name="url" id="url" value="<?= $this->feed->url() ?>" required="required" />
 						<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $this->feed->url() ?>" data-input="url" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
 					</div>
-					<a class="btn" target="_blank" rel="noreferrer" href="https://validator.w3.org/feed/check.cgi?url=<?=
+					<a class="btn open-url" target="_blank" rel="noreferrer" data-input="url" data-prefix="https://validator.w3.org/feed/check.cgi?url=" data-encode="1" href="https://validator.w3.org/feed/check.cgi?url=<?=
 						rawurlencode(htmlspecialchars_decode($this->feed->url(), ENT_QUOTES)) ?>"><?= _t('sub.feed.validator') ?></a>
 				</div>
 			</div>
@@ -127,6 +151,54 @@
 							FreshRSS_Feed::PRIORITY_HIDDEN === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.hidden') ?></option>
 					</select>
 					<?= _i('important') ?>
+				</div>
+			</div>
+
+			<?php
+				$suc = $this->feed->attributeBoolean('show_unread_count');
+				$sucLocked = $this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT &&
+					FreshRSS_Context::userConf()->show_unread_count !== 'none';
+			?>
+			<div class="form-group">
+				<label class="group-name" for="show_unread_count"><?= _t('conf.display.show_unread_count') ?></label>
+				<div class="group-controls">
+					<select name="show_unread_count" id="show_unread_count" class="w50"<?= $sucLocked ? ' disabled="disabled"' : '' ?>>
+						<option value=""<?= $suc === null && !$sucLocked ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="0"<?= $suc === false && !$sucLocked ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+						<option value="1"<?= $suc === true || $sucLocked ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					</select>
+					<?php if ($sucLocked): ?>
+						<small><?= _t('conf.display.show_unread_count.important_locked') ?></small>
+					<?php endif; ?>
+				</div>
+			</div>
+
+			<?php
+				$feedDefaultSort = $this->feed->defaultSort();
+				$feedDefaultOrder = $this->feed->defaultOrder();
+				$feedDefaultSortOrder = $feedDefaultSort !== null
+					? ($feedDefaultSort === 'rand' ? 'rand' : $feedDefaultSort . '_' . strtolower($feedDefaultOrder ?? 'desc'))
+					: '';
+			?>
+			<div class="form-group">
+				<label class="group-name" for="defaultSortOrder"><?= _t('index.menu.sort.primary') ?></label>
+				<div class="group-controls">
+					<select name="defaultSortOrder" id="defaultSortOrderFeed" class="w50">
+						<option value=""></option>
+						<option value="id_desc" <?= $feedDefaultSortOrder === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc" <?= $feedDefaultSortOrder === 'date_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc" <?= $feedDefaultSortOrder === 'length_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc" <?= $feedDefaultSortOrder === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc" <?= $feedDefaultSortOrder === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand" <?= $feedDefaultSortOrder === 'rand' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc" <?= $feedDefaultSortOrder === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc" <?= $feedDefaultSortOrder === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc" <?= $feedDefaultSortOrder === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc" <?= $feedDefaultSortOrder === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc" <?= $feedDefaultSortOrder === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
+					</select>
 				</div>
 			</div>
 
@@ -304,7 +376,7 @@
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"
 						placeholder="<?= _t('gen.short.blank_to_disable') ?>"><?php
 						foreach ($this->feed->filtersAction('read') as $filterRead) {
-							echo htmlspecialchars($filterRead->__toString(), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+							echo htmlspecialchars($filterRead->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>

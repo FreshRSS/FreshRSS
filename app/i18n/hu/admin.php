@@ -83,10 +83,12 @@ return array(
 			'_' => 'Alap URL',
 			'recommendation' => 'Automatikus ajánlás: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Üzenet, ha a regisztrációk le vannak zárva',
 		'cookie-duration' => array(
 			'help' => 'másodpercekben',
 			'number' => 'Bejelentkezve maradás időtartam',
 		),
+		'default_closed_registration_message' => 'Ez a szerver jelenleg nem fogad új regisztrációkat.',
 		'force_email_validation' => 'Kötelező email cím visszaigazolás',
 		'instance-name' => 'Instance név',
 		'max-categories' => 'Maximális kategóriák száma felhasználónkét',

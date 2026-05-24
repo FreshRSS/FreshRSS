@@ -93,6 +93,16 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="closed_registration_message"><?= _t('admin.system.closed_registration_message') ?></label>
+			<div class="group-controls">
+				<textarea id="closed_registration_message" name="closed_registration_message" rows="4" cols="50"><?=
+					FreshRSS_Context::systemConf()->attributeString('closed_registration_message') ?:
+					_t('admin.system.default_closed_registration_message')
+				?></textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="group-name"><?= _t('index.tos.title') ?></label>
 			<div class="group-controls">
 				<?php if (file_exists(TOS_FILENAME)) { ?>

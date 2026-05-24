@@ -72,7 +72,8 @@
 		"phpstan": "phpstan analyse --memory-limit 512M .",
 		"phpstan-next": "phpstan analyse --memory-limit 512M -c phpstan-next.neon .",
 		"phpunit": "phpunit --bootstrap ./tests/bootstrap.php --display-notices --display-deprecations --display-phpunit-deprecations ./tests",
-		"translations": "cli/manipulate.translation.php --action format && cli/check.translation.php --generate-readme",
+		"compile-plurals": "php cli/compile.plurals.php --all",
+		"translations": "cli/manipulate.translation.php --action format && php cli/compile.plurals.php --all && cli/check.translation.php --generate-readme",
 		"test": [
 			"@php-lint",
 			"@phtml-lint",

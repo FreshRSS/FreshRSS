@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>%1$s</em> για τον χρήστη <em>%2$s</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής.',
 			'ok' => 'Τα δικαιώματα στον κατάλογο δεδομένων (data) είναι εντάξει.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM.',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM.',
@@ -87,7 +100,7 @@ return array(
 		),
 		'pdo-sqlite' => array(
 			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
 		),
 		'pdo' => array(
 			'nok' => 'Δεν βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_sqlite, pdo_pgsql, pdo_mysql).',

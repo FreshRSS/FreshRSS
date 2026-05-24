@@ -11,8 +11,8 @@ class FreshRSS_FeedDAOSQLite extends FreshRSS_FeedDAOPGSQL {
 	/** @param array{0:string,1:int,2:string} $errorInfo */
 	#[\Override]
 	public function autoUpdateDb(array $errorInfo): bool {
-		if (($tableInfo = $this->pdo->query("PRAGMA table_info('feed')")) !== false) {
-			$columns = $tableInfo->fetchAll(PDO::FETCH_COLUMN, 1);
+		$columns = $this->fetchColumn("PRAGMA table_info('feed')", 1);
+		if ($columns !== null) {
 			foreach (['kind'] as $column) {
 				if (!in_array($column, $columns, true)) {
 					return $this->addColumn($column);

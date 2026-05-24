@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Comprueba los permisos del directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos del directorio data son correctos.',
 		),
+		'database-connection' => array(
+			'nok' => 'Error de conexión a la base de datos.',
+			'ok' => 'La conexión a la base de datos es correcta.',
+		),
+		'database-table' => array(
+			'nok' => 'La tabla de la base de datos "%s" está incompleta.',
+			'ok' => 'La tabla de la base de datos "%s" es correcta.',
+		),
+		'database-tables' => array(
+			'nok' => 'Algunas tablas de la base de datos están ausentes.',
+			'ok' => 'Todas las tablas de la base de datos existen.',
+		),
+		'database-title' => 'Base de datos',
 		'dom' => array(
 			'nok' => 'No se ha podido localizar la librería necesaria para explorar la DOM.',
 			'ok' => 'Dispones de la librería necesaria para explorar la DOM.',
@@ -64,8 +77,8 @@ return array(
 		),
 		'files' => 'Instalación de Archivos',
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'No se ha podido localizar la librería recomendada php-intl para internacionalización.',
+			'ok' => 'Dispones de la librería recomendada php-intl para internacionalización.',
 		),
 		'json' => array(
 			'nok' => 'No se ha podido localizar la librería para procesar JSON.',
@@ -80,14 +93,14 @@ return array(
 			'ok' => 'Dispones de la librería necesaria para las expresiones regulares (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'No se ha podido localizar el controlador PDO requerido para MySQL/MariaDB.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'No se ha podido localizar el controlador PDO requerido para PostgreSQL.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'nok' => 'No se ha podido localizar el controlador PDO requerido para SQLite.',
+			'ok' => 'Dispones del controlador PDO para SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'No se ha podido localizar PDO o uno de los controladores compatibles (pdo_sqlite, pdo_pgsql, pdo_mysql).',

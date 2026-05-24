@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Mark feed as read',	// IGNORE
 		'mark_selection_unread' => 'Mark selection as unread',	// IGNORE
 		'mylabels' => 'My labels',	// IGNORE
-		'newer_first' => 'Newer first',	// IGNORE
 		'non-starred' => 'Show non-favorites',
 		'normal_view' => 'Normal view',	// IGNORE
-		'older_first' => 'Oldest first',	// IGNORE
 		'queries' => 'User queries',	// IGNORE
 		'read' => 'Show read',	// IGNORE
 		'reader_view' => 'Reading view',	// IGNORE
 		'rss_view' => 'RSS feed',	// IGNORE
 		'search_short' => 'Search',	// IGNORE
 		'sort' => array(
-			'_' => 'Sorting criteria',	// IGNORE
+			'asc' => 'Ascending',	// IGNORE
 			'c' => array(
 				'name_asc' => 'Category, feed titles A→Z',	// IGNORE
 				'name_desc' => 'Category, feed titles Z→A',	// IGNORE
 			),
 			'date_asc' => 'Publication date 1→9',	// IGNORE
 			'date_desc' => 'Publication date 9→1',	// IGNORE
+			'desc' => 'Descending',	// IGNORE
 			'f' => array(
 				'name_asc' => 'Feed title A→Z',	// IGNORE
 				'name_desc' => 'Feed title Z→A',	// IGNORE
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// IGNORE
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
+			'primary' => array(
+				'_' => 'Sorting criterion',	// IGNORE
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// IGNORE
+			),
 			'rand' => 'Random order',	// IGNORE
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// IGNORE
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// IGNORE
+			),
 			'title_asc' => 'Title A→Z',	// IGNORE
 			'title_desc' => 'Title Z→A',	// IGNORE
 			'user_modified_asc' => 'User modified 1→9',	// IGNORE

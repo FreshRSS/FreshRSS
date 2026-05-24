@@ -50,6 +50,19 @@ return array(
 			'nok' => '请检查 <em>%s</em> 目录权限，HTTP 服务器必须拥有写入权限。',
 			'ok' => 'data 目录权限正常',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => '找不到用于浏览 DOM 的库（php-xml 包）',
 			'ok' => '已找到用于浏览 DOM 的库',
@@ -64,8 +77,8 @@ return array(
 		),
 		'files' => '文件相关',
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => '无法找到推荐用于国际化支持的 php-intl 扩展。',
+			'ok' => '已找到推荐用于国际化支持的 php-intl 扩展。',
 		),
 		'json' => array(
 			'nok' => '找不到 JSON 扩展（php-json 包）',
@@ -80,14 +93,14 @@ return array(
 			'ok' => '已找到正则表达式解析库（PCRE）',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => '无法找到 MySQL 或 MariaDB 所需的 PDO 驱动。',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => '无法找到 PostgreSQL 所需的 PDO 驱动。',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'nok' => '无法找到 SQLite 的 PDO 驱动。',
+			'ok' => '已找到 SQLite 的 PDO 驱动。',
 		),
 		'pdo' => array(
 			'nok' => '找不到 PDO 或其中一种支持的驱动（pdo_mysql、pdo_sqlite、pdo_pgsql）',

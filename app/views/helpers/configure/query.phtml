@@ -4,6 +4,8 @@
 	if ($this->query === null) {
 		throw new FreshRSS_Context_Exception('Query not initialised!');
 	}
+
+	$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
 ?>
 <div class="post">
 	<h2><?= $this->query->getName() ?></h2>
@@ -11,7 +13,7 @@
 		<a href="<?= $this->query->getUrl() ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('configure', 'query', 'id', $this->queryId, '#', 'slider') ?>" autocomplete="off" data-auto-leave-validation="1">
+	<form method="post" action="<?= _url('configure', 'query', 'id', $this->queryId, 'from', $ajax ? 'queries' : 'query', ...($ajax ? ['#', 'slider'] : [])) ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">
@@ -92,7 +94,8 @@
 			<div class="form-group">
 				<label class="group-name" for=""><?= _t('conf.query.filter.search') ?></label>
 				<div class="group-controls">
-					<input type="text" class="w100" id="query_search" name="query[search]" value="<?= htmlspecialchars($this->query->getSearch()->__toString(), ENT_COMPAT, 'UTF-8') ?>"/>
+					<input type="text" class="w100" id="query_search" name="query[search]" value="<?=
+						htmlspecialchars($this->query->getSearch()->toString(expandUserQueries: false), ENT_COMPAT, 'UTF-8') ?>"/>
 					<p class="help"><?= _i('help') ?> <?= _t('gen.menu.search_help') ?></a></p>
 				</div>
 			</div>

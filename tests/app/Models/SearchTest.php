@@ -198,6 +198,25 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+
+
+	#[DataProvider('provideModifiedDateSearch')]
+	public static function test__construct_whenInputContainsModifiedDate(string $input, ?int $min_modified_value, ?int $max_modified_value): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($min_modified_value, $search->getMinModifiedDate());
+		self::assertSame($max_modified_value, $search->getMaxModifiedDate());
+	}
+
+	/**
+	 * @return list<list<mixed>>
+	 */
+	public static function provideModifiedDateSearch(): array {
+		return [
+			['mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['mdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
+		];
+	}
+
 	#[DataProvider('provideUserdateSearch')]
 	public static function test__construct_whenInputContainsUserdate(string $input, ?int $min_userdate_value, ?int $max_userdate_value): void {
 		$search = new FreshRSS_Search($input);
@@ -243,11 +262,12 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @param list<array{search:string}> $queries
+	 * @param list<array{search:string,name?:string}> $queries
 	 * @param array{0:string,1:list<string|int>} $expectedResult
 	 */
-	#[DataProvider('provideSavedQueryIdExpansion')]
-	public static function test__construct_whenInputContainsSavedQueryIds_expandsSavedSearches(array $queries, string $input, array $expectedResult): void {
+	#[DataProvider('provideSavedQueriesExpansion')]
+	public static function test__construct_whenInputContainsSavedQueries_expandsSavedSearches(array $queries, string $input,
+		array $expectedResult, string $expectedToString): void {
 		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
 		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
 		$newUserConf->queries = $queries;
@@ -258,26 +278,90 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			[$actualValues, $actualSql] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $search);
 			self::assertSame($expectedResult[0], trim($actualSql));
 			self::assertSame($expectedResult[1], $actualValues);
+			self::assertSame($expectedToString, $search->toString(expandUserQueries: false));
 		} finally {
 			FreshRSS_Context::setUserConf($previousUserConf);
 		}
 	}
 
 	/**
-	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>}}>
+	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>},3:string}>
 	 */
-	public static function provideSavedQueryIdExpansion(): array {
+	public static function provideSavedQueriesExpansion(): array {
 		return [
-			'expanded single group' => [
+			'not found ID' => [
 				[
 					['search' => 'author:Alice'],
 					['search' => 'intitle:World'],
 				],
-				'S:0,1',
+				'S:3',
 				[
-					'((e.author LIKE ? )) OR ((e.title LIKE ? ))',
+					'',
+					[],
+				],
+				'S:3',
+			],
+			'not found name' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:Third',
+				[
+					'',
+					[],
+				],
+				'search:Third',
+			],
+			'expanded single group name' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:First OR search:Second',
+				[
+					'((e.author LIKE ?)) OR ((e.title LIKE ?))',
 					['%Alice%', '%World%'],
 				],
+				'search:First OR search:Second',
+			],
+			'expanded single group name quotes' => [
+				[
+					['search' => 'author:Alice', 'name' => 'A First'],
+					['search' => 'intitle:World', 'name' => 'A Second'],
+				],
+				'search:"A First" OR search:\'A Second\'',
+				[
+					'((e.author LIKE ?)) OR ((e.title LIKE ?))',
+					['%Alice%', '%World%'],
+				],
+				'(search:"A First") OR (search:"A Second")',
+			],
+			'expanded single group name quotes special characters' => [
+				[
+					['search' => 'author:Alice', 'name' => 'A or B'],
+					['search' => 'intitle:World', 'name' => '(C OR D)'],
+				],
+				'search:"A or B" OR search:\'(C OR D)\'',
+				[
+					'((e.author LIKE ?)) OR ((e.title LIKE ?))',
+					['%Alice%', '%World%'],
+				],
+				'(search:"A or B") OR (search:"(C OR D)")',
+			],
+			'separate groups with AND' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+					['search' => 'inurl:Example'],
+					['search' => 'author:Bob'],
+				],
+				'S:0,1 S:2,3,5',
+				[
+					'(((e.author LIKE ?)) OR ((e.title LIKE ?))) AND (((e.link LIKE ?)) OR ((e.author LIKE ?)))',
+					['%Alice%', '%World%', '%Example%', '%Bob%'],
+				],
+				'S:0,1 S:2,3,5',
 			],
 			'separate groups with OR' => [
 				[
@@ -286,22 +370,24 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					['search' => 'inurl:Example'],
 					['search' => 'author:Bob'],
 				],
-				'S:0,1 OR S:2,3',
+				'S:0,1 OR S:2,3,5',
 				[
-					'((e.author LIKE ? )) OR ((e.title LIKE ? )) OR ((e.link LIKE ? )) OR ((e.author LIKE ? ))',
+					'(((e.author LIKE ?)) OR ((e.title LIKE ?))) OR (((e.link LIKE ?)) OR ((e.author LIKE ?)))',
 					['%Alice%', '%World%', '%Example%', '%Bob%'],
 				],
+				'S:0,1 OR S:2,3,5',
 			],
 			'mixed with other clauses' => [
 				[
 					['search' => 'author:Alice'],
 					['search' => 'intitle:World'],
 				],
-				'intitle:Hello S:0,1 date:2025-10',
+				'date:2025-10 intitle:Hello S:0,1',
 				[
-					'((e.title LIKE ? )) AND ((e.author LIKE ? )) OR ((e.title LIKE ? )) AND ((e.id >= ? AND e.id <= ? ))',
-					['%Hello%', '%Alice%', '%World%', strtotime('2025-10-01') . '000000', (strtotime('2025-11-01') - 1) . '000000'],
+					'((e.id >= ? AND e.id <= ? AND e.title LIKE ?)) AND (((e.author LIKE ?)) OR ((e.title LIKE ?)))',
+					[strtotime('2025-10-01') . '000000', (strtotime('2025-11-01') - 1) . '000000', '%Hello%', '%Alice%', '%World%'],
 				],
+				'date:2025-10 intitle:Hello S:0,1',
 			],
 		];
 	}
@@ -443,160 +529,195 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		return [
 			[
 				'f:1 (f:2 OR f:3 OR f:4) (f:5 OR (f:6 OR f:7))',
-				' ((e.id_feed IN (?) )) AND ((e.id_feed IN (?) ) OR (e.id_feed IN (?) ) OR (e.id_feed IN (?) )) AND' .
-					' (((e.id_feed IN (?) )) OR ((e.id_feed IN (?) ) OR (e.id_feed IN (?) ))) ',
+				' ((e.id_feed IN (?))) AND ((e.id_feed IN (?)) OR (e.id_feed IN (?)) OR (e.id_feed IN (?))) AND' .
+					' (((e.id_feed IN (?))) OR ((e.id_feed IN (?)) OR (e.id_feed IN (?)))) ',
 				[1, 2, 3, 4, 5, 6, 7]
 			],
 			[
 				'c:1 OR c:2,3',
-				' (e.id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category IN (?)) ) OR (e.id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category IN (?,?)) ) ',
+				' (e.id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category IN (?))) OR (e.id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category IN (?,?))) ',
 				[1, 2, 3]
 			],
 			[
 				'#tag Hello OR (author:Alice inurl:example) OR (f:3 intitle:World) OR L:12',
-				" ((TRIM(e.tags) || ' #' LIKE ? AND (e.title LIKE ? OR e.content LIKE ?) )) OR ((e.author LIKE ? AND e.link LIKE ? )) OR" .
-					' ((e.id_feed IN (?) AND e.title LIKE ? )) OR ((e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) )) ',
+				" ((TRIM(e.tags) || ' #' LIKE ? AND (e.title LIKE ? OR e.content LIKE ?))) OR ((e.author LIKE ? AND e.link LIKE ?)) OR" .
+					' ((e.id_feed IN (?) AND e.title LIKE ?)) OR ((e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)))) ',
 				['%tag #%', '%Hello%', '%Hello%', '%Alice%', '%example%', 3, '%World%', 12]
 			],
 			[
 				'#tag Hello (author:Alice inurl:example) (f:3 intitle:World) label:Bleu',
-				" ((TRIM(e.tags) || ' #' LIKE ? AND (e.title LIKE ? OR e.content LIKE ?) )) AND" .
-					' ((e.author LIKE ? AND e.link LIKE ? )) AND' .
-					' ((e.id_feed IN (?) AND e.title LIKE ? )) AND' .
-					' ((e.id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (?)) )) ',
+				" ((TRIM(e.tags) || ' #' LIKE ? AND (e.title LIKE ? OR e.content LIKE ?))) AND" .
+					' ((e.author LIKE ? AND e.link LIKE ?)) AND' .
+					' ((e.id_feed IN (?) AND e.title LIKE ?)) AND' .
+					' ((e.id IN (SELECT et.id_entry FROM `_entrytag` et, `_tag` t WHERE et.id_tag = t.id AND t.name IN (?)))) ',
 				['%tag #%', '%Hello%', '%Hello%', '%Alice%', '%example%', 3, '%World%', 'Bleu']
 			],
 			[
 				'!((author:Alice intitle:hello) OR (author:Bob intitle:world))',
-				' NOT (((e.author LIKE ? AND e.title LIKE ? )) OR ((e.author LIKE ? AND e.title LIKE ? ))) ',
+				' NOT (((e.author LIKE ? AND e.title LIKE ?)) OR ((e.author LIKE ? AND e.title LIKE ?))) ',
 				['%Alice%', '%hello%', '%Bob%', '%world%'],
 			],
 			[
 				'(author:Alice intitle:hello) !(author:Bob intitle:world)',
-				' ((e.author LIKE ? AND e.title LIKE ? )) AND NOT ((e.author LIKE ? AND e.title LIKE ? )) ',
+				' ((e.author LIKE ? AND e.title LIKE ?)) AND NOT ((e.author LIKE ? AND e.title LIKE ?)) ',
 				['%Alice%', '%hello%', '%Bob%', '%world%'],
 			],
 			[
 				'intitle:"(test)"',
-				'(e.title LIKE ? )',
+				'(e.title LIKE ?)',
 				['%(test)%'],
 			],
 			[
 				'intitle:\'"hello world"\'',
-				'(e.title LIKE ? )',
+				'(e.title LIKE ?)',
 				['%"hello world"%'],
 			],
 			[
 				'intext:\'"hello world"\'',
-				'(e.content LIKE ? )',
+				'(e.content LIKE ?)',
 				['%"hello world"%'],
 			],
 			[
 				'(ab) OR (cd) OR (ef)',
-				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				'(((e.title LIKE ? OR e.content LIKE ?))) OR (((e.title LIKE ? OR e.content LIKE ?))) OR (((e.title LIKE ? OR e.content LIKE ?)))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
 			],
 			[
 				'("plain or text") OR (cd)',
-				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				'(((e.title LIKE ? OR e.content LIKE ?))) OR (((e.title LIKE ? OR e.content LIKE ?)))',
 				['%plain or text%', '%plain or text%', '%cd%', '%cd%'],
 			],
 			[
 				'"plain or text" OR cd',
-				'((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) )',
+				'((e.title LIKE ? OR e.content LIKE ?)) OR ((e.title LIKE ? OR e.content LIKE ?))',
 				['%plain or text%', '%plain or text%', '%cd%', '%cd%'],
 			],
 			[
 				'"plain OR text" OR cd',
-				'((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ) ',
+				'((e.title LIKE ? OR e.content LIKE ?)) OR ((e.title LIKE ? OR e.content LIKE ?)) ',
 				['%plain OR text%', '%plain OR text%', '%cd%', '%cd%'],
 			],
 			[
 				'ab OR cd OR (ef)',
-				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ',
+				'(((e.title LIKE ? OR e.content LIKE ?))) OR (((e.title LIKE ? OR e.content LIKE ?))) OR (((e.title LIKE ? OR e.content LIKE ?))) ',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
 			],
 			[
 				'ab OR cd OR ef',
-				'((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) )',
+				'((e.title LIKE ? OR e.content LIKE ?)) OR ((e.title LIKE ? OR e.content LIKE ?)) OR ((e.title LIKE ? OR e.content LIKE ?))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
 			],
 			[
 				'(ab) cd OR ef OR (gh)',
-				'(((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-					'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				'(((e.title LIKE ? OR e.content LIKE ?))) AND (((e.title LIKE ? OR e.content LIKE ?))) ' .
+					'OR (((e.title LIKE ? OR e.content LIKE ?))) OR (((e.title LIKE ? OR e.content LIKE ?)))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
 			],
 			[
 				'(ab) OR cd OR ef OR (gh)',
-				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-					'OR (((e.title LIKE ? OR e.content LIKE ?) )) OR (((e.title LIKE ? OR e.content LIKE ?) ))',
+				'(((e.title LIKE ? OR e.content LIKE ?))) OR (((e.title LIKE ? OR e.content LIKE ?))) ' .
+					'OR (((e.title LIKE ? OR e.content LIKE ?))) OR (((e.title LIKE ? OR e.content LIKE ?)))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%'],
 			],
 			[
 				'ab OR (!(cd OR ef))',
-				'(((e.title LIKE ? OR e.content LIKE ?) )) OR (NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) )))',
+				'(((e.title LIKE ? OR e.content LIKE ?))) OR (NOT (((e.title LIKE ? OR e.content LIKE ?)) OR ((e.title LIKE ? OR e.content LIKE ?))))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
 			],
 			[
 				'ab !(cd OR ef)',
-				'(((e.title LIKE ? OR e.content LIKE ?) )) AND NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				'(((e.title LIKE ? OR e.content LIKE ?))) AND NOT (((e.title LIKE ? OR e.content LIKE ?)) OR ((e.title LIKE ? OR e.content LIKE ?)))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
 			],
 			[
 				'ab OR !(cd OR ef)',
-				'(((e.title LIKE ? OR e.content LIKE ?) )) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				'(((e.title LIKE ? OR e.content LIKE ?))) OR NOT (((e.title LIKE ? OR e.content LIKE ?)) OR ((e.title LIKE ? OR e.content LIKE ?)))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'],
 			],
 			[
 				'(ab (!cd OR ef OR (gh))) OR !(ij OR kl)',
-				'((((e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title NOT LIKE ? AND e.content NOT LIKE ? )) OR (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-					'OR (((e.title LIKE ? OR e.content LIKE ?) )))) OR NOT (((e.title LIKE ? OR e.content LIKE ?) ) OR ((e.title LIKE ? OR e.content LIKE ?) ))',
+				'((((e.title LIKE ? OR e.content LIKE ?))) AND (((e.title NOT LIKE ? AND e.content NOT LIKE ?)) OR (((e.title LIKE ? OR e.content LIKE ?))) ' .
+					'OR (((e.title LIKE ? OR e.content LIKE ?))))) OR NOT (((e.title LIKE ? OR e.content LIKE ?)) OR ((e.title LIKE ? OR e.content LIKE ?)))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%'],
 			],
 			[
 				'"ab" "cd" ("ef") intitle:"gh" !"ij" -"kl"',
-				'(((e.title LIKE ? OR e.content LIKE ?) AND (e.title LIKE ? OR e.content LIKE ?) )) AND (((e.title LIKE ? OR e.content LIKE ?) )) ' .
-					'AND ((e.title LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? ))',
+				'(((e.title LIKE ? OR e.content LIKE ?) AND (e.title LIKE ? OR e.content LIKE ?))) AND (((e.title LIKE ? OR e.content LIKE ?))) ' .
+					'AND ((e.title LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ? AND e.title NOT LIKE ? AND e.content NOT LIKE ?))',
 				['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%', '%gh%', '%ij%', '%ij%', '%kl%', '%kl%']
 			],
 			[
 				'intitle:"é & \' è" intext:/<&>/ \'< & " >\'',
-				'(e.title LIKE ? AND e.content ~ ? AND (e.title LIKE ? OR e.content LIKE ?) )',
+				'(e.title LIKE ? AND e.content ~ ? AND (e.title LIKE ? OR e.content LIKE ?))',
 				['%é &amp; \' è%', '<&>', '%&lt; &amp; " &gt;%', '%&lt; &amp; " &gt;%']
 			],
 			[
 				'/^(ab|cd) [(] \\) (ef|gh)/',
-				'((e.title ~ ? OR e.content ~ ?) )',
+				'((e.title ~ ? OR e.content ~ ?))',
 				['^(ab|cd) [(] \\) (ef|gh)', '^(ab|cd) [(] \\) (ef|gh)']
 			],
 			[
 				'!/^(ab|cd)/',
-				'(NOT e.title ~ ? AND NOT e.content ~ ? )',
+				'(NOT e.title ~ ? AND NOT e.content ~ ?)',
 				['^(ab|cd)', '^(ab|cd)']
 			],
 			[
 				'intitle:/^(ab|cd)/',
-				'(e.title ~ ? )',
+				'(e.title ~ ?)',
 				['^(ab|cd)']
 			],
 			[
 				'intext:/^(ab|cd)/',
-				'(e.content ~ ? )',
+				'(e.content ~ ?)',
 				['^(ab|cd)']
 			],
 			[
 				'L:1 L:2',
 				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) AND ' .
-					'e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) )',
+					'e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)))',
 				[1, 2]
 			],
 			[
 				'L:1,2',
-				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?,?)) )',
+				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?,?)))',
 				[1, 2]
 			],
 		];
+	}
+
+	public function test__add_single_search_combines_conditions_with_and(): void {
+		$startTime = strtotime('2026-02-21T12:00:00Z');
+		$searches = new FreshRSS_BooleanSearch('');
+
+		$search = new FreshRSS_Search('');
+		$search->setMinDate($startTime);
+		$search->setMinModifiedDate($startTime);
+		$searches->add($search);
+
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
+
+		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
+		self::assertSame('(e.id >= ? AND e.`lastModified` >= ?)', $filterSearch);
+		self::assertSame([$startTime . '000000', $startTime], $filterValues);
+	}
+
+	public function test__add_multiple_searches_combines_conditions_with_or(): void {
+		$startTime = strtotime('2026-02-21T12:00:00Z');
+		$searches = new FreshRSS_BooleanSearch('');
+
+		$search = new FreshRSS_Search('');
+		$search->setMinDate($startTime);
+		$searches->add($search);
+
+		$search = new FreshRSS_Search('');
+		$search->setMinModifiedDate($startTime);
+		$searches->add($search);
+
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
+
+		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
+		self::assertSame('(e.id >= ?) OR (e.`lastModified` >= ?)', $filterSearch);
+		self::assertSame([$startTime . '000000', $startTime], $filterValues);
 	}
 
 	/**
@@ -615,98 +736,124 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			// Basic date operator tests
 			[
 				'date:2007-03-01/2008-05-11',
-				'(e.id >= ? AND e.id <= ? )',
+				'(e.id >= ? AND e.id <= ?)',
 				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z') . '000000'],
 			],
 			[
 				'date:2007-03-01/',
-				'(e.id >= ? )',
+				'(e.id >= ?)',
 				[strtotime('2007-03-01T00:00:00Z') . '000000'],
 			],
 			[
 				'date:/2008-05-11',
-				'(e.id <= ? )',
+				'(e.id <= ?)',
 				[strtotime('2008-05-11T23:59:59Z') . '000000'],
 			],
 			// Basic pubdate operator tests
 			[
 				'pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
-				'(e.date >= ? AND e.date <= ? )',
+				'(e.date >= ? AND e.date <= ?)',
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
 				'pubdate:2007-03-01/',
-				'(e.date >= ? )',
+				'(e.date >= ?)',
 				[strtotime('2007-03-01T00:00:00Z')],
 			],
 			[
 				'pubdate:/2008-05-11',
-				'(e.date <= ? )',
+				'(e.date <= ?)',
+				[strtotime('2008-05-11T23:59:59Z')],
+			],
+			// Basic modified date operator tests
+			[
+				'mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'(e.`lastModified` >= ? AND COALESCE(e.`lastModified`, 0) <= ?)',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'mdate:2007-03-01/',
+				'(e.`lastModified` >= ?)',
+				[strtotime('2007-03-01T00:00:00Z')],
+			],
+			[
+				'mdate:/2008-05-11',
+				'(COALESCE(e.`lastModified`, 0) <= ?)',
 				[strtotime('2008-05-11T23:59:59Z')],
 			],
 			// Basic userdate operator tests
 			[
 				'userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
-				'(e.`lastUserModified` >= ? AND e.`lastUserModified` <= ? )',
+				'(e.`lastUserModified` >= ? AND e.`lastUserModified` <= ?)',
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
 				'userdate:2007-03-01/',
-				'(e.`lastUserModified` >= ? )',
+				'(e.`lastUserModified` >= ?)',
 				[strtotime('2007-03-01T00:00:00Z')],
 			],
 			[
 				'userdate:/2008-05-11',
-				'(e.`lastUserModified` <= ? )',
+				'(e.`lastUserModified` <= ?)',
 				[strtotime('2008-05-11T23:59:59Z')],
 			],
 			// Negative date operator tests
 			[
 				'-date:2007-03-01/2008-05-11',
-				'((e.id < ? OR e.id > ?) )',
+				'((e.id < ? OR e.id > ?))',
 				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z') . '000000'],
 			],
 			[
 				'!pubdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
-				'((e.date < ? OR e.date > ?) )',
+				'((e.date < ? OR e.date > ?))',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'!mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'((COALESCE(e.`lastModified`, 0) < ? OR e.`lastModified` > ?))',
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
 				'!userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
-				'((e.`lastUserModified` < ? OR e.`lastUserModified` > ?) )',
+				'((COALESCE(e.`lastUserModified`, 0) < ? OR e.`lastUserModified` > ?))',
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			// Combined date operators
 			[
 				'date:2007-03-01/ pubdate:/2008-05-11',
-				'(e.id >= ? AND e.date <= ? )',
+				'(e.id >= ? AND e.date <= ?)',
 				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z')],
 			],
 			[
 				'pubdate:2007-03-01/ userdate:/2008-05-11',
-				'(e.date >= ? AND e.`lastUserModified` <= ? )',
+				'(e.date >= ? AND e.`lastUserModified` <= ?)',
 				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
 			],
 			[
+				'userdate:2007-03-01/ mdate:/2008-05-11',
+				'(COALESCE(e.`lastModified`, 0) <= ? AND e.`lastUserModified` >= ?)',
+				[strtotime('2008-05-11T23:59:59Z'), strtotime('2007-03-01T00:00:00Z')],
+			],
+			[
 				'date:2007-03-01/ userdate:2007-06-01/',
-				'(e.id >= ? AND e.`lastUserModified` >= ? )',
+				'(e.id >= ? AND e.`lastUserModified` >= ?)',
 				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2007-06-01T00:00:00Z')],
 			],
 			// Complex combinations with other operators
 			[
 				'intitle:test date:2007-03-01/ pubdate:/2008-05-11',
-				'(e.id >= ? AND e.date <= ? AND e.title LIKE ? )',
+				'(e.id >= ? AND e.date <= ? AND e.title LIKE ?)',
 				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-05-11T23:59:59Z'), '%test%'],
 			],
 			[
 				'author:john userdate:2007-03-01/2008-05-11',
-				'(e.`lastUserModified` >= ? AND e.`lastUserModified` <= ? AND e.author LIKE ? )',
+				'(e.`lastUserModified` >= ? AND e.`lastUserModified` <= ? AND e.author LIKE ?)',
 				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z'), '%john%'],
 			],
 			// Mixed positive and negative date operators
 			[
 				'date:2007-03-01/ !pubdate:2008-01-01/2008-05-11',
-				'(e.id >= ? AND (e.date < ? OR e.date > ?) )',
+				'(e.id >= ? AND (e.date < ? OR e.date > ?))',
 				[strtotime('2007-03-01T00:00:00Z') . '000000', strtotime('2008-01-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
 			],
 		];
@@ -727,82 +874,87 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		return [
 			[
 				'intitle:/^ab$/',
-				'(e.title ~ ? )',
+				'(e.title ~ ?)',
 				['^ab$']
 			],
 			[
 				'intitle:/^ab$/i',
-				'(e.title ~* ? )',
+				'(e.title ~* ?)',
 				['^ab$']
 			],
 			[
 				'intitle:/^ab$/m',
-				'(e.title ~ ? )',
+				'(e.title ~ ?)',
 				['(?m)^ab$']
 			],
 			[
 				'intitle:/^ab\\M/',
-				'(e.title ~ ? )',
+				'(e.title ~ ?)',
 				['^ab\\M']
 			],
 			[
 				'intext:/^ab\\M/',
-				'(e.content ~ ? )',
+				'(e.content ~ ?)',
 				['^ab\\M']
 			],
 			[
 				'intitle:/\\b\\d+/',
-				'(e.title ~ ? )',
+				'(e.title ~ ?)',
 				['\\y\\d+']
 			],
 			[
 				'author:/^ab$/',
-				"(REPLACE(e.author, ';', '\n') ~ ? )",
+				"(REPLACE(e.author, ';', '\n') ~ ?)",
 				['^ab$']
 			],
 			[
 				'inurl:/^ab$/',
-				'(e.link ~ ? )',
+				'(e.link ~ ?)',
 				['^ab$']
 			],
 			[
 				'/^ab$/',
-				'((e.title ~ ? OR e.content ~ ?) )',
+				'((e.title ~ ? OR e.content ~ ?))',
 				['^ab$', '^ab$']
 			],
 			[
 				'!/^ab$/',
-				'(NOT e.title ~ ? AND NOT e.content ~ ? )',
+				'(NOT e.title ~ ? AND NOT e.content ~ ?)',
 				['^ab$', '^ab$']
 			],
 			[
 				'#/^a(b|c)$/im',
-				"(REPLACE(REPLACE(e.tags, ' #', '#'), '#', '\n') ~* ? )",
+				"(REPLACE(REPLACE(e.tags, ' #', '#'), '#', '\n') ~* ?)",
 				['(?m)^a(b|c)$']
 			],
 			[	// Not a regex
 				'inurl:https://example.net/test/',
-				'(e.link LIKE ? )',
+				'(e.link LIKE ?)',
 				['%https://example.net/test/%']
 			],
 			[	// Not a regex
 				'https://example.net/test/',
-				'((e.title LIKE ? OR e.content LIKE ?) )',
+				'((e.title LIKE ? OR e.content LIKE ?))',
 				['%https://example.net/test/%', '%https://example.net/test/%']
+			],
+			[	// Not a regex
+				"author:'/u/Alice'",
+				"(e.author LIKE ?)",
+				['%/u/Alice%'],
 			],
 			[	// Regex with literal 'or'
 				'intitle:/^A or B/i',
-				'(e.title ~* ? )',
+				'(e.title ~* ?)',
 				['^A or B']
 			],
 			[	// Regex with literal 'OR'
 				'intitle:/^A B OR C D/i OR intitle:/^A B OR C D/i',
-				'(e.title ~* ? ) OR (e.title ~* ? )',
+				'(e.title ~* ?) OR (e.title ~* ?)',
 				['^A B OR C D', '^A B OR C D']
 			],
 			[	// Quote with literal 'OR'
 				'intitle:"A B OR C D" OR intitle:"E or F"',
-				'(e.title LIKE ? ) OR (e.title LIKE ? )',
+				'(e.title LIKE ?) OR (e.title LIKE ?)',
 				['%A B OR C D%', '%E or F%']
 			],
 		];
@@ -825,27 +977,27 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		return [
 			[
 				'intitle:/^ab$/',
-				"(e.title REGEXP ? )",
+				"(e.title REGEXP ?)",
 				['(?-i)^ab$']
 			],
 			[
 				'intitle:/^ab$/i',
-				"(e.title REGEXP ? )",
+				"(e.title REGEXP ?)",
 				['(?i)^ab$']
 			],
 			[
 				'intitle:/^ab$/m',
-				"(e.title REGEXP ? )",
+				"(e.title REGEXP ?)",
 				['(?-i)(?m)^ab$']
 			],
 			[
 				'intitle:/\\b\\d+/',
-				"(e.title REGEXP ? )",
+				"(e.title REGEXP ?)",
 				['(?-i)\\b\\d+']
 			],
 			[
 				'intext:/^ab$/m',
-				'(UNCOMPRESS(e.content_bin) REGEXP ?) )',
+				'(UNCOMPRESS(e.content_bin) REGEXP ?))',
 				['(?-i)(?m)^ab$']
 			],
 		];
@@ -868,22 +1020,22 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		return [
 			[
 				'intitle:/^ab$/',
-				"(REGEXP_LIKE(e.title,?,'c') )",
+				"(REGEXP_LIKE(e.title,?,'c'))",
 				['^ab$']
 			],
 			[
 				'intitle:/^ab$/i',
-				"(REGEXP_LIKE(e.title,?,'i') )",
+				"(REGEXP_LIKE(e.title,?,'i'))",
 				['^ab$']
 			],
 			[
 				'intitle:/^ab$/m',
-				"(REGEXP_LIKE(e.title,?,'mc') )",
+				"(REGEXP_LIKE(e.title,?,'mc'))",
 				['^ab$']
 			],
 			[
 				'intext:/^ab$/m',
-				"(REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc')) )",
+				"(REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc')))",
 				['^ab$']
 			],
 		];
@@ -904,27 +1056,27 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		return [
 			[
 				'intitle:/^ab$/',
-				"(e.title REGEXP ? )",
+				"(e.title REGEXP ?)",
 				['/^ab$/']
 			],
 			[
 				'intitle:/^ab$/i',
-				"(e.title REGEXP ? )",
+				"(e.title REGEXP ?)",
 				['/^ab$/i']
 			],
 			[
 				'intitle:/^ab$/m',
-				"(e.title REGEXP ? )",
+				"(e.title REGEXP ?)",
 				['/^ab$/m']
 			],
 			[
 				'intitle:/^ab\\b/',
-				'(e.title REGEXP ? )',
+				'(e.title REGEXP ?)',
 				['/^ab\\b/']
 			],
 			[
 				'intext:/^ab\\b/',
-				'(e.content REGEXP ? )',
+				'(e.content REGEXP ?)',
 				['/^ab\\b/']
 			],
 		];
@@ -946,33 +1098,35 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				<<<'EOD'
 					e:1,2 f:10,11 c:20,21 L:30,31 labels:"My label,My other label"
 					userdate:2025-01-01T00:00:00/2026-01-01T00:00:00
+					mdate:2025-12
 					pubdate:2025-02-01T00:00:00/2026-01-01T00:00:00
 					date:2025-03-01T00:00:00/2026-01-01T00:00:00
-					intitle:/<Inter&sting>/i intitle:"g ' & d"
+					intitle:/<Inter&sting>/i intitle:"g ' & d\\:"
 					intext:/<Inter&sting>/i intext:g&d
-					author:/Bob/ author:Alice
+					author:/Bob/ author:"/u/Alice" author:Alice
 					inurl:/https/ inurl:example.net
 					#/tag2/ #tag1
-					/search_regex/i "quoted search" search
+					/search_regex/i "quoted search" search search:"A user search" search:U1
 					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
 					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-mdate:2025-12-27
 					-pubdate:2025
 					-date:P30D
 					-intitle:/Spam/i -intitle:"'bad"
 					-intext:/Spam/i -intext:"'bad"
-					-author:/Dave/i -author:Charlie
+					-author:/Dave/i -author:"/u/Charlie" -author:Charlie
 					-inurl:/ftp/ -inurl:example.com
 					-#/tag4/ -#tag3
-					-/not_regex/i -"not quoted" -not_search
+					-/not_regex/i -"not quoted" -not_search -search:"Negative user search" -search:U2
 					EOD
 			],
 		];
 	}
 
 	#[DataProvider('provideBooleanSearchToString')]
-	public static function testBooleanSearch__toString(string $input, string $expected): void {
+	public static function testBooleanSearchToString(string $input, string $expected): void {
 		$search = new FreshRSS_BooleanSearch($input);
-		self::assertSame($expected, $search->__toString());
+		self::assertSame($expected, $search->toString());
 	}
 
 	/**
@@ -1023,6 +1177,70 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	/**
+	 * @param list<array{search:string,name?:string}> $queries
+	 */
+	#[DataProvider('provideBooleanSearchToStringExpansion')]
+	public static function testBooleanSearchToStringExpansion(array $queries, string $input,
+		string $expectedNotExpanded, string $expectedExpanded): void {
+		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
+		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
+		$newUserConf->queries = $queries;
+		FreshRSS_Context::setUserConf($newUserConf);
+
+		try {
+			$booleanSearch = new FreshRSS_BooleanSearch($input);
+			self::assertSame($expectedNotExpanded, $booleanSearch->toString(expandUserQueries: false));
+			self::assertSame($expectedExpanded, $booleanSearch->toString());
+		} finally {
+			FreshRSS_Context::setUserConf($previousUserConf);
+		}
+	}
+
+	/**
+	 * @return array<string,array{0:list<array{search:string,name?:string}>,1:string,2:string,3:string}>
+	 */
+	public static function provideBooleanSearchToStringExpansion(): array {
+		return [
+			'Not found ID' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+				],
+				'S:3 S:4,5 ',
+				'S:3 S:4,5',
+				'',
+			],
+			'Not found name' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:Third ',
+				'search:Third',
+				'',
+			],
+			'Found IDs' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'S:0,1 ',
+				'S:0,1',
+				'author:Alice OR intitle:World',
+			],
+			'Found names' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'search:First search:Second ',
+				'search:First search:Second',
+				'author:Alice intitle:World',
+			],
+		];
+	}
+
 	#[DataProvider('provideHasSameOperators')]
 	public function testHasSameOperators(string $input1, string $input2, bool $expected): void {
 		$search1 = new FreshRSS_Search($input1);
@@ -1047,7 +1265,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		$searchToEnforce = new FreshRSS_Search($enforceInput);
 		$newBooleanSearch = $booleanSearch->enforce($searchToEnforce);
 		self::assertNotSame($booleanSearch, $newBooleanSearch);
-		self::assertSame($expectedOutput, $newBooleanSearch->__toString());
+		self::assertSame($expectedOutput, $newBooleanSearch->toString());
 	}
 
 	/**
@@ -1081,7 +1299,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		$searchToRemove = new FreshRSS_Search($removeInput);
 		$newBooleanSearch = $booleanSearch->remove($searchToRemove);
 		self::assertNotSame($booleanSearch, $newBooleanSearch);
-		self::assertSame($expectedOutput, $newBooleanSearch->__toString());
+		self::assertSame($expectedOutput, $newBooleanSearch->toString());
 	}
 
 	/**
@@ -1102,6 +1320,24 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['e ((a b) (c d))', 'e', '((a b) (c d))'],
 			['date:2024/', 'date:/2025', ''],
 			['date:2024/ a', 'date:/2025', 'a'],
+		];
+	}
+
+	#[DataProvider('provideNeedVisibility')]
+	public function testNeedVisibility(string $input, ?int $expected): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($expected, $search->needVisibility());
+	}
+
+	/** @return list<list<string|int|null>> */
+	public static function provideNeedVisibility(): array {
+		return [
+			['', null],
+			['f:1', FreshRSS_Feed::PRIORITY_HIDDEN],
+			['c:2', FreshRSS_Feed::PRIORITY_CATEGORY],
+			['f:1 c:2', FreshRSS_Feed::PRIORITY_HIDDEN],
+			['-f:1', null],
+			['-c:2', null],
 		];
 	}
 }

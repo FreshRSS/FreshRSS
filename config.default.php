@@ -185,9 +185,9 @@ return [
 
 		# Additional PDO parameters, such as offered by MySQL https://php.net/ref.pdo-mysql
 		'pdo_options' => [
-			//PDO::MYSQL_ATTR_SSL_KEY	=> '/path/to/client-key.pem',
-			//PDO::MYSQL_ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
-			//PDO::MYSQL_ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
+			//Pdo\Mysql::ATTR_SSL_KEY	=> '/path/to/client-key.pem',
+			//Pdo\Mysql::ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
+			//Pdo\Mysql::ATTR_SSL_CA	=> '/path/to/ca-cert.pem',
 		],
 
 	],
@@ -208,6 +208,16 @@ return [
 		'password' => '',
 		'secure' => '', // '', 'ssl' or 'tls'
 		'from' => 'root@localhost',
+	],
+
+	# Automatic SQLite export of each user’s database, triggered by `./cli/export-sqlite-auto.php`.
+	# Intended to be scheduled by an admin (e.g. via cron) for periodic on-server backups
+	# distinct from the manual `./cli/db-backup.php` / `./cli/db-restore.php` migration workflow.
+	'auto_sqlite_export' => [
+		# Enable the automatic export. When false, `./cli/export-sqlite-auto.php` exits without writing.
+		'enabled' => false,
+		# Number of past exports to retain per user. Older files are pruned after a successful export.
+		'retention' => 7,
 	],
 
 	# List of enabled FreshRSS extensions.

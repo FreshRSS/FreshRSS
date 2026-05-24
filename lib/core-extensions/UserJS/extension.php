@@ -28,6 +28,7 @@ final class UserJSExtension extends Minz_Extension {
 		if (Minz_Request::isPost()) {
 			$js_rules = Minz_Request::paramString('js-rules', plaintext: true);
 			$this->saveFile(self::FILENAME, $js_rules);
+			FreshRSS_UserDAO::touch();
 		}
 
 		$this->js_rules = '';

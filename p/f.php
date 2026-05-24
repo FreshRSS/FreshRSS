@@ -21,7 +21,7 @@ function show_default_favicon(int $cacheSeconds = 3600): void {
 	$default_mtime = @filemtime(DEFAULT_FAVICON) ?: 0;
 	if ($no_cache || !httpConditional($default_mtime, $cacheSeconds, 2)) {
 		header('Content-Type: image/x-icon');
-		header('Content-Disposition: inline; filename="default_favicon.ico"');
+		header('Content-Disposition: attachment; filename="default_favicon.ico"');
 		readfile(DEFAULT_FAVICON);
 	}
 }
@@ -51,8 +51,15 @@ if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (r
 		show_default_favicon(1800);
 		exit();
 	}
+	$url = FreshRSS_http_Util::checkUrl($url) ?: '';
+	if ($url === '') {
+		show_default_favicon(1800);
+		exit();
+	}
 
-	if (!download_favicon($url, $ico)) {
+	// Try downloading the URL as a direct image first (e.g. from a feed's <image><url>),
+	// then fall back to HTML favicon search if it is not a valid image.
+	if (!download_favicon_from_image_url($url, $ico) && !download_favicon($url, $ico)) {
 		// Download failed
 		if ($ico_mtime == false) {
 			show_default_favicon(86400);
@@ -66,7 +73,7 @@ if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (r
 if ($no_cache || !httpConditional($ico_mtime, rand(14, 21) * 86400, 2)) {
 	$ico_content_type = contentType($ico);
 	header('Content-Type: ' . $ico_content_type);
-	header('Content-Disposition: inline; filename="' . $id . '.ico"');
+	header('Content-Disposition: attachment; filename="' . $id . '.ico"');
 	if (!$no_cache && isset($_GET['t'])) {
 		header('Cache-Control: immutable');
 	}

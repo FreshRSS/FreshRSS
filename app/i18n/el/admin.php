@@ -83,10 +83,12 @@ return array(
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'σε δευτερόλεπτα',
 			'number' => 'Διάρκεια παραμονής σε σύνδεση',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Επιβολή επιβεβαίωσης διεύθυνσης email',
 		'instance-name' => 'Instance name',	// TODO
 		'max-categories' => 'Μέγιστος αριθμός κατηγοριών ανά χρήστη',

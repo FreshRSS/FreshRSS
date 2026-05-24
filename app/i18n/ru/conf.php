@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'Таймаут уведомлений HTML5',
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
+		'show_title_unread' => 'Показать количество непрочитанных статей в заголовке',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Скрывать боковую панель по умолчанию',
 		'theme' => array(
 			'_' => 'Тема',
 			'deprecated' => array(
@@ -105,6 +114,9 @@ return array(
 		'none' => 'Отсутствует',
 		'small' => 'Маленькая',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Включить уведомления',
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Показывать баннер предупреждения',
@@ -118,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Конфиденциальность',
 		'retrieve_extension_list' => 'Получить список расширений',
+		'send_referrer_allowlist' => 'Сайты, которым разрешено видеть адрес вашего сервера (%s)',
 	),
 	'profile' => array(
 		'_' => 'Настройки профиля',
@@ -129,6 +142,7 @@ return array(
 			'disabled' => 'Доступ к API отключен.',
 			'documentation_link' => 'См. <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацию и список известных приложений</a>',
 			'help' => 'См. <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацию</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Изменить пароль',
 		'confirm_new_password' => 'Подтвердить новый пароль',
@@ -145,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Пользовательские запросы',
+		'create' => 'Создать новый пользовательский запрос',
 		'deprecated' => 'Этот запрос больше не действителен. Связанная категория или лента была удалена.',
 		'description' => 'Описание',
 		'filter' => array(
@@ -275,6 +290,7 @@ return array(
 			'upon_gone' => 'когда это больше не в новостной ленте',
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',
+			'when_same_guid_in_category' => 'если идентичный GUID уже существует среди <i>n</i> новейших статей категории',
 			'when_same_title_in_category' => 'если идентичный заголовок уже существует среди <i>n</i> новейших статей категории',
 			'when_same_title_in_feed' => 'если идентичный заголовок уже существует среди <i>n</i> новейших статей ленты',
 		),
@@ -291,11 +307,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Также относится к меткам',
 		'sides_close_article' => 'Нажатия мышью за пределами текста статьи закрывают статью',
-		'sort' => array(
-			'_' => 'Порядок сортировки',
-			'newer_first' => 'Сначала новые',
-			'older_first' => 'Сначала старые',
-		),
 		'star' => array(
 			'when' => 'Отмечать статью избранной…',
 		),
@@ -324,7 +335,7 @@ return array(
 		'share_name' => 'Отображаемое имя',
 		'share_url' => 'Используемый URL',
 		'title' => 'Обмен',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
@@ -359,7 +370,7 @@ return array(
 		'skip_next_article' => 'Перейти к следующей, не раскрывая',
 		'skip_previous_article' => 'Перейти к предыдущей, не раскрывая',
 		'title' => 'Горячие клавиши',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Переключить боковую панель',
 		'toggle_media' => 'Играть/приостановить медиаконтент',
 		'user_filter' => 'К пользовательским запросам',
 		'user_filter_help' => 'Если запрос единственный, он будет вызван. Иначе запросы доступны по их номеру.',

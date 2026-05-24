@@ -140,6 +140,27 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '정보',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d일 전',
+		),
+		'hour' => array(
+			0 => '%d시간 전',
+		),
+		'justnow' => '방금 전',
+		'minute' => array(
+			0 => '%d분 전',
+		),
+		'month' => array(
+			0 => '%d개월 전',
+		),
+		'second' => array(
+			0 => '%d초 전',
+		),
+		'year' => array(
+			0 => '%d년 전',
+		),
+	),
 	'js' => array(
 		'category_empty' => '빈 카테고리',
 		'confirm_action' => '정말 이 작업을 수행하시겠습니까? 이 작업은 되돌릴 수 없습니다!',
@@ -228,6 +249,7 @@ return array(
 		'categories' => 'Categories',	// TODO
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In the past',	// TODO
 		'date_published' => 'Publication Date',	// TODO
 		'date_range' => 'Date Range',	// TODO
@@ -276,7 +298,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => '기기 내장 공유 기능',

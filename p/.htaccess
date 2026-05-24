@@ -44,7 +44,6 @@ AddDefaultCharset	UTF-8
 			Header merge Cache-Control "immutable"
 		</If>
 	</FilesMatch>
-	Header edit Set-Cookie ^(.*)$ "$1; SameSite=Lax"
 </IfModule>
 
 # Provide the true IP address of the connection (e.g. last proxy), even when using mod_remoteip
@@ -56,4 +55,13 @@ AddDefaultCharset	UTF-8
 	<IfModule mod_setenvif.c>
 		SetEnvIfExpr "%{CONN_REMOTE_ADDR} =~ /(.*)/" CONN_REMOTE_ADDR=$1
 	</IfModule>
+</IfModule>
+
+# Log remote user with same priority as FreshRSS_http_Util::httpAuthUser(). See also api/.htaccess
+<IfModule mod_setenvif.c>
+	SetEnvIfExpr "reqenv('LOG_REMOTE_USER') == ''" LOG_REMOTE_USER=-
+	SetEnvIfExpr "reqenv('LOG_REMOTE_USER') == '-' && reqenv('REMOTE_USER') =~ /(.+)/" LOG_REMOTE_USER=$1
+	SetEnvIfExpr "reqenv('LOG_REMOTE_USER') == '-' && reqenv('REDIRECT_REMOTE_USER') =~ /(.+)/" LOG_REMOTE_USER=$1
+	SetEnvIfExpr "reqenv('LOG_REMOTE_USER') == '-' && req('Remote-User') =~ /(.+)/" LOG_REMOTE_USER=$1
+	SetEnvIfExpr "reqenv('LOG_REMOTE_USER') == '-' && req('X-WebAuth-User') =~ /(.+)/" LOG_REMOTE_USER=$1
 </IfModule>

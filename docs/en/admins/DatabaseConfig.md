@@ -31,5 +31,5 @@ Etc. for other text fields. The list of fields can be seen in [`CREATE TABLE _en
 
 ### References
 
-* [GIN: Generalized Inverted Index](https://www.postgresql.org/docs/current/gin-intro.html)
+* [GIN: Generalized Inverted Index](https://www.postgresql.org/docs/current/gin.html)
 * [`pg_trgm` module for fast text search](https://www.postgresql.org/docs/current/pgtrgm.html#id-1.11.7.42.8)

@@ -108,7 +108,7 @@ foreach ($values as $name => $value) {
 				}
 				break;
 		}
-		// @phpstan-ignore assign.propertyType, property.dynamicName
+		// @phpstan-ignore assign.propertyType
 		$systemConf->$name = $value;
 	}
 }

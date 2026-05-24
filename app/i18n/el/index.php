@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Mark feed as read',	// TODO
 		'mark_selection_unread' => 'Mark selection as unread',	// TODO
 		'mylabels' => 'My labels',	// TODO
-		'newer_first' => 'Newer first',	// TODO
 		'non-starred' => 'Show non-favourites',	// TODO
 		'normal_view' => 'Normal view',	// TODO
-		'older_first' => 'Oldest first',	// TODO
 		'queries' => 'User queries',	// TODO
 		'read' => 'Show read',	// TODO
 		'reader_view' => 'Reading view',	// TODO
 		'rss_view' => 'RSS feed',	// TODO
 		'search_short' => 'Search',	// TODO
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Category, feed titles A→Z',	// TODO
 				'name_desc' => 'Category, feed titles Z→A',	// TODO
 			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Feed title A→Z',	// TODO
 				'name_desc' => 'Feed title Z→A',	// TODO
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Link A→Z',	// TODO
 			'link_desc' => 'Link Z→A',	// TODO
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Random order',	// TODO
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Title A→Z',	// TODO
 			'title_desc' => 'Title Z→A',	// TODO
 			'user_modified_asc' => 'User modified 1→9',	// TODO

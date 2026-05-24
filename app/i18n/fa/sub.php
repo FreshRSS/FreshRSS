@@ -29,6 +29,7 @@ return array(
 			'help' => ' URL را به <a href="http://opml.org/" target="_blank">فایل OPML</a> ارائه دهید تا به صورت پویا این دسته با فیدها پر شود.',
 		),
 		'empty' => ' دسته خالی',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'دسته‌بندی را گسترش دهید',
 		'information' => ' اطلاعات',
 		'open' => 'دسته‌بندی باز',
@@ -86,6 +87,7 @@ return array(
 		'http_headers_help' => 'سر برگ ها با یک خط جدید از هم جدا می‌شوند و نام و مقدار سربرگ ها با یک دونقطه از هم جدا می‌شوند (مثلاً: <kbd><code>پذیرش: application/atom+xml<br />مجوز: Bearer some-token</code></kbd>).',
 		'icon' => 'آیکون',
 		'information' => ' اطلاعات',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => ' حداقل تعداد مقالات برای نگهداری',
 		'kind' => array(
 			'_' => ' نوع منبع خوراک',
@@ -185,6 +187,10 @@ return array(
 			'rss' => ' RSS / Atom (پیش‌فرض)',
 			'xml_xpath' => ' XML + XPath',
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => ' کش را پاک کنید',
 			'clear_cache_help' => ' کش این فید را پاک کنید.',

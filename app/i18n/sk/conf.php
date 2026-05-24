@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'Limit HTML5 oznámenia',
 		),
 		'show_nav_buttons' => 'Zobraziť tlačidlá oznámenia',
+		'show_title_unread' => 'Zobraziť počet neprečítaných článkov v názve',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Vzhľad',
 			'deprecated' => array(
@@ -105,6 +114,9 @@ return array(
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -118,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Správca profilu',
@@ -129,6 +142,7 @@ return array(
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -145,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Dopyty používateľa',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Tento dopyt už nie je platný. Kategória alebo kanál boli vymazané.',
 		'description' => 'Description',	// TODO
 		'filter' => array(
@@ -275,6 +290,7 @@ return array(
 			'upon_gone' => 'keď už nie je v hlavnom kanály noviniek',
 			'upon_reception' => 'po načítaní článku',
 			'when' => 'Označiť článok ako prečítaný…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'ak rovnaký nadpis už existuje v TOP <i>n</i> najnovších článkoch (of the feed)',	// DIRTY
 		),
@@ -291,11 +307,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Týka sa aj štítkov',
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
-		'sort' => array(
-			'_' => 'Poradie',
-			'newer_first' => 'Novšie hore',
-			'older_first' => 'Staršie hore',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
@@ -324,7 +335,7 @@ return array(
 		'share_name' => 'Meno pre zobrazenie',
 		'share_url' => 'Zdieľaný odkaz',
 		'title' => 'Zdieľanie',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

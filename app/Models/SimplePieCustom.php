@@ -44,6 +44,20 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 				unset($curl_options[CURLOPT_PROXY]);
 			}
 		}
+		if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
+			$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+			if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
+				$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+			}
+		} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
+			// Legacy PHP 8.2-
+			if (defined('CURLOPT_PROTOCOLS')) {
+				$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+			}
+			if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+				$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+			}
+		}
 		$this->set_curl_options($curl_options);
 
 		$this->strip_comments(true);
@@ -114,7 +128,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'hgroup' => [],
 			'hr' => ['align', 'noshade', 'size', 'width'],
 			'i' => [],
-			'iframe' => ['src', 'align', 'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'scrolling'],
+			'iframe' => ['src', 'align', 'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'scrolling', 'allowfullscreen'],
 			'image' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
 			'img' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
 			'ins' => ['cite', 'datetime'],
@@ -220,6 +234,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'iframe' => [
 				'allow' => 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
 				'sandbox' => 'allow-scripts allow-same-origin',
+				'allowfullscreen' => 'allowfullscreen',
 			],
 			'video' => ['controls' => 'controls', 'preload' => 'none'],
 		]);

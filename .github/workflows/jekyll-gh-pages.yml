@@ -31,21 +31,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Setup Ruby
-        # https://github.com/ruby/setup-ruby/releases/tag/v1.268.0
-        uses: ruby/setup-ruby@8aeb6ff8030dd539317f8e1769a044873b56ea71
+        uses: ruby/setup-ruby@c4e5b1316158f92e3d49443a9d58b31d25ac0f8f
         with:
-          ruby-version: '3.2.3' # Not needed with a .ruby-version file
+          ruby-version: '3.4.9'
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-          cache-version: 0 # Increment this number if you need to re-download cached gems
+          cache-version: 1 # Increment this number if you need to re-download cached gems
           working-directory: docs
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Build with Jekyll
         run: |
           cd docs
           bundle exec jekyll build --destination ../_site
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
 
   # Deployment job
   deploy:
@@ -57,4 +56,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

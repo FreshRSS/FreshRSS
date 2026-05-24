@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'HTML5 알림 타임아웃',
 		),
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
+		'show_title_unread' => '제목에 읽지 않은 기사 수 표시',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => '테마',
 			'deprecated' => array(
@@ -105,6 +114,9 @@ return array(
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -118,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => '프로필 관리',
@@ -129,6 +142,7 @@ return array(
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -145,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => '사용자 쿼리',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => '이 쿼리는 더 이상 유효하지 않습니다. 해당하는 카테고리나 피드가 삭제되었습니다.',
 		'description' => 'Description',	// TODO
 		'filter' => array(
@@ -275,6 +290,7 @@ return array(
 			'upon_gone' => '원본 뉴스 피드에서 글 삭제 되었을 때',
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => '상위 <i>n</i>개의 최신 글에 동일한 제목이 이미 있는 경우 (of the feed)',	// DIRTY
 		),
@@ -291,11 +307,6 @@ return array(
 		),
 		'show_fav_unread_help' => '라벨에도 적용하기',
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
-		'sort' => array(
-			'_' => '정렬 순서',
-			'newer_first' => '최근 글 먼저',
-			'older_first' => '오래된 글 먼저',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
@@ -324,7 +335,7 @@ return array(
 		'share_name' => '표시할 이름',
 		'share_url' => '사용할 공유 URL',
 		'title' => '공유',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

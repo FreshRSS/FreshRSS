@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'Notificação em HTML5 de timeout',
 		),
 		'show_nav_buttons' => 'Mostrar botões de navegação',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -105,6 +114,9 @@ return array(
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -118,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Gestão de perfil',
@@ -129,6 +142,7 @@ return array(
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -145,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Consultas do utilizador',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Esta não é válida. A categoria ou feed relacionado foi apagado.',
 		'description' => 'Description',	// TODO
 		'filter' => array(
@@ -275,6 +290,7 @@ return array(
 			'upon_gone' => 'Quando não estiver mais no feed de notícias principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'Se um título idêntico já existir nos últimos <i>n</i> artigos mais novos (no feed)',
 		),
@@ -291,11 +307,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Aplicar também nas tags',
 		'sides_close_article' => 'Clicando fora da área do texto do artigo fecha o mesmo',
-		'sort' => array(
-			'_' => 'Ordem de visualização',
-			'newer_first' => 'Novos primeiro',
-			'older_first' => 'Antigos primeiro',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
@@ -324,7 +335,7 @@ return array(
 		'share_name' => 'Nome de visualização para partilhar',
 		'share_url' => 'URL utilizada para partilha',
 		'title' => 'Partilhar',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

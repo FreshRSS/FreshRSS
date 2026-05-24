@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Tarkista käyttäjän <em>%2$s</em> oikeudet hakemistoon <em>%1$s</em>. HTTP-palvelimella on oltava kirjoitusoikeus.',
 			'ok' => 'Data-hakemiston oikeudet ovat oikein.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'DOM-rakenteen selaamiseen tarvittavaa kirjastoa ei löydy.',
 			'ok' => 'DOM-rakenteen selaamiseen tarvittava kirjasto löytyy.',
@@ -87,7 +100,7 @@ return array(
 		),
 		'pdo-sqlite' => array(
 			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
 		),
 		'pdo' => array(
 			'nok' => 'PDO:ta tai jotain tuettua ohjainta (pdo_sqlite, pdo_pgsql, pdo_mysql) ei löydy.',

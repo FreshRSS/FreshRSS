@@ -29,6 +29,7 @@ return array(
 			'help' => 'Podaj adres <a href="http://opml.org/" target="_blank">pliku OPML</a>, aby dynamicznie zapełnić tę kategorię kanałami',
 		),
 		'empty' => 'Pusta kategoria',
+		'error' => 'Ta kategoria dynamicznego OPML napotkała problem. Sprawdź, czy adres URL tego OPML jest nadal dostępny oraz czy nie została przekroczona maksymalna liczba kanałów na użytkownika.',
 		'expand' => 'Rozszerz kategorię',
 		'information' => 'Informacje',
 		'open' => 'Otwórz kategorię',
@@ -80,12 +81,13 @@ return array(
 		'filteractions' => array(
 			'_' => 'Akcje filtrowania',
 			'help' => 'Jedno zapytanie na linię. Operatory opisane są w <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dokumentacji</a>.',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => 'Podgląd filtrów na istniejących wiadomościach (nowe okno)',
 		),
 		'http_headers' => 'Nagłówki HTTP',
 		'http_headers_help' => 'Nagłówki są oddzielane przez nową linię, a nazwa i wartość nagłówka są oddzielane przez dwukropek (np: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer jakiś-token</code></kbd>).',
 		'icon' => 'Ikona',
 		'information' => 'Informacja',
+		'keep_adding_feed' => 'Następnie dodaj więcej kanałów',
 		'keep_min' => 'Minimalna liczba wiadomości do przechowywania',
 		'kind' => array(
 			'_' => 'Rodzaj źródła kanału',
@@ -93,7 +95,7 @@ return array(
 				'_' => 'HTML + XPath + notacja kropkowa JSON (JSON w HTML-u)',
 				'xpath' => array(
 					'_' => 'XPath do JSON-a w HTML-u',
-					'help' => 'Przykład: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (jeden obiekt JSON dla każdego artykułu)',
+					'help' => 'Przykład: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (jeden obiekt JSON dla każdej wiadomości)',
 				),
 			),
 			'html_xpath' => array(
@@ -185,6 +187,10 @@ return array(
 			'rss' => 'RSS / Atom (domyślne)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Ostatnia wiadomość opublikowana <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Ostatnia wiadomość otrzymana <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Ostatnia nieudana aktualizacja <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Ostatnia pomyślna aktualizacja <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Wyczyść pamięć podręczną',
 			'clear_cache_help' => 'Czyści pamięć podręczną tego kanału.',
@@ -239,7 +245,7 @@ return array(
 		'ttl' => 'Nie odświeżaj automatycznie częściej niż',
 		'unicityCriteria' => array(
 			'_' => 'Kryteria unikalności kanału',
-			'forced' => '<span title="Zablokuj kryteria unikalności, nawet jeżeli kanał ma duplikaty artykułów">wymuszone</span>',
+			'forced' => '<span title="Zablokuj kryteria unikalności, nawet jeżeli kanał ma duplikaty wiadomości">wymuszone</span>',
 			'help' => 'Istotne dla niezgodnych kanałów.<br />⚠️ Wprowadzenie zmian w polityce utworzy duplikaty.',
 			'id' => 'standardowe ID (domyślne)',
 			'link' => 'odnośnik',

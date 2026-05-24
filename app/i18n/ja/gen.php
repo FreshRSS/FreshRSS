@@ -140,6 +140,27 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSSについて',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d日前',
+		),
+		'hour' => array(
+			0 => '%d時間前',
+		),
+		'justnow' => 'たった今',
+		'minute' => array(
+			0 => '%d分前',
+		),
+		'month' => array(
+			0 => '%dか月前',
+		),
+		'second' => array(
+			0 => '%d秒前',
+		),
+		'year' => array(
+			0 => '%d年前',
+		),
+	),
 	'js' => array(
 		'category_empty' => '空白のカテゴリ',
 		'confirm_action' => '本当に実行してもいいですか?キャンセルはできません!',
@@ -228,6 +249,7 @@ return array(
 		'categories' => 'Categories',	// TODO
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In the past',	// TODO
 		'date_published' => 'Publication Date',	// TODO
 		'date_range' => 'Date Range',	// TODO
@@ -276,7 +298,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'システム共有',

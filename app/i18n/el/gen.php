@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Σχετικά με το FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'πριν από %d ημέρα',
+			1 => 'πριν από %d ημέρες',
+		),
+		'hour' => array(
+			0 => 'πριν από %d ώρα',
+			1 => 'πριν από %d ώρες',
+		),
+		'justnow' => 'μόλις τώρα',
+		'minute' => array(
+			0 => 'πριν από %d λεπτό',
+			1 => 'πριν από %d λεπτά',
+		),
+		'month' => array(
+			0 => 'πριν από %d μήνας',
+			1 => 'πριν από %d μήνες',
+		),
+		'second' => array(
+			0 => 'πριν από %d δευτερόλεπτο',
+			1 => 'πριν από %d δευτερόλεπτα',
+		),
+		'year' => array(
+			0 => 'πριν από %d έτος',
+			1 => 'πριν από %d έτη',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Άδειασμα κατηγορίας',
 		'confirm_action' => 'Είστε σίγουροι για την ενέργεια; Είναι μη αναστρέψιμη!',
@@ -228,6 +255,7 @@ return array(
 		'categories' => 'Κατηγορίες',
 		'content' => 'Περιεχόμενο',
 		'date_from' => 'Από',
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'Στο παρελθόν',
 		'date_published' => 'Ημερομηνία έκδοσης',
 		'date_range' => 'Διάστημα ημερομηνίας',
@@ -276,7 +304,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Διαμοιρασμός συστήματος',

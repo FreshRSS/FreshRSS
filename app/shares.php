@@ -98,7 +98,7 @@ return [
 	'gnusocial' => [
 		'url' => '~URL~/notice/new?content=~TITLE~%20~LINK~',
 		'transform' => ['urlencode'],
-		'help' => 'https://gnu.io/social/',
+		'help' => 'https://gnusocial.rocks/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],

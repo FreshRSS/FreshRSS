@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Beslemeyi okundu olarak işaretle',
 		'mark_selection_unread' => 'Seçimi okunmadı olarak işaretle',
 		'mylabels' => 'Etiketlerim',
-		'newer_first' => 'Önce yeniler',
 		'non-starred' => 'Favori olmayanları göster',
 		'normal_view' => 'Normal görünüm',
-		'older_first' => 'Önce eskiler',
 		'queries' => 'Kullanıcı sorguları',
 		'read' => 'Okunanları göster',
 		'reader_view' => 'Okuma görünümü',
 		'rss_view' => 'RSS beslemesi',
 		'search_short' => 'Ara',
 		'sort' => array(
-			'_' => 'Sıralama kriteri',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Category, feed titles A→Z',	// TODO
 				'name_desc' => 'Category, feed titles Z→A',	// TODO
 			),
 			'date_asc' => 'Yayın tarihi 1→9',
 			'date_desc' => 'Yayın tarihi 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Feed title A→Z',	// TODO
 				'name_desc' => 'Feed title Z→A',	// TODO
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Bağlantı A→Z',
 			'link_desc' => 'Bağlantı Z→A',
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Rastgele sıralama',
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Başlık A→Z',
 			'title_desc' => 'Başlık Z→A',
 			'user_modified_asc' => 'User modified 1→9',	// TODO

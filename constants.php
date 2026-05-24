@@ -6,7 +6,7 @@ declare(strict_types=1);
 /** @var string */
 const FRESHRSS_MIN_PHP_VERSION = '8.1.0';
 /** @var string */
-const FRESHRSS_VERSION = '1.28.1-dev';
+const FRESHRSS_VERSION = '1.29.2-dev';
 /** @var string */
 const FRESHRSS_WEBSITE = 'https://freshrss.org';
 /** @var string */

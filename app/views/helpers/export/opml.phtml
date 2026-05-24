@@ -89,7 +89,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 		if (!empty($feed->filtersAction('read'))) {
 			$filters = '';
 			foreach ($feed->filtersAction('read') as $filterRead) {
-				$filters .= $filterRead->__toString() . "\n";
+				$filters .= $filterRead->toString(expandUserQueries: false) . "\n";
 			}
 			$filters = trim($filters);
 			$outline['frss:filtersActionRead'] = $filters;
@@ -182,7 +182,7 @@ if (!empty($this->feeds)) {
 	$opml_array['body'] = array_merge($opml_array['body'], feedsToOutlines($this->feeds, $this->excludeMutedFeeds));
 }
 
-$libopml = new \marienfressinaud\LibOpml\LibOpml(true);
+$libopml = new \marienfressinaud\LibOpml\LibOpml(strict: false);
 $opml = $libopml->render($opml_array);
 /** @var string $opml */
 echo $opml;

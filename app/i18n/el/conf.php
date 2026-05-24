@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'HTML5 notification timeout',	// TODO
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
+		'show_title_unread' => 'Εμφάνιση αριθμού μη αναγνωσμένων άρθρων στον τίτλο',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Theme',	// TODO
 			'deprecated' => array(
@@ -105,6 +114,9 @@ return array(
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -118,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Profile management',	// TODO
@@ -129,6 +142,7 @@ return array(
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -145,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'User queries',	// TODO
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',	// TODO
 		'description' => 'Description',	// TODO
 		'filter' => array(
@@ -275,6 +290,7 @@ return array(
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'upon receiving the article',	// TODO
 			'when' => 'Mark an article as read…',	// TODO
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',	// TODO
 		),
@@ -291,11 +307,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Applies also on labels',	// TODO
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO
-		'sort' => array(
-			'_' => 'Sort order',	// TODO
-			'newer_first' => 'Newest first',	// TODO
-			'older_first' => 'Oldest first',	// TODO
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),

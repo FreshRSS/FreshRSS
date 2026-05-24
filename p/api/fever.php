@@ -89,34 +89,46 @@ final class FeverDAO extends Minz_ModelPdo
 		$values = [];
 		$order = '';
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-
-		$sql = 'SELECT id, guid, title, author, '
-			. ($entryDAO::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, attributes '
-			. 'FROM `_entry` WHERE';
+		$contentField = $entryDAO::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
+		$sql = <<<SQL
+			SELECT id, guid, title, author, {$contentField}, link, date, is_read, is_favorite, id_feed, attributes
+			FROM `_entry` WHERE
+			SQL;
 
 		if (!empty($entry_ids)) {
 			$bindEntryIds = $this->bindParamArray('id', $entry_ids, $values);
-			$sql .= " id IN($bindEntryIds)";
+			$sql .= "\n" . <<<SQL
+				id IN($bindEntryIds)
+				SQL;
 		} elseif ($max_id != '') {
-			$sql .= ' id < :id';
+			$sql .= "\n" . <<<'SQL'
+				id < :id
+				SQL;
 			$values[':id'] = $max_id;
 			$order = ' ORDER BY id DESC';
 		} elseif ($since_id != '') {
-			$sql .= ' id > :id';
+			$sql .= "\n" . <<<'SQL'
+				id > :id
+				SQL;
 			$values[':id'] = $since_id;
 			$order = ' ORDER BY id ASC';
 		} else {
-			$sql .= ' 1=1';
+			$sql .= "\n" . <<<'SQL'
+				1=1
+				SQL;
 		}
 
 		if (!empty($feed_ids)) {
 			$bindFeedIds = $this->bindParamArray('feed', $feed_ids, $values);
-			$sql .= " AND id_feed IN($bindFeedIds)";
+			$sql .= "\n" . <<<SQL
+				AND id_feed IN($bindFeedIds)
+				SQL;
 		}
 
 		$sql .= $order;
-		$sql .= ' LIMIT 50';
+		$sql .= "\n" . <<<'SQL'
+			LIMIT 50
+			SQL;
 
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {

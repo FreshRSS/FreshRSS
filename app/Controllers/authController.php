@@ -188,6 +188,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
 				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], true);
 			}
+		} else {
+			Minz_Session::deleteLegacyCookie('FreshRSS');	// Delete legacy cookie (before 1.29.0)
 		}
 	}
 

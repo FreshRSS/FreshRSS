@@ -118,13 +118,20 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($ok) {
-				$tag->_filtersAction('label', Minz_Request::paramTextToArray('filteractions_label'));	// Keep as HTML
+				$tag->_filtersAction('label', Minz_Request::paramTextToArray('filteractions_label', plaintext: true));
 				$ok = $tagDAO->updateTagAttributes($tag->id(), $tag->attributes()) !== false;
 			}
 
 			invalidateHttpCache();
 
-			$url_redirect = ['c' => 'tag', 'a' => 'update', 'params' => ['id' => $id]];
+			$prev_controller = 'tag';
+			$from = Minz_Request::paramStringNull('from') ?? 'update';
+			$params = ['id' => $id];
+			if ($from === 'normal' || $from === 'reader') {
+				$prev_controller = 'index';
+				$params['type'] = 'tag';
+			}
+			$url_redirect = ['c' => $prev_controller, 'a' => $from, 'params' => $params];
 			if ($ok) {
 				Minz_Request::good(
 					_t('feedback.tag.updated'),
@@ -225,6 +232,11 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		}
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$this->view->tags = $tagDAO->listTags(precounts: true);
+		$id = Minz_Request::paramInt('id');
+		if ($id !== 0) {
+			$this->view->displaySlider = true;
+			$this->view->tag = $tagDAO->searchById($id);
+		}
 	}
 
 	public static function escapeForSearch(string $tag): string {

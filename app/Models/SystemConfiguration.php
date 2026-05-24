@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @property bool $api_enabled
  * @property string $archiving
  * @property 'form'|'http_auth'|'none' $auth_type
+ * @property array{enabled:bool,retention:int} $auto_sqlite_export
  * @property-read bool $reauth_required
  * @property-read int $reauth_time
  * @property-read string $auto_update_url
@@ -19,6 +20,7 @@ declare(strict_types=1);
  * @property-read bool $http_auth_auto_register
  * @property-read string $http_auth_auto_register_email_field
  * @property string $language
+ * @property string $closed_registration_message
  * @property array<string,int> $limits
  * @property-read string $logo_html
  * @property-read string $meta_description

@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'Tauko HTML5-ilmoitusten välissä',
 		),
 		'show_nav_buttons' => 'Näytä siirtymispainikkeet',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Teema',
 			'deprecated' => array(
@@ -105,6 +114,9 @@ return array(
 		'none' => 'Ei mitään',
 		'small' => 'Pieni',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Näytä varoituspalkki',
@@ -118,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Tietosuoja',
 		'retrieve_extension_list' => 'Nouda laajennusluettelo',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Profiilien hallinta',
@@ -129,6 +142,7 @@ return array(
 			'disabled' => 'API on poistettu käytöstä.',
 			'documentation_link' => 'Katso lisätietoja <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ohjeesta ja tunnettujen sovellusten luettelosta</a>',
 			'help' => 'Katso <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ohje</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Vaihda salasana',
 		'confirm_new_password' => 'Vahvista uusi salasana',
@@ -145,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Käyttäjän kyselyt',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Kysely ei enää kelpaa. Siinä käytetty luokka tai syöte on poistettu.',
 		'description' => 'Kuvaus',
 		'filter' => array(
@@ -275,6 +290,7 @@ return array(
 			'upon_gone' => 'kun artikkeli ei ole enää alkuperäisessä uutissyötteessä',
 			'upon_reception' => 'kun artikkeli on vastaanotettu',
 			'when' => 'Merkitse artikkeli luetuksi…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'jos jollakin luokan <i>n</i> uusimmalla artikkelilla on sama otsikko',
 			'when_same_title_in_feed' => 'jos jollakin syötteen <i>n</i> uusimmalla artikkelilla on sama otsikko',
 		),
@@ -291,11 +307,6 @@ return array(
 		),
 		'show_fav_unread_help' => 'Koskee myös merkintöjä',
 		'sides_close_article' => 'Artikkeli sulkeutuu napsauttamalla sen ulkopuolelle',
-		'sort' => array(
-			'_' => 'Lajittelujärjestys',
-			'newer_first' => 'Uusimmat ensin',
-			'older_first' => 'Vanhimmat ensin',
-		),
 		'star' => array(
 			'when' => 'Merkitse artikkeli suosikiksi…',
 		),
@@ -324,7 +335,7 @@ return array(
 		'share_name' => 'Näytettävä jakamistavan nimi',
 		'share_url' => 'Käytettävä jakamistavan URL-osoite',
 		'title' => 'Jakaminen',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

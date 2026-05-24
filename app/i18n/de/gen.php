@@ -14,13 +14,13 @@ return array(
 	'action' => array(
 		'actualize' => 'Feeds aktualisieren',
 		'add' => 'Hinzufügen',
-		'back_to_rss_feeds' => '← Zurück zu Ihren RSS-Feeds gehen',
+		'back_to_rss_feeds' => '← Zurück zu Ihren RSS-Feeds',
 		'cancel' => 'Abbrechen',
 		'close' => 'Schließen',
 		'create' => 'Erstellen',
 		'delete_all_feeds' => 'Alle Feeds löschen',
 		'delete_errored_feeds' => 'Feeds mit Fehlern löschen',
-		'delete_muted_feeds' => 'Lösche stumm gestellte Feeds',
+		'delete_muted_feeds' => 'Stummgestellte Feeds löschen',
 		'demote' => 'Zurückstufen',
 		'disable' => 'Deaktivieren',
 		'download' => 'Download',	// IGNORE
@@ -54,7 +54,7 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'Ich akzeptiere die <a href="%s">Nutzungsbedingungen</a>.',
 		'email' => 'E-Mail-Adresse',
-		'keep_logged_in' => 'Eingeloggt bleiben <small>(%s Tage)</small>',
+		'keep_logged_in' => 'Angemeldet bleiben <small>(%s Tage)</small>',
 		'login' => 'Anmelden',
 		'logout' => 'Abmelden',
 		'password' => array(
@@ -62,13 +62,13 @@ return array(
 			'format' => '<small>mindestens 7 Zeichen</small>',
 		),
 		'reauth' => array(
-			'header' => 'Eine erneute Anmeldung erforderlich',
+			'header' => 'Erneute Anmeldung erforderlich',
 			'tip' => 'Sie müssen sich für die nächsten <u>%d Minuten</u> nicht erneut anmelden',
 			'title' => 'Erneute Anmeldung',
 		),
 		'registration' => array(
 			'_' => 'Neuer Account',
-			'ask' => 'Erstelle einen Account?',
+			'ask' => 'Einen Account erstellen?',
 			'title' => 'Accounterstellung',
 		),
 		'username' => array(
@@ -93,7 +93,7 @@ return array(
 		'april' => 'April',	// IGNORE
 		'aug' => 'Aug',
 		'august' => 'August',	// IGNORE
-		'before_yesterday' => 'Ältere Beiträge',
+		'before_yesterday' => 'Vorgestern',
 		'dec' => 'Dez',
 		'december' => 'Dezember',
 		'feb' => 'Feb',
@@ -140,10 +140,37 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Über FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'vor %d Tag',
+			1 => 'vor %d Tagen',
+		),
+		'hour' => array(
+			0 => 'vor %d Stunde',
+			1 => 'vor %d Stunden',
+		),
+		'justnow' => 'gerade eben',
+		'minute' => array(
+			0 => 'vor %d Minute',
+			1 => 'vor %d Minuten',
+		),
+		'month' => array(
+			0 => 'vor %d Monat',
+			1 => 'vor %d Monaten',
+		),
+		'second' => array(
+			0 => 'vor %d Sekunde',
+			1 => 'vor %d Sekunden',
+		),
+		'year' => array(
+			0 => 'vor %d Jahr',
+			1 => 'vor %d Jahren',
+		),
+	),
 	'js' => array(
-		'category_empty' => 'Kategorie leeren',
-		'confirm_action' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Diese Aktion kann nicht abgebrochen werden!',
-		'confirm_action_feed_cat' => 'Sind Sie sicher, dass Sie diese Aktion durchführen wollen? Sie werden zugehörige Favoriten und Benutzerabfragen verlieren. Dies kann nicht abgebrochen werden!',
+		'category_empty' => 'Leere Kategorie',
+		'confirm_action' => 'Möchten Sie diese Aktion wirklich ausführen? Sie kann nicht rückgängig gemacht werden.',
+		'confirm_action_feed_cat' => 'Möchten Sie diese Aktion wirklich ausführen? Sie verlieren damit alle zugehörigen Favoriten und Suchanfragen. Der Vorgang kann nicht rückgängig gemacht werden!',
 		'confirm_exit_slider' => 'Sollen die nicht gespeicherten Einstellungen wirklich verworfen werden?',
 		'feedback' => array(
 			'body_new_articles' => 'Es gibt %%d neue Artikel zum Lesen auf FreshRSS.',
@@ -189,7 +216,7 @@ return array(
 		'about' => 'Info',
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administration',	// IGNORE
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Erweiterte Suche',
 		'archiving' => 'Archivierung',
 		'authentication' => 'Authentifizierung',
 		'check_install' => 'Installationsüberprüfung',
@@ -223,31 +250,32 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'Dieses Formular hilft beim Erstellen von Suchanfragen, aber manuelle Suchanfragen sind noch leistungsfähiger.',
+		'authors' => 'Autoren',
+		'categories' => 'Kategorien',
+		'content' => 'Inhalt',
+		'date_from' => 'Von',
+		'date_modified' => 'Server-Änderungsdatum',
+		'date_past' => 'In den letzten',
+		'date_published' => 'Veröffentlichungsdatum',
+		'date_range' => 'Zeitraum',
+		'date_received' => 'Empfangen am',
+		'date_to' => 'Bis',
+		'date_user' => 'Benutzer-Änderungsdatum',
+		'feeds' => 'Feeds',	// IGNORE
+		'free_text' => 'Freitext',
+		'free_text_help' => 'Durchsucht sowohl Inhalt als auch Titel',
+		'full_documentation' => '<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">Vollständige Suchdokumentation anzeigen</a>',
+		'labels' => 'Meine Label',
+		'multiple_help' => 'Wählen Sie eine oder mehrere Optionen aus (<kbd>Strg</kbd>- oder <kbd>Cmd</kbd>-Taste gedrückt halten).',
+		'sources' => 'Quellen',
+		'tags' => 'Artikel-Tags',
+		'text' => 'Textsuche',
+		'text_help' => 'Mehrere Zeilen werden durch ein logisches <i>oder</i> kombiniert. Unterstützt auch <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">reguläre Ausdrücke</a>.',
+		'text_placeholder' => 'Stichwort',
+		'title' => 'Titel',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Benutzerabfragen',
 	),
 	'share' => array(
 		'Known' => 'Known-Seite (https://withknown.com)',
@@ -276,7 +304,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Teilen (Systemstandard)',

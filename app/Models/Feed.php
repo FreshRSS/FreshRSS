@@ -62,7 +62,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private int $priority = self::PRIORITY_MAIN_STREAM;
 	private string $pathEntries = '';
 	private string $httpAuth = '';
-	private bool $error = false;
+	private int $error = 0;
 	private int $ttl = self::TTL_DEFAULT;
 	private bool $mute = false;
 	private string $hash = '';
@@ -258,7 +258,9 @@ class FreshRSS_Feed extends Minz_Model {
 				$hookParams = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconHash, $this);
 				$params = $hookParams !== null ? $hookParams : $current;
 			} else {
-				$params = $this->website(fallback: true) . $this->proxyParam();
+				$feedIconUrl = $this->attributeString('feedIconUrl') ?? '';
+				$params = $feedIconUrl !== '' ? $feedIconUrl . $this->proxyParam()
+					: $this->website(fallback: true) . $this->proxyParam();
 			}
 			$this->hashFavicon = hash('crc32b', $salt . (is_string($params) ? $params : ''));
 		}
@@ -315,6 +317,18 @@ class FreshRSS_Feed extends Minz_Model {
 	public function priority(): int {
 		return $this->priority;
 	}
+
+	public function showUnreadCount(): bool {
+		$sucGlobal = FreshRSS_Context::userConf()->show_unread_count;
+		$isImportant = $this->priority >= self::PRIORITY_IMPORTANT;
+		if ($isImportant && $sucGlobal !== 'none') {
+			return true;
+		}
+		return $this->attributeBoolean('show_unread_count') ??
+			$this->category()?->attributeBoolean('show_unread_count') ??
+			($sucGlobal === 'all' || ($sucGlobal === 'important' && $isImportant));
+	}
+
 	/** @return string HTML-encoded CSS selector */
 	public function pathEntries(): string {
 		return $this->pathEntries;
@@ -352,8 +366,19 @@ class FreshRSS_Feed extends Minz_Model {
 		return $curl_options;
 	}
 
-	public function inError(): bool {
+	/**
+	 * Timestamp of last update error.
+	 * Legacy: may return 1 if the feed has an error but the timestamp is not available.
+	 */
+	public function lastError(): int {
 		return $this->error;
+	}
+
+	/**
+	 * If the feed has an error
+	 */
+	public function inError(): bool {
+		return $this->error > 0;
 	}
 
 	/**
@@ -394,16 +419,38 @@ class FreshRSS_Feed extends Minz_Model {
 		return $this->nbNotRead;
 	}
 
+	/** @return int Timestamp of the newest article received for this feed, or 0 if none */
+	public function newestArticleReceivedDate(): int {
+		static $newestArticleReceivedDate = null;
+		if (!is_int($newestArticleReceivedDate)) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$newestArticleReceivedDate = $feedDAO->newestArticleReceivedDate($this->id());
+		}
+		return $newestArticleReceivedDate;
+	}
+
+	/** @return int Timestamp of the Last article published for this feed, or 0 if none */
+	public function newestArticlePublicationDate(): int {
+		static $newestArticlePublicationDate = null;
+		if (!is_int($newestArticlePublicationDate)) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$newestArticlePublicationDate = $feedDAO->newestArticlePublicationDate($this->id());
+		}
+		return $newestArticlePublicationDate;
+	}
+
 	public function faviconPrepare(bool $force = false): void {
 		require_once LIB_PATH . '/favicons.php';
 		if ($this->customFavicon()) {
 			return;
 		}
-		$url = $this->website(fallback: false);
-		if ($url === '' || $url === $this->url) {
+		$feedIconUrl = $this->attributeString('feedIconUrl') ?? '';
+		$websiteUrl = $this->website(fallback: false);
+		if ($websiteUrl === '' || $websiteUrl === $this->url) {
 			// Get root URL from the feed URL
-			$url = preg_replace('%^(https?://[^/]+).*$%i', '$1/', $this->url) ?? $this->url;
+			$websiteUrl = preg_replace('%^(https?://[^/]+).*$%i', '$1/', $this->url) ?? $this->url;
 		}
+		$url = $feedIconUrl !== '' ? $feedIconUrl : $websiteUrl;
 
 		$txt = FAVICONS_DIR . $this->hashFavicon() . '.txt';
 		if (@file_get_contents($txt) !== $url) {
@@ -416,8 +463,11 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($txt_mtime != false &&
 				($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (14 * 86400)))) {
 				// no ico file or we should download a new one.
-				$url = file_get_contents($txt);
-				if ($url == false || !download_favicon($url, $ico)) {
+				if ($feedIconUrl !== '' && download_favicon_from_image_url($feedIconUrl, $ico)) {
+					return;
+				}
+				// Fall back to website favicon search
+				if (!download_favicon($websiteUrl, $ico)) {
 					touch($ico);
 				}
 			}
@@ -518,8 +568,8 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->httpAuth = $value;
 	}
 
-	public function _error(bool|int $value): void {
-		$this->error = (bool)$value;
+	public function _error(int $value): void {
+		$this->error = $value;
 	}
 	public function _mute(bool $value): void {
 		$this->mute = $value;
@@ -535,6 +585,13 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function _nbEntries(int $value): void {
 		$this->nbEntries = $value;
+	}
+
+	public function defaultSort(): ?string {
+		return $this->attributeString('defaultSort');
+	}
+	public function defaultOrder(): ?string {
+		return $this->attributeString('defaultOrder');
 	}
 
 	/**
@@ -740,7 +797,7 @@ class FreshRSS_Feed extends Minz_Model {
 					return $this->loadGuids($simplePie, $invalidGuidsTolerance);
 				}
 			}
-			$this->_error(true);
+			$this->_error(time());
 		}
 
 		return $guids;
@@ -901,6 +958,8 @@ class FreshRSS_Feed extends Minz_Model {
 	private function dotNotationForStandardJsonFeed(): array {
 		return [
 			'feedTitle' => 'title',
+			'feedImage' => 'icon',
+			'feedImageFallback' => 'favicon',
 			'item' => 'items',
 			'itemTitle' => 'title',
 			'itemContent' => 'content_text',
@@ -1322,9 +1381,17 @@ class FreshRSS_Feed extends Minz_Model {
 		return false;
 	}
 
+	private static function isSameHost(string $url1, string $url2): bool {
+		$hubHost  = parse_url($url1, PHP_URL_HOST);
+		$baseHost = parse_url($url2, PHP_URL_HOST);
+		return ($hubHost != null && $baseHost != null && strcasecmp($hubHost, $baseHost) === 0);
+	}
+
 	public function pubSubHubbubPrepare(): string|false {
 		$key = '';
-		if (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) &&
+		$baseUrl = FreshRSS_Context::systemConf()->base_url;
+		// If they have the same host, they can reach each other (e.g., localhost to localhost)
+		if ((Minz_Request::serverIsPublic($baseUrl) || self::isSameHost($this->hubUrl, $baseUrl)) &&
 			$this->hubUrl !== '' && $this->selfUrl !== '' && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
@@ -1376,7 +1443,9 @@ class FreshRSS_Feed extends Minz_Model {
 		} else {
 			$url = $this->url;	//Always use current URL during unsubscribe
 		}
-		if ($url !== '' && (Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) || !$state)) {
+		$baseUrl = FreshRSS_Context::systemConf()->base_url;
+		// If they have the same host, they can reach each other (e.g., localhost to localhost)
+		if ($url !== '' && (Minz_Request::serverIsPublic($baseUrl) || self::isSameHost($url, $baseUrl) || !$state)) {
 			$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
 			$hubFile = @file_get_contents($hubFilename);
 			if ($hubFile === false) {
@@ -1415,9 +1484,27 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
 				CURLOPT_MAXREDIRS => 10,
 				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_ENCODING => '',	//Enable all encodings
+				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 			]);
+
+			$curl_options = [];
+			if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
+				$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+				if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+				}
+			} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
+				// Legacy PHP 8.2-
+				if (defined('CURLOPT_PROTOCOLS')) {
+					$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+				if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+			}
+			curl_setopt_array($ch, $curl_options);
+
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 			if (!is_array($info)) {
