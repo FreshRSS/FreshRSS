@@ -185,6 +185,7 @@ People are sorted by name so please keep this order.
 * [Martin Hartmann](https://github.com/martinhartmann): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:martinhartmann)
 * [Martin Riedel](https://github.com/mrtnrdl): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mrtnrdl)
 * [Martin](https://github.com/C0rn3j): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:C0rn3j), [Web](https://rys.pw/)
+* [Mass Krdjn](https://github.com/masskrdjn): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:masskrdjn)
 * [math-GH](https://github.com/math-GH): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:math-GH)
 * [Matheus Roberson](https://github.com/matheusroberson): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:matheusroberson)
 * [Matt Sephton](https://github.com/gingerbeardman): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gingerbeardman)

@@ -6,11 +6,16 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 * Features
 	* New option to hide badges showing number of unread articles (*Phantom Obligation*) [#8844](https://github.com/FreshRSS/FreshRSS/pull/8844)
+* Bug fixing
+	* Fix lost elements while parsing search query [#8884](https://github.com/FreshRSS/FreshRSS/pull/8884)
+* CLI
+	* New `cli/reconfigure-user.php` to read/write per-user config attributes [#8873](https://github.com/FreshRSS/FreshRSS/pull/8873)
 * API
-	* Add a warning message to the API password section, add a log warning when a client uses GET instead of recommended POST [#8845](https://github.com/FreshRSS/FreshRSS/pull/8845)
+	* Add a warning message to the API password section and a log warning when a client uses GET instead of recommended POST [#8845](https://github.com/FreshRSS/FreshRSS/pull/8845)
 * UI
-	* Various UI and style improvements: [#8823](https://github.com/FreshRSS/FreshRSS/pull/8823)
+	* Various UI and style improvements: [#8823](https://github.com/FreshRSS/FreshRSS/pull/8823), [#8824](https://github.com/FreshRSS/FreshRSS/pull/8824)
 * I18n
+	* Improve Hungarian [#8879](https://github.com/FreshRSS/FreshRSS/pull/8879)
 	* Improve Ukrainian [#8871](https://github.com/FreshRSS/FreshRSS/pull/8871)
 
 
