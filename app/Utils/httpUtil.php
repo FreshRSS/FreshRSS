@@ -304,6 +304,19 @@ final class FreshRSS_http_Util {
 			}
 			$host = substr($host, 1, strlen($host) - 2);
 		}
+
+		$internal_host_allowlist = getenv('INTERNAL_HOST_ALLOWLIST');
+		if (is_string($internal_host_allowlist) && $internal_host_allowlist !== '') {
+			$internal_host_allowlist = preg_split('/\s+/', $internal_host_allowlist, -1, PREG_SPLIT_NO_EMPTY);
+		}
+		if (!is_array($internal_host_allowlist) || empty($internal_host_allowlist)) {
+			$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
+		}
+
+		if (in_array('*', $internal_host_allowlist, true)) {
+			return [];	// Disables SSRF checks entirely (unsafe)
+		}
+
 		$port = parse_url($url)['port'] ?? null;
 		if ($port === null) {
 			$port = match ($scheme) {
@@ -334,13 +347,6 @@ final class FreshRSS_http_Util {
 			self::$resolve_ok[$host] = $ips;
 		}
 
-		$internal_host_allowlist = getenv('INTERNAL_HOST_ALLOWLIST');
-		if (is_string($internal_host_allowlist) && $internal_host_allowlist !== '') {
-			$internal_host_allowlist = preg_split('/\s+/', $internal_host_allowlist, -1, PREG_SPLIT_NO_EMPTY);
-		}
-		if (!is_array($internal_host_allowlist) || empty($internal_host_allowlist)) {
-			$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
-		}
 		$cidr_allowlist = array_filter($internal_host_allowlist, fn($v, $_) => str_contains($v, '/'), ARRAY_FILTER_USE_BOTH);
 		foreach ($ips as $ip) {
 			$allowlist_str = "$ip:$port";
@@ -490,7 +496,9 @@ final class FreshRSS_http_Util {
 				} elseif ($resolve === false) {
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 				}
-				$curl_options[CURLOPT_RESOLVE] = $resolve; // Prevent DNS rebinding
+				if (!empty($resolve)) {
+					$curl_options[CURLOPT_RESOLVE] = $resolve;	// Prevent DNS rebinding
+				}
 			}
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 			$ch = curl_init();

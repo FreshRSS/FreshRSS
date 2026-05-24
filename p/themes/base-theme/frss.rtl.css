@@ -194,13 +194,17 @@ p#favicon-ext {
 	text-decoration: underline;
 }
 
-p.help, .prompt p.help {
+.help, .prompt .help {
 	margin: 0.25rem 0 0.5rem;
 	text-align: right;
 }
 
-p.help .icon {
+.help .icon {
 	filter: brightness(2);
+}
+
+.help > ul {
+	padding-right: 1rem;
 }
 
 kbd {

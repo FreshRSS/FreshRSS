@@ -250,6 +250,8 @@ return [
 	# Examples: 127.0.0.1:8080, rssbridge.local:443 etc.
 	#
 	# CIDR is permitted too
-	# Examples: 0.0.0.0/0, ::/0 (adding both disables SSRF checks entirely)
+	# Examples: 0.0.0.0/0, ::/0 (to allow any IPv4 or any IPv6)
+	#
+	# Setting * disables this check completely, allowing any host to be accessed (unsafe)
 	'internal_host_allowlist' => [],
 ];

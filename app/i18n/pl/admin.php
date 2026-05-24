@@ -91,7 +91,10 @@ return array(
 		'default_closed_registration_message' => 'Ten serwer obecnie nie przyjmuje nowych rejestracji.',
 		'force_email_validation' => 'Wymuś weryfikację adresu e-mail',
 		'instance-name' => 'Nazwa instancji',
-		'internal-host-allowlist' => 'Lista dozwolonych hostów wewnętrznych',
+		'internal-host-allowlist' => array(
+			'_' => 'Lista dozwolonych hostów wewnętrznych',
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rssbridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => 'Maksymalna liczba kategorii na użytkownika',
 		'max-feeds' => 'Maksymalna liczba kanałów na użytkownika',
 		'override-by-env-var' => 'To ustawienie jest ustawione przez zmienną środowiskową <kbd>%s</kbd>.',

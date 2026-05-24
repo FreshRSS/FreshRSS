@@ -91,7 +91,10 @@ return array(
 		'default_closed_registration_message' => 'На этом сервере в данный момент регистрация новых пользователей закрыта.',
 		'force_email_validation' => 'Обязать подтверждать адрес электронной почты',
 		'instance-name' => 'Название экземпляра',
-		'internal-host-allowlist' => 'Internal host allowlist',	// TODO
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rssbridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => 'Максимальное количество категорий на пользователя',
 		'max-feeds' => 'Максимальное количество лент на пользователя',
 		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO

@@ -20,6 +20,7 @@ In an SSRF scenario, a malicious user could submit a feed URL that points to int
 FreshRSS blocks these unsafe requests by default, due to the security risks written above, though certain hosts can be excluded from the block by going to `Settings > System configuration` and making changes to the internal host allowlist.
 Entries are separated by newlines, and must be a `host:port` combination, for example `127.0.0.1:8080`, `rssbridge.local:443` or a CIDR ('0.0.0.0/0', `::/0` to allow any host).
 Another option is to set an `INTERNAL_HOST_ALLOWLIST` environment variable (e.g. in your docker-compose file). The entries there are separated by whitespace instead.
+Adding `*` disables the SSRF check completely (unsafe).
 
 ### Recommended mitigations for shared/public setups
 

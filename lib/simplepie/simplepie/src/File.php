@@ -121,7 +121,9 @@ class File implements Response
                         $this->success = false;
                         return;
                     }
-                    $curl_options[CURLOPT_RESOLVE] = $resolve; // Prevent DNS rebinding
+                    if (!empty($resolve)) {
+                        $curl_options[CURLOPT_RESOLVE] = $resolve; // Prevent DNS rebinding
+                    }
                 }
                 $this->method = \SimplePie\SimplePie::FILE_SOURCE_REMOTE | \SimplePie\SimplePie::FILE_SOURCE_CURL;
                 $fp = self::curlInit($url, $timeout, $headers, $useragent, $curl_options);
