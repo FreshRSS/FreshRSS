@@ -146,6 +146,7 @@ People are sorted by name so please keep this order.
 * [Josh McKinney](https://github.com/joshka): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:joshka)
 * [Josiah Campbell](https://github.com/jocmp): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jocmp), [Web](https://jocmp.com/)
 * [Jules Bertholet](https://github.com/Jules-Bertholet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jules-Bertholet)
+* [Julien Herr](https://github.com/juherr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:juherr), [Web](https://juherr.dev/)
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:j8r), [Web](https://blog.jrei.ch/)
 * [Julien-Pierre Avérous](https://github.com/javerous): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:javerous), [Web](https://www.sourcemac.com/)
 * [junkfood](https://github.com/JunkFood02): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:JunkFood02)
