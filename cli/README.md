@@ -82,6 +82,25 @@ cd /usr/share/FreshRSS
 > ℹ️ More options for [the configuration of users](../config-user.default.php#L3-L5) may be set in `./data/config-user.custom.php` prior to creating new users, or in `./data/users/*/config.php` for existing users.
 
 ```sh
+./cli/reconfigure-user.php --user username --list [ --show-secrets ]
+# List all configuration attributes of the user, one per line as key=value.
+# Known-sensitive keys (matching *hash, *key, *password, *token, *secret) are redacted as *** unless --show-secrets is given.
+
+./cli/reconfigure-user.php --user username --key attribute
+# Read the value of a single attribute. Exit code 2 if the key does not exist.
+
+./cli/reconfigure-user.php --user username --key attribute --set --value 'new-value'
+# Set an attribute to the given value. Type is inferred from the existing value (bool, int, string).
+# Fails if the key does not exist; use --force to create a new key (e.g. for extension-specific config).
+
+./cli/reconfigure-user.php --user username --key attribute --set --value-stdin
+# Read the new value from stdin instead of --value (recommended for secrets to avoid leaking in shell history / ps).
+
+./cli/reconfigure-user.php --user username --key attribute --unset
+# Remove the attribute from the user's configuration. Exit code 2 if the key does not exist.
+```
+
+```sh
 ./cli/actualize-user.php --user username
 # Fetch feeds for the specified user.
 
