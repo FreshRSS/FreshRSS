@@ -342,7 +342,7 @@ class File implements Response
      * @param string $url
      * @return array<string>|null|false A value for CURLOPT_RESOLVE as an array, null if a disallowed IP address was found in DNS records, false if the domain failed to resolve
      */
-    protected function get_curl_resolve_info(string $url): array|null|false
+    protected function get_curl_resolve_info(string $url)
     {
         return [];
     }
