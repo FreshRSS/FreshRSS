@@ -577,6 +577,10 @@ final class FreshRSS_http_Util {
 				}
 				if (!self::compareURLOrigins($url, $location)) {
 					unset($options[CURLOPT_COOKIE]);
+					if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
+						$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
+							is_string($header) && !preg_match('/^(Cookie|Authorization)\\s*:/i', $header));
+					}
 				}
 				if ($max_redirs >= 0) {
 					$redirs++;
@@ -590,10 +594,7 @@ final class FreshRSS_http_Util {
 					unset($options[CURLOPT_POSTFIELDS]);
 					if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
 						$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
-							!str_starts_with(
-								strtolower(trim(is_string($header) ? $header : '')),
-								'content-type:'
-							));
+							is_string($header) && !str_starts_with(strtolower(trim($header)), 'content-type:'));
 					}
 				}
 				$url = $location;
