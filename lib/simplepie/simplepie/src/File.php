@@ -179,6 +179,37 @@ class File implements Response
                                 $this->success = false;
                                 return;
                             }
+
+                            // FreshRSS: POST to GET on redirect
+                            if (isset($curl_options[CURLOPT_POST]) && in_array($this->status_code, [301, 302, 303], true)) {	// Not for 307 and 308, which must not change the HTTP method
+                                unset($curl_options[CURLOPT_POST]);
+                                unset($curl_options[CURLOPT_POSTFIELDS]);
+                                if (is_array($curl_options[CURLOPT_HTTPHEADER] ?? null)) {
+                                    $curl_options[CURLOPT_HTTPHEADER] = array_filter($curl_options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
+                                        is_string($header) && !str_starts_with(strtolower(trim($header)), 'content-type:'));
+                                }
+                            }
+                            // FreshRSS: cross-origin authentication headers removal
+                            if (($url_parts_from = parse_url($url)) === false) {
+                                throw new \InvalidArgumentException('Malformed URL: ' . $url);
+                            }
+                            if (($url_parts_to = parse_url($location)) === false) {
+                                $this->error = "Invalid redirect location: malformed URL “{$url}”";
+                                $this->success = false;
+                                return;
+                            }
+                            $sameOriginRedirect =
+                                ($url_parts_from['scheme'] ?? '') === ($url_parts_to['scheme'] ?? '') &&
+                                ($url_parts_from['host'] ?? '') === ($url_parts_to['host'] ?? '') &&
+                                ($url_parts_from['port'] ?? '') === ($url_parts_to['port'] ?? '');
+                            if (!$sameOriginRedirect) {
+                                unset($curl_options[CURLOPT_COOKIE]);
+                                if (is_array($curl_options[CURLOPT_HTTPHEADER] ?? null)) {
+                                    $curl_options[CURLOPT_HTTPHEADER] = array_filter($curl_options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
+                                        is_string($header) && !preg_match('/^(Cookie|Authorization)\\s*:/i', $header));
+                                }
+                            }
+
                             $this->permanentUrlMutable = $this->permanentUrlMutable && ($this->status_code == 301 || $this->status_code == 308);
                             $this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
                             return;
