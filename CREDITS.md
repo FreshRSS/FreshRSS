@@ -157,6 +157,7 @@ People are sorted by name so please keep this order.
 * [Kasimir Cash](https://github.com/KasimirCash): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:KasimirCash)
 * [Kevin Papst](https://github.com/kevinpapst): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kevinpapst), [Web](http://www.kevinpapst.de/)
 * [Kiblyn11](https://github.com/Kiblyn11): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Kiblyn11)
+* [Kidd Lee](https://github.com/LeeXiaolan): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:LeeXiaolan)
 * [killerog](https://github.com/killerog): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:killerog)
 * [kinoushe](https://github.com/kinoushe): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kinoushe)
 * [knasdk](https://github.com/knasdk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:knasdk)
