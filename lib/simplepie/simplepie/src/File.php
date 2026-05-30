@@ -198,6 +198,14 @@ class File implements Response
                                 $this->success = false;
                                 return;
                             }
+                            foreach ([&$url_parts_from, &$url_parts_to] as &$url_parts) {
+                                $url_parts['port'] ??= match ($url_parts['scheme']) {
+                                    'http' => 80,
+                                    'https' => 443,
+                                    default => 0,
+                                };
+                            }
+                            unset($url_parts);
                             $sameOriginRedirect =
                                 ($url_parts_from['scheme'] ?? '') === ($url_parts_to['scheme'] ?? '') &&
                                 ($url_parts_from['host'] ?? '') === ($url_parts_to['host'] ?? '') &&

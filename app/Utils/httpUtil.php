@@ -277,6 +277,13 @@ final class FreshRSS_http_Util {
 		if ($url1 === false || $url2 === false) {
 			return false;
 		}
+		foreach ([&$url1, &$url2] as &$url) {
+			$url['port'] ??= match ($url['scheme']) {
+				'http' => 80,
+				'https' => 443,
+				default => 0,
+			};
+		}
 		return ($url1['scheme'] ?? '') === ($url2['scheme'] ?? '') &&
 			($url1['host'] ?? '') === ($url2['host'] ?? '') &&
 			($url1['port'] ?? '') === ($url2['port'] ?? '');
@@ -317,14 +324,11 @@ final class FreshRSS_http_Util {
 			return [];	// Disables SSRF checks entirely (unsafe)
 		}
 
-		$port = parse_url($url)['port'] ?? null;
-		if ($port === null) {
-			$port = match ($scheme) {
-				'http' => 80,
-				'https' => 443,
-				default => 0,
-			};
-		}
+		$port = parse_url($url)['port'] ?? match ($scheme) {
+			'http' => 80,
+			'https' => 443,
+			default => 0,
+		};
 		$resolve_str = "$host:$port:";
 		$ips_ok = [];
 		$ips = [];
