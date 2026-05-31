@@ -476,7 +476,6 @@ function toggleContent(new_active, old_active, skipping) {
 	}
 
 	const flux_header = new_active.querySelector('.flux_header');
-	const header_off_screen = flux_header && flux_header.getBoundingClientRect().top < nav_menu_height;
 
 	if (old_active !== new_active) {
 		if (!skipping) {
@@ -499,6 +498,16 @@ function toggleContent(new_active, old_active, skipping) {
 
 	const prev_article = new_active.previousElementSibling;
 
+	let header_off_screen = false;
+
+	if (!context.sticky_post) {
+		// Compensate for layout shift to maintain visual position
+		box_to_move.scrollTop = old_scrollTop + layout_shift;
+		if (flux_header) {
+			header_off_screen = flux_header.getBoundingClientRect().top < nav_menu_height;
+		}
+	}
+
 	if (context.sticky_post || header_off_screen) {	// Stick the article to the top when opened, or when header is off-screen
 		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop - nav_menu_height;
 
@@ -516,9 +525,6 @@ function toggleContent(new_active, old_active, skipping) {
 
 		box_to_move.scrollTop = new_pos;
 	} else {
-		// Compensate for layout shift to maintain visual position
-		box_to_move.scrollTop = old_scrollTop + layout_shift;
-
 		// If the header is below the viewport, scroll down just enough to bring it fully into view
 		if (flux_header) {
 			let bottom = flux_header.getBoundingClientRect().bottom;
