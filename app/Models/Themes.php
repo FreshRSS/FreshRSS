@@ -144,6 +144,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'refresh' => '🔃',	//↻
 			'search' => '🔍',
 			'share' => '♻️',	//♺
+			'sort-a-z' => '⬇️', //↓
 			'sort-down' => '⬇️',	//↓
 			'sort-up' => '⬆️',	//↑
 			'starred' => '⭐',	//★

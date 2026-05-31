@@ -35,6 +35,7 @@
 					$cat->inError() ? ' title="' . _t('sub.category.error') . '"' : '' ?>><?=$cat->name() ?><?=
 					$cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? ' ' . _i('opml-dyn') : '' ?></span></h2>
 				<div class="force-end">
+					<a class="btn-sort-a-z hidden" href="#" title="<?= _t('gen.action.manage') ?>"><?= _i('sort-a-z') ?></a>
 					<a class="btn btn-sort-cat" href="#" title="<?= _t('gen.action.manage') ?>"><?= _i('arrow-up-down') ?></a>
 					<a class="btn-save-sort hidden" href="#" title="<?= _t('gen.action.manage') ?>"><?= _i('floppy') ?></a>
 				</div>

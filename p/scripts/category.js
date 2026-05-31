@@ -163,11 +163,15 @@ function init_draggable() {
 function category_sorting_btn_setup() {
 	const btnsStartSort = document.querySelectorAll('.btn-sort-cat');
 	const btnsSaveSort = document.querySelectorAll('.btn-save-sort');
+	const btnsDefaultSort = document.querySelectorAll('.btn-sort-a-z');
 
 	for (const element of btnsStartSort) {
 		element.addEventListener('click', start_category_sorting);
 	}
 	for (const element of btnsSaveSort) {
+		element.addEventListener('click', end_category_sorting);
+	}
+	for (const element of btnsDefaultSort) {
 		element.addEventListener('click', end_category_sorting);
 	}
 }
@@ -189,6 +193,9 @@ function end_category_sorting(event) {
 	const feedsElement = catBox.querySelector('ul');
 	const catId = feedsElement.getAttribute('data-cat-id');
 	const feedsArray = Array.from(feedsElement.children);
+	const isRevert = event.target.closest('a').classList.contains('btn-sort-a-z');
+
+	let feedsOrder = isRevert ? [] : feedsArray.filter((value) => value.hasAttribute('data-feed-id')).map((value) => value.getAttribute('data-feed-id'));
 
 	fetch('./?c=category&a=updateSort', {
 		method: 'POST',
@@ -198,7 +205,7 @@ function end_category_sorting(event) {
 		},
 		body: JSON.stringify({
 			id: catId,
-			feedsOrder: feedsArray.filter((value) => value.hasAttribute('data-feed-id')).map((value) => value.getAttribute('data-feed-id')),
+			feedsOrder,
 			_csrf: context.csrf
 		})
 	});
@@ -326,16 +333,21 @@ function show_feed_manage_icon(feed, show = true) {
 
 function show_feed_sort_save_icon(catBox, show = true) {
 	const sortIcon = catBox.getElementsByClassName('btn-sort-cat')[0];
+	const sortAZIcon = catBox.getElementsByClassName('btn-sort-a-z')[0];
 	const floppyIcon = catBox.getElementsByClassName('btn-save-sort')[0];
 
 	if (show) {
 		floppyIcon.classList.remove('hidden');
 		floppyIcon.classList.add('btn');
-		sortIcon.classList.remove('hidden');
-		sortIcon.classList.add('btn');
+		sortAZIcon.classList.remove('hidden');
+		sortAZIcon.classList.add('btn');
+		sortIcon.classList.add('hidden');
+		sortIcon.classList.remove('btn');
 	} else {
 		floppyIcon.classList.add('hidden');
 		floppyIcon.classList.remove('btn');
+		sortAZIcon.classList.add('hidden');
+		sortAZIcon.classList.remove('btn');
 		sortIcon.classList.remove('hidden');
 		sortIcon.classList.add('btn');
 	}
