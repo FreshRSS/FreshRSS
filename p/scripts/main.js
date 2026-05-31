@@ -498,17 +498,17 @@ function toggleContent(new_active, old_active, skipping) {
 
 	const prev_article = new_active.previousElementSibling;
 
-	let header_off_screen = false;
+	let header_above_viewport = false;
 
 	if (!context.sticky_post) {
 		// Compensate for layout shift to maintain visual position
 		box_to_move.scrollTop = old_scrollTop + layout_shift;
 		if (flux_header) {
-			header_off_screen = flux_header.getBoundingClientRect().top < nav_menu_height;
+			header_above_viewport = flux_header.getBoundingClientRect().top < nav_menu_height;
 		}
 	}
 
-	if (context.sticky_post || header_off_screen) {	// Stick the article to the top when opened, or when header is off-screen
+	if (context.sticky_post || header_above_viewport) {	// Stick the article to the top when opened, or when header is off-screen
 		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop - nav_menu_height;
 
 		if (prev_article && prev_article.offsetParent && new_active.offsetTop - prev_article.offsetTop <= 150) {
