@@ -195,7 +195,7 @@ function end_category_sorting(event) {
 	const feedsArray = Array.from(feedsElement.children);
 	const isRevert = event.target.closest('a').classList.contains('btn-sort-a-z');
 
-	let feedsOrder = isRevert ? [] : feedsArray.filter((value) => value.hasAttribute('data-feed-id')).map((value) => value.getAttribute('data-feed-id'));
+	const feedsOrder = isRevert ? [] : feedsArray.filter((value) => value.hasAttribute('data-feed-id')).map((value) => value.getAttribute('data-feed-id'));
 
 	fetch('./?c=category&a=updateSort', {
 		method: 'POST',
