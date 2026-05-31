@@ -222,7 +222,7 @@ return array(
 		'about' => 'Про програму',
 		'account' => 'Обліковий запис',
 		'admin' => 'Адміністрування',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Розширений пошук',
 		'archiving' => 'Архівування',
 		'authentication' => 'Вхід',
 		'check_install' => 'Перевірка встановлення',
@@ -251,37 +251,37 @@ return array(
 		'years' => 'р.',
 	),
 	'readme' => array(
-		'contribute' => 'contribute',	// TODO
-		'language' => 'Language',	// TODO
-		'translated' => 'Progress',	// TODO
+		'contribute' => 'долучитися',
+		'language' => 'Мова',
+		'translated' => 'Поступ',
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_modified' => 'Server Modification Date',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'Форма допомагає складати пошукові запити. Але вручну написані запити ще потужніші.',
+		'authors' => 'Автори',
+		'categories' => 'Категорії',
+		'content' => 'Текст',
+		'date_from' => 'Від',
+		'date_modified' => 'Дата зміни на сервері',
+		'date_past' => 'У минулому',
+		'date_published' => 'Дата оприлюденння',
+		'date_range' => 'Часовий проміжок',
+		'date_received' => 'Дата отримання',
+		'date_to' => 'До',
+		'date_user' => 'Дата користувацької зміни',
+		'feeds' => 'Стрічки',
+		'free_text' => 'Вільний текст',
+		'free_text_help' => 'Пошук і в заголовку, і в тексті',
+		'full_documentation' => 'Докладніше в <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документації з пошуку</a>',
+		'labels' => 'Мої мітки',
+		'multiple_help' => 'Виберіть одне чи декілька (затиснувши <kbd>Ctrl</kbd> чи <kbd>Cmd</kbd>)',
+		'sources' => 'Джерела',
+		'tags' => 'Теги статей',
+		'text' => 'Текстовий пошук',
+		'text_help' => 'Декілька рядків сполучаються логічним <i>або</i>. Також підтримуються <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">регулярні вирази</a>.',
+		'text_placeholder' => 'Ключове слово',
+		'title' => 'Заголовок',
+		'url' => 'URL-адреса',
+		'user_queries' => 'Користувацькі запити',
 	),
 	'share' => array(
 		'Known' => 'Сайти на Known',

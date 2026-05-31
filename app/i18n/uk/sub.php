@@ -29,7 +29,7 @@ return array(
 			'help' => 'Щоб динамічно заповнювати цю категорію стрічками, вкажіть URL-адресу <a href="http://opml.org/" target="_blank">OPML-файлу</a>',
 		),
 		'empty' => 'Порожня категорія',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'З цією динамічною OPML-категорією щось не так. Упевніться, що URL-адреса OPML усе ще доступна, а максимальної кількості стрічок користувача ще не вичерпано.',
 		'expand' => 'Розгорнути категорію',
 		'information' => 'Інформація',
 		'open' => 'Відкрити категорію',
@@ -81,13 +81,13 @@ return array(
 		'filteractions' => array(
 			'_' => 'Автоматичний фільтр',
 			'help' => 'По одному фільтру на рядок. Перегляньте <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документацію операторів</a>.',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => 'Переглянути фільтри на наявних статтях (нове вікно)',
 		),
 		'http_headers' => 'HTTP-заголовки',
 		'http_headers_help' => 'По заголовку на рядок. Назву й значення відокремлено двокрапкою (наприклад, <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer деякий-токен</code></kbd>).',
 		'icon' => 'Піктограма',
 		'information' => 'Інформація',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'Тоді додайте ще стрічок',
 		'keep_min' => 'Мінімум збережених статей',
 		'kind' => array(
 			'_' => 'Тип джерела стрічки',
@@ -101,7 +101,7 @@ return array(
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (скрейпінг)',
 				'feed_title' => array(
-					'_' => 'заголовка стрічки',
+					'_' => 'назви стрічки',
 					'help' => 'Наприклад, <code>//title</code> або статичний рядок <code>"Моя власна стрічка"</code>',
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> — це стандартна мова запитів, за допомогою яких FreshRSS може скрейпити вебсайти.',
@@ -187,10 +187,10 @@ return array(
 			'rss' => 'RSS/Atom (типово)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Останнє оприлюднення статті <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Останнє отримання статті <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Остання помилка оновлення <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Останнє успішне оновлення <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Очистити кеш',
 			'clear_cache_help' => 'Спорожнити кеш стрічки.',
@@ -217,7 +217,7 @@ return array(
 		'priority' => array(
 			'_' => 'Видимість',
 			'category' => 'Показати в категорії',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => 'Показати в стрічці',
 			'hidden' => 'Не показувати',
 			'important' => 'Показати у важливих стрічках',
 			'main_stream' => 'Показати в головному потоці',
@@ -289,7 +289,7 @@ return array(
 			'idle' => 'Неактивні стрічки',
 			'main' => 'Основна статистика',
 			'repartition' => 'Перерозподіл статей',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => 'Дати непрочитаного',
 		),
 		'subscription_management' => 'Керування підписками',
 		'subscription_tools' => 'Засоби підписки',

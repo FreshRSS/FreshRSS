@@ -317,6 +317,18 @@ class FreshRSS_Feed extends Minz_Model {
 	public function priority(): int {
 		return $this->priority;
 	}
+
+	public function showUnreadCount(): bool {
+		$sucGlobal = FreshRSS_Context::userConf()->show_unread_count;
+		$isImportant = $this->priority >= self::PRIORITY_IMPORTANT;
+		if ($isImportant && $sucGlobal !== 'none') {
+			return true;
+		}
+		return $this->attributeBoolean('show_unread_count') ??
+			$this->category()?->attributeBoolean('show_unread_count') ??
+			($sucGlobal === 'all' || ($sucGlobal === 'important' && $isImportant));
+	}
+
 	/** @return string HTML-encoded CSS selector */
 	public function pathEntries(): string {
 		return $this->pathEntries;

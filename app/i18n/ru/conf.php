@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
 		'show_title_unread' => 'Показать количество непрочитанных статей в заголовке',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Скрывать боковую панель по умолчанию',
 		'theme' => array(
 			'_' => 'Тема',
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'Доступ к API отключен.',
 			'documentation_link' => 'См. <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацию и список известных приложений</a>',
 			'help' => 'См. <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацию</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Изменить пароль',
 		'confirm_new_password' => 'Подтвердить новый пароль',

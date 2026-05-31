@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'show_title_unread' => 'Aantal ongelezen artikelen in de titel weergeven',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Zijbalk standaard verbergen',
 		'theme' => array(
 			'_' => 'Thema',
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'De API-toegang is uitgeschakeld.',
 			'documentation_link' => 'Zie de <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentatie en lijst met bekende apps</a>',
 			'help' => 'Zie <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentatie</a>',
+			'security_warning' => 'Gebruik HTTPS. Het API-wachtwoord wordt als tekst verzonden en kan in serverlogs terechtkomen als het via GET wordt verzonden.',
 		),
 		'change_password' => 'Wachtwoord wijzigen',
 		'confirm_new_password' => 'Nieuw wachtwoord bevestigen',

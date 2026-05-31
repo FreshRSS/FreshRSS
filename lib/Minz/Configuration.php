@@ -150,6 +150,11 @@ class Minz_Configuration {
 		return isset($this->data[$key]);
 	}
 
+	/** @return array<string,mixed> */
+	public function toArray(): array {
+		return $this->data;
+	}
+
 	/**
 	 * Return the value of the given param.
 	 *

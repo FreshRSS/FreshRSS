@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => '顯示導覽按鈕',
 		'show_title_unread' => '在標題中顯示未讀文章的數量',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => '預設隱藏側邊欄',
 		'theme' => array(
 			'_' => '主題',
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'API 存取已停用',
 			'documentation_link' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">說明文件與已知應用程式清單</a>',
 			'help' => '請參閱 <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>說明文件</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => '變更密碼',
 		'confirm_new_password' => '確認新密碼',
