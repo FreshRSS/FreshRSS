@@ -463,6 +463,21 @@ function toggleContent(new_active, old_active, skipping) {
 		loadLazyImages(new_active);
 	}
 
+	const relative_move = context.current_view === 'global';
+	const box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
+
+	const old_scrollTop = box_to_move.scrollTop;
+	const old_offsetTop = new_active.offsetTop;
+
+	const nav_menu = document.querySelector('.nav_menu');
+	let nav_menu_height = 0;
+	if (nav_menu && (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky')) {
+		nav_menu_height = nav_menu.offsetHeight;
+	}
+
+	const flux_header = new_active.querySelector('.flux_header');
+	const header_off_screen = flux_header && flux_header.getBoundingClientRect().top < nav_menu_height;
+
 	if (old_active !== new_active) {
 		if (!skipping) {
 			new_active.classList.add('active');
@@ -479,19 +494,10 @@ function toggleContent(new_active, old_active, skipping) {
 		new_active.classList.toggle('active');
 	}
 
-	const relative_move = context.current_view === 'global';
-	const box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
+	const new_offsetTop = new_active.offsetTop;
+	const layout_shift = new_offsetTop - old_offsetTop;
 
 	const prev_article = new_active.previousElementSibling;
-	const nav_menu = document.querySelector('.nav_menu');
-	let nav_menu_height = 0;
-
-	if (nav_menu && (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky')) {
-		nav_menu_height = nav_menu.offsetHeight;
-	}
-
-	const flux_header = new_active.querySelector('.flux_header');
-	const header_off_screen = flux_header && flux_header.getBoundingClientRect().top < nav_menu_height;
 
 	if (context.sticky_post || header_off_screen) {	// Stick the article to the top when opened, or when header is off-screen
 		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop - nav_menu_height;
@@ -509,6 +515,26 @@ function toggleContent(new_active, old_active, skipping) {
 		}
 
 		box_to_move.scrollTop = new_pos;
+	} else {
+		// Compensate for layout shift to maintain visual position
+		box_to_move.scrollTop = old_scrollTop + layout_shift;
+
+		// If the header is below the viewport, scroll down just enough to bring it fully into view
+		if (flux_header) {
+			let bottom = flux_header.getBoundingClientRect().bottom;
+			const inner_header = new_active.querySelector('.flux_content header');
+			if (inner_header) {
+				bottom = Math.max(bottom, inner_header.getBoundingClientRect().bottom);
+			}
+			let overflow = bottom - window.innerHeight;
+			if (overflow > 0) {
+				const max_overflow = flux_header.getBoundingClientRect().top - nav_menu_height;
+				if (overflow > max_overflow) {
+					overflow = max_overflow > 0 ? max_overflow : 0;
+				}
+				box_to_move.scrollTop += overflow;
+			}
+		}
 	}
 
 	if (new_active.classList.contains('active') && !skipping) {
