@@ -315,7 +315,8 @@ class FreshRSS_Category extends Minz_Model {
 				unset($this->feeds[$value]);
 				$feeds[$feed->id()] = $feed;
 			}
-			$this->feeds = array_merge($feeds, $this->feeds);
+			array_push($feeds, ...$this->feeds);
+			$this->feeds = $feeds;
 		}
 	}
 
