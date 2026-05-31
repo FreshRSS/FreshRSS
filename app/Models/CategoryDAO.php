@@ -500,6 +500,9 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 					$previousLine['c_attributes'] ?? '[]'
 				);
 				$cat->_kind($previousLine['c_kind']);
+				$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
+				$cat->_error($previousLine['c_error'] ?? 0);
+				$cat->_attributes($previousLine['c_attributes'] ?? '[]');
 				$list[$cat->id()] = $cat;
 
 				$feedsDao = [];	//Prepare for next category

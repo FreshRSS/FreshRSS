@@ -171,10 +171,12 @@ function incUnreadsFeed(article, feed_id, nb) {
 			return p1;
 		}
 	});
-	if (prevTitle) {
-		prevTitle = newTitle;
-	} else {
-		document.title = newTitle;
+	if (context.show_title_unread !== false) {
+		if (prevTitle) {
+			prevTitle = newTitle;
+		} else {
+			document.title = newTitle;
+		}
 	}
 	return isCurrentView;
 }
@@ -930,14 +932,15 @@ function toggle_aside_click(manual = true) {
 	}
 
 	const active = toggle_aside.classList.contains('active');
+	const isNarrow = window.matchMedia('(max-width: 840px)').matches;
 	if (active) {
 		toggle_aside.classList.remove('active');
 		aside.classList.remove('visible');
-		aside.style.display = 'none';
+		aside.classList.toggle('is-hidden', !isNarrow);
 	} else {
 		toggle_aside.classList.add('active');
 		aside.classList.add('visible');
-		aside.style.display = '';
+		aside.classList.remove('is-hidden');
 	}
 
 	if (manual && ['normal', 'reader'].includes(context.current_view)) {
@@ -967,7 +970,7 @@ function init_nav_menu() {
 		const active = toggle_aside.classList.contains('active');
 		if (state != active) toggle_aside_click(false);
 	}
-	if (getComputedStyle(aside).display !== 'none') {
+	if (toggle_aside.classList.contains('active')) {
 		if (context.current_view === 'normal') aside.classList.add('visible');
 		sync(media);
 	}
@@ -1509,7 +1512,7 @@ function init_stream(stream) {
 			return;
 		}
 
-		const el = ev.target.closest('.item a.title');
+		let el = ev.target.closest('.item a.title');
 		if (el) {
 			if (ev.ctrlKey) {	// Control+click
 				if (context.auto_mark_site) {
@@ -1517,6 +1520,14 @@ function init_stream(stream) {
 				}
 			} else {
 				el.parentElement.click();	// Normal click, just toggle article.
+			}
+			return;
+		}
+
+		if (context.auto_mark_site) {
+			el = ev.target.closest('.flux .link > a');
+			if (el) {
+				mark_read(el.closest('.flux'), true, false);
 			}
 		}
 	};
@@ -2239,6 +2250,10 @@ function init_confirm_action() {
 }
 
 function faviconNbUnread(n) {
+	if (context.show_title_unread === false) {
+		return;
+	}
+
 	if (typeof n === 'undefined') {
 		const t = document.querySelector('.category.all .title');
 		n = t ? str2int(t.getAttribute('data-unread')) : 0;

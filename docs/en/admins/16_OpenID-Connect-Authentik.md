@@ -1,4 +1,4 @@
-# Setting up Authentik for FreshRSS
+# Setting up Authentik
 
 **[authentik](https://goauthentik.io/)** is an open-source Identity Provider compatible with OpenID Connect (OIDC) (see [FreshRSS’ OpenID Connect documentation](16_OpenID-Connect.md)).
 

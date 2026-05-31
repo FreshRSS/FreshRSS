@@ -31,7 +31,9 @@
 		<div class="box">
 			<div class="box-title">
 				<a class="configure open-slider" href="<?= _url('category', 'update', 'id', $cat->id()) ?>" title="<?= _t('gen.action.manage') ?>" data-cat-position="<?= $cat->attributeString('position') ?>"><?= _i('configure') ?></a>
-				<h2><?= $cat->name() ?><?= $cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? ' ' . _i('opml-dyn') : '' ?></h2>
+				<h2><span class="title<?= $cat->inError() ? ' error' : '' ?>"<?=
+					$cat->inError() ? ' title="' . _t('sub.category.error') . '"' : '' ?>><?=$cat->name() ?><?=
+					$cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? ' ' . _i('opml-dyn') : '' ?></span></h2>
 				<div class="force-end">
 					<a class="btn btn-sort-cat" href="#" title="<?= _t('gen.action.manage') ?>"><?= _i('arrow-up-down') ?></a>
 					<a class="btn-save-sort hidden" href="#" title="<?= _t('gen.action.manage') ?>"><?= _i('floppy') ?></a>

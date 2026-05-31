@@ -54,7 +54,15 @@ return array(
 			'timeout' => 'Notificação em HTML5 de timeout',
 		),
 		'show_nav_buttons' => 'Mostrar botões de navegação',
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'show_title_unread' => 'Mostrar o número de artigos não lidos no título',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Ocultar barra lateral por padrão',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -107,7 +115,7 @@ return array(
 		'small' => 'Pequeno',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Ativar notificações',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
@@ -122,7 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacidade',
 		'retrieve_extension_list' => 'Recuperar lista de extensões',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => 'Sites autorizados a ver o endereço do seu servidor (%s)',
 	),
 	'profile' => array(
 		'_' => 'Gerenciamento de perfil',
@@ -134,6 +142,7 @@ return array(
 			'disabled' => 'O acesso à API está desativado.',
 			'documentation_link' => 'Veja a <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentação e lista de aplicativos conhecidos</a>',
 			'help' => 'Veja a <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentação</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Alterar senha',
 		'confirm_new_password' => 'Confirmar nova senha',
@@ -150,7 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Consultas do usuário',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Criar nova consulta de usuário',
 		'deprecated' => 'Esta não é mais válida. A categoria ou feed relacionado foi deletado.',
 		'description' => 'Descrição',
 		'filter' => array(
@@ -281,7 +290,7 @@ return array(
 			'upon_gone' => 'Quando não estiver mais no feed de notícias principais',
 			'upon_reception' => 'ao receber um artigo',
 			'when' => 'Marcar artigo como lido…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_guid_in_category' => 'se um GUID idêntico já existir entre os <i>n</i> artigos mais recentes da categoria',
 			'when_same_title_in_category' => 'se um título idêntico já existir entre os <i>n</i> artigos mais recentes da categoria',
 			'when_same_title_in_feed' => 'Se um título idêntico já existir nos últimos <i>n</i> artigos mais novos (do feed)',
 		),

@@ -62,7 +62,7 @@ return array(
 		'idle' => 'Bezczynne kanały',
 		'main' => 'Główne statystyki',
 		'main_stream' => 'Kanał główny',
-		'nb_unreads' => 'Ilość nieprzeczytanych artykułów',
+		'nb_unreads' => 'Liczba nieprzeczytanych wiadomości',
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
 		'overview' => 'Podsumowanie',
@@ -74,7 +74,7 @@ return array(
 		'status_unread' => 'Nieprzeczytane',
 		'title' => 'Statystyki',
 		'top_feed' => '10 największych kanałów',
-		'unread_dates' => 'Daty z największą ilością nieprzeczytanych artykułów',
+		'unread_dates' => 'Daty z największą liczbą nieprzeczytanych wiadomości',
 	),
 	'system' => array(
 		'_' => 'Konfiguracja serwera',

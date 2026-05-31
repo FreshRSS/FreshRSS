@@ -150,6 +150,9 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$feed->_attribute('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
 			$feed->_attribute('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
 			$feed->_attribute('clear_cache', Minz_Request::paramTernary('clear_cache'));
+			if (Minz_Request::hasParam('show_unread_count')) {
+				$feed->_attribute('show_unread_count', Minz_Request::paramTernary('show_unread_count'));
+			}
 
 			$keep_max_n_unread = Minz_Request::paramTernary('keep_max_n_unread') === true ? Minz_Request::paramInt('keep_max_n_unread') : null;
 			$feed->_attribute('keep_max_n_unread', $keep_max_n_unread >= 0 ? $keep_max_n_unread : null);

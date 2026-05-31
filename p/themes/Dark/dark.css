@@ -198,6 +198,15 @@ button.as-link[disabled] {
 	border: 1px solid var(--dark-border-color0);
 }
 
+.group > .btn:only-child,
+.group > .dropdown:only-child > .btn {
+	border-radius: 3px;
+}
+
+.group > .dropdown:only-child > .btn {
+	border-left: 1px solid var(--dark-border-color0);
+}
+
 .btn:hover {
 	background: linear-gradient(to top, var(--dark-background-color-button-hover-gradient1) 0%, var(--dark-background-color-button-hover-gradient2) 100%);
 }
@@ -396,7 +405,7 @@ button.as-link[disabled] {
 /*===============*/
 /*=== Header */
 .header > .item {
-	border-bottom: 1px solid var(--dark-border-color3);
+	box-shadow: inset 0 -1px 0 var(--dark-border-color3);
 }
 
 .header > .item.title .logo {
@@ -651,5 +660,11 @@ kbd {
 	.dropdown-target:target ~ .dropdown-toggle::after {
 		border-top: 1px solid var(--dark-border-color8);
 		border-left: 1px solid var(--dark-border-color8);
+	}
+
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-left: 1px solid var(--dark-border-color0);
+		border-top-left-radius: 3px;
+		border-bottom-left-radius: 3px;
 	}
 }

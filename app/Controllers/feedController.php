@@ -334,9 +334,17 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			// Entries are in DB, we redirect to feed configuration page.
-			$url_redirect['a'] = 'feed';
-			$url_redirect['params']['id'] = '' . $feed->id();
+			// Entries are in DB
+			$keep_adding_feed = Minz_Request::paramBoolean('keep_adding_feed');
+			if ($keep_adding_feed) {
+				// We stay in add feed while maintaining some fields
+				$url_redirect['params']['cat_id'] = $feed->categoryId();
+				$url_redirect['params']['keep_adding_feed'] = $keep_adding_feed;
+			} else {
+				// we redirect to feed configuration page.
+				$url_redirect['a'] = 'feed';
+				$url_redirect['params']['id'] = '' . $feed->id();
+			}
 			Minz_Request::good(
 				_t('feedback.sub.feed.added', $feed->name()),
 				$url_redirect,

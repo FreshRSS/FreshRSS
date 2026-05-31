@@ -234,6 +234,7 @@
 			$title = _t('index.menu.sort.desc');
 		}
 		$url_order = Minz_Request::currentRequest();
+		unset($url_order['params']['cid']);
 	?>
 	<div id="nav_menu_sort" class="group">
 		<div class="dropdown">

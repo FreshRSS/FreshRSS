@@ -317,6 +317,18 @@ class FreshRSS_Feed extends Minz_Model {
 	public function priority(): int {
 		return $this->priority;
 	}
+
+	public function showUnreadCount(): bool {
+		$sucGlobal = FreshRSS_Context::userConf()->show_unread_count;
+		$isImportant = $this->priority >= self::PRIORITY_IMPORTANT;
+		if ($isImportant && $sucGlobal !== 'none') {
+			return true;
+		}
+		return $this->attributeBoolean('show_unread_count') ??
+			$this->category()?->attributeBoolean('show_unread_count') ??
+			($sucGlobal === 'all' || ($sucGlobal === 'important' && $isImportant));
+	}
+
 	/** @return string HTML-encoded CSS selector */
 	public function pathEntries(): string {
 		return $this->pathEntries;
@@ -405,6 +417,26 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 
 		return $this->nbNotRead;
+	}
+
+	/** @return int Timestamp of the newest article received for this feed, or 0 if none */
+	public function newestArticleReceivedDate(): int {
+		static $newestArticleReceivedDate = null;
+		if (!is_int($newestArticleReceivedDate)) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$newestArticleReceivedDate = $feedDAO->newestArticleReceivedDate($this->id());
+		}
+		return $newestArticleReceivedDate;
+	}
+
+	/** @return int Timestamp of the Last article published for this feed, or 0 if none */
+	public function newestArticlePublicationDate(): int {
+		static $newestArticlePublicationDate = null;
+		if (!is_int($newestArticlePublicationDate)) {
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$newestArticlePublicationDate = $feedDAO->newestArticlePublicationDate($this->id());
+		}
+		return $newestArticlePublicationDate;
 	}
 
 	public function faviconPrepare(bool $force = false): void {
@@ -1455,6 +1487,24 @@ class FreshRSS_Feed extends Minz_Model {
 				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
 				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
 			]);
+
+			$curl_options = [];
+			if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
+				$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+				if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+				}
+			} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
+				// Legacy PHP 8.2-
+				if (defined('CURLOPT_PROTOCOLS')) {
+					$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+				if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+			}
+			curl_setopt_array($ch, $curl_options);
+
 			$response = curl_exec($ch);
 			$info = curl_getinfo($ch);
 			if (!is_array($info)) {

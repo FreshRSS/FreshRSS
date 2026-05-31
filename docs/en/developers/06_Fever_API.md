@@ -1,4 +1,4 @@
-# FreshRSS - Fever API implementation
+# Fever API implementation
 
 See [Mobile access](../users/06_Mobile_access.md) for general aspects of API access.
 Additionally [page about our Google Reader compatible API](06_GoogleReader_API.md) for another possibility.

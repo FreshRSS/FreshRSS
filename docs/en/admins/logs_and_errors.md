@@ -1,4 +1,4 @@
-# Logging and Error Messages
+# Logging and error messages
 
 ## Read the Log
 

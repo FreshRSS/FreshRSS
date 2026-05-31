@@ -29,6 +29,7 @@ return array(
 			'help' => 'Fornisci l’URL ad un <a href="http://opml.org/" target="_blank">file OPML</a> per popolare dinamicamente questa categoria con i feed',
 		),
 		'empty' => 'Categoria vuota',
+		'error' => 'Questa categoria OPML dinamica ha riscontrato un problema. Verifica che l\'URL OPML sia ancora raggiungibile e che il numero massimo di feed per utente non sia stato superato.',
 		'expand' => 'Espandi categoria',
 		'information' => 'Informazioni',
 		'open' => 'Aprire la categoria!',
@@ -86,6 +87,7 @@ return array(
 		'http_headers_help' => 'Le intestazioni sono separate da una linea e il nome e il valore di un’intestazione sono separati da due punti (p.es: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icona',
 		'information' => 'Informazioni',
+		'keep_adding_feed' => 'Quindi aggiungi altri feed',
 		'keep_min' => 'Numero minimo di articoli da mantenere',
 		'kind' => array(
 			'_' => 'Tipo di sorgente del feed',
@@ -185,8 +187,10 @@ return array(
 			'rss' => 'RSS / Atom (predefinito)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Ultimo articolo pubblicato <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Ultimo articolo ricevuto <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Ultimo aggiornamento errato <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Ultimo aggiornamento riuscito <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Svuota cache',
 			'clear_cache_help' => 'Svuota la cache per questo feed.',

@@ -43,6 +43,12 @@ if (isset($cliOptions->language)) {
 }
 
 $isValidated = true;
+$languageNameIssues = $i18nData->validateLanguageNames();
+foreach ($languageNameIssues as $issue) {
+	fwrite(STDERR, "Error: {$issue}\n");
+	$isValidated = false;
+}
+
 $result = [];
 $report = [];
 $percentage = [];
@@ -116,6 +122,13 @@ function writeToReadme(string $readmePath, string $markdownTable): void {
 }
 
 if ($cliOptions->generateReadme) {
+	if ($languageNameIssues !== []) {
+		// Refuse to regenerate the README when language directory names and
+		// `gen.lang.*` keys disagree, otherwise we would silently produce a
+		// corrupt translation table (e.g. literal `gen.lang.*` keys instead of
+		// localised language names). Routine incomplete translations are fine.
+		exit(1);
+	}
 	$markdownTable = <<<EOF
 	| __language__ | __translated__ | |
 	| - | - | - |

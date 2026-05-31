@@ -29,6 +29,7 @@ return array(
 			'help' => 'Bu kategoriyi beslemelerle dinamik olarak doldurmak için bir <a href="http://opml.org/" target="_blank">OPML dosyası</a> URL’si sağlayın.',
 		),
 		'empty' => 'Boş kategori',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Kategoriyi genişlet',
 		'information' => 'Bilgi',
 		'open' => 'Kategoriyi aç',
@@ -86,6 +87,7 @@ return array(
 		'http_headers_help' => 'Başlıklar yeni bir satırla ayrılır ve bir başlığın adı ile değeri iki nokta üst üste ile ayrılır (örneğin: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icon',	// TODO
 		'information' => 'Bilgi',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Saklanacak minimum makale sayısı',
 		'kind' => array(
 			'_' => 'Besleme kaynağı türü',
@@ -185,6 +187,8 @@ return array(
 			'rss' => 'RSS / Atom (varsayılan)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
