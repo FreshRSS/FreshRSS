@@ -29,7 +29,7 @@ return array(
 			'help' => 'Provee la URL a un <a href=http://opml.org/ target="_blank">archivo OPML</a> para llenar dinámicamente esta categoría con fuentes',
 		),
 		'empty' => 'Vaciar categoría',
-		'error' => 'Esta categoría OPML dinámica ha encontrado un problema. Comprueba que la URL de OPML sigue accesible y que no se ha superado el número máximo de feeds por usuario.',
+		'error' => 'Esta categoría OPML dinámica ha encontrado un problema. Comprueba que la URL del OPML sigue accesible y que no se ha superado el número máximo de fuentes por usuario.',
 		'expand' => 'Expandir categoría',
 		'information' => 'Información',
 		'open' => 'Abrir categoría',
