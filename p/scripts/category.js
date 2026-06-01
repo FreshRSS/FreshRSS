@@ -187,7 +187,7 @@ function start_category_sorting(event) {
 	setup_category_sorting(feedsElement);
 }
 
-function end_category_sorting(event) {
+async function end_category_sorting(event) {
 	if (!isSorting) return;
 	const catBox = event.target.closest('.box');
 	const feedsElement = catBox.querySelector('ul');
@@ -197,18 +197,31 @@ function end_category_sorting(event) {
 
 	const feedsOrder = isRevert ? [] : feedsArray.filter((value) => value.hasAttribute('data-feed-id')).map((value) => value.getAttribute('data-feed-id'));
 
-	fetch('./?c=category&a=updateSort', {
-		method: 'POST',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json; charset=UTF-8',
-		},
-		body: JSON.stringify({
-			id: catId,
-			feedsOrder,
-			_csrf: context.csrf
-		})
-	});
+	try {
+		const res = await fetch('./?c=category&a=updateSort', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json; charset=UTF-8',
+			},
+			body: JSON.stringify({
+				id: catId,
+				feedsOrder,
+				_csrf: context.csrf
+			})
+		});
+		
+		if (res.status == 200)
+		{
+			openNotification('Order saved', 'good');
+		}
+		else
+		{
+			openNotification('Order couldn\'t be saved');
+		}
+	} catch (error) {
+		openNotification(error.message);
+	}
 
 	const clearDnD = (element) => {
 		if (!element) return;
