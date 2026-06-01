@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context */
+/* globals context, openNotification */
 
 let loading = false;
 let dnd_successful = false;
@@ -210,13 +210,10 @@ async function end_category_sorting(event) {
 				_csrf: context.csrf
 			})
 		});
-		
-		if (res.status == 200)
-		{
+
+		if (res.status == 200) {
 			openNotification('Order saved', 'good');
-		}
-		else
-		{
+		} else {
 			openNotification('Order couldn\'t be saved');
 		}
 	} catch (error) {
