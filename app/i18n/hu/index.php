@@ -85,14 +85,14 @@ return array(
 		'rss_view' => 'RSS hírforrás',
 		'search_short' => 'Keresés',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'Növekvő',
 			'c' => array(
 				'name_asc' => 'Kategória, feed címek A→Z',
 				'name_desc' => 'Kategória, feed címek Z→A',
 			),
 			'date_asc' => 'Kiadás dátuma 1→9',
 			'date_desc' => 'Kiadás dátuma 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => 'Csökkenő',
 			'f' => array(
 				'name_asc' => 'Feed cím A→Z',
 				'name_desc' => 'Feed cím Z→A',
@@ -104,13 +104,13 @@ return array(
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => 'Rendezési feltétel',
+				'help' => 'A <em>fogadás</em> dátuma szerinti rendezés javasolt a legtöbb esetben a következetesség és a teljesítmény érdekében',
 			),
 			'rand' => 'Véletlen sorrend',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => 'Másodlagos rendezési feltétel',
+				'help' => 'Csak akkor releváns, ha az elsődleges rendezési feltétel a kategóriák vagy a hírfolyamok címei',
 			),
 			'title_asc' => 'Cím A→Z',
 			'title_desc' => 'Cím Z→A',
