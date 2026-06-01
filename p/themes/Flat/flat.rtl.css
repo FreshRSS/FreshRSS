@@ -675,11 +675,7 @@ th {
 /*=== Index menu */
 .nav_menu {
 	text-align: center;
-	padding: 5px 0;
-}
-
-.nav_menu #nav_menu_toggle_aside {
-	position: static;
+	padding: 5px 3rem 5px 0.5rem;
 }
 
 .nav_menu .btn {
