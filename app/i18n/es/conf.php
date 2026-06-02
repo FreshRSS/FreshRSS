@@ -56,11 +56,11 @@ return array(
 		'show_nav_buttons' => 'Mostrar los botones de navegación',
 		'show_title_unread' => 'Mostrar el número de artículos no leídos en el título',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Mostrar el número de elementos no leídos en la barra lateral',
+			'all' => 'En todas las categorías y fuentes',
+			'important' => 'Solo en las fuentes importantes',
+			'important_locked' => 'Las fuentes importantes siempre muestran su número de elementos no leídos.',
+			'none' => 'Nunca',
 		),
 		'sidebar_hidden_by_default' => 'Ocultar barra lateral por defecto',
 		'theme' => array(
@@ -130,7 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacidad',
 		'retrieve_extension_list' => 'Obtener lista de extensiones',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => 'Sitios permitidos para ver la dirección de tu servidor (%s)',
 	),
 	'profile' => array(
 		'_' => 'Administración de perfiles',
@@ -142,7 +142,7 @@ return array(
 			'disabled' => 'El acceso a la API está deshabilitado.',
 			'documentation_link' => 'Ver la <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentación y lista de aplicaciones conocidas</a>',
 			'help' => 'Ver <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentación</a>',
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'security_warning' => 'Utiliza HTTPS. La contraseña de la API se transmite en texto claro y podría aparecer en los registros del servidor si se envía mediante GET.',
 		),
 		'change_password' => 'Cambiar contraseña',
 		'confirm_new_password' => 'Confirmar nueva contraseña',
@@ -159,7 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Vistas de usuario',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Crear nueva vista de usuario',
 		'deprecated' => 'Esta vista ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
 		'description' => 'Descripción',
 		'filter' => array(
@@ -277,7 +277,7 @@ return array(
 			'view' => 'Ver',
 		),
 		'hide_read_feeds' => 'Ocultar categorías y fuentes sin artículos no leídos (no funciona con la configuración “Mostrar todos los artículos”)',
-		'img_with_lazyload' => 'Usar el modo de carga diferida para las imágenes',
+		'img_with_lazyload' => 'Usar el modo <em>carga diferida</em> para las imágenes',
 		'jump_next' => 'saltar al siguiente archivo sin leer emparentado',
 		'mark_updated_article_unread' => 'Marcar artículos actualizados como no leídos',
 		'number_divided_when_reader' => 'Dividido en 2 en la vista de lectura.',
@@ -290,7 +290,7 @@ return array(
 			'upon_gone' => 'cuando ya no está disponible en la fuente de noticias previa',
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',
-			'when_same_guid_in_category' => 'si ya existe un GUID idéntico en los <i>n</i> artículos más recientes de la categoría',	// DIRTY
+			'when_same_guid_in_category' => 'si ya existe un GUID idéntico entre los <i>n</i> artículos más recientes de la categoría',
 			'when_same_title_in_category' => 'si ya existe un título idéntico en los <i>n</i> artículos más recientes de la categoría',
 			'when_same_title_in_feed' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes (de la fuente)',
 		),
