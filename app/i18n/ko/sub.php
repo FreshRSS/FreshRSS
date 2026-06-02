@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d 개의 글',
 		'open_feed' => 'Open feed %s',	// TODO
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
-		'priority' => array(
-			'_' => '표시',
-			'category' => '피드가 속한 카테고리에만 표시하기',
-			'feed' => 'Show in its feed',	// TODO
-			'hidden' => '표시하지 않음',
-			'important' => '중요 피드에서 표시',
-			'main_stream' => '메인 스트림에 표시하기',
-		),
 		'proxy' => '이 피드를 가져올 때 사용할 프록시 설정',
 		'proxy_help' => '프로토콜 선택 (예: SOCKS5) 그리고 프록시 주소 입력 (예: <kbd>127.0.0.1:1080</kbd> 혹은 <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Reset to default',	// TODO
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => '구독 관리',
 		'subscription_tools' => '구독 도구',
+	),
+	'priority' => array(
+		'_' => '표시',
+		'category' => '피드가 속한 카테고리에만 표시하기',
+		'feed' => 'Show in its feed',	// TODO
+		'hidden' => '표시하지 않음',
+		'important' => '중요 피드에서 표시',
+		'main_stream' => '메인 스트림에 표시하기',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => '새 기사에 이 라벨 추가',

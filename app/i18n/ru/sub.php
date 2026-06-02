@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d статей',
 		'open_feed' => 'Открыть ленту %s',
 		'path_entries_conditions' => 'Условия для получения содержимого',
-		'priority' => array(
-			'_' => 'Видимость',
-			'category' => 'Показывать в категории ленты',
-			'feed' => 'Показывать в своей ленте',
-			'hidden' => 'Не показывать',
-			'important' => 'Показывать в важных лентах',
-			'main_stream' => 'Показывать в основном потоке',
-		),
 		'proxy' => 'Указать прокси для извлечения этой ленты',
 		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> или <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Сбросить на значение по умолчанию',
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'Управление подписками',
 		'subscription_tools' => 'Инструменты подписки',
+	),
+	'priority' => array(
+		'_' => 'Видимость',
+		'category' => 'Показывать в категории ленты',
+		'feed' => 'Показывать в своей ленте',
+		'hidden' => 'Не показывать',
+		'important' => 'Показывать в важных лентах',
+		'main_stream' => 'Показывать в основном потоке',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Добавьте это название к новым статьям',

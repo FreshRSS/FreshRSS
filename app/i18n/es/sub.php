@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d artículos',
 		'open_feed' => 'Fuente abierta %s',
 		'path_entries_conditions' => 'Condiciones para descarga de contenidos',
-		'priority' => array(
-			'_' => 'Visibilidad',
-			'category' => 'Mostrar en su categoría',
-			'feed' => 'Mostrar en su fuente',
-			'hidden' => 'No mostrar',
-			'important' => 'Mostrar en fuentes importantes',
-			'main_stream' => 'Mostrar en bandeja principal',
-		),
 		'proxy' => 'Establecer un proxy para obtener esta fuente',
 		'proxy_help' => 'Seleccione un protocolo (e.g: SOCKS5) e introduzca la dirección del proxy (e.g: <kbd>127.0.0.1:1080</kbd> o <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Restablecer a predeterminado',
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'Administración de suscripciones',
 		'subscription_tools' => 'Herramientas de suscripción',
+	),
+	'priority' => array(
+		'_' => 'Visibilidad',
+		'category' => 'Mostrar en su categoría',
+		'feed' => 'Mostrar en su fuente',
+		'hidden' => 'No mostrar',
+		'important' => 'Mostrar en fuentes importantes',
+		'main_stream' => 'Mostrar en bandeja principal',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Añadir esta etiqueta a nuevos artículos',

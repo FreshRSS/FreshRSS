@@ -36,7 +36,8 @@ class FreshRSS_Feed extends Minz_Model {
 	public const KIND_HTML_XPATH_JSON_DOTNOTATION = 35;
 
 	public const PRIORITY_IMPORTANT = 20;
-	public const PRIORITY_MAIN_STREAM = 10;
+	public const PRIORITY_USE_CATEGORY_SETTING = 10; // by default PRIORITY_MAIN_STREAM if priority is set to 10 on category level
+	public const PRIORITY_MAIN_STREAM = 5; // explicit feed-level main stream setting
 	public const PRIORITY_CATEGORY = 0;
 	public const PRIORITY_FEED = -5;
 	public const PRIORITY_HIDDEN = -10;
@@ -59,7 +60,7 @@ class FreshRSS_Feed extends Minz_Model {
 	private string $website = '';
 	private string $description = '';
 	private int $lastUpdate = 0;
-	private int $priority = self::PRIORITY_MAIN_STREAM;
+	private int $priority = self::PRIORITY_USE_CATEGORY_SETTING;
 	private string $pathEntries = '';
 	private string $httpAuth = '';
 	private int $error = 0;
@@ -314,7 +315,26 @@ class FreshRSS_Feed extends Minz_Model {
 	public function lastUpdate(): int {
 		return $this->lastUpdate;
 	}
-	public function priority(): int {
+	/**
+	 * @param bool $follow_category Read the category setting instead if feed priority is set to PRIORITY_USE_CATEGORY_SETTING (10), true by default
+	 * @return int Feed priority value
+	 */
+	public function priority(bool $follow_category = true): int {
+		if ($follow_category && $this->priority === FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING) {
+			$category = $this->category();
+			if (!isset($category)) {
+				return $this->priority; // fallback to feed priority value
+			}
+			$priority = $category->priority();
+			if ($priority === FreshRSS_Category::PRIORITY_HIDDEN &&
+				FreshRSS_Context::isCurrentGet('c_' . $category->id())) {
+				$priority = $this->priority;
+			}
+			if ($priority === FreshRSS_Category::PRIORITY_MAIN_STREAM) {
+				$priority = FreshRSS_Feed::PRIORITY_MAIN_STREAM; // feed priority value for main stream is different than the category main stream
+			}
+			return $priority;
+		}
 		return $this->priority;
 	}
 

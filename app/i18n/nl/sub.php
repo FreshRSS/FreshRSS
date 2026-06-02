@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d artikelen',
 		'open_feed' => 'Feed %s openen',
 		'path_entries_conditions' => 'Voorwaarden voor inhoudsophaling',
-		'priority' => array(
-			'_' => 'Zichtbaarheid',
-			'category' => 'Toon in categorie',
-			'feed' => 'In zijn feed weergeven',
-			'hidden' => 'Niet weergeven',
-			'important' => 'In belangrijke feeds tonen',
-			'main_stream' => 'Zichtbaar in het overzicht',
-		),
 		'proxy' => 'Proxy instellen om deze feed op te halen',
 		'proxy_help' => 'Selecteer een protocol (bv. SOCKS5) en voer een proxy-adres in (bv. <kbd>127.0.0.1:1080</kbd> of <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Terugzetten naar standaard',
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'Abonnementenbeheer',
 		'subscription_tools' => 'Hulpmiddelen voor abonnementen',
+	),
+	'priority' => array(
+		'_' => 'Zichtbaarheid',
+		'category' => 'Toon in categorie',
+		'feed' => 'In zijn feed weergeven',
+		'hidden' => 'Niet weergeven',
+		'important' => 'In belangrijke feeds tonen',
+		'main_stream' => 'Zichtbaar in het overzicht',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Dit label aan nieuwe artikelen toevoegen',

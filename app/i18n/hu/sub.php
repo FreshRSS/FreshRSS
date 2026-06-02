@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d cikkek',
 		'open_feed' => 'Hírforrás megnyitása %s',
 		'path_entries_conditions' => 'Tartalom beszerzési feltételek',
-		'priority' => array(
-			'_' => 'Láthatóság',
-			'category' => 'Jelenjen meg a saját kategóriájában',
-			'feed' => 'Jelenjen meg a saját hírforrásában',
-			'hidden' => 'Ne jelenjen meg',
-			'important' => 'Megjelenítés a fontos hírforrásokban',
-			'main_stream' => 'Megjelenítés a Minden cikk között',
-		),
 		'proxy' => 'Állíts be egy proxy-t a hírforráshoz ',
 		'proxy_help' => 'Válassz egy protokollt (pl.: SOCKS5) és add meg a proxy címét (pl.: <kbd>127.0.0.1:1080</kbd> vagy <kbd>felhasználónév:jelszó@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Visszaállítás alapértelmezettre',
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'Hírforrások kezelése',
 		'subscription_tools' => 'Hírforrás eszközök',
+	),
+	'priority' => array(
+		'_' => 'Láthatóság',
+		'category' => 'Jelenjen meg a saját kategóriájában',
+		'feed' => 'Jelenjen meg a saját hírforrásában',
+		'hidden' => 'Ne jelenjen meg',
+		'important' => 'Megjelenítés a fontos hírforrásokban',
+		'main_stream' => 'Megjelenítés a Minden cikk között',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Adja hozzá automatikusan ezt a címkét az új cikkekhez',

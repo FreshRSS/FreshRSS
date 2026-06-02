@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d 篇文章',
 		'open_feed' => '打开订阅源 %s',
 		'path_entries_conditions' => '内容检索条件',
-		'priority' => array(
-			'_' => '可见性',
-			'category' => '在分类中显示',
-			'feed' => '在其订阅源中显示',	// DIRTY
-			'hidden' => '不显示',
-			'important' => '在“重要的订阅”中显示',
-			'main_stream' => '在首页中显示',
-		),
 		'proxy' => '获取订阅源时的代理',
 		'proxy_help' => '选择协议（例：SOCKS5）和代理地址（例：<kbd>127.0.0.1:1080</kbd> 或者 <kbd>username:password@127.0.0.1:1080</kbd>）',
 		'reset_favicon' => '重置为默认',
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => '订阅管理',
 		'subscription_tools' => '订阅工具',
+	),
+	'priority' => array(
+		'_' => '可见性',
+		'category' => '在分类中显示',
+		'feed' => '在其订阅源中显示',	// DIRTY
+		'hidden' => '不显示',
+		'important' => '在“重要的订阅”中显示',
+		'main_stream' => '在首页中显示',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => '给新文章打标签',

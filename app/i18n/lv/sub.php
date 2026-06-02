@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d raksti',
 		'open_feed' => 'Open feed %s',	// TODO
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
-		'priority' => array(
-			'_' => 'Prioritāte',
-			'category' => 'Rādīt kategorijā',
-			'feed' => 'Show in its feed',	// TODO
-			'hidden' => 'Nerādīt',
-			'important' => 'Rādīt svarīgajās barotnēs',
-			'main_stream' => 'Rādīt galvenajā plūsmā',
-		),
 		'proxy' => 'Iestatīt starpniekserveri šīs plūsmas iegūšanai',
 		'proxy_help' => 'Izvēlieties protokolu (piemēram, SOCKS5) un ievadiet starpniekservera adresi (piemēram, <kbd>127.0.0.0.1:1080</kbd>).',
 		'reset_favicon' => 'Reset to default',	// TODO
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'Abonementu pārvalde',
 		'subscription_tools' => 'Abonamentu rīki',
+	),
+	'priority' => array(
+		'_' => 'Prioritāte',
+		'category' => 'Rādīt kategorijā',
+		'feed' => 'Show in its feed',	// TODO
+		'hidden' => 'Nerādīt',
+		'important' => 'Rādīt svarīgajās barotnēs',
+		'main_stream' => 'Rādīt galvenajā plūsmā',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Pievienot šo etiķeti jaunajiem rakstiem',

@@ -122,6 +122,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'favorite' => '⭐',	//★
 			'FreshRSS-logo' => '⊚',
 			'help' => 'ℹ️',	//ⓘ
+			'help2' => 'ℹ️',	//ⓘ
 			'icon' => '⊚',
 			'important' => '📌',
 			'key' => '🔑',	//⚿

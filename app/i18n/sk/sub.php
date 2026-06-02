@@ -214,14 +214,6 @@ return array(
 		'number_entries' => 'Počet článkov: %d',
 		'open_feed' => 'Open feed %s',	// TODO
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
-		'priority' => array(
-			'_' => 'Viditeľnosť',
-			'category' => 'Zobraziť vo svojej kategórii',
-			'feed' => 'Show in its feed',	// TODO
-			'hidden' => 'Nezobrazovať',
-			'important' => 'Zobraziť v dôležitých kanáloch',
-			'main_stream' => 'Zobraziť v prehľade kanálov',
-		),
 		'proxy' => 'Na sťahovanie tohto kanálu nastaviť proxy',
 		'proxy_help' => 'Vyberte protokol (napr.: SOCKS5) a zadajte adresu proxy servera (napr.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'reset_favicon' => 'Reset to default',	// TODO
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'Správa odoberaných kanálov',
 		'subscription_tools' => 'Nástroje na odoberanie kanálov',
+	),
+	'priority' => array(
+		'_' => 'Viditeľnosť',
+		'category' => 'Zobraziť vo svojej kategórii',
+		'feed' => 'Show in its feed',	// TODO
+		'hidden' => 'Nezobrazovať',
+		'important' => 'Zobraziť v dôležitých kanáloch',
+		'main_stream' => 'Zobraziť v prehľade kanálov',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Priraď túto menovku novým článkom',

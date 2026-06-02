@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d articles',	// IGNORE
 		'open_feed' => 'Open feed %s',	// IGNORE
 		'path_entries_conditions' => 'Conditions for content retrieval',	// IGNORE
-		'priority' => array(
-			'_' => 'Visibility',	// IGNORE
-			'category' => 'Show in its category',	// IGNORE
-			'feed' => 'Show in its feed',	// IGNORE
-			'hidden' => 'Do not show',	// IGNORE
-			'important' => 'Show in important feeds',	// IGNORE
-			'main_stream' => 'Show in main stream',	// IGNORE
-		),
 		'proxy' => 'Set a proxy for fetching this feed',	// IGNORE
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// IGNORE
 		'reset_favicon' => 'Reset to default',	// IGNORE
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'Subscription management',	// IGNORE
 		'subscription_tools' => 'Subscription tools',	// IGNORE
+	),
+	'priority' => array(
+		'_' => 'Visibility',	// IGNORE
+		'category' => 'Show in its category',	// IGNORE
+		'feed' => 'Show in its feed',	// IGNORE
+		'hidden' => 'Do not show',	// IGNORE
+		'important' => 'Show in important feeds',	// IGNORE
+		'main_stream' => 'Show in main stream',	// IGNORE
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// IGNORE
+			'help' => 'Category setting: %s',	// IGNORE
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Add this label to new articles',	// IGNORE

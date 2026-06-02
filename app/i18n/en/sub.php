@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d articles',
 		'open_feed' => 'Open feed %s',
 		'path_entries_conditions' => 'Conditions for content retrieval',
-		'priority' => array(
-			'_' => 'Visibility',
-			'category' => 'Show in its category',
-			'feed' => 'Show in its feed',
-			'hidden' => 'Do not show',
-			'important' => 'Show in important feeds',
-			'main_stream' => 'Show in main stream',
-		),
 		'proxy' => 'Set a proxy for fetching this feed',
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Reset to default',
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',
+	),
+	'priority' => array(
+		'_' => 'Visibility',
+		'category' => 'Show in its category',
+		'feed' => 'Show in its feed',
+		'hidden' => 'Do not show',
+		'important' => 'Show in important feeds',
+		'main_stream' => 'Show in main stream',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',
+			'help' => 'Category setting: %s',
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Add this label to new articles',

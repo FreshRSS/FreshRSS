@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d מאמרים',
 		'open_feed' => 'Open feed %s',	// TODO
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
-		'priority' => array(
-			'_' => 'Visibility',	// TODO
-			'category' => 'Show in its category',	// TODO
-			'feed' => 'Show in its feed',	// TODO
-			'hidden' => 'Do not show',	// TODO
-			'important' => 'Show in important feeds',	// TODO
-			'main_stream' => 'הצגה בזרם המרכזי',
-		),
 		'proxy' => 'Set a proxy for fetching this feed',	// TODO
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// TODO
 		'reset_favicon' => 'Reset to default',	// TODO
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'ניהול הרשמות',
 		'subscription_tools' => 'Subscription tools',	// TODO
+	),
+	'priority' => array(
+		'_' => 'Visibility',	// TODO
+		'category' => 'Show in its category',	// TODO
+		'feed' => 'Show in its feed',	// TODO
+		'hidden' => 'Do not show',	// TODO
+		'important' => 'Show in important feeds',	// TODO
+		'main_stream' => 'הצגה בזרם המרכזי',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Add this label to new articles',	// TODO

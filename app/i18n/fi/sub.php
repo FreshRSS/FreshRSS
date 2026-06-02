@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d artikkelia',
 		'open_feed' => 'Avaa syöte %s',
 		'path_entries_conditions' => 'Sisällön noutamisen ehdot',
-		'priority' => array(
-			'_' => 'Näkyvyys',
-			'category' => 'Näytä luokassaan',
-			'feed' => 'Näytä syötteessään',
-			'hidden' => 'Älä näytä',
-			'important' => 'Näytä tärkeissä syötteissä',
-			'main_stream' => 'Näytä pääsyötevirrassa',
-		),
 		'proxy' => 'Nouda syöte käyttämällä välityspalvelinta',
 		'proxy_help' => 'Valitse protokolla (esimerkki: SOCKS5) ja kirjoita välityspalvelimen osoite (esimerkki: <kbd>127.0.0.1:1080</kbd> tai <kbd>käyttäjätunnus:salasana@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Palauta oletuskuvakkeeksi',
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'Tilausten hallinta',
 		'subscription_tools' => 'Tilaustyökalut',
+	),
+	'priority' => array(
+		'_' => 'Näkyvyys',
+		'category' => 'Näytä luokassaan',
+		'feed' => 'Näytä syötteessään',
+		'hidden' => 'Älä näytä',
+		'important' => 'Näytä tärkeissä syötteissä',
+		'main_stream' => 'Näytä pääsyötevirrassa',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Lisää merkintä uusiin artikkeleihin',

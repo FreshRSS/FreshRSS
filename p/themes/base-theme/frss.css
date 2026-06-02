@@ -551,6 +551,13 @@ input#favicon-upload {
 	display: inline;
 }
 
+div.priority-icon {
+	display: inline-block;
+	position: relative;
+	left: 10px;
+	bottom: 5px;
+}
+
 input.ignore-auto-complete {
 	position: absolute;
 	left: -9999px;

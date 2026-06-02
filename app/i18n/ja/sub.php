@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d 記事数',
 		'open_feed' => 'フィードを開く %s',
 		'path_entries_conditions' => 'コンテンツを取得する条件',
-		'priority' => array(
-			'_' => '表示する場所',
-			'category' => 'カテゴリで表示する',
-			'feed' => 'Show in its feed',	// TODO
-			'hidden' => '非表示にする',
-			'important' => '重要なフィードに表示する',
-			'main_stream' => 'メインストリームで表示する',
-		),
 		'proxy' => 'フィードを取得するときのプロキシ',
 		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) プロキシアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd> や <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Reset to default',	// TODO
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => '購読フィードの管理',
 		'subscription_tools' => '購読ツール',
+	),
+	'priority' => array(
+		'_' => '表示する場所',
+		'category' => 'カテゴリで表示する',
+		'feed' => 'Show in its feed',	// TODO
+		'hidden' => '非表示にする',
+		'important' => '重要なフィードに表示する',
+		'main_stream' => 'メインストリームで表示する',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'このラベルを新しい記事に追加する',

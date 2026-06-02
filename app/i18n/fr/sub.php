@@ -214,14 +214,6 @@ return array(
 		'number_entries' => '%d articles',	// IGNORE
 		'open_feed' => 'Ouvrir le flux %s',
 		'path_entries_conditions' => 'Conditions pour la récupération de contenu',
-		'priority' => array(
-			'_' => 'Visibilité',
-			'category' => 'Afficher dans sa catégorie',
-			'feed' => 'Afficher dans son flux',
-			'hidden' => 'Ne pas afficher',
-			'important' => 'Afficher dans les flux importants',
-			'main_stream' => 'Afficher dans les flux principaux',
-		),
 		'proxy' => 'Utiliser un proxy pour télécharger ce flux',
 		'proxy_help' => 'Sélectionner un protocole (ex : SOCKS5) et entrer l’adresse du proxy (ex. : <kbd>127.0.0.1:1080</kbd> ou <kbd>utilisateur:mot-de-passe@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Réinitialiser',
@@ -293,6 +285,18 @@ return array(
 		),
 		'subscription_management' => 'Gestion des abonnements',
 		'subscription_tools' => 'Outils d’abonnement',
+	),
+	'priority' => array(
+		'_' => 'Visibilité',
+		'category' => 'Afficher dans sa catégorie',
+		'feed' => 'Afficher dans son flux',
+		'hidden' => 'Ne pas afficher',
+		'important' => 'Afficher dans les flux importants',
+		'main_stream' => 'Afficher dans les flux principaux',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Ajoute l’étiquette aux nouveaux articles',

@@ -96,10 +96,16 @@
 		<?php
 			$nbFeedsTotal = 0;
 			foreach ($this->categories as $cat) {
+				if ($cat->hiddenInSidebar()) {
+					continue;
+				}
 				$nbFeedsTotal += $cat->nbFeeds();
 			}
 
 			foreach ($this->categories as $cat):
+				if ($cat->hiddenInSidebar()) {
+					continue;
+				}
 				$feeds = $cat->feeds();
 				$position = $cat->attributeInt('position');
 				if (!empty($feeds)) {
@@ -109,7 +115,7 @@
 					$hideSucCat = $cat->showUnreadCount() ? '' : ' data-unread-hide="1"';
 		?>
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
-			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>"<?= $hideSucCat ?>>
+			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>" data-priority="<?= $cat->priority()?>"<?= $hideSucCat ?>>
 			<a href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>" class="tree-folder-title">
 				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($c_show ? 'up' : 'down') ?></button><?php
 				?><span title="<?= $cat->inError() ? _t('sub.category.error') : _t('sub.category.open') ?>" class="title<?=
