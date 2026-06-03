@@ -95,7 +95,9 @@
 						<option value="<?= FreshRSS_Category::PRIORITY_HIDDEN ?>" <?=
 							FreshRSS_Category::PRIORITY_HIDDEN === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.hidden') ?></option>
 					</select>
-					<?= _i('important') ?>
+					<div class="priority-icon">
+						<?= _i('important') ?>
+					</div>
 				</div>
 			</div>
 
