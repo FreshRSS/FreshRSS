@@ -40,10 +40,10 @@
 		"markdownlint-cli": "^0.48.0",
 		"neostandard": "^0.13.0",
 		"rtlcss": "^4.3.0",
-		"stylelint": "^17.9.1",
+		"stylelint": "^17.12.0",
 		"stylelint-config-recommended": "^18.0.0",
 		"stylelint-order": "^8.1.1",
-		"@stylistic/stylelint-plugin": "^5.1.0"
+		"@stylistic/stylelint-plugin": "^5.2.0"
 	},
 	"rtlcssConfig": {
 		"options": {
