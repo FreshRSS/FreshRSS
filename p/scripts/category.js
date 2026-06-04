@@ -214,7 +214,7 @@ async function end_category_sorting(event) {
 		if (res.status == 200) {
 			openNotification('Order saved', 'good');
 		} else {
-			openNotification('Order couldn\'t be saved');
+			openNotification('Order couldn’t be saved');
 		}
 	} catch (error) {
 		openNotification(error.message);
