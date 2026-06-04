@@ -1988,12 +1988,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				COUNT(CASE WHEN e.is_favorite = 1 THEN 1 END) AS favorites
 				SQL;
 		if ($minPriority !== null) {
-			$sql .= <<<'SQL'
+			$sql .= "\n" . <<<'SQL'
 				,
 				CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END AS priority2
 			SQL;
 		}
-		$sql .= <<<'SQL'
+		$sql .= "\n" . <<<'SQL'
 			FROM `_entry` e
 			SQL;
 		if ($minPriority !== null) {
@@ -2020,12 +2020,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			COUNT(*) AS count
 			SQL;
 		if ($minPriority !== null) {
-			$sql .= <<<'SQL'
+			$sql .= "\n" . <<<'SQL'
 				,
 				CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END AS priority2
 				SQL;
 		}
-		$sql .= <<<'SQL'
+		$sql .= "\n" . <<<'SQL'
 			FROM `_entry` e
 			SQL;
 		$values = [];
