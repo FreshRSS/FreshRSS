@@ -54,16 +54,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		// https://www.sqlite.org/lang_expr.html#the_like_glob_regexp_match_and_extract_operators
 		$this->pdo->sqliteCreateFunction('regexp',
 			function (string $pattern, string $text): bool {
-				$oldBacktrackLimit = ini_set('pcre.backtrack_limit', '10000');
-				$oldRecursionLimit = ini_set('pcre.recursion_limit', '100');
-				$matches = preg_match($pattern, $text) === 1;
-				if ($oldBacktrackLimit !== false) {
-					ini_set('pcre.backtrack_limit', $oldBacktrackLimit);
-				}
-				if ($oldRecursionLimit !== false) {
-					ini_set('pcre.recursion_limit', $oldRecursionLimit);
-				}
-				return $matches;
+				return preg_match($pattern, $text) === 1;
 			},
 			2
 		);
