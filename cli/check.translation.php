@@ -36,7 +36,7 @@ if ($cliOptions->help) {
 $i18nFile = new I18nFile();
 $i18nData = new I18nData($i18nFile->load());
 
-if (isset($cliOptions->language)) {
+if (!empty($cliOptions->language)) {
 	$languages = $cliOptions->language;
 } else {
 	$languages = $i18nData->getAvailableLanguages();

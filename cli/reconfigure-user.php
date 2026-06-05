@@ -38,8 +38,8 @@ $hasUnset = $cliOptions->unset;
 $hasStdin = $cliOptions->valueStdin;
 $force = $cliOptions->force;
 $showSecrets = $cliOptions->showSecrets;
-$hasKey = isset($cliOptions->key);
-$hasValue = isset($cliOptions->value);
+$hasKey = ($cliOptions->key ?? '') !== '';
+$hasValue = ($cliOptions->value ?? '') !== '';
 
 if ($hasList && ($hasSet || $hasUnset || $hasKey)) {
 	fail('FreshRSS error: --list cannot be combined with --key, --set, or --unset' . "\n" . $cliOptions->usage);

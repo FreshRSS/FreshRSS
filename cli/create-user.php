@@ -89,7 +89,7 @@ if (!$ok) {
 	fail('FreshRSS could not create user!');
 }
 
-if (isset($cliOptions->apiPassword)) {
+if (($cliOptions->apiPassword ?? '') !== '') {
 	$username = cliInitUser($username);
 	$error = FreshRSS_api_Controller::updatePassword($cliOptions->apiPassword);
 	if ($error !== false) {

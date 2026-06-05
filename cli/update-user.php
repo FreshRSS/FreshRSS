@@ -78,7 +78,7 @@ if (!$ok) {
 	fail('FreshRSS could not update user!');
 }
 
-if (isset($cliOptions->apiPassword)) {
+if (($cliOptions->apiPassword ?? '') !== '') {
 	$error = FreshRSS_api_Controller::updatePassword($cliOptions->apiPassword);
 	if ($error !== false) {
 		fail($error);
