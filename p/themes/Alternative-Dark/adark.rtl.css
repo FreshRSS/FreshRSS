@@ -743,13 +743,9 @@ kbd {
 
 /*=== Index menu */
 .nav_menu {
-	padding: 5px 0;
+	padding: 5px 3rem 5px 0.5rem;
 	background: var(--background-color-dark);
 	text-align: center;
-}
-
-.nav_menu #nav_menu_toggle_aside {
-	position: static;
 }
 
 .nav_menu .btn {
