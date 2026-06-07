@@ -16,7 +16,7 @@ return array(
 		'title' => ' API',
 	),
 	'bookmarklet' => array(
-		'documentation' => ' این دکمه را به نوار ابزار نشانک‌های خود بکشید یا روی آن راست کلیک کرده و «Bookmark This Link» را انتخاب کنید. سپس روی دکمه "اشتراک" در هر صفحه ای که می خواهید مشترک شوید کلیک کنید.',
+		'documentation' => 'این دکمه را به نوار ابزار نشانک‌های خود بکشید یا روی آن راست‌کلیک کنید و «نشانک‌گذاری این پیوند» را انتخاب کنید. سپس در هر صفحه‌ای که می‌خواهید مشترک آن شوید، روی دکمه «اشتراک» کلیک کنید.',
 		'label' => ' مشترک شوید',
 		'title' => ' Bookmarklet',
 	),
@@ -29,13 +29,13 @@ return array(
 			'help' => ' URL را به <a href="http://opml.org/" target="_blank">فایل OPML</a> ارائه دهید تا به صورت پویا این دسته با فیدها پر شود.',
 		),
 		'empty' => ' دسته خالی',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'این دسته OPML پویا با مشکل روبه‌رو شده است. بررسی کنید که URL فایل OPML هنوز در دسترس باشد و حداکثر تعداد فید برای هر کاربر رد نشده باشد.',
 		'expand' => 'دسته‌بندی را گسترش دهید',
 		'information' => ' اطلاعات',
 		'open' => 'دسته‌بندی باز',
 		'opml_url' => ' URL OPML',
 		'position' => ' موقعیت نمایش',
-		'position_help' => ' برای کنترل ترتیب مرتب سازی دسته بندی',
+		'position_help' => 'برای کنترل ترتیب مرتب‌سازی دسته‌بندی',
 		'title' => ' عنوان',
 	),
 	'feed' => array(
@@ -63,14 +63,14 @@ return array(
 		'css_cookie' => ' هنگام واکشی محتوای مقاله از کوکی ها استفاده کنید',
 		'css_cookie_help' => ' مثال: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => ' فیدهای RSS کوتاه شده را بازیابی می کند (احتیاط',
-		'css_path' => ' انتخاب کننده CSS مقاله در وب سایت اصلی',
+		'css_path' => 'انتخابگر CSS مقاله در وب‌سایت اصلی',
 		'css_path_filter' => array(
 			'_' => ' انتخابگر CSS از عناصر برای حذف',
 			'help' => ' یک انتخابگر CSS ممکن است لیستی باشد مانند: <kbd>.footer',
 		),
 		'description' => ' توضیحات',
 		'empty' => ' این فید خالی است. لطفاً بررسی کنید که هنوز نگهداری می شود.',
-		'error' => ' این فید با مشکل مواجه شده است. لطفاً بررسی کنید که همیشه در دسترس است و سپس آن را به روز کنید.',	// DIRTY
+		'error' => 'این فید با مشکل روبه‌رو شده است. بررسی کنید که هنوز در دسترس باشد و سپس آن را به‌روزرسانی کنید.',
 		'export-as-opml' => array(
 			'download' => 'دانلود',
 			'help' => 'فایل XML (زیرمجموعه داده‌ها. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">مستندات را ببینید</a>)',
@@ -81,13 +81,13 @@ return array(
 		'filteractions' => array(
 			'_' => ' اعمال فیلتر',
 			'help' => ' در هر خط یک فیلتر جستجو بنویسید. اپراتورها <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">مستندات را ببینید</a>.',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => 'پیش‌نمایش فیلترها روی مقاله‌های موجود (پنجره جدید)',
 		),
 		'http_headers' => 'HTTP سربرگ‌ها',
 		'http_headers_help' => 'سر برگ ها با یک خط جدید از هم جدا می‌شوند و نام و مقدار سربرگ ها با یک دونقطه از هم جدا می‌شوند (مثلاً: <kbd><code>پذیرش: application/atom+xml<br />مجوز: Bearer some-token</code></kbd>).',
 		'icon' => 'آیکون',
 		'information' => ' اطلاعات',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'سپس فیدهای بیشتری اضافه کنید',
 		'keep_min' => ' حداقل تعداد مقالات برای نگهداری',
 		'kind' => array(
 			'_' => ' نوع منبع خوراک',
@@ -104,7 +104,7 @@ return array(
 					'_' => ' عنوان خوراک',
 					'help' => ' مثال: <code>//title</code> یا یک رشته ثابت: <code>"فید سفارشی من"</code>',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> یک زبان جستجوی استاندارد برای پیشرفته است کاربران',
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> یک زبان جستجوی استاندارد برای کاربران پیشرفته است',
 				'item' => array(
 					'_' => ' یافتن اخبار <strong>اقلام</strong><br /><small>(مهمترین)</small>',
 					'help' => ' مثال: <code>//div[@class="news-item"]</code>',
@@ -124,7 +124,7 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => ' فرمت تاریخ/زمان سفارشی',
-					'help' => ' اختیاری. قالبی که توسط <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> پشتیبانی می‌شود',	// DIRTY
+					'help' => 'اختیاری. قالبی که توسط <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> پشتیبانی می‌شود، مانند <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => ' تاریخ مورد',
@@ -132,7 +132,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => ' عنوان مورد',
-					'help' => ' به طور خاص از <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">محور XPath</a> <code>descendant::</code استفاده کنید > مانند <code>descendant::h2</code>',
+					'help' => 'به طور مشخص از <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">محور XPath</a> <code>descendant::</code> استفاده کنید؛ مانند <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => ' شناسه منحصر به فرد مورد',
@@ -159,7 +159,7 @@ return array(
 				'item_author' => 'نویسنده ',
 				'item_categories' => 'برچسب‌های آیتم',
 				'item_content' => array(
-					'_' => 'محتوای در مورد',
+					'_' => 'محتوای آیتم',
 					'help' => 'کلیدی که محتوا در آن یافت می‌شود، مثلاً <code>content</code>',
 				),
 				'item_thumbnail' => array(
@@ -171,11 +171,11 @@ return array(
 					'help' => 'اختیاری. فرمتی که توسط <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> پشتیبانی می‌شود، مانند <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'تاریخ کالا',
+					'_' => 'تاریخ آیتم',
 					'help' => 'نتیجه توسط <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> تجزیه و تحلیل خواهد شد.',
 				),
 				'item_title' => 'عنوان مورد',
-				'item_uid' => 'شناسه منحصر به فرد کالا',
+				'item_uid' => 'شناسه یکتای آیتم',
 				'item_uri' => array(
 					'_' => 'لینک مورد (URL)',
 					'help' => 'مثال: <code>پیوند یکتا</code>',
@@ -187,10 +187,10 @@ return array(
 			'rss' => ' RSS / Atom (پیش‌فرض)',
 			'xml_xpath' => ' XML + XPath',
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'آخرین مقاله در <time datetime="%1$s" title="%1$s">%2$s</time> منتشر شده است.',
+		'last-entry-received-date' => 'آخرین مقاله در <time datetime="%1$s" title="%1$s">%2$s</time> دریافت شده است.',
+		'last-error-date' => 'آخرین به‌روزرسانی ناموفق در <time datetime="%1$s" title="%1$s">%2$s</time> بوده است.',
+		'last-update' => 'آخرین به‌روزرسانی موفق در <time datetime="%1$s" title="%1$s">%2$s</time> بوده است.',
 		'maintenance' => array(
 			'clear_cache' => ' کش را پاک کنید',
 			'clear_cache_help' => ' کش این فید را پاک کنید.',
@@ -204,8 +204,8 @@ return array(
 			'_' => 'روش HTTP',
 		),
 		'method_help' => 'بار داده‌ی POST به طور خودکار از <code>application/x-www-form-urlencoded</code> و <code>application/json</code> پشتیبانی می‌کند.',
-		'method_postparams' => 'بار مفید برای پست',
-		'moved_category_deleted' => ' هنگامی که یک دسته را حذف می کنید',
+		'method_postparams' => 'بدنه درخواست POST',
+		'moved_category_deleted' => 'هنگام حذف دسته «%s»',
 		'mute' => array(
 			'_' => ' بی صدا',
 			'state_is_muted' => 'این فید بی‌صدا است',
@@ -216,8 +216,8 @@ return array(
 		'path_entries_conditions' => 'شرایط بازیابی محتوا',
 		'priority' => array(
 			'_' => ' دید',
-			'category' => ' نمایش در دسته بندی خود',
-			'feed' => 'Show in its feed',	// TODO
+			'category' => 'نمایش در دسته‌بندی خودش',
+			'feed' => 'در فید خودش نشان داده شود',
 			'hidden' => 'نشان ندهید.',
 			'important' => 'نمایش در فیدهای مهم',
 			'main_stream' => ' نمایش در جریان اصلی',
@@ -244,26 +244,26 @@ return array(
 		'title_add' => ' یک فید RSS اضافه کنید',
 		'ttl' => ' به‌طور خودکار بیشتر از آن رفرش نکنید',
 		'unicityCriteria' => array(
-			'_' => 'معیارهای وحدت مقاله',
-			'forced' => '<span title="مسدود کردن معیارهای تک‌شاخگی، حتی زمانی که فید دارای مقالات تکراری است">اجباری</span>',
-			'help' => 'مربوط به فیدهای نامعتبر.<br />⚠️ تغییر سیاست باعث ایجاد موارد تکراری می‌شود..',
+			'_' => 'معیارهای یکتایی مقاله',
+			'forced' => '<span title="تحمیل معیارهای یکتایی، حتی وقتی فید مقاله‌های تکراری دارد">اجباری</span>',
+			'help' => 'مربوط به فیدهای نامعتبر.<br />⚠️ تغییر این سیاست باعث ایجاد موارد تکراری می‌شود.',
 			'id' => 'شناسه استاندارد (پیش‌ فرض)',
 			'link' => 'لینک',
-			'sha1:content' => 'Content',	// TODO
-			'sha1:content_published' => 'Content + Date',	// TODO
+			'sha1:content' => 'محتوا',
+			'sha1:content_published' => 'محتوا + تاریخ',
 			'sha1:link_published' => 'لینک + تاریخ',
 			'sha1:link_published_title' => 'لینک + تاریخ + عنوان',
 			'sha1:link_published_title_content' => 'لینک + تاریخ + عنوان + محتوا',
-			'sha1:published' => 'Date',	// TODO
-			'sha1:title' => 'Title',	// TODO
-			'sha1:title_published' => 'Title + Date',	// TODO
-			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
+			'sha1:published' => 'تاریخ',
+			'sha1:title' => 'عنوان',
+			'sha1:title_published' => 'عنوان + تاریخ',
+			'sha1:title_published_content' => 'عنوان + تاریخ + محتوا',
 		),
 		'url' => ' URL فید',
 		'useragent' => ' عامل کاربر را برای واکشی این فید تنظیم کنید',
 		'useragent_help' => ' مثال: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => ' اعتبار خوراک را بررسی کنید',
-		'website' => ' آدرس وب سایت',
+		'website' => 'نشانی وب‌سایت',
 		'websub' => ' اطلاع رسانی فوری با WebSub',
 	),
 	'import_export' => array(
@@ -286,10 +286,10 @@ return array(
 		'import_export' => ' واردات / صادرات',
 		'label_management' => ' مدیریت برچسب',
 		'stats' => array(
-			'idle' => ' تغذیه بیکار',
+			'idle' => 'فیدهای غیرفعال',
 			'main' => ' آمار اصلی',
-			'repartition' => ' تقسیم مجدد مقالات',
-			'unread_dates' => 'Unread dates',	// TODO
+			'repartition' => 'توزیع مقاله‌ها',
+			'unread_dates' => 'تاریخ‌های خوانده‌نشده',
 		),
 		'subscription_management' => ' مدیریت اشتراک',
 		'subscription_tools' => 'ابزارهای اشتراک',
@@ -309,7 +309,7 @@ return array(
 		'add_label' => ' یک برچسب اضافه کنید',
 		'add_opml_category' => 'نام دسته OPML',
 		'delete_label' => ' یک برچسب را حذف کنید',
-		'feed_management' => ' فیدهای RSS را مدیریت می کندment',
+		'feed_management' => 'مدیریت فیدهای RSS',
 		'subscription_tools' => 'ابزارهای اشتراک',
 	),
 );

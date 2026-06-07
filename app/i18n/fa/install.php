@@ -22,7 +22,7 @@ return array(
 		'_' => 'پایگاه داده',
 		'conf' => array(
 			'_' => 'پیکربندی پایگاه داده',
-			'ko' => 'یکربندی پایگاه داده خود را تأیید کنید.',
+			'ko' => 'پیکربندی پایگاه داده خود را بررسی کنید.',
 			'ok' => 'تنظیمات پایگاه داده ذخیره شد.',
 		),
 		'host' => 'هاست',
@@ -33,9 +33,9 @@ return array(
 	),
 	'check' => array(
 		'_' => 'بررسی‌ها',
-		'already_installed' => 'ما تشخیص دادم FreshRSS قبلا نصب شده',
+		'already_installed' => 'تشخیص دادیم که FreshRSS قبلاً نصب شده است.',
 		'cache' => array(
-			'nok' => 'بررسی مجوزها در <em>%1$s</em> دایرکتوری برای <em>%2$s</em> کاربر.سرور وب نیاز به دسترسی نوشتن دارد',
+			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور وب به دسترسی نوشتن نیاز دارد.',
 			'ok' => 'مجوزهای موجود در فهرست حافظه پنهان خوب است.',
 		),
 		'ctype' => array(
@@ -43,7 +43,7 @@ return array(
 			'ok' => 'شما کتابخانه مورد نیاز برای بررسی نوع کاراکتر (ctype) را دارید.',
 		),
 		'curl' => array(
-			'nok' => 'کتابخانه cURL (بسته php-curl)را نمی‌تواند پیدا کند.',
+			'nok' => 'کتابخانه cURL (بسته php-curl) پیدا نشد.',
 			'ok' => 'شما کتابخانه cURL را دارید.',
 		),
 		'data' => array(
@@ -51,18 +51,18 @@ return array(
 			'ok' => 'مجوزهای مربوط به دایرکتوری داده خوب است.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'خطا در اتصال به پایگاه داده.',
+			'ok' => 'اتصال به پایگاه داده درست است.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'جدول پایگاه داده "%s" ناقص است.',
+			'ok' => 'جدول پایگاه داده "%s" درست است.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'برخی جدول‌های پایگاه داده وجود ندارند.',
+			'ok' => 'همه جدول‌های پایگاه داده وجود دارند.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'پایگاه داده',
 		'dom' => array(
 			'nok' => 'کتابخانه مورد نیاز برای مرور DOM را نمی‌توان پیدا کرد.',
 			'ok' => 'شما کتابخانه مورد نیاز برای مرور DOM را دارید.',
@@ -77,8 +77,8 @@ return array(
 		),
 		'files' => ' نصب فایل',
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'کتابخانه پیشنهادی php-intl برای بین‌المللی‌سازی پیدا نشد.',
+			'ok' => 'کتابخانه پیشنهادی php-intl برای بین‌المللی‌سازی روی سیستم شما نصب است.',
 		),
 		'json' => array(
 			'nok' => 'کتابخانه پیشنهادی برای تجزیه JSON پیدا نشد.',
@@ -93,21 +93,21 @@ return array(
 			'ok' => 'شما کتابخانه مورد نیاز برای عبارات منظم (PCRE) را دارید.',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'درایور PDO مورد نیاز برای MySQL/MariaDB پیدا نشد.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'درایور PDO مورد نیاز برای PostgreSQL پیدا نشد.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'درایور PDO برای SQLite پیدا نشد.',
+			'ok' => 'درایور PDO برای SQLite روی سیستم شما نصب است.',
 		),
 		'pdo' => array(
 			'nok' => 'نمی‌توان PDO یا یکی از درایورهای پشتیبانی‌شده (pdo_mysql، pdo_sqlite، pdo_pgsql) را پیدا کرد.',
 			'ok' => 'شما PDO و حداقل یکی از درایورهای پشتیبانی شده (pdo_mysql، pdo_sqlite، pdo_pgsql) را دارید.',
 		),
 		'php' => array(
-			'_' => ' نصب پی اچ پی',
+			'_' => 'نصب PHP',
 			'nok' => ' نسخه PHP شما %s است اما FreshRSS حداقل به نسخه %s نیاز دارد.',
 			'ok' => ' نسخه PHP شما (%s) با FreshRSS سازگار است.',
 		),
@@ -144,7 +144,7 @@ return array(
 		'max_char' => 'حداکثر ۱۶ کاراکتر الفبایی-عددی',
 	),
 	'fix_errors_before' => 'لطفا قبل از رفتن به مرحله بعدی، خطاها را برطرف کنید.',
-	'javascript_is_better' => 'FreshRSS با فعال بودن جاوا اسکریپت، کار امد تر است.',
+	'javascript_is_better' => 'FreshRSS با فعال بودن جاوااسکریپت کارآمدتر است.',
 	'js' => array(
 		'confirm_reinstall' => 'با نصب مجدد FreshRSS، تنظیمات قبلی خود را از دست خواهید داد. آیا مطمئن هستید که می‌خواهید ادامه دهید؟',
 	),
