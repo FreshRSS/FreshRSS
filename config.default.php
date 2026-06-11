@@ -142,6 +142,10 @@ return [
 
 		# Max amount of bytes that are allowed for upload of custom favicon
 		'max_favicon_upload_size' => 1048576,	# 1 MiB
+
+		# Limits for regex, useful to limit regex during user searches
+		'regex_backtrack_limit' => 10000,
+		'regex_recursion_limit' => 100,
 	],
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
