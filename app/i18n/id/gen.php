@@ -140,6 +140,27 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Tentang FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d hari yang lalu',
+		),
+		'hour' => array(
+			0 => '%d jam yang lalu',
+		),
+		'justnow' => 'baru saja',
+		'minute' => array(
+			0 => '%d menit yang lalu',
+		),
+		'month' => array(
+			0 => '%d bulan yang lalu',
+		),
+		'second' => array(
+			0 => '%d detik yang lalu',
+		),
+		'year' => array(
+			0 => '%d tahun yang lalu',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Kategori kosong',
 		'confirm_action' => 'Apakah Anda yakin ingin melakukan ini? Ini tidak dapat dibatalkan!',
@@ -228,6 +249,7 @@ return array(
 		'categories' => 'Categories',	// TODO
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In the past',	// TODO
 		'date_published' => 'Publication Date',	// TODO
 		'date_range' => 'Date Range',	// TODO
@@ -276,7 +298,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Bagikan sistem',

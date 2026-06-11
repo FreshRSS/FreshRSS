@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de data map zijn goed.',
 		),
+		'database-connection' => array(
+			'nok' => 'Fout bij databaseverbinding.',
+			'ok' => 'Databaseverbinding is in orde.',
+		),
+		'database-table' => array(
+			'nok' => 'Databanktabel "%s" is onvolledig.',
+			'ok' => 'Databanktabel "%s" is in orde.',
+		),
+		'database-tables' => array(
+			'nok' => 'Sommige databanktabelen ontbreken.',
+			'ok' => 'Alle databanktabelen bestaan.',
+		),
+		'database-title' => 'Databank',
 		'dom' => array(
 			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM.',
 			'ok' => 'U hebt de benodigde bibliotheek om te bladeren in de DOM.',

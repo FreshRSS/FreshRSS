@@ -140,6 +140,33 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Tietoja FreshRSS-sovelluksesta',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d päivä sitten',
+			1 => '%d päivää sitten',
+		),
+		'hour' => array(
+			0 => '%d tunti sitten',
+			1 => '%d tuntia sitten',
+		),
+		'justnow' => 'juuri nyt',
+		'minute' => array(
+			0 => '%d minuutti sitten',
+			1 => '%d minuuttia sitten',
+		),
+		'month' => array(
+			0 => '%d kuukausi sitten',
+			1 => '%d kuukautta sitten',
+		),
+		'second' => array(
+			0 => '%d sekunti sitten',
+			1 => '%d sekuntia sitten',
+		),
+		'year' => array(
+			0 => '%d vuosi sitten',
+			1 => '%d vuotta sitten',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Tyhjennä luokka',
 		'confirm_action' => 'Haluatko varmasti toteuttaa toiminnon? Sitä ei voi peruuttaa!',
@@ -228,6 +255,7 @@ return array(
 		'categories' => 'Categories',	// TODO
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In the past',	// TODO
 		'date_published' => 'Publication Date',	// TODO
 		'date_range' => 'Date Range',	// TODO
@@ -276,7 +304,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Järjestelmän oma jakovalikko',

@@ -154,28 +154,28 @@ class FreshRSS_UserQuery {
 				case 'Z':	// All including PRIORITY_HIDDEN
 					$this->get_type = 'Z';
 					break;
-				case 'c':
+				case 'c':	// Category
 					$this->get_type = 'category';
 					$c = $this->categories[$id] ?? null;
 					$this->get_name = $c === null ? '' : $c->name();
 					break;
-				case 'f':
+				case 'f':	// Feed
 					$this->get_type = 'feed';
 					$f = FreshRSS_Category::findFeed($this->categories, $id);
 					$this->get_name = $f === null ? '' : $f->name();
 					break;
-				case 'i':
+				case 'i':	// Priority important feeds
 					$this->get_type = 'important';
 					break;
-				case 's':
+				case 's':	// Starred. Deprecated: use $state instead
 					$this->get_type = 'favorite';
 					break;
-				case 't':
+				case 't':	// Tag (label)
 					$this->get_type = 'label';
 					$l = $this->labels[$id] ?? null;
 					$this->get_name = $l === null ? '' : $l->name();
 					break;
-				case 'T':
+				case 'T':	// Any tag (label)
 					$this->get_type = 'all_labels';
 					break;
 			}

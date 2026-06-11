@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
 			'ok' => 'Izin untuk direktori data sudah bagus.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'Tidak dapat menemukan pustaka yang diperlukan untuk menelusuri DOM.',
 			'ok' => 'Anda memiliki pustaka yang diperlukan untuk menelusuri DOM.',

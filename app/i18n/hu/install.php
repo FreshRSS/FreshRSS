@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Ellenőrizd a(z) <em>%1$s</em> könyvtáron a(z) <em>%2$s</em> felhasználónak. A HTTP szervernek szüksége van írási jogosultságra.',
 			'ok' => 'A data könyvtár jogosultságai rendben vannak.',
 		),
+		'database-connection' => array(
+			'nok' => 'Adatbázis csatlakozási hiba.',
+			'ok' => 'Adatbázis kapcsolat rendben.',
+		),
+		'database-table' => array(
+			'nok' => 'A(z) "%s" adatbázis tábla hiányos.',
+			'ok' => 'A(z) "%s" adatbázis tábla rendben.',
+		),
+		'database-tables' => array(
+			'nok' => 'Néhány adatbázis tábla hiányzik.',
+			'ok' => 'Minden adatbázis tábla létezik.',
+		),
+		'database-title' => 'Adatbázis',
 		'dom' => array(
 			'nok' => 'A DOM böngészéséhez nem található a könyvtár.',
 			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',
@@ -64,8 +77,8 @@ return array(
 		),
 		'files' => 'Fájl telepítés',
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Nem található a nemzetköziesítéshez javasolt php-intl könyvtár.',
+			'ok' => 'Rendelkezik a nemzetköziesítéshez javasolt php-intl könyvtárral.',
 		),
 		'json' => array(
 			'nok' => 'Nem található a JSON elemző könyvtár.',
@@ -80,14 +93,14 @@ return array(
 			'ok' => 'A reguláris kifejezésekhez használt könyvtár megvan (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Nem található a MySQL/MariaDB-hez szükséges PDO illesztőprogram.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Nem található a PostgreSQL-hez szükséges PDO illesztőprogram.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'Nem található a SQLite-hoz szükséges PDO illesztőprogram.',
+			'ok' => 'Rendelkezik a SQLite-hoz szükséges PDO illesztőprogrammal.',
 		),
 		'pdo' => array(
 			'nok' => 'Nem található PDO vagy legalább egy támogató driver (pdo_sqlite, pdo_pgsql, pdo_mysql).',

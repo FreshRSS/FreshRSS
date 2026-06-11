@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Sprawdź uprawnienia użytkownika <em>%2$s</em> dla katalogu <em>%1$s</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
 			'ok' => 'Uprawnienia dla katalogu danych się zgadzają.',
 		),
+		'database-connection' => array(
+			'nok' => 'Wystąpił błąd podczas łączenia z bazą danych.',
+			'ok' => 'Połączenie z bazą danych się powiodło.',
+		),
+		'database-table' => array(
+			'nok' => 'Tabela bazy danych "%s" jest niekompletna.',
+			'ok' => 'Tabela bazy danych "%s" jest prawidłowa.',
+		),
+		'database-tables' => array(
+			'nok' => 'Brakuje niektórych tabel w bazie danych.',
+			'ok' => 'Wszystkie tabele bazy danych istnieją.',
+		),
+		'database-title' => 'Baza danych',
 		'dom' => array(
 			'nok' => 'Nie znaleziono wymaganej biblioteki do korzystania z DOM-u.',
 			'ok' => 'Znaleziono wymaganą bibliotekę do korzystania z DOM-u.',

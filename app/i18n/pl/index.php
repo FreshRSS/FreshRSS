@@ -85,14 +85,14 @@ return array(
 		'rss_view' => 'Kanał RSS',
 		'search_short' => 'Szukaj',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'Rosnąco',
 			'c' => array(
 				'name_asc' => 'Tytuł kategorii i kanału A→Z',
 				'name_desc' => 'Tytuł kategorii i kanału Z→A',
 			),
 			'date_asc' => 'Data publikacji 1→9',
 			'date_desc' => 'Data publikacji 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => 'Malejąco',
 			'f' => array(
 				'name_asc' => 'Tytuł kanału A→Z',
 				'name_desc' => 'Tytuł kanału Z→A',
@@ -104,13 +104,13 @@ return array(
 			'link_asc' => 'Odnośnik A→Z',
 			'link_desc' => 'Odnośnik Z→A',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => 'Kryteria sortowania',
+				'help' => 'W większości przypadków zaleca się sortowanie według daty <em>otrzymania</em>, ze względu na spójność oraz wydajność',
 			),
 			'rand' => 'Losowa kolejność',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => 'Drugorzędne kryteria sortowania',
+				'help' => 'Istotne tylko przy sortowaniu według kategorii lub tytułów kanałów',
 			),
 			'title_asc' => 'Tytuł A→Z',
 			'title_desc' => 'Tytuł Z→A',

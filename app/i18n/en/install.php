@@ -50,6 +50,19 @@ return array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the data directory are good.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',
+			'ok' => 'Database connection is good.',
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',
+			'ok' => 'Database table "%s" is good.',
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',
+			'ok' => 'All database tables exist.',
+		),
+		'database-title' => 'Database',
 		'dom' => array(
 			'nok' => 'Cannot find the required library to browse the DOM.',
 			'ok' => 'You have the required library to browse the DOM.',

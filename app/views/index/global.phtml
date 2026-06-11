@@ -42,6 +42,7 @@
 	$params = array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
 	unset($params['c']);
 	unset($params['a']);
+	$params['from'] = 'global';
 	$url_base = [
 		'c' => 'index',
 		'a' => 'normal',

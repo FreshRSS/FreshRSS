@@ -577,6 +577,9 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$this->view->_layout('simple');
 
 		$username = Minz_Request::paramString('username');
+		if (FreshRSS_Auth::hasAccess()) {
+			$username = Minz_User::name() ?? '';
+		}
 		$token = Minz_Request::paramString('token');
 
 		if ($username !== '') {

@@ -50,6 +50,19 @@ return array(
 			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد.',
 			'ok' => 'مجوزهای مربوط به دایرکتوری داده خوب است.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
 		'dom' => array(
 			'nok' => 'کتابخانه مورد نیاز برای مرور DOM را نمی‌توان پیدا کرد.',
 			'ok' => 'شما کتابخانه مورد نیاز برای مرور DOM را دارید.',

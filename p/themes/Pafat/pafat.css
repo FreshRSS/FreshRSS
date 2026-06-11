@@ -200,6 +200,11 @@ th {
 	border-radius: 0 3px 3px 0;
 }
 
+.group > .btn:only-child,
+.group > .dropdown:only-child > .btn {
+	border-radius: 3px;
+}
+
 .stick .btn + .btn,
 .group .btn + .btn,
 .stick .btn + input,
@@ -218,8 +223,8 @@ th {
 }
 
 .stick .btn + .dropdown > .btn,
-.group .btn + .dropdown > .btn,
-.group .dropdown + .dropdown > .btn {
+.group .btn + .dropdown:last-child > .btn,
+.group .dropdown + .dropdown:last-child > .btn {
 	border-left: none;
 	border-radius: 0 3px 3px 0;
 }
@@ -578,7 +583,7 @@ th {
 }
 
 .header > .item {
-	border-bottom: 1px solid var(--border-color-grey-dark);
+	box-shadow: inset 0 -1px 0 var(--border-color-grey-dark);
 	vertical-align: middle;
 	text-align: center;
 }
@@ -788,6 +793,20 @@ a.signin {
 	background-color: var(--background-color-grey-light);
 	border-bottom: 1px solid var(--border-color-grey-dark);
 	text-align: center;
+
+	.btn {
+		margin: 5px 10px;
+	}
+
+	.stick,
+	.group {
+		margin: 0 10px;
+	}
+
+	.stick .btn,
+	.group .btn {
+		margin: 5px 0;
+	}
 }
 
 /*=== Feed articles */
@@ -797,7 +816,6 @@ a.signin {
 }
 
 .flux .flux_header:hover,
-.flux:not(.current):hover .flux_header .title,
 .flux.current .flux_header {
 	background-color: var(--background-color-grey-hover);
 }
@@ -1072,10 +1090,6 @@ a.signin {
 		padding-bottom: 0;
 	}
 
-	.aside {
-		transition: width 200ms linear;
-	}
-
 	.aside .toggle_aside,
 	#overlay .close,
 	.dropdown-menu .toggle_aside {
@@ -1083,32 +1097,25 @@ a.signin {
 		border-bottom: 1px solid var(--border-color-grey-light);
 	}
 
-	.aside.aside_feed {
-		padding: 0;
-	}
-
 	.nav_menu {
 		padding-left: 0;
+		padding-bottom: 5px;
 
-		.nav_menu .btn {
-			margin: 5px 10px;
-		}
-
-		.nav_menu .stick,
-		.nav_menu .group {
-			margin: 0 10px;
+		.stick,
+		.group {
 			min-width: 0;
-		}
-
-		.nav_menu .stick .btn,
-		.nav_menu .group .btn {
-			margin: 5px 0;
 		}
 	}
 
 	.dropdown-target:target ~ .dropdown-toggle::after {
 		border-top: 1px solid var(--border-color-grey-dark);
 		border-left: 1px solid var(--border-color-grey-dark);
+	}
+
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-left: 1px solid var(--border-color-grey-dark);
+		border-top-left-radius: 3px;
+		border-bottom-left-radius: 3px;
 	}
 
 	.transition .name {

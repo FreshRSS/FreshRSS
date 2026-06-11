@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'Тайм-аут сповіщення HTML5',
 		),
 		'show_nav_buttons' => 'Показати кнопки навігації',
+		'show_title_unread' => 'Кількість непрочитаних статей у заголовку',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Типово ховати бічну панель',
 		'theme' => array(
 			'_' => 'Тема',
 			'deprecated' => array(
@@ -106,21 +115,22 @@ return array(
 		'small' => 'Мала',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Увімкнути сповіщення',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Банер застереження',
+			'seconds' => 'секунд (принаймні 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Банер ознайомлення',
+			'seconds' => 'секунд (0 означає не показувати)',
 		),
 	),
 	'privacy' => array(
 		'_' => 'Приватність',
 		'retrieve_extension_list' => 'Завантажувати список розширень',
+		'send_referrer_allowlist' => 'Сайти, яким можна бачити адресу вашого сервера (%s)',
 	),
 	'profile' => array(
 		'_' => 'Керування профілем',
@@ -132,6 +142,7 @@ return array(
 			'disabled' => 'Доступ через API вимкнено.',
 			'documentation_link' => 'Перегляньте <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацію та перелік відомих програм</a>',
 			'help' => 'Перегляньте <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>документацію</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Змінити пароль',
 		'confirm_new_password' => 'Підтвердьте новий пароль',
@@ -148,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Користувацькі запити',
+		'create' => 'Створити користувацький запит',
 		'deprecated' => 'Запит більше не чинний. Згадану категорію чи стрічку видалено.',
 		'description' => 'Опис',
 		'filter' => array(
@@ -155,7 +167,7 @@ return array(
 			'categories' => 'Показати категорію',
 			'feeds' => 'Показати стрічку',
 			'order' => 'Впорядкувати за датою',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => 'Замінити <i>теги стрічок</i> на <i>користувацькі мітки</i> в RSS-поширенні',
 			'search' => 'Вираз',
 			'shareOpml' => 'Увімкнути OPML-поширення відповідних категорій і стрічок',
 			'shareRss' => 'Увімкнути поширення в форматі HTML і RSS',
@@ -278,6 +290,7 @@ return array(
 			'upon_gone' => 'коли статті більше нема в оригінальній стрічці новин',
 			'upon_reception' => 'при отриманні статті',
 			'when' => 'Позначити статтю прочитаною…',
+			'when_same_guid_in_category' => 'якщо такий GUID вже є серед <i>n</i> найновіших статей категорії',
 			'when_same_title_in_category' => 'якщо котрась зі стількох найновіших статей категорії має такий самий заголовок',
 			'when_same_title_in_feed' => 'якщо котрась зі стількох найновіших статей стрічки має такий самий заголовок',
 		),
@@ -322,7 +335,7 @@ return array(
 		'share_name' => 'Підпис у меню',
 		'share_url' => 'URL-адреса поширення',
 		'title' => 'Поширення',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
@@ -357,7 +370,7 @@ return array(
 		'skip_next_article' => 'Сфокусувати наступну не відкриваючи',
 		'skip_previous_article' => 'Сфокусувати попередню не відкриваючи',
 		'title' => 'Клавіші',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Перемкнути бічну панель',
 		'toggle_media' => 'Почати/зупинити відтворення',
 		'user_filter' => 'Користувацькі запити',
 		'user_filter_help' => 'Якщо користувацький запит лише один, використовується одразу він. Інакше обирайте запити їхніми номерами.',

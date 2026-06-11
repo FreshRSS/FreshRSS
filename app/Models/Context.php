@@ -489,7 +489,7 @@ final class FreshRSS_Context {
 				self::$description = FreshRSS_Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
-			case 's':
+			case 's':	// Starred. Deprecated: use $state instead
 				self::$current_get['starred'] = true;
 				self::$name = _t('index.feed.title_fav');
 				self::$description = FreshRSS_Context::systemConf()->meta_description;
@@ -497,7 +497,7 @@ final class FreshRSS_Context {
 				// Update state if favorite is not yet enabled.
 				self::$state = self::$state | FreshRSS_Entry::STATE_FAVORITE;
 				break;
-			case 'f':
+			case 'f':	// Feed
 				// We try to find the corresponding feed. When allowing robots, always retrieve the full feed including description
 				$feed = FreshRSS_Context::systemConf()->allow_robots ? null : FreshRSS_Category::findFeed(self::$categories, $id);
 				if ($feed === null) {
@@ -509,7 +509,7 @@ final class FreshRSS_Context {
 				self::$description = $feed->description();
 				self::$get_unread = $feed->nbNotRead();
 				break;
-			case 'c':
+			case 'c':	// Category
 				// We try to find the corresponding category.
 				self::$current_get['category'] = $id;
 				$cat = null;
@@ -525,7 +525,7 @@ final class FreshRSS_Context {
 				self::$name = $cat->name();
 				self::$get_unread = $cat->nbNotRead();
 				break;
-			case 't':
+			case 't':	// Tag (label)
 				// We try to find the corresponding tag.
 				self::$current_get['tag'] = $id;
 				$tag = null;
@@ -545,7 +545,7 @@ final class FreshRSS_Context {
 				self::$name = $tag->name();
 				self::$get_unread = $tag->nbUnread();
 				break;
-			case 'T':
+			case 'T':	// Any tag (label)
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				self::$current_get['tags'] = true;
 				self::$name = _t('index.menu.mylabels');

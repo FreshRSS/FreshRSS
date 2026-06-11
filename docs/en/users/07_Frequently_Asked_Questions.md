@@ -1,3 +1,5 @@
+# Frequently asked questions
+
 We may not have answered all of your questions in the previous sections. The FAQ contains some questions that have not been answered elsewhere.
 
 ## What is `/i` at the end of the application URL?

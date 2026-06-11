@@ -34,13 +34,12 @@ class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
 		}
 		$offset = $this->getTimezoneOffset();
 		$sql = <<<SQL
-SELECT strftime('{$period}', e.date + {$offset}, 'unixepoch') AS period
-, COUNT(1) AS count
-FROM `_entry` AS e
-{$restrict}
-GROUP BY period
-ORDER BY period ASC
-SQL;
+			SELECT strftime('{$period}', e.date + {$offset}, 'unixepoch') AS period, COUNT(1) AS count
+			FROM `_entry` AS e
+			{$restrict}
+			GROUP BY period
+			ORDER BY period ASC
+			SQL;
 
 		$res = $this->fetchAssoc($sql);
 		if ($res == null) {

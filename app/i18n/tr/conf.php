@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'HTML5 bildirim zaman aşımı',
 		),
 		'show_nav_buttons' => 'Gezinme düğmelerini göster',
+		'show_title_unread' => 'Başlıkta okunmamış makale sayısını göster',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -121,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Gizlilik',
 		'retrieve_extension_list' => 'Eklenti listesini al',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Profil yönetimi',
@@ -132,6 +142,7 @@ return array(
 			'disabled' => 'API erişimi devre dışı.',
 			'documentation_link' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri ve bilinen uygulamaların listesini</a> gör',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri</a> gör',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -148,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili kategori veya besleme silinmiş.',
 		'description' => 'Açıklama',
 		'filter' => array(
@@ -278,6 +290,7 @@ return array(
 			'upon_gone' => 'artık上游 haber akışında olmadığında',
 			'upon_reception' => 'makale alındığında',
 			'when' => 'Bir makaleyi okundu olarak işaretle…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'eğer aynı başlık kategorideki en yeni <i>n</i> makalede zaten varsa',
 			'when_same_title_in_feed' => 'eğer aynı başlık beslemedeki en yeni <i>n</i> makalede zaten varsa',
 		),
@@ -322,7 +335,7 @@ return array(
 		'share_name' => 'Görüntülenecek paylaşım adı',
 		'share_url' => 'Kullanılacak paylaşım URL’si',
 		'title' => 'Paylaşım',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

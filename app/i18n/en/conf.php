@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'HTML5 notification timeout',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',
+		'show_title_unread' => 'Show number of unread articles in the title',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',
+			'all' => 'For all categories and feeds',
+			'important' => 'For important feeds only',
+			'important_locked' => 'Important feeds always show their unread count.',
+			'none' => 'Never',
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',
 		'theme' => array(
 			'_' => 'Theme',
 			'deprecated' => array(
@@ -121,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',
 		'retrieve_extension_list' => 'Retrieve extension list',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',
 	),
 	'profile' => array(
 		'_' => 'Profile management',
@@ -132,6 +142,7 @@ return array(
 			'disabled' => 'The API access is disabled.',
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',
 		),
 		'change_password' => 'Change password',
 		'confirm_new_password' => 'Confirm new password',
@@ -148,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'User queries',
+		'create' => 'Create new user query',
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',
 		'description' => 'Description',
 		'filter' => array(
@@ -278,6 +290,7 @@ return array(
 			'upon_gone' => 'when it is no longer in the upstream news feed',
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',
 		),

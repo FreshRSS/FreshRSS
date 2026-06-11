@@ -14,12 +14,6 @@ parameters:
             count: 1
             path: src/HTTP/Psr18Client.php
 
-        # SimplePie\Content\Type\Sniffer::__construct(): Parameter $file could be mixed due to BC.
-        -
-            message: '(Result of \|\| is always false\.)'
-            count: 1
-            path: src/Content/Type/Sniffer.php
-
         # Not used since https://github.com/simplepie/simplepie/commit/b2eb0134d53921e75f0fa70b1cf901ed82b988b1 but cannot be removed due to BC.
         - '(Constructor of class SimplePie\\Enclosure has an unused parameter \$javascript\.)'
 

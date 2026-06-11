@@ -258,21 +258,28 @@ final class FreshRSS_http_Util {
 
 	/**
 	 * @param non-empty-string $url
+	 * @param string|null $cachePath path to cache file, or `null` to disable caching
 	 * @param string $type {html,ico,json,opml,xml}
 	 * @param array<string,mixed> $attributes
 	 * @param array<int,mixed> $curl_options
-	 * @return array{body:string,effective_url:string,redirect_count:int,fail:bool}
+	 * @return array{body:string,effective_url:string,redirect_count:int,fail:bool,status:int,error:string}
+	 *   `status` is the HTTP response code (e.g. 200, 404), or a custom negative value:
+	 *   * `-200` served from local cache;
+	 *   * `-429` blocked by active `Retry-After` period;
+	 *   * `-500` `curl_init()` failure.
 	 */
-	public static function httpGet(string $url, string $cachePath, string $type = 'html', array $attributes = [], array $curl_options = []): array {
+	public static function httpGet(string $url, ?string $cachePath = null, string $type = 'html', array $attributes = [], array $curl_options = []): array {
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
-		$cacheMtime = @filemtime($cachePath);
-		if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
-			$body = @file_get_contents($cachePath);
-			if ($body != false) {
-				syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
-				return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false];
+		if ($cachePath !== null) {
+			$cacheMtime = @filemtime($cachePath);
+			if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
+				$body = @file_get_contents($cachePath);
+				if ($body != false) {
+					syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
+					return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false, 'status' => -200, 'error' => ''];
+				}
 			}
 		}
 
@@ -299,7 +306,7 @@ final class FreshRSS_http_Util {
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
-			return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true];
+			return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true, 'status' => -429, 'error' => ''];
 		}
 
 		if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
@@ -328,7 +335,7 @@ final class FreshRSS_http_Util {
 		// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 		$ch = curl_init();
 		if ($ch === false) {
-			return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true];
+			return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 		}
 		curl_setopt_array($ch, [
 			CURLOPT_URL => $url,
@@ -348,9 +355,7 @@ final class FreshRSS_http_Util {
 
 		$responseHeaders = '';
 		curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
-			if (trim($header) !== '') {	// Skip e.g. separation with trailer headers
-				$responseHeaders .= $header;
-			}
+			$responseHeaders .= $header;
 			return strlen($header);
 		});
 
@@ -359,6 +364,21 @@ final class FreshRSS_http_Util {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (bool)$attributes['ssl_verify']);
 			if (empty($attributes['ssl_verify'])) {
 				curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
+			}
+		}
+
+		if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
+			$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+			if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
+				$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+			}
+		} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
+			// Legacy PHP 8.2-
+			if (defined('CURLOPT_PROTOCOLS')) {
+				$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+			}
+			if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+				$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
 			}
 		}
 
@@ -416,11 +436,12 @@ final class FreshRSS_http_Util {
 			}
 		}
 
-		if (file_put_contents($cachePath, $body) === false) {
+		if ($cachePath !== null && file_put_contents($cachePath, $body) === false) {
 			Minz_Log::warning("Error saving cache $cachePath for $url");
 		}
 
-		return ['body' => $body, 'effective_url' => $c_effective_url, 'redirect_count' => $c_redirect_count, 'fail' => $fail];
+		return ['body' => $body, 'effective_url' => $c_effective_url, 'redirect_count' => $c_redirect_count,
+			'fail' => $fail, 'status' => $c_status, 'error' => $c_error];
 	}
 
 	/**
@@ -496,9 +517,10 @@ final class FreshRSS_http_Util {
 	}
 
 	public static function httpAuthUser(bool $onlyTrusted = true): string {
-		$auths = array_unique(
-			array_intersect_key($_SERVER, ['REMOTE_USER' => '', 'REDIRECT_REMOTE_USER' => '', 'HTTP_REMOTE_USER' => '', 'HTTP_X_WEBAUTH_USER' => ''])
-		);
+		$auths = array_unique(array_filter(
+			array_intersect_key($_SERVER, ['REMOTE_USER' => '', 'REDIRECT_REMOTE_USER' => '', 'HTTP_REMOTE_USER' => '', 'HTTP_X_WEBAUTH_USER' => '']),
+			fn($value) => is_string($value) && $value !== ''
+		));
 		if (count($auths) > 1) {
 			Minz_Log::warning('Multiple HTTP authentication headers!');
 			return '';

@@ -198,6 +198,25 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+
+
+	#[DataProvider('provideModifiedDateSearch')]
+	public static function test__construct_whenInputContainsModifiedDate(string $input, ?int $min_modified_value, ?int $max_modified_value): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($min_modified_value, $search->getMinModifiedDate());
+		self::assertSame($max_modified_value, $search->getMaxModifiedDate());
+	}
+
+	/**
+	 * @return list<list<mixed>>
+	 */
+	public static function provideModifiedDateSearch(): array {
+		return [
+			['mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z', strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			['mdate:/2008-05-11', null, strtotime('2008-05-12') - 1],
+		];
+	}
+
 	#[DataProvider('provideUserdateSearch')]
 	public static function test__construct_whenInputContainsUserdate(string $input, ?int $min_userdate_value, ?int $max_userdate_value): void {
 		$search = new FreshRSS_Search($input);
@@ -247,7 +266,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 * @param array{0:string,1:list<string|int>} $expectedResult
 	 */
 	#[DataProvider('provideSavedQueriesExpansion')]
-	public static function test__construct_whenInputContainsSavedQueries_expandsSavedSearches(array $queries, string $input, array $expectedResult): void {
+	public static function test__construct_whenInputContainsSavedQueries_expandsSavedSearches(array $queries, string $input,
+		array $expectedResult, string $expectedToString): void {
 		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
 		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
 		$newUserConf->queries = $queries;
@@ -258,13 +278,14 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			[$actualValues, $actualSql] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $search);
 			self::assertSame($expectedResult[0], trim($actualSql));
 			self::assertSame($expectedResult[1], $actualValues);
+			self::assertSame($expectedToString, $search->toString(expandUserQueries: false));
 		} finally {
 			FreshRSS_Context::setUserConf($previousUserConf);
 		}
 	}
 
 	/**
-	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>}}>
+	 * @return array<string,array{0:list<array{search:string}>,1:string,2:array{0:string,1:list<string|int>},3:string}>
 	 */
 	public static function provideSavedQueriesExpansion(): array {
 		return [
@@ -278,6 +299,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					'',
 					[],
 				],
+				'S:3',
 			],
 			'not found name' => [
 				[
@@ -289,6 +311,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					'',
 					[],
 				],
+				'search:Third',
 			],
 			'expanded single group name' => [
 				[
@@ -300,6 +323,45 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					'((e.author LIKE ?)) OR ((e.title LIKE ?))',
 					['%Alice%', '%World%'],
 				],
+				'search:First OR search:Second',
+			],
+			'expanded single group name quotes' => [
+				[
+					['search' => 'author:Alice', 'name' => 'A First'],
+					['search' => 'intitle:World', 'name' => 'A Second'],
+				],
+				'search:"A First" OR search:\'A Second\'',
+				[
+					'((e.author LIKE ?)) OR ((e.title LIKE ?))',
+					['%Alice%', '%World%'],
+				],
+				'(search:"A First") OR (search:"A Second")',
+			],
+			'expanded single group name quotes special characters' => [
+				[
+					['search' => 'author:Alice', 'name' => 'A or B'],
+					['search' => 'intitle:World', 'name' => '(C OR D)'],
+				],
+				'search:"A or B" OR search:\'(C OR D)\'',
+				[
+					'((e.author LIKE ?)) OR ((e.title LIKE ?))',
+					['%Alice%', '%World%'],
+				],
+				'(search:"A or B") OR (search:"(C OR D)")',
+			],
+			'separate groups with AND' => [
+				[
+					['search' => 'author:Alice'],
+					['search' => 'intitle:World'],
+					['search' => 'inurl:Example'],
+					['search' => 'author:Bob'],
+				],
+				'S:0,1 S:2,3,5',
+				[
+					'(((e.author LIKE ?)) OR ((e.title LIKE ?))) AND (((e.link LIKE ?)) OR ((e.author LIKE ?)))',
+					['%Alice%', '%World%', '%Example%', '%Bob%'],
+				],
+				'S:0,1 S:2,3,5',
 			],
 			'separate groups with OR' => [
 				[
@@ -310,20 +372,22 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				],
 				'S:0,1 OR S:2,3,5',
 				[
-					'((e.author LIKE ?)) OR ((e.title LIKE ?)) OR ((e.link LIKE ?)) OR ((e.author LIKE ?))',
+					'(((e.author LIKE ?)) OR ((e.title LIKE ?))) OR (((e.link LIKE ?)) OR ((e.author LIKE ?)))',
 					['%Alice%', '%World%', '%Example%', '%Bob%'],
 				],
+				'S:0,1 OR S:2,3,5',
 			],
 			'mixed with other clauses' => [
 				[
 					['search' => 'author:Alice'],
 					['search' => 'intitle:World'],
 				],
-				'intitle:Hello S:0,1 date:2025-10',
+				'date:2025-10 intitle:Hello S:0,1',
 				[
-					'((e.title LIKE ?)) AND ((e.author LIKE ?)) OR ((e.title LIKE ?)) AND ((e.id >= ? AND e.id <= ?))',
-					['%Hello%', '%Alice%', '%World%', strtotime('2025-10-01') . '000000', (strtotime('2025-11-01') - 1) . '000000'],
+					'((e.id >= ? AND e.id <= ? AND e.title LIKE ?)) AND (((e.author LIKE ?)) OR ((e.title LIKE ?)))',
+					[strtotime('2025-10-01') . '000000', (strtotime('2025-11-01') - 1) . '000000', '%Hello%', '%Alice%', '%World%'],
 				],
+				'date:2025-10 intitle:Hello S:0,1',
 			],
 		];
 	}
@@ -621,6 +685,41 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	public function test__add_single_search_combines_conditions_with_and(): void {
+		$startTime = strtotime('2026-02-21T12:00:00Z');
+		$searches = new FreshRSS_BooleanSearch('');
+
+		$search = new FreshRSS_Search('');
+		$search->setMinDate($startTime);
+		$search->setMinModifiedDate($startTime);
+		$searches->add($search);
+
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
+
+		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
+		self::assertSame('(e.id >= ? AND e.`lastModified` >= ?)', $filterSearch);
+		self::assertSame([$startTime . '000000', $startTime], $filterValues);
+	}
+
+	public function test__add_multiple_searches_combines_conditions_with_or(): void {
+		$startTime = strtotime('2026-02-21T12:00:00Z');
+		$searches = new FreshRSS_BooleanSearch('');
+
+		$search = new FreshRSS_Search('');
+		$search->setMinDate($startTime);
+		$searches->add($search);
+
+		$search = new FreshRSS_Search('');
+		$search->setMinModifiedDate($startTime);
+		$searches->add($search);
+
+		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
+
+		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
+		self::assertSame('(e.id >= ?) OR (e.`lastModified` >= ?)', $filterSearch);
+		self::assertSame([$startTime . '000000', $startTime], $filterValues);
+	}
+
 	/**
 	 * @param array<string> $values
 	 */
@@ -666,6 +765,22 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'(e.date <= ?)',
 				[strtotime('2008-05-11T23:59:59Z')],
 			],
+			// Basic modified date operator tests
+			[
+				'mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'(e.`lastModified` >= ? AND COALESCE(e.`lastModified`, 0) <= ?)',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
+				'mdate:2007-03-01/',
+				'(e.`lastModified` >= ?)',
+				[strtotime('2007-03-01T00:00:00Z')],
+			],
+			[
+				'mdate:/2008-05-11',
+				'(COALESCE(e.`lastModified`, 0) <= ?)',
+				[strtotime('2008-05-11T23:59:59Z')],
+			],
 			// Basic userdate operator tests
 			[
 				'userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
@@ -694,8 +809,13 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			[
+				'!mdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
+				'((COALESCE(e.`lastModified`, 0) < ? OR e.`lastModified` > ?))',
+				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
+			],
+			[
 				'!userdate:2007-03-01T13:00:00Z/2008-05-11T15:30:00Z',
-				'((e.`lastUserModified` < ? OR e.`lastUserModified` > ?))',
+				'((COALESCE(e.`lastUserModified`, 0) < ? OR e.`lastUserModified` > ?))',
 				[strtotime('2007-03-01T13:00:00Z'), strtotime('2008-05-11T15:30:00Z')],
 			],
 			// Combined date operators
@@ -708,6 +828,11 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'pubdate:2007-03-01/ userdate:/2008-05-11',
 				'(e.date >= ? AND e.`lastUserModified` <= ?)',
 				[strtotime('2007-03-01T00:00:00Z'), strtotime('2008-05-11T23:59:59Z')],
+			],
+			[
+				'userdate:2007-03-01/ mdate:/2008-05-11',
+				'(COALESCE(e.`lastModified`, 0) <= ? AND e.`lastUserModified` >= ?)',
+				[strtotime('2008-05-11T23:59:59Z'), strtotime('2007-03-01T00:00:00Z')],
 			],
 			[
 				'date:2007-03-01/ userdate:2007-06-01/',
@@ -816,6 +941,16 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				"author:'/u/Alice'",
 				"(e.author LIKE ?)",
 				['%/u/Alice%'],
+			],
+			[	// Not a regex
+				"inurl:'/shorts/'",
+				"(e.link LIKE ?)",
+				['%/shorts/%'],
+			],
+			[	// Not a regex
+				'inurl:"/shorts/" OR inurl:"/spam/"',
+				'(e.link LIKE ?) OR (e.link LIKE ?)',
+				['%/shorts/%', '%/spam/%'],
 			],
 			[	// Regex with literal 'or'
 				'intitle:/^A or B/i',
@@ -973,24 +1108,26 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				<<<'EOD'
 					e:1,2 f:10,11 c:20,21 L:30,31 labels:"My label,My other label"
 					userdate:2025-01-01T00:00:00/2026-01-01T00:00:00
+					mdate:2025-12
 					pubdate:2025-02-01T00:00:00/2026-01-01T00:00:00
 					date:2025-03-01T00:00:00/2026-01-01T00:00:00
 					intitle:/<Inter&sting>/i intitle:"g ' & d\\:"
 					intext:/<Inter&sting>/i intext:g&d
 					author:/Bob/ author:"/u/Alice" author:Alice
-					inurl:/https/ inurl:example.net
+					inurl:/https/ inurl:"/shorts/" inurl:example.net
 					#/tag2/ #tag1
-					/search_regex/i "quoted search" search
+					/search_regex/i "quoted search" search search:"A user search" search:U1
 					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
 					-userdate:2025-06-01T00:00:00/2025-09-01T00:00:00
+					-mdate:2025-12-27
 					-pubdate:2025
 					-date:P30D
 					-intitle:/Spam/i -intitle:"'bad"
 					-intext:/Spam/i -intext:"'bad"
 					-author:/Dave/i -author:"/u/Charlie" -author:Charlie
-					-inurl:/ftp/ -inurl:example.com
+					-inurl:/ftp/ -inurl:"/spam/" -inurl:example.com
 					-#/tag4/ -#tag3
-					-/not_regex/i -"not quoted" -not_search
+					-/not_regex/i -"not quoted" -not_search -search:"Negative user search" -search:U2
 					EOD
 			],
 		];
@@ -1193,6 +1330,24 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['e ((a b) (c d))', 'e', '((a b) (c d))'],
 			['date:2024/', 'date:/2025', ''],
 			['date:2024/ a', 'date:/2025', 'a'],
+		];
+	}
+
+	#[DataProvider('provideNeedVisibility')]
+	public function testNeedVisibility(string $input, ?int $expected): void {
+		$search = new FreshRSS_Search($input);
+		self::assertSame($expected, $search->needVisibility());
+	}
+
+	/** @return list<list<string|int|null>> */
+	public static function provideNeedVisibility(): array {
+		return [
+			['', null],
+			['f:1', FreshRSS_Feed::PRIORITY_HIDDEN],
+			['c:2', FreshRSS_Feed::PRIORITY_CATEGORY],
+			['f:1 c:2', FreshRSS_Feed::PRIORITY_HIDDEN],
+			['-f:1', null],
+			['-c:2', null],
 		];
 	}
 }

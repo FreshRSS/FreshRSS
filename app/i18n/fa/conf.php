@@ -54,6 +54,15 @@ return array(
 			'timeout' => ' وقفه اعلان HTML5',
 		),
 		'show_nav_buttons' => ' دکمه های ناوبری را نشان دهید',
+		'show_title_unread' => 'نمایش تعداد مقالات خوانده نشده در عنوان',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => ' موضوع',
 			'deprecated' => array(
@@ -121,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'حریم خصوصی',
 		'retrieve_extension_list' => 'بازیابی لیست افزونه‌ها',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => ' مدیریت پروفایل',
@@ -132,6 +142,7 @@ return array(
 			'disabled' => 'غیرفعال',
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">مستندات و فهرست برنامه‌های شناخته‌شده</a>',	// IGNORE
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'تغییر رمز عبور',
 		'confirm_new_password' => 'تأیید رمز عبور جدید',
@@ -148,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => ' پرس و جوهای کاربر',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => ' این عبارت دیگر معتبر نیست. دسته یا فید ارجاع شده حذف شده است.',
 		'description' => 'توضیحات',
 		'filter' => array(
@@ -278,6 +290,7 @@ return array(
 			'upon_gone' => ' زمانی که دیگر در فید اخبار بالادستی نیست',
 			'upon_reception' => ' پس از دریافت مقاله',
 			'when' => ' علامت گذاری یک مقاله به عنوان خوانده شده…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'اگر عنوان مشابهی در بخش بالا وجود دارد <i>n</i> تازه‌ترین مقالات این دسته',
 			'when_same_title_in_feed' => ' اگر عنوان یکسانی از قبل در <i>n</i> جدیدترین مقالات بالا وجود داشته باشد (از فید)',
 		),

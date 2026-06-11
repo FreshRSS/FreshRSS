@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'Batas waktu pemberitahuan HTML5',
 		),
 		'show_nav_buttons' => 'Tampilkan tombol navigasi',
+		'show_title_unread' => 'Tampilkan jumlah artikel yang belum dibaca di judul',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -121,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privasi',
 		'retrieve_extension_list' => 'Ambil daftar ekstensi',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Pengelolaan Profil',
@@ -132,6 +142,7 @@ return array(
 			'disabled' => 'Akses API dinonaktifkan.',
 			'documentation_link' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentasi dan daftar aplikasi yang diketahui</a>',
 			'help' => 'Lihat <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentasi</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -148,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Pencarian Pengguna',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Pencarian ini tidak valid lagi. Kategori atau umpan yang dirujuk telah dihapus.',
 		'description' => 'Deskripsi',
 		'filter' => array(
@@ -278,6 +290,7 @@ return array(
 			'upon_gone' => 'saat artikel hilang dari umpan situs aslinya',
 			'upon_reception' => 'saat menerima artikel',
 			'when' => 'Tandai artikel sebagai sudah dibaca…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dalam kategori',
 			'when_same_title_in_feed' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dari umpan',
 		),
@@ -322,7 +335,7 @@ return array(
 		'share_name' => 'Nama layanan untuk ditampilkan',
 		'share_url' => 'URL berbagi yang digunakan',
 		'title' => 'Berbagi',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

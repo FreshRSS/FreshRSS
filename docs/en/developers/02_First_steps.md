@@ -35,7 +35,7 @@ You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or with 
 make stop
 ```
 
-If you’re interested in the configuration, the `make` commands are defined in the [`Makefile`](/Makefile).
+If you’re interested in the configuration, the `make` commands are defined in the [`Makefile`](https://github.com/FreshRSS/FreshRSS/blob/edge/Makefile).
 
 If you need to use a different tag image (default is `alpine`), you can set the `TAG` environment variable:
 
@@ -70,7 +70,7 @@ Contributions which don’t follow the coding style will be rejected as long as 
 ## GitHub Actions
 
 The code will be checked for every pull request commit on GitHub via [GitHub Actions](https://github.com/FreshRSS/FreshRSS/actions).
-See the configuration file [`tests.yml`](../../../.github/workflows/tests.yml).
+See the configuration file [`tests.yml`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/workflows/tests.yml).
 
 ## Running fixes & tests
 
@@ -107,8 +107,8 @@ apk add git make npm php-cli php-curl php-ctype php-dom php-mbstring php-openssl
 
 ### Partial fixes & tests
 
-- composer-based: `npm run fix && npm test` or see the [`scripts` section of `composer.json`](../../../composer.json) for individual tests or fixes such as `composer phpstan`
-- npm-based: `npm run fix && npm test` or see the [`scripts` section of `package.json`](../../../package.json) for individual tests or fixes such as `npm run rtlcss`
+- composer-based: `npm run fix && npm test` or see the [`scripts` section of `composer.json`](https://github.com/FreshRSS/FreshRSS/blob/edge/composer.json) for individual tests or fixes such as `composer phpstan`
+- npm-based: `npm run fix && npm test` or see the [`scripts` section of `package.json`](https://github.com/FreshRSS/FreshRSS/blob/edge/package.json) for individual tests or fixes such as `npm run rtlcss`
 
 ### Tests summary
 
@@ -121,7 +121,7 @@ A short (not complete) summary:
 > ℹ Check [`php.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/php.instructions.md) for detailed coding conventions (both for humans and AI agents).
 
 - Syntax of `php` and `phtml` files is checked.
-- translation files (`i18n`) are checked ([more information about i18n files](internationalization.html)).
+- translation files (`i18n`) are checked ([more information about i18n files](../internationalization.html)).
 - unit test (`tests`) are run by [PHPunit](https://phpunit.de/).
 - Linter:
   - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)

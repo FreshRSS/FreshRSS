@@ -332,7 +332,7 @@ final class Minz_ExtensionManager {
 	 * hook will receive the initial argument and return a result which will be
 	 * passed as an argument to the next extension hook and so on.
 	 *
-	 * If a hook return a null value, the method is stopped and return null.
+	 * If a hook return a null or false value, the method is stopped and that value is returned.
 	 *
 	 * @param Minz_HookType $hook_type is the hook type to call.
 	 * @param mixed $arg is the argument to pass to the first extension hook.
@@ -344,7 +344,7 @@ final class Minz_ExtensionManager {
 		foreach (self::retrieveHookList($hook_type) as $hook) {
 			$result = call_user_func($hook->getFunction(), $arg);
 
-			if ($result === null) {
+			if ($result === null || $result === false) {
 				break;
 			}
 

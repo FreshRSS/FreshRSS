@@ -74,6 +74,12 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->bottomline_date = Minz_Request::paramBoolean('bottomline_date');
 			FreshRSS_Context::userConf()->bottomline_link = Minz_Request::paramBoolean('bottomline_link');
 			FreshRSS_Context::userConf()->show_nav_buttons = Minz_Request::paramBoolean('show_nav_buttons');
+			FreshRSS_Context::userConf()->show_title_unread = Minz_Request::paramBoolean('show_title_unread');
+			$showUnreadCount = Minz_Request::paramString('show_unread_count');
+			if (in_array($showUnreadCount, ['all', 'important', 'none'], true)) {
+				FreshRSS_Context::userConf()->show_unread_count = $showUnreadCount;
+			}
+			FreshRSS_Context::userConf()->sidebar_hidden_by_default = Minz_Request::paramBoolean('sidebar_hidden_by_default');
 			FreshRSS_Context::userConf()->html5_notif_timeout = max(0, Minz_Request::paramInt('html5_notif_timeout'));
 			FreshRSS_Context::userConf()->html5_enable_notif = Minz_Request::paramBoolean('html5_enable_notif');
 			FreshRSS_Context::userConf()->good_notification_timeout = max(0, Minz_Request::paramInt('good_notification_timeout'));
@@ -541,7 +547,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 
 			Minz_Request::good(
 				_t('feedback.conf.updated'),
-				[ 'c' => 'configure', 'a' => 'queries', 'params' => ['id' => (string)$id] ],
+				[ 'c' => 'configure', 'a' => Minz_Request::paramStringNull('from') ?? 'queries', 'params' => ['id' => (string)$id] ],
 				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 		}
 
@@ -577,32 +583,59 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	/**
 	 * This action handles the creation of a user query.
 	 *
-	 * It gets the GET parameters and stores them in the configuration query
-	 * storage. Before it is saved, the unwanted parameters are unset to keep
-	 * lean data.
+	 * It gets the GET or POST parameters and stores them in the configuration query
+	 * storage.
 	 */
 	public function bookmarkQueryAction(): void {
 		if (!Minz_Request::isPost()) {
 			Minz_Error::error(403);
 			return;
 		}
-		$queries = [];
-		foreach (FreshRSS_Context::userConf()->queries as $key => $query) {
-			$queries[$key] = (new FreshRSS_UserQuery($query, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
+
+		$queries = FreshRSS_Context::userConf()->queries;
+		$id = count($queries);
+
+		/** @var array{get?:string,name?:string,order?:string,search?:string,state?:int,shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $params */
+		$params = Minz_Request::paramArray('query') ?: array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
+		$name = ($params['name'] ?? '') ?: _t('conf.query.number', $id + 1);
+		$queryParams = [];
+
+		if (is_string($params['get'] ?? null)) {
+			$queryParams['get'] = $params['get'];
 		}
-		$params = array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
-		unset($params['name']);
-		unset($params['rid']);
-		/** @var array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool,publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string} $params */
-		$params['url'] = Minz_Url::display(['params' => $params]);
-		$params['name'] = _t('conf.query.number', count($queries) + 1);
-		$queries[] = (new FreshRSS_UserQuery($params, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
+		if (is_string($params['order'] ?? null)) {
+			$queryParams['order'] = $params['order'];
+		}
+		if (is_string($params['search'] ?? null)) {
+			// Search must be as plain text to be XML-encoded or URL-encoded depending on the situation
+			$queryParams['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
+		}
+		if (is_array($params['state'] ?? null)) {
+			$queryParams['state'] = (int)array_sum(array_map('intval', $params['state']));
+		}
+		$queryParams['token'] = FreshRSS_UserQuery::generateToken($name);
+		$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
+		$queryParams['name'] = $name;
+		if (is_string($params['description'] ?? null)) {
+			$queryParams['description'] = $params['description'];
+		}
+		if (is_string($params['imageUrl'] ?? null)) {
+			$queryParams['imageUrl'] = $params['imageUrl'];
+		}
+		if (ctype_digit($params['shareOpml'] ?? '')) {
+			$queryParams['shareOpml'] = (bool)$params['shareOpml'];
+		}
+		if (ctype_digit($params['shareRss'] ?? '')) {
+			$queryParams['shareRss'] = (bool)$params['shareRss'];
+		}
+
+		$queries[$id] = (new FreshRSS_UserQuery($queryParams, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
 
 		FreshRSS_Context::userConf()->queries = $queries;
 		FreshRSS_Context::userConf()->save();
 
 		Minz_Request::good(
-			_t('feedback.conf.query_created', $params['name']),
+			_t('feedback.conf.query_created', $name),
 			[ 'c' => 'configure', 'a' => 'queries' ],
 			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 		);
@@ -654,6 +687,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	public function privacyAction(): void {
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::userConf()->retrieve_extension_list = Minz_Request::paramBoolean('retrieve_extension_list');
+			FreshRSS_Context::userConf()->send_referrer_allowlist = Minz_Request::paramTextToArray('send_referrer_allowlist');
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 

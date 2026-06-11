@@ -54,6 +54,15 @@ return array(
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
+		'show_title_unread' => 'Afficher le nombre d’articles non lus dans le titre',
+		'show_unread_count' => array(
+			'_' => 'Afficher le nombre d’articles non lus dans la barre latérale',
+			'all' => 'Pour toutes les catégories et tous les flux',
+			'important' => 'Pour les flux importants uniquement',
+			'important_locked' => 'Les flux importants affichent toujours leur nombre d’articles non lus.',
+			'none' => 'Jamais',
+		),
+		'sidebar_hidden_by_default' => 'Masquer la barre latérale par défaut',
 		'theme' => array(
 			'_' => 'Thème',
 			'deprecated' => array(
@@ -121,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Vie privée',
 		'retrieve_extension_list' => 'Récupération de la liste des extensions',
+		'send_referrer_allowlist' => 'Sites autorisés à voir l’adresse de votre serveur (%s)',
 	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
@@ -132,6 +142,7 @@ return array(
 			'disabled' => 'L’accès API est désactivé.',
 			'documentation_link' => 'Voir <a href="https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html" target="_blank">la documentation et une liste d’applications compatibles</a>',
 			'help' => 'Voir <a href="https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html" target=_blank>la documentation</a>',
+			'security_warning' => 'Utilisez HTTPS. Le mot de passe API est transmis en clair et peut apparaître dans les journaux du serveur s’il est envoyé via GET.',
 		),
 		'change_password' => 'Changer le mot de passe',
 		'confirm_new_password' => 'Confirmer le mot de passe',
@@ -148,6 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Filtres utilisateurs',
+		'create' => 'Créer un nouveau filtre utilisateur',
 		'deprecated' => 'Ce filtre n’est plus valide. La catégorie ou le flux concerné a été supprimé.',
 		'description' => 'Description',	// IGNORE
 		'filter' => array(
@@ -278,6 +290,7 @@ return array(
 			'upon_gone' => 'lorsqu’il n’est plus dans le flux d’actualités en amont',
 			'upon_reception' => 'dès la réception du nouvel article',
 			'when' => 'Marquer un article comme lu…',
+			'when_same_guid_in_category' => 'si un même GUID existe déjà dans les <i>n</i> articles plus récents de la catégorie',
 			'when_same_title_in_category' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents de la catégorie',
 			'when_same_title_in_feed' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents du flux',
 		),
@@ -322,7 +335,7 @@ return array(
 		'share_name' => 'Nom du partage à afficher',
 		'share_url' => 'URL du partage à utiliser',
 		'title' => 'Partage',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

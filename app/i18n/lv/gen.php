@@ -36,9 +36,9 @@ return array(
 			'open' => 'Open menu',	// TODO
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'Nākamais raksts',
+			'prev' => 'Iepriekšējais raksts',
+			'up' => 'Doties uz augšu',
 		),
 		'open_url' => 'Atvērt URL',
 		'promote' => 'Paaugstināt amatu',
@@ -137,8 +137,41 @@ return array(
 	),
 	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',	// TODO
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Par FreshRSS',
+	),
+	'interval' => array(
+		'day' => array(
+			0 => 'pirms %d diena',
+			1 => 'pirms %d dienas',
+			2 => 'pirms %d dienu',
+		),
+		'hour' => array(
+			0 => 'pirms %d stunda',
+			1 => 'pirms %d stundas',
+			2 => 'pirms %d stundu',
+		),
+		'justnow' => 'tikko',
+		'minute' => array(
+			0 => 'pirms %d minūte',
+			1 => 'pirms %d minūtes',
+			2 => 'pirms %d minūšu',
+		),
+		'month' => array(
+			0 => 'pirms %d mēnesis',
+			1 => 'pirms %d mēneši',
+			2 => 'pirms %d mēnešu',
+		),
+		'second' => array(
+			0 => 'pirms %d sekunde',
+			1 => 'pirms %d sekundes',
+			2 => 'pirms %d sekunžu',
+		),
+		'year' => array(
+			0 => 'pirms %d gads',
+			1 => 'pirms %d gadi',
+			2 => 'pirms %d gadu',
+		),
 	),
 	'js' => array(
 		'category_empty' => 'Tukša kategorija',
@@ -151,7 +184,7 @@ return array(
 			'request_failed' => 'Pieprasījums nav izdevies, iespējams, to izraisījušas interneta savienojuma problēmas.',
 			'title_new_articles' => 'FreshRSS: jauni raksti!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Bez birku',
 		'new_article' => 'Ir pieejami jauni raksti, noklikšķiniet, lai atsvaidzinātu lapu..',
 		'should_be_activated' => 'JavaScript jābūt ieslēgtam',
 		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
@@ -194,7 +227,7 @@ return array(
 		'authentication' => 'Autentifikācija',
 		'check_install' => 'Uzstādīšanas pārbaude',
 		'configuration' => 'Konfigurācija',
-		'display' => 'Display',	// TODO
+		'display' => 'Displejs',
 		'extensions' => 'Paplašinājumi',
 		'logs' => 'Žurnāls',
 		'privacy' => 'Privacy',	// TODO
@@ -228,6 +261,7 @@ return array(
 		'categories' => 'Categories',	// TODO
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In the past',	// TODO
 		'date_published' => 'Publication Date',	// TODO
 		'date_range' => 'Date Range',	// TODO
@@ -276,7 +310,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Sistēmas koplietošana',

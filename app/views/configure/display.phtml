@@ -275,6 +275,39 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="show_title_unread">
+					<input type="checkbox" name="show_title_unread" id="show_title_unread" value="1"<?=
+						FreshRSS_Context::userConf()->show_title_unread ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::userConf()->show_title_unread ?>" />
+					<?= _t('conf.display.show_title_unread') ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="show_unread_count"><?= _t('conf.display.show_unread_count') ?></label>
+			<div class="group-controls">
+				<?php $suc = FreshRSS_Context::userConf()->show_unread_count; ?>
+				<select name="show_unread_count" id="show_unread_count">
+					<option value="all"<?= $suc === 'all' ? ' selected="selected"' : '' ?>><?= _t('conf.display.show_unread_count.all') ?></option>
+					<option value="important"<?= $suc === 'important' ? ' selected="selected"' : '' ?>><?= _t('conf.display.show_unread_count.important') ?></option>
+					<option value="none"<?= $suc === 'none' ? ' selected="selected"' : '' ?>><?= _t('conf.display.show_unread_count.none') ?></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="sidebar_hidden_by_default">
+					<input type="checkbox" name="sidebar_hidden_by_default" id="sidebar_hidden_by_default" value="1"<?=
+						FreshRSS_Context::userConf()->sidebar_hidden_by_default ? ' checked="checked"' : '' ?> />
+					<?= _t('conf.display.sidebar_hidden_by_default') ?>
+				</label>
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>

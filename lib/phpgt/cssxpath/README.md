@@ -46,7 +46,7 @@ $document = new DOMDocument();
 $document->loadHTML($html);
 
 $xpath = new DOMXPath($document);
-$inputElementList = $xpath->query(new Translator("form>label>input");
+$inputElementList = $xpath->query(new Translator("form>label>input"));
 ```
 
 ## Using this library with XML Documents
