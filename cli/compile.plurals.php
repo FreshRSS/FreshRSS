@@ -22,18 +22,18 @@ $cliOptions = new class extends CliOptionsParser {
 if (!empty($cliOptions->errors)) {
 	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
-if ($cliOptions->help || (!isset($cliOptions->formula) && !isset($cliOptions->file) && !$cliOptions->all)) {
+if ($cliOptions->help || (($cliOptions->formula ?? '') === '' && ($cliOptions->file ?? '') === '' && !$cliOptions->all)) {
 	compilePluralsHelp();
 }
 
 $compiler = new PluralFormsCompiler();
 
-if (isset($cliOptions->formula)) {
+if (($cliOptions->formula ?? '') !== '') {
 	echo $compiler->compileFormulaToLambda($cliOptions->formula) . "\n";
 	done();
 }
 
-if (isset($cliOptions->file)) {
+if (($cliOptions->file ?? '') !== '') {
 	$compiler->compileFile($cliOptions->file);
 	echo 'Compiled ' . $cliOptions->file . "\n";
 	done();
