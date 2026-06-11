@@ -1,4 +1,4 @@
-FROM alpine:3.23
+FROM alpine:3.24
 
 ENV TZ=UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]

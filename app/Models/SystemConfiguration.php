@@ -38,7 +38,10 @@ final class FreshRSS_SystemConfiguration extends Minz_Configuration {
 	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_SystemConfiguration {
 		parent::register('system', $config_filename, $default_filename);
 		try {
-			return parent::get('system');
+			$conf = parent::get('system');
+			ini_set('pcre.backtrack_limit', $conf->limits['regex_backtrack_limit']);
+			ini_set('pcre.recursion_limit', $conf->limits['regex_recursion_limit']);
+			return $conf;
 		} catch (Minz_ConfigurationNamespaceException $ex) {
 			FreshRSS::killApp($ex->getMessage());
 		}
