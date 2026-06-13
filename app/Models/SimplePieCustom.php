@@ -64,6 +64,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		$this->rename_attributes(['id', 'class']);
 		$this->allow_aria_attr(true);
 		$this->allow_data_attr(true);
+		$this->disallow_uri_schemes(['javascript']);
 		$this->allowed_html_attributes([
 			// HTML
 			'dir',
