@@ -580,9 +580,16 @@ final class FreshRSS_http_Util {
 					$location = $url;
 				}
 				if (!self::compareURLOrigins($url, $location)) {
+					unset($curl_options[CURLOPT_COOKIE]);
+					unset($curl_options[CURLOPT_USERPWD]);
 					unset($options[CURLOPT_COOKIE]);
+					unset($options[CURLOPT_USERPWD]);
 					if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
 						$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
+							is_string($header) && !preg_match('/^(Cookie|Authorization)\\s*:/i', $header));
+					}
+					if (is_array($curl_options[CURLOPT_HTTPHEADER] ?? null)) {
+						$curl_options[CURLOPT_HTTPHEADER] = array_filter($curl_options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
 							is_string($header) && !preg_match('/^(Cookie|Authorization)\\s*:/i', $header));
 					}
 				}
@@ -593,11 +600,17 @@ final class FreshRSS_http_Util {
 					Minz_Log::warning('Error fetching content: Too many redirects were hit [' . \SimplePie\Misc::url_remove_credentials($original_url) . ']');
 					break;
 				}
-				if (isset($options[CURLOPT_POST]) && in_array($c_status, [301, 302, 303], true)) {	// Not for 307 and 308, which must not change the HTTP method
+				if ((isset($options[CURLOPT_POST]) || isset($curl_options[CURLOPT_POST])) && in_array($c_status, [301, 302, 303], true)) {	// Not for 307 and 308, which must not change the HTTP method
+					unset($curl_options[CURLOPT_POST]);
+					unset($curl_options[CURLOPT_POSTFIELDS]);
 					unset($options[CURLOPT_POST]);
 					unset($options[CURLOPT_POSTFIELDS]);
 					if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
 						$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
+							is_string($header) && !str_starts_with(strtolower(trim($header)), 'content-type:'));
+					}
+					if (is_array($curl_options[CURLOPT_HTTPHEADER] ?? null)) {
+						$curl_options[CURLOPT_HTTPHEADER] = array_filter($curl_options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
 							is_string($header) && !str_starts_with(strtolower(trim($header)), 'content-type:'));
 					}
 				}
