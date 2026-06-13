@@ -59,7 +59,7 @@ class Sanitize implements RegistryAware
     /** @var bool */
     public $allow_aria_attr = true;
     /** @var string[] */
-    public $disallowed_uri_protocols = ['javascript'];
+    public $disallowed_uri_schemes = ['javascript'];
     /** @var array<string, array<string, string>> */
     public $add_attributes = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']];
     /** @var bool */
@@ -283,11 +283,11 @@ class Sanitize implements RegistryAware
     }
 
     /**
-     * @param string[] $protocols List of protocols to disallow
+     * @param string[] $schemes List of URI schemes (protocols) to disallow
      */
-    public function disallow_uri_protocols(array $protocols = ['javascript']): void
+    public function disallow_uri_schemes(array $schemes = ['javascript']): void
     {
-        $this->disallowed_uri_protocols = $protocols;
+        $this->disallowed_uri_schemes = $schemes;
     }
 
     /**
@@ -362,8 +362,8 @@ class Sanitize implements RegistryAware
      * containing URLs that need to be resolved relative to the feed
      *
      * Defaults to |a|@href, |area|@href, |audio|@src, |blockquote|@cite,
-     * |del|@cite, |form|@action, |img|@longdesc, |img|@src, |input|@src,
-     * |ins|@cite, |q|@cite, |source|@src, |video|@src
+     * |del|@cite, |form|@action, |iframe|@src, |img|@longdesc, |img|@src,
+     * |input|@src, |ins|@cite, |q|@cite, |source|@src, |video|@src
      *
      * @since 1.0
      * @param array<string, string|string[]>|null $element_attribute Element/attribute key/value pairs, null for default
@@ -379,6 +379,7 @@ class Sanitize implements RegistryAware
                 'blockquote' => 'cite',
                 'del' => 'cite',
                 'form' => 'action',
+                'iframe' => 'src',
                 'img' => [
                     'longdesc',
                     'src'
@@ -545,16 +546,18 @@ class Sanitize implements RegistryAware
                     }
                 }
 
-                // Replace relative URLs
+                // Replace relative URLs and blocks disallowed URI schemes (protocols)
                 $this->base = $base;
                 foreach ($this->replace_url_attributes as $element => $attributes) {
                     $this->replace_urls($document, $element, $attributes);
                 }
 
-                if ($this->disallowed_uri_protocols) {
-                    foreach ($this->disallowed_uri_protocols as $protocol) {
-                        $this->strip_uri_protocol($xpath, $protocol);
-                    }
+                // MathML and SVG allow href on arbitrary descendants,
+                // so require a walk of the DOM
+                if ($this->disallowed_uri_schemes !== []
+                    && ($document->getElementsByTagName('math')->length > 0
+                        || $document->getElementsByTagName('svg')->length > 0)) {
+                    $this->block_disallowed_schemes_in_descendants($xpath);
                 }
 
                 // If image handling (caching, etc.) is enabled, cache and rewrite all the image tags.
@@ -673,7 +676,10 @@ class Sanitize implements RegistryAware
                     if ($element->hasAttribute($attribute)) {
                         $value = $this->registry->call(Misc::class, 'absolutize_url', [$element->getAttribute($attribute), $this->base]);
                         if ($value !== false) {
-                            $value = $this->https_url($value);
+                            // Block disallowed URI protocols (e.g. javascript:), otherwise force HTTPS where applicable
+                            $value = ($this->disallowed_uri_schemes !== [] && !$this->is_allowed_scheme($value))
+                                ? 'unsafe:' . $value
+                                : $this->https_url($value);
                             $element->setAttribute($attribute, $value);
                         }
                     }
@@ -758,47 +764,47 @@ class Sanitize implements RegistryAware
         }
     }
 
-    private function extract_protocol(string $uri): string
+    private function is_allowed_scheme(string $uri): bool
     {
-        if (!str_contains($uri, ':')) {
-            return '';
+        $pos = strpos($uri, ':');
+        if ($pos === false) {
+            return true;
         }
-        $extracted_protocol = strtolower(preg_replace(
-            '/[\x01-\x20\s]/',
-            '',
-            rawurldecode(explode(':', $uri)[0])
-        ) ?? '');
-        return $extracted_protocol;
+        $scheme = strtolower(substr($uri, 0, $pos));
+        if (!ctype_alnum($scheme)) {
+            return false;
+        }
+        return !in_array($scheme, $this->disallowed_uri_schemes, true);
     }
 
     /**
-     * Remove a disallowed URI protocol
+     * Block disallowed URI schemes (protocols) on elements carrying an href attribute.
+     *
+     * This handles MathML and SVG elements which permit href on arbitrary descendant elements
+     * For SVG, also checks xlink:href attribute.
      */
-    protected function strip_uri_protocol(\DOMXPath $xpath, string $protocol): void
+    private function block_disallowed_schemes_in_descendants(\DOMXPath $xpath): void
     {
-        $protocol = strtolower($protocol);
-        $elements = $xpath->query('.//a[@href]|.//iframe[@src]|.//math//*[@href]');
-
+        // Note: content is parsed via loadHTML(), which does not namespace-process attributes
+        $elements = $xpath->query('.//*[self::math or self::svg]/descendant-or-self::*[@href or @*[name()="xlink:href"]]');
         if ($elements === false) {
-            throw new \SimplePie\Exception(sprintf(
-                '%s(): Possibly malformed expression',
-                __METHOD__
-            ), 1);
+            return;
         }
-
         foreach ($elements as $element) {
             if (!($element instanceof \DOMElement)) {
                 continue;
             }
-
-            $href = $element->getAttribute('href');
-            $src = $element->getAttribute('src');
-
-            if ($element->hasAttribute('href') && $this->extract_protocol($href) === $protocol) {
-                $element->setAttribute('href', 'unsafe:' . $href);
+            if ($element->hasAttribute('href')) {
+                $href = $element->getAttribute('href');
+                if (!$this->is_allowed_scheme($href)) {
+                    $element->setAttribute('href', 'unsafe:' . $href);
+                }
             }
-            if ($element->hasAttribute('src') && $this->extract_protocol($src) === $protocol) {
-                $element->setAttribute('src', 'unsafe:' . $src);
+            if ($element->hasAttribute('xlink:href')) {
+                $href = $element->getAttribute('xlink:href');
+                if (!$this->is_allowed_scheme($href)) {
+                    $element->setAttribute('xlink:href', 'unsafe:' . $href);
+                }
             }
         }
     }

@@ -109,6 +109,22 @@ class File implements Response
                 $headers = [];
             }
             if (!$force_fsockopen && function_exists('curl_exec')) {
+                $resolve = false; // FreshRSS
+                if (empty($curl_options[CURLOPT_PROXY] ?? null)) { // FreshRSS
+                    $resolve = $this->get_curl_resolve_info($url);
+                    if ($resolve === null) {
+                        $this->error = 'URL is not allowed to be resolved: ' . \SimplePie\Misc::url_remove_credentials($url);
+                        $this->success = false;
+                        return;
+                    } elseif ($resolve === false) {
+                        $this->error = 'Failed to resolve domain: ' . \SimplePie\Misc::url_remove_credentials($url);
+                        $this->success = false;
+                        return;
+                    }
+                    if (!empty($resolve)) {
+                        $curl_options[CURLOPT_RESOLVE] = $resolve; // Prevent DNS rebinding
+                    }
+                }
                 $this->method = \SimplePie\SimplePie::FILE_SOURCE_REMOTE | \SimplePie\SimplePie::FILE_SOURCE_CURL;
                 $fp = self::curlInit($url, $timeout, $headers, $useragent, $curl_options);
                 $responseHeaders = '';
@@ -154,7 +170,8 @@ class File implements Response
                     if ($parser->parse()) {
                         $this->set_headers($parser->headers);
                         $this->body = $responseBody;
-                        if ((in_array($this->status_code, [300, 301, 302, 303, 307]) || $this->status_code > 307 && $this->status_code < 400) && ($locationHeader = $this->get_header_line('location')) !== '' && $this->redirects < $redirects) {
+                        if ((in_array($this->status_code, [300, 301, 302, 303, 307]) || $this->status_code > 307 && $this->status_code < 400) &&
+                            ($locationHeader = $this->get_header_line('location')) !== '' && ($this->redirects < $redirects || $redirects === -1)) { // FreshRSS: added infinite redirects for -1
                             $this->redirects++;
                             $location = \SimplePie\Misc::absolutize_url($locationHeader, $url);
                             if ($location === false) {
@@ -318,6 +335,16 @@ class File implements Response
      */
     protected function on_http_response($response, array $curl_options = []): void
     {
+    }
+
+    /**
+     * Event to allow inheriting classes to control fetching certain URLs.
+     * @param string $url
+     * @return array<string>|null|false Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
+     */
+    protected function get_curl_resolve_info(string $url)
+    {
+        return [];
     }
 
     public function get_permanent_uri(): string
@@ -495,6 +522,7 @@ class File implements Response
         foreach ($curl_options as $curl_param => $curl_value) {
             curl_setopt($fp, $curl_param, $curl_value);
         }
+        curl_setopt($fp, CURLOPT_FOLLOWLOCATION, false); // FreshRSS
 
         return $fp;
     }
