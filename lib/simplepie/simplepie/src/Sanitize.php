@@ -764,7 +764,7 @@ class Sanitize implements RegistryAware
         }
     }
 
-    private function is_allowed_scheme(string $uri): bool
+    public function is_allowed_scheme(string $uri): bool
     {
         $pos = strpos($uri, ':');
         if ($pos === false) {
