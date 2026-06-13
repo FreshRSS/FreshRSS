@@ -600,7 +600,8 @@ final class FreshRSS_http_Util {
 					Minz_Log::warning('Error fetching content: Too many redirects were hit [' . \SimplePie\Misc::url_remove_credentials($original_url) . ']');
 					break;
 				}
-				if ((isset($options[CURLOPT_POST]) || isset($curl_options[CURLOPT_POST])) && in_array($c_status, [301, 302, 303], true)) {	// Not for 307 and 308, which must not change the HTTP method
+				if ((isset($options[CURLOPT_POST]) || isset($curl_options[CURLOPT_POST])) &&
+					in_array($c_status, [301, 302, 303], true)) {	// Not for 307 and 308, which must not change the HTTP method
 					unset($curl_options[CURLOPT_POST]);
 					unset($curl_options[CURLOPT_POSTFIELDS]);
 					unset($options[CURLOPT_POST]);
