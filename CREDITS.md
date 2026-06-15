@@ -206,6 +206,7 @@ People are sorted by name so please keep this order.
 * [miles](https://github.com/miles170): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:miles170)
 * [mincerafter42](https://github.com/mincerafter42): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mincerafter42), [Web](https://mincerafter42.github.io)
 * [Minna N.](https://github.com/minna-xd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:minna-xd)
+* [Mohammad Lashkari](https://github.com/mohammadlashkari): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mohammadlashkari), [Web](https://mohammadlashkari.com)
 * [Mossroy](https://github.com/mossroy): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mossroy)
 * [Mossroy](https://github.com/mossroy): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mossroy), [Web](https://blog.mossroy.fr/)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mszkb)
@@ -345,4 +346,3 @@ People are sorted by name so please keep this order.
 * [zukizukizuki](https://github.com/zukizukizuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zukizukizuki), [Web](https://zukkie.link/)
 * [нездалисько](https://github.com/crisukbot): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:crisukbot), [Web](https://noleron.com/)
 * [石渠清心](https://github.com/Felix2yu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Felix2yu), [Web](https://yufei.im/)
-* [Mohammad Lashkari](https://github.com/mohammadlashkari): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mohammadlashkari), [Web](https://mohammadlashkari.com)
