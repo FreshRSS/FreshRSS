@@ -345,3 +345,4 @@ People are sorted by name so please keep this order.
 * [zukizukizuki](https://github.com/zukizukizuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zukizukizuki), [Web](https://zukkie.link/)
 * [нездалисько](https://github.com/crisukbot): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:crisukbot), [Web](https://noleron.com/)
 * [石渠清心](https://github.com/Felix2yu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Felix2yu), [Web](https://yufei.im/)
+* [Mohammad Lashkari](https://github.com/mohammadlashkari): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mohammadlashkari), [Web](https://mohammadlashkari.com)
