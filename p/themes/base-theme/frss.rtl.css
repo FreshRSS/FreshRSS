@@ -1931,7 +1931,6 @@ a.website:hover .favicon {
 	   pinned to the viewport after a programmatic scroll (e.g. prev/next entry),
 	   working around a WebKit bug that otherwise lets it drift to mid-screen. */
 	transform: translateZ(0);
-	will-change: transform;
 }
 
 .aside:not(.visible) ~ #nav_entries {
