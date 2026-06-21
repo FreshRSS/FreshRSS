@@ -31,7 +31,6 @@ People are sorted by name so please keep this order.
 * [Andy Valencia](https://github.com/vandys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:vandys), [Web](https://www.vsta.org/andy/)
 * [Annika Backstrom](https://github.com/abackstrom): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:abackstrom), [Web](https://sixohthree.com/)
 * [Anton Smirnov](https://github.com/arokettu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:arokettu), [Web](https://sandfox.me/)
-* [Antonio Santos](https://github.com/Otolock): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Otolock), [Web](https://antoniosantos.io/)
 * [ArthurHoaro](https://github.com/ArthurHoaro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ArthurHoaro)
 * [Artur Weigandt](https://github.com/Art4): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Art4), [Web](https://ruhr.social/@Art4)
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ASMfreaK)

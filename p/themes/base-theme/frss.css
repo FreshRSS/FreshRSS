@@ -1927,10 +1927,6 @@ a.website:hover .favicon {
 	width: var(--width-aside);
 	padding-bottom: env(safe-area-inset-bottom);
 	z-index: 50;
-	/* Promote to its own compositor layer so iOS standalone PWAs keep the bar
-	   pinned to the viewport after a programmatic scroll (e.g. prev/next entry),
-	   working around a WebKit bug that otherwise lets it drift to mid-screen. */
-	transform: translateZ(0);
 }
 
 .aside:not(.visible) ~ #nav_entries {
