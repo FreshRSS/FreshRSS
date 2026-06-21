@@ -206,6 +206,7 @@ People are sorted by name so please keep this order.
 * [miles](https://github.com/miles170): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:miles170)
 * [mincerafter42](https://github.com/mincerafter42): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mincerafter42), [Web](https://mincerafter42.github.io)
 * [Minna N.](https://github.com/minna-xd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:minna-xd)
+* [Mohammad Lashkari](https://github.com/mohammadlashkari): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mohammadlashkari)
 * [Mossroy](https://github.com/mossroy): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mossroy)
 * [Mossroy](https://github.com/mossroy): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mossroy), [Web](https://blog.mossroy.fr/)
 * [MSZ](https://github.com/mszkb): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mszkb)
