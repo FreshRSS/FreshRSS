@@ -70,10 +70,11 @@ Begin by installing git, if you don’t already have it installed.
 apt install git
 ```
 
-Next, change to the install directory and download FreshRSS using git
+Next, change to the install directory and download FreshRSS using git. The following path keeps FreshRSS out of system read-only directories, which avoids write failures from hardened PHP-FPM service settings.
 
 ```sh
-cd /usr/share/
+mkdir -p /var/www/
+cd /var/www/
 git clone https://github.com/FreshRSS/FreshRSS.git
 ```
 
@@ -96,7 +97,7 @@ chown apache:www-data -R .
 Finally, symlink the public folder to your FreshRSS directory
 
 ```sh
-[ ! -e "/var/www/html/FreshRSS" ] && ln -s /usr/share/FreshRSS/p /var/www/html/FreshRSS || echo "/var/www/html/FreshRSS already exists"
+[ ! -e "/var/www/html/FreshRSS" ] && ln -s /var/www/FreshRSS/p /var/www/html/FreshRSS || echo "/var/www/html/FreshRSS already exists"
 ```
 
 ## Part 3: Creating a Database for FreshRSS
