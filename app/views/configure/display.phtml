@@ -232,6 +232,23 @@
 		</div>
 
 		<div class="form-group">
+			<label class="group-name" for="date_transitions"><?= _t('conf.display.date_transitions._') ?></label>
+			<div class="group-controls">
+				<select name="date_transitions" id="date_transitions" required="">
+					<option value="full" <?= FreshRSS_Context::userConf()->date_transitions === 'full' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.date_transitions.full') ?>
+					</option>
+					<option value="simple" <?= FreshRSS_Context::userConf()->date_transitions === 'simple' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.date_transitions.simple') ?>
+					</option>
+					<option value="none" <?= FreshRSS_Context::userConf()->date_transitions === 'none' ? 'selected="selected"' : '' ?>>
+						<?= _t('conf.display.date_transitions.none') ?>
+					</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="html5_enable_notif">
 					<input type="checkbox" name="html5_enable_notif" id="html5_enable_notif" value="1"<?=

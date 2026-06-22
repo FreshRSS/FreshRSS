@@ -56,6 +56,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			}
 			FreshRSS_Context::userConf()->darkMode = Minz_Request::paramString('darkMode') ?: 'auto';
 			FreshRSS_Context::userConf()->content_width = Minz_Request::paramString('content_width') ?: 'thin';
+			$dateTransitions = Minz_Request::paramString('date_transitions');
+			if (in_array($dateTransitions, ['full', 'simple', 'none'], true)) {
+				FreshRSS_Context::userConf()->date_transitions = $dateTransitions;
+			}
 			FreshRSS_Context::userConf()->topline_read = Minz_Request::paramBoolean('topline_read');
 			FreshRSS_Context::userConf()->topline_favorite = Minz_Request::paramBoolean('topline_favorite');
 			FreshRSS_Context::userConf()->topline_myLabels = Minz_Request::paramBoolean('topline_myLabels');

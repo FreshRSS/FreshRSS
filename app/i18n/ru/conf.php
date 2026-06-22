@@ -38,6 +38,12 @@ return array(
 			'help' => 'Только для совместимых тем',
 			'no' => 'Нет',
 		),
+		'date_transitions' => array(
+			'_' => 'Date transitions',	// TODO
+			'full' => 'Per day',	// TODO
+			'none' => 'None',	// TODO
+			'simple' => 'Today, yesterday, and older',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
 			'display_authors' => 'Авторы',

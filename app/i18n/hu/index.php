@@ -38,12 +38,14 @@ return array(
 		'empty' => 'Nincs megjeleníthető cikk.',
 		'published' => array(
 			'_' => 'Közzétéve',
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'A jövőben közzétéve',
 			'today' => 'Ma közzétéve',
 			'yesterday' => 'Tegnap közzétéve',
 		),
 		'received' => array(
 			'_' => 'Beérkezett',
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => 'Ma beérkezett',
 			'yesterday' => 'Tegnap beérkezett',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'Globális nézet',
 		'userModified' => array(
 			'_' => 'Felhasználó által módosítva',
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'Felhasználó által módosítva ma',
 			'yesterday' => 'Felhasználó által módosítva tegnap',
 		),

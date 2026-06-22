@@ -38,12 +38,14 @@ return array(
 		'empty' => 'There are no articles to show.',	// IGNORE
 		'published' => array(
 			'_' => 'Published',	// IGNORE
+			'before_yesterday' => 'Published before yesterday',	// IGNORE
 			'future' => 'Published in the future',	// IGNORE
 			'today' => 'Published today',	// IGNORE
 			'yesterday' => 'Published yesterday',	// IGNORE
 		),
 		'received' => array(
 			'_' => 'Received',	// IGNORE
+			'before_yesterday' => 'Received before yesterday',	// IGNORE
 			'today' => 'Received today',	// IGNORE
 			'yesterday' => 'Received yesterday',	// IGNORE
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'Global view',	// IGNORE
 		'userModified' => array(
 			'_' => 'Modified by user',	// IGNORE
+			'before_yesterday' => 'Modified by user before yesterday',	// IGNORE
 			'today' => 'Modified by user today',	// IGNORE
 			'yesterday' => 'Modified by user yesterday',	// IGNORE
 		),

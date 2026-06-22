@@ -38,12 +38,14 @@ return array(
 		'empty' => ' هیچ مقاله ای برای نمایش وجود ندارد.',
 		'published' => array(
 			'_' => 'منتشر شده',
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'منتشر شده در آینده',
 			'today' => 'امروز منتشر شده',
 			'yesterday' => 'دیروز منتشر شده',
 		),
 		'received' => array(
 			'_' => 'دریافت شده',
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => 'امروز دریافت شد',
 			'yesterday' => 'دیروز دریافت شد',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => ' نمای جهانی',
 		'userModified' => array(
 			'_' => 'ویرایش شده توسط کاربر',
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'امروز توسط کاربر ویرایش شده',
 			'yesterday' => 'دیروز توسط کاربر ویرایش شده',
 		),

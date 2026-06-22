@@ -38,12 +38,14 @@ return array(
 		'empty' => 'Нет статей для отображения.',
 		'published' => array(
 			'_' => 'Опубликовано',
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'Опубликовано в будущем',
 			'today' => 'Опубликовано сегодня',
 			'yesterday' => 'Опубликовано вчера',
 		),
 		'received' => array(
 			'_' => 'Получено',
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => 'Получено сегодня',
 			'yesterday' => 'Получено вчера',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'Глобальный вид',
 		'userModified' => array(
 			'_' => 'Изменено пользователем',
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'Изменено пользователем сегодня',
 			'yesterday' => 'Изменено пользователем вчера',
 		),

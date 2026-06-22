@@ -38,12 +38,14 @@ return array(
 		'empty' => '글이 없습니다.',
 		'published' => array(
 			'_' => 'Published',	// TODO
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'Published in the future',	// TODO
 			'today' => 'Published today',	// TODO
 			'yesterday' => 'Published yesterday',	// TODO
 		),
 		'received' => array(
 			'_' => 'Received',	// TODO
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => 'Received today',	// TODO
 			'yesterday' => 'Received yesterday',	// TODO
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => '전체 모드',
 		'userModified' => array(
 			'_' => 'Modified by user',	// TODO
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'Modified by user today',	// TODO
 			'yesterday' => 'Modified by user yesterday',	// TODO
 		),

@@ -38,12 +38,14 @@ return array(
 		'empty' => 'Keine Artikel vorhanden.',
 		'published' => array(
 			'_' => 'Veröffentlicht',
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'In Zukunft veröffentlicht',
 			'today' => 'Heute veröffentlicht',
 			'yesterday' => 'Gestern veröffentlicht',
 		),
 		'received' => array(
 			'_' => 'Empfangen',
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => 'Heute empfangen',
 			'yesterday' => 'Gestern empfangen',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'Globale Ansicht',
 		'userModified' => array(
 			'_' => 'Vom Benutzer geändert',
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'Heute vom Benutzer geändert',
 			'yesterday' => 'Gestern vom Benutzer geändert',
 		),

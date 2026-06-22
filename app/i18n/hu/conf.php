@@ -38,6 +38,12 @@ return array(
 			'help' => 'Csak kompatibilis témákhoz',
 			'no' => 'Nem',
 		),
+		'date_transitions' => array(
+			'_' => 'Date transitions',	// TODO
+			'full' => 'Per day',	// TODO
+			'none' => 'None',	// TODO
+			'simple' => 'Today, yesterday, and older',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Alsó sor',
 			'display_authors' => 'Szerzők',
