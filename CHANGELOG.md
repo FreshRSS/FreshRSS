@@ -12,15 +12,32 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* New `cli/reconfigure-user.php` to read/write per-user config attributes [#8873](https://github.com/FreshRSS/FreshRSS/pull/8873)
 * API
 	* Add a warning message to the API password section and a log warning when a client uses GET instead of recommended POST [#8845](https://github.com/FreshRSS/FreshRSS/pull/8845)
+* Security
+	* Fix access control in `rss` and `opml` actions [#8912](https://github.com/FreshRSS/FreshRSS/pull/8912)
+	* Set limits for regex during search [#8913](https://github.com/FreshRSS/FreshRSS/pull/8913)
 * SimplePie
+	* Security: Disallow `javascript:` URI scheme (protocol) [#8263](https://github.com/FreshRSS/FreshRSS/pull/8263)
 	* Fix wrong player parent logic leading to invalid type [#8893](https://github.com/FreshRSS/FreshRSS/pull/8893), [simplepie#978](https://github.com/simplepie/simplepie/pull/978)
 	* Consistently enable `XML_OPTION_PARSE_HUGE` [#8894](https://github.com/FreshRSS/FreshRSS/pull/8894), [simplepie#977](https://github.com/simplepie/simplepie/pull/977)
+	* Fix null warning in IRI for PHP 8.5+ [#8918](https://github.com/FreshRSS/FreshRSS/pull/8918), [simplepie#979](https://github.com/simplepie/simplepie/pull/979)
+* Deployment
+	* Docker alternative image updated to Alpine 3.24 with PHP 8.5.7 and Apache 2.4.67 [#8916](https://github.com/FreshRSS/FreshRSS/pull/8916)
+	* Apache use only `CONN_REMOTE_ADDR` in logs when `mod_remoteip` is available, for compatibility with LiteSpeed Web Server [#8890](https://github.com/FreshRSS/FreshRSS/pull/8890)
 * UI
+	* Always jump article to top when header is offscreen, also when **Stick the article to the top when opened* is disabled [#8870](https://github.com/FreshRSS/FreshRSS/pull/8870)
+	* Fix padding for `.nav_menu` in Alternative-Dark, Flat, and Nord themes [#8901](https://github.com/FreshRSS/FreshRSS/pull/8901)
 	* Various UI and style improvements: [#8823](https://github.com/FreshRSS/FreshRSS/pull/8823), [#8824](https://github.com/FreshRSS/FreshRSS/pull/8824)
 * I18n
 	* Improve Hungarian [#8879](https://github.com/FreshRSS/FreshRSS/pull/8879)
 	* Improve Italian [#8880](https://github.com/FreshRSS/FreshRSS/pull/8880)
+	* Improve Persian [#8923](https://github.com/FreshRSS/FreshRSS/pull/8923)
+	* Improve Spanish [#8878](https://github.com/FreshRSS/FreshRSS/pull/8878)
 	* Improve Ukrainian [#8871](https://github.com/FreshRSS/FreshRSS/pull/8871)
+* Misc.
+	* Update to PHPMailer 7.1.1 [#9807](https://github.com/FreshRSS/FreshRSS/pull/9807)
+	* Improve PHP code [#8906](https://github.com/FreshRSS/FreshRSS/pull/8906)
+	* Fix PHPStan 2.2.2 in CLI [#8911](https://github.com/FreshRSS/FreshRSS/pull/8911)
+	* Update dev dependencies [#8904](https://github.com/FreshRSS/FreshRSS/pull/8904), [#8905](https://github.com/FreshRSS/FreshRSS/pull/8905)
 
 
 ## 2026-05-20 FreshRSS 1.29.1
