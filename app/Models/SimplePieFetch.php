@@ -32,7 +32,7 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 			$redirects = -1;	// infinite redirects
 		}
 		if (isset($curl_options[CURLOPT_FOLLOWLOCATION])) {
-			if ($curl_options[CURLOPT_FOLLOWLOCATION]) {
+			if ($curl_options[CURLOPT_FOLLOWLOCATION] == true) {
 				unset($curl_options[CURLOPT_FOLLOWLOCATION]);	// Favour the custom SimplePie redirects for security
 			} else {
 				$curl_options[CURLOPT_FOLLOWLOCATION] = false;
