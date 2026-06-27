@@ -605,7 +605,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 
 		if ($token != '') {
-			if ($user_config->email_validation_token !== $token) {
+			if (!hash_equals($user_config->email_validation_token, $token)) {
 				Minz_Request::bad(
 					_t('user.email.validation.feedback.wrong_token'),
 					['c' => 'user', 'a' => 'validateEmail']

@@ -75,7 +75,6 @@
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important" name="action" value="update"><?= _t('gen.action.update') ?></button>
 				<button type="submit" class="btn btn-attention confirm" name="action" value="purge"<?= $disabledIfAjax ?>><?= _t('gen.action.purge') ?></button>
-				<button type="submit" class="btn btn-attention confirm" name="action" value="delete"<?= $disabledIfAjax ?>><?= _t('gen.action.remove') ?></button>
 				<?php if ($isAdmin && !$isDefault): ?>
 					<button type="submit" class="btn btn-attention confirm" name="action" value="demote"<?= $disabledIfAjax ?>><?= _t('gen.action.demote') ?></button>
 				<?php elseif (!$isAdmin): ?>
@@ -86,6 +85,7 @@
 				<?php elseif (!$enabled): ?>
 					<button type="submit" class="btn btn-attention" name="action" value="enable"><?= _t('gen.action.enable') ?></button>
 				<?php endif; ?>
+				<button type="submit" class="btn btn-attention confirm" name="action" value="delete"<?= $disabledIfAjax ?>><?= _t('gen.action.remove') ?></button>
 			<div>
 		</div>
 	</form>
