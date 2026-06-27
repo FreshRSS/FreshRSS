@@ -38,12 +38,14 @@ return array(
 		'empty' => '表示できる記事がありません',
 		'published' => array(
 			'_' => 'Published',	// TODO
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'Published in the future',	// TODO
 			'today' => 'Published today',	// TODO
 			'yesterday' => 'Published yesterday',	// TODO
 		),
 		'received' => array(
 			'_' => 'Received',	// TODO
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => '今日',
 			'yesterday' => '昨日',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'グローバルビュー',
 		'userModified' => array(
 			'_' => 'Modified by user',	// TODO
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'Modified by user today',	// TODO
 			'yesterday' => 'Modified by user yesterday',	// TODO
 		),

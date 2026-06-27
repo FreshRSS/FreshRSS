@@ -69,6 +69,7 @@ declare(strict_types=1);
  * @property string $theme
  * @property string $darkMode
  * @property string $token
+ * @property 'full'|'simple'|'none' $date_transitions
  * @property bool $topline_date
  * @property bool $topline_display_authors
  * @property bool $topline_favorite

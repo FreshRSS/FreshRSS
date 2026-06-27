@@ -31,7 +31,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @return '.future'|'.today'|'.yesterday'|''
+	 * @return '.future'|'.today'|'.yesterday'|'.before_yesterday'|''
 	 */
 	private static function dayRelative(int $timestamp, bool $mayBeFuture): string {
 		static $today = null;
@@ -46,8 +46,26 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			return '.today';
 		} elseif ($timestamp >= $today - 86400) {
 			return '.yesterday';
+		} elseif (FreshRSS_Context::userConf()->date_transitions === 'simple') {
+			return '.before_yesterday';
 		}
 		return '';
+	}
+
+	/**
+	 * Build a date-based transition line.
+	 * @param 'index.feed.published'|'index.feed.received'|'index.feed.userModified' $i18nPrefix
+	 */
+	private static function dateTransition(string $i18nPrefix, int $timestamp, bool $mayBeFuture): string {
+		if (FreshRSS_Context::userConf()->date_transitions === 'none') {
+			return '';
+		}
+		$suffix = self::dayRelative($timestamp, $mayBeFuture);
+		$label = _t($i18nPrefix . $suffix);
+		if ($suffix === '.before_yesterday') {
+			return $label;
+		}
+		return $label . ' — ' . timestamptodate($timestamp, hour: false);
 	}
 
 	/**
@@ -55,12 +73,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 */
 	public static function transition(FreshRSS_Entry $entry): string {
 		return match (FreshRSS_Context::$sort) {
-			'id' => _t('index.feed.received' . self::dayRelative($entry->dateAdded(raw: true), mayBeFuture: false)) .
-				' — ' . timestamptodate($entry->dateAdded(raw: true), hour: false),
-			'date' => _t('index.feed.published' . self::dayRelative($entry->date(raw: true), mayBeFuture: true)) .
-				' — ' . timestamptodate($entry->date(raw: true), hour: false),
-			'lastUserModified' => _t('index.feed.userModified' . self::dayRelative($entry->lastUserModified() ?? 0, mayBeFuture: false)) .
-				' — ' . timestamptodate($entry->lastUserModified() ?? 0, hour: false),
+			'id' => self::dateTransition('index.feed.received', $entry->dateAdded(raw: true), mayBeFuture: false),
+			'date' => self::dateTransition('index.feed.published', $entry->date(raw: true), mayBeFuture: true),
+			'lastUserModified' => self::dateTransition('index.feed.userModified', $entry->lastUserModified() ?? 0, mayBeFuture: false),
 			'c.name' => $entry->feed()?->category()?->name() ?? '',
 			'f.name' => $entry->feed()?->name() ?? '',
 			default => '',

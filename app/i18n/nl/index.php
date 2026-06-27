@@ -38,12 +38,14 @@ return array(
 		'empty' => 'Er is geen artikel om te laten zien.',
 		'published' => array(
 			'_' => 'Gepubliceerd',
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'In de toekomst gepubliceerd',
 			'today' => 'Vandaag gepubliceerd',
 			'yesterday' => 'Gisteren gepubliceerd',
 		),
 		'received' => array(
 			'_' => 'Ontvangen',
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => 'Vandaag ontvangen',
 			'yesterday' => 'Gisteren ontvangen',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'Globale weergave',
 		'userModified' => array(
 			'_' => 'Aangepast door gebruiker',
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'Vandaag aangepast door gebruiker',
 			'yesterday' => 'Gisteren aangepast door gebruiker',
 		),

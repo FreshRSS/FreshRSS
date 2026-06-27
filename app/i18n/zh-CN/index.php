@@ -38,12 +38,14 @@ return array(
 		'empty' => '没有文章可以显示。',
 		'published' => array(
 			'_' => '已发布',
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => '未来发布',
 			'today' => '今日发布',
 			'yesterday' => '昨日发布',
 		),
 		'received' => array(
 			'_' => '已接收',
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => '今日接收',
 			'yesterday' => '昨日接收',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => '全局视图',
 		'userModified' => array(
 			'_' => '用户已修改',
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => '用户今日修改',
 			'yesterday' => '用户昨日修改',
 		),

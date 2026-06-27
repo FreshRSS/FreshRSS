@@ -38,12 +38,14 @@ return array(
 		'empty' => 'Brak wiadomości do wyświetlenia.',
 		'published' => array(
 			'_' => 'Opublikowane',
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'Opublikowane w przyszłości',
 			'today' => 'Opublikowane dzisiaj',
 			'yesterday' => 'Opublikowane wczoraj',
 		),
 		'received' => array(
 			'_' => 'Otrzymane',
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => 'Otrzymane dzisiaj',
 			'yesterday' => 'Otrzymane wczoraj',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'Widok globalny',
 		'userModified' => array(
 			'_' => 'Zmodyfikowane przez użytkownika',
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'Zmodyfikowane przez użytkownika dzisiaj',
 			'yesterday' => 'Zmodyfikowane przez użytkownika wczoraj',
 		),

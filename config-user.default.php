@@ -32,6 +32,8 @@ return array (
 	'view_mode' => 'normal',
 	'default_view' => 'adaptive',
 	'default_state' => FreshRSS_Entry::STATE_NOT_READ,
+	# Date transition dividers: 'full' (per-day), 'simple' (today/yesterday/older), 'none'
+	'date_transitions' => 'simple',
 	'show_fav_unread' => false,
 	'show_title_unread' => true,
 	# Unread-count visibility in sidebar: 'all' | 'important' | 'none'

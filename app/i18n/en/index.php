@@ -38,12 +38,14 @@ return array(
 		'empty' => 'There are no articles to show.',
 		'published' => array(
 			'_' => 'Published',
+			'before_yesterday' => 'Published before yesterday',
 			'future' => 'Published in the future',
 			'today' => 'Published today',
 			'yesterday' => 'Published yesterday',
 		),
 		'received' => array(
 			'_' => 'Received',
+			'before_yesterday' => 'Received before yesterday',
 			'today' => 'Received today',
 			'yesterday' => 'Received yesterday',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'Global view',
 		'userModified' => array(
 			'_' => 'Modified by user',
+			'before_yesterday' => 'Modified by user before yesterday',
 			'today' => 'Modified by user today',
 			'yesterday' => 'Modified by user yesterday',
 		),

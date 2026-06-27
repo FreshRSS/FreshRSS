@@ -38,6 +38,12 @@ return array(
 			'help' => '対応するテーマのみ',
 			'no' => '無効',
 		),
+		'date_transitions' => array(
+			'_' => 'Date transitions',	// TODO
+			'full' => 'Per day',	// TODO
+			'none' => 'None',	// TODO
+			'simple' => 'Today, yesterday, and older',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => '行の下部',
 			'display_authors' => '著者',

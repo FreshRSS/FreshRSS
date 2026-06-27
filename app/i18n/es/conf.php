@@ -38,6 +38,12 @@ return array(
 			'help' => 'Solo para temas compatibles',
 			'no' => 'No',	// IGNORE
 		),
+		'date_transitions' => array(
+			'_' => 'Date transitions',	// TODO
+			'full' => 'Per day',	// TODO
+			'none' => 'None',	// TODO
+			'simple' => 'Today, yesterday, and older',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => 'Línea inferior',
 			'display_authors' => 'Autores',

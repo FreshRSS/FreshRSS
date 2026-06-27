@@ -38,12 +38,14 @@ return array(
 		'empty' => 'Нема статей для показу.',
 		'published' => array(
 			'_' => 'Оприлюднено',
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'Оприлюднено в майбутньому',
 			'today' => 'Оприлюднено сьогодні',
 			'yesterday' => 'Оприлюднено вчора',
 		),
 		'received' => array(
 			'_' => 'Отримано',
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => 'Отримано сьогодні',
 			'yesterday' => 'Отримано вчора',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'Глобальний показ',
 		'userModified' => array(
 			'_' => 'Змінено користувачем',
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'Змінено користувачем сьогодні',
 			'yesterday' => 'Змінено користувачем учора',
 		),

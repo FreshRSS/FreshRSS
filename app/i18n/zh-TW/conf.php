@@ -38,6 +38,12 @@ return array(
 			'help' => '僅適用於相容主題',
 			'no' => '否',
 		),
+		'date_transitions' => array(
+			'_' => 'Date transitions',	// TODO
+			'full' => 'Per day',	// TODO
+			'none' => 'None',	// TODO
+			'simple' => 'Today, yesterday, and older',	// TODO
+		),
 		'icon' => array(
 			'bottom_line' => '底部',
 			'display_authors' => '作者',

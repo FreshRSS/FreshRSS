@@ -38,12 +38,14 @@ return array(
 		'empty' => 'Non ci sono articoli da mostrare.',
 		'published' => array(
 			'_' => 'Pubblicato',
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'Pubblicato nel futuro',
 			'today' => 'Pubblicato oggi',
 			'yesterday' => 'Pubblicato ieri',
 		),
 		'received' => array(
 			'_' => 'Ricevuto',
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => 'Ricevuto oggi',
 			'yesterday' => 'Ricevuto ieri',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'Vista globale per categorie',
 		'userModified' => array(
 			'_' => 'Modificato dall’utente',
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'Modificato dall’utente oggi',
 			'yesterday' => 'Modificato dall’utente ieri',
 		),

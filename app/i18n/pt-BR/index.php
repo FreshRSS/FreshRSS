@@ -38,12 +38,14 @@ return array(
 		'empty' => 'Não há nenhum artigo para mostrar.',
 		'published' => array(
 			'_' => 'Publicado',
+			'before_yesterday' => 'Published before yesterday',	// TODO
 			'future' => 'Publicado no futuro',
 			'today' => 'Publicado hoje',
 			'yesterday' => 'Publicado ontem',
 		),
 		'received' => array(
 			'_' => 'Recebido',
+			'before_yesterday' => 'Received before yesterday',	// TODO
 			'today' => 'Recebido hoje',
 			'yesterday' => 'Recebido ontem',
 		),
@@ -53,6 +55,7 @@ return array(
 		'title_global' => 'Visualização Global',
 		'userModified' => array(
 			'_' => 'Modificado pelo usuário',
+			'before_yesterday' => 'Modified by user before yesterday',	// TODO
 			'today' => 'Modificado pelo usuário hoje',
 			'yesterday' => 'Modificado pelo usuário ontem',
 		),
