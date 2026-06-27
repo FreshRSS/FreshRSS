@@ -66,7 +66,7 @@ Minz_ExtensionManager::enableByList(FreshRSS_Context::userConf()->extensions_ena
 $query = null;
 $userSearch = null;
 foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
-	if (!empty($raw_query['token']) && $raw_query['token'] === $token) {
+	if (!empty($raw_query['token']) && hash_equals($raw_query['token'], $token)) {
 		switch ($format) {
 			case 'atom':
 			case 'greader':
