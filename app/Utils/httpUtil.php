@@ -111,6 +111,7 @@ final class FreshRSS_http_Util {
 		$safe_params = [
 			CURLOPT_COOKIE,
 			CURLOPT_COOKIEFILE,
+			CURLOPT_FOLLOWLOCATION,	// We filter this value later, only allowing `false`
 			CURLOPT_HTTPHEADER,
 			CURLOPT_MAXREDIRS,
 			CURLOPT_POST,
@@ -555,7 +556,7 @@ final class FreshRSS_http_Util {
 			}
 
 			curl_setopt_array($ch, $curl_options);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);	// We handle HTTP redirections manually for security
 
 			$body = curl_exec($ch);
 			$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);

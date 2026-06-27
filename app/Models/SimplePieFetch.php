@@ -29,9 +29,17 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 		if (!is_int($redirects)) {
 			$redirects = 4;
 		} elseif ($redirects < 0) {
-			$redirects = -1; // infinite redirects
+			$redirects = -1;	// infinite redirects
 		}
-		unset($curl_options[CURLOPT_FOLLOWLOCATION]); // Always use the custom SimplePie redirects for security
+		if (isset($curl_options[CURLOPT_FOLLOWLOCATION])) {
+			if ($curl_options[CURLOPT_FOLLOWLOCATION]) {
+				unset($curl_options[CURLOPT_FOLLOWLOCATION]);	// Favour the custom SimplePie redirects for security
+			} else {
+				$curl_options[CURLOPT_FOLLOWLOCATION] = false;
+				unset($curl_options[CURLOPT_MAXREDIRS]);
+				$redirects = 0;
+			}
+		}
 
 		parent::__construct($url, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
 	}
