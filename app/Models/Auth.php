@@ -216,7 +216,7 @@ class FreshRSS_Auth {
 	public static function isCsrfOk(?string $token = null): bool {
 		$csrf = Minz_Session::paramString('csrf');
 		if ($token === null) {
-			$token = Minz_Request::paramString('_csrf');
+			$token = is_string($_POST['_csrf'] ?? null) ? $_POST['_csrf'] : '';
 		}
 		return $token != '' && hash_equals($csrf, $token);
 	}
