@@ -344,10 +344,10 @@ services:
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
       # Optional parameter to allow sending requests to certain internal hosts, by default all internal requests are blocked
-      # Examples: 127.0.0.1:8080, rssbridge:443, etc.
+      # Examples: 127.0.0.1:8080, rss-bridge:80, etc.
       #   or a CIDR notation: 0.0.0.0/0 (to allow any IPv4), ::/0 (to allow any IPv6)
       # Setting * disables this check completely, allowing any host to be accessed (unsafe)
-      #INTERNAL_HOST_ALLOWLIST: '127.0.0.1:8080 rssbridge:443'
+      #INTERNAL_HOST_ALLOWLIST: 127.0.0.1:8080 rss-bridge:80
 
       # Optional parameter, remove for automatic settings, set to 0 to disable,
       # or (if you use a proxy) to a space-separated list of trusted IP ranges

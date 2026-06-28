@@ -251,7 +251,7 @@ return [
 	# - 192.168.0.0/16
 	#
 	# Here you can add overrides for particular IP/domain:port combinations
-	# Examples: 127.0.0.1:8080, rssbridge:443, etc.
+	# Examples: 127.0.0.1:8080, rss-bridge:80, etc.
 	#
 	# CIDR is permitted too
 	# Examples: 0.0.0.0/0, ::/0 (to allow any IPv4 or any IPv6)

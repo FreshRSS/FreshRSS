@@ -93,7 +93,7 @@ return array(
 		'instance-name' => 'インスタンス名',
 		'internal-host-allowlist' => array(
 			'_' => 'Internal host allowlist',	// TODO
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rssbridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
 		),
 		'max-categories' => '1ユーザーごとのカテゴリの最大値',
 		'max-feeds' => '1ユーザーごとのフィードの最大値',

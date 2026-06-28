@@ -93,7 +93,7 @@ return array(
 		'instance-name' => 'Instance name',	// IGNORE
 		'internal-host-allowlist' => array(
 			'_' => 'Internal host allowlist',	// IGNORE
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rssbridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// IGNORE
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// IGNORE
 		),
 		'max-categories' => 'Max number of categories per user',	// IGNORE
 		'max-feeds' => 'Max number of feeds per user',	// IGNORE
