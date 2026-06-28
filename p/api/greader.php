@@ -255,7 +255,7 @@ final class GReaderAPI {
 			$token === 'x')) { //Reeder
 			return true;
 		}
-		if ($token === str_pad(sha1(FreshRSS_Context::systemConf()->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
+		if (hash_equals(str_pad(sha1(FreshRSS_Context::systemConf()->salt . $user . $conf->apiPasswordHash), 57, 'Z'), $token)) {
 			return true;
 		}
 		Minz_Log::warning('Invalid POST token: ' . $token, API_LOG);

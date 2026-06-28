@@ -30,6 +30,7 @@ declare(strict_types=1);
  * @property-read bool $simplepie_syslog_enabled
  * @property-read bool $suppress_csp_warning
  * @property array<string> $trusted_sources
+ * @property array<string> $internal_host_allowlist
  * @property array<string,array<string,mixed>> $extensions
  */
 final class FreshRSS_SystemConfiguration extends Minz_Configuration {

@@ -25,7 +25,28 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 			}
 		}
 
+		$redirects = $curl_options[CURLOPT_MAXREDIRS] ?? null;
+		if (!is_int($redirects)) {
+			$redirects = 4;
+		} elseif ($redirects < 0) {
+			$redirects = -1;	// infinite redirects
+		}
+		if (isset($curl_options[CURLOPT_FOLLOWLOCATION])) {
+			if ($curl_options[CURLOPT_FOLLOWLOCATION] == true) {
+				unset($curl_options[CURLOPT_FOLLOWLOCATION]);	// Favour the custom SimplePie redirects for security
+			} else {
+				$curl_options[CURLOPT_FOLLOWLOCATION] = false;
+				unset($curl_options[CURLOPT_MAXREDIRS]);
+				$redirects = 0;
+			}
+		}
+
 		parent::__construct($url, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
+	}
+
+	#[\Override]
+	protected function get_curl_resolve_info(string $url): array|null|false {
+		return FreshRSS_http_Util::getCurlResolveInfo($url);
 	}
 
 	#[\Override]

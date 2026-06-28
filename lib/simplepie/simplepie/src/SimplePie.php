@@ -2912,7 +2912,7 @@ class SimplePie
      * Get a contributor for the feed
      *
      * @since 1.1
-     * @param int $key The contrbutor that you want to return. Remember that arrays begin with 0, not 1
+     * @param int $key The contributor that you want to return. Remember that arrays begin with 0, not 1
      * @return Author|null
      */
     public function get_contributor(int $key = 0)

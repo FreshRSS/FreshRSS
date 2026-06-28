@@ -4,6 +4,22 @@ declare(strict_types=1);
 final class FreshRSS_http_Util {
 
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
+	private const PRIVATE_SUBNETS = [
+		'127.0.0.0/8',    // RFC1700 (Loopback)
+		'10.0.0.0/8',     // RFC1918
+		'192.168.0.0/16', // RFC1918
+		'172.16.0.0/12',  // RFC1918
+		'169.254.0.0/16', // RFC3927
+		'0.0.0.0/8',      // RFC5735
+		'240.0.0.0/4',    // RFC1112
+		'::1/128',        // Loopback
+		'fc00::/7',       // Unique Local Address
+		'fe80::/10',      // Link Local Address
+		'::ffff:0:0/96',  // IPv4 translations
+		'::/128',         // Unspecified address
+	];
+	/** @var array<string, string[]> $resolve_ok */
+	private static array $resolve_ok = [];
 
 	private static function getRetryAfterFile(string $url, string $proxy): string {
 		$domain = parse_url($url, PHP_URL_HOST);
@@ -95,7 +111,7 @@ final class FreshRSS_http_Util {
 		$safe_params = [
 			CURLOPT_COOKIE,
 			CURLOPT_COOKIEFILE,
-			CURLOPT_FOLLOWLOCATION,
+			CURLOPT_FOLLOWLOCATION,	// We filter this value later, only allowing `false`
 			CURLOPT_HTTPHEADER,
 			CURLOPT_MAXREDIRS,
 			CURLOPT_POST,
@@ -256,12 +272,145 @@ final class FreshRSS_http_Util {
 		return $html;
 	}
 
+	public static function compareURLOrigins(string $url1, string $url2): bool {
+		$url1 = parse_url(strtolower($url1));
+		$url2 = parse_url(strtolower($url2));
+		if ($url1 === false || $url2 === false) {
+			return false;
+		}
+		foreach ([&$url1, &$url2] as &$url) {
+			$url['port'] ??= match ($url['scheme']) {
+				'http' => 80,
+				'https' => 443,
+				default => 0,
+			};
+		}
+		return ($url1['scheme'] ?? '') === ($url2['scheme'] ?? '') &&
+			($url1['host'] ?? '') === ($url2['host'] ?? '') &&
+			($url1['port'] ?? '') === ($url2['port'] ?? '');
+	}
+
+	/**
+	 * Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
+	 *
+	 * @return array<string>|null|false
+	 */
+	public static function getCurlResolveInfo(string $url): array|null|false {
+		$url = strtolower($url);
+		$parsed = parse_url($url);
+		if ($parsed === false) {
+			return false;
+		}
+		$host = $parsed['host'] ?? null;
+		$scheme = $parsed['scheme'] ?? null;
+		if ($host === null || $scheme === null) {
+			return false;
+		}
+		if (str_starts_with($host, '[') && str_ends_with($host, ']')) {
+			if (strlen($host) === 2) {
+				return false;
+			}
+			$host = substr($host, 1, strlen($host) - 2);
+		}
+
+		$internal_host_allowlist = getenv('INTERNAL_HOST_ALLOWLIST');
+		if (is_string($internal_host_allowlist) && $internal_host_allowlist !== '') {
+			$internal_host_allowlist = preg_split('/\s+/', $internal_host_allowlist, -1, PREG_SPLIT_NO_EMPTY);
+		}
+		if (!is_array($internal_host_allowlist) || empty($internal_host_allowlist)) {
+			$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
+		}
+
+		if (in_array('*', $internal_host_allowlist, true)) {
+			return [];	// Disables SSRF checks entirely (unsafe)
+		}
+
+		$port = parse_url($url)['port'] ?? match ($scheme) {
+			'http' => 80,
+			'https' => 443,
+			default => 0,
+		};
+		$resolve_str = "$host:$port:";
+		$ips_ok = [];
+		$ips = [];
+		$records = [];
+		if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
+			$ips[] = $host;
+		} elseif (isset(self::$resolve_ok[$host])) {
+			$ips = self::$resolve_ok[$host];
+		} else {
+			$records = @dns_get_record($host, DNS_A + DNS_AAAA);
+			if ($records === false) {
+				return false;
+			}
+			foreach ($records as $record) {
+				$ip = $record['ip'] ?? $record['ipv6'];
+				if (is_string($ip)) {
+					$ips[] = $ip;
+				}
+			}
+			self::$resolve_ok[$host] = $ips;
+		}
+
+		$cidr_allowlist = array_filter($internal_host_allowlist, fn($v, $_) => str_contains($v, '/'), ARRAY_FILTER_USE_BOTH);
+		foreach ($ips as $ip) {
+			$allowlist_str = "$ip:$port";
+			$add_ip = $ip;
+			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
+				$allowlist_str = "[$ip]:$port";
+				$add_ip = "[$ip]";
+			}
+			foreach ($cidr_allowlist as $cidr) {
+				if (self::checkCIDR($ip, $cidr)) {
+					$ips_ok[] = $add_ip;
+					continue 2;
+				}
+			}
+			if (in_array($allowlist_str, $internal_host_allowlist, true) ||
+				in_array("$host:$port", $internal_host_allowlist, true)) {
+				$ips_ok[] = $add_ip;
+				continue;
+			}
+
+			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+				continue;
+			}
+			// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
+			// Workaround is available by using `FILTER_FLAG_GLOBAL_RANGE` instead, but that was only added in PHP 8.2, and we need to support PHP 8.1+
+			foreach (self::PRIVATE_SUBNETS as $cidr) {
+				if (self::checkCIDR($ip, $cidr)) {
+					continue 2;
+				}
+			}
+
+			$ips_ok[] = $add_ip;
+		}
+
+		if (count($ips_ok) > 0) {
+			if (count($records) > 0 || isset(self::$resolve_ok[$host])) {
+				$resolve_str .= implode(',', $ips_ok);
+				return [$resolve_str];
+			}
+			if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
+				// No resolve overrides since the URL only contained an IP, not a domain
+				return [];
+			}
+		}
+
+		if (count($ips) === 0) {
+			return false;
+		}
+
+		return null;
+	}
+
+
 	/**
 	 * @param non-empty-string $url
 	 * @param string|null $cachePath path to cache file, or `null` to disable caching
 	 * @param string $type {html,ico,json,opml,xml}
-	 * @param array<string,mixed> $attributes
-	 * @param array<int,mixed> $curl_options
+	 * @param array<string,mixed> $attributes May contain user-defined cURL options in `$attributes['curl_params']`
+	 * @param array<int,mixed> $curl_options Internal overrides of cURL options
 	 * @return array{body:string,effective_url:string,redirect_count:int,fail:bool,status:int,error:string}
 	 *   `status` is the HTTP response code (e.g. 200, 404), or a custom negative value:
 	 *   * `-200` served from local cache;
@@ -287,12 +436,12 @@ final class FreshRSS_http_Util {
 			cleanCache(CLEANCACHE_HOURS);
 		}
 
-		$options = [];
 		$accept = '';
 		$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] ?? null) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
+		$options = [];	// User-defined cURL options
 		if (is_array($attributes['curl_params'] ?? null)) {
 			$options = self::sanitizeCurlParams($attributes['curl_params']);
-			$proxy = is_string($options[CURLOPT_PROXY] ?? null) ? $options[CURLOPT_PROXY] : '';
+			$proxy = is_string($options[CURLOPT_PROXY] ?? null) ? $options[CURLOPT_PROXY] : $proxy;
 			if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
 				// Remove headers problematic for security
 				$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
@@ -303,6 +452,7 @@ final class FreshRSS_http_Util {
 				}
 			}
 		}
+		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
@@ -332,115 +482,185 @@ final class FreshRSS_http_Util {
 				break;
 		}
 
-		// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
-		$ch = curl_init();
-		if ($ch === false) {
-			return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+		$original_url = $url;
+		$fail = false;
+		$redirs = 0;
+		$max_redirs = $curl_options[CURLOPT_MAXREDIRS] ?? $options[CURLOPT_MAXREDIRS] ?? FreshRSS_Context::systemConf()->curl_options[CURLOPT_MAXREDIRS] ?? null;
+		if (!is_int($max_redirs)) {
+			$max_redirs = 4;
 		}
-		curl_setopt_array($ch, [
-			CURLOPT_URL => $url,
-			CURLOPT_HTTPHEADER => ['Accept: ' . $accept],
-			CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
-			CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-			CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
-			CURLOPT_MAXREDIRS => 4,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
-			//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
-		]);
-
-		curl_setopt_array($ch, $options);
-		curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
-
-		$responseHeaders = '';
-		curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
-			$responseHeaders .= $header;
-			return strlen($header);
-		});
-
-		if (isset($attributes['ssl_verify'])) {
-			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, empty($attributes['ssl_verify']) ? 0 : 2);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (bool)$attributes['ssl_verify']);
-			if (empty($attributes['ssl_verify'])) {
-				curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
-			}
-		}
-
-		if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
-			$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
-			if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
-				$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
-			}
-		} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
-			// Legacy PHP 8.2-
-			if (defined('CURLOPT_PROTOCOLS')) {
-				$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
-			}
-			if (defined('CURLOPT_REDIR_PROTOCOLS')) {
-				$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
-			}
-		}
-
-		curl_setopt_array($ch, $curl_options);
-
-		$body = curl_exec($ch);
-		$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		$c_content_type = '' . curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-		$c_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
-		$c_redirect_count = curl_getinfo($ch, CURLINFO_REDIRECT_COUNT);
-		$c_error = curl_error($ch);
-
-		$headers = [];
-		if ($body !== false) {
-			assert($c_redirect_count >= 0);
-			$responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders($responseHeaders, $c_redirect_count + 1);
-			$parser = new \SimplePie\HTTP\Parser($responseHeaders);
-			if ($parser->parse()) {
-				$headers = $parser->headers;
-			}
-		}
-
-		$fail = $c_status != 200 || $c_error != '' || $body === false;
-		if ($fail) {
-			$body = '';
-			Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
-			if (in_array($c_status, [429, 503], true)) {
-				$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $proxy, $headers['retry-after'] ?? '');
-				if ($c_status === 429) {
-					$errorMessage = 'HTTP 429 Too Many Requests! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
-				} elseif ($c_status === 503) {
-					$errorMessage = 'HTTP 503 Service Unavailable! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
+		while (true) {
+			$url = is_string($url) ? $url : '';
+			$resolve = [];
+			if ($proxy === '') {
+				$resolve = self::getCurlResolveInfo($url);
+				if ($resolve === null) {
+					Minz_Log::warning('Fetching this URL is not allowed, because the host’s IP is not in the allowlist [' .
+						\SimplePie\Misc::url_remove_credentials($url) . ']');
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+				} elseif ($resolve === false) {
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 				}
-				if ($retryAfter > 0) {
-					$errorMessage .= ' We may retry after ' . date('c', $retryAfter);
+				if (!empty($resolve)) {
+					$curl_options[CURLOPT_RESOLVE] = $resolve;	// Prevent DNS rebinding
 				}
 			}
-			// TODO: Implement HTTP 410 Gone
-		} elseif (!is_string($body) || strlen($body) === 0) {
-			$body = '';
-		} else {
-			if (in_array($type, ['html', 'json', 'opml', 'xml'], true)) {
-				$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
+			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
+			$ch = curl_init();
+			if ($ch === false || $url === '') {
+				return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 			}
-			if (in_array($type, ['html', 'xml', 'opml'], true)) {
-				$body = self::enforceHttpEncoding($body, $c_content_type);
-			}
-			if (in_array($type, ['html'], true)) {
-				if (stripos($c_content_type, 'text/plain') !== false) {
-					// Plain text to be displayed as preformatted text. Prefixed with UTF-8 BOM
-					$body = "\xEF\xBB\xBF" . '<pre class="text-plain">' . htmlspecialchars($body, ENT_NOQUOTES, 'UTF-8') . '</pre>';
-				} else {
-					$body = self::enforceHtmlBase($body, $c_effective_url);
+			curl_setopt_array($ch, [
+				CURLOPT_URL => $url,
+				CURLOPT_HTTPHEADER => ['Accept: ' . $accept],
+				CURLOPT_USERAGENT => FRESHRSS_USERAGENT,
+				CURLOPT_CONNECTTIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+				CURLOPT_TIMEOUT => $feed_timeout > 0 ? $feed_timeout : $limits['timeout'],
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ACCEPT_ENCODING => '',	//Enable all encodings
+				//CURLOPT_VERBOSE => 1,	// To debug sent HTTP headers
+			]);
+
+			curl_setopt_array($ch, $options);
+			curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
+
+			$responseHeaders = '';
+			curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
+				if (trim($header) !== '') {	// Skip e.g. separation with trailer headers
+					$responseHeaders .= $header;
+				}
+				return strlen($header);
+			});
+
+			if (isset($attributes['ssl_verify'])) {
+				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, empty($attributes['ssl_verify']) ? 0 : 2);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, (bool)$attributes['ssl_verify']);
+				if (empty($attributes['ssl_verify'])) {
+					curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
 				}
 			}
+
+			if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
+				$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+				if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+				}
+			} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
+				// Legacy PHP 8.2-
+				if (defined('CURLOPT_PROTOCOLS')) {
+					$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+				if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+			}
+
+			curl_setopt_array($ch, $curl_options);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);	// We handle HTTP redirections manually for security
+
+			$body = curl_exec($ch);
+			$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			$c_content_type = '' . curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+			$c_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+			$c_error = curl_error($ch);
+
+			$headers = [];
+			if ($body !== false) {
+				$responseHeaders .= "\r\n";
+				$responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders($responseHeaders);
+				$parser = new \SimplePie\HTTP\Parser($responseHeaders);
+				if ($parser->parse()) {
+					$headers = $parser->headers;
+				}
+			}
+
+			if (in_array($c_status, [301, 302, 303, 307, 308], true)) {
+				// Handle the redirect by making another request
+				$location = \SimplePie\Misc::absolutize_url($headers['location'] ?? $url, $url);
+				if ($location === false) {
+					$location = $url;
+				}
+				if (!self::compareURLOrigins($url, $location)) {
+					unset($curl_options[CURLOPT_COOKIE]);
+					unset($curl_options[CURLOPT_USERPWD]);
+					unset($options[CURLOPT_COOKIE]);
+					unset($options[CURLOPT_USERPWD]);
+					if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
+						$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
+							is_string($header) && !preg_match('/^(Cookie|Authorization)\\s*:/i', $header));
+					}
+					if (is_array($curl_options[CURLOPT_HTTPHEADER] ?? null)) {
+						$curl_options[CURLOPT_HTTPHEADER] = array_filter($curl_options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
+							is_string($header) && !preg_match('/^(Cookie|Authorization)\\s*:/i', $header));
+					}
+				}
+				if ($max_redirs >= 0) {
+					$redirs++;
+				}
+				if ($redirs > $max_redirs) {
+					Minz_Log::warning('Error fetching content: Too many redirects were hit [' . \SimplePie\Misc::url_remove_credentials($original_url) . ']');
+					break;
+				}
+				if ((isset($options[CURLOPT_POST]) || isset($curl_options[CURLOPT_POST])) &&
+					in_array($c_status, [301, 302, 303], true)) {	// Not for 307 and 308, which must not change the HTTP method
+					unset($curl_options[CURLOPT_POST]);
+					unset($curl_options[CURLOPT_POSTFIELDS]);
+					unset($options[CURLOPT_POST]);
+					unset($options[CURLOPT_POSTFIELDS]);
+					if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
+						$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
+							is_string($header) && !str_starts_with(strtolower(trim($header)), 'content-type:'));
+					}
+					if (is_array($curl_options[CURLOPT_HTTPHEADER] ?? null)) {
+						$curl_options[CURLOPT_HTTPHEADER] = array_filter($curl_options[CURLOPT_HTTPHEADER], fn(mixed $header): bool =>
+							is_string($header) && !str_starts_with(strtolower(trim($header)), 'content-type:'));
+					}
+				}
+				$url = $location;
+				continue;
+			}
+
+			$fail = $c_status != 200 || $c_error != '' || $body === false;
+			if ($fail) {
+				$body = '';
+				Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
+				if (in_array($c_status, [429, 503], true)) {
+					$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $proxy, $headers['retry-after'] ?? '');
+					if ($c_status === 429) {
+						$errorMessage = 'HTTP 429 Too Many Requests! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
+					} elseif ($c_status === 503) {
+						$errorMessage = 'HTTP 503 Service Unavailable! [' . \SimplePie\Misc::url_remove_credentials($url) . ']';
+					}
+					if ($retryAfter > 0) {
+						$errorMessage .= ' We may retry after ' . date('c', $retryAfter);
+					}
+				}
+			} elseif (!is_string($body) || strlen($body) === 0) { // TODO: Implement HTTP 410 Gone
+				$body = '';
+			} else {
+				if (in_array($type, ['html', 'json', 'opml', 'xml'], true)) {
+					$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
+				}
+				if (in_array($type, ['html', 'xml', 'opml'], true)) {
+					$body = self::enforceHttpEncoding($body, $c_content_type);
+				}
+				if (in_array($type, ['html'], true)) {
+					if (stripos($c_content_type, 'text/plain') !== false) {
+						// Plain text to be displayed as preformatted text. Prefixed with UTF-8 BOM
+						$body = "\xEF\xBB\xBF" . '<pre class="text-plain">' . htmlspecialchars($body, ENT_NOQUOTES, 'UTF-8') . '</pre>';
+					} else {
+						$body = self::enforceHtmlBase($body, $c_effective_url);
+					}
+				}
+			}
+			break;
 		}
 
 		if ($cachePath !== null && file_put_contents($cachePath, $body) === false) {
 			Minz_Log::warning("Error saving cache $cachePath for $url");
 		}
 
-		return ['body' => $body, 'effective_url' => $c_effective_url, 'redirect_count' => $c_redirect_count,
+		return ['body' => is_string($body) ? $body : '', 'effective_url' => $c_effective_url, 'redirect_count' => $redirs,
 			'fail' => $fail, 'status' => $c_status, 'error' => $c_error];
 	}
 
@@ -467,6 +687,9 @@ final class FreshRSS_http_Util {
 	 */
 	private static function checkCIDR(string $ip, string $range): bool {
 		$binary_ip = self::ipToBits($ip);
+		if ($binary_ip === '') {
+			return false;
+		}
 		$split = explode('/', $range);
 
 		$subnet = $split[0] ?? '';
@@ -474,11 +697,24 @@ final class FreshRSS_http_Util {
 			return false;
 		}
 		$binary_subnet = self::ipToBits($subnet);
+		if ($binary_subnet === '') {
+			return false;
+		}
+		if (strlen($binary_ip) !== strlen($binary_subnet)) {
+			return false;	// Do not mix IPv4 and IPv6
+		}
 
-		$mask_bits = $split[1] ?? '';
-		$mask_bits = (int)$mask_bits;
+		$mask_bits_str = $split[1] ?? '';
+		if (!ctype_digit($mask_bits_str)) {
+			return false;
+		}
+		$mask_bits = (int)$mask_bits_str;
+		$max_mask_bits = str_contains($ip, ':') ? 128 : 32;
+		if ($mask_bits < 0 || $mask_bits > $max_mask_bits) {
+			return false;	// Reject invalid mask bits lengths
+		}
 		if ($mask_bits === 0) {
-			$mask_bits = null;
+			return true;
 		}
 
 		$ip_net_bits = substr($binary_ip, 0, $mask_bits);

@@ -169,9 +169,7 @@ label {
 		border: 2px solid var(--color-background-dark);
 		outline: none;
 	}
-}
 
-:is(input, select) {
 	&:invalid {
 		padding-right: 5px;
 		color: var(--color-text-bad);

@@ -194,7 +194,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 			if ($max_redirs != 0) {
 				$opts[CURLOPT_MAXREDIRS] = $max_redirs;
-				$opts[CURLOPT_FOLLOWLOCATION] = 1;
+				$opts[CURLOPT_FOLLOWLOCATION] = true;
 			}
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;

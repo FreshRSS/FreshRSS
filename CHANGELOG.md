@@ -4,6 +4,17 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-XX-XX FreshRSS 1.29.2-dev
 
+* Security
+	* 💥 Disallow access to local networks such as `127.0.0.1` by default, for security reasons (breaking change) [#8400](https://github.com/FreshRSS/FreshRSS/pull/8400)
+		* Selected local networks can be allowed under *System configuration* or using the `INTERNAL_HOST_ALLOWLIST` environment variable
+		* Passing `*` allows all networks like before (unsafe)
+	* Fix access control in `rss` and `opml` actions [#8912](https://github.com/FreshRSS/FreshRSS/pull/8912)
+	* Set limits for regex during search [#8913](https://github.com/FreshRSS/FreshRSS/pull/8913)
+* SimplePie
+	* Security: Disallow `javascript:` URI scheme (protocol) [#8263](https://github.com/FreshRSS/FreshRSS/pull/8263)
+	* Fix wrong player parent logic leading to invalid type [#8893](https://github.com/FreshRSS/FreshRSS/pull/8893), [simplepie#978](https://github.com/simplepie/simplepie/pull/978)
+	* Consistently enable `XML_OPTION_PARSE_HUGE` [#8894](https://github.com/FreshRSS/FreshRSS/pull/8894), [simplepie#977](https://github.com/simplepie/simplepie/pull/977)
+	* Fix null warning in IRI for PHP 8.5+ [#8918](https://github.com/FreshRSS/FreshRSS/pull/8918), [simplepie#979](https://github.com/simplepie/simplepie/pull/979)
 * Features
 	* New option to hide badges showing number of unread articles (*Phantom Obligation*) [#8844](https://github.com/FreshRSS/FreshRSS/pull/8844)
 * Bug fixing
@@ -12,14 +23,6 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* New `cli/reconfigure-user.php` to read/write per-user config attributes [#8873](https://github.com/FreshRSS/FreshRSS/pull/8873)
 * API
 	* Add a warning message to the API password section and a log warning when a client uses GET instead of recommended POST [#8845](https://github.com/FreshRSS/FreshRSS/pull/8845)
-* Security
-	* Fix access control in `rss` and `opml` actions [#8912](https://github.com/FreshRSS/FreshRSS/pull/8912)
-	* Set limits for regex during search [#8913](https://github.com/FreshRSS/FreshRSS/pull/8913)
-* SimplePie
-	* Security: Disallow `javascript:` URI scheme (protocol) [#8263](https://github.com/FreshRSS/FreshRSS/pull/8263)
-	* Fix wrong player parent logic leading to invalid type [#8893](https://github.com/FreshRSS/FreshRSS/pull/8893), [simplepie#978](https://github.com/simplepie/simplepie/pull/978)
-	* Consistently enable `XML_OPTION_PARSE_HUGE` [#8894](https://github.com/FreshRSS/FreshRSS/pull/8894), [simplepie#977](https://github.com/simplepie/simplepie/pull/977)
-	* Fix null warning in IRI for PHP 8.5+ [#8918](https://github.com/FreshRSS/FreshRSS/pull/8918), [simplepie#979](https://github.com/simplepie/simplepie/pull/979)
 * Deployment
 	* Docker alternative image updated to Alpine 3.24 with PHP 8.5.7 and Apache 2.4.67 [#8916](https://github.com/FreshRSS/FreshRSS/pull/8916)
 	* Apache use only `CONN_REMOTE_ADDR` in logs when `mod_remoteip` is available, for compatibility with LiteSpeed Web Server [#8890](https://github.com/FreshRSS/FreshRSS/pull/8890)
