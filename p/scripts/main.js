@@ -446,8 +446,6 @@ function mark_favorite(div) {
 	}));
 }
 
-const freshrssOpenArticleEvent = new Event('freshrss:openArticle', { bubbles: true, cancelable: true });
-
 function loadLazyImages(rootElement) {
 	rootElement.querySelectorAll('img[data-original], iframe[data-original], video[data-original], track[data-original]').forEach(function (el) {
 		if (el.tagName === 'VIDEO') {
@@ -459,7 +457,7 @@ function loadLazyImages(rootElement) {
 	});
 }
 
-function toggleContent(new_active, old_active, skipping) {
+function toggleContent(new_active, old_active, skipping, fromHistory = false) {
 	// If skipping, move current without activating or marking as read
 	if (!new_active) {
 		return;
@@ -495,44 +493,8 @@ function toggleContent(new_active, old_active, skipping) {
 				removeArticle(old_active);
 			}
 		}
-		// Update URL hash when moving to a different article
-		// Use location.hash for first, history.replaceState for subsequent
-		// to maintain a single history entry for all article navigation
-		// Skip if this was triggered by hashchange (back/forward button)
-		if (!skipping && !articleHistoryIgnoreToggle) {
-			const articleId = new_active.id.replace(/^flux_/, '');
-			if (articleHistoryEntryPushed) {
-				history.replaceState({ }, '', '#article-' + articleId);
-			} else {
-				location.hash = 'article-' + articleId;
-				articleHistoryEntryPushed = true;
-			}
-		}
 	} else {
-		const wasActive = new_active.classList.contains('active');
 		new_active.classList.toggle('active');
-		// Update URL hash when expanding/collapsing an article
-		// Use location.hash for first expand, replaceState for subsequent
-		// Skip if this toggle was triggered by hashchange (back/forward button)
-		if (!skipping && !articleHistoryIgnoreToggle) {
-			const isNowActive = new_active.classList.contains('active');
-			if (wasActive !== isNowActive) {
-				if (isNowActive) {
-					// Expanded - set hash to article ID
-					const articleId = new_active.id.replace(/^flux_/, '');
-					if (articleHistoryEntryPushed) {
-						history.replaceState({ }, '', '#article-' + articleId);
-					} else {
-						location.hash = 'article-' + articleId;
-						articleHistoryEntryPushed = true;
-					}
-				} else {
-					// Collapsed - replace the history entry instead of pushing a new one;
-					// keep articleHistoryEntryPushed true so the next expand also replaces
-					history.replaceState({}, '', location.href.split('#')[0]);
-				}
-			}
-		}
 	}
 
 	const new_offsetTop = new_active.offsetTop;
@@ -585,11 +547,22 @@ function toggleContent(new_active, old_active, skipping) {
 		}
 	}
 
-	if (new_active.classList.contains('active') && !skipping) {
-		if (context.auto_mark_article) {
-			mark_read(new_active, true, true);
+	// URL history management listens to these events — see init_article_history()
+	if (!skipping) {
+		if (new_active.classList.contains('active')) {
+			if (context.auto_mark_article) {
+				mark_read(new_active, true, true);
+			}
+			new_active.dispatchEvent(new CustomEvent('freshrss:openArticle', {
+				bubbles: true, cancelable: true,
+				detail: { articleId: new_active.id.replace(/^flux_/, ''), fromHistory },
+			}));
+		} else if (old_active === new_active) {
+			new_active.dispatchEvent(new CustomEvent('freshrss:closeArticle', {
+				bubbles: true, cancelable: true,
+				detail: { fromHistory },
+			}));
 		}
-		new_active.dispatchEvent(freshrssOpenArticleEvent);
 	}
 	onScroll();
 }
@@ -2489,82 +2462,77 @@ see https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security`
 	`);
 }
 
-// Article history for back/forward button support
-let articleHistoryInited = false;
-let articleHistoryIgnoreToggle = false;
-let articleHistoryEntryPushed = false;
-
 function init_article_history() {
-	if (articleHistoryInited) {
-		return;
-	}
-	articleHistoryInited = true;
+	let entryPushed = false;
 
-	// Check initial hash on page load
-	const initialHash = location.hash.substring(1); // Remove leading #
-	if (initialHash.startsWith('article-')) {
-		const articleId = initialHash.substring(8); // Remove 'article-' prefix
-		const article = document.getElementById('flux_' + articleId);
-		if (article) {
-			if (!article.classList.contains('active')) {
-				// Expand the article, passing the current article as old_active
-				// so .current class is updated consistently with normal navigation
-				const currentArticle = document.querySelector('.flux.current');
-				articleHistoryIgnoreToggle = true;
-				toggleContent(article, currentArticle, false);
-				articleHistoryIgnoreToggle = false;
-			}
-			articleHistoryEntryPushed = true;
+	function pushOrReplaceArticleHash(articleId) {
+		if (entryPushed) {
+			history.replaceState({}, '', '#article-' + articleId);
 		} else {
-			// Article doesn't exist (e.g., was removed after being marked as read)
-			// Clear the invalid hash from URL
-			history.replaceState({ }, '', '');
-			articleHistoryEntryPushed = false;
+			location.hash = 'article-' + articleId;
+			entryPushed = true;
 		}
 	}
 
-	// Use hashchange event for navigation
-	// This works with browser back/forward and also with location.hash changes
+	// Expand the article referenced by the hash on page load
+	const initialHash = location.hash.substring(1);
+	if (initialHash.startsWith('article-')) {
+		const articleId = initialHash.substring(8);
+		const article = document.getElementById('flux_' + articleId);
+		if (article) {
+			if (!article.classList.contains('active')) {
+				const currentArticle = document.querySelector('.flux.current');
+				toggleContent(article, currentArticle, false, true);
+			}
+			entryPushed = true;
+		} else {
+			history.replaceState({}, '', '');
+		}
+	}
+
+	// Keep the URL hash in sync with the open article
+	document.addEventListener('freshrss:openArticle', function (ev) {
+		if (!ev.detail.fromHistory) {
+			pushOrReplaceArticleHash(ev.detail.articleId);
+		}
+	});
+	document.addEventListener('freshrss:closeArticle', function (ev) {
+		if (!ev.detail.fromHistory) {
+			history.replaceState({}, '', location.href.split('#')[0]);
+			// entryPushed stays true — next expand replaces this entry
+		}
+	});
+
+	// Handle browser back/forward
 	window.addEventListener('hashchange', function (ev) {
 		const oldHash = ev.oldURL ? ev.oldURL.split('#')[1] || '' : '';
-		const newHash = location.hash.substring(1); // Remove leading #
+		const newHash = location.hash.substring(1);
 
-		// If new hash is an article ID (starts with 'article-')
 		if (newHash.startsWith('article-')) {
-			const articleId = newHash.substring(8); // Remove 'article-' prefix
+			const articleId = newHash.substring(8);
 			const article = document.getElementById('flux_' + articleId);
 			if (article) {
 				const currentArticle = document.querySelector('.flux.current');
 				if (!article.classList.contains('active')) {
-					// Pass current article as old_active so .current is updated consistently
-					articleHistoryIgnoreToggle = true;
-					toggleContent(article, currentArticle, false);
-					articleHistoryIgnoreToggle = false;
+					toggleContent(article, currentArticle, false, true);
 				} else if (article !== currentArticle) {
-					// Article already open — just move .current without re-toggling
 					if (currentArticle) {
 						currentArticle.classList.remove('current');
 					}
 					article.classList.add('current');
 				}
-				// We're now sitting on an article hash entry in history
-				articleHistoryEntryPushed = true;
+				entryPushed = true;
 			} else {
-				// Article doesn't exist (e.g., due to filtering or pagination)
-				// Replace the invalid hash without pushing a new entry
 				history.replaceState({}, '', location.href.split('#')[0]);
-				articleHistoryEntryPushed = false;
+				entryPushed = false;
 			}
 		} else if (oldHash.startsWith('article-') && newHash === '') {
-			// Hash cleared - collapse the article
 			const oldArticleId = oldHash.substring(8);
 			const article = document.getElementById('flux_' + oldArticleId);
 			if (article && article.classList.contains('active')) {
-				articleHistoryIgnoreToggle = true;
-				toggleContent(article, article, false);
-				articleHistoryIgnoreToggle = false;
+				toggleContent(article, article, false, true);
 			}
-			articleHistoryEntryPushed = false;
+			entryPushed = false;
 		}
 	});
 }
