@@ -96,14 +96,29 @@ foreach ($users as $user) {
 	// NB: Extensions and hooks are reinitialised there
 	$app->init();
 
-	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile) {
+	// Count of new articles per feed, to report them on the output (see https://github.com/FreshRSS/FreshRSS/issues/8291)
+	/** @var array<int,int> $nbNewArticlesByFeed */
+	$nbNewArticlesByFeed = [];
+	/** @var array<int,string> $feedNamesById */
+	$feedNamesById = [];
+
+	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile, &$feedNamesById) {
 		touch($mutexFile);
+		$feedNamesById[$feed->id()] = $feed->name() !== '' ? $feed->name() : $feed->url(false);
 		return $feed;
+	});
+	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeAdd, static function (FreshRSS_Entry $entry) use (&$nbNewArticlesByFeed) {
+		$nbNewArticlesByFeed[$entry->feedId()] = ($nbNewArticlesByFeed[$entry->feedId()] ?? 0) + 1;
+		return $entry;
 	});
 
 	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
 	$app->run();
+
+	foreach ($nbNewArticlesByFeed as $feedId => $nbNew) {
+		notice("\t" . $nbNew . ' new article(s) from feed: ' . ($feedNamesById[$feedId] ?? ('#' . $feedId)));
+	}
 
 	if (!invalidateHttpCache()) {
 		Minz_Log::warning('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, LOG_FILENAME), ADMIN_LOG);
