@@ -527,9 +527,9 @@ function toggleContent(new_active, old_active, skipping) {
 						articleHistoryEntryPushed = true;
 					}
 				} else {
-					// Collapsed - clear hash
-					location.hash = '';
-					articleHistoryEntryPushed = false;
+					// Collapsed - replace the history entry instead of pushing a new one;
+					// keep articleHistoryEntryPushed true so the next expand also replaces
+					history.replaceState({}, '', location.href.split('#')[0]);
 				}
 			}
 		}
@@ -2505,15 +2505,17 @@ function init_article_history() {
 	if (initialHash.startsWith('article-')) {
 		const articleId = initialHash.substring(8); // Remove 'article-' prefix
 		const article = document.getElementById('flux_' + articleId);
-		if (article && !article.classList.contains('active')) {
-			// Expand the article, passing the current article as old_active
-			// so .current class is updated consistently with normal navigation
-			const currentArticle = document.querySelector('.flux.current');
-			articleHistoryIgnoreToggle = true;
-			toggleContent(article, currentArticle, false);
-			articleHistoryIgnoreToggle = false;
+		if (article) {
+			if (!article.classList.contains('active')) {
+				// Expand the article, passing the current article as old_active
+				// so .current class is updated consistently with normal navigation
+				const currentArticle = document.querySelector('.flux.current');
+				articleHistoryIgnoreToggle = true;
+				toggleContent(article, currentArticle, false);
+				articleHistoryIgnoreToggle = false;
+			}
 			articleHistoryEntryPushed = true;
-		} else if (!article) {
+		} else {
 			// Article doesn't exist (e.g., was removed after being marked as read)
 			// Clear the invalid hash from URL
 			history.replaceState({ }, '', '');
@@ -2532,12 +2534,18 @@ function init_article_history() {
 			const articleId = newHash.substring(8); // Remove 'article-' prefix
 			const article = document.getElementById('flux_' + articleId);
 			if (article) {
+				const currentArticle = document.querySelector('.flux.current');
 				if (!article.classList.contains('active')) {
 					// Pass current article as old_active so .current is updated consistently
-					const currentArticle = document.querySelector('.flux.current');
 					articleHistoryIgnoreToggle = true;
 					toggleContent(article, currentArticle, false);
 					articleHistoryIgnoreToggle = false;
+				} else if (article !== currentArticle) {
+					// Article already open — just move .current without re-toggling
+					if (currentArticle) {
+						currentArticle.classList.remove('current');
+					}
+					article.classList.add('current');
 				}
 				// We're now sitting on an article hash entry in history
 				articleHistoryEntryPushed = true;
