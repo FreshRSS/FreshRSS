@@ -22,7 +22,9 @@ Entries are separated by newlines, and must be a `host:port` combination, for ex
 Another option is to set an `INTERNAL_HOST_ALLOWLIST` environment variable (e.g. in your docker-compose file). The entries there are separated by whitespace instead.
 Adding `*` disables the SSRF check completely (unsafe).
 
-### Recommended mitigations for shared/public setups
+### Recommended additional mitigations for shared/public setups
+
+Although there are already existing mitigations for SSRF, some extra steps can be taken for more safety:
 
 * Run FreshRSS behind a firewall or reverse proxy that blocks access to internal IP ranges
 * Use container isolation or a virtual network to prevent access to sensitive endpoints
