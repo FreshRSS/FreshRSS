@@ -166,7 +166,7 @@ return array(
 			'_' => 'Angewendeter Filter:',
 			'categories' => 'Nach Kategorie filtern',
 			'feeds' => 'Nach Feed filtern',
-			'order' => 'Nach Datum sortieren',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => '<i>Feed-Tags</i> im geteilten RSS durch <i>Benutzerlabel</i> ersetzen',
 			'search' => 'Suchbegriff',
 			'shareOpml' => 'Teilen via OPML mit zugehörigen Kategorien und Feeds aktivieren',

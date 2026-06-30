@@ -166,7 +166,7 @@ return array(
 			'_' => 'Filtro aplicado:',
 			'categories' => 'Mostrar por categoria',
 			'feeds' => 'Mostrar por feed',
-			'order' => 'Ordenar por data',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Expressão',
 			'shareOpml' => 'Activa a partilha por OPML de categorias e feeds correspondentes',

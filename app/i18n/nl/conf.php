@@ -166,7 +166,7 @@ return array(
 			'_' => 'Filter toegepast:',
 			'categories' => 'Weergeven op categorie',
 			'feeds' => 'Weergeven op feed',
-			'order' => 'Sorteren op datum',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Vervang <i>feedtags</i> door <i>gebruikerslabels</i> in de gedeelde RSS',
 			'search' => 'Expressie',
 			'shareOpml' => 'Via OPML delen van bijbehorende categorieën en feeds aanzetten',

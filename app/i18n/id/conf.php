@@ -166,7 +166,7 @@ return array(
 			'_' => 'Filter yang diterapkan:',
 			'categories' => 'Tampilkan berdasarkan kategori',
 			'feeds' => 'Tampilkan berdasarkan umpan',
-			'order' => 'Urutkan berdasarkan tanggal',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Ekspresi Pencarian',
 			'shareOpml' => 'Aktifkan berbagi melalui OPML dari kategori dan umpan terkait',

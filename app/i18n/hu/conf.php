@@ -166,7 +166,7 @@ return array(
 			'_' => 'Alkalmazott szűrő:',
 			'categories' => 'Rendezés kategória szerint',
 			'feeds' => 'Rendezés hírforrás szerint',
-			'order' => 'Rendezés dátum szerint',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'A megosztott RSS-ben a <i>hírforrás-címkéket</i> <i>felhasználói címkékre</i> cserélje',
 			'search' => 'Kifejezés',
 			'shareOpml' => 'Engedélyezze a megfelelő kategóriák és hírcsatornák OPML-alapú megosztását',

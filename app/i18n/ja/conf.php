@@ -166,7 +166,7 @@ return array(
 			'_' => 'フィルターを適用:',
 			'categories' => 'カテゴリごとに表示する',
 			'feeds' => 'フィードごとに表示する',
-			'order' => '日付ごとにソートする',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => '式',
 			'shareOpml' => 'カテゴリとフィードのOPMLによる共有を有効にする',

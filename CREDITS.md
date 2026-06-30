@@ -124,6 +124,7 @@ People are sorted by name so please keep this order.
 * [hoilc](https://github.com/hoilc): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hoilc)
 * [Holi](https://github.com/mikropsoft): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mikropsoft)
 * [Horváth Zsolt](https://github.com/horvi28): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3Ahorvi28)
+* [iatman](https://github.com/iatman): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:iatman)
 * [ibiruai](https://github.com/ibiruai): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ibiruai)
 * [id-konstantin-stepanov](https://github.com/id-konstantin-stepanov): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:id-konstantin-stepanov)
 * [IEEE-754](https://github.com/IEEE-754): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:IEEE-754)

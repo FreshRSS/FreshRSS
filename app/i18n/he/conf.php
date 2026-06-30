@@ -166,7 +166,7 @@ return array(
 			'_' => 'מסננים בשימוש:',
 			'categories' => 'Display by category',	// TODO
 			'feeds' => 'Display by feed',	// TODO
-			'order' => 'Sort by date',	// TODO
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Expression',	// TODO
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO

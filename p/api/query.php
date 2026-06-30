@@ -90,6 +90,9 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 		if (Minz_Request::paramString('order', plaintext: true) === '') {
 			Minz_Request::_param('order', $query->getOrder());
 		}
+		if (Minz_Request::paramString('sort', plaintext: true) === '') {
+			Minz_Request::_param('sort', $query->getSort());
+		}
 		Minz_Request::_param('state', (string)$query->getState());
 
 		$search = $query->getSearch()->toString();
