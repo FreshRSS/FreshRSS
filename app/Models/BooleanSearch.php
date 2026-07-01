@@ -117,7 +117,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			$fromS = [];
 			$toS = [];
 			foreach ($all_matches as $matches) {
-				if (empty($matches['search'])) {
+				if (empty($matches['search'])) {	// @phpstan-ignore empty.offset (for additional safety)
 					continue;
 				}
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
