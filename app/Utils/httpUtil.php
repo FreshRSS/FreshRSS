@@ -413,7 +413,7 @@ final class FreshRSS_http_Util {
 	/**
 	 * @param non-empty-string $url
 	 * @param string|null $cachePath path to cache file, or `null` to disable caching
-	 * @param string $type {html,ico,json,opml,xml}
+	 * @param string $type {html,ico,json,opml,text,xml}
 	 * @param array<string,mixed> $attributes May contain user-defined cURL options in `$attributes['curl_params']`
 	 * @param array<int,mixed> $curl_options Internal overrides of cURL options
 	 * @return array{body:string,effective_url:string,redirect_count:int,fail:bool,status:int,error:string}
@@ -477,6 +477,9 @@ final class FreshRSS_http_Util {
 				break;
 			case 'ico':
 				$accept = 'image/x-icon,image/vnd.microsoft.icon,image/ico,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.1';
+				break;
+			case 'text':
+				$accept = 'text/plain;q=0.9,*/*;q=0.8';
 				break;
 			case 'html':
 			default:
@@ -640,10 +643,10 @@ final class FreshRSS_http_Util {
 			} elseif (!is_string($body) || strlen($body) === 0) { // TODO: Implement HTTP 410 Gone
 				$body = '';
 			} else {
-				if (in_array($type, ['html', 'json', 'opml', 'xml'], true)) {
+				if (in_array($type, ['html', 'json', 'opml', 'text', 'xml'], true)) {
 					$body = trim($body, " \n\r\t\v");	// Do not trim \x00 to avoid breaking a BOM
 				}
-				if (in_array($type, ['html', 'xml', 'opml'], true)) {
+				if (in_array($type, ['html', 'xml', 'opml', 'text'], true)) {
 					$body = self::enforceHttpEncoding($body, $c_content_type);
 				}
 				if (in_array($type, ['html'], true)) {

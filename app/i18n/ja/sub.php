@@ -184,6 +184,7 @@ return array(
 				'relative' => 'ドット記法（項目からの相対パス）:',
 			),
 			'jsonfeed' => 'JSONフィード',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (標準)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

@@ -184,6 +184,7 @@ return array(
 				'relative' => '點表示法標記路徑 (相對於項目) 用於:',
 			),
 			'jsonfeed' => 'JSON 訂閱源',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (預設)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

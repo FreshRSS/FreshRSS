@@ -184,6 +184,7 @@ return array(
 				'relative' => 'JSON 路径（相对于文章）：',
 			),
 			'jsonfeed' => 'JSON 订阅源',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (默认)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

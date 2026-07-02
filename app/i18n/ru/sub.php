@@ -184,6 +184,7 @@ return array(
 				'relative' => 'JSON-путь (относительный до элемента) для:',
 			),
 			'jsonfeed' => 'JSON Лента',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (по умолчанию)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

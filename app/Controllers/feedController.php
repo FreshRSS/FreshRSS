@@ -534,6 +534,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$feedIsNew = $feed->lastUpdate() <= 0;
+			$attributesByGuid = [];
 
 			try {
 				if ($simplePiePush !== null) {
@@ -563,6 +564,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					if ($simplePie === null) {
 						throw new FreshRSS_Feed_Exception('HTML+XPath+JSON parsing failed for [' . $feed->url(false) . ']');
 					}
+				} elseif ($feed->kind() === FreshRSS_Feed::KIND_PLAIN_TEXT) {
+					$loadResult = $feed->loadPlainText();
+					if ($loadResult === null) {
+						throw new FreshRSS_Feed_Exception('Plain text loading failed for [' . $feed->url(false) . ']');
+					}
+					[$simplePie, $attributesByGuid] = $loadResult;
 				} else {
 					$simplePie = $feed->load(false, $feedIsNew);
 				}
@@ -640,6 +647,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					}
 					$newGuids[$entry->guid()] = true;
 					$entry->_lastSeen($mtime);
+					if (isset($attributesByGuid[$entry->guid()])) {
+						foreach ($attributesByGuid[$entry->guid()] as $key => $value) {
+							$entry->_attribute($key, $value);
+						}
+					}
 
 					if (isset($existingHashForGuids[$entry->guid()])) {
 						$existingHash = $existingHashForGuids[$entry->guid()];

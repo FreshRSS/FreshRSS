@@ -184,6 +184,7 @@ return array(
 				'relative' => 'مسیر با نقطه (نسبت به آیتم) برای:',
 			),
 			'jsonfeed' => 'فید JSON',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => ' RSS / Atom (پیش‌فرض)',
 			'xml_xpath' => ' XML + XPath',
 		),

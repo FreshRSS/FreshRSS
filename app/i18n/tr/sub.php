@@ -184,6 +184,7 @@ return array(
 				'relative' => 'Öğe ile ilgili nokta notasyon yolu:',
 			),
 			'jsonfeed' => 'JSON Besleme',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (varsayılan)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

@@ -184,6 +184,7 @@ return array(
 				'relative' => 'pont jelölt útvonal (relatív az elemhez):',
 			),
 			'jsonfeed' => 'JSON Hírforrás',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (alapértelmezett)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

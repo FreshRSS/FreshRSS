@@ -184,6 +184,7 @@ return array(
 				'relative' => 'шлях у крапковій нотації (відносно новини) до:',
 			),
 			'jsonfeed' => 'JSON-стрічка',
+			'plain_text' => 'Звичайний текст (цілий файл)',
 			'rss' => 'RSS/Atom (типово)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

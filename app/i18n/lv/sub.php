@@ -184,6 +184,7 @@ return array(
 				'relative' => 'punktu notācijas ceļš (relatīvs pret vienumu) priekš:',
 			),
 			'jsonfeed' => 'JSON Barotne',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (noklusējums)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

@@ -184,6 +184,7 @@ return array(
 				'relative' => 'cesta s tečkovým zápisem (relativní k položce) pro:',
 			),
 			'jsonfeed' => 'Zdroj JSON',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (výchozí)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

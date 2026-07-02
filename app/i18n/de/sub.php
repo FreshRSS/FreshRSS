@@ -184,6 +184,7 @@ return array(
 				'relative' => 'Punktnotierter Pfad (relativ zum Item) für:',
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (Standard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

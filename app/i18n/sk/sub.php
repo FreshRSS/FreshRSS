@@ -184,6 +184,7 @@ return array(
 				'relative' => 'cesta zápisu s bodkou (relatívna k položke) pre:',
 			),
 			'jsonfeed' => 'JSON kanál',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (prednastavené)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

@@ -184,6 +184,7 @@ return array(
 				'relative' => 'path con notazione a punti (relativo all’elemento) per:',
 			),
 			'jsonfeed' => 'Feed JSON',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (predefinito)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
