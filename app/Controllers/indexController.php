@@ -31,7 +31,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @return '.future'|'.today'|'.yesterday'|'.earlierThisMonth'|'.lastMonth'|'.earlierThisYear'|'.lastYear'|'.beforeLastYear'
+	 * @return '.future'|'.today'|'.yesterday'|'.earlierThisMonth'|'.lastMonth'|'.earlierThisYear'|'.lastYear'|'.beforeLastYear'|''
 	 */
 	private static function dayRelative(int $timestamp, bool $mayBeFuture): string {
 		static $today = null;
