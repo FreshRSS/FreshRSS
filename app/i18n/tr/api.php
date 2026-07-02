@@ -12,22 +12,22 @@
 
 return array(
 	'information' => array(
-		'address' => 'Your API address:',	// TODO
+		'address' => 'API adresiniz:',	
 		'output' => array(
-			'encoding-support' => '⚠️ WARN: no <code>%2F</code> support, some clients might not work!',	// TODO
-			'invalid-configuration' => '⚠️ WARN: Probable invalid base URL in ./data/config.php',	// TODO
-			'pass' => '✔️ PASS',	// TODO
-			'unknown-error' => '❌ ',	// TODO
+			'encoding-support' => '⚠️ DİKKAT: <code>%2F</code> desteği yoktur, bazı istemciler çalışmayabilir!',
+			'invalid-configuration' => '⚠️ DİKKAT: Olası geçersiz temel URL ./data/config.php',	
+			'pass' => '✔️ BAŞARILI',	
+			'unknown-error' => '❌ Bilinmeyen hata ',
 		),
 		'test' => array(
-			'fever' => 'Fever API configuration test:',	// TODO
-			'greader' => 'Google Reader API configuration test:',	// TODO
+			'fever' => 'Fever API konfigürasyon testi:',	
+			'greader' => 'Google Reader API konfigürasyon testi:',	
 		),
 		'title' => array(
-			'_' => 'FreshRSS API endpoints',	// TODO
-			'extension' => 'API for extensions',	// TODO
-			'fever' => 'Fever compatible API',	// TODO
-			'greader' => 'Google Reader compatible API',	// TODO
+			'_' => 'FreshRSS API uç noktaları',	
+			'extension' => 'Uzantılar için API',	
+			'fever' => 'Fever ile uyumlu API',	
+			'greader' => 'Google Reader ile uyumlu API',	
 		),
 	),
 );
