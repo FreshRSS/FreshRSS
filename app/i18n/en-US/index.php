@@ -38,12 +38,23 @@ return array(
 		'empty' => 'There are no articles to show.',	// IGNORE
 		'published' => array(
 			'_' => 'Published',	// IGNORE
+			'beforeLastYear' => 'Published before last year',	// IGNORE
+			'earlierThisMonth' => 'Published earlier this month',	// IGNORE
+			'earlierThisYear' => 'Published earlier this year',	// IGNORE
 			'future' => 'Published in the future',	// IGNORE
+			'lastMonth' => 'Published last month',	// IGNORE
+			'lastYear' => 'Published last year',	// IGNORE
 			'today' => 'Published today',	// IGNORE
 			'yesterday' => 'Published yesterday',	// IGNORE
 		),
 		'received' => array(
 			'_' => 'Received',	// IGNORE
+			'beforeLastYear' => 'Received before last year',	// IGNORE
+			'earlierThisMonth' => 'Received earlier this month',	// IGNORE
+			'earlierThisYear' => 'Received earlier this year',	// IGNORE
+			'future' => 'Received in the future',	// IGNORE
+			'lastMonth' => 'Received last month',	// IGNORE
+			'lastYear' => 'Received last year',	// IGNORE
 			'today' => 'Received today',	// IGNORE
 			'yesterday' => 'Received yesterday',	// IGNORE
 		),
@@ -53,6 +64,12 @@ return array(
 		'title_global' => 'Global view',	// IGNORE
 		'userModified' => array(
 			'_' => 'Modified by user',	// IGNORE
+			'beforeLastYear' => 'Modified by user before last year',	// IGNORE
+			'earlierThisMonth' => 'Modified by user earlier this month',	// IGNORE
+			'earlierThisYear' => 'Modified by user earlier this year',	// IGNORE
+			'future' => 'Modified by user in the future',	// IGNORE
+			'lastMonth' => 'Modified by user last month',	// IGNORE
+			'lastYear' => 'Modified by user last year',	// IGNORE
 			'today' => 'Modified by user today',	// IGNORE
 			'yesterday' => 'Modified by user yesterday',	// IGNORE
 		),

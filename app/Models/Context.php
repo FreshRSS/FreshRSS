@@ -53,6 +53,8 @@ final class FreshRSS_Context {
 	public static FreshRSS_BooleanSearch $search;
 	/** @var numeric-string */
 	public static string $continuation_id = '0';
+	/** Paging entry from the previous page */
+	public static ?FreshRSS_Entry $continuationEntry = null;
 	/** @var numeric-string */
 	public static string $id_max = '0';
 	public static int $sinceHours = 0;

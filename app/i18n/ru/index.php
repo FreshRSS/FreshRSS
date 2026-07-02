@@ -38,12 +38,23 @@ return array(
 		'empty' => 'Нет статей для отображения.',
 		'published' => array(
 			'_' => 'Опубликовано',
+			'beforeLastYear' => 'Published before last year',	// TODO
+			'earlierThisMonth' => 'Published earlier this month',	// TODO
+			'earlierThisYear' => 'Published earlier this year',	// TODO
 			'future' => 'Опубликовано в будущем',
+			'lastMonth' => 'Published last month',	// TODO
+			'lastYear' => 'Published last year',	// TODO
 			'today' => 'Опубликовано сегодня',
 			'yesterday' => 'Опубликовано вчера',
 		),
 		'received' => array(
 			'_' => 'Получено',
+			'beforeLastYear' => 'Received before last year',	// TODO
+			'earlierThisMonth' => 'Received earlier this month',	// TODO
+			'earlierThisYear' => 'Received earlier this year',	// TODO
+			'future' => 'Received in the future',	// TODO
+			'lastMonth' => 'Received last month',	// TODO
+			'lastYear' => 'Received last year',	// TODO
 			'today' => 'Получено сегодня',
 			'yesterday' => 'Получено вчера',
 		),
@@ -53,6 +64,12 @@ return array(
 		'title_global' => 'Глобальный вид',
 		'userModified' => array(
 			'_' => 'Изменено пользователем',
+			'beforeLastYear' => 'Modified by user before last year',	// TODO
+			'earlierThisMonth' => 'Modified by user earlier this month',	// TODO
+			'earlierThisYear' => 'Modified by user earlier this year',	// TODO
+			'future' => 'Modified by user in the future',	// TODO
+			'lastMonth' => 'Modified by user last month',	// TODO
+			'lastYear' => 'Modified by user last year',	// TODO
 			'today' => 'Изменено пользователем сегодня',
 			'yesterday' => 'Изменено пользователем вчера',
 		),

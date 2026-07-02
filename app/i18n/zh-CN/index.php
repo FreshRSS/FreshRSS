@@ -38,12 +38,23 @@ return array(
 		'empty' => '没有文章可以显示。',
 		'published' => array(
 			'_' => '已发布',
+			'beforeLastYear' => 'Published before last year',	// TODO
+			'earlierThisMonth' => 'Published earlier this month',	// TODO
+			'earlierThisYear' => 'Published earlier this year',	// TODO
 			'future' => '未来发布',
+			'lastMonth' => 'Published last month',	// TODO
+			'lastYear' => 'Published last year',	// TODO
 			'today' => '今日发布',
 			'yesterday' => '昨日发布',
 		),
 		'received' => array(
 			'_' => '已接收',
+			'beforeLastYear' => 'Received before last year',	// TODO
+			'earlierThisMonth' => 'Received earlier this month',	// TODO
+			'earlierThisYear' => 'Received earlier this year',	// TODO
+			'future' => 'Received in the future',	// TODO
+			'lastMonth' => 'Received last month',	// TODO
+			'lastYear' => 'Received last year',	// TODO
 			'today' => '今日接收',
 			'yesterday' => '昨日接收',
 		),
@@ -53,6 +64,12 @@ return array(
 		'title_global' => '全局视图',
 		'userModified' => array(
 			'_' => '用户已修改',
+			'beforeLastYear' => 'Modified by user before last year',	// TODO
+			'earlierThisMonth' => 'Modified by user earlier this month',	// TODO
+			'earlierThisYear' => 'Modified by user earlier this year',	// TODO
+			'future' => 'Modified by user in the future',	// TODO
+			'lastMonth' => 'Modified by user last month',	// TODO
+			'lastYear' => 'Modified by user last year',	// TODO
 			'today' => '用户今日修改',
 			'yesterday' => '用户昨日修改',
 		),

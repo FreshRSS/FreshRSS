@@ -38,12 +38,23 @@ return array(
 		'empty' => 'Er is geen artikel om te laten zien.',
 		'published' => array(
 			'_' => 'Gepubliceerd',
+			'beforeLastYear' => 'Published before last year',	// TODO
+			'earlierThisMonth' => 'Published earlier this month',	// TODO
+			'earlierThisYear' => 'Published earlier this year',	// TODO
 			'future' => 'In de toekomst gepubliceerd',
+			'lastMonth' => 'Published last month',	// TODO
+			'lastYear' => 'Published last year',	// TODO
 			'today' => 'Vandaag gepubliceerd',
 			'yesterday' => 'Gisteren gepubliceerd',
 		),
 		'received' => array(
 			'_' => 'Ontvangen',
+			'beforeLastYear' => 'Received before last year',	// TODO
+			'earlierThisMonth' => 'Received earlier this month',	// TODO
+			'earlierThisYear' => 'Received earlier this year',	// TODO
+			'future' => 'Received in the future',	// TODO
+			'lastMonth' => 'Received last month',	// TODO
+			'lastYear' => 'Received last year',	// TODO
 			'today' => 'Vandaag ontvangen',
 			'yesterday' => 'Gisteren ontvangen',
 		),
@@ -53,6 +64,12 @@ return array(
 		'title_global' => 'Globale weergave',
 		'userModified' => array(
 			'_' => 'Aangepast door gebruiker',
+			'beforeLastYear' => 'Modified by user before last year',	// TODO
+			'earlierThisMonth' => 'Modified by user earlier this month',	// TODO
+			'earlierThisYear' => 'Modified by user earlier this year',	// TODO
+			'future' => 'Modified by user in the future',	// TODO
+			'lastMonth' => 'Modified by user last month',	// TODO
+			'lastYear' => 'Modified by user last year',	// TODO
 			'today' => 'Vandaag aangepast door gebruiker',
 			'yesterday' => 'Gisteren aangepast door gebruiker',
 		),
