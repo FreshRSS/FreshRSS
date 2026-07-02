@@ -324,7 +324,7 @@ class FreshRSS_Import_Service {
 				$curl_params[CURLOPT_USERAGENT] = $feed_elt['frss:CURLOPT_USERAGENT'];
 			}
 			if (!empty($curl_params)) {
-				$feed->_attribute('curl_params', $curl_params);
+				$feed->_attribute('curl_params', FreshRSS_http_Util::sanitizeCurlParams($curl_params));
 			}
 
 			// Call the extension hook
