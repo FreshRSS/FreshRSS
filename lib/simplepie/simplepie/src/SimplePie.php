@@ -693,6 +693,13 @@ class SimplePie
     public $allow_aria_attr = true;
 
     /**
+     * @var string[] Stores array of disallowed URI schemes (protocols)
+     * @see SimplePie::disallow_uri_schemes()
+     * @access private
+     */
+    public $disallowed_uri_schemes = ['javascript'];
+
+    /**
      * @var bool Should we throw exceptions, or use the old-style error property?
      * @access private
      */
@@ -1587,6 +1594,14 @@ class SimplePie
     public function allow_aria_attr(bool $allow = true): void
     {
         $this->sanitize->allow_aria_attr($allow);
+    }
+
+    /**
+     * @param string[] $schemes List of schemes (protocols) to disallow
+     */
+    public function disallow_uri_schemes(array $schemes = ['javascript']): void
+    {
+        $this->sanitize->disallow_uri_schemes($schemes);
     }
 
     /**
@@ -2897,7 +2912,7 @@ class SimplePie
      * Get a contributor for the feed
      *
      * @since 1.1
-     * @param int $key The contrbutor that you want to return. Remember that arrays begin with 0, not 1
+     * @param int $key The contributor that you want to return. Remember that arrays begin with 0, not 1
      * @return Author|null
      */
     public function get_contributor(int $key = 0)

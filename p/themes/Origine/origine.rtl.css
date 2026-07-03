@@ -143,7 +143,7 @@ input:invalid, select:invalid {
 	box-shadow: 0 0 2px 2px var(--form-element-invalid-box-shadow-color-inset) inset;
 }
 
-input:disabled, select:disabled {
+input:disabled, textarea:disabled, select:disabled {
 	background-color: var(--background-color-light-shadowed);
 }
 

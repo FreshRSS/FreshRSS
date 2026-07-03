@@ -805,7 +805,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$this->view->sqliteName = basename($path);
 		if ($this->view->sqliteName === 'db.sqlite') {
 			$username = Minz_User::name() ?? '_';
-			$date = date('Y-m-d_H-i-s', filemtime($path) ?: time());
+			$date = date('Y-m-d_H-i-s', filemtime($path) ?: time());	// @phpstan-ignore ternary.alwaysTrue (for additional safety)
 			$this->view->sqliteName = 'freshrss_' . $username . '_' . $date . '_db.sqlite';
 		}
 		$this->view->_layout(null);

@@ -46,7 +46,7 @@ return array(
 		'refresh_opml' => ' OPML را بازخوانی کنید',
 		'remove' => ' حذف کنید',
 		'rename' => ' تغییر نام',
-		'see_website' => ' به وب سایت مراجعه کنید',
+		'see_website' => 'به وب‌سایت مراجعه کنید',
 		'submit' => ' ارسال کنید',
 		'truncate' => ' تمام مقالات را حذف کنید',
 		'update' => ' به روز رسانی',
@@ -77,18 +77,18 @@ return array(
 		),
 	),
 	'date' => array(
-		'Apr' => 'آ/و/ر/ی/ل//',
-		'Aug' => 'آ/گ/و/س/ت//',
-		'Dec' => 'د/س/ا/م/ب/ر//',
-		'Feb' => 'ف/و/ر/ی/ه//',
-		'Jan' => 'ژ/ا/ن/و/ی/ه//',
-		'Jul' => 'ژ/و/ئ/ی/ه//',
-		'Jun' => 'ژ/و/ئ/ن//',
-		'Mar' => 'م/ا/ر/س//',
-		'May' => 'م/ی//',
-		'Nov' => 'ن/و/ا/م/ب/ر//',
-		'Oct' => 'ا/ک/ت/ب/ر//',
-		'Sep' => 'س/پ/ت/ا/م/ب/ر//',
+		'Apr' => 'آوریل',
+		'Aug' => 'اوت',
+		'Dec' => 'دسامبر',
+		'Feb' => 'فوریه',
+		'Jan' => 'ژانویه',
+		'Jul' => 'ژوئیه',
+		'Jun' => 'ژوئن',
+		'Mar' => 'مارس',
+		'May' => 'مه',
+		'Nov' => 'نوامبر',
+		'Oct' => 'اکتبر',
+		'Sep' => 'سپتامبر',
 		'apr' => ' آوریل',
 		'april' => ' آوریل',
 		'aug' => ' آگوست',
@@ -115,7 +115,7 @@ return array(
 		'last_month' => ' ماه گذشته',
 		'last_week' => ' هفته گذشته',
 		'last_year' => ' سال گذشته',
-		'mar' => ' مارس.',
+		'mar' => ' مارس',
 		'march' => ' مارس',
 		'may' => ' مه',
 		'may_' => ' مه',
@@ -126,7 +126,7 @@ return array(
 		'oct' => ' اکتبر',
 		'october' => ' اکتبر',
 		'sat' => ' شنبه',
-		'sep' => ' سپتامبر.',
+		'sep' => ' سپتامبر',
 		'september' => ' سپتامبر',
 		'sun' => ' یکشنبه',
 		'thu' => ' پنجشنبه',
@@ -171,7 +171,7 @@ return array(
 		'category_empty' => ' دسته خالی',
 		'confirm_action' => ' آیا مطمئن هستید که می خواهید این عمل را انجام دهید؟ نمی توان آن را لغو کرد!',
 		'confirm_action_feed_cat' => ' آیا مطمئن هستید که می خواهید این عمل را انجام دهید؟ موارد دلخواه و درخواست های کاربر مرتبط را از دست خواهید داد. نمی توان آن را لغو کرد!',
-		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
+		'confirm_exit_slider' => 'مطمئنید می‌خواهید تنظیمات ذخیره‌نشده را نادیده بگیرید؟',
 		'feedback' => array(
 			'body_new_articles' => ' %%d مقاله جدید برای خواندن در FreshRSS وجود دارد.',
 			'body_unread_articles' => ' (خوانده نشده: %%d)',
@@ -181,7 +181,7 @@ return array(
 		'labels_empty' => 'بدون برچسب',
 		'new_article' => 'مقالات جدیدی موجود است',
 		'should_be_activated' => ' جاوا اسکریپت باید فعال باشد',
-		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
+		'unsafe_csp_header' => 'سرآیند CSP فعلی امن نیست و FreshRSS ممکن است در برابر حملات XSS آسیب‌پذیر باشد. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">مستندات را ببینید</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -215,20 +215,20 @@ return array(
 	'menu' => array(
 		'about' => ' در مورد',
 		'account' => ' حساب',
-		'admin' => ' اداره',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'admin' => 'مدیریت',
+		'advanced_search' => 'جستجوی پیشرفته',
 		'archiving' => ' آرشیو',
 		'authentication' => ' احراز هویت',
 		'check_install' => ' بررسی نصب',
 		'configuration' => ' پیکربندی',
 		'display' => 'نمایش',
-		'extensions' => ' برنامه های افزودنی',
-		'logs' => ' سیاهههای مربوط',
+		'extensions' => 'افزونه‌ها',
+		'logs' => 'گزارش‌ها',
 		'privacy' => 'حریم خصوصی',
 		'queries' => ' پرس و جوهای کاربر',
 		'reading' => ' خواندن',
 		'search' => ' کلمات یا #برچسب ها را جستجو کنید',
-		'search_help' => ' به مستندات <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">پارامترهای جستجوی پیشرفته</a مراجعه کنید >',
+		'search_help' => 'به مستندات <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">پارامترهای جستجوی پیشرفته</a> مراجعه کنید',
 		'sharing' => ' اشتراک گذاری',
 		'shortcuts' => ' میانبرها',
 		'stats' => 'آمار',
@@ -250,32 +250,32 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_modified' => 'Server Modification Date',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'این فرم به ساخت پرس‌وجوهای جستجو کمک می‌کند، اما پرس‌وجوهای دستی حتی قدرتمندتر هستند.',
+		'authors' => 'نویسندگان',
+		'categories' => 'دسته‌ها',
+		'content' => 'محتوا',
+		'date_from' => 'از',
+		'date_modified' => 'تاریخ ویرایش در سرور',
+		'date_past' => 'در گذشته',
+		'date_published' => 'تاریخ انتشار',
+		'date_range' => 'بازه تاریخ',
+		'date_received' => 'تاریخ دریافت',
+		'date_to' => 'تا',
+		'date_user' => 'تاریخ ویرایش کاربر',
+		'feeds' => 'فیدها',
+		'free_text' => 'متن آزاد',
+		'free_text_help' => 'جستجو در عنوان و محتوا',
+		'full_documentation' => '<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">مستندات کامل جستجو</a> را ببینید',
+		'labels' => 'برچسب‌های من',
+		'multiple_help' => 'یک یا چند مورد را انتخاب کنید (<kbd>Ctrl</kbd> یا <kbd>Cmd</kbd> را نگه دارید)',
+		'sources' => 'منابع',
+		'tags' => 'برچسب‌های مقاله',
+		'text' => 'جستجوی متن',
+		'text_help' => 'چند خط با <i>یا</i> منطقی ترکیب می‌شوند. همچنین از <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">عبارت‌های منظم</a> پشتیبانی می‌کند.',
+		'text_placeholder' => 'کلیدواژه',
+		'title' => 'عنوان',
+		'url' => 'نشانی وب',
+		'user_queries' => 'پرس‌وجوهای کاربر',
 	),
 	'share' => array(
 		'Known' => ' سایت های مبتنی بر شناخته شده',
@@ -316,9 +316,9 @@ return array(
 		'blank_to_disable' => ' برای غیرفعال کردن',
 		'by_author' => ' توسط:',
 		'by_default' => ' به طور پیش فرض',
-		'damn' => ' انفجار!',
-		'default_category' => ' دسته بندی نشده',
-		'no' => ' شماره',
+		'damn' => 'خطا!',
+		'default_category' => 'دسته‌بندی‌نشده',
+		'no' => 'خیر',
 		'not_applicable' => ' در دسترس نیست',
 		'ok' => ' باشه!',
 		'or' => ' یا',

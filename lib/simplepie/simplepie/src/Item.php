@@ -466,7 +466,7 @@ class Item implements RegistryAware
      * Get a contributor for the item
      *
      * @since 1.1
-     * @param int $key The contrbutor that you want to return.  Remember that arrays begin with 0, not 1
+     * @param int $key The contributor that you want to return.  Remember that arrays begin with 0, not 1
      * @return \SimplePie\Author|null
      */
     public function get_contributor(int $key = 0)
@@ -883,10 +883,13 @@ class Item implements RegistryAware
                 $this->data['links'][$key] = array_unique($this->data['links'][$key]);
             }
 
-            // Apply HTTPS policy to all links
+            // Apply sanitization and HTTPS policy to all links
+            $sanitize = $this->get_sanitize();
             foreach ($this->data['links'] as &$links) {
                 foreach ($links as &$link) {
-                    $link = $this->get_sanitize()->https_url($link);
+                    $link = ($sanitize->disallowed_uri_schemes !== [] && !$sanitize->is_allowed_scheme($link))
+                                ? 'unsafe:' . $link
+                                : $sanitize->https_url($link);
                 }
             }
         }

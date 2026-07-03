@@ -194,7 +194,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 			if ($max_redirs != 0) {
 				$opts[CURLOPT_MAXREDIRS] = $max_redirs;
-				$opts[CURLOPT_FOLLOWLOCATION] = 1;
+				$opts[CURLOPT_FOLLOWLOCATION] = true;
 			}
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;
@@ -216,7 +216,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$opts[CURLOPT_HTTPHEADER] = array_unique($opts[CURLOPT_HTTPHEADER]);
 			}
 
-			$feed->_attribute('curl_params', empty($opts) ? null : $opts);
+			$feed->_attribute('curl_params', empty($opts) ? null : FreshRSS_http_Util::sanitizeCurlParams($opts));
 
 			$feed->_attribute('content_action', Minz_Request::paramString('content_action', true) ?: 'replace');
 
