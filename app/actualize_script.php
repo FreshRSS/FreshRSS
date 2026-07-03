@@ -101,6 +101,11 @@ foreach ($users as $user) {
 	 * @var array<int,int> $nbNewArticlesByFeed
 	 */
 	$nbNewArticlesByFeed = [];
+	/**
+	 * Count of updated articles per feed, to report them on the output
+	 * @var array<int,int> $nbUpdatedArticlesByFeed
+	 */
+	$nbUpdatedArticlesByFeed = [];
 	/** @var array<int,string> $feedNamesById */
 	$feedNamesById = [];
 
@@ -113,13 +118,39 @@ foreach ($users as $user) {
 		$nbNewArticlesByFeed[$entry->feedId()] = ($nbNewArticlesByFeed[$entry->feedId()] ?? 0) + 1;
 		return $entry;
 	});
+	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeUpdate, static function (FreshRSS_Entry $entry) use (&$nbUpdatedArticlesByFeed) {
+		$nbUpdatedArticlesByFeed[$entry->feedId()] = ($nbUpdatedArticlesByFeed[$entry->feedId()] ?? 0) + 1;
+		return $entry;
+	});
 
 	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
 	$app->run();
 
-	foreach ($nbNewArticlesByFeed as $feedId => $nbNew) {
-		notice($nbNew . ' new article(s) from feed: ' . ($feedNamesById[$feedId] ?? ('#' . $feedId)));
+	// Build per-feed report rows (only feeds that fetched new or updated articles)
+	$reportRows = [];
+	foreach (array_keys($nbNewArticlesByFeed + $nbUpdatedArticlesByFeed) as $feedId) {
+		$nbNew = $nbNewArticlesByFeed[$feedId] ?? 0;
+		$nbUpdated = $nbUpdatedArticlesByFeed[$feedId] ?? 0;
+		$reportRows[] = [
+			'name' => $feedNamesById[$feedId] ?? ('#' . $feedId),
+			'new' => $nbNew,
+			'updated' => $nbUpdated,
+			'total' => $nbNew + $nbUpdated,
+		];
+	}
+	// Sort by descending total number of articles, then alphabetically by feed name
+	usort($reportRows, static fn(array $a, array $b): int =>
+		($b['total'] <=> $a['total']) ?: strcasecmp($a['name'], $b['name']));
+	foreach ($reportRows as $row) {
+		$parts = [];
+		if ($row['new'] > 0) {
+			$parts[] = $row['new'] . ' new';
+		}
+		if ($row['updated'] > 0) {
+			$parts[] = $row['updated'] . ' updated';
+		}
+		notice(implode(', ', $parts) . ' article(s) from feed: ' . $row['name']);
 	}
 
 	if (!invalidateHttpCache()) {
