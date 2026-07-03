@@ -9,11 +9,34 @@ ob_start();
 
 $begin_date = date_create('now');
 
+// Optional feed ID argument.
+// If none given, all feeds are updated.
+$feedId = null;
+if ($argc > 2) {
+	fwrite(STDERR, "actualize_script.php takes at most one feed ID as an argument, aborting\n");
+	die();
+}
+if ($argc == 2) {
+	$feedId = filter_var($argv[1], FILTER_VALIDATE_INT, [
+		'options' => ['min_range' => 1],
+	]);
+
+	if (!$feedId) {
+		fwrite(STDERR, 'Invalid feed ID ' . $argv[1] . "\n");
+		die();
+	}
+}
+
 // Set the header params ($_GET) to call the FRSS application.
+if ($feedId) {
+	$_GET['id'] = $feedId;
+	$_GET['maxFeeds'] = 1;
+} else {
+	$_GET['maxFeeds'] = PHP_INT_MAX;
+}
 $_GET['c'] = 'feed';
 $_GET['a'] = 'actualize';
 $_GET['ajax'] = 1;
-$_GET['maxFeeds'] = PHP_INT_MAX;
 $_SERVER['HTTP_HOST'] = '';
 
 $app = new FreshRSS();
