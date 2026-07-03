@@ -96,15 +96,17 @@ foreach ($users as $user) {
 	// NB: Extensions and hooks are reinitialised there
 	$app->init();
 
-	// Count of new articles per feed, to report them on the output (see https://github.com/FreshRSS/FreshRSS/issues/8291)
-	/** @var array<int,int> $nbNewArticlesByFeed */
+	/**
+	 * Count of new articles per feed, to report them on the output
+	 * @var array<int,int> $nbNewArticlesByFeed
+	 */
 	$nbNewArticlesByFeed = [];
 	/** @var array<int,string> $feedNamesById */
 	$feedNamesById = [];
 
 	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile, &$feedNamesById) {
 		touch($mutexFile);
-		$feedNamesById[$feed->id()] = $feed->name() !== '' ? $feed->name() : $feed->url(false);
+		$feedNamesById[$feed->id()] = $feed->name() ?: $feed->url(false);
 		return $feed;
 	});
 	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeAdd, static function (FreshRSS_Entry $entry) use (&$nbNewArticlesByFeed) {
