@@ -61,7 +61,6 @@ $today = @strtotime('today');
 		$this->entry->_feed($this->feed);
 
 		$transition = FreshRSS_index_Controller::transition($this->entry, $lastEntry);
-		syslog(LOG_DEBUG, 'Transition: ' . $transition . ' (last: ' . $last_transition . ')');
 		$lastEntry = $item;
 		if ($transition !== '' && $last_transition !== $transition) {
 			$last_transition = $transition;
