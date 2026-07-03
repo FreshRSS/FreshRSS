@@ -326,6 +326,7 @@ People are sorted by name so please keep this order.
 * [Uncovery](https://github.com/uncovery): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:uncovery)
 * [upskaling](https://github.com/upskaling): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:upskaling)
 * [UserRoot-Luca](https://github.com/UserRoot-Luca): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:UserRoot-Luca)
+* [utkutibet](https://github.com/utkutibet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:utkutibet)
 * [Virgil Chen](https://github.com/VirgilChen97): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:VirgilChen97)
 * [VYSE V.E.O](https://github.com/V-E-O): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:V-E-O)
 * [Wanabo](https://github.com/Wanabo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Wanabo)
