@@ -129,6 +129,11 @@ final class FreshRSS_http_Util {
 			if ($k === CURLOPT_COOKIEFILE) {
 				$curl_params[$k] = '';
 			}
+			// Remove HTTP authentication headers problematic for security
+			if ($k === CURLOPT_HTTPHEADER && is_array($curl_params[$k])) {
+				$curl_params[$k] = array_filter($curl_params[$k],
+					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
+			}
 		}
 		return $curl_params;
 	}
@@ -477,9 +482,6 @@ final class FreshRSS_http_Util {
 			$proxy = is_string($options[CURLOPT_PROXY] ?? null) ? $options[CURLOPT_PROXY] : $proxy;
 			$proxy_type = is_int($options[CURLOPT_PROXYTYPE] ?? null) ? $options[CURLOPT_PROXYTYPE] : $proxy_type;
 			if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
-				// Remove headers problematic for security
-				$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
-					fn($header) => is_string($header) && !preg_match('/^(Remote-User|X-WebAuth-User)\\s*:/i', $header));
 				// Add Accept header if it is not set
 				if (preg_grep('/^Accept\\s*:/i', $options[CURLOPT_HTTPHEADER]) === false) {
 					$options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $accept;

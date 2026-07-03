@@ -1416,7 +1416,7 @@ input[type="search"] {
 	width: 2.25rem;
 }
 
-.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item .dropdown:has(.dropdown-menu) .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	visibility: visible;
