@@ -311,6 +311,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Při otevření připnout článek na začátek',
+		'sticky_sort' => 'Při přecházení mezi kategoriemi a kanály zachovat aktuální řazení',
+		'sticky_sort_help' => 'Když není zaškrtnuto, každá kategorie a kanál se otevře s vlastním výchozím řazením (nebo s globálním kritériem řazení výše, pokud žádné není nastaveno), namísto zachování naposledy zvoleného řazení.',
 		'title' => 'Čtení',
 		'view' => array(
 			'default' => 'Výchozí zobrazení',

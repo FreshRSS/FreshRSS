@@ -311,6 +311,8 @@ return array(
 			'when' => 'Marca un artículo como favorito…',
 		),
 		'sticky_post' => 'Fijar el artículo a la parte superior al abrirlo',
+		'sticky_sort' => 'Mantener el orden de clasificación actual al navegar entre categorías y fuentes',
+		'sticky_sort_help' => 'Si está desactivado, cada categoría y fuente se abre con su propio orden de clasificación predeterminado (o con el criterio de clasificación global de arriba si no hay ninguno configurado), en lugar de mantener el orden que seleccionaste por última vez.',
 		'title' => 'Lectura',
 		'view' => array(
 			'default' => 'Vista por defecto',

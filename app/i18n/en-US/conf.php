@@ -311,6 +311,8 @@ return array(
 			'when' => 'Mark an article as favorite…',
 		),
 		'sticky_post' => 'Stick the article to the top when opened',	// IGNORE
+		'sticky_sort' => 'Keep the current sort order when navigating between categories and feeds',	// IGNORE
+		'sticky_sort_help' => 'When unchecked, each category and feed opens with its own default sort order (or the global sort criterion above when none is configured), instead of keeping the sort order you last selected.',	// IGNORE
 		'title' => 'Reading',	// IGNORE
 		'view' => array(
 			'default' => 'Default view',	// IGNORE

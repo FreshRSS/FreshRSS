@@ -311,6 +311,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Stick the article to the top when opened',	// TODO
+		'sticky_sort' => 'Διατήρηση της τρέχουσας σειράς ταξινόμησης κατά την πλοήγηση μεταξύ κατηγοριών και ροών',
+		'sticky_sort_help' => 'Όταν είναι απενεργοποιημένο, κάθε κατηγορία και ροή ανοίγει με τη δική της προεπιλεγμένη σειρά ταξινόμησης (ή με το γενικό κριτήριο ταξινόμησης παραπάνω, εάν δεν έχει οριστεί κάποιο), αντί να διατηρεί τη σειρά ταξινόμησης που επιλέξατε τελευταία.',
 		'title' => 'Reading',	// TODO
 		'view' => array(
 			'default' => 'Default view',	// TODO

@@ -311,6 +311,8 @@ return array(
 			'when' => 'Merkitse artikkeli suosikiksi…',
 		),
 		'sticky_post' => 'Kiinnitä artikkeli ylimmäksi avattaessa',
+		'sticky_sort' => 'Säilytä nykyinen lajittelujärjestys siirryttäessä luokkien ja syötteiden välillä',
+		'sticky_sort_help' => 'Kun tätä ei ole valittu, jokainen luokka ja syöte avautuu omalla oletuslajittelullaan (tai yllä olevalla yleisellä lajitteluperusteella, jos mitään ei ole määritetty) sen sijaan, että viimeksi valittu lajittelu säilytettäisiin.',
 		'title' => 'Lukeminen',
 		'view' => array(
 			'default' => 'Oletusnäkymä',

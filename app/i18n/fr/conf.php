@@ -311,6 +311,8 @@ return array(
 			'when' => 'Marquer un article comme favori…',
 		),
 		'sticky_post' => 'Aligner l’article en haut quand il est ouvert',
+		'sticky_sort' => 'Conserver l’ordre de tri actuel lors de la navigation entre les catégories et les flux',
+		'sticky_sort_help' => 'Lorsque cette option est décochée, chaque catégorie et chaque flux s’ouvre avec son propre ordre de tri par défaut (ou avec le critère de tri global ci-dessus si aucun n’est configuré), au lieu de conserver l’ordre de tri sélectionné en dernier.',
 		'title' => 'Lecture',
 		'view' => array(
 			'default' => 'Vue par défaut',

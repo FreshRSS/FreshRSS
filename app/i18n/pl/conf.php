@@ -311,6 +311,8 @@ return array(
 			'when' => 'Oznacz wiadomość jako ulubioną…',
 		),
 		'sticky_post' => 'Przesuń wiadomość na górę strony po otworzeniu',
+		'sticky_sort' => 'Zachowaj bieżącą kolejność sortowania podczas przełączania między kategoriami i kanałami',
+		'sticky_sort_help' => 'Gdy odznaczone, każda kategoria i kanał otwiera się z własną domyślną kolejnością sortowania (lub z globalnym kryterium sortowania powyżej, jeśli żadne nie jest ustawione), zamiast zachowywać ostatnio wybraną kolejność sortowania.',
 		'title' => 'Czytanie',
 		'view' => array(
 			'default' => 'Domyślny widok',

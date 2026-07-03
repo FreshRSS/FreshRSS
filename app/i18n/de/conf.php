@@ -311,6 +311,8 @@ return array(
 			'when' => 'Artikel als Favorit markieren…',
 		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
+		'sticky_sort' => 'Aktuelle Sortierreihenfolge beim Wechsel zwischen Kategorien und Feeds beibehalten',
+		'sticky_sort_help' => 'Wenn deaktiviert, wird jede Kategorie und jeder Feed mit seiner eigenen Standardsortierung geöffnet (oder mit dem globalen Sortierkriterium oben, falls keine festgelegt ist), anstatt die zuletzt gewählte Sortierung beizubehalten.',
 		'title' => 'Lesen',
 		'view' => array(
 			'default' => 'Standard-Ansicht',

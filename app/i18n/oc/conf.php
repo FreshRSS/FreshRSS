@@ -311,6 +311,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Gardar l’article amont quand es dobèrt',
+		'sticky_sort' => 'Servar l’òrdre de triada actual al moment de la navigacion entre las categorias e los fluxes',
+		'sticky_sort_help' => 'Quand es pas marcat, cada categoria e flux se dobrís amb son òrdre de triada per defaut (o amb lo critèri de triada global çai-dessús se cap es pas configurat), allòc de servar l’òrdre de triada seleccionat en darrièr.',
 		'title' => 'Lectura',
 		'view' => array(
 			'default' => 'Vista per defaut',

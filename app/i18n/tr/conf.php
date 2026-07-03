@@ -311,6 +311,8 @@ return array(
 			'when' => 'Bir makaleyi favori olarak işaretle…',
 		),
 		'sticky_post' => 'Makale açıldığında üstte sabitle',
+		'sticky_sort' => 'Kategoriler ve beslemeler arasında gezinirken geçerli sıralama düzenini koru',
+		'sticky_sort_help' => 'İşaretlenmediğinde, her kategori ve besleme, en son seçtiğiniz sıralama düzenini korumak yerine kendi varsayılan sıralama düzeniyle (veya hiçbiri yapılandırılmamışsa yukarıdaki genel sıralama ölçütüyle) açılır.',
 		'title' => 'Okuma',
 		'view' => array(
 			'default' => 'Varsayılan görünüm',

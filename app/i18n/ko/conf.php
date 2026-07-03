@@ -311,6 +311,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => '글이 펼쳐진 경우 최상단에 고정하기',
+		'sticky_sort' => '카테고리와 피드 간을 이동할 때 현재 정렬 순서 유지',
+		'sticky_sort_help' => '선택하지 않으면 각 카테고리와 피드는 마지막으로 선택한 정렬 순서를 유지하는 대신 자체 기본 정렬 순서(설정된 것이 없으면 위의 전역 정렬 기준)로 열립니다.',
 		'title' => '읽기',
 		'view' => array(
 			'default' => '기본 보기 모드',

@@ -66,6 +66,7 @@ declare(strict_types=1);
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article
  * @property bool $sticky_post
+ * @property bool $sticky_sort
  * @property string $theme
  * @property string $darkMode
  * @property string $token

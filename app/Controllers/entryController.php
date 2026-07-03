@@ -202,11 +202,17 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
-			if (Minz_Request::hasParam('order')) {
-				$params['order'] = Minz_Request::paramString('order', plaintext: true);
-			}
-			if (Minz_Request::hasParam('sort')) {
-				$params['sort'] = Minz_Request::paramString('sort', plaintext: true);
+			// Only carry the current sort/order over to the redirect (which may target the next
+			// category/feed via nextGet) when the user opted to keep them sticky across navigation.
+			// Otherwise the target keeps its own defaultSort/defaultOrder (resolved in FreshRSS_Context),
+			// so marking a category as read no longer bleeds its sort into the next one.
+			if (FreshRSS_Context::userConf()->sticky_sort) {
+				if (Minz_Request::hasParam('order')) {
+					$params['order'] = Minz_Request::paramString('order', plaintext: true);
+				}
+				if (Minz_Request::hasParam('sort')) {
+					$params['sort'] = Minz_Request::paramString('sort', plaintext: true);
+				}
 			}
 			Minz_Request::good(
 				$is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
