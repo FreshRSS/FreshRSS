@@ -326,6 +326,7 @@ People are sorted by name so please keep this order.
 * [Uncovery](https://github.com/uncovery): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:uncovery)
 * [upskaling](https://github.com/upskaling): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:upskaling)
 * [UserRoot-Luca](https://github.com/UserRoot-Luca): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:UserRoot-Luca)
+* [utkutibet](https://github.com/utkutibet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:utkutibet)
 * [Virgil Chen](https://github.com/VirgilChen97): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:VirgilChen97)
 * [VYSE V.E.O](https://github.com/V-E-O): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:V-E-O)
 * [Wanabo](https://github.com/Wanabo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Wanabo)
@@ -346,4 +347,3 @@ People are sorted by name so please keep this order.
 * [zukizukizuki](https://github.com/zukizukizuki): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zukizukizuki), [Web](https://zukkie.link/)
 * [нездалисько](https://github.com/crisukbot): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:crisukbot), [Web](https://noleron.com/)
 * [石渠清心](https://github.com/Felix2yu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Felix2yu), [Web](https://yufei.im/)
-* * [utkutibet](https://github.com/utkutibet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:utkutibet)
