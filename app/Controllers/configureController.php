@@ -656,6 +656,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
 	 *   - user login duration for form auth (default: FreshRSS_Auth::DEFAULT_COOKIE_DURATION)
+	 *   - internal host allowlist
 	 */
 	public function systemAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
@@ -671,6 +672,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::systemConf()->limits = $limits;
 			FreshRSS_Context::systemConf()->title = Minz_Request::paramString('instance-name') ?: 'FreshRSS';
 			FreshRSS_Context::systemConf()->force_email_validation = Minz_Request::paramBoolean('force-email-validation');
+			$internal_host_allowlist = Minz_Request::paramTextToArrayNull('internal-host-allowlist');
+			if ($internal_host_allowlist !== null) {
+				FreshRSS_Context::systemConf()->internal_host_allowlist = Minz_Request::paramTextToArray('internal-host-allowlist');
+			}
 			FreshRSS_Context::systemConf()->closed_registration_message = Minz_Request::paramString('closed_registration_message') ?: '';
 			FreshRSS_Context::systemConf()->save();
 

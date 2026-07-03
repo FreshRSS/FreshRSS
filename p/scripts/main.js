@@ -1171,10 +1171,17 @@ function init_column_categories() {
 				// Wait for dropdown to be closed so it can be removed
 				// Dropdown visibility is based on CSS :target
 				window.addEventListener('hashchange', () => {
-					dropdownMenu?.nextElementSibling?.remove(); // dropdown close
-					dropdownMenu?.remove();
+					dropdownMenu.nextElementSibling.remove(); // .dropdown-close
+					dropdownMenu.remove();
 				}, { once: true });
 			}, { once: true });
+
+			if (location.hash === a.getAttribute('href')) {
+				// Forcefully trigger the hashchange event listener above in order to show the dropdown
+				// This is needed because the same hash remained from a previous page load
+				// or due to use of back/forward buttons
+				window.dispatchEvent(new Event('hashchange'));
+			}
 
 			return true;
 		}

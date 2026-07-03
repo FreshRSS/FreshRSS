@@ -155,7 +155,7 @@ textarea:focus {
 
 
 
-input:disabled, select:disabled {
+input:disabled, select:disabled, textarea:disabled {
 	border-color: var(--border-elements);
 	color: var(--text-accent);
 }
