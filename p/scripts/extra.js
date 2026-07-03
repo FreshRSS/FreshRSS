@@ -632,32 +632,30 @@ function init_extra_afterDOM() {
 	if (loginButton) {
 		loginButton.addEventListener('click', forgetOpenCategories);
 	}
-	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
-		init_crypto_forms();
-		init_password_observers(document.body);
-		init_select_observers();
-		init_configuration_alert();
-		init_2stateButton();
-		init_update_feed();
-		init_details_attributes();
-		init_user_stats();
-		init_enable_notify_button();
+	init_crypto_forms();
+	init_password_observers(document.body);
+	init_select_observers();
+	init_configuration_alert();
+	init_2stateButton();
+	init_update_feed();
+	init_details_attributes();
+	init_user_stats();
+	init_enable_notify_button();
 
-		data_auto_leave_validation(document.body);
+	data_auto_leave_validation(document.body);
 
-		const slider = document.getElementById('slider');
-		if (slider) {
-			slider.addEventListener('freshrss:slider-load', function (e) {
-				init_password_observers(slider);
-			});
-			init_slider(slider);
-			init_archiving(slider);
-			init_url_observers(slider);
-		} else {
-			init_display(document.body);
-			init_archiving(document.body);
-			init_url_observers(document.body);
-		}
+	const slider = document.getElementById('slider');
+	if (slider) {
+		slider.addEventListener('freshrss:slider-load', function (e) {
+			init_password_observers(slider);
+		});
+		init_slider(slider);
+		init_archiving(slider);
+		init_url_observers(slider);
+	} else {
+		init_display(document.body);
+		init_archiving(document.body);
+		init_url_observers(document.body);
 	}
 
 	if (window.console) {
