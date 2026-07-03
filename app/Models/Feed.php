@@ -107,12 +107,8 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	public function proxyParam(): string {
-		$curl_params = $this->attributeArray('curl_params');
-		if (is_array($curl_params)) {
-			// Content provided through a proxy may be completely different
-			return is_string($curl_params[CURLOPT_PROXY] ?? null) ? $curl_params[CURLOPT_PROXY] : '';
-		}
-		return '';
+		$curl_params = FreshRSS_http_Util::sanitizeCurlParams($this->attributeArray('curl_params') ?? []);
+		return is_string($curl_params[CURLOPT_PROXY] ?? null) ? $curl_params[CURLOPT_PROXY] : '';
 	}
 
 	/**

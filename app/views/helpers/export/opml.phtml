@@ -117,7 +117,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:cssContentFilter'] = $feed->attributeString('path_entries_filter');
 		}
 
-		$curl_params = $feed->attributeArray('curl_params');
+		$curl_params = FreshRSS_http_Util::sanitizeCurlParams($feed->attributeArray('curl_params') ?? []);
 		if (!empty($curl_params)) {
 			$outline['frss:CURLOPT_COOKIE'] = $curl_params[CURLOPT_COOKIE] ?? null;
 			$outline['frss:CURLOPT_COOKIEFILE'] = $curl_params[CURLOPT_COOKIEFILE] ?? null;
