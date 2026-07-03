@@ -46,7 +46,7 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 
 	#[\Override]
 	protected function get_curl_resolve_info(string $url, bool $for_proxy = false): array|string|null|false {
-		return FreshRSS_http_Util::getCurlResolveInfo($url);
+		return FreshRSS_http_Util::getCurlResolveInfo($url, $for_proxy);
 	}
 
 	#[\Override]
