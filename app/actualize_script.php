@@ -97,29 +97,30 @@ foreach ($users as $user) {
 	$app->init();
 
 	/**
-	 * Count of new articles per feed, to report them on the output
-	 * @var array<int,int> $nbNewArticlesByFeed
+	 * Count new and updated articles per feed, to report them on the output
+	 * @var array<int,array{name:string,new:int,updated:int}> $feedStatistics
 	 */
-	$nbNewArticlesByFeed = [];
-	/**
-	 * Count of updated articles per feed, to report them on the output
-	 * @var array<int,int> $nbUpdatedArticlesByFeed
-	 */
-	$nbUpdatedArticlesByFeed = [];
-	/** @var array<int,string> $feedNamesById */
-	$feedNamesById = [];
+	$feedStatistics = [];
 
-	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile, &$feedNamesById) {
+	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile, &$feedStatistics) {
 		touch($mutexFile);
-		$feedNamesById[$feed->id()] = $feed->name() ?: $feed->url(false);
+		$feedStatistics[$feed->id()] = [
+			'name' => $feed->name() ?: $feed->url(false),
+			'new' => 0,
+			'updated' => 0,
+		];
 		return $feed;
 	});
-	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeAdd, static function (FreshRSS_Entry $entry) use (&$nbNewArticlesByFeed) {
-		$nbNewArticlesByFeed[$entry->feedId()] = ($nbNewArticlesByFeed[$entry->feedId()] ?? 0) + 1;
+	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeAdd, static function (FreshRSS_Entry $entry) use (&$feedStatistics) {
+		if (isset($feedStatistics[$entry->feedId()])) {
+			$feedStatistics[$entry->feedId()]['new'] = $feedStatistics[$entry->feedId()]['new'] + 1;
+		}
 		return $entry;
 	});
-	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeUpdate, static function (FreshRSS_Entry $entry) use (&$nbUpdatedArticlesByFeed) {
-		$nbUpdatedArticlesByFeed[$entry->feedId()] = ($nbUpdatedArticlesByFeed[$entry->feedId()] ?? 0) + 1;
+	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeUpdate, static function (FreshRSS_Entry $entry) use (&$feedStatistics) {
+		if (isset($feedStatistics[$entry->feedId()])) {
+			$feedStatistics[$entry->feedId()]['updated'] = $feedStatistics[$entry->feedId()]['updated'] + 1;
+		}
 		return $entry;
 	});
 
@@ -127,22 +128,10 @@ foreach ($users as $user) {
 	echo $user, ' ';	//Buffered
 	$app->run();
 
-	// Build per-feed report rows (only feeds that fetched new or updated articles)
-	$reportRows = [];
-	foreach (array_keys($nbNewArticlesByFeed + $nbUpdatedArticlesByFeed) as $feedId) {
-		$nbNew = $nbNewArticlesByFeed[$feedId] ?? 0;
-		$nbUpdated = $nbUpdatedArticlesByFeed[$feedId] ?? 0;
-		$reportRows[] = [
-			'name' => $feedNamesById[$feedId] ?? ('#' . $feedId),
-			'new' => $nbNew,
-			'updated' => $nbUpdated,
-			'total' => $nbNew + $nbUpdated,
-		];
-	}
 	// Sort by descending total number of articles, then alphabetically by feed name
-	usort($reportRows, static fn(array $a, array $b): int =>
-		($b['total'] <=> $a['total']) ?: strcasecmp($a['name'], $b['name']));
-	foreach ($reportRows as $row) {
+	usort($feedStatistics, static fn(array $a, array $b): int =>
+		(($b['new'] + $b['updated']) <=> ($a['new'] + $a['updated'])) ?: strcasecmp($a['name'], $b['name']));
+	foreach ($feedStatistics as $row) {
 		$parts = [];
 		if ($row['new'] > 0) {
 			$parts[] = $row['new'] . ' new';
