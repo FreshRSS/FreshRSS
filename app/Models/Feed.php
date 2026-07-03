@@ -196,7 +196,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->_attribute('customFaviconExt', $extName);
 		$this->_attribute('customFaviconDisallowDel', $disallowDelete);
 
-		$newPath = FAVICONS_DIR . $this->hashFavicon(skipCache: true) . '.ico';
+		$newPath = CUSTOM_FAVICONS_DIR . $this->hashFavicon(skipCache: true) . '.ico';
 		if ($attributesOnly && !file_exists($newPath)) {
 			$updateFeed = false;
 		}
@@ -474,9 +474,12 @@ class FreshRSS_Feed extends Minz_Model {
 		if (!ctype_xdigit($hash)) {
 			return;
 		}
-		$path = DATA_PATH . '/favicons/' . $hash;
-		@unlink($path . '.ico');
-		@unlink($path . '.txt');
+		require LIB_PATH . '/favicons.php';
+		foreach ([FAVICONS_DIR . $hash,
+				CUSTOM_FAVICONS_DIR . $hash] as $path) {
+			@unlink($path . '.ico');
+			@unlink($path . '.txt');
+		}
 	}
 	public function favicon(bool $absolute = false): string {
 		$hash = $this->hashFavicon();
