@@ -119,7 +119,7 @@ foreach ($users as $user) {
 	$app->run();
 
 	foreach ($nbNewArticlesByFeed as $feedId => $nbNew) {
-		notice("\t" . $nbNew . ' new article(s) from feed: ' . ($feedNamesById[$feedId] ?? ('#' . $feedId)));
+		notice($nbNew . ' new article(s) from feed: ' . ($feedNamesById[$feedId] ?? ('#' . $feedId)));
 	}
 
 	if (!invalidateHttpCache()) {
