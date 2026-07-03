@@ -142,7 +142,7 @@ return array(
 			'disabled' => 'API erişimi devre dışı.',
 			'documentation_link' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri ve bilinen uygulamaların listesini</a> gör',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri</a> gör',
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'security_warning' => 'HTTPS kullanın. API parolası düz metin olarak iletilir ve GET isteğiyle gönderilmesi durumunda sunucu günlüklerinde görünebilir.',
 		),
 		'change_password' => 'Parolayı değiştir',
 		'confirm_new_password' => 'Yeni parolayı onayla',
