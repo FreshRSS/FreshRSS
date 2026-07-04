@@ -62,9 +62,9 @@ return array(
 			'format' => '<small>En az 7 karakter</small>',
 		),
 		'reauth' => array(
-			'header' => 'Reauthentication is required',	// TODO
-			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
-			'title' => 'Reauthentication',	// TODO
+			'header' => 'Yeniden kimlik doğrulama gerekiyor',
+			'tip' => '<u>%d dakika</u> boyunca tekrar oturum açmanız istenmeyecek',
+			'title' => 'Yeniden kimlik doğrulama',
 		),
 		'registration' => array(
 			'_' => 'Yeni hesap',
@@ -171,7 +171,7 @@ return array(
 		'category_empty' => 'Boş kategori',
 		'confirm_action' => 'Bu eylemi gerçekleştirmek istediğinizden emin misiniz? Bu işlem geri alınamaz!',
 		'confirm_action_feed_cat' => 'Bu eylemi gerçekleştirmek istediğinizden emin misiniz? İlgili favoriler ve kullanıcı sorguları kaybolacak. Bu işlem geri alınamaz!',
-		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
+		'confirm_exit_slider' => 'Kaydedilmemiş ayarları atmak istediğinizden emin misiniz?',
 		'feedback' => array(
 			'body_new_articles' => 'FreshRSS’de okunacak %%d yeni makale var.',
 			'body_unread_articles' => '(okunmamış: %%d)',
@@ -181,7 +181,7 @@ return array(
 		'labels_empty' => 'Etiket yok',
 		'new_article' => 'Yeni makaleler mevcut, sayfayı yenilemek için tıklayın.',
 		'should_be_activated' => 'JavaScript etkinleştirilmiş olmalı',
-		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
+		'unsafe_csp_header' => 'Kullanılan CSP başlığı güvenli değil ve FreshRSS, XSS saldırılarına karşı savunmasız olabilir. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Belgelere bakın</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -216,7 +216,7 @@ return array(
 		'about' => 'Hakkında',
 		'account' => 'Hesap',
 		'admin' => 'Yönetim',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Gelişmiş Arama',
 		'archiving' => 'Arşivleme',
 		'authentication' => 'Kimlik doğrulama',
 		'check_install' => 'Kurulum kontrolü',
@@ -250,32 +250,32 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_modified' => 'Server Modification Date',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
+		'advanced_search_help' => 'Bu form arama sorguları oluşturmaya yardımcı olur, ancak elle oluşturulan sorgular çok daha güçlüdür.',
+		'authors' => 'Yazarlar',
+		'categories' => 'Kategoriler',
+		'content' => 'İçerik',
+		'date_from' => 'Başlangıç ​​tarihi',
+		'date_modified' => 'Sunucu Değişiklik Tarihi',
+		'date_past' => 'Geçmişteki tarih',
+		'date_published' => 'Yayımlanma tarihi',
+		'date_range' => 'Tarih aralığı',
+		'date_received' => 'Alınma tarihi',
+		'date_to' => 'Bitiş tarihi',
+		'date_user' => 'Kullanıcı Değişiklik Tarihi',
+		'feeds' => 'Beslemeler',
+		'free_text' => 'Serbest metin',
+		'free_text_help' => 'Hem başlıkta hem de içerikte ara',
+		'full_documentation' => '<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">Arama belgelerinin tamamını</a> görüntüleyin',
+		'labels' => 'Etiketlerim',
+		'multiple_help' => 'Birden fazla seç (<kbd>Ctrl</kbd> veya <kbd>Cmd</kbd>) bas',
+		'sources' => 'Kaynaklar',
+		'tags' => 'Makale etiketleri',
+		'text' => 'Metin arama',
 		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
+		'text_placeholder' => 'Anahtar kelime',
+		'title' => 'Başlık',
 		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'user_queries' => 'Kullanıcı Sorguları',
 	),
 	'share' => array(
 		'Known' => 'Bilinen tabanlı siteler',

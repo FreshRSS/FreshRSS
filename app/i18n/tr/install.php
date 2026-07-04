@@ -51,18 +51,18 @@ return array(
 			'ok' => 'Veri dizinindeki izinler uygun.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Veritabanı bağlantı hatası.',
+			'ok' => 'Veritabanı bağlantısı sabit.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Veritabanı tablosu "%s" eksik.',
+			'ok' => 'Veritabanı tablosu "%s" sorunsuz.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Bazı veritabanı tabloları eksik.',
+			'ok' => 'Veritabanı tabloları mevcut.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Veritabanı',
 		'dom' => array(
 			'nok' => 'DOM’u taramak için gerekli kütüphane bulunamadı.',
 			'ok' => 'DOM’u taramak için gerekli kütüphaneniz var.',
@@ -77,8 +77,8 @@ return array(
 		),
 		'files' => 'Dosya kurulumu',
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Uluslararasılaştırma için önerilen php-intl kütüphanesi bulunamadı.',
+			'ok' => 'Uluslararasılaştırma için önerilen php-intl kütüphanesine sahipsiniz.',
 		),
 		'json' => array(
 			'nok' => 'JSON ayrıştırmak için önerilen kütüphane bulunamadı.',
@@ -93,14 +93,14 @@ return array(
 			'ok' => 'Düzenli ifadeler için gerekli kütüphaneniz (PCRE) var.',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'MySQL/MariaDB için gerekli PDO sürücüsü bulunamadı.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'PostgreSQL için gerekli PDO sürücüsü bulunamadı.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'SQLite için PDO sürücüsü bulunamadı.',
+			'ok' => 'SQLite için PDO sürücüsüne sahipsiniz.',
 		),
 		'pdo' => array(
 			'nok' => 'PDO veya desteklenen sürücülerden biri (pdo_sqlite, pdo_pgsql, pdo_mysql) bulunamadı.',
