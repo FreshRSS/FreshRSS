@@ -66,7 +66,7 @@ declare(strict_types=1);
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article
  * @property bool $sticky_post
- * @property bool $sticky_sort
+ * @property bool $sticky_sort To carry the manual sort/order over to the next navigation
  * @property string $theme
  * @property string $darkMode
  * @property string $token
