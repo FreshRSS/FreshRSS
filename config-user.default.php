@@ -62,8 +62,7 @@ return array (
 	# 'id'|'date'|'link'|'title'
 	'secondary_sort' => 'id',
 	'secondary_sort_order' => 'DESC',
-	# Keep the current sort/order in the sidebar links when navigating between categories/feeds.
-	# When false, each category/feed uses its own defaultSort/defaultOrder (or the global sort above).
+	# To carry the manual sort/order over to the next navigation
 	'sticky_sort' => true,
 
 	'anon_access' => false,

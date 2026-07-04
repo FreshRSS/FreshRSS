@@ -13,9 +13,6 @@
 	if (($s = Minz_Request::paramString('state', plaintext: true)) !== '' && ctype_digit($s)) {
 		$state_filter_manual .= '&state=' . $s;
 	}
-	// Only carry the current sort/order into the sidebar links when the user opts to keep them
-	// sticky across navigation. Otherwise each category/feed keeps its own defaultSort/defaultOrder
-	// (handled in FreshRSS_Context), so sorting one category no longer bleeds into the others.
 	if (FreshRSS_Context::userConf()->sticky_sort) {
 		if (($s = Minz_Request::paramString('sort', plaintext: true)) !== '' && preg_match('/^[a-z.]+$/', $s)) {
 			$state_filter_manual .= '&sort=' . $s;
