@@ -188,7 +188,8 @@ final class FeverAPI
 				Minz_Log::error('Fever API: Please reset your API password!');
 				Minz_User::change();
 			}
-			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey, API_LOG);
+			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey .
+				' ; Remote IP address=' . Minz_Request::connectionRemoteAddress(), API_LOG);
 		}
 		return false;
 	}
