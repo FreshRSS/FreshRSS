@@ -132,10 +132,6 @@ foreach ($users as $user) {
 	usort($feedStatistics, static fn(array $a, array $b): int =>
 		(($b['new'] + $b['updated']) <=> ($a['new'] + $a['updated'])) ?: strcasecmp($a['name'], $b['name']));
 	foreach ($feedStatistics as $row) {
-		if ($row['new'] === 0 && $row['updated'] === 0) {
-			// Feed was skipped (e.g. TTL not elapsed) or had no change: nothing to report
-			continue;
-		}
 		$parts = [];
 		if ($row['new'] > 0) {
 			$parts[] = $row['new'] . ' new';
@@ -143,7 +139,9 @@ foreach ($users as $user) {
 		if ($row['updated'] > 0) {
 			$parts[] = $row['updated'] . ' updated';
 		}
-		notice(implode(', ', $parts) . ' article(s) from feed: ' . $row['name']);
+		if (!empty($parts)) {
+			notice(implode(', ', $parts) . ' article(s) from feed: ' . $row['name']);
+		}
 	}
 
 	if (!invalidateHttpCache()) {
