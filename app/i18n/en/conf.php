@@ -312,7 +312,7 @@ return array(
 		),
 		'sticky_post' => 'Stick the article to the top when opened',
 		'sticky_sort' => 'Keep the current sort order when navigating between categories and feeds',
-		'sticky_sort_help' => 'When unchecked, each category and feed opens with its own default sort order (or the global sort criterion above when none is configured), instead of keeping the sort order you last selected.',
+		'sticky_sort_help' => 'Determines whether the last sort order is kept active or whether each category or feed always uses its own default or global setting.',
 		'title' => 'Reading',
 		'view' => array(
 			'default' => 'Default view',
