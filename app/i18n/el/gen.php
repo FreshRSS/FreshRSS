@@ -180,6 +180,7 @@ return array(
 		),
 		'labels_empty' => 'Χωρίς ετικέτα',
 		'new_article' => 'Υπάρχουν νέα άρθρα διαθέσιμα, πατήστε για ανανέωση της σελίδας.',
+		'option_incompatible_with_browser' => 'This option may not be compatible with your browser.',	// TODO
 		'should_be_activated' => 'Το JavaScript πρέπει να ενεργοποιηθεί',
 		'unsafe_csp_header' => 'Η επικεφαλίδα CSP που χρησιμοποιείται δεν είναι ασφαλής και το FreshRSS μπορεί να είναι ανασφαλές απέναντι σε επιθέσεις XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Δείτε τις οδηγίες χρήσης</a>',
 	),

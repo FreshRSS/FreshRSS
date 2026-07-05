@@ -294,6 +294,14 @@ return array(
 			'when_same_title_in_category' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach kategorii',
 			'when_same_title_in_feed' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach (kanału RSS)',
 		),
+		'see_on_website' => array(
+			'external_links' => 'Zastosuj powyższe ustawienie do wszystkich linków zewnętrznych',
+			'external_links_help' => 'Jeśli opcja nie jest zaznaczona, zostanie użyte ustawienie „Otwórz w nowej karcie”.',
+			'open_in_current_tab' => 'Otwórz w bieżącej karcie',
+			'open_in_new_background_tab' => 'Otwórz w nowej karcie w tle',
+			'open_in_new_tab' => 'Otwórz w nowej karcie',
+			'shortcut_only' => 'Zastosuj ustawienie niestandardowe tylko do skrótu otwierania',
+		),
 		'show' => array(
 			'_' => 'Wiadomości do wyświetlenia',
 			'active_category' => 'Aktualna',

@@ -294,6 +294,14 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => '상위 <i>n</i>개의 최신 글에 동일한 제목이 이미 있는 경우 (of the feed)',	// DIRTY
 		),
+		'see_on_website' => array(
+			'external_links' => 'Apply the above setting to all external links',	// TODO
+			'external_links_help' => 'If left unchecked, falls back to ”Open in new tab”',	// TODO
+			'open_in_current_tab' => 'Open in current tab',	// TODO
+			'open_in_new_background_tab' => 'Open in new background tab',	// TODO
+			'open_in_new_tab' => 'Open in new tab',	// TODO
+			'shortcut_only' => 'Apply the custom setting only for the shortcut used for opening',	// TODO
+		),
 		'show' => array(
 			'_' => '글 표시 방식',
 			'active_category' => '활성화 된 카테고리',

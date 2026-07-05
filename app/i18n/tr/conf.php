@@ -294,6 +294,14 @@ return array(
 			'when_same_title_in_category' => 'eğer aynı başlık kategorideki en yeni <i>n</i> makalede zaten varsa',
 			'when_same_title_in_feed' => 'eğer aynı başlık beslemedeki en yeni <i>n</i> makalede zaten varsa',
 		),
+		'see_on_website' => array(
+			'external_links' => 'Apply the above setting to all external links',	// TODO
+			'external_links_help' => 'If left unchecked, falls back to ”Open in new tab”',	// TODO
+			'open_in_current_tab' => 'Open in current tab',	// TODO
+			'open_in_new_background_tab' => 'Open in new background tab',	// TODO
+			'open_in_new_tab' => 'Open in new tab',	// TODO
+			'shortcut_only' => 'Apply the custom setting only for the shortcut used for opening',	// TODO
+		),
 		'show' => array(
 			'_' => 'Gösterilecek makaleler',
 			'active_category' => 'Etkin kategori',

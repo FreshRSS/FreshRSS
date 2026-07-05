@@ -180,6 +180,7 @@ return array(
 		),
 		'labels_empty' => 'Ei tunnisteita',
 		'new_article' => 'Uusia artikkeleita on saatavilla. Päivitä sivu napsauttamalla.',
+		'option_incompatible_with_browser' => 'This option may not be compatible with your browser.',	// TODO
 		'should_be_activated' => 'JavaScriptin on oltava käytössä',
 		'unsafe_csp_header' => 'Käytössä oleva CSP-otsikko on turvaton, ja FreshRSS saattaa olla altis XSS-hyökkäyksille. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lisätietoja ohjeessa</a>',
 	),

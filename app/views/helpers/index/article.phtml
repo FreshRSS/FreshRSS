@@ -45,7 +45,7 @@
 				<?php
 				if (FreshRSS_Context::userConf()->topline_link && FreshRSS_Context::userConf()->show_article_icons == 't') { ?>
 					<div class="item link">
-						<a target="_blank" rel="noreferrer" href="<?= $entry->link() ?>" class="item-element" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a>
+						<a<?= !FreshRSS_Context::userConf()->see_on_website_shortcut_only && FreshRSS_Context::userConf()->see_on_website !== 'open_in_current_tab' ? ' target="_blank"' : '' ?> rel="noreferrer" href="<?= $entry->link() ?>" class="item-element" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a>
 					</div>
 				<?php } ?>
 			</div>
@@ -91,7 +91,7 @@
 					<?php
 					if (FreshRSS_Context::userConf()->topline_link && FreshRSS_Context::userConf()->show_article_icons == 'a') { ?>
 						<div class="item link">
-							<a target="_blank" rel="noreferrer" href="<?= $entry->link() ?>" class="item-element" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a>
+							<a<?= !FreshRSS_Context::userConf()->see_on_website_shortcut_only && FreshRSS_Context::userConf()->see_on_website !== 'open_in_current_tab' ? ' target="_blank"' : '' ?> rel="noreferrer" href="<?= $entry->link() ?>" class="item-element" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a>
 						</div>
 					<?php } ?>
 				</div>
@@ -159,7 +159,7 @@
 			}
 			if (FreshRSS_Context::userConf()->bottomline_link) { ?>
 				<li class="item link">
-					<a target="_blank" rel="noreferrer" href="<?= $entry->link() ?>" class="item-element" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a>
+					<a<?= (FreshRSS_Context::userConf()->see_on_website_shortcut_only || FreshRSS_Context::userConf()->see_on_website !== 'open_in_current_tab') ? ' target="_blank"' : '' ?> rel="noreferrer" href="<?= $entry->link() ?>" class="item-element" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a>
 				</li>
 			<?php } ?>
 		</ul>

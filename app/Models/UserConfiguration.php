@@ -22,6 +22,9 @@ declare(strict_types=1);
  * @property string $show_author_date
  * @property string $show_feed_name
  * @property string $show_article_icons
+ * @property string $see_on_website
+ * @property bool $see_on_website_for_external_links
+ * @property bool $see_on_website_shortcut_only
  * @property bool $display_posts
  * @property string $email_validation_token
  * @property-read bool $enabled

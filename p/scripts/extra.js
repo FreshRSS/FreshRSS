@@ -628,6 +628,13 @@ function init_enable_notify_button() {
 	});
 }
 
+function init_compatibility_warnings() {
+	const see_on_website = document.querySelector('label[for="see_on_website"]');
+	if (see_on_website && !context.is_gecko_browser) {
+		see_on_website.parentElement.querySelector('p[hidden]')?.removeAttribute('hidden');
+	}
+}
+
 function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
@@ -644,6 +651,7 @@ function init_extra_afterDOM() {
 	init_password_observers(document.body);
 	init_select_observers();
 	init_configuration_alert();
+	init_compatibility_warnings();
 	init_2stateButton();
 	init_update_feed();
 	init_details_attributes();

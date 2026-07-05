@@ -180,6 +180,7 @@ return array(
 		),
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'מאמרים חדשים זמינים, לחצו לרענון העמוד.',
+		'option_incompatible_with_browser' => 'This option may not be compatible with your browser.',	// TODO
 		'should_be_activated' => 'חובה להפעיל JavaScript',
 		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),

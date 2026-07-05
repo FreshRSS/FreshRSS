@@ -226,6 +226,43 @@
 		<fieldset>
 			<legend><?= _t('conf.reading.headline.articles') ?></legend>
 			<div class="form-group">
+				<label class="group-name" for="see_on_website"><?= _t('conf.shortcut.see_on_website') ?></label>
+				<div class="group-controls">
+					<select name="see_on_website" id="see_on_website">
+						<option value="open_in_new_tab"<?= FreshRSS_Context::userConf()->see_on_website === 'open_in_new_tab' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.see_on_website.open_in_new_tab') ?></option>
+						<option value="open_in_new_background_tab"<?= FreshRSS_Context::userConf()->see_on_website === 'open_in_new_background_tab' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.see_on_website.open_in_new_background_tab') ?></option>
+						<option value="open_in_current_tab"<?= FreshRSS_Context::userConf()->see_on_website === 'open_in_current_tab' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.see_on_website.open_in_current_tab') ?></option>
+					</select>
+					<?php if (FreshRSS_Context::userConf()->see_on_website === 'open_in_new_background_tab'): ?>
+						<p class="help" hidden="hidden"><?= _i('warning') ?> <?= _t('gen.js.option_incompatible_with_browser') ?></p>
+					<?php endif ?>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="group-controls">
+					<label class="checkbox" for="see_on_website_for_external_links">
+						<input type="checkbox" name="see_on_website_for_external_links" id="see_on_website_for_external_links" value="1"<?=
+							FreshRSS_Context::userConf()->see_on_website_for_external_links ? ' checked="checked"' : '' ?> />
+						<?= _t('conf.reading.see_on_website.external_links') ?>
+						<p class="help"><?= _i('help') ?> <?= _t('conf.reading.see_on_website.external_links_help') ?></p>
+						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="group-controls">
+					<label class="checkbox" for="see_on_website_shortcut_only">
+						<input type="checkbox" name="see_on_website_shortcut_only" id="see_on_website_shortcut_only" value="1"<?=
+							FreshRSS_Context::userConf()->see_on_website_shortcut_only ? ' checked="checked"' : '' ?> />
+						<?= _t('conf.reading.see_on_website.shortcut_only') ?>
+						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<div class="group-controls">
 					<label class="checkbox" for="display_posts">
 						<input type="checkbox" name="display_posts" id="display_posts" value="1"<?=

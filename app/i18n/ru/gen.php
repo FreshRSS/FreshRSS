@@ -186,6 +186,7 @@ return array(
 		),
 		'labels_empty' => 'Нет меток',
 		'new_article' => 'Появились новые статьи. Нажмите, чтобы обновить страницу.',
+		'option_incompatible_with_browser' => 'This option may not be compatible with your browser.',	// TODO
 		'should_be_activated' => 'JavaScript должен быть включён',
 		'unsafe_csp_header' => 'Используемый заголовок CSP небезопасен, и FreshRSS может быть уязвим для XSS-атак. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">См. документацию</a>',
 	),

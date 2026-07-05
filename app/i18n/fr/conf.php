@@ -294,6 +294,14 @@ return array(
 			'when_same_title_in_category' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents de la catégorie',
 			'when_same_title_in_feed' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents du flux',
 		),
+		'see_on_website' => array(
+			'external_links' => 'Apply the above setting to all external links',	// TODO
+			'external_links_help' => 'If left unchecked, falls back to ”Open in new tab”',	// TODO
+			'open_in_current_tab' => 'Open in current tab',	// TODO
+			'open_in_new_background_tab' => 'Open in new background tab',	// TODO
+			'open_in_new_tab' => 'Open in new tab',	// TODO
+			'shortcut_only' => 'Apply the custom setting only for the shortcut used for opening',	// TODO
+		),
 		'show' => array(
 			'_' => 'Articles à afficher',
 			'active_category' => 'La catégorie active',

@@ -21,6 +21,9 @@ echo json_encode([
 		'auto_mark_scroll' => !!$mark['scroll'],
 		'auto_mark_focus' => !!$mark['focus'],
 		'auto_load_more' => FreshRSS_Context::userConf()->auto_load_more && FreshRSS_Context::$sort !== 'rand',
+		'see_on_website' => FreshRSS_Context::userConf()->see_on_website,
+		'see_on_website_for_external_links' => FreshRSS_Context::userConf()->see_on_website_for_external_links,
+		'see_on_website_shortcut_only' => FreshRSS_Context::userConf()->see_on_website_shortcut_only,
 		'auto_actualize_feeds' => Minz_Session::paramBoolean('actualize_feeds'),
 		'nb_parallel_refresh' => max(1, FreshRSS_Context::systemConf()->nb_parallel_refresh),
 		'does_lazyload' => FreshRSS_Context::userConf()->lazyload && !Minz_Request::is('index', 'reader'), // TODO: currently no lazy-loading is being done in reader view

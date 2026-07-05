@@ -53,6 +53,7 @@ var prevTitle;
 	context.icons.read = decodeURIComponent(context.icons.read);
 	context.icons.unread = decodeURIComponent(context.icons.unread);
 	context.extensions = json.extensions;
+	context.is_gecko_browser = 'InstallTrigger' in window || navigator.userAgent.includes('Firefox');
 }());
 
 const freshrssGlobalContextLoadedEvent = new Event('freshrss:globalContextLoaded');
@@ -1190,18 +1191,24 @@ function init_column_categories() {
 	};
 }
 
+function firefox_tabunder(target) {
+	target.dispatchEvent(new MouseEvent('click', {
+		ctrlKey: true,
+	}));
+}
+
 function init_shortcuts() {
 	Object.keys(context.shortcuts).forEach(function (k) {
 		context.shortcuts[k] = (context.shortcuts[k] || '').toUpperCase();
 	});
 
 	document.addEventListener('keydown', ev => {
-		if (ev.ctrlKey || ev.metaKey || (ev.altKey && ev.shiftKey) || ev.target.closest('input, select, textarea')) {
-			return;
-		}
-
 		const s = context.shortcuts;
 		let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
+
+		if ((ev.ctrlKey && k !== s.go_website) || ev.metaKey || (ev.altKey && ev.shiftKey) || ev.target.closest('input, select, textarea')) {
+			return;
+		}
 
 		// IE11
 		if (k === 'SPACEBAR') k = 'SPACE';
@@ -1315,14 +1322,6 @@ function init_shortcuts() {
 			return;
 		}
 
-		if (ev.altKey || ev.shiftKey) {
-			return;
-		}
-		if (k === s.mark_favorite) {	// Toggle the favorite state
-			mark_favorite(document.querySelector('.flux.current'));
-			ev.preventDefault();
-			return;
-		}
 		if (k === s.go_website) {
 			if (context.auto_mark_site) {
 				mark_read(document.querySelector('.flux.current'), true, false);
@@ -1330,9 +1329,33 @@ function init_shortcuts() {
 
 			const link_go_website = document.querySelector('.flux.current a.go_website');
 			if (link_go_website) {
-				window.open(link_go_website.href, '_blank', 'noopener');
+				// If user is holding down Ctrl key and the link_go_website shortcut at the same time,
+				// the article will open in a new background tab in Firefox. // TODO: emulate this behavior in Chromium by using a tabunder
+				// With the Shift key, the article will open in a new browser window.
+				let target = '_blank';
+				if (context.see_on_website === 'open_in_current_tab') {
+					target = '_self';
+				} else if (context.see_on_website === 'open_in_new_background_tab') {
+					if (context.is_gecko_browser && !(ev.ctrlKey || ev.shiftKey)) {
+						firefox_tabunder(link_go_website);
+						ev.preventDefault();
+						return;
+					}
+					// TODO: emulate this behavior in Chromium by using a tabunder
+					// Browsers that are not supported here, will fallback to `open_in_new_tab` behavior.
+				}
+				window.open(link_go_website.href, target, 'noopener');
 				ev.preventDefault();
 			}
+			return;
+		}
+
+		if (ev.altKey || ev.shiftKey) {
+			return;
+		}
+		if (k === s.mark_favorite) {	// Toggle the favorite state
+			mark_favorite(document.querySelector('.flux.current'));
+			ev.preventDefault();
 			return;
 		}
 		const hash = location.hash.substr(1);
@@ -1360,7 +1383,19 @@ function init_shortcuts() {
 
 function init_stream(stream) {
 	stream.onclick = function (ev) {
-		let el = ev.target.closest('.flux a.read');
+		let el = ev.target.closest('.flux .link > a');
+		if (el) {
+			if (context.see_on_website === 'open_in_new_background_tab' && !context.see_on_website_shortcut_only) {
+				if (context.is_gecko_browser && !(ev.ctrlKey || ev.shiftKey)) {
+					firefox_tabunder(el);
+					return false;
+				}
+				// TODO: emulate this behavior in Chromium by using a tabunder
+				// Browsers that are not supported here, will fallback to `open_in_new_tab` behavior.
+			}
+		}
+
+		el = ev.target.closest('.flux a.read');
 		if (el) {
 			mark_read(el.closest('.flux'), false, false);
 			return false;
@@ -1382,6 +1417,20 @@ function init_stream(stream) {
 			if (!el.closest('div').classList.contains('author')) {
 				el.target = '_blank';
 				el.rel = 'noreferrer';
+				if (context.see_on_website_for_external_links) {
+					if (context.see_on_website === 'open_in_current_tab') {
+						el.target = '_self';
+						return true;
+					}
+					if (context.see_on_website === 'open_in_new_background_tab') {
+						if (context.is_gecko_browser && !(ev.ctrlKey || ev.shiftKey)) {
+							firefox_tabunder(el);
+							return false;
+						}
+						// TODO: emulate this behavior in Chromium by using a tabunder
+						// Browsers that are not supported here, will fallback to `open_in_new_tab` behavior.
+					}
+				}
 			}
 			return true;
 		}

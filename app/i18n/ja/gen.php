@@ -174,6 +174,7 @@ return array(
 		),
 		'labels_empty' => 'ラベルがありません',
 		'new_article' => '新しい記事があるのでクリックしてページをリフレッシュしてください。',
+		'option_incompatible_with_browser' => 'This option may not be compatible with your browser.',	// TODO
 		'should_be_activated' => 'JavaScriptは有効になっている必要があります。',
 		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),

@@ -294,6 +294,14 @@ return array(
 			'when_same_title_in_category' => '如果在類別最新的前 <i>n</i> 篇文章中已存在相同標題',
 			'when_same_title_in_feed' => '如果在訂閱源最新的前 <i>n</i> 篇文章中已存在相同標題',
 		),
+		'see_on_website' => array(
+			'external_links' => 'Apply the above setting to all external links',	// TODO
+			'external_links_help' => 'If left unchecked, falls back to ”Open in new tab”',	// TODO
+			'open_in_current_tab' => 'Open in current tab',	// TODO
+			'open_in_new_background_tab' => 'Open in new background tab',	// TODO
+			'open_in_new_tab' => 'Open in new tab',	// TODO
+			'shortcut_only' => 'Apply the custom setting only for the shortcut used for opening',	// TODO
+		),
 		'show' => array(
 			'_' => '要顯示的文章',
 			'active_category' => '啟用的類別',

@@ -114,6 +114,9 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *   - view mode (default: normal)
 	 *   - default article view (default: all)
 	 *   - load automatically articles
+	 *   - see on original website behavior (default: open_in_new_tab)
+	 *   - see on original website behavior applied to external links (default: false)
+	 *   - see on original website behavior applied only to opening shortcut (default: false)
 	 *   - display expanded articles
 	 *   - display expanded categories
 	 *   - hide categories and feeds without unread articles
@@ -138,6 +141,9 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->default_view = Minz_Request::paramStringNull('default_view') ?? 'adaptive';
 			FreshRSS_Context::userConf()->show_fav_unread = Minz_Request::paramBoolean('show_fav_unread');
 			FreshRSS_Context::userConf()->auto_load_more = Minz_Request::paramBoolean('auto_load_more');
+			FreshRSS_Context::userConf()->see_on_website = Minz_Request::paramStringNull('see_on_website') ?? 'open_in_new_tab';
+			FreshRSS_Context::userConf()->see_on_website_for_external_links = Minz_Request::paramBoolean('see_on_website_for_external_links');
+			FreshRSS_Context::userConf()->see_on_website_shortcut_only = Minz_Request::paramBoolean('see_on_website_shortcut_only');
 			FreshRSS_Context::userConf()->display_posts = Minz_Request::paramBoolean('display_posts');
 			FreshRSS_Context::userConf()->display_categories = Minz_Request::paramStringNull('display_categories') ?? 'active';
 			FreshRSS_Context::userConf()->show_tags = Minz_Request::paramStringNull('show_tags') ?? '0';

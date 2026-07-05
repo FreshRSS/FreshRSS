@@ -180,6 +180,7 @@ return array(
 		),
 		'labels_empty' => 'No labels',
 		'new_article' => 'There are new articles available, click to refresh the page.',
+		'option_incompatible_with_browser' => 'This option may not be compatible with your browser.',
 		'should_be_activated' => 'JavaScript must be enabled',
 		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',
 	),

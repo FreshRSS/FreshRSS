@@ -106,7 +106,7 @@ $today = @strtotime('today');
 							throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
 						}
 					} ?>
-					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?></a></h1>
+					<h1 class="title"><a<?= (FreshRSS_Context::userConf()->see_on_website_shortcut_only || FreshRSS_Context::userConf()->see_on_website !== 'open_in_current_tab') ? ' target="_blank"' : '' ?> rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?></a></h1>
 					<?php if (FreshRSS_Context::userConf()->show_author_date === 'h' || FreshRSS_Context::userConf()->show_author_date === 'b') { ?>
 					<div class="subtitle">
 						<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>

@@ -79,6 +79,6 @@
 		?><li class="item date"><time datetime="<?= $this->entry->machineReadableDate() ?>" class="item-element"><?= $this->entry->date() ?></time>&nbsp;</li><?php
 	}
 	if ($bottomline_link) {
-		?><li class="item link"><a target="_blank" class="item-element" rel="noreferrer" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php
+		?><li class="item link"><a<?= (FreshRSS_Context::userConf()->see_on_website_shortcut_only || FreshRSS_Context::userConf()->see_on_website !== 'open_in_current_tab') ? ' target="_blank"' : '' ?> class="item-element" rel="noreferrer" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php
 	} ?>
 </ul>

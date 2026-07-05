@@ -180,6 +180,7 @@ return array(
 		),
 		'labels_empty' => 'بدون برچسب',
 		'new_article' => 'مقالات جدیدی موجود است',
+		'option_incompatible_with_browser' => 'This option may not be compatible with your browser.',	// TODO
 		'should_be_activated' => ' جاوا اسکریپت باید فعال باشد',
 		'unsafe_csp_header' => 'سرآیند CSP فعلی امن نیست و FreshRSS ممکن است در برابر حملات XSS آسیب‌پذیر باشد. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">مستندات را ببینید</a>',
 	),

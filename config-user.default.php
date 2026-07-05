@@ -37,6 +37,10 @@ return array (
 	# Unread-count visibility in sidebar: 'all' | 'important' | 'none'
 	'show_unread_count' => 'all',
 	'auto_load_more' => true,
+	# See on original website behavior: 'open_in_new_tab' | 'open_in_new_background_tab' | 'open_in_current_tab'
+	'see_on_website' => 'open_in_new_tab',
+	'see_on_website_for_external_links' => false,
+	'see_on_website_shortcut_only' => false,
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }
 	'show_tags' => 'f',	// {0 => none, b => both, f => footer, h => header}

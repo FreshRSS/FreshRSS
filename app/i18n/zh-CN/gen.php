@@ -174,6 +174,7 @@ return array(
 		),
 		'labels_empty' => '无标签',
 		'new_article' => '发现新文章，点击刷新页面。',
+		'option_incompatible_with_browser' => 'This option may not be compatible with your browser.',	// TODO
 		'should_be_activated' => '必须启用 JavaScript',
 		'unsafe_csp_header' => '当前使用的 CSP 头部不安全，FreshRSS 可能容易受到 XSS 攻击。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">查看文档</a>',
 	),

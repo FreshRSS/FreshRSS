@@ -294,6 +294,14 @@ return array(
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',
 		),
+		'see_on_website' => array(
+			'external_links' => 'Apply the above setting to all external links',
+			'external_links_help' => 'If left unchecked, falls back to ”Open in new tab”',
+			'open_in_current_tab' => 'Open in current tab',
+			'open_in_new_background_tab' => 'Open in new background tab',
+			'open_in_new_tab' => 'Open in new tab',
+			'shortcut_only' => 'Apply the custom setting only for the shortcut used for opening',
+		),
 		'show' => array(
 			'_' => 'Articles to display',
 			'active_category' => 'Active category',

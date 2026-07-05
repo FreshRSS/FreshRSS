@@ -186,6 +186,7 @@ return array(
 		),
 		'labels_empty' => 'Міток нема',
 		'new_article' => 'Наявні нові статті. Натисніть, щоб оновити сторінку.',
+		'option_incompatible_with_browser' => 'This option may not be compatible with your browser.',	// TODO
 		'should_be_activated' => 'Слід увімкнути JavaScript',
 		'unsafe_csp_header' => 'Через використовуваний CSP-заголовок FreshRSS під загрозою XSS-атак. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Переглянути документацію</a>',
 	),

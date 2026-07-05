@@ -100,6 +100,6 @@
 			</div>
 		</li>
 	<?php } ?>
-	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element" title="<?=
+	<?php if ($topline_link) { ?><li class="item link"><a<?= (FreshRSS_Context::userConf()->see_on_website_shortcut_only || FreshRSS_Context::userConf()->see_on_website !== 'open_in_current_tab') ? ' target="_blank"' : '' ?> rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element" title="<?=
 		_t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php } ?>
 </ul>
