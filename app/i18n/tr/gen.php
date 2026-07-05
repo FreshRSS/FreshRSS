@@ -272,10 +272,10 @@ return array(
 		'sources' => 'Kaynaklar',
 		'tags' => 'Makale etiketleri',
 		'text' => 'Metin arama',
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
+		'text_help' => 'Birden fazla satır mantıksal <i>veya</i> ile birleştirilir. Ayrıca <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">düzenli ifadeleri</a> de destekler.',
 		'text_placeholder' => 'Anahtar kelime',
 		'title' => 'Başlık',
-		'url' => 'URL',	// TODO
+		'url' => 'Bağlantı',
 		'user_queries' => 'Kullanıcı Sorguları',
 	),
 	'share' => array(
