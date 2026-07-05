@@ -1,5 +1,4 @@
 {
-	// markdownlint rule configuration (previously .markdownlint.json)
 	"config": {
 		"default": true,
 		"blanks-around-fences": false,
@@ -24,7 +23,6 @@
 	"globs": [
 		"**/*.md"
 	],
-	// Paths to ignore (previously .markdownlintignore)
 	"ignores": [
 		"**/node_modules/**",
 		"extensions/**",
