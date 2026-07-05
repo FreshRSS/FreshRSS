@@ -146,6 +146,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->show_feed_name = Minz_Request::paramStringNull('show_feed_name') ?? 't';
 			FreshRSS_Context::userConf()->show_article_icons = Minz_Request::paramStringNull('show_article_icons') ?? 't';
 			FreshRSS_Context::userConf()->hide_read_feeds = Minz_Request::paramBoolean('hide_read_feeds');
+			$sidebarSortFeedsBy = Minz_Request::paramStringNull('sidebar_sort_feeds_by', plaintext: true);
+			FreshRSS_Context::userConf()->sidebar_sort_feeds_by = $sidebarSortFeedsBy === 'unread' ? 'unread' : 'alpha';
 			FreshRSS_Context::userConf()->onread_jump_next = Minz_Request::paramBoolean('onread_jump_next');
 			FreshRSS_Context::userConf()->lazyload = Minz_Request::paramBoolean('lazyload');
 			FreshRSS_Context::userConf()->sides_close_article = Minz_Request::paramBoolean('sides_close_article');

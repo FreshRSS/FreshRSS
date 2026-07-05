@@ -299,7 +299,13 @@ class FreshRSS_Category extends Minz_Model {
 		if ($this->feeds === null) {
 			return;
 		}
-		uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		$sortBy = FreshRSS_Context::userConf()->sidebar_sort_feeds_by ?? 'alpha';
+		if ($sortBy === 'unread') {
+			uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) =>
+				($b->nbNotRead() <=> $a->nbNotRead()) ?: strnatcasecmp($a->name(), $b->name()));
+		} else {
+			uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		}
 	}
 
 	/**

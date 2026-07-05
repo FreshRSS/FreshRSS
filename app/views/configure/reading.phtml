@@ -167,6 +167,22 @@
 					</label>
 				</div>
 			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="sidebar_sort_feeds_by"><?=
+					_t('conf.reading.sidebar_sort_feeds_by._')
+				?></label>
+				<div class="group-controls">
+					<select name="sidebar_sort_feeds_by" id="sidebar_sort_feeds_by">
+						<option value="alpha"<?= FreshRSS_Context::userConf()->sidebar_sort_feeds_by === 'alpha' ? ' selected="selected"' : '' ?>><?=
+							_t('conf.reading.sidebar_sort_feeds_by.alpha')
+						?></option>
+						<option value="unread"<?= FreshRSS_Context::userConf()->sidebar_sort_feeds_by === 'unread' ? ' selected="selected"' : '' ?>><?=
+							_t('conf.reading.sidebar_sort_feeds_by.unread')
+						?></option>
+					</select>
+				</div>
+			</div>
 		</fieldset>
 
 		<fieldset>

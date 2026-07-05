@@ -306,6 +306,11 @@ return array(
 			'unread_or_favorite' => 'Show unreads and favourites',
 		),
 		'show_fav_unread_help' => 'Applies also on labels',
+		'sidebar_sort_feeds_by' => array(
+			'_' => 'Sort feeds by',
+			'alpha' => 'Alphabetically',
+			'unread' => 'Unread count',
+		),
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
 		'star' => array(
 			'when' => 'Mark an article as favourite…',
