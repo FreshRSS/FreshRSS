@@ -173,10 +173,7 @@ return array(
 		'confirm_action_feed_cat' => ' آیا مطمئن هستید که می خواهید این عمل را انجام دهید؟ موارد دلخواه و درخواست های کاربر مرتبط را از دست خواهید داد. نمی توان آن را لغو کرد!',
 		'confirm_exit_slider' => 'مطمئنید می‌خواهید تنظیمات ذخیره‌نشده را نادیده بگیرید؟',
 		'feedback' => array(
-			'body_new_articles' => array(
-				0 => 'There is %%d new article to read on FreshRSS.',	// TODO
-				1 => 'There are %%d new articles to read on FreshRSS.',	// TODO
-			),
+			'body_new_articles' => ' %%d مقاله جدید برای خواندن در FreshRSS وجود دارد.',
 			'body_unread_articles' => ' (خوانده نشده: %%d)',
 			'request_failed' => ' یک درخواست شکست خورده است',
 			'title_new_articles' => ' FreshRSS: مقالات جدید!',

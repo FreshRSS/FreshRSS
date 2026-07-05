@@ -173,10 +173,7 @@ return array(
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
 		'confirm_exit_slider' => 'Sei sicuro di voler perdere le impostazioni non salvate?',
 		'feedback' => array(
-			'body_new_articles' => array(
-				0 => 'There is %%d new article to read on FreshRSS.',	// TODO
-				1 => 'There are %%d new articles to read on FreshRSS.',	// TODO
-			),
+			'body_new_articles' => 'Ci sono %%d nuovi articoli da leggere.',
 			'body_unread_articles' => '(non letti: %%d)',
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',

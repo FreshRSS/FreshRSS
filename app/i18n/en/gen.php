@@ -173,10 +173,7 @@ return array(
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',
 		'feedback' => array(
-			'body_new_articles' => array(
-				0 => 'There is %%d new article to read on FreshRSS.',
-				1 => 'There are %%d new articles to read on FreshRSS.',
-			),
+			'body_new_articles' => 'New articles to read on FreshRSS: %%d',
 			'body_unread_articles' => '(unread: %%d)',
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',
