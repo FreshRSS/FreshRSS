@@ -1194,6 +1194,7 @@ function init_column_categories() {
 function firefox_tabunder(target) {
 	target.dispatchEvent(new MouseEvent('click', {
 		ctrlKey: true,
+		metaKey: true, // for macOS
 	}));
 }
 
