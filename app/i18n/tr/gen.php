@@ -274,7 +274,7 @@ return array(
 		'text_help' => 'Birden fazla satır mantıksal <i>veya</i> ile birleştirilir. Ayrıca <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">düzenli ifadeleri</a> de destekler.',
 		'text_placeholder' => 'Anahtar kelime',
 		'title' => 'Başlık',
-		'url' => 'URL',	// TODO
+		'url' => 'Bağlantı',
 		'user_queries' => 'Kullanıcı Sorguları',
 	),
 	'share' => array(
