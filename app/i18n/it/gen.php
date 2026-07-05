@@ -173,8 +173,14 @@ return array(
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
 		'confirm_exit_slider' => 'Sei sicuro di voler perdere le impostazioni non salvate?',
 		'feedback' => array(
-			'body_new_articles' => 'Ci sono %d nuovi articoli da leggere.',
-			'body_unread_articles' => '(non letti: %d)',
+			'body_new_articles' => array(
+				0 => 'C\'è %d nuovo articolo da leggere.',	// DIRTY
+				1 => 'Ci sono %d nuovi articoli da leggere.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(non letti: %d)',	// DIRTY
+				1 => '(non letti: %d)',	// DIRTY
+			),
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
 		),

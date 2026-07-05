@@ -167,8 +167,12 @@ return array(
 		'confirm_action_feed_cat' => '您確定要執行此操作嗎？您將丟失相關的收藏和使用者查詢。這無法被取消！',
 		'confirm_exit_slider' => '您確定要丟棄所有未儲存的設定嗎？',
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS 中有 %d 篇文章待閱讀。',
-			'body_unread_articles' => '(未讀: %d)',
+			'body_new_articles' => array(
+				0 => 'FreshRSS 中有 %d 篇文章待閱讀。',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(未讀: %d)',	// DIRTY
+			),
 			'request_failed' => '請求失敗，有可能是網路連線問題造成的。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),

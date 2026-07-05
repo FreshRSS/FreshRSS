@@ -173,8 +173,14 @@ return array(
 		'confirm_action_feed_cat' => 'Möchten Sie diese Aktion wirklich ausführen? Sie verlieren damit alle zugehörigen Favoriten und Suchanfragen. Der Vorgang kann nicht rückgängig gemacht werden!',
 		'confirm_exit_slider' => 'Sollen die nicht gespeicherten Einstellungen wirklich verworfen werden?',
 		'feedback' => array(
-			'body_new_articles' => 'Es gibt %d neue Artikel zum Lesen auf FreshRSS.',
-			'body_unread_articles' => '(Ungelesen: %d)',
+			'body_new_articles' => array(
+				0 => 'Es gibt %d neuen Artikel zum Lesen auf FreshRSS.',	// DIRTY
+				1 => 'Es gibt %d neue Artikel zum Lesen auf FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(Ungelesen: %d)',	// DIRTY
+				1 => '(Ungelesen: %d)',	// DIRTY
+			),
 			'request_failed' => 'Eine Anfrage ist fehlgeschlagen, dies könnte durch Probleme mit der Internetverbindung verursacht worden sein.',
 			'title_new_articles' => 'FreshRSS: neue Artikel!',
 		),
