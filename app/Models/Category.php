@@ -299,7 +299,18 @@ class FreshRSS_Category extends Minz_Model {
 		if ($this->feeds === null) {
 			return;
 		}
-		uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		// Sort locale-aware so accented and non-ASCII feed names sort near their base letter
+		// instead of byte-wise: strnatcasecmp() compares raw UTF-8 bytes, which pushes names
+		// starting with a non-ASCII character (e.g. an accented capital) to the very end.
+		// Without a user language (e.g. CLI), keep the previous byte-wise sort and avoid
+		// Collator::create(''), whose ordering depends on the environment default locale.
+		$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
+		$collator = $language === '' ? null : \Collator::create($language);
+		if ($collator === null) {
+			uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b): int => strnatcasecmp($a->name(), $b->name()));
+			return;
+		}
+		uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b): int => (int)$collator->compare($a->name(), $b->name()));
 	}
 
 	/**
