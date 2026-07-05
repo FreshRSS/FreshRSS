@@ -19,7 +19,7 @@ foreach ($this->categories as $cat) {
 foreach ($this->tags as $tag) {
 	$result['tags'][$tag->id()] = $tag->nbUnread();
 }
-$nbUnreadBefore = max(0, Minz_Request::paramInt('previous_unread', 0));
+$nbUnreadBefore = max(0, Minz_Request::paramInt('previous_unread') ?: 0);
 $nbNew = max(0, $nbUnreadFeeds - $nbUnreadBefore);
 $result['notifBody'] = trim(
 	(Minz_Translate::plural('gen.js.feedback.body_new_articles', $nbNew) ?? _t('gen.js.feedback.body_new_articles', $nbNew)) . ' ' .
