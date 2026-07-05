@@ -173,7 +173,10 @@ return array(
 		'confirm_action_feed_cat' => '¿Seguro que quieres hacerlo? Perderás todos los favoritos relacionados y las búsquedas de usuario. ¡Y no hay marcha atrás!',
 		'confirm_exit_slider' => '¿Estás seguro de que quieres descartar los cambios no guardados?',
 		'feedback' => array(
-			'body_new_articles' => 'Hay %%d nuevos artículos para leer en FreshRSS.',
+			'body_new_articles' => array(
+				0 => 'There is %%d new article to read on FreshRSS.',	// TODO
+				1 => 'There are %%d new articles to read on FreshRSS.',	// TODO
+			),
 			'body_unread_articles' => '(No leídos: %%d)',
 			'request_failed' => 'La petición ha fallado. Puede ser debido a problemas de conexión a internet.',
 			'title_new_articles' => 'FreshRSS: ¡nuevos artículos!',

@@ -173,7 +173,10 @@ return array(
 		'confirm_action_feed_cat' => 'Weet u zeker dat u dit wilt doen? U verliest alle gereleteerde favorieten en gebruikers informatie. Het kan niet ongedaan worden gemaakt!',
 		'confirm_exit_slider' => 'Weet u zeker dat u de niet opgeslagen instellingen wilt negeren?',
 		'feedback' => array(
-			'body_new_articles' => 'Er zijn %%d nieuwe artikelen om te lezen op FreshRSS.',
+			'body_new_articles' => array(
+				0 => 'There is %%d new article to read on FreshRSS.',	// TODO
+				1 => 'There are %%d new articles to read on FreshRSS.',	// TODO
+			),
 			'body_unread_articles' => '(ongelezen: %%d)',
 			'request_failed' => 'Een opdracht is mislukt, mogelijk door Internet verbindings problemen.',
 			'title_new_articles' => 'FreshRSS: nieuwe artikelen!',

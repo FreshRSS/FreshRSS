@@ -173,7 +173,10 @@ return array(
 		'confirm_action_feed_cat' => 'Bu eylemi gerçekleştirmek istediğinizden emin misiniz? İlgili favoriler ve kullanıcı sorguları kaybolacak. Bu işlem geri alınamaz!',
 		'confirm_exit_slider' => 'Kaydedilmemiş ayarları atmak istediğinizden emin misiniz?',
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS’de okunacak %%d yeni makale var.',
+			'body_new_articles' => array(
+				0 => 'There is %%d new article to read on FreshRSS.',	// TODO
+				1 => 'There are %%d new articles to read on FreshRSS.',	// TODO
+			),
 			'body_unread_articles' => '(okunmamış: %%d)',
 			'request_failed' => 'Bir istek başarısız oldu, bu internet bağlantı sorunlarından kaynaklanmış olabilir.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',

@@ -371,14 +371,52 @@ class Minz_Translate {
 	 * @param int $value Count used for plural category and `%d` substitution.
 	 * @return string|null Translated string or null if no translation is found.
 	 */
-	public static function plural(string $baseKey, int $value): ?string {
+	/**
+	 * Plural forms of a key as a list in plural-index order (e.g. `[0 => singular, 1 => plural]`),
+	 * or `[]` if the key is not a plural key. Useful to expose plural forms to client-side code.
+	 * @return array<int,string>
+	 */
+	public static function plurals(string $baseKey): array {
+		return array_values(self::pluralFamily($baseKey));
+	}
+
+	/**
+	 * A representative value for each plural form of the current language, in plural-index order.
+	 * Lets client-side code map a count to the correct plural form using its own plural engine
+	 * (e.g. `Intl.PluralRules`) without assuming that engine's plural-category order matches this
+	 * language's compiled plural-index order — the two differ for some languages (e.g. Latvian).
+	 * @return list<int>
+	 */
+	public static function pluralRepresentatives(): array {
+		self::loadPluralCatalogue();
+		if (self::$plural_count === null || self::$plural_function === null) {
+			return [];
+		}
+
+		$representatives = [];
+		for ($value = 0; count($representatives) < self::$plural_count && $value <= 200; $value++) {
+			$index = self::pluralIndex($value);
+			if ($index !== null && !array_key_exists($index, $representatives)) {
+				$representatives[$index] = $value;
+			}
+		}
+
+		ksort($representatives);
+		return array_values($representatives);
+	}
+
+	/**
+	 * Load, normalize (integer indexes, sorted) and cache the plural message family of a key.
+	 * @return array<int,string> Keyed by plural index, or `[]` if the key is not a valid plural key.
+	 */
+	private static function pluralFamily(string $baseKey): array {
 		self::loadPluralCatalogue();
 
 		if (!isset(self::$plural_message_families[$baseKey])) {
 			$rawMessageFamily = self::resolveKey($baseKey);
 			if (!is_array($rawMessageFamily) || $rawMessageFamily === []) {
 				Minz_Log::debug($baseKey . ' is not a valid plural key');
-				return null;
+				return [];
 			}
 
 			/** @var array<int,string> $messageFamily */
@@ -402,14 +440,21 @@ class Minz_Translate {
 
 			if ($messageFamily === []) {
 				Minz_Log::debug($baseKey . ' is not a valid plural key');
-				return null;
+				return [];
 			}
 
 			ksort($messageFamily);
 			self::$plural_message_families[$baseKey] = $messageFamily;
 		}
 
-		$messageFamily = self::$plural_message_families[$baseKey];
+		return self::$plural_message_families[$baseKey];
+	}
+
+	public static function plural(string $baseKey, int $value): ?string {
+		$messageFamily = self::pluralFamily($baseKey);
+		if ($messageFamily === []) {
+			return null;
+		}
 
 		$index = self::pluralIndex($value);
 		if ($index !== null && isset($messageFamily[$index]) && $messageFamily[$index] !== '') {

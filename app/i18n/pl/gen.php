@@ -179,7 +179,11 @@ return array(
 		'confirm_action_feed_cat' => 'Czy jesteś pewien, że chcesz przeprowadzić daną operację? Stracisz powiązane zapytania i ulubione wiadomości. Tych zmian nie można wycofać!',
 		'confirm_exit_slider' => 'Czy na pewno chcesz odrzucić niezapisane ustawienia?',
 		'feedback' => array(
-			'body_new_articles' => 'W FreshRSS znajduje się %%d wiadomości do przeczytania.',
+			'body_new_articles' => array(
+				0 => 'There is %%d new article to read on FreshRSS.',	// TODO
+				1 => 'There are %%d new articles to read on FreshRSS.',	// TODO
+				2 => 'There are %%d new articles to read on FreshRSS.',	// TODO
+			),
 			'body_unread_articles' => '(Nieprzeczytane: %%d)',
 			'request_failed' => 'Zapytanie nie powiodło się. Może to być spowodowane problemami z łącznością z internetem.',
 			'title_new_articles' => 'FreshRSS: nowe wiadomości!',

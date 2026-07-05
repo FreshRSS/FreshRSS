@@ -2043,6 +2043,34 @@ async function notifs_html5_ask_permission() {
 	}
 }
 
+// Select the correct plural form for `count` from a list of forms (as provided by
+// Minz_Translate::plurals()), using the browser's CLDR plural rules for the user's language.
+// `context.i18n.plural_samples` provides a representative count for each form, so a `count`
+// is mapped to the right form by matching plural categories. This avoids assuming that the
+// browser's plural-category order matches the language's compiled plural-index order, which
+// differs for some languages (e.g. Latvian). Falls back to the last (plural) form, and
+// returns the value unchanged when it is a plain (non-plural) string.
+function i18nPlural(forms, count) {
+	if (!Array.isArray(forms)) {
+		return forms;
+	}
+	try {
+		const rules = new Intl.PluralRules(context.i18n.language);
+		const samples = context.i18n.plural_samples;
+		if (Array.isArray(samples) && samples.length === forms.length) {
+			const category = rules.select(count);
+			for (let i = 0; i < forms.length; i++) {
+				if (rules.select(samples[i]) === category) {
+					return forms[i];
+				}
+			}
+		}
+	} catch {
+		// Intl.PluralRules unavailable or locale unsupported: use the fallback below
+	}
+	return forms[forms.length - 1];
+}
+
 function notifs_html5_show(nb, nb_new) {
 	if (!context.html5_enable_notif) {
 		return;	// from config
@@ -2054,7 +2082,7 @@ function notifs_html5_show(nb, nb_new) {
 	try {
 		const notification = new window.Notification(context.i18n.notif_title_articles, {
 			icon: '../themes/icons/favicon-256-padding.png',
-			body: context.i18n.notif_body_new_articles.replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
+			body: i18nPlural(context.i18n.notif_body_new_articles, nb_new).replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
 			tag: 'freshRssNewArticles',
 		});
 
