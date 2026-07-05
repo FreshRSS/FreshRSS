@@ -173,8 +173,8 @@ return array(
 		'confirm_action_feed_cat' => 'Haluatko varmasti toteuttaa toiminnon? Luokkaan kuuluvat suosikit ja kyselyt poistetaan. Tätä ei voi peruuttaa!',
 		'confirm_exit_slider' => 'Haluatko varmasti hylätä muutetut asetukset?',
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS-sovelluksessa on %%d uutta artikkelia luettavana.',
-			'body_unread_articles' => '(lukematta: %%d)',
+			'body_new_articles' => 'FreshRSS-sovelluksessa on %d uutta artikkelia luettavana.',
+			'body_unread_articles' => '(lukematta: %d)',
 			'request_failed' => 'Pyyntö epäonnistui. Internetyhteydessä on ehkä ollut ongelmia.',
 			'title_new_articles' => 'FreshRSS: uusia artikkeleita!',
 		),

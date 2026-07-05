@@ -167,8 +167,8 @@ return array(
 		'confirm_action_feed_cat' => 'Apakah Anda yakin ingin melakukan ini? Anda akan kehilangan favorit dan pencarian pengguna terkait. Ini tidak dapat dibatalkan.',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'Ada %%d artikel baru untuk dibaca di FreshRSS.',
-			'body_unread_articles' => '(belum dibaca: %%d)',
+			'body_new_articles' => 'Ada %d artikel baru untuk dibaca di FreshRSS.',
+			'body_unread_articles' => '(belum dibaca: %d)',
 			'request_failed' => 'Permintaan gagal, mungkin dikarenakan masalah koneksi internet.',
 			'title_new_articles' => 'FreshRSS: artikel baru!',
 		),

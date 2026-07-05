@@ -179,8 +179,8 @@ return array(
 		'confirm_action_feed_cat' => 'Точно виконати цю дію? Ви втратите повʼязані вподобання й користувацькі запити. Дію неможливо скасувати!',
 		'confirm_exit_slider' => 'Точно відкинути незбережені параметри?',
 		'feedback' => array(
-			'body_new_articles' => 'Наявні нові статті (%%d) у FreshRSS.',
-			'body_unread_articles' => '(непрочитано: %%d)',
+			'body_new_articles' => 'Наявні нові статті (%d) у FreshRSS.',
+			'body_unread_articles' => '(непрочитано: %d)',
 			'request_failed' => 'Не вдалося виконати запит. Можливо, інтернет-зʼєднання нестабільне.',
 			'title_new_articles' => 'FreshRSS: нові статті!',
 		),

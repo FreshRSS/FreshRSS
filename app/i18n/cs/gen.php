@@ -179,8 +179,8 @@ return array(
 		'confirm_action_feed_cat' => 'Opravdu chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Toto nelze zrušit!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'Ve FreshRSS je %%d nových článků k přečtení.',
-			'body_unread_articles' => '(nepřečtené: %%d)',
+			'body_new_articles' => 'Ve FreshRSS je %d nových článků k přečtení.',
+			'body_unread_articles' => '(nepřečtené: %d)',
 			'request_failed' => 'Požadavek selhal, to může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),

@@ -167,8 +167,8 @@ return array(
 		'confirm_action_feed_cat' => '你确定要执行此操作吗？你将丢失相关的收藏和自定义查询，这将不可撤销！',
 		'confirm_exit_slider' => '您确定要放弃未保存的设置吗？',
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待阅读。',
-			'body_unread_articles' => '(未读: %%d)',
+			'body_new_articles' => 'FreshRSS 中有 %d 篇文章等待阅读。',
+			'body_unread_articles' => '(未读: %d)',
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),

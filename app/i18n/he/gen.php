@@ -174,7 +174,7 @@ return array(
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => 'ישנם	\\d מאמרים חדשים לקרוא ב FreshRSS.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_unread_articles' => '(unread: %d)',	// TODO
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: מאמרים חדשים!',
 		),

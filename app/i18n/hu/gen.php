@@ -173,8 +173,8 @@ return array(
 		'confirm_action_feed_cat' => 'Biztos hogy végrehajtod ezt a műveletet? Minden kapcsolódó kedvenc és lekérdezés törölve lesz. Nem lehet megszakítani!',
 		'confirm_exit_slider' => 'Biztosan elveti a nem mentett beállításokat?',
 		'feedback' => array(
-			'body_new_articles' => '%%d db új cikk olvasható a FreshRSS-ben.',
-			'body_unread_articles' => '(olvasatlan: %%d)',
+			'body_new_articles' => '%d db új cikk olvasható a FreshRSS-ben.',
+			'body_unread_articles' => '(olvasatlan: %d)',
 			'request_failed' => 'Egy művelet nem sikerült, lehetséges hogy az internet kapcsolattal vannak problémák.',
 			'title_new_articles' => 'FreshRSS: új cikkek!',
 		),

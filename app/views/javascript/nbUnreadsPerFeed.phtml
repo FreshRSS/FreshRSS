@@ -6,14 +6,23 @@ $result = [
 	'feeds' => [],
 	'tags' => [],
 ];
+$nbUnreadFeeds = 0;
 foreach ($this->categories as $cat) {
 	foreach ($cat->feeds() as $feed) {
 		if ($feed->priority() > FreshRSS_Feed::PRIORITY_HIDDEN) {
-			$result['feeds'][$feed->id()] = $feed->nbNotRead();
+			$feedUnread = $feed->nbNotRead();
+			$result['feeds'][$feed->id()] = $feedUnread;
+			$nbUnreadFeeds += $feedUnread;
 		}
 	}
 }
 foreach ($this->tags as $tag) {
 	$result['tags'][$tag->id()] = $tag->nbUnread();
 }
+$nbUnreadBefore = max(0, Minz_Request::paramInt('previous_unread', 0));
+$nbNew = max(0, $nbUnreadFeeds - $nbUnreadBefore);
+$result['notifBody'] = trim(
+	_t('gen.js.feedback.body_new_articles', $nbNew) . ' ' .
+	_t('gen.js.feedback.body_unread_articles', $nbUnreadFeeds)
+);
 echo json_encode($result);

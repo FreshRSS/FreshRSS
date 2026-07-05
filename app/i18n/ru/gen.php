@@ -179,8 +179,8 @@ return array(
 		'confirm_action_feed_cat' => 'Вы уверены, что хотите выполнить это действие? Вы потеряете связанные избранные статьи и пользовательские запросы. Это нельзя отменить!',
 		'confirm_exit_slider' => 'Вы уверены, что хотите отменить несохраненные настройки?',
 		'feedback' => array(
-			'body_new_articles' => '%%d новых статей в FreshRSS.',
-			'body_unread_articles' => '(Непрочитанные: %%d)',
+			'body_new_articles' => '%d новых статей в FreshRSS.',
+			'body_unread_articles' => '(Непрочитанные: %d)',
 			'request_failed' => 'Запрос не удался. Возможно, это вызвано проблемами с подключением к Интернет.',
 			'title_new_articles' => 'FreshRSS: новые статьи!',
 		),

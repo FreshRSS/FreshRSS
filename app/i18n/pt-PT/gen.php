@@ -173,8 +173,8 @@ return array(
 		'confirm_action_feed_cat' => 'Tem certeza que deseja efetuar esta ação ? vai perder favoritos e pesquisas personalizadas. Não poderá ser revertida!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'Há %%d novos artigos para ler no FreshRSS.',
-			'body_unread_articles' => '(não lido: %%d)',
+			'body_new_articles' => 'Há %d novos artigos para ler no FreshRSS.',
+			'body_unread_articles' => '(não lido: %d)',
 			'request_failed' => 'Uma solicitação falhou, isto pode ter sido causado por problemas de ligação a internet.',
 			'title_new_articles' => 'FreshRSS: novos artigos!',
 		),
