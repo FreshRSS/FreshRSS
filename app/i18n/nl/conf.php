@@ -311,8 +311,8 @@ return array(
 			'when' => 'Markeer een artikel als favoriet…',
 		),
 		'sticky_post' => 'Koppel artikel aan de bovenkant als het geopend wordt',
-		'sticky_sort' => 'Handmatige sorteervolgorde behouden tijdens navigeren',
-		'sticky_sort_help' => 'Bepaalt of de laatste handmatige sorteervolgorde actief blijft of dat elke categorie of feed altijd zijn eigen standaard- of algemene instelling gebruikt.',
+		'sticky_sort' => 'Aangepaste sorteervolgorde behouden bij het bladeren',
+		'sticky_sort_help' => 'Bepaalt of de laatste aangepaste sorteervolgorde actief blijft of dat elke categorie of feed altijd zijn eigen standaard- of algemene instelling gebruikt.',
 		'title' => 'Lees modus',
 		'view' => array(
 			'default' => 'Standaard weergave',
