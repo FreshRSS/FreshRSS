@@ -299,14 +299,10 @@ class FreshRSS_Category extends Minz_Model {
 		if ($this->feeds === null) {
 			return;
 		}
-		// Sort locale-aware so accented and non-ASCII feed names sort near their base letter
-		// instead of byte-wise: strnatcasecmp() compares raw UTF-8 bytes, which pushes names
-		// starting with a non-ASCII character (e.g. an accented capital) to the very end.
-		// Without a user language (e.g. CLI), keep the previous byte-wise sort and avoid
-		// Collator::create(''), whose ordering depends on the environment default locale.
-		// The intl extension (\Collator) is only recommended, not required, so guard for it
-		// with class_exists(): without it, keep the previous byte-wise sort instead of a
-		// fatal "class not found", so the locale-aware ordering stays a progressive enhancement.
+		// Sort locale-aware with Collator so accented/non-ASCII names sort near their base
+		// letter instead of byte-wise (strnatcasecmp pushes them to the end). Fall back to
+		// strnatcasecmp without a user language (e.g. CLI) or when the intl extension is
+		// missing — class_exists() avoids a fatal "class not found" (intl is not required).
 		$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
 		$collator = ($language === '' || !class_exists('Collator')) ? null : \Collator::create($language);
 		if ($collator === null) {
