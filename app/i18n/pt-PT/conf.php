@@ -311,8 +311,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Coloque o artigo no topo quando aberto',
-		'sticky_sort' => 'Manter a ordenação atual ao navegar entre categorias e fontes',
-		'sticky_sort_help' => 'Quando desmarcado, cada categoria e fonte é aberta com a sua própria ordenação predefinida (ou com o critério de ordenação global acima, se nenhum estiver configurado), em vez de manter a ordenação selecionada mais recentemente.',
+		'sticky_sort' => 'Manter a ordenação manual durante a navegação',
+		'sticky_sort_help' => 'Determina se a última ordenação manual é mantida ativa ou se cada categoria ou fonte usa sempre a sua própria configuração predefinida ou global.',
 		'title' => 'Lendo',
 		'view' => array(
 			'default' => 'Visualização padrão',

@@ -311,8 +311,8 @@ return array(
 			'when' => 'Segna un articolo come preferito…',
 		),
 		'sticky_post' => 'Blocca il contenuto a inizio pagina quando aperto',
-		'sticky_sort' => 'Mantieni l’ordinamento corrente durante la navigazione tra categorie e feed',
-		'sticky_sort_help' => 'Se deselezionata, ogni categoria e feed si apre con il proprio ordinamento predefinito (o con il criterio di ordinamento globale qui sopra se non ne è configurato alcuno), invece di mantenere l’ordinamento selezionato per ultimo.',
+		'sticky_sort' => 'Mantieni l’ordinamento manuale durante la navigazione',
+		'sticky_sort_help' => 'Determina se l’ultimo ordinamento manuale rimane attivo oppure se ogni categoria o feed usa sempre la propria impostazione predefinita o globale.',
 		'title' => 'Lettura',
 		'view' => array(
 			'default' => 'Visualizzazione predefinita',

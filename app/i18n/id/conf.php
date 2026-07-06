@@ -311,8 +311,8 @@ return array(
 			'when' => 'Tandai artikel sebagai favorit…',
 		),
 		'sticky_post' => 'Sematkan artikel ke bagian atas saat dibuka',
-		'sticky_sort' => 'Pertahankan urutan pengurutan saat ini ketika berpindah antar kategori dan umpan',
-		'sticky_sort_help' => 'Jika tidak dicentang, setiap kategori dan umpan dibuka dengan urutan pengurutan bawaannya sendiri (atau dengan kriteria pengurutan global di atas jika tidak ada yang dikonfigurasi), alih-alih mempertahankan urutan pengurutan yang terakhir Anda pilih.',
+		'sticky_sort' => 'Pertahankan urutan pengurutan manual saat menavigasi',
+		'sticky_sort_help' => 'Menentukan apakah urutan pengurutan manual terakhir tetap aktif atau setiap kategori atau umpan selalu menggunakan pengaturan bawaan atau globalnya sendiri.',
 		'title' => 'Membaca',
 		'view' => array(
 			'default' => 'Tampilan baku',

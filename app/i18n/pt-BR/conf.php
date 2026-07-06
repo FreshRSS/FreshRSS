@@ -311,8 +311,8 @@ return array(
 			'when' => 'Marque um artigo como favorito…',
 		),
 		'sticky_post' => 'Coloque o artigo no topo quando aberto',
-		'sticky_sort' => 'Manter a ordem de classificação atual ao navegar entre categorias e feeds',
-		'sticky_sort_help' => 'Quando desmarcado, cada categoria e feed é aberto com sua própria ordem de classificação padrão (ou com o critério de classificação global acima, se nenhum estiver configurado), em vez de manter a ordem de classificação selecionada por último.',
+		'sticky_sort' => 'Manter a ordem de classificação manual durante a navegação',
+		'sticky_sort_help' => 'Determina se a última ordem de classificação manual é mantida ativa ou se cada categoria ou feed sempre usa sua própria configuração padrão ou global.',
 		'title' => 'Lendo',
 		'view' => array(
 			'default' => 'Visualização padrão',

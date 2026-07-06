@@ -311,8 +311,8 @@ return array(
 			'when' => 'Cikk megjelölése kedvencnek…',
 		),
 		'sticky_post' => 'A cikk gördüljön felülre, amikor megnyitásra kerül',
-		'sticky_sort' => 'A jelenlegi rendezési sorrend megtartása a kategóriák és hírcsatornák közötti navigáláskor',
-		'sticky_sort_help' => 'Ha nincs bejelölve, minden kategória és hírcsatorna a saját alapértelmezett rendezésével nyílik meg (vagy a fenti globális rendezési feltétellel, ha nincs beállítva), ahelyett hogy az utoljára kiválasztott rendezést tartaná meg.',
+		'sticky_sort' => 'Kézi rendezés megtartása navigáció közben',
+		'sticky_sort_help' => 'Meghatározza, hogy az utolsó kézi rendezés aktív marad-e, vagy minden kategória, illetve hírcsatorna mindig a saját alapértelmezett vagy globális beállítását használja.',
 		'title' => 'Olvasás',
 		'view' => array(
 			'default' => 'Alapértelmezett nézet',
