@@ -17,6 +17,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix null warning in IRI for PHP 8.5+ [#8918](https://github.com/FreshRSS/FreshRSS/pull/8918), [simplepie#979](https://github.com/simplepie/simplepie/pull/979)
 * Features
 	* New option to hide badges showing number of unread articles (*Phantom Obligation*) [#8844](https://github.com/FreshRSS/FreshRSS/pull/8844)
+	* New option to keep or not the custom sort order when navigating between categories and feeds [#8969](https://github.com/FreshRSS/FreshRSS/pull/8969)
 * Bug fixing
 	* Fix lost elements while parsing search query [#8884](https://github.com/FreshRSS/FreshRSS/pull/8884)
 * CLI

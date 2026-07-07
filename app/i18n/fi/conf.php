@@ -311,6 +311,8 @@ return array(
 			'when' => 'Merkitse artikkeli suosikiksi…',
 		),
 		'sticky_post' => 'Kiinnitä artikkeli ylimmäksi avattaessa',
+		'sticky_sort' => 'Säilytä manuaalinen lajittelujärjestys navigoinnin aikana',	// DIRTY
+		'sticky_sort_help' => 'Määrittää, pysyykö viimeisin manuaalinen lajittelu käytössä vai käyttääkö jokainen luokka tai syöte aina omaa oletus- tai yleisasetustaan.',	// DIRTY
 		'title' => 'Lukeminen',
 		'view' => array(
 			'default' => 'Oletusnäkymä',

@@ -80,6 +80,7 @@ People are sorted by name so please keep this order.
 * [DenuxPlays](https://github.com/DenuxPlays): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3ADenuxPlays), [Web](https://denux.dev/)
 * [Denys Nykula](https://github.com/nykula): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:nykula), [Web](https://libre.net.ua/)
 * [Dezponia](https://github.com/dezponia): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dezponia)
+* [Divinelink](https://github.com/Divinelink): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Divinelink)
 * [Django Janny](https://github.com/keltroth): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:keltroth)
 * [drosoCode](https://github.com/drosoCode): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:drosoCode), [Web](https://thomasz.me/)
 * [dswd](https://github.com/dswd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dswd)

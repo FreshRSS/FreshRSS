@@ -311,6 +311,8 @@ return array(
 			'when' => '将文章标记为收藏时…',
 		),
 		'sticky_post' => '打开文章时将其置顶',
+		'sticky_sort' => '导航时保持手动排序',
+		'sticky_sort_help' => '决定保持最近一次手动排序，还是让每个分类或订阅源始终使用各自的默认或全局设置。',
 		'title' => '阅读',
 		'view' => array(
 			'default' => '默认视图',

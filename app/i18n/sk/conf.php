@@ -311,6 +311,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
+		'sticky_sort' => 'Zachovať ručné zoradenie počas navigácie',	// DIRTY
+		'sticky_sort_help' => 'Určuje, či zostane zachované posledné ručné zoradenie, alebo či každá kategória či kanál vždy použije vlastné predvolené alebo globálne nastavenie.',	// DIRTY
 		'title' => 'Čítanie',
 		'view' => array(
 			'default' => 'Prednastavené zobrazenie',

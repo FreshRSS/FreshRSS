@@ -13,7 +13,7 @@
 return array(
 	'about' => array(
 		'_' => 'About',	// TODO
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
 				'_' => 'System information',	// TODO
@@ -32,7 +32,7 @@ return array(
 		'license' => 'License',	// TODO
 		'project_website' => 'Project website',	// TODO
 		'title' => 'About',	// TODO
-		'version' => 'Version',	// TODO
+		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
 		'empty' => 'There are no articles to show.',	// TODO
