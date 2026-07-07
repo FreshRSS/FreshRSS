@@ -74,7 +74,7 @@
 		?></a>
 	<?php
 	if ($topline_summary):
-		?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content(false)), 0, 500, 'UTF-8')) ?></div><?php
+		?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->attributeString('diff') ?? $this->entry->content(false)), 0, 500, 'UTF-8')) ?></div><?php
 	endif; ?>
 	<?php if ($topline_date) { ?><span class="item-element date"><time datetime="<?= $this->entry->machineReadableDate() ?>"><?= $this->entry->date() ?></time>&nbsp;</span><?php } ?>
 	</li>

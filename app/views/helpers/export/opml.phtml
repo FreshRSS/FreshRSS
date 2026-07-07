@@ -36,6 +36,9 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			case FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION:
 				$outline['type'] = FreshRSS_Export_Service::TYPE_HTML_XPATH_JSON_DOTNOTATION;
 				break;
+			case FreshRSS_Feed::KIND_PLAIN_TEXT:
+				$outline['type'] = FreshRSS_Export_Service::TYPE_PLAIN_TEXT;
+				break;
 		}
 
 		$outline['frss:priority'] = match ($feed->priority()) {

@@ -184,6 +184,7 @@ return array(
 				'relative' => 'JSON 상대 경로(기사 기준):',
 			),
 			'jsonfeed' => 'JSON 피드',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (기본값)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

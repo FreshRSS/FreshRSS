@@ -55,6 +55,7 @@ $today = @strtotime('today');
 		$this->entry = $item;
 		$lastEntry = $item;
 		$nbEntries++;
+		$content = $item->attributeString('diff') ?? $item->content();
 
 		// We most likely already have the feed object in cache, otherwise make a request
 		$this->feed = FreshRSS_Category::findFeed($this->categories, $this->entry->feedId()) ??
@@ -128,7 +129,7 @@ $today = @strtotime('today');
 					<?php } ?>
 				</header>
 				<div class="text"><?=
-					FreshRSS_Context::userConf()->lazyload && !FreshRSS_Context::userConf()->display_posts ? lazyimg($this->entry->content(true)) : $this->entry->content(true)
+					FreshRSS_Context::userConf()->lazyload && !FreshRSS_Context::userConf()->display_posts ? lazyimg($content) : $content
 				?></div>
 				<?php
 				$display_authors_date = FreshRSS_Context::userConf()->show_author_date === 'f' || FreshRSS_Context::userConf()->show_author_date === 'b';

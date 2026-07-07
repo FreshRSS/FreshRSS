@@ -184,6 +184,7 @@ return array(
 				'relative' => 'ruta de notación con puntos (relativa al elemento) para:',
 			),
 			'jsonfeed' => 'Fuente JSON',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (por defecto)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

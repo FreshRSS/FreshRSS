@@ -184,6 +184,7 @@ return array(
 				'relative' => 'ścieżka do (względem wiadomości):',
 			),
 			'jsonfeed' => 'Kanał JSON',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (domyślne)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

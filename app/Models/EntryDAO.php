@@ -927,6 +927,21 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
 	}
 
+	public function latestExceptGuid(int $id_feed, string $guid): ?FreshRSS_Entry {
+		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
+		$hash = static::sqlHexEncode('hash');
+		$sql = <<<SQL
+SELECT id, guid, title, author, {$content}, link, date, `lastSeen`, `lastUserModified`, {$hash} AS hash, is_read, is_favorite, id_feed, tags, attributes
+FROM `_entry` WHERE id_feed=:id_feed AND guid!=:guid
+ORDER BY id DESC
+LIMIT 1
+SQL;
+		$res = $this->fetchAssoc($sql, [':id_feed' => $id_feed, ':guid' => $guid]);
+		/** @var list<array{id:string,id_feed:int,guid:string,title:string,author:string,content:string,link:string,date:int,
+		 *		is_read:int,is_favorite:int,tags:string,attributes:?string}> $res */
+		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
+	}
+
 	public function searchById(string $id): ?FreshRSS_Entry {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';

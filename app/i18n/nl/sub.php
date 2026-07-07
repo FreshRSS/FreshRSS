@@ -184,6 +184,7 @@ return array(
 				'relative' => 'puntnotatiepad (relatief aan item) voor:',
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (standaard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

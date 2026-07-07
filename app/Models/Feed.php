@@ -34,6 +34,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public const KIND_JSON_DOTNOTATION = 30;
 	/** JSON embedded in HTML */
 	public const KIND_HTML_XPATH_JSON_DOTNOTATION = 35;
+	public const KIND_PLAIN_TEXT = 40;
 
 	public const PRIORITY_IMPORTANT = 20;
 	public const PRIORITY_MAIN_STREAM = 10;
@@ -1205,6 +1206,65 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 		return $this->simplePieFromContent($view->renderToString());
+	}
+
+	/** @return array{FreshRSS_SimplePieCustom, array<string, array{diff: non-empty-string}>}|null */
+	public function loadPlainText(): ?array {
+		if ($this->url == '') {
+			return null;
+		}
+		$feedSourceUrl = htmlspecialchars_decode($this->url, ENT_QUOTES);
+		if ($feedSourceUrl == null) {
+			return null;
+		}
+
+		$text = FreshRSS_http_Util::httpGet($feedSourceUrl, $this->cacheFilename(), 'text', $this->attributes(), $this->curlOptions())['body'];
+		if (strlen($text) <= 0) {
+			return null;
+		}
+
+		$view = new FreshRSS_View();
+		$view->_path('index/rss.phtml');
+		$view->internal_rendering = true;
+		$view->rss_url = htmlspecialchars($feedSourceUrl, ENT_COMPAT, 'UTF-8');
+		$view->html_url = $view->rss_url;
+		$view->rss_title = $this->name();
+
+		$item = [];
+		$item['title'] = htmlspecialchars(explode('?', basename($feedSourceUrl))[0], ENT_COMPAT, 'UTF-8');
+		$item['content'] = '<pre class="text-plain">' . htmlspecialchars($text) . '</pre>';
+		$item['link'] = htmlspecialchars($feedSourceUrl, ENT_COMPAT, 'UTF-8');
+		$item['guid'] = htmlspecialchars('urn:sha1:' . sha1($item['content']), ENT_COMPAT, 'UTF-8');
+		$attributesByGuid = [];
+		$diff = '';
+		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$previous = $entryDAO->latestExceptGuid($this->id(), $item['guid']);
+		if ($previous !== null) {
+			$previousRaw = htmlspecialchars_decode(strip_tags($previous->originalContent()));
+			if ($previousRaw !== '') {
+				$previousLines = preg_split('/[\r\n]+/', $previousRaw);
+				if ($previousLines === false) {
+					throw new FreshRSS_Feed_Exception();
+				}
+				$lines = preg_split('/[\r\n]+/', $text);
+				if ($lines === false) {
+					throw new FreshRSS_Feed_Exception();
+				}
+				$insertions = array_diff($lines, $previousLines);
+				$deletions = array_diff($previousLines, $lines);
+				if (!empty($insertions)) {
+					$diff .= '➕<pre class="text-plain">' . htmlspecialchars(implode("\n", $insertions)) . '</pre>';
+				}
+				if (!empty($deletions)) {
+					$diff .= '➖<pre class="text-plain">' . htmlspecialchars(implode("\n", $deletions)) . '</pre>';
+				}
+			}
+		}
+		if ($diff !== '') {
+			$attributesByGuid[$item['guid']] = ['diff' => $diff];
+		}
+		$view->entries = [FreshRSS_Entry::fromArray($item)];
+		return [$this->simplePieFromContent($view->renderToString()), $attributesByGuid];
 	}
 
 	/**

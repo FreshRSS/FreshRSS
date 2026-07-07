@@ -184,6 +184,7 @@ return array(
 				'relative' => 'pistemerkitty polku (suhteessa tekstiin) kohteelle:',
 			),
 			'jsonfeed' => 'JSON-syöte',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS/Atom (oletus)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

@@ -184,6 +184,7 @@ return array(
 				'relative' => 'dot notated path (relative to item) for:',	// TODO
 			),
 			'jsonfeed' => 'JSON Feed',	// TODO
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (defaut)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),

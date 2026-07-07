@@ -1249,10 +1249,11 @@ class FreshRSS_Entry extends Minz_Model {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
 			unset($item['alternate'][0]['type']);
 			$item['summary'] = [
-				'content' => mb_strcut($this->content(true), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
+				'content' => mb_strcut($this->attributeString('diff') ?? $this->content(), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
 			];
 		} else {
 			$item['content'] = [
+				// No diff here, export full content.
 				'content' => $this->content(false),
 			];
 		}
