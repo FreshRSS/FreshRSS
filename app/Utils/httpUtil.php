@@ -431,7 +431,9 @@ final class FreshRSS_http_Util {
 			if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
 				$body = @file_get_contents($cachePath);
 				if ($body != false) {
-					syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
+					if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
+						syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
+					}
 					return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false, 'status' => -200, 'error' => ''];
 				}
 			}

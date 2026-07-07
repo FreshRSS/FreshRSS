@@ -682,7 +682,9 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_attribute('SimplePieHash', $simplePie->get_hash());
 					return $simplePie;
 				}
-				syslog(LOG_DEBUG, 'FreshRSS SimplePie uses cache for ' . $clean_url);
+				if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
+					syslog(LOG_DEBUG, 'FreshRSS SimplePie uses cache for ' . $clean_url);
+				}
 			}
 		}
 		return null;

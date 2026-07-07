@@ -2043,7 +2043,7 @@ async function notifs_html5_ask_permission() {
 	}
 }
 
-function notifs_html5_show(nb, nb_new) {
+function notifs_html5_show(body) {
 	if (!context.html5_enable_notif) {
 		return;	// from config
 	}
@@ -2054,7 +2054,7 @@ function notifs_html5_show(nb, nb_new) {
 	try {
 		const notification = new window.Notification(context.i18n.notif_title_articles, {
 			icon: '../themes/icons/favicon-256-padding.png',
-			body: context.i18n.notif_body_new_articles.replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
+			body: body,
 			tag: 'freshRssNewArticles',
 		});
 
@@ -2093,8 +2093,10 @@ function init_notifs_html5() {
 // </notifs html5>
 
 function refreshUnreads() {
+	const title = document.querySelector('.category.all .title');
+	const nb_unreads_before = title ? str2int(title.getAttribute('data-unread')) : 0;
 	const req = new XMLHttpRequest();
-	req.open('GET', './?c=javascript&a=nbUnreadsPerFeed', true);
+	req.open('GET', './?c=javascript&a=nbUnreadsPerFeed&previous_unread=' + encodeURIComponent(nb_unreads_before), true);
 	req.responseType = 'json';
 	req.onload = function (e) {
 		const json = xmlHttpRequestJson(this);
@@ -2104,8 +2106,6 @@ function refreshUnreads() {
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;
 		let nbUnreadFeeds = 0;
-		const title = document.querySelector('.category.all .title');
-		const nb_unreads_before = title ? str2int(title.getAttribute('data-unread')) : 0;
 
 		Object.keys(json.feeds).forEach(function (feed_id) {
 			const nbUnreads = json.feeds[feed_id];
@@ -2150,8 +2150,7 @@ function refreshUnreads() {
 
 		if (nb_unreads > 0 && new_articles) {
 			faviconNbUnread(nb_unreads);
-			const nb_new = nb_unreads - nb_unreads_before;
-			notifs_html5_show(nb_unreads, nb_new);
+			notifs_html5_show(json.notifBody);
 		}
 	};
 	req.send();

@@ -1511,7 +1511,7 @@ a.website:hover .favicon {
 }
 
 .flux:not(.current):hover .flux_header.has-date .item .title {
-	grid-column: 1 / -1;
+	padding-left: 0.5rem;
 	z-index: 2;
 }
 

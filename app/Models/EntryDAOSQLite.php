@@ -164,6 +164,9 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 				}
 			}
 			$this->pdo->commit();
+			if ($affected > 0) {
+				Minz_ExtensionManager::callHook(Minz_HookType::EntriesRead, [$ids], $is_read);
+			}
 			return $affected;
 		}
 	}
