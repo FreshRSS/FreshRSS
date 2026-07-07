@@ -210,10 +210,7 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 * @param array<int,int> $repartition
 	 */
 	public static function calculateEntryAverageFromRepartition(array $repartition): float {
-		if (empty($repartition)) {
-			return 0.0;
-		}
-		return array_sum($repartition) / count($repartition);
+		return empty($repartition) ? 0.0 : array_sum($repartition) / count($repartition);
 	}
 
 	/**
