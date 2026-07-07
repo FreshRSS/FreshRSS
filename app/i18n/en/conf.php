@@ -311,7 +311,7 @@ return array(
 			'when' => 'Mark an article as favourite…',
 		),
 		'sticky_post' => 'Stick the article to the top when opened',
-		'sticky_sort' => 'Keep manual sort order during navigation',
+		'sticky_sort' => 'Keep custom sort order during navigation',
 		'sticky_sort_help' => 'Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.',
 		'title' => 'Reading',
 		'view' => array(
