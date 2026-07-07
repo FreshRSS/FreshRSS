@@ -157,7 +157,6 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$email_not_verified = FreshRSS_Context::userConf()->email_validation_token != '';
 		$this->view->disable_aside = false;
 		if ($email_not_verified) {
-			$this->view->_layout('simple');
 			$this->view->disable_aside = true;
 		}
 
@@ -574,7 +573,6 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 
 		FreshRSS_View::prependTitle(_t('user.email.validation.title') . ' · ');
-		$this->view->_layout('simple');
 
 		$username = Minz_Request::paramString('username');
 		if (FreshRSS_Auth::hasAccess()) {
