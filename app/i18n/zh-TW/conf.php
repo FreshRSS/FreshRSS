@@ -311,6 +311,8 @@ return array(
 			'when' => '標記文章為最愛…',
 		),
 		'sticky_post' => '開啟文章時將其固定於頁首',
+		'sticky_sort' => '導覽時保持手動排序',
+		'sticky_sort_help' => '決定保持最近一次手動排序，還是讓每個分類或訂閱源始終使用各自的預設或全域設定。',
 		'title' => '閱讀',
 		'view' => array(
 			'default' => '預設檢視',

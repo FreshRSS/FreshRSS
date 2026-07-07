@@ -311,6 +311,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
+		'sticky_sort' => 'Saglabāt manuālo kārtošanas secību navigācijas laikā',	// DIRTY
+		'sticky_sort_help' => 'Nosaka, vai tiek saglabāta pēdējā manuālā kārtošanas secība, vai arī katra kategorija vai plūsma vienmēr izmanto savu noklusējuma vai globālo iestatījumu.',	// DIRTY
 		'title' => 'Lasīšana',
 		'view' => array(
 			'default' => 'Noklusējuma skats',
