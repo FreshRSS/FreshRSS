@@ -678,9 +678,6 @@ final class FreshRSS_Context {
 			$collator = ($language === '' || !class_exists('Collator')) ? false : (\Collator::create($language) ?? false);
 		}
 
-		if ($collator === false) {
-			return strnatcasecmp($a, $b);
-		}
-		return (int)$collator->compare($a, $b);
+		return $collator === false ? strnatcasecmp($a, $b) : (int)$collator->compare($a, $b);
 	}
 }
