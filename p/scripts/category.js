@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context */
+/* globals context, openNotification */
 
 let loading = false;
 let dnd_successful = false;
@@ -32,6 +32,7 @@ function dragend_process(t) {
 
 let dragFeedId = '';
 let dragHtml = '';
+let isSorting = false;
 
 function init_draggable() {
 	if (!window.context) {
@@ -41,6 +42,7 @@ function init_draggable() {
 		setTimeout(init_draggable, 50);
 		return;
 	}
+	category_sorting_btn_setup();
 
 	const draggable = '[draggable="true"]';
 	const dropzone = '[dropzone="move"]';
@@ -48,7 +50,7 @@ function init_draggable() {
 
 	dropSection.ondragstart = function (ev) {
 		const li_draggable = ev.target.closest ? ev.target.closest(draggable) : null;
-		if (li_draggable) {
+		if (li_draggable && !isSorting) {
 			const ulClosest = li_draggable.closest('ul');
 			ulClosest.classList.add('drag-disallowed');
 			ulClosest.removeAttribute('dropzone', '');
@@ -66,7 +68,7 @@ function init_draggable() {
 
 	dropSection.ondragend = function (ev) {
 		const li_draggable = ev.target.closest ? ev.target.closest(draggable) : null;
-		if (li_draggable) {
+		if (li_draggable && !isSorting) {
 			dragend_process(li_draggable);
 			li_draggable.classList.remove('dragging');
 			const disallowDragging = document.getElementsByClassName('drag-disallowed');
@@ -76,6 +78,7 @@ function init_draggable() {
 			}
 			li_draggable.closest('.drag-active').classList.remove('drag-active');
 		}
+		dragFeedId = '';
 	};
 
 	dropSection.ondragenter = function (ev) {
@@ -155,6 +158,216 @@ function init_draggable() {
 			}
 		}
 	};
+}
+
+function category_sorting_btn_setup() {
+	const btnsStartSort = document.querySelectorAll('.btn-sort-cat');
+	const btnsSaveSort = document.querySelectorAll('.btn-save-sort');
+	const btnsDefaultSort = document.querySelectorAll('.btn-sort-a-z');
+
+	for (const element of btnsStartSort) {
+		element.addEventListener('click', start_category_sorting);
+	}
+	for (const element of btnsSaveSort) {
+		element.addEventListener('click', end_category_sorting);
+	}
+	for (const element of btnsDefaultSort) {
+		element.addEventListener('click', end_category_sorting);
+	}
+}
+
+function start_category_sorting(event) {
+	if (isSorting) return;
+	isSorting = true;
+	const catBox = event.target.closest('.box');
+	const feedsElement = catBox.querySelector('ul');
+
+	show_feed_sort_save_icon(catBox);
+
+	setup_category_sorting(feedsElement);
+}
+
+async function end_category_sorting(event) {
+	if (!isSorting) return;
+	const catBox = event.target.closest('.box');
+	const feedsElement = catBox.querySelector('ul');
+	const catId = feedsElement.getAttribute('data-cat-id');
+	const feedsArray = Array.from(feedsElement.children);
+	const isRevert = event.target.closest('a').classList.contains('btn-sort-a-z');
+
+	const feedsOrder = isRevert ? [] : feedsArray.filter((value) => value.hasAttribute('data-feed-id')).map((value) => value.getAttribute('data-feed-id'));
+
+	try {
+		const res = await fetch('./?c=category&a=updateSort', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json; charset=UTF-8',
+			},
+			body: JSON.stringify({
+				id: catId,
+				feedsOrder,
+				_csrf: context.csrf
+			})
+		});
+
+		if (res.status == 200) {
+			openNotification('Order saved', 'good');
+		} else {
+			openNotification('Order couldn’t be saved');
+		}
+	} catch (error) {
+		openNotification(error.message);
+	}
+
+	const clearDnD = (element) => {
+		if (!element) return;
+		element.ondragstart = undefined;
+		element.ondragend = undefined;
+		element.ondragover = undefined;
+		element.ondrop = undefined;
+		show_feed_manage_icon(element);
+	};
+
+	for (const element of feedsElement.children) {
+		clearDnD(element);
+		const topDiv = element.getElementsByClassName('drag-top')[0] ?? null;
+		const botDiv = element.getElementsByClassName('drag-bot')[0] ?? null;
+		clearDnD(topDiv);
+		clearDnD(botDiv);
+	}
+
+	// Without this "start sorting" was being called again immediately
+	setTimeout(() => {
+		isSorting = false;
+	}, 100);
+	show_feed_sort_save_icon(catBox, false);
+}
+
+function setup_category_sorting(feedsElement) {
+	let feedBeingSorted = null;
+	const feedsList = feedsElement.children;
+	for (let index = 0; index < feedsList.length; index++) {
+		const feed = feedsList[index];
+		if (!feed.hasAttribute('data-feed-id')) {
+			continue;
+		}
+		show_feed_manage_icon(feed, false);
+		feed.ondragstart = () => {
+			feedBeingSorted = feed;
+		};
+		feed.ondragend = () => {
+			feedBeingSorted = null;
+		};
+
+		const topDiv = feed.getElementsByClassName('drag-top')[0];
+		const botDiv = feed.getElementsByClassName('drag-bot')[0];
+		let currDiv = null;
+		const ondragover = (event) => {
+			if (currDiv === event.target || feedBeingSorted === null) {
+				return;
+			}
+
+			const topElement = feedsList[index - 1] ?? null;
+			const botElement = feedsList[index + 1] ?? null;
+			clearHighlight(topElement);
+			clearHighlight(botElement);
+			currDiv = event.target;
+
+			if (currDiv == topDiv) {
+				feed.highlightTop();
+				if (topElement && Object.prototype.hasOwnProperty.call(topElement, 'highlightBot')) {
+					topElement.highlightBot();
+				}
+			} else {
+				feed.highlightBot();
+				if (botElement && Object.prototype.hasOwnProperty.call(botElement, 'highlightTop')) {
+					botElement.highlightTop();
+				}
+			}
+		};
+		const ondrop = (event) => {
+			const dropAfter = event.target === botDiv;
+			clearHighlight();
+
+			if (feedBeingSorted === feed) return;
+
+			const feedsArray = Array.from(feedsList);
+			const prevIdx = feedsArray.findIndex((value) => value === feedBeingSorted);
+			feedsArray.splice(prevIdx, 1);
+			let targetIdx = feedsArray.findIndex((value) => value === feed);
+			if (dropAfter) targetIdx++;
+			feedsArray.splice(targetIdx, 0, feedBeingSorted);
+			feedBeingSorted = null;
+
+			for (const element of feedsArray) {
+				feedsElement.removeChild(element);
+			}
+			for (let index = feedsArray.length - 1; index >= 0; index--) {
+				const element = feedsArray[index];
+				feedsElement.prepend(element);
+			}
+			setup_category_sorting(feedsElement);
+		};
+		topDiv.ondragover = ondragover;
+		topDiv.ondrop = ondrop;
+		botDiv.ondragover = ondragover;
+		botDiv.ondrop = ondrop;
+		feed.getDragTop = () => topDiv;
+		feed.getDragBot = () => botDiv;
+
+		feed.highlightTop = () => {
+			topDiv.classList.add('drag-highlight');
+			botDiv.classList.remove('drag-highlight');
+		};
+		feed.highlightBot = () => {
+			topDiv.classList.remove('drag-highlight');
+			botDiv.classList.add('drag-highlight');
+		};
+	}
+}
+
+function show_feed_manage_icon(feed, show = true) {
+	const gearIcon = feed.querySelector('a.configure');
+	const slideIcon = feed.querySelector('a.drag-icon');
+	if (!gearIcon || !slideIcon) return;
+
+	if (show) {
+		gearIcon.classList.remove('hidden');
+		slideIcon.classList.add('hidden');
+	} else {
+		gearIcon.classList.add('hidden');
+		slideIcon.classList.remove('hidden');
+	}
+}
+
+function show_feed_sort_save_icon(catBox, show = true) {
+	const sortIcon = catBox.getElementsByClassName('btn-sort-cat')[0];
+	const sortAZIcon = catBox.getElementsByClassName('btn-sort-a-z')[0];
+	const floppyIcon = catBox.getElementsByClassName('btn-save-sort')[0];
+
+	if (show) {
+		floppyIcon.classList.remove('hidden');
+		floppyIcon.classList.add('btn');
+		sortAZIcon.classList.remove('hidden');
+		sortAZIcon.classList.add('btn');
+		sortIcon.classList.add('hidden');
+		sortIcon.classList.remove('btn');
+	} else {
+		floppyIcon.classList.add('hidden');
+		floppyIcon.classList.remove('btn');
+		sortAZIcon.classList.add('hidden');
+		sortAZIcon.classList.remove('btn');
+		sortIcon.classList.remove('hidden');
+		sortIcon.classList.add('btn');
+	}
+}
+
+function clearHighlight(element) {
+	if (!element) element = document;
+	for (const child of element.querySelectorAll('.drag-top, .drag-bot')) {
+		child.classList.remove('drag-highlight');
+	}
 }
 
 if (document.readyState && document.readyState !== 'loading') {

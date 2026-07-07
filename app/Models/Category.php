@@ -28,10 +28,14 @@ class FreshRSS_Category extends Minz_Model {
 
 	/**
 	 * @param array<FreshRSS_Feed>|null $feeds
+	 * @param string|array<string,mixed> $attributes
 	 */
-	public function __construct(string $name = '', int $id = 0, ?array $feeds = null) {
+	public function __construct(string $name = '', int $id = 0, ?array $feeds = null, string|array|null $attributes = null) {
 		$this->_id($id);
 		$this->_name($name);
+		if (null !== $attributes) {
+			$this->_attributes($attributes);
+		}
 		if ($feeds !== null) {
 			$this->_feeds($feeds);
 			$this->nbFeeds = 0;
@@ -299,7 +303,21 @@ class FreshRSS_Category extends Minz_Model {
 		if ($this->feeds === null) {
 			return;
 		}
-		uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		/** @var array<int> */
+		$order = $this->attributeArray('feedsOrder') ?? [];
+		if (empty($order)) {
+			uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		} else {
+			$feeds = [];
+			foreach ($order as $value) {
+				if (!isset($this->feeds[$value])) continue;
+				$feed = $this->feeds[$value];
+				unset($this->feeds[$value]);
+				$feeds[$feed->id()] = $feed;
+			}
+			array_push($feeds, ...$this->feeds);
+			$this->feeds = $feeds;
+		}
 	}
 
 	/**

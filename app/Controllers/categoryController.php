@@ -196,6 +196,33 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+	public function updateSortAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'subscription'], true);
+		}
+
+		$id = Minz_Request::paramInt('id');
+		$order = Minz_Request::paramArrayInt('feedsOrder');
+
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
+		$category = $categoryDAO->searchById($id);
+		if ($id === 0 || null === $category) {
+			Minz_Error::error(404);
+			return;
+		}
+
+		$category->_attribute('feedsOrder', $order);
+		$values = [
+			'kind' => $category->kind(),
+			'name' => $category->name(),
+			'attributes' => $category->attributes(),
+		];
+		if (!$categoryDAO->updateCategory($id, $values)) {
+			Minz_Log::warning('Cannot save new order of feeds in the category `' . $id . '`');
+			Minz_Error::error(404);
+		}
+	}
+
 	public function viewFilterAction(): void {
 		$id = Minz_Request::paramInt('id');
 		if ($id === 0) {

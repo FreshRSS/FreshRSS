@@ -496,7 +496,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 				$cat = new FreshRSS_Category(
 					$previousLine['c_name'],
 					$previousLine['c_id'],
-					$feedDao::daoToFeeds($feedsDao, $previousLine['c_id'])
+					$feedDao::daoToFeeds($feedsDao, $previousLine['c_id']),
+					$previousLine['c_attributes'] ?? null
 				);
 				$cat->_kind($previousLine['c_kind']);
 				$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
@@ -516,7 +517,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			$cat = new FreshRSS_Category(
 				$previousLine['c_name'],
 				$previousLine['c_id'],
-				$feedDao::daoToFeeds($feedsDao, $previousLine['c_id'])
+				$feedDao::daoToFeeds($feedsDao, $previousLine['c_id']),
+				$previousLine['c_attributes'] ?? null
 			);
 			$cat->_kind($previousLine['c_kind']);
 			$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
