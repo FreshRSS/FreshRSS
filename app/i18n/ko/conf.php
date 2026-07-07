@@ -311,8 +311,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => '글이 펼쳐진 경우 최상단에 고정하기',
-		'sticky_sort' => '탐색 중에도 수동 정렬 순서 유지',
-		'sticky_sort_help' => '마지막 수동 정렬 순서를 계속 사용할지, 아니면 각 카테고리나 피드가 항상 자체 기본값 또는 전역 설정을 사용할지 결정합니다.',
+		'sticky_sort' => '탐색 중에도 수동 정렬 순서 유지',	// DIRTY
+		'sticky_sort_help' => '마지막 수동 정렬 순서를 계속 사용할지, 아니면 각 카테고리나 피드가 항상 자체 기본값 또는 전역 설정을 사용할지 결정합니다.',	// DIRTY
 		'title' => '읽기',
 		'view' => array(
 			'default' => '기본 보기 모드',

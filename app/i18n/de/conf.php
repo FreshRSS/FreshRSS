@@ -311,8 +311,8 @@ return array(
 			'when' => 'Artikel als Favorit markieren…',
 		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
-		'sticky_sort' => 'Manuelle Sortierung bei der Navigation beibehalten',
-		'sticky_sort_help' => 'Legt fest, ob die letzte manuelle Sortierung aktiv bleibt oder ob jede Kategorie bzw. jeder Feed immer die eigene Standard- oder globale Einstellung verwendet.',
+		'sticky_sort' => 'Manuelle Sortierung bei der Navigation beibehalten',	// DIRTY
+		'sticky_sort_help' => 'Legt fest, ob die letzte manuelle Sortierung aktiv bleibt oder ob jede Kategorie bzw. jeder Feed immer die eigene Standard- oder globale Einstellung verwendet.',	// DIRTY
 		'title' => 'Lesen',
 		'view' => array(
 			'default' => 'Standard-Ansicht',
