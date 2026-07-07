@@ -299,16 +299,7 @@ class FreshRSS_Category extends Minz_Model {
 		if ($this->feeds === null) {
 			return;
 		}
-
-		// Sort locale-aware with Collator if available
-		$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
-		$collator = ($language === '' || !class_exists('Collator')) ? null : \Collator::create($language);
-		if ($collator !== null) {
-			uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b): int => (int)$collator->compare($a->name(), $b->name()));
-			return;
-		}
-
-		uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b): int => strnatcasecmp($a->name(), $b->name()));
+		uasort($this->feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b): int => FreshRSS_Context::localeCompare($a->name(), $b->name()));
 	}
 
 	/**

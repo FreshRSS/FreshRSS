@@ -667,4 +667,20 @@ final class FreshRSS_Context {
 		$timezone = ini_get('date.timezone');
 		return $timezone != false ? $timezone : 'UTC';
 	}
+
+	/**
+	 * Sort locale-aware with Collator if available
+	 */
+	public static function localeCompare(string $a, string $b): int {
+		static $collator = null;
+		if ($collator !== false && !($collator instanceof \Collator)) {
+			$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
+			$collator = ($language === '' || !class_exists('Collator')) ? false : (\Collator::create($language) ?? false);
+		}
+
+		if ($collator === false) {
+			return strnatcasecmp($a, $b);
+		}
+		return (int)$collator->compare($a, $b);
+	}
 }
