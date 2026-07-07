@@ -672,11 +672,10 @@ final class FreshRSS_Context {
 	 * Sort locale-aware with Collator if available
 	 */
 	public static function localeCompare(string $a, string $b): int {
-		static $collatorLanguage = null;
 		static $collator = null;
-		$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
-		if ($collatorLanguage !== $language) {
-			$collatorLanguage = $language;
+
+		if ($collator === null) {
+			$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
 			if ($language === '' || !class_exists(\Collator::class)) {
 				$collator = false;
 			} else {
