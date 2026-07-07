@@ -672,12 +672,25 @@ final class FreshRSS_Context {
 	 * Sort locale-aware with Collator if available
 	 */
 	public static function localeCompare(string $a, string $b): int {
+		static $collatorLanguage = null;
 		static $collator = null;
-		if ($collator !== false && !($collator instanceof \Collator)) {
-			$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
-			$collator = ($language === '' || !class_exists('Collator')) ? false : (\Collator::create($language) ?? false);
+		$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
+		if ($collatorLanguage !== $language) {
+			$collatorLanguage = $language;
+			if ($language === '' || !class_exists(\Collator::class)) {
+				$collator = false;
+			} else {
+				$collator = \Collator::create($language) ?? false;
+			}
+			if ($collator instanceof \Collator) {
+				$collator->setAttribute(\Collator::NUMERIC_COLLATION, \Collator::ON);
+			}
 		}
 
-		return $collator === false ? strnatcasecmp($a, $b) : (int)$collator->compare($a, $b);
+		if (!($collator instanceof \Collator)) {
+			return strnatcasecmp($a, $b);
+		}
+		$result = $collator->compare($a, $b);
+		return $result === false ? strnatcasecmp($a, $b) : $result;
 	}
 }
