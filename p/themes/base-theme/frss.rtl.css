@@ -64,6 +64,12 @@ html, body {
 	font-size: 100%;
 }
 
+html:lang(ja) body {
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial",
+		"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo",
+		"Osaka", "Noto Sans CJK JP", "Noto Sans JP", sans-serif;
+}
+
 button, input, select, textarea {
 	font-family: inherit;
 }
