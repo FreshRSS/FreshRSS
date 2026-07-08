@@ -295,9 +295,12 @@ final class FreshRSS_http_Util {
 			($url1['port'] ?? '') === ($url2['port'] ?? '');
 	}
 
-	public static function compareURLsIgnoringScheme(string $url1, string $url2): bool {
-		$stripScheme = static fn(string $url): string => preg_replace('#^https?://#i', '//', trim($url)) ?? $url;
-		return $stripScheme($url1) === $stripScheme($url2);
+	/**
+	 * Return 0 if values on either side are equal ignoring the HTTP vs HTTPS differences, or 1/-1 if they differ.
+	 */
+	public static function compareUrlIgnoringHttps(string $url1, string $url2): int {
+		$normalizeScheme = static fn(string $url): string => preg_replace('#^https?://#i', '//', trim($url)) ?? $url;
+		return $normalizeScheme($url1) <=> $normalizeScheme($url2);
 	}
 
 	/**

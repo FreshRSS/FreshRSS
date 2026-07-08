@@ -121,14 +121,14 @@ if ($httpLink !== '' && preg_match_all('/<([^>]+)>;\\s*rel="([^"]+)"/', $httpLin
 	// }
 	if (!empty($links['self'])) {
 		$httpSelf = FreshRSS_http_Util::checkUrl($links['self']) ?: '';
-		if ($self !== '' && !FreshRSS_http_Util::compareURLsIgnoringScheme($self, $httpSelf)) {
+		if ($self !== '' && FreshRSS_http_Util::compareUrlIgnoringHttps($self, $httpSelf) !== 0) {
 			Minz_Log::warning('Warning: Self URL mismatch between XML [' . $self . '] and HTTP!: ' . $httpSelf, PSHB_LOG);
 		}
 		$self = $httpSelf;
 	}
 }
 
-if (!FreshRSS_http_Util::compareURLsIgnoringScheme($self, $canonical)) {
+if (FreshRSS_http_Util::compareUrlIgnoringHttps($self, $canonical) !== 0) {
 	//header('HTTP/1.1 422 Unprocessable Entity');
 	Minz_Log::warning('Warning: Self URL [' . $self . '] does not match registered canonical URL!: ' . $canonical, PSHB_LOG);
 	//die('Self URL does not match registered canonical URL!');
