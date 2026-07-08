@@ -54,6 +54,7 @@ var prevTitle;
 	context.icons.unread = decodeURIComponent(context.icons.unread);
 	context.extensions = json.extensions;
 	context.is_gecko_browser = 'InstallTrigger' in window || navigator.userAgent.includes('Firefox');
+	context.is_mobile_browser = navigator.userAgent.includes('Mobi');
 }());
 
 const freshrssGlobalContextLoadedEvent = new Event('freshrss:globalContextLoaded');
@@ -1193,8 +1194,8 @@ function init_column_categories() {
 
 function firefox_tabunder(target) {
 	target.dispatchEvent(new MouseEvent('click', {
-		ctrlKey: true,
-		metaKey: true, // for macOS
+		ctrlKey: !context.is_mobile_browser,
+		metaKey: !context.is_mobile_browser, // for macOS
 	}));
 }
 
@@ -1337,13 +1338,13 @@ function init_shortcuts() {
 				if (context.see_on_website === 'open_in_current_tab') {
 					target = '_self';
 				} else if (context.see_on_website === 'open_in_new_background_tab') {
-					if (context.is_gecko_browser && !(ev.ctrlKey || ev.shiftKey)) {
+					if (!(ev.ctrlKey || ev.shiftKey)) {
+						// TODO: emulate this behavior in Chromium by using a tabunder
+						// Browsers that are not supported here, will fallback to `open_in_new_tab` behavior.
 						firefox_tabunder(link_go_website);
 						ev.preventDefault();
 						return;
 					}
-					// TODO: emulate this behavior in Chromium by using a tabunder
-					// Browsers that are not supported here, will fallback to `open_in_new_tab` behavior.
 				}
 				window.open(link_go_website.href, target, 'noopener');
 				ev.preventDefault();
@@ -1387,12 +1388,12 @@ function init_stream(stream) {
 		let el = ev.target.closest('.flux .link > a');
 		if (el) {
 			if (context.see_on_website === 'open_in_new_background_tab' && !context.see_on_website_shortcut_only) {
-				if (context.is_gecko_browser && !(ev.ctrlKey || ev.shiftKey)) {
+				if (!(ev.ctrlKey || ev.shiftKey)) {
+					// TODO: emulate this behavior in Chromium by using a tabunder
+					// Browsers that are not supported here, will fallback to `open_in_new_tab` behavior.
 					firefox_tabunder(el);
 					return false;
 				}
-				// TODO: emulate this behavior in Chromium by using a tabunder
-				// Browsers that are not supported here, will fallback to `open_in_new_tab` behavior.
 			}
 		}
 
@@ -1424,12 +1425,12 @@ function init_stream(stream) {
 						return true;
 					}
 					if (context.see_on_website === 'open_in_new_background_tab') {
-						if (context.is_gecko_browser && !(ev.ctrlKey || ev.shiftKey)) {
+						if (!(ev.ctrlKey || ev.shiftKey)) {
+							// TODO: emulate this behavior in Chromium by using a tabunder
+							// Browsers that are not supported here, will fallback to `open_in_new_tab` behavior.
 							firefox_tabunder(el);
 							return false;
 						}
-						// TODO: emulate this behavior in Chromium by using a tabunder
-						// Browsers that are not supported here, will fallback to `open_in_new_tab` behavior.
 					}
 				}
 			}
@@ -1511,7 +1512,7 @@ function init_stream(stream) {
 				// Needed for Chrome
 				tmp_window.matchMedia('print').onchange = (e) => {
 					// UA check is needed to not trigger on Chrome Mobile
-					if (!e.matches && !navigator.userAgent.includes('Mobi')) {
+					if (!e.matches && !context.is_mobile_browser) {
 						afterPrint();
 					}
 				};
