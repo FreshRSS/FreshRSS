@@ -295,6 +295,11 @@ final class FreshRSS_http_Util {
 			($url1['port'] ?? '') === ($url2['port'] ?? '');
 	}
 
+	public static function compareURLsIgnoringScheme(string $url1, string $url2): bool {
+		$stripScheme = static fn(string $url): string => preg_replace('#^https?://#i', '//', trim($url)) ?? $url;
+		return $stripScheme($url1) === $stripScheme($url2);
+	}
+
 	/**
 	 * Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
 	 *
