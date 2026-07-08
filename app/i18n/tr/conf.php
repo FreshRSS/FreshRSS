@@ -319,6 +319,8 @@ return array(
 			'when' => 'Bir makaleyi favori olarak işaretle…',
 		),
 		'sticky_post' => 'Makale açıldığında üstte sabitle',
+		'sticky_sort' => 'Gezinme sırasında el ile belirlenen sıralama düzenini koru',	// DIRTY
+		'sticky_sort_help' => 'Son el ile belirlenen sıralama düzeninin etkin kalıp kalmayacağını ya da her kategori veya beslemenin her zaman kendi varsayılan veya genel ayarını kullanacağını belirler.',	// DIRTY
 		'title' => 'Okuma',
 		'view' => array(
 			'default' => 'Varsayılan görünüm',

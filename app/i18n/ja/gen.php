@@ -167,8 +167,12 @@ return array(
 		'confirm_action_feed_cat' => '本当に実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。キャンセルできません!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => '%%d の新規記事がFreshRSSにはあります。',
-			'body_unread_articles' => '(未読: %%d)',
+			'body_new_articles' => array(
+				0 => '%d の新規記事がFreshRSSにはあります。',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(未読: %d)',	// DIRTY
+			),
 			'request_failed' => 'おそらくインターネット接続に問題があるため、リクエストは失敗しました。',
 			'title_new_articles' => 'FreshRSS: 新規記事!',
 		),

@@ -173,8 +173,14 @@ return array(
 		'confirm_action_feed_cat' => 'Êtes-vous sûr(e) de vouloir continuer ? Vous perdrez les favoris et les filtres associés. Cette action ne peut être annulée !',
 		'confirm_exit_slider' => 'Êtes-vous sûr de vouloir abandonner les paramètres non enregistrés ?',
 		'feedback' => array(
-			'body_new_articles' => 'Il y a %%d nouveaux articles à lire sur FreshRSS.',
-			'body_unread_articles' => '(non lus : %%d)',
+			'body_new_articles' => array(
+				0 => 'Il y a %d nouvel articles à lire sur FreshRSS.',
+				1 => 'Il y a %d nouveaux articles à lire sur FreshRSS.',
+			),
+			'body_unread_articles' => array(
+				0 => '(non lu : %d)',
+				1 => '(non lus : %d)',
+			),
 			'request_failed' => 'Une requête a échoué, cela peut être dû à des problèmes de connexion à Internet.',
 			'title_new_articles' => 'FreshRSS : nouveaux articles !',
 		),

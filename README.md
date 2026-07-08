@@ -130,9 +130,9 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 | English (United States) (en-US) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fen-US+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Español (es) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fes+%2F%28TODO%7CDIRTY%29%24%2F) |
 | فارسی (fa) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffa+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Suomi (fi) | ￭￭￭￭￭￭￭￭￭･ 91% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffi+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Français (fr) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffr+%2F%28TODO%7CDIRTY%29%24%2F) |
-| עברית (he) | ￭￭￭￭･･････ 41% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhe+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Suomi (fi) | ￭￭￭￭￭￭￭￭￭･ 92% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffi+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Français (fr) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffr+%2F%28TODO%7CDIRTY%29%24%2F) |
+| עברית (he) | ￭￭￭￭･･････ 42% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhe+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Magyar (hu) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhu+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Bahasa Indonesia (id) | ￭￭￭￭￭￭￭￭･･ 89% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fid+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Italiano (it) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fit+%2F%28TODO%7CDIRTY%29%24%2F) |
@@ -187,7 +187,7 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/developers/06_Fever_API.h
 | [lire](https://lireapp.com/)                                                          | iOS, macOS  | –                                                            | ✓✓                   | GReader          | ?            | ?        | ?                             | ?                  | ?         | ?     | ?       | ?           |
 | [Unread](https://www.goldenhillsoftware.com/unread/)                            | iOS         | –                                                            | ✓✓                   | Fever            | ✓            | ?        | ?                             | ?                  | ✓         | –     | –       | –           |
 | [Fiery Feeds](https://voidstern.net/fiery-feeds)         | iOS         | –                                                            | ✓✓                   | Fever            | ?            | ?        | ?                             | ?                  | ?         | –     | –       | –           |
-| [Netnewswire](https://ranchero.com/netnewswire/)                                      | iOS, macOS  | [✓](https://github.com/Ranchero-Software/NetNewsWire)        | Work in progress       | GReader          | ✓            | ?        | ?                             | ?                  | ✓         | –     | ?       | ✓           |
+| [Netnewswire](https://ranchero.com/netnewswire/)                                      | iOS, macOS  | [✓](https://github.com/Ranchero-Software/NetNewsWire)        | Work in progress       | GReader          | ✓            | ?        | ?                             | ?                  | ✓         | –     | –       | ✓           |
 
 # Included libraries
 

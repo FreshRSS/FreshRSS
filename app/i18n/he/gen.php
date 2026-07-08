@@ -173,8 +173,14 @@ return array(
 		'confirm_action_feed_cat' => 'האם אתם בטוחים שברצוניכם לבצע פעולה זו? מועדפים ושאילתות עשויות לאבוד. אין אפשרות לבטל אותה!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'ישנם	\\d מאמרים חדשים לקרוא ב FreshRSS.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_new_articles' => array(
+				0 => 'ישנם %d מאמרים חדשים לקרוא ב FreshRSS.',	// DIRTY
+				1 => 'ישנם %d מאמרים חדשים לקרוא ב FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(unread: %d)',	// TODO
+				1 => '(unread: %d)',	// TODO
+			),
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: מאמרים חדשים!',
 		),

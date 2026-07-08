@@ -319,6 +319,8 @@ return array(
 			'when' => 'Cikk megjelölése kedvencnek…',
 		),
 		'sticky_post' => 'A cikk gördüljön felülre, amikor megnyitásra kerül',
+		'sticky_sort' => 'Kézi rendezés megtartása navigáció közben',	// DIRTY
+		'sticky_sort_help' => 'Meghatározza, hogy az utolsó kézi rendezés aktív marad-e, vagy minden kategória, illetve hírcsatorna mindig a saját alapértelmezett vagy globális beállítását használja.',	// DIRTY
 		'title' => 'Olvasás',
 		'view' => array(
 			'default' => 'Alapértelmezett nézet',

@@ -319,6 +319,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'הצמדת המאמר לחלק העליון כאשר הוא פתוח',
+		'sticky_sort' => 'שמירת סדר המיון הידני בעת ניווט',	// DIRTY
+		'sticky_sort_help' => 'קובע אם סדר המיון הידני האחרון נשאר פעיל או שכל קטגוריה או הזנה משתמשת תמיד בהגדרת ברירת המחדל או הכללית שלה.',	// DIRTY
 		'title' => 'קריאה',
 		'view' => array(
 			'default' => 'תצוגת ברירת המחדל',

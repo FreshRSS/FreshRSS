@@ -173,8 +173,14 @@ return array(
 		'confirm_action_feed_cat' => 'Είστε σίγουροι για την ενέργεια; Θα χάσετε τα αγαπημένα σας και τις ροές που έχετε δημιουργήσει. Είναι μη αναστρέψιμη!',
 		'confirm_exit_slider' => 'Είστε σίγουροι οτι δεν θέλετε να αποθηκεύσετε τις τρέχουσες αλλαγές σας;',
 		'feedback' => array(
-			'body_new_articles' => 'Υπάρχουν %%d νέα άρθρα να διαβάσετε στο FreshRSS.',
-			'body_unread_articles' => '(αδιάβαστα: %%d)',
+			'body_new_articles' => array(
+				0 => 'Υπάρχουν %d νέα άρθρα να διαβάσετε στο FreshRSS.',	// DIRTY
+				1 => 'Υπάρχουν %d νέα άρθρα να διαβάσετε στο FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(αδιάβαστα: %d)',	// DIRTY
+				1 => '(αδιάβαστα: %d)',	// DIRTY
+			),
 			'request_failed' => 'Η αναζήτηση απέτυχε, ελέγξτε για πιθανά προβλήματα με την σύνδεση σας.',
 			'title_new_articles' => 'FreshRSS: Νέα άρθρα!',
 		),

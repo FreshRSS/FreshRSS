@@ -48,7 +48,7 @@ de codage](developers/01_First_steps.md).
 
 > ℹ Voir [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) pour les conventions de code (à la fois pour les humains et agents IA).
 
-**Conseil :** si vous cherchez des bugs faciles à corriger, jetez un coup d’oeil à la vignette « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) ».
+**Conseil :** si vous cherchez des bugs faciles à corriger, jetez un coup d’oeil à la vignette « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Good%20first%20issue%201%EF%B8%8F%E2%83%A3%22) ».
 
 ## Soumettre une idée
 
