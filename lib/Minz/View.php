@@ -226,7 +226,7 @@ class Minz_View {
 			return;
 		}
 		foreach (self::$styles as $style) {
-			if (strtolower($style['url']) === strtolower($url)) {
+			if ($style['url'] === $url) {
 				return;
 			}
 		}
@@ -245,7 +245,7 @@ class Minz_View {
 			return;
 		}
 		foreach (self::$styles as $style) {
-			if (strtolower($style['url']) === strtolower($url)) {
+			if ($style['url'] === $url) {
 				return;
 			}
 		}
@@ -317,7 +317,7 @@ class Minz_View {
 			return;
 		}
 		foreach (self::$scripts as $script) {
-			if (strtolower($script['url']) === strtolower($url)) {
+			if ($script['url'] === $url) {
 				return;
 			}
 		}
@@ -341,7 +341,7 @@ class Minz_View {
 			return;
 		}
 		foreach (self::$scripts as $script) {
-			if (strtolower($script['url']) === strtolower($url)) {
+			if ($script['url'] === $url) {
 				return;
 			}
 		}
