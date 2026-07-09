@@ -202,6 +202,16 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
+			// Preserve the active search and read/favourite state filters across the redirect,
+			// otherwise the view resets to its default after marking articles as read (issue #8671).
+			$search = Minz_Request::paramString('search', plaintext: true);
+			if ($search !== '') {
+				$params['search'] = $search;
+			}
+			$stateParam = Minz_Request::paramInt('state');
+			if ($stateParam !== 0) {
+				$params['state'] = $stateParam;
+			}
 			if (FreshRSS_Context::userConf()->sticky_sort) {
 				if (Minz_Request::hasParam('order')) {
 					$params['order'] = Minz_Request::paramString('order', plaintext: true);
