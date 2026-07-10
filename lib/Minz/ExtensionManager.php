@@ -310,6 +310,8 @@ final class Minz_ExtensionManager {
 		$signature = $hook_type->signature();
 		if ($signature === Minz_HookSignature::OneToOne) {
 			return self::callOneToOne($hook_type, $args[0] ?? null);
+		} elseif ($signature === Minz_HookSignature::AccumulateString) {
+			return self::callAccumulateString($hook_type, $args[0] ?? null);
 		} elseif ($signature === Minz_HookSignature::PassArguments) {
 			foreach (self::retrieveHookList($hook_type) as $hook) {
 				$result = call_user_func($hook->getFunction(), ...$args);
@@ -351,6 +353,32 @@ final class Minz_ExtensionManager {
 			$arg = $result;
 		}
 		return $result;
+	}
+
+	/**
+	 * Call a hook which receives a fixed context argument plus the string
+	 * accumulated so far, and must return the (possibly extended) string.
+	 *
+	 * Unlike callOneToOne(), the context argument (e.g. the feed or category
+	 * being rendered) is passed unchanged to every extension; only the
+	 * accumulated string is threaded from one extension to the next. This
+	 * allows several enabled extensions to each contribute their own part
+	 * of the result instead of only the first non-null return value being
+	 * used, as callHook() does for Minz_HookSignature::PassArguments.
+	 *
+	 * @param Minz_HookType $hook_type is the hook type to call.
+	 * @param mixed $context is the context argument passed unchanged to every extension.
+	 * @return string accumulated result of the call to all the hooks. Empty string if nothing was returned.
+	 */
+	private static function callAccumulateString(Minz_HookType $hook_type, mixed $context): string {
+		$accumulated = '';
+		foreach (self::retrieveHookList($hook_type) as $hook) {
+			$result = call_user_func($hook->getFunction(), $context, $accumulated);
+			if (is_string($result)) {
+				$accumulated = $result;
+			}
+		}
+		return $accumulated;
 	}
 
 	/**
