@@ -42,6 +42,11 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 		}
 
 		parent::__construct($url, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
+
+		if ($this->success) {
+			/** @phpstan-ignore property.deprecated */
+			$this->body = self::trimTrailingJunkAfterXmlFeed($this->get_body_content());
+		}
 	}
 
 	#[\Override]
@@ -76,5 +81,13 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 				}
 			}
 		}
+	}
+
+	private static function trimTrailingJunkAfterXmlFeed(string $body): string {
+		if (!preg_match('/^[\\xEF\\xBB\\xBF\\s]*(?:<\\?xml\\b.*?\\?>\\s*)?<(?:rss|feed|rdf:RDF)\\b/si', $body)) {
+			return $body;
+		}
+
+		return preg_replace('/(<\\/(?:rss|feed|rdf:RDF)>).+$/si', '$1', $body) ?? $body;
 	}
 }
