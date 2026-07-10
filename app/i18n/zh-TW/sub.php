@@ -87,6 +87,7 @@ return array(
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'icon' => '圖示',
 		'information' => '資訊',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => '繼續新增更多訂閱源',
 		'keep_min' => '保留的最小文章數',
 		'kind' => array(

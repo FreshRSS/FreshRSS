@@ -87,6 +87,7 @@ return array(
 		'http_headers_help' => 'Tajuk dipisahkan dengan baris baru dan nama dan nilai dari tajuk dipisahkan dengan titik dua (contoh: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Ikon',
 		'information' => 'Informasi',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Jumlah minimum artikel yang harus disimpan',
 		'kind' => array(

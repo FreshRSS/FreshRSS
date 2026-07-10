@@ -87,6 +87,7 @@ return array(
 		'http_headers_help' => 'Las cabeceras son separadas por un salto de línea, y el nombre y valor de una cabecera son separadas por dos puntos (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icono',
 		'information' => 'Información',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => 'Seguir añadiendo fuentes',
 		'keep_min' => 'Número mínimo de artículos a conservar',
 		'kind' => array(

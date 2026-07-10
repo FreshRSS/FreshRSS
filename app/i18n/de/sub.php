@@ -87,6 +87,7 @@ return array(
 		'http_headers_help' => 'Header werden durch einen Zeilenumbruch getrennt. Name und Wert eines Headers werden durch einen Doppelpunkt getrennt, z. B. <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>.',
 		'icon' => 'Icon',	// IGNORE
 		'information' => 'Informationen',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => 'Danach weitere Feeds hinzufügen',
 		'keep_min' => 'Minimale Anzahl an Artikeln, die behalten wird',
 		'kind' => array(

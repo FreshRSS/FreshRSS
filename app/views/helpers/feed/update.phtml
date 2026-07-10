@@ -905,6 +905,17 @@
 			</div>
 
 			<div class="form-group">
+				<label class="group-name" for="ipresolve"><?= _t('sub.feed.ipresolve') ?></label>
+				<div class="group-controls">
+					<select name="ipresolve" id="ipresolve" class="w50">
+						<option value=""<?= $this->feed->attributeBoolean('ipresolve') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="0"<?= $this->feed->attributeBoolean('ipresolve') === false ? ' selected="selected"' : '' ?>>IPv4</option>
+						<option value="1"<?= $this->feed->attributeBoolean('ipresolve') === true ? ' selected="selected"' : '' ?>>IPv6</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<label class="group-name" for="http_headers"><?= _t('sub.feed.http_headers') ?></label>
 				<div class="group-controls">
 					<?php

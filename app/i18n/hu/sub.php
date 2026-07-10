@@ -87,6 +87,7 @@ return array(
 		'http_headers_help' => 'A fejléceket újsor választja el, a fejléc nevét és értékét kettőspont választja el (pl: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icon',	// IGNORE
 		'information' => 'Információ',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => 'Majd adjon hozzá további hírfolyamokat',
 		'keep_min' => 'Megtartandó cikkek minimális száma',
 		'kind' => array(

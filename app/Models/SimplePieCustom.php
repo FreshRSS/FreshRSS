@@ -29,6 +29,9 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 				$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 			}
 		}
+		if (isset($attributes['ipresolve'])) {
+			$curl_options[CURLOPT_IPRESOLVE] = (bool)$attributes['ipresolve'] ? CURL_IPRESOLVE_V6 : CURL_IPRESOLVE_V4;
+		}
 		$attributes['curl_params'] = FreshRSS_http_Util::sanitizeCurlParams(is_array($attributes['curl_params'] ?? null) ? $attributes['curl_params'] : []);
 		if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
 			foreach ($attributes['curl_params'] as $co => $v) {

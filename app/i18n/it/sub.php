@@ -87,6 +87,7 @@ return array(
 		'http_headers_help' => 'Le intestazioni sono separate da una linea e il nome e il valore di un’intestazione sono separati da due punti (p.es: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icona',
 		'information' => 'Informazioni',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => 'Quindi aggiungi altri feed',
 		'keep_min' => 'Numero minimo di articoli da mantenere',
 		'kind' => array(

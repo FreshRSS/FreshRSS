@@ -221,6 +221,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$feed->_attribute('content_action', Minz_Request::paramString('content_action', true) ?: 'replace');
 
 			$feed->_attribute('ssl_verify', Minz_Request::paramTernary('ssl_verify'));
+			$feed->_attribute('ipresolve', Minz_Request::paramTernary('ipresolve'));
 			$timeout = Minz_Request::paramInt('timeout');
 			$feed->_attribute('timeout', $timeout > 0 ? $timeout : null);
 
