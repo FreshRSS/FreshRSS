@@ -32,12 +32,14 @@ Example running FreshRSS (or scroll down to the [Docker Compose](#docker-compose
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -p 8080:80 \
   -e TZ=Europe/Paris \
-  -e 'CRON_MIN=1,31' \
+  -e "CRON_MIN=1,31" \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
   --name freshrss \
   freshrss/freshrss
 ```
+
+> ℹ️ Use double quotes (`"..."`), not single quotes, around `CRON_MIN` values such as `"CRON_MIN=1,31"`. Single quotes are not stripped by Windows `cmd.exe` and end up included in the variable, whereas double quotes work correctly on Linux/macOS shells, PowerShell, and `cmd.exe` alike.
 
 * Exposing on port 8080
 * With a [server timezone](http://php.net/timezones) (default is `UTC`)
@@ -142,7 +144,7 @@ docker run --rm \
   -p 8080:80 \
   -e FRESHRSS_ENV=development \
   -e TZ=Europe/Paris \
-  -e 'CRON_MIN=1,31' \
+  -e "CRON_MIN=1,31" \
   -v $(pwd):/var/www/FreshRSS \
   -v freshrss_data:/var/www/FreshRSS/data \
   --name freshrss \
@@ -608,12 +610,12 @@ There are no less than 3 options. Pick a single one.
 Easiest, built-in solution, also used already in the examples above
 (but your Docker instance will have a second process in the background, without monitoring).
 Just pass the environment variable `CRON_MIN` to your `docker run` command,
-containing a valid cron minute definition such as `'13,43'` (recommended) or `'*/20'`.
+containing a valid cron minute definition such as `"13,43"` (recommended) or `"*/20"`.
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
 
 ```sh
 docker run ... \
-  -e 'CRON_MIN=13,43' \
+  -e "CRON_MIN=13,43" \
   --name freshrss freshrss/freshrss
 ```
 
@@ -641,7 +643,7 @@ See cron option 1 for customising the cron schedule.
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
-  -e 'CRON_MIN=17,47' \
+  -e "CRON_MIN=17,47" \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss \
   cron -f
@@ -667,7 +669,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
-  -e 'CRON_MIN=27,57' \
+  -e "CRON_MIN=27,57" \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss:alpine \
   crond -f -d 6
