@@ -2308,6 +2308,7 @@ html.slider-active {
 	min-width: 2rem;
 	display: block;
 	content: attr(data-unread);
+	transform: translateZ(0);
 	position: absolute;
 	top: 0;
 	right: 0.75rem;
