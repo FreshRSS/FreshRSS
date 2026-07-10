@@ -141,7 +141,7 @@ return array(
 	'congratulations' => 'Congratulations!',	// IGNORE
 	'default_user' => array(
 		'_' => 'Username of the default user',	// IGNORE
-		'max_char' => 'maximum 16 alphanumeric characters',	// IGNORE
+		'max_char' => '1-39 characters: letters, digits, and . _ @ -',	// IGNORE
 	),
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',	// IGNORE
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',	// IGNORE
