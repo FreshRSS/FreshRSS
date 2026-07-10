@@ -1,10 +1,12 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
- * The Minz_Session class handles user’s session
+ * The Session class handles user’s session
  */
-class Minz_Session {
+class Session {
 
 	private static bool $volatile = false;
 
@@ -48,7 +50,7 @@ class Minz_Session {
 		$params['lifetime'] = ($params['lifetime'] <= 0 || $params['lifetime'] > 86400) ? 0 : $params['lifetime'];
 		$params['path'] = '';	// Current directory
 		$params['domain'] = '';	// Current domain
-		$params['secure'] = Minz_Request::isHttps();
+		$params['secure'] = Request::isHttps();
 		$params['httponly'] = true;
 		$params['samesite'] = 'Lax';
 		session_set_cookie_params($params);
@@ -68,7 +70,7 @@ class Minz_Session {
 	 * @param mixed|false $default the default value if the parameter doesn’t exist
 	 * @return mixed|false the value of the session variable, false if doesn’t exist
 	 */
-	#[Deprecated('Use typed versions instead')]
+	#[\Deprecated('Use typed versions instead')]
 	public static function param(string $p, $default = false): mixed {
 		return $_SESSION[$p] ?? $default;
 	}
@@ -177,7 +179,7 @@ class Minz_Session {
 
 		if (!$force) {
 			self::_param('language', $language);
-			Minz_Translate::reset($language);
+			Translate::reset($language);
 		}
 	}
 
@@ -222,7 +224,7 @@ class Minz_Session {
 		session_write_close();
 		$newId = session_id();
 		if ($newId === false) {
-			Minz_Error::error(500);
+			Error::error(500);
 			return;
 		}
 		$params = session_get_cookie_params();

@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_Feed_Exception extends Minz_Exception {
+namespace FreshRss\Exceptions;
+
+use FreshRss\Minz\Exception;
+
+class FeedException extends Exception {
 
 }

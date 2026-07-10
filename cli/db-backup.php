@@ -1,9 +1,15 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\UserController;
+use FreshRss\Models\Context;
+use FreshRss\Models\DatabaseDAO;
+use FreshRss\Models\Factory;
+
 require __DIR__ . '/_cli.php';
 
-performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
+performRequirementCheck(Context::systemConf()->db['type'] ?? '');
 $ok = true;
 
 $cliOptions = new class extends CliOptionsParser {
@@ -19,7 +25,7 @@ if (!empty($cliOptions->errors)) {
 	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-foreach (FreshRSS_user_Controller::listUsers() as $username) {
+foreach (UserController::listUsers() as $username) {
 	$username = cliInitUser($username);
 	$filename = DATA_PATH . '/users/' . $username . '/backup.sqlite';
 	@unlink($filename);
@@ -29,8 +35,8 @@ foreach (FreshRSS_user_Controller::listUsers() as $username) {
 		echo 'FreshRSS backup database to SQLite for user “', $username, "”…\n";
 	}
 
-	$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
-	$ok &= $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_EXPORT, false, $verbose);
+	$databaseDAO = Factory::createDatabaseDAO($username);
+	$ok &= $databaseDAO->dbCopy($filename, DatabaseDAO::SQLITE_EXPORT, false, $verbose);
 }
 
 done((bool)$ok);

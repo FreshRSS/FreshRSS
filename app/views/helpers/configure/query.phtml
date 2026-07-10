@@ -1,11 +1,19 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Exceptions\ContextException;
+use FreshRss\Minz\Request;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\Entry;
+use FreshRss\Models\View;
+
 	if ($this->query === null) {
-		throw new FreshRSS_Context_Exception('Query not initialised!');
+		throw new ContextException('Query not initialised!');
 	}
 
-	$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
+	$ajax = Request::paramBoolean('ajax') || $this->displaySlider;
 ?>
 <div class="post">
 	<h2><?= $this->query->getName() ?></h2>
@@ -14,7 +22,7 @@
 	</div>
 
 	<form method="post" action="<?= _url('configure', 'query', 'id', $this->queryId, 'from', $ajax ? 'queries' : 'query', ...($ajax ? ['#', 'slider'] : [])) ?>" autocomplete="off" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 
 		<div class="form-group">
 			<label class="group-name" for="name"><?= _t('conf.query.name') ?></label>
@@ -36,7 +44,7 @@
 			</div>
 		</div>
 
-		<?php if (FreshRSS_Context::systemConf()->api_enabled) { ?>
+		<?php if (Context::systemConf()->api_enabled) { ?>
 			<fieldset>
 				<legend><?= _t('conf.query.share') ?></legend>
 				<div class="form-group">
@@ -104,22 +112,22 @@
 				<div class="group-controls">
 					<label class="checkbox" for="show_read">
 						<input type="checkbox" name="query[state][]" id="show_read"
-							value="<?= FreshRSS_Entry::STATE_READ ?>" <?= FreshRSS_Entry::STATE_READ & $this->query->getState() ? 'checked="checked"' : ''?> />
+							value="<?= Entry::STATE_READ ?>" <?= Entry::STATE_READ & $this->query->getState() ? 'checked="checked"' : ''?> />
 						<?= _t('index.menu.read') ?>
 					</label>
 					<label class="checkbox" for="show_not_read">
 						<input type="checkbox" name="query[state][]" id="show_not_read"
-							value="<?= FreshRSS_Entry::STATE_NOT_READ ?>" <?= FreshRSS_Entry::STATE_NOT_READ & $this->query->getState() ? 'checked="checked"' : ''?> />
+							value="<?= Entry::STATE_NOT_READ ?>" <?= Entry::STATE_NOT_READ & $this->query->getState() ? 'checked="checked"' : ''?> />
 						<?= _t('index.menu.unread') ?>
 					</label>
 					<label class="checkbox" for="show_favorite">
 						<input type="checkbox" name="query[state][]" id="show_favorite"
-							value="<?= FreshRSS_Entry::STATE_FAVORITE ?>" <?= FreshRSS_Entry::STATE_FAVORITE & $this->query->getState() ? 'checked="checked"' : ''?> />
+							value="<?= Entry::STATE_FAVORITE ?>" <?= Entry::STATE_FAVORITE & $this->query->getState() ? 'checked="checked"' : ''?> />
 						<?= _t('index.menu.starred') ?>
 					</label>
 					<label class="checkbox" for="show_not_favorite">
 						<input type="checkbox" name="query[state][]" id="show_not_favorite"
-							value="<?= FreshRSS_Entry::STATE_NOT_FAVORITE ?>" <?= FreshRSS_Entry::STATE_NOT_FAVORITE & $this->query->getState() ? 'checked="checked"' : ''?> />
+							value="<?= Entry::STATE_NOT_FAVORITE ?>" <?= Entry::STATE_NOT_FAVORITE & $this->query->getState() ? 'checked="checked"' : ''?> />
 						<?= _t('index.menu.non-starred') ?>
 					</label>
 				</div>

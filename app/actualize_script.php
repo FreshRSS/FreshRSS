@@ -1,6 +1,17 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\UserController;
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Log;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\Entry;
+use FreshRss\Models\Feed;
+use FreshRss\Models\UserDAO;
+
 require dirname(__DIR__) . '/cli/_cli.php';
 
 session_cache_limiter('');
@@ -18,16 +29,16 @@ $_SERVER['HTTP_HOST'] = '';
 
 $app = new FreshRSS();
 
-FreshRSS_Context::initSystem();
-FreshRSS_Context::systemConf()->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
-define('SIMPLEPIE_SYSLOG_ENABLED', FreshRSS_Context::systemConf()->simplepie_syslog_enabled);
+Context::initSystem();
+Context::systemConf()->auth_type = 'none';  // avoid necessity to be logged in (not saved!)
+define('SIMPLEPIE_SYSLOG_ENABLED', Context::systemConf()->simplepie_syslog_enabled);
 
 /**
  * Writes to FreshRSS admin log, and if it is not already done by default,
  * writes to syslog (only if simplepie_syslog_enabled in FreshRSS configuration) and to STDOUT
  */
 function notice(string $message): void {
-	Minz_Log::notice($message, ADMIN_LOG);
+	Log::notice($message, ADMIN_LOG);
 	if (!COPY_LOG_TO_SYSLOG && SIMPLEPIE_SYSLOG_ENABLED) {
 		syslog(LOG_NOTICE, $message);
 	}
@@ -59,39 +70,39 @@ notice('FreshRSS starting feeds actualization at ' . $begin_date->format('c'));
 
 // make sure the PHP setup of the CLI environment is compatible with FreshRSS as well
 echo 'Failed requirements!', "\n";
-performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
+performRequirementCheck(Context::systemConf()->db['type'] ?? '');
 ob_clean();
 
 echo 'Results: ', "\n";	//Buffered
 
 // Create the list of users to actualize.
 // Users are processed in a random order but always start with default user
-$users = FreshRSS_user_Controller::listUsers();
+$users = UserController::listUsers();
 shuffle($users);
-if (FreshRSS_Context::systemConf()->default_user !== '') {
-	array_unshift($users, FreshRSS_Context::systemConf()->default_user);
+if (Context::systemConf()->default_user !== '') {
+	array_unshift($users, Context::systemConf()->default_user);
 	$users = array_unique($users);
 }
 
-$limits = FreshRSS_Context::systemConf()->limits;
+$limits = Context::systemConf()->limits;
 $min_last_activity = time() - $limits['max_inactivity'];
 foreach ($users as $user) {
-	FreshRSS_Context::initUser($user);
-	if (!FreshRSS_Context::hasUserConf()) {
+	Context::initUser($user);
+	if (!Context::hasUserConf()) {
 		notice('Invalid user ' . $user);
 		continue;
 	}
-	if (!FreshRSS_Context::userConf()->enabled) {
+	if (!Context::userConf()->enabled) {
 		notice('FreshRSS skip disabled user ' . $user);
 		continue;
 	}
-	if (($user !== FreshRSS_Context::systemConf()->default_user) &&
-			(FreshRSS_UserDAO::mtime($user) < $min_last_activity)) {
+	if (($user !== Context::systemConf()->default_user) &&
+			(UserDAO::mtime($user) < $min_last_activity)) {
 		notice('FreshRSS skip inactive user ' . $user);
 		continue;
 	}
 
-	FreshRSS_Auth::giveAccess();
+	Auth::giveAccess();
 
 	// NB: Extensions and hooks are reinitialised there
 	$app->init();
@@ -102,7 +113,7 @@ foreach ($users as $user) {
 	 */
 	$feedStatistics = [];
 
-	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile, &$feedStatistics) {
+	ExtensionManager::addHook(HookType::FeedBeforeActualize, static function (Feed $feed) use ($mutexFile, &$feedStatistics) {
 		touch($mutexFile);
 		$feedStatistics[$feed->id()] = [
 			'name' => $feed->name() ?: $feed->url(false),
@@ -111,13 +122,13 @@ foreach ($users as $user) {
 		];
 		return $feed;
 	});
-	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeAdd, static function (FreshRSS_Entry $entry) use (&$feedStatistics) {
+	ExtensionManager::addHook(HookType::EntryBeforeAdd, static function (Entry $entry) use (&$feedStatistics) {
 		if (isset($feedStatistics[$entry->feedId()])) {
 			$feedStatistics[$entry->feedId()]['new'] = $feedStatistics[$entry->feedId()]['new'] + 1;
 		}
 		return $entry;
 	});
-	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeUpdate, static function (FreshRSS_Entry $entry) use (&$feedStatistics) {
+	ExtensionManager::addHook(HookType::EntryBeforeUpdate, static function (Entry $entry) use (&$feedStatistics) {
 		if (isset($feedStatistics[$entry->feedId()])) {
 			$feedStatistics[$entry->feedId()]['updated'] = $feedStatistics[$entry->feedId()]['updated'] + 1;
 		}
@@ -145,7 +156,7 @@ foreach ($users as $user) {
 	}
 
 	if (!invalidateHttpCache()) {
-		Minz_Log::warning('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, LOG_FILENAME), ADMIN_LOG);
+		Log::warning('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, LOG_FILENAME), ADMIN_LOG);
 		if (defined('STDERR')) {
 			fwrite(STDERR, 'FreshRSS write access problem in ' . join_path(USERS_PATH, $user, LOG_FILENAME) . "\n");
 		}

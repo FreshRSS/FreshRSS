@@ -1,10 +1,17 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Controllers\ExtensionController;
+use FreshRss\Minz\Extension;
+use FreshRss\Minz\Paginator;
+use FreshRss\Minz\View as MinzView;
+
 /**
- * @phpstan-import-type ExtensionFullMetadata from FreshRSS_extension_Controller
+ * @phpstan-import-type ExtensionFullMetadata from ExtensionController
  */
-class FreshRSS_View extends Minz_View {
+class View extends MinzView {
 
 	// Main views
 	/** @var callable */
@@ -13,16 +20,16 @@ class FreshRSS_View extends Minz_View {
 	public $callbackBeforeFeeds;
 	/** @var callable */
 	public $callbackBeforePagination;
-	/** @var array<int,FreshRSS_Category> where the key is the category ID */
+	/** @var array<int,Category> where the key is the category ID */
 	public array $categories;
-	public ?FreshRSS_Category $category = null;
-	public ?FreshRSS_Tag $tag = null;
+	public ?Category $category = null;
+	public ?Tag $tag = null;
 	public string $current_user;
-	/** @var iterable<FreshRSS_Entry> */
+	/** @var iterable<Entry> */
 	public $entries;
-	public ?FreshRSS_Entry $entry = null;
-	public ?FreshRSS_Feed $feed = null;
-	/** @var array<int,FreshRSS_Feed> where the key is the feed ID */
+	public ?Entry $entry = null;
+	public ?Feed $feed = null;
+	/** @var array<int,Feed> where the key is the feed ID */
 	public array $feeds;
 	/**
 	 * The keys are the feed IDs that have entries matching the current state and search filters (global view).
@@ -30,7 +37,7 @@ class FreshRSS_View extends Minz_View {
 	 */
 	public ?array $feedIdsMatching = null;
 	public int $nbUnreadTags;
-	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
+	/** @var array<int,Tag> where the key is the label ID */
 	public array $tags;
 	/** @var list<array{id:int,name:string,checked:bool}> */
 	public array $tagsForEntry;
@@ -40,7 +47,7 @@ class FreshRSS_View extends Minz_View {
 	public bool $includeSensitiveCurlParams = false;
 
 	// Search
-	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
+	/** @var array<int,Tag> where the key is the label ID */
 	public array $labels;
 
 	// Subscriptions
@@ -84,10 +91,10 @@ class FreshRSS_View extends Minz_View {
 	public array $list_keys;
 
 	// User queries
-	/** @var array<int,FreshRSS_UserQuery> where the key is the query ID */
+	/** @var array<int,UserQuery> where the key is the query ID */
 	public array $queries;
-	/**  @var FreshRSS_UserQuery|null */
-	public ?FreshRSS_UserQuery $query = null;
+	/**  @var UserQuery|null */
+	public ?UserQuery $query = null;
 
 	// Export / Import
 	public string $content;
@@ -115,12 +122,12 @@ class FreshRSS_View extends Minz_View {
 
 	// Logs
 	public int $currentPage;
-	public Minz_Paginator $logsPaginator;
+	public Paginator $logsPaginator;
 	public int $nbPage;
 	public string $logSearch = '';
 
 	// RSS view
-	public FreshRSS_UserQuery $userQuery;
+	public UserQuery $userQuery;
 	public string $html_url = '';
 	public string $rss_title = '';
 	public string $rss_url = '';
@@ -138,10 +145,10 @@ class FreshRSS_View extends Minz_View {
 	// Extensions
 	/** @var list<ExtensionFullMetadata> */
 	public array $available_extensions;
-	public ?Minz_Extension $ext_details = null;
-	/** @var array{system:array<Minz_Extension>,user:array<Minz_Extension>} */
+	public ?Extension $ext_details = null;
+	/** @var array{system:array<Extension>,user:array<Extension>} */
 	public array $extension_list;
-	public ?Minz_Extension $extension = null;
+	public ?Extension $extension = null;
 	/** @var array<string,string> */
 	public array $extensions_installed;
 
@@ -152,6 +159,6 @@ class FreshRSS_View extends Minz_View {
 	public array $message;
 
 	// View modes
-	/** @var array<FreshRSS_ViewMode> */
+	/** @var array<ViewMode> */
 	public array $viewModes;
 }

@@ -1,6 +1,9 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Minz\Translate;
+
 require_once __DIR__ . '/_cli.php';
 require_once __DIR__ . '/i18n/I18nCompletionValidator.php';
 require_once __DIR__ . '/i18n/I18nData.php';
@@ -92,7 +95,7 @@ function writeToReadme(string $readmePath, string $markdownTable): void {
 	if ($language === 'md') {
 		$language = 'en';
 	}
-	Minz_Translate::init($language);
+	Translate::init($language);
 	$placeholders = [];
 	if (preg_match_all('/__.*?__/', $markdownTable, $placeholders) === false) {
 		echo 'Error: Fail while matching translation placeholders', PHP_EOL;
@@ -187,7 +190,12 @@ function findUsedTranslations(): array {
 		}
 		preg_match_all('/_t\([\'"](?P<strings>[^\'"]+)[\'"]/', $fileContent, $matches);
 		$usedI18n = array_merge($usedI18n, $matches['strings']);
-		preg_match_all('/Minz_Translate::plural\(\s*[\'"](?P<string>[^\'"]+)[\'"](?P<dynamic>\s*\.)?/', $fileContent, $pluralMatches, PREG_SET_ORDER);
+		preg_match_all(
+			'/\\\\FreshRss\\\\Minz\\\\Translate::plural\(\s*[\'"](?P<string>[^\'"]+)[\'"](?P<dynamic>\s*\.)?/',
+			$fileContent,
+			$pluralMatches,
+			PREG_SET_ORDER,
+		);
 		foreach ($pluralMatches as $match) {
 			$string = $match['string'];
 			if (($match['dynamic'] ?? '') !== '') {

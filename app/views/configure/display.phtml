@@ -1,21 +1,28 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$this->partial('aside_configure');
+	/** @var View $this */
+
+use FreshRss\Minz\Translate;
+use FreshRss\Minz\Url;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+
+$this->partial('aside_configure');
 ?>
 <main class="post">
 	<h1><?= _t('conf.display') ?></h1>
 
 	<form method="post" action="<?= _url('configure', 'display') ?>" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 
 		<div class="form-group">
 			<label class="group-name" for="language"><?= _t('conf.display.language') ?></label>
 			<div class="group-controls">
 				<select name="language" id="language">
-				<?php $languages = Minz_Translate::availableLanguages(); ?>
+				<?php $languages = Translate::availableLanguages(); ?>
 				<?php foreach ($languages as $lang) { ?>
-				<option value="<?= $lang ?>"<?= FreshRSS_Context::userConf()->language === $lang ? ' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
+				<option value="<?= $lang ?>"<?= Context::userConf()->language === $lang ? ' selected="selected"' : '' ?>><?= _t('gen.lang.' . $lang) ?></option>
 				<?php } ?>
 				</select>
 			</div>
@@ -27,13 +34,13 @@
 				<select name="timezone" id="timezone">
 				<?php
 					$timezones = array_merge([''], DateTimeZone::listIdentifiers());
-					if (!in_array(FreshRSS_Context::userConf()->timezone, $timezones, true)) {
-						FreshRSS_Context::userConf()->timezone = '';
+					if (!in_array(Context::userConf()->timezone, $timezones, true)) {
+						Context::userConf()->timezone = '';
 					}
 				?>
 				<?php foreach ($timezones as $timezone): ?>
-				<option value="<?= $timezone ?>"<?= FreshRSS_Context::userConf()->timezone === $timezone ? ' selected="selected"' : '' ?>>
-					<?= $timezone == '' ? _t('gen.short.by_default') . ' (' . FreshRSS_Context::defaultTimeZone() . ')' : $timezone ?>
+				<option value="<?= $timezone ?>"<?= Context::userConf()->timezone === $timezone ? ' selected="selected"' : '' ?>>
+					<?= $timezone == '' ? _t('gen.short.by_default') . ' (' . Context::defaultTimeZone() . ')' : $timezone ?>
 				</option>
 				<?php endforeach; ?>
 				</select>
@@ -45,7 +52,7 @@
 			<div class="group-controls">
 				<select id="theme" name="theme">
 				<?php foreach ($this->themes as $theme): ?>
-					<option value="<?= $theme['id'] ?>"<?= FreshRSS_Context::userConf()->theme === $theme['id'] ? ' selected' : '' ?>><?= $theme['name'] ?></option>
+					<option value="<?= $theme['id'] ?>"<?= Context::userConf()->theme === $theme['id'] ? ' selected' : '' ?>><?= $theme['name'] ?></option>
 				<?php endforeach ?>
 				</select>
 
@@ -54,14 +61,14 @@
 					<?php
 						foreach ($this->themes as $theme) { ?>
 						<?php
-						$isCurrent = FreshRSS_Context::userConf()->theme === $theme['id'];
+						$isCurrent = Context::userConf()->theme === $theme['id'];
 						if ($isCurrent) {
 							$themeAvailable = true;
 						}
 						?>
 						<li class="preview-container<?= $isCurrent ? ' picked' : '' ?>" data-theme-preview="<?= $theme['id'] ?>">
 							<div class="preview">
-								<img src="<?= Minz_Url::display('/themes/' . $theme['id'] . '/thumbs/original.png') ?>" loading="lazy" />
+								<img src="<?= Url::display('/themes/' . $theme['id'] . '/thumbs/original.png') ?>" loading="lazy" />
 							</div>
 							<div class="properties">
 								<div>
@@ -88,7 +95,7 @@
 							<div class="preview">
 							</div>
 							<div class="properties alert-error">
-								<div><?= _t('conf.display.theme_not_available', FreshRSS_Context::userConf()->theme)?></div>
+								<div><?= _t('conf.display.theme_not_available', Context::userConf()->theme)?></div>
 							</div>
 						</li>
 					<?php }?>
@@ -100,14 +107,14 @@
 			<label class="group-name" for="darkMode"><?= _t('conf.display.darkMode') ?></label>
 			<div class="group-controls">
 				<select name="darkMode" id="darkMode">
-					<option value="no"<?= FreshRSS_Context::userConf()->darkMode === 'no' ? ' selected' : '' ?>><?= _t('conf.display.darkMode.no') ?></option>
-					<option value="auto"<?= FreshRSS_Context::userConf()->darkMode === 'auto' ? ' selected' : '' ?>><?= _t('conf.display.darkMode.auto') ?></option>
+					<option value="no"<?= Context::userConf()->darkMode === 'no' ? ' selected' : '' ?>><?= _t('conf.display.darkMode.no') ?></option>
+					<option value="auto"<?= Context::userConf()->darkMode === 'auto' ? ' selected' : '' ?>><?= _t('conf.display.darkMode.auto') ?></option>
 				</select>
 				<span class="help"><?= _i('help') ?> <?= _t('conf.display.darkMode.help') ?></span>
 			</div>
 		</div>
 
-		<?php $width = FreshRSS_Context::userConf()->content_width; ?>
+		<?php $width = Context::userConf()->content_width; ?>
 		<div class="form-group">
 			<label class="group-name" for="content_width"><?= _t('conf.display.width.content') ?></label>
 			<div class="group-controls">
@@ -128,7 +135,7 @@
 			</div>
 		</div>
 
-		<?php $topline_website = FreshRSS_Context::userConf()->topline_website; ?>
+		<?php $topline_website = Context::userConf()->topline_website; ?>
 		<div class="form-group">
 			<label class="group-name" for="topline_website"><?= _t('conf.display.website.label') ?></label>
 			<div class="group-controls">
@@ -149,7 +156,7 @@
 			</div>
 		</div>
 
-		<?php $topline_thumbnail = FreshRSS_Context::userConf()->topline_thumbnail; ?>
+		<?php $topline_thumbnail = Context::userConf()->topline_thumbnail; ?>
 		<div class="form-group">
 			<label class="group-name" for="topline_thumbnail"><?= _t('conf.display.thumbnail.label') ?></label>
 			<div class="group-controls">
@@ -192,39 +199,39 @@
 						<tr>
 							<th><?= _t('conf.display.icon.top_line') ?></th>
 							<td><input type="checkbox" name="topline_read" value="1"<?=
-								FreshRSS_Context::userConf()->topline_read ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->topline_read ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" name="topline_favorite" value="1"<?=
-								FreshRSS_Context::userConf()->topline_favorite ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->topline_favorite ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" name="topline_myLabels" value="1"<?=
-								FreshRSS_Context::userConf()->topline_myLabels ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->topline_myLabels ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" disabled="disabled" /></td>
 							<td><input type="checkbox" name="topline_sharing" value="1"<?=
-								FreshRSS_Context::userConf()->topline_sharing ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->topline_sharing ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" name="topline_summary" value="1"<?=
-								FreshRSS_Context::userConf()->topline_summary ? 'checked="checked"' : '' ?> /></td>
+								Context::userConf()->topline_summary ? 'checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" name="topline_display_authors" value="1"<?=
-								FreshRSS_Context::userConf()->topline_display_authors ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->topline_display_authors ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" name="topline_date" value="1"<?=
-								FreshRSS_Context::userConf()->topline_date ? ' checked="checked"' : '' ?>  /></td>
-							<td><input type="checkbox" name="topline_link" value="1"<?= FreshRSS_Context::userConf()->topline_link ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->topline_date ? ' checked="checked"' : '' ?>  /></td>
+							<td><input type="checkbox" name="topline_link" value="1"<?= Context::userConf()->topline_link ? ' checked="checked"' : '' ?> /></td>
 						</tr><tr>
 							<th><?= _t('conf.display.icon.bottom_line') ?></th>
 							<td><input type="checkbox" name="bottomline_read" value="1"<?=
-								FreshRSS_Context::userConf()->bottomline_read ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->bottomline_read ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" name="bottomline_favorite" value="1"<?=
-								FreshRSS_Context::userConf()->bottomline_favorite ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->bottomline_favorite ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" name="bottomline_myLabels" value="1"<?=
-								FreshRSS_Context::userConf()->bottomline_myLabels ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->bottomline_myLabels ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" name="bottomline_tags" value="1"<?=
-								FreshRSS_Context::userConf()->bottomline_tags ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->bottomline_tags ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" name="bottomline_sharing" value="1"<?=
-								FreshRSS_Context::userConf()->bottomline_sharing ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->bottomline_sharing ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" disabled="disabled" /></td>
 							<td><input type="checkbox" disabled="disabled" /></td>
 							<td><input type="checkbox" name="bottomline_date" value="1"<?=
-								FreshRSS_Context::userConf()->bottomline_date ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->bottomline_date ? ' checked="checked"' : '' ?> /></td>
 							<td><input type="checkbox" name="bottomline_link" value="1"<?=
-								FreshRSS_Context::userConf()->bottomline_link ? ' checked="checked"' : '' ?> /></td>
+								Context::userConf()->bottomline_link ? ' checked="checked"' : '' ?> /></td>
 						</tr>
 					</tbody>
 				</table>
@@ -235,7 +242,7 @@
 			<div class="group-controls">
 				<label class="checkbox" for="html5_enable_notif">
 					<input type="checkbox" name="html5_enable_notif" id="html5_enable_notif" value="1"<?=
-						FreshRSS_Context::userConf()->html5_enable_notif ? ' checked="checked"' : '' ?> />
+						Context::userConf()->html5_enable_notif ? ' checked="checked"' : '' ?> />
 					<?= _t('conf.notification.html5_enable_notif') ?>
 				</label>
 			</div>
@@ -245,7 +252,7 @@
 			<label class="group-name" for="html5_notif_timeout"><?= _t('conf.display.notif_html5.timeout') ?></label>
 			<div class="group-controls">
 				<input type="number" min="0" max="60" id="html5_notif_timeout" name="html5_notif_timeout" value="<?=
-					FreshRSS_Context::userConf()->html5_notif_timeout ?>" /> <?= _t('conf.display.notif_html5.seconds') ?>
+					Context::userConf()->html5_notif_timeout ?>" /> <?= _t('conf.display.notif_html5.seconds') ?>
 			</div>
 		</div>
 
@@ -253,7 +260,7 @@
 			<label class="group-name" for="good_notification_timeout"><?= _t('conf.notification_timeout.good.label') ?></label>
 			<div class="group-controls">
 				<input type="number" min="0" max="60" id="good_notification_timeout" name="good_notification_timeout" value="<?=
-					FreshRSS_Context::userConf()->good_notification_timeout ?>" /> <?= _t('conf.notification_timeout.good.seconds') ?>
+					Context::userConf()->good_notification_timeout ?>" /> <?= _t('conf.notification_timeout.good.seconds') ?>
 			</div>
 		</div>
 
@@ -261,7 +268,7 @@
 			<label class="group-name" for="bad_notification_timeout"><?= _t('conf.notification_timeout.bad.label') ?></label>
 			<div class="group-controls">
 				<input type="number" min="1" max="60" id="bad_notification_timeout" name="bad_notification_timeout" value="<?=
-					FreshRSS_Context::userConf()->bad_notification_timeout ?>" />  <?= _t('conf.notification_timeout.bad.seconds') ?>
+					Context::userConf()->bad_notification_timeout ?>" />  <?= _t('conf.notification_timeout.bad.seconds') ?>
 			</div>
 		</div>
 
@@ -269,7 +276,7 @@
 			<div class="group-controls">
 				<label class="checkbox" for="show_nav_buttons">
 					<input type="checkbox" name="show_nav_buttons" id="show_nav_buttons" value="1"<?=
-						FreshRSS_Context::userConf()->show_nav_buttons ? ' checked="checked"' : '' ?> />
+						Context::userConf()->show_nav_buttons ? ' checked="checked"' : '' ?> />
 					<?= _t('conf.display.show_nav_buttons') ?>
 				</label>
 			</div>
@@ -279,8 +286,8 @@
 			<div class="group-controls">
 				<label class="checkbox" for="show_title_unread">
 					<input type="checkbox" name="show_title_unread" id="show_title_unread" value="1"<?=
-						FreshRSS_Context::userConf()->show_title_unread ? ' checked="checked"' : '' ?>
-						data-leave-validation="<?= FreshRSS_Context::userConf()->show_title_unread ?>" />
+						Context::userConf()->show_title_unread ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= Context::userConf()->show_title_unread ?>" />
 					<?= _t('conf.display.show_title_unread') ?>
 				</label>
 			</div>
@@ -289,7 +296,7 @@
 		<div class="form-group">
 			<label class="group-name" for="show_unread_count"><?= _t('conf.display.show_unread_count') ?></label>
 			<div class="group-controls">
-				<?php $suc = FreshRSS_Context::userConf()->show_unread_count; ?>
+				<?php $suc = Context::userConf()->show_unread_count; ?>
 				<select name="show_unread_count" id="show_unread_count">
 					<option value="all"<?= $suc === 'all' ? ' selected="selected"' : '' ?>><?= _t('conf.display.show_unread_count.all') ?></option>
 					<option value="important"<?= $suc === 'important' ? ' selected="selected"' : '' ?>><?= _t('conf.display.show_unread_count.important') ?></option>
@@ -302,7 +309,7 @@
 			<div class="group-controls">
 				<label class="checkbox" for="sidebar_hidden_by_default">
 					<input type="checkbox" name="sidebar_hidden_by_default" id="sidebar_hidden_by_default" value="1"<?=
-						FreshRSS_Context::userConf()->sidebar_hidden_by_default ? ' checked="checked"' : '' ?> />
+						Context::userConf()->sidebar_hidden_by_default ? ' checked="checked"' : '' ?> />
 					<?= _t('conf.display.sidebar_hidden_by_default') ?>
 				</label>
 			</div>
@@ -313,9 +320,9 @@
 			<label class="group-name" for="show_feed_name"><?= _t('conf.display.article.feed_title') ?></label>
 			<div class="group-controls">
 				<select name="show_feed_name" id="show_feed_name">
-					<option value="0"<?= FreshRSS_Context::userConf()->show_feed_name === '0' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.feed_name.none') ?></option>
-					<option value="t"<?= FreshRSS_Context::userConf()->show_feed_name === 't' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.feed_name.above_title') ?></option>
-					<option value="a"<?= FreshRSS_Context::userConf()->show_feed_name === 'a' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.feed_name.with_authors') ?></option>
+					<option value="0"<?= Context::userConf()->show_feed_name === '0' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.feed_name.none') ?></option>
+					<option value="t"<?= Context::userConf()->show_feed_name === 't' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.feed_name.above_title') ?></option>
+					<option value="a"<?= Context::userConf()->show_feed_name === 'a' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.feed_name.with_authors') ?></option>
 				</select>
 			</div>
 		</div>
@@ -324,10 +331,10 @@
 			<label class="group-name" for="show_author_date"><?= _t('conf.display.article.authors_date') ?></label>
 			<div class="group-controls">
 				<select name="show_author_date" id="show_author_date">
-					<option value="0" <?= FreshRSS_Context::userConf()->show_author_date === '0' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.none') ?></option>
-					<option value="h" <?= FreshRSS_Context::userConf()->show_author_date === 'h' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.header') ?></option>
-					<option value="f" <?= FreshRSS_Context::userConf()->show_author_date === 'f' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.footer') ?></option>
-					<option value="b" <?= FreshRSS_Context::userConf()->show_author_date === 'b' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.both') ?></option>
+					<option value="0" <?= Context::userConf()->show_author_date === '0' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.none') ?></option>
+					<option value="h" <?= Context::userConf()->show_author_date === 'h' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.header') ?></option>
+					<option value="f" <?= Context::userConf()->show_author_date === 'f' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.footer') ?></option>
+					<option value="b" <?= Context::userConf()->show_author_date === 'b' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.both') ?></option>
 				</select>
 			</div>
 		</div>
@@ -335,8 +342,8 @@
 			<label class="group-name" for="show_article_icons"><?= _t('conf.display.article.icons') ?></label>
 			<div class="group-controls">
 				<select name="show_article_icons" id="show_article_icons">
-					<option value="t" <?= FreshRSS_Context::userConf()->show_article_icons === 't' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.icons.above_title') ?></option>
-					<option value="a" <?= FreshRSS_Context::userConf()->show_article_icons === 'a' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.icons.with_authors') ?></option>
+					<option value="t" <?= Context::userConf()->show_article_icons === 't' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.icons.above_title') ?></option>
+					<option value="a" <?= Context::userConf()->show_article_icons === 'a' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.icons.with_authors') ?></option>
 				</select>
 			</div>
 		</div>
@@ -344,10 +351,10 @@
 			<label class="group-name" for="show_tags"><?= _t('conf.display.article.tags') ?></label>
 			<div class="group-controls">
 				<select class="select-input-changer" name="show_tags" id="show_tags" data-name="show_tags_max">
-					<option value="0" <?= FreshRSS_Context::userConf()->show_tags === '0' ? ' selected="selected"' : '' ?> data-input-visible="false"><?= _t('conf.display.article.tags.none') ?></option>
-					<option value="h" <?= FreshRSS_Context::userConf()->show_tags === 'h' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.tags.header') ?></option>
-					<option value="f" <?= FreshRSS_Context::userConf()->show_tags === 'f' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.tags.footer') ?></option>
-					<option value="b" <?= FreshRSS_Context::userConf()->show_tags === 'b' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.tags.both') ?></option>
+					<option value="0" <?= Context::userConf()->show_tags === '0' ? ' selected="selected"' : '' ?> data-input-visible="false"><?= _t('conf.display.article.tags.none') ?></option>
+					<option value="h" <?= Context::userConf()->show_tags === 'h' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.tags.header') ?></option>
+					<option value="f" <?= Context::userConf()->show_tags === 'f' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.tags.footer') ?></option>
+					<option value="b" <?= Context::userConf()->show_tags === 'b' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.tags.both') ?></option>
 				</select>
 				<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 			</div>
@@ -355,7 +362,7 @@
 		<div class="form-group" id="show_tags_max-block">
 			<label class="group-name" for="show_tags_max"><?= _t('conf.display.article.tags_max') ?></label>
 			<div class="group-controls">
-				<input type="number" id="show_tags_max" name="show_tags_max" value="<?= FreshRSS_Context::userConf()->show_tags_max ?>" min="0" data-number="2" />
+				<input type="number" id="show_tags_max" name="show_tags_max" value="<?= Context::userConf()->show_tags_max ?>" min="0" data-number="2" />
 				<p class="help"><?= _i('help') ?> <?= _t('conf.display.article.tags_max.help') ?></p>
 			</div>
 		</div>

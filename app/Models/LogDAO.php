@@ -1,22 +1,26 @@
 <?php
 declare(strict_types=1);
 
-final class FreshRSS_LogDAO {
+namespace FreshRss\Models;
+
+use FreshRss\Minz\User;
+
+final class LogDAO {
 	public static function logPath(?string $logFileName = null): string {
 		if ($logFileName === null || $logFileName === '') {
 			$logFileName = LOG_FILENAME;
 		}
-		return USERS_PATH . '/' . (Minz_User::name() ?? Minz_User::INTERNAL_USER) . '/' . $logFileName;
+		return USERS_PATH . '/' . (User::name() ?? User::INTERNAL_USER) . '/' . $logFileName;
 	}
 
-	/** @return list<FreshRSS_Log> */
+	/** @return list<Log> */
 	public static function lines(?string $logFileName = null): array {
 		$logs = [];
 		$handle = @fopen(self::logPath($logFileName), 'r');
 		if (is_resource($handle)) {
 			while (($line = fgets($handle)) !== false) {
 				if (preg_match('/^\[([^\[]+)\] \[([^\[]+)\] --- (.*)$/', $line, $matches)) {
-					$myLog = new FreshRSS_Log();
+					$myLog = new Log();
 					$myLog->_date($matches[1]);
 					$myLog->_level($matches[2]);
 					$myLog->_info($matches[3]);
@@ -30,7 +34,7 @@ final class FreshRSS_LogDAO {
 
 	public static function truncate(?string $logFileName = null): void {
 		file_put_contents(self::logPath($logFileName), '');
-		if (FreshRSS_Auth::hasAccess('admin')) {
+		if (Auth::hasAccess('admin')) {
 			file_put_contents(ADMIN_LOG, '');
 			file_put_contents(API_LOG, '');
 			file_put_contents(PSHB_LOG, '');

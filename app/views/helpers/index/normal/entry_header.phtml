@@ -1,17 +1,23 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$topline_read = FreshRSS_Context::userConf()->topline_read;
-	$topline_favorite = FreshRSS_Context::userConf()->topline_favorite;
-	$topline_myLabels = FreshRSS_Context::userConf()->topline_myLabels;
-	$topline_sharing = FreshRSS_Context::userConf()->topline_sharing && count(FreshRSS_Context::userConf()->sharing) > 0;
-	$topline_website = FreshRSS_Context::userConf()->topline_website;
-	$topline_thumbnail = FreshRSS_Context::userConf()->topline_thumbnail;
-	$topline_summary = FreshRSS_Context::userConf()->topline_summary;
-	$topline_display_authors = FreshRSS_Context::userConf()->topline_display_authors;
-	$topline_date = FreshRSS_Context::userConf()->topline_date;
-	$topline_link = FreshRSS_Context::userConf()->topline_link;
-	$lazyload = FreshRSS_Context::userConf()->lazyload;
+	/** @var View $this */
+
+use FreshRss\Minz\Url;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+
+$topline_read = Context::userConf()->topline_read;
+	$topline_favorite = Context::userConf()->topline_favorite;
+	$topline_myLabels = Context::userConf()->topline_myLabels;
+	$topline_sharing = Context::userConf()->topline_sharing && count(Context::userConf()->sharing) > 0;
+	$topline_website = Context::userConf()->topline_website;
+	$topline_thumbnail = Context::userConf()->topline_thumbnail;
+	$topline_summary = Context::userConf()->topline_summary;
+	$topline_display_authors = Context::userConf()->topline_display_authors;
+	$topline_date = Context::userConf()->topline_date;
+	$topline_link = Context::userConf()->topline_link;
+	$lazyload = Context::userConf()->lazyload;
 	$headerClasses = ['horizontal-list', 'flux_header', 'website' . $topline_website];
 	if ($topline_thumbnail !== 'none') {
 		$headerClasses[] = 'has-thumbnail';
@@ -26,14 +32,14 @@
 		return;
 	}
 ?><ul class="<?= implode(' ', $headerClasses) ?>" data-website-name="<?= $this->feed->name() ?>" data-article-authors="<?= implode(' · ', $this->entry->authors()) ?>"><?php
-	if (FreshRSS_Auth::hasAccess()) {
+	if (Auth::hasAccess()) {
 		if ($topline_read) {
 			?><li class="item manage"><?php
 				$arUrl = ['c' => 'entry', 'a' => 'read', 'params' => ['id' => $this->entry->id()]];
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = '0';
 				}
-				?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?=
+				?><a class="item-element read" href="<?= Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?=
 					_i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
 			?></li><?php
 		}
@@ -43,7 +49,7 @@
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = '0';
 				}
-				?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?=
+				?><a class="item-element bookmark" href="<?= Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?=
 					_i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 			?></li><?php
 		}
@@ -52,7 +58,7 @@
 	if ($topline_website !== 'none'):
 	?><li class="item website">
 		<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" class="item-element" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
-			<?php if (FreshRSS_Context::userConf()->show_favicons && 'name' !== $topline_website): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><?php if ('icon' !== $topline_website): ?><span class="websiteName"><?= $this->feed->name() ?></span><?php endif; ?>
+			<?php if (Context::userConf()->show_favicons && 'name' !== $topline_website): ?><img class="favicon" src="<?= $this->feed->favicon() ?>"alt="✇"loading="lazy" /><?php endif; ?><?php if ('icon' !== $topline_website): ?><span class="websiteName"><?= $this->feed->name() ?></span><?php endif; ?>
 		</a>
 		</li><?php
 	endif; ?>

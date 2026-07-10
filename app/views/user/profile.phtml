@@ -1,24 +1,33 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	if (!$this->disable_aside) {
+	/** @var View $this */
+
+use FreshRss\Minz\Session;
+use FreshRss\Minz\Url;
+use FreshRss\Minz\User;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+use FreshRss\Utils\PasswordUtil;
+
+if (!$this->disable_aside) {
 		$this->partial('aside_configure');
 	}
 ?>
 
 <main class="post">
 	<form class="crypto-form" method="post" action="<?= _url('user', 'profile') ?>" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<h1><?= _t('conf.profile') ?></h1>
 
 		<div class="form-group">
 			<label class="group-name" for="current_user"><?= _t('conf.user.current') ?></label>
 			<div class="group-controls">
-				<input id="current_user" type="text" disabled="disabled" value="<?= Minz_User::name() ?>" />
+				<input id="current_user" type="text" disabled="disabled" value="<?= User::name() ?>" />
 			</div>
 		</div>
 
-		<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
+		<?php if (Auth::hasAccess('admin')) { ?>
 			<div class="form-group">
 				<div class="group-controls">
 					<label class="checkbox" for="is_admin">
@@ -34,27 +43,27 @@
 			<div class="group-controls">
 				<!-- Workaround for Chrome, related to change password section -->
 				<input id="ignore" class="ignore-auto-complete" type="text" tabindex="-1" aria-hidden="true" data-no-leave-validation="1" />
-				<input id="email" name="email" type="email" value="<?= FreshRSS_Context::userConf()->mail_login ?>" autocomplete="new-password" />
+				<input id="email" name="email" type="email" value="<?= Context::userConf()->mail_login ?>" autocomplete="new-password" />
 			</div>
 		</div>
 
-		<?php if (FreshRSS_Auth::accessNeedsAction()) { ?>
+		<?php if (Auth::accessNeedsAction()) { ?>
 		<div class="form-group">
 			<label class="group-name" for="token"><?= _t('admin.auth.token') ?></label>
-			<?php $token = FreshRSS_Context::userConf()->token; ?>
+			<?php $token = Context::userConf()->token; ?>
 			<div class="group-controls">
 				<input id="token" name="token" type="text" value="<?= $token ?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" autocomplete="new-password" />
 				<p class="help"><?= _i('help') ?> <?= _t('admin.auth.token_help') ?></p>
-				<kbd><?= Minz_Url::display(['a' => 'rss', 'params' => ['user' => Minz_User::name() ?? '',
-					'token' => $token, 'hours' => FreshRSS_Context::userConf()->since_hours_posts_per_rss]], 'html', true) ?></kbd>
+				<kbd><?= Url::display(['a' => 'rss', 'params' => ['user' => User::name() ?? '',
+					'token' => $token, 'hours' => Context::userConf()->since_hours_posts_per_rss]], 'html', true) ?></kbd>
 				<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
 			</div>
 		</div>
 		<?php } ?>
 
 		<?php
-			$open = Minz_Session::paramBoolean('open');
-			Minz_Session::_param('open', false);
+			$open = Session::paramBoolean('open');
+			Session::_param('open', false);
 		?>
 
 		<details class="form-advanced" data-challenge-if-open="1"<?= $open ? ' open="open"' : ''?>>
@@ -62,7 +71,7 @@
 			<div class="form-group">
 				<label class="group-name" for="currentPasswordPlain"><?= _t('conf.profile.current_password') ?></label>
 				<div class="group-controls">
-					<input type="hidden" id="username" value="<?= Minz_User::name() ?? '' ?>" />
+					<input type="hidden" id="username" value="<?= User::name() ?? '' ?>" />
 					<div class="stick">
 						<input type="password" id="currentPasswordPlain" class="passwordPlain" data-required-if-open="1" data-no-leave-validation="1" />
 						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
@@ -107,24 +116,24 @@
 
 
 	<h2><?= _t('conf.profile.api') ?></h2>
-	<?php if (FreshRSS_Context::systemConf()->api_enabled) { ?>
+	<?php if (Context::systemConf()->api_enabled) { ?>
 		<form method="post" action="<?= _url('api', 'updatePassword') ?>">
-			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+			<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 
 			<div class="form-group">
 				<label class="group-name" for="apiPasswordPlain"><?= _t('conf.profile.password_api') ?></label>
 				<div class="group-controls">
 					<div class="stick">
 						<input type="password" id="apiPasswordPlain" name="apiPasswordPlain" autocomplete="new-password"
-							<?php if (FreshRSS_Context::userConf()->apiPasswordHash != '') {?>
+							<?php if (Context::userConf()->apiPasswordHash != '') {?>
 								placeholder="<?= _t('conf.profile.api.api_set') ?>"
 							<?php } else {?>
 								placeholder="<?= _t('conf.profile.api.api_not_set') ?>"
 							<?php } ?>
-							pattern=".{7,}" <?= FreshRSS_password_Util::cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
+							pattern=".{7,}" <?= PasswordUtil::cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
 						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
-					<p class="help"><?= _i('help') ?> <?= _t('conf.profile.api.check_link', Minz_Url::display('/api/', 'html', true)) ?></p>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.profile.api.check_link', Url::display('/api/', 'html', true)) ?></p>
 					<p class="help"><?= _i('help') ?> <?= _t('conf.profile.api.documentation_link') ?></p>
 					<p class="help"><?= _i('warning') ?> <?= _t('conf.profile.api.security_warning') ?></p>
 				</div>
@@ -146,11 +155,11 @@
 		</div>
 	<?php } ?>
 
-	<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
+	<?php if (!Auth::hasAccess('admin')) { ?>
 	<h2><?= _t('conf.profile.delete') ?></h2>
 
 	<form class="crypto-form" method="post" action="<?= _url('user', 'delete') ?>">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 
 		<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('conf.profile.delete.warn') ?></p>
 
@@ -168,7 +177,7 @@
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<input type="hidden" name="username" id="username" value="<?= Minz_User::name() ?>" />
+				<input type="hidden" name="username" id="username" value="<?= User::name() ?>" />
 				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.remove') ?></button>
 			</div>
 		</div>

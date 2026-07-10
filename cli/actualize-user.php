@@ -1,9 +1,17 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\CategoryController;
+use FreshRss\Controllers\FeedController;
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Models\Context;
+use FreshRss\Models\Factory;
+
 require __DIR__ . '/_cli.php';
 
-performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
+performRequirementCheck(Context::systemConf()->db['type'] ?? '');
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $user;
@@ -20,19 +28,19 @@ if (!empty($cliOptions->errors)) {
 
 $username = cliInitUser($cliOptions->user);
 
-Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssUserMaintenance);
+ExtensionManager::callHookVoid(HookType::FreshrssUserMaintenance);
 
 fwrite(STDERR, 'FreshRSS actualizing user “' . $username . "”…\n");
 
-$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+$databaseDAO = Factory::createDatabaseDAO();
 $databaseDAO->minorDbMaintenance();
-Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssUserMaintenance);
+ExtensionManager::callHookVoid(HookType::FreshrssUserMaintenance);
 
-FreshRSS_feed_Controller::commitNewEntries();
-$feedDAO = FreshRSS_Factory::createFeedDao();
+FeedController::commitNewEntries();
+$feedDAO = Factory::createFeedDao();
 $feedDAO->updateCachedValues();
 
-$result = FreshRSS_category_Controller::refreshDynamicOpmls();
+$result = CategoryController::refreshDynamicOpmls();
 if (!empty($result['errors'])) {
 	$errors = $result['errors'];
 	fwrite(STDERR, "FreshRSS error refreshing $errors dynamic OPMLs!\n");
@@ -42,7 +50,7 @@ if (!empty($result['successes'])) {
 	echo "FreshRSS refreshed $successes dynamic OPMLs for $username\n";
 }
 
-[$nbUpdatedFeeds, , $nbNewArticles] = FreshRSS_feed_Controller::actualizeFeedsAndCommit();
+[$nbUpdatedFeeds, , $nbNewArticles] = FeedController::actualizeFeedsAndCommit();
 
 echo "FreshRSS actualized $nbUpdatedFeeds feeds for $username ($nbNewArticles new articles)\n";
 

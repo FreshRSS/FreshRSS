@@ -1,7 +1,20 @@
 <?php
 declare(strict_types=1);
-/** @var FreshRSS_View $this */
-if (!Minz_Request::paramBoolean('ajax')) {
+/** @var View $this */
+
+use FreshRss\Controllers\IndexController;
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Url;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Category;
+use FreshRss\Models\Context;
+use FreshRss\Models\Entry;
+use FreshRss\Models\Feed;
+use FreshRss\Models\View;
+
+if (!Request::paramBoolean('ajax')) {
 	$this->partial('aside_feed');
 	$this->partial('nav_menu');
 }
@@ -11,7 +24,7 @@ $slider_feed = $this->feed;
 call_user_func($this->callbackBeforeEntries, $this);
 
 $last_transition = '';
-$useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
+$useKeepUnreadImportant = !Context::isImportant() && !Context::isFeed();
 
 $today = @strtotime('today');
 ?>
@@ -28,7 +41,7 @@ $today = @strtotime('today');
 		<ul class="dropdown-menu-scrollable scrollbar-thin">
 			<li class="dropdown-header">
 				<?= _t('index.menu.mylabels') ?>
-				<?php if (FreshRSS_Auth::hasAccess()) { ?>
+				<?php if (Auth::hasAccess()) { ?>
 					<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
 				<?php } ?>
 			</li>
@@ -38,16 +51,16 @@ $today = @strtotime('today');
 	<a class="dropdown-close" href="#close">❌</a>
 </template>
 
-<main id="stream" class="normal<?= FreshRSS_Context::userConf()->display_posts ? '' : ' hide_posts' ?>">
+<main id="stream" class="normal<?= Context::userConf()->display_posts ? '' : ' hide_posts' ?>">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.normal') ?></h1>
 	<div id="new-article" hidden="hidden">
-		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+		<a href="<?= Url::display(Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
 	$lastEntry = null;
 	$nbEntries = 0;
 	foreach ($this->entries as $item):
-		/** @var FreshRSS_Entry|null $item */
-		$item = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $item);
+		/** @var Entry|null $item */
+		$item = ExtensionManager::callHook(HookType::EntryBeforeDisplay, $item);
 		if ($item === null) {
 			continue;
 		}
@@ -57,28 +70,28 @@ $today = @strtotime('today');
 		$nbEntries++;
 
 		// We most likely already have the feed object in cache, otherwise make a request
-		$this->feed = FreshRSS_Category::findFeed($this->categories, $this->entry->feedId()) ??
-			$this->entry->feed() ?? FreshRSS_Feed::default();
+		$this->feed = Category::findFeed($this->categories, $this->entry->feedId()) ??
+			$this->entry->feed() ?? Feed::default();
 		$this->entry->_feed($this->feed);
 
-		if ($last_transition !== ($transition = FreshRSS_index_Controller::transition($this->entry))) {
+		if ($last_transition !== ($transition = IndexController::transition($this->entry))) {
 			$last_transition = $transition;
 			?><div class="transition">
 			<span class="transition-value">
-				<?php if (FreshRSS_Context::$sort === 'f.name' && FreshRSS_Context::userConf()->show_favicons): ?>
+				<?php if (Context::$sort === 'f.name' && Context::userConf()->show_favicons): ?>
 				<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" />
 				<?php endif;?>
-				<a href="<?= FreshRSS_index_Controller::transitionLink($this->entry) ?>"><?= $transition ?></a>
-				<?php if (in_array(FreshRSS_Context::$sort, ['id', 'date', 'lastUserModified'], true)): ?>
-					<a class="transition-next" href="<?= FreshRSS_index_Controller::transitionLink($this->entry, offset: 1) ?>">⏭</a>
+				<a href="<?= IndexController::transitionLink($this->entry) ?>"><?= $transition ?></a>
+				<?php if (in_array(Context::$sort, ['id', 'date', 'lastUserModified'], true)): ?>
+					<a class="transition-next" href="<?= IndexController::transitionLink($this->entry, offset: 1) ?>">⏭</a>
 				<?php endif; ?>
 			</span>
-			<span class="name"><?= FreshRSS_Context::$name ?></span>
+			<span class="name"><?= Context::$name ?></span>
 			</div><?php
 		}
 	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
 		?><?= $this->entry->isFavorite() ? ' favorite' : ''
-		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
+		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
 		?>" id="flux_<?= $this->entry->id()
 		?>" data-entry="<?= $this->entry->id()
 		?>" data-category="<?= $this->feed->categoryId()
@@ -91,27 +104,27 @@ $today = @strtotime('today');
 				throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
 			}
 		?><article class="flux_content" dir="auto">
-			<div class="content content_<?= FreshRSS_Context::userConf()->content_width ?>">
+			<div class="content content_<?= Context::userConf()->content_width ?>">
 				<header>
-					<?php if (FreshRSS_Context::userConf()->show_feed_name === 't') { ?>
+					<?php if (Context::userConf()->show_feed_name === 't') { ?>
 						<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-							<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
+							<?php if (Context::userConf()->show_favicons): ?>
 								<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 							endif; ?><span><?= $this->feed->name() ?></span></a>
 						</div>
 					<?php } ?>
-					<?php if (FreshRSS_Context::userConf()->show_tags === 'h' || FreshRSS_Context::userConf()->show_tags === 'b') {
+					<?php if (Context::userConf()->show_tags === 'h' || Context::userConf()->show_tags === 'b') {
 						$this->renderHelper('index/tags');
 						if ($this->feed === null || $this->entry === null) {
 							throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
 						}
 					} ?>
 					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?></a></h1>
-					<?php if (FreshRSS_Context::userConf()->show_author_date === 'h' || FreshRSS_Context::userConf()->show_author_date === 'b') { ?>
+					<?php if (Context::userConf()->show_author_date === 'h' || Context::userConf()->show_author_date === 'b') { ?>
 					<div class="subtitle">
-						<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
+						<?php if (Context::userConf()->show_feed_name === 'a') { ?>
 							<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-								<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
+								<?php if (Context::userConf()->show_favicons): ?>
 									<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 								endif; ?><span><?= $this->feed->name() ?></span></a>
 							</div>
@@ -128,13 +141,13 @@ $today = @strtotime('today');
 					<?php } ?>
 				</header>
 				<div class="text"><?=
-					FreshRSS_Context::userConf()->lazyload && !FreshRSS_Context::userConf()->display_posts ?
+					Context::userConf()->lazyload && !Context::userConf()->display_posts ?
 						lazyimg($this->entry->content($this->feed->attributeBoolean('display_enclosures') ?? true)) :
 						$this->entry->content($this->feed->attributeBoolean('display_enclosures') ?? true)
 				?></div>
 				<?php
-				$display_authors_date = FreshRSS_Context::userConf()->show_author_date === 'f' || FreshRSS_Context::userConf()->show_author_date === 'b';
-				$display_tags = FreshRSS_Context::userConf()->show_tags === 'f' || FreshRSS_Context::userConf()->show_tags === 'b';
+				$display_authors_date = Context::userConf()->show_author_date === 'f' || Context::userConf()->show_author_date === 'b';
+				$display_tags = Context::userConf()->show_tags === 'f' || Context::userConf()->show_tags === 'b';
 
 				if ($display_authors_date || $display_tags) {
 					?>
@@ -142,9 +155,9 @@ $today = @strtotime('today');
 						<?php
 						if ($display_authors_date) { ?>
 							<div class="subtitle">
-								<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
+								<?php if (Context::userConf()->show_feed_name === 'a') { ?>
 									<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-										<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
+										<?php if (Context::userConf()->show_favicons): ?>
 											<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 										endif; ?><span><?= $this->feed->name() ?></span></a>
 									</div>
@@ -184,7 +197,7 @@ $today = @strtotime('today');
 ?>
 <main id="stream" class="normal">
 	<div id="new-article" hidden="hidden">
-		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+		<a href="<?= Url::display(Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div>
 	<div class="prompt alert alert-warn">
 		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
@@ -212,8 +225,8 @@ $today = @strtotime('today');
 
 <?php
 	if ($nbEntries > 0) {
-		echo Minz_ExtensionManager::callHookString(Minz_HookType::NavEntries);
-		if (FreshRSS_Context::userConf()->show_nav_buttons) {
+		echo ExtensionManager::callHookString(HookType::NavEntries);
+		if (Context::userConf()->show_nav_buttons) {
 			$this->partial('nav_entries');
 		}
 	}

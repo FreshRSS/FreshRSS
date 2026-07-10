@@ -1,6 +1,11 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Controllers\TagController;
+use FreshRss\Minz\Request;
+use FreshRss\Models\View;
+
 	if ($this->entry === null) {
 		return;
 	}
@@ -9,15 +14,15 @@
 <div class="tags">
 <?php if (!empty($firstTags)): ?>
 	<?= _i('tag') ?><ul class="list-tags">
-	<?php if (Minz_Request::controllerName() === 'index'): ?>
+	<?php if (Request::controllerName() === 'index'): ?>
 		<?php foreach ($firstTags as $tag): ?>
 		<li class="item tag"><a class="link-tag" href="<?= _url('index', 'index', 'search', '#' .
-			FreshRSS_tag_Controller::escapeForSearch($tag)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
+			TagController::escapeForSearch($tag)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
 		<?php endforeach; ?>
 	<?php else: // API public access ?>
 		<?php foreach ($firstTags as $tag): ?>
 		<li class="item tag"><a class="link-tag" href="<?= $this->html_url . '&search=' .
-			urlencode('#' . FreshRSS_tag_Controller::escapeForSearch($tag)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
+			urlencode('#' . TagController::escapeForSearch($tag)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
 		<?php endforeach; ?>
 	<?php endif; ?>
 
@@ -29,15 +34,15 @@
 				<a class="dropdown-toggle" href="#<?= $dropId ?>"><?= _i('down') ?></a>
 				<ul class="dropdown-menu">
 					<li class="dropdown-header"><?= _t('index.tag.related') ?></li>
-					<?php if (Minz_Request::controllerName() === 'index'): ?>
+					<?php if (Request::controllerName() === 'index'): ?>
 						<?php foreach ($remainingTags as $tag): ?>
 						<li class="item"><a href="<?= _url('index', 'index', 'search', '#' .
-							FreshRSS_tag_Controller::escapeForSearch($tag)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
+							TagController::escapeForSearch($tag)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
 						<?php endforeach; ?>
 					<?php else: // API public access ?>
 						<?php foreach ($remainingTags as $tag): ?>
 						<li class="item tag"><a class="link-tag" href="<?= $this->html_url . '&search=' .
-							urlencode('#' . FreshRSS_tag_Controller::escapeForSearch($tag)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
+							urlencode('#' . TagController::escapeForSearch($tag)) ?>" title="<?= _t('gen.action.filter') ?>">#<?= $tag ?></a></li>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</ul>

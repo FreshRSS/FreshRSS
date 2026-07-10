@@ -1,13 +1,18 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Exceptions\ContextException;
+use FreshRss\Minz\Request;
+use FreshRss\Models\Auth;
+use FreshRss\Models\View;
 
 	if ($this->tag === null) {
-		throw new FreshRSS_Context_Exception('Tag not initialised!');
+		throw new ContextException('Tag not initialised!');
 	}
 
-	$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
-	$from = $ajax ? ($this->cfrom ?: Minz_Request::paramString('from')) : 'update';
+	$ajax = Request::paramBoolean('ajax') || $this->displaySlider;
+	$from = $ajax ? ($this->cfrom ?: Request::paramString('from')) : 'update';
 ?>
 <div class="post">
 	<h2>
@@ -19,7 +24,7 @@
 	</div>
 
 	<form method="post" action="<?= _url('tag', 'update', 'id', $this->tag->id(), 'from', $from, ...($ajax ? ['#', 'slider'] : [])) ?>" autocomplete="off" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 
 		<fieldset>
 			<legend><?= _t('sub.category.information') ?></legend>
@@ -63,7 +68,7 @@
 
 	<h3><?= _t('sub.title.delete_label') ?></h3>
 	<form id="delete_tag" method="post" action="<?= _url('tag', 'delete', 'id_tag', $this->tag->id()) ?>">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-attention confirm"><?= _t('gen.action.remove') ?></button>

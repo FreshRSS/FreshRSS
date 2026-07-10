@@ -1,10 +1,12 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
- * The Minz_User class handles the user information.
+ * The User class handles the user information.
  */
-final class Minz_User {
+final class User {
 
 	public const INTERNAL_USER = '_';
 
@@ -14,7 +16,7 @@ final class Minz_User {
 	 * @return string the name of the current user, or null if there is none
 	 */
 	public static function name(): ?string {
-		$currentUser = trim(Minz_Session::paramString(Minz_User::CURRENT_USER));
+		$currentUser = trim(Session::paramString(User::CURRENT_USER));
 		return $currentUser === '' ? null : $currentUser;
 	}
 
@@ -23,6 +25,6 @@ final class Minz_User {
 	 */
 	public static function change(string $name = ''): void {
 		$name = trim($name);
-		Minz_Session::_param(Minz_User::CURRENT_USER, $name === '' ? false : $name);
+		Session::_param(User::CURRENT_USER, $name === '' ? false : $name);
 	}
 }

@@ -1,6 +1,14 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Controllers\UserController;
+use FreshRss\Minz\Configuration;
+use FreshRss\Minz\ConfigurationNamespaceException;
+use FreshRss\Minz\FileNotExistException;
+use FreshRss\Minz\Log;
+
 /**
  * @property string $apiPasswordHash
  * @property array{keep_period:string|false,keep_max:int|false,keep_min:int|false,keep_favourites:bool,keep_labels:bool,keep_unreads:bool} $archiving
@@ -88,30 +96,30 @@ declare(strict_types=1);
  * @property bool $retrieve_extension_list
  * @property array<string> $send_referrer_allowlist
  */
-final class FreshRSS_UserConfiguration extends Minz_Configuration {
-	use FreshRSS_FilterActionsTrait;
+final class UserConfiguration extends Configuration {
+	use FilterActionsTrait;
 
-	/** @throws Minz_FileNotExistException */
-	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_UserConfiguration {
+	/** @throws FileNotExistException */
+	public static function init(string $config_filename, ?string $default_filename = null): UserConfiguration {
 		parent::register('user', $config_filename, $default_filename);
 		try {
 			return parent::get('user');
-		} catch (Minz_ConfigurationNamespaceException $ex) {
-			FreshRSS::killApp($ex->getMessage());
+		} catch (ConfigurationNamespaceException $ex) {
+			\FreshRSS::killApp($ex->getMessage());
 		}
 	}
 
 	/**
 	 * Access the default configuration for users.
-	 * @throws Minz_FileNotExistException
+	 * @throws FileNotExistException
 	 */
-	public static function default(): FreshRSS_UserConfiguration {
-		/** @var FreshRSS_UserConfiguration|null $default_user_conf */
+	public static function default(): UserConfiguration {
+		/** @var UserConfiguration|null $default_user_conf */
 		static $default_user_conf = null;
 		if ($default_user_conf === null) {
 			$namespace = 'user_default';
-			FreshRSS_UserConfiguration::register($namespace, '_', FRESHRSS_PATH . '/config-user.default.php');
-			$default_user_conf = FreshRSS_UserConfiguration::get($namespace);
+			UserConfiguration::register($namespace, '_', FRESHRSS_PATH . '/config-user.default.php');
+			$default_user_conf = UserConfiguration::get($namespace);
 		}
 		return $default_user_conf;
 	}
@@ -123,24 +131,24 @@ final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	 * objects. If you need a long-time configuration, please don't use this function.
 	 *
 	 * @param string $username the name of the user of which we want the configuration.
-	 * @return FreshRSS_UserConfiguration|null object, or null if the configuration cannot be loaded.
-	 * @throws Minz_ConfigurationNamespaceException
+	 * @return UserConfiguration|null object, or null if the configuration cannot be loaded.
+	 * @throws ConfigurationNamespaceException
 	 */
-	public static function getForUser(string $username): ?FreshRSS_UserConfiguration {
-		if (!FreshRSS_user_Controller::checkUsername($username)) {
+	public static function getForUser(string $username): ?UserConfiguration {
+		if (!UserController::checkUsername($username)) {
 			return null;
 		}
 		$namespace = 'user_' . $username;
 		try {
-			FreshRSS_UserConfiguration::register($namespace,
+			UserConfiguration::register($namespace,
 				USERS_PATH . '/' . $username . '/config.php',
 				FRESHRSS_PATH . '/config-user.default.php');
-		} catch (Minz_FileNotExistException $e) {
-			Minz_Log::warning($e->getMessage(), ADMIN_LOG);
+		} catch (FileNotExistException $e) {
+			Log::warning($e->getMessage(), ADMIN_LOG);
 			return null;
 		}
 
-		$user_conf = FreshRSS_UserConfiguration::get($namespace);
+		$user_conf = UserConfiguration::get($namespace);
 		return $user_conf;
 	}
 }

@@ -43,6 +43,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Improve Spanish [#8878](https://github.com/FreshRSS/FreshRSS/pull/8878)
 	* Improve Ukrainian [#8871](https://github.com/FreshRSS/FreshRSS/pull/8871)
 * Misc.
+	* Core codebase (`app/`, `lib/Minz/`) now uses Composer PSR-4 autoloading under the `FreshRss` namespace instead of the historical `FreshRSS_`/`Minz_`-prefixed global classes; existing extensions are unaffected, since the old names remain available via `lib/legacy-aliases.php` — see the [extensions documentation](docs/en/developers/03_Backend/05_Extensions.md#legacy-class-names)
 	* Update to PHPMailer 7.1.1 [#9807](https://github.com/FreshRSS/FreshRSS/pull/9807)
 	* Improve PHP code [#8906](https://github.com/FreshRSS/FreshRSS/pull/8906)
 	* Fix PHPStan 2.2.2 in CLI [#8911](https://github.com/FreshRSS/FreshRSS/pull/8911)

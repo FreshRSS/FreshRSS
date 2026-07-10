@@ -1,7 +1,15 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_EntryDAO extends Minz_ModelPdo {
+namespace FreshRss\Models;
+
+use FreshRss\Exceptions\EntriesGetterException;
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Log;
+use FreshRss\Minz\ModelPdo;
+
+class EntryDAO extends ModelPdo {
 
 	public static function isCompressed(): bool {
 		return true;
@@ -58,8 +66,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	protected static function sqlRegex(string $expression, string $regex, array &$values): string {
 		// The implementation of this function is solely for MySQL and MariaDB
 		static $databaseDAOMySQL = null;
-		if (!($databaseDAOMySQL instanceof FreshRSS_DatabaseDAO)) {
-			$databaseDAOMySQL = new FreshRSS_DatabaseDAO();
+		if (!($databaseDAOMySQL instanceof DatabaseDAO)) {
+			$databaseDAOMySQL = new DatabaseDAO();
 		}
 
 		$matches = static::regexToSql($regex);
@@ -99,7 +107,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if ($this->pdo->dbType() !== 'mysql') {
 			return false;
 		}
-		Minz_Log::warning('Update MySQL table to use MEDIUMBLOB...');
+		Log::warning('Update MySQL table to use MEDIUMBLOB...');
 
 		$sql = <<<'SQL'
 			ALTER TABLE `_entry` MODIFY `content_bin` MEDIUMBLOB;
@@ -107,9 +115,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			SQL;
 		try {
 			$ok = $this->pdo->exec($sql) !== false;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$ok = false;
-			Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
+			Log::error(__METHOD__ . ' error: ' . $e->getMessage());
 		}
 		return $ok;
 	}
@@ -118,11 +126,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if ($this->pdo->inTransaction()) {
 			$this->pdo->commit();
 		}
-		Minz_Log::warning(__METHOD__ . ': ' . $name);
+		Log::warning(__METHOD__ . ': ' . $name);
 		require APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
 		$isMySQL = false;
 		if ($this->pdo->dbType() === 'mysql') {
-			$databaseDao = new FreshRSS_DatabaseDAO();
+			$databaseDao = new DatabaseDAO();
 			$isMySQL = !$databaseDao->isMariaDB();
 		}
 		$result = false;
@@ -136,7 +144,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			} elseif ($name === 'lastUserModified') {	//v1.28.0
 				$sql = $GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'];
 				if (!is_string($sql)) {
-					throw new Exception('ALTER_TABLE_ENTRY_LAST_USER_MODIFIED is not a string!');
+					throw new \Exception('ALTER_TABLE_ENTRY_LAST_USER_MODIFIED is not a string!');
 				}
 				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/9.6/en/alter-table.html
 					$sql = str_replace(' IF NOT EXISTS ', ' ', $sql);
@@ -145,7 +153,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			} elseif ($name === 'lastModified') {	//v1.29.0
 				$sql = $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] ?? null;
 				if (!is_string($sql)) {
-					throw new Exception('ALTER_TABLE_ENTRY_LAST_MODIFIED is not a string!');
+					throw new \Exception('ALTER_TABLE_ENTRY_LAST_MODIFIED is not a string!');
 				}
 				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/9.6/en/alter-table.html
 					$sql = str_replace(' IF NOT EXISTS ', ' ', $sql);
@@ -153,10 +161,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$result = $this->pdo->exec($sql);
 			}
 			if ($result === false) {
-				Minz_Log::error(__METHOD__ . ' error: ' . json_encode($this->pdo->errorInfo()));
+				Log::error(__METHOD__ . ' error: ' . json_encode($this->pdo->errorInfo()));
 			}
-		} catch (Exception $e) {
-			Minz_Log::error(__METHOD__ . ' error: ' . $e->getMessage());
+		} catch (\Exception $e) {
+			Log::error(__METHOD__ . ' error: ' . $e->getMessage());
 		}
 		return $result !== false;
 	}
@@ -165,7 +173,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	/** @param array{0:string,1:int,2:string} $errorInfo */
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
+			if ($errorInfo[0] === DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
 				foreach (['attributes', 'lastUserModified', 'lastModified'] as $column) {
 					if (str_contains($errorLines[0], $column)) {
@@ -176,7 +184,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 		if (isset($errorInfo[1])) {
 			// May be a string or an int
-			if ($errorInfo[1] == FreshRSS_DatabaseDAO::ER_DATA_TOO_LONG) {
+			if ($errorInfo[1] == DatabaseDAO::ER_DATA_TOO_LONG) {
 				if (str_contains($errorInfo[2], 'content_bin')) {
 					return $this->updateToMediumBlob();	//v1.15.0
 				}
@@ -185,7 +193,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return false;
 	}
 
-	private PDOStatement|null|false $addEntryPrepared = null;
+	private \PDOStatement|null|false $addEntryPrepared = null;
 
 	/** @param array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,hash:string,
 	 *		is_read:bool|int|null,is_favorite:bool|int|null,id_feed:int,tags:string,attributes?:null|string|array<string,mixed>} $valuesTmp */
@@ -218,16 +226,16 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 16383);
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 			$this->addEntryPrepared->bindValue(':link', $valuesTmp['link']);
-			$this->addEntryPrepared->bindValue(':date', $valuesTmp['date'], PDO::PARAM_INT);
+			$this->addEntryPrepared->bindValue(':date', $valuesTmp['date'], \PDO::PARAM_INT);
 			if (empty($valuesTmp['lastSeen'])) {
 				$valuesTmp['lastSeen'] = time();
 			}
-			$this->addEntryPrepared->bindValue(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+			$this->addEntryPrepared->bindValue(':last_seen', $valuesTmp['lastSeen'], \PDO::PARAM_INT);
 			$valuesTmp['is_read'] = $valuesTmp['is_read'] ? 1 : 0;
-			$this->addEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'], PDO::PARAM_INT);
+			$this->addEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'], \PDO::PARAM_INT);
 			$valuesTmp['is_favorite'] = $valuesTmp['is_favorite'] ? 1 : 0;
-			$this->addEntryPrepared->bindValue(':is_favorite', $valuesTmp['is_favorite'], PDO::PARAM_INT);
-			$this->addEntryPrepared->bindValue(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
+			$this->addEntryPrepared->bindValue(':is_favorite', $valuesTmp['is_favorite'], \PDO::PARAM_INT);
+			$this->addEntryPrepared->bindValue(':id_feed', $valuesTmp['id_feed'], \PDO::PARAM_INT);
 			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 2048, 'UTF-8');
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
 			$this->addEntryPrepared->bindValue(':tags', $valuesTmp['tags']);
@@ -255,7 +263,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$this->addEntryPrepared = null;
 				return $this->addEntry($valuesTmp);
 			} elseif ((int)((int)$info[0] / 1000) !== 23) {	//Filter out "SQLSTATE Class code 23: Constraint Violation" because of expected duplicate entries
-				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info)
+				Log::error('SQL error ' . __METHOD__ . json_encode($info)
 					. ' while adding entry in feed ' . $valuesTmp['id_feed'] . ' with title: ' . $valuesTmp['title']);
 			}
 			return false;
@@ -287,7 +295,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		return $result;
 	}
 
-	private PDOStatement|null|false $updateEntryPrepared = null;
+	private \PDOStatement|null|false $updateEntryPrepared = null;
 
 	/**
 	 * @param array{id:string,guid:string,title:string,author:string,content:string,link:string,
@@ -338,29 +346,29 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$valuesTmp['link'] = substr($valuesTmp['link'], 0, 16383);
 			$valuesTmp['link'] = safe_ascii($valuesTmp['link']);
 			$this->updateEntryPrepared->bindValue(':link', $valuesTmp['link']);
-			$this->updateEntryPrepared->bindValue(':date', $valuesTmp['date'], PDO::PARAM_INT);
-			$this->updateEntryPrepared->bindValue(':last_seen', $valuesTmp['lastSeen'], PDO::PARAM_INT);
+			$this->updateEntryPrepared->bindValue(':date', $valuesTmp['date'], \PDO::PARAM_INT);
+			$this->updateEntryPrepared->bindValue(':last_seen', $valuesTmp['lastSeen'], \PDO::PARAM_INT);
 			if ($valuesTmp['lastModified'] === null) {
-				$this->updateEntryPrepared->bindValue(':last_modified', null, PDO::PARAM_NULL);
+				$this->updateEntryPrepared->bindValue(':last_modified', null, \PDO::PARAM_NULL);
 			} else {
-				$this->updateEntryPrepared->bindValue(':last_modified', $valuesTmp['lastModified'], PDO::PARAM_INT);
+				$this->updateEntryPrepared->bindValue(':last_modified', $valuesTmp['lastModified'], \PDO::PARAM_INT);
 			}
 			if ($valuesTmp['lastUserModified'] === null) {
-				$this->updateEntryPrepared->bindValue(':last_user_modified', null, PDO::PARAM_NULL);
+				$this->updateEntryPrepared->bindValue(':last_user_modified', null, \PDO::PARAM_NULL);
 			} else {
-				$this->updateEntryPrepared->bindValue(':last_user_modified', $valuesTmp['lastUserModified'], PDO::PARAM_INT);
+				$this->updateEntryPrepared->bindValue(':last_user_modified', $valuesTmp['lastUserModified'], \PDO::PARAM_INT);
 			}
 			if ($valuesTmp['is_read'] === null) {
-				$this->updateEntryPrepared->bindValue(':is_read', null, PDO::PARAM_NULL);
+				$this->updateEntryPrepared->bindValue(':is_read', null, \PDO::PARAM_NULL);
 			} else {
-				$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, PDO::PARAM_INT);
+				$this->updateEntryPrepared->bindValue(':is_read', $valuesTmp['is_read'] ? 1 : 0, \PDO::PARAM_INT);
 			}
 			if ($valuesTmp['is_favorite'] === null) {
-				$this->updateEntryPrepared->bindValue(':is_favorite', null, PDO::PARAM_NULL);
+				$this->updateEntryPrepared->bindValue(':is_favorite', null, \PDO::PARAM_NULL);
 			} else {
-				$this->updateEntryPrepared->bindValue(':is_favorite', $valuesTmp['is_favorite'] ? 1 : 0, PDO::PARAM_INT);
+				$this->updateEntryPrepared->bindValue(':is_favorite', $valuesTmp['is_favorite'] ? 1 : 0, \PDO::PARAM_INT);
 			}
-			$this->updateEntryPrepared->bindValue(':id_feed', $valuesTmp['id_feed'], PDO::PARAM_INT);
+			$this->updateEntryPrepared->bindValue(':id_feed', $valuesTmp['id_feed'], \PDO::PARAM_INT);
 			$valuesTmp['tags'] = mb_strcut($valuesTmp['tags'], 0, 2048, 'UTF-8');
 			$valuesTmp['tags'] = safe_utf8($valuesTmp['tags']);
 			$this->updateEntryPrepared->bindValue(':tags', $valuesTmp['tags']);
@@ -389,7 +397,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateEntry($valuesTmp);
 			}
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info)
+			Log::error('SQL error ' . __METHOD__ . json_encode($info)
 				. ' while updating entry with GUID ' . $valuesTmp['guid'] . ' in feed ' . $valuesTmp['id_feed']);
 			return false;
 		}
@@ -420,11 +428,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if (count($ids) < 1) {
 			return 0;
 		}
-		FreshRSS_UserDAO::touch();
-		if (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+		UserDAO::touch();
+		if (count($ids) > DatabaseDAO::MAX_VARIABLE_NUMBER) {
 			// Split a query with too many variables parameters
 			$affected = 0;
-			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+			$idsChunks = array_chunk($ids, DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($idsChunks as $idsChunk) {
 				$affected += ($this->markFavorite($idsChunk, $is_favorite) ?: 0);
 			}
@@ -441,11 +449,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$values = array_merge($values, $ids);
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
-			Minz_ExtensionManager::callHook(Minz_HookType::EntriesFavorite, $ids, $is_favorite);
+			ExtensionManager::callHook(HookType::EntriesFavorite, $ids, $is_favorite);
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -478,13 +486,13 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		}
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false &&
-			($catId == null || $stm->bindValue(':cat_id', $catId, PDO::PARAM_INT)) &&
-			($feedId == null || $stm->bindValue(':feed_id', $feedId, PDO::PARAM_INT)) &&
+			($catId == null || $stm->bindValue(':cat_id', $catId, \PDO::PARAM_INT)) &&
+			($feedId == null || $stm->bindValue(':feed_id', $feedId, \PDO::PARAM_INT)) &&
 			 $stm->execute()) {
 			return true;
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -504,17 +512,17 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 					$affected += ($this->markRead($id, $is_read) ?: 0);
 				}
 				return $affected;
-			} elseif (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+			} elseif (count($ids) > DatabaseDAO::MAX_VARIABLE_NUMBER) {
 				// Split a query with too many variables parameters
 				$affected = 0;
-				$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+				$idsChunks = array_chunk($ids, DatabaseDAO::MAX_VARIABLE_NUMBER);
 				foreach ($idsChunks as $idsChunk) {
 					$affected += ($this->markRead($idsChunk, $is_read) ?: 0);
 				}
 				return $affected;
 			}
 
-			FreshRSS_UserDAO::touch();
+			UserDAO::touch();
 			$idPlaceholders = str_repeat('?,', count($ids) - 1) . '?';
 			$sql = <<<SQL
 				UPDATE `_entry`
@@ -530,7 +538,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				if ($this->autoUpdateDb($info)) {
 					return $this->markRead($ids, $is_read);
 				} else {
-					Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
+					Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
 					return false;
 				}
 			}
@@ -539,11 +547,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				return false;
 			}
 			if ($affected > 0) {
-				Minz_ExtensionManager::callHook(Minz_HookType::EntriesRead, $ids, $is_read);
+				ExtensionManager::callHook(HookType::EntriesRead, $ids, $is_read);
 			}
 			return $affected;
 		} else {
-			FreshRSS_UserDAO::touch();
+			UserDAO::touch();
 			$delta = $is_read ? '-1' : '+1';
 			$sql = <<<SQL
 				UPDATE `_entry` e INNER JOIN `_feed` f ON e.id_feed=f.id
@@ -553,14 +561,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				SQL;
 			$stm = $this->pdo->prepare($sql);
 			if ($stm !== false &&
-				$stm->bindValue(':is_read', $is_read ? 1 : 0, PDO::PARAM_INT) &&
-				$stm->bindValue(':last_user_modified', time(), PDO::PARAM_INT) &&
-				$stm->bindValue(':id', $ids, PDO::PARAM_STR) &&	// TODO: Test PDO::PARAM_INT on 32-bit platform
-				$stm->bindValue(':old_is_read', $is_read ? 0 : 1, PDO::PARAM_INT) &&
+				$stm->bindValue(':is_read', $is_read ? 1 : 0, \PDO::PARAM_INT) &&
+				$stm->bindValue(':last_user_modified', time(), \PDO::PARAM_INT) &&
+				$stm->bindValue(':id', $ids, \PDO::PARAM_STR) &&	// TODO: Test \PDO::PARAM_INT on 32-bit platform
+				$stm->bindValue(':old_is_read', $is_read ? 0 : 1, \PDO::PARAM_INT) &&
 				$stm->execute()) {
 				$affected = $stm->rowCount();
 				if ($affected > 0) {
-					Minz_ExtensionManager::callHook(Minz_HookType::EntriesRead, [$ids], $is_read);
+					ExtensionManager::callHook(HookType::EntriesRead, [$ids], $is_read);
 				}
 				return $affected;
 			} else {
@@ -569,7 +577,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				if ($this->autoUpdateDb($info)) {
 					return $this->markRead($ids, $is_read);
 				} else {
-					Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
+					Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
 					return false;
 				}
 			}
@@ -590,11 +598,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * @return int|false affected rows
 	 */
 	public function markReadEntries(string $idMax = '0', bool $onlyFavorites = false, ?int $priorityMin = null, ?int $priorityMax = null,
-		?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
-		FreshRSS_UserDAO::touch();
+		?BooleanSearch $filters = null, int $state = 0, bool $is_read = true) {
+		UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = uTimeString();
-			Minz_Log::debug('Calling markReadEntries(0) is deprecated!');
+			Log::debug('Calling markReadEntries(0) is deprecated!');
 		}
 
 		$sql = <<<'SQL'
@@ -632,7 +640,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->pdo->prepare($sql . $search);
 		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -654,12 +662,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * @param int $priorityMin minimum feed priority to include
 	 * @return int|false affected rows
 	 */
-	public function markReadCat(int $id, string $idMax = '0', int $priorityMin = FreshRSS_Feed::PRIORITY_CATEGORY,
-		?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
-		FreshRSS_UserDAO::touch();
+	public function markReadCat(int $id, string $idMax = '0', int $priorityMin = Feed::PRIORITY_CATEGORY,
+		?BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
+		UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = uTimeString();
-			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
+			Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
 		$sql = <<<'SQL'
@@ -668,14 +676,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			WHERE is_read <> ? AND id <= ?
 			AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=? AND f.priority >= ? AND f.priority < ?)
 			SQL;
-		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax, $id, $priorityMin, FreshRSS_Feed::PRIORITY_IMPORTANT];
+		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax, $id, $priorityMin, Feed::PRIORITY_IMPORTANT];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -696,11 +704,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * @param numeric-string $idMax fail safe article ID
 	 * @return int|false affected rows
 	 */
-	public function markReadFeed(int $id_feed, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
-		FreshRSS_UserDAO::touch();
+	public function markReadFeed(int $id_feed, string $idMax = '0', ?BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
+		UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = uTimeString();
-			Minz_Log::debug('Calling markReadFeed(0) is deprecated!');
+			Log::debug('Calling markReadFeed(0) is deprecated!');
 		}
 		$hadTransaction = $this->pdo->inTransaction();
 		if (!$hadTransaction) {
@@ -719,7 +727,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->pdo->prepare($sql . $search);
 		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info) . ' with SQL: ' . $sql . $search);
+			Log::error('SQL error ' . __METHOD__ . json_encode($info) . ' with SQL: ' . $sql . $search);
 			$this->pdo->rollBack();
 			return false;
 		}
@@ -733,10 +741,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				SQL;
 			$stm = $this->pdo->prepare($sql);
 			if (!($stm !== false &&
-				$stm->bindValue(':id', $id_feed, PDO::PARAM_INT) &&
+				$stm->bindValue(':id', $id_feed, \PDO::PARAM_INT) &&
 				$stm->execute())) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+				Log::error('SQL error ' . __METHOD__ . json_encode($info));
 				$this->pdo->rollBack();
 				return false;
 			}
@@ -754,12 +762,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * @param numeric-string $idMax max article ID
 	 * @return int|false affected rows
 	 */
-	public function markReadTag(int $id = 0, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null,
+	public function markReadTag(int $id = 0, string $idMax = '0', ?BooleanSearch $filters = null,
 		int $state = 0, bool $is_read = true) {
-		FreshRSS_UserDAO::touch();
+		UserDAO::touch();
 		if ($idMax == '0') {
 			$idMax = uTimeString();
-			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
+			Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
 		$tagCondition = $id == 0 ? '' : 'et.id_tag = ? AND ';
@@ -780,7 +788,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->pdo->prepare($sql . $search);
 		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -842,8 +850,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$sql .= "\n" . <<<'SQL'
 				OR `lastSeen` < :max_last_seen
 				SQL;
-			$now = new DateTime('now');
-			$now->sub(new DateInterval($options['keep_period']));
+			$now = new \DateTime('now');
+			$now->sub(new \DateInterval($options['keep_period']));
 			$params[':max_last_seen'] = $now->format('U');
 		}
 		if (!empty($options['keep_max']) && $options['keep_max'] > 0) {
@@ -869,18 +877,18 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($this->autoUpdateDb($info)) {
 				return $this->cleanOldEntries($id_feed, $options);
 			}
-			Minz_Log::error(__METHOD__ . ' error:' . json_encode($info));
+			Log::error(__METHOD__ . ' error:' . json_encode($info));
 			return false;
 		}
 	}
 
 	/**
 	 * @param 'ASC'|'DESC' $order
-	 * @return Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,
+	 * @return \Traversable<array{id:string,guid:string,title:string,author:string,content:string,link:string,
 	 * 	date:int,lastSeen:int,lastModified:int,lastUserModified:int,
 	 *	hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string}>
 	 */
-	public function selectAll(string $order = 'ASC', int $limit = -1, int $offset = 0): Traversable {
+	public function selectAll(string $order = 'ASC', int $limit = -1, int $offset = 0): \Traversable {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$hash = static::sqlHexEncode('hash');
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'ASC';
@@ -893,7 +901,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
-			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
+			while (is_array($row = $stm->fetch(\PDO::FETCH_ASSOC))) {
 				/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,lastSeen:int,lastModified:int,lastUserModified:int,
 				 *	hash:string,is_read:bool,is_favorite:bool,id_feed:int,tags:string,attributes:?string} $row */
 				yield $row;
@@ -904,12 +912,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($this->autoUpdateDb($info)) {
 				yield from $this->selectAll($order, $limit, $offset);
 			} else {
-				Minz_Log::error(__METHOD__ . ' error: ' . json_encode($info));
+				Log::error(__METHOD__ . ' error: ' . json_encode($info));
 			}
 		}
 	}
 
-	public function searchByGuid(int $id_feed, string $guid): ?FreshRSS_Entry {
+	public function searchByGuid(int $id_feed, string $guid): ?Entry {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';
 		$hash = static::sqlHexEncode('hash');
@@ -924,10 +932,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		 *		lastSeen:int,lastModified:int,lastUserModified:int,hash:string,is_read:int,is_favorite:int,id_feed:int,
 		 * 		tags:string,attributes:?string,
 		 * 		content_length:int}> $res */
-		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
+		return isset($res[0]) ? Entry::fromArray($res[0]) : null;
 	}
 
-	public function searchById(string $id): ?FreshRSS_Entry {
+	public function searchById(string $id): ?Entry {
 		$content = static::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
 		$contentLength = 'LENGTH(' . (static::isCompressed() ? 'content_bin' : 'content') . ') AS content_length';
 		$hash = static::sqlHexEncode('hash');
@@ -942,7 +950,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		 *		lastSeen:int,lastModified:int,lastUserModified:int,hash:string,is_read:int,is_favorite:int,id_feed:int,
 		 * 		tags:string,attributes:?string,
 		 * 		content_length:int}> $res */
-		return isset($res[0]) ? FreshRSS_Entry::fromArray($res[0]) : null;
+		return isset($res[0]) ? Entry::fromArray($res[0]) : null;
 	}
 
 	public function searchIdByGuid(int $id_feed, string $guid): ?string {
@@ -954,7 +962,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	}
 
 	/** @return array{0:list<int|string>,1:string} */
-	public static function sqlBooleanSearch(string $alias, FreshRSS_BooleanSearch $filters, int $level = 0): array {
+	public static function sqlBooleanSearch(string $alias, BooleanSearch $filters, int $level = 0): array {
 		$search = '';
 		$values = [];
 
@@ -963,7 +971,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($filter == null) {
 				continue;
 			}
-			if ($filter instanceof FreshRSS_BooleanSearch) {
+			if ($filter instanceof BooleanSearch) {
 				// BooleanSearches are combined by AND (default) or OR (special case) operator and are recursive
 				[$filterValues, $filterSearch] = self::sqlBooleanSearch($alias, $filter, $level + 1);
 				$filterSearch = trim($filterSearch);
@@ -1398,37 +1406,37 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * @param 'ASC'|'DESC' $secondary_sort_order
 	 * @return array{0:list<int|string>,1:string}
 	 */
-	protected function sqlListEntriesWhere(string $alias = '', int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
+	protected function sqlListEntriesWhere(string $alias = '', int $state = Entry::STATE_ALL, ?BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
 		string $continuation_id = '0', array $continuation_values = [],
 		string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): array {
 		$search = ' ';
 		$values = [];
-		if ($state & FreshRSS_Entry::STATE_ANDS) {
-			if ($state & FreshRSS_Entry::STATE_NOT_READ) {
-				if (!($state & FreshRSS_Entry::STATE_READ)) {
+		if ($state & Entry::STATE_ANDS) {
+			if ($state & Entry::STATE_NOT_READ) {
+				if (!($state & Entry::STATE_READ)) {
 					$search .= 'AND (' . $alias . 'is_read=0) ';
 				}
-			} elseif ($state & FreshRSS_Entry::STATE_READ) {
+			} elseif ($state & Entry::STATE_READ) {
 				$search .= 'AND (' . $alias . 'is_read=1) ';
 			}
-			if ($state & FreshRSS_Entry::STATE_FAVORITE) {
-				if (!($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) {
+			if ($state & Entry::STATE_FAVORITE) {
+				if (!($state & Entry::STATE_NOT_FAVORITE)) {
 					$search .= 'AND (' . $alias . 'is_favorite=1) ';
 				}
-			} elseif ($state & FreshRSS_Entry::STATE_NOT_FAVORITE) {
+			} elseif ($state & Entry::STATE_NOT_FAVORITE) {
 				$search .= 'AND (' . $alias . 'is_favorite=0) ';
 			}
 		}
-		if ($state & FreshRSS_Entry::STATE_ORS) {
+		if ($state & Entry::STATE_ORS) {
 			if (trim($search) === '') {
 				$search = 'AND (1=0) ';
 			}
-			if ($state & FreshRSS_Entry::STATE_OR_NOT_READ) {
+			if ($state & Entry::STATE_OR_NOT_READ) {
 				$search = rtrim($search, ') ');
 				$search .= ' OR ' . $alias . 'is_read=0) ';
 			}
-			if ($state & FreshRSS_Entry::STATE_OR_FAVORITE) {
+			if ($state & Entry::STATE_OR_FAVORITE) {
 				$search = rtrim($search, ') ');
 				$search .= ' OR ' . $alias . 'is_favorite=1) ';
 			}
@@ -1537,36 +1545,36 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * @param 'id'|'date'|'link'|'title' $secondary_sort
 	 * @param 'ASC'|'DESC' $secondary_sort_order
 	 * @return array{0:list<int|string>,1:string}
-	 * @throws FreshRSS_EntriesGetter_Exception
+	 * @throws EntriesGetterException
 	 */
-	private function sqlListWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
+	private function sqlListWhere(string $type = 'a', int $id = 0, int $state = Entry::STATE_ALL, ?BooleanSearch $filters = null,
 			string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
 			string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0,
 			string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): array {
 		if (!$state) {
-			$state = FreshRSS_Entry::STATE_ALL;
+			$state = Entry::STATE_ALL;
 		}
 		$where = '';
 		$values = [];
 		switch ($type) {
 			case 'a':	// All PRIORITY_MAIN_STREAM
 				$where .= 'f.priority >= ' .
-					min(FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
+					min(Feed::PRIORITY_MAIN_STREAM, Context::$search->needVisibility() ?? Feed::PRIORITY_IMPORTANT) . ' ';
 				break;
 			case 'A':	// All except PRIORITY_HIDDEN
 				$where .= 'f.priority >= ' .
-					min(FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
+					min(Feed::PRIORITY_CATEGORY, Context::$search->needVisibility() ?? Feed::PRIORITY_IMPORTANT) . ' ';
 				break;
 			case 'Z':	// All including PRIORITY_HIDDEN
 				$where .= '1=1 ';
 				break;
 			case 'i':	// Priority important feeds
 				$where .= 'f.priority >= ' .
-					min(FreshRSS_Feed::PRIORITY_IMPORTANT, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
+					min(Feed::PRIORITY_IMPORTANT, Context::$search->needVisibility() ?? Feed::PRIORITY_IMPORTANT) . ' ';
 				break;
 			case 's':	// Starred. Deprecated: use $state instead
 				$where .= 'f.priority > ' .
-					min(FreshRSS_Feed::PRIORITY_HIDDEN, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
+					min(Feed::PRIORITY_HIDDEN, Context::$search->needVisibility() ?? Feed::PRIORITY_IMPORTANT) . ' ';
 				$where .= 'AND e.is_favorite=1 ';
 				break;
 			case 'S':	// Starred
@@ -1574,7 +1582,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				break;
 			case 'c':	// Category
 				$where .= 'f.priority >= ' .
-					min(FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
+					min(Feed::PRIORITY_CATEGORY, Context::$search->needVisibility() ?? Feed::PRIORITY_IMPORTANT) . ' ';
 				$where .= 'AND f.category=? ';
 				$values[] = $id;
 				break;
@@ -1593,7 +1601,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$where .= 'e.is_favorite=1 OR EXISTS (SELECT et2.id_tag FROM `_entrytag` et2 WHERE et2.id_entry = e.id) ';
 				break;
 			default:
-				throw new FreshRSS_EntriesGetter_Exception('Bad type in Entry->listByType: [' . $type . ']!');
+				throw new EntriesGetterException('Bad type in Entry->listByType: [' . $type . ']!');
 		}
 
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
@@ -1660,12 +1668,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * @param list<string|int> $continuation_values
 	 * @param 'id'|'date'|'link'|'title' $secondary_sort
 	 * @param 'ASC'|'DESC' $secondary_sort_order
-	 * @throws FreshRSS_EntriesGetter_Exception
+	 * @throws EntriesGetterException
 	 */
-	private function listWhereRaw(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
+	private function listWhereRaw(string $type = 'a', int $id = 0, int $state = Entry::STATE_ALL, ?BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
 		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0,
-		string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): PDOStatement|false {
+		string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): \PDOStatement|false {
 		$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		$secondary_sort_order = in_array($secondary_sort_order, ['ASC', 'DESC'], true) ? $secondary_sort_order : 'DESC';
 
@@ -1730,19 +1738,19 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false) {
 			foreach ($values as $index => $value) {
-				$paramType = PDO::PARAM_STR;
+				$paramType = \PDO::PARAM_STR;
 				if (is_null($value)) {	// @phpstan-ignore function.impossibleType (defensive)
-					$paramType = PDO::PARAM_NULL;
+					$paramType = \PDO::PARAM_NULL;
 				} elseif (is_int($value) || is_bool($value)) {	// @phpstan-ignore function.impossibleType (defensive)
-					$paramType = PDO::PARAM_INT;
+					$paramType = \PDO::PARAM_INT;
 				}
 				$stm->bindValue($index + 1, $value, $paramType);
 			}
 		}
 		if ($stm !== false && $stm->execute()) {
 			// TODO: Consider adding an option for SQL debugging
-			// Minz_Log::debug('SQL params ' . __METHOD__ . ' ' . json_encode($values));
-			// Minz_Log::debug('SQL query ' . __METHOD__ . ' ' . json_encode($sql));
+			// Log::debug('SQL params ' . __METHOD__ . ' ' . json_encode($values));
+			// Log::debug('SQL query ' . __METHOD__ . ' ' . json_encode($sql));
 			return $stm;
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
@@ -1751,8 +1759,8 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				return $this->listWhereRaw($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
 					continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
 			}
-			Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($info));
-			Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($sql));
+			Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($sql));
 			return false;
 		}
 	}
@@ -1768,22 +1776,22 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * @param list<string|int> $continuation_values
 	 * @param 'id'|'date'|'link'|'title' $secondary_sort
 	 * @param 'ASC'|'DESC' $secondary_sort_order
-	 * @return Traversable<FreshRSS_Entry>
-	 * @throws FreshRSS_EntriesGetter_Exception
+	 * @return \Traversable<Entry>
+	 * @throws EntriesGetterException
 	 */
-	public function listWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
+	public function listWhere(string $type = 'a', int $id = 0, int $state = Entry::STATE_ALL, ?BooleanSearch $filters = null,
 			string $id_min = '0', string $id_max = '0', string $sort = 'id', string $order = 'DESC',
 			string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0,
-			string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): Traversable {
+			string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): \Traversable {
 		$stm = $this->listWhereRaw($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
 			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset,
 			secondary_sort: $secondary_sort, secondary_sort_order: $secondary_sort_order);
 		if ($stm !== false) {
-			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
+			while (is_array($row = $stm->fetch(\PDO::FETCH_ASSOC))) {
 				/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
 				 * 		lastSeen:int,lastModified:int,lastUserModified:int,hash:string,is_read:int,is_favorite:int,id_feed:int,
 				 * 		tags:string,attributes:?string} $row */
-				yield FreshRSS_Entry::fromArray($row);
+				yield Entry::fromArray($row);
 			}
 		}
 	}
@@ -1792,15 +1800,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * For API.
 	 * @param array<numeric-string> $ids
 	 * @param 'ASC'|'DESC' $order
-	 * @return Traversable<FreshRSS_Entry>
+	 * @return \Traversable<Entry>
 	 */
-	public function listByIds(array $ids, string $order = 'DESC'): Traversable {
+	public function listByIds(array $ids, string $order = 'DESC'): \Traversable {
 		if (count($ids) < 1) {
 			return;
 		}
-		if (count($ids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+		if (count($ids) > DatabaseDAO::MAX_VARIABLE_NUMBER) {
 			// Split a query with too many variables parameters
-			$idsChunks = array_chunk($ids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+			$idsChunks = array_chunk($ids, DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($idsChunks as $idsChunk) {
 				foreach ($this->listByIds($idsChunk, order: $order) as $entry) {
 					yield $entry;
@@ -1822,14 +1830,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->pdo->prepare($sql);
 		if ($stm === false || !$stm->execute($ids)) {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return;
 		}
-		while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
+		while (is_array($row = $stm->fetch(\PDO::FETCH_ASSOC))) {
 			/** @var array{id:string,guid:string,title:string,author:string,content:string,link:string,date:int,
 			 * 		lastSeen:int,lastModified:int,lastUserModified:int,hash:string,is_read:int,is_favorite:int,id_feed:int,
 			 * 		tags:string,attributes:?string} $row */
-			yield FreshRSS_Entry::fromArray($row);
+			yield Entry::fromArray($row);
 		}
 	}
 
@@ -1844,9 +1852,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * @param 'id'|'date'|'link'|'title' $secondary_sort
 	 * @param 'ASC'|'DESC' $secondary_sort_order
 	 * @return list<numeric-string>|null
-	 * @throws FreshRSS_EntriesGetter_Exception
+	 * @throws EntriesGetterException
 	 */
-	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = FreshRSS_Entry::STATE_ALL, ?FreshRSS_BooleanSearch $filters = null,
+	public function listIdsWhere(string $type = 'a', int $id = 0, int $state = Entry::STATE_ALL, ?BooleanSearch $filters = null,
 		string $id_min = '0', string $id_max = '0', string $order = 'DESC',
 		string $continuation_id = '0', array $continuation_values = [], int $limit = 1, int $offset = 0,
 		string $secondary_sort = 'id', string $secondary_sort_order = 'DESC'): ?array {
@@ -1856,13 +1864,13 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
 			/** @var list<int|numeric-string> $res */
-			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			$res = $stm->fetchAll(\PDO::FETCH_COLUMN, 0);
 			$res = array_map('strval', $res);
 			/** @var list<numeric-string> $res */
 			return $res;
 		}
 		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+		Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return null;
 	}
 
@@ -1870,7 +1878,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	 * Get feed IDs that have entries matching the given state and search filters.
 	 * @return array<int,int> The keys are feed IDs, and the values are the number of matching entries for that feed.
 	 */
-	public function listFeedIdsMatching(int $state, ?FreshRSS_BooleanSearch $filters = null): array {
+	public function listFeedIdsMatching(int $state, ?BooleanSearch $filters = null): array {
 		[$values, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters);
 		$sql = <<<SQL
 			SELECT e.id_feed, COUNT(*) AS count FROM `_entry` e
@@ -1900,9 +1908,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$result = [];
 		if (count($guids) < 1) {
 			return $result;
-		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+		} elseif (count($guids) > DatabaseDAO::MAX_VARIABLE_NUMBER) {
 			// Split a query with too many variables parameters
-			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+			$guidsChunks = array_chunk($guids, DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($guidsChunks as $guidsChunk) {
 				$result += $this->listHashForFeedGuids($id_feed, $guidsChunk);
 			}
@@ -1920,7 +1928,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$values = [$id_feed];
 		$values = array_merge($values, $guids);
 		if ($stm !== false && $stm->execute($values)) {
-			$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+			$rows = $stm->fetchAll(\PDO::FETCH_ASSOC);
 			foreach ($rows as $row) {
 				/** @var array{guid:string,hex_hash:string} $row */
 				$result[$row['guid']] = $row['hex_hash'];
@@ -1928,7 +1936,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return $result;
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info)
+			Log::error('SQL error ' . __METHOD__ . json_encode($info)
 				. ' while querying feed ' . $id_feed);
 			return [];
 		}
@@ -1941,10 +1949,10 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function updateLastSeen(int $id_feed, array $guids, int $mtime = 0): int|false {
 		if (count($guids) < 1) {
 			return 0;
-		} elseif (count($guids) > FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER) {
+		} elseif (count($guids) > DatabaseDAO::MAX_VARIABLE_NUMBER) {
 			// Split a query with too many variables parameters
 			$affected = 0;
-			$guidsChunks = array_chunk($guids, FreshRSS_DatabaseDAO::MAX_VARIABLE_NUMBER);
+			$guidsChunks = array_chunk($guids, DatabaseDAO::MAX_VARIABLE_NUMBER);
 			foreach ($guidsChunks as $guidsChunk) {
 				$affected += ($this->updateLastSeen($id_feed, $guidsChunk, $mtime) ?: 0);
 			}
@@ -1969,7 +1977,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info)
+			Log::error('SQL error ' . __METHOD__ . json_encode($info)
 				. ' while updating feed ' . $id_feed);
 			return false;
 		}
@@ -1978,7 +1986,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	/**
 	 * Update (touch) the last seen attribute of the latest entries of a given feed.
 	 * Useful when a feed is unchanged / cached.
-	 * To be performed just before {@see FreshRSS_FeedDAO::updateLastUpdate()}
+	 * To be performed just before {@see FeedDAO::updateLastUpdate()}
 	 * @return int|false The number of affected entries, or false in case of error
 	 */
 	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0): int|false {
@@ -1994,14 +2002,14 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			$mtime = time();
 		}
 		if ($stm !== false &&
-			$stm->bindValue(':mtime', $mtime, PDO::PARAM_INT) &&
-			$stm->bindValue(':id_feed1', $id_feed, PDO::PARAM_INT) &&
-			$stm->bindValue(':id_feed2', $id_feed, PDO::PARAM_INT) &&
+			$stm->bindValue(':mtime', $mtime, \PDO::PARAM_INT) &&
+			$stm->bindValue(':id_feed1', $id_feed, \PDO::PARAM_INT) &&
+			$stm->bindValue(':id_feed2', $id_feed, \PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info) . ' while updating feed ' . $id_feed);
+			Log::error('SQL error ' . __METHOD__ . json_encode($info) . ' while updating feed ' . $id_feed);
 			return false;
 		}
 	}
@@ -2058,7 +2066,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			JOIN `_feed` f ON e.id_feed = f.id
 			WHERE e.is_favorite = 1 AND f.priority > :priority
 			SQL;
-		$res = $this->fetchAssoc($sql, [':priority' => FreshRSS_Feed::PRIORITY_HIDDEN]);
+		$res = $this->fetchAssoc($sql, [':priority' => Feed::PRIORITY_HIDDEN]);
 		if ($res === null || !isset($res[0])) {
 			return ['all' => -1, 'unread' => -1, 'read' => -1];
 		}

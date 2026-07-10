@@ -1,6 +1,22 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Controllers\UserController;
+use FreshRss\Minz\ConfigurationNamespaceException;
+use FreshRss\Minz\FileNotExistException;
+use FreshRss\Minz\ModelPdo;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Session;
+use FreshRss\Minz\Translate;
+use FreshRss\Minz\User;
+use FreshRss\Models\Context;
+use FreshRss\Models\Factory;
+use FreshRss\Models\SystemConfiguration;
+use FreshRss\Models\Themes;
+use FreshRss\Models\UserConfiguration;
+use FreshRss\Utils\HttpUtil;
+use FreshRss\Utils\PasswordUtil;
+
 if (isset($_SESSION) || basename(is_string($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '') !== 'index.php') {
 	header('HTTP/1.1 403 Forbidden');
 	exit('Forbidden');
@@ -14,7 +30,7 @@ header('Referrer-Policy: same-origin');
 
 require LIB_PATH . '/lib_install.php';
 
-Minz_Session::init('FreshRSS');
+Session::init('FreshRSS');
 
 if (isset($_GET['step']) && is_numeric($_GET['step'])) {
 	define('STEP', (int)$_GET['step']);
@@ -23,7 +39,7 @@ if (isset($_GET['step']) && is_numeric($_GET['step'])) {
 }
 
 if (STEP === 2 && isset($_POST['type'])) {
-	Minz_Session::_param('bd_type', $_POST['type']);
+	Session::_param('bd_type', $_POST['type']);
 }
 
 function param(string $key, string $default = ''): string {
@@ -32,18 +48,18 @@ function param(string $key, string $default = ''): string {
 
 // gestion internationalisation
 function initTranslate(): void {
-	Minz_Translate::init();
-	$available_languages = Minz_Translate::availableLanguages();
+	Translate::init();
+	$available_languages = Translate::availableLanguages();
 
-	if (Minz_Session::paramString('language') == '') {
-		Minz_Session::_param('language', get_best_language());
+	if (Session::paramString('language') == '') {
+		Session::_param('language', get_best_language());
 	}
 
-	if (!in_array(Minz_Session::paramString('language'), $available_languages, true)) {
-		Minz_Session::_param('language', Minz_Translate::DEFAULT_LANGUAGE);
+	if (!in_array(Session::paramString('language'), $available_languages, true)) {
+		Session::_param('language', Translate::DEFAULT_LANGUAGE);
 	}
 
-	Minz_Translate::reset(Minz_Session::paramString('language'));
+	Translate::reset(Session::paramString('language'));
 }
 
 function get_best_language(): string {
@@ -59,8 +75,8 @@ function saveLanguage(): bool {
 			return false;
 		}
 
-		Minz_Session::_param('language', $_POST['language']);
-		Minz_Session::_param('sessionWorking', 'ok');
+		Session::_param('language', $_POST['language']);
+		Session::_param('sessionWorking', 'ok');
 
 		header('Location: index.php?step=1');
 	}
@@ -75,21 +91,21 @@ function saveStep1(): void {
 		// with values from the previous installation
 
 		// First, we try to get previous configurations
-		FreshRSS_Context::initSystem();
-		FreshRSS_Context::initUser(FreshRSS_Context::systemConf()->default_user, false);
+		Context::initSystem();
+		Context::initUser(Context::systemConf()->default_user, false);
 
 		// Then, we set $_SESSION vars
-		Minz_Session::_params([
-				'title' => FreshRSS_Context::systemConf()->title,
-				'auth_type' => FreshRSS_Context::systemConf()->auth_type,
-				'default_user' => Minz_User::name() ?? '',
-				'passwordHash' => FreshRSS_Context::userConf()->passwordHash,
-				'bd_type' => FreshRSS_Context::systemConf()->db['type'] ?? '',
-				'bd_host' => FreshRSS_Context::systemConf()->db['host'] ?? '',
-				'bd_user' => FreshRSS_Context::systemConf()->db['user'] ?? '',
-				'bd_password' => FreshRSS_Context::systemConf()->db['password'] ?? '',
-				'bd_base' => FreshRSS_Context::systemConf()->db['base'] ?? '',
-				'bd_prefix' => FreshRSS_Context::systemConf()->db['prefix'] ?? '',
+		Session::_params([
+				'title' => Context::systemConf()->title,
+				'auth_type' => Context::systemConf()->auth_type,
+				'default_user' => User::name() ?? '',
+				'passwordHash' => Context::userConf()->passwordHash,
+				'bd_type' => Context::systemConf()->db['type'] ?? '',
+				'bd_host' => Context::systemConf()->db['host'] ?? '',
+				'bd_user' => Context::systemConf()->db['user'] ?? '',
+				'bd_password' => Context::systemConf()->db['password'] ?? '',
+				'bd_base' => Context::systemConf()->db['base'] ?? '',
+				'bd_prefix' => Context::systemConf()->db['prefix'] ?? '',
 				'bd_error' => false,
 			]);
 
@@ -99,8 +115,8 @@ function saveStep1(): void {
 
 function saveStep2(): void {
 	if (!empty($_POST)) {
-		if (Minz_Session::paramString('bd_type') === 'sqlite') {
-			Minz_Session::_params([
+		if (Session::paramString('bd_type') === 'sqlite') {
+			Session::_params([
 					'bd_base' => false,
 					'bd_host' => false,
 					'bd_user' => false,
@@ -114,9 +130,9 @@ function saveStep2(): void {
 				empty($_POST['base']) || !is_string($_POST['base']) ||
 				!is_string($_POST['pass'] ?? null) || !is_string($_POST['prefix'] ?? null)
 			) {
-				Minz_Session::_param('bd_error', 'Missing parameters!');
+				Session::_param('bd_error', 'Missing parameters!');
 			} else {
-				Minz_Session::_params([
+				Session::_params([
 					'bd_base' => substr($_POST['base'], 0, 64),
 					'bd_host' => $_POST['host'],
 					'bd_user' => $_POST['user'],
@@ -127,24 +143,24 @@ function saveStep2(): void {
 		}
 
 		// We use dirname to remove the /i part
-		$base_url = dirname(Minz_Request::guessBaseUrl());
+		$base_url = dirname(Request::guessBaseUrl());
 		$config_array = [
 			'salt' => generateSalt(),
 			'base_url' => $base_url,
 			'default_user' => '_',
 			'db' => [
-				'type' => Minz_Session::paramString('bd_type'),
-				'host' => Minz_Session::paramString('bd_host'),
-				'user' => Minz_Session::paramString('bd_user'),
-				'password' => Minz_Session::paramString('bd_password'),
-				'base' => Minz_Session::paramString('bd_base'),
-				'prefix' => Minz_Session::paramString('bd_prefix'),
+				'type' => Session::paramString('bd_type'),
+				'host' => Session::paramString('bd_host'),
+				'user' => Session::paramString('bd_user'),
+				'password' => Session::paramString('bd_password'),
+				'base' => Session::paramString('bd_base'),
+				'prefix' => Session::paramString('bd_prefix'),
 				'pdo_options' => [],
 			],
-			'pubsubhubbub_enabled' => Minz_Request::serverIsPublic($base_url),
+			'pubsubhubbub_enabled' => Request::serverIsPublic($base_url),
 		];
-		if (Minz_Session::paramString('title') != '') {
-			$config_array['title'] = Minz_Session::paramString('title');
+		if (Session::paramString('title') != '') {
+			$config_array['title'] = Session::paramString('title');
 		}
 
 		$customConfigPath = DATA_PATH . '/config.custom.php';
@@ -165,23 +181,23 @@ function saveStep2(): void {
 			opcache_reset();
 		}
 
-		FreshRSS_Context::initSystem(true);
+		Context::initSystem(true);
 
 		$ok = false;
 		try {
 			if (!is_string($config_array['default_user'])) {
 				throw new Exception('Invalid default user name');
 			}
-			Minz_User::change($config_array['default_user']);
+			User::change($config_array['default_user']);
 			$error = initDb();
-			Minz_User::change();
+			User::change();
 			if ($error != '') {
-				Minz_Session::_param('bd_error', $error);
+				Session::_param('bd_error', $error);
 			} else {
 				$ok = true;
 			}
 		} catch (Exception $ex) {
-			Minz_Session::_param('bd_error', $ex->getMessage());
+			Session::_param('bd_error', $ex->getMessage());
 			$ok = false;
 		}
 		if (!$ok) {
@@ -189,79 +205,79 @@ function saveStep2(): void {
 		}
 
 		if ($ok) {
-			Minz_Session::_param('bd_error');
+			Session::_param('bd_error');
 			header('Location: index.php?step=3');
-		} elseif (Minz_Session::paramString('bd_error') == '') {
-			Minz_Session::_param('bd_error', 'Unknown error!');
+		} elseif (Session::paramString('bd_error') == '') {
+			Session::_param('bd_error', 'Unknown error!');
 		}
 	}
 	invalidateHttpCache();
 }
 
 function saveStep3(): bool {
-	FreshRSS_Context::initSystem();
-	Minz_Translate::init(Minz_Session::paramString('language'));
+	Context::initSystem();
+	Translate::init(Session::paramString('language'));
 
 	if (!empty($_POST)) {
 		$auth_type = param('auth_type', 'form');
 		if (in_array($auth_type, ['form', 'http_auth', 'none'], true)) {
-			FreshRSS_Context::systemConf()->auth_type = $auth_type;
-			Minz_Session::_param('auth_type', FreshRSS_Context::systemConf()->auth_type);
+			Context::systemConf()->auth_type = $auth_type;
+			Session::_param('auth_type', Context::systemConf()->auth_type);
 		} else {
 			return false;
 		}
 
 		$password_plain = param('passwordPlain', '');
-		if (FreshRSS_Context::systemConf()->auth_type === 'form' && $password_plain == '') {
+		if (Context::systemConf()->auth_type === 'form' && $password_plain == '') {
 			return false;
 		}
 
-		if (FreshRSS_user_Controller::checkUsername(param('default_user', ''))) {
-			FreshRSS_Context::systemConf()->default_user = param('default_user', '');
-			Minz_Session::_param('default_user', FreshRSS_Context::systemConf()->default_user);
+		if (UserController::checkUsername(param('default_user', ''))) {
+			Context::systemConf()->default_user = param('default_user', '');
+			Session::_param('default_user', Context::systemConf()->default_user);
 		} else {
 			return false;
 		}
 
-		if (FreshRSS_Context::systemConf()->auth_type === 'http_auth' &&
-			Minz_Request::connectionRemoteAddress() !== '' &&
+		if (Context::systemConf()->auth_type === 'http_auth' &&
+			Request::connectionRemoteAddress() !== '' &&
 			empty($_SERVER['REMOTE_USER']) && empty($_SERVER['REDIRECT_REMOTE_USER']) &&	// No safe authentication HTTP headers
 			(!empty($_SERVER['HTTP_REMOTE_USER']) || !empty($_SERVER['HTTP_X_WEBAUTH_USER']))	// but has unsafe authentication HTTP headers
 		) {
 			// Trust by default the remote IP address (e.g. last proxy) used during install to provide remote user name via unsafe HTTP header
-			FreshRSS_Context::systemConf()->trusted_sources[] = Minz_Request::connectionRemoteAddress();
-			FreshRSS_Context::systemConf()->trusted_sources = array_unique(FreshRSS_Context::systemConf()->trusted_sources);
+			Context::systemConf()->trusted_sources[] = Request::connectionRemoteAddress();
+			Context::systemConf()->trusted_sources = array_unique(Context::systemConf()->trusted_sources);
 		}
 
 		// Create default user files but first, we delete previous data to
 		// avoid access right problems.
-		recursive_unlink(USERS_PATH . '/' . Minz_Session::paramString('default_user'));
+		recursive_unlink(USERS_PATH . '/' . Session::paramString('default_user'));
 
 		$ok = false;
 		try {
-			Minz_ModelPdo::$usesSharedPdo = false;
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO(Minz_User::INTERNAL_USER);
+			ModelPdo::$usesSharedPdo = false;
+			$databaseDAO = Factory::createDatabaseDAO(User::INTERNAL_USER);
 			if (!$databaseDAO->testTyping()) {
 				$message = 'Invalid PDO driver behaviour for selected database type!';
-				if (Minz_Session::paramString('bd_type') === 'mysql') {
+				if (Session::paramString('bd_type') === 'mysql') {
 					$message .= ' MySQL requires mysqlnd.';
 				}
 				throw new Exception($message);
 			}
-			Minz_ModelPdo::$usesSharedPdo = true;
+			ModelPdo::$usesSharedPdo = true;
 
-			$ok = FreshRSS_user_Controller::createUser(
-				Minz_Session::paramString('default_user'),
+			$ok = UserController::createUser(
+				Session::paramString('default_user'),
 				'',	//TODO: Add e-mail
 				$password_plain,
 				[
-					'language' => Minz_Session::paramString('language'),
+					'language' => Session::paramString('language'),
 					'is_admin' => true,
 					'enabled' => true,
 				]
 			);
 		} catch (Exception $e) {
-			Minz_Session::_param('bd_error', $e->getMessage());
+			Session::_param('bd_error', $e->getMessage());
 			$ok = false;
 		}
 		if (!$ok) {
@@ -269,7 +285,7 @@ function saveStep3(): bool {
 			return false;
 		}
 
-		FreshRSS_Context::systemConf()->save();
+		Context::systemConf()->save();
 
 		header('Location: index.php?step=4');
 	}
@@ -291,14 +307,14 @@ function checkStep(): void {
 	} elseif (STEP > 3 && $s3['all'] !== 'ok') {
 		header('Location: index.php?step=3');
 	}
-	Minz_Session::_param('actualize_feeds', true);
+	Session::_param('actualize_feeds', true);
 }
 
 /** @return array<string,string> */
 function checkStep0(): array {
-	$languages = Minz_Translate::availableLanguages();
-	$language = Minz_Session::paramString('language') != '' && in_array(Minz_Session::paramString('language'), $languages, true);
-	$sessionWorking = Minz_Session::paramString('sessionWorking') === 'ok';
+	$languages = Translate::availableLanguages();
+	$language = Session::paramString('language') != '' && in_array(Session::paramString('language'), $languages, true);
+	$sessionWorking = Session::paramString('sessionWorking') === 'ok';
 
 	return [
 		'language' => $language ? 'ok' : 'ko',
@@ -316,16 +332,16 @@ function freshrss_already_installed(): bool {
 	// A configuration file already exists, we try to load it.
 	$system_conf = null;
 	try {
-		$system_conf = FreshRSS_SystemConfiguration::init($conf_path);
-	} catch (Minz_FileNotExistException $e) {
+		$system_conf = SystemConfiguration::init($conf_path);
+	} catch (FileNotExistException $e) {
 		return false;
 	}
 
 	// ok, the global conf exists… but what about default user conf?
 	$current_user = $system_conf->default_user;
 	try {
-		FreshRSS_UserConfiguration::init(USERS_PATH . '/' . $current_user . '/config.php');
-	} catch (Minz_FileNotExistException $e) {
+		UserConfiguration::init(USERS_PATH . '/' . $current_user . '/config.php');
+	} catch (FileNotExistException $e) {
 		return false;
 	}
 
@@ -337,8 +353,8 @@ function freshrss_already_installed(): bool {
 function checkStep2(): array {
 	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
 
-	$bd = Minz_Session::paramString('bd_type') != '';
-	$conn = Minz_Session::paramString('bd_error') == '';
+	$bd = Session::paramString('bd_type') != '';
+	$conn = Session::paramString('bd_error') == '';
 
 	return [
 		'bd' => $bd ? 'ok' : 'ko',
@@ -350,13 +366,13 @@ function checkStep2(): array {
 
 /** @return array<string,string> */
 function checkStep3(): array {
-	$conf = Minz_Session::paramString('default_user') != '';
+	$conf = Session::paramString('default_user') != '';
 
-	$form = Minz_Session::paramString('auth_type') != '';
+	$form = Session::paramString('auth_type') != '';
 
 	$defaultUser = is_string($_POST['default_user'] ?? null) ? trim($_POST['default_user']) : '';
 	if ($defaultUser === '') {
-		$defaultUser = Minz_Session::paramString('default_user') == '' ? '' : Minz_Session::paramString('default_user');
+		$defaultUser = Session::paramString('default_user') == '' ? '' : Session::paramString('default_user');
 	}
 	$data = is_writable(USERS_PATH . '/' . $defaultUser . '/config.php');
 
@@ -371,8 +387,8 @@ function checkStep3(): array {
 
 /* select language */
 function printStep0(): void {
-	$actual = Minz_Translate::language();
-	$languages = Minz_Translate::availableLanguages();
+	$actual = Translate::language();
+	$languages = Translate::availableLanguages();
 	$s0 = checkStep0();
 ?>
 	<?php if ($s0['all'] === 'ok') { ?>
@@ -543,10 +559,10 @@ function printStep1(): void {
 
 /**
  * Select database & configuration
- * @throws Minz_ConfigurationNamespaceException
+ * @throws ConfigurationNamespaceException
  */
 function printStep2(): void {
-	$system_default_config = FreshRSS_SystemConfiguration::get('default_system');
+	$system_default_config = SystemConfiguration::get('default_system');
 	$s2 = checkStep2();
 	if ($s2['all'] == 'ok') { ?>
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
@@ -613,7 +629,7 @@ function printStep2(): void {
 				<div class="stick">
 					<input type="password" id="pass" name="pass" value="<?=
 						$bd_password ?? '' ?>" tabindex="4" autocomplete="off" />
-					<a class="btn toggle-password" data-toggle="pass" tabindex="5"><?= FreshRSS_Themes::icon('key') ?></a>
+					<a class="btn toggle-password" data-toggle="pass" tabindex="5"><?= Themes::icon('key') ?></a>
 				</div>
 			</div>
 		</div>
@@ -669,8 +685,8 @@ function printStep3(): void {
 			<label class="group-name" for="default_user"><?= _t('install.default_user') ?></label>
 			<div class="group-controls">
 				<input type="text" id="default_user" name="default_user" autocomplete="username" required="required" size="16"
-					pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" value="<?= $default_user ?>"
-					placeholder="<?= FreshRSS_http_Util::httpAuthUser(false) == '' ? 'alice' : FreshRSS_http_Util::httpAuthUser(false) ?>" tabindex="1" />
+					pattern="<?= UserController::USERNAME_PATTERN ?>" value="<?= $default_user ?>"
+					placeholder="<?= HttpUtil::httpAuthUser(false) == '' ? 'alice' : HttpUtil::httpAuthUser(false) ?>" tabindex="1" />
 				<p class="help"><?= _i('help') ?> <?= _t('install.default_user.max_char') ?></p>
 			</div>
 		</div>
@@ -679,12 +695,12 @@ function printStep3(): void {
 			<label class="group-name" for="auth_type"><?= _t('admin.auth.type') ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required" tabindex="2">
-					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && FreshRSS_password_Util::cryptAvailable()) ? ' selected="selected"' : '',
-						FreshRSS_password_Util::cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
+					<option value="form"<?= $auth_type === 'form' || (no_auth($auth_type) && PasswordUtil::cryptAvailable()) ? ' selected="selected"' : '',
+						PasswordUtil::cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
 					<option value="http_auth"<?= $auth_type === 'http_auth' ? ' selected="selected"' : '',
-						FreshRSS_http_Util::httpAuthUser(false) == '' ? ' disabled="disabled"' : '' ?>>
-							<?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= FreshRSS_http_Util::httpAuthUser(false) ?>')</option>
-					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !FreshRSS_password_Util::cryptAvailable()) ? ' selected="selected"' : ''
+						HttpUtil::httpAuthUser(false) == '' ? ' disabled="disabled"' : '' ?>>
+							<?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= HttpUtil::httpAuthUser(false) ?>')</option>
+					<option value="none"<?= $auth_type === 'none' || (no_auth($auth_type) && !PasswordUtil::cryptAvailable()) ? ' selected="selected"' : ''
 						?>><?= _t('admin.auth.none') ?></option>
 				</select>
 			</div>
@@ -696,7 +712,7 @@ function printStep3(): void {
 				<div class="stick">
 					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}"
 						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="3" />
-					<button type="button" class="btn toggle-password" data-toggle="passwordPlain" tabindex="4"><?= FreshRSS_Themes::icon('key') ?></button>
+					<button type="button" class="btn toggle-password" data-toggle="passwordPlain" tabindex="4"><?= Themes::icon('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>
 				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>

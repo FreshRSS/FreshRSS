@@ -3,6 +3,8 @@
 # Do not modify this file, which defines default values,
 # but instead edit `./data/config.php` after the install process is completed,
 # or edit `./data/config.custom.php` before the install process.
+use FreshRss\Models\Auth;
+
 return [
 
 	# Set to `development` to get additional error messages,
@@ -107,7 +109,7 @@ return [
 	'limits' => [
 
 		# Duration in seconds of the login cookie.
-		'cookie_duration' => FreshRSS_Auth::DEFAULT_COOKIE_DURATION,
+		'cookie_duration' => Auth::DEFAULT_COOKIE_DURATION,
 
 		# Duration in seconds of the SimplePie cache, during which a query to the RSS feed will return the local cached version.
 		# Especially important for multi-user setups.

@@ -1,8 +1,13 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	if ($this->ext_details === null) {
-		throw new FreshRSS_Context_Exception('Extension not initialised!');
+	/** @var View $this */
+
+use FreshRss\Exceptions\ContextException;
+use FreshRss\Models\Auth;
+use FreshRss\Models\View;
+
+if ($this->ext_details === null) {
+		throw new ContextException('Extension not initialised!');
 	}
 
 	$name_encoded = urlencode($this->ext_details->getName());
@@ -18,7 +23,7 @@
 		$action = 'enable';
 		$title = _t('gen.action.enable');
 	}
-	if ($this->ext_details->getType() === 'user' || FreshRSS_Auth::hasAccess('admin')) {?>
+	if ($this->ext_details->getType() === 'user' || Auth::hasAccess('admin')) {?>
 	<button class="switch<?= $button_class ?>" form="form-extension" formaction="<?= _url('extension', $action, 'e', $name_encoded) ?>" title="<?= _t('gen.action.enable') ?>"></button>
 	<a class="open-slider configure" title="<?= _t('gen.action.manage') ?>" href="<?= _url('extension', 'configure', 'e', $name_encoded) ?>"><?= _i('configure') ?></a>
 	<span class="ext_name<?= $name_class ?>"><?= $this->ext_details->getName() ?></span>

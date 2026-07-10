@@ -1,10 +1,15 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+
 /**
  * Represents a view mode option for the reading configuration
  */
-final class FreshRSS_ViewMode {
+final class ViewMode {
 	private string $id;
 	private string $name;
 	private string $controller;
@@ -34,7 +39,7 @@ final class FreshRSS_ViewMode {
 	}
 
 	/**
-	 * @return array<string,FreshRSS_ViewMode> Mode ID => FreshRSS_ViewMode
+	 * @return array<string,ViewMode> Mode ID => ViewMode
 	 */
 	public static function getDefaultModes(): array {
 		return [
@@ -45,16 +50,16 @@ final class FreshRSS_ViewMode {
 	}
 
 	/**
-	 * @return array<string,FreshRSS_ViewMode> Mode ID => FreshRSS_ViewMode
+	 * @return array<string,ViewMode> Mode ID => ViewMode
 	 */
 	public static function getAllModes(): array {
 		$modes = self::getDefaultModes();
 
 		// Allow extensions to add their own view modes
-		$extensionModes = Minz_ExtensionManager::callHook(Minz_HookType::ViewModes, []);
+		$extensionModes = ExtensionManager::callHook(HookType::ViewModes, []);
 		if (is_array($extensionModes)) {
 			foreach ($extensionModes as $mode) {
-				if ($mode instanceof FreshRSS_ViewMode) {
+				if ($mode instanceof ViewMode) {
 					$modes[$mode->id()] = $mode;
 				}
 			}

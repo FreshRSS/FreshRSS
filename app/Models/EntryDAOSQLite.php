@@ -1,7 +1,13 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
+namespace FreshRss\Models;
+
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Log;
+
+class EntryDAOSQLite extends EntryDAO {
 
 	#[\Override]
 	public static function isCompressed(): bool {
@@ -97,7 +103,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		}
 		$result = $this->pdo->exec($sql) !== false;
 		if (!$result) {
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+			Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
 		}
 		if (!$hadTransaction) {
 			$this->pdo->commit();
@@ -123,7 +129,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			return $affected;
 			//}
 		} else {
-			FreshRSS_UserDAO::touch();
+			UserDAO::touch();
 			$this->pdo->beginTransaction();
 			$sql = <<<'SQL'
 				UPDATE `_entry` SET is_read=:is_read, `lastUserModified` = :last_user_modified
@@ -131,17 +137,17 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 				SQL;
 			$stm = $this->pdo->prepare($sql);
 			if ($stm === false ||
-				!$stm->bindValue(':is_read', $is_read ? 1 : 0, PDO::PARAM_INT) ||
-				!$stm->bindValue(':last_user_modified', time(), PDO::PARAM_INT) ||
-				!$stm->bindValue(':id', $ids, PDO::PARAM_STR) ||	// TODO: Test PDO::PARAM_INT on 32-bit platform
-				!$stm->bindValue(':previous_is_read', $is_read ? 0 : 1, PDO::PARAM_INT) ||
+				!$stm->bindValue(':is_read', $is_read ? 1 : 0, \PDO::PARAM_INT) ||
+				!$stm->bindValue(':last_user_modified', time(), \PDO::PARAM_INT) ||
+				!$stm->bindValue(':id', $ids, \PDO::PARAM_STR) ||	// TODO: Test \PDO::PARAM_INT on 32-bit platform
+				!$stm->bindValue(':previous_is_read', $is_read ? 0 : 1, \PDO::PARAM_INT) ||
 				!$stm->execute()) {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				/** @var array{0:string,1:int,2:string} $info */
 				if ($this->autoUpdateDb($info)) {
 					return $this->markRead($ids, $is_read);
 				} else {
-					Minz_Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
+					Log::error('SQL error ' . __METHOD__ . ' A ' . json_encode($info));
 					$this->pdo->rollBack();
 					return false;
 				}
@@ -155,17 +161,17 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 					SQL;
 				$stm = $this->pdo->prepare($sql);
 				if ($stm === false ||
-					!$stm->bindValue(':id', $ids, PDO::PARAM_STR) ||
+					!$stm->bindValue(':id', $ids, \PDO::PARAM_STR) ||
 					!$stm->execute()) {
 					$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-					Minz_Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
+					Log::error('SQL error ' . __METHOD__ . ' B ' . json_encode($info));
 					$this->pdo->rollBack();
 					return false;
 				}
 			}
 			$this->pdo->commit();
 			if ($affected > 0) {
-				Minz_ExtensionManager::callHook(Minz_HookType::EntriesRead, [$ids], $is_read);
+				ExtensionManager::callHook(HookType::EntriesRead, [$ids], $is_read);
 			}
 			return $affected;
 		}
@@ -178,11 +184,11 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * @return int|false affected rows
 	 */
 	#[\Override]
-	public function markReadTag(int $id = 0, string $idMax = '0', ?FreshRSS_BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
-		FreshRSS_UserDAO::touch();
+	public function markReadTag(int $id = 0, string $idMax = '0', ?BooleanSearch $filters = null, int $state = 0, bool $is_read = true): int|false {
+		UserDAO::touch();
 		if ($idMax == 0) {
 			$idMax = uTimeString();
-			Minz_Log::debug('Calling markReadTag(0) is deprecated!');
+			Log::debug('Calling markReadTag(0) is deprecated!');
 		}
 
 		$tagCondition = $id == 0 ? '' : 'WHERE et.id_tag = ?';
@@ -200,7 +206,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		$stm = $this->pdo->prepare($sql . $search);
 		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 		$affected = $stm->rowCount();

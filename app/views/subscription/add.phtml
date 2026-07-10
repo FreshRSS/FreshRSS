@@ -1,14 +1,21 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$this->partial('aside_subscription');
+	/** @var View $this */
+
+use FreshRss\Minz\Request;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Category;
+use FreshRss\Models\Feed;
+use FreshRss\Models\View;
+
+$this->partial('aside_subscription');
 ?>
 <main class="post drop-section" data-auto-leave-validation="1">
 	<h1><?= _t('sub.menu.add') ?></h1>
 	<h2><?= _t('sub.title.add_feed') ?></h2>
 	<form id="add_rss" method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
 
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 
 		<div class="form-group">
 			<label class="group-name" for="url_rss"><?= _t('sub.feed.url') ?></label>
@@ -26,17 +33,17 @@
 				<select name="category" id="category">
 				<?php
 					foreach ($this->categories as $cat) {
-						if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) {
+						if ($cat->kind() == Category::KIND_DYNAMIC_OPML) {
 							continue;
 						}
 				?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id() === (Minz_Request::paramInt('cat_id') ?: 1) ? ' selected="selected"' : '' ?>>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() === (Request::paramInt('cat_id') ?: 1) ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>
 				</select>
 				<label for="keep_adding_feed">
-					<input type="checkbox" name="keep_adding_feed" id="keep_adding_feed" value="1" <?= Minz_Request::paramBoolean('keep_adding_feed') ? "checked" : "" ?> />
+					<input type="checkbox" name="keep_adding_feed" id="keep_adding_feed" value="1" <?= Request::paramBoolean('keep_adding_feed') ? "checked" : "" ?> />
 					<?= _t('sub.feed.keep_adding_feed') ?>
 				</label>
 			</div>
@@ -51,12 +58,12 @@
 				<label class="group-name" for="feed_kind"><?= _t('sub.feed.kind') ?></label>
 				<div class="group-controls">
 					<select name="feed_kind" id="feed_kind" class="select-show">
-						<option value="<?= FreshRSS_Feed::KIND_RSS ?>" selected="selected"><?= _t('sub.feed.kind.rss') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_JSONFEED ?>" data-json-feed="1"><?= _t('sub.feed.kind.jsonfeed') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" data-show="json_dotnotation"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ?>" data-show="json_dotnotation xPathToJsonGroup"><?= _t('sub.feed.kind.html_json') ?></option>
+						<option value="<?= Feed::KIND_RSS ?>" selected="selected"><?= _t('sub.feed.kind.rss') ?></option>
+						<option value="<?= Feed::KIND_HTML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
+						<option value="<?= Feed::KIND_XML_XPATH ?>" data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
+						<option value="<?= Feed::KIND_JSONFEED ?>" data-json-feed="1"><?= _t('sub.feed.kind.jsonfeed') ?></option>
+						<option value="<?= Feed::KIND_JSON_DOTNOTATION ?>" data-show="json_dotnotation"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
+						<option value="<?= Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ?>" data-show="json_dotnotation xPathToJsonGroup"><?= _t('sub.feed.kind.html_json') ?></option>
 					</select>
 				</div>
 			</div>
@@ -367,7 +374,7 @@
 
 	<h2><?= _t('sub.title.add_category') ?></h2>
 	<form action="<?= _url('category', 'create') ?>" method="post">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="new-category"><?= _t('sub.category') ?></label>
 			<div class="group-controls">
@@ -387,7 +394,7 @@
 		<?= _i('opml-dyn') ?>
 	</h2>
 	<form action="<?= _url('category', 'create') ?>" method="post">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="new-category"><?= _t('sub.title.add_opml_category') ?></label>
 			<div class="group-controls">

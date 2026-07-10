@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-class Minz_Hook {
+namespace FreshRss\Minz;
+
+class Hook {
 	public const DEFAULT_PRIORITY = 0;
 
 	public function __construct(

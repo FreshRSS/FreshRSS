@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-interface Minz_ConfigurationSetterInterface {
+namespace FreshRss\Minz;
+
+interface ConfigurationSetterInterface {
 
 	/**
 	 * Return whether the given key is supported by this setter.

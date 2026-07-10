@@ -1,10 +1,12 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
- * The Minz_Url class handles URLs across the MINZ framework
+ * The Url class handles URLs across the MINZ framework
  */
-class Minz_Url {
+class Url {
 	/**
 	 * Display a formatted URL
 	 * @param string|array{c?:string,a?:string,params?:array<string,mixed>} $url The URL to format, defined as an array:
@@ -15,7 +17,7 @@ class Minz_Url {
 	 * @param string $encoding how to encode & (& ou &amp; pour html)
 	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $amend Parameters to add or replace in the URL in its array form
 	 * @return string Formatted URL
-	 * @throws Minz_ConfigurationException
+	 * @throws ConfigurationException
 	 */
 	public static function display(string|array $url = [], string $encoding = 'html', bool|string $absolute = false, array $amend = []): string {
 		$isArray = is_array($url);
@@ -31,9 +33,9 @@ class Minz_Url {
 		$url_string = '';
 
 		if ($absolute !== false) {
-			$url_string = Minz_Request::getBaseUrl();
+			$url_string = Request::getBaseUrl();
 			if (strlen($url_string) < strlen('http://a.bc')) {
-				$url_string = Minz_Request::guessBaseUrl();
+				$url_string = Request::guessBaseUrl();
 				if (PUBLIC_RELATIVE === '..' && preg_match('%' . PUBLIC_TO_INDEX_PATH . '(/|$)%', $url_string)) {
 					//TODO: Implement proper resolver of relative parts such as /test/./../
 					$url_string = dirname($url_string);
@@ -52,7 +54,7 @@ class Minz_Url {
 		if ($isArray) {
 			$url_string .= '/' . self::printUri($url, $encoding);
 		} elseif ($encoding === 'html') {
-			$url_string = Minz_Helper::htmlspecialchars_utf8($url_string . $url);
+			$url_string = Helper::htmlspecialchars_utf8($url_string . $url);
 		} else {
 			$url_string .= $url;
 		}
@@ -85,13 +87,13 @@ class Minz_Url {
 		}
 
 		if (isset($url['c']) && is_string($url['c'])
-			&& $url['c'] != Minz_Request::defaultControllerName()) {
+			&& $url['c'] != Request::defaultControllerName()) {
 			$uri .= $separator . 'c=' . $url['c'];
 			$separator = $and;
 		}
 
 		if (isset($url['a']) && is_string($url['a'])
-			&& $url['a'] != Minz_Request::defaultActionName()) {
+			&& $url['a'] != Request::defaultActionName()) {
 			$uri .= $separator . 'a=' . $url['a'];
 			$separator = $and;
 		}
@@ -120,8 +122,8 @@ class Minz_Url {
 	 */
 	public static function checkControllerUrl(array $url): array {
 		return [
-			'c' => empty($url['c']) || !is_string($url['c']) ? Minz_Request::defaultControllerName() : $url['c'],
-			'a' => empty($url['a']) || !is_string($url['a']) ? Minz_Request::defaultActionName() : $url['a'],
+			'c' => empty($url['c']) || !is_string($url['c']) ? Request::defaultControllerName() : $url['c'],
+			'a' => empty($url['a']) || !is_string($url['a']) ? Request::defaultActionName() : $url['a'],
 			'params' => empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
 		];
 	}
@@ -157,8 +159,8 @@ class Minz_Url {
 			}
 		}
 		$url = [
-			'c' => is_string($_GET['c'] ?? null) ? $_GET['c'] : Minz_Request::defaultControllerName(),
-			'a' => is_string($_GET['a'] ?? null) ? $_GET['a'] : Minz_Request::defaultActionName(),
+			'c' => is_string($_GET['c'] ?? null) ? $_GET['c'] : Request::defaultControllerName(),
+			'a' => is_string($_GET['a'] ?? null) ? $_GET['a'] : Request::defaultActionName(),
 			'params' => $get,
 		];
 
@@ -168,20 +170,4 @@ class Minz_Url {
 
 		return $url;
 	}
-}
-
-function _url(string $controller, string $action, int|string ...$args): string {
-	$nb_args = count($args);
-
-	if ($nb_args % 2 !== 0) {
-		return '';
-	}
-
-	$params = [];
-	for ($i = 0; $i < $nb_args; $i += 2) {
-		$arg = '' . $args[$i];
-		$params[$arg] = '' . $args[$i + 1];
-	}
-
-	return Minz_Url::display(['c' => $controller, 'a' => $action, 'params' => $params]);
 }

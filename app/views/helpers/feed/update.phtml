@@ -1,6 +1,17 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\Helper;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Request;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\Feed;
+use FreshRss\Models\View;
+use FreshRss\Utils\HttpUtil;
+
 	if ($this->feed === null) {
 		return;
 	}
@@ -39,9 +50,9 @@
 	<?php endif; ?>
 
 	<?php
-	$from = Minz_Request::paramString('from');
+	$from = Request::paramString('from');
 	$slider = ['#', 'slider'];
-	$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
+	$ajax = Request::paramBoolean('ajax') || $this->displaySlider;
 	if (!$ajax) {
 		$from = 'feed';
 		$slider = [];
@@ -51,16 +62,16 @@
 	if ($from === '') {
 		$url = _url('subscription', 'feed', 'id', $this->feed->id(), ...$slider);
 	} else {
-		$get = Minz_Request::paramString('get');
+		$get = Request::paramString('get');
 		if ($get === '') {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'error', Minz_Request::paramBoolean('error') ? 1 : 0, ...$slider);
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'error', Request::paramBoolean('error') ? 1 : 0, ...$slider);
 		} else {
 			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, ...$slider);
 		}
 	}
 	?>
 	<form method="post" action="<?= $url ?>" autocomplete="off" enctype="multipart/form-data" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<fieldset>
 			<legend><?= _t('sub.feed.information') ?></legend>
 			<div class="form-group">
@@ -74,7 +85,7 @@
 					$originalIconUrl = $this->feed->favicon();
 					$this->feed->_attribute('customFavicon', $currentIconUrl !== $originalIconUrl);
 					$this->feed->resetFaviconHash();
-					$ext_url = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconBtnUrl, $this->feed);
+					$ext_url = ExtensionManager::callHook(HookType::CustomFaviconBtnUrl, $this->feed);
 				?>
 				<div class="group-name"><?= _t('sub.feed.icon') ?></div>
 				<div class="group-controls">
@@ -139,16 +150,16 @@
 				<label class="group-name" for="priority"><?= _t('sub.feed.priority') ?></label>
 				<div class="group-controls">
 					<select name="priority" id="priority" class="w50">
-						<option value="<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>" <?=
-							FreshRSS_Feed::PRIORITY_IMPORTANT === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.important') ?></option>
-						<option value="<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>" <?=
-							FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.main_stream') ?></option>
-						<option value="<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>" <?=
-							FreshRSS_Feed::PRIORITY_CATEGORY === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.category') ?></option>
-						<option value="<?= FreshRSS_Feed::PRIORITY_FEED ?>" <?=
-							FreshRSS_Feed::PRIORITY_FEED === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.feed') ?></option>
-						<option value="<?= FreshRSS_Feed::PRIORITY_HIDDEN ?>" <?=
-							FreshRSS_Feed::PRIORITY_HIDDEN === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.hidden') ?></option>
+						<option value="<?= Feed::PRIORITY_IMPORTANT ?>" <?=
+							Feed::PRIORITY_IMPORTANT === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.important') ?></option>
+						<option value="<?= Feed::PRIORITY_MAIN_STREAM ?>" <?=
+							Feed::PRIORITY_MAIN_STREAM === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.main_stream') ?></option>
+						<option value="<?= Feed::PRIORITY_CATEGORY ?>" <?=
+							Feed::PRIORITY_CATEGORY === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.category') ?></option>
+						<option value="<?= Feed::PRIORITY_FEED ?>" <?=
+							Feed::PRIORITY_FEED === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.feed') ?></option>
+						<option value="<?= Feed::PRIORITY_HIDDEN ?>" <?=
+							Feed::PRIORITY_HIDDEN === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.hidden') ?></option>
 					</select>
 					<?= _i('important') ?>
 				</div>
@@ -156,8 +167,8 @@
 
 			<?php
 				$suc = $this->feed->attributeBoolean('show_unread_count');
-				$sucLocked = $this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT &&
-					FreshRSS_Context::userConf()->show_unread_count !== 'none';
+				$sucLocked = $this->feed->priority() >= Feed::PRIORITY_IMPORTANT &&
+					Context::userConf()->show_unread_count !== 'none';
 			?>
 			<div class="form-group">
 				<label class="group-name" for="show_unread_count"><?= _t('conf.display.show_unread_count') ?></label>
@@ -248,7 +259,7 @@
 				<div class="group-controls">
 					<select class="w50" name="ttl" id="ttl" required="required"><?php
 						$found = false;
-						foreach ([FreshRSS_Feed::TTL_DEFAULT => _t('gen.short.by_default'), 900 => '15min', 1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
+						foreach ([Feed::TTL_DEFAULT => _t('gen.short.by_default'), 900 => '15min', 1200 => '20min', 1500 => '25min', 1800 => '30min', 2700 => '45min',
 								3600 => '1h', 5400 => '1.5h', 7200 => '2h', 10800 => '3h', 14400 => '4h', 18800 => '5h', 21600 => '6h', 25200 => '7h', 28800 => '8h',
 								36000 => '10h', 43200 => '12h', 64800 => '18h',
 								86400 => '1d', 129600 => '1.5d', 172800 => '2d', 259200 => '3d', 345600 => '4d', 432000 => '5d', 518400 => '6d',
@@ -551,13 +562,13 @@
 				<label class="group-name" for="feed_kind"><?= _t('sub.feed.kind') ?></label>
 				<div class="group-controls">
 					<select name="feed_kind" id="feed_kind" class="select-show w100">
-						<option value="<?= FreshRSS_Feed::KIND_RSS ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_RSS ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.rss') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_XML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_JSONFEED ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSONFEED ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.jsonfeed') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
+						<option value="<?= Feed::KIND_RSS ?>" <?= $this->feed->kind() === Feed::KIND_RSS ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.rss') ?></option>
+						<option value="<?= Feed::KIND_HTML_XPATH ?>" <?= $this->feed->kind() === Feed::KIND_HTML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.html_xpath') ?></option>
+						<option value="<?= Feed::KIND_XML_XPATH ?>" <?= $this->feed->kind() === Feed::KIND_XML_XPATH ? 'selected="selected"' : '' ?> data-show="html_xpath"><?= _t('sub.feed.kind.xml_xpath') ?></option>
+						<option value="<?= Feed::KIND_JSONFEED ?>" <?= $this->feed->kind() === Feed::KIND_JSONFEED ? 'selected="selected"' : '' ?>><?= _t('sub.feed.kind.jsonfeed') ?></option>
+						<option value="<?= Feed::KIND_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === Feed::KIND_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
 							data-show="json_dotnotation"><?= _t('sub.feed.kind.json_dotnotation') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
+						<option value="<?= Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ?>" <?= $this->feed->kind() === Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ? 'selected="selected"' : '' ?>
 							data-show="json_dotnotation xPathToJsonGroup"><?= _t('sub.feed.kind.html_json') ?></option>
 					</select>
 				</div>
@@ -567,7 +578,7 @@
 		<fieldset id="html_xpath">
 			<?php
 				/** @var array<string> $xpath */
-				$xpath = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeArray('xpath') ?? []);
+				$xpath = Helper::htmlspecialchars_utf8($this->feed->attributeArray('xpath') ?? []);
 			?>
 			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.kind.html_xpath.help') ?></p>
 			<div class="form-group">
@@ -653,8 +664,8 @@
 		<fieldset id="json_dotnotation">
 			<?php
 				/** @var array<string,string> $jsonSettings */
-				$jsonSettings = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeArray('json_dotnotation') ?? []);
-				$xPathToJson = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeString('xPathToJson'));
+				$jsonSettings = Helper::htmlspecialchars_utf8($this->feed->attributeArray('json_dotnotation') ?? []);
+				$xPathToJson = Helper::htmlspecialchars_utf8($this->feed->attributeString('xPathToJson'));
 			?>
 			<div class="form-group" id="xPathToJsonGroup">
 				<label class="group-name" for="xPathToJson"><?= _t('sub.feed.kind.html_json.xpath') ?></label>
@@ -784,7 +795,7 @@
 			<legend><?= _t('sub.feed.advanced') ?></legend>
 			<div class="form-group">
 				<?php
-					$path_entries_filter = Minz_Helper::htmlspecialchars_utf8($this->feed->attributeString('path_entries_filter') ?? '');
+					$path_entries_filter = Helper::htmlspecialchars_utf8($this->feed->attributeString('path_entries_filter') ?? '');
 				?>
 				<label class="group-name" for="path_entries_filter"><?= _t('sub.feed.css_path_filter') ?></label>
 				<div class="group-controls">
@@ -797,7 +808,7 @@
 
 			<div class="form-group">
 				<?php
-					$curlParams = FreshRSS_http_Util::sanitizeCurlParams($this->feed->attributeArray('curl_params') ?? []);
+					$curlParams = HttpUtil::sanitizeCurlParams($this->feed->attributeArray('curl_params') ?? []);
 				?>
 				<label class="group-name" for="curl_params_cookie"><?= _t('sub.feed.css_cookie') ?></label>
 				<div class="group-controls">
@@ -967,7 +978,7 @@
 		</div>
 		<div class="group-controls">
 			<form method="post" action="<?= _url('feed', 'reload', '#', 'slider') ?>">
-				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+				<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 				<input type="hidden" name="id" value="<?= $this->feed->id() ?>" />
 				<button type="submit" class="btn btn-important">
 					<?= _t('sub.feed.maintenance.reload_articles') ?>

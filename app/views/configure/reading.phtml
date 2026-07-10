@@ -1,13 +1,19 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+use FreshRss\Models\ViewMode;
+
 	$this->partial('aside_configure');
 ?>
 <main class="post">
 	<h1><?= _t('conf.reading') ?></h1>
 
 	<form method="post" action="<?= _url('configure', 'reading') ?>" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<fieldset>
 			<legend><?= _t('conf.reading.headline.view') ?></legend>
 			<div class="form-group">
@@ -15,15 +21,15 @@
 				<div class="group-controls">
 					<select name="view_mode" id="view_mode">
 						<?php
-						/** @var FreshRSS_View $this */
-						/** @var list<FreshRSS_ViewMode>|null $viewModes */
+						/** @var View $this */
+						/** @var list<ViewMode>|null $viewModes */
 						$viewModes = isset($this->viewModes) && is_array($this->viewModes) ? $this->viewModes : null;
 						if ($viewModes === null) {
-							$viewModes = FreshRSS_ViewMode::getAllModes();
+							$viewModes = ViewMode::getAllModes();
 						}
 						foreach ($viewModes as $mode):
 						?>
-							<option value="<?= htmlspecialchars($mode->id(), ENT_COMPAT, 'UTF-8') ?>"<?= FreshRSS_Context::userConf()->view_mode === $mode->id() ? ' selected="selected"' : '' ?>>
+							<option value="<?= htmlspecialchars($mode->id(), ENT_COMPAT, 'UTF-8') ?>"<?= Context::userConf()->view_mode === $mode->id() ? ' selected="selected"' : '' ?>>
 								<?= htmlspecialchars($mode->name(), ENT_NOQUOTES, 'UTF-8') ?>
 							</option>
 						<?php endforeach; ?>
@@ -35,10 +41,10 @@
 				<label class="group-name" for="default_view"><?= _t('conf.reading.show') ?></label>
 				<div class="group-controls">
 					<select name="default_view" id="default_view">
-						<option value="unread"<?= FreshRSS_Context::userConf()->default_view === 'unread' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.unread') ?></option>
-						<option value="adaptive"<?= FreshRSS_Context::userConf()->default_view === 'adaptive' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.adaptive') ?></option>
-						<option value="unread_or_favorite"<?= FreshRSS_Context::userConf()->default_view === 'unread_or_favorite' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.unread_or_favorite') ?></option>
-						<option value="all"<?= FreshRSS_Context::userConf()->default_view === 'all' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.all_articles') ?></option>
+						<option value="unread"<?= Context::userConf()->default_view === 'unread' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.unread') ?></option>
+						<option value="adaptive"<?= Context::userConf()->default_view === 'adaptive' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.adaptive') ?></option>
+						<option value="unread_or_favorite"<?= Context::userConf()->default_view === 'unread_or_favorite' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.unread_or_favorite') ?></option>
+						<option value="all"<?= Context::userConf()->default_view === 'all' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.show.all_articles') ?></option>
 					</select>
 				</div>
 			</div>
@@ -47,7 +53,7 @@
 				<label class="group-name" for="posts_per_page"><?= _t('conf.reading.articles_per_page') ?></label>
 				<div class="group-controls">
 					<input type="number" id="posts_per_page" name="posts_per_page" value="<?=
-						FreshRSS_Context::userConf()->posts_per_page ?>" min="5" max="500" />
+						Context::userConf()->posts_per_page ?>" min="5" max="500" />
 					<p class="help"><?= _i('help') ?> <?= _t('conf.reading.number_divided_when_reader') ?></p>
 				</div>
 			</div>
@@ -56,7 +62,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="auto_load_more">
 						<input type="checkbox" name="auto_load_more" id="auto_load_more" value="1"<?=
-							FreshRSS_Context::userConf()->auto_load_more ? ' checked="checked"' : '' ?> />
+							Context::userConf()->auto_load_more ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.auto_load_more') ?>
 						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 					</label>
@@ -67,16 +73,16 @@
 				<label class="group-name" for="mark_read_button"><?= _t('conf.mark_read_button') ?></label>
 				<div class="group-controls">
 					<select name="mark_read_button" id="mark_read_button">
-						<option value="big"<?= FreshRSS_Context::userConf()->mark_read_button === 'big' ? ' selected="selected"' : '' ?>><?= _t('conf.mark_read_button.big') ?></option>
-						<option value="small"<?= FreshRSS_Context::userConf()->mark_read_button === 'small' ? ' selected="selected"' : '' ?>><?= _t('conf.mark_read_button.small') ?></option>
-						<option value="none"<?= FreshRSS_Context::userConf()->mark_read_button === 'none' ? ' selected="selected"' : '' ?>><?= _t('conf.mark_read_button.none') ?></option>
+						<option value="big"<?= Context::userConf()->mark_read_button === 'big' ? ' selected="selected"' : '' ?>><?= _t('conf.mark_read_button.big') ?></option>
+						<option value="small"<?= Context::userConf()->mark_read_button === 'small' ? ' selected="selected"' : '' ?>><?= _t('conf.mark_read_button.small') ?></option>
+						<option value="none"<?= Context::userConf()->mark_read_button === 'none' ? ' selected="selected"' : '' ?>><?= _t('conf.mark_read_button.none') ?></option>
 					</select>
 				</div>
 			</div>
 
 			<?php
-				$userSort = FreshRSS_Context::userConf()->sort;
-				$userSortOrder = FreshRSS_Context::userConf()->sort_order;
+				$userSort = Context::userConf()->sort;
+				$userSortOrder = Context::userConf()->sort_order;
 				$userSortCombined = $userSort === 'rand' ? 'rand' : $userSort . '_' . strtolower($userSortOrder ?? 'desc');
 			?>
 			<div class="form-group">
@@ -106,8 +112,8 @@
 			</div>
 
 			<?php
-				$userSecondarySort = FreshRSS_Context::userConf()->secondary_sort;
-				$userSecondarySortOrder = FreshRSS_Context::userConf()->secondary_sort_order;
+				$userSecondarySort = Context::userConf()->secondary_sort;
+				$userSecondarySortOrder = Context::userConf()->secondary_sort_order;
 				$userSecondarySortCombined = $userSecondarySort === 'rand' ? 'rand' : $userSecondarySort . '_' . strtolower($userSecondarySortOrder ?? 'desc');
 			?>
 			<div class="form-group">
@@ -135,13 +141,13 @@
 				<label class="group-name" for="display_categories"><?= _t('conf.reading.display_categories_unfolded') ?></label>
 				<div class="group-controls">
 					<select name="display_categories" id="display_categories">
-						<option value="active"<?= FreshRSS_Context::userConf()->display_categories === 'active' ? ' selected="selected"' : '' ?>><?=
+						<option value="active"<?= Context::userConf()->display_categories === 'active' ? ' selected="selected"' : '' ?>><?=
 							_t('conf.reading.show.active_category') ?></option>
-						<option value="remember"<?= FreshRSS_Context::userConf()->display_categories === 'remember' ? ' selected="selected"' : '' ?>><?=
+						<option value="remember"<?= Context::userConf()->display_categories === 'remember' ? ' selected="selected"' : '' ?>><?=
 							_t('conf.reading.show.remember_categories') ?></option>
-						<option value="all"<?= FreshRSS_Context::userConf()->display_categories === 'all' ? ' selected="selected"' : '' ?>><?=
+						<option value="all"<?= Context::userConf()->display_categories === 'all' ? ' selected="selected"' : '' ?>><?=
 							_t('conf.reading.show.all_categories') ?></option>
-						<option value="none"<?= FreshRSS_Context::userConf()->display_categories === 'none' ? ' selected="selected"' : '' ?>><?=
+						<option value="none"<?= Context::userConf()->display_categories === 'none' ? ' selected="selected"' : '' ?>><?=
 							_t('conf.reading.show.no_category') ?></option>
 					</select>
 				</div>
@@ -151,7 +157,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="show_fav_unread">
 						<input type="checkbox" name="show_fav_unread" id="show_fav_unread" value="1"<?=
-							FreshRSS_Context::userConf()->show_fav_unread ? ' checked="checked"' : '' ?> />
+							Context::userConf()->show_fav_unread ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.always_show_favorites') ?>
 						<p class="help"><?= _i('help') ?> <?= _t('conf.reading.show_fav_unread_help') ?></p>
 					</label>
@@ -162,7 +168,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="hide_read_feeds">
 						<input type="checkbox" name="hide_read_feeds" id="hide_read_feeds" value="1"<?=
-							FreshRSS_Context::userConf()->hide_read_feeds ? ' checked="checked"' : '' ?> />
+							Context::userConf()->hide_read_feeds ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.hide_read_feeds') ?>
 					</label>
 				</div>
@@ -172,7 +178,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="sticky_sort">
 						<input type="checkbox" name="sticky_sort" id="sticky_sort" value="1"<?=
-							FreshRSS_Context::userConf()->sticky_sort ? ' checked="checked"' : '' ?> />
+							Context::userConf()->sticky_sort ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.sticky_sort') ?>
 					</label>
 					<p class="help"><?= _i('help') ?> <?= _t('conf.reading.sticky_sort_help') ?></p>
@@ -186,7 +192,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="display_posts">
 						<input type="checkbox" name="display_posts" id="display_posts" value="1"<?=
-							FreshRSS_Context::userConf()->display_posts ? ' checked="checked"' : '' ?> />
+							Context::userConf()->display_posts ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.display_articles_unfolded') ?>
 						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 					</label>
@@ -197,7 +203,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="sticky_post">
 						<input type="checkbox" name="sticky_post" id="sticky_post" value="1"<?=
-							FreshRSS_Context::userConf()->sticky_post ? ' checked="checked"' : '' ?> />
+							Context::userConf()->sticky_post ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.sticky_post') ?>
 						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 					</label>
@@ -208,7 +214,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="sides_close_article">
 						<input type="checkbox" name="sides_close_article" id="sides_close_article" value="1"<?=
-							FreshRSS_Context::userConf()->sides_close_article ? ' checked="checked"' : '' ?> />
+							Context::userConf()->sides_close_article ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.sides_close_article') ?>
 						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 					</label>
@@ -222,7 +228,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="auto_remove_article">
 						<input type="checkbox" name="auto_remove_article" id="auto_remove_article" value="1"<?=
-							FreshRSS_Context::userConf()->auto_remove_article ? ' checked="checked"' : '' ?> />
+							Context::userConf()->auto_remove_article ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.auto_remove_article') ?>
 						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 					</label>
@@ -233,7 +239,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="reading_confirm">
 						<input type="checkbox" name="reading_confirm" id="reading_confirm" value="1"<?=
-							FreshRSS_Context::userConf()->reading_confirm ? ' checked="checked"' : '' ?> />
+							Context::userConf()->reading_confirm ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.confirm_enabled') ?>
 						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 					</label>
@@ -245,7 +251,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="onread_jump_next">
 						<input type="checkbox" name="onread_jump_next" id="onread_jump_next" value="1"<?=
-							FreshRSS_Context::userConf()->onread_jump_next ? ' checked="checked"' : '' ?> />
+							Context::userConf()->onread_jump_next ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.jump_next') ?>
 					</label>
 				</div>
@@ -256,7 +262,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="check_open_article">
 						<input type="checkbox" name="mark_open_article" id="check_open_article" value="1"<?=
-							FreshRSS_Context::userConf()->mark_when['article'] ? ' checked="checked"' : '' ?> />
+							Context::userConf()->mark_when['article'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.read.article_viewed') ?>
 					</label>
 				</div>
@@ -267,7 +273,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="check_open_site">
 						<input type="checkbox" name="mark_open_site" id="check_open_site" value="1"<?=
-							FreshRSS_Context::userConf()->mark_when['site'] ? ' checked="checked"' : '' ?> />
+							Context::userConf()->mark_when['site'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.read.article_open_on_website') ?>
 					</label>
 				</div>
@@ -278,7 +284,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="check_scroll">
 						<input type="checkbox" name="mark_scroll" id="check_scroll" value="1"<?=
-							FreshRSS_Context::userConf()->mark_when['scroll'] ? ' checked="checked"' : '' ?> />
+							Context::userConf()->mark_when['scroll'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.read.scroll') ?>
 					</label>
 				</div>
@@ -289,7 +295,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="check_focus">
 						<input type="checkbox" name="mark_focus" id="check_focus" value="1"<?=
-							FreshRSS_Context::userConf()->mark_when['focus'] ? ' checked="checked"' : '' ?>  />
+							Context::userConf()->mark_when['focus'] ? ' checked="checked"' : '' ?>  />
 						<?= _t('conf.reading.read.focus') ?>
 					</label>
 				</div>
@@ -302,7 +308,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="mark_updated_article_unread">
 						<input type="checkbox" name="mark_updated_article_unread" id="mark_updated_article_unread" value="1"<?=
-							FreshRSS_Context::userConf()->mark_updated_article_unread ? ' checked="checked"' : '' ?> />
+							Context::userConf()->mark_updated_article_unread ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.mark_updated_article_unread') ?>
 					</label>
 				</div>
@@ -313,9 +319,9 @@
 				<div class="group-controls">
 					<label class="checkbox" for="enable_read_when_same_title_in_feed">
 						<input type="checkbox" name="enable_read_when_same_title_in_feed" id="enable_read_when_same_title_in_feed" value="1"<?=
-							empty(FreshRSS_Context::userConf()->mark_when['same_title_in_feed']) ? '' : ' checked="checked"' ?> />
+							empty(Context::userConf()->mark_when['same_title_in_feed']) ? '' : ' checked="checked"' ?> />
 						<?= _t('conf.reading.read.when_same_title_in_feed') ?>
-						<?php $read_when_same_title_in_feed = empty(FreshRSS_Context::userConf()->mark_when['same_title_in_feed']) ? 25 : FreshRSS_Context::userConf()->mark_when['same_title_in_feed']; ?>
+						<?php $read_when_same_title_in_feed = empty(Context::userConf()->mark_when['same_title_in_feed']) ? 25 : Context::userConf()->mark_when['same_title_in_feed']; ?>
 						<input type="number" id="read_when_same_title_in_feed" name="read_when_same_title_in_feed" min="0"
 							value="<?= $read_when_same_title_in_feed ?>" />
 					</label>
@@ -327,7 +333,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="mark_upon_reception">
 						<input type="checkbox" name="mark_upon_reception" id="mark_upon_reception" value="1"<?=
-							FreshRSS_Context::userConf()->mark_when['reception'] ? ' checked="checked"' : '' ?> />
+							Context::userConf()->mark_when['reception'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.read.upon_reception') ?>
 					</label>
 				</div>
@@ -338,7 +344,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="read_upon_gone">
 						<input type="checkbox" name="read_upon_gone" id="read_upon_gone" value="1"<?=
-							FreshRSS_Context::userConf()->mark_when['gone'] ? ' checked="checked"' : '' ?> />
+							Context::userConf()->mark_when['gone'] ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.read.upon_gone') ?>
 					</label>
 				</div>
@@ -348,7 +354,7 @@
 				<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
 				<div class="group-controls">
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
-						foreach (FreshRSS_Context::userConf()->filtersAction('read') as $filterRead) {
+						foreach (Context::userConf()->filtersAction('read') as $filterRead) {
 							echo htmlspecialchars($filterRead->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
@@ -365,7 +371,7 @@
 				<label class="group-name" for="filteractions_star"><?= _t('conf.reading.star.when') ?></label>
 				<div class="group-controls">
 					<textarea name="filteractions_star" id="filteractions_star" class="w100"><?php
-						foreach (FreshRSS_Context::userConf()->filtersAction('star') as $filterStar) {
+						foreach (Context::userConf()->filtersAction('star') as $filterStar) {
 							echo htmlspecialchars($filterStar->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
@@ -382,9 +388,9 @@
 				<div class="group-controls">
 					<label class="checkbox" for="keep_max_n_unread">
 						<input type="checkbox" name="enable_keep_max_n_unread" id="enable_keep_max_n_unread" value="1"<?=
-							empty(FreshRSS_Context::userConf()->mark_when['max_n_unread']) ? '' : ' checked="checked"' ?> />
+							empty(Context::userConf()->mark_when['max_n_unread']) ? '' : ' checked="checked"' ?> />
 						<?= _t('conf.reading.read.keep_max_n_unread') ?>
-						<?php $keep_max_n_unread = empty(FreshRSS_Context::userConf()->mark_when['max_n_unread']) ? 1000 : FreshRSS_Context::userConf()->mark_when['max_n_unread']; ?>
+						<?php $keep_max_n_unread = empty(Context::userConf()->mark_when['max_n_unread']) ? 1000 : Context::userConf()->mark_when['max_n_unread']; ?>
 						<input type="number" id="keep_max_n_unread" name="keep_max_n_unread" min="0" value="<?= $keep_max_n_unread ?>" />
 					</label>
 				</div>
@@ -397,7 +403,7 @@
 				<div class="group-controls">
 					<label class="checkbox" for="lazyload">
 						<input type="checkbox" name="lazyload" id="lazyload" value="1"<?=
-							FreshRSS_Context::userConf()->lazyload ? ' checked="checked"' : '' ?> />
+							Context::userConf()->lazyload ? ' checked="checked"' : '' ?> />
 						<?= _t('conf.reading.img_with_lazyload') ?>
 						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
 					</label>

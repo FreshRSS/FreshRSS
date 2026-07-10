@@ -1,6 +1,10 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Models\Auth;
+use FreshRss\Models\View;
+
 ?>
 <main class="post">
 	<div class="alert alert-error">
@@ -9,7 +13,7 @@
 			<?= htmlspecialchars($this->errorMessage, ENT_NOQUOTES, 'UTF-8') ?>
 		</p>
 		<p>
-			<?php if (FreshRSS_Auth::hasAccess()) {?>
+			<?php if (Auth::hasAccess()) {?>
 			<a href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
 			<?php } else { ?>
 			<a href="<?= _url('auth', 'login') ?>"><?= _t('gen.auth.login') ?></a>

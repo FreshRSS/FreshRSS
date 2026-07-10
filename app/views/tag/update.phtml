@@ -1,12 +1,16 @@
 <?php
 declare(strict_types=1);
-/** @var FreshRSS_View $this */
+/** @var View $this */
 
-if (!Minz_Request::paramBoolean('ajax')) {
+use FreshRss\Exceptions\ContextException;
+use FreshRss\Minz\Request;
+use FreshRss\Models\View;
+
+if (!Request::paramBoolean('ajax')) {
 	$this->partial('aside_subscription');
 }
 if ($this->tag === null) {
-	throw new FreshRSS_Context_Exception('Tag not initialised!');
+	throw new ContextException('Tag not initialised!');
 }
 
 $this->renderHelper('tag/update');

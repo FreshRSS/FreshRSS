@@ -1,8 +1,14 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$c = Minz_Request::controllerName();
-	$a = Minz_Request::actionName();
+	/** @var View $this */
+
+use FreshRss\Minz\Paginator;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Url;
+use FreshRss\Models\View;
+
+$c = Request::controllerName();
+	$a = Request::actionName();
 	$params = array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
 ?>
 <?php if ($this->nbPage > 1) { ?>
@@ -10,18 +16,18 @@
 	<div class="pagination-wrapper">
 		<ul class="pagination">
 			<?php
-				/** @var string $getteur from Minz_Paginator::render() */
+				/** @var string $getteur from Paginator::render() */
 				$params[$getteur] = 1;
 			?>
 			<li class="item pager-first">
-				<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>">« <?= _t('conf.logs.pagination.first') ?></a>
+				<a href="<?= Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>">« <?= _t('conf.logs.pagination.first') ?></a>
 			</li>
 
 			<?php $params[$getteur] = $this->currentPage - 1; ?>
 
 			<li class="item pager-previous">
 				<?php if ($this->currentPage > 1) { ?>
-				<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>">‹ <?= _t('conf.logs.pagination.previous') ?></a>
+				<a href="<?= Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>">‹ <?= _t('conf.logs.pagination.previous') ?></a>
 				<?php } ?>
 			</li>
 
@@ -40,7 +46,7 @@
 						$class = ' active';
 						$aria = 'true';
 					} ?>
-					<li class="item<?= $class ?>"><a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>" aria-current="<?= $aria ?>"><?= $i ?></a></li>
+					<li class="item<?= $class ?>"><a href="<?= Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>" aria-current="<?= $aria ?>"><?= $i ?></a></li>
 				<?php
 				}
 			} ?>
@@ -53,13 +59,13 @@
 
 			<li class="item pager-next">
 				<?php if ($this->currentPage < $this->nbPage) { ?>
-				<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>"><?= _t('conf.logs.pagination.next') ?> ›</a>
+				<a href="<?= Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>"><?= _t('conf.logs.pagination.next') ?> ›</a>
 				<?php } ?>
 			</li>
 
 			<?php $params[$getteur] = $this->nbPage; ?>
 			<li class="item pager-last">
-				<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>"><?= _t('conf.logs.pagination.last') ?> »</a>
+				<a href="<?= Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>"><?= _t('conf.logs.pagination.last') ?> »</a>
 			</li>
 		</ul>
 	</div>

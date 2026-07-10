@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
+use FreshRss\Models\View;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -10,23 +14,23 @@ declare(strict_types=1);
  * The Dispatcher is in charge of initialising the Controller and execute the action as specified in the Request object.
  * It is a singleton.
  */
-final class Minz_Dispatcher {
+final class Dispatcher {
 
 	/**
 	 * Singleton
 	 */
-	private static ?Minz_Dispatcher $instance = null;
+	private static ?Dispatcher $instance = null;
 	private static bool $needsReset;
 	/** @var array<string,string> */
 	private static array $registrations = [];
-	private Minz_ActionController $controller;
+	private ActionController $controller;
 
 	/**
 	 * Retrieves the Dispatcher instance
 	 */
-	public static function getInstance(): Minz_Dispatcher {
+	public static function getInstance(): Dispatcher {
 		if (self::$instance === null) {
-			self::$instance = new Minz_Dispatcher();
+			self::$instance = new Dispatcher();
 		}
 		return self::$instance;
 	}
@@ -34,19 +38,19 @@ final class Minz_Dispatcher {
 	/**
 	 * Launches the controller specified in Request
 	 * Fills the Response body from the View
-	 * @throws Minz_Exception
+	 * @throws Exception
 	 */
 	public function run(): void {
 		do {
 			self::$needsReset = false;
 
 			try {
-				$this->createController(Minz_Request::controllerName());
+				$this->createController(Request::controllerName());
 				$this->controller->init();
 				$this->controller->firstAction();
 				if (!self::$needsReset) {
 					$this->launchAction(
-						Minz_Request::actionName()
+						Request::actionName()
 						. 'Action'
 					);
 				}
@@ -54,13 +58,13 @@ final class Minz_Dispatcher {
 
 				if (!self::$needsReset) {
 					$model = $this->controller->view();
-					if ($model instanceof FreshRSS_View && $model->displaySlider) {
-						FreshRSS_View::prependScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
+					if ($model instanceof View && $model->displaySlider) {
+						View::prependScript(Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
 					}
 					$this->controller->declareCspHeader();
 					$this->controller->view()->build();
 				}
-			} catch (Minz_Exception $e) {
+			} catch (Exception $e) {
 				throw $e;
 			}
 		} while (self::$needsReset);
@@ -76,28 +80,29 @@ final class Minz_Dispatcher {
 	/**
 	 * Instantiates the Controller
 	 * @param string $base_name the name of the controller to instantiate
-	 * @throws Minz_ControllerNotExistException the controller does not exist
-	 * @throws Minz_ControllerNotActionControllerException controller is not an instance of ActionController
+	 * @throws ControllerNotExistException the controller does not exist
+	 * @throws ControllerNotActionControllerException controller is not an instance of ActionController
 	 */
 	private function createController(string $base_name): void {
 		if (self::isRegistered($base_name)) {
 			self::loadController($base_name);
+			// Extensions declare their controller in the global namespace, by convention.
 			$controller_name = 'FreshExtension_' . $base_name . '_Controller';
 		} else {
-			$controller_name = 'FreshRSS_' . $base_name . '_Controller';
+			$controller_name = 'FreshRss\\Controllers\\' . ucfirst($base_name) . 'Controller';
 		}
 
 		if (!class_exists($controller_name)) {
-			throw new Minz_ControllerNotExistException(
-				Minz_Exception::ERROR
+			throw new ControllerNotExistException(
+				Exception::ERROR
 			);
 		}
 		$controller = new $controller_name();
 
-		if (!($controller instanceof Minz_ActionController)) {
-			throw new Minz_ControllerNotActionControllerException(
+		if (!($controller instanceof ActionController)) {
+			throw new ControllerNotActionControllerException(
 				$controller_name,
-				Minz_Exception::ERROR
+				Exception::ERROR
 			);
 		}
 
@@ -107,18 +112,18 @@ final class Minz_Dispatcher {
 	/**
 	 * Launch the action on the dispatcher’s controller
 	 * @param string $action_name the name of the action
-	 * @throws Minz_ActionException if the action cannot be executed on the controller
+	 * @throws ActionException if the action cannot be executed on the controller
 	 */
 	private function launchAction(string $action_name): void {
 		$call = [$this->controller, $action_name];
 		if (!is_callable($call)) {
-			throw new Minz_ActionException(
+			throw new ActionException(
 				get_class($this->controller),
 				$action_name,
-				Minz_Exception::ERROR
+				Exception::ERROR
 			);
 		}
-		if (Minz_ExtensionManager::callHook(Minz_HookType::ActionExecute, $this->controller) !== false) {
+		if (ExtensionManager::callHook(HookType::ActionExecute, $this->controller) !== false) {
 			call_user_func($call);
 		}
 	}

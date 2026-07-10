@@ -1,8 +1,16 @@
 <?php
 declare(strict_types=1);
 
-FreshRSS_SystemConfiguration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
-FreshRSS_UserConfiguration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
+use FreshRss\Exceptions\ContextException;
+use FreshRss\Minz\Migrator;
+use FreshRss\Minz\ModelPdo;
+use FreshRss\Models\Context;
+use FreshRss\Models\Factory;
+use FreshRss\Models\SystemConfiguration;
+use FreshRss\Models\UserConfiguration;
+
+SystemConfiguration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
+UserConfiguration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
 /**
  * GMP is needed to convert entry identifiers to the Google Reader format on 32-bit PHP.
@@ -117,15 +125,15 @@ function generateSalt(): string {
 }
 
 /**
- * @throws FreshRSS_Context_Exception
+ * @throws ContextException
  */
 function initDb(): string {
-	$db = FreshRSS_Context::systemConf()->db;
+	$db = Context::systemConf()->db;
 	if (empty($db['pdo_options'])) {
 		$db['pdo_options'] = [];
 	}
 	$db['pdo_options'][PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-	FreshRSS_Context::systemConf()->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
+	Context::systemConf()->db = $db;	//TODO: Remove this Minz limitation "Indirect modification of overloaded property"
 
 	if (empty($db['type'])) {
 		$db['type'] = 'sqlite';
@@ -133,20 +141,20 @@ function initDb(): string {
 
 	//Attempt to auto-create database if it does not already exist
 	if ($db['type'] !== 'sqlite') {
-		Minz_ModelPdo::$usesSharedPdo = false;
+		ModelPdo::$usesSharedPdo = false;
 		$dbBase = $db['base'] ?? '';
 		//For first connection, use default database for PostgreSQL, empty database for MySQL / MariaDB:
 		$db['base'] = $db['type'] === 'pgsql' ? 'postgres' : '';
-		FreshRSS_Context::systemConf()->db = $db;
+		Context::systemConf()->db = $db;
 		try {
 			//First connection without database name to create the database
-			$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+			$databaseDAO = Factory::createDatabaseDAO();
 		} catch (Exception $ex) {
 			$databaseDAO = null;
 		}
 		//Restore final database parameters for auto-creation and for future connections
 		$db['base'] = $dbBase;
-		FreshRSS_Context::systemConf()->db = $db;
+		Context::systemConf()->db = $db;
 		if ($databaseDAO != null) {
 			//Perform database auto-creation
 			$databaseDAO->create();
@@ -154,8 +162,8 @@ function initDb(): string {
 	}
 
 	//New connection with the database name
-	$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-	Minz_ModelPdo::$usesSharedPdo = true;
+	$databaseDAO = Factory::createDatabaseDAO();
+	ModelPdo::$usesSharedPdo = true;
 	return $databaseDAO->testConnection();
 }
 
@@ -163,7 +171,7 @@ function setupMigrations(): bool {
 	$migrations_path = APP_PATH . '/migrations';
 	$migrations_version_path = DATA_PATH . '/applied_migrations.txt';
 
-	$migrator = new Minz_Migrator($migrations_path);
+	$migrator = new Migrator($migrations_path);
 	$versions = implode("\n", $migrator->versions());
 	return @file_put_contents($migrations_version_path, $versions) !== false;
 }

@@ -1,9 +1,15 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\ImportExportController;
+use FreshRss\Exceptions\ZipException;
+use FreshRss\Exceptions\ZipMissingException;
+use FreshRss\Models\Context;
+
 require __DIR__ . '/_cli.php';
 
-performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
+performRequirementCheck(Context::systemConf()->db['type'] ?? '');
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $user;
@@ -29,14 +35,14 @@ if (!is_readable($filename)) {
 
 echo 'FreshRSS importing ZIP/OPML/JSON/TXT for user “', $username, "”…\n";
 
-$importController = new FreshRSS_importExport_Controller();
+$importController = new ImportExportController();
 
 $ok = false;
 try {
 	$ok = $importController->importFile($filename, $filename, $username);
-} catch (FreshRSS_ZipMissing_Exception) {
+} catch (ZipMissingException) {
 	fail('FreshRSS error: Lacking php-zip extension!');
-} catch (FreshRSS_Zip_Exception $ze) {
+} catch (ZipException $ze) {
 	fail('FreshRSS error: ZIP archive cannot be imported! Error code: ' . $ze->zipErrorCode());
 }
 invalidateHttpCache($username);

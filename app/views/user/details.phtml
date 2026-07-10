@@ -1,7 +1,14 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	if (!Minz_Request::paramBoolean('ajax')) {
+	/** @var View $this */
+
+use FreshRss\Minz\Request;
+use FreshRss\Minz\User;
+use FreshRss\Models\Auth;
+use FreshRss\Models\View;
+use FreshRss\Utils\PasswordUtil;
+
+if (!Request::paramBoolean('ajax')) {
 		$this->partial('aside_configure');
 	}
 	$isDefault = $this->details['is_default'];
@@ -11,7 +18,7 @@
 <div class="post">
 	<h2><?= $this->username ?><?= $isAdmin ? ' ― ' . _t('admin.user.admin') : '' ?></h2>
 	<form method="post" action="<?= _url('user', 'manage', 'username', $this->username); ?>" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken(); ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken(); ?>" />
 
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.email') ?></label>
@@ -60,7 +67,7 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password"
-						pattern=".{7,}" <?= FreshRSS_password_Util::cryptAvailable() && Minz_User::name() !== $this->username ? '' : 'disabled="disabled" ' ?>/>
+						pattern=".{7,}" <?= PasswordUtil::cryptAvailable() && User::name() !== $this->username ? '' : 'disabled="disabled" ' ?>/>
 					<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help'); ?> <?= _t('admin.user.password_format') ?></p>
@@ -70,7 +77,7 @@
 		<div class="form-group form-actions">
 			<noscript><b><?= _t('gen.js.should_be_activated'); ?></b></noscript>
 			<?php
-				$disabledIfAjax = Minz_Request::paramBoolean('ajax') ? ' disabled="disabled"' : '';
+				$disabledIfAjax = Request::paramBoolean('ajax') ? ' disabled="disabled"' : '';
 			?>
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important" name="action" value="update"><?= _t('gen.action.update') ?></button>

@@ -24,14 +24,17 @@ More information can be found in [README](README.md) and in the [documentation](
 
 ## Code structure
 
-* `app/Controllers/` – Controllers extend `FreshRSS_ActionController`, named as `{name}Controller.php` with class `FreshRSS_{name}_Controller`
-* `app/Models/` – Domain models extend `Minz_Model`.
+Core PHP code (`app/`, `lib/Minz/`) uses Composer PSR-4 autoloading under the `FreshRss` namespace, mirroring the directory layout (e.g. `app/Models/Entry.php` is `FreshRss\Models\Entry`). This replaced the historical convention of prefixing every global class with `FreshRSS_`/`Minz_` (e.g. `FreshRSS_Entry`, `Minz_Extension`).
+
+* `app/Controllers/` – Controllers extend `FreshRss\Models\ActionController`, named as `{Name}Controller.php` with class `FreshRss\Controllers\{Name}Controller`
+* `app/Models/` – Domain models (`FreshRss\Models\...`) extend `FreshRss\Minz\Model`.
 	* DAOs may have some database-specific inheritance, e.g.: `*DAO.php` (base or MySQL), `*DAOSQLite.php` (SQLite), `*DAOPGSQL.php` (PostgreSQL)
 * `app/views/{controller}/` – View templates are `.phtml` files mixing PHP and HTML
 * `app/views/helpers/` – Reusable view elements with `$this->partial('name')`
 * `lib/core-extensions/` or `extensions/` – FreshRSS extensions
-* `lib/Minz/` – Core framework: routing, sessions, translations, extensions, PDO abstraction
-* `lib/lib_rss.php` – Contain `spl_autoload_register` and other global functions
+* `lib/Minz/` – Core framework (`FreshRss\Minz\...`): routing, sessions, translations, extensions, PDO abstraction
+* `lib/lib_rss.php` – Loads `vendor/autoload.php`, contains the legacy `spl_autoload_register` fallback and other global functions
+* `lib/legacy-aliases.php` – Lazily aliases the pre-namespace global class names (`Minz_Extension`, `FreshRSS_Entry`, …) still used by third-party extensions; see [Extensions](docs/en/developers/03_Backend/05_Extensions.md#legacy-class-names) for the deprecation policy
 * `p/` – Public Web root. Only the content of this folder should be exposed if possible (`p/` should not be visible in the public URL)
 	* Only the `p/i/` path should be access controlled. The main entry point is `p/i/index.php`
 	* `p/api/greader.php` – Primary API for mobile clients
@@ -44,7 +47,7 @@ More information can be found in [README](README.md) and in the [documentation](
 * System config: [`config.default.php`](config.default.php) overridden in `data/config.php`
 * User config: [`config-user.default.php`](config-user.default.php) overridden in `data/users/{username}/config.php`
 
-> ℹ Access via `FreshRSS_Context::systemConf()` and `FreshRSS_Context::userConf()`
+> ℹ Access via `FreshRss\Models\Context::systemConf()` and `FreshRss\Models\Context::userConf()`
 
 ## Database patterns
 
@@ -53,16 +56,16 @@ The SQL differences are implemented through inheritance:
 
 ```php
 // Base DAO with common queries
-class FreshRSS_EntryDAO extends Minz_ModelPdo { }
+class EntryDAO extends \FreshRss\Minz\ModelPdo { }
 // Database-specific overrides
-class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO { }
-class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAO { }
+class EntryDAOSQLite extends EntryDAO { }
+class EntryDAOPGSQL extends EntryDAO { }
 ```
 
 A factory pattern selects the correct DAO, e.g.:
 
 ```php
-FreshRSS_Factory::createEntryDao();
+\FreshRss\Models\Factory::createEntryDao();
 ```
 
 **Important**: in database, VARCHAR/TEXT fields are HTML-encoded, except `attributes` fields, which contain JSON, and which sub-strings are not HTML-encoded.

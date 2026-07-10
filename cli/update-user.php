@@ -1,6 +1,10 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\ApiController;
+use FreshRss\Controllers\UserController;
+
 require __DIR__ . '/_cli.php';
 
 $cliOptions = new class extends CliOptionsParser {
@@ -68,7 +72,7 @@ $values = [
 
 $values = array_filter($values, fn($value): bool => $value !== null && $value !== '');
 
-$ok = FreshRSS_user_Controller::updateUser(
+$ok = UserController::updateUser(
 	$username,
 	$cliOptions->email ?? null,
 	$cliOptions->password ?? '',
@@ -79,7 +83,7 @@ if (!$ok) {
 }
 
 if (($cliOptions->apiPassword ?? '') !== '') {
-	$error = FreshRSS_api_Controller::updatePassword($cliOptions->apiPassword);
+	$error = ApiController::updatePassword($cliOptions->apiPassword);
 	if ($error !== false) {
 		fail($error);
 	}

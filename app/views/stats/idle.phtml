@@ -1,13 +1,18 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_ViewStats $this */
-	$this->partial('aside_subscription');
+	/** @var ViewStats $this */
+
+use FreshRss\Minz\Url;
+use FreshRss\Models\Context;
+use FreshRss\Models\ViewStats;
+
+$this->partial('aside_subscription');
 ?>
 <main class="post">
 	<h1><?= _t('admin.stats.idle') ?></h1>
 
 	<?php
-		$current_url = Minz_Url::display(
+		$current_url = Url::display(
 			['c' => 'stats', 'a' => 'idle'],
 			'php', true
 		);
@@ -40,7 +45,7 @@
 				?>
 					<li class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>">
 						<a class="configure open-slider" href="<?= _url('stats', 'feed', 'id', $feedInPeriod['id'], 'sub', 'idle') ?>" title="<?= _t('gen.action.manage') ?>"><?= _i('configure') ?></a><?php
-						if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>" alt="✇" loading="lazy" /><?php
+						if (Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feedInPeriod['favicon'] ?>"alt="✇"loading="lazy" /><?php
 						endif; ?><span title="<?= timestamptodate((int)($feedInPeriod['last_date']), hour: false) ?>"><?= $feedInPeriod['name'] ?>
 							(<?= _t('admin.stats.number_entries', $feedInPeriod['nb_articles']) ?>)</span>
 					</li>

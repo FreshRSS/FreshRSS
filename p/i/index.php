@@ -22,6 +22,12 @@ declare(strict_types=1);
 #
 # ***** END LICENSE BLOCK *****
 
+use FreshRss\Minz\Migrator;
+use FreshRss\Minz\Session;
+use FreshRss\Minz\User;
+use FreshRss\Models\Context;
+use FreshRss\Models\UserDAO;
+
 require dirname(__DIR__, 2) . '/constants.php';
 require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
@@ -32,14 +38,14 @@ if (!file_exists($applied_migrations_path)) {
 	require APP_PATH . '/install.php';
 } else {
 	session_cache_limiter('');
-	Minz_Session::init('FreshRSS');
-	Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
+	Session::init('FreshRSS');
+	Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 
 	require LIB_PATH . '/http-conditional.php';
-	$currentUser = Minz_User::name();
+	$currentUser = User::name();
 	$dateLastModification = $currentUser === null ? time() : max(
-		FreshRSS_UserDAO::ctime($currentUser),
-		FreshRSS_UserDAO::mtime($currentUser),
+		UserDAO::ctime($currentUser),
+		UserDAO::mtime($currentUser),
 		@filemtime(DATA_PATH . '/config.php') ?: 0
 	);
 	if (!file_exists(DATA_PATH . '/no-cache.txt')
@@ -50,9 +56,9 @@ if (!file_exists($applied_migrations_path)) {
 	$error = false;
 	try {
 		// Apply the migrations if any
-		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
+		$result = Migrator::execute($migrations_path, $applied_migrations_path);
 		if ($result === true) {
-			FreshRSS_Context::initSystem();
+			Context::initSystem();
 			$front_controller = new FreshRSS();
 			$front_controller->init();
 			$front_controller->run();

@@ -1,10 +1,14 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Log;
+
 /**
  * This class is used to test database is well-constructed.
  */
-class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
+class DatabaseDAOPGSQL extends DatabaseDAOSQLite {
 
 	//PostgreSQL error codes
 	public const UNDEFINED_COLUMN = '42703';
@@ -12,7 +16,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 
 	#[\Override]
 	public function tablesAreCorrect(): bool {
-		$db = FreshRSS_Context::systemConf()->db;
+		$db = Context::systemConf()->db;
 		$sql = <<<'SQL'
 			SELECT tablename FROM pg_catalog.pg_tables where tableowner=:tableowner
 			SQL;
@@ -69,7 +73,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 	#[\Override]
 	public function size(bool $all = false): int {
 		if ($all) {
-			$db = FreshRSS_Context::systemConf()->db;
+			$db = Context::systemConf()->db;
 			$res = $this->fetchColumn('SELECT pg_database_size(:base)', 0, [':base' => $db['base']]);
 		} else {
 			$sql = <<<SQL
@@ -98,7 +102,7 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 			if ($this->pdo->exec($sql) === false) {
 				$ok = false;
 				$info = $this->pdo->errorInfo();
-				Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+				Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
 			}
 		}
 		return $ok;

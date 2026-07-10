@@ -1,8 +1,13 @@
 <?php
-	/** @var FreshRSS_View $this */
-	$this->partial('aside_configure');
+	/** @var View $this */
 
-	$host = parse_url(FreshRSS_Context::systemConf()->base_url);
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+
+$this->partial('aside_configure');
+
+	$host = parse_url(Context::systemConf()->base_url);
 	if ($host !== false) {
 		$host = $host['host'] ?? '';
 	} else {
@@ -14,20 +19,20 @@
 	<h1><?= _t('conf.privacy') ?></h1>
 
 	<form method="post" action="<?= _url('configure', 'privacy') ?>" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 
 		<div class="form-group">
 			<label class="group-name" for="retrieve_extension_list"><?= _t('conf.privacy.retrieve_extension_list') ?></label>
 			<div class="group-controls">
 				<input type="checkbox" id="retrieve_extension_list" name="retrieve_extension_list" value="1"<?=
-					FreshRSS_Context::userConf()->retrieve_extension_list !== false ? ' checked="checked"' : '' ?> />
+					Context::userConf()->retrieve_extension_list !== false ? ' checked="checked"' : '' ?> />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name" for="send_referrer_allowlist"><?= _t('conf.privacy.send_referrer_allowlist', $host) ?></label>
 			<div class="group-controls">
-				<textarea id="send_referrer_allowlist" name="send_referrer_allowlist"><?= implode("\n", FreshRSS_Context::userConf()->send_referrer_allowlist) ?></textarea>
+				<textarea id="send_referrer_allowlist" name="send_referrer_allowlist"><?= implode("\n", Context::userConf()->send_referrer_allowlist) ?></textarea>
 			</div>
 		</div>
 

@@ -1,72 +1,81 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$actual_view = Minz_Request::actionName();
+	/** @var View $this */
+
+use FreshRss\Minz\Request;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Category;
+use FreshRss\Models\Context;
+use FreshRss\Models\Entry;
+use FreshRss\Models\Feed;
+use FreshRss\Models\View;
+
+$actual_view = Request::actionName();
 	$class = '';
-	if (FreshRSS_Context::userConf()->hide_read_feeds &&
-		(FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) || FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_OR_NOT_READ)) &&
-		!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+	if (Context::userConf()->hide_read_feeds &&
+		(Context::isStateEnabled(Entry::STATE_NOT_READ) || Context::isStateEnabled(Entry::STATE_OR_NOT_READ)) &&
+		!Context::isStateEnabled(Entry::STATE_READ)) {
 		$class = ' state_unread';
 	}
 
 	$state_filter_manual = '';
-	if (($s = Minz_Request::paramString('state', plaintext: true)) !== '' && ctype_digit($s)) {
+	if (($s = Request::paramString('state', plaintext: true)) !== '' && ctype_digit($s)) {
 		$state_filter_manual .= '&state=' . $s;
 	}
-	if (FreshRSS_Context::userConf()->sticky_sort) {
-		if (($s = Minz_Request::paramString('sort', plaintext: true)) !== '' && preg_match('/^[a-z.]+$/', $s)) {
+	if (Context::userConf()->sticky_sort) {
+		if (($s = Request::paramString('sort', plaintext: true)) !== '' && preg_match('/^[a-z.]+$/', $s)) {
 			$state_filter_manual .= '&sort=' . $s;
 		}
-		if (($s = Minz_Request::paramString('order', plaintext: true)) !== '' && ctype_alpha($s)) {
+		if (($s = Request::paramString('order', plaintext: true)) !== '' && ctype_alpha($s)) {
 			$state_filter_manual .= '&order=' . $s;
 		}
 	}
 
-	$hideSucGlobal = FreshRSS_Context::userConf()->show_unread_count !== 'all' ? ' data-unread-hide="1"' : '';
-	$hideSucImportant = FreshRSS_Context::userConf()->show_unread_count !== 'none' ? '' : ' data-unread-hide="1"';
+	$hideSucGlobal = Context::userConf()->show_unread_count !== 'all' ? ' data-unread-hide="1"' : '';
+	$hideSucImportant = Context::userConf()->show_unread_count !== 'none' ? '' : ' data-unread-hide="1"';
 ?>
 <nav class="nav aside aside_feed<?= $class ?>" id="aside_feed">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
-	<?php if (FreshRSS_Auth::hasAccess()) { ?>
+	<?php if (Auth::hasAccess()) { ?>
 	<div class="stick configure-feeds">
 		<a id="btn-subscription" class="btn btn-important" href="<?= _url('subscription', 'index') ?>"><?= _t('index.menu.subscription') ?></a>
 		<a id="btn-add" class="btn btn-important" href="<?= _url('subscription', 'add') ?>"><?= _i('add') ?></a>
 	</div>
-	<?php } elseif (FreshRSS_Auth::accessNeedsLogin()) { ?>
+	<?php } elseif (Auth::accessNeedsLogin()) { ?>
 	<a href="<?= _url('index', 'about') ?>" class="about"><?= _t('index.menu.about') ?></a>
 	<?php } ?>
 
 	<form id="mark-read-aside" method="post">
-	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+	<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 	<ul id="sidebar" class="tree scrollbar-thin">
-		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') || FreshRSS_Context::isCurrentGet('A') || FreshRSS_Context::isCurrentGet('Z') ? ' active' : '' ?>">
-			<a class="tree-folder-title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>"<?=
+		<li class="tree-folder category all<?= Context::isCurrentGet('a') || Context::isCurrentGet('A') || Context::isCurrentGet('Z') ? ' active' : '' ?>">
+			<a class="tree-folder-title" data-unread="<?= format_number(Context::$total_unread) ?>"<?=
 				$hideSucGlobal ?> href="<?= _url('index', $actual_view) . $state_filter_manual ?>">
-				<?= _i('all') ?><span class="title" data-unread="<?= format_number(FreshRSS_Context::$total_unread) ?>"<?=
+				<?= _i('all') ?><span class="title" data-unread="<?= format_number(Context::$total_unread) ?>"<?=
 					$hideSucGlobal ?>><?= _t('index.menu.main_stream') ?></span>
 			</a>
 		</li>
 
-		<li class="tree-folder category important<?= FreshRSS_Context::isCurrentGet('i') ? ' active' : '' ?>">
-			<a class="tree-folder-title" data-unread="<?= format_number(FreshRSS_Context::$total_important_unread) ?>"<?=
+		<li class="tree-folder category important<?= Context::isCurrentGet('i') ? ' active' : '' ?>">
+			<a class="tree-folder-title" data-unread="<?= format_number(Context::$total_important_unread) ?>"<?=
 				$hideSucImportant ?> href="<?= _url('index', $actual_view, 'get', 'i') . $state_filter_manual ?>">
-				<?= _i('important') ?><span class="title" data-unread="<?= format_number(FreshRSS_Context::$total_important_unread) ?>"<?=
+				<?= _i('important') ?><span class="title" data-unread="<?= format_number(Context::$total_important_unread) ?>"<?=
 					$hideSucImportant ?>><?= _t('index.menu.important') ?></span>
 			</a>
 		</li>
 
-		<li class="tree-folder category favorites<?= FreshRSS_Context::isCurrentGet('s') ? ' active' : '' ?>">
-			<a class="tree-folder-title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>"<?=
+		<li class="tree-folder category favorites<?= Context::isCurrentGet('s') ? ' active' : '' ?>">
+			<a class="tree-folder-title" data-unread="<?= format_number(Context::$total_starred['unread']) ?>"<?=
 				$hideSucGlobal ?> href="<?= _url('index', $actual_view, 'get', 's') . $state_filter_manual ?>">
-				<?= _i('starred') ?><span class="title" data-unread="<?= format_number(FreshRSS_Context::$total_starred['unread']) ?>"<?=
-					$hideSucGlobal ?>><?= _t('index.menu.favorites', format_number(FreshRSS_Context::$total_starred['all'])) ?></span>
+				<?= _i('starred') ?><span class="title" data-unread="<?= format_number(Context::$total_starred['unread']) ?>"<?=
+					$hideSucGlobal ?>><?= _t('index.menu.favorites', format_number(Context::$total_starred['all'])) ?></span>
 			</a>
 		</li>
 
 		<?php
-			$t_active = FreshRSS_Context::isCurrentGet('T');
-			$t_show = ($t_active && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true)) || FreshRSS_Context::userConf()->display_categories === 'all';
+			$t_active = Context::isCurrentGet('T');
+			$t_show = ($t_active && in_array(Context::userConf()->display_categories, ['active', 'remember'], true)) || Context::userConf()->display_categories === 'all';
 		?>
 		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>"<?= $hideSucGlobal ?>>
 			<a href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter_manual ?>" class="tree-folder-title">
@@ -77,9 +86,9 @@
 				<?php
 					foreach ($this->tags as $tag):
 				?>
-				<li id="t_<?= $tag->id() ?>" class="item feed<?= FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : ''
+				<li id="t_<?= $tag->id() ?>" class="item feed<?= Context::isCurrentGet('t_' . $tag->id()) ? ' active' : ''
 					?>" data-unread="<?= $tag->nbUnread() ?>"<?= $hideSucGlobal ?>>
-					<?php if (FreshRSS_Auth::hasAccess()) { ?>
+					<?php if (Auth::hasAccess()) { ?>
 						<div class="dropdown no-mobile">
 							<div id="dropdown-t-<?= $tag->id() ?>" class="dropdown-target"></div>
 							<a class="dropdown-toggle" href="#dropdown-t-<?= $tag->id() ?>"><?= _i('configure') ?></a>
@@ -105,9 +114,9 @@
 				$feeds = $cat->feeds();
 				$position = $cat->attributeInt('position');
 				if (!empty($feeds)) {
-					$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
-					$c_show = ($c_active && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true))
-						|| FreshRSS_Context::userConf()->display_categories === 'all';
+					$c_active = Context::isCurrentGet('c_' . $cat->id());
+					$c_show = ($c_active && in_array(Context::userConf()->display_categories, ['active', 'remember'], true))
+						|| Context::userConf()->display_categories === 'all';
 					$hideSucCat = $cat->showUnreadCount() ? '' : ' data-unread-hide="1"';
 		?>
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
@@ -117,18 +126,18 @@
 				?><span title="<?= $cat->inError() ? _t('sub.category.error') : _t('sub.category.open') ?>" class="title<?=
 					$cat->hasFeedsWithError() || $cat->inError() ? ' error' : ''
 					?>" data-unread="<?= format_number($cat->nbNotRead()) ?>"<?= $hideSucCat ?>><?=
-					$cat->name() ?><?= $cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? ' ' . _i('opml-dyn') : ''
+					$cat->name() ?><?= $cat->kind() === Category::KIND_DYNAMIC_OPML ? ' ' . _i('opml-dyn') : ''
 				?></span>
 			</a>
 
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">
 <?php
 	// NB: Reduce whitespace in that loop
-	$show_favicon = FreshRSS_Context::userConf()->show_favicons && $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds;
+	$show_favicon = Context::userConf()->show_favicons && $nbFeedsTotal < Context::userConf()->simplify_over_n_feeds;
 
 	foreach ($feeds as $feed):
-		$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
-		if (!$f_active && $feed->priority() < FreshRSS_Feed::PRIORITY_FEED) {
+		$f_active = Context::isCurrentGet('f_' . $feed->id());
+		if (!$f_active && $feed->priority() < Feed::PRIORITY_FEED) {
 			continue;
 		}
 		$f_active_class = $f_active ? ' active' : '';
@@ -151,7 +160,7 @@
 ?>
 <li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>"
 		data-unread="<?= $feed->nbNotRead() ?>"<?= $hideSucFeed ?> data-priority="<?= $feed->priority() ?>"><?php
-		if ($f_active || $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds):
+		if ($f_active || $nbFeedsTotal < Context::userConf()->simplify_over_n_feeds):
 			?><div class="dropdown no-mobile">
 				<div id="dropdown-<?= $feed->id() ?>" class="dropdown-target"></div><a href="#dropdown-<?= $feed->id() ?>" class="dropdown-toggle" title="<?=
 					_t('gen.action.menu.open') ?>" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
@@ -192,7 +201,7 @@
 <template id="tag_config_template">
 	<ul class="dropdown-menu">
 		<li class="item">
-			<a class="configure open-slider" href="<?= _url('tag', 'update', 'id', '------', 'from', Minz_Request::actionName()) ?>"><?= _t('gen.action.manage') ?></a>
+			<a class="configure open-slider" href="<?= _url('tag', 'update', 'id', '------', 'from', Request::actionName()) ?>"><?= _t('gen.action.manage') ?></a>
 		</li>
 	</ul>
 	<a class="dropdown-close" href="#close">❌</a>
@@ -201,12 +210,12 @@
 <template id="feed_config_template">
 	<ul class="dropdown-menu">
 		<li class="item"><a href="<?= _url('index', $actual_view, 'get', 'f_------') ?>"><?= _t('gen.action.filter') ?></a></li>
-		<?php if (FreshRSS_Auth::hasAccess()) { ?>
+		<?php if (Auth::hasAccess()) { ?>
 		<li class="item"><a href="<?= _url('stats', 'repartition', 'id', '------') ?>"><?= _t('index.menu.stats') ?></a></li>
 		<?php } ?>
 		<li class="item link website"><a target="_blank" rel="noreferrer" href="http://example.net/"><?= _t('gen.action.see_website') ?></a></li>
-		<?php if (FreshRSS_Auth::hasAccess()) {
-		$get = Minz_Request::paramString('get');
+		<?php if (Auth::hasAccess()) {
+		$get = Request::paramString('get');
 		if ($get === '') {
 			$url = _url('subscription', 'feed', 'id', '------', 'from', $actual_view);
 		} else {
@@ -216,7 +225,7 @@
 		<li class="item"><a class="configure open-slider" href="<?= $url ?>"><?= _t('gen.action.manage') ?></a></li>
 		<li class="item"><a href="<?= _url('feed', 'actualize', 'id', '------') ?>"><?= _t('gen.action.actualize') ?></a></li>
 		<li class="item">
-			<?php $confirm = FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
+			<?php $confirm = Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 			<button class="read_all as-link <?= $confirm ?>"
 				form="mark-read-aside"
 				formaction="<?= _url('entry', 'read', 'get', 'f_------') ?>"

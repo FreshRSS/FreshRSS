@@ -1,9 +1,13 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Models\Context;
+use FreshRss\Models\Factory;
+
 require __DIR__ . '/_cli.php';
 
-performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
+performRequirementCheck(Context::systemConf()->db['type'] ?? '');
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $user;
@@ -22,7 +26,7 @@ $username = cliInitUser($cliOptions->user);
 
 echo 'FreshRSS optimizing database for user “', $username, "”…\n";
 
-$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
+$databaseDAO = Factory::createDatabaseDAO($username);
 $ok = $databaseDAO->optimize();
 
 done($ok);

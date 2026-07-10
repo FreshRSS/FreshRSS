@@ -1,6 +1,12 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Controllers\UserController;
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\Session;
+use FreshRss\Minz\Translate;
+use FreshRss\Models\Context;
+
 if (php_sapi_name() !== 'cli') {
 	die('FreshRSS error: This PHP script may only be invoked from command line!');
 }
@@ -13,12 +19,12 @@ require LIB_PATH . '/lib_install.php';
 require_once __DIR__ . '/CliOption.php';
 require_once __DIR__ . '/CliOptionsParser.php';
 
-Minz_Session::init('FreshRSS', true);
-FreshRSS_Context::initSystem();
-Minz_ExtensionManager::init();
-Minz_Translate::init(Minz_Translate::DEFAULT_LANGUAGE);
+Session::init('FreshRSS', true);
+Context::initSystem();
+ExtensionManager::init();
+Translate::init(Translate::DEFAULT_LANGUAGE);
 
-FreshRSS_Context::$isCli = true;
+Context::$isCli = true;
 
 function fail(string $message, int $exitCode = 1): never {
 	fwrite(STDERR, $message . "\n");
@@ -26,21 +32,21 @@ function fail(string $message, int $exitCode = 1): never {
 }
 
 function cliInitUser(string $username): string {
-	if (!FreshRSS_user_Controller::checkUsername($username)) {
+	if (!UserController::checkUsername($username)) {
 		fail('FreshRSS error: invalid username: ' . $username . "\n");
 	}
 
-	if (!FreshRSS_user_Controller::userExists($username)) {
+	if (!UserController::userExists($username)) {
 		fail('FreshRSS error: user not found: ' . $username . "\n");
 	}
 
-	FreshRSS_Context::initUser($username);
-	if (!FreshRSS_Context::hasUserConf()) {
+	Context::initUser($username);
+	if (!Context::hasUserConf()) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
 
-	$ext_list = FreshRSS_Context::userConf()->extensions_enabled;
-	Minz_ExtensionManager::enableByList($ext_list, 'user');
+	$ext_list = Context::userConf()->extensions_enabled;
+	ExtensionManager::enableByList($ext_list, 'user');
 
 	return $username;
 }

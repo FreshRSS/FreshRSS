@@ -1,12 +1,14 @@
 <?php
 declare(strict_types=1);
 
-final class FreshRSS_ViewStats extends FreshRSS_View {
+namespace FreshRss\Models;
 
-	/** @var array<int,FreshRSS_Category> where the key is the category ID */
+final class ViewStats extends View {
+
+	/** @var array<int,Category> where the key is the category ID */
 	public array $categories;
-	public ?FreshRSS_Feed $feed = null;
-	/** @var array<int,FreshRSS_Feed> where the key is the feed ID */
+	public ?Feed $feed = null;
+	/** @var array<int,Feed> where the key is the feed ID */
 	public array $feeds;
 	public bool $displaySlider = false;
 

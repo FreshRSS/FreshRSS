@@ -1,16 +1,34 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
+namespace FreshRss\Controllers;
+
+use FreshRss\Minz\Error;
+use FreshRss\Minz\Exception;
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Log;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Session;
+use FreshRss\Models\ActionController;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\Factory;
+use FreshRss\Models\Feed;
+use FreshRss\Models\UserConfiguration;
+use FreshRss\Models\ViewJavascript;
+use FreshRss\Utils\PasswordUtil;
+
+class JavascriptController extends ActionController {
 
 	/**
-	 * @var FreshRSS_ViewJavascript
+	 * @var ViewJavascript
 	 * @phpstan-ignore property.phpDocType
 	 */
 	protected $view;
 
 	public function __construct() {
-		parent::__construct(FreshRSS_ViewJavascript::class);
+		parent::__construct(ViewJavascript::class);
 	}
 
 	#[\Override]
@@ -19,36 +37,36 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	}
 
 	public function actualizeAction(): void {
-		if (!FreshRSS_Auth::hasAccess() && !(
-			FreshRSS_Context::systemConf()->allow_anonymous
-			&& FreshRSS_Context::systemConf()->allow_anonymous_refresh
+		if (!Auth::hasAccess() && !(
+			Context::systemConf()->allow_anonymous
+			&& Context::systemConf()->allow_anonymous_refresh
 			)) {
-			Minz_Error::error(403);
+			Error::error(403);
 			return;
 		}
 
 		header('Content-Type: application/json; charset=UTF-8');
-		Minz_Session::_param('actualize_feeds', false);
+		Session::_param('actualize_feeds', false);
 
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO = Factory::createDatabaseDAO();
 		$databaseDAO->minorDbMaintenance();
-		Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssUserMaintenance);
+		ExtensionManager::callHookVoid(HookType::FreshrssUserMaintenance);
 
-		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$this->view->categories = $catDAO->listCategoriesOrderUpdate(FreshRSS_Context::userConf()->dynamic_opml_ttl_default);
+		$catDAO = Factory::createCategoryDao();
+		$this->view->categories = $catDAO->listCategoriesOrderUpdate(Context::userConf()->dynamic_opml_ttl_default);
 
-		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::userConf()->ttl_default);
+		$feedDAO = Factory::createFeedDao();
+		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(Context::userConf()->ttl_default);
 
 		// When the refresh button is used from a feed or category view, limit the
 		// batch to the feeds visible in that view.
-		$get = Minz_Request::paramString('get');
+		$get = Request::paramString('get');
 		if (preg_match('/^c_(\d+)$/', $get, $matches)) {
 			$category = $this->view->categories[(int)$matches[1]] ?? null;
 			if ($category !== null) {
 				$this->view->categories = [$category->id() => $category];
 				// Filter feeds to keep only those from the selected category, preserving the order
-				$this->view->feeds = array_filter($this->view->feeds, static fn(FreshRSS_Feed $feed) => $feed->category() === $category->id());
+				$this->view->feeds = array_filter($this->view->feeds, static fn(Feed $feed) => $feed->category() === $category->id());
 			}
 		} elseif (preg_match('/^f_(\d+)$/', $get, $matches)) {
 			$feed = $feedDAO->searchById((int)$matches[1]);
@@ -58,22 +76,22 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	}
 
 	public function nbUnreadsPerFeedAction(): void {
-		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
-			Minz_Error::error(403);
+		if (!Auth::hasAccess() && !Context::systemConf()->allow_anonymous) {
+			Error::error(403);
 			return;
 		}
 
 		header('Content-Type: application/json; charset=UTF-8');
-		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$catDAO = Factory::createCategoryDao();
 		$this->view->categories = $catDAO->listCategories(prePopulateFeeds: true, details: false);
-		$tagDAO = FreshRSS_Factory::createTagDao();
+		$tagDAO = Factory::createTagDao();
 		$this->view->tags = $tagDAO->listTags(precounts: true);
 	}
 
 	//For Web-form login
 
 	/**
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function nonceAction(): void {
 		header('Content-Type: application/json; charset=UTF-8');
@@ -82,35 +100,35 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
 		header('Pragma: no-cache');
 
-		$user = Minz_Request::paramString('user');
+		$user = Request::paramString('user');
 		if ($user === '') {
-			Minz_Error::error(400);
+			Error::error(400);
 			return;
 		}
-		$user_conf = FreshRSS_UserConfiguration::getForUser($user);
+		$user_conf = UserConfiguration::getForUser($user);
 		if ($user_conf !== null) {
 			try {
 				$s = $user_conf->passwordHash;
 				if (strlen($s) >= 60) {
 					//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
 					$this->view->salt1 = substr($s, 0, 29);
-					$this->view->nonce = hash('sha256', FreshRSS_Context::systemConf()->salt . $user . random_bytes(32));
-					Minz_Session::_param('nonce', $this->view->nonce);
+					$this->view->nonce = hash('sha256', Context::systemConf()->salt . $user . random_bytes(32));
+					Session::_param('nonce', $this->view->nonce);
 					return;	//Success
 				}
-			} catch (Minz_Exception $me) {
-				Minz_Log::warning('Nonce failure: ' . $me->getMessage());
+			} catch (Exception $me) {
+				Log::warning('Nonce failure: ' . $me->getMessage());
 			}
 		} else {
-			Minz_Log::notice('Nonce failure due to invalid username! ' . $user);
+			Log::notice('Nonce failure due to invalid username! ' . $user);
 		}
 		//Failure: Return random data.
-		$this->view->salt1 = sprintf('$2a$%02d$', FreshRSS_password_Util::BCRYPT_COST);
+		$this->view->salt1 = sprintf('$2a$%02d$', PasswordUtil::BCRYPT_COST);
 		$alphabet = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 		for ($i = 22; $i > 0; $i--) {
 			$this->view->salt1 .= $alphabet[random_int(0, 63)];
 		}
 		$this->view->nonce = hash('sha256', 'failure' . rand());
-		Minz_Session::_param('nonce', $this->view->nonce);
+		Session::_param('nonce', $this->view->nonce);
 	}
 }
