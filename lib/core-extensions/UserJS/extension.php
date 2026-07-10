@@ -1,7 +1,13 @@
 <?php
 declare(strict_types=1);
 
-final class UserJSExtension extends Minz_Extension {
+use FreshRss\Minz\Extension;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\View;
+use FreshRss\Models\Auth;
+use FreshRss\Models\UserDAO;
+
+final class UserJSExtension extends Extension {
 	public string $js_rules = '';
 	private const FILENAME = 'script.js';
 
@@ -11,7 +17,7 @@ final class UserJSExtension extends Minz_Extension {
 
 		$this->registerTranslates();
 		if ($this->hasFile(self::FILENAME)) {
-			Minz_View::appendScript($this->getFileUrl(self::FILENAME, isStatic: false));
+			View::appendScript($this->getFileUrl(self::FILENAME, isStatic: false));
 		}
 	}
 
@@ -21,17 +27,17 @@ final class UserJSExtension extends Minz_Extension {
 
 		$this->registerTranslates();
 
-		if (FreshRSS_Auth::requestReauth()) {
+		if (Auth::requestReauth()) {
 			return;
 		}
 
-		if (Minz_Request::isPost()) {
-			$js_rules = Minz_Request::paramString('js-rules', plaintext: true);
+		if (Request::isPost()) {
+			$js_rules = Request::paramString('js-rules', plaintext: true);
 			$this->saveFile(self::FILENAME, $js_rules);
-			FreshRSS_UserDAO::touch();
+			UserDAO::touch();
 			// Redirect (Post/Redirect/Get) so the next page is built after the save,
 			// with a fresh cache-busting URL for the updated script
-			Minz_Request::good(_t('feedback.conf.updated'), [
+			Request::good(_t('feedback.conf.updated'), [
 				'c' => 'extension', 'a' => 'configure', 'params' => ['e' => $this->getName()],
 			]);
 		}

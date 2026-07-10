@@ -1,19 +1,33 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Controllers;
+
+use FreshRss\Minz\Error;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Url;
+use FreshRss\Models\ActionController;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\Factory;
+use FreshRss\Models\Feed;
+use FreshRss\Models\StatsDAO;
+use FreshRss\Models\View;
+use FreshRss\Models\ViewStats;
+
 /**
  * Controller to handle application statistics.
  */
-class FreshRSS_stats_Controller extends FreshRSS_ActionController {
+class StatsController extends ActionController {
 
 	/**
-	 * @var FreshRSS_ViewStats
+	 * @var ViewStats
 	 * @phpstan-ignore property.phpDocType
 	 */
 	protected $view;
 
 	public function __construct() {
-		parent::__construct(FreshRSS_ViewStats::class);
+		parent::__construct(ViewStats::class);
 	}
 
 	/**
@@ -23,21 +37,21 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 */
 	#[\Override]
 	public function firstAction(): void {
-		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+		if (!Auth::hasAccess()) {
+			Error::error(403);
 		}
 
 		$this->_csp([
 			'default-src' => "'self'",
-			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
+			'frame-ancestors' => Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 			'img-src' => '* data: blob:',
 		]);
 
-		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$catDAO = Factory::createCategoryDao();
 		$catDAO->checkDefault();
 		$this->view->categories = $catDAO->listSortedCategories(prePopulateFeeds: false);
 
-		FreshRSS_View::prependTitle(_t('admin.stats.title') . ' · ');
+		View::prependTitle(_t('admin.stats.title') . ' · ');
 	}
 
 	/**
@@ -52,8 +66,8 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 *   - list of most prolific feed (topFeed)
 	 */
 	public function indexAction(): void {
-		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.umd.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.umd.min.js')));
+		$statsDAO = Factory::createStatsDAO();
+		View::appendScript(Url::display('/scripts/vendor/chart.umd.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.umd.min.js')));
 
 		$this->view->repartitions = $statsDAO->calculateEntryRepartition();
 
@@ -99,14 +113,14 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 * but shows the stats idle page
 	 */
 	public function feedAction(): void {
-		$id = Minz_Request::paramInt('id');
-		$ajax = Minz_Request::paramBoolean('ajax');
+		$id = Request::paramInt('id');
+		$ajax = Request::paramBoolean('ajax');
 		if ($ajax) {
 			$url_redirect = ['c' => 'subscription', 'a' => 'feed', 'params' => ['id' => (string)$id, 'from' => 'stats', 'ajax' => (string)$ajax]];
 		} else {
 			$url_redirect = ['c' => 'subscription', 'a' => 'feed', 'params' => ['id' => (string)$id, 'from' => 'stats']];
 		}
-		Minz_Request::forward($url_redirect, true);
+		Request::forward($url_redirect, true);
 	}
 
 	/**
@@ -124,9 +138,9 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 *   - last week
 	 */
 	public function idleAction(): void {
-		FreshRSS_View::appendScript(Minz_Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
-		$feed_dao = FreshRSS_Factory::createFeedDao();
-		$statsDAO = FreshRSS_Factory::createStatsDAO();
+		View::appendScript(Url::display('/scripts/feed.js?' . @filemtime(PUBLIC_PATH . '/scripts/feed.js')));
+		$feed_dao = Factory::createFeedDao();
+		$statsDAO = Factory::createStatsDAO();
 		$feeds = $statsDAO->calculateFeedLastDate();
 		$idleFeeds = [
 			'last_5_year' => [],
@@ -158,7 +172,7 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$last5Year->modify('-5 year');
 
 		foreach ($feeds as $feed) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feedDAO = Factory::createFeedDao();
 			$feedObject = $feedDAO->searchById($feed['id']);
 			if ($feedObject !== null) {
 				$feed['favicon'] = $feedObject->favicon();
@@ -190,12 +204,12 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$this->view->idleFeeds = $idleFeeds;
 		$this->view->feeds = $feed_dao->listFeeds();
 
-		$id = Minz_Request::paramInt('id');
+		$id = Request::paramInt('id');
 		$this->view->displaySlider = false;
 		if ($id !== 0) {
 			$this->view->displaySlider = true;
-			$feedDAO = FreshRSS_Factory::createFeedDao();
-			$this->view->feed = $feedDAO->searchById($id) ?? FreshRSS_Feed::default();
+			$feedDAO = Factory::createFeedDao();
+			$this->view->feed = $feedDAO->searchById($id) ?? Feed::default();
 		}
 	}
 
@@ -212,36 +226,36 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	 *       for the average.
 	 */
 	public function repartitionAction(): void {
-		$statsDAO 		= FreshRSS_Factory::createStatsDAO();
-		$categoryDAO 	= FreshRSS_Factory::createCategoryDao();
-		$feedDAO 		= FreshRSS_Factory::createFeedDao();
+		$statsDAO 		= Factory::createStatsDAO();
+		$categoryDAO 	= Factory::createCategoryDao();
+		$feedDAO 		= Factory::createFeedDao();
 
-		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/chart.umd.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.umd.min.js')));
+		View::appendScript(Url::display('/scripts/vendor/chart.umd.min.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/chart.umd.min.js')));
 
-		$id = Minz_Request::paramInt('id');
+		$id = Request::paramInt('id');
 		if ($id === 0) {
 			$id = null;
 		}
 
 		$this->view->categories 	= $categoryDAO->listCategories(prePopulateFeeds: true);
-		$this->view->feed 			= $id === null ? FreshRSS_Feed::default() : ($feedDAO->searchById($id) ?? FreshRSS_Feed::default());
+		$this->view->feed 			= $id === null ? Feed::default() : ($feedDAO->searchById($id) ?? Feed::default());
 		$this->view->days 			= $statsDAO->getDays();
 		$this->view->months 		= $statsDAO->getMonths();
 
 		$this->view->repartition 			= $statsDAO->calculateEntryRepartitionPerFeed($id);
 
 		$this->view->repartitionHour 		= $statsDAO->calculateEntryRepartitionPerFeedPerHour($id);
-		$this->view->averageHour 			= FreshRSS_StatsDAO::calculateEntryAverageFromRepartition(
+		$this->view->averageHour 			= StatsDAO::calculateEntryAverageFromRepartition(
 			$this->view->repartitionHour
 		);
 
 		$this->view->repartitionDayOfWeek 	= $statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id);
-		$this->view->averageDayOfWeek 		= FreshRSS_StatsDAO::calculateEntryAverageFromRepartition(
+		$this->view->averageDayOfWeek 		= StatsDAO::calculateEntryAverageFromRepartition(
 			$this->view->repartitionDayOfWeek
 		);
 
 		$this->view->repartitionMonth 		= $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
-		$this->view->averageMonth 			= FreshRSS_StatsDAO::calculateEntryAverageFromRepartition(
+		$this->view->averageMonth 			= StatsDAO::calculateEntryAverageFromRepartition(
 			$this->view->repartitionMonth
 		);
 
@@ -254,17 +268,17 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 	}
 
 	public function unreadDatesAction(): void {
-		$statsDAO = FreshRSS_Factory::createStatsDAO();
-		$field = Minz_Request::paramString('field', plaintext: true);
+		$statsDAO = Factory::createStatsDAO();
+		$field = Request::paramString('field', plaintext: true);
 		if (!in_array($field, ['id', 'date'], true)) {
 			$field = 'id';
 		}
-		$granularity = Minz_Request::paramString('granularity', plaintext: true);
+		$granularity = Request::paramString('granularity', plaintext: true);
 		if (!in_array($granularity, ['day', 'month', 'year'], true)) {
 			$granularity = 'day';
 		}
-		$dates = $statsDAO->getMaxUnreadDates($field, $granularity, Minz_Request::paramInt('max') ?: 100,
-			Minz_Request::paramIntNull('min_priority') ?? FreshRSS_Feed::PRIORITY_HIDDEN);
+		$dates = $statsDAO->getMaxUnreadDates($field, $granularity, Request::paramInt('max') ?: 100,
+			Request::paramIntNull('min_priority') ?? Feed::PRIORITY_HIDDEN);
 		$this->view->unreadDates = $dates;
 	}
 }

@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Session;
+use FreshRss\Minz\User;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
@@ -26,18 +31,18 @@ final class AuthTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function testRefusedSessionWithTokenLoadsConfigurationOfTokenUser(): void {
-		FreshRSS_Context::initSystem();
-		FreshRSS_Context::systemConf()->auth_type = 'form';
-		Minz_Session::init('FreshRSS', volatile: true);
-		Minz_Session::_params([
-			Minz_User::CURRENT_USER => 'phpunit-mallory',
+		Context::initSystem();
+		Context::systemConf()->auth_type = 'form';
+		Session::init('FreshRSS', volatile: true);
+		Session::_params([
+			User::CURRENT_USER => 'phpunit-mallory',
 			'loginOk' => true,
 			'passwordHash' => 'outdated',
 		]);
-		Minz_Request::_params(['user' => 'phpunit-alice', 'token' => 'token-phpunit-alice']);
+		Request::_params(['user' => 'phpunit-alice', 'token' => 'token-phpunit-alice']);
 
-		self::assertFalse(FreshRSS_Auth::init());
-		self::assertSame('phpunit-alice', Minz_User::name());
-		self::assertSame('hash-phpunit-alice', FreshRSS_Context::userConf()->passwordHash);
+		self::assertFalse(Auth::init());
+		self::assertSame('phpunit-alice', User::name());
+		self::assertSame('hash-phpunit-alice', Context::userConf()->passwordHash);
 	}
 }

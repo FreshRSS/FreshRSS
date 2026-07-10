@@ -1,15 +1,17 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
- * The Minz_Error class logs and raises framework errors
+ * The Error class logs and raises framework errors
  */
-class Minz_Error {
+class Error {
 	public function __construct() {}
 
 	/**
@@ -24,13 +26,13 @@ class Minz_Error {
 	public static function error(int $code = 404, string|array $logs = [], bool $redirect = true): void {
 		$logs = self::processLogs($logs);
 
-		Minz_Session::_params([
+		Session::_params([
 			'error_code' => $code,
 			'error_logs' => $logs,
 		]);
 
 		// Also pass the error code by URL, in case the session is lost (session ID rotation)
-		Minz_Request::forward(['c' => 'error', 'params' => ['code' => $code]], $redirect);
+		Request::forward(['c' => 'error', 'params' => ['code' => $code]], $redirect);
 	}
 
 	/**
@@ -57,7 +59,7 @@ class Minz_Error {
 			$notice = $logs['notice'];
 		}
 
-		switch (Minz_Configuration::get('system')->environment) {
+		switch (Configuration::get('system')->environment) {
 			case 'development':
 				return array_merge($error, $warning, $notice);
 			case 'production':

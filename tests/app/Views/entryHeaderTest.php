@@ -1,6 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Session;
+use FreshRss\Minz\Translate;
+use FreshRss\Models\Context;
+use FreshRss\Models\Entry;
+use FreshRss\Models\Feed;
+use FreshRss\Models\UserConfiguration;
+use FreshRss\Models\View;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
@@ -14,16 +21,16 @@ final class entryHeaderTest extends \PHPUnit\Framework\TestCase {
 	private const LINK_ITEM = '//li[contains(concat(" ", normalize-space(@class), " "), " link ")]';
 
 	private static function renderEntryHeader(bool $titleOpensWebsite): Dom\XPath {
-		FreshRSS_Context::initSystem();
-		Minz_Session::init('FreshRSS', volatile: true);
-		FreshRSS_Context::setUserConf(clone FreshRSS_UserConfiguration::default());
-		FreshRSS_Context::userConf()->title_opens_website = $titleOpensWebsite;
-		Minz_Translate::init('en');
+		Context::initSystem();
+		Session::init('FreshRSS', volatile: true);
+		Context::setUserConf(clone UserConfiguration::default());
+		Context::userConf()->title_opens_website = $titleOpensWebsite;
+		Translate::init('en');
 
-		$view = new FreshRSS_View();
+		$view = new View();
 		$view->_path('helpers/index/normal/entry_header.phtml');
-		$view->feed = new FreshRSS_Feed('https://example.net/feed.xml', false);
-		$view->entry = new FreshRSS_Entry(1, 'guid', 'Title', '', 'Content', self::ARTICLE_URL, 1700000000);
+		$view->feed = new Feed('https://example.net/feed.xml', false);
+		$view->entry = new Entry(1, 'guid', 'Title', '', 'Content', self::ARTICLE_URL, 1700000000);
 		// Fragment of a page, so prefix with `<!DOCTYPE html>`
 		$doc = Dom\HTMLDocument::createFromString('<!DOCTYPE html>' . $view->renderToString(), Dom\HTML_NO_DEFAULT_NS);
 		return new Dom\XPath($doc);

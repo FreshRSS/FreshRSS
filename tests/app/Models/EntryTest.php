@@ -1,25 +1,29 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Models\Context;
+use FreshRss\Models\Entry;
+use FreshRss\Models\Feed;
+use FreshRss\Models\SimplePieCustom;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class EntryTest extends \PHPUnit\Framework\TestCase {
 
 	#[\Override]
 	protected function setUp(): void {
-		if (!FreshRSS_Context::hasSystemConf()) {
-			FreshRSS_Context::initSystem();
+		if (!Context::hasSystemConf()) {
+			Context::initSystem();
 		}
 	}
 
 	/**
 	 * Parse a raw RSS payload through the real feed processing pipeline.
-	 * @return list<FreshRSS_Entry>
+	 * @return list<Entry>
 	 */
 	private static function entriesFromRss(string $rss): array {
-		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+		$feed = new Feed('http://example.net/feed.xml', validate: false);
 		$feed->_id(1);
-		$simplePie = new FreshRSS_SimplePieCustom();
+		$simplePie = new SimplePieCustom();
 		$simplePie->enable_cache(false);
 		$simplePie->set_raw_data($rss);
 		self::assertTrue($simplePie->init());
@@ -80,7 +84,7 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function test_content_dropsUnsafeUrlsFromLegacyAttributes(): void {
-		$entry = new FreshRSS_Entry(1, 'poc-003', 'Victim Article', '', 'Hello', 'https://example.net/article');
+		$entry = new Entry(1, 'poc-003', 'Victim Article', '', 'Hello', 'https://example.net/article');
 		$entry->_attributes([
 			'thumbnail' => ['url' => 'javascript:alert(1)'],
 			'enclosures' => [
@@ -132,11 +136,11 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 
 	/** ZIP/JSON export/import */
 	public function test_toGReaderFreshRssExportRoundTripsEncoding(): void {
-		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+		$feed = new Feed('http://example.net/feed.xml', validate: false);
 		$feed->_id(1);
 		$feed->_name('Feed &amp; me');
 
-		$entry = new FreshRSS_Entry(1, 'tag:example.net,2026:1', 'A &amp; B', 'B &amp; C', 'Hello', 'https://example.net/post-1', 1731312000);
+		$entry = new Entry(1, 'tag:example.net,2026:1', 'A &amp; B', 'B &amp; C', 'Hello', 'https://example.net/post-1', 1731312000);
 		$entry->_id('1731312000000000');
 		$entry->_feed($feed);
 
@@ -147,7 +151,7 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 
 	/** Above PHP_INT_MAX, an integer literal is a float on 32-bit platforms, so an entry ID is only ever a string */
 	public function test_idRejectsAFloat(): void {
-		$entry = new FreshRSS_Entry(1, 'guid-1', 'Title', '', '', 'https://example.net/1', 1700000000);
+		$entry = new Entry(1, 'guid-1', 'Title', '', '', 'https://example.net/1', 1700000000);
 		$this->expectException(\TypeError::class);
 		// @phpstan-ignore argument.type
 		$entry->_id(1700000000000001.0);
@@ -188,7 +192,7 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideFullContent')]
 	public function test_originalContent_removesFullContent(string $content, string $expected, ?string $delimiter): void {
-		$entry = new FreshRSS_Entry(1, 'guid', 'Title', '', $content, 'https://example.net/article');
+		$entry = new Entry(1, 'guid', 'Title', '', $content, 'https://example.net/article');
 		if ($delimiter !== null) {
 			$entry->_attribute('full_content_delimiter', $delimiter);
 		}
@@ -234,7 +238,7 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 			'<b title=\'<!-- FULLCONTENT end //-->" <!--="x"><form><button>x</button></form>-->\'>bold</b>';
 		// Freshly fetched content wrapped by loadCompleteContent(), prepended to the original content
 			$full = "<!-- FULLCONTENT {$delimiter} start //--><p>Full</p><!-- FULLCONTENT {$delimiter} end //-->";
-		$entry = new FreshRSS_Entry(1, 'guid', 'Title', '', $full . $forged, 'https://example.net/article');
+		$entry = new Entry(1, 'guid', 'Title', '', $full . $forged, 'https://example.net/article');
 		$entry->_attribute('full_content_delimiter', $delimiter);
 
 		// Only the span of the secret unique delimiter is cut; the forged markers are inert

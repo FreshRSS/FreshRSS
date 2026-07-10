@@ -1,6 +1,11 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_ViewStats $this */
+	/** @var ViewStats $this */
+
+use FreshRss\Minz\Request;
+use FreshRss\Models\Feed;
+use FreshRss\Models\ViewStats;
+
 	$this->partial('aside_subscription');
 ?>
 <main class="post">
@@ -9,22 +14,22 @@
 		<input type="hidden" name="c" value="stats" />
 		<input type="hidden" name="a" value="unreadDates" />
 		<select name="field" id="field">
-			<option value="id" <?= Minz_Request::paramString('field') === 'id' ? 'selected="selected"' : '' ?>><?= _t('admin.stats.date_received') ?></option>
-			<option value="date" <?= Minz_Request::paramString('field') === 'date' ? 'selected="selected"' : '' ?>><?= _t('admin.stats.date_published') ?></option>
+			<option value="id" <?= Request::paramString('field') === 'id' ? 'selected="selected"' : '' ?>><?= _t('admin.stats.date_received') ?></option>
+			<option value="date" <?= Request::paramString('field') === 'date' ? 'selected="selected"' : '' ?>><?= _t('admin.stats.date_published') ?></option>
 		</select>
-		<input type="number" name="max" id="max" value="<?= Minz_Request::paramInt('max') ?: 100 ?>" min="1" />
+		<input type="number" name="max" id="max" value="<?= Request::paramInt('max') ?: 100 ?>" min="1" />
 		<select name="granularity" id="granularity">
-			<option value="day" <?= Minz_Request::paramString('granularity') === 'day' ? 'selected="selected"' : '' ?>><?= _t('gen.period.days') ?></option>
-			<option value="month" <?= Minz_Request::paramString('granularity') === 'month' ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
-			<option value="year" <?= Minz_Request::paramString('granularity') === 'year' ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
+			<option value="day" <?= Request::paramString('granularity') === 'day' ? 'selected="selected"' : '' ?>><?= _t('gen.period.days') ?></option>
+			<option value="month" <?= Request::paramString('granularity') === 'month' ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
+			<option value="year" <?= Request::paramString('granularity') === 'year' ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
 		</select>
 		<select name="min_priority" id="min_priority">
-			<?php $currentPriority = Minz_Request::paramIntNull('min_priority'); ?>
+			<?php $currentPriority = Request::paramIntNull('min_priority'); ?>
 			<option value=""><?= _t('sub.feed.priority._') ?></option>
-			<option value="<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>" <?= $currentPriority === FreshRSS_Feed::PRIORITY_IMPORTANT ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.important') ?></option>
-			<option value="<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>" <?= $currentPriority === FreshRSS_Feed::PRIORITY_MAIN_STREAM ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.main_stream') ?></option>
-			<option value="<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>" <?= $currentPriority === FreshRSS_Feed::PRIORITY_CATEGORY ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.category') ?></option>
-			<option value="<?= FreshRSS_Feed::PRIORITY_FEED ?>" <?= $currentPriority === FreshRSS_Feed::PRIORITY_FEED ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.feed') ?></option>
+			<option value="<?= Feed::PRIORITY_IMPORTANT ?>" <?= $currentPriority === Feed::PRIORITY_IMPORTANT ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.important') ?></option>
+			<option value="<?= Feed::PRIORITY_MAIN_STREAM ?>" <?= $currentPriority === Feed::PRIORITY_MAIN_STREAM ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.main_stream') ?></option>
+			<option value="<?= Feed::PRIORITY_CATEGORY ?>" <?= $currentPriority === Feed::PRIORITY_CATEGORY ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.category') ?></option>
+			<option value="<?= Feed::PRIORITY_FEED ?>" <?= $currentPriority === Feed::PRIORITY_FEED ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.feed') ?></option>
 		</select>
 		<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 	</form>
@@ -32,7 +37,7 @@
 		<thead>
 			<tr>
 				<th>
-					<?php if (Minz_Request::paramString('field') === 'date'): ?>
+					<?php if (Request::paramString('field') === 'date'): ?>
 						<?= _t('admin.stats.date_published') ?>
 					<?php else: ?>
 						<?= _t('admin.stats.date_received') ?>
@@ -45,7 +50,7 @@
 			<?php foreach ($this->unreadDates as $row): ?>
 				<tr><?php /* TODO: Make that URL show all articles, including those with PRIORITY_ARCHIVED */ ?>
 					<td><a href="<?= _url('index', 'index', 'search',
-						(Minz_Request::paramString('field') === 'date' ? 'pubdate:' : 'date:') . $row['granularity']) ?>">
+						(Request::paramString('field') === 'date' ? 'pubdate:' : 'date:') . $row['granularity']) ?>">
 						<?= htmlspecialchars($row['granularity'], ENT_NOQUOTES, 'UTF-8') ?>
 					</a></td>
 					<td><?= format_number($row['unread_count']) ?></td>

@@ -1,12 +1,16 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
+use FreshRss\Models\Context;
+
 /**
  * The extension base class.
  *
  * @phpstan-type ExtensionMetadata array{name:string,entrypoint:string,author?:string,description?:string,version?:string,type?:'system'|'user',path:string}
  */
-abstract class Minz_Extension {
+abstract class Extension {
 	private readonly string $name;
 	private readonly string $entrypoint;
 	private readonly string $path;
@@ -48,17 +52,17 @@ abstract class Minz_Extension {
 	 */
 	final public function __construct(array $meta_info) {
 		if (!is_string($meta_info['name'] ?? null) || $meta_info['name'] === '') {
-			throw new Minz_ExtensionException('Invalid `name` info!');
+			throw new ExtensionException('Invalid `name` info!');
 		}
 		$this->name = $meta_info['name'];
 
 		if (!is_string($meta_info['entrypoint'] ?? null) || $meta_info['entrypoint'] === '') {
-			throw new Minz_ExtensionException('Invalid `entrypoint` info!', $this->name);
+			throw new ExtensionException('Invalid `entrypoint` info!', $this->name);
 		}
 		$this->entrypoint = $meta_info['entrypoint'];
 
 		if (!is_string($meta_info['path'] ?? null) || $meta_info['path'] === '') {
-			throw new Minz_ExtensionException('Invalid `path` info!', $this->name);
+			throw new ExtensionException('Invalid `path` info!', $this->name);
 		}
 		$this->path = $meta_info['path'];
 
@@ -177,19 +181,19 @@ abstract class Minz_Extension {
 	/** @param 'user'|'system' $type */
 	private function setType(string $type): void {
 		if (!in_array($type, ['user', 'system'], true)) {
-			throw new Minz_ExtensionException('invalid `type` info', $this->name);
+			throw new ExtensionException('invalid `type` info', $this->name);
 		}
 		$this->type = $type;
 	}
 
 	/** Return the user-specific, extension-specific, folder where this extension can save user-specific data */
 	final protected function getExtensionUserPath(): string {
-		$username = Minz_User::name() ?: '_';
+		$username = User::name() ?: '_';
 		return USERS_PATH . "/{$username}/extensions/{$this->getEntrypoint()}";
 	}
 
 	private function migrateExtensionUserPath(): void {
-		$username = Minz_User::name() ?: '_';
+		$username = User::name() ?: '_';
 		$old_extension_user_path = USERS_PATH . "/{$username}/extensions/{$this->getName()}";
 		$new_extension_user_path = $this->getExtensionUserPath();
 		if (is_dir($old_extension_user_path)) {
@@ -235,13 +239,13 @@ abstract class Minz_Extension {
 			$dir = basename($this->path);
 			$file_name_url = urlencode("{$dir}/static/{$filename}");
 			$mtime = @filemtime("{$this->path}/static/{$filename}");
-			return Minz_Url::display("/ext.php?f={$file_name_url}&amp;{$mtime}", 'php');
+			return Url::display("/ext.php?f={$file_name_url}&amp;{$mtime}", 'php');
 		} else {
-			$username = Minz_User::name();
+			$username = User::name();
 			if ($username == null) {
 				return '';
 			}
-			return Minz_Url::display(['c' => 'extension', 'a' => 'serve', 'params' => [
+			return Url::display(['c' => 'extension', 'a' => 'serve', 'params' => [
 				'x' => $this->getName(),
 				'f' => $filename,
 				'm' => $this->mtimeFile($filename),	// cache-busting
@@ -255,14 +259,14 @@ abstract class Minz_Extension {
 	 * @param string $base_name the base name of the controller. Final name will be FreshExtension_<base_name>_Controller.
 	 */
 	final protected function registerController(string $base_name): void {
-		Minz_Dispatcher::registerController($base_name, $this->path);
+		Dispatcher::registerController($base_name, $this->path);
 	}
 
 	/**
 	 * Register the views in order to be accessible by the application.
 	 */
 	final protected function registerViews(): void {
-		Minz_View::addBasePathname($this->path);
+		View::addBasePathname($this->path);
 	}
 
 	/**
@@ -270,29 +274,29 @@ abstract class Minz_Extension {
 	 */
 	final protected function registerTranslates(): void {
 		$i18n_dir = $this->path . '/i18n';
-		Minz_Translate::registerPath($i18n_dir);
+		Translate::registerPath($i18n_dir);
 	}
 
 	/**
 	 * Register a new hook.
 	 *
-	 * @param Minz_HookType|string $hook_name the hook name (must exist).
+	 * @param HookType|string $hook_name the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
 	 * @param int $priority the priority of the hook, default priority is 0, the higher the value the lower the priority
 	 */
-	final protected function registerHook(Minz_HookType|string $hook_name, $hook_function, int $priority = Minz_Hook::DEFAULT_PRIORITY): void {
-		Minz_ExtensionManager::addHook($hook_name, $hook_function, $priority);
+	final protected function registerHook(HookType|string $hook_name, $hook_function, int $priority = Hook::DEFAULT_PRIORITY): void {
+		ExtensionManager::addHook($hook_name, $hook_function, $priority);
 	}
 
 	/** @param 'system'|'user' $type */
 	private function isConfigurationEnabled(string $type): bool {
-		if (!class_exists('FreshRSS_Context', false)) {
+		if (!class_exists('Context', false)) {
 			return false;
 		}
 
 		switch ($type) {
-			case 'system': return FreshRSS_Context::hasSystemConf();
-			case 'user': return FreshRSS_Context::hasUserConf();
+			case 'system': return Context::hasSystemConf();
+			case 'user': return Context::hasUserConf();
 			default:
 				return false;
 		}
@@ -302,10 +306,10 @@ abstract class Minz_Extension {
 	private function isExtensionConfigured(string $type): bool {
 		switch ($type) {
 			case 'user':
-				$conf = FreshRSS_Context::userConf();
+				$conf = Context::userConf();
 				break;
 			case 'system':
-				$conf = FreshRSS_Context::systemConf();
+				$conf = Context::systemConf();
 				break;
 			default:
 				return false;
@@ -325,7 +329,7 @@ abstract class Minz_Extension {
 	 */
 	final protected function getSystemConfiguration(): array {
 		if ($this->isConfigurationEnabled('system') && $this->isExtensionConfigured('system')) {
-			return FreshRSS_Context::systemConf()->extensions[$this->getName()];
+			return Context::systemConf()->extensions[$this->getName()];
 		}
 		return [];
 	}
@@ -337,7 +341,7 @@ abstract class Minz_Extension {
 	 */
 	final protected function getUserConfiguration(): array {
 		if ($this->isConfigurationEnabled('user') && $this->isExtensionConfigured('user')) {
-			return FreshRSS_Context::userConf()->extensions[$this->getName()];
+			return Context::userConf()->extensions[$this->getName()];
 		}
 		return [];
 	}
@@ -441,10 +445,10 @@ abstract class Minz_Extension {
 	private function setConfiguration(string $type, array $configuration): void {
 		switch ($type) {
 			case 'system':
-				$conf = FreshRSS_Context::systemConf();
+				$conf = Context::systemConf();
 				break;
 			case 'user':
-				$conf = FreshRSS_Context::userConf();
+				$conf = Context::userConf();
 				break;
 			default:
 				return;
@@ -527,10 +531,10 @@ abstract class Minz_Extension {
 
 		switch ($type) {
 			case 'system':
-				$conf = FreshRSS_Context::systemConf();
+				$conf = Context::systemConf();
 				break;
 			case 'user':
-				$conf = FreshRSS_Context::userConf();
+				$conf = Context::userConf();
 				break;
 			default:
 				return;

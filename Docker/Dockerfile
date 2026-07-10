@@ -19,6 +19,18 @@ WORKDIR /var/www/FreshRSS
 COPY --chown=root:www-data . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/sites-available/
 
+# Generate the Composer PSR-4 autoloader for the `FreshRss` namespace (app/, lib/Minz/).
+# No real runtime package is required, so this only writes vendor/autoload.php & friends,
+# with no network fetch of dependencies.
+RUN \
+	php -r "copy('https://raw.githubusercontent.com/composer/getcomposer.org/a5abae68b349213793dca4a1afcaada0ad11143b/web/installer', 'composer-setup.php');" && \
+	php composer-setup.php --quiet --install-dir=/usr/local/bin --filename=composer && \
+	rm composer-setup.php && \
+	composer install --no-dev --no-progress --optimize-autoloader --no-interaction && \
+	rm /usr/local/bin/composer && \
+	rm -rf /root/.cache/composer && \
+	chown -R root:www-data vendor
+
 ARG FRESHRSS_VERSION
 ARG SOURCE_COMMIT
 

@@ -1,7 +1,10 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_ViewStats $this */
-	$this->partial('aside_subscription');
+	/** @var ViewStats $this */
+
+use FreshRss\Models\ViewStats;
+
+$this->partial('aside_subscription');
 ?>
 <main class="post">
 	<h1><?= _t('admin.stats.main') ?></h1>

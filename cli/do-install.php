@@ -1,6 +1,12 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\UserController;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\User;
+use FreshRss\Models\Context;
+
 require __DIR__ . '/_cli.php';
 
 if (file_exists(DATA_PATH . '/applied_migrations.txt')) {
@@ -94,7 +100,7 @@ $dbValues = [
 
 $config = [
 	'salt' => generateSalt(),
-	'db' => FreshRSS_Context::systemConf()->db,
+	'db' => Context::systemConf()->db,
 ];
 
 $customConfigPath = DATA_PATH . '/config.custom.php';
@@ -109,7 +115,7 @@ foreach ($values as $name => $value) {
 	if ($value !== null) {
 		switch ($name) {
 			case 'default_user':
-				if (!FreshRSS_user_Controller::checkUsername($value)) {
+				if (!UserController::checkUsername($value)) {
 					fail('FreshRSS invalid default username! default_user must be ASCII alphanumeric');
 				}
 				break;
@@ -128,7 +134,7 @@ foreach ($values as $name => $value) {
 	}
 }
 
-if ((!empty($config['base_url'])) && is_string($config['base_url']) && Minz_Request::serverIsPublic($config['base_url'])) {
+if ((!empty($config['base_url'])) && is_string($config['base_url']) && Request::serverIsPublic($config['base_url'])) {
 	$config['pubsubhubbub_enabled'] = true;
 }
 
@@ -151,8 +157,8 @@ if (function_exists('opcache_reset')) {
 	opcache_reset();
 }
 
-FreshRSS_Context::initSystem(true);
-Minz_User::change(Minz_User::INTERNAL_USER);
+Context::initSystem(true);
+User::change(User::INTERNAL_USER);
 
 $ok = false;
 try {

@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_FeedDAOSQLite extends FreshRSS_FeedDAOPGSQL {
+namespace FreshRss\Models;
+
+class FeedDAOSQLite extends FeedDAOPGSQL {
 
 	#[\Override]
 	public function sqlResetSequence(): bool {

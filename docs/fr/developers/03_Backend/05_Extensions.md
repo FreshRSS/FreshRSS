@@ -40,6 +40,16 @@ facilement.
 
 see [Minz documentation](../Minz/index.md)
 
+## Noms de classes historiques
+
+À partir de la prochaine version après FreshRSS 1.29.1, le cœur du code (`app/`, `lib/Minz/`) utilise l'autoloading PSR-4 de Composer sous le namespace `FreshRss` (par ex. `FreshRss\Minz\Extension`, `FreshRss\Models\Entry`), remplaçant la convention historique consistant à préfixer chaque classe globale par `FreshRSS_` ou `Minz_` (par ex. `FreshRSS_Entry`, `Minz_Extension`).
+
+**Les extensions existantes continuent de fonctionner sans modification.** Les classes qui composent l'API des extensions — `Minz_Extension`, `Minz_ExtensionManager`, `Minz_ActionController`, `Minz_Dispatcher`, `Minz_Request`, `Minz_View`, `Minz_HookType`, `Minz_HookSignature`, `Minz_Session`, `Minz_Translate`, `Minz_Exception`, `Minz_ExtensionException`, `FreshRSS_Context`, `FreshRSS_Entry`, `FreshRSS_Feed`, `FreshRSS_SimplePieCustom`, `FreshRSS_UserConfiguration`, `FreshRSS_ViewMode` — restent disponibles sous leur ancien nom global via [`lib/legacy-aliases.php`](../../../../lib/legacy-aliases.php) : tous les exemples de cette page (qui utilisent encore les anciens noms) restent donc corrects et pleinement pris en charge.
+
+Les anciens noms globaux sont **dépréciés** et pourront être supprimés dans une future version majeure, avec un préavis suffisant. Les nouvelles extensions, ainsi que les mises à jour d'extensions existantes, devraient préférer la forme avec namespace, par exemple `class HelloWorldExtension extends \FreshRss\Minz\Extension` plutôt que `extends Minz_Extension`, et `\FreshRss\Minz\HookType::EntryBeforeDisplay` plutôt que `Minz_HookType::EntryBeforeDisplay`. Les deux formes désignent exactement la même classe : elles peuvent donc être mélangées librement, et migrer est un changement purement mécanique, sans rupture de compatibilité.
+
+La convention du point d'entrée d'une extension elle-même (une classe nommée `<entrypoint>Extension` dans le namespace global, et, si vous enregistrez votre propre contrôleur, `FreshExtension_<name>_Controller`) n'est pas affectée par ce changement et n'est pas prévue pour être dépréciée.
+
 ## Écrire une extension pour FreshRSS
 
 Nous y voilà ! Nous avons abordé les fonctionnalités les plus utiles de Minz

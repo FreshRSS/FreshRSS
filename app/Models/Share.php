@@ -1,13 +1,15 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
 /**
  * Manage the sharing options in FreshRSS.
  */
-class FreshRSS_Share {
+class Share {
 	/**
 	 * The list of available sharing options.
-	 * @var array<string,FreshRSS_Share>
+	 * @var array<string,Share>
 	 */
 	private static array $list_sharing = [];
 
@@ -22,7 +24,7 @@ class FreshRSS_Share {
 			return;
 		}
 
-		self::$list_sharing[$type] = new FreshRSS_Share(
+		self::$list_sharing[$type] = new Share(
 			$type,
 			$share_options['url'],
 			$share_options['transform'] ?? [],
@@ -55,12 +57,12 @@ class FreshRSS_Share {
 			self::register($share_options);
 		}
 
-		uasort(self::$list_sharing, static fn(FreshRSS_Share $a, FreshRSS_Share $b) => FreshRSS_Context::localeCompare($a->name() ?? '', $b->name() ?? ''));
+		uasort(self::$list_sharing, static fn(Share $a, Share $b) => Context::localeCompare($a->name() ?? '', $b->name() ?? ''));
 	}
 
 	/**
 	 * Return the list of sharing options.
-	 * @return array<string,FreshRSS_Share>
+	 * @return array<string,Share>
 	 */
 	public static function enum(): array {
 		return self::$list_sharing;
@@ -68,9 +70,9 @@ class FreshRSS_Share {
 
 	/**
 	 * @param string $type the share type, null if $type is not registered.
-	 * @return FreshRSS_Share|null object related to the given type.
+	 * @return Share|null object related to the given type.
 	 */
-	public static function get(string $type): ?FreshRSS_Share {
+	public static function get(string $type): ?Share {
 		return self::$list_sharing[$type] ?? null;
 	}
 	private readonly string $name;
@@ -89,7 +91,7 @@ class FreshRSS_Share {
 	private string $method;
 
 	/**
-	 * Create a FreshRSS_Share object.
+	 * Create a Share object.
 	 * @param string $type is a unique string defining the kind of share option.
 	 * @param string $url_transform defines the url format to use in order to share.
 	 * @param array<callable>|array<string,array<callable>> $transforms is an array of transformations to apply on link and title.
@@ -124,7 +126,7 @@ class FreshRSS_Share {
 	}
 
 	/**
-	 * Update a FreshRSS_Share object with information from an array.
+	 * Update a Share object with information from an array.
 	 * @param array<string,string> $options is a list of information to update where keys should be
 	 *        in this list: name, url, id, title, link.
 	 */

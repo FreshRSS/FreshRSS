@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Session;
+
 final class SessionTest extends \PHPUnit\Framework\TestCase {
 
 	private string $originalSavePath = '';
@@ -22,15 +24,15 @@ final class SessionTest extends \PHPUnit\Framework\TestCase {
 
 	public function testRegenerateIDOnHealthyStorage(): void {
 		$save_path = session_save_path() ?: sys_get_temp_dir();
-		Minz_Session::init('FreshRSS', volatile: false);
+		Session::init('FreshRSS', volatile: false);
 		self::assertTrue(file_exists($save_path . '/sess_' . session_id()));
 		$previous_id = session_id();
-		Minz_Session::_param('probe', 'ok');
-		Minz_Session::regenerateID('FreshRSS');
+		Session::_param('probe', 'ok');
+		Session::regenerateID('FreshRSS');
 		self::assertNotSame($previous_id, session_id());
 		self::assertFalse(file_exists($save_path . '/sess_' . $previous_id));
 		self::assertTrue(file_exists($save_path . '/sess_' . session_id()));
-		self::assertSame('ok', Minz_Session::paramString('probe'));
+		self::assertSame('ok', Session::paramString('probe'));
 		session_unset();
 		session_write_close();
 		unlink($save_path . '/sess_' . session_id());
@@ -42,6 +44,6 @@ final class SessionTest extends \PHPUnit\Framework\TestCase {
 		ini_set('session.save_path', $this->testSavePath . '/missing_subdir');
 
 		$this->expectException(RuntimeException::class);
-		Minz_Session::regenerateID('FreshRSS');
+		Session::regenerateID('FreshRSS');
 	}
 }

@@ -1,7 +1,11 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_Log extends Minz_Model {
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Model;
+
+class Log extends Model {
 
 	private string $date;
 	/** @property 'error'|'warning'|'notice'|'debug'|'info' $level */

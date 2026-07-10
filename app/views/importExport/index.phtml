@@ -1,7 +1,11 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$this->partial('aside_subscription');
+	/** @var View $this */
+
+use FreshRss\Models\Auth;
+use FreshRss\Models\View;
+
+$this->partial('aside_subscription');
 ?>
 <main class="post ">
 	<h1><?= _t('sub.menu.import_export') ?></h1>
@@ -17,7 +21,7 @@
 
 	<h2><?= _t('sub.import_export.import') ?></h2>
 	<form method="post" action="<?= _url('importExport', 'import') ?>" enctype="multipart/form-data" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<label class="group-name" for="file">
 				<?= extension_loaded('zip') ? _t('sub.import_export.file_to_import') : _t('sub.import_export.file_to_import_no_zip') ?>
@@ -37,7 +41,7 @@
 	<h2><?= _t('sub.import_export.export') ?></h2>
 	<?php if ($this->feedCount > 0) { ?>
 	<form method="post" action="<?= _url('importExport', 'export') ?>" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="export_opml">
@@ -91,7 +95,7 @@
 	</p>
 	<?php else: ?>
 	<form method="post" action="<?= _url('importExport', 'sqlite') ?>">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<div class="form-group">
 			<div class="group-controls">
 				<select name="sqlite">

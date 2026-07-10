@@ -1,5 +1,7 @@
 <?php
 declare(strict_types=1);
+use FreshRss\Minz\Configuration;
+use FreshRss\Minz\Log;
 use PHPUnit\Framework\TestCase;
 
 class LogTest extends TestCase {
@@ -32,7 +34,7 @@ class LogTest extends TestCase {
 	}
 
 	public function testDevelopmentEnvironmentLogsDebugMessages(): void {
-		Minz_Log::debug('some debug message', $this->logFile);
+		Log::debug('some debug message', $this->logFile);
 
 		self::assertCount(1, $this->loggedLines());
 	}
@@ -40,10 +42,10 @@ class LogTest extends TestCase {
 	public function testProductionEnvironmentDiscardsDebugAndNoticeMessages(): void {
 		putenv('FRESHRSS_ENV=production');
 
-		Minz_Log::debug('discarded', $this->logFile);
-		Minz_Log::notice('discarded too', $this->logFile);
-		Minz_Log::warning('kept', $this->logFile);
-		Minz_Log::error('kept too', $this->logFile);
+		Log::debug('discarded', $this->logFile);
+		Log::notice('discarded too', $this->logFile);
+		Log::warning('kept', $this->logFile);
+		Log::error('kept too', $this->logFile);
 
 		$lines = $this->loggedLines();
 		self::assertCount(2, $lines);
@@ -54,16 +56,16 @@ class LogTest extends TestCase {
 	public function testSilentEnvironmentDiscardsEverything(): void {
 		putenv('FRESHRSS_ENV=silent');
 
-		Minz_Log::error('should not be written', $this->logFile);
+		Log::error('should not be written', $this->logFile);
 
 		self::assertSame([], $this->loggedLines());
 	}
 
 	public function testLogLevelOverridesEnvironmentVerbosity(): void {
 		$this->withSystemConf(['environment' => 'development', 'log_level' => 'notice'], function (): void {
-			Minz_Log::debug('discarded, too verbose for notice', $this->logFile);
-			Minz_Log::notice('kept, matches the threshold', $this->logFile);
-			Minz_Log::error('kept, more severe than the threshold', $this->logFile);
+			Log::debug('discarded, too verbose for notice', $this->logFile);
+			Log::notice('kept, matches the threshold', $this->logFile);
+			Log::error('kept, more severe than the threshold', $this->logFile);
 		});
 
 		$lines = $this->loggedLines();
@@ -74,8 +76,8 @@ class LogTest extends TestCase {
 
 	public function testLogLevelCanRelaxProductionVerbosity(): void {
 		$this->withSystemConf(['environment' => 'production', 'log_level' => 'info'], function (): void {
-			Minz_Log::debug('discarded, more verbose than info', $this->logFile);
-			Minz_Log::record('kept, an info message', LOG_INFO, $this->logFile);
+			Log::debug('discarded, more verbose than info', $this->logFile);
+			Log::record('kept, an info message', LOG_INFO, $this->logFile);
 		});
 
 		self::assertCount(1, $this->loggedLines());
@@ -87,12 +89,12 @@ class LogTest extends TestCase {
 	 * @param array<string,mixed> $overrides
 	 */
 	private function withSystemConf(array $overrides, callable $test): void {
-		putenv('FRESHRSS_ENV');	// Let Minz_Log fall back to the registered `system` configuration.
+		putenv('FRESHRSS_ENV');	// Let Log fall back to the registered `system` configuration.
 
 		$configFile = self::createTempFile('freshrss-config-test-');
 		file_put_contents($configFile, '<?php return ' . var_export($overrides, true) . ';');
 
-		Minz_Configuration::register('system', $configFile, FRESHRSS_PATH . '/config.default.php');
+		Configuration::register('system', $configFile, FRESHRSS_PATH . '/config.default.php');
 		try {
 			$test();
 		} finally {

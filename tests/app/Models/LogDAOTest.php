@@ -1,19 +1,21 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\User;
+use FreshRss\Models\LogDAO;
 use PHPUnit\Framework\TestCase;
 
 class LogDAOTest extends TestCase {
 	private const LOG_FILE_TEST = 'logFileTest.txt';
 
-	private FreshRSS_LogDAO $logDAO;
+	private LogDAO $logDAO;
 
 	private string $logPath;
 
 	#[\Override]
 	protected function setUp(): void {
-		$this->logDAO = new FreshRSS_LogDAO();
-		$this->logPath = FreshRSS_LogDAO::logPath(self::LOG_FILE_TEST);
+		$this->logDAO = new LogDAO();
+		$this->logPath = LogDAO::logPath(self::LOG_FILE_TEST);
 
 		file_put_contents(
 			$this->logPath,
@@ -22,7 +24,7 @@ class LogDAOTest extends TestCase {
 	}
 
 	public function test_lines_is_array_and_truncate_function_work(): void {
-		self::assertSame(USERS_PATH . '/' . Minz_User::INTERNAL_USER . '/' . self::LOG_FILE_TEST, $this->logPath);
+		self::assertSame(USERS_PATH . '/' . User::INTERNAL_USER . '/' . self::LOG_FILE_TEST, $this->logPath);
 
 		$line = $this->logDAO::lines(self::LOG_FILE_TEST);
 

@@ -1,9 +1,14 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Models\Context;
+use FreshRss\Models\DatabaseDAO;
+use FreshRss\Models\Factory;
+
 require __DIR__ . '/_cli.php';
 
-performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
+performRequirementCheck(Context::systemConf()->db['type'] ?? '');
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $user;
@@ -29,7 +34,7 @@ if (pathinfo($filename, PATHINFO_EXTENSION) !== 'sqlite') {
 
 echo 'FreshRSS exporting database to SQLite for user “', $username, "”…\n";
 
-$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
-$ok = $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_EXPORT);
+$databaseDAO = Factory::createDatabaseDAO($username);
+$ok = $databaseDAO->dbCopy($filename, DatabaseDAO::SQLITE_EXPORT);
 
 done($ok);

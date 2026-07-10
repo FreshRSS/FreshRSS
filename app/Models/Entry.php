@@ -1,8 +1,18 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_Entry extends Minz_Model {
-	use FreshRSS_AttributesTrait;
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Exception;
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\Helper;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Log;
+use FreshRss\Minz\Model;
+use FreshRss\Utils\HttpUtil;
+
+class Entry extends Model {
+	use AttributesTrait;
 
 	public const STATE_READ = 1;
 	public const STATE_NOT_READ = 2;
@@ -34,7 +44,7 @@ class FreshRSS_Entry extends Minz_Model {
 	private ?bool $is_favorite;
 	private bool $is_updated = false;
 	private int $feedId;
-	private ?FreshRSS_Feed $feed;
+	private ?Feed $feed;
 	/** @var array<string> */
 	private array $tags = [];
 
@@ -62,7 +72,7 @@ class FreshRSS_Entry extends Minz_Model {
 	 * 		tags?:string|array<string>,attributes?:?string,
 	 * 		thumbnail?:string,timestamp?:string,
 	 * 		content_length?:int} $dao */
-	public static function fromArray(array $dao): FreshRSS_Entry {
+	public static function fromArray(array $dao): Entry {
 		if (empty($dao['content']) || !is_string($dao['content'])) {
 			$dao['content'] = '';
 		}
@@ -83,7 +93,7 @@ class FreshRSS_Entry extends Minz_Model {
 				'url' => $dao['thumbnail'],
 			];
 		}
-		$entry = new FreshRSS_Entry(
+		$entry = new Entry(
 			$dao['id_feed'] ?? 0,
 			$dao['guid'] ?? '',
 			$dao['title'] ?? '',
@@ -127,15 +137,15 @@ class FreshRSS_Entry extends Minz_Model {
 	}
 
 	/**
-	 * @param Traversable<array{id?:string,guid?:string,title?:string,author?:string,content?:string,link?:string,
+	 * @param \Traversable<array{id?:string,guid?:string,title?:string,author?:string,content?:string,link?:string,
 	 * 	date?:int|string,lastSeen?:int,lastModified?:int,lastUserModified?:int,hash?:string,is_read?:bool|int,
 	 * 	is_favorite?:bool|int,id_feed?:int,tags?:string|array<string>,attributes?:?string,
 	 * 	thumbnail?:string,timestamp?:string}> $daos
-	 * @return Traversable<FreshRSS_Entry>
+	 * @return \Traversable<Entry>
 	 */
-	public static function fromTraversable(Traversable $daos): Traversable {
+	public static function fromTraversable(\Traversable $daos): \Traversable {
 		foreach ($daos as $dao) {
-			yield FreshRSS_Entry::fromArray($dao);
+			yield Entry::fromArray($dao);
 		}
 	}
 
@@ -170,7 +180,7 @@ class FreshRSS_Entry extends Minz_Model {
 		return $title;
 	}
 
-	#[Deprecated('Use authors() instead')]
+	#[\Deprecated('Use authors() instead')]
 	public function author(): string {
 		return $this->authors(true);
 	}
@@ -339,8 +349,8 @@ class FreshRSS_Entry extends Minz_Model {
 		return $content;
 	}
 
-	/** @return Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string|array<string>,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
-	public function enclosures(bool $searchBodyImages = false): Traversable {
+	/** @return \Traversable<array{'url':string,'type'?:string,'medium'?:string,'length'?:int,'title'?:string,'description'?:string,'credit'?:string|array<string>,'height'?:int,'width'?:int,'thumbnails'?:array<string>}> */
+	public function enclosures(bool $searchBodyImages = false): \Traversable {
 		$attributeEnclosures = $this->attributeArray('enclosures');
 		if (is_array($attributeEnclosures)) {
 			// FreshRSS 1.20.1+: The enclosures are saved as attributes
@@ -352,14 +362,14 @@ class FreshRSS_Entry extends Minz_Model {
 			$searchBodyImages &= (stripos($this->content, '<img') !== false);
 			$doc = null;
 			if ($searchEnclosures || $searchBodyImages) {
-				$doc = Dom\HTMLDocument::createFromString($this->content, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
+				$doc = \Dom\HTMLDocument::createFromString($this->content, LIBXML_NOERROR | \Dom\HTML_NO_DEFAULT_NS);
 			}
 			if ($searchEnclosures && $doc !== null) {
 				// Legacy code for database entries < FreshRSS 1.20.1
 				$enclosures = $doc->querySelectorAll('div.enclosure > p.enclosure-content > [src]');
 				if ($enclosures->length > 0) {
 					foreach ($enclosures as $enclosure) {
-						if (!($enclosure instanceof Dom\Element)) {
+						if (!($enclosure instanceof \Dom\Element)) {
 							continue;
 						}
 						$result = [
@@ -375,7 +385,7 @@ class FreshRSS_Entry extends Minz_Model {
 								case 'audio': $result['medium'] = 'audio'; break;
 							}
 						}
-						yield Minz_Helper::htmlspecialchars_utf8($result);
+						yield Helper::htmlspecialchars_utf8($result);
 					}
 				}
 			}
@@ -383,7 +393,7 @@ class FreshRSS_Entry extends Minz_Model {
 				$images = $doc->querySelectorAll('img');
 				if ($images->length > 0) {
 					foreach ($images as $img) {
-						if (!($img instanceof Dom\Element)) {
+						if (!($img instanceof \Dom\Element)) {
 							continue;
 						}
 						$src = $img->getAttribute('src') ?? '';
@@ -395,13 +405,13 @@ class FreshRSS_Entry extends Minz_Model {
 								'url' => $src,
 								'medium' => 'image',
 							];
-							yield Minz_Helper::htmlspecialchars_utf8($result);
+							yield Helper::htmlspecialchars_utf8($result);
 						}
 					}
 				}
 			}
-		} catch (Exception $ex) {
-			Minz_Log::debug(__METHOD__ . ' ' . $ex->getMessage());
+		} catch (\Exception $ex) {
+			Log::debug(__METHOD__ . ' ' . $ex->getMessage());
 		}
 	}
 
@@ -511,9 +521,9 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->is_updated = $value;
 	}
 
-	public function feed(): ?FreshRSS_Feed {
+	public function feed(): ?Feed {
 		if ($this->feed === null) {
-			$feedDAO = FreshRSS_Factory::createFeedDao();
+			$feedDAO = Factory::createFeedDao();
 			$this->feed = $feedDAO->searchById($this->feedId);
 		}
 		return $this->feed;
@@ -580,7 +590,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->title = trim($value);
 	}
 
-	#[Deprecated('Use _authors() instead')]
+	#[\Deprecated('Use _authors() instead')]
 	public function _author(string $value): void {
 		$this->_authors($value);
 	}
@@ -591,7 +601,7 @@ class FreshRSS_Entry extends Minz_Model {
 			if (str_contains($value, ';')) {
 				$value = htmlspecialchars_decode($value, ENT_QUOTES);
 				$value = preg_split('/\s*[;]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY) ?: [];
-				$value = Minz_Helper::htmlspecialchars_utf8($value);
+				$value = Helper::htmlspecialchars_utf8($value);
 			} else {
 				$value = preg_split('/\s*[,]\s*/', $value, -1, PREG_SPLIT_NO_EMPTY) ?: [];
 			}
@@ -648,7 +658,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->is_favorite = $value === null ? null : (bool)$value;
 	}
 
-	public function _feed(?FreshRSS_Feed $feed): void {
+	public function _feed(?Feed $feed): void {
 		$this->feed = $feed;
 		$this->feedId = $this->feed == null ? 0 : $this->feed->id();
 	}
@@ -667,14 +677,14 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->tags = $value;
 	}
 
-	public function matches(FreshRSS_BooleanSearch $booleanSearch): bool {
+	public function matches(BooleanSearch $booleanSearch): bool {
 		static $databaseDao = null;
-		if (!($databaseDao instanceof FreshRSS_DatabaseDAO)) {
-			$databaseDao = FreshRSS_Factory::createDatabaseDAO();
+		if (!($databaseDao instanceof DatabaseDAO)) {
+			$databaseDao = Factory::createDatabaseDAO();
 		}
 		$ok = true;
 		foreach ($booleanSearch->searches() as $filter) {
-			if ($filter instanceof FreshRSS_BooleanSearch) {
+			if ($filter instanceof BooleanSearch) {
 				// BooleanSearches are combined by AND (default) or OR or AND NOT (special cases) operators and are recursive
 				match ($filter->operator()) {
 					'AND' => $ok &= $this->matches($filter),
@@ -683,7 +693,7 @@ class FreshRSS_Entry extends Minz_Model {
 					'OR NOT' => $ok |= !$this->matches($filter),
 					default => $ok &= $this->matches($filter),
 				};
-			} elseif ($filter instanceof FreshRSS_Search) {
+			} elseif ($filter instanceof Search) {
 				// Searches are combined by OR and are not recursive
 				$ok = true;
 				if ($filter->getEntryIds() !== null) {
@@ -916,7 +926,7 @@ class FreshRSS_Entry extends Minz_Model {
 	 * Handle `preg_match()` errors with better logging
 	 * @return int|false Same return values as preg_match()
 	 */
-	private function regexMatch(string $pattern, string $subject, FreshRSS_BooleanSearch $booleanSearch): int|false {
+	private function regexMatch(string $pattern, string $subject, BooleanSearch $booleanSearch): int|false {
 		/** @var array<string,bool> */
 		static $loggedRegexes = [];
 
@@ -924,7 +934,7 @@ class FreshRSS_Entry extends Minz_Model {
 		if ($result === false && preg_last_error() === PREG_INTERNAL_ERROR) {
 			if (!isset($loggedRegexes[$pattern])) {
 				$loggedRegexes[$pattern] = true;	// Log only once per run
-				Minz_Log::warning(__METHOD__ . ' Invalid PCRE regex `' . $pattern . '`; ' .
+				Log::warning(__METHOD__ . ' Invalid PCRE regex `' . $pattern . '`; ' .
 					(error_get_last()['message'] ?? preg_last_error_msg()) .
 					'; in search: `' . $booleanSearch . '`' .
 					'; first triggered by entry ' . $this->id() . ' of feed ' . $this->feedId());
@@ -943,29 +953,29 @@ class FreshRSS_Entry extends Minz_Model {
 			return;
 		}
 		if (!$this->isRead()) {
-			if ($feed->attributeBoolean('read_upon_reception') ?? FreshRSS_Context::userConf()->mark_when['reception']) {
+			if ($feed->attributeBoolean('read_upon_reception') ?? Context::userConf()->mark_when['reception']) {
 				$this->_isRead(true);
-				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'upon_reception');
+				ExtensionManager::callHook(HookType::EntryAutoRead, $this, 'upon_reception');
 			}
 			if (!empty($titlesAsRead[$this->title()])) {
-				Minz_Log::debug('Mark title as read: ' . $this->title());
+				Log::debug('Mark title as read: ' . $this->title());
 				$this->_isRead(true);
-				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'same_title_in_feed');
+				ExtensionManager::callHook(HookType::EntryAutoRead, $this, 'same_title_in_feed');
 			}
 			if (!empty($guidsAsRead[$this->guid()])) {
-				Minz_Log::debug('Mark GUID as read: ' . $this->guid());
+				Log::debug('Mark GUID as read: ' . $this->guid());
 				$this->_isRead(true);
-				Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $this, 'same_guid_in_category');
+				ExtensionManager::callHook(HookType::EntryAutoRead, $this, 'same_guid_in_category');
 			}
 		}
-		FreshRSS_Context::userConf()->applyFilterActions($this);
+		Context::userConf()->applyFilterActions($this);
 		$feed->category()?->applyFilterActions($this);
 		$feed->applyFilterActions($this);
 	}
 
 	/**
 	 * @param string $url Overridden URL. Will default to the entry URL.
-	 * @throws Minz_Exception
+	 * @throws Exception
 	 */
 	public function getContentByParsing(string $url = '', int $maxRedirs = 4): string {
 		$url = $url ?: htmlspecialchars_decode($this->link(), ENT_QUOTES);
@@ -982,7 +992,7 @@ class FreshRSS_Entry extends Minz_Model {
 				if (!is_string($condition) || trim($condition) === '') {
 					continue;
 				}
-				$booleanSearch = new FreshRSS_BooleanSearch($condition);
+				$booleanSearch = new BooleanSearch($condition);
 				if ($this->matches($booleanSearch)) {
 					$found = true;
 					break;
@@ -994,10 +1004,10 @@ class FreshRSS_Entry extends Minz_Model {
 		}
 
 		$cachePath = $feed->cacheFilename($url . '#' . $feed->pathEntries());
-		$response = FreshRSS_http_Util::httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
+		$response = HttpUtil::httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
 		$html = $response['body'];
 		if ($html !== '') {
-			$doc = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR);
+			$doc = \Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR);
 
 			// Account for HTTP redirections
 			$url = $response['effective_url'] ?: $url;
@@ -1006,7 +1016,7 @@ class FreshRSS_Entry extends Minz_Model {
 				//Follow any HTML redirection
 				$metas = $doc->querySelectorAll('meta[content]');
 				foreach ($metas as $meta) {
-					if (!$meta instanceof Dom\Element) {
+					if (!$meta instanceof \Dom\Element) {
 						continue;
 					}
 					if (strtolower(trim($meta->getAttribute('http-equiv') ?? '')) === 'refresh') {
@@ -1021,7 +1031,7 @@ class FreshRSS_Entry extends Minz_Model {
 
 			$base = '';
 			$baseNode = $doc->querySelector('base[href]');
-			if ($baseNode instanceof Dom\Element) {
+			if ($baseNode instanceof \Dom\Element) {
 				$base = trim($baseNode->getAttribute('href') ?? '');
 			}
 			if ($base === '') {
@@ -1037,10 +1047,10 @@ class FreshRSS_Entry extends Minz_Model {
 			$path_entries_filter = trim($feed->attributeString('path_entries_filter') ?? '', ', ');
 			$nodeList = $doc->querySelectorAll($cssSelector);
 			if ($nodeList->length === 0) {
-				Minz_Log::warning('CSS content retrieval matched no elements for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
+				Log::warning('CSS content retrieval matched no elements for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
 			} else {
 				foreach ($nodeList as $node) {
-					if (!($node instanceof Dom\Element)) {
+					if (!($node instanceof \Dom\Element)) {
 						continue;
 					}
 					if ($path_entries_filter !== '' && $node->matches($path_entries_filter)) {
@@ -1050,7 +1060,7 @@ class FreshRSS_Entry extends Minz_Model {
 					if ($path_entries_filter !== '') {
 						$filterednodeList = $node->querySelectorAll($path_entries_filter);
 						foreach ($filterednodeList as $filterednode) {
-							if (!($filterednode instanceof Dom\Element) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+							if (!($filterednode instanceof \Dom\Element) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
 								continue;
 							}
 							$filterednode->remove();
@@ -1064,18 +1074,18 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 
 			unset($doc);
-			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
+			$html = SimplePieCustom::sanitizeHTML($html, $base);
 			if ($nodeList->length > 0 && trim($html) === '') {
-				Minz_Log::warning('CSS content retrieval returned no content for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
+				Log::warning('CSS content retrieval returned no content for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
 			}
 
 			if ($path_entries_filter !== '') {
 				// Remove unwanted elements again after sanitizing, for CSS selectors to also match sanitized content
 				$modified = false;
-				$doc = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR);
+				$doc = \Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR);
 				$filterednodeList = $doc->querySelectorAll($path_entries_filter);
 				foreach ($filterednodeList as $filterednode) {
-					if (!($filterednode instanceof Dom\Element) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+					if (!($filterednode instanceof \Dom\Element) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
 						continue;
 					}
 					$filterednode->remove();
@@ -1089,7 +1099,7 @@ class FreshRSS_Entry extends Minz_Model {
 
 			return trim($html);
 		} else {
-			throw new Minz_Exception();
+			throw new Exception();
 		}
 	}
 
@@ -1104,7 +1114,7 @@ class FreshRSS_Entry extends Minz_Model {
 			return false;
 		}
 		if (trim($feed->pathEntries()) != '') {
-			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$entryDAO = Factory::createEntryDao();
 			$entry = $force ? null : $entryDAO->searchByGuid($this->feedId, $this->guid);
 			if ($entry !== null) {
 				// The article already exists in the database, so simply reload its content
@@ -1136,18 +1146,18 @@ class FreshRSS_Entry extends Minz_Model {
 						}
 						return true;
 					}
-				} catch (Exception $e) {
+				} catch (\Exception $e) {
 					// Nothing to do: the request failed, so keep the previous content
-					Minz_Log::warning($e->getMessage());
+					Log::warning($e->getMessage());
 				}
 			}
 		} elseif (trim($feed->attributeString('path_entries_filter') ?? '') !== '') {
 			$originalContent = $this->attributeString('original_content') ?? $this->content;
-			$doc = Dom\HTMLDocument::createFromString($originalContent, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
+			$doc = \Dom\HTMLDocument::createFromString($originalContent, LIBXML_NOERROR | \Dom\HTML_NO_DEFAULT_NS);
 			$pathEntriesFilter = $feed->attributeString('path_entries_filter');
 			$filterednodeList = $doc->querySelectorAll($pathEntriesFilter);
 			foreach ($filterednodeList as $filterednode) {
-				if (!($filterednode instanceof Dom\Element) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+				if (!($filterednode instanceof \Dom\Element) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
 					continue;
 				}
 				$filterednode->remove();
@@ -1204,8 +1214,8 @@ class FreshRSS_Entry extends Minz_Model {
 		$firstTags = [];
 		$remainingTags = [];
 
-		if (FreshRSS_Context::hasUserConf() && in_array(FreshRSS_Context::userConf()->show_tags, ['b', 'f', 'h'], true)) {
-			$maxTagsDisplayed = (int)FreshRSS_Context::userConf()->show_tags_max;
+		if (Context::hasUserConf() && in_array(Context::userConf()->show_tags, ['b', 'f', 'h'], true)) {
+			$maxTagsDisplayed = (int)Context::userConf()->show_tags_max;
 			$tags = $this->tags();
 			if (!empty($tags)) {
 				if ($maxTagsDisplayed > 0) {
@@ -1297,12 +1307,12 @@ class FreshRSS_Entry extends Minz_Model {
 			} elseif ($mode === 'freshrss') {
 				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url(includeCredentials: false));
 			}
-			if ($feed->priority() >= FreshRSS_Feed::PRIORITY_MAIN_STREAM) {
+			if ($feed->priority() >= Feed::PRIORITY_MAIN_STREAM) {
 				$item['categories'][] = 'user/-/state/org.freshrss/main';
-				if ($feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) {
+				if ($feed->priority() >= Feed::PRIORITY_IMPORTANT) {
 					$item['categories'][] = 'user/-/state/org.freshrss/important';
 				}
-			} elseif ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
+			} elseif ($feed->priority() <= Feed::PRIORITY_HIDDEN) {
 				$item['categories'][] = 'user/-/state/org.freshrss/hidden';
 			}
 		}

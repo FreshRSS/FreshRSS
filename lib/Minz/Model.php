@@ -1,14 +1,16 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
- * The Minz_Model class represents a model in the MVC paradigm.
+ * The Model class represents a model in the MVC paradigm.
  */
-abstract class Minz_Model {
+abstract class Model {
 
 }

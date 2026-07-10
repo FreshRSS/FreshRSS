@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-enum Minz_HookSignature {
+namespace FreshRss\Minz;
+
+enum HookSignature {
 	case NoneToNone;
 	case NoneToString;
 	case OneToOne;

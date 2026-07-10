@@ -1,14 +1,22 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Exceptions\ContextException;
+use FreshRss\Minz\Request;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Category;
+use FreshRss\Models\CategoryDAO;
+use FreshRss\Models\View;
+
 	if ($this->category === null) {
-		throw new FreshRSS_Context_Exception('Category not initialised!');
+		throw new ContextException('Category not initialised!');
 	}
 ?>
 <div class="post">
 	<h2>
 		<?= $this->category->name() ?>
-		<?= $this->category->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? _i('opml-dyn') : '' ?>
+		<?= $this->category->kind() === Category::KIND_DYNAMIC_OPML ? _i('opml-dyn') : '' ?>
 	</h2>
 
 	<div>
@@ -16,9 +24,9 @@
 	</div>
 
 	<?php
-		$from = Minz_Request::paramString('from');
+		$from = Request::paramString('from');
 		$slider = ['#', 'slider'];
-		$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
+		$ajax = Request::paramBoolean('ajax') || $this->displaySlider;
 		if (!$ajax) {
 			$from = 'update';
 			$slider = [];
@@ -28,7 +36,7 @@
 	?>
 
 	<form method="post" action="<?= _url('category', 'update', 'id', $this->category->id(), 'from', $from, ...$slider) ?>" autocomplete="off" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<fieldset>
 			<legend><?= _t('sub.category.information') ?></legend>
 			<div class="form-group">
@@ -36,7 +44,7 @@
 				<div class="group-controls">
 					<input type="text" name="name" id="name" value="<?= $this->category->name()  ?>" <?=
 						//Disallow changing the name of the default category
-						$this->category->id() === FreshRSS_CategoryDAO::DEFAULTCATEGORYID ? 'readonly="readonly"' : ''
+						$this->category->id() === CategoryDAO::DEFAULTCATEGORYID ? 'readonly="readonly"' : ''
 					?> />
 				</div>
 			</div>

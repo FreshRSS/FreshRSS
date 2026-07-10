@@ -1,7 +1,11 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$this->partial('aside_subscription');
+	/** @var View $this */
+
+use FreshRss\Models\Auth;
+use FreshRss\Models\View;
+
+$this->partial('aside_subscription');
 ?>
 <main class="post">
 	<h1><?= _t('gen.menu.advanced_search') ?></h1>
@@ -9,7 +13,7 @@
 	<p><?= _t('gen.search.full_documentation') ?></p>
 
 	<form method="post" action="<?= _url('search', 'submit') ?>">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 
 		<fieldset>
 			<legend><?= _t('gen.search.text') ?></legend>

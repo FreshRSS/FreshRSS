@@ -1,20 +1,24 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Configuration;
+use FreshRss\Models\Entry;
+use FreshRss\Models\View;
+
 final class rssViewTest extends \PHPUnit\Framework\TestCase {
 
 	#[\Override]
 	public static function setUpBeforeClass(): void {
-		// `FreshRSS_View` needs a system configuration; the shipped defaults are enough to render a feed.
-		Minz_Configuration::register('system', FRESHRSS_PATH . '/config.default.php', FRESHRSS_PATH . '/config.default.php');
+		// `View` needs a system configuration; the shipped defaults are enough to render a feed.
+		Configuration::register('system', FRESHRSS_PATH . '/config.default.php', FRESHRSS_PATH . '/config.default.php');
 	}
 
 	/** @param array<string,mixed> $enclosure */
 	private static function renderEntryWithEnclosure(array $enclosure): string {
-		$entry = new FreshRSS_Entry(1, 'guid', 'Title', '', 'Content', 'https://example.net/article', 1700000000);
+		$entry = new Entry(1, 'guid', 'Title', '', 'Content', 'https://example.net/article', 1700000000);
 		$entry->_attribute('enclosures', [$enclosure]);
 
-		$view = new FreshRSS_View();
+		$view = new View();
 		$view->_path('index/rss.phtml');
 		$view->internal_rendering = true;
 		$view->rss_title = 'Test';

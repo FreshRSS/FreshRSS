@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-class Minz_CurrentPagePaginationException extends Minz_Exception {
+namespace FreshRss\Minz;
+
+class CurrentPagePaginationException extends Exception {
 	public function __construct(int $page) {
 		$message = 'Page number `' . $page . '` doesn’t exist';
 

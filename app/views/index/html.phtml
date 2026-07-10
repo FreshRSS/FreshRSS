@@ -1,18 +1,25 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Models\Category;
+use FreshRss\Models\Context;
+use FreshRss\Models\Feed;
+use FreshRss\Models\UserConfiguration;
+use FreshRss\Models\View;
+
 	// Override some layout preferences for the public API output
-	FreshRSS_Context::userConf()->content_width = 'large';
-	FreshRSS_Context::userConf()->show_author_date = FreshRSS_UserConfiguration::default()->show_author_date;
-	FreshRSS_Context::userConf()->show_favicons = FreshRSS_UserConfiguration::default()->show_favicons;
-	FreshRSS_Context::userConf()->show_feed_name = FreshRSS_UserConfiguration::default()->show_feed_name;
-	FreshRSS_Context::userConf()->show_tags = FreshRSS_UserConfiguration::default()->show_tags;
-	FreshRSS_Context::userConf()->show_tags_max = FreshRSS_UserConfiguration::default()->show_tags_max;
+	Context::userConf()->content_width = 'large';
+	Context::userConf()->show_author_date = UserConfiguration::default()->show_author_date;
+	Context::userConf()->show_favicons = UserConfiguration::default()->show_favicons;
+	Context::userConf()->show_feed_name = UserConfiguration::default()->show_feed_name;
+	Context::userConf()->show_tags = UserConfiguration::default()->show_tags;
+	Context::userConf()->show_tags_max = UserConfiguration::default()->show_tags_max;
 ?>
 <?php $this->renderHelper('htmlPagination'); ?>
 <main id="stream" class="reader api">
 	<h2>
-		<a href="<?= $this->html_url ?>"><?= FreshRSS_View::title() ?></a> ·
+		<a href="<?= $this->html_url ?>"><?= View::title() ?></a> ·
 		<a class="view-rss" href="<?= $this->rss_url ?>" title="<?= _t('index.menu.rss_view') ?>">
 			<?= _i('rss') ?>
 		</a>
@@ -21,8 +28,8 @@
 		foreach ($this->entries as $entry):
 			$this->entry = $entry;
 			$this->feed = $this->feeds[$entry->feedId()] ??
-				FreshRSS_Category::findFeed($this->categories, $entry->feedId()) ??
-				FreshRSS_Feed::default();
+				Category::findFeed($this->categories, $entry->feedId()) ??
+				Feed::default();
 	?>
 		<div class="flux">
 			<?php $this->renderHelper('index/article'); ?>

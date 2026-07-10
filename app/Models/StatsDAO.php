@@ -1,14 +1,19 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_StatsDAO extends Minz_ModelPdo {
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Log;
+use FreshRss\Minz\ModelPdo;
+
+class StatsDAO extends ModelPdo {
 
 	public const ENTRY_COUNT_PERIOD = 30;
 
 	/** Get the number of seconds to add to UTC to get the user's local time */
 	protected function getTimezoneOffset(): int {
-		$timezone = new DateTimeZone(date_default_timezone_get());
-		return $timezone->getOffset(new DateTime('now', new DateTimeZone('UTC')));
+		$timezone = new \DateTimeZone(date_default_timezone_get());
+		return $timezone->getOffset(new \DateTime('now', new \DateTimeZone('UTC')));
 	}
 
 	/**
@@ -18,14 +23,14 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 */
 	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
 		if (!preg_match('/^[a-zA-Z0-9_.]+$/', $field)) {
-			throw new InvalidArgumentException('Invalid date field!');
+			throw new \InvalidArgumentException('Invalid date field!');
 		}
 		$offset = $this->getTimezoneOffset();
 		return match ($granularity) {
 			'day' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y-%m-%d')",
 			'month' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y-%m')",
 			'year' => "FROM_UNIXTIME(($field / $precision) + $offset, '%Y')",
-			default => throw new InvalidArgumentException('Invalid date granularity!'),
+			default => throw new \InvalidArgumentException('Invalid date granularity!'),
 		};
 	}
 
@@ -385,7 +390,7 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 * @param 'day'|'month'|'year' $granularity of the date intervals
 	 * @return list<array{'granularity':string,'unread_count':int}>
 	 */
-	public function getMaxUnreadDates(string $field, string $granularity, int $max = 100, int $minPriority = FreshRSS_Feed::PRIORITY_HIDDEN): array {
+	public function getMaxUnreadDates(string $field, string $granularity, int $max = 100, int $minPriority = Feed::PRIORITY_HIDDEN): array {
 		$sql = <<<SQL
 			SELECT
 				{$this->sqlDateToIsoGranularity('e.' . $field, precision: $field === 'id' ? 1000000 : 1, granularity: $granularity)} AS granularity,
@@ -398,14 +403,14 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 			LIMIT :max
 			SQL;
 		if (($stm = $this->pdo->prepare($sql)) !== false &&
-			$stm->bindValue(':min_priority', $minPriority, PDO::PARAM_INT) &&
-			$stm->bindValue(':max', $max, PDO::PARAM_INT) &&
-			$stm->execute() && is_array($res = $stm->fetchAll(PDO::FETCH_ASSOC))) {
+			$stm->bindValue(':min_priority', $minPriority, \PDO::PARAM_INT) &&
+			$stm->bindValue(':max', $max, \PDO::PARAM_INT) &&
+			$stm->execute() && is_array($res = $stm->fetchAll(\PDO::FETCH_ASSOC))) {
 			/** @var list<array{granularity:string,unread_count:int}> $res */
 			return $res;
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return [];
 		}
 	}

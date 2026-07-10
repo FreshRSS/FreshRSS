@@ -1,15 +1,19 @@
 <?php
 declare(strict_types=1);
 
-abstract class FreshRSS_ActionController extends Minz_ActionController {
+namespace FreshRss\Models;
+
+use FreshRss\Minz\ActionController as MinzActionController;
+
+abstract class ActionController extends MinzActionController {
 
 	/**
-	 * @var FreshRSS_View
+	 * @var View
 	 * @phpstan-ignore property.phpDocType
 	 */
 	protected $view;
 
 	public function __construct(string $viewType = '') {
-		parent::__construct($viewType === '' ? FreshRSS_View::class : $viewType);
+		parent::__construct($viewType === '' ? View::class : $viewType);
 	}
 }

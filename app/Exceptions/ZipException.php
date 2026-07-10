@@ -1,7 +1,11 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_Zip_Exception extends Minz_Exception {
+namespace FreshRss\Exceptions;
+
+use FreshRss\Minz\Exception;
+
+class ZipException extends Exception {
 
 	public function __construct(private readonly int $zipErrorCode) {
 		parent::__construct('ZIP error!', 2141);

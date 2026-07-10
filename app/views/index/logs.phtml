@@ -1,7 +1,12 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$this->partial('aside_configure');
+	/** @var View $this */
+
+use FreshRss\Models\Auth;
+use FreshRss\Models\Log;
+use FreshRss\Models\View;
+
+$this->partial('aside_configure');
 ?>
 <main class="post">
 	<h1><?= _t('index.log') ?></h1>
@@ -15,7 +20,7 @@
 	</form>
 
 	<?php
-		/** @var list<FreshRSS_Log> $items */
+		/** @var list<Log> $items */
 		$items = $this->logsPaginator->items();
 	?>
 
@@ -52,7 +57,7 @@
 			<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
 
 			<div class="form-group form-actions">
-			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+			<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 				<input type="hidden" name="clearLogs" />
 				<div class="group-controls">
 				<button type="submit" class="btn btn-attention"><?= _t('index.log.clear') ?></button>

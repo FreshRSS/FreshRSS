@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 # ***** BEGIN LICENSE BLOCK *****
 # MINZ - a free PHP Framework like Zend Framework
 # Copyright (C) 2011 Marien Fressinaud
@@ -21,13 +23,13 @@ declare(strict_types=1);
 # ***** END LICENSE BLOCK *****
 
 /**
- * The Minz_FrontController class is the framework Dispatcher.
+ * The FrontController class is the framework Dispatcher.
  * It runs the application.
  * It is generally invoqued by an index.php file at the root.
  */
-class Minz_FrontController {
+class FrontController {
 
-	protected Minz_Dispatcher $dispatcher;
+	protected Dispatcher $dispatcher;
 
 	/**
 	 * Constructor
@@ -37,23 +39,23 @@ class Minz_FrontController {
 		try {
 			$this->setReporting();
 
-			Minz_Request::init();
+			Request::init();
 
 			// Build the current request's URL and forward to it directly.
 			// If needed, a redirect is issued instead to correct the public relative path.
 			// Only GET parameters are part of the URL, and hence of the original request or of a redirect.
-			Minz_Request::forward(Minz_Url::build(), redirect: Minz_Request::pathInfo() !== '');
+			Request::forward(Url::build(), redirect: Request::pathInfo() !== '');
 
 			// POST parameters (which may contain passwords) are added afterwards so that they never end up in a URL.
 			$post = array_filter($_POST, 'is_string', ARRAY_FILTER_USE_KEY);
 			unset($post['rid']);	// Request ID is only taken from GET
-			Minz_Request::_params(array_merge(Minz_Request::params(), $post));
-		} catch (Minz_Exception $e) {
-			Minz_Log::error($e->getMessage());
+			Request::_params(array_merge(Request::params(), $post));
+		} catch (Exception $e) {
+			Log::error($e->getMessage());
 			self::killApp($e->getMessage());
 		}
 
-		$this->dispatcher = Minz_Dispatcher::getInstance();
+		$this->dispatcher = Dispatcher::getInstance();
 	}
 
 	/**
@@ -62,20 +64,20 @@ class Minz_FrontController {
 	public function run(): void {
 		try {
 			$this->dispatcher->run();
-		} catch (Minz_BadRequestException $e) {
-			Minz_Error::error(400, ['error' => [$e->getMessage()]], redirect: true);
-		} catch (Minz_Exception $e) {
+		} catch (BadRequestException $e) {
+			Error::error(400, ['error' => [$e->getMessage()]], redirect: true);
+		} catch (Exception $e) {
 			try {
-				Minz_Log::error($e->getMessage());
-			} catch (Minz_PermissionDeniedException $e) {
+				Log::error($e->getMessage());
+			} catch (PermissionDeniedException $e) {
 				self::killApp($e->getMessage());
 			}
 
-			if ($e instanceof Minz_FileNotExistException ||
-					$e instanceof Minz_ControllerNotExistException ||
-					$e instanceof Minz_ControllerNotActionControllerException ||
-					$e instanceof Minz_ActionException) {
-				Minz_Error::error(404, ['error' => [$e->getMessage()]], true);
+			if ($e instanceof FileNotExistException ||
+					$e instanceof ControllerNotExistException ||
+					$e instanceof ControllerNotActionControllerException ||
+					$e instanceof ActionException) {
+				Error::error(404, ['error' => [$e->getMessage()]], true);
 			} else {
 				self::killApp($e->getMessage());
 			}
@@ -97,7 +99,7 @@ class Minz_FrontController {
 	private function setReporting(): void {
 		$envType = getenv('FRESHRSS_ENV');
 		if ($envType == '') {
-			$conf = Minz_Configuration::get('system');
+			$conf = Configuration::get('system');
 			$envType = $conf->environment;
 		}
 		switch ($envType) {

@@ -1,15 +1,19 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Models\Context;
+use FreshRss\Models\DatabaseDAO;
+use FreshRss\Services\ImportService;
+
 final class ImportServiceOutlinesTest extends PHPUnit\Framework\TestCase {
 
 	#[\Override]
 	protected function setUp(): void {
-		if (!FreshRSS_Context::hasSystemConf()) {
-			FreshRSS_Context::initSystem();
+		if (!Context::hasSystemConf()) {
+			Context::initSystem();
 		}
 		// Prevents any actual database connection
-		FreshRSS_DatabaseDAO::$dummyConnection = true;
+		DatabaseDAO::$dummyConnection = true;
 	}
 
 	/**
@@ -18,7 +22,7 @@ final class ImportServiceOutlinesTest extends PHPUnit\Framework\TestCase {
 	private static function loadFromOutlines(string $opml): array {
 		$libopml = new \marienfressinaud\LibOpml\LibOpml(strict: false);
 		$opml_array = $libopml->parseString($opml);
-		$importService = new FreshRSS_Import_Service();
+		$importService = new ImportService();
 		$method = new ReflectionMethod($importService, 'loadFromOutlines');
 		/** @var array{0:array<array-key,array<string,string>>,1:array<array-key,list<array<string,string>>>} */
 		return $method->invoke($importService, $opml_array['body'], '');

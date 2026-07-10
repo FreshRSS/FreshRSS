@@ -1,13 +1,18 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Configuration;
+use FreshRss\Models\Entry;
+use FreshRss\Models\Feed;
+use FreshRss\Models\View;
+
 final class exportArticlesTest extends \PHPUnit\Framework\TestCase {
 	private string $filename;
 
 	#[\Override]
 	public static function setUpBeforeClass(): void {
-		// `FreshRSS_View` needs a system configuration; the shipped defaults are enough to render an export.
-		Minz_Configuration::register('system', FRESHRSS_PATH . '/config.default.php', FRESHRSS_PATH . '/config.default.php');
+		// `View` needs a system configuration; the shipped defaults are enough to render an export.
+		Configuration::register('system', FRESHRSS_PATH . '/config.default.php', FRESHRSS_PATH . '/config.default.php');
 	}
 
 	#[\Override]
@@ -22,11 +27,11 @@ final class exportArticlesTest extends \PHPUnit\Framework\TestCase {
 		@unlink($this->filename);
 	}
 
-	/** @return list<FreshRSS_Entry> */
+	/** @return list<Entry> */
 	private static function entries(int $count): array {
 		$entries = [];
 		for ($i = 1; $i <= $count; $i++) {
-			$entry = new FreshRSS_Entry(1, 'guid-' . $i, 'Title ' . $i, '', str_repeat('<p>Contenu exporté ' . $i . '</p>', 200),
+			$entry = new Entry(1, 'guid-' . $i, 'Title ' . $i, '', str_repeat('<p>Contenu exporté ' . $i . '</p>', 200),
 				'https://example.net/' . $i, 1700000000 + $i);
 			// A string, because this value exceeds PHP_INT_MAX on 32-bit platforms and would be a float there
 			$entry->_id('17000000000000' . sprintf('%02d', $i));	// @phpstan-ignore argument.type (numeric-string)
@@ -35,13 +40,13 @@ final class exportArticlesTest extends \PHPUnit\Framework\TestCase {
 		return $entries;
 	}
 
-	/** @param iterable<FreshRSS_Entry> $entries */
-	private static function view(iterable $entries): FreshRSS_View {
-		$view = new FreshRSS_View();
+	/** @param iterable<Entry> $entries */
+	private static function view(iterable $entries): View {
+		$view = new View();
 		$view->internal_rendering = true;
 		$view->list_title = 'Starred';
 		$view->type = 'starred';
-		$view->feed = new FreshRSS_Feed('https://example.net/feed.xml', false);
+		$view->feed = new Feed('https://example.net/feed.xml', false);
 		$view->entries = $entries;
 		return $view;
 	}

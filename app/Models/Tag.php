@@ -1,8 +1,12 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_Tag extends Minz_Model {
-	use FreshRSS_AttributesTrait, FreshRSS_FilterActionsTrait;
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Model;
+
+class Tag extends Model {
+	use AttributesTrait, FilterActionsTrait;
 
 	private int $id = 0;
 	private string $name;
@@ -31,7 +35,7 @@ class FreshRSS_Tag extends Minz_Model {
 
 	public function nbEntries(): int {
 		if ($this->nbEntries < 0) {
-			$tagDAO = FreshRSS_Factory::createTagDao();
+			$tagDAO = Factory::createTagDao();
 			$this->nbEntries = $tagDAO->countEntries($this->id()) ?: 0;
 		}
 		return $this->nbEntries;
@@ -43,7 +47,7 @@ class FreshRSS_Tag extends Minz_Model {
 
 	public function nbUnread(): int {
 		if ($this->nbUnread < 0) {
-			$tagDAO = FreshRSS_Factory::createTagDao();
+			$tagDAO = Factory::createTagDao();
 			$this->nbUnread = $tagDAO->countNotRead($this->id()) ?: 0;
 		}
 		return $this->nbUnread;

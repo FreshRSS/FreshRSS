@@ -1,13 +1,15 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 /**
  * Allow to send emails.
  *
- * The Minz_Mailer class must be inherited by classes under app/Mailers.
+ * The Mailer class must be inherited by classes under app/Mailers.
  * They work similarly to the ActionControllers in the way they have a view to
  * which you can pass params (eg. $this->view->foo = 'bar').
  *
@@ -20,12 +22,12 @@ use PHPMailer\PHPMailer\Exception;
  *
  * The email is sent by calling the `mail` method.
  */
-class Minz_Mailer {
+class Mailer {
 	/**
 	 * The view attached to the mailer.
 	 * You should set its file with `$this->view->_path($path)`
 	 *
-	 * @var Minz_View
+	 * @var View
 	 */
 	protected $view;
 
@@ -36,22 +38,22 @@ class Minz_Mailer {
 
 	/**
 	 * @phpstan-param class-string|'' $viewType
-	 * @param string $viewType Name of the class (inheriting from Minz_View) to use for the view model
-	 * @throws Minz_ConfigurationException
+	 * @param string $viewType Name of the class (inheriting from View) to use for the view model
+	 * @throws ConfigurationException
 	 */
 	public function __construct(string $viewType = '') {
 		$view = null;
 		if ($viewType !== '' && class_exists($viewType)) {
 			$view = new $viewType();
-			if (!($view instanceof Minz_View)) {
+			if (!($view instanceof View)) {
 				$view = null;
 			}
 		}
-		$this->view = $view ?? new Minz_View();
+		$this->view = $view ?? new View();
 		$this->view->_layout(null);
 		$this->view->attributeParams();
 
-		$conf = Minz_Configuration::get('system');
+		$conf = Configuration::get('system');
 		$this->mailer = $conf->mailer;
 		$this->smtp_config = $conf->smtp;
 
@@ -113,7 +115,7 @@ class Minz_Mailer {
 			$mail->send();
 			return true;
 		} catch (Exception $e) {
-			Minz_Log::error('Minz_Mailer cannot send a message: ' . $mail->ErrorInfo);
+			Log::error('Mailer cannot send a message: ' . $mail->ErrorInfo);
 			return false;
 		}
 	}

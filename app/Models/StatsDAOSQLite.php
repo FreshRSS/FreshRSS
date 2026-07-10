@@ -1,19 +1,21 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_StatsDAOSQLite extends FreshRSS_StatsDAO {
+namespace FreshRss\Models;
+
+class StatsDAOSQLite extends StatsDAO {
 
 	#[\Override]
 	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
 		if (!preg_match('/^[a-zA-Z0-9_.]+$/', $field)) {
-			throw new InvalidArgumentException('Invalid date field!');
+			throw new \InvalidArgumentException('Invalid date field!');
 		}
 		$offset = $this->getTimezoneOffset();
 		return match ($granularity) {
 			'day' => "strftime('%Y-%m-%d', ($field / $precision) + $offset, 'unixepoch')",
 			'month' => "strftime('%Y-%m', ($field / $precision) + $offset, 'unixepoch')",
 			'year' => "strftime('%Y', ($field / $precision) + $offset, 'unixepoch')",
-			default => throw new InvalidArgumentException('Invalid date granularity'),
+			default => throw new \InvalidArgumentException('Invalid date granularity'),
 		};
 	}
 

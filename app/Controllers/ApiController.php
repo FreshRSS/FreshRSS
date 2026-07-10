@@ -1,31 +1,42 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Controllers;
+
+use FreshRss\Minz\Error;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\User;
+use FreshRss\Models\ActionController;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Utils\FeverUtil;
+use FreshRss\Utils\PasswordUtil;
+
 /**
  * This controller manage API-related features.
  */
-class FreshRSS_api_Controller extends FreshRSS_ActionController {
+class ApiController extends ActionController {
 
 	/**
 	 * Update the user API password.
 	 * Return an error message, or `false` if no error.
 	 */
 	public static function updatePassword(#[\SensitiveParameter] string $apiPasswordPlain): string|false {
-		$username = Minz_User::name();
+		$username = User::name();
 		if ($username == null) {
 			return _t('feedback.api.password.failed');
 		}
 
-		$apiPasswordHash = FreshRSS_password_Util::hash($apiPasswordPlain);
-		FreshRSS_Context::userConf()->apiPasswordHash = $apiPasswordHash;
+		$apiPasswordHash = PasswordUtil::hash($apiPasswordPlain);
+		Context::userConf()->apiPasswordHash = $apiPasswordHash;
 
-		$feverKey = FreshRSS_fever_Util::updateKey($username, $apiPasswordPlain);
+		$feverKey = FeverUtil::updateKey($username, $apiPasswordPlain);
 		if ($feverKey == false) {
 			return _t('feedback.api.password.failed');
 		}
 
-		FreshRSS_Context::userConf()->feverKey = $feverKey;
-		if (FreshRSS_Context::userConf()->save()) {
+		Context::userConf()->feverKey = $feverKey;
+		if (Context::userConf()->save()) {
 			return false;
 		} else {
 			return _t('feedback.api.password.failed');
@@ -39,29 +50,29 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 	 * - apiPasswordPlain: the new user password
 	 */
 	public function updatePasswordAction(): void {
-		if (!FreshRSS_Auth::hasAccess()) {
-			Minz_Error::error(403);
+		if (!Auth::hasAccess()) {
+			Error::error(403);
 		}
 
 		$return_url = ['c' => 'user', 'a' => 'profile'];
 
-		if (!Minz_Request::isPost()) {
-			Minz_Request::forward($return_url, true);
+		if (!Request::isPost()) {
+			Request::forward($return_url, true);
 		}
 
-		$apiPasswordPlain = Minz_Request::paramString('apiPasswordPlain', true);
+		$apiPasswordPlain = Request::paramString('apiPasswordPlain', true);
 		if ($apiPasswordPlain == '') {
-			Minz_Request::forward($return_url, true);
+			Request::forward($return_url, true);
 		}
 
 		$error = self::updatePassword($apiPasswordPlain);
 		if (is_string($error)) {
-			Minz_Request::bad($error, $return_url);
+			Request::bad($error, $return_url);
 		} else {
-			Minz_Request::good(
+			Request::good(
 				_t('feedback.api.password.updated'),
 				$return_url,
-				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				showNotification: Context::userConf()->good_notification_timeout > 0
 			);
 		}
 	}

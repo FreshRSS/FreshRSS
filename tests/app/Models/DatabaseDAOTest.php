@@ -1,9 +1,14 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\PdoPgsql;
+use FreshRss\Models\DatabaseDAO;
+use FreshRss\Models\DatabaseDAOPGSQL;
+use FreshRss\Models\DatabaseDAOSQLite;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
-final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
+final class DatabaseDAOTest extends TestCase {
 	public function test_tablesAreCorrect_withPostgreSQL(): void {
 		$dsn = getenv('FRESHRSS_TEST_PGSQL_DSN');
 		if ($dsn === false || $dsn === '') {
@@ -12,7 +17,7 @@ final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
 
 		// A gateway login need not match the PostgreSQL role that owns the tables:
 		// the DAO relies on grants to the visible tables, not on its own ownership.
-		$pdo = new Minz_PdoPgsql($dsn, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+		$pdo = new PdoPgsql($dsn, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 		$pdo->setPrefix('test_');
 		$pdo->beginTransaction();
 		try {
@@ -34,7 +39,7 @@ final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
 				GRANT SELECT ON ALL TABLES IN SCHEMA freshrss_test_visible TO freshrss_test_app;
 				SET LOCAL ROLE freshrss_test_app;
 				SQL);
-			$dao = new FreshRSS_DatabaseDAOPGSQL('test', $pdo);
+			$dao = new DatabaseDAOPGSQL('test', $pdo);
 			self::assertTrue($dao->tablesAreCorrect(), 'Visible tables may belong to another role.');
 
 			$pdo->exec(<<<'SQL'
@@ -146,7 +151,7 @@ final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
 			self::markTestSkipped('transliterator_transliterate function not available to handle e.g. Greek.');
 			return;	// @phpstan-ignore deadCode.unreachable
 		}
-		self::assertSame($expected, FreshRSS_DatabaseDAO::strilike($haystack, $needle, $contains));
+		self::assertSame($expected, DatabaseDAO::strilike($haystack, $needle, $contains));
 	}
 
 	#[DataProvider('provideStrilikeCommon')]
@@ -154,13 +159,13 @@ final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
 	#[DataProvider('provideStrilikeAccentsCasing')]
 	#[DataProvider('provideStrilikeUnicodeCasing')]
 	public static function test_strilike_PGSQL(string $haystack, string $needle, bool $contains, bool $expected): void {
-		self::assertSame($expected, FreshRSS_DatabaseDAOPGSQL::strilike($haystack, $needle, $contains));
+		self::assertSame($expected, DatabaseDAOPGSQL::strilike($haystack, $needle, $contains));
 	}
 
 	#[DataProvider('provideStrilikeCommon')]
 	#[DataProvider('provideStrilikeAccents')]
 	#[DataProvider('provideStrilikeNoUnicodeCasing')]
 	public static function test_strilike_SQLite(string $haystack, string $needle, bool $contains, bool $expected): void {
-		self::assertSame($expected, FreshRSS_DatabaseDAOSQLite::strilike($haystack, $needle, $contains));
+		self::assertSame($expected, DatabaseDAOSQLite::strilike($haystack, $needle, $contains));
 	}
 }

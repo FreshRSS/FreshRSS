@@ -1,33 +1,38 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Exceptions\FeedException;
+use FreshRss\Minz\User;
+use FreshRss\Models\Context;
+use FreshRss\Models\Feed;
+use FreshRss\Utils\HttpUtil;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class FeedTest extends \PHPUnit\Framework\TestCase {
 
 	#[\Override]
 	protected function setUp(): void {
-		FreshRSS_Context::initSystem(reload: true);
+		Context::initSystem(reload: true);
 	}
 
 	#[\Override]
 	protected function tearDown(): void {
-		FreshRSS_Context::initSystem(reload: true);	// Restore the default curl_options
+		Context::initSystem(reload: true);	// Restore the default curl_options
 	}
 
 	#[DataProvider('provideStoredAndRequestedUrls')]
 	public function test_load_obeysRetryAfter(string $storedUrl, string $requestedUrl, string $systemProxy = ''): void {
 		if ($systemProxy !== '') {
-			FreshRSS_Context::systemConf()->_attribute('curl_options', [CURLOPT_PROXY => $systemProxy]);
+			Context::systemConf()->_attribute('curl_options', [CURLOPT_PROXY => $systemProxy]);
 		}
-		$getRetryAfterFile = new ReflectionMethod(FreshRSS_http_Util::class, 'getRetryAfterFile');
+		$getRetryAfterFile = new ReflectionMethod(HttpUtil::class, 'getRetryAfterFile');
 		$file = $getRetryAfterFile->invoke(null, $requestedUrl, $systemProxy);
 		self::assertIsString($file);
 		self::assertTrue(touch($file, time() + 600));
 		try {
-			(new FreshRSS_Feed($storedUrl, validate: false))->load();
+			(new Feed($storedUrl, validate: false))->load();
 			self::fail('The feed was loaded during its Retry-After');
-		} catch (FreshRSS_Feed_Exception $e) {
+		} catch (FeedException $e) {
 			self::assertStringContainsString('will first retry after', $e->getMessage());
 		} finally {
 			unlink($file);
@@ -45,13 +50,13 @@ final class FeedTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function test_hashFavicon_isKeyedBySalt(): void {
-		FreshRSS_Context::initSystem();
-		$systemConf = FreshRSS_Context::systemConf();
+		Context::initSystem();
+		$systemConf = Context::systemConf();
 		$originalSalt = $systemConf->salt;
 		$systemConf->_attribute('salt', 'test-instance-salt');
 
 		try {
-			$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+			$feed = new Feed('http://example.net/feed.xml', validate: false);
 			$feed->_website('https://example.com/', validate: false);
 
 			$hash = $feed->hashFavicon();
@@ -70,16 +75,16 @@ final class FeedTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function test_favicon_migratesLegacyCustomIconWithoutDeletingSharedSource(): void {
-		FreshRSS_Context::initSystem();
+		Context::initSystem();
 		require_once LIB_PATH . '/favicons.php';
-		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+		$feed = new Feed('http://example.net/feed.xml', validate: false);
 		$feed->_id(987654);
 		$contents = file_get_contents(DEFAULT_FAVICON);
 		self::assertIsString($contents);
 		$newPath = $feed->setCustomFavicon($contents, updateFeed: false);
 		self::assertIsString($newPath);
 		unlink($newPath);
-		$legacyPath = FAVICONS_DIR . hash('crc32b', FreshRSS_Context::systemConf()->salt . $feed->id() . Minz_User::name()) . '.ico';
+		$legacyPath = FAVICONS_DIR . hash('crc32b', Context::systemConf()->salt . $feed->id() . User::name()) . '.ico';
 		file_put_contents($legacyPath, $contents);
 
 		$feed->favicon();
@@ -91,9 +96,9 @@ final class FeedTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function test_favicon_migrationDoesNotOverwriteDestination(): void {
-		FreshRSS_Context::initSystem();
+		Context::initSystem();
 		require_once LIB_PATH . '/favicons.php';
-		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+		$feed = new Feed('http://example.net/feed.xml', validate: false);
 		$feed->_id(987655);
 		$contents = file_get_contents(DEFAULT_FAVICON);
 		self::assertIsString($contents);
@@ -101,7 +106,7 @@ final class FeedTest extends \PHPUnit\Framework\TestCase {
 		self::assertIsString($newPath);
 		$destination = 'destination-icon';
 		file_put_contents($newPath, $destination);
-		$legacyPath = FAVICONS_DIR . hash('crc32b', FreshRSS_Context::systemConf()->salt . $feed->id() . Minz_User::name()) . '.ico';
+		$legacyPath = FAVICONS_DIR . hash('crc32b', Context::systemConf()->salt . $feed->id() . User::name()) . '.ico';
 		file_put_contents($legacyPath, $contents);
 
 		$feed->favicon();

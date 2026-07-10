@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1);
+
+use FreshRss\Minz\Migrator;
 use PHPUnit\Framework\TestCase;
 
 class MigratorTest extends TestCase
 {
 	public static function testAddMigration(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 
 		$migrator->addMigration('foo', fn() => true);
 
@@ -16,7 +18,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testMigrationsIsSorted(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$migrator->addMigration('2_foo', fn() => true);
 		$migrator->addMigration('10_foo', fn() => true);
 		$migrator->addMigration('1_foo', fn() => true);
@@ -28,7 +30,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testSetAppliedVersions(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$migrator->addMigration('foo', fn() => true);
 
 		$migrator->setAppliedVersions(['foo']);
@@ -37,7 +39,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testSetAppliedVersionsTrimArgument(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$migrator->addMigration('foo', fn() => true);
 
 		$migrator->setAppliedVersions(["foo\n"]);
@@ -49,13 +51,13 @@ class MigratorTest extends TestCase
 		$this->expectException(DomainException::class);
 		$this->expectExceptionMessage('foo migration does not exist.');
 
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 
 		$migrator->setAppliedVersions(['foo']);
 	}
 
 	public static function testVersions(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$migrator->addMigration('foo', fn() => true);
 		$migrator->addMigration('bar', fn() => true);
 
@@ -65,7 +67,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testMigrate(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$spy = false;
 		$migrator->addMigration('foo', function () use (&$spy) {
 			$spy = true;
@@ -83,7 +85,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testMigrateCallsMigrationsInSortedOrder(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$spy_foo_1_is_called = false;
 		$migrator->addMigration('2_foo', function () use (&$spy_foo_1_is_called) {
 			return $spy_foo_1_is_called;
@@ -103,7 +105,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testMigrateDoesNotCallAppliedMigrations(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$spy = false;
 		$migrator->addMigration('1_foo', function () use (&$spy) {
 			$spy = true;
@@ -118,7 +120,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testMigrateCallNonAppliedBetweenTwoApplied(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$migrator->addMigration('1_foo', fn() => true);
 		$migrator->addMigration('2_foo', fn() => true);
 		$migrator->addMigration('3_foo', fn() => true);
@@ -133,7 +135,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testMigrateWithMigrationReturningFalseDoesNotApplyVersion(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$migrator->addMigration('1_foo', fn() => true);
 		$migrator->addMigration('2_foo', fn() => false);
 
@@ -147,7 +149,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testMigrateWithMigrationReturningFalseDoesNotExecuteNextMigrations(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$migrator->addMigration('1_foo', fn() => false);
 		$spy = false;
 		$migrator->addMigration('2_foo', function () use (&$spy) {
@@ -165,7 +167,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testMigrateWithFailingMigration(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$migrator->addMigration('foo', function () {
 			throw new \Exception('Oops, it failed.');
 		});
@@ -179,7 +181,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testUpToDate(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$migrator->addMigration('foo', fn() => true);
 		$migrator->setAppliedVersions(['foo']);
 
@@ -189,7 +191,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testUpToDateIfRemainingMigration(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 		$migrator->addMigration('1_foo', fn() => true);
 		$migrator->addMigration('2_foo', fn() => true);
 		$migrator->setAppliedVersions(['2_foo']);
@@ -200,7 +202,7 @@ class MigratorTest extends TestCase
 	}
 
 	public static function testUpToDateIfNoMigrations(): void {
-		$migrator = new Minz_Migrator();
+		$migrator = new Migrator();
 
 		$upToDate = $migrator->upToDate();
 
@@ -209,7 +211,7 @@ class MigratorTest extends TestCase
 
 	public static function testConstructorLoadsDirectory(): void {
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
-		$migrator = new Minz_Migrator($migrations_path);
+		$migrator = new Migrator($migrations_path);
 		$expected_versions = ['2019_12_22_FooBar', '2019_12_23_Baz'];
 
 		$migrations = $migrator->migrations();
@@ -221,7 +223,7 @@ class MigratorTest extends TestCase
 		$migrations_path = TESTS_PATH . '/fixtures/migrations/';
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
 		self::assertIsString($applied_migrations_path);
-		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
+		$result = Migrator::execute($migrations_path, $applied_migrations_path);
 
 		self::assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
@@ -235,7 +237,7 @@ class MigratorTest extends TestCase
 		self::assertIsString($applied_migrations_path);
 		file_put_contents($applied_migrations_path, '2019_12_22_FooBar');
 
-		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
+		$result = Migrator::execute($migrations_path, $applied_migrations_path);
 
 		self::assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
@@ -249,7 +251,7 @@ class MigratorTest extends TestCase
 		self::assertIsString($applied_migrations_path);
 		file_put_contents($applied_migrations_path, "2019_12_23_Baz\n2019_12_22_FooBar");
 
-		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
+		$result = Migrator::execute($migrations_path, $applied_migrations_path);
 
 		self::assertTrue($result);
 		$versions = file_get_contents($applied_migrations_path);
@@ -264,7 +266,7 @@ class MigratorTest extends TestCase
 		$expected_result = "Cannot open the {$applied_migrations_path} file";
 		self::assertIsString($applied_migrations_path);
 		unlink($applied_migrations_path);
-		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
+		$result = Migrator::execute($migrations_path, $applied_migrations_path);
 
 		self::assertSame($expected_result, $result);
 		@unlink($applied_migrations_path);
@@ -275,7 +277,7 @@ class MigratorTest extends TestCase
 		$applied_migrations_path = tempnam('/tmp', 'applied_migrations.txt');
 		$expected_result = 'A migration failed to be applied, please see previous logs.';
 		self::assertIsString($applied_migrations_path);
-		$result = Minz_Migrator::execute($migrations_path, $applied_migrations_path);
+		$result = Migrator::execute($migrations_path, $applied_migrations_path);
 		self::assertIsString($result);
 		[$result,] = explode("\n", $result, 2);
 

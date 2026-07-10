@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Controllers\IndexController;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Translate;
+use FreshRss\Models\Context;
+use FreshRss\Models\UserConfiguration;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
@@ -9,14 +14,14 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 final class indexControllerTest extends \PHPUnit\Framework\TestCase {
 
 	public function testUnknownViewModeIsEncodedInNotification(): void {
-		FreshRSS_Context::initSystem();
-		FreshRSS_Context::setUserConf(clone FreshRSS_UserConfiguration::default());
-		FreshRSS_Context::userConf()->view_mode = '<form action="https://example.net/">';
-		Minz_Translate::init('en');
+		Context::initSystem();
+		Context::setUserConf(clone UserConfiguration::default());
+		Context::userConf()->view_mode = '<form action="https://example.net/">';
+		Translate::init('en');
 
-		(new FreshRSS_index_Controller())->indexAction();
+		(new IndexController())->indexAction();
 
-		$notification = Minz_Request::getNotification();
+		$notification = Request::getNotification();
 		self::assertNotNull($notification);
 		self::assertStringContainsString('&lt;form action=&quot;https://example.net/&quot;&gt;', $notification['content']);
 		self::assertStringNotContainsString('<', $notification['content']);

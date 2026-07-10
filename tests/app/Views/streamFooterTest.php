@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Translate;
+use FreshRss\Models\BooleanSearch;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -22,14 +27,14 @@ final class streamFooterTest extends \PHPUnit\Framework\TestCase {
 	/** @param array<string,string> $request */
 	#[DataProvider('providePaginationStates')]
 	public function testPaginationKeepsTheRequestedState(array $request, int $resolvedState, string $requestedState): void {
-		FreshRSS_Context::initSystem();
-		Minz_Translate::init('en');
-		FreshRSS_Context::$state = $resolvedState;
-		FreshRSS_Context::$continuation_id = '123';
-		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('needle');
-		Minz_Request::_params($request + ['search' => 'needle']);
+		Context::initSystem();
+		Translate::init('en');
+		Context::$state = $resolvedState;
+		Context::$continuation_id = '123';
+		Context::$search = new BooleanSearch('needle');
+		Request::_params($request + ['search' => 'needle']);
 
-		$view = new FreshRSS_View();
+		$view = new View();
 		$view->_path('helpers/stream-footer.phtml');
 		// Fragment of a page, so prefix with `<!DOCTYPE html>`
 		$doc = Dom\HTMLDocument::createFromString('<!DOCTYPE html>' . $view->renderToString(), Dom\HTML_NO_DEFAULT_NS);

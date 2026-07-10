@@ -1,10 +1,16 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Log;
+use FreshRss\Minz\ModelPdo;
+use FreshRss\Minz\PdoSqlite;
+
 /**
  * This class is used to test database is well-constructed.
  */
-class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
+class DatabaseDAO extends ModelPdo {
 
 	//MySQL error codes
 	public const ER_BAD_FIELD_ERROR = '42S22';
@@ -22,16 +28,16 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 
 	public function create(): string {
 		require_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
-		$db = FreshRSS_Context::systemConf()->db;
+		$db = Context::systemConf()->db;
 
 		try {
 			$sql = $GLOBALS['SQL_CREATE_DB'];
 			if (!is_string($sql)) {
-				throw new Exception('SQL_CREATE_DB is not a string!');
+				throw new \Exception('SQL_CREATE_DB is not a string!');
 			}
 			$sql = sprintf($sql, empty($db['base']) ? '' : $db['base']);
 			return $this->pdo->exec($sql) === false ? 'Error during CREATE DATABASE' : '';
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			syslog(LOG_DEBUG, __METHOD__ . ' notice: ' . $e->getMessage());
 			return $e->getMessage();
 		}
@@ -46,9 +52,9 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			if ($stm === false) {
 				return 'Error during SQL connection test!';
 			}
-			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			$res = $stm->fetchAll(\PDO::FETCH_COLUMN, 0);
 			return $res == false ? 'Error during SQL connection fetch test!' : '';
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			syslog(LOG_DEBUG, __METHOD__ . ' warning: ' . $e->getMessage());
 			return $e->getMessage();
 		}
@@ -60,7 +66,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
-			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			$res = $stm->fetchAll(\PDO::FETCH_COLUMN, 0);
 			if ($res !== false) {
 				return true;
 			}
@@ -150,7 +156,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function entryIsCorrect(): bool {
-		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$entryDAO = Factory::createEntryDao();
 		return $this->checkTable('entry', [
 			'id',
 			'guid',
@@ -171,7 +177,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function entrytmpIsCorrect(): bool {
-		$entryDAO = FreshRSS_Factory::createEntryDao();
+		$entryDAO = Factory::createEntryDao();
 		return $this->checkTable('entrytmp', [
 			'id',
 			'guid',
@@ -249,7 +255,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	public function pdoClientVersion(): string {
-		$version = $this->pdo->getAttribute(PDO::ATTR_CLIENT_VERSION);
+		$version = $this->pdo->getAttribute(\PDO::ATTR_CLIENT_VERSION);
 		return is_string($version) ? $version : '';
 	}
 
@@ -259,21 +265,21 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	}
 
 	/**
-	 * @return bool true if the database PDO driver returns typed integer values as it should, false otherwise.
+	 * @return bool true if the database \PDO driver returns typed integer values as it should, false otherwise.
 	 */
 	final public function testTyping(): bool {
 		$sql = <<<'SQL'
 			SELECT 2 + 3
 			SQL;
 		if (($stm = $this->pdo->query($sql)) !== false) {
-			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			$res = $stm->fetchAll(\PDO::FETCH_COLUMN, 0);
 			return ($res[0] ?? null) === 5;
 		}
 		return false;
 	}
 
 	public function size(bool $all = false): int {
-		$db = FreshRSS_Context::systemConf()->db;
+		$db = Context::systemConf()->db;
 
 		// MariaDB does not refresh size information automatically
 		$sql = <<<'SQL'
@@ -309,17 +315,17 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 				OPTIMIZE TABLE `_{$table}`
 				SQL;	//MySQL
 			$stm = $this->pdo->query($sql);
-			if ($stm === false || $stm->fetchAll(PDO::FETCH_ASSOC) == false) {
+			if ($stm === false || $stm->fetchAll(\PDO::FETCH_ASSOC) == false) {
 				$ok = false;
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+				Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
 			}
 		}
 		return $ok;
 	}
 
 	public function minorDbMaintenance(): void {
-		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$catDAO = Factory::createCategoryDao();
 		$catDAO->resetDefaultCategoryName();
 
 		include_once APP_PATH . '/SQL/install.sql.' . $this->pdo->dbType() . '.php';
@@ -343,7 +349,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 					// Too bad for MySQL, but ignore error
 					return;
 				}
-				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+				Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
 			}
 		}
 	}
@@ -352,7 +358,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		if (defined('STDERR')) {
 			fwrite(STDERR, $error . "\n");
 		}
-		Minz_Log::error($error);
+		Log::error($error);
 		return false;
 	}
 
@@ -365,12 +371,12 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 		$error = '';
 
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-		$userDAO = FreshRSS_Factory::createUserDao();
-		$catDAO = FreshRSS_Factory::createCategoryDao();
-		$feedDAO = FreshRSS_Factory::createFeedDao();
-		$entryDAO = FreshRSS_Factory::createEntryDao();
-		$tagDAO = FreshRSS_Factory::createTagDao();
+		$databaseDAO = Factory::createDatabaseDAO();
+		$userDAO = Factory::createUserDao();
+		$catDAO = Factory::createCategoryDao();
+		$feedDAO = Factory::createFeedDao();
+		$entryDAO = Factory::createEntryDao();
+		$tagDAO = Factory::createTagDao();
 
 		switch ($mode) {
 			case self::SQLITE_EXPORT:
@@ -383,7 +389,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 					$error = 'Error: SQLite import file is not readable: ' . $filename;
 				} elseif ($clearFirst) {
 					$userDAO->deleteUser();
-					$userDAO = FreshRSS_Factory::createUserDao();
+					$userDAO = Factory::createUserDao();
 					if ($this->pdo->dbType() === 'sqlite') {
 						//We cannot just delete the .sqlite file otherwise PDO gets buggy.
 						//SQLite is the only one with database-level optimization, instead of at table level.
@@ -404,19 +410,19 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$sqlite = null;
 
 		try {
-			$sqlite = new Minz_PdoSqlite('sqlite:' . $filename);
-			$sqlite->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-		} catch (Exception $e) {
+			$sqlite = new PdoSqlite('sqlite:' . $filename);
+			$sqlite->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
+		} catch (\Exception $e) {
 			$error = 'Error while initialising SQLite copy: ' . $e->getMessage();
 			return self::stdError($error);
 		}
 
-		Minz_ModelPdo::clean();
-		$userDAOSQLite = new FreshRSS_UserDAO('', $sqlite);
-		$categoryDAOSQLite = new FreshRSS_CategoryDAOSQLite('', $sqlite);
-		$feedDAOSQLite = new FreshRSS_FeedDAOSQLite('', $sqlite);
-		$entryDAOSQLite = new FreshRSS_EntryDAOSQLite('', $sqlite);
-		$tagDAOSQLite = new FreshRSS_TagDAOSQLite('', $sqlite);
+		ModelPdo::clean();
+		$userDAOSQLite = new UserDAO('', $sqlite);
+		$categoryDAOSQLite = new CategoryDAOSQLite('', $sqlite);
+		$feedDAOSQLite = new FeedDAOSQLite('', $sqlite);
+		$entryDAOSQLite = new EntryDAOSQLite('', $sqlite);
+		$tagDAOSQLite = new TagDAOSQLite('', $sqlite);
 
 		switch ($mode) {
 			case self::SQLITE_EXPORT:
@@ -446,7 +452,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		$userTo->createUser();
 
 		$catTo->beginTransaction();
-		$catTo->deleteCategory(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+		$catTo->deleteCategory(CategoryDAO::DEFAULTCATEGORYID);
 		$catTo->sqlResetSequence();
 		foreach ($catFrom->selectAll() as $category) {
 			$catId = $catTo->addCategory($category);
@@ -458,7 +464,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		}
 		$catTo->sqlResetSequence();
 		foreach ($feedFrom->selectAll() as $feed) {
-			$feed['category'] = empty($idMaps['c' . $feed['category']]) ? FreshRSS_CategoryDAO::DEFAULTCATEGORYID : $idMaps['c' . $feed['category']];
+			$feed['category'] = empty($idMaps['c' . $feed['category']]) ? CategoryDAO::DEFAULTCATEGORYID : $idMaps['c' . $feed['category']];
 			$feedId = $feedTo->addFeed($feed);
 			if ($feedId == false) {
 				$error = 'Error during SQLite copy of feeds!';

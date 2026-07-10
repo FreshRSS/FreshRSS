@@ -1,10 +1,12 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
- * The Minz_Session class handles user’s session
+ * The Session class handles user’s session
  */
-class Minz_Session {
+class Session {
 
 	private static bool $volatile = false;
 
@@ -47,7 +49,7 @@ class Minz_Session {
 		$params['lifetime'] = ($params['lifetime'] <= 0 || $params['lifetime'] > 86400) ? 0 : $params['lifetime'];
 		$params['path'] = '';	// Current directory
 		$params['domain'] = '';	// Current domain
-		$params['secure'] = Minz_Request::isHttps();
+		$params['secure'] = Request::isHttps();
 		$params['httponly'] = true;
 		$params['samesite'] = 'Lax';
 		session_set_cookie_params($params);
@@ -70,7 +72,7 @@ class Minz_Session {
 	 * @param mixed|false $default the default value if the parameter doesn’t exist
 	 * @return mixed|false the value of the session variable, false if doesn’t exist
 	 */
-	#[Deprecated('Use typed versions instead')]
+	#[\Deprecated('Use typed versions instead')]
 	public static function param(string $p, $default = false): mixed {
 		return $_SESSION[$p] ?? $default;
 	}
@@ -179,7 +181,7 @@ class Minz_Session {
 
 		if (!$force) {
 			self::_param('language', $language);
-			Minz_Translate::reset($language);
+			Translate::reset($language);
 		}
 	}
 
@@ -214,27 +216,27 @@ class Minz_Session {
 	 *
 	 * @param bool $delete_old_session `true` to delete the old session file; set to `false` if it is known
 	 * not to contain authenticated data, to avoid breaking concurrent in-flight requests
-	 * @throws RuntimeException if the session could not be regenerated (e.g. unwritable session storage)
+	 * @throws \RuntimeException if the session could not be regenerated (e.g. unwritable session storage)
 	 */
 	public static function regenerateID(string $name, bool $delete_old_session = true): void {
 		if (self::$volatile) {
 			return;
 		}
 		if (self::$locked) {
-			throw new RuntimeException('Session is locked!');
+			throw new \RuntimeException('Session is locked!');
 		}
 		// Ensure that regenerating the session won't send multiple cookies so we can send one ourselves instead
 		ini_set('session.use_cookies', '0');
 		if (session_name($name) === false || !@session_start()) {
-			throw new RuntimeException("Session {$name} could not be started!");
+			throw new \RuntimeException("Session {$name} could not be started!");
 		}
 		if (!session_regenerate_id(delete_old_session: $delete_old_session)) {
-			throw new RuntimeException('Session could not be regenerated!');
+			throw new \RuntimeException('Session could not be regenerated!');
 		}
 		session_write_close();
 		$newId = session_id();
 		if ($newId === false) {
-			throw new RuntimeException('Session ID could not be retrieved!');
+			throw new \RuntimeException('Session ID could not be retrieved!');
 		}
 		$params = session_get_cookie_params();
 		$params['expires'] = $params['lifetime'] > 0 ? time() + $params['lifetime'] : 0;
@@ -259,7 +261,7 @@ class Minz_Session {
 			}
 		}
 		if (!setcookie($name, $newId, $params)) {
-			throw new RuntimeException('Failed to set session cookie!');
+			throw new \RuntimeException('Failed to set session cookie!');
 		}
 		return;
 	}

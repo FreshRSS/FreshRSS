@@ -1,18 +1,30 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Services;
+
+use FreshRss\Minz\PermissionDeniedException;
+use FreshRss\Models\Category;
+use FreshRss\Models\CategoryDAO;
+use FreshRss\Models\Entry;
+use FreshRss\Models\EntryDAO;
+use FreshRss\Models\Factory;
+use FreshRss\Models\FeedDAO;
+use FreshRss\Models\TagDAO;
+use FreshRss\Models\View;
+
 /**
  * Provide useful methods to generate files to export.
  */
-class FreshRSS_Export_Service {
+class ExportService {
 
-	private readonly FreshRSS_CategoryDAO $category_dao;
+	private readonly CategoryDAO $category_dao;
 
-	private readonly FreshRSS_FeedDAO $feed_dao;
+	private readonly FeedDAO $feed_dao;
 
-	private readonly FreshRSS_EntryDAO $entry_dao;
+	private readonly EntryDAO $entry_dao;
 
-	private readonly FreshRSS_TagDAO $tag_dao;
+	private readonly TagDAO $tag_dao;
 
 	final public const FRSS_NAMESPACE = 'https://freshrss.org/opml';
 	final public const TYPE_HTML_XPATH = 'HTML+XPath';
@@ -33,19 +45,19 @@ class FreshRSS_Export_Service {
 	 * Initialize the service for the given user.
 	 */
 	public function __construct(private readonly string $username) {
-		$this->category_dao = FreshRSS_Factory::createCategoryDao($this->username);
-		$this->feed_dao = FreshRSS_Factory::createFeedDao($this->username);
-		$this->entry_dao = FreshRSS_Factory::createEntryDao($this->username);
-		$this->tag_dao = FreshRSS_Factory::createTagDao();
+		$this->category_dao = Factory::createCategoryDao($this->username);
+		$this->feed_dao = Factory::createFeedDao($this->username);
+		$this->entry_dao = Factory::createEntryDao($this->username);
+		$this->tag_dao = Factory::createTagDao();
 	}
 
 	/**
 	 * Generate OPML file.
 	 * @return array{0:string,1:string} First item is the filename, second item is the path of a temporary file with the content
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	public function generateOpml(): array {
-		$view = new FreshRSS_View();
+		$view = new View();
 		$day = date('Y-m-d');
 		$view->categories = $this->category_dao->listSortedCategories(prePopulateFeeds: true, details: true);
 		$view->excludeMutedFeeds = false;
@@ -69,20 +81,20 @@ class FreshRSS_Export_Service {
 	 *     'T' (taggued/labelled),
 	 *     'ST' (starred or labelled)
 	 * @return array{0:string,1:string} First item is the filename, second item is the path of a temporary file with the content
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	public function generateStarredEntries(string $type): array {
-		$view = new FreshRSS_View();
+		$view = new View();
 		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true);
 		$day = date('Y-m-d');
 
 		$view->list_title = _t('sub.import_export.starred_list');
 		$view->type = 'starred';
-		$entriesId = $this->entry_dao->listIdsWhere($type, 0, FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: -1) ?? [];
+		$entriesId = $this->entry_dao->listIdsWhere($type, 0, Entry::STATE_ALL, order: 'ASC', limit: -1) ?? [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
-			$type, 0, FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: -1
+			$type, 0, Entry::STATE_ALL, order: 'ASC', limit: -1
 		);
 
 		return [
@@ -95,13 +107,13 @@ class FreshRSS_Export_Service {
 	 * Generate the entries file for the given feed.
 	 * @return array{0:string,1:string}|null First item is the filename, second item is the path of a temporary file with the content.
 	 *                    It also can return null if the feed doesn’t exist.
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	public function generateFeedEntries(int $feed_id, int $max_number_entries): ?array {
-		$view = new FreshRSS_View();
+		$view = new View();
 		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true);
 
-		$feed = FreshRSS_Category::findFeed($view->categories, $feed_id);
+		$feed = Category::findFeed($view->categories, $feed_id);
 		if ($feed === null) {
 			return null;
 		}
@@ -113,12 +125,12 @@ class FreshRSS_Export_Service {
 		$view->list_title = _t('sub.import_export.feed_list', $feed->name());
 		$view->type = 'feed/' . $feed->id();
 		$entriesId = $this->entry_dao->listIdsWhere(
-			'f', $feed->id(), FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: $max_number_entries
+			'f', $feed->id(), Entry::STATE_ALL, order: 'ASC', limit: $max_number_entries
 		) ?? [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
-			'f', $feed->id(), FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: $max_number_entries
+			'f', $feed->id(), Entry::STATE_ALL, order: 'ASC', limit: $max_number_entries
 		);
 
 		return [
@@ -130,7 +142,7 @@ class FreshRSS_Export_Service {
 	/**
 	 * Generate the entries files for all the feeds.
 	 * @return array<string,string> Keys are filenames and values are paths of temporary files with the contents.
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	public function generateAllFeedEntries(int $max_number_entries): array {
 		$feed_ids = $this->feed_dao->listFeedsIds();
@@ -153,15 +165,15 @@ class FreshRSS_Export_Service {
 	 * Compress several files in a Zip file.
 	 * @param array<string,string> $files where the key is the filename, the value is the path of the file
 	 * @return array{0:string,1:string|false} First item is the zip filename, second item is the path of a temporary zip file, or false in case of error
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	public function zip(array $files): array {
 		$day = date('Y-m-d');
 		$zip_filename = 'freshrss_' . $this->username . '_' . $day . '_export.zip';
 
 		$zip_file = self::tempFile();
-		$zip_archive = new ZipArchive();
-		$zip_archive->open($zip_file, ZipArchive::OVERWRITE);
+		$zip_archive = new \ZipArchive();
+		$zip_archive->open($zip_file, \ZipArchive::OVERWRITE);
 
 		foreach ($files as $filename => $path) {
 			$zip_archive->addFile($path, $filename);
@@ -175,12 +187,12 @@ class FreshRSS_Export_Service {
 
 	/**
 	 * Create a temporary file, which is deleted at the end of the script.
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	private static function tempFile(): string {
 		$filename = tempnam(TMP_PATH, 'export');
 		if ($filename === false) {
-			throw new Minz_PermissionDeniedException(TMP_PATH);
+			throw new PermissionDeniedException(TMP_PATH);
 		}
 		register_shutdown_function(static fn() => @unlink($filename));
 		return $filename;
@@ -189,9 +201,9 @@ class FreshRSS_Export_Service {
 	/**
 	 * Render a view helper into a temporary file, instead of keeping the whole content in memory.
 	 * @return string The path of the temporary file
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
-	private static function helperToTempFile(FreshRSS_View $view, string $helper): string {
+	private static function helperToTempFile(View $view, string $helper): string {
 		$filename = self::tempFile();
 		$view->helperToFile($helper, $filename);
 		return $filename;

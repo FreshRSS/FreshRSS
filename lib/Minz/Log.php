@@ -1,15 +1,17 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
- * The Minz_Log class is used to log errors and warnings
+ * The Log class is used to log errors and warnings
  */
-class Minz_Log {
+class Log {
 	/**
 	 * Syslog priority corresponding to each value accepted by the `log_level` system setting,
 	 * from the most to the least severe.
@@ -34,18 +36,18 @@ class Minz_Log {
 	 * @param string $information error message / information to record
 	 * @param int $level error level https://www.php.net/function.syslog
 	 * @param string $file_name log file
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	public static function record(string $information, int $level, ?string $file_name = null): void {
 		$env = getenv('FRESHRSS_ENV');
 		$log_level = '';
 		try {
-			$conf = Minz_Configuration::get('system');
+			$conf = Configuration::get('system');
 			$log_level = $conf->log_level;
 			if ($env == '') {
 				$env = $conf->environment;
 			}
-		} catch (Minz_ConfigurationException $e) {
+		} catch (ConfigurationException $e) {
 			if ($env == '') {
 				$env = 'production';
 			}
@@ -61,7 +63,7 @@ class Minz_Log {
 		self::$lastLog = $information;
 
 		if (! ($env === 'silent' || $level > self::LOG_LEVELS[$log_level])) {
-			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
+			$username = User::name() ?? User::INTERNAL_USER;
 			if ($file_name == null) {
 				$file_name = join_path(USERS_PATH, $username, LOG_FILENAME);
 			}
@@ -81,7 +83,7 @@ class Minz_Log {
 			self::ensureMaxLogSize($file_name);
 
 			if (file_put_contents($file_name, $log, FILE_APPEND | LOCK_EX) === false) {
-				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
+				throw new PermissionDeniedException($file_name, Exception::ERROR);
 			}
 		}
 	}
@@ -106,7 +108,7 @@ class Minz_Log {
 	 * This method can be called multiple times for one script execution, but its result will not change unless
 	 * you call clearstatcache() in between. We won’t do that for performance reasons.
 	 *
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	protected static function ensureMaxLogSize(string $file_name): void {
 		$maxSize = defined('MAX_LOG_SIZE') ? MAX_LOG_SIZE : 1048576;
@@ -122,29 +124,29 @@ class Minz_Log {
 				fflush($fp);
 				flock($fp, LOCK_UN);
 			} else {
-				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
+				throw new PermissionDeniedException($file_name, Exception::ERROR);
 			}
 			fclose($fp);
 		}
 	}
 
 	/**
-	 * Some helpers to Minz_Log::record() method
+	 * Some helpers to Log::record() method
 	 * Parameters are the same of those of the record() method.
-	 * @throws Minz_PermissionDeniedException
+	 * @throws PermissionDeniedException
 	 */
 	public static function debug(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_DEBUG, $file_name);
 	}
-	/** @throws Minz_PermissionDeniedException */
+	/** @throws PermissionDeniedException */
 	public static function notice(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_NOTICE, $file_name);
 	}
-	/** @throws Minz_PermissionDeniedException */
+	/** @throws PermissionDeniedException */
 	public static function warning(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_WARNING, $file_name);
 	}
-	/** @throws Minz_PermissionDeniedException */
+	/** @throws PermissionDeniedException */
 	public static function error(string $msg, ?string $file_name = null): void {
 		self::record($msg, LOG_ERR, $file_name);
 	}

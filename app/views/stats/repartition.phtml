@@ -1,6 +1,10 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_ViewStats $this */
+	/** @var ViewStats $this */
+
+use FreshRss\Models\Entry;
+use FreshRss\Models\ViewStats;
+
 	$this->partial('aside_subscription');
 	$feedname = _t('admin.stats.all_feeds');
 ?>
@@ -65,10 +69,10 @@
 				<?php
 				} else {
 				?>
-					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', FreshRSS_Entry::STATE_ALL) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['total'] ?? -1 ?></a></td>
-					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', FreshRSS_Entry::STATE_READ) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['count_reads'] ?? -1 ?></a></td>
-					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', FreshRSS_Entry::STATE_NOT_READ) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['count_unreads'] ?? -1 ?></a></td>
-					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', FreshRSS_Entry::STATE_FAVORITE) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['count_favorites'] ?? -1 ?></a></td>
+					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', Entry::STATE_ALL) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['total'] ?? -1 ?></a></td>
+					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', Entry::STATE_READ) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['count_reads'] ?? -1 ?></a></td>
+					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', Entry::STATE_NOT_READ) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['count_unreads'] ?? -1 ?></a></td>
+					<td class="numeric"><a href="<?= _url('index', 'index', 'get', 'f_' . $feedID, 'state', Entry::STATE_FAVORITE) ?>" title="<?= _t('gen.action.filter') ?>"><?= $this->repartition['count_favorites'] ?? -1 ?></a></td>
 				<?php } ?>
 			</tr>
 			</table>

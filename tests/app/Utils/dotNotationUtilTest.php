@@ -1,9 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Translate;
+use FreshRss\Models\Context;
+use FreshRss\Utils\DotNotationUtil;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
-final class dotNotationUtilTest extends \PHPUnit\Framework\TestCase {
+final class dotNotationUtilTest extends TestCase {
 
 	/**
 	 * @return Traversable<array{array<string,mixed>,string,string}>
@@ -43,13 +47,13 @@ final class dotNotationUtilTest extends \PHPUnit\Framework\TestCase {
 	 */
 	#[DataProvider('provideJsonDots')]
 	public static function testJsonDots(array $array, string $key, string $expected): void {
-		$value = FreshRSS_dotNotation_Util::get($array, $key);
+		$value = DotNotationUtil::get($array, $key);
 		self::assertSame($expected, $value);
 	}
 
 	public static function testConvertJsonToRssEscapesCategories(): void {
-		FreshRSS_Context::initSystem();
-		Minz_Translate::init('en');
+		Context::initSystem();
+		Translate::init('en');
 		$json = <<<json
 		{
 			"items": [
@@ -60,7 +64,7 @@ final class dotNotationUtilTest extends \PHPUnit\Framework\TestCase {
 		json;
 		$jf = json_decode($json, true);
 		self::assertIsArray($jf);
-		$rss = FreshRSS_dotNotation_Util::convertJsonToRss($jf, 'https://example.net/', [
+		$rss = DotNotationUtil::convertJsonToRss($jf, 'https://example.net/', [
 			'item' => 'items',
 			'itemTitle' => 'title',
 			'itemUri' => 'url',
@@ -79,8 +83,8 @@ final class dotNotationUtilTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public static function testConvertJsonToRssKeepsAttachments(): void {
-		FreshRSS_Context::initSystem();
-		Minz_Translate::init('en');
+		Context::initSystem();
+		Translate::init('en');
 		$json = <<<json
 		{
 			"items": [
@@ -96,7 +100,7 @@ final class dotNotationUtilTest extends \PHPUnit\Framework\TestCase {
 		json;
 		$jf = json_decode($json, true);
 		self::assertIsArray($jf);
-		$rss = FreshRSS_dotNotation_Util::convertJsonToRss($jf, 'https://example.net/', [
+		$rss = DotNotationUtil::convertJsonToRss($jf, 'https://example.net/', [
 			'item' => 'items',
 			'itemTitle' => 'title',
 			'itemUri' => 'url',

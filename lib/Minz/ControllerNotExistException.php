@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-class Minz_ControllerNotExistException extends Minz_Exception {
+namespace FreshRss\Minz;
+
+class ControllerNotExistException extends Exception {
 	public function __construct(int $code = self::ERROR) {
 		$message = 'Controller not found!';
 		parent::__construct($message, $code);

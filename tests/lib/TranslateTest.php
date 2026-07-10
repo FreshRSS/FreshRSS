@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Translate;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class TranslateTest extends \PHPUnit\Framework\TestCase {
@@ -25,17 +26,17 @@ final class TranslateTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('providePluralTranslations')]
 	public function testPluralUsesLocalePluralForms(string $language, int $value, string $expected): void {
-		Minz_Translate::init($language);
+		Translate::init($language);
 
-		self::assertSame($expected, Minz_Translate::plural('gen.interval.day', $value));
+		self::assertSame($expected, Translate::plural('gen.interval.day', $value));
 	}
 
 	public function testTimeagoUsesPluralCatalogues(): void {
-		Minz_Translate::init('ru');
+		Translate::init('ru');
 
 		self::assertSame('5 минут назад', timeago(0, 5 * 60));
 
-		Minz_Translate::reset('fr');
+		Translate::reset('fr');
 		self::assertSame('il y a 2 jours', timeago(0, 2 * 86400));
 	}
 

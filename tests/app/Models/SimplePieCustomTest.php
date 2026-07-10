@@ -1,32 +1,34 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Models\Context;
+use FreshRss\Models\SimplePieCustom;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
- * FreshRSS_SimplePieCustom::sanitizeHTML() is the XSS defence applied to all untrusted feed
+ * SimplePieCustom::sanitizeHTML() is the XSS defence applied to all untrusted feed
  * content (entry content, entry/feed descriptions) before it is stored or displayed.
  */
 final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 
 	#[\Override]
 	protected function setUp(): void {
-		if (!FreshRSS_Context::hasSystemConf()) {
-			FreshRSS_Context::initSystem();
+		if (!Context::hasSystemConf()) {
+			Context::initSystem();
 		}
 	}
 
 	public static function test_sanitizeHTML_whenEmptyString_returnsEmptyString(): void {
-		self::assertSame('', FreshRSS_SimplePieCustom::sanitizeHTML(''));
+		self::assertSame('', SimplePieCustom::sanitizeHTML(''));
 	}
 
 	public static function test_sanitizeHTML_whenPlainText_returnsUnchanged(): void {
-		self::assertSame('plain text', FreshRSS_SimplePieCustom::sanitizeHTML('plain text'));
+		self::assertSame('plain text', SimplePieCustom::sanitizeHTML('plain text'));
 	}
 
 	#[DataProvider('provideMaliciousHtml')]
 	public static function test_sanitizeHTML_whenMaliciousInput_stripsDangerousContent(string $input, string $mustNotContain): void {
-		$result = FreshRSS_SimplePieCustom::sanitizeHTML($input);
+		$result = SimplePieCustom::sanitizeHTML($input);
 		self::assertStringNotContainsString($mustNotContain, $result);
 	}
 
@@ -43,27 +45,27 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public static function test_sanitizeHTML_whenSafeHtml_keepsAllowedTags(): void {
-		$result = FreshRSS_SimplePieCustom::sanitizeHTML('<p>Hello <b>world</b></p>');
+		$result = SimplePieCustom::sanitizeHTML('<p>Hello <b>world</b></p>');
 		self::assertSame('<p>Hello <b>world</b></p>', $result);
 	}
 
 	public static function test_sanitizeHTML_whenUnsafeAttributeIsRemoved_keepsAllowedTag(): void {
-		self::assertSame('Hello <br>', FreshRSS_SimplePieCustom::sanitizeHTML('Hello <br onclick="x">'));
-		self::assertSame('Hello <br>', FreshRSS_SimplePieCustom::sanitizeHTML('Hello <br onclick="x">', maxLength: 100));
+		self::assertSame('Hello <br>', SimplePieCustom::sanitizeHTML('Hello <br onclick="x">'));
+		self::assertSame('Hello <br>', SimplePieCustom::sanitizeHTML('Hello <br onclick="x">', maxLength: 100));
 	}
 
 	public static function test_sanitizeHTML_whenMaxLengthIsZeroOrNegative_returnsEmptyString(): void {
-		self::assertSame('', FreshRSS_SimplePieCustom::sanitizeHTML('<p>Hello world</p>', maxLength: 0));
-		self::assertSame('', FreshRSS_SimplePieCustom::sanitizeHTML('<p>Hello world</p>', maxLength: -1));
+		self::assertSame('', SimplePieCustom::sanitizeHTML('<p>Hello world</p>', maxLength: 0));
+		self::assertSame('', SimplePieCustom::sanitizeHTML('<p>Hello world</p>', maxLength: -1));
 	}
 
 	public static function test_sanitizeHTML_whenResultFitsWithinMaxLength_isUnaffected(): void {
-		$result = FreshRSS_SimplePieCustom::sanitizeHTML('<p>Hello world</p>', maxLength: 100);
+		$result = SimplePieCustom::sanitizeHTML('<p>Hello world</p>', maxLength: 100);
 		self::assertSame('<p>Hello world</p>', $result);
 	}
 
 	public static function test_sanitizeHTML_whenUnsafePrefixExceedsMaxLength_keepsSafeText(): void {
-		self::assertSame('text', FreshRSS_SimplePieCustom::sanitizeHTML('<script>NOK</script><p>text', maxLength: 5));
+		self::assertSame('text', SimplePieCustom::sanitizeHTML('<script>NOK</script><p>text', maxLength: 5));
 	}
 
 	/**
@@ -71,7 +73,7 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 	 */
 	#[DataProvider('provideMaxLengthInputs')]
 	public static function test_sanitizeHTML_whenMaxLengthForcesReSanitizing_terminatesWithinBound(string $input, int $maxLength): void {
-		$result = FreshRSS_SimplePieCustom::sanitizeHTML($input, maxLength: $maxLength);
+		$result = SimplePieCustom::sanitizeHTML($input, maxLength: $maxLength);
 		self::assertLessThanOrEqual($maxLength, strlen($result));
 	}
 
@@ -84,7 +86,7 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideIncompleteTagsOrEntities')]
 	public static function test_sanitizeHTML_Cases(string $input, int $maxLength, string $expected): void {
-		$result = FreshRSS_SimplePieCustom::sanitizeHTML($input, maxLength: $maxLength);
+		$result = SimplePieCustom::sanitizeHTML($input, maxLength: $maxLength);
 		self::assertLessThanOrEqual($maxLength, strlen($result));
 		self::assertSame(trim($expected), trim($result));
 	}
@@ -103,12 +105,12 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public static function test_sanitizeHTML_whenDataImageUri_keepsItOnImageElements(): void {
 		$png = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-		self::assertSame('<img src="' . $png . '" alt="">', FreshRSS_SimplePieCustom::sanitizeHTML('<img src="' . $png . '" alt="">'));
-		self::assertStringContainsString('poster="' . $png . '"', FreshRSS_SimplePieCustom::sanitizeHTML('<video poster="' . $png . '"></video>'));
+		self::assertSame('<img src="' . $png . '" alt="">', SimplePieCustom::sanitizeHTML('<img src="' . $png . '" alt="">'));
+		self::assertStringContainsString('poster="' . $png . '"', SimplePieCustom::sanitizeHTML('<video poster="' . $png . '"></video>'));
 	}
 
 	public static function test_sanitizeHTML_whenDisallowedScheme_prefixesUnsafe(): void {
-		$result = FreshRSS_SimplePieCustom::sanitizeHTML('<a href="data:text/html,x">click</a>');
+		$result = SimplePieCustom::sanitizeHTML('<a href="data:text/html,x">click</a>');
 		self::assertStringContainsString('href="unsafe:data:text/html,x"', $result);
 	}
 
@@ -122,7 +124,7 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 		if (PHP_VERSION_ID < 80400 || get_parent_class(\Dom\HTMLDocument::class) === \DOMDocument::class) {
 			self::markTestSkipped('Requires the HTML5 parser of a native `Dom\HTMLDocument` (PHP 8.4+)');
 		}
-		$sanitized = FreshRSS_SimplePieCustom::sanitizeHTML($input);
+		$sanitized = SimplePieCustom::sanitizeHTML($input);
 		// Embed the result in a minimal page-like context to detect stray closing tags.
 		// Fragment of a page, so prefix with `<!DOCTYPE html>`
 		$document = \Dom\HTMLDocument::createFromString(

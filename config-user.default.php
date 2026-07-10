@@ -3,6 +3,8 @@
 # Do not modify this file, which defines default values, but create a
 # `./data/config-user.custom.php` file instead, containing the keys you want to
 # override.
+use FreshRss\Models\Entry;
+
 return array (
 	'enabled' => true,
 	'is_admin' => false,
@@ -31,7 +33,7 @@ return array (
 	'max_posts_per_rss' => 400,
 	'view_mode' => 'normal',
 	'default_view' => 'adaptive',
-	'default_state' => FreshRSS_Entry::STATE_NOT_READ,
+	'default_state' => Entry::STATE_NOT_READ,
 	'show_fav_unread' => false,
 	'show_title_unread' => true,
 	# Unread-count visibility in sidebar: 'all' | 'important' | 'none'
