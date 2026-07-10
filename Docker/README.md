@@ -102,6 +102,20 @@ and with newer packages in general (Apache, PHP).
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
+### Docker secrets (`_FILE` variables)
+
+For the [OpenID Connect](https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html) variables `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET`, and `OIDC_CLIENT_CRYPTO_KEY`,
+you can instead provide a `_FILE` suffixed variable pointing to a file containing the value, e.g. `OIDC_CLIENT_SECRET_FILE=/run/secrets/oidc_client_secret`,
+following the same convention as the official [PostgreSQL](https://hub.docker.com/_/postgres/) and [MySQL](https://hub.docker.com/_/mysql/) Docker images.
+This is useful with [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) or other secret-file mechanisms, to avoid exposing sensitive values as plain environment variables.
+Setting both a variable and its `_FILE` counterpart at the same time is an error.
+
+> ⚠️ This `_FILE` mechanism only works for variables read directly by Apache/`mod_auth_openidc` from the container's runtime environment.
+> It does **not** work for `DB_BASE`, `DB_USER`, `DB_PASSWORD`, `ADMIN_PASSWORD`, or `ADMIN_API_PASSWORD`, because those are only ever used
+> through the `FRESHRSS_INSTALL`/`FRESHRSS_USER` parameters below, and with Docker Compose `${VAR}` there is interpolated on the host
+> *before* the container starts — so a `_FILE`-only value would silently resolve to blank. For those, use Compose's own
+> [`secrets`](https://docs.docker.com/compose/how-tos/use-secrets/) support, or set the environment variable directly.
+
 ## How to update
 
 ```sh

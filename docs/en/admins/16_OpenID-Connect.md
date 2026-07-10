@@ -47,6 +47,10 @@ OIDC support in Docker is activated by the presence of a non-empty non-zero `OID
 * `OIDC_SESSION_MAX_DURATION`: Optional. Maximum duration of the application session. When not defined the default is 8 hours (3600 * 8 seconds). When set to 0, the session duration will be set equal to the expiry time of the ID token.
 * `OIDC_SESSION_TYPE`: Optional. OpenID Connect session storage type. See [mod_auth_openidc’s documentation for details](https://github.com/OpenIDC/mod_auth_openidc/blob/72c9f479c2d228477ff0a9518964f61879c83fb6/auth_openidc.conf#L587-L596).
 
+> ℹ️ `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET`, and `OIDC_CLIENT_CRYPTO_KEY` can each instead be provided via a `_FILE` suffixed
+> variable pointing to a file containing the value (e.g. `OIDC_CLIENT_SECRET_FILE=/run/secrets/oidc_client_secret`),
+> to use with [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) or similar. See [Docker/README.md](../../../Docker/README.md#docker-secrets-_file-variables).
+
 You may add additional custom configuration in a new `./FreshRSS/p/i/.htaccess` file.
 
 ### Token endpoint authentication method
