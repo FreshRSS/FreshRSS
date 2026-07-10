@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Όλοι οι πίνακες της βάσης δεδομένων υπάρχουν.',
 		),
 		'database-title' => 'Βάση δεδομένων',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <em>./p</em> folder. Other folders such as <em>./data</em> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <em>./p</em> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM.',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM.',

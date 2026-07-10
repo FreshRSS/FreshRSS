@@ -63,6 +63,10 @@ return array(
 			'ok' => '資料表狀態完整。',
 		),
 		'database-title' => '資料庫',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <em>./p</em> folder. Other folders such as <em>./data</em> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <em>./p</em> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => '無法找到瀏覽 DOM 所需的函式庫。',
 			'ok' => '您擁有瀏覽 DOM 所需的函式庫。',

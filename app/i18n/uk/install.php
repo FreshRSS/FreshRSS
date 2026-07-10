@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Усі таблиці наявні в базі даних.',
 		),
 		'database-title' => 'База даних',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <em>./p</em> folder. Other folders such as <em>./data</em> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <em>./p</em> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Не вдалося знайти необхідну бібліотеку роботи з DOM.',
 			'ok' => 'У вас є необхідна бібліотека роботи з DOM.',

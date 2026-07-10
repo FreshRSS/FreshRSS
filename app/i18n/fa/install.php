@@ -63,6 +63,10 @@ return array(
 			'ok' => 'همه جدول‌های پایگاه داده وجود دارند.',
 		),
 		'database-title' => 'پایگاه داده',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <em>./p</em> folder. Other folders such as <em>./data</em> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <em>./p</em> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'کتابخانه مورد نیاز برای مرور DOM را نمی‌توان پیدا کرد.',
 			'ok' => 'شما کتابخانه مورد نیاز برای مرور DOM را دارید.',

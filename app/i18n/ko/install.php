@@ -63,6 +63,10 @@ return array(
 			'ok' => 'All database tables exist.',	// TODO
 		),
 		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <em>./p</em> folder. Other folders such as <em>./data</em> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <em>./p</em> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'DOM을 다룰 수 있는 라이브러리를 찾을 수 없습니다 (php-xml 패키지).',
 			'ok' => 'DOM을 다룰 수 있는 라이브러리가 설치되어 있습니다.',

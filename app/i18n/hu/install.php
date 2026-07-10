@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Minden adatbázis tábla létezik.',
 		),
 		'database-title' => 'Adatbázis',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <em>./p</em> folder. Other folders such as <em>./data</em> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <em>./p</em> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'A DOM böngészéséhez nem található a könyvtár.',
 			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',

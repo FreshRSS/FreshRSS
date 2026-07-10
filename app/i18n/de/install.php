@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Alle Datenbanktabellen sind vorhanden.',
 		),
 		'database-title' => 'Datenbank',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <em>./p</em> folder. Other folders such as <em>./data</em> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <em>./p</em> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Ihnen fehlt die benötigte Bibliothek zum Durchsuchen des DOM.',
 			'ok' => 'Sie haben die benötigte Bibliothek zum Durchsuchen des DOM.',
