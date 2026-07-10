@@ -161,6 +161,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		}
 
 		if (Minz_Request::isPost()) {
+			$name = Minz_Request::paramString('name');
 			$cat = Minz_Request::paramInt('category');
 
 			// HTTP information are useful if feed is protected behind a
@@ -310,7 +311,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			try {
-				$feed = self::addFeed($url, '', $cat, '', $http_auth, $attributes, $feed_kind);
+				$feed = self::addFeed($url, $name, $cat, '', $http_auth, $attributes, $feed_kind);
 			} catch (FreshRSS_BadUrl_Exception $e) {
 				// Given url was not a valid url!
 				Minz_Log::warning($e->getMessage());
