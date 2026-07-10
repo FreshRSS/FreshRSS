@@ -233,7 +233,9 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 		$res = $this->fetchAssoc($sql);
 		if ($res !== null) {
 			/** @var list<array{id:int,name:string,unreads:int}> $res */
-			return self::daoToTags($res);
+			$tags = self::daoToTags($res);
+			uasort($tags, static fn(FreshRSS_Tag $a, FreshRSS_Tag $b) => FreshRSS_Context::localeCompare($a->name(), $b->name()));
+			return $tags;
 		} else {
 			$info = $this->pdo->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
