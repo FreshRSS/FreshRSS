@@ -101,6 +101,24 @@
 				$nbFeedsTotal += $cat->nbFeeds();
 			}
 
+			$tree_item_attributes = static function (FreshRSS_Feed|FreshRSS_Category $item): string {
+				$data = Minz_ExtensionManager::callHook(Minz_HookType::FeedTreeItemAttributes, [
+					'item' => $item,
+					'attributes' => [],
+				]);
+				if (!is_array($data) || !is_array($data['attributes'] ?? null)) {
+					return '';
+				}
+				$attributes = '';
+				foreach ($data['attributes'] as $name => $value) {
+					if (!is_string($name) || !preg_match('/^data-[a-zA-Z0-9:_-]+$/D', $name)) {
+						continue;
+					}
+					$attributes .= ' ' . $name . '="' . htmlspecialchars((string)$value, ENT_QUOTES) . '"';
+				}
+				return $attributes;
+			};
+
 			foreach ($this->categories as $cat):
 				$feeds = $cat->feeds();
 				$position = $cat->attributeInt('position');
@@ -109,9 +127,10 @@
 					$c_show = ($c_active && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true))
 						|| FreshRSS_Context::userConf()->display_categories === 'all';
 					$hideSucCat = $cat->showUnreadCount() ? '' : ' data-unread-hide="1"';
+					$cat_tree_item_attributes = $tree_item_attributes($cat);
 		?>
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
-			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>"<?= $hideSucCat ?>>
+				null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>"<?= $hideSucCat ?><?= $cat_tree_item_attributes ?>>
 			<a href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>" class="tree-folder-title">
 				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($c_show ? 'up' : 'down') ?></button><?php
 				?><span title="<?= $cat->inError() ? _t('sub.category.error') : _t('sub.category.open') ?>" class="title<?=
@@ -148,9 +167,10 @@
 		}
 		$mute_class = $feed->mute() ? ' mute' : '';
 		$hideSucFeed = $feed->showUnreadCount() ? '' : ' data-unread-hide="1"';
+		$feed_tree_item_attributes = $tree_item_attributes($feed);
 ?>
 <li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>"
-		data-unread="<?= $feed->nbNotRead() ?>"<?= $hideSucFeed ?> data-priority="<?= $feed->priority() ?>"><?php
+		data-unread="<?= $feed->nbNotRead() ?>"<?= $hideSucFeed ?> data-priority="<?= $feed->priority() ?>"<?= $feed_tree_item_attributes ?>><?php
 		if ($f_active || $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds):
 			?><div class="dropdown no-mobile">
 				<div id="dropdown-<?= $feed->id() ?>" class="dropdown-target"></div><a href="#dropdown-<?= $feed->id() ?>" class="dropdown-toggle" title="<?=

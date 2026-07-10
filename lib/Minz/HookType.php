@@ -18,6 +18,7 @@ enum Minz_HookType: string {
 	case EntryBeforeUpdate = 'entry_before_update';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
 	case FeedBeforeActualize = 'feed_before_actualize';	// function(FreshRSS_Feed $feed) -> FreshRSS_Feed | null
 	case FeedBeforeInsert = 'feed_before_insert';	// function(FreshRSS_Feed $feed) -> FreshRSS_Feed | null
+	case FeedTreeItemAttributes = 'feed_tree_item_attributes';	// function(array{item: FreshRSS_Feed|FreshRSS_Category, attributes: array<string,string>}): array
 	case FeedsListBeforeActualize = 'feeds_list_before_actualize';	// function(array $feedsList) -> array
 	case FreshrssInit = 'freshrss_init';	// function() -> none
 	case FreshrssUserMaintenance = 'freshrss_user_maintenance';	// function() -> none
@@ -55,6 +56,7 @@ enum Minz_HookType: string {
 			case self::EntryBeforeUpdate:
 			case self::FeedBeforeActualize:
 			case self::FeedBeforeInsert:
+			case self::FeedTreeItemAttributes:
 			case self::FeedsListBeforeActualize:
 			case self::JsVars:
 			case self::NavReadingModes:
