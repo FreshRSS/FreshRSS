@@ -42,6 +42,32 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 		}
 
 		parent::__construct($url, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
+
+		if ($this->success) {
+			$body = $this->body; // @phpstan-ignore property.deprecated
+			assert($body !== null); // For PHPStan
+			// Some feeds append junk (HTML, JS, comments…) after the closing root tag, which breaks XML parsing.
+			// We discard anything found after the last closing root tag, as it cannot be part of the feed. https://github.com/FreshRSS/FreshRSS/issues/8326
+			$this->body = self::removeContentAfterRootClosingTag($body); // @phpstan-ignore property.deprecated
+		}
+	}
+
+	/**
+	 * Discards any content found after the last closing root tag (`</rss>`, `</feed>`, or `</…:RDF>`), if any.
+	 * Left untouched if no closing root tag is found, so as to not break otherwise-invalid feeds in a different way.
+	 */
+	public static function removeContentAfterRootClosingTag(string $body): string {
+		if (preg_match_all('#</(?:[\w.-]+:)?(?:rss|feed|RDF)\s*>#i', $body, $matches, PREG_OFFSET_CAPTURE) < 1) {
+			return $body;
+		}
+		$lastMatch = $matches[0][count($matches[0]) - 1];
+		$rootClosingTagEnd = $lastMatch[1] + strlen($lastMatch[0]);
+
+		if (trim(substr($body, $rootClosingTagEnd)) === '') {
+			return $body;
+		}
+
+		return substr($body, 0, $rootClosingTagEnd);
 	}
 
 	#[\Override]
