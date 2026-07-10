@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	// IGNORE
 			'invalid_url' => 'URL <em>%s</em> is invalid',	// IGNORE
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// IGNORE
 			'n_actualized' => '%d feeds have been updated',	// IGNORE
 			'n_entries_deleted' => '%d articles have been deleted',	// IGNORE
 			'no_refresh' => 'There are no feeds to refresh',	// IGNORE

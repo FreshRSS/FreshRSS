@@ -40,6 +40,7 @@ class FreshRSS_View extends Minz_View {
 	// Subscriptions
 	public string $cfrom = '';
 	public bool $displaySlider = false;
+	public ?FreshRSS_Feed $duplicate_feed = null;
 	public bool $load_ok;
 	public bool $onlyFeedsWithError;
 	public bool $signalError;

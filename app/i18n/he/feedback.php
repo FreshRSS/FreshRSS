@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
 			'invalid_url' => 'URL <em>%s</em> אינו תקין',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d הזנות עודכנו',
 			'n_entries_deleted' => '%d המאמרים נמחקו',
 			'no_refresh' => 'אין הזנה שניתן לרענן…',

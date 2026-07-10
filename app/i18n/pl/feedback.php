@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Wystąpił błąd podczas dodawania kanału. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji. Można spróbować wymusić dodanie kanału przez dodanie <code>#force_feed</code> na końcu adresu URL.',
 			'invalid_url' => 'Adres URL <em>%s</em> nie jest prawidłowy',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => 'Liczba zaktualizowanych kanałów: %d',
 			'n_entries_deleted' => 'Liczba usuniętych wiadomości: %d',
 			'no_refresh' => 'Brak kanałów do odświeżenia',

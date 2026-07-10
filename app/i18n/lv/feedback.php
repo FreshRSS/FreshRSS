@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Barotni nevarēja pievienot. <a href="%s">Apskataties FreshRSS žurnālu</a> priekš papildus informācijas. Jūs varat izmēģināt piespiedu pievienošanu, URL pievienojot <code>#force_feed</code>.',
 			'invalid_url' => 'URL <em>%s</em> ir nepareizs',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d barotnes tika atjaunotas',
 			'n_entries_deleted' => '%d raksti tika izdzēsti',
 			'no_refresh' => 'Nav barotnes, kuras var atjaunot',

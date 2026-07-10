@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Kanál sa nepodarilo pridať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti. Skúste pridať kanál pomocou <code>#force_feed</code> v odkaze (URL).',
 			'invalid_url' => 'Odkaz <em>%s</em> je neplatný',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => 'Počet aktualizovaných kanálov: %d',
 			'n_entries_deleted' => 'Počet vymazaných článkov: %d',
 			'no_refresh' => 'Žiadny kanál sa neaktualizoval…',

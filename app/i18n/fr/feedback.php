@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Le flux ne peut pas être ajouté. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails. Vous pouvez essayer de forcer l’ajout par addition de <code>#force_feed</code> à l’URL.',
 			'invalid_url' => 'L’url <em>%s</em> est invalide.',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d flux ont été mis à jour.',
 			'n_entries_deleted' => '%d articles ont été supprimés.',
 			'no_refresh' => 'Il n’y a aucun flux à actualiser…',

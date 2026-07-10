@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Новостная лента не может быть добавлена. <a href="%s">Проверьте логи FreshRSS</a> для подробностей. Вы можете попробовать принудительно добавить ленту, добавив <code>#force_feed</code> к URL.',
 			'invalid_url' => 'URL <em>%s</em> неверный',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d лент обновлено',
 			'n_entries_deleted' => '%d лент удалено',
 			'no_refresh' => 'Нет лент для обновления',

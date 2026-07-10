@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Informační kanál nelze přidat. Pro podrobnosti <a href="%s">zkontrolujte protokoly FreshRSS</a>. Můžete zkusit vynucení přidání připojením <code>#force_feed</code> k adrese URL.',
 			'invalid_url' => 'Adresa URL <em>%s</em> je neplatná',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d kanálů bylo aktualizováno',
 			'n_entries_deleted' => '%d článků bylo odstraněno',
 			'no_refresh' => 'Nejsou žádné kanály k obnovení',

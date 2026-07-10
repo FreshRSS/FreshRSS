@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => '無法新增此訂閱源。<a href="%s">檢查 FreshRSS 紀錄</a> 了解詳情。您可以嘗試透過附加 <code>#force_feed</code> 到 URL 強制新增。',
 			'invalid_url' => 'URL <em>%s</em> 無效',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '已更新 %d 個訂閱源',
 			'n_entries_deleted' => '已刪除 %d 篇文章',
 			'no_refresh' => '無訂閱源可重新整理',
