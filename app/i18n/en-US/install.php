@@ -64,8 +64,8 @@ return array(
 		),
 		'database-title' => 'Database',	// IGNORE
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <em>./p</em> folder. Other folders such as <em>./data</em> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <em>./p</em> folder.',	// TODO
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// IGNORE
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// IGNORE
 		),
 		'dom' => array(
 			'nok' => 'Cannot find the required library to browse the DOM.',	// IGNORE

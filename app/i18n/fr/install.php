@@ -64,8 +64,8 @@ return array(
 		),
 		'database-title' => 'Base de données',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <em>./p</em> folder. Other folders such as <em>./data</em> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <em>./p</em> folder.',	// TODO
+			'nok' => 'Le répertoire racine de votre serveur Web ne semble pas pointer vers le dossier <code>./p/</code>. D’autres dossiers tels que <code>./data/</code> risquent d’être exposés publiquement.',
+			'ok' => 'Le répertoire racine de votre serveur Web pointe correctement vers le dossier <code>./p/</code>.',
 		),
 		'dom' => array(
 			'nok' => 'Impossible de trouver la librairie requise pour parcourir le DOM.',
