@@ -149,6 +149,13 @@ return [
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
+	'nextcloud-bookmarks' => [
+		'url' => '~URL~/apps/bookmarks/bookmarklet?url=~LINK~&amp;title=~TITLE~',
+		'transform' => ['rawurlencode'],
+		'help' => 'https://github.com/nextcloud/bookmarks',
+		'form' => 'advanced',
+		'method' => 'GET',
+	],
 	'omnivore' => [
 		'url' => '~URL~/api/save?url=~LINK~',
 		'transform' => ['urlencode'],
