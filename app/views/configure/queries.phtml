@@ -117,12 +117,27 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="group-name" for="new_query_order"><?= _t('conf.query.filter.order') ?></label>
+				<label class="group-name" for="new_query_sort"><?= _t('conf.query.filter.order') ?></label>
 				<div class="group-controls">
-					<select name="query[order]" class="w50" id="new_query_order">
+					<select name="query[sort]" class="w50" id="new_query_sort">
 						<option value=""></option>
-						<option value="DESC" ><?= _t('conf.query.order_desc') ?></option>
-						<option value="ASC" ><?= _t('conf.query.order_asc') ?></option>
+						<option value="id_desc"><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc"><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc"><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc"><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc"><?= _t('index.menu.sort.title_desc') ?></option>
+						<option value="f.name_desc"><?= _t('index.menu.sort.f.name_desc') ?></option>
+						<option value="c.name_desc"><?= _t('index.menu.sort.c.name_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand"><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc"><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc"><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc"><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc"><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc"><?= _t('index.menu.sort.title_asc') ?></option>
+						<option value="f.name_asc"><?= _t('index.menu.sort.f.name_asc') ?></option>
+						<option value="c.name_asc"><?= _t('index.menu.sort.c.name_asc') ?></option>
 					</select>
 				</div>
 			</div>
@@ -159,6 +174,7 @@
 							<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()->toString(expandUserQueries: false)) ?>"/>
 							<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
 							<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_sort" name="queries[<?= $key ?>][sort]" value="<?= $query->getSort() ?>"/>
 							<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
 						</div>
 						<?php if (!$query->hasParameters()) { ?>
@@ -183,9 +199,8 @@
 							<li class="item"><?= _t('conf.query.state_' . $query->getState()) ?></li>
 							<?php } ?>
 
-							<?php if ($query->getOrder() !== '') { ?>
-							<li class="item"><?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
-							<?php } ?>
+							<?php $qSort = $query->getSort(); $sortCombined = $qSort === 'rand' ? 'rand' : $qSort . '_' . strtolower($query->getOrder()); ?>
+							<li class="item"><?= _t('index.menu.sort.' . $sortCombined) ?></li>
 
 							<?php if ($query->getGet() !== '') { ?>
 							<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>

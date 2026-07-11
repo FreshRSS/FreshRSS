@@ -425,7 +425,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
 
 		if (Minz_Request::isPost()) {
-			/** @var array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+			/** @var array<int,array{get?:string,name?:string,order?:string,sort?:string,search?:string,state?:int,url?:string,token?:string,
 			 * 		shareRss?:bool|numeric-string,shareOpml?:bool|numeric-string,description?:string,imageUrl?:string}> $params */
 			$params = Minz_Request::paramArray('queries');
 
@@ -508,8 +508,28 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			if (!empty($params['get']) && is_string($params['get'])) {
 				$queryParams['get'] = $params['get'];
 			}
-			if (!empty($params['order']) && is_string($params['order'])) {
+			// Order direction may arrive on its own when bookmarking the current view.
+			if (is_string($params['order'] ?? null) && in_array($params['order'], ['ASC', 'DESC'], true)) {
 				$queryParams['order'] = $params['order'];
+			}
+			// The query form submits a combined sort value (e.g. 'date_desc' or 'rand');
+			// bookmarking the current view passes the sort field on its own instead.
+			$sorting = $params['sort'] ?? '';
+			if (is_string($sorting) && $sorting !== '') {
+				if ($sorting === 'rand') {
+					$sortField = 'rand';
+				} elseif (str_ends_with($sorting, '_asc')) {
+					$queryParams['order'] = 'ASC';
+					$sortField = substr($sorting, 0, -strlen('_asc'));
+				} elseif (str_ends_with($sorting, '_desc')) {
+					$queryParams['order'] = 'DESC';
+					$sortField = substr($sorting, 0, -strlen('_desc'));
+				} else {
+					$sortField = $sorting;
+				}
+				if (in_array($sortField, ['id', 'c.name', 'date', 'f.name', 'length', 'link', 'title', 'rand'], true)) {
+					$queryParams['sort'] = $sortField;
+				}
 			}
 			if (!empty($params['search']) && is_string($params['search'])) {
 				// Search must be as plain text to be XML-encoded or URL-encoded depending on the situation
@@ -596,7 +616,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$queries = FreshRSS_Context::userConf()->queries;
 		$id = count($queries);
 
-		/** @var array{get?:string,name?:string,order?:string,search?:string,state?:int,shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $params */
+		/** @var array{get?:string,name?:string,order?:string,sort?:string,search?:string,state?:int,shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $params */
 		$params = Minz_Request::paramArray('query') ?: array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
 		$name = ($params['name'] ?? '') ?: _t('conf.query.number', $id + 1);
 		$queryParams = [];
@@ -604,8 +624,28 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		if (is_string($params['get'] ?? null)) {
 			$queryParams['get'] = $params['get'];
 		}
-		if (is_string($params['order'] ?? null)) {
+		// Order direction may arrive on its own when bookmarking the current view.
+		if (is_string($params['order'] ?? null) && in_array($params['order'], ['ASC', 'DESC'], true)) {
 			$queryParams['order'] = $params['order'];
+		}
+		// The query form submits a combined sort value (e.g. 'date_desc' or 'rand');
+		// bookmarking the current view passes the sort field on its own instead.
+		$sorting = $params['sort'] ?? '';
+		if (is_string($sorting) && $sorting !== '') {
+			if ($sorting === 'rand') {
+				$sortField = 'rand';
+			} elseif (str_ends_with($sorting, '_asc')) {
+				$queryParams['order'] = 'ASC';
+				$sortField = substr($sorting, 0, -strlen('_asc'));
+			} elseif (str_ends_with($sorting, '_desc')) {
+				$queryParams['order'] = 'DESC';
+				$sortField = substr($sorting, 0, -strlen('_desc'));
+			} else {
+				$sortField = $sorting;
+			}
+			if (in_array($sortField, ['id', 'c.name', 'date', 'f.name', 'length', 'link', 'title', 'rand'], true)) {
+				$queryParams['sort'] = $sortField;
+			}
 		}
 		if (is_string($params['search'] ?? null)) {
 			// Search must be as plain text to be XML-encoded or URL-encoded depending on the situation

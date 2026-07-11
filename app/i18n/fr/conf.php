@@ -166,7 +166,7 @@ return array(
 			'_' => 'Filtres appliqués :',
 			'categories' => 'Afficher par catégorie',
 			'feeds' => 'Afficher par flux',
-			'order' => 'Tri par date',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Remplacer les <i>tags des flux</i> par les <i>étiquettes d’utilisateur</i> dans le RSS partagé',
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Active le partage par OPML des catégories et flux correspondants',

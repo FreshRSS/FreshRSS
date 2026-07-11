@@ -81,6 +81,13 @@ class UserQueryTest extends TestCase {
 		self::assertSame($order, $user_query->getOrder());
 	}
 
+	public static function test__construct_whenSort_storesSort(): void {
+		$sort = 'title';
+		$query = ['sort' => $sort];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame($sort, $user_query->getSort());
+	}
+
 	public static function test__construct_whenState_storesState(): void {
 		$state = FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_FAVORITE;
 		$query = ['state' => $state];
@@ -112,6 +119,12 @@ class UserQueryTest extends TestCase {
 		$user_query = new FreshRSS_UserQuery($query, [], []);
 		self::assertCount(6, $user_query->toArray());
 		self::assertSame($query, $user_query->toArray());
+	}
+
+	public static function testToArray_whenSort_returnsSort(): void {
+		$query = ['sort' => 'date'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame('date', $user_query->toArray()['sort'] ?? null);
 	}
 
 	public static function testHasSearch_whenSearch_returnsTrue(): void {

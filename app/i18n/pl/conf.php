@@ -166,7 +166,7 @@ return array(
 			'_' => 'Zastosowane filtry:',
 			'categories' => 'Według kategorii',
 			'feeds' => 'Według kanału',
-			'order' => 'Sortowanie wg daty',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Zamień <i>tagi kanałów</i> na <i>własne etykiety</i> w udostępnionym RSS',
 			'search' => 'Wyrażenie',
 			'shareOpml' => 'Włącz udostępnianie OPML-ów zawierających kategorie i kanały',

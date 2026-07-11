@@ -166,7 +166,7 @@ return array(
 			'_' => 'Suodatin käytössä:',
 			'categories' => 'Näytä luokan mukaan',
 			'feeds' => 'Näytä syötteen mukaan',
-			'order' => 'Lajittele päivämäärän mukaan',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Lauseke',
 			'shareOpml' => 'Jaa kyselyä vastaavat luokat ja syötteet OPML-muodossa',

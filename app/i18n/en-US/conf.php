@@ -166,7 +166,7 @@ return array(
 			'_' => 'Filter applied:',	// IGNORE
 			'categories' => 'Display by category',	// IGNORE
 			'feeds' => 'Display by feed',	// IGNORE
-			'order' => 'Sort by date',	// IGNORE
+			'order' => 'Sort by',	// IGNORE
 			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// IGNORE
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// IGNORE

@@ -166,7 +166,7 @@ return array(
 			'_' => 'Filtro aplicado:',
 			'categories' => 'Mostrar por categoría',
 			'feeds' => 'Mostrar por fuente',
-			'order' => 'Ordenar por fecha',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Reemplazar <i>etiquetas de fuente</i> por <i>etiquetas de usuario</i> en el RSS compartido',
 			'search' => 'Expresión',
 			'shareOpml' => 'Permitir que OPML comparta las categorías y fuentes correspondientes',

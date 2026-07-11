@@ -166,7 +166,7 @@ return array(
 			'_' => '필터 적용:',
 			'categories' => '카테고리별로 표시',
 			'feeds' => '피드별로 표시',
-			'order' => '날짜순으로 정렬',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => '정규 표현식',
 			'shareOpml' => '해당 카테고리와 피드에 대한 OPML 공유 활성화',

@@ -166,7 +166,7 @@ return array(
 			'_' => '生效的过滤器：',
 			'categories' => '按分类显示',
 			'feeds' => '按订阅源显示',
-			'order' => '按日期排序',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => '在共享的 RSS 中用 <i>用户标签</i> 替换 <i>订阅源标签</i>',	// DIRTY
 			'search' => '表达式',
 			'shareOpml' => '启用相应类别和 feed 的 OPML 分享',

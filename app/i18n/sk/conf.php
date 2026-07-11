@@ -166,7 +166,7 @@ return array(
 			'_' => 'Použitý filter:',
 			'categories' => 'Zobraziť podľa kategórie',
 			'feeds' => 'Zobraziť podľa kanála',
-			'order' => 'Zobraziť podľa dátumu',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Výraz',
 			'shareOpml' => 'Povoliť zdieľanie prostredníctvom OPML zodpovedajúdich kategórií a kanálov',

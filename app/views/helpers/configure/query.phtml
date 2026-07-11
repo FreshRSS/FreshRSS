@@ -152,13 +152,32 @@
 					</select>
 				</div>
 			</div>
+			<?php
+				$querySort = $this->query->getSort();
+				$querySortCombined = $querySort === 'rand' ? 'rand' : $querySort . '_' . strtolower($this->query->getOrder());
+			?>
 			<div class="form-group">
-				<label class="group-name" for=""><?= _t('conf.query.filter.order') ?></label>
+				<label class="group-name" for="query_sort"><?= _t('conf.query.filter.order') ?></label>
 				<div class="group-controls">
-					<select name="query[order]" class="w100" id="query_order">
+					<select name="query[sort]" class="w100" id="query_sort">
 						<option value=""></option>
-						<option value="DESC" <?= 'DESC' === $this->query->getOrder() ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_desc') ?></option>
-						<option value="ASC" <?= 'ASC' === $this->query->getOrder() ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_asc') ?></option>
+						<option value="id_desc" <?= $querySortCombined === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc" <?= $querySortCombined === 'date_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc" <?= $querySortCombined === 'length_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc" <?= $querySortCombined === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc" <?= $querySortCombined === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option value="f.name_desc" <?= $querySortCombined === 'f.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_desc') ?></option>
+						<option value="c.name_desc" <?= $querySortCombined === 'c.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.c.name_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand" <?= $querySortCombined === 'rand' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc" <?= $querySortCombined === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc" <?= $querySortCombined === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc" <?= $querySortCombined === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc" <?= $querySortCombined === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc" <?= $querySortCombined === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
+						<option value="f.name_asc" <?= $querySortCombined === 'f.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_asc') ?></option>
+						<option value="c.name_asc" <?= $querySortCombined === 'c.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.c.name_asc') ?></option>
 					</select>
 				</div>
 			</div>

@@ -166,7 +166,7 @@ return array(
 			'_' => 'Uygulanan filtre:',
 			'categories' => 'Kategoriye göre göster',
 			'feeds' => 'Beslemeye göre göster',
-			'order' => 'Tarihe göre sırala',
+			'order' => 'Sort by',	// TODO
 			'publish_labels_instead_of_tags' => 'Paylaşılan RSS içindeki <i>feed tags</i>, <i>user labels</i> tarafından değiştirilmeli',
 			'search' => 'İfade',
 			'shareOpml' => 'İlgili kategori ve beslemelerin OPML ile paylaşımını etkinleştir',
