@@ -410,9 +410,9 @@
 			<div class="form-group">
 				<div class="group-controls">
 					<?= _t('sub.feed.number_entries', $nbEntries) ?>
-					<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#', 'slider') ?>">
+					<button class="btn" formaction="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#', 'slider') ?>">
 						<?= _i('refresh') ?> <?= _t('gen.action.actualize') ?>
-					</a>
+					</button>
 				</div>
 			</div>
 			<?php
@@ -945,10 +945,14 @@
 	<h2><?= _t('sub.feed.maintenance.title') ?></h2>
 	<div class="form-group">
 		<div class="group-controls">
-			<button class="btn btn-important" form="post-csrf" formaction="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
-				<?= _t('sub.feed.maintenance.clear_cache') ?>
-			</button>
-			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
+			<form method="post" action="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
+				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+				<input type="hidden" name="id" value="<?= $this->feed->id() ?>" />
+				<button class="btn btn-important" type="submit">
+					<?= _t('sub.feed.maintenance.clear_cache') ?>
+				</button>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
+			</form>
 		</div>
 		<div class="group-controls">
 			<form method="post" action="<?= _url('feed', 'reload', '#', 'slider') ?>">
