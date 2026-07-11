@@ -2308,6 +2308,7 @@ html.slider-active {
 	min-width: 2rem;
 	display: block;
 	content: attr(data-unread);
+	/* Forces Safari to repaint this badge when `data-unread` changes; without it, Safari can leave the old count on screen until an unrelated repaint (e.g. hover). */
 	transform: translateZ(0);
 	position: absolute;
 	top: 0;
