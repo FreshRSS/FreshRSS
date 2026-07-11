@@ -52,8 +52,7 @@ function checkRequirements(string $dbType = '', bool $checkPhp = true, bool $che
 	// If the document root is known and does not match the `./p` public folder, other folders such as `./data` are likely web-exposed.
 	// Note: `DOCUMENT_ROOT` may be an empty string outside of a Web server context (e.g. CLI, cron); `realpath('')` would otherwise
 	// misleadingly resolve to the current working directory, so it must be treated the same as "unknown".
-	$docRootPath = isset($_SERVER['DOCUMENT_ROOT']) && is_string($_SERVER['DOCUMENT_ROOT']) && $_SERVER['DOCUMENT_ROOT'] !== ''
-		? realpath($_SERVER['DOCUMENT_ROOT']) : false;
+	$docRootPath = is_string($_SERVER['DOCUMENT_ROOT'] ?? null) && $_SERVER['DOCUMENT_ROOT'] !== '' ? realpath($_SERVER['DOCUMENT_ROOT']) : false;
 	$docRootOk = $docRootPath === false || $docRootPath === realpath(PUBLIC_PATH);
 
 	$result = [];
