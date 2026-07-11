@@ -92,41 +92,41 @@ return array(
 			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
-			'desc' => 'Descending',	// TODO
+			'desc' => 'Φθίνουσα',
 			'f' => array(
 				'name_asc' => 'Feed title A→Z',	// TODO
 				'name_desc' => 'Feed title Z→A',	// TODO
 			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
+			'length_asc' => 'Μήκος περιεχομένου 1→9',
+			'length_desc' => 'Μήκος περιεχομένου 9→1',
+			'link_asc' => 'Σύνδεσμος Α→Ω',
+			'link_desc' => 'Σύνδεσμος Ω→Α',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
+				'_' => 'Κριτήριο ταξινόμησης',
 				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
 			),
-			'rand' => 'Random order',	// TODO
+			'rand' => 'Τυχαία σειρά',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
+				'_' => 'Δευτερεύον κριτήριο ταξινόμησης',
 				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
 			),
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
+			'title_asc' => 'Τίτλος Α→Ω',
+			'title_desc' => 'Τίτλος Ω→Α',
 			'user_modified_asc' => 'User modified 1→9',	// TODO
 			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
-		'starred' => 'Show favourites',	// TODO
-		'stats' => 'Statistics',	// TODO
-		'subscription' => 'Subscription management',	// TODO
-		'unread' => 'Show unread',	// TODO
+		'starred' => 'Εμφάνιση αγαπημένων',
+		'stats' => 'Στατιστικά',
+		'subscription' => 'Διαχείριση συνδρομών',
+		'unread' => 'Εμφάνιση μη αναγνωσμένων',
 	),
-	'share' => 'Share',	// TODO
+	'share' => 'Κοινοποίηση',
 	'tag' => array(
-		'related' => 'Article tags',	// TODO
+		'related' => 'Ετικέτες άρθρου',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO
+		'title' => 'Όροι Χρήσης',
 	),
 );
