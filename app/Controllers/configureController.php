@@ -334,6 +334,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.shortcut.title') . ' · ');
+		FreshRSS_View::appendScript(Minz_Url::display('/scripts/shortcut-test.js?' . @filemtime(PUBLIC_PATH . '/scripts/shortcut-test.js')));
 	}
 
 	/**

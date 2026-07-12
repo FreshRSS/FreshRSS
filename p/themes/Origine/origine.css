@@ -198,6 +198,7 @@ th {
 	padding: 0;
 }
 
+.form-group .group-controls > button,
 .form-group .group-controls > input,
 .form-group .group-controls > select,
 .form-group .group-controls > textarea,
