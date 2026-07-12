@@ -27,6 +27,16 @@
 
 		<noscript><p class="alert alert-error"><?= _t('conf.shortcut.javascript') ?></p></noscript>
 
+		<div class="form-group">
+			<label class="group-name" for="shortcut_matching"><?= _t('conf.shortcut.matching') ?></label>
+			<div class="group-controls">
+				<select name="shortcut_matching" id="shortcut_matching">
+					<option value="physical"<?= FreshRSS_Context::userConf()->shortcut_matching === 'physical' ? ' selected' : '' ?>><?= _t('conf.shortcut.matching_physical') ?></option>
+					<option value="character"<?= FreshRSS_Context::userConf()->shortcut_matching === 'character' ? ' selected' : '' ?>><?= _t('conf.shortcut.matching_character') ?></option>
+				</select>
+			</div>
+		</div>
+
 		<fieldset>
 			<legend><?= _t('conf.shortcut.views') ?></legend>
 

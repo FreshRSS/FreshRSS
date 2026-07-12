@@ -319,6 +319,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			}
 			/** @var array<string,string> $shortcuts */
 			FreshRSS_Context::userConf()->shortcuts = array_map('trim', $shortcuts);
+			$shortcutMatching = Minz_Request::paramString('shortcut_matching');
+			if (in_array($shortcutMatching, ['physical', 'character'], true)) {
+				FreshRSS_Context::userConf()->shortcut_matching = $shortcutMatching;
+			}
 			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
