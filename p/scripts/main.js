@@ -439,8 +439,7 @@ function mark_favorite(div) {
 	}));
 }
 
-const freshrssOpenArticleEvent = document.createEvent('Event');
-freshrssOpenArticleEvent.initEvent('freshrss:openArticle', true, true);
+const freshrssOpenArticleEvent = new Event('freshrss:openArticle', { bubbles: true, cancelable: true });
 
 function loadLazyImages(rootElement) {
 	rootElement.querySelectorAll('img[data-original], iframe[data-original], video[data-original], track[data-original]').forEach(function (el) {
@@ -2247,8 +2246,7 @@ function load_more_posts() {
 	req.send();
 }
 
-const freshrssLoadMoreEvent = document.createEvent('Event');
-freshrssLoadMoreEvent.initEvent('freshrss:load-more', true, true);
+const freshrssLoadMoreEvent = new Event('freshrss:load-more', { bubbles: true, cancelable: true });
 
 function init_load_more(box) {
 	box_load_more = box;
