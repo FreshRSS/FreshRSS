@@ -289,7 +289,7 @@ async function send_mark_read_queue(queue, asRead, callback) {
 			incUnreadsFeed(div, feed_id, inc);
 		}
 		delete pending_entries['flux_' + queue[i]];
-		// Let extensions know an entry finished being marked as read/unread, e.g. to update icons outside of `div` (#8862)
+		// Let extensions know an entry finished being marked as read/unread
 		document.dispatchEvent(new CustomEvent('freshrss:entryStateChange', {
 			detail: {
 				id: queue[i],
