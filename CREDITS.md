@@ -106,6 +106,7 @@ People are sorted by name so please keep this order.
 * [FromTheMoon85](https://github.com/FromTheMoon85): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:FromTheMoon85)
 * [Gabriele Biggio](https://github.com/gabbihive): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gabbihive)
 * [Gaurav Thakur](https://github.com/notfoss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:notfoss), [Web](https://blog.notfoss.com/)
+* [Gerard Alvear](https://github.com/Elgeryy1): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Elgeryy1)
 * [Gianni Scolaro](https://github.com/giannidsp): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:giannidsp)
 * [Glyn Normington](https://github.com/glyn): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:glyn), [Web](https://underlap.org/)
 * [Gregor Nathanael Meyer](https://github.com/spackmat): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:spackmat), [Web](https://der-meyer.de)
