@@ -56,11 +56,11 @@ return array(
 		'show_nav_buttons' => 'Navigationsschaltflächen anzeigen',
 		'show_title_unread' => 'Anzahl ungelesener Artikel im Titel anzeigen',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Anzahl ungelesener Artikel in der Seitenleiste anzeigen',
+			'all' => 'Für alle Kategorien und Quellen',
+			'important' => 'Nur für wichtige Quellen',
+			'important_locked' => 'Wichtige Quellen zeigen immer die Anzahl ungelesener Artikel',
+			'none' => 'Niemals',
 		),
 		'sidebar_hidden_by_default' => 'Seitenleiste standardmäßig ausblenden',
 		'theme' => array(

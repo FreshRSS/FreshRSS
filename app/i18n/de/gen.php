@@ -174,8 +174,8 @@ return array(
 		'confirm_exit_slider' => 'Sollen die nicht gespeicherten Einstellungen wirklich verworfen werden?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Es gibt %d neuen Artikel zum Lesen auf FreshRSS.',	// DIRTY
-				1 => 'Es gibt %d neue Artikel zum Lesen auf FreshRSS.',	// DIRTY
+    			0 => 'Es gibt %d neuen Artikel auf FreshRSS zu lesen.', 
+    			1 => 'Es gibt %d neue Artikel auf FreshRSS zu lesen.',
 			),
 			'body_unread_articles' => array(
 				0 => '(Ungelesen: %d)',	// DIRTY
