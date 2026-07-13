@@ -466,7 +466,7 @@ class Item implements RegistryAware
      * Get a contributor for the item
      *
      * @since 1.1
-     * @param int $key The contrbutor that you want to return.  Remember that arrays begin with 0, not 1
+     * @param int $key The contributor that you want to return.  Remember that arrays begin with 0, not 1
      * @return \SimplePie\Author|null
      */
     public function get_contributor(int $key = 0)
@@ -883,10 +883,13 @@ class Item implements RegistryAware
                 $this->data['links'][$key] = array_unique($this->data['links'][$key]);
             }
 
-            // Apply HTTPS policy to all links
+            // Apply sanitization and HTTPS policy to all links
+            $sanitize = $this->get_sanitize();
             foreach ($this->data['links'] as &$links) {
                 foreach ($links as &$link) {
-                    $link = $this->get_sanitize()->https_url($link);
+                    $link = ($sanitize->disallowed_uri_schemes !== [] && !$sanitize->is_allowed_scheme($link))
+                                ? 'unsafe:' . $link
+                                : $sanitize->https_url($link);
                 }
             }
         }
@@ -1236,13 +1239,14 @@ class Item implements RegistryAware
             }
 
             // PLAYER
-            if ($player_parent = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_MEDIARSS, 'player')) {
-                if (isset($player_parent[0]['attribs']['']['url'])) {
-                    $player_parent = $this->sanitize($player_parent[0]['attribs']['']['url'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_own_base($player_parent[0]));
+            $player_parent = null;
+            if ($player_tags = $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_MEDIARSS, 'player')) {
+                if (isset($player_tags[0]['attribs']['']['url'])) {
+                    $player_parent = $this->sanitize($player_tags[0]['attribs']['']['url'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_own_base($player_tags[0]));
                 }
-            } elseif ($player_parent = $parent->get_channel_tags(\SimplePie\SimplePie::NAMESPACE_MEDIARSS, 'player')) {
-                if (isset($player_parent[0]['attribs']['']['url'])) {
-                    $player_parent = $this->sanitize($player_parent[0]['attribs']['']['url'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_own_base($player_parent[0]));
+            } elseif ($player_tags = $parent->get_channel_tags(\SimplePie\SimplePie::NAMESPACE_MEDIARSS, 'player')) {
+                if (isset($player_tags[0]['attribs']['']['url'])) {
+                    $player_parent = $this->sanitize($player_tags[0]['attribs']['']['url'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_own_base($player_tags[0]));
                 }
             }
 

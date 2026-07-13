@@ -176,7 +176,7 @@ final class FeverAPI
 			if ($username != false) {
 				$username = trim($username);
 				FreshRSS_Context::initUser($username);
-				if ($feverKey === FreshRSS_Context::userConf()->feverKey && FreshRSS_Context::userConf()->enabled) {
+				if (hash_equals(FreshRSS_Context::userConf()->feverKey, $feverKey) && FreshRSS_Context::userConf()->enabled) {
 					Minz_Translate::init(FreshRSS_Context::userConf()->language);
 					$this->entryDAO = FreshRSS_Factory::createEntryDao();
 					$this->feedDAO = FreshRSS_Factory::createFeedDao();
@@ -188,7 +188,8 @@ final class FeverAPI
 				Minz_Log::error('Fever API: Please reset your API password!');
 				Minz_User::change();
 			}
-			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey, API_LOG);
+			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey .
+				' ; Remote IP address=' . Minz_Request::connectionRemoteAddress(), API_LOG);
 		}
 		return false;
 	}

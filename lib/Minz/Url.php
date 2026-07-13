@@ -140,7 +140,7 @@ class Minz_Url {
 
 	/** @return array{c?:string,a?:string,params?:array<string,mixed>} */
 	public static function unserialize(string $url = ''): array {
-		$result = json_decode(base64_decode($url, true) ?: '', true, JSON_THROW_ON_ERROR) ?? [];
+		$result = json_decode(base64_decode($url, true) ?: '', associative: true, flags: JSON_THROW_ON_ERROR) ?? [];
 		/** @var array{c?:string,a?:string,params?:array<string,mixed>} $result */
 		return $result;
 	}

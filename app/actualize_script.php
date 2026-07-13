@@ -96,14 +96,53 @@ foreach ($users as $user) {
 	// NB: Extensions and hooks are reinitialised there
 	$app->init();
 
-	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile) {
+	/**
+	 * Count new and updated articles per feed, to report them on the output
+	 * @var array<int,array{name:string,new:int,updated:int}> $feedStatistics
+	 */
+	$feedStatistics = [];
+
+	Minz_ExtensionManager::addHook(Minz_HookType::FeedBeforeActualize, static function (FreshRSS_Feed $feed) use ($mutexFile, &$feedStatistics) {
 		touch($mutexFile);
+		$feedStatistics[$feed->id()] = [
+			'name' => $feed->name() ?: $feed->url(false),
+			'new' => 0,
+			'updated' => 0,
+		];
 		return $feed;
+	});
+	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeAdd, static function (FreshRSS_Entry $entry) use (&$feedStatistics) {
+		if (isset($feedStatistics[$entry->feedId()])) {
+			$feedStatistics[$entry->feedId()]['new'] = $feedStatistics[$entry->feedId()]['new'] + 1;
+		}
+		return $entry;
+	});
+	Minz_ExtensionManager::addHook(Minz_HookType::EntryBeforeUpdate, static function (FreshRSS_Entry $entry) use (&$feedStatistics) {
+		if (isset($feedStatistics[$entry->feedId()])) {
+			$feedStatistics[$entry->feedId()]['updated'] = $feedStatistics[$entry->feedId()]['updated'] + 1;
+		}
+		return $entry;
 	});
 
 	notice('FreshRSS actualize ' . $user . '…');
 	echo $user, ' ';	//Buffered
 	$app->run();
+
+	// Sort by descending total number of articles, then alphabetically by feed name
+	usort($feedStatistics, static fn(array $a, array $b): int =>
+		(($b['new'] + $b['updated']) <=> ($a['new'] + $a['updated'])) ?: strcasecmp($a['name'], $b['name']));
+	foreach ($feedStatistics as $row) {
+		$parts = [];
+		if ($row['new'] > 0) {
+			$parts[] = $row['new'] . ' new';
+		}
+		if ($row['updated'] > 0) {
+			$parts[] = $row['updated'] . ' updated';
+		}
+		if (!empty($parts)) {
+			notice(implode(', ', $parts) . ' article(s) from feed: ' . $row['name']);
+		}
+	}
 
 	if (!invalidateHttpCache()) {
 		Minz_Log::warning('FreshRSS write access problem in ' . join_path(USERS_PATH, $user, LOG_FILENAME), ADMIN_LOG);

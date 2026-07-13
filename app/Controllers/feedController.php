@@ -199,7 +199,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			if ($max_redirs !== 0) {
 				$opts[CURLOPT_MAXREDIRS] = $max_redirs;
-				$opts[CURLOPT_FOLLOWLOCATION] = 1;
+				$opts[CURLOPT_FOLLOWLOCATION] = true;
 			}
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;
@@ -221,7 +221,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 
 			$attributes = [
-				'curl_params' => empty($opts) ? null : $opts,
+				'curl_params' => empty($opts) ? null : FreshRSS_http_Util::sanitizeCurlParams($opts),
 			];
 			$attributes['ssl_verify'] = Minz_Request::paramTernary('ssl_verify');
 			$timeout = Minz_Request::paramInt('timeout');
@@ -1013,7 +1013,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			// Redirect to the main page with correct notification.
 			Minz_Request::good(
 				_t('feedback.sub.feed.actualized', $feed->name()),
-				['params' => ['get' => 'f_' . $id]],
+				['params' => ['get' => 'f_' . $id, 'id' => $id]],
 				notificationName: 'actualizeAction',
 				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 		} elseif ($nbUpdatedFeeds >= 1) {
@@ -1192,7 +1192,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		Minz_Request::good(
 			_t('feedback.sub.feed.cache_cleared', $feed->name()),
-			['params' => ['get' => 'f_' . $feed->id()]],
+			['params' => ['get' => 'f_' . $feed->id(), 'id' => $feed->id()]],
 			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 		);
 	}
@@ -1258,7 +1258,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		//Give feedback to user.
 		Minz_Request::good(
 			_t('feedback.sub.feed.reloaded', $feed->name()),
-			['params' => ['get' => 'f_' . $feed->id()]],
+			['params' => ['get' => 'f_' . $feed->id(), 'id' => $feed->id()]],
 			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 		);
 	}

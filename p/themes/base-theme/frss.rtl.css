@@ -64,6 +64,12 @@ html, body {
 	font-size: 100%;
 }
 
+html:lang(ja) body {
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial",
+		"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo",
+		"Osaka", "Noto Sans CJK JP", "Noto Sans JP", sans-serif;
+}
+
 button, input, select, textarea {
 	font-family: inherit;
 }
@@ -194,13 +200,17 @@ p#favicon-ext {
 	text-decoration: underline;
 }
 
-p.help, .prompt p.help {
+.help, .prompt .help {
 	margin: 0.25rem 0 0.5rem;
 	text-align: right;
 }
 
-p.help .icon {
+.help .icon {
 	filter: brightness(2);
+}
+
+.help > ul {
+	padding-right: 1rem;
 }
 
 kbd {
@@ -376,6 +386,7 @@ textarea:invalid {
 }
 
 input:disabled,
+textarea:disabled,
 select:disabled {
 	background-color: transparent;
 	min-width: 75px;
@@ -559,12 +570,12 @@ input.ignore-auto-complete {
 }
 
 /*=== Buttons */
-button[disabled] {
+button:disabled {
 	opacity: 0.5;
 	color: var(--frss-font-color-disabled);
 }
 
-button[disabled]:hover, input[disabled]:hover {
+button:disabled:hover, textarea:disabled:hover, input:disabled:hover {
 	cursor: not-allowed;
 }
 
@@ -1411,7 +1422,7 @@ input[type="search"] {
 	width: 2.25rem;
 }
 
-.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item .dropdown:has(.dropdown-menu) .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	visibility: visible;
@@ -1506,7 +1517,7 @@ a.website:hover .favicon {
 }
 
 .flux:not(.current):hover .flux_header.has-date .item .title {
-	grid-column: 1 / -1;
+	padding-left: 0.5rem;
 	z-index: 2;
 }
 

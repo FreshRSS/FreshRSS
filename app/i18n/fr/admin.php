@@ -91,8 +91,13 @@ return array(
 		'default_closed_registration_message' => 'Ce serveur n’accepte plus de nouvelles inscriptions pour le moment.',
 		'force_email_validation' => 'Forcer la validation des adresses email',
 		'instance-name' => 'Nom de l’instance',
+		'internal-host-allowlist' => array(
+			'_' => 'Liste d’adresses internes autorisées',
+			'help' => 'Une entrée par ligne :<ul><li>Un <code>host:port</code>. Par exemple <code>127.0.0.1:8080</code> ou <code>rss-bridge:80</code></li><li>Une notation CIDR. Par exemple <code>0.0.0.0/0</code> pour autoriser tout IPv4, <code>::/0</code> pour autoriser tout IPv6</li><li>Un <code>*</code> pour autoriser tout hôte (dangereux)</li></ul>',
+		),
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
+		'override-by-env-var' => 'Cette option est définie par la variable d’environnement <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Nombre max de comptes',
 			'select' => array(

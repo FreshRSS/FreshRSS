@@ -29,9 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup Ruby
-        uses: ruby/setup-ruby@c4e5b1316158f92e3d49443a9d58b31d25ac0f8f
+        uses: ruby/setup-ruby@0dafeac902942906541bc140009cdbf32665b601
         with:
           ruby-version: '3.4.9'
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically

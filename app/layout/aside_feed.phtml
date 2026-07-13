@@ -13,11 +13,13 @@
 	if (($s = Minz_Request::paramString('state', plaintext: true)) !== '' && ctype_digit($s)) {
 		$state_filter_manual .= '&state=' . $s;
 	}
-	if (($s = Minz_Request::paramString('sort', plaintext: true)) !== '' && preg_match('/^[a-z.]+$/', $s)) {
-		$state_filter_manual .= '&sort=' . $s;
-	}
-	if (($s = Minz_Request::paramString('order', plaintext: true)) !== '' && ctype_alpha($s)) {
-		$state_filter_manual .= '&order=' . $s;
+	if (FreshRSS_Context::userConf()->sticky_sort) {
+		if (($s = Minz_Request::paramString('sort', plaintext: true)) !== '' && preg_match('/^[a-z.]+$/', $s)) {
+			$state_filter_manual .= '&sort=' . $s;
+		}
+		if (($s = Minz_Request::paramString('order', plaintext: true)) !== '' && ctype_alpha($s)) {
+			$state_filter_manual .= '&order=' . $s;
+		}
 	}
 
 	$hideSucGlobal = FreshRSS_Context::userConf()->show_unread_count !== 'all' ? ' data-unread-hide="1"' : '';

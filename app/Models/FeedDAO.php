@@ -537,7 +537,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		/** @var list<array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority:int,
 		 * 	pathEntries:string,httpAuth:string,error:int,ttl:int,attributes?:string,cache_nbUnreads:int,cache_nbEntries:int}> $res */
 		$feeds = self::daoToFeeds($res);
-		uasort($feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		uasort($feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => FreshRSS_Context::localeCompare($a->name(), $b->name()));
 		return $feeds;
 	}
 

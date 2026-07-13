@@ -23,6 +23,11 @@ services:
       TZ: Europe/Paris
       CRON_MIN: '3,33'
       TRUSTED_PROXY: 172.16.0.1/12 192.168.0.1/16
+      # # Optional parameter to allow sending requests to certain internal hosts. By default all internal requests are blocked
+      # # Examples: 127.0.0.1:8080, rss-bridge:80, etc.
+      # #   or a CIDR notation: 0.0.0.0/0 (to allow any IPv4), ::/0 (to allow any IPv6)
+      # # Setting * disables this check completely, allowing any host to be accessed (unsafe)
+      # INTERNAL_HOST_ALLOWLIST: rss-bridge:80 rsshub:1200
     # # Optional healthcheck section:
     # healthcheck:
     #   test: ["CMD", "cli/health.php"]
