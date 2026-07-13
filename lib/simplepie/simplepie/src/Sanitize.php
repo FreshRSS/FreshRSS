@@ -521,10 +521,6 @@ class Sanitize implements RegistryAware
                     }
                 }
 
-                if (!empty($this->allowed_html_elements_with_attributes)) {
-                    $this->enforce_allowed_html_nodes($document, $this->allow_data_attr, $this->allow_aria_attr);
-                }
-
                 // Strip out HTML tags and attributes that might cause various security problems.
                 // Based on recommendations by Mark Pilgrim at:
                 // https://web.archive.org/web/20110902041826/http://diveintomark.org:80/archives/2003/06/12/how_to_consume_rss_safely
@@ -550,6 +546,11 @@ class Sanitize implements RegistryAware
                 $this->base = $base;
                 foreach ($this->replace_url_attributes as $element => $attributes) {
                     $this->replace_urls($document, $element, $attributes);
+                }
+
+                // Process allowed HTML elements and their attributes (including srcset rewriting)
+                if (!empty($this->allowed_html_elements_with_attributes)) {
+                    $this->enforce_allowed_html_nodes($document, $this->allow_data_attr, $this->allow_aria_attr);
                 }
 
                 // MathML and SVG allow href on arbitrary descendants,
@@ -752,6 +753,10 @@ class Sanitize implements RegistryAware
                 if (!in_array($attr, $allowed_attrs, true)) {
                     $element->removeAttributeNode($element->attributes[$i]);
                 }
+            }
+
+            if (in_array($tag, ['img', 'source'], true) && $element->hasAttribute('srcset')) {
+                $this->rewriteImgSrcset($element);
             }
         }
         if ($element instanceof \DOMElement || $element instanceof \DOMDocument) {
@@ -1001,6 +1006,99 @@ class Sanitize implements RegistryAware
         }
 
         return $this->http_client;
+    }
+
+    /**
+     * Absolutise each URL in `srcset` on `<img>` and `<source>` against the
+     * document base. For `<img>` only, when `src` is empty or a recognised
+     * placeholder (lazy-loading pattern), write the smallest `Nw` entry as
+     * a fallback. The browser uses `srcset` for actual selection; `src`
+     * only loads when `srcset` can't be honoured (legacy browsers,
+     * non-browser API consumers), so the smallest is the safest fallback
+     * by bandwidth and is never larger than what `srcset` would have
+     * picked.
+     */
+    private function rewriteImgSrcset(\DOMElement $element): void
+    {
+        $entries = $this->parseSrcset($element->getAttribute('srcset'));
+        if ($entries === []) {
+            return;
+        }
+        $absolutised = [];
+        foreach ($entries as $e) {
+            $abs = $this->registry->call(Misc::class, 'absolutize_url', [$e['url'], $this->base]);
+            if (!is_string($abs) || $abs === '') {
+                continue;
+            }
+            $absolutised[] = ['url' => $abs, 'descriptor' => $e['descriptor'], 'w' => $e['w']];
+        }
+        if ($absolutised === []) {
+            return;
+        }
+        $element->setAttribute('srcset', implode(', ', array_map(
+            static fn(array $e): string => $e['descriptor'] === '' ? $e['url'] : $e['url'] . ' ' . $e['descriptor'],
+            $absolutised
+        )));
+
+        // `<source>` (inside `<picture>`) has no `src` attribute; only `<img>`
+        // needs a fallback `src` rewrite when its current value is a placeholder.
+        if ($element->tagName !== 'img') {
+            return;
+        }
+        $current = $element->getAttribute('src');
+        if (!$this->isPlaceholderSrc($current)) {
+            return;
+        }
+        $widthEntries = array_values(array_filter($absolutised, static fn(array $e): bool => $e['w'] > 0));
+        if ($widthEntries === []) {
+            return;
+        }
+        usort($widthEntries, static fn(array $a, array $b): int => $a['w'] <=> $b['w']);
+        $element->setAttribute('src', $widthEntries[0]['url']);
+    }
+
+    /**
+     * A `src` value is treated as a lazy-load placeholder if it is empty,
+     * matches the de-facto universal 1x1 transparent GIF marker (base64
+     * encoding of the GIF89a header for a 1x1 transparent image), or is
+     * any other `data:` URI under 128 characters. The threshold sits
+     * between common placeholder sizes (~70-120 chars) and the smallest
+     * useful inline rasters (~200+ chars).
+     */
+    private function isPlaceholderSrc(string $src): bool
+    {
+        if ($src === '') {
+            return true;
+        }
+        return str_starts_with($src, 'data:') &&
+            (strlen($src) < 128 || str_starts_with($src, 'data:image/gif;base64,R0lGODlh'));
+    }
+
+    /**
+     * @return list<array{url: string, descriptor: string, w: int}>
+     *         `descriptor` is `''` when the source entry has no descriptor
+     *         (browser implies `1x`); `w` is 0 for density or missing
+     *         descriptors and is used to filter entries when picking a
+     *         width-based fallback.
+     */
+    private function parseSrcset(string $srcset): array
+    {
+        $out = [];
+        foreach (explode(',', $srcset) as $part) {
+            $part = trim($part);
+            if ($part === '') {
+                continue;
+            }
+            $bits = preg_split('/\s+/', $part, 2);
+            if (!is_array($bits)) {
+                continue;
+            }
+            $url = $bits[0];
+            $descriptor = isset($bits[1]) ? trim($bits[1]) : '';
+            $w = (preg_match('/^(\d+)w$/', $descriptor, $wm) === 1) ? (int)$wm[1] : 0;
+            $out[] = ['url' => $url, 'descriptor' => $descriptor, 'w' => $w];
+        }
+        return $out;
     }
 }
 

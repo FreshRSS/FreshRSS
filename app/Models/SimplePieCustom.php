@@ -12,7 +12,6 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		parent::__construct();
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->get_registry()->register(\SimplePie\File::class, FreshRSS_SimplePieFetch::class);
-		$this->sanitize = new FreshRSS_SimplePieSanitize();
 		$this->set_useragent(FRESHRSS_USERAGENT);
 		$this->set_cache_name_function('sha1');	// @phpstan-ignore method.deprecated
 		$this->set_cache_location(CACHE_PATH);	// @phpstan-ignore method.deprecated
