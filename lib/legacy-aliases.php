@@ -8,7 +8,9 @@ declare(strict_types=1);
  * extensions that still reference the old names.
  *
  * This file is populated as classes are migrated to the `FreshRss` namespace; it is
- * loaded automatically by Composer (see `composer.json` `autoload.files`).
+ * required directly by `lib/lib_rss.php` (also declared in `composer.json` `autoload.files`,
+ * for the benefit of dev tooling that loads `vendor/autoload.php` without going through
+ * `lib/lib_rss.php`).
  *
  * Only classes forming the documented extension API (see
  * `docs/en/developers/03_Backend/05_Extensions.md`) or plausibly used by third-party
@@ -16,12 +18,12 @@ declare(strict_types=1);
  * aliased: nothing outside this codebase is expected to reference them by their old name.
  *
  * Aliasing is done lazily via an autoloader, not eagerly with `class_alias()`: this file
- * runs very early (Composer's `autoload.files` are required right after the Composer
- * class loader registers, before `lib/lib_rss.php` registers the legacy `classAutoloader`
- * that classes such as `FreshRss\Models\SimplePieCustom` need in order to resolve their
- * `extends \SimplePie\SimplePie`). Eagerly aliasing would trigger that resolution too
- * early and fatal. Deferring to first use, by which point the whole autoload chain is
- * registered, avoids the ordering problem entirely.
+ * runs very early (right after `freshRssPsr4Autoloader` registers in `lib/lib_rss.php`,
+ * before that same file registers the legacy `classAutoloader` that classes such as
+ * `FreshRss\Models\SimplePieCustom` need in order to resolve their `extends \SimplePie\SimplePie`).
+ * Eagerly aliasing would trigger that resolution too early and fatal. Deferring to first
+ * use, by which point the whole autoload chain is registered, avoids the ordering problem
+ * entirely.
  */
 
 use FreshRss\Minz\ActionController;
