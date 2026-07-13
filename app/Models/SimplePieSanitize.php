@@ -91,10 +91,8 @@ final class FreshRSS_SimplePieSanitize extends \SimplePie\Sanitize
 		if ($src === '') {
 			return true;
 		}
-		if (stripos($src, 'data:image/gif;base64,R0lGODlh') === 0) {
-			return true;
-		}
-		return stripos($src, 'data:') === 0 && strlen($src) < 128;
+		return str_starts_with($src, 'data:') &&
+			(strlen($src) < 128 || str_starts_with($src, 'data:image/gif;base64,R0lGODlh'));
 	}
 
 	/**
