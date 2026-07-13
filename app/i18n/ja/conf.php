@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'ナビゲーションボタンを表示する',
 		'show_title_unread' => 'タイトルに未読の記事数を表示',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'テーマ',
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'APIアクセスは無効です。',
 			'documentation_link' => '既知のアプリの一覧は<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ドキュメント</a>を参照します',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -303,6 +311,8 @@ return array(
 			'when' => '記事をお気に入りに登録する。',
 		),
 		'sticky_post' => '開いたときにトップを記事にする',
+		'sticky_sort' => 'ナビゲーション中も手動の並び順を保持する',	// DIRTY
+		'sticky_sort_help' => '最後に指定した手動の並び順を保持するか、各カテゴリーやフィードが常に独自の既定または全体設定を使用するかを決めます。',	// DIRTY
 		'title' => 'リーディング',
 		'view' => array(
 			'default' => 'デフォルトビュー',

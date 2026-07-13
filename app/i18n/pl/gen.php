@@ -36,8 +36,8 @@ return array(
 			'open' => 'Otwórz menu',
 		),
 		'nav_buttons' => array(
-			'next' => 'Następny artykuł',
-			'prev' => 'Poprzedni artykuł',
+			'next' => 'Następna wiadomość',
+			'prev' => 'Poprzednia wiadomość',
 			'up' => 'Idź do góry',
 		),
 		'open_url' => 'Otwórz adres',
@@ -179,8 +179,16 @@ return array(
 		'confirm_action_feed_cat' => 'Czy jesteś pewien, że chcesz przeprowadzić daną operację? Stracisz powiązane zapytania i ulubione wiadomości. Tych zmian nie można wycofać!',
 		'confirm_exit_slider' => 'Czy na pewno chcesz odrzucić niezapisane ustawienia?',
 		'feedback' => array(
-			'body_new_articles' => 'W FreshRSS znajduje się %%d wiadomości do przeczytania.',
-			'body_unread_articles' => '(Nieprzeczytane: %%d)',
+			'body_new_articles' => array(
+				0 => 'W FreshRSS znajduje się %d wiadomości do przeczytania.',	// DIRTY
+				1 => 'W FreshRSS znajduje się %d wiadomości do przeczytania.',	// DIRTY
+				2 => 'W FreshRSS znajduje się %d wiadomości do przeczytania.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(Nieprzeczytane: %d)',	// DIRTY
+				1 => '(Nieprzeczytane: %d)',	// DIRTY
+				2 => '(Nieprzeczytane: %d)',	// DIRTY
+			),
 			'request_failed' => 'Zapytanie nie powiodło się. Może to być spowodowane problemami z łącznością z internetem.',
 			'title_new_articles' => 'FreshRSS: nowe wiadomości!',
 		),
@@ -275,7 +283,7 @@ return array(
 		'labels' => 'Własne etykiety',
 		'multiple_help' => 'Zaznacz jedną lub więcej opcji (przytrzymaj <kbd>Ctrl</kbd> lub <kbd>Cmd</kbd>)',
 		'sources' => 'Źródła',
-		'tags' => 'Tagi artykułów',
+		'tags' => 'Tagi wiadomości',
 		'text' => 'Szukanie w tekście',
 		'text_help' => 'Wiele linii są łączone poprzez logiczne <i>or</i>. Wspierane są również <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">wyrażenia regularne</a>.',
 		'text_placeholder' => 'Słowo kluczowe',

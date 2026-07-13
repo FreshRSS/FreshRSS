@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => '显示导航按钮',
 		'show_title_unread' => '在标题中显示未读文章的数量',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => '主题',
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'API 访问已禁用。',
 			'documentation_link' => '查看 <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">文档和已知应用列表</a>',
 			'help' => '查看 <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>文档</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => '修改密码',
 		'confirm_new_password' => '确认新密码',
@@ -303,6 +311,8 @@ return array(
 			'when' => '将文章标记为收藏时…',
 		),
 		'sticky_post' => '打开文章时将其置顶',
+		'sticky_sort' => '导航时保持手动排序',
+		'sticky_sort_help' => '决定保持最近一次手动排序，还是让每个分类或订阅源始终使用各自的默认或全局设置。',
 		'title' => '阅读',
 		'view' => array(
 			'default' => '默认视图',

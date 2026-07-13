@@ -47,7 +47,7 @@ cd /usr/share/FreshRSS
 # --db-type can be: 'sqlite' (default), 'mysql' (MySQL or MariaDB), 'pgsql' (PostgreSQL).
 # --db-host URL of the database server. Default is 'localhost'.
 # --db-user sets database user.
-# --db-API password sets database password.
+# --db-password sets database password.
 # --db-base sets database name.
 # --db-prefix is an optional prefix in front of the names of the tables. We suggest using 'freshrss_' (default).
 # This command does not create the default user. Do that with ./cli/create-user.php.
@@ -65,8 +65,8 @@ cd /usr/share/FreshRSS
 
 ./cli/create-user.php --user username [ --password 'password' --api-password 'api_password' --language en --email user@example.net --token 'longRandomString' --no-default-feeds --purge-after-months 3 --feed-min-articles-default 50 --feed-ttl-default 3600 --since-hours-posts-per-rss 168 --max-posts-per-rss 400 ]
 # --user must be alphanumeric, not longer than 38 characters. The name of the user to be created/updated.
-# --API password sets the user's password.
-# --api-API password sets the user's api password.
+# --password sets the user's password.
+# --api-password sets the user's api password.
 # --language can be: 'en' (default), 'fr', or one of the [supported languages](../app/i18n/).
 # --email sets an email for the user which will be used email validation if it forced email validation is enabled.
 # --no-default-feeds do not add this FreshRSS instance's default feeds to the user during creation.
@@ -80,6 +80,25 @@ cd /usr/share/FreshRSS
 ```
 
 > ℹ️ More options for [the configuration of users](../config-user.default.php#L3-L5) may be set in `./data/config-user.custom.php` prior to creating new users, or in `./data/users/*/config.php` for existing users.
+
+```sh
+./cli/reconfigure-user.php --user username --list [ --show-secrets ]
+# List all configuration attributes of the user, one per line as key=value.
+# Known-sensitive keys (matching *hash, *key, *password, *token, *secret) are redacted as *** unless --show-secrets is given.
+
+./cli/reconfigure-user.php --user username --key attribute
+# Read the value of a single attribute. Exit code 2 if the key does not exist.
+
+./cli/reconfigure-user.php --user username --key attribute --set --value 'new-value'
+# Set an attribute to the given value. Type is inferred from the existing value (bool, int, string).
+# Fails if the key does not exist; use --force to create a new key (e.g. for extension-specific config).
+
+./cli/reconfigure-user.php --user username --key attribute --set --value-stdin
+# Read the new value from stdin instead of --value (recommended for secrets to avoid leaking in shell history / ps).
+
+./cli/reconfigure-user.php --user username --key attribute --unset
+# Remove the attribute from the user's configuration. Exit code 2 if the key does not exist.
+```
 
 ```sh
 ./cli/actualize-user.php --user username

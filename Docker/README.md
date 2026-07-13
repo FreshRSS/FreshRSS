@@ -98,6 +98,7 @@ and with newer packages in general (Apache, PHP).
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
 * `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
+* `INTERNAL_HOST_ALLOWLIST`: (default is empty, can also be set in `data/config.php` or under *System configuration* in Web UI) Requests to internal hosts such as 127.0.0.1 are blocked by default; here you can add overrides for which internal hosts to allow, separated by whitespace. Each host should be described either as a `host:port` combination, CIDR notation (`0.0.0.0/0` to allow any IPv4, `::/0` to allow any IPv6) or `*` to allow all hosts (unsafe)
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
@@ -342,6 +343,12 @@ services:
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
+      # Optional parameter to allow sending requests to certain internal hosts, by default all internal requests are blocked
+      # Examples: 127.0.0.1:8080, rss-bridge:80, etc.
+      #   or a CIDR notation: 0.0.0.0/0 (to allow any IPv4), ::/0 (to allow any IPv6)
+      # Setting * disables this check completely, allowing any host to be accessed (unsafe)
+      #INTERNAL_HOST_ALLOWLIST: rss-bridge:80 rsshub:1200
+
       # Optional parameter, remove for automatic settings, set to 0 to disable,
       # or (if you use a proxy) to a space-separated list of trusted IP ranges
       # compatible with https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy

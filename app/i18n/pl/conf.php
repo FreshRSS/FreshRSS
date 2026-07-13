@@ -54,7 +54,14 @@ return array(
 			'timeout' => 'Czas wyświetlania powiadomienia HTML5',
 		),
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
-		'show_title_unread' => 'Pokaż liczbę nieprzeczytanych artykułów w tytule',
+		'show_title_unread' => 'Pokaż liczbę nieprzeczytanych wiadomości w tytule',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Ukryj pasek boczny domyślnie',
 		'theme' => array(
 			'_' => 'Motyw',
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'Dostęp przez API jest wyłączony.',
 			'documentation_link' => 'Zobacz <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentację i listę aplikacji na telefon</a>',
 			'help' => 'Zobacz <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentację</a>',
+			'security_warning' => 'Użyj HTTPS. Hasło API jest przesyłane jawnym tekstem i może pojawić się w dziennikach serwera, jeśli zostanie wysłane metodą GET.',
 		),
 		'change_password' => 'Zmień hasło',
 		'confirm_new_password' => 'Potwierdź nowe hasło',
@@ -151,7 +159,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Zapisane zapytania',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Utwórz nowe zapytanie',
 		'deprecated' => 'To zapytanie nie jest już poprawne. Kategoria lub kanał do którego się odnosi już nie istnieje.',
 		'description' => 'Opis',
 		'filter' => array(
@@ -238,7 +246,7 @@ return array(
 			),
 			'feed_title' => 'Nazwa kanału',
 			'icons' => array(
-				'_' => 'Pozycja ikonek artykułu<br /><small>(tylko w widoku czytania)</small>',
+				'_' => 'Pozycja ikonek wiadomości<br /><small>(tylko w widoku czytania)</small>',
 				'above_title' => 'Powyżej tytułu',
 				'with_authors' => 'W tej samej linii co autor i data',
 			),
@@ -282,14 +290,14 @@ return array(
 			'upon_gone' => 'gdy nie jest już wyświetlana w źródle kanału',
 			'upon_reception' => 'po otrzymaniu wiadomości',
 			'when' => 'Oznacz wiadomość jako przeczytaną…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_guid_in_category' => 'jeżeli identyczny GUID już istnieje w <i>n</i> najnowszych wiadomościach kategorii',
 			'when_same_title_in_category' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach kategorii',
 			'when_same_title_in_feed' => 'gdy identyczny tytuł już istnieje w <i>n</i> najnowszych wiadomościach (kanału RSS)',
 		),
 		'show' => array(
 			'_' => 'Wiadomości do wyświetlenia',
 			'active_category' => 'Aktualna',
-			'adaptive' => 'Pokaż istniejące nieprzeczytane artykuły, w przeciwnym razie wyświetl wszystkie',
+			'adaptive' => 'Pokaż istniejące nieprzeczytane wiadomości, w przeciwnym razie wyświetl wszystkie',
 			'all_articles' => 'Wszystkie wiadomości',
 			'all_categories' => 'Wszystkie',
 			'no_category' => 'Żadna',
@@ -300,9 +308,11 @@ return array(
 		'show_fav_unread_help' => 'Stosuje się również do etykiet',
 		'sides_close_article' => 'Kliknięcie poza zawartością wiadomości zamyka widok wiadomości',
 		'star' => array(
-			'when' => 'Oznacz artykuł jako ulubiony…',
+			'when' => 'Oznacz wiadomość jako ulubioną…',
 		),
 		'sticky_post' => 'Przesuń wiadomość na górę strony po otworzeniu',
+		'sticky_sort' => 'Zachowaj ręczną kolejność sortowania podczas nawigacji',	// DIRTY
+		'sticky_sort_help' => 'Określa, czy ostatnia ręczna kolejność sortowania pozostaje aktywna, czy każda kategoria lub kanał zawsze używa własnego ustawienia domyślnego lub globalnego.',	// DIRTY
 		'title' => 'Czytanie',
 		'view' => array(
 			'default' => 'Domyślny widok',

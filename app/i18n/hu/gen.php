@@ -173,8 +173,14 @@ return array(
 		'confirm_action_feed_cat' => 'Biztos hogy végrehajtod ezt a műveletet? Minden kapcsolódó kedvenc és lekérdezés törölve lesz. Nem lehet megszakítani!',
 		'confirm_exit_slider' => 'Biztosan elveti a nem mentett beállításokat?',
 		'feedback' => array(
-			'body_new_articles' => '%%d db új cikk olvasható a FreshRSS-ben.',
-			'body_unread_articles' => '(olvasatlan: %%d)',
+			'body_new_articles' => array(
+				0 => '%d db új cikk olvasható a FreshRSS-ben.',	// DIRTY
+				1 => '%d db új cikk olvasható a FreshRSS-ben.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(olvasatlan: %d)',	// DIRTY
+				1 => '(olvasatlan: %d)',	// DIRTY
+			),
 			'request_failed' => 'Egy művelet nem sikerült, lehetséges hogy az internet kapcsolattal vannak problémák.',
 			'title_new_articles' => 'FreshRSS: új cikkek!',
 		),
@@ -255,7 +261,7 @@ return array(
 		'categories' => 'Kategóriák',
 		'content' => 'Tartalom',
 		'date_from' => 'Dátumtól',
-		'date_modified' => 'Server Modification Date',	// TODO
+		'date_modified' => 'Szerver módosításának dátuma',
 		'date_past' => 'A múltban',
 		'date_published' => 'Közzététel dátuma',
 		'date_range' => 'Dátumtartomány',

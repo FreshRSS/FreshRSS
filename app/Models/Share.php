@@ -55,7 +55,7 @@ class FreshRSS_Share {
 			self::register($share_options);
 		}
 
-		uasort(self::$list_sharing, static fn(FreshRSS_Share $a, FreshRSS_Share $b) => strcasecmp($a->name() ?? '', $b->name() ?? ''));
+		uasort(self::$list_sharing, static fn(FreshRSS_Share $a, FreshRSS_Share $b) => FreshRSS_Context::localeCompare($a->name() ?? '', $b->name() ?? ''));
 	}
 
 	/**

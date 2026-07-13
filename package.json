@@ -25,8 +25,8 @@
 	"scripts": {
 		"eslint": "eslint .",
 		"eslint_fix": "eslint --fix .",
-		"markdownlint": "markdownlint '**/*.md'",
-		"markdownlint_fix": "markdownlint --fix '**/*.md'",
+		"markdownlint": "markdownlint-cli2",
+		"markdownlint_fix": "markdownlint-cli2 --fix",
 		"rtlcss": "rtlcss -d p/themes/ && find p/themes/ -type f -name '*.rtl.rtl.css' -delete",
 		"stylelint": "stylelint '**/*.css'",
 		"stylelint_fix": "stylelint --fix '**/*.css'",
@@ -37,13 +37,13 @@
 		"eslint": "^9.39.4",
 		"@eslint/js": "^9.39.4",
 		"globals": "^17.4.0",
-		"markdownlint-cli": "^0.48.0",
+		"markdownlint-cli2": "^0.23.0",
 		"neostandard": "^0.13.0",
 		"rtlcss": "^4.3.0",
-		"stylelint": "^17.9.1",
+		"stylelint": "^17.14.0",
 		"stylelint-config-recommended": "^18.0.0",
 		"stylelint-order": "^8.1.1",
-		"@stylistic/stylelint-plugin": "^5.1.0"
+		"@stylistic/stylelint-plugin": "^5.2.1"
 	},
 	"rtlcssConfig": {
 		"options": {

@@ -2,7 +2,80 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-0X-XX FreshRSS 1.29.1-dev
+## 2026-XX-XX FreshRSS 1.29.2-dev
+
+* Security
+	* 💥 Disallow access to local networks such as `127.0.0.1` by default, for security reasons (breaking change) [#8400](https://github.com/FreshRSS/FreshRSS/pull/8400)
+		* Selected local networks can be allowed under *System configuration* or using the `INTERNAL_HOST_ALLOWLIST` environment variable
+		* Passing `*` allows all networks like before (unsafe)
+	* Fix access control in `rss` and `opml` actions [#8912](https://github.com/FreshRSS/FreshRSS/pull/8912)
+	* Set limits for regex during search [#8913](https://github.com/FreshRSS/FreshRSS/pull/8913)
+* SimplePie
+	* Security: Disallow `javascript:` URI scheme (protocol) [#8263](https://github.com/FreshRSS/FreshRSS/pull/8263)
+	* Fix wrong player parent logic leading to invalid type [#8893](https://github.com/FreshRSS/FreshRSS/pull/8893), [simplepie#978](https://github.com/simplepie/simplepie/pull/978)
+	* Consistently enable `XML_OPTION_PARSE_HUGE` [#8894](https://github.com/FreshRSS/FreshRSS/pull/8894), [simplepie#977](https://github.com/simplepie/simplepie/pull/977)
+	* Fix null warning in IRI for PHP 8.5+ [#8918](https://github.com/FreshRSS/FreshRSS/pull/8918), [simplepie#979](https://github.com/simplepie/simplepie/pull/979)
+* Features
+	* New option to hide badges showing number of unread articles (*Phantom Obligation*) [#8844](https://github.com/FreshRSS/FreshRSS/pull/8844)
+	* New option to keep or not the custom sort order when navigating between categories and feeds [#8969](https://github.com/FreshRSS/FreshRSS/pull/8969)
+* Bug fixing
+	* Fix lost elements while parsing search query [#8884](https://github.com/FreshRSS/FreshRSS/pull/8884)
+* CLI
+	* New `cli/reconfigure-user.php` to read/write per-user config attributes [#8873](https://github.com/FreshRSS/FreshRSS/pull/8873)
+* API
+	* Add a warning message to the API password section and a log warning when a client uses GET instead of recommended POST [#8845](https://github.com/FreshRSS/FreshRSS/pull/8845)
+* Deployment
+	* Docker alternative image updated to Alpine 3.24 with PHP 8.5.7 and Apache 2.4.67 [#8916](https://github.com/FreshRSS/FreshRSS/pull/8916)
+	* Apache use only `CONN_REMOTE_ADDR` in logs when `mod_remoteip` is available, for compatibility with LiteSpeed Web Server [#8890](https://github.com/FreshRSS/FreshRSS/pull/8890)
+* UI
+	* Always jump article to top when header is offscreen, also when **Stick the article to the top when opened* is disabled [#8870](https://github.com/FreshRSS/FreshRSS/pull/8870)
+	* Fix padding for `.nav_menu` in Alternative-Dark, Flat, and Nord themes [#8901](https://github.com/FreshRSS/FreshRSS/pull/8901)
+	* Various UI and style improvements: [#8823](https://github.com/FreshRSS/FreshRSS/pull/8823), [#8824](https://github.com/FreshRSS/FreshRSS/pull/8824)
+* Extensions
+	* New `freshrss:entryStateChange` JavaScript event for extensions, dispatched when an article has finished being marked as read/unread [#8862](https://github.com/FreshRSS/FreshRSS/pull/9031)
+* I18n
+	* Improve Hungarian [#8879](https://github.com/FreshRSS/FreshRSS/pull/8879)
+	* Improve Italian [#8880](https://github.com/FreshRSS/FreshRSS/pull/8880)
+	* Improve Persian [#8923](https://github.com/FreshRSS/FreshRSS/pull/8923)
+	* Improve Spanish [#8878](https://github.com/FreshRSS/FreshRSS/pull/8878)
+	* Improve Ukrainian [#8871](https://github.com/FreshRSS/FreshRSS/pull/8871)
+* Misc.
+	* Update to PHPMailer 7.1.1 [#9807](https://github.com/FreshRSS/FreshRSS/pull/9807)
+	* Improve PHP code [#8906](https://github.com/FreshRSS/FreshRSS/pull/8906)
+	* Fix PHPStan 2.2.2 in CLI [#8911](https://github.com/FreshRSS/FreshRSS/pull/8911)
+	* Update dev dependencies [#8904](https://github.com/FreshRSS/FreshRSS/pull/8904), [#8905](https://github.com/FreshRSS/FreshRSS/pull/8905)
+
+
+## 2026-05-20 FreshRSS 1.29.1
+
+* Features
+	* Accept `.txt` import of feed URLs in additional to e.g. OPML [#8818](https://github.com/FreshRSS/FreshRSS/pull/8818), [#8837](https://github.com/FreshRSS/FreshRSS/pull/8837)
+	* New CLI for automatic periodic SQLite export with retention [#8819](https://github.com/FreshRSS/FreshRSS/pull/8819)
+	* More feed info: last received date, publication date [#8799](https://github.com/FreshRSS/FreshRSS/pull/8799)
+* Bug fixing
+	* Fix cookies with some browsers [#8867](https://github.com/FreshRSS/FreshRSS/pull/8867)
+	* Fix search in shared user queries with empty results [#8863](https://github.com/FreshRSS/FreshRSS/pull/8863)
+	* Fix XML errors with loading invalid OPML in `lib_opml` library [#8652](https://github.com/FreshRSS/FreshRSS/pull/8652), [#8853](https://github.com/FreshRSS/FreshRSS/pull/8853),
+		[lib_opml#48](https://framagit.org/marienfressinaud/lib_opml/-/merge_requests/48), [lib_opml#51](https://framagit.org/marienfressinaud/lib_opml/-/merge_requests/51)
+	* Fix ensure maximum number of feeds also with Dynamic OPML [#8832](https://github.com/FreshRSS/FreshRSS/pull/8832)
+	* Fix click mark as read [#8817](https://github.com/FreshRSS/FreshRSS/pull/8817)
+* UI
+	* Improve browser compatibility to keep mobile navigation at the bottom [#8833](https://github.com/FreshRSS/FreshRSS/pull/8833)
+	* Improve support of older/simpler Web browsers/engines such as SeaMonkey [#8810](https://github.com/FreshRSS/FreshRSS/pull/8810),
+		[#8811](https://github.com/FreshRSS/FreshRSS/pull/8811), [#8813](https://github.com/FreshRSS/FreshRSS/pull/8813),
+	* Improve *Swage* theme [#8842](https://github.com/FreshRSS/FreshRSS/pull/8842)
+	* Rename *Nord theme* to *Nord* [#8805](https://github.com/FreshRSS/FreshRSS/pull/8805)
+	* Replace GIF spinner by CSS spinner [#8804](https://github.com/FreshRSS/FreshRSS/pull/8804), [#8812](https://github.com/FreshRSS/FreshRSS/pull/8812)
+	* Various UI and style improvements: [#8800](https://github.com/FreshRSS/FreshRSS/pull/8800), [#8816](https://github.com/FreshRSS/FreshRSS/pull/8816),
+* I18n
+	* Improve Brazilian Portuguese [#8846](https://github.com/FreshRSS/FreshRSS/pull/8846)
+	* Improve Dutch [#8868](https://github.com/FreshRSS/FreshRSS/pull/8868)
+	* Improve German [#8840](https://github.com/FreshRSS/FreshRSS/pull/8840)
+	* Improve Polish [#8854](https://github.com/FreshRSS/FreshRSS/pull/8854)
+	* Improve Russian [#8861](https://github.com/FreshRSS/FreshRSS/pull/8861)
+	* Improve Traditional Chinese [#8849](https://github.com/FreshRSS/FreshRSS/pull/8849)
+* Misc.
+	* Update dev dependencies [#8858](https://github.com/FreshRSS/FreshRSS/pull/8858), [#8864](https://github.com/FreshRSS/FreshRSS/pull/8864)
 
 
 ## 2026-05-10 FreshRSS 1.29.0

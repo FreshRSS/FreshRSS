@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Mostrar botões de navegação',
 		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tema',
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -303,6 +311,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Coloque o artigo no topo quando aberto',
+		'sticky_sort' => 'Manter a ordenação manual durante a navegação',
+		'sticky_sort_help' => 'Determina se a última ordenação manual é mantida ativa ou se cada categoria ou fonte usa sempre a sua própria configuração predefinida ou global.',
 		'title' => 'Lendo',
 		'view' => array(
 			'default' => 'Visualização padrão',

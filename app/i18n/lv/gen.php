@@ -179,8 +179,16 @@ return array(
 		'confirm_action_feed_cat' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? Jūs zaudēsiet saistītos mīļākos rakstus un lietotāja pieprasījumus. To nevar atcelt!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS ir %%d jauni raksti lasīšanai.',
-			'body_unread_articles' => '(neizlasīti: %%d)',
+			'body_new_articles' => array(
+				0 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
+				1 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
+				2 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(neizlasīti: %d)',	// DIRTY
+				1 => '(neizlasīti: %d)',	// DIRTY
+				2 => '(neizlasīti: %d)',	// DIRTY
+			),
 			'request_failed' => 'Pieprasījums nav izdevies, iespējams, to izraisījušas interneta savienojuma problēmas.',
 			'title_new_articles' => 'FreshRSS: jauni raksti!',
 		),

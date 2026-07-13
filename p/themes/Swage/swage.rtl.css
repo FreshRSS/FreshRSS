@@ -169,9 +169,7 @@ label {
 		border: 2px solid var(--color-background-dark);
 		outline: none;
 	}
-}
 
-:is(input, select) {
 	&:invalid {
 		padding-right: 5px;
 		color: var(--color-text-bad);
@@ -210,13 +208,11 @@ form {
 	}
 }
 
-.category {
-	.title.error::before {
-		display: inline-block;
-		padding-left: 7px;
-		width: 16px;
-		content: url(../Swage/icons/error.svg);
-	}
+.title.error::before {
+	display: inline-block;
+	padding-left: 7px;
+	width: 16px;
+	content: url(../Swage/icons/error.svg);
 }
 
 .form-group {
@@ -1711,6 +1707,7 @@ button.as-link {
 	}
 }
 
-body:has(.aside:not(.visible)) .header .item.title {
+body:has(.aside:not(.visible)) .header .item.title,
+body.reader .header .item.title {
 	display: none;
 }

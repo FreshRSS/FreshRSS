@@ -52,15 +52,15 @@ return array(
 		),
 		'database-connection' => array(
 			'nok' => '資料庫連線錯誤。',
-			'ok' => '資料庫連線狀態良好',
+			'ok' => '資料庫連線狀態良好。',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => '資料表 "%s" 狀態不完整。',
+			'ok' => '資料表 "%s" 狀態良好。',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => '有些資料表處於遺失狀態。',
+			'ok' => '資料表狀態完整。',
 		),
 		'database-title' => '資料庫',
 		'dom' => array(

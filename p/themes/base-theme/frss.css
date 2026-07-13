@@ -64,6 +64,12 @@ html, body {
 	font-size: 100%;
 }
 
+html:lang(ja) body {
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial",
+		"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo",
+		"Osaka", "Noto Sans CJK JP", "Noto Sans JP", sans-serif;
+}
+
 button, input, select, textarea {
 	font-family: inherit;
 }
@@ -150,7 +156,7 @@ h2 {
 h2 .icon,
 legend .icon {
 	height: 0.8em;
-	vertical-align: baseline;
+	vertical-align: middle;
 }
 
 h3 {
@@ -194,13 +200,17 @@ p#favicon-ext {
 	text-decoration: underline;
 }
 
-p.help, .prompt p.help {
+.help, .prompt .help {
 	margin: 0.25rem 0 0.5rem;
 	text-align: left;
 }
 
-p.help .icon {
+.help .icon {
 	filter: brightness(2);
+}
+
+.help > ul {
+	padding-left: 1rem;
 }
 
 kbd {
@@ -242,7 +252,7 @@ img.favicon.upload {
 	font-style: italic;
 }
 
-.category .title.error::before,
+.title.error::before,
 .item.feed.error .item-title .title::before,
 .box-content .item.feed.error .item-title::before {
 	content: " ⚠ ";
@@ -376,6 +386,7 @@ textarea:invalid {
 }
 
 input:disabled,
+textarea:disabled,
 select:disabled {
 	background-color: transparent;
 	min-width: 75px;
@@ -559,12 +570,12 @@ input.ignore-auto-complete {
 }
 
 /*=== Buttons */
-button[disabled] {
+button:disabled {
 	opacity: 0.5;
 	color: var(--frss-font-color-disabled);
 }
 
-button[disabled]:hover, input[disabled]:hover {
+button:disabled:hover, textarea:disabled:hover, input:disabled:hover {
 	cursor: not-allowed;
 }
 
@@ -755,14 +766,14 @@ input[type="checkbox"]:focus-visible {
 .horizontal-list {
 	margin: 0;
 	padding: 0;
-	display: table;
-	table-layout: fixed;
+	display: flex;
+	align-items: center;
 	width: 100%;
+	list-style: none;
 }
 
 .horizontal-list .item {
-	display: table-cell;
-	vertical-align: middle;
+	flex: 0 0 auto;
 }
 
 .horizontal-list .item .item-element {
@@ -1411,7 +1422,7 @@ input[type="search"] {
 	width: 2.25rem;
 }
 
-.aside_feed .tree-folder-items .item .dropdown-target:target ~ .dropdown-toggle > .icon,
+.aside_feed .tree-folder-items .item .dropdown:has(.dropdown-menu) .dropdown-target:target ~ .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item:hover .dropdown-toggle > .icon,
 .aside_feed .tree-folder-items .item.active .dropdown-toggle > .icon {
 	visibility: visible;
@@ -1514,11 +1525,6 @@ a.website:hover .favicon {
 	background-color: inherit;
 }
 
-.flux .flux_header.has-thumbnail .item.titleAuthorSummaryDate,
-.flux .flux_header.has-summary .item.titleAuthorSummaryDate {
-	vertical-align: top;
-}
-
 .flux .flux_header .item.thumbnail {
 	line-height: 0;
 	padding: var(--frss-padding-top-bottom) var(--frss-padding-flux-items);
@@ -1567,28 +1573,28 @@ a.website:hover .favicon {
 }
 
 .flux .flux_header .item.titleAuthorSummaryDate {
-	position: relative;
 	overflow: hidden;
+	flex: 1;
+	min-width: 0;
+	align-self: stretch;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-areas: "title date"
+		"summary .";
+	align-content: center;
 }
 
 .flux .flux_header .item .title {
-	display: inline-block;
-	max-width: 100%;
-	min-width: calc(100% - 155px);
+	grid-area: title;
 	color: var(--frss-font-color-dark);
-	position: absolute;
-	top: 0;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	box-sizing: border-box;
 	text-decoration: none;
 }
 
-.flux .flux_header.has-date .item .title {
-	padding-right: 155px;
-}
-
 .flux .flux_header .item .summary {
+	grid-area: summary;
 	display: -webkit-box;
 	color: var(--frss-font-color-grey-dark);
 	font-size: 0.9rem;
@@ -1598,12 +1604,7 @@ a.website:hover .favicon {
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	white-space: break-spaces;
-	margin-top: 2.25rem;
 	margin-bottom: 0.5rem;
-}
-
-.flux .flux_header.has-date .item .summary {
-	max-width: 90%;
 }
 
 .flux .flux_header .item .title .author {
@@ -1613,13 +1614,9 @@ a.website:hover .favicon {
 }
 
 .flux .flux_header .item .date {
-	position: absolute;
-	right: 0;
-	top: 0;
-	width: 155px;
+	grid-area: date;
 	text-align: right;
 	overflow: hidden;
-	z-index: 1;
 }
 
 .flux .flux_header .item > a {
@@ -1768,7 +1765,7 @@ a.website:hover .favicon {
 
 .content .article-header-topline.horizontal-list .item,
 .content .subtitle.horizontal-list .item {
-	vertical-align: top;
+	align-self: flex-start;
 }
 
 .content .article-header-topline.horizontal-list .item .website,
@@ -2124,7 +2121,7 @@ html.slider-active {
 }
 
 #slider.sliding {
-	transition: width 200ms linear;
+	transition: width 100ms ease-in;
 }
 
 #close-slider {
@@ -2321,6 +2318,14 @@ html.slider-active {
 	font-weight: initial;
 }
 
+/* Faint dot shown in place of the count badge when [data-unread-hide] is present */
+.aside .category .tree-folder-title .title[data-unread-hide]:not([data-unread="0"])::after,
+.aside .feed .item-title[data-unread-hide]:not([data-unread="0"])::after {
+	content: "·";
+	opacity: 0.5;
+	pointer-events: none;
+}
+
 .aside .category .title:not([data-unread="0"])::after {
 	margin: calc(0.125rem + var(--frss-padding-top-bottom)) 0 0 0;
 }
@@ -2509,6 +2514,7 @@ html.slider-active {
 		--frss-padding-flux-items: 0.5rem;
 	}
 
+	.flux_header .item.website span,
 	.item .date,
 	.dropdown-menu > .no-mobile,
 	.no-mobile,
@@ -2584,10 +2590,6 @@ html.slider-active {
 		padding-right: 1rem;
 	}
 
-	.flux .flux_header.has-date .item .title {
-		padding-right: 1rem;
-	}
-
 	.flux .flux_header.has-thumbnail.has-summary {
 		display: grid;
 		grid-template-columns: auto 1fr auto auto auto;
@@ -2596,6 +2598,10 @@ html.slider-active {
 			"thumbnail content content content content content content";
 		align-items: start;
 		list-style: none;
+	}
+
+	.flux .flux_header.has-thumbnail.has-summary li.website .websiteName {
+		display: inline;
 	}
 
 	/** place all the elements in their respective template areas */
@@ -2812,7 +2818,7 @@ html.slider-active {
 		width: 0;
 		overflow: hidden;
 		z-index: 100;
-		transition: width 200ms linear;
+		transition: width 100ms ease-in;
 	}
 
 	.aside.aside_feed {
@@ -2828,15 +2834,8 @@ html.slider-active {
 		padding: 0;
 	}
 
-	/** Compensate for shrunk --frss-padding-flux-items so favicon cell stays 40px at narrow */
-	.flux_header.websiteicon .item.website {
+	.flux_header .item.website {
 		width: 40px;
-	}
-
-	/** Cap website column when feed name is shown, to leave room for the title */
-	.flux_header.websitename .item.website,
-	.flux_header.websitefull .item.website {
-		width: clamp(120px, 18vw, 150px);
 	}
 
 	.flux:not(.current):hover .item.title {
@@ -2869,6 +2868,7 @@ html.slider-active {
 
 	#nav_entries {
 		display: flex !important;
+		top: auto;
 		width: 100%;
 	}
 

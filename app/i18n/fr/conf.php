@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
 		'show_title_unread' => 'Afficher le nombre d’articles non lus dans le titre',
+		'show_unread_count' => array(
+			'_' => 'Afficher le nombre d’articles non lus dans la barre latérale',
+			'all' => 'Pour toutes les catégories et tous les flux',
+			'important' => 'Pour les flux importants uniquement',
+			'important_locked' => 'Les flux importants affichent toujours leur nombre d’articles non lus.',
+			'none' => 'Jamais',
+		),
 		'sidebar_hidden_by_default' => 'Masquer la barre latérale par défaut',
 		'theme' => array(
 			'_' => 'Thème',
@@ -135,6 +142,7 @@ return array(
 			'disabled' => 'L’accès API est désactivé.',
 			'documentation_link' => 'Voir <a href="https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html" target="_blank">la documentation et une liste d’applications compatibles</a>',
 			'help' => 'Voir <a href="https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html" target=_blank>la documentation</a>',
+			'security_warning' => 'Utilisez HTTPS. Le mot de passe API est transmis en clair et peut apparaître dans les journaux du serveur s’il est envoyé via GET.',
 		),
 		'change_password' => 'Changer le mot de passe',
 		'confirm_new_password' => 'Confirmer le mot de passe',
@@ -303,6 +311,8 @@ return array(
 			'when' => 'Marquer un article comme favori…',
 		),
 		'sticky_post' => 'Aligner l’article en haut quand il est ouvert',
+		'sticky_sort' => 'Conserver l’ordre de tri manuel lors de la navigation',
+		'sticky_sort_help' => 'Détermine si le dernier ordre de tri manuel est conservé ou si chaque catégorie ou flux utilise toujours son propre paramètre par défaut ou global.',
 		'title' => 'Lecture',
 		'view' => array(
 			'default' => 'Vue par défaut',

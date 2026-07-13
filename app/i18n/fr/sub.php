@@ -29,6 +29,7 @@ return array(
 			'help' => 'Fournir l’URL d’un <a href="http://opml.org/" target="_blank">fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
 		),
 		'empty' => 'Catégorie vide',
+		'error' => 'Cette catégorie OPML dynamique a rencontré un problème. Vérifiez que l’URL de l’OPML est toujours accessible et que le nombre maximum de flux par utilisateur n’a pas été dépassé.',
 		'expand' => 'Développer la catégorie',
 		'information' => 'Informations',
 		'open' => 'Ouvrir la catégorie',

@@ -55,6 +55,13 @@ return array(
 		),
 		'show_nav_buttons' => '顯示導覽按鈕',
 		'show_title_unread' => '在標題中顯示未讀文章的數量',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => '預設隱藏側邊欄',
 		'theme' => array(
 			'_' => '主題',
@@ -112,29 +119,30 @@ return array(
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
+			'label' => '顯示警告橫幅',
 			'seconds' => '秒 (至少為 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
+			'label' => '顯示確認橫幅',
 			'seconds' => '秒 (0 代表不顯示)',
 		),
 	),
 	'privacy' => array(
 		'_' => '隱私',
-		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'retrieve_extension_list' => '取得擴充功能清單',
 		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => '設定檔管理',
 		'api' => array(
 			'_' => '透過 API 進行外部存取',
-			'api_not_set' => 'API password not set',	// TODO
-			'api_set' => 'API password set',	// TODO
-			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
+			'api_not_set' => 'API 密碼未設定',
+			'api_set' => 'API 密碼已設定',
+			'check_link' => '透過此處檢查 API 狀態: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'API 存取已停用',
-			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
+			'documentation_link' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">說明文件與已知應用程式清單</a>',
 			'help' => '請參閱 <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>說明文件</a>',
+			'security_warning' => '請使用 HTTPS。API 密碼會以明文傳輸，並且如果透過 GET 傳送，可能出現在伺服器的紀錄中。',
 		),
 		'change_password' => '變更密碼',
 		'confirm_new_password' => '確認新密碼',
@@ -181,7 +189,7 @@ return array(
 		'name' => '名稱',
 		'no_filter' => '無過濾器',
 		'no_queries' => array(
-			'_' => 'No user queries are saved yet.',	// TODO
+			'_' => '尚無使用者查詢被儲存。',
 			'help' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">說明文件</a>',
 		),
 		'number' => '查詢 n°%d',
@@ -220,8 +228,8 @@ return array(
 	),
 	'reading' => array(
 		'_' => '閱讀',
-		'after_onread' => '在 “mark all as read” 之後，',
-		'always_show_favorites' => '預設顯示收藏中所有的文章',
+		'after_onread' => '在 "標記全部為已讀" 之後，',
+		'always_show_favorites' => '預設顯示收藏中的所有文章',
 		'apply_to_individual_feed' => '個別套用到訂閱源',
 		'article' => array(
 			'authors_date' => array(
@@ -251,15 +259,15 @@ return array(
 			),
 			'tags_max' => array(
 				'_' => '標籤最大顯示數量',
-				'help' => '0 代表顯示所有標籤並且不折疊它們',
+				'help' => '0 代表顯示所有標籤並且不摺疊它們',
 			),
 		),
 		'articles_per_page' => '每頁文章數',
 		'auto_load_more' => '在頁面底部載入更多文章',
 		'auto_remove_article' => '閱讀後隱藏文章',
 		'confirm_enabled' => '"標記全部為已讀" 動作時顯示確認對話框',
-		'display_articles_unfolded' => '預設不折疊文章',
-		'display_categories_unfolded' => '要不折疊的類別',
+		'display_articles_unfolded' => '預設不摺疊文章',
+		'display_categories_unfolded' => '不摺疊的類別',
 		'headline' => array(
 			'articles' => '文章: 開啟/關閉',
 			'articles_header_footer' => '文章: 頁首/頁尾',
@@ -289,7 +297,7 @@ return array(
 		'show' => array(
 			'_' => '要顯示的文章',
 			'active_category' => '啟用的類別',
-			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
+			'adaptive' => '如果有未讀文章就顯示，否則顯示所有文章',
 			'all_articles' => '顯示所有文章',
 			'all_categories' => '所有類別',
 			'no_category' => '無類別',
@@ -303,6 +311,8 @@ return array(
 			'when' => '標記文章為最愛…',
 		),
 		'sticky_post' => '開啟文章時將其固定於頁首',
+		'sticky_sort' => '導覽時保持手動排序',
+		'sticky_sort_help' => '決定保持最近一次手動排序，還是讓每個分類或訂閱源始終使用各自的預設或全域設定。',
 		'title' => '閱讀',
 		'view' => array(
 			'default' => '預設檢視',
@@ -336,7 +346,7 @@ return array(
 		'auto_share' => '分享',
 		'auto_share_help' => '如果只有一種分享模式，則會直接使用。否則，可透過編號存取每個模式。',
 		'close_menus' => '關閉選單',
-		'collapse_article' => '折疊',
+		'collapse_article' => '摺疊',
 		'first_article' => '開啟第一篇文章',
 		'focus_search' => '存取搜尋框',
 		'global_view' => '切換到全域檢視',

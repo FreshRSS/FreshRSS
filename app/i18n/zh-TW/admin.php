@@ -49,7 +49,7 @@ return array(
 		'all_feeds' => '所有訂閱源',
 		'category' => '類別',
 		'date_published' => '發表日期',
-		'date_received' => 'Received date',	// TODO
+		'date_received' => '接收日期',
 		'entry_count' => '文章數',
 		'entry_per_category' => '每個類別的文章數',
 		'entry_per_day' => '每日文章數 (過去 30 天)',
@@ -80,7 +80,7 @@ return array(
 		'_' => '系統配置',
 		'auto-update-url' => '自動升級伺服器 URL',
 		'base-url' => array(
-			'_' => '基本 URL',
+			'_' => '基礎 URL',
 			'recommendation' => '自動推薦: <kbd>%s</kbd>',
 		),
 		'closed_registration_message' => '註冊已關閉時顯示的訊息',
@@ -91,8 +91,13 @@ return array(
 		'default_closed_registration_message' => '目前此伺服器不接受新的註冊。',
 		'force_email_validation' => '強制驗證電子郵件位址',
 		'instance-name' => '實例名稱',
+		'internal-host-allowlist' => array(
+			'_' => '內部主機允許清單',
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => '每個使用者的最大類別數',
 		'max-feeds' => '每個使用者的最大訂閱源數',
+		'override-by-env-var' => '此設定由環境變數 <kbd>%s</kbd> 覆寫。',
 		'registration' => array(
 			'number' => '最大帳號數',
 			'select' => array(
