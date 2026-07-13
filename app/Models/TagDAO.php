@@ -239,7 +239,7 @@ class TagDAO extends ModelPdo {
 		if ($res !== null) {
 			/** @var list<array{id:int,name:string,unreads:int}> $res */
 			$tags = self::daoToTags($res);
-			uasort($tags, static fn(FreshRSS_Tag $a, FreshRSS_Tag $b) => FreshRSS_Context::localeCompare($a->name(), $b->name()));
+			uasort($tags, static fn(Tag $a, Tag $b) => Context::localeCompare($a->name(), $b->name()));
 			return $tags;
 		} else {
 			$info = $this->pdo->errorInfo();

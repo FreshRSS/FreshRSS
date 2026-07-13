@@ -968,7 +968,7 @@ use FreshRss\Utils\HttpUtil;
 	<div class="form-group">
 		<div class="group-controls">
 			<form method="post" action="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
-				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+				<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 				<input type="hidden" name="id" value="<?= $this->feed->id() ?>" />
 				<button class="btn btn-important" type="submit">
 					<?= _t('sub.feed.maintenance.clear_cache') ?>

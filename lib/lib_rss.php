@@ -60,13 +60,31 @@ function actualize_mutex_file(string $tmpPath, string $dataPath): string {
 
 //<Auto-loading>
 
-// Composer PSR-4 autoloading for the `FreshRss` namespace (app/, lib/Minz/), when available.
-// Not required in production yet: no runtime Composer package is mandatory, so `vendor/`
-// is not currently shipped in releases or Docker images. Falls back to the legacy
-// autoloader below when absent (e.g. a release archive without `composer install`).
-if (is_file(FRESHRSS_PATH . '/vendor/autoload.php')) {
-	require_once FRESHRSS_PATH . '/vendor/autoload.php';
+// PSR-4 autoloader for the `FreshRss` namespace (app/, lib/Minz/), mirroring the mapping
+// declared in `composer.json` (`autoload.psr-4`). Implemented natively instead of relying
+// on `vendor/autoload.php`, which is not shipped in releases or Docker images: no runtime
+// Composer package is required to run FreshRSS. `vendor/autoload.php` is only used for
+// development tooling (tests, static analysis, coding standards).
+function freshRssPsr4Autoloader(string $class): void {
+	$prefixes = [
+		'FreshRss\\Minz\\' => LIB_PATH . '/Minz/',
+		'FreshRss\\' => APP_PATH . '/',
+	];
+	foreach ($prefixes as $prefix => $baseDir) {
+		if (str_starts_with($class, $prefix)) {
+			$file = $baseDir . str_replace('\\', '/', substr($class, strlen($prefix))) . '.php';
+			if (is_file($file)) {
+				include $file;
+			}
+			return;
+		}
+	}
 }
+spl_autoload_register('freshRssPsr4Autoloader');
+
+// Must be required right after `freshRssPsr4Autoloader` registers, and before
+// `classAutoloader` below registers. See the doc comment in that file for why the order matters.
+require_once LIB_PATH . '/legacy-aliases.php';
 
 function classAutoloader(string $class): void {
 	if (str_starts_with($class, 'FreshRSS')) {
