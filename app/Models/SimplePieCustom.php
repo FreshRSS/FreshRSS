@@ -286,9 +286,6 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		if ($data === '' || ($maxLength !== null && $maxLength <= 0)) {
 			return '';
 		}
-		if ($maxLength !== null) {
-			$data = mb_strcut($data, 0, $maxLength, 'UTF-8');
-		}
 		/** @var FreshRSS_SimplePieCustom|null $simplePie */
 		static $simplePie = null;
 		if ($simplePie === null) {
@@ -296,16 +293,29 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			$simplePie->enable_cache(false);
 			$simplePie->init();
 		}
-		$sanitized = $simplePie->sanitize->sanitize($data, \SimplePie\SimplePie::CONSTRUCT_HTML, $base);
-		if (!is_string($sanitized)) {
-			return '';
-		}
-		$result = html_only_entity_decode($sanitized);
-		if ($maxLength !== null && strlen($result) > $maxLength) {
+
+		// Sanitizing can grow the string (e.g. auto-closing tags), so shrinking the input is retried a bounded
+		// number of times instead of recursing without limit, which could otherwise loop forever on a fixed point.
+		$result = '';
+		for ($attempt = 0; $attempt < 5; $attempt++) {
+			if ($maxLength !== null) {
+				$data = mb_strcut($data, 0, $maxLength, 'UTF-8');
+			}
+			$sanitized = $simplePie->sanitize->sanitize($data, \SimplePie\SimplePie::CONSTRUCT_HTML, $base);
+			if (!is_string($sanitized)) {
+				return '';
+			}
+			$result = html_only_entity_decode($sanitized);
+			if ($maxLength === null || strlen($result) <= $maxLength) {
+				return $result;
+			}
 			//Sanitizing has made the result too long so try again shorter
-			$data = mb_strcut($result, 0, (2 * $maxLength) - strlen($result) - 2, 'UTF-8');
-			return self::sanitizeHTML($data, $base, $maxLength);
+			$data = mb_strcut($result, 0, max(0, (2 * $maxLength) - strlen($result) - 2), 'UTF-8');
+			if ($data === '') {
+				break;
+			}
 		}
-		return $result;
+		//Could not converge to the requested length: fall back to a hard truncation that is guaranteed to terminate
+		return mb_strcut(strip_tags($result), 0, $maxLength, 'UTF-8');
 	}
 }
