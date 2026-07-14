@@ -14,9 +14,9 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Ļaut anonīmi lasīt noklusējuma lietotāja rakstus (%s)',
 		'allow_anonymous_refresh' => 'Atļaut anonīmu rakstu atsvaidzināšanu',
-		'api_enabled' => 'Atļaut <abbr>API</abbr> piekļuvi <small>(nepieciešams mobilajām lietotnēm and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Atļaut <abbr>API</abbr> piekļuvi <small>(nepieciešams mobilajām lietotnēm un lietotāja pieprasījumu kopīgošanai)</small>',
 		'form' => 'Tīmekļa veidlapa (tradicionālā, nepieciešams JavaScript)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP (papildu: pārvalda tīmekļa serveris, OIDC, SSO…)',
 		'none' => 'Nav (bīstami)',
 		'title' => 'Autentifikācija',
 		'token' => 'Galvenā autentifikācijas žetons',
@@ -29,9 +29,9 @@ return array(
 		'description' => 'Apraksts',
 		'disabled' => 'Atspējots',
 		'empty_list' => 'Nav instalētu paplašinājumu',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Pārbaudiet žurnālus, lai noteiktu tukšā paplašinājumu saraksta iemeslu.',
 		'enabled' => 'Ieslēgts',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Ir saderīgs',
 		'latest' => 'Instalēts',
 		'name' => 'Vārds',
 		'no_configure_view' => 'Šo paplašinājumu nevar konfigurēt.',
@@ -48,8 +48,8 @@ return array(
 		'_' => 'Statistika',
 		'all_feeds' => 'Visas barotnes',
 		'category' => 'Kategorija',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Publicēšanas datums',
+		'date_received' => 'Saņemšanas datums',
 		'entry_count' => 'Ierakstu skaits',
 		'entry_per_category' => 'Ieraksti katrā kategorijā',
 		'entry_per_day' => 'Ieraksti dienā (pēdējās 30 dienas)',
@@ -62,19 +62,19 @@ return array(
 		'idle' => 'Neaktīvās barotnes',
 		'main' => 'Galvenās statistikas',
 		'main_stream' => 'Galvenā plūsma',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Nelasīto rakstu skaits',
 		'no_idle' => 'Nav neaktīvu barotņu!',
 		'number_entries' => '%d raksti',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Pārskats',
 		'percent_of_total' => '% no kopsummas',
-		'repartition' => 'Rakstu pārdalīšana: %s',	// DIRTY
+		'repartition' => 'Rakstu sadalījums: %s',
 		'status_favorites' => 'Mīļākie',
 		'status_read' => 'Izlasīti',
 		'status_total' => 'Kopā',
 		'status_unread' => 'Neizlasīti',
 		'title' => 'Statistika',
 		'top_feed' => 'Top 10 barotnes',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Datumi ar visvairāk nelasītajiem rakstiem',
 	),
 	'system' => array(
 		'_' => 'Sistēmas konfigurācija',
@@ -83,12 +83,12 @@ return array(
 			'_' => 'Bāzes URL',
 			'recommendation' => 'Automātiska ieteikšana: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Message if registrations are closed',	// TODO
+		'closed_registration_message' => 'Ziņojums, ja reģistrācija ir slēgta',
 		'cookie-duration' => array(
 			'help' => 'sekundēs',
 			'number' => 'Pieteikšanās ilgums',
 		),
-		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
+		'default_closed_registration_message' => 'Šis serveris šobrīd nepieņem jaunas reģistrācijas.',
 		'force_email_validation' => 'Piespiedu e-pasta adreses validēšana',
 		'instance-name' => 'Instances nosaukums',
 		'internal-host-allowlist' => array(

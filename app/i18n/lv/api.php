@@ -12,22 +12,22 @@
 
 return array(
 	'information' => array(
-		'address' => 'Your API address:',	// TODO
+		'address' => 'Jūsu API adrese:',
 		'output' => array(
-			'encoding-support' => '⚠️ WARN: no <code>%2F</code> support, some clients might not work!',	// TODO
-			'invalid-configuration' => '⚠️ WARN: Probable invalid base URL in ./data/config.php',	// TODO
-			'pass' => '✔️ PASS',	// TODO
-			'unknown-error' => '❌ ',	// TODO
+			'encoding-support' => '⚠️ BRĪDINĀJUMS: nav <code>%2F</code> atbalsta, daži klienti var nedarboties!',
+			'invalid-configuration' => '⚠️ BRĪDINĀJUMS: iespējams, nederīgs bāzes URL failā ./data/config.php',
+			'pass' => '✔️ IZDEVĀS',
+			'unknown-error' => '❌ ',	// IGNORE
 		),
 		'test' => array(
-			'fever' => 'Fever API configuration test:',	// TODO
-			'greader' => 'Google Reader API configuration test:',	// TODO
+			'fever' => 'Fever API konfigurācijas tests:',
+			'greader' => 'Google Reader API konfigurācijas tests:',
 		),
 		'title' => array(
-			'_' => 'FreshRSS API endpoints',	// TODO
-			'extension' => 'API for extensions',	// TODO
-			'fever' => 'Fever compatible API',	// TODO
-			'greader' => 'Google Reader compatible API',	// TODO
+			'_' => 'FreshRSS API galapunkti',
+			'extension' => 'API paplašinājumiem',
+			'fever' => 'Ar Fever saderīga API',
+			'greader' => 'Ar Google Reader saderīga API',
 		),
 	),
 );

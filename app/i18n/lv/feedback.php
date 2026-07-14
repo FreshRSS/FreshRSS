@@ -50,7 +50,7 @@ return array(
 			'ko' => '%s nevar būt ieslēgts. <a href="%s">Pārbaudiet FreshRSS žurnālu</a> priekš papildu informācijas.',
 			'ok' => '%s ir tagad ieslēgts',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => 'Nederīgs skata režīms "%s"! Pāriet uz "Normālais skats".',
 		'no_access' => 'Jums nav piekļuves %s',
 		'not_enabled' => '%s nav ieslēgts',
 		'not_found' => '%s nēeksistē',
@@ -58,15 +58,15 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Jūsu serverī nav ZIP paplašinājuma. Lūdzu, mēģiniet eksportēt failus pa vienam.',
-		'feeds_imported' => 'Jūsu barotnes tika importētas un tagad tiks atjauninātas.	/ Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Jūsu barotnes tika importētas, bet ir radušās dažas kļūdas / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'Jūsu barotnes tika importētas. Ja importēšana ir pabeigta, tagad varat noklikšķināt uz pogas <i>Atjaunināt barotnes</i>.',
+		'feeds_imported_with_errors' => 'Jūsu barotnes tika importētas, bet radās dažas kļūdas. Ja importēšana ir pabeigta, tagad varat noklikšķināt uz pogas <i>Atjaunināt barotnes</i>.',
 		'file_cannot_be_uploaded' => 'Failu nevar augšupielādēt!',
 		'no_zip_extension' => 'Jūsu serverī nav ZIP paplašinājuma.',
-		'zip_error' => 'ZIP importa laikā notika kļūda.',	// DIRTY
+		'zip_error' => 'ZIP apstrādes laikā radās kļūda.',
 	),
 	'profile' => array(
 		'error' => 'Jūsu profilu nevar mainīt',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'Paroles nesakrīt',
 		'updated' => 'Jūsu profils tika mainīts',
 	),
 	'sub' => array(
@@ -97,8 +97,8 @@ return array(
 			'deleted' => 'Barortne tika izdzēsta',
 			'error' => 'Barotne nevar būt atjaunināta',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => 'Augšupielādētā ikona ir pārāk liela. Maksimālais faila lielums ir <em>%s</em>.',
+				'unsupported_format' => 'Neatbalstīts attēla faila formāts!',
 			),
 			'internal_problem' => 'Barotni nevarēja pievienot. <a href="%s">Apskataties FreshRSS žurnālu</a> priekš papildus informācijas. Jūs varat izmēģināt piespiedu pievienošanu, URL pievienojot <code>#force_feed</code>.',
 			'invalid_url' => 'URL <em>%s</em> ir nepareizs',
