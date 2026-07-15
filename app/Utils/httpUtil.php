@@ -21,6 +21,44 @@ final class FreshRSS_http_Util {
 	/** @var array<string, string[]> $resolve_ok */
 	private static array $resolve_ok = [];
 
+	/** @return string[] */
+	public static function loadForceHttpsDomains(): array {
+		$domains = [];
+		$force = @file(FRESHRSS_PATH . '/force-https.default.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		if (is_array($force)) {
+			$domains = array_merge($domains, $force);
+		}
+		$force = @file(DATA_PATH . '/force-https.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		if (is_array($force)) {
+			$domains = array_merge($domains, $force);
+		}
+
+		// Remove whitespace and comments starting with # / ;
+		$domains = preg_replace('%\\s+|[\\/#;].*$%', '', $domains) ?? $domains;
+		$domains = array_map(static fn(string $domain): string => strtolower(trim($domain, '. ')), $domains);
+		return array_values(array_filter($domains, static fn(string $domain): bool => $domain !== ''));
+	}
+
+	/**
+	 * Force HTTPS for URLs whose host is in `force-https.default.txt` or `data/force-https.txt`.
+	 */
+	public static function forceHttps(string $url): string {
+		if (strncasecmp($url, 'http://', 7) !== 0) {
+			return $url;
+		}
+		$host = parse_url($url, PHP_URL_HOST);
+		if (!is_string($host) || $host === '') {
+			return $url;
+		}
+		$host = strtolower(trim($host, '. '));
+		foreach (self::loadForceHttpsDomains() as $domain) {
+			if ($host === $domain || str_ends_with($host, '.' . $domain)) {
+				return substr_replace($url, 's', 4, 0);
+			}
+		}
+		return $url;
+	}
+
 	private static function getRetryAfterFile(string $url, string $proxy): string {
 		$domain = parse_url($url, PHP_URL_HOST);
 		if (!is_string($domain) || $domain === '') {
@@ -431,6 +469,7 @@ final class FreshRSS_http_Util {
 	 *   * `-500` `curl_init()` failure.
 	 */
 	public static function httpGet(string $url, ?string $cachePath = null, string $type = 'html', array $attributes = [], array $curl_options = []): array {
+		$url = self::forceHttps($url);
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
@@ -592,6 +631,7 @@ final class FreshRSS_http_Util {
 				if ($location === false) {
 					$location = $url;
 				}
+				$location = self::forceHttps($location);
 				if (!self::compareURLOrigins($url, $location)) {
 					unset($curl_options[CURLOPT_COOKIE]);
 					unset($curl_options[CURLOPT_USERPWD]);

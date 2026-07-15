@@ -213,7 +213,9 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				return;
 			}
 		} else {
-			$auto_update_url = FreshRSS_Context::systemConf()->auto_update_url . '/?v=' . FRESHRSS_VERSION;
+			$auto_update_url = FreshRSS_http_Util::forceHttps(
+				FreshRSS_Context::systemConf()->auto_update_url . '/?v=' . FRESHRSS_VERSION
+			);
 			Minz_Log::debug('HTTP GET ' . $auto_update_url);
 			$curlResource = curl_init($auto_update_url);
 
