@@ -137,6 +137,26 @@
 	</form>
 
 
+	<?php
+	$stateTranslations = [
+		0 => _t('conf.query.state_0'),
+		1 => _t('conf.query.state_1'),
+		2 => _t('conf.query.state_2'),
+		3 => _t('conf.query.state_3'),
+		4 => _t('conf.query.state_4'),
+		5 => _t('conf.query.state_5'),
+		6 => _t('conf.query.state_6'),
+		7 => _t('conf.query.state_7'),
+		8 => _t('conf.query.state_8'),
+		9 => _t('conf.query.state_9'),
+		10 => _t('conf.query.state_10'),
+		11 => _t('conf.query.state_11'),
+		12 => _t('conf.query.state_12'),
+		13 => _t('conf.query.state_13'),
+		14 => _t('conf.query.state_14'),
+		15 => _t('conf.query.state_15'),
+	];
+	?>
 	<form method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<?php if (count($this->queries) < 1) { ?>
@@ -180,15 +200,30 @@
 							<?php } ?>
 
 							<?php if ($query->getState()) { ?>
-							<li class="item"><?= _t('conf.query.state_' . $query->getState()) ?></li>
+							<li class="item"><?= $stateTranslations[$query->getState()] ?? '' ?></li>
 							<?php } ?>
 
 							<?php if ($query->getOrder() !== '') { ?>
-							<li class="item"><?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
+							<li class="item"><?= match ($query->getOrder()) {
+								'ASC' => _t('conf.query.order_asc'),
+								'DESC' => _t('conf.query.order_desc'),
+								default => '',
+							} ?></li>
 							<?php } ?>
 
 							<?php if ($query->getGet() !== '') { ?>
-							<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
+							<li class="item"><?= match ($query->getGetType()) {
+								'A' => _t('conf.query.get_A'),
+								'Z' => _t('conf.query.get_Z'),
+								'all' => _t('conf.query.get_all'),
+								'all_labels' => _t('conf.query.get_all_labels'),
+								'category' => _t('conf.query.get_category', $query->getGetName()),
+								'favorite' => _t('conf.query.get_favorite'),
+								'feed' => _t('conf.query.get_feed', $query->getGetName()),
+								'important' => _t('conf.query.get_important'),
+								'label' => _t('conf.query.get_label', $query->getGetName()),
+								default => '',
+							} ?></li>
 							<?php } ?>
 							<?php } ?>
 							</ul>
