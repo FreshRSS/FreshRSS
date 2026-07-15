@@ -124,6 +124,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 * GET request displays a form to add and configure a feed.
 	 * Request parameter is:
 	 *   - url_rss (default: false)
+	 *   - category (default: 1)
 	 *
 	 * POST request adds a feed in database.
 	 * Parameters are:
