@@ -951,19 +951,20 @@ class FreshRSS_Entry extends Minz_Model {
 		$response = FreshRSS_http_Util::httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
 		$html = $response['body'];
 		if ($html !== '') {
-			$doc = new DOMDocument();
-			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
-			$xpath = new DOMXPath($doc);
+			$doc = FreshRSS_CssSelector::loadHtml($html);
+			if ($doc === false) {
+				return '';
+			}
 
 			// Account for HTTP redirections
 			$url = $response['effective_url'] ?: $url;
 			$maxRedirs -= $response['redirect_count'];
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
-				$metas = $xpath->query('//meta[@content]') ?: [];
+				$metas = FreshRSS_CssSelector::querySelectorAll($doc, 'meta[content]');
 				foreach ($metas as $meta) {
-					if ($meta instanceof DOMElement && strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
-						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
+					if (FreshRSS_CssSelector::isElement($meta) && strtolower(trim(FreshRSS_CssSelector::getAttribute($meta, 'http-equiv'))) === 'refresh') {
+						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim(FreshRSS_CssSelector::getAttribute($meta, 'content')));
 						$refresh = is_string($refresh) ? \SimplePie\Misc::absolutize_url($refresh, $url) : false;
 						if ($refresh != false && $refresh !== $url) {
 							return $this->getContentByParsing($refresh, $maxRedirs - 1);
@@ -972,8 +973,9 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 			}
 
-			$base = $xpath->evaluate('normalize-space(//base/@href)');
-			if ($base == false || !is_string($base)) {
+			$baseElement = FreshRSS_CssSelector::querySelector($doc, 'base[href]');
+			$base = $baseElement === null ? '' : trim(FreshRSS_CssSelector::getAttribute($baseElement, 'href'));
+			if ($base === '') {
 				$base = $url;
 			} elseif (str_starts_with($base, '//')) {
 				//Protocol-relative URLs "//www.example.net"
@@ -984,61 +986,63 @@ class FreshRSS_Entry extends Minz_Model {
 			$cssSelector = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
 			$cssSelector = trim($cssSelector, ', ');
 			$path_entries_filter = trim($feed->attributeString('path_entries_filter') ?? '', ', ');
-			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector, '//'))->asXPath());
-			if ($nodes != false) {
-				$filter_xpath = $path_entries_filter === '' ? '' : (new Gt\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
-				foreach ($nodes as $node) {
-					try {
-						if (!($node instanceof DOMElement)) {
+			$nodes = FreshRSS_CssSelector::querySelectorAll($doc, $cssSelector);
+			foreach ($nodes as $node) {
+				try {
+					if (!FreshRSS_CssSelector::isElement($node)) {
+						continue;
+					}
+					if ($path_entries_filter !== '') {
+						if (FreshRSS_CssSelector::matches($node, $path_entries_filter)) {
 							continue;
 						}
-						if ($filter_xpath !== '' && ($filterednodes = $xpath->query($filter_xpath, $node)) !== false) {
-							// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
-							foreach ($filterednodes as $filterednode) {
-								try {
-									if ($filterednode === $node) {
-										continue 2;
-									}
-									if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
-										continue;
-									}
-									$filterednode->remove();
-								} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
-									if (!str_contains($e->getMessage(), 'Node no longer exists')) {
-										throw $e;
-									}
+						$filterednodes = FreshRSS_CssSelector::querySelectorAll($doc, $path_entries_filter, $node);
+						// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
+						foreach ($filterednodes as $filterednode) {
+							try {
+								if ($filterednode === $node) {
+									continue 2;
+								}
+								if (!FreshRSS_CssSelector::isElement($filterednode) || !FreshRSS_CssSelector::isAttached($filterednode, $doc)) {
+									continue;
+								}
+								FreshRSS_CssSelector::remove($filterednode);
+							} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
+								if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+									throw $e;
 								}
 							}
 						}
-						if ($node->ownerDocument !== $doc || $node->parentNode === null) {
-							continue;
-						}
-						$html .= $doc->saveHTML($node) . "\n";
-					} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
-						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
-							throw $e;
-						}
+					}
+					if (!FreshRSS_CssSelector::isAttached($node, $doc)) {
+						continue;
+					}
+					$html .= FreshRSS_CssSelector::saveHtml($doc, $node) . "\n";
+				} catch (Error $e) {
+					if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+						throw $e;
 					}
 				}
 			}
 
-			unset($xpath, $doc);
+			unset($doc);
 			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
 
 			if ($path_entries_filter !== '') {
 				// Remove unwanted elements again after sanitizing, for CSS selectors to also match sanitized content
 				$modified = false;
-				$doc = new DOMDocument();
 				$utf8BOM = "\xEF\xBB\xBF";
-				$doc->loadHTML($utf8BOM . $html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
-				$xpath = new DOMXPath($doc);
-				$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter, '//'))->asXPath()) ?: [];
+				$doc = FreshRSS_CssSelector::loadHtml($utf8BOM . $html);
+				if ($doc === false) {
+					return trim($html);
+				}
+				$filterednodes = FreshRSS_CssSelector::querySelectorAll($doc, $path_entries_filter);
 				foreach ($filterednodes as $filterednode) {
 					try {
-						if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+						if (!FreshRSS_CssSelector::isElement($filterednode) || !FreshRSS_CssSelector::isAttached($filterednode, $doc)) {
 							continue;
 						}
-						$filterednode->remove();
+						FreshRSS_CssSelector::remove($filterednode);
 						$modified = true;
 					} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
 						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
@@ -1047,7 +1051,7 @@ class FreshRSS_Entry extends Minz_Model {
 					}
 				}
 				if ($modified) {
-					$html = $doc->saveHTML($doc->getElementsByTagName('body')->item(0) ?? $doc->firstElementChild) ?: $html;
+					$html = FreshRSS_CssSelector::saveHtml($doc, FreshRSS_CssSelector::querySelector($doc, 'body')) ?: $html;
 				}
 			}
 
@@ -1104,26 +1108,25 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 		} elseif (trim($feed->attributeString('path_entries_filter') ?? '') !== '') {
 			$originalContent = $this->attributeString('original_content') ?? $this->content;
-			$doc = new DOMDocument();
 			$utf8BOM = "\xEF\xBB\xBF";
-			if (!$doc->loadHTML($utf8BOM . $originalContent, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+			$doc = FreshRSS_CssSelector::loadHtml($utf8BOM . $originalContent);
+			if ($doc === false) {
 				return false;
 			}
-			$xpath = new DOMXPath($doc);
-			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter'), '//'))->asXPath()) ?: [];
+			$filterednodes = FreshRSS_CssSelector::querySelectorAll($doc, $feed->attributeString('path_entries_filter'));
 			foreach ($filterednodes as $filterednode) {
 				try {
-					if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+					if (!FreshRSS_CssSelector::isElement($filterednode) || !FreshRSS_CssSelector::isAttached($filterednode, $doc)) {
 						continue;
 					}
-					$filterednode->remove();
+					FreshRSS_CssSelector::remove($filterednode);
 				} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
 					if (!str_contains($e->getMessage(), 'Node no longer exists')) {
 						throw $e;
 					}
 				}
 			}
-			$html = $doc->saveHTML($doc->getElementsByTagName('body')->item(0) ?? $doc->firstElementChild);
+			$html = FreshRSS_CssSelector::saveHtml($doc, FreshRSS_CssSelector::querySelector($doc, 'body'));
 			if (!is_string($html)) {
 				return false;
 			}
