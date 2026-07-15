@@ -43,7 +43,8 @@ final class SimplePieFetchTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public static function test_removeContentAfterRootClosingTag_whenTrailingJunkAfterIso88591Feed_preservesTheOriginalBytes(): void {
-		$feed = '<?xml version="1.0" encoding="ISO-8859-1"?><rss version="2.0"><channel><title>caf' . "\xE9" . '</title></channel></rss>';
+		$title = 'ca' . 'f' . "\xE9";
+		$feed = '<?xml version="1.0" encoding="ISO-8859-1"?><rss version="2.0"><channel><title>' . $title . '</title></channel></rss>';
 		$body = $feed . '<script>junk</script>';
 
 		self::assertSame($feed, FreshRSS_SimplePieFetch::removeContentAfterRootClosingTag($body));
