@@ -302,7 +302,7 @@ return array(
 		'linkedin' => ' لینکدین',
 		'mastodon' => ' ماستودون',
 		'movim' => ' Movim',
-		'nextcloud-bookmarks' => 'Nextcloud Bookmarks',	// TODO
+		'nextcloud-bookmarks' => 'نشانک‌ها',
 		'omnivore' => ' همه چیزخوار',
 		'pinboard' => ' پینبرد',
 		'pinterest' => ' پینترست',
