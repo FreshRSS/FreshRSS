@@ -41,6 +41,8 @@ final class FreshRSS_http_Util {
 
 	/**
 	 * Force HTTPS for URLs whose host is in `force-https.default.txt` or `data/force-https.txt`.
+	 *
+	 * @return ($url is non-empty-string ? non-empty-string : string)
 	 */
 	public static function forceHttps(string $url): string {
 		if (strncasecmp($url, 'http://', 7) !== 0) {
@@ -541,7 +543,6 @@ final class FreshRSS_http_Util {
 			$max_redirs = 4;
 		}
 		while (true) {
-			$url = is_string($url) ? $url : '';
 			$resolve = [];
 			if ($proxy === '') {
 				$resolve = self::getCurlResolveInfo($url);
