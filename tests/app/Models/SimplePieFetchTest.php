@@ -42,6 +42,19 @@ final class SimplePieFetchTest extends \PHPUnit\Framework\TestCase {
 		self::assertSame($feed, FreshRSS_SimplePieFetch::removeContentAfterRootClosingTag($body));
 	}
 
+	public static function test_removeContentAfterRootClosingTag_whenTrailingJunkAfterIso88591Feed_preservesTheOriginalBytes(): void {
+		$feed = '<?xml version="1.0" encoding="ISO-8859-1"?><rss version="2.0"><channel><title>caf' . "\xE9" . '</title></channel></rss>';
+		$body = $feed . '<script>junk</script>';
+
+		self::assertSame($feed, FreshRSS_SimplePieFetch::removeContentAfterRootClosingTag($body));
+	}
+
+	public static function test_removeContentAfterRootClosingTag_whenUtf16FeedCannotBeMatched_leavesTheBodyForSimplePieToHandle(): void {
+		$body = "\xFF\xFE<\0r\0s\0s\0>\0<\0/\0r\0s\0s\0>\0<\0s\0c\0r\0i\0p\0t\0>\0j\0u\0n\0k\0<\0/\0s\0c\0r\0i\0p\0t\0>\0";
+
+		self::assertSame($body, FreshRSS_SimplePieFetch::removeContentAfterRootClosingTag($body));
+	}
+
 	public static function test_removeContentAfterRootClosingTag_whenClosingTagSubstringAppearsEarlierInCdata_usesLastRootClosingTag(): void {
 		// The literal string `</rss>` legitimately appears inside a CDATA section, before the real root closing tag.
 		$feed = '<?xml version="1.0"?><rss version="2.0"><channel><description><![CDATA[Example of literal text: </rss>]]></description></channel></rss>';

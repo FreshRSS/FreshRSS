@@ -53,7 +53,7 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 	}
 
 	/**
-	 * Discards any content found after the last closing root tag (`</rss>`, `</feed>`, or `</…:RDF>`), if any.
+	 * Discards any content found after the last closing root tag (`</rss>`, `</feed>`, or `</…:RDF>`), if any, without recoding the body.
 	 * Left untouched if no closing root tag is found, so as to not break otherwise-invalid feeds in a different way.
 	 */
 	public static function removeContentAfterRootClosingTag(string $body): string {
