@@ -76,6 +76,10 @@ return array(
 			'ok' => 'У вас установлено расширение fileinfo.',
 		),
 		'files' => 'Установка файлов',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Не найдена библиотека php-intl, рекомендуемая для поддержки разных языков.',
 			'ok' => 'Рекомендуемая библиотека php-intl для поддержки разных языков установлена.',

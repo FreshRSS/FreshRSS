@@ -493,6 +493,9 @@ function printStep1(): void {
 	printStep1Template('intl', $res['intl']);
 	printStep1Template('fileinfo', $res['fileinfo']);
 	printStep1Template('zip', $res['zip']);
+	if (isset($res['gmp'])) {
+		printStep1Template('gmp', $res['gmp']);
+	}
 	?>
 	<h2><?= _t('install.check.files') ?></h2>
 	<?php

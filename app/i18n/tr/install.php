@@ -76,6 +76,10 @@ return array(
 			'ok' => 'Fileinfo kütüphaneniz var.',
 		),
 		'files' => 'Dosya kurulumu',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Uluslararasılaştırma için önerilen php-intl kütüphanesi bulunamadı.',
 			'ok' => 'Uluslararasılaştırma için önerilen php-intl kütüphanesine sahipsiniz.',

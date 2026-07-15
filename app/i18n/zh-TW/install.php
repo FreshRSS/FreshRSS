@@ -76,6 +76,10 @@ return array(
 			'ok' => '您擁有推薦的 PHP fileinfo 函式庫 (fileinfo 套件)。',
 		),
 		'files' => '檔案安裝',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => '無法找到推薦用於國際化的 php-intl 函式庫。',
 			'ok' => '您擁有推薦用於國際化的 php-intl 函式庫。',

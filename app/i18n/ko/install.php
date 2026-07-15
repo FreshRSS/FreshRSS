@@ -76,6 +76,10 @@ return array(
 			'ok' => 'fileinfo 라이브러리가 설치되어 있습니다.',
 		),
 		'files' => '파일 시스템 설치 요구사항',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
 			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
