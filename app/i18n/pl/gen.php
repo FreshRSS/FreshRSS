@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nazwa użytkownika',
-			'format' => '<small>nie więcej niż 16 znaków alfanumerycznych</small>',
+			'format' => '<small>nie więcej niż 16 znaków alfanumerycznych</small>',	// DIRTY
 		),
 	),
 	'date' => array(

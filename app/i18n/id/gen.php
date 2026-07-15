@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nama pengguna',
-			'format' => '<small>Maksimum 16 alfanumerik karakter</small>',
+			'format' => '<small>Maksimum 16 alfanumerik karakter</small>',	// DIRTY
 		),
 	),
 	'date' => array(

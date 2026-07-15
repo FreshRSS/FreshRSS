@@ -141,7 +141,7 @@ return array(
 	'congratulations' => 'Tebrikler!',
 	'default_user' => array(
 		'_' => 'Varsayılan kullanıcının kullanıcı adı',
-		'max_char' => 'en fazla 16 alfanümerik karakter',
+		'max_char' => 'en fazla 16 alfanümerik karakter',	// DIRTY
 	),
 	'fix_errors_before' => 'Lütfen bir sonraki adıma geçmeden önce hataları düzeltin.',
 	'javascript_is_better' => 'FreshRSS, JavaScript etkinleştirildiğinde daha keyifli',

@@ -141,7 +141,7 @@ return array(
 	'congratulations' => 'Parabéns!',
 	'default_user' => array(
 		'_' => 'Utilizador padrão',
-		'max_char' => 'máximo de 16 caracteres alfanuméricos',
+		'max_char' => 'máximo de 16 caracteres alfanuméricos',	// DIRTY
 	),
 	'fix_errors_before' => 'Por favor solucione os erros antes de ir para o próximo passo.',
 	'javascript_is_better' => 'O FreshRSS é mais agradável com o JavaScript ativo',

@@ -141,7 +141,7 @@ return array(
 	'congratulations' => 'Вітаємо!',
 	'default_user' => array(
 		'_' => 'Імʼя типового користувача',
-		'max_char' => 'максимум 16 латинських літер і цифр',
+		'max_char' => 'максимум 16 латинських літер і цифр',	// DIRTY
 	),
 	'fix_errors_before' => 'Перш ніж перейти до наступного кроку, слід виправити помилки.',
 	'javascript_is_better' => 'FreshRSS зручніше, коли JavaScript увімкнено',

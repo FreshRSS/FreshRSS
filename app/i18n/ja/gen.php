@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'ユーザー名',
-			'format' => '<small>最大16文字の英数字</small>',
+			'format' => '<small>最大16文字の英数字</small>',	// DIRTY
 		),
 	),
 	'date' => array(

@@ -141,7 +141,7 @@ return array(
 	'congratulations' => 'Gratulálunk!',
 	'default_user' => array(
 		'_' => 'Alapértelmezett felhasználó neve',
-		'max_char' => 'maximum 16 alfanumerikus karakter',
+		'max_char' => 'maximum 16 alfanumerikus karakter',	// DIRTY
 	),
 	'fix_errors_before' => 'Javíts meg minden hibát mielőtt továbblépnél a következő lépésre.',
 	'javascript_is_better' => 'A FreshRSS sokkal jobban élvezhető ha a JavaScript engedélyezve van.',

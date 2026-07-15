@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Όνομα Χρήστη',
-			'format' => '<small>Το μέγιστο είναι 16 αλφαριθμητικοί χαρακτήρες</small>',
+			'format' => '<small>Το μέγιστο είναι 16 αλφαριθμητικοί χαρακτήρες</small>',	// DIRTY
 		),
 	),
 	'date' => array(

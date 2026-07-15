@@ -141,7 +141,7 @@ return array(
 	'congratulations' => 'Selamat datang!',
 	'default_user' => array(
 		'_' => 'Nama pengguna untuk pengguna baku',
-		'max_char' => 'maksimum 16 karakter alpanumerik',
+		'max_char' => 'maksimum 16 karakter alpanumerik',	// DIRTY
 	),
 	'fix_errors_before' => 'Perbaiki galat sebelum melanjutkan.',
 	'javascript_is_better' => 'FreshRSS lebih baik dengan JavaScript diaktifkan',

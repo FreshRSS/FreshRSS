@@ -141,7 +141,7 @@ return array(
 	'congratulations' => 'Glückwunsch!',
 	'default_user' => array(
 		'_' => 'Benutzername des Standardbenutzers',
-		'max_char' => 'maximal 16 alphanumerische Zeichen',
+		'max_char' => 'maximal 16 alphanumerische Zeichen',	// DIRTY
 	),
 	'fix_errors_before' => 'Bitte den Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 	'javascript_is_better' => 'FreshRSS ist angenehmer, wenn JavaScript aktiviert ist.',

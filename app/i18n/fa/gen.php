@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => ' نام کاربری',
-			'format' => '<small>حداکثر 16 نویسه الفبای عددی</small>',
+			'format' => '<small>حداکثر 16 نویسه الفبای عددی</small>',	// DIRTY
 		),
 	),
 	'date' => array(

@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Käyttäjätunnus',
-			'format' => '<small>Enintään 16 aakkosnumeerista merkkiä</small>',
+			'format' => '<small>Enintään 16 aakkosnumeerista merkkiä</small>',	// DIRTY
 		),
 	),
 	'date' => array(

@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Користувацьке імʼя',
-			'format' => '<small>Максимум 16 латинських літер або цифер</small>',
+			'format' => '<small>Максимум 16 латинських літер або цифер</small>',	// DIRTY
 		),
 	),
 	'date' => array(

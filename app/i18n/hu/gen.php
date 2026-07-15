@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Felhasználó név',
-			'format' => '<small>Maximum 16 alfanumerikus karakter</small>',
+			'format' => '<small>Maximum 16 alfanumerikus karakter</small>',	// DIRTY
 		),
 	),
 	'date' => array(

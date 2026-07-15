@@ -141,7 +141,7 @@ return array(
 	'congratulations' => 'Gratulujeme!',
 	'default_user' => array(
 		'_' => 'Uživatelské jméno výchozího uživatele',
-		'max_char' => 'maximálně 16 alfanumerických znaků',
+		'max_char' => 'maximálně 16 alfanumerických znaků',	// DIRTY
 	),
 	'fix_errors_before' => 'Opravte prosím všechny chyby před přechodem na další krok.',
 	'javascript_is_better' => 'Práce s FreshRSS je příjemnější se zapnutým JavaScript',

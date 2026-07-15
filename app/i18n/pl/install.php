@@ -141,7 +141,7 @@ return array(
 	'congratulations' => 'Gratulacje!',
 	'default_user' => array(
 		'_' => 'Nazwa domyślnego użytkownika',
-		'max_char' => 'maksymalnie 16 znaków alfanumerycznych',
+		'max_char' => 'maksymalnie 16 znaków alfanumerycznych',	// DIRTY
 	),
 	'fix_errors_before' => 'Proszę naprawić wszystkie błędy przed przystąpieniem do kolejnego kroku.',
 	'javascript_is_better' => 'FreshRSS działa lepiej z włączonym JavaScript-em',

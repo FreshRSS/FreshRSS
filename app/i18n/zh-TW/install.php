@@ -141,7 +141,7 @@ return array(
 	'congratulations' => '恭喜！',
 	'default_user' => array(
 		'_' => '預設使用者名稱',
-		'max_char' => '最多 16 個數字或字母',
+		'max_char' => '最多 16 個數字或字母',	// DIRTY
 	),
 	'fix_errors_before' => '請在繼續下一步前修復錯誤',
 	'javascript_is_better' => '啟用 JavaScript 會使 FreshRSS 使用體驗更佳',

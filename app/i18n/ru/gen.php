@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Имя пользователя',
-			'format' => '<small>Не более 16 буквенно-цифровых символов</small>',
+			'format' => '<small>Не более 16 буквенно-цифровых символов</small>',	// DIRTY
 		),
 	),
 	'date' => array(

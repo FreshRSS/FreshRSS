@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Lietotājvārds',
-			'format' => '<small>Maksimums 16 burtu un ciparu zīmes</small>',
+			'format' => '<small>Maksimums 16 burtu un ciparu zīmes</small>',	// DIRTY
 		),
 	),
 	'date' => array(
