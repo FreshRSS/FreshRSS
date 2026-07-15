@@ -129,6 +129,11 @@ input:focus, select:focus, textarea:focus {
 	border-color: var(--border-color-grey-dark);
 }
 
+input:-moz-ui-invalid, select:-moz-ui-invalid {
+	border-color: var(--invalid-box-border-color);
+	box-shadow: 0 0 2px 2px var(--invalid-box-shadow-color) inset;
+}
+
 input:user-invalid, select:user-invalid {
 	border-color: var(--invalid-box-border-color);
 	box-shadow: 0 0 2px 2px var(--invalid-box-shadow-color) inset;

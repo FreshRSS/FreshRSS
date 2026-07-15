@@ -133,6 +133,12 @@ input, select, textarea {
 	line-height: 1;
 }
 
+input:-moz-ui-invalid,
+select:-moz-ui-invalid,
+textarea:-moz-ui-invalid {
+	border-color: var(--red);
+}
+
 input:user-invalid,
 select:user-invalid,
 textarea:user-invalid {

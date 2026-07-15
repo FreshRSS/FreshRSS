@@ -54,6 +54,12 @@ input:focus, select:focus, textarea:focus {
 	border-color: #2980b9;
 }
 
+input:-moz-ui-invalid, select:-moz-ui-invalid {
+	color: #f00;
+	border-color: #f00;
+	box-shadow: none;
+}
+
 input:user-invalid, select:user-invalid {
 	color: #f00;
 	border-color: #f00;

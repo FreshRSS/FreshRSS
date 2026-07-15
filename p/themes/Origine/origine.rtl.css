@@ -138,6 +138,11 @@ input:focus, select:focus, textarea:focus, input[type="password"]:focus + .toggl
 	outline: none;
 }
 
+input:-moz-ui-invalid, select:-moz-ui-invalid {
+	border-color: var(--form-element-border-color-invalid);
+	box-shadow: 0 0 2px 2px var(--form-element-invalid-box-shadow-color-inset) inset;
+}
+
 input:user-invalid, select:user-invalid {
 	border-color: var(--form-element-border-color-invalid);
 	box-shadow: 0 0 2px 2px var(--form-element-invalid-box-shadow-color-inset) inset;

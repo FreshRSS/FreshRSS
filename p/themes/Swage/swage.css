@@ -170,6 +170,14 @@ label {
 		outline: none;
 	}
 
+	&:-moz-ui-invalid {
+		padding-left: 5px;
+		color: var(--color-text-bad);
+		border-left-color: var(--color-border-bad);
+		border-left-width: 5px;
+		box-shadow: none;
+	}
+
 	&:user-invalid {
 		padding-left: 5px;
 		color: var(--color-text-bad);

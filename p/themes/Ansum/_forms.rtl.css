@@ -94,6 +94,12 @@ input:focus, select:focus, textarea:focus {
 	border-color: var(--main-first);
 }
 
+input:-moz-ui-invalid, select:-moz-ui-invalid {
+	color: var(--alert-bg);
+	border-color: var(--alert-bg);
+	box-shadow: none;
+}
+
 input:user-invalid, select:user-invalid {
 	color: var(--alert-bg);
 	border-color: var(--alert-bg);

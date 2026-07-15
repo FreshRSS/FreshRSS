@@ -39,6 +39,9 @@ option {
 input:focus, select:focus, textarea:focus {
 }
 
+input:-moz-ui-invalid, select:-moz-ui-invalid {
+}
+
 input:user-invalid, select:user-invalid {
 }
 
