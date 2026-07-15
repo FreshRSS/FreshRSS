@@ -13,14 +13,12 @@ FreshRSS is updated by the `./app/actualize_script.php` script. Knowing this, we
 Easiest, built-in solution, also used already in the examples above
 (but your Docker instance will have a second process in the background, without monitoring).
 Just pass the environment variable `CRON_MIN` to your `docker run` command,
-containing a valid cron minute definition such as `"13,43"` (recommended) or `"*/20"`.
+containing a valid cron minute definition such as `13,43` (recommended) or `*/20`.
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
-
-> ℹ️ Use double quotes (`"..."`), not single quotes, around `CRON_MIN` values such as `"CRON_MIN=13,43"`. Single quotes are not stripped by Windows `cmd.exe` and end up included in the variable, whereas double quotes work correctly on Linux/macOS shells, PowerShell, and `cmd.exe` alike.
 
 ```sh
 docker run ... \
-  -e "CRON_MIN=13,43" \
+  -e CRON_MIN=13,43 \
   --name freshrss freshrss/freshrss
 ```
 
