@@ -104,16 +104,30 @@ function incLabel(p, inc, spaceAfter) {
 	return i > 0 ? ((spaceAfter ? '' : ' ') + '(' + numberFormat(i) + ')' + (spaceAfter ? ' ' : '')) : '';
 }
 
+function updateUnreadBadge(elem, value) {
+	if (!elem) {
+		return;
+	}
+	elem.setAttribute('data-unread', value);
+	// Safari can keep a pseudo-element stale after only a data attribute change.
+	// Reading the layout forces the new badge value to be painted immediately.
+	if (elem.matches('.title, .item-title')) {
+		elem.style.visibility = 'visible';
+		void elem.offsetWidth;
+		elem.style.removeProperty('visibility');
+	}
+}
+
 function incUnreadsFeed(article, feed_id, nb) {
 	// Update unread: feed
 	let elem = document.getElementById(feed_id);
 	let feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
 	const feed_priority = elem ? str2int(elem.getAttribute('data-priority')) : 0;
 	if (elem) {
-		elem.setAttribute('data-unread', feed_unreads + nb);
+		updateUnreadBadge(elem, feed_unreads + nb);
 		elem = elem.querySelector('.item-title');
 		if (elem) {
-			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+			updateUnreadBadge(elem, numberFormat(feed_unreads + nb));
 		}
 	}
 
@@ -122,10 +136,10 @@ function incUnreadsFeed(article, feed_id, nb) {
 	elem = elem ? elem.closest('.category') : null;
 	if (elem) {
 		feed_unreads = str2int(elem.getAttribute('data-unread'));
-		elem.setAttribute('data-unread', feed_unreads + nb);
+		updateUnreadBadge(elem, feed_unreads + nb);
 		elem = elem.querySelector('.title');
 		if (elem) {
-			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+			updateUnreadBadge(elem, numberFormat(feed_unreads + nb));
 		}
 	}
 
@@ -134,7 +148,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 		elem = document.querySelector('#aside_feed .all .title');
 		if (elem) {
 			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
-			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+			updateUnreadBadge(elem, numberFormat(feed_unreads + nb));
 		}
 	}
 
@@ -143,7 +157,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 		elem = document.querySelector('#aside_feed .important .title');
 		if (elem) {
 			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
-			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+			updateUnreadBadge(elem, numberFormat(feed_unreads + nb));
 		}
 	}
 
@@ -152,7 +166,7 @@ function incUnreadsFeed(article, feed_id, nb) {
 		elem = document.querySelector('#aside_feed .favorites .title');
 		if (elem) {
 			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
-			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+			updateUnreadBadge(elem, numberFormat(feed_unreads + nb));
 		}
 	}
 
@@ -185,13 +199,13 @@ function incUnreadsTag(tag_id, nb) {
 	let t = document.getElementById(tag_id);
 	if (t) {
 		const unreads = str2int(t.getAttribute('data-unread'));
-		t.setAttribute('data-unread', unreads + nb);
-		t.querySelector('.item-title').setAttribute('data-unread', numberFormat(unreads + nb));
+		updateUnreadBadge(t, unreads + nb);
+		updateUnreadBadge(t.querySelector('.item-title'), numberFormat(unreads + nb));
 	}
 	t = document.querySelector('.category.tags .title');
 	if (t) {
 		const unreads = str2int(t.getAttribute('data-unread'));
-		t.setAttribute('data-unread', numberFormat(unreads + nb));
+		updateUnreadBadge(t, numberFormat(unreads + nb));
 	}
 }
 
