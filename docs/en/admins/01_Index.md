@@ -33,10 +33,10 @@ Learn how to install, update, and backup FreshRSS, as well as how to use the com
 
 * [Apache/Nginx configuration files](10_ServerConfig.md)
 * [Reverse proxy with Caddy](Caddy.md)
+* [OpenBSD httpd](OpenBSD-httpd.md)
 
 ### Special server information
 
 * [Installation on Debian 9/Ubuntu 16.04](06_LinuxInstall.md)
 * [Installation on cloud providers](14_CloudProviders.md)
 * [Updating on Debian 9/Ubuntu 16.04](07_LinuxUpdate.md)
-
