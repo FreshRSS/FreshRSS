@@ -50,7 +50,7 @@ return array(
 			'ko' => '%sは有効にできません。 <a href="%s">FreshRSS のログを確認してください</a> 詳細が表示されます。',
 			'ok' => '%sは有効にされています。',
 		),
-		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
+		'invalid_view_mode' => '無効なビューモード「%s」です。ノーマルビューに戻します。',
 		'no_access' => 'あなたは%sにアクセスする権限がありません',
 		'not_enabled' => '%sは有効にされていません',
 		'not_found' => '%sは存在しません',
@@ -66,7 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'あなたのプロフィールを変更することはできません',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'パスワードが一致しません',
 		'updated' => 'あなたのプロフィールを変更されました',
 	),
 	'sub' => array(
@@ -97,8 +97,8 @@ return array(
 			'deleted' => 'フィードは消去されました',
 			'error' => 'フィードを更新することができません',
 			'favicon' => array(
-				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
-				'unsupported_format' => 'Unsupported image file format!',	// TODO
+				'too_large' => 'アップロードしたアイコンサイズが大きすぎます。上限は <em>%s</em> です。',
+				'unsupported_format' => '対応していない画像ファイル形式です',
 			),
 			'internal_problem' => 'newsfeedを追加することはできません。<a href="%s">FreshRSSログの詳細を</a>確かめてください。強制的に追加することを試せます <code>#force_feed</code>このURLを確認ください。',
 			'invalid_url' => 'URL <em>%s</em>は無効です',
