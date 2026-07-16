@@ -58,12 +58,18 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 		self::assertStringContainsString('src="https://example.com/real.jpg"', $out);
 	}
 
-	public function test_sanitizeHTML_skipsSrcsetWithDensityOnlyDescriptors(): void {
-		$html = '<img src="" srcset="https://example.com/a.jpg 1x, https://example.com/b.jpg 2x" alt="x">';
+	public function test_sanitizeHTML_fallsBackToLowestDensityWhenNoWidthEntries(): void {
+		// No Nw entries: clients that only read src would keep the placeholder,
+		// so fall back to the lowest-density entry instead.
+		$html = '<img src="" srcset="https://example.com/b.jpg 2x, https://example.com/a.jpg 1x" alt="x">';
 		$out = FreshRSS_SimplePieCustom::sanitizeHTML($html);
-		// No Nw entries -> we don't touch src; srcset is left intact for the browser.
-		self::assertStringNotContainsString('src="https://example.com/a.jpg"', $out);
-		self::assertStringNotContainsString('src="https://example.com/b.jpg"', $out);
+		self::assertStringContainsString('src="https://example.com/a.jpg"', $out);
+	}
+
+	public function test_sanitizeHTML_prefersWidthOverDensityForFallbackSrc(): void {
+		$html = '<img src="" srcset="https://example.com/d.jpg 1x, https://example.com/w.jpg 300w" alt="x">';
+		$out = FreshRSS_SimplePieCustom::sanitizeHTML($html);
+		self::assertStringContainsString('src="https://example.com/w.jpg"', $out);
 	}
 
 	public function test_sanitizeHTML_absolutisesDensityOnlySrcsetUrls(): void {
@@ -129,5 +135,41 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 		$html = '<img src="' . $mid . '" srcset="https://example.com/a.jpg 500w" alt="x">';
 		$out = FreshRSS_SimplePieCustom::sanitizeHTML($html);
 		self::assertStringContainsString('src="' . $mid . '"', $out);
+	}
+
+	public function test_sanitizeHTML_keepsCommasInsideSrcsetUrls(): void {
+		// Cloudinary-style transformation URLs contain unencoded commas;
+		// splitting on every comma would corrupt them.
+		$html = '<img src="" srcset="'
+			. 'https://res.example.com/upload/w_300,c_scale/a.jpg 300w, '
+			. 'https://res.example.com/upload/w_600,c_scale/a.jpg 600w" alt="x">';
+		$out = FreshRSS_SimplePieCustom::sanitizeHTML($html);
+		self::assertStringContainsString('https://res.example.com/upload/w_300,c_scale/a.jpg 300w', $out);
+		self::assertStringContainsString('https://res.example.com/upload/w_600,c_scale/a.jpg 600w', $out);
+		self::assertStringContainsString('src="https://res.example.com/upload/w_300,c_scale/a.jpg"', $out);
+	}
+
+	public function test_sanitizeHTML_parsesSrcsetEntriesSeparatedByCommaWithoutSpace(): void {
+		$html = '<img src="" srcset="https://example.com/a.jpg 100w,https://example.com/b.jpg 500w" alt="x">';
+		$out = FreshRSS_SimplePieCustom::sanitizeHTML($html);
+		self::assertStringContainsString('https://example.com/a.jpg 100w', $out);
+		self::assertStringContainsString('https://example.com/b.jpg 500w', $out);
+		self::assertStringContainsString('src="https://example.com/a.jpg"', $out);
+	}
+
+	public function test_sanitizeHTML_dropsDisallowedSchemesFromSrcset(): void {
+		// The srcset rewrite runs after replace_urls, so a disallowed scheme
+		// must not survive in srcset nor be written into the src fallback.
+		$html = '<img src="" srcset="javascript:alert(1) 100w, https://example.com/a.jpg 500w" alt="x">';
+		$out = FreshRSS_SimplePieCustom::sanitizeHTML($html);
+		self::assertStringNotContainsString('javascript:', $out);
+		self::assertStringContainsString('src="https://example.com/a.jpg"', $out);
+	}
+
+	public function test_sanitizeHTML_removesSrcsetWhenAllEntriesDisallowed(): void {
+		$html = '<img src="https://example.com/x.jpg" srcset="javascript:alert(1) 100w" alt="x">';
+		$out = FreshRSS_SimplePieCustom::sanitizeHTML($html);
+		self::assertStringNotContainsString('srcset', $out);
+		self::assertStringContainsString('src="https://example.com/x.jpg"', $out);
 	}
 }

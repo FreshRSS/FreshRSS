@@ -1011,9 +1011,12 @@ class Sanitize implements RegistryAware
 
     /**
      * Absolutise each URL in `srcset` on `<img>` and `<source>` against the
-     * document base. For `<img>` only, when `src` is empty or a recognised
-     * placeholder (lazy-loading pattern), write the smallest `Nw` entry as
-     * a fallback. The browser uses `srcset` for actual selection; `src`
+     * document base, dropping entries with a disallowed URI scheme (this
+     * runs after `replace_urls`, so entries written into `src` below would
+     * otherwise bypass that scheme check). For `<img>` only, when `src` is
+     * empty or a recognised placeholder (lazy-loading pattern), write the
+     * smallest `Nw` entry (or, failing that, the lowest-density `Nx` entry)
+     * as a fallback. The browser uses `srcset` for actual selection; `src`
      * only loads when `srcset` can't be honoured (legacy browsers,
      * non-browser API consumers), so the smallest is the safest fallback
      * by bandwidth and is never larger than what `srcset` would have
@@ -1028,12 +1031,13 @@ class Sanitize implements RegistryAware
         $absolutised = [];
         foreach ($entries as $e) {
             $abs = $this->registry->call(Misc::class, 'absolutize_url', [$e['url'], $this->base]);
-            if (!is_string($abs) || $abs === '') {
+            if (!is_string($abs) || $abs === '' || !$this->is_allowed_scheme($abs)) {
                 continue;
             }
-            $absolutised[] = ['url' => $abs, 'descriptor' => $e['descriptor'], 'w' => $e['w']];
+            $absolutised[] = ['url' => $abs, 'descriptor' => $e['descriptor'], 'w' => $e['w'], 'x' => $e['x']];
         }
         if ($absolutised === []) {
+            $element->removeAttribute('srcset');
             return;
         }
         $element->setAttribute('srcset', implode(', ', array_map(
@@ -1050,12 +1054,17 @@ class Sanitize implements RegistryAware
         if (!$this->isPlaceholderSrc($current)) {
             return;
         }
-        $widthEntries = array_values(array_filter($absolutised, static fn(array $e): bool => $e['w'] > 0));
-        if ($widthEntries === []) {
+        $candidates = array_values(array_filter($absolutised, static fn(array $e): bool => $e['w'] > 0));
+        if ($candidates !== []) {
+            usort($candidates, static fn(array $a, array $b): int => $a['w'] <=> $b['w']);
+        } else {
+            $candidates = array_values(array_filter($absolutised, static fn(array $e): bool => $e['x'] > 0.0));
+            usort($candidates, static fn(array $a, array $b): int => $a['x'] <=> $b['x']);
+        }
+        if ($candidates === []) {
             return;
         }
-        usort($widthEntries, static fn(array $a, array $b): int => $a['w'] <=> $b['w']);
-        $element->setAttribute('src', $widthEntries[0]['url']);
+        $element->setAttribute('src', $candidates[0]['url']);
     }
 
     /**
@@ -1076,28 +1085,58 @@ class Sanitize implements RegistryAware
     }
 
     /**
-     * @return list<array{url: string, descriptor: string, w: int}>
+     * Follows the WHATWG srcset parsing algorithm rather than splitting on
+     * every comma: a URL is a run of non-whitespace, so unencoded commas
+     * inside URLs (Cloudinary, WordPress image CDNs) do not break entries
+     * apart. A comma only separates entries when it ends a URL or follows
+     * a descriptor.
+     *
+     * @return list<array{url: string, descriptor: string, w: int, x: float}>
      *         `descriptor` is `''` when the source entry has no descriptor
-     *         (browser implies `1x`); `w` is 0 for density or missing
-     *         descriptors and is used to filter entries when picking a
-     *         width-based fallback.
+     *         (browser implies `1x`, so `x` is 1.0); `w` is 0 and `x` is
+     *         0.0 when the descriptor is not of that kind. Both are used
+     *         when picking a fallback `src`.
      */
     private function parseSrcset(string $srcset): array
     {
         $out = [];
-        foreach (explode(',', $srcset) as $part) {
-            $part = trim($part);
-            if ($part === '') {
+        $len = strlen($srcset);
+        $pos = 0;
+        while ($pos < $len) {
+            // Skip whitespace and separating commas
+            while ($pos < $len && (ctype_space($srcset[$pos]) || $srcset[$pos] === ',')) {
+                $pos++;
+            }
+            $start = $pos;
+            while ($pos < $len && !ctype_space($srcset[$pos])) {
+                $pos++;
+            }
+            $url = substr($srcset, $start, $pos - $start);
+            if ($url === '') {
+                break;
+            }
+            $descriptor = '';
+            if (str_ends_with($url, ',')) {
+                // Trailing comma terminates the entry: URL without descriptor
+                $url = rtrim($url, ',');
+            } else {
+                $end = strpos($srcset, ',', $pos);
+                if ($end === false) {
+                    $end = $len;
+                }
+                $descriptor = trim(substr($srcset, $pos, $end - $pos));
+                $pos = $end;
+            }
+            if ($url === '') {
                 continue;
             }
-            $bits = preg_split('/\s+/', $part, 2);
-            if (!is_array($bits)) {
-                continue;
+            $w = (preg_match('/^(\d+)w$/', $descriptor, $m) === 1) ? (int)$m[1] : 0;
+            if ($descriptor === '') {
+                $x = 1.0;
+            } else {
+                $x = (preg_match('/^(\d+(?:\.\d+)?)x$/', $descriptor, $m) === 1) ? (float)$m[1] : 0.0;
             }
-            $url = $bits[0];
-            $descriptor = isset($bits[1]) ? trim($bits[1]) : '';
-            $w = (preg_match('/^(\d+)w$/', $descriptor, $wm) === 1) ? (int)$wm[1] : 0;
-            $out[] = ['url' => $url, 'descriptor' => $descriptor, 'w' => $w];
+            $out[] = ['url' => $url, 'descriptor' => $descriptor, 'w' => $w, 'x' => $x];
         }
         return $out;
     }
