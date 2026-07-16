@@ -29,7 +29,7 @@ return array(
 			'help' => 'このカテゴリに動的フィードを追加するための<a href="http://opml.org/" target="_blank">OPMLファイル</a>のURLを指定します。',
 		),
 		'empty' => '空のカテゴリ',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => '動的OPMLカテゴリで問題が発生しました。OPMLのURLに引き続きアクセスできることと、ユーザーごとの最大フィード数を超えていないことを確認してください。',
 		'expand' => 'カテゴリを展開する',
 		'information' => 'インフォメーション',
 		'open' => 'カテゴリを開く',
@@ -51,7 +51,7 @@ return array(
 			'password' => 'HTTP パスワード',
 			'username' => 'HTTP ユーザー名',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => '変更…',
 		'clear_cache' => '常にキャッシュをクリアする',
 		'content_action' => array(
 			'_' => '記事のコンテンツを取得するときの動作',
@@ -76,18 +76,18 @@ return array(
 			'help' => 'XMLファイル (データのサブセット。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">ドキュメントを参照してください</a>。)',
 			'label' => 'OPMLとしてエクスポート',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => '自動設定',
+		'favicon_changed_by_ext' => '<b>%s</b>拡張機能によってアイコンが設定されました。',
 		'filteractions' => array(
 			'_' => 'フィルターアクション',
 			'help' => '1行に1つの検索フィルターを設定してください。演算子は<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ドキュメントを参照してください</a>。',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => '既存の記事でフィルターをプレビュー（新しいウィンドウ）',
 		),
 		'http_headers' => 'HTTPヘッダ',
 		'http_headers_help' => 'ヘッダは改行で区切られ、ヘッダの名前と値はコロンで区切られます (例: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
-		'icon' => 'Icon',	// TODO
+		'icon' => 'アイコン',
 		'information' => 'インフォメーション',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => '続けてフィードを追加',
 		'keep_min' => '最小数の記事は保持されます',
 		'kind' => array(
 			'_' => 'フィードソースの種類',
@@ -187,10 +187,10 @@ return array(
 			'rss' => 'RSS / Atom (標準)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => '最新記事の公開日時: <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => '最新記事の受信日時: <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => '最後に更新エラーが発生した日時: <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => '最後に正常に更新した日時: <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'キャッシュのクリア',
 			'clear_cache_help' => 'このフィードのキャッシュをクリアします。',
@@ -217,14 +217,14 @@ return array(
 		'priority' => array(
 			'_' => '表示する場所',
 			'category' => 'カテゴリで表示する',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => 'フィード内に表示',
 			'hidden' => '非表示にする',
 			'important' => '重要なフィードに表示する',
 			'main_stream' => 'メインストリームで表示する',
 		),
 		'proxy' => 'フィードを取得するときのプロキシ',
 		'proxy_help' => 'プロトコルを選択し (例: SOCKS5) プロキシアドレスを入力してください (例: <kbd>127.0.0.1:1080</kbd> や <kbd>username:password@127.0.0.1:1080</kbd>)',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => 'デフォルトに戻す',
 		'selector_preview' => array(
 			'show_raw' => 'ソースコードを表示する',
 			'show_rendered' => 'コンテンツを表示する',
@@ -249,15 +249,15 @@ return array(
 			'help' => '不正なフィードに対処します。<br />⚠️ ポリシーを変更すると重複が発生します。',
 			'id' => '標準的なID (デフォルト)',
 			'link' => 'リンク',
-			'sha1:content' => 'Content',	// TODO
-			'sha1:content_published' => 'Content + Date',	// TODO
+			'sha1:content' => '本文',
+			'sha1:content_published' => '本文 + 公開日時',
 			'sha1:link_published' => 'リンク + 日付',
 			'sha1:link_published_title' => 'リンク + 日付 + タイトル',
 			'sha1:link_published_title_content' => 'リンク + 日付 + タイトル + コンテンツ',
-			'sha1:published' => 'Date',	// TODO
-			'sha1:title' => 'Title',	// TODO
-			'sha1:title_published' => 'Title + Date',	// TODO
-			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
+			'sha1:published' => '公開日時',
+			'sha1:title' => 'タイトル',
+			'sha1:title_published' => 'タイトル + 公開日時',
+			'sha1:title_published_content' => 'タイトル + 公開日時 + 本文',
 		),
 		'url' => 'フィードのURL',
 		'useragent' => 'フィードを取得するときのユーザーエージェント',
@@ -289,7 +289,7 @@ return array(
 			'idle' => '休止中のフィード',
 			'main' => '主な統計',
 			'repartition' => '記事の割合',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => '未読記事数が多い日付',
 		),
 		'subscription_management' => '購読フィードの管理',
 		'subscription_tools' => '購読ツール',
