@@ -550,7 +550,7 @@ class Sanitize implements RegistryAware
 
                 // Process allowed HTML elements and their attributes (including srcset rewriting)
                 if (!empty($this->allowed_html_elements_with_attributes)) {
-                    $this->enforce_allowed_html_nodes($document, $this->allow_data_attr, $this->allow_aria_attr);
+                    $this->sanitize_html_nodes($document, $this->allow_data_attr, $this->allow_aria_attr);
                 }
 
                 // MathML and SVG allow href on arbitrary descendants,
@@ -711,9 +711,10 @@ class Sanitize implements RegistryAware
     }
 
     /**
-     * Keep only allowed HTML elements (tags) and their allowed attributes.
+     * Keep only allowed HTML elements (tags) and their allowed attributes,
+     * and rewrite `srcset` URLs on `<img>` and `<source>`.
      */
-    protected function enforce_allowed_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true): void
+    protected function sanitize_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true): void
     {
         if ($element instanceof \DOMElement) {
             $tag = $element->tagName;
@@ -733,7 +734,7 @@ class Sanitize implements RegistryAware
                         if ($parent !== null) {
                             $parent->insertBefore($child, $element);
                         }
-                        $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
+                        $this->sanitize_html_nodes($child, $allow_data_attr, $allow_aria_attr);
                     }
                 }
                 if ($parent !== null) {
@@ -763,7 +764,7 @@ class Sanitize implements RegistryAware
             for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
                 $child = $element->childNodes->item($i);
                 if ($child !== null) {
-                    $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
+                    $this->sanitize_html_nodes($child, $allow_data_attr, $allow_aria_attr);
                 }
             }
         }
