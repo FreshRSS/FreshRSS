@@ -1919,7 +1919,9 @@ function init_actualize() {
 		context.ajax_loading = true;
 
 		const req = new XMLHttpRequest();
-		req.open('POST', './?c=javascript&a=actualize', true);
+		const currentGet = new URLSearchParams(window.location.search).get('get');
+		const scope = currentGet ? '&get=' + encodeURIComponent(currentGet) : '';
+		req.open('POST', './?c=javascript&a=actualize' + scope, true);
 		req.responseType = 'json';
 		req.onload = function (e) {
 			if (this.status != 200) {
