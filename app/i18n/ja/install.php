@@ -51,18 +51,18 @@ return array(
 			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'データベース接続に失敗しました。',
+			'ok' => 'データベース接続は正常です。',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'データベーステーブル%sに不備があります。',
+			'ok' => 'データベーステーブル%sは正常です。',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'データベーステーブルの一部が存在しません。',
+			'ok' => 'データベーステーブルはすべて存在します。',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'データベース',
 		'dom' => array(
 			'nok' => 'DOMを検索するライブラリが見つかりませんでした。',
 			'ok' => 'DOMを検索するライブラリが見つかりました。',
@@ -77,8 +77,8 @@ return array(
 		),
 		'files' => 'ファイルインストール',
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => '多言語・地域対応用のphp-intlライブラリが見つかりませんでした。',
+			'ok' => '多言語・地域対応用のphp-intlライブラリはインストールされています。',
 		),
 		'json' => array(
 			'nok' => 'JSONをパースするライブラリが見つかりませんでした。',
@@ -93,14 +93,14 @@ return array(
 			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'MySQL/MariaDBに必要なPDOドライバーが見つかりませんでした。',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'PostgreSQLに必要なPDOドライバーが見つかりませんでした。',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'SQLiteに必要なPDOドライバーが見つかりませんでした。',
+			'ok' => 'SQLiteに必要なPDOドライバーはインストールされています。',
 		),
 		'pdo' => array(
 			'nok' => 'PDOまたはサポートされているドライバーが見つかりませんでした。 (pdo_sqlite, pdo_pgsql, pdo_mysql).',
