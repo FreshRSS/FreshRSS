@@ -39,11 +39,11 @@ return array(
 			'ok' => 'キャッシュディレクトリの権限は正しく設定されています。',
 		),
 		'ctype' => array(
-			'nok' => '必要とされている文字タイプを確認するライブラリが見つかりませんでした。(php-ctype)',
-			'ok' => '必要とされている文字タイプを確認するライブラリが見つかりました。(ctype)',
+			'nok' => '必要とされている文字タイプを確認するライブラリが見つかりませんでした（php-ctype）。',
+			'ok' => '必要とされている文字タイプを確認するライブラリが見つかりました（ctype）。',
 		),
 		'curl' => array(
-			'nok' => 'cURLライブラリが見つかりませんでした(php-curl package)',
+			'nok' => 'cURLライブラリが見つかりませんでした（php-curl package）。',
 			'ok' => 'cURLライブラリが見つかりました。',
 		),
 		'data' => array(
@@ -72,7 +72,7 @@ return array(
 			'ok' => 'ディレクトリのパーミッションは正しく設定されています。',
 		),
 		'fileinfo' => array(
-			'nok' => 'PHP fileinfoライブラリが見つかりませんでした。 (fileinfo package).',
+			'nok' => 'PHP fileinfoライブラリが見つかりませんでした（fileinfo package）。',
 			'ok' => 'fileinfoライブラリは正しく設定されています。',
 		),
 		'files' => 'ファイルインストール',
@@ -89,8 +89,8 @@ return array(
 			'ok' => 'mbstringライブラリはインストールされています。',
 		),
 		'pcre' => array(
-			'nok' => '正規表現ライブラリが見つかりませんでした。 (php-pcre).',
-			'ok' => '正規表現ライブラリはインストールされています。 (PCRE).',
+			'nok' => '正規表現ライブラリが見つかりませんでした（php-pcre）。',
+			'ok' => '正規表現ライブラリはインストールされています（PCRE）。',
 		),
 		'pdo-mysql' => array(
 			'nok' => 'MySQL/MariaDBに必要なPDOドライバーが見つかりませんでした。',
@@ -103,13 +103,13 @@ return array(
 			'ok' => 'SQLiteに必要なPDOドライバーはインストールされています。',
 		),
 		'pdo' => array(
-			'nok' => 'PDOまたはサポートされているドライバーが見つかりませんでした。 (pdo_sqlite, pdo_pgsql, pdo_mysql).',
-			'ok' => 'PDOとサポートされているドライバーはインストールされています。 (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'nok' => 'PDOまたはサポートされているドライバーが見つかりませんでした（pdo_sqlite, pdo_pgsql, pdo_mysql）。',
+			'ok' => 'PDOとサポートされているドライバーはインストールされています（pdo_sqlite, pdo_pgsql, pdo_mysql）。',
 		),
 		'php' => array(
 			'_' => 'PHPインストール',
 			'nok' => 'あなたのPHPのバージョンは %s ですが、FreshRSSが動作する最低限のバージョンは %s です。',
-			'ok' => 'あなたのPHPのバージョン (%s) はFreshRSSが動作することができるバージョンです。',
+			'ok' => 'あなたのPHPのバージョン（%s）はFreshRSSが動作することができるバージョンです。',
 		),
 		'reload' => '再度確かめる',
 		'tmp' => array(
@@ -130,7 +130,7 @@ return array(
 			'ok' => 'XMLをパースするライブラリが見つかりました。',
 		),
 		'zip' => array(
-			'nok' => 'ZIP拡張が見つかりませんでした。 (php-zip package).',
+			'nok' => 'ZIP拡張が見つかりませんでした（php-zip package）。',
 			'ok' => 'ZIP拡張はインストールされています。',
 		),
 	),

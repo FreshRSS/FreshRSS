@@ -171,10 +171,10 @@ return array(
 				0 => '%d の新規記事がFreshRSSにはあります。',	// DIRTY
 			),
 			'body_unread_articles' => array(
-				0 => '(未読: %d)',	// DIRTY
+				0 => '（未読：%d）',	// DIRTY
 			),
 			'request_failed' => 'おそらくインターネット接続に問題があるため、リクエストは失敗しました。',
-			'title_new_articles' => 'FreshRSS: 新規記事!',
+			'title_new_articles' => 'FreshRSS：新規記事!',
 		),
 		'labels_empty' => 'ラベルがありません',
 		'new_article' => '新しい記事があるのでクリックしてページをリフレッシュしてください。',
@@ -312,7 +312,7 @@ return array(
 	'short' => array(
 		'attention' => '警告!',
 		'blank_to_disable' => '空白のままにすると無効になります',
-		'by_author' => '著者:',
+		'by_author' => '著者：',
 		'by_default' => 'デフォルト',
 		'damn' => '終了!',
 		'default_category' => '未分類',

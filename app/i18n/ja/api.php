@@ -12,16 +12,16 @@
 
 return array(
 	'information' => array(
-		'address' => 'APIアドレス:',
+		'address' => 'APIアドレス：',
 		'output' => array(
-			'encoding-support' => '⚠️ 警告: <code>%2F</code>に対応していないため、一部のクライアントは動作しない可能性があります',
-			'invalid-configuration' => '⚠️ 警告: ./data/config.php内のベースURLが無効な可能性があります。',
+			'encoding-support' => '⚠️ 警告：<code>%2F</code>に対応していないため、一部のクライアントは動作しない可能性があります',
+			'invalid-configuration' => '⚠️ 警告：./data/config.php内のベースURLが無効な可能性があります。',
 			'pass' => '✔️ 成功',
-			'unknown-error' => '❌ エラー: ',
+			'unknown-error' => '❌ エラー：',
 		),
 		'test' => array(
-			'fever' => 'Fever API設定テスト:',
-			'greader' => 'Google Reader API設定テスト:',
+			'fever' => 'Fever API設定テスト：',
+			'greader' => 'Google Reader API設定テスト：',
 		),
 		'title' => array(
 			'_' => 'FreshRSS APIエンドポイント',
