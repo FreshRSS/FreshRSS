@@ -106,7 +106,7 @@ return array(
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> は上級者向けのクエリ型言語で、FreshRSSでスクレイピングをサポートしている言語です。',
 				'item' => array(
-					'_' => 'ニュース<strong>項目</strong>を探す<br /><small>（最も重要）</small>',
+					'_' => 'ニュースの<strong>項目</strong><br /><small>（最も重要）</small>', // DIRTY
 					'help' => '例：<code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
