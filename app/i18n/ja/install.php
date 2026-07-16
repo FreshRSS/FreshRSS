@@ -12,7 +12,7 @@
 
 return array(
 	'action' => array(
-		'finish' => 'インストール作業を終わりにする',
+		'finish' => 'インストールを完了する',
 		'fix_errors_before' => '次のステップへ移る前にエラーを修正してください。',
 		'keep_install' => '前の設定を保持する',
 		'next_step' => '次のステップへ進む',
@@ -22,8 +22,8 @@ return array(
 		'_' => 'データベース',
 		'conf' => array(
 			'_' => 'データベース設定',
-			'ko' => 'あなたのデータベース設定を確認します。',
-			'ok' => 'データベース設定は保存されました。',
+			'ko' => 'データベース設定を確認してください。',
+			'ok' => 'データベース設定を保存しました。',
 		),
 		'host' => 'ホスト',
 		'password' => 'データベースパスワード',
@@ -81,8 +81,8 @@ return array(
 			'ok' => '多言語・地域対応用のphp-intlライブラリはインストールされています。',
 		),
 		'json' => array(
-			'nok' => 'JSONをパースするライブラリが見つかりませんでした。',
-			'ok' => 'JSONをパースするライブラリはインストールされています。',
+			'nok' => 'JSON解析ライブラリが見つかりませんでした。',
+			'ok' => 'JSON解析ライブラリはインストールされています。',
 		),
 		'mbstring' => array(
 			'nok' => 'mbstringライブラリが見つかりませんでした。',
@@ -126,8 +126,8 @@ return array(
 			'ok' => 'usersディレクトリの権限は正しく設定されています。',
 		),
 		'xml' => array(
-			'nok' => 'XMLをパースするライブラリが見つかりませんでした。',
-			'ok' => 'XMLをパースするライブラリが見つかりました。',
+			'nok' => 'XML解析ライブラリが見つかりませんでした。',
+			'ok' => 'XML解析ライブラリが見つかりました。',
 		),
 		'zip' => array(
 			'nok' => 'ZIP拡張が見つかりませんでした（php-zip package）。',
@@ -136,30 +136,30 @@ return array(
 	),
 	'conf' => array(
 		'_' => '一般設定',
-		'ok' => '一般設定は保存されました。',
+		'ok' => '一般設定を保存しました。',
 	),
 	'congratulations' => 'おめでとうございます!',
 	'default_user' => array(
 		'_' => 'デフォルトのユーザー名',
-		'max_char' => '最大16文字の英数字',
+		'max_char' => '16文字以内の英数字',
 	),
-	'fix_errors_before' => 'エラーを次のステップへ移る前に修正してください。',
-	'javascript_is_better' => 'FreshRSS はJavascriptが有効だとより快適にご利用いただけます。',
+	'fix_errors_before' => '次のステップへ移る前にエラーを修正してください。',
+	'javascript_is_better' => 'JavaScriptを有効にすると、FreshRSSをより快適に利用できます。',
 	'js' => array(
-		'confirm_reinstall' => 'もし再インストールするとFreshRSSの設定は削除されます。それでも続けますか?',
+		'confirm_reinstall' => '再インストールするとFreshRSSの設定が削除されます。続行しますか？',
 	),
 	'language' => array(
 		'_' => '言語',
 		'choose' => 'FreshRSSで使う言語を選んでください',
 		'defined' => '言語の設定ができました。',
 	),
-	'missing_applied_migrations' => '何かが誤っています; 空のファイルを手動で作ることができます <em>%s</em>',
-	'ok' => 'インストール作業は成功しました。',
+	'missing_applied_migrations' => '問題が発生しました。空のファイル<em>%s</em>を手動で作成してください。',
+	'ok' => 'インストールに成功しました。',
 	'session' => array(
-		'nok' => 'Webサーバーは、不正な設定がされておりPHPセッションが必要とされているクッキーの設定が誤っています!',
+		'nok' => 'PHPセッションに必要なCookieについて、Webサーバーの設定に問題があるようです。',
 	),
 	'step' => 'ステップ %d',
 	'steps' => 'ステップ',
-	'this_is_the_end' => '終了',
-	'title' => 'インストール · FreshRSS',
+	'this_is_the_end' => '完了',
+	'title' => 'FreshRSSのインストール',
 );

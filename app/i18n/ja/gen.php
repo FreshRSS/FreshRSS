@@ -19,7 +19,7 @@ return array(
 		'close' => '閉じる',
 		'create' => '作成',
 		'delete_all_feeds' => 'すべてのフィードを削除する',
-		'delete_errored_feeds' => 'エラーのフィードを削除する',
+		'delete_errored_feeds' => 'エラーが発生しているフィードを削除',  // DIRTY
 		'delete_muted_feeds' => 'ミュートにしているフィードを削除する',
 		'demote' => '寄付',
 		'disable' => '無効',
@@ -43,7 +43,7 @@ return array(
 		'open_url' => 'URLを開く',
 		'promote' => 'プロモート',
 		'purge' => '不要なデータの削除',
-		'refresh_opml' => 'OPMLをリフレッシュする',
+		'refresh_opml' => 'OPMLを更新する',
 		'remove' => '消去',
 		'rename' => '名前を変更する',
 		'see_website' => 'Webサイトを開く',
@@ -52,14 +52,14 @@ return array(
 		'update' => '更新',
 	),
 	'auth' => array(
-		'accept_tos' => '私は <a href="%s">Terms of Service</a>を承認します。',
-		'email' => 'Eメールアドレス',
-		'keep_logged_in' => 'ログインを保持する <small>%s日後にログアウトする</small>',
+		'accept_tos' => '<a href="%s">利用規約</a>に同意します。',
+		'email' => 'メールアドレス',
+		'keep_logged_in' => 'ログイン状態を保持する<small>（%s日間）</small>',
 		'login' => 'ログイン',
 		'logout' => 'ログアウト',
 		'password' => array(
 			'_' => 'パスワード',
-			'format' => '<small>最低７文字必要です</small>',
+			'format' => '<small>7文字以上必要です</small>',
 		),
 		'reauth' => array(
 			'header' => '再認証が必要です',
@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'ユーザー名',
-			'format' => '<small>最大16文字の英数字</small>',
+			'format' => '<small>16文字以内の英数字</small>',
 		),
 	),
 	'date' => array(
@@ -93,7 +93,7 @@ return array(
 		'april' => '四月',
 		'aug' => '八月',
 		'august' => '八月',
-		'before_yesterday' => 'おととい',
+		'before_yesterday' => '一昨日',
 		'dec' => '十二月',
 		'december' => '十二月',
 		'feb' => '二月',
@@ -107,11 +107,11 @@ return array(
 		'july' => '七月',
 		'jun' => '六月',
 		'june' => '六月',
-		'last_2_year' => '直近二年間',
-		'last_3_month' => '直近三か月',
-		'last_3_year' => '直近三年間',
-		'last_5_year' => '直近五年間',
-		'last_6_month' => '直近六か月',
+		'last_2_year' => '直近2年間',
+		'last_3_month' => '直近3ヶ月間',
+		'last_3_year' => '直近3年間',
+		'last_5_year' => '直近5年間',
+		'last_6_month' => '直近6ヶ月間',
 		'last_month' => '先月',
 		'last_week' => '先週',
 		'last_year' => '去年',
@@ -162,23 +162,23 @@ return array(
 		),
 	),
 	'js' => array(
-		'category_empty' => '空白のカテゴリ',
-		'confirm_action' => '本当に実行してもいいですか?キャンセルはできません!',
-		'confirm_action_feed_cat' => '本当に実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。キャンセルできません!',
+		'category_empty' => '空のカテゴリ',
+		'confirm_action' => '本当に実行しますか？この操作は取り消せません。',
+		'confirm_action_feed_cat' => '本当に実行しますか？関連するお気に入りとユーザークエリも削除されます。この操作は取り消せません。',
 		'confirm_exit_slider' => '保存していない設定を破棄してもよろしいですか',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => '%d の新規記事がFreshRSSにはあります。',	// DIRTY
+				0 => '新着記事が%d件あります。',
 			),
 			'body_unread_articles' => array(
-				0 => '（未読：%d）',	// DIRTY
+				0 => '（未読：%d件）',
 			),
 			'request_failed' => 'おそらくインターネット接続に問題があるため、リクエストは失敗しました。',
-			'title_new_articles' => 'FreshRSS：新規記事!',
+			'title_new_articles' => 'FreshRSS：新着記事',
 		),
 		'labels_empty' => 'ラベルがありません',
-		'new_article' => '新しい記事があるのでクリックしてページをリフレッシュしてください。',
-		'should_be_activated' => 'JavaScriptは有効になっている必要があります。',
+		'new_article' => '新しい記事があります。クリックしてページをリフレッシュしてください。',
+		'should_be_activated' => 'JavaScriptを有効にする必要があります。',
 		'unsafe_csp_header' => '使用中のCSPヘッダーは安全ではないため、FreshRSSがXSS攻撃に対して脆弱になる可能性があります。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">ドキュメント</a>を参照してください。',
 	),
 	'lang' => array(
@@ -285,7 +285,7 @@ return array(
 		'clipboard' => 'クリップボード',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Eメール',
-		'email-webmail-firefox-fix' => 'Eメール（Firefox用に修正）',
+		'email-webmail-firefox-fix' => 'Eメール（Firefox対応）',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
@@ -323,8 +323,8 @@ return array(
 		'yes' => 'はい',
 	),
 	'stream' => array(
-		'load_more' => '記事をもっと読み込む',
+		'load_more' => '記事を追加で読み込む',
 		'mark_all_read' => 'すべての記事を既読にする',
-		'nothing_to_load' => 'これ以上の記事はありません',
+		'nothing_to_load' => 'これ以上記事はありません',
 	),
 );
