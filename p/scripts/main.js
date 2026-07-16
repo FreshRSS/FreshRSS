@@ -113,7 +113,7 @@ function updateUnreadBadge(elem, value) {
 	// Reading the layout forces the new badge value to be painted immediately.
 	if (elem.matches('.title, .item-title')) {
 		elem.style.visibility = 'visible';
-		void elem.offsetWidth;
+		elem.getBoundingClientRect();
 		elem.style.removeProperty('visibility');
 	}
 }
