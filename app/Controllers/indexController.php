@@ -452,6 +452,15 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$logs = FreshRSS_LogDAO::lines();	//TODO: ask only the necessary lines
+		$search = trim(Minz_Request::paramString('search', plaintext: true));
+		if ($search !== '') {
+			$logs = array_values(array_filter($logs, static fn(FreshRSS_Log $log): bool =>
+				stripos($log->level(), $search) !== false ||
+				stripos($log->date(), $search) !== false ||
+				stripos($log->info(), $search) !== false
+			));
+		}
+		$this->view->logSearch = $search;
 
 		//gestion pagination
 		$page = Minz_Request::paramInt('page') ?: 1;
