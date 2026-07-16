@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Display favorite articles',
 		'state_not_favorite' => 'Display not favorite articles',
 		'state_read' => 'Display read articles',	// IGNORE
+		'state_read_favorite' => 'Display read favorite articles',
+		'state_read_not_favorite' => 'Display read not favorite articles',
 		'state_unread' => 'Display unread articles',	// IGNORE
+		'state_unread_favorite' => 'Display unread favorite articles',
+		'state_unread_not_favorite' => 'Display unread not favorite articles',
 		'title' => 'User queries',	// IGNORE
 	),
 	'reading' => array(

@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => ' نمایش مقالات مورد علاقه',
 		'state_not_favorite' => 'نمایش مقاله‌های غیرموردعلاقه',
 		'state_read' => ' نمایش مقالات خوانده شده',
+		'state_read_favorite' => ' نمایش مقالات مورد علاقه خوانده شده',
+		'state_read_not_favorite' => ' نمایش مقالات مورد علاقه خوانده نشده',
 		'state_unread' => ' نمایش مقالات خوانده نشده',
+		'state_unread_favorite' => 'نمایش مقالات مورد علاقه خوانده نشده',
+		'state_unread_not_favorite' => 'نمایش مقاله‌های خوانده‌نشده و غیرموردعلاقه',
 		'title' => ' پرس و جوهای کاربر',
 	),
 	'reading' => array(

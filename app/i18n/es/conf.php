@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Mostrar artículos favoritos',
 		'state_not_favorite' => 'Mostrar artículos no favoritos',
 		'state_read' => 'Mostrar artículos leídos',
+		'state_read_favorite' => 'Mostrar artículos favoritos leídos',
+		'state_read_not_favorite' => 'Mostrar artículos no favoritos leídos',
 		'state_unread' => 'Mostrar artículos sin leer',
+		'state_unread_favorite' => 'Mostrar artículos favoritos pendientes',
+		'state_unread_not_favorite' => 'Mostrar artículos no favoritos pendientes',
 		'title' => 'Vistas de usuario',
 	),
 	'reading' => array(

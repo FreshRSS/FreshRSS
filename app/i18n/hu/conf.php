@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Kedvenc cikkek megjelenítése',
 		'state_not_favorite' => 'Nem kedvenc cikkek megjelenítése',
 		'state_read' => 'Olvasott cikkek megjelenítése',
+		'state_read_favorite' => 'Kedvenc olvasott cikkek megjelenítése',
+		'state_read_not_favorite' => 'Nem kedvenc olvasott cikkek megjelenítése',
 		'state_unread' => 'Olvasatlan cikkek megjelenítése',
+		'state_unread_favorite' => 'Kedvenc olvasatlan cikkek megjelenítése',
+		'state_unread_not_favorite' => 'Nem kedvenc olvasatlan cikkek megjelenítése',
 		'title' => 'Felhasználói lekérdezések',
 	),
 	'reading' => array(

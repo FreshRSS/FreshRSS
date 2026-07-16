@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Favori makaleleri göster',
 		'state_not_favorite' => 'Favori olmayan makaleleri göster',
 		'state_read' => 'Okunmuş makaleleri göster',
+		'state_read_favorite' => 'Okunmuş favori makaleleri göster',
+		'state_read_not_favorite' => 'Okunmuş favori olmayan makaleleri göster',
 		'state_unread' => 'Okunmamış makaleleri göster',
+		'state_unread_favorite' => 'Okunmamış favori makaleleri göster',
+		'state_unread_not_favorite' => 'Okunmamış favori olmayan makaleleri göster',
 		'title' => 'Kullanıcı sorguları',
 	),
 	'reading' => array(

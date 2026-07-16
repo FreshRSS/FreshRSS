@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => '显示收藏文章',
 		'state_not_favorite' => '显示未收藏文章',
 		'state_read' => '显示已读文章',
+		'state_read_favorite' => '显示已读的收藏文章',
+		'state_read_not_favorite' => '显示已读的未收藏文章',
 		'state_unread' => '显示未读文章',
+		'state_unread_favorite' => '显示未读的收藏文章',
+		'state_unread_not_favorite' => '显示未读的未收藏文章',
 		'title' => '自定义查询',
 	),
 	'reading' => array(

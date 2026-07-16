@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Rādīt mīļākos rakstus',
 		'state_not_favorite' => 'Rādīt ne mīļākos rakstus',
 		'state_read' => 'Rādīt lasītos rakstus',
+		'state_read_favorite' => 'Rādīt lasītos mīļākos rakstus',
+		'state_read_not_favorite' => 'Rādīt lasītos ne mīļākos rakstus',
 		'state_unread' => 'Rādīt nelasītos rakstus',
+		'state_unread_favorite' => 'Rādīt nelasītos mīļākos rakstus',
+		'state_unread_not_favorite' => 'Rādīt nelasītos ne mīļākos rakstus',
 		'title' => 'Lietotāja pieprasījumi',
 	),
 	'reading' => array(

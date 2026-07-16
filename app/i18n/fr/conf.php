@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Afficher les articles favoris',
 		'state_not_favorite' => 'Afficher les articles non favoris',
 		'state_read' => 'Afficher les articles lus',
+		'state_read_favorite' => 'Afficher les articles lus et favoris',
+		'state_read_not_favorite' => 'Afficher les articles lus et non favoris',
 		'state_unread' => 'Afficher les articles non lus',
+		'state_unread_favorite' => 'Afficher les articles non lus et favoris',
+		'state_unread_not_favorite' => 'Afficher les articles non lus et non favoris',
 		'title' => 'Filtres utilisateurs',
 	),
 	'reading' => array(

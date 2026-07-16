@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Favoritenartikel anzeigen',
 		'state_not_favorite' => 'Keine Favoritenartikel anzeigen',
 		'state_read' => 'Gelesene Artikel anzeigen',
+		'state_read_favorite' => 'Gelesene Favoritenartikel anzeigen',
+		'state_read_not_favorite' => 'Gelesene ohne Favoritenartikel anzeigen',
 		'state_unread' => 'Ungelesene Artikel anzeigen',
+		'state_unread_favorite' => 'Ungelesene Favoritenartikel anzeigen',
+		'state_unread_not_favorite' => 'Ungelesene ohne Favoritenartikel anzeigen',
 		'title' => 'Benutzerabfragen',
 	),
 	'reading' => array(

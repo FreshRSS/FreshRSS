@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Toon favoriete artikelen',
 		'state_not_favorite' => 'Toon niet favoriete artikelen',
 		'state_read' => 'Toon gelezen artikelen',
+		'state_read_favorite' => 'Toon gelezen favoriete artikelen',
+		'state_read_not_favorite' => 'Toon gelezen niet favoriete artikelen',
 		'state_unread' => 'Toon ongelezen artikelen',
+		'state_unread_favorite' => 'Toon ongelezen favoriete artikelen',
+		'state_unread_not_favorite' => 'Toon ongelezen niet favoriete artikelen',
 		'title' => 'Gebruikersquery’s',
 	),
 	'reading' => array(

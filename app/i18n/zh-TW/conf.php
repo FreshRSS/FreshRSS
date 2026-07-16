@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => '顯示收藏文章',
 		'state_not_favorite' => '顯示未收藏文章',
 		'state_read' => '顯示已讀文章',
+		'state_read_favorite' => '顯示已讀的收藏文章',
+		'state_read_not_favorite' => '顯示已讀的未收藏文章',
 		'state_unread' => '顯示未讀文章',
+		'state_unread_favorite' => '顯示未讀的收藏文章',
+		'state_unread_not_favorite' => '顯示未讀的未收藏文章',
 		'title' => '使用者查詢',
 	),
 	'reading' => array(

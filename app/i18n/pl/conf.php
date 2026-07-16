@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Wyświetl ulubione wiadomości',
 		'state_not_favorite' => 'Wyświetl wiadomości, które nie są ulubione',
 		'state_read' => 'Wyświetl przeczytane wiadomości',
+		'state_read_favorite' => 'Wyświetl przeczytane ulubione wiadomości',
+		'state_read_not_favorite' => 'Wyświetl przeczytane wiadomości, które nie są ulubione',
 		'state_unread' => 'Wyświetl nieprzeczytane wiadomości',
+		'state_unread_favorite' => 'Wyświetl nieprzeczytane ulubione wiadomości',
+		'state_unread_not_favorite' => 'Wyświetl nieprzeczytane wiadomości, które nie są ulubione',
 		'title' => 'Zapisane zapytania',
 	),
 	'reading' => array(

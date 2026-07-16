@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'הצגת מאמרים מועדפים',
 		'state_not_favorite' => 'הצגת מאמרים לא מועדפים',
 		'state_read' => 'הצגת מאמרים שנקראו',
+		'state_read_favorite' => 'הצגת מאמרים מועדפים שנקראו',
+		'state_read_not_favorite' => 'הצגת מאמרים שנקראו ואינם מועדפים',
 		'state_unread' => 'הצגת מאמרים שלא נקראו',
+		'state_unread_favorite' => 'הצגת מאמרים מועדפים שלא נקראו',
+		'state_unread_not_favorite' => 'הצגת מאמרים שלא נקראו ואינם מועדפים',
 		'title' => 'שאילתות',
 	),
 	'reading' => array(

@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Exibir artigos favoritos',
 		'state_not_favorite' => 'Exibir artigos que não são favoritos',
 		'state_read' => 'Exibir artigos lidos',
+		'state_read_favorite' => 'Exibir artigos favoritos lidos',
+		'state_read_not_favorite' => 'Exibir artigos que não são favoritos lidos',
 		'state_unread' => 'Exibir artigos não lidos',
+		'state_unread_favorite' => 'Exibir artigos favoritos não lidos',
+		'state_unread_not_favorite' => 'Exibir artigos que não são favoritos não lidos',
 		'title' => 'Consultas de usuários',
 	),
 	'reading' => array(

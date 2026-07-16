@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Mostrar los articles favorits',
 		'state_not_favorite' => 'Mostrar los articles pas en favorit',
 		'state_read' => 'Mostrar los articles legits',
+		'state_read_favorite' => 'Mostrar los articles legits e en favorits',
+		'state_read_not_favorite' => 'Mostrar los articles legits e pas en favorit',
 		'state_unread' => 'Mostrar los articles pas legits',
+		'state_unread_favorite' => 'Mostrar los articles pas legits e en favorit',
+		'state_unread_not_favorite' => 'Mostrar los articles pas legits e pas en favorit',
 		'title' => 'Filtres utilizaire',
 	),
 	'reading' => array(

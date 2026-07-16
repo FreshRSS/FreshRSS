@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Näytä suosikkiartikkelit',
 		'state_not_favorite' => 'Näytä muut kuin suosikkiartikkelit',
 		'state_read' => 'Näytä luetut artikkelit',
+		'state_read_favorite' => 'Näytä luetut suosikkiartikkelit',
+		'state_read_not_favorite' => 'Näytä luetut muut kuin suosikkiartikkelit',
 		'state_unread' => 'Näytä lukemattomat artikkelit',
+		'state_unread_favorite' => 'Näytä lukemattomat suosikkiartikkelit',
+		'state_unread_not_favorite' => 'Näytä lukemattomat muut kuin suosikkiartikkelit',
 		'title' => 'Käyttäjän kyselyt',
 	),
 	'reading' => array(

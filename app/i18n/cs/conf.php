@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Zobrazit oblíbené články',
 		'state_not_favorite' => 'Zobrazit neoblíbené články',
 		'state_read' => 'Zobrazit přečtené články',
+		'state_read_favorite' => 'Zobrazit přečtené oblíbené články',
+		'state_read_not_favorite' => 'Zobrazit přečtené neoblíbené články',
 		'state_unread' => 'Zobrazit nepřečtené články',
+		'state_unread_favorite' => 'Zobrazit nepřečtené oblíbené články',
+		'state_unread_not_favorite' => 'Zobrazit nepřečtené neoblíbené články',
 		'title' => 'Uživatelské dotazy',
 	),
 	'reading' => array(

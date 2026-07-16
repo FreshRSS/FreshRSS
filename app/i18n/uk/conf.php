@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Показати вподобані статті',
 		'state_not_favorite' => 'Показати невподобані статті',
 		'state_read' => 'Показати прочитані статті',
+		'state_read_favorite' => 'Показати прочитані вподобані статті',
+		'state_read_not_favorite' => 'Показати прочитані невподобані статті',
 		'state_unread' => 'Показати непрочитані статті',
+		'state_unread_favorite' => 'Показати непрочитані вподобані статті',
+		'state_unread_not_favorite' => 'Показати непрочитані невподобані статті',
 		'title' => 'Користувацькі запити',
 	),
 	'reading' => array(

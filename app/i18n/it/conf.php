@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Mostra gli articoli preferiti',
 		'state_not_favorite' => 'Non mostrare gli articoli preferiti',
 		'state_read' => 'Mostra gli articoli letti',
+		'state_read_favorite' => 'Mostra gli articoli preferiti letti',
+		'state_read_not_favorite' => 'Mostra gli articoli letti non preferiti',
 		'state_unread' => 'Mostra gli articoli non letti',
+		'state_unread_favorite' => 'Mostra gli articoli preferiti non letti',
+		'state_unread_not_favorite' => 'Mostra gli articoli non letti e non preferiti',
 		'title' => 'Ricerche personali',
 	),
 	'reading' => array(

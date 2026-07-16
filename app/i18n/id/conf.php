@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => 'Tampilkan artikel favorit',
 		'state_not_favorite' => 'Tampilkan artikel tidak favorit',
 		'state_read' => 'Tampilkan artikel yang sudah dibaca',
+		'state_read_favorite' => 'Tampilkan artikel favorit yang sudah dibaca',
+		'state_read_not_favorite' => 'Tampilkan artikel tidak favorit yang sudah dibaca',
 		'state_unread' => 'Tampilkan artikel yang belum dibaca',
+		'state_unread_favorite' => 'Tampilkan artikel favorit yang belum dibaca',
+		'state_unread_not_favorite' => 'Tampilkan artikel tidak favorit yang belum dibaca',
 		'title' => 'Pencarian pengguna',
 	),
 	'reading' => array(

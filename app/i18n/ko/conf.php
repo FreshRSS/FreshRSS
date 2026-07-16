@@ -212,7 +212,11 @@ return array(
 		'state_favorite' => '즐겨찾기에 등록된 글 표시',
 		'state_not_favorite' => '즐겨찾기에 등록되지 않은 글 표시',
 		'state_read' => '읽은 글 표시',
+		'state_read_favorite' => '즐겨찾기에 등록된 읽은 글 표시',
+		'state_read_not_favorite' => '즐겨찾기에 등록되지 않고 읽은 글 표시',
 		'state_unread' => '읽지 않은 글 표시',
+		'state_unread_favorite' => '즐겨찾기에 등록된 읽지 않은 글 표시',
+		'state_unread_not_favorite' => '즐겨찾기에 등록되지 않고 읽지 않은 글 표시',
 		'title' => '사용자 쿼리',
 	),
 	'reading' => array(
