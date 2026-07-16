@@ -56,13 +56,13 @@ return array(
 		'show_nav_buttons' => 'ナビゲーションボタンを表示する',
 		'show_title_unread' => 'タイトルに未読の記事数を表示',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'サイドバーに未読記事数を表示',
+			'all' => 'すべてのカテゴリとフィード',
+			'important' => '重要なフィードのみ',
+			'important_locked' => '重要なフィードでは未読記事数が常に表示されます。',
+			'none' => '表示しない',
 		),
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'sidebar_hidden_by_default' => 'デフォルトでサイドバーを非表示',
 		'theme' => array(
 			'_' => 'テーマ',
 			'deprecated' => array(
@@ -110,56 +110,56 @@ return array(
 	),
 	'mark_read_button' => array(
 		'_' => '“すべてに既読を付ける” button',	// DIRTY
-		'big' => 'Big',	// TODO
-		'none' => 'None',	// TODO
-		'small' => 'Small',	// TODO
+		'big' => '大',
+		'none' => 'なし',
+		'small' => '小',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => '通知を有効にする',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => '警告バナーの表示時間',
+			'seconds' => '秒 (1以上)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => '確認バナーの表示時間',
+			'seconds' => '秒 (0で非表示)',
 		),
 	),
 	'privacy' => array(
 		'_' => 'プライバシー',
 		'retrieve_extension_list' => '拡張機能リストを取得する',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => 'サーバーアドレスの送信を許可するサイト (%s)',
 	),
 	'profile' => array(
 		'_' => 'プロフィール',
 		'api' => array(
 			'_' => 'API管理',
-			'api_not_set' => 'API password not set',	// TODO
-			'api_set' => 'API password set',	// TODO
+			'api_not_set' => 'APIパスワード未設定',
+			'api_set' => 'APIパスワード設定済み',
 			'check_link' => 'APIステータスを確認する: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'APIアクセスは無効です。',
 			'documentation_link' => '既知のアプリの一覧は<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ドキュメント</a>を参照します',
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'security_warning' => 'HTTPSを使用してください。APIパスワードは平文で送信され、GETで送信した場合はサーバーログに記録される可能性があります。',
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'change_password' => 'パスワードを変更',
+		'confirm_new_password' => '新しいパスワード（確認）',
+		'current_password' => '現在のパスワード<br /><small>(Webフォームログイン用)</small>',
 		'delete' => array(
 			'_' => 'アカウント消去',
 			'warn' => 'あなたのアカウントとそれに関連したデータが消去されます。',
 		),
 		'email' => 'Eメールアドレス',
-		'new_password' => 'New password',	// TODO
+		'new_password' => '新しいパスワード',
 		'password_api' => 'APIのパスワード<br /><small>(モバイルアプリなど)</small>',
 		'password_format' => '最低7文字必要です',
 		'title' => 'プロフィール',
 	),
 	'query' => array(
 		'_' => 'ユーザークエリ',
-		'create' => 'Create new user query',	// TODO
+		'create' => '新しいユーザークエリを作成',
 		'deprecated' => 'このクエリは有効ではありません。参照されているカテゴリやフィードはすでに消去されました。',
 		'description' => '説明',
 		'filter' => array(
@@ -167,7 +167,7 @@ return array(
 			'categories' => 'カテゴリごとに表示する',
 			'feeds' => 'フィードごとに表示する',
 			'order' => '日付ごとにソートする',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => '共有RSSでは<i>フィードタグ</i>の代わりに<i>ユーザーラベル</i>を使用する',
 			'search' => '式',
 			'shareOpml' => 'カテゴリとフィードのOPMLによる共有を有効にする',
 			'shareRss' => 'HTMLとRSSによる共有を有効にする',
@@ -290,7 +290,7 @@ return array(
 			'upon_gone' => 'ニュースフィードの提供元がなくなったとき',
 			'upon_reception' => '記事を受け取ったとき',
 			'when' => '記事を既読にする…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_guid_in_category' => 'カテゴリの最新記事上位<i>n</i>件に同一のGUIDを持つ記事が存在する場合',
 			'when_same_title_in_category' => 'すでに同一タイトルがカテゴリ内上位<i>n</i>件の最新記事に存在するとき',
 			'when_same_title_in_feed' => 'すでに同一タイトルがフィード内上位<i>n</i>件の最新記事に存在するとき',
 		),
@@ -372,7 +372,7 @@ return array(
 		'skip_next_article' => '次の記事を開かずにフォーカスする',
 		'skip_previous_article' => '前の記事を開かずにフォーカスする',
 		'title' => 'ショートカット',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'サイドバーの表示/非表示を切り替える',
 		'toggle_media' => 'メディアの 再生/停止',
 		'user_filter' => 'ユーザークエリにアクセスする',
 		'user_filter_help' => 'ユーザークエリが一つしかなければ、それを使う。そうではなければ、番号でクエリを選択する。',
