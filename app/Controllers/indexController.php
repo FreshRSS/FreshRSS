@@ -457,8 +457,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			$logs = array_values(array_filter($logs, static fn(FreshRSS_Log $log): bool =>
 				stripos($log->level(), $search) !== false ||
 				stripos($log->date(), $search) !== false ||
-				stripos($log->info(), $search) !== false
-			));
+				stripos($log->info(), $search) !== false));
 		}
 		$this->view->logSearch = $search;
 
