@@ -62,9 +62,9 @@ return array(
 			'format' => '<small>最低７文字必要です</small>',
 		),
 		'reauth' => array(
-			'header' => 'Reauthentication is required',	// TODO
-			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
-			'title' => 'Reauthentication',	// TODO
+			'header' => '再認証が必要です',
+			'tip' => '今後<u>%d分間</u>は再ログインを求められません',
+			'title' => '再認証',
 		),
 		'registration' => array(
 			'_' => '新規アカウント',
@@ -165,7 +165,7 @@ return array(
 		'category_empty' => '空白のカテゴリ',
 		'confirm_action' => '本当に実行してもいいですか?キャンセルはできません!',
 		'confirm_action_feed_cat' => '本当に実行してもいいですか? あなたは関連するお気に入りとユーザークエリを失います。キャンセルできません!',
-		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
+		'confirm_exit_slider' => '保存していない設定を破棄してもよろしいですか',
 		'feedback' => array(
 			'body_new_articles' => array(
 				0 => '%d の新規記事がFreshRSSにはあります。',	// DIRTY
@@ -179,7 +179,7 @@ return array(
 		'labels_empty' => 'ラベルがありません',
 		'new_article' => '新しい記事があるのでクリックしてページをリフレッシュしてください。',
 		'should_be_activated' => 'JavaScriptは有効になっている必要があります。',
-		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
+		'unsafe_csp_header' => '使用中のCSPヘッダーは安全ではないため、FreshRSSがXSS攻撃に対して脆弱になる可能性があります。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">ドキュメント</a>を参照してください。',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -214,7 +214,7 @@ return array(
 		'about' => 'FreshRSSについて',
 		'account' => 'アカウント',
 		'admin' => '管理者',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => '高度な検索',
 		'archiving' => 'アーカイブ',
 		'authentication' => '認証',
 		'check_install' => 'インストール時のチェック',
@@ -248,32 +248,32 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_modified' => 'Server Modification Date',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'このフォームで検索クエリを作成できますが、手動で記述するクエリではさらに高度な検索が可能です。',
+		'authors' => '著者',
+		'categories' => 'カテゴリ',
+		'content' => '本文',
+		'date_from' => '開始日',
+		'date_modified' => 'サーバー上の変更日時',
+		'date_past' => '直近',
+		'date_published' => '公開日時',
+		'date_range' => '期間を指定',
+		'date_received' => '受信日時',
+		'date_to' => '終了日',
+		'date_user' => 'ユーザーによる変更日時',
+		'feeds' => 'フィード',
+		'free_text' => 'フリーワード',
+		'free_text_help' => 'タイトルと本文の両方を検索します。',
+		'full_documentation' => '<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">検索機能の詳しいドキュメント</a>を表示',
+		'labels' => 'ラベル',
+		'multiple_help' => '1つ以上選択してください（複数選択するには<kbd>Ctrl</kbd>または<kbd>Cmd</kbd>を押しながらクリック）',
+		'sources' => '検索対象',
+		'tags' => 'タグ',
+		'text' => 'テキスト検索',
+		'text_help' => '複数行は論理<i>OR</i>で結合されます。<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">正規表現</a>も使用できます。',
+		'text_placeholder' => 'キーワード',
+		'title' => 'タイトル',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'ユーザークエリ',
 	),
 	'share' => array(
 		'Known' => 'よく使われるサイト',
