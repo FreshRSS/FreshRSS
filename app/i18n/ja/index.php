@@ -20,7 +20,7 @@ return array(
 				'browser' => 'ブラウザ',
 				'database' => 'データベース',
 				'server_software' => 'サーバーソフトウェア',
-				'version_curl' => 'cURL version',	// TODO
+				'version_curl' => 'cURLバージョン',
 				'version_frss' => 'FreshRSSバージョン',
 				'version_php' => 'PHPバージョン',
 			),
@@ -37,13 +37,13 @@ return array(
 	'feed' => array(
 		'empty' => '表示できる記事がありません',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => '公開日',
+			'future' => '未来の日付で公開',
+			'today' => '本日公開',
+			'yesterday' => '昨日公開',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => '受信日',
 			'today' => '今日',
 			'yesterday' => '昨日',
 		),
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'お気に入り',
 		'title_global' => 'グローバルビュー',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'ユーザーによる変更',
+			'today' => '本日ユーザーが変更',
+			'yesterday' => '昨日ユーザーが変更',
 		),
 	),
 	'log' => array(
@@ -85,37 +85,37 @@ return array(
 		'rss_view' => 'RSSフィード',
 		'search_short' => '検索',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => '昇順',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'カテゴリ→フィードタイトル（昇順）',
+				'name_desc' => 'カテゴリ→フィードタイトル（降順）',
 			),
 			'date_asc' => '公開日順 1→9',
 			'date_desc' => '公開日順 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => '降順',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'フィードタイトル（昇順）',
+				'name_desc' => 'フィードタイトル（降順）',
 			),
 			'id_asc' => '新着を最後に並べる',
 			'id_desc' => '新着を最初に並べる',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'length_asc' => '本文の長さ（昇順）',
+			'length_desc' => '本文の長さ（降順）',
 			'link_asc' => 'リンクURL順 A→Z',
 			'link_desc' => 'リンクURL順 Z→A',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => '並べ替え基準',
+				'help' => '一貫性とパフォーマンスの観点から、通常は<em>新着順</em>での並べ替えを推奨します。',
 			),
 			'rand' => 'ランダムに並べる',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => '第2並べ替え基準',
+				'help' => '並べ替え基準がカテゴリ名またはフィード名の場合にのみ有効です',
 			),
 			'title_asc' => 'タイトル順 A→Z',
 			'title_desc' => 'タイトル順 Z→A',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => 'ユーザーによる変更（昇順）',
+			'user_modified_desc' => 'ユーザーによる変更（降順）',
 		),
 		'starred' => 'お気に入りを表示する',
 		'stats' => '統計',
