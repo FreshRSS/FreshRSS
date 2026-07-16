@@ -1207,7 +1207,15 @@ function init_shortcuts() {
 		}
 
 		const s = context.shortcuts;
-		let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
+		// Use the physical key for letters and digits so shortcuts keep working
+		// when the active keyboard layout changes.
+		let k = ev.key.trim() || ev.code || 'Space';
+		if (/^Key[A-Z]$/.test(ev.code)) {
+			k = ev.code.slice(3);
+		} else if (/^Digit[0-9]$/.test(ev.code)) {
+			k = ev.code.slice(5);
+		}
+		k = k.toUpperCase();
 
 		// IE11
 		if (k === 'SPACEBAR') k = 'SPACE';
