@@ -2,6 +2,8 @@ parameters:
 	phpVersion:
 		min: 80100	# PHP 8.1
 		max: 80599	# PHP 8.5
+	scanFiles:
+		- tests/stubs/php84-dom.php
 	level: 10	# https://phpstan.org/user-guide/rule-levels
 	fileExtensions:
 		- php
@@ -10,6 +12,7 @@ parameters:
 		- .
 	excludePaths:
 		analyse:
+			- tests/stubs/php84-dom.php
 			- lib/marienfressinaud/*
 			- lib/phpgt/*
 			- lib/phpmailer/*
@@ -67,32 +70,6 @@ parameters:
 			paths:
 				- lib/Minz/ModelPdo.php
 				- lib/Minz/PdoMysql.php
-			reportUnmatched: false
-		-
-			# PHP 8.4+ \Dom\* HTML5 parser, guarded by class_exists('Dom\HTMLDocument')
-			identifier: class.notFound
-			path: lib/favicons.php
-			reportUnmatched: false
-		-
-			identifier: foreach.nonIterable
-			path: lib/favicons.php
-			reportUnmatched: false
-		-
-			identifier: method.nonObject
-			path: lib/favicons.php
-			reportUnmatched: false
-		-
-			identifier: constant.notFound
-			path: lib/favicons.php
-			reportUnmatched: false
-		-
-			identifier: binaryOp.invalid
-			path: lib/favicons.php
-			reportUnmatched: false
-		-
-			identifier: argument.type
-			message: '#(list<mixed>|expects string, mixed given)#'
-			path: lib/favicons.php
 			reportUnmatched: false
 includes:
 	- vendor/phpstan/phpstan-deprecation-rules/rules.neon

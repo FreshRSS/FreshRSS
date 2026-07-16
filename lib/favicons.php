@@ -82,13 +82,13 @@ function searchFavicon(string $url): string {
 		$linkHrefs = [];
 		foreach ($xpath->query($linkXPath) as $link) {
 			if ($link instanceof Dom\Element) {
-				$linkHrefs[] = $link->getAttribute('href');
+				$linkHrefs[] = $link->getAttribute('href') ?? '';
 			}
 		}
 		$baseUrl = $effective_url;
 		$baseElement = $xpath->query('//base[@href]')->item(0);
 		if ($baseElement instanceof Dom\Element) {
-			$baseUrl = $baseElement->getAttribute('href');
+			$baseUrl = $baseElement->getAttribute('href') ?? '';
 		}
 		return tryFaviconLinks($linkHrefs, $baseUrl, $effective_url);
 	}
