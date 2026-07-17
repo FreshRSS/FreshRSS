@@ -140,7 +140,7 @@ return array(
 			'api_set' => 'APIパスワード設定済み',
 			'check_link' => 'APIステータスを確認する：<kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'APIアクセスは無効です。',
-			'documentation_link' => '既知のアプリの一覧は<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',//DIRTY
+			'documentation_link' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメントと既知のアプリ一覧</a>を参照してください',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',
 			'security_warning' => 'HTTPSを使用してください。APIパスワードは平文で送信され、GETで送信した場合はサーバーログに記録される可能性があります。',
 		),
@@ -192,7 +192,7 @@ return array(
 			'_' => 'まだユーザークエリは保存されていません。',
 			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">ドキュメント</a>を参照してください',
 		),
-		'number' => 'クエリ No. °%d',//DIRTY
+		'number' => 'クエリ No. %d',
 		'order_asc' => '古い記事を最初に表示する',
 		'order_desc' => '新しい記事を最初に表示する',
 		'search' => '「%s」で検索する',
@@ -312,7 +312,7 @@ return array(
 		),
 		'sticky_post' => '開いた記事を先頭に固定する',
 		'sticky_sort' => 'ナビゲーション中も手動の並び順を保持する',
-		'sticky_sort_help' => '最後に指定した手動の並び順を保持するか、各カテゴリーやフィードが常に独自の既定または全体設定を使用するかを決めます。',	// DIRTY
+		'sticky_sort_help' => '最後に指定した並べ替え順を保持するか、カテゴリやフィードごとに既定または全体設定の並べ替え順を使用するかを指定します。',
 		'title' => '閲覧',
 		'view' => array(
 			'default' => 'デフォルトビュー',
