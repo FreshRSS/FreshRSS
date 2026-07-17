@@ -95,7 +95,8 @@ return array(
 				'_' => 'HTML + XPath + JSONドット記法（HTML内のJSON）',
 				'xpath' => array(
 					'_' => 'HTML内のJSONを指すXPath',
-					'help' => '例：<code>normalize-space(//script[@type="application/json"])</code>（単一のJSON）<br />または：<code>//script[@type="application/ld+json"]</code>（記事ごとに1つのJSONオブジェクト）',				),
+					'help' => '例：<code>normalize-space(//script[@type="application/json"])</code>（単一のJSON）<br />または：<code>//script[@type="application/ld+json"]</code>（記事ごとに1つのJSONオブジェクト）',
+				),
 			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath（ウェブスクレイピング）',
