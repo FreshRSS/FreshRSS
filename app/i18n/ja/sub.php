@@ -31,22 +31,22 @@ return array(
 		'empty' => '空のカテゴリ',
 		'error' => '動的OPMLカテゴリで問題が発生しました。OPMLのURLに引き続きアクセスできることと、ユーザーごとの最大フィード数を超えていないことを確認してください。',
 		'expand' => 'カテゴリを展開する',
-		'information' => 'インフォメーション',
+		'information' => '情報',
 		'open' => 'カテゴリを開く',
 		'opml_url' => 'OPMLのURL',
 		'position' => '表示位置',
-		'position_help' => 'カテゴリの表示順を操作します',
+		'position_help' => 'カテゴリの表示順を指定します',
 		'title' => 'タイトル',
 	),
 	'feed' => array(
 		'accept_cookies' => 'クッキーを受け入れる',
 		'accept_cookies_help' => 'フィードサーバーからのクッキーを受け入れます（クッキーはこのリクエスト中のみメモリに保存されます）', // DIRTY
-		'add' => 'フィードに追加する',
+		'add' => 'フィードを追加する',
 		'advanced' => '高度な設定',
 		'archiving' => 'アーカイブ',
 		'auth' => array(
 			'configuration' => '認証情報',
-			'help' => 'RSSフィードへのHTTPアクセスを許可する',
+			'help' => 'HTTP認証で保護されたRSSフィードへのアクセスを許可します',
 			'http' => 'HTTP認証',
 			'password' => 'HTTPパスワード',
 			'username' => 'HTTPユーザー名',
@@ -73,7 +73,7 @@ return array(
 		'error' => 'このフィードで問題が発生しました。この状況が続く場合は、まだアクセスできるか確認してください。',
 		'export-as-opml' => array(
 			'download' => 'ダウンロード',
-			'help' => 'XMLファイル（データのサブセット。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">ドキュメントを参照してください</a>。）',
+			'help' => 'XMLファイル（データのサブセット。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">ドキュメントを参照</a>）',
 			'label' => 'OPMLとしてエクスポート',
 		),
 		'ext_favicon' => '自動設定',
@@ -86,9 +86,9 @@ return array(
 		'http_headers' => 'HTTPヘッダ',
 		'http_headers_help' => 'ヘッダは改行で区切られ、ヘッダの名前と値はコロンで区切られます（例：<kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>）。',
 		'icon' => 'アイコン',
-		'information' => 'インフォメーション',
+		'information' => '情報',
 		'keep_adding_feed' => '続けてフィードを追加',
-		'keep_min' => '最小数の記事は保持されます',
+		'keep_min' => '保持する記事数の下限',
 		'kind' => array(
 			'_' => 'フィードソースの種類',
 			'html_json' => array(
@@ -148,12 +148,12 @@ return array(
 				'_' => 'JSON（ドット記法）',
 				'feed_title' => array(
 					'_' => 'フィード名',
-					'help' => '例：<code>meta.title</code> または静的文字列：<code>"My custom feed"</code>',
+					'help' => '例：<code>meta.title</code>、または固定文字列：<code>"カスタムフィード"</code>',
 				),
 				'help' => 'JSONのドット記法は、オブジェクトの間にドットを使用し、配列には括弧を使用します。例：<code>data.items[0].title</code>',
 				'item' => array(
 					'_' => 'ニュース<strong>項目</strong>を探す<br /><small>（最重要）</small>',
-					'help' => '項目を含む配列へのJSONパス。 例：<code>$</code> or <code>newsItems</code>',
+					'help' => '項目を含む配列へのJSONパス。例：<code>$</code>または<code>newsItems</code>',
 				),
 				'item_author' => '項目の著者',
 				'item_categories' => '項目のタグ',
@@ -183,7 +183,7 @@ return array(
 				'relative' => 'ドット記法（項目からの相対パス）：',
 			),
 			'jsonfeed' => 'JSONフィード',
-			'rss' => 'RSS / Atom（標準）',
+			'rss' => 'RSS／Atom（標準）',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
 		'last-entry-publication-date' => '最新記事の公開日時：<time datetime="%1$s" title="%1$s">%2$s</time>。',
@@ -197,14 +197,14 @@ return array(
 			'reload_articles_help' => '指定した数の記事を再読み込みし、セレクターが定義されていればコンテンツを完全に取得します。',
 			'title' => 'メンテナンス',
 		),
-		'max_http_redir' => 'HTTPのリダイレクトの上限',
+		'max_http_redir' => 'HTTPリダイレクト数の上限',
 		'max_http_redir_help' => '0を設定するか、空白のままにすると無効になり、-1を設定するとリダイレクト数が無制限になります。',
 		'method' => array(
 			'_' => 'HTTPメソッド',
 		),
 		'method_help' => 'POSTペイロードでは<code>application/x-www-form-urlencoded</code>と<code>application/json</code>が自動的にサポートされます', // DIRTY
 		'method_postparams' => 'POST用ペイロード',
-		'moved_category_deleted' => 'カテゴリを削除したとき、フィードは自動的に<em>%s</em>下に分類されます。',
+		'moved_category_deleted' => 'カテゴリを削除すると、そのフィードは自動的に<em>%s</em>へ移動します。',
 		'mute' => array(
 			'_' => 'ミュート',
 			'state_is_muted' => 'このフィードはミュートされています',
@@ -214,7 +214,7 @@ return array(
 		'open_feed' => 'フィード「%s」を開く',
 		'path_entries_conditions' => 'コンテンツを取得する条件',
 		'priority' => array(
-			'_' => '表示する場所',
+			'_' => '表示範囲',
 			'category' => 'カテゴリで表示',
 			'feed' => 'フィード内に表示',
 			'hidden' => '非表示',
@@ -235,12 +235,12 @@ return array(
 		'showing' => array(
 			'error' => 'エラーが発生しているフィードのみを表示しています',
 		),
-		'ssl_verify' => 'SSL セキュリティを管理する',
+		'ssl_verify' => 'SSL証明書を検証する',
 		'stats' => '統計',
-		'think_to_add' => 'フィードを追加できます。',
+		'think_to_add' => 'フィードを追加してみましょう。',
 		'timeout' => 'タイムアウトする時間（秒）',
 		'title' => 'タイトル',
-		'title_add' => 'RSS フィードを追加する',
+		'title_add' => 'RSSフィードを追加する',
 		'ttl' => '自動更新の頻度',
 		'unicityCriteria' => array(
 			'_' => '記事の重複判定基準', // DIRTY

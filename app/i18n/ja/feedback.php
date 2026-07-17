@@ -34,9 +34,9 @@ return array(
 		),
 	),
 	'conf' => array(
-		'error' => '設定を保存するとき、エラーが発生しました。',
-		'query_created' => '「%s」クエリは作成されました。',
-		'shortcuts_updated' => 'ショートカットがアップデートされました。',
+		'error' => '設定の保存中にエラーが発生しました。',
+		'query_created' => 'クエリ「%s」を作成しました。',
+		'shortcuts_updated' => 'ショートカットを更新しました。',
 		'updated' => '設定が更新されました。',
 	),
 	'extensions' => array(
@@ -59,7 +59,7 @@ return array(
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP拡張機能がサーバーに存在しません。ファイルを個別にエクスポートしてください。',
 		'feeds_imported' => 'フィードがインポートされました。インポートが完了したら<i>フィードを更新する</i>ボタンをクリックしてください。',
-		'feeds_imported_with_errors' => 'フィードがインポートされましたがエラーが起きました。インポートが完了したら<i>フィードを更新する</i>ボタンをクリックしてください。',
+		'feeds_imported_with_errors' => 'フィードをインポートしましたが、一部でエラーが発生しました。インポートが完了したら<i>フィードを更新する</i>ボタンをクリックしてください。',
 		'file_cannot_be_uploaded' => 'ファイルをアップロードできません',
 		'no_zip_extension' => 'ZIP拡張機能がサーバーに存在しません。',
 		'zip_error' => 'ZIPの処理中にエラーが発生しました。',
@@ -91,7 +91,7 @@ return array(
 		'feed' => array(
 			'actualized' => '<em>%s</em>は更新されました',
 			'actualizeds' => 'RSSフィードは更新されました',
-			'added' => 'RSS フィード<em>%s</em>が追加されました',
+			'added' => 'RSSフィード<em>%s</em>が追加されました',
 			'already_subscribed' => 'すでに<em>%s</em>を購読しています',
 			'cache_cleared' => '<em>%s</em>のキャッシュを消去しました',
 			'deleted' => 'フィードを削除しました',
@@ -102,16 +102,16 @@ return array(
 			),
 			'internal_problem' => 'ニュースフィードを追加できませんでした。詳細は<a href="%s">FreshRSSのログ</a>を確認してください。URLの末尾に<code>#force_feed</code>を追加すると強制的に追加できます。',
 			'invalid_url' => 'URL <em>%s</em>は無効です',
-			'n_actualized' => '%d フィードはアップデートされました',
-			'n_entries_deleted' => '%d 記事が消去されました',
-			'no_refresh' => 'リフレッシュするフィードがありません',
+			'n_actualized' => '%d件のフィードを更新しました',
+			'n_entries_deleted' => '%d件の記事を削除しました',
+			'no_refresh' => '更新するフィードがありません',
 			'not_added' => '<em>%s</em> は追加できません',
 			'not_found' => 'フィードが見つかりませんでした',
 			'over_max' => 'フィード数の上限（%d）に達しました',
 			'reloaded' => '<em>%s</em> は再読み込みされました',
 			'selector_preview' => array(
 				'http_error' => 'Webサイトの読み込みに失敗しました',
-				'no_entries' => 'このフィードには記事がありません。プレビュー表示を作成するには少なくとも一つの記事が必要です。',
+				'no_entries' => 'このフィードには記事がありません。プレビューを作成するには少なくとも1件の記事が必要です。',
 				'no_feed' => '内部エラー（フィードが見つかりませんでした）。',
 				'no_result' => '一致するものがありませんでした。代わりに元のフィード本文を表示します。', // DIRTY
 				'selector_empty' => 'セレクターが空です。プレビューを作成するにはセレクターを指定してください。', // DIRTY
@@ -121,9 +121,9 @@ return array(
 		'purge_completed' => '不要データの削除が完了しました（%d件の記事を削除しました）', // DIRTY
 	),
 	'tag' => array(
-		'created' => '「%s」タグが作成されました',
+		'created' => 'ラベル「%s」を作成しました',
 		'error' => 'ラベルを更新できませんでした',
-		'name_exists' => 'このタグ名は既に存在します',
+		'name_exists' => 'このラベル名は既に存在します',
 		'renamed' => 'ラベル「%s」の名前を「%s」に変更しました', // DIRTY
 		'updated' => 'ラベルが更新されました',
 	),

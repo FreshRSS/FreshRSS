@@ -51,7 +51,7 @@ return array(
 		'language' => '言語',
 		'notif_html5' => array(
 			'seconds' => '秒（0秒だとタイムアウトしません）',
-			'timeout' => 'HTML5 の通知タイムアウト時間',
+			'timeout' => 'HTML5通知のタイムアウト時間',
 		),
 		'show_nav_buttons' => 'ナビゲーションボタンを表示',
 		'show_title_unread' => 'タイトルに未読記事数を表示',
@@ -79,7 +79,7 @@ return array(
 			'square' => '四角',
 		),
 		'timezone' => 'タイムゾーン',
-		'title' => 'ディスプレイ',
+		'title' => '表示',
 		'website' => array(
 			'full' => 'アイコンと名前',
 			'icon' => 'アイコンのみ',
@@ -141,17 +141,17 @@ return array(
 			'check_link' => 'APIステータスを確認する：<kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'APIアクセスは無効です。',
 			'documentation_link' => '既知のアプリの一覧は<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',//DIRTY
-			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ドキュメント</a>を参照します',
+			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',
 			'security_warning' => 'HTTPSを使用してください。APIパスワードは平文で送信され、GETで送信した場合はサーバーログに記録される可能性があります。',
 		),
 		'change_password' => 'パスワードを変更',
 		'confirm_new_password' => '新しいパスワード（確認）',
 		'current_password' => '現在のパスワード<br /><small>（Webフォームログイン用）</small>',
 		'delete' => array(
-			'_' => 'アカウント消去',
-			'warn' => 'このアカウントとそれに関連したデータが消去されます。',
+			'_' => 'アカウント削除',
+			'warn' => 'このアカウントと関連データが削除されます。',
 		),
-		'email' => 'Eメールアドレス',
+		'email' => 'メールアドレス',
 		'new_password' => '新しいパスワード',
 		'password_api' => 'APIのパスワード<br /><small>（モバイルアプリなどで必要）</small>',
 		'password_format' => '7文字以上必要です。',
@@ -178,7 +178,7 @@ return array(
 		'get_A' => 'カテゴリで表示するものも含め、すべてのフィードを表示する',
 		'get_Z' => 'アーカイブも含め、すべてのフィードを表示する',
 		'get_all' => 'すべての記事を表示する',
-		'get_all_labels' => '任意のラベルで記事を表示する',
+		'get_all_labels' => 'いずれかのラベルが付いた記事を表示する',
 		'get_category' => 'カテゴリ「%s」を表示する',
 		'get_favorite' => 'お気に入りの記事を表示する',
 		'get_feed' => 'フィード「%s」を表示する',
@@ -227,8 +227,8 @@ return array(
 		'title' => 'ユーザークエリ',
 	),
 	'reading' => array(
-		'_' => 'リーディング',
-		'after_onread' => 'すべて既読にするボタンを押した後,',
+		'_' => '閲覧',
+		'after_onread' => '「すべて既読にする」の実行後、',
 		'always_show_favorites' => 'デフォルトですべてのお気に入りの記事を表示する',//DIRTY
 		'apply_to_individual_feed' => '個々のフィードに適用する',
 		'article' => array(
@@ -240,7 +240,7 @@ return array(
 				'none' => 'なし',
 			),
 			'feed_name' => array(
-				'above_title' => 'タイトルの上',
+				'above_title' => 'タイトルとタグの上',
 				'none' => 'なし',
 				'with_authors' => '著者と日時の隣',
 			),
@@ -266,7 +266,7 @@ return array(
 		'auto_load_more' => 'ページ下部で記事をさらに読み込む',//DIRTY
 		'auto_remove_article' => '記事を読んだら非表示にする',
 		'confirm_enabled' => '既読を付けるボタンを押したとき確認ダイアログを表示する',
-		'display_articles_unfolded' => 'デフォルトで未分類の記事を表示する',
+		'display_articles_unfolded' => 'デフォルトで記事を展開する',
 		'display_categories_unfolded' => '展開するカテゴリ',
 		'headline' => array(
 			'articles' => '記事：開く/閉じる',
@@ -277,10 +277,10 @@ return array(
 			'view' => 'ビュー',
 		),
 		'hide_read_feeds' => '未読記事のないカテゴリとフィードを非表示（「すべての記事を表示」設定では機能しません）',//DIRTY
-		'img_with_lazyload' => '<em>lazy load</em>を写真の読み込み時に使う',
-		'jump_next' => '次の未読の姉妹記事へ移る',
+		'img_with_lazyload' => '画像の読み込みに<em>lazy load</em>を使用する',
+		'jump_next' => '次の未読記事へ移動する',
 		'mark_updated_article_unread' => '更新された記事を未読とする',
-		'number_divided_when_reader' => 'リーディングビューを2分割する',
+		'number_divided_when_reader' => 'リーディングビューでは記事数を2分の1にする',
 		'read' => array(
 			'article_open_on_website' => '記事を元のWebサイトで開いたとき',
 			'article_viewed' => '記事を読んだとき',
@@ -306,14 +306,14 @@ return array(
 			'unread_or_favorite' => '未読とお気に入りを表示する',
 		),
 		'show_fav_unread_help' => 'ラベルも適用する',
-		'sides_close_article' => '記事の外をクリックすると記事を閉じるようにする',
+		'sides_close_article' => '記事本文の外側をクリックしたときに記事を閉じる',
 		'star' => array(
 			'when' => '記事をお気に入りに登録する。',
 		),
-		'sticky_post' => '開いたときにトップを記事にする',
+		'sticky_post' => '開いた記事を先頭に固定する',
 		'sticky_sort' => 'ナビゲーション中も手動の並び順を保持する',	// DIRTY
 		'sticky_sort_help' => '最後に指定した手動の並び順を保持するか、各カテゴリーやフィードが常に独自の既定または全体設定を使用するかを決めます。',	// DIRTY
-		'title' => 'リーディング',
+		'title' => '閲覧',
 		'view' => array(
 			'default' => 'デフォルトビュー',
 			'global' => 'グローバルビュー',
@@ -327,7 +327,7 @@ return array(
 		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'このサービスは非推奨でFreshRSSの<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">将来のリリース</a>から削除される予定です。',
 		'diaspora' => 'Diaspora*',	// IGNORE
-		'email' => 'Eメール',
+		'email' => 'メール',
 		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => '詳細',
 		'print' => '印刷',
@@ -344,15 +344,15 @@ return array(
 		'_' => 'ショートカット',
 		'article_action' => '記事のアクション',
 		'auto_share' => '共有',
-		'auto_share_help' => '共有方法が一つしか設定されていないときにはそれが使われます。そうではなければ、番号によって共有方法にアクセスできます。',
+		'auto_share_help' => '共有方法が1つだけ設定されている場合はそれを使用します。複数ある場合は番号で選択します。',
 		'close_menus' => 'メニューを閉じる',
 		'collapse_article' => '折りたたむ',
 		'first_article' => '初めの記事を開く',
-		'focus_search' => '検索ボックスにアクセスする',
+		'focus_search' => '検索ボックスにフォーカスする',
 		'global_view' => 'グローバルビューに変更する',
 		'help' => 'ドキュメントを表示する',
 		'javascript' => 'JavaScriptはショートカットを使うときに必要です',
-		'last_article' => '最近の記事を表示する',
+		'last_article' => '最後の記事を開く',
 		'load_more' => 'もっと記事を読み込む',
 		'mark_favorite' => 'お気に入りを切り替える',
 		'mark_read' => '既読/未読を切り替える',
@@ -361,10 +361,10 @@ return array(
 		'navigation_no_mod_help' => '以下のナビゲーションショートカットは、修飾キーをサポートしません。',
 		'next_article' => '次の記事を開く',
 		'next_unread_article' => '次の未読の記事を開く',
-		'non_standard' => '（<kbd>%s</kbd>）のキーはショートカットにはなりません。',
+		'non_standard' => '一部のキー（<kbd>%s</kbd>）はショートカットとして機能しない場合があります。',
 		'normal_view' => 'ノーマルビューに切り替える',
 		'other_action' => 'ほかのアクション',
-		'previous_article' => '前の記事を表示する',
+		'previous_article' => '前の記事を開く',
 		'reading_view' => 'リーディングビューに切り替える',
 		'rss_view' => 'RSSフィードとして開く',
 		'see_on_website' => '元のWebサイトを開く',
@@ -373,7 +373,7 @@ return array(
 		'skip_previous_article' => '前の記事を開かずにフォーカスする',
 		'title' => 'ショートカット',
 		'toggle_aside' => 'サイドバーの表示/非表示を切り替える',
-		'toggle_media' => 'メディアの 再生/停止',
+		'toggle_media' => 'メディアを再生／一時停止する',
 		'user_filter' => 'ユーザークエリにアクセスする',
 		'user_filter_help' => 'ユーザークエリが1件だけの場合はそれを使用し、複数ある場合は番号で選択します。',//DIRTY
 		'views' => 'ビュー',

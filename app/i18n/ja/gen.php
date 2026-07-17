@@ -21,7 +21,7 @@ return array(
 		'delete_all_feeds' => 'すべてのフィードを削除する',
 		'delete_errored_feeds' => 'エラーが発生しているフィードを削除',  // DIRTY
 		'delete_muted_feeds' => 'ミュートにしているフィードを削除する',
-		'demote' => '寄付',
+		'demote' => '降格',
 		'disable' => '無効',
 		'download' => 'ダウンロード',
 		'empty' => '空',
@@ -41,7 +41,7 @@ return array(
 			'up' => '先頭へ',
 		),
 		'open_url' => 'URLを開く',
-		'promote' => 'プロモート',
+		'promote' => '昇格',
 		'purge' => '不要なデータの削除',
 		'refresh_opml' => 'OPMLを更新する',
 		'remove' => '消去',
@@ -68,7 +68,7 @@ return array(
 		),
 		'registration' => array(
 			'_' => '新規アカウント',
-			'ask' => 'アカウントを作りますか?',
+			'ask' => 'アカウントを作成しますか？',
 			'title' => 'アカウント作成',
 		),
 		'username' => array(
@@ -177,7 +177,7 @@ return array(
 			'title_new_articles' => 'FreshRSS：新着記事',
 		),
 		'labels_empty' => 'ラベルがありません',
-		'new_article' => '新しい記事があります。クリックしてページをリフレッシュしてください。',
+		'new_article' => '新しい記事があります。クリックしてページを更新してください。',
 		'should_be_activated' => 'JavaScriptを有効にする必要があります。',
 		'unsafe_csp_header' => '使用中のCSPヘッダーは安全ではないため、FreshRSSがXSS攻撃に対して脆弱になる可能性があります。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">ドキュメント</a>を参照してください。',
 	),
@@ -219,12 +219,12 @@ return array(
 		'authentication' => '認証',
 		'check_install' => 'インストール時のチェック',
 		'configuration' => '設定',
-		'display' => 'ディスプレイ',
+		'display' => '表示',
 		'extensions' => '拡張機能',
 		'logs' => 'ログ',
 		'privacy' => 'プライバシー',
 		'queries' => 'ユーザークエリ',
-		'reading' => 'リーディング',
+		'reading' => '閲覧',
 		'search' => '単語で検索するかハッシュタグで検索する',
 		'search_help' => '高度な検索パラメータについては <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">こちら</a>を参照してください',
 		'sharing' => '共有',
@@ -284,8 +284,8 @@ return array(
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'クリップボード',
 		'diaspora' => 'Diaspora*',	// IGNORE
-		'email' => 'Eメール',
-		'email-webmail-firefox-fix' => 'Eメール（Firefox対応）',
+		'email' => 'メール',
+		'email-webmail-firefox-fix' => 'メール（Firefox対応）',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
@@ -310,15 +310,15 @@ return array(
 		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
-		'attention' => '警告!',
+		'attention' => '警告！',
 		'blank_to_disable' => '空白のままにすると無効になります',
 		'by_author' => '著者：',
 		'by_default' => 'デフォルト',
-		'damn' => '終了!',
+		'damn' => 'しまった！',
 		'default_category' => '未分類',
 		'no' => 'いいえ',
-		'not_applicable' => '利用不可能',
-		'ok' => 'OK!',
+		'not_applicable' => '利用できません',
+		'ok' => 'OK！',
 		'or' => 'または',
 		'yes' => 'はい',
 	),
