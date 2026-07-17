@@ -19,7 +19,7 @@ return array(
 		'close' => '閉じる',
 		'create' => '作成',
 		'delete_all_feeds' => 'すべてのフィードを削除する',
-		'delete_errored_feeds' => 'エラーが発生しているフィードを削除',  // DIRTY
+		'delete_errored_feeds' => 'エラーが発生しているフィードを削除',
 		'delete_muted_feeds' => 'ミュートにしているフィードを削除する',
 		'demote' => '降格',
 		'disable' => '無効',

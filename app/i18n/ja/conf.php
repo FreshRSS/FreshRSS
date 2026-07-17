@@ -13,19 +13,19 @@
 return array(
 	'archiving' => array(
 		'_' => 'アーカイブ',
-		'exception' => '削除対象外',//DIRTY
+		'exception' => '削除対象外',
 		'help' => '個別のフィード内設定で、より詳細な設定ができます。',
 		'keep_favourites' => 'お気に入りを消去しない',
 		'keep_labels' => 'ラベルを消去しない',
-		'keep_max' => '各フィードに保存する記事数の上限',//DIRTY
-		'keep_min_by_feed' => '各フィードに保存する記事数の下限',//DIRTY
-		'keep_period' => '記事を保存する最長期間',//DIRTY
+		'keep_max' => '各フィードに保存する記事数の上限',
+		'keep_min_by_feed' => '各フィードに保存する記事数の下限',
+		'keep_period' => '記事を保存する最長期間',
 		'keep_unreads' => '未読の記事を消去しない',
 		'maintenance' => 'メンテナンス',
 		'optimize' => 'データベースを整理',
-		'optimize_help' => 'データベース容量を削減するため、定期的に実行してください。',//DIRTY
+		'optimize_help' => 'データベース容量を削減するため、定期的に実行してください。',
 		'policy' => '不要なデータを削除する',
-		'policy_warning' => '削除ポリシーを選択しない場合、すべての記事が保存されます。',//DIRTY
+		'policy_warning' => '削除ポリシーを選択しない場合、すべての記事が保存されます。',
 		'purge_now' => '不要なデータをまとめて削除する',
 		'title' => 'アーカイブ',
 		'ttl' => '自動更新する間隔',
@@ -39,14 +39,14 @@ return array(
 			'no' => '無効',
 		),
 		'icon' => array(
-			'bottom_line' => '下段',//DIRTY
+			'bottom_line' => '下段',
 			'display_authors' => '著者',
-			'entry' => '記事アイコン',//DIRTY
+			'entry' => '記事アイコン',
 			'publication_date' => '公開日時',
 			'related_tags' => 'タグ',
 			'sharing' => '共有',
 			'summary' => '要約',
-			'top_line' => '上段',//DIRTY
+			'top_line' => '上段',
 		),
 		'language' => '言語',
 		'notif_html5' => array(
@@ -67,7 +67,7 @@ return array(
 			'_' => 'テーマ',
 			'deprecated' => array(
 				'_' => '非推奨',
-				'description' => 'このテーマのサポートは終了しており、<a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">FreshRSSの将来のリリース</a>では利用できなくなります。',//DIRTY
+				'description' => 'このテーマのサポートは終了しており、<a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">FreshRSSの将来のリリース</a>では利用できなくなります。',
 			),
 		),
 		'theme_not_available' => 'テーマ「%s」は利用できません。他のテーマを選択してください。',
@@ -109,7 +109,7 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '「すべて既読にする」ボタン',	// DIRTY
+		'_' => '「すべて既読にする」ボタン',
 		'big' => '大',
 		'none' => 'なし',
 		'small' => '小',
@@ -168,7 +168,7 @@ return array(
 			'feeds' => 'フィードごとに表示する',
 			'order' => '日付ごとにソートする',
 			'publish_labels_instead_of_tags' => '共有RSSでは<i>フィードタグ</i>の代わりに<i>ユーザーラベル</i>を使用する',
-			'search' => '検索式',//DIRTY
+			'search' => '検索式',
 			'shareOpml' => 'カテゴリとフィードのOPMLによる共有を有効にする',
 			'shareRss' => 'HTMLとRSSによる共有を有効にする',
 			'state' => '状態',
@@ -229,7 +229,7 @@ return array(
 	'reading' => array(
 		'_' => '閲覧',
 		'after_onread' => '「すべて既読にする」の実行後、',
-		'always_show_favorites' => 'デフォルトですべてのお気に入りの記事を表示する',//DIRTY
+		'always_show_favorites' => 'デフォルトですべてのお気に入りの記事を表示する',
 		'apply_to_individual_feed' => '個々のフィードに適用する',
 		'article' => array(
 			'authors_date' => array(
@@ -263,7 +263,7 @@ return array(
 			),
 		),
 		'articles_per_page' => '1ページあたりの記事の数',
-		'auto_load_more' => 'ページ下部で記事をさらに読み込む',//DIRTY
+		'auto_load_more' => 'ページ下部で記事をさらに読み込む',
 		'auto_remove_article' => '記事を読んだら非表示にする',
 		'confirm_enabled' => '既読を付けるボタンを押したとき確認ダイアログを表示する',
 		'display_articles_unfolded' => 'デフォルトで記事を展開する',
@@ -276,7 +276,7 @@ return array(
 			'misc' => 'その他',
 			'view' => 'ビュー',
 		),
-		'hide_read_feeds' => '未読記事のないカテゴリとフィードを非表示（「すべての記事を表示」設定では機能しません）',//DIRTY
+		'hide_read_feeds' => '未読記事のないカテゴリとフィードを非表示（「すべての記事を表示」設定では機能しません）',
 		'img_with_lazyload' => '画像の読み込みに<em>lazy load</em>を使用する',
 		'jump_next' => '次の未読記事へ移動する',
 		'mark_updated_article_unread' => '更新された記事を未読とする',
@@ -289,7 +289,7 @@ return array(
 			'scroll' => 'スクロールしているとき（重要なフィードを除く）',
 			'upon_gone' => 'ニュースフィードの提供元がなくなったとき',
 			'upon_reception' => '記事を受け取ったとき',
-			'when' => '記事を既読にする…',//DIRTY
+			'when' => '記事を既読にする…',
 			'when_same_guid_in_category' => 'カテゴリの最新記事上位<i>n</i>件に同一のGUIDを持つ記事が存在する場合',
 			'when_same_title_in_category' => 'カテゴリの最新記事上位<i>n</i>件に同一タイトルの記事が存在する場合',
 			'when_same_title_in_feed' => 'フィードの最新記事上位<i>n</i>件に同一タイトルの記事が存在する場合',
@@ -311,7 +311,7 @@ return array(
 			'when' => '記事をお気に入りに登録する。',
 		),
 		'sticky_post' => '開いた記事を先頭に固定する',
-		'sticky_sort' => 'ナビゲーション中も手動の並び順を保持する',	// DIRTY
+		'sticky_sort' => 'ナビゲーション中も手動の並び順を保持する',
 		'sticky_sort_help' => '最後に指定した手動の並び順を保持するか、各カテゴリーやフィードが常に独自の既定または全体設定を使用するかを決めます。',	// DIRTY
 		'title' => '閲覧',
 		'view' => array(
@@ -375,11 +375,11 @@ return array(
 		'toggle_aside' => 'サイドバーの表示/非表示を切り替える',
 		'toggle_media' => 'メディアを再生／一時停止する',
 		'user_filter' => 'ユーザークエリにアクセスする',
-		'user_filter_help' => 'ユーザークエリが1件だけの場合はそれを使用し、複数ある場合は番号で選択します。',//DIRTY
+		'user_filter_help' => 'ユーザークエリが1件だけの場合はそれを使用し、複数ある場合は番号で選択します。',
 		'views' => 'ビュー',
 	),
 	'user' => array(
-		'articles_and_size' => '%s件の記事（%s）',//DIRTY
+		'articles_and_size' => '%s件の記事（%s）',
 		'current' => '現在のユーザー',
 		'is_admin' => '管理者権限',
 		'users' => 'ユーザー',

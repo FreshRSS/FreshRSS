@@ -16,7 +16,7 @@ return array(
 		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'このボタンをブックマークツールバーにドラッグするか、右クリックして「このリンクをブックマーク」を選択してください。その後、購読したいページで「購読」ボタンをクリックします。', // DIRTY
+		'documentation' => 'このボタンをブックマークツールバーにドラッグするか、右クリックして「このリンクをブックマーク」を選択してください。その後、購読したいページで「購読」ボタンをクリックします。',
 		'label' => '購読',
 		'title' => 'ブックマーク',
 	),
@@ -40,7 +40,7 @@ return array(
 	),
 	'feed' => array(
 		'accept_cookies' => 'クッキーを受け入れる',
-		'accept_cookies_help' => 'フィードサーバーからのクッキーを受け入れます（クッキーはこのリクエスト中のみメモリに保存されます）', // DIRTY
+		'accept_cookies_help' => 'フィードサーバーからのクッキーを受け入れます（クッキーはこのリクエスト中のみメモリに保存されます）',
 		'add' => 'フィードを追加する',
 		'advanced' => '高度な設定',
 		'archiving' => 'アーカイブ',
@@ -69,7 +69,7 @@ return array(
 			'help' => 'CSSセレクタは次のようなリストです：<kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
 		'description' => '説明',
-		'empty' => 'このフィードは空です。配信元サイトが現在も運営されているか確認してください。', // DIRTY
+		'empty' => 'このフィードは空です。配信元サイトが現在も運営されているか確認してください。',
 		'error' => 'このフィードで問題が発生しました。この状況が続く場合は、まだアクセスできるか確認してください。',
 		'export-as-opml' => array(
 			'download' => 'ダウンロード',
@@ -105,12 +105,12 @@ return array(
 				),
 				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> は上級者向けのクエリ型言語で、FreshRSSでスクレイピングをサポートしている言語です。',
 				'item' => array(
-					'_' => 'ニュースの<strong>項目</strong>を検索する<br /><small>（最も重要）</small>', // DIRTY
+					'_' => 'ニュースの<strong>項目</strong>を検索する<br /><small>（最も重要）</small>',
 					'help' => '例：<code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
 					'_' => '著者',
-					'help' => '固定文字定数も使用できます。例：<code>"匿名"</code>', // DIRTY
+					'help' => '固定文字定数も使用できます。例：<code>"匿名"</code>',
 				),
 				'item_categories' => 'タグ',
 				'item_content' => array(
@@ -202,7 +202,7 @@ return array(
 		'method' => array(
 			'_' => 'HTTPメソッド',
 		),
-		'method_help' => 'POSTペイロードでは<code>application/x-www-form-urlencoded</code>と<code>application/json</code>が自動的にサポートされます', // DIRTY
+		'method_help' => 'POSTペイロードでは<code>application/x-www-form-urlencoded</code>と<code>application/json</code>が自動的にサポートされます',
 		'method_postparams' => 'POST用ペイロード',
 		'moved_category_deleted' => 'カテゴリを削除すると、そのフィードは自動的に<em>%s</em>へ移動します。',
 		'mute' => array(
@@ -243,9 +243,9 @@ return array(
 		'title_add' => 'RSSフィードを追加する',
 		'ttl' => '自動更新の頻度',
 		'unicityCriteria' => array(
-			'_' => '記事の重複判定基準', // DIRTY
-			'forced' => '<span title="重複記事が存在しても、選択した重複判定基準を自動変更しません">選択した基準を固定する</span>', // DIRTY
-			'help' => '仕様に準拠していないフィードへの対処に使用します。<br />⚠️ 基準を変更すると重複記事が作成される可能性があります。', // DIRTY
+			'_' => '記事の重複判定基準',
+			'forced' => '<span title="重複記事が存在しても、選択した重複判定基準を自動変更しません">選択した基準を固定する</span>',
+			'help' => '仕様に準拠していないフィードへの対処に使用します。<br />⚠️ 基準を変更すると重複記事が作成される可能性があります。',
 			'id' => '標準ID（デフォルト）',
 			'link' => 'リンク',
 			'sha1:content' => '本文',
