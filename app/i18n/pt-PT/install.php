@@ -63,6 +63,10 @@ return array(
 			'ok' => 'All database tables exist.',	// TODO
 		),
 		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para navegar pelo DOM (php-xml).',
 			'ok' => 'Tem a biblioteca necessária para navegar pelo DOM.',

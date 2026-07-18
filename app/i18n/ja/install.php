@@ -63,6 +63,10 @@ return array(
 			'ok' => 'データベーステーブルはすべて存在します。',
 		),
 		'database-title' => 'データベース',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'DOMの操作に必要なライブラリが見つかりませんでした。',
 			'ok' => 'DOMの操作に必要なライブラリが見つかりました。',
