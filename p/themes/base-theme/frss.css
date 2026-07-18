@@ -373,10 +373,6 @@ textarea[rows="2"] {
 	height: 4em;
 }
 
-textarea:-moz-ui-invalid {
-	border: 2px dashed var(--frss-border-color-error);
-}
-
 textarea:user-invalid {
 	border: 2px dashed var(--frss-border-color-error);
 }
