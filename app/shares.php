@@ -122,6 +122,13 @@ return [
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
+	'linkace' => [
+		'url' => '~URL~/bookmarklet/add?u=~LINK~&amp;t=~TITLE~',
+		'transform' => ['rawurlencode'],
+		'help' => 'https://www.linkace.org/',
+		'form' => 'advanced',
+		'method' => 'GET',
+	],
 	'linkding' => [
 		'url' => '~URL~/bookmarks/new?url=~LINK~&amp;title=~TITLE~&amp;auto_close',
 		'transform' => ['rawurlencode'],

@@ -298,6 +298,7 @@ return array(
 		'gnusocial' => ' گنو اجتماعی',
 		'jdh' => 'ژورنال دو هکر',
 		'lemmy' => ' لمی',
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => ' پیوند دادن',
 		'linkedin' => ' لینکدین',
 		'mastodon' => ' ماستودون',
