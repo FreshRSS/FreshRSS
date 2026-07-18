@@ -112,6 +112,7 @@ People are sorted by name so please keep this order.
 * [Gregor Nathanael Meyer](https://github.com/spackmat): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:spackmat), [Web](https://der-meyer.de)
 * [GreyChame1eon](https://github.com/GreyChame1eon): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:GreyChame1eon)
 * [gsongsong](https://github.com/gsongsong): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gsongsong)
+* [gshimo](https://github.com/gshimo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gshimo)
 * [Guilherme Gall](https://github.com/gmgall): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gmgall), [Web](https://gmgall.net/)
 * [Guillaume Fillon](https://github.com/kokaz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kokaz), [Web](http://www.guillaume-fillon.com/)
 * [Guillaume Hayot](https://github.com/postblue): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:postblue), [Web](https://postblue.info/)
