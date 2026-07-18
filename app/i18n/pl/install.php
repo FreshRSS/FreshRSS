@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Wszystkie tabele bazy danych istnieją.',
 		),
 		'database-title' => 'Baza danych',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Nie znaleziono wymaganej biblioteki do korzystania z DOM-u.',
 			'ok' => 'Znaleziono wymaganą bibliotekę do korzystania z DOM-u.',

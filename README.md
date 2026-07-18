@@ -132,11 +132,11 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 | فارسی (fa) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffa+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Suomi (fi) | ￭￭￭￭￭￭￭￭￭･ 92% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffi+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Français (fr) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffr+%2F%28TODO%7CDIRTY%29%24%2F) |
-| עברית (he) | ￭￭￭￭･･････ 42% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhe+%2F%28TODO%7CDIRTY%29%24%2F) |
+| עברית (he) | ￭￭￭￭･･････ 41% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhe+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Magyar (hu) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhu+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Bahasa Indonesia (id) | ￭￭￭￭￭￭￭￭･･ 89% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fid+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Italiano (it) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fit+%2F%28TODO%7CDIRTY%29%24%2F) |
-| 日本語 (ja) | ￭￭￭￭￭￭￭￭･･ 88% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fja+%2F%28TODO%7CDIRTY%29%24%2F) |
+| 日本語 (ja) | ￭￭￭￭￭￭￭￭･･ 87% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fja+%2F%28TODO%7CDIRTY%29%24%2F) |
 | 한국어 (ko) | ￭￭￭￭￭￭￭￭･･ 81% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fko+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Latviešu (lv) | ￭￭￭￭￭￭￭￭･･ 82% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Flv+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Nederlands (nl) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fnl+%2F%28TODO%7CDIRTY%29%24%2F) |
