@@ -2463,14 +2463,12 @@ see https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security`
 }
 
 function init_article_history() {
-	let entryPushed = false;
-
 	function pushOrReplaceArticleHash(articleId) {
-		if (entryPushed) {
-			history.replaceState({}, '', '#article-' + articleId);
+		const articleHash = '#article-' + articleId;
+		if (location.hash.startsWith('#article-')) {
+			history.replaceState(history.state, '', articleHash);
 		} else {
-			location.hash = 'article-' + articleId;
-			entryPushed = true;
+			history.pushState({ freshrssArticle: true }, '', articleHash);
 		}
 	}
 
@@ -2484,7 +2482,6 @@ function init_article_history() {
 				const currentArticle = document.querySelector('.flux.current');
 				toggleContent(article, currentArticle, false, true);
 			}
-			entryPushed = true;
 		} else {
 			history.replaceState({}, '', '');
 		}
@@ -2498,8 +2495,11 @@ function init_article_history() {
 	});
 	document.addEventListener('freshrss:closeArticle', function (ev) {
 		if (!ev.detail.fromHistory) {
-			history.replaceState({}, '', location.href.split('#')[0]);
-			// entryPushed stays true — next expand replaces this entry
+			if (history.state?.freshrssArticle) {
+				history.back();
+			} else {
+				history.replaceState(history.state, '', location.href.split('#')[0]);
+			}
 		}
 	});
 
@@ -2521,10 +2521,8 @@ function init_article_history() {
 					}
 					article.classList.add('current');
 				}
-				entryPushed = true;
 			} else {
 				history.replaceState({}, '', location.href.split('#')[0]);
-				entryPushed = false;
 			}
 		} else if (oldHash.startsWith('article-') && newHash === '') {
 			const oldArticleId = oldHash.substring(8);
@@ -2532,7 +2530,6 @@ function init_article_history() {
 			if (article && article.classList.contains('active')) {
 				toggleContent(article, article, false, true);
 			}
-			entryPushed = false;
 		}
 	});
 }
