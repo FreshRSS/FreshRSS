@@ -77,8 +77,8 @@ return array(
 		),
 		'files' => 'Installation des fichiers',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => 'Vous ne disposez pas de l’extension GMP requise pour PHP 32 bits (paquet php-gmp).',
+			'ok' => 'Vous disposez de l’extension GMP requise pour PHP 32 bits.',
 		),
 		'intl' => array(
 			'nok' => ' Impossible de trouver la librairie recommandée php-intl pour l’internationalisation.',
