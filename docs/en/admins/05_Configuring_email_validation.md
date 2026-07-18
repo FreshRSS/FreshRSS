@@ -1,4 +1,4 @@
-# Configuring the email address validation
+# Configuring email address validation
 
 FreshRSS can verify that users give a valid email address. It is not configured
 by default so you’ll have to follow these few steps to verify email addresses.
@@ -45,6 +45,7 @@ PHPMailer documentation](https://phpmailer.github.io/PHPMailer/classes/PHPMailer
 		'username' => 'alice', // or maybe alice@example.net
 		'password' => 'yoursecretpassword',
 		'secure' => 'ssl', // '', 'ssl' or 'tls'
+		'auto_tls' => true, // set to false to disable opportunistic STARTTLS, e.g. when using a self-signed certificate
 		'from' => 'alice@example.net',
 	],
 ```

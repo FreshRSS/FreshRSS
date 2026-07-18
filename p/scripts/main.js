@@ -171,10 +171,12 @@ function incUnreadsFeed(article, feed_id, nb) {
 			return p1;
 		}
 	});
-	if (prevTitle) {
-		prevTitle = newTitle;
-	} else {
-		document.title = newTitle;
+	if (context.show_title_unread !== false) {
+		if (prevTitle) {
+			prevTitle = newTitle;
+		} else {
+			document.title = newTitle;
+		}
 	}
 	return isCurrentView;
 }
@@ -287,6 +289,13 @@ async function send_mark_read_queue(queue, asRead, callback) {
 			incUnreadsFeed(div, feed_id, inc);
 		}
 		delete pending_entries['flux_' + queue[i]];
+		// Let extensions know an entry finished being marked as read/unread
+		document.dispatchEvent(new CustomEvent('freshrss:entryStateChange', {
+			detail: {
+				id: queue[i],
+				isRead: !div.classList.contains('not_read'),
+			},
+		}));
 	}
 	faviconNbUnread();
 	if (json.tags) {
@@ -437,8 +446,7 @@ function mark_favorite(div) {
 	}));
 }
 
-const freshrssOpenArticleEvent = document.createEvent('Event');
-freshrssOpenArticleEvent.initEvent('freshrss:openArticle', true, true);
+const freshrssOpenArticleEvent = new Event('freshrss:openArticle', { bubbles: true, cancelable: true });
 
 function loadLazyImages(rootElement) {
 	rootElement.querySelectorAll('img[data-original], iframe[data-original], video[data-original], track[data-original]').forEach(function (el) {
@@ -461,6 +469,20 @@ function toggleContent(new_active, old_active, skipping) {
 		loadLazyImages(new_active);
 	}
 
+	const relative_move = context.current_view === 'global';
+	const box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
+
+	const old_scrollTop = box_to_move.scrollTop;
+	const old_offsetTop = new_active.offsetTop;
+
+	const nav_menu = document.querySelector('.nav_menu');
+	let nav_menu_height = 0;
+	if (nav_menu && (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky')) {
+		nav_menu_height = nav_menu.offsetHeight;
+	}
+
+	const flux_header = new_active.querySelector('.flux_header');
+
 	if (old_active !== new_active) {
 		if (!skipping) {
 			new_active.classList.add('active');
@@ -477,18 +499,22 @@ function toggleContent(new_active, old_active, skipping) {
 		new_active.classList.toggle('active');
 	}
 
-	const relative_move = context.current_view === 'global';
-	const box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
+	const new_offsetTop = new_active.offsetTop;
+	const layout_shift = new_offsetTop - old_offsetTop;
 
-	if (context.sticky_post) {	// Stick the article to the top when opened
-		const prev_article = new_active.previousElementSibling;
-		const nav_menu = document.querySelector('.nav_menu');
-		let nav_menu_height = 0;
+	const prev_article = new_active.previousElementSibling;
 
-		if (nav_menu && (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky')) {
-			nav_menu_height = nav_menu.offsetHeight;
+	let header_above_viewport = false;
+
+	if (!context.sticky_post) {
+		// Compensate for layout shift to maintain visual position
+		box_to_move.scrollTop = old_scrollTop + layout_shift;
+		if (flux_header) {
+			header_above_viewport = flux_header.getBoundingClientRect().top < nav_menu_height;
 		}
+	}
 
+	if (context.sticky_post || header_above_viewport) {	// Stick the article to the top when opened, or when header is off-screen
 		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop - nav_menu_height;
 
 		if (prev_article && prev_article.offsetParent && new_active.offsetTop - prev_article.offsetTop <= 150) {
@@ -504,6 +530,23 @@ function toggleContent(new_active, old_active, skipping) {
 		}
 
 		box_to_move.scrollTop = new_pos;
+	} else {
+		// If the header is below the viewport, scroll down just enough to bring it fully into view
+		if (flux_header) {
+			let bottom = flux_header.getBoundingClientRect().bottom;
+			const inner_header = new_active.querySelector('.flux_content header');
+			if (inner_header) {
+				bottom = Math.max(bottom, inner_header.getBoundingClientRect().bottom);
+			}
+			let overflow = bottom - window.innerHeight;
+			if (overflow > 0) {
+				const max_overflow = flux_header.getBoundingClientRect().top - nav_menu_height;
+				if (overflow > max_overflow) {
+					overflow = max_overflow > 0 ? max_overflow : 0;
+				}
+				box_to_move.scrollTop += overflow;
+			}
+		}
 	}
 
 	if (new_active.classList.contains('active') && !skipping) {
@@ -930,14 +973,15 @@ function toggle_aside_click(manual = true) {
 	}
 
 	const active = toggle_aside.classList.contains('active');
+	const isNarrow = window.matchMedia('(max-width: 840px)').matches;
 	if (active) {
 		toggle_aside.classList.remove('active');
 		aside.classList.remove('visible');
-		aside.style.display = 'none';
+		aside.classList.toggle('is-hidden', !isNarrow);
 	} else {
 		toggle_aside.classList.add('active');
 		aside.classList.add('visible');
-		aside.style.display = '';
+		aside.classList.remove('is-hidden');
 	}
 
 	if (manual && ['normal', 'reader'].includes(context.current_view)) {
@@ -967,7 +1011,7 @@ function init_nav_menu() {
 		const active = toggle_aside.classList.contains('active');
 		if (state != active) toggle_aside_click(false);
 	}
-	if (getComputedStyle(aside).display !== 'none') {
+	if (toggle_aside.classList.contains('active')) {
 		if (context.current_view === 'normal') aside.classList.add('visible');
 		sync(media);
 	}
@@ -1133,10 +1177,17 @@ function init_column_categories() {
 				// Wait for dropdown to be closed so it can be removed
 				// Dropdown visibility is based on CSS :target
 				window.addEventListener('hashchange', () => {
-					dropdownMenu?.nextElementSibling?.remove(); // dropdown close
-					dropdownMenu?.remove();
+					dropdownMenu.nextElementSibling.remove(); // .dropdown-close
+					dropdownMenu.remove();
 				}, { once: true });
 			}, { once: true });
+
+			if (location.hash === a.getAttribute('href')) {
+				// Forcefully trigger the hashchange event listener above in order to show the dropdown
+				// This is needed because the same hash remained from a previous page load
+				// or due to use of back/forward buttons
+				window.dispatchEvent(new Event('hashchange'));
+			}
 
 			return true;
 		}
@@ -1504,38 +1555,48 @@ function init_stream(stream) {
 		}
 	};
 
-	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
-		if (ev.altKey || ev.metaKey || ev.shiftKey) {
+	stream.onmouseup = function (ev) {	// Mouseup enables us to catch control+click in IE/Edge
+		if (ev.altKey || ev.metaKey || ev.shiftKey || ev.which != 1) {
 			return;
 		}
 
 		let el = ev.target.closest('.item a.title');
 		if (el) {
-			if (ev.which == 1) {
-				if (ev.ctrlKey) {	// Control+click
-					if (context.auto_mark_site) {
-						mark_read(el.closest('.flux'), true, false);
-					}
-				} else {
-					el.parentElement.click();	// Normal click, just toggle article.
+			if (ev.ctrlKey) {	// Control+click
+				if (context.auto_mark_site) {
+					mark_read(el.closest('.flux'), true, false);
 				}
-			} else if (ev.which == 2 && !ev.ctrlKey) {	// Simple middle click: same behaviour as CTRL+click
-				if (context.auto_mark_article) {
-					const new_active = el.closest('.flux');
-					mark_read(new_active, true, false);
-				}
+			} else {
+				el.parentElement.click();	// Normal click, just toggle article.
 			}
 			return;
 		}
 
 		if (context.auto_mark_site) {
-			// catch mouseup instead of click so we can have the correct behaviour
-			// with middle button click (scroll button).
 			el = ev.target.closest('.flux .link > a');
 			if (el) {
-				if (ev.which == 3) {
-					return;
-				}
+				mark_read(el.closest('.flux'), true, false);
+			}
+		}
+	};
+
+	stream.onauxclick = function (ev) {	// Auxclick enables us to catch middle click
+		if (ev.altKey || ev.metaKey || ev.shiftKey || ev.which != 2 || ev.ctrlKey) {
+			return;
+		}
+
+		let el = ev.target.closest('.item a.title');
+		if (el) {
+			if (context.auto_mark_article) {
+				const new_active = el.closest('.flux');
+				mark_read(new_active, true, false);
+			}
+			return;
+		}
+
+		if (context.auto_mark_site) {
+			el = ev.target.closest('.flux .link > a');
+			if (el) {
 				mark_read(el.closest('.flux'), true, false);
 			}
 		}
@@ -1988,7 +2049,7 @@ async function notifs_html5_ask_permission() {
 	}
 }
 
-function notifs_html5_show(nb, nb_new) {
+function notifs_html5_show(body) {
 	if (!context.html5_enable_notif) {
 		return;	// from config
 	}
@@ -1999,7 +2060,7 @@ function notifs_html5_show(nb, nb_new) {
 	try {
 		const notification = new window.Notification(context.i18n.notif_title_articles, {
 			icon: '../themes/icons/favicon-256-padding.png',
-			body: context.i18n.notif_body_new_articles.replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
+			body: body,
 			tag: 'freshRssNewArticles',
 		});
 
@@ -2038,19 +2099,19 @@ function init_notifs_html5() {
 // </notifs html5>
 
 function refreshUnreads() {
+	const title = document.querySelector('.category.all .title');
+	const nb_unreads_before = title ? str2int(title.getAttribute('data-unread')) : 0;
 	const req = new XMLHttpRequest();
-	req.open('GET', './?c=javascript&a=nbUnreadsPerFeed', true);
+	req.open('GET', './?c=javascript&a=nbUnreadsPerFeed&previous_unread=' + encodeURIComponent(nb_unreads_before), true);
 	req.responseType = 'json';
 	req.onload = function (e) {
 		const json = xmlHttpRequestJson(this);
 		if (!json) {
-			return badAjax(false);
+			return badAjax(this.status >= 400 && this.status <= 499);
 		}
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;
 		let nbUnreadFeeds = 0;
-		const title = document.querySelector('.category.all .title');
-		const nb_unreads_before = title ? str2int(title.getAttribute('data-unread')) : 0;
 
 		Object.keys(json.feeds).forEach(function (feed_id) {
 			const nbUnreads = json.feeds[feed_id];
@@ -2095,8 +2156,7 @@ function refreshUnreads() {
 
 		if (nb_unreads > 0 && new_articles) {
 			faviconNbUnread(nb_unreads);
-			const nb_new = nb_unreads - nb_unreads_before;
-			notifs_html5_show(nb_unreads, nb_new);
+			notifs_html5_show(json.notifBody);
 		}
 	};
 	req.send();
@@ -2152,6 +2212,7 @@ function load_more_posts() {
 		let lastTransition = transitions.length > 0 ? transitions[transitions.length - 1] : null;
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
+		enforce_referrer_allowlist(streamAdopted);
 		streamAdopted.querySelectorAll('.flux, .transition').forEach(function (div) {
 			if (lastTransition !== null && div.classList.contains('transition') && div.textContent === lastTransition.textContent) {
 				lastTransition = null;
@@ -2192,8 +2253,7 @@ function load_more_posts() {
 	req.send();
 }
 
-const freshrssLoadMoreEvent = document.createEvent('Event');
-freshrssLoadMoreEvent.initEvent('freshrss:load-more', true, true);
+const freshrssLoadMoreEvent = new Event('freshrss:load-more', { bubbles: true, cancelable: true });
 
 function init_load_more(box) {
 	box_load_more = box;
@@ -2236,6 +2296,10 @@ function init_confirm_action() {
 }
 
 function faviconNbUnread(n) {
+	if (context.show_title_unread === false) {
+		return;
+	}
+
 	if (typeof n === 'undefined') {
 		const t = document.querySelector('.category.all .title');
 		n = t ? str2int(t.getAttribute('data-unread')) : 0;
@@ -2293,6 +2357,24 @@ function removeFirstLoadSpinner() {
 	}
 }
 
+function enforce_referrer_allowlist(stream) {
+	for (const iframe of stream.querySelectorAll('div.content iframe[src], div.content iframe[data-original]')) {
+		let hostname;
+		try {
+			hostname = new URL(context.does_lazyload ? iframe.getAttribute('data-original') : iframe.src).hostname;
+		} catch (_) {
+			continue;
+		}
+		if (context.send_referrer_allowlist.includes(hostname) && !iframe.hasAttribute('referrerpolicy')) {
+			iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+			if (!context.does_lazyload) {
+				// iframe must be reloaded to apply the `referrerpolicy` change
+				iframe.src = iframe.src; // eslint-disable-line no-self-assign
+			}
+		}
+	}
+}
+
 function init_normal() {
 	const stream = document.getElementById('stream');
 	if (!stream) {
@@ -2304,6 +2386,7 @@ function init_normal() {
 	}
 	init_column_categories();
 	init_stream(stream);
+	enforce_referrer_allowlist(stream);
 	init_actualize();
 	faviconNbUnread();
 

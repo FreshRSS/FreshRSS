@@ -60,6 +60,14 @@ parameters:
 		-
 			message: '#Access to deprecated#'
 			path: app/Models/Context.php
+		-
+			# For PHP 8.2 and PHP 8.3
+			identifier: function.alreadyNarrowedType
+			message: '#Call to function is_int\(\) with 1\d{3} will always evaluate to true\.#'
+			paths:
+				- lib/Minz/ModelPdo.php
+				- lib/Minz/PdoMysql.php
+			reportUnmatched: false
 includes:
 	- vendor/phpstan/phpstan-deprecation-rules/rules.neon
 	- vendor/phpstan/phpstan-phpunit/extension.neon

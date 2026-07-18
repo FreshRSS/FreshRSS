@@ -27,7 +27,7 @@ return array(
 		),
 		'bugs_reports' => 'Fehlerberichte',
 		'documentation' => 'Dokumentation',
-		'freshrss_description' => 'FreshRSS ist ein selbst hostbarer RSS-Aggregator und -Reader. Damit können Sie mehrere Nachrichten-Websites auf einen Blick lesen und verfolgen, ohne von einer Website zur nächsten wechseln zu müssen. FreshRSS ist leichtgewichtig, konfigurierbar und benutzerfreundlich.',
+		'freshrss_description' => 'FreshRSS ist ein selbst gehosteter RSS-Aggregator und -Reader. Damit können Sie mehrere Nachrichten-Websites auf einen Blick lesen und verfolgen, ohne von einer Website zur nächsten wechseln zu müssen. FreshRSS ist leichtgewichtig, anpassbar und benutzerfreundlich.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">auf GitHub</a>',
 		'license' => 'Lizenz',
 		'project_website' => 'Projekt-Website',
@@ -109,7 +109,7 @@ return array(
 			),
 			'rand' => 'Zufällige Reihenfolge',
 			'secondary' => array(
-				'_' => 'Zusätzliches Sortierkritiserium',
+				'_' => 'Zusätzliches Sortierkriterium',
 				'help' => 'Nur relevant, wenn das Hauptsortierkriterium Kategorien oder Feed-Titel sind.',
 			),
 			'title_asc' => 'Titel A→Z',
@@ -124,7 +124,7 @@ return array(
 	),
 	'share' => 'Teilen',
 	'tag' => array(
-		'related' => 'Hashtags',
+		'related' => 'Tags',
 	),
 	'tos' => array(
 		'title' => 'Nutzungsbedingungen',

@@ -141,14 +141,47 @@ return array(
 		'_' => 'FreshRSS',
 		'about' => 'About FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d day ago',
+			1 => '%d days ago',
+		),
+		'hour' => array(
+			0 => '%d hour ago',
+			1 => '%d hours ago',
+		),
+		'justnow' => 'just now',
+		'minute' => array(
+			0 => '%d minute ago',
+			1 => '%d minutes ago',
+		),
+		'month' => array(
+			0 => '%d month ago',
+			1 => '%d months ago',
+		),
+		'second' => array(
+			0 => '%d second ago',
+			1 => '%d seconds ago',
+		),
+		'year' => array(
+			0 => '%d year ago',
+			1 => '%d years ago',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Empty category',
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be cancelled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',
 		'feedback' => array(
-			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
-			'body_unread_articles' => '(unread: %%d)',
+			'body_new_articles' => array(
+				0 => 'There is %d new article to read on FreshRSS.',
+				1 => 'There are %d new articles to read on FreshRSS.',
+			),
+			'body_unread_articles' => array(
+				0 => '(unread: %d)',
+				1 => '(unread: %d)',
+			),
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',
 		),
@@ -266,10 +299,12 @@ return array(
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'lemmy' => 'Lemmy',
+		'linkace' => 'LinkAce',
 		'linkding' => 'Linkding',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
+		'nextcloud-bookmarks' => 'Nextcloud Bookmarks',
 		'omnivore' => 'Omnivore',
 		'pinboard' => 'Pinboard',
 		'pinterest' => 'Pinterest',
@@ -277,7 +312,7 @@ return array(
 		'raindrop' => 'Raindrop.io',
 		'reddit' => 'Reddit',
 		'shaarli' => 'Shaarli',
-		'telegram' => 'Telegram',	// IGNORE
+		'telegram' => 'Telegram',
 		'twitter' => 'Twitter',
 		'wallabag' => 'wallabag v1',
 		'wallabagv2' => 'wallabag v2',

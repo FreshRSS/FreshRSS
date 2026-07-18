@@ -141,14 +141,55 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'před %d den',
+			1 => 'před %d dny',
+			2 => 'před %d dní',
+		),
+		'hour' => array(
+			0 => 'před %d hodina',
+			1 => 'před %d hodiny',
+			2 => 'před %d hodin',
+		),
+		'justnow' => 'právě teď',
+		'minute' => array(
+			0 => 'před %d minuta',
+			1 => 'před %d minuty',
+			2 => 'před %d minut',
+		),
+		'month' => array(
+			0 => 'před %d měsíc',
+			1 => 'před %d měsíce',
+			2 => 'před %d měsíců',
+		),
+		'second' => array(
+			0 => 'před %d sekunda',
+			1 => 'před %d sekundy',
+			2 => 'před %d sekund',
+		),
+		'year' => array(
+			0 => 'před %d rok',
+			1 => 'před %d roky',
+			2 => 'před %d let',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Prázdná kategorie',
 		'confirm_action' => 'Opravdu chcete provést tuto akci? Toto nelze zrušit!',
 		'confirm_action_feed_cat' => 'Opravdu chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Toto nelze zrušit!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'Ve FreshRSS je %%d nových článků k přečtení.',
-			'body_unread_articles' => '(nepřečtené: %%d)',
+			'body_new_articles' => array(
+				0 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY
+				1 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY
+				2 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(nepřečtené: %d)',	// DIRTY
+				1 => '(nepřečtené: %d)',	// DIRTY
+				2 => '(nepřečtené: %d)',	// DIRTY
+			),
 			'request_failed' => 'Požadavek selhal, to může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
@@ -266,10 +307,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Záložky',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

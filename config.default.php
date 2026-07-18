@@ -142,6 +142,10 @@ return [
 
 		# Max amount of bytes that are allowed for upload of custom favicon
 		'max_favicon_upload_size' => 1048576,	# 1 MiB
+
+		# Limits for regex, useful to limit regex during user searches
+		'regex_backtrack_limit' => 10000,
+		'regex_recursion_limit' => 100,
 	],
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
@@ -207,7 +211,18 @@ return [
 		'username' => '',
 		'password' => '',
 		'secure' => '', // '', 'ssl' or 'tls'
+		'auto_tls' => true, // maps to PHPMailer’s `SMTPAutoTLS`; set to false to disable opportunistic STARTTLS, e.g. when using a self-signed certificate
 		'from' => 'root@localhost',
+	],
+
+	# Automatic SQLite export of each user’s database, triggered by `./cli/export-sqlite-auto.php`.
+	# Intended to be scheduled by an admin (e.g. via cron) for periodic on-server backups
+	# distinct from the manual `./cli/db-backup.php` / `./cli/db-restore.php` migration workflow.
+	'auto_sqlite_export' => [
+		# Enable the automatic export. When false, `./cli/export-sqlite-auto.php` exits without writing.
+		'enabled' => false,
+		# Number of past exports to retain per user. Older files are pruned after a successful export.
+		'retention' => 7,
 	],
 
 	# List of enabled FreshRSS extensions.
@@ -228,5 +243,20 @@ return [
 	'trusted_sources' => [
 		'127.0.0.0/8',
 		'::1/128',
-	]
+	],
+
+	# Requests to internal hosts such as 127.0.0.1 are blocked by default
+	# Blocked ranges include:
+	# - 10.0.0.0/8
+	# - 172.16.0.0/12
+	# - 192.168.0.0/16
+	#
+	# Here you can add overrides for particular IP/domain:port combinations
+	# Examples: 127.0.0.1:8080, rss-bridge:80, etc.
+	#
+	# CIDR is permitted too
+	# Examples: 0.0.0.0/0, ::/0 (to allow any IPv4 or any IPv6)
+	#
+	# Setting * disables this check completely, allowing any host to be accessed (unsafe)
+	'internal_host_allowlist' => [],
 ];

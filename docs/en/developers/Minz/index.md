@@ -1,4 +1,4 @@
-# Minz Framework
+# Minz framework
 
 Minz is the homemade PHP framework used by FreshRSS.
 

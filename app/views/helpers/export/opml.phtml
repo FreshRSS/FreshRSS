@@ -55,6 +55,11 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:unicityCriteriaForced'] = 'true';
 		}
 
+		// Refresh interval (TTL), signed: a negative value indicates a muted feed
+		if ($feed->ttl(raw: true) !== FreshRSS_Feed::TTL_DEFAULT) {
+			$outline['frss:ttl'] = (string)$feed->ttl(raw: true);
+		}
+
 		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
 			/** @var array<string,string> */
 			$xPathSettings = $feed->attributeArray('xpath') ?? [];
@@ -114,7 +119,7 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:cssContentFilter'] = $feed->attributeString('path_entries_filter');
 		}
 
-		$curl_params = $feed->attributeArray('curl_params');
+		$curl_params = FreshRSS_http_Util::sanitizeCurlParams($feed->attributeArray('curl_params') ?? []);
 		if (!empty($curl_params)) {
 			$outline['frss:CURLOPT_COOKIE'] = $curl_params[CURLOPT_COOKIE] ?? null;
 			$outline['frss:CURLOPT_COOKIEFILE'] = $curl_params[CURLOPT_COOKIEFILE] ?? null;

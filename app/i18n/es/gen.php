@@ -141,14 +141,47 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Acerca de FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'hace %d día',
+			1 => 'hace %d días',
+		),
+		'hour' => array(
+			0 => 'hace %d hora',
+			1 => 'hace %d horas',
+		),
+		'justnow' => 'justo ahora',
+		'minute' => array(
+			0 => 'hace %d minuto',
+			1 => 'hace %d minutos',
+		),
+		'month' => array(
+			0 => 'hace %d mes',
+			1 => 'hace %d meses',
+		),
+		'second' => array(
+			0 => 'hace %d segundo',
+			1 => 'hace %d segundos',
+		),
+		'year' => array(
+			0 => 'hace %d año',
+			1 => 'hace %d años',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Vaciar categoría',
 		'confirm_action' => '¿Seguro que quieres hacerlo? No hay marcha atrás…',
 		'confirm_action_feed_cat' => '¿Seguro que quieres hacerlo? Perderás todos los favoritos relacionados y las búsquedas de usuario. ¡Y no hay marcha atrás!',
 		'confirm_exit_slider' => '¿Estás seguro de que quieres descartar los cambios no guardados?',
 		'feedback' => array(
-			'body_new_articles' => 'Hay %%d nuevos artículos para leer en FreshRSS.',
-			'body_unread_articles' => '(No leídos: %%d)',
+			'body_new_articles' => array(
+				0 => 'Hay %d artículo nuevo para leer en FreshRSS.',	// DIRTY
+				1 => 'Hay %d nuevos artículos para leer en FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(No leídos: %d)',	// DIRTY
+				1 => '(No leídos: %d)',	// DIRTY
+			),
 			'request_failed' => 'La petición ha fallado. Puede ser debido a problemas de conexión a internet.',
 			'title_new_articles' => 'FreshRSS: ¡nuevos artículos!',
 		),
@@ -266,10 +299,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Marcadores',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

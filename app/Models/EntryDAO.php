@@ -538,6 +538,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if (($affected > 0) && (!$this->updateCacheUnreads(null, null))) {
 				return false;
 			}
+			if ($affected > 0) {
+				Minz_ExtensionManager::callHook(Minz_HookType::EntriesRead, $ids, $is_read);
+			}
 			return $affected;
 		} else {
 			FreshRSS_UserDAO::touch();
@@ -555,7 +558,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$stm->bindValue(':id', $ids, PDO::PARAM_STR) &&	// TODO: Test PDO::PARAM_INT on 32-bit platform
 				$stm->bindValue(':old_is_read', $is_read ? 0 : 1, PDO::PARAM_INT) &&
 				$stm->execute()) {
-				return $stm->rowCount();
+				$affected = $stm->rowCount();
+				if ($affected > 0) {
+					Minz_ExtensionManager::callHook(Minz_HookType::EntriesRead, [$ids], $is_read);
+				}
+				return $affected;
 			} else {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				/** @var array{0:string,1:int,2:string} $info */
@@ -1951,7 +1958,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function updateLastSeenUnchanged(int $id_feed, int $mtime = 0): int|false {
 		$sql = <<<'SQL'
 			UPDATE `_entry` SET `lastSeen` = :mtime
-			WHERE id_feed = :id_feed1 AND `lastSeen` = (
+			WHERE id_feed = :id_feed1 AND `lastSeen` >= (
 				SELECT `lastUpdate` FROM `_feed` f
 				WHERE f.id = :id_feed2
 			)

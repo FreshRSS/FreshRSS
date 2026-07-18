@@ -145,7 +145,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		if ($search !== '') {
 			$title = '“' . htmlspecialchars($search, ENT_COMPAT, 'UTF-8') . '”';
 		}
-		if (FreshRSS_Context::$get_unread > 0) {
+		if (FreshRSS_Context::userConf()->show_title_unread && FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
 		if (strlen($title) > 0) {
@@ -173,6 +173,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			try {
 				// +1 to account for paging logic
 				$view->entries = FreshRSS_index_Controller::listEntriesByContext(FreshRSS_Context::$number + 1);
+				if (!$view->entries->valid()) {	// Init the generator to catch potential exceptions
+					$view->entries = new EmptyIterator();
+				}
 				ob_start();	//Buffer "one entry at a time"
 			} catch (FreshRSS_EntriesGetter_Exception $e) {
 				Minz_Log::notice($e->getMessage());
@@ -224,7 +227,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = _t('index.feed.title_global');
-		if (FreshRSS_Context::$get_unread > 0) {
+		if (FreshRSS_Context::userConf()->show_title_unread && FreshRSS_Context::$get_unread > 0) {
 			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
 		}
 		FreshRSS_View::prependTitle($title . ' · ');
@@ -248,6 +251,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		// Check if user has access.
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
 			Minz_Error::error(403, redirect: false);
+			return;
 		}
 
 		try {
@@ -258,6 +262,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		try {
 			$this->view->entries = FreshRSS_index_Controller::listEntriesByContext();
+			if (!$this->view->entries->valid()) {	// Init the generator to catch potential exceptions
+				$this->view->entries = new EmptyIterator();
+			}
 		} catch (FreshRSS_EntriesGetter_Exception $e) {
 			Minz_Log::notice($e->getMessage());
 			Minz_Error::error(404);
@@ -281,6 +288,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		// Check if user has access.
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
 			Minz_Error::error(403, redirect: false);
+			return;
 		}
 
 		try {
@@ -335,10 +343,10 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	/**
 	 * This method returns a list of entries based on the Context object.
 	 * @param int $postsPerPage override `FreshRSS_Context::$number`
-	 * @return Traversable<FreshRSS_Entry>
+	 * @return Generator<FreshRSS_Entry>
 	 * @throws FreshRSS_EntriesGetter_Exception
 	 */
-	public static function listEntriesByContext(?int $postsPerPage = null): Traversable {
+	public static function listEntriesByContext(?int $postsPerPage = null): Generator {
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 
 		$get = FreshRSS_Context::currentGet(true);
@@ -396,14 +404,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			}
 		}
 
-		foreach ($entryDAO->listWhere(
-					$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
-					id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
-					continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
-					limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset,
-					secondary_sort: FreshRSS_Context::$secondary_sort, secondary_sort_order: FreshRSS_Context::$secondary_sort_order) as $entry) {
-			yield $entry;
-		}
+		yield from $entryDAO->listWhere(
+			$type, $id, FreshRSS_Context::$state, FreshRSS_Context::$search,
+			id_min: $id_min, id_max: FreshRSS_Context::$id_max, sort: FreshRSS_Context::$sort, order: FreshRSS_Context::$order,
+			continuation_id: FreshRSS_Context::$continuation_id, continuation_values: $continuation_values,
+			limit: $postsPerPage ?? FreshRSS_Context::$number, offset: FreshRSS_Context::$offset,
+			secondary_sort: FreshRSS_Context::$secondary_sort, secondary_sort_order: FreshRSS_Context::$secondary_sort_order);
 	}
 
 	/**

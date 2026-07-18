@@ -133,9 +133,9 @@ input, select, textarea {
 	line-height: 1;
 }
 
-input:invalid,
-select:invalid,
-textarea:invalid {
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
 	border-color: var(--red);
 }
 
@@ -155,7 +155,7 @@ textarea:focus {
 
 
 
-input:disabled, select:disabled {
+input:disabled, select:disabled, textarea:disabled {
 	border-color: var(--border-elements);
 	color: var(--text-accent);
 }
@@ -413,10 +413,6 @@ svg:hover {
 
 .dropdown-menu > .item:hover > a {
 	text-decoration: none;
-}
-
-.dropdown-close {
-	backdrop-filter: grayscale(25%) brightness(0.9);
 }
 
 .dropdown-close a:hover {
@@ -881,14 +877,6 @@ li.item.active {
 	margin: 0;
 }
 
-#load_more.loading {
-	background-color: var(--accent);
-}
-
-#load_more.loading:hover {
-	background-color: var(--highlight);
-}
-
 /*=== Notification and actualize notification */
 .notification {
 	background: var(--dropdown-bg);
@@ -977,13 +965,13 @@ li.item.active {
 
 /*=== DIVERS */
 /*===========*/
-.category .title.error::before {
+.title.error::before {
 	color: var(--red);
 }
 
 
 .nav_menu {
-	padding: 5px 0;
+	padding: 5px 3rem 5px 0.5rem;
 	text-align: center;
 }
 
@@ -1229,22 +1217,16 @@ optgroup::before {
 /*===========*/
 
 @media (max-width: 840px) {
-	.aside:target + .close-aside,
+	.aside.visible + .close-aside,
 	.configure .dropdown-target:target ~ .dropdown-close {
 		backdrop-filter: grayscale(60%) blur(1px);
 	}
 
 	.aside {
 		right: 0;
-		transition: width 200ms linear;
-	}
-
-	.aside.aside_feed {
-		padding: 0;
 	}
 
 	.nav.aside {
-		max-width: 300px;
 		border-radius: 0;
 	}
 
@@ -1285,6 +1267,12 @@ optgroup::before {
 
 	.nav_menu .btn {
 		margin-bottom: .5rem;
+	}
+
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-right: 1px solid var(--border-elements);
+		border-top-right-radius: 6px;
+		border-bottom-right-radius: 6px;
 	}
 
 	.nav_menu .search input {

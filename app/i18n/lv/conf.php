@@ -35,7 +35,7 @@ return array(
 		'darkMode' => array(
 			'_' => 'Automātiskais tumšais režīms',
 			'auto' => 'Auto',	// IGNORE
-			'help' => 'For compatible themes only',	// TODO
+			'help' => 'Tikai saderīgām tēmām',
 			'no' => 'Nē',
 		),
 		'icon' => array(
@@ -54,6 +54,14 @@ return array(
 			'timeout' => 'HTML5 paziņojuma laika ierobežojums',
 		),
 		'show_nav_buttons' => 'Rādīt navigācijas pogas',
+		'show_title_unread' => 'Rādīt nelasīto rakstu skaitu virsrakstā',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tēma',
@@ -122,6 +130,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Profila pārvalde',
@@ -133,6 +142,7 @@ return array(
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -149,8 +159,9 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Lietotāja pieprasījumi',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Šis pieprasījums vairs nav derīgs. Norādītā kategorija vai barotne ir dzēsta.',
-		'description' => 'Description',	// TODO
+		'description' => 'Apraksts',
 		'filter' => array(
 			'_' => 'Piemērotais filtrs:',
 			'categories' => 'Rādīt pēc kategorijas',
@@ -158,8 +169,8 @@ return array(
 			'order' => 'Kārtot pēc datuma',
 			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Izteiksme',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Iespējot dalīšanos, izmantojot OPML atbilstošajām kategorijām un barotnēm',
+			'shareRss' => 'Iespējojiet koplietošanu ar HTML &amp; RSS',
 			'state' => 'Stāvoklis',
 			'tags' => 'Rādīt pēc birkas',
 			'type' => 'Veids',
@@ -167,14 +178,14 @@ return array(
 		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
 		'get_Z' => 'Show all feeds, also archived ones',	// TODO
 		'get_all' => 'Rādīt visus rakstus',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Rādīt rakstus ar jebkuru birku',
 		'get_category' => 'Rādīt kategoriju “%s”',
 		'get_favorite' => 'Rādīt mīļākos rakstus',
 		'get_feed' => 'Rādīt barotni “%s”',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
-		'image_url' => 'Image URL',	// TODO
+		'get_important' => 'Rādīt rakstus no svarīgām barotnēm',
+		'get_label' => 'Rādīt rakstus ar “%s” birku',
+		'help' => 'Skatiet <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">lietotāju pieprasījumu un koplietošanas dokumentāciju, izmantojot HTML / RSS / OPML</a>.',
+		'image_url' => 'Attēla URL',
 		'name' => 'Vārds',
 		'no_filter' => 'Bez filtra',
 		'no_queries' => array(
@@ -186,16 +197,16 @@ return array(
 		'order_desc' => 'Vispirms rādīt jaunākos rakstus',
 		'search' => 'Meklēt “%s”',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
+			'_' => 'Kopīgot šo pieprasījumu ar saiti',
 			'disabled' => array(
 				'_' => 'disabled',	// TODO
 				'title' => 'Sharing',	// TODO
 			),
 			'greader' => 'Shareable link to the GReader JSON',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'help' => 'Dodiet šo saiti, ja vēlaties kopīgot šo vaicājumu ar jebkuru',
+			'html' => 'Kopīgojama saite uz HTML lapu',
+			'opml' => 'Kopīgojama saite uz OPML barotņu sarakstu',
+			'rss' => 'Kopīgojama saite uz RSS barotni',
 		),
 		'state_0' => 'Rādīt visus rakstus',
 		'state_1' => 'Rādīt lasītos rakstus',
@@ -273,12 +284,13 @@ return array(
 		'read' => array(
 			'article_open_on_website' => 'kad raksts tiek atvērts tā sākotnējā mājaslapā',
 			'article_viewed' => 'kad raksts tiek skatīts',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'kad fokusēts (izņemot svarīgas barotnes)',
 			'keep_max_n_unread' => 'Maksimālais nelasīto rakstu skaits',
-			'scroll' => 'ritināšanas laikā (except for important feeds)',	// DIRTY
+			'scroll' => 'ritināšanas laikā (izņemot svarīgas barotnes)',
 			'upon_gone' => 'kad tas vairs nav augšupējā ziņu barotnē',
 			'upon_reception' => 'pēc raksta saņemšanas',
 			'when' => 'Atzīmēt rakstu kā izlasītu…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'ja identisks virsraksts jau ir jaunākajos <i>n</i> rakstos (of the feed)',	// DIRTY
 		),
@@ -299,6 +311,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
+		'sticky_sort' => 'Saglabāt manuālo kārtošanas secību navigācijas laikā',	// DIRTY
+		'sticky_sort_help' => 'Nosaka, vai tiek saglabāta pēdējā manuālā kārtošanas secība, vai arī katra kategorija vai plūsma vienmēr izmanto savu noklusējuma vai globālo iestatījumu.',	// DIRTY
 		'title' => 'Lasīšana',
 		'view' => array(
 			'default' => 'Noklusējuma skats',

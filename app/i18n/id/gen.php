@@ -141,14 +141,39 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Tentang FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d hari yang lalu',
+		),
+		'hour' => array(
+			0 => '%d jam yang lalu',
+		),
+		'justnow' => 'baru saja',
+		'minute' => array(
+			0 => '%d menit yang lalu',
+		),
+		'month' => array(
+			0 => '%d bulan yang lalu',
+		),
+		'second' => array(
+			0 => '%d detik yang lalu',
+		),
+		'year' => array(
+			0 => '%d tahun yang lalu',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Kategori kosong',
 		'confirm_action' => 'Apakah Anda yakin ingin melakukan ini? Ini tidak dapat dibatalkan!',
 		'confirm_action_feed_cat' => 'Apakah Anda yakin ingin melakukan ini? Anda akan kehilangan favorit dan pencarian pengguna terkait. Ini tidak dapat dibatalkan.',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'Ada %%d artikel baru untuk dibaca di FreshRSS.',
-			'body_unread_articles' => '(belum dibaca: %%d)',
+			'body_new_articles' => array(
+				0 => 'Ada %d artikel baru untuk dibaca di FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(belum dibaca: %d)',	// DIRTY
+			),
 			'request_failed' => 'Permintaan gagal, mungkin dikarenakan masalah koneksi internet.',
 			'title_new_articles' => 'FreshRSS: artikel baru!',
 		),
@@ -266,10 +291,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Penanda',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

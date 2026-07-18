@@ -33,6 +33,9 @@ return array (
 	'default_view' => 'adaptive',
 	'default_state' => FreshRSS_Entry::STATE_NOT_READ,
 	'show_fav_unread' => false,
+	'show_title_unread' => true,
+	# Unread-count visibility in sidebar: 'all' | 'important' | 'none'
+	'show_unread_count' => 'all',
 	'auto_load_more' => true,
 	'display_posts' => false,
 	'display_categories' => 'active',	//{ active, remember, all, none }
@@ -59,6 +62,8 @@ return array (
 	# 'id'|'date'|'link'|'title'
 	'secondary_sort' => 'id',
 	'secondary_sort_order' => 'DESC',
+	# To carry the manual sort/order over to the next navigation
+	'sticky_sort' => true,
 
 	'anon_access' => false,
 	'mark_when' => array (
@@ -138,7 +143,9 @@ return array (
 	'sidebar_hidden_by_default' => false,
 	# List of enabled FreshRSS extensions.
 	'extensions_enabled' => [],
+	# Privacy settings
 	'retrieve_extension_list' => true,
+	'send_referrer_allowlist' => [],
 	# Extensions configurations
 	'extensions' => [],
 );

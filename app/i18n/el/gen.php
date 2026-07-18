@@ -141,14 +141,47 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Σχετικά με το FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'πριν από %d ημέρα',
+			1 => 'πριν από %d ημέρες',
+		),
+		'hour' => array(
+			0 => 'πριν από %d ώρα',
+			1 => 'πριν από %d ώρες',
+		),
+		'justnow' => 'μόλις τώρα',
+		'minute' => array(
+			0 => 'πριν από %d λεπτό',
+			1 => 'πριν από %d λεπτά',
+		),
+		'month' => array(
+			0 => 'πριν από %d μήνας',
+			1 => 'πριν από %d μήνες',
+		),
+		'second' => array(
+			0 => 'πριν από %d δευτερόλεπτο',
+			1 => 'πριν από %d δευτερόλεπτα',
+		),
+		'year' => array(
+			0 => 'πριν από %d έτος',
+			1 => 'πριν από %d έτη',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Άδειασμα κατηγορίας',
 		'confirm_action' => 'Είστε σίγουροι για την ενέργεια; Είναι μη αναστρέψιμη!',
 		'confirm_action_feed_cat' => 'Είστε σίγουροι για την ενέργεια; Θα χάσετε τα αγαπημένα σας και τις ροές που έχετε δημιουργήσει. Είναι μη αναστρέψιμη!',
 		'confirm_exit_slider' => 'Είστε σίγουροι οτι δεν θέλετε να αποθηκεύσετε τις τρέχουσες αλλαγές σας;',
 		'feedback' => array(
-			'body_new_articles' => 'Υπάρχουν %%d νέα άρθρα να διαβάσετε στο FreshRSS.',
-			'body_unread_articles' => '(αδιάβαστα: %%d)',
+			'body_new_articles' => array(
+				0 => 'Υπάρχουν %d νέα άρθρα να διαβάσετε στο FreshRSS.',	// DIRTY
+				1 => 'Υπάρχουν %d νέα άρθρα να διαβάσετε στο FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(αδιάβαστα: %d)',	// DIRTY
+				1 => '(αδιάβαστα: %d)',	// DIRTY
+			),
 			'request_failed' => 'Η αναζήτηση απέτυχε, ελέγξτε για πιθανά προβλήματα με την σύνδεση σας.',
 			'title_new_articles' => 'FreshRSS: Νέα άρθρα!',
 		),
@@ -266,10 +299,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Σελιδοδείκτες',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

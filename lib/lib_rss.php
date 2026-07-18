@@ -37,6 +37,16 @@ function join_path(...$path_parts): string {
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
 
+/**
+ * Build the mutex path for an actualisation run.
+ *
+ * The data path identifies a FreshRSS instance, while the temporary path only
+ * determines where its mutex is stored.
+ */
+function actualize_mutex_file(string $tmpPath, string $dataPath): string {
+	return $tmpPath . '/actualize.' . hash('sha256', realpath($dataPath) ?: $dataPath) . '.freshrss.lock';
+}
+
 //<Auto-loading>
 function classAutoloader(string $class): void {
 	if (str_starts_with($class, 'FreshRSS')) {
@@ -146,7 +156,7 @@ function echoJson($json, int $optimisationDepth = -1): void {
 }
 
 function safe_ascii(?string $text): string {
-	return $text === null ? '' : (filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
+	return $text === null ? '' : (filter_var($text, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
 }
 
 if (function_exists('mb_convert_encoding')) {
@@ -213,6 +223,40 @@ function timestamptodate(int $t, bool $hour = true): string {
 	}
 
 	return @date($date, $t) ?: '';
+}
+
+function timestampToMachineDate(int $t): string {
+	return @date(DATE_ATOM, $t);
+}
+
+/**
+ * Human readable string how long this timestamp is ago ("5 years ago").
+ */
+function timeago(int $timestamp, ?int $baseTimestamp = null): string {
+	$baseTimestamp ??= time();
+	$delta = abs($baseTimestamp - $timestamp);
+
+	$units = [
+		[31536000, 'year'],
+		[2592000, 'month'],
+		[86400, 'day'],
+		[3600, 'hour'],
+		[60, 'minute'],
+	];
+
+	$diff = '';
+	foreach ($units as [$unitSeconds, $unit]) {
+		if ($delta >= $unitSeconds) {
+			$unitValue = intdiv($delta, $unitSeconds);
+			$diff = Minz_Translate::plural('gen.interval.' . $unit, $unitValue) ?? ($unitValue . ' ' . $unit . ' ago');
+			break;
+		}
+	}
+
+	if ($diff === '') {
+		return Minz_Translate::t('gen.interval.justnow');
+	}
+	return $diff;
 }
 
 /**

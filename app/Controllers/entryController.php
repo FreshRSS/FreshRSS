@@ -202,11 +202,22 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		if (!$this->ajax) {
-			if (Minz_Request::hasParam('order')) {
-				$params['order'] = Minz_Request::paramString('order', plaintext: true);
+			// Preserve the active search and read/favourite state filters across the redirect
+			$search = Minz_Request::paramString('search', plaintext: true);
+			if ($search !== '') {
+				$params['search'] = $search;
 			}
-			if (Minz_Request::hasParam('sort')) {
-				$params['sort'] = Minz_Request::paramString('sort', plaintext: true);
+			$stateParam = Minz_Request::paramInt('state');
+			if ($stateParam !== 0) {
+				$params['state'] = $stateParam;
+			}
+			if (FreshRSS_Context::userConf()->sticky_sort) {
+				if (Minz_Request::hasParam('order')) {
+					$params['order'] = Minz_Request::paramString('order', plaintext: true);
+				}
+				if (Minz_Request::hasParam('sort')) {
+					$params['sort'] = Minz_Request::paramString('sort', plaintext: true);
+				}
 			}
 			Minz_Request::good(
 				$is_read ? _t('feedback.sub.articles.marked_read') : _t('feedback.sub.articles.marked_unread'),
@@ -268,6 +279,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 		}
 
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->minorDbMaintenance();
 		$databaseDAO->optimize();
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
@@ -295,6 +307,9 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			@set_time_limit(300);
 		}
 
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$databaseDAO->minorDbMaintenance();
+
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feeds = $feedDAO->listFeeds();
 		$nb_total = 0;
@@ -309,9 +324,6 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 
 		$feedDAO->updateCachedValues();
 		$feedDAO->commit();
-
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
-		$databaseDAO->minorDbMaintenance();
 
 		invalidateHttpCache();
 		Minz_Request::good(

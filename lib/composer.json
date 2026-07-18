@@ -8,13 +8,17 @@
 		{
 			"type": "git",
 			"url": "https://github.com/FreshRSS/simplepie.git"
+		},
+		{
+			"type": "git",
+			"url": "https://framagit.org/marienfressinaud/lib_opml.git"
 		}
 	],
 	"require": {
-		"marienfressinaud/lib_opml": "0.5.1",
+		"marienfressinaud/lib_opml": "dev-main#f0e850b6394af90b898daf0e65fcc7363457b844",
 		"phpgt/cssxpath": "v1.5.0",
-		"phpmailer/phpmailer": "7.0.2",
-		"simplepie/simplepie": "dev-freshrss#731f1a60b8d011238bb5a2cb3b7cdea619e02b94"
+		"phpmailer/phpmailer": "7.1.1",
+		"simplepie/simplepie": "dev-freshrss#2d4c5b99b8f851b1e416b84f6a9a1e85097b9012"
 	},
 	"config": {
 		"sort-packages": true,

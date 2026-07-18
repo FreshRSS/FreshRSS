@@ -1023,7 +1023,7 @@ class IRI
         }
         if ($this->ipath !== '') {
             $iri .= $this->ipath;
-        } elseif (!empty($this->normalization[$this->scheme]['ipath']) && $iauthority !== null && $iauthority !== '') {
+        } elseif ($this->scheme !== null && !empty($this->normalization[$this->scheme]['ipath']) && $iauthority !== null && $iauthority !== '') {
             $iri .= $this->normalization[$this->scheme]['ipath'];
         }
         if ($this->iquery !== null) {

@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 	`name` VARCHAR(191) NOT NULL,
 	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`lastUpdate` BIGINT DEFAULT 0,	-- 1.20.0
-	`error` SMALLINT DEFAULT 0,	-- 1.20.0
+	`error` BIGINT DEFAULT 0,	-- Date, v1.29.0
 	`attributes` TEXT,	-- v1.15.0
 	UNIQUE (`name`)
 );
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
 	`priority` TINYINT(2) NOT NULL DEFAULT 10,
 	`pathEntries` VARCHAR(4096) DEFAULT NULL,
 	`httpAuth` VARCHAR(1024) DEFAULT NULL,
-	`error` BOOLEAN DEFAULT 0,
+	`error` BIGINT DEFAULT 0,	-- Date, v1.29.0
 	`ttl` INT NOT NULL DEFAULT 0,
 	`attributes` TEXT,	-- v1.11.0
 	`cache_nbEntries` INT DEFAULT 0,

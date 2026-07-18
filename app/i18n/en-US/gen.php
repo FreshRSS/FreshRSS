@@ -141,14 +141,47 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'About FreshRSS',	// IGNORE
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d day ago',	// IGNORE
+			1 => '%d days ago',	// IGNORE
+		),
+		'hour' => array(
+			0 => '%d hour ago',	// IGNORE
+			1 => '%d hours ago',	// IGNORE
+		),
+		'justnow' => 'just now',	// IGNORE
+		'minute' => array(
+			0 => '%d minute ago',	// IGNORE
+			1 => '%d minutes ago',	// IGNORE
+		),
+		'month' => array(
+			0 => '%d month ago',	// IGNORE
+			1 => '%d months ago',	// IGNORE
+		),
+		'second' => array(
+			0 => '%d second ago',	// IGNORE
+			1 => '%d seconds ago',	// IGNORE
+		),
+		'year' => array(
+			0 => '%d year ago',	// IGNORE
+			1 => '%d years ago',	// IGNORE
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Empty category',	// IGNORE
 		'confirm_action' => 'Are you sure you want to perform this action? It cannot be canceled!',
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be canceled!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// IGNORE
 		'feedback' => array(
-			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',	// IGNORE
-			'body_unread_articles' => '(unread: %%d)',	// IGNORE
+			'body_new_articles' => array(
+				0 => 'There is %d new article to read on FreshRSS.',	// IGNORE
+				1 => 'There are %d new articles to read on FreshRSS.',	// IGNORE
+			),
+			'body_unread_articles' => array(
+				0 => '(unread: %d)',	// IGNORE
+				1 => '(unread: %d)',	// IGNORE
+			),
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// IGNORE
 			'title_new_articles' => 'FreshRSS: new articles!',	// IGNORE
 		),
@@ -266,10 +299,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Bookmarks',	// IGNORE
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

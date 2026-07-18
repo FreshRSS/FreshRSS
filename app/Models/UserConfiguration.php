@@ -54,6 +54,8 @@ declare(strict_types=1);
  * @property bool $icons_as_emojis
  * @property int $simplify_over_n_feeds
  * @property bool $show_nav_buttons
+ * @property bool $show_title_unread
+ * @property 'all'|'important'|'none' $show_unread_count
  * @property bool $sidebar_hidden_by_default
  * @property 'big'|'small'|'none' $mark_read_button
  * @property 'ASC'|'DESC' $sort_order
@@ -64,6 +66,7 @@ declare(strict_types=1);
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article
  * @property bool $sticky_post
+ * @property bool $sticky_sort To carry the manual sort/order over to the next navigation
  * @property string $theme
  * @property string $darkMode
  * @property string $token
@@ -83,6 +86,7 @@ declare(strict_types=1);
  * @property array<string,bool|int|string> $volatile
  * @property array<string,array<string,mixed>> $extensions
  * @property bool $retrieve_extension_list
+ * @property array<string> $send_referrer_allowlist
  */
 final class FreshRSS_UserConfiguration extends Minz_Configuration {
 	use FreshRSS_FilterActionsTrait;

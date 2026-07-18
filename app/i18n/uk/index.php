@@ -37,13 +37,13 @@ return array(
 	'feed' => array(
 		'empty' => 'Нема статей для показу.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Оприлюднено',
+			'future' => 'Оприлюднено в майбутньому',
+			'today' => 'Оприлюднено сьогодні',
+			'yesterday' => 'Оприлюднено вчора',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'Отримано',
 			'today' => 'Отримано сьогодні',
 			'yesterday' => 'Отримано вчора',
 		),
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'Вподобані',
 		'title_global' => 'Глобальний показ',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Змінено користувачем',
+			'today' => 'Змінено користувачем сьогодні',
+			'yesterday' => 'Змінено користувачем учора',
 		),
 	),
 	'log' => array(
@@ -85,37 +85,37 @@ return array(
 		'rss_view' => 'RSS-стрічка',
 		'search_short' => 'Пошук',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'Зростання',
 			'c' => array(
-				'name_asc' => 'Заголовки категорії та стрічки А→Я',
-				'name_desc' => 'Заголовки категорії та стрічки Я→А',
+				'name_asc' => 'Назви категорії та стрічки А→Я',
+				'name_desc' => 'Назви категорії та стрічки Я→А',
 			),
 			'date_asc' => 'Дата оприлюднення 1→9',
 			'date_desc' => 'Дата оприлюднення 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => 'Спадання',
 			'f' => array(
 				'name_asc' => 'Назва стрічки A→Z',
 				'name_desc' => 'Назва стрічки Z→A',
 			),
 			'id_asc' => 'Спершу найдавніше отримані',
 			'id_desc' => 'Спершу щойно отримані',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'length_asc' => 'Обсяг тексту 1→9',
+			'length_desc' => 'Обсяг тексту 9→1',
 			'link_asc' => 'Посилання А→Я',
 			'link_desc' => 'Посилання Я→А',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => 'Критерій упорядкування',
+				'help' => 'Сортувати за датою <em>отримання</em> зазвичай найдоцільніше — так послідовніше й швидше',
 			),
 			'rand' => 'Довільний порядок',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => 'Другий критерій упорядкування',
+				'help' => 'Діє, коли головний критерій — це категорії чи назви стрічок',
 			),
 			'title_asc' => 'Заголовок А→Я',
 			'title_desc' => 'Заголовок Я→А',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => 'Користувацька зміна 1→9',
+			'user_modified_desc' => 'Користувацька зміна 9→1',
 		),
 		'starred' => 'Показати вподобані',
 		'stats' => 'Статистика',

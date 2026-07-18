@@ -141,14 +141,39 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '关于 FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d天前',
+		),
+		'hour' => array(
+			0 => '%d小时前',
+		),
+		'justnow' => '刚刚',
+		'minute' => array(
+			0 => '%d分钟前',
+		),
+		'month' => array(
+			0 => '%d个月前',
+		),
+		'second' => array(
+			0 => '%d秒前',
+		),
+		'year' => array(
+			0 => '%d年前',
+		),
+	),
 	'js' => array(
 		'category_empty' => '清空分类',
 		'confirm_action' => '你确定要执行此操作吗？这将不可撤销！',
 		'confirm_action_feed_cat' => '你确定要执行此操作吗？你将丢失相关的收藏和自定义查询，这将不可撤销！',
 		'confirm_exit_slider' => '您确定要放弃未保存的设置吗？',
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待阅读。',
-			'body_unread_articles' => '(未读: %%d)',
+			'body_new_articles' => array(
+				0 => 'FreshRSS 中有 %d 篇文章等待阅读。',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(未读: %d)',	// DIRTY
+			),
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
@@ -266,10 +291,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud 书签',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

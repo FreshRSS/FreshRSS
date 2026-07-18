@@ -51,18 +51,22 @@ return array(
 			'ok' => 'Veri dizinindeki izinler uygun.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Veritabanı bağlantı hatası.',
+			'ok' => 'Veritabanı bağlantısı sabit.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Veritabanı tablosu "%s" eksik.',
+			'ok' => 'Veritabanı tablosu "%s" sorunsuz.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Bazı veritabanı tabloları eksik.',
+			'ok' => 'Veritabanı tabloları mevcut.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Veritabanı',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'DOM’u taramak için gerekli kütüphane bulunamadı.',
 			'ok' => 'DOM’u taramak için gerekli kütüphaneniz var.',
@@ -76,9 +80,13 @@ return array(
 			'ok' => 'Fileinfo kütüphaneniz var.',
 		),
 		'files' => 'Dosya kurulumu',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Uluslararasılaştırma için önerilen php-intl kütüphanesi bulunamadı.',
+			'ok' => 'Uluslararasılaştırma için önerilen php-intl kütüphanesine sahipsiniz.',
 		),
 		'json' => array(
 			'nok' => 'JSON ayrıştırmak için önerilen kütüphane bulunamadı.',
@@ -93,14 +101,14 @@ return array(
 			'ok' => 'Düzenli ifadeler için gerekli kütüphaneniz (PCRE) var.',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'MySQL/MariaDB için gerekli PDO sürücüsü bulunamadı.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'PostgreSQL için gerekli PDO sürücüsü bulunamadı.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'SQLite için PDO sürücüsü bulunamadı.',
+			'ok' => 'SQLite için PDO sürücüsüne sahipsiniz.',
 		),
 		'pdo' => array(
 			'nok' => 'PDO veya desteklenen sürücülerden biri (pdo_sqlite, pdo_pgsql, pdo_mysql) bulunamadı.',

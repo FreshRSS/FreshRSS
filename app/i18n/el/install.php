@@ -51,18 +51,22 @@ return array(
 			'ok' => 'Τα δικαιώματα στον κατάλογο δεδομένων (data) είναι εντάξει.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Σφάλμα σύνδεσης με τη βάση δεδομένων.',
+			'ok' => 'Η σύνδεση με τη βάση δεδομένων είναι εντάξει.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Ο πίνακας «%s» της βάσης δεδομένων είναι ελλιπής.',
+			'ok' => 'Ο πίνακας «%s» της βάσης δεδομένων είναι εντάξει.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Λείπουν ορισμένοι πίνακες της βάσης δεδομένων.',
+			'ok' => 'Όλοι οι πίνακες της βάσης δεδομένων υπάρχουν.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Βάση δεδομένων',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM.',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM.',
@@ -76,9 +80,13 @@ return array(
 			'ok' => 'Βρέθηκε η βιβλιοθήκη fileinfo.',
 		),
 		'files' => 'Εγκατάσταση αρχείων',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Δεν βρέθηκε η συνιστώμενη βιβλιοθήκη php-intl για τη διεθνοποίηση.',
+			'ok' => 'Έχετε τη συνιστώμενη βιβλιοθήκη php-intl για τη διεθνοποίηση.',
 		),
 		'json' => array(
 			'nok' => 'Δεν βρέθηκε η συνιστώμενη βιβλιοθήκη για ανάλυση JSON.',
@@ -93,14 +101,14 @@ return array(
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για regular expressions (php-pcre).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Δεν βρέθηκε το απαιτούμενο πρόγραμμα οδήγησης PDO για MySQL/MariaDB.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Δεν βρέθηκε το απαιτούμενο πρόγραμμα οδήγησης PDO για PostgreSQL.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'Δεν βρέθηκε το πρόγραμμα οδήγησης PDO για SQLite.',
+			'ok' => 'Έχετε το πρόγραμμα οδήγησης PDO για SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'Δεν βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_sqlite, pdo_pgsql, pdo_mysql).',

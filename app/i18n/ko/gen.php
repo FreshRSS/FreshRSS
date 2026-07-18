@@ -141,14 +141,39 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '정보',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d일 전',
+		),
+		'hour' => array(
+			0 => '%d시간 전',
+		),
+		'justnow' => '방금 전',
+		'minute' => array(
+			0 => '%d분 전',
+		),
+		'month' => array(
+			0 => '%d개월 전',
+		),
+		'second' => array(
+			0 => '%d초 전',
+		),
+		'year' => array(
+			0 => '%d년 전',
+		),
+	),
 	'js' => array(
 		'category_empty' => '빈 카테고리',
 		'confirm_action' => '정말 이 작업을 수행하시겠습니까? 이 작업은 되돌릴 수 없습니다!',
 		'confirm_action_feed_cat' => '정말 이 작업을 수행하시겠습니까? 관련된 즐겨찾기와 사용자 쿼리가 삭제됩니다. 이 작업은 되돌릴 수 없습니다!!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => '%%d 개의 새 글이 FreshRSS에 있습니다.',
-			'body_unread_articles' => '(%%d 개 읽지 않음)',
+			'body_new_articles' => array(
+				0 => '%d 개의 새 글이 FreshRSS에 있습니다.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(%d 개 읽지 않음)',	// DIRTY
+			),
 			'request_failed' => '요청한 작업을 수행할 수 없습니다. 인터넷 연결에 문제가 발생한 것 같습니다.',
 			'title_new_articles' => 'FreshRSS: 새 글이 있습니다!',
 		),
@@ -266,10 +291,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud 북마크',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
