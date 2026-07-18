@@ -26,6 +26,7 @@ FreshRSS has the option to share links with a bunch of services.
 | LinkedIn          | Business and employment-oriented online service      | [Website](https://www.linkedin.com/), [Wikipedia](https://en.wikipedia.org/wiki/LinkedIn)| |
 | Mastodon          | Self-hosted social networking & microblogging services | [Website](https://joinmastodon.org/), [Wikipedia](https://en.wikipedia.org/wiki/Mastodon_(software)) | |
 | Movim             | A powerful web frontend for XMPP                     | [Website](https://movim.eu/) | |
+| Nextcloud Bookmarks | Selfhosted bookmark app for Nextcloud                | [Website](https://apps.nextcloud.com/apps/bookmarks) | |
 | Omnivore          | A complete, open source read-it-later solution for people who love to read. | [Website](https://omnivore.app/) | |
 | Pinboard          | Social Bookmarking for Introverts                    | [Website](https://pinboard.in/) | |
 | Pinterest         | Is an image sharing and social media service designed to enable saving and discovery of information| [Website](https://pinterest.com/), [Wikipedia](https://en.wikipedia.org/wiki/Pinterest) | |
