@@ -7,6 +7,8 @@
 	<h1><?= _t('index.log') ?></h1>
 
 	<form method="get" action="<?= _url('index', 'logs') ?>" class="form-inline">
+		<input type="hidden" name="c" value="index" />
+		<input type="hidden" name="a" value="logs" />
 		<label for="log-search"><?= _t('gen.action.filter') ?></label>
 		<input type="search" id="log-search" name="search" value="<?= htmlspecialchars($this->logSearch, ENT_COMPAT, 'UTF-8') ?>" />
 		<button type="submit" class="btn"><?= _t('gen.action.filter') ?></button>
