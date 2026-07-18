@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nutzername',
-			'format' => '<small>Maximal 16 alphanumerische Zeichen</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(

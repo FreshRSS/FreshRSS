@@ -149,7 +149,7 @@ return array(
 	'congratulations' => '축하합니다!',
 	'default_user' => array(
 		'_' => '기본 사용자 이름',
-		'max_char' => '알파벳과 숫자를 포함할 수 있고 최대 16 글자',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => '다음 단계로 가기 전에 문제를 해결하세요.',
 	'javascript_is_better' => 'FreshRSS는 자바스크립트를 사용할 때 더욱 쾌적하고 강력합니다',

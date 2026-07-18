@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Òsca !',
 	'default_user' => array(
 		'_' => 'Nom d’utilizaire per defaut',
-		'max_char' => '16 caractèrs alfanumerics maximum',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Mercés de corregir las errors seguentas abans de contunhar.',
 	'javascript_is_better' => 'FreshRSS es mai agradable amb lo JavaScript activat',

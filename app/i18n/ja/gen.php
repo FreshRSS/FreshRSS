@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'ユーザー名',
-			'format' => '<small>16文字以内の英数字</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(

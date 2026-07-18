@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'מזל טוב!',
 	'default_user' => array(
 		'_' => 'שם המשתמש של משתמש ברירת המחדל',
-		'max_char' => 'לכל היותר 16 תווים אלפאנומריים',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
 	'javascript_is_better' => 'FreshRSS מעדיף שתאפשרו JavaScript',

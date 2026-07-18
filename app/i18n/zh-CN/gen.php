@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => '用户名',
-			'format' => '<small>最多 16 个数字或字母</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
