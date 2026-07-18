@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Tutte le tavole del database esistono.',
 		),
 		'database-title' => 'Database',	// IGNORE
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Manca una libreria richiesta per leggere DOM.',
 			'ok' => 'Libreria richiesta per leggere DOM presente.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'Estensione fileinfo presente.',
 		),
 		'files' => 'Installazione files',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Impossibile trovare la libreria di internazionalizzazione php-intl.',
 			'ok' => 'Disponi della libreria di internazionalizzazione php-intl raccomandata.',

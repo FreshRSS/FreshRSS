@@ -63,6 +63,10 @@ return array(
 			'ok' => '資料表狀態完整。',
 		),
 		'database-title' => '資料庫',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => '無法找到瀏覽 DOM 所需的函式庫。',
 			'ok' => '您擁有瀏覽 DOM 所需的函式庫。',
@@ -76,6 +80,10 @@ return array(
 			'ok' => '您擁有推薦的 PHP fileinfo 函式庫 (fileinfo 套件)。',
 		),
 		'files' => '檔案安裝',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => '無法找到推薦用於國際化的 php-intl 函式庫。',
 			'ok' => '您擁有推薦用於國際化的 php-intl 函式庫。',

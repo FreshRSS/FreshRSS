@@ -119,6 +119,13 @@ See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/edge/cli) 
 > * [Pandoc](https://pandoc.org/) available for most systems,
 > * [opmlmaker](https://rssgizmos.com/opmlmaker.html) available online.
 
+### Migrating from TT-RSS
+
+The [TT-RSS exporter](https://github.com/robertdahlem/export_ttrss) converts
+articles from Tiny Tiny RSS into JSON files that FreshRSS can import. It keeps
+read and starred states and can create missing feeds and categories during the
+import.
+
 ## Use bookmarklet
 
 Bookmarklets are little scripts that you can execute to perform various tasks. FreshRSS offers a bookmarklet for subscribing to newsfeeds.
