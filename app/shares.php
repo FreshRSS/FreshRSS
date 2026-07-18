@@ -122,6 +122,13 @@ return [
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
+	'linkace' => [
+		'url' => '~URL~/bookmarklet/add?u=~LINK~&amp;t=~TITLE~',
+		'transform' => ['rawurlencode'],
+		'help' => 'https://www.linkace.org/',
+		'form' => 'advanced',
+		'method' => 'GET',
+	],
 	'linkding' => [
 		'url' => '~URL~/bookmarks/new?url=~LINK~&amp;title=~TITLE~&amp;auto_close',
 		'transform' => ['rawurlencode'],
@@ -146,6 +153,13 @@ return [
 		'url' => '~URL~/?share/~LINK~',
 		'transform' => ['urlencode'],
 		'help' => 'https://movim.eu/',
+		'form' => 'advanced',
+		'method' => 'GET',
+	],
+	'nextcloud-bookmarks' => [
+		'url' => '~URL~/apps/bookmarks/bookmarklet?url=~LINK~&amp;title=~TITLE~',
+		'transform' => ['rawurlencode'],
+		'help' => 'https://github.com/nextcloud/bookmarks',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],

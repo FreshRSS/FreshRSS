@@ -63,6 +63,10 @@ return array(
 			'ok' => 'All database tables exist.',
 		),
 		'database-title' => 'Database',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',
+		),
 		'dom' => array(
 			'nok' => 'Cannot find the required library to browse the DOM.',
 			'ok' => 'You have the required library to browse the DOM.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'You have the recommended PHP fileinfo library (fileinfo package).',
 		),
 		'files' => 'File installation',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',
+		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',
 			'ok' => 'You have the recommended library php-intl for internationalisation.',

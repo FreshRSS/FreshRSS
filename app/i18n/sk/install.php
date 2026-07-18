@@ -63,6 +63,10 @@ return array(
 			'ok' => 'All database tables exist.',	// TODO
 		),
 		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Nepodarilo sa nájsť požadovanú knižnicu na prehliadanie DOM.',
 			'ok' => 'Našla sa požadovaná knižnica na prehliadanie DOM.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'Našla sa knižnica fileinfo.',
 		),
 		'files' => 'Inštalácia súborov',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
 			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
