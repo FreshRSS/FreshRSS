@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Uživatelské jméno',
-			'format' => '<small>Maximálně 16 alfanumerických znaků</small>',	// DIRTY
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(

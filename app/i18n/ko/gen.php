@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => '사용자 이름',
-			'format' => '<small>알파벳과 숫자를 포함할 수 있고 최대 16 글자</small>',	// DIRTY
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(

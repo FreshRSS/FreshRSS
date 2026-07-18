@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Apsveicam!',
 	'default_user' => array(
 		'_' => 'Noklusējuma lietotāja lietotājvārds',
-		'max_char' => 'ne vairāk kā 16 burtu un ciparu zīmes',	// DIRTY
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Lūdzu izlabojat kļūdas pirms ejat uz nākamo soli.',
 	'javascript_is_better' => 'FreshRSS ir patīkamāks, ja ir iespējots JavaScript',

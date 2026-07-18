@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Onneksi olkoon!',
 	'default_user' => array(
 		'_' => 'Oletuskäyttäjän käyttäjätunnus',
-		'max_char' => 'Enintään 16 aakkosnumeerista merkkiä',	// DIRTY
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Korjaa virheet, ennen kuin siirryt seuraavaan vaiheeseen.',
 	'javascript_is_better' => 'FreshRSS-sovellusta on miellyttävämpi käyttää, kun JavaScript on käytössä',

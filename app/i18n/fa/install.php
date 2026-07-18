@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'تبریک می‌گویم!',
 	'default_user' => array(
 		'_' => 'نام کاربری کاربر پیش‌فرض',
-		'max_char' => 'حداکثر ۱۶ کاراکتر الفبایی-عددی',	// DIRTY
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'لطفا قبل از رفتن به مرحله بعدی، خطاها را برطرف کنید.',
 	'javascript_is_better' => 'FreshRSS با فعال بودن جاوااسکریپت کارآمدتر است.',

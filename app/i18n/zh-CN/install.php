@@ -149,7 +149,7 @@ return array(
 	'congratulations' => '恭喜！',
 	'default_user' => array(
 		'_' => '默认用户名',
-		'max_char' => '最多 16 个数字或字母',	// DIRTY
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => '请在继续下一步前修复错误',
 	'javascript_is_better' => '启用 JavaScript 会使 FreshRSS 工作得更好',

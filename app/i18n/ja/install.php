@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'おめでとうございます！',
 	'default_user' => array(
 		'_' => 'デフォルトのユーザー名',
-		'max_char' => '最大16文字の英数字',	// DIRTY
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => '次のステップへ移る前にエラーを修正してください。',
 	'javascript_is_better' => 'JavaScriptを有効にすると、FreshRSSをより快適に利用できます。',

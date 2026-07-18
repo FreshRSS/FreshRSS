@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Συγχαρητήρια!',
 	'default_user' => array(
 		'_' => 'Όνομα χρήστη για τον προεπιλεγμένο χρήστη',
-		'max_char' => 'μέγιστο 16 αλφαριθμητικοί χαρακτήρες',	// DIRTY
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Παρακαλούμε διορθώστε τα σφάλματα πριν συνεχίσετε στο επόμενο βήμα.',
 	'javascript_is_better' => 'Το FreshRSS είναι πιο ευχάριστο με ενεργοποιημένη την JavaScript',

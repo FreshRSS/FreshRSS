@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Gefeliciteerd!',
 	'default_user' => array(
 		'_' => 'Gebruikersnaam van de standaardgebruiker',
-		'max_char' => 'maximaal 16 alfanumerieke tekens',	// DIRTY
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',

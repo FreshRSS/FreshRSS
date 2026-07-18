@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Username',	// IGNORE
-			'format' => '<small>1-39 characters: letters, digits, and . _ @ -</small>',	// IGNORE
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// IGNORE
 		),
 	),
 	'date' => array(

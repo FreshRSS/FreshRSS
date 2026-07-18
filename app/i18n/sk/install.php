@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Nastavenia!',
 	'default_user' => array(
 		'_' => 'Hlavné používateľské meno',
-		'max_char' => 'najviac 16 alfanumerických znakov',	// DIRTY
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Prosím, pred pokračovaním opravte chyby.',
 	'javascript_is_better' => 'FreshRSS si užijete viac, keď povolíte JavaScript',
