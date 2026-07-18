@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => ' OPML را بازخوانی کنید',
 		'remove' => ' حذف کنید',
 		'rename' => ' تغییر نام',
+		'reset' => 'Reset',	// TODO
 		'see_website' => 'به وب‌سایت مراجعه کنید',
 		'submit' => ' ارسال کنید',
 		'truncate' => ' تمام مقالات را حذف کنید',

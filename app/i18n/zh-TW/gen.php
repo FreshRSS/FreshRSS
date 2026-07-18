@@ -46,6 +46,7 @@ return array(
 		'refresh_opml' => '刷新 OPML',
 		'remove' => '移除',
 		'rename' => '重新命名',
+		'reset' => 'Reset',	// TODO
 		'see_website' => '查看網站',
 		'submit' => '提交',
 		'truncate' => '刪除所有文章',
