@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Toutes les tables de la base de données existent.',
 		),
 		'database-title' => 'Base de données',
+		'docroot' => array(
+			'nok' => 'Le répertoire racine de votre serveur Web ne semble pas pointer vers le dossier <code>./p/</code>. D’autres dossiers tels que <code>./data/</code> risquent d’être exposés publiquement.',
+			'ok' => 'Le répertoire racine de votre serveur Web pointe correctement vers le dossier <code>./p/</code>.',
+		),
 		'dom' => array(
 			'nok' => 'Impossible de trouver la librairie requise pour parcourir le DOM.',
 			'ok' => 'Vous disposez de la librairie requise pour parcourir le DOM.',

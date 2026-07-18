@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Все таблицы базы данных существуют.',
 		),
 		'database-title' => 'База данных',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'У вас не установлена необходимая библиотека для просмотра DOM (пакет php-xml).',
 			'ok' => 'У вас установлена необходимая библиотека для просмотра DOM.',

@@ -63,6 +63,11 @@ function checkRequirements(string $dbType = '', bool $checkPhp = true, bool $che
 	$users = is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html');
 	$favicons = is_dir(DATA_PATH) && touch(DATA_PATH . '/favicons/index.html');
 	$tokens = is_dir(DATA_PATH) && touch(DATA_PATH . '/tokens/index.html');
+	// An unknown or incorrect document root might web-expose folders such as `./data`.
+	// An empty `DOCUMENT_ROOT` outside of a Web server context (e.g. CLI, cron) is ignored because `realpath('')` resolves to the current directory.
+	$documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? null;
+	$docRootPath = is_string($documentRoot) && $documentRoot !== '' ? realpath($documentRoot) : false;
+	$docRootOk = $documentRoot === '' || ($docRootPath !== false && $docRootPath === realpath(PUBLIC_PATH));
 
 	$result = [];
 	if ($checkPhp) {
@@ -94,6 +99,7 @@ function checkRequirements(string $dbType = '', bool $checkPhp = true, bool $che
 			'users' => $users ? 'ok' : 'ko',
 			'favicons' => $favicons ? 'ok' : 'ko',
 			'tokens' => $tokens ? 'ok' : 'ko',
+			'docroot' => $docRootOk ? 'ok' : 'warn',
 		];
 	}
 
