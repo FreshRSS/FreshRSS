@@ -149,7 +149,7 @@ return [
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
-	'nextcloud-bookmarks' => [
+	'nextcloud-bookmarks' => [	// DIRTY
 		'url' => '~URL~/apps/bookmarks/bookmarklet?url=~LINK~&amp;title=~TITLE~',
 		'transform' => ['rawurlencode'],
 		'help' => 'https://github.com/nextcloud/bookmarks',
