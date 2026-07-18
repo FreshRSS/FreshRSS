@@ -80,6 +80,10 @@ return array(
 			'ok' => 'You have the recommended PHP fileinfo library (fileinfo package).',	// IGNORE
 		),
 		'files' => 'File installation',	// IGNORE
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// IGNORE
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// IGNORE
+		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalization.',
 			'ok' => 'You have the recommended library php-intl for internationalization.',

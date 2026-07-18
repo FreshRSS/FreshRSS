@@ -80,6 +80,10 @@ return array(
 			'ok' => 'Vous disposez de la librairie recommandéee php-fileinfo.',
 		),
 		'files' => 'Installation des fichiers',
+		'gmp' => array(
+			'nok' => 'Vous ne disposez pas de l’extension GMP requise pour PHP 32 bits (paquet php-gmp).',
+			'ok' => 'Vous disposez de l’extension GMP requise pour PHP 32 bits.',
+		),
 		'intl' => array(
 			'nok' => ' Impossible de trouver la librairie recommandée php-intl pour l’internationalisation.',
 			'ok' => 'Vous disposez de la librairie recommandée php-intl pour l’internationalisation.',

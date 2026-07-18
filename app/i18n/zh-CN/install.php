@@ -80,6 +80,10 @@ return array(
 			'ok' => '已找到 fileinfo 库',
 		),
 		'files' => '文件相关',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => '无法找到推荐用于国际化支持的 php-intl 扩展。',
 			'ok' => '已找到推荐用于国际化支持的 php-intl 扩展。',

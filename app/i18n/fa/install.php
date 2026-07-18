@@ -80,6 +80,10 @@ return array(
 			'ok' => 'شما کتابخانه fileinfo را دارید.',
 		),
 		'files' => ' نصب فایل',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'کتابخانه پیشنهادی php-intl برای بین‌المللی‌سازی پیدا نشد.',
 			'ok' => 'کتابخانه پیشنهادی php-intl برای بین‌المللی‌سازی روی سیستم شما نصب است.',

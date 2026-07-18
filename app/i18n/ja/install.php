@@ -80,6 +80,10 @@ return array(
 			'ok' => 'fileinfoライブラリは正しく設定されています。',
 		),
 		'files' => 'ファイルインストール',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => '多言語・地域対応用のphp-intlライブラリが見つかりませんでした。',
 			'ok' => '多言語・地域対応用のphp-intlライブラリはインストールされています。',
