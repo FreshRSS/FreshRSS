@@ -2107,9 +2107,7 @@ function refreshUnreads() {
 	req.onload = function (e) {
 		const json = xmlHttpRequestJson(this);
 		if (!json) {
-			// A lost session (401 from an auth proxy, 403 from FreshRSS) reloads to
-			// re-authenticate instead of polling the dead session forever.
-			return badAjax(this.status == 401 || this.status == 403);
+			return badAjax(this.status >= 400 && this.status <= 499);
 		}
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;
