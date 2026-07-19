@@ -114,9 +114,9 @@ class File implements Response
             }
             if (!$force_fsockopen && function_exists('curl_exec')) {
                 $resolve = false; // FreshRSS
-                $proxy = $curl_options[CURLOPT_PROXY] ?? null; // FreshRSS
+                $proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : null; // FreshRSS
                 $proxy_type = $curl_options[CURLOPT_PROXYTYPE] ?? CURLPROXY_HTTP; // FreshRSS
-                if (empty($curl_options[CURLOPT_PROXY] ?? null)) { // FreshRSS
+                if ($proxy == null) { // FreshRSS
                     $resolve = $this->get_curl_resolve_info($url);
                     if ($resolve === null) {
                         $this->error = 'URL is not allowed to be resolved: ' . \SimplePie\Misc::url_remove_credentials($url);
@@ -131,7 +131,7 @@ class File implements Response
                         $curl_options[CURLOPT_RESOLVE] = $resolve; // Prevent DNS rebinding
                     }
                 } else { // FreshRSS
-                    defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2);	// Compatibility cURL 7.51
+                    defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2); // Compatibility cURL 7.51
                     $proxy_scheme = null;
                     switch ($proxy_type) {
                         case CURLPROXY_HTTP:
@@ -152,12 +152,13 @@ class File implements Response
                         case CURLPROXY_SOCKS5_HOSTNAME:
                             $proxy_scheme = 'socks5h';
                             break;
-                    };
+                    }
                     if ($proxy_scheme === null) {
                         $this->error = 'Unsupported proxy type';
                         $this->success = false;
                         return;
                     }
+                    $proxy = preg_replace('#^.*://#i', '', $proxy); // Strip any scheme already present in CURLOPT_PROXY
                     $proxy_url = "$proxy_scheme://$proxy"; // CURLOPT_PROXY ($proxy) is formatted as user:pass@hostname:port, with the part before @ being optional
                     $resolve = $this->get_curl_resolve_info($proxy_url, true);
                     if ($resolve === null) {
