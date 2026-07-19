@@ -1525,8 +1525,8 @@ function init_stream(stream) {
 			return false;
 		}
 
-		el = ev.target.closest('.item.share > button[data-type="readeck"]');
-		if (el) {	// Share to Readeck through its API (Authorization: Bearer + JSON body)
+		el = ev.target.closest('.item.share > button[data-token]');
+		if (el) {	// Share by POST to an API authenticated by a bearer token (see the `token` form in shares.php)
 			const button = el;
 			fetch(button.dataset.url, {
 				method: 'POST',
@@ -1534,10 +1534,10 @@ function init_stream(stream) {
 					'Authorization': 'Bearer ' + button.dataset.token,
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ url: button.dataset.link }),
+				body: JSON.stringify({ [button.dataset.field]: button.dataset.link }),
 			}).then(response => {
 				if (!response.ok) {
-					console.log('Readeck share failed with HTTP status ' + response.status);
+					console.log('Share failed with HTTP status ' + response.status);
 				}
 				toggleClass(button, response.ok ? 'ok' : 'error');
 			}).catch(error => {

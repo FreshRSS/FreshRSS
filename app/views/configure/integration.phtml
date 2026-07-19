@@ -93,10 +93,8 @@
 		<fieldset class="group-share dragbox" id="group-share-<?= $key ?>">
 			<legend draggable="true"><?= $share->name(true) ?></legend>
 			<input type="hidden" id="share_<?= $key ?>_type" name="share[<?= $key ?>][type]" value="<?= $share->type() ?>" />
-			<?php if ($share->formType() !== 'token') { ?>
 			<input type="hidden" id="share_<?= $key ?>_method" name="share[<?= $key ?>][method]" value="<?= $share->method() ?>" />
 			<input type="hidden" id="share_<?= $key ?>_field" name="share[<?= $key ?>][field]" value="<?= $share->field() ?>" />
-			<?php } ?>
 
 			<?php if ($share->isDeprecated()) { ?>
 			<div class="prompt alert alert-warn">

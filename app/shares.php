@@ -27,7 +27,8 @@ declare(strict_types=1);
  *     configurable, 'advanced' is used when the name and the location are
  *     configurable, 'token' additionally lets the user configure an API token
  *     that is sent as an 'Authorization: Bearer' header by a client-side
- *     request (see the data-type handler in main.js).
+ *     request posting the link as JSON (see the data-token handler in main.js).
+ *   - 'field' is the name of the field holding the link, for shares sent by POST.
  *   - 'method' is the HTTP method (POST or GET) used to share a link.
  */
 
@@ -204,6 +205,7 @@ return [
 		'HTMLtag' => 'button',
 		'url' => '~URL~/api/bookmarks',
 		'transform' => [],
+		'field' => 'url',
 		'help' => 'https://readeck.org/en/docs/api',
 		'form' => 'token',
 		'method' => 'POST',

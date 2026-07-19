@@ -100,9 +100,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * Build the extra origins allowed by the Content-Security-Policy connect-src
-	 * directive so that client-side sharing requests (e.g. Readeck) are not
-	 * blocked. Origins are derived from the base URL of every configured share
-	 * that uses the 'token' form. Returns e.g. "'self' https://readeck.example".
+	 * directive so that client-side sharing requests are not blocked.
+	 * Origins are derived from the base URL of every configured share
+	 * that uses the 'token' form. Returns e.g. "'self' https://bookmarks.example".
 	 */
 	private static function shareConnectSrc(): string {
 		// Shares are normally loaded later, in FreshRSS::preLayout(); make sure
