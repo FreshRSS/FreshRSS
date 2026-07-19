@@ -224,7 +224,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				'curl_params' => empty($opts) ? null : FreshRSS_http_Util::sanitizeCurlParams($opts),
 			];
 			$attributes['ssl_verify'] = Minz_Request::paramTernary('ssl_verify');
-			$attributes['ipresolve'] = Minz_Request::paramTernary('ipresolve');
+			$ipresolve = Minz_Request::paramInt('ipresolve');
+			$attributes['ipresolve'] = $ipresolve >= 0 ? $ipresolve : null;
 			$timeout = Minz_Request::paramInt('timeout');
 			$attributes['timeout'] = $timeout > 0 ? $timeout : null;
 

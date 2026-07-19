@@ -552,8 +552,8 @@ final class FreshRSS_http_Util {
 				}
 			}
 
-			if (isset($attributes['ipresolve'])) {
-				curl_setopt($ch, CURLOPT_IPRESOLVE, (bool)$attributes['ipresolve'] ? CURL_IPRESOLVE_V6 : CURL_IPRESOLVE_V4);
+			if (is_int($attributes['ipresolve'] ?? null)) {
+				curl_setopt($ch, CURLOPT_IPRESOLVE, $attributes['ipresolve']);
 			}
 
 			if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {

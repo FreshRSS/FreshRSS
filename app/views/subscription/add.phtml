@@ -354,8 +354,9 @@
 				<div class="group-controls">
 					<select name="ipresolve" id="ipresolve">
 						<option value=""><?= _t('gen.short.by_default') ?></option>
-						<option value="0">IPv4</option>
-						<option value="1">IPv6</option>
+						<option value="<?= CURL_IPRESOLVE_WHATEVER ?>">IPv4/IPv6</option>
+						<option value="<?= CURL_IPRESOLVE_V4 ?>">IPv4</option>
+						<option value="<?= CURL_IPRESOLVE_V6 ?>">IPv6</option>
 					</select>
 				</div>
 			</div>

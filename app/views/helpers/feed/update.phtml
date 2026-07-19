@@ -907,10 +907,11 @@
 			<div class="form-group">
 				<label class="group-name" for="ipresolve"><?= _t('sub.feed.ipresolve') ?></label>
 				<div class="group-controls">
-					<select name="ipresolve" id="ipresolve" class="w50">
-						<option value=""<?= $this->feed->attributeBoolean('ipresolve') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
-						<option value="0"<?= $this->feed->attributeBoolean('ipresolve') === false ? ' selected="selected"' : '' ?>>IPv4</option>
-						<option value="1"<?= $this->feed->attributeBoolean('ipresolve') === true ? ' selected="selected"' : '' ?>>IPv6</option>
+					<select name="ipresolve" id="ipresolve">
+						<option value=""<?= $this->feed->attributeInt('ipresolve') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="<?= CURL_IPRESOLVE_WHATEVER ?>"<?= $this->feed->attributeInt('ipresolve') === CURL_IPRESOLVE_WHATEVER ? ' selected="selected"' : '' ?>>IPv4/IPv6</option>
+						<option value="<?= CURL_IPRESOLVE_V4 ?>"<?= $this->feed->attributeInt('ipresolve') === CURL_IPRESOLVE_V4 ? ' selected="selected"' : '' ?>>IPv4</option>
+						<option value="<?= CURL_IPRESOLVE_V6 ?>"<?= $this->feed->attributeInt('ipresolve') === CURL_IPRESOLVE_V6 ? ' selected="selected"' : '' ?>>IPv6</option>
 					</select>
 				</div>
 			</div>
