@@ -2303,7 +2303,9 @@ class Item implements RegistryAware
             if ($alternativeUrls !== []) {
                 $enclosures = array_values(array_filter(
                     $enclosures,
-                    static fn (\SimplePie\Enclosure $enclosure): bool => empty($alternativeUrls[$enclosure->get_link() ?? '']),
+                    static function (\SimplePie\Enclosure $enclosure) use ($alternativeUrls): bool {
+                        return empty($alternativeUrls[$enclosure->get_link() ?? '']);
+                    }
                 ));
             }
         }
@@ -2348,7 +2350,9 @@ class Item implements RegistryAware
                     $defaultUrl = $url;
                 }
             }
-            $defaultUrl ??= $urls[0] ?? '';
+            if ($defaultUrl === null) {
+                $defaultUrl = $urls[0] ?? '';
+            }
             foreach ($urls as $url) {
                 if ($url !== $defaultUrl) {
                     $alternativeUrls[$url] = true;
