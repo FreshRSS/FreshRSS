@@ -120,7 +120,7 @@ function init_json_feed_detection(parent) {
 	const jsonKind = kind.querySelector('option[data-json-feed="1"]');
 	const details = kind.closest('details');
 	const detect = () => {
-		if (kind.value === kind.options[0]?.value && jsonKind && /\.json(?:[?#].*)?$/i.test(url.value.trim())) {
+		if (kind.value === kind.options[0]?.value && jsonKind && /(?:\b|_)json(?:\b|_)/i.test(url.value)) {
 			kind.value = jsonKind.value;
 			kind.dispatchEvent(new Event('change', { bubbles: true }));
 			if (details) {
