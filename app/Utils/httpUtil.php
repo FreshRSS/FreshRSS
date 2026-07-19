@@ -301,12 +301,14 @@ final class FreshRSS_http_Util {
 	 * Can also be used for checking if the CURLOPT_PROXY value is allowed, by providing a proxy URL with the `for_proxy` parameter set to `true`.
 	 * In that case, a string value will be returned with the hostname resolved to an IP if allowed.
 	 *
-	 * @return array<string>|null|false
+	 * @return array<string>|string|null|false
 	 */
 	public static function getCurlResolveInfo(string $url, bool $for_proxy = false): array|string|null|false {
+		// Parse the original URL first so that credentials keep their original case (only the host is case-insensitive).
+		$parsedOriginal = parse_url($url);
 		$url = strtolower($url);
 		$parsed = parse_url($url);
-		if ($parsed === false) {
+		if ($parsed === false || $parsedOriginal === false) {
 			return false;
 		}
 		$host = $parsed['host'] ?? null;
@@ -315,8 +317,8 @@ final class FreshRSS_http_Util {
 			return false;
 		}
 		$credentials = '';
-		$user = $parsed['user'] ?? null;
-		$pass = $parsed['pass'] ?? null;
+		$user = $parsedOriginal['user'] ?? null;
+		$pass = $parsedOriginal['pass'] ?? null;
 		if (is_string($user) && is_string($pass)) {
 			$credentials = "$user:$pass@";
 		}
@@ -413,9 +415,7 @@ final class FreshRSS_http_Util {
 		if (count($ips_ok) > 0) {
 			if (count($records) > 0 || isset(self::$resolve_ok[$host])) {
 				if ($for_proxy) {
-					if (filter_var($ips_ok[0], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
-						return $credentials . "$ips_ok[0]:$port";
-					}
+					// $ips_ok[0] is already bracketed when it is an IPv6 address
 					return $credentials . "$ips_ok[0]:$port";
 				}
 				$resolve_str .= implode(',', $ips_ok);
@@ -475,7 +475,7 @@ final class FreshRSS_http_Util {
 		$accept = '';
 		$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] ?? null) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
 		$proxy_type = is_int(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXYTYPE] ?? null) ?
-			FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : 0;
+			FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXYTYPE] : 0;
 		$options = [];	// User-defined cURL options
 		if (is_array($attributes['curl_params'] ?? null)) {
 			$options = self::sanitizeCurlParams($attributes['curl_params']);
@@ -568,9 +568,11 @@ final class FreshRSS_http_Util {
 				}
 				// Translate from a hostname:port value to ip:port, in order to avoid DNS rebinding
 				$curl_options[CURLOPT_PROXY] = $resolve;
-				// Skip verifying the hostname (a bit unsafe, but needed since
-				// there is no CURLOPT_RESOLVE equivalent for proxy hostnames)
-				$curl_options[CURLOPT_PROXY_SSL_VERIFYHOST] = 0;
+				if (defined('CURLOPT_PROXY_SSL_VERIFYHOST')) {
+					// Skip verifying the hostname (a bit unsafe, but needed since
+					// there is no CURLOPT_RESOLVE equivalent for proxy hostnames)
+					$curl_options[CURLOPT_PROXY_SSL_VERIFYHOST] = 0;
+				}
 			}
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 			$ch = curl_init();

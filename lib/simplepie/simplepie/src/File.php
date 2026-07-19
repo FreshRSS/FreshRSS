@@ -115,7 +115,7 @@ class File implements Response
             if (!$force_fsockopen && function_exists('curl_exec')) {
                 $resolve = false; // FreshRSS
                 $proxy = $curl_options[CURLOPT_PROXY] ?? null; // FreshRSS
-                $proxy_type = $curl_options[CURLOPT_PROXYTYPE] ?? null; // FreshRSS
+                $proxy_type = $curl_options[CURLOPT_PROXYTYPE] ?? CURLPROXY_HTTP; // FreshRSS
                 if (empty($curl_options[CURLOPT_PROXY] ?? null)) { // FreshRSS
                     $resolve = $this->get_curl_resolve_info($url);
                     if ($resolve === null) {
