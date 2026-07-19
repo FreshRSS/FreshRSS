@@ -25,13 +25,12 @@
 			<div class="group-controls">
 				<select name="category" id="category">
 				<?php
-					$categoryId = Minz_Request::paramInt('category') ?: Minz_Request::paramInt('cat_id') ?: 1;
 					foreach ($this->categories as $cat) {
 						if ($cat->kind() == FreshRSS_Category::KIND_DYNAMIC_OPML) {
 							continue;
 						}
 				?>
-				<option value="<?= $cat->id() ?>"<?= $cat->id() === $categoryId ? ' selected="selected"' : '' ?>>
+				<option value="<?= $cat->id() ?>"<?= $cat->id() === (Minz_Request::paramInt('cat_id') ?: 1) ? ' selected="selected"' : '' ?>>
 					<?= $cat->name() ?>
 				</option>
 				<?php } ?>
