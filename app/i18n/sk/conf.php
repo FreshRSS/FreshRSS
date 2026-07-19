@@ -335,6 +335,7 @@ return array(
 		'remove' => 'Odstrániť spôsob zdieľania',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Meno pre zobrazenie',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'Zdieľaný odkaz',
 		'title' => 'Zdieľanie',
 		'twitter' => 'X (Twitter)',	// IGNORE

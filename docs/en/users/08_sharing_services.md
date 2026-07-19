@@ -32,6 +32,7 @@ FreshRSS has the option to share links with a bunch of services.
 | Pinterest         | Is an image sharing and social media service designed to enable saving and discovery of information| [Website](https://pinterest.com/), [Wikipedia](https://en.wikipedia.org/wiki/Pinterest) | |
 | Pocket            | Social bookmarking (previous "Read it Later", owned by Mozilla) | [Website](https://getpocket.com), [Wikipedia](https://en.wikipedia.org/wiki/Pocket_(service)) | |
 | Raindrop.io       | All-in-one bookmark manager                          | [Website](https://raindrop.io/)| |
+| Readeck           | Self-hosted bookmark and "read-it-later" application  | [Website](https://readeck.org/) | Requires the Readeck base URL and an [API token](https://readeck.org/en/docs/api). The article is sent by a request from your browser, so your Readeck instance must allow cross-origin requests (CORS) from your FreshRSS origin. |
 | Reddit            | A network of communities where people can dive into their interests, hobbies and passions| [Website](https://www.reddit.com/), [Wikipedia](https://en.wikipedia.org/wiki/Reddit)| |
 | Shaarli           | Self-hosted minimalist bookmark manager and link sharing service | [Website](https://shaarli.readthedocs.io/) | |
 | Telegram          | Social network                         | [Website](https://telegram.org), [Wikipedia](https://en.wikipedia.org/wiki/Telegram_(software)) | |

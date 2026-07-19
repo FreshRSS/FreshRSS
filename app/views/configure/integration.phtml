@@ -51,6 +51,36 @@
 				</div>
 			</fieldset>
 		</template>
+		<template id="token-share">
+			<fieldset class="group-share dragbox">
+				<legend draggable="true">##label##</legend>
+				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" data-leave-validation="" />
+				<div class="form-group" id="group-share-##key##">
+					<label class="group-name" for="share_##key##_name"><?= _t('conf.sharing.share_name') ?></label>
+					<div class="group-controls">
+						<input type="text" id="share_##key##_name" name="share[##key##][name]" value="##label##" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="share_##key##_url"><?= _t('conf.sharing.share_url') ?></label>
+					<div class="group-controls">
+						<input type="url" id="share_##key##_url" name="share[##key##][url]" class="long" value="" required />
+						<p class="help"><?= _i('help') ?> <a href="##help##" target="_blank" rel="noreferrer"><?= _t('conf.sharing.more_information') ?></a></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="group-name" for="share_##key##_token"><?= _t('conf.sharing.share_token') ?></label>
+					<div class="group-controls">
+						<input type="password" id="share_##key##_token" name="share[##key##][token]" class="long" value="" autocomplete="off" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="group-controls">
+						<button type="button" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _t('gen.action.remove') ?></button>
+					</div>
+				</div>
+			</fieldset>
+		</template>
 
 		<?php
 			foreach (FreshRSS_Context::userConf()->sharing as $key => $share_options) {
@@ -63,8 +93,10 @@
 		<fieldset class="group-share dragbox" id="group-share-<?= $key ?>">
 			<legend draggable="true"><?= $share->name(true) ?></legend>
 			<input type="hidden" id="share_<?= $key ?>_type" name="share[<?= $key ?>][type]" value="<?= $share->type() ?>" />
+			<?php if ($share->formType() !== 'token') { ?>
 			<input type="hidden" id="share_<?= $key ?>_method" name="share[<?= $key ?>][method]" value="<?= $share->method() ?>" />
 			<input type="hidden" id="share_<?= $key ?>_field" name="share[<?= $key ?>][field]" value="<?= $share->field() ?>" />
+			<?php } ?>
 
 			<?php if ($share->isDeprecated()) { ?>
 			<div class="prompt alert alert-warn">
@@ -82,7 +114,7 @@
 			</div>
 
 			<div class="form-group">
-				<?php if ($share->formType() === 'advanced') { ?>
+				<?php if ($share->formType() === 'advanced' || $share->formType() === 'token') { ?>
 					<label class="group-name" for="share_<?= $key ?>_url">
 						<?= _t('conf.sharing.share_url') ?>
 					</label>
@@ -96,6 +128,17 @@
 					</div>
 				<?php } ?>
 			</div>
+
+			<?php if ($share->formType() === 'token') { ?>
+			<div class="form-group">
+				<label class="group-name" for="share_<?= $key ?>_token">
+					<?= _t('conf.sharing.share_token') ?>
+				</label>
+				<div class="group-controls">
+					<input type="password" id="share_<?= $key ?>_token" name="share[<?= $key ?>][token]" class="long" value="<?= htmlspecialchars($share->token() ?? '', ENT_QUOTES) ?>" autocomplete="off" />
+				</div>
+			</div>
+			<?php } ?>
 
 			<div class="form-group">
 				<div class="group-controls">

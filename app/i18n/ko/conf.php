@@ -335,6 +335,7 @@ return array(
 		'remove' => '공유 방법 삭제',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => '표시할 이름',
+		'share_token' => 'API token',	// TODO
 		'share_url' => '사용할 공유 URL',
 		'title' => '공유',
 		'twitter' => 'X (Twitter)',	// IGNORE

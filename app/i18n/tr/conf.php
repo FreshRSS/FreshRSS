@@ -335,6 +335,7 @@ return array(
 		'remove' => 'Paylaşım yöntemini kaldır',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Görüntülenecek paylaşım adı',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'Kullanılacak paylaşım URL’si',
 		'title' => 'Paylaşım',
 		'twitter' => 'X (Twitter)',	// IGNORE

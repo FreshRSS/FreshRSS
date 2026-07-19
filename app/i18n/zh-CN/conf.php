@@ -335,6 +335,7 @@ return array(
 		'remove' => '删除分享方式',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => '显示名称',
+		'share_token' => 'API token',	// TODO
 		'share_url' => '用于分享的 URL',
 		'title' => '分享',
 		'twitter' => 'X (Twitter)',	// IGNORE

@@ -335,6 +335,7 @@ return array(
 		'remove' => 'Freigabedienst entfernen',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Anzuzeigender Freigabename',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'Zu verwendende Freigabe-URL',
 		'title' => 'Teilen',
 		'twitter' => 'X (Twitter)',	// IGNORE

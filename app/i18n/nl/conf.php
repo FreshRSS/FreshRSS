@@ -335,6 +335,7 @@ return array(
 		'remove' => 'Deelmethode verwijderen',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Gedeelde naam om weer te geven',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'Deel URL voor gebruik',
 		'title' => 'Delen',
 		'twitter' => 'X (Twitter)',	// IGNORE

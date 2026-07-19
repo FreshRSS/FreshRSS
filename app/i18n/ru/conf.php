@@ -335,6 +335,7 @@ return array(
 		'remove' => 'Удалить способ обмена',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Отображаемое имя',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'Используемый URL',
 		'title' => 'Обмен',
 		'twitter' => 'X (Twitter)',	// IGNORE

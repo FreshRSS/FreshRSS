@@ -13,7 +13,7 @@ class FreshRSS_Share {
 
 	/**
 	 * Register a new sharing option.
-	 * @param array{type:string,url:string,transform?:array<callable>|array<string,array<callable>>,field?:string,help?:string,form?:'simple'|'advanced',
+	 * @param array{type:string,url:string,transform?:array<callable>|array<string,array<callable>>,field?:string,help?:string,form?:'simple'|'advanced'|'token',
 	 *	method?:'GET'|'POST',HTMLtag?:'button',deprecated?:bool} $share_options is an array defining the share option.
 	 */
 	public static function register(array $share_options): void {
@@ -50,7 +50,7 @@ class FreshRSS_Share {
 				continue;
 			}
 			$share_options['type'] = $share_type;
-			/** @var array{type:string,url:string,transform?:array<callable>|array<string,array<callable>>,field?:string,help?:string,form?:'simple'|'advanced',
+			/** @var array{type:string,url:string,transform?:array<callable>|array<string,array<callable>>,field?:string,help?:string,form?:'simple'|'advanced'|'token',
 			 *	method?:'GET'|'POST',HTMLtag?:'button',deprecated?:bool} $share_options */
 			self::register($share_options);
 		}
@@ -75,11 +75,12 @@ class FreshRSS_Share {
 	}
 	private readonly string $name;
 	/**
-	 * @phpstan-var 'simple'|'advanced'
+	 * @phpstan-var 'simple'|'advanced'|'token'
 	 */
 	private readonly string $form_type;
 	private ?string $custom_name = null;
 	private ?string $base_url = null;
+	private ?string $token = null;
 	private ?string $id = null;
 	private ?string $title = null;
 	private ?string $link = null;
@@ -93,9 +94,9 @@ class FreshRSS_Share {
 	 * @param string $type is a unique string defining the kind of share option.
 	 * @param string $url_transform defines the url format to use in order to share.
 	 * @param array<callable>|array<string,array<callable>> $transforms is an array of transformations to apply on link and title.
-	 * @param 'simple'|'advanced' $form_type defines which form we have to use to complete. "simple"
+	 * @param 'simple'|'advanced'|'token' $form_type defines which form we have to use to complete. "simple"
 	 *        is typically for a centralized service while "advanced" is for
-	 *        decentralized ones.
+	 *        decentralized ones. "token" is like "advanced" but also asks for an API token.
 	 * @param string $help_url is an optional url to give help on this option.
 	 * @param 'GET'|'POST' $method defines the sharing method (GET or POST)
 	 * @param 'button'|null $HTMLtag
@@ -113,7 +114,7 @@ class FreshRSS_Share {
 	) {
 		$this->name = _t('gen.share.' . $this->type);
 
-		if (!in_array($form_type, ['simple', 'advanced'], true)) {
+		if (!in_array($form_type, ['simple', 'advanced', 'token'], true)) {
 			$form_type = 'simple';
 		}
 		$this->form_type = $form_type;
@@ -126,7 +127,7 @@ class FreshRSS_Share {
 	/**
 	 * Update a FreshRSS_Share object with information from an array.
 	 * @param array<string,string> $options is a list of information to update where keys should be
-	 *        in this list: name, url, id, title, link.
+	 *        in this list: name, url, id, title, link, token, method, field.
 	 */
 	public function update(array $options): void {
 		foreach ($options as $key => $value) {
@@ -145,6 +146,9 @@ class FreshRSS_Share {
 					break;
 				case 'link':
 					$this->link = $value;
+					break;
+				case 'token':
+					$this->token = $value;
 					break;
 				case 'method':
 					$this->method = strcasecmp($value, 'POST') === 0 ? 'POST' : 'GET';
@@ -181,10 +185,18 @@ class FreshRSS_Share {
 
 	/**
 	 * Return the current form type of the share option.
-	 * @return 'simple'|'advanced'
+	 * @return 'simple'|'advanced'|'token'
 	 */
 	public function formType(): string {
 		return $this->form_type;
+	}
+
+	/**
+	 * Return the API token of the share option. It’s null for shares that do
+	 * not use the 'token' form.
+	 */
+	public function token(): ?string {
+		return $this->token;
 	}
 
 	/**

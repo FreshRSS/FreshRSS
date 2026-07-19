@@ -309,6 +309,7 @@ return array(
 		'pinterest' => 'Pinterest',
 		'print' => 'Print',
 		'raindrop' => 'Raindrop.io',
+		'readeck' => 'Readeck',
 		'reddit' => 'Reddit',
 		'shaarli' => 'Shaarli',
 		'telegram' => 'Telegram',

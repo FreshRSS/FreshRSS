@@ -335,6 +335,7 @@ return array(
 		'remove' => ' روش اشتراک گذاری را حذف کنید',
 		'shaarli' => ' شعرلی',
 		'share_name' => ' نام اشتراک گذاری برای نمایش',
+		'share_token' => 'API token',	// TODO
 		'share_url' => ' URL را برای استفاده به اشتراک بگذارید',
 		'title' => ' اشتراک گذاری',
 		'twitter' => ' توییتر',
