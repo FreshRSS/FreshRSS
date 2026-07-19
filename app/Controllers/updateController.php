@@ -197,8 +197,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 	private function is_release_channel_stable(string $currentVersion): bool {
 		if (self::isGit()) {
-			$branch = self::gitBranchName();
-			return $branch !== 'edge' && $branch !== 'dev';
+			// The stable channel is a release checked out on a tag, i.e. a detached HEAD
+			// with no branch name. Any branch — `edge`/`dev` or a custom development
+			// branch — is the rolling channel, so only a detached HEAD is stable.
+			return self::gitBranchName() === null;
 		}
 		return !str_contains($currentVersion, 'dev') && !str_contains($currentVersion, 'edge');
 	}
