@@ -87,7 +87,7 @@ return array(
 		'http_headers_help' => 'Un entête HTTP par ligne, avec le nom et la valeur séparés par un deux-points (ex. : <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icône',
 		'information' => 'Informations',
-		'ipresolve' => 'IP version',	// TODO
+		'ipresolve' => 'Version IP',
 		'keep_adding_feed' => 'Puis ajouter d’autres flux',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'kind' => array(
