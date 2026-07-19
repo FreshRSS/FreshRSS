@@ -497,21 +497,11 @@ class File implements Response
     protected function get_curl_resolve_info(string $url, bool $for_proxy = false)
     {
         if ($for_proxy) {
-            $parsed = parse_url($url);
-            if ($parsed === false) {
+            $pos = strpos($url, '://');
+            if ($pos === false) {
                 return false;
             }
-            $credentials = '';
-            $user = $parsed['user'] ?? null;
-            $pass = $parsed['pass'] ?? null;
-            if (is_string($user) && is_string($pass)) {
-                $credentials = "$user:$pass@";
-            }
-            $proxy = $parsed['host'] ?? '';
-            if (is_int($parsed['port'] ?? null)) {
-                $proxy .= ':' . $parsed['port'];
-            }
-            return $credentials . $proxy;
+            return substr($url, $pos + 3);
         }
         return [];
     }
