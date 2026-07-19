@@ -87,6 +87,24 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		return $branch !== null ? 'git branch: ' . $branch : 'git';
 	}
 
+	/** @return bool Whether the current git HEAD is checked out directly on a (release) tag. */
+	public static function isOnGitTag(): bool {
+		if (!self::isGit() || !function_exists('exec')) {
+			return false;
+		}
+		$cwd = getcwd();
+		if ($cwd !== false) {
+			chdir(FRESHRSS_PATH);
+		}
+		$output = [];
+		$return = 1;
+		exec('git tag --points-at HEAD', $output, $return);
+		if ($cwd !== false) {
+			chdir($cwd);
+		}
+		return $return === 0 && trim(implode('', $output)) !== '';
+	}
+
 	public static function hasGitUpdate(): bool {
 		$cwd = getcwd();
 		if ($cwd === false) {
@@ -197,10 +215,9 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 	private function is_release_channel_stable(string $currentVersion): bool {
 		if (self::isGit()) {
-			// The stable channel is a release checked out on a tag, i.e. a detached HEAD
-			// with no branch name. Any branch — `edge`/`dev` or a custom development
-			// branch — is the rolling channel, so only a detached HEAD is stable.
-			return self::gitBranchName() === null;
+			// The stable channel is a release checked out directly on a tag. Any branch —
+			// `edge`/`dev` or a custom development branch — is the rolling channel.
+			return self::isOnGitTag();
 		}
 		return !str_contains($currentVersion, 'dev') && !str_contains($currentVersion, 'edge');
 	}
