@@ -289,6 +289,13 @@ async function send_mark_read_queue(queue, asRead, callback) {
 			incUnreadsFeed(div, feed_id, inc);
 		}
 		delete pending_entries['flux_' + queue[i]];
+		// Let extensions know an entry finished being marked as read/unread
+		document.dispatchEvent(new CustomEvent('freshrss:entryStateChange', {
+			detail: {
+				id: queue[i],
+				isRead: !div.classList.contains('not_read'),
+			},
+		}));
 	}
 	faviconNbUnread();
 	if (json.tags) {
@@ -439,8 +446,7 @@ function mark_favorite(div) {
 	}));
 }
 
-const freshrssOpenArticleEvent = document.createEvent('Event');
-freshrssOpenArticleEvent.initEvent('freshrss:openArticle', true, true);
+const freshrssOpenArticleEvent = new Event('freshrss:openArticle', { bubbles: true, cancelable: true });
 
 function loadLazyImages(rootElement) {
 	rootElement.querySelectorAll('img[data-original], iframe[data-original], video[data-original], track[data-original]').forEach(function (el) {
@@ -2101,7 +2107,7 @@ function refreshUnreads() {
 	req.onload = function (e) {
 		const json = xmlHttpRequestJson(this);
 		if (!json) {
-			return badAjax(false);
+			return badAjax(this.status >= 400 && this.status <= 499);
 		}
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;
@@ -2247,8 +2253,7 @@ function load_more_posts() {
 	req.send();
 }
 
-const freshrssLoadMoreEvent = document.createEvent('Event');
-freshrssLoadMoreEvent.initEvent('freshrss:load-more', true, true);
+const freshrssLoadMoreEvent = new Event('freshrss:load-more', { bubbles: true, cancelable: true });
 
 function init_load_more(box) {
 	box_load_more = box;

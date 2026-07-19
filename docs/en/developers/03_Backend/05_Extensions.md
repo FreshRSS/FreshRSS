@@ -225,6 +225,7 @@ if (document.readyState && document.readyState !== 'loading' && typeof window.co
 The following events are available:
 
 * `freshrss:globalContextLoaded`: will be dispatched after load the global `context` variable, useful for referencing variables injected with the `Minz_HookType::JsVars` hook.
+* `freshrss:entryStateChange`: will be dispatched on `document` after an entry has finished being marked as read or unread (i.e. once the underlying AJAX request has completed). The `detail` property of the event contains `id` (the entry ID) and `isRead` (the new read state). Useful for extensions that display their own read/unread indicator outside of the main article list, e.g. in a custom reading pane.
 
 ### Injecting CDN content
 

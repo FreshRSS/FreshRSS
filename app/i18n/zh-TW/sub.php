@@ -95,7 +95,7 @@ return array(
 			'html_json' => array(
 				'_' => 'HTML + XPath + JSON 點表示法 (HTML 中的 JSON)',
 				'xpath' => array(
-					'_' => 'XPath for JSON in HTML',	// TODO
+					'_' => 'XPath for JSON in HTML',	// IGNORE
 					'help' => '範例: <code>normalize-space(//script[@type="application/json"])</code> (單個 JSON)<br />或者: <code>//script[@type="application/ld+json"]</code> (每篇文章一個 JSON 物件)',
 				),
 			),
