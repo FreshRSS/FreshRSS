@@ -118,10 +118,14 @@ function init_json_feed_detection(parent) {
 	}
 
 	const jsonKind = kind.querySelector('option[data-json-feed="1"]');
+	const details = kind.closest('details');
 	const detect = () => {
 		if (kind.value === kind.options[0]?.value && jsonKind && /\.json(?:[?#].*)?$/i.test(url.value.trim())) {
 			kind.value = jsonKind.value;
 			kind.dispatchEvent(new Event('change', { bubbles: true }));
+			if (details) {
+				details.open = true;
+			}
 		}
 	};
 	url.addEventListener('input', detect);
