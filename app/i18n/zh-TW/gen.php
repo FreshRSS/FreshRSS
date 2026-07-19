@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => '使用者名稱',
-			'format' => '<small>最多 16 個數字或字母</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -98,8 +98,8 @@ return array(
 		'december' => '十二月',
 		'feb' => '二月',
 		'february' => '二月',
-		'format_date' => 'Y\\年n\\月j\\日',
-		'format_date_hour' => 'Y\\年n\\月j\\日	H\\:i',
+		'format_date' => 'Y \\年 n \\月 j \\日',
+		'format_date_hour' => 'Y \\年 n \\月 j \\日	H\\:i',
 		'fri' => '週五',
 		'jan' => '一月',
 		'january' => '一月',
@@ -167,8 +167,14 @@ return array(
 		'confirm_action_feed_cat' => '您確定要執行此操作嗎？您將丟失相關的收藏和使用者查詢。這無法被取消！',
 		'confirm_exit_slider' => '您確定要丟棄所有未儲存的設定嗎？',
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章待閱讀。',
-			'body_unread_articles' => '(未讀: %%d)',
+			'body_new_articles' => array(
+				0 => 'FreshRSS 中有 %d 篇文章待閱讀。',
+				1 => 'FreshRSS 中有 %d 篇文章待閱讀。',
+			),
+			'body_unread_articles' => array(
+				0 => '(未讀: %d)',
+				1 => '(未讀: %d)',
+			),
 			'request_failed' => '請求失敗，有可能是網路連線問題造成的。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
@@ -257,8 +263,8 @@ return array(
 		'date_to' => '到',
 		'date_user' => '使用者修改日期',
 		'feeds' => '訂閱源',
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
+		'free_text' => '關鍵字',
+		'free_text_help' => '同時搜尋標題與內容',
 		'full_documentation' => '檢視 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">完整搜尋說明文件</a>',
 		'labels' => '我的標籤',
 		'multiple_help' => '選擇一個或更多 (按住 <kbd>Ctrl</kbd> 或 <kbd>Cmd</kbd>)',
@@ -286,10 +292,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud 書籤',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

@@ -148,7 +148,7 @@ A short (not complete) summary:
 > ℹ Check [`markdown.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/markdown.instructions.md) for detailed coding conventions (both for humans and AI agents).
 
 - Linter:
-  - via npm `.markdownlint.json`
+  - via npm `.markdownlint-cli2.jsonc`
 
 ## Spaces, tabs and other whitespace characters
 

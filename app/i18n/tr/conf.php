@@ -142,7 +142,7 @@ return array(
 			'disabled' => 'API erişimi devre dışı.',
 			'documentation_link' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri ve bilinen uygulamaların listesini</a> gör',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri</a> gör',
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'security_warning' => 'HTTPS kullanın. API parolası düz metin olarak iletilir ve GET isteğiyle gönderilmesi durumunda sunucu günlüklerinde görünebilir.',
 		),
 		'change_password' => 'Parolayı değiştir',
 		'confirm_new_password' => 'Yeni parolayı onayla',
@@ -290,7 +290,7 @@ return array(
 			'upon_gone' => 'artık上游 haber akışında olmadığında',
 			'upon_reception' => 'makale alındığında',
 			'when' => 'Bir makaleyi okundu olarak işaretle…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_guid_in_category' => 'eğer kategorinin en yeni <i>n</i> makalesi arasında aynı GUID zaten varsa',
 			'when_same_title_in_category' => 'eğer aynı başlık kategorideki en yeni <i>n</i> makalede zaten varsa',
 			'when_same_title_in_feed' => 'eğer aynı başlık beslemedeki en yeni <i>n</i> makalede zaten varsa',
 		),
@@ -311,6 +311,8 @@ return array(
 			'when' => 'Bir makaleyi favori olarak işaretle…',
 		),
 		'sticky_post' => 'Makale açıldığında üstte sabitle',
+		'sticky_sort' => 'Gezinme sırasında el ile belirlenen sıralama düzenini koru',	// DIRTY
+		'sticky_sort_help' => 'Son el ile belirlenen sıralama düzeninin etkin kalıp kalmayacağını ya da her kategori veya beslemenin her zaman kendi varsayılan veya genel ayarını kullanacağını belirler.',	// DIRTY
 		'title' => 'Okuma',
 		'view' => array(
 			'default' => 'Varsayılan görünüm',

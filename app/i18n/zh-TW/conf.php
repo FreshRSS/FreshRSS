@@ -142,7 +142,7 @@ return array(
 			'disabled' => 'API 存取已停用',
 			'documentation_link' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">說明文件與已知應用程式清單</a>',
 			'help' => '請參閱 <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>說明文件</a>',
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'security_warning' => '請使用 HTTPS。API 密碼會以明文傳輸，並且如果透過 GET 傳送，可能出現在伺服器的紀錄中。',
 		),
 		'change_password' => '變更密碼',
 		'confirm_new_password' => '確認新密碼',
@@ -311,6 +311,8 @@ return array(
 			'when' => '標記文章為最愛…',
 		),
 		'sticky_post' => '開啟文章時將其固定於頁首',
+		'sticky_sort' => '導覽時保持手動排序',
+		'sticky_sort_help' => '決定保持最近一次手動排序，還是讓每個分類或訂閱源始終使用各自的預設或全域設定。',
 		'title' => '閱讀',
 		'view' => array(
 			'default' => '預設檢視',

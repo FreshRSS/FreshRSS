@@ -225,6 +225,11 @@ class Minz_View {
 		if ($url === '') {
 			return;
 		}
+		foreach (self::$styles as $style) {
+			if ($style['url'] === $url) {
+				return;
+			}
+		}
 		array_unshift(self::$styles, [
 			'url' => $url,
 			'media' => $media,
@@ -238,6 +243,11 @@ class Minz_View {
 	public static function appendStyle(string $url, string $media = 'all', bool $cond = false): void {
 		if ($url === '') {
 			return;
+		}
+		foreach (self::$styles as $style) {
+			if ($style['url'] === $url) {
+				return;
+			}
 		}
 		self::$styles[] = [
 			'url' => $url,
@@ -306,6 +316,11 @@ class Minz_View {
 		if ($url === '') {
 			return;
 		}
+		foreach (self::$scripts as $script) {
+			if ($script['url'] === $url) {
+				return;
+			}
+		}
 		array_unshift(self::$scripts, [
 			'url' => $url,
 			'defer' => $defer,
@@ -324,6 +339,11 @@ class Minz_View {
 	public static function appendScript(string $url, bool $cond = false, bool $defer = true, bool $async = true, string $id = ''): void {
 		if ($url === '') {
 			return;
+		}
+		foreach (self::$scripts as $script) {
+			if ($script['url'] === $url) {
+				return;
+			}
 		}
 		self::$scripts[] = [
 			'url' => $url,
