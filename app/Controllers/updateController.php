@@ -60,14 +60,31 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		return true;
 	}
 
-	public static function getCurrentGitBranch(): string {
-		$output = [];
-		exec('git branch --show-current', $output, $return);
-		if ($return === 0) {
-			return 'git branch: ' . $output[0];
-		} else {
-			return 'git';
+	/** @return non-empty-string|null */
+	public static function gitBranchName(): ?string {
+		if (!self::isGit() || !function_exists('exec')) {
+			return null;
 		}
+		$cwd = getcwd();
+		if ($cwd !== false) {
+			chdir(FRESHRSS_PATH);
+		}
+		$output = [];
+		$return = 1;
+		exec('git branch --show-current', $output, $return);
+		if ($cwd !== false) {
+			chdir($cwd);
+		}
+		if ($return !== 0) {
+			return null;
+		}
+		$branch = trim(implode('', $output));
+		return $branch === '' ? null : $branch;
+	}
+
+	public static function getCurrentGitBranch(): string {
+		$branch = self::gitBranchName();
+		return $branch !== null ? 'git branch: ' . $branch : 'git';
 	}
 
 	public static function hasGitUpdate(): bool {
@@ -179,6 +196,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	private function is_release_channel_stable(string $currentVersion): bool {
+		if (self::isGit()) {
+			$branch = self::gitBranchName();
+			return $branch !== 'edge' && $branch !== 'dev';
+		}
 		return !str_contains($currentVersion, 'dev') && !str_contains($currentVersion, 'edge');
 	}
 
