@@ -170,7 +170,7 @@ label {
 		outline: none;
 	}
 
-	&:invalid {
+	&:user-invalid {
 		padding-right: 5px;
 		color: var(--color-text-bad);
 		border-right-color: var(--color-border-bad);
