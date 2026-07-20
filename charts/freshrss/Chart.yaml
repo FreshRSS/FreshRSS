@@ -3,7 +3,7 @@ name: freshrss
 description: A Helm chart for FreshRSS
 type: application
 version: 0.1.0
-appVersion: "latest"
+appVersion: "1.29.1"
 home: https://freshrss.org
 sources:
   - https://github.com/FreshRSS/FreshRSS
@@ -26,7 +26,7 @@ annotations:
       url: https://freshrss.github.io/FreshRSS/
   artifacthub.io/images: |
     - name: freshrss
-      image: freshrss/freshrss:latest
+      image: freshrss/freshrss:1.29.1
   artifacthub.io/changes: |
     - kind: added
       description: Initial Helm chart for FreshRSS

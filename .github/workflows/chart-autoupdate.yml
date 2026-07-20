@@ -1,0 +1,50 @@
+name: Sync chart with FreshRSS release
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update chart to latest FreshRSS release
+        run: |
+          set -euo pipefail
+          latest=$(curl -fsSL https://api.github.com/repos/FreshRSS/FreshRSS/releases/latest | jq -r .tag_name)
+          current=$(sed -nE 's/^appVersion: "?([^"]*)"?/\1/p' charts/freshrss/Chart.yaml)
+          echo "latest=$latest current=$current"
+          if [ "$latest" = "$current" ]; then
+            echo "Already up to date."
+            exit 0
+          fi
+
+          chart_ver=$(sed -nE 's/^version: (.*)/\1/p' charts/freshrss/Chart.yaml)
+          new_ver=$(echo "$chart_ver" | awk -F. -v OFS=. '{$NF++; print}')
+
+          sed -i -E "s/^appVersion: .*/appVersion: \"$latest\"/" charts/freshrss/Chart.yaml
+          sed -i -E "s/^version: .*/version: $new_ver/" charts/freshrss/Chart.yaml
+          sed -i -E "s#(image: freshrss/freshrss:).*#\1$latest#" charts/freshrss/Chart.yaml
+          sed -i -E "s/^(  tag:) .*/\1 \"$latest\"/" charts/freshrss/values.yaml
+
+          echo "CHART_APP_VERSION=$latest" >> "$GITHUB_ENV"
+
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add charts/freshrss/Chart.yaml charts/freshrss/values.yaml
+          git commit -m "Update FreshRSS chart to ${CHART_APP_VERSION}"
+          git push

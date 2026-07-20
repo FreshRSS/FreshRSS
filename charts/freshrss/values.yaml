@@ -1,6 +1,6 @@
 image:
   repository: freshrss/freshrss
-  tag: latest
+  tag: "1.29.1"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
