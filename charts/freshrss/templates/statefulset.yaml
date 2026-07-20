@@ -45,6 +45,13 @@ spec:
             - secretRef:
                 name: {{ .Release.Name }}-secrets
                 optional: true
+            {{- with .Values.extraEnvFrom }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.extraEnv }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           volumeMounts:
             # Add other volume mounts / subpaths as needed.
             - mountPath: "/var/www/FreshRSS/data"

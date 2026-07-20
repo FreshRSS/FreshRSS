@@ -7,6 +7,18 @@ freshrss:
   CRON_MIN: "*/15"
   ADMIN_EMAIL: ""
 
+extraEnv: []
+  # - name: TZ
+  #   value: "Europe/Paris"
+  # - name: TRUSTED_PROXY
+  #   value: "10.0.0.0/8"
+
+extraEnvFrom: []
+  # - configMapRef:
+  #     name: my-extra-config
+  # - secretRef:
+  #     name: my-extra-secret
+
 oidc:
   enabled: false
   providerMetadataUrl: ""
