@@ -38,6 +38,7 @@ return array(
 			'help' => 'Μόνο για συμβατά θέματα',
 			'no' => 'Όχι',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Κάτω γραμμή',
 			'display_authors' => 'Συντάκτες',
