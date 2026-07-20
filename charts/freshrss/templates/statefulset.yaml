@@ -43,7 +43,7 @@ spec:
         - name: data
         {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-data
+            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-data" .Release.Name) }}
         {{- else }}
           emptyDir: {}
         {{- end }}
@@ -60,7 +60,7 @@ spec:
                 name: {{ .Release.Name }}-config
                 optional: true
             - secretRef:
-                name: {{ .Release.Name }}-secrets
+                name: {{ .Values.existingSecret | default (printf "%s-secrets" .Release.Name) }}
                 optional: true
             {{- with .Values.extraEnvFrom }}
             {{- toYaml . | nindent 12 }}
