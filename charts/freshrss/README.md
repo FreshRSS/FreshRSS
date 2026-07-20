@@ -10,13 +10,6 @@ helm install freshrss ./charts/freshrss \
   --create-namespace
 ```
 
-Or from the published Helm repository:
-
-```sh
-helm repo add freshrss https://raw.githubusercontent.com/FreshRSS/FreshRSS/gh-pages
-helm install freshrss freshrss/freshrss --namespace freshrss --create-namespace
-```
-
 ## Uninstalling
 
 ```sh
