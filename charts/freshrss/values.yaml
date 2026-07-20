@@ -40,6 +40,10 @@ ingress:
   annotations: {}
   host: "freshrsstest.kube.xtremeownage.com"
   path: "/"
+  tls: []
+    # - secretName: freshrss-tls
+    #   hosts:
+    #     - freshrsstest.kube.xtremeownage.com
 
 httpRoute:
   enabled: false
