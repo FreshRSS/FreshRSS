@@ -38,6 +38,7 @@ return array(
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Ne',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Spodní řádek',
 			'display_authors' => 'Autoři',

@@ -38,6 +38,7 @@ return array(
 			'help' => 'Toimii vain yhteensopivissa teemoissa',
 			'no' => 'Ei',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Alin rivi',
 			'display_authors' => 'Kirjoittajat',

@@ -84,7 +84,7 @@
 						<option value="<?= FreshRSS_Feed::KIND_RSS ?>"<?= $selectedFeedKind === FreshRSS_Feed::KIND_RSS ? ' selected="selected"' : '' ?>><?= _t('sub.feed.kind.rss') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH ?>" data-show="html_xpath"<?= $selectedFeedKind === FreshRSS_Feed::KIND_HTML_XPATH ? ' selected="selected"' : '' ?>><?= _t('sub.feed.kind.html_xpath') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_XML_XPATH ?>" data-show="html_xpath"<?= $selectedFeedKind === FreshRSS_Feed::KIND_XML_XPATH ? ' selected="selected"' : '' ?>><?= _t('sub.feed.kind.xml_xpath') ?></option>
-						<option value="<?= FreshRSS_Feed::KIND_JSONFEED ?>"<?= $selectedFeedKind === FreshRSS_Feed::KIND_JSONFEED ? ' selected="selected"' : '' ?>><?= _t('sub.feed.kind.jsonfeed') ?></option>
+						<option value="<?= FreshRSS_Feed::KIND_JSONFEED ?>" data-json-feed="1"<?= $selectedFeedKind === FreshRSS_Feed::KIND_JSONFEED ? ' selected="selected"' : '' ?>><?= _t('sub.feed.kind.jsonfeed') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_JSON_DOTNOTATION ?>" data-show="json_dotnotation"<?= $selectedFeedKind === FreshRSS_Feed::KIND_JSON_DOTNOTATION ? ' selected="selected"' : '' ?>><?= _t('sub.feed.kind.json_dotnotation') ?></option>
 						<option value="<?= FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ?>" data-show="json_dotnotation xPathToJsonGroup"<?= $selectedFeedKind === FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION ? ' selected="selected"' : '' ?>><?= _t('sub.feed.kind.html_json') ?></option>
 					</select>

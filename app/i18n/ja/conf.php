@@ -38,6 +38,7 @@ return array(
 			'help' => '対応テーマのみ',
 			'no' => '無効',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => '下段',
 			'display_authors' => '著者',
