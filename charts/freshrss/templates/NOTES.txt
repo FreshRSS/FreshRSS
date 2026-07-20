@@ -9,14 +9,14 @@ It is reachable through the configured ingress host:
 
 The ingress is disabled. Reach FreshRSS by port-forwarding the service:
 
-  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ .Release.Name }} 8080:{{ .Values.service.port }}
+  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "freshrss.fullname" . }} 8080:{{ .Values.service.port }}
 
 Then open http://localhost:8080/
 {{- end }}
 
 Check the rollout status with:
 
-  kubectl rollout status -n {{ .Release.Namespace }} statefulset/{{ .Release.Name }}
+  kubectl rollout status -n {{ .Release.Namespace }} statefulset/{{ include "freshrss.fullname" . }}
 
 Run the chart tests with:
 

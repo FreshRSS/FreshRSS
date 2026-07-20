@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-ingress
+  name: {{ include "freshrss.fullname" . }}-ingress
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: {{ template "name" . }}
@@ -30,7 +30,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: "{{ .Release.Name }}"
+                name: "{{ include "freshrss.fullname" . }}"
                 port:
                   number: {{ .Values.service.port }}
 {{- end }}

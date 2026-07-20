@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ .Release.Name }}-test-connection"
+  name: "{{ include "freshrss.fullname" . }}-test-connection"
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: {{ template "name" . }}
@@ -17,4 +17,4 @@ spec:
       image: busybox:1.36
       command: ["sh", "-c"]
       args:
-        - "wget --spider --tries=10 --timeout=10 http://{{ .Release.Name }}:{{ .Values.service.port }}/"
+        - "wget --spider --tries=10 --timeout=10 http://{{ include "freshrss.fullname" . }}:{{ .Values.service.port }}/"

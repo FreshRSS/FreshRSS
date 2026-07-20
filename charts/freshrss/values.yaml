@@ -3,6 +3,12 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels: {}
+
 imagePullSecrets: []
   # - name: my-registry-secret
 

@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ include "freshrss.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ .Release.Name }}
+    app: {{ include "freshrss.fullname" . }}
     app.kubernetes.io/name: {{ template "name" . }}
     helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     app.kubernetes.io/managed-by: {{ .Release.Service }}
@@ -13,7 +13,7 @@ metadata:
     app.kubernetes.io/component: app
 spec:
   replicas: 1
-  serviceName: {{ .Release.Name }}
+  serviceName: {{ include "freshrss.fullname" . }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ template "name" . }}
@@ -24,10 +24,16 @@ spec:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         app.kubernetes.io/name: {{ template "name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: app
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       serviceAccountName: {{ include "freshrss.serviceAccountName" . }}
       automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
@@ -43,7 +49,7 @@ spec:
         - name: data
         {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-data" .Release.Name) }}
+            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-data" (include "freshrss.fullname" .)) }}
         {{- else }}
           emptyDir: {}
         {{- end }}
@@ -57,10 +63,10 @@ spec:
           {{- end }}
           envFrom:
             - configMapRef:
-                name: {{ .Release.Name }}-config
+                name: {{ include "freshrss.fullname" . }}-config
                 optional: true
             - secretRef:
-                name: {{ .Values.existingSecret | default (printf "%s-secrets" .Release.Name) }}
+                name: {{ .Values.existingSecret | default (printf "%s-secrets" (include "freshrss.fullname" .)) }}
                 optional: true
             {{- with .Values.extraEnvFrom }}
             {{- toYaml . | nindent 12 }}
