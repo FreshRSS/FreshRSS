@@ -325,11 +325,6 @@ class FreshRSS_Feed extends Minz_Model {
 			($sucGlobal === 'all' || ($sucGlobal === 'important' && $isImportant));
 	}
 
-	/** Whether enclosures (attachments, audio, video, etc.) should be displayed for articles of this feed. */
-	public function displayEnclosures(): bool {
-		return $this->attributeBoolean('display_enclosures') ?? true;
-	}
-
 	/** @return string HTML-encoded CSS selector */
 	public function pathEntries(): string {
 		return $this->pathEntries;
