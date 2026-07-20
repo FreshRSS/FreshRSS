@@ -13,6 +13,8 @@ keywords:
   - rss
   - feed-reader
 maintainers:
+  - name: FreshRSS
+    url: https://github.com/FreshRSS
   - name: XtremeOwnageDotCom
     url: https://github.com/XtremeOwnageDotCom
 annotations:
