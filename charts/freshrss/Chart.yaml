@@ -12,3 +12,19 @@ keywords:
   - freshrss
   - rss
   - feed-reader
+maintainers:
+  - name: XtremeOwnageDotCom
+    url: https://github.com/XtremeOwnageDotCom
+annotations:
+  artifacthub.io/license: AGPL-3.0-or-later
+  artifacthub.io/links: |
+    - name: source
+      url: https://github.com/FreshRSS/FreshRSS
+    - name: documentation
+      url: https://freshrss.github.io/FreshRSS/
+  artifacthub.io/images: |
+    - name: freshrss
+      image: freshrss/freshrss:latest
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial Helm chart for FreshRSS
