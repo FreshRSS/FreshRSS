@@ -1,18 +1,14 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_ViewStats $this */
 	$this->partial('aside_subscription');
 ?>
-
 <main class="post">
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-	</div>
-
 	<h1><?= _t('admin.stats.main') ?></h1>
 
-	<div class="stat-grid">
-		<div class="stat half">
-			<h2><?= _t('admin.stats.entry_repartition') ?></h2>
+	<div class="box">
+		<div class="box-title"><h2><?= _t('admin.stats.entry_repartition') ?></h2></div>
+		<div class="box-content scrollbar-thin">
 			<table>
 				<thead>
 					<tr>
@@ -45,9 +41,12 @@
 				</tbody>
 			</table>
 		</div>
+	</div>
 
-		<div class="stat half">
-			<h2><?= _t('admin.stats.top_feed') ?></h2>
+
+	<div class="box double-height">
+		<div class="box-title"><h2><?= _t('admin.stats.top_feed') ?></h2></div>
+		<div class="box-content scrollbar-thin">
 			<table>
 				<thead>
 					<tr>
@@ -73,57 +72,107 @@
 				</tbody>
 			</table>
 		</div>
-
-		<div class="stat">
-			<h2><?= _t('admin.stats.entry_per_day') ?></h2>
-			<div>
+	</div>
+	<br />
+		<div class="box double-width double-height">
+			<div class="box-title"><h2><?= _t('admin.stats.entry_per_day') ?></h2></div>
+			<div class="box-content scrollbar-thin">
 				<canvas id="statsEntriesPerDay"></canvas>
 				<script class="jsonData-stats" type="application/json">
-				<?php
-				echo json_encode(array(
+				<?= json_encode([
 					'canvasID' 		=> 'statsEntriesPerDay',
 					'charttype' 	=> 'barWithAverage',
 					'labelBarChart' => _t('admin.stats.entry_count'),
 					'dataBarChart' 	=> $this->entryCount,
-					'labelAverage' 	=> 'Average ('.$this->average.')',
+					'labelAverage' 	=> 'Average (' . $this->average . ')',
 					'dataAverage' 	=> $this->average,
 					'xAxisLabels' 	=> $this->last30DaysLabels,
-				), JSON_UNESCAPED_UNICODE);
+				], JSON_UNESCAPED_UNICODE)
 				?></script>
 			</div>
 		</div>
 
-		<div class="stat half">
-			<h2><?= _t('admin.stats.feed_per_category') ?></h2>
-			<div>
+<?php
+// Function to generate a color palette
+/**
+ * Generate a color palette.
+ *
+ * @param int $count The number of colors to generate.
+ * @return array<int,string> An array of HSL color strings.
+ */
+function generateColorPalette(int $count): array {
+	$colors = [];
+	for ($i = 0; $i < $count; $i++) {
+		$hue = ($i / $count) * 360; // Distribute colors evenly around the color wheel
+		$saturation = 70; // Fixed saturation
+		$lightness = 50; // Fixed lightness
+		$colors[] = "hsl($hue, {$saturation}%, {$lightness}%)";
+	}
+	return $colors;
+}
+
+// 1. Get all unique category labels and sort them
+$allLabels = array_unique(array_merge($this->feedByCategory['label'] ?? [], $this->entryByCategory['label'] ?? []));
+sort($allLabels); // Ensure consistent order
+
+// 2. Generate a color palette based on the number of unique categories
+$colorPalette = generateColorPalette(count($allLabels));
+
+// 3. Map categories to colors
+$colorMap = array_combine($allLabels, $colorPalette);
+
+// 4. Align data and labels for both charts
+$feedData = array_fill_keys($allLabels, 0); // Initialize data with all categories
+foreach ($this->feedByCategory['label'] ?? [] as $index => $label) {
+	$feedData[$label] = $this->feedByCategory['data'][$index];
+}
+$entryData = array_fill_keys($allLabels, 0); // Initialize data with all categories
+foreach ($this->entryByCategory['label'] ?? [] as $index => $label) {
+	$entryData[$label] = $this->entryByCategory['data'][$index];
+}
+
+// Final data and labels
+$feedLabels = array_keys($feedData);
+$feedColors = array_map(fn($label) => $colorMap[$label], $feedLabels);
+$feedValues = array_values($feedData);
+
+$entryLabels = array_keys($entryData);
+$entryColors = array_map(fn($label) => $colorMap[$label], $entryLabels);
+$entryValues = array_values($entryData);
+?>
+<br id="stats_per_category" />
+		<div class="box double-height" id="feed_per_category">
+			<div class="box-title"><h2><?= _t('admin.stats.feed_per_category') ?></h2><a href="#feed_per_category" class="btn target-hidden">+</a><a href="#stats_per_category" class="btn target-visible">-</a></div>
+			<div class="box-content scrollbar-thin">
 				<canvas id="statsFeedsPerCategory"></canvas>
 				<script class="jsonData-stats" type="application/json">
-				<?php
-				echo json_encode(array(
-					'canvasID' 		=> 'statsFeedsPerCategory',
-					'charttype' 	=> 'doughnut',
-					'data' 			=> $this->feedByCategory['data'],
-					'labels' 		=> $this->feedByCategory['label'],
-				), JSON_UNESCAPED_UNICODE);
-				?></script>
+				<?= json_encode([
+						'canvasID' => 'statsFeedsPerCategory',
+						'charttype' => 'doughnut',
+						'data' => $feedValues,
+						'labels' => $feedLabels,
+						'backgroundColor' => $feedColors,
+					], JSON_UNESCAPED_UNICODE); ?>
+				</script>
 			</div>
 		</div>
 
-		<div class="stat half">
-			<h2><?= _t('admin.stats.entry_per_category') ?></h2>
-			<div>
+		<div class="box double-height" id="entry_per_category">
+			<div class="box-title"><h2><?= _t('admin.stats.entry_per_category') ?></h2><a href="#entry_per_category" class="btn target-hidden">+</a><a href="#stats_per_category" class="btn target-visible">-</a></div>
+			<div class="box-content scrollbar-thin">
 				<canvas id="statsEntriesPerCategory"></canvas>
 				<script class="jsonData-stats" type="application/json">
-				<?php
-				echo json_encode(array(
-					'canvasID' 		=> 'statsEntriesPerCategory',
-					'charttype' 	=> 'doughnut',
-					'data' 			=> $this->entryByCategory['data'],
-					'labels' 		=> $this->entryByCategory['label'],
-				), JSON_UNESCAPED_UNICODE);
-				?></script>
+				<?= json_encode([
+						'canvasID' => 'statsEntriesPerCategory',
+						'charttype' => 'doughnut',
+						'data' => $entryValues,
+						'labels' => $entryLabels,
+						'backgroundColor' => $entryColors,
+					], JSON_UNESCAPED_UNICODE); ?>
+				</script>
 			</div>
 		</div>
+
 	</div>
 </main>
 

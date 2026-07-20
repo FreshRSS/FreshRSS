@@ -1,17 +1,16 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	if (!Minz_Request::paramBoolean('ajax')) {
 		$this->partial('aside_configure');
 	}
+	$isDefault = $this->details['is_default'];
+	$isAdmin = $this->details['is_admin'];
+	$enabled = $this->details['enabled'];
 ?>
-
-<?php $isDefault = $this->details['is_default']; ?>
-<?php $isAdmin = $this->details['is_admin']; ?>
-<?php $enabled = $this->details['enabled']; ?>
-
 <div class="post">
-	<h2><?= $this->username ?><?php if ($isAdmin) echo ' ― ', _t('admin.user.admin'); ?></h2>
-	<form method="post" action="<?= _url('user', 'manage', 'username', $this->username); ?>">
+	<h2><?= $this->username ?><?= $isAdmin ? ' ― ' . _t('admin.user.admin') : '' ?></h2>
+	<form method="post" action="<?= _url('user', 'manage', 'username', $this->username); ?>" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken(); ?>" />
 
 		<div class="form-group">
@@ -30,22 +29,22 @@
 
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.feed_count') ?></label>
-			<div class="group-controls">
-				<?= format_number($this->details['feed_count'] ?: 0) ?>
+			<div class="group-controls feed_count">
+				<?= is_numeric($this->details['feed_count']) ? format_number($this->details['feed_count']) : '?' ?>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.article_count') ?></label>
-			<div class="group-controls">
-				<?= format_number($this->details['article_count'] ?: 0) ?>
+			<div class="group-controls article_count">
+				<?= is_numeric($this->details['article_count']) ? format_number($this->details['article_count']) : '?' ?>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="group-name"><?= _t('admin.user.database_size') ?></label>
-			<div class="group-controls">
-				<?= format_bytes($this->details['database_size']) ?>
+			<div class="group-controls database_size">
+				<?= is_numeric($this->details['database_size']) ? format_bytes($this->details['database_size']) : '?' ?>
 			</div>
 		</div>
 
@@ -61,8 +60,8 @@
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password"
-						pattern=".{7,}" <?= cryptAvailable() ? '' : 'disabled="disabled" ' ?>/>
-					<button type="button" class="btn toggle-password" data-toggle="newPasswordPlain"><?= _i('key') ?></button>
+						pattern=".{7,}" <?= FreshRSS_password_Util::cryptAvailable() && Minz_User::name() !== $this->username ? '' : 'disabled="disabled" ' ?>/>
+					<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help'); ?> <?= _t('admin.user.password_format') ?></p>
 			</div>
@@ -70,20 +69,23 @@
 
 		<div class="form-group form-actions">
 			<noscript><b><?= _t('gen.js.should_be_activated'); ?></b></noscript>
+			<?php
+				$disabledIfAjax = Minz_Request::paramBoolean('ajax') ? ' disabled="disabled"' : '';
+			?>
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important" name="action" value="update"><?= _t('gen.action.update') ?></button>
-				<button type="submit" class="btn btn-attention confirm" name="action" value="purge"><?= _t('gen.action.purge') ?></button>
-				<button type="submit" class="btn btn-attention confirm" name="action" value="delete"><?= _t('gen.action.remove') ?></button>
+				<button type="submit" class="btn btn-attention confirm" name="action" value="purge"<?= $disabledIfAjax ?>><?= _t('gen.action.purge') ?></button>
 				<?php if ($isAdmin && !$isDefault): ?>
-					<button type="submit" class="btn btn-attention confirm" name="action" value="demote"><?= _t('gen.action.demote') ?></button>
+					<button type="submit" class="btn btn-attention confirm" name="action" value="demote"<?= $disabledIfAjax ?>><?= _t('gen.action.demote') ?></button>
 				<?php elseif (!$isAdmin): ?>
-					<button type="submit" class="btn btn-attention confirm" name="action" value="promote"><?= _t('gen.action.promote') ?></button>
+					<button type="submit" class="btn btn-attention confirm" name="action" value="promote"<?= $disabledIfAjax ?>><?= _t('gen.action.promote') ?></button>
 				<?php endif; ?>
 				<?php if ($enabled && !$isDefault): ?>
 					<button type="submit" class="btn btn-attention" name="action" value="disable"><?= _t('gen.action.disable') ?></button>
 				<?php elseif (!$enabled): ?>
 					<button type="submit" class="btn btn-attention" name="action" value="enable"><?= _t('gen.action.enable') ?></button>
 				<?php endif; ?>
+				<button type="submit" class="btn btn-attention confirm" name="action" value="delete"<?= $disabledIfAjax ?>><?= _t('gen.action.remove') ?></button>
 			<div>
 		</div>
 	</form>

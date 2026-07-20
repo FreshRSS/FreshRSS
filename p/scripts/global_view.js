@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, init_load_more, init_posts, init_stream */
+/* globals context, init_load_more, init_posts, init_stream, enforce_referrer_allowlist */
 
 let panel_loading = false;
 
@@ -28,6 +28,7 @@ function load_panel(link) {
 			el.remove();
 		});
 
+		enforce_referrer_allowlist(panel);
 		init_load_more(panel);
 		init_posts();
 
@@ -49,7 +50,7 @@ function load_panel(link) {
 
 				const req2 = new XMLHttpRequest();
 				req2.open('POST', b.formAction, false);
-				req2.setRequestHeader('Content-Type', 'application/json');
+				req2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 				req2.send(JSON.stringify({
 					_csrf: context.csrf,
 				}));
@@ -84,8 +85,7 @@ function init_close_panel() {
 }
 
 function init_global_view() {
-	// TODO: should be based on generic classes
-	document.querySelectorAll('.box a').forEach(function (a) {
+	document.querySelectorAll('.open-panel').forEach(function (a) {
 		a.onclick = function (ev) {
 			load_panel(a.href);
 			return false;

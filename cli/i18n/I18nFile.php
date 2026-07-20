@@ -1,13 +1,28 @@
 <?php
+declare(strict_types=1);
 
 require_once __DIR__ . '/I18nValue.php';
 
 class I18nFile {
+
+	/**
+	 * @param array<mixed,mixed> $array
+	 * @phpstan-assert-if-true array<int|string,string|array<mixed>> $array
+	 */
+	public static function is_array_recursive_string(array $array): bool {
+		foreach ($array as $value) {
+			if (!is_string($value) && !(is_array($value) && self::is_array_recursive_string($value))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * @return array<string,array<string,array<string,I18nValue>>>
 	 */
 	public function load(): array {
-		$i18n = array();
+		$i18n = [];
 		$dirs = new DirectoryIterator(I18N_PATH);
 		foreach ($dirs as $dir) {
 			if ($dir->isDot()) {
@@ -16,6 +31,9 @@ class I18nFile {
 			$files = new DirectoryIterator($dir->getPathname());
 			foreach ($files as $file) {
 				if (!$file->isFile()) {
+					continue;
+				}
+				if ($file->getFilename() === 'plurals.php') {
 					continue;
 				}
 
@@ -27,7 +45,7 @@ class I18nFile {
 	}
 
 	/**
-	 * @param array<string,array<array<string>>> $i18n
+	 * @param array<string,array<string,array<string,I18nValue>>> $i18n
 	 */
 	public function dump(array $i18n): void {
 		foreach ($i18n as $language => $file) {
@@ -44,10 +62,13 @@ class I18nFile {
 
 	/**
 	 * Process the content of an i18n file
-	 * @return array<string,array<string,I18nValue>>
+	 * @return array<int|string,string|array<mixed>>
 	 */
 	private function process(string $filename): array {
-		$fileContent = file_get_contents($filename) ?: [];
+		$fileContent = file_get_contents($filename);
+		if (!is_string($fileContent)) {
+			return [];
+		}
 		$content = str_replace('<?php', '', $fileContent);
 
 		$content = preg_replace([
@@ -65,12 +86,12 @@ class I18nFile {
 		} catch (ParseError $ex) {
 			if (defined('STDERR')) {
 				fwrite(STDERR, "Error while processing: $filename\n");
-				fwrite(STDERR, $ex);
+				fwrite(STDERR, $ex->getMessage());
 			}
 			die(1);
 		}
 
-		if (is_array($content)) {
+		if (is_array($content) && self::is_array_recursive_string($content)) {
 			return $content;
 		}
 
@@ -80,21 +101,21 @@ class I18nFile {
 	/**
 	 * Flatten an array of translation
 	 *
-	 * @param array<string,I18nValue|array<string,I18nValue>> $translation
-	 * @param string $prefix
+	 * @param array<int|string,I18nValue|string|array<mixed>|mixed> $translation
 	 * @return array<string,I18nValue>
 	 */
 	private function flatten(array $translation, string $prefix = ''): array {
-		$a = array();
+		$a = [];
 
 		if ('' !== $prefix) {
 			$prefix .= '.';
 		}
 
 		foreach ($translation as $key => $value) {
-			if (is_array($value)) {
+			$key = (string)$key;
+			if (is_array($value) && self::is_array_recursive_string($value)) {
 				$a += $this->flatten($value, $prefix . $key);
-			} else {
+			} elseif (is_string($value) || $value instanceof I18nValue) {
 				$a[$prefix . $key] = new I18nValue($value);
 			}
 		}
@@ -108,17 +129,30 @@ class I18nFile {
 	 * The first key is dropped since it represents the filename and we have
 	 * no use of it.
 	 *
-	 * @param array<string> $translation
-	 * @return array<string,array<string,I18nValue>>
+	 * @param array<string,I18nValue> $translation
+	 * @return array<int|string,mixed>
 	 */
 	private function unflatten(array $translation): array {
-		$a = array();
+		$a = [];
 
 		ksort($translation, SORT_NATURAL);
 		foreach ($translation as $compoundKey => $value) {
 			$keys = explode('.', $compoundKey);
 			array_shift($keys);
-			eval("\$a['" . implode("']['", $keys) . "'] = '" . addcslashes($value, "'") . "';");
+			$current =& $a;
+			$lastIndex = count($keys) - 1;
+			foreach ($keys as $index => $key) {
+				$normalisedKey = ctype_digit($key) ? (int)$key : $key;
+				if ($index === $lastIndex) {
+					$current[$normalisedKey] = $value->__toString();
+					continue;
+				}
+				if (!isset($current[$normalisedKey]) || !is_array($current[$normalisedKey])) {
+					$current[$normalisedKey] = [];
+				}
+				$current =& $current[$normalisedKey];
+			}
+			unset($current);
 		}
 
 		return $a;
@@ -131,11 +165,11 @@ class I18nFile {
 	 * translation file. The array is first converted to a string then some
 	 * formatting regexes are applied to match the original content.
 	 *
-	 * @param array<string> $translation
+	 * @param array<string,I18nValue> $translation
 	 */
 	private function format(array $translation): string {
 		$translation = var_export($this->unflatten($translation), true);
-		$patterns = array(
+		$patterns = [
 			'/ -> todo\',/',
 			'/ -> dirty\',/',
 			'/ -> ignore\',/',
@@ -143,8 +177,8 @@ class I18nFile {
 			'/=>\s*array/',
 			'/(\w) {2}/',
 			'/ {2}/',
-		);
-		$replacements = array(
+		];
+		$replacements = [
 			"',\t// TODO", // Double quoting is mandatory to have a tab instead of the \t string
 			"',\t// DIRTY", // Double quoting is mandatory to have a tab instead of the \t string
 			"',\t// IGNORE", // Double quoting is mandatory to have a tab instead of the \t string
@@ -152,24 +186,24 @@ class I18nFile {
 			'=> array',
 			'$1 ',
 			"\t", // Double quoting is mandatory to have a tab instead of the \t string
-		);
+		];
 		$translation = preg_replace($patterns, $replacements, $translation);
 
-		return <<<OUTPUT
+		return <<<PHP
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return {$translation};
 
-OUTPUT;
+PHP;
 	}
 }

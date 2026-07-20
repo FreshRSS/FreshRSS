@@ -6,7 +6,7 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{css,scss}]
+[*.css]
 indent_style = tab
 
 [*.{html,php,phtml}]
@@ -15,8 +15,14 @@ indent_style = tab
 [*.js]
 indent_style = tab
 
+[*.{json,jsonc}]
+indent_style = tab
+
 [*.md]
 indent_size = 4
+indent_style = tab
+
+[*.neon]
 indent_style = tab
 
 [*.sh]

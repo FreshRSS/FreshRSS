@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Controller to handle every tag actions.
@@ -7,21 +8,20 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 	/**
 	 * JavaScript request or not.
-	 * @var bool|mixed
 	 */
-	private $ajax = false;
+	private bool $ajax = false;
 
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		// If ajax request, we do not print layout
 		$this->ajax = Minz_Request::paramBoolean('ajax');
 		if ($this->ajax) {
 			$this->view->_layout(null);
-			Minz_Request::_param('ajax');
 		}
 	}
 
@@ -36,11 +36,11 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			$id_tag = Minz_Request::paramInt('id_tag');
 			$name_tag = Minz_Request::paramString('name_tag');
 			$id_entry = Minz_Request::paramString('id_entry');
-			$checked = Minz_Request::paramTernary('checked');
+			$checked = Minz_Request::paramBoolean('checked');
 			if ($id_entry != '') {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				if ($id_tag == 0 && $name_tag !== '' && $checked) {
-					if ($existing_tag = $tagDAO->searchByName($name_tag)) {
+					if (($existing_tag = $tagDAO->searchByName($name_tag)) !== null) {
 						// Use existing tag
 						$tagDAO->tagEntry($existing_tag->id(), $id_entry, $checked);
 					} else {
@@ -84,8 +84,68 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		}
 	}
 
+
+	/**
+	 * This action updates the given tag.
+	 */
+	public function updateAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			Minz_Error::error(403);
+			return;
+		}
+		if (Minz_Request::paramBoolean('ajax')) {
+			$this->view->_layout(null);
+		}
+
+		$tagDAO = FreshRSS_Factory::createTagDao();
+
+		$id = Minz_Request::paramInt('id');
+		$tag = $tagDAO->searchById($id);
+		if ($id === 0 || $tag === null) {
+			Minz_Error::error(404);
+			return;
+		}
+		$this->view->tag = $tag;
+
+		FreshRSS_View::prependTitle($tag->name() . ' · ' . _t('sub.title') . ' · ');
+
+		if (Minz_Request::isPost()) {
+			invalidateHttpCache();
+			$ok = true;
+
+			if ($tag->name() !== Minz_Request::paramString('name')) {
+				$ok = $tagDAO->updateTagName($tag->id(), Minz_Request::paramString('name')) !== false;
+			}
+
+			if ($ok) {
+				$tag->_filtersAction('label', Minz_Request::paramTextToArray('filteractions_label', plaintext: true));
+				$ok = $tagDAO->updateTagAttributes($tag->id(), $tag->attributes()) !== false;
+			}
+
+			invalidateHttpCache();
+
+			$prev_controller = 'tag';
+			$from = Minz_Request::paramStringNull('from') ?? 'update';
+			$params = ['id' => $id];
+			if ($from === 'normal' || $from === 'reader') {
+				$prev_controller = 'index';
+				$params['type'] = 'tag';
+			}
+			$url_redirect = ['c' => $prev_controller, 'a' => $from, 'params' => $params];
+			if ($ok) {
+				Minz_Request::good(
+					_t('feedback.tag.updated'),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
+			} else {
+				Minz_Request::bad(_t('feedback.tag.error'), $url_redirect);
+			}
+		}
+	}
+
 	public function getTagsForEntryAction(): void {
-		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::$system_conf->allow_anonymous) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
 			Minz_Error::error(403);
 		}
 		$this->view->_layout(null);
@@ -93,7 +153,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
 		$id_entry = Minz_Request::paramString('id_entry');
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$this->view->tagsForEntry = $tagDAO->getTagsForEntry($id_entry) ?: [];
+		$this->view->tagsForEntry = $tagDAO->getTagsForEntry($id_entry);
 	}
 
 	public function addAction(): void {
@@ -104,19 +164,30 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(405);
 		}
 
+		$url_redirect = ['c' => 'tag', 'a' => 'index'];
 		$name = Minz_Request::paramString('name');
-		$tagDAO = FreshRSS_Factory::createTagDao();
-		if (strlen($name) > 0 && null === $tagDAO->searchByName($name)) {
-			$tagDAO->addTag(['name' => $name]);
-			Minz_Request::good(_t('feedback.tag.created', $name), ['c' => 'tag', 'a' => 'index']);
+
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		if ($catDAO->searchByName($name) !== null) {
+			Minz_Request::bad(_t('feedback.sub.category.name_exists'), $url_redirect);
 		}
 
-		Minz_Request::bad(_t('feedback.tag.name_exists', $name), ['c' => 'tag', 'a' => 'index']);
+		$tagDAO = FreshRSS_Factory::createTagDao();
+		if ($tagDAO->searchByName($name) !== null) {
+			Minz_Request::bad(_t('feedback.tag.name_exists', $name), $url_redirect);
+		}
+
+		$tagDAO->addTag(['name' => $name]);
+		Minz_Request::good(
+			_t('feedback.tag.created', $name),
+			$url_redirect,
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
 	 * @throws Minz_ConfigurationNamespaceException
-	 * @throws Minz_PDOConnectionException|JsonException
+	 * @throws Minz_PDOConnectionException
 	 */
 	public function renameAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
@@ -136,7 +207,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$sourceTag = $tagDAO->searchById($sourceId);
-		$sourceName = $sourceTag === null ? null : $sourceTag->name();
+		$sourceName = $sourceTag === null ? '' : $sourceTag->name();
 		$targetTag = $tagDAO->searchByName($targetName);
 		if ($targetTag === null) {
 			// There is no existing tag with the same target name
@@ -147,14 +218,29 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			$tagDAO->deleteTag($sourceId);
 		}
 
-		Minz_Request::good(_t('feedback.tag.renamed', $sourceName, $targetName), ['c' => 'tag', 'a' => 'index']);
+		Minz_Request::good(
+			_t('feedback.tag.renamed', $sourceName, $targetName),
+			['c' => 'tag', 'a' => 'index'],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 	}
 
 	public function indexAction(): void {
+		FreshRSS_View::prependTitle(_t('sub.menu.label_management') . ' · ');
+
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
 		}
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$this->view->tags = $tagDAO->listTags() ?: [];
+		$this->view->tags = $tagDAO->listTags(precounts: true);
+		$id = Minz_Request::paramInt('id');
+		if ($id !== 0) {
+			$this->view->displaySlider = true;
+			$this->view->tag = $tagDAO->searchById($id);
+		}
+	}
+
+	public static function escapeForSearch(string $tag): string {
+		$tag = htmlspecialchars_decode($tag, ENT_QUOTES);
+		return str_replace([' ', '(', ')'], ['+', '\\(', '\\)'], $tag);
 	}
 }

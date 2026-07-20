@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -50,6 +50,7 @@ return array(
 			'ko' => 'Rozszerzenie %s nie może zostać włączone. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji.',
 			'ok' => 'Rozszerzenie %s zostało włączone',
 		),
+		'invalid_view_mode' => 'Nieprawidłowy tryb widoku “%s”! Powrót do widoku normalnego.',
 		'no_access' => 'Brak dostępu do %s',
 		'not_enabled' => 'Rozszerzenie %s nie jest włączone',
 		'not_found' => 'Rozszerzenie %s nie istnieje',
@@ -57,14 +58,15 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze. Spróbuj eksportować pliki pojedynczo.',
-		'feeds_imported' => 'Kanały zostały zaimportowane i zostaną teraz zaktualizowane / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Kanały zostały zaimportowane, jednakże wystąpiło kilka błędów / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'Kanały zostały zaimportowane. Jeżeli skończyłeś, kliknij guzik <i>Aktualizuj kanały</i>.',
+		'feeds_imported_with_errors' => 'Kanały zostały zaimportowane, jednakże wystąpiło kilka błędów. Jeżeli skończyłeś, kliknij guzik <i>Aktualizuj kanały</i>.',
 		'file_cannot_be_uploaded' => 'Plik nie może zostać wgrany!',
 		'no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze.',
-		'zip_error' => 'Wystąpił błąd podczas importu pliku ZIP.',	// DIRTY
+		'zip_error' => 'Wystąpił błąd podczas przetwarzania pliku ZIP.',
 	),
 	'profile' => array(
 		'error' => 'Nie można modyfikować profilu',
+		'passwords_dont_match' => 'Hasła się nie zgadzają',
 		'updated' => 'Profil został zmodyfikowany',
 	),
 	'sub' => array(
@@ -91,9 +93,13 @@ return array(
 			'actualizeds' => 'Kanały RSS zostały zaktualizowane',
 			'added' => 'Kanał RSS <em>%s</em> został dodany',
 			'already_subscribed' => 'Kanał <em>%s</em> znajduje się już na liście subskrybowanych kanałów',
-			'cache_cleared' => 'Cache kanału <em>%s</em> zostało wyczyszczone',
+			'cache_cleared' => 'Pamięć podręczna kanału <em>%s</em> została wyczyszczona',
 			'deleted' => 'Kanał został usunięty',
-			'error' => 'Nie można zaktualizować kanału',
+			'error' => 'Nie udało się zaktualizować kanału',
+			'favicon' => array(
+				'too_large' => 'Przesłana ikona jest zbyt wielka. Maksymalny rozmiar pliku to <em>%s</em>.',
+				'unsupported_format' => 'Nieobsługiwany format pliku obrazka!',
+			),
 			'internal_problem' => 'Wystąpił błąd podczas dodawania kanału. <a href="%s">Sprawdź dziennik</a> w celu uzyskania szczegółowych informacji. Można spróbować wymusić dodanie kanału przez dodanie <code>#force_feed</code> na końcu adresu URL.',
 			'invalid_url' => 'Adres URL <em>%s</em> nie jest prawidłowy',
 			'n_actualized' => 'Liczba zaktualizowanych kanałów: %d',
@@ -116,21 +122,23 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Etykieta “%s” została stworzona.',
+		'error' => 'Etykieta nie może zostać zmieniona!',
 		'name_exists' => 'Etykieta o podanej nazwie już istnieje.',
 		'renamed' => 'Etykieta “%s” została zmieniona na “%s”.',
+		'updated' => 'Etykieta została zmieniona.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS zostanie zaktualizowany do <strong>wersji %s</strong>.',
 		'error' => 'Proces aktualizacji napotkał błąd: %s',
-		'file_is_nok' => 'Nowa <strong>wersja %s</strong> jest dostępna, ale należy sprawdzić uprawnienia katalogu <em>%s</em>. Serwer HTTP musi mieć możliwość zapisu',
+		'file_is_nok' => 'Nowa <strong>wersja %s</strong> jest dostępna, lecz należy sprawdzić uprawnienia katalogu <em>%s</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu',
 		'finished' => 'Aktualizacja ukończona!',
 		'none' => 'Brak dostępnych aktualizacji',
 		'server_not_found' => 'Serwer aktualizacji nie może zostać odnaleziony. [%s]',
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'Stworzono konto użytkownika %s',
-			'error' => 'Konto użytkownika %s nie może zostać stworzone',
+			'_' => 'Utworzono konto użytkownika %s',
+			'error' => 'Konto użytkownika %s nie może zostać utworzone',
 		),
 		'deleted' => array(
 			'_' => 'Konto użytkownika %s zostało usunięte',

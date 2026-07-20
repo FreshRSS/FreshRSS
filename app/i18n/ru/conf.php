@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -17,7 +17,7 @@ return array(
 		'help' => 'В индивидуальных настройках лент есть больше опций',
 		'keep_favourites' => 'Никогда не удалять избранное',
 		'keep_labels' => 'Никогда не удалять метки',
-		'keep_max' => 'Максимальное количество статей',	// DIRTY
+		'keep_max' => 'Максимальное количество статей',
 		'keep_min_by_feed' => 'Минимальное количество статей в ленте',
 		'keep_period' => 'Максимальный возраст статей',
 		'keep_unreads' => 'Никогда не удалять непрочитанные статьи',
@@ -33,9 +33,10 @@ return array(
 	'display' => array(
 		'_' => 'Отображение',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Автоматический темный режим',
+			'auto' => 'Авто',
+			'help' => 'Только для совместимых тем',
+			'no' => 'Нет',
 		),
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
@@ -53,14 +54,23 @@ return array(
 			'timeout' => 'Таймаут уведомлений HTML5',
 		),
 		'show_nav_buttons' => 'Показать кнопки навигации',
+		'show_title_unread' => 'Показать количество непрочитанных статей в заголовке',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Скрывать боковую панель по умолчанию',
 		'theme' => array(
 			'_' => 'Тема',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Deprecated',	// IGNORE
+				'description' => 'Эта тема устарела и будет недоступна в FreshRSS <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">в будущем релизе</a>',
 			),
 		),
-		'theme_not_available' => 'Тема “%s” больше не доступна. Пожалуйста выберите другю тему.',
+		'theme_not_available' => 'Тема “%s” больше не доступна. Пожалуйста выберите другую тему.',
 		'thumbnail' => array(
 			'label' => 'Эскиз',
 			'landscape' => 'Горизонтальный',
@@ -68,14 +78,14 @@ return array(
 			'portrait' => 'Вертикальный',
 			'square' => 'Квадратный',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Часовой пояс',
 		'title' => 'Отображение',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Значок и название',
+			'icon' => 'Только значок',
+			'label' => 'Вебсайт',
+			'name' => 'Только название',
+			'none' => 'Ничего',
 		),
 		'width' => array(
 			'content' => 'Ширина содержимого',
@@ -98,42 +108,106 @@ return array(
 			'previous' => 'Предыдущая',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => 'Кнопка «отметить всё прочитанным»',
+		'big' => 'Большая',
+		'none' => 'Отсутствует',
+		'small' => 'Маленькая',
+	),
+	'notification' => array(
+		'html5_enable_notif' => 'Включить уведомления',
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Показывать баннер предупреждения',
+			'seconds' => 'секунд (не менее 1)',
+		),
+		'good' => array(
+			'label' => 'Показывать баннер подтверждения',
+			'seconds' => 'секунд (0 означает не показывать)',
+		),
+	),
+	'privacy' => array(
+		'_' => 'Конфиденциальность',
+		'retrieve_extension_list' => 'Получить список расширений',
+		'send_referrer_allowlist' => 'Сайты, которым разрешено видеть адрес вашего сервера (%s)',
+	),
 	'profile' => array(
 		'_' => 'Настройки профиля',
-		'api' => 'Настройки API',
+		'api' => array(
+			'_' => 'Настройки API',
+			'api_not_set' => 'Пароль API не установлен',
+			'api_set' => 'Пароль API установлен',
+			'check_link' => 'Проверить статус API через: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'Доступ к API отключен.',
+			'documentation_link' => 'См. <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацию и список известных приложений</a>',
+			'help' => 'См. <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацию</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+		),
+		'change_password' => 'Изменить пароль',
+		'confirm_new_password' => 'Подтвердить новый пароль',
+		'current_password' => 'Текущий пароль<br /><small>(для метода входа через веб-форму)</small>',
 		'delete' => array(
 			'_' => 'Удаление аккаунта',
 			'warn' => 'Ваш аккаунт и вся связанная с ним информация будут удалены.',
 		),
 		'email' => 'Адрес электронной почты',
+		'new_password' => 'Новый пароль',
 		'password_api' => 'Пароль API<br /><small>(например, для мобильных приложений)</small>',
-		'password_form' => 'Пароль<br /><small>(для входа через веб-форму)</small>',
 		'password_format' => 'Не менее 7 символов',
 		'title' => 'Профиль',
 	),
 	'query' => array(
 		'_' => 'Пользовательские запросы',
+		'create' => 'Создать новый пользовательский запрос',
 		'deprecated' => 'Этот запрос больше не действителен. Связанная категория или лента была удалена.',
+		'description' => 'Описание',
 		'filter' => array(
 			'_' => 'Применённые фильтры:',
 			'categories' => 'Отображение по категории',
 			'feeds' => 'Отображение по ленте',
 			'order' => 'Сортировать по дате',
+			'publish_labels_instead_of_tags' => 'Заменить <i>теги ленты</i> на <i>пользовательские метки</i> в общей RSS-ленте',
 			'search' => 'Выражение',
+			'shareOpml' => 'Включить общий доступ с помощью OPML к соответствующим категориям и лентам',
+			'shareRss' => 'Включить общий доступ с помощью HTML &amp; RSS',
 			'state' => 'Состояние',
 			'tags' => 'Отображение по метке',
 			'type' => 'Тип',
 		),
+		'get_A' => 'Показать все ленты, включая те, что отображаются в их категории',
+		'get_Z' => 'Показать все ленты, включая архивные',
 		'get_all' => 'Показать все статьи',
+		'get_all_labels' => 'Показать все статьи с любыми метками',
 		'get_category' => 'Показать категорию “%s”',
 		'get_favorite' => 'Показать избранные статьи',
 		'get_feed' => 'Показать ленту “%s”',
+		'get_important' => 'Отображать статьи из важных лент',
+		'get_label' => 'Показать статьи с “%s” меткой',
+		'help' => 'Смотрите <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">документацию по пользовательским запросам и повторному обмену данными с помощью HTML / RSS / OPML</a>.',
+		'image_url' => 'URL изображения',
 		'name' => 'Название',
 		'no_filter' => 'Нет фильтров',
+		'no_queries' => array(
+			'_' => 'Пользовательские запросы ещё не сохранены.',
+			'help' => 'См. <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">документацию</a>',
+		),
 		'number' => 'Запрос №%d',
 		'order_asc' => 'Показывать сначала старые статьи',
 		'order_desc' => 'Показывать сначала новые статьи',
 		'search' => 'Искать “%s”',
+		'share' => array(
+			'_' => 'Поделиться запросом по ссылке',
+			'disabled' => array(
+				'_' => 'отключено',
+				'title' => 'Обмен',
+			),
+			'greader' => 'Общая ссылка на JSON GReader',
+			'help' => 'Дайте эту ссылку, если хотите поделиться этим запросом с кем-либо',
+			'html' => 'Ссылка доступа на HTML-страницу',
+			'opml' => 'Ссылка доступа на список лент в формате OPML',
+			'rss' => 'Ссылка доступа на RSS-ленту',
+		),
 		'state_0' => 'Показать все статьи',
 		'state_1' => 'Показать прочитанные статьи',
 		'state_2' => 'Показать непрочитанные статьи',
@@ -156,6 +230,7 @@ return array(
 		'_' => 'Чтение',
 		'after_onread' => 'После «отметить всё прочитанным»',
 		'always_show_favorites' => 'Показывать все статьи в избранном по умолчанию',
+		'apply_to_individual_feed' => 'Применяется к лентам индивидуально',
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Авторы и дата',
@@ -170,6 +245,11 @@ return array(
 				'with_authors' => 'В строке с автором и датой',
 			),
 			'feed_title' => 'Титул ленты',
+			'icons' => array(
+				'_' => 'Позиция иконок статьи<br /><small>(только в виде для чтения)</small>',
+				'above_title' => 'Над заголовком',
+				'with_authors' => 'В строке с авторами и датой',
+			),
 			'tags' => array(
 				'_' => 'Метки',
 				'both' => 'В верхнем и нижнем колонтитулах',
@@ -185,7 +265,7 @@ return array(
 		'articles_per_page' => 'Количество статей на странице',
 		'auto_load_more' => 'Загружать больше статей при достижении низа страницы',
 		'auto_remove_article' => 'Скрывать статьи по прочтении',
-		'confirm_enabled' => 'Показывать диалог подтверждения при выпыполнении действия «отметить всё прочитанным»',
+		'confirm_enabled' => 'Показывать диалог подтверждения при выполнении действия «отметить всё прочитанным»',
 		'display_articles_unfolded' => 'Показывать статьи развёрнутыми по умолчанию',
 		'display_categories_unfolded' => 'Какие категории развёртывать',
 		'headline' => array(
@@ -198,37 +278,41 @@ return array(
 		),
 		'hide_read_feeds' => 'Скрывать категории и ленты без непрочитанных статей (не работает с «Показывать все статьи»)',
 		'img_with_lazyload' => 'Использовать режим «ленивой загрузки» для загрузки картинок',
-		'jump_next' => 'перейти к следующей ленте или категории',
+		'jump_next' => 'перейти к следующей',
 		'mark_updated_article_unread' => 'Отмечать обновлённые статьи непрочитанными',
 		'number_divided_when_reader' => 'Делится на 2 в виде для чтения.',
 		'read' => array(
 			'article_open_on_website' => 'когда статья открывается на её сайте',
 			'article_viewed' => 'когда статья просматривается',
+			'focus' => 'когда статья выбрана (за исключением важных лент)',
 			'keep_max_n_unread' => 'Максимальное количество непрочитанных статей',
-			'scroll' => 'во время прокрутки',
+			'scroll' => 'во время прокрутки (за исключением важных лент)',
 			'upon_gone' => 'когда это больше не в новостной ленте',
 			'upon_reception' => 'по получении статьи',
 			'when' => 'Отмечать статью прочитанной…',
-			'when_same_title' => 'если идентичный заголовок уже существует в верхних <i>n</i> новейших статьях',
+			'when_same_guid_in_category' => 'если идентичный GUID уже существует среди <i>n</i> новейших статей категории',
+			'when_same_title_in_category' => 'если идентичный заголовок уже существует среди <i>n</i> новейших статей категории',
+			'when_same_title_in_feed' => 'если идентичный заголовок уже существует среди <i>n</i> новейших статей ленты',
 		),
 		'show' => array(
 			'_' => 'Какие статьи отображать',
 			'active_category' => 'Активную категорию',
-			'adaptive' => 'Адаптивно',
+			'adaptive' => 'Показывать непрочитанные, если они есть, иначе все статьи',
 			'all_articles' => 'Показывать все статьи',
 			'all_categories' => 'Все категории',
 			'no_category' => 'Никакие категории',
 			'remember_categories' => 'Запоминать открытые категории',
 			'unread' => 'Только непрочитанные',
+			'unread_or_favorite' => 'Показывать непрочитанные и избранные',
 		),
 		'show_fav_unread_help' => 'Также относится к меткам',
 		'sides_close_article' => 'Нажатия мышью за пределами текста статьи закрывают статью',
-		'sort' => array(
-			'_' => 'Порядок сортировки',
-			'newer_first' => 'Сначала новые',
-			'older_first' => 'Сначала старые',
+		'star' => array(
+			'when' => 'Отмечать статью избранной…',
 		),
 		'sticky_post' => 'Прикрепить статью к верху при открытии',
+		'sticky_sort' => 'Сохранять ручной порядок сортировки при навигации',	// DIRTY
+		'sticky_sort_help' => 'Определяет, сохраняется ли последний ручной порядок сортировки или каждая категория либо лента всегда использует собственную настройку по умолчанию или глобальную.',	// DIRTY
 		'title' => 'Чтение',
 		'view' => array(
 			'default' => 'Вид по умолчанию',
@@ -240,7 +324,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Обмен',
 		'add' => 'Добавить способ обмена',
-		'blogotext' => 'Blogotext',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'Этот сервис устарел и будет удалён из FreshRSS в <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Открыть документацию для большей информации" target="_blank">будущем релизе</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Электронная почта',
@@ -253,7 +337,7 @@ return array(
 		'share_name' => 'Отображаемое имя',
 		'share_url' => 'Используемый URL',
 		'title' => 'Обмен',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
@@ -261,7 +345,7 @@ return array(
 		'article_action' => 'Действия со статьями',
 		'auto_share' => 'Обмен',
 		'auto_share_help' => 'Если способ единственный, он будет вызван. Иначе способы доступны по их номеру.',
-		'close_dropdown' => 'Закрыть меню',
+		'close_menus' => 'Закрыть меню',
 		'collapse_article' => 'Схлопнуть',
 		'first_article' => 'Открыть первую статью',
 		'focus_search' => 'К строке поиска',
@@ -282,12 +366,13 @@ return array(
 		'other_action' => 'Другие действия',
 		'previous_article' => 'Открыть предыдущую статью',
 		'reading_view' => 'Переключиться на вид для чтения',
-		'rss_view' => 'Открыть как RSS-канал',
+		'rss_view' => 'Открыть как RSS-ленту',
 		'see_on_website' => 'Посмотреть на сайте',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd>, чтобы отметить предыдущие статьи прочитанными<br />+ <kbd>⇧ Shift</kbd>, чтобы отметить все статьи прочитанными',
 		'skip_next_article' => 'Перейти к следующей, не раскрывая',
 		'skip_previous_article' => 'Перейти к предыдущей, не раскрывая',
 		'title' => 'Горячие клавиши',
+		'toggle_aside' => 'Переключить боковую панель',
 		'toggle_media' => 'Играть/приостановить медиаконтент',
 		'user_filter' => 'К пользовательским запросам',
 		'user_filter_help' => 'Если запрос единственный, он будет вызван. Иначе запросы доступны по их номеру.',

@@ -43,7 +43,7 @@ This question comes up regularly, so we’ll try to clarify how one can retrieve
 
 Please be aware that this way you’ll generate much more traffic to the originating sites, and they might block you accordingly. FreshRSS performance is also negatively affected, because you’ll have to fetch the full article content one by one. So it’s a feature to use sparingly!
 
-The  "Article CSS selector on original website" corresponds to the "path" consisting of IDs and classes (which in HTML, matches the id and class attributes) to retrieve only the interesting part that corresponds to the article. Ideally, this path starts with an id (which is unique to the page). The basics are explained [here](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
+The  "Article CSS selector on original website" corresponds to the "path" consisting of IDs and classes (which in HTML, matches the id and class attributes) to retrieve only the interesting part that corresponds to the article. Ideally, this path starts with an id (which is unique to the page). The basics are explained [here (MDN)](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
 
 ##### Example: Rue89
 
@@ -117,8 +117,14 @@ See [SQLite export/import]( https://github.com/FreshRSS/FreshRSS/tree/edge/cli) 
 > Here is some tools you could use :
 >
 > * [Pandoc](https://pandoc.org/) available for most systems,
-> * [OPML generator](https://opml-gen.ovh/) available online,
-> * [txt2opml](https://alterfiles.com/convert/txt/opml) available online.
+> * [opmlmaker](https://rssgizmos.com/opmlmaker.html) available online.
+
+### Migrating from TT-RSS
+
+The [TT-RSS exporter](https://github.com/robertdahlem/export_ttrss) converts
+articles from Tiny Tiny RSS into JSON files that FreshRSS can import. It keeps
+read and starred states and can create missing feeds and categories during the
+import.
 
 ## Use bookmarklet
 

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'email' => array(
@@ -27,16 +27,16 @@ return array(
 				'unnecessary' => ' این آدرس ایمیل قبلاً تأیید شده است.',
 				'wrong_token' => ' این آدرس ایمیل به دلیل یک توکن اشتباه تأیید نشد.',
 			),
-			'need_to' => ' قبل از اینکه بتوانید از %s استفاده کنید',
+			'need_to' => 'پیش از اینکه بتوانید از %s استفاده کنید، باید آدرس ایمیل خود را تأیید کنید.',
 			'resend_email' => ' ایمیل را دوباره ارسال کنید',
 			'title' => ' اعتبار سنجی آدرس ایمیل',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => ' شما به تازگی در %s ثبت نام کرده اید',
+			'body' => 'شما به‌تازگی در %s ثبت‌نام کرده‌اید، اما هنوز باید آدرس ایمیل خود را تأیید کنید. برای این کار، کافی است این پیوند را دنبال کنید:',
 			'title' => ' باید حساب خود را تأیید کنید',
-			'welcome' => ' خوش آمدید %s',
+			'welcome' => 'خوش آمدید %s،',
 		),
 	),
 	'password' => array(
@@ -49,6 +49,6 @@ return array(
 	),
 	'username' => array(
 		'invalid' => ' این نام کاربری نامعتبر است.',
-		'taken' => ' این نام کاربری',
+		'taken' => 'این نام کاربری، %s، قبلاً گرفته شده است.',
 	),
 );

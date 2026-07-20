@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 // > Error: FreshRSS requires PHP, which does not seem to be installed or configured correctly! <!--
 
 # ***** BEGIN LICENSE BLOCK *****
@@ -20,29 +22,29 @@
 #
 # ***** END LICENSE BLOCK *****
 
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 $migrations_path = APP_PATH . '/migrations';
 $applied_migrations_path = DATA_PATH . '/applied_migrations.txt';
 
 if (!file_exists($applied_migrations_path)) {
-	require(APP_PATH . '/install.php');
+	require APP_PATH . '/install.php';
 } else {
 	session_cache_limiter('');
+	Minz_Session::init('FreshRSS');
+	Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 
-	if (!file_exists(DATA_PATH . '/no-cache.txt')) {
-		require(LIB_PATH . '/http-conditional.php');
-		$currentUser = Minz_User::name();
-		$dateLastModification = $currentUser === null ? time() : max(
-			@filemtime(USERS_PATH . '/' . $currentUser . '/' . LOG_FILENAME) ?: 0,
-			@filemtime(DATA_PATH . '/config.php') ?: 0
-		);
-		if (httpConditional($dateLastModification, 0, 0, false, PHP_COMPRESSION, true)) {
-			Minz_Session::init('FreshRSS');
-			Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
-			exit();	//No need to send anything
-		}
+	require LIB_PATH . '/http-conditional.php';
+	$currentUser = Minz_User::name();
+	$dateLastModification = $currentUser === null ? time() : max(
+		FreshRSS_UserDAO::ctime($currentUser),
+		FreshRSS_UserDAO::mtime($currentUser),
+		@filemtime(DATA_PATH . '/config.php') ?: 0
+	);
+	if (!file_exists(DATA_PATH . '/no-cache.txt')
+		&& httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, true)) {
+		exit();	//No need to send anything
 	}
 
 	$error = false;
@@ -53,7 +55,6 @@ if (!file_exists($applied_migrations_path)) {
 			FreshRSS_Context::initSystem();
 			$front_controller = new FreshRSS();
 			$front_controller->init();
-			Minz_Session::_param('keepAlive', 1);	//To prevent the PHP session from expiring
 			$front_controller->run();
 		} else {
 			$error = $result;

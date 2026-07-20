@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Controller to handle every configuration options.
@@ -9,6 +10,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -25,7 +27,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * The options available on the page are:
 	 *   - language (default: en)
 	 *   - theme (default: Origin)
-	 *   - darkMode (default: no)
+	 *   - darkMode (default: auto)
 	 *   - content width (default: thin)
 	 *   - display of read action in header
 	 *   - display of favorite action in header
@@ -34,7 +36,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *   - display of read action in footer
 	 *   - display of favorite action in footer
 	 *   - display of sharing action in footer
-	 *   - display of tags in footer
+	 *   - display of article tags in footer
+	 *   - display of my Labels in footer
 	 *   - display of date in footer
 	 *   - display of open action in footer
 	 *   - html5 notification timeout (default: 0)
@@ -42,34 +45,56 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 */
 	public function displayAction(): void {
 		if (Minz_Request::isPost()) {
-			FreshRSS_Context::$user_conf->language = Minz_Request::paramString('language') ?: 'en';
-			FreshRSS_Context::$user_conf->timezone = Minz_Request::paramString('timezone');
-			FreshRSS_Context::$user_conf->theme = Minz_Request::paramString('theme') ?: FreshRSS_Themes::$defaultTheme;
-			FreshRSS_Context::$user_conf->darkMode = Minz_Request::paramString('darkMode') ?: 'no';
-			FreshRSS_Context::$user_conf->content_width = Minz_Request::paramString('content_width') ?: 'thin';
-			FreshRSS_Context::$user_conf->topline_read = Minz_Request::paramBoolean('topline_read');
-			FreshRSS_Context::$user_conf->topline_favorite = Minz_Request::paramBoolean('topline_favorite');
-			FreshRSS_Context::$user_conf->topline_date = Minz_Request::paramBoolean('topline_date');
-			FreshRSS_Context::$user_conf->topline_link = Minz_Request::paramBoolean('topline_link');
-			FreshRSS_Context::$user_conf->topline_website = Minz_Request::paramString('topline_website');
-			FreshRSS_Context::$user_conf->topline_thumbnail = Minz_Request::paramString('topline_thumbnail');
-			FreshRSS_Context::$user_conf->topline_summary = Minz_Request::paramBoolean('topline_summary');
-			FreshRSS_Context::$user_conf->topline_display_authors = Minz_Request::paramBoolean('topline_display_authors');
-			FreshRSS_Context::$user_conf->bottomline_read = Minz_Request::paramBoolean('bottomline_read');
-			FreshRSS_Context::$user_conf->bottomline_favorite = Minz_Request::paramBoolean('bottomline_favorite');
-			FreshRSS_Context::$user_conf->bottomline_sharing = Minz_Request::paramBoolean('bottomline_sharing');
-			FreshRSS_Context::$user_conf->bottomline_tags = Minz_Request::paramBoolean('bottomline_tags');
-			FreshRSS_Context::$user_conf->bottomline_date = Minz_Request::paramBoolean('bottomline_date');
-			FreshRSS_Context::$user_conf->bottomline_link = Minz_Request::paramBoolean('bottomline_link');
-			FreshRSS_Context::$user_conf->show_nav_buttons = Minz_Request::paramBoolean('show_nav_buttons');
-			FreshRSS_Context::$user_conf->html5_notif_timeout = Minz_Request::paramInt('html5_notif_timeout');
-			FreshRSS_Context::$user_conf->save();
+			$language = Minz_Request::paramString('language') ?: Minz_Translate::DEFAULT_LANGUAGE;
+			if (Minz_Translate::exists($language)) {
+				FreshRSS_Context::userConf()->language = $language;
+			}
+			FreshRSS_Context::userConf()->timezone = Minz_Request::paramString('timezone');
+			$theme = Minz_Request::paramString('theme') ?: FreshRSS_Themes::$defaultTheme;
+			if (FreshRSS_Themes::exists($theme)) {
+				FreshRSS_Context::userConf()->theme = $theme;
+			}
+			FreshRSS_Context::userConf()->darkMode = Minz_Request::paramString('darkMode') ?: 'auto';
+			FreshRSS_Context::userConf()->content_width = Minz_Request::paramString('content_width') ?: 'thin';
+			FreshRSS_Context::userConf()->topline_read = Minz_Request::paramBoolean('topline_read');
+			FreshRSS_Context::userConf()->topline_favorite = Minz_Request::paramBoolean('topline_favorite');
+			FreshRSS_Context::userConf()->topline_myLabels = Minz_Request::paramBoolean('topline_myLabels');
+			FreshRSS_Context::userConf()->topline_sharing = Minz_Request::paramBoolean('topline_sharing');
+			FreshRSS_Context::userConf()->topline_date = Minz_Request::paramBoolean('topline_date');
+			FreshRSS_Context::userConf()->topline_link = Minz_Request::paramBoolean('topline_link');
+			FreshRSS_Context::userConf()->topline_website = Minz_Request::paramString('topline_website');
+			FreshRSS_Context::userConf()->topline_thumbnail = Minz_Request::paramString('topline_thumbnail');
+			FreshRSS_Context::userConf()->topline_summary = Minz_Request::paramBoolean('topline_summary');
+			FreshRSS_Context::userConf()->topline_display_authors = Minz_Request::paramBoolean('topline_display_authors');
+			FreshRSS_Context::userConf()->bottomline_read = Minz_Request::paramBoolean('bottomline_read');
+			FreshRSS_Context::userConf()->bottomline_favorite = Minz_Request::paramBoolean('bottomline_favorite');
+			FreshRSS_Context::userConf()->bottomline_sharing = Minz_Request::paramBoolean('bottomline_sharing');
+			FreshRSS_Context::userConf()->bottomline_tags = Minz_Request::paramBoolean('bottomline_tags');
+			FreshRSS_Context::userConf()->bottomline_myLabels = Minz_Request::paramBoolean('bottomline_myLabels');
+			FreshRSS_Context::userConf()->bottomline_date = Minz_Request::paramBoolean('bottomline_date');
+			FreshRSS_Context::userConf()->bottomline_link = Minz_Request::paramBoolean('bottomline_link');
+			FreshRSS_Context::userConf()->show_nav_buttons = Minz_Request::paramBoolean('show_nav_buttons');
+			FreshRSS_Context::userConf()->show_title_unread = Minz_Request::paramBoolean('show_title_unread');
+			$showUnreadCount = Minz_Request::paramString('show_unread_count');
+			if (in_array($showUnreadCount, ['all', 'important', 'none'], true)) {
+				FreshRSS_Context::userConf()->show_unread_count = $showUnreadCount;
+			}
+			FreshRSS_Context::userConf()->sidebar_hidden_by_default = Minz_Request::paramBoolean('sidebar_hidden_by_default');
+			FreshRSS_Context::userConf()->html5_notif_timeout = max(0, Minz_Request::paramInt('html5_notif_timeout'));
+			FreshRSS_Context::userConf()->html5_enable_notif = Minz_Request::paramBoolean('html5_enable_notif');
+			FreshRSS_Context::userConf()->good_notification_timeout = max(0, Minz_Request::paramInt('good_notification_timeout'));
+			FreshRSS_Context::userConf()->bad_notification_timeout = max(1, Minz_Request::paramInt('bad_notification_timeout'));
+			FreshRSS_Context::userConf()->save();
 
-			Minz_Session::_param('language', FreshRSS_Context::$user_conf->language);
-			Minz_Translate::reset(FreshRSS_Context::$user_conf->language);
+			Minz_Session::_param('language', FreshRSS_Context::userConf()->language);
+			Minz_Translate::reset(FreshRSS_Context::userConf()->language);
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'display' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'display' ],
+				notificationName: 'displayAction',
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 		}
 
 		$this->view->themes = FreshRSS_Themes::get();
@@ -103,47 +128,111 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *       - opened on site
 	 *       - scrolled
 	 *       - received
+	 *       - focus
 	 * Default values are false unless specified.
 	 */
 	public function readingAction(): void {
 		if (Minz_Request::isPost()) {
-			FreshRSS_Context::$user_conf->posts_per_page = Minz_Request::paramInt('posts_per_page') ?: 10;
-			FreshRSS_Context::$user_conf->view_mode = Minz_Request::paramString('view_mode', true) ?: 'normal';
-			FreshRSS_Context::$user_conf->default_view = Minz_Request::paramString('default_view') ?: 'adaptive';
-			FreshRSS_Context::$user_conf->show_fav_unread = Minz_Request::paramBoolean('show_fav_unread');
-			FreshRSS_Context::$user_conf->auto_load_more = Minz_Request::paramBoolean('auto_load_more');
-			FreshRSS_Context::$user_conf->display_posts = Minz_Request::paramBoolean('display_posts');
-			FreshRSS_Context::$user_conf->display_categories = Minz_Request::paramString('display_categories') ?: 'active';
-			FreshRSS_Context::$user_conf->show_tags = Minz_Request::paramString('show_tags') ?: '0';
-			FreshRSS_Context::$user_conf->show_tags_max = Minz_Request::paramInt('show_tags_max');
-			FreshRSS_Context::$user_conf->show_author_date = Minz_Request::paramString('show_author_date') ?: '0';
-			FreshRSS_Context::$user_conf->show_feed_name = Minz_Request::paramString('show_feed_name') ?: 't';
-			FreshRSS_Context::$user_conf->hide_read_feeds = Minz_Request::paramBoolean('hide_read_feeds');
-			FreshRSS_Context::$user_conf->onread_jump_next = Minz_Request::paramBoolean('onread_jump_next');
-			FreshRSS_Context::$user_conf->lazyload = Minz_Request::paramBoolean('lazyload');
-			FreshRSS_Context::$user_conf->sides_close_article = Minz_Request::paramBoolean('sides_close_article');
-			FreshRSS_Context::$user_conf->sticky_post = Minz_Request::paramBoolean('sticky_post');
-			FreshRSS_Context::$user_conf->reading_confirm = Minz_Request::paramBoolean('reading_confirm');
-			FreshRSS_Context::$user_conf->auto_remove_article = Minz_Request::paramBoolean('auto_remove_article');
-			FreshRSS_Context::$user_conf->mark_updated_article_unread = Minz_Request::paramBoolean('mark_updated_article_unread');
-			FreshRSS_Context::$user_conf->sort_order = Minz_Request::paramString('sort_order') ?: 'DESC';
-			FreshRSS_Context::$user_conf->mark_when = [
+			FreshRSS_Context::userConf()->posts_per_page = Minz_Request::paramInt('posts_per_page') ?: 10;
+			FreshRSS_Context::userConf()->view_mode = Minz_Request::paramStringNull('view_mode', true) ?? 'normal';
+			FreshRSS_Context::userConf()->default_view = Minz_Request::paramStringNull('default_view') ?? 'adaptive';
+			FreshRSS_Context::userConf()->show_fav_unread = Minz_Request::paramBoolean('show_fav_unread');
+			FreshRSS_Context::userConf()->auto_load_more = Minz_Request::paramBoolean('auto_load_more');
+			FreshRSS_Context::userConf()->display_posts = Minz_Request::paramBoolean('display_posts');
+			FreshRSS_Context::userConf()->display_categories = Minz_Request::paramStringNull('display_categories') ?? 'active';
+			FreshRSS_Context::userConf()->show_tags = Minz_Request::paramStringNull('show_tags') ?? '0';
+			FreshRSS_Context::userConf()->show_tags_max = Minz_Request::paramInt('show_tags_max');
+			FreshRSS_Context::userConf()->show_author_date = Minz_Request::paramStringNull('show_author_date') ?? '0';
+			FreshRSS_Context::userConf()->show_feed_name = Minz_Request::paramStringNull('show_feed_name') ?? 't';
+			FreshRSS_Context::userConf()->show_article_icons = Minz_Request::paramStringNull('show_article_icons') ?? 't';
+			FreshRSS_Context::userConf()->hide_read_feeds = Minz_Request::paramBoolean('hide_read_feeds');
+			FreshRSS_Context::userConf()->onread_jump_next = Minz_Request::paramBoolean('onread_jump_next');
+			FreshRSS_Context::userConf()->lazyload = Minz_Request::paramBoolean('lazyload');
+			FreshRSS_Context::userConf()->sides_close_article = Minz_Request::paramBoolean('sides_close_article');
+			FreshRSS_Context::userConf()->sticky_post = Minz_Request::paramBoolean('sticky_post');
+			FreshRSS_Context::userConf()->sticky_sort = Minz_Request::paramBoolean('sticky_sort');
+			$markReadButton = Minz_Request::paramStringNull('mark_read_button', plaintext: true);
+			FreshRSS_Context::userConf()->mark_read_button = in_array($markReadButton, ['big', 'small', 'none'], true) ? $markReadButton : 'big';
+			FreshRSS_Context::userConf()->reading_confirm = Minz_Request::paramBoolean('reading_confirm');
+			FreshRSS_Context::userConf()->auto_remove_article = Minz_Request::paramBoolean('auto_remove_article');
+			FreshRSS_Context::userConf()->mark_updated_article_unread = Minz_Request::paramBoolean('mark_updated_article_unread');
+
+			$sorting = Minz_Request::paramString('primary_sort', plaintext: true);
+			if (str_ends_with($sorting, '_asc')) {
+				FreshRSS_Context::userConf()->sort_order = 'ASC';
+				$sorting = substr($sorting, 0, -strlen('_asc'));
+			} elseif (str_ends_with($sorting, '_desc')) {
+				FreshRSS_Context::userConf()->sort_order = 'DESC';
+				$sorting = substr($sorting, 0, -strlen('_desc'));
+			} else {
+				FreshRSS_Context::userConf()->sort_order = 'DESC';
+			}
+			if (in_array($sorting, ['id', 'c.name', 'date', 'f.name', 'length', 'link', 'title', 'rand'], true)) {
+				FreshRSS_Context::userConf()->sort = $sorting;
+			} else {
+				FreshRSS_Context::userConf()->sort = 'id';
+			}
+
+			$sorting = Minz_Request::paramString('secondary_sort', plaintext: true);
+			if (str_ends_with($sorting, '_asc')) {
+				FreshRSS_Context::userConf()->secondary_sort_order = 'ASC';
+				$sorting = substr($sorting, 0, -strlen('_asc'));
+			} elseif (str_ends_with($sorting, '_desc')) {
+				FreshRSS_Context::userConf()->secondary_sort_order = 'DESC';
+				$sorting = substr($sorting, 0, -strlen('_desc'));
+			} else {
+				FreshRSS_Context::userConf()->secondary_sort_order = 'DESC';
+			}
+			if (in_array($sorting, ['id', 'date', 'link', 'title'], true)) {
+				FreshRSS_Context::userConf()->secondary_sort = $sorting;
+			} else {
+				FreshRSS_Context::userConf()->secondary_sort = 'id';
+			}
+
+			FreshRSS_Context::userConf()->mark_when = [
 				'article' => Minz_Request::paramBoolean('mark_open_article'),
 				'gone' => Minz_Request::paramBoolean('read_upon_gone'),
 				'max_n_unread' => Minz_Request::paramBoolean('enable_keep_max_n_unread') ? Minz_Request::paramInt('keep_max_n_unread') : false,
 				'reception' => Minz_Request::paramBoolean('mark_upon_reception'),
-				'same_title_in_feed' =>
-					Minz_Request::paramBoolean('enable_read_when_same_title_in_feed') && Minz_Request::paramBoolean('read_when_same_title_in_feed'),
+				'same_title_in_feed' => Minz_Request::paramBoolean('enable_read_when_same_title_in_feed') ?
+					Minz_Request::paramInt('read_when_same_title_in_feed') : false,
 				'scroll' => Minz_Request::paramBoolean('mark_scroll'),
 				'site' => Minz_Request::paramBoolean('mark_open_site'),
+				'focus' => Minz_Request::paramBoolean('mark_focus'),
 			];
-			FreshRSS_Context::$user_conf->save();
+			FreshRSS_Context::userConf()->_filtersAction('read', Minz_Request::paramTextToArray('filteractions_read', plaintext: true));
+			FreshRSS_Context::userConf()->_filtersAction('star', Minz_Request::paramTextToArray('filteractions_star', plaintext: true));
+			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'reading' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'reading' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 
+		$this->view->viewModes = FreshRSS_ViewMode::getAllModes();
 		FreshRSS_View::prependTitle(_t('conf.reading.title') . ' · ');
+	}
+
+	public function viewFilterAction(): void {
+		$search = '';
+		$filters_name = Minz_Request::paramString('filters_name', plaintext: true);
+		$filteractions = Minz_Request::paramTextToArray($filters_name, plaintext: true);
+		$filteractions = array_map(fn(string $action): string => trim($action), $filteractions);
+		$filteractions = array_filter($filteractions, fn(string $action): bool => $action !== '');
+		foreach ($filteractions as $action) {
+			$search .= "($action) OR ";
+		}
+		$search = preg_replace('/ OR $/', '', $search);
+		Minz_Request::forward([
+			'c' => 'index',
+			'a' => 'index',
+			'params' => [
+				'search' => $search,
+			],
+		], redirect: true);
 	}
 
 	/**
@@ -161,15 +250,50 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
 
 		if (Minz_Request::isPost()) {
-			$params = $_POST;
-			FreshRSS_Context::$user_conf->sharing = $params['share'];
-			FreshRSS_Context::$user_conf->save();
-			invalidateHttpCache();
+			$share = $_POST['share'] ?? [];
+			if (is_array($share)) {
+				$share = array_filter($share, fn($value, $key): bool =>
+					is_int($key) && is_array($value) &&
+					is_array_values_string($value),
+					ARRAY_FILTER_USE_BOTH);
+				/** @var array<int,array<string,string>> $share */
+				FreshRSS_Context::userConf()->sharing = $share;
+				FreshRSS_Context::userConf()->save();
+				invalidateHttpCache();
+			}
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'integration' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'integration' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.sharing.title') . ' · ');
+	}
+
+	private const SHORTCUT_KEYS = [
+			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+			'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+			'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+			'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12',
+			'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Backspace', 'Delete',
+			'End', 'Enter', 'Escape', 'Home', 'Insert', 'PageDown', 'PageUp', 'Space', 'Tab',
+		];
+
+	/**
+	 * @param array<string> $shortcuts
+	 * @return list<string>
+	 */
+	public static function getNonStandardShortcuts(array $shortcuts): array {
+		$standard = strtolower(implode(' ', self::SHORTCUT_KEYS));
+
+		$nonStandard = array_filter($shortcuts, static function (string $shortcut) use ($standard) {
+			$shortcut = trim($shortcut);
+			return $shortcut !== '' && stripos($standard, $shortcut) === false;
+		});
+
+		return array_values($nonStandard);
 	}
 
 	/**
@@ -185,19 +309,24 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * tab and up.
 	 */
 	public function shortcutAction(): void {
-		$this->view->list_keys = SHORTCUT_KEYS;
+		$this->view->list_keys = self::SHORTCUT_KEYS;
 
 		if (Minz_Request::isPost()) {
-			$shortcuts = Minz_Request::paramArray('shortcuts');
+			$shortcuts = Minz_Request::paramArray('shortcuts', plaintext: true);
 			if (Minz_Request::paramBoolean('load_default_shortcuts')) {
 				$default = Minz_Configuration::load(FRESHRSS_PATH . '/config-user.default.php');
 				$shortcuts = $default['shortcuts'];
 			}
-			FreshRSS_Context::$user_conf->shortcuts = array_map('trim', $shortcuts);
-			FreshRSS_Context::$user_conf->save();
+			/** @var array<string,string> $shortcuts */
+			FreshRSS_Context::userConf()->shortcuts = array_map('trim', $shortcuts);
+			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.shortcuts_updated'), ['c' => 'configure', 'a' => 'shortcut']);
+			Minz_Request::good(
+				_t('feedback.conf.shortcuts_updated'),
+				['c' => 'configure', 'a' => 'shortcut'],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.shortcut.title') . ' · ');
@@ -231,8 +360,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				$keepPeriod = false;
 			}
 
-			FreshRSS_Context::$user_conf->ttl_default = Minz_Request::paramInt('ttl_default') ?: FreshRSS_Feed::TTL_DEFAULT;
-			FreshRSS_Context::$user_conf->archiving = [
+			FreshRSS_Context::userConf()->ttl_default = Minz_Request::paramInt('ttl_default') ?: FreshRSS_Feed::TTL_DEFAULT;
+			FreshRSS_Context::userConf()->archiving = [
 				'keep_period' => $keepPeriod,
 				'keep_max' => $keepMax,
 				'keep_min' => Minz_Request::paramInt('keep_min_default'),
@@ -240,12 +369,16 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'keep_labels' => Minz_Request::paramBoolean('keep_labels'),
 				'keep_unreads' => Minz_Request::paramBoolean('keep_unreads'),
 			];
-			FreshRSS_Context::$user_conf->keep_history_default = null;	//Legacy < FreshRSS 1.15
-			FreshRSS_Context::$user_conf->old_entries = null;	//Legacy < FreshRSS 1.15
-			FreshRSS_Context::$user_conf->save();
+			FreshRSS_Context::userConf()->keep_history_default = null;	//Legacy < FreshRSS 1.15
+			FreshRSS_Context::userConf()->old_entries = null;	//Legacy < FreshRSS 1.15
+			FreshRSS_Context::userConf()->save();
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'archiving' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'archiving' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
 
 		$volatile = [
@@ -253,15 +386,17 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				'keep_period_count' => '3',
 				'keep_period_unit' => 'P1M',
 			];
-		$keepPeriod = FreshRSS_Context::$user_conf->archiving['keep_period'];
-		if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $keepPeriod, $matches)) {
-			$volatile = [
-				'enable_keep_period' => true,
-				'keep_period_count' => $matches['count'],
-				'keep_period_unit' => str_replace($matches['count'], '1', $keepPeriod),
-			];
+		if (!empty(FreshRSS_Context::userConf()->archiving['keep_period'])) {
+			$keepPeriod = FreshRSS_Context::userConf()->archiving['keep_period'];
+			if (preg_match('/^PT?(?P<count>\d+)[YMWDH]$/', $keepPeriod, $matches)) {
+				$volatile = [
+					'enable_keep_period' => true,
+					'keep_period_count' => $matches['count'],
+					'keep_period_unit' => str_replace($matches['count'], '1', $keepPeriod),
+				];
+			}
 		}
-		FreshRSS_Context::$user_conf->volatile = $volatile;
+		FreshRSS_Context::userConf()->volatile = $volatile;
 
 		$entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->view->nb_total = $entryDAO->count();
@@ -270,7 +405,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$this->view->size_user = $databaseDAO->size();
 
 		if (FreshRSS_Auth::hasAccess('admin')) {
-			$this->view->size_total = $databaseDAO->size(true);
+			$this->view->size_total = $databaseDAO->size(all: true);
 		}
 
 		FreshRSS_View::prependTitle(_t('conf.archiving.title') . ' · ');
@@ -283,18 +418,15 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * configuration values then sends a notification to the user then
 	 * redirect to the same page.
 	 * If this action is not reached through a POST request, it displays the
-	 * configuration page and verifies that every user query is runable by
+	 * configuration page and verifies that every user query is runnable by
 	 * checking if categories and feeds are still in use.
 	 */
 	public function queriesAction(): void {
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/draggable.js?' . @filemtime(PUBLIC_PATH . '/scripts/draggable.js')));
 
-		$category_dao = FreshRSS_Factory::createCategoryDao();
-		$feed_dao = FreshRSS_Factory::createFeedDao();
-		$tag_dao = FreshRSS_Factory::createTagDao();
-
 		if (Minz_Request::isPost()) {
-			/** @var array<int,array{'get'?:string,'name'?:string,'order'?:string,'search'?:string,'state'?:int,'url'?:string}> $params */
+			/** @var array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
+			 * 		shareRss?:bool|numeric-string,shareOpml?:bool|numeric-string,description?:string,imageUrl?:string}> $params */
 			$params = Minz_Request::paramArray('queries');
 
 			$queries = [];
@@ -306,22 +438,30 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 				if (!empty($query['search'])) {
 					$query['search'] = urldecode($query['search']);
 				}
-				$queries[$key] = (new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao))->toArray();
+				$shareRss = $query['shareRss'] ?? null;
+				$query['shareRss'] = (is_string($shareRss) && ctype_digit($shareRss)) ? (bool)$shareRss : false;
+				$shareOpml = $query['shareOpml'] ?? null;
+				$query['shareOpml'] = (is_string($shareOpml) && ctype_digit($shareOpml)) ? (bool)$shareOpml : false;
+				$queries[$key] = (new FreshRSS_UserQuery($query, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
 			}
-			FreshRSS_Context::$user_conf->queries = $queries;
-			FreshRSS_Context::$user_conf->save();
+			FreshRSS_Context::userConf()->queries = $queries;
+			FreshRSS_Context::userConf()->save();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'queries' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		} else {
 			$this->view->queries = [];
-			foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
-				$this->view->queries[intval($key)] = new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao);
+			foreach (FreshRSS_Context::userConf()->queries as $key => $query) {
+				$this->view->queries[intval($key)] = new FreshRSS_UserQuery($query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
 			}
 		}
 
-		$this->view->categories = $category_dao->listCategories(false) ?: [];
-		$this->view->feeds = $feed_dao->listFeeds();
-		$this->view->tags = $tag_dao->listTags() ?: [];
+		$this->view->categories = FreshRSS_Context::categories();
+		$this->view->feeds = FreshRSS_Context::feeds();
+		$this->view->tags = FreshRSS_Context::labels();
 
 		if (Minz_Request::paramTernary('id') !== null) {
 			$id = Minz_Request::paramInt('id');
@@ -346,51 +486,70 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		}
 
 		$id = Minz_Request::paramInt('id');
-		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::$user_conf->queries[$id])) {
+		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::userConf()->queries[$id])) {
 			Minz_Error::error(404);
 			return;
 		}
 
-		$category_dao = FreshRSS_Factory::createCategoryDao();
-		$feed_dao = FreshRSS_Factory::createFeedDao();
-		$tag_dao = FreshRSS_Factory::createTagDao();
-
-		$query = new FreshRSS_UserQuery(FreshRSS_Context::$user_conf->queries[$id], $feed_dao, $category_dao, $tag_dao);
+		$query = new FreshRSS_UserQuery(FreshRSS_Context::userConf()->queries[$id], FreshRSS_Context::categories(), FreshRSS_Context::labels());
 		$this->view->query = $query;
 		$this->view->queryId = $id;
-		$this->view->categories = $category_dao->listCategories(false) ?: [];
-		$this->view->feeds = $feed_dao->listFeeds();
-		$this->view->tags = $tag_dao->listTags() ?: [];
+		$this->view->categories = FreshRSS_Context::categories();
+		$this->view->feeds = FreshRSS_Context::feeds();
+		$this->view->tags = FreshRSS_Context::labels();
 
 		if (Minz_Request::isPost()) {
-			/** @var array<string,string|array<string,string>> $params */
-			$params = array_filter(Minz_Request::paramArray('query'));
+			$params = Minz_Request::paramArray('query');
 			$queryParams = [];
-			if (!empty($params['get']) && is_string($params['get'])) {
-				$queryParams['get'] = htmlspecialchars_decode($params['get'], ENT_QUOTES);
-			}
-			if (!empty($params['order']) && is_string($params['order'])) {
-				$queryParams['order'] = htmlspecialchars_decode($params['order'], ENT_QUOTES);
-			}
-			if (!empty($params['search']) && is_string($params['search'])) {
-				$queryParams['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
-			}
-			if (!empty($params['state']) && is_array($params['state'])) {
-				$queryParams['state'] = (int)(array_sum($params['state']));
-			}
 			$name = Minz_Request::paramString('name') ?: _t('conf.query.number', $id + 1);
 			if ('' === $name) {
 				$name = _t('conf.query.number', $id + 1);
 			}
-			$queryParams['name'] = $name;
+			if (!empty($params['get']) && is_string($params['get'])) {
+				$queryParams['get'] = $params['get'];
+			}
+			if (!empty($params['order']) && is_string($params['order'])) {
+				$queryParams['order'] = $params['order'];
+			}
+			if (!empty($params['search']) && is_string($params['search'])) {
+				// Search must be as plain text to be XML-encoded or URL-encoded depending on the situation
+				$queryParams['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
+			}
+			if (!empty($params['state']) && is_array($params['state'])) {
+				$queryParams['state'] = (int)array_sum(array_map('intval', $params['state']));
+			}
+			if (empty($params['token']) || !is_string($params['token'])) {
+				$queryParams['token'] = FreshRSS_UserQuery::generateToken($name);
+			} else {
+				$queryParams['token'] = $params['token'];
+			}
 			$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
+			$queryParams['name'] = $name;
+			if (!empty($params['description']) && is_string($params['description'])) {
+				$queryParams['description'] = $params['description'];
+			}
+			if (!empty($params['imageUrl']) && is_string($params['imageUrl'])) {
+				$queryParams['imageUrl'] = $params['imageUrl'];
+			}
+			if (!empty($params['shareOpml']) && ctype_digit($params['shareOpml'])) {
+				$queryParams['shareOpml'] = (bool)$params['shareOpml'];
+			}
+			if (!empty($params['shareRss']) && ctype_digit($params['shareRss'])) {
+				$queryParams['shareRss'] = (bool)$params['shareRss'];
+			}
+			if (!empty($params['publishLabelsInsteadOfTags']) && ctype_digit($params['publishLabelsInsteadOfTags'])) {
+				$queryParams['publishLabelsInsteadOfTags'] = (bool)$params['publishLabelsInsteadOfTags'];
+			}
 
-			$queries = FreshRSS_Context::$user_conf->queries;
-			$queries[$id] = (new FreshRSS_UserQuery($queryParams, $feed_dao, $category_dao, $tag_dao))->toArray();
-			FreshRSS_Context::$user_conf->queries = $queries;
-			FreshRSS_Context::$user_conf->save();
+			$queries = FreshRSS_Context::userConf()->queries;
+			$queries[$id] = (new FreshRSS_UserQuery($queryParams, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
+			FreshRSS_Context::userConf()->queries = $queries;
+			FreshRSS_Context::userConf()->save();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries', 'params' => ['id' => (string)$id] ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => Minz_Request::paramStringNull('from') ?? 'queries', 'params' => ['id' => (string)$id] ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 		}
 
 		FreshRSS_View::prependTitle($query->getName() . ' · ' . _t('conf.query.title') . ' · ');
@@ -400,45 +559,87 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 * Handles query deletion
 	 */
 	public function deleteQueryAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(403);
+			return;
+		}
 		$id = Minz_Request::paramInt('id');
-		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::$user_conf->queries[$id])) {
+		if (Minz_Request::paramTernary('id') === null || empty(FreshRSS_Context::userConf()->queries[$id])) {
 			Minz_Error::error(404);
 			return;
 		}
 
-		$queries = FreshRSS_Context::$user_conf->queries;
+		$queries = FreshRSS_Context::userConf()->queries;
 		unset($queries[$id]);
-		FreshRSS_Context::$user_conf->queries = $queries;
-		FreshRSS_Context::$user_conf->save();
+		FreshRSS_Context::userConf()->queries = $queries;
+		FreshRSS_Context::userConf()->save();
 
-		Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'queries' ]);
+		Minz_Request::good(
+			_t('feedback.conf.updated'),
+			[ 'c' => 'configure', 'a' => 'queries' ],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
 	 * This action handles the creation of a user query.
 	 *
-	 * It gets the GET parameters and stores them in the configuration query
-	 * storage. Before it is saved, the unwanted parameters are unset to keep
-	 * lean data.
+	 * It gets the GET or POST parameters and stores them in the configuration query
+	 * storage.
 	 */
 	public function bookmarkQueryAction(): void {
-		$category_dao = FreshRSS_Factory::createCategoryDao();
-		$feed_dao = FreshRSS_Factory::createFeedDao();
-		$tag_dao = FreshRSS_Factory::createTagDao();
-		$queries = [];
-		foreach (FreshRSS_Context::$user_conf->queries as $key => $query) {
-			$queries[$key] = (new FreshRSS_UserQuery($query, $feed_dao, $category_dao, $tag_dao))->toArray();
+		if (!Minz_Request::isPost()) {
+			Minz_Error::error(403);
+			return;
 		}
-		$params = $_GET;
-		unset($params['rid']);
-		$params['url'] = Minz_Url::display(['params' => $params]);
-		$params['name'] = _t('conf.query.number', count($queries) + 1);
-		$queries[] = (new FreshRSS_UserQuery($params, $feed_dao, $category_dao, $tag_dao))->toArray();
 
-		FreshRSS_Context::$user_conf->queries = $queries;
-		FreshRSS_Context::$user_conf->save();
+		$queries = FreshRSS_Context::userConf()->queries;
+		$id = count($queries);
 
-		Minz_Request::good(_t('feedback.conf.query_created', $params['name']), [ 'c' => 'configure', 'a' => 'queries' ]);
+		/** @var array{get?:string,name?:string,order?:string,search?:string,state?:int,shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $params */
+		$params = Minz_Request::paramArray('query') ?: array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
+		$name = ($params['name'] ?? '') ?: _t('conf.query.number', $id + 1);
+		$queryParams = [];
+
+		if (is_string($params['get'] ?? null)) {
+			$queryParams['get'] = $params['get'];
+		}
+		if (is_string($params['order'] ?? null)) {
+			$queryParams['order'] = $params['order'];
+		}
+		if (is_string($params['search'] ?? null)) {
+			// Search must be as plain text to be XML-encoded or URL-encoded depending on the situation
+			$queryParams['search'] = htmlspecialchars_decode($params['search'], ENT_QUOTES);
+		}
+		if (is_array($params['state'] ?? null)) {
+			$queryParams['state'] = (int)array_sum(array_map('intval', $params['state']));
+		}
+		$queryParams['token'] = FreshRSS_UserQuery::generateToken($name);
+		$queryParams['url'] = Minz_Url::display(['params' => $queryParams]);
+		$queryParams['name'] = $name;
+		if (is_string($params['description'] ?? null)) {
+			$queryParams['description'] = $params['description'];
+		}
+		if (is_string($params['imageUrl'] ?? null)) {
+			$queryParams['imageUrl'] = $params['imageUrl'];
+		}
+		if (ctype_digit($params['shareOpml'] ?? '')) {
+			$queryParams['shareOpml'] = (bool)$params['shareOpml'];
+		}
+		if (ctype_digit($params['shareRss'] ?? '')) {
+			$queryParams['shareRss'] = (bool)$params['shareRss'];
+		}
+
+		$queries[$id] = (new FreshRSS_UserQuery($queryParams, FreshRSS_Context::categories(), FreshRSS_Context::labels()))->toArray();
+
+		FreshRSS_Context::userConf()->queries = $queries;
+		FreshRSS_Context::userConf()->save();
+
+		Minz_Request::good(
+			_t('feedback.conf.query_created', $name),
+			[ 'c' => 'configure', 'a' => 'queries' ],
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
@@ -456,8 +657,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *   - user category limit (default: 16384)
 	 *   - user feed limit (default: 16384)
 	 *   - user login duration for form auth (default: FreshRSS_Auth::DEFAULT_COOKIE_DURATION)
-	 *
-	 * The `force-email-validation` is ignored with PHP < 5.5
+	 *   - internal host allowlist
 	 */
 	public function systemAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
@@ -465,21 +665,45 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		}
 
 		if (Minz_Request::isPost()) {
-			$limits = FreshRSS_Context::$system_conf->limits;
-			$limits['max_registrations'] = Minz_Request::paramInt('max-registrations') ?: 1;
+			$limits = FreshRSS_Context::systemConf()->limits;
+			$limits['max_registrations'] = Minz_Request::paramIntNull('max-registrations') ?? 1;
 			$limits['max_feeds'] = Minz_Request::paramInt('max-feeds') ?: 16384;
 			$limits['max_categories'] = Minz_Request::paramInt('max-categories') ?: 16384;
 			$limits['cookie_duration'] = Minz_Request::paramInt('cookie-duration') ?: FreshRSS_Auth::DEFAULT_COOKIE_DURATION;
-			FreshRSS_Context::$system_conf->limits = $limits;
-			FreshRSS_Context::$system_conf->title = Minz_Request::paramString('instance-name') ?: 'FreshRSS';
-			FreshRSS_Context::$system_conf->auto_update_url = Minz_Request::paramString('auto-update-url');
-			FreshRSS_Context::$system_conf->force_email_validation = Minz_Request::paramBoolean('force-email-validation');
-			FreshRSS_Context::$system_conf->base_url = Minz_Request::paramString('base-url');
-			FreshRSS_Context::$system_conf->save();
+			FreshRSS_Context::systemConf()->limits = $limits;
+			FreshRSS_Context::systemConf()->title = Minz_Request::paramString('instance-name') ?: 'FreshRSS';
+			FreshRSS_Context::systemConf()->force_email_validation = Minz_Request::paramBoolean('force-email-validation');
+			$internal_host_allowlist = Minz_Request::paramTextToArrayNull('internal-host-allowlist');
+			if ($internal_host_allowlist !== null) {
+				FreshRSS_Context::systemConf()->internal_host_allowlist = Minz_Request::paramTextToArray('internal-host-allowlist');
+			}
+			FreshRSS_Context::systemConf()->closed_registration_message = Minz_Request::paramString('closed_registration_message') ?: '';
+			FreshRSS_Context::systemConf()->save();
 
 			invalidateHttpCache();
 
-			Minz_Request::good(_t('feedback.conf.updated'), [ 'c' => 'configure', 'a' => 'system' ]);
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				[ 'c' => 'configure', 'a' => 'system' ],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
 		}
+	}
+
+	public function privacyAction(): void {
+		if (Minz_Request::isPost()) {
+			FreshRSS_Context::userConf()->retrieve_extension_list = Minz_Request::paramBoolean('retrieve_extension_list');
+			FreshRSS_Context::userConf()->send_referrer_allowlist = Minz_Request::paramTextToArray('send_referrer_allowlist');
+			FreshRSS_Context::userConf()->save();
+			invalidateHttpCache();
+
+			Minz_Request::good(
+				_t('feedback.conf.updated'),
+				['c' => 'configure', 'a' => 'privacy'],
+				showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+			);
+		}
+
+		FreshRSS_View::prependTitle(_t('conf.privacy') . ' · ');
 	}
 }

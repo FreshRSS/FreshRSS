@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s non può essere abilitata. <a href="%s">Verifica i logs</a> per dettagli.',
 			'ok' => '%s è ora abilitata',
 		),
+		'invalid_view_mode' => 'Modalità di visualizzazione “%s” non valida! Verrà utilizzata la “vista normale”.',
 		'no_access' => 'Accesso negato a %s',
 		'not_enabled' => '%s non abilitato',
 		'not_found' => '%s non disponibile',
@@ -57,14 +58,15 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Estensione ZIP non presente sul server. Per favore esporta i files singolarmente.',
-		'feeds_imported' => 'I tuoi feed sono stati importati e saranno aggiornati / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'I tuoi feeds sono stati importati ma si sono verificati alcuni errori / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'I tuoi feed sono stati importati e saranno aggiornati. Se hai completato l’importazione, puoi cliccare sul pulsante <i>Aggiorna feed</i>.',
+		'feeds_imported_with_errors' => 'I tuoi feed sono stati importati ma si sono verificati alcuni errori. Se hai completato l’importazione, puoi cliccare sul pulsante <i>Aggiorna feed</i>.',
 		'file_cannot_be_uploaded' => 'Il file non può essere caricato!',
 		'no_zip_extension' => 'Estensione ZIP non presente sul server.',
-		'zip_error' => 'Si è verificato un errore importando il file ZIP',	// DIRTY
+		'zip_error' => 'Si è verificato un errore importando il file ZIP',
 	),
 	'profile' => array(
 		'error' => 'Il tuo profilo non può essere modificato',
+		'passwords_dont_match' => 'Le password non corrispondono',
 		'updated' => 'Il tuo profilo è stato modificato',
 	),
 	'sub' => array(
@@ -88,15 +90,19 @@ return array(
 		),
 		'feed' => array(
 			'actualized' => '<em>%s</em> aggiornato',
-			'actualizeds' => 'RSS feeds aggiornati',
+			'actualizeds' => 'Feed RSS aggiornati',
 			'added' => 'RSS feed <em>%s</em> aggiunti',
 			'already_subscribed' => 'Hai già sottoscritto <em>%s</em>',
 			'cache_cleared' => 'La cache di <em>%s</em> è stata svuotata',
 			'deleted' => 'Feed cancellato',
 			'error' => 'Feed non aggiornato',
+			'favicon' => array(
+				'too_large' => 'L’icona caricata è troppo grande. La dimensione massima del file è <em>%s</em>.',
+				'unsupported_format' => 'Formato file immagine non supportato!',
+			),
 			'internal_problem' => 'Feed RSS non aggiunto. <a href="%s">Verifica i log</a> per dettagli. Puoi provare l’aggiunta forzata aggiungendo <code>#force_feed</code> all’URL.',
 			'invalid_url' => 'URL <em>%s</em> non valido',
-			'n_actualized' => '%d feeds aggiornati',
+			'n_actualized' => '%d feed aggiornati',
 			'n_entries_deleted' => '%d articoli cancellati',
 			'no_refresh' => 'Nessun aggiornamento disponibile…',
 			'not_added' => '<em>%s</em> non può essere aggiunto',
@@ -115,9 +121,11 @@ return array(
 		'purge_completed' => 'Svecchiamento completato (%d articoli cancellati)',
 	),
 	'tag' => array(
-		'created' => 'Il Tag “%s” è stato creato.',	// DIRTY
-		'name_exists' => 'Il nome del tag è già presente.',	// DIRTY
-		'renamed' => 'Il Tag “%s” è stato rinominato in “%s”.',	// DIRTY
+		'created' => 'Il tag “%s” è stato creato.',
+		'error' => 'Il tag non può essere aggiornato!',
+		'name_exists' => 'Il nome del tag è già presente.',
+		'renamed' => 'Il tag “%s” è stato rinominato in “%s”.',
+		'updated' => 'Il tag è stato aggiornato.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS verrà aggiornato alla <strong>versione %s</strong>.',

@@ -1,0 +1,76 @@
+name: Feed Report
+description: "A feed does not work? Type of feed: RSS / Atom, JSON Feed, JSON (dot notation). "
+title: "[Feed problem] "
+labels: ["Feed problem 🗞️"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If you're experiencing issues with a particular feed (RSS, Atom, JSON), please use this form to report the problem. There can be various reasons why a feed may not be working. By sharing as much information as possible, we can better determine the cause and address it.
+  - type: input
+    id: feedurl
+    attributes:
+      label: Feed URL
+      description: Share the URL of the feed
+      placeholder: https://…
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the problem
+      description: "A clear and concise description of what the problem is.\n\nIf applicable, add screenshots to help explain the feed problem."
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Log messages
+      description: What is written in the log (see administration ./i/?a=logs)
+    validations:
+      required: true
+  - type: textarea
+    id: w3cfeedvalidation
+    attributes:
+      label: W3C Validator
+      description: "What is the result of the W3C validator service (go to https://validator.w3.org/feed/)?\n\nIf applicable, add the full link and screenshots to help explain the feed problem."
+    validations:
+      required: true
+  - type: input
+    id: freshRSS
+    attributes:
+      label: FreshRSS version
+      description: Which FreshRSS version is installed?
+      placeholder: e.g. 1.23.1
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: System information
+      description: Please complete the following information
+      value: "Database version: [e.g. Mysql 5.7, SQLite]\n- PHP version: [e.g. PHP 8.1]\n- Installation type: [e.g. Docker, Docker image source, git, Yunohost]\n- Web server type: [e.g. Apache, nginx]\n- Device: [e.g. iPhone13]\n- OS: [e.g. Ubuntu 22.04, Win10, MacOS14]\n- Browser: [e.g. Firefox 124]"
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
+    validations:
+      required: false
+  - type: textarea
+    id: curlcommands
+    attributes:
+      label: Curl commands
+      description: Have you tried some Curl commands? (See https://github.com/FreshRSS/FreshRSS/discussions/6287 for more information)
+    validations:
+      required: false
+  - type: textarea
+    id: useragents
+    attributes:
+      label: User agents
+      description: Have you tried some browser user agents in feed settings "Advanced" section?
+    validations:
+      required: false
+

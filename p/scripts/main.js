@@ -37,6 +37,7 @@ function xmlHttpRequestJson(req) {
 // <Global context>
 /* eslint-disable no-var */
 var context;
+var prevTitle;
 /* eslint-enable no-var */
 
 (function parseJsonVars() {
@@ -53,6 +54,9 @@ var context;
 	context.icons.unread = decodeURIComponent(context.icons.unread);
 	context.extensions = json.extensions;
 }());
+
+const freshrssGlobalContextLoadedEvent = new Event('freshrss:globalContextLoaded');
+document.dispatchEvent(freshrssGlobalContextLoadedEvent);
 // </Global context>
 
 function badAjax(reload) {
@@ -85,8 +89,7 @@ function numberFormat(nStr) {
 		return 0;
 	}
 	// http://www.mredkj.com/javascript/numberFormat.html
-	nStr += '';
-	const x = nStr.split('.');
+	const x = String(nStr).split('.');
 	const x2 = x.length > 1 ? '.' + x[1] : '';
 	const rgx = /(\d+)(\d{3})/;
 	let x1 = x[0];
@@ -135,6 +138,15 @@ function incUnreadsFeed(article, feed_id, nb) {
 		}
 	}
 
+	// Update unread: important
+	if (feed_priority >= 20) {
+		elem = document.querySelector('#aside_feed .important .title');
+		if (elem) {
+			feed_unreads = elem ? str2int(elem.getAttribute('data-unread')) : 0;
+			elem.setAttribute('data-unread', numberFormat(feed_unreads + nb));
+		}
+	}
+
 	// Update unread: favourites
 	if (article && article.closest('div').classList.contains('favorite')) {
 		elem = document.querySelector('#aside_feed .favorites .title');
@@ -144,9 +156,10 @@ function incUnreadsFeed(article, feed_id, nb) {
 		}
 	}
 
-	let isCurrentView = false;
 	// Update unread: title
-	document.title = document.title.replace(/^((?:\([\s0-9]+\) )?)/, function (m, p1) {
+	let isCurrentView = false;
+	const currentTitle = prevTitle || document.title;
+	const newTitle = currentTitle.replace(/^((?:\([\s0-9]+\) )?)/, function (m, p1) {
 		const feed = document.getElementById(feed_id);
 		if (article || (feed && feed.closest('.active'))) {
 			isCurrentView = true;
@@ -158,6 +171,13 @@ function incUnreadsFeed(article, feed_id, nb) {
 			return p1;
 		}
 	});
+	if (context.show_title_unread !== false) {
+		if (prevTitle) {
+			prevTitle = newTitle;
+		} else {
+			document.title = newTitle;
+		}
+	}
 	return isCurrentView;
 }
 
@@ -201,81 +221,95 @@ function removeArticle(div) {
 const pending_entries = {};
 let mark_read_queue = [];
 
-function send_mark_read_queue(queue, asRead, callback) {
+async function send_mark_read_queue(queue, asRead, callback) {
 	if (!queue || queue.length === 0) {
 		if (callback) {
 			callback();
 		}
 		return;
 	}
-	const req = new XMLHttpRequest();
-	req.open('POST', '.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), true);
-	req.responseType = 'json';
-	req.onerror = function (e) {
-		for (let i = queue.length - 1; i >= 0; i--) {
-			delete pending_entries['flux_' + queue[i]];
-		}
-		badAjax(this.status == 403);
-	};
-	req.onload = function (e) {
-		if (this.status != 200) {
-			return req.onerror(e);
-		}
-		const json = xmlHttpRequestJson(this);
-		if (!json) {
-			return req.onerror(e);
-		}
-		for (let i = queue.length - 1; i >= 0; i--) {
-			const div = document.getElementById('flux_' + queue[i]);
-			const myIcons = context.icons;
-			let inc = 0;
-			if (div.classList.contains('not_read')) {
-				div.classList.remove('not_read');
-				div.querySelectorAll('a.read').forEach(function (a) {
-					a.href = a.href.replace('&is_read=0', '') + '&is_read=1';
+	let json;
+	try {
+		const resp = await fetch('.?c=entry&a=read' + (asRead ? '' : '&is_read=0'), {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json; charset=UTF-8'
+			},
+			body: JSON.stringify({
+				ajax: true,
+				_csrf: context.csrf,
+				id: queue,
+			}),
+			keepalive: true
+		});
+		if (!resp.ok) {
+			for (let i = queue.length - 1; i >= 0; i--) {
+				const div = document.getElementById('flux_' + queue[i]);
+				div.querySelectorAll('a.read > .icon').forEach(icon => {
+					icon.outerHTML = div.classList.contains('not_read') ? context.icons.unread : context.icons.read;
 				});
-				div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
-				inc--;
-				if (context.auto_remove_article) {
-					removeArticle(div);
-				}
-			} else {
-				div.classList.add('not_read');
-				div.classList.add('keep_unread');	// Split for IE11
-				div.querySelectorAll('a.read').forEach(function (a) {
-					a.href = a.href.replace('&is_read=1', '');
-				});
-				div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.unread; });
-				inc++;
+				delete pending_entries['flux_' + queue[i]];
 			}
-			const feed_link = div.querySelector('.website > a, a.website');
-			if (feed_link) {
-				const feed_url = feed_link.href;
-				const feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
-				incUnreadsFeed(div, feed_id, inc);
+			badAjax(resp.status == 403);
+			return;
+		}
+		json = await resp.json();
+	} catch (e) {
+		console.error(e.message);
+		badAjax();
+		return;
+	}
+	for (let i = queue.length - 1; i >= 0; i--) {
+		const div = document.getElementById('flux_' + queue[i]);
+		const myIcons = context.icons;
+		let inc = 0;
+		if (div.classList.contains('not_read')) {
+			div.classList.remove('not_read');
+			div.querySelectorAll('a.read').forEach(function (a) {
+				a.href = a.href.replace('&is_read=0', '') + '&is_read=1';
+			});
+			div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.read; });
+			inc--;
+			if (context.auto_remove_article) {
+				removeArticle(div);
 			}
-			delete pending_entries['flux_' + queue[i]];
+		} else {
+			div.classList.add('not_read');
+			div.classList.add('keep_unread');	// Split for IE11
+			div.querySelectorAll('a.read').forEach(function (a) {
+				a.href = a.href.replace('&is_read=1', '');
+			});
+			div.querySelectorAll('a.read > .icon').forEach(function (img) { img.outerHTML = myIcons.unread; });
+			inc++;
 		}
-		faviconNbUnread();
-		if (json.tags) {
-			const tagIds = Object.keys(json.tags);
-			for (let i = tagIds.length - 1; i >= 0; i--) {
-				const tagId = tagIds[i];
-				incUnreadsTag(tagId, (asRead ? -1 : 1) * json.tags[tagId].length);
-			}
+		const feed_link = div.querySelector('.website > a, a.website');
+		if (feed_link) {
+			const feed_url = feed_link.href;
+			const feed_id = feed_url.substr(feed_url.lastIndexOf('f_'));
+			incUnreadsFeed(div, feed_id, inc);
 		}
-		toggle_bigMarkAsRead_button();
-		onScroll();
-		if (callback) {
-			callback();
+		delete pending_entries['flux_' + queue[i]];
+		// Let extensions know an entry finished being marked as read/unread
+		document.dispatchEvent(new CustomEvent('freshrss:entryStateChange', {
+			detail: {
+				id: queue[i],
+				isRead: !div.classList.contains('not_read'),
+			},
+		}));
+	}
+	faviconNbUnread();
+	if (json.tags) {
+		const tagIds = Object.keys(json.tags);
+		for (let i = tagIds.length - 1; i >= 0; i--) {
+			const tagId = tagIds[i];
+			incUnreadsTag(tagId, (asRead ? -1 : 1) * json.tags[tagId].length);
 		}
-	};
-	req.setRequestHeader('Content-Type', 'application/json');
-	req.send(JSON.stringify({
-		ajax: true,
-		_csrf: context.csrf,
-		id: queue,
-	}));
+	}
+	toggle_bigMarkAsRead_button();
+	onScroll();
+	if (callback) {
+		callback();
+	}
 }
 
 let send_mark_read_queue_timeout = 0;
@@ -303,6 +337,12 @@ function mark_read(div, only_not_read, asBatch) {
 		return false;
 	}
 	pending_entries[div.id] = true;
+
+	div.querySelectorAll('a.read > .icon').forEach(icon => {
+		icon.src = context.icons.spinner;
+		icon.alt = '⏳';
+		icon.classList.add('spinner');
+	});
 
 	const asRead = div.classList.contains('not_read');
 	const entryId = div.id.replace(/^flux_/, '');
@@ -340,10 +380,26 @@ function mark_favorite(div) {
 	}
 	pending_entries[div.id] = true;
 
+	let originalIcon;
+
+	div.querySelectorAll('a.bookmark > .icon').forEach(icon => {
+		originalIcon = {
+			src: icon.getAttribute('src'),
+			alt: icon.getAttribute('alt')
+		};
+		icon.src = context.icons.spinner;
+		icon.alt = '⏳';
+		icon.classList.add('spinner');
+	});
+
 	const req = new XMLHttpRequest();
 	req.open('POST', url, true);
 	req.responseType = 'json';
 	req.onerror = function (e) {
+		div.querySelectorAll('a.bookmark > .icon').forEach(icon => {
+			icon.src = originalIcon.src;
+			icon.alt = originalIcon.alt;
+		});
 		delete pending_entries[div.id];
 		badAjax(this.status == 403);
 	};
@@ -383,15 +439,25 @@ function mark_favorite(div) {
 
 		delete pending_entries[div.id];
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		ajax: true,
 		_csrf: context.csrf,
 	}));
 }
 
-const freshrssOpenArticleEvent = document.createEvent('Event');
-freshrssOpenArticleEvent.initEvent('freshrss:openArticle', true, true);
+const freshrssOpenArticleEvent = new Event('freshrss:openArticle', { bubbles: true, cancelable: true });
+
+function loadLazyImages(rootElement) {
+	rootElement.querySelectorAll('img[data-original], iframe[data-original], video[data-original], track[data-original]').forEach(function (el) {
+		if (el.tagName === 'VIDEO') {
+			el.poster = el.getAttribute('data-original');
+		} else {
+			el.src = el.getAttribute('data-original');
+		}
+		el.removeAttribute('data-original');
+	});
+}
 
 function toggleContent(new_active, old_active, skipping) {
 	// If skipping, move current without activating or marking as read
@@ -400,11 +466,22 @@ function toggleContent(new_active, old_active, skipping) {
 	}
 
 	if (context.does_lazyload && !skipping) {
-		new_active.querySelectorAll('img[data-original], iframe[data-original]').forEach(function (el) {
-			el.src = el.getAttribute('data-original');
-			el.removeAttribute('data-original');
-		});
+		loadLazyImages(new_active);
 	}
+
+	const relative_move = context.current_view === 'global';
+	const box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
+
+	const old_scrollTop = box_to_move.scrollTop;
+	const old_offsetTop = new_active.offsetTop;
+
+	const nav_menu = document.querySelector('.nav_menu');
+	let nav_menu_height = 0;
+	if (nav_menu && (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky')) {
+		nav_menu_height = nav_menu.offsetHeight;
+	}
+
+	const flux_header = new_active.querySelector('.flux_header');
 
 	if (old_active !== new_active) {
 		if (!skipping) {
@@ -422,18 +499,22 @@ function toggleContent(new_active, old_active, skipping) {
 		new_active.classList.toggle('active');
 	}
 
-	const relative_move = context.current_view === 'global';
-	const box_to_move = relative_move ? document.getElementById('panel') : document.scrollingElement;
+	const new_offsetTop = new_active.offsetTop;
+	const layout_shift = new_offsetTop - old_offsetTop;
 
-	if (context.sticky_post) {	// Stick the article to the top when opened
-		const prev_article = new_active.previousElementSibling;
-		const nav_menu = document.querySelector('.nav_menu');
-		let nav_menu_height = 0;
+	const prev_article = new_active.previousElementSibling;
 
-		if (getComputedStyle(nav_menu).position === 'fixed' || getComputedStyle(nav_menu).position === 'sticky') {
-			nav_menu_height = nav_menu.offsetHeight;
+	let header_above_viewport = false;
+
+	if (!context.sticky_post) {
+		// Compensate for layout shift to maintain visual position
+		box_to_move.scrollTop = old_scrollTop + layout_shift;
+		if (flux_header) {
+			header_above_viewport = flux_header.getBoundingClientRect().top < nav_menu_height;
 		}
+	}
 
+	if (context.sticky_post || header_above_viewport) {	// Stick the article to the top when opened, or when header is off-screen
 		let new_pos = new_active.offsetParent.offsetTop + new_active.offsetTop - nav_menu_height;
 
 		if (prev_article && prev_article.offsetParent && new_active.offsetTop - prev_article.offsetTop <= 150) {
@@ -449,6 +530,23 @@ function toggleContent(new_active, old_active, skipping) {
 		}
 
 		box_to_move.scrollTop = new_pos;
+	} else {
+		// If the header is below the viewport, scroll down just enough to bring it fully into view
+		if (flux_header) {
+			let bottom = flux_header.getBoundingClientRect().bottom;
+			const inner_header = new_active.querySelector('.flux_content header');
+			if (inner_header) {
+				bottom = Math.max(bottom, inner_header.getBoundingClientRect().bottom);
+			}
+			let overflow = bottom - window.innerHeight;
+			if (overflow > 0) {
+				const max_overflow = flux_header.getBoundingClientRect().top - nav_menu_height;
+				if (overflow > max_overflow) {
+					overflow = max_overflow > 0 ? max_overflow : 0;
+				}
+				box_to_move.scrollTop += overflow;
+			}
+		}
 	}
 
 	if (new_active.classList.contains('active') && !skipping) {
@@ -472,6 +570,9 @@ function prev_entry(skipping) {
 	} else {
 		new_active = document.querySelector('.flux');
 	}
+	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+		mark_read(new_active, true, true);
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
@@ -487,6 +588,9 @@ function next_entry(skipping) {
 	} else {
 		new_active = document.querySelector('.flux');
 	}
+	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+		mark_read(new_active, true, true);
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
@@ -497,15 +601,18 @@ function next_unread_entry(skipping) {
 		do new_active = new_active.nextElementSibling;
 		while (new_active && !new_active.classList.contains('not_read'));
 		if (!new_active) {
-			next_feed();
+			next_feed(true);
 		}
 	} else {
 		new_active = document.querySelector('.not_read');
 	}
+	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+		mark_read(new_active, true, true);
+	}
 	toggleContent(new_active, old_active, skipping);
 }
 
-function prev_feed() {
+function prev_feed(jump_to_unread) {
 	let found = false;
 	let adjacent = null;
 	const feeds = document.querySelectorAll('#aside_feed .feed');
@@ -521,20 +628,21 @@ function prev_feed() {
 		if (getComputedStyle(feed).display === 'none') {
 			continue;
 		}
-		if (feed.dataset.unread != 0) {
-			return delayedClick(feed.querySelector('a.item-title'));
+		if (jump_to_unread && feed.dataset.unread != 0) {
+			delayedClick(feed.querySelector('a.item-title'));
+			return;
 		} else if (adjacent === null) {
 			adjacent = feed;
 		}
 	}
-	if (found) {
+	if (found && adjacent) {
 		delayedClick(adjacent.querySelector('a.item-title'));
 	} else {
 		last_feed();
 	}
 }
 
-function next_feed() {
+function next_feed(jump_to_unread) {
 	let found = false;
 	let adjacent = null;
 	const feeds = document.querySelectorAll('#aside_feed .feed');
@@ -550,13 +658,14 @@ function next_feed() {
 		if (getComputedStyle(feed).display === 'none') {
 			continue;
 		}
-		if (feed.dataset.unread != 0) {
-			return delayedClick(feed.querySelector('a.item-title'));
+		if (jump_to_unread && feed.dataset.unread != 0) {
+			delayedClick(feed.querySelector('a.item-title'));
+			return;
 		} else if (adjacent === null) {
 			adjacent = feed;
 		}
 	}
-	if (found) {
+	if (found && adjacent) {
 		delayedClick(adjacent.querySelector('a.item-title'));
 	} else {
 		first_feed();
@@ -582,7 +691,7 @@ function prev_category() {
 		do cat = cat.previousElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		last_category();
@@ -596,7 +705,7 @@ function next_category() {
 		do cat = cat.nextElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -610,7 +719,7 @@ function next_unread_category() {
 		do cat = cat.nextElementSibling;
 		while (cat && cat.getAttribute('data-unread') <= 0);
 		if (cat) {
-			delayedClick(cat.querySelector('a.title'));
+			delayedClick(cat.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -618,12 +727,12 @@ function next_unread_category() {
 }
 
 function first_category() {
-	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.title');
+	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
 	delayedClick(a);
 }
 
 function last_category() {
-	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.title');
+	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
 	if (links && links.length > 0) {
 		delayedClick(links[links.length - 1]);
 	}
@@ -674,19 +783,110 @@ function user_filter(key) {
 	}
 }
 
+async function show_labels_menu(el) {
+	const div = el.parentElement;
+	const dropdownMenu = div.querySelector('.dropdown-menu');
+
+	if (!dropdownMenu || forceReloadLabelsList) {
+		if (dropdownMenu) {
+			dropdownMenu.nextElementSibling.remove();
+			dropdownMenu.remove();
+		}
+
+		const templateId = 'labels_article_template';
+		const template = document.getElementById(templateId).innerHTML;
+		div.insertAdjacentHTML('beforeend', template);
+
+		return loadDynamicTags(div.closest('.dynamictags'));
+	}
+	return true;
+}
+
+function show_share_menu(el) {
+	const div = el.parentElement;
+	const dropdownMenu = div.querySelector('.dropdown-menu');
+
+	if (!dropdownMenu) {
+		const itemId = el.closest('.flux').dataset.entry;
+		const templateId = 'share_article_template';
+		const id = itemId;
+		const flux_header_el = el.closest('.flux');
+		const title_el = flux_header_el.querySelector('.item.titleAuthorSummaryDate .item-element.title');
+		const websiteName = ' - ' + flux_header_el.querySelector('.flux_header').dataset.websiteName;
+		const articleAuthors = flux_header_el.querySelector('.flux_header').dataset.articleAuthors;
+		let articleAuthorsText = '';
+		if (articleAuthors.trim().length > 0) {
+			articleAuthorsText = ' (' + articleAuthors + ')';
+		}
+		const link = title_el.href;
+		const title = title_el.textContent;
+		const titleText = title;
+		const template = document.getElementById(templateId).innerHTML
+			.replace(/--entryId--/g, id)
+			.replace(/--link--/g, link)
+			.replace(/--titleText--/g, titleText)
+			.replace(/--websiteName--/g, websiteName)
+			.replace(/--articleAuthors--/g, articleAuthorsText);
+
+		div.insertAdjacentHTML('beforeend', template);
+	}
+	return true;
+}
+
+async function mylabels(key) {
+	const mylabelsDropdown = document.querySelector('.flux.current.active .dropdown-target[id^="dropdown-labels"]');
+
+	if (!mylabelsDropdown) {
+		return;
+	}
+
+	if (typeof key === 'undefined') {
+		await show_labels_menu(mylabelsDropdown);
+	}
+	// Display the mylabels div
+	location.hash = mylabelsDropdown.id;
+	// Force scrolling to the mylabels div
+	const scrollTop = needsScroll(mylabelsDropdown.closest('.horizontal-list'));
+	if (scrollTop !== 0) {
+		if (mylabelsDropdown.closest('.horizontal-list.flux_header')) {
+			mylabelsDropdown.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "start" });
+		} else {
+			mylabelsDropdown.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "end" });
+		}
+	}
+
+	key = parseInt(key);
+
+	if (key === 0) {
+		mylabelsDropdown.parentElement.querySelector('.dropdown-menu .item .newTag').focus();
+	} else {
+		const mylabelsCheckboxes = mylabelsDropdown.parentElement.querySelectorAll('.dropdown-menu .item .checkboxTag');
+
+		if (key <= mylabelsCheckboxes.length) {
+			mylabelsCheckboxes[key].click();
+		}
+	}
+}
+
 function auto_share(key) {
 	const share = document.querySelector('.flux.current.active .dropdown-target[id^="dropdown-share"]');
 	if (!share) {
 		return;
 	}
-	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item a');
+	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	if (typeof key === 'undefined') {
+		show_share_menu(share);
+
 		// Display the share div
 		location.hash = share.id;
 		// Force scrolling to the share div
-		const scrollTop = needsScroll(share.closest('.bottom'));
+		const scrollTop = needsScroll(share.closest('.horizontal-list'));
 		if (scrollTop !== 0) {
-			document.scrollingElement.scrollTop = scrollTop;
+			if (share.closest('.horizontal-list.flux_header')) {
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "start" });
+			} else {
+				share.nextElementSibling.nextElementSibling.scrollIntoView({ behavior: "smooth", block: "end" });
+			}
 		}
 		// Force the key value if there is only one action, so we can trigger it automatically
 		if (shares.length === 1) {
@@ -735,20 +935,23 @@ function onScroll() {
 	}
 }
 
+let lastScroll = 0;	// Throttle
+let timerId = 0;
+function debouncedOnScroll() {
+	clearTimeout(timerId);
+	if (lastScroll + 500 < Date.now()) {
+		lastScroll = Date.now();
+		onScroll();
+	} else {
+		timerId = setTimeout(onScroll, 500);
+	}
+}
+
 function init_posts() {
 	if (context.auto_load_more || context.auto_mark_scroll || context.auto_remove_article) {
 		box_to_follow = context.current_view === 'global' ? document.getElementById('panel') : document.scrollingElement;
-		let lastScroll = 0;	// Throttle
-		let timerId = 0;
-		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = function () {
-			clearTimeout(timerId);
-			if (lastScroll + 500 < Date.now()) {
-				lastScroll = Date.now();
-				onScroll();
-			} else {
-				timerId = setTimeout(onScroll, 500);
-			}
-		};
+		(box_to_follow === document.scrollingElement ? window : box_to_follow).onscroll = debouncedOnScroll;
+		window.addEventListener('resize', debouncedOnScroll);
 		onScroll();
 	}
 
@@ -760,6 +963,69 @@ function init_posts() {
 			document.styleSheets[0].cssRules.length
 		);
 	}
+}
+
+function toggle_aside_click(manual = true) {
+	const aside = document.querySelector('.aside');
+	const toggle_aside = document.querySelector('#nav_menu_toggle_aside button');
+	if (!toggle_aside) {
+		return;
+	}
+
+	const active = toggle_aside.classList.contains('active');
+	const isNarrow = window.matchMedia('(max-width: 840px)').matches;
+	if (active) {
+		toggle_aside.classList.remove('active');
+		aside.classList.remove('visible');
+		aside.classList.toggle('is-hidden', !isNarrow);
+	} else {
+		toggle_aside.classList.add('active');
+		aside.classList.add('visible');
+		aside.classList.remove('is-hidden');
+	}
+
+	if (manual && ['normal', 'reader'].includes(context.current_view)) {
+		sessionStorage.setItem(`FreshRSS_aside-toggled_${context.current_view}`, !active ? 1 : 0);
+	}
+}
+
+function init_nav_menu() {
+	const aside = document.querySelector('.aside');
+	const toggle_aside = document.querySelector('#nav_menu_toggle_aside button');
+	if (!toggle_aside) {
+		return;
+	}
+
+	function sync(e) {
+		const active = toggle_aside.classList.contains('active');
+		if ((e.matches && active) || (!e.matches && !active)) {
+			toggle_aside_click(false);
+		}
+	}
+
+	const media = window.matchMedia('(max-width: 840px)');
+	media.onchange = sync;
+
+	const state = sessionStorage.getItem(`FreshRSS_aside-toggled_${context.current_view}`);
+	if (state !== null) {
+		const active = toggle_aside.classList.contains('active');
+		if (state != active) toggle_aside_click(false);
+	}
+	if (toggle_aside.classList.contains('active')) {
+		if (context.current_view === 'normal') aside.classList.add('visible');
+		sync(media);
+	}
+	if (state === null && context.sidebar_hidden_by_default && ['normal', 'reader'].includes(context.current_view)) {
+		const active = toggle_aside.classList.contains('active');
+		if (active) toggle_aside_click(false);
+	}
+	const close_aside = [
+		document.querySelector('.aside a.toggle_aside'),
+		document.querySelector('a.close-aside'), // background of aside (#close)
+	];
+
+	toggle_aside.addEventListener('click', toggle_aside_click);
+	close_aside.forEach(close => close.addEventListener('click', toggle_aside_click));
 }
 
 function rememberOpenCategory(category_id, isOpen) {
@@ -778,7 +1044,7 @@ function openCategory(category_id) {
 	const category_element = document.getElementById(category_id);
 	if (!category_element) return;
 	category_element.querySelector('.tree-folder-items').classList.add('active');
-	const img = category_element.querySelector('a.dropdown-toggle img');
+	const img = category_element.querySelector('button.dropdown-toggle img');
 	if (!img) return;
 	img.src = img.src.replace('/icons/down.', '/icons/up.');
 	img.alt = '🔼';
@@ -800,9 +1066,6 @@ function init_column_categories() {
 		return;
 	}
 
-	// Restore sidebar scroll position
-	document.getElementById('sidebar').scrollTop = +sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
-
 	// Restore open categories
 	if (context.display_categories === 'remember') {
 		const open_categories = JSON.parse(localStorage.getItem('FreshRSS_open_categories') || '{}');
@@ -811,8 +1074,30 @@ function init_column_categories() {
 		});
 	}
 
-	document.getElementById('aside_feed').onclick = function (ev) {
-		let a = ev.target.closest('.tree-folder > .tree-folder-title > a.dropdown-toggle');
+	const sidebar_scrollTop = sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
+	if (sidebar_scrollTop) {
+		// Restore sidebar scroll position (navigated from sidebar or nav menu)
+		document.querySelector('ul#sidebar').scrollTop = +sidebar_scrollTop;
+		sessionStorage.removeItem('FreshRSS_sidebar_scrollTop');
+	} else {
+		// Scroll into filtered feed/category/label on sidebar (navigated from anywhere)
+		const params = new URLSearchParams(location.search);
+		const get = params.get('get');
+		if (params.has('get') && (get.startsWith('f_') || get.startsWith('c_') || get.startsWith('t_'))) {
+			const selectedEl = document.getElementById(get);
+			if (selectedEl) {
+				selectedEl.scrollIntoView({ block: !get.startsWith('c_') ? 'center' : 'start' });
+				document.documentElement.scrollTop = 0; // Prevent unwanted scroll of page
+			}
+		}
+	}
+
+	const asideFeed = document.getElementById('aside_feed');
+	if (!asideFeed) {
+		return;
+	}
+	asideFeed.onclick = function (ev) {
+		let a = ev.target.closest('.tree-folder > .tree-folder-title > button.dropdown-toggle');
 		if (a) {
 			const icon = a.querySelector('.icon');
 			const category_id = a.closest('.category').id;
@@ -849,33 +1134,61 @@ function init_column_categories() {
 
 		a = ev.target.closest('.tree-folder-items > .feed .dropdown-toggle');
 		if (a) {
-			loadJs('extra.js');
-			loadJs('feed.js');
-			const itemId = a.closest('.item').id;
-			const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
-			const id = itemId.substr(2);
-			const feed_web = a.getAttribute('data-fweb');
 			const div = a.parentElement;
-			const dropdownMenu = div.querySelector('.dropdown-menu');
-			const template = document.getElementById(templateId)
-				.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
+			let dropdownMenu = div.querySelector('.dropdown-menu');
+
 			if (!dropdownMenu) {
-				a.href = '#dropdown-' + id;
-				div.querySelector('.dropdown-target').id = 'dropdown-' + id;
+				loadJs('extra.js');
+				loadJs('feed.js');
+				const itemId = a.closest('.item').id;
+				const templateId = itemId.substring(0, 2) === 't_' ? 'tag_config_template' : 'feed_config_template';
+				const id = itemId.substr(2);
+				const feed_web = a.getAttribute('data-fweb') || '';
+				const template = document.getElementById(templateId)
+					.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
 				div.insertAdjacentHTML('beforeend', template);
-				if (feed_web.length < 1) {
-					div.querySelector('.item.link.website').remove();
+				dropdownMenu = div.querySelector('.dropdown-menu');
+				dropdownMenu.style.opacity = '0%'; // Hide initially to prevent dropdown flashing
+				if (feed_web == '') {
+					const website = div.querySelector('.item.link.website');
+					if (website) {
+						website.remove();
+					}
 				}
 				const b = div.querySelector('button.confirm');
 				if (b) {
 					b.disabled = false;
 				}
-			} else if (getComputedStyle(dropdownMenu).display === 'none') {
-				const id2 = div.closest('.item').id.substr(2);
-				a.href = '#dropdown-' + id2;
-			} else {
-				a.href = '#close';
 			}
+
+			window.addEventListener('hashchange', () => {
+				const dropdownBottom = dropdownMenu.getBoundingClientRect().bottom;
+				const toggleHeight = a.getBoundingClientRect().height;
+				const navbarHeight = document.querySelector('nav#nav_entries')?.getBoundingClientRect()?.height || 0;
+
+				// If there is no space to display the dropdown below, display it above
+				if (dropdownBottom > window.innerHeight - navbarHeight) {
+					dropdownMenu.style.bottom = `${toggleHeight + 2}px`;
+					dropdownMenu.classList.add('arrow-bottom');
+				}
+
+				dropdownMenu.style.opacity = '';
+
+				// Wait for dropdown to be closed so it can be removed
+				// Dropdown visibility is based on CSS :target
+				window.addEventListener('hashchange', () => {
+					dropdownMenu.nextElementSibling.remove(); // .dropdown-close
+					dropdownMenu.remove();
+				}, { once: true });
+			}, { once: true });
+
+			if (location.hash === a.getAttribute('href')) {
+				// Forcefully trigger the hashchange event listener above in order to show the dropdown
+				// This is needed because the same hash remained from a previous page load
+				// or due to use of back/forward buttons
+				window.dispatchEvent(new Event('hashchange'));
+			}
+
 			return true;
 		}
 
@@ -889,8 +1202,7 @@ function init_shortcuts() {
 	});
 
 	document.addEventListener('keydown', ev => {
-		if (ev.target.closest('input, textarea') ||
-				ev.ctrlKey || ev.metaKey || (ev.altKey && ev.shiftKey)) {
+		if (ev.ctrlKey || ev.metaKey || (ev.altKey && ev.shiftKey) || ev.target.closest('input, select, textarea')) {
 			return;
 		}
 
@@ -904,11 +1216,19 @@ function init_shortcuts() {
 
 		if (location.hash.match(/^#dropdown-/)) {
 			const n = parseInt(k);
-			if (n) {
-				if (location.hash === '#dropdown-query') {
-					user_filter(n);
-				} else {
-					auto_share(n);
+			if (Number.isInteger(n)) {
+				switch (location.hash.substring(0, 15)) {
+					case '#dropdown-query':
+						user_filter(n);
+						break;
+					case '#dropdown-share':
+						auto_share(n);
+						break;
+					case '#dropdown-label':
+						mylabels(n);
+						break;
+					default:
+						return;
 				}
 				ev.preventDefault();
 				return;
@@ -926,7 +1246,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				next_category();
 			} else if (ev.shiftKey) {
-				next_feed();
+				next_feed(false);
 			} else {
 				next_entry(false);
 			}
@@ -937,7 +1257,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				next_unread_category();
 			} else if (ev.shiftKey) {
-				next_feed();
+				next_feed(true);
 			} else {
 				next_unread_entry(false);
 			}
@@ -948,7 +1268,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				prev_category();
 			} else if (ev.shiftKey) {
-				prev_feed();
+				prev_feed(false);
 			} else {
 				prev_entry(false);
 			}
@@ -996,6 +1316,10 @@ function init_shortcuts() {
 			ev.preventDefault();
 			return;
 		}
+		if (ev.key === '?') {
+			window.location.href = context.urls.shortcuts;
+			return;
+		}
 
 		if (ev.altKey || ev.shiftKey) {
 			return;
@@ -1012,29 +1336,31 @@ function init_shortcuts() {
 
 			const link_go_website = document.querySelector('.flux.current a.go_website');
 			if (link_go_website) {
-				const newWindow = window.open();
-				if (newWindow) {
-					newWindow.opener = null;
-					newWindow.location = link_go_website.href;
-					ev.preventDefault();
-				}
+				window.open(link_go_website.href, '_blank', 'noopener');
+				ev.preventDefault();
 			}
 			return;
 		}
+		const hash = location.hash.substr(1);
 		if (k === s.skip_next_entry) { next_entry(true); ev.preventDefault(); return; }
 		if (k === s.skip_prev_entry) { prev_entry(true); ev.preventDefault(); return; }
 		if (k === s.collapse_entry) { collapse_entry(); ev.preventDefault(); return; }
+		if (k === s.mylabels) { mylabels(); ev.preventDefault(); return; }
 		if (k === s.auto_share) { auto_share(); ev.preventDefault(); return; }
 		if (k === s.user_filter) { user_filter(); ev.preventDefault(); return; }
 		if (k === s.load_more) { load_more_posts(); ev.preventDefault(); return; }
-		if (k === s.close_dropdown) { location.hash = null; ev.preventDefault(); return; }
+		/* globals close_slider_listener */
+		if (k === s.close_menus && (
+			(hash === 'slider' && close_slider_listener()) ||
+			hash.startsWith('dropdown')
+		)) { location.hash = 'close'; ev.preventDefault(); return; }
 		if (k === s.help) { window.open(context.urls.help); ev.preventDefault(); return; }
 		if (k === s.focus_search) { document.getElementById('search').focus(); ev.preventDefault(); return; }
 		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); ev.preventDefault(); return; }
 		if (k === s.reading_view) { delayedClick(document.querySelector('#nav_menu_views .view-reader')); ev.preventDefault(); return; }
 		if (k === s.global_view) { delayedClick(document.querySelector('#nav_menu_views .view-global')); ev.preventDefault(); return; }
-		if (k === s.rss_view) { delayedClick(document.querySelector('#nav_menu_views .view-rss')); ev.preventDefault(); return; }
 		if (k === s.toggle_media) { toggle_media(); ev.preventDefault(); }
+		if (k === s.toggle_aside) { toggle_aside_click(); ev.preventDefault(); }
 	});
 }
 
@@ -1052,13 +1378,7 @@ function init_stream(stream) {
 			return false;
 		}
 
-		el = ev.target.closest('.dynamictags');
-		if (el) {
-			loadDynamicTags(el);
-			return true;
-		}
-
-		el = ev.target.closest('.item.title > a');
+		el = ev.target.closest('.item a.title');
 		if (el) {	// Allow default control/command-click behaviour such as open in background-tab
 			return ev.ctrlKey || ev.metaKey;
 		}
@@ -1072,17 +1392,91 @@ function init_stream(stream) {
 			return true;
 		}
 
+		el = ev.target.closest('.item.labels a.dropdown-toggle');
+		if (el) {
+			return show_labels_menu(el);
+		}
+
+		el = ev.target.closest('.item.share a.dropdown-toggle');
+		if (el) {
+			return show_share_menu(el);
+		}
+
 		el = ev.target.closest('.item.share > button[data-type="print"]');
 		if (el) {	// Print
-			const tmp_window = window.open();
-			for (let i = 0; i < document.styleSheets.length; i++) {
-				tmp_window.document.writeln('<link href="' + document.styleSheets[i].href + '" rel="stylesheet" type="text/css" />');
+			const html = document.documentElement;
+			const head = document.head.cloneNode(true);
+			head.querySelectorAll('script').forEach(js => js.remove());
+
+			const flux_content = el.closest('.flux_content');
+			let content_el = null;
+			if (flux_content) {
+				content_el = el.closest('.flux_content').querySelector('.content').cloneNode(true);
 			}
-			tmp_window.document.writeln(el.closest('.flux_content').querySelector('.content').innerHTML);
-			tmp_window.document.close();
-			tmp_window.focus();
-			tmp_window.print();
-			tmp_window.close();
+			if (content_el === null) {
+				content_el = el.closest('.flux').querySelector('.flux_content .content').cloneNode(true);
+			}
+
+			content_el.querySelectorAll('a').forEach(link => {
+				// Avoid leaking the instance URL in PDFs
+				if (link.href.startsWith(location.origin)) {
+					link.removeAttribute('href');
+				}
+			});
+
+			content_el.querySelectorAll('details').forEach(el => el.setAttribute('open', 'open'));
+
+			const articleTitle = content_el.querySelector('.title a').innerText;
+			prevTitle = document.title;
+
+			// Chrome uses the parent's title to get the PDF save filename
+			document.title = articleTitle;
+
+			// Firefox uses the iframe's title to get the PDF save filename
+			// Note: Firefox Mobile saves PDFs with a filename that looks like: `temp[19 random digits].PDF` regardless of title
+			head.querySelector('title').innerText = articleTitle;
+
+			loadLazyImages(content_el);
+
+			const print_frame = document.createElement('iframe');
+			print_frame.style.display = 'none';
+			print_frame.srcdoc = `
+			<!DOCTYPE html>
+			<html class="${html.getAttribute('class')}">
+			<head>
+				${head.innerHTML}
+			</head>
+			<body>
+				${content_el.outerHTML}
+			</body>
+			</html>
+			`;
+			document.body.prepend(print_frame);
+
+			function afterPrint() {
+				print_frame.remove();
+				document.title = prevTitle;
+				prevTitle = '';
+
+				window.removeEventListener('focus', afterPrint);
+			}
+
+			print_frame.onload = () => {
+				const tmp_window = print_frame.contentWindow;
+
+				// Needed for Chrome
+				tmp_window.matchMedia('print').onchange = (e) => {
+					// UA check is needed to not trigger on Chrome Mobile
+					if (!e.matches && !navigator.userAgent.includes('Mobi')) {
+						afterPrint();
+					}
+				};
+				tmp_window.print();
+			};
+
+			// Needed for Firefox and Chrome Mobile
+			window.addEventListener('focus', afterPrint);
+
 			return false;
 		}
 
@@ -1091,7 +1485,7 @@ function init_stream(stream) {
 			if (navigator.clipboard) {
 				navigator.clipboard.writeText(el.dataset.url)
 					.then(() => {
-						toggleClass(el, 'error');
+						toggleClass(el, 'ok');
 					})
 					.catch(e => {
 						console.log(e);
@@ -1144,7 +1538,7 @@ function init_stream(stream) {
 			if (ev.target.closest('.reader, .content, .item.website, .item.link, .dropdown')) {
 				return true;
 			}
-			if (!context.sides_close_article && ev.target.matches('.flux_content')) {
+			if ((!context.sides_close_article && ev.target.matches('.flux_content')) || ev.target.closest('footer')) {
 				// setting for not-closing after clicking outside article area
 				return false;
 			}
@@ -1161,38 +1555,48 @@ function init_stream(stream) {
 		}
 	};
 
-	stream.onmouseup = function (ev) {	// Mouseup enables us to catch middle click, and control+click in IE/Edge
-		if (ev.altKey || ev.metaKey || ev.shiftKey) {
+	stream.onmouseup = function (ev) {	// Mouseup enables us to catch control+click in IE/Edge
+		if (ev.altKey || ev.metaKey || ev.shiftKey || ev.which != 1) {
 			return;
 		}
 
-		let el = ev.target.closest('.item.title > a');
+		let el = ev.target.closest('.item a.title');
 		if (el) {
-			if (ev.which == 1) {
-				if (ev.ctrlKey) {	// Control+click
-					if (context.auto_mark_site) {
-						mark_read(el.closest('.flux'), true, false);
-					}
-				} else {
-					el.parentElement.click();	// Normal click, just toggle article.
+			if (ev.ctrlKey) {	// Control+click
+				if (context.auto_mark_site) {
+					mark_read(el.closest('.flux'), true, false);
 				}
-			} else if (ev.which == 2 && !ev.ctrlKey) {	// Simple middle click: same behaviour as CTRL+click
-				if (context.auto_mark_article) {
-					const new_active = el.closest('.flux');
-					mark_read(new_active, true, false);
-				}
+			} else {
+				el.parentElement.click();	// Normal click, just toggle article.
 			}
 			return;
 		}
 
 		if (context.auto_mark_site) {
-			// catch mouseup instead of click so we can have the correct behaviour
-			// with middle button click (scroll button).
 			el = ev.target.closest('.flux .link > a');
 			if (el) {
-				if (ev.which == 3) {
-					return;
-				}
+				mark_read(el.closest('.flux'), true, false);
+			}
+		}
+	};
+
+	stream.onauxclick = function (ev) {	// Auxclick enables us to catch middle click
+		if (ev.altKey || ev.metaKey || ev.shiftKey || ev.which != 2 || ev.ctrlKey) {
+			return;
+		}
+
+		let el = ev.target.closest('.item a.title');
+		if (el) {
+			if (context.auto_mark_article) {
+				const new_active = el.closest('.flux');
+				mark_read(new_active, true, false);
+			}
+			return;
+		}
+
+		if (context.auto_mark_site) {
+			el = ev.target.closest('.flux .link > a');
+			if (el) {
 				mark_read(el.closest('.flux'), true, false);
 			}
 		}
@@ -1228,10 +1632,28 @@ function init_stream(stream) {
 				req.onloadend = function (e) {
 					checkboxTag.disabled = false;
 					if (tagId == 0) {
+						// new tag is added
+						forceReloadLabelsList = true;
 						loadDynamicTags(checkboxTag.closest('div.dropdown'));
+					} else {
+						// a tag was (un)checked
+						const dropdownmenu_current = ev.target.closest('.dropdown-menu');
+						const flux = ev.target.closest('.flux');
+						const dropdownmenu_all = flux.querySelectorAll('.dynamictags .dropdown-menu');
+						if (dropdownmenu_all.length > 1) {
+							// delete all other tag dropdown menus except the current one
+							dropdownmenu_all.forEach(
+								function (currentValue) {
+									if (currentValue !== dropdownmenu_current) {
+										currentValue.nextElementSibling.remove();
+										currentValue.parentNode.removeChild(currentValue);
+									}
+								}
+							);
+						}
 					}
 				};
-				req.setRequestHeader('Content-Type', 'application/json');
+				req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 				req.send(JSON.stringify({
 					_csrf: context.csrf,
 					id_tag: tagId,
@@ -1279,89 +1701,98 @@ function init_nav_entries() {
 	}
 }
 
-function loadDynamicTags(div) {
-	div.classList.remove('dynamictags');
+// forceReloadLabelsList default is false, so that the list does need a reload after opening it a second time.
+// will be set to true, if a new tag is added. Then the labels list will be reloaded each opening.
+// purpose of this flag: minimize the network traffic.
+let forceReloadLabelsList = false;
+
+async function loadDynamicTags(div) {
 	div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
 	const entryId = div.closest('div.flux').id.replace(/^flux_/, '');
 
-	const req = new XMLHttpRequest();
-	req.open('GET', './?c=tag&a=getTagsForEntry&id_entry=' + entryId, true);
-	req.responseType = 'json';
-	req.onerror = function (e) {
+	let json;
+	try {
+		const response = await fetch('./?c=tag&a=getTagsForEntry&id_entry=' + entryId, {
+			headers: {
+				'Accept': 'application/json',
+			}
+		});
+		if (!response.ok) {
+			throw new Error('HTTP error ' + response.status);
+		}
+		json = await response.json();
+	} catch (ex) {
 		div.querySelectorAll('li.item').forEach(function (li) { li.remove(); });
-		div.classList.add('dynamictags');
-	};
-	req.onload = function (e) {
-		if (this.status != 200) {
-			return req.onerror(e);
-		}
-		const json = xmlHttpRequestJson(this);
-		if (!json) {
-			return req.onerror(e);
-		}
+		throw ex;
+	}
 
-		if (!context.anonymous) {
-			const li_item0 = document.createElement('li');
-			li_item0.setAttribute('class', 'item addItem');
+	if (!context.anonymous) {
+		const li_item0 = document.createElement('li');
+		li_item0.setAttribute('class', 'item addItem');
 
-			const label = document.createElement('label');
-			label.setAttribute('class', 'noHover');
+		const label = document.createElement('label');
+		label.setAttribute('class', 'noHover');
 
-			const input_checkboxTag = document.createElement('input');
-			input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
-			input_checkboxTag.setAttribute('name', 't_0');
-			input_checkboxTag.setAttribute('type', 'checkbox');
+		const input_checkboxTag = document.createElement('input');
+		input_checkboxTag.setAttribute('class', 'checkboxTag checkboxNewTag');
+		input_checkboxTag.setAttribute('name', 't_0');
+		input_checkboxTag.setAttribute('type', 'checkbox');
 
-			const input_newTag = document.createElement('input');
-			input_newTag.setAttribute('type', 'text');
-			input_newTag.setAttribute('name', 'newTag');
-			input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
+		const input_newTag = document.createElement('input');
+		input_newTag.setAttribute('type', 'text');
+		input_newTag.setAttribute('name', 'newTag');
+		input_newTag.setAttribute('class', 'newTag');
+		input_newTag.setAttribute('list', 'datalist-labels');
+		input_newTag.addEventListener('keydown', function (ev) { if (ev.key.toUpperCase() == 'ENTER') { this.parentNode.previousSibling.click(); } });
 
-			const button_btn = document.createElement('button');
-			button_btn.setAttribute('type', 'button');
-			button_btn.setAttribute('class', 'btn');
-			button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
+		const button_btn = document.createElement('button');
+		button_btn.setAttribute('type', 'button');
+		button_btn.setAttribute('class', 'btn');
+		button_btn.addEventListener('click', function () { this.parentNode.parentNode.click(); });
 
-			const text_plus = document.createTextNode('+');
+		const text_plus = document.createTextNode('+');
 
-			const div_stick = document.createElement('div');
-			div_stick.setAttribute('class', 'stick');
+		const div_stick = document.createElement('div');
+		div_stick.setAttribute('class', 'stick');
 
-			button_btn.appendChild(text_plus);
-			div_stick.appendChild(input_newTag);
-			div_stick.appendChild(button_btn);
-			label.appendChild(input_checkboxTag);
-			label.appendChild(div_stick);
-			li_item0.appendChild(label);
+		button_btn.appendChild(text_plus);
+		div_stick.appendChild(input_newTag);
+		div_stick.appendChild(button_btn);
+		label.appendChild(input_checkboxTag);
+		label.appendChild(div_stick);
+		li_item0.appendChild(label);
 
-			div.querySelector('.dropdown-menu').appendChild(li_item0);
-		}
+		div.querySelector('.dropdown-menu-scrollable').appendChild(li_item0);
+	}
 
-		let html = '';
-		if (json && json.length) {
-			let nbLabelsChecked = 0;
-			for (let i = 0; i < json.length; i++) {
-				const tag = json[i];
-				if (context.anonymous && !tag.checked) {
-					// In anomymous mode, show only the used tags
-					continue;
-				}
-				if (tag.checked) {
-					nbLabelsChecked++;
-				}
-				html += '<li class="item"><label><input ' +
-					(context.anonymous ? '' : 'class="checkboxTag" ') +
-					'name="t_' + tag.id + '"type="checkbox" ' +
-					(context.anonymous ? 'disabled="disabled" ' : '') +
-					(tag.checked ? 'checked="checked" ' : '') + '/> ' + tag.name + '</label></li>';
+	let html = '';
+	let datalist = '';
+	if (json && json.length) {
+		let nbLabelsChecked = 0;
+		for (let i = 0; i < json.length; i++) {
+			const tag = json[i];
+			if (context.anonymous && !tag.checked) {
+				// In anonymous mode, show only the used tags
+				continue;
 			}
-			if (context.anonymous && nbLabelsChecked === 0) {
-				html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
+			if (tag.checked) {
+				nbLabelsChecked++;
 			}
+			html += '<li class="item"><label><input ' +
+				(context.anonymous ? '' : 'class="checkboxTag" ') +
+				'name="t_' + tag.id + '"type="checkbox" ' +
+				(context.anonymous ? 'disabled="disabled" ' : '') +
+				(tag.checked ? 'checked="checked" ' : '') + '/>' + tag.name + '</label></li>';
+			datalist += '<option value="' + tag.name + '"></option>';
 		}
-		div.querySelector('.dropdown-menu').insertAdjacentHTML('beforeend', html);
-	};
-	req.send();
+		if (context.anonymous && nbLabelsChecked === 0) {
+			html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
+		}
+	}
+	div.querySelector('.dropdown-menu-scrollable').insertAdjacentHTML('beforeend', html);
+	const datalistLabels = document.getElementById('datalist-labels');
+	datalistLabels.innerHTML = ''; // clear before add the (updated) labels list
+	datalistLabels.insertAdjacentHTML('beforeend', datalist);
 }
 
 // <actualize>
@@ -1392,7 +1823,7 @@ function refreshFeed(feeds, feeds_count) {
 			req2.onloadend = function (e) {
 				delayedFunction(function () { location.reload(); });
 			};
-			req2.setRequestHeader('Content-Type', 'application/json');
+			req2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 			req2.send(JSON.stringify({
 				_csrf: context.csrf,
 				noCommit: 0,
@@ -1401,7 +1832,7 @@ function refreshFeed(feeds, feeds_count) {
 			refreshFeed(feeds, feeds_count);
 		}
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		_csrf: context.csrf,
 		noCommit: 1,
@@ -1417,14 +1848,14 @@ function refreshFeeds(json) {
 		req2.onloadend = function (e) {
 			context.ajax_loading = false;
 		};
-		req2.setRequestHeader('Content-Type', 'application/json');
+		req2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		req2.send(JSON.stringify({
 			_csrf: context.csrf,
 			noCommit: 0,
 		}));
 	} else {
 		const feeds_count = json.feeds.length;
-		for (let i = 10; i > 0; i--) {
+		for (let i = context.nb_parallel_refresh; i > 0; i--) {
 			refreshFeed(json.feeds, feeds_count);
 		}
 	}
@@ -1452,7 +1883,7 @@ function refreshDynamicOpml(categories, categories_count, next) {
 			refreshDynamicOpml(categories, categories_count, next);
 		}
 	};
-	req.setRequestHeader('Content-Type', 'application/json');
+	req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 	req.send(JSON.stringify({
 		_csrf: context.csrf,
 		noCommit: 1,
@@ -1463,7 +1894,7 @@ function refreshDynamicOpmls(json, next) {
 	categories_processed = 0;
 	if (json.categories && json.categories.length > 0) {
 		const categories_count = json.categories.length;
-		for (let i = 10; i > 0; i--) {
+		for (let i = context.nb_parallel_refresh; i > 0; i--) {
 			refreshDynamicOpml(json.categories, categories_count, next);
 		}
 	} else {
@@ -1523,7 +1954,7 @@ function init_actualize() {
 				refreshFeeds(json);
 			}
 		};
-		req.setRequestHeader('Content-Type', 'application/json');
+		req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		req.send(JSON.stringify({
 			_csrf: context.csrf,
 		}));
@@ -1549,14 +1980,22 @@ function openNotification(msg, status) {
 	}
 	notification_working = true;
 	notification.querySelector('.msg').innerHTML = msg;
-	notification.className = 'notification';
-	notification.classList.add(status);
+
 	if (status == 'good') {
-		notification_interval = setTimeout(closeNotification, 4000);
+		if (context.closeNotification.good > 0) {
+			notification_interval = setTimeout(closeNotification, context.closeNotification.good);
+		} else {
+			notification.classList.add('closed');
+			notification_working = false;
+		}
 	} else {
 		// no status or f.e. status = 'bad', give some more time to read
-		notification_interval = setTimeout(closeNotification, 8000);
+		if (context.closeNotification.good > 0) {
+			notification_interval = setTimeout(closeNotification, context.closeNotification.bad);
+		}
 	}
+	notification.className = 'notification';
+	notification.classList.add(status);
 }
 
 function closeNotification() {
@@ -1568,7 +2007,7 @@ function closeNotification() {
 function init_notifications() {
 	notification = document.getElementById('notification');
 
-	notification.querySelector('a.close').addEventListener('click', function (ev) {
+	notification.querySelector('.close').addEventListener('click', function (ev) {
 		closeNotification();
 		ev.preventDefault();
 		return false;
@@ -1579,46 +2018,49 @@ function init_notifications() {
 	});
 
 	notification.addEventListener('mouseleave', function () {
-		notification_interval = setTimeout(closeNotification, 3000);
+		notification_interval = setTimeout(closeNotification, context.closeNotification.mouseLeave);
 	});
 
 	if (notification.querySelector('.msg').innerHTML.length > 0) {
 		notification_working = true;
 		if (notification.classList.contains('good')) {
-			notification_interval = setTimeout(closeNotification, 4000);
+			notification_interval = setTimeout(closeNotification, context.closeNotification.good);
 		} else {
 			// no status or f.e. status = 'bad', give some more time to read
-			notification_interval = setTimeout(closeNotification, 8000);
+			notification_interval = setTimeout(closeNotification, context.closeNotification.bad);
 		}
 	}
 }
 // </notification>
 
 // <notifs html5>
-let notifs_html5_permission = 'denied';
+context.notifs_html5_permission = 'denied';
 
 function notifs_html5_is_supported() {
 	return window.Notification !== undefined;
 }
 
-function notifs_html5_ask_permission() {
+async function notifs_html5_ask_permission() {
 	try {
-		window.Notification.requestPermission(function () {
-			notifs_html5_permission = window.Notification.permission;
-		});
+		context.notifs_html5_permission = await window.Notification.requestPermission();
 	} catch (e) {
+		// User denied
+		context.notifs_html5_permission = 'denied';
 	}
 }
 
-function notifs_html5_show(nb, nb_new) {
-	if (notifs_html5_permission !== 'granted') {
+function notifs_html5_show(body) {
+	if (!context.html5_enable_notif) {
+		return;	// from config
+	}
+	if (context.notifs_html5_permission !== 'granted') {
 		return;
 	}
 
 	try {
 		const notification = new window.Notification(context.i18n.notif_title_articles, {
 			icon: '../themes/icons/favicon-256-padding.png',
-			body: context.i18n.notif_body_new_articles.replace('%%d', nb_new) + ' ' + context.i18n.notif_body_unread_articles.replace('%%d', nb),
+			body: body,
 			tag: 'freshRssNewArticles',
 		});
 
@@ -1643,25 +2085,33 @@ function init_notifs_html5() {
 	if (!notifs_html5_is_supported()) {
 		return;
 	}
-
-	notifs_html5_permission = notifs_html5_ask_permission();
+	// from config, 1st run this should be true
+	if (!context.html5_enable_notif) {
+		return;
+	}
+	context.notifs_html5_permission = Notification.permission;
+	// Only ask if the user hasn’t answered yet
+	// otherwise they need to ask from settings > display
+	if (context.notifs_html5_permission === 'default') {
+		notifs_html5_ask_permission();
+	}
 }
 // </notifs html5>
 
 function refreshUnreads() {
+	const title = document.querySelector('.category.all .title');
+	const nb_unreads_before = title ? str2int(title.getAttribute('data-unread')) : 0;
 	const req = new XMLHttpRequest();
-	req.open('GET', './?c=javascript&a=nbUnreadsPerFeed', true);
+	req.open('GET', './?c=javascript&a=nbUnreadsPerFeed&previous_unread=' + encodeURIComponent(nb_unreads_before), true);
 	req.responseType = 'json';
 	req.onload = function (e) {
 		const json = xmlHttpRequestJson(this);
 		if (!json) {
-			return badAjax(false);
+			return badAjax(this.status >= 400 && this.status <= 499);
 		}
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;
 		let nbUnreadFeeds = 0;
-		const title = document.querySelector('.category.all .title');
-		const nb_unreads_before = title ? str2int(title.getAttribute('data-unread')) : 0;
 
 		Object.keys(json.feeds).forEach(function (feed_id) {
 			const nbUnreads = json.feeds[feed_id];
@@ -1673,7 +2123,7 @@ function refreshUnreads() {
 			if ((incUnreadsFeed(null, feed_id, nbUnreads - feed_unreads) || isAll) &&	// Update of current view?
 					(nbUnreads - feed_unreads > 0)) {
 				const newArticle = document.getElementById('new-article');
-				newArticle.setAttribute('aria-hidden', 'false');
+				newArticle.removeAttribute('hidden');
 				newArticle.style.display = 'block';
 				new_articles = true;
 			}
@@ -1706,8 +2156,7 @@ function refreshUnreads() {
 
 		if (nb_unreads > 0 && new_articles) {
 			faviconNbUnread(nb_unreads);
-			const nb_new = nb_unreads - nb_unreads_before;
-			notifs_html5_show(nb_unreads, nb_new);
+			notifs_html5_show(json.notifBody);
 		}
 	};
 	req.send();
@@ -1735,6 +2184,12 @@ let url_load_more = '';
 let load_more = false;
 let box_load_more = null;
 
+function remove_existing_posts() {
+	document.querySelectorAll('.flux, .transition').forEach(function (div) {
+		div.remove();
+	});
+}
+
 function load_more_posts() {
 	if (load_more || !url_load_more || !box_load_more) {
 		return;
@@ -1746,17 +2201,31 @@ function load_more_posts() {
 	req.open('GET', url_load_more, true);
 	req.responseType = 'document';
 	req.onload = function (e) {
+		if (context.sort === 'rand') {
+			document.scrollingElement.scrollTop = 0;
+			remove_existing_posts();
+		}
+
 		const html = this.response;
 		const streamFooter = document.getElementById('stream-footer');
+		const transitions = document.querySelectorAll('#stream > .transition');
+		let lastTransition = transitions.length > 0 ? transitions[transitions.length - 1] : null;
 
 		const streamAdopted = document.adoptNode(html.getElementById('stream'));
-		streamAdopted.querySelectorAll('.flux, .day').forEach(function (div) {
+		enforce_referrer_allowlist(streamAdopted);
+		streamAdopted.querySelectorAll('.flux, .transition').forEach(function (div) {
+			if (lastTransition !== null && div.classList.contains('transition') && div.textContent === lastTransition.textContent) {
+				lastTransition = null;
+				return;	// Skip duplicate transition
+			}
 			box_load_more.insertBefore(div, streamFooter);
 		});
 
 		const streamFooterOld = streamFooter.querySelector('.stream-footer-inner');
 		const streamFooterNew = streamAdopted.querySelector('.stream-footer-inner');
-		streamFooter.replaceChild(streamFooterNew, streamFooterOld);
+		if (streamFooterOld !== null && streamFooterNew !== null) {
+			streamFooter.replaceChild(streamFooterNew, streamFooterOld);
+		}
 
 		const bigMarkAsRead = document.getElementById('bigMarkAsRead');
 		const readAll = document.querySelector('#nav_menu_read_all .read_all');
@@ -1768,13 +2237,6 @@ function load_more_posts() {
 			}
 			toggle_bigMarkAsRead_button();
 		}
-
-		document.querySelectorAll('[id^=day_]').forEach(function (div) {
-			const ids = document.querySelectorAll('[id="' + div.id + '"]');
-			for (let i = ids.length - 1; i > 0; i--) {	// Keep only the first
-				ids[i].remove();
-			}
-		});
 
 		init_load_more(box_load_more);
 
@@ -1791,8 +2253,7 @@ function load_more_posts() {
 	req.send();
 }
 
-const freshrssLoadMoreEvent = document.createEvent('Event');
-freshrssLoadMoreEvent.initEvent('freshrss:load-more', true, true);
+const freshrssLoadMoreEvent = new Event('freshrss:load-more', { bubbles: true, cancelable: true });
 
 function init_load_more(box) {
 	box_load_more = box;
@@ -1825,47 +2286,67 @@ function init_confirm_action() {
 			return confirm(str_confirmation);
 		}
 	};
+	const slider = document.getElementById('slider');
+	if (slider) {
+		slider.addEventListener('freshrss:slider-load', function (e) {
+			slider.querySelectorAll('button.confirm').forEach(function (b) { b.disabled = false; });
+		});
+	}
 	document.querySelectorAll('button.confirm').forEach(function (b) { b.disabled = false; });
 }
 
 function faviconNbUnread(n) {
+	if (context.show_title_unread === false) {
+		return;
+	}
+
 	if (typeof n === 'undefined') {
 		const t = document.querySelector('.category.all .title');
 		n = t ? str2int(t.getAttribute('data-unread')) : 0;
 	}
-	// http://remysharp.com/2010/08/24/dynamic-favicons/
-	const canvas = document.createElement('canvas');
-	const link = document.getElementById('favicon').cloneNode(true);
-	const ratio = window.devicePixelRatio;
-	if (canvas.getContext && link) {
-		canvas.height = canvas.width = 16 * ratio;
-		const img = document.createElement('img');
-		img.onload = function () {
-			const ctx = canvas.getContext('2d');
-			ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
-			if (n > 0) {
-				let text = '';
-				if (n < 1000) {
-					text = n;
-				} else if (n < 100000) {
-					text = Math.floor(n / 1000) + 'k';
-				} else {
-					text = 'E' + Math.floor(Math.log10(n));
-				}
-				ctx.font = 'bold ' + 9 * ratio + 'px "Arial", sans-serif';
-				ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-				ctx.fillRect(0, 7 * ratio, ctx.measureText(text).width, 9 * ratio);
-				ctx.fillStyle = '#F00';
-				ctx.fillText(text, 0, canvas.height - 1);
+	const dynamicFaviconBase = document.querySelector('template#dynamic_favicon_base');
+	if (!dynamicFaviconBase) {
+		return;
+	}
+	const svgBase = dynamicFaviconBase.innerHTML;
+	const link = document.getElementById('favicon')?.cloneNode(true);
+	if (link) {
+		let svgOutput = '';
+		if (n > 0) {
+			let text = '';
+			if (n < 1000) {
+				text = n;
+			} else if (n < 100000) {
+				text = Math.floor(n / 1000) + 'k';
+			} else {
+				text = 'E' + Math.floor(Math.log10(n));
 			}
-			link.href = canvas.toDataURL('image/png');
-			// Check if data URI has generated a real favicon and if not, fallback to standard icon
-			if (link.href.length > 180) {
-				document.querySelector('link[rel~=icon]').remove();
-				document.head.appendChild(link);
-			}
-		};
-		img.src = '../favicon.ico';
+
+			const temp = document.createElement('div');
+			temp.innerHTML = svgBase;
+			document.body.append(temp);
+
+			const svg = temp.querySelector('svg');
+			svg.setAttribute('width', 24);
+			svg.setAttribute('height', 24);
+
+			svg.insertAdjacentHTML('beforeend', `
+			<text id="unreadCount" x="0" y="255" font-family="Arial, sans-serif" font-weight="bold" font-size="150" fill="#F00">${text}</text>
+			`);
+
+			const svgHeight = svg.getBBox().height;
+			const uc = svg.querySelector('text#unreadCount');
+			const ucBBox = uc.getBBox(); // note: doesn't contain actual text height, so the rect is slightly higher
+			uc.insertAdjacentHTML('beforebegin', `
+			<rect x="0" y="${svgHeight - ucBBox.height}" width="${ucBBox.width}" height="${ucBBox.height}" fill="rgba(255, 255, 255, 0.8)" />
+			`);
+
+			svgOutput = svg.outerHTML;
+			temp.remove();
+		}
+		link.href = `data:image/svg+xml;base64,${btoa(svgOutput || svgBase)}`;
+		document.querySelector('#favicon').remove();
+		document.head.appendChild(link);
 	}
 }
 
@@ -1873,6 +2354,24 @@ function removeFirstLoadSpinner() {
 	const first_load = document.getElementById('first_load');
 	if (first_load) {
 		first_load.remove();
+	}
+}
+
+function enforce_referrer_allowlist(stream) {
+	for (const iframe of stream.querySelectorAll('div.content iframe[src], div.content iframe[data-original]')) {
+		let hostname;
+		try {
+			hostname = new URL(context.does_lazyload ? iframe.getAttribute('data-original') : iframe.src).hostname;
+		} catch (_) {
+			continue;
+		}
+		if (context.send_referrer_allowlist.includes(hostname) && !iframe.hasAttribute('referrerpolicy')) {
+			iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+			if (!context.does_lazyload) {
+				// iframe must be reloaded to apply the `referrerpolicy` change
+				iframe.src = iframe.src; // eslint-disable-line no-self-assign
+			}
+		}
 	}
 }
 
@@ -1887,21 +2386,75 @@ function init_normal() {
 	}
 	init_column_categories();
 	init_stream(stream);
+	enforce_referrer_allowlist(stream);
 	init_actualize();
 	faviconNbUnread();
 
-	window.onbeforeunload = function (e) {
-		const sidebar = document.getElementById('sidebar');
-		if (sidebar) {	// Save sidebar scroll position
+	// Keep exact sidebar scroll state for specific navigations
+	const sidebar = document.querySelector('ul#sidebar');
+	if (sidebar) {
+		sidebar.addEventListener('click', (e) => {
+			if (!e.isTrusted) {
+				// Event was likely called via a keyboard shortcut shift+j/k using click()
+				return;
+			}
+			const target = e.target.closest('a.item-title, a.tree-folder-title');
+			if (target) {
+				// A page navigation should occur now, save the sidebar scroll position
+				sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
+			}
+		});
+	}
+	const nav_menu = document.querySelector('nav.nav_menu');
+	if (nav_menu) {
+		nav_menu.addEventListener('click', (e) => {
+			const target = e.target.closest('a.btn:not(#actualize):not(.dropdown-toggle), button[type="submit"]');
+			if (target) {
+				sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
+			}
+		});
+	}
+	const new_article = document.querySelector('div#new-article');
+	if (new_article) {
+		new_article.addEventListener('click', () => {
 			sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
+		});
+	}
+
+	document.addEventListener("visibilitychange", () => {
+		if (document.visibilityState === "hidden") {
+			if (mark_read_queue && mark_read_queue.length > 0) {
+				clearTimeout(send_mark_read_queue_timeout);
+				send_mark_queue_tick(null);
+			}
 		}
-		if (mark_read_queue && mark_read_queue.length > 0) {
-			return false;
-		}
-	};
+	});
+}
+
+function init_csp_alert() {
+	if (!context.admin || context.suppress_csp_warning) {
+		return;
+	}
+
+	try {
+		// eslint-disable-next-line no-new-func
+		Function();
+	} catch (_) {
+		// Exit if 'script-src' is set and 'unsafe-eval' isn't set in CSP
+		console.info(`If you see a 'unsafe-eval' warning, everything is working as intended:
+see https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security`);
+		return;
+	}
+
+	document.body.insertAdjacentHTML('afterbegin', `
+	<div class="alert alert-error">
+		<span>${context.i18n.unsafe_csp_header}</span>
+	</div>
+	`);
 }
 
 function init_main_beforeDOM() {
+	history.scrollRestoration = 'manual';
 	document.scrollingElement.scrollTop = 0;
 	init_shortcuts();
 	if (['normal', 'reader', 'global'].indexOf(context.current_view) >= 0) {
@@ -1909,19 +2462,40 @@ function init_main_beforeDOM() {
 	}
 }
 
+function init_navigation_handler() {
+	if (!('navigation' in window)) {
+		return;
+	}
+	navigation.addEventListener('navigate', (e) => {
+		if (!(e.canIntercept && e.hashChange && e.navigationType === 'traverse')) {
+			return;
+		}
+
+		if (location.hash.substr(1) === 'slider' && !close_slider_listener()) {
+			e.preventDefault();
+		}
+	});
+}
+
 function init_main_afterDOM() {
 	removeFirstLoadSpinner();
 	init_notifications();
+	init_csp_alert();
 	init_confirm_action();
+	init_nav_menu();
+	init_navigation_handler();
 	const stream = document.getElementById('stream');
 	if (stream) {
 		init_load_more(stream);
 		init_posts();
-		init_nav_entries();
-		init_notifs_html5();
-		toggle_bigMarkAsRead_button();
-		setTimeout(faviconNbUnread, 1000);
-		setInterval(refreshUnreads, 120000);
+		if (document.getElementById('new-article')) {
+			// Only relevant for interactive views
+			init_nav_entries();
+			init_notifs_html5();
+			toggle_bigMarkAsRead_button();
+			setTimeout(faviconNbUnread, 1000);
+			setInterval(refreshUnreads, 120000);
+		}
 	}
 
 	if (window.console) {

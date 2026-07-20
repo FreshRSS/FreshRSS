@@ -1,4 +1,4 @@
-# Apache/Nginx Configuration Files
+# Apache/Nginx configuration files
 
 > ℹ️ For improved security, remove sensitive information in the Web server logs by using our [`sensitive-log.sh` script](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/sensitive-log.sh),
 on the model of our [reference Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) used for our official Docker images
@@ -95,10 +95,10 @@ server {
 	# php files handling
 	# this regex is mandatory because of the API
 	location ~ ^.+?\.php(/.*)?$ {
-		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# By default, the variable PATH_INFO is not set under PHP-FPM
-		# But FreshRSS API greader.php need it. If you have a “Bad Request” error, double check this var!
+		# But FreshRSS APIs greader.php and misc.php need it. If you have a “Bad Request” error, double check this var!
 		# NOTE: the separate $path_info variable is required. For more details, see:
 		# https://trac.nginx.org/nginx/ticket/321
 		set $path_info $fastcgi_path_info;
@@ -112,3 +112,21 @@ server {
 	}
 }
 ```
+
+## Security
+
+Avoid overwriting the [`Content-Security-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) header with directives such as `more_set_headers "Content-Security-Policy: ..."` or `add_header 'Content-Security-Policy' '...'`.
+
+✅ Example of good CSP: `default-src 'self'; frame-ancestors 'self'`
+
+❌ Bad CSP: `upgrade-insecure-requests`
+
+Debug your own CSP header:
+* With DevTools network tab: press F12
+* [CSP Evaluator](https://csp-evaluator.withgoogle.com/)
+
+If you’re aware of the risks and want to ignore the warning shown to admin users, change the `suppress_csp_warning` setting to `true` in `./data/config.php`.
+
+Note that FreshRSS already ships with a secure CSP configuration, therefore it’s not necessary to make any adjustments to CSP unless you’re writing an extension.
+
+For that, look into the [`Minz_ActionController::_csp`](https://github.com/FreshRSS/FreshRSS/blob/d9197d7e32a97f29829ffd4cf4371b1853e51fa2/lib/Minz/ActionController.php#L76-L96) function and use it in individual actions.

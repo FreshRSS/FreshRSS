@@ -4,10 +4,10 @@
 
 **For small theme changes, the official [CustomCSS extension](https://github.com/FreshRSS/Extensions) is recommended.**
 
-Themes should be installed at `FreshRSS/p/themes/theme-name`. Docker users can use:
+Themes should be installed at `FreshRSS/p/themes/my-theme-name`. Docker users can use:
 
 ```sh
--v /home/you/my-theme/:/var/www/FreshRSS/p/themes/my-theme/
+-v /home/you/my-theme-name/:/var/www/FreshRSS/p/themes/my-theme-name/
 ```
 
 or a similar method to add their theme to their FreshRSS instance.

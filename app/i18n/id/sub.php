@@ -1,214 +1,315 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',	// TODO
-		'title' => 'API',	// TODO
+		'documentation' => 'Salin URL berikut untuk menggunakannya di alat eksternal.',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose “Bookmark This Link”. Then click the “Subscribe” button in any page you want to subscribe to.',	// TODO
-		'label' => 'Subscribe',	// TODO
-		'title' => 'Bookmarklet',	// TODO
+		'documentation' => 'Seret tombol ini ke bilah alat markah Anda atau klik kanan dan pilih "Markahi Tautan". Kemudian klik "Langgan" di halaman yang ingin Anda langgan',
+		'label' => 'Langgan',
+		'title' => 'Bookmarklet',	// IGNORE
 	),
 	'category' => array(
-		'_' => 'Category',	// TODO
-		'add' => 'Add a category',	// TODO
-		'archiving' => 'Archiving',	// TODO
+		'_' => 'Kategori',
+		'add' => 'Tambah kategori',
+		'archiving' => 'Pengarsipan',
 		'dynamic_opml' => array(
-			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'_' => 'OPML dinamis',
+			'help' => 'Sediakan URL ke <a href="http://opml.org/" target="_blank">berkas OPML</a> untuk memasukkan umpan ke kategori ini secara dinamis',
 		),
-		'empty' => 'Empty category',	// TODO
-		'information' => 'Information',	// TODO
-		'opml_url' => 'OPML URL',	// TODO
-		'position' => 'Display position',	// TODO
-		'position_help' => 'To control category sort order',	// TODO
-		'title' => 'Title',	// TODO
+		'empty' => 'Kategori kosong',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'expand' => 'Kembangkan kategori',
+		'information' => 'Informasi',
+		'open' => 'Buka kategori',
+		'opml_url' => 'URL OPML',
+		'position' => 'Posisi tampilan',
+		'position_help' => 'Untuk mengatur urutan pengurutan kategori',
+		'title' => 'Judul',
 	),
 	'feed' => array(
-		'accept_cookies' => 'Accept cookies',	// TODO
-		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',	// TODO
-		'add' => 'Add an RSS feed',	// TODO
-		'advanced' => 'Advanced',	// TODO
-		'archiving' => 'Archiving',	// TODO
+		'accept_cookies' => 'Terima kuki',
+		'accept_cookies_help' => 'Perbolehkan peladen umpan untuk mengirimkan kuki (hanya disimpan di memori selama durasi permintaan)',
+		'add' => 'Tambah umpan',
+		'advanced' => 'Lebih lanjut',
+		'archiving' => 'Pengarsipan',
 		'auth' => array(
-			'configuration' => 'Login',	// TODO
-			'help' => 'Allows access to HTTP protected RSS feeds',	// TODO
-			'http' => 'HTTP Authentication',	// TODO
-			'password' => 'HTTP password',	// TODO
-			'username' => 'HTTP username',	// TODO
+			'configuration' => 'Masuk',
+			'help' => 'Agar dapat bisa mengakses umpan RSS yang dilindungi oleh autentikasi HTTP',
+			'http' => 'Autentikasi HTTP',
+			'password' => 'Kata sandi HTTP',
+			'username' => 'Nama pengguna HTTP',
 		),
-		'clear_cache' => 'Always clear cache',	// TODO
+		'change_favicon' => 'Ubah…',
+		'clear_cache' => 'Selalu bersihkan tembolok',
 		'content_action' => array(
-			'_' => 'Content action when fetching the article content',	// TODO
-			'append' => 'Add after existing content',	// TODO
-			'prepend' => 'Add before existing content',	// TODO
-			'replace' => 'Replace existing content',	// TODO
+			'_' => 'Yang dilakukan ketika mengambil konten artikel',
+			'append' => 'Tambahkan setelah konten yang telah ada',
+			'prepend' => 'Tambahkan sebelum konten yang telah ada',
+			'replace' => 'Timpa konten yang telah ada',
 		),
-		'css_cookie' => 'Use Cookies when fetching the article content',	// TODO
-		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',	// TODO
-		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',	// TODO
-		'css_path' => 'Article CSS selector on original website',	// TODO
+		'content_retrieval' => 'Pengambilan konten',
+		'css_cookie' => 'Gunakan kuki ketika mengambil konten artikel',
+		'css_cookie_help' => 'Contoh: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
+		'css_help' => 'Mengambil bagian artikel sesuai CSS yang dimasukkan (awas, memerlukan lebih banyak waktu!)',
+		'css_path' => 'Pemilihan CSS artikel di situs aslinya',
 		'css_path_filter' => array(
-			'_' => 'CSS selector of the elements to remove',	// TODO
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',	// TODO
+			'_' => 'Pemilihan CSS artikel untuk konten yang akan dihapus',
+			'help' => 'Pemilihan CSS bisa juga berupa daftar seperti: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
-		'description' => 'Description',	// TODO
-		'empty' => 'This feed is empty. Please verify that it is still maintained.',	// TODO
-		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',	// TODO
+		'description' => 'Deskripsi',
+		'empty' => 'Umpan ini kosong. Periksa apakah umpan ini masih ada',
+		'error' => 'Ada masalah dengan umpan ini. Jika masih terus-menerus, periksa apakah umpan ini masih ada.',
+		'export-as-opml' => array(
+			'download' => 'Unduh',
+			'help' => 'Berkas XML (subset data. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Lihat dokumentasi</a>)',
+			'label' => 'Unduh dalam bentuk OPML',
+		),
+		'ext_favicon' => 'Atur secara otomatis',
+		'favicon_changed_by_ext' => 'Ikon telah diatur oleh ekstensi <b>%s</b>.',
 		'filteractions' => array(
-			'_' => 'Filter actions',	// TODO
-			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// TODO
+			'_' => 'Tindakan penyaringan',
+			'help' => 'Tulis satu penyaringan pencarian per baris. Operator <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">lihat dokumentasi</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
-		'information' => 'Information',	// TODO
-		'keep_min' => 'Minimum number of articles to keep',	// TODO
+		'http_headers' => 'Tajuk HTTP',
+		'http_headers_help' => 'Tajuk dipisahkan dengan baris baru dan nama dan nilai dari tajuk dipisahkan dengan titik dua (contoh: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Ikon',
+		'information' => 'Informasi',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_min' => 'Jumlah minimum artikel yang harus disimpan',
 		'kind' => array(
-			'_' => 'Type of feed source',	// TODO
-			'html_xpath' => array(
-				'_' => 'HTML + XPath (Web scraping)',	// TODO
-				'feed_title' => array(
-					'_' => 'feed title',	// TODO
-					'help' => 'Example: <code>//title</code> or a static string: <code>"My custom feed"</code>',	// TODO
+			'_' => 'Jenis sumber umpan',
+			'html_json' => array(
+				'_' => 'HTML + XPath + notasi dot JSON (JSON dalam HTML)',
+				'xpath' => array(
+					'_' => 'XPath untuk JSON dalam HTML',
+					'help' => 'Contoh: <code>normalize-space(//script[@type="application/json"])</code> (satu JSON)<br />atau: <code>//script[@type="application/ld+json"]</code> (satu objek JSON per artikel)',
 				),
-				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> is a standard query language for advanced users, and which FreshRSS supports to enable Web scraping.',	// TODO
+			),
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Pengorekan web)',
+				'feed_title' => array(
+					'_' => 'judul umpan',
+					'help' => 'Contoh: <code>//title</code> atau kata statis: <code>"Umpan Saya"</code>',
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn> adalah bahasa kueri standar untuk pengguna tingkat lanjut dan yang mana FreshRSS dukung untuk dikorek.',
 				'item' => array(
-					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',	// TODO
-					'help' => 'Example: <code>//div[@class="news-item"]</code>',	// TODO
+					'_' => 'mencari <strong>item</strong> artikel<br /><small>(paling penting)</small>',
+					'help' => 'Contoh: <code>//div[@class="news-item"]</code>',
 				),
 				'item_author' => array(
-					'_' => 'item author',	// TODO
-					'help' => 'Can also be a static string. Example: <code>"Anonymous"</code>',	// TODO
+					'_' => 'penulis',
+					'help' => 'Bisa juga kata statis. Contoh: <code>"Anonymous"</code>',
 				),
-				'item_categories' => 'item tags',	// TODO
+				'item_categories' => 'label',
 				'item_content' => array(
-					'_' => 'item content',	// TODO
-					'help' => 'Example to take the full item: <code>.</code>',	// TODO
+					'_' => 'konten',
+					'help' => 'Contoh untuk mengambil konten penuh: <code>.</code>',
 				),
 				'item_thumbnail' => array(
-					'_' => 'item thumbnail',	// TODO
-					'help' => 'Example: <code>descendant::img/@src</code>',	// TODO
+					'_' => 'keluku',
+					'help' => 'Contoh: <code>descendant::img/@src</code>',
 				),
 				'item_timeFormat' => array(
-					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'_' => 'Format tanggal dan waktu kustom',
+					'help' => 'Opsional. Format yang didukung oleh <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> seperti <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
-					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'_' => 'tanggal',
+					'help' => 'Hasil akan diproses oleh <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
-					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'_' => 'judul',
+					'help' => 'Gunakan khususnya <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> seperti <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
-					'_' => 'item unique ID',	// TODO
-					'help' => 'Optional. Example: <code>descendant::div/@data-uri</code>',	// TODO
+					'_' => 'ID unik',
+					'help' => 'Opsional. Contoh: <code>descendant::div/@data-uri</code>',
 				),
 				'item_uri' => array(
-					'_' => 'item link (URL)',	// TODO
-					'help' => 'Example: <code>descendant::a/@href</code>',	// TODO
+					'_' => 'tautan artikel (URL)',
+					'help' => 'Contoh: <code>descendant::a/@href</code>',
 				),
-				'relative' => 'XPath (relative to item) for:',	// TODO
-				'xpath' => 'XPath for:',	// TODO
+				'relative' => 'XPath (relatif ke item) untuk:',
+				'xpath' => 'XPath untuk:',
 			),
-			'rss' => 'RSS / Atom (default)',	// TODO
-			'xml_xpath' => 'XML + XPath',	// TODO
+			'json_dotnotation' => array(
+				'_' => 'JSON (notasi dot)',
+				'feed_title' => array(
+					'_' => 'judul umpan',
+					'help' => 'Contoh: <code>meta.title</code> atau kata statis: <code>"Umpan Saya"</code>',
+				),
+				'help' => 'Notasi dot JSON menggunakan dot (titik) antara objek dan kurung untuk array. Contoh <code>data.items[0].title</code>',
+				'item' => array(
+					'_' => 'mencari <strong>item</strong> artikel<br /><small>(paling penting)</small>',
+					'help' => 'Jalur JSON ke array yang mengandung item tersebut, contoh: <code>$</code> atau <code>newsItems</code>',
+				),
+				'item_author' => 'penulis',
+				'item_categories' => 'label',
+				'item_content' => array(
+					'_' => 'konten',
+					'help' => 'Objek dimana konten ditemukan <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'keluku',
+					'help' => 'Contoh: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Format tanggal dan waktu kustom',
+					'help' => 'Opsional. Format yang didukung oleh <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> seperti <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'tanggal',
+					'help' => 'Hasil akan diproses oleh <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'judul',
+				'item_uid' => 'ID unik',
+				'item_uri' => array(
+					'_' => 'tautan artikel (URL)',
+					'help' => 'Contoh: <code>permalink</code>',
+				),
+				'json' => 'notasi dot untuk:',
+				'relative' => 'jalur notasi dot (relatif ke item) untuk:',
+			),
+			'jsonfeed' => 'Umpan JSON',
+			'rss' => 'RSS / Atom (baku)',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
-			'clear_cache' => 'Clear cache',	// TODO
-			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO
-			'reload_articles' => 'Reload articles',	// TODO
-			'reload_articles_help' => 'Reload that many articles and fetch complete content if a selector is defined.',	// TODO
-			'title' => 'Maintenance',	// TODO
+			'clear_cache' => 'Bersihkan tembolok',
+			'clear_cache_help' => 'Bersihkan tembolok untuk umpan ini.',
+			'reload_articles' => 'Muat ulang artikel',
+			'reload_articles_help' => 'Muat ulang artikel sesuai angka yang dimasukkan dan ambil konten lengkap jika pemilihan diberikan.',
+			'title' => 'Pemeliharaan',
 		),
-		'max_http_redir' => 'Max HTTP redirects',	// TODO
-		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',	// TODO
-		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',	// TODO
-		'mute' => 'mute',	// TODO
-		'no_selected' => 'No feed selected.',	// TODO
-		'number_entries' => '%d articles',	// TODO
+		'max_http_redir' => 'Maksimum pengalihan HTTP',
+		'max_http_redir_help' => 'Atur ke 0 atau biarkan kosong untuk menonaktifkannya, -1 untuk pengalihan tak terhingga.',
+		'method' => array(
+			'_' => 'Metode HTTP',
+		),
+		'method_help' => 'Metode jaringan POST memiliki dukungan otomatis untuk <code>application/x-www-form-urlencoded</code> dan <code>application/json</code>',
+		'method_postparams' => 'Metode untuk POST',
+		'moved_category_deleted' => 'Ketika Anda menghapus sebuah kategori, umpan yang ada di dalamnya secara otomatis akan berada di bawah <em>%s</em>.',
+		'mute' => array(
+			'_' => 'bisukan',
+			'state_is_muted' => 'Umpan ini dibisukan',
+		),
+		'no_selected' => 'Tidak ada umpan yang dipilih.',
+		'number_entries' => '%d artikel',
+		'open_feed' => 'Buka umpan %s',
+		'path_entries_conditions' => 'Kondisi untuk pengambilan konten',
 		'priority' => array(
-			'_' => 'Visibility',	// TODO
-			'archived' => 'Do not show (archived)',	// TODO
-			'main_stream' => 'Show in main stream',	// TODO
-			'normal' => 'Show in its category',	// TODO
+			'_' => 'Ketampakan',
+			'category' => 'Tampilkan hanya di kategorinya saja',
+			'feed' => 'Show in its feed',	// TODO
+			'hidden' => 'Jangan tampilkan',
+			'important' => 'Tampilkan di umpan penting',
+			'main_stream' => 'Tampilkan di bagian utama',
 		),
-		'proxy' => 'Set a proxy for fetching this feed',	// TODO
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',	// TODO
+		'proxy' => 'Atur proksi untuk mengambil umpan ini',
+		'proxy_help' => 'Pilih protokol (contoh: SOCKS5) dan masukkan alamat proksi (contoh: <kbd>127.0.0.1:1080</kbd> atau <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Atur ulang ke yang baku',
 		'selector_preview' => array(
-			'show_raw' => 'Show source code',	// TODO
-			'show_rendered' => 'Show content',	// TODO
+			'show_raw' => 'Tampilkan kode sumber',
+			'show_rendered' => 'Tampilkan konten',
 		),
 		'show' => array(
-			'all' => 'Show all feeds',	// TODO
-			'error' => 'Show only feeds with errors',	// TODO
+			'all' => 'Semua umpan',
+			'error' => 'Tampilkan hanya umpan dengan galat',
 		),
 		'showing' => array(
-			'error' => 'Showing only feeds with errors',	// TODO
+			'error' => 'Menampilkan hanya umpan dengan galat',
 		),
-		'ssl_verify' => 'Verify SSL security',	// TODO
-		'stats' => 'Statistics',	// TODO
-		'think_to_add' => 'You may add some feeds.',	// TODO
-		'timeout' => 'Timeout in seconds',	// TODO
-		'title' => 'Title',	// TODO
-		'title_add' => 'Add an RSS feed',	// TODO
-		'ttl' => 'Do not automatically refresh more often than',	// TODO
-		'url' => 'Feed URL',	// TODO
-		'useragent' => 'Set the user agent for fetching this feed',	// TODO
-		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',	// TODO
-		'validator' => 'Check the validity of the feed',	// TODO
-		'website' => 'Website URL',	// TODO
-		'websub' => 'Instant notification with WebSub',	// TODO
+		'ssl_verify' => 'Verifikasi keamanan SSL',
+		'stats' => 'Statistik',
+		'think_to_add' => 'Kamu boleh menambahkan beberapa umpan.',
+		'timeout' => 'Timeout dalam detik',
+		'title' => 'Judul',
+		'title_add' => 'Tambah umpan RSS',
+		'ttl' => 'Jangan perbarui secara otomatis lebih banyak daripada',
+		'unicityCriteria' => array(
+			'_' => 'Kriteria keunikan artikel',
+			'forced' => '<span title="Blokir kriteria keunikan meski umpan memiliki artikel duplikat">paksa</span>',
+			'help' => 'Relevan untuk umpan yang tidak valid.<br />⚠️ Mengubah ini akan membuat artikel duplikat.',
+			'id' => 'ID standar (baku)',
+			'link' => 'Tautan',
+			'sha1:content' => 'Konten',
+			'sha1:content_published' => 'Konten + Tanggal',
+			'sha1:link_published' => 'Tautan + Tanggal',
+			'sha1:link_published_title' => 'Tautan + Tanggal + Judul',
+			'sha1:link_published_title_content' => 'Tautan + Tanggal + Judul + Konten',
+			'sha1:published' => 'Tanggal',
+			'sha1:title' => 'Judul',
+			'sha1:title_published' => 'Judul + Tanggal',
+			'sha1:title_published_content' => 'Judul + Tanggal + Konten',
+		),
+		'url' => 'URL umpan',
+		'useragent' => 'Atur UA (user agent) untuk mengambil umpan ini',
+		'useragent_help' => 'Contoh: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
+		'validator' => 'Periksa validitas umpan ini',
+		'website' => 'URL situs',
+		'websub' => 'Notifikasi langsung menggunakan WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Export',	// TODO
-		'export_labelled' => 'Export your labeled articles',
-		'export_opml' => 'Export list of feeds (OPML)',	// TODO
-		'export_starred' => 'Export your favorites',
-		'feed_list' => 'List of %s articles',	// TODO
-		'file_to_import' => 'File to import<br />(OPML, JSON or ZIP)',	// TODO
-		'file_to_import_no_zip' => 'File to import<br />(OPML or JSON)',	// TODO
-		'import' => 'Import',	// TODO
-		'starred_list' => 'List of favorite articles',
-		'title' => 'Import / export',	// TODO
+		'export' => array(
+			'_' => 'Ekspor',
+			'sqlite' => 'Unduh basis data pengguna dalam bentuk SQLite',
+		),
+		'export_labelled' => 'Ekspor artikel yang dilabelkan',
+		'export_opml' => 'Ekspor daftar umpan (OPML)',
+		'export_starred' => 'Ekspor favorit Anda',
+		'feed_list' => 'Daftar dari %s artikel',
+		'file_to_import' => 'Berkas untuk diimpor <br />(OPML, JSON atau ZIP)',
+		'file_to_import_no_zip' => 'Berkas untuk diimpor<br />(OPML atau JSON)',
+		'import' => 'Impot',
+		'starred_list' => 'Daftar artikel difavoritkan',
+		'title' => 'Impor / Ekspor',
 	),
 	'menu' => array(
-		'add' => 'Add a feed or category',	// TODO
-		'import_export' => 'Import / export',	// TODO
-		'label_management' => 'Label management',	// TODO
+		'add' => 'Tambah umpan atau kategori',
+		'import_export' => 'Impor / Ekspor',
+		'label_management' => 'Pengelolaan label',
 		'stats' => array(
-			'idle' => 'Idle feeds',	// TODO
-			'main' => 'Main statistics',	// TODO
-			'repartition' => 'Articles repartition',	// TODO
+			'idle' => 'Umpan tak terbarukan',
+			'main' => 'Statistik utama',
+			'repartition' => 'Pengkategorian artikel',
+			'unread_dates' => 'Unread dates',	// TODO
 		),
-		'subscription_management' => 'Subscription management',	// TODO
-		'subscription_tools' => 'Subscription tools',	// TODO
+		'subscription_management' => 'Pengelolaan langganan',
+		'subscription_tools' => 'Alat langganan',
 	),
 	'tag' => array(
-		'name' => 'Name',	// TODO
-		'new_name' => 'New name',	// TODO
-		'old_name' => 'Old name',	// TODO
+		'auto_label' => 'Tambahkan label ini ke artikel baru',
+		'name' => 'Nama',
+		'new_name' => 'Nama baru',
+		'old_name' => 'Nama lama',
 	),
 	'title' => array(
-		'_' => 'Subscription management',	// TODO
-		'add' => 'Add a feed or category',	// TODO
-		'add_category' => 'Add a category',	// TODO
-		'add_dynamic_opml' => 'Add dynamic OPML',	// TODO
-		'add_feed' => 'Add a feed',	// TODO
-		'add_label' => 'Add a label',	// TODO
-		'delete_label' => 'Delete a label',	// TODO
-		'feed_management' => 'RSS feeds management',	// TODO
-		'rename_label' => 'Rename a label',	// TODO
-		'subscription_tools' => 'Subscription tools',	// TODO
+		'_' => 'Pengelolaan langganan',
+		'add' => 'Tambah umpan atau kategori',
+		'add_category' => 'Tambah kategori',
+		'add_dynamic_opml' => 'Tambah OPML dinamis',
+		'add_feed' => 'Tambah umpan',
+		'add_label' => 'Tambah label',
+		'add_opml_category' => 'Nama kategori OPML',
+		'delete_label' => 'Hapus label',
+		'feed_management' => 'Pengelolaan umpan RSS',
+		'subscription_tools' => 'Alat langganan',
 	),
 );

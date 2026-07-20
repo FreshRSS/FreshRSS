@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 # ***** BEGIN LICENSE BLOCK *****
 # MINZ - a free PHP Framework like Zend Framework
 # Copyright (C) 2011 Marien Fressinaud
@@ -25,14 +27,13 @@
  */
 class Minz_FrontController {
 
-	/** @var Minz_Dispatcher */
-	protected $dispatcher;
+	protected Minz_Dispatcher $dispatcher;
 
 	/**
 	 * Constructeur
 	 * Initialise le dispatcher, met à jour la Request
 	 */
-	public function __construct () {
+	public function __construct() {
 		try {
 			$this->setReporting();
 
@@ -41,7 +42,7 @@ class Minz_FrontController {
 			$url = Minz_Url::build();
 			$url['params'] = array_merge(
 				empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
-				$_POST
+				array_filter($_POST, 'is_string', ARRAY_FILTER_USE_KEY)
 			);
 			Minz_Request::forward($url);
 		} catch (Minz_Exception $e) {
@@ -78,9 +79,8 @@ class Minz_FrontController {
 
 	/**
 	 * Kills the programme
-	 * @return never
 	 */
-	public static function killApp(string $txt = '') {
+	public static function killApp(string $txt = ''): never {
 		header('HTTP/1.1 500 Internal Server Error', true, 500);
 		if (function_exists('errorMessageInfo')) {
 			//If the application has defined a custom error message function

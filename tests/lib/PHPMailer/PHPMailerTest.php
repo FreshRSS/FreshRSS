@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
 
-class PHPMailerTest extends PHPUnit\Framework\TestCase
+use PHPMailer\PHPMailer\PHPMailer;
+
+final class PHPMailerTest extends \PHPUnit\Framework\TestCase
 {
-	public function testPHPMailerClassExists(): void {
-		self::assertTrue(class_exists('PHPMailer\\PHPMailer\\PHPMailer'));
+	public static function testPHPMailerClassExists(): void {
+		self::assertTrue(class_exists(PHPMailer::class));
 	}
 }

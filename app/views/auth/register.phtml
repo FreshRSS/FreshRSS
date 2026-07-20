@@ -1,4 +1,7 @@
-<?php /** @var FreshRSS_View $this */ ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
 <main class="prompt">
 	<h1><?= _t('gen.auth.registration') ?></h1>
 
@@ -47,7 +50,7 @@
 			<label for="new_user_passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="stick">
 				<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" required="required" autocomplete="new-password" pattern=".{7,}" />
-				<button type="button" class="btn toggle-password" data-toggle="new_user_passwordPlain"><?= _i('key') ?></button>
+				<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 			</div>
 			<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			<p class="help"><?= _i('help') ?> <?= _t('gen.auth.password.format') ?></p>
@@ -63,10 +66,12 @@
 			</div>
 		<?php } ?>
 
+		<?= Minz_ExtensionManager::callHookString(Minz_HookType::BeforeLoginBtn) ?>
+
 		<div class="form-group form-group-actions">
 			<?php
 				$redirect_url = urlencode(Minz_Url::display(
-					array('c' => 'index', 'a' => 'index'),
+					['c' => 'index', 'a' => 'index'],
 					'php', true
 				));
 			?>

@@ -1,0 +1,165 @@
+<?php
+
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
+return array(
+	'auth' => array(
+		'allow_anonymous' => '允許匿名閱讀預設使用者的文章 (%s)',
+		'allow_anonymous_refresh' => '允許匿名刷新文章',
+		'api_enabled' => '允許 <abbr>API</abbr> 存取 <small>(行動應用程式與分享使用者查詢需要)</small>',
+		'form' => 'Web 表單 (傳統方式，需要 JavaScript)',
+		'http' => 'HTTP (進階: 由 Web 伺服器、OIDC、SSO 等管理)',
+		'none' => '無 (危險)',
+		'title' => '身份驗證',
+		'token' => '主要身分驗證權杖',
+		'token_help' => '允許使用者存取所有 RSS 輸出並且無需身份驗證就能刷新訂閱源:',
+		'type' => '身份驗證方式',
+	),
+	'extensions' => array(
+		'author' => '作者',
+		'community' => '可用的社群擴充功能',
+		'description' => '描述',
+		'disabled' => '已停用',
+		'empty_list' => '沒有已安裝的擴充功能',
+		'empty_list_help' => '請檢查紀錄以確定擴充功能清單為空的原因',
+		'enabled' => '已啟用',
+		'is_compatible' => '是否相容',
+		'latest' => '已安裝',
+		'name' => '名稱',
+		'no_configure_view' => '此擴充功能無法配置。',
+		'system' => array(
+			'_' => '系統擴充功能',
+			'no_rights' => '系統擴充功能 (您沒有所需權限)',
+		),
+		'title' => '擴充功能',
+		'update' => '更新可用',
+		'user' => '使用者擴充功能',
+		'version' => '版本',
+	),
+	'stats' => array(
+		'_' => '統計',
+		'all_feeds' => '所有訂閱源',
+		'category' => '類別',
+		'date_published' => '發表日期',
+		'date_received' => '接收日期',
+		'entry_count' => '文章數',
+		'entry_per_category' => '每個類別的文章數',
+		'entry_per_day' => '每日文章數 (過去 30 天)',
+		'entry_per_day_of_week' => '一星期的每天 (平均: %.2f 個消息)',
+		'entry_per_hour' => '每小時 (平均: %.2f 個消息)',
+		'entry_per_month' => '每月 (平均: %.2f 個消息)',
+		'entry_repartition' => '文章分配',
+		'feed' => '訂閱源',
+		'feed_per_category' => '每個類別的訂閱源數',
+		'idle' => '長期無更新訂閱源',
+		'main' => '主要統計',
+		'main_stream' => '主資訊流',
+		'nb_unreads' => '未讀文章數',
+		'no_idle' => '訂閱源近期皆有更新！',
+		'number_entries' => '%d 篇文章',
+		'overview' => '概覽',
+		'percent_of_total' => '%',
+		'repartition' => '文章分配: %s',
+		'status_favorites' => '收藏',
+		'status_read' => '已讀',
+		'status_total' => '總計',
+		'status_unread' => '未讀',
+		'title' => '統計',
+		'top_feed' => '前十訂閱源',
+		'unread_dates' => '最多未讀文章的日期',
+	),
+	'system' => array(
+		'_' => '系統配置',
+		'auto-update-url' => '自動升級伺服器 URL',
+		'base-url' => array(
+			'_' => '基礎 URL',
+			'recommendation' => '自動推薦: <kbd>%s</kbd>',
+		),
+		'closed_registration_message' => '註冊已關閉時顯示的訊息',
+		'cookie-duration' => array(
+			'help' => '以秒為單位',
+			'number' => '保持登入的時長',
+		),
+		'default_closed_registration_message' => '目前此伺服器不接受新的註冊。',
+		'force_email_validation' => '強制驗證電子郵件位址',
+		'instance-name' => '實例名稱',
+		'internal-host-allowlist' => array(
+			'_' => '內部主機允許清單',
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
+		'max-categories' => '每個使用者的最大類別數',
+		'max-feeds' => '每個使用者的最大訂閱源數',
+		'override-by-env-var' => '此設定由環境變數 <kbd>%s</kbd> 覆寫。',
+		'registration' => array(
+			'number' => '最大帳號數',
+			'select' => array(
+				'label' => '註冊表單',
+				'option' => array(
+					'noform' => '已停用: 無註冊表單',
+					'nolimit' => '已啟用: 無帳號限制',
+					'setaccountsnumber' => '設定最大帳號數',
+				),
+			),
+			'status' => array(
+				'disabled' => '表單已停用',
+				'enabled' => '表單已啟用',
+			),
+			'title' => '使用者註冊表單',
+		),
+		'sensitive-parameter' => '敏感參數。請在 <kbd>./data/config.php</kbd> 中手動編輯',
+		'tos' => array(
+			'disabled' => '未提供',
+			'enabled' => '<a href="./?a=tos">為已啟用</a>',
+			'help' => '如何<a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">啟用服務條款</a>',
+		),
+		'websub' => array(
+			'help' => '關於 <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
+		),
+	),
+	'update' => array(
+		'_' => '更新 FreshRSS',
+		'apply' => '開始更新',
+		'changelog' => '變更紀錄',
+		'check' => '檢查更新',
+		'copiedFromURL' => '從 %s 複製 update.php 到 ./data',
+		'current_version' => '當前安裝的版本',
+		'last' => '上次檢查',
+		'loading' => '更新中…',
+		'none' => '無可用更新',
+		'releaseChannel' => array(
+			'_' => '發行方式',
+			'edge' => '滾動發行 (“edge”)',
+			'latest' => '穩定發行 (“latest”)',
+		),
+		'title' => '更新 FreshRSS',
+		'viaGit' => '透過 git 和 GitHub.com 開始更新',
+	),
+	'user' => array(
+		'admin' => '管理員',
+		'article_count' => '文章數',
+		'back_to_manage' => '← 返回到使用者清單',
+		'create' => '建立新使用者',
+		'database_size' => '資料庫大小',
+		'email' => '電子郵件位址',
+		'enabled' => '已啟用',
+		'feed_count' => '訂閱源數',
+		'is_admin' => '是否為管理員',
+		'language' => '語言',
+		'last_user_activity' => '上次使用者活動',
+		'list' => '使用者清單',
+		'number' => '已建立 %d 個帳號',
+		'numbers' => '已建立 %d 個帳號',
+		'password_form' => '密碼<br /><small>(用於 Web 表單登入方式)</small>',
+		'password_format' => '至少 7 個字元',
+		'title' => '管理使用者',
+		'username' => '使用者名稱',
+	),
+);

@@ -7,7 +7,6 @@ body {
 
 h1 {
 	font-size: xx-large;
-	text-shadow: 1px -1px 0 #ccc;
 }
 
 h1 a {
@@ -17,4 +16,10 @@ h1 a {
 
 img {
 	border: 0;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	body {
+		background: black;
+	}
 }

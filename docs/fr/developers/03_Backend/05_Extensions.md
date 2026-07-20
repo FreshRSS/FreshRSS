@@ -4,7 +4,7 @@
 
 FreshRSS est un agrégateur de flux RSS / Atom écrit en PHP depuis octobre
 2012. Le site officiel est situé à l’adresse
-[freshrss.org](https://freshrss.org) et son dépot Git est hébergé par Github
+[freshrss.org](https://freshrss.org) et son dépot Git est hébergé par GitHub
 : [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
 
 ## Problème à résoudre
@@ -38,7 +38,7 @@ facilement.
 
 ## Minz Framework
 
-see [Minz documentation](/docs/fr/developers/Minz/index.md)
+see [Minz documentation](../Minz/index.md)
 
 ## Écrire une extension pour FreshRSS
 
@@ -81,8 +81,11 @@ class name `HelloWorldExtension`.
 In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you
 need the structure:
 ```html
-class HelloWorldExtension extends Minz_Extension {
+final class HelloWorldExtension extends Minz_Extension {
+	#[\Override]
 	public function init() {
+		parent::init();
+
 		// your code here
 	}
 }
@@ -168,9 +171,9 @@ Your class will benefit from four methods to redefine:
 	`getName()`, `getEntrypoint()`, `getPath()` (allows you to retrieve the
 	path to your extension), `getAuthor()`, `getDescription()`,
 	`getVersion()`, `getType()`.
-* `getFileUrl($filename, $type)` will return the URL to a file in the
-	`static` directory. The first parameter is the name of the file (without
-	`static /`), the second is the type of file to be used (`css` or `js`).
+* `getFileUrl(string $filename, bool $isStatic = true): string` will return the URL to a file in the `static` directory.
+	The first parameter is the name of the file (without `static/`).
+	Set `$isStatic` to true for user-independent files, and to `false` for files saved in a user’s own directory.
 * `registerController($base_name)` will tell Minz to take into account the
 	given controller in the routing system. The controller must be located in
 	your `Controllers` directory, the name of the file must be `<base_name>Controller.php` and the name of the
@@ -186,28 +189,46 @@ Your class will benefit from four methods to redefine:
 
 You can register at the FreshRSS event system in an extensions `init()`
 method, to manipulate data when some of the core functions are executed.
+Le dernier paramètre représente la priorité du *hook* quand celui-ci est déclenché.
+Le *hook* avec la priorité la plus basse sera déclenché en premier.
+La priorité par défaut est 0.
 
 ```php
-class HelloWorldExtension extends Minz_Extension
+final class HelloWorldExtension extends Minz_Extension
 {
+	#[\Override]
 	public function init(): void {
-		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
+		parent::init();
+
+		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry'], 10);
+		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl'], -10);
 	}
+
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
-		$entry->_content('<h1>Hello World</h1>' . $entry->content());
+		$message = $this->getUserConfigurationString('message');
+		$entry->_content("<h1>{$message}</h1>" . $entry->content());
 		return $entry;
+	}
+
+	public static function checkUrlBeforeAdd(string $url): string {
+		if (str_starts_with($url, 'https://')) {
+			return $url;
+		}
+		return null;
 	}
 }
 ```
 
 The following events are available:
 
+* `api_misc` (`function(): void`) : permet aux extensions d’avoir leur propre point d’accès API
+	sur `/api/misc.php/Nom%20Extension/` ou `/api/misc.php?ext=Nom%20Extension`.
 * `check_url_before_add` (`function($url) -> Url | null`): will be executed
 	every time a URL is added. The URL itself will be passed as
 	parameter. This way a website known to have feeds which doesn’t advertise
 	it in the header can still be automatically supported.
 * `entry_auto_read` (`function(FreshRSS_Entry $entry, string $why): void`):
-	Appelé lorsqu’une entrée est automatiquement marquée comme lue. Le paramètre *why* supporte les règles {`filter`, `upon_reception`, `same_title_in_feed`}.
+	Appelé lorsqu’une entrée est automatiquement marquée comme lue. Le paramètre *why* supporte les règles {`filter`, `upon_reception`, `same_title_in_feed`, `same_guid_in_category`}.
 * `entry_auto_unread` (`function(FreshRSS_Entry $entry, string $why): void`):
 	Appelé lorsqu’une entrée est automatiquement marquée comme non-lue. Le paramètre *why* supporte les règles {`updated_article`}.
 * `entry_before_display` (`function($entry) -> Entry | null`): will be
@@ -217,12 +238,25 @@ The following events are available:
 	executed when a feed is refreshed and new entries will be imported into
 	the database. The new entry (instance of FreshRSS\_Entry) will be passed
 	as parameter.
+* `entry_before_add` (`function($entry) -> Entry | null`): will be
+	executed when a feed is refreshed and just before an entry is added to the database.
+	Useful for reading the final state of the entry after filter actions have been applied.
+	The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
+* `entry_before_update` (`function($entry) -> Entry | null`): will be
+	executed when a feed is refreshed and just before an entry is updated in the database.
+	Useful for reading the final state of the entry after filter actions have been applied.
+	The updated entry (instance of FreshRSS\_Entry) will be passed as parameter.
+* `entries_favorite` (`function(array $ids, bool $is_favorite): void`):
+	will be executed when some entries are marked or unmarked as favorites (starred)
 * `feed_before_actualize` (`function($feed) -> Feed | null`): will be
-	executed when a feed is updated. The feed (instance of FreshRSS\_Feed)
+	executed when a feed is updated. The feed (instance of `FreshRSS_Feed`)
 	will be passed as parameter.
 * `feed_before_insert` (`function($feed) -> Feed | null`): will be executed
 	when a new feed is imported into the database. The new feed (instance of
 	FreshRSS\_Feed) will be passed as parameter.
+* `feeds_list_before_actualize` (`function(array<FreshRSS_Feed> $feedList) -> array | null`) : exécuté avant que FreshRSS actualise les flux.
+	La liste des flux (tableau 	de `FreshRSS_Feed`) à actualiser sera passé comme le paramètre.
+	Utile pour modifier l’ordre dans lequel les flux seront mis à jour
 * `freshrss_init` (`function() -> none`): will be executed at the end of the
 	initialization of FreshRSS, useful to initialize components or to do
 	additional access checks
@@ -236,11 +270,16 @@ The following events are available:
 	the header dropdown menu (i.e. after the "About" entry), the returned
 	string must be valid HTML (e.g. `<li class="item active"><a href="url">New
 	entry</a></li>`)
+* `nav_entries` (`function() -> string`): ajoute des éléments DOM avant les boutons de navigation.
+* `nav_menu` (`function() -> string`): sera exécuté si la navigation est générée.
 * `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO**
 	add documentation
 * `post_update` (`function(none) -> none`): **TODO** add documentation
-* `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO**
-	add documentation
+* `simplepie_after_init` (`function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed, bool $result): void`): Triggered after fetching an RSS/Atom feed with SimplePie. Useful for instance to get the HTTP response headers (e.g. `$simplePie->data['headers']`).
+* `simplepie_before_init` (`function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed): void`): Triggered before fetching an RSS/Atom feed with SimplePie.
+* `view_modes` (`function(array<FreshRSS_ViewMode> $viewModes): array|null`): permet aux extensions de déclarer d’autres modes de vue que *normale*, *lecture*, *globale*.
+
+> ℹ️ Note: the `simplepie_*` hooks are only fired for feeds using SimplePie via pull, i.e. normal RSS/Atom feeds. This excludes WebSub (push), and the various HTML or JSON Web scraping methods.
 
 ### Writing your own configure.phtml
 

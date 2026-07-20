@@ -1,26 +1,29 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
 		'actualize' => '새 글 가져오기',
 		'add' => '추가',
-		'back' => '← 돌아가기',
 		'back_to_rss_feeds' => '← RSS 피드로 돌아가기',
 		'cancel' => '취소',
+		'close' => 'Close',	// TODO
 		'create' => '생성',
+		'delete_all_feeds' => 'Delete all feeds',	// TODO
+		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
 		'delete_muted_feeds' => '음소거된 피드 삭제',
 		'demote' => '목록 수준 내리기',
 		'disable' => '비활성화',
+		'download' => 'Download',	// TODO
 		'empty' => '비우기',
 		'enable' => '활성화',
 		'export' => '내보내기',
@@ -29,6 +32,14 @@ return array(
 		'load_default_shortcuts' => '기본 단축키 불러오기',
 		'manage' => '관리',
 		'mark_read' => '읽음으로 표시',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'URL 열기',
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',
@@ -50,6 +61,11 @@ return array(
 			'_' => '암호',
 			'format' => '<small>7 글자 이상이어야 합니다</small>',
 		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
+		),
 		'registration' => array(
 			'_' => '새 계정',
 			'ask' => '새 계정을 만들까요?',
@@ -57,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => '사용자 이름',
-			'format' => '<small>알파벳과 숫자를 포함할 수 있고 최대 16 글자</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -124,28 +140,56 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '정보',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d일 전',
+		),
+		'hour' => array(
+			0 => '%d시간 전',
+		),
+		'justnow' => '방금 전',
+		'minute' => array(
+			0 => '%d분 전',
+		),
+		'month' => array(
+			0 => '%d개월 전',
+		),
+		'second' => array(
+			0 => '%d초 전',
+		),
+		'year' => array(
+			0 => '%d년 전',
+		),
+	),
 	'js' => array(
 		'category_empty' => '빈 카테고리',
 		'confirm_action' => '정말 이 작업을 수행하시겠습니까? 이 작업은 되돌릴 수 없습니다!',
 		'confirm_action_feed_cat' => '정말 이 작업을 수행하시겠습니까? 관련된 즐겨찾기와 사용자 쿼리가 삭제됩니다. 이 작업은 되돌릴 수 없습니다!!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => '%%d 개의 새 글이 FreshRSS에 있습니다.',
-			'body_unread_articles' => '(%%d 개 읽지 않음)',
+			'body_new_articles' => array(
+				0 => '%d 개의 새 글이 FreshRSS에 있습니다.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(%d 개 읽지 않음)',	// DIRTY
+			),
 			'request_failed' => '요청한 작업을 수행할 수 없습니다. 인터넷 연결에 문제가 발생한 것 같습니다.',
 			'title_new_articles' => 'FreshRSS: 새 글이 있습니다!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => '라벨 없음',
 		'new_article' => '새 글이 있습니다. 여기를 클릭하면 페이지를 다시 불러옵니다.',
 		'should_be_activated' => '자바스크립트를 사용하도록 설정해야합니다',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
 		'hu' => 'Magyar',	// IGNORE
@@ -157,17 +201,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => '정보',
 		'account' => '계정',
 		'admin' => '관리',
+		'advanced_search' => 'Advanced Search',	// TODO
 		'archiving' => '보관',
 		'authentication' => '인증',
 		'check_install' => '설치 요구사항 확인',
@@ -175,10 +222,11 @@ return array(
 		'display' => '표시',
 		'extensions' => '확장 기능',
 		'logs' => '로그',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => '사용자 쿼리',
 		'reading' => '읽기',
 		'search' => '단어 또는 #태그 검색',
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
+		'search_help' => '문서에서 고급 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">검색 인자</a> 알아보기',
 		'sharing' => '공유',
 		'shortcuts' => '단축키',
 		'stats' => '통계',
@@ -194,33 +242,69 @@ return array(
 		'weeks' => '주',
 		'years' => '년',
 	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
+		'authors' => 'Authors',	// TODO
+		'categories' => 'Categories',	// TODO
+		'content' => 'Content',	// TODO
+		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
+		'date_past' => 'In the past',	// TODO
+		'date_published' => 'Publication Date',	// TODO
+		'date_range' => 'Date Range',	// TODO
+		'date_received' => 'Received Date',	// TODO
+		'date_to' => 'To',	// TODO
+		'date_user' => 'User Modification Date',	// TODO
+		'feeds' => 'Feeds',	// TODO
+		'free_text' => 'Free Text',	// TODO
+		'free_text_help' => 'Search both in title and content',	// TODO
+		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
+		'labels' => 'My Labels',	// TODO
+		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
+		'sources' => 'Sources',	// TODO
+		'tags' => 'Article Tags',	// TODO
+		'text' => 'Text Search',	// TODO
+		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
+		'text_placeholder' => 'Keyword',	// TODO
+		'title' => 'Title',	// TODO
+		'url' => 'URL',	// TODO
+		'user_queries' => 'User Queries',	// TODO
+	),
 	'share' => array(
 		'Known' => 'Known based sites',	// IGNORE
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => '클립보드',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => '메일',
-		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
+		'email-webmail-firefox-fix' => '이메일 (웹메일 - Firefox 전용 수정)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud 북마크',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => '인쇄',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => '기기 내장 공유 기능',

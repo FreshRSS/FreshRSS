@@ -1,3 +1,5 @@
+# Frequently asked questions
+
 We may not have answered all of your questions in the previous sections. The FAQ contains some questions that have not been answered elsewhere.
 
 ## What is `/i` at the end of the application URL?
@@ -27,7 +29,7 @@ Here are the steps to follow:
 
 1. __Verify if the feed syntax is valid__ with the [W3C on-line tool](https://validator.w3.org/feed/ "RSS and Atom feed validator"). If it’s not valid, there’s nothing we can do.
 1. __Verify SimplePie validation__ with the [SimplePie on-line tool](https://simplepie.org/demo/ "SimplePie official demo"). If it’s not recognized, there’s nothing we can do.
-1. __Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "FreshRSS official demo"). If it’s not working, you need to [create an issue on Github](https://github.com/FreshRSS/FreshRSS/issues/new "Create an issue for FreshRSS") so we can have a look at it. If it’s working, there’s probably something fishy with the hosting server.
+1. __Verify FreshRSS integration__ with the [demo](https://demo.freshrss.org "FreshRSS official demo"). If it’s not working, you need to [create an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new "Create an issue for FreshRSS") so we can have a look at it. If it’s working, there’s probably something fishy with the hosting server.
 
 ## How can you change a forgotten password?
 
@@ -50,6 +52,14 @@ Some Linux distribution, like Fedora or RedHat Enterprise Linux, have SELinux en
 semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
 restorecon -Rv /usr/share/FreshRSS/data
 ```
+
+## Permission denied under `/usr/share/` with PHP-FPM
+
+Some Linux distributions harden their PHP-FPM systemd service so that `/usr/` is read-only for PHP, even when file ownership and Unix permissions look correct. This can cause HTTP 500 errors such as `Permission denied` or `Read-only file system` when FreshRSS writes to `./data/users/*/log.txt`, marks entries as read, or updates user data.
+
+For new installations, install FreshRSS in a writable application path such as `/var/www/FreshRSS` instead of `/usr/share/FreshRSS`.
+
+For existing installations, move `./data/` to a writable location and link it back, or configure the PHP-FPM systemd unit with an appropriate `ReadWritePaths=` override for the FreshRSS `data` directory. Restart PHP-FPM after changing the systemd unit.
 
 ## Why do I have a blank page while trying to configure the sharing options?
 

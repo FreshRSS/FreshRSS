@@ -7,9 +7,9 @@ To take full advantage of FreshRSS, it needs to retrieve new items from the feed
     - [Partial update](#partial-update)
 - [Automatic update with cron](#automatic-update-with-cron)
 - [Online cron](#online-cron)
-    - [For Form Authentication](#for-form-authentication)
+    - [For Form Authentication (Web form)](#for-form-authentication-web-form)
     - [For HTTP authentication](#for-http-authentication)
-    - [For No authentication None](#for-no-authentication-none)
+    - [For No authentication (None)](#for-no-authentication-none)
 - [Feed configuration of “Do not automatically refresh more often than”](#feed-configuration-of-do-not-automatically-refresh-more-often-than)
     - [Background](#background)
     - [Default value](#default-value)
@@ -58,37 +58,33 @@ To do so, you need to create a scheduled task, which need to call a specific URL
 
 Special parameters to configure the script - all parameters can be combined:
 
-- Parameter "force"
-<https://freshrss.example.net/i/?c=feed&a=actualize&force=1>
-If *force* is set to 1 all feeds will be refreshed at once.
+- Parameter `ajax`
+  <https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1>
+  Only a status site is returned and not a complete website. Example: "OK"
 
-- Parameter "ajax"
-<https://freshrss.example.net/i/?c=feed&a=actualize&ajax=1>
-Only a status site is returned and not a complete website. Example: "OK"
+- Parameter `maxFeeds`
+  <https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=30>
+  If *maxFeeds* is set the configured amount of feeds is refreshed at once. The default setting is `10`.
 
-- Parameter "maxFeeds"
-<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=30>
-If *maxFeeds* is set the configured amount of feeds is refreshed at once. The default setting is "10".
+- Parameters `user` and `token`
+  <https://freshrss.example.net/i/?c=feed&a=actualize&user=alice&token=token123>
+  Security parameters that allow a user to refresh their feed when *Web form* authentication is set. For detailed Documentation see “Form authentication” below.
 
-- Parameter "token"
-<https://freshrss.example.net/i/?c=feed&a=actualize&token=542345872345734>
-Security parameter to prevent unauthorized refreshes. For detailed Documentation see "Form authentication".
+### For Form Authentication (Web form)
 
-### For Form Authentication
+If your FreshRSS instance is using Form Authentication, you can configure a *Master authentication token* in a user profile to grant access to the online cron.
 
-If your FreshRSS instance is using Form Authentication, you can configure an authentication token to grant access to the online cron.
+![Token configuration](../img/users/token.png)
 
-![Token configuration](../img/users/token.1.png)
+After setting the authentication token, use the `user` and `token` parameters to call the online cron script. For the above example, the syntax for the scheduled task will look as follows:
 
-You can target a specific user by adding their username to the query string, with `&user=insert-username`:
+<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=alice&token=token123>
 
-The scheduled task syntax should look as follows:
-
-<https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=someone&token=my-token>
-
-Alternatively, but not recommended, if you configure the application to allow anonymous reading, you can also allow anonymous users to update feeds (“Allow anonymous refresh of the articles”), and that does not require a token.
+Alternatively, but not recommended, you can also allow anonymous users to update feeds (*Allow anonymous refresh of the articles*), and that does not require a token.
 
 ![Anonymous access configuration](../img/users/anonymous_access.1.png)
+
+This allows anyone to update the feeds of the default user’s subscriptions.
 
 ### For HTTP authentication
 
@@ -114,7 +110,7 @@ If your FreshRSS instance uses no authentication (public instance, default user)
 
 ### Background
 
-FreshRSS does not, by design, supports pull refreshes at frequencies higher than once every 15 minutes. But FreshRSS supports instant push (WebSub).
+FreshRSS does not, by design, supports pull refreshes at frequencies higher than once every 15 minutes. But FreshRSS supports [instant push (WebSub)](WebSub.md).
 
 FreshRSS is part of an RSS ecosystem. A typical reaction that we have seen from several servers is to simply ban by, IP, user-agent, or to remove their RSS feed altogether. Bad user behaviours affect the larger community.
 

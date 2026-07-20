@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'api' => array(
@@ -29,7 +29,10 @@ return array(
 			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',
 		),
 		'empty' => 'Empty category',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',
+		'expand' => 'Expand category',
 		'information' => 'Information',
+		'open' => 'Open category',
 		'opml_url' => 'OPML URL',
 		'position' => 'Display position',
 		'position_help' => 'To control category sort order',
@@ -38,7 +41,7 @@ return array(
 	'feed' => array(
 		'accept_cookies' => 'Accept cookies',
 		'accept_cookies_help' => 'Allow the feed server to set cookies (stored in memory for the duration of the request only)',
-		'add' => 'Add an RSS feed',
+		'add' => 'Add a feed',
 		'advanced' => 'Advanced',
 		'archiving' => 'Archiving',
 		'auth' => array(
@@ -48,6 +51,7 @@ return array(
 			'password' => 'HTTP password',
 			'username' => 'HTTP username',
 		),
+		'change_favicon' => 'Change…',
 		'clear_cache' => 'Always clear cache',
 		'content_action' => array(
 			'_' => 'Content action when fetching the article content',
@@ -55,25 +59,45 @@ return array(
 			'prepend' => 'Add before existing content',
 			'replace' => 'Replace existing content',
 		),
+		'content_retrieval' => 'Content retrieval',
 		'css_cookie' => 'Use Cookies when fetching the article content',
 		'css_cookie_help' => 'Example: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => 'Retrieves truncated RSS feeds (caution, requires more time!)',
 		'css_path' => 'Article CSS selector on original website',
 		'css_path_filter' => array(
 			'_' => 'CSS selector of the elements to remove',
-			'help' => 'A CSS selector may be a list such as: <kbd>.footer, .aside</kbd>',
+			'help' => 'A CSS selector may be a list such as: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
 		'description' => 'Description',
 		'empty' => 'This feed is empty. Please verify that it is still maintained.',
-		'error' => 'This feed has encountered a problem. Please verify that it is always reachable then update it.',
+		'error' => 'This feed has encountered a problem. If this situation persists, please verify that it is still reachable.',
+		'export-as-opml' => array(
+			'download' => 'Download',
+			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',
+			'label' => 'Export as OPML',
+		),
+		'ext_favicon' => 'Set automatically',
+		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',
 		'filteractions' => array(
 			'_' => 'Filter actions',
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',
+			'view_filter' => 'Preview filters on existing articles (new window)',
 		),
+		'http_headers' => 'HTTP Headers',
+		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Icon',
 		'information' => 'Information',
+		'keep_adding_feed' => 'Then add more feeds',
 		'keep_min' => 'Minimum number of articles to keep',
 		'kind' => array(
 			'_' => 'Type of feed source',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',
+				'xpath' => array(
+					'_' => 'XPath for JSON in HTML',
+					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',
+				),
+			),
 			'html_xpath' => array(
 				'_' => 'HTML + XPath (Web scraping)',
 				'feed_title' => array(
@@ -121,9 +145,52 @@ return array(
 				'relative' => 'XPath (relative to item) for:',
 				'xpath' => 'XPath for:',
 			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (dot notation)',
+				'feed_title' => array(
+					'_' => 'feed title',
+					'help' => 'Example: <code>meta.title</code> or a static string: <code>"My custom feed"</code>',
+				),
+				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',
+				'item' => array(
+					'_' => 'finding news <strong>items</strong><br /><small>(most important)</small>',
+					'help' => 'JSON path to the array containing the items, e.g. <code>$</code> or <code>newsItems</code>',
+				),
+				'item_author' => 'item author',
+				'item_categories' => 'item tags',
+				'item_content' => array(
+					'_' => 'item content',
+					'help' => 'Key under which the content is found, e.g. <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'item thumbnail',
+					'help' => 'Example: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Custom date/time format',
+					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'item date',
+					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+				),
+				'item_title' => 'item title',
+				'item_uid' => 'item unique ID',
+				'item_uri' => array(
+					'_' => 'item link (URL)',
+					'help' => 'Example: <code>permalink</code>',
+				),
+				'json' => 'dot notation for:',
+				'relative' => 'dot notated path (relative to item) for:',
+			),
+			'jsonfeed' => 'JSON Feed',
 			'rss' => 'RSS / Atom (default)',
 			'xml_xpath' => 'XML + XPath',
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',
 			'clear_cache_help' => 'Clear the cache for this feed.',
@@ -133,24 +200,37 @@ return array(
 		),
 		'max_http_redir' => 'Max HTTP redirects',
 		'max_http_redir_help' => 'Set to 0 or leave blank to disable, -1 for unlimited redirects',
-		'moved_category_deleted' => 'When you delete a category, its feeds are automatically classified under <em>%s</em>.',
-		'mute' => 'mute',
+		'method' => array(
+			'_' => 'HTTP Method',
+		),
+		'method_help' => 'The POST payload has automatic support for <code>application/x-www-form-urlencoded</code> and <code>application/json</code>',
+		'method_postparams' => 'Payload for POST',
+		'moved_category_deleted' => 'When you remove a category, its feeds are automatically classified under <em>%s</em>.',
+		'mute' => array(
+			'_' => 'mute',
+			'state_is_muted' => 'This feed is muted',
+		),
 		'no_selected' => 'No feed selected.',
 		'number_entries' => '%d articles',
+		'open_feed' => 'Open feed %s',
+		'path_entries_conditions' => 'Conditions for content retrieval',
 		'priority' => array(
 			'_' => 'Visibility',
-			'archived' => 'Do not show (archived)',
+			'category' => 'Show in its category',
+			'feed' => 'Show in its feed',
+			'hidden' => 'Do not show',
+			'important' => 'Show in important feeds',
 			'main_stream' => 'Show in main stream',
-			'normal' => 'Show in its category',
 		),
 		'proxy' => 'Set a proxy for fetching this feed',
-		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd>)',
+		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'reset_favicon' => 'Reset to default',
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',
 			'show_rendered' => 'Show content',
 		),
 		'show' => array(
-			'all' => 'Show all feeds',
+			'all' => 'All feeds',
 			'error' => 'Show only feeds with errors',
 		),
 		'showing' => array(
@@ -163,15 +243,34 @@ return array(
 		'title' => 'Title',
 		'title_add' => 'Add an RSS feed',
 		'ttl' => 'Do not automatically refresh more often than',
+		'unicityCriteria' => array(
+			'_' => 'Article unicity criteria',
+			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',
+			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',
+			'id' => 'Standard ID (default)',
+			'link' => 'Link',
+			'sha1:content' => 'Content',
+			'sha1:content_published' => 'Content + Date',
+			'sha1:link_published' => 'Link + Date',
+			'sha1:link_published_title' => 'Link + Date + Title',
+			'sha1:link_published_title_content' => 'Link + Date + Title + Content',
+			'sha1:published' => 'Date',
+			'sha1:title' => 'Title',
+			'sha1:title_published' => 'Title + Date',
+			'sha1:title_published_content' => 'Title + Date + Content',
+		),
 		'url' => 'Feed URL',
 		'useragent' => 'Set the user agent for fetching this feed',
 		'useragent_help' => 'Example: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
 		'validator' => 'Check the validity of the feed',
 		'website' => 'Website URL',
-		'websub' => 'Instant notification with WebSub',
+		'websub' => 'Instant notifications with WebSub',
 	),
 	'import_export' => array(
-		'export' => 'Export',
+		'export' => array(
+			'_' => 'Export',
+			'sqlite' => 'Download user database as SQLite',
+		),
 		'export_labelled' => 'Export your labelled articles',
 		'export_opml' => 'Export list of feeds (OPML)',
 		'export_starred' => 'Export your favourites',
@@ -190,11 +289,13 @@ return array(
 			'idle' => 'Idle feeds',
 			'main' => 'Main statistics',
 			'repartition' => 'Articles repartition',
+			'unread_dates' => 'Unread dates',
 		),
 		'subscription_management' => 'Subscription management',
 		'subscription_tools' => 'Subscription tools',
 	),
 	'tag' => array(
+		'auto_label' => 'Add this label to new articles',
 		'name' => 'Name',
 		'new_name' => 'New name',
 		'old_name' => 'Old name',
@@ -206,9 +307,9 @@ return array(
 		'add_dynamic_opml' => 'Add dynamic OPML',
 		'add_feed' => 'Add a feed',
 		'add_label' => 'Add a label',
-		'delete_label' => 'Delete a label',
+		'add_opml_category' => 'OPML category name',
+		'delete_label' => 'Delete this label',
 		'feed_management' => 'RSS feeds management',
-		'rename_label' => 'Rename a label',
 		'subscription_tools' => 'Subscription tools',
 	),
 );

@@ -1,25 +1,26 @@
 <?php
+declare(strict_types=1);
+
 if (php_sapi_name() !== 'cli') {
 	die('FreshRSS error: This PHP script may only be invoked from command line!');
 }
 
 const EXIT_CODE_ALREADY_EXISTS = 3;
-const REGEX_INPUT_OPTIONS = '/^--/';
-const REGEX_PARAM_OPTIONS = '/:*$/';
 
-require(__DIR__ . '/../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
-require(LIB_PATH . '/lib_install.php');
+require dirname(__DIR__) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
+require LIB_PATH . '/lib_install.php';
+require_once __DIR__ . '/CliOption.php';
+require_once __DIR__ . '/CliOptionsParser.php';
 
 Minz_Session::init('FreshRSS', true);
 FreshRSS_Context::initSystem();
 Minz_ExtensionManager::init();
-Minz_Translate::init('en');
+Minz_Translate::init(Minz_Translate::DEFAULT_LANGUAGE);
 
 FreshRSS_Context::$isCli = true;
 
-/** @return never */
-function fail(string $message, int $exitCode = 1) {
+function fail(string $message, int $exitCode = 1): never {
 	fwrite(STDERR, $message . "\n");
 	die($exitCode);
 }
@@ -33,11 +34,12 @@ function cliInitUser(string $username): string {
 		fail('FreshRSS error: user not found: ' . $username . "\n");
 	}
 
-	if (!FreshRSS_Context::initUser($username)) {
+	FreshRSS_Context::initUser($username);
+	if (!FreshRSS_Context::hasUserConf()) {
 		fail('FreshRSS error: invalid configuration for user: ' . $username . "\n");
 	}
 
-	$ext_list = FreshRSS_Context::$user_conf->extensions_enabled;
+	$ext_list = FreshRSS_Context::userConf()->extensions_enabled;
 	Minz_ExtensionManager::enableByList($ext_list, 'user');
 
 	return $username;
@@ -48,56 +50,50 @@ function accessRights(): void {
 		"\t", 'sudo cli/access-permissions.sh', "\n";
 }
 
-/** @return never */
-function done(bool $ok = true) {
+function done(bool $ok = true): never {
 	if (!$ok) {
-		fwrite(STDERR, (empty($_SERVER['argv'][0]) ? 'Process' : basename($_SERVER['argv'][0])) . ' failed!' . "\n");
+		fwrite(STDERR, (isset($_SERVER['argv']) && is_array($_SERVER['argv']) && !empty($_SERVER['argv'][0]) && is_string($_SERVER['argv'][0]) ?
+			basename($_SERVER['argv'][0]) : 'Process') . ' failed!' . "\n");
 	}
 	exit($ok ? 0 : 1);
 }
 
+function requirementStatus(string $key, string $status): string {
+	if ($key === 'php') {
+		return _t('install.check.' . $key . '.' . ($status === 'ok' ? 'ok' : 'nok'), PHP_VERSION, FRESHRSS_MIN_PHP_VERSION);
+	}
+	return _t('install.check.' . $key . '.' . ($status === 'ok' ? 'ok' : 'nok'));
+}
+
 function performRequirementCheck(string $databaseType): void {
+	if (!in_array($databaseType, ['mysql', 'pgsql', 'sqlite'], true)) {
+		fail('Invalid database type!');
+	}
 	$requirements = checkRequirements($databaseType);
-	if ($requirements['all'] !== 'ok') {
-		$message = 'FreshRSS failed requirements:' . "\n";
+	$message = '';
+
+	if (in_array('warn', array_values($requirements), true)) {
+		$message .= 'FreshRSS failed recommendations:' . "\n";
 		foreach ($requirements as $requirement => $check) {
-			if ($check !== 'ok' && !in_array($requirement, ['all', 'pdo', 'message'], true)) {
-				$message .= '• ' . $requirement . "\n";
+			if ($check === 'warn') {
+				$message .= '⚠ ' . $requirement . ': ' . requirementStatus($requirement, $check) . "\n";
 			}
 		}
-		if (!empty($requirements['message']) && $requirements['message'] !== 'ok') {
-			$message .= '• ' . $requirements['message'] . "\n";
+		$message .= "\n";
+	}
+
+	if ($requirements['all'] !== 'ok') {
+		$message .= 'FreshRSS failed requirements:' . "\n";
+		foreach ($requirements as $requirement => $check) {
+			if ($check === 'ko' && !in_array($requirement, ['all'], true)) {
+				$message .= '❌ ' . $requirement . ': ' . requirementStatus($requirement, $check) . "\n";
+			}
 		}
 		fail($message);
 	}
-}
 
-/**
- * @param array<string> $options
- * @return array<string>
- */
-function getLongOptions(array $options, string $regex): array {
-	$longOptions = array_filter($options, static function (string $a) use ($regex) {
-		return preg_match($regex, $a);
-	});
-	return array_map(static function (string $a) use ($regex) {
-		return preg_replace($regex, '', $a);
-	}, $longOptions);
-}
-
-/**
- * @param array<string> $input
- * @param array<string> $params
- */
-function validateOptions(array $input, array $params): bool {
-	$sanitizeInput = getLongOptions($input, REGEX_INPUT_OPTIONS);
-	$sanitizeParams = getLongOptions($params, REGEX_PARAM_OPTIONS);
-	$unknownOptions = array_diff($sanitizeInput, $sanitizeParams);
-
-	if (0 === count($unknownOptions)) {
-		return true;
+	$message = trim($message);
+	if ($message !== '') {
+		fwrite(STDERR, $message . "\n");
 	}
-
-	fwrite(STDERR, sprintf("FreshRSS error: unknown options: %s\n", implode (', ', $unknownOptions)));
-	return false;
 }

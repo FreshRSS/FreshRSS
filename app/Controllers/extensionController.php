@@ -1,7 +1,10 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The controller to manage extensions.
+ *
+ * @phpstan-type ExtensionFullMetadata array{name:string,entrypoint:string,author:string,description:string,version:string,type:'system'|'user',url:string,method:string,directory:string,compatibility:string}
  */
 class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	/**
@@ -9,6 +12,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	 * the common boiler plate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -37,23 +41,42 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * fetch extension list from GitHub
-	 * @return array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}>
+	 * Fetch extension list from GitHub
+	 * @phpstan-return list<ExtensionFullMetadata>
 	 */
 	protected function getAvailableExtensionList(): array {
-		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/master/extensions.json';
-		$json = @file_get_contents($extensionListUrl);
+		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/refs/heads/main/extensions.json';
+
+		$cacheFile = CACHE_PATH . '/extension_list.json';
+		$fetchResult = null;
+		if (FreshRSS_Context::userConf()->retrieve_extension_list === true) {
+			if (!file_exists($cacheFile) || (time() - (filemtime($cacheFile) ?: 0) > 86400)) {
+				$fetchResult = FreshRSS_http_Util::httpGet($extensionListUrl, $cacheFile, 'json');
+				$json = $fetchResult['body'];
+			} else {
+				$json = @file_get_contents($cacheFile) ?: '';
+			}
+		} else {
+			Minz_Log::warning('The extension list retrieval is disabled in privacy configuration');
+			return [];
+		}
 
 		// we ran into problems, simply ignore them
-		if ($json === false) {
-			Minz_Log::error('Could not fetch available extension from GitHub');
+		if ($json === '') {
+			$details = '';
+			if (is_array($fetchResult)) {
+				$status = $fetchResult['status'];
+				$error = $fetchResult['error'];
+				$details = ' (HTTP status ' . $status . ($error !== '' ? '; ' . $error : '') . ')';
+			}
+			Minz_Log::error('Could not fetch available extension list from GitHub' . $details);
 			return [];
 		}
 
 		// fetch the list as an array
 		/** @var array<string,mixed> $list*/
 		$list = json_decode($json, true);
-		if (empty($list)) {
+		if (!is_array($list) || empty($list['extensions']) || !is_array($list['extensions'])) {
 			Minz_Log::warning('Failed to convert extension file list');
 			return [];
 		}
@@ -61,10 +84,38 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		// By now, all the needed data is kept in the main extension file.
 		// In the future we could fetch detail information from the extensions metadata.json, but I tend to stick with
 		// the current implementation for now, unless it becomes too much effort maintain the extension list manually
-		/** @var array<string,array{'name':string,'author':string,'description':string,'version':string,'entrypoint':string,'type':'system'|'user','url':string,'method':string,'directory':string}> $extensions*/
-		$extensions = $list['extensions'];
+		$extensions = [];
+		foreach ($list['extensions'] as $extension) {
+			if (!is_array($extension)) {
+				continue;
+			}
+			if (isset($extension['version']) && is_numeric($extension['version'])) {
+				$extension['version'] = (string)$extension['version'];
+			}
+			if (!array_key_exists('compatibility', $extension)) {
+				$extension['compatibility'] = '✔';
+			}
+			$keys = ['author', 'description', 'directory', 'entrypoint', 'method', 'name', 'type', 'url', 'version', 'compatibility'];
+			$extension = array_intersect_key($extension, array_flip($keys));	// Keep only valid keys
+			$extension = array_filter($extension, 'is_string');
+			foreach ($keys as $key) {
+				if (empty($extension[$key])) {
+					continue 2;
+				}
+			}
+			if (!in_array($extension['type'], ['system', 'user'], true) || trim($extension['name']) === '') {
+				continue;
+			}
+			/** @var ExtensionFullMetadata $extension */
+			$extensions[] = $extension;
+		}
 
-		return $extensions;
+		return array_map(static function (array $extension) {
+			if ($extension['compatibility'] !== '✔') {
+				$extension['compatibility'] = version_compare($extension['compatibility'], FRESHRSS_VERSION, '>=') ? '✔' : '✘';
+			}
+			return $extension;
+		}, $extensions);
 	}
 
 	/**
@@ -99,7 +150,12 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_View::prependTitle($ext->getName() . ' · ' . _t('admin.extensions.title') . ' · ');
 		$this->view->extension = $ext;
-		$this->view->extension->handleConfigureAction();
+		try {
+			$this->view->extension->handleConfigureAction();
+		} catch (Minz_Exception $e) {	// @phpstan-ignore catch.neverThrown (Thrown by extensions)
+			Minz_Log::error('Error while configuring extension ' . $ext->getName() . ': ' . $e->getMessage());
+			Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')), ['c' => 'extension', 'a' => 'index']);
+		}
 	}
 
 	/**
@@ -135,16 +191,16 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$conf = null;
 			if ($type === 'system') {
-				$conf = FreshRSS_Context::$system_conf;
+				$conf = FreshRSS_Context::systemConf();
 			} elseif ($type === 'user') {
-				$conf = FreshRSS_Context::$user_conf;
+				$conf = FreshRSS_Context::userConf();
 			}
 
 			$res = $ext->install();
 
 			if ($conf !== null && $res === true) {
 				$ext_list = $conf->extensions_enabled;
-				$ext_list = array_filter($ext_list, static function(string $key) use($type) {
+				$ext_list = array_filter($ext_list, static function (string $key) use ($type) {
 					// Remove from list the extensions that have disappeared or changed type
 					$extension = Minz_ExtensionManager::findExtension($key);
 					return $extension !== null && $extension->getType() === $type;
@@ -154,7 +210,11 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
-				Minz_Request::good(_t('feedback.extensions.enable.ok', $ext_name), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.extensions.enable.ok', $ext_name),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning('Cannot enable extension ' . $ext_name . ': ' . $res);
 				Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
@@ -197,16 +257,16 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$conf = null;
 			if ($type === 'system') {
-				$conf = FreshRSS_Context::$system_conf;
+				$conf = FreshRSS_Context::systemConf();
 			} elseif ($type === 'user') {
-				$conf = FreshRSS_Context::$user_conf;
+				$conf = FreshRSS_Context::userConf();
 			}
 
 			$res = $ext->uninstall();
 
 			if ($conf !== null && $res === true) {
 				$ext_list = $conf->extensions_enabled;
-				$ext_list = array_filter($ext_list, static function(string $key) use($type) {
+				$ext_list = array_filter($ext_list, static function (string $key) use ($type) {
 					// Remove from list the extensions that have disappeared or changed type
 					$extension = Minz_ExtensionManager::findExtension($key);
 					return $extension !== null && $extension->getType() === $type;
@@ -216,7 +276,11 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 				$conf->extensions_enabled = $ext_list;
 				$conf->save();
 
-				Minz_Request::good(_t('feedback.extensions.disable.ok', $ext_name), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.extensions.disable.ok', $ext_name),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Log::warning('Cannot disable extension ' . $ext_name . ': ' . $res);
 				Minz_Request::bad(_t('feedback.extensions.disable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
@@ -253,12 +317,52 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 			$res = recursive_unlink($ext->getPath());
 			if ($res) {
-				Minz_Request::good(_t('feedback.extensions.removed', $ext_name), $url_redirect);
+				Minz_Request::good(
+					_t('feedback.extensions.removed', $ext_name),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
 				Minz_Request::bad(_t('feedback.extensions.cannot_remove', $ext_name), $url_redirect);
 			}
 		}
 
 		Minz_Request::forward($url_redirect, true);
+	}
+
+	// Supported types with their associated content type
+	public const MIME_TYPES = [
+		'css' => 'text/css; charset=UTF-8',
+		'gif' => 'image/gif',
+		'jpeg' => 'image/jpeg',
+		'jpg' => 'image/jpeg',
+		'js' => 'application/javascript; charset=UTF-8',
+		'png' => 'image/png',
+		'svg' => 'image/svg+xml',
+	];
+
+	public function serveAction(): void {
+		$extensionName = Minz_Request::paramString('x');
+		$filename = Minz_Request::paramString('f');
+		$mimeType = pathinfo($filename, PATHINFO_EXTENSION);
+		if ($extensionName === '' || $filename === '' || $mimeType === '' || empty(self::MIME_TYPES[$mimeType])) {
+			header('HTTP/1.1 400 Bad Request');
+			die('Bad Request!');
+		}
+		$extension = Minz_ExtensionManager::findExtension($extensionName);
+		if ($extension === null || !$extension->isEnabled() || ($mtime = $extension->mtimeFile($filename)) === null) {
+			header('HTTP/1.1 404 Not Found');
+			die('Not Found!');
+		}
+
+		$this->view->_layout(null);
+
+		$content_type = self::MIME_TYPES[$mimeType];
+		header("Content-Type: {$content_type}");
+		header("Content-Disposition: inline; filename='{$filename}'");
+		header('Referrer-Policy: same-origin');
+		if (file_exists(DATA_PATH . '/no-cache.txt') || !httpConditional($mtime, cacheSeconds: 604800, cachePrivacy: 2)) {
+			echo $extension->getFile($filename);
+		}
 	}
 }

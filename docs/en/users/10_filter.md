@@ -46,10 +46,12 @@ It is possible to filter articles by their content by inputting a string in the 
 You can use the search field to further refine results:
 
 * by feed ID: `f:123` or multiple feed IDs (*or*): `f:123,234,345`
+* by category ID: `c:23` or multiple category IDs (*or*): `c:23,34,45`
 * by author: `author:name` or `author:'composed name'`
 * by title: `intitle:keyword` or `intitle:'composed keyword'`
+* by text (content): `intext:keyword` or `intext:'composed keyword'`
 * by URL: `inurl:keyword` or `inurl:'composed keyword'`
-* by tag: `#tag` or `#tag+with+whitespace`
+* by tag: `#tag` or `#tag+with+whitespace` or `#'tag with whitespace'`
 * by free-text: `keyword` or `'composed keyword'`
 * by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
 	* From a specific day, or month, or year:
@@ -83,12 +85,19 @@ You can use the search field to further refine results:
 		* `date:PT30M/` (past thirty minutes)
 		* `date:PT90S/` (past ninety seconds)
 		* `date:P1DT1H/` (past one day and one hour)
+	* From the oldest until some time before now:
+		* `!date:P1M` (older than one month before now, using a negation)
+			* Note: the syntax ~~`date:/P1M`~~ is not supported
+	* Date constraints may be combined:
+		* `date:P1Y !date:P1M` (from one year before now until one month before now)
 * by date of publication, using the same format: `pubdate:<date-interval>`
+* by date of server modification, using the same format: `mdate:<date-interval>`
+* by date of user modification (e.g. mark as read or favourite), using the same format: `userdate:<date-interval>`
 * by custom label ID `L:12` or multiple label IDs: `L:12,13,14` or with any label: `L:*`
 * by custom label name `label:label`, `label:"my label"` or any label name from a list (*or*): `labels:"my label,my other label"`
 * by several label names (*and*): `label:"my label" label:"my other label"`
 * by entry (article) ID: `e:1639310674957894` or multiple entry IDs  (*or*): `e:1639310674957894,1639310674957893`
-* by user query (saved search) name: `search:myQuery`, `search:"My query"` or saved search ID: `S:3`
+* by user query (saved search) name: `search:myQuery`, `search:"My query"` or saved search ID: `S:3` or multiple search IDs: `S:1,2`
 	* internally, those references are replaced by the corresponding user query in the search expression
 
 Be careful not to enter a space between the operator and the search value.
@@ -97,13 +106,16 @@ Some operators can be used negatively, to exclude articles, with the same syntax
 `!f:234`, `-author:name`, `-intitle:keyword`, `-inurl:keyword`, `-#tag`, `!keyword`, `!date:2019`, `!date:P1W`, `!pubdate:P3d/`.
 
 It is also possible to combine keywords to create a more precise filter.
-For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `inurl:`, `#`, and free-text.
+For example, you can enter multiple instances of `f:`, `author:`, `intitle:`, `intext:`, `inurl:`, `#`, and free-text.
 
 Combining several search criteria implies a logical *and*, but the keyword ` OR `
 can be used to combine several search criteria with a logical *or* instead: `author:Dupont OR author:Dupond`
 
 You don’t have to do anything special to combine multiple negative operators. Writing `!intitle:'thing1' !intitle:'thing2'` implies AND, see above. For more pointers on how AND and OR interact with negation, see [this GitHub comment](https://github.com/FreshRSS/FreshRSS/issues/3236#issuecomment-891219460).
 Additional reading: [De Morgan’s laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws).
+
+> ℹ️ Searches are applied to the HTML content, and special XML characters `<&">` are automatically encoded (so one can search for `'A & B'` without having to encode the `&amp;`).
+> To search HTML tags, one must use regex searches (see below).
 
 Finally, parentheses may be used to express more complex queries, with basic negation support:
 
@@ -113,40 +125,55 @@ Finally, parentheses may be used to express more complex queries, with basic neg
 * `(author:Alice intitle:hello) !(author:Bob intitle:world)`
 * `!(S:1 OR S:2)`
 
-> ℹ️ If you need to search for a parenthesis, it needs to be escaped like `\(` or `\)`
+> ℹ️ If you need to search for a parenthesis, it needs to be escaped like `\(` or `\)` or used inside a quoted string like `"a (b)"`
+
+### Regex
+
+Text searches (including `author:`, `intitle:`, `inurl:`, `#`) may use regular expressions, which must be enclosed in `/ /`.
+
+Regex searches are case-sensitive by default, but can be made case-insensitive with the `i` modifier like: `/Alice/i`
+
+Supports multiline mode with `m` modifier, like: `/^Alice/m`
+
+> ℹ️ `author:` is working with one author per line, so the multiline mode may advantageously be used, like: `author:/^Alice Dupont$/im`
+>
+> ℹ️ `#` is likewise working with one tag per line, so the multiline mode may advantageously be used, like: `#/^Hello World$/im`
+
+Example to search entries, which title starts with the *Lol* word, with any number of *o*: `intitle:/^Lo+l/i`
+
+Example to search empty entries (where the body of articles is blank): `intext:/^\s*$/`
+
+As opposed to normal searches, special XML characters `<&">` are not escaped in regex searches, to allow searching HTML code, like: `/Hello <span>world<\/span>/`
+
+> ℹ️ A literal slash needs to be escaped, like `\/`
+
+⚠️ Advanced regex syntax details depend on the regex engine used:
+
+* FreshRSS filter actions such as auto-mark-as-read and auto-favourite use [PHP preg_match](https://php.net/function.preg-match).
+* Regex searches depend on which database you are using:
+	* For SQLite, [PHP preg_match](https://php.net/function.preg-match) is used;
+	* [For PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP);
+	* [For MariaDB](https://mariadb.com/kb/en/pcre/);
+	* [For MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
+
+> ℹ️ Even with PostgreSQL, you are welcome to use `\b` for word boundary (and `\B` for the opposite), as there is an automatic translation to `\y` and `\Y`.
 
 ## By sorting by date
 
 You can change the sort order by clicking the toggle button available in the header.
 
-## Store your filters
+## Bookmark the current query
 
-Once you came up with your perfect filter, it would be a shame if you need to recreate it every time you need to use it.
+Once you came up with your perfect filter, it would be a shame if you had to recreate it every time you need to use it.
 
-Hopefully, there is a way to bookmark them for later use.
-We call them *user queries*.
+Luckily, there is a way to bookmark them for later use.
+We call them [*user queries*](./user_queries.md).
 You can create as many as you want, the only limit is how they will be displayed on your screen.
 
-### Bookmark the current query
-
-Display the user queries drop-down by clicking the button next to the state buttons.
-![User queries drop-down](../img/users/user.queries.drop-down.empty.png)
-
-Then click on the bookmark action.
-
-Congratulations, you’re done!
-
-### Using a bookmarked query
-
-Display the user queries drop-down by clicking the button next to the state buttons.
-![User queries drop-down](../img/users/user.queries.drop-down.not.empty.png)
-
-Then click on the bookmarked query, the previously stored query will be applied.
-
-> Note that only the query is stored, not the articles.
-> The results you are seeing now could be different from the results on the day you've created the query.
+Read more about [*user queries*](./user_queries.md) to learn how to create them, use them, and even reshare them via HTML / RSS / OPML.
 
 ---
 Read more:
 * [Normal, Global and Reader view](./03_Main_view.md)
 * [Refreshing the feeds](./09_refreshing_feeds.md)
+* [User queries](./user_queries.md)

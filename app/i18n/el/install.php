@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Διατήρηση των προηγούμενων ρυθμίσεων',
 		'next_step' => 'Μεταβείτε στο επόμενο βήμα',
 		'reinstall' => 'Επανεγκατάσταση του FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Web form (σύνηθες, απαιτεί JavaScript)',
-		'http' => 'HTTP (για έμπειρους χρήστες με HTTPS)',
-		'none' => 'Καμία (ριψοκίνδυνο)',
-		'password_form' => 'Κωδικός Πρόσβασης<br /><small>(για την μέθοδο σύνδεσης με Web-form)</small>',
-		'password_format' => 'Τουλάχιστον 7 χαρακτήρες',
-		'type' => 'Μέθοδος Πιστοποίησης',
 	),
 	'bdd' => array(
 		'_' => 'Βάση Δεδομένων',
@@ -58,6 +50,23 @@ return array(
 			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>%1$s</em> για τον χρήστη <em>%2$s</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής.',
 			'ok' => 'Τα δικαιώματα στον κατάλογο δεδομένων (data) είναι εντάξει.',
 		),
+		'database-connection' => array(
+			'nok' => 'Σφάλμα σύνδεσης με τη βάση δεδομένων.',
+			'ok' => 'Η σύνδεση με τη βάση δεδομένων είναι εντάξει.',
+		),
+		'database-table' => array(
+			'nok' => 'Ο πίνακας «%s» της βάσης δεδομένων είναι ελλιπής.',
+			'ok' => 'Ο πίνακας «%s» της βάσης δεδομένων είναι εντάξει.',
+		),
+		'database-tables' => array(
+			'nok' => 'Λείπουν ορισμένοι πίνακες της βάσης δεδομένων.',
+			'ok' => 'Όλοι οι πίνακες της βάσης δεδομένων υπάρχουν.',
+		),
+		'database-title' => 'Βάση δεδομένων',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM.',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM.',
@@ -69,6 +78,15 @@ return array(
 		'fileinfo' => array(
 			'nok' => 'Δεν βρέθηκε η βιβλιοθήκη PHP fileinfo (fileinfo package).',
 			'ok' => 'Βρέθηκε η βιβλιοθήκη fileinfo.',
+		),
+		'files' => 'Εγκατάσταση αρχείων',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'Δεν βρέθηκε η συνιστώμενη βιβλιοθήκη php-intl για τη διεθνοποίηση.',
+			'ok' => 'Έχετε τη συνιστώμενη βιβλιοθήκη php-intl για τη διεθνοποίηση.',
 		),
 		'json' => array(
 			'nok' => 'Δεν βρέθηκε η συνιστώμενη βιβλιοθήκη για ανάλυση JSON.',
@@ -82,11 +100,22 @@ return array(
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για regular expressions (php-pcre).',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για regular expressions (php-pcre).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Δεν βρέθηκε το απαιτούμενο πρόγραμμα οδήγησης PDO για MySQL/MariaDB.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Δεν βρέθηκε το απαιτούμενο πρόγραμμα οδήγησης PDO για PostgreSQL.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Δεν βρέθηκε το πρόγραμμα οδήγησης PDO για SQLite.',
+			'ok' => 'Έχετε το πρόγραμμα οδήγησης PDO για SQLite.',
+		),
 		'pdo' => array(
-			'nok' => 'Δεν βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Δεν βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Εγκατάσταση PHP',
 			'nok' => 'Η έκδοση της PHP σας είναι %s, αλλά το FreshRSS απαιτεί τουλάχιστον έκδοση %s.',
 			'ok' => 'Η έκδοση της PHP σας, %s, είναι συμβατή με το FreshRSS.',
 		),
@@ -94,6 +123,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>%1$s</em> για τον χρήστη <em>%2$s</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής.',
 			'ok' => 'Τα δικαιώματα στον κατάλογο προσωρινών αρχείων (temp) είναι εντάξει.',
+		),
+		'tokens' => array(
+			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data/tokens</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής',
+			'ok' => 'Τα δικαιώματα στον κατάλογο διακριτικών (tokens) είναι εντάξει.',
 		),
 		'unknown_process_username' => 'άγνωστο',
 		'users' => array(
@@ -104,6 +137,10 @@ return array(
 			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για ανάλυση XML.',
 			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για ανάλυση XML.',
 		),
+		'zip' => array(
+			'nok' => 'Δεν βρέθηκε η επέκταση ZIP (php-zip package).',
+			'ok' => 'Βρέθηκε η επέκταση ZIP .',
+		),
 	),
 	'conf' => array(
 		'_' => 'Γενικές Ρυθμίσεις',
@@ -112,7 +149,7 @@ return array(
 	'congratulations' => 'Συγχαρητήρια!',
 	'default_user' => array(
 		'_' => 'Όνομα χρήστη για τον προεπιλεγμένο χρήστη',
-		'max_char' => 'μέγιστο 16 αλφαριθμητικοί χαρακτήρες',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Παρακαλούμε διορθώστε τα σφάλματα πριν συνεχίσετε στο επόμενο βήμα.',
 	'javascript_is_better' => 'Το FreshRSS είναι πιο ευχάριστο με ενεργοποιημένη την JavaScript',

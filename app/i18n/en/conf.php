@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Display',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',
+			'_' => 'Automatic dark mode',
 			'auto' => 'Auto',
+			'help' => 'For compatible themes only',
 			'no' => 'No',
 		),
 		'icon' => array(
@@ -53,6 +54,15 @@ return array(
 			'timeout' => 'HTML5 notification timeout',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',
+		'show_title_unread' => 'Show number of unread articles in the title',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',
+			'all' => 'For all categories and feeds',
+			'important' => 'For important feeds only',
+			'important_locked' => 'Important feeds always show their unread count.',
+			'none' => 'Never',
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',
 		'theme' => array(
 			'_' => 'Theme',
 			'deprecated' => array(
@@ -98,42 +108,106 @@ return array(
 			'previous' => 'Previous',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“Mark all as read” button',
+		'big' => 'Big',
+		'none' => 'None',
+		'small' => 'Small',
+	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',
+			'seconds' => 'seconds (at least 1)',
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',
+			'seconds' => 'seconds (0 means not shown)',
+		),
+	),
+	'privacy' => array(
+		'_' => 'Privacy',
+		'retrieve_extension_list' => 'Retrieve extension list',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',
+	),
 	'profile' => array(
 		'_' => 'Profile management',
-		'api' => 'API management',
+		'api' => array(
+			'_' => 'External access via API',
+			'api_not_set' => 'API password not set',
+			'api_set' => 'API password set',
+			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'The API access is disabled.',
+			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',
+			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',
+		),
+		'change_password' => 'Change password',
+		'confirm_new_password' => 'Confirm new password',
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',
 		'delete' => array(
 			'_' => 'Account deletion',
 			'warn' => 'Your account and all related data will be deleted.',
 		),
 		'email' => 'Email address',
+		'new_password' => 'New password',
 		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
 		'password_format' => 'At least 7 characters',
 		'title' => 'Profile',
 	),
 	'query' => array(
 		'_' => 'User queries',
+		'create' => 'Create new user query',
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',
+		'description' => 'Description',
 		'filter' => array(
 			'_' => 'Filter applied:',
 			'categories' => 'Display by category',
 			'feeds' => 'Display by feed',
 			'order' => 'Sort by date',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',
 			'search' => 'Expression',
+			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',
+			'shareRss' => 'Enable sharing by HTML &amp; RSS',
 			'state' => 'State',
 			'tags' => 'Display by label',
 			'type' => 'Type',
 		),
+		'get_A' => 'Show all feeds, also those shown in their category',
+		'get_Z' => 'Show all feeds, also archived ones',
 		'get_all' => 'Display all articles',
+		'get_all_labels' => 'Display articles with any label',
 		'get_category' => 'Display “%s” category',
 		'get_favorite' => 'Display favourite articles',
 		'get_feed' => 'Display “%s” feed',
+		'get_important' => 'Display articles from important feeds',
+		'get_label' => 'Display articles with “%s” label',
+		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',
 		'name' => 'Name',
 		'no_filter' => 'No filter',
+		'no_queries' => array(
+			'_' => 'No user queries are saved yet.',
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',
+		),
 		'number' => 'Query n°%d',
 		'order_asc' => 'Display oldest articles first',
 		'order_desc' => 'Display newest articles first',
 		'search' => 'Search for “%s”',
+		'share' => array(
+			'_' => 'Share this query by link',
+			'disabled' => array(
+				'_' => 'disabled',
+				'title' => 'Sharing',
+			),
+			'greader' => 'Shareable link to the GReader JSON',
+			'help' => 'Give this link if you want to share this query with anyone',
+			'html' => 'Shareable link to the HTML page',
+			'opml' => 'Shareable link to the OPML list of feeds',
+			'rss' => 'Shareable link to the RSS feed',
+		),
 		'state_0' => 'Display all articles',
 		'state_1' => 'Display read articles',
 		'state_2' => 'Display unread articles',
@@ -156,6 +230,7 @@ return array(
 		'_' => 'Reading',
 		'after_onread' => 'After “mark all as read”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',
+		'apply_to_individual_feed' => 'Applies to feeds individually',
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Authors and date',
@@ -170,6 +245,11 @@ return array(
 				'with_authors' => 'In authors and date row',
 			),
 			'feed_title' => 'Feed title',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',
+				'above_title' => 'Above title',
+				'with_authors' => 'In authors and date row',
+			),
 			'tags' => array(
 				'_' => 'Tags',
 				'both' => 'In header and footer',
@@ -198,37 +278,41 @@ return array(
 		),
 		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',
 		'img_with_lazyload' => 'Use <em>lazy load</em> mode to load pictures',
-		'jump_next' => 'jump to next unread sibling (feed or category)',
+		'jump_next' => 'jump to next unread sibling',
 		'mark_updated_article_unread' => 'Mark updated articles as unread',
 		'number_divided_when_reader' => 'Divide by 2 in the reading view.',
 		'read' => array(
 			'article_open_on_website' => 'when the article is opened on its original website',
 			'article_viewed' => 'when the article is viewed',
+			'focus' => 'when focused (except for important feeds)',
 			'keep_max_n_unread' => 'Max number of articles to keep unread',
-			'scroll' => 'while scrolling',
+			'scroll' => 'while scrolling (except for important feeds)',
 			'upon_gone' => 'when it is no longer in the upstream news feed',
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',
+			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',
 		),
 		'show' => array(
 			'_' => 'Articles to display',
 			'active_category' => 'Active category',
-			'adaptive' => 'Adjust showing',
+			'adaptive' => 'Show unreads if any, all articles otherwise',
 			'all_articles' => 'Show all articles',
 			'all_categories' => 'All categories',
 			'no_category' => 'No category',
 			'remember_categories' => 'Remember open categories',
-			'unread' => 'Show only unread',
+			'unread' => 'Show unreads',
+			'unread_or_favorite' => 'Show unreads and favourites',
 		),
 		'show_fav_unread_help' => 'Applies also on labels',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
-		'sort' => array(
-			'_' => 'Sort order',
-			'newer_first' => 'Newest first',
-			'older_first' => 'Oldest first',
+		'star' => array(
+			'when' => 'Mark an article as favourite…',
 		),
 		'sticky_post' => 'Stick the article to the top when opened',
+		'sticky_sort' => 'Keep custom sort order during navigation',
+		'sticky_sort_help' => 'Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.',
 		'title' => 'Reading',
 		'view' => array(
 			'default' => 'Default view',
@@ -240,7 +324,7 @@ return array(
 	'sharing' => array(
 		'_' => 'Sharing',
 		'add' => 'Add a sharing method',
-		'blogotext' => 'Blogotext',
+		'bluesky' => 'Bluesky',
 		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',
 		'diaspora' => 'Diaspora*',
 		'email' => 'Email',
@@ -261,7 +345,7 @@ return array(
 		'article_action' => 'Article actions',
 		'auto_share' => 'Share',
 		'auto_share_help' => 'If there is only one sharing mode, it is used. Otherwise, modes are accessible by their number.',
-		'close_dropdown' => 'Close menus',
+		'close_menus' => 'Close menus',
 		'collapse_article' => 'Collapse',
 		'first_article' => 'Open the first article',
 		'focus_search' => 'Access search box',
@@ -288,6 +372,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',
 		'skip_previous_article' => 'Focus previous without opening',
 		'title' => 'Shortcuts',
+		'toggle_aside' => 'Toggle sidebar',
 		'toggle_media' => 'Play/pause media',
 		'user_filter' => 'Access user queries',
 		'user_filter_help' => 'If there is only one user query, it is used. Otherwise, queries are accessible by their number.',

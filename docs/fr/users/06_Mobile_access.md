@@ -52,33 +52,32 @@ possibilité.
 1. Sur la même page de l’API FreshRSS, notez l’adresse donnée sous "Votre adresse API", comme `https://freshrss.example.net/api/greader.php`
 	* Saisissez l’adresse de l’API dans le client sélectionné puis votre nom d’utilisateur et votre mot de passe spécialement créé pour l’API.
 
-2. Vous pouvez maintenant tester sur une application mobile:
+2. Vous pouvez maintenant tester sur une application mobile comme :
 	* Android
-		* [News+](https://github.com/noinnion/newsplus/blob/master/apk/NewsPlus_202.apk) avec [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) (Closed source)
-		* [FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
-		* [EasyRSS](https://github.com/Alkarex/EasyRSS) (Libre, [F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))
 		* [Readrops](https://github.com/readrops/Readrops) (Libre)
-		* [Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/) (Libre)
+		* [Capy Reader](https://github.com/jocmp/capyreader) (Libre)
+		* [FeedMe](https://play.google.com/store/apps/details?id=com.seazon.feedme) (Propriétaire)
 		* [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) (Commercial)
 	* Linux
-		* [FeedReader 2.0+](https://jangernert.github.io/FeedReader/) (Libre)
-		* [Newsboat 2.24+](https://newsboat.org/) (Libre)
+		* [FeedReader](https://jangernert.github.io/FeedReader/) (Libre)
+		* [Newsboat](https://newsboat.org/) (Libre)
 	* macOS, iOS
 		* [Vienna RSS](http://www.vienna-rss.com/) (Libre)
 		* [Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/) (Libre)
-		* [Reeder](https://www.reederapp.com/) (Commercial)
+		* [Reeder Classic](https://www.reederapp.com/classic/) (Commercial)
 		* [lire](https://lireapp.com/) (Commercial)
 	* Firefox
 		* [FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/) (Libre)
 
+> ℹ️ Voir une [meilleure liste des applications mobiles compatibles](https://github.com/FreshRSS/FreshRSS/blob/edge/README.fr.md#apis-et-applications-natives).
 
 # API compatible Google Reader
 
 Exemples de requêtes simples :
 
 ```sh
-# Authentification utilisant le mot de passe API (Email et Passwd peuvent être passés en GET, ou POST - mieux)
-curl 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin?Email=alice&Passwd=Abcdef123456'
+# Authentification utilisant le mot de passe API via POST
+curl -X POST -d 'Email=alice&Passwd=Abcdef123456' 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin'
 SID=alice/8e6845e089457af25303abc6f53356eb60bdb5f8
 Auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8
 
@@ -100,4 +99,12 @@ curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60
 # Récupère les articles, envoyés à jq pour une lecture JSON plus facile
 curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
   'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/reading-list' | jq .
+
+# Se désabonner d’un flux
+curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
+  -d 'ac=unsubscribe&s=feed/52' 'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/edit'
 ```
+
+# Plus de documentation
+
+* Voir [la documentation et les liens en anglais](../../en/developers/06_GoogleReader_API.md#api-documentation-from-other-compatible-servers).

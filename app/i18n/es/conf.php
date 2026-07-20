@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -33,8 +33,9 @@ return array(
 	'display' => array(
 		'_' => 'Visualización',
 		'darkMode' => array(
-			'_' => 'Modo oscuro automatico (beta)',
-			'auto' => 'Automatico',
+			'_' => 'Modo oscuro automático',
+			'auto' => 'Automático',
+			'help' => 'Solo para temas compatibles',
 			'no' => 'No',	// IGNORE
 		),
 		'icon' => array(
@@ -53,11 +54,20 @@ return array(
 			'timeout' => 'Notificación de fin de espera HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botones de navegación',
+		'show_title_unread' => 'Mostrar el número de artículos no leídos en el título',
+		'show_unread_count' => array(
+			'_' => 'Mostrar el número de elementos no leídos en la barra lateral',
+			'all' => 'En todas las categorías y fuentes',
+			'important' => 'Solo en las fuentes importantes',
+			'important_locked' => 'Las fuentes importantes siempre muestran su número de elementos no leídos.',
+			'none' => 'Nunca',
+		),
+		'sidebar_hidden_by_default' => 'Ocultar barra lateral por defecto',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'Este tema no tiene soporte y no volvera a estar disponible en <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">Futuros lanzamientos de FreshRSS</a>',
+				'_' => 'Obsoleto',
+				'description' => 'Este tema no tiene soporte y no volverá a estar disponible en <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">Futuros lanzamientos de FreshRSS</a>',
 			),
 		),
 		'theme_not_available' => 'El tema “%s” ya no está disponible. Por favor, elija otro tema.',
@@ -98,42 +108,106 @@ return array(
 			'previous' => 'Anterior',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => 'botón “marcar todos como leídos”',
+		'big' => 'Grande',
+		'none' => 'Nada',
+		'small' => 'Pequeño',
+	),
+	'notification' => array(
+		'html5_enable_notif' => 'Activar notificaciones',
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Mostrar mensaje de advertencia',
+			'seconds' => 'segundos (al menos 1)',
+		),
+		'good' => array(
+			'label' => 'Mostrar mensaje de confirmación',
+			'seconds' => 'segundos (0 significa que no se muestra)',
+		),
+	),
+	'privacy' => array(
+		'_' => 'Privacidad',
+		'retrieve_extension_list' => 'Obtener lista de extensiones',
+		'send_referrer_allowlist' => 'Sitios permitidos para ver la dirección de tu servidor (%s)',
+	),
 	'profile' => array(
 		'_' => 'Administración de perfiles',
-		'api' => 'Administración de API',
+		'api' => array(
+			'_' => 'Administración de API',
+			'api_not_set' => 'Contraseña de la API no establecida',
+			'api_set' => 'Contraseña de la API establecida',
+			'check_link' => 'Comprobar estado de la API en: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'El acceso a la API está deshabilitado.',
+			'documentation_link' => 'Ver la <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentación y lista de aplicaciones conocidas</a>',
+			'help' => 'Ver <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentación</a>',
+			'security_warning' => 'Utiliza HTTPS. La contraseña de la API se transmite en texto claro y podría aparecer en los registros del servidor si se envía mediante GET.',
+		),
+		'change_password' => 'Cambiar contraseña',
+		'confirm_new_password' => 'Confirmar nueva contraseña',
+		'current_password' => 'Contraseña actual<br /><small>(para el método de inicio de sesión por formulario web)</small>',
 		'delete' => array(
 			'_' => 'Borrar cuenta',
 			'warn' => 'Tu cuenta y todos los datos asociados serán eliminados.',
 		),
 		'email' => 'Correo electrónico',
+		'new_password' => 'Nueva contraseña',
 		'password_api' => 'Contraseña API <br /><small>(para apps móviles, por ej.)</small>',
-		'password_form' => 'Contraseña<br /><small>(para el método de identificación por formulario web)</small>',
 		'password_format' => 'Mínimo de 7 caracteres',
 		'title' => 'Perfil',
 	),
 	'query' => array(
-		'_' => 'Consultas de usuario',
-		'deprecated' => 'Esta consulta ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
+		'_' => 'Vistas de usuario',
+		'create' => 'Crear nueva vista de usuario',
+		'deprecated' => 'Esta vista ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
+		'description' => 'Descripción',
 		'filter' => array(
 			'_' => 'Filtro aplicado:',
 			'categories' => 'Mostrar por categoría',
-			'feeds' => 'Mostrar por feed',
+			'feeds' => 'Mostrar por fuente',
 			'order' => 'Ordenar por fecha',
+			'publish_labels_instead_of_tags' => 'Reemplazar <i>etiquetas de fuente</i> por <i>etiquetas de usuario</i> en el RSS compartido',
 			'search' => 'Expresión',
+			'shareOpml' => 'Permitir que OPML comparta las categorías y fuentes correspondientes',
+			'shareRss' => 'Permite compartir por HTML &amp; RSS',
 			'state' => 'Estado',
 			'tags' => 'Mostrar por etiqueta',
 			'type' => 'Tipo',
 		),
+		'get_A' => 'Mostrar todas las fuentes, también las de su categoría',
+		'get_Z' => 'Mostrar todas las fuentes, también las archivadas',
 		'get_all' => 'Mostrar todos los artículos',
+		'get_all_labels' => 'Mostrar artículos con cualquier etiqueta',
 		'get_category' => 'Mostrar la categoría “%s”',
 		'get_favorite' => 'Mostrar artículos favoritos',
 		'get_feed' => 'Mostrar fuente “%s”',
+		'get_important' => 'Mostrar artículos de fuentes importantes',
+		'get_label' => 'Mostrar artículos con la etiqueta “%s”',
+		'help' => 'Ver la <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentación para búsquedas de usuarios y compartir mediante HTML / RSS / OPML</a>.',
+		'image_url' => 'URL de la imagen',
 		'name' => 'Nombre',
 		'no_filter' => 'Sin filtro',
-		'number' => 'Consulta n° %d',
+		'no_queries' => array(
+			'_' => 'No hay búsquedas de usuario guardadas aún.',
+			'help' => 'Ver <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentación</a>.',
+		),
+		'number' => 'Vista n° %d',
 		'order_asc' => 'Mostrar primero los artículos más antiguos',
 		'order_desc' => 'Mostrar primero los artículos más recientes',
 		'search' => 'Buscar “%s”',
+		'share' => array(
+			'_' => 'Comparte esta vista por enlace',
+			'disabled' => array(
+				'_' => 'deshabilitado',
+				'title' => 'Compartir',
+			),
+			'greader' => 'Enlace para compartir en GReader',
+			'help' => 'Dale este enlace si quieres compartir esta vista con alguien',
+			'html' => 'Enlace para compartir a la página HTML',
+			'opml' => 'Enlace para compartir a la lista de fuentes de OPML',
+			'rss' => 'Enlace para compartir a la fuente RSS',
+		),
 		'state_0' => 'Mostrar todos los artículos',
 		'state_1' => 'Mostrar artículos leídos',
 		'state_2' => 'Mostrar artículos pendientes',
@@ -150,12 +224,13 @@ return array(
 		'state_13' => 'Mostrar artículos leídos',
 		'state_14' => 'Mostrar artículos sin leer',
 		'state_15' => 'Mostrar todos los artículos',
-		'title' => 'Consultas de usuario',
+		'title' => 'Vistas de usuario',
 	),
 	'reading' => array(
 		'_' => 'Lectura',
 		'after_onread' => 'Tras “marcar todo como leído”,',
 		'always_show_favorites' => 'Mostrar todos los artículos en favoritos de forma predeterminada',
+		'apply_to_individual_feed' => 'Aplica a fuentes individualmente',
 		'article' => array(
 			'authors_date' => array(
 				'_' => 'Autores y fecha',
@@ -169,7 +244,12 @@ return array(
 				'none' => 'Ninguno',
 				'with_authors' => 'En la fila de autores y fecha',
 			),
-			'feed_title' => 'Título del Feed',
+			'feed_title' => 'Título de la fuente',
+			'icons' => array(
+				'_' => 'Posición de los iconos del artículo<br /><small>(Solo en vista de lectura)</small>',
+				'above_title' => 'Encima del título',
+				'with_authors' => 'En la fila de autores y fecha',
+			),
 			'tags' => array(
 				'_' => 'Etiquetas',
 				'both' => 'En el encabezado y pie de página',
@@ -189,79 +269,83 @@ return array(
 		'display_articles_unfolded' => 'Mostrar los artículos expandidos por defecto',
 		'display_categories_unfolded' => 'Categorías a desarrollar',
 		'headline' => array(
-			'articles' => 'Artículos: Abrir/Cerar',
+			'articles' => 'Artículos: Abrir/Cerrar',
 			'articles_header_footer' => 'Artículos: encabezado/pie de página',
 			'categories' => 'Navegación izquierda: Categorías',
 			'mark_as_read' => 'Marcar artículo como leído',
 			'misc' => 'Variados',
 			'view' => 'Ver',
 		),
-		'hide_read_feeds' => 'Ocultar categorías & fuentes sin artículos no leídos (no funciona con la configuración “Mostrar todos los artículos”)',
-		'img_with_lazyload' => 'Usar el modo de “carga perezosa” para las imágenes',
-		'jump_next' => 'saltar al siguiente archivo sin leer emparentado (fuente o categoría)',
+		'hide_read_feeds' => 'Ocultar categorías y fuentes sin artículos no leídos (no funciona con la configuración “Mostrar todos los artículos”)',
+		'img_with_lazyload' => 'Usar el modo <em>carga diferida</em> para las imágenes',
+		'jump_next' => 'saltar al siguiente archivo sin leer emparentado',
 		'mark_updated_article_unread' => 'Marcar artículos actualizados como no leídos',
 		'number_divided_when_reader' => 'Dividido en 2 en la vista de lectura.',
 		'read' => array(
-			'article_open_on_website' => 'cuando el artículo se abra en su web original',
+			'article_open_on_website' => 'cuando el artículo se abra en su página original',
 			'article_viewed' => 'cuando se muestre el artículo',
+			'focus' => 'cuando tiene el foco (excepto para fuentes importantes)',
 			'keep_max_n_unread' => 'Número máximo de artículos para mantener sin leer',
-			'scroll' => 'durante el desplazamiento',
-			'upon_gone' => 'cuando ya no está disponible en el feed de noticias previo',
+			'scroll' => 'durante el desplazamiento (excepto para fuentes importantes)',
+			'upon_gone' => 'cuando ya no está disponible en la fuente de noticias previa',
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',
-			'when_same_title' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes',
+			'when_same_guid_in_category' => 'si ya existe un GUID idéntico entre los <i>n</i> artículos más recientes de la categoría',
+			'when_same_title_in_category' => 'si ya existe un título idéntico en los <i>n</i> artículos más recientes de la categoría',
+			'when_same_title_in_feed' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes (de la fuente)',
 		),
 		'show' => array(
 			'_' => 'Artículos a mostrar',
 			'active_category' => 'Categoría activa',
-			'adaptive' => 'Ajustar la visualización',
+			'adaptive' => 'Mostrar no leídos si hay, todos los artículos en caso contrario',
 			'all_articles' => 'Mostrar todos los artículos',
 			'all_categories' => 'Todas las categorías',
 			'no_category' => 'Sin categoría',
 			'remember_categories' => 'Recordar categorías abiertas',
-			'unread' => 'Mostrar solo pendientes',
+			'unread' => 'Mostrar solo no leídos',
+			'unread_or_favorite' => 'Mostrar no leídos y favoritos',
 		),
 		'show_fav_unread_help' => 'Se aplica también en las etiquetas',
 		'sides_close_article' => 'Pinchar fuera del área de texto del artículo lo cerrará',
-		'sort' => array(
-			'_' => 'Orden',
-			'newer_first' => 'Nuevos primero',
-			'older_first' => 'Antiguos primero',
+		'star' => array(
+			'when' => 'Marca un artículo como favorito…',
 		),
-		'sticky_post' => 'Pegar el artículo a la parte superior al abrirlo',
+		'sticky_post' => 'Fijar el artículo a la parte superior al abrirlo',
+		'sticky_sort' => 'Mantener el orden de clasificación manual durante la navegación',	// DIRTY
+		'sticky_sort_help' => 'Determina si se mantiene activo el último orden de clasificación manual o si cada categoría o fuente usa siempre su propia configuración predeterminada o global.',	// DIRTY
 		'title' => 'Lectura',
 		'view' => array(
 			'default' => 'Vista por defecto',
-			'global' => 'Vista Global',
-			'normal' => 'Vista Normal',
-			'reader' => 'Vista de Lectura',
+			'global' => 'Vista global',
+			'normal' => 'Vista normal',
+			'reader' => 'Vista de lectura',
 		),
 	),
 	'sharing' => array(
 		'_' => 'Compartir',
-		'add' => 'Agregar un método de uso compartido',
-		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'Este servicio está obsoleto y será removido de FreshRSS en un<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Abrir la documentación para más información" target="_blank">futuro lanzamiento</a>.',
+		'add' => 'Agregar métodos para compartir artículos',
+		'bluesky' => 'Bluesky',	// IGNORE
+		'deprecated' => 'Este servicio está obsoleto y será eliminado de FreshRSS en un<a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Abrir la documentación para más información" target="_blank">futura versión</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Correo electrónico',
 		'facebook' => 'Facebook',	// IGNORE
 		'more_information' => 'Más información',
 		'print' => 'Imprimir',
 		'raindrop' => 'Raindrop.io',	// IGNORE
-		'remove' => 'Quitar método de uso compartido',
+		'remove' => 'Quitar métodos para compartir artículos',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Compartir nombre a mostrar',
-		'share_url' => 'Compatir URL a usar',
+		'share_url' => 'Compartir URL a usar',
 		'title' => 'Compartir',
-		'twitter' => 'Twitter',	// IGNORE
-		'wallabag' => 'wallabag',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
+		'wallabag' => 'Wallabag',	// IGNORE
 	),
 	'shortcut' => array(
 		'_' => 'Atajos de teclado',
 		'article_action' => 'Acciones de artículo',
 		'auto_share' => 'Compartir',
-		'auto_share_help' => 'Si solo hay un modo para compartir, ese será el que se use. En caso contrario los modos quedarán accesibles por su numeración.',
-		'close_dropdown' => 'Cerrar menús',
+		'auto_share_help' => 'Si solo hay un método para compartir, ese será el que se use. En caso contrario los métodos quedarán accesibles por su numeración.',
+		'close_menus' => 'Cerrar menús',
 		'collapse_article' => 'Contraer',
 		'first_article' => 'Saltar al primer artículo',
 		'focus_search' => 'Acceso a la casilla de búsqueda',
@@ -288,9 +372,10 @@ return array(
 		'skip_next_article' => 'Enfoque siguiente sin abrir',
 		'skip_previous_article' => 'Enfoque anterior sin abrir',
 		'title' => 'Atajos de teclado',
-		'toggle_media' => 'Jugar/pausar medios',
+		'toggle_aside' => 'Activar panel lateral',
+		'toggle_media' => 'Reproducir/pausar medios',
 		'user_filter' => 'Acceso a filtros de usuario',
-		'user_filter_help' => 'Si solo hay un filtro de usuario, ese será el que se use. En caso contrario, los filtros están accesibles por su númeración.',
+		'user_filter_help' => 'Si solo hay un filtro de usuario, ese será el que se use. En caso contrario, los filtros están accesibles por su numeración.',
 		'views' => 'Vistas',
 	),
 	'user' => array(

@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-class I18nValue {
+class I18nValue implements \Stringable {
 	private const STATE_DIRTY = 'dirty';
 	public const STATE_IGNORE = 'ignore';
 	private const STATE_TODO = 'todo';
@@ -10,15 +11,17 @@ class I18nValue {
 		self::STATE_TODO,
 	];
 
-	/** @var string */
-	private $value;
-	/**	@var string|null */
-	private $state;
+	private readonly string $value;
+	private ?string $state = null;
 
-	public function __construct(string $data) {
+	/** @param I18nValue|string $data */
+	public function __construct(I18nValue|string $data) {
+		if ($data instanceof I18nValue) {
+			$data = $data->__toString();
+		}
 		$data = explode(' -> ', $data);
 
-		$this->value = array_shift($data);
+		$this->value = (string)(array_shift($data) ?? '');
 		if (count($data) === 0) {
 			return;
 		}
@@ -29,7 +32,7 @@ class I18nValue {
 		}
 	}
 
-	public function __clone() {
+	public function __clone(): void {
 		$this->markAsTodo();
 	}
 
@@ -63,6 +66,7 @@ class I18nValue {
 		}
 	}
 
+	#[\Override]
 	public function __toString(): string {
 		if ($this->state === null) {
 			return $this->value;

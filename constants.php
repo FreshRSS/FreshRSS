@@ -1,30 +1,47 @@
 <?php
+declare(strict_types=1);
 //NB: Do not edit; use ./constants.local.php instead.
 
 //<Not customisable>
-const FRESHRSS_MIN_PHP_VERSION = '7.2.0';
-const FRESHRSS_VERSION = '1.22.1-dev';
+/** @var string */
+const FRESHRSS_MIN_PHP_VERSION = '8.1.0';
+/** @var string */
+const FRESHRSS_VERSION = '1.29.2-dev';
+/** @var string */
 const FRESHRSS_WEBSITE = 'https://freshrss.org';
+/** @var string */
 const FRESHRSS_WIKI = 'https://freshrss.github.io/FreshRSS/';
-
+/** @var string */
 const APP_NAME = 'FreshRSS';
-
+/** @var string */
 const FRESHRSS_PATH = __DIR__;
+/** @var string */
 const PUBLIC_PATH = FRESHRSS_PATH . '/p';
+/** @var string */
 const PUBLIC_TO_INDEX_PATH = '/i';
+/** @var string */
 const INDEX_PATH = PUBLIC_PATH . PUBLIC_TO_INDEX_PATH;
+/** @var string */
 const PUBLIC_RELATIVE = '..';
+/** @var string */
 const LIB_PATH = FRESHRSS_PATH . '/lib';
+/** @var string */
 const APP_PATH = FRESHRSS_PATH . '/app';
+/** @var string */
 const I18N_PATH = APP_PATH . '/i18n';
+/** @var string */
 const CORE_EXTENSIONS_PATH = LIB_PATH . '/core-extensions';
+/** @var string */
 const TESTS_PATH = FRESHRSS_PATH . '/tests';
 //</Not customisable>
 
+if (version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION, '<')) {
+	die(sprintf("Error: FreshRSS requires PHP %s+ but was invoked with PHP %s!\n", FRESHRSS_MIN_PHP_VERSION, PHP_VERSION));
+}
 
 if (file_exists(__DIR__ . '/constants.local.php')) {
 	//Include custom / local settings:
-	include(__DIR__ . '/constants.local.php');
+	include __DIR__ . '/constants.local.php';
 }
 
 defined('FRESHRSS_USERAGENT') or define('FRESHRSS_USERAGENT', 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')');
@@ -38,6 +55,9 @@ defined('COPY_SYSLOG_TO_STDERR') or define('COPY_SYSLOG_TO_STDERR', filter_var(g
 
 // Maximum log file size in Bytes, before it will be divided by two
 defined('MAX_LOG_SIZE') or define('MAX_LOG_SIZE', 1048576);
+
+// Amount of characters of text shown if feed has no title
+defined('MAX_CHARS_EMPTY_FEED_TITLE') or define('MAX_CHARS_EMPTY_FEED_TITLE', 75);
 
 //This directory must be writable
 $dataPath = getenv('DATA_PATH');

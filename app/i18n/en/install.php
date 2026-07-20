@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Keep previous configuration',
 		'next_step' => 'Go to the next step',
 		'reinstall' => 'Reinstall FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Web form (traditional, requires JavaScript)',
-		'http' => 'HTTP (for advanced users with HTTPS)',
-		'none' => 'None (dangerous)',
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',
-		'password_format' => 'At least 7 characters',
-		'type' => 'Authentication method',
 	),
 	'bdd' => array(
 		'_' => 'Database',
@@ -51,12 +43,29 @@ return array(
 			'ok' => 'You have the required library for character type checking (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',
-			'ok' => 'You have the cURL library.',
+			'nok' => 'Cannot find the required cURL library (php-curl package).',
+			'ok' => 'You have the required cURL library.',
 		),
 		'data' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the data directory are good.',
+		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',
+			'ok' => 'Database connection is good.',
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',
+			'ok' => 'Database table "%s" is good.',
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',
+			'ok' => 'All database tables exist.',
+		),
+		'database-title' => 'Database',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',
 		),
 		'dom' => array(
 			'nok' => 'Cannot find the required library to browse the DOM.',
@@ -67,12 +76,21 @@ return array(
 			'ok' => 'Permissions on the favicons directory are good.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',
-			'ok' => 'You have the fileinfo library.',
+			'nok' => 'Cannot find the recommended PHP fileinfo library (fileinfo package).',
+			'ok' => 'You have the recommended PHP fileinfo library (fileinfo package).',
+		),
+		'files' => 'File installation',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',
+		),
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',
+			'ok' => 'You have the recommended library php-intl for internationalisation.',
 		),
 		'json' => array(
-			'nok' => 'Cannot find the recommended library to parse JSON.',
-			'ok' => 'You have the recommended library to parse JSON.',
+			'nok' => 'Cannot find the required library to parse JSON.',
+			'ok' => 'You have the required library to parse JSON.',
 		),
 		'mbstring' => array(
 			'nok' => 'Cannot find the recommended library mbstring for Unicode.',
@@ -82,18 +100,33 @@ return array(
 			'nok' => 'Cannot find the required library for regular expressions (php-pcre).',
 			'ok' => 'You have the required library for regular expressions (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',
+			'ok' => 'You have the PDO driver for SQLite.',
+		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'You have PDO and at least one of the supported drivers (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',
-			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',
+			'_' => 'PHP installation',
+			'nok' => 'Your PHP version is %s but FreshRSS requires at least version %s.',
+			'ok' => 'Your PHP version (%s) is compatible with FreshRSS.',
 		),
 		'reload' => 'Check again',
 		'tmp' => array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the temp directory are good.',
+		),
+		'tokens' => array(
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',
+			'ok' => 'Permissions on the tokens directory are good.',
 		),
 		'unknown_process_username' => 'unknown',
 		'users' => array(
@@ -104,6 +137,10 @@ return array(
 			'nok' => 'Cannot find the required library to parse XML.',
 			'ok' => 'You have the required library to parse XML.',
 		),
+		'zip' => array(
+			'nok' => 'Cannot find the recommended extension for ZIP (php-zip package).',
+			'ok' => 'You have the recommended extension for ZIP (php-zip package).',
+		),
 	),
 	'conf' => array(
 		'_' => 'General configuration',
@@ -112,7 +149,7 @@ return array(
 	'congratulations' => 'Congratulations!',
 	'default_user' => array(
 		'_' => 'Username of the default user',
-		'max_char' => 'maximum 16 alphanumeric characters',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',

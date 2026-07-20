@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s nevar būt ieslēgts. <a href="%s">Pārbaudiet FreshRSS žurnālu</a> priekš papildu informācijas.',
 			'ok' => '%s ir tagad ieslēgts',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'Jums nav piekļuves %s',
 		'not_enabled' => '%s nav ieslēgts',
 		'not_found' => '%s nēeksistē',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Jūsu profilu nevar mainīt',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Jūsu profils tika mainīts',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> kešatmiņa tika iztukšota',
 			'deleted' => 'Barortne tika izdzēsta',
 			'error' => 'Barotne nevar būt atjaunināta',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'Barotni nevarēja pievienot. <a href="%s">Apskataties FreshRSS žurnālu</a> priekš papildus informācijas. Jūs varat izmēģināt piespiedu pievienošanu, URL pievienojot <code>#force_feed</code>.',
 			'invalid_url' => 'URL <em>%s</em> ir nepareizs',
 			'n_actualized' => '%d barotnes tika atjaunotas',
@@ -116,8 +122,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Birka “%s” tika uztaisīta.',
+		'error' => 'Etiķete nevar tikt atjaunināta!',
 		'name_exists' => 'Birkas nosaukums jau pastāv.',
 		'renamed' => 'Birka “%s” tika pārdēvēts par “%s”.',
+		'updated' => 'Etiķete ir atjaunināta.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS tagad būs atjaunots uz <strong>%s versiju</strong>.',

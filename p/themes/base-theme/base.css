@@ -2,12 +2,15 @@
 
 @charset "UTF-8";
 
+/* Scaffold for the base-theme fallback. Other themes do not load this file;
+   cross-theme defaults belong in frss.css. */
+
 /*=== GENERAL */
 /*============*/
 html, body {
 	height: 100%;
 	color: black;
-	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial", sans-serif;
 }
 
 /*=== Links */
@@ -29,16 +32,6 @@ label {
 	cursor: pointer;
 }
 
-textarea {
-	width: 360px;
-	height: 100px;
-}
-
-input, select, textarea {
-	padding: 7px;
-	vertical-align: middle;
-}
-
 option {
 	padding: 0 .5em;
 }
@@ -46,7 +39,7 @@ option {
 input:focus, select:focus, textarea:focus {
 }
 
-input:invalid, select:invalid {
+input:user-invalid, select:user-invalid {
 }
 
 input:disabled, select:disabled {
@@ -63,8 +56,8 @@ th, td {
 th {
 }
 
-form td,
-form th {
+.config-articleicons td,
+.config-articleicons th {
 	font-weight: normal;
 	text-align: center;
 }
@@ -125,15 +118,12 @@ form th {
 
 .btn {
 	margin: 0;
-	padding: 5px 10px;
-	display: inline-block;
+	padding: 0.25rem 0.5rem;
 	min-height: 25px;
 	min-width: 15px;
 	font-size: 0.9rem;
 	line-height: 1.7;
 	vertical-align: middle;
-	cursor: pointer;
-	overflow: hidden;
 }
 
 .btn:hover {
@@ -174,16 +164,19 @@ form th {
 .nav-list .item:hover {
 }
 
-.nav-list .item:hover a {
+.nav-list .item:hover a,
+.nav-list .item:hover .as-link {
 }
 
 .nav-list .item.active {
 }
 
-.nav-list .item.active a {
+.nav-list .item.active a,
+.nav-list .item.active .as-link {
 }
 
-.nav-list .item > a {
+.nav-list .item > a,
+.nav-list .item > .as-link {
 	padding: 0 10px;
 }
 
@@ -307,28 +300,17 @@ form th {
 .pagination:last-child .item {
 }
 
-#load_more.loading,
-#load_more.loading:hover {
-	font-size: 0;
-}
-
 /*=== Boxes */
 .box {
 }
 
 .box .box-title {
-	margin: 0;
-	padding: 5px 10px;
 }
 
 .box .box-content {
-	max-height: 260px;
 }
 
 .box .box-content .item {
-	padding: 0 10px;
-	font-size: 0.9rem;
-	line-height: 2.5;
 }
 
 /*=== Tree */
@@ -472,7 +454,6 @@ form th {
 }
 
 .prompt input {
-	margin: 5px auto;
 	width: 100%;
 }
 
@@ -495,21 +476,21 @@ form th {
 	text-decoration: none;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	padding: 0 10px;
 	font-weight: bold;
 	line-height: 3;
 }
 
-.day span {
+.transition span {
 	line-height: 1.5;
 }
 
-#new-article + .day {
+#new-article + .transition {
 }
 
-.day .name {
+.transition .name {
 	padding: 0 10px 0 0;
 	font-size: 1.8em;
 	opacity: 0.3;
@@ -558,10 +539,6 @@ form th {
 	padding: 5px;
 }
 
-.flux .item.date {
-	font-size: 0.7rem;
-}
-
 .flux:not(.current):hover .item.title {
 }
 
@@ -584,14 +561,9 @@ form th {
 }
 
 .content pre {
-	margin: 10px auto;
-	padding: 10px 20px;
-	overflow: auto;
-	font-size: 0.9rem;
 }
 
 .content code {
-	padding: 2px 5px;
 }
 
 .content pre code {
@@ -617,14 +589,14 @@ form th {
 .notification.bad {
 }
 
-.notification.good a.close:hover {
+.notification.good .close:hover {
 }
 
-.notification.bad a.close:hover {
+.notification.bad .close:hover {
 }
 
 /*=== "Load more" part */
-#bigMarkAsRead {
+#bigMarkAsRead.big {
 	text-align: center;
 	text-decoration: none;
 }
@@ -637,10 +609,6 @@ form th {
 
 /*=== Navigation menu (for articles) */
 #nav_entries {
-	margin: 0;
-	text-align: center;
-	line-height: 3;
-	table-layout: fixed;
 }
 
 /*=== READER VIEW */
@@ -650,14 +618,9 @@ form th {
 	color: #333;
 }
 
-#stream.reader .flux .content {
+#stream.reader .flux .flux_content {
 	background-color: #fff;
 	border-color: #ddd;
-}
-
-#stream.reader .flux .author {
-	margin: 0 0 10px;
-	font-size: 90%;
 }
 
 /*=== GLOBAL VIEW */
@@ -724,7 +687,7 @@ form th {
 
 @media (max-width: 840px) {
 	.aside {
-		transition: width 200ms linear;
+		transition: width 100ms ease-in;
 	}
 
 	.aside .toggle_aside,
@@ -772,7 +735,7 @@ form th {
 		width: 400px;
 	}
 
-	.day .name {
+	.transition .name {
 		font-size: 1.1rem;
 	}
 
@@ -780,16 +743,16 @@ form th {
 		margin: 0 0 3.5em;
 	}
 
-	.notification a.close {
+	.notification .close {
 		display: block;
 		left: 0;
 	}
 
-	.notification a.close:hover {
+	.notification .close:hover {
 		opacity: 0.5;
 	}
 
-	.notification a.close .icon {
+	.notification .close .icon {
 		display: none;
 	}
 }

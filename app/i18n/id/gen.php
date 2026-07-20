@@ -1,151 +1,195 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
-		'actualize' => 'Update feeds',	// TODO
-		'add' => 'Add',	// TODO
-		'back' => '← Go back',	// TODO
-		'back_to_rss_feeds' => '← Go back to your RSS feeds',	// TODO
-		'cancel' => 'Cancel',	// TODO
-		'create' => 'Create',	// TODO
-		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
-		'demote' => 'Demote',	// TODO
-		'disable' => 'Disable',	// TODO
-		'empty' => 'Empty',	// TODO
-		'enable' => 'Enable',	// TODO
-		'export' => 'Export',	// TODO
+		'actualize' => 'Perbarui umpan',
+		'add' => 'Tambah',
+		'back_to_rss_feeds' => '← Kembali ke umpan RSS Anda',
+		'cancel' => 'Batal',
+		'close' => 'Tutup',
+		'create' => 'Buat',
+		'delete_all_feeds' => 'Hapus semua umpan',
+		'delete_errored_feeds' => 'Hapus umpan dengan galat',
+		'delete_muted_feeds' => 'Hapus umpan yang dibisukan',
+		'demote' => 'Demosi',
+		'disable' => 'Nonaktifkan',
+		'download' => 'Unduh',
+		'empty' => 'Kosongkan',
+		'enable' => 'Aktifkan',
+		'export' => 'Ekspor',
 		'filter' => 'Filter',	// TODO
-		'import' => 'Import',	// TODO
-		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
-		'manage' => 'Manage',	// TODO
-		'mark_read' => 'Mark as read',	// TODO
-		'open_url' => 'Open URL',	// TODO
-		'promote' => 'Promote',	// TODO
-		'purge' => 'Purge',	// TODO
-		'refresh_opml' => 'Refresh OPML',	// TODO
-		'remove' => 'Remove',	// TODO
-		'rename' => 'Rename',	// TODO
-		'see_website' => 'See website',	// TODO
-		'submit' => 'Submit',	// TODO
-		'truncate' => 'Delete all articles',	// TODO
-		'update' => 'Update',	// TODO
+		'import' => 'Impor',
+		'load_default_shortcuts' => 'Muat pintasan baku',
+		'manage' => 'Kelola',
+		'mark_read' => 'Tandai sebagai sudah dibaca',
+		'menu' => array(
+			'open' => 'Buka menu',
+		),
+		'nav_buttons' => array(
+			'next' => 'Artikel selanjutnya',
+			'prev' => 'Artikel sebelumnya',
+			'up' => 'Ke atas',
+		),
+		'open_url' => 'Buka URL',
+		'promote' => 'Promosi',
+		'purge' => 'Hapus',
+		'refresh_opml' => 'Segarkan OPML',
+		'remove' => 'Hapus',
+		'rename' => 'Ubah nama',
+		'see_website' => 'Lihat situs',
+		'submit' => 'Kirim',
+		'truncate' => 'Hapus semua artikel',
+		'update' => 'Perbarui',
 	),
 	'auth' => array(
-		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO
-		'email' => 'Email address',	// TODO
-		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',	// DIRTY
-		'login' => 'Login',	// TODO
-		'logout' => 'Logout',	// TODO
+		'accept_tos' => 'Saya menyetujui <a href="%s">Kebijakan Layanan</a>.',
+		'email' => 'Alamat surel',
+		'keep_logged_in' => 'Biarkan saya masuk <small>(%s hari)</small>',
+		'login' => 'Masuk',
+		'logout' => 'Keluar',
 		'password' => array(
-			'_' => 'Password',	// TODO
-			'format' => '<small>At least 7 characters</small>',	// TODO
+			'_' => 'Kata sandi',
+			'format' => '<small>Paling tidak 7 karakter</small>',
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
 		),
 		'registration' => array(
-			'_' => 'New account',	// TODO
-			'ask' => 'Create an account?',	// TODO
-			'title' => 'Account creation',	// TODO
+			'_' => 'Akun baru',
+			'ask' => 'Buat akun?',
+			'title' => 'Pembuatan akun',
 		),
 		'username' => array(
-			'_' => 'Username',	// TODO
-			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO
+			'_' => 'Nama pengguna',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',	// TODO
-		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO
-		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// TODO
-		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\y',	// TODO
-		'Jan' => '\\J\\a\\n\\u\\a\\r\\y',	// TODO
-		'Jul' => '\\J\\u\\l\\y',	// TODO
-		'Jun' => '\\J\\u\\n\\e',	// TODO
-		'Mar' => '\\M\\a\\r\\c\\h',	// TODO
-		'May' => '\\M\\a\\y',	// TODO
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// TODO
-		'Oct' => '\\O\\c\\t\\o\\b\\e\\r',	// TODO
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// TODO
-		'apr' => 'Apr.',	// TODO
-		'april' => 'April',	// TODO
-		'aug' => 'Aug.',	// TODO
-		'august' => 'August',	// TODO
-		'before_yesterday' => 'Before yesterday',	// TODO
-		'dec' => 'Dec.',	// TODO
-		'december' => 'December',	// TODO
-		'feb' => 'Feb.',	// TODO
-		'february' => 'February',	// TODO
+		'Apr' => '\\A\\p\\r\\i\\l',	// IGNORE
+		'Aug' => '\\A\\g\\u\\s\\t\\u\\s',
+		'Dec' => '\\D\\e\\s\\e\\m\\b\\e\\r',
+		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\i',
+		'Jan' => '\\J\\a\\n\\u\\a\\r\\i',
+		'Jul' => '\\J\\u\\l\\i',
+		'Jun' => '\\J\\u\\n\\i',
+		'Mar' => '\\M\\a\\r\\e\\t',
+		'May' => '\\M\\e\\i',
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// IGNORE
+		'Oct' => '\\O\\k\\t\\o\\b\\e\\r',
+		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// IGNORE
+		'apr' => 'Apr.',	// IGNORE
+		'april' => 'April',	// IGNORE
+		'aug' => 'Agu.',
+		'august' => 'Agustus',
+		'before_yesterday' => 'Sebelum kemarin',
+		'dec' => 'Des.',
+		'december' => 'Desember',
+		'feb' => 'Feb.',	// IGNORE
+		'february' => 'Februari',
 		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
 		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t g\\:i a',
-		'fri' => 'Fri',	// TODO
-		'jan' => 'Jan.',	// TODO
-		'january' => 'January',	// TODO
-		'jul' => 'July',	// TODO
-		'july' => 'July',	// TODO
-		'jun' => 'June',	// TODO
-		'june' => 'June',	// TODO
-		'last_2_year' => 'Last two years',	// TODO
-		'last_3_month' => 'Last three months',	// TODO
-		'last_3_year' => 'Last three years',	// TODO
-		'last_5_year' => 'Last five years',	// TODO
-		'last_6_month' => 'Last six months',	// TODO
-		'last_month' => 'Last month',	// TODO
-		'last_week' => 'Last week',	// TODO
-		'last_year' => 'Last year',	// TODO
-		'mar' => 'Mar.',	// TODO
-		'march' => 'March',	// TODO
-		'may' => 'May',	// TODO
-		'may_' => 'May',	// TODO
-		'mon' => 'Mon',	// TODO
-		'month' => 'months',	// TODO
-		'nov' => 'Nov.',	// TODO
-		'november' => 'November',	// TODO
-		'oct' => 'Oct.',	// TODO
-		'october' => 'October',	// TODO
-		'sat' => 'Sat',	// TODO
-		'sep' => 'Sept.',	// TODO
-		'september' => 'September',	// TODO
-		'sun' => 'Sun',	// TODO
-		'thu' => 'Thu',	// TODO
-		'today' => 'Today',	// TODO
-		'tue' => 'Tue',	// TODO
-		'wed' => 'Wed',	// TODO
-		'yesterday' => 'Yesterday',	// TODO
+		'fri' => 'Jum',
+		'jan' => 'Jan.',	// IGNORE
+		'january' => 'Januari',
+		'jul' => 'Juli',
+		'july' => 'Juli',
+		'jun' => 'Juni',
+		'june' => 'Juni',
+		'last_2_year' => 'Dua tahun terakhir',
+		'last_3_month' => 'Tiga bulan terakhir',
+		'last_3_year' => 'Tiga tahun terakhir',
+		'last_5_year' => 'Lima tahun terakhir',
+		'last_6_month' => 'Enam bulan terakhir',
+		'last_month' => 'Satu bulan terakhir',
+		'last_week' => 'Satu pekan terakhir',
+		'last_year' => 'Satu tahun terakhir',
+		'mar' => 'Mar.',	// IGNORE
+		'march' => 'Maret',
+		'may' => 'Mei',
+		'may_' => 'Mei',
+		'mon' => 'Bln',
+		'month' => 'bulan',
+		'nov' => 'Nov.',	// IGNORE
+		'november' => 'November',	// IGNORE
+		'oct' => 'Okt.',
+		'october' => 'Oktober',
+		'sat' => 'Sbt',
+		'sep' => 'Sept.',	// IGNORE
+		'september' => 'September',	// IGNORE
+		'sun' => 'Mng',
+		'thu' => 'Kms',
+		'today' => 'Hari ini',
+		'tue' => 'Sel',
+		'wed' => 'Rab',
+		'yesterday' => 'Kemarin',
 	),
-	'dir' => 'ltr',	// TODO
+	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',	// TODO
-		'about' => 'About FreshRSS',	// TODO
+		'_' => 'FreshRSS',	// IGNORE
+		'about' => 'Tentang FreshRSS',
+	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d hari yang lalu',
+		),
+		'hour' => array(
+			0 => '%d jam yang lalu',
+		),
+		'justnow' => 'baru saja',
+		'minute' => array(
+			0 => '%d menit yang lalu',
+		),
+		'month' => array(
+			0 => '%d bulan yang lalu',
+		),
+		'second' => array(
+			0 => '%d detik yang lalu',
+		),
+		'year' => array(
+			0 => '%d tahun yang lalu',
+		),
 	),
 	'js' => array(
-		'category_empty' => 'Empty category',	// TODO
-		'confirm_action' => 'Are you sure you want to perform this action? It cannot be canceled!',
-		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favorites and user queries. It cannot be canceled!',
+		'category_empty' => 'Kategori kosong',
+		'confirm_action' => 'Apakah Anda yakin ingin melakukan ini? Ini tidak dapat dibatalkan!',
+		'confirm_action_feed_cat' => 'Apakah Anda yakin ingin melakukan ini? Anda akan kehilangan favorit dan pencarian pengguna terkait. Ini tidak dapat dibatalkan.',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',	// TODO
-			'body_unread_articles' => '(unread: %%d)',	// TODO
-			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
-			'title_new_articles' => 'FreshRSS: new articles!',	// TODO
+			'body_new_articles' => array(
+				0 => 'Ada %d artikel baru untuk dibaca di FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(belum dibaca: %d)',	// DIRTY
+			),
+			'request_failed' => 'Permintaan gagal, mungkin dikarenakan masalah koneksi internet.',
+			'title_new_articles' => 'FreshRSS: artikel baru!',
 		),
-		'labels_empty' => 'No labels',	// TODO
-		'new_article' => 'There are new articles available, click to refresh the page.',	// TODO
-		'should_be_activated' => 'JavaScript must be enabled',	// TODO
+		'labels_empty' => 'Tidak ada label',
+		'new_article' => 'Tidak ada artikel baru yang tersedia, klik untuk menyegarkan halaman.',
+		'should_be_activated' => 'JavaScript harus diaktifkan',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
 		'hu' => 'Magyar',	// IGNORE
@@ -157,92 +201,132 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
-		'about' => 'About',	// TODO
-		'account' => 'Account',	// TODO
-		'admin' => 'Administration',	// TODO
-		'archiving' => 'Archiving',	// TODO
-		'authentication' => 'Authentication',	// TODO
-		'check_install' => 'Installation check',	// TODO
-		'configuration' => 'Configuration',	// TODO
-		'display' => 'Display',	// TODO
-		'extensions' => 'Extensions',	// TODO
-		'logs' => 'Logs',	// TODO
-		'queries' => 'User queries',	// TODO
-		'reading' => 'Reading',	// TODO
-		'search' => 'Search words or #tags',	// TODO
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
-		'sharing' => 'Sharing',	// TODO
-		'shortcuts' => 'Shortcuts',	// TODO
-		'stats' => 'Statistics',	// TODO
-		'system' => 'System configuration',	// TODO
-		'update' => 'Update',	// TODO
-		'user_management' => 'Manage users',	// TODO
-		'user_profile' => 'Profile',	// TODO
+		'about' => 'Tentang',
+		'account' => 'Akun',
+		'admin' => 'Administrasi',
+		'advanced_search' => 'Advanced Search',	// TODO
+		'archiving' => 'Pengarsipan',
+		'authentication' => 'Autentikasi',
+		'check_install' => 'Pemeriksaan pemasangan',
+		'configuration' => 'Konfigurasi',
+		'display' => 'Tampilan',
+		'extensions' => 'Ekstensi',
+		'logs' => 'Log',
+		'privacy' => 'Privasi',
+		'queries' => 'Pencarian pengguna',
+		'reading' => 'Membaca',
+		'search' => 'Cari kata atau #label',
+		'search_help' => 'Lihat dokumentasi unuk <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">parameter pencarian</a> lebih lanjut',
+		'sharing' => 'Berbagi',
+		'shortcuts' => 'Pintasan',
+		'stats' => 'Statistik',
+		'system' => 'Konfigurasi sistem',
+		'update' => 'Pembaruan',
+		'user_management' => 'Kelola pengguna',
+		'user_profile' => 'Profil',
 	),
 	'period' => array(
-		'days' => 'days',	// TODO
-		'hours' => 'hours',	// TODO
-		'months' => 'months',	// TODO
-		'weeks' => 'weeks',	// TODO
-		'years' => 'years',	// TODO
+		'days' => 'hari',
+		'hours' => 'jam',
+		'months' => 'bulan',
+		'weeks' => 'minggu',
+		'years' => 'tahun',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
+		'authors' => 'Authors',	// TODO
+		'categories' => 'Categories',	// TODO
+		'content' => 'Content',	// TODO
+		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
+		'date_past' => 'In the past',	// TODO
+		'date_published' => 'Publication Date',	// TODO
+		'date_range' => 'Date Range',	// TODO
+		'date_received' => 'Received Date',	// TODO
+		'date_to' => 'To',	// TODO
+		'date_user' => 'User Modification Date',	// TODO
+		'feeds' => 'Feeds',	// TODO
+		'free_text' => 'Free Text',	// TODO
+		'free_text_help' => 'Search both in title and content',	// TODO
+		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
+		'labels' => 'My Labels',	// TODO
+		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
+		'sources' => 'Sources',	// TODO
+		'tags' => 'Article Tags',	// TODO
+		'text' => 'Text Search',	// TODO
+		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
+		'text_placeholder' => 'Keyword',	// TODO
+		'title' => 'Title',	// TODO
+		'url' => 'URL',	// TODO
+		'user_queries' => 'User Queries',	// TODO
 	),
 	'share' => array(
-		'Known' => 'Known based sites',	// TODO
+		'Known' => 'Situs berbasis Known',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
-		'archivePH' => 'archive.ph',	// TODO
-		'blogotext' => 'Blogotext',	// TODO
+		'archivePH' => 'archive.ph',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
-		'clipboard' => 'Clipboard',	// TODO
-		'diaspora' => 'Diaspora*',	// TODO
-		'email' => 'Email',	// TODO
-		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
-		'facebook' => 'Facebook',	// TODO
-		'gnusocial' => 'GNU social',	// TODO
-		'jdh' => 'Journal du hacker',	// TODO
-		'lemmy' => 'Lemmy',	// TODO
-		'linkding' => 'Linkding',	// TODO
-		'linkedin' => 'LinkedIn',	// TODO
-		'mastodon' => 'Mastodon',	// TODO
-		'movim' => 'Movim',	// TODO
+		'clipboard' => 'Papan Klip',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Surel',
+		'email-webmail-firefox-fix' => 'Surel (klien web - perbaikan untuk Firefox)',
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Penanda',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
-		'pinboard' => 'Pinboard',	// TODO
-		'pinterest' => 'Pinterest',	// TODO
-		'pocket' => 'Pocket',	// TODO
-		'print' => 'Print',	// TODO
-		'raindrop' => 'Raindrop.io',	// TODO
-		'reddit' => 'Reddit',	// TODO
-		'shaarli' => 'Shaarli',	// TODO
-		'twitter' => 'Twitter',	// TODO
-		'wallabag' => 'wallabag v1',	// TODO
-		'wallabagv2' => 'wallabag v2',	// TODO
-		'web-sharing-api' => 'System sharing',	// TODO
-		'whatsapp' => 'Whatsapp',	// TODO
-		'xing' => 'Xing',	// TODO
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
+		'print' => 'Cetak',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Bagikan sistem',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
-		'attention' => 'Warning!',	// TODO
-		'blank_to_disable' => 'Leave blank to disable',	// TODO
-		'by_author' => 'By:',	// TODO
-		'by_default' => 'By default',	// TODO
-		'damn' => 'Blast!',	// TODO
-		'default_category' => 'Uncategorized',	// TODO
-		'no' => 'No',	// TODO
-		'not_applicable' => 'Not available',	// TODO
-		'ok' => 'Okay!',	// TODO
-		'or' => 'or',	// TODO
-		'yes' => 'Yes',	// TODO
+		'attention' => 'Peringatan!',
+		'blank_to_disable' => 'Biarkan kosong untuk menonaktifkan',
+		'by_author' => 'Oleh:',
+		'by_default' => 'Secara baku',
+		'damn' => 'Sial!',
+		'default_category' => 'Tidak ada kategori',
+		'no' => 'Tidak',
+		'not_applicable' => 'Tidak tersedia',
+		'ok' => 'Oke!',
+		'or' => 'atau',
+		'yes' => 'Ya',
 	),
 	'stream' => array(
-		'load_more' => 'Load more articles',	// TODO
-		'mark_all_read' => 'Mark all as read',	// TODO
-		'nothing_to_load' => 'There are no more articles',	// TODO
+		'load_more' => 'Muat lebih banyak artikel',
+		'mark_all_read' => 'Tandai semua sebagai sudah dibaca',
+		'nothing_to_load' => 'Tidak ada artikel lagi',
 	),
 );

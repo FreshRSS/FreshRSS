@@ -1,3 +1,10 @@
+# Contributor guidelines
+
+## Chat with us
+
+Do you want to ask us some questions? Do you want to discuss with us?
+Don’t hesitate to [join our Mattermost chat](https://framateam.org/signup_user_complete/?id=e2680d3e3128b9fac8fdb3003b0024ee)!
+
 ## Report a bug
 
 Have you found a bug? Don’t panic, here are some steps to report it with ease:
@@ -27,11 +34,13 @@ Would you like to fix a bug? For optimum coordination between collaborators, you
 1. Be sure the bug is associated with a ticket and indicate that you’ll work on it.
 2. [Fork the project repository](https://help.github.com/articles/fork-a-repo/).
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch should be clear, and ideally prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/).
+4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **edge branch**. Don’t forget to add your name to `CREDITS.md` if you’re contributing to FreshRSS for the very first time.
 
 If you have to write code, please follow [our coding style recommendations](developers/02_First_steps.md).
 
-**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)” ticket label.
+> ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).
+
+**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Good%20first%20issue%201%EF%B8%8F%E2%83%A3%22)” and “[help wanted](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22)” ticket labels.
 
 ## Submit an idea
 
@@ -43,7 +52,25 @@ If your idea is nice, we’ll have a look at it.
 
 Learn how to contribute to translations in [the dedicated documentation](./internationalization.md).
 
-## Contribute to documentation
+## Contribute to the documentation
 
 The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it.
 If you want to give some help, meet us in the main repositories [docs directory](https://github.com/FreshRSS/FreshRSS/tree/edge/docs)!
+
+## Contribute to the system themes
+
+FreshRSS offers some official themes. If you have a good sense for great UI you are invited to share your theme with the community (via a [show&tell discussion thread](https://github.com/FreshRSS/FreshRSS/discussions/categories/show-and-tell) or as a [Pull Request](https://github.com/FreshRSS/FreshRSS/pulls)).
+
+Check the [basic information for creating a new theme](./developers/04_Frontend/02_Design.md).
+
+This checklist is designed to ensure high-quality system themes while minimizing maintenance efforts.
+
+* Essential files include: [metadata.json, original.png](./developers/04_Frontend/02_Design.md) (located in the `thumbs` directory).
+* Include _frss.css in the "files" section of [`metadata.json`](./developers/04_Frontend/02_Design.md).
+* Theme-specific icons reside in the `icons` directory.
+	* Icons should be provided as `svg` files.
+		* Ensure clean code without any unnecessary fragments; utilize tools like [SVGOMG](https://jakearchibald.github.io/svgomg/) for cleaning.
+		* The default color for icons is `#666666`; employ CSS filters for recoloring.
+* Utilize CSS variables for colors to facilitate easy color adjustments with [CustomCSS extension](https://github.com/FreshRSS/Extensions).
+* Implement a dark mode that aligns with the `.darkMode` CSS class.
+* To streamline maintenance, avoid using CSS preprocessors; instead, employ well-structured plain CSS.

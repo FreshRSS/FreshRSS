@@ -1,13 +1,7 @@
 ## Rejoignez-nous sur les listes de mailing
 
 S’il vous manque des informations, n’hésitez pas à fouiller un peu la
-documentation ou venir nous poser directement vos questions sur [la mailing
-list des développeurs](https://freshrss.org/mailman/listinfo/dev).
-
-* Le premier mailing est destiné à l’information générique, il doit être adapté aux utilisateurs.
-	[Rejoignez mailing@freshrss.org](https://freshrss.org/mailman/listinfo/mailing).
-* Le deuxième mailing s’adresse principalement aux développeurs.
-	[Rejoignez dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)
+documentation ou venir nous [poser directement vos questions](https://github.com/FreshRSS/FreshRSS/discussions/categories/q-a).
 
 ## Signaler un bug
 
@@ -30,9 +24,9 @@ suivants :
 
 Nous avons aussi besoin de quelques informations :
 
-* Votre version de FreshRSS (sur la page A propos) ou le fichier `constants.php`)
+* Votre version de FreshRSS (sur la page A propos) ou le fichier `constants.php`
 * Votre configuration de serveur : type d’hébergement, version PHP
-* Quelle base de données : SQLite, MySQL, MariaDB, PostgreSQL ? Quelle version ?
+* Quelle base de données : SQLite, PostgreSQL, MariaDB, MySQL ? Quelle version ?
 * Si possible, les logs associés (logs PHP et logs FreshRSS sous `data/users/your_user/log.txt`)
 
 ## Corriger un bogue
@@ -52,7 +46,9 @@ les collaborateurs, vous devrez suivre ces indications :
 Si vous devez écrire du code, veuillez suivre [nos recommandations de style
 de codage](developers/01_First_steps.md).
 
-**Conseil :** si vous cherchez des bugs faciles à corriger, jetez un coup d’oeil à la vignette « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) ».
+> ℹ Voir [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) pour les conventions de code (à la fois pour les humains et agents IA).
+
+**Conseil :** si vous cherchez des bugs faciles à corriger, jetez un coup d’oeil à la vignette « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Good%20first%20issue%201%EF%B8%8F%E2%83%A3%22) ».
 
 ## Soumettre une idée
 

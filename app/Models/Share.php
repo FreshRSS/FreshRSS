@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Manage the sharing options in FreshRSS.
@@ -8,12 +9,12 @@ class FreshRSS_Share {
 	 * The list of available sharing options.
 	 * @var array<string,FreshRSS_Share>
 	 */
-	private static $list_sharing = [];
+	private static array $list_sharing = [];
 
 	/**
 	 * Register a new sharing option.
-	 * @param array{'type':string,'url':string,'transform'?:array<callable>|array<string,array<callable>>,'field'?:string,'help'?:string,'form'?:'simple'|'advanced',
-	 *	'method'?:'GET'|'POST','HTMLtag'?:'button','deprecated'?:bool} $share_options is an array defining the share option.
+	 * @param array{type:string,url:string,transform?:array<callable>|array<string,array<callable>>,field?:string,help?:string,form?:'simple'|'advanced',
+	 *	method?:'GET'|'POST',HTMLtag?:'button',deprecated?:bool} $share_options is an array defining the share option.
 	 */
 	public static function register(array $share_options): void {
 		$type = $share_options['type'];
@@ -39,19 +40,22 @@ class FreshRSS_Share {
 	 * @param string $filename the name of the file to load.
 	 */
 	public static function load(string $filename): void {
-		$shares_from_file = @include($filename);
+		$shares_from_file = @include $filename;
 		if (!is_array($shares_from_file)) {
 			$shares_from_file = [];
 		}
 
 		foreach ($shares_from_file as $share_type => $share_options) {
+			if (!is_array($share_options)) {
+				continue;
+			}
 			$share_options['type'] = $share_type;
+			/** @var array{type:string,url:string,transform?:array<callable>|array<string,array<callable>>,field?:string,help?:string,form?:'simple'|'advanced',
+			 *	method?:'GET'|'POST',HTMLtag?:'button',deprecated?:bool} $share_options */
 			self::register($share_options);
 		}
 
-		uasort(self::$list_sharing, static function (FreshRSS_Share $a, FreshRSS_Share $b) {
-			return strcasecmp($a->name() ?? '', $b->name() ?? '');
-		});
+		uasort(self::$list_sharing, static fn(FreshRSS_Share $a, FreshRSS_Share $b) => FreshRSS_Context::localeCompare($a->name() ?? '', $b->name() ?? ''));
 	}
 
 	/**
@@ -69,47 +73,20 @@ class FreshRSS_Share {
 	public static function get(string $type): ?FreshRSS_Share {
 		return self::$list_sharing[$type] ?? null;
 	}
-
-
-	/** @var string */
-	private $type;
-	/** @var string */
-	private $name;
-	/** @var string */
-	private $url_transform;
-	/** @var array<callable>|array<string,array<callable>> */
-	private $transforms;
+	private readonly string $name;
 	/**
 	 * @phpstan-var 'simple'|'advanced'
-	 * @var string
 	 */
-	private $form_type;
-	/** @var string */
-	private $help_url;
-	/** @var string|null */
-	private $custom_name = null;
-	/** @var string|null */
-	private $base_url = null;
-	/** @var string|null */
-	private $id = null;
-	/** @var string|null */
-	private $title = null;
-	/** @var string|null */
-	private $link = null;
-	/** @var bool */
-	private $isDeprecated;
+	private readonly string $form_type;
+	private ?string $custom_name = null;
+	private ?string $base_url = null;
+	private ?string $id = null;
+	private ?string $title = null;
+	private ?string $link = null;
 	/**
 	 * @phpstan-var 'GET'|'POST'
-	 * @var string
 	 */
-	private $method;
-	/** @var string|null */
-	private $field;
-	/**
-	 * @phpstan-var 'button'|null
-	 * @var string
-	 */
-	private $HTMLtag;
+	private string $method;
 
 	/**
 	 * Create a FreshRSS_Share object.
@@ -121,19 +98,20 @@ class FreshRSS_Share {
 	 *        decentralized ones.
 	 * @param string $help_url is an optional url to give help on this option.
 	 * @param 'GET'|'POST' $method defines the sharing method (GET or POST)
-	 * @param string|null $field
 	 * @param 'button'|null $HTMLtag
-	 * @param bool $isDeprecated
 	 */
-	private function __construct(string $type, string $url_transform, array $transforms, string $form_type,
-		string $help_url, string $method, ?string $field, ?string $HTMLtag, bool $isDeprecated = false) {
-		$this->type = $type;
-		$this->name = _t('gen.share.' . $type);
-		$this->url_transform = $url_transform;
-		$this->help_url = $help_url;
-		$this->HTMLtag = $HTMLtag;
-		$this->isDeprecated = $isDeprecated;
-		$this->transforms = $transforms;
+	private function __construct(
+		private readonly string $type,
+		private readonly string $url_transform,
+		private array $transforms,
+		string $form_type,
+		private readonly string $help_url,
+		string $method,
+		private ?string $field,
+		private readonly ?string $HTMLtag,
+		private readonly bool $isDeprecated = false
+	) {
+		$this->name = _t('gen.share.' . $this->type);
 
 		if (!in_array($form_type, ['simple', 'advanced'], true)) {
 			$form_type = 'simple';
@@ -143,7 +121,6 @@ class FreshRSS_Share {
 			$method = 'GET';
 		}
 		$this->method = $method;
-		$this->field = $field;
 	}
 
 	/**
@@ -172,7 +149,7 @@ class FreshRSS_Share {
 				case 'method':
 					$this->method = strcasecmp($value, 'POST') === 0 ? 'POST' : 'GET';
 					break;
-				case 'field';
+				case 'field':
 					$this->field = $value;
 					break;
 			}
@@ -261,8 +238,8 @@ class FreshRSS_Share {
 			'~LINK~',
 		];
 		$replaces = [
-			$this->id(),
-			$this->base_url,
+			$this->id() ?? '',
+			$this->base_url ?? '',
 			$this->title(),
 			$this->link(),
 		];
@@ -326,7 +303,10 @@ class FreshRSS_Share {
 		}
 
 		foreach ($transform as $action) {
-			$data = call_user_func($action, $data);
+			$return = call_user_func($action, $data);
+			if (is_string($return)) {
+				$data = $return;
+			}
 		}
 
 		return $data;
@@ -335,7 +315,7 @@ class FreshRSS_Share {
 	/**
 	 * Get the list of transformations for the given attribute.
 	 * @param string $attr the attribute of which we want the transformations.
-	 * @return array<callable> containing a list of transformations to apply.
+	 * @return list<callable> containing a list of transformations to apply.
 	 */
 	private function getTransform(string $attr): array {
 		if (array_key_exists($attr, $this->transforms)) {

@@ -1,114 +1,27 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
-		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',	// TODO
-		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// TODO
-		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps)</small>',	// TODO
-		'form' => 'Web form (σύνηθες, απαιτεί JavaScript)',
-		'http' => 'HTTP (για έμπειρους χρήστες με )',
+		'allow_anonymous' => 'Επιτρέψτε την ανώνυμη ανάγνωση των άρθρων του προεπιλεγμένου χρήστη (%s)',
+		'allow_anonymous_refresh' => 'Επιτρέψτε την ανώνυμη ανανέωση των άρθρων',
+		'api_enabled' => 'Επιτρέψτε την πρόσβαση <abbr>API</abbr> <small>(απαιτείται για εφαρμογές κινητών και κοινοποίηση ερωτημάτων χρηστών)</small>',
+		'form' => 'Φόρμα ιστού (σύνηθες, απαιτεί JavaScript)',
+		'http' => 'HTTP (για προχωρημένους: διαχειρίζεται από τον Web server, OIDC, SSO…)',
 		'none' => 'Καμία (ριψοκίνδυνο)',
 		'title' => 'Πιστοποίηση',
-		'token' => 'Διακριτικό Πιστοποίησης (token)',
-		'token_help' => 'Επιτρέπει την πρόσβαση στα RSS αποτελέσματα του προεπιλεγμένου χρήστη χωρίς έλεγχο ταυτότητας:',
-		'type' => 'Μέθοδος Πιστοποίησης',
-		'unsafe_autologin' => 'Επιτρέψτε την μη ασφαλή αυτόματη σύνδεση με την χρήση της μορφής: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data/cache</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής.',
-			'ok' => 'Τα δικαιώματα στον κατάλογο προσωρινής μνήμης (cache) είναι εντάξει.',
-		),
-		'categories' => array(
-			'nok' => 'Ο πίνακας κατηγορίας (Category) δεν έχει ρυθμιστεί σωστά.',
-			'ok' => 'Ο πίνακας κατηγορίας (Category) είναι εντάξει.',
-		),
-		'connection' => array(
-			'nok' => 'Δεν ήταν δυνατή η σύνδεση με την βάση δεδομένων.',
-			'ok' => 'Η σύνδεση με την βάση δεδομένων είναι εντάξει.',
-		),
-		'ctype' => array(
-			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για τον έλεγχο τύπου χαρακτήρων (php-ctype).',
-			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για τον έλεγχο τύπου χαρακτήρων (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'Δεν βρέθηκε η βιβλιοθήκη cURL (php-curl package).',
-			'ok' => 'Βρέθηκε η βιβλιοθήκη cURL.',
-		),
-		'data' => array(
-			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής.',
-			'ok' => 'Τα δικαιώματα στον κατάλογο δεδομένων (data) είναι εντάξει.',
-		),
-		'database' => 'Εγκατάσταση βάσης δεδομένων',
-		'dom' => array(
-			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM (php-xml package).',
-			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για περιήγηση στο DOM.',
-		),
-		'entries' => array(
-			'nok' => 'Ο πίνακας καταχώρισης (Entry) δεν έχει ρυθμιστεί σωστά..',
-			'ok' => 'Ο πίνακας καταχώρισης (Entry) είναι εντάξει.',
-		),
-		'favicons' => array(
-			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data/favicons</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής.',
-			'ok' => 'Τα δικαιώματα στον κατάλογο δεδομένων (favicons) είναι εντάξει.',
-		),
-		'feeds' => array(
-			'nok' => 'Ο πίνακας τροφοδοσίας (Feed) δεν έχει ρυθμιστεί σωστά..',
-			'ok' => 'Ο πίνακας τροφοδοσίας (Feed) είναι εντάξει.',
-		),
-		'fileinfo' => array(
-			'nok' => 'Δεν βρέθηκε η βιβλιοθήκη PHP fileinfo (fileinfo package).',
-			'ok' => 'Βρέθηκε η βιβλιοθήκη fileinfo.',
-		),
-		'files' => 'Εγκατάσταση αρχείων',
-		'json' => array(
-			'nok' => 'Δεν βρέθηκε η επέκταση JSON (php-json package).',
-			'ok' => 'Βρέθηκε η επέκταση JSON.',
-		),
-		'mbstring' => array(
-			'nok' => 'Δεν βρέθηκε η συνιστώμενη βιβλιοθήκη mbstring για Unicode.',
-			'ok' => 'Βρέθηκε η συνιστώμενη βιβλιοθήκη mbstring για Unicode.',
-		),
-		'pcre' => array(
-			'nok' => 'Δεν βρέθηκε η απαιτούμενη βιβλιοθήκη για regular expressions (php-pcre).',
-			'ok' => 'Βρέθηκε η απαιτούμενη βιβλιοθήκη για regular expressions (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'Δεν βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Βρέθηκε ο PDO ή ένας από τους υποστηριζόμενους οδηγούς (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'Εγκατάσταση PHP',
-			'nok' => 'Η έκδοση της PHP σας είναι %s, αλλά το FreshRSS απαιτεί τουλάχιστον έκδοση %s.',
-			'ok' => 'Η έκδοση της PHP σας, %s, είναι συμβατή με το FreshRSS.',
-		),
-		'tables' => array(
-			'nok' => 'Λείπουν ένας ή περισσότεροι πίνακες από την βάση δεδομένων.',
-			'ok' => 'Υπάρχουν οι κατάλληλοι φάκελοι στην βάση δεδομένων.',
-		),
-		'title' => 'Έλεγχος εγκατάστασης',
-		'tokens' => array(
-			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data/tokens</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής',
-			'ok' => 'Τα δικαιώματα στον κατάλογο διακριτικών (tokens) είναι εντάξει.',
-		),
-		'users' => array(
-			'nok' => 'Ελέγξτε τα δικαιώματα στον κατάλογο <em>./data/users</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής',
-			'ok' => 'Τα δικαιώματα στον κατάλογο χρηστών (users) είναι εντάξει.',
-		),
-		'zip' => array(
-			'nok' => 'Δεν βρέθηκε η επέκταση ZIP (php-zip package).',
-			'ok' => 'Βρέθηκε η επέκταση ZIP .',
-		),
+		'token' => 'Κύριο διακριτικό πιστοποίησης',
+		'token_help' => 'Επιτρέπει την πρόσβαση σε όλες τις εξόδους RSS του χρήστη καθώς και την ανανέωση ροών χωρίς πιστοποίηση:',
+		'type' => 'Μέθοδος πιστοποίησης',
 	),
 	'extensions' => array(
 		'author' => 'Συντάκτης',
@@ -116,7 +29,9 @@ return array(
 		'description' => 'Περιγραφή',
 		'disabled' => 'Απενεργοποιημένες',
 		'empty_list' => 'Δεν υπάρχουν εγκατεστημένες επεκτάσεις',
+		'empty_list_help' => 'Ελέγξτε τα αρχεία καταγραφής για να προσδιορίσετε τον λόγο της κενής λίστας επεκτάσεων.',
 		'enabled' => 'Ενεργοποιημένες',
+		'is_compatible' => 'Είναι συμβατό',
 		'latest' => 'Εγκατεστημένες',
 		'name' => 'Όνομα',
 		'no_configure_view' => 'Αυτή η επέκταση δεν μπορεί να ρυθμιστεί.',
@@ -131,46 +46,58 @@ return array(
 	),
 	'stats' => array(
 		'_' => 'Στατιστικά',
-		'all_feeds' => 'Όλες οι τροφοδοσίες',
+		'all_feeds' => 'Όλες οι ροές',
 		'category' => 'Κατηγορία',
-		'entry_count' => 'Αριθμός καταχωρίσεων',
-		'entry_per_category' => 'Καταχωρίσεις ανά κατηγορία',
-		'entry_per_day' => 'Καταχωρίσεις ανά ημέρα (τελευταίες 30 ημέρες)',
+		'date_published' => 'Ημερομηνία δημοσίευσης',
+		'date_received' => 'Ημερομηνία λήψης',
+		'entry_count' => 'Αριθμός άρθρων',
+		'entry_per_category' => 'Άρθρα ανά κατηγορία',
+		'entry_per_day' => 'Άρθρα ανά ημέρα (τελευταίες 30 ημέρες)',
 		'entry_per_day_of_week' => 'Ανά ημέρα της εβδομάδας (μέσος όρος: %.2f μηνύματα)',
 		'entry_per_hour' => 'Ανά ώρα (μέσος όρος: %.2f μηνύματα)',
 		'entry_per_month' => 'Ανά μήνα (μέσος όρος: %.2f μηνύματα)',
-		'entry_repartition' => 'Entries repartition',	// TODO
-		'feed' => 'Τροφοδοσία',
-		'feed_per_category' => 'Τροφοδοσίες ανά κατηγορία',
-		'idle' => 'Αδρανείς τροφοδοσίες',
-		'main' => 'Κύρια στατισικά',
-		'main_stream' => 'Κύρια ροή',
-		'no_idle' => 'Δεν υπάρχουν αδρανείς τροφοδοσίες!',
+		'entry_repartition' => 'Κατανομή άρθρων',
+		'feed' => 'Ροή',
+		'feed_per_category' => 'Ροές ανά κατηγορία',
+		'idle' => 'Αδρανείς ροές',
+		'main' => 'Κύρια στατιστικά',
+		'main_stream' => 'Κεντρική ροή',
+		'nb_unreads' => 'Αριθμός μη αναγνωσμένων άρθρων',
+		'no_idle' => 'Δεν υπάρχουν αδρανείς ροές!',
 		'number_entries' => '%d άρθρα',
-		'percent_of_total' => '% εκ του συνόλου',
-		'repartition' => 'Articles repartition',	// TODO
+		'overview' => 'Επισκόπηση',
+		'percent_of_total' => '% του συνόλου',
+		'repartition' => 'Κατανομή άρθρων: %s',
 		'status_favorites' => 'Αγαπημένα',
-		'status_read' => 'Ανάγνωση',
+		'status_read' => 'Αναγνωσμένα',
 		'status_total' => 'Σύνολο',
 		'status_unread' => 'Μη αναγνωσμένα',
 		'title' => 'Στατιστικά',
-		'top_feed' => 'Κορυφαίες δέκα τροφοδοσίες',
+		'top_feed' => 'Οι δέκα κορυφαίες ροές',
+		'unread_dates' => 'Ημερομηνίες με τα περισσότερα μη αναγνωσμένα άρθρα',
 	),
 	'system' => array(
 		'_' => 'Ρυθμίσεις συστήματος',
 		'auto-update-url' => 'Αυτόματη ενημέρωση URL διακομιστή',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'Βασικό URL',
+			'recommendation' => 'Αυτόματη σύσταση: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Μήνυμα όταν οι εγγραφές είναι κλειστές',
 		'cookie-duration' => array(
 			'help' => 'σε δευτερόλεπτα',
 			'number' => 'Διάρκεια παραμονής σε σύνδεση',
 		),
+		'default_closed_registration_message' => 'Αυτός ο διακομιστής δεν αποδέχεται νέες εγγραφές αυτή τη στιγμή.',
 		'force_email_validation' => 'Επιβολή επιβεβαίωσης διεύθυνσης email',
-		'instance-name' => 'Instance name',	// TODO
+		'instance-name' => 'Όνομα instance',
+		'internal-host-allowlist' => array(
+			'_' => 'Λίστα επιτρεπόμενων εσωτερικών hosts',
+			'help' => 'Μία καταχώρηση ανά γραμμή:<ul><li>Ένα <code>host:port</code>. Για παράδειγμα <code>127.0.0.1:8080</code> ή <code>rss-bridge:80</code></li><li>Σημειογραφία CIDR. Για παράδειγμα <code>0.0.0.0/0</code> για να επιτρέψετε οποιοδήποτε IPv4, <code>::/0</code> για να επιτρέψετε οποιοδήποτε IPv6</li><li>Ένα <code>*</code> για να επιτρέψετε οποιοδήποτε host (μη ασφαλές)</li></ul>',
+		),
 		'max-categories' => 'Μέγιστος αριθμός κατηγοριών ανά χρήστη',
-		'max-feeds' => 'Μέγιστος αριθμός τροφοδοσιών ανά χρήστη',
+		'max-feeds' => 'Μέγιστος αριθμός ροών ανά χρήστη',
+		'override-by-env-var' => 'Αυτή η ρύθμιση ορίζεται από τη μεταβλητή περιβάλλοντος <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Μέγιστος αριθμός λογαριασμών',
 			'select' => array(
@@ -178,7 +105,7 @@ return array(
 				'option' => array(
 					'noform' => 'Απενεργοποιημένη: Χωρίς φόρμα εγγραφής',
 					'nolimit' => 'Ενεργοποιημένη: Χωρίς όριο λογαριασμών',
-					'setaccountsnumber' => 'Ορίστε μέγιστο αριθμό λογαριασμών',
+					'setaccountsnumber' => 'Ορισμός μέγιστου αριθμού λογαριασμών',
 				),
 			),
 			'status' => array(
@@ -187,47 +114,50 @@ return array(
 			),
 			'title' => 'Φόρμα εγγραφής χρήστη',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Ευαίσθητη παράμετρος. Επεξεργαστείτε χειροκίνητα στο <kbd>./data/config.php</kbd>',
 		'tos' => array(
-			'disabled' => 'is not given',	// TODO
-			'enabled' => '<a href="./?a=tos">is enabled</a>',	// TODO
-			'help' => 'How to <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">enable the Terms of Service</a>',	// TODO
+			'disabled' => 'δεν παρέχεται',
+			'enabled' => '<a href="./?a=tos">είναι ενεργοποιημένο</a>',
+			'help' => 'Πώς να <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">ενεργοποιήσετε τους Όρους Χρήσης</a>',
+		),
+		'websub' => array(
+			'help' => 'Σχετικά με το <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
 		),
 	),
 	'update' => array(
 		'_' => 'Ενημέρωση συστήματος',
 		'apply' => 'Εφαρμογή',
-		'changelog' => 'Changelog',	// TODO
+		'changelog' => 'Ιστορικό αλλαγών',
 		'check' => 'Έλεγχος για νέες ενημερώσεις',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
-		'current_version' => 'Η τρέχουσα έκδοση του',
-		'last' => 'Τελευταία επαλήθευση',
-		'loading' => 'Updating…',	// TODO
+		'copiedFromURL' => 'το update.php αντιγράφηκε από %s στο ./data',
+		'current_version' => 'Τρέχουσα έκδοση του',
+		'last' => 'Τελευταίος έλεγχος',
+		'loading' => 'Ενημέρωση…',
 		'none' => 'Δεν υπάρχουν ενημερώσεις',
 		'releaseChannel' => array(
-			'_' => 'Release channel',	// TODO
-			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'_' => 'Κανάλι κυκλοφορίας',
+			'edge' => 'Rolling release («edge»)',
+			'latest' => 'Σταθερή κυκλοφορία («latest»)',
 		),
 		'title' => 'Ενημέρωση συστήματος',
-		'viaGit' => 'Update via git and Github.com started',	// TODO
+		'viaGit' => 'Ξεκίνησε η ενημέρωση μέσω git και GitHub.com',
 	),
 	'user' => array(
 		'admin' => 'Διαχειριστής',
 		'article_count' => 'Άρθρα',
-		'back_to_manage' => '← Επιστροφή στην λίστα χρηστών',
-		'create' => 'Δημιουργια νέου χρήστη',
+		'back_to_manage' => '← Επιστροφή στη λίστα χρηστών',
+		'create' => 'Δημιουργία νέου χρήστη',
 		'database_size' => 'Μέγεθος βάσης δεδομένων',
 		'email' => 'Διεύθυνση email',
 		'enabled' => 'Ενεργοποιημένο',
-		'feed_count' => 'Τροφοδοσίες',
+		'feed_count' => 'Ροές',
 		'is_admin' => 'Είναι διαχειριστής',
 		'language' => 'Γλώσσα',
 		'last_user_activity' => 'Τελευταία δραστηριότητα χρήστη',
 		'list' => 'Λίστα χρηστών',
 		'number' => 'Δημιουργήθηκε %d λογαριασμός',
 		'numbers' => 'Δημιουργήθηκαν %d λογαριασμοί',
-		'password_form' => 'Κωδικός πρόσβασης<br /><small>(για την μέθοδο σύνδεσης με Web-form)</small>',
+		'password_form' => 'Κωδικός πρόσβασης<br /><small>(για τη μέθοδο σύνδεσης μέσω φόρμας ιστού)</small>',
 		'password_format' => 'Τουλάχιστον 7 χαρακτήρες',
 		'title' => 'Διαχείριση χρηστών',
 		'username' => 'Όνομα χρήστη',

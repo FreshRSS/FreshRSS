@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /*
  Enable support for HTTP/1.x conditional requests in PHP.
  Goal: Optimisation
@@ -14,7 +16,7 @@
 
 ```php
 <?php
-	require_once('http-conditional.php');
+	require_once 'http-conditional.php';
 	//Date of the last modification of the content (Unix Timestamp format).
 	//Examples: query the database, or last modification of a static file.
 	$dateLastModification = ...;
@@ -27,7 +29,7 @@
 ?>
 ```
 
- Version 1.9, 2023-04-08, https://alexandre.alapetite.fr/doc-alex/php-http-304/
+ Version 1.10, 2024-12-22, https://alexandre.alapetite.fr/doc-alex/php-http-304/
 
  ------------------------------------------------------------------
  Written by Alexandre Alapetite in 2004, https://alexandre.alapetite.fr/cv/
@@ -80,8 +82,8 @@ $_sessionMode = false;
 function httpConditional(int $UnixTimeStamp, int $cacheSeconds = 0, int $cachePrivacy = 0, bool $feedMode = false, bool $compression = false, bool $session = false): bool {
 	if (headers_sent()) return false;
 
-	if (isset($_SERVER['SCRIPT_FILENAME'])) $scriptName = $_SERVER['SCRIPT_FILENAME'];
-	elseif (isset($_SERVER['PATH_TRANSLATED'])) $scriptName = $_SERVER['PATH_TRANSLATED'];
+	if (is_string($_SERVER['SCRIPT_FILENAME'] ?? null)) $scriptName = $_SERVER['SCRIPT_FILENAME'];
+	elseif (is_string($_SERVER['PATH_TRANSLATED'] ?? null)) $scriptName = $_SERVER['PATH_TRANSLATED'];
 	else return false;
 
 	if ((!$feedMode) && (($modifScript = (int)filemtime($scriptName)) > $UnixTimeStamp))
@@ -92,11 +94,11 @@ function httpConditional(int $UnixTimeStamp, int $cacheSeconds = 0, int $cachePr
 	$nbCond = 0;
 
 	//rfc2616-sec3.html#sec3.3.1
-	$dateLastModif = gmdate('D, d M Y H:i:s \G\M\T', $UnixTimeStamp);
+	$dateLastModif = gmdate('D, d M Y H:i:s \\G\\M\\T', $UnixTimeStamp);
 	$dateCacheClient = 'Thu, 10 Jan 1980 20:30:40 GMT';
 
 	//rfc2616-sec14.html#sec14.19 //='"0123456789abcdef0123456789abcdef"'
-	if (isset($_SERVER['QUERY_STRING'])) $myQuery = '?' . $_SERVER['QUERY_STRING'];
+	if (is_string($_SERVER['QUERY_STRING'] ?? null)) $myQuery = '?' . $_SERVER['QUERY_STRING'];
 	else $myQuery = '';
 	if ($session && isset($_SESSION)) {
 		global $_sessionMode;
@@ -105,14 +107,14 @@ function httpConditional(int $UnixTimeStamp, int $cacheSeconds = 0, int $cachePr
 	}
 	$etagServer = '"' . md5($scriptName . $myQuery . '#' . $dateLastModif) . '"';
 
-	// @phpstan-ignore-next-line
-	if ((!$is412) && isset($_SERVER['HTTP_IF_MATCH'])) { //rfc2616-sec14.html#sec14.24
+	// @phpstan-ignore booleanNot.alwaysTrue
+	if ((!$is412) && is_string($_SERVER['HTTP_IF_MATCH'] ?? null)) { //rfc2616-sec14.html#sec14.24
 		$etagsClient = stripslashes($_SERVER['HTTP_IF_MATCH']);
 		$etagsClient = str_ireplace('-gzip', '', $etagsClient);
 		$is412 = (($etagsClient !== '*') && (strpos($etagsClient, $etagServer) === false));
 	}
-	// @phpstan-ignore-next-line
-	if ($is304 && isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) { //rfc2616-sec14.html#sec14.25 //rfc1945.txt
+	// @phpstan-ignore booleanAnd.leftAlwaysTrue
+	if ($is304 && is_string($_SERVER['HTTP_IF_MODIFIED_SINCE'] ?? null)) { //rfc2616-sec14.html#sec14.25 //rfc1945.txt
 		$nbCond++;
 		$dateCacheClient = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
 		$p = strpos($dateCacheClient, ';');
@@ -120,13 +122,13 @@ function httpConditional(int $UnixTimeStamp, int $cacheSeconds = 0, int $cachePr
 			$dateCacheClient = substr($dateCacheClient, 0, $p);
 		$is304 = ($dateCacheClient == $dateLastModif);
 	}
-	if ($is304 && isset($_SERVER['HTTP_IF_NONE_MATCH'])) { //rfc2616-sec14.html#sec14.26
+	if ($is304 && is_string($_SERVER['HTTP_IF_NONE_MATCH'] ?? null)) { //rfc2616-sec14.html#sec14.26
 		$nbCond++;
 		$etagClient = stripslashes($_SERVER['HTTP_IF_NONE_MATCH']);
 		$etagClient = str_ireplace('-gzip', '', $etagClient);
 		$is304 = (($etagClient === $etagServer) || ($etagClient === '*'));
 	}
-	if ((!$is412) && isset($_SERVER['HTTP_IF_UNMODIFIED_SINCE'])) { //rfc2616-sec14.html#sec14.28
+	if ((!$is412) && is_string($_SERVER['HTTP_IF_UNMODIFIED_SINCE'] ?? null)) { //rfc2616-sec14.html#sec14.28
 		$dateCacheClient = $_SERVER['HTTP_IF_UNMODIFIED_SINCE'];
 		$p = strpos($dateCacheClient, ';');
 		if ($p !== false)
@@ -167,7 +169,7 @@ function httpConditional(int $UnixTimeStamp, int $cacheSeconds = 0, int $cachePr
 			else $cache = '';
 			$cache .= 'max-age=' . floor($cacheSeconds);
 		}
-		//header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T',time()+$cacheSeconds)); //HTTP/1.0 //rfc2616-sec14.html#sec14.21
+		//header('Expires: '.gmdate('D, d M Y H:i:s \\G\\M\\T',time()+$cacheSeconds)); //HTTP/1.0 //rfc2616-sec14.html#sec14.21
 		header('Cache-Control: ' . $cache); //rfc2616-sec14.html#sec14.9
 		header('Last-Modified: ' . $dateLastModif);
 		header('Etag: ' . $etagServer);
@@ -198,13 +200,13 @@ function _httpConditionalCallBack(string $buffer, int $mode = 5): string {
 function httpConditionalRefresh(int $UnixTimeStamp): void {
 	if (headers_sent()) return;
 
-	if (isset($_SERVER['SCRIPT_FILENAME'])) $scriptName = $_SERVER['SCRIPT_FILENAME'];
-	elseif (isset($_SERVER['PATH_TRANSLATED'])) $scriptName = $_SERVER['PATH_TRANSLATED'];
+	if (is_string($_SERVER['SCRIPT_FILENAME'] ?? null)) $scriptName = $_SERVER['SCRIPT_FILENAME'];
+	elseif (is_string($_SERVER['PATH_TRANSLATED'] ?? null)) $scriptName = $_SERVER['PATH_TRANSLATED'];
 	else return;
 
-	$dateLastModif = gmdate('D, d M Y H:i:s \G\M\T', $UnixTimeStamp);
+	$dateLastModif = gmdate('D, d M Y H:i:s \\G\\M\\T', $UnixTimeStamp);
 
-	if (isset($_SERVER['QUERY_STRING'])) $myQuery = '?' . $_SERVER['QUERY_STRING'];
+	if (is_string($_SERVER['QUERY_STRING'] ?? null)) $myQuery = '?' . $_SERVER['QUERY_STRING'];
 	else $myQuery = '';
 	global $_sessionMode;
 	if ($_sessionMode && isset($_SESSION))

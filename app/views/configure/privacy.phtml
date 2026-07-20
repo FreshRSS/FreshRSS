@@ -1,0 +1,41 @@
+<?php
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+
+	$host = parse_url(FreshRSS_Context::systemConf()->base_url);
+	if ($host !== false) {
+		$host = $host['host'] ?? '';
+	} else {
+		$host = '';
+	}
+?>
+
+<main class="post">
+	<h1><?= _t('conf.privacy') ?></h1>
+
+	<form method="post" action="<?= _url('configure', 'privacy') ?>" data-auto-leave-validation="1">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+
+		<div class="form-group">
+			<label class="group-name" for="retrieve_extension_list"><?= _t('conf.privacy.retrieve_extension_list') ?></label>
+			<div class="group-controls">
+				<input type="checkbox" id="retrieve_extension_list" name="retrieve_extension_list" value="1"<?=
+					FreshRSS_Context::userConf()->retrieve_extension_list !== false ? ' checked="checked"' : '' ?> />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="send_referrer_allowlist"><?= _t('conf.privacy.send_referrer_allowlist', $host) ?></label>
+			<div class="group-controls">
+				<textarea id="send_referrer_allowlist" name="send_referrer_allowlist"><?= implode("\n", FreshRSS_Context::userConf()->send_referrer_allowlist) ?></textarea>
+			</div>
+		</div>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+			</div>
+		</div>
+	</form>
+</main>

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s ne peut pas être activée. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails.',
 			'ok' => '%s est désormais activée',
 		),
+		'invalid_view_mode' => 'Mode de vue “%s” invalide ! Passage en “Vue normale”.',
 		'no_access' => 'Vous n’avez aucun accès sur %s',
 		'not_enabled' => '%s n’est pas encore activée',
 		'not_found' => '%s n’existe pas',
@@ -61,10 +62,11 @@ return array(
 		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.	Si vous avez fini vos importations, vous pouvez cliquer le bouton <i>Actualiser flux</i>.',
 		'file_cannot_be_uploaded' => 'Le fichier ne peut pas être téléchargé !',
 		'no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur.',
-		'zip_error' => 'Une erreur est survenue durant le traintement du fichier ZIP.',
+		'zip_error' => 'Une erreur est survenue durant le traitement du fichier ZIP.',
 	),
 	'profile' => array(
 		'error' => 'Votre profil n’a pas pu être mis à jour',
+		'passwords_dont_match' => 'Les mots de passe ne correspondent pas',
 		'updated' => 'Votre profil a été mis à jour',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => 'Le cache de <em>%s</em> a été vidée.',
 			'deleted' => 'Le flux a été supprimé.',
 			'error' => 'Une erreur est survenue',
+			'favicon' => array(
+				'too_large' => 'L’icône téléversée est trop grosse ! La taille maximale du fichier est de <em>%s</em>.',
+				'unsupported_format' => 'Format d’image non pris en charge !',
+			),
 			'internal_problem' => 'Le flux ne peut pas être ajouté. <a href="%s">Consulter les logs de FreshRSS</a> pour plus de détails. Vous pouvez essayer de forcer l’ajout par addition de <code>#force_feed</code> à l’URL.',
 			'invalid_url' => 'L’url <em>%s</em> est invalide.',
 			'n_actualized' => '%d flux ont été mis à jour.',
@@ -116,8 +122,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'L’étiquette <em>%s</em> a été créée.',
-		'name_exists' => 'L’étiquette existe déjà.',
+		'error' => 'L’étiquette n’a pas pu être modifiée',
+		'name_exists' => 'L’étiquette existe déjà!',
 		'renamed' => 'L’étiquette <em>%s</em> a été renommée en <em>%s</em>.',
+		'updated' => 'L’étiquette a été mise à jour.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS va maintenant être mis à jour vers la <strong>version %s</strong>.',

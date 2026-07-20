@@ -1,7 +1,9 @@
 
-# Personnaliser la vue
+# Configuration
 
-## Langue
+## Personnaliser la vue
+
+### Langue
 
 À l’heure actuelle, FreshRSS est disponible en 13 langues. Après validation
 de ce choix, l’interface sera affichée dans la langue choisie, même si
@@ -19,14 +21,17 @@ Les langues disponibles sont:
 
 | Langue (nom français)   | Langue (endonyme)      | Classé par code de langue (ISO-639-1) |
 |:------------------------|:-----------------------|:-------------------------------------|
-| Tchèque                 | Čeština                | cz                                   |
+| Tchèque                 | Čeština                | cs                                   |
 | Allemand                | Deutsch                | de                                   |
 | Grec                    | Ελληνικά               | el                                   |
 | Anglais                 | English                | en                                   |
-| Anglais (États-Unis)    | English (United States) | en-us                               |
+| Anglais (États-Unis)    | English (United States) | en-US                               |
 | Espagnol                | Español                | es                                   |
+| Farsi                   | فارسی                  | fa                                   |
+| Finnois                 | Suomi                  | fi                                   |
 | Français                | Français               | fr                                   |
 | Hébreu                  | עברית                  | he                                   |
+| Hongrois                | Magyar                 | hu                                   |
 | Indonésien              | Bahasa Indonesia       | id                                   |
 | Italien                 | Italiano               | it                                   |
 | Japonais                | 日本語                  | ja                                   |
@@ -35,14 +40,18 @@ Les langues disponibles sont:
 | Néerlandais             | Nederlands             | nl                                   |
 | Occitan                 | Occitan                | oc                                   |
 | Polonais                | Polski                 | pl                                   |
-| Portugais brésilien     | Português (Brasil)     | pt-br                                |
+| Portugais brésilien     | Português (Brasil)     | pt-BR                                |
+| Portugais               | Português (Portugal)   | pt-PT                                |
 | Russe                   | Русский                | ru                                   |
 | Slovaque                | Slovenčina             | sk                                   |
 | Turc                    | Türkçe                 | tr                                   |
-| Chinois (simplifié, République populaire de Chine) | 简体中文      | zh-cn               |
-| Chinois (traditionnel, Taïwan) | 正體中文          | zh-tw                               |
+| Ukrainien               | Українська             | uk                                   |
+| Chinois (simplifié, République populaire de Chine) | 简体中文      | zh-CN               |
+| Chinois (traditionnel, Taïwan) | 正體中文          | zh-TW                               |
 
-## Thème
+**Note** pour les langues régionales, nous suivons les recommandations de _ISO-639-1_ et _ISO-3166-1 alpha-2_.
+
+### Thème
 
 Les goûts et les couleurs, ça ne se discute pas. C’est pourquoi FreshRSS
 propose 13 thèmes officiels :
@@ -51,16 +60,14 @@ propose 13 thèmes officiels :
 |:--------------|:-------------------------------------------------------|:--------------------------------------------------------------|
 | Alternative Dark | Ghost | |
 | Ansum | Thomas Guesnon  | |
-| Blue Lagoon     |Mister aiR | N’est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
 | Dark | AD | |
 | Dark pink | Miicat_47 | |
 | Flat design | Marien Fressinaud | N’est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
 | Mapco | Thomas Guesnon  | |
-| Nord theme | joelchrono12 | |
+| Nord | joelchrono12 | |
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
-| Screwdriver | Mister aiR | N’est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
 | Swage | Patrick Crandol | |
 
 Si aucun de ceux proposés ne convient, il est toujours possible de [créer
@@ -70,7 +77,7 @@ Pour sélectionner un thème, il suffit de faire défiler les thèmes jusqu’à
 l’apparition du thème choisi. Après validation, le thème sera appliqué à
 l’interface.
 
-## Largeur du contenu
+### Largeur du contenu
 
 Il y en a qui préfère des lignes de texte courtes, d’autres qui préfèrent
 maximiser l’espace disponible sur l’écran. Pour satisfaire le maximum de
@@ -82,12 +89,12 @@ quatre réglages disponibles :
 * **Large** qui affiche le contenu jusqu’à 1000 pixels
 * **Pas de limite** qui affiche le contenu sur 100% de la place disponible
 
-## Icônes d’article
+### Icônes d’article
 
 Veuillez noter que cette section n’affecte que la vue normale.
 
 ![Configuration des icônes
-d’article](../img/users/configuration.article.icons.png)
+d’article](../../en/img/users/configuration.article.icons.png)
 
 Chaque article est rendu avec un en-tête (ligne supérieure) et un pied de
 page (ligne inférieure). Dans cette section, vous pouvez choisir ce qui sera
@@ -98,7 +105,7 @@ toujours les voir, puisqu’il contient le nom du flux et le titre de
 l’article. Mais si vous faites le même chose pour la ligne inférieure, elle
 sera vide.
 
-## Temps d’affichage de la notification HTML5
+### Temps d’affichage de la notification HTML5
 
 Après la mise à jour automatique des flux, FreshRSS utilise l’API de
 notification de HTML5 pour avertir de l’arrivée de nouveaux articles.
@@ -106,26 +113,26 @@ notification de HTML5 pour avertir de l’arrivée de nouveaux articles.
 Il est possible de régler la durée d’affichage de cette notification. Par
 défaut, la valeur est 0.
 
-## Show the navigation button
+### Show the navigation button
 
 By default, FreshRSS displays buttons to ease the article navigation when
 browsing on mobile. The drawback is that they eat up some precious space.
 
 ![navigation button
-configuration](../img/users/configuration.navigation.button.png)
+configuration](../../en/img/users/configuration.navigation.button.png)
 
 If you don’t use those buttons because you never browse on mobile or because
 you browse with gestures, you can disable them from the interface.
 
-# Reading
+## Reading
 
 > **À FAIRE**
 
-# Archivage
+## Archivage
 
 > **À FAIRE**
 
-# Partage
+## Partage
 
 Pour vous faciliter la vie, vous pouvez partager des articles directement
 via FreshRSS.
@@ -135,24 +142,24 @@ self-hosted services (Shaarli, etc.) to proprietary services (Facebook,
 etc.).
 
 By default, the sharing list is empty.  ![Sharing
-configuration](../img/users/configuration.sharing.png)
+configuration](../../en/img/users/configuration.sharing.png)
 
 Pour ajouter un nouvel élément à la liste, veuillez suivre les étapes
 simples ci-dessous :
 
 1. Select the desired sharing method in the drop-down list.
-1. Press the ```✚``` button to add it to the list.
-1. Configure the method in the list. All names can be modified in the
+2. Press the ```✚``` button to add it to the list.
+3. Configure the method in the list. All names can be modified in the
 	display. Some methods need the sharing URL to be able to work properly
 	(ex: Shaarli).
-1. Submit your changes.
+4. Submit your changes.
 
 To remove an item from the list, follow those simple steps:
 
 1. Press the ```❌``` button next to the share method you want to remove.
-1. Submit your changes.
+2. Submit your changes.
 
-# Raccourcis
+## Raccourcis
 
 To ease the use of the application, FreshRSS comes with a lot of predefined
 keyboard shortcuts.  They allow actions to improve the user experience with
@@ -164,11 +171,11 @@ configuration to fit your needs.
 There are 4 types of shortcuts:
 
 1. Views: they allow switching views with ease.
-1. Navigation: they allow navigation through articles, feeds, and
+2. Navigation: they allow navigation through articles, feeds, and
 	categories.
-1. Article actions: they allow interactions with an article, like sharing
+3. Article actions: they allow interactions with an article, like sharing
 	or opening it on the original web-site.
-1. Other actions: they allow other interactions with the application, like
+4. Other actions: they allow other interactions with the application, like
 	opening the user queries menu or accessing the documentation.
 
 It’s worth noting that the share article action has two levels. Once you
@@ -182,7 +189,7 @@ Be aware that there is no validation on the selected shortcuts.  This means
 that if you assign a shortcut to more than one action, you’ll end up with
 some unexpected behavior.
 
-# User queries
+## User queries
 
 You can configure your [user queries](./03_Main_view.md) in that
 section. There is not much to say here as it is pretty straightforward.  You
@@ -190,13 +197,13 @@ can only change user query titles or drop them.
 
 At the moment, there is no helper to build a user query from here.
 
-# Users
+## Users
 
 > **À FAIRE**
 
-## Authentication methods
+### Authentication methods
 
-### HTTP Authentication (Apache)
+#### HTTP Authentication (Apache)
 
 1. User control is based on the `.htaccess` file.
 2. It is best practice to place the `.htaccess` file in the `./i/`
@@ -217,17 +224,17 @@ Require user marie
 Plus d’informations dans [la documentation
 d’Apache.](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
 
-# Gestion des flux
+## Gestion des flux
 
-## Informations
-
-> **À FAIRE**
-
-## Archivage des flux
+### Informations
 
 > **À FAIRE**
 
-## Identification
+### Archivage des flux
+
+> **À FAIRE**
+
+### Identification
 
 > **À FAIRE**
 

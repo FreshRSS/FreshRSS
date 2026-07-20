@@ -1,3 +1,10 @@
+<IfModule mod_authz_core.c>
+	# Deny files without extension or with specific extensions
+	<FilesMatch "^[^.]+$|\.(md|sh)$">
+		Require all denied
+	</FilesMatch>
+</IfModule>
+
 <IfModule mod_mime.c>
 	AddType font/woff .woff
 	AddType font/woff2 .woff2
@@ -19,6 +26,6 @@
 
 <IfModule mod_headers.c>
 	<FilesMatch "\.svg$">
-		Header	set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'"
+		Header	set Content-Security-Policy "default-src 'self'; frame-ancestors 'none'; style-src 'self' 'unsafe-inline'"
 	</FilesMatch>
 </IfModule>

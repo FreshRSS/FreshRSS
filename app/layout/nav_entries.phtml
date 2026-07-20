@@ -1,7 +1,8 @@
-<nav>
-	<ul id="nav_entries">
-		<li class="item"><a class="previous_entry" href="#"><?= _i('prev') ?></a></li>
-		<li class="item"><a class="up" href="#"><?= _i('up') ?></a></li>
-		<li class="item"><a class="next_entry" href="#"><?= _i('next') ?></a></li>
-	</ul>
+<?php
+	declare(strict_types=1);
+?>
+<nav id="nav_entries">
+	<button class="previous_entry" title="<?= _t('gen.action.nav_buttons.prev') ?>"><?= _i('prev') ?></button>
+	<button class="up" title="<?= _t('gen.action.nav_buttons.up') ?>"><?= _i('up') ?></button>
+	<button class="next_entry" title="<?= _t('gen.action.nav_buttons.next') ?>"><?= _i('next') ?></button>
 </nav>

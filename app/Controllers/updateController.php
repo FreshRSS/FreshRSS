@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
@@ -9,19 +10,33 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * Automatic change to the new name of edge branch since FreshRSS 1.18.0.
+	 * Automatic change to the new name of edge branch since FreshRSS 1.18.0,
+	 * and perform checks for several git errors.
+	 * @throws Minz_Exception
 	 */
 	public static function migrateToGitEdge(): bool {
-		$errorMessage = 'Error during git checkout to edge branch. Please change branch manually!';
-
 		if (!is_writable(FRESHRSS_PATH . '/.git/config')) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception('Error during git checkout: .git directory does not seem writeable! ' .
+				'Please git pull manually!');
+		}
+
+		if (!function_exists('exec')) {
+			throw new Minz_Exception('Error during git checkout: exec() function is disabled! ' .
+				'Please git pull manually!');
+		}
+
+		exec('git --version', $output, $return);
+		if ($return != 0) {
+			throw new Minz_Exception("Error {$return} git not found: Please update manually!");
 		}
 
 		//Note `git branch --show-current` requires git 2.22+
-		exec('git symbolic-ref --short HEAD', $output, $return);
+		exec('git symbolic-ref --short HEAD 2>&1', $output, $return);
 		if ($return != 0) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception("Error {$return} during git symbolic-ref: " .
+				'Reapply `chown www-data:www-data -R ' . FRESHRSS_PATH . '` ' .
+				'or git pull manually! ' .
+				json_encode($output, JSON_UNESCAPED_SLASHES));
 		}
 		$line = implode('', $output);
 		if ($line !== 'master' && $line !== 'dev') {
@@ -32,13 +47,14 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		unset($output);
 		exec('git checkout edge --guess -f', $output, $return);
 		if ($return != 0) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception("Error {$return} during git checkout to edge branch! ' .
+				'Please change branch manually!");
 		}
 
 		unset($output);
 		exec('git reset --hard FETCH_HEAD', $output, $return);
 		if ($return != 0) {
-			throw new Exception($errorMessage);
+			throw new Minz_Exception("Error {$return} during git reset! Please git pull manually!");
 		}
 
 		return true;
@@ -63,6 +79,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		chdir(FRESHRSS_PATH);
 		$output = [];
 		try {
+			/** @throws ValueError */
 			exec('git fetch --prune', $output, $return);
 			if ($return == 0) {
 				$output = [];
@@ -71,17 +88,17 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				$line = implode('; ', $output);
 				Minz_Log::warning('git fetch warning: ' . $line);
 			}
-		} catch (Exception $e) {
+		} catch (Throwable $e) {
 			Minz_Log::warning('git fetch error: ' . $e->getMessage());
 		}
 		chdir($cwd);
 		$line = implode('; ', $output);
 		return $line == '' ||
-			strpos($line, '[behind') !== false || strpos($line, '[ahead') !== false || strpos($line, '[gone') !== false;
+			str_contains($line, '[behind') || str_contains($line, '[ahead') || str_contains($line, '[gone');
 	}
 
 	/** @return string|true */
-	public static function gitPull() {
+	public static function gitPull(): string|bool {
 		Minz_Log::notice(_t('admin.update.viaGit'));
 		$cwd = getcwd();
 		if ($cwd === false) {
@@ -100,11 +117,9 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 			$output = [];
 			self::migrateToGitEdge();
-		} catch (Exception $e) {
+		} catch (Throwable $e) {
 			Minz_Log::warning('Git error: ' . $e->getMessage());
-			if (empty($output)) {
-				$output = $e->getMessage();
-			}
+			$output = $e->getMessage();
 			$return = 1;
 		}
 		chdir($cwd);
@@ -112,12 +127,18 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		return $return == 0 ? true : 'Git error: ' . $line;
 	}
 
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
 			Minz_Error::error(403);
 		}
 
-		include_once(LIB_PATH . '/lib_install.php');
+		if (!(Minz_Request::actionName() === 'apply' && Minz_Request::paramBoolean('post_conf')) &&
+			FreshRSS_Auth::requestReauth()) {
+			return;
+		}
+
+		include_once LIB_PATH . '/lib_install.php';
 
 		invalidateHttpCache();
 
@@ -140,7 +161,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if ($version == '') {
 				$version = 'unknown';
 			}
-			if (touch(FRESHRSS_PATH . '/index.html')) {
+			if (@touch(FRESHRSS_PATH . '/index.html')) {
 				$this->view->update_to_apply = true;
 				$this->view->message = [
 					'status' => 'good',
@@ -158,8 +179,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	private function is_release_channel_stable(string $currentVersion): bool {
-		return strpos($currentVersion, 'dev') === false &&
-			strpos($currentVersion, 'edge') === false;
+		return !str_contains($currentVersion, 'dev') && !str_contains($currentVersion, 'edge');
 	}
 
 	/*  Check installation if there is a newer version.
@@ -193,7 +213,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				return;
 			}
 		} else {
-			$auto_update_url = FreshRSS_Context::$system_conf->auto_update_url . '/?v=' . FRESHRSS_VERSION;
+			$auto_update_url = FreshRSS_Context::systemConf()->auto_update_url . '/?v=' . FRESHRSS_VERSION;
 			Minz_Log::debug('HTTP GET ' . $auto_update_url);
 			$curlResource = curl_init($auto_update_url);
 
@@ -209,10 +229,27 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($curlResource, CURLOPT_SSL_VERIFYPEER, true);
 			curl_setopt($curlResource, CURLOPT_SSL_VERIFYHOST, 2);
+
+			$curl_options = [];
+			if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
+				$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+				if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+				}
+			} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
+				// Legacy PHP 8.2-
+				if (defined('CURLOPT_PROTOCOLS')) {
+					$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+				if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+			}
+			curl_setopt_array($curlResource, $curl_options);
+
 			$result = curl_exec($curlResource);
 			$curlGetinfo = curl_getinfo($curlResource, CURLINFO_HTTP_CODE);
 			$curlError = curl_error($curlResource);
-			curl_close($curlResource);
 
 			if ($curlGetinfo !== 200) {
 				Minz_Log::warning(
@@ -228,7 +265,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 			$res_array = explode("\n", (string)$result, 2);
 			$status = $res_array[0];
-			if (strpos($status, 'UPDATE') !== 0) {
+			if (!str_starts_with($status, 'UPDATE')) {
 				$this->view->message = [
 					'status' => 'latest',
 					'body' => _t('feedback.update.none'),
@@ -256,7 +293,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	}
 
 	public function applyAction(): void {
-		if (FreshRSS_Context::$system_conf->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
+		if (FreshRSS_Context::systemConf()->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
 			Minz_Request::forward(['c' => 'update'], true);
 		}
 
@@ -264,21 +301,24 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if (self::isGit()) {
 				$res = !self::hasGitUpdate();
 			} else {
-				require(UPDATE_FILENAME);
-				// @phpstan-ignore-next-line
+				require UPDATE_FILENAME;
+				// @phpstan-ignore function.notFound
 				$res = do_post_update();
 			}
 
-			Minz_ExtensionManager::callHook('post_update');
+			Minz_ExtensionManager::callHookVoid(Minz_HookType::PostUpdate);
 
 			if ($res === true) {
 				@unlink(UPDATE_FILENAME);
 				@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), '');
 				Minz_Log::notice(_t('feedback.update.finished'));
-				Minz_Request::good(_t('feedback.update.finished'));
+				Minz_Request::good(
+					_t('feedback.update.finished'),
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
 			} else {
-				Minz_Log::error(_t('feedback.update.error', $res));
-				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
+				Minz_Log::error(_t('feedback.update.error', is_string($res) ? $res : 'unknown'));
+				Minz_Request::bad(_t('feedback.update.error', is_string($res) ? $res : 'unknown'), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		} else {
 			$res = false;
@@ -286,14 +326,14 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if (self::isGit()) {
 				$res = self::gitPull();
 			} else {
-				require(UPDATE_FILENAME);
+				require UPDATE_FILENAME;
 				if (Minz_Request::isPost()) {
-					// @phpstan-ignore-next-line
+					// @phpstan-ignore function.notFound
 					save_info_update();
 				}
-				// @phpstan-ignore-next-line
+				// @phpstan-ignore function.notFound
 				if (!need_info_update()) {
-					// @phpstan-ignore-next-line
+					// @phpstan-ignore function.notFound
 					$res = apply_update();
 				} else {
 					return;
@@ -311,20 +351,75 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 					'params' => ['post_conf' => '1'],
 					], true);
 			} else {
-				Minz_Log::error(_t('feedback.update.error', $res));
-				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
+				Minz_Log::error(_t('feedback.update.error', is_string($res) ? $res : 'unknown'));
+				Minz_Request::bad(_t('feedback.update.error', is_string($res) ? $res : 'unknown'), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		}
+	}
+
+	/**
+	 * Check PHP and its extensions are well-installed.
+	 *
+	 * @return array<string,'ok'|'ko'|'warn'> of tested values.
+	 */
+	private static function check_install_php(): array {
+		require_once LIB_PATH . '/lib_install.php';
+		return checkRequirements(FreshRSS_Context::systemConf()->db['type'] ?? '', checkPhp: true, checkFiles: false);
+	}
+
+	/**
+	 * Check different data files and directories exist.
+	 * @return array<string,'ok'|'ko'|'warn'> of tested values.
+	 */
+	private static function check_install_files(): array {
+		require_once LIB_PATH . '/lib_install.php';
+		return checkRequirements(FreshRSS_Context::systemConf()->db['type'] ?? '', checkPhp: false, checkFiles: true);
+	}
+
+	/**
+	 * Check database is well-installed.
+	 *
+	 * @return array<string,array<string,bool>|bool> of tested values.
+	 */
+	private static function check_install_database(): array {
+		$status = [
+			'connection' => true,
+			'tables' => false,
+			'table' => [
+				'categories' => false,
+				'feeds' => false,
+				'entries' => false,
+				'entrytmp' => false,
+				'tag' => false,
+				'entrytag' => false,
+			],
+		];
+
+		try {
+			$dbDAO = FreshRSS_Factory::createDatabaseDAO();
+
+			$status['tables'] = $dbDAO->tablesAreCorrect();
+			$status['table']['categories'] = $dbDAO->categoryIsCorrect();
+			$status['table']['feeds'] = $dbDAO->feedIsCorrect();
+			$status['table']['entries'] = $dbDAO->entryIsCorrect();
+			$status['table']['entrytmp'] = $dbDAO->entrytmpIsCorrect();
+			$status['table']['tag'] = $dbDAO->tagIsCorrect();
+			$status['table']['entrytag'] = $dbDAO->entrytagIsCorrect();
+		} catch (Minz_PDOConnectionException $e) {
+			$status['connection'] = false;
+		}
+
+		return $status;
 	}
 
 	/**
 	 * This action displays information about installation.
 	 */
 	public function checkInstallAction(): void {
-		FreshRSS_View::prependTitle(_t('admin.check_install.title') . ' · ');
+		FreshRSS_View::prependTitle(_t('install.check._') . ' · ');
 
-		$this->view->status_php = check_install_php();
-		$this->view->status_files = check_install_files();
-		$this->view->status_database = check_install_database();
+		$this->view->status_php = self::check_install_php();
+		$this->view->status_files = self::check_install_files();
+		$this->view->status_database = self::check_install_database();
 	}
 }

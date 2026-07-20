@@ -1,7 +1,4 @@
-version: "2.4"
-
 services:
-
   freshrss:
     volumes:
       - ../..:/var/www/FreshRSS

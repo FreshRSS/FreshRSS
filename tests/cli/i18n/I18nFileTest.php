@@ -1,18 +1,19 @@
 <?php
+declare(strict_types=1);
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nFile.php';
 
-require_once __DIR__ . '/../../../cli/i18n/I18nFile.php';
-
-class I18nFileTest extends PHPUnit\Framework\TestCase {
+final class I18nFileTest extends \PHPUnit\Framework\TestCase {
 	public function test(): void {
 		$before = $this->computeFilesHash();
 
 		$file = new I18nFile();
 		$data = $file->load();
+		self::assertArrayNotHasKey('plurals.php', $data['en']);
 		$file->dump($data);
 
 		$after = $this->computeFilesHash();
 
-		self::assertEquals($before, $after);
+		self::assertSame($before, $after);
 	}
 
 	/** @return array<string,string|false> */

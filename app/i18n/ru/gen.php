@@ -1,26 +1,29 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
 		'actualize' => 'Обновить ленту',
 		'add' => 'Добавить',
-		'back' => '← Вернуться',
 		'back_to_rss_feeds' => '← Вернуться к вашим RSS-лентам',
 		'cancel' => 'Отменить',
+		'close' => 'Закрыть',
 		'create' => 'Создать',
+		'delete_all_feeds' => 'Удалить все ленты',
+		'delete_errored_feeds' => 'Удалить ленты с ошибками',
 		'delete_muted_feeds' => 'Удалить заглушенные ленты',
 		'demote' => 'Понизить',
 		'disable' => 'Отключить',
+		'download' => 'Скачать',
 		'empty' => 'Опустошить',
 		'enable' => 'Включить',
 		'export' => 'Экспортировать',
@@ -29,6 +32,14 @@ return array(
 		'load_default_shortcuts' => 'Загрузить горячие клавиши по умолчанию',
 		'manage' => 'Настроить',
 		'mark_read' => 'Отметить прочитанным',
+		'menu' => array(
+			'open' => 'Открыть меню',
+		),
+		'nav_buttons' => array(
+			'next' => 'Следующая статья',
+			'prev' => 'Предыдущая статья',
+			'up' => 'Вверх',
+		),
 		'open_url' => 'Открыть URL',
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
@@ -50,6 +61,11 @@ return array(
 			'_' => 'Пароль',
 			'format' => '<small>Не менее 7 символов</small>',
 		),
+		'reauth' => array(
+			'header' => 'Требуется повторная аутентификация',
+			'tip' => 'Вам не придется снова входить в течение <u>%d минут</u>',
+			'title' => 'Повторная аутентификация',
+		),
 		'registration' => array(
 			'_' => 'Новый аккаунт',
 			'ask' => 'Создать аккаунт?',
@@ -57,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Имя пользователя',
-			'format' => '<small>Не более 16 буквенно-цифровых символов</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -124,28 +140,72 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'О FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d день назад',
+			1 => '%d дня назад',
+			2 => '%d дней назад',
+		),
+		'hour' => array(
+			0 => '%d час назад',
+			1 => '%d часа назад',
+			2 => '%d часов назад',
+		),
+		'justnow' => 'только что',
+		'minute' => array(
+			0 => '%d минута назад',
+			1 => '%d минуты назад',
+			2 => '%d минут назад',
+		),
+		'month' => array(
+			0 => '%d месяц назад',
+			1 => '%d месяца назад',
+			2 => '%d месяцев назад',
+		),
+		'second' => array(
+			0 => '%d секунда назад',
+			1 => '%d секунды назад',
+			2 => '%d секунд назад',
+		),
+		'year' => array(
+			0 => '%d год назад',
+			1 => '%d года назад',
+			2 => '%d лет назад',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Пустая категория',
 		'confirm_action' => 'Вы уверены, что хотите выполнить это действие? Это нельзя отменить!',
 		'confirm_action_feed_cat' => 'Вы уверены, что хотите выполнить это действие? Вы потеряете связанные избранные статьи и пользовательские запросы. Это нельзя отменить!',
+		'confirm_exit_slider' => 'Вы уверены, что хотите отменить несохраненные настройки?',
 		'feedback' => array(
-			'body_new_articles' => '%%d новых статей в FreshRSS.',
-			'body_unread_articles' => '(Непрочитанные: %%d)',
+			'body_new_articles' => array(
+				0 => '%d новых статей в FreshRSS.',	// DIRTY
+				1 => '%d новых статей в FreshRSS.',	// DIRTY
+				2 => '%d новых статей в FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(Непрочитанные: %d)',	// DIRTY
+				1 => '(Непрочитанные: %d)',	// DIRTY
+				2 => '(Непрочитанные: %d)',	// DIRTY
+			),
 			'request_failed' => 'Запрос не удался. Возможно, это вызвано проблемами с подключением к Интернет.',
 			'title_new_articles' => 'FreshRSS: новые статьи!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Нет меток',
 		'new_article' => 'Появились новые статьи. Нажмите, чтобы обновить страницу.',
 		'should_be_activated' => 'JavaScript должен быть включён',
+		'unsafe_csp_header' => 'Используемый заголовок CSP небезопасен, и FreshRSS может быть уязвим для XSS-атак. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">См. документацию</a>',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
 		'hu' => 'Magyar',	// IGNORE
@@ -157,17 +217,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'О проекте',
 		'account' => 'Аккаунт',
 		'admin' => 'Администрирование',
+		'advanced_search' => 'Расширенный поиск',
 		'archiving' => 'Архивирование',
 		'authentication' => 'Аутентификация',
 		'check_install' => 'Проверка установки',
@@ -175,10 +238,11 @@ return array(
 		'display' => 'Отображение',
 		'extensions' => 'Расширения',
 		'logs' => 'Журнал',
+		'privacy' => 'Конфиденциальность',
 		'queries' => 'Пользовательские запросы',
 		'reading' => 'Чтение',
 		'search' => 'Искать слова или #теги',
-		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
+		'search_help' => 'Дополнительные <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">параметры поиска</a> приведены в документации',
 		'sharing' => 'Обмен',
 		'shortcuts' => 'Горячие клавиши',
 		'stats' => 'Статистика',
@@ -194,33 +258,69 @@ return array(
 		'weeks' => 'недель',
 		'years' => 'лет',
 	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'Эта форма помогает создавать поисковые запросы, но ручные запросы ещё мощнее.',
+		'authors' => 'Авторы',
+		'categories' => 'Категории',
+		'content' => 'Содержимое',
+		'date_from' => 'С',
+		'date_modified' => 'Дата изменения на сервере',
+		'date_past' => 'За прошедший период',
+		'date_published' => 'Дата публикации',
+		'date_range' => 'Диапазон дат',
+		'date_received' => 'Дата получения',
+		'date_to' => 'По',
+		'date_user' => 'Дата изменения пользователем',
+		'feeds' => 'Ленты',
+		'free_text' => 'Свободный текст',
+		'free_text_help' => 'Поиск по заголовку и содержимому',
+		'full_documentation' => 'См. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">полную документацию по поиску</a>',
+		'labels' => 'Мои метки',
+		'multiple_help' => 'Выберите один или несколько элементов (удерживайте <kbd>Ctrl</kbd> или <kbd>Cmd</kbd>)',
+		'sources' => 'Источники',
+		'tags' => 'Теги статьи',
+		'text' => 'Текстовый поиск',
+		'text_help' => 'Несколько строк объединяются логическим <i>или</i>. Также поддерживаются <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">регулярные выражения</a>.',
+		'text_placeholder' => 'Ключевое слово',
+		'title' => 'Заголовок',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Пользовательские запросы',
+	),
 	'share' => array(
 		'Known' => 'Сайты на Known',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Буфер обмена',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'Электронная почта',
-		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
+		'email-webmail-firefox-fix' => 'Электронная почта (webmail - правка для Firefox)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Закладки',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Распечатать',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Системный обмен',

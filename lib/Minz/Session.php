@@ -1,19 +1,17 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The Minz_Session class handles user’s session
  */
 class Minz_Session {
-	/**
-	 * @var bool
-	 */
-	private static $volatile = false;
+
+	private static bool $volatile = false;
 
 	/**
 	 * For mutual exclusion.
-	 * @var bool
 	 */
-	private static $locked = false;
+	private static bool $locked = false;
 
 	public static function lock(): bool {
 		if (!self::$volatile && !self::$locked) {
@@ -32,7 +30,7 @@ class Minz_Session {
 	}
 
 	/**
-	 * Initialize the session, with a name
+	 * Initialize and start the session, with a name
 	 * The session name is used as the name for cookies and URLs (i.e. PHPSESSID).
 	 * It should contain only alphanumeric characters; it should be short and descriptive
 	 * If the volatile parameter is true, then no cookie and not session storage are used.
@@ -45,18 +43,24 @@ class Minz_Session {
 			return;
 		}
 
-		$cookie = session_get_cookie_params();
-		self::keepCookie($cookie['lifetime']);
+		$params = session_get_cookie_params();
+		// Sanitize lifetime of session cookies from PHP ini `session.cookie_lifetime` (default 0)
+		$params['lifetime'] = ($params['lifetime'] <= 0 || $params['lifetime'] > 86400) ? 0 : $params['lifetime'];
+		$params['path'] = '';	// Current directory
+		$params['domain'] = '';	// Current domain
+		$params['secure'] = Minz_Request::isHttps();
+		$params['httponly'] = true;
+		$params['samesite'] = 'Lax';
+		session_set_cookie_params($params);
 
-		// start session
 		session_name($name);
-		//When using cookies (default value), session_stars() sends HTTP headers
+
+		// When using cookies (default value), session_start() sends HTTP headers
 		session_start();
 		session_write_close();
-		//Use cookie only the first time the session is started to avoid resending HTTP headers
+		// Use cookie only the first time the session is started to avoid resending HTTP headers
 		ini_set('session.use_cookies', '0');
 	}
-
 
 	/**
 	 * Allows you to retrieve a session variable
@@ -64,10 +68,62 @@ class Minz_Session {
 	 * @param mixed|false $default the default value if the parameter doesn’t exist
 	 * @return mixed|false the value of the session variable, false if doesn’t exist
 	 */
-	public static function param(string $p, $default = false) {
+	#[Deprecated('Use typed versions instead')]
+	public static function param(string $p, $default = false): mixed {
 		return $_SESSION[$p] ?? $default;
 	}
 
+	/** @return array<string|int,string|array<string,mixed>> */
+	public static function paramArray(string $key): array {
+		if (empty($_SESSION[$key]) || !is_array($_SESSION[$key])) {
+			return [];
+		}
+		$result = [];
+		foreach ($_SESSION[$key] as $k => $v) {
+			if (is_string($v) || (is_array($v) && is_array_keys_string($v))) {
+				$result[$k] = $v;
+			}
+		}
+		return $result;
+	}
+
+	public static function paramTernary(string $key): ?bool {
+		if (isset($_SESSION[$key])) {
+			$p = $_SESSION[$key];
+			$tp = is_string($p) ? trim($p) : true;
+			if ($tp === '' || $tp === 'null') {
+				return null;
+			} elseif ($p == false || $tp == '0' || $tp === 'false' || $tp === 'no') {
+				return false;
+			}
+			return true;
+		}
+		return null;
+	}
+
+	public static function paramBoolean(string $key): bool {
+		if (null === $value = self::paramTernary($key)) {
+			return false;
+		}
+		return $value;
+	}
+
+	public static function paramInt(string $key): int {
+		return empty($_SESSION[$key]) || !is_numeric($_SESSION[$key]) ? 0 : (int)$_SESSION[$key];
+	}
+
+	public static function paramString(string $key): string {
+		if (isset($_SESSION[$key])) {
+			$s = $_SESSION[$key];
+			if (is_string($s)) {
+				return $s;
+			}
+			if (is_int($s) || is_bool($s)) {
+				return (string)$s;
+			}
+		}
+		return '';
+	}
 
 	/**
 	 * Allows you to create or update a session variable
@@ -112,12 +168,12 @@ class Minz_Session {
 	 * @param bool $force if false, does not clear the language parameter
 	 */
 	public static function unset_session(bool $force = false): void {
-		$language = self::param('language');
+		$language = self::paramString('language');
 
 		if (!self::$volatile) {
 			session_destroy();
 		}
-		$_SESSION = array();
+		$_SESSION = [];
 
 		if (!$force) {
 			self::_param('language', $language);
@@ -125,45 +181,71 @@ class Minz_Session {
 		}
 	}
 
-	public static function getCookieDir(): string {
+	/**
+	 * Kept only to delete legacy cookies from before 1.29.0
+	 */
+	protected static function getLegacyCookieDir(): string {
 		// Get the script_name (e.g. /p/i/index.php) and keep only the path.
 		$cookie_dir = '';
-		if (!empty($_SERVER['HTTP_X_FORWARDED_PREFIX'])) {
+		if (!empty($_SERVER['HTTP_X_FORWARDED_PREFIX']) && is_string($_SERVER['HTTP_X_FORWARDED_PREFIX'])) {
 			$cookie_dir .= rtrim($_SERVER['HTTP_X_FORWARDED_PREFIX'], '/ ');
 		}
-		$cookie_dir .= empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
+		$cookie_dir .= empty($_SERVER['REQUEST_URI']) || !is_string($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'];
 		if (substr($cookie_dir, -1) !== '/') {
 			$cookie_dir = dirname($cookie_dir) . '/';
 		}
 		return $cookie_dir;
 	}
 
-	/**
-	 * Specifies the lifetime of the cookies
-	 * @param int $l the lifetime
-	 */
-	public static function keepCookie(int $l): void {
-		session_set_cookie_params($l, self::getCookieDir(), '', Minz_Request::isHttps(), true);
+	/** Delete legacy cookie (before 1.29.0) if it exists */
+	public static function deleteLegacyCookie(string $name): void {
+		if (isset($_COOKIE[$name])) {
+			$legacyDir = self::getLegacyCookieDir();
+			if ($legacyDir !== '' && $legacyDir !== '/') {
+				setcookie($name, '', ['expires' => 1, 'path' => $legacyDir]);
+			}
+		}
 	}
 
 	/**
 	 * Regenerate a session id.
-	 * Useful to call session_set_cookie_params after session_start()
 	 */
-	public static function regenerateID(): void {
+	public static function regenerateID(string $name): void {
+		if (self::$volatile || self::$locked) {
+			return;
+		}
+		// Ensure that regenerating the session won't send multiple cookies so we can send one ourselves instead
+		ini_set('session.use_cookies', '0');
+		session_name($name);
+		session_start();
 		session_regenerate_id(true);
+		session_write_close();
+		$newId = session_id();
+		if ($newId === false) {
+			Minz_Error::error(500);
+			return;
+		}
+		$params = session_get_cookie_params();
+		$params['expires'] = $params['lifetime'] > 0 ? time() + $params['lifetime'] : 0;
+		unset($params['lifetime']);
+		setcookie($name, $newId, $params);
 	}
 
 	public static function deleteLongTermCookie(string $name): void {
-		setcookie($name, '', 1, '', '', Minz_Request::isHttps(), true);
+		$params = session_get_cookie_params();
+		$params['expires'] = 1;
+		unset($params['lifetime']);
+		setcookie($name, '', $params);
 	}
 
 	public static function setLongTermCookie(string $name, string $value, int $expire): void {
-		setcookie($name, $value, $expire, '', '', Minz_Request::isHttps(), true);
+		$params = session_get_cookie_params();
+		$params['expires'] = $expire;
+		unset($params['lifetime']);
+		setcookie($name, $value, $params);
 	}
 
 	public static function getLongTermCookie(string $name): string {
-		return $_COOKIE[$name] ?? '';
+		return is_string($_COOKIE[$name] ?? null) ? $_COOKIE[$name] : '';
 	}
-
 }

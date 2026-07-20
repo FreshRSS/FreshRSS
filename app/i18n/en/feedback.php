@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',
 			'ok' => '%s is now enabled',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',
 		'no_access' => 'You have no access on %s',
 		'not_enabled' => '%s is not enabled',
 		'not_found' => '%s does not exist',
@@ -65,6 +66,7 @@ return array(
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',
+		'passwords_dont_match' => 'Passwords don’t match',
 		'updated' => 'Your profile has been modified',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> cache has been cleared',
 			'deleted' => 'Feed has been deleted',
 			'error' => 'Feed cannot be updated',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',
+				'unsupported_format' => 'Unsupported image file format!',
+			),
 			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',
 			'invalid_url' => 'URL <em>%s</em> is invalid',
 			'n_actualized' => '%d feeds have been updated',
@@ -116,8 +122,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Label “%s” has been created.',
+		'error' => 'Label could not be updated!',
 		'name_exists' => 'Label name already exists.',
 		'renamed' => 'Label “%s” has been renamed to “%s”.',
+		'updated' => 'Label has been updated.',
 	),
 	'update' => array(
 		'can_apply' => 'An update of FreshRSS is available: <strong>Version %s</strong>.',

@@ -1,11 +1,41 @@
-# Access Control
+# Access control
 
 FreshRSS offers three methods of Access control: Form Authentication using JavaScript, HTTP based Authentication, or an uncontrolled state with no authentication required.
 
+## Server-side feed fetching & security considerations
+
+FreshRSS fetches RSS feeds using server-side HTTP requests (via the cURL library).
+This design allows users to subscribe to feeds hosted not just on the public internet, but also on internal or private networks.
+For example, many users connect FreshRSS to tools like RSS-Bridge, cron jobs, or local automation services such as Node-RED, all of which may run on `localhost` or internal IPs.
+
+In self-hosted, single-user setups, this behaviour is expected and usually safe.
+However, in **multi-user or public-facing instances**, this same functionality can introduce a potential security risk known as **Server-Side Request Forgery (SSRF)**.
+
+In an SSRF scenario, a malicious user could submit a feed URL that points to internal network services, such as:
+
+* `http://127.0.0.1` (loopback)
+* `http://169.254.169.254` (cloud metadata services)
+* Other services not meant to be exposed externally
+
+FreshRSS blocks these unsafe requests by default, due to the security risks written above, though certain hosts can be excluded from the block by going to `Settings > System configuration` and making changes to the internal host allowlist.
+Entries are separated by newlines, and must be a `host:port` combination, for example `127.0.0.1:8080`, `rss-bridge:80` or a CIDR notation ('0.0.0.0/0' to allow any IPv4, `::/0` to allow any IPv6).
+Another option is to set an `INTERNAL_HOST_ALLOWLIST` environment variable (e.g. in your docker-compose file). The entries there are separated by whitespace instead.
+Adding `*` disables the SSRF check completely (unsafe).
+
+### Recommended mitigations for shared/public setups
+
+* Run FreshRSS behind a firewall or reverse proxy that blocks access to internal IP ranges
+* Use container isolation or a virtual network to prevent access to sensitive endpoints
+* Avoid exposing your FreshRSS instance directly to the internet unless you fully trust all users
+
+These steps are not necessary for trusted, single-user deployments, but are strongly advised in shared environments.
+
+> _Note: For Docker-based deployments, `localhost` refers to the container’s internal network._
+
+
 ## Form Authentication
 
-Form Authentication requires the use of JavaScript. It will work on any supported version of PHP,
-but version 5.5 or newer is recommended (see footnote 1 in [prerequisites](02_Prerequisites.md) for the reason why).
+Form Authentication requires the use of JavaScript. It will work on any supported version of PHP.
 
 This option requires nothing more than selecting Form Authentication during installation.
 
@@ -15,7 +45,7 @@ You may also choose to use HTTP Authentication provided by your web server.[^1]
 
 If you choose to use this option, create a `./p/i/.htaccess` file with a matching `.htpasswd` file.
 
-You can also use any authentication backend as long as your web server exposes the authenticated user through the `Remote-User` variable.
+You can also use any authentication backend as long as your web server exposes the authenticated user through the `REMOTE_USER` variable.
 
 By default, new users allowed by HTTP Basic Auth will automatically be created in FreshRSS the first time they log in.
 You can disable auto-registration of new users by setting `http_auth_auto_register` to `false` in the configuration file.
@@ -34,10 +64,30 @@ You may alternatively pass a `TRUSTED_PROXY` environment variable in a format co
 
 > ☠️ WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
 
+### Authentik Proxy Provider
+
+If you wish to use external authentication with [Authentik](https://goauthentik.io/),
+you will need to configure a [Proxy Provider](https://docs.goauthentik.io/add-secure-apps/providers/proxy/) with a _Property Mapping_ that tells Authentik to inject the `X-WebAuth-User` HTTP header.
+You can do so with the following expression:
+
+```python
+return {
+    "ak_proxy": {
+        "user_attributes": {
+            "additionalHeaders": {
+                "X-WebAuth-User": request.user.username,
+            }
+        }
+    }
+}
+```
+
+See also another option for Authentik, [using the OAuth2 Provider with OpenID](16_OpenID-Connect-Authentik.md).
+
 ## No Authentication
 
 Not using authentication on your server is dangerous, as anyone with access to your server would be able to make changes as an admin.
-It is never advisable to not use any form of authentication, but **never** chose this option on a server that is able to be accessed outside of your home network.
+It is never advisable to not use any form of authentication, but **never** choose this option on a server that is able to be accessed outside of your home network.
 
 ## OpenID Connect
 

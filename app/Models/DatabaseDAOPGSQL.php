@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This class is used to test database is well-constructed.
@@ -9,9 +10,12 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 	public const UNDEFINED_COLUMN = '42703';
 	public const UNDEFINED_TABLE = '42P01';
 
+	#[\Override]
 	public function tablesAreCorrect(): bool {
-		$db = FreshRSS_Context::$system_conf->db;
-		$sql = 'SELECT * FROM pg_catalog.pg_tables where tableowner=:tableowner';
+		$db = FreshRSS_Context::systemConf()->db;
+		$sql = <<<'SQL'
+			SELECT tablename FROM pg_catalog.pg_tables where tableowner=:tableowner
+			SQL;
 		$res = $this->fetchAssoc($sql, [':tableowner' => $db['user']]);
 		if ($res == null) {
 			return false;
@@ -32,12 +36,13 @@ class FreshRSS_DatabaseDAOPGSQL extends FreshRSS_DatabaseDAOSQLite {
 		return count(array_keys($tables, true, true)) === count($tables);
 	}
 
-	/** @return array<array<string,string|int|bool|null>> */
+	/** @return list<array{name:string,type:string,notnull:bool,default:mixed}> */
+	#[\Override]
 	public function getSchema(string $table): array {
 		$sql = <<<'SQL'
-SELECT column_name AS field, data_type AS type, column_default AS default, is_nullable AS null
-FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = :table_name
-SQL;
+			SELECT column_name AS field, data_type AS type, column_default AS default, is_nullable AS null
+			FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = :table_name
+			SQL;
 		$res = $this->fetchAssoc($sql, [':table_name' => $this->pdo->prefix() . $table]);
 		return $res == null ? [] : $this->listDaoToSchema($res);
 	}
@@ -46,41 +51,50 @@ SQL;
 	 * @param array<string,string|int|bool|null> $dao
 	 * @return array{'name':string,'type':string,'notnull':bool,'default':mixed}
 	 */
+	#[\Override]
 	public function daoToSchema(array $dao): array {
 		return [
-			'name' => (string)($dao['field']),
-			'type' => strtolower((string)($dao['type'])),
-			'notnull' => (bool)$dao['null'],
-			'default' => $dao['default'],
+			'name' => is_string($dao['field'] ?? null) ? $dao['field'] : '',
+			'type' => is_string($dao['type'] ?? null) ? strtolower($dao['type']) : '',
+			'notnull' => empty($dao['null']),
+			'default' => is_scalar($dao['default'] ?? null) ? $dao['default'] : null,
 		];
 	}
 
+	#[\Override]
+	protected function selectVersion(): string {
+		return $this->fetchString('SELECT version()') ?? '';
+	}
+
+	#[\Override]
 	public function size(bool $all = false): int {
 		if ($all) {
-			$db = FreshRSS_Context::$system_conf->db;
+			$db = FreshRSS_Context::systemConf()->db;
 			$res = $this->fetchColumn('SELECT pg_database_size(:base)', 0, [':base' => $db['base']]);
 		} else {
 			$sql = <<<SQL
-SELECT
-pg_total_relation_size('`{$this->pdo->prefix()}category`') +
-pg_total_relation_size('`{$this->pdo->prefix()}feed`') +
-pg_total_relation_size('`{$this->pdo->prefix()}entry`') +
-pg_total_relation_size('`{$this->pdo->prefix()}entrytmp`') +
-pg_total_relation_size('`{$this->pdo->prefix()}tag`') +
-pg_total_relation_size('`{$this->pdo->prefix()}entrytag`')
-SQL;
+				SELECT
+				pg_total_relation_size('`{$this->pdo->prefix()}category`') +
+				pg_total_relation_size('`{$this->pdo->prefix()}feed`') +
+				pg_total_relation_size('`{$this->pdo->prefix()}entry`') +
+				pg_total_relation_size('`{$this->pdo->prefix()}entrytmp`') +
+				pg_total_relation_size('`{$this->pdo->prefix()}tag`') +
+				pg_total_relation_size('`{$this->pdo->prefix()}entrytag`')
+				SQL;
 			$res = $this->fetchColumn($sql, 0);
 		}
 		return (int)($res[0] ?? -1);
 	}
 
-
+	#[\Override]
 	public function optimize(): bool {
 		$ok = true;
 		$tables = ['category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag'];
 
 		foreach ($tables as $table) {
-			$sql = 'VACUUM `_' . $table . '`';
+			$sql = <<<SQL
+				VACUUM `_{$table}`
+				SQL;
 			if ($this->pdo->exec($sql) === false) {
 				$ok = false;
 				$info = $this->pdo->errorInfo();
@@ -88,5 +102,21 @@ SQL;
 			}
 		}
 		return $ok;
+	}
+
+	#[\Override]
+	public static function strilike(string $haystack, string $needle, bool $contains = false): bool {
+		if (function_exists('mb_stripos')) {
+			return $contains ? (mb_stripos($haystack, $needle, 0, 'UTF-8') !== false) :
+				(mb_strtolower($haystack, 'UTF-8') === mb_strtolower($needle, 'UTF-8'));
+		}
+		if (function_exists('transliterator_transliterate')) {
+			$haystack_ = transliterator_transliterate('Lower', $haystack);
+			$needle_ = transliterator_transliterate('Lower', $needle);
+			if ($haystack_ !== false && $needle_ !== false) {
+				return $contains ? str_contains($haystack_, $needle_) : ($haystack_ === $needle_);
+			}
+		}
+		return $contains ? (stripos($haystack, $needle) !== false) : (strcasecmp($haystack, $needle) === 0);
 	}
 }

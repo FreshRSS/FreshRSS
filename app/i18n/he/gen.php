@@ -1,26 +1,29 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
 		'actualize' => 'מימוש',
 		'add' => 'Add',	// TODO
-		'back' => '← Go back',	// TODO
 		'back_to_rss_feeds' => '← חזרה להזנות הRSS שלך',
 		'cancel' => 'ביטול',
+		'close' => 'Close',	// TODO
 		'create' => 'יצירה',
+		'delete_all_feeds' => 'Delete all feeds',	// TODO
+		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
 		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
 		'demote' => 'Demote',	// TODO
 		'disable' => 'Disable',	// TODO
+		'download' => 'Download',	// TODO
 		'empty' => 'Empty',	// TODO
 		'enable' => 'Enable',	// TODO
 		'export' => 'ייצוא',
@@ -29,6 +32,14 @@ return array(
 		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
 		'manage' => 'ניהול',
 		'mark_read' => 'סימון כנקרא',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
 		'open_url' => 'Open URL',	// TODO
 		'promote' => 'Promote',	// TODO
 		'purge' => 'Purge',	// TODO
@@ -50,6 +61,11 @@ return array(
 			'_' => 'סיסמה',
 			'format' => '<small>At least 7 characters</small>',	// TODO
 		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
+		),
 		'registration' => array(
 			'_' => 'New account',	// TODO
 			'ask' => 'Create an account?',	// TODO
@@ -57,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'שם משתמש',
-			'format' => '<small>Maximum 16 alphanumeric characters</small>',	// TODO
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -124,28 +140,64 @@ return array(
 		'_' => 'FreshRSS',	// TODO
 		'about' => 'אודות FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'לפני %d יום',
+			1 => 'לפני %d ימים',
+		),
+		'hour' => array(
+			0 => 'לפני %d שעה',
+			1 => 'לפני %d שעות',
+		),
+		'justnow' => 'הרגע',
+		'minute' => array(
+			0 => 'לפני %d דקה',
+			1 => 'לפני %d דקות',
+		),
+		'month' => array(
+			0 => 'לפני %d חודש',
+			1 => 'לפני %d חודשים',
+		),
+		'second' => array(
+			0 => 'לפני %d שנייה',
+			1 => 'לפני %d שניות',
+		),
+		'year' => array(
+			0 => 'לפני %d שנה',
+			1 => 'לפני %d שנים',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Empty category',	// TODO
 		'confirm_action' => 'האם אתם בטוחים שברצונכם לבצע פעולה זו? אין אפשרות לבטל אותה!',
 		'confirm_action_feed_cat' => 'האם אתם בטוחים שברצוניכם לבצע פעולה זו? מועדפים ושאילתות עשויות לאבוד. אין אפשרות לבטל אותה!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'ישנם	\\d מאמרים חדשים לקרוא ב FreshRSS.',
-			'body_unread_articles' => '(unread: %%d)',	// TODO
+			'body_new_articles' => array(
+				0 => 'ישנם %d מאמרים חדשים לקרוא ב FreshRSS.',	// DIRTY
+				1 => 'ישנם %d מאמרים חדשים לקרוא ב FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(unread: %d)',	// TODO
+				1 => '(unread: %d)',	// TODO
+			),
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: מאמרים חדשים!',
 		),
 		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'מאמרים חדשים זמינים, לחצו לרענון העמוד.',
 		'should_be_activated' => 'חובה להפעיל JavaScript',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
 		'hu' => 'Magyar',	// IGNORE
@@ -157,17 +209,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'אודות',
 		'account' => 'Account',	// TODO
 		'admin' => 'ניהול',
+		'advanced_search' => 'Advanced Search',	// TODO
 		'archiving' => 'ארכוב',
 		'authentication' => 'Authentication',	// TODO
 		'check_install' => 'Installation check',	// TODO
@@ -175,6 +230,7 @@ return array(
 		'display' => 'תצוגה',
 		'extensions' => 'Extensions',	// TODO
 		'logs' => 'לוגים',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'שאילתות',
 		'reading' => 'קריאה',
 		'search' => 'חיפוש מילים או #תגים',
@@ -194,11 +250,45 @@ return array(
 		'weeks' => 'weeks',	// TODO
 		'years' => 'years',	// TODO
 	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
+		'authors' => 'Authors',	// TODO
+		'categories' => 'Categories',	// TODO
+		'content' => 'Content',	// TODO
+		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
+		'date_past' => 'In the past',	// TODO
+		'date_published' => 'Publication Date',	// TODO
+		'date_range' => 'Date Range',	// TODO
+		'date_received' => 'Received Date',	// TODO
+		'date_to' => 'To',	// TODO
+		'date_user' => 'User Modification Date',	// TODO
+		'feeds' => 'Feeds',	// TODO
+		'free_text' => 'Free Text',	// TODO
+		'free_text_help' => 'Search both in title and content',	// TODO
+		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
+		'labels' => 'My Labels',	// TODO
+		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
+		'sources' => 'Sources',	// TODO
+		'tags' => 'Article Tags',	// TODO
+		'text' => 'Text Search',	// TODO
+		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
+		'text_placeholder' => 'Keyword',	// TODO
+		'title' => 'Title',	// TODO
+		'url' => 'URL',	// TODO
+		'user_queries' => 'User Queries',	// TODO
+	),
 	'share' => array(
 		'Known' => 'Known based sites',	// TODO
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -208,19 +298,21 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud סימניות',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'הדפסה',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'System sharing',	// TODO

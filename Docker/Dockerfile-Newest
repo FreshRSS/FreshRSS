@@ -1,67 +1,72 @@
+# Test image for development
 FROM alpine:edge
 
-ENV TZ UTC
+ENV TZ=UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
 	apk add --no-cache \
 	tzdata \
-	apache2 php82-apache2 \
+	apache2 php85-apache2 \
 	apache-mod-auth-openidc \
-	php82 php82-curl php82-gmp php82-intl php82-mbstring php82-xml php82-zip \
-	php82-ctype php82-dom php82-fileinfo php82-iconv php82-json php82-opcache php82-openssl php82-phar php82-session php82-simplexml php82-xmlreader php82-xmlwriter php82-xml php82-tokenizer php82-zlib \
-	php82-pdo_sqlite php82-pdo_mysql php82-pdo_pgsql
+	php85 php85-curl php85-gmp php85-intl php85-mbstring php85-xml php85-zip \
+	php85-ctype php85-dom php85-fileinfo php85-iconv php85-json php85-openssl php85-phar php85-session php85-simplexml php85-xmlreader php85-xmlwriter php85-xml php85-tokenizer php85-zlib \
+	php85-pdo_sqlite php85-pdo_mysql php85-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
 
-COPY . /var/www/FreshRSS
+COPY --chown=root:www-data . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
 ARG FRESHRSS_VERSION
-ARG SOURCE_BRANCH
 ARG SOURCE_COMMIT
 
 LABEL \
-	org.opencontainers.image.authors="Alkarex" \
 	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
 	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
 	org.opencontainers.image.licenses="AGPL-3.0" \
-	org.opencontainers.image.revision="${SOURCE_BRANCH}.${SOURCE_COMMIT}" \
+	org.opencontainers.image.revision="${SOURCE_COMMIT}" \
 	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
 	org.opencontainers.image.title="FreshRSS" \
 	org.opencontainers.image.url="https://freshrss.org/" \
 	org.opencontainers.image.vendor="FreshRSS" \
 	org.opencontainers.image.version="$FRESHRSS_VERSION"
 
-RUN rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
+RUN \
+	# Disable unwanted Apache modules and configurations
+	rm -f /etc/apache2/conf.d/languages.conf /etc/apache2/conf.d/info.conf \
 		/etc/apache2/conf.d/status.conf /etc/apache2/conf.d/userdir.conf && \
 	sed -r -i "/^\s*LoadModule .*mod_(alias|autoindex|negotiation|status).so$/s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|headers|mime|remoteip|setenvif).so$/s/^\s*#//" \
-		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
-	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php82 /usr/bin/php; else true; fi && \
-	echo 'memory_limit = 256M' > /etc/php82/conf.d/10_memory.ini && \
-	# Disable built-in updates when using Docker, as the full image is supposed to be updated instead.
+	mv /etc/apache2/conf.d/mod-auth-openidc.conf /etc/apache2/conf.d/mod-auth-openidc.conf.bak && \
+	# Enable required Apache modules
+	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|filter|headers|mime|remoteip|setenvif).so$/s/^\s*#//" \
+		/etc/apache2/httpd.conf && \
+	# PHP configuration
+	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php85 /usr/bin/php; else true; fi && \
+	echo 'memory_limit = 256M' > /etc/php85/conf.d/10_memory.ini && \
+	# Disable built-in FreshRSS updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
+	# Configure cron job
 	touch /var/www/FreshRSS/Docker/env.txt && \
 	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
 		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
 		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /etc/crontab.freshrss.default
 
-ENV COPY_LOG_TO_SYSLOG On
-ENV COPY_SYSLOG_TO_STDERR On
-ENV CRON_MIN ''
-ENV DATA_PATH ''
-ENV FRESHRSS_ENV ''
-ENV LISTEN ''
-ENV OIDC_ENABLED ''
-ENV TRUSTED_PROXY ''
+ENV COPY_LOG_TO_SYSLOG=On
+ENV COPY_SYSLOG_TO_STDERR=On
+ENV CRON_MIN=''
+ENV DATA_PATH=''
+ENV FRESHRSS_ENV=''
+ENV LISTEN=''
+ENV OIDC_ENABLED=''
+ENV TRUSTED_PROXY=''
 
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
 # hadolint ignore=DL3025
 CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
-	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo '-D OIDC_ENABLED')
+	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo "-D OIDC_ENABLED")

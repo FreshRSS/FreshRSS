@@ -1,34 +1,45 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
 		'actualize' => 'Hírforrások frissítése',
 		'add' => 'Hozzáad',
-		'back' => '← Vissza',
 		'back_to_rss_feeds' => '← Vissza az RSS hírforrásokhoz',
 		'cancel' => 'Mégsem',
+		'close' => 'Bezár',
 		'create' => 'Létrehoz',
+		'delete_all_feeds' => 'Minden hírforrás törlése',
+		'delete_errored_feeds' => 'Hibákkal rendelkező hírforrások törlése',
 		'delete_muted_feeds' => 'Némított hírforrások törlése',
 		'demote' => 'Lefokoz',
 		'disable' => 'Kikapcsol',
+		'download' => 'Letöltés',
 		'empty' => 'Üres',
 		'enable' => 'Bekapcsol',
-		'export' => 'Export',	// IGNORE
+		'export' => 'Exportálás',
 		'filter' => 'Szűrő',
-		'import' => 'Import',	// IGNORE
+		'import' => 'Importálás',
 		'load_default_shortcuts' => 'Alapértelmezett gyorsgombok visszaállítása',
-		'manage' => 'Beállítás',
+		'manage' => 'Kezelés',
 		'mark_read' => 'Megjelölés olvasottként',
+		'menu' => array(
+			'open' => 'Menü megnyitása',
+		),
+		'nav_buttons' => array(
+			'next' => 'Következő cikk',
+			'prev' => 'Előző cikk',
+			'up' => 'Ugrás fel',
+		),
 		'open_url' => 'URL Megnyitása',
 		'promote' => 'Előléptet',
 		'purge' => 'Töröl',
@@ -50,6 +61,11 @@ return array(
 			'_' => 'Jelszó',
 			'format' => '<small>Legalább 7 karakter hosszú</small>',
 		),
+		'reauth' => array(
+			'header' => 'Be kell jelentkeznie újra',
+			'tip' => 'Ezután <u>%d percig</u> nem kell újra bejelentkeznie',
+			'title' => 'Bejelentkezés újra',
+		),
 		'registration' => array(
 			'_' => 'Új fiók',
 			'ask' => 'Létrehoz egy új fiókot?',
@@ -57,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Felhasználó név',
-			'format' => '<small>Maximum 16 alfanumerikus karakter</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -124,28 +140,64 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS névjegy',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d nap ezelőtt',
+			1 => '%d nap ezelőtt',
+		),
+		'hour' => array(
+			0 => '%d óra ezelőtt',
+			1 => '%d óra ezelőtt',
+		),
+		'justnow' => 'épp most',
+		'minute' => array(
+			0 => '%d perc ezelőtt',
+			1 => '%d perc ezelőtt',
+		),
+		'month' => array(
+			0 => '%d hónap ezelőtt',
+			1 => '%d hónap ezelőtt',
+		),
+		'second' => array(
+			0 => '%d másodperc ezelőtt',
+			1 => '%d másodperc ezelőtt',
+		),
+		'year' => array(
+			0 => '%d év ezelőtt',
+			1 => '%d év ezelőtt',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Üres kategória',
 		'confirm_action' => 'Biztos vagy benne hogy végrehajtod ezt a műveletet? A művelet nem megszakítható!',
 		'confirm_action_feed_cat' => 'Biztos hogy végrehajtod ezt a műveletet? Minden kapcsolódó kedvenc és lekérdezés törölve lesz. Nem lehet megszakítani!',
+		'confirm_exit_slider' => 'Biztosan elveti a nem mentett beállításokat?',
 		'feedback' => array(
-			'body_new_articles' => ' %%d db új cikk olvasható a FreshRSS-ben.',
-			'body_unread_articles' => '(olvasatlan: %%d)',
+			'body_new_articles' => array(
+				0 => '%d db új cikk olvasható a FreshRSS-ben.',	// DIRTY
+				1 => '%d db új cikk olvasható a FreshRSS-ben.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(olvasatlan: %d)',	// DIRTY
+				1 => '(olvasatlan: %d)',	// DIRTY
+			),
 			'request_failed' => 'Egy művelet nem sikerült, lehetséges hogy az internet kapcsolattal vannak problémák.',
 			'title_new_articles' => 'FreshRSS: új cikkek!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Nincsenek címkék',
 		'new_article' => 'Új cikkek elérhetőek, kattints a lap frissítéséhez.',
 		'should_be_activated' => 'A JavaScript futtatásának engedélyezve kell lennie',
+		'unsafe_csp_header' => 'A CSP fejléc használata nem biztonságos és a FreshRSS sebezhető lehet az XSS támadásokkal szemben. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lásd dokumentáció</a>',
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
 		'hu' => 'Magyar',	// IGNORE
@@ -157,17 +209,20 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Névjegy',
-		'account' => 'Adatlap',
+		'account' => 'Fiók',
 		'admin' => 'Adminisztráció',
+		'advanced_search' => 'Haladó keresés',
 		'archiving' => 'Archiválás',
 		'authentication' => 'Hitelesítés',
 		'check_install' => 'Telepítés ellenőrzése',
@@ -175,6 +230,7 @@ return array(
 		'display' => 'Megjelenítés',
 		'extensions' => 'Kiegészítők',
 		'logs' => 'Log-ok',
+		'privacy' => 'Adatvédelem',
 		'queries' => 'Felhasználói lekérdezések',
 		'reading' => 'Olvasás',
 		'search' => 'Szavak vagy #címkék keresése',
@@ -188,17 +244,51 @@ return array(
 		'user_profile' => 'Profil',
 	),
 	'period' => array(
-		'days' => 'napok',
-		'hours' => 'órák',
-		'months' => 'hónapok',
-		'weeks' => 'hetek',
-		'years' => 'évek',
+		'days' => 'nap',
+		'hours' => 'óra',
+		'months' => 'hónap',
+		'weeks' => 'hét',
+		'years' => 'év',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'Ez az űrlap segít a keresési lekérdezések összeállításában, de a kézzel írt lekérdezések még nagyobb szabadságot adnak.',
+		'authors' => 'Szerzők',
+		'categories' => 'Kategóriák',
+		'content' => 'Tartalom',
+		'date_from' => 'Dátumtól',
+		'date_modified' => 'Szerver módosításának dátuma',
+		'date_past' => 'A múltban',
+		'date_published' => 'Közzététel dátuma',
+		'date_range' => 'Dátumtartomány',
+		'date_received' => 'Beérkezés dátuma',
+		'date_to' => 'Dátumig',
+		'date_user' => 'Felhasználói módosítás dátuma',
+		'feeds' => 'Hírforrások',
+		'free_text' => 'Szabad szöveg',
+		'free_text_help' => 'Keresés címben és tartalomban egyaránt',
+		'full_documentation' => 'Lásd <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">teljes keresési dokumentáció</a>',
+		'labels' => 'Saját címkék',
+		'multiple_help' => 'Válasszon egyet vagy többet (tartsa lenyomva a <kbd>Ctrl</kbd> vagy <kbd>Cmd</kbd> billentyűt)',
+		'sources' => 'Források',
+		'tags' => 'Cikk címkék',
+		'text' => 'Szöveges keresés',
+		'text_help' => 'A több sor logikai <i>vagy</i> kapcsolattal lesz összekapcsolva. Támogatja a <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">reguláris kifejezéseket</a> is.',
+		'text_placeholder' => 'Kulcsszó',
+		'title' => 'Cím',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Felhasználói lekérdezések',
 	),
 	'share' => array(
 		'Known' => 'Ismert weboldalak',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Clipboard',	// IGNORE
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -208,19 +298,21 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Könyvjelzők',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Print',	// IGNORE
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'System sharing',	// IGNORE
@@ -242,7 +334,7 @@ return array(
 	),
 	'stream' => array(
 		'load_more' => 'Több cikk betöltése',
-		'mark_all_read' => 'Legyen mind olvasott',
+		'mark_all_read' => 'Minden megjelölése olvasottként',
 		'nothing_to_load' => 'Nincs több cikk',
 	),
 );

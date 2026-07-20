@@ -1,14 +1,15 @@
 <?php
+declare(strict_types=1);
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nData.php';
+require_once dirname(__DIR__, 3) . '/cli/i18n/I18nValue.php';
 
-require_once __DIR__ . '/../../../cli/i18n/I18nData.php';
-require_once __DIR__ . '/../../../cli/i18n/I18nValue.php';
-
-class I18nDataTest extends PHPUnit\Framework\TestCase {
+final class I18nDataTest extends \PHPUnit\Framework\TestCase {
 	/** @var array<string,array<string,array<string,I18nValue>>> */
-	private $referenceData;
+	private array $referenceData;
 	/** @var I18nValue&PHPUnit\Framework\MockObject\MockObject */
 	private $value;
 
+	#[\Override]
 	public function setUp(): void {
 		$this->value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()
@@ -33,9 +34,19 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		];
 	}
 
+	public function testMoveKey(): void {
+		$data = new I18nData($this->referenceData);
+		$value = $data->getData()['en']['file2.php']['file2.l1.l2.k2'];
+		self::assertTrue($data->isKnown('file2.l1.l2.k2'));
+		self::assertFalse($data->isKnown('file2.l1.nkl2'));
+		$data->moveKey('file2.l1.l2.k2', 'file2.l1.nkl2');
+		self::assertFalse($data->isKnown('file2.l1.l2.k2'));
+		self::assertTrue($data->isKnown('file2.l1.nkl2'));
+	}
+
 	public function testConstructWhenReferenceOnly(): void {
 		$data = new I18nData($this->referenceData);
-		self::assertEquals($this->referenceData, $data->getData());
+		self::assertSame($this->referenceData, $data->getData());
 	}
 
 	public function testConstructorWhenLanguageIsMissingFile(): void {
@@ -181,6 +192,107 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		], $data->getData());
 	}
 
+	public function testConstructorKeepsLocalePluralVariants(): void {
+		$rawData = [
+			'en' => [
+				'gen.php' => [
+					'gen.interval.day.0' => $this->value,
+					'gen.interval.day.1' => $this->value,
+				],
+			],
+			'ru' => [
+				'gen.php' => [
+					'gen.interval.day.0' => $this->value,
+					'gen.interval.day.1' => $this->value,
+					'gen.interval.day.2' => $this->value,
+				],
+			],
+		];
+
+		$data = new I18nData($rawData);
+
+		self::assertArrayHasKey('gen.interval.day.2', $data->getLanguage('ru')['gen.php']);
+		self::assertArrayNotHasKey('gen.interval.day.2', $data->getReferenceLanguage()['gen.php']);
+	}
+
+	public function testConstructorPrefillsMissingLocalePluralVariantsFromEnglishPlural(): void {
+		$rawData = [
+			'en' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d day ago'),
+					'gen.interval.day.1' => new I18nValue('%d days ago'),
+					'gen.interval.hour.0' => new I18nValue('%d hour ago'),
+					'gen.interval.hour.1' => new I18nValue('%d hours ago'),
+				],
+			],
+			'ru' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d день назад'),
+					'gen.interval.day.1' => new I18nValue('%d дня назад'),
+					'gen.interval.day.2' => new I18nValue('%d дней назад'),
+				],
+			],
+		];
+
+		$data = new I18nData($rawData);
+		$ruTranslations = $data->getLanguage('ru')['gen.php'];
+
+		self::assertSame('%d hour ago', $ruTranslations['gen.interval.hour.0']->getValue());
+		self::assertSame('%d hours ago', $ruTranslations['gen.interval.hour.1']->getValue());
+		self::assertSame('%d hours ago', $ruTranslations['gen.interval.hour.2']->getValue());
+		self::assertTrue($ruTranslations['gen.interval.hour.0']->isTodo());
+		self::assertTrue($ruTranslations['gen.interval.hour.1']->isTodo());
+		self::assertTrue($ruTranslations['gen.interval.hour.2']->isTodo());
+	}
+
+	public function testConstructorMarksHigherLocalePluralVariantsAsTodoWhenEqualToEnglishPlural(): void {
+		$rawData = [
+			'en' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d day ago'),
+					'gen.interval.day.1' => new I18nValue('%d days ago'),
+				],
+			],
+			'ru' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d день назад'),
+					'gen.interval.day.1' => new I18nValue('%d дня назад'),
+					'gen.interval.day.2' => new I18nValue('%d days ago'),
+				],
+			],
+		];
+
+		$data = new I18nData($rawData);
+		$ruTranslations = $data->getLanguage('ru')['gen.php'];
+
+		self::assertFalse($ruTranslations['gen.interval.day.0']->isTodo());
+		self::assertFalse($ruTranslations['gen.interval.day.1']->isTodo());
+		self::assertTrue($ruTranslations['gen.interval.day.2']->isTodo());
+	}
+
+	public function testConstructorSkipsEnglishPluralVariantsNotUsedByOneFormLanguage(): void {
+		$rawData = [
+			'en' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d day ago'),
+					'gen.interval.day.1' => new I18nValue('%d days ago'),
+				],
+			],
+			'id' => [
+				'gen.php' => [
+					'gen.interval.day.0' => new I18nValue('%d hari yang lalu'),
+				],
+			],
+		];
+
+		$data = new I18nData($rawData);
+		$idTranslations = $data->getLanguage('id')['gen.php'];
+
+		self::assertArrayHasKey('gen.interval.day.0', $idTranslations);
+		self::assertArrayNotHasKey('gen.interval.day.1', $idTranslations);
+		self::assertFalse($idTranslations['gen.interval.day.0']->isTodo());
+	}
+
 	public function testConstructorWhenValueIsIdenticalAndIsMarkedAsIgnore(): void {
 		$value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()
@@ -277,7 +389,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 			'nl' => [],
 		]);
 		$data = new I18nData($rawData);
-		self::assertEquals([
+		self::assertSame([
 			'en',
 			'fr',
 			'nl',
@@ -291,7 +403,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 			'de' => [],
 		]);
 		$data = new I18nData($rawData);
-		self::assertEquals([
+		self::assertSame([
 			'de',
 			'en',
 			'fr',
@@ -301,7 +413,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 
 	public function testAddLanguageWhenLanguageExists(): void {
 		$this->expectException(\Exception::class);
-		$this->expectExceptionMessage('The selected language already exist.');
+		$this->expectExceptionMessage('The selected language already exists.');
 		$data = new I18nData($this->referenceData);
 		$data->addLanguage('en');
 	}
@@ -309,7 +421,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	public function testAddLanguageWhenNoReferenceProvided(): void {
 		$data = new I18nData($this->referenceData);
 		$data->addLanguage('fr');
-		self::assertEquals([
+		self::assertSame([
 			'en' => [
 				'file1.php' => [
 					'file1.l1.l2.k1' => $this->value,
@@ -346,7 +458,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	public function testAddLanguageWhenUnknownReferenceProvided(): void {
 		$data = new I18nData($this->referenceData);
 		$data->addLanguage('fr', 'unknown');
-		self::assertEquals([
+		self::assertSame([
 			'en' => [
 				'file1.php' => [
 					'file1.l1.l2.k1' => $this->value,
@@ -383,7 +495,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	public function testAddLanguageWhenKnownReferenceProvided(): void {
 		$data = new I18nData($this->referenceData);
 		$data->addLanguage('fr', 'en');
-		self::assertEquals([
+		self::assertSame([
 			'en' => [
 				'file1.php' => [
 					'file1.l1.l2.k1' => $this->value,
@@ -429,7 +541,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 
 	public function testAddKeyWhenKeyExists(): void {
 		$this->expectException(\Exception::class);
-		$this->expectExceptionMessage('The selected key already exist.');
+		$this->expectExceptionMessage('The selected key already exists.');
 		$data = new I18nData($this->referenceData);
 		$data->addKey('file2.l1.l2.k1', 'value');
 	}
@@ -465,9 +577,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testAddKey(): void {
-		$getTargetedValue = static function (I18nData $data, string $language) {
-			return $data->getData()[$language]['file2.php']['file2.l1.l2.k3'];
-		};
+		$getTargetedValue = static fn(I18nData $data, string $language) => $data->getData()[$language]['file2.php']['file2.l1.l2.k3'];
 
 		$rawData = array_merge($this->referenceData, [
 			'fr' => [],
@@ -481,9 +591,33 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		$enValue = $getTargetedValue($data, 'en');
 		$frValue = $getTargetedValue($data, 'fr');
 		self::assertInstanceOf(I18nValue::class, $enValue);
-		self::assertEquals('value', $enValue->getValue());
+		self::assertSame('value', $enValue->getValue());
 		self::assertTrue($enValue->isTodo());
-		self::assertEquals($frValue, $enValue);
+		self::assertSame($frValue, $enValue);
+	}
+
+	public function testAddFileWhenNotPhpFile(): void {
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('The selected file name is not supported.');
+
+		$data = new I18nData($this->referenceData);
+		$data->addFile('file2');
+	}
+
+	public function testAddFileWhenAlreadyExists(): void {
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('The selected file exists already.');
+
+		$data = new I18nData($this->referenceData);
+		self::assertTrue($data->exists('file2.php'));
+		$data->addFile('file2.php');
+	}
+
+	public function testAddFileWhenNotExists(): void {
+		$data = new I18nData($this->referenceData);
+		self::assertFalse($data->exists('newfile.php'));
+		$data->addFile('newfile.php');
+		self::assertTrue($data->exists('newfile.php'));
 	}
 
 	public function testAddValueWhenLanguageDoesNotExist(): void {
@@ -501,9 +635,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testAddValueWhenLanguageIsReferenceAndValueInOtherLanguageHasNotChange(): void {
-		$getTargetedValue = static function (I18nData $data, string $language) {
-			return $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
-		};
+		$getTargetedValue = static fn(I18nData $data, string $language) => $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
 
 		$this->value->expects(self::atLeast(2))
 			->method('equal')
@@ -523,15 +655,13 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		self::assertEquals($this->value, $beforeEnValue);
 		self::assertEquals($this->value, $beforeFrValue);
 		self::assertInstanceOf(I18nValue::class, $afterEnValue);
-		self::assertEquals('new value', $afterEnValue->getValue());
+		self::assertSame('new value', $afterEnValue->getValue());
 		self::assertInstanceOf(I18nValue::class, $afterFrValue);
-		self::assertEquals('new value', $afterFrValue->getValue());
+		self::assertSame('new value', $afterFrValue->getValue());
 	}
 
 	public function testAddValueWhenLanguageIsReferenceAndValueInOtherLanguageHasChange(): void {
-		$getTargetedValue = static function (I18nData $data, string $language) {
-			return $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
-		};
+		$getTargetedValue = static fn(I18nData $data, string $language) => $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
 
 		$this->value->expects(self::any())
 			->method('equal')
@@ -559,14 +689,12 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		self::assertEquals($this->value, $beforeEnValue);
 		self::assertEquals($value, $beforeFrValue);
 		self::assertInstanceOf(I18nValue::class, $afterEnValue);
-		self::assertEquals('new value', $afterEnValue->getValue());
+		self::assertSame('new value', $afterEnValue->getValue());
 		self::assertEquals($value, $afterFrValue);
 	}
 
 	public function testAddValueWhenLanguageIsNotReference(): void {
-		$getTargetedValue = static function (I18nData $data, string $language) {
-			return $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
-		};
+		$getTargetedValue = static fn(I18nData $data, string $language) => $data->getData()[$language]['file2.php']['file2.l1.l2.k2'];
 
 		$rawData = array_merge($this->referenceData, [
 			'fr' => [],
@@ -582,7 +710,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		self::assertEquals($this->value, $beforeFrValue);
 		self::assertEquals($this->value, $afterEnValue);
 		self::assertInstanceOf(I18nValue::class, $afterFrValue);
-		self::assertEquals('new value', $afterFrValue->getValue());
+		self::assertSame('new value', $afterFrValue->getValue());
 	}
 
 	public function testRemoveKeyWhenKeyDoesNotExist(): void {
@@ -679,9 +807,9 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		$value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()
 			->getMock();
-		$value->expects(self::exactly(2))
-			->method('unmarkAsIgnore');
 		$value->expects(self::once())
+			->method('unmarkAsIgnore');
+		$value->expects(self::exactly(2))
 			->method('markAsIgnore');
 
 		$rawData = array_merge($this->referenceData, [
@@ -701,9 +829,9 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 		$value = $this->getMockBuilder(I18nValue::class)
 			->disableOriginalConstructor()
 			->getMock();
-		$value->expects(self::exactly(2))
+		$value->expects(self::once())
 			->method('unmarkAsIgnore');
-			$value->expects(self::once())
+			$value->expects(self::exactly(2))
 			->method('markAsIgnore');
 
 		$this->value->expects(self::atLeast(2))
@@ -730,7 +858,7 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 			'nl' => [],
 		]);
 		$data = new I18nData($rawData);
-		self::assertEquals($this->referenceData['en'], $data->getLanguage('en'));
+		self::assertSame($this->referenceData['en'], $data->getLanguage('en'));
 	}
 
 	public function testGetReferenceLanguage(): void {
@@ -739,6 +867,52 @@ class I18nDataTest extends PHPUnit\Framework\TestCase {
 			'nl' => [],
 		]);
 		$data = new I18nData($rawData);
-		self::assertEquals($this->referenceData['en'], $data->getReferenceLanguage());
+		self::assertSame($this->referenceData['en'], $data->getReferenceLanguage());
+	}
+
+	/** @return array<string,array<string,array<string,I18nValue>>> */
+	private function dataWithLangKeys(string ...$langCodes): array {
+		$genFile = [];
+		foreach ($langCodes as $code) {
+			$genFile['gen.lang.' . $code] = $this->value;
+		}
+		return [
+			'en' => ['gen.php' => $genFile],
+		];
+	}
+
+	public function testValidateLanguageNamesPassesWhenDirsAndKeysMatch(): void {
+		$rawData = $this->dataWithLangKeys('en', 'fr', 'zh-TW');
+		$rawData['fr'] = [];
+		$rawData['zh-TW'] = [];
+		$data = new I18nData($rawData);
+		self::assertSame([], $data->validateLanguageNames());
+	}
+
+	public function testValidateLanguageNamesFlagsCaseMismatch(): void {
+		$rawData = $this->dataWithLangKeys('en', 'zh-TW');
+		$rawData['zh-tw'] = [];
+		$data = new I18nData($rawData);
+		$issues = $data->validateLanguageNames();
+		self::assertCount(2, $issues);
+		self::assertStringContainsString('app/i18n/zh-tw/', $issues[0]);
+		self::assertStringContainsString('gen.lang.zh-TW', $issues[1]);
+	}
+
+	public function testValidateLanguageNamesFlagsOrphanDirectory(): void {
+		$rawData = $this->dataWithLangKeys('en');
+		$rawData['fr'] = [];
+		$data = new I18nData($rawData);
+		$issues = $data->validateLanguageNames();
+		self::assertCount(1, $issues);
+		self::assertStringContainsString('app/i18n/fr/', $issues[0]);
+	}
+
+	public function testValidateLanguageNamesFlagsOrphanKey(): void {
+		$rawData = $this->dataWithLangKeys('en', 'fr');
+		$data = new I18nData($rawData);
+		$issues = $data->validateLanguageNames();
+		self::assertCount(1, $issues);
+		self::assertStringContainsString('gen.lang.fr', $issues[0]);
 	}
 }

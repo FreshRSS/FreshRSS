@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Mantieni configurazione precedente',
 		'next_step' => 'Vai al prossimo passaggio',
 		'reinstall' => 'Reinstalla FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Web form (tradizionale, richiede JavaScript)',
-		'http' => 'HTTP (per gli utenti avanzati con HTTPS)',
-		'none' => 'Nessuno (pericoloso)',
-		'password_form' => 'Password<br /><small>(per il login tramite Web-form tradizionale)</small>',
-		'password_format' => 'Almeno 7 caratteri',
-		'type' => 'Metodo di autenticazione',
 	),
 	'bdd' => array(
 		'_' => 'Database',	// IGNORE
@@ -58,6 +50,23 @@ return array(
 			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
 			'ok' => 'I permessi sulla cartella data sono corretti.',
 		),
+		'database-connection' => array(
+			'nok' => 'Errore di connessione al database.',
+			'ok' => 'Connessione al database stabilita.',
+		),
+		'database-table' => array(
+			'nok' => 'La tavola del database "%s" è incompleta.',
+			'ok' => 'La tavola del database "%s" è valida.',
+		),
+		'database-tables' => array(
+			'nok' => 'Alcune tavole del database sono mancanti.',
+			'ok' => 'Tutte le tavole del database esistono.',
+		),
+		'database-title' => 'Database',	// IGNORE
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Manca una libreria richiesta per leggere DOM.',
 			'ok' => 'Libreria richiesta per leggere DOM presente.',
@@ -69,6 +78,15 @@ return array(
 		'fileinfo' => array(
 			'nok' => 'Manca il supporto per PHP fileinfo (pacchetto fileinfo).',
 			'ok' => 'Estensione fileinfo presente.',
+		),
+		'files' => 'Installazione files',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'Impossibile trovare la libreria di internazionalizzazione php-intl.',
+			'ok' => 'Disponi della libreria di internazionalizzazione php-intl raccomandata.',
 		),
 		'json' => array(
 			'nok' => 'Manca la libreria consigliata per effettuare la lettura del JSON.',
@@ -82,18 +100,33 @@ return array(
 			'nok' => 'Manca una libreria richiesta per le regular expressions (php-pcre).',
 			'ok' => 'Libreria richiesta per le regular expressions presente (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Impossibile trovare il driver PDO necessario per MySQL/MariaDB.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Impossibile trovare il driver PDO necessario per PostgreSQL.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Impossibile trovare il driver PDO necessario per SQLite.',
+			'ok' => 'Impossibile trovare il driver PDO necessario per SQLite.',
+		),
 		'pdo' => array(
-			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'PDO e altri driver supportati (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'PDO e altri driver supportati (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'nok' => 'Versione di PHP %s FreshRSS richiede almeno la versione %s.',
-			'ok' => 'Versione di PHP %s, compatibile con FreshRSS.',
+			'_' => 'Installazione PHP',
+			'nok' => 'Versione PHP %s FreshRSS richiede almeno la versione %s.',
+			'ok' => 'Versione PHP %s, compatibile con FreshRSS.',
 		),
 		'reload' => 'Controlla di nuovo',
 		'tmp' => array(
 			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
 			'ok' => 'I permessi sulla cartella temp sono corretti.',
+		),
+		'tokens' => array(
+			'nok' => 'Verifica i permessi sulla cartella <em>./data/tokens</em>. Il server HTTP deve avere i permessi per scriverci dentro',
+			'ok' => 'I permessi sulla cartella tokens sono corretti.',
 		),
 		'unknown_process_username' => 'sconosciuto',
 		'users' => array(
@@ -104,6 +137,10 @@ return array(
 			'nok' => 'La libreria richiesta per leggere gli XML non è presente.',
 			'ok' => 'La libreria richiesta per leggere gli XML è presente.',
 		),
+		'zip' => array(
+			'nok' => 'Manca estensione ZIP (pacchetto php-zip).',
+			'ok' => 'Estensione ZIP presente.',
+		),
 	),
 	'conf' => array(
 		'_' => 'Configurazioni generali',
@@ -112,7 +149,7 @@ return array(
 	'congratulations' => 'Congratulazione!',
 	'default_user' => array(
 		'_' => 'Username utente predefinito',
-		'max_char' => 'massimo 16 caratteri alfanumerici',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Per favore correggi gli errori prima di passare al passaggio successivo.',
 	'javascript_is_better' => 'FreshRSS funziona meglio con JavaScript abilitato',

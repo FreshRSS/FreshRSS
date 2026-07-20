@@ -1,0 +1,8 @@
+includes:
+    - version_dependent.php
+
+services:
+    -
+        class: SimplePieUtils\PHPStan\RegistryCallMethodReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension

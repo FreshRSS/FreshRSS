@@ -1,136 +1,173 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
-		'finish' => 'Complete installation',	// TODO
-		'fix_errors_before' => 'Please all fix errors before continuing to the next step.',	// TODO
-		'keep_install' => 'Keep previous configuration',	// TODO
-		'next_step' => 'Go to the next step',	// TODO
-		'reinstall' => 'Reinstall FreshRSS',	// TODO
-	),
-	'auth' => array(
-		'form' => 'Web form (traditional, requires JavaScript)',	// TODO
-		'http' => 'HTTP (for advanced users with HTTPS)',	// TODO
-		'none' => 'None (dangerous)',	// TODO
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// TODO
-		'password_format' => 'At least 7 characters',	// TODO
-		'type' => 'Authentication method',	// TODO
+		'finish' => 'Selesaikan pemasangan',
+		'fix_errors_before' => 'Perbaiki semua galat sebelum melanjutkan.',
+		'keep_install' => 'Gunakan konfigurasi sebelumnya',
+		'next_step' => 'Lanjut',
+		'reinstall' => 'Pasang ulang FreshRSS',
 	),
 	'bdd' => array(
-		'_' => 'Database',	// TODO
+		'_' => 'Basis data',
 		'conf' => array(
-			'_' => 'Database configuration',	// TODO
-			'ko' => 'Verify your database configuration.',	// TODO
-			'ok' => 'Database configuration has been saved.',	// TODO
+			'_' => 'Konfigurasi basis data',
+			'ko' => 'Memeriksa konfigurasi basis data Anda.',
+			'ok' => 'Konfigurasi basis data sudah disimpan.',
 		),
-		'host' => 'Host',	// TODO
-		'password' => 'Database password',	// TODO
-		'prefix' => 'Table prefix',	// TODO
-		'type' => 'Type of database',	// TODO
-		'username' => 'Database username',	// TODO
+		'host' => 'Hos',
+		'password' => 'Kata sandi basis data',
+		'prefix' => 'Prefiks tabel',
+		'type' => 'Jenis basis data',
+		'username' => 'Nama pengguna basis data',
 	),
 	'check' => array(
-		'_' => 'Checks',	// TODO
-		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO
+		'_' => 'Pemeriksaan',
+		'already_installed' => 'Kami mendeteksi bahwa FreshRSS sudah terpasang!',
 		'cache' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
-			'ok' => 'Permissions on the cache directory are good.',	// TODO
+			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'ok' => 'Izin untuk direktori tembolok sudah bagus.',
 		),
 		'ctype' => array(
-			'nok' => 'Cannot find the required library for character type checking (php-ctype).',	// TODO
-			'ok' => 'You have the required library for character type checking (ctype).',	// TODO
+			'nok' => 'Tidak dapat menemukan pustaka yang diperlukan untuk pemeriksaan jenis karakter (php-ctype).',
+			'ok' => 'Anda memiliki pustaka untuk pemeriksaan jenis karakter (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',	// TODO
-			'ok' => 'You have the cURL library.',	// TODO
+			'nok' => 'Tidak dapat menemukan pustaka cURL (php-curl).',
+			'ok' => 'Anda memiliki pustaka cURL.',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
-			'ok' => 'Permissions on the data directory are good.',	// TODO
+			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'ok' => 'Izin untuk direktori data sudah bagus.',
+		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
 		),
 		'dom' => array(
-			'nok' => 'Cannot find the required library to browse the DOM.',	// TODO
-			'ok' => 'You have the required library to browse the DOM.',	// TODO
+			'nok' => 'Tidak dapat menemukan pustaka yang diperlukan untuk menelusuri DOM.',
+			'ok' => 'Anda memiliki pustaka yang diperlukan untuk menelusuri DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
-			'ok' => 'Permissions on the favicons directory are good.',	// TODO
+			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'ok' => 'Izin untuk direktori favicon sudah bagus.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO
-			'ok' => 'You have the fileinfo library.',	// TODO
+			'nok' => 'Tidak dapat menemukan pustaka PHP fileinfo (fileinfo).',
+			'ok' => 'Anda memiliki pustaka fileinfo.',
+		),
+		'files' => 'Pemasangan Berkas',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
 		),
 		'json' => array(
-			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO
-			'ok' => 'You have the recommended library to parse JSON.',	// TODO
+			'nok' => 'Tidak dapat menemukan pustaka yang direkomendasikan untuk membaca JSON.',
+			'ok' => 'Anda memiliki pustaka yang direkomendasikan untuk membaca JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO
+			'nok' => 'Tidak dapat menemukan pustaka mbstring yang direkomendasikan untuk Unicode.',
+			'ok' => 'Anda memiliki pustaka mbstring yang direkomendasikan untuk Unicode.',
 		),
 		'pcre' => array(
-			'nok' => 'Cannot find the required library for regular expressions (php-pcre).',	// TODO
-			'ok' => 'You have the required library for regular expressions (PCRE).',	// TODO
+			'nok' => 'Tidak dapat menemukan pustaka untuk ekspresi regular (regex) (php-pcre).',
+			'ok' => 'Anda memiliki pustaka untuk ekspresi regular (regex) (PCRE).',
+		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
 		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO
+			'nok' => 'Tidak dapat menemukan PDO atau sejenisnya untuk basis data yang didukung (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Anda memiliki PDO atau sejenisnya untuk basis data yang didukung (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',	// TODO
-			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',	// TODO
+			'_' => 'Pemasangan PHP.',
+			'nok' => 'Versi PHP Anda adalah %s tapi FreshRSS membutuhkan setidaknya versi %s.',
+			'ok' => 'Versi PHP Anda (%s) cocok dengan FreshRSS.',
 		),
-		'reload' => 'Check again',	// TODO
+		'reload' => 'Periksa kembali',
 		'tmp' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
-			'ok' => 'Permissions on the temp directory are good.',	// TODO
+			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'ok' => 'Izin pada direktori tmp sudah bagus.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO
+		'tokens' => array(
+			'nok' => 'Periksa izin direktori <em>./data/tokens</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'ok' => 'Izin pada direktori token sudah bagus.',
+		),
+		'unknown_process_username' => 'tidak diketahui',
 		'users' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
-			'ok' => 'Permissions on the users directory are good.',	// TODO
+			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'ok' => 'Izin pada direktori pengguna sudah bagus.',
 		),
 		'xml' => array(
-			'nok' => 'Cannot find the required library to parse XML.',	// TODO
-			'ok' => 'You have the required library to parse XML.',	// TODO
+			'nok' => 'Tidak dapat menemukan pustaka yang diperlukan untuk membaca XML.',
+			'ok' => 'Anda memiliki pustaka yang diperlukan untuk membaca XML.',
+		),
+		'zip' => array(
+			'nok' => 'Tidak dapat menemukan pustaka ekstensi zip (php-zip).',
+			'ok' => 'Anda memiliki pustaka ekstensi zip.',
 		),
 	),
 	'conf' => array(
-		'_' => 'General configuration',	// TODO
-		'ok' => 'General configuration has been saved.',	// TODO
+		'_' => 'Konfigurasi umum',
+		'ok' => 'Konfigurasi umum sudah disimpan.',
 	),
-	'congratulations' => 'Congratulations!',	// TODO
+	'congratulations' => 'Selamat datang!',
 	'default_user' => array(
-		'_' => 'Username of the default user',	// TODO
-		'max_char' => 'maximum 16 alphanumeric characters',	// TODO
+		'_' => 'Nama pengguna untuk pengguna baku',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
-	'fix_errors_before' => 'Please fix errors before continuing to the next step.',	// TODO
-	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',	// TODO
+	'fix_errors_before' => 'Perbaiki galat sebelum melanjutkan.',
+	'javascript_is_better' => 'FreshRSS lebih baik dengan JavaScript diaktifkan',
 	'js' => array(
-		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',	// TODO
+		'confirm_reinstall' => 'Anda akan kehilangan konfigurasi sebelumnya jika Anda memasang ulang FreshRSS. Apakah Anda yakin?',
 	),
 	'language' => array(
-		'_' => 'Language',	// TODO
-		'choose' => 'Choose a language for FreshRSS',	// TODO
-		'defined' => 'Language has been defined.',	// TODO
+		'_' => 'Bahasa',
+		'choose' => 'Pilih bahasa untuk FreshRSS',
+		'defined' => 'Bahasa sudah dipilih.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO
-	'ok' => 'The installation process was successful.',	// TODO
+	'missing_applied_migrations' => 'Ada sesuatu yang salah, Anda harus membuat berkas kosong <em>%s</em> secara manual.',
+	'ok' => 'Proses pemasangan sukses.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO
+		'nok' => 'Sepertinya konfigurasi peladen webnya salah untuk kuki yang dibutuhkan untuk sesi PHP!',
 	),
-	'step' => 'step %d',	// TODO
-	'steps' => 'Steps',	// TODO
-	'this_is_the_end' => 'This is the end',	// TODO
-	'title' => 'Installation · FreshRSS',	// TODO
+	'step' => 'langkah %d',
+	'steps' => 'Langkah-Langkah',
+	'this_is_the_end' => 'Sudah selesai',
+	'title' => 'Pemasangan · FreshRSS',
 );

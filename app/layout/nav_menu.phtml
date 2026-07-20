@@ -1,28 +1,32 @@
 <?php
+	declare(strict_types=1);
 	$actual_view = Minz_Request::actionName();
 ?>
-
 <nav class="nav_menu">
 	<?php if ($actual_view === 'normal' || $actual_view === 'reader') { ?>
-		<div class="group">
-			<a class="btn toggle_aside" href="#aside_feed"><?= _i('category') ?></a>
+		<div id="nav_menu_toggle_aside" class="group">
+			<button class="btn<?= $actual_view === 'normal' ? ' active' : '' ?>" title="<?= _t('conf.shortcut.toggle_aside') ?>">
+				<?= _i('category') ?>
+			</button>
 		</div>
 	<?php } ?>
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
 	<div id="nav_menu_actions" class="group">
 		<?php
-			$states = array(
+			$states = [
 				'read' => FreshRSS_Entry::STATE_READ,
 				'unread' => FreshRSS_Entry::STATE_NOT_READ,
 				'starred' => FreshRSS_Entry::STATE_FAVORITE,
 				'non-starred' => FreshRSS_Entry::STATE_NOT_FAVORITE,
-			);
+			];
 
 			foreach ($states as $state_str => $state) {
 				$state_enabled = FreshRSS_Context::isStateEnabled($state);
 				$url_state = Minz_Request::currentRequest();
-				$url_state['params']['state'] = FreshRSS_Context::getRevertState($state);
+				$reverted_state = FreshRSS_Context::getRevertState($state);
+				$reverted_state &= FreshRSS_Entry::STATE_ANDS;	// Keep only the AND states
+				$url_state['params']['state'] = $reverted_state;
 		?>
 		<a id="toggle-<?= $state_str ?>"
 			class="btn <?= $state_enabled ? 'active' : '' ?>"
@@ -31,42 +35,31 @@
 			href="<?= Minz_Url::display($url_state) ?>"><?= _i($state_str) ?></a>
 		<?php } ?>
 
-		<div class="dropdown only-mobile" id="dropdown-search-wrapper">
+		<div id="dropdown-search-wrapper" class="dropdown only-mobile">
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 			<div id="dropdown-search" class="dropdown-target"></div>
 
-			<a id="toggle-search" class="dropdown-toggle btn<?= (strlen(FreshRSS_Context::$search) > 0) ? ' active' : ''; ?>" title="<?= _t('gen.menu.search') ?>"
+			<a id="toggle-search" class="dropdown-toggle btn<?= FreshRSS_Context::$search->toString() !== '' ? ' active' : ''; ?>" title="<?= _t('gen.menu.search') ?>"
 				href="#dropdown-search"><?= _i('search') ?></a>
 			<ul class="dropdown-menu">
 				<li class="item">
 					<span>
 						<form action="<?= _url('index', 'index') ?>" method="get">
-							<?php $param_a = Minz_Request::actionName(); ?>
-							<?php if (in_array($param_a, ['normal', 'global', 'reader'], true)) { ?>
-							<input type="hidden" name="a" value="<?= $param_a ?>" />
+							<?php if (in_array(Minz_Request::actionName(), ['normal', 'global', 'reader'], true)) { ?>
+							<input type="hidden" name="a" value="<?= Minz_Request::actionName() ?>" />
+							<?php } if (Minz_Request::paramString('get') !== '') { ?>
+							<input type="hidden" name="get" value="<?= FreshRSS_Context::currentGet() ?>" />
+							<?php } if (ctype_upper(Minz_Request::paramString('order'))) { ?>
+							<input type="hidden" name="order" value="<?= FreshRSS_Context::$order ?>" />
+							<?php } if (Minz_Request::paramInt('state') !== 0) { ?>
+							<input type="hidden" name="state" value="<?= FreshRSS_Context::$state ?>" />
 							<?php } ?>
-
-							<?php $get = Minz_Request::paramString('get'); ?>
-							<?php if ($get !== '') { ?>
-							<input type="hidden" name="get" value="<?= $get ?>" />
-							<?php } ?>
-
-							<?php $order = Minz_Request::paramString('order'); ?>
-							<?php if ($order !== '') { ?>
-							<input type="hidden" name="order" value="<?= $order ?>" />
-							<?php } ?>
-
-							<?php $state = Minz_Request::paramString('state'); ?>
-							<?php if ($state !== '') { ?>
-							<input type="hidden" name="state" value="<?= $state ?>" />
-							<?php } ?>
-
 							<div class="stick search">
 								<input type="search" name="search"
-									value="<?= htmlspecialchars(htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES), ENT_COMPAT, 'UTF-8'); ?>"
+									value="<?= htmlspecialchars(FreshRSS_Context::$search->toString(), ENT_COMPAT, 'UTF-8') ?>"
 									placeholder="<?= _t('gen.menu.search') ?>" title="<?= _t('gen.menu.search') ?>" /><button class="btn" type="submit" title="<?= _t('index.menu.search_short') ?>"><?= _i('search') ?></button>
 							</div>
-							<p class="help"><?= _i('help') ?> <?= _t('gen.menu.search_help') ?></a></p>
+							<p class="help"><?= _i('help') ?> <a href="<?= _url('search', 'index') ?>"><?= _t('gen.menu.advanced_search') ?></a></p>
 						</form>
 					</span>
 				</li>
@@ -74,7 +67,7 @@
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
 
-		<div class="dropdown">
+		<div id="nav_menu_queries" class="dropdown">
 			<div id="dropdown-query" class="dropdown-target"></div>
 
 			<a id="toggle-userqueries" class="dropdown-toggle btn" href="#dropdown-query" title="<?= _t('index.menu.queries') ?>"><?= _i('bookmark-tag') ?></a>
@@ -84,12 +77,12 @@
 					<a href="<?= _url('configure', 'queries') ?>"><?= _i('configure') ?></a>
 				</li>
 
-				<?php foreach (FreshRSS_Context::$user_conf->queries as $raw_query): ?>
+				<?php foreach (FreshRSS_Context::userConf()->queries as $raw_query): ?>
 					<li class="item query">
 						<?php if (!empty($raw_query['url'])): ?>
 							<a href="<?= $raw_query['url'] ?>"><?= $raw_query['name'] ?? $raw_query['url'] ?></a>
 						<?php else: ?>
-						<?php $query = new FreshRSS_UserQuery($raw_query); ?>
+						<?php $query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels()); ?>
 							<a href="<?= $query->getUrl() ?>"><?= $query->getName() ?></a>
 						<?php endif; ?>
 					</li>
@@ -97,7 +90,7 @@
 
 				<?php
 					$classSeparator = '';
-					if (count(FreshRSS_Context::$user_conf->queries) > 0) {
+					if (count(FreshRSS_Context::userConf()->queries) > 0) {
 						$classSeparator = ' separator';
 					}
 
@@ -105,7 +98,7 @@
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'bookmarkQuery';
 				?>
-				<li class="item<?= $classSeparator ?>"><a href="<?= Minz_Url::display($url_query) ?>"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></a></li>
+				<li class="item<?= $classSeparator ?>"><button class="as-link" form="post-csrf" formaction="<?= Minz_Url::display($url_query) ?>" type="submit"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></button></li>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
@@ -121,32 +114,35 @@
 			$string_mark = _t('index.menu.mark_cat_read');
 		}
 
-		$mark_read_url = array(
+		$mark_read_url = [
 			'c' => 'entry',
 			'a' => 'read',
-			'params' => array(
+			'params' => [
 				'get' => $get,
 				'nextGet' => FreshRSS_Context::$next_get,
 				'idMax' => FreshRSS_Context::$id_max,
-				'search' => htmlspecialchars_decode(FreshRSS_Context::$search, ENT_QUOTES),
+				'search' => FreshRSS_Context::$search->toString(),
 				'state' => FreshRSS_Context::$state,
-			),
-		);
+				'sort' => FreshRSS_Context::$sort,
+				'order' => FreshRSS_Context::$order,
+				'from' => Minz_Request::actionName(),
+			],
+		];
 
 		$mark_unread_url = $mark_read_url;
 		$mark_unread_url['params']['is_read'] = '0';
 		$mark_unread_url['params']['nextGet'] = $get;
 	?>
 
-	<div class="group stick" id="nav_menu_read_all">
+	<div id="nav_menu_read_all" class="group stick">
 		<form id="mark-read-menu" method="post">
-		<?php $confirm = FreshRSS_Context::$user_conf->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
+		<?php $confirm = FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 		<button class="read_all btn <?= $confirm ?>"
 			form="mark-read-menu"
 			formaction="<?= Minz_Url::display($mark_read_url) ?>"
 			type="submit"><?= _t('gen.action.mark_read') ?></button>
 
-		<div class="dropdown">
+		<div id="nav_menu_read" class="dropdown">
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 			<div id="dropdown-read" class="dropdown-target"></div>
 
@@ -159,21 +155,31 @@
 						type="submit"><?= $string_mark ?></button>
 				</li>
 <?php
+	$mark_read_enabled = in_array(FreshRSS_Context::$sort, ['id', 'date'], true);
 	$today = @strtotime('today');
 	$mark_before_today = $mark_read_url;
-	$mark_before_today['params']['idMax'] = $today . '000000';
 	$mark_before_one_week = $mark_read_url;
-	$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
-	$mark_unread_enabled = FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) or !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ);
+	switch (FreshRSS_Context::$sort) {
+		case 'id':
+			$mark_before_today['params']['idMax'] = $today . '000000';
+			$mark_before_one_week['params']['idMax'] = ($today - 604800) . '000000';
+			break;
+		case 'date':
+			$mark_before_today['params']['maxPubDate'] = $today;
+			$mark_before_one_week['params']['maxPubDate'] = $today - 604800;
+			break;
+	}
+	$mark_unread_enabled = FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) ||
+		(!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) && !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_OR_NOT_READ));
 ?>
 				<li class="item separator">
-					<button class="as-link <?= $confirm ?>"
+					<button class="as-link <?= $mark_read_enabled ? $confirm : '" disabled="disabled' ?>"
 						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_before_today) ?>"
 						type="submit"><?= _t('index.menu.before_one_day') ?></button>
 				</li>
 				<li class="item">
-					<button class="as-link <?= $confirm ?>"
+					<button class="as-link <?= $mark_read_enabled ? $confirm : '" disabled="disabled' ?>"
 						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_before_one_week) ?>"
 						type="submit"><?= _t('index.menu.before_one_week') ?></button>
@@ -192,65 +198,90 @@
 	<?php } ?>
 
 	<?php $url_output = Minz_Request::currentRequest(); ?>
-	<div class="group" id="nav_menu_views">
+	<div id="nav_menu_views" class="group">
 		<?php
 		$readingModes = FreshRSS_ReadingMode::getReadingModes();
-		$readingModes = Minz_ExtensionManager::callHook('nav_reading_modes', $readingModes);
+		$readingModes = Minz_ExtensionManager::callHook(Minz_HookType::NavReadingModes, $readingModes);
+		if (!is_iterable($readingModes)) {
+			$readingModes = FreshRSS_ReadingMode::getReadingModes();
+		}
 
 		/** @var FreshRSS_ReadingMode $mode */
 		foreach ($readingModes as $mode) {
 			?>
-			<a class="<?= $mode->getId() ?> btn <?php if ($mode->isActive()) { echo 'active'; } ?>" title="<?=
+			<a class="<?= $mode->getId() ?> btn <?= $mode->isActive() ? 'active' : '' ?>" title="<?=
 				$mode->getTitle() ?>" href="<?= Minz_Url::display($mode->getUrlParams()) ?>">
 				<?= $mode->getName() ?>
 			</a>
 			<?php
 		}
 		?>
-
-		<?php
-			$url_output['a'] = 'rss';
-			if (FreshRSS_Context::$user_conf->token) {
-				$url_output['params']['user'] = Minz_User::name();
-				$url_output['params']['token'] = FreshRSS_Context::$user_conf->token;
-			}
-			if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
-				$url_output['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
-			}
-		?>
-		<a class="view-rss btn" target="_blank" rel="noreferrer" title="<?= _t('index.menu.rss_view') ?>" href="<?= Minz_Url::display($url_output) ?>">
-			<?= _i('rss') ?>
-		</a>
 	</div>
 
-	<?php $nav_menu_hooks = Minz_ExtensionManager::callHook('nav_menu'); ?>
+	<?php $nav_menu_hooks = Minz_ExtensionManager::callHookString(Minz_HookType::NavMenu); ?>
 	<?php if ($nav_menu_hooks != '') { ?>
-	<div class="group" id="nav_menu_hooks">
+	<div id="nav_menu_hooks" class="group">
 		<?= $nav_menu_hooks ?>
 	</div>
 	<?php } ?>
 
 	<?php
-		if (FreshRSS_Context::$order === 'DESC') {
-			$order = 'ASC';
+		if (FreshRSS_Context::$order === 'ASC') {
 			$icon = 'sort-up';
-			$title = _t('index.menu.older_first');
+			$title = _t('index.menu.sort.asc');
 		} else {
-			$order = 'DESC';
 			$icon = 'sort-down';
-			$title = _t('index.menu.newer_first');
+			$title = _t('index.menu.sort.desc');
 		}
 		$url_order = Minz_Request::currentRequest();
-		$url_order['params']['order'] = $order;
+		unset($url_order['params']['cid']);
 	?>
-	<div class="group">
-		<a id="toggle-order" class="btn" href="<?= Minz_Url::display($url_order) ?>" title="<?= $title ?>">
-			<?= _i($icon) ?>
-		</a>
+	<div id="nav_menu_sort" class="group">
+		<div class="dropdown">
+			<div id="dropdown-sort" class="dropdown-target"></div>
+			<a id="toggle-order" class="dropdown-toggle btn" href="#dropdown-sort" title="<?= _t('index.menu.sort.primary') ?>"><?= _i($icon) ?></a>
+			<ul class="dropdown-menu" role="radiogroup">
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'id' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'id', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.id_desc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'date' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'date', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.date_desc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'lastUserModified' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'lastUserModified', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.user_modified_desc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'length' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'length', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.length_desc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'link' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'link', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.link_desc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'title' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'title', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.title_desc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'f.name' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'f.name', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.f.name_desc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'c.name' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'c.name', 'order' => 'DESC']]) ?>"><?= _t('index.menu.sort.c.name_desc') ?></a></li>
+				<li class="item separator" role="radio" aria-checked="<?= FreshRSS_Context::$sort === 'rand' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'rand', 'order' => null]]) ?>"><?= _t('index.menu.sort.rand') ?></a></li>
+				<li class="item separator" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'id' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'id', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.id_asc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'date' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'date', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.date_asc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'lastUserModified' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'lastUserModified', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.user_modified_asc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'length' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'length', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.length_asc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'link' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'link', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.link_asc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'title' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'title', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.title_asc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'f.name' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'f.name', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.f.name_asc') ?></a></li>
+				<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'c.name' ? 'true' : 'false' ?>">
+					<a href="<?= Minz_Url::display($url_order, amend: ['params' => ['sort' => 'c.name', 'order' => 'ASC']]) ?>"><?= _t('index.menu.sort.c.name_asc') ?></a></li>
+			</ul>
+			<a class="dropdown-close" href="#close">❌</a>
+		</div>
 	</div>
 
-	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::$system_conf->allow_anonymous_refresh) { ?>
-		<div class="group">
+	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous_refresh) { ?>
+		<div id="nav_menu_actualize" class="group">
 			<a id="actualize" class="btn" href="<?= _url('feed', 'actualize') ?>" title="<?= _t('gen.action.actualize') ?>"><?= _i('refresh') ?></a>
 		</div>
 	<?php } ?>

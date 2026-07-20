@@ -1,4 +1,4 @@
-# FreshRSS - Google Reader compatible API implementation
+# Google Reader compatible API implementation
 
 See [Mobile access](../users/06_Mobile_access.md) for general aspects of API access.
 
@@ -29,12 +29,13 @@ Then point your mobile application to the `greader.php` address (e.g. `https://f
 |[EasyRSS](https://github.com/Alkarex/EasyRSS)                          |Android                |[GPLv3](https://github.com/Alkarex/EasyRSS/blob/master/license.txt) ([F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))|
 |[Readrops](https://github.com/readrops/Readrops) |Android                  |[GPLv3](https://github.com/readrops/Readrops/blob/develop/LICENSE)                                             |
 |[Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/) |Android, iOS            |[BSD-3](https://github.com/yang991178/fluent-reader-lite)                                             |
+|[Read You](https://github.com/Ashinch/ReadYou/)                                     |Android              |[GPLv3](https://github.com/Ashinch/ReadYou/blob/main/LICENSE)|
 |[FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) |Android                  |Closed Source(Free)                                              |
 |[Newsflash](https://gitlab.com/news-flash/news_flash_gtk/)                          |Linux                |[GPLv3](https://gitlab.com/news-flash/news_flash_gtk/) |
 |[lire](https://lireapp.com/)                                                        |iOS, macOS           |Closed Source                                             |
 |[Newsboat 2.24+](https://newsboat.org/)                           |Linux                |[MIT](https://github.com/newsboat/newsboat/blob/master/LICENSE)                                              |
 |[Vienna RSS](http://www.vienna-rss.com/)                           |macOS                |[Apache-2.0](https://github.com/ViennaRSS/vienna-rss/blob/master/LICENCE.md)                                              |
-|[Reeder](https://www.reederapp.com/)                           |macOS, iOS                |Closed Source                                              |
+|[Reeder Classic](https://www.reederapp.com/classic/)           |macOS, iOS                |Closed Source                                              |
 |[FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/)                           |Firefox                |Open Source                                              |
 
 > ℹ️ See a [better table of compatible clients in our main Readme](https://github.com/FreshRSS/FreshRSS/blob/edge/README.md#apis--native-apps).
@@ -44,8 +45,8 @@ Then point your mobile application to the `greader.php` address (e.g. `https://f
 Examples of basic queries:
 
 ```sh
-# Initial login, using API password (Email and Passwd can be given either as GET, or POST - better)
-curl 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin?Email=alice&Passwd=Abcdef123456'
+# Initial login, using API password via POST
+curl -X POST -d 'Email=alice&Passwd=Abcdef123456' 'https://freshrss.example.net/api/greader.php/accounts/ClientLogin'
 SID=alice/8e6845e089457af25303abc6f53356eb60bdb5f8
 Auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8
 
@@ -67,6 +68,10 @@ curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60
 # Get articles, piped to jq for easier JSON reading
 curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
   'https://freshrss.example.net/api/greader.php/reader/api/0/stream/contents/reading-list' | jq .
+
+# Unsubscribe from a feed
+curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
+  -d 'ac=unsubscribe&s=feed/52' 'https://freshrss.example.net/api/greader.php/reader/api/0/subscription/edit'
 ```
 
 * [Source code of our API implementation](https://github.com/FreshRSS/FreshRSS/blob/edge/p/api/greader.php)
@@ -79,12 +84,12 @@ curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356e
 * [By Niall Kennedy](https://web.archive.org/web/20170426184845/http://www.niallkennedy.com/blog/2005/12/google-reader-api.html)
 * [By Mihai Parparita](https://web.archive.org/web/20140919042419/http://code.google.com/p/google-reader-api/w/list) ([source](https://github.com/mihaip/google-reader-api))
 
-### API documentation from other compatible clients
+### API documentation from other compatible servers
 
 * [FeedHQ](https://feedhq.readthedocs.io/en/latest/api/index.html)
 * [Inoreader](https://www.inoreader.com/developers/)
 * [The Old Reader](https://github.com/theoldreader/api)
-* [pyrfeed](http://code.google.com/p/pyrfeed/wiki/GoogleReaderAPI)
+* [pyrfeed](https://code.google.com/archive/p/pyrfeed/wikis/GoogleReaderAPI.wiki)
 * [BazQux](https://github.com/bazqux/bazqux-api)
 
 ### Synchronisation strategy
@@ -93,4 +98,5 @@ curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356e
 as many clients start by having a very inneficient synchronisation strategy.
 
 * [*Synchronisation recommendation* by Alkarex](https://github.com/FreshRSS/FreshRSS/issues/2566#issuecomment-541317776)
+* [*Additional synchronisation tips* by Alkarex](https://github.com/jocmp/capyreader/discussions/533#discussioncomment-11341808)
 * [*The Right Way to Sync* by BazQux](https://github.com/bazqux/bazqux-api#user-content-the-right-way-to-sync)

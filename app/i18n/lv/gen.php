@@ -1,26 +1,29 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
 		'actualize' => 'Atjaunināt barotnes',
 		'add' => 'Pievienot',
-		'back' => '← Atgriezties',
 		'back_to_rss_feeds' => '← Atgriezieties pie RSS barotnēm',
 		'cancel' => 'Atcelt',
+		'close' => 'Close',	// TODO
 		'create' => 'Uztaisīt',
+		'delete_all_feeds' => 'Delete all feeds',	// TODO
+		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
 		'delete_muted_feeds' => 'Izdzēst izslēgtās barotnes',
 		'demote' => 'Pazemināt amatu',
 		'disable' => 'Izslēgt',
+		'download' => 'Download',	// TODO
 		'empty' => 'Iztukšot',
 		'enable' => 'Ieslēgt',
 		'export' => 'Eksportēt',
@@ -29,6 +32,14 @@ return array(
 		'load_default_shortcuts' => 'Ielādēt noklusējuma saīsnes',
 		'manage' => 'Pārvaldīt',
 		'mark_read' => 'Atzīmēt kā izlasītu',
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Nākamais raksts',
+			'prev' => 'Iepriekšējais raksts',
+			'up' => 'Doties uz augšu',
+		),
 		'open_url' => 'Atvērt URL',
 		'promote' => 'Paaugstināt amatu',
 		'purge' => 'Iztīrīt',
@@ -50,6 +61,11 @@ return array(
 			'_' => 'Parole',
 			'format' => '<small>Vismaz 7 rakstzīmes</small>',
 		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
+		),
 		'registration' => array(
 			'_' => 'Jauns konts',
 			'ask' => 'Uztaisīt kontu?',
@@ -57,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Lietotājvārds',
-			'format' => '<small>Maksimums 16 burtu un ciparu zīmes</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -121,31 +137,75 @@ return array(
 	),
 	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',	// TODO
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Par FreshRSS',
+	),
+	'interval' => array(
+		'day' => array(
+			0 => 'pirms %d diena',
+			1 => 'pirms %d dienas',
+			2 => 'pirms %d dienu',
+		),
+		'hour' => array(
+			0 => 'pirms %d stunda',
+			1 => 'pirms %d stundas',
+			2 => 'pirms %d stundu',
+		),
+		'justnow' => 'tikko',
+		'minute' => array(
+			0 => 'pirms %d minūte',
+			1 => 'pirms %d minūtes',
+			2 => 'pirms %d minūšu',
+		),
+		'month' => array(
+			0 => 'pirms %d mēnesis',
+			1 => 'pirms %d mēneši',
+			2 => 'pirms %d mēnešu',
+		),
+		'second' => array(
+			0 => 'pirms %d sekunde',
+			1 => 'pirms %d sekundes',
+			2 => 'pirms %d sekunžu',
+		),
+		'year' => array(
+			0 => 'pirms %d gads',
+			1 => 'pirms %d gadi',
+			2 => 'pirms %d gadu',
+		),
 	),
 	'js' => array(
 		'category_empty' => 'Tukša kategorija',
 		'confirm_action' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? To nevar atcelt!',
 		'confirm_action_feed_cat' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? Jūs zaudēsiet saistītos mīļākos rakstus un lietotāja pieprasījumus. To nevar atcelt!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS ir %%d jauni raksti lasīšanai.',
-			'body_unread_articles' => '(neizlasīti: %%d)',
+			'body_new_articles' => array(
+				0 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
+				1 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
+				2 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(neizlasīti: %d)',	// DIRTY
+				1 => '(neizlasīti: %d)',	// DIRTY
+				2 => '(neizlasīti: %d)',	// DIRTY
+			),
 			'request_failed' => 'Pieprasījums nav izdevies, iespējams, to izraisījušas interneta savienojuma problēmas.',
 			'title_new_articles' => 'FreshRSS: jauni raksti!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Bez birku',
 		'new_article' => 'Ir pieejami jauni raksti, noklikšķiniet, lai atsvaidzinātu lapu..',
 		'should_be_activated' => 'JavaScript jābūt ieslēgtam',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
-		'cz' => 'Čeština',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
 		'en' => 'English',	// IGNORE
-		'en-us' => 'English (United States)',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
 		'es' => 'Español',	// IGNORE
 		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
 		'hu' => 'Magyar',	// IGNORE
@@ -157,24 +217,28 @@ return array(
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
 		'pl' => 'Polski',	// IGNORE
-		'pt-br' => 'Português (Brasil)',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
 		'ru' => 'Русский',	// IGNORE
 		'sk' => 'Slovenčina',	// IGNORE
 		'tr' => 'Türkçe',	// IGNORE
-		'zh-cn' => '简体中文',	// IGNORE
-		'zh-tw' => '正體中文',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'Par',
 		'account' => 'Konts',
 		'admin' => 'Administrācija',
+		'advanced_search' => 'Advanced Search',	// TODO
 		'archiving' => 'Arhivēšana',
 		'authentication' => 'Autentifikācija',
 		'check_install' => 'Uzstādīšanas pārbaude',
 		'configuration' => 'Konfigurācija',
-		'display' => 'Display',	// TODO
+		'display' => 'Displejs',
 		'extensions' => 'Paplašinājumi',
 		'logs' => 'Žurnāls',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'Lietotāja pieprasījumi',
 		'reading' => 'Lasīšana',
 		'search' => 'Meklēt vārdus vai #birkas',
@@ -194,11 +258,45 @@ return array(
 		'weeks' => 'nedēļas',
 		'years' => 'gadi',
 	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
+		'authors' => 'Authors',	// TODO
+		'categories' => 'Categories',	// TODO
+		'content' => 'Content',	// TODO
+		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
+		'date_past' => 'In the past',	// TODO
+		'date_published' => 'Publication Date',	// TODO
+		'date_range' => 'Date Range',	// TODO
+		'date_received' => 'Received Date',	// TODO
+		'date_to' => 'To',	// TODO
+		'date_user' => 'User Modification Date',	// TODO
+		'feeds' => 'Feeds',	// TODO
+		'free_text' => 'Free Text',	// TODO
+		'free_text_help' => 'Search both in title and content',	// TODO
+		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
+		'labels' => 'My Labels',	// TODO
+		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
+		'sources' => 'Sources',	// TODO
+		'tags' => 'Article Tags',	// TODO
+		'text' => 'Text Search',	// TODO
+		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
+		'text_placeholder' => 'Keyword',	// TODO
+		'title' => 'Title',	// TODO
+		'url' => 'URL',	// TODO
+		'user_queries' => 'User Queries',	// TODO
+	),
 	'share' => array(
 		'Known' => 'Zināmas vietnes',
+		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
-		'blogotext' => 'Blogotext',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Starpliktuve',
 		'diaspora' => 'Diaspora*',	// IGNORE
@@ -208,19 +306,21 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Grāmatzīmes',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
-		'pocket' => 'Pocket',	// IGNORE
 		'print' => 'Drukāt',
 		'raindrop' => 'Raindrop.io',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Sistēmas koplietošana',

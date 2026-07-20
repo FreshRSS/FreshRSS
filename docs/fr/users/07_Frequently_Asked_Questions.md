@@ -55,7 +55,7 @@ dans un premier temps déterminer la cause du problème.Voici la liste des
 1. __Vérifier l’intégration dans FreshRSS__ grâce à la
 	[démo](https://demo.freshrss.org "Démo officielle de FreshRSS"). Si ça ne
 	fonctionne pas, il faut [créer un ticket sur
-	Github](https://github.com/FreshRSS/FreshRSS/issues/new "Créer un ticket
+	GitHub](https://github.com/FreshRSS/FreshRSS/issues/new "Créer un ticket
 	pour FreshRSS") pour que l’on puisse regarder ce qui se passe. Si ça
 	fonctionne, il y a probablement un problème avec l’hébergement.
 

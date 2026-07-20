@@ -1,14 +1,13 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_Themes extends Minz_Model {
-	/** @var string */
-	private static $themesUrl = '/themes/';
-	/** @var string */
-	private static $defaultIconsUrl = '/themes/icons/';
-	/** @var string */
-	public static $defaultTheme = 'Origine';
 
-	/** @return array<string> */
+	private static string $themesUrl = '/themes/';
+	private static string $defaultIconsUrl = '/themes/icons/';
+	public static string $defaultTheme = 'Origine';
+
+	/** @return list<string> */
 	public static function getList(): array {
 		return array_values(array_diff(
 			scandir(PUBLIC_PATH . self::$themesUrl) ?: [],
@@ -16,52 +15,72 @@ class FreshRSS_Themes extends Minz_Model {
 		));
 	}
 
-	/** @return array<string,array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}}> */
+	public static function exists(string $theme_id): bool {
+		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id;
+		return str_replace(['..', '/', DIRECTORY_SEPARATOR], '', $theme_id) === $theme_id
+			&& file_exists($theme_dir . '/metadata.json');
+	}
+
+	/** @return array<string,array{id:string,name:string,author:string,description:string,version:float|string,files:array<string>,theme-color?:string|array{dark?:string,light?:string,default?:string}}> */
 	public static function get(): array {
 		$themes_list = self::getList();
 		$list = [];
 		foreach ($themes_list as $theme_dir) {
-			$theme = self::get_infos($theme_dir);
-			if ($theme) {
-				$list[$theme_dir] = $theme;
+			$theme_id = rawurlencode($theme_dir);
+			$theme = self::get_infos($theme_id);
+			if (is_array($theme) && trim($theme['name']) !== '') {
+				$list[$theme_id] = $theme;
 			}
 		}
 		return $list;
 	}
 
 	/**
-	 * @return false|array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}}
+	 * @param string $theme_id is the rawurlencode'd theme directory name
+	 * @return false|array{id:string,name:string,author:string,description:string,version:float|string,files:array<string>,theme-color?:string|array{dark?:string,light?:string,default?:string}}
 	 */
-	public static function get_infos(string $theme_id) {
-		$theme_dir = PUBLIC_PATH . self::$themesUrl . $theme_id;
+	public static function get_infos(string $theme_id): array|false {
+		$theme_dir = PUBLIC_PATH . self::$themesUrl . rawurldecode($theme_id);
 		if (is_dir($theme_dir)) {
 			$json_filename = $theme_dir . '/metadata.json';
 			if (file_exists($json_filename)) {
 				$content = file_get_contents($json_filename) ?: '';
 				$res = json_decode($content, true);
-				if ($res &&
-						!empty($res['name']) &&
-						isset($res['files']) &&
-						is_array($res['files'])) {
-					$res['id'] = $theme_id;
-					return $res;
+				if (is_array($res)) {
+					$result = [
+						'id' => $theme_id,
+						'name' => is_string($res['name'] ?? null) ? $res['name'] : '',
+						'author' => is_string($res['author'] ?? null) ? $res['author'] : '',
+						'description' => is_string($res['description'] ?? null) ? $res['description'] : '',
+						'version' => is_string($res['version'] ?? null) || is_numeric($res['version'] ?? null) ? $res['version'] : '0',
+						'files' => is_array($res['files']) && is_array_values_string($res['files']) ? array_values($res['files']) : [],
+						'theme-color' => is_string($res['theme-color'] ?? null) ? $res['theme-color'] : '',
+					];
+					if (empty($result['theme-color']) && is_array($res['theme-color'])) {
+						$result['theme-color'] = [
+							'dark' => is_string($res['theme-color']['dark'] ?? null) ? $res['theme-color']['dark'] : '',
+							'light' => is_string($res['theme-color']['light'] ?? null) ? $res['theme-color']['light'] : '',
+							'default' => is_string($res['theme-color']['default'] ?? null) ? $res['theme-color']['default'] : '',
+						];
+					}
+					$result = Minz_Helper::htmlspecialchars_utf8($result);
+					return $result;
 				}
 			}
 		}
 		return false;
 	}
 
-	/** @var string */
-	private static $themeIconsUrl;
+	private static string $themeIconsUrl;
 	/** @var array<string,int> */
-	private static $themeIcons;
+	private static array $themeIcons;
 
 	/**
-	 * @return false|array{'id':string,'name':string,'author':string,'description':string,'version':float|string,'files':array<string>,'theme-color'?:string|array{'dark'?:string,'light'?:string,'default'?:string}}
+	 * @return false|array{id:string,name:string,author:string,description:string,version:float|string,files:array<string>,theme-color?:string|array{dark?:string,light?:string,default?:string}}
 	 */
-	public static function load(string $theme_id) {
+	public static function load(string $theme_id): array|false {
 		$infos = self::get_infos($theme_id);
-		if (!$infos) {
+		if (empty($infos)) {
 			if ($theme_id !== self::$defaultTheme) {	//Fall-back to default theme
 				return self::load(self::$defaultTheme);
 			}
@@ -82,14 +101,14 @@ class FreshRSS_Themes extends Minz_Model {
 	}
 
 	public static function title(string $name): string {
-		static $titles = [
+		$titles = [
 			'opml-dyn' => 'sub.category.dynamic_opml',
 		];
 		return $titles[$name] ?? '';
 	}
 
 	public static function alt(string $name): string {
-		static $alts = [
+		$alts = [
 			'add' => '➕',	//✚
 			'all' => '☰',
 			'bookmark-add' => '➕',	//✚
@@ -104,6 +123,7 @@ class FreshRSS_Themes extends Minz_Model {
 			'FreshRSS-logo' => '⊚',
 			'help' => 'ℹ️',	//ⓘ
 			'icon' => '⊚',
+			'important' => '📌',
 			'key' => '🔑',	//⚿
 			'label' => '🏷️',
 			'link' => '↗️',	//↗
@@ -156,23 +176,20 @@ class FreshRSS_Themes extends Minz_Model {
 		}
 
 		if ($type == self::ICON_DEFAULT) {
-			if ((FreshRSS_Context::$user_conf && FreshRSS_Context::$user_conf->icons_as_emojis)
+			if ((FreshRSS_Context::hasUserConf() && FreshRSS_Context::userConf()->icons_as_emojis)
 				// default to emoji alternate for some icons
-				) {
+			) {
 				$type = self::ICON_EMOJI;
 			} else {
 				$type = self::ICON_IMG;
 			}
 		}
 
-		switch ($type) {
-			case self::ICON_URL:
-				return Minz_Url::display($url);
-			case self::ICON_IMG:
-				return '<img class="icon" src="' . Minz_Url::display($url) . '" loading="lazy" alt="' . $alt . '"' . $title . ' />';
-			case self::ICON_EMOJI:
-			default:
-				return '<span class="icon"' . $title . '>' . $alt . '</span>';
-		}
+		return match ($type) {
+			self::ICON_URL => Minz_Url::display($url),
+			self::ICON_IMG => '<img class="icon" src="' . Minz_Url::display($url) . '" loading="lazy" alt="' . $alt . '"' . $title . ' />',
+			self::ICON_EMOJI, =>  '<span class="icon"' . $title . '>' . $alt . '</span>',
+			default => '<span class="icon"' . $title . '>' . $alt . '</span>',
+		};
 	}
 }

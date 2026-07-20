@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
-class CssXPathTest extends PHPUnit\Framework\TestCase
+final class CssXPathTest extends \PHPUnit\Framework\TestCase
 {
-	public function testCssXPathTranslatorClassExists(): void {
+	public static function testCssXPathTranslatorClassExists(): void {
 		self::assertTrue(class_exists('Gt\\CssXPath\\Translator'));
 	}
 }

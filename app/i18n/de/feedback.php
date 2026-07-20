@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -35,7 +35,7 @@ return array(
 	),
 	'conf' => array(
 		'error' => 'Während der Speicherung der Konfiguration trat ein Fehler auf',
-		'query_created' => 'Abfrage „%s“ ist erstellt worden.',
+		'query_created' => 'Abfrage „%s“ wurde erstellt.',
 		'shortcuts_updated' => 'Die Tastenkombinationen sind aktualisiert worden',
 		'updated' => 'Die Konfiguration ist aktualisiert worden',
 	),
@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s kann nicht aktiviert werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>.',
 			'ok' => '%s ist jetzt aktiviert',
 		),
+		'invalid_view_mode' => 'Ungültige Standard-Ansicht %s gefunden. Setze Standard-Ansicht auf Normale Ansicht zurück.',
 		'no_access' => 'Sie haben keinen Zugang zu %s',
 		'not_enabled' => '%s ist noch nicht aktiviert',
 		'not_found' => '%s existiert nicht',
@@ -61,11 +62,12 @@ return array(
 		'feeds_imported_with_errors' => 'Ihre Feeds sind importiert worden, aber es traten einige Fehler auf. Wenn Sie alle Dateien importiert haben, können Sie <i>Feeds aktualisieren</i> klicken.',
 		'file_cannot_be_uploaded' => 'Die Datei kann nicht hochgeladen werden!',
 		'no_zip_extension' => 'Die ZIP-Erweiterung ist auf Ihrem Server nicht vorhanden.',
-		'zip_error' => 'Ein Fehler trat während des ZIP-Imports auf.',	// DIRTY
+		'zip_error' => 'Ein Fehler trat während des ZIP-Imports auf.',
 	),
 	'profile' => array(
 		'error' => 'Ihr Profil kann nicht geändert werden',
-		'updated' => 'Ihr Profil ist geändert worden',
+		'passwords_dont_match' => 'Passwörter stimmen nicht überein',
+		'updated' => 'Ihr Profil wurde geändert',
 	),
 	'sub' => array(
 		'actualize' => 'Aktualisieren',
@@ -74,67 +76,73 @@ return array(
 			'marked_unread' => 'Die ausgewählten Artikel wurden als ungelesen markiert.',
 		),
 		'category' => array(
-			'created' => 'Die Kategorie %s ist erstellt worden.',
-			'deleted' => 'Die Kategorie ist gelöscht worden.',
-			'emptied' => 'Die Kategorie ist geleert worden.',
-			'error' => 'Die Kategorie kann nicht aktualisiert werden',
-			'name_exists' => 'Der Kategorie-Name existiert bereits.',
-			'no_id' => 'Sie müssen die ID der Kategorie präzisieren.',
-			'no_name' => 'Der Kategorie-Name kann nicht leer sein.',
-			'not_delete_default' => 'Sie können die Vorgabe-Kategorie nicht löschen!',
-			'not_exist' => 'Die Kategorie existiert nicht!',
-			'over_max' => 'Sie haben Ihre Kategorien-Limite erreicht (%d)',
-			'updated' => 'Die Kategorie ist aktualisiert worden.',
+			'created' => 'Kategorie %s wurde erstellt',
+			'deleted' => 'Kategorie wurde gelöscht.',
+			'emptied' => 'Kategorie wurde geleert.',
+			'error' => 'Kategorie kann nicht aktualisiert werden',
+			'name_exists' => 'Der Kategoriename existiert bereits.',
+			'no_id' => 'Sie müssen die ID der Kategorie angeben.',
+			'no_name' => 'Der Kategoriename darf nicht leer sein.',
+			'not_delete_default' => 'Sie können die Standardkategorie nicht löschen!',
+			'not_exist' => 'Kategorie existiert nicht!',
+			'over_max' => 'Sie haben Ihr Kategorienlimit erreicht (%d)',
+			'updated' => 'Kategorie wurde aktualisiert.',
 		),
 		'feed' => array(
-			'actualized' => '<em>%s</em> ist aktualisiert worden',
-			'actualizeds' => 'Die RSS-Feeds sind aktualisiert worden',
-			'added' => 'Der RSS-Feed <em>%s</em> ist hinzugefügt worden',
+			'actualized' => '<em>%s</em> wurde aktualisiert',
+			'actualizeds' => 'RSS-Feeds wurden aktualisiert',
+			'added' => 'RSS-Feed <em>%s</em> wurde hinzugefügt',
 			'already_subscribed' => 'Sie haben <em>%s</em> bereits abonniert',
 			'cache_cleared' => '<em>%s</em> Zwischenspeicher wurde geleert',
-			'deleted' => 'Der Feed ist gelöscht worden',
-			'error' => 'Der Feed kann nicht aktualisiert werden',
-			'internal_problem' => 'Der RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>. Mit <code>#force_feed</code> am Ende der Feed-URL kann das Hinzufügen erzwungen werden.',
-			'invalid_url' => 'Die URL <em>%s</em> ist ungültig',
-			'n_actualized' => 'Die %d Feeds sind aktualisiert worden',
-			'n_entries_deleted' => 'Die %d Artikel sind gelöscht worden',
-			'no_refresh' => 'Es gibt keinen Feed zum Aktualisieren…',
+			'deleted' => 'Feed wurde gelöscht',
+			'error' => 'Feed kann nicht aktualisiert werden',
+			'favicon' => array(
+				'too_large' => 'Das hochgeladene Icon ist zu groß. Die maximale Dateigröße beträgt <em>%s</em>.',
+				'unsupported_format' => 'Das Bilddateiformat wird nicht unterstützt!',
+			),
+			'internal_problem' => 'RSS-Feed konnte nicht hinzugefügt werden. Für Details <a href="%s">prüfen Sie die FreshRSS-Protokolle</a>. Mit <code>#force_feed</code> am Ende der Feed-URL kann das Hinzufügen erzwungen werden.',
+			'invalid_url' => 'URL <em>%s</em> ist ungültig',
+			'n_actualized' => '%d Feeds wurden aktualisiert',
+			'n_entries_deleted' => '%d Artikel wurden gelöscht',
+			'no_refresh' => 'Keine Feeds zum Aktualisieren…',
 			'not_added' => '<em>%s</em> konnte nicht hinzugefügt werden',
-			'not_found' => 'Der Feed konnte nicht gefunden werden',
-			'over_max' => 'Sie haben Ihre Feeds-Limite erreicht (%d)',
-			'reloaded' => '<em>%s</em> wurde neugeladen',
+			'not_found' => 'Feed konnte nicht gefunden werden',
+			'over_max' => 'Sie haben Ihr Feedlimit erreicht (%d)',
+			'reloaded' => '<em>%s</em> wurde neu geladen',
 			'selector_preview' => array(
 				'http_error' => 'Website-Inhalt konnte nicht geladen werden.',
 				'no_entries' => 'In diesem Feed gibt es keine Artikel. Um eine Vorschau zu erstellen, muss mindestens ein Artikel vorhanden sein.',
 				'no_feed' => 'Interner Fehler (Feed konnte nicht gefunden werden).',
 				'no_result' => 'Die Auswahl ergab keine Ergebnisse. Der Originaltext des Feeds wird daher angezeigt.',
-				'selector_empty' => 'Die Auswahl ist leer. Sie müssen einen definieren um eine Vorschau zu erstellen.',
+				'selector_empty' => 'Die Auswahl ist leer. Definieren Sie einen Selektor, um eine Vorschau zu erstellen.',
 			),
-			'updated' => 'Der Feed ist aktualisiert worden',
+			'updated' => 'Feed wurde aktualisiert',
 		),
 		'purge_completed' => 'Bereinigung abgeschlossen (%d Artikel gelöscht)',
 	),
 	'tag' => array(
 		'created' => 'Label „%s“ wurde erstellt.',
-		'name_exists' => 'Label-Name existiert bereits.',
-		'renamed' => 'Das Label „%s“ wurde umbenannt in „%s“.',
+		'error' => 'Label konnte nicht aktualisiert werden!',
+		'name_exists' => 'Der Labelname existiert bereits.',
+		'renamed' => 'Label „%s“ wurde umbenannt in „%s“.',
+		'updated' => 'Label wurde aktualisiert.',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS wird nun auf die <strong>Version %s</strong> aktualisiert.',
-		'error' => 'Der Aktualisierungsvorgang stieß auf einen Fehler: %s',
+		'can_apply' => 'Eine Aktualisierung für FreshRSS ist verfügbar: <strong>Version %s</strong>.',
+		'error' => 'Beim Aktualisierungsvorgang ist ein Fehler aufgetreten: %s',
 		'file_is_nok' => '<strong>Version %s</strong>. Überprüfen Sie die Berechtigungen des Verzeichnisses <em>%s</em>. Der HTTP-Server muss Schreibrechte besitzen',
 		'finished' => 'Aktualisierung abgeschlossen!',
-		'none' => 'Keine Aktualisierung zum Anwenden',
+		'none' => 'Keine Aktualisierung verfügbar',
 		'server_not_found' => 'Der Aktualisierungs-Server kann nicht gefunden werden. [%s]',
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'Der Benutzer %s wurde erstellt',
-			'error' => 'Der Benutzer %s konnte nicht erstellt werden',
+			'_' => 'Benutzer %s wurde erstellt',
+			'error' => 'Benutzer %s konnte nicht erstellt werden',
 		),
 		'deleted' => array(
-			'_' => 'Der Benutzer %s wurde gelöscht',
-			'error' => 'Der Benutzer %s konnte nicht gelöscht werden',
+			'_' => 'Benutzer %s wurde gelöscht',
+			'error' => 'Benutzer %s konnte nicht gelöscht werden',
 		),
 		'updated' => array(
 			'_' => 'Benutzer %s wurde aktualisiert',

@@ -1,4 +1,4 @@
-# Configuring the email address validation
+# Configuring email address validation
 
 FreshRSS can verify that users give a valid email address. It is not configured
 by default so you’ll have to follow these few steps to verify email addresses.
@@ -29,14 +29,14 @@ First, change the `mailer` item to `smtp` (instead of the default `mail`).
 Then, you should change the `smtp` options like you would do with a regular email client.
 You can find the full list of options in the [`config.default.php` file](https://github.com/FreshRSS/FreshRSS/blob/edge/config.default.php).
 If you’re not sure to what each item is corresponding, you may find useful [the
-PHPMailer documentation](http://phpmailer.github.io/PHPMailer/classes/PHPMailer.PHPMailer.PHPMailer.html#properties)
+PHPMailer documentation](https://phpmailer.github.io/PHPMailer/classes/PHPMailer-PHPMailer-PHPMailer.html#properties)
 (which is used by FreshRSS under the hood).
 
 ### Example code to configure SMTP server
 
 ```php
 	'mailer' => 'smtp', // instead of 'mail'
-	'smtp' => array(
+	'smtp' => [
 		'hostname' => 'example.net',
 		'host' => 'smtp.example.net', // URL to your smtp server
 		'port' => 465,
@@ -45,8 +45,9 @@ PHPMailer documentation](http://phpmailer.github.io/PHPMailer/classes/PHPMailer.
 		'username' => 'alice', // or maybe alice@example.net
 		'password' => 'yoursecretpassword',
 		'secure' => 'ssl', // '', 'ssl' or 'tls'
+		'auto_tls' => true, // set to false to disable opportunistic STARTTLS, e.g. when using a self-signed certificate
 		'from' => 'alice@example.net',
-	),
+	],
 ```
 
 ## Check your SMTP server is correctly configured

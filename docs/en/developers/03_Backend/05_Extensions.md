@@ -1,8 +1,8 @@
-# Writing extensions for FreshRSS
+# Writing extensions
 
 ## About FreshRSS
 
-FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to October 2012. The official site is located at [freshrss.org](https://freshrss.org) and the official repository is hosted on Github: [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
+FreshRSS is an RSS / Atom feed aggregator written in PHP dating back to October 2012. The official site is located at [freshrss.org](https://freshrss.org) and the official repository is hosted on GitHub: [github.com/FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS).
 
 ## The problem
 
@@ -24,7 +24,7 @@ Note: it is quite conceivable that the functionalities of an extension can later
 
 ## Minz Framework
 
-see [Minz documentation](/docs/en/developers/Minz/index.md)
+see [Minz documentation](../Minz/index.md)
 
 ## Write an extension for FreshRSS
 
@@ -56,8 +56,11 @@ If you want to write a `HelloWorld` extension, the directory name should be `xEx
 
 In the file `freshrss/extensions/xExtension-HelloWorld/extension.php` you need the structure:
 ```php
-class HelloWorldExtension extends Minz_Extension {
-	public function init() {
+final class HelloWorldExtension extends Minz_Extension {
+	#[\Override]
+	public function init(): void {
+		parent::init();
+
 		// your code here
 	}
 }
@@ -113,16 +116,18 @@ The `Minz_Extension` abstract class defines a set of methods that can be overrid
 
 The `Minz_Extension` abstract class defines another set of methods that should not be overridden:
 * the `getName`, `getEntrypoint`, `getPath`, `getAuthor`, `getDescription`, `getVersion`, and `getType` methods return the extension internal properties. Those properties are extracted from the `metadata.json` file.
-* the `getFileUrl` returns the URL of the selected file. The file must exist in the `static` folder of the extension.
-* the `registerController` method register an extension controller in FreshRSS. The selected controller must be defined in the extension *Controllers* folder, its file name must be `\<name\>Controller.php`, and its class name must be `FreshExtension_\<name\>_Controller`.
+* `getFileUrl(string $filename, bool $isStatic = true): string` will return the URL to a file in the `static` directory.
+	The first parameter is the name of the file (without `static/`).
+	Set `$isStatic` to true for user-independent files, and to `false` for files saved in a user’s own directory.
+* the `registerController` method registers an extension controller in FreshRSS. The selected controller must be defined in the extension *Controllers* folder, its file name must be `<name>Controller.php`, and its class name must be `FreshExtension_<name>_Controller`.
 * the `registerViews` method registers the extension views in FreshRSS.
 * the `registerTranslates` method registers the extension translation files in FreshRSS.
 * the `registerHook` method registers hook actions in different part of the application.
-* the `getSystemConfiguration` method retrieves the extension configuration for the system.
-* the `setSystemConfiguration` method stores the extension configuration for the system.
+* the `getSystemConfiguration*()` family of methods retrieve typed extension configuration values for the system.
+* the `setSystemConfigurationValue()` method stores an extension configuration value for the system.
 * the `removeSystemConfiguration` method removes the extension configuration for the system.
-* the `getUserConfiguration` method retrieves the extension configuration for the current user.
-* the `setUserConfiguration` method stores the extension configuration for the current user.
+* the `getUserConfiguration*()` family of methods retrieve typed extension configuration values for the current user.
+* the `setUserConfigurationValue()` method stores an extension configuration value for the current user.
 * the `removeUserConfiguration` method removes the extension configuration for the current user.
 
 > Note that if you modify the later set of methods, you might break the extension system. Thus making FreshRSS unusable. So it’s highly recommended to let those unmodified.
@@ -130,39 +135,110 @@ The `Minz_Extension` abstract class defines another set of methods that should n
 ### The "hooks" system
 
 You can register at the FreshRSS event system in an extensions `init()` method, to manipulate data when some of the core functions are executed.
+The last parameter is the priority of the hook when triggered.
+The hook with the lowest priority value are triggered first.
+The default priority is 0.
 
 ```php
-class HelloWorldExtension extends Minz_Extension
+final class HelloWorldExtension extends Minz_Extension
 {
+	#[\Override]
 	public function init(): void {
-		$this->registerHook('entry_before_display', [$this, 'renderEntry']);
+		parent::init();
+
+		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry'], 10);
+		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl'], -10);
 	}
+
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
-		$entry->_content('<h1>Hello World</h1>' . $entry->content());
+		$message = $this->getUserConfigurationString('message');
+		$entry->_content("<h1>{$message}</h1>" . $entry->content());
 		return $entry;
+	}
+
+	public static function checkUrlBeforeAdd(string $url): string {
+		if (str_starts_with($url, 'https://')) {
+			return $url;
+		}
+		return null;
 	}
 }
 ```
 
 The following events are available:
 
-* `check_url_before_add` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn’t advertise it in the header can still be automatically supported.
-* `entry_auto_read` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as read. The *why* parameter supports the rules {`filter`, `upon_reception`, `same_title_in_feed`}.
-* `entry_auto_unread` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as unread. The *why* parameter supports the rules {`updated_article`}.
-* `entry_before_display` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
-* `entry_before_insert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
-* `feed_before_actualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.
-* `feed_before_insert` (`function($feed) -> Feed | null`): will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS\_Feed) will be passed as parameter.
-* `freshrss_init` (`function() -> none`): will be executed at the end of the initialization of FreshRSS, useful to initialize components or to do additional access checks.
-* `freshrss_user_maintenance` (`function() -> none`): will be executed for each user during the `actualize_script`, useful to run some maintenance tasks on the user.
-* `js_vars` (`function($vars = array) -> array | null`): will be executed if the `jsonVars` in the header will be generated.
-* `menu_admin_entry` (`function() -> string`): add an entry at the end of the "Administration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
-* `menu_configuration_entry` (`function() -> string`): add an entry at the end of the "Configuration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
-* `menu_other_entry` (`function() -> string`): add an entry at the end of the header dropdown menu (i.e. after the "About" entry), the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
-* `nav_menu` (`function() -> string`): will be executed if the navigation was built.
-* `nav_reading_modes` (`function($reading_modes) -> array | null`): **TODO** add documentation.
-* `post_update` (`function(none) -> none`): **TODO** add documentation.
-* `simplepie_before_init` (`function($simplePie, $feed) -> none`): **TODO** add documentation.
+* `Minz_HookType::ActionExecute` (`function(Minz_ActionController $controller): bool`): Called before an action is executed in `Minz_Dispatcher::launchAction()`.
+	By returning `true`, you allow the original action to proceed further; `false` stops further execution of the action.
+	This hook can be used for adding extra functionality to an existing action. See also: `Minz_Request::is()`, `Minz_Request::controllerName()`, `Minz_Request::actionName()`.
+* `Minz_HookType::ApiMisc` (`function(): void`): to allow extensions to have their own API endpoint
+* `Minz_HookType::BeforeLoginBtn` (`function(): string`): Allows to insert HTML before the login button. Applies to the create button on the register page as well. Example use case is inserting a captcha widget.
+* `Minz_HookType::CheckUrlBeforeAdd` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn’t advertise it in the header can still be automatically supported.
+* `Minz_HookType::CustomFaviconBtnUrl` (`function(FreshRSS_Feed $feed): string | null`): Allows extensions to implement a button for setting a custom favicon for individual feeds by providing an URL. The URL will be sent a POST request with the `extAction` field set to either `query_icon_info` or `update_icon`, along with an `id` field which describes the feed's ID.
+Example response for a `query_icon_info` request:
+```json
+{"extName":"YouTube Video Feed","iconUrl":"..\/f.php?h=40838a43"}
+```
+* `Minz_HookType::CustomFaviconHash` (`function(FreshRSS_Feed $feed): string | null`): Enables the modification of custom favicon hashes by returning params from the hook function. The hook should check if the `customFaviconExt` attribute of `$feed` is set to the extension's name before returning a custom value. Otherwise, the return value should be null.
+* `Minz_HookType::EntriesFavorite` (`function(array $ids, bool $is_favorite): void`):
+	will be executed when some entries are marked or unmarked as favorites (starred)
+* `Minz_HookType::EntriesRead` (`function(array $ids, bool $is_read): void`):
+	will be executed when some entries are marked or unmarked as read
+* `Minz_HookType::EntryAutoRead` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as read. The *why* parameter supports the rules {`filter`, `upon_reception`, `same_title_in_feed`, `same_guid_in_category`}.
+* `Minz_HookType::EntryAutoUnread` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as unread. The *why* parameter supports the rules {`updated_article`}.
+* `Minz_HookType::EntryBeforeDisplay` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
+* `Minz_HookType::EntryBeforeInsert` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and new entries will be imported into the database. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
+* `Minz_HookType::EntryBeforeAdd` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and just before an entry is added to the database. Useful for reading the final state of the entry after filter actions have been applied. The new entry (instance of FreshRSS\_Entry) will be passed as parameter.
+* `Minz_HookType::EntryBeforeUpdate` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and just before an entry is updated in the database. Useful for reading the final state of the entry after filter actions have been applied. The updated entry (instance of FreshRSS\_Entry) will be passed as parameter.
+* `Minz_HookType::FeedBeforeActualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.
+* `Minz_HookType::FeedBeforeInsert` (`function($feed) -> Feed | null`): will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS\_Feed) will be passed as parameter.
+* `Minz_HookType::FeedsListBeforeActualize` (`function(array<FreshRSS_Feed> $feedList) -> array | null`): will be executed before FreshRSS tries to update feeds. The list of feeds (array of `FreshRSS_Feed`) to update will be passed as a parameter. Useful for modifying the order in which the feeds will be updated.
+* `Minz_HookType::FreshrssInit` (`function() -> none`): will be executed at the end of the initialization of FreshRSS, useful to initialize components or to do additional access checks.
+* `Minz_HookType::FreshrssUserMaintenance` (`function() -> none`): will be executed for each user during the `actualize_script`, useful to run some maintenance tasks on the user.
+* `Minz_HookType::JsVars` (`function($vars = array) -> array | null`): will be executed if the `jsonVars` in the header will be generated.
+* `Minz_HookType::MenuAdminEntry` (`function() -> string`): add an entry at the end of the "Administration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
+* `Minz_HookType::MenuConfigurationEntry` (`function() -> string`): add an entry at the end of the "Configuration" menu, the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
+* `Minz_HookType::MenuOtherEntry` (`function() -> string`): add an entry at the end of the header dropdown menu (i.e. after the "About" entry), the returned string must be valid HTML (e.g. `<li class="item active"><a href="url">New entry</a></li>`).
+* `Minz_HookType::NavEntries` (`function() -> string`): will add DOM elements before the navigation buttons.
+* `Minz_HookType::NavMenu` (`function() -> string`): will be executed if the navigation was built.
+* `Minz_HookType::NavReadingModes` (`function($reading_modes) -> array | null`): **TODO** add documentation.
+* `Minz_HookType::PostUpdate` (`function(none) -> none`): **TODO** add documentation.
+* `Minz_HookType::SimplepieAfterInit` (`function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed, bool $result): void`): Triggered after fetching an RSS/Atom feed with SimplePie. Useful for instance to get the HTTP response headers (e.g. `$simplePie->data['headers']`).
+* `Minz_HookType::SimplepieBeforeInit` (`function(FreshRSS_SimplePieCustom $simplePie, FreshRSS_Feed $feed): void`): Triggered before fetching an RSS/Atom feed with SimplePie.
+* `Minz_HookType::ViewModes` (`function(array<FreshRSS_ViewMode> $viewModes): array|null`): Allow extensions to register additional view modes than *normal*, *reader*, *global*.
+
+> ℹ️ Note: the `Minz_HookType::Simplepie*` hooks are only fired for feeds using SimplePie via pull, i.e. normal RSS/Atom feeds. This excludes WebSub (push), and the various HTML or JSON Web scraping methods.
+
+### JavaScript events
+
+```javascript
+function use_context() {
+	// Something that refers to the window.context
+}
+
+if (document.readyState && document.readyState !== 'loading' && typeof window.context !== 'undefined' && typeof window.context.extensions !== 'undefined') {
+	use_context();
+} else {
+	document.addEventListener('freshrss:globalContextLoaded', use_context, false);
+}
+```
+
+The following events are available:
+
+* `freshrss:globalContextLoaded`: will be dispatched after load the global `context` variable, useful for referencing variables injected with the `Minz_HookType::JsVars` hook.
+* `freshrss:entryStateChange`: will be dispatched on `document` after an entry has finished being marked as read or unread (i.e. once the underlying AJAX request has completed). The `detail` property of the event contains `id` (the entry ID) and `isRead` (the new read state). Useful for extensions that display their own read/unread indicator outside of the main article list, e.g. in a custom reading pane.
+
+### Injecting CDN content
+
+When using the `init` method, it is possible to inject scripts from CDN using the `Minz_View::appendScript` directive.
+FreshRSS will include the script in the page but will not load it since it will be blocked by the default content security policy (**CSP**).
+To amend the existing CSP, you need to define the extension CSP policies:
+```php
+// in the extension.php file
+protected array $csp_policies = [
+	'default-src' => 'example.org',
+];
+```
+This will only amend the extension CSP to FreshRSS CSP.
 
 ### Writing your own configure.phtml
 

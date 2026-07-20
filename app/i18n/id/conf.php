@@ -1,302 +1,387 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
-		'_' => 'Archiving',	// TODO
-		'exception' => 'Purge exception',	// TODO
-		'help' => 'More options are available in the individual feed’s settings',	// TODO
-		'keep_favourites' => 'Never delete favorites',
-		'keep_labels' => 'Never delete labels',	// TODO
-		'keep_max' => 'Maximum number of articles to keep per feed',	// TODO
-		'keep_min_by_feed' => 'Minimum number of articles to keep per feed',	// TODO
-		'keep_period' => 'Maximum age of articles to keep',	// TODO
-		'keep_unreads' => 'Never delete unread articles',	// TODO
-		'maintenance' => 'Maintenance',	// TODO
-		'optimize' => 'Optimize database',	// TODO
-		'optimize_help' => 'Run occasionally to reduce the size of the database',	// TODO
-		'policy' => 'Purge policy',	// TODO
-		'policy_warning' => 'If no purge policy is selected, every article will be kept.',	// TODO
-		'purge_now' => 'Purge now',	// TODO
-		'title' => 'Archiving',	// TODO
-		'ttl' => 'Do not automatically refresh more often than',	// TODO
+		'_' => 'Pengarsipan',
+		'exception' => 'Pengecualian Pembersihan',
+		'help' => 'Lebih banyak pilihan tersedia di pengaturan umpan individu',
+		'keep_favourites' => 'Jangan pernah hapus favorit',
+		'keep_labels' => 'Jangan pernah hapus label',
+		'keep_max' => 'Maksimum artikel yang harus disimpan per umpan',
+		'keep_min_by_feed' => 'Minimum artikel yang harus disimpan per umpan',
+		'keep_period' => 'Maksimum umur artikel yang harus disimpan',
+		'keep_unreads' => 'Jangan hapus artikel yang belum dibaca',
+		'maintenance' => 'Pemeliharaan',
+		'optimize' => 'Optimalkan basis data',
+		'optimize_help' => 'Jalankan sesekali untuk mengurangi ukuran basis data',
+		'policy' => 'Kebijakan pembersihan',
+		'policy_warning' => 'Jika tidak ada kebijakan pembersihan yang dipilih, setiap artikel akan disimpan.',
+		'purge_now' => 'Bersihkan sekarang',
+		'title' => 'Pengarsipan',
+		'ttl' => 'Jangan segarkan otomatis lebih sering dari',
 	),
 	'display' => array(
-		'_' => 'Display',	// TODO
+		'_' => 'Tampilan',
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Mode gelap otomatis',
+			'auto' => 'Otomatis',
+			'help' => 'Hanya untuk tema yang kompatibel',
+			'no' => 'Tidak',
 		),
 		'icon' => array(
-			'bottom_line' => 'Bottom line',	// TODO
-			'display_authors' => 'Authors',	// TODO
-			'entry' => 'Article icons',	// TODO
-			'publication_date' => 'Date of publication',	// TODO
-			'related_tags' => 'Article tags',	// TODO
-			'sharing' => 'Sharing',	// TODO
-			'summary' => 'Summary',	// TODO
-			'top_line' => 'Top line',	// TODO
+			'bottom_line' => 'Baris bawah',
+			'display_authors' => 'Penulis',
+			'entry' => 'Ikon artikel',
+			'publication_date' => 'Tanggal publikasi',
+			'related_tags' => 'Label artikel',
+			'sharing' => 'Berbagi',
+			'summary' => 'Ringkasan',
+			'top_line' => 'Baris atas',
 		),
-		'language' => 'Language',	// TODO
+		'language' => 'Bahasa',
 		'notif_html5' => array(
-			'seconds' => 'seconds (0 means no timeout)',	// TODO
-			'timeout' => 'HTML5 notification timeout',	// TODO
+			'seconds' => 'detik (0 berarti tanpa batas waktu)',
+			'timeout' => 'Batas waktu pemberitahuan HTML5',
 		),
-		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
+		'show_nav_buttons' => 'Tampilkan tombol navigasi',
+		'show_title_unread' => 'Tampilkan jumlah artikel yang belum dibaca di judul',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
-			'_' => 'Theme',	// TODO
+			'_' => 'Tema',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Dihentikan',
+				'description' => 'Tema ini tidak lagi didukung dan tidak akan tersedia lagi pada <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">rilis mendatang FreshRSS</a>',
 			),
 		),
-		'theme_not_available' => 'The “%s” theme is not available anymore. Please choose another theme.',	// TODO
+		'theme_not_available' => 'Tema "%s" tidak lagi tersedia. Silakan pilih tema lain.',
 		'thumbnail' => array(
-			'label' => 'Thumbnail',	// TODO
-			'landscape' => 'Landscape',	// TODO
-			'none' => 'None',	// TODO
-			'portrait' => 'Portrait',	// TODO
-			'square' => 'Square',	// TODO
+			'label' => 'Keluku',
+			'landscape' => 'Lanskap',
+			'none' => 'Tidak ditampilkan',
+			'portrait' => 'Potret',
+			'square' => 'Persegi',
 		),
-		'timezone' => 'Time zone',	// TODO
-		'title' => 'Display',	// TODO
+		'timezone' => 'Zona waktu',
+		'title' => 'Tampilan',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Ikon dan nama',
+			'icon' => 'Hanya ikon',
+			'label' => 'Situs web',
+			'name' => 'Hanya nama',
+			'none' => 'Tidak ditampilkan',
 		),
 		'width' => array(
-			'content' => 'Content width',	// TODO
-			'large' => 'Wide',	// TODO
-			'medium' => 'Medium',	// TODO
-			'no_limit' => 'Full Width',	// TODO
-			'thin' => 'Narrow',	// TODO
+			'content' => 'Lebar konten',
+			'large' => 'Lebar',
+			'medium' => 'Sedang',
+			'no_limit' => 'Lebar penuh',
+			'thin' => 'Sempit',
 		),
 	),
 	'logs' => array(
 		'loglist' => array(
-			'level' => 'Log Level',	// TODO
-			'message' => 'Log Message',	// TODO
-			'timestamp' => 'Timestamp',	// TODO
+			'level' => 'Level Log',
+			'message' => 'Pesan Log',
+			'timestamp' => 'Waktu',
 		),
 		'pagination' => array(
-			'first' => 'First',	// TODO
-			'last' => 'Last',	// TODO
-			'next' => 'Next',	// TODO
-			'previous' => 'Previous',	// TODO
+			'first' => 'Pertama',
+			'last' => 'Terakhir',
+			'next' => 'Selanjutnya',
+			'previous' => 'Sebelumnya',
 		),
+	),
+	'mark_read_button' => array(
+		'_' => 'tombol “tandai semua sebagai sudah dibaca”',
+		'big' => 'Besar',
+		'none' => 'Tidak ditampilkan',
+		'small' => 'Kecil',
+	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
+	'privacy' => array(
+		'_' => 'Privasi',
+		'retrieve_extension_list' => 'Ambil daftar ekstensi',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
-		'_' => 'Profile management',	// TODO
-		'api' => 'API management',	// TODO
-		'delete' => array(
-			'_' => 'Account deletion',	// TODO
-			'warn' => 'Your account and all related data will be deleted.',	// TODO
+		'_' => 'Pengelolaan Profil',
+		'api' => array(
+			'_' => 'Pengelolaan API',
+			'api_not_set' => 'Sandi API belum dibuat',
+			'api_set' => 'Buat Sandi API',
+			'check_link' => 'Periksa status API melalui: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'Akses API dinonaktifkan.',
+			'documentation_link' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentasi dan daftar aplikasi yang diketahui</a>',
+			'help' => 'Lihat <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentasi</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
-		'email' => 'Email address',	// TODO
-		'password_api' => 'API password<br /><small>(e.g., for mobile apps)</small>',	// TODO
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// TODO
-		'password_format' => 'At least 7 characters',	// TODO
-		'title' => 'Profile',	// TODO
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'delete' => array(
+			'_' => 'Hapus akun',
+			'warn' => 'Akun Anda dan semua data terkait akan dihapus.',
+		),
+		'email' => 'Alamat surel',
+		'new_password' => 'New password',	// TODO
+		'password_api' => 'Sandi API<br /><small>(contoh: untuk aplikasi ponsel)</small>',
+		'password_format' => 'Minimal 7 karakter',
+		'title' => 'Profil',
 	),
 	'query' => array(
-		'_' => 'User queries',	// TODO
-		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',	// TODO
+		'_' => 'Pencarian Pengguna',
+		'create' => 'Create new user query',	// TODO
+		'deprecated' => 'Pencarian ini tidak valid lagi. Kategori atau umpan yang dirujuk telah dihapus.',
+		'description' => 'Deskripsi',
 		'filter' => array(
-			'_' => 'Filter applied:',	// TODO
-			'categories' => 'Display by category',	// TODO
-			'feeds' => 'Display by feed',	// TODO
-			'order' => 'Sort by date',	// TODO
-			'search' => 'Expression',	// TODO
-			'state' => 'State',	// TODO
-			'tags' => 'Display by label',	// TODO
-			'type' => 'Type',	// TODO
+			'_' => 'Filter yang diterapkan:',
+			'categories' => 'Tampilkan berdasarkan kategori',
+			'feeds' => 'Tampilkan berdasarkan umpan',
+			'order' => 'Urutkan berdasarkan tanggal',
+			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'search' => 'Ekspresi Pencarian',
+			'shareOpml' => 'Aktifkan berbagi melalui OPML dari kategori dan umpan terkait',
+			'shareRss' => 'Aktifkan berbagi melalui HTML &amp; RSS',
+			'state' => 'Status',
+			'tags' => 'Tampilkan berdasarkan label',
+			'type' => 'Tipe',
 		),
-		'get_all' => 'Display all articles',	// TODO
-		'get_category' => 'Display “%s” category',	// TODO
-		'get_favorite' => 'Display favorite articles',
-		'get_feed' => 'Display “%s” feed',	// TODO
-		'name' => 'Name',	// TODO
-		'no_filter' => 'No filter',	// TODO
-		'number' => 'Query n°%d',	// TODO
-		'order_asc' => 'Display oldest articles first',	// TODO
-		'order_desc' => 'Display newest articles first',	// TODO
-		'search' => 'Search for “%s”',	// TODO
-		'state_0' => 'Display all articles',	// TODO
-		'state_1' => 'Display read articles',	// TODO
-		'state_2' => 'Display unread articles',	// TODO
-		'state_3' => 'Display all articles',	// TODO
-		'state_4' => 'Display favorite articles',
-		'state_5' => 'Display read favorite articles',
-		'state_6' => 'Display unread favorite articles',
-		'state_7' => 'Display favorite articles',
-		'state_8' => 'Display not favorite articles',
-		'state_9' => 'Display read not favorite articles',
-		'state_10' => 'Display unread not favorite articles',
-		'state_11' => 'Display not favorite articles',
-		'state_12' => 'Display all articles',	// TODO
-		'state_13' => 'Display read articles',	// TODO
-		'state_14' => 'Display unread articles',	// TODO
-		'state_15' => 'Display all articles',	// TODO
-		'title' => 'User queries',	// TODO
+		'get_A' => 'Tampilkan semua umpan, juga yang ditampilkan di kategori mereka saja',
+		'get_Z' => 'Tampilkan semua umpan, juga yang diarsipkan',
+		'get_all' => 'Tampilkan semua artikel',
+		'get_all_labels' => 'Tampilkan artikel dengan label apapun',
+		'get_category' => 'Tampilkan kategori "%s"',
+		'get_favorite' => 'Tampilkan artikel favorit',
+		'get_feed' => 'Tampilkan umpan "%s"',
+		'get_important' => 'Tampilkan artikel dari umpan penting',
+		'get_label' => 'Tampilkan artikel dengan label "%s"',
+		'help' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentasi untuk pencarian pengguna dan berbagi ulang melalui HTML / RSS / OPML</a>.',
+		'image_url' => 'URL gambar',
+		'name' => 'Nama',
+		'no_filter' => 'Tanpa filter',
+		'no_queries' => array(
+			'_' => 'Belum ada pencarian pengguna yang disimpan.',
+			'help' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">dokumentasi</a>',
+		),
+		'number' => 'Pencarian n°%d',
+		'order_asc' => 'Tampilkan artikel tertua dahulu',
+		'order_desc' => 'Tampilkan artikel terbaru dahulu',
+		'search' => 'Cari untuk "%s"',
+		'share' => array(
+			'_' => 'Bagikan permintaan ini melalui tautan',
+			'disabled' => array(
+				'_' => 'dinonaktifkan',
+				'title' => 'Bagikan',
+			),
+			'greader' => 'Tautan dapat dibagikan ke JSON GReader',
+			'help' => 'Berikan tautan ini jika Anda ingin berbagi pencarian ini dengan siapa pun',
+			'html' => 'Tautan dapat dibagikan ke halaman HTML',
+			'opml' => 'Tautan dapat dibagikan ke daftar OPML dari umpan',
+			'rss' => 'Tautan dapat dibagikan ke umpan RSS',
+		),
+		'state_0' => 'Tampilkan semua artikel',
+		'state_1' => 'Tampilkan artikel yang sudah dibaca',
+		'state_2' => 'Tampilkan artikel yang belum dibaca',
+		'state_3' => 'Tampilkan semua artikel',
+		'state_4' => 'Tampilkan artikel favorit',
+		'state_5' => 'Tampilkan artikel favorit yang sudah dibaca',
+		'state_6' => 'Tampilkan artikel favorit yang belum dibaca',
+		'state_7' => 'Tampilkan artikel favorit',
+		'state_8' => 'Tampilkan artikel tidak favorit',
+		'state_9' => 'Tampilkan artikel tidak favorit yang sudah dibaca',
+		'state_10' => 'Tampilkan artikel tidak favorit yang belum dibaca',
+		'state_11' => 'Tampilkan artikel tidak favorit',
+		'state_12' => 'Tampilkan semua artikel',
+		'state_13' => 'Tampilkan artikel yang sudah dibaca',
+		'state_14' => 'Tampilkan artikel yang belum dibaca',
+		'state_15' => 'Tampilkan semua artikel',
+		'title' => 'Pencarian pengguna',
 	),
 	'reading' => array(
-		'_' => 'Reading',	// TODO
-		'after_onread' => 'After “mark all as read”,',	// TODO
-		'always_show_favorites' => 'Show all articles in favorites by default',
+		'_' => 'Membaca',
+		'after_onread' => 'Setelah “tandai semua sebagai sudah dibaca”',
+		'always_show_favorites' => 'Tampilkan semua artikel favorit secara baku',
+		'apply_to_individual_feed' => 'Berlaku per umpan individu',
 		'article' => array(
 			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Penulis dan tanggal',
+				'both' => 'Di baris atas dan bawah',
+				'footer' => 'Di baris bawah',
+				'header' => 'Di baris atas',
+				'none' => 'Tidak ditampilkan',
 			),
 			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'above_title' => 'Di atas judul/lebel',
+				'none' => 'Tidak ditampilkan',
+				'with_authors' => 'Di baris penulis dan tanggal',
 			),
-			'feed_title' => 'Feed title',	// TODO
+			'feed_title' => 'Judul umpan',
+			'icons' => array(
+				'_' => 'Posisi ikon artikel <br /><small>(Tampilan membaca saja)</small>',
+				'above_title' => 'Di atas judul',
+				'with_authors' => 'Di baris penulis dan tanggal',
+			),
 			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
+				'_' => 'Label',
+				'both' => 'Di baris atas dan bawah',
+				'footer' => 'Di baris bawah',
+				'header' => 'Di baris atas',
+				'none' => 'Tidak ditampilkan',
 			),
 			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
+				'_' => 'Maksimum label yang ditampilkan',
+				'help' => '0 berarti: tampilkan semua label dan jangan sembunyikan',
 			),
 		),
-		'articles_per_page' => 'Number of articles per page',	// TODO
-		'auto_load_more' => 'Load more articles at the bottom of the page',	// TODO
-		'auto_remove_article' => 'Hide articles after reading',	// TODO
-		'confirm_enabled' => 'Display a confirmation dialog on “mark all as read” actions',	// TODO
-		'display_articles_unfolded' => 'Show articles unfolded by default',	// TODO
-		'display_categories_unfolded' => 'Categories to unfold',	// TODO
+		'articles_per_page' => 'Jumlah artikel per halaman',
+		'auto_load_more' => 'Muat lebih banyak artikel setelah bagian bawah halaman',
+		'auto_remove_article' => 'Sembunyikan artikel setelah dibaca',
+		'confirm_enabled' => 'Tampilkan layar konfirmasi pada tindakan “tandai semua sebagai sudah dibaca”',
+		'display_articles_unfolded' => 'Buat artikel terbuka secara baku',
+		'display_categories_unfolded' => 'Kategori yang dibuka',
 		'headline' => array(
-			'articles' => 'Articles: Open/Close',	// TODO
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
-			'categories' => 'Left navigation: Categories',	// TODO
-			'mark_as_read' => 'Mark article as read',	// TODO
-			'misc' => 'Miscellaneous',	// TODO
-			'view' => 'View',	// TODO
+			'articles' => 'Artikel: Buka/Tutup',
+			'articles_header_footer' => 'Artikel: Baris Atas/Bawah',
+			'categories' => 'Navigasi kiri: Kategori',
+			'mark_as_read' => 'Tandai artikel sebagai sudah dibaca',
+			'misc' => 'Lain-lain',
+			'view' => 'Tampilan',
 		),
-		'hide_read_feeds' => 'Hide categories & feeds with no unread articles (does not work with “Show all articles” configuration)',	// TODO
-		'img_with_lazyload' => 'Use “lazy load” mode to load pictures',	// DIRTY
-		'jump_next' => 'jump to next unread sibling (feed or category)',	// TODO
-		'mark_updated_article_unread' => 'Mark updated articles as unread',	// TODO
-		'number_divided_when_reader' => 'Divide by 2 in the reading view.',	// TODO
+		'hide_read_feeds' => 'Sembunyikan kategori dan umpan yang tidak memiliki artikel belum dibaca (tidak berlaku jika pilihan "Tampilkan semua artikel" dipilih)',
+		'img_with_lazyload' => 'Gunakan mode <em>muat lambat</em> untuk memuat gambar',
+		'jump_next' => 'loncat ke yang belum dibaca berikutnya',
+		'mark_updated_article_unread' => 'Tandai artikel yang diperbarui sebagai belum dibaca',
+		'number_divided_when_reader' => 'Bagi dua bagian dalam tampilan membaca.',
 		'read' => array(
-			'article_open_on_website' => 'when the article is opened on its original website',	// TODO
-			'article_viewed' => 'when the article is viewed',	// TODO
-			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
-			'scroll' => 'while scrolling',	// TODO
-			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
-			'upon_reception' => 'upon receiving the article',	// TODO
-			'when' => 'Mark an article as read…',	// TODO
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO
+			'article_open_on_website' => 'saat artikel dibuka di situs web aslinya',
+			'article_viewed' => 'saat artikel dilihat',
+			'focus' => 'saat difokuskan (kecuali untuk umpan penting)',
+			'keep_max_n_unread' => 'Maksimal artikel yang dibiarkan belum dibaca',
+			'scroll' => 'saat digulir (kecuali untuk umpan penting)',
+			'upon_gone' => 'saat artikel hilang dari umpan situs aslinya',
+			'upon_reception' => 'saat menerima artikel',
+			'when' => 'Tandai artikel sebagai sudah dibaca…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_category' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dalam kategori',
+			'when_same_title_in_feed' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dari umpan',
 		),
 		'show' => array(
-			'_' => 'Articles to display',	// TODO
-			'active_category' => 'Active category',	// TODO
-			'adaptive' => 'Adjust showing',	// TODO
-			'all_articles' => 'Show all articles',	// TODO
-			'all_categories' => 'All categories',	// TODO
-			'no_category' => 'No category',	// TODO
-			'remember_categories' => 'Remember open categories',	// TODO
-			'unread' => 'Show only unread',	// TODO
+			'_' => 'Artikel yang ditampilkan',
+			'active_category' => 'Kategori aktif',
+			'adaptive' => 'Tampilkan yang belum dibaca, jika tidak ada tampilkan semua artikel',
+			'all_articles' => 'Tampilkan semua artikel',
+			'all_categories' => 'Semua kategori',
+			'no_category' => 'Tidak ada yang dibuka',
+			'remember_categories' => 'Ingat kategori yang dibuka',
+			'unread' => 'Tampilkan yang belum dibaca',
+			'unread_or_favorite' => 'Tampilkan yang belum dibaca dan favorit',
 		),
-		'show_fav_unread_help' => 'Applies also on labels',	// TODO
-		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO
-		'sort' => array(
-			'_' => 'Sort order',	// TODO
-			'newer_first' => 'Newest first',	// TODO
-			'older_first' => 'Oldest first',	// TODO
+		'show_fav_unread_help' => 'Berlaku juga pada label',
+		'sides_close_article' => 'Klik di luar area teks artikel untuk menutup artikel',
+		'star' => array(
+			'when' => 'Tandai artikel sebagai favorit…',
 		),
-		'sticky_post' => 'Stick the article to the top when opened',	// TODO
-		'title' => 'Reading',	// TODO
+		'sticky_post' => 'Sematkan artikel ke bagian atas saat dibuka',
+		'sticky_sort' => 'Pertahankan urutan pengurutan manual saat menavigasi',	// DIRTY
+		'sticky_sort_help' => 'Menentukan apakah urutan pengurutan manual terakhir tetap aktif atau setiap kategori atau umpan selalu menggunakan pengaturan bawaan atau globalnya sendiri.',	// DIRTY
+		'title' => 'Membaca',
 		'view' => array(
-			'default' => 'Default view',	// TODO
-			'global' => 'Global view',	// TODO
-			'normal' => 'Normal view',	// TODO
-			'reader' => 'Reading view',	// TODO
+			'default' => 'Tampilan baku',
+			'global' => 'Tampilan global',
+			'normal' => 'Tampilan normal',
+			'reader' => 'Tampilan membaca',
 		),
 	),
 	'sharing' => array(
-		'_' => 'Sharing',	// TODO
-		'add' => 'Add a sharing method',	// TODO
-		'blogotext' => 'Blogotext',	// TODO
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
-		'diaspora' => 'Diaspora*',	// TODO
-		'email' => 'Email',	// TODO
-		'facebook' => 'Facebook',	// TODO
-		'more_information' => 'More information',	// TODO
-		'print' => 'Print',	// TODO
-		'raindrop' => 'Raindrop.io',	// TODO
-		'remove' => 'Remove sharing method',	// TODO
-		'shaarli' => 'Shaarli',	// TODO
-		'share_name' => 'Share name to display',	// TODO
-		'share_url' => 'Share URL to use',	// TODO
-		'title' => 'Sharing',	// TODO
-		'twitter' => 'Twitter',	// TODO
-		'wallabag' => 'wallabag',	// TODO
+		'_' => 'Berbagi',
+		'add' => 'Tambahkan layanan berbagi',
+		'bluesky' => 'Bluesky',	// IGNORE
+		'deprecated' => 'Layanan ini tidak didukung lagi dan akan dihapus dari FreshRSS dalam <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">rilis mendatang</a>.',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Surel',
+		'facebook' => 'Facebook',	// IGNORE
+		'more_information' => 'Informasi lebih lanjut',
+		'print' => 'Cetak',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'remove' => 'Hapus layanan berbagi',
+		'shaarli' => 'Shaarli',	// IGNORE
+		'share_name' => 'Nama layanan untuk ditampilkan',
+		'share_url' => 'URL berbagi yang digunakan',
+		'title' => 'Berbagi',
+		'twitter' => 'X (Twitter)',	// IGNORE
+		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
-		'_' => 'Shortcuts',	// TODO
-		'article_action' => 'Article actions',	// TODO
-		'auto_share' => 'Share',	// TODO
-		'auto_share_help' => 'If there is only one sharing mode, it is used. Otherwise, modes are accessible by their number.',	// TODO
-		'close_dropdown' => 'Close menus',	// TODO
-		'collapse_article' => 'Collapse',	// TODO
-		'first_article' => 'Open the first article',	// TODO
-		'focus_search' => 'Access search box',	// TODO
-		'global_view' => 'Switch to global view',	// TODO
-		'help' => 'Display documentation',	// TODO
-		'javascript' => 'JavaScript must be enabled in order to use shortcuts',	// TODO
-		'last_article' => 'Open the last article',	// TODO
-		'load_more' => 'Load more articles',	// TODO
-		'mark_favorite' => 'Toggle favorite',
-		'mark_read' => 'Toggle read',	// TODO
-		'navigation' => 'Navigation',	// TODO
-		'navigation_help' => 'With the <kbd>⇧ Shift</kbd> modifier, navigation shortcuts apply on feeds.<br/>With the <kbd>Alt ⎇</kbd> modifier, navigation shortcuts apply on categories.',	// TODO
-		'navigation_no_mod_help' => 'The following navigation shortcuts do not support modifiers.',	// TODO
-		'next_article' => 'Open the next article',	// TODO
-		'next_unread_article' => 'Open the next unread article',	// TODO
-		'non_standard' => 'Some keys (<kbd>%s</kbd>) may not work as shortcuts.',	// TODO
-		'normal_view' => 'Switch to normal view',	// TODO
-		'other_action' => 'Other actions',	// TODO
-		'previous_article' => 'Open the previous article',	// TODO
-		'reading_view' => 'Switch to reading view',	// TODO
-		'rss_view' => 'Open as RSS feed',	// TODO
-		'see_on_website' => 'See on original website',	// TODO
-		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> to mark previous articles as read<br />+ <kbd>⇧ Shift</kbd> to mark all articles as read',	// TODO
-		'skip_next_article' => 'Focus next without opening',	// TODO
-		'skip_previous_article' => 'Focus previous without opening',	// TODO
-		'title' => 'Shortcuts',	// TODO
-		'toggle_media' => 'Play/pause media',	// TODO
-		'user_filter' => 'Access user queries',	// TODO
-		'user_filter_help' => 'If there is only one user query, it is used. Otherwise, queries are accessible by their number.',	// TODO
-		'views' => 'Views',	// TODO
+		'_' => 'Pintasan',
+		'article_action' => 'Tindakan artikel',
+		'auto_share' => 'Berbagi',
+		'auto_share_help' => 'Jika hanya ada satu layanan berbagi, maka itu akan digunakan. Jika tidak, mode dapat diakses dengan nomornya.',
+		'close_menus' => 'Tutup menu',
+		'collapse_article' => 'Tutup',
+		'first_article' => 'Buka artikel pertama',
+		'focus_search' => 'Akses kotak pencarian',
+		'global_view' => 'Beralih ke tampilan global',
+		'help' => 'Tampilkan dokumentasi',
+		'javascript' => 'JavaScript harus diaktifkan untuk menggunakan pintasan',
+		'last_article' => 'Buka artikel terakhir',
+		'load_more' => 'Muat lebih banyak artikel',
+		'mark_favorite' => 'Tandai favorit',
+		'mark_read' => 'Tandai sudah baca',
+		'navigation' => 'Navigasi',
+		'navigation_help' => 'Dengan tombol <kbd>⇧ Shift</kbd>, pintasan navigasi akan berlaku pada umpan.<br/>Dengan tombol <kbd>Alt ⎇</kbd>, pintasan navigasi berlaku pada kategori.',
+		'navigation_no_mod_help' => 'Pintasan berikut tidak terpengaruh penekanan tombol modifikasi.',
+		'next_article' => 'Buka artikel berikutnya',
+		'next_unread_article' => 'Buka artikel berikutnya yang belum dibaca',
+		'non_standard' => 'Beberapa tombol (<kbd>%s</kbd>) mungkin tidak berfungsi sebagai pintasan.',
+		'normal_view' => 'Beralih ke tampilan normal',
+		'other_action' => 'Tindakan lainnya',
+		'previous_article' => 'Buka artikel sebelumnya',
+		'reading_view' => 'Beralih ke tampilan membaca',
+		'rss_view' => 'Buka sebagai umpan RSS',
+		'see_on_website' => 'Lihat di situs web asli',
+		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> untuk menandai artikel sebelumnya sebagai sudah dibaca<br />+ <kbd>⇧ Shift</kbd> untuk menandai semua artikel sebagai sudah dibaca',
+		'skip_next_article' => 'Fokus berikutnya tanpa membuka',
+		'skip_previous_article' => 'Fokus sebelumnya tanpa membuka',
+		'title' => 'Pintasan',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_media' => 'Putar/jeda media',
+		'user_filter' => 'Akses pencarian pengguna',
+		'user_filter_help' => 'Jika hanya ada satu pencarian pengguna, maka itu akan digunakan. Jika tidak, pencarian dapat diakses dengan nomornya',
+		'views' => 'Tampilan',
 	),
 	'user' => array(
-		'articles_and_size' => '%s articles (%s)',	// TODO
-		'current' => 'Current user',	// TODO
-		'is_admin' => 'is administrator',	// TODO
-		'users' => 'Users',	// TODO
+		'articles_and_size' => '%s artikel (%s)',
+		'current' => 'Pengguna saat ini',
+		'is_admin' => 'adalah administrator',
+		'users' => 'Pengguna',
 	),
 );

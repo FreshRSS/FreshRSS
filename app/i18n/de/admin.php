@@ -1,122 +1,37 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'auth' => array(
 		'allow_anonymous' => 'Anonymes Lesen der Artikel des Standardbenutzers (%s) erlauben',
 		'allow_anonymous_refresh' => 'Anonymes Aktualisieren der Artikel erlauben',
-		'api_enabled' => '<abbr>API</abbr>-Zugriff erlauben <small>(für mobile Anwendungen benötigt)</small>',
+		'api_enabled' => '<abbr>API</abbr>-Zugriff erlauben <small>(für mobile Apps und zum Teilen von Benutzerabfragen erforderlich)</small>',
 		'form' => 'Webformular (traditionell, benötigt JavaScript)',
-		'http' => 'HTTP (HTTPS für erfahrene Benutzer)',
+		'http' => 'HTTP (fortgeschritten: vom Webserver verwaltet, OIDC, SSO…)',
 		'none' => 'Keine (gefährlich)',
 		'title' => 'Authentifizierung',
-		'token' => 'Authentifizierungs-Token',
-		'token_help' => 'Erlaubt den Zugriff auf die RSS-Ausgabe des Standardbenutzers ohne Authentifizierung.',
+		'token' => 'Master-Authentifizierungs-Token',
+		'token_help' => 'Erlaubt Zugriff auf alle RSS-Ausgaben des Nutzers sowie das Aktualisieren von Feeds ohne Authentifizierung:',
 		'type' => 'Authentifizierungsmethode',
-		'unsafe_autologin' => 'Erlaube unsicheres automatisches Anmelden mit folgendem Format: ',
-	),
-	'check_install' => array(
-		'cache' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/cache</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/cache</em> sind in Ordnung.',
-		),
-		'categories' => array(
-			'nok' => 'Die Tabelle <em>category</em> ist schlecht konfiguriert.',
-			'ok' => 'Die Tabelle <em>category</em> ist korrekt konfiguriert.',
-		),
-		'connection' => array(
-			'nok' => 'Verbindung zur Datenbank kann nicht aufgebaut werden.',
-			'ok' => 'Verbindung zur Datenbank konnte aufgebaut werden.',
-		),
-		'ctype' => array(
-			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für die Überprüfung von Zeichentypen (php-ctype).',
-			'ok' => 'Sie haben die benötigte Bibliothek für die Überprüfung von Zeichentypen (ctype).',
-		),
-		'curl' => array(
-			'nok' => 'Ihnen fehlt cURL (Paket php-curl).',
-			'ok' => 'Sie haben die cURL-Erweiterung.',
-		),
-		'data' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data</em> sind in Ordnung.',
-		),
-		'database' => 'Datenbank-Installation',
-		'dom' => array(
-			'nok' => 'Ihnen fehlt eine benötigte Bibliothek um DOM zu durchstöbern (Paket php-xml).',
-			'ok' => 'Sie haben die benötigte Bibliothek um DOM zu durchstöbern.',
-		),
-		'entries' => array(
-			'nok' => 'Die Tabelle <em>entry</em> ist schlecht konfiguriert.',
-			'ok' => 'Die Tabelle <em>entry</em> ist korrekt konfiguriert.',
-		),
-		'favicons' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/favicons</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/favicons</em> sind in Ordnung.',
-		),
-		'feeds' => array(
-			'nok' => 'Die Tabelle <em>feed</em> ist schlecht konfiguriert.',
-			'ok' => 'Die Tabelle <em>feed</em> ist korrekt konfiguriert.',
-		),
-		'fileinfo' => array(
-			'nok' => 'Ihnen fehlt PHP fileinfo (Paket fileinfo).',
-			'ok' => 'Sie haben die fileinfo-Erweiterung.',
-		),
-		'files' => 'Datei-Installation',
-		'json' => array(
-			'nok' => 'Ihnen fehlt die JSON-Erweiterung (Paket php-json).',
-			'ok' => 'Sie haben die JSON-Erweiterung.',
-		),
-		'mbstring' => array(
-			'nok' => 'Ihnen fehlt die mbstring-Bibliothek für Unicode.',
-			'ok' => 'Sie haben die empfohlene mbstring-Bliothek für Unicode.',
-		),
-		'pcre' => array(
-			'nok' => 'Ihnen fehlt eine benötigte Bibliothek für reguläre Ausdrücke (php-pcre).',
-			'ok' => 'Sie haben die benötigte Bibliothek für reguläre Ausdrücke (PCRE).',
-		),
-		'pdo' => array(
-			'nok' => 'Ihnen fehlt PDO oder einer der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Sie haben PDO und mindestens einen der unterstützten Treiber (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-		),
-		'php' => array(
-			'_' => 'PHP-Installation',
-			'nok' => 'Ihre PHP-Version ist %s aber FreshRSS benötigt mindestens Version %s.',
-			'ok' => 'Ihre PHP-Version ist %s, welche kompatibel mit FreshRSS ist.',
-		),
-		'tables' => array(
-			'nok' => 'Es fehlen eine oder mehrere Tabellen in der Datenbank.',
-			'ok' => 'Tabellen existieren in der Datenbank.',
-		),
-		'title' => 'Installationsüberprüfung',
-		'tokens' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/tokens</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/tokens</em> sind in Ordnung.',
-		),
-		'users' => array(
-			'nok' => 'Überprüfen Sie die Berechtigungen des Verzeichnisses <em>./data/users</em>. Der HTTP-Server muss Schreibrechte besitzen.',
-			'ok' => 'Die Berechtigungen des Verzeichnisses <em>./data/users</em> sind in Ordnung.',
-		),
-		'zip' => array(
-			'nok' => 'Ihnen fehlt die ZIP-Erweiterung (Paket php-zip).',
-			'ok' => 'Sie haben die ZIP-Erweiterung.',
-		),
 	),
 	'extensions' => array(
 		'author' => 'Autor',
 		'community' => 'Verfügbare Community-Erweiterungen',
-		'description' => 'Beschreibungen',
+		'description' => 'Beschreibung',
 		'disabled' => 'Deaktiviert',
-		'empty_list' => 'Es gibt keine installierte Erweiterung.',
+		'empty_list' => 'Keine installierten Erweiterungen',
+		'empty_list_help' => 'Überprüfen Sie die Protokolle, um den Grund für die leere Erweiterungsliste zu ermitteln.',
 		'enabled' => 'Aktiviert',
+		'is_compatible' => 'Ist kompatibel',
 		'latest' => 'Installiert',
 		'name' => 'Name',	// IGNORE
 		'no_configure_view' => 'Diese Erweiterung kann nicht konfiguriert werden.',
@@ -133,9 +48,11 @@ return array(
 		'_' => 'Statistiken',
 		'all_feeds' => 'Alle Feeds',
 		'category' => 'Kategorie',
+		'date_published' => 'Veröffentlicht am',
+		'date_received' => 'Erhalten am',
 		'entry_count' => 'Anzahl der Einträge',
 		'entry_per_category' => 'Einträge pro Kategorie',
-		'entry_per_day' => 'Einträge pro Tag (letzten 30 Tage)',
+		'entry_per_day' => 'Einträge pro Tag (letzte 30 Tage)',
 		'entry_per_day_of_week' => 'Pro Wochentag (Durchschnitt: %.2f Nachrichten)',
 		'entry_per_hour' => 'Pro Stunde (Durchschnitt: %.2f Nachrichten)',
 		'entry_per_month' => 'Pro Monat (Durchschnitt: %.2f Nachrichten)',
@@ -145,40 +62,50 @@ return array(
 		'idle' => 'Inaktive Feeds',
 		'main' => 'Haupt-Statistiken',
 		'main_stream' => 'Haupt-Feeds',
-		'no_idle' => 'Es gibt keinen inaktiven Feed!',
+		'nb_unreads' => 'Anzahl ungelesener Artikel',
+		'no_idle' => 'Es gibt keine inaktiven Feeds!',
 		'number_entries' => '%d Artikel',
-		'percent_of_total' => '% Gesamt',
-		'repartition' => 'Artikel-Verteilung',
+		'overview' => 'Übersicht',
+		'percent_of_total' => '% der Gesamtanzahl',
+		'repartition' => 'Artikel-Verteilung: %s',
 		'status_favorites' => 'Favoriten',
 		'status_read' => 'Gelesen',
 		'status_total' => 'Gesamt',
 		'status_unread' => 'Ungelesen',
 		'title' => 'Statistiken',
 		'top_feed' => 'Top 10-Feeds',
+		'unread_dates' => 'Tage mit den meisten ungelesenen Artikeln',
 	),
 	'system' => array(
 		'_' => 'Systemeinstellungen',
-		'auto-update-url' => 'Auto-Update URL',
+		'auto-update-url' => 'URL des Aktualisierungsservers',
 		'base-url' => array(
-			'_' => 'Base URL',	// TODO
-			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
+			'_' => 'Base URL',	// IGNORE
+			'recommendation' => 'Automatische Empfehlung: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Nachricht bei geschlossener Registrierung',
 		'cookie-duration' => array(
 			'help' => 'in Sekunden',
-			'number' => 'Eingeloggt bleiben für',
+			'number' => 'Angemeldet bleiben für',
 		),
-		'force_email_validation' => 'E-Mail Adressvalidierung erzwingen',
+		'default_closed_registration_message' => 'Dieser Server akzeptiert momentan keine neuen Registrierungen.',
+		'force_email_validation' => 'E-Mail-Adressprüfung erzwingen',
 		'instance-name' => 'Bezeichnung',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Maximale Anzahl von Accounts',
 			'select' => array(
 				'label' => 'Registrierungsformular',
 				'option' => array(
 					'noform' => 'Deaktiviert: Keine Registrierung möglich',
-					'nolimit' => 'Aktiviert: Registrierung möglich',
-					'setaccountsnumber' => 'Anzahl maximaler Benutzer-Acounts festlegen',
+					'nolimit' => 'Aktiviert: Unbegrenzte Anzahl neuer Accounts',
+					'setaccountsnumber' => 'Maximale Anzahl an Benutzer-Accounts festlegen',
 				),
 			),
 			'status' => array(
@@ -187,16 +114,19 @@ return array(
 			),
 			'title' => 'Benutzer-Registrierungsformular',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
+		'sensitive-parameter' => 'Kritische Einstellung. Manuell in <kbd>./data/config.php</kbd> anpassbar.',
 		'tos' => array(
 			'disabled' => 'sind nicht aktiviert',
 			'enabled' => '<a href="./?a=tos">sind aktiv</a>',
 			'help' => 'So werden die <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">Nutzungsbedingungen aktiviert</a>',
 		),
+		'websub' => array(
+			'help' => 'Über <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
+		),
 	),
 	'update' => array(
 		'_' => 'System aktualisieren',
-		'apply' => 'Anwenden',
+		'apply' => 'Aktualisierung starten',
 		'changelog' => 'Liste der Änderungen',
 		'check' => 'Auf neue Aktualisierungen prüfen',
 		'copiedFromURL' => 'update.php wurde von %s nach ./data kopiert',
@@ -210,7 +140,7 @@ return array(
 			'latest' => 'Stabile Version (“latest”)',
 		),
 		'title' => 'System aktualisieren',
-		'viaGit' => 'Update über git und Github.com gestartet',
+		'viaGit' => 'Update über git und GitHub.com gestartet',
 	),
 	'user' => array(
 		'admin' => 'Administrator',	// IGNORE
@@ -225,8 +155,8 @@ return array(
 		'language' => 'Sprache',
 		'last_user_activity' => 'Letzte Benutzeraktivität',
 		'list' => 'Benutzerliste',
-		'number' => 'Es wurde bis jetzt %d Account erstellt',
-		'numbers' => 'Es wurden bis jetzt %d Accounts erstellt',
+		'number' => 'Bisher wurde %d Account erstellt',
+		'numbers' => 'Bisher wurden %d Accounts erstellt',
 		'password_form' => 'Passwort<br /><small>(für die Anmeldemethode per Webformular)</small>',
 		'password_format' => 'mindestens 7 Zeichen',
 		'title' => 'Benutzer verwalten',

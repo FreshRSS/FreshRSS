@@ -1,0 +1,10 @@
+includes:
+	- phpstan.dist.neon
+	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+parameters:
+	level: max
+	reportPossiblyNonexistentGeneralArrayOffset: false	# TODO: pass maybe
+	excludePaths:
+		analyse:
+			# TODO: Update files below and remove them from this list

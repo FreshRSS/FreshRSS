@@ -229,7 +229,7 @@ $url_array = [
 $feedback_good = 'Tout s’est bien passé !';
 $feedback_bad = 'Oups, quelque chose n’a pas marché.';
 
-Minz_Request::good($feedback_good, $url_array);
+Minz_Request::good($feedback_good, $url_array, showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 
 // ou
 
@@ -240,10 +240,10 @@ Minz_Request::bad($feedback_bad, $url_array);
 
 ## Gestion de la traduction
 
-Cette partie est [expliquée dans la page dédiée](/docs/fr/internationalization.md).
+Cette partie est [expliquée dans la page dédiée](../../internationalization.md).
 
 ## Migration
 
 Existing documentation includes:
 
-* [How to manage migrations](migrations.md)
+* [How to manage migrations](../../../en/developers/Minz/migrations.html)

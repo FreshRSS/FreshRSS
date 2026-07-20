@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Behoud de vorige installatie',
 		'next_step' => 'Ga naar de volgende stap',
 		'reinstall' => 'Installeer FreshRSS opnieuw',
-	),
-	'auth' => array(
-		'form' => 'Web formulier (traditioneel, benodigd JavaScript)',
-		'http' => 'HTTP (voor geavanceerde gebruikers met HTTPS)',
-		'none' => 'Geen (gevaarlijk)',
-		'password_form' => 'Wachtwoord<br /><small>(voor de Web-formulier log in methode)</small>',
-		'password_format' => 'Tenminste 7 tekens',
-		'type' => 'Authenticatiemethode',
 	),
 	'bdd' => array(
 		'_' => 'Database',	// IGNORE
@@ -58,6 +50,23 @@ return array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de data map zijn goed.',
 		),
+		'database-connection' => array(
+			'nok' => 'Fout bij databaseverbinding.',
+			'ok' => 'Databaseverbinding is in orde.',
+		),
+		'database-table' => array(
+			'nok' => 'Databanktabel "%s" is onvolledig.',
+			'ok' => 'Databanktabel "%s" is in orde.',
+		),
+		'database-tables' => array(
+			'nok' => 'Sommige databanktabelen ontbreken.',
+			'ok' => 'Alle databanktabelen bestaan.',
+		),
+		'database-title' => 'Databank',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM.',
 			'ok' => 'U hebt de benodigde bibliotheek om te bladeren in de DOM.',
@@ -70,8 +79,17 @@ return array(
 			'nok' => 'U mist PHP fileinfo (fileinfo package).',
 			'ok' => 'U hebt de fileinfo uitbreiding.',
 		),
+		'files' => 'Bestanden installatie',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'De aanbevolen bibliotheek php-intl voor internationalisering kan niet worden gevonden.',
+			'ok' => 'U beschikt over de aanbevolen bibliotheek php-intl voor internationalisering.',
+		),
 		'json' => array(
-			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
+			'nok' => 'U mist een benodigde bibliotheek om JSON te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
 		),
 		'mbstring' => array(
@@ -82,11 +100,22 @@ return array(
 			'nok' => 'U mist een benodigde bibliotheek voor regular expressions (php-pcre).',
 			'ok' => 'U hebt de benodigde bibliotheek voor regular expressions (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'De vereiste PDO-driver voor MySQL/MariaDB kan niet worden gevonden.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'De vereiste PDO-driver voor PostgreSQL kan niet worden gevonden.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'De PDO-driver voor SQLite kan niet worden gevonden.',
+			'ok' => 'U hebt het PDO-stuurprogramma voor SQLite.',
+		),
 		'pdo' => array(
-			'nok' => 'U mist PDO of één van de ondersteunde (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'U mist PDO of één van de ondersteunde (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'U hebt PDO en ten minste één van de ondersteunde drivers (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'PHP installatie',
 			'nok' => 'Uw PHP versie is %s maar FreshRSS benodigd tenminste versie %s.',
 			'ok' => 'Uw PHP versie is %s, welke compatibel is met FreshRSS.',
 		),
@@ -94,6 +123,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de temp-map zijn goed.',
+		),
+		'tokens' => array(
+			'nok' => 'Controleer de permissies op de <em>./data/tokens</em> map. HTTP server moet rechten hebben om hierin te schrijven',
+			'ok' => 'Permissies op de tokens map zijn goed.',
 		),
 		'unknown_process_username' => 'onbekend',
 		'users' => array(
@@ -104,6 +137,10 @@ return array(
 			'nok' => 'U mist de benodigde bibliotheek om XML te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om XML te gebruiken.',
 		),
+		'zip' => array(
+			'nok' => 'U mist ZIP uitbreiding (php-zip package).',
+			'ok' => 'U hebt ZIP uitbreiding.',
+		),
 	),
 	'conf' => array(
 		'_' => 'Algemene configuratie',
@@ -112,7 +149,7 @@ return array(
 	'congratulations' => 'Gefeliciteerd!',
 	'default_user' => array(
 		'_' => 'Gebruikersnaam van de standaardgebruiker',
-		'max_char' => 'maximaal 16 alfanumerieke tekens',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',
