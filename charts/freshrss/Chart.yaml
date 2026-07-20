@@ -2,7 +2,7 @@ apiVersion: v2
 name: freshrss
 description: A Helm chart for FreshRSS
 type: application
-version: 0.1.0
+version: 1.0.0
 appVersion: "1.29.1"
 home: https://freshrss.org
 sources:
