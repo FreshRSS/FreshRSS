@@ -32,11 +32,11 @@ API endpoint at `/api/greader.php`.
 The `PATH_INFO` parameters are important: FreshRSS uses the path after
 `greader.php` to route Google Reader API requests.
 
-## Caching
+## HTTP caching
 
 Unlike the bundled Apache configuration, OpenBSD `httpd` does not read the
-project's `.htaccess` file. Confirm the cache policy of the server or reverse
-proxy used in front of FreshRSS: static versioned assets such as CSS,
-JavaScript, fonts, and images may be cached, but do not cache PHP pages or API
-responses. If cache-control headers are required at the web-server layer, add
-them in the reverse proxy responsible for that policy.
+project’s [`.htaccess` file](https://github.com/FreshRSS/FreshRSS/blob/edge/p/.htaccess).
+Confirm the HTTP cache policy of the server or reverse
+proxy used in front of FreshRSS: static assets such as CSS,
+JavaScript, fonts, and images should be cached, but do not cache PHP pages or API
+responses.

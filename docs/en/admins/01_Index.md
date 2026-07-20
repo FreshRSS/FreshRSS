@@ -32,8 +32,8 @@ Learn how to install, update, and backup FreshRSS, as well as how to use the com
 ### Web server configuration
 
 * [Apache/Nginx configuration files](10_ServerConfig.md)
-* [Reverse proxy with Caddy](Caddy.md)
 * [OpenBSD httpd](OpenBSD-httpd.md)
+* [Reverse proxy with Caddy](Caddy.md)
 
 ### Special server information
 
