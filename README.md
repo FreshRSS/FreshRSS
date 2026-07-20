@@ -96,6 +96,10 @@ If you want a rolling release with the newest features, or want to help testing 
 
 More detailed information about installation and server configuration can be found in [our documentation](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html).
 
+## Kubernetes / Helm
+
+A Helm chart is available under [`charts/freshrss/`](charts/freshrss/) for deploying FreshRSS on Kubernetes.
+
 # Advice
 
 * For better security, expose only the `./p/` folder to the Web.
