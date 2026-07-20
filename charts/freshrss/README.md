@@ -10,10 +10,10 @@ helm install freshrss ./charts/freshrss \
   --create-namespace
 ```
 
-Or from the packaged repository (once published to GitHub Pages):
+Or from the published Helm repository:
 
 ```sh
-helm repo add freshrss https://freshrss.github.io/FreshRSS
+helm repo add freshrss https://raw.githubusercontent.com/FreshRSS/FreshRSS/gh-pages
 helm install freshrss freshrss/freshrss --namespace freshrss --create-namespace
 ```
 
