@@ -37,6 +37,12 @@ service:
   type: ClusterIP
   port: 80
 
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+  automountServiceAccountToken: false
+
 ingress:
   enabled: true
   className: ""
