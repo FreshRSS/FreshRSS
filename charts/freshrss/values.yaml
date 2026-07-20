@@ -76,6 +76,16 @@ persistence:
 
 resources: {}
 
+podSecurityContext: {}
+  # fsGroup: 33
+
+securityContext: {}
+  # runAsNonRoot: true
+  # readOnlyRootFilesystem: false
+  # capabilities:
+  #   drop:
+  #     - ALL
+
 livenessProbe:
   httpGet:
     path: /
