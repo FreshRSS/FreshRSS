@@ -47,6 +47,11 @@ helm uninstall freshrss --namespace freshrss
 | `ingress.annotations` | `{}` | Ingress annotations |
 | `ingress.host` | `freshrsstest.kube.xtremeownage.com` | Ingress host |
 | `ingress.path` | `/` | Ingress path |
+| `httpRoute.enabled` | `false` | Create a Gateway API `HTTPRoute` instead of/alongside an Ingress |
+| `httpRoute.annotations` | `{}` | HTTPRoute annotations |
+| `httpRoute.parentRefs` | `[]` | Gateway `parentRefs` the route attaches to |
+| `httpRoute.hostnames` | `[]` | Hostnames matched by the route |
+| `httpRoute.matches` | path prefix `/` | Route match rules |
 | `persistence.enabled` | `true` | Persist FreshRSS data with a PVC |
 | `persistence.storageClass` | _unset_ | StorageClass for the PVC (`-` for empty class) |
 | `persistence.accessMode` | `ReadWriteOnce` | PVC access mode |

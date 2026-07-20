@@ -29,6 +29,20 @@ ingress:
   host: "freshrsstest.kube.xtremeownage.com"
   path: "/"
 
+httpRoute:
+  enabled: false
+  annotations: {}
+  parentRefs: []
+    # - name: my-gateway
+    #   namespace: gateway-system
+    #   sectionName: https
+  hostnames: []
+    # - freshrss.example.com
+  matches:
+    - path:
+        type: PathPrefix
+        value: /
+
 persistence:
   enabled: true
   # storageClass: "-"
