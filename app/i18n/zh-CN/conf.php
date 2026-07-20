@@ -38,6 +38,7 @@ return array(
 			'help' => '仅适用于兼容性主题',
 			'no' => '关闭',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => '底栏',
 			'display_authors' => '作者',

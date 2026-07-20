@@ -38,6 +38,7 @@ return array(
 			'help' => 'Только для совместимых тем',
 			'no' => 'Нет',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
 			'display_authors' => 'Авторы',

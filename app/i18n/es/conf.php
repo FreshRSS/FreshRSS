@@ -38,6 +38,7 @@ return array(
 			'help' => 'Solo para temas compatibles',
 			'no' => 'No',	// IGNORE
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Línea inferior',
 			'display_authors' => 'Autores',

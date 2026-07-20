@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Все таблицы базы данных существуют.',
 		),
 		'database-title' => 'База данных',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'У вас не установлена необходимая библиотека для просмотра DOM (пакет php-xml).',
 			'ok' => 'У вас установлена необходимая библиотека для просмотра DOM.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'У вас установлено расширение fileinfo.',
 		),
 		'files' => 'Установка файлов',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Не найдена библиотека php-intl, рекомендуемая для поддержки разных языков.',
 			'ok' => 'Рекомендуемая библиотека php-intl для поддержки разных языков установлена.',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Поздравляем!',
 	'default_user' => array(
 		'_' => 'Имя пользователя по умолчанию',
-		'max_char' => 'не более 16 буквенно-цифровых символов',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Пожалуйста, исправьте ошибки, прежде чем перейти к следующему шагу.',
 	'javascript_is_better' => 'Пользоваться FreshRSS приятнее с включённым JavaScript',

@@ -38,6 +38,7 @@ return array(
 			'help' => 'Tikai saderīgām tēmām',
 			'no' => 'Nē',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Apakšējā līnija',
 			'display_authors' => 'Autori',

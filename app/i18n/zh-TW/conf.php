@@ -38,6 +38,7 @@ return array(
 			'help' => '僅適用於相容主題',
 			'no' => '否',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => '底部',
 			'display_authors' => '作者',
@@ -142,7 +143,7 @@ return array(
 			'disabled' => 'API 存取已停用',
 			'documentation_link' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">說明文件與已知應用程式清單</a>',
 			'help' => '請參閱 <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>說明文件</a>',
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'security_warning' => '請使用 HTTPS。API 密碼會以明文傳輸，並且如果透過 GET 傳送，可能出現在伺服器的紀錄中。',
 		),
 		'change_password' => '變更密碼',
 		'confirm_new_password' => '確認新密碼',
