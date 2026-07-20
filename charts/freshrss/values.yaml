@@ -3,6 +3,9 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
+imagePullSecrets: []
+  # - name: my-registry-secret
+
 freshrss:
   CRON_MIN: "*/15"
   ADMIN_EMAIL: ""
