@@ -18,6 +18,9 @@
 # OS files
 .DS_Store
 
+# Packaged Helm charts
+*.tgz
+
 # Temp files
 *~
 *.bak
