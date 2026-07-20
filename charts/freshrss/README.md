@@ -85,5 +85,22 @@ helm uninstall freshrss --namespace freshrss
 helm test freshrss --namespace freshrss
 ```
 
-See [InstallingWithRancher.md](InstallingWithRancher.md) for Rancher-specific instructions.
+## Installing with Rancher
+
+1. Add the repository.
+
+   ![Add repo](https://github.com/XtremeOwnageDotCom/FreshRSS/assets/5262735/b25b1cb5-91a0-48ca-ae00-a60edc6dc495)
+
+2. Open the charts list and select FreshRSS.
+
+   ![View charts](https://github.com/XtremeOwnageDotCom/FreshRSS/assets/5262735/4e8f5982-fd38-41e1-8d42-336c1e826423)
+
+3. Click **Install**, give it a namespace and name, then click **Customize**.
+
+   ![Customize](https://github.com/XtremeOwnageDotCom/FreshRSS/assets/5262735/cbce0cb0-ca73-4ffb-94a2-2771901e71d7)
+
+4. Set at least an ingress rule, then install.
+
+   ![Install](https://github.com/XtremeOwnageDotCom/FreshRSS/assets/5262735/b10532de-bb51-4b13-b428-dddc68630154)
+
 
