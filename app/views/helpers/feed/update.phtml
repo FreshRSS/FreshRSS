@@ -173,6 +173,17 @@
 				</div>
 			</div>
 
+			<div class="form-group">
+				<label class="group-name" for="display_enclosures"><?= _t('conf.display.display_enclosures') ?></label>
+				<div class="group-controls">
+					<select name="display_enclosures" id="display_enclosures" class="w50">
+						<option value=""<?= $this->feed->attributeBoolean('display_enclosures') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="0"<?= $this->feed->attributeBoolean('display_enclosures') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+						<option value="1"<?= $this->feed->attributeBoolean('display_enclosures') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					</select>
+				</div>
+			</div>
+
 			<?php
 				$feedDefaultSort = $this->feed->defaultSort();
 				$feedDefaultOrder = $this->feed->defaultOrder();

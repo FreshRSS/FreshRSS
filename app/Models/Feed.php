@@ -846,8 +846,10 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 
 			$attributeEnclosures = [];
-			if (!empty($item->get_enclosures())) {
-				foreach ($item->get_enclosures() as $enclosure) {
+			// Keep only one representation per `<media:group>` (the `isDefault` one, or the first one)
+			$enclosures = $item->get_enclosures(excludeMediaGroupAlternatives: true);
+			if (!empty($enclosures)) {
+				foreach ($enclosures as $enclosure) {
 					$elink = $enclosure->get_link();
 					if ($elink != '') {
 						$etitle = $enclosure->get_title() ?? '';
