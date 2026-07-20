@@ -16,7 +16,7 @@ spec:
     app.kubernetes.io/component: app
   ports:
     - name: http
-      port: 80
+      port: {{ .Values.service.port }}
       protocol: TCP
       targetPort: http
-  type: ClusterIP
+  type: {{ .Values.service.type }}

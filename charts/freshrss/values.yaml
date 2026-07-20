@@ -1,10 +1,11 @@
 image:
+  repository: freshrss/freshrss
   tag: latest
+  pullPolicy: IfNotPresent
 
 freshrss:
   CRON_MIN: "*/15"
   ADMIN_EMAIL: ""
-
 
 oidc:
   enabled: false
@@ -17,14 +18,43 @@ oidc:
     clientSecret: ""
     clientCryptoKey: ""
 
+service:
+  type: ClusterIP
+  port: 80
 
 ingress:
   enabled: true
+  className: ""
+  annotations: {}
   host: "freshrsstest.kube.xtremeownage.com"
   path: "/"
 
 persistence:
   enabled: true
-  # storageClassName: "-"
+  # storageClass: "-"
   accessMode: ReadWriteOnce
   size: "5Gi"
+
+resources: {}
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 5
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

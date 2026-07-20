@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-test-connection"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ template "name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  restartPolicy: Never
+  containers:
+    - name: test-connection
+      image: busybox:1.36
+      command: ["sh", "-c"]
+      args:
+        - "wget --spider --tries=10 --timeout=10 http://{{ .Release.Name }}:{{ .Values.service.port }}/"

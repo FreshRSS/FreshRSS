@@ -13,7 +13,7 @@ metadata:
     app.kubernetes.io/component: app
 spec:
   replicas: 1
-  serviceName: freshrss
+  serviceName: {{ .Release.Name }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ template "name" . }}
@@ -28,11 +28,16 @@ spec:
     spec:
       volumes:
         - name: data
+        {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-data
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
       containers:
         - name: freshrss
-          image: freshrss/freshrss:{{ .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-config
@@ -46,5 +51,30 @@ spec:
               name: data
               subPath: www/freshrss/data
           ports:
-          - containerPort: 80
-            name: http
+            - containerPort: 80
+              name: http
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
