@@ -873,9 +873,10 @@ function auto_share(key) {
 	if (!share) {
 		return;
 	}
-	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
+	let shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	if (typeof key === 'undefined') {
 		show_share_menu(share);
+		shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 
 		// Display the share div
 		location.hash = share.id;
