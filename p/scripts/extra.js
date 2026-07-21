@@ -342,7 +342,7 @@ function open_slider_listener(ev) {
 			const req = new XMLHttpRequest();
 			slider_content.innerHTML = '';
 			slider.classList.add('sliding');
-			const ahref = a.href + '&ajax=1#slider';
+			const ahref = a.href + '&ajax=1&_=' + Date.now() + '#slider';
 			req.open('GET', ahref, true);
 			req.responseType = 'document';
 			req.onload = function (e) {
