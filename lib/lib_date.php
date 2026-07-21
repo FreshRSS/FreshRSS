@@ -46,13 +46,25 @@ function example(string $dateInterval): void {
 
 function _dateFloor(string $isoDate): string {
 	$x = explode('T', $isoDate, 2);
-	$t = isset($x[1]) ? str_pad($x[1], 6, '0') : '000000';
+	$t = isset($x[1]) ? $x[1] : '';
+	$timezone = '';
+	if (preg_match('/([+-]\d{4}|Z)$/i', $t, $matches)) {
+		$timezone = $matches[1];
+		$t = substr($t, 0, -strlen($timezone));
+	}
+	$t = str_pad($t, 6, '0') . $timezone;
 	return str_pad($x[0], 8, '01') . 'T' . $t;
 }
 
 function _dateCeiling(string $isoDate): string {
 	$x = explode('T', $isoDate, 2);
-	$t = isset($x[1]) && strlen($x[1]) > 1 ? str_pad($x[1], 6, '59') : '235959';
+	$t = isset($x[1]) ? $x[1] : '';
+	$timezone = '';
+	if (preg_match('/([+-]\d{4}|Z)$/i', $t, $matches)) {
+		$timezone = $matches[1];
+		$t = substr($t, 0, -strlen($timezone));
+	}
+	$t = strlen($t) > 1 ? str_pad($t, 6, '59') . $timezone : '235959' . $timezone;
 	switch (strlen($x[0])) {
 		case 4:
 			return $x[0] . '1231T' . $t;
