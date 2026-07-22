@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Felhasználó név',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 karakter: betűk, számjegyek és <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
