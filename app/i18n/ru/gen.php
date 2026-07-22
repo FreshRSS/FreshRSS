@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Имя пользователя',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 символов: буквы, цифры и <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
