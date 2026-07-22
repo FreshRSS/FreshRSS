@@ -49,7 +49,7 @@ OIDC support in Docker is activated by the presence of a non-empty non-zero `OID
 
 > ℹ️ `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET`, and `OIDC_CLIENT_CRYPTO_KEY` can each instead be provided via a `_FILE` suffixed
 > variable pointing to a file containing the value (e.g. `OIDC_CLIENT_SECRET_FILE=/run/secrets/oidc_client_secret`),
-> to use with [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) or similar. See [Docker/README.md](../../../Docker/README.md#docker-secrets-_file-variables).
+> to use with [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) or similar. See [Docker/README.md](../../../Docker/README.md#openid-connect-secret-files-_file-variables).
 
 You may add additional custom configuration in a new `./FreshRSS/p/i/.htaccess` file.
 
