@@ -38,16 +38,10 @@ if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_e
 	die('Service Unavailable!');
 }
 
-// Strip path info from URL to ensure proper displaying of relative URLs
-$pathInfo = $_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '';
-if ($pathInfo !== '') {
-	$scriptName = is_string($_SERVER['SCRIPT_NAME'] ?? null) ? $_SERVER['SCRIPT_NAME'] : '';
-	$queryString = is_string($_SERVER['QUERY_STRING'] ?? null) ? $_SERVER['QUERY_STRING'] : '';
-	if ($queryString !== '') {
-		$queryString = '?' . $queryString;
-	}
-	header('Location: ' . $scriptName . $queryString);
-	exit();
+if (($_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '') !== '') {
+	// Do not allow trailing slashes
+	header('HTTP/1.1 400 Bad Request');
+	die('Invalid path!');
 }
 
 FreshRSS_Context::initUser($user);
