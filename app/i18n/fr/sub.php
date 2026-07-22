@@ -294,8 +294,8 @@ return array(
 		'important' => 'Afficher dans les flux importants',
 		'main_stream' => 'Afficher dans les flux principaux',
 		'use_category_setting' => array(
-			'_' => 'Use category setting',	// TODO
-			'help' => 'Category setting: %s',	// TODO
+			'_' => 'Utiliser le paramètre de la catégorie',
+			'help' => 'Paramètre de la catégorie : %s',
 		),
 	),
 	'tag' => array(
