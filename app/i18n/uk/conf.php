@@ -38,6 +38,7 @@ return array(
 			'help' => 'Лише для підтримуваних тем',
 			'no' => 'Вимкнено',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Нижній рядок',
 			'display_authors' => 'Автори',

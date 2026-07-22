@@ -38,6 +38,7 @@ return array(
 			'help' => 'Solo per i temi compatibili',
 			'no' => 'No',	// IGNORE
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Barra in fondo',
 			'display_authors' => 'Autori',

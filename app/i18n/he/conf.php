@@ -38,6 +38,7 @@ return array(
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// TODO
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'שורה תחתונה',
 			'display_authors' => 'Authors',	// TODO

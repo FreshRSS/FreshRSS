@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Veritabanı tabloları mevcut.',
 		),
 		'database-title' => 'Veritabanı',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'DOM’u taramak için gerekli kütüphane bulunamadı.',
 			'ok' => 'DOM’u taramak için gerekli kütüphaneniz var.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'Fileinfo kütüphaneniz var.',
 		),
 		'files' => 'Dosya kurulumu',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Uluslararasılaştırma için önerilen php-intl kütüphanesi bulunamadı.',
 			'ok' => 'Uluslararasılaştırma için önerilen php-intl kütüphanesine sahipsiniz.',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Tebrikler!',
 	'default_user' => array(
 		'_' => 'Varsayılan kullanıcının kullanıcı adı',
-		'max_char' => 'en fazla 16 alfanümerik karakter',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Lütfen bir sonraki adıma geçmeden önce hataları düzeltin.',
 	'javascript_is_better' => 'FreshRSS, JavaScript etkinleştirildiğinde daha keyifli',

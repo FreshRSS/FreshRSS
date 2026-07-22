@@ -38,6 +38,7 @@ return array(
 			'help' => 'Hanya untuk tema yang kompatibel',
 			'no' => 'Tidak',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Baris bawah',
 			'display_authors' => 'Penulis',

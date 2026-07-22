@@ -49,6 +49,11 @@ OIDC support in Docker is activated by the presence of a non-empty non-zero `OID
 
 You may add additional custom configuration in a new `./FreshRSS/p/i/.htaccess` file.
 
+### Token endpoint authentication method
+
+Our [reference Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) does not set `OIDCProviderTokenEndpointAuth`, so [mod_auth_openidc](https://github.com/OpenIDC/mod_auth_openidc) falls back to its own default, `client_secret_basic` (i.e. the client ID and secret are sent in an HTTP Basic Authentication header when calling the token endpoint). If your identity provider’s discovery metadata advertises a `token_endpoint_auth_methods_supported` array, mod_auth_openidc instead uses the first method in that array that it also supports, which may not be `client_secret_basic`.
+If you need a different method, you can set `OIDCProviderTokenEndpointAuth` yourself in a custom `./FreshRSS/p/i/.htaccess` file, as mentioned above.
+
 ## Using own Apache installation
 
 See our reference [Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) for more information.

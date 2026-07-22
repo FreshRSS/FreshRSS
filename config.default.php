@@ -211,6 +211,7 @@ return [
 		'username' => '',
 		'password' => '',
 		'secure' => '', // '', 'ssl' or 'tls'
+		'auto_tls' => true, // maps to PHPMailer’s `SMTPAutoTLS`; set to false to disable opportunistic STARTTLS, e.g. when using a self-signed certificate
 		'from' => 'root@localhost',
 	],
 
