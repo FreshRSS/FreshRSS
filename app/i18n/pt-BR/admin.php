@@ -92,12 +92,12 @@ return array(
 		'force_email_validation' => 'Força verificação do endereço de email',
 		'instance-name' => 'Nome da instância',
 		'internal-host-allowlist' => array(
-			'_' => 'Internal host allowlist',	// TODO
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'_' => 'Lista de permissões de hosts internos',
+			'help' => 'Uma entrada por linha:<ul><li>Um <code>host:porta</code>. Por exemplo, <code>127.0.0.1:8080</code> ou <code>rss-bridge:80</code></li><li>Uma notação CIDR. Por exemplo, <code>0.0.0.0/0</code> para permitir qualquer IPv4, <code>::/0</code> para permitir qualquer IPv6</li><li>Um <code>*</code> para permitir qualquer host (não seguro)</li></ul>',
 		),
 		'max-categories' => 'Limite de categorias por usuário',
 		'max-feeds' => 'Limite de Feeds por usuário',
-		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'override-by-env-var' => 'Esta configuração é definida pela variável de ambiente <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Máximo número de contas',
 			'select' => array(
