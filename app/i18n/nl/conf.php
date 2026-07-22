@@ -38,7 +38,7 @@ return array(
 			'help' => 'Alleen voor compatibele thema’s',
 			'no' => 'Nee',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Bijlagen weergeven',
 		'icon' => array(
 			'bottom_line' => 'Onderaan',
 			'display_authors' => 'Auteurs',
@@ -57,11 +57,11 @@ return array(
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'show_title_unread' => 'Aantal ongelezen artikelen in de titel weergeven',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Aantal ongelezen artikelen in de zijbalk weergeven',
+			'all' => 'Voor alle categorieën en feeds',
+			'important' => 'Alleen voor belangrijke feeds',
+			'important_locked' => 'Belangrijke feeds tonen altijd hun aantal ongelezen artikelen.',
+			'none' => 'Nooit',
 		),
 		'sidebar_hidden_by_default' => 'Zijbalk standaard verbergen',
 		'theme' => array(

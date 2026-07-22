@@ -92,12 +92,12 @@ return array(
 		'force_email_validation' => 'Emailadresvalidatie forceren',
 		'instance-name' => 'Voorbeeld naam',
 		'internal-host-allowlist' => array(
-			'_' => 'Internal host allowlist',	// TODO
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'_' => 'Lijst met toegestane interne hosts',
+			'help' => 'Eén item per regel:<ul><li>Een <code>host:poort</code>. Bijvoorbeeld <code>127.0.0.1:8080</code> of <code>rss-bridge:80</code></li><li>Een CIDR-notatie. Bijvoorbeeld <code>0.0.0.0/0</code> om elk IPv4-adres toe te staan, <code>::/0</code> om elk IPv6-adres toe te staan</li><li>Een <code>*</code> om elke host toe te staan (onveilig)</li></ul>',
 		),
 		'max-categories' => 'Categorielimiet per gebruiker',
 		'max-feeds' => 'Feedlimiet per gebruiker',
-		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'override-by-env-var' => 'Deze instelling wordt ingesteld door de omgevingsvariabele <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Maximum aantal accounts',
 			'select' => array(
