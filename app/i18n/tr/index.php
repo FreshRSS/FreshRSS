@@ -102,37 +102,37 @@ return array(
 		'rss_view' => 'RSS beslemesi',
 		'search_short' => 'Ara',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'Yükselen',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Kategori, besleme başlıkları A→Z',
+				'name_desc' => 'Kategori, beslnme başlıkları Z→A',
 			),
 			'date_asc' => 'Yayın tarihi 1→9',
 			'date_desc' => 'Yayın tarihi 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => 'Azalan',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Besleme başlıkları A→Z',
+				'name_desc' => 'Besleme başlıkları Z→A',
 			),
 			'id_asc' => 'Son alınanlar en sonda',
 			'id_desc' => 'Son alınanlar başta',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'length_asc' => 'İçerik uzunluğu 1→9',
+			'length_desc' => 'İçerik uzunluğu 9→1',
 			'link_asc' => 'Bağlantı A→Z',
 			'link_desc' => 'Bağlantı Z→A',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => 'Sıralama kriteri',
+				'help' => '<em>received</em> tarihi tarafından sıralamak, tutarlılık ve performans açısından çoğu zaman önerilir',
 			),
 			'rand' => 'Rastgele sıralama',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => 'İkincil sıralama ölçütü',
+				'help' => 'Yalnızca birincil sıralama ölçütü kategoriler veya besleme başlıkları olduğunda geçerlidir.',
 			),
 			'title_asc' => 'Başlık A→Z',
 			'title_desc' => 'Başlık Z→A',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => 'Kullanıcı tarafından değiştirilen 1→9',
+			'user_modified_desc' => 'Kullanıcı tarafından değiştirilen 9→1',
 		),
 		'starred' => 'Favorileri göster',
 		'stats' => 'İstatistikler',

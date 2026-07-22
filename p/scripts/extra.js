@@ -387,8 +387,20 @@ function init_slider(slider) {
 
 	document.getElementById('close-slider').addEventListener('click', close_slider_listener);
 	document.querySelector('#slider .toggle_aside').addEventListener('click', close_slider_listener);
+	slider.addEventListener('click', ev => {
+		if (ev.target.closest('.extension-configure button[type="reset"], .extension-configure input[type="reset"]') && close_slider_listener(ev)) {
+			location.hash = 'close';
+		}
+	});
 
 	if (slider.children.length > 0) {
+		const slider_scrollTop = sessionStorage.getItem('FreshRSS_slider_scrollTop');
+		if (slider_scrollTop) {
+			slider.scrollTop = +slider_scrollTop;
+			sessionStorage.removeItem('FreshRSS_slider_scrollTop');
+		}
+		slider.submitListener = () => sessionStorage.setItem('FreshRSS_slider_scrollTop', slider.scrollTop);
+		slider.addEventListener('submit', slider.submitListener);
 		slider.dispatchEvent(freshrssSliderLoadEvent);
 	}
 }
@@ -396,6 +408,7 @@ function init_slider(slider) {
 function close_slider_listener(ev) {
 	const slider = document.getElementById('slider');
 	if (data_leave_validation(slider) || confirm(context.i18n.confirm_exit_slider)) {
+		slider.removeEventListener('submit', slider.submitListener);
 		return true;
 	}
 	if (ev) {
@@ -632,32 +645,30 @@ function init_extra_afterDOM() {
 	if (loginButton) {
 		loginButton.addEventListener('click', forgetOpenCategories);
 	}
-	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
-		init_crypto_forms();
-		init_password_observers(document.body);
-		init_select_observers();
-		init_configuration_alert();
-		init_2stateButton();
-		init_update_feed();
-		init_details_attributes();
-		init_user_stats();
-		init_enable_notify_button();
+	init_crypto_forms();
+	init_password_observers(document.body);
+	init_select_observers();
+	init_configuration_alert();
+	init_2stateButton();
+	init_update_feed();
+	init_details_attributes();
+	init_user_stats();
+	init_enable_notify_button();
 
-		data_auto_leave_validation(document.body);
+	data_auto_leave_validation(document.body);
 
-		const slider = document.getElementById('slider');
-		if (slider) {
-			slider.addEventListener('freshrss:slider-load', function (e) {
-				init_password_observers(slider);
-			});
-			init_slider(slider);
-			init_archiving(slider);
-			init_url_observers(slider);
-		} else {
-			init_display(document.body);
-			init_archiving(document.body);
-			init_url_observers(document.body);
-		}
+	const slider = document.getElementById('slider');
+	if (slider) {
+		slider.addEventListener('freshrss:slider-load', function (e) {
+			init_password_observers(slider);
+		});
+		init_slider(slider);
+		init_archiving(slider);
+		init_url_observers(slider);
+	} else {
+		init_display(document.body);
+		init_archiving(document.body);
+		init_url_observers(document.body);
 	}
 
 	if (window.console) {

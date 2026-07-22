@@ -38,6 +38,12 @@ if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_e
 	die('Service Unavailable!');
 }
 
+if (($_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '') !== '') {
+	// Do not allow trailing slashes
+	header('HTTP/1.1 400 Bad Request');
+	die('Invalid path!');
+}
+
 FreshRSS_Context::initUser($user);
 if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) {
 	usleep(rand(100, 10000));	//Primitive mitigation of scanning for users

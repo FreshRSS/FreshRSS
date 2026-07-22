@@ -38,6 +38,7 @@ return array(
 			'help' => 'Solo per i temi compatibili',
 			'no' => 'No',	// IGNORE
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Barra in fondo',
 			'display_authors' => 'Autori',
@@ -311,6 +312,8 @@ return array(
 			'when' => 'Segna un articolo come preferito…',
 		),
 		'sticky_post' => 'Blocca il contenuto a inizio pagina quando aperto',
+		'sticky_sort' => 'Mantieni l’ordinamento manuale durante la navigazione',	// DIRTY
+		'sticky_sort_help' => 'Determina se l’ultimo ordinamento manuale rimane attivo oppure se ogni categoria o feed usa sempre la propria impostazione predefinita o globale.',	// DIRTY
 		'title' => 'Lettura',
 		'view' => array(
 			'default' => 'Visualizzazione predefinita',

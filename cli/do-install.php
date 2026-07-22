@@ -58,7 +58,7 @@ $cliOptions = new class extends CliOptionsParser {
 		$this->addOption('dbUser', (new CliOption('db-user')));
 		$this->addOption('dbPassword', (new CliOption('db-password')));
 		$this->addOption('dbBase', (new CliOption('db-base')));
-		$this->addOption('dbPrefix', (new CliOption('db-prefix'))->withValueOptional());
+		$this->addOption('dbPrefix', (new CliOption('db-prefix'))->withValueRequired());
 		parent::__construct();
 	}
 };

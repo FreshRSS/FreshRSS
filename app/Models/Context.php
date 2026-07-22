@@ -669,4 +669,29 @@ final class FreshRSS_Context {
 		$timezone = ini_get('date.timezone');
 		return $timezone != false ? $timezone : 'UTC';
 	}
+
+	/**
+	 * Sort locale-aware with Collator if available
+	 */
+	public static function localeCompare(string $a, string $b): int {
+		static $collator = null;
+
+		if ($collator === null) {
+			$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
+			if ($language === '' || !class_exists(\Collator::class)) {
+				$collator = false;
+			} else {
+				$collator = \Collator::create($language) ?? false;
+			}
+			if ($collator instanceof \Collator) {
+				$collator->setAttribute(\Collator::NUMERIC_COLLATION, \Collator::ON);
+			}
+		}
+
+		if (!($collator instanceof \Collator)) {
+			return strnatcasecmp($a, $b);
+		}
+		$result = $collator->compare($a, $b);
+		return $result === false ? strnatcasecmp($a, $b) : $result;
+	}
 }

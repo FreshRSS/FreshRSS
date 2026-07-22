@@ -38,6 +38,7 @@ return array(
 			'help' => 'Yalnızca uyumlu temalar için',
 			'no' => 'Hayır',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Alt satır',
 			'display_authors' => 'Yazarlar',
@@ -56,13 +57,13 @@ return array(
 		'show_nav_buttons' => 'Gezinme düğmelerini göster',
 		'show_title_unread' => 'Başlıkta okunmamış makale sayısını göster',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Yan panelde okunmamış sayılarını göster',
+			'all' => 'Tüm kategoriler ve beslemeler için',
+			'important' => 'Sadece önemli beslemeler için',
+			'important_locked' => 'Önemli beslemeler her zaman okunmamış öğe sayılarını gösterir.',
+			'none' => 'Asla',
 		),
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'sidebar_hidden_by_default' => 'Yan paneli her zaman gizle',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -115,22 +116,22 @@ return array(
 		'small' => 'Küçük',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Bildirimleri açın',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Uyarı başlığını göster',
+			'seconds' => 'Saniye (en az 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Onay bildirim başlığını göster',
+			'seconds' => 'Saniyeler (0 = asla gösterme)',
 		),
 	),
 	'privacy' => array(
 		'_' => 'Gizlilik',
 		'retrieve_extension_list' => 'Eklenti listesini al',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => 'Sunucu adresinizi görmesine izin verilen siteler (%s)',
 	),
 	'profile' => array(
 		'_' => 'Profil yönetimi',
@@ -142,24 +143,24 @@ return array(
 			'disabled' => 'API erişimi devre dışı.',
 			'documentation_link' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri ve bilinen uygulamaların listesini</a> gör',
 			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Belgeleri</a> gör',
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'security_warning' => 'HTTPS kullanın. API parolası düz metin olarak iletilir ve GET isteğiyle gönderilmesi durumunda sunucu günlüklerinde görünebilir.',
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'change_password' => 'Parolayı değiştir',
+		'confirm_new_password' => 'Yeni parolayı onayla',
+		'current_password' => 'Mevcut parola<br /><small>(Web-form yöntemiyle giriş yapmak için)</small>',
 		'delete' => array(
 			'_' => 'Hesap silme',
 			'warn' => 'Hesabınız ve ilgili tüm veriler silinecek.',
 		),
 		'email' => 'E-posta adresi',
-		'new_password' => 'New password',	// TODO
+		'new_password' => 'Yeni parola',
 		'password_api' => 'API parolası<br /><small>(örneğin, mobil uygulamalar için)</small>',
 		'password_format' => 'En az 7 karakter',
 		'title' => 'Profil',
 	),
 	'query' => array(
 		'_' => 'Kullanıcı sorguları',
-		'create' => 'Create new user query',	// TODO
+		'create' => 'Yeni kullanıcı sorgusu oluştur',
 		'deprecated' => 'Bu sorgu artık geçerli değil. İlgili kategori veya besleme silinmiş.',
 		'description' => 'Açıklama',
 		'filter' => array(
@@ -167,7 +168,7 @@ return array(
 			'categories' => 'Kategoriye göre göster',
 			'feeds' => 'Beslemeye göre göster',
 			'order' => 'Tarihe göre sırala',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'publish_labels_instead_of_tags' => 'Paylaşılan RSS içindeki <i>feed tags</i>, <i>user labels</i> tarafından değiştirilmeli',
 			'search' => 'İfade',
 			'shareOpml' => 'İlgili kategori ve beslemelerin OPML ile paylaşımını etkinleştir',
 			'shareRss' => 'HTML ve RSS ile paylaşımı etkinleştir',
@@ -290,7 +291,7 @@ return array(
 			'upon_gone' => 'artık上游 haber akışında olmadığında',
 			'upon_reception' => 'makale alındığında',
 			'when' => 'Bir makaleyi okundu olarak işaretle…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_guid_in_category' => 'eğer kategorinin en yeni <i>n</i> makalesi arasında aynı GUID zaten varsa',
 			'when_same_title_in_category' => 'eğer aynı başlık kategorideki en yeni <i>n</i> makalede zaten varsa',
 			'when_same_title_in_feed' => 'eğer aynı başlık beslemedeki en yeni <i>n</i> makalede zaten varsa',
 		),
@@ -311,6 +312,8 @@ return array(
 			'when' => 'Bir makaleyi favori olarak işaretle…',
 		),
 		'sticky_post' => 'Makale açıldığında üstte sabitle',
+		'sticky_sort' => 'Gezinme sırasında el ile belirlenen sıralama düzenini koru',	// DIRTY
+		'sticky_sort_help' => 'Son el ile belirlenen sıralama düzeninin etkin kalıp kalmayacağını ya da her kategori veya beslemenin her zaman kendi varsayılan veya genel ayarını kullanacağını belirler.',	// DIRTY
 		'title' => 'Okuma',
 		'view' => array(
 			'default' => 'Varsayılan görünüm',
@@ -370,7 +373,7 @@ return array(
 		'skip_next_article' => 'Açmadan sonrakine odaklan',
 		'skip_previous_article' => 'Açmadan öncesine odaklan',
 		'title' => 'Kısayollar',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Yan paneli aç',
 		'toggle_media' => 'Medyayı oynat/duraklat',
 		'user_filter' => 'Kullanıcı sorgularına eriş',
 		'user_filter_help' => 'Eğer yalnızca bir kullanıcı sorgusu varsa, o kullanılır. Aksi takdirde, sorgular numaralarıyla erişilebilir.',

@@ -38,6 +38,7 @@ return array(
 			'help' => 'کمک',
 			'no' => 'خیر',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => ' خط پایین',
 			'display_authors' => ' نویسندگان',
@@ -311,6 +312,8 @@ return array(
 			'when' => 'یک مطلب را به عنوان مورد علاقه علامت‌گذاری کن...',
 		),
 		'sticky_post' => ' وقتی باز شد مقاله را به بالا بچسبانید',
+		'sticky_sort' => 'حفظ ترتیب مرتب‌سازی دستی هنگام پیمایش',	// DIRTY
+		'sticky_sort_help' => 'تعیین می‌کند که آیا آخرین ترتیب مرتب‌سازی دستی فعال بماند یا هر دسته یا خوراک همیشه از تنظیم پیش‌فرض یا سراسری خود استفاده کند.',	// DIRTY
 		'title' => ' خواندن',
 		'view' => array(
 			'default' => ' نمای پیش فرض',
