@@ -224,6 +224,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->categories = FreshRSS_Context::categories();
+		if (FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_FAVORITE)
+			&& !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_FAVORITE)
+			&& !FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_ORS)) {
+			$this->view->feedIdsMatchingState = FreshRSS_Factory::createEntryDao()->listFeedIdsMatchingState(
+				FreshRSS_Context::$state, FreshRSS_Context::$search);
+		}
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = _t('index.feed.title_global');

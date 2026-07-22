@@ -52,7 +52,8 @@
 	$unreadArticles = 0;
 
 	foreach ($this->categories as $cat) {
-		$feeds = $cat->feeds();
+		$feeds = $this->feedIdsMatchingState === null ? $cat->feeds() : array_filter(
+			$cat->feeds(), fn(FreshRSS_Feed $feed): bool => in_array($feed->id(), $this->feedIdsMatchingState, true));
 		$url_base['params']['get'] = 'c_' . $cat->id();
 
 		if (!empty($feeds)) {
