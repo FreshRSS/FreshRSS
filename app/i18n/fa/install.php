@@ -64,8 +64,8 @@ return array(
 		),
 		'database-title' => 'پایگاه داده',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'به‌نظر می‌رسد ریشهٔ اسناد وب‌سرور شما به پوشهٔ <code>./p/</code> اشاره نمی‌کند. ممکن است پوشه‌های دیگری مانند <code>./data/</code> به‌صورت عمومی قابل دسترسی باشند.',
+			'ok' => 'ریشهٔ اسناد وب‌سرور شما به‌درستی به پوشهٔ <code>./p/</code> اشاره می‌کند.',
 		),
 		'dom' => array(
 			'nok' => 'کتابخانه مورد نیاز برای مرور DOM را نمی‌توان پیدا کرد.',
@@ -81,8 +81,8 @@ return array(
 		),
 		'files' => ' نصب فایل',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => 'افزونهٔ GMP موردنیاز برای PHP ۳۲ بیتی (بستهٔ php-gmp) پیدا نشد.',
+			'ok' => 'افزونهٔ GMP موردنیاز برای PHP ۳۲ بیتی در دسترس است.',
 		),
 		'intl' => array(
 			'nok' => 'کتابخانه پیشنهادی php-intl برای بین‌المللی‌سازی پیدا نشد.',
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'تبریک می‌گویم!',
 	'default_user' => array(
 		'_' => 'نام کاربری کاربر پیش‌فرض',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '۱ تا ۳۹ نویسه: حروف، رقم‌ها و <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'لطفا قبل از رفتن به مرحله بعدی، خطاها را برطرف کنید.',
 	'javascript_is_better' => 'FreshRSS با فعال بودن جاوااسکریپت کارآمدتر است.',
