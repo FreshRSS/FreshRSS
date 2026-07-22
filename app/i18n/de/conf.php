@@ -38,7 +38,7 @@ return array(
 			'help' => 'Nur für kompatible Themes',
 			'no' => 'Nein',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Anhänge anzeigen',
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
@@ -57,11 +57,11 @@ return array(
 		'show_nav_buttons' => 'Navigationsschaltflächen anzeigen',
 		'show_title_unread' => 'Anzahl ungelesener Artikel im Titel anzeigen',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Anzahl ungelesener Artikel in der Seitenleiste anzeigen',
+			'all' => 'Für alle Kategorien und Feeds',
+			'important' => 'Nur für wichtige Feeds',
+			'important_locked' => 'Wichtige Feeds zeigen immer ihre Anzahl ungelesener Artikel an.',
+			'none' => 'Nie',
 		),
 		'sidebar_hidden_by_default' => 'Seitenleiste standardmäßig ausblenden',
 		'theme' => array(
@@ -312,8 +312,8 @@ return array(
 			'when' => 'Artikel als Favorit markieren…',
 		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
-		'sticky_sort' => 'Manuelle Sortierung bei der Navigation beibehalten',	// DIRTY
-		'sticky_sort_help' => 'Legt fest, ob die letzte manuelle Sortierung aktiv bleibt oder ob jede Kategorie bzw. jeder Feed immer die eigene Standard- oder globale Einstellung verwendet.',	// DIRTY
+		'sticky_sort' => 'Benutzerdefinierte Sortierung bei der Navigation beibehalten',
+		'sticky_sort_help' => 'Legt fest, ob die letzte benutzerdefinierte Sortierung aktiv bleibt oder ob jede Kategorie bzw. jeder Feed immer die eigene Standard- oder globale Einstellung verwendet.',
 		'title' => 'Lesen',
 		'view' => array(
 			'default' => 'Standard-Ansicht',
