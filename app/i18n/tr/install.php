@@ -64,8 +64,8 @@ return array(
 		),
 		'database-title' => 'Veritabanı',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'Web sunucunuzun belge kökü <code>./p/</code> klasörünü göstermiyor gibi görünüyor. <code>./data/</code> gibi diğer klasörler herkese açık olabilir.',
+			'ok' => 'Web sunucunuzun belge kökü doğru şekilde <code>./p/</code> klasörünü gösteriyor.',
 		),
 		'dom' => array(
 			'nok' => 'DOM’u taramak için gerekli kütüphane bulunamadı.',
@@ -81,8 +81,8 @@ return array(
 		),
 		'files' => 'Dosya kurulumu',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => '32 bit PHP için gerekli GMP eklentisi (php-gmp paketi) bulunamadı.',
+			'ok' => '32 bit PHP için gerekli GMP eklentisi kullanılabilir.',
 		),
 		'intl' => array(
 			'nok' => 'Uluslararasılaştırma için önerilen php-intl kütüphanesi bulunamadı.',
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Tebrikler!',
 	'default_user' => array(
 		'_' => 'Varsayılan kullanıcının kullanıcı adı',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '1-39 karakter: harfler, rakamlar ve <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Lütfen bir sonraki adıma geçmeden önce hataları düzeltin.',
 	'javascript_is_better' => 'FreshRSS, JavaScript etkinleştirildiğinde daha keyifli',
