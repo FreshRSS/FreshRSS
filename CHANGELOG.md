@@ -21,7 +21,6 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* New per-feed option to show or hide enclosures (attachments) [#4999](https://github.com/FreshRSS/FreshRSS/issues/4999)
 * Bug fixing
 	* Fix lost elements while parsing search query [#8884](https://github.com/FreshRSS/FreshRSS/pull/8884)
-	* Fix search `date:`/`pubdate:`/`mdate:`/`userdate:` filters with a negative UTC offset (e.g. `-05:00`) parsing to the wrong date [#7923](https://github.com/FreshRSS/FreshRSS/issues/7923)
 	* Fix tagging an already-tagged entry on PostgreSQL raising a SQL error instead of being a no-op [#7923](https://github.com/FreshRSS/FreshRSS/issues/7923)
 * CLI
 	* New `cli/reconfigure-user.php` to read/write per-user config attributes [#8873](https://github.com/FreshRSS/FreshRSS/pull/8873)
