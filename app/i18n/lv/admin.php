@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Ļaut anonīmi lasīt noklusējuma lietotāja rakstus (%s)',
 		'allow_anonymous_refresh' => 'Atļaut anonīmu rakstu atsvaidzināšanu',
 		'api_enabled' => 'Atļaut <abbr>API</abbr> piekļuvi <small>(nepieciešams mobilajām lietotnēm and sharing user queries)</small>',	// DIRTY
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Tīmekļa veidlapa (tradicionālā, nepieciešams JavaScript)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Nav (bīstami)',

@@ -14,6 +14,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 *   - anon_refresh (default: false)
 	 *   - auth_type (default: none)
 	 *   - api_enabled (default: false)
+	 *   - default_theme (default: '')
 	 */
 	public function indexAction(): void {
 		if (!FreshRSS_Auth::hasAccess('admin')) {
@@ -33,10 +34,12 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			$anon_refresh = Minz_Request::paramBoolean('anon_refresh');
 			$auth_type = Minz_Request::paramString('auth_type') ?: 'form';
 			$api_enabled = Minz_Request::paramBoolean('api_enabled');
+			$default_theme = Minz_Request::paramString('default_theme');
 			if ($anon !== FreshRSS_Context::systemConf()->allow_anonymous ||
 				$auth_type !== FreshRSS_Context::systemConf()->auth_type ||
 				$anon_refresh !== FreshRSS_Context::systemConf()->allow_anonymous_refresh ||
-				$api_enabled !== FreshRSS_Context::systemConf()->api_enabled) {
+				$api_enabled !== FreshRSS_Context::systemConf()->api_enabled ||
+				$default_theme !== FreshRSS_Context::systemConf()->default_theme) {
 				if (in_array($auth_type, ['form', 'http_auth', 'none'], true)) {
 					FreshRSS_Context::systemConf()->auth_type = $auth_type;
 				} else {
@@ -45,6 +48,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				FreshRSS_Context::systemConf()->allow_anonymous = $anon;
 				FreshRSS_Context::systemConf()->allow_anonymous_refresh = $anon_refresh;
 				FreshRSS_Context::systemConf()->api_enabled = $api_enabled;
+				FreshRSS_Context::systemConf()->default_theme = $default_theme === '' || FreshRSS_Themes::exists($default_theme) ? $default_theme : '';
 
 				$ok &= FreshRSS_Context::systemConf()->save();
 			}
@@ -61,6 +65,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.conf.error'), [ 'c' => 'auth', 'a' => 'index' ]);
 			}
 		}
+
+		$this->view->themes = FreshRSS_Themes::get();
 	}
 
 	/**
@@ -76,6 +82,10 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 		$auth_type = FreshRSS_Context::systemConf()->auth_type;
 		FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
+		$default_theme = FreshRSS_Context::systemConf()->default_theme;
+		if ($default_theme !== '' && FreshRSS_Context::hasUserConf()) {
+			FreshRSS_Context::userConf()->theme = $default_theme;
+		}
 		match ($auth_type) {
 			'form' => Minz_Request::forward(['c' => 'auth', 'a' => 'formLogin']),
 			'http_auth' => Minz_Error::error(403, [

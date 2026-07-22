@@ -57,6 +57,21 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="default_theme"><?= _t('admin.auth.default_theme') ?></label>
+			<div class="group-controls">
+				<select id="default_theme" name="default_theme">
+					<option value=""<?= FreshRSS_Context::systemConf()->default_theme === '' ? ' selected="selected"' : '' ?>>
+						<?= _t('admin.auth.default_theme.installation_default') ?></option>
+					<?php foreach ($this->themes as $theme) { ?>
+						<option value="<?= $theme['id'] ?>"<?=
+							FreshRSS_Context::systemConf()->default_theme === $theme['id'] ? ' selected="selected"' : '' ?>><?= $theme['name'] ?></option>
+					<?php } ?>
+				</select>
+				<p class="help"><?= _t('admin.auth.default_theme.help') ?></p>
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>

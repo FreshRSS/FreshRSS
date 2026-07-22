@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Varsayılan kullanıcının makalelerinin (%s) anonim okunmasına izin ver',
 		'allow_anonymous_refresh' => 'Makalelerin anonim olarak yenilenmesine izin ver',
 		'api_enabled' => '<abbr>API</abbr> erişimine izin ver <small>(mobil uygulamalar ve kullanıcı sorgularını paylaşmak için gereklidir)</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Web formu (geleneksel, JavaScript gerektirir)',
 		'http' => 'HTTP (gelişmiş: Web sunucusu, OIDC, SSO vb. tarafından yönetilir)',
 		'none' => 'Yok (tehlikeli)',

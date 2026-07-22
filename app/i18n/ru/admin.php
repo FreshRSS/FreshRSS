@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Разрешить анонимное чтение статей пользователя по умолчанию (%s)',
 		'allow_anonymous_refresh' => 'Разрешить анонимное обновление статей',
 		'api_enabled' => 'Позволить <abbr>API</abbr> доступ <small>(необходимо для мобильных приложений and sharing user queries)</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Веб-форма (традиционный, необходим JavaScript)',
 		'http' => 'HTTP (продвинутый: управляется веб-сервером, OIDC, SSO…)',
 		'none' => 'Без аутентификации (небезопасно)',
