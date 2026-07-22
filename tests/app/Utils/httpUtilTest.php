@@ -8,6 +8,15 @@ use PHPUnit\Framework\Attributes\DataProvider;
  */
 class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
+	public function testSanitizeCurlParamsKeepsHttpProxyTunnel(): void {
+		$params = FreshRSS_http_Util::sanitizeCurlParams([
+			CURLOPT_HTTPPROXYTUNNEL => true,
+			CURLOPT_URL => 'https://example.net/',
+		]);
+
+		self::assertSame([CURLOPT_HTTPPROXYTUNNEL => true], $params);
+	}
+
 	#[DataProvider('provideUrlsIgnoringHttps')]
 	public function test_compareUrlIgnoringHttps(string $url1, string $url2, bool $expected): void {
 		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);

@@ -312,6 +312,11 @@
 					</select>
 					<input type="text" name="curl_params" id="curl_params" value="" placeholder="<?= _t('gen.short.by_default') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
+					<label for="curl_proxy_tunnel">
+						<input type="checkbox" name="curl_proxy_tunnel" id="curl_proxy_tunnel" value="1" />
+						<?= _t('sub.feed.proxy_tunnel') ?>
+					</label>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_tunnel_help') ?></p>
 				</div>
 			</div>
 

@@ -307,6 +307,9 @@ class FreshRSS_Import_Service {
 			if (isset($feed_elt['frss:CURLOPT_HTTPHEADER'])) {
 				$curl_params[CURLOPT_HTTPHEADER] = preg_split('/\R/u', $feed_elt['frss:CURLOPT_HTTPHEADER']) ?: [];
 			}
+			if (isset($feed_elt['frss:CURLOPT_HTTPPROXYTUNNEL'])) {
+				$curl_params[CURLOPT_HTTPPROXYTUNNEL] = (bool)$feed_elt['frss:CURLOPT_HTTPPROXYTUNNEL'];
+			}
 			if (isset($feed_elt['frss:CURLOPT_MAXREDIRS'])) {
 				$curl_params[CURLOPT_MAXREDIRS] = (int)$feed_elt['frss:CURLOPT_MAXREDIRS'];
 			}

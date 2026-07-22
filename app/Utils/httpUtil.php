@@ -113,6 +113,7 @@ final class FreshRSS_http_Util {
 			CURLOPT_COOKIEFILE,
 			CURLOPT_FOLLOWLOCATION,	// We filter this value later, only allowing `false`
 			CURLOPT_HTTPHEADER,
+			CURLOPT_HTTPPROXYTUNNEL,
 			CURLOPT_MAXREDIRS,
 			CURLOPT_POST,
 			CURLOPT_POSTFIELDS,

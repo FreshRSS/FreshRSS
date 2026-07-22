@@ -224,6 +224,8 @@ return array(
 		),
 		'proxy' => 'Set a proxy for fetching this feed',
 		'proxy_help' => 'Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',
 		'reset_favicon' => 'Reset to default',
 		'selector_preview' => array(
 			'show_raw' => 'Show source code',
