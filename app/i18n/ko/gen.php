@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => '사용자 이름',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39자: 영문, 숫자 및 <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
