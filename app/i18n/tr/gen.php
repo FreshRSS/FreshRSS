@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Kullanıcı adı',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 karakter: harfler, rakamlar ve <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => 'Kaydedilmemiş ayarları atmak istediğinizden emin misiniz?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'FreshRSS’de okunacak %d yeni makale var.',	// DIRTY
-				1 => 'FreshRSS’de okunacak %d yeni makale var.',	// DIRTY
+				0 => 'FreshRSS’de okunacak %d yeni makale var.',
+				1 => 'FreshRSS’de okunacak %d yeni makale var.',
 			),
 			'body_unread_articles' => array(
-				0 => '(okunmamış: %d)',	// DIRTY
-				1 => '(okunmamış: %d)',	// DIRTY
+				0 => '(okunmamış: %d)',
+				1 => '(okunmamış: %d)',
 			),
 			'request_failed' => 'Bir istek başarısız oldu, bu internet bağlantı sorunlarından kaynaklanmış olabilir.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
@@ -303,7 +303,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Yer imleri',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Yer İmleri',
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

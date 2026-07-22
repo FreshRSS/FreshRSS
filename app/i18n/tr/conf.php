@@ -38,7 +38,7 @@ return array(
 			'help' => 'Yalnızca uyumlu temalar için',
 			'no' => 'Hayır',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Ekleri göster',
 		'icon' => array(
 			'bottom_line' => 'Alt satır',
 			'display_authors' => 'Yazarlar',
@@ -312,8 +312,8 @@ return array(
 			'when' => 'Bir makaleyi favori olarak işaretle…',
 		),
 		'sticky_post' => 'Makale açıldığında üstte sabitle',
-		'sticky_sort' => 'Gezinme sırasında el ile belirlenen sıralama düzenini koru',	// DIRTY
-		'sticky_sort_help' => 'Son el ile belirlenen sıralama düzeninin etkin kalıp kalmayacağını ya da her kategori veya beslemenin her zaman kendi varsayılan veya genel ayarını kullanacağını belirler.',	// DIRTY
+		'sticky_sort' => 'Gezinme sırasında özel sıralama düzenini koru',
+		'sticky_sort_help' => 'Son özel sıralama düzeninin etkin kalıp kalmayacağını ya da her kategori veya beslemenin her zaman kendi varsayılan veya genel ayarını kullanacağını belirler.',
 		'title' => 'Okuma',
 		'view' => array(
 			'default' => 'Varsayılan görünüm',
