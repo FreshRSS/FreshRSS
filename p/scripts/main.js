@@ -2347,7 +2347,7 @@ function faviconNbUnread(n) {
 			temp.remove();
 		}
 		link.href = `data:image/svg+xml;base64,${btoa(svgOutput || svgBase)}`;
-		document.querySelector('#favicon').remove();
+		document.querySelectorAll('#favicon').forEach(favicon => favicon.remove());
 		document.head.appendChild(link);
 	}
 }
