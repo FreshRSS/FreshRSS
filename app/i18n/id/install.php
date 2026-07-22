@@ -62,10 +62,10 @@ return array(
 			'nok' => 'Some database tables are missing.',	// TODO
 			'ok' => 'All database tables exist.',	// TODO
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Basis data',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'Akar dokumen server web Anda tampaknya tidak mengarah ke folder <code>./p/</code>. Folder lain seperti <code>./data/</code> mungkin dapat diakses publik.',
+			'ok' => 'Akar dokumen server web Anda mengarah dengan benar ke folder <code>./p/</code>.',
 		),
 		'dom' => array(
 			'nok' => 'Tidak dapat menemukan pustaka yang diperlukan untuk menelusuri DOM.',
@@ -81,8 +81,8 @@ return array(
 		),
 		'files' => 'Pemasangan Berkas',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => 'Ekstensi GMP yang diperlukan untuk PHP 32-bit (paket php-gmp) tidak ditemukan.',
+			'ok' => 'Ekstensi GMP yang diperlukan untuk PHP 32-bit tersedia.',
 		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Selamat datang!',
 	'default_user' => array(
 		'_' => 'Nama pengguna untuk pengguna baku',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '1-39 karakter: huruf, angka, dan <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Perbaiki galat sebelum melanjutkan.',
 	'javascript_is_better' => 'FreshRSS lebih baik dengan JavaScript diaktifkan',
