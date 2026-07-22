@@ -38,6 +38,7 @@ return array(
 			'help' => 'Yalnızca uyumlu temalar için',
 			'no' => 'Hayır',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Alt satır',
 			'display_authors' => 'Yazarlar',

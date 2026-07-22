@@ -387,6 +387,11 @@ function init_slider(slider) {
 
 	document.getElementById('close-slider').addEventListener('click', close_slider_listener);
 	document.querySelector('#slider .toggle_aside').addEventListener('click', close_slider_listener);
+	slider.addEventListener('click', ev => {
+		if (ev.target.closest('.extension-configure button[type="reset"], .extension-configure input[type="reset"]') && close_slider_listener(ev)) {
+			location.hash = 'close';
+		}
+	});
 
 	if (slider.children.length > 0) {
 		const slider_scrollTop = sessionStorage.getItem('FreshRSS_slider_scrollTop');

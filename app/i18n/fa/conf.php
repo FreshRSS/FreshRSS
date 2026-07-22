@@ -38,6 +38,7 @@ return array(
 			'help' => 'کمک',
 			'no' => 'خیر',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => ' خط پایین',
 			'display_authors' => ' نویسندگان',

@@ -1251,7 +1251,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($filter->getIntextRegex() !== null) {
 				if (static::isCompressed()) {	// MySQL-only
 					foreach ($filter->getIntextRegex() as $content) {
-						$sub_search .= 'AND ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $content, $values) . ') ';
+						$sub_search .= 'AND ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $content, $values) . ' ';
 					}
 				} else {
 					foreach ($filter->getIntextRegex() as $content) {
@@ -1320,7 +1320,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if ($filter->getNotIntextRegex() !== null) {
 				if (static::isCompressed()) {	// MySQL-only
 					foreach ($filter->getNotIntextRegex() as $content) {
-						$sub_search .= 'AND NOT ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $content, $values) . ') ';
+						$sub_search .= 'AND NOT ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $content, $values) . ' ';
 					}
 				} else {
 					foreach ($filter->getNotIntextRegex() as $content) {
@@ -1390,7 +1390,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				foreach ($filter->getNotSearchRegex() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
 						$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $search_value, $values) .
-							' ANT NOT ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $search_value, $values) . ' ';
+							' AND NOT ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $search_value, $values) . ' ';
 					} else {
 						$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $search_value, $values) .
 							' AND NOT ' . static::sqlRegex($alias . 'content', $search_value, $values) . ' ';

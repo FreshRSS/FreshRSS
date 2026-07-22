@@ -38,6 +38,7 @@ return array(
 			'help' => 'Csak kompatibilis témákhoz',
 			'no' => 'Nem',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Alsó sor',
 			'display_authors' => 'Szerzők',

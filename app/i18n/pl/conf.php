@@ -38,6 +38,7 @@ return array(
 			'help' => 'Wyłącznie dla kompatybilnych wyglądów',
 			'no' => 'Wyłączony',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Dolny margines',
 			'display_authors' => 'Autorzy',

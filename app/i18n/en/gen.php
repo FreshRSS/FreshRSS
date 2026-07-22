@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Username',
-			'format' => '<small>Maximum 16 alphanumeric characters</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -298,10 +298,12 @@ return array(
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'lemmy' => 'Lemmy',
+		'linkace' => 'LinkAce',
 		'linkding' => 'Linkding',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
+		'nextcloud-bookmarks' => 'Nextcloud Bookmarks',
 		'omnivore' => 'Omnivore',
 		'pinboard' => 'Pinboard',
 		'pinterest' => 'Pinterest',
