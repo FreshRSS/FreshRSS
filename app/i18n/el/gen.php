@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Όνομα Χρήστη',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 χαρακτήρες: γράμματα, ψηφία και <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
