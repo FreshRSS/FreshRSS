@@ -8,6 +8,22 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 	#[\Override]
 	public function firstAction(): void {
+		if (Minz_Request::isPost() && Minz_Request::paramBoolean('saveSort') && FreshRSS_Auth::hasAccess()) {
+			$sort = Minz_Request::paramString('sort', plaintext: true);
+			$order = Minz_Request::paramString('order', plaintext: true);
+			if (in_array($sort, ['id', 'c.name', 'date', 'f.name', 'lastUserModified', 'length', 'link', 'title'], true) &&
+				in_array($order, ['ASC', 'DESC'], true)) {
+				$userConf = FreshRSS_Context::userConf();
+				$userConf->sort = $sort;
+				$userConf->sort_order = $order;
+				$userConf->save();
+			}
+
+			$url = Minz_Request::currentRequest();
+			unset($url['params']['saveSort'], $url['params']['sort'], $url['params']['order']);
+			Minz_Request::forward($url, true);
+		}
+
 		$this->view->html_url = Minz_Url::display(['c' => 'index', 'a' => 'index'], 'html', 'root');
 	}
 

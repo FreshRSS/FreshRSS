@@ -2390,6 +2390,7 @@ function init_normal() {
 	init_stream(stream);
 	enforce_referrer_allowlist(stream);
 	init_actualize();
+	init_persist_sort();
 	faviconNbUnread();
 
 	// Keep exact sidebar scroll state for specific navigations
@@ -2430,6 +2431,25 @@ function init_normal() {
 				send_mark_queue_tick(null);
 			}
 		}
+	});
+}
+
+function init_persist_sort() {
+	const sortOptions = document.getElementById('sort-options');
+	const form = document.getElementById('post-csrf');
+	if (!sortOptions || !form) {
+		return;
+	}
+	sortOptions.addEventListener('click', (event) => {
+		const link = event.target.closest('a[href]');
+		if (!link || !sortOptions.contains(link)) {
+			return;
+		}
+		event.preventDefault();
+		const url = new URL(link.href, window.location.href);
+		url.searchParams.set('saveSort', '1');
+		form.action = url.href;
+		form.submit();
 	});
 }
 
