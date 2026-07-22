@@ -32,6 +32,6 @@ When adding a new UI element:
 	<button><?= _t('gen.action.my_new_button') ?></button>
 	```
 
-## Pull request workflow
+## Machine translation
 
-**Note:** Please limit AI-assisted pull requests to **5 open at a time** per contributor.
+**Note:** Do not use machine translation to complete translations unless explicitly instructed by the user.

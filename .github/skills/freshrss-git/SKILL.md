@@ -25,7 +25,3 @@ git diff edge...HEAD
 make fix-all
 make test-all
 ```
-
-## Pull request workflow
-
-**Note:** Please limit AI-assisted pull requests to **5 open at a time** per contributor.

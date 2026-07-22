@@ -20,6 +20,7 @@ More information can be found in [README](README.md) and in the [documentation](
 * **`AGENTS.md`** is the entry point description for AI coding agents and contributors, referencing other documents such as instructions and skills.
 * Favour standard conventions over vendor-specific ones.
 * To reduce duplication, refer to enforceable configuration files instead of excessive free-text repetitions.
+* **Note:** Please limit AI-assisted pull requests to **5 open at a time** per contributor.
 
 ## Code structure
 
