@@ -38,7 +38,7 @@ return array(
 			'help' => 'Только для совместимых тем',
 			'no' => 'Нет',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Показывать вложения',
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
 			'display_authors' => 'Авторы',
@@ -57,11 +57,11 @@ return array(
 		'show_nav_buttons' => 'Показать кнопки навигации',
 		'show_title_unread' => 'Показать количество непрочитанных статей в заголовке',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Показывать число непрочитанных в боковой панели',
+			'all' => 'Для всех категорий и лент',
+			'important' => 'Только для важных лент',
+			'important_locked' => 'Важные ленты всегда показывают число непрочитанных.',
+			'none' => 'Никогда',
 		),
 		'sidebar_hidden_by_default' => 'Скрывать боковую панель по умолчанию',
 		'theme' => array(
@@ -312,8 +312,8 @@ return array(
 			'when' => 'Отмечать статью избранной…',
 		),
 		'sticky_post' => 'Прикрепить статью к верху при открытии',
-		'sticky_sort' => 'Сохранять ручной порядок сортировки при навигации',	// DIRTY
-		'sticky_sort_help' => 'Определяет, сохраняется ли последний ручной порядок сортировки или каждая категория либо лента всегда использует собственную настройку по умолчанию или глобальную.',	// DIRTY
+		'sticky_sort' => 'Сохранять пользовательский порядок сортировки при навигации',
+		'sticky_sort_help' => 'Определяет, сохраняется ли последний пользовательский порядок сортировки или каждая категория либо лента всегда использует собственную настройку по умолчанию или глобальную.',
 		'title' => 'Чтение',
 		'view' => array(
 			'default' => 'Вид по умолчанию',

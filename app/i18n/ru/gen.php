@@ -180,14 +180,14 @@ return array(
 		'confirm_exit_slider' => 'Вы уверены, что хотите отменить несохраненные настройки?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => '%d новых статей в FreshRSS.',	// DIRTY
-				1 => '%d новых статей в FreshRSS.',	// DIRTY
-				2 => '%d новых статей в FreshRSS.',	// DIRTY
+				0 => '%d новая статья в FreshRSS.',
+				1 => '%d новые статьи в FreshRSS.',
+				2 => '%d новых статей в FreshRSS.',
 			),
 			'body_unread_articles' => array(
-				0 => '(Непрочитанные: %d)',	// DIRTY
-				1 => '(Непрочитанные: %d)',	// DIRTY
-				2 => '(Непрочитанные: %d)',	// DIRTY
+				0 => '(Непрочитанная: %d)',
+				1 => '(Непрочитанные: %d)',
+				2 => '(Непрочитанных: %d)',
 			),
 			'request_failed' => 'Запрос не удался. Возможно, это вызвано проблемами с подключением к Интернет.',
 			'title_new_articles' => 'FreshRSS: новые статьи!',
