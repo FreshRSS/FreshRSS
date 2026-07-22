@@ -34,4 +34,4 @@ When adding a new UI element:
 
 ## Machine translation
 
-**Note:** Do not use machine translation to complete translations unless explicitly instructed by the user.
+**Note:** Do not complete translations unless explicitly instructed by the user. Ask for approval and point out that unless the user intends to review the result, translations may be inaccurate. Translate only as a last resort, and only if the user approves.
