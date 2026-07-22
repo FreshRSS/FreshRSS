@@ -312,8 +312,8 @@ return array(
 			'when' => 'Marca un artículo como favorito…',
 		),
 		'sticky_post' => 'Fijar el artículo a la parte superior al abrirlo',
-		'sticky_sort' => 'Mantener el orden de clasificación manual durante la navegación',	// DIRTY
-		'sticky_sort_help' => 'Determina si se mantiene activo el último orden de clasificación manual o si cada categoría o fuente usa siempre su propia configuración predeterminada o global.',	// DIRTY
+		'sticky_sort' => 'Mantener el orden de clasificación personalizado durante la navegación',
+		'sticky_sort_help' => 'Determina si se mantiene activo el último orden de clasificación personalizado o si cada categoría o fuente usa siempre su propia configuración predeterminada o global.',
 		'title' => 'Lectura',
 		'view' => array(
 			'default' => 'Vista por defecto',
