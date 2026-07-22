@@ -38,7 +38,7 @@ return array(
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Não',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Mostrar anexos',
 		'icon' => array(
 			'bottom_line' => 'Linha inferior',
 			'display_authors' => 'Autores',
@@ -55,15 +55,15 @@ return array(
 			'timeout' => 'Notificação em HTML5 de timeout',
 		),
 		'show_nav_buttons' => 'Mostrar botões de navegação',
-		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
+		'show_title_unread' => 'Mostrar o número de artigos não lidos no título',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Mostrar contagens de não lidos na barra lateral',
+			'all' => 'Para todas as categorias e fontes',
+			'important' => 'Apenas para fontes importantes',
+			'important_locked' => 'As fontes importantes mostram sempre a sua contagem de não lidos.',
+			'none' => 'Nunca',
 		),
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'sidebar_hidden_by_default' => 'Ocultar a barra lateral por predefinição',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
