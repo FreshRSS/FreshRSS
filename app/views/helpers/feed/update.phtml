@@ -140,10 +140,10 @@
 				<div class="group-controls">
 					<select name="priority" id="priority" class="w50">
 						<?php $priority = $this->feed->priority(follow_category: false) ?>
-						<option value="<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>" <?=
-							FreshRSS_Feed::PRIORITY_IMPORTANT === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.important') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING ?>" <?=
 							FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.use_category_setting') ?></option>
+						<option value="<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>" <?=
+							FreshRSS_Feed::PRIORITY_IMPORTANT === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.important') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>" <?=
 							FreshRSS_Feed::PRIORITY_MAIN_STREAM === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.main_stream') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>" <?=
