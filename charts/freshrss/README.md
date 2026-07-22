@@ -106,6 +106,3 @@ spec:
     syncOptions:
       - CreateNamespace=true
 ```
-
-
-
