@@ -38,7 +38,7 @@ return array(
 			'help' => 'Wyłącznie dla kompatybilnych wyglądów',
 			'no' => 'Wyłączony',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Pokaż załączniki',
 		'icon' => array(
 			'bottom_line' => 'Dolny margines',
 			'display_authors' => 'Autorzy',
@@ -57,11 +57,11 @@ return array(
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
 		'show_title_unread' => 'Pokaż liczbę nieprzeczytanych wiadomości w tytule',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Pokaż liczbę nieprzeczytanych na pasku bocznym',
+			'all' => 'Dla wszystkich kategorii i kanałów',
+			'important' => 'Tylko dla ważnych kanałów',
+			'important_locked' => 'Ważne kanały zawsze pokazują liczbę nieprzeczytanych.',
+			'none' => 'Nigdy',
 		),
 		'sidebar_hidden_by_default' => 'Ukryj pasek boczny domyślnie',
 		'theme' => array(
@@ -312,8 +312,8 @@ return array(
 			'when' => 'Oznacz wiadomość jako ulubioną…',
 		),
 		'sticky_post' => 'Przesuń wiadomość na górę strony po otworzeniu',
-		'sticky_sort' => 'Zachowaj ręczną kolejność sortowania podczas nawigacji',	// DIRTY
-		'sticky_sort_help' => 'Określa, czy ostatnia ręczna kolejność sortowania pozostaje aktywna, czy każda kategoria lub kanał zawsze używa własnego ustawienia domyślnego lub globalnego.',	// DIRTY
+		'sticky_sort' => 'Zachowaj niestandardową kolejność sortowania podczas nawigacji',
+		'sticky_sort_help' => 'Określa, czy ostatnia niestandardowa kolejność sortowania pozostaje aktywna, czy każda kategoria lub kanał zawsze używa własnego ustawienia domyślnego lub globalnego.',
 		'title' => 'Czytanie',
 		'view' => array(
 			'default' => 'Domyślny widok',

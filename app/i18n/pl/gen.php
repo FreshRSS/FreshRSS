@@ -180,14 +180,14 @@ return array(
 		'confirm_exit_slider' => 'Czy na pewno chcesz odrzucić niezapisane ustawienia?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'W FreshRSS znajduje się %d wiadomości do przeczytania.',	// DIRTY
-				1 => 'W FreshRSS znajduje się %d wiadomości do przeczytania.',	// DIRTY
-				2 => 'W FreshRSS znajduje się %d wiadomości do przeczytania.',	// DIRTY
+				0 => 'W FreshRSS jest %d nowy artykuł do przeczytania.',
+				1 => 'W FreshRSS są %d nowe artykuły do przeczytania.',
+				2 => 'W FreshRSS jest %d nowych artykułów do przeczytania.',
 			),
 			'body_unread_articles' => array(
-				0 => '(Nieprzeczytane: %d)',	// DIRTY
-				1 => '(Nieprzeczytane: %d)',	// DIRTY
-				2 => '(Nieprzeczytane: %d)',	// DIRTY
+				0 => '(Nieprzeczytany: %d)',
+				1 => '(Nieprzeczytane: %d)',
+				2 => '(Nieprzeczytanych: %d)',
 			),
 			'request_failed' => 'Zapytanie nie powiodło się. Może to być spowodowane problemami z łącznością z internetem.',
 			'title_new_articles' => 'FreshRSS: nowe wiadomości!',
