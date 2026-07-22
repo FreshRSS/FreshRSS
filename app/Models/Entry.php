@@ -1013,6 +1013,31 @@ class FreshRSS_Entry extends Minz_Model {
 						if ($node->ownerDocument !== $doc || $node->parentNode === null) {
 							continue;
 						}
+						// Lazy-loading pages often leave a data URL or a 1x1 spacer in src.
+						$images = $xpath->query('.//img', $node);
+						if ($images !== false) {
+							foreach ($images as $image) {
+								if (!($image instanceof DOMElement)) {
+									continue;
+								}
+								$src = trim($image->getAttribute('src'));
+								$isLazyPlaceholder = $src === ''
+									|| str_starts_with(strtolower($src), 'data:')
+									|| preg_match('/(?:^|\\/)1x1(?:[_-]spacer)?\\.(?:gif|jpe?g|png|webp)(?:[?#].*)?$/i', $src) === 1;
+								if (!$isLazyPlaceholder) {
+									continue;
+								}
+								foreach (['data-src', 'data-src-template', 'data-original'] as $attribute) {
+									$replacement = trim($image->getAttribute($attribute));
+									$isWebUrl = preg_match('/^[a-z][a-z0-9+.-]*:/i', $replacement) !== 1
+										|| preg_match('/^https?:/i', $replacement) === 1;
+									if ($replacement !== '' && $isWebUrl) {
+										$image->setAttribute('src', $replacement);
+										break;
+									}
+								}
+							}
+						}
 						$html .= $doc->saveHTML($node) . "\n";
 					} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
 						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
