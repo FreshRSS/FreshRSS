@@ -85,6 +85,7 @@ class FreshRSS_View extends Minz_View {
 
 	// Export / Import
 	public string $content;
+	public int $feedCount;
 	/** @var array<string,array<string>> */
 	public array $entryIdsTagNames = [];
 	public string $list_title;
