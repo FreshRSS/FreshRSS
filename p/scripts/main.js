@@ -486,7 +486,7 @@ function toggleContent(new_active, old_active, skipping) {
 	if (old_active !== new_active) {
 		if (!skipping) {
 			new_active.classList.add('active');
-			location.hash = '';
+			if (location.hash != '') location.hash = '';
 		}
 		new_active.classList.add('current');
 		if (old_active) {
@@ -498,6 +498,7 @@ function toggleContent(new_active, old_active, skipping) {
 		}
 	} else {
 		new_active.classList.toggle('active');
+		if (location.hash != '') location.hash = '';
 	}
 
 	const new_offsetTop = new_active.offsetTop;
@@ -2522,9 +2523,9 @@ function init_navigation_handler() {
 						window.hashPos[href] = scroll_target.scrollTop;
 					}, { once: true });
 				}
-				window.hashPos[location.hash] = scroll_target.scrollTop;
 			}
 		}
+		window.hashPos[location.hash] = scroll_target.scrollTop;
 
 		if (e.navigationType !== 'traverse') {
 			return;
