@@ -64,6 +64,12 @@ html, body {
 	font-size: 100%;
 }
 
+html:lang(ja) body {
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial",
+		"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo",
+		"Osaka", "Noto Sans CJK JP", "Noto Sans JP", sans-serif;
+}
+
 button, input, select, textarea {
 	font-family: inherit;
 }
@@ -367,7 +373,7 @@ textarea[rows="2"] {
 	height: 4em;
 }
 
-textarea:invalid {
+textarea:user-invalid {
 	border: 2px dashed var(--frss-border-color-error);
 }
 
@@ -1511,7 +1517,7 @@ a.website:hover .favicon {
 }
 
 .flux:not(.current):hover .flux_header.has-date .item .title {
-	grid-column: 1 / -1;
+	padding-right: 0.5rem;
 	z-index: 2;
 }
 

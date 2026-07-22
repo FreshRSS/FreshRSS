@@ -133,9 +133,9 @@ input, select, textarea {
 	line-height: 1;
 }
 
-input:invalid,
-select:invalid,
-textarea:invalid {
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
 	border-color: var(--red);
 }
 

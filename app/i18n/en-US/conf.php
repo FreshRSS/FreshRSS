@@ -38,6 +38,7 @@ return array(
 			'help' => 'For compatible themes only',	// IGNORE
 			'no' => 'No',	// IGNORE
 		),
+		'display_enclosures' => 'Show enclosures',	// IGNORE
 		'icon' => array(
 			'bottom_line' => 'Bottom line',	// IGNORE
 			'display_authors' => 'Authors',	// IGNORE
@@ -311,6 +312,8 @@ return array(
 			'when' => 'Mark an article as favorite…',
 		),
 		'sticky_post' => 'Stick the article to the top when opened',	// IGNORE
+		'sticky_sort' => 'Keep custom sort order during navigation',	// IGNORE
+		'sticky_sort_help' => 'Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.',	// IGNORE
 		'title' => 'Reading',	// IGNORE
 		'view' => array(
 			'default' => 'Default view',	// IGNORE

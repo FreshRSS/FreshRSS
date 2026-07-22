@@ -38,6 +38,7 @@ return array(
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Ne',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Spodní řádek',
 			'display_authors' => 'Autoři',
@@ -311,6 +312,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Při otevření připnout článek na začátek',
+		'sticky_sort' => 'Zachovat ruční řazení při navigaci',	// DIRTY
+		'sticky_sort_help' => 'Určuje, zda se zachová poslední ruční řazení, nebo zda každá kategorie či kanál vždy použije vlastní výchozí nebo globální nastavení.',	// DIRTY
 		'title' => 'Čtení',
 		'view' => array(
 			'default' => 'Výchozí zobrazení',

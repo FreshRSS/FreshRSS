@@ -38,6 +38,7 @@ return array(
 			'help' => 'Nur für kompatible Themes',
 			'no' => 'Nein',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
@@ -311,6 +312,8 @@ return array(
 			'when' => 'Artikel als Favorit markieren…',
 		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
+		'sticky_sort' => 'Manuelle Sortierung bei der Navigation beibehalten',	// DIRTY
+		'sticky_sort_help' => 'Legt fest, ob die letzte manuelle Sortierung aktiv bleibt oder ob jede Kategorie bzw. jeder Feed immer die eigene Standard- oder globale Einstellung verwendet.',	// DIRTY
 		'title' => 'Lesen',
 		'view' => array(
 			'default' => 'Standard-Ansicht',

@@ -10,7 +10,8 @@ declare(strict_types=1);
  * @property string $environment
  * @property array<string,bool> $extensions_enabled
  * @property-read string $mailer
- * @property-read array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} $smtp
+ * @property-read array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,
+ *  'secure':string,'auto_tls':bool,'port':int,'from':string} $smtp
  * @property string $title
  */
 class Minz_Configuration {

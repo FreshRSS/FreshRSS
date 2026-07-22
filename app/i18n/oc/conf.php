@@ -38,6 +38,7 @@ return array(
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// TODO
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Linha enbàs',
 			'display_authors' => 'Autors',
@@ -311,6 +312,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Gardar l’article amont quand es dobèrt',
+		'sticky_sort' => 'Servar l’òrdre de triada manual pendent la navigacion',	// DIRTY
+		'sticky_sort_help' => 'Determina se lo darrièr òrdre de triada manual es conservat o se cada categoria o flux utiliza totjorn son pròpri paramètre per defaut o global.',	// DIRTY
 		'title' => 'Lectura',
 		'view' => array(
 			'default' => 'Vista per defaut',

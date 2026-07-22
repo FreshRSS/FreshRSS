@@ -17,6 +17,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix null warning in IRI for PHP 8.5+ [#8918](https://github.com/FreshRSS/FreshRSS/pull/8918), [simplepie#979](https://github.com/simplepie/simplepie/pull/979)
 * Features
 	* New option to hide badges showing number of unread articles (*Phantom Obligation*) [#8844](https://github.com/FreshRSS/FreshRSS/pull/8844)
+	* New option to keep or not the custom sort order when navigating between categories and feeds [#8969](https://github.com/FreshRSS/FreshRSS/pull/8969)
+	* New per-feed option to show or hide enclosures (attachments) [#4999](https://github.com/FreshRSS/FreshRSS/issues/4999)
 * Bug fixing
 	* Fix lost elements while parsing search query [#8884](https://github.com/FreshRSS/FreshRSS/pull/8884)
 * CLI
@@ -30,6 +32,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Always jump article to top when header is offscreen, also when **Stick the article to the top when opened* is disabled [#8870](https://github.com/FreshRSS/FreshRSS/pull/8870)
 	* Fix padding for `.nav_menu` in Alternative-Dark, Flat, and Nord themes [#8901](https://github.com/FreshRSS/FreshRSS/pull/8901)
 	* Various UI and style improvements: [#8823](https://github.com/FreshRSS/FreshRSS/pull/8823), [#8824](https://github.com/FreshRSS/FreshRSS/pull/8824)
+* Extensions
+	* New `freshrss:entryStateChange` JavaScript event for extensions, dispatched when an article has finished being marked as read/unread [#8862](https://github.com/FreshRSS/FreshRSS/pull/9031)
 * I18n
 	* Improve Hungarian [#8879](https://github.com/FreshRSS/FreshRSS/pull/8879)
 	* Improve Italian [#8880](https://github.com/FreshRSS/FreshRSS/pull/8880)

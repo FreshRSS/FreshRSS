@@ -110,6 +110,7 @@ class FreshRSS_View extends Minz_View {
 	public int $currentPage;
 	public Minz_Paginator $logsPaginator;
 	public int $nbPage;
+	public string $logSearch = '';
 
 	// RSS view
 	public FreshRSS_UserQuery $userQuery;

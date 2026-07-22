@@ -685,7 +685,9 @@ class FreshRSS_Feed extends Minz_Model {
 					$this->_attribute('SimplePieHash', $simplePie->get_hash());
 					return $simplePie;
 				}
-				syslog(LOG_DEBUG, 'FreshRSS SimplePie uses cache for ' . $clean_url);
+				if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
+					syslog(LOG_DEBUG, 'FreshRSS SimplePie uses cache for ' . $clean_url);
+				}
 			}
 		}
 		return null;
@@ -847,8 +849,10 @@ class FreshRSS_Feed extends Minz_Model {
 			}
 
 			$attributeEnclosures = [];
-			if (!empty($item->get_enclosures())) {
-				foreach ($item->get_enclosures() as $enclosure) {
+			// Keep only one representation per `<media:group>` (the `isDefault` one, or the first one)
+			$enclosures = $item->get_enclosures(excludeMediaGroupAlternatives: true);
+			if (!empty($enclosures)) {
+				foreach ($enclosures as $enclosure) {
 					$elink = $enclosure->get_link();
 					if ($elink != '') {
 						$etitle = $enclosure->get_title() ?? '';

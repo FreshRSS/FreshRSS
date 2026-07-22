@@ -188,7 +188,8 @@ final class FeverAPI
 				Minz_Log::error('Fever API: Please reset your API password!');
 				Minz_User::change();
 			}
-			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey, API_LOG);
+			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey .
+				' ; Remote IP address=' . Minz_Request::connectionRemoteAddress(), API_LOG);
 		}
 		return false;
 	}
@@ -552,7 +553,8 @@ final class FeverAPI
 				'feed_id' => $entry->feedId(),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
 				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),
-				'html' => $entry->content(), 'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
+				'html' => $entry->content($entry->feed()?->attributeBoolean('display_enclosures') ?? true),
+				'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				'is_saved' => $entry->isFavorite() ? 1 : 0,
 				'is_read' => $entry->isRead() ? 1 : 0,
 				'created_on_time' => $entry->date(true),

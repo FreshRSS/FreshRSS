@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Uživatelské jméno',
-			'format' => '<small>Maximálně 16 alfanumerických znaků</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -179,8 +179,16 @@ return array(
 		'confirm_action_feed_cat' => 'Opravdu chcete provést tuto akci? Přijdete o související oblíbené položky a uživatelské dotazy. Toto nelze zrušit!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'Ve FreshRSS je %%d nových článků k přečtení.',
-			'body_unread_articles' => '(nepřečtené: %%d)',
+			'body_new_articles' => array(
+				0 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY
+				1 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY
+				2 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(nepřečtené: %d)',	// DIRTY
+				1 => '(nepřečtené: %d)',	// DIRTY
+				2 => '(nepřečtené: %d)',	// DIRTY
+			),
 			'request_failed' => 'Požadavek selhal, to může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
@@ -298,10 +306,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Záložky',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
