@@ -1872,8 +1872,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function listFeedIdsMatchingState(int $state, ?FreshRSS_BooleanSearch $filters = null): array {
 		[$values, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters);
 		$sql = 'SELECT DISTINCT e.id_feed FROM `_entry` e WHERE 1=1 ' . $search;
-		$res = $this->fetchColumn($sql, 0, $values) ?? [];
-		return array_map('intval', $res);
+		$stm = $this->pdo->prepare($sql);
+		if ($stm !== false && $stm->execute($values)) {
+			/** @var list<int|string> $res */
+			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+			return array_map('intval', $res);
+		}
+		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+		return [];
 	}
 
 	/**
