@@ -64,8 +64,8 @@ return array(
 		),
 		'database-title' => 'База даних',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'Коренева папка документів вашого вебсервера, імовірно, не вказує на папку <code>./p/</code>. Інші папки, як-от <code>./data/</code>, можуть бути загальнодоступними.',
+			'ok' => 'Коренева папка документів вашого вебсервера правильно вказує на папку <code>./p/</code>.',
 		),
 		'dom' => array(
 			'nok' => 'Не вдалося знайти необхідну бібліотеку роботи з DOM.',
@@ -81,8 +81,8 @@ return array(
 		),
 		'files' => 'Встановлення файлів',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => 'Не знайдено потрібне розширення GMP для 32-бітного PHP (пакунок php-gmp).',
+			'ok' => 'Потрібне розширення GMP для 32-бітного PHP доступне.',
 		),
 		'intl' => array(
 			'nok' => 'Не вдалося знайти бажану бібліотеку php-intl для інтернаціоналізації.',
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Вітаємо!',
 	'default_user' => array(
 		'_' => 'Імʼя типового користувача',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '1-39 символів: літери, цифри та <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Перш ніж перейти до наступного кроку, слід виправити помилки.',
 	'javascript_is_better' => 'FreshRSS зручніше, коли JavaScript увімкнено',
