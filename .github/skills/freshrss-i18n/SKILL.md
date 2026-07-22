@@ -31,3 +31,7 @@ When adding a new UI element:
 	```php
 	<button><?= _t('gen.action.my_new_button') ?></button>
 	```
+
+## Pull request workflow
+
+**Note:** Please limit AI-assisted pull requests to **5 open at a time** per contributor.
