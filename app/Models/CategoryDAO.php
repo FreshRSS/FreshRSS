@@ -315,7 +315,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			$aPosition = $a->attributeInt('position');
 			$bPosition = $b->attributeInt('position');
 			if ($aPosition === $bPosition) {
-				return strnatcasecmp($a->name(), $b->name());
+				return FreshRSS_Context::localeCompare($a->name(), $b->name());
 			} elseif (null === $aPosition) {
 				return 1;
 			} elseif (null === $bPosition) {

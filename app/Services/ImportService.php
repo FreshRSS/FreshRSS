@@ -196,6 +196,11 @@ class FreshRSS_Import_Service {
 				$feed->_attribute('unicityCriteriaForced', true);
 			}
 
+			if (isset($feed_elt['frss:ttl'])) {
+				// Signed refresh interval (TTL); a negative value indicates a muted feed
+				$feed->_ttl((int)$feed_elt['frss:ttl']);
+			}
+
 			if (isset($feed_elt['frss:cssFullContent'])) {
 				$feed->_pathEntries(Minz_Helper::htmlspecialchars_utf8($feed_elt['frss:cssFullContent']));
 			}

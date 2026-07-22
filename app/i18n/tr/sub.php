@@ -29,7 +29,7 @@ return array(
 			'help' => 'Bu kategoriyi beslemelerle dinamik olarak doldurmak için bir <a href="http://opml.org/" target="_blank">OPML dosyası</a> URL’si sağlayın.',
 		),
 		'empty' => 'Boş kategori',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'Bu dinamik OPML kategorisi bir sorunla karşılaştı. OPML URLsinin hâlâ erişilebilir olduğunu ve kullanıcı başına düşen maksimum besleme sayısının aşılmadığını kontrol edin.',
 		'expand' => 'Kategoriyi genişlet',
 		'information' => 'Bilgi',
 		'open' => 'Kategoriyi aç',
@@ -51,7 +51,7 @@ return array(
 			'password' => 'HTTP parolası',
 			'username' => 'HTTP kullanıcı adı',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => 'Değiştir',
 		'clear_cache' => 'Önbelleği her zaman temizle',
 		'content_action' => array(
 			'_' => 'Makale içeriği getirilirken içerik eylemi',
@@ -76,18 +76,18 @@ return array(
 			'help' => 'XML dosyası (veri alt kümesi. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Belgelere bakın</a>)',
 			'label' => 'OPML olarak dışa aktar',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => 'Otomatik olarak belirle',
+		'favicon_changed_by_ext' => 'Bu simge <b>%s</b> uzantısı tarafından belirlendi.',
 		'filteractions' => array(
 			'_' => 'Filtre eylemleri',
 			'help' => 'Her satıra bir arama filtresi yazın. Operatörler için <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">belgelere bakın</a>.',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => 'Mevcut makalelerdeki filtreleri önizle (yeni pencere)',
 		),
 		'http_headers' => 'HTTP Başlıkları',
 		'http_headers_help' => 'Başlıklar yeni bir satırla ayrılır ve bir başlığın adı ile değeri iki nokta üst üste ile ayrılır (örneğin: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
-		'icon' => 'Icon',	// TODO
+		'icon' => 'Simge',
 		'information' => 'Bilgi',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'Daha fazla besleme ekle',
 		'keep_min' => 'Saklanacak minimum makale sayısı',
 		'kind' => array(
 			'_' => 'Besleme kaynağı türü',
@@ -187,10 +187,10 @@ return array(
 			'rss' => 'RSS / Atom (varsayılan)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Yayınlanan son makale <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Teslim alınan son makale <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Son hatalı güncelleme <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Son başarılı güncelleme <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Önbelleği temizle',
 			'clear_cache_help' => 'Bu besleme için önbelleği temizle.',
@@ -216,7 +216,7 @@ return array(
 		'path_entries_conditions' => 'İçerik alma koşulları',
 		'proxy' => 'Bu beslemeyi almak için bir proxy ayarlayın',
 		'proxy_help' => 'Bir protokol seçin (örneğin: SOCKS5) ve proxy adresini girin (örneğin: <kbd>127.0.0.1:1080</kbd> veya <kbd>kullanıcıadı:parola@127.0.0.1:1080</kbd>).',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => 'Varsayılana sıfırla',
 		'selector_preview' => array(
 			'show_raw' => 'Kaynak kodu göster',
 			'show_rendered' => 'İçeriği göster',
@@ -281,7 +281,7 @@ return array(
 			'idle' => 'Boşta olan beslemeler',
 			'main' => 'Ana istatistikler',
 			'repartition' => 'Makale dağılımı',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => 'Okunmamış tarihler',
 		),
 		'subscription_management' => 'Abonelik yönetimi',
 		'subscription_tools' => 'Abonelik araçları',

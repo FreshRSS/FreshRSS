@@ -296,6 +296,14 @@ final class FreshRSS_http_Util {
 	}
 
 	/**
+	 * Return 0 if values on either side are equal ignoring the HTTP vs HTTPS differences, or 1/-1 if they differ.
+	 */
+	public static function compareUrlIgnoringHttps(string $url1, string $url2): int {
+		$normalizeScheme = static fn(string $url): string => preg_replace('#^https?://#i', '//', trim($url)) ?? $url;
+		return $normalizeScheme($url1) <=> $normalizeScheme($url2);
+	}
+
+	/**
 	 * Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
 	 *
 	 * @return array<string>|null|false
@@ -431,7 +439,9 @@ final class FreshRSS_http_Util {
 			if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
 				$body = @file_get_contents($cachePath);
 				if ($body != false) {
-					syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
+					if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
+						syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
+					}
 					return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false, 'status' => -200, 'error' => ''];
 				}
 			}

@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Lietotājvārds',
-			'format' => '<small>Maksimums 16 burtu un ciparu zīmes</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -179,8 +179,16 @@ return array(
 		'confirm_action_feed_cat' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? Jūs zaudēsiet saistītos mīļākos rakstus un lietotāja pieprasījumus. To nevar atcelt!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS ir %%d jauni raksti lasīšanai.',
-			'body_unread_articles' => '(neizlasīti: %%d)',
+			'body_new_articles' => array(
+				0 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
+				1 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
+				2 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(neizlasīti: %d)',	// DIRTY
+				1 => '(neizlasīti: %d)',	// DIRTY
+				2 => '(neizlasīti: %d)',	// DIRTY
+			),
 			'request_failed' => 'Pieprasījums nav izdevies, iespējams, to izraisījušas interneta savienojuma problēmas.',
 			'title_new_articles' => 'FreshRSS: jauni raksti!',
 		),
@@ -298,10 +306,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Grāmatzīmes',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

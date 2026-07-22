@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nama pengguna',
-			'format' => '<small>Maksimum 16 alfanumerik karakter</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -167,8 +167,12 @@ return array(
 		'confirm_action_feed_cat' => 'Apakah Anda yakin ingin melakukan ini? Anda akan kehilangan favorit dan pencarian pengguna terkait. Ini tidak dapat dibatalkan.',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'Ada %%d artikel baru untuk dibaca di FreshRSS.',
-			'body_unread_articles' => '(belum dibaca: %%d)',
+			'body_new_articles' => array(
+				0 => 'Ada %d artikel baru untuk dibaca di FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(belum dibaca: %d)',	// DIRTY
+			),
 			'request_failed' => 'Permintaan gagal, mungkin dikarenakan masalah koneksi internet.',
 			'title_new_articles' => 'FreshRSS: artikel baru!',
 		),
@@ -286,10 +290,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Penanda',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

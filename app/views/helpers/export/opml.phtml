@@ -58,6 +58,11 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:unicityCriteriaForced'] = 'true';
 		}
 
+		// Refresh interval (TTL), signed: a negative value indicates a muted feed
+		if ($feed->ttl(raw: true) !== FreshRSS_Feed::TTL_DEFAULT) {
+			$outline['frss:ttl'] = (string)$feed->ttl(raw: true);
+		}
+
 		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
 			/** @var array<string,string> */
 			$xPathSettings = $feed->attributeArray('xpath') ?? [];
