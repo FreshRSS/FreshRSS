@@ -62,10 +62,10 @@ return array(
 			'nok' => 'Some database tables are missing.',	// TODO
 			'ok' => 'All database tables exist.',	// TODO
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Tietokanta',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'Verkkopalvelimen asiakirjajuuri ei näytä osoittavan <code>./p/</code>-kansioon. Muut kansiot, kuten <code>./data/</code>, voivat olla julkisesti käytettävissä.',
+			'ok' => 'Verkkopalvelimen asiakirjajuuri osoittaa oikein <code>./p/</code>-kansioon.',
 		),
 		'dom' => array(
 			'nok' => 'DOM-rakenteen selaamiseen tarvittavaa kirjastoa ei löydy.',
@@ -81,8 +81,8 @@ return array(
 		),
 		'files' => 'Tiedostojen asennus',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => '32-bittisessä PHP:ssä tarvittavaa GMP-laajennusta (php-gmp-paketti) ei löydy.',
+			'ok' => '32-bittisessä PHP:ssä tarvittava GMP-laajennus on käytettävissä.',
 		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Onneksi olkoon!',
 	'default_user' => array(
 		'_' => 'Oletuskäyttäjän käyttäjätunnus',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '1-39 merkkiä: kirjaimia, numeroita ja <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Korjaa virheet, ennen kuin siirryt seuraavaan vaiheeseen.',
 	'javascript_is_better' => 'FreshRSS-sovellusta on miellyttävämpi käyttää, kun JavaScript on käytössä',
