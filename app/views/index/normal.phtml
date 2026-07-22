@@ -98,6 +98,9 @@ $today = @strtotime('today');
 							<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
 								<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 							endif; ?><span><?= $this->feed->name() ?></span></a>
+							<?php if ($this->feed->website() !== '') { ?>
+								<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
+							<?php } ?>
 						</div>
 					<?php } ?>
 					<?php if (FreshRSS_Context::userConf()->show_tags === 'h' || FreshRSS_Context::userConf()->show_tags === 'b') {
@@ -112,8 +115,11 @@ $today = @strtotime('today');
 						<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
 							<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
 								<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
-									<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+								<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 								endif; ?><span><?= $this->feed->name() ?></span></a>
+								<?php if ($this->feed->website() !== '') { ?>
+									<a class="btn" target="_blank" rel="noreferrer" href="<?= $this->feed->website() ?>" title="<?= _t('gen.action.open_url') ?>"><?= _i('link') ?></a>
+								<?php } ?>
 							</div>
 						<?php }
 						if (!empty($this->entry->authors())) {
