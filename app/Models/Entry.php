@@ -1026,7 +1026,7 @@ class FreshRSS_Entry extends Minz_Model {
 
 			unset($xpath, $doc);
 			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
-			if (trim($html) === '') {
+			if ($nodes !== false && $nodes->length > 0 && trim($html) === '') {
 				Minz_Log::warning('CSS content retrieval returned no content for feed "' . $feed->name() . '" and article URL ' . $url . ': ' . $cssSelector);
 			}
 
