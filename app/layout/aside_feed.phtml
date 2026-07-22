@@ -180,6 +180,28 @@
 	</ul>
 	</form>
 </nav>
+<?php if (FreshRSS_Context::userConf()->display_categories === 'remember' && in_array($actual_view, ['normal', 'reader'], true)) { ?>
+<script>
+	try {
+		const openCategories = JSON.parse(localStorage.getItem('FreshRSS_open_categories') || '{}');
+		Object.keys(openCategories).forEach(function (categoryId) {
+			const category = document.getElementById(categoryId);
+			const items = category?.querySelector('.tree-folder-items');
+			if (!items) return;
+			items.classList.add('active');
+			const icon = category.querySelector('button.dropdown-toggle .icon');
+			if (icon?.src) {
+				icon.src = icon.src.replace('/icons/down.', '/icons/up.');
+				icon.alt = '🔼';
+			} else if (icon) {
+				icon.innerHTML = '🔼';
+			}
+		});
+	} catch (e) {
+		// Ignore unavailable or malformed local storage.
+	}
+</script>
+<?php } ?>
 <a class="close-aside" href="#close">❌</a>
 
 <div id="first_load" class="loading"></div>
