@@ -64,8 +64,8 @@ return array(
 		),
 		'database-title' => 'Baza danych',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'Katalog główny dokumentów serwera WWW nie wskazuje na folder <code>./p/</code>. Inne foldery, takie jak <code>./data/</code>, mogą być publicznie dostępne.',
+			'ok' => 'Katalog główny dokumentów serwera WWW prawidłowo wskazuje na folder <code>./p/</code>.',
 		),
 		'dom' => array(
 			'nok' => 'Nie znaleziono wymaganej biblioteki do korzystania z DOM-u.',
@@ -81,8 +81,8 @@ return array(
 		),
 		'files' => 'Instalacja plików',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => 'Nie można znaleźć wymaganego rozszerzenia GMP dla 32-bitowego PHP (pakiet php-gmp).',
+			'ok' => 'Wymagane rozszerzenie GMP dla 32-bitowego PHP jest dostępne.',
 		),
 		'intl' => array(
 			'nok' => 'Nie znaleziono zalecanej biblioteki php-intl do internacjonalizacji.',
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Gratulacje!',
 	'default_user' => array(
 		'_' => 'Nazwa domyślnego użytkownika',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '1-39 znaków: litery, cyfry oraz <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Proszę naprawić wszystkie błędy przed przystąpieniem do kolejnego kroku.',
 	'javascript_is_better' => 'FreshRSS działa lepiej z włączonym JavaScript-em',
