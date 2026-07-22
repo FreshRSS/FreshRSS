@@ -62,10 +62,10 @@ return array(
 			'nok' => 'Some database tables are missing.',	// TODO
 			'ok' => 'All database tables exist.',	// TODO
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Databáze',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'Kořen dokumentů vašeho webového serveru zřejmě neukazuje do složky <code>./p/</code>. Jiné složky, například <code>./data/</code>, mohou být veřejně přístupné.',
+			'ok' => 'Kořen dokumentů vašeho webového serveru správně ukazuje do složky <code>./p/</code>.',
 		),
 		'dom' => array(
 			'nok' => 'Nelze nalézt požadovanou knihovnu pro procházení DOM.',
@@ -81,8 +81,8 @@ return array(
 		),
 		'files' => 'Instalace souborů',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => 'Nelze najít rozšíření GMP vyžadované pro 32bitové PHP (balíček php-gmp).',
+			'ok' => 'Rozšíření GMP vyžadované pro 32bitové PHP je dostupné.',
 		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Gratulujeme!',
 	'default_user' => array(
 		'_' => 'Uživatelské jméno výchozího uživatele',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '1-39 znaků: písmena, číslice a <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Opravte prosím všechny chyby před přechodem na další krok.',
 	'javascript_is_better' => 'Práce s FreshRSS je příjemnější se zapnutým JavaScript',
