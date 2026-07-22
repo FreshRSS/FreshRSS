@@ -38,4 +38,38 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			['ftp://example.net/feed', 'https://example.net/feed', false],
 		];
 	}
+
+	public function test_sanitizeCurlParams_whenKeyNotAllowlisted_removesIt(): void {
+		$result = FreshRSS_http_Util::sanitizeCurlParams([CURLOPT_URL => 'https://example.net/']);
+		self::assertSame([], $result);
+	}
+
+	public function test_sanitizeCurlParams_whenCookiefileSet_forcesEmptyValue(): void {
+		$result = FreshRSS_http_Util::sanitizeCurlParams([CURLOPT_COOKIEFILE => '/etc/passwd']);
+		self::assertSame('', $result[CURLOPT_COOKIEFILE]);
+	}
+
+	public function test_sanitizeCurlParams_whenHttpHeaderHasAuthOverrides_stripsThem(): void {
+		$result = FreshRSS_http_Util::sanitizeCurlParams([
+			CURLOPT_HTTPHEADER => ['Remote-User: admin', 'X-WebAuth-User: admin', 'x_webauth_user: admin', 'Accept: text/xml'],
+		]);
+		self::assertIsArray($result[CURLOPT_HTTPHEADER]);
+		self::assertSame(['Accept: text/xml'], array_values($result[CURLOPT_HTTPHEADER]));
+	}
+
+	public function test_sanitizeCurlParams_whenHttpHeaderNotArray_passesThroughUnchanged(): void {
+		$result = FreshRSS_http_Util::sanitizeCurlParams([CURLOPT_HTTPHEADER => 'not-an-array']);
+		self::assertSame('not-an-array', $result[CURLOPT_HTTPHEADER]);
+	}
+
+	public function test_sanitizeCurlParams_whenAllowlistedKeyHasNoSpecialCase_keepsValueAsIs(): void {
+		$result = FreshRSS_http_Util::sanitizeCurlParams([
+			CURLOPT_USERAGENT => 'my-agent/1.0',
+			CURLOPT_MAXREDIRS => 3,
+			CURLOPT_PROXY => 'http://proxy.example.net:8080',
+		]);
+		self::assertSame('my-agent/1.0', $result[CURLOPT_USERAGENT]);
+		self::assertSame(3, $result[CURLOPT_MAXREDIRS]);
+		self::assertSame('http://proxy.example.net:8080', $result[CURLOPT_PROXY]);
+	}
 }

@@ -104,36 +104,45 @@ final class FreshRSS_http_Util {
 	}
 
 	/**
+	 * The per-feed cURL options that are allowed to be set, each mapped to a sanitizer that
+	 * receives the candidate value and returns the value to actually keep.
+	 * A single entry here drives both the allowlist and the value sanitization, instead of
+	 * a separate allowlist plus a bespoke per-option `if` chain.
+	 *
+	 * @return array<int, callable(mixed): mixed>
+	 */
+	private static function safeCurlParamSanitizers(): array {
+		return [
+			CURLOPT_COOKIE => fn(mixed $value): mixed => $value,
+			// Allow only an empty value just to enable the libcurl cookie engine
+			CURLOPT_COOKIEFILE => fn(mixed $value): string => '',
+			CURLOPT_FOLLOWLOCATION => fn(mixed $value): mixed => $value,
+			// Remove HTTP authentication headers problematic for security
+			CURLOPT_HTTPHEADER => fn(mixed $value): mixed => is_array($value)
+				? array_filter($value,
+					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header))
+				: $value,
+			CURLOPT_MAXREDIRS => fn(mixed $value): mixed => $value,
+			CURLOPT_POST => fn(mixed $value): mixed => $value,
+			CURLOPT_POSTFIELDS => fn(mixed $value): mixed => $value,
+			CURLOPT_PROXY => fn(mixed $value): mixed => $value,
+			CURLOPT_PROXYTYPE => fn(mixed $value): mixed => $value,
+			CURLOPT_USERAGENT => fn(mixed $value): mixed => $value,
+		];
+	}
+
+	/**
 	 * @param array<mixed> $curl_params
 	 * @return array<mixed>
 	 */
 	public static function sanitizeCurlParams(array $curl_params): array {
-		$safe_params = [
-			CURLOPT_COOKIE,
-			CURLOPT_COOKIEFILE,
-			CURLOPT_FOLLOWLOCATION,	// We filter this value later, only allowing `false`
-			CURLOPT_HTTPHEADER,
-			CURLOPT_MAXREDIRS,
-			CURLOPT_POST,
-			CURLOPT_POSTFIELDS,
-			CURLOPT_PROXY,
-			CURLOPT_PROXYTYPE,
-			CURLOPT_USERAGENT,
-		];
-		foreach ($curl_params as $k => $_) {
-			if (!in_array($k, $safe_params, true)) {
+		$sanitizers = self::safeCurlParamSanitizers();
+		foreach ($curl_params as $k => $v) {
+			if (!array_key_exists($k, $sanitizers)) {
 				unset($curl_params[$k]);
 				continue;
 			}
-			// Allow only an empty value just to enable the libcurl cookie engine
-			if ($k === CURLOPT_COOKIEFILE) {
-				$curl_params[$k] = '';
-			}
-			// Remove HTTP authentication headers problematic for security
-			if ($k === CURLOPT_HTTPHEADER && is_array($curl_params[$k])) {
-				$curl_params[$k] = array_filter($curl_params[$k],
-					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
-			}
+			$curl_params[$k] = $sanitizers[$k]($v);
 		}
 		return $curl_params;
 	}

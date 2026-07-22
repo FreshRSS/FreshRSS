@@ -41,6 +41,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Improve Spanish [#8878](https://github.com/FreshRSS/FreshRSS/pull/8878)
 	* Improve Ukrainian [#8871](https://github.com/FreshRSS/FreshRSS/pull/8871)
 * Misc.
+	* Refactor the per-feed cURL option allowlist into a single data-driven map, replacing the bespoke per-option sanitizing code [#9012](https://github.com/FreshRSS/FreshRSS/pull/9012)
 	* Update to PHPMailer 7.1.1 [#9807](https://github.com/FreshRSS/FreshRSS/pull/9807)
 	* Improve PHP code [#8906](https://github.com/FreshRSS/FreshRSS/pull/8906)
 	* Fix PHPStan 2.2.2 in CLI [#8911](https://github.com/FreshRSS/FreshRSS/pull/8911)
