@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `_category` (
 	"name" VARCHAR(191) UNIQUE NOT NULL,
 	"kind" SMALLINT DEFAULT 0,	-- 1.20.0
 	"lastUpdate" BIGINT DEFAULT 0,	-- 1.20.0
-	"priority" SMALLINT NOT NULL DEFAULT 10,	-- Date, v1.30.0
+	"priority" SMALLINT NOT NULL DEFAULT 10,	-- v1.30.0
 	"error" BIGINT DEFAULT 0,	-- Date, v1.29.0
 	"attributes" TEXT	-- v1.15.0
 );
