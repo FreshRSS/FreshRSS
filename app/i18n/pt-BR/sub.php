@@ -270,6 +270,7 @@ return array(
 		'export' => array(
 			'_' => 'Exportar',
 			'sqlite' => 'Baixar banco de dados do usuário como SQLite',
+			'sqlite_force' => 'Force export even if it exceeds the size limit',	// TODO
 			'sqlite_now' => 'Export current database now',	// TODO
 			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),

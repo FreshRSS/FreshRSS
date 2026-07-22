@@ -820,6 +820,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$maxSize = (int)(FreshRSS_Context::systemConf()->limits['sqlite_export_max_db_size'] ?? 0);
 		$this->view->sqliteExportMaxSize = $maxSize;
 		$this->view->sqliteExportEnabled = $maxSize > 0;
+		$this->view->sqliteExportIsAdmin = FreshRSS_Context::userConf()->is_admin;
 		$this->view->sqliteExportAllowed = $this->view->sqliteExportEnabled
 			&& FreshRSS_DatabaseDAO::sizeWithinLimit(FreshRSS_Factory::createDatabaseDAO()->size(), $maxSize);
 	}
@@ -828,7 +829,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * This action triggers a new SQLite export of the current user's database, reachable from the Web UI.
 	 *
 	 * It must be reached by a POST request, and is refused if the database is larger than the configured
-	 * `limits.sqlite_export_max_db_size`.
+	 * `limits.sqlite_export_max_db_size`, unless an admin explicitly forces it via the `force` parameter.
 	 */
 	public function sqliteExportAction(): void {
 		if (!Minz_Request::isPost()) {
@@ -838,8 +839,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		$maxSize = (int)(FreshRSS_Context::systemConf()->limits['sqlite_export_max_db_size'] ?? 0);
 		$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
+		$forced = Minz_Request::paramBoolean('force') && FreshRSS_Context::userConf()->is_admin;
 
-		if (!FreshRSS_DatabaseDAO::sizeWithinLimit($databaseDAO->size(), $maxSize)) {
+		if (!$forced && !FreshRSS_DatabaseDAO::sizeWithinLimit($databaseDAO->size(), $maxSize)) {
 			Minz_Request::bad(_t('feedback.import_export.sqlite_export_too_large'), ['c' => 'importExport', 'a' => 'index']);
 			return;
 		}

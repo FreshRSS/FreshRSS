@@ -19,7 +19,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* New option to hide badges showing number of unread articles (*Phantom Obligation*) [#8844](https://github.com/FreshRSS/FreshRSS/pull/8844)
 	* New option to keep or not the custom sort order when navigating between categories and feeds [#8969](https://github.com/FreshRSS/FreshRSS/pull/8969)
 	* New per-feed option to show or hide enclosures (attachments) [#4999](https://github.com/FreshRSS/FreshRSS/issues/4999)
-	* Trigger an on-demand SQLite export from the Web UI, gated by a new `limits.sqlite_export_max_db_size` setting [#8183](https://github.com/FreshRSS/FreshRSS/issues/8183)
+	* Trigger an on-demand SQLite export from the Web UI, gated by a new `limits.sqlite_export_max_db_size` setting, with an admin override to force it past that limit [#8183](https://github.com/FreshRSS/FreshRSS/issues/8183)
 * Bug fixing
 	* Fix lost elements while parsing search query [#8884](https://github.com/FreshRSS/FreshRSS/pull/8884)
 * CLI
