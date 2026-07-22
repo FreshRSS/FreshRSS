@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => 'Export',	// IGNORE
 			'sqlite' => 'Download user database as SQLite',	// IGNORE
+			'sqlite_now' => 'Export current database now',	// IGNORE
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// IGNORE
 		),
 		'export_labelled' => 'Export your labeled articles',
 		'export_opml' => 'Export list of feeds (OPML)',	// IGNORE

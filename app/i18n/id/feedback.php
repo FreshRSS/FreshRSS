@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Umpan Anda telah diimpor, tapi ada beberapa galat. Jika Anda sudah selesai mengimpor, Anda bisa mengklik tombol <i>Perbarui umpan</i>.',
 		'file_cannot_be_uploaded' => 'Berkas tidak dapt diunggah!',
 		'no_zip_extension' => 'Ekstensi ZIP tidak tersedia di peladen Anda.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Galat terjadi ketika pemrosesan ZIP.',
 	),
 	'profile' => array(

@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Vòstres fluxes son estats importats mas i a agut d’errors / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Telecargament del fichièr impossible',
 		'no_zip_extension' => 'L’extension es pas presenta sul servidor.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Una error s’es producha pendent l’importacion del fichièr ZIP.',	// DIRTY
 	),
 	'profile' => array(

@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => 'Ekspor',
 			'sqlite' => 'Unduh basis data pengguna dalam bentuk SQLite',
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => 'Ekspor artikel yang dilabelkan',
 		'export_opml' => 'Ekspor daftar umpan (OPML)',

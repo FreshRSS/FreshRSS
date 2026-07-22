@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Jūsu barotnes tika importētas, bet ir radušās dažas kļūdas / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'Failu nevar augšupielādēt!',
 		'no_zip_extension' => 'Jūsu serverī nav ZIP paplašinājuma.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'ZIP importa laikā notika kļūda.',	// DIRTY
 	),
 	'profile' => array(

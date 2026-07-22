@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => 'Export',
 			'sqlite' => 'Download user database as SQLite',
+			'sqlite_now' => 'Export current database now',
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',
 		),
 		'export_labelled' => 'Export your labelled articles',
 		'export_opml' => 'Export list of feeds (OPML)',

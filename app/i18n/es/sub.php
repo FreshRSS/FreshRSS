@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => 'Exportar',
 			'sqlite' => 'Descargar base de datos de usuario en formato SQLite',
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => 'Exporta tus artículos etiquetados',
 		'export_opml' => 'Exportar la lista de fuentes (OPML)',

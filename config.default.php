@@ -143,6 +143,10 @@ return [
 		# Max amount of bytes that are allowed for upload of custom favicon
 		'max_favicon_upload_size' => 1048576,	# 1 MiB
 
+		# Max database size in bytes to allow triggering a SQLite export from the Web UI.
+		#   0 disables the Web UI SQLite export button (the CLI `./cli/export-sqlite-for-user.php` remains available).
+		'sqlite_export_max_db_size' => 104857600,	# 100 MiB
+
 		# Limits for regex, useful to limit regex during user searches
 		'regex_backtrack_limit' => 10000,
 		'regex_recursion_limit' => 100,

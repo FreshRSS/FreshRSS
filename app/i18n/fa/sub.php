@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => ' صادرات',
 			'sqlite' => 'دانلود پایگاه داده کاربر به عنوان SQLite',
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => ' مقالات برچسب دار خود را صادر کنید',
 		'export_opml' => ' لیست صادرات فیدها (OPML)',

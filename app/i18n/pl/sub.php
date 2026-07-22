@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => 'Eksport',
 			'sqlite' => 'Pobierz bazę danych użytkownika jako SQLite',
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => 'Eksportuj wiadomości z etykietami',
 		'export_opml' => 'Eksportuj listę kanałów (format OPML)',

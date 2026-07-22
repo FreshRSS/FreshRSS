@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => '내보내기',
 			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => '라벨이 표시된 글들 내보내기',
 		'export_opml' => '피드 목록 내보내기 (OPML)',

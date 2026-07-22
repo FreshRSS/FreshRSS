@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => 'Exportovat',
 			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => 'Exportovat články s vašimi popisky',
 		'export_opml' => 'Exportovat seznam kanálů (OPML)',

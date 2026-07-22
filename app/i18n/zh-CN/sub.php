@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => '导出',
 			'sqlite' => '导出用户数据库为 SQLite 文件',
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => '导出有标签的文章',
 		'export_opml' => '导出订阅源列表（OPML）',

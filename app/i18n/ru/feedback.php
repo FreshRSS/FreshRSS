@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Ваши ленты импортированы, но возникли ошибки. Если вы завершили импортирование, можете нажать на кнопку <i>Обновить ленты</i>.',
 		'file_cannot_be_uploaded' => 'Файл не может быть загружен!',
 		'no_zip_extension' => 'На вашем сервере нет расширения ZIP.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Ошибка возникла при импорте ZIP.',
 	),
 	'profile' => array(

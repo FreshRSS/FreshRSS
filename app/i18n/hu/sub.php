@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => 'Exportálás',
 			'sqlite' => 'Felhasználói adatbázis letöltése SQLite-ként',
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => 'Címkézett cikkek exportálása',
 		'export_opml' => 'Hírforrások listájának exportálása (OPML)',

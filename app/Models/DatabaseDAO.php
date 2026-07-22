@@ -300,6 +300,15 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 		return isset($res[0]) ? (int)($res[0]) : -1;
 	}
 
+	/**
+	 * Whether a database of a given size is within a configured maximum, e.g. to gate a Web UI action.
+	 * @param int $sizeBytes Database size in bytes, as returned by `size()`, or a negative value if unknown.
+	 * @param int $maxSizeBytes Maximum allowed size in bytes; a value ≤ 0 means the action is always disallowed.
+	 */
+	public static function sizeWithinLimit(int $sizeBytes, int $maxSizeBytes): bool {
+		return $maxSizeBytes > 0 && $sizeBytes >= 0 && $sizeBytes <= $maxSizeBytes;
+	}
+
 	public function optimize(): bool {
 		$ok = true;
 		$tables = ['category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag'];

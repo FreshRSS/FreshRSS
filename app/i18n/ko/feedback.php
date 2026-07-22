@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => '피드를 불러왔지만, 문제가 발생했습니다. 불러오기가 끝났다면 이제 <i>피드 업데이트</i> 버튼을 클릭해도 됩니다.',
 		'file_cannot_be_uploaded' => '파일을 업로드할 수 없습니다!',
 		'no_zip_extension' => 'ZIP 확장 기능을 서버에서 찾을 수 없습니다.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'ZIP 처리 중 문제가 발생했습니다.',
 	),
 	'profile' => array(

@@ -113,4 +113,22 @@ final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
 	public static function test_strilike_SQLite(string $haystack, string $needle, bool $contains, bool $expected): void {
 		self::assertSame($expected, FreshRSS_DatabaseDAOSQLite::strilike($haystack, $needle, $contains));
 	}
+
+	/** @return list<array{int,int,bool}> */
+	public static function provideSizeWithinLimit(): array {
+		return [
+			// [size in bytes, max size in bytes, expected]
+			[0, 100, true],
+			[100, 100, true],
+			[101, 100, false],
+			[100, 0, false],		// A max size of 0 (or less) always disallows.
+			[100, -1, false],
+			[-1, 100, false],		// A negative (unknown) size is never considered within limit.
+		];
+	}
+
+	#[DataProvider('provideSizeWithinLimit')]
+	public static function test_sizeWithinLimit(int $sizeBytes, int $maxSizeBytes, bool $expected): void {
+		self::assertSame($expected, FreshRSS_DatabaseDAO::sizeWithinLimit($sizeBytes, $maxSizeBytes));
+	}
 }

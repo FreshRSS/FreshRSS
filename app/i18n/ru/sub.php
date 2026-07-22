@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => 'Экспорт',
 			'sqlite' => 'Скачать базу данных пользователя в формате SQLite',
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => 'Экспортировать ваши помеченные статьи',
 		'export_opml' => 'Экспортировать список лент (OPML)',

@@ -270,6 +270,8 @@ return array(
 		'export' => array(
 			'_' => 'Vie',
 			'sqlite' => 'Lataa käyttäjän tietokanta SQLite-muodossa',
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => 'Vie merkityt artikkelit',
 		'export_opml' => 'Vie syöteluettelo (OPML)',

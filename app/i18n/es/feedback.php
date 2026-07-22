@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Se importaron tus fuentes; pero hubo algunos errores. Si has terminado, puedes hacer click en el botón <i>Actualizar fuentes</i>',
 		'file_cannot_be_uploaded' => 'No es posible enviar el archivo',
 		'no_zip_extension' => 'La extensión ZIP no está disponible en tu servidor.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Hubo un error durante la importación del ZIP.',
 	),
 	'profile' => array(
