@@ -64,8 +64,8 @@ return array(
 		),
 		'database-title' => 'Datenbank',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'Das Dokumentenstammverzeichnis Ihres Webservers scheint nicht auf den Ordner <code>./p/</code> zu zeigen. Andere Ordner wie <code>./data/</code> könnten öffentlich zugänglich sein.',
+			'ok' => 'Das Dokumentenstammverzeichnis Ihres Webservers zeigt korrekt auf den Ordner <code>./p/</code>.',
 		),
 		'dom' => array(
 			'nok' => 'Ihnen fehlt die benötigte Bibliothek zum Durchsuchen des DOM.',
@@ -81,8 +81,8 @@ return array(
 		),
 		'files' => 'Datei-Installation',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => 'Die für 32-Bit-PHP erforderliche GMP-Erweiterung (Paket php-gmp) wurde nicht gefunden.',
+			'ok' => 'Die für 32-Bit-PHP erforderliche GMP-Erweiterung ist vorhanden.',
 		),
 		'intl' => array(
 			'nok' => 'Die empfohlene Bibliothek php-intl für die Internationalisierung kann nicht gefunden werden.',
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Glückwunsch!',
 	'default_user' => array(
 		'_' => 'Benutzername des Standardbenutzers',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '1-39 Zeichen: Buchstaben, Ziffern und <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Bitte den Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 	'javascript_is_better' => 'FreshRSS ist angenehmer, wenn JavaScript aktiviert ist.',
