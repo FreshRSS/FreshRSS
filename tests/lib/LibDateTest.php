@@ -79,6 +79,11 @@ class LibDateTest extends \PHPUnit\Framework\TestCase {
 			['P1M/2014-02-28', strtotime('2014-01-28 00:00:01'), strtotime('2014-02-28 00:00:00')],
 			['P3D/2014-01-10T23:59:59', strtotime('2014-01-08 00:00:00'), strtotime('2014-01-10 23:59:59')],
 			['PT12H/2014-06-01T12:00', strtotime('2014-06-01 00:00:01'), strtotime('2014-06-01 12:00:00')],
+
+			// UTC offsets, including negative ones (regression test for the sign being dropped)
+			['2014-02-03T22:00:00-05:00', strtotime('2014-02-04 03:00:00 UTC'), strtotime('2014-02-04 03:00:00 UTC')],
+			['2014-02-03T22:00:00+05:00', strtotime('2014-02-03 17:00:00 UTC'), strtotime('2014-02-03 17:00:00 UTC')],
+			['2014-02-03T22:00:00Z', strtotime('2014-02-03 22:00:00 UTC'), strtotime('2014-02-03 22:00:00 UTC')],
 		];
 	}
 }

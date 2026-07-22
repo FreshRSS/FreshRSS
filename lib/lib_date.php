@@ -67,7 +67,17 @@ function _dateCeiling(string $isoDate): string {
 
 /** @phpstan-return ($isoDate is null ? null : ($isoDate is '' ? null : string)) */
 function _noDelimit(?string $isoDate): ?string {
-	return $isoDate === null || $isoDate === '' ? null : str_replace(['-', ':'], '', $isoDate);	//FIXME: Bug with negative time zone
+	if ($isoDate === null || $isoDate === '') {
+		return null;
+	}
+	// Preserve a trailing UTC offset (e.g. "-05:00", "+0530", "Z") so that its sign is not stripped
+	// together with the date/time delimiters, which would otherwise corrupt negative time zones.
+	$timeZone = '';
+	if (preg_match('/(?:Z|[+-]\d{2}:?\d{2})$/i', $isoDate, $matches) === 1) {
+		$timeZone = $matches[0];
+		$isoDate = substr($isoDate, 0, -strlen($timeZone));
+	}
+	return str_replace(['-', ':'], '', $isoDate) . $timeZone;
 }
 
 function _dateRelative(?string $d1, ?string $d2): ?string {
