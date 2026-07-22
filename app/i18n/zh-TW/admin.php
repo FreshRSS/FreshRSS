@@ -157,7 +157,7 @@ return array(
 		'list' => '使用者清單',
 		'number' => '已建立 %d 個帳號',
 		'numbers' => '已建立 %d 個帳號',
-		'password_form' => '密碼<br /><small>(用於 Web 表單登入方式)</small>',
+		'password_form' => '密碼<br /><small>(適用於 Web 表單登入方式)</small>',
 		'password_format' => '至少 7 個字元',
 		'title' => '管理使用者',
 		'username' => '使用者名稱',
