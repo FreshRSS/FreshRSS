@@ -38,6 +38,7 @@ return array(
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Não',
 		),
+		'display_enclosures' => 'Show enclosures',	// TODO
 		'icon' => array(
 			'bottom_line' => 'Linha inferior',
 			'display_authors' => 'Autores',
@@ -311,6 +312,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Coloque o artigo no topo quando aberto',
+		'sticky_sort' => 'Manter a ordenação manual durante a navegação',
+		'sticky_sort_help' => 'Determina se a última ordenação manual é mantida ativa ou se cada categoria ou fonte usa sempre a sua própria configuração predefinida ou global.',
 		'title' => 'Lendo',
 		'view' => array(
 			'default' => 'Visualização padrão',
