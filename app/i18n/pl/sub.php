@@ -224,6 +224,8 @@ return array(
 		),
 		'proxy' => 'Serwer proxy używany podczas pobierania kanału',
 		'proxy_help' => 'Wybierz protokół (np. SOCKS5) i podaj adres serwera proxy (np. <kbd>127.0.0.1:1080</kbd> lub <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'Przywróć domyślną',
 		'selector_preview' => array(
 			'show_raw' => 'Pokaż źródło',

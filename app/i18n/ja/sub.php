@@ -224,6 +224,8 @@ return array(
 		),
 		'proxy' => 'フィードを取得するときのプロキシ',
 		'proxy_help' => 'プロトコルを選択し（例：SOCKS5）プロキシアドレスを入力してください（例：<kbd>127.0.0.1:1080</kbd> や <kbd>username:password@127.0.0.1:1080</kbd>）',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'デフォルトに戻す',
 		'selector_preview' => array(
 			'show_raw' => 'ソースコードを表示する',

@@ -224,6 +224,8 @@ return array(
 		),
 		'proxy' => 'Указать прокси для извлечения этой ленты',
 		'proxy_help' => 'Выберите протокол (например, SOCKS5) и введите адрес прокси (например, <kbd>127.0.0.1:1080</kbd> или <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'Сбросить на значение по умолчанию',
 		'selector_preview' => array(
 			'show_raw' => 'Показать исходный код',

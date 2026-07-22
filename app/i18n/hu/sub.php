@@ -224,6 +224,8 @@ return array(
 		),
 		'proxy' => 'Állíts be egy proxy-t a hírforráshoz ',
 		'proxy_help' => 'Válassz egy protokollt (pl.: SOCKS5) és add meg a proxy címét (pl.: <kbd>127.0.0.1:1080</kbd> vagy <kbd>felhasználónév:jelszó@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'Visszaállítás alapértelmezettre',
 		'selector_preview' => array(
 			'show_raw' => 'Forráskód mutatása',

@@ -224,6 +224,8 @@ return array(
 		),
 		'proxy' => '取得訂閱源時的代理',
 		'proxy_help' => '選擇協定 (例如: SOCKS5) 並輸入代理位址 (例如: <kbd>127.0.0.1:1080</kbd> 或 <kbd>使用者名稱:密碼@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => '重設至預設',
 		'selector_preview' => array(
 			'show_raw' => '顯示原始碼',
