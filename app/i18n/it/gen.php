@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => 'Sei sicuro di voler perdere le impostazioni non salvate?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'C\'è %d nuovo articolo da leggere.',	// DIRTY
-				1 => 'Ci sono %d nuovi articoli da leggere.',	// DIRTY
+				0 => 'C\'è %d nuovo articolo da leggere su FreshRSS.',
+				1 => 'Ci sono %d nuovi articoli da leggere su FreshRSS.',
 			),
 			'body_unread_articles' => array(
-				0 => '(non letti: %d)',	// DIRTY
-				1 => '(non letti: %d)',	// DIRTY
+				0 => '(non letto: %d)',
+				1 => '(non letti: %d)',
 			),
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
