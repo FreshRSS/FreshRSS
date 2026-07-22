@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Lietotājvārds',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 rakstzīmes: burti, cipari un <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
