@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => ' نام کاربری',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>۱ تا ۳۹ نویسه: حروف، رقم‌ها و <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
