@@ -21,7 +21,9 @@ The "Subscription management" submenu allows categories and feeds to be configur
 
 ### Archiving
 
-If "Purge Policy" has "By default" selected, then the [default purge policy](./05_Configuration.md) is used and the other options are not displayed. Category options will override the default policy, but they will not override feed-specific options.
+If "Purge Policy" has "By default" selected, then the [default purge policy](./05_Configuration.md#archiving) is used and the other options are not displayed. Category options will override the default policy, but they will not override feed-specific options.
+
+See [Archiving](./05_Configuration.md#archiving) for important details on when and how purging actually happens (it is not applied on every refresh, and it is based on the discovery date of articles, not their published date).
 
 ## Feed Settings
 
@@ -29,7 +31,7 @@ These fields will be auto-filled when adding a feed, but they can be modified la
 
 ### Archival
 
-This section will let you override the default settings for feed archiving and update frequency.
+This section will let you override the default settings for feed archiving and update frequency. When "By default" is selected here, the feed uses its category’s purge policy, falling back to the [global default](./05_Configuration.md#archiving) if the category also uses the default.
 
 ### Login
 
