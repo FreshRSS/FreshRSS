@@ -1516,11 +1516,6 @@ a.website:hover .favicon {
 	font-weight: bold;
 }
 
-.flux:not(.current):hover .flux_header.has-date .item .title {
-	padding-left: 0.5rem;
-	z-index: 2;
-}
-
 .flux:not(.current):hover .item .title {
 	background-color: inherit;
 }
@@ -1581,6 +1576,7 @@ a.website:hover .favicon {
 	grid-template-columns: minmax(0, 1fr) auto;
 	grid-template-areas: "title date"
 		"summary .";
+	column-gap: 0.5rem;
 	align-content: center;
 }
 
