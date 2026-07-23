@@ -1013,31 +1013,7 @@ class FreshRSS_Entry extends Minz_Model {
 						if ($node->ownerDocument !== $doc || $node->parentNode === null) {
 							continue;
 						}
-						// Lazy-loading pages often leave a data URL or a 1x1 spacer in src.
-						$images = $xpath->query('.//img', $node);
-						if ($images !== false) {
-							foreach ($images as $image) {
-								if (!($image instanceof DOMElement)) {
-									continue;
-								}
-								$src = trim($image->getAttribute('src'));
-								$isLazyPlaceholder = $src === ''
-									|| str_starts_with(strtolower($src), 'data:')
-									|| preg_match('/(?:^|\\/)1x1(?:[_-]spacer)?\\.(?:gif|jpe?g|png|webp)(?:[?#].*)?$/i', $src) === 1;
-								if (!$isLazyPlaceholder) {
-									continue;
-								}
-								foreach (['data-src', 'data-src-template', 'data-original'] as $attribute) {
-									$replacement = trim($image->getAttribute($attribute));
-									$isWebUrl = preg_match('/^[a-z][a-z0-9+.-]*:/i', $replacement) !== 1
-										|| preg_match('/^https?:/i', $replacement) === 1;
-									if ($replacement !== '' && $isWebUrl) {
-										$image->setAttribute('src', $replacement);
-										break;
-									}
-								}
-							}
-						}
+						self::replaceLazyLoadedImagePlaceholders($xpath, $node);
 						$html .= $doc->saveHTML($node) . "\n";
 					} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
 						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
@@ -1079,6 +1055,40 @@ class FreshRSS_Entry extends Minz_Model {
 			return trim($html);
 		} else {
 			throw new Minz_Exception();
+		}
+	}
+
+	/**
+	 * Lazy-loading pages often leave a data URL or a 1x1 spacer in `src`, with the real image
+	 * URL held in a `data-src`-like attribute instead. Swap it back in so the image actually loads.
+	 */
+	public static function replaceLazyLoadedImagePlaceholders(DOMXPath $xpath, DOMElement $node): void {
+		$images = $xpath->query('.//img', $node);
+		if ($images === false) {
+			return;
+		}
+		foreach ($images as $image) {
+			if (!($image instanceof DOMElement)) {
+				continue;
+			}
+			$src = trim($image->getAttribute('src'));
+			$isLazyPlaceholder = $src === ''
+				|| str_starts_with(strtolower($src), 'data:')
+				|| preg_match('/(?:^|\\/)1x1(?:[_-]spacer)?\\.(?:gif|jpe?g|png|webp)(?:[?#].*)?$/i', $src) === 1;
+			if (!$isLazyPlaceholder) {
+				continue;
+			}
+			foreach (['data-src', 'data-src-template', 'data-original'] as $attribute) {
+				// Browsers strip ASCII tabs/newlines before resolving a URL scheme (e.g. "java\tscript:"
+				// normalises to "javascript:"), so the scheme check must be done on the same normalised form.
+				$replacement = preg_replace('/[\t\r\n]/', '', trim($image->getAttribute($attribute))) ?? '';
+				$isWebUrl = preg_match('/^[a-z][a-z0-9+.-]*:/i', $replacement) !== 1
+					|| preg_match('/^https?:/i', $replacement) === 1;
+				if ($replacement !== '' && $isWebUrl) {
+					$image->setAttribute('src', $replacement);
+					break;
+				}
+			}
 		}
 	}
 
