@@ -32,6 +32,37 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Tampilan',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Penulis dan tanggal',
+				'both' => 'Di baris atas dan bawah',
+				'footer' => 'Di baris bawah',
+				'header' => 'Di baris atas',
+				'none' => 'Tidak ditampilkan',
+			),
+			'feed_name' => array(
+				'above_title' => 'Di atas judul/lebel',
+				'none' => 'Tidak ditampilkan',
+				'with_authors' => 'Di baris penulis dan tanggal',
+			),
+			'feed_title' => 'Judul umpan',
+			'icons' => array(
+				'_' => 'Posisi ikon artikel <br /><small>(Tampilan membaca saja)</small>',
+				'above_title' => 'Di atas judul',
+				'with_authors' => 'Di baris penulis dan tanggal',
+			),
+			'tags' => array(
+				'_' => 'Label',
+				'both' => 'Di baris atas dan bawah',
+				'footer' => 'Di baris bawah',
+				'header' => 'Di baris atas',
+				'none' => 'Tidak ditampilkan',
+			),
+			'tags_max' => array(
+				'_' => 'Maksimum label yang ditampilkan',
+				'help' => '0 berarti: tampilkan semua label dan jangan sembunyikan',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Mode gelap otomatis',
 			'auto' => 'Otomatis',
@@ -39,6 +70,9 @@ return array(
 			'no' => 'Tidak',
 		),
 		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Artikel: Baris Atas/Bawah',
+		),
 		'icon' => array(
 			'bottom_line' => 'Baris bawah',
 			'display_authors' => 'Penulis',
@@ -232,37 +266,6 @@ return array(
 		'after_onread' => 'Setelah “tandai semua sebagai sudah dibaca”',
 		'always_show_favorites' => 'Tampilkan semua artikel favorit secara baku',
 		'apply_to_individual_feed' => 'Berlaku per umpan individu',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Penulis dan tanggal',
-				'both' => 'Di baris atas dan bawah',
-				'footer' => 'Di baris bawah',
-				'header' => 'Di baris atas',
-				'none' => 'Tidak ditampilkan',
-			),
-			'feed_name' => array(
-				'above_title' => 'Di atas judul/lebel',
-				'none' => 'Tidak ditampilkan',
-				'with_authors' => 'Di baris penulis dan tanggal',
-			),
-			'feed_title' => 'Judul umpan',
-			'icons' => array(
-				'_' => 'Posisi ikon artikel <br /><small>(Tampilan membaca saja)</small>',
-				'above_title' => 'Di atas judul',
-				'with_authors' => 'Di baris penulis dan tanggal',
-			),
-			'tags' => array(
-				'_' => 'Label',
-				'both' => 'Di baris atas dan bawah',
-				'footer' => 'Di baris bawah',
-				'header' => 'Di baris atas',
-				'none' => 'Tidak ditampilkan',
-			),
-			'tags_max' => array(
-				'_' => 'Maksimum label yang ditampilkan',
-				'help' => '0 berarti: tampilkan semua label dan jangan sembunyikan',
-			),
-		),
 		'articles_per_page' => 'Jumlah artikel per halaman',
 		'auto_load_more' => 'Muat lebih banyak artikel setelah bagian bawah halaman',
 		'auto_remove_article' => 'Sembunyikan artikel setelah dibaca',
@@ -271,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Kategori yang dibuka',
 		'headline' => array(
 			'articles' => 'Artikel: Buka/Tutup',
-			'articles_header_footer' => 'Artikel: Baris Atas/Bawah',
 			'categories' => 'Navigasi kiri: Kategori',
 			'mark_as_read' => 'Tandai artikel sebagai sudah dibaca',
 			'misc' => 'Lain-lain',
