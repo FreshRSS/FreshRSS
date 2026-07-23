@@ -84,6 +84,9 @@ Si vous voulez une publication continue (rolling release) avec les dernières no
 | [<img src="https://raw.githubusercontent.com/ClawCloud/Run-Template/refs/heads/main/Run-on-ClawCloud.svg" width="160" alt="ClawCloud" />](https://template.run.claw.cloud/?openapp=system-fastdeploy%3FtemplateName%3Dfreshrss) | [<img src="https://assets.hostinger.com/vps/deploy.svg" width="160" alt="Hostinger" />](https://www.hostinger.com/vps/docker-hosting?compose_url=https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/freshrss/docker-compose.yml) | |
 
 
+Pour plus d'options d'hébergement dans le cloud, consultez la [liste des fournisseurs cloud](https://freshrss.org/cloud-providers.html) ou [Chatons](https://www.chatons.org/search/by-service?field_software_target_id=269) (un annuaire de fournisseurs d'hébergement éthiques).
+
+
 ## Installation manuelle
 
 1. Récupérez l’application FreshRSS via la commande git ou [en téléchargeant l’archive](../releases)
