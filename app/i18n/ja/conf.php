@@ -32,6 +32,37 @@ return array(
 	),
 	'display' => array(
 		'_' => '表示',
+		'article' => array(
+			'authors_date' => array(
+				'_' => '著者と日時',
+				'both' => 'ヘッダーとフッター',
+				'footer' => 'フッター',
+				'header' => 'ヘッダー',
+				'none' => 'なし',
+			),
+			'feed_name' => array(
+				'above_title' => 'タイトルとタグの上',
+				'none' => 'なし',
+				'with_authors' => '著者と日時の隣',
+			),
+			'feed_title' => 'フィード名',
+			'icons' => array(
+				'_' => '記事アイコンの位置<br /><small>（リーディングビューのみ）</small>',
+				'above_title' => 'タイトルの上',
+				'with_authors' => '著者と日時の隣',
+			),
+			'tags' => array(
+				'_' => 'タグ',
+				'both' => 'ヘッダーとフッター',
+				'footer' => 'フッター',
+				'header' => 'ヘッダー',
+				'none' => 'なし',
+			),
+			'tags_max' => array(
+				'_' => '表示するタグの数の上限',
+				'help' => '0に設定すると、折りたたまずにすべてのタグを表示します。',
+			),
+		),
 		'darkMode' => array(
 			'_' => '自動ダークモード',
 			'auto' => '有効',
@@ -39,6 +70,9 @@ return array(
 			'no' => '無効',
 		),
 		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => '記事：ヘッダー/フッター',
+		),
 		'icon' => array(
 			'bottom_line' => '下段',
 			'display_authors' => '著者',
@@ -232,37 +266,6 @@ return array(
 		'after_onread' => '「すべて既読にする」の実行後、',
 		'always_show_favorites' => 'デフォルトですべてのお気に入りの記事を表示する',
 		'apply_to_individual_feed' => '個々のフィードに適用する',
-		'article' => array(
-			'authors_date' => array(
-				'_' => '著者と日時',
-				'both' => 'ヘッダーとフッター',
-				'footer' => 'フッター',
-				'header' => 'ヘッダー',
-				'none' => 'なし',
-			),
-			'feed_name' => array(
-				'above_title' => 'タイトルとタグの上',
-				'none' => 'なし',
-				'with_authors' => '著者と日時の隣',
-			),
-			'feed_title' => 'フィード名',
-			'icons' => array(
-				'_' => '記事アイコンの位置<br /><small>（リーディングビューのみ）</small>',
-				'above_title' => 'タイトルの上',
-				'with_authors' => '著者と日時の隣',
-			),
-			'tags' => array(
-				'_' => 'タグ',
-				'both' => 'ヘッダーとフッター',
-				'footer' => 'フッター',
-				'header' => 'ヘッダー',
-				'none' => 'なし',
-			),
-			'tags_max' => array(
-				'_' => '表示するタグの数の上限',
-				'help' => '0に設定すると、折りたたまずにすべてのタグを表示します。',
-			),
-		),
 		'articles_per_page' => '1ページあたりの記事の数',
 		'auto_load_more' => 'ページ下部で記事をさらに読み込む',
 		'auto_remove_article' => '記事を読んだら非表示にする',
@@ -271,7 +274,6 @@ return array(
 		'display_categories_unfolded' => '展開するカテゴリ',
 		'headline' => array(
 			'articles' => '記事：開く/閉じる',
-			'articles_header_footer' => '記事：ヘッダー/フッター',
 			'categories' => '左のナビゲーション：カテゴリ',
 			'mark_as_read' => 'チェックをつけた記事を既読にする',
 			'misc' => 'その他',

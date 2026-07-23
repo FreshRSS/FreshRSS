@@ -39,12 +39,15 @@ class Minz_FrontController {
 
 			Minz_Request::init();
 
+			// Build the current request's URL and forward to it directly.
+			// If needed, a redirect is issued instead to correct the public relative path.
 			$url = Minz_Url::build();
 			$url['params'] = array_merge(
 				empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
 				array_filter($_POST, 'is_string', ARRAY_FILTER_USE_KEY)
 			);
-			Minz_Request::forward($url);
+			$pathInfo = $_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '';
+			Minz_Request::forward($url, redirect: $pathInfo !== '');
 		} catch (Minz_Exception $e) {
 			Minz_Log::error($e->getMessage());
 			self::killApp($e->getMessage());
