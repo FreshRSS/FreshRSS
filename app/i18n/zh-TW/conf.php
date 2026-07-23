@@ -32,6 +32,37 @@ return array(
 	),
 	'display' => array(
 		'_' => '顯示',
+		'article' => array(
+			'authors_date' => array(
+				'_' => '作者和日期',
+				'both' => '兩者都顯示',
+				'footer' => '僅頁腳顯示',
+				'header' => '僅頁眉顯示',
+				'none' => '不顯示',
+			),
+			'feed_name' => array(
+				'above_title' => '標題/標籤之上',
+				'none' => '不顯示',
+				'with_authors' => '在作者和日期那列',
+			),
+			'feed_title' => '訂閱源標題',
+			'icons' => array(
+				'_' => '文章圖示位置<br /><small>(僅閱讀檢視)</small>',
+				'above_title' => '標題之上',
+				'with_authors' => '在作者和日期那列',
+			),
+			'tags' => array(
+				'_' => '標籤',
+				'both' => '兩者都顯示',
+				'footer' => '僅頁腳顯示',
+				'header' => '僅頁眉顯示',
+				'none' => '不顯示',
+			),
+			'tags_max' => array(
+				'_' => '標籤最大顯示數量',
+				'help' => '0 代表顯示所有標籤並且不摺疊它們',
+			),
+		),
 		'darkMode' => array(
 			'_' => '自動黑暗模式',
 			'auto' => '自動',
@@ -39,6 +70,9 @@ return array(
 			'no' => '否',
 		),
 		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => '文章: 頁首/頁尾',
+		),
 		'icon' => array(
 			'bottom_line' => '底部',
 			'display_authors' => '作者',
@@ -232,37 +266,6 @@ return array(
 		'after_onread' => '在 "標記全部為已讀" 之後，',
 		'always_show_favorites' => '預設顯示收藏中的所有文章',
 		'apply_to_individual_feed' => '個別套用到訂閱源',
-		'article' => array(
-			'authors_date' => array(
-				'_' => '作者和日期',
-				'both' => '兩者都顯示',
-				'footer' => '僅頁腳顯示',
-				'header' => '僅頁眉顯示',
-				'none' => '不顯示',
-			),
-			'feed_name' => array(
-				'above_title' => '標題/標籤之上',
-				'none' => '不顯示',
-				'with_authors' => '在作者和日期那列',
-			),
-			'feed_title' => '訂閱源標題',
-			'icons' => array(
-				'_' => '文章圖示位置<br /><small>(僅閱讀檢視)</small>',
-				'above_title' => '標題之上',
-				'with_authors' => '在作者和日期那列',
-			),
-			'tags' => array(
-				'_' => '標籤',
-				'both' => '兩者都顯示',
-				'footer' => '僅頁腳顯示',
-				'header' => '僅頁眉顯示',
-				'none' => '不顯示',
-			),
-			'tags_max' => array(
-				'_' => '標籤最大顯示數量',
-				'help' => '0 代表顯示所有標籤並且不摺疊它們',
-			),
-		),
 		'articles_per_page' => '每頁文章數',
 		'auto_load_more' => '在頁面底部載入更多文章',
 		'auto_remove_article' => '閱讀後隱藏文章',
@@ -271,7 +274,6 @@ return array(
 		'display_categories_unfolded' => '不摺疊的類別',
 		'headline' => array(
 			'articles' => '文章: 開啟/關閉',
-			'articles_header_footer' => '文章: 頁首/頁尾',
 			'categories' => '左側導覽: 類別',
 			'mark_as_read' => '標記文章為已讀',
 			'misc' => '雜項',

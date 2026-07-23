@@ -32,6 +32,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Always jump article to top when header is offscreen, also when **Stick the article to the top when opened* is disabled [#8870](https://github.com/FreshRSS/FreshRSS/pull/8870)
 	* Fix padding for `.nav_menu` in Alternative-Dark, Flat, and Nord themes [#8901](https://github.com/FreshRSS/FreshRSS/pull/8901)
 	* Various UI and style improvements: [#8823](https://github.com/FreshRSS/FreshRSS/pull/8823), [#8824](https://github.com/FreshRSS/FreshRSS/pull/8824)
+	* Move article header/footer options (feed title, authors and date, icons position, tags) from *Reading* to *Display* configuration [#6866](https://github.com/FreshRSS/FreshRSS/issues/6866)
 * Extensions
 	* New `freshrss:entryStateChange` JavaScript event for extensions, dispatched when an article has finished being marked as read/unread [#8862](https://github.com/FreshRSS/FreshRSS/pull/9031)
 * I18n
