@@ -47,7 +47,6 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Improve PHP code [#8906](https://github.com/FreshRSS/FreshRSS/pull/8906)
 	* Fix PHPStan 2.2.2 in CLI [#8911](https://github.com/FreshRSS/FreshRSS/pull/8911)
 	* Update dev dependencies [#8904](https://github.com/FreshRSS/FreshRSS/pull/8904), [#8905](https://github.com/FreshRSS/FreshRSS/pull/8905)
-	* Clarify archiving/purge documentation: purge policy priority, discovery-date logic, and random trigger [#6863](https://github.com/FreshRSS/FreshRSS/issues/6863)
 
 
 ## 2026-05-20 FreshRSS 1.29.1
