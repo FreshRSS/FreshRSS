@@ -21,6 +21,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* New per-feed option to show or hide enclosures (attachments) [#4999](https://github.com/FreshRSS/FreshRSS/issues/4999)
 * Bug fixing
 	* Fix lost elements while parsing search query [#8884](https://github.com/FreshRSS/FreshRSS/pull/8884)
+	* Restore remembered open categories before the sidebar paints, avoiding a visible collapse-then-expand jump on navigation [#8512](https://github.com/FreshRSS/FreshRSS/issues/8512)
 * CLI
 	* New `cli/reconfigure-user.php` to read/write per-user config attributes [#8873](https://github.com/FreshRSS/FreshRSS/pull/8873)
 * API
