@@ -77,4 +77,4 @@ This checklist is designed to ensure high-quality system themes while minimizing
 
 ## AI-assisted pull requests
 
-**Note:** Please limit AI-assisted pull requests to **5 open at a time** per contributor.
+**Note:** Please limit AI-assisted pull requests to **10 open at a time** per contributor.
