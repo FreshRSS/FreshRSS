@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Zobrazení',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autoři a datum',
+				'both' => 'V záhlaví a zápatí',
+				'footer' => 'V zápatí',
+				'header' => 'V záhlaví',
+				'none' => 'Žádný',
+			),
+			'feed_name' => array(
+				'above_title' => 'Nad názvem/štítky',
+				'none' => 'Žádný',
+				'with_authors' => 'V řádku s autory a datem',
+			),
+			'feed_title' => 'Název feedu',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Štítky',
+				'both' => 'V záhlaví a zápatí',
+				'footer' => 'V zápatí',
+				'header' => 'V záhlaví',
+				'none' => 'Žádné',
+			),
+			'tags_max' => array(
+				'_' => 'Maximální počet zobrazených štítků',
+				'help' => '0 znamená: zobrazit všechny značky a nesbalovat je.',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatický tmavý režim',
 			'auto' => 'Automatický',
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Ne',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Články: záhlaví/zápatí',
 		),
 		'icon' => array(
 			'bottom_line' => 'Spodní řádek',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => 'Po „označit vše jako přečtené“',
 		'always_show_favorites' => 'Ve výchozím nastavení zobrazit všechny články v oblíbených',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autoři a datum',
-				'both' => 'V záhlaví a zápatí',
-				'footer' => 'V zápatí',
-				'header' => 'V záhlaví',
-				'none' => 'Žádný',
-			),
-			'feed_name' => array(
-				'above_title' => 'Nad názvem/štítky',
-				'none' => 'Žádný',
-				'with_authors' => 'V řádku s autory a datem',
-			),
-			'feed_title' => 'Název feedu',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => 'Štítky',
-				'both' => 'V záhlaví a zápatí',
-				'footer' => 'V zápatí',
-				'header' => 'V záhlaví',
-				'none' => 'Žádné',
-			),
-			'tags_max' => array(
-				'_' => 'Maximální počet zobrazených štítků',
-				'help' => '0 znamená: zobrazit všechny značky a nesbalovat je.',
-			),
-		),
 		'articles_per_page' => 'Počet článků na stránku',
 		'auto_load_more' => 'Načítat další články dole na stránce',
 		'auto_remove_article' => 'Po přečtení články skrýt',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Kategorii, které rozbalovat',
 		'headline' => array(
 			'articles' => 'Články: Otevřít/zavřít',
-			'articles_header_footer' => 'Články: záhlaví/zápatí',
 			'categories' => 'Navigace vlevo: Kategorie',
 			'mark_as_read' => 'Označit článek jako přečtený',
 			'misc' => 'Různé',
@@ -311,6 +314,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Při otevření připnout článek na začátek',
+		'sticky_sort' => 'Zachovat ruční řazení při navigaci',	// DIRTY
+		'sticky_sort_help' => 'Určuje, zda se zachová poslední ruční řazení, nebo zda každá kategorie či kanál vždy použije vlastní výchozí nebo globální nastavení.',	// DIRTY
 		'title' => 'Čtení',
 		'view' => array(
 			'default' => 'Výchozí zobrazení',

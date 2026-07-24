@@ -40,6 +40,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	 *   - display of my Labels in footer
 	 *   - display of date in footer
 	 *   - display of open action in footer
+	 *   - display of feed title (default: above title)
+	 *   - display of authors and date (default: none)
+	 *   - display of article icons position (default: above title)
+	 *   - display of tags (default: none)
 	 *   - html5 notification timeout (default: 0)
 	 * Default values are false unless specified.
 	 */
@@ -66,6 +70,11 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->topline_thumbnail = Minz_Request::paramString('topline_thumbnail');
 			FreshRSS_Context::userConf()->topline_summary = Minz_Request::paramBoolean('topline_summary');
 			FreshRSS_Context::userConf()->topline_display_authors = Minz_Request::paramBoolean('topline_display_authors');
+			FreshRSS_Context::userConf()->show_tags = Minz_Request::paramStringNull('show_tags') ?? '0';
+			FreshRSS_Context::userConf()->show_tags_max = Minz_Request::paramInt('show_tags_max');
+			FreshRSS_Context::userConf()->show_author_date = Minz_Request::paramStringNull('show_author_date') ?? '0';
+			FreshRSS_Context::userConf()->show_feed_name = Minz_Request::paramStringNull('show_feed_name') ?? 't';
+			FreshRSS_Context::userConf()->show_article_icons = Minz_Request::paramStringNull('show_article_icons') ?? 't';
 			FreshRSS_Context::userConf()->bottomline_read = Minz_Request::paramBoolean('bottomline_read');
 			FreshRSS_Context::userConf()->bottomline_favorite = Minz_Request::paramBoolean('bottomline_favorite');
 			FreshRSS_Context::userConf()->bottomline_sharing = Minz_Request::paramBoolean('bottomline_sharing');
@@ -140,16 +149,12 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->auto_load_more = Minz_Request::paramBoolean('auto_load_more');
 			FreshRSS_Context::userConf()->display_posts = Minz_Request::paramBoolean('display_posts');
 			FreshRSS_Context::userConf()->display_categories = Minz_Request::paramStringNull('display_categories') ?? 'active';
-			FreshRSS_Context::userConf()->show_tags = Minz_Request::paramStringNull('show_tags') ?? '0';
-			FreshRSS_Context::userConf()->show_tags_max = Minz_Request::paramInt('show_tags_max');
-			FreshRSS_Context::userConf()->show_author_date = Minz_Request::paramStringNull('show_author_date') ?? '0';
-			FreshRSS_Context::userConf()->show_feed_name = Minz_Request::paramStringNull('show_feed_name') ?? 't';
-			FreshRSS_Context::userConf()->show_article_icons = Minz_Request::paramStringNull('show_article_icons') ?? 't';
 			FreshRSS_Context::userConf()->hide_read_feeds = Minz_Request::paramBoolean('hide_read_feeds');
 			FreshRSS_Context::userConf()->onread_jump_next = Minz_Request::paramBoolean('onread_jump_next');
 			FreshRSS_Context::userConf()->lazyload = Minz_Request::paramBoolean('lazyload');
 			FreshRSS_Context::userConf()->sides_close_article = Minz_Request::paramBoolean('sides_close_article');
 			FreshRSS_Context::userConf()->sticky_post = Minz_Request::paramBoolean('sticky_post');
+			FreshRSS_Context::userConf()->sticky_sort = Minz_Request::paramBoolean('sticky_sort');
 			$markReadButton = Minz_Request::paramStringNull('mark_read_button', plaintext: true);
 			FreshRSS_Context::userConf()->mark_read_button = in_array($markReadButton, ['big', 'small', 'none'], true) ? $markReadButton : 'big';
 			FreshRSS_Context::userConf()->reading_confirm = Minz_Request::paramBoolean('reading_confirm');

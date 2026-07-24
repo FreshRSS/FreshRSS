@@ -5,7 +5,7 @@ declare(strict_types=1);
  * @param array<FreshRSS_Feed> $feeds
  * @return list<array<string,string|bool|int>>
  */
-function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
+function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false, bool $includeSensitiveCurlParams = false): array {
 	$outlines = [];
 	foreach ($feeds as $feed) {
 		if ($feed->mute() && $excludeMutedFeeds) {
@@ -53,6 +53,11 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 
 		if ($feed->attributeBoolean('unicityCriteriaForced')) {
 			$outline['frss:unicityCriteriaForced'] = 'true';
+		}
+
+		// Refresh interval (TTL), signed: a negative value indicates a muted feed
+		if ($feed->ttl(raw: true) !== FreshRSS_Feed::TTL_DEFAULT) {
+			$outline['frss:ttl'] = (string)$feed->ttl(raw: true);
 		}
 
 		if ($feed->kind() === FreshRSS_Feed::KIND_HTML_XPATH || $feed->kind() === FreshRSS_Feed::KIND_XML_XPATH) {
@@ -114,8 +119,9 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false): array {
 			$outline['frss:cssContentFilter'] = $feed->attributeString('path_entries_filter');
 		}
 
-		$curl_params = $feed->attributeArray('curl_params');
-		if (!empty($curl_params)) {
+		$curl_params = FreshRSS_http_Util::sanitizeCurlParams($feed->attributeArray('curl_params') ?? []);
+		// NB: Only include sensitive cURL parameters for private exports, not for public shares
+		if ($includeSensitiveCurlParams && !empty($curl_params)) {
 			$outline['frss:CURLOPT_COOKIE'] = $curl_params[CURLOPT_COOKIE] ?? null;
 			$outline['frss:CURLOPT_COOKIEFILE'] = $curl_params[CURLOPT_COOKIEFILE] ?? null;
 			$outline['frss:CURLOPT_FOLLOWLOCATION'] = $curl_params[CURLOPT_FOLLOWLOCATION] ?? null;
@@ -167,7 +173,7 @@ if (!empty($this->categories)) {
 	foreach ($this->categories as $cat) {
 		$outline = [
 			'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
-			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds),
+			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds, $this->includeSensitiveCurlParams),
 		];
 
 		if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {
@@ -179,7 +185,7 @@ if (!empty($this->categories)) {
 }
 
 if (!empty($this->feeds)) {
-	$opml_array['body'] = array_merge($opml_array['body'], feedsToOutlines($this->feeds, $this->excludeMutedFeeds));
+	$opml_array['body'] = array_merge($opml_array['body'], feedsToOutlines($this->feeds, $this->excludeMutedFeeds, $this->includeSensitiveCurlParams));
 }
 
 $libopml = new \marienfressinaud\LibOpml\LibOpml(strict: false);

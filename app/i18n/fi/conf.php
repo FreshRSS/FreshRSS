@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Näkymä',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Kirjoittajat ja päiväys',
+				'both' => 'Ylä- ja alatunnisteessa',
+				'footer' => 'Alatunnisteessa',
+				'header' => 'Ylätunnisteessa',
+				'none' => 'Älä näytä',
+			),
+			'feed_name' => array(
+				'above_title' => 'Otsikon/tunnisteiden yläpuolella',
+				'none' => 'Älä näytä',
+				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
+			),
+			'feed_title' => 'Syötteen otsikko',
+			'icons' => array(
+				'_' => 'Artikkelin kuvakkeiden asettelu<br /><small>(vain lukunäkymä)</small>',
+				'above_title' => 'Otsikon yläpuolella',
+				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
+			),
+			'tags' => array(
+				'_' => '#Tunnisteet',
+				'both' => 'Ylä- ja alatunnisteessa',
+				'footer' => 'Alatunnisteessa',
+				'header' => 'Ylätunnisteessa',
+				'none' => 'Älä näytä',
+			),
+			'tags_max' => array(
+				'_' => 'Enimmäismäärä näytettäviä tunnisteita',
+				'help' => '0 - näytä kaikki tunnisteet tiivistämättä',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automaattinen tumma tila',
 			'auto' => 'Automaattinen',
 			'help' => 'Toimii vain yhteensopivissa teemoissa',
 			'no' => 'Ei',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Artikkelit: ylätunniste/alatunniste',
 		),
 		'icon' => array(
 			'bottom_line' => 'Alin rivi',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => 'Kun valitset “merkitse kaikki luetuiksi”',
 		'always_show_favorites' => 'Näytä oletusarvoisesti kaikki suosikkiartikkelit',
 		'apply_to_individual_feed' => 'Asetus vaikuttaa jokaiseen syötteeseen erikseen',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Kirjoittajat ja päiväys',
-				'both' => 'Ylä- ja alatunnisteessa',
-				'footer' => 'Alatunnisteessa',
-				'header' => 'Ylätunnisteessa',
-				'none' => 'Älä näytä',
-			),
-			'feed_name' => array(
-				'above_title' => 'Otsikon/tunnisteiden yläpuolella',
-				'none' => 'Älä näytä',
-				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
-			),
-			'feed_title' => 'Syötteen otsikko',
-			'icons' => array(
-				'_' => 'Artikkelin kuvakkeiden asettelu<br /><small>(vain lukunäkymä)</small>',
-				'above_title' => 'Otsikon yläpuolella',
-				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
-			),
-			'tags' => array(
-				'_' => '#Tunnisteet',
-				'both' => 'Ylä- ja alatunnisteessa',
-				'footer' => 'Alatunnisteessa',
-				'header' => 'Ylätunnisteessa',
-				'none' => 'Älä näytä',
-			),
-			'tags_max' => array(
-				'_' => 'Enimmäismäärä näytettäviä tunnisteita',
-				'help' => '0 - näytä kaikki tunnisteet tiivistämättä',
-			),
-		),
 		'articles_per_page' => 'Artikkelien määrä sivulla',
 		'auto_load_more' => 'Lataa lisää artikkeleita sivun lopussa',
 		'auto_remove_article' => 'Piilota artikkelit lukemisen jälkeen',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Luokat, joiden artikkelit näytetään kokonaan',
 		'headline' => array(
 			'articles' => 'Artikkelit: avaa/sulje',
-			'articles_header_footer' => 'Artikkelit: ylätunniste/alatunniste',
 			'categories' => 'Vasen siirtymisvalikko: luokat',
 			'mark_as_read' => 'Merkitse artikkeli luetuksi',
 			'misc' => 'Sekalaista',
@@ -311,6 +314,8 @@ return array(
 			'when' => 'Merkitse artikkeli suosikiksi…',
 		),
 		'sticky_post' => 'Kiinnitä artikkeli ylimmäksi avattaessa',
+		'sticky_sort' => 'Säilytä manuaalinen lajittelujärjestys navigoinnin aikana',	// DIRTY
+		'sticky_sort_help' => 'Määrittää, pysyykö viimeisin manuaalinen lajittelu käytössä vai käyttääkö jokainen luokka tai syöte aina omaa oletus- tai yleisasetustaan.',	// DIRTY
 		'title' => 'Lukeminen',
 		'view' => array(
 			'default' => 'Oletusnäkymä',

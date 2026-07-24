@@ -129,6 +129,11 @@ final class FreshRSS_http_Util {
 			if ($k === CURLOPT_COOKIEFILE) {
 				$curl_params[$k] = '';
 			}
+			// Remove HTTP authentication headers problematic for security
+			if ($k === CURLOPT_HTTPHEADER && is_array($curl_params[$k])) {
+				$curl_params[$k] = array_filter($curl_params[$k],
+					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
+			}
 		}
 		return $curl_params;
 	}
@@ -291,20 +296,39 @@ final class FreshRSS_http_Util {
 	}
 
 	/**
+	 * Return 0 if values on either side are equal ignoring the HTTP vs HTTPS differences, or 1/-1 if they differ.
+	 */
+	public static function compareUrlIgnoringHttps(string $url1, string $url2): int {
+		$normalizeScheme = static fn(string $url): string => preg_replace('#^https?://#i', '//', trim($url)) ?? $url;
+		return $normalizeScheme($url1) <=> $normalizeScheme($url2);
+	}
+
+	/**
 	 * Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
 	 *
-	 * @return array<string>|null|false
+	 * Can also be used for checking if the CURLOPT_PROXY value is allowed, by providing a proxy URL with the `for_proxy` parameter set to `true`.
+	 * In that case, a string value will be returned with the hostname resolved to an IP if allowed.
+	 *
+	 * @return array<string>|string|null|false
 	 */
-	public static function getCurlResolveInfo(string $url): array|null|false {
+	public static function getCurlResolveInfo(string $url, bool $for_proxy = false): array|string|null|false {
+		// Parse the original URL first so that credentials keep their original case (only the host is case-insensitive).
+		$parsedOriginal = parse_url($url);
 		$url = strtolower($url);
 		$parsed = parse_url($url);
-		if ($parsed === false) {
+		if ($parsed === false || $parsedOriginal === false) {
 			return false;
 		}
 		$host = $parsed['host'] ?? null;
 		$scheme = $parsed['scheme'] ?? null;
 		if ($host === null || $scheme === null) {
 			return false;
+		}
+		$credentials = '';
+		$user = $parsedOriginal['user'] ?? null;
+		$pass = $parsedOriginal['pass'] ?? null;
+		if (is_string($user) && is_string($pass)) {
+			$credentials = "$user:$pass@";
 		}
 		if (str_starts_with($host, '[') && str_ends_with($host, ']')) {
 			if (strlen($host) === 2) {
@@ -321,15 +345,25 @@ final class FreshRSS_http_Util {
 			$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
 		}
 
-		if (in_array('*', $internal_host_allowlist, true)) {
-			return [];	// Disables SSRF checks entirely (unsafe)
-		}
-
 		$port = parse_url($url)['port'] ?? match ($scheme) {
 			'http' => 80,
 			'https' => 443,
+			'socks4' => 1080,
+			'socks4a' => 1080,
+			'socks5' => 1080,
+			'socks5h' => 1080,
 			default => 0,
 		};
+		if (in_array('*', $internal_host_allowlist, true)) {
+			if ($for_proxy) {
+				if (filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
+					return $credentials . "[$host]:$port";
+				}
+				return $credentials . "$host:$port";
+			}
+			return [];	// Disables SSRF checks entirely (unsafe)
+		}
+
 		$resolve_str = "$host:$port:";
 		$ips_ok = [];
 		$ips = [];
@@ -388,10 +422,20 @@ final class FreshRSS_http_Util {
 
 		if (count($ips_ok) > 0) {
 			if (count($records) > 0 || isset(self::$resolve_ok[$host])) {
+				if ($for_proxy) {
+					// $ips_ok[0] is already bracketed when it is an IPv6 address
+					return $credentials . "$ips_ok[0]:$port";
+				}
 				$resolve_str .= implode(',', $ips_ok);
 				return [$resolve_str];
 			}
 			if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
+				if ($for_proxy) {
+					if (filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
+						return $credentials . "[$host]:$port";
+					}
+					return $credentials . "$host:$port";
+				}
 				// No resolve overrides since the URL only contained an IP, not a domain
 				return [];
 			}
@@ -426,7 +470,9 @@ final class FreshRSS_http_Util {
 			if ($cacheMtime !== false && $cacheMtime > time() - intval($limits['cache_duration'])) {
 				$body = @file_get_contents($cachePath);
 				if ($body != false) {
-					syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
+					if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
+						syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
+					}
 					return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false, 'status' => -200, 'error' => ''];
 				}
 			}
@@ -438,14 +484,14 @@ final class FreshRSS_http_Util {
 
 		$accept = '';
 		$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] ?? null) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
+		$proxy_type = is_int(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXYTYPE] ?? null) ?
+			FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXYTYPE] : 0;
 		$options = [];	// User-defined cURL options
 		if (is_array($attributes['curl_params'] ?? null)) {
 			$options = self::sanitizeCurlParams($attributes['curl_params']);
 			$proxy = is_string($options[CURLOPT_PROXY] ?? null) ? $options[CURLOPT_PROXY] : $proxy;
+			$proxy_type = is_int($options[CURLOPT_PROXYTYPE] ?? null) ? $options[CURLOPT_PROXYTYPE] : $proxy_type;
 			if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
-				// Remove headers problematic for security
-				$options[CURLOPT_HTTPHEADER] = array_filter($options[CURLOPT_HTTPHEADER],
-					fn($header) => is_string($header) && !preg_match('/^(Remote-User|X-WebAuth-User)\\s*:/i', $header));
 				// Add Accept header if it is not set
 				if (preg_grep('/^Accept\\s*:/i', $options[CURLOPT_HTTPHEADER]) === false) {
 					$options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $accept;
@@ -453,6 +499,7 @@ final class FreshRSS_http_Util {
 			}
 		}
 		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
+		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
@@ -503,6 +550,38 @@ final class FreshRSS_http_Util {
 				}
 				if (!empty($resolve)) {
 					$curl_options[CURLOPT_RESOLVE] = $resolve;	// Prevent DNS rebinding
+				}
+			} else {
+				defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2);	// Compatibility cURL 7.51
+				$proxy_scheme = match ($proxy_type) {
+					CURLPROXY_HTTP => 'http',
+					CURLPROXY_HTTPS => 'https',
+					CURLPROXY_SOCKS4 => 'socks4',
+					CURLPROXY_SOCKS4A => 'socks4a',
+					CURLPROXY_SOCKS5 => 'socks5',
+					CURLPROXY_SOCKS5_HOSTNAME => 'socks5h',
+					default => null,
+				};
+				if ($proxy_scheme === null) {
+					// Unsupported proxy type
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+				}
+				$proxy_url = "$proxy_scheme://$proxy"; // CURLOPT_PROXY ($proxy) is formatted as user:pass@hostname:port, with the part before @ being optional
+				$resolve = self::getCurlResolveInfo($proxy_url, for_proxy: true);
+				if ($resolve === null) {
+					Minz_Log::warning('Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
+						\SimplePie\Misc::url_remove_credentials($url) . '] [' .
+						\SimplePie\Misc::url_remove_credentials($proxy_url) . ']');
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+				} elseif ($resolve === false) {
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+				}
+				// Translate from a hostname:port value to ip:port, in order to avoid DNS rebinding
+				$curl_options[CURLOPT_PROXY] = $resolve;
+				if (defined('CURLOPT_PROXY_SSL_VERIFYHOST')) {
+					// Skip verifying the hostname (a bit unsafe, but needed since
+					// there is no CURLOPT_RESOLVE equivalent for proxy hostnames)
+					$curl_options[CURLOPT_PROXY_SSL_VERIFYHOST] = 0;
 				}
 			}
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since

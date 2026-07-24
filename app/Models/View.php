@@ -32,6 +32,7 @@ class FreshRSS_View extends Minz_View {
 	/** @var array<string,array<string>> */
 	public array $tagsForEntries;
 	public bool $excludeMutedFeeds;
+	public bool $includeSensitiveCurlParams = false;
 
 	// Search
 	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
@@ -110,6 +111,7 @@ class FreshRSS_View extends Minz_View {
 	public int $currentPage;
 	public Minz_Paginator $logsPaginator;
 	public int $nbPage;
+	public string $logSearch = '';
 
 	// RSS view
 	public FreshRSS_UserQuery $userQuery;
