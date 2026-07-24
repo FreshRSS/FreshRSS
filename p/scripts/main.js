@@ -873,7 +873,7 @@ function auto_share(key) {
 	if (!share) {
 		return;
 	}
-	let shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
+	let shares;
 	if (typeof key === 'undefined') {
 		show_share_menu(share);
 		shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
@@ -896,6 +896,7 @@ function auto_share(key) {
 			return;
 		}
 	}
+	shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	// Trigger selected share action and hide the share div
 	key = parseInt(key);
 	if (key <= shares.length) {
