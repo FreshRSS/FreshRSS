@@ -83,8 +83,7 @@ Si vous voulez une publication continue (rolling release) avec les dernières no
 | [<img src="https://cloudron.io/img/button.svg" width="160" alt="Cloudron" />](https://cloudron.io/button.html?app=org.freshrss.cloudronapp) | [<img src="https://www.pikapods.com/static/run-button-34.svg" width="160" alt="PikaPods" />](https://www.pikapods.com/pods?run=freshrss) | [<img src="https://zeabur.com/button.svg" width="160" alt="Zeabur" />](https://zeabur.com/templates/MD4TRW) |
 | [<img src="https://raw.githubusercontent.com/ClawCloud/Run-Template/refs/heads/main/Run-on-ClawCloud.svg" width="160" alt="ClawCloud" />](https://template.run.claw.cloud/?openapp=system-fastdeploy%3FtemplateName%3Dfreshrss) | [<img src="https://assets.hostinger.com/vps/deploy.svg" width="160" alt="Hostinger" />](https://www.hostinger.com/vps/docker-hosting?compose_url=https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/freshrss/docker-compose.yml) | |
 
-
-Pour plus d'options d'hébergement dans le cloud, consultez la [liste des fournisseurs cloud](https://freshrss.org/cloud-providers.html) ou [Chatons](https://www.chatons.org/search/by-service?field_software_target_id=269) (un annuaire de fournisseurs d'hébergement éthiques).
+Pour plus d’options d’hébergement dans le cloud, consultez la [liste des fournisseurs cloud](https://freshrss.org/cloud-providers.html) ou [Chatons](https://www.chatons.org/search/by-service?field_software_target_id=269) (un annuaire de fournisseurs d’hébergement éthiques).
 
 
 ## Installation manuelle
