@@ -37,6 +37,7 @@ class FreshRSS_View extends Minz_View {
 	/** @var array<string,array<string>> */
 	public array $tagsForEntries;
 	public bool $excludeMutedFeeds;
+	public bool $includeSensitiveCurlParams = false;
 
 	// Search
 	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
