@@ -317,10 +317,10 @@ final class FreshRSS_Context {
 	}
 
 	/**
-	 * Checks whether the $state parameter is consequencial, i.e. has any effect
+	 * Checks whether the $state parameter is consequential, i.e. has any effect
 	 * (not zero, and not just including opposite states).
 	 */
-	public static function isStateConsequencial(int $state): bool {
+	public static function isStateConsequential(int $state): bool {
 		return (($state & FreshRSS_Entry::STATE_READ) xor ($state & FreshRSS_Entry::STATE_NOT_READ)) ||
 			(($state & FreshRSS_Entry::STATE_FAVORITE) xor ($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) ||
 			($state & FreshRSS_Entry::STATE_OR_NOT_READ) ||
