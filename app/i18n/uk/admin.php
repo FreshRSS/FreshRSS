@@ -31,7 +31,7 @@ return array(
 		'empty_list' => 'Розширень не встановлено',
 		'empty_list_help' => 'Щоб виявити причину порожнього списку розширень, перегляньте журнали.',
 		'enabled' => 'Увімкнено',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Сумісне',
 		'latest' => 'Встановлено',
 		'name' => 'Назва',
 		'no_configure_view' => 'Розширення не налаштовується.',
@@ -48,8 +48,8 @@ return array(
 		'_' => 'Статистика',
 		'all_feeds' => 'Всі стрічки',
 		'category' => 'Категорія',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Дата оприлюднення',
+		'date_received' => 'Дата отримання',
 		'entry_count' => 'Кількість статей',
 		'entry_per_category' => 'Статей у категорії',
 		'entry_per_day' => 'Статей за день (минулі 30 днів)',
@@ -62,7 +62,7 @@ return array(
 		'idle' => 'Неактивні стрічки',
 		'main' => 'Основна статистика',
 		'main_stream' => 'Головний потік',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Кількість непрочитаних статей',
 		'no_idle' => 'Неактивних стрічок нема!',
 		'number_entries' => 'Статей: %d',
 		'overview' => 'Огляд',
@@ -74,7 +74,7 @@ return array(
 		'status_unread' => 'Непрочитано',
 		'title' => 'Статистика',
 		'top_feed' => 'Десять найактивніших стрічок',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Дати з найбільшою кількістю непрочитаних статей',
 	),
 	'system' => array(
 		'_' => 'Налаштування системи',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'Базова URL-адреса',
 			'recommendation' => 'Автоматична порада: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Повідомлення при вимкненій реєстрації',
 		'cookie-duration' => array(
 			'help' => 'секунд',
 			'number' => 'Тривалість сеансу',
 		),
+		'default_closed_registration_message' => 'Наразі сервер не приймає нових реєстрацій.',
 		'force_email_validation' => 'Підтверджувати адресу електронної пошти',
 		'instance-name' => 'Назва сервера',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => 'Максимум категорій у користувача',
 		'max-feeds' => 'Максимум стрічок у користувача',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Максимум облікових записів',
 			'select' => array(

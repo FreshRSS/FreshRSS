@@ -18,6 +18,14 @@
 			<option value="month" <?= Minz_Request::paramString('granularity') === 'month' ? 'selected="selected"' : '' ?>><?= _t('gen.period.months') ?></option>
 			<option value="year" <?= Minz_Request::paramString('granularity') === 'year' ? 'selected="selected"' : '' ?>><?= _t('gen.period.years') ?></option>
 		</select>
+		<select name="min_priority" id="min_priority">
+			<?php $currentPriority = Minz_Request::paramIntNull('min_priority'); ?>
+			<option value=""><?= _t('sub.feed.priority._') ?></option>
+			<option value="<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>" <?= $currentPriority === FreshRSS_Feed::PRIORITY_IMPORTANT ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.important') ?></option>
+			<option value="<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>" <?= $currentPriority === FreshRSS_Feed::PRIORITY_MAIN_STREAM ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.main_stream') ?></option>
+			<option value="<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>" <?= $currentPriority === FreshRSS_Feed::PRIORITY_CATEGORY ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.category') ?></option>
+			<option value="<?= FreshRSS_Feed::PRIORITY_FEED ?>" <?= $currentPriority === FreshRSS_Feed::PRIORITY_FEED ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.feed') ?></option>
+		</select>
 		<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
 	</form>
 	<table>

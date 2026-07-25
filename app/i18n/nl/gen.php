@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Gebruikersnaam',
-			'format' => '<small>Maximaal 16 alfanumerieke tekens</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -140,14 +140,47 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Over FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d dag geleden',
+			1 => '%d dagen geleden',
+		),
+		'hour' => array(
+			0 => '%d uur geleden',
+			1 => '%d uur geleden',
+		),
+		'justnow' => 'zojuist',
+		'minute' => array(
+			0 => '%d minuut geleden',
+			1 => '%d minuten geleden',
+		),
+		'month' => array(
+			0 => '%d maand geleden',
+			1 => '%d maanden geleden',
+		),
+		'second' => array(
+			0 => '%d seconde geleden',
+			1 => '%d seconden geleden',
+		),
+		'year' => array(
+			0 => '%d jaar geleden',
+			1 => '%d jaar geleden',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Lege categorie',
 		'confirm_action' => 'Weet u zeker dat u dit wilt doen? Het kan niet ongedaan worden gemaakt!',
 		'confirm_action_feed_cat' => 'Weet u zeker dat u dit wilt doen? U verliest alle gereleteerde favorieten en gebruikers informatie. Het kan niet ongedaan worden gemaakt!',
 		'confirm_exit_slider' => 'Weet u zeker dat u de niet opgeslagen instellingen wilt negeren?',
 		'feedback' => array(
-			'body_new_articles' => 'Er zijn %%d nieuwe artikelen om te lezen op FreshRSS.',
-			'body_unread_articles' => '(ongelezen: %%d)',
+			'body_new_articles' => array(
+				0 => 'Er is %d nieuw artikel om te lezen op FreshRSS.',
+				1 => 'Er zijn %d nieuwe artikelen om te lezen op FreshRSS.',
+			),
+			'body_unread_articles' => array(
+				0 => '(ongelezen: %d)',
+				1 => '(ongelezen: %d)',
+			),
 			'request_failed' => 'Een opdracht is mislukt, mogelijk door Internet verbindings problemen.',
 			'title_new_articles' => 'FreshRSS: nieuwe artikelen!',
 		),
@@ -228,12 +261,13 @@ return array(
 		'categories' => 'Categorieën',
 		'content' => 'Inhoud',
 		'date_from' => 'Van',
+		'date_modified' => 'Wijzigingsdatum (server)',
 		'date_past' => 'In het verleden',
 		'date_published' => 'Publicatiedatum',
 		'date_range' => 'Datumbereik',
 		'date_received' => 'Datum ontvangen',
 		'date_to' => 'Tot',
-		'date_user' => 'Datum van wijziging door gebruiker',
+		'date_user' => 'Wijzigingsdatum (gebruiker)',
 		'feeds' => 'Feeds',	// IGNORE
 		'free_text' => 'Vrije tekst',
 		'free_text_help' => 'Zoeken in zowel titel als inhoud',
@@ -264,10 +298,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Bookmarks',	// TODO
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
@@ -276,7 +312,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Delen van systeem',

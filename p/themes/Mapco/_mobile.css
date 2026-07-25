@@ -4,7 +4,7 @@
 @media (max-width: 840px) {
 	.aside {
 
-		transition: all 0.2s ease-in-out;
+		transition: width 0.2s ease-in-out;
 
 		&.aside_feed {
 			padding: 0;
@@ -103,6 +103,11 @@
 
 	#nav_menu_read_all #nav_menu_read .dropdown-toggle.btn {
 		background-image: none;
+	}
+
+	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+		border-left-width: 0;
+		border-radius: 5px;
 	}
 
 	#stream {

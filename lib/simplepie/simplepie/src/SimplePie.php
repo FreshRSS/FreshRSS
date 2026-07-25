@@ -693,6 +693,13 @@ class SimplePie
     public $allow_aria_attr = true;
 
     /**
+     * @var string[] Stores array of disallowed URI schemes (protocols)
+     * @see SimplePie::disallow_uri_schemes()
+     * @access private
+     */
+    public $disallowed_uri_schemes = ['javascript'];
+
+    /**
      * @var bool Should we throw exceptions, or use the old-style error property?
      * @access private
      */
@@ -1590,6 +1597,14 @@ class SimplePie
     }
 
     /**
+     * @param string[] $schemes List of schemes (protocols) to disallow
+     */
+    public function disallow_uri_schemes(array $schemes = ['javascript']): void
+    {
+        $this->sanitize->disallow_uri_schemes($schemes);
+    }
+
+    /**
      * @return void
      */
     public function encode_instead_of_strip(bool $enable = true)
@@ -2282,7 +2297,8 @@ class SimplePie
             $headers[$key] = implode(', ', $values);
         }
 
-        $sniffer = $this->registry->create(Sniffer::class, [&$file]);
+        $fileResponse = File::fromResponse($file);
+        $sniffer = $this->registry->create(Sniffer::class, [$fileResponse]);
         $sniffed = $sniffer->get_type();
 
         return [$headers, $sniffed];
@@ -2896,7 +2912,7 @@ class SimplePie
      * Get a contributor for the feed
      *
      * @since 1.1
-     * @param int $key The contrbutor that you want to return. Remember that arrays begin with 0, not 1
+     * @param int $key The contributor that you want to return. Remember that arrays begin with 0, not 1
      * @return Author|null
      */
     public function get_contributor(int $key = 0)
@@ -3224,6 +3240,28 @@ class SimplePie
     }
 
     /**
+     * Get the feed icon's URL
+     *
+     * Returns favicon-like feed artwork only.
+     *
+     * Uses `<atom:icon>`, or RSS 2.0 `<image><url>` (only if square).
+     *
+     * @return string|null
+     */
+    public function get_icon_url()
+    {
+        if ($return = $this->get_channel_tags(self::NAMESPACE_ATOM_10, 'icon')) {
+            return $this->sanitize($return[0]['data'], self::CONSTRUCT_IRI, $this->get_base($return[0]));
+        } elseif (($return = $this->get_image_tags(self::NAMESPACE_RSS_20, 'url')) &&
+            ($this->get_image_width() ?? -2) === ($this->get_image_height() ?? -3)) {
+            // Use only if the image is square, otherwise it is likely a banner and not an icon
+            return $this->sanitize($return[0]['data'], self::CONSTRUCT_IRI, $this->get_base($return[0]));
+        }
+
+        return null;
+    }
+
+    /**
      * Get the feed logo's title
      *
      * RSS 0.9.0, 1.0 and 2.0 feeds are allowed to have a "feed logo" title.
@@ -3278,7 +3316,6 @@ class SimplePie
 
         return null;
     }
-
 
     /**
      * Get the feed logo's link

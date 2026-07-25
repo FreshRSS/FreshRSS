@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => '显示',
+		'article' => array(
+			'authors_date' => array(
+				'_' => '作者和日期',
+				'both' => '页脚与页眉',
+				'footer' => '页脚',
+				'header' => '页眉',
+				'none' => '不显示',
+			),
+			'feed_name' => array(
+				'above_title' => '在标题/标签上方',
+				'none' => '不显示',
+				'with_authors' => '与作者和日期一行',
+			),
+			'feed_title' => '订阅源标题',
+			'icons' => array(
+				'_' => '文章图标位置<br /><small>（仅阅读视图）</small>',
+				'above_title' => '标题之上',
+				'with_authors' => '与作者和日期在同一行',
+			),
+			'tags' => array(
+				'_' => '文章标签',
+				'both' => '页脚与页眉',
+				'footer' => '页脚',
+				'header' => '页眉',
+				'none' => '不显示',
+			),
+			'tags_max' => array(
+				'_' => '标签最多显示个数',
+				'help' => '0 表示：显示所有标签且不折叠',
+			),
+		),
 		'darkMode' => array(
 			'_' => '自动黑暗模式',
 			'auto' => '启动',
 			'help' => '仅适用于兼容性主题',
 			'no' => '关闭',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => '文章: 页眉/页脚',
 		),
 		'icon' => array(
 			'bottom_line' => '底栏',
@@ -54,6 +89,15 @@ return array(
 			'timeout' => 'HTML5 通知超时时间',
 		),
 		'show_nav_buttons' => '显示导航按钮',
+		'show_title_unread' => '在标题中显示未读文章的数量',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => '主题',
 			'deprecated' => array(
@@ -105,6 +149,9 @@ return array(
 		'none' => '无',
 		'small' => '小',
 	),
+	'notification' => array(
+		'html5_enable_notif' => '启用通知',
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => '显示警告横幅',
@@ -118,6 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => '隐私',
 		'retrieve_extension_list' => '获取扩展列表',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => '账户管理',
@@ -129,6 +177,7 @@ return array(
 			'disabled' => 'API 访问已禁用。',
 			'documentation_link' => '查看 <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">文档和已知应用列表</a>',
 			'help' => '查看 <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>文档</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => '修改密码',
 		'confirm_new_password' => '确认新密码',
@@ -145,6 +194,7 @@ return array(
 	),
 	'query' => array(
 		'_' => '自定义查询',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => '此查询不再有效。相关的分类或订阅源已被删除。',
 		'description' => '描述',
 		'filter' => array(
@@ -216,37 +266,6 @@ return array(
 		'after_onread' => '“全部标记为已读”后',
 		'always_show_favorites' => '默认显示收藏夹中所有的文章',
 		'apply_to_individual_feed' => '单独应用于各订阅源',
-		'article' => array(
-			'authors_date' => array(
-				'_' => '作者和日期',
-				'both' => '页脚与页眉',
-				'footer' => '页脚',
-				'header' => '页眉',
-				'none' => '不显示',
-			),
-			'feed_name' => array(
-				'above_title' => '在标题/标签上方',
-				'none' => '不显示',
-				'with_authors' => '与作者和日期一行',
-			),
-			'feed_title' => '订阅源标题',
-			'icons' => array(
-				'_' => '文章图标位置<br /><small>（仅阅读视图）</small>',
-				'above_title' => '标题之上',
-				'with_authors' => '与作者和日期在同一行',
-			),
-			'tags' => array(
-				'_' => '文章标签',
-				'both' => '页脚与页眉',
-				'footer' => '页脚',
-				'header' => '页眉',
-				'none' => '不显示',
-			),
-			'tags_max' => array(
-				'_' => '标签最多显示个数',
-				'help' => '0 表示：显示所有标签且不折叠',
-			),
-		),
 		'articles_per_page' => '每页文章数',
 		'auto_load_more' => '在页面底部载入更多文章',
 		'auto_remove_article' => '阅读后隐藏文章',
@@ -255,7 +274,6 @@ return array(
 		'display_categories_unfolded' => '展开的分类',
 		'headline' => array(
 			'articles' => '文章：打开/关闭',
-			'articles_header_footer' => '文章: 页眉/页脚',
 			'categories' => '左侧导航栏：分类',
 			'mark_as_read' => '标为已读选项',
 			'misc' => '其它',
@@ -275,6 +293,7 @@ return array(
 			'upon_gone' => '在被原订阅源被移除后',
 			'upon_reception' => '在接收文章后',
 			'when' => '何时将文章标记为已读',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => '如果分类中已经存在相同标题的最新 <i>n</i> 篇文章',
 			'when_same_title_in_feed' => '如果订阅源中已经存在相同标题的最新 <i>n</i> 篇文章',
 		),
@@ -291,15 +310,12 @@ return array(
 		),
 		'show_fav_unread_help' => '同样适用于标签',
 		'sides_close_article' => '点击文章文本区域外关闭文章',
-		'sort' => array(
-			'_' => '排列顺序',
-			'newer_first' => '由新至旧',
-			'older_first' => '由旧至新',
-		),
 		'star' => array(
 			'when' => '将文章标记为收藏时…',
 		),
 		'sticky_post' => '打开文章时将其置顶',
+		'sticky_sort' => '导航时保持手动排序',
+		'sticky_sort_help' => '决定保持最近一次手动排序，还是让每个分类或订阅源始终使用各自的默认或全局设置。',
 		'title' => '阅读',
 		'view' => array(
 			'default' => '默认视图',
@@ -324,7 +340,7 @@ return array(
 		'share_name' => '显示名称',
 		'share_url' => '用于分享的 URL',
 		'title' => '分享',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

@@ -26,8 +26,8 @@ return array(
 			),
 		),
 		'bugs_reports' => 'Fehlerberichte',
-		'documentation' => 'Handbuch',
-		'freshrss_description' => 'FreshRSS ist ein RSS-Feedsaggregator zum selbst hosten. Er ist leicht und einfach zu handhaben und gleichzeitig ein leistungsstarkes und konfigurierbares Werkzeug.',
+		'documentation' => 'Dokumentation',
+		'freshrss_description' => 'FreshRSS ist ein selbst gehosteter RSS-Aggregator und -Reader. Damit können Sie mehrere Nachrichten-Websites auf einen Blick lesen und verfolgen, ohne von einer Website zur nächsten wechseln zu müssen. FreshRSS ist leichtgewichtig, anpassbar und benutzerfreundlich.',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">auf GitHub</a>',
 		'license' => 'Lizenz',
 		'project_website' => 'Projekt-Website',
@@ -35,15 +35,15 @@ return array(
 		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'empty' => 'Es gibt keinen Artikel zum Anzeigen.',
+		'empty' => 'Keine Artikel vorhanden.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Veröffentlicht',
+			'future' => 'In Zukunft veröffentlicht',
+			'today' => 'Heute veröffentlicht',
+			'yesterday' => 'Gestern veröffentlicht',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'Empfangen',
 			'today' => 'Heute empfangen',
 			'yesterday' => 'Gestern empfangen',
 		),
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'Favoriten',
 		'title_global' => 'Globale Ansicht',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Vom Benutzer geändert',
+			'today' => 'Heute vom Benutzer geändert',
+			'yesterday' => 'Gestern vom Benutzer geändert',
 		),
 	),
 	'log' => array(
@@ -77,47 +77,54 @@ return array(
 		'mark_feed_read' => 'Feed als gelesen markieren',
 		'mark_selection_unread' => 'Auswahl als ungelesen markieren',
 		'mylabels' => 'Meine Labels',
-		'newer_first' => 'Neuere zuerst',
 		'non-starred' => 'Nicht-Favoriten zeigen',
 		'normal_view' => 'Normale Ansicht',
-		'older_first' => 'Ältere zuerst',
 		'queries' => 'Benutzerabfragen',
 		'read' => 'Gelesene zeigen',
 		'reader_view' => 'Lese-Ansicht',
 		'rss_view' => 'RSS-Feed',
 		'search_short' => 'Suchen',
 		'sort' => array(
-			'_' => 'Sortierkriterien',
+			'asc' => 'Aufsteigend',
 			'c' => array(
 				'name_asc' => 'Kategorie, Feed-Titel A→Z',
 				'name_desc' => 'Kategorie, Feed-Titel Z→A',
 			),
 			'date_asc' => 'Veröffentlichungsdatum 1→9',
 			'date_desc' => 'Veröffentlichungsdatum 9→1',
+			'desc' => 'Absteigend',
 			'f' => array(
 				'name_asc' => 'Feed-Titel A→Z',
 				'name_desc' => 'Feed-Titel Z→A',
 			),
 			'id_asc' => 'Älteste zuerst',
 			'id_desc' => 'Neueste zuerst',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'length_asc' => 'Inhaltslänge 1→9',
+			'length_desc' => 'Inhaltslänge 9→1',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
+			'primary' => array(
+				'_' => 'Sortierkriterium',
+				'help' => 'In den meisten Fällen wird aus Gründen der Konsistenz und Leistung die Sortierung nach dem <em>Empfangsdatum</em> empfohlen.',
+			),
 			'rand' => 'Zufällige Reihenfolge',
+			'secondary' => array(
+				'_' => 'Zusätzliches Sortierkriterium',
+				'help' => 'Nur relevant, wenn das Hauptsortierkriterium Kategorien oder Feed-Titel sind.',
+			),
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => 'Vom Benutzer geändert 1→9',
+			'user_modified_desc' => 'Vom Benutzer geändert 9→1',
 		),
 		'starred' => 'Favoriten zeigen',
 		'stats' => 'Statistiken',
 		'subscription' => 'Abonnementverwaltung',
-		'unread' => 'Ungelesene zeigen',
+		'unread' => 'Ungelesene anzeigen',
 	),
 	'share' => 'Teilen',
 	'tag' => array(
-		'related' => 'Hashtags',
+		'related' => 'Tags',
 	),
 	'tos' => array(
 		'title' => 'Nutzungsbedingungen',

@@ -27,6 +27,10 @@ class FreshRSS_Search implements \Stringable {
 	private $label_ids = null;
 	/** @var list<list<string>>|null */
 	private ?array $label_names = null;
+	/** @var list<list<int>|'*'>|null */
+	private $user_query_ids = null;
+	/** @var list<list<string>>|null */
+	private ?array $user_query_names = null;
 	/** @var list<string>|null */
 	private ?array $intitle = null;
 	/** @var list<string>|null */
@@ -44,6 +48,9 @@ class FreshRSS_Search implements \Stringable {
 	private ?string $input_userdate = null;
 	private int|false|null $min_userdate = null;
 	private int|false|null $max_userdate = null;
+	private ?string $input_modified_date = null;
+	private int|false|null $min_modified_date = null;
+	private int|false|null $max_modified_date = null;
 	/** @var list<string>|null */
 	private ?array $inurl = null;
 	/** @var list<string>|null */
@@ -71,6 +78,10 @@ class FreshRSS_Search implements \Stringable {
 	private $not_label_ids = null;
 	/** @var list<list<string>>|null */
 	private ?array $not_label_names = null;
+	/** @var list<list<int>|'*'>|null */
+	private $not_user_query_ids = null;
+	/** @var list<list<string>>|null */
+	private ?array $not_user_query_names = null;
 	/** @var list<string>|null */
 	private ?array $not_intitle = null;
 	/** @var list<string>|null */
@@ -88,6 +99,9 @@ class FreshRSS_Search implements \Stringable {
 	private ?string $input_not_userdate = null;
 	private int|false|null $not_min_userdate = null;
 	private int|false|null $not_max_userdate = null;
+	private ?string $input_not_modified_date = null;
+	private int|false|null $not_min_modified_date = null;
+	private int|false|null $not_max_modified_date = null;
 	/** @var list<string>|null */
 	private ?array $not_inurl = null;
 	/** @var list<string>|null */
@@ -116,8 +130,11 @@ class FreshRSS_Search implements \Stringable {
 		$input = $this->parseNotCategoryIds($input);
 		$input = $this->parseNotLabelIds($input);
 		$input = $this->parseNotLabelNames($input);
+		$input = $this->parseNotUserQueryIds($input);
+		$input = $this->parseNotUserQueryNames($input);
 
 		$input = $this->parseNotUserdateSearch($input);
+		$input = $this->parseNotModifiedDateSearch($input);
 		$input = $this->parseNotPubdateSearch($input);
 		$input = $this->parseNotDateSearch($input);
 
@@ -132,8 +149,11 @@ class FreshRSS_Search implements \Stringable {
 		$input = $this->parseCategoryIds($input);
 		$input = $this->parseLabelIds($input);
 		$input = $this->parseLabelNames($input);
+		$input = $this->parseUserQueryIds($input);
+		$input = $this->parseUserQueryNames($input);
 
 		$input = $this->parseUserdateSearch($input);
+		$input = $this->parseModifiedDateSearch($input);
 		$input = $this->parsePubdateSearch($input);
 		$input = $this->parseDateSearch($input);
 
@@ -149,8 +169,12 @@ class FreshRSS_Search implements \Stringable {
 	}
 
 	private static function quote(string $s): string {
-		if (strpbrk($s, ' "\'\\') !== false || $s === '') {
-			return '"' . addcslashes($s, '\\"') . '"';
+		if (str_starts_with($s, 'S:') || str_starts_with($s, 'search:')) {
+			// Discard user queries
+			return $s;
+		}
+		if (strpbrk($s, ' "\'\\/:') !== false || $s === '') {
+			return '"' . addcslashes($s, '"') . '"';
 		}
 		return $s;
 	}
@@ -186,7 +210,7 @@ class FreshRSS_Search implements \Stringable {
 		foreach ($properties as $property) {
 			// @phpstan-ignore property.dynamicName, property.dynamicName
 			if (gettype($this->$property) !== gettype($search->$property)) {
-				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+				if (is_string($property) && (str_contains($property, 'min_') || str_contains($property, 'max_'))) {
 					// Process {min_*, max_*} pairs together (for dates)
 					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
 					// @phpstan-ignore property.dynamicName, property.dynamicName, property.dynamicName, property.dynamicName
@@ -222,7 +246,7 @@ class FreshRSS_Search implements \Stringable {
 			if ($search->$property !== null) {
 				// @phpstan-ignore property.dynamicName, property.dynamicName
 				$result->$property = $search->$property;
-				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+				if (is_string($property) && (str_contains($property, 'min_') || str_contains($property, 'max_'))) {
 					// Process {min_*, max_*} pairs together (for dates)
 					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
 					// @phpstan-ignore property.dynamicName, property.dynamicName
@@ -247,7 +271,7 @@ class FreshRSS_Search implements \Stringable {
 			if ($search->$property !== null) {
 				// @phpstan-ignore property.dynamicName
 				$result->$property = null;
-				if (str_contains($property, 'min_') || str_contains($property, 'max_')) {
+				if (is_string($property) && (str_contains($property, 'min_') || str_contains($property, 'max_'))) {
 					// Process {min_*, max_*} pairs together (for dates)
 					$mate = str_contains($property, 'min_') ? str_replace('min_', 'max_', $property) : str_replace('max_', 'min_', $property);
 					// @phpstan-ignore property.dynamicName
@@ -284,6 +308,9 @@ class FreshRSS_Search implements \Stringable {
 
 		if ($this->input_userdate !== null) {
 			$result .= ' userdate:' . $this->input_userdate;
+		}
+		if ($this->input_modified_date !== null) {
+			$result .= ' mdate:' . $this->input_modified_date;
 		}
 		if ($this->input_pubdate !== null) {
 			$result .= ' pubdate:' . $this->input_pubdate;
@@ -352,6 +379,16 @@ class FreshRSS_Search implements \Stringable {
 				$result .= ' ' . self::quote($s);
 			}
 		}
+		if ($this->user_query_ids !== null) {
+			foreach ($this->user_query_ids as $ids) {
+				$result .= ' S:' . (is_array($ids) ? implode(',', $ids) : $ids);
+			}
+		}
+		if ($this->user_query_names !== null) {
+			foreach ($this->user_query_names as $names) {
+				$result .= ' search:' . self::quote(implode(',', $names));
+			}
+		}
 
 		if ($this->not_entry_ids !== null) {
 			$result .= ' -e:' . implode(',', $this->not_entry_ids);
@@ -375,6 +412,9 @@ class FreshRSS_Search implements \Stringable {
 
 		if ($this->input_not_userdate !== null) {
 			$result .= ' -userdate:' . $this->input_not_userdate;
+		}
+		if ($this->input_not_modified_date !== null) {
+			$result .= ' -mdate:' . $this->input_not_modified_date;
 		}
 		if ($this->input_not_pubdate !== null) {
 			$result .= ' -pubdate:' . $this->input_not_pubdate;
@@ -443,6 +483,16 @@ class FreshRSS_Search implements \Stringable {
 				$result .= ' -' . self::quote($s);
 			}
 		}
+		if ($this->not_user_query_ids !== null) {
+			foreach ($this->not_user_query_ids as $ids) {
+				$result .= ' -S:' . (is_array($ids) ? implode(',', $ids) : $ids);
+			}
+		}
+		if ($this->not_user_query_names !== null) {
+			foreach ($this->not_user_query_names as $names) {
+				$result .= ' -search:' . self::quote(implode(',', $names));
+			}
+		}
 
 		return trim($result);
 	}
@@ -477,6 +527,21 @@ class FreshRSS_Search implements \Stringable {
 	/** @return list<int>|null */
 	public function getNotCategoryIds(): ?array {
 		return $this->not_category_ids;
+	}
+
+	/**
+	 * Return the minimum visibility (priority) level needed for this search,
+	 * or null if it does not require any specific visibility level.
+	 * For instance, if the search includes some feed IDs then it will return PRIORITY_HIDDEN,
+	 * and if it includes some category IDs then it will return PRIORITY_CATEGORY.
+	 */
+	public function needVisibility(): ?int {
+		if ($this->feed_ids !== null && count($this->feed_ids) > 0) {
+			return FreshRSS_Feed::PRIORITY_HIDDEN;
+		} elseif ($this->category_ids !== null && count($this->category_ids) > 0) {
+			return FreshRSS_Feed::PRIORITY_CATEGORY;
+		}
+		return null;
 	}
 
 	/** @return list<list<int>|'*'>|null */
@@ -573,12 +638,36 @@ class FreshRSS_Search implements \Stringable {
 	public function getNotMinUserdate(): ?int {
 		return $this->not_min_userdate ?: null;
 	}
-
+	public function setMinUserdate(int $value): void {
+		$this->min_userdate = $value;
+	}
 	public function getMaxUserdate(): ?int {
 		return $this->max_userdate ?: null;
 	}
 	public function getNotMaxUserdate(): ?int {
 		return $this->not_max_userdate ?: null;
+	}
+	public function setMaxUserdate(int $value): void {
+		$this->max_userdate = $value;
+	}
+
+	public function getMinModifiedDate(): ?int {
+		return $this->min_modified_date ?: null;
+	}
+	public function getNotMinModifiedDate(): ?int {
+		return $this->not_min_modified_date ?: null;
+	}
+	public function setMinModifiedDate(int $value): void {
+		$this->min_modified_date = $value;
+	}
+	public function getMaxModifiedDate(): ?int {
+		return $this->max_modified_date ?: null;
+	}
+	public function getNotMaxModifiedDate(): ?int {
+		return $this->not_max_modified_date ?: null;
+	}
+	public function setMaxModifiedDate(int $value): void {
+		$this->max_modified_date = $value;
 	}
 
 	/** @return list<string>|null */
@@ -669,7 +758,6 @@ class FreshRSS_Search implements \Stringable {
 		} else {
 			$value = trim(str_replace('+', ' ', $value));
 		}
-		// @phpstan-ignore return.type
 		return $value;
 	}
 
@@ -774,6 +862,105 @@ class FreshRSS_Search implements \Stringable {
 				$category_ids = array_map('intval', $category_ids);
 				if (!empty($category_ids)) {
 					$this->not_category_ids = array_merge($this->not_category_ids, $category_ids);
+				}
+			}
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find user query IDs.
+	 */
+	private function parseUserQueryIds(string $input): string {
+		if (preg_match_all('/\\b[S]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = $matches['search'];
+			$this->user_query_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				if ($ids_list === '*') {
+					$this->user_query_ids[] = '*';
+					break;
+				}
+				$user_query_ids = explode(',', $ids_list);
+				$user_query_ids = self::removeEmptyValues($user_query_ids);
+				/** @var list<int> $user_query_ids */
+				$user_query_ids = array_map('intval', $user_query_ids);
+				if (!empty($user_query_ids)) {
+					$this->user_query_ids[] = $user_query_ids;
+				}
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotUserQueryIds(string $input): string {
+		if (preg_match_all('/(?<=[\\s(]|^)[!-][S]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$ids_lists = $matches['search'];
+			$this->not_user_query_ids = [];
+			foreach ($ids_lists as $ids_list) {
+				if ($ids_list === '*') {
+					$this->not_user_query_ids[] = '*';
+					break;
+				}
+				$user_query_ids = explode(',', $ids_list);
+				$user_query_ids = self::removeEmptyValues($user_query_ids);
+				/** @var list<int> $user_query_ids */
+				$user_query_ids = array_map('intval', $user_query_ids);
+				if (!empty($user_query_ids)) {
+					$this->not_user_query_ids[] = $user_query_ids;
+				}
+			}
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find user query names.
+	 */
+	private function parseUserQueryNames(string $input): string {
+		$names_lists = [];
+		if (preg_match_all('/\\bsearch?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$names_lists = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/\\bsearch?:(?P<search>[^\s"]*)/', $input, $matches)) {
+			$names_lists = array_merge($names_lists, $matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (!empty($names_lists)) {
+			$this->user_query_names = [];
+			foreach ($names_lists as $names_list) {
+				$names_array = explode(',', $names_list);
+				$names_array = self::removeEmptyValues($names_array);
+				if (!empty($names_array)) {
+					$this->user_query_names[] = $names_array;
+				}
+			}
+		}
+		return $input;
+	}
+
+	/**
+	 * Parse the search string to find user query names to exclude.
+	 */
+	private function parseNotUserQueryNames(string $input): string {
+		$names_lists = [];
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]search?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
+			$names_lists = $matches['search'];
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]search?:(?P<search>[^\\s"]*)/', $input, $matches)) {
+			$names_lists = array_merge($names_lists, $matches['search']);
+			$input = str_replace($matches[0], '', $input);
+		}
+		if (!empty($names_lists)) {
+			$this->not_user_query_names = [];
+			foreach ($names_lists as $names_list) {
+				$names_array = explode(',', $names_list);
+				$names_array = self::removeEmptyValues($names_array);
+				if (!empty($names_array)) {
+					$this->not_user_query_names[] = $names_array;
 				}
 			}
 		}
@@ -1023,8 +1210,8 @@ class FreshRSS_Search implements \Stringable {
 			$this->inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/\\binurl:(?P<search>[^\\s]*)/', $input, $matches)) {
-			$this->inurl = $matches['search'];
+		if (preg_match_all('/\\binurl:(?P<search>[^\\s"]*)/', $input, $matches)) {
+			$this->inurl = array_merge($this->inurl ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->inurl = self::removeEmptyValues($this->inurl);
@@ -1043,8 +1230,8 @@ class FreshRSS_Search implements \Stringable {
 			$this->not_inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=[\\s(]|^)[!-]inurl:(?P<search>[^\\s]*)/', $input, $matches)) {
-			$this->not_inurl = $matches['search'];
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]inurl:(?P<search>[^\\s"]*)/', $input, $matches)) {
+			$this->not_inurl = array_merge($this->not_inurl ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_inurl = self::removeEmptyValues($this->not_inurl);
@@ -1119,6 +1306,34 @@ class FreshRSS_Search implements \Stringable {
 		return $input;
 	}
 
+	private function parseModifiedDateSearch(string $input): string {
+		if (preg_match_all('/\bmdate:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				[$this->min_modified_date, $this->max_modified_date] = parseDateInterval($dates[0]);
+				if (is_int($this->min_modified_date) || is_int($this->max_modified_date)) {
+					$this->input_modified_date = $dates[0];
+				}
+			}
+		}
+		return $input;
+	}
+
+	private function parseNotModifiedDateSearch(string $input): string {
+		if (preg_match_all('/(?<=[\s(]|^)[!-]mdate:(?P<search>[^\s]*)/', $input, $matches)) {
+			$input = str_replace($matches[0], '', $input);
+			$dates = self::removeEmptyValues($matches['search']);
+			if (!empty($dates[0])) {
+				[$this->not_min_modified_date, $this->not_max_modified_date] = parseDateInterval($dates[0]);
+				if (is_int($this->not_min_modified_date) || is_int($this->not_max_modified_date)) {
+					$this->input_not_modified_date = $dates[0];
+				}
+			}
+		}
+		return $input;
+	}
+
 	/**
 	 * Parse the search string to find userdate keyword and the search related to it.
 	 * The search is the first word following the keyword.
@@ -1165,8 +1380,8 @@ class FreshRSS_Search implements \Stringable {
 			$this->tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/#(?P<search>[^\\s]+)/', $input, $matches)) {
-			$this->tags = $matches['search'];
+		if (preg_match_all('/#(?P<search>[^\\s"]+)/', $input, $matches)) {
+			$this->tags = array_merge($this->tags ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->tags = self::removeEmptyValues($this->tags);
@@ -1187,8 +1402,8 @@ class FreshRSS_Search implements \Stringable {
 			$this->not_tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=[\\s(]|^)[!-]#(?P<search>[^\\s]+)/', $input, $matches)) {
-			$this->not_tags = $matches['search'];
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]#(?P<search>[^\\s"]+)/', $input, $matches)) {
+			$this->not_tags = array_merge($this->not_tags ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_tags = self::removeEmptyValues($this->not_tags);

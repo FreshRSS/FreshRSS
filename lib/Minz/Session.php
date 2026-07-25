@@ -30,7 +30,7 @@ class Minz_Session {
 	}
 
 	/**
-	 * Initialize the session, with a name
+	 * Initialize and start the session, with a name
 	 * The session name is used as the name for cookies and URLs (i.e. PHPSESSID).
 	 * It should contain only alphanumeric characters; it should be short and descriptive
 	 * If the volatile parameter is true, then no cookie and not session storage are used.
@@ -43,18 +43,24 @@ class Minz_Session {
 			return;
 		}
 
-		$cookie = session_get_cookie_params();
-		self::keepCookie($cookie['lifetime']);
+		$params = session_get_cookie_params();
+		// Sanitize lifetime of session cookies from PHP ini `session.cookie_lifetime` (default 0)
+		$params['lifetime'] = ($params['lifetime'] <= 0 || $params['lifetime'] > 86400) ? 0 : $params['lifetime'];
+		$params['path'] = '';	// Current directory
+		$params['domain'] = '';	// Current domain
+		$params['secure'] = Minz_Request::isHttps();
+		$params['httponly'] = true;
+		$params['samesite'] = 'Lax';
+		session_set_cookie_params($params);
 
-		// start session
 		session_name($name);
-		//When using cookies (default value), session_stars() sends HTTP headers
+
+		// When using cookies (default value), session_start() sends HTTP headers
 		session_start();
 		session_write_close();
-		//Use cookie only the first time the session is started to avoid resending HTTP headers
+		// Use cookie only the first time the session is started to avoid resending HTTP headers
 		ini_set('session.use_cookies', '0');
 	}
-
 
 	/**
 	 * Allows you to retrieve a session variable
@@ -175,7 +181,10 @@ class Minz_Session {
 		}
 	}
 
-	public static function getCookieDir(): string {
+	/**
+	 * Kept only to delete legacy cookies from before 1.29.0
+	 */
+	protected static function getLegacyCookieDir(): string {
 		// Get the script_name (e.g. /p/i/index.php) and keep only the path.
 		$cookie_dir = '';
 		if (!empty($_SERVER['HTTP_X_FORWARDED_PREFIX']) && is_string($_SERVER['HTTP_X_FORWARDED_PREFIX'])) {
@@ -188,12 +197,14 @@ class Minz_Session {
 		return $cookie_dir;
 	}
 
-	/**
-	 * Specifies the lifetime of the cookies
-	 * @param int $l the lifetime
-	 */
-	public static function keepCookie(int $l): void {
-		session_set_cookie_params($l, self::getCookieDir(), '', Minz_Request::isHttps(), true);
+	/** Delete legacy cookie (before 1.29.0) if it exists */
+	public static function deleteLegacyCookie(string $name): void {
+		if (isset($_COOKIE[$name])) {
+			$legacyDir = self::getLegacyCookieDir();
+			if ($legacyDir !== '' && $legacyDir !== '/') {
+				setcookie($name, '', ['expires' => 1, 'path' => $legacyDir]);
+			}
+		}
 	}
 
 	/**
@@ -214,21 +225,27 @@ class Minz_Session {
 			Minz_Error::error(500);
 			return;
 		}
-		$lifetime = session_get_cookie_params()['lifetime'];
-		$expire = $lifetime > 0 ? time() + $lifetime : 0;
-		setcookie($name, $newId, $expire, self::getCookieDir(), '', Minz_Request::isHttps(), true);
+		$params = session_get_cookie_params();
+		$params['expires'] = $params['lifetime'] > 0 ? time() + $params['lifetime'] : 0;
+		unset($params['lifetime']);
+		setcookie($name, $newId, $params);
 	}
 
 	public static function deleteLongTermCookie(string $name): void {
-		setcookie($name, '', 1, '', '', Minz_Request::isHttps(), true);
+		$params = session_get_cookie_params();
+		$params['expires'] = 1;
+		unset($params['lifetime']);
+		setcookie($name, '', $params);
 	}
 
 	public static function setLongTermCookie(string $name, string $value, int $expire): void {
-		setcookie($name, $value, $expire, '', '', Minz_Request::isHttps(), true);
+		$params = session_get_cookie_params();
+		$params['expires'] = $expire;
+		unset($params['lifetime']);
+		setcookie($name, $value, $params);
 	}
 
 	public static function getLongTermCookie(string $name): string {
 		return is_string($_COOKIE[$name] ?? null) ? $_COOKIE[$name] : '';
 	}
-
 }

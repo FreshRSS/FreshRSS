@@ -37,13 +37,13 @@ return array(
 	'feed' => array(
 		'empty' => 'Gösterilecek makale yok.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Yayımlandı',
+			'future' => 'Gelecekte yayımlanacak',
+			'today' => 'Bugün yayımlandı',
+			'yesterday' => 'Dün yayımlandı',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'Teslim alındı',
 			'today' => 'Bugün alınanlar',
 			'yesterday' => 'Dün alınanlar',
 		),
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'Favoriler',
 		'title_global' => 'Genel görünüm',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Kullanıcı tarafından değiştirildi',
+			'today' => 'Kullanıcı tarafından bugün değiştirildi',
+			'yesterday' => 'Kullanıcı tarafından dün değiştirildi',
 		),
 	),
 	'log' => array(
@@ -77,38 +77,45 @@ return array(
 		'mark_feed_read' => 'Beslemeyi okundu olarak işaretle',
 		'mark_selection_unread' => 'Seçimi okunmadı olarak işaretle',
 		'mylabels' => 'Etiketlerim',
-		'newer_first' => 'Önce yeniler',
 		'non-starred' => 'Favori olmayanları göster',
 		'normal_view' => 'Normal görünüm',
-		'older_first' => 'Önce eskiler',
 		'queries' => 'Kullanıcı sorguları',
 		'read' => 'Okunanları göster',
 		'reader_view' => 'Okuma görünümü',
 		'rss_view' => 'RSS beslemesi',
 		'search_short' => 'Ara',
 		'sort' => array(
-			'_' => 'Sıralama kriteri',
+			'asc' => 'Yükselen',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Kategori, besleme başlıkları A→Z',
+				'name_desc' => 'Kategori, beslnme başlıkları Z→A',
 			),
 			'date_asc' => 'Yayın tarihi 1→9',
 			'date_desc' => 'Yayın tarihi 9→1',
+			'desc' => 'Azalan',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Besleme başlıkları A→Z',
+				'name_desc' => 'Besleme başlıkları Z→A',
 			),
 			'id_asc' => 'Son alınanlar en sonda',
 			'id_desc' => 'Son alınanlar başta',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'length_asc' => 'İçerik uzunluğu 1→9',
+			'length_desc' => 'İçerik uzunluğu 9→1',
 			'link_asc' => 'Bağlantı A→Z',
 			'link_desc' => 'Bağlantı Z→A',
+			'primary' => array(
+				'_' => 'Sıralama kriteri',
+				'help' => '<em>received</em> tarihi tarafından sıralamak, tutarlılık ve performans açısından çoğu zaman önerilir',
+			),
 			'rand' => 'Rastgele sıralama',
+			'secondary' => array(
+				'_' => 'İkincil sıralama ölçütü',
+				'help' => 'Yalnızca birincil sıralama ölçütü kategoriler veya besleme başlıkları olduğunda geçerlidir.',
+			),
 			'title_asc' => 'Başlık A→Z',
 			'title_desc' => 'Başlık Z→A',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => 'Kullanıcı tarafından değiştirilen 1→9',
+			'user_modified_desc' => 'Kullanıcı tarafından değiştirilen 9→1',
 		),
 		'starred' => 'Favorileri göster',
 		'stats' => 'İstatistikler',

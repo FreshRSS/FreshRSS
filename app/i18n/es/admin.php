@@ -14,9 +14,9 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Permitir la lectura anónima de los artículos del usuario por defecto (%s)',
 		'allow_anonymous_refresh' => 'Permitir la actualización anónima de los artículos',
-		'api_enabled' => 'Concederle acceso a la <abbr>API</abbr> <small>(necesario para apps de móvil and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Concederle acceso a la <abbr>API</abbr> <small>(necesario para apps de móvil y compartir vistas de usuario)</small>',
 		'form' => 'Formulario Web (el más habitual, requiere JavaScript)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP (avanzado: gestionado por el servidor, OIDC, SSO…)',
 		'none' => 'Ninguno (peligroso)',
 		'title' => 'Identificación',
 		'token' => 'Token de autentificación Master',
@@ -25,13 +25,13 @@ return array(
 	),
 	'extensions' => array(
 		'author' => 'Autor',
-		'community' => 'Extensiones de comunidad disponibles',
+		'community' => 'Extensiones de la comunidad disponibles',
 		'description' => 'Descripción',
 		'disabled' => 'Desactivado',
 		'empty_list' => 'No hay extensiones instaladas',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Consulta los registros para ver por qué la lista de extensiones está vacía.',
 		'enabled' => 'Activado',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Es compatible',
 		'latest' => 'Instalado',
 		'name' => 'Nombre',
 		'no_configure_view' => 'Esta extensión no puede ser configurada.',
@@ -48,8 +48,8 @@ return array(
 		'_' => 'Estadísticas',
 		'all_feeds' => 'Todas las fuentes',
 		'category' => 'Categoría',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Fecha de publicación',
+		'date_received' => 'Fecha de recepción',
 		'entry_count' => 'Cómputo total',
 		'entry_per_category' => 'Entradas por categoría',
 		'entry_per_day' => 'Entradas por día (últimos 30 días)',
@@ -61,11 +61,11 @@ return array(
 		'feed_per_category' => 'Fuentes por categoría',
 		'idle' => 'Fuentes inactivas',
 		'main' => 'Estadísticas principales',
-		'main_stream' => 'Salida principal',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'main_stream' => 'Bandeja principal',
+		'nb_unreads' => 'Número de artículos no leídos',
 		'no_idle' => 'No hay fuentes inactivas',
 		'number_entries' => '%d artículos',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Resumen',
 		'percent_of_total' => '% del total',
 		'repartition' => 'Reparto de artículos: %s',
 		'status_favorites' => 'Favoritos',
@@ -74,7 +74,7 @@ return array(
 		'status_unread' => 'Pendientes',
 		'title' => 'Estadísticas',
 		'top_feed' => 'Las 10 fuentes más activas',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Fechas con más artículos no leídos',
 	),
 	'system' => array(
 		'_' => 'Configuración del sistema',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'URL Base',
 			'recommendation' => 'Recomendación automática: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Mensaje si el registro está cerrado',
 		'cookie-duration' => array(
 			'help' => 'en segundos',
 			'number' => 'Duración para mantenerse conectado',
 		),
+		'default_closed_registration_message' => 'Este servidor no acepta nuevos registros en este momento.',
 		'force_email_validation' => 'Forzar la validación de direcciones de correo electrónico',
 		'instance-name' => 'Nombre de la fuente',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Número máximo de cuentas',
 			'select' => array(
@@ -120,7 +127,7 @@ return array(
 	'update' => array(
 		'_' => 'Actualizar sistema',
 		'apply' => 'Aplicar',
-		'changelog' => 'Changelog',	// IGNORE
+		'changelog' => 'Registro de cambios',
 		'check' => 'Buscar actualizaciones',
 		'copiedFromURL' => 'update.php copiado desde %s a ./data',
 		'current_version' => 'Dispones de la versión',
@@ -129,11 +136,11 @@ return array(
 		'none' => 'No hay actualizaciones disponibles',
 		'releaseChannel' => array(
 			'_' => 'Canal de publicación',
-			'edge' => 'Publicación en marcha (“edge”)',
-			'latest' => 'Publicación estable (“latest”)',
+			'edge' => 'Versión de pruebas (“edge”)',
+			'latest' => 'Versión estable (“latest”)',
 		),
 		'title' => 'Actualizar sistema',
-		'viaGit' => 'Actualización vía git and GitHub.com comenzada',
+		'viaGit' => 'Actualización comenzada vía git y GitHub',
 	),
 	'user' => array(
 		'admin' => 'Administrador',

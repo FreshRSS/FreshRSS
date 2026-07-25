@@ -120,9 +120,10 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			$nonce = Minz_Session::paramString('nonce');
 			$username = Minz_Request::paramString('username');
 			$challenge = Minz_Request::paramString('challenge');
+			$ip_address = Minz_Request::connectionRemoteAddress();
 
 			if ($nonce === '') {
-				Minz_Log::warning("Invalid session during login for user={$username}, nonce={$nonce}");
+				Minz_Log::warning("Invalid session during login for user={$username}, nonce={$nonce}, ip_address={$ip_address}");
 				header('HTTP/1.1 403 Forbidden');
 				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
 				Minz_Request::setBadNotification(_t('install.session.nok'));
@@ -181,12 +182,14 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 				);
 			} else {
-				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}");
+				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}, ip_address={$ip_address}");
 				header('HTTP/1.1 403 Forbidden');
 				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
 				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
 				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
 			}
+		} else {
+			Minz_Session::deleteLegacyCookie('FreshRSS');	// Delete legacy cookie (before 1.29.0)
 		}
 	}
 

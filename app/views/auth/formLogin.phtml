@@ -5,11 +5,18 @@
 <main class="prompt">
 	<h1><?= _t('gen.auth.login') ?></h1>
 
-	<?php if (!FreshRSS_user_Controller::max_registrations_reached()) { ?>
-		<div class="link-registration">
-			<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
-		</div>
-	<?php } ?>
+	<?php if ((FreshRSS_Context::systemConf()->limits['max_registrations'] ?? 1) !== 1): ?>
+		<?php if (FreshRSS_user_Controller::max_registrations_reached()): ?>
+			<div><?=
+				FreshRSS_Context::systemConf()->attributeString('closed_registration_message') ?:
+				_t('admin.system.default_closed_registration_message')
+			?></div>
+		<?php else: ?>
+			<div class="link-registration">
+				<a href="<?= _url('auth', 'register') ?>"><?= _t('gen.auth.registration.ask') ?></a>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
 
 	<form class="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />

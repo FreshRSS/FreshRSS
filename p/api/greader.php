@@ -50,7 +50,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	}
 }
 
-const JSON_OPTIONS = JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+const JSON_OPTIONS = JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_SUBSTITUTE | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
 function headerVariable(string $headerName, string $varName): string {
 	$header = '';
@@ -255,7 +255,7 @@ final class GReaderAPI {
 			$token === 'x')) { //Reeder
 			return true;
 		}
-		if ($token === str_pad(sha1(FreshRSS_Context::systemConf()->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
+		if (hash_equals(str_pad(sha1(FreshRSS_Context::systemConf()->salt . $user . $conf->apiPasswordHash), 57, 'Z'), $token)) {
 			return true;
 		}
 		Minz_Log::warning('Invalid POST token: ' . $token, API_LOG);
@@ -661,10 +661,16 @@ final class GReaderAPI {
 			$search = new FreshRSS_Search('');
 			$search->setMinDate($start_time);
 			$searches->add($search);
+			// OR
+			$search = new FreshRSS_Search('');
+			$search->setMinModifiedDate($start_time);
+			$searches->add($search);
 		}
 		if ($stop_time !== 0) {
 			$search = new FreshRSS_Search('');
 			$search->setMaxDate($stop_time);
+			// AND
+			$search->setMaxModifiedDate($stop_time);
 			$searches->add($search);
 		}
 
@@ -1123,8 +1129,17 @@ TXT;
 		self::$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576) ?: '';
 
 		if ($pathInfos[1] === 'accounts') {
-			if (($pathInfos[2] === 'ClientLogin') && is_string($_REQUEST['Email'] ?? null) && is_string($_REQUEST['Passwd'] ?? null)) {
-				self::clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
+			if ($pathInfos[2] === 'ClientLogin') {
+				$email = $_POST['Email'] ?? $_GET['Email'] ?? null;
+				$passwd = $_POST['Passwd'] ?? $_GET['Passwd'] ?? null;
+				if (is_string($email) && is_string($passwd)) {
+					if (isset($_GET['Email']) || isset($_GET['Passwd'])) {
+						$user_agent = is_string($_SERVER['HTTP_USER_AGENT'] ?? null) ? $_SERVER['HTTP_USER_AGENT'] : '';
+						$warning_message = 'ClientLogin using GET method is deprecated: password may appear in logs. Use POST instead. User-Agent: ' . $user_agent;
+						Minz_Log::warning($warning_message, API_LOG);
+					}
+					self::clientLogin($email, $passwd);
+				}
 			}
 		} elseif (isset($pathInfos[3], $pathInfos[4]) && $pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && $pathInfos[3] === '0') {
 			if (Minz_User::name() === null) {

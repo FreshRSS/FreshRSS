@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'Permissions on the data directory are good.',	// IGNORE
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// IGNORE
+			'ok' => 'Database connection is good.',	// IGNORE
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// IGNORE
+			'ok' => 'Database table "%s" is good.',	// IGNORE
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// IGNORE
+			'ok' => 'All database tables exist.',	// IGNORE
+		),
+		'database-title' => 'Database',	// IGNORE
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// IGNORE
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// IGNORE
+		),
 		'dom' => array(
 			'nok' => 'Cannot find the required library to browse the DOM.',	// IGNORE
 			'ok' => 'You have the required library to browse the DOM.',	// IGNORE
@@ -63,6 +80,10 @@ return array(
 			'ok' => 'You have the recommended PHP fileinfo library (fileinfo package).',	// IGNORE
 		),
 		'files' => 'File installation',	// IGNORE
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// IGNORE
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// IGNORE
+		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalization.',
 			'ok' => 'You have the recommended library php-intl for internationalization.',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Congratulations!',	// IGNORE
 	'default_user' => array(
 		'_' => 'Username of the default user',	// IGNORE
-		'max_char' => 'maximum 16 alphanumeric characters',	// IGNORE
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// IGNORE
 	),
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',	// IGNORE
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',	// IGNORE

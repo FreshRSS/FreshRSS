@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Sprawdź uprawnienia użytkownika <em>%2$s</em> dla katalogu <em>%1$s</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
 			'ok' => 'Uprawnienia dla katalogu danych się zgadzają.',
 		),
+		'database-connection' => array(
+			'nok' => 'Wystąpił błąd podczas łączenia z bazą danych.',
+			'ok' => 'Połączenie z bazą danych się powiodło.',
+		),
+		'database-table' => array(
+			'nok' => 'Tabela bazy danych "%s" jest niekompletna.',
+			'ok' => 'Tabela bazy danych "%s" jest prawidłowa.',
+		),
+		'database-tables' => array(
+			'nok' => 'Brakuje niektórych tabel w bazie danych.',
+			'ok' => 'Wszystkie tabele bazy danych istnieją.',
+		),
+		'database-title' => 'Baza danych',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Nie znaleziono wymaganej biblioteki do korzystania z DOM-u.',
 			'ok' => 'Znaleziono wymaganą bibliotekę do korzystania z DOM-u.',
@@ -63,6 +80,10 @@ return array(
 			'ok' => 'Znaleziono bibliotekę fileinfo.',
 		),
 		'files' => 'Instalacja plików',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Nie znaleziono zalecanej biblioteki php-intl do internacjonalizacji.',
 			'ok' => 'Znaleziono zalecaną bibliotekę php-intl do internacjonalizacji.',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Gratulacje!',
 	'default_user' => array(
 		'_' => 'Nazwa domyślnego użytkownika',
-		'max_char' => 'maksymalnie 16 znaków alfanumerycznych',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Proszę naprawić wszystkie błędy przed przystąpieniem do kolejnego kroku.',
 	'javascript_is_better' => 'FreshRSS działa lepiej z włączonym JavaScript-em',

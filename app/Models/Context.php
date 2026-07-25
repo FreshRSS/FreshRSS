@@ -42,8 +42,12 @@ final class FreshRSS_Context {
 	public static int $state = 0;
 	/** @var 'ASC'|'DESC' */
 	public static string $order = 'DESC';
-	/** @var 'id'|'c.name'|'date'|'f.name'|'link'|'title'|'rand'|'lastUserModified'|'length' */
+	/** @var 'id'|'c.name'|'date'|'f.name'|'lastUserModified'|'length'|'link'|'rand'|'title' */
 	public static string $sort = 'id';
+	/** @var 'ASC'|'DESC' */
+	public static string $secondary_sort_order = 'DESC';
+	/** @var 'id'|'date'|'link'|'title' */
+	public static string $secondary_sort = 'id';
 	public static int $number = 0;
 	public static int $offset = 0;
 	public static FreshRSS_BooleanSearch $search;
@@ -258,10 +262,46 @@ final class FreshRSS_Context {
 		}
 
 		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true));
-		$order = Minz_Request::paramString('order', plaintext: true) ?: FreshRSS_Context::userConf()->sort_order;
+
+		$default_order = null;
+		$default_sort = null;
+		if (Minz_Request::paramString('order', plaintext: true) === '' || Minz_Request::paramString('sort', plaintext: true) === '') {
+			if (!empty(self::$current_get['feed'])) {
+				$id = self::$current_get['feed'];
+				// We most likely already have the feed object in cache
+				$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id);
+				if ($feed === null) {
+					$feedDAO = FreshRSS_Factory::createFeedDao();
+					$feed = $feedDAO->searchById($id);
+				}
+				$default_order = $feed?->defaultOrder();
+				$default_sort = $feed?->defaultSort();
+			} elseif (!empty(self::$current_get['category'])) {
+				$id = self::$current_get['category'];
+				// We most likely already have the category object in cache
+				$category = FreshRSS_Context::categories()[$id] ?? null;
+				if ($category === null) {
+					$categoryDAO = FreshRSS_Factory::createCategoryDao();
+					$category = $categoryDAO->searchById($id);
+				}
+				$default_order = $category?->defaultOrder();
+				$default_sort = $category?->defaultSort();
+			}
+		}
+		$order = Minz_Request::paramString('order', plaintext: true) ?: $default_order ?: FreshRSS_Context::userConf()->sort_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = Minz_Request::paramString('sort', plaintext: true) ?: FreshRSS_Context::userConf()->sort;
-		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'link', 'title', 'rand', 'lastUserModified', 'length'], true) ? $sort : 'id';
+		$sort = Minz_Request::paramString('sort', plaintext: true) ?: $default_sort ?: FreshRSS_Context::userConf()->sort;
+		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'lastUserModified', 'length', 'link', 'title', 'rand'], true) ? $sort : 'id';
+
+		if (in_array(self::$sort, ['c.name', 'f.name'], true)) {
+			self::$secondary_sort = FreshRSS_Context::userConf()->secondary_sort;
+			self::$secondary_sort_order = FreshRSS_Context::userConf()->secondary_sort_order;
+			if ($order !== ($default_order ?: FreshRSS_Context::userConf()->sort_order)) {
+				// User swapped order so swap secondary order as well
+				self::$secondary_sort_order = self::$secondary_sort_order === 'DESC' ? 'ASC' : 'DESC';
+			}
+		}
+
 		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
 		if (self::$number > FreshRSS_Context::userConf()->max_posts_per_rss) {
 			self::$number = max(
@@ -277,10 +317,21 @@ final class FreshRSS_Context {
 	}
 
 	/**
-	 * Returns if the current state includes $state parameter.
+	 * Checks whether the $state parameter is consequential, i.e. has any effect
+	 * (not zero, and not just including opposite states).
 	 */
-	public static function isStateEnabled(int $state): int {
-		return self::$state & $state;
+	public static function isStateConsequential(int $state): bool {
+		return (($state & FreshRSS_Entry::STATE_READ) xor ($state & FreshRSS_Entry::STATE_NOT_READ)) ||
+			(($state & FreshRSS_Entry::STATE_FAVORITE) xor ($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) ||
+			($state & FreshRSS_Entry::STATE_OR_NOT_READ) ||
+			($state & FreshRSS_Entry::STATE_OR_FAVORITE);
+	}
+
+	/**
+	 * Checks whether the current state includes $state parameter.
+	 */
+	public static function isStateEnabled(int $state): bool {
+		return (self::$state & $state) !== 0;
 	}
 
 	/**
@@ -449,7 +500,7 @@ final class FreshRSS_Context {
 				self::$description = FreshRSS_Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
-			case 's':
+			case 's':	// Starred. Deprecated: use $state instead
 				self::$current_get['starred'] = true;
 				self::$name = _t('index.feed.title_fav');
 				self::$description = FreshRSS_Context::systemConf()->meta_description;
@@ -457,7 +508,7 @@ final class FreshRSS_Context {
 				// Update state if favorite is not yet enabled.
 				self::$state = self::$state | FreshRSS_Entry::STATE_FAVORITE;
 				break;
-			case 'f':
+			case 'f':	// Feed
 				// We try to find the corresponding feed. When allowing robots, always retrieve the full feed including description
 				$feed = FreshRSS_Context::systemConf()->allow_robots ? null : FreshRSS_Category::findFeed(self::$categories, $id);
 				if ($feed === null) {
@@ -469,7 +520,7 @@ final class FreshRSS_Context {
 				self::$description = $feed->description();
 				self::$get_unread = $feed->nbNotRead();
 				break;
-			case 'c':
+			case 'c':	// Category
 				// We try to find the corresponding category.
 				self::$current_get['category'] = $id;
 				$cat = null;
@@ -485,7 +536,7 @@ final class FreshRSS_Context {
 				self::$name = $cat->name();
 				self::$get_unread = $cat->nbNotRead();
 				break;
-			case 't':
+			case 't':	// Tag (label)
 				// We try to find the corresponding tag.
 				self::$current_get['tag'] = $id;
 				$tag = null;
@@ -505,7 +556,7 @@ final class FreshRSS_Context {
 				self::$name = $tag->name();
 				self::$get_unread = $tag->nbUnread();
 				break;
-			case 'T':
+			case 'T':	// Any tag (label)
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				self::$current_get['tags'] = true;
 				self::$name = _t('index.menu.mylabels');
@@ -626,5 +677,30 @@ final class FreshRSS_Context {
 	public static function defaultTimeZone(): string {
 		$timezone = ini_get('date.timezone');
 		return $timezone != false ? $timezone : 'UTC';
+	}
+
+	/**
+	 * Sort locale-aware with Collator if available
+	 */
+	public static function localeCompare(string $a, string $b): int {
+		static $collator = null;
+
+		if ($collator === null) {
+			$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
+			if ($language === '' || !class_exists(\Collator::class)) {
+				$collator = false;
+			} else {
+				$collator = \Collator::create($language) ?? false;
+			}
+			if ($collator instanceof \Collator) {
+				$collator->setAttribute(\Collator::NUMERIC_COLLATION, \Collator::ON);
+			}
+		}
+
+		if (!($collator instanceof \Collator)) {
+			return strnatcasecmp($a, $b);
+		}
+		$result = $collator->compare($a, $b);
+		return $result === false ? strnatcasecmp($a, $b) : $result;
 	}
 }

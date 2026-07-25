@@ -13,7 +13,7 @@
 return array(
 	'about' => array(
 		'_' => 'About',	// TODO
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// TODO
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
 				'_' => 'System information',	// TODO
@@ -32,7 +32,7 @@ return array(
 		'license' => 'License',	// TODO
 		'project_website' => 'Project website',	// TODO
 		'title' => 'About',	// TODO
-		'version' => 'Version',	// TODO
+		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
 		'empty' => 'There are no articles to show.',	// TODO
@@ -77,49 +77,56 @@ return array(
 		'mark_feed_read' => 'Mark feed as read',	// TODO
 		'mark_selection_unread' => 'Mark selection as unread',	// TODO
 		'mylabels' => 'My labels',	// TODO
-		'newer_first' => 'Newer first',	// TODO
 		'non-starred' => 'Show non-favourites',	// TODO
 		'normal_view' => 'Normal view',	// TODO
-		'older_first' => 'Oldest first',	// TODO
 		'queries' => 'User queries',	// TODO
 		'read' => 'Show read',	// TODO
 		'reader_view' => 'Reading view',	// TODO
 		'rss_view' => 'RSS feed',	// TODO
 		'search_short' => 'Search',	// TODO
 		'sort' => array(
-			'_' => 'Sorting criteria',	// TODO
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Category, feed titles A→Z',	// TODO
 				'name_desc' => 'Category, feed titles Z→A',	// TODO
 			),
 			'date_asc' => 'Publication date 1→9',	// TODO
 			'date_desc' => 'Publication date 9→1',	// TODO
+			'desc' => 'Φθίνουσα',
 			'f' => array(
 				'name_asc' => 'Feed title A→Z',	// TODO
 				'name_desc' => 'Feed title Z→A',	// TODO
 			),
 			'id_asc' => 'Freshly received last',	// TODO
 			'id_desc' => 'Freshly received first',	// TODO
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
-			'rand' => 'Random order',	// TODO
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
+			'length_asc' => 'Μήκος περιεχομένου 1→9',
+			'length_desc' => 'Μήκος περιεχομένου 9→1',
+			'link_asc' => 'Σύνδεσμος Α→Ω',
+			'link_desc' => 'Σύνδεσμος Ω→Α',
+			'primary' => array(
+				'_' => 'Κριτήριο ταξινόμησης',
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
+			'rand' => 'Τυχαία σειρά',
+			'secondary' => array(
+				'_' => 'Δευτερεύον κριτήριο ταξινόμησης',
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
+			'title_asc' => 'Τίτλος Α→Ω',
+			'title_desc' => 'Τίτλος Ω→Α',
 			'user_modified_asc' => 'User modified 1→9',	// TODO
 			'user_modified_desc' => 'User modified 9→1',	// TODO
 		),
-		'starred' => 'Show favourites',	// TODO
-		'stats' => 'Statistics',	// TODO
-		'subscription' => 'Subscription management',	// TODO
-		'unread' => 'Show unread',	// TODO
+		'starred' => 'Εμφάνιση αγαπημένων',
+		'stats' => 'Στατιστικά',
+		'subscription' => 'Διαχείριση συνδρομών',
+		'unread' => 'Εμφάνιση μη αναγνωσμένων',
 	),
-	'share' => 'Share',	// TODO
+	'share' => 'Κοινοποίηση',
 	'tag' => array(
-		'related' => 'Article tags',	// TODO
+		'related' => 'Ετικέτες άρθρου',
 	),
 	'tos' => array(
-		'title' => 'Terms of Service',	// TODO
+		'title' => 'Όροι Χρήσης',
 	),
 );

@@ -2,6 +2,9 @@
 
 @charset "UTF-8";
 
+/* Scaffold for the base-theme fallback. Other themes do not load this file;
+   cross-theme defaults belong in frss.css. */
+
 /*=== GENERAL */
 /*============*/
 html, body {
@@ -36,7 +39,7 @@ option {
 input:focus, select:focus, textarea:focus {
 }
 
-input:invalid, select:invalid {
+input:user-invalid, select:user-invalid {
 }
 
 input:disabled, select:disabled {
@@ -259,6 +262,9 @@ th {
 .alert-warn {
 }
 
+.alert-info {
+}
+
 .alert-success {
 }
 
@@ -295,11 +301,6 @@ th {
 }
 
 .pagination:last-child .item {
-}
-
-#load_more.loading,
-#load_more.loading:hover {
-	font-size: 0;
 }
 
 /*=== Boxes */
@@ -689,7 +690,7 @@ th {
 
 @media (max-width: 840px) {
 	.aside {
-		transition: width 200ms linear;
+		transition: width 100ms ease-in;
 	}
 
 	.aside .toggle_aside,

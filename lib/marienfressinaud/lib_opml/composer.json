@@ -9,12 +9,12 @@
         }
     ],
     "require": {
-        "php": ">=7.2.0",
+        "php": ">=8.2",
         "ext-dom": "*"
     },
     "config": {
         "platform": {
-            "php": "7.2.0"
+            "php": "8.2"
         }
     },
     "support": {
@@ -29,7 +29,7 @@
         }
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.6",
-        "phpunit/phpunit": "^8"
+        "squizlabs/php_codesniffer": "^4.0",
+        "phpunit/phpunit": "^11.0"
     }
 }

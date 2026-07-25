@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @property bool $api_enabled
  * @property string $archiving
  * @property 'form'|'http_auth'|'none' $auth_type
+ * @property array{enabled:bool,retention:int} $auto_sqlite_export
  * @property-read bool $reauth_required
  * @property-read int $reauth_time
  * @property-read string $auto_update_url
@@ -19,6 +20,7 @@ declare(strict_types=1);
  * @property-read bool $http_auth_auto_register
  * @property-read string $http_auth_auto_register_email_field
  * @property string $language
+ * @property string $closed_registration_message
  * @property array<string,int> $limits
  * @property-read string $logo_html
  * @property-read string $meta_description
@@ -28,6 +30,7 @@ declare(strict_types=1);
  * @property-read bool $simplepie_syslog_enabled
  * @property-read bool $suppress_csp_warning
  * @property array<string> $trusted_sources
+ * @property array<string> $internal_host_allowlist
  * @property array<string,array<string,mixed>> $extensions
  */
 final class FreshRSS_SystemConfiguration extends Minz_Configuration {
@@ -36,7 +39,10 @@ final class FreshRSS_SystemConfiguration extends Minz_Configuration {
 	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_SystemConfiguration {
 		parent::register('system', $config_filename, $default_filename);
 		try {
-			return parent::get('system');
+			$conf = parent::get('system');
+			ini_set('pcre.backtrack_limit', $conf->limits['regex_backtrack_limit']);
+			ini_set('pcre.recursion_limit', $conf->limits['regex_recursion_limit']);
+			return $conf;
 		} catch (Minz_ConfigurationNamespaceException $ex) {
 			FreshRSS::killApp($ex->getMessage());
 		}

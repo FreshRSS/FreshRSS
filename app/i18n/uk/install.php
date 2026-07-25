@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Перевірте доступ до каталога <em>%1$s</em> для користувача <em>%2$s</em>. HTTP-серверу потрібен дозвіл на запис.',
 			'ok' => 'Доступ до каталога даних працює.',
 		),
+		'database-connection' => array(
+			'nok' => 'Помилка зв\'язку з базою даних.',
+			'ok' => 'Зв\'язок із базою даних успішний.',
+		),
+		'database-table' => array(
+			'nok' => 'Таблиця бази даних «%s» неповна.',
+			'ok' => 'Із таблицею бази даних «%s» усе гаразд.',
+		),
+		'database-tables' => array(
+			'nok' => 'У базі даних бракує кількох таблиць.',
+			'ok' => 'Усі таблиці наявні в базі даних.',
+		),
+		'database-title' => 'База даних',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Не вдалося знайти необхідну бібліотеку роботи з DOM.',
 			'ok' => 'У вас є необхідна бібліотека роботи з DOM.',
@@ -63,9 +80,13 @@ return array(
 			'ok' => 'У вас є бібліотека fileinfo.',
 		),
 		'files' => 'Встановлення файлів',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Не вдалося знайти бажану бібліотеку php-intl для інтернаціоналізації.',
+			'ok' => 'У вас є бажана бібліотека php-intl для інтернаціоналізації.',
 		),
 		'json' => array(
 			'nok' => 'Не вдалося знайти бажану бібліотеку розпізнання JSON.',
@@ -80,14 +101,14 @@ return array(
 			'ok' => 'У вас є необхідна бібліотека регулярних виразів (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Не вдалося знайти необхідний PDO-драйвер MySQL/MariaDB.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Не вдалося знайти необхідний PDO-драйвер PostgreSQL.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'Не вдалося знайти PDO-драйвер SQLite.',
+			'ok' => 'У вас є PDO-драйвер SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'Не вдалося знайти PDO чи один із підтримуваних драйверів (pdo_mysql, pdo_sqlite чи pdo_pgsql).',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Вітаємо!',
 	'default_user' => array(
 		'_' => 'Імʼя типового користувача',
-		'max_char' => 'максимум 16 латинських літер і цифр',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Перш ніж перейти до наступного кроку, слід виправити помилки.',
 	'javascript_is_better' => 'FreshRSS зручніше, коли JavaScript увімкнено',

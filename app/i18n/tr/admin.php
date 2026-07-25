@@ -31,7 +31,7 @@ return array(
 		'empty_list' => 'Yüklü eklenti yok',
 		'empty_list_help' => 'Eklenti listesinin neden boş olduğunu belirlemek için günlükleri kontrol edin.',
 		'enabled' => 'Etkin',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Uyumlu',
 		'latest' => 'Yüklü',
 		'name' => 'İsim',
 		'no_configure_view' => 'Bu eklenti yapılandırılamaz.',
@@ -48,8 +48,8 @@ return array(
 		'_' => 'İstatistikler',
 		'all_feeds' => 'Tüm beslemeler',
 		'category' => 'Kategori',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Yayın tarihi',
+		'date_received' => 'Alınma tarihi',
 		'entry_count' => 'Giriş sayısı',
 		'entry_per_category' => 'Kategorilere göre girişler',
 		'entry_per_day' => 'Günlük girişler (son 30 gün)',
@@ -62,7 +62,7 @@ return array(
 		'idle' => 'Boşta beslemeler',
 		'main' => 'Ana istatistikler',
 		'main_stream' => 'Ana akış',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Okunmamış makale sayısı',
 		'no_idle' => 'Boşta besleme yok!',
 		'number_entries' => '%d makale',
 		'overview' => 'Genel Bakış',
@@ -74,7 +74,7 @@ return array(
 		'status_unread' => 'Okunmadı',
 		'title' => 'İstatistikler',
 		'top_feed' => 'En iyi on besleme',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'En çok okunmamış makalenin bulunduğu tarihler',
 	),
 	'system' => array(
 		'_' => 'Sistem yapılandırması',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'Temel URL',
 			'recommendation' => 'Otomatik öneri: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Kayıtlar kapalıysa gösterilecek mesaj',
 		'cookie-duration' => array(
 			'help' => 'saniye cinsinden',
 			'number' => 'Oturum açık kalma süresi',
 		),
+		'default_closed_registration_message' => 'Bu sunucu şu anda yeni kayıt kabul etmiyor.',
 		'force_email_validation' => 'E-posta adresi doğrulamasını zorunlu kıl',
 		'instance-name' => 'Örnek adı',
+		'internal-host-allowlist' => array(
+			'_' => 'Dahili sunucu izin listesi',
+			'help' => 'Satır başına bir giriş:<ul><li>A <code>host:port</code>. Örneğin <code>127.0.0.1:8080</code> veya <code>rss-bridge:80</code></li><li>A CIDR notation. Örneğin herhangi bir IPv4 adresine izin vermek için <code>0.0.0.0/0</code> , herhangi bir IPv6 adresine izin vermek için <code>::/0</code> </li><li>A , Herhangi bir sunucuya izin vermek için <code>*</code> (unsafe)</li></ul>',
+		),
 		'max-categories' => 'Kullanıcı başına maksimum kategori sayısı',
 		'max-feeds' => 'Kullanıcı başına maksimum besleme sayısı',
+		'override-by-env-var' => 'Bu ayar, ortam değişkeni tarafından belirlenir. <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Maksimum hesap sayısı',
 			'select' => array(

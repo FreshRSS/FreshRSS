@@ -29,6 +29,7 @@ return array(
 			'help' => 'Предоставьте ссылку на <a href="http://opml.org/" target="_blank">OPML файл</a> чтобы динамично заполнять эту категорию лентами',
 		),
 		'empty' => 'Пустая категория',
+		'error' => 'Эта динамическая категория OPML столкнулась с проблемой. Проверьте, что URL OPML всё ещё доступен и максимальное количество лент на пользователя не превышено.',
 		'expand' => 'Развернуть категорию',
 		'information' => 'Информация',
 		'open' => 'Открыть категорию',
@@ -82,10 +83,12 @@ return array(
 			'help' => 'Введите по одному поисковому фильтру в строке. См. <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документацию</a>.',
 			'view_filter' => 'Предпросмотр фильтров на существующих статьях (новое окно)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP-заголовки',
 		'http_headers_help' => 'Заголовки разделяются новой строкой, имя и значение заголовка разделяются двоеточием (например: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Иконка',
 		'information' => 'Информация',
+		'keep_adding_feed' => 'Затем добавить ещё ленты',
 		'keep_min' => 'Оставлять статей не менее',
 		'kind' => array(
 			'_' => 'Тип источника ленты',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (по умолчанию)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Последняя опубликованная статья <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Последняя полученная статья <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Последняя ошибка обновления <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Последнее успешное обновление <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Очистить кэш',
 			'clear_cache_help' => 'Очистить кэш для этой ленты.',

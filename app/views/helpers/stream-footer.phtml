@@ -22,6 +22,7 @@
 			'state' => FreshRSS_Context::$state,
 			'sort' => FreshRSS_Context::$sort,
 			'order' => FreshRSS_Context::$order,
+			'from' => Minz_Request::paramStringNull('from') ?? Minz_Request::actionName(),
 		],
 	];
 

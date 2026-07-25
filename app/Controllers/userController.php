@@ -65,7 +65,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * Return if the maximum number of registrations has been reached.
 	 * Note a max_registrations of 0 means there is no limit.
 	 *
-	 * @return bool true if number of users >= max registrations, false else.
+	 * @return bool true if number of users >= max registrations, false otherwise.
 	 */
 	public static function max_registrations_reached(): bool {
 		$limit_registrations = FreshRSS_Context::systemConf()->limits['max_registrations'];
@@ -157,7 +157,6 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		$email_not_verified = FreshRSS_Context::userConf()->email_validation_token != '';
 		$this->view->disable_aside = false;
 		if ($email_not_verified) {
-			$this->view->_layout('simple');
 			$this->view->disable_aside = true;
 		}
 
@@ -574,9 +573,11 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 
 		FreshRSS_View::prependTitle(_t('user.email.validation.title') . ' · ');
-		$this->view->_layout('simple');
 
 		$username = Minz_Request::paramString('username');
+		if (FreshRSS_Auth::hasAccess()) {
+			$username = Minz_User::name() ?? '';
+		}
 		$token = Minz_Request::paramString('token');
 
 		if ($username !== '') {
@@ -602,7 +603,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 
 		if ($token != '') {
-			if ($user_config->email_validation_token !== $token) {
+			if (!hash_equals($user_config->email_validation_token, $token)) {
 				Minz_Request::bad(
 					_t('user.email.validation.feedback.wrong_token'),
 					['c' => 'user', 'a' => 'validateEmail']

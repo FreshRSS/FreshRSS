@@ -1,6 +1,6 @@
 pre.highlight {
 	padding: 1rem;
-	overflow-x: scroll;
+	overflow-x: auto;
 }
 
 /* generated with `rougify style github` */

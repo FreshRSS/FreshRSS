@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Tampilan',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Penulis dan tanggal',
+				'both' => 'Di baris atas dan bawah',
+				'footer' => 'Di baris bawah',
+				'header' => 'Di baris atas',
+				'none' => 'Tidak ditampilkan',
+			),
+			'feed_name' => array(
+				'above_title' => 'Di atas judul/lebel',
+				'none' => 'Tidak ditampilkan',
+				'with_authors' => 'Di baris penulis dan tanggal',
+			),
+			'feed_title' => 'Judul umpan',
+			'icons' => array(
+				'_' => 'Posisi ikon artikel <br /><small>(Tampilan membaca saja)</small>',
+				'above_title' => 'Di atas judul',
+				'with_authors' => 'Di baris penulis dan tanggal',
+			),
+			'tags' => array(
+				'_' => 'Label',
+				'both' => 'Di baris atas dan bawah',
+				'footer' => 'Di baris bawah',
+				'header' => 'Di baris atas',
+				'none' => 'Tidak ditampilkan',
+			),
+			'tags_max' => array(
+				'_' => 'Maksimum label yang ditampilkan',
+				'help' => '0 berarti: tampilkan semua label dan jangan sembunyikan',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Mode gelap otomatis',
 			'auto' => 'Otomatis',
 			'help' => 'Hanya untuk tema yang kompatibel',
 			'no' => 'Tidak',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Artikel: Baris Atas/Bawah',
 		),
 		'icon' => array(
 			'bottom_line' => 'Baris bawah',
@@ -54,6 +89,15 @@ return array(
 			'timeout' => 'Batas waktu pemberitahuan HTML5',
 		),
 		'show_nav_buttons' => 'Tampilkan tombol navigasi',
+		'show_title_unread' => 'Tampilkan jumlah artikel yang belum dibaca di judul',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -105,6 +149,9 @@ return array(
 		'none' => 'Tidak ditampilkan',
 		'small' => 'Kecil',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
 	'notification_timeout' => array(
 		'bad' => array(
 			'label' => 'Show warning banner',	// TODO
@@ -118,6 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privasi',
 		'retrieve_extension_list' => 'Ambil daftar ekstensi',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Pengelolaan Profil',
@@ -129,6 +177,7 @@ return array(
 			'disabled' => 'Akses API dinonaktifkan.',
 			'documentation_link' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentasi dan daftar aplikasi yang diketahui</a>',
 			'help' => 'Lihat <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentasi</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -145,6 +194,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Pencarian Pengguna',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Pencarian ini tidak valid lagi. Kategori atau umpan yang dirujuk telah dihapus.',
 		'description' => 'Deskripsi',
 		'filter' => array(
@@ -216,37 +266,6 @@ return array(
 		'after_onread' => 'Setelah “tandai semua sebagai sudah dibaca”',
 		'always_show_favorites' => 'Tampilkan semua artikel favorit secara baku',
 		'apply_to_individual_feed' => 'Berlaku per umpan individu',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Penulis dan tanggal',
-				'both' => 'Di baris atas dan bawah',
-				'footer' => 'Di baris bawah',
-				'header' => 'Di baris atas',
-				'none' => 'Tidak ditampilkan',
-			),
-			'feed_name' => array(
-				'above_title' => 'Di atas judul/lebel',
-				'none' => 'Tidak ditampilkan',
-				'with_authors' => 'Di baris penulis dan tanggal',
-			),
-			'feed_title' => 'Judul umpan',
-			'icons' => array(
-				'_' => 'Posisi ikon artikel <br /><small>(Tampilan membaca saja)</small>',
-				'above_title' => 'Di atas judul',
-				'with_authors' => 'Di baris penulis dan tanggal',
-			),
-			'tags' => array(
-				'_' => 'Label',
-				'both' => 'Di baris atas dan bawah',
-				'footer' => 'Di baris bawah',
-				'header' => 'Di baris atas',
-				'none' => 'Tidak ditampilkan',
-			),
-			'tags_max' => array(
-				'_' => 'Maksimum label yang ditampilkan',
-				'help' => '0 berarti: tampilkan semua label dan jangan sembunyikan',
-			),
-		),
 		'articles_per_page' => 'Jumlah artikel per halaman',
 		'auto_load_more' => 'Muat lebih banyak artikel setelah bagian bawah halaman',
 		'auto_remove_article' => 'Sembunyikan artikel setelah dibaca',
@@ -255,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Kategori yang dibuka',
 		'headline' => array(
 			'articles' => 'Artikel: Buka/Tutup',
-			'articles_header_footer' => 'Artikel: Baris Atas/Bawah',
 			'categories' => 'Navigasi kiri: Kategori',
 			'mark_as_read' => 'Tandai artikel sebagai sudah dibaca',
 			'misc' => 'Lain-lain',
@@ -275,6 +293,7 @@ return array(
 			'upon_gone' => 'saat artikel hilang dari umpan situs aslinya',
 			'upon_reception' => 'saat menerima artikel',
 			'when' => 'Tandai artikel sebagai sudah dibaca…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dalam kategori',
 			'when_same_title_in_feed' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dari umpan',
 		),
@@ -291,15 +310,12 @@ return array(
 		),
 		'show_fav_unread_help' => 'Berlaku juga pada label',
 		'sides_close_article' => 'Klik di luar area teks artikel untuk menutup artikel',
-		'sort' => array(
-			'_' => 'Kriteria pengurutan',
-			'newer_first' => 'Terbaru dulu',
-			'older_first' => 'Terlama dulu',
-		),
 		'star' => array(
 			'when' => 'Tandai artikel sebagai favorit…',
 		),
 		'sticky_post' => 'Sematkan artikel ke bagian atas saat dibuka',
+		'sticky_sort' => 'Pertahankan urutan pengurutan manual saat menavigasi',	// DIRTY
+		'sticky_sort_help' => 'Menentukan apakah urutan pengurutan manual terakhir tetap aktif atau setiap kategori atau umpan selalu menggunakan pengaturan bawaan atau globalnya sendiri.',	// DIRTY
 		'title' => 'Membaca',
 		'view' => array(
 			'default' => 'Tampilan baku',
@@ -324,7 +340,7 @@ return array(
 		'share_name' => 'Nama layanan untuk ditampilkan',
 		'share_url' => 'URL berbagi yang digunakan',
 		'title' => 'Berbagi',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

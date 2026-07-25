@@ -29,6 +29,7 @@ return array(
 			'help' => 'Adj meg egy URL-t az <a href="http://opml.org/" target="_blank">OPML fájlhoz</a> hogy automatikusan kitöltődjön ez a kategória hírforrásokkal',
 		),
 		'empty' => 'Üres kategória',
+		'error' => 'Ez a dinamikus OPML kategória problémába ütközött. Ellenőrizze, hogy az OPML URL továbbra is elérhető-e, és hogy nem lépte-e túl a felhasználónkénti maximális hírfolyamszámot.',
 		'expand' => 'Kategória kinyitása',
 		'information' => 'Információ',
 		'open' => 'Kategória megnyitása',
@@ -82,10 +83,12 @@ return array(
 			'help' => 'Írj egy szűrőt soronként. Műveletek <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">a dokumentációban</a>.',
 			'view_filter' => 'Szűrők előnézete a meglévő cikkeken (új ablakban)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP Fejlécek',
 		'http_headers_help' => 'A fejléceket újsor választja el, a fejléc nevét és értékét kettőspont választja el (pl: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icon',	// IGNORE
 		'information' => 'Információ',
+		'keep_adding_feed' => 'Majd adjon hozzá további hírfolyamokat',
 		'keep_min' => 'Megtartandó cikkek minimális száma',
 		'kind' => array(
 			'_' => 'Hírforrás típusa',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (alapértelmezett)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Utolsó közzétett cikk <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Utolsó kapott cikk <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Utolsó hibás frissítés <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Utolsó sikeres frissítés <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Gyorsítótár törlése',
 			'clear_cache_help' => 'Gyorsítótár törlése ehhez a hírforráshoz.',

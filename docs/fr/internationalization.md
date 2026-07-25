@@ -79,3 +79,5 @@ supérieur. C’est assez dur à expliquer mais très simple à comprendre. Dans
 l’exemple donné plus haut, un `_` est associé à la valeur `FreshRSS` : cela
 signifie qu’il n’y a pas besoin d’écrire `_t('gen.freshrss._')` mais
 `_t('gen.freshrss')` suffit.
+
+> ℹ Voir [`freshrss-i18n/SKILL.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/skills/freshrss-i18n/SKILL.md) pour les conventions de code (à la fois pour les humains et agents IA).

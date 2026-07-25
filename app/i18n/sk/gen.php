@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Používateľské meno',
-			'format' => '<small>Maximálne 16 alfanumerických znakov</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -140,14 +140,55 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'O FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'pred %d deň',
+			1 => 'pred %d dni',
+			2 => 'pred %d dní',
+		),
+		'hour' => array(
+			0 => 'pred %d hodina',
+			1 => 'pred %d hodiny',
+			2 => 'pred %d hodín',
+		),
+		'justnow' => 'práve teraz',
+		'minute' => array(
+			0 => 'pred %d minúta',
+			1 => 'pred %d minúty',
+			2 => 'pred %d minút',
+		),
+		'month' => array(
+			0 => 'pred %d mesiac',
+			1 => 'pred %d mesiace',
+			2 => 'pred %d mesiacov',
+		),
+		'second' => array(
+			0 => 'pred %d sekunda',
+			1 => 'pred %d sekundy',
+			2 => 'pred %d sekúnd',
+		),
+		'year' => array(
+			0 => 'pred %d rok',
+			1 => 'pred %d roky',
+			2 => 'pred %d rokov',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Prázdna kategória',
 		'confirm_action' => 'Určite chcete vykonať túto akciu? Zmeny budú nezvratné!',
 		'confirm_action_feed_cat' => 'Určite chcete vykonať túto akciu? Prídete o súvisiace obľúbené a používateľské dopyty. Zmeny budú nezvratné!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'Počet nových článkov v čítačke FreshRSS: %%d',
-			'body_unread_articles' => '(neprečítané: %%d)',
+			'body_new_articles' => array(
+				0 => 'Počet nových článkov v čítačke FreshRSS: %d',	// DIRTY
+				1 => 'Počet nových článkov v čítačke FreshRSS: %d',	// DIRTY
+				2 => 'Počet nových článkov v čítačke FreshRSS: %d',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(neprečítané: %d)',	// DIRTY
+				1 => '(neprečítané: %d)',	// DIRTY
+				2 => '(neprečítané: %d)',	// DIRTY
+			),
 			'request_failed' => 'Nepodarilo sa spracovať váš dopyt, pravdepodobne kvôli problému s pripojením do internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
 		),
@@ -228,6 +269,7 @@ return array(
 		'categories' => 'Categories',	// TODO
 		'content' => 'Content',	// TODO
 		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
 		'date_past' => 'In the past',	// TODO
 		'date_published' => 'Publication Date',	// TODO
 		'date_range' => 'Date Range',	// TODO
@@ -264,10 +306,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Záložky',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
@@ -276,7 +320,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Systémové zdieľanie',

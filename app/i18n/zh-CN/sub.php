@@ -29,6 +29,7 @@ return array(
 			'help' => '使用 URL 上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => '展开分类',
 		'information' => '信息',
 		'open' => '打开分类',
@@ -82,10 +83,12 @@ return array(
 			'help' => '每行写一条过滤规则，过滤规则可见 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">文档</a>。',
 			'view_filter' => '在现有文章上预览过滤器（新窗口）',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP 头部',
 		'http_headers_help' => '头部之间用换行符分隔，头部名称和值用冒号分隔（例如：<kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>）。',
 		'icon' => '图标',
 		'information' => '信息',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => '至少保存的文章数',
 		'kind' => array(
 			'_' => '订阅源类型',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (默认)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => '清理缓存',
 			'clear_cache_help' => '清除该feed的缓存',

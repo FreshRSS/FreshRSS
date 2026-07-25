@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Marcar feed com lido',
 		'mark_selection_unread' => 'Marcar seleção como não lida',
 		'mylabels' => 'Minhas etiquetas',
-		'newer_first' => 'Novos primeiro',
 		'non-starred' => 'Mostrar itens que não são favoritos',
 		'normal_view' => 'visualização normal',
-		'older_first' => 'Antigos primeiro',
 		'queries' => 'Queries do usuário',
 		'read' => 'Mostrar leitura',
 		'reader_view' => 'Visualização de leitura',
 		'rss_view' => 'Feed RSS',
 		'search_short' => 'Buscar',
 		'sort' => array(
-			'_' => 'Critérios de ordenação',
+			'asc' => 'Ascendente',
 			'c' => array(
 				'name_asc' => 'Categoria, títulos dos feeds A→Z',
 				'name_desc' => 'Categoria, títulos dos feeds Z→A',
 			),
 			'date_asc' => 'Data de publicação 1→9',
 			'date_desc' => 'Data de publicação 9→1',
+			'desc' => 'Descendente',
 			'f' => array(
 				'name_asc' => 'Título do feed A→Z',
 				'name_desc' => 'Título do feed Z→A',
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Comprimento do conteúdo 9→1',
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
+			'primary' => array(
+				'_' => 'Critério de Classificação',
+				'help' => 'Classificar por <em>recebido</em> data é recomendado namaioria dos casos, por consistência e performace',
+			),
 			'rand' => 'Ordem aleatória',
+			'secondary' => array(
+				'_' => 'Critério secundário de classificação',
+				'help' => 'Relevante apenas quando o critério principal de classificação forem categorias ou títulos de feeds.',
+			),
 			'title_asc' => 'Título A→Z',
 			'title_desc' => 'Título Z→A',
 			'user_modified_asc' => 'Modificado pelo usuário 1→9',

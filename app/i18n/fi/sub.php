@@ -29,6 +29,7 @@ return array(
 			'help' => 'Voit tuoda syötteet tähän luokkaan automaattisesti antamalla <a href="http://opml.org/" target="_blank">OPML-tiedoston</a> URL-osoitteen',
 		),
 		'empty' => 'Tyhjä luokka',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Laajenna luokka',
 		'information' => 'Tiedot',
 		'open' => 'Avaa luokka',
@@ -82,10 +83,12 @@ return array(
 			'help' => 'Kirjoita kukin hakusuodatin omalle rivilleen. Lisätietoja operaattoreista <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ohjeissa</a>.',
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP-otsikot',
 		'http_headers_help' => 'Otsikot erotellaan rivinvaihdoin, ja nimi ja arvo erotellaan kaksoispisteellä. Esimerkki: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Kuvake',
 		'information' => 'Tiedot',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Säilytettävien artikkeleiden vähimmäismäärä',
 		'kind' => array(
 			'_' => 'Syötteen lähteen laji',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS/Atom (oletus)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Tyhjennä välimuisti',
 			'clear_cache_help' => 'Tyhjennä syötteen välimuisti.',

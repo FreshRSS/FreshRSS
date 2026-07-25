@@ -231,13 +231,19 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		$this->view->repartition 			= $statsDAO->calculateEntryRepartitionPerFeed($id);
 
 		$this->view->repartitionHour 		= $statsDAO->calculateEntryRepartitionPerFeedPerHour($id);
-		$this->view->averageHour 			= $statsDAO->calculateEntryAveragePerFeedPerHour($id);
+		$this->view->averageHour 			= FreshRSS_StatsDAO::calculateEntryAverageFromRepartition(
+			$this->view->repartitionHour
+		);
 
 		$this->view->repartitionDayOfWeek 	= $statsDAO->calculateEntryRepartitionPerFeedPerDayOfWeek($id);
-		$this->view->averageDayOfWeek 		= $statsDAO->calculateEntryAveragePerFeedPerDayOfWeek($id);
+		$this->view->averageDayOfWeek 		= FreshRSS_StatsDAO::calculateEntryAverageFromRepartition(
+			$this->view->repartitionDayOfWeek
+		);
 
 		$this->view->repartitionMonth 		= $statsDAO->calculateEntryRepartitionPerFeedPerMonth($id);
-		$this->view->averageMonth 			= $statsDAO->calculateEntryAveragePerFeedPerMonth($id);
+		$this->view->averageMonth 			= FreshRSS_StatsDAO::calculateEntryAverageFromRepartition(
+			$this->view->repartitionMonth
+		);
 
 		$hours24Labels = [];
 		for ($i = 0; $i < 24; $i++) {
@@ -257,7 +263,8 @@ class FreshRSS_stats_Controller extends FreshRSS_ActionController {
 		if (!in_array($granularity, ['day', 'month', 'year'], true)) {
 			$granularity = 'day';
 		}
-		$dates = $statsDAO->getMaxUnreadDates($field, $granularity, Minz_Request::paramInt('max') ?: 100);
+		$dates = $statsDAO->getMaxUnreadDates($field, $granularity, Minz_Request::paramInt('max') ?: 100,
+			Minz_Request::paramIntNull('min_priority') ?? FreshRSS_Feed::PRIORITY_HIDDEN);
 		$this->view->unreadDates = $dates;
 	}
 }

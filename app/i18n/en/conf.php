@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',
+				'both' => 'In header and footer',
+				'footer' => 'In footer',
+				'header' => 'In header',
+				'none' => 'None',
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',
+				'none' => 'None',
+				'with_authors' => 'In authors and date row',
+			),
+			'feed_title' => 'Feed title',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',
+				'above_title' => 'Above title',
+				'with_authors' => 'In authors and date row',
+			),
+			'tags' => array(
+				'_' => 'Tags',
+				'both' => 'In header and footer',
+				'footer' => 'In footer',
+				'header' => 'In header',
+				'none' => 'None',
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',
+				'help' => '0 means: show all tags and do not collapse them',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatic dark mode',
 			'auto' => 'Auto',
 			'help' => 'For compatible themes only',
 			'no' => 'No',
+		),
+		'display_enclosures' => 'Show enclosures',
+		'headline' => array(
+			'articles_header_footer' => 'Articles: header/footer',
 		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',
@@ -54,6 +89,15 @@ return array(
 			'timeout' => 'HTML5 notification timeout',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',
+		'show_title_unread' => 'Show number of unread articles in the title',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',
+			'all' => 'For all categories and feeds',
+			'important' => 'For important feeds only',
+			'important_locked' => 'Important feeds always show their unread count.',
+			'none' => 'Never',
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',
 		'theme' => array(
 			'_' => 'Theme',
 			'deprecated' => array(
@@ -105,19 +149,23 @@ return array(
 		'none' => 'None',
 		'small' => 'Small',
 	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',
+	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Show warning banner',
+			'seconds' => 'seconds (at least 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Show acknowledgement banner',
+			'seconds' => 'seconds (0 means not shown)',
 		),
 	),
 	'privacy' => array(
 		'_' => 'Privacy',
 		'retrieve_extension_list' => 'Retrieve extension list',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',
 	),
 	'profile' => array(
 		'_' => 'Profile management',
@@ -129,6 +177,7 @@ return array(
 			'disabled' => 'The API access is disabled.',
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',
 		),
 		'change_password' => 'Change password',
 		'confirm_new_password' => 'Confirm new password',
@@ -145,6 +194,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'User queries',
+		'create' => 'Create new user query',
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',
 		'description' => 'Description',
 		'filter' => array(
@@ -216,37 +266,6 @@ return array(
 		'after_onread' => 'After “mark all as read”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',
 		'apply_to_individual_feed' => 'Applies to feeds individually',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Authors and date',
-				'both' => 'In header and footer',
-				'footer' => 'In footer',
-				'header' => 'In header',
-				'none' => 'None',
-			),
-			'feed_name' => array(
-				'above_title' => 'Above title/tags',
-				'none' => 'None',
-				'with_authors' => 'In authors and date row',
-			),
-			'feed_title' => 'Feed title',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',
-				'above_title' => 'Above title',
-				'with_authors' => 'In authors and date row',
-			),
-			'tags' => array(
-				'_' => 'Tags',
-				'both' => 'In header and footer',
-				'footer' => 'In footer',
-				'header' => 'In header',
-				'none' => 'None',
-			),
-			'tags_max' => array(
-				'_' => 'Max number of tags shown',
-				'help' => '0 means: show all tags and do not collapse them',
-			),
-		),
 		'articles_per_page' => 'Number of articles per page',
 		'auto_load_more' => 'Load more articles at the bottom of the page',
 		'auto_remove_article' => 'Hide articles after reading',
@@ -255,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',
-			'articles_header_footer' => 'Articles: header/footer',
 			'categories' => 'Left navigation: Categories',
 			'mark_as_read' => 'Mark article as read',
 			'misc' => 'Miscellaneous',
@@ -275,6 +293,7 @@ return array(
 			'upon_gone' => 'when it is no longer in the upstream news feed',
 			'upon_reception' => 'upon receiving the article',
 			'when' => 'Mark an article as read…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',
 		),
@@ -291,15 +310,12 @@ return array(
 		),
 		'show_fav_unread_help' => 'Applies also on labels',
 		'sides_close_article' => 'Clicking outside of article text area closes the article',
-		'sort' => array(
-			'_' => 'Sort order',
-			'newer_first' => 'Newest first',
-			'older_first' => 'Oldest first',
-		),
 		'star' => array(
 			'when' => 'Mark an article as favourite…',
 		),
 		'sticky_post' => 'Stick the article to the top when opened',
+		'sticky_sort' => 'Keep custom sort order during navigation',
+		'sticky_sort_help' => 'Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.',
 		'title' => 'Reading',
 		'view' => array(
 			'default' => 'Default view',

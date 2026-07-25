@@ -29,6 +29,7 @@ return array(
 			'help' => 'Fournir l’URL d’un <a href="http://opml.org/" target="_blank">fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
 		),
 		'empty' => 'Catégorie vide',
+		'error' => 'Cette catégorie OPML dynamique a rencontré un problème. Vérifiez que l’URL de l’OPML est toujours accessible et que le nombre maximum de flux par utilisateur n’a pas été dépassé.',
 		'expand' => 'Développer la catégorie',
 		'information' => 'Informations',
 		'open' => 'Ouvrir la catégorie',
@@ -82,10 +83,12 @@ return array(
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
 			'view_filter' => 'Aperçu des filtres sur les articles existants (nouvelle fenêtre)',
 		),
+		'global_hint' => 'Utilisez <a href="%s">la vue globale</a> pour voir combien d’articles dans chaque flux correspondent à un état ou à une recherche',
 		'http_headers' => 'Entêtes HTTP',
 		'http_headers_help' => 'Un entête HTTP par ligne, avec le nom et la valeur séparés par un deux-points (ex. : <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icône',
 		'information' => 'Informations',
+		'keep_adding_feed' => 'Puis ajouter d’autres flux',
 		'keep_min' => 'Nombre minimum d’articles à conserver',
 		'kind' => array(
 			'_' => 'Type de source de flux',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (par défaut)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Dernier article publié <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Dernier article reçu <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Dernière mise à jour erronée <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Dernière mise à jour réussie <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Vider le cache',
 			'clear_cache_help' => 'Supprime le cache de ce flux.',

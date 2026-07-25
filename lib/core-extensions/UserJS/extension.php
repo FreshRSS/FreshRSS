@@ -28,6 +28,12 @@ final class UserJSExtension extends Minz_Extension {
 		if (Minz_Request::isPost()) {
 			$js_rules = Minz_Request::paramString('js-rules', plaintext: true);
 			$this->saveFile(self::FILENAME, $js_rules);
+			FreshRSS_UserDAO::touch();
+			// Redirect (Post/Redirect/Get) so the next page is built after the save,
+			// with a fresh cache-busting URL for the updated script
+			Minz_Request::good(_t('feedback.conf.updated'), [
+				'c' => 'extension', 'a' => 'configure', 'params' => ['e' => $this->getName()],
+			]);
 		}
 
 		$this->js_rules = '';

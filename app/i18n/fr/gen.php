@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nom d’utilisateur',
-			'format' => '<small>16 caractères alphanumériques maximum</small>',
+			'format' => '<small>1-39 caractères : lettres, chiffres et <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -140,14 +140,47 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'À propos de FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'il y a %d jour',
+			1 => 'il y a %d jours',
+		),
+		'hour' => array(
+			0 => 'il y a %d heure',
+			1 => 'il y a %d heures',
+		),
+		'justnow' => 'à l’instant',
+		'minute' => array(
+			0 => 'il y a %d minute',
+			1 => 'il y a %d minutes',
+		),
+		'month' => array(
+			0 => 'il y a %d mois',
+			1 => 'il y a %d mois',
+		),
+		'second' => array(
+			0 => 'il y a %d seconde',
+			1 => 'il y a %d secondes',
+		),
+		'year' => array(
+			0 => 'il y a %d an',
+			1 => 'il y a %d ans',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Catégorie vide',
 		'confirm_action' => 'Êtes-vous sûr(e) de vouloir continuer ? Cette action ne peut être annulée !',
 		'confirm_action_feed_cat' => 'Êtes-vous sûr(e) de vouloir continuer ? Vous perdrez les favoris et les filtres associés. Cette action ne peut être annulée !',
 		'confirm_exit_slider' => 'Êtes-vous sûr de vouloir abandonner les paramètres non enregistrés ?',
 		'feedback' => array(
-			'body_new_articles' => 'Il y a %%d nouveaux articles à lire sur FreshRSS.',
-			'body_unread_articles' => '(non lus : %%d)',
+			'body_new_articles' => array(
+				0 => 'Il y a %d nouvel articles à lire sur FreshRSS.',
+				1 => 'Il y a %d nouveaux articles à lire sur FreshRSS.',
+			),
+			'body_unread_articles' => array(
+				0 => '(non lu : %d)',
+				1 => '(non lus : %d)',
+			),
 			'request_failed' => 'Une requête a échoué, cela peut être dû à des problèmes de connexion à Internet.',
 			'title_new_articles' => 'FreshRSS : nouveaux articles !',
 		),
@@ -228,6 +261,7 @@ return array(
 		'categories' => 'Catégories',
 		'content' => 'Contenu',
 		'date_from' => 'Depuis',
+		'date_modified' => 'Date de modification par le serveur',
 		'date_past' => 'Dans le passé',
 		'date_published' => 'Date de publication',
 		'date_range' => 'Plage de dates',
@@ -264,10 +298,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Favoris',
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
@@ -276,7 +312,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Partage standard',
