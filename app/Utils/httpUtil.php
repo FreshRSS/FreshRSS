@@ -120,6 +120,8 @@ final class FreshRSS_http_Util {
 			CURLOPT_COOKIEFILE => ['name' => 'COOKIEFILE', 'type' => 'flag'],
 			CURLOPT_FOLLOWLOCATION => ['name' => 'FOLLOWLOCATION', 'type' => 'bool'],	// We filter this value later, only allowing `false`
 			CURLOPT_HTTPHEADER => ['name' => 'HTTPHEADER', 'type' => 'lines'],
+			CURLOPT_IPRESOLVE => ['name' => 'IPRESOLVE', 'type' => 'int',
+				'values' => [CURL_IPRESOLVE_WHATEVER, CURL_IPRESOLVE_V4, CURL_IPRESOLVE_V6]],
 			CURLOPT_MAXREDIRS => ['name' => 'MAXREDIRS', 'type' => 'int'],
 			CURLOPT_POST => ['name' => 'POST', 'type' => 'bool'],
 			CURLOPT_POSTFIELDS => ['name' => 'POSTFIELDS', 'type' => 'string'],
