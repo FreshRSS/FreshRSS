@@ -50,6 +50,10 @@
 	];
 
 	$unreadArticles = 0;
+	// When STATE_ALL is active (both read and unread), show total articles instead of only unread
+	$showTotalArticles = FreshRSS_Context::$state === 0 || (
+		FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) &&
+		FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ));
 
 	foreach ($this->categories as $cat) {
 		$feeds = $this->feedIdsMatching === null ? $cat->feeds() :
@@ -64,6 +68,11 @@
 				foreach ($cat->feeds() as $feed) {
 					$catMatchingCount += $this->feedIdsMatching[$feed->id()] ?? 0;
 				}
+			} elseif ($showTotalArticles) {
+				$catMatchingCount = 0;
+				foreach ($cat->feeds() as $feed) {
+					$catMatchingCount += $feed->nbEntries();
+				}
 			}
 ?>
 	<div class="box category" data-unread="<?= $catMatchingCount ?>">
@@ -76,7 +85,9 @@
 					if ($feed->priority() < FreshRSS_Feed::PRIORITY_FEED) {
 						continue;
 					}
-					$feedMatchingCount = $this->feedIdsMatching === null ? $feed->nbNotRead() : ($this->feedIdsMatching[$feed->id()] ?? 0);
+					$feedMatchingCount = $this->feedIdsMatching === null
+						? ($showTotalArticles ? $feed->nbEntries() : $feed->nbNotRead())
+						: ($this->feedIdsMatching[$feed->id()] ?? 0);
 
 					$error_class = '';
 					$error_title = '';
