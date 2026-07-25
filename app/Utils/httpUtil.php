@@ -146,7 +146,9 @@ final class FreshRSS_http_Util {
 				unset($curl_params[$k]);
 				continue;
 			}
-			if ($spec['type'] === 'flag') {
+			if ($k === CURLOPT_PROXYTYPE && $value === 3) {	// Legacy for NONE
+				$curl_params[$k] = -1;
+			} elseif ($spec['type'] === 'flag') {
 				// Allow only an empty value just to enable the libcurl cookie engine
 				$curl_params[$k] = '';
 			} elseif ($spec['type'] === 'lines' && is_array($value)) {
@@ -177,9 +179,6 @@ final class FreshRSS_http_Util {
 				'bool' => (bool)$value,
 				default => $value,
 			};
-			if ($option === CURLOPT_PROXYTYPE && $curl_params[$option] === 3) {	// Legacy for NONE
-				$curl_params[$option] = -1;
-			}
 		}
 		return self::sanitizeCurlParams($curl_params);
 	}
@@ -205,9 +204,6 @@ final class FreshRSS_http_Util {
 					$outline['frss:CURLOPT_' . $spec['name']] = $lines;
 				}
 			} elseif (is_string($value) || is_int($value) || is_bool($value)) {
-				if ($option === CURLOPT_PROXYTYPE && $value === 3) {	// Legacy for NONE
-					$value = -1;
-				}
 				$outline['frss:CURLOPT_' . $spec['name']] = $value;
 			}
 		}
