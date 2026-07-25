@@ -104,38 +104,114 @@ final class FreshRSS_http_Util {
 	}
 
 	/**
+	 * The per-feed cURL options a user is allowed to set, keyed by cURL option.
+	 * Adding a new user-settable cURL option only requires a new entry here.
+	 *   - `name` is the suffix of the matching OPML attribute, e.g. `COOKIE` for `frss:CURLOPT_COOKIE`;
+	 *   - `type` is how the value is represented in OPML: `flag` is an option whose mere presence is
+	 *     meaningful, `lines` is a list of strings serialised as one line each;
+	 *   - `values` is the exhaustive list of accepted values, when the option only takes a few.
+	 * This is a method rather than a constant because `CURLOPT_*` are run-time constants
+	 * from ext-curl, and not all of them exist in every libcurl build.
+	 * @return array<int,array{name:non-empty-string,type:'string'|'int'|'bool'|'flag'|'lines',values?:list<int>}>
+	 */
+	private static function curlParamSpecs(): array {
+		return [
+			CURLOPT_COOKIE => ['name' => 'COOKIE', 'type' => 'string'],
+			CURLOPT_COOKIEFILE => ['name' => 'COOKIEFILE', 'type' => 'flag'],
+			CURLOPT_FOLLOWLOCATION => ['name' => 'FOLLOWLOCATION', 'type' => 'bool'],	// We filter this value later, only allowing `false`
+			CURLOPT_HTTPHEADER => ['name' => 'HTTPHEADER', 'type' => 'lines'],
+			CURLOPT_MAXREDIRS => ['name' => 'MAXREDIRS', 'type' => 'int'],
+			CURLOPT_POST => ['name' => 'POST', 'type' => 'bool'],
+			CURLOPT_POSTFIELDS => ['name' => 'POSTFIELDS', 'type' => 'string'],
+			CURLOPT_PROXY => ['name' => 'PROXY', 'type' => 'string'],
+			CURLOPT_PROXYTYPE => ['name' => 'PROXYTYPE', 'type' => 'int'],
+			CURLOPT_USERAGENT => ['name' => 'USERAGENT', 'type' => 'string'],
+		];
+	}
+
+	/**
+	 * Drop the cURL options that a user is not allowed to set, and normalise the values of those they are.
 	 * @param array<mixed> $curl_params
 	 * @return array<mixed>
 	 */
 	public static function sanitizeCurlParams(array $curl_params): array {
-		$safe_params = [
-			CURLOPT_COOKIE,
-			CURLOPT_COOKIEFILE,
-			CURLOPT_FOLLOWLOCATION,	// We filter this value later, only allowing `false`
-			CURLOPT_HTTPHEADER,
-			CURLOPT_MAXREDIRS,
-			CURLOPT_POST,
-			CURLOPT_POSTFIELDS,
-			CURLOPT_PROXY,
-			CURLOPT_PROXYTYPE,
-			CURLOPT_USERAGENT,
-		];
-		foreach ($curl_params as $k => $_) {
-			if (!in_array($k, $safe_params, true)) {
+		$specs = self::curlParamSpecs();
+		foreach ($curl_params as $k => $value) {
+			$spec = is_int($k) ? ($specs[$k] ?? null) : null;
+			if ($spec === null) {
 				unset($curl_params[$k]);
 				continue;
 			}
-			// Allow only an empty value just to enable the libcurl cookie engine
-			if ($k === CURLOPT_COOKIEFILE) {
-				$curl_params[$k] = '';
+			if (isset($spec['values']) && !in_array($value, $spec['values'], true)) {
+				unset($curl_params[$k]);
+				continue;
 			}
-			// Remove HTTP authentication headers problematic for security
-			if ($k === CURLOPT_HTTPHEADER && is_array($curl_params[$k])) {
-				$curl_params[$k] = array_filter($curl_params[$k],
+			if ($spec['type'] === 'flag') {
+				// Allow only an empty value just to enable the libcurl cookie engine
+				$curl_params[$k] = '';
+			} elseif ($spec['type'] === 'lines' && is_array($value)) {
+				// Remove HTTP authentication headers problematic for security
+				$curl_params[$k] = array_filter($value,
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
 			}
 		}
 		return $curl_params;
+	}
+
+	/**
+	 * Extract the user-settable cURL options from the `frss:CURLOPT_*` attributes of an OPML outline.
+	 * @param array<string,string> $outline An OPML element (must be a feed element).
+	 * @return array<mixed> Sanitised cURL options, ready to be stored in the `curl_params` feed attribute.
+	 */
+	public static function curlParamsFromOpml(array $outline): array {
+		$curl_params = [];
+		foreach (self::curlParamSpecs() as $option => $spec) {
+			$value = $outline['frss:CURLOPT_' . $spec['name']] ?? null;
+			if ($value === null) {
+				continue;
+			}
+			$curl_params[$option] = match ($spec['type']) {
+				'flag' => '',
+				'lines' => preg_split('/\R/u', $value) ?: [],
+				'int' => (int)$value,
+				'bool' => (bool)$value,
+				default => $value,
+			};
+			if ($option === CURLOPT_PROXYTYPE && $curl_params[$option] === 3) {	// Legacy for NONE
+				$curl_params[$option] = -1;
+			}
+		}
+		return self::sanitizeCurlParams($curl_params);
+	}
+
+	/**
+	 * Render user-settable cURL options as the `frss:CURLOPT_*` attributes of an OPML outline.
+	 * @param array<mixed> $curl_params The `curl_params` feed attribute.
+	 * @return array<string,string|int|bool> Attributes to merge into the OPML outline.
+	 */
+	public static function curlParamsToOpml(array $curl_params): array {
+		$outline = [];
+		foreach (self::curlParamSpecs() as $option => $spec) {
+			if (!isset($curl_params[$option])) {
+				continue;
+			}
+			$value = $curl_params[$option];
+			if ($spec['type'] === 'flag') {
+				// The value is empty, so export the mere presence of the option instead
+				$outline['frss:CURLOPT_' . $spec['name']] = true;
+			} elseif ($spec['type'] === 'lines') {
+				$lines = is_array($value) ? implode("\n", array_filter($value, 'is_string')) : '';
+				if ($lines !== '') {
+					$outline['frss:CURLOPT_' . $spec['name']] = $lines;
+				}
+			} elseif (is_string($value) || is_int($value) || is_bool($value)) {
+				if ($option === CURLOPT_PROXYTYPE && $value === 3) {	// Legacy for NONE
+					$value = -1;
+				}
+				$outline['frss:CURLOPT_' . $spec['name']] = $value;
+			}
+		}
+		return $outline;
 	}
 
 	private static function idn_to_puny(string $url): string {
