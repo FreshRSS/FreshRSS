@@ -521,6 +521,14 @@ class Sanitize implements RegistryAware
                     }
                 }
 
+                // Set the base before processing allowed nodes so `srcset` URLs
+                // can be absolutised, and keep only allowed HTML elements and
+                // attributes (this also rewrites `<img>`/`<source>` `srcset`).
+                $this->base = $base;
+                if (!empty($this->allowed_html_elements_with_attributes)) {
+                    $this->enforce_allowed_html_nodes($document, $this->allow_data_attr, $this->allow_aria_attr);
+                }
+
                 // Strip out HTML tags and attributes that might cause various security problems.
                 // Based on recommendations by Mark Pilgrim at:
                 // https://web.archive.org/web/20110902041826/http://diveintomark.org:80/archives/2003/06/12/how_to_consume_rss_safely
@@ -543,14 +551,8 @@ class Sanitize implements RegistryAware
                 }
 
                 // Replace relative URLs and blocks disallowed URI schemes (protocols)
-                $this->base = $base;
                 foreach ($this->replace_url_attributes as $element => $attributes) {
                     $this->replace_urls($document, $element, $attributes);
-                }
-
-                // Process allowed HTML elements and their attributes (including srcset rewriting)
-                if (!empty($this->allowed_html_elements_with_attributes)) {
-                    $this->sanitize_html_nodes($document, $this->allow_data_attr, $this->allow_aria_attr);
                 }
 
                 // MathML and SVG allow href on arbitrary descendants,
@@ -714,7 +716,7 @@ class Sanitize implements RegistryAware
      * Keep only allowed HTML elements (tags) and their allowed attributes,
      * and rewrite `srcset` URLs on `<img>` and `<source>`.
      */
-    protected function sanitize_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true): void
+    protected function enforce_allowed_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true): void
     {
         if ($element instanceof \DOMElement) {
             $tag = $element->tagName;
@@ -734,7 +736,7 @@ class Sanitize implements RegistryAware
                         if ($parent !== null) {
                             $parent->insertBefore($child, $element);
                         }
-                        $this->sanitize_html_nodes($child, $allow_data_attr, $allow_aria_attr);
+                        $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
                     }
                 }
                 if ($parent !== null) {
@@ -757,14 +759,14 @@ class Sanitize implements RegistryAware
             }
 
             if (in_array($tag, ['img', 'source'], true) && $element->hasAttribute('srcset')) {
-                $this->rewriteImgSrcset($element);
+                $this->rewrite_img_srcset($element);
             }
         }
         if ($element instanceof \DOMElement || $element instanceof \DOMDocument) {
             for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
                 $child = $element->childNodes->item($i);
                 if ($child !== null) {
-                    $this->sanitize_html_nodes($child, $allow_data_attr, $allow_aria_attr);
+                    $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
                 }
             }
         }
@@ -1022,9 +1024,9 @@ class Sanitize implements RegistryAware
      * by bandwidth and is never larger than what `srcset` would have
      * picked.
      */
-    private function rewriteImgSrcset(\DOMElement $element): void
+    private function rewrite_img_srcset(\DOMElement $element): void
     {
-        $entries = $this->parseSrcset($element->getAttribute('srcset'));
+        $entries = $this->parse_srcset($element->getAttribute('srcset'));
         if ($entries === []) {
             return;
         }
@@ -1041,7 +1043,7 @@ class Sanitize implements RegistryAware
             return;
         }
         $element->setAttribute('srcset', implode(', ', array_map(
-            static fn(array $e): string => $e['descriptor'] === '' ? $e['url'] : $e['url'] . ' ' . $e['descriptor'],
+            static fn (array $e): string => $e['descriptor'] === '' ? $e['url'] : $e['url'] . ' ' . $e['descriptor'],
             $absolutised
         )));
 
@@ -1051,15 +1053,15 @@ class Sanitize implements RegistryAware
             return;
         }
         $current = $element->getAttribute('src');
-        if (!$this->isPlaceholderSrc($current)) {
+        if (!$this->is_placeholder_src($current)) {
             return;
         }
-        $candidates = array_values(array_filter($absolutised, static fn(array $e): bool => $e['w'] > 0));
+        $candidates = array_values(array_filter($absolutised, static fn (array $e): bool => $e['w'] > 0));
         if ($candidates !== []) {
-            usort($candidates, static fn(array $a, array $b): int => $a['w'] <=> $b['w']);
+            usort($candidates, static fn (array $a, array $b): int => $a['w'] <=> $b['w']);
         } else {
-            $candidates = array_values(array_filter($absolutised, static fn(array $e): bool => $e['x'] > 0.0));
-            usort($candidates, static fn(array $a, array $b): int => $a['x'] <=> $b['x']);
+            $candidates = array_values(array_filter($absolutised, static fn (array $e): bool => $e['x'] > 0.0));
+            usort($candidates, static fn (array $a, array $b): int => $a['x'] <=> $b['x']);
         }
         if ($candidates === []) {
             return;
@@ -1075,7 +1077,7 @@ class Sanitize implements RegistryAware
      * between common placeholder sizes (~70-120 chars) and the smallest
      * useful inline rasters (~200+ chars).
      */
-    private function isPlaceholderSrc(string $src): bool
+    private function is_placeholder_src(string $src): bool
     {
         if ($src === '') {
             return true;
@@ -1097,7 +1099,7 @@ class Sanitize implements RegistryAware
      *         0.0 when the descriptor is not of that kind. Both are used
      *         when picking a fallback `src`.
      */
-    private function parseSrcset(string $srcset): array
+    private function parse_srcset(string $srcset): array
     {
         $out = [];
         $len = strlen($srcset);

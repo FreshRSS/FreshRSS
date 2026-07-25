@@ -52,6 +52,15 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 		self::assertStringNotContainsString('srcset="/img/', $out);
 	}
 
+	public function test_sanitizeHTML_emptySrcWithBaseStillGetsSrcsetFallback(): void {
+		// An empty `src` must not be resolved to the document base before the
+		// placeholder check, or `src` ends up pointing at the article page.
+		$html = '<img src="" srcset="/img/a.jpg 100w, /img/b.jpg 500w" alt="x">';
+		$out = FreshRSS_SimplePieCustom::sanitizeHTML($html, 'https://example.com/articles/page');
+		self::assertStringContainsString('src="https://example.com/img/a.jpg"', $out);
+		self::assertStringNotContainsString('src="https://example.com/articles/page"', $out);
+	}
+
 	public function test_sanitizeHTML_keepsLegitimateImgSrc(): void {
 		$html = '<img src="https://example.com/real.jpg" srcset="https://example.com/a.jpg 100w, https://example.com/b.jpg 500w" alt="x">';
 		$out = FreshRSS_SimplePieCustom::sanitizeHTML($html);
