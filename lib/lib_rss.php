@@ -316,22 +316,18 @@ function cleanCache(int $hours = 720): void {
 }
 
 /**
- * Add support of image lazy loading
- * Move content from src/poster attribute to data-original
+ * Add native lazy loading to images and iframes.
  * @param string $content is the text we want to parse
  */
 function lazyimg(string $content): string {
-	return preg_replace([
-			'/<((?:img|image|iframe|track)[^>]+?)src="([^"]+)"([^>]*)>/i',
-			"/<((?:img|image|iframe|track)[^>]+?)src='([^']+)'([^>]*)>/i",
-			'/<((?:video)[^>]+?)poster="([^"]+)"([^>]*)>/i',
-			"/<((?:video)[^>]+?)poster='([^']+)'([^>]*)>/i",
-		], [
-			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
-			'<$1poster="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-			"<$1poster='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
-		],
+	return preg_replace_callback(
+		'/<(img|iframe)\b([^>]*)>/i',
+		static function (array $matches): string {
+			if (preg_match('/\sloading\s*=/i', $matches[2])) {
+				return $matches[0];
+			}
+			return '<' . $matches[1] . ' loading="lazy"' . $matches[2] . '>';
+		},
 		$content
 	) ?? '';
 }

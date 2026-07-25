@@ -448,25 +448,10 @@ function mark_favorite(div) {
 
 const freshrssOpenArticleEvent = new Event('freshrss:openArticle', { bubbles: true, cancelable: true });
 
-function loadLazyImages(rootElement) {
-	rootElement.querySelectorAll('img[data-original], iframe[data-original], video[data-original], track[data-original]').forEach(function (el) {
-		if (el.tagName === 'VIDEO') {
-			el.poster = el.getAttribute('data-original');
-		} else {
-			el.src = el.getAttribute('data-original');
-		}
-		el.removeAttribute('data-original');
-	});
-}
-
 function toggleContent(new_active, old_active, skipping) {
 	// If skipping, move current without activating or marking as read
 	if (!new_active) {
 		return;
-	}
-
-	if (context.does_lazyload && !skipping) {
-		loadLazyImages(new_active);
 	}
 
 	const relative_move = context.current_view === 'global';
@@ -1438,7 +1423,7 @@ function init_stream(stream) {
 			// Note: Firefox Mobile saves PDFs with a filename that looks like: `temp[19 random digits].PDF` regardless of title
 			head.querySelector('title').innerText = articleTitle;
 
-			loadLazyImages(content_el);
+			content_el.querySelectorAll('img[loading], iframe[loading]').forEach(el => el.setAttribute('loading', 'eager'));
 
 			const print_frame = document.createElement('iframe');
 			print_frame.style.display = 'none';
@@ -2362,19 +2347,17 @@ function removeFirstLoadSpinner() {
 }
 
 function enforce_referrer_allowlist(stream) {
-	for (const iframe of stream.querySelectorAll('div.content iframe[src], div.content iframe[data-original]')) {
+	for (const iframe of stream.querySelectorAll('div.content iframe[src]')) {
 		let hostname;
 		try {
-			hostname = new URL(context.does_lazyload ? iframe.getAttribute('data-original') : iframe.src).hostname;
+			hostname = new URL(iframe.src).hostname;
 		} catch (_) {
 			continue;
 		}
 		if (context.send_referrer_allowlist.includes(hostname) && !iframe.hasAttribute('referrerpolicy')) {
 			iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-			if (!context.does_lazyload) {
-				// iframe must be reloaded to apply the `referrerpolicy` change
-				iframe.src = iframe.src; // eslint-disable-line no-self-assign
-			}
+			// iframe must be reloaded to apply the `referrerpolicy` change
+			iframe.src = iframe.src; // eslint-disable-line no-self-assign
 		}
 	}
 }
