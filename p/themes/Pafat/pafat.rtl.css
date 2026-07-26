@@ -66,6 +66,9 @@
 	--alert-warn-background-color: #ffe;
 	--alert-warn-border-color: #eeb;
 	--alert-warn-font-color: #c95;
+	--alert-info-background-color: #e6f3ff;
+	--alert-info-border-color: #b3d9ff;
+	--alert-info-font-color: #1a3d5c;
 	--alert-success-background-color: #dfd;
 	--alert-success-border-color: #cec;
 	--alert-success-font-color: #484;
@@ -434,6 +437,12 @@ th {
 	background: var(--alert-warn-background-color);
 	color: var(--alert-warn-font-color);
 	border: 1px solid var(--alert-warn-border-color);
+}
+
+.alert-info {
+	background: var(--alert-info-background-color);
+	color: var(--alert-info-font-color);
+	border: 1px solid var(--alert-info-border-color);
 }
 
 .alert-success {

@@ -395,6 +395,12 @@ th {
 	border: 1px solid #eeb;
 }
 
+.alert-info {
+	background: #e6f3ff;
+	color: #1a3d5c;
+	border: 1px solid #b3d9ff;
+}
+
 .alert-success {
 	background: #dfd;
 	color: #484;
