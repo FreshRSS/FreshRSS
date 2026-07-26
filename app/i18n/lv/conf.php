@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Ekrāns',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autori un datums',
+				'both' => 'Virsrakstā un kājenē',
+				'footer' => 'Kājienē',
+				'header' => 'Virsrakstā',
+				'none' => 'Nekāds',
+			),
+			'feed_name' => array(
+				'above_title' => 'Virs titula/birkām',
+				'none' => 'Nekāds',
+				'with_authors' => 'Autoru un datuma rindā',
+			),
+			'feed_title' => 'Barotnes tituls',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Birkas',
+				'both' => 'Virsrakstā un kājenē',
+				'footer' => 'Kājienē',
+				'header' => 'Virsrakstā',
+				'none' => 'Nekāds',
+			),
+			'tags_max' => array(
+				'_' => 'Maksimālais rādīto birku skaits',
+				'help' => '0 nozīmē: rādīt visas birkas un nesalocīt tās',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automātiskais tumšais režīms',
 			'auto' => 'Auto',	// IGNORE
 			'help' => 'Tikai saderīgām tēmām',
 			'no' => 'Nē',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Raksti: virsraksts/kājotne',
 		),
 		'icon' => array(
 			'bottom_line' => 'Apakšējā līnija',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => 'Pēc "atzīmēt visus kā izlasītus",',
 		'always_show_favorites' => 'Pēc noklusējuma rādīt visus rakstus mīļāko sadaļā',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autori un datums',
-				'both' => 'Virsrakstā un kājenē',
-				'footer' => 'Kājienē',
-				'header' => 'Virsrakstā',
-				'none' => 'Nekāds',
-			),
-			'feed_name' => array(
-				'above_title' => 'Virs titula/birkām',
-				'none' => 'Nekāds',
-				'with_authors' => 'Autoru un datuma rindā',
-			),
-			'feed_title' => 'Barotnes tituls',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => 'Birkas',
-				'both' => 'Virsrakstā un kājenē',
-				'footer' => 'Kājienē',
-				'header' => 'Virsrakstā',
-				'none' => 'Nekāds',
-			),
-			'tags_max' => array(
-				'_' => 'Maksimālais rādīto birku skaits',
-				'help' => '0 nozīmē: rādīt visas birkas un nesalocīt tās',
-			),
-		),
 		'articles_per_page' => 'Rakstu skaits lapā',
 		'auto_load_more' => 'Ielādēt vairāk rakstu lapas apakšā',
 		'auto_remove_article' => 'Paslēpt rakstus pēc izlasīšanas',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Nesalocītās kategorijas',
 		'headline' => array(
 			'articles' => 'Raksti: Atvērt/Aizvērt',
-			'articles_header_footer' => 'Raksti: virsraksts/kājotne',
 			'categories' => 'Kreisā navigācija: Kategorijas',
 			'mark_as_read' => 'Atzīmēt rakstu kā izlasītu',
 			'misc' => 'Citi',

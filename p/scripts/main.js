@@ -873,9 +873,10 @@ function auto_share(key) {
 	if (!share) {
 		return;
 	}
-	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
+	let shares;
 	if (typeof key === 'undefined') {
 		show_share_menu(share);
+		shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 
 		// Display the share div
 		location.hash = share.id;
@@ -895,6 +896,7 @@ function auto_share(key) {
 			return;
 		}
 	}
+	shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	// Trigger selected share action and hide the share div
 	key = parseInt(key);
 	if (key <= shares.length) {
@@ -1919,7 +1921,9 @@ function init_actualize() {
 		context.ajax_loading = true;
 
 		const req = new XMLHttpRequest();
-		req.open('POST', './?c=javascript&a=actualize', true);
+		const currentGet = new URLSearchParams(window.location.search).get('get');
+		const scope = currentGet ? '&get=' + encodeURIComponent(currentGet) : '';
+		req.open('POST', './?c=javascript&a=actualize' + scope, true);
 		req.responseType = 'json';
 		req.onload = function (e) {
 			if (this.status != 200) {
@@ -2107,7 +2111,7 @@ function refreshUnreads() {
 	req.onload = function (e) {
 		const json = xmlHttpRequestJson(this);
 		if (!json) {
-			return badAjax(false);
+			return badAjax(this.status >= 400 && this.status <= 499);
 		}
 		const isAll = document.querySelector('.category.all.active');
 		let new_articles = false;

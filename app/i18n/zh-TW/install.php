@@ -63,6 +63,10 @@ return array(
 			'ok' => '資料表狀態完整。',
 		),
 		'database-title' => '資料庫',
+		'docroot' => array(
+			'nok' => '您的 web 伺服器文件根目錄似乎並未指向 <code>./p/</code> 資料夾。其他資料夾 (例如 <code>./data/</code>) 可能會被公開存取。',
+			'ok' => '您的 web 伺服器文件根目錄正確指向了 <code>./p/</code> 資料夾。',
+		),
 		'dom' => array(
 			'nok' => '無法找到瀏覽 DOM 所需的函式庫。',
 			'ok' => '您擁有瀏覽 DOM 所需的函式庫。',
@@ -76,6 +80,10 @@ return array(
 			'ok' => '您擁有推薦的 PHP fileinfo 函式庫 (fileinfo 套件)。',
 		),
 		'files' => '檔案安裝',
+		'gmp' => array(
+			'nok' => '無法找到 32 位元 PHP 所需的 GMP 擴充功能 (php-gmp 套件)。',
+			'ok' => '您擁有 32 位元 PHP 所需的 GMP 擴充功能。',
+		),
 		'intl' => array(
 			'nok' => '無法找到推薦用於國際化的 php-intl 函式庫。',
 			'ok' => '您擁有推薦用於國際化的 php-intl 函式庫。',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => '恭喜！',
 	'default_user' => array(
 		'_' => '預設使用者名稱',
-		'max_char' => '最多 16 個數字或字母',
+		'max_char' => '長度限制為 1-39 個字元 (字母、數字或 <code>. _ @ -</code>)',
 	),
 	'fix_errors_before' => '請在繼續下一步前修復錯誤',
 	'javascript_is_better' => '啟用 JavaScript 會使 FreshRSS 使用體驗更佳',

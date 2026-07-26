@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => '使用者名稱',
-			'format' => '<small>最多 16 個數字或字母</small>',
+			'format' => '<small>長度限制為 1-39 個字元 (字母、數字或 <code>. _ @ -</code>)</small>',
 		),
 	),
 	'date' => array(
@@ -292,10 +292,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud 書籤',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

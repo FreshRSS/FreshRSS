@@ -63,6 +63,10 @@ return array(
 			'ok' => 'All database tables exist.',	// TODO
 		),
 		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Tidak dapat menemukan pustaka yang diperlukan untuk menelusuri DOM.',
 			'ok' => 'Anda memiliki pustaka yang diperlukan untuk menelusuri DOM.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'Anda memiliki pustaka fileinfo.',
 		),
 		'files' => 'Pemasangan Berkas',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
 			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Selamat datang!',
 	'default_user' => array(
 		'_' => 'Nama pengguna untuk pengguna baku',
-		'max_char' => 'maksimum 16 karakter alpanumerik',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Perbaiki galat sebelum melanjutkan.',
 	'javascript_is_better' => 'FreshRSS lebih baik dengan JavaScript diaktifkan',

@@ -987,7 +987,10 @@ class FreshRSS_Entry extends Minz_Model {
 			$cssSelector = trim($cssSelector, ', ');
 			$path_entries_filter = trim($feed->attributeString('path_entries_filter') ?? '', ', ');
 			$nodes = FreshRSS_CssSelector::querySelectorAll($doc, $cssSelector);
-			foreach ($nodes as $node) {
+			if ($nodes === []) {
+				Minz_Log::warning('CSS content retrieval matched no elements for feed ' . $feed->name() . ' and article URL ' . $url . ': ' . $cssSelector);
+			} else {
+				foreach ($nodes as $node) {
 				try {
 					if (!FreshRSS_CssSelector::isElement($node)) {
 						continue;
@@ -1023,10 +1026,14 @@ class FreshRSS_Entry extends Minz_Model {
 						throw $e;
 					}
 				}
+				}
 			}
 
 			unset($doc);
 			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
+			if ($nodes !== [] && trim($html) === '') {
+				Minz_Log::warning('CSS content retrieval returned no content for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
+			}
 
 			if ($path_entries_filter !== '') {
 				// Remove unwanted elements again after sanitizing, for CSS selectors to also match sanitized content
@@ -1252,7 +1259,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
 			unset($item['alternate'][0]['type']);
 			$item['summary'] = [
-				'content' => mb_strcut($this->content(true), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
+				'content' => mb_strcut($this->content($feed?->attributeBoolean('display_enclosures') ?? true), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
 			];
 		} else {
 			$item['content'] = [

@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => ' نام کاربری',
-			'format' => '<small>حداکثر 16 نویسه الفبای عددی</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -298,10 +298,12 @@ return array(
 		'gnusocial' => ' گنو اجتماعی',
 		'jdh' => 'ژورنال دو هکر',
 		'lemmy' => ' لمی',
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => ' پیوند دادن',
 		'linkedin' => ' لینکدین',
 		'mastodon' => ' ماستودون',
 		'movim' => ' Movim',
+		'nextcloud-bookmarks' => 'Nextcloud نشانک‌ها',	// DIRTY
 		'omnivore' => ' همه چیزخوار',
 		'pinboard' => ' پینبرد',
 		'pinterest' => ' پینترست',
