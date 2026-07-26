@@ -987,10 +987,9 @@ class FreshRSS_Entry extends Minz_Model {
 			$cssSelector = trim($cssSelector, ', ');
 			$path_entries_filter = trim($feed->attributeString('path_entries_filter') ?? '', ', ');
 			$nodes = FreshRSS_CssSelector::querySelectorAll($doc, $cssSelector);
-			if ($nodes === []) {
-				Minz_Log::warning('CSS content retrieval matched no elements for feed ' . $feed->name() . ' and article URL ' . $url . ': ' . $cssSelector);
-			} else {
-				foreach ($nodes as $node) {
+			$matched = false;
+			foreach ($nodes as $node) {
+				$matched = true;
 					try {
 						if (!FreshRSS_CssSelector::isElement($node)) {
 							continue;
@@ -1026,12 +1025,14 @@ class FreshRSS_Entry extends Minz_Model {
 							throw $e;
 						}
 					}
-				}
+			}
+			if (!$matched) {
+				Minz_Log::warning('CSS content retrieval matched no elements for feed ' . $feed->name() . ' and article URL ' . $url . ': ' . $cssSelector);
 			}
 
 			unset($doc);
 			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
-			if ($nodes !== [] && trim($html) === '') {
+			if ($matched && trim($html) === '') {
 				Minz_Log::warning('CSS content retrieval returned no content for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
 			}
 
