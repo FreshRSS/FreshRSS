@@ -822,11 +822,11 @@ function show_share_menu(el) {
 		const title = title_el.textContent;
 		const titleText = title;
 		const template = document.getElementById(templateId).innerHTML
-			.replace(/--entryId--/g, id)
-			.replace(/--link--/g, link)
-			.replace(/--titleText--/g, titleText)
-			.replace(/--websiteName--/g, websiteName)
-			.replace(/--articleAuthors--/g, articleAuthorsText);
+			.replace(/--entryId--/g, encodeURIComponent(id))
+			.replace(/--link--/g, encodeURIComponent(link))
+			.replace(/--titleText--/g, encodeURIComponent(titleText))
+			.replace(/--websiteName--/g, encodeURIComponent(websiteName))
+			.replace(/--articleAuthors--/g, encodeURIComponent(articleAuthorsText));
 
 		div.insertAdjacentHTML('beforeend', template);
 	}
