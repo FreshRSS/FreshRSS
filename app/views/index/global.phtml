@@ -51,9 +51,9 @@
 
 	$unreadArticles = 0;
 	// When STATE_ALL is active (both read and unread), show total articles instead of only unread
-	$showTotalArticles = FreshRSS_Context::$state === 0 || (
+	$showTotalArticles = $this->feedIdsMatching === null && (FreshRSS_Context::$state === 0 || (
 		FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) &&
-		FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ));
+		FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ)));
 
 	foreach ($this->categories as $cat) {
 		$feeds = $this->feedIdsMatching === null ? $cat->feeds() :
