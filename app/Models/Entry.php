@@ -991,41 +991,41 @@ class FreshRSS_Entry extends Minz_Model {
 				Minz_Log::warning('CSS content retrieval matched no elements for feed ' . $feed->name() . ' and article URL ' . $url . ': ' . $cssSelector);
 			} else {
 				foreach ($nodes as $node) {
-				try {
-					if (!FreshRSS_CssSelector::isElement($node)) {
-						continue;
-					}
-					if ($path_entries_filter !== '') {
-						if (FreshRSS_CssSelector::matches($node, $path_entries_filter)) {
+					try {
+						if (!FreshRSS_CssSelector::isElement($node)) {
 							continue;
 						}
-						$filterednodes = FreshRSS_CssSelector::querySelectorAll($doc, $path_entries_filter, $node);
-						// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
-						foreach ($filterednodes as $filterednode) {
-							try {
-								if ($filterednode === $node) {
-									continue 2;
-								}
-								if (!FreshRSS_CssSelector::isElement($filterednode) || !FreshRSS_CssSelector::isAttached($filterednode, $doc)) {
-									continue;
-								}
-								FreshRSS_CssSelector::remove($filterednode);
-							} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
-								if (!str_contains($e->getMessage(), 'Node no longer exists')) {
-									throw $e;
+						if ($path_entries_filter !== '') {
+							if (FreshRSS_CssSelector::matches($node, $path_entries_filter)) {
+								continue;
+							}
+							$filterednodes = FreshRSS_CssSelector::querySelectorAll($doc, $path_entries_filter, $node);
+							// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
+							foreach ($filterednodes as $filterednode) {
+								try {
+									if ($filterednode === $node) {
+										continue 2;
+									}
+									if (!FreshRSS_CssSelector::isElement($filterednode) || !FreshRSS_CssSelector::isAttached($filterednode, $doc)) {
+										continue;
+									}
+									FreshRSS_CssSelector::remove($filterednode);
+								} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
+									if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+										throw $e;
+									}
 								}
 							}
 						}
+						if (!FreshRSS_CssSelector::isAttached($node, $doc)) {
+							continue;
+						}
+						$html .= FreshRSS_CssSelector::saveHtml($doc, $node) . "\n";
+					} catch (Error $e) {
+						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
+							throw $e;
+						}
 					}
-					if (!FreshRSS_CssSelector::isAttached($node, $doc)) {
-						continue;
-					}
-					$html .= FreshRSS_CssSelector::saveHtml($doc, $node) . "\n";
-				} catch (Error $e) {
-					if (!str_contains($e->getMessage(), 'Node no longer exists')) {
-						throw $e;
-					}
-				}
 				}
 			}
 
