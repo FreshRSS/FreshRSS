@@ -69,7 +69,7 @@ return array(
 			'help' => 'Nur für kompatible Themes',
 			'no' => 'Nein',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Anhänge anzeigen',
 		'headline' => array(
 			'articles_header_footer' => 'Artikel: Kopf- und Fußzeile',
 		),
@@ -91,11 +91,11 @@ return array(
 		'show_nav_buttons' => 'Navigationsschaltflächen anzeigen',
 		'show_title_unread' => 'Anzahl ungelesener Artikel im Titel anzeigen',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Zeige Anzahl ungelesener Artikel in der Seitenleiste',
+			'all' => 'Für alle Kategorien und Feeds',
+			'important' => 'Nur für Wichtige Feeds',
+			'important_locked' => 'Bei Wichtige Feeds immer anzeigen.',
+			'none' => 'Nicht anzeigen',
 		),
 		'sidebar_hidden_by_default' => 'Seitenleiste standardmäßig ausblenden',
 		'theme' => array(
