@@ -270,6 +270,9 @@ return array(
 		'export' => array(
 			'_' => 'エクスポート',
 			'sqlite' => 'ユーザーデータベースをSQLiteとしてダウンロードする',
+			'sqlite_force' => 'Force export even if it exceeds the size limit',	// TODO
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => 'ラベル付けされた記事をエクスポートする',
 		'export_opml' => 'フィードリストをエクスポートする（OPML）',

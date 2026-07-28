@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Οι ροές σας έχουν εισαχθεί, αλλά παρουσιάστηκαν κάποια σφάλματα. Αν ολοκληρώσατε την εισαγωγή, μπορείτε τώρα να κάνετε κλικ στο κουμπί <i>Ενημέρωση ροών</i>.',
 		'file_cannot_be_uploaded' => 'Το αρχείο δεν μπορεί να μεταφορτωθεί!',
 		'no_zip_extension' => 'Η επέκταση ZIP δεν υπάρχει στον διακομιστή σας.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Παρουσιάστηκε σφάλμα κατά την επεξεργασία του ZIP.',
 	),
 	'profile' => array(

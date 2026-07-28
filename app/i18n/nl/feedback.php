@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Uw feeds zijn geïmporteerd, maar er zijn enkele fouten opgetreden. Als u klaar bent met importeren, kunt u nu op de knop <i>Feeds vernieuwen</i> klikken.',
 		'file_cannot_be_uploaded' => 'Bestand kan niet worden verzonden!',
 		'no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Er is een fout opgetreden tijdens het verwerken van het ZIP-bestand.',
 	),
 	'profile' => array(

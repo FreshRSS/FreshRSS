@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Стрічки імпортовано, проте виникли помилки. Якщо більше не потрібно нічого імпортувати, натисніть кнопку <i>Оновити стрічки</i>.',
 		'file_cannot_be_uploaded' => 'Не вдалося вивантажити файл!',
 		'no_zip_extension' => 'На сервері бракує ZIP-розширення.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'При обробці ZIP виникла помилка.',
 	),
 	'profile' => array(

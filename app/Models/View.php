@@ -95,6 +95,10 @@ class FreshRSS_View extends Minz_View {
 	public ?array $sqliteArchives = null;
 	public string $sqlitePath;
 	public string $sqliteName;
+	public bool $sqliteExportEnabled;
+	public bool $sqliteExportAllowed;
+	public bool $sqliteExportIsAdmin;
+	public int $sqliteExportMaxSize;
 
 	// Form login
 	public int $cookie_days;

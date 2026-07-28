@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'A hírlisták importálása megtörtént, de néhány hiba történt / A hírlistáit importáltuk, de néhány hiba történt. Ha végzett az importálással, most rákattinthat a <i>Hírlisták frissítése</i> gombra.',
 		'file_cannot_be_uploaded' => 'A fájl nem feltölthető!',
 		'no_zip_extension' => 'A ZIP kiterjesztés nem létezik a szerveren.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Hiba történt a ZIP feldolgozása közben.',
 	),
 	'profile' => array(

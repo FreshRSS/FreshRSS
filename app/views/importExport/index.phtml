@@ -79,6 +79,35 @@
 	<?php } ?>
 
 	<h2><?= _t('sub.import_export.export.sqlite') ?></h2>
+
+	<?php if ($this->sqliteExportEnabled): ?>
+	<form method="post" action="<?= _url('importExport', 'sqliteExport') ?>">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<?php if (!$this->sqliteExportAllowed && $this->sqliteExportIsAdmin): ?>
+		<div class="form-group">
+			<div class="group-controls">
+				<label>
+					<input type="checkbox" name="force" value="1" />
+					<?= _t('sub.import_export.export.sqlite_force') ?>
+				</label>
+			</div>
+		</div>
+		<?php endif; ?>
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"<?= ($this->sqliteExportAllowed || $this->sqliteExportIsAdmin) ? '' : ' disabled="disabled"' ?>>
+					<?= _t('sub.import_export.export.sqlite_now') ?>
+				</button>
+			</div>
+		</div>
+		<?php if (!$this->sqliteExportAllowed): ?>
+		<p class="alert alert-warn">
+			<?= _t('sub.import_export.export.sqlite_too_large', format_bytes($this->sqliteExportMaxSize)) ?>
+		</p>
+		<?php endif; ?>
+	</form>
+	<?php endif; ?>
+
 	<?php if (count($this->sqliteArchives ?? []) === 0): ?>
 	<p class="alert alert-warn">
 		<?= _t('gen.short.not_applicable') ?>

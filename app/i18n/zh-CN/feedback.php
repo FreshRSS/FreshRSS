@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => '你的订阅源已导入，但发生错误。你可以点击 <i>更新订阅</i> 按钮以完成导入。',
 		'file_cannot_be_uploaded' => '文件未能上传！',
 		'no_zip_extension' => '服务器未启用 ZIP 扩展。',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => '导入 ZIP 文件时出错',	// DIRTY
 	),
 	'profile' => array(

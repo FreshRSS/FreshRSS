@@ -270,6 +270,9 @@ return array(
 		'export' => array(
 			'_' => '匯出',
 			'sqlite' => '下載使用者資料庫為 SQLite 檔案',
+			'sqlite_force' => 'Force export even if it exceeds the size limit',	// TODO
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => '匯出有標籤的文章',
 		'export_opml' => '匯出訂閱源清單 (OPML)',

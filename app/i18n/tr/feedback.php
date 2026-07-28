@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Beslemeleriniz içe aktarıldı, ancak bazı hatalar oluştu. İçe aktarma işleminiz bittiyse, şimdi <i>Beslemeleri güncelle</i> düğmesine tıklayabilirsiniz.',
 		'file_cannot_be_uploaded' => 'Dosya yüklenemedi!',
 		'no_zip_extension' => 'Sunucunuzda ZIP uzantısı mevcut değil.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'ZIP işleme sırasında bir hata oluştu.',
 	),
 	'profile' => array(

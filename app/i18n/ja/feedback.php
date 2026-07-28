@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'フィードをインポートしましたが、一部でエラーが発生しました。インポートが完了したら<i>フィードを更新する</i>ボタンをクリックしてください。',
 		'file_cannot_be_uploaded' => 'ファイルをアップロードできません',
 		'no_zip_extension' => 'ZIP拡張機能がサーバーに存在しません。',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'ZIPの処理中にエラーが発生しました。',
 	),
 	'profile' => array(

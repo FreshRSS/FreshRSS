@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'ההזנות שלך יובאו אך אירעו מספר שגיאות / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
 		'file_cannot_be_uploaded' => 'אין אפשרות להעלות את הקובץ!',
 		'no_zip_extension' => 'הרחבת ZIP אינה מותקנת על השרת.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'אירעה שגיאה במהלך ייבוא קובץ הZIP.',	// DIRTY
 	),
 	'profile' => array(
