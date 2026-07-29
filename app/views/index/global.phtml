@@ -56,8 +56,9 @@
 		FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ)));
 
 	foreach ($this->categories as $cat) {
-		$feeds = $this->feedIdsMatching === null ? $cat->feeds() :
-			array_filter($cat->feeds(), fn(FreshRSS_Feed $feed): bool => !empty($this->feedIdsMatching[$feed->id()]));
+		$feeds = array_filter($cat->feeds(), fn(FreshRSS_Feed $feed): bool =>
+			$feed->priority() >= FreshRSS_Feed::PRIORITY_FEED &&
+			($this->feedIdsMatching === null || !empty($this->feedIdsMatching[$feed->id()])));
 		$url_base['params']['get'] = 'c_' . $cat->id();
 
 		if (!empty($feeds)) {
@@ -65,12 +66,12 @@
 			$catMatchingCount = $cat->nbNotRead();
 			if ($this->feedIdsMatching !== null) {
 				$catMatchingCount = 0;
-				foreach ($cat->feeds() as $feed) {
+				foreach ($feeds as $feed) {
 					$catMatchingCount += $this->feedIdsMatching[$feed->id()] ?? 0;
 				}
 			} elseif ($showTotalArticles) {
 				$catMatchingCount = 0;
-				foreach ($cat->feeds() as $feed) {
+				foreach ($feeds as $feed) {
 					$catMatchingCount += $feed->nbEntries();
 				}
 			}
@@ -82,9 +83,6 @@
 		<ul class="box-content scrollbar-thin">
 			<?php
 				foreach ($feeds as $feed) {
-					if ($feed->priority() < FreshRSS_Feed::PRIORITY_FEED) {
-						continue;
-					}
 					$feedMatchingCount = $this->feedIdsMatching === null
 						? ($showTotalArticles ? $feed->nbEntries() : $feed->nbNotRead())
 						: ($this->feedIdsMatching[$feed->id()] ?? 0);
