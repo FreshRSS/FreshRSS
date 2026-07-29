@@ -936,6 +936,10 @@ input[type="checkbox"]:focus-visible {
 	background: inherit;
 }
 
+.alert-info {
+	background: inherit;
+}
+
 .group-controls .alert {
 	width: 100%
 }
