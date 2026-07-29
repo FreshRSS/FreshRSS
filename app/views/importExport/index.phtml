@@ -35,7 +35,7 @@
 	</form>
 
 	<h2><?= _t('sub.import_export.export') ?></h2>
-	<?php if (count($this->feeds) > 0) { ?>
+	<?php if ($this->feedCount > 0) { ?>
 	<form method="post" action="<?= _url('importExport', 'export') ?>" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group">
@@ -58,14 +58,23 @@
 				<?php
 					$select_args = '';
 					if (extension_loaded('zip')) {
-						$select_args = ' size="' . min(10, count($this->feeds)) . '" multiple="multiple"';
+						$select_args = ' size="' . min(10, count($this->categories) + $this->feedCount) . '" multiple="multiple"';
 					}
 				?>
 				<select name="export_feeds[]"<?= $select_args ?>>
 					<?= extension_loaded('zip') ? '' : '<option></option>' ?>
-					<?php foreach ($this->feeds as $feed) { ?>
-					<option value="<?= $feed->id() ?>"><?= $feed->name() ?></option>
-					<?php } ?>
+					<?php foreach ($this->categories as $category):
+						$feeds = $category->feeds();
+						if (empty($feeds)) {
+							continue;
+						}
+					?>
+					<optgroup label="<?= $category->name() ?>">
+						<?php foreach ($feeds as $feed) { ?>
+						<option value="<?= $feed->id() ?>"><?= $feed->name() ?></option>
+						<?php } ?>
+					</optgroup>
+					<?php endforeach; ?>
 				</select>
 			</div>
 		</div>
