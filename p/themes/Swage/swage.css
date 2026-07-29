@@ -530,6 +530,7 @@ li.item.separator {
 	font-size: 1.15em;
 }
 
+.alert-info,
 .alert-warn,
 .alert-success,
 .alert-error {
@@ -539,6 +540,11 @@ li.item.separator {
 .alert-warn {
 	background-color: var(--color-background-light);
 	color: var(--color-text-alert);
+}
+
+.alert-info {
+	background-color: var(--color-background-light);
+	color: var(--color-text);
 }
 
 .alert-success {

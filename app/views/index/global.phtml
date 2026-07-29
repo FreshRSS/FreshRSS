@@ -50,16 +50,33 @@
 	];
 
 	$unreadArticles = 0;
+	// When STATE_ALL is active (both read and unread), show total articles instead of only unread
+	$showTotalArticles = $this->feedIdsMatching === null && (FreshRSS_Context::$state === 0 || (
+		FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) &&
+		FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ)));
 
 	foreach ($this->categories as $cat) {
-		$feeds = $cat->feeds();
+		$feeds = $this->feedIdsMatching === null ? $cat->feeds() :
+			array_filter($cat->feeds(), fn(FreshRSS_Feed $feed): bool => !empty($this->feedIdsMatching[$feed->id()]));
 		$url_base['params']['get'] = 'c_' . $cat->id();
 
 		if (!empty($feeds)) {
 			$unreadArticles += $cat->nbNotRead();
+			$catMatchingCount = $cat->nbNotRead();
+			if ($this->feedIdsMatching !== null) {
+				$catMatchingCount = 0;
+				foreach ($cat->feeds() as $feed) {
+					$catMatchingCount += $this->feedIdsMatching[$feed->id()] ?? 0;
+				}
+			} elseif ($showTotalArticles) {
+				$catMatchingCount = 0;
+				foreach ($cat->feeds() as $feed) {
+					$catMatchingCount += $feed->nbEntries();
+				}
+			}
 ?>
-	<div class="box category" data-unread="<?= $cat->nbNotRead() ?>">
-		<div class="box-title"><a class="title open-panel" data-unread="<?= format_number($cat->nbNotRead()) ?>"
+	<div class="box category" data-unread="<?= $catMatchingCount ?>">
+		<div class="box-title"><a class="title open-panel" data-unread="<?= format_number($catMatchingCount) ?>"
 			href="<?= Minz_Url::display($url_base) ?>"><h2><?= $cat->name() ?></h2></a></div>
 
 		<ul class="box-content scrollbar-thin">
@@ -68,7 +85,9 @@
 					if ($feed->priority() < FreshRSS_Feed::PRIORITY_FEED) {
 						continue;
 					}
-					$nb_not_read = $feed->nbNotRead();
+					$feedMatchingCount = $this->feedIdsMatching === null
+						? ($showTotalArticles ? $feed->nbEntries() : $feed->nbNotRead())
+						: ($this->feedIdsMatching[$feed->id()] ?? 0);
 
 					$error_class = '';
 					$error_title = '';
@@ -88,9 +107,9 @@
 					$url_base['params']['get'] = 'f_' . $feed->id();
 			?>
 			<li id="f_<?= $feed->id() ?>" class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
-				data-unread="<?= $feed->nbNotRead() ?>" data-priority="<?= $feed->priority() ?>">
+				data-unread="<?= $feedMatchingCount ?>" data-priority="<?= $feed->priority() ?>">
 				<?php if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-				<a class="item-title open-panel" data-unread="<?= format_number($feed->nbNotRead()) ?>" href="<?= Minz_Url::display($url_base) ?>"><?= $feed->name() ?></a>
+				<a class="item-title open-panel" data-unread="<?= format_number($feedMatchingCount) ?>" href="<?= Minz_Url::display($url_base) ?>"><?= $feed->name() ?></a>
 			</li>
 			<?php } ?>
 		</ul>

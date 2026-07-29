@@ -24,6 +24,11 @@ class FreshRSS_View extends Minz_View {
 	public ?FreshRSS_Feed $feed = null;
 	/** @var array<int,FreshRSS_Feed> where the key is the feed ID */
 	public array $feeds;
+	/**
+	 * The keys are the feed IDs that have entries matching the current state and search filters (global view).
+	 * @var array<int,int>|null
+	 */
+	public ?array $feedIdsMatching = null;
 	public int $nbUnreadTags;
 	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
 	public array $tags;

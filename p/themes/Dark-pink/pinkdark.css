@@ -109,6 +109,10 @@ input:focus {
 	filter: brightness(3);
 }
 
+.alert-info {
+	border-color: #ffb6c1;
+}
+
 .stick .btn-important:first-child {
 	border-right-color: #fd6aae;
 }

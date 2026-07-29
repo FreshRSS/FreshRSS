@@ -224,6 +224,11 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->categories = FreshRSS_Context::categories();
+		// Filter feed list when searching or when a restrictive state filter is active
+		if (FreshRSS_Context::$search->toString() !== '' || FreshRSS_Context::isStateConsequential(FreshRSS_Context::$state)) {
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$this->view->feedIdsMatching = $entryDAO->listFeedIdsMatching(FreshRSS_Context::$state, FreshRSS_Context::$search);
+		}
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = _t('index.feed.title_global');
