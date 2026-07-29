@@ -166,6 +166,7 @@ People are sorted by name so please keep this order.
 * [killerog](https://github.com/killerog): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:killerog)
 * [kinoushe](https://github.com/kinoushe): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kinoushe)
 * [knasdk](https://github.com/knasdk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:knasdk)
+* [Kobi Hikri](https://github.com/kobihikri): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kobihikri)
 * [Konrad Gräfe](https://github.com/kgraefe): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kgraefe)
 * [Konstantinos Megas](https://github.com/nextdoorpanda): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:nextdoorpanda)
 * [Kristian Salonen](https://github.com/krisu5): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:krisu5)
