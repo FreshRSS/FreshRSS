@@ -43,6 +43,7 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 	export OIDC_SESSION_INACTIVITY_TIMEOUT="${OIDC_SESSION_INACTIVITY_TIMEOUT:-300}"
 	export OIDC_SESSION_MAX_DURATION="${OIDC_SESSION_MAX_DURATION:-27200}"
 	export OIDC_SESSION_TYPE="${OIDC_SESSION_TYPE:-server-cache}"
+	export OIDC_DEFAULT_URL="${OIDC_DEFAULT_URL:-/i/}"
 
 	# Debian
 	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||

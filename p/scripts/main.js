@@ -822,11 +822,11 @@ function show_share_menu(el) {
 		const title = title_el.textContent;
 		const titleText = title;
 		const template = document.getElementById(templateId).innerHTML
-			.replace(/--entryId--/g, id)
-			.replace(/--link--/g, link)
-			.replace(/--titleText--/g, titleText)
-			.replace(/--websiteName--/g, websiteName)
-			.replace(/--articleAuthors--/g, articleAuthorsText);
+			.replace(/--entryId--/g, encodeURIComponent(id))
+			.replace(/--link--/g, encodeURIComponent(link))
+			.replace(/--titleText--/g, encodeURIComponent(titleText))
+			.replace(/--websiteName--/g, encodeURIComponent(websiteName))
+			.replace(/--articleAuthors--/g, encodeURIComponent(articleAuthorsText));
 
 		div.insertAdjacentHTML('beforeend', template);
 	}
@@ -873,9 +873,10 @@ function auto_share(key) {
 	if (!share) {
 		return;
 	}
-	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
+	let shares;
 	if (typeof key === 'undefined') {
 		show_share_menu(share);
+		shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 
 		// Display the share div
 		location.hash = share.id;
@@ -895,6 +896,7 @@ function auto_share(key) {
 			return;
 		}
 	}
+	shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	// Trigger selected share action and hide the share div
 	key = parseInt(key);
 	if (key <= shares.length) {

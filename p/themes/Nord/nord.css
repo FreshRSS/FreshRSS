@@ -43,6 +43,7 @@
 	--accent: var(--nord9-frost);
 	--red: var(--nord11-aurora);
 	--orange: var(--nord13-aurora);
+	--blue: var(--nord9-frost);
 	--green: var(--nord14-aurora);
 	--purple: var(--nord15-aurora);
 
@@ -459,6 +460,10 @@ svg:hover {
 
 .alert-warn {
 	border-color: var(--orange);
+}
+
+.alert-info {
+	border-color: var(--blue);
 }
 
 .alert-error {

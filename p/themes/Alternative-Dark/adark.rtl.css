@@ -36,6 +36,7 @@
 	--empty-feed-color: #e67e22;
 
 	--alert-warn-border-color: #615f20;
+	--alert-info-border-color: #0062b7;
 	--alert-success-border-color: #18521d;
 	--alert-error-border-color: #912621;
 
@@ -445,6 +446,10 @@ a:hover > .spinner {
 
 .alert-warn {
 	border-color: var(--alert-warn-border-color);
+}
+
+.alert-info {
+	border-color: var(--alert-info-border-color);
 }
 
 .alert-success {
