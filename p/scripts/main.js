@@ -804,7 +804,7 @@ async function show_labels_menu(el) {
 
 function show_share_menu(el) {
 	const div = el.parentElement;
-	const dropdownMenu = div.querySelector('.dropdown-menu');
+	const dropdownMenu = div.querySelector(':scope > .dropdown-menu');
 
 	if (!dropdownMenu) {
 		const itemId = el.closest('.flux').dataset.entry;
