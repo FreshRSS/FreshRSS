@@ -1731,9 +1731,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if ($stm !== false) {
 			foreach ($values as $index => $value) {
 				$paramType = PDO::PARAM_STR;
-				if (is_null($value)) {
+				if (is_null($value)) {	// @phpstan-ignore function.impossibleType (defensive)
 					$paramType = PDO::PARAM_NULL;
-				} elseif (is_int($value) || is_bool($value)) {
+				} elseif (is_int($value) || is_bool($value)) {	// @phpstan-ignore function.impossibleType (defensive)
 					$paramType = PDO::PARAM_INT;
 				}
 				$stm->bindValue($index + 1, $value, $paramType);
