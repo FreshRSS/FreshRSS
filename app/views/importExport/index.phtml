@@ -65,9 +65,6 @@
 					<?= extension_loaded('zip') ? '' : '<option></option>' ?>
 					<?php foreach ($this->categories as $category):
 						$feeds = $category->feeds();
-						if (empty($feeds)) {
-							continue;
-						}
 					?>
 					<optgroup label="<?= $category->name() ?>">
 						<?php foreach ($feeds as $feed) { ?>

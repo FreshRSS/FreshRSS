@@ -32,7 +32,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * This action displays the main page for import / export system.
 	 */
 	public function indexAction(): void {
-		$this->view->categories = $this->categoryDAO->listCategories();
+		$this->view->categories = array_filter(
+			$this->categoryDAO->listCategories(),
+			static fn(FreshRSS_Category $category): bool => !empty($category->feeds()),
+		);
 		$this->view->feedCount = array_sum(array_map(static fn(FreshRSS_Category $category): int => count($category->feeds()), $this->view->categories));
 		FreshRSS_View::prependTitle(_t('sub.import_export.title') . ' · ');
 		$this->listSqliteArchives();
