@@ -230,6 +230,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
 			FreshRSS_Auth::removeAccess();
+			Minz_Session::_param('csrf', false);
 			Minz_Session::regenerateID('FreshRSS');
 			Minz_Request::good(
 				_t('feedback.auth.logout.success'),
