@@ -1147,9 +1147,10 @@ function init_column_categories() {
 				const id = itemId.substr(2);
 				const feed_web = a.getAttribute('data-fweb') || '';
 				const template = document.getElementById(templateId)
-					.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
+					.innerHTML.replace(/------/g, id);
 				div.insertAdjacentHTML('beforeend', template);
 				dropdownMenu = div.querySelector('.dropdown-menu');
+				dropdownMenu.querySelector('li.website > a').href = feed_web;
 				dropdownMenu.style.opacity = '0%'; // Hide initially to prevent dropdown flashing
 				if (feed_web == '') {
 					const website = div.querySelector('.item.link.website');
