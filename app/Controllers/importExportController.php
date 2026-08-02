@@ -385,7 +385,14 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				$item['origin']['feedUrl'] = $feedUrl;
 				$item['origin']['disable'] = 'true';
 			}
-			$feed = new FreshRSS_Feed($feedUrl);
+			$feedUrlOriginal = $feedUrl;
+			$feedUrl = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($feedUrl) ?: '');
+			try {
+				$feed = new FreshRSS_Feed($feedUrl);
+			} catch (FreshRSS_BadUrl_Exception) {
+				Minz_Log::warning('Could not add feed with invalid URL "' . $feedUrlOriginal . '" during JSON import');
+				continue;
+			}
 			$feed = $this->feedDAO->searchByUrl($feed->url());
 
 			if ($feed === null) {
@@ -441,7 +448,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 
 			$feed_id = $article_to_feed[$item['guid']];
-			$author = is_string($item['author'] ?? null) ? $item['author'] : '';
+			$author = is_string($item['author'] ?? null) ? Minz_Helper::htmlspecialchars_utf8($item['author']) : '';
 			$is_starred = null; // null is used to preserve the current state if that item exists and is already starred
 			$is_read = null;
 			$tags = is_array($item['categories'] ?? null) ? $item['categories'] : [];
@@ -466,7 +473,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 					unset($tags[$i]);
 				}
 			}
-			$tags = array_values(array_filter($tags, 'is_string'));
+			$tags = Minz_Helper::htmlspecialchars_utf8(array_values(array_filter($tags, 'is_string')));
 			if ($starred && !$is_starred) {
 				//If the article has no label, mark it as starred (old format)
 				$is_starred = empty($labels);
@@ -482,8 +489,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			} else {
 				$url = '';
 			}
+			$url = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($url) ?: '');
 
 			$title = is_string($item['title'] ?? null) ? $item['title'] : $url;
+			$title = Minz_Helper::htmlspecialchars_utf8($title);
 
 			if (is_array($item['content'] ?? null) && is_string($item['content']['content'] ?? null)) {
 				$content = $item['content']['content'];
@@ -610,6 +619,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		} else {
 			return null;
 		}
+		$url = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($url) ?: '');
 		if (!empty($origin['htmlUrl'])) {
 			$website = $origin['htmlUrl'];
 		} elseif (!empty($origin['feedUrl'])) {
@@ -617,10 +627,12 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		} else {
 			$website = '';
 		}
+		$website = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($website) ?: '');
 		$name = empty($origin['title']) ? $website : $origin['title'];
+		$name = Minz_Helper::htmlspecialchars_utf8($name);
 
 		$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
-		$cat_name = trim($origin['category'] ?? '');
+		$cat_name = Minz_Helper::htmlspecialchars_utf8(trim($origin['category'] ?? ''));
 		if ($cat_name !== '') {
 			$new_cat = $this->categoryDAO->searchByName($cat_name);
 			$cat_id = $new_cat?->id() ?: $this->categoryDAO->addCategory(['name' => $cat_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
