@@ -333,10 +333,10 @@ final class Context {
 	 * (not zero, and not just including opposite states).
 	 */
 	public static function isStateConsequential(int $state): bool {
-		return (($state & FreshRSS_Entry::STATE_READ) xor ($state & FreshRSS_Entry::STATE_NOT_READ)) ||
-			(($state & FreshRSS_Entry::STATE_FAVORITE) xor ($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) ||
-			($state & FreshRSS_Entry::STATE_OR_NOT_READ) ||
-			($state & FreshRSS_Entry::STATE_OR_FAVORITE);
+		return (($state & Entry::STATE_READ) xor ($state & Entry::STATE_NOT_READ)) ||
+			(($state & Entry::STATE_FAVORITE) xor ($state & Entry::STATE_NOT_FAVORITE)) ||
+			($state & Entry::STATE_OR_NOT_READ) ||
+			($state & Entry::STATE_OR_FAVORITE);
 	}
 
 	/**

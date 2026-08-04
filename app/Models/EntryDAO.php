@@ -1888,7 +1888,7 @@ class EntryDAO extends ModelPdo {
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
 			/** @var list<array{id_feed:int|string,count:int}> $res */
-			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+			$res = $stm->fetchAll(\PDO::FETCH_ASSOC);
 			$result = [];
 			foreach ($res as $row) {
 				$result[(int)$row['id_feed']] = (int)$row['count'];
@@ -1896,7 +1896,7 @@ class EntryDAO extends ModelPdo {
 			return $result;
 		}
 		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-		Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($info));
+		Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($info));
 		return [];
 	}
 
