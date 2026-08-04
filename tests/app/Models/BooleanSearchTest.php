@@ -14,8 +14,8 @@ final class BooleanSearchTest extends \PHPUnit\Framework\TestCase {
 	public static function providePrependMaxPubdate(): array {
 		return [
 			['', '(e.date <= ?)', [1700000000]],
-			['intitle:sale', '(e.date <= ?)AND ((e.title LIKE ?))', [1700000000, '%sale%']],
-			['intitle:a OR intitle:b', '(e.date <= ?)AND ((e.title LIKE ?) OR (e.title LIKE ?))', [1700000000, '%a%', '%b%']],
+			['intitle:sale', '(e.date <= ?) AND ((e.title LIKE ?))', [1700000000, '%sale%']],
+			['intitle:a OR intitle:b', '(e.date <= ?) AND ((e.title LIKE ?) OR (e.title LIKE ?))', [1700000000, '%a%', '%b%']],
 		];
 	}
 
