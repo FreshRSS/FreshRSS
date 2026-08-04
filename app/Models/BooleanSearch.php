@@ -432,8 +432,30 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		return $this->operator;
 	}
 
-	/** @param FreshRSS_BooleanSearch|FreshRSS_Search $search */
+	/**
+	 * Wrap the existing searches in a single BooleanSearch if needed,
+	 * so that another search can be added as an additional restriction (AND)
+	 * instead of being combined by OR with the existing sibling searches.
+	 */
+	private function wrapSearches(): void {
+		if (count($this->searches) > 1 || (count($this->searches) > 0 && $this->searches[0] instanceof FreshRSS_Search)) {
+			$wrap = new FreshRSS_BooleanSearch('');
+			foreach ($this->searches as $existingSearch) {
+				$wrap->add($existingSearch);
+			}
+			if (count($wrap->searches) > 0) {
+				$this->searches = [$wrap];
+			}
+		}
+	}
+
+	/**
+	 * Add a search at the beginning of the Boolean expression, as an additional restriction (AND).
+	 * @param FreshRSS_BooleanSearch|FreshRSS_Search $search
+	 */
 	public function prepend(FreshRSS_BooleanSearch|FreshRSS_Search $search): void {
+		// Sibling searches are combined by OR, so the existing expression must be wrapped first
+		$this->wrapSearches();
 		array_unshift($this->searches, $search);
 	}
 
@@ -472,16 +494,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			}
 		}
 
-		if (count($result->searches) > 1 || (count($result->searches) > 0 && $result->searches[0] instanceof FreshRSS_Search)) {
-			// Wrap the existing searches in a new BooleanSearch if needed
-			$wrap = new FreshRSS_BooleanSearch('');
-			foreach ($result->searches as $existingSearch) {
-				$wrap->add($existingSearch);
-			}
-			if (count($wrap->searches) > 0) {
-				$result->searches = [$wrap];
-			}
-		}
+		$result->wrapSearches();
 		array_unshift($result->searches, $search);
 		return $result;
 	}
