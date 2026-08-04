@@ -1,6 +1,11 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\ApiController;
+use FreshRss\Controllers\UserController;
+use FreshRss\Models\Context;
+
 require __DIR__ . '/_cli.php';
 
 $cliOptions = new class extends CliOptionsParser {
@@ -58,7 +63,7 @@ if (!empty($cliOptions->errors)) {
 
 $username = $cliOptions->user;
 
-if (!empty(preg_grep("/^$username$/i", FreshRSS_user_Controller::listUsers()))) {
+if (!empty(preg_grep("/^$username$/i", UserController::listUsers()))) {
 	fail('FreshRSS warning: username already exists “' . $username . '”', EXIT_CODE_ALREADY_EXISTS);
 }
 
@@ -77,7 +82,7 @@ $values = [
 
 $values = array_filter($values, fn($v): bool => $v !== null && $v !== '');
 
-$ok = FreshRSS_user_Controller::createUser(
+$ok = UserController::createUser(
 	$username,
 	$cliOptions->email ?? null,
 	$cliOptions->password ?? '',
@@ -91,13 +96,13 @@ if (!$ok) {
 
 if (($cliOptions->apiPassword ?? '') !== '') {
 	$username = cliInitUser($username);
-	$error = FreshRSS_api_Controller::updatePassword($cliOptions->apiPassword);
+	$error = ApiController::updatePassword($cliOptions->apiPassword);
 	if ($error !== false) {
 		fail($error);
 	}
 }
 
-invalidateHttpCache(FreshRSS_Context::systemConf()->default_user);
+invalidateHttpCache(Context::systemConf()->default_user);
 
 echo 'ℹ️ Remember to refresh the feeds of the user: ', $username ,
 	"\t", './cli/actualize-user.php --user ', $username, "\n";

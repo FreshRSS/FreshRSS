@@ -24,21 +24,28 @@ jobs:
     - name: Check PHTML syntax
       run: composer run-script phtml-lint
 
-    - name: Check translations syntax
-      run: composer run-script translations && git diff --exit-code
-
     - name: Use Composer cache
       id: composer-cache
       uses: actions/cache@v6
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        # Keyed on composer.json too (not just composer.lock): the autoload map (e.g. the
+        # FreshRss\ PSR-4 mapping) lives in composer.json and doesn't bump composer.lock,
+        # so a lock-only key can restore a stale vendor/autoload.php from before an
+        # autoload change.
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock', '**/composer.json') }}
         restore-keys: |
           ${{ runner.os }}-php-
 
     - name: Run Composer install
       run: composer install --prefer-dist --no-progress
       if: steps.composer-cache.outputs.cache-hit != 'true'
+
+    # `vendor/` (installed above) is required from this point on: the app now relies on
+    # Composer's PSR-4 autoloading for its own `FreshRss\...` classes, not just dependencies.
+
+    - name: Check translations syntax
+      run: composer run-script translations && git diff --exit-code
 
     - name: Run PHP unit tests
       run: composer run-script phpunit -- --no-progress

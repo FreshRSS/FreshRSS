@@ -1,19 +1,21 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
  */
 
-abstract class Minz_Pdo extends PDO {
+abstract class Pdo extends \PDO {
 	/**
 	 * @param array<int,int|string|bool>|null $options
-	 * @throws PDOException
+	 * @throws \PDOException
 	 */
 	public function __construct(string $dsn, ?string $username = null, ?string $passwd = null, ?array $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
-		$this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+		$this->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
 	}
 
 	abstract public function dbType(): string;
@@ -38,7 +40,7 @@ abstract class Minz_Pdo extends PDO {
 	}
 
 	/**
-	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 * @throws \PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 */
 	#[\Override]
 	public function lastInsertId(?string $name = null): string|false {
@@ -50,17 +52,17 @@ abstract class Minz_Pdo extends PDO {
 
 	/**
 	 * @param array<int,string> $options
-	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 * @throws \PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 * @phpstan-ignore method.childParameterType
 	 */
 	#[\Override]
-	public function prepare(string $query, array $options = []): PDOStatement|false {
+	public function prepare(string $query, array $options = []): \PDOStatement|false {
 		$query = $this->preSql($query);
 		return parent::prepare($query, $options);
 	}
 
 	/**
-	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 * @throws \PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 */
 	#[\Override]
 	public function exec(string $statement): int|false {
@@ -69,10 +71,10 @@ abstract class Minz_Pdo extends PDO {
 	}
 
 	/**
-	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 * @throws \PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 */
 	#[\Override]
-	public function query(string $query, ?int $fetch_mode = null, ...$fetch_mode_args): PDOStatement|false {
+	public function query(string $query, ?int $fetch_mode = null, ...$fetch_mode_args): \PDOStatement|false {
 		$query = $this->preSql($query);
 		return $fetch_mode === null ? parent::query($query) : parent::query($query, $fetch_mode, ...$fetch_mode_args);
 	}

@@ -1,15 +1,17 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
 
 /**
- * The Minz_Helper class contains some misc. help functions
+ * The Helper class contains some misc. help functions
  */
-final class Minz_Helper {
+final class Helper {
 
 	/**
 	 * Wrapper for htmlspecialchars.

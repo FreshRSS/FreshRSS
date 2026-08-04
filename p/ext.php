@@ -1,5 +1,9 @@
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\ExtensionController;
+use FreshRss\Models\Context;
+
 require dirname(__DIR__) . '/constants.php';
 require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
@@ -77,7 +81,7 @@ if (!is_string($_GET['f'] ?? null)) {
 
 $file_name = urldecode($_GET['f']);
 $file_type = pathinfo($file_name, PATHINFO_EXTENSION);
-if (empty(FreshRSS_extension_Controller::MIME_TYPES[$file_type])) {
+if (empty(ExtensionController::MIME_TYPES[$file_type])) {
 	sendBadRequestResponse('File type is not supported.');
 }
 
@@ -91,17 +95,17 @@ if (!is_valid_path($absolute_filename)) {
 	sendBadRequestResponse('File is not supported.');
 }
 
-FreshRSS_Context::initSystem();
-if (!FreshRSS_Context::hasSystemConf()) {
+Context::initSystem();
+if (!Context::hasSystemConf()) {
 	header('HTTP/1.1 500 Internal Server Error');
 	die('Invalid system init!');
 }
 
-$content_type = FreshRSS_extension_Controller::MIME_TYPES[$file_type];
+$content_type = ExtensionController::MIME_TYPES[$file_type];
 header("Content-Type: {$content_type}");
 header("Content-Disposition: inline; filename='{$file_name}'");
 header("Content-Security-Policy: default-src 'self'; frame-ancestors " .
-	(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
+	(Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: same-origin');
 

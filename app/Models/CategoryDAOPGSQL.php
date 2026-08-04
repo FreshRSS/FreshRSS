@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-final class FreshRSS_CategoryDAOPGSQL extends FreshRSS_CategoryDAO {
+namespace FreshRss\Models;
+
+final class CategoryDAOPGSQL extends CategoryDAO {
 
 	#[\Override]
 	public function sqlResetSequence(): bool {

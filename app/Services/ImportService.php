@@ -1,14 +1,29 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Services;
+
+use FreshRss\Exceptions\FeedException;
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\Helper;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Log;
+use FreshRss\Models\Category;
+use FreshRss\Models\CategoryDAO;
+use FreshRss\Models\Context;
+use FreshRss\Models\Factory;
+use FreshRss\Models\Feed;
+use FreshRss\Models\FeedDAO;
+use FreshRss\Utils\HttpUtil;
+
 /**
  * Provide methods to import files.
  */
-class FreshRSS_Import_Service {
+class ImportService {
 
-	private readonly FreshRSS_CategoryDAO $catDAO;
+	private readonly CategoryDAO $catDAO;
 
-	private readonly FreshRSS_FeedDAO $feedDAO;
+	private readonly FeedDAO $feedDAO;
 
 	/** true if success, false otherwise */
 	private bool $lastStatus;
@@ -17,8 +32,8 @@ class FreshRSS_Import_Service {
 	 * Initialize the service for the given user.
 	 */
 	public function __construct(?string $username = null) {
-		$this->catDAO = FreshRSS_Factory::createCategoryDao($username);
-		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
+		$this->catDAO = Factory::createCategoryDao($username);
+		$this->feedDAO = Factory::createFeedDao($username);
 	}
 
 	/** @return bool true if success, false otherwise */
@@ -30,10 +45,10 @@ class FreshRSS_Import_Service {
 	 * This method parses and imports an OPML file.
 	 *
 	 * @param string $opml_file the OPML file content.
-	 * @param FreshRSS_Category|null $forced_category force the feeds to be associated to this category.
+	 * @param Category|null $forced_category force the feeds to be associated to this category.
 	 * @param bool $dry_run true to not create categories and feeds in database.
 	 */
-	public function importOpml(string $opml_file, ?FreshRSS_Category $forced_category = null, bool $dry_run = false): void {
+	public function importOpml(string $opml_file, ?Category $forced_category = null, bool $dry_run = false): void {
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
 		}
@@ -69,7 +84,7 @@ class FreshRSS_Import_Service {
 		// verify the user can import its categories/feeds.
 		$nb_categories = count($categories);
 		$nb_feeds = count($this->feedDAO->listFeeds());
-		$limits = FreshRSS_Context::systemConf()->limits;
+		$limits = Context::systemConf()->limits;
 
 		// Process the OPML outlines to get a list of categories and a list of
 		// feeds elements indexed by their categories names.
@@ -88,7 +103,7 @@ class FreshRSS_Import_Service {
 			} elseif (is_array($category_element)) {
 				// Otherwise, create the category (if possible)
 				$limit_reached = $nb_categories >= $limits['max_categories'];
-				$can_create_category = FreshRSS_Context::$isCli || !$limit_reached;
+				$can_create_category = Context::$isCli || !$limit_reached;
 
 				if ($can_create_category) {
 					$category = $this->createCategory($category_element, $dry_run);
@@ -97,7 +112,7 @@ class FreshRSS_Import_Service {
 						$nb_categories++;
 					}
 				} else {
-					Minz_Log::warning(
+					Log::warning(
 						_t('feedback.sub.category.over_max', $limits['max_categories'])
 					);
 				}
@@ -113,9 +128,9 @@ class FreshRSS_Import_Service {
 			// category we just got.
 			foreach ($feeds_elements as $feed_element) {
 				$limit_reached = $nb_feeds >= $limits['max_feeds'];
-				$can_create_feed = FreshRSS_Context::$isCli || !$limit_reached;
+				$can_create_feed = Context::$isCli || !$limit_reached;
 				if (!$can_create_feed) {
-					Minz_Log::warning(
+					Log::warning(
 						_t('feedback.sub.feed.over_max', $limits['max_feeds'])
 					);
 					$this->lastStatus = false;
@@ -136,54 +151,54 @@ class FreshRSS_Import_Service {
 	 * Create a feed from a feed element (i.e. OPML outline).
 	 *
 	 * @param array<string,string> $feed_elt An OPML element (must be a feed element).
-	 * @param FreshRSS_Category $category The category to associate to the feed.
+	 * @param Category $category The category to associate to the feed.
 	 * @param bool $dry_run true to not create the feed in database.
-	 * @return FreshRSS_Feed|null The created feed, or null if it failed.
+	 * @return Feed|null The created feed, or null if it failed.
 	 */
-	private function createFeed(array $feed_elt, FreshRSS_Category $category, bool $dry_run): ?FreshRSS_Feed {
-		$url = Minz_Helper::htmlspecialchars_utf8($feed_elt['xmlUrl']);
+	private function createFeed(array $feed_elt, Category $category, bool $dry_run): ?Feed {
+		$url = Helper::htmlspecialchars_utf8($feed_elt['xmlUrl']);
 		$name = $feed_elt['text'] ?? $feed_elt['title'] ?? '';
-		$name = Minz_Helper::htmlspecialchars_utf8($name);
-		$website = Minz_Helper::htmlspecialchars_utf8($feed_elt['htmlUrl'] ?? '');
-		$description = Minz_Helper::htmlspecialchars_utf8($feed_elt['description'] ?? '');
+		$name = Helper::htmlspecialchars_utf8($name);
+		$website = Helper::htmlspecialchars_utf8($feed_elt['htmlUrl'] ?? '');
+		$description = Helper::htmlspecialchars_utf8($feed_elt['description'] ?? '');
 
 		try {
 			// Create a Feed object and add it in DB
-			$feed = new FreshRSS_Feed($url);
+			$feed = new Feed($url);
 			$feed->_category($category);
 			$feed->_name($name);
 			$feed->_website($website);
 			$feed->_description($description);
 
 			switch (strtolower($feed_elt['type'] ?? '')) {
-				case strtolower(FreshRSS_Export_Service::TYPE_HTML_XPATH):
-					$feed->_kind(FreshRSS_Feed::KIND_HTML_XPATH);
+				case strtolower(ExportService::TYPE_HTML_XPATH):
+					$feed->_kind(Feed::KIND_HTML_XPATH);
 					break;
-				case strtolower(FreshRSS_Export_Service::TYPE_XML_XPATH):
-					$feed->_kind(FreshRSS_Feed::KIND_XML_XPATH);
+				case strtolower(ExportService::TYPE_XML_XPATH):
+					$feed->_kind(Feed::KIND_XML_XPATH);
 					break;
-				case strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTNOTATION):
-				case strtolower(FreshRSS_Export_Service::TYPE_JSON_DOTPATH):
-					$feed->_kind(FreshRSS_Feed::KIND_JSON_DOTNOTATION);
+				case strtolower(ExportService::TYPE_JSON_DOTNOTATION):
+				case strtolower(ExportService::TYPE_JSON_DOTPATH):
+					$feed->_kind(Feed::KIND_JSON_DOTNOTATION);
 					break;
-				case strtolower(FreshRSS_Export_Service::TYPE_JSONFEED):
-					$feed->_kind(FreshRSS_Feed::KIND_JSONFEED);
+				case strtolower(ExportService::TYPE_JSONFEED):
+					$feed->_kind(Feed::KIND_JSONFEED);
 					break;
-				case strtolower(FreshRSS_Export_Service::TYPE_HTML_XPATH_JSON_DOTNOTATION):
-					$feed->_kind(FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION);
+				case strtolower(ExportService::TYPE_HTML_XPATH_JSON_DOTNOTATION):
+					$feed->_kind(Feed::KIND_HTML_XPATH_JSON_DOTNOTATION);
 					break;
 				default:
-					$feed->_kind(FreshRSS_Feed::KIND_RSS);
+					$feed->_kind(Feed::KIND_RSS);
 					break;
 			}
 
 			$feed->_priority(match (strtolower($feed_elt['frss:priority'] ?? '')) {
-				FreshRSS_Export_Service::PRIORITY_IMPORTANT => FreshRSS_Feed::PRIORITY_IMPORTANT,
-				FreshRSS_Export_Service::PRIORITY_MAIN_STREAM => FreshRSS_Feed::PRIORITY_MAIN_STREAM,
-				FreshRSS_Export_Service::PRIORITY_CATEGORY => FreshRSS_Feed::PRIORITY_CATEGORY,
-				FreshRSS_Export_Service::PRIORITY_FEED => FreshRSS_Feed::PRIORITY_FEED,
-				FreshRSS_Export_Service::PRIORITY_HIDDEN => FreshRSS_Feed::PRIORITY_HIDDEN,
-				default => FreshRSS_Feed::PRIORITY_MAIN_STREAM,
+				ExportService::PRIORITY_IMPORTANT => Feed::PRIORITY_IMPORTANT,
+				ExportService::PRIORITY_MAIN_STREAM => Feed::PRIORITY_MAIN_STREAM,
+				ExportService::PRIORITY_CATEGORY => Feed::PRIORITY_CATEGORY,
+				ExportService::PRIORITY_FEED => Feed::PRIORITY_FEED,
+				ExportService::PRIORITY_HIDDEN => Feed::PRIORITY_HIDDEN,
+				default => Feed::PRIORITY_MAIN_STREAM,
 			});
 
 			if (isset($feed_elt['frss:unicityCriteria']) && $feed_elt['frss:unicityCriteria'] !== 'id'
@@ -201,7 +216,7 @@ class FreshRSS_Import_Service {
 			}
 
 			if (isset($feed_elt['frss:cssFullContent'])) {
-				$feed->_pathEntries(Minz_Helper::htmlspecialchars_utf8($feed_elt['frss:cssFullContent']));
+				$feed->_pathEntries(Helper::htmlspecialchars_utf8($feed_elt['frss:cssFullContent']));
 			}
 
 			if (isset($feed_elt['frss:cssFullContentConditions'])) {
@@ -329,12 +344,12 @@ class FreshRSS_Import_Service {
 				$curl_params[CURLOPT_USERAGENT] = $feed_elt['frss:CURLOPT_USERAGENT'];
 			}
 			if (!empty($curl_params)) {
-				$feed->_attribute('curl_params', FreshRSS_http_Util::sanitizeCurlParams($curl_params));
+				$feed->_attribute('curl_params', HttpUtil::sanitizeCurlParams($curl_params));
 			}
 
 			// Call the extension hook
-			/** @var FreshRSS_Feed|null */
-			$feed = Minz_ExtensionManager::callHook(Minz_HookType::FeedBeforeInsert, $feed);
+			/** @var Feed|null */
+			$feed = ExtensionManager::callHook(HookType::FeedBeforeInsert, $feed);
 
 			if ($dry_run) {
 				if ($feed !== null) {
@@ -354,7 +369,7 @@ class FreshRSS_Import_Service {
 					return $feed;
 				}
 			}
-		} catch (FreshRSS_Feed_Exception $e) {
+		} catch (FeedException $e) {
 			self::log($e->getMessage());
 			$this->lastStatus = false;
 		}
@@ -369,17 +384,17 @@ class FreshRSS_Import_Service {
 	 *
 	 * @param array<string,string> $category_element An OPML element (must be a category element).
 	 * @param bool $dry_run true to not create the category in database.
-	 * @return FreshRSS_Category|null The created category, or null if it failed.
+	 * @return Category|null The created category, or null if it failed.
 	 */
-	private function createCategory(array $category_element, bool $dry_run): ?FreshRSS_Category {
+	private function createCategory(array $category_element, bool $dry_run): ?Category {
 		$name = $category_element['text'] ?? $category_element['title'] ?? '';
-		$name = Minz_Helper::htmlspecialchars_utf8($name);
-		$category = new FreshRSS_Category($name);
+		$name = Helper::htmlspecialchars_utf8($name);
+		$category = new Category($name);
 
 		if (isset($category_element['frss:opmlUrl'])) {
-			$opml_url = FreshRSS_http_Util::checkUrl($category_element['frss:opmlUrl']);
+			$opml_url = HttpUtil::checkUrl($category_element['frss:opmlUrl']);
 			if ($opml_url != '') {
-				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
+				$category->_kind(Category::KIND_DYNAMIC_OPML);
 				$category->_attribute('opml_url', $opml_url);
 			}
 		}
@@ -503,10 +518,10 @@ class FreshRSS_Import_Service {
 	}
 
 	private static function log(string $message): void {
-		if (FreshRSS_Context::$isCli) {
+		if (Context::$isCli) {
 			fwrite(STDERR, "FreshRSS error during OPML import: {$message}\n");
 		} else {
-			Minz_Log::warning("Error during OPML import: {$message}");
+			Log::warning("Error during OPML import: {$message}");
 		}
 	}
 }

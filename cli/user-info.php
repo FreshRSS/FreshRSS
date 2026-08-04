@@ -1,6 +1,12 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\UserController;
+use FreshRss\Models\Context;
+use FreshRss\Models\Factory;
+use FreshRss\Models\UserDAO;
+
 require __DIR__ . '/_cli.php';
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
@@ -31,7 +37,7 @@ if (!empty($cliOptions->errors)) {
 	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$users = $cliOptions->user ?? FreshRSS_user_Controller::listUsers();
+$users = $cliOptions->user ?? UserController::listUsers();
 
 sort($users);
 
@@ -70,24 +76,24 @@ foreach ($users as $username) {
 		$tagDAO = null;
 		$nbEntries = null;
 	} else {
-		$catDAO = FreshRSS_Factory::createCategoryDao($username);
-		$feedDAO = FreshRSS_Factory::createFeedDao($username);
-		$entryDAO = FreshRSS_Factory::createEntryDao($username);
-		$tagDAO = FreshRSS_Factory::createTagDao($username);
+		$catDAO = Factory::createCategoryDao($username);
+		$feedDAO = Factory::createFeedDao($username);
+		$entryDAO = Factory::createEntryDao($username);
+		$tagDAO = Factory::createTagDao($username);
 		$nbEntries = $entryDAO->countAsStates();
 	}
 	if ($cliOptions->noDbSize) {
 		$databaseDAO = null;
 	} else {
-		$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
+		$databaseDAO = Factory::createDatabaseDAO($username);
 	}
 
 	$data = [
-		'default' => $username === FreshRSS_Context::systemConf()->default_user ? '*' : '',
+		'default' => $username === Context::systemConf()->default_user ? '*' : '',
 		'user' => $username,
-		'admin' => FreshRSS_Context::userConf()->is_admin ? '*' : '',
-		'enabled' => FreshRSS_Context::userConf()->enabled ? '*' : '',
-		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
+		'admin' => Context::userConf()->is_admin ? '*' : '',
+		'enabled' => Context::userConf()->enabled ? '*' : '',
+		'last_user_activity' => UserDAO::mtime($username),
 		'database_size' => isset($databaseDAO) ? $databaseDAO->size() : '?',
 		'categories' => isset($catDAO) ? $catDAO->count() : '?',
 		'feeds' => isset($feedDAO) ? $feedDAO->count() : '?',
@@ -95,8 +101,8 @@ foreach ($users as $username) {
 		'unreads' => isset($nbEntries) ? $nbEntries['unread'] : '?',
 		'favourites' => isset($nbEntries) ? $nbEntries['favorites'] : '?',
 		'tags' => isset($tagDAO) ? $tagDAO->count() : '?',
-		'lang' => FreshRSS_Context::userConf()->language,
-		'mail_login' => FreshRSS_Context::userConf()->mail_login,
+		'lang' => Context::userConf()->language,
+		'mail_login' => Context::userConf()->mail_login,
 	];
 	if ($cliOptions->humanReadable) {	//Human format
 		$data['last_user_activity'] = date('c', $data['last_user_activity']);

@@ -1,15 +1,27 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Controllers\UserController;
+use FreshRss\Exceptions\ContextException;
+use FreshRss\Minz\ConfigurationNamespaceException;
+use FreshRss\Minz\Log;
+use FreshRss\Minz\PDOConnectionException;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Session;
+use FreshRss\Minz\Translate;
+use FreshRss\Minz\User;
+
 /**
  * The context object handles the current configuration file and different
  * useful functions associated to the current view state.
  */
-final class FreshRSS_Context {
+final class Context {
 
-	/** @var array<int,FreshRSS_Category> where the key is the category ID */
+	/** @var array<int,Category> where the key is the category ID */
 	private static array $categories = [];
-	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
+	/** @var array<int,Tag> where the key is the label ID */
 	private static array $tags = [];
 	public static string $name = '';
 	public static string $description = '';
@@ -50,7 +62,7 @@ final class FreshRSS_Context {
 	public static string $secondary_sort = 'id';
 	public static int $number = 0;
 	public static int $offset = 0;
-	public static FreshRSS_BooleanSearch $search;
+	public static BooleanSearch $search;
 	/** @var numeric-string */
 	public static string $continuation_id = '0';
 	/** @var numeric-string */
@@ -60,86 +72,86 @@ final class FreshRSS_Context {
 
 	/**
 	 * @access private
-	 * @deprecated Will be made `private`; use `FreshRSS_Context::systemConf()` instead.
+	 * @deprecated Will be made `private`; use `Context::systemConf()` instead.
 	 * @internal
 	 */
-	public static ?FreshRSS_SystemConfiguration $system_conf = null;
+	public static ?SystemConfiguration $system_conf = null;
 	/**
 	 * @access private
-	 * @deprecated Will be made `private`; use `FreshRSS_Context::userConf()` instead.
+	 * @deprecated Will be made `private`; use `Context::userConf()` instead.
 	 * @internal
 	 */
-	public static ?FreshRSS_UserConfiguration $user_conf = null;
+	public static ?UserConfiguration $user_conf = null;
 
 	/**
 	 * Initialize the context for the global system.
 	 */
 	public static function initSystem(bool $reload = false): void {
-		if ($reload || FreshRSS_Context::$system_conf === null) {
+		if ($reload || Context::$system_conf === null) {
 			//TODO: Keep in session what we need instead of always reloading from disk
-			FreshRSS_Context::$system_conf = FreshRSS_SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
+			Context::$system_conf = SystemConfiguration::init(DATA_PATH . '/config.php', FRESHRSS_PATH . '/config.default.php');
 		}
 	}
 
 	/**
-	 * @throws FreshRSS_Context_Exception
+	 * @throws ContextException
 	 */
-	public static function &systemConf(): FreshRSS_SystemConfiguration {
-		if (FreshRSS_Context::$system_conf === null) {
-			throw new FreshRSS_Context_Exception('System configuration not initialised!');
+	public static function &systemConf(): SystemConfiguration {
+		if (Context::$system_conf === null) {
+			throw new ContextException('System configuration not initialised!');
 		}
-		return FreshRSS_Context::$system_conf;
+		return Context::$system_conf;
 	}
 
 	public static function hasSystemConf(): bool {
-		return FreshRSS_Context::$system_conf !== null;
+		return Context::$system_conf !== null;
 	}
 
 	/**
 	 * Initialize the context for the current user.
 	 */
 	public static function initUser(string $username = '', bool $userMustExist = true): void {
-		FreshRSS_Context::$user_conf = null;
+		Context::$user_conf = null;
 		if (!isset($_SESSION)) {
-			Minz_Session::init('FreshRSS');
+			Session::init('FreshRSS');
 		}
 
-		Minz_Session::lock();
+		Session::lock();
 		if ($username == '') {
-			$username = Minz_User::name() ?? '';
+			$username = User::name() ?? '';
 		}
-		if (($username === Minz_User::INTERNAL_USER || FreshRSS_user_Controller::checkUsername($username)) &&
-			(!$userMustExist || FreshRSS_user_Controller::userExists($username))) {
+		if (($username === User::INTERNAL_USER || UserController::checkUsername($username)) &&
+			(!$userMustExist || UserController::userExists($username))) {
 			try {
 				//TODO: Keep in session what we need instead of always reloading from disk
-				FreshRSS_Context::$user_conf = FreshRSS_UserConfiguration::init(
+				Context::$user_conf = UserConfiguration::init(
 					USERS_PATH . '/' . $username . '/config.php',
 					FRESHRSS_PATH . '/config-user.default.php');
 
-				Minz_User::change($username);
-			} catch (Exception $ex) {
-				Minz_Log::warning($ex->getMessage(), USERS_PATH . '/_/' . LOG_FILENAME);
+				User::change($username);
+			} catch (\Exception $ex) {
+				Log::warning($ex->getMessage(), USERS_PATH . '/_/' . LOG_FILENAME);
 			}
 		}
-		if (FreshRSS_Context::$user_conf == null) {
-			Minz_Session::_params([
+		if (Context::$user_conf == null) {
+			Session::_params([
 				'loginOk' => false,
-				Minz_User::CURRENT_USER => false,
+				User::CURRENT_USER => false,
 			]);
 		}
-		Minz_Session::unlock();
+		Session::unlock();
 
-		if (FreshRSS_Context::$user_conf == null) {
+		if (Context::$user_conf == null) {
 			return;
 		}
 
-		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('');
+		Context::$search = new BooleanSearch('');
 
 		//Legacy
-		$oldEntries = FreshRSS_Context::$user_conf->attributeInt('old_entries') ?? 0;
-		$keepMin = FreshRSS_Context::$user_conf->attributeInt('keep_history_default') ?? -5;
+		$oldEntries = Context::$user_conf->attributeInt('old_entries') ?? 0;
+		$keepMin = Context::$user_conf->attributeInt('keep_history_default') ?? -5;
 		if ($oldEntries > 0 || $keepMin > -5) {	//Freshrss < 1.15
-			$archiving = FreshRSS_Context::$user_conf->archiving;
+			$archiving = Context::$user_conf->archiving;
 			$archiving['keep_max'] = false;
 			if ($oldEntries > 0) {
 				$archiving['keep_period'] = 'P' . $oldEntries . 'M';
@@ -150,73 +162,73 @@ final class FreshRSS_Context {
 				$archiving['keep_period'] = false;
 				$archiving['keep_min'] = false;
 			}
-			FreshRSS_Context::$user_conf->archiving = $archiving;
+			Context::$user_conf->archiving = $archiving;
 		}
 
 		//Legacy < 1.16.1
-		if (!in_array(FreshRSS_Context::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
-			FreshRSS_Context::$user_conf->display_categories = FreshRSS_Context::$user_conf->display_categories === true ? 'all' : 'active';
+		if (!in_array(Context::$user_conf->display_categories, [ 'active', 'remember', 'all', 'none' ], true)) {
+			Context::$user_conf->display_categories = Context::$user_conf->display_categories === true ? 'all' : 'active';
 		}
 
 		// FreshRSS 1.27.1+
-		if (isset(FreshRSS_Context::$user_conf->shortcuts['close_dropdown'])) {
-			$shortcuts = FreshRSS_Context::$user_conf->shortcuts;
+		if (isset(Context::$user_conf->shortcuts['close_dropdown'])) {
+			$shortcuts = Context::$user_conf->shortcuts;
 			$shortcuts['close_menus'] = $shortcuts['close_dropdown'];
 			unset($shortcuts['close_dropdown']);
-			FreshRSS_Context::$user_conf->shortcuts = $shortcuts;
-			FreshRSS_Context::$user_conf->save();
+			Context::$user_conf->shortcuts = $shortcuts;
+			Context::$user_conf->save();
 		}
 
-		FreshRSS_Context::$user_conf->language = preg_replace_callback(
+		Context::$user_conf->language = preg_replace_callback(
 			'/-(\\w{2})$/',
 			static fn (array $matches): string => strtoupper($matches[0]),
-			FreshRSS_Context::$user_conf->language ?? Minz_Translate::DEFAULT_LANGUAGE
-		) ?? Minz_Translate::DEFAULT_LANGUAGE;
+			Context::$user_conf->language ?? Translate::DEFAULT_LANGUAGE
+		) ?? Translate::DEFAULT_LANGUAGE;
 	}
 
 	/**
-	 * @throws FreshRSS_Context_Exception
+	 * @throws ContextException
 	 */
-	public static function &userConf(): FreshRSS_UserConfiguration {
-		if (FreshRSS_Context::$user_conf === null) {
-			throw new FreshRSS_Context_Exception('User configuration not initialised!');
+	public static function &userConf(): UserConfiguration {
+		if (Context::$user_conf === null) {
+			throw new ContextException('User configuration not initialised!');
 		}
-		return FreshRSS_Context::$user_conf;
+		return Context::$user_conf;
 	}
 
 	public static function hasUserConf(): bool {
-		return FreshRSS_Context::$user_conf !== null;
+		return Context::$user_conf !== null;
 	}
 
 	public static function clearUserConf(): void {
-		FreshRSS_Context::$user_conf = null;
+		Context::$user_conf = null;
 	}
 
 	/**
 	 * @internal
 	 */
-	public static function setUserConf(?FreshRSS_UserConfiguration $user_conf): void {
-		FreshRSS_Context::$user_conf = $user_conf;
+	public static function setUserConf(?UserConfiguration $user_conf): void {
+		Context::$user_conf = $user_conf;
 	}
 
-	/** @return array<int,FreshRSS_Category> where the key is the category ID */
+	/** @return array<int,Category> where the key is the category ID */
 	public static function categories(): array {
 		if (empty(self::$categories)) {
-			$catDAO = FreshRSS_Factory::createCategoryDao();
+			$catDAO = Factory::createCategoryDao();
 			self::$categories = $catDAO->listSortedCategories(prePopulateFeeds: true, details: false);
 		}
 		return self::$categories;
 	}
 
-	/** @return array<int,FreshRSS_Feed> where the key is the feed ID */
+	/** @return array<int,Feed> where the key is the feed ID */
 	public static function feeds(): array {
-		return FreshRSS_Category::findFeeds(self::categories());
+		return Category::findFeeds(self::categories());
 	}
 
-	/** @return array<int,FreshRSS_Tag> where the key is the label ID */
+	/** @return array<int,Tag> where the key is the label ID */
 	public static function labels(bool $precounts = false): array {
 		if (empty(self::$tags) || $precounts) {
-			$tagDAO = FreshRSS_Factory::createTagDao();
+			$tagDAO = Factory::createTagDao();
 			self::$tags = $tagDAO->listTags($precounts);
 		}
 		return self::$tags;
@@ -232,46 +244,46 @@ final class FreshRSS_Context {
 	 *   - nb (default: conf->posts_per_page)
 	 *   - next (default: empty string)
 	 *   - hours (default: 0)
-	 * @throws FreshRSS_Context_Exception
-	 * @throws Minz_ConfigurationNamespaceException
-	 * @throws Minz_PDOConnectionException
+	 * @throws ContextException
+	 * @throws ConfigurationNamespaceException
+	 * @throws PDOConnectionException
 	 */
 	public static function updateUsingRequest(bool $computeStatistics): void {
 		if ($computeStatistics && self::$total_unread === 0) {
 			// Update number of read / unread variables.
-			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$entryDAO = Factory::createEntryDao();
 			self::$total_starred = $entryDAO->countUnreadReadFavorites();
-			self::$total_unread = FreshRSS_Category::countUnread(self::categories(), FreshRSS_Feed::PRIORITY_MAIN_STREAM);
-			self::$total_important_unread = FreshRSS_Category::countUnread(self::categories(), FreshRSS_Feed::PRIORITY_IMPORTANT);
+			self::$total_unread = Category::countUnread(self::categories(), Feed::PRIORITY_MAIN_STREAM);
+			self::$total_important_unread = Category::countUnread(self::categories(), Feed::PRIORITY_IMPORTANT);
 		}
 
-		self::_get(Minz_Request::paramString('get', plaintext: true) ?: 'a');
+		self::_get(Request::paramString('get', plaintext: true) ?: 'a');
 
-		self::$state = Minz_Request::paramInt('state') ?: FreshRSS_Context::userConf()->default_state;
-		$state_forced_by_user = Minz_Request::paramString('state', plaintext: true) !== '';
+		self::$state = Request::paramInt('state') ?: Context::userConf()->default_state;
+		$state_forced_by_user = Request::paramString('state', plaintext: true) !== '';
 		if (!$state_forced_by_user) {
-			if (FreshRSS_Context::userConf()->show_fav_unread && (self::isCurrentGet('s') || self::isCurrentGet('T') || self::isTag())) {
-				self::$state = FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_READ;
-			} elseif (FreshRSS_Context::userConf()->default_view === 'all') {
-				self::$state = FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_READ;
-			} elseif (FreshRSS_Context::userConf()->default_view === 'unread_or_favorite') {
-				self::$state = FreshRSS_Entry::STATE_OR_NOT_READ | FreshRSS_Entry::STATE_OR_FAVORITE;
-			} elseif (FreshRSS_Context::userConf()->default_view === 'adaptive' && self::$get_unread <= 0) {
-				self::$state = FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_READ;
+			if (Context::userConf()->show_fav_unread && (self::isCurrentGet('s') || self::isCurrentGet('T') || self::isTag())) {
+				self::$state = Entry::STATE_NOT_READ | Entry::STATE_READ;
+			} elseif (Context::userConf()->default_view === 'all') {
+				self::$state = Entry::STATE_NOT_READ | Entry::STATE_READ;
+			} elseif (Context::userConf()->default_view === 'unread_or_favorite') {
+				self::$state = Entry::STATE_OR_NOT_READ | Entry::STATE_OR_FAVORITE;
+			} elseif (Context::userConf()->default_view === 'adaptive' && self::$get_unread <= 0) {
+				self::$state = Entry::STATE_NOT_READ | Entry::STATE_READ;
 			}
 		}
 
-		self::$search = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true));
+		self::$search = new BooleanSearch(Request::paramString('search', plaintext: true));
 
 		$default_order = null;
 		$default_sort = null;
-		if (Minz_Request::paramString('order', plaintext: true) === '' || Minz_Request::paramString('sort', plaintext: true) === '') {
+		if (Request::paramString('order', plaintext: true) === '' || Request::paramString('sort', plaintext: true) === '') {
 			if (!empty(self::$current_get['feed'])) {
 				$id = self::$current_get['feed'];
 				// We most likely already have the feed object in cache
-				$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id);
+				$feed = Category::findFeed(Context::categories(), $id);
 				if ($feed === null) {
-					$feedDAO = FreshRSS_Factory::createFeedDao();
+					$feedDAO = Factory::createFeedDao();
 					$feed = $feedDAO->searchById($id);
 				}
 				$default_order = $feed?->defaultOrder();
@@ -279,41 +291,41 @@ final class FreshRSS_Context {
 			} elseif (!empty(self::$current_get['category'])) {
 				$id = self::$current_get['category'];
 				// We most likely already have the category object in cache
-				$category = FreshRSS_Context::categories()[$id] ?? null;
+				$category = Context::categories()[$id] ?? null;
 				if ($category === null) {
-					$categoryDAO = FreshRSS_Factory::createCategoryDao();
+					$categoryDAO = Factory::createCategoryDao();
 					$category = $categoryDAO->searchById($id);
 				}
 				$default_order = $category?->defaultOrder();
 				$default_sort = $category?->defaultSort();
 			}
 		}
-		$order = Minz_Request::paramString('order', plaintext: true) ?: $default_order ?: FreshRSS_Context::userConf()->sort_order;
+		$order = Request::paramString('order', plaintext: true) ?: $default_order ?: Context::userConf()->sort_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
-		$sort = Minz_Request::paramString('sort', plaintext: true) ?: $default_sort ?: FreshRSS_Context::userConf()->sort;
+		$sort = Request::paramString('sort', plaintext: true) ?: $default_sort ?: Context::userConf()->sort;
 		self::$sort = in_array($sort, ['id', 'c.name', 'date', 'f.name', 'lastUserModified', 'length', 'link', 'title', 'rand'], true) ? $sort : 'id';
 
 		if (in_array(self::$sort, ['c.name', 'f.name'], true)) {
-			self::$secondary_sort = FreshRSS_Context::userConf()->secondary_sort;
-			self::$secondary_sort_order = FreshRSS_Context::userConf()->secondary_sort_order;
-			if ($order !== ($default_order ?: FreshRSS_Context::userConf()->sort_order)) {
+			self::$secondary_sort = Context::userConf()->secondary_sort;
+			self::$secondary_sort_order = Context::userConf()->secondary_sort_order;
+			if ($order !== ($default_order ?: Context::userConf()->sort_order)) {
 				// User swapped order so swap secondary order as well
 				self::$secondary_sort_order = self::$secondary_sort_order === 'DESC' ? 'ASC' : 'DESC';
 			}
 		}
 
-		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
-		if (self::$number > FreshRSS_Context::userConf()->max_posts_per_rss) {
+		self::$number = Request::paramInt('nb') ?: Context::userConf()->posts_per_page;
+		if (self::$number > Context::userConf()->max_posts_per_rss) {
 			self::$number = max(
-				FreshRSS_Context::userConf()->max_posts_per_rss,
-				FreshRSS_Context::userConf()->posts_per_page);
+				Context::userConf()->max_posts_per_rss,
+				Context::userConf()->posts_per_page);
 		}
-		self::$offset = Minz_Request::paramInt('offset');
-		$id_max = Minz_Request::paramString('idMax', plaintext: true);
+		self::$offset = Request::paramInt('offset');
+		$id_max = Request::paramString('idMax', plaintext: true);
 		self::$id_max = ctype_digit($id_max) ? $id_max : '0';
-		$continuation_id = Minz_Request::paramString('cid', plaintext: true);
+		$continuation_id = Request::paramString('cid', plaintext: true);
 		self::$continuation_id = ctype_digit($continuation_id) ? $continuation_id : '0';
-		self::$sinceHours = Minz_Request::paramInt('hours');
+		self::$sinceHours = Request::paramInt('hours');
 	}
 
 	/**
@@ -321,10 +333,10 @@ final class FreshRSS_Context {
 	 * (not zero, and not just including opposite states).
 	 */
 	public static function isStateConsequential(int $state): bool {
-		return (($state & FreshRSS_Entry::STATE_READ) xor ($state & FreshRSS_Entry::STATE_NOT_READ)) ||
-			(($state & FreshRSS_Entry::STATE_FAVORITE) xor ($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) ||
-			($state & FreshRSS_Entry::STATE_OR_NOT_READ) ||
-			($state & FreshRSS_Entry::STATE_OR_FAVORITE);
+		return (($state & Entry::STATE_READ) xor ($state & Entry::STATE_NOT_READ)) ||
+			(($state & Entry::STATE_FAVORITE) xor ($state & Entry::STATE_NOT_FAVORITE)) ||
+			($state & Entry::STATE_OR_NOT_READ) ||
+			($state & Entry::STATE_OR_FAVORITE);
 	}
 
 	/**
@@ -462,9 +474,9 @@ final class FreshRSS_Context {
 	 *
 	 * $name and $get_unread attributes are also updated as $next_get
 	 * Raise an exception if id or $get is invalid.
-	 * @throws FreshRSS_Context_Exception
-	 * @throws Minz_ConfigurationNamespaceException
-	 * @throws Minz_PDOConnectionException
+	 * @throws ContextException
+	 * @throws ConfigurationNamespaceException
+	 * @throws PDOConnectionException
 	 */
 	private static function _get(string $get): void {
 		$type = $get[0];
@@ -472,7 +484,7 @@ final class FreshRSS_Context {
 
 		if (empty(self::$categories)) {
 			// TODO: Check whether this section is used
-			$catDAO = FreshRSS_Factory::createCategoryDao();
+			$catDAO = Factory::createCategoryDao();
 			$details = $type === 'f'; 	// Load additional feed details in the case of feed view
 			self::$categories = $catDAO->listCategories(prePopulateFeeds: true, details: $details);
 		}
@@ -480,39 +492,39 @@ final class FreshRSS_Context {
 		switch ($type) {
 			case 'a':	// All PRIORITY_MAIN_STREAM
 				self::$current_get['all'] = true;
-				self::$description = FreshRSS_Context::systemConf()->meta_description;
+				self::$description = Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
 			case 'A':	// All except PRIORITY_HIDDEN
 				self::$current_get['A'] = true;
-				self::$description = FreshRSS_Context::systemConf()->meta_description;
+				self::$description = Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
 			case 'Z':	// All including PRIORITY_HIDDEN
 				self::$current_get['Z'] = true;
 				self::$name = _t('index.feed.title');
-				self::$description = FreshRSS_Context::systemConf()->meta_description;
+				self::$description = Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
 			case 'i':	// Priority important feeds
 				self::$current_get['important'] = true;
 				self::$name = _t('index.menu.important');
-				self::$description = FreshRSS_Context::systemConf()->meta_description;
+				self::$description = Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_unread;
 				break;
 			case 's':	// Starred. Deprecated: use $state instead
 				self::$current_get['starred'] = true;
 				self::$name = _t('index.feed.title_fav');
-				self::$description = FreshRSS_Context::systemConf()->meta_description;
+				self::$description = Context::systemConf()->meta_description;
 				self::$get_unread = self::$total_starred['unread'];
 				// Update state if favorite is not yet enabled.
-				self::$state = self::$state | FreshRSS_Entry::STATE_FAVORITE;
+				self::$state = self::$state | Entry::STATE_FAVORITE;
 				break;
 			case 'f':	// Feed
 				// We try to find the corresponding feed. When allowing robots, always retrieve the full feed including description
-				$feed = FreshRSS_Context::systemConf()->allow_robots ? null : FreshRSS_Category::findFeed(self::$categories, $id);
+				$feed = Context::systemConf()->allow_robots ? null : Category::findFeed(self::$categories, $id);
 				if ($feed === null) {
-					throw new FreshRSS_Context_Exception('Invalid feed: ' . $id);
+					throw new ContextException('Invalid feed: ' . $id);
 				}
 				self::$current_get['feed'] = $id;
 				self::$current_get['category'] = $feed->categoryId();
@@ -531,7 +543,7 @@ final class FreshRSS_Context {
 					}
 				}
 				if ($cat === null) {
-					throw new FreshRSS_Context_Exception('Invalid category: ' . $id);
+					throw new ContextException('Invalid category: ' . $id);
 				}
 				self::$name = $cat->name();
 				self::$get_unread = $cat->nbNotRead();
@@ -547,23 +559,23 @@ final class FreshRSS_Context {
 					}
 				}
 				if ($tag === null) {
-					$tagDAO = FreshRSS_Factory::createTagDao();
+					$tagDAO = Factory::createTagDao();
 					$tag = $tagDAO->searchById($id);
 					if ($tag === null) {
-						throw new FreshRSS_Context_Exception('Invalid tag: ' . $id);
+						throw new ContextException('Invalid tag: ' . $id);
 					}
 				}
 				self::$name = $tag->name();
 				self::$get_unread = $tag->nbUnread();
 				break;
 			case 'T':	// Any tag (label)
-				$tagDAO = FreshRSS_Factory::createTagDao();
+				$tagDAO = Factory::createTagDao();
 				self::$current_get['tags'] = true;
 				self::$name = _t('index.menu.mylabels');
 				self::$get_unread = $tagDAO->countNotRead();
 				break;
 			default:
-				throw new FreshRSS_Context_Exception('Invalid getter: ' . $get);
+				throw new ContextException('Invalid getter: ' . $get);
 		}
 
 		self::_nextGet();
@@ -578,11 +590,11 @@ final class FreshRSS_Context {
 		self::$next_get = $get;
 
 		if (empty(self::$categories)) {
-			$catDAO = FreshRSS_Factory::createCategoryDao();
+			$catDAO = Factory::createCategoryDao();
 			self::$categories = $catDAO->listCategories(prePopulateFeeds: true);
 		}
 
-		if (FreshRSS_Context::userConf()->onread_jump_next && strlen($get) > 2) {
+		if (Context::userConf()->onread_jump_next && strlen($get) > 2) {
 			$another_unread_id = '';
 			$found_current_get = false;
 			switch ($get[0]) {
@@ -621,7 +633,7 @@ final class FreshRSS_Context {
 							continue;
 						}
 
-						if ($cat->nbNotRead(minPriority: FreshRSS_Feed::PRIORITY_CATEGORY) > 0) {
+						if ($cat->nbNotRead(minPriority: Feed::PRIORITY_CATEGORY) > 0) {
 							$another_unread_id = $cat->id();
 							if ($found_current_get) {
 								// Unread articles and the current category has
@@ -654,8 +666,8 @@ final class FreshRSS_Context {
 	 *   - the "unread" state is enable
 	 */
 	public static function isAutoRemoveAvailable(): bool {
-		return FreshRSS_Context::userConf()->auto_remove_article && !self::isStateEnabled(FreshRSS_Entry::STATE_READ) &&
-			(self::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) || self::isStateEnabled(FreshRSS_Entry::STATE_OR_NOT_READ));
+		return Context::userConf()->auto_remove_article && !self::isStateEnabled(Entry::STATE_READ) &&
+			(self::isStateEnabled(Entry::STATE_NOT_READ) || self::isStateEnabled(Entry::STATE_OR_NOT_READ));
 	}
 
 	/**
@@ -665,7 +677,7 @@ final class FreshRSS_Context {
 	 * are read.
 	 */
 	public static function isStickyPostEnabled(): bool {
-		if (FreshRSS_Context::userConf()->sticky_post) {
+		if (Context::userConf()->sticky_post) {
 			return true;
 		}
 		if (self::isAutoRemoveAvailable()) {
@@ -686,7 +698,7 @@ final class FreshRSS_Context {
 		static $collator = null;
 
 		if ($collator === null) {
-			$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
+			$language = Context::hasUserConf() ? Context::userConf()->language : '';
 			if ($language === '' || !class_exists(\Collator::class)) {
 				$collator = false;
 			} else {

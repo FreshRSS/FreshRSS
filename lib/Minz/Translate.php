@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -10,7 +12,7 @@ declare(strict_types=1);
  * This class is used for the internationalization.
  * It uses files in `./app/i18n/`
  */
-class Minz_Translate {
+class Translate {
 	public const DEFAULT_LANGUAGE = 'en';
 
 	/**
@@ -111,7 +113,7 @@ class Minz_Translate {
 	}
 
 	public static function exists(string $lang): bool {
-		return in_array($lang, Minz_Translate::availableLanguages(), true);
+		return in_array($lang, Translate::availableLanguages(), true);
 	}
 
 	/**
@@ -129,7 +131,7 @@ class Minz_Translate {
 			return $user;
 		}
 
-		$languages = Minz_Translate::availableLanguages();
+		$languages = Translate::availableLanguages();
 		foreach ($preferred as $language) {
 			$language = strtolower($language);
 			if (in_array($language, $languages, true)) {
@@ -202,7 +204,7 @@ class Minz_Translate {
 	private static function loadKey(string $key): bool {
 		// The top level key is not in $lang_files, it means it does not exist!
 		if (!isset(self::$lang_files[$key])) {
-			Minz_Log::debug($key . ' is not a valid top level key');
+			Log::debug($key . ' is not a valid top level key');
 			return false;
 		}
 
@@ -211,7 +213,7 @@ class Minz_Translate {
 		foreach (self::$lang_files[$key] as $lang_pathname) {
 			$i18n_array = include $lang_pathname;
 			if (!is_array($i18n_array)) {
-				Minz_Log::warning('`' . $lang_pathname . '` does not contain a PHP array');
+				Log::warning('`' . $lang_pathname . '` does not contain a PHP array');
 				continue;
 			}
 
@@ -241,7 +243,7 @@ class Minz_Translate {
 		if (!is_string($translation_value)) {
 			$translation_value = $translation_value['_'] ?? null;
 			if (!is_string($translation_value)) {
-				Minz_Log::debug($key . ' is not a valid key');
+				Log::debug($key . ' is not a valid key');
 				return $key;
 			}
 		}
@@ -258,7 +260,7 @@ class Minz_Translate {
 		$group = explode('.', $key);
 
 		if (count($group) < 2) {
-			Minz_Log::debug($key . ' is not in a valid format');
+			Log::debug($key . ' is not in a valid format');
 			$top_level = 'gen';
 		} else {
 			$top_level = array_shift($group) ?? '';
@@ -278,7 +280,7 @@ class Minz_Translate {
 
 		foreach ($group as $i18n_level) {
 			if (!is_array($translationValue) || !array_key_exists($i18n_level, $translationValue)) {
-				Minz_Log::debug($key . ' is not a valid key');
+				Log::debug($key . ' is not a valid key');
 				return null;
 			}
 			$translationValue = $translationValue[$i18n_level];
@@ -322,14 +324,14 @@ class Minz_Translate {
 		foreach (self::$plural_files as $pluralFile) {
 			$pluralData = include $pluralFile['path'];
 			if (!is_array($pluralData)) {
-				Minz_Log::warning('`' . $pluralFile['path'] . '` does not contain a PHP array');
+				Log::warning('`' . $pluralFile['path'] . '` does not contain a PHP array');
 				continue;
 			}
 
 			$pluralCount = $pluralData['nplurals'] ?? null;
 			$pluralFunction = $pluralData['plural'] ?? null;
 			if (!is_int($pluralCount) || $pluralCount < 1 || !($pluralFunction instanceof \Closure)) {
-				Minz_Log::warning('Invalid compiled plural data in `' . $pluralFile['path'] . '`. Run `make fix-all`.');
+				Log::warning('Invalid compiled plural data in `' . $pluralFile['path'] . '`. Run `make fix-all`.');
 				continue;
 			}
 
@@ -338,7 +340,7 @@ class Minz_Translate {
 					self::$plural_count = $pluralCount;
 					self::$plural_function = $pluralFunction;
 				} elseif (self::$plural_count !== $pluralCount) {
-					Minz_Log::warning('Conflicting compiled plural count in `' . $pluralFile['path'] . '`');
+					Log::warning('Conflicting compiled plural count in `' . $pluralFile['path'] . '`');
 				}
 			} elseif ($fallbackPluralFunction === null) {
 				$fallbackPluralCount = $pluralCount;
@@ -377,7 +379,7 @@ class Minz_Translate {
 		if (!isset(self::$plural_message_families[$baseKey])) {
 			$rawMessageFamily = self::resolveKey($baseKey);
 			if (!is_array($rawMessageFamily) || $rawMessageFamily === []) {
-				Minz_Log::debug($baseKey . ' is not a valid plural key');
+				Log::debug($baseKey . ' is not a valid plural key');
 				return null;
 			}
 
@@ -401,7 +403,7 @@ class Minz_Translate {
 			}
 
 			if ($messageFamily === []) {
-				Minz_Log::debug($baseKey . ' is not a valid plural key');
+				Log::debug($baseKey . ' is not a valid plural key');
 				return null;
 			}
 
@@ -423,12 +425,4 @@ class Minz_Translate {
 
 		return vsprintf($lastMessage, [$value]);
 	}
-}
-
-
-/**
- * Alias for Minz_Translate::t()
- */
-function _t(string $key, bool|float|int|string ...$args): string {
-	return Minz_Translate::t($key, ...$args);
 }

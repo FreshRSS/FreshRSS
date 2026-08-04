@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_CategoryDAOSQLite extends FreshRSS_CategoryDAO {
+namespace FreshRss\Models;
+
+class CategoryDAOSQLite extends CategoryDAO {
 
 	#[\Override]
 	public function sqlResetSequence(): bool {
@@ -14,7 +16,7 @@ class FreshRSS_CategoryDAOSQLite extends FreshRSS_CategoryDAO {
 		if (isset($errorInfo[0])) {
 			$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
 			if (str_contains($errorLines[0], 'f.')) {	// Coming from a feed sub-query
-				$feedDao = FreshRSS_Factory::createFeedDao();
+				$feedDao = Factory::createFeedDao();
 				if ($feedDao->autoUpdateDb($errorInfo)) {
 					return true;
 				}

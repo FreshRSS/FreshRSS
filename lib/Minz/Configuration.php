@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * Manage configuration for the application.
  * @property string $base_url
@@ -14,7 +16,7 @@ declare(strict_types=1);
  *  'secure':string,'auto_tls':bool,'port':int,'from':string} $smtp
  * @property string $title
  */
-class Minz_Configuration {
+class Configuration {
 	/**
 	 * The list of configurations.
 	 * @var array<string,static>
@@ -27,11 +29,11 @@ class Minz_Configuration {
 	 * @param string $namespace the name of the current configuration
 	 * @param string $config_filename the filename of the configuration
 	 * @param string $default_filename a filename containing default values for the configuration
-	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration @deprecated
-	 * @throws Minz_FileNotExistException
+	 * @param ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration @deprecated
+	 * @throws FileNotExistException
 	 */
 	public static function register(string $namespace, string $config_filename, ?string $default_filename = null,
-		?Minz_ConfigurationSetterInterface $configuration_setter = null): void {
+		?ConfigurationSetterInterface $configuration_setter = null): void {
 		self::$config_list[$namespace] = new static(
 			$namespace, $config_filename, $default_filename, $configuration_setter
 		);
@@ -42,14 +44,14 @@ class Minz_Configuration {
 	 *
 	 * @param string $filename the name of the file to parse.
 	 * @return array<string,mixed> of values
-	 * @throws Minz_FileNotExistException if the file does not exist or is invalid.
+	 * @throws FileNotExistException if the file does not exist or is invalid.
 	 */
 	public static function load(string $filename): array {
 		$data = @include $filename;
 		if (is_array($data) && is_array_keys_string($data)) {
 			return $data;
 		} else {
-			throw new Minz_FileNotExistException($filename);
+			throw new FileNotExistException($filename);
 		}
 	}
 
@@ -57,11 +59,11 @@ class Minz_Configuration {
 	 * Return the configuration related to a given namespace.
 	 *
 	 * @param string $namespace the name of the configuration to get.
-	 * @throws Minz_ConfigurationNamespaceException if the namespace does not exist.
+	 * @throws ConfigurationNamespaceException if the namespace does not exist.
 	 */
 	public static function get(string $namespace): static {
 		if (!isset(self::$config_list[$namespace])) {
-			throw new Minz_ConfigurationNamespaceException(
+			throw new ConfigurationNamespaceException(
 				$namespace . ' namespace does not exist'
 			);
 		}
@@ -95,19 +97,19 @@ class Minz_Configuration {
 	/**
 	 * An object which help to set good values in configuration.
 	 */
-	private ?Minz_ConfigurationSetterInterface $configuration_setter = null;
+	private ?ConfigurationSetterInterface $configuration_setter = null;
 
 	/**
-	 * Create a new Minz_Configuration object.
+	 * Create a new Configuration object.
 	 *
 	 * @param string $namespace the name of the current configuration.
 	 * @param string $config_filename the file containing configuration values.
 	 * @param string $default_filename the file containing default values, null by default.
-	 * @param Minz_ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration @deprecated
-	 * @throws Minz_FileNotExistException
+	 * @param ConfigurationSetterInterface $configuration_setter an optional helper to set values in configuration @deprecated
+	 * @throws FileNotExistException
 	 */
 	final private function __construct(string $namespace, string $config_filename, ?string $default_filename = null,
-		?Minz_ConfigurationSetterInterface $configuration_setter = null) {
+		?ConfigurationSetterInterface $configuration_setter = null) {
 		$this->namespace = $namespace;
 		$this->config_filename = $config_filename;
 		$this->default_filename = $default_filename;
@@ -122,7 +124,7 @@ class Minz_Configuration {
 				$this->data, self::load($this->config_filename)
 			);
 			$this->data = array_filter($overloaded, 'is_string', ARRAY_FILTER_USE_KEY);
-		} catch (Minz_FileNotExistException $e) {
+		} catch (FileNotExistException $e) {
 			if ($this->default_filename == null) {
 				throw $e;
 			}
@@ -131,16 +133,16 @@ class Minz_Configuration {
 
 	/**
 	 * Set a configuration setter for the current configuration.
-	 * @param Minz_ConfigurationSetterInterface|null $configuration_setter the setter to call when modifying data.
+	 * @param ConfigurationSetterInterface|null $configuration_setter the setter to call when modifying data.
 	 */
-	public function _configurationSetter(?Minz_ConfigurationSetterInterface $configuration_setter): void {
+	public function _configurationSetter(?ConfigurationSetterInterface $configuration_setter): void {
 		if (is_callable([$configuration_setter, 'handle'])) {
 			$this->configuration_setter = $configuration_setter;
 		}
 	}
 
-	#[Deprecated]
-	public function configurationSetter(): ?Minz_ConfigurationSetterInterface {
+	#[\Deprecated]
+	public function configurationSetter(): ?ConfigurationSetterInterface {
 		return $this->configuration_setter;
 	}
 
@@ -163,14 +165,14 @@ class Minz_Configuration {
 	 * @param mixed $default default value to return if key does not exist.
 	 * @return array|mixed value corresponding to the key.
 	 */
-	#[Deprecated('Use `attribute*()` methods instead.')]
+	#[\Deprecated('Use `attribute*()` methods instead.')]
 	public function param(string $key, mixed $default = null): mixed {
 		if (isset($this->data[$key])) {
 			return $this->data[$key];
 		} elseif ($default !== null) {
 			return $default;
 		} else {
-			Minz_Log::warning($key . ' does not exist in configuration');
+			Log::warning($key . ' does not exist in configuration');
 			return null;
 		}
 	}
@@ -182,7 +184,7 @@ class Minz_Configuration {
 		if (isset($this->data[$key])) {
 			return $this->data[$key];
 		}
-		Minz_Log::warning($key . ' does not exist in configuration');
+		Log::warning($key . ' does not exist in configuration');
 		return null;
 	}
 
@@ -192,7 +194,7 @@ class Minz_Configuration {
 	 * @param string $key the param name to set.
 	 * @param mixed $value the value to set. If null, the key is removed from the configuration.
 	 */
-	#[Deprecated('Use `_attribute()` instead.')]
+	#[\Deprecated('Use `_attribute()` instead.')]
 	public function _param(string $key, mixed $value = null): void {
 		if ($this->configuration_setter !== null && $this->configuration_setter->support($key)) {
 			$this->configuration_setter->handle($this->data, $key, $value);
@@ -204,7 +206,7 @@ class Minz_Configuration {
 	}
 
 	/**
-	 * {@see Minz_Configuration::_attribute()} instead.
+	 * {@see Configuration::_attribute()} instead.
 	 * @param string $key the param name to set.
 	 * @param mixed $value the value to set. If null, the key is removed.
 	 */

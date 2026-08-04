@@ -1,6 +1,15 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Models\BooleanSearch;
+use FreshRss\Models\Context;
+use FreshRss\Models\DatabaseDAO;
+use FreshRss\Models\EntryDAO;
+use FreshRss\Models\EntryDAOPGSQL;
+use FreshRss\Models\EntryDAOSQLite;
+use FreshRss\Models\Feed;
+use FreshRss\Models\Search;
+use FreshRss\Models\UserConfiguration;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 require_once LIB_PATH . '/lib_date.php';
@@ -9,7 +18,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame('', $search->__toString());
 		self::assertNull($search->getIntitle());
 		self::assertNull($search->getMinDate());
@@ -39,7 +48,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	#[DataProvider('provideIntitleSearch')]
 	public static function test__construct_whenInputContainsIntitle_setsIntitleProperty(string $input, ?array $intitle_value, ?array $search_value): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($intitle_value, $search->getIntitle());
 		self::assertSame($search_value, $search->getSearch());
 	}
@@ -77,7 +86,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	#[DataProvider('provideIntextSearch')]
 	public static function test__construct_whenInputContainsIntext(string $input, ?array $intext_value, ?array $search_value): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($intext_value, $search->getIntext());
 		self::assertSame($search_value, $search->getSearch());
 	}
@@ -98,7 +107,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	#[DataProvider('provideAuthorSearch')]
 	public static function test__construct_whenInputContainsAuthor_setsAuthorValue(string $input, ?array $author_value, ?array $search_value): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($author_value, $search->getAuthor());
 		self::assertSame($search_value, $search->getSearch());
 	}
@@ -135,7 +144,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	#[DataProvider('provideInurlSearch')]
 	public static function test__construct_whenInputContainsInurl_setsInurlValue(string $input, ?array $inurl_value, ?array $search_value): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($inurl_value, $search->getInurl());
 		self::assertSame($search_value, $search->getSearch());
 	}
@@ -158,7 +167,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideDateSearch')]
 	public static function test__construct_whenInputContainsDate_setsDateValues(string $input, ?int $min_date_value, ?int $max_date_value): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($min_date_value, $search->getMinDate());
 		self::assertSame($max_date_value, $search->getMaxDate());
 	}
@@ -179,7 +188,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('providePubdateSearch')]
 	public static function test__construct_whenInputContainsPubdate_setsPubdateValues(string $input, ?int $min_pubdate_value, ?int $max_pubdate_value): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($min_pubdate_value, $search->getMinPubdate());
 		self::assertSame($max_pubdate_value, $search->getMaxPubdate());
 	}
@@ -202,7 +211,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideModifiedDateSearch')]
 	public static function test__construct_whenInputContainsModifiedDate(string $input, ?int $min_modified_value, ?int $max_modified_value): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($min_modified_value, $search->getMinModifiedDate());
 		self::assertSame($max_modified_value, $search->getMaxModifiedDate());
 	}
@@ -219,7 +228,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideUserdateSearch')]
 	public static function test__construct_whenInputContainsUserdate(string $input, ?int $min_userdate_value, ?int $max_userdate_value): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($min_userdate_value, $search->getMinUserdate());
 		self::assertSame($max_userdate_value, $search->getMaxUserdate());
 	}
@@ -240,7 +249,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	#[DataProvider('provideTagsSearch')]
 	public static function test__construct_whenInputContainsTags_setsTagsValue(string $input, ?array $tags_value, ?array $search_value): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($tags_value, $search->getTags());
 		self::assertSame($search_value, $search->getSearch());
 	}
@@ -268,19 +277,19 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	#[DataProvider('provideSavedQueriesExpansion')]
 	public static function test__construct_whenInputContainsSavedQueries_expandsSavedSearches(array $queries, string $input,
 		array $expectedResult, string $expectedToString): void {
-		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
-		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
+		$previousUserConf = Context::hasUserConf() ? Context::userConf() : null;
+		$newUserConf = $previousUserConf instanceof UserConfiguration ? clone $previousUserConf : clone UserConfiguration::default();
 		$newUserConf->queries = $queries;
-		FreshRSS_Context::setUserConf($newUserConf);
+		Context::setUserConf($newUserConf);
 
 		try {
-			$search = new FreshRSS_BooleanSearch($input);
-			[$actualValues, $actualSql] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $search);
+			$search = new BooleanSearch($input);
+			[$actualValues, $actualSql] = EntryDAOPGSQL::sqlBooleanSearch('e.', $search);
 			self::assertSame($expectedResult[0], trim($actualSql));
 			self::assertSame($expectedResult[1], $actualValues);
 			self::assertSame($expectedToString, $search->toString(expandUserQueries: false));
 		} finally {
-			FreshRSS_Context::setUserConf($previousUserConf);
+			Context::setUserConf($previousUserConf);
 		}
 	}
 
@@ -403,7 +412,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	public static function test__construct_whenInputContainsMultipleKeywords_setsValues(string $input, ?array $author_value, ?int $min_date_value,
 			?int $max_date_value, ?array $intitle_value, ?array $inurl_value, ?int $min_pubdate_value,
 			?int $max_pubdate_value, ?array $tags_value, ?array $search_value): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($author_value, $search->getAuthor());
 		self::assertSame($min_date_value, $search->getMinDate());
 		self::assertSame($max_date_value, $search->getMaxDate());
@@ -471,7 +480,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideAddOrParentheses')]
 	public static function test__addOrParentheses(string $input, string $output): void {
-		self::assertSame($output, FreshRSS_BooleanSearch::addOrParentheses($input));
+		self::assertSame($output, BooleanSearch::addOrParentheses($input));
 	}
 
 	/** @return list<list{string,string}> */
@@ -490,7 +499,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideconsistentOrParentheses')]
 	public static function test__consistentOrParentheses(string $input, string $output): void {
-		self::assertSame($output, FreshRSS_BooleanSearch::consistentOrParentheses($input));
+		self::assertSame($output, BooleanSearch::consistentOrParentheses($input));
 	}
 
 	/** @return list<list{string,string}> */
@@ -519,7 +528,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	#[DataProvider('provideParentheses')]
 	public function test__parentheses(string $input, string $sql, array $values): void {
-		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		[$filterValues, $filterSearch] = EntryDAOPGSQL::sqlBooleanSearch('e.', new BooleanSearch($input));
 		self::assertSame(trim($sql), trim($filterSearch));
 		self::assertSame($values, $filterValues);
 	}
@@ -687,14 +696,14 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	public function test__add_single_search_combines_conditions_with_and(): void {
 		$startTime = strtotime('2026-02-21T12:00:00Z');
-		$searches = new FreshRSS_BooleanSearch('');
+		$searches = new BooleanSearch('');
 
-		$search = new FreshRSS_Search('');
+		$search = new Search('');
 		$search->setMinDate($startTime);
 		$search->setMinModifiedDate($startTime);
 		$searches->add($search);
 
-		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
+		[$filterValues, $filterSearch] = EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
 
 		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
 		self::assertSame('(e.id >= ? AND e.`lastModified` >= ?)', $filterSearch);
@@ -703,17 +712,17 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	public function test__add_multiple_searches_combines_conditions_with_or(): void {
 		$startTime = strtotime('2026-02-21T12:00:00Z');
-		$searches = new FreshRSS_BooleanSearch('');
+		$searches = new BooleanSearch('');
 
-		$search = new FreshRSS_Search('');
+		$search = new Search('');
 		$search->setMinDate($startTime);
 		$searches->add($search);
 
-		$search = new FreshRSS_Search('');
+		$search = new Search('');
 		$search->setMinModifiedDate($startTime);
 		$searches->add($search);
 
-		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
+		[$filterValues, $filterSearch] = EntryDAOPGSQL::sqlBooleanSearch('e.', $searches);
 
 		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
 		self::assertSame('(e.id >= ?) OR (e.`lastModified` >= ?)', $filterSearch);
@@ -725,7 +734,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 */
 	#[DataProvider('provideDateOperators')]
 	public function test__date_operators(string $input, string $sql, array $values): void {
-		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		[$filterValues, $filterSearch] = EntryDAOPGSQL::sqlBooleanSearch('e.', new BooleanSearch($input));
 		self::assertSame(trim($sql), trim($filterSearch));
 		self::assertSame($values, $filterValues);
 	}
@@ -864,7 +873,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 * @param array<string> $values
 	 */
 	public function test__regex_postgresql(string $input, string $sql, array $values): void {
-		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		[$filterValues, $filterSearch] = EntryDAOPGSQL::sqlBooleanSearch('e.', new BooleanSearch($input));
 		self::assertSame(trim($sql), trim($filterSearch));
 		self::assertSame($values, $filterValues);
 	}
@@ -975,9 +984,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 * @param array<string> $values
 	 */
 	public function test__regex_mariadb(string $input, string $sql, array $values): void {
-		FreshRSS_DatabaseDAO::$dummyConnection = true;
-		FreshRSS_DatabaseDAO::setStaticVersion('11.4.3-MariaDB-ubu2404');
-		[$filterValues, $filterSearch] = FreshRSS_EntryDAO::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		DatabaseDAO::$dummyConnection = true;
+		DatabaseDAO::setStaticVersion('11.4.3-MariaDB-ubu2404');
+		[$filterValues, $filterSearch] = EntryDAO::sqlBooleanSearch('e.', new BooleanSearch($input));
 		self::assertSame(trim($sql), trim($filterSearch));
 		self::assertSame($values, $filterValues);
 	}
@@ -1028,9 +1037,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 * @param array<string> $values
 	 */
 	public function test__regex_mysql(string $input, string $sql, array $values): void {
-		FreshRSS_DatabaseDAO::$dummyConnection = true;
-		FreshRSS_DatabaseDAO::setStaticVersion('9.0.1');
-		[$filterValues, $filterSearch] = FreshRSS_EntryDAO::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		DatabaseDAO::$dummyConnection = true;
+		DatabaseDAO::setStaticVersion('9.0.1');
+		[$filterValues, $filterSearch] = EntryDAO::sqlBooleanSearch('e.', new BooleanSearch($input));
 		self::assertSame(trim($sql), trim($filterSearch));
 		self::assertSame($values, $filterValues);
 	}
@@ -1076,7 +1085,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 * @param array<string> $values
 	 */
 	public function test__regex_sqlite(string $input, string $sql, array $values): void {
-		[$filterValues, $filterSearch] = FreshRSS_EntryDAOSQLite::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
+		[$filterValues, $filterSearch] = EntryDAOSQLite::sqlBooleanSearch('e.', new BooleanSearch($input));
 		self::assertSame(trim($sql), trim($filterSearch));
 		self::assertSame($values, $filterValues);
 	}
@@ -1114,7 +1123,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideToString')]
 	public static function test__toString(string $input): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		$expected = str_replace("\n", ' ', $input);
 		self::assertSame($expected, $search->__toString());
 	}
@@ -1155,7 +1164,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideBooleanSearchToString')]
 	public static function testBooleanSearchToString(string $input, string $expected): void {
-		$search = new FreshRSS_BooleanSearch($input);
+		$search = new BooleanSearch($input);
 		self::assertSame($expected, $search->toString());
 	}
 
@@ -1213,17 +1222,17 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	#[DataProvider('provideBooleanSearchToStringExpansion')]
 	public static function testBooleanSearchToStringExpansion(array $queries, string $input,
 		string $expectedNotExpanded, string $expectedExpanded): void {
-		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
-		$newUserConf = $previousUserConf instanceof FreshRSS_UserConfiguration ? clone $previousUserConf : clone FreshRSS_UserConfiguration::default();
+		$previousUserConf = Context::hasUserConf() ? Context::userConf() : null;
+		$newUserConf = $previousUserConf instanceof UserConfiguration ? clone $previousUserConf : clone UserConfiguration::default();
 		$newUserConf->queries = $queries;
-		FreshRSS_Context::setUserConf($newUserConf);
+		Context::setUserConf($newUserConf);
 
 		try {
-			$booleanSearch = new FreshRSS_BooleanSearch($input);
+			$booleanSearch = new BooleanSearch($input);
 			self::assertSame($expectedNotExpanded, $booleanSearch->toString(expandUserQueries: false));
 			self::assertSame($expectedExpanded, $booleanSearch->toString());
 		} finally {
-			FreshRSS_Context::setUserConf($previousUserConf);
+			Context::setUserConf($previousUserConf);
 		}
 	}
 
@@ -1273,8 +1282,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideHasSameOperators')]
 	public function testHasSameOperators(string $input1, string $input2, bool $expected): void {
-		$search1 = new FreshRSS_Search($input1);
-		$search2 = new FreshRSS_Search($input2);
+		$search1 = new Search($input1);
+		$search2 = new Search($input2);
 		self::assertSame($expected, $search1->hasSameOperators($search2));
 	}
 
@@ -1291,8 +1300,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideBooleanSearchEnforce')]
 	public function testBooleanSearchEnforce(string $initialInput, string $enforceInput, string $expectedOutput): void {
-		$booleanSearch = new FreshRSS_BooleanSearch($initialInput);
-		$searchToEnforce = new FreshRSS_Search($enforceInput);
+		$booleanSearch = new BooleanSearch($initialInput);
+		$searchToEnforce = new Search($enforceInput);
 		$newBooleanSearch = $booleanSearch->enforce($searchToEnforce);
 		self::assertNotSame($booleanSearch, $newBooleanSearch);
 		self::assertSame($expectedOutput, $newBooleanSearch->toString());
@@ -1325,8 +1334,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideBooleanSearchRemove')]
 	public function testBooleanSearchRemove(string $initialInput, string $removeInput, string $expectedOutput): void {
-		$booleanSearch = new FreshRSS_BooleanSearch($initialInput);
-		$searchToRemove = new FreshRSS_Search($removeInput);
+		$booleanSearch = new BooleanSearch($initialInput);
+		$searchToRemove = new Search($removeInput);
 		$newBooleanSearch = $booleanSearch->remove($searchToRemove);
 		self::assertNotSame($booleanSearch, $newBooleanSearch);
 		self::assertSame($expectedOutput, $newBooleanSearch->toString());
@@ -1355,7 +1364,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideNeedVisibility')]
 	public function testNeedVisibility(string $input, ?int $expected): void {
-		$search = new FreshRSS_Search($input);
+		$search = new Search($input);
 		self::assertSame($expected, $search->needVisibility());
 	}
 
@@ -1363,9 +1372,9 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	public static function provideNeedVisibility(): array {
 		return [
 			['', null],
-			['f:1', FreshRSS_Feed::PRIORITY_HIDDEN],
-			['c:2', FreshRSS_Feed::PRIORITY_CATEGORY],
-			['f:1 c:2', FreshRSS_Feed::PRIORITY_HIDDEN],
+			['f:1', Feed::PRIORITY_HIDDEN],
+			['c:2', Feed::PRIORITY_CATEGORY],
+			['f:1 c:2', Feed::PRIORITY_HIDDEN],
 			['-f:1', null],
 			['-c:2', null],
 		];

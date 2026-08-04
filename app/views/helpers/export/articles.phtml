@@ -1,7 +1,15 @@
 <?php
 declare(strict_types=1);
-/** @var FreshRSS_View $this */
-$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
+/** @var View $this */
+
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\User;
+use FreshRss\Models\Category;
+use FreshRss\Models\Entry;
+use FreshRss\Models\View;
+
+$username = User::name() ?? User::INTERNAL_USER;
 
 $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
@@ -21,14 +29,14 @@ if (empty($this->entryIdsTagNames)) {
 
 foreach ($this->entries as $entry) {
 	if (!$this->internal_rendering) {
-		/** @var FreshRSS_Entry|null $entry */
-		$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $entry);
+		/** @var Entry|null $entry */
+		$entry = ExtensionManager::callHook(HookType::EntryBeforeDisplay, $entry);
 	}
 	if ($entry === null) {
 		continue;
 	}
 
-	$feed = $this->feed ?? FreshRSS_Category::findFeed($this->categories, $entry->feedId());
+	$feed = $this->feed ?? Category::findFeed($this->categories, $entry->feedId());
 	$entry->_feed($feed);
 
 	$article = $entry->toGReader('freshrss', $this->entryIdsTagNames['e_' . $entry->id()] ?? []);

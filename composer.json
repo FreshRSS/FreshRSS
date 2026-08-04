@@ -44,6 +44,15 @@
 		"ext-pdo_mysql": "*",
 		"ext-pdo_pgsql": "*"
 	},
+	"autoload": {
+		"psr-4": {
+			"FreshRss\\Minz\\": "lib/Minz/",
+			"FreshRss\\": "app/"
+		},
+		"files": [
+			"lib/legacy-aliases.php"
+		]
+	},
 	"config": {
 		"allow-plugins": {
 			"phpstan/extension-installer": false

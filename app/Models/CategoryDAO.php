@@ -1,7 +1,12 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_CategoryDAO extends Minz_ModelPdo {
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Log;
+use FreshRss\Minz\ModelPdo;
+
+class CategoryDAO extends ModelPdo {
 
 	public const DEFAULTCATEGORYID = 1;
 	public const DEFAULT_CATEGORY_NAME = 'Uncategorized';
@@ -14,7 +19,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		//FreshRSS 1.15.1
 		$stm = $this->pdo->prepare('UPDATE `_category` SET name = :name WHERE id = :id');
 		return $stm !== false &&
-			$stm->bindValue(':id', self::DEFAULTCATEGORYID, PDO::PARAM_INT) &&
+			$stm->bindValue(':id', self::DEFAULTCATEGORYID, \PDO::PARAM_INT) &&
 			$stm->bindValue(':name', self::DEFAULT_CATEGORY_NAME) &&
 			$stm->execute();
 	}
@@ -23,7 +28,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if ($this->pdo->inTransaction()) {
 			$this->pdo->commit();
 		}
-		Minz_Log::warning(__METHOD__ . ': ' . $name);
+		Log::warning(__METHOD__ . ': ' . $name);
 		try {
 			if ($name === 'kind') {	//v1.20.0
 				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN kind SMALLINT DEFAULT 0') !== false;
@@ -40,7 +45,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 				$stm = $this->pdo->prepare('UPDATE `_feed` SET attributes = :attributes WHERE id = :id');
 				if ($stm === false) {
-					Minz_Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
+					Log::error('SQL error ' . __METHOD__ . json_encode($this->pdo->errorInfo()));
 					return false;
 				}
 				foreach ($feeds as $feed) {
@@ -66,10 +71,10 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 						continue;
 					}
 					$attributes['archiving'] = $archiving;
-					if (!($stm->bindValue(':id', $feed['id'], PDO::PARAM_INT) &&
+					if (!($stm->bindValue(':id', $feed['id'], \PDO::PARAM_INT) &&
 						$stm->bindValue(':attributes', json_encode($attributes, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)) &&
 						$stm->execute())) {
-						Minz_Log::error('SQL error ' . __METHOD__ . json_encode($stm->errorInfo()));
+						Log::error('SQL error ' . __METHOD__ . json_encode($stm->errorInfo()));
 					}
 				}
 
@@ -83,8 +88,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 				return $ok;
 			}
-		} catch (Exception $e) {
-			Minz_Log::error(__METHOD__ . ': ' . $e->getMessage());
+		} catch (\Exception $e) {
+			Log::error(__METHOD__ . ': ' . $e->getMessage());
 		}
 		return false;
 	}
@@ -92,10 +97,10 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	/** @param array{0:string,1:int,2:string} $errorInfo */
 	protected function autoUpdateDb(array $errorInfo): bool {
 		if (isset($errorInfo[0])) {
-			if ($errorInfo[0] === FreshRSS_DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === FreshRSS_DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
+			if ($errorInfo[0] === DatabaseDAO::ER_BAD_FIELD_ERROR || $errorInfo[0] === DatabaseDAOPGSQL::UNDEFINED_COLUMN) {
 				$errorLines = explode("\n", $errorInfo[2], 2);	// The relevant column name is on the first line, other lines are noise
 				if (str_contains($errorLines[0], 'f.')) {	// Coming from a feed sub-query
-					$feedDao = FreshRSS_Factory::createFeedDao();
+					$feedDao = Factory::createFeedDao();
 					if ($feedDao->autoUpdateDb($errorInfo)) {
 						return true;
 					}
@@ -131,18 +136,18 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 
-		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
+		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		if (!isset($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
 
 		if ($stm !== false &&
-			(empty($valuesTmp['id']) || $stm->bindValue(':id', $valuesTmp['id'], PDO::PARAM_INT)) &&
-			$stm->bindValue(':name1', $valuesTmp['name'], PDO::PARAM_STR) &&
-			$stm->bindValue(':kind', $valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL, PDO::PARAM_INT) &&
+			(empty($valuesTmp['id']) || $stm->bindValue(':id', $valuesTmp['id'], \PDO::PARAM_INT)) &&
+			$stm->bindValue(':name1', $valuesTmp['name'], \PDO::PARAM_STR) &&
+			$stm->bindValue(':kind', $valuesTmp['kind'] ?? Category::KIND_NORMAL, \PDO::PARAM_INT) &&
 			$stm->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
-				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), PDO::PARAM_STR) &&
-			$stm->bindValue(':name2', $valuesTmp['name'], PDO::PARAM_STR) &&
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), \PDO::PARAM_STR) &&
+			$stm->bindValue(':name2', $valuesTmp['name'], \PDO::PARAM_STR) &&
 			$stm->execute() && $stm->rowCount() > 0) {
 			if (empty($valuesTmp['id'])) {
 				// Auto-generated ID
@@ -157,12 +162,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			if ($this->autoUpdateDb($info)) {
 				return $this->addCategory($valuesTmp);
 			}
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
 
-	public function addCategoryObject(FreshRSS_Category $category): int|false {
+	public function addCategoryObject(Category $category): int|false {
 		$cat = $this->searchByName($category->name());
 		if ($cat === null) {
 			$values = [
@@ -187,18 +192,18 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 
-		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
+		$valuesTmp['name'] = mb_strcut(trim($valuesTmp['name']), 0, DatabaseDAO::LENGTH_INDEX_UNICODE, 'UTF-8');
 		if (empty($valuesTmp['attributes'])) {
 			$valuesTmp['attributes'] = [];
 		}
 
 		if ($stm !== false &&
-			$stm->bindValue(':name', $valuesTmp['name'], PDO::PARAM_STR) &&
-			$stm->bindValue(':kind', $valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL, PDO::PARAM_INT) &&
+			$stm->bindValue(':name', $valuesTmp['name'], \PDO::PARAM_STR) &&
+			$stm->bindValue(':kind', $valuesTmp['kind'] ?? Category::KIND_NORMAL, \PDO::PARAM_INT) &&
 			$stm->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
-				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), PDO::PARAM_STR) &&
-			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
-			$stm->bindValue(':name2', $valuesTmp['name'], PDO::PARAM_STR) &&
+				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), \PDO::PARAM_STR) &&
+			$stm->bindValue(':id', $id, \PDO::PARAM_INT) &&
+			$stm->bindValue(':name2', $valuesTmp['name'], \PDO::PARAM_STR) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
@@ -207,7 +212,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			if ($this->autoUpdateDb($info)) {
 				return $this->updateCategory($id, $valuesTmp);
 			}
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -218,13 +223,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false &&
-			$stm->bindValue(':last_update', $mtime <= 0 ? time() : $mtime, PDO::PARAM_INT) &&
-			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':last_update', $mtime <= 0 ? time() : $mtime, \PDO::PARAM_INT) &&
+			$stm->bindValue(':id', $id, \PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -235,13 +240,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false &&
-			$stm->bindValue(':last_update', $mtime === null || $mtime < 0 ? time() : $mtime, PDO::PARAM_INT) &&
-			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
+			$stm->bindValue(':last_update', $mtime === null || $mtime < 0 ? time() : $mtime, \PDO::PARAM_INT) &&
+			$stm->bindValue(':id', $id, \PDO::PARAM_INT) &&
 			$stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
@@ -251,23 +256,23 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			DELETE FROM `_category` WHERE id=:id
 			SQL;
 		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $stm->bindValue(':id', $id, PDO::PARAM_INT) && $stm->execute()) {
+		if ($stm !== false && $stm->bindValue(':id', $id, \PDO::PARAM_INT) && $stm->execute()) {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}
 
-	/** @return Traversable<array{id:int,name:string,kind:int,lastUpdate:int,error:int,attributes?:array<string,mixed>}> */
-	public function selectAll(): Traversable {
+	/** @return \Traversable<array{id:int,name:string,kind:int,lastUpdate:int,error:int,attributes?:array<string,mixed>}> */
+	public function selectAll(): \Traversable {
 		$sql = <<<'SQL'
 			SELECT id, name, kind, `lastUpdate`, error, attributes FROM `_category`
 			SQL;
 		$stm = $this->pdo->query($sql);
 		if ($stm !== false) {
-			while (is_array($row = $stm->fetch(PDO::FETCH_ASSOC))) {
+			while (is_array($row = $stm->fetch(\PDO::FETCH_ASSOC))) {
 				/** @var array{id:int,name:string,kind:int,lastUpdate:int,error:int,attributes?:array<string,mixed>} $row */
 				yield $row;
 			}
@@ -277,12 +282,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			if ($this->autoUpdateDb($info)) {
 				yield from $this->selectAll();
 			} else {
-				Minz_Log::error(__METHOD__ . ' error: ' . json_encode($info));
+				Log::error(__METHOD__ . ' error: ' . json_encode($info));
 			}
 		}
 	}
 
-	public function searchById(int $id): ?FreshRSS_Category {
+	public function searchById(int $id): ?Category {
 		$sql = <<<'SQL'
 			SELECT * FROM `_category` WHERE id=:id
 			SQL;
@@ -292,7 +297,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		return reset($categories) ?: null;
 	}
 
-	public function searchByName(string $name): ?FreshRSS_Category {
+	public function searchByName(string $name): ?Category {
 		$sql = <<<'SQL'
 			SELECT * FROM `_category` WHERE name=:name
 			SQL;
@@ -302,15 +307,15 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		return reset($categories) ?: null;
 	}
 
-	/** @return array<int,FreshRSS_Category> where the key is the category ID */
+	/** @return array<int,Category> where the key is the category ID */
 	public function listSortedCategories(bool $prePopulateFeeds = true, bool $details = false): array {
 		$categories = $this->listCategories($prePopulateFeeds, $details);
 
-		uasort($categories, static function (FreshRSS_Category $a, FreshRSS_Category $b) {
+		uasort($categories, static function (Category $a, Category $b) {
 			$aPosition = $a->attributeInt('position');
 			$bPosition = $b->attributeInt('position');
 			if ($aPosition === $bPosition) {
-				return FreshRSS_Context::localeCompare($a->name(), $b->name());
+				return Context::localeCompare($a->name(), $b->name());
 			} elseif (null === $aPosition) {
 				return 1;
 			} elseif (null === $bPosition) {
@@ -322,7 +327,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		return $categories;
 	}
 
-	/** @return array<int,FreshRSS_Category> where the key is the category ID */
+	/** @return array<int,Category> where the key is the category ID */
 	public function listCategories(bool $prePopulateFeeds = true, bool $details = false): array {
 		if ($prePopulateFeeds) {
 			$feedFields = $details ?
@@ -337,7 +342,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 				ORDER BY c.name, f.name
 				SQL;
 			$stm = $this->pdo->prepare($sql);
-			if ($stm !== false && $stm->execute() && ($res = $stm->fetchAll(PDO::FETCH_ASSOC)) !== false) {
+			if ($stm !== false && $stm->execute() && ($res = $stm->fetchAll(\PDO::FETCH_ASSOC)) !== false) {
 				/** @var list<array{c_name:string,c_id:int,c_kind:int,c_last_update:int,c_error:int,c_attributes?:string,
 				 * 	id?:int,name?:string,url?:string,kind?:int,category?:int,website?:string,priority?:int,error?:int,attributes?:string,cache_nbEntries?:int,cache_nbUnreads?:int,ttl?:int}> $res */
 				return self::daoToCategoriesPrepopulated($res);
@@ -347,7 +352,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 				if ($this->autoUpdateDb($info)) {
 					return $this->listCategories($prePopulateFeeds, $details);
 				}
-				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+				Log::error('SQL error ' . __METHOD__ . json_encode($info));
 				return [];
 			}
 		} else {
@@ -357,7 +362,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		}
 	}
 
-	/** @return array<int,FreshRSS_Category> where the key is the category ID */
+	/** @return array<int,Category> where the key is the category ID */
 	public function listCategoriesOrderUpdate(int $defaultCacheDuration = 86400, int $limit = 0): array {
 		$limitSql = $limit < 1 ? '' : 'LIMIT ' . $limit;
 		$sql = <<<SQL
@@ -365,10 +370,10 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			SQL;
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false &&
-			$stm->bindValue(':kind', FreshRSS_Category::KIND_DYNAMIC_OPML, PDO::PARAM_INT) &&
-			$stm->bindValue(':lu', time() - $defaultCacheDuration, PDO::PARAM_INT) &&
+			$stm->bindValue(':kind', Category::KIND_DYNAMIC_OPML, \PDO::PARAM_INT) &&
+			$stm->bindValue(':lu', time() - $defaultCacheDuration, \PDO::PARAM_INT) &&
 			$stm->execute()) {
-			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+			$res = $stm->fetchAll(\PDO::FETCH_ASSOC);
 			/** @var list<array{name:string,id:int,kind:int,lastUpdate:int,error?:int,attributes?:string}> $res */
 			return self::daoToCategories($res);
 		} else {
@@ -377,12 +382,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			if ($this->autoUpdateDb($info)) {
 				return $this->listCategoriesOrderUpdate($defaultCacheDuration, $limit);
 			}
-			Minz_Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
+			Log::warning(__METHOD__ . ' error: ' . $sql . ' : ' . json_encode($info));
 			return [];
 		}
 	}
 
-	public function getDefault(): ?FreshRSS_Category {
+	public function getDefault(): ?Category {
 		$sql = <<<'SQL'
 			SELECT * FROM `_category` WHERE id=:id
 			SQL;
@@ -392,10 +397,10 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if (isset($categories[self::DEFAULTCATEGORYID])) {
 			return $categories[self::DEFAULTCATEGORYID];
 		} else {
-			if (FreshRSS_Context::$isCli) {
+			if (Context::$isCli) {
 				fwrite(STDERR, 'FreshRSS database error: Default category not found!' . "\n");
 			}
-			Minz_Log::error('FreshRSS database error: Default category not found!');
+			Log::error('FreshRSS database error: Default category not found!');
 			return null;
 		}
 	}
@@ -404,7 +409,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		$def_cat = $this->searchById(self::DEFAULTCATEGORYID);
 
 		if ($def_cat == null) {
-			$cat = new FreshRSS_Category(_t('gen.short.default_category'), self::DEFAULTCATEGORYID);
+			$cat = new Category(_t('gen.short.default_category'), self::DEFAULTCATEGORYID);
 
 			$sql = <<<'SQL'
 				INSERT INTO `_category`(id, name) VALUES(:id, :name)
@@ -412,15 +417,15 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			$stm = $this->pdo->prepare($sql);
 
 			if ($stm !== false &&
-				$stm->bindValue(':id', $cat->id(), PDO::PARAM_INT) &&
-				$stm->bindValue(':name', $cat->name(), PDO::PARAM_STR) &&
+				$stm->bindValue(':id', $cat->id(), \PDO::PARAM_INT) &&
+				$stm->bindValue(':name', $cat->name(), \PDO::PARAM_STR) &&
 				$stm->execute()) {
 				$catId = $this->pdo->lastInsertId('`_category_id_seq`');
 				$this->sqlResetSequence();
 				return $catId === false ? false : (int)$catId;
 			} else {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+				Log::error('SQL error ' . __METHOD__ . json_encode($info));
 				return false;
 			}
 		}
@@ -441,7 +446,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		return $this->fetchInt($sql, [':id' => $id]) ?? -1;
 	}
 
-	public function countNotRead(int $id, int $minPriority = FreshRSS_Feed::PRIORITY_CATEGORY): int {
+	public function countNotRead(int $id, int $minPriority = Feed::PRIORITY_CATEGORY): int {
 		$sql = <<<'SQL'
 			SELECT COUNT(*) AS count FROM `_entry` e
 			INNER JOIN `_feed` f ON e.id_feed=f.id
@@ -483,17 +488,17 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	 * @param array<array{c_name:string,c_id:int,c_kind:int,c_last_update:int,c_error:int|bool,c_attributes?:string,
 	 * 	id?:int,name?:string,url?:string,kind?:int,website?:string,priority?:int,
 	 * 	error?:int,attributes?:string,cache_nbEntries?:int,cache_nbUnreads?:int,ttl?:int}> $listDAO
-	 * @return array<int,FreshRSS_Category> where the key is the category ID
+	 * @return array<int,Category> where the key is the category ID
 	 */
 	private static function daoToCategoriesPrepopulated(array $listDAO): array {
 		$list = [];
 		$previousLine = [];
 		$feedsDao = [];
-		$feedDao = FreshRSS_Factory::createFeedDao();
+		$feedDao = Factory::createFeedDao();
 		foreach ($listDAO as $line) {
 			if (!empty($previousLine['c_id']) && $line['c_id'] !== $previousLine['c_id']) {
 				// End of the current category, we add it to the $list
-				$cat = new FreshRSS_Category(
+				$cat = new Category(
 					$previousLine['c_name'],
 					$previousLine['c_id'],
 					$feedDao::daoToFeeds($feedsDao, $previousLine['c_id'])
@@ -513,7 +518,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 		// add the last category
 		if ($previousLine != null) {
-			$cat = new FreshRSS_Category(
+			$cat = new Category(
 				$previousLine['c_name'],
 				$previousLine['c_id'],
 				$feedDao::daoToFeeds($feedsDao, $previousLine['c_id'])
@@ -530,12 +535,12 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array<array{name:string,id:int,kind:int,lastUpdate?:int,error?:int|bool,attributes?:string}> $listDAO
-	 * @return array<int,FreshRSS_Category> where the key is the category ID
+	 * @return array<int,Category> where the key is the category ID
 	 */
 	private static function daoToCategories(array $listDAO): array {
 		$list = [];
 		foreach ($listDAO as $dao) {
-			$cat = new FreshRSS_Category(
+			$cat = new Category(
 				$dao['name'],
 				$dao['id']
 			);

@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
+use FreshRss\Models\UserConfiguration;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
@@ -9,7 +13,7 @@ declare(strict_types=1);
 /**
  * Request représente la requête http
  */
-class Minz_Request {
+class Request {
 
 	private static string $controller_name = '';
 	private static string $action_name = '';
@@ -43,12 +47,12 @@ class Minz_Request {
 	 * @param bool $specialchars `true` to return special characters, `false` (default) to XML-encode them
 	 * @return mixed value of the parameter
 	 */
-	#[Deprecated('Use typed versions instead')]
+	#[\Deprecated('Use typed versions instead')]
 	public static function param(string $key, mixed $default = false, bool $specialchars = false): mixed {
 		if (isset(self::$params[$key])) {
 			$p = self::$params[$key];
 			if (is_string($p) || is_array($p)) {
-				return $specialchars ? $p : Minz_Helper::htmlspecialchars_utf8($p);
+				return $specialchars ? $p : Helper::htmlspecialchars_utf8($p);
 			} else {
 				return $p;
 			}
@@ -83,7 +87,7 @@ class Minz_Request {
 				$result[$k] = $vs;
 			}
 		}
-		return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
+		return $plaintext ? $result : Helper::htmlspecialchars_utf8($result);
 	}
 
 	/**
@@ -96,7 +100,7 @@ class Minz_Request {
 		}
 		$result = array_filter(self::$params[$key], 'is_string');
 		$result = array_values($result);
-		return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
+		return $plaintext ? $result : Helper::htmlspecialchars_utf8($result);
 	}
 
 	/**
@@ -179,7 +183,7 @@ class Minz_Request {
 	public static function paramTextToArrayNull(string $key, bool $plaintext = false): ?array {
 		if (isset(self::$params[$key]) && is_string(self::$params[$key])) {
 			$result = preg_split('/\R/u', self::$params[$key]) ?: [];
-			return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
+			return $plaintext ? $result : Helper::htmlspecialchars_utf8($result);
 		}
 		return null;
 	}
@@ -374,10 +378,10 @@ class Minz_Request {
 
 	/**
 	 * Return the base_url from configuration
-	 * @throws Minz_ConfigurationException
+	 * @throws ConfigurationException
 	 */
 	public static function getBaseUrl(): string {
-		$conf = Minz_Configuration::get('system');
+		$conf = Configuration::get('system');
 		$url = trim($conf->base_url, ' /\\"');
 		return filter_var($url, FILTER_SANITIZE_URL) ?: '';
 	}
@@ -451,14 +455,14 @@ class Minz_Request {
 	}
 
 	private static function setNotification(string $type, string $content, string $notificationName = ''): void {
-		Minz_Session::lock();
-		$requests = Minz_Session::paramArray('requests');
+		Session::lock();
+		$requests = Session::paramArray('requests');
 		$requests[self::requestId()] = [
 				'time' => time(),
 				'notification' => [ 'type' => $type, 'content' => $content, 'notificationName' => $notificationName ],
 			];
-		Minz_Session::_param('requests', $requests);
-		Minz_Session::unlock();
+		Session::_param('requests', $requests);
+		Session::unlock();
 	}
 
 	public static function setGoodNotification(string $content, string $notificationName = ''): void {
@@ -475,9 +479,9 @@ class Minz_Request {
 	 */
 	public static function getNotification(bool $pop = true): ?array {
 		$notif = null;
-		Minz_Session::lock();
+		Session::lock();
 		/** @var array<string,array{time:int,notification:array{type:string,content:string,notificationName:string}}> */
-		$requests = Minz_Session::paramArray('requests');
+		$requests = Session::paramArray('requests');
 		if (!empty($requests)) {
 			//Delete abandoned notifications
 			$requests = array_filter($requests, static function (array $r) { return $r['time'] > time() - 3600; });
@@ -489,9 +493,9 @@ class Minz_Request {
 					unset($requests[$requestId]);
 				}
 			}
-			Minz_Session::_param('requests', $requests);
+			Session::_param('requests', $requests);
 		}
-		Minz_Session::unlock();
+		Session::unlock();
 		return $notif;
 	}
 
@@ -499,25 +503,25 @@ class Minz_Request {
 	 * Restart a request
 	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $url an array presentation of the URL to route to
 	 * @param bool $redirect If true, uses an HTTP redirection, and if false (default), performs an internal dispatcher redirection.
-	 * @throws Minz_ConfigurationException
+	 * @throws ConfigurationException
 	 */
 	public static function forward(array $url = [], bool $redirect = false): void {
-		if (empty(Minz_Request::originalRequest())) {
+		if (empty(Request::originalRequest())) {
 			self::$originalRequest = $url;
 		}
 
-		$url = Minz_Url::checkControllerUrl($url);
+		$url = Url::checkControllerUrl($url);
 		$url['params']['rid'] = self::requestId();
 
 		if ($redirect) {
-			header('Location: ' . Minz_Url::display($url, 'php', 'root'));
+			header('Location: ' . Url::display($url, 'php', 'root'));
 			exit();
 		} else {
 			self::_controllerName($url['c']);
 			self::_actionName($url['a']);
 			$merge = array_merge(self::$params, $url['params']);
 			self::_params($merge);
-			Minz_Dispatcher::reset();
+			Dispatcher::reset();
 		}
 	}
 
@@ -528,9 +532,9 @@ class Minz_Request {
 	 */
 	public static function good(string $msg, array $url = [], string $notificationName = '', bool $showNotification = true): void {
 		if ($showNotification) {
-			Minz_Request::setGoodNotification($msg);
+			Request::setGoodNotification($msg);
 		}
-		Minz_Request::forward($url, true);
+		Request::forward($url, true);
 	}
 
 	/**
@@ -539,8 +543,8 @@ class Minz_Request {
 	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $url url array to where we should be forwarded
 	 */
 	public static function bad(string $msg, array $url = [], string $notificationName = ''): void {
-		Minz_Request::setBadNotification($msg, $notificationName);
-		Minz_Request::forward($url, true);
+		Request::setBadNotification($msg, $notificationName);
+		Request::forward($url, true);
 	}
 
 	/**
@@ -583,7 +587,7 @@ class Minz_Request {
 		if ($username == '') {
 			return false;
 		}
-		$conf = FreshRSS_UserConfiguration::getForUser($username);
+		$conf = UserConfiguration::getForUser($username);
 		if ($conf === null || !hash_equals($conf->token, $token_param)) {
 			return false;
 		}
@@ -598,6 +602,6 @@ class Minz_Request {
 		if (preg_match_all('/(^|,)\s*(?P<lang>[^;,]+)/', $acceptLanguage, $matches) > 0) {
 			return $matches['lang'];
 		}
-		return [Minz_Translate::DEFAULT_LANGUAGE];
+		return [Translate::DEFAULT_LANGUAGE];
 	}
 }

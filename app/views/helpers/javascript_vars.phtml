@@ -1,48 +1,58 @@
 <?php
 declare(strict_types=1);
-/** @var FreshRSS_View $this */
-$mark = FreshRSS_Context::userConf()->mark_when;
-$s = FreshRSS_Context::userConf()->shortcuts;
-$extData = Minz_ExtensionManager::callHook(Minz_HookType::JsVars, []);
-$canView = FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous;
+/** @var View $this */
+
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Session;
+use FreshRss\Minz\Url;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+
+$mark = Context::userConf()->mark_when;
+$s = Context::userConf()->shortcuts;
+$extData = ExtensionManager::callHook(HookType::JsVars, []);
+$canView = Auth::hasAccess() || Context::systemConf()->allow_anonymous;
 echo json_encode([
 	'context' => [
-		'anonymous' => !FreshRSS_Auth::hasAccess(),
-		'admin' => FreshRSS_Auth::hasAccess('admin'),
-		'suppress_csp_warning' => FreshRSS_Context::systemConf()->suppress_csp_warning,
-		'auto_remove_article' => !!FreshRSS_Context::isAutoRemoveAvailable(),
-		'hide_posts' => !(FreshRSS_Context::userConf()->display_posts || Minz_Request::actionName() === 'reader'),
-		'display_order' => Minz_Request::paramString('order') ?: FreshRSS_Context::userConf()->sort_order,
-		'sort' => FreshRSS_Context::$sort,
-		'display_categories' => FreshRSS_Context::userConf()->display_categories,
-		'show_title_unread' => FreshRSS_Context::userConf()->show_title_unread,
+		'anonymous' => !Auth::hasAccess(),
+		'admin' => Auth::hasAccess('admin'),
+		'suppress_csp_warning' => Context::systemConf()->suppress_csp_warning,
+		'auto_remove_article' => !!Context::isAutoRemoveAvailable(),
+		'hide_posts' => !(Context::userConf()->display_posts || Request::actionName() === 'reader'),
+		'display_order' => Request::paramString('order') ?: Context::userConf()->sort_order,
+		'sort' => Context::$sort,
+		'display_categories' => Context::userConf()->display_categories,
+		'show_title_unread' => Context::userConf()->show_title_unread,
 		'auto_mark_article' => !!$mark['article'],
 		'auto_mark_site' => !!$mark['site'],
 		'auto_mark_scroll' => !!$mark['scroll'],
 		'auto_mark_focus' => !!$mark['focus'],
-		'auto_load_more' => FreshRSS_Context::userConf()->auto_load_more && FreshRSS_Context::$sort !== 'rand',
-		'auto_actualize_feeds' => Minz_Session::paramBoolean('actualize_feeds'),
-		'nb_parallel_refresh' => max(1, FreshRSS_Context::systemConf()->nb_parallel_refresh),
-		'does_lazyload' => FreshRSS_Context::userConf()->lazyload && !Minz_Request::is('index', 'reader'), // TODO: currently no lazy-loading is being done in reader view
-		'sides_close_article' => !!FreshRSS_Context::userConf()->sides_close_article,
-		'sidebar_hidden_by_default' => !!FreshRSS_Context::userConf()->sidebar_hidden_by_default,
-		'sticky_post' => !!FreshRSS_Context::isStickyPostEnabled(),
-		'html5_enable_notif' => FreshRSS_Context::userConf()->html5_enable_notif,
-		'html5_notif_timeout' => FreshRSS_Context::userConf()->html5_notif_timeout,
+		'auto_load_more' => Context::userConf()->auto_load_more && Context::$sort !== 'rand',
+		'auto_actualize_feeds' => Session::paramBoolean('actualize_feeds'),
+		'nb_parallel_refresh' => max(1, Context::systemConf()->nb_parallel_refresh),
+		'does_lazyload' => Context::userConf()->lazyload && !Request::is('index', 'reader'), // TODO: currently no lazy-loading is being done in reader view
+		'sides_close_article' => !!Context::userConf()->sides_close_article,
+		'sidebar_hidden_by_default' => !!Context::userConf()->sidebar_hidden_by_default,
+		'sticky_post' => !!Context::isStickyPostEnabled(),
+		'html5_enable_notif' => Context::userConf()->html5_enable_notif,
+		'html5_notif_timeout' => Context::userConf()->html5_notif_timeout,
 		'closeNotification' => [
-			'good' => FreshRSS_Context::userConf()->good_notification_timeout * 1000,
-			'bad' => FreshRSS_Context::userConf()->bad_notification_timeout * 1000,
+			'good' => Context::userConf()->good_notification_timeout * 1000,
+			'bad' => Context::userConf()->bad_notification_timeout * 1000,
 			'mouseLeave' => 3000,
 		],
-		'auth_type' => FreshRSS_Context::systemConf()->auth_type,
-		'current_view' => Minz_Request::actionName(),
-		'csrf' => FreshRSS_Auth::csrfToken(),
+		'auth_type' => Context::systemConf()->auth_type,
+		'current_view' => Request::actionName(),
+		'csrf' => Auth::csrfToken(),
 		'mtime' => [
 			'extra.js' => @filemtime(PUBLIC_PATH . '/scripts/extra.js'),
 			'feed.js' => @filemtime(PUBLIC_PATH . '/scripts/feed.js'),
 		],
-		'send_referrer_allowlist' => $canView ? FreshRSS_Context::userConf()->send_referrer_allowlist : [],
-		'max_favicon_upload_size' => FreshRSS_Context::systemConf()->limits['max_favicon_upload_size'],
+		'send_referrer_allowlist' => $canView ? Context::userConf()->send_referrer_allowlist : [],
+		'max_favicon_upload_size' => Context::systemConf()->limits['max_favicon_upload_size'],
 		'version' => FRESHRSS_VERSION,
 	],
 	'shortcuts' => [
@@ -74,10 +84,10 @@ echo json_encode([
 	],
 	'urls' => [
 		'index' => _url('index', 'index'),
-		'login' => Minz_Url::display(['c' => 'auth', 'a' => 'login'], 'php'),
-		'logout' => Minz_Url::display(['c' => 'auth', 'a' => 'logout'], 'php'),
+		'login' => Url::display(['c' => 'auth', 'a' => 'login'], 'php'),
+		'logout' => Url::display(['c' => 'auth', 'a' => 'logout'], 'php'),
 		'help' => FRESHRSS_WIKI,
-		'shortcuts' => Minz_Url::display(['c' => 'configure', 'a' => 'shortcut'], 'php'),
+		'shortcuts' => Url::display(['c' => 'configure', 'a' => 'shortcut'], 'php'),
 	],
 	'i18n' => [
 		'confirmation_default' => _t('gen.js.confirm_action'),
@@ -86,8 +96,8 @@ echo json_encode([
 		'notif_request_failed' => _t('gen.js.feedback.request_failed'),
 		'category_empty' => _t('gen.js.category_empty'),
 		'labels_empty' => _t('gen.js.labels_empty'),
-		'favicon_size_exceeded' => _t('feedback.sub.feed.favicon.too_large', format_bytes(FreshRSS_Context::systemConf()->limits['max_favicon_upload_size'])),
-		'language' => FreshRSS_Context::userConf()->language,
+		'favicon_size_exceeded' => _t('feedback.sub.feed.favicon.too_large', format_bytes(Context::systemConf()->limits['max_favicon_upload_size'])),
+		'language' => Context::userConf()->language,
 		'unsafe_csp_header' => _t('gen.js.unsafe_csp_header'),
 	],
 	'icons' => [

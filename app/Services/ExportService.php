@@ -1,18 +1,29 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Services;
+
+use FreshRss\Models\Category;
+use FreshRss\Models\CategoryDAO;
+use FreshRss\Models\Entry;
+use FreshRss\Models\EntryDAO;
+use FreshRss\Models\Factory;
+use FreshRss\Models\FeedDAO;
+use FreshRss\Models\TagDAO;
+use FreshRss\Models\View;
+
 /**
  * Provide useful methods to generate files to export.
  */
-class FreshRSS_Export_Service {
+class ExportService {
 
-	private readonly FreshRSS_CategoryDAO $category_dao;
+	private readonly CategoryDAO $category_dao;
 
-	private readonly FreshRSS_FeedDAO $feed_dao;
+	private readonly FeedDAO $feed_dao;
 
-	private readonly FreshRSS_EntryDAO $entry_dao;
+	private readonly EntryDAO $entry_dao;
 
-	private readonly FreshRSS_TagDAO $tag_dao;
+	private readonly TagDAO $tag_dao;
 
 	final public const FRSS_NAMESPACE = 'https://freshrss.org/opml';
 	final public const TYPE_HTML_XPATH = 'HTML+XPath';
@@ -33,10 +44,10 @@ class FreshRSS_Export_Service {
 	 * Initialize the service for the given user.
 	 */
 	public function __construct(private readonly string $username) {
-		$this->category_dao = FreshRSS_Factory::createCategoryDao($this->username);
-		$this->feed_dao = FreshRSS_Factory::createFeedDao($this->username);
-		$this->entry_dao = FreshRSS_Factory::createEntryDao($this->username);
-		$this->tag_dao = FreshRSS_Factory::createTagDao();
+		$this->category_dao = Factory::createCategoryDao($this->username);
+		$this->feed_dao = Factory::createFeedDao($this->username);
+		$this->entry_dao = Factory::createEntryDao($this->username);
+		$this->tag_dao = Factory::createTagDao();
 	}
 
 	/**
@@ -44,7 +55,7 @@ class FreshRSS_Export_Service {
 	 * @return array{0:string,1:string} First item is the filename, second item is the content
 	 */
 	public function generateOpml(): array {
-		$view = new FreshRSS_View();
+		$view = new View();
 		$day = date('Y-m-d');
 		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true, details: true);
 		$view->excludeMutedFeeds = false;
@@ -70,17 +81,17 @@ class FreshRSS_Export_Service {
 	 * @return array{0:string,1:string} First item is the filename, second item is the content
 	 */
 	public function generateStarredEntries(string $type): array {
-		$view = new FreshRSS_View();
+		$view = new View();
 		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true);
 		$day = date('Y-m-d');
 
 		$view->list_title = _t('sub.import_export.starred_list');
 		$view->type = 'starred';
-		$entriesId = $this->entry_dao->listIdsWhere($type, 0, FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: -1) ?? [];
+		$entriesId = $this->entry_dao->listIdsWhere($type, 0, Entry::STATE_ALL, order: 'ASC', limit: -1) ?? [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
-			$type, 0, FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: -1
+			$type, 0, Entry::STATE_ALL, order: 'ASC', limit: -1
 		);
 
 		return [
@@ -95,10 +106,10 @@ class FreshRSS_Export_Service {
 	 *                    It also can return null if the feed doesn’t exist.
 	 */
 	public function generateFeedEntries(int $feed_id, int $max_number_entries): ?array {
-		$view = new FreshRSS_View();
+		$view = new View();
 		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true);
 
-		$feed = FreshRSS_Category::findFeed($view->categories, $feed_id);
+		$feed = Category::findFeed($view->categories, $feed_id);
 		if ($feed === null) {
 			return null;
 		}
@@ -110,12 +121,12 @@ class FreshRSS_Export_Service {
 		$view->list_title = _t('sub.import_export.feed_list', $feed->name());
 		$view->type = 'feed/' . $feed->id();
 		$entriesId = $this->entry_dao->listIdsWhere(
-			'f', $feed->id(), FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: $max_number_entries
+			'f', $feed->id(), Entry::STATE_ALL, order: 'ASC', limit: $max_number_entries
 		) ?? [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
-			'f', $feed->id(), FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: $max_number_entries
+			'f', $feed->id(), Entry::STATE_ALL, order: 'ASC', limit: $max_number_entries
 		);
 
 		return [
@@ -159,8 +170,8 @@ class FreshRSS_Export_Service {
 		if ($zip_file === false) {
 			return [$zip_filename, false];
 		}
-		$zip_archive = new ZipArchive();
-		$zip_archive->open($zip_file, ZipArchive::OVERWRITE);
+		$zip_archive = new \ZipArchive();
+		$zip_archive->open($zip_file, \ZipArchive::OVERWRITE);
 
 		foreach ($files as $filename => $content) {
 			$zip_archive->addFromString($filename, $content);

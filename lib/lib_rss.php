@@ -1,6 +1,17 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Controllers\UserController;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Session;
+use FreshRss\Minz\Translate;
+use FreshRss\Minz\Url;
+use FreshRss\Minz\User;
+use FreshRss\Models\Context;
+use FreshRss\Models\Themes;
+use FreshRss\Models\UserDAO;
+use FreshRss\Utils\HttpUtil;
+
 if (!function_exists('mb_strcut')) {
 	function mb_strcut(string $str, int $start, ?int $length = null, string $encoding = 'UTF-8'): string {
 		return substr($str, $start, $length) ?: '';
@@ -48,6 +59,33 @@ function actualize_mutex_file(string $tmpPath, string $dataPath): string {
 }
 
 //<Auto-loading>
+
+// PSR-4 autoloader for the `FreshRss` namespace (app/, lib/Minz/), mirroring the mapping
+// declared in `composer.json` (`autoload.psr-4`). Implemented natively instead of relying
+// on `vendor/autoload.php`, which is not shipped in releases or Docker images: no runtime
+// Composer package is required to run FreshRSS. `vendor/autoload.php` is only used for
+// development tooling (tests, static analysis, coding standards).
+function freshRssPsr4Autoloader(string $class): void {
+	$prefixes = [
+		'FreshRss\\Minz\\' => LIB_PATH . '/Minz/',
+		'FreshRss\\' => APP_PATH . '/',
+	];
+	foreach ($prefixes as $prefix => $baseDir) {
+		if (str_starts_with($class, $prefix)) {
+			$file = $baseDir . str_replace('\\', '/', substr($class, strlen($prefix))) . '.php';
+			if (is_file($file)) {
+				include $file;
+			}
+			return;
+		}
+	}
+}
+spl_autoload_register('freshRssPsr4Autoloader');
+
+// Must be required right after `freshRssPsr4Autoloader` registers, and before
+// `classAutoloader` below registers. See the doc comment in that file for why the order matters.
+require_once LIB_PATH . '/legacy-aliases.php';
+
 function classAutoloader(string $class): void {
 	if (str_starts_with($class, 'FreshRSS')) {
 		$components = explode('_', $class);
@@ -89,6 +127,34 @@ function classAutoloader(string $class): void {
 
 spl_autoload_register('classAutoloader');
 //</Auto-loading>
+
+/**
+ * Alias for Translate::t(). Kept in the global namespace (unlike the
+ * `FreshRss\Minz` class it wraps) since it is called unqualified from every view/controller.
+ */
+function _t(string $key, bool|float|int|string ...$args): string {
+	return Translate::t($key, ...$args);
+}
+
+/**
+ * Alias for Url::display(). Kept in the global namespace (unlike the
+ * `FreshRss\Minz` class it wraps) since it is called unqualified from every view/controller.
+ */
+function _url(string $controller, string $action, int|string ...$args): string {
+	$nb_args = count($args);
+
+	if ($nb_args % 2 !== 0) {
+		return '';
+	}
+
+	$params = [];
+	for ($i = 0; $i < $nb_args; $i += 2) {
+		$arg = '' . $args[$i];
+		$params[$arg] = '' . $args[$i + 1];
+	}
+
+	return Url::display(['c' => $controller, 'a' => $action, 'params' => $params]);
+}
 
 /**
  * @param array<mixed,mixed> $array
@@ -248,13 +314,13 @@ function timeago(int $timestamp, ?int $baseTimestamp = null): string {
 	foreach ($units as [$unitSeconds, $unit]) {
 		if ($delta >= $unitSeconds) {
 			$unitValue = intdiv($delta, $unitSeconds);
-			$diff = Minz_Translate::plural('gen.interval.' . $unit, $unitValue) ?? ($unitValue . ' ' . $unit . ' ago');
+			$diff = Translate::plural('gen.interval.' . $unit, $unitValue) ?? ($unitValue . ' ' . $unit . ' ago');
 			break;
 		}
 	}
 
 	if ($diff === '') {
-		return Minz_Translate::t('gen.interval.justnow');
+		return Translate::t('gen.interval.justnow');
 	}
 	return $diff;
 }
@@ -327,10 +393,10 @@ function lazyimg(string $content): string {
 			'/<((?:video)[^>]+?)poster="([^"]+)"([^>]*)>/i',
 			"/<((?:video)[^>]+?)poster='([^']+)'([^>]*)>/i",
 		], [
-			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
-			'<$1poster="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-			"<$1poster='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+			'<$1src="' . Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+			"<$1src='" . Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+			'<$1poster="' . Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
+			"<$1poster='" . Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
 		],
 		$content
 	) ?? '';
@@ -344,21 +410,21 @@ function uTimeString(): string {
 }
 
 function invalidateHttpCache(string $username = ''): bool {
-	if (!FreshRSS_user_Controller::checkUsername($username)) {
-		Minz_Session::_param('touch', uTimeString());
-		$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
+	if (!UserController::checkUsername($username)) {
+		Session::_param('touch', uTimeString());
+		$username = User::name() ?? User::INTERNAL_USER;
 	}
-	return FreshRSS_UserDAO::ctouch($username);
+	return UserDAO::ctouch($username);
 }
 
-#[Deprecated('Use Minz_Request::connectionRemoteAddress() instead.')]
+#[Deprecated('Use Request::connectionRemoteAddress() instead.')]
 function connectionRemoteAddress(): string {
-	return Minz_Request::connectionRemoteAddress();
+	return Request::connectionRemoteAddress();
 }
 
-#[Deprecated('Use FreshRSS_http_Util::checkTrustedIP() instead.')]
+#[Deprecated('Use HttpUtil::checkTrustedIP() instead.')]
 function checkTrustedIP(): bool {
-	return FreshRSS_http_Util::checkTrustedIP();
+	return HttpUtil::checkTrustedIP();
 }
 
 /**
@@ -392,8 +458,8 @@ function recursive_unlink(string $dir): bool {
 	return rmdir($dir);
 }
 
-function _i(string $icon, int $type = FreshRSS_Themes::ICON_DEFAULT): string {
-	return FreshRSS_Themes::icon($icon, $type);
+function _i(string $icon, int $type = Themes::ICON_DEFAULT): string {
+	return Themes::icon($icon, $type);
 }
 
 function errorMessageInfo(string $errorTitle, string $error = ''): string {
@@ -414,7 +480,7 @@ function errorMessageInfo(string $errorTitle, string $error = ''): string {
 	}
 
 	header("Content-Security-Policy: default-src 'self'; frame-ancestors " .
-		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
+		(Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	header('Referrer-Policy: same-origin');
 
 	return <<<MSG

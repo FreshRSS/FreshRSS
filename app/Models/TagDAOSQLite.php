@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_TagDAOSQLite extends FreshRSS_TagDAO {
+namespace FreshRss\Models;
+
+class TagDAOSQLite extends TagDAO {
 
 	#[\Override]
 	public static function sqlIgnoreConflict(string $sql): string {

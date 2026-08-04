@@ -1,9 +1,13 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Models\Context;
+use FreshRss\Services\ExportService;
+
 require __DIR__ . '/_cli.php';
 
-performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
+performRequirementCheck(Context::systemConf()->db['type'] ?? '');
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $user;
@@ -22,7 +26,7 @@ $username = cliInitUser($cliOptions->user);
 
 fwrite(STDERR, 'FreshRSS exporting OPML for user “' . $username . "”…\n");
 
-$export_service = new FreshRSS_Export_Service($username);
+$export_service = new ExportService($username);
 [$filename, $content] = $export_service->generateOpml();
 echo $content;
 

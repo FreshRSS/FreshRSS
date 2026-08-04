@@ -1,15 +1,17 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
 
 /**
- * The Minz_View represents a view in the MVC paradigm
+ * The View represents a view in the MVC paradigm
  */
-class Minz_View {
+class View {
 	private const VIEWS_PATH_NAME = '/views';
 	private const LAYOUT_PATH_NAME = '/layout/';
 	private const LAYOUT_DEFAULT = 'layout';
@@ -30,20 +32,20 @@ class Minz_View {
 
 	/**
 	 * Determines if a layout is used or not
-	 * @throws Minz_ConfigurationException
+	 * @throws ConfigurationException
 	 */
 	public function __construct() {
 		$this->_layout(self::LAYOUT_DEFAULT);
-		$conf = Minz_Configuration::get('system');
+		$conf = Configuration::get('system');
 		self::$title = $conf->title;
 	}
 
 	/**
 	 * Change the view file based on controller and action.
 	 */
-	#[Deprecated('Use Minz_View::_path() instead.')]
+	#[\Deprecated('Use View::_path() instead.')]
 	public function change_view(string $controller_name, string $action_name): void {
-		Minz_Log::warning('Minz_View::change_view is deprecated, it will be removed in a future version. Please use Minz_View::_path instead.');
+		Log::warning('View::change_view is deprecated, it will be removed in a future version. Please use View::_path instead.');
 		$this->_path($controller_name . '/' . $action_name . '.phtml');
 	}
 
@@ -106,7 +108,7 @@ class Minz_View {
 	public function buildLayout(): void {
 		header('Content-Type: text/html; charset=UTF-8');
 		if (!$this->includeFile($this->layout_filename)) {
-			Minz_Log::notice('File not found: `' . $this->layout_filename . '`');
+			Log::notice('File not found: `' . $this->layout_filename . '`');
 		}
 	}
 
@@ -115,7 +117,7 @@ class Minz_View {
 	 */
 	public function render(): void {
 		if (!$this->includeFile($this->view_filename)) {
-			Minz_Log::notice('File not found: `' . $this->view_filename . '`');
+			Log::notice('File not found: `' . $this->view_filename . '`');
 		}
 	}
 
@@ -132,7 +134,7 @@ class Minz_View {
 	public function partial(string $part): void {
 		$fic_partial = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
 		if (!$this->includeFile($fic_partial)) {
-			Minz_Log::warning('File not found: `' . $fic_partial . '`');
+			Log::warning('File not found: `' . $fic_partial . '`');
 		}
 	}
 
@@ -143,7 +145,7 @@ class Minz_View {
 	public function renderHelper(string $helper): void {
 		$fic_helper = '/views/helpers/' . $helper . '.phtml';
 		if (!$this->includeFile($fic_helper)) {
-			Minz_Log::warning('File not found: `' . $fic_helper . '`');
+			Log::warning('File not found: `' . $fic_helper . '`');
 		}
 	}
 
@@ -173,9 +175,9 @@ class Minz_View {
 	 * Choose if we want to use the layout or not.
 	 * @param bool $use true if we want to use the layout, false else
 	 */
-	#[Deprecated('Use Minz_View::_layout() instead.')]
+	#[\Deprecated('Use View::_layout() instead.')]
 	public function _useLayout(bool $use): void {
-		Minz_Log::warning('Minz_View::_useLayout is deprecated, it will be removed in a future version. Please use Minz_View::_layout instead.');
+		Log::warning('View::_useLayout is deprecated, it will be removed in a future version. Please use View::_layout instead.');
 		if ($use) {
 			$this->_layout(self::LAYOUT_DEFAULT);
 		} else {
@@ -361,7 +363,7 @@ class Minz_View {
 	}
 
 	public function attributeParams(): void {
-		foreach (Minz_View::$params as $key => $value) {
+		foreach (View::$params as $key => $value) {
 			// @phpstan-ignore property.dynamicName
 			$this->$key = $value;
 		}

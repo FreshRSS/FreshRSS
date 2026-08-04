@@ -1,13 +1,15 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
 /**
  * Contains Boolean search from the search form.
  */
-class FreshRSS_BooleanSearch implements \Stringable {
+class BooleanSearch implements \Stringable {
 
 	private string $raw_input = '';
-	/** @var list<FreshRSS_BooleanSearch|FreshRSS_Search> */
+	/** @var list<BooleanSearch|Search> */
 	private array $searches = [];
 
 	/**
@@ -69,7 +71,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 
 		if (!empty($all_matches)) {
 			$queries = [];
-			foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
+			foreach (Context::userConf()->queries as $raw_query) {
 				if (($raw_query['name'] ?? '') !== '' && ($raw_query['search'] ?? '') !== '') {
 					$queries[$raw_query['name']] = trim($raw_query['search']);
 				}
@@ -110,7 +112,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 
 		if (!empty($all_matches)) {
 			$queries = [];
-			foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
+			foreach (Context::userConf()->queries as $raw_query) {
 				$queries[] = trim($raw_query['search'] ?? '');
 			}
 
@@ -299,7 +301,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 					}
 
 					// The text prior to the negation is a BooleanSearch
-					$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1, $nextOperator);
+					$searchBefore = new BooleanSearch($before, $level + 1, $nextOperator);
 					if (count($searchBefore->searches()) > 0) {
 						$this->searches[] = $searchBefore;
 					}
@@ -312,7 +314,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 					$before = substr($before, 0, -2);
 
 					// The text prior to the OR is a BooleanSearch
-					$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1, $nextOperator);
+					$searchBefore = new BooleanSearch($before, $level + 1, $nextOperator);
 					if (count($searchBefore->searches()) > 0) {
 						$this->searches[] = $searchBefore;
 					}
@@ -322,7 +324,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 					$nextOperator = 'OR';
 				} elseif ($before !== '') {
 					// The text prior to the opening parenthesis is a BooleanSearch
-					$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1, $nextOperator);
+					$searchBefore = new BooleanSearch($before, $level + 1, $nextOperator);
 					if (count($searchBefore->searches()) > 0) {
 						$this->searches[] = $searchBefore;
 					}
@@ -344,7 +346,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 						$parentheses--;
 						if ($parentheses === 0) {
 							// Found the matching closing parenthesis
-							$searchSub = new FreshRSS_BooleanSearch($sub, $level + 1, $nextOperator);
+							$searchSub = new BooleanSearch($sub, $level + 1, $nextOperator);
 							$nextOperator = 'AND';
 							if (count($searchSub->searches()) > 0) {
 								$this->searches[] = $searchSub;
@@ -380,7 +382,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			}
 
 			// The remaining text after the last parenthesis is a BooleanSearch
-			$searchBefore = new FreshRSS_BooleanSearch($before, $level + 1, $nextOperator);
+			$searchBefore = new BooleanSearch($before, $level + 1, $nextOperator);
 			$nextOperator = 'AND';
 			if (count($searchBefore->searches()) > 0) {
 				$this->searches[] = $searchBefore;
@@ -407,21 +409,21 @@ class FreshRSS_BooleanSearch implements \Stringable {
 				$quotes = substr_count($segment, '"') + substr_count($segment, '&quot;');
 				if ($quotes % 2 === 0) {
 					$segment = trim($segment);
-					$this->searches[] = new FreshRSS_Search($segment);
+					$this->searches[] = new Search($segment);
 					$segment = '';
 				}
 			}
 		}
 		$segment = trim($segment);
 		if ($segment !== '') {
-			$this->searches[] = new FreshRSS_Search($segment);
+			$this->searches[] = new Search($segment);
 		}
 	}
 
 	/**
-	 * Either a list of FreshRSS_BooleanSearch combined by implicit AND
-	 * or a series of FreshRSS_Search combined by explicit OR
-	 * @return list<FreshRSS_BooleanSearch|FreshRSS_Search>
+	 * Either a list of BooleanSearch combined by implicit AND
+	 * or a series of Search combined by explicit OR
+	 * @return list<BooleanSearch|Search>
 	 */
 	public function searches(): array {
 		return $this->searches;
@@ -432,38 +434,38 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		return $this->operator;
 	}
 
-	/** @param FreshRSS_BooleanSearch|FreshRSS_Search $search */
-	public function prepend(FreshRSS_BooleanSearch|FreshRSS_Search $search): void {
+	/** @param BooleanSearch|Search $search */
+	public function prepend(BooleanSearch|Search $search): void {
 		array_unshift($this->searches, $search);
 	}
 
-	/** @param FreshRSS_BooleanSearch|FreshRSS_Search $search */
-	public function add(FreshRSS_BooleanSearch|FreshRSS_Search $search): void {
+	/** @param BooleanSearch|Search $search */
+	public function add(BooleanSearch|Search $search): void {
 		$this->searches[] = $search;
 	}
 
 	/**
 	 * Modify the first compatible search of the Boolean expression, or add it at the beginning.
 	 * Useful to modify some search parameters.
-	 * @return FreshRSS_BooleanSearch a new instance, modified.
+	 * @return BooleanSearch a new instance, modified.
 	 */
-	public function enforce(FreshRSS_Search $search): self {
+	public function enforce(Search $search): self {
 		$result = clone $this;
 		$result->raw_input = '';
 		$result->expanded = null;
 		$result->notExpanded = null;
 
-		if (count($result->searches) === 1 && $result->searches[0] instanceof FreshRSS_Search) {
+		if (count($result->searches) === 1 && $result->searches[0] instanceof Search) {
 			$result->searches[0] = $result->searches[0]->enforce($search);
 			return $result;
 		}
 		if (count($result->searches) === 2) {
 			foreach ($result->searches as $booleanSearch) {
-				if (!($booleanSearch instanceof FreshRSS_BooleanSearch)) {
+				if (!($booleanSearch instanceof BooleanSearch)) {
 					break;
 				}
 				if ($booleanSearch->operator() === 'AND') {
-					if (count($booleanSearch->searches) === 1 && $booleanSearch->searches[0] instanceof FreshRSS_Search &&
+					if (count($booleanSearch->searches) === 1 && $booleanSearch->searches[0] instanceof Search &&
 						$booleanSearch->searches[0]->hasSameOperators($search)) {
 						$booleanSearch->searches[0] = $search;
 						return $result;
@@ -472,9 +474,9 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			}
 		}
 
-		if (count($result->searches) > 1 || (count($result->searches) > 0 && $result->searches[0] instanceof FreshRSS_Search)) {
+		if (count($result->searches) > 1 || (count($result->searches) > 0 && $result->searches[0] instanceof Search)) {
 			// Wrap the existing searches in a new BooleanSearch if needed
-			$wrap = new FreshRSS_BooleanSearch('');
+			$wrap = new BooleanSearch('');
 			foreach ($result->searches as $existingSearch) {
 				$wrap->add($existingSearch);
 			}
@@ -489,25 +491,25 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	/**
 	 * Remove the first compatible search of the Boolean expression, if any.
 	 * Useful to modify some search parameters.
-	 * @return FreshRSS_BooleanSearch a new instance, modified.
+	 * @return BooleanSearch a new instance, modified.
 	 */
-	public function remove(FreshRSS_Search $search): self {
+	public function remove(Search $search): self {
 		$result = clone $this;
 		$result->raw_input = '';
 		$result->expanded = null;
 		$result->notExpanded = null;
 
-		if (count($result->searches) === 1 && $result->searches[0] instanceof FreshRSS_Search) {
+		if (count($result->searches) === 1 && $result->searches[0] instanceof Search) {
 			$result->searches[0] = $result->searches[0]->remove($search);
 			return $result;
 		}
 		if (count($result->searches) === 2) {
 			foreach ($result->searches as $booleanSearch) {
-				if (!($booleanSearch instanceof FreshRSS_BooleanSearch)) {
+				if (!($booleanSearch instanceof BooleanSearch)) {
 					break;
 				}
 				if ($booleanSearch->operator() === 'AND') {
-					if (count($booleanSearch->searches) === 1 && $booleanSearch->searches[0] instanceof FreshRSS_Search &&
+					if (count($booleanSearch->searches) === 1 && $booleanSearch->searches[0] instanceof Search &&
 						$booleanSearch->searches[0]->hasSameOperators($search)) {
 						array_shift($booleanSearch->searches);
 						return $result;
@@ -524,21 +526,21 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	 * and if it includes some category IDs then it will return PRIORITY_CATEGORY.
 	 */
 	public function needVisibility(): ?int {
-		$minVisibility = FreshRSS_Feed::PRIORITY_IMPORTANT + 1;
+		$minVisibility = Feed::PRIORITY_IMPORTANT + 1;
 		foreach ($this->searches as $search) {
-			if ($search instanceof FreshRSS_BooleanSearch) {
+			if ($search instanceof BooleanSearch) {
 				$visibility = $search->needVisibility();
 				if ($visibility !== null) {
 					$minVisibility = min($minVisibility, $visibility);
 				}
-			} elseif ($search instanceof FreshRSS_Search) {
+			} elseif ($search instanceof Search) {
 				$visibility = $search->needVisibility();
 				if ($visibility !== null) {
 					$minVisibility = min($minVisibility, $visibility);
 				}
 			}
 		}
-		return $minVisibility < FreshRSS_Feed::PRIORITY_IMPORTANT ? $minVisibility : null;
+		return $minVisibility < Feed::PRIORITY_IMPORTANT ? $minVisibility : null;
 	}
 
 	private ?string $expanded = null;
@@ -552,7 +554,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 				if ($part === '') {
 					continue;
 				}
-				$operator = $search instanceof FreshRSS_BooleanSearch ? $search->operator : 'OR';
+				$operator = $search instanceof BooleanSearch ? $search->operator : 'OR';
 
 				if ((str_contains($part, ' ') || str_starts_with($part, '-')) && (count($this->searches) > 1 || in_array($operator, ['OR NOT', 'AND NOT'], true))) {
 					$part = '(' . $part . ')';
@@ -563,7 +565,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 					'OR NOT' => $result === '' ? '-' : ' OR -',
 					'AND NOT' => $result === '' ? '-' : ' -',
 					'AND' => $result === '' ? '' : ' ',
-					default => throw new InvalidArgumentException('Invalid operator: ' . $operator),
+					default => throw new \InvalidArgumentException('Invalid operator: ' . $operator),
 				} . $part;
 			}
 			$this->expanded = trim($result);
@@ -581,13 +583,13 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			return $this->__toString();
 		}
 		if ($this->notExpanded === null) {
-			$this->notExpanded = (new FreshRSS_BooleanSearch($this->raw_input, expandUserQueries: false))->__toString();
+			$this->notExpanded = (new BooleanSearch($this->raw_input, expandUserQueries: false))->__toString();
 		}
 		return $this->notExpanded;
 	}
 
 	/** @return string Plain text search query. Must be XML-encoded or URL-encoded depending on the situation */
-	#[Deprecated('Use __toString(expanded: false) instead')]
+	#[\Deprecated('Use __toString(expanded: false) instead')]
 	public function getRawInput(): string {
 		return $this->raw_input;
 	}

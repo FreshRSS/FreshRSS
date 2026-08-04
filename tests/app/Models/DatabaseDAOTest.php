@@ -1,9 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Models\DatabaseDAO;
+use FreshRss\Models\DatabaseDAOPGSQL;
+use FreshRss\Models\DatabaseDAOSQLite;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
-final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
+final class DatabaseDAOTest extends TestCase {
 
 	/** @return list<array{string,string,bool,bool}> */
 	public static function provideStrilikeCommon(): array {
@@ -96,7 +100,7 @@ final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
 			self::markTestSkipped('transliterator_transliterate function not available to handle e.g. Greek.');
 			return;	// @phpstan-ignore deadCode.unreachable
 		}
-		self::assertSame($expected, FreshRSS_DatabaseDAO::strilike($haystack, $needle, $contains));
+		self::assertSame($expected, DatabaseDAO::strilike($haystack, $needle, $contains));
 	}
 
 	#[DataProvider('provideStrilikeCommon')]
@@ -104,13 +108,13 @@ final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
 	#[DataProvider('provideStrilikeAccentsCasing')]
 	#[DataProvider('provideStrilikeUnicodeCasing')]
 	public static function test_strilike_PGSQL(string $haystack, string $needle, bool $contains, bool $expected): void {
-		self::assertSame($expected, FreshRSS_DatabaseDAOPGSQL::strilike($haystack, $needle, $contains));
+		self::assertSame($expected, DatabaseDAOPGSQL::strilike($haystack, $needle, $contains));
 	}
 
 	#[DataProvider('provideStrilikeCommon')]
 	#[DataProvider('provideStrilikeAccents')]
 	#[DataProvider('provideStrilikeNoUnicodeCasing')]
 	public static function test_strilike_SQLite(string $haystack, string $needle, bool $contains, bool $expected): void {
-		self::assertSame($expected, FreshRSS_DatabaseDAOSQLite::strilike($haystack, $needle, $contains));
+		self::assertSame($expected, DatabaseDAOSQLite::strilike($haystack, $needle, $contains));
 	}
 }

@@ -1,6 +1,12 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Controllers\ConfigureController;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+
 	$this->partial('aside_configure');
 ?>
 <main class="post">
@@ -13,17 +19,17 @@
 	</datalist>
 
 	<?php
-		$s = array_map(static fn(string $string) => htmlspecialchars($string, ENT_COMPAT, 'UTF-8'), FreshRSS_Context::userConf()->shortcuts);
+		$s = array_map(static fn(string $string) => htmlspecialchars($string, ENT_COMPAT, 'UTF-8'), Context::userConf()->shortcuts);
 	?>
 
-	<?php if ([] !== $nonStandard = FreshRSS_configure_Controller::getNonStandardShortcuts($s)): ?>
+	<?php if ([] !== $nonStandard = ConfigureController::getNonStandardShortcuts($s)): ?>
 		<p class="alert alert-error">
 			<?= _t('conf.shortcut.non_standard', implode('</kbd>, <kbd>', $nonStandard)) ?>
 		</p>
 	<?php endif; ?>
 
 	<form method="post" action="<?= _url('configure', 'shortcut') ?>" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 
 		<noscript><p class="alert alert-error"><?= _t('conf.shortcut.javascript') ?></p></noscript>
 

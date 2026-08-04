@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_password_Util {
+namespace FreshRss\Utils;
+
+class PasswordUtil {
 	// Will also have to be computed client side on mobile devices,
 	// so do not use a too high cost
 	public const BCRYPT_COST = 9;

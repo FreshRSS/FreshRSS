@@ -1,29 +1,38 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Mailers;
+
+use FreshRss\Minz\Mailer;
+use FreshRss\Minz\Translate;
+use FreshRss\Minz\Url;
+use FreshRss\Models\Context;
+use FreshRss\Models\UserConfiguration;
+use FreshRss\Models\View;
+
 /**
  * Manage the emails sent to the users.
  */
-class FreshRSS_User_Mailer extends Minz_Mailer {
+class UserMailer extends Mailer {
 
 	/**
-	 * @var FreshRSS_View
+	 * @var View
 	 * @phpstan-ignore property.phpDocType
 	 */
 	protected $view;
 
 	public function __construct() {
-		parent::__construct(FreshRSS_View::class);
+		parent::__construct(View::class);
 	}
 
-	public function send_email_need_validation(string $username, FreshRSS_UserConfiguration $user_config): bool {
-		Minz_Translate::reset($user_config->language);
+	public function send_email_need_validation(string $username, UserConfiguration $user_config): bool {
+		Translate::reset($user_config->language);
 
 		$this->view->_path('user_mailer/email_need_validation.txt.php');
 
 		$this->view->username = $username;
-		$this->view->site_title = FreshRSS_Context::systemConf()->title;
-		$this->view->validation_url = Minz_Url::display(
+		$this->view->site_title = Context::systemConf()->title;
+		$this->view->validation_url = Url::display(
 			[
 				'c' => 'user',
 				'a' => 'validateEmail',
@@ -36,7 +45,7 @@ class FreshRSS_User_Mailer extends Minz_Mailer {
 			true
 		);
 
-		$subject_prefix = '[' . FreshRSS_Context::systemConf()->title . ']';
+		$subject_prefix = '[' . Context::systemConf()->title . ']';
 		return $this->mail(
 			$user_config->mail_login,
 			$subject_prefix . ' ' . _t('user.mailer.email_need_validation.title')

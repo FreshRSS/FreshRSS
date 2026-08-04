@@ -1,7 +1,13 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_Themes extends Minz_Model {
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Helper;
+use FreshRss\Minz\Model;
+use FreshRss\Minz\Url;
+
+class Themes extends Model {
 
 	private static string $themesUrl = '/themes/';
 	private static string $defaultIconsUrl = '/themes/icons/';
@@ -63,7 +69,7 @@ class FreshRSS_Themes extends Minz_Model {
 							'default' => is_string($res['theme-color']['default'] ?? null) ? $res['theme-color']['default'] : '',
 						];
 					}
-					$result = Minz_Helper::htmlspecialchars_utf8($result);
+					$result = Helper::htmlspecialchars_utf8($result);
 					return $result;
 				}
 			}
@@ -176,7 +182,7 @@ class FreshRSS_Themes extends Minz_Model {
 		}
 
 		if ($type == self::ICON_DEFAULT) {
-			if ((FreshRSS_Context::hasUserConf() && FreshRSS_Context::userConf()->icons_as_emojis)
+			if ((Context::hasUserConf() && Context::userConf()->icons_as_emojis)
 				// default to emoji alternate for some icons
 			) {
 				$type = self::ICON_EMOJI;
@@ -186,8 +192,8 @@ class FreshRSS_Themes extends Minz_Model {
 		}
 
 		return match ($type) {
-			self::ICON_URL => Minz_Url::display($url),
-			self::ICON_IMG => '<img class="icon" src="' . Minz_Url::display($url) . '" loading="lazy" alt="' . $alt . '"' . $title . ' />',
+			self::ICON_URL => Url::display($url),
+			self::ICON_IMG => '<img class="icon" src="' . Url::display($url) . '" loading="lazy" alt="' . $alt . '"' . $title . ' />',
 			self::ICON_EMOJI, =>  '<span class="icon"' . $title . '>' . $alt . '</span>',
 			default => '<span class="icon"' . $title . '>' . $alt . '</span>',
 		};

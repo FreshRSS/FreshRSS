@@ -1,6 +1,9 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Models\Context;
+
 require __DIR__ . '/_cli.php';
 
 $cliOptions = new class extends CliOptionsParser {
@@ -58,7 +61,7 @@ if ($hasSet && !$hasValue && !$hasStdin) {
 }
 
 $username = cliInitUser($cliOptions->user);
-$userConf = FreshRSS_Context::userConf();
+$userConf = Context::userConf();
 
 function isSecretKey(string $key): bool {
 	return (bool) preg_match('/(hash|key|password|token|secret)$/i', $key);

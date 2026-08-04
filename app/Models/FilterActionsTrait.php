@@ -1,23 +1,28 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+
 /**
  * Logic to apply filter actions (for feeds, categories, user configuration...).
  */
-trait FreshRSS_FilterActionsTrait {
+trait FilterActionsTrait {
 
-	/** @var list<FreshRSS_FilterAction>|null $filterActions */
+	/** @var list<FilterAction>|null $filterActions */
 	private ?array $filterActions = null;
 
 	/**
-	 * @return list<FreshRSS_FilterAction>
+	 * @return list<FilterAction>
 	 */
 	private function filterActions(): array {
 		if (empty($this->filterActions)) {
 			$this->filterActions = [];
 			$filters = $this->attributeArray('filters') ?? [];
 			foreach ($filters as $filter) {
-				$filterAction = FreshRSS_FilterAction::fromJSON($filter);
+				$filterAction = FilterAction::fromJSON($filter);
 				if ($filterAction != null) {
 					$this->filterActions[] = $filterAction;
 				}
@@ -27,20 +32,20 @@ trait FreshRSS_FilterActionsTrait {
 	}
 
 	/**
-	 * @param array<FreshRSS_FilterAction>|null $filterActions
+	 * @param array<FilterAction>|null $filterActions
 	 */
 	private function _filterActions(?array $filterActions): void {
 		$this->filterActions = is_array($filterActions) ? array_values($filterActions) : null;
 		if ($this->filterActions !== null && !empty($this->filterActions)) {
 			$this->_attribute('filters', array_map(
-				static fn(?FreshRSS_FilterAction $af) => $af == null ? null : $af->toJSON(),
+				static fn(?FilterAction $af) => $af == null ? null : $af->toJSON(),
 				$this->filterActions));
 		} else {
 			$this->_attribute('filters', null);
 		}
 	}
 
-	/** @return list<FreshRSS_BooleanSearch> */
+	/** @return list<BooleanSearch> */
 	public function filtersAction(string $action): array {
 		$action = trim($action);
 		if ($action == '') {
@@ -102,7 +107,7 @@ trait FreshRSS_FilterActionsTrait {
 		for ($k = count($filters) - 1; $k >= 0; $k--) {
 			$filter = $filters[$k];
 			if ($filter != '') {
-				$filterAction = FreshRSS_FilterAction::fromJSON([
+				$filterAction = FilterAction::fromJSON([
 					'search' => $filter,
 					'actions' => [$action],
 				]);
@@ -122,7 +127,7 @@ trait FreshRSS_FilterActionsTrait {
 	 * @param bool $applyLabel Parameter by reference, which will be set to true if the callers needs to apply a label to the article entry.
 	 * @param-out bool $applyLabel
 	 */
-	public function applyFilterActions(FreshRSS_Entry $entry, ?bool &$applyLabel = null): void {
+	public function applyFilterActions(Entry $entry, ?bool &$applyLabel = null): void {
 		$applyLabel = false;
 		foreach ($this->filterActions() as $filterAction) {
 			if ($entry->matches($filterAction->booleanSearch())) {
@@ -131,7 +136,7 @@ trait FreshRSS_FilterActionsTrait {
 						case 'read':
 							if (!$entry->isRead()) {
 								$entry->_isRead(true);
-								Minz_ExtensionManager::callHook(Minz_HookType::EntryAutoRead, $entry, 'filter');
+								ExtensionManager::callHook(HookType::EntryAutoRead, $entry, 'filter');
 							}
 							break;
 						case 'star':

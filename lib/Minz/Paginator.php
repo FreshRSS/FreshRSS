@@ -1,17 +1,19 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
 */
 
 /**
- * The Minz_Paginator is used to handle paging
+ * The Paginator is used to handle paging
  */
-class Minz_Paginator {
+class Paginator {
 	/**
-	 * @var list<Minz_Model> tableau des éléments à afficher/gérer
+	 * @var list<Model> tableau des éléments à afficher/gérer
 	 */
 	private array $items = [];
 
@@ -37,7 +39,7 @@ class Minz_Paginator {
 
 	/**
 	 * Constructeur
-	 * @param list<Minz_Model> $items les éléments à gérer
+	 * @param list<Model> $items les éléments à gérer
 	 */
 	public function __construct(array $items) {
 		$this->_items($items);
@@ -61,10 +63,10 @@ class Minz_Paginator {
 
 	/**
 	 * Permet de retrouver la page d'un élément donné
-	 * @param Minz_Model $item l'élément à retrouver
+	 * @param Model $item l'élément à retrouver
 	 * @return int|false la page à laquelle se trouve l’élément, false si non trouvé
 	 */
-	public function pageByItem(Minz_Model $item): int|false {
+	public function pageByItem(Model $item): int|false {
 		$i = 0;
 
 		do {
@@ -79,10 +81,10 @@ class Minz_Paginator {
 
 	/**
 	 * Search the position (index) of a given element
-	 * @param Minz_Model $item the element to search
+	 * @param Model $item the element to search
 	 * @return int|false the position of the element, or false if not found
 	 */
-	public function positionByItem(Minz_Model $item): int|false {
+	public function positionByItem(Model $item): int|false {
 		$i = 0;
 
 		do {
@@ -98,9 +100,9 @@ class Minz_Paginator {
 	/**
 	 * Permet de récupérer un item par sa position
 	 * @param int $pos la position de l'élément
-	 * @return Minz_Model item situé à $pos (dernier item si $pos<0, 1er si $pos>=count($items))
+	 * @return Model item situé à $pos (dernier item si $pos<0, 1er si $pos>=count($items))
 	 */
-	public function itemByPosition(int $pos): Minz_Model {
+	public function itemByPosition(int $pos): Model {
 		if ($pos < 0) {
 			$pos = $this->nbItems() - 1;
 		}
@@ -116,7 +118,7 @@ class Minz_Paginator {
 	 */
 	/**
 	 * @param bool $all si à true, retourne tous les éléments sans prendre en compte la pagination
-	 * @return list<Minz_Model>
+	 * @return list<Model>
 	 */
 	public function items(bool $all = false): array {
 		$array = [];
@@ -159,7 +161,7 @@ class Minz_Paginator {
 	/**
 	 * SETTEURS
 	 */
-	/** @param list<Minz_Model> $items */
+	/** @param list<Model> $items */
 	public function _items(?array $items): void {
 		$this->items = $items ?? [];
 		$this->_nbPage();
@@ -177,7 +179,7 @@ class Minz_Paginator {
 	}
 	public function _currentPage(int $page): void {
 		if ($page < 1 || ($page > $this->nbPage && $this->nbPage > 0)) {
-			throw new Minz_CurrentPagePaginationException($page);
+			throw new CurrentPagePaginationException($page);
 		}
 
 		$this->currentPage = $page;

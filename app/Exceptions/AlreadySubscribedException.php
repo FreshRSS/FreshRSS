@@ -1,7 +1,11 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_AlreadySubscribed_Exception extends Minz_Exception {
+namespace FreshRss\Exceptions;
+
+use FreshRss\Minz\Exception;
+
+class AlreadySubscribedException extends Exception {
 
 	public function __construct(string $url, private readonly string $feedName) {
 		parent::__construct('Already subscribed! ' . $url, 2135);

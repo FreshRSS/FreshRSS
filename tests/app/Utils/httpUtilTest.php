@@ -1,16 +1,17 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Utils\HttpUtil;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
- * Tests for FreshRSS_http_Util
+ * Tests for HttpUtil
  */
 class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideUrlsIgnoringHttps')]
 	public function test_compareUrlIgnoringHttps(string $url1, string $url2, bool $expected): void {
-		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);
+		self::assertEquals($expected, HttpUtil::compareUrlIgnoringHttps($url1, $url2) === 0);
 	}
 
 	/** @return list<array{string,string,bool}> */

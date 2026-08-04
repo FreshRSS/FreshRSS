@@ -1,7 +1,14 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_fever_Util {
+namespace FreshRss\Utils;
+
+use FreshRss\Exceptions\ContextException;
+use FreshRss\Minz\Log;
+use FreshRss\Models\Context;
+use FreshRss\Models\UserConfiguration;
+
+class FeverUtil {
 	private const FEVER_PATH = DATA_PATH . '/fever';
 
 	/**
@@ -19,24 +26,24 @@ class FreshRSS_fever_Util {
 
 		$ok = touch(self::FEVER_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
 		if (!$ok) {
-			Minz_Log::error("Could not save Fever API credentials. The directory does not have write access.");
+			Log::error("Could not save Fever API credentials. The directory does not have write access.");
 		}
 		return $ok;
 	}
 
 	/**
 	 * Return the corresponding path for a fever key.
-	 * @throws FreshRSS_Context_Exception
+	 * @throws ContextException
 	 */
 	public static function getKeyPath(string $feverKey): string {
-		$salt = sha1(FreshRSS_Context::systemConf()->salt);
+		$salt = sha1(Context::systemConf()->salt);
 		return self::FEVER_PATH . '/.key-' . $salt . '-' . $feverKey . '.txt';
 	}
 
 	/**
 	 * Update the fever key of a user.
 	 * @return string|false the Fever key, or false if the update failed
-	 * @throws FreshRSS_Context_Exception
+	 * @throws ContextException
 	 */
 	public static function updateKey(string $username, string $passwordPlain): string|false {
 		if (!self::checkFeverPath()) {
@@ -51,7 +58,7 @@ class FreshRSS_fever_Util {
 		if (is_int($result) && $result > 0) {
 			return $feverKey;
 		}
-		Minz_Log::warning('Could not save Fever API credentials. Unknown error.', ADMIN_LOG);
+		Log::warning('Could not save Fever API credentials. Unknown error.', ADMIN_LOG);
 		return false;
 	}
 
@@ -59,10 +66,10 @@ class FreshRSS_fever_Util {
 	 * Delete the Fever key of a user.
 	 *
 	 * @return bool true if the deletion succeeded, else false.
-	 * @throws FreshRSS_Context_Exception
+	 * @throws ContextException
 	 */
 	public static function deleteKey(string $username): bool {
-		$userConfig = FreshRSS_UserConfiguration::getForUser($username);
+		$userConfig = UserConfiguration::getForUser($username);
 		if ($userConfig === null) {
 			return false;
 		}

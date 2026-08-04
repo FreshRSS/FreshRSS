@@ -1,25 +1,32 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$this->partial('aside_configure');
+	/** @var View $this */
+
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+use FreshRss\Utils\HttpUtil;
+use FreshRss\Utils\PasswordUtil;
+
+$this->partial('aside_configure');
 ?>
 <main class="post">
 	<h1><?= _t('gen.menu.authentication') ?></h1>
 	<form method="post" action="<?= _url('auth', 'index') ?>" data-auto-leave-validation="1">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 
 		<div class="form-group">
 			<label class="group-name" for="auth_type"><?= _t('admin.auth.type') ?></label>
 			<div class="group-controls">
 				<select id="auth_type" name="auth_type" required="required">
-					<?php if (!in_array(FreshRSS_Context::systemConf()->auth_type, ['form', 'http_auth', 'none'], true)) { ?>
+					<?php if (!in_array(Context::systemConf()->auth_type, ['form', 'http_auth', 'none'], true)) { ?>
 						<option selected="selected"></option>
 					<?php } ?>
-					<option value="form"<?= FreshRSS_Context::systemConf()->auth_type === 'form' ? ' selected="selected"' : '',
-						FreshRSS_password_Util::cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
-					<option value="http_auth"<?= FreshRSS_Context::systemConf()->auth_type === 'http_auth' ? ' selected="selected"' : '' ?>>
-						<?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= FreshRSS_http_Util::httpAuthUser() ?>')</option>
-					<option value="none"<?= FreshRSS_Context::systemConf()->auth_type === 'none' ? ' selected="selected"' : '' ?>><?= _t('admin.auth.none') ?></option>
+					<option value="form"<?= Context::systemConf()->auth_type === 'form' ? ' selected="selected"' : '',
+						PasswordUtil::cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
+					<option value="http_auth"<?= Context::systemConf()->auth_type === 'http_auth' ? ' selected="selected"' : '' ?>>
+						<?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= HttpUtil::httpAuthUser() ?>')</option>
+					<option value="none"<?= Context::systemConf()->auth_type === 'none' ? ' selected="selected"' : '' ?>><?= _t('admin.auth.none') ?></option>
 				</select>
 			</div>
 		</div>
@@ -28,9 +35,9 @@
 			<div class="group-controls">
 				<label class="checkbox" for="anon_access">
 					<input type="checkbox" name="anon_access" id="anon_access" value="1"<?=
-						FreshRSS_Context::systemConf()->allow_anonymous ? ' checked="checked"' : '',
-						FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"' ?> />
-					<?= _t('admin.auth.allow_anonymous', FreshRSS_Context::systemConf()->default_user) ?>
+						Context::systemConf()->allow_anonymous ? ' checked="checked"' : '',
+						Auth::accessNeedsAction() ? '' : ' disabled="disabled"' ?> />
+					<?= _t('admin.auth.allow_anonymous', Context::systemConf()->default_user) ?>
 				</label>
 			</div>
 		</div>
@@ -39,8 +46,8 @@
 			<div class="group-controls">
 				<label class="checkbox" for="anon_refresh">
 					<input type="checkbox" name="anon_refresh" id="anon_refresh" value="1"<?=
-						FreshRSS_Context::systemConf()->allow_anonymous_refresh ? ' checked="checked"' : '',
-						FreshRSS_Auth::accessNeedsAction() ? '' : ' disabled="disabled"' ?> />
+						Context::systemConf()->allow_anonymous_refresh ? ' checked="checked"' : '',
+						Auth::accessNeedsAction() ? '' : ' disabled="disabled"' ?> />
 					<?= _t('admin.auth.allow_anonymous_refresh') ?>
 				</label>
 			</div>
@@ -50,8 +57,8 @@
 			<div class="group-controls">
 				<label class="checkbox" for="api_enabled">
 					<input type="checkbox" name="api_enabled" id="api_enabled" value="1"<?=
-						FreshRSS_Context::systemConf()->api_enabled ? ' checked="checked"' : '',
-						FreshRSS_Auth::accessNeedsLogin() ? '' : ' disabled="disabled"' ?> />
+						Context::systemConf()->api_enabled ? ' checked="checked"' : '',
+						Auth::accessNeedsLogin() ? '' : ' disabled="disabled"' ?> />
 					<?= _t('admin.auth.api_enabled') ?>
 				</label>
 			</div>

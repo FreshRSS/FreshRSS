@@ -1,17 +1,22 @@
 <?php
 declare(strict_types=1);
 
-final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
+namespace FreshRss\Models;
+
+use FreshRss\Exceptions\ContextException;
+use FreshRss\Utils\HttpUtil;
+
+final class SimplePieCustom extends \SimplePie\SimplePie
 {
 	/**
 	 * @param array<string,mixed> $attributes
 	 * @param array<int,mixed> $curl_options
-	 * @throws FreshRSS_Context_Exception
+	 * @throws ContextException
 	 */
 	public function __construct(array $attributes = [], array $curl_options = []) {
 		parent::__construct();
-		$limits = FreshRSS_Context::systemConf()->limits;
-		$this->get_registry()->register(\SimplePie\File::class, FreshRSS_SimplePieFetch::class);
+		$limits = Context::systemConf()->limits;
+		$this->get_registry()->register(\SimplePie\File::class, SimplePieFetch::class);
 		$this->set_useragent(FRESHRSS_USERAGENT);
 		$this->set_cache_name_function('sha1');	// @phpstan-ignore method.deprecated
 		$this->set_cache_location(CACHE_PATH);	// @phpstan-ignore method.deprecated
@@ -21,7 +26,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : (int)$attributes['timeout'];
 		$this->set_timeout($feed_timeout > 0 ? $feed_timeout : $limits['timeout']);
 
-		$curl_options = array_replace(FreshRSS_Context::systemConf()->curl_options, $curl_options);
+		$curl_options = array_replace(Context::systemConf()->curl_options, $curl_options);
 		if (isset($attributes['ssl_verify'])) {
 			$curl_options[CURLOPT_SSL_VERIFYHOST] = empty($attributes['ssl_verify']) ? 0 : 2;
 			$curl_options[CURLOPT_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
@@ -29,7 +34,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 				$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
 			}
 		}
-		$attributes['curl_params'] = FreshRSS_http_Util::sanitizeCurlParams(is_array($attributes['curl_params'] ?? null) ? $attributes['curl_params'] : []);
+		$attributes['curl_params'] = HttpUtil::sanitizeCurlParams(is_array($attributes['curl_params'] ?? null) ? $attributes['curl_params'] : []);
 		if (!empty($attributes['curl_params']) && is_array($attributes['curl_params'])) {
 			foreach ($attributes['curl_params'] as $co => $v) {
 				if (is_int($co)) {
@@ -44,8 +49,10 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 				unset($curl_options[CURLOPT_PROXY]);
 			}
 		}
+		// @phpstan-ignore function.alreadyNarrowedType (Not always true on all supported PHP versions)
 		if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
 			$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+			// @phpstan-ignore function.alreadyNarrowedType (Not always true on all supported PHP versions)
 			if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
 				$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
 			}
@@ -289,7 +296,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		if ($maxLength !== null) {
 			$data = mb_strcut($data, 0, $maxLength, 'UTF-8');
 		}
-		/** @var FreshRSS_SimplePieCustom|null $simplePie */
+		/** @var SimplePieCustom|null $simplePie */
 		static $simplePie = null;
 		if ($simplePie === null) {
 			$simplePie = new static();

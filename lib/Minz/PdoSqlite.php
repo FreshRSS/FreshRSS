@@ -1,15 +1,17 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Sous licence AGPL3 <http://www.gnu.org/licenses/>
  */
 
-class Minz_PdoSqlite extends Minz_Pdo {
+class PdoSqlite extends Pdo {
 	/**
 	 * @param array<int,int|string|bool>|null $options
-	 * @throws PDOException
+	 * @throws \PDOException
 	 */
 	public function __construct(string $dsn, ?string $username = null, ?string $passwd = null, ?array $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
@@ -22,7 +24,7 @@ class Minz_PdoSqlite extends Minz_Pdo {
 	}
 
 	/**
-	 * @throws PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
+	 * @throws \PDOException if the attribute `PDO::ATTR_ERRMODE` is set to `PDO::ERRMODE_EXCEPTION`
 	 */
 	#[\Override]
 	public function lastInsertId(?string $name = null): string|false {

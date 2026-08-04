@@ -1,6 +1,12 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Configuration;
+use FreshRss\Minz\ConfigurationNamespaceException;
+use FreshRss\Minz\FileNotExistException;
+
 /**
  * @property bool $allow_anonymous
  * @property bool $allow_anonymous_refresh
@@ -33,18 +39,18 @@ declare(strict_types=1);
  * @property array<string> $internal_host_allowlist
  * @property array<string,array<string,mixed>> $extensions
  */
-final class FreshRSS_SystemConfiguration extends Minz_Configuration {
+final class SystemConfiguration extends Configuration {
 
-	/** @throws Minz_FileNotExistException */
-	public static function init(string $config_filename, ?string $default_filename = null): FreshRSS_SystemConfiguration {
+	/** @throws FileNotExistException */
+	public static function init(string $config_filename, ?string $default_filename = null): SystemConfiguration {
 		parent::register('system', $config_filename, $default_filename);
 		try {
 			$conf = parent::get('system');
 			ini_set('pcre.backtrack_limit', $conf->limits['regex_backtrack_limit']);
 			ini_set('pcre.recursion_limit', $conf->limits['regex_recursion_limit']);
 			return $conf;
-		} catch (Minz_ConfigurationNamespaceException $ex) {
-			FreshRSS::killApp($ex->getMessage());
+		} catch (ConfigurationNamespaceException $ex) {
+			\FreshRSS::killApp($ex->getMessage());
 		}
 	}
 }

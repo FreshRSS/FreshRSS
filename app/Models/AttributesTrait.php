@@ -1,10 +1,12 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
 /**
  * Logic to work with (JSON) attributes (for entries, feeds, categories, tags...).
  */
-trait FreshRSS_AttributesTrait {
+trait AttributesTrait {
 	/**
 	 * @var array<string,mixed>
 	 */

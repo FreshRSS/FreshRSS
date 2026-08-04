@@ -1,4 +1,7 @@
 <?php
 declare(strict_types=1);
-/** @var FreshRSS_ViewJavascript $this */
+/** @var ViewJavascript $this */
+
+use FreshRss\Models\ViewJavascript;
+
 echo json_encode(['salt1' => $this->salt1, 'nonce' => $this->nonce]);

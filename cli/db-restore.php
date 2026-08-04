@@ -1,9 +1,16 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\UserController;
+use FreshRss\Minz\User;
+use FreshRss\Models\Context;
+use FreshRss\Models\DatabaseDAO;
+use FreshRss\Models\Factory;
+
 require __DIR__ . '/_cli.php';
 
-performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
+performRequirementCheck(Context::systemConf()->db['type'] ?? '');
 
 $cliOptions = new class extends CliOptionsParser {
 	public bool $deleteBackup;
@@ -20,8 +27,8 @@ if (!empty($cliOptions->errors)) {
 	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-FreshRSS_Context::initSystem(true);
-Minz_User::change(Minz_User::INTERNAL_USER);
+Context::initSystem(true);
+User::change(User::INTERNAL_USER);
 $ok = false;
 try {
 	$error = initDb();
@@ -37,7 +44,7 @@ if (!$ok) {
 	fail('FreshRSS database error: ' . (is_string($_SESSION['bd_error'] ?? null) ? $_SESSION['bd_error'] : 'Unknown error'));
 }
 
-foreach (FreshRSS_user_Controller::listUsers() as $username) {
+foreach (UserController::listUsers() as $username) {
 	$username = cliInitUser($username);
 	$filename = DATA_PATH . "/users/{$username}/backup.sqlite";
 	if (!file_exists($filename)) {
@@ -48,8 +55,8 @@ foreach (FreshRSS_user_Controller::listUsers() as $username) {
 
 	echo 'FreshRSS restore database from SQLite for user “', $username, "”…\n";
 
-	$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
-	$ok &= $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_IMPORT, clearFirst: $cliOptions->forceOverwrite);
+	$databaseDAO = Factory::createDatabaseDAO($username);
+	$ok &= $databaseDAO->dbCopy($filename, DatabaseDAO::SQLITE_IMPORT, clearFirst: $cliOptions->forceOverwrite);
 	if ($ok) {
 		if ($cliOptions->deleteBackup) {
 			unlink($filename);
