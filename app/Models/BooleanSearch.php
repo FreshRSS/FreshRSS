@@ -434,8 +434,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 
 	/**
 	 * Wrap the existing searches in a single BooleanSearch if needed,
-	 * so that another search can be added as an additional restriction (AND)
-	 * instead of being combined by OR with the existing sibling searches.
+	 * so that another search can be added as an additional restriction (AND).
 	 */
 	private function wrapSearches(): void {
 		if (count($this->searches) > 1 || (count($this->searches) > 0 && $this->searches[0] instanceof FreshRSS_Search)) {
@@ -454,7 +453,6 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	 * @param FreshRSS_BooleanSearch|FreshRSS_Search $search
 	 */
 	public function prepend(FreshRSS_BooleanSearch|FreshRSS_Search $search): void {
-		// Sibling searches are combined by OR, so the existing expression must be wrapped first
 		$this->wrapSearches();
 		array_unshift($this->searches, $search);
 	}

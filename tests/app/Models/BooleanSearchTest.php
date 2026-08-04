@@ -8,7 +8,6 @@ final class BooleanSearchTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * `FreshRSS_BooleanSearch::prepend()` is used to restrict an existing search with an extra condition,
 	 * such as the maximum publication date of the “mark as read → articles older than one day/week” action.
-	 * Sibling searches are combined by OR, so the extra condition must not end up as one more OR term.
 	 * @return list<array{string,string,list<string|int>}>
 	 */
 	public static function providePrependMaxPubdate(): array {
