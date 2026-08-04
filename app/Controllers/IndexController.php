@@ -17,6 +17,7 @@ use FreshRss\Models\CategoryDAO;
 use FreshRss\Models\Context;
 use FreshRss\Models\Entry;
 use FreshRss\Models\Factory;
+use FreshRss\Models\Log as LogModel;
 use FreshRss\Models\LogDAO;
 use FreshRss\Models\Search;
 use FreshRss\Models\View;
@@ -482,7 +483,7 @@ class IndexController extends ActionController {
 		$logs = LogDAO::lines();	//TODO: ask only the necessary lines
 		$search = trim(Request::paramString('search', plaintext: true));
 		if ($search !== '') {
-			$logs = array_values(array_filter($logs, static fn(\FreshRss\Models\Log $log): bool =>
+			$logs = array_values(array_filter($logs, static fn(LogModel $log): bool =>
 				stripos($log->level(), $search) !== false ||
 				stripos($log->date(), $search) !== false ||
 				stripos($log->info(), $search) !== false));
