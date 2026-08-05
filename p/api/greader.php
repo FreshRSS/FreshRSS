@@ -452,7 +452,7 @@ final class GReaderAPI {
 							$http_auth = '';
 							try {
 								$kind = self::detectFeedKind($streamUrl);
-								FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, '', $http_auth, [], $kind);
+								FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, '', $http_auth, [], kind: $kind);
 								continue 2;
 							} catch (Exception $e) {
 								Minz_Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
@@ -484,20 +484,8 @@ final class GReaderAPI {
 	}
 
 	/**
-	 * Detect the FreshRSS_Feed::KIND to use for a URL that is being subscribed to.
-	 *
-	 * The Google Reader API only provides a URL, with no way for the client to
-	 * specify the feed format, so we auto-detect the one non-RSS/Atom format that
-	 * is self-describing: the standard JSON Feed (https://www.jsonfeed.org/).
-	 * All other kinds require per-feed configuration (XPath, dot notation, …) that
-	 * cannot be inferred, so anything that is not a JSON Feed falls back to
-	 * KIND_RSS, which also covers RSS/Atom and HTML feed auto-discovery.
-	 *
-	 * The guess is based purely on the URL string (no network request), using the
-	 * same heuristic as the Web subscription form (see `init_json_feed_detection()`
-	 * in p/scripts/feed.js): the URL is treated as a JSON Feed when it contains
-	 * "json" as a standalone token, delimited by a word boundary or an underscore
-	 * (e.g. `…/feed.json` or `…/feed_json`, but not `…/jsonfeed`).
+	 * Guess the kind of feed (RSS/ATOM vs. JSON) based on URL.
+	 * The Google Reader API does not provide any way for the client to specify the feed format.
 	 */
 	private static function detectFeedKind(string $url): int {
 		return preg_match('/(?:\b|_)json(?:\b|_)/i', $url) === 1
@@ -511,7 +499,7 @@ final class GReaderAPI {
 			if (str_starts_with($url, 'feed/')) {
 				$url = substr($url, 5);
 			}
-			$feed = FreshRSS_feed_Controller::addFeed($url, '', 0, '', '', [], self::detectFeedKind($url));
+			$feed = FreshRSS_feed_Controller::addFeed($url, kind: self::detectFeedKind($url));
 			exit(json_encode([
 					'numResults' => 1,
 					'query' => $feed->url(),
