@@ -83,7 +83,7 @@ foreach ($this->entries as $item) {
 					}
 					$mediaCredits = '';
 					foreach ($credits as $credit) {
-						$mediaCredits = '<media:credit>' . $credit . '</media:credit>';
+						$mediaCredits .= '<media:credit>' . $credit . '</media:credit>';
 					}
 
 					// https://www.rssboard.org/media-rss
