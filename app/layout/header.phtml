@@ -53,9 +53,6 @@
 
 	<?php if (FreshRSS_Auth::hasAccess()) { ?>
 	<nav class="item configure">
-		<form id="post-csrf" method="post">
-			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		</form>
 		<div class="dropdown">
 			<div id="dropdown-configure" class="dropdown-target"></div>
 			<a class="btn dropdown-toggle" href="#dropdown-configure"><?= _i('configure') ?></a>
@@ -70,7 +67,10 @@
 						<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
 						<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
 						<li class="item">
-							<button class="as-link signout" form="post-csrf" formaction="<?= _url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></button>
+							<form method="POST">
+								<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+								<button class="as-link signout" formaction="<?= _url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></button>
+							</form>
 						</li>
 						<?php else: ?>
 						<li class="item"><span class="signout">(<?= htmlspecialchars(Minz_User::name() ?? '', ENT_NOQUOTES, 'UTF-8') ?>)</span></li>
