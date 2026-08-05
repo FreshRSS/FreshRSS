@@ -493,21 +493,16 @@ final class GReaderAPI {
 	 * cannot be inferred, so anything that is not a JSON Feed falls back to
 	 * KIND_RSS, which also covers RSS/Atom and HTML feed auto-discovery.
 	 *
-	 * The probe reuses the same on-disk HTTP cache (keyed by URL) that the
-	 * post-subscription refresh reads from, so it does not trigger an extra
-	 * network request to the feed.
+	 * The guess is based purely on the URL string (no network request), using the
+	 * same heuristic as the Web subscription form (see `init_json_feed_detection()`
+	 * in p/scripts/feed.js): the URL is treated as a JSON Feed when it contains
+	 * "json" as a standalone token, delimited by a word boundary or an underscore
+	 * (e.g. `…/feed.json` or `…/feed_json`, but not `…/jsonfeed`).
 	 */
 	private static function detectFeedKind(string $url): int {
-		try {
-			$probe = new FreshRSS_Feed($url);
-			$probe->_kind(FreshRSS_Feed::KIND_JSONFEED);
-			if ($probe->loadJson() !== null) {
-				return FreshRSS_Feed::KIND_JSONFEED;
-			}
-		} catch (Throwable $e) {
-			Minz_Log::debug('JSON Feed detection failed for ' . \SimplePie\Misc::url_remove_credentials($url) . ': ' . $e->getMessage(), API_LOG);
-		}
-		return FreshRSS_Feed::KIND_RSS;
+		return preg_match('/(?:\b|_)json(?:\b|_)/i', $url) === 1
+			? FreshRSS_Feed::KIND_JSONFEED
+			: FreshRSS_Feed::KIND_RSS;
 	}
 
 	private static function quickadd(string $url): never {
