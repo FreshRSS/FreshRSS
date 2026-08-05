@@ -262,7 +262,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				continue;
 			}
 			if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-				$message = 'TXT import: skipping invalid URL “' . $url . '”';
+				$message = 'TXT import: skipping invalid URL “' . \SimplePie\Misc::url_remove_credentials($url) . '”';
 				if (FreshRSS_Context::$isCli) {
 					fwrite(STDERR, $message . "\n");
 				} else {
@@ -390,7 +390,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			try {
 				$feed = new FreshRSS_Feed($feedUrl);
 			} catch (FreshRSS_BadUrl_Exception) {
-				Minz_Log::warning('Could not add feed with invalid URL "' . $feedUrlOriginal . '" during JSON import');
+				Minz_Log::warning('Could not add feed with invalid URL "' . \SimplePie\Misc::url_remove_credentials($feedUrlOriginal) . '" during JSON import');
 				continue;
 			}
 			$feed = $this->feedDAO->searchByUrl($feed->url());
