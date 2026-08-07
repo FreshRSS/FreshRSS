@@ -192,7 +192,7 @@ final class GReaderAPI {
 						Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 						self::unauthorized();
 					}
-					if ($headerAuthX[1] === sha1(FreshRSS_Context::systemConf()->salt . $user . FreshRSS_Context::userConf()->apiPasswordHash)) {
+					if (hash_equals(sha1(FreshRSS_Context::systemConf()->salt . $user . FreshRSS_Context::userConf()->apiPasswordHash), $headerAuthX[1])) {
 						return $user;
 					} else {
 						Minz_Log::warning('Invalid API authorisation for user ' . $user);
