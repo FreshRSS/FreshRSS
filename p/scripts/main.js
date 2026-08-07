@@ -2318,7 +2318,7 @@ function faviconNbUnread(n) {
 	if (link) {
 		let svgOutput = '';
 		if (n > 0) {
-			let text = '';
+			let text;
 			if (n < 1000) {
 				text = n;
 			} else if (n < 100000) {
