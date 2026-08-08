@@ -9,6 +9,12 @@ return [
 	#	or to `production` to get only the most important messages.
 	'environment' => 'production',
 
+	# Minimum severity of the messages written to `./data/users/*/log.txt`, overriding the
+	#	verbosity implied by `environment` above. One of `error`, `warning`, `notice`, `info`, `debug`,
+	#	from the least to the most verbose. Leave empty (`''`) to keep the default behaviour:
+	#	`warning` (i.e. only errors and warnings) when `environment` is `production`, `debug` otherwise.
+	'log_level' => '',
+
 	# Used to make crypto more unique. Generated during install.
 	'salt' => '',
 

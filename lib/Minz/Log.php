@@ -11,11 +11,24 @@ declare(strict_types=1);
  */
 class Minz_Log {
 	/**
+	 * Syslog priority corresponding to each value accepted by the `log_level` system setting,
+	 * from the most to the least severe.
+	 * @var array<string,int>
+	 */
+	private const LOG_LEVELS = [
+		'error' => LOG_ERR,
+		'warning' => LOG_WARNING,
+		'notice' => LOG_NOTICE,
+		'info' => LOG_INFO,
+		'debug' => LOG_DEBUG,
+	];
+
+	/**
 	 * Enregistre un message dans un fichier de log spécifique
 	 * Message non loggué si
 	 * 	- environment = SILENT
-	 * 	- level = LOG_WARNING et environment = PRODUCTION
-	 * 	- level = LOG_NOTICE et environment = PRODUCTION
+	 * 	- level est moins sévère que le seuil déterminé par `log_level`,
+	 * 	  ou par défaut par `environment` (PRODUCTION ne garde que warning et error)
 	 * @param string $information message d'erreur / information à enregistrer
 	 * @param int $level niveau d'erreur https://php.net/function.syslog
 	 * @param string $file_name fichier de log
@@ -23,16 +36,20 @@ class Minz_Log {
 	 */
 	public static function record(string $information, int $level, ?string $file_name = null): void {
 		$env = getenv('FRESHRSS_ENV');
-		if ($env == '') {
-			try {
-				$conf = Minz_Configuration::get('system');
+		$log_level = '';
+		try {
+			$conf = Minz_Configuration::get('system');
+			$log_level = $conf->log_level;
+			if ($env == '') {
 				$env = $conf->environment;
-			} catch (Minz_ConfigurationException $e) {
+			}
+		} catch (Minz_ConfigurationException $e) {
+			if ($env == '') {
 				$env = 'production';
 			}
 		}
 
-		if (! ($env === 'silent' || ($env === 'production' && ($level >= LOG_NOTICE)))) {
+		if (! ($env === 'silent' || $level > self::threshold($env, $log_level))) {
 			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 			if ($file_name == null) {
 				$file_name = join_path(USERS_PATH, $username, LOG_FILENAME);
@@ -96,6 +113,20 @@ class Minz_Log {
 			}
 			fclose($fp);
 		}
+	}
+
+	/**
+	 * The lower the returned syslog priority, the fewer messages get logged.
+	 * @param string $env `silent`, `production`, `development`, or any custom value (verbose by default)
+	 * @param string $log_level Explicit override (`error`, `warning`, `notice`, `info`, `debug`),
+	 *   or an empty string to derive the threshold from $env instead
+	 */
+	private static function threshold(string $env, string $log_level): int {
+		if (isset(self::LOG_LEVELS[$log_level])) {
+			return self::LOG_LEVELS[$log_level];
+		}
+		// Legacy behaviour when `log_level` is not explicitly configured.
+		return $env === 'production' ? LOG_WARNING : LOG_DEBUG;
 	}
 
 	/**
