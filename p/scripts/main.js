@@ -2318,7 +2318,7 @@ function faviconNbUnread(n) {
 	if (link) {
 		let svgOutput = '';
 		if (n > 0) {
-			let text = '';
+			let text;
 			if (n < 1000) {
 				text = n;
 			} else if (n < 100000) {
@@ -2471,7 +2471,7 @@ function init_navigation_handler() {
 	if (!('navigation' in window)) {
 		return;
 	}
-	navigation.addEventListener('navigate', (e) => {
+	window.navigation.addEventListener('navigate', (e) => {
 		if (!(e.canIntercept && e.hashChange && e.navigationType === 'traverse')) {
 			return;
 		}
