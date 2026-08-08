@@ -448,22 +448,36 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 		$url = $feedIconUrl !== '' ? $feedIconUrl : $websiteUrl;
 
-		$txt = FAVICONS_DIR . $this->hashFavicon() . '.txt';
+		$hash = $this->hashFavicon();
+		$txt = FAVICONS_DIR . $hash . '.txt';
 		if (@file_get_contents($txt) !== $url) {
 			file_put_contents($txt, $url);
 		}
+
+		// Persist feed-level cURL parameters (e.g. proxy) so p/f.php can use them when fetching lazily.
+		$curl_params = FreshRSS_http_Util::sanitizeCurlParams($this->attributeArray('curl_params') ?? []);
+		$proxy_file = FAVICONS_DIR . $hash . '.proxy';
+		if ($curl_params !== []) {
+			$encoded = json_encode($curl_params, JSON_UNESCAPED_SLASHES);
+			if (is_string($encoded) && @file_get_contents($proxy_file) !== $encoded) {
+				file_put_contents($proxy_file, $encoded);
+			}
+		} elseif (file_exists($proxy_file)) {
+			@unlink($proxy_file);
+		}
+
 		if (FreshRSS_Context::$isCli || $force) {
-			$ico = FAVICONS_DIR . $this->hashFavicon() . '.ico';
+			$ico = FAVICONS_DIR . $hash . '.ico';
 			$ico_mtime = @filemtime($ico);
 			$txt_mtime = @filemtime($txt);
 			if ($txt_mtime != false &&
 				($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (14 * 86400)))) {
 				// no ico file or we should download a new one.
-				if ($feedIconUrl !== '' && download_favicon_from_image_url($feedIconUrl, $ico)) {
+				if ($feedIconUrl !== '' && download_favicon_from_image_url($feedIconUrl, $ico, $curl_params)) {
 					return;
 				}
 				// Fall back to website favicon search
-				if (!download_favicon($websiteUrl, $ico)) {
+				if (!download_favicon($websiteUrl, $ico, $curl_params)) {
 					touch($ico);
 				}
 			}
@@ -477,6 +491,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$path = DATA_PATH . '/favicons/' . $hash;
 		@unlink($path . '.ico');
 		@unlink($path . '.txt');
+		@unlink($path . '.proxy');
 	}
 	public function favicon(bool $absolute = false): string {
 		$hash = $this->hashFavicon();

@@ -57,9 +57,20 @@ if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (r
 		exit();
 	}
 
+	// Load feed-level cURL parameters (e.g. proxy) persisted alongside the favicon metadata.
+	$proxy_file = FAVICONS_DIR . $id . '.proxy';
+	$curl_params = [];
+	$proxy_raw = @file_get_contents($proxy_file);
+	if (is_string($proxy_raw) && $proxy_raw !== '') {
+		$decoded = json_decode($proxy_raw, true);
+		if (is_array($decoded)) {
+			$curl_params = FreshRSS_http_Util::sanitizeCurlParams($decoded);
+		}
+	}
+
 	// Try downloading the URL as a direct image first (e.g. from a feed's <image><url>),
 	// then fall back to HTML favicon search if it is not a valid image.
-	if (!download_favicon_from_image_url($url, $ico) && !download_favicon($url, $ico)) {
+	if (!download_favicon_from_image_url($url, $ico, $curl_params) && !download_favicon($url, $ico, $curl_params)) {
 		// Download failed
 		if ($ico_mtime == false) {
 			show_default_favicon(86400);
