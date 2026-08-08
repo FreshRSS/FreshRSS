@@ -63,6 +63,7 @@ declare(strict_types=1);
  * @property 'ASC'|'DESC' $secondary_sort_order
  * @property 'id'|'date'|'link'|'title' $secondary_sort
  * @property array<int,array<string,string>> $sharing
+ * @property 'character'|'physical' $shortcut_matching
  * @property array<string,string> $shortcuts
  * @property bool $sides_close_article
  * @property bool $sticky_post

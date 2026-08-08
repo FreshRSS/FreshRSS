@@ -1200,6 +1200,7 @@ function init_column_categories() {
 }
 
 function init_shortcuts() {
+	/* globals shortcutKeyFromEvent */
 	Object.keys(context.shortcuts).forEach(function (k) {
 		context.shortcuts[k] = (context.shortcuts[k] || '').toUpperCase();
 	});
@@ -1210,12 +1211,7 @@ function init_shortcuts() {
 		}
 
 		const s = context.shortcuts;
-		let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
-
-		// IE11
-		if (k === 'SPACEBAR') k = 'SPACE';
-		else if (k === 'DEL') k = 'DELETE';
-		else if (k === 'ESC') k = 'ESCAPE';
+		const k = shortcutKeyFromEvent(ev);
 
 		if (location.hash.match(/^#dropdown-/)) {
 			const n = parseInt(k);

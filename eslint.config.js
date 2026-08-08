@@ -52,4 +52,13 @@ export default [
 			}],
 		},
 	},
+	{
+		files: ["tests/scripts/**/*.js"],
+		languageOptions: {
+			sourceType: "module",
+			globals: {
+				...globals.node,
+			},
+		},
+	},
 ];

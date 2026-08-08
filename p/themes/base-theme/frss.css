@@ -2981,3 +2981,15 @@ html.slider-active {
 .drag-drop-marker {
 	margin: -1px;
 }
+
+.shortcut-record.recording,
+.shortcut-record:hover.recording {
+	background: var(--color-good, #2ecc71);
+	color: #fff;
+	animation: shortcut-pulse 1s infinite;
+}
+
+@keyframes shortcut-pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: .5; }
+}

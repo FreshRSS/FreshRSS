@@ -36,6 +36,7 @@ echo json_encode([
 		],
 		'auth_type' => FreshRSS_Context::systemConf()->auth_type,
 		'current_view' => Minz_Request::actionName(),
+		'shortcut_matching' => FreshRSS_Context::userConf()->shortcut_matching ?: 'physical',
 		'csrf' => FreshRSS_Auth::csrfToken(),
 		'mtime' => [
 			'extra.js' => @filemtime(PUBLIC_PATH . '/scripts/extra.js'),

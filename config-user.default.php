@@ -80,6 +80,7 @@ return array (
 	'theme' => 'Origine',
 	'darkMode' => 'auto',
 	'content_width' => 'thin',
+	'shortcut_matching' => 'physical',
 	'shortcuts' => array (
 		'actualize' => 'q',
 		'mark_read' => 'r',
