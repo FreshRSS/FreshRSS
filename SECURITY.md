@@ -12,7 +12,7 @@ Include:
 * Whether you are yourself a user of FreshRSS
 
 Recommendations:
-* Check duplicates in existing public PRs, issues, discussions, documentation
+* Check for duplicates in existing public PRs, issues, discussions, documentation
 * Consider submitting a public PR if the vulnerability was mostly found by a public AI
 
 Inspiration from <https://lkml.org/lkml/2026/5/17/896>:
