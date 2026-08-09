@@ -48,30 +48,25 @@ class Minz_Log {
 				$env = 'production';
 			}
 		}
+		if ($log_level === '' || !isset(self::LOG_LEVELS[$log_level])) {
+			$log_level = match ($env) {
+				'silent' => 'error',
+				'production' => 'warning',
+				default => 'debug',
+			};
+		}
 
-		if (! ($env === 'silent' || $level > self::threshold($env, $log_level))) {
+		if (! ($env === 'silent' || $level > self::LOG_LEVELS[$log_level])) {
 			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 			if ($file_name == null) {
 				$file_name = join_path(USERS_PATH, $username, LOG_FILENAME);
 			}
 
-			switch ($level) {
-				case LOG_ERR:
-					$level_label = 'error';
-					break;
-				case LOG_WARNING:
-					$level_label = 'warning';
-					break;
-				case LOG_NOTICE:
-					$level_label = 'notice';
-					break;
-				case LOG_DEBUG:
-					$level_label = 'debug';
-					break;
-				default:
-					$level = LOG_INFO;
-					$level_label = 'info';
+			$level_labels = array_flip(self::LOG_LEVELS);
+			if (!isset($level_labels[$level])) {
+				$level = LOG_INFO;
 			}
+			$level_label = $level_labels[$level];
 
 			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . str_replace(["\r", "\n"], ' ', $information) . "\n";
 
@@ -113,20 +108,6 @@ class Minz_Log {
 			}
 			fclose($fp);
 		}
-	}
-
-	/**
-	 * The lower the returned syslog priority, the fewer messages get logged.
-	 * @param string $env `silent`, `production`, `development`, or any custom value (verbose by default)
-	 * @param string $log_level Explicit override (`error`, `warning`, `notice`, `info`, `debug`),
-	 *   or an empty string to derive the threshold from $env instead
-	 */
-	private static function threshold(string $env, string $log_level): int {
-		if (isset(self::LOG_LEVELS[$log_level])) {
-			return self::LOG_LEVELS[$log_level];
-		}
-		// Legacy behaviour when `log_level` is not explicitly configured.
-		return $env === 'production' ? LOG_WARNING : LOG_DEBUG;
 	}
 
 	/**
