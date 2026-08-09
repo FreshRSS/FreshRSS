@@ -24,6 +24,10 @@ if [ -z "$APACHE_CONFIG" ]; then
 	exit 11
 fi
 
+if [ "$DISABLE_ACCESS_LOG" = "1" ]; then
+	sed -r -i "/^[[:space:]]*CustomLog[[:space:]]/s/^/#/" "$APACHE_CONFIG"
+fi
+
 if [ -n "$LISTEN" ]; then
 	sed -r -i "\\#^Listen#s#^.*#Listen $LISTEN#" "$APACHE_CONFIG"
 fi
