@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => '显示',
+		'article' => array(
+			'authors_date' => array(
+				'_' => '作者和日期',
+				'both' => '页脚与页眉',
+				'footer' => '页脚',
+				'header' => '页眉',
+				'none' => '不显示',
+			),
+			'feed_name' => array(
+				'above_title' => '在标题/标签上方',
+				'none' => '不显示',
+				'with_authors' => '与作者和日期一行',
+			),
+			'feed_title' => '订阅源标题',
+			'icons' => array(
+				'_' => '文章图标位置<br /><small>（仅阅读视图）</small>',
+				'above_title' => '标题之上',
+				'with_authors' => '与作者和日期在同一行',
+			),
+			'tags' => array(
+				'_' => '文章标签',
+				'both' => '页脚与页眉',
+				'footer' => '页脚',
+				'header' => '页眉',
+				'none' => '不显示',
+			),
+			'tags_max' => array(
+				'_' => '标签最多显示个数',
+				'help' => '0 表示：显示所有标签且不折叠',
+			),
+		),
 		'darkMode' => array(
 			'_' => '自动黑暗模式',
 			'auto' => '启动',
 			'help' => '仅适用于兼容性主题',
 			'no' => '关闭',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => '文章: 页眉/页脚',
 		),
 		'icon' => array(
 			'bottom_line' => '底栏',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => '“全部标记为已读”后',
 		'always_show_favorites' => '默认显示收藏夹中所有的文章',
 		'apply_to_individual_feed' => '单独应用于各订阅源',
-		'article' => array(
-			'authors_date' => array(
-				'_' => '作者和日期',
-				'both' => '页脚与页眉',
-				'footer' => '页脚',
-				'header' => '页眉',
-				'none' => '不显示',
-			),
-			'feed_name' => array(
-				'above_title' => '在标题/标签上方',
-				'none' => '不显示',
-				'with_authors' => '与作者和日期一行',
-			),
-			'feed_title' => '订阅源标题',
-			'icons' => array(
-				'_' => '文章图标位置<br /><small>（仅阅读视图）</small>',
-				'above_title' => '标题之上',
-				'with_authors' => '与作者和日期在同一行',
-			),
-			'tags' => array(
-				'_' => '文章标签',
-				'both' => '页脚与页眉',
-				'footer' => '页脚',
-				'header' => '页眉',
-				'none' => '不显示',
-			),
-			'tags_max' => array(
-				'_' => '标签最多显示个数',
-				'help' => '0 表示：显示所有标签且不折叠',
-			),
-		),
 		'articles_per_page' => '每页文章数',
 		'auto_load_more' => '在页面底部载入更多文章',
 		'auto_remove_article' => '阅读后隐藏文章',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => '展开的分类',
 		'headline' => array(
 			'articles' => '文章：打开/关闭',
-			'articles_header_footer' => '文章: 页眉/页脚',
 			'categories' => '左侧导航栏：分类',
 			'mark_as_read' => '标为已读选项',
 			'misc' => '其它',

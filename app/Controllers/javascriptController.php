@@ -39,6 +39,22 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$this->view->feeds = $feedDAO->listFeedsOrderUpdate(FreshRSS_Context::userConf()->ttl_default);
+
+		// When the refresh button is used from a feed or category view, limit the
+		// batch to the feeds visible in that view.
+		$get = Minz_Request::paramString('get');
+		if (preg_match('/^c_(\d+)$/', $get, $matches)) {
+			$category = $this->view->categories[(int)$matches[1]] ?? null;
+			if ($category !== null) {
+				$this->view->categories = [$category->id() => $category];
+				// Filter feeds to keep only those from the selected category, preserving the order
+				$this->view->feeds = array_filter($this->view->feeds, static fn(FreshRSS_Feed $feed) => $feed->category() === $category->id());
+			}
+		} elseif (preg_match('/^f_(\d+)$/', $get, $matches)) {
+			$feed = $feedDAO->searchById((int)$matches[1]);
+			$this->view->categories = [];
+			$this->view->feeds = $feed === null ? [] : [$feed->id() => $feed];
+		}
 	}
 
 	public function nbUnreadsPerFeedAction(): void {

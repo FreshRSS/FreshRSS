@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Afichatge',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autors e data',
+				'both' => 'Dins l’entèsta e lo bas de pagina',
+				'footer' => 'Al pè de pagina',
+				'header' => 'Dins l’entèsta',
+				'none' => 'Cap',
+			),
+			'feed_name' => array(
+				'above_title' => 'Al dessús títol/etiquetas',
+				'none' => 'Cap',
+				'with_authors' => 'Dins la linha autors e data',
+			),
+			'feed_title' => 'Títol del flux',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Etiquetas',
+				'both' => 'Dins l’entèsta e lo bas de pagina',
+				'footer' => 'Al pè de pagina',
+				'header' => 'Dins l’entèsta',
+				'none' => 'Cap',
+			),
+			'tags_max' => array(
+				'_' => 'Nombre max d’etiquetas afichadas',
+				'help' => '0 significa : mostrar totas las etiquetas e las plegar pas',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatic dark mode',	// TODO
 			'auto' => 'Auto',	// TODO
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// TODO
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Articles : entèsta/pè de pagina',
 		),
 		'icon' => array(
 			'bottom_line' => 'Linha enbàs',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => 'Aprèp « marcar coma legit »,',
 		'always_show_favorites' => 'Mostrar totes los articles dels favorits per defaut',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autors e data',
-				'both' => 'Dins l’entèsta e lo bas de pagina',
-				'footer' => 'Al pè de pagina',
-				'header' => 'Dins l’entèsta',
-				'none' => 'Cap',
-			),
-			'feed_name' => array(
-				'above_title' => 'Al dessús títol/etiquetas',
-				'none' => 'Cap',
-				'with_authors' => 'Dins la linha autors e data',
-			),
-			'feed_title' => 'Títol del flux',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => 'Etiquetas',
-				'both' => 'Dins l’entèsta e lo bas de pagina',
-				'footer' => 'Al pè de pagina',
-				'header' => 'Dins l’entèsta',
-				'none' => 'Cap',
-			),
-			'tags_max' => array(
-				'_' => 'Nombre max d’etiquetas afichadas',
-				'help' => '0 significa : mostrar totas las etiquetas e las plegar pas',
-			),
-		),
 		'articles_per_page' => 'Nombre d’articles per pagina',
 		'auto_load_more' => 'Cargar los articles seguents enbàs de la pagina',
 		'auto_remove_article' => 'Rescondre los articles aprèp lectura',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Categorias a desplegar',
 		'headline' => array(
 			'articles' => 'Articles : Dobrir/Tampar',
-			'articles_header_footer' => 'Articles : entèsta/pè de pagina',
 			'categories' => 'Navegacion esquèrra : categorias',
 			'mark_as_read' => 'Marcar los articles coma legits',
 			'misc' => 'Divèrs',
