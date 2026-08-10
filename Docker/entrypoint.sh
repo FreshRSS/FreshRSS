@@ -11,6 +11,12 @@ file_env() {
 	# shellcheck disable=SC3043 # 'local' is supported by dash, ash, and bash, which are the shells used to run this script
 	local var file_var var_value file_value
 	var="$1"
+	case "$var" in
+		''|*[!_0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ]*)
+			echo "❌ Invalid variable name: $var"
+			exit 15
+			;;
+	esac
 	file_var="${var}_FILE"
 	eval "var_value=\${$var:-}"
 	eval "file_value=\${$file_var:-}"
@@ -19,11 +25,12 @@ file_env() {
 		exit 13
 	fi
 	if [ -n "$file_value" ]; then
-		var_value=$(cat "$file_value") || {
+		var_value=$(cat <"$file_value") || {
 			echo "❌ Could not read secret file $file_value for $file_var!"
 			exit 14
 		}
 		export "$var=$var_value"
+		unset "$file_var"
 	fi
 }
 
