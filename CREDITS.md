@@ -307,6 +307,7 @@ People are sorted by name so please keep this order.
 * [Stunkymonkey](https://github.com/Stunkymonkey): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Stunkymonkey)
 * [stysebae](https://github.com/stysebae): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:stysebae)
 * [subic](https://github.com/subic): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:subic)
+* [sungju Kim](https://github.com/senti-man): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:senti-man)
 * [Sven Neuhaus](https://github.com/neuhaus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:neuhaus)
 * [Tarow](https://github.com/tarow): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tarow)
 * [Tealk](https://github.com/Tealk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Tealk), [Web](https://rollenspiel.monster/)
