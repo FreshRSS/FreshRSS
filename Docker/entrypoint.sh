@@ -24,7 +24,7 @@ if [ -z "$APACHE_CONFIG" ]; then
 	exit 11
 fi
 
-if [ "$DISABLE_ACCESS_LOG" = "1" ]; then
+if [ "$ENABLE_ACCESS_LOG" = "0" ]; then
 	sed -r -i "/^[[:space:]]*CustomLog[[:space:]]/s/^/#/" "$APACHE_CONFIG"
 fi
 
