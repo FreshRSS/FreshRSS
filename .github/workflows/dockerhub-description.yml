@@ -8,6 +8,9 @@ on:
       - edge
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   dockerhub-description:
     if: github.repository_owner == 'FreshRSS'

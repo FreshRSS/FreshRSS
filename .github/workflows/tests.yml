@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ edge ]
 
+permissions:
+  contents: read
+
 jobs:
 
   tests:
