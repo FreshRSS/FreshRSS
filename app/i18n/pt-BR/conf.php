@@ -338,6 +338,7 @@ return array(
 		'remove' => 'Remover método de compartilhamento',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Nome de visualização para compartilhar',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'URL utilizada para compartilhar',
 		'title' => 'Compartilhando',
 		'twitter' => 'X (Twitter)',	// IGNORE

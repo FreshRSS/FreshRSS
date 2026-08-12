@@ -338,6 +338,7 @@ return array(
 		'remove' => 'Remove sharing method',
 		'shaarli' => 'Shaarli',
 		'share_name' => 'Share name to display',
+		'share_token' => 'API token',
 		'share_url' => 'Share URL to use',
 		'title' => 'Sharing',
 		'twitter' => 'Twitter',

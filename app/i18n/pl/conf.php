@@ -338,6 +338,7 @@ return array(
 		'remove' => 'Usuń sposób na podanie dalej wiadomości',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Wyświetlana nazwa serwisu',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'Adres API serwisu',
 		'title' => 'Udostępnianie',
 		'twitter' => 'X (Twitter)',	// IGNORE

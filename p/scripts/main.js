@@ -1529,6 +1529,28 @@ function init_stream(stream) {
 			return false;
 		}
 
+		el = ev.target.closest('.item.share > button[data-token]');
+		if (el) {	// Share by POST to an API authenticated by a bearer token (see the `token` form in shares.php)
+			const button = el;
+			fetch(button.dataset.url, {
+				method: 'POST',
+				headers: {
+					'Authorization': 'Bearer ' + button.dataset.token,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ [button.dataset.field]: button.dataset.link }),
+			}).then(response => {
+				if (!response.ok) {
+					console.log('Share failed with HTTP status ' + response.status);
+				}
+				toggleClass(button, response.ok ? 'ok' : 'error');
+			}).catch(error => {
+				console.log(error);
+				toggleClass(button, 'error');
+			});
+			return false;
+		}
+
 		el = ev.target.closest('.item.share > a[href="POST"]');
 		if (el) {	// Share by POST
 			const f = el.parentElement.querySelector('form');

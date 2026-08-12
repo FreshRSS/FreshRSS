@@ -338,6 +338,7 @@ return array(
 		'remove' => '共有先を削除する',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => '共有先',
+		'share_token' => 'API token',	// TODO
 		'share_url' => '共有URL',
 		'title' => '共有',
 		'twitter' => 'X (Twitter)',	// IGNORE

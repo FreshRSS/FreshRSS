@@ -338,6 +338,7 @@ return array(
 		'remove' => 'Noņemt dalīšanās metodi',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Rādāmā dalīšanās nosaukums',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'Dalīšanās URL, ko izmantot',
 		'title' => 'Dalīšanās',
 		'twitter' => 'X (Twitter)',	// IGNORE

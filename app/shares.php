@@ -23,8 +23,12 @@ declare(strict_types=1);
  *   - 'transform' is an array of transformation to apply on links and titles
  *   - 'help' is a URL to a help page (mandatory for form = 'advanced')
  *   - 'form' is the type of form to display during configuration. It’s either
- *     'simple' or 'advanced'. 'simple' is used when only the name is configurable,
- *     'advanced' is used when the name and the location are configurable.
+ *     'simple', 'advanced' or 'token'. 'simple' is used when only the name is
+ *     configurable, 'advanced' is used when the name and the location are
+ *     configurable, 'token' additionally lets the user configure an API token
+ *     that is sent as an 'Authorization: Bearer' header by a client-side
+ *     request posting the link as JSON (see the data-token handler in main.js).
+ *   - 'field' is the name of the field holding the link, for shares sent by POST.
  *   - 'method' is the HTTP method (POST or GET) used to share a link.
  */
 
@@ -196,6 +200,15 @@ return [
 		'transform' => ['rawurlencode'],
 		'form' => 'simple',
 		'method' => 'GET',
+	],
+	'readeck' => [
+		'HTMLtag' => 'button',
+		'url' => '~URL~/api/bookmarks',
+		'transform' => [],
+		'field' => 'url',
+		'help' => 'https://readeck.org/en/docs/api',
+		'form' => 'token',
+		'method' => 'POST',
 	],
 	'reddit' => [
 		'url' => 'https://www.reddit.com/submit?url=~LINK~',

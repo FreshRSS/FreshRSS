@@ -338,6 +338,7 @@ return array(
 		'remove' => 'Вилучити спосіб поширення',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Підпис у меню',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'URL-адреса поширення',
 		'title' => 'Поширення',
 		'twitter' => 'X (Twitter)',	// IGNORE

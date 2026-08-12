@@ -338,6 +338,7 @@ return array(
 		'remove' => 'Hapus layanan berbagi',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Nama layanan untuk ditampilkan',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'URL berbagi yang digunakan',
 		'title' => 'Berbagi',
 		'twitter' => 'X (Twitter)',	// IGNORE

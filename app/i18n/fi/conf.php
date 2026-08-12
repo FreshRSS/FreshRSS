@@ -338,6 +338,7 @@ return array(
 		'remove' => 'Poista jakamistapa',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Näytettävä jakamistavan nimi',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'Käytettävä jakamistavan URL-osoite',
 		'title' => 'Jakaminen',
 		'twitter' => 'X (Twitter)',	// IGNORE

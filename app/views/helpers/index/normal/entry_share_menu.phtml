@@ -23,7 +23,11 @@
 			$share_options['title'] = $title;
 			$share->update($share_options);
 			?><li class="item share<?= $cssClass ?>"><?php
-				if ('GET' === $share->method()):
+				if ('token' === $share->formType()):
+					// Client-side request authenticated by a bearer token, see the data-token handler in main.js
+					?><button type="button" class="as-link" data-url="<?= $share->url() ?>" data-type="<?= $share->type() ?>" data-link="<?= $link ?>"
+						data-field="<?= $share->field() ?>" data-token="<?= htmlspecialchars($share->token() ?? '') ?>"><?= $share->name() ?></button><?php
+				elseif ('GET' === $share->method()):
 					if ($share->HTMLtag() !== 'button') {
 						?><a target="_blank" rel="noreferrer" href="<?= $share->url() ?>" data-type="<?= $share->type() ?>"><?= $share->name() ?></a><?php
 					} else {

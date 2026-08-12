@@ -338,6 +338,7 @@ return array(
 		'remove' => 'Αφαίρεση μεθόδου κοινοποίησης',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Όνομα κοινοποίησης προς εμφάνιση',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'URL κοινοποίησης προς χρήση',
 		'title' => 'Κοινοποίηση',
 		'twitter' => 'Twitter',	// IGNORE

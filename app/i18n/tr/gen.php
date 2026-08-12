@@ -309,6 +309,7 @@ return array(
 		'pinterest' => 'Pinterest',	// IGNORE
 		'print' => 'Yazdır',
 		'raindrop' => 'Raindrop.io',	// IGNORE
+		'readeck' => 'Readeck',	// IGNORE
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE

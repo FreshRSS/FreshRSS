@@ -99,6 +99,40 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
+	 * Build the extra origins allowed by the Content-Security-Policy connect-src
+	 * directive so that client-side sharing requests are not blocked.
+	 * Origins are derived from the base URL of every configured share
+	 * that uses the 'token' form. Returns e.g. "'self' https://bookmarks.example".
+	 */
+	private static function shareConnectSrc(): string {
+		// Shares are normally loaded later, in FreshRSS::preLayout(); make sure
+		// they are available here so FreshRSS_Share::get() can resolve the form type.
+		if (FreshRSS_Share::enum() === []) {
+			FreshRSS_Share::load(join_path(APP_PATH, 'shares.php'));
+		}
+		$origins = [];
+		foreach (FreshRSS_Context::userConf()->sharing as $share_options) {
+			if (empty($share_options['type']) || empty($share_options['url'])) {
+				continue;
+			}
+			$share = FreshRSS_Share::get($share_options['type']);
+			if ($share === null || $share->formType() !== 'token') {
+				continue;
+			}
+			$parts = parse_url($share_options['url']);
+			if (!is_array($parts) || empty($parts['scheme']) || empty($parts['host'])) {
+				continue;
+			}
+			$origin = $parts['scheme'] . '://' . $parts['host'];
+			if (!empty($parts['port'])) {
+				$origin .= ':' . $parts['port'];
+			}
+			$origins[$origin] = true;
+		}
+		return rtrim("'self' " . implode(' ', array_keys($origins)));
+	}
+
+	/**
 	 * This action displays the normal view of FreshRSS.
 	 */
 	public function normalAction(): void {
@@ -131,6 +165,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
+			'connect-src' => self::shareConnectSrc(),
 			'frame-src' => '*',
 			'img-src' => '* data: blob:',
 			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
@@ -239,6 +274,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		$this->_csp([
 			'default-src' => "'self'",
+			'connect-src' => self::shareConnectSrc(),
 			'frame-src' => '*',
 			'img-src' => '* data: blob:',
 			'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",

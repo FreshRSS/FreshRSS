@@ -338,6 +338,7 @@ return array(
 		'remove' => 'Remove sharing method',	// TODO
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'שיתוף שם לתצוגה',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'לשימוש שתפו URL',
 		'title' => 'שיתוף',
 		'twitter' => 'X (Twitter)',	// IGNORE

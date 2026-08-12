@@ -338,6 +338,7 @@ return array(
 		'remove' => 'Megosztási mód eltávolítása',
 		'shaarli' => 'Shaarli',	// IGNORE
 		'share_name' => 'Megosztás neve',
+		'share_token' => 'API token',	// TODO
 		'share_url' => 'URL megosztása a használathoz',
 		'title' => 'Sharing',	// IGNORE
 		'twitter' => 'X (Twitter)',	// IGNORE
