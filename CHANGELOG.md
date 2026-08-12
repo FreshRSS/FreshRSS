@@ -38,6 +38,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Extensions
 	* New `freshrss:entryStateChange` JavaScript event for extensions, dispatched when an article has finished being marked as read/unread [#8862](https://github.com/FreshRSS/FreshRSS/pull/9031)
 * I18n
+	* New Lithuanian (lietuvių) translation
 	* Improve Hungarian [#8879](https://github.com/FreshRSS/FreshRSS/pull/8879)
 	* Improve Italian [#8880](https://github.com/FreshRSS/FreshRSS/pull/8880)
 	* Improve Persian [#8923](https://github.com/FreshRSS/FreshRSS/pull/8923)
