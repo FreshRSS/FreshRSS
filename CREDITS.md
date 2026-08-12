@@ -8,6 +8,7 @@ People are sorted by name so please keep this order.
 
 ---
 
+* [0xdeadrelay](https://github.com/0xdeadrelay): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:0xdeadrelay)
 * [312k](https://github.com/312k): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:312k)
 * [4xfu](https://github.com/4xfu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:4xfu)
 * [aarnej](https://github.com/aarnej): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aarnej)
@@ -307,6 +308,7 @@ People are sorted by name so please keep this order.
 * [Stunkymonkey](https://github.com/Stunkymonkey): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Stunkymonkey)
 * [stysebae](https://github.com/stysebae): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:stysebae)
 * [subic](https://github.com/subic): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:subic)
+* [sungju Kim](https://github.com/senti-man): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:senti-man)
 * [Sven Neuhaus](https://github.com/neuhaus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:neuhaus)
 * [Tarow](https://github.com/tarow): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tarow)
 * [Tealk](https://github.com/Tealk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Tealk), [Web](https://rollenspiel.monster/)
