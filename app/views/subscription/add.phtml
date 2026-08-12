@@ -350,6 +350,18 @@
 			</div>
 
 			<div class="form-group">
+				<label class="group-name" for="ipresolve"><?= _t('sub.feed.ipresolve') ?></label>
+				<div class="group-controls">
+					<select name="ipresolve" id="ipresolve">
+						<option value=""><?= _t('gen.short.by_default') ?></option>
+						<option value="<?= CURL_IPRESOLVE_WHATEVER ?>">IPv4/IPv6</option>
+						<option value="<?= CURL_IPRESOLVE_V4 ?>">IPv4</option>
+						<option value="<?= CURL_IPRESOLVE_V6 ?>">IPv6</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<label class="group-name" for="http_headers"><?= _t('sub.feed.http_headers') ?></label>
 				<div class="group-controls">
 					<textarea id="http_headers" name="http_headers" rows="3" cols="64" spellcheck="false"></textarea>

@@ -88,6 +88,7 @@ return array(
 		'http_headers_help' => 'Headers worden gescheiden door een regeleinde, en de naam en waarde van een header worden gescheiden door een dubbele punt (bijv.: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer een-token</code></kbd>).',
 		'icon' => 'Pictogram',
 		'information' => 'Informatie',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => 'Voeg daarna meer feeds toe',
 		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'kind' => array(

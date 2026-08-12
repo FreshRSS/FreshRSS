@@ -88,6 +88,7 @@ return array(
 		'http_headers_help' => 'ヘッダは改行で区切られ、ヘッダの名前と値はコロンで区切られます（例：<kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>）。',
 		'icon' => 'アイコン',
 		'information' => '情報',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => '続けてフィードを追加',
 		'keep_min' => '保持する記事数の下限',
 		'kind' => array(

@@ -88,6 +88,7 @@ return array(
 		'http_headers_help' => 'Заголовки разделяются новой строкой, имя и значение заголовка разделяются двоеточием (например: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Иконка',
 		'information' => 'Информация',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => 'Затем добавить ещё ленты',
 		'keep_min' => 'Оставлять статей не менее',
 		'kind' => array(

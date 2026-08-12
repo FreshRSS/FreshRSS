@@ -88,6 +88,7 @@ return array(
 		'http_headers_help' => 'سر برگ ها با یک خط جدید از هم جدا می‌شوند و نام و مقدار سربرگ ها با یک دونقطه از هم جدا می‌شوند (مثلاً: <kbd><code>پذیرش: application/atom+xml<br />مجوز: Bearer some-token</code></kbd>).',
 		'icon' => 'آیکون',
 		'information' => ' اطلاعات',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => 'سپس فیدهای بیشتری اضافه کنید',
 		'keep_min' => ' حداقل تعداد مقالات برای نگهداری',
 		'kind' => array(

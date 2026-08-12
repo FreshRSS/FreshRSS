@@ -88,6 +88,7 @@ return array(
 		'http_headers_help' => 'По заголовку на рядок. Назву й значення відокремлено двокрапкою (наприклад, <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer деякий-токен</code></kbd>).',
 		'icon' => 'Піктограма',
 		'information' => 'Інформація',
+		'ipresolve' => 'IP version',	// TODO
 		'keep_adding_feed' => 'Тоді додайте ще стрічок',
 		'keep_min' => 'Мінімум збережених статей',
 		'kind' => array(
