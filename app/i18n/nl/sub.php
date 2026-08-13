@@ -225,6 +225,8 @@ return array(
 		),
 		'proxy' => 'Proxy instellen om deze feed op te halen',
 		'proxy_help' => 'Selecteer een protocol (bv. SOCKS5) en voer een proxy-adres in (bv. <kbd>127.0.0.1:1080</kbd> of <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'Terugzetten naar standaard',
 		'selector_preview' => array(
 			'show_raw' => 'Broncode tonen',

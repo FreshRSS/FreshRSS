@@ -225,6 +225,8 @@ return array(
 		),
 		'proxy' => 'Налаштувати проксі для завантаження стрічки',
 		'proxy_help' => 'Оберіть протокол (наприклад, SOCKS5) і введіть адресу проксі (наприклад, <kbd>127.0.0.1:1080</kbd> чи <kbd>логін:пароль@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'Відновити типову',
 		'selector_preview' => array(
 			'show_raw' => 'Показати початковий код',

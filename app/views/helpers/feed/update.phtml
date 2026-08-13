@@ -866,6 +866,13 @@
 						htmlspecialchars(is_string($curlParams[CURLOPT_PROXY] ?? null) ? $curlParams[CURLOPT_PROXY] : '', ENT_COMPAT, 'UTF-8')
 					?>" placeholder="<?= _t('gen.short.by_default') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
+					<label for="curl_proxy_tunnel">
+						<input type="checkbox" name="curl_proxy_tunnel" id="curl_proxy_tunnel" value="1"<?=
+							!empty($curlParams[CURLOPT_HTTPPROXYTUNNEL]) ? ' checked="checked"' : ''
+						?> />
+						<?= _t('sub.feed.proxy_tunnel') ?>
+					</label>
+					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_tunnel_help') ?></p>
 				</div>
 			</div>
 

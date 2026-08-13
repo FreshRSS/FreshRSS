@@ -225,6 +225,8 @@ return array(
 		),
 		'proxy' => ' یک پروکسی برای واکشی این فید تنظیم کنید',
 		'proxy_help' => ' یک پروتکل (به عنوان مثال: SOCKS5) انتخاب کنید و آدرس پراکسی را وارد کنید (به عنوان مثال: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'تنظیم مجدد به حالت پیش‌فرض',
 		'selector_preview' => array(
 			'show_raw' => ' نمایش کد منبع',

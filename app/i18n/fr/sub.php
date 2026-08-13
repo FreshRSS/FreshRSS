@@ -225,6 +225,8 @@ return array(
 		),
 		'proxy' => 'Utiliser un proxy pour télécharger ce flux',
 		'proxy_help' => 'Sélectionner un protocole (ex : SOCKS5) et entrer l’adresse du proxy (ex. : <kbd>127.0.0.1:1080</kbd> ou <kbd>utilisateur:mot-de-passe@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'Réinitialiser',
 		'selector_preview' => array(
 			'show_raw' => 'Afficher le code source',

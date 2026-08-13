@@ -225,6 +225,8 @@ return array(
 		),
 		'proxy' => 'Atur proksi untuk mengambil umpan ini',
 		'proxy_help' => 'Pilih protokol (contoh: SOCKS5) dan masukkan alamat proksi (contoh: <kbd>127.0.0.1:1080</kbd> atau <kbd>username:password@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'Atur ulang ke yang baku',
 		'selector_preview' => array(
 			'show_raw' => 'Tampilkan kode sumber',

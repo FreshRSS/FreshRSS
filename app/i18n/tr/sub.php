@@ -225,6 +225,8 @@ return array(
 		),
 		'proxy' => 'Bu beslemeyi almak için bir proxy ayarlayın',
 		'proxy_help' => 'Bir protokol seçin (örneğin: SOCKS5) ve proxy adresini girin (örneğin: <kbd>127.0.0.1:1080</kbd> veya <kbd>kullanıcıadı:parola@127.0.0.1:1080</kbd>).',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'Varsayılana sıfırla',
 		'selector_preview' => array(
 			'show_raw' => 'Kaynak kodu göster',

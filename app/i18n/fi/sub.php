@@ -225,6 +225,8 @@ return array(
 		),
 		'proxy' => 'Nouda syöte käyttämällä välityspalvelinta',
 		'proxy_help' => 'Valitse protokolla (esimerkki: SOCKS5) ja kirjoita välityspalvelimen osoite (esimerkki: <kbd>127.0.0.1:1080</kbd> tai <kbd>käyttäjätunnus:salasana@127.0.0.1:1080</kbd>)',
+		'proxy_tunnel' => 'Tunnel through HTTP proxy',	// TODO
+		'proxy_tunnel_help' => 'Use HTTP CONNECT when fetching this feed through an HTTP proxy.',	// TODO
 		'reset_favicon' => 'Palauta oletuskuvakkeeksi',
 		'selector_preview' => array(
 			'show_raw' => 'Näytä lähdekoodi',
