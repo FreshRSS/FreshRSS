@@ -66,6 +66,9 @@
 	--alert-warn-background-color: #ffe;
 	--alert-warn-border-color: #eeb;
 	--alert-warn-font-color: #c95;
+	--alert-info-background-color: #e6f3ff;
+	--alert-info-border-color: #b3d9ff;
+	--alert-info-font-color: #1a3d5c;
 	--alert-success-background-color: #dfd;
 	--alert-success-border-color: #cec;
 	--alert-success-font-color: #484;
@@ -129,7 +132,7 @@ input:focus, select:focus, textarea:focus {
 	border-color: var(--border-color-grey-dark);
 }
 
-input:invalid, select:invalid {
+input:user-invalid, select:user-invalid {
 	border-color: var(--invalid-box-border-color);
 	box-shadow: 0 0 2px 2px var(--invalid-box-shadow-color) inset;
 }
@@ -319,7 +322,7 @@ th {
 }
 
 .nav-list .item > a,
-.nav-list .item > .as-link {
+.nav-list .item .as-link {
 	padding: 0 1rem;
 }
 
@@ -365,7 +368,7 @@ th {
 
 .dropdown-menu .item > a,
 .dropdown-menu .item > span,
-.dropdown-menu .item > .as-link {
+.dropdown-menu .item .as-link {
 	padding: 0 22px;
 	line-height: 2.5;
 	color: var(--font-color-grey);
@@ -374,7 +377,7 @@ th {
 
 .dropdown-menu .dropdown-section .item > a,
 .dropdown-menu .dropdown-section .item > span,
-.dropdown-menu .dropdown-section .item > .as-link {
+.dropdown-menu .dropdown-section .item .as-link {
 	padding-left: 2rem;
 }
 
@@ -384,8 +387,8 @@ th {
 
 .dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:focus:not([disabled]),
-.dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item button:focus:not([disabled]),
+.dropdown-menu .item button:hover:not([disabled]),
 .dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background-color: var(--background-color-grey-hover);
@@ -434,6 +437,12 @@ th {
 	background: var(--alert-warn-background-color);
 	color: var(--alert-warn-font-color);
 	border: 1px solid var(--alert-warn-border-color);
+}
+
+.alert-info {
+	background: var(--alert-info-background-color);
+	color: var(--alert-info-font-color);
+	border: 1px solid var(--alert-info-border-color);
 }
 
 .alert-success {

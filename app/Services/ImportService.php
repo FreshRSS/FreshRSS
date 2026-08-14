@@ -195,6 +195,11 @@ class FreshRSS_Import_Service {
 				$feed->_attribute('unicityCriteriaForced', true);
 			}
 
+			if (isset($feed_elt['frss:ttl'])) {
+				// Signed refresh interval (TTL); a negative value indicates a muted feed
+				$feed->_ttl((int)$feed_elt['frss:ttl']);
+			}
+
 			if (isset($feed_elt['frss:cssFullContent'])) {
 				$feed->_pathEntries(Minz_Helper::htmlspecialchars_utf8($feed_elt['frss:cssFullContent']));
 			}
@@ -324,7 +329,7 @@ class FreshRSS_Import_Service {
 				$curl_params[CURLOPT_USERAGENT] = $feed_elt['frss:CURLOPT_USERAGENT'];
 			}
 			if (!empty($curl_params)) {
-				$feed->_attribute('curl_params', $curl_params);
+				$feed->_attribute('curl_params', FreshRSS_http_Util::sanitizeCurlParams($curl_params));
 			}
 
 			// Call the extension hook
@@ -421,7 +426,8 @@ class FreshRSS_Import_Service {
 			$categories_elements = array_merge($categories_elements, $outline_categories);
 
 			foreach ($outline_categories_to_feeds as $category_name => $feeds) {
-				if (!is_string($category_name) || !is_array($feeds)) {
+				if (!is_string($category_name) ||	// @phpstan-ignore function.alreadyNarrowedType (defensive)
+					!is_array($feeds)) {	// @phpstan-ignore function.alreadyNarrowedType (defensive)
 					continue;
 				}
 				if (!isset($categories_to_feeds[$category_name])) {

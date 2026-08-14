@@ -46,14 +46,16 @@ AddDefaultCharset	UTF-8
 	</FilesMatch>
 </IfModule>
 
-# Provide the true IP address of the connection (e.g. last proxy), even when using mod_remoteip
-<IfModule mod_rewrite.c>
-	RewriteEngine on
-	RewriteRule .* - [E=CONN_REMOTE_ADDR:%{CONN_REMOTE_ADDR}]
-</IfModule>
-<IfModule !mod_rewrite.c>
-	<IfModule mod_setenvif.c>
-		SetEnvIfExpr "%{CONN_REMOTE_ADDR} =~ /(.*)/" CONN_REMOTE_ADDR=$1
+<IfModule mod_remoteip.c>
+	# Provide the true IP address of the connection (e.g. last proxy), even when using mod_remoteip
+	<IfModule mod_rewrite.c>
+		RewriteEngine on
+		RewriteRule .* - [E=CONN_REMOTE_ADDR:%{CONN_REMOTE_ADDR}]
+	</IfModule>
+	<IfModule !mod_rewrite.c>
+		<IfModule mod_setenvif.c>
+			SetEnvIfExpr "%{CONN_REMOTE_ADDR} =~ /(.*)/" CONN_REMOTE_ADDR=$1
+		</IfModule>
 	</IfModule>
 </IfModule>
 

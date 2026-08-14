@@ -317,10 +317,21 @@ final class FreshRSS_Context {
 	}
 
 	/**
-	 * Returns if the current state includes $state parameter.
+	 * Checks whether the $state parameter is consequential, i.e. has any effect
+	 * (not zero, and not just including opposite states).
 	 */
-	public static function isStateEnabled(int $state): int {
-		return self::$state & $state;
+	public static function isStateConsequential(int $state): bool {
+		return (($state & FreshRSS_Entry::STATE_READ) xor ($state & FreshRSS_Entry::STATE_NOT_READ)) ||
+			(($state & FreshRSS_Entry::STATE_FAVORITE) xor ($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) ||
+			($state & FreshRSS_Entry::STATE_OR_NOT_READ) ||
+			($state & FreshRSS_Entry::STATE_OR_FAVORITE);
+	}
+
+	/**
+	 * Checks whether the current state includes $state parameter.
+	 */
+	public static function isStateEnabled(int $state): bool {
+		return (self::$state & $state) !== 0;
 	}
 
 	/**
@@ -666,5 +677,30 @@ final class FreshRSS_Context {
 	public static function defaultTimeZone(): string {
 		$timezone = ini_get('date.timezone');
 		return $timezone != false ? $timezone : 'UTC';
+	}
+
+	/**
+	 * Sort locale-aware with Collator if available
+	 */
+	public static function localeCompare(string $a, string $b): int {
+		static $collator = null;
+
+		if ($collator === null) {
+			$language = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->language : '';
+			if ($language === '' || !class_exists(\Collator::class)) {
+				$collator = false;
+			} else {
+				$collator = \Collator::create($language) ?? false;
+			}
+			if ($collator instanceof \Collator) {
+				$collator->setAttribute(\Collator::NUMERIC_COLLATION, \Collator::ON);
+			}
+		}
+
+		if (!($collator instanceof \Collator)) {
+			return strnatcasecmp($a, $b);
+		}
+		$result = $collator->compare($a, $b);
+		return $result === false ? strnatcasecmp($a, $b) : $result;
 	}
 }

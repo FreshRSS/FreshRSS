@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Exibição',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autores e Data',
+				'both' => 'No cabeçalho e rodapé',
+				'footer' => 'No rodapé',
+				'header' => 'No cabeçalho',
+				'none' => 'Nenhum',
+			),
+			'feed_name' => array(
+				'above_title' => 'Acima do título/etiqueta',
+				'none' => 'Nenhum',
+				'with_authors' => 'Com autores e data',
+			),
+			'feed_title' => 'Título do Feed',
+			'icons' => array(
+				'_' => 'Posição dos ícones do artigo<br /><small>(Apenas na visualização de leitura)</small>',
+				'above_title' => 'Acima do título',
+				'with_authors' => 'Na linha de autores e data',
+			),
+			'tags' => array(
+				'_' => 'Tag',
+				'both' => 'No cabeçalho e rodapé',
+				'footer' => 'No rodapé',
+				'header' => 'No cabeçalho',
+				'none' => 'Nenhum',
+			),
+			'tags_max' => array(
+				'_' => 'Número máximo de tags exibidas',
+				'help' => '0 significa: mostrar todas as tags e não recolhê-las',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Modo noturno automático',
 			'auto' => 'Automático',
 			'help' => 'Somente para temas compatíveis',
 			'no' => 'Não',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Artigos: cabeçalho/rodapé',
 		),
 		'icon' => array(
 			'bottom_line' => 'Linha inferior',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => 'Depois de “marcar todos como lido”,',
 		'always_show_favorites' => 'Mostrar todos os artigos nos favoritos por padrão',
 		'apply_to_individual_feed' => 'Aplica-se a feeds individualmente',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autores e Data',
-				'both' => 'No cabeçalho e rodapé',
-				'footer' => 'No rodapé',
-				'header' => 'No cabeçalho',
-				'none' => 'Nenhum',
-			),
-			'feed_name' => array(
-				'above_title' => 'Acima do título/etiqueta',
-				'none' => 'Nenhum',
-				'with_authors' => 'Com autores e data',
-			),
-			'feed_title' => 'Título do Feed',
-			'icons' => array(
-				'_' => 'Posição dos ícones do artigo<br /><small>(Apenas na visualização de leitura)</small>',
-				'above_title' => 'Acima do título',
-				'with_authors' => 'Na linha de autores e data',
-			),
-			'tags' => array(
-				'_' => 'Tag',
-				'both' => 'No cabeçalho e rodapé',
-				'footer' => 'No rodapé',
-				'header' => 'No cabeçalho',
-				'none' => 'Nenhum',
-			),
-			'tags_max' => array(
-				'_' => 'Número máximo de tags exibidas',
-				'help' => '0 significa: mostrar todas as tags e não recolhê-las',
-			),
-		),
 		'articles_per_page' => 'Número de artigos por página',
 		'auto_load_more' => 'Carregar mais artigos no final da página',
 		'auto_remove_article' => 'Esconder artigos depois de lidos',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Categorias abertas',
 		'headline' => array(
 			'articles' => 'Artigos: Abrir/Fechar',
-			'articles_header_footer' => 'Artigos: cabeçalho/rodapé',
 			'categories' => 'Navegação à esquerda: Categoria',
 			'mark_as_read' => 'Marcar artigo como lido',
 			'misc' => 'Diversos',
@@ -311,6 +314,8 @@ return array(
 			'when' => 'Marque um artigo como favorito…',
 		),
 		'sticky_post' => 'Coloque o artigo no topo quando aberto',
+		'sticky_sort' => 'Manter a ordem de classificação manual durante a navegação',
+		'sticky_sort_help' => 'Determina se a última ordem de classificação manual é mantida ativa ou se cada categoria ou feed sempre usa sua própria configuração padrão ou global.',
 		'title' => 'Lendo',
 		'view' => array(
 			'default' => 'Visualização padrão',

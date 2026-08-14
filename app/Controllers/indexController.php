@@ -224,6 +224,11 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->categories = FreshRSS_Context::categories();
+		// Filter feed list when searching or when a restrictive state filter is active
+		if (FreshRSS_Context::$search->toString() !== '' || FreshRSS_Context::isStateConsequential(FreshRSS_Context::$state)) {
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$this->view->feedIdsMatching = $entryDAO->listFeedIdsMatching(FreshRSS_Context::$state, FreshRSS_Context::$search);
+		}
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = _t('index.feed.title_global');
@@ -251,6 +256,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		// Check if user has access.
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
 			Minz_Error::error(403, redirect: false);
+			return;
 		}
 
 		try {
@@ -287,6 +293,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		// Check if user has access.
 		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
 			Minz_Error::error(403, redirect: false);
+			return;
 		}
 
 		try {
@@ -450,6 +457,14 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$logs = FreshRSS_LogDAO::lines();	//TODO: ask only the necessary lines
+		$search = trim(Minz_Request::paramString('search', plaintext: true));
+		if ($search !== '') {
+			$logs = array_values(array_filter($logs, static fn(FreshRSS_Log $log): bool =>
+				stripos($log->level(), $search) !== false ||
+				stripos($log->date(), $search) !== false ||
+				stripos($log->info(), $search) !== false));
+		}
+		$this->view->logSearch = $search;
 
 		//gestion pagination
 		$page = Minz_Request::paramInt('page') ?: 1;

@@ -91,8 +91,13 @@ return array(
 		'default_closed_registration_message' => 'Dieser Server akzeptiert momentan keine neuen Registrierungen.',
 		'force_email_validation' => 'E-Mail-Adressprüfung erzwingen',
 		'instance-name' => 'Bezeichnung',
+		'internal-host-allowlist' => array(
+			'_' => 'Erlaubte interne Hosts',
+			'help' => '1 Eintrag pro Zeile:<ul><li><code>host:port</code>. Beispiel: <code>127.0.0.1:8080</code> oder <code>rss-bridge:80</code></li><li>CIDR-Notation: Zum Beispiel: <code>0.0.0.0/0</code> Freigabe aller IPv4, <code>::/0</code> Freigabe aller IPv6</li><li><code>*</code> Alle Hosts zulassen (unsicher!)</li></ul>',
+		),
 		'max-categories' => 'Anzahl erlaubter Kategorien pro Benutzer',
 		'max-feeds' => 'Anzahl erlaubter Feeds pro Benutzer',
+		'override-by-env-var' => 'Diese Einstellung erfolgt durch die Umgebungsvariablen <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Maximale Anzahl von Accounts',
 			'select' => array(

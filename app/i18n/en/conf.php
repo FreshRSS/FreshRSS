@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',
+				'both' => 'In header and footer',
+				'footer' => 'In footer',
+				'header' => 'In header',
+				'none' => 'None',
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',
+				'none' => 'None',
+				'with_authors' => 'In authors and date row',
+			),
+			'feed_title' => 'Feed title',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',
+				'above_title' => 'Above title',
+				'with_authors' => 'In authors and date row',
+			),
+			'tags' => array(
+				'_' => 'Tags',
+				'both' => 'In header and footer',
+				'footer' => 'In footer',
+				'header' => 'In header',
+				'none' => 'None',
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',
+				'help' => '0 means: show all tags and do not collapse them',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatic dark mode',
 			'auto' => 'Auto',
 			'help' => 'For compatible themes only',
 			'no' => 'No',
+		),
+		'display_enclosures' => 'Show enclosures',
+		'headline' => array(
+			'articles_header_footer' => 'Articles: header/footer',
 		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => 'After “mark all as read”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',
 		'apply_to_individual_feed' => 'Applies to feeds individually',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Authors and date',
-				'both' => 'In header and footer',
-				'footer' => 'In footer',
-				'header' => 'In header',
-				'none' => 'None',
-			),
-			'feed_name' => array(
-				'above_title' => 'Above title/tags',
-				'none' => 'None',
-				'with_authors' => 'In authors and date row',
-			),
-			'feed_title' => 'Feed title',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',
-				'above_title' => 'Above title',
-				'with_authors' => 'In authors and date row',
-			),
-			'tags' => array(
-				'_' => 'Tags',
-				'both' => 'In header and footer',
-				'footer' => 'In footer',
-				'header' => 'In header',
-				'none' => 'None',
-			),
-			'tags_max' => array(
-				'_' => 'Max number of tags shown',
-				'help' => '0 means: show all tags and do not collapse them',
-			),
-		),
 		'articles_per_page' => 'Number of articles per page',
 		'auto_load_more' => 'Load more articles at the bottom of the page',
 		'auto_remove_article' => 'Hide articles after reading',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',
-			'articles_header_footer' => 'Articles: header/footer',
 			'categories' => 'Left navigation: Categories',
 			'mark_as_read' => 'Mark article as read',
 			'misc' => 'Miscellaneous',
@@ -311,6 +314,8 @@ return array(
 			'when' => 'Mark an article as favourite…',
 		),
 		'sticky_post' => 'Stick the article to the top when opened',
+		'sticky_sort' => 'Keep custom sort order during navigation',
+		'sticky_sort_help' => 'Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.',
 		'title' => 'Reading',
 		'view' => array(
 			'default' => 'Default view',

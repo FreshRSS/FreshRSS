@@ -56,6 +56,7 @@
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.Indent"/>
 		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration.OneParamPerLine"/>
 		<exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
+		<exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedIf"/>
 	</rule>
 	<rule ref="Generic.Classes.DuplicateClassName"/>
 	<rule ref="Generic.CodeAnalysis.EmptyStatement"/>

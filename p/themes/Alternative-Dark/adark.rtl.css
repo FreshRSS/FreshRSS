@@ -36,6 +36,7 @@
 	--empty-feed-color: #e67e22;
 
 	--alert-warn-border-color: #615f20;
+	--alert-info-border-color: #0062b7;
 	--alert-success-border-color: #18521d;
 	--alert-error-border-color: #912621;
 
@@ -107,7 +108,7 @@ input[type="radio"]:hover {
 	accent-color: var(--contrast-background-color-hover);
 }
 
-input:disabled, select:disabled {
+input:disabled, select:disabled, textarea:disabled {
 	color: var(--font-color-dark);
 	border-color: var(--border-color-dark);
 }
@@ -322,7 +323,7 @@ a:hover > .spinner {
 }
 
 .nav-list .item > a,
-.nav-list .item > .as-link {
+.nav-list .item .as-link {
 	padding: 0 1rem;
 }
 
@@ -367,7 +368,7 @@ a:hover > .spinner {
 
 .dropdown-menu .item > a,
 .dropdown-menu .item > span,
-.dropdown-menu .item > .as-link {
+.dropdown-menu .item .as-link {
 	padding: 0 22px;
 	line-height: 2.5;
 	font-size: inherit;
@@ -375,7 +376,7 @@ a:hover > .spinner {
 
 .dropdown-menu .dropdown-section .item > a,
 .dropdown-menu .dropdown-section .item > span,
-.dropdown-menu .dropdown-section .item > .as-link {
+.dropdown-menu .dropdown-section .item .as-link {
 	padding-right: 2rem;
 }
 
@@ -385,8 +386,8 @@ a:hover > .spinner {
 
 .dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:focus:not([disabled]),
-.dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item button:focus:not([disabled]),
+.dropdown-menu .item button:hover:not([disabled]),
 .dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background: var(--background-color-hover);
@@ -445,6 +446,10 @@ a:hover > .spinner {
 
 .alert-warn {
 	border-color: var(--alert-warn-border-color);
+}
+
+.alert-info {
+	border-color: var(--alert-info-border-color);
 }
 
 .alert-success {
@@ -743,13 +748,9 @@ kbd {
 
 /*=== Index menu */
 .nav_menu {
-	padding: 5px 0;
+	padding: 5px 3rem 5px 0.5rem;
 	background: var(--background-color-dark);
 	text-align: center;
-}
-
-.nav_menu #nav_menu_toggle_aside {
-	position: static;
 }
 
 .nav_menu .btn {

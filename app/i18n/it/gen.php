@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nome utente',
-			'format' => '<small>Massimo 16 caratteri alfanumerici</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -173,8 +173,14 @@ return array(
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
 		'confirm_exit_slider' => 'Sei sicuro di voler perdere le impostazioni non salvate?',
 		'feedback' => array(
-			'body_new_articles' => 'Ci sono %%d nuovi articoli da leggere.',
-			'body_unread_articles' => '(non letti: %%d)',
+			'body_new_articles' => array(
+				0 => 'C\'è %d nuovo articolo da leggere.',	// DIRTY
+				1 => 'Ci sono %d nuovi articoli da leggere.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(non letti: %d)',	// DIRTY
+				1 => '(non letti: %d)',	// DIRTY
+			),
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
 		),
@@ -199,6 +205,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -292,10 +299,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Segnalibri',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

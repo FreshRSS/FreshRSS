@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nutzername',
-			'format' => '<small>Maximal 16 alphanumerische Zeichen</small>',
+			'format' => '<small>1-39 Zeichen: Buchstaben, Zahlen und <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -173,8 +173,14 @@ return array(
 		'confirm_action_feed_cat' => 'Möchten Sie diese Aktion wirklich ausführen? Sie verlieren damit alle zugehörigen Favoriten und Suchanfragen. Der Vorgang kann nicht rückgängig gemacht werden!',
 		'confirm_exit_slider' => 'Sollen die nicht gespeicherten Einstellungen wirklich verworfen werden?',
 		'feedback' => array(
-			'body_new_articles' => 'Es gibt %%d neue Artikel zum Lesen auf FreshRSS.',
-			'body_unread_articles' => '(Ungelesen: %%d)',
+			'body_new_articles' => array(
+				0 => 'Es gibt %d neuen Artikel zum Lesen auf FreshRSS.',	// DIRTY
+				1 => 'Es gibt %d neue Artikel zum Lesen auf FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(Ungelesen: %d)',	// DIRTY
+				1 => '(Ungelesen: %d)',	// DIRTY
+			),
 			'request_failed' => 'Eine Anfrage ist fehlgeschlagen, dies könnte durch Probleme mit der Internetverbindung verursacht worden sein.',
 			'title_new_articles' => 'FreshRSS: neue Artikel!',
 		),
@@ -199,6 +205,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -292,10 +299,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Lesezeichen',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

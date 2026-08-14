@@ -942,6 +942,16 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				"(e.author LIKE ?)",
 				['%/u/Alice%'],
 			],
+			[	// Not a regex
+				"inurl:'/shorts/'",
+				"(e.link LIKE ?)",
+				['%/shorts/%'],
+			],
+			[	// Not a regex
+				'inurl:"/shorts/" OR inurl:"/spam/"',
+				'(e.link LIKE ?) OR (e.link LIKE ?)',
+				['%/shorts/%', '%/spam/%'],
+			],
 			[	// Regex with literal 'or'
 				'intitle:/^A or B/i',
 				'(e.title ~* ?)',
@@ -997,8 +1007,18 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				'intext:/^ab$/m',
-				'(UNCOMPRESS(e.content_bin) REGEXP ?))',
+				'(UNCOMPRESS(e.content_bin) REGEXP ?)',
 				['(?-i)(?m)^ab$']
+			],
+			[
+				'-intext:/^ab$/m',
+				'(NOT UNCOMPRESS(e.content_bin) REGEXP ?)',
+				['(?-i)(?m)^ab$']
+			],
+			[
+				'-/^ab$/',
+				'(NOT e.title REGEXP ? AND NOT UNCOMPRESS(e.content_bin) REGEXP ?)',
+				['(?-i)^ab$', '(?-i)^ab$']
 			],
 		];
 	}
@@ -1035,8 +1055,18 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				'intext:/^ab$/m',
-				"(REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc')))",
+				"(REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc'))",
 				['^ab$']
+			],
+			[
+				'-intext:/^ab$/m',
+				"(NOT REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc'))",
+				['^ab$']
+			],
+			[
+				'-/^ab$/',
+				"(NOT REGEXP_LIKE(e.title,?,'c') AND NOT REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'c'))",
+				['^ab$', '^ab$']
 			],
 		];
 	}
@@ -1104,7 +1134,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					intitle:/<Inter&sting>/i intitle:"g ' & d\\:"
 					intext:/<Inter&sting>/i intext:g&d
 					author:/Bob/ author:"/u/Alice" author:Alice
-					inurl:/https/ inurl:example.net
+					inurl:/https/ inurl:"/shorts/" inurl:example.net
 					#/tag2/ #tag1
 					/search_regex/i "quoted search" search search:"A user search" search:U1
 					-e:3,4 -f:12,13 -c:22,23 -L:32,33 -labels:"Not label,Not other label"
@@ -1115,7 +1145,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 					-intitle:/Spam/i -intitle:"'bad"
 					-intext:/Spam/i -intext:"'bad"
 					-author:/Dave/i -author:"/u/Charlie" -author:Charlie
-					-inurl:/ftp/ -inurl:example.com
+					-inurl:/ftp/ -inurl:"/spam/" -inurl:example.com
 					-#/tag4/ -#tag3
 					-/not_regex/i -"not quoted" -not_search -search:"Negative user search" -search:U2
 					EOD

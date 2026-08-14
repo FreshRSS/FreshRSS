@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Opmaak',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Auteurs en datum',
+				'both' => 'In kop en voet',
+				'footer' => 'In voet',
+				'header' => 'In kop',
+				'none' => 'Geen',
+			),
+			'feed_name' => array(
+				'above_title' => 'Boven titel/tags',
+				'none' => 'Geen',
+				'with_authors' => 'In lijn met auteurs en datum',
+			),
+			'feed_title' => 'Feedtitel',
+			'icons' => array(
+				'_' => 'Positie van artikelpictogrammen<br /><small>(Alleen leesweergave)</small>',
+				'above_title' => 'Boven titel',
+				'with_authors' => 'In rij auteurs en datum',
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In kop en voet',
+				'footer' => 'In voet',
+				'header' => 'In kop',
+				'none' => 'Geen',
+			),
+			'tags_max' => array(
+				'_' => 'Max aantal getoonde tags',
+				'help' => '0 betekent: toon alle tags en verberg er geen',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatische dark mode',
 			'auto' => 'Auto',	// IGNORE
 			'help' => 'Alleen voor compatibele thema’s',
 			'no' => 'Nee',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Artikelen: kop/voet',
 		),
 		'icon' => array(
 			'bottom_line' => 'Onderaan',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => 'Na „markeer alles als gelezen”,',
 		'always_show_favorites' => 'Toon alle artikelen standaard in favorieten',
 		'apply_to_individual_feed' => 'Toegepast op individuele feeds',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Auteurs en datum',
-				'both' => 'In kop en voet',
-				'footer' => 'In voet',
-				'header' => 'In kop',
-				'none' => 'Geen',
-			),
-			'feed_name' => array(
-				'above_title' => 'Boven titel/tags',
-				'none' => 'Geen',
-				'with_authors' => 'In lijn met auteurs en datum',
-			),
-			'feed_title' => 'Feedtitel',
-			'icons' => array(
-				'_' => 'Positie van artikelpictogrammen<br /><small>(Alleen leesweergave)</small>',
-				'above_title' => 'Boven titel',
-				'with_authors' => 'In rij auteurs en datum',
-			),
-			'tags' => array(
-				'_' => 'Tags',	// IGNORE
-				'both' => 'In kop en voet',
-				'footer' => 'In voet',
-				'header' => 'In kop',
-				'none' => 'Geen',
-			),
-			'tags_max' => array(
-				'_' => 'Max aantal getoonde tags',
-				'help' => '0 betekent: toon alle tags en verberg er geen',
-			),
-		),
 		'articles_per_page' => 'Aantal artikelen per pagina',
 		'auto_load_more' => 'Laad volgende artikel onderaan de pagina',
 		'auto_remove_article' => 'Verberg artikel na lezen',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Categoriën om uit te klappen',
 		'headline' => array(
 			'articles' => 'Artikelen: openen/sluiten',
-			'articles_header_footer' => 'Artikelen: kop/voet',
 			'categories' => 'Linkernavigatie: categoriën',
 			'mark_as_read' => 'Artikelen als gelezen markeren',
 			'misc' => 'Diversen',
@@ -311,6 +314,8 @@ return array(
 			'when' => 'Markeer een artikel als favoriet…',
 		),
 		'sticky_post' => 'Koppel artikel aan de bovenkant als het geopend wordt',
+		'sticky_sort' => 'Aangepaste sorteervolgorde behouden bij het bladeren',
+		'sticky_sort_help' => 'Bepaalt of de laatste aangepaste sorteervolgorde actief blijft of dat elke categorie of feed altijd zijn eigen standaard- of algemene instelling gebruikt.',
 		'title' => 'Lees modus',
 		'view' => array(
 			'default' => 'Standaard weergave',

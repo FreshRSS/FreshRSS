@@ -29,7 +29,7 @@ return array(
 			'help' => 'Provee la URL a un <a href=http://opml.org/ target="_blank">archivo OPML</a> para llenar dinámicamente esta categoría con fuentes',
 		),
 		'empty' => 'Vaciar categoría',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'Esta categoría OPML dinámica ha encontrado un problema. Comprueba que la URL del OPML sigue accesible y que no se ha superado el número máximo de fuentes por usuario.',
 		'expand' => 'Expandir categoría',
 		'information' => 'Información',
 		'open' => 'Abrir categoría',
@@ -83,6 +83,7 @@ return array(
 			'help' => 'Escribir un filtro de búsqueda por línea. Ver <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentación de operadores de búsqueda</a>.',
 			'view_filter' => 'Vista previa de filtros en artículos existentes (nueva ventana)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'Cabeceras HTTP',
 		'http_headers_help' => 'Las cabeceras son separadas por un salto de línea, y el nombre y valor de una cabecera son separadas por dos puntos (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icono',
@@ -187,10 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (por defecto)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Último artículo publicado <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Último artículo recibido <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Última actualización errónea <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Última actualización exitosa <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Borrar caché',
 			'clear_cache_help' => 'Borrar la memoria caché de esta fuente.',

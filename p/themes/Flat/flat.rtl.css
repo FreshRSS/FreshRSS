@@ -54,13 +54,13 @@ input:focus, select:focus, textarea:focus {
 	border-color: #2980b9;
 }
 
-input:invalid, select:invalid {
+input:user-invalid, select:user-invalid {
 	color: #f00;
 	border-color: #f00;
 	box-shadow: none;
 }
 
-input:disabled, select:disabled {
+input:disabled, select:disabled, textarea:disabled {
 	background: #eee;
 }
 
@@ -268,7 +268,7 @@ th {
 }
 
 .nav-list .item > a,
-.nav-list .item > .as-link {
+.nav-list .item .as-link {
 	padding: 0 1rem;
 }
 
@@ -319,7 +319,7 @@ th {
 
 .dropdown-menu .item > a,
 .dropdown-menu .item > span,
-.dropdown-menu .item > .as-link {
+.dropdown-menu .item .as-link {
 	padding: 0 22px;
 	line-height: 2.5em;
 	font-size: inherit;
@@ -327,7 +327,7 @@ th {
 
 .dropdown-menu .dropdown-section .item > a,
 .dropdown-menu .dropdown-section .item > span,
-.dropdown-menu .dropdown-section .item > .as-link {
+.dropdown-menu .dropdown-section .item .as-link {
 	padding-right: 2rem;
 }
 
@@ -337,8 +337,8 @@ th {
 
 .dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:focus:not([disabled]),
-.dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item button:focus:not([disabled]),
+.dropdown-menu .item button:hover:not([disabled]),
 .dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background: #2980b9;
@@ -393,6 +393,12 @@ th {
 	background: #ffe;
 	color: #c95;
 	border: 1px solid #eeb;
+}
+
+.alert-info {
+	background: #e6f3ff;
+	color: #1a3d5c;
+	border: 1px solid #b3d9ff;
 }
 
 .alert-success {
@@ -675,11 +681,7 @@ th {
 /*=== Index menu */
 .nav_menu {
 	text-align: center;
-	padding: 5px 0;
-}
-
-.nav_menu #nav_menu_toggle_aside {
-	position: static;
+	padding: 5px 3rem 5px 0.5rem;
 }
 
 .nav_menu .btn {

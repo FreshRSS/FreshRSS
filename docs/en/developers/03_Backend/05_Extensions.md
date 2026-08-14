@@ -181,6 +181,8 @@ Example response for a `query_icon_info` request:
 * `Minz_HookType::CustomFaviconHash` (`function(FreshRSS_Feed $feed): string | null`): Enables the modification of custom favicon hashes by returning params from the hook function. The hook should check if the `customFaviconExt` attribute of `$feed` is set to the extension's name before returning a custom value. Otherwise, the return value should be null.
 * `Minz_HookType::EntriesFavorite` (`function(array $ids, bool $is_favorite): void`):
 	will be executed when some entries are marked or unmarked as favorites (starred)
+* `Minz_HookType::EntriesRead` (`function(array $ids, bool $is_read): void`):
+	will be executed when some entries are marked or unmarked as read
 * `Minz_HookType::EntryAutoRead` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as read. The *why* parameter supports the rules {`filter`, `upon_reception`, `same_title_in_feed`, `same_guid_in_category`}.
 * `Minz_HookType::EntryAutoUnread` (`function(FreshRSS_Entry $entry, string $why): void`): Triggered when an entry is automatically marked as unread. The *why* parameter supports the rules {`updated_article`}.
 * `Minz_HookType::EntryBeforeDisplay` (`function($entry) -> Entry | null`): will be executed every time an entry is rendered. The entry itself (instance of FreshRSS\_Entry) will be passed as parameter.
@@ -223,6 +225,7 @@ if (document.readyState && document.readyState !== 'loading' && typeof window.co
 The following events are available:
 
 * `freshrss:globalContextLoaded`: will be dispatched after load the global `context` variable, useful for referencing variables injected with the `Minz_HookType::JsVars` hook.
+* `freshrss:entryStateChange`: will be dispatched on `document` after an entry has finished being marked as read or unread (i.e. once the underlying AJAX request has completed). The `detail` property of the event contains `id` (the entry ID) and `isRead` (the new read state). Useful for extensions that display their own read/unread indicator outside of the main article list, e.g. in a custom reading pane.
 
 ### Injecting CDN content
 

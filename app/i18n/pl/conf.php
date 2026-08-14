@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Wyświetlanie',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autor i data',
+				'both' => 'W nagłówku i stopce',
+				'footer' => 'W stopce',
+				'header' => 'W nagłówku',
+				'none' => 'Brak',
+			),
+			'feed_name' => array(
+				'above_title' => 'Ponad tytułem/tagami',
+				'none' => 'Brak',
+				'with_authors' => 'W tej samej linii co autor i data',
+			),
+			'feed_title' => 'Nazwa kanału',
+			'icons' => array(
+				'_' => 'Pozycja ikonek wiadomości<br /><small>(tylko w widoku czytania)</small>',
+				'above_title' => 'Powyżej tytułu',
+				'with_authors' => 'W tej samej linii co autor i data',
+			),
+			'tags' => array(
+				'_' => 'Tagi',
+				'both' => 'W nagłówku i stopce',
+				'footer' => 'W stopce',
+				'header' => 'W nagłówku',
+				'none' => 'Brak',
+			),
+			'tags_max' => array(
+				'_' => 'Limit liczby wyświetlanych tagów',
+				'help' => '0 oznacza: wyświetl wszystkie tagi i żadnego nie zwijaj',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Tryb ciemny',
 			'auto' => 'Automatyczny',
 			'help' => 'Wyłącznie dla kompatybilnych wyglądów',
 			'no' => 'Wyłączony',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Wiadomości: nagłówek i stopka',
 		),
 		'icon' => array(
 			'bottom_line' => 'Dolny margines',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => 'Po oznaczeniu wszystkich jako przeczytane,',
 		'always_show_favorites' => 'Pokaż wszystkie wiadomości po wejściu do ulubionych',
 		'apply_to_individual_feed' => 'Dotyczy kanałów indywidualnie',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autor i data',
-				'both' => 'W nagłówku i stopce',
-				'footer' => 'W stopce',
-				'header' => 'W nagłówku',
-				'none' => 'Brak',
-			),
-			'feed_name' => array(
-				'above_title' => 'Ponad tytułem/tagami',
-				'none' => 'Brak',
-				'with_authors' => 'W tej samej linii co autor i data',
-			),
-			'feed_title' => 'Nazwa kanału',
-			'icons' => array(
-				'_' => 'Pozycja ikonek wiadomości<br /><small>(tylko w widoku czytania)</small>',
-				'above_title' => 'Powyżej tytułu',
-				'with_authors' => 'W tej samej linii co autor i data',
-			),
-			'tags' => array(
-				'_' => 'Tagi',
-				'both' => 'W nagłówku i stopce',
-				'footer' => 'W stopce',
-				'header' => 'W nagłówku',
-				'none' => 'Brak',
-			),
-			'tags_max' => array(
-				'_' => 'Limit liczby wyświetlanych tagów',
-				'help' => '0 oznacza: wyświetl wszystkie tagi i żadnego nie zwijaj',
-			),
-		),
 		'articles_per_page' => 'Liczba wiadomości na stronę',
 		'auto_load_more' => 'Załaduj więcej wiadomości po dojściu na koniec strony',
 		'auto_remove_article' => 'Ukryj wiadomości po przeczytaniu',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Kategorie do rozwinięcia',
 		'headline' => array(
 			'articles' => 'Wiadomości: otwieranie i zamykanie',
-			'articles_header_footer' => 'Wiadomości: nagłówek i stopka',
 			'categories' => 'Nawigacja po lewej: Kategorie',
 			'mark_as_read' => 'Oznacz wiadomość jako przeczytaną',
 			'misc' => 'Różne',
@@ -311,6 +314,8 @@ return array(
 			'when' => 'Oznacz wiadomość jako ulubioną…',
 		),
 		'sticky_post' => 'Przesuń wiadomość na górę strony po otworzeniu',
+		'sticky_sort' => 'Zachowaj ręczną kolejność sortowania podczas nawigacji',	// DIRTY
+		'sticky_sort_help' => 'Określa, czy ostatnia ręczna kolejność sortowania pozostaje aktywna, czy każda kategoria lub kanał zawsze używa własnego ustawienia domyślnego lub globalnego.',	// DIRTY
 		'title' => 'Czytanie',
 		'view' => array(
 			'default' => 'Domyślny widok',

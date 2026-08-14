@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Username',
-			'format' => '<small>Maximum 16 alphanumeric characters</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -173,8 +173,14 @@ return array(
 		'confirm_action_feed_cat' => 'Are you sure you want to perform this action? You will lose related favourites and user queries. It cannot be cancelled!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',
 		'feedback' => array(
-			'body_new_articles' => 'There are %%d new articles to read on FreshRSS.',
-			'body_unread_articles' => '(unread: %%d)',
+			'body_new_articles' => array(
+				0 => 'There is %d new article to read on FreshRSS.',
+				1 => 'There are %d new articles to read on FreshRSS.',
+			),
+			'body_unread_articles' => array(
+				0 => '(unread: %d)',
+				1 => '(unread: %d)',
+			),
 			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',
 			'title_new_articles' => 'FreshRSS: new articles!',
 		),
@@ -199,6 +205,7 @@ return array(
 		'it' => 'Italiano',
 		'ja' => '日本語',
 		'ko' => '한국어',
+		'lt' => 'Lietuvių',
 		'lv' => 'Latviešu',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',
@@ -292,10 +299,12 @@ return array(
 		'gnusocial' => 'GNU social',
 		'jdh' => 'Journal du hacker',
 		'lemmy' => 'Lemmy',
+		'linkace' => 'LinkAce',
 		'linkding' => 'Linkding',
 		'linkedin' => 'LinkedIn',
 		'mastodon' => 'Mastodon',
 		'movim' => 'Movim',
+		'nextcloud-bookmarks' => 'Nextcloud Bookmarks',
 		'omnivore' => 'Omnivore',
 		'pinboard' => 'Pinboard',
 		'pinterest' => 'Pinterest',

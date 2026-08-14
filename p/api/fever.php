@@ -176,7 +176,7 @@ final class FeverAPI
 			if ($username != false) {
 				$username = trim($username);
 				FreshRSS_Context::initUser($username);
-				if ($feverKey === FreshRSS_Context::userConf()->feverKey && FreshRSS_Context::userConf()->enabled) {
+				if (hash_equals(FreshRSS_Context::userConf()->feverKey, $feverKey) && FreshRSS_Context::userConf()->enabled) {
 					Minz_Translate::init(FreshRSS_Context::userConf()->language);
 					$this->entryDAO = FreshRSS_Factory::createEntryDao();
 					$this->feedDAO = FreshRSS_Factory::createFeedDao();
@@ -188,7 +188,8 @@ final class FeverAPI
 				Minz_Log::error('Fever API: Please reset your API password!');
 				Minz_User::change();
 			}
-			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey, API_LOG);
+			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey .
+				' ; Remote IP address=' . Minz_Request::connectionRemoteAddress(), API_LOG);
 		}
 		return false;
 	}
@@ -496,8 +497,8 @@ final class FeverAPI
 		if (is_string($_REQUEST['feed_ids'] ?? null)) {
 			$feed_ids = array_filter(explode(',', $_REQUEST['feed_ids']), 'ctype_digit');
 		} elseif (is_string($_REQUEST['group_ids'] ?? null)) {
-			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$group_ids = explode(',', $_REQUEST['group_ids']);
+			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$feeds = [];
 			foreach ($group_ids as $id) {
 				if (!is_numeric($id)) {
@@ -552,7 +553,8 @@ final class FeverAPI
 				'feed_id' => $entry->feedId(),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
 				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),
-				'html' => $entry->content(), 'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
+				'html' => $entry->content($entry->feed()?->attributeBoolean('display_enclosures') ?? true),
+				'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				'is_saved' => $entry->isFavorite() ? 1 : 0,
 				'is_read' => $entry->isRead() ? 1 : 0,
 				'created_on_time' => $entry->date(true),
