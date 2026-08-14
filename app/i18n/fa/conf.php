@@ -32,6 +32,37 @@ return array(
 	),
 	'display' => array(
 		'_' => ' نمایش',
+		'article' => array(
+			'authors_date' => array(
+				'_' => ' نویسندگان و تاریخ',
+				'both' => ' در سرصفحه و پاورقی',
+				'footer' => ' در پاورقی',
+				'header' => ' در سربرگ',
+				'none' => ' هیچکدام',
+			),
+			'feed_name' => array(
+				'above_title' => ' بالای عنوان/برچسب ها',
+				'none' => ' هیچ',
+				'with_authors' => ' در نویسندگان و ردیف تاریخ',
+			),
+			'feed_title' => ' عنوان خوراک',
+			'icons' => array(
+				'_' => 'موقعیت آیکون‌ها<br /><small>(فقط در نمای خواندن)</small>',
+				'above_title' => 'بالاتر از عنوان',
+				'with_authors' => 'در سطر نویسنده و تاریخ',
+			),
+			'tags' => array(
+				'_' => ' برچسب ها',
+				'both' => ' در سرصفحه و پاورقی',
+				'footer' => ' در پاورقی',
+				'header' => ' در سربرگ',
+				'none' => ' هیچ',
+			),
+			'tags_max' => array(
+				'_' => ' حداکثر تعداد برچسب نشان داده شده است',
+				'help' => '0 به این معنی است: همه برچسب ها را نشان دهید و آنها را جمع نکنید',
+			),
+		),
 		'darkMode' => array(
 			'_' => ' حالت تاریک خودکار',
 			'auto' => ' خودکار',
@@ -39,6 +70,9 @@ return array(
 			'no' => 'خیر',
 		),
 		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => ' مقالات: سرصفحه / پاورقی',
+		),
 		'icon' => array(
 			'bottom_line' => ' خط پایین',
 			'display_authors' => ' نویسندگان',
@@ -232,37 +266,6 @@ return array(
 		'after_onread' => ' بعد از "علامت گذاری همه به عنوان خوانده شده"',
 		'always_show_favorites' => ' نمایش همه مقالات در موارد دلخواه به طور پیش فرض',
 		'apply_to_individual_feed' => 'به صورت جداگانه برای هر فید اعمال می‌شود',
-		'article' => array(
-			'authors_date' => array(
-				'_' => ' نویسندگان و تاریخ',
-				'both' => ' در سرصفحه و پاورقی',
-				'footer' => ' در پاورقی',
-				'header' => ' در سربرگ',
-				'none' => ' هیچکدام',
-			),
-			'feed_name' => array(
-				'above_title' => ' بالای عنوان/برچسب ها',
-				'none' => ' هیچ',
-				'with_authors' => ' در نویسندگان و ردیف تاریخ',
-			),
-			'feed_title' => ' عنوان خوراک',
-			'icons' => array(
-				'_' => 'موقعیت آیکون‌ها<br /><small>(فقط در نمای خواندن)</small>',
-				'above_title' => 'بالاتر از عنوان',
-				'with_authors' => 'در سطر نویسنده و تاریخ',
-			),
-			'tags' => array(
-				'_' => ' برچسب ها',
-				'both' => ' در سرصفحه و پاورقی',
-				'footer' => ' در پاورقی',
-				'header' => ' در سربرگ',
-				'none' => ' هیچ',
-			),
-			'tags_max' => array(
-				'_' => ' حداکثر تعداد برچسب نشان داده شده است',
-				'help' => '0 به این معنی است: همه برچسب ها را نشان دهید و آنها را جمع نکنید',
-			),
-		),
 		'articles_per_page' => ' تعداد مقاله در هر صفحه',
 		'auto_load_more' => ' مقالات بیشتری را در پایین صفحه بارگذاری کنید',
 		'auto_remove_article' => ' مخفی کردن مقالات پس از خواندن',
@@ -271,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'دسته‌بندی‌هایی که باید باز باشند',
 		'headline' => array(
 			'articles' => ' مقالات: باز/بستن',
-			'articles_header_footer' => ' مقالات: سرصفحه / پاورقی',
 			'categories' => ' ناوبری چپ: دسته ها',
 			'mark_as_read' => ' مقاله را به عنوان خوانده شده علامت گذاری کنید',
 			'misc' => ' متفرقه',

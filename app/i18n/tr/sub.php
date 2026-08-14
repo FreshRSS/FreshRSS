@@ -83,6 +83,7 @@ return array(
 			'help' => 'Her satıra bir arama filtresi yazın. Operatörler için <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">belgelere bakın</a>.',
 			'view_filter' => 'Mevcut makalelerdeki filtreleri önizle (yeni pencere)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP Başlıkları',
 		'http_headers_help' => 'Başlıklar yeni bir satırla ayrılır ve bir başlığın adı ile değeri iki nokta üst üste ile ayrılır (örneğin: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Simge',
