@@ -53,7 +53,7 @@
 
 		& > a,
 		& > span,
-		& > .as-link {
+		& .as-link {
 			padding: 0 2rem;
 			color: var(--main-font-color);
 			font-size: inherit;
@@ -65,7 +65,7 @@
 		}
 
 		& > a,
-		& > .as-link {
+		& .as-link {
 			&:not(.addItem):hover {
 				background: var(--main-first);
 				color: var(--white);

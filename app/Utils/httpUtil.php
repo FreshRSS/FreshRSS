@@ -12,10 +12,12 @@ final class FreshRSS_http_Util {
 		'169.254.0.0/16', // RFC3927
 		'0.0.0.0/8',      // RFC5735
 		'240.0.0.0/4',    // RFC1112
+		'100.64.0.0/10',  // RFC6598 (Shared Address Space of Carrier-Grade NAT)
 		'::1/128',        // Loopback
 		'fc00::/7',       // Unique Local Address
 		'fe80::/10',      // Link Local Address
 		'::ffff:0:0/96',  // IPv4 translations
+		'64:ff9b::/96',   // RFC6052 (IPv6 Addressing of IPv4/IPv6 Translators, NAT64)
 		'::/128',         // Unspecified address
 	];
 	/** @var array<string, string[]> $resolve_ok */
@@ -736,7 +738,7 @@ final class FreshRSS_http_Util {
 		}
 
 		if ($cachePath !== null && file_put_contents($cachePath, $body) === false) {
-			Minz_Log::warning("Error saving cache $cachePath for $url");
+			Minz_Log::warning("Error saving cache for $url");
 		}
 
 		return ['body' => is_string($body) ? $body : '', 'effective_url' => $c_effective_url, 'redirect_count' => $redirs,

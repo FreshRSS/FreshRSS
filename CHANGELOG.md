@@ -10,6 +10,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 		* Passing `*` allows all networks like before (unsafe)
 	* Fix access control in `rss` and `opml` actions [#8912](https://github.com/FreshRSS/FreshRSS/pull/8912)
 	* Set limits for regex during search [#8913](https://github.com/FreshRSS/FreshRSS/pull/8913)
+	* Use `hash_equals()` for GReader API token comparison [#9183](https://github.com/FreshRSS/FreshRSS/pull/9183), [GHSA-p83h-r2jw-9whg](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-p83h-r2jw-9whg)
 * SimplePie
 	* Security: Disallow `javascript:` URI scheme (protocol) [#8263](https://github.com/FreshRSS/FreshRSS/pull/8263)
 	* Fix wrong player parent logic leading to invalid type [#8893](https://github.com/FreshRSS/FreshRSS/pull/8893), [simplepie#978](https://github.com/simplepie/simplepie/pull/978)
@@ -37,6 +38,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Extensions
 	* New `freshrss:entryStateChange` JavaScript event for extensions, dispatched when an article has finished being marked as read/unread [#8862](https://github.com/FreshRSS/FreshRSS/pull/9031)
 * I18n
+	* New Lithuanian (lietuvių) translation
 	* Improve Hungarian [#8879](https://github.com/FreshRSS/FreshRSS/pull/8879)
 	* Improve Italian [#8880](https://github.com/FreshRSS/FreshRSS/pull/8880)
 	* Improve Persian [#8923](https://github.com/FreshRSS/FreshRSS/pull/8923)

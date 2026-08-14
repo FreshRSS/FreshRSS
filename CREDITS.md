@@ -8,6 +8,7 @@ People are sorted by name so please keep this order.
 
 ---
 
+* [0xdeadrelay](https://github.com/0xdeadrelay): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:0xdeadrelay)
 * [312k](https://github.com/312k): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:312k)
 * [4xfu](https://github.com/4xfu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:4xfu)
 * [aarnej](https://github.com/aarnej): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aarnej)
@@ -146,6 +147,7 @@ People are sorted by name so please keep this order.
 * [jlefler](https://github.com/jlefler): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jlefler)
 * [Joe Stump](https://github.com/joestump): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:joestump), [Web](http://stu.mp)
 * [Joel Garcia](https://github.com/joelchrono12): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:joelchrono12), [Web](https://joelchrono12.xyz)
+* [John Brayton](https://github.com/jbrayton): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jbrayton), [Web](https://www.virtualsanity.com)
 * [Jonas Östanbäck](https://github.com/cez81): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cez81)
 * [Jordi Garcia](https://github.com/jgtorcal): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jgtorcal)
 * [Joris Kinable](https://github.com/jkinable): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jkinable)
@@ -306,6 +308,7 @@ People are sorted by name so please keep this order.
 * [Stunkymonkey](https://github.com/Stunkymonkey): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Stunkymonkey)
 * [stysebae](https://github.com/stysebae): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:stysebae)
 * [subic](https://github.com/subic): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:subic)
+* [sungju Kim](https://github.com/senti-man): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:senti-man)
 * [Sven Neuhaus](https://github.com/neuhaus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:neuhaus)
 * [Tarow](https://github.com/tarow): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tarow)
 * [Tealk](https://github.com/Tealk): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Tealk), [Web](https://rollenspiel.monster/)

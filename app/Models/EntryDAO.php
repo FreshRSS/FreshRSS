@@ -970,7 +970,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 				if ($filterSearch !== '') {
 					if ($search !== '') {
-						$search .= $filter->operator();
+						$search = rtrim($search) . ' ' . $filter->operator();
 					} elseif (in_array($filter->operator(), ['AND NOT', 'OR NOT'], true)) {
 						// Special case if we start with a negation (there is already the default AND before)
 						$search .= ' NOT';

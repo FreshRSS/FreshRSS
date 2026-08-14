@@ -1147,9 +1147,10 @@ function init_column_categories() {
 				const id = itemId.substr(2);
 				const feed_web = a.getAttribute('data-fweb') || '';
 				const template = document.getElementById(templateId)
-					.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
+					.innerHTML.replace(/------/g, id);
 				div.insertAdjacentHTML('beforeend', template);
 				dropdownMenu = div.querySelector('.dropdown-menu');
+				dropdownMenu.querySelector('li.website > a').href = feed_web;
 				dropdownMenu.style.opacity = '0%'; // Hide initially to prevent dropdown flashing
 				if (feed_web == '') {
 					const website = div.querySelector('.item.link.website');
@@ -1204,12 +1205,12 @@ function init_shortcuts() {
 	});
 
 	document.addEventListener('keydown', ev => {
-		if (ev.ctrlKey || ev.metaKey || (ev.altKey && ev.shiftKey) || ev.target.closest('input, select, textarea')) {
-			return;
-		}
-
 		const s = context.shortcuts;
 		let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
+
+		if ((ev.ctrlKey && k !== s.go_website) || ev.metaKey || (ev.altKey && ev.shiftKey) || ev.target.closest('input, select, textarea')) {
+			return;
+		}
 
 		// IE11
 		if (k === 'SPACEBAR') k = 'SPACE';
@@ -1323,14 +1324,6 @@ function init_shortcuts() {
 			return;
 		}
 
-		if (ev.altKey || ev.shiftKey) {
-			return;
-		}
-		if (k === s.mark_favorite) {	// Toggle the favorite state
-			mark_favorite(document.querySelector('.flux.current'));
-			ev.preventDefault();
-			return;
-		}
 		if (k === s.go_website) {
 			if (context.auto_mark_site) {
 				mark_read(document.querySelector('.flux.current'), true, false);
@@ -1341,6 +1334,15 @@ function init_shortcuts() {
 				window.open(link_go_website.href, '_blank', 'noopener');
 				ev.preventDefault();
 			}
+			return;
+		}
+
+		if (ev.altKey || ev.shiftKey) {
+			return;
+		}
+		if (k === s.mark_favorite) {	// Toggle the favorite state
+			mark_favorite(document.querySelector('.flux.current'));
+			ev.preventDefault();
 			return;
 		}
 		const hash = location.hash.substr(1);
@@ -2313,11 +2315,12 @@ function faviconNbUnread(n) {
 		return;
 	}
 	const svgBase = dynamicFaviconBase.innerHTML;
-	const link = document.getElementById('favicon')?.cloneNode(true);
+	const favicon = document.getElementById('favicon');
+	const link = favicon?.cloneNode(true);
 	if (link) {
 		let svgOutput = '';
 		if (n > 0) {
-			let text = '';
+			let text;
 			if (n < 1000) {
 				text = n;
 			} else if (n < 100000) {
@@ -2349,8 +2352,7 @@ function faviconNbUnread(n) {
 			temp.remove();
 		}
 		link.href = `data:image/svg+xml;base64,${btoa(svgOutput || svgBase)}`;
-		document.querySelector('#favicon').remove();
-		document.head.appendChild(link);
+		favicon.replaceWith(link);
 	}
 }
 
@@ -2470,7 +2472,7 @@ function init_navigation_handler() {
 	if (!('navigation' in window)) {
 		return;
 	}
-	navigation.addEventListener('navigate', (e) => {
+	window.navigation.addEventListener('navigate', (e) => {
 		if (!(e.canIntercept && e.hashChange && e.navigationType === 'traverse')) {
 			return;
 		}
