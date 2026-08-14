@@ -12,7 +12,7 @@ Include:
 * Whether you are yourself a user of FreshRSS
 
 Recommendations:
-* Check duplicates in existing public PRs, issues, discussions, documentation
+* Check for duplicates in existing public PRs, issues, discussions, documentation
 * Consider submitting a public PR if the vulnerability was mostly found by a public AI
 
 Inspiration from <https://lkml.org/lkml/2026/5/17/896>:
@@ -20,3 +20,9 @@ Inspiration from <https://lkml.org/lkml/2026/5/17/896>:
 > treating them on some private list is a waste of time for everybody
 > involved - and only makes that duplication worse because the reporters
 > can't even see each other's reports.
+
+## Contributing security fixes
+
+If you decide to contribute a patch for a vulnerability yourself, please open a public PR rather than using a private fork.
+
+This makes it easier for other reporters to check whether an issue is already known and also simplifies review and merging, as some GitHub features, such as CI workflows, may not work correctly in private forks.

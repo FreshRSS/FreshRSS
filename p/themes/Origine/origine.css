@@ -42,6 +42,9 @@
 	--alert-warn-background-color: #ffffe0;
 	--alert-warn-font-color: #4b3315;
 	--alert-warn-border-color: #eeb;
+	--alert-info-background-color: #e6f3ff;
+	--alert-info-font-color: #1a3d5c;
+	--alert-info-border-color: #b3d9ff;
 	--alert-success-background-color: #e8ffe8;
 	--alert-success-font-color: #244424;
 	--alert-success-border-color: #cec;
@@ -400,7 +403,7 @@ button:hover .icon,
 }
 
 .nav-list .item > a,
-.nav-list .item > .as-link,
+.nav-list .item .as-link,
 .nav-list .item > span,
 .nav-list .item > div {
 	padding: 0 1rem;
@@ -452,7 +455,7 @@ button:hover .icon,
 
 .dropdown-menu .item > a,
 .dropdown-menu .item > span,
-.dropdown-menu .item > .as-link {
+.dropdown-menu .item .as-link {
 	padding: 0 22px;
 	line-height: 2.5;
 	font-size: inherit;
@@ -460,7 +463,7 @@ button:hover .icon,
 
 .dropdown-menu .dropdown-section .item > a,
 .dropdown-menu .dropdown-section .item > span,
-.dropdown-menu .dropdown-section .item > .as-link {
+.dropdown-menu .dropdown-section .item .as-link {
 	padding-left: 2rem;
 }
 
@@ -470,8 +473,8 @@ button:hover .icon,
 
 .dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:focus:not([disabled]),
-.dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item button:focus:not([disabled]),
+.dropdown-menu .item button:hover:not([disabled]),
 .dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background-color: var(--contrast-background-color-active);
@@ -538,6 +541,12 @@ button:hover .icon,
 	background-color: var(--alert-warn-background-color);
 	color: var(--alert-warn-font-color);
 	border: 1px solid var(--alert-warn-border-color);
+}
+
+.alert-info {
+	background-color: var(--alert-info-background-color);
+	color: var(--alert-info-font-color);
+	border: 1px solid var(--alert-info-border-color);
 }
 
 .alert-success {
@@ -1285,6 +1294,9 @@ button:hover .icon,
 		--alert-warn-background-color: #ffffe022;
 		--alert-warn-font-color: #ccc;
 		--alert-warn-border-color: #eeb;
+		--alert-info-background-color: #e6f3ff14;
+		--alert-info-font-color: #7fb3d9;
+		--alert-info-border-color: #b3d9ff;
 		--alert-success-background-color: #e8ffe814;
 		--alert-success-font-color: #96c196;
 		--alert-success-border-color: #cec;
