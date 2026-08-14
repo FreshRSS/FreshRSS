@@ -61,8 +61,13 @@ class FreshRSS_Import_Service {
 		// existing categories later.
 		$categories = $this->catDAO->listCategories(prePopulateFeeds: false);
 		$categories_by_names = [];
+		$highest_position = 0;
 		foreach ($categories as $category) {
 			$categories_by_names[$category->name()] = $category;
+			$position = $category->attributeInt('position') ?? 0;
+			if ($position > $highest_position) {
+				$highest_position = $position;
+			}
 		}
 
 		// Get current numbers of categories and feeds, and the limits to
@@ -91,7 +96,8 @@ class FreshRSS_Import_Service {
 				$can_create_category = FreshRSS_Context::$isCli || !$limit_reached;
 
 				if ($can_create_category) {
-					$category = $this->createCategory($category_element, $dry_run);
+					// Import category in the exact order as the outline's placement in the OPML, at the end of positioned categories
+					$category = $this->createCategory($category_element, $dry_run, ++$highest_position);
 					if ($category !== null) {
 						$categories_by_names[$category->name()] = $category;
 						$nb_categories++;
@@ -371,7 +377,7 @@ class FreshRSS_Import_Service {
 	 * @param bool $dry_run true to not create the category in database.
 	 * @return FreshRSS_Category|null The created category, or null if it failed.
 	 */
-	private function createCategory(array $category_element, bool $dry_run): ?FreshRSS_Category {
+	private function createCategory(array $category_element, bool $dry_run, int $position): ?FreshRSS_Category {
 		$name = $category_element['text'] ?? $category_element['title'] ?? '';
 		$name = Minz_Helper::htmlspecialchars_utf8($name);
 		$category = new FreshRSS_Category($name);
@@ -383,6 +389,8 @@ class FreshRSS_Import_Service {
 				$category->_attribute('opml_url', $opml_url);
 			}
 		}
+
+		$category->_attribute('position', $position);
 
 		if ($dry_run) {
 			return $category;
