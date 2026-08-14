@@ -672,27 +672,28 @@ function next_feed(jump_to_unread) {
 }
 
 function first_feed(jump_to_unread, skip_if_last = true) {
-	let link;
+	let feed;
 	if (jump_to_unread) {
-		link = document.querySelector('#aside_feed .category.active .feed:not([data-unread="0"]) > a.item-title');
+		feed = document.querySelector('#aside_feed .category.active .feed:not([data-unread="0"])');
 	} else {
-		link = document.querySelector('#aside_feed .category.active .feed > a.item-title');
+		feed = document.querySelector('#aside_feed .category.active .feed');
 	}
-	const feed = link.parentElement;
+	while (getComputedStyle(feed).display === 'none') {
+		feed = feed.nextElementSibling;
+		if (!feed) {
+			return;
+		}
+	}
 	const categoryItems = feed.parentElement;
 	if (skip_if_last && categoryItems.querySelector('.feed.active') === categoryItems.lastElementChild) {
 		return;
 	}
+	const link = feed.querySelector('a.item-title');
 	delayedClick(link);
 }
 
 function last_feed() {
-	const links = document.querySelectorAll('#aside_feed .category.active .feed > a.item-title');
-	if (!(links && links.length > 0)) {
-		return;
-	}
-	const link = links[links.length - 1];
-	const feed = link.parentElement;
+	let feed = document.querySelector('#aside_feed .category.active .feed:last-child');
 	if (feed.classList.contains('active')) {
 		const category = feed.closest('.category').previousElementSibling;
 		if (category) {
@@ -700,6 +701,13 @@ function last_feed() {
 		}
 		return;
 	}
+	while (getComputedStyle(feed).display === 'none') {
+		feed = feed.previousElementSibling;
+		if (!feed) {
+			return;
+		}
+	}
+	const link = feed.querySelector('a.item-title');
 	delayedClick(link);
 }
 
@@ -748,15 +756,20 @@ function next_unread_category() {
 }
 
 function first_category() {
+	// goes to main stream which is always visible
 	const a = document.querySelector('#aside_feed .category a.tree-folder-title');
 	delayedClick(a);
 }
 
 function last_category() {
-	const links = document.querySelectorAll('#aside_feed .category a.tree-folder-title');
-	if (links && links.length > 0) {
-		delayedClick(links[links.length - 1]);
+	let category = document.querySelector('#sidebar > :nth-last-child(2)');
+	while (getComputedStyle(category).display === 'none') {
+		category = category.previousElementSibling;
+		if (!category) {
+			return;
+		}
 	}
+	delayedClick(category.querySelector('a.tree-folder-title'));
 }
 
 function collapse_entry() {
