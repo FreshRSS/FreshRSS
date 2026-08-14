@@ -612,7 +612,7 @@ function next_unread_entry(skipping) {
 	toggleContent(new_active, old_active, skipping);
 }
 
-function prev_feed(jump_to_unread) {
+function prev_feed() {
 	let found = false;
 	let adjacent = null;
 	const feeds = document.querySelectorAll('#aside_feed .feed');
@@ -628,10 +628,7 @@ function prev_feed(jump_to_unread) {
 		if (getComputedStyle(feed).display === 'none') {
 			continue;
 		}
-		if (jump_to_unread && feed.dataset.unread != 0) {
-			delayedClick(feed.querySelector('a.item-title'));
-			return;
-		} else if (adjacent === null) {
+		if (adjacent === null) {
 			adjacent = feed;
 		}
 	}
@@ -1295,7 +1292,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				prev_category();
 			} else if (ev.shiftKey) {
-				prev_feed(false);
+				prev_feed();
 			} else {
 				prev_entry(false);
 			}
