@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d 篇文章',
 		'open_feed' => '開啟訂閱源 %s',
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
-		'priority' => array(
-			'_' => '可見度',
-			'category' => '在類別中顯示',
-			'feed' => '顯示在其訂閱源中',
-			'hidden' => '不要顯示',
-			'important' => '顯示在重要訂閱源',
-			'main_stream' => '顯示在主資訊流',
-		),
 		'proxy' => '取得訂閱源時的代理',
 		'proxy_help' => '選擇協定 (例如: SOCKS5) 並輸入代理位址 (例如: <kbd>127.0.0.1:1080</kbd> 或 <kbd>使用者名稱:密碼@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => '重設至預設',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => '訂閱管理',
 		'subscription_tools' => '訂閱工具',
+	),
+	'priority' => array(
+		'_' => '可見度',
+		'category' => '在類別中顯示',
+		'feed' => '顯示在其訂閱源中',
+		'hidden' => '不要顯示',
+		'important' => '顯示在重要訂閱源',
+		'main_stream' => '顯示在主資訊流',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => '新增標籤至新文章',

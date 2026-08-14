@@ -355,6 +355,14 @@ final class GReaderAPI {
 						[
 							'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 							'label' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+							'frss:priority' => match ($cat->priority()) {
+								FreshRSS_Category::PRIORITY_IMPORTANT => FreshRSS_Export_Service::PRIORITY_IMPORTANT,
+								FreshRSS_Category::PRIORITY_MAIN_STREAM => FreshRSS_Export_Service::PRIORITY_MAIN_STREAM,
+								FreshRSS_Category::PRIORITY_CATEGORY => FreshRSS_Export_Service::PRIORITY_CATEGORY,
+								FreshRSS_Category::PRIORITY_FEED => FreshRSS_Export_Service::PRIORITY_FEED,
+								// FreshRSS_Category::PRIORITY_HIDDEN => FreshRSS_Export_Service::PRIORITY_HIDDEN,	// Not returned by the API
+								default => FreshRSS_Export_Service::PRIORITY_MAIN_STREAM,
+							},
 						],
 					],
 					//'sortid' => $feed->name(),
@@ -364,8 +372,9 @@ final class GReaderAPI {
 					'iconUrl' => str_replace(
 						'/api/greader.php/reader/api/0/subscription', '',	// Security if base_url is not set properly
 						$feed->favicon(absolute: true)),
-					'frss:priority' => match ($feed->priority()) {
+					'frss:priority' => match ($feed->priority(follow_category: false)) {
 						FreshRSS_Feed::PRIORITY_IMPORTANT => FreshRSS_Export_Service::PRIORITY_IMPORTANT,
+						FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING => FreshRSS_Export_Service::PRIORITY_USE_CATEGORY_SETTING,
 						FreshRSS_Feed::PRIORITY_MAIN_STREAM => FreshRSS_Export_Service::PRIORITY_MAIN_STREAM,
 						FreshRSS_Feed::PRIORITY_CATEGORY => FreshRSS_Export_Service::PRIORITY_CATEGORY,
 						FreshRSS_Feed::PRIORITY_FEED => FreshRSS_Export_Service::PRIORITY_FEED,

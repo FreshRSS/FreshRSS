@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d articles',	// IGNORE
 		'open_feed' => 'Open feed %s',	// TODO
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
-		'priority' => array(
-			'_' => 'Visibilitat',
-			'category' => 'Mostar dins sa categoria',
-			'feed' => 'Show in its feed',	// TODO
-			'hidden' => 'Mostrar pas',
-			'important' => 'Show in important feeds',	// TODO
-			'main_stream' => 'Mostar al flux màger',
-		),
 		'proxy' => 'Definir un servidor proxy per trapar aqueste flux',
 		'proxy_help' => 'Seleccionatz un protocòl (ex : SOCKS5) e picatz l’adreça del proxy (ex : <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
 		'reset_favicon' => 'Reset to default',	// TODO
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Gestion dels abonaments',
 		'subscription_tools' => 'Aisinas d’abonament',
+	),
+	'priority' => array(
+		'_' => 'Visibilitat',
+		'category' => 'Mostar dins sa categoria',
+		'feed' => 'Show in its feed',	// TODO
+		'hidden' => 'Mostrar pas',
+		'important' => 'Show in important feeds',	// TODO
+		'main_stream' => 'Mostar al flux màger',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Add this label to new articles',	// TODO

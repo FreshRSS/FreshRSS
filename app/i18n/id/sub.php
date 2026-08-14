@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d artikel',
 		'open_feed' => 'Buka umpan %s',
 		'path_entries_conditions' => 'Kondisi untuk pengambilan konten',
-		'priority' => array(
-			'_' => 'Ketampakan',
-			'category' => 'Tampilkan hanya di kategorinya saja',
-			'feed' => 'Show in its feed',	// TODO
-			'hidden' => 'Jangan tampilkan',
-			'important' => 'Tampilkan di umpan penting',
-			'main_stream' => 'Tampilkan di bagian utama',
-		),
 		'proxy' => 'Atur proksi untuk mengambil umpan ini',
 		'proxy_help' => 'Pilih protokol (contoh: SOCKS5) dan masukkan alamat proksi (contoh: <kbd>127.0.0.1:1080</kbd> atau <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Atur ulang ke yang baku',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Pengelolaan langganan',
 		'subscription_tools' => 'Alat langganan',
+	),
+	'priority' => array(
+		'_' => 'Ketampakan',
+		'category' => 'Tampilkan hanya di kategorinya saja',
+		'feed' => 'Show in its feed',	// TODO
+		'hidden' => 'Jangan tampilkan',
+		'important' => 'Tampilkan di umpan penting',
+		'main_stream' => 'Tampilkan di bagian utama',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Tambahkan label ini ke artikel baru',

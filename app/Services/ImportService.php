@@ -189,11 +189,12 @@ class FreshRSS_Import_Service {
 
 			$feed->_priority(match (strtolower($feed_elt['frss:priority'] ?? '')) {
 				FreshRSS_Export_Service::PRIORITY_IMPORTANT => FreshRSS_Feed::PRIORITY_IMPORTANT,
+				FreshRSS_Export_Service::PRIORITY_USE_CATEGORY_SETTING => FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING,
 				FreshRSS_Export_Service::PRIORITY_MAIN_STREAM => FreshRSS_Feed::PRIORITY_MAIN_STREAM,
 				FreshRSS_Export_Service::PRIORITY_CATEGORY => FreshRSS_Feed::PRIORITY_CATEGORY,
 				FreshRSS_Export_Service::PRIORITY_FEED => FreshRSS_Feed::PRIORITY_FEED,
 				FreshRSS_Export_Service::PRIORITY_HIDDEN => FreshRSS_Feed::PRIORITY_HIDDEN,
-				default => FreshRSS_Feed::PRIORITY_MAIN_STREAM,
+				default => FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING,
 			});
 
 			if (isset($feed_elt['frss:unicityCriteria']) && $feed_elt['frss:unicityCriteria'] !== 'id'
@@ -393,6 +394,15 @@ class FreshRSS_Import_Service {
 				$category->_attribute('opml_url', $opml_url);
 			}
 		}
+
+		$category->_priority(match (strtolower($category_element['frss:priority'] ?? '')) {
+			FreshRSS_Export_Service::PRIORITY_IMPORTANT => FreshRSS_Category::PRIORITY_IMPORTANT,
+			FreshRSS_Export_Service::PRIORITY_MAIN_STREAM => FreshRSS_Category::PRIORITY_MAIN_STREAM,
+			FreshRSS_Export_Service::PRIORITY_CATEGORY => FreshRSS_Category::PRIORITY_CATEGORY,
+			FreshRSS_Export_Service::PRIORITY_FEED => FreshRSS_Category::PRIORITY_FEED,
+			FreshRSS_Export_Service::PRIORITY_HIDDEN => FreshRSS_Category::PRIORITY_HIDDEN,
+			default => FreshRSS_Category::PRIORITY_MAIN_STREAM,
+		});
 
 		$category->_attribute('position', $position);
 
