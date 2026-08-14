@@ -970,7 +970,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 				if ($filterSearch !== '') {
 					if ($search !== '') {
-						$search .= $filter->operator();
+						$search = rtrim($search) . ' ' . $filter->operator();
 					} elseif (in_array($filter->operator(), ['AND NOT', 'OR NOT'], true)) {
 						// Special case if we start with a negation (there is already the default AND before)
 						$search .= ' NOT';
@@ -1731,9 +1731,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		if ($stm !== false) {
 			foreach ($values as $index => $value) {
 				$paramType = PDO::PARAM_STR;
-				if (is_null($value)) {
+				if (is_null($value)) {	// @phpstan-ignore function.impossibleType (defensive)
 					$paramType = PDO::PARAM_NULL;
-				} elseif (is_int($value) || is_bool($value)) {
+				} elseif (is_int($value) || is_bool($value)) {	// @phpstan-ignore function.impossibleType (defensive)
 					$paramType = PDO::PARAM_INT;
 				}
 				$stm->bindValue($index + 1, $value, $paramType);
@@ -1864,6 +1864,32 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return null;
+	}
+
+	/**
+	 * Get feed IDs that have entries matching the given state and search filters.
+	 * @return array<int,int> The keys are feed IDs, and the values are the number of matching entries for that feed.
+	 */
+	public function listFeedIdsMatching(int $state, ?FreshRSS_BooleanSearch $filters = null): array {
+		[$values, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters);
+		$sql = <<<SQL
+			SELECT e.id_feed, COUNT(*) AS count FROM `_entry` e
+			WHERE 1=1 {$search}
+			GROUP BY e.id_feed
+			SQL;
+		$stm = $this->pdo->prepare($sql);
+		if ($stm !== false && $stm->execute($values)) {
+			/** @var list<array{id_feed:int|string,count:int}> $res */
+			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+			$result = [];
+			foreach ($res as $row) {
+				$result[(int)$row['id_feed']] = (int)$row['count'];
+			}
+			return $result;
+		}
+		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+		Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($info));
+		return [];
 	}
 
 	/**

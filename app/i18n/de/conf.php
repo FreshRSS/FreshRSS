@@ -32,13 +32,47 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Anzeige',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autoren und Datum',
+				'both' => 'In Kopf- und Fußzeile',
+				'footer' => 'In Fußzeile',
+				'header' => 'In Kopfzeile',
+				'none' => 'Nicht anzeigen',
+			),
+			'feed_name' => array(
+				'above_title' => 'Oberhalb der Überschrift und Tags',
+				'none' => 'Nicht anzeigen',
+				'with_authors' => 'In der Zeile mit Autoren und Datum',
+			),
+			'feed_title' => 'Feed-Titel',
+			'icons' => array(
+				'_' => 'Artikel-Icon-Position<br /><small>(Nur in der Lese-Ansicht)</small>',
+				'above_title' => 'Über dem Titel',
+				'with_authors' => 'In der Autoren- und Datumszeile',
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In Kopf- und Fußzeile',
+				'footer' => 'In Fußzeile',
+				'header' => 'In Kopfzeile',
+				'none' => 'Nicht anzeigen',
+			),
+			'tags_max' => array(
+				'_' => 'Max. Anzahl angezeigter Tags',
+				'help' => '0 bedeutet, dass alle Tags angezeigt und nicht eingeklappt werden',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatischer Dunkel-Modus',
 			'auto' => 'Automatisch',
 			'help' => 'Nur für kompatible Themes',
 			'no' => 'Nein',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Anhänge anzeigen',
+		'headline' => array(
+			'articles_header_footer' => 'Artikel: Kopf- und Fußzeile',
+		),
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
 			'display_authors' => 'Autoren',
@@ -57,11 +91,11 @@ return array(
 		'show_nav_buttons' => 'Navigationsschaltflächen anzeigen',
 		'show_title_unread' => 'Anzahl ungelesener Artikel im Titel anzeigen',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Zeige Anzahl ungelesener Artikel in der Seitenleiste',
+			'all' => 'Für alle Kategorien und Feeds',
+			'important' => 'Nur für Wichtige Feeds',
+			'important_locked' => 'Bei Wichtige Feeds immer anzeigen.',
+			'none' => 'Nicht anzeigen',
 		),
 		'sidebar_hidden_by_default' => 'Seitenleiste standardmäßig ausblenden',
 		'theme' => array(
@@ -232,37 +266,6 @@ return array(
 		'after_onread' => 'Nach „Alle als gelesen markieren“,',
 		'always_show_favorites' => 'Favoriten immer anzeigen',
 		'apply_to_individual_feed' => 'Betrifft die Feeds einzeln.',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autoren und Datum',
-				'both' => 'In Kopf- und Fußzeile',
-				'footer' => 'In Fußzeile',
-				'header' => 'In Kopfzeile',
-				'none' => 'Nicht anzeigen',
-			),
-			'feed_name' => array(
-				'above_title' => 'Oberhalb der Überschrift und Tags',
-				'none' => 'Nicht anzeigen',
-				'with_authors' => 'In der Zeile mit Autoren und Datum',
-			),
-			'feed_title' => 'Feed-Titel',
-			'icons' => array(
-				'_' => 'Artikel-Icon-Position<br /><small>(Nur in der Lese-Ansicht)</small>',
-				'above_title' => 'Über dem Titel',
-				'with_authors' => 'In der Autoren- und Datumszeile',
-			),
-			'tags' => array(
-				'_' => 'Tags',	// IGNORE
-				'both' => 'In Kopf- und Fußzeile',
-				'footer' => 'In Fußzeile',
-				'header' => 'In Kopfzeile',
-				'none' => 'Nicht anzeigen',
-			),
-			'tags_max' => array(
-				'_' => 'Max. Anzahl angezeigter Tags',
-				'help' => '0 bedeutet, dass alle Tags angezeigt und nicht eingeklappt werden',
-			),
-		),
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
 		'auto_load_more' => 'Die nächsten Artikel am Seitenende laden',
 		'auto_remove_article' => 'Artikel nach dem Lesen verstecken',
@@ -271,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Ausgeklappte Kategorien',
 		'headline' => array(
 			'articles' => 'Artikel: Öffnen/Schließen',
-			'articles_header_footer' => 'Artikel: Kopf- und Fußzeile',
 			'categories' => 'Linke Navigation: Kategorien',
 			'mark_as_read' => 'Artikel als gelesen markieren',
 			'misc' => 'Sonstiges',
