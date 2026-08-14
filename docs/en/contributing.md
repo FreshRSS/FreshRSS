@@ -40,7 +40,7 @@ If you have to write code, please follow [our coding style recommendations](deve
 
 > ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).
 
-**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)” and “[help wanted](https://github.com/FreshRSS/FreshRSS/issues?q=label%3A%22help+wanted+%3Aoctocat%3A%22)” ticket labels.
+**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Good%20first%20issue%201%EF%B8%8F%E2%83%A3%22)” and “[help wanted](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22)” ticket labels.
 
 ## Submit an idea
 
@@ -74,3 +74,7 @@ This checklist is designed to ensure high-quality system themes while minimizing
 * Utilize CSS variables for colors to facilitate easy color adjustments with [CustomCSS extension](https://github.com/FreshRSS/Extensions).
 * Implement a dark mode that aligns with the `.darkMode` CSS class.
 * To streamline maintenance, avoid using CSS preprocessors; instead, employ well-structured plain CSS.
+
+## AI-assisted pull requests
+
+**Note:** Please limit AI-assisted pull requests to **10 open at a time** per contributor.

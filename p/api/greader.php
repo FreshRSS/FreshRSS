@@ -192,7 +192,7 @@ final class GReaderAPI {
 						Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 						self::unauthorized();
 					}
-					if ($headerAuthX[1] === sha1(FreshRSS_Context::systemConf()->salt . $user . FreshRSS_Context::userConf()->apiPasswordHash)) {
+					if (hash_equals(sha1(FreshRSS_Context::systemConf()->salt . $user . FreshRSS_Context::userConf()->apiPasswordHash), $headerAuthX[1])) {
 						return $user;
 					} else {
 						Minz_Log::warning('Invalid API authorisation for user ' . $user);
@@ -255,7 +255,7 @@ final class GReaderAPI {
 			$token === 'x')) { //Reeder
 			return true;
 		}
-		if ($token === str_pad(sha1(FreshRSS_Context::systemConf()->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
+		if (hash_equals(str_pad(sha1(FreshRSS_Context::systemConf()->salt . $user . $conf->apiPasswordHash), 57, 'Z'), $token)) {
 			return true;
 		}
 		Minz_Log::warning('Invalid POST token: ' . $token, API_LOG);
@@ -451,7 +451,8 @@ final class GReaderAPI {
 						if ($feedId <= 0) {
 							$http_auth = '';
 							try {
-								FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, '', $http_auth);
+								$kind = self::detectFeedKind($streamUrl);
+								FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, '', $http_auth, [], $kind);
 								continue 2;
 							} catch (Exception $e) {
 								Minz_Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
@@ -482,13 +483,23 @@ final class GReaderAPI {
 		exit('OK');
 	}
 
+	/**
+	 * Guess the kind of feed (RSS/ATOM vs. JSON) based on URL.
+	 * The Google Reader API does not provide any way for the client to specify the feed format.
+	 */
+	private static function detectFeedKind(string $url): int {
+		return preg_match('/(?:\b|_)json(?:\b|_)/i', $url) === 1
+			? FreshRSS_Feed::KIND_JSONFEED
+			: FreshRSS_Feed::KIND_RSS;
+	}
+
 	private static function quickadd(string $url): never {
 		try {
 			$url = htmlspecialchars($url, ENT_COMPAT, 'UTF-8');
 			if (str_starts_with($url, 'feed/')) {
 				$url = substr($url, 5);
 			}
-			$feed = FreshRSS_feed_Controller::addFeed($url);
+			$feed = FreshRSS_feed_Controller::addFeed($url, kind: self::detectFeedKind($url));
 			exit(json_encode([
 					'numResults' => 1,
 					'query' => $feed->url(),

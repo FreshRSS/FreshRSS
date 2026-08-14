@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Zobrazenie',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authori a dátum',
+				'both' => 'V záhlaví a pätičke',
+				'footer' => 'V pätičke',
+				'header' => 'V záhlaví',
+				'none' => 'Žiadne',
+			),
+			'feed_name' => array(
+				'above_title' => 'O zápise/značky',
+				'none' => 'Žiadne',
+				'with_authors' => 'V riadku autori a dátum',
+			),
+			'feed_title' => 'Nadpis kanála',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Značky',
+				'both' => 'V záhlaví a pätičke',
+				'footer' => 'V pätičke',
+				'header' => 'V záhlaví',
+				'none' => 'Žiadne',
+			),
+			'tags_max' => array(
+				'_' => 'Maximálny počet zobrazených značiek',
+				'help' => '0 znamená: zobraziť všetky značky a nerozbaľuj ich',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatický tmavý režim',
 			'auto' => 'Automaticky',
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'Nie',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Články: záhlavie/pätička',
 		),
 		'icon' => array(
 			'bottom_line' => 'Spodný riadok',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => 'Po “Označiť všetko ako prečítané”,',
 		'always_show_favorites' => 'Automaticky zobraziť všetky články v obľúbených',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Authori a dátum',
-				'both' => 'V záhlaví a pätičke',
-				'footer' => 'V pätičke',
-				'header' => 'V záhlaví',
-				'none' => 'Žiadne',
-			),
-			'feed_name' => array(
-				'above_title' => 'O zápise/značky',
-				'none' => 'Žiadne',
-				'with_authors' => 'V riadku autori a dátum',
-			),
-			'feed_title' => 'Nadpis kanála',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => 'Značky',
-				'both' => 'V záhlaví a pätičke',
-				'footer' => 'V pätičke',
-				'header' => 'V záhlaví',
-				'none' => 'Žiadne',
-			),
-			'tags_max' => array(
-				'_' => 'Maximálny počet zobrazených značiek',
-				'help' => '0 znamená: zobraziť všetky značky a nerozbaľuj ich',
-			),
-		),
 		'articles_per_page' => 'Počet článkov na jednu stranu',
 		'auto_load_more' => 'Načítať ďalšie články dolu na stránke',
 		'auto_remove_article' => 'Skryť články po prečítaní',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Kategórie na rozbalenie',
 		'headline' => array(
 			'articles' => 'Články: Otvoriť/Zatvoriť',
-			'articles_header_footer' => 'Články: záhlavie/pätička',
 			'categories' => 'Ľavé menu: Kategórie',
 			'mark_as_read' => 'Označiť článok ako prečítaný',
 			'misc' => 'Ostatné',
@@ -311,6 +314,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
+		'sticky_sort' => 'Zachovať ručné zoradenie počas navigácie',	// DIRTY
+		'sticky_sort_help' => 'Určuje, či zostane zachované posledné ručné zoradenie, alebo či každá kategória či kanál vždy použije vlastné predvolené alebo globálne nastavenie.',	// DIRTY
 		'title' => 'Čítanie',
 		'view' => array(
 			'default' => 'Prednastavené zobrazenie',

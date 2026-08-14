@@ -37,6 +37,16 @@ function join_path(...$path_parts): string {
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
 
+/**
+ * Build the mutex path for an actualisation run.
+ *
+ * The data path identifies a FreshRSS instance, while the temporary path only
+ * determines where its mutex is stored.
+ */
+function actualize_mutex_file(string $tmpPath, string $dataPath): string {
+	return $tmpPath . '/actualize.' . hash('sha256', realpath($dataPath) ?: $dataPath) . '.freshrss.lock';
+}
+
 //<Auto-loading>
 function classAutoloader(string $class): void {
 	if (str_starts_with($class, 'FreshRSS')) {

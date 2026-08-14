@@ -38,6 +38,12 @@ if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_e
 	die('Service Unavailable!');
 }
 
+if (($_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '') !== '') {
+	// Do not allow trailing slashes
+	header('HTTP/1.1 400 Bad Request');
+	die('Invalid path!');
+}
+
 FreshRSS_Context::initUser($user);
 if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) {
 	usleep(rand(100, 10000));	//Primitive mitigation of scanning for users
@@ -66,7 +72,7 @@ Minz_ExtensionManager::enableByList(FreshRSS_Context::userConf()->extensions_ena
 $query = null;
 $userSearch = null;
 foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
-	if (!empty($raw_query['token']) && $raw_query['token'] === $token) {
+	if (!empty($raw_query['token']) && hash_equals($raw_query['token'], $token)) {
 		switch ($format) {
 			case 'atom':
 			case 'greader':

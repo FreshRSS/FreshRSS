@@ -142,7 +142,7 @@ input, select, textarea {
 	box-shadow: 0 2px 2px var(--dark-form-element-box-shadow-inset) inset;
 }
 
-input:disabled, select:disabled {
+input:disabled, select:disabled, textarea:disabled {
 	background-color: var(--dark-background-color2);
 	color: var(--dark-font-colorA);
 	border-style: solid;
@@ -313,8 +313,8 @@ button.as-link[disabled] {
 
 .dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:focus:not([disabled]),
-.dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item button:focus:not([disabled]),
+.dropdown-menu .item button:hover:not([disabled]),
 .dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background-color: var(--dark-background-color-blue);

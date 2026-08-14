@@ -46,8 +46,14 @@ OIDC support in Docker is activated by the presence of a non-empty non-zero `OID
 * `OIDC_SESSION_INACTIVITY_TIMEOUT`: Optional. Interval in seconds after which the session will be invalidated when no interaction has occurred. When not defined, the default is 300 seconds.
 * `OIDC_SESSION_MAX_DURATION`: Optional. Maximum duration of the application session. When not defined the default is 8 hours (3600 * 8 seconds). When set to 0, the session duration will be set equal to the expiry time of the ID token.
 * `OIDC_SESSION_TYPE`: Optional. OpenID Connect session storage type. See [mod_auth_openidc’s documentation for details](https://github.com/OpenIDC/mod_auth_openidc/blob/72c9f479c2d228477ff0a9518964f61879c83fb6/auth_openidc.conf#L587-L596).
+* `OIDC_DEFAULT_URL`: Optional. URL the user is redirected to when the OIDC module receives a callback whose anti-CSRF state has expired or cannot be matched, for example when an interactive login (external identity provider, MFA/step-up, or the user stepping away) takes longer than the state timeout. When not defined, the default is `/i/`, the FreshRSS index, so that an expired login restarts against the existing provider session instead of returning an HTTP 400 error page. Maps to mod_auth_openidc’s [`OIDCDefaultURL`](https://github.com/OpenIDC/mod_auth_openidc/blob/b2e99151bc695335089c8d4bfe5793624ac0732e/auth_openidc.conf#L786-L790).
 
 You may add additional custom configuration in a new `./FreshRSS/p/i/.htaccess` file.
+
+### Token endpoint authentication method
+
+Our [reference Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) does not set `OIDCProviderTokenEndpointAuth`, so [mod_auth_openidc](https://github.com/OpenIDC/mod_auth_openidc) falls back to its own default, `client_secret_basic` (i.e. the client ID and secret are sent in an HTTP Basic Authentication header when calling the token endpoint). If your identity provider’s discovery metadata advertises a `token_endpoint_auth_methods_supported` array, mod_auth_openidc instead uses the first method in that array that it also supports, which may not be `client_secret_basic`.
+If you need a different method, you can set `OIDCProviderTokenEndpointAuth` yourself in a custom `./FreshRSS/p/i/.htaccess` file, as mentioned above.
 
 ## Using own Apache installation
 

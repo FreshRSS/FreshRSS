@@ -100,7 +100,7 @@
 		</header>
 
 		<div class="text">
-			<?= $entry->content(true) ?>
+			<?= $entry->content($feed->attributeBoolean('display_enclosures') ?? true) ?>
 		</div>
 		<?php
 		$display_authors_date = in_array(FreshRSS_Context::userConf()->show_author_date, ['b', 'f'], true);

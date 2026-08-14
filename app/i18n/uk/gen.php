@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Користувацьке імʼя',
-			'format' => '<small>Максимум 16 латинських літер або цифер</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -179,8 +179,16 @@ return array(
 		'confirm_action_feed_cat' => 'Точно виконати цю дію? Ви втратите повʼязані вподобання й користувацькі запити. Дію неможливо скасувати!',
 		'confirm_exit_slider' => 'Точно відкинути незбережені параметри?',
 		'feedback' => array(
-			'body_new_articles' => 'Наявні нові статті (%%d) у FreshRSS.',
-			'body_unread_articles' => '(непрочитано: %%d)',
+			'body_new_articles' => array(
+				0 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY
+				1 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY
+				2 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(непрочитано: %d)',	// DIRTY
+				1 => '(непрочитано: %d)',	// DIRTY
+				2 => '(непрочитано: %d)',	// DIRTY
+			),
 			'request_failed' => 'Не вдалося виконати запит. Можливо, інтернет-зʼєднання нестабільне.',
 			'title_new_articles' => 'FreshRSS: нові статті!',
 		),
@@ -205,6 +213,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -298,10 +307,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Закладки',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

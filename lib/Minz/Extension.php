@@ -7,9 +7,9 @@ declare(strict_types=1);
  * @phpstan-type ExtensionMetadata array{name:string,entrypoint:string,author?:string,description?:string,version?:string,type?:'system'|'user',path:string}
  */
 abstract class Minz_Extension {
-	private string $name;
-	private string $entrypoint;
-	private string $path;
+	private readonly string $name;
+	private readonly string $entrypoint;
+	private readonly string $path;
 	private string $author;
 	private string $description;
 	private string $version;
@@ -47,9 +47,21 @@ abstract class Minz_Extension {
 	 * contains information about the extension.
 	 */
 	final public function __construct(array $meta_info) {
+		if (!is_string($meta_info['name'] ?? null) || $meta_info['name'] === '') {
+			throw new Minz_ExtensionException('Invalid `name` info!');
+		}
 		$this->name = $meta_info['name'];
+
+		if (!is_string($meta_info['entrypoint'] ?? null) || $meta_info['entrypoint'] === '') {
+			throw new Minz_ExtensionException('Invalid `entrypoint` info!', $this->name);
+		}
 		$this->entrypoint = $meta_info['entrypoint'];
+
+		if (!is_string($meta_info['path'] ?? null) || $meta_info['path'] === '') {
+			throw new Minz_ExtensionException('Invalid `path` info!', $this->name);
+		}
 		$this->path = $meta_info['path'];
+
 		$this->author = isset($meta_info['author']) ? $meta_info['author'] : '';
 		$this->description = isset($meta_info['description']) ? $meta_info['description'] : '';
 		$this->version = isset($meta_info['version']) ? (string)$meta_info['version'] : '0.1';
@@ -131,14 +143,20 @@ abstract class Minz_Extension {
 	}
 
 	/**
-	 * Getters and setters.
+	 * @return non-empty-string
 	 */
 	final public function getName(): string {
 		return $this->name;
 	}
+	/**
+	 * @return non-empty-string
+	 */
 	final public function getEntrypoint(): string {
 		return $this->entrypoint;
 	}
+	/**
+	 * @return non-empty-string
+	 */
 	final public function getPath(): string {
 		return $this->path;
 	}

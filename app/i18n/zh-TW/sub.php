@@ -83,6 +83,7 @@ return array(
 			'help' => '每行一個搜尋過濾器。運算子<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">請參閱說明文件</a>。',
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP 標頭',
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'icon' => '圖示',
@@ -94,7 +95,7 @@ return array(
 			'html_json' => array(
 				'_' => 'HTML + XPath + JSON 點表示法 (HTML 中的 JSON)',
 				'xpath' => array(
-					'_' => 'XPath for JSON in HTML',	// TODO
+					'_' => 'XPath for JSON in HTML',	// IGNORE
 					'help' => '範例: <code>normalize-space(//script[@type="application/json"])</code> (單個 JSON)<br />或者: <code>//script[@type="application/ld+json"]</code> (每篇文章一個 JSON 物件)',
 				),
 			),

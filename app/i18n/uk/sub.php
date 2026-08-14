@@ -83,6 +83,7 @@ return array(
 			'help' => 'По одному фільтру на рядок. Перегляньте <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">документацію операторів</a>.',
 			'view_filter' => 'Переглянути фільтри на наявних статтях (нове вікно)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP-заголовки',
 		'http_headers_help' => 'По заголовку на рядок. Назву й значення відокремлено двокрапкою (наприклад, <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer деякий-токен</code></kbd>).',
 		'icon' => 'Піктограма',

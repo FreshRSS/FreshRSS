@@ -43,6 +43,7 @@
 	--accent: var(--nord9-frost);
 	--red: var(--nord11-aurora);
 	--orange: var(--nord13-aurora);
+	--blue: var(--nord9-frost);
 	--green: var(--nord14-aurora);
 	--purple: var(--nord15-aurora);
 
@@ -133,9 +134,9 @@ input, select, textarea {
 	line-height: 1;
 }
 
-input:invalid,
-select:invalid,
-textarea:invalid {
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
 	border-color: var(--red);
 }
 
@@ -155,7 +156,7 @@ textarea:focus {
 
 
 
-input:disabled, select:disabled {
+input:disabled, select:disabled, textarea:disabled {
 	border-color: var(--border-elements);
 	color: var(--text-accent);
 }
@@ -372,7 +373,7 @@ svg:hover {
 
 .dropdown-menu .item > a,
 .dropdown-menu .item > span,
-.dropdown-menu .item > .as-link {
+.dropdown-menu .item .as-link {
 	padding: 0 22px;
 	line-height: 2.5em;
 	font-size: inherit;
@@ -381,7 +382,7 @@ svg:hover {
 
 .dropdown-menu .dropdown-section .item > a,
 .dropdown-menu .dropdown-section .item > span,
-.dropdown-menu .dropdown-section .item > .as-link {
+.dropdown-menu .dropdown-section .item .as-link {
 	padding-left: 2rem;
 }
 
@@ -391,8 +392,8 @@ svg:hover {
 
 .dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:focus:not([disabled]),
-.dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item button:focus:not([disabled]),
+.dropdown-menu .item button:hover:not([disabled]),
 .dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background-color: var(--light-bg);
@@ -459,6 +460,10 @@ svg:hover {
 
 .alert-warn {
 	border-color: var(--orange);
+}
+
+.alert-info {
+	border-color: var(--blue);
 }
 
 .alert-error {
@@ -1100,7 +1105,7 @@ optgroup::before {
 }
 
 .nav-list .item > a,
-.nav-list .item > .as-link {
+.nav-list .item .as-link {
 	padding: 0 1rem;
 }
 
@@ -1126,10 +1131,10 @@ optgroup::before {
 
 .dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
-.dropdown-menu > .item > .as-link,
+.dropdown-menu > .item .as-link,
 .dropdown-menu > .item > ul > .item > a,
 .dropdown-menu > .item > ul > .item > span,
-.dropdown-menu > .item > ul > .item > .as-link {
+.dropdown-menu > .item > ul > .item .as-link {
 	color: var(--text-accent) !important;
 }
 
