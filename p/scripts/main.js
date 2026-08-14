@@ -323,9 +323,7 @@ function send_mark_queue_tick(callback) {
 const delayedFunction = send_mark_queue_tick;
 
 function delayedClick(a) {
-	if (a) {
-		delayedFunction(function () { a.click(); });
-	}
+	delayedFunction(function () { a.click(); });
 }
 
 function mark_read(div, only_not_read, asBatch) {
