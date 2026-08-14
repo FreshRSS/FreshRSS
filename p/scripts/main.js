@@ -638,6 +638,7 @@ function prev_feed(jump_to_unread) {
 	if (found && adjacent) {
 		delayedClick(adjacent.querySelector('a.item-title'));
 	} else {
+		// if the current active item is a category, goes to the last feed of the category above
 		last_feed();
 	}
 }
@@ -668,20 +669,41 @@ function next_feed(jump_to_unread) {
 	if (found && adjacent) {
 		delayedClick(adjacent.querySelector('a.item-title'));
 	} else {
-		first_feed();
+		// if the current active feed is the last of the entire feed list, doesn't do anything
+		first_feed(jump_to_unread);
 	}
 }
 
-function first_feed() {
-	const a = document.querySelector('#aside_feed .category.active .feed:not([data-unread="0"]) a.item-title');
-	delayedClick(a);
+function first_feed(jump_to_unread, skip_if_last = true) {
+	let link;
+	if (jump_to_unread) {
+		link = document.querySelector('#aside_feed .category.active .feed:not([data-unread="0"]) > a.item-title');
+	} else {
+		link = document.querySelector('#aside_feed .category.active .feed > a.item-title');
+	}
+	const feed = link.parentElement;
+	const categoryItems = feed.parentElement;
+	if (skip_if_last && categoryItems.querySelector('.feed.active') === categoryItems.lastElementChild) {
+		return;
+	}
+	delayedClick(link);
 }
 
 function last_feed() {
-	const links = document.querySelectorAll('#aside_feed .category.active .feed:not([data-unread="0"]) a.item-title');
-	if (links && links.length > 0) {
-		delayedClick(links[links.length - 1]);
+	const links = document.querySelectorAll('#aside_feed .category.active .feed > a.item-title');
+	if (!(links && links.length > 0)) {
+		return;
 	}
+	const link = links[links.length - 1];
+	const feed = link.parentElement;
+	if (feed.classList.contains('active')) {
+		const category = feed.closest('.category').previousElementSibling;
+		if (category) {
+			delayedClick(category);
+		}
+		return;
+	}
+	delayedClick(link);
 }
 
 function prev_category() {
@@ -720,6 +742,8 @@ function next_unread_category() {
 		while (cat && cat.getAttribute('data-unread') <= 0);
 		if (cat) {
 			delayedClick(cat.querySelector('a.tree-folder-title'));
+		} else if (active_cat.nextElementSibling) {
+			delayedClick(active_cat.nextElementSibling.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -1293,7 +1317,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				first_category();
 			} else if (ev.shiftKey) {
-				first_feed();
+				first_feed(false, false);
 			} else {
 				const old_active = document.querySelector('.flux.current');
 				const first = document.querySelector('.flux');
