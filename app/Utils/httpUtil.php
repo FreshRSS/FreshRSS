@@ -738,7 +738,7 @@ final class FreshRSS_http_Util {
 		}
 
 		if ($cachePath !== null && file_put_contents($cachePath, $body) === false) {
-			Minz_Log::warning("Error saving cache $cachePath for $url");
+			Minz_Log::warning("Error saving cache for $url");
 		}
 
 		return ['body' => is_string($body) ? $body : '', 'effective_url' => $c_effective_url, 'redirect_count' => $redirs,
