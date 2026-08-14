@@ -58,7 +58,7 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 | Dark pink | Miicat_47 | |
 | Flat design | Marien Fressinaud | |
 | Mapco | Thomas Guesnon  | |
-| Nord theme | joelchrono12 | |
+| Nord | joelchrono12 | |
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
@@ -105,6 +105,12 @@ By default, FreshRSS displays buttons to ease the article navigation when browsi
 
 If you don’t use those buttons because you never browse on mobile or because you browse with gestures, you can disable them from the interface.
 
+### Hide sidebar by default
+
+By default, the sidebar is visible when opening FreshRSS. If you prefer to have more reading space on load, you can hide it by default.
+
+When this option is enabled, the sidebar will be hidden at the start of each new session in the normal and reader views. You can still toggle it at any time using the sidebar button in the navigation bar.
+
 ## Reading
 
 ### Number of articles per page
@@ -123,11 +129,15 @@ This will set images to load as they are viewed. This can save data, but will ca
 
 ### Archiving
 
-These are the global options for fetching and retaining articles from feeds. They can be overridden by individual feed’s settings.
+These are the global options for fetching and retaining articles from feeds. They can be overridden by [category](./04_Subscriptions.md#archiving) settings, which can in turn be overridden by individual feed’s settings (priority order: feed, then category, then this global default).
+
+Purging (i.e. deleting) an article is based on the date it was _discovered_ by FreshRSS, not its published date. An article still present in the upstream feed is always kept regardless of the purge policy, so FreshRSS can keep detecting new articles correctly.
+
+Purging does not happen on every feed refresh: it is only triggered on a random subset of refreshes, to limit the load on the database. To purge immediately, use _Purge now_ below, or the `cli/purge.php` [command-line script](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md), which is suitable for cron.
 
 ### Maintenance
 
-This allows for purging/optimizing the current user’s articles in the database.
+This allows for purging/optimizing the current user’s articles in the database. _Purge now_ immediately applies the archiving policy (feed, then category, then global default) described above to all of your feeds.
 
 ## Sharing
 

@@ -29,6 +29,7 @@ return array(
 			'help' => 'Sediakan URL ke <a href="http://opml.org/" target="_blank">berkas OPML</a> untuk memasukkan umpan ke kategori ini secara dinamis',
 		),
 		'empty' => 'Kategori kosong',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Kembangkan kategori',
 		'information' => 'Informasi',
 		'open' => 'Buka kategori',
@@ -82,10 +83,12 @@ return array(
 			'help' => 'Tulis satu penyaringan pencarian per baris. Operator <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">lihat dokumentasi</a>.',
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'Tajuk HTTP',
 		'http_headers_help' => 'Tajuk dipisahkan dengan baris baru dan nama dan nilai dari tajuk dipisahkan dengan titik dua (contoh: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Ikon',
 		'information' => 'Informasi',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Jumlah minimum artikel yang harus disimpan',
 		'kind' => array(
 			'_' => 'Jenis sumber umpan',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (baku)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Bersihkan tembolok',
 			'clear_cache_help' => 'Bersihkan tembolok untuk umpan ini.',

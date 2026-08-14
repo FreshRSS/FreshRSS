@@ -275,6 +275,91 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="show_title_unread">
+					<input type="checkbox" name="show_title_unread" id="show_title_unread" value="1"<?=
+						FreshRSS_Context::userConf()->show_title_unread ? ' checked="checked"' : '' ?>
+						data-leave-validation="<?= FreshRSS_Context::userConf()->show_title_unread ?>" />
+					<?= _t('conf.display.show_title_unread') ?>
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="show_unread_count"><?= _t('conf.display.show_unread_count') ?></label>
+			<div class="group-controls">
+				<?php $suc = FreshRSS_Context::userConf()->show_unread_count; ?>
+				<select name="show_unread_count" id="show_unread_count">
+					<option value="all"<?= $suc === 'all' ? ' selected="selected"' : '' ?>><?= _t('conf.display.show_unread_count.all') ?></option>
+					<option value="important"<?= $suc === 'important' ? ' selected="selected"' : '' ?>><?= _t('conf.display.show_unread_count.important') ?></option>
+					<option value="none"<?= $suc === 'none' ? ' selected="selected"' : '' ?>><?= _t('conf.display.show_unread_count.none') ?></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="sidebar_hidden_by_default">
+					<input type="checkbox" name="sidebar_hidden_by_default" id="sidebar_hidden_by_default" value="1"<?=
+						FreshRSS_Context::userConf()->sidebar_hidden_by_default ? ' checked="checked"' : '' ?> />
+					<?= _t('conf.display.sidebar_hidden_by_default') ?>
+				</label>
+			</div>
+		</div>
+
+				<h2><?= _t('conf.display.headline.articles_header_footer') ?></h2>
+		<div class="form-group">
+			<label class="group-name" for="show_feed_name"><?= _t('conf.display.article.feed_title') ?></label>
+			<div class="group-controls">
+				<select name="show_feed_name" id="show_feed_name">
+					<option value="0"<?= FreshRSS_Context::userConf()->show_feed_name === '0' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.feed_name.none') ?></option>
+					<option value="t"<?= FreshRSS_Context::userConf()->show_feed_name === 't' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.feed_name.above_title') ?></option>
+					<option value="a"<?= FreshRSS_Context::userConf()->show_feed_name === 'a' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.feed_name.with_authors') ?></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="show_author_date"><?= _t('conf.display.article.authors_date') ?></label>
+			<div class="group-controls">
+				<select name="show_author_date" id="show_author_date">
+					<option value="0" <?= FreshRSS_Context::userConf()->show_author_date === '0' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.none') ?></option>
+					<option value="h" <?= FreshRSS_Context::userConf()->show_author_date === 'h' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.header') ?></option>
+					<option value="f" <?= FreshRSS_Context::userConf()->show_author_date === 'f' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.footer') ?></option>
+					<option value="b" <?= FreshRSS_Context::userConf()->show_author_date === 'b' ? ' selected="selected"' : '' ?>><?= _t('conf.display.article.authors_date.both') ?></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for="show_article_icons"><?= _t('conf.display.article.icons') ?></label>
+			<div class="group-controls">
+				<select name="show_article_icons" id="show_article_icons">
+					<option value="t" <?= FreshRSS_Context::userConf()->show_article_icons === 't' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.icons.above_title') ?></option>
+					<option value="a" <?= FreshRSS_Context::userConf()->show_article_icons === 'a' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.icons.with_authors') ?></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for="show_tags"><?= _t('conf.display.article.tags') ?></label>
+			<div class="group-controls">
+				<select class="select-input-changer" name="show_tags" id="show_tags" data-name="show_tags_max">
+					<option value="0" <?= FreshRSS_Context::userConf()->show_tags === '0' ? ' selected="selected"' : '' ?> data-input-visible="false"><?= _t('conf.display.article.tags.none') ?></option>
+					<option value="h" <?= FreshRSS_Context::userConf()->show_tags === 'h' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.tags.header') ?></option>
+					<option value="f" <?= FreshRSS_Context::userConf()->show_tags === 'f' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.tags.footer') ?></option>
+					<option value="b" <?= FreshRSS_Context::userConf()->show_tags === 'b' ? ' selected="selected"' : '' ?> data-input-visible="true"><?= _t('conf.display.article.tags.both') ?></option>
+				</select>
+				<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+			</div>
+		</div>
+		<div class="form-group" id="show_tags_max-block">
+			<label class="group-name" for="show_tags_max"><?= _t('conf.display.article.tags_max') ?></label>
+			<div class="group-controls">
+				<input type="number" id="show_tags_max" name="show_tags_max" value="<?= FreshRSS_Context::userConf()->show_tags_max ?>" min="0" data-number="2" />
+				<p class="help"><?= _i('help') ?> <?= _t('conf.display.article.tags_max.help') ?></p>
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
@@ -283,3 +368,5 @@
 		</div>
 	</form>
 </main>
+
+<script src="../scripts/config.js?<?= @filemtime(PUBLIC_PATH . '/scripts/config.js') ?>"></script>

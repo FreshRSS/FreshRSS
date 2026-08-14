@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Usuário',
-			'format' => '<small>Máximo 16 caracteres alfanuméricos</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -140,14 +140,47 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Sobre FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'há %d dia',
+			1 => 'há %d dias',
+		),
+		'hour' => array(
+			0 => 'há %d hora',
+			1 => 'há %d horas',
+		),
+		'justnow' => 'agora mesmo',
+		'minute' => array(
+			0 => 'há %d minuto',
+			1 => 'há %d minutos',
+		),
+		'month' => array(
+			0 => 'há %d mês',
+			1 => 'há %d meses',
+		),
+		'second' => array(
+			0 => 'há %d segundo',
+			1 => 'há %d segundos',
+		),
+		'year' => array(
+			0 => 'há %d ano',
+			1 => 'há %d anos',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Categoria vazia',
 		'confirm_action' => 'Você tem certeza que deseja efetuar esta ação? Ela não poderá ser cancelada!',
 		'confirm_action_feed_cat' => 'Você tem certeza que deseja efetuar esta ação ? Você irá perder favoritos e queries de usuários. Não poderá ser cancelado!',
 		'confirm_exit_slider' => 'Tem certeza de que deseja descartar as configurações não salvas?',
 		'feedback' => array(
-			'body_new_articles' => 'Há %%d novos artigos para ler no FreshRSS.',
-			'body_unread_articles' => '(não lido: %%d)',
+			'body_new_articles' => array(
+				0 => 'Há %d novo artigo para ler no FreshRSS.',	// DIRTY
+				1 => 'Há %d novos artigos para ler no FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(não lido: %d)',	// DIRTY
+				1 => '(não lido: %d)',	// DIRTY
+			),
 			'request_failed' => 'Uma solicitação falhou, isto pode ter sido causado por problemas de conexão com a internet.',
 			'title_new_articles' => 'FreshRSS: novos artigos!',
 		),
@@ -172,6 +205,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -228,6 +262,7 @@ return array(
 		'categories' => 'Categorias',
 		'content' => 'Conteúdo',
 		'date_from' => 'De',
+		'date_modified' => 'Data de modificação do servidor',
 		'date_past' => 'No passado',
 		'date_published' => 'Data de publicação',
 		'date_range' => 'Intervalo de datas',
@@ -264,10 +299,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Favoritos',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
@@ -276,7 +313,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Sistemas-compartilhados (API)',

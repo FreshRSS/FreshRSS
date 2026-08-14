@@ -24,6 +24,8 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		bool $expandUserQueries = true
 	) {
 		$input = trim($input);
+		$input = ltrim($input, ' )');
+		$input = rtrim($input, ' (\\');
 		if ($input === '') {
 			return;
 		}
@@ -61,7 +63,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		if (preg_match_all('/\bsearch:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
 		}
-		if (preg_match_all('/\bsearch:(?P<search>[^\s"]*)/', $input, $matchesFound)) {
+		if (preg_match_all('/\bsearch:(?P<search>[^\s"\']*)/', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
 		}
 
@@ -81,6 +83,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 				}
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
 					$name = trim($matches['search'][$i]);
+					$name = self::unescapeLiterals($name);
 					$fromS[] = $matches[0][$i];
 					if ($allowUserQueries && !empty($queries[$name])) {
 						$toS[] = '(' . self::escapeLiterals($queries[$name]) . ')';
@@ -114,7 +117,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			$fromS = [];
 			$toS = [];
 			foreach ($all_matches as $matches) {
-				if (empty($matches['search'])) {
+				if (empty($matches['search'])) {	// @phpstan-ignore empty.offset (for additional safety)
 					continue;
 				}
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
@@ -131,7 +134,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 					$fromS[] = $matches[0][$i];
 					if ($allowUserQueries && !empty($matchedQueries)) {
 						$escapedQueries = array_map(fn(string $query): string => self::escapeLiterals($query), $matchedQueries);
-						$toS[] = '(' . implode(') OR (', $escapedQueries) . ')';
+						$toS[] = '((' . implode(') OR (', $escapedQueries) . '))';
 					} else {
 						$toS[] = '';
 					}
@@ -429,8 +432,28 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		return $this->operator;
 	}
 
-	/** @param FreshRSS_BooleanSearch|FreshRSS_Search $search */
+	/**
+	 * Wrap the existing searches in a single BooleanSearch if needed,
+	 * so that another search can be added as an additional restriction (AND).
+	 */
+	private function wrapSearches(): void {
+		if (count($this->searches) > 1 || (count($this->searches) > 0 && $this->searches[0] instanceof FreshRSS_Search)) {
+			$wrap = new FreshRSS_BooleanSearch('');
+			foreach ($this->searches as $existingSearch) {
+				$wrap->add($existingSearch);
+			}
+			if (count($wrap->searches) > 0) {
+				$this->searches = [$wrap];
+			}
+		}
+	}
+
+	/**
+	 * Add a search at the beginning of the Boolean expression, as an additional restriction (AND).
+	 * @param FreshRSS_BooleanSearch|FreshRSS_Search $search
+	 */
 	public function prepend(FreshRSS_BooleanSearch|FreshRSS_Search $search): void {
+		$this->wrapSearches();
 		array_unshift($this->searches, $search);
 	}
 
@@ -469,16 +492,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			}
 		}
 
-		if (count($result->searches) > 1 || (count($result->searches) > 0 && $result->searches[0] instanceof FreshRSS_Search)) {
-			// Wrap the existing searches in a new BooleanSearch if needed
-			$wrap = new FreshRSS_BooleanSearch('');
-			foreach ($result->searches as $existingSearch) {
-				$wrap->add($existingSearch);
-			}
-			if (count($wrap->searches) > 0) {
-				$result->searches = [$wrap];
-			}
-		}
+		$result->wrapSearches();
 		array_unshift($result->searches, $search);
 		return $result;
 	}
@@ -513,6 +527,29 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			}
 		}
 		return $result;
+	}
+
+	/**
+	 * Return the minimum visibility (priority) level needed for this Boolean search, or null if it does not require any specific visibility level.
+	 * For instance, if the search includes some feed IDs then it will return PRIORITY_HIDDEN,
+	 * and if it includes some category IDs then it will return PRIORITY_CATEGORY.
+	 */
+	public function needVisibility(): ?int {
+		$minVisibility = FreshRSS_Feed::PRIORITY_IMPORTANT + 1;
+		foreach ($this->searches as $search) {
+			if ($search instanceof FreshRSS_BooleanSearch) {
+				$visibility = $search->needVisibility();
+				if ($visibility !== null) {
+					$minVisibility = min($minVisibility, $visibility);
+				}
+			} elseif ($search instanceof FreshRSS_Search) {
+				$visibility = $search->needVisibility();
+				if ($visibility !== null) {
+					$minVisibility = min($minVisibility, $visibility);
+				}
+			}
+		}
+		return $minVisibility < FreshRSS_Feed::PRIORITY_IMPORTANT ? $minVisibility : null;
 	}
 
 	private ?string $expanded = null;

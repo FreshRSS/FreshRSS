@@ -10,6 +10,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 	private FreshRSS_FeedDAO $feedDAO;
 
+	private FreshRSS_CategoryDAO $categoryDAO;
+
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boilerplate for every action. It is triggered by the
@@ -23,13 +25,18 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		$this->entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->feedDAO = FreshRSS_Factory::createFeedDao();
+		$this->categoryDAO = FreshRSS_Factory::createCategoryDao();
 	}
 
 	/**
 	 * This action displays the main page for import / export system.
 	 */
 	public function indexAction(): void {
-		$this->view->feeds = $this->feedDAO->listFeeds();
+		$this->view->categories = array_filter(
+			$this->categoryDAO->listCategories(),
+			static fn(FreshRSS_Category $category): bool => !empty($category->feeds()),
+		);
+		$this->view->feedCount = array_sum(array_map(static fn(FreshRSS_Category $category): int => count($category->feeds()), $this->view->categories));
 		FreshRSS_View::prependTitle(_t('sub.import_export.title') . ' · ');
 		$this->listSqliteArchives();
 	}
@@ -62,6 +69,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
+		$this->categoryDAO = FreshRSS_Factory::createCategoryDao($username);
 
 		$type_file = self::guessFileType($name);
 
@@ -94,6 +102,11 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		} elseif ('zip' === $type_file) {
 			// ZIP extension is not loaded
 			throw new FreshRSS_ZipMissing_Exception();
+		} elseif ('txt' === $type_file) {
+			$contents = file_get_contents($path);
+			if (is_string($contents)) {
+				$list_files['opml'][] = self::txtToOpml($contents);
+			}
 		} elseif ('unknown' !== $type_file) {
 			$list_files[$type_file][] = file_get_contents($path);
 		}
@@ -215,6 +228,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	private static function guessFileType(string $filename): string {
 		if (str_ends_with($filename, '.zip')) {
 			return 'zip';
+		} elseif (str_ends_with($filename, '.txt')) {
+			return 'txt';
 		} elseif (stripos($filename, 'opml') !== false) {
 			return 'opml';
 		} elseif (str_ends_with($filename, '.json')) {
@@ -231,6 +246,37 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 		}
 		return 'unknown';
+	}
+
+	/**
+	 * Wraps a newline-separated list of feed URLs into a minimal OPML document
+	 * so it can be imported through the existing OPML pipeline.
+	 */
+	private static function txtToOpml(string $contents): string {
+		$utf8BOM = "\xEF\xBB\xBF";
+		$contents = preg_replace('/^' . $utf8BOM . '/', '', $contents) ?? $contents;
+		$outlines = '';
+		foreach (preg_split('/\R/', $contents) ?: [] as $line) {
+			$url = trim($line);
+			if ($url === '' || str_starts_with($url, '#') || str_starts_with($url, '<')) {
+				continue;
+			}
+			if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+				$message = 'TXT import: skipping invalid URL “' . \SimplePie\Misc::url_remove_credentials($url) . '”';
+				if (FreshRSS_Context::$isCli) {
+					fwrite(STDERR, $message . "\n");
+				} else {
+					Minz_Log::warning($message);
+				}
+				continue;
+			}
+			$escaped = htmlspecialchars($url, ENT_COMPAT | ENT_XML1, 'UTF-8');
+			$outlines .= '<outline type="rss" text="' . $escaped . '" xmlUrl="' . $escaped . '" />' . "\n";
+		}
+		return '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+			. '<opml version="2.0"><body>' . "\n"
+			. $outlines
+			. '</body></opml>' . "\n";
 	}
 
 	private function ttrssXmlToJson(string $xml): string|false {
@@ -339,7 +385,14 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				$item['origin']['feedUrl'] = $feedUrl;
 				$item['origin']['disable'] = 'true';
 			}
-			$feed = new FreshRSS_Feed($feedUrl);
+			$feedUrlOriginal = $feedUrl;
+			$feedUrl = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($feedUrl) ?: '');
+			try {
+				$feed = new FreshRSS_Feed($feedUrl);
+			} catch (FreshRSS_BadUrl_Exception) {
+				Minz_Log::warning('Could not add feed with invalid URL "' . \SimplePie\Misc::url_remove_credentials($feedUrlOriginal) . '" during JSON import');
+				continue;
+			}
 			$feed = $this->feedDAO->searchByUrl($feed->url());
 
 			if ($feed === null) {
@@ -395,7 +448,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 
 			$feed_id = $article_to_feed[$item['guid']];
-			$author = is_string($item['author'] ?? null) ? $item['author'] : '';
+			$author = is_string($item['author'] ?? null) ? Minz_Helper::htmlspecialchars_utf8($item['author']) : '';
 			$is_starred = null; // null is used to preserve the current state if that item exists and is already starred
 			$is_read = null;
 			$tags = is_array($item['categories'] ?? null) ? $item['categories'] : [];
@@ -420,7 +473,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 					unset($tags[$i]);
 				}
 			}
-			$tags = array_values(array_filter($tags, 'is_string'));
+			$tags = Minz_Helper::htmlspecialchars_utf8(array_values(array_filter($tags, 'is_string')));
 			if ($starred && !$is_starred) {
 				//If the article has no label, mark it as starred (old format)
 				$is_starred = empty($labels);
@@ -436,8 +489,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			} else {
 				$url = '';
 			}
+			$url = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($url) ?: '');
 
 			$title = is_string($item['title'] ?? null) ? $item['title'] : $url;
+			$title = Minz_Helper::htmlspecialchars_utf8($title);
 
 			if (is_array($item['content'] ?? null) && is_string($item['content']['content'] ?? null)) {
 				$content = $item['content']['content'];
@@ -564,6 +619,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		} else {
 			return null;
 		}
+		$url = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($url) ?: '');
 		if (!empty($origin['htmlUrl'])) {
 			$website = $origin['htmlUrl'];
 		} elseif (!empty($origin['feedUrl'])) {
@@ -571,12 +627,21 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		} else {
 			$website = '';
 		}
+		$website = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($website) ?: '');
 		$name = empty($origin['title']) ? $website : $origin['title'];
+		$name = Minz_Helper::htmlspecialchars_utf8($name);
+
+		$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+		$cat_name = Minz_Helper::htmlspecialchars_utf8(trim($origin['category'] ?? ''));
+		if ($cat_name !== '') {
+			$new_cat = $this->categoryDAO->searchByName($cat_name);
+			$cat_id = $new_cat?->id() ?: $this->categoryDAO->addCategory(['name' => $cat_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+		}
 
 		try {
 			// Create a Feed object and add it in database.
 			$feed = new FreshRSS_Feed($url);
-			$feed->_categoryId(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+			$feed->_categoryId($cat_id);
 			$feed->_name($name);
 			$feed->_website($website);
 			if (!empty($origin['disable'])) {
@@ -756,7 +821,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$this->view->sqliteName = basename($path);
 		if ($this->view->sqliteName === 'db.sqlite') {
 			$username = Minz_User::name() ?? '_';
-			$date = date('Y-m-d_H-i-s', filemtime($path) ?: time());
+			$date = date('Y-m-d_H-i-s', filemtime($path) ?: time());	// @phpstan-ignore ternary.alwaysTrue (for additional safety)
 			$this->view->sqliteName = 'freshrss_' . $username . '_' . $date . '_db.sqlite';
 		}
 		$this->view->_layout(null);

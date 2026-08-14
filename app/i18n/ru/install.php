@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на <em>./data/</em> в порядке.',
 		),
+		'database-connection' => array(
+			'nok' => 'Ошибка подключения к базе данных.',
+			'ok' => 'Подключение к базе данных успешно.',
+		),
+		'database-table' => array(
+			'nok' => 'Таблица базы данных "%s" неполная.',
+			'ok' => 'Таблица базы данных "%s" в порядке.',
+		),
+		'database-tables' => array(
+			'nok' => 'Некоторые таблицы базы данных отсутствуют.',
+			'ok' => 'Все таблицы базы данных существуют.',
+		),
+		'database-title' => 'База данных',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'У вас не установлена необходимая библиотека для просмотра DOM (пакет php-xml).',
 			'ok' => 'У вас установлена необходимая библиотека для просмотра DOM.',
@@ -63,9 +80,13 @@ return array(
 			'ok' => 'У вас установлено расширение fileinfo.',
 		),
 		'files' => 'Установка файлов',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Не найдена библиотека php-intl, рекомендуемая для поддержки разных языков.',
+			'ok' => 'Рекомендуемая библиотека php-intl для поддержки разных языков установлена.',
 		),
 		'json' => array(
 			'nok' => 'У вас нет рекомендуемой библиотеки для разбора JSON.',
@@ -80,14 +101,14 @@ return array(
 			'ok' => 'У вас установлена необходимая библиотека для работы с регулярными выражениями (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Не найден необходимый PDO-драйвер для MySQL/MariaDB.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Не найден необходимый PDO-драйвер для PostgreSQL.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'Не найден PDO-драйвер для SQLite.',
+			'ok' => 'У вас установлен PDO-драйвер для SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_sqlite, pdo_pgsql, pdo_mysql).',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Поздравляем!',
 	'default_user' => array(
 		'_' => 'Имя пользователя по умолчанию',
-		'max_char' => 'не более 16 буквенно-цифровых символов',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Пожалуйста, исправьте ошибки, прежде чем перейти к следующему шагу.',
 	'javascript_is_better' => 'Пользоваться FreshRSS приятнее с включённым JavaScript',

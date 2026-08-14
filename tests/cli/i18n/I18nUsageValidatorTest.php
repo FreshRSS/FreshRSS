@@ -119,4 +119,16 @@ final class I18nUsageValidatorTest extends \PHPUnit\Framework\TestCase {
 		self::assertFalse($validator->validate());
 		self::assertSame("Unused key file1.l1.l2.k1 - \nUnused key file2.l1.l2.k1 - \n", $validator->displayResult());
 	}
+
+	public function testValidateWhenPluralPrefixExists(): void {
+		$validator = new I18nUsageValidator([
+			'plurals.php' => [
+				'gen.interval.day' => $this->value,
+				'gen.interval.hour' => $this->value,
+			],
+		], [], ['gen.interval.']);
+
+		self::assertTrue($validator->validate());
+		self::assertSame('', $validator->displayResult());
+	}
 }

@@ -6,6 +6,8 @@ if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('nav_menu');
 }
 
+$slider_feed = $this->feed;
+
 call_user_func($this->callbackBeforeEntries, $this);
 
 $last_transition = '';
@@ -126,7 +128,9 @@ $today = @strtotime('today');
 					<?php } ?>
 				</header>
 				<div class="text"><?=
-					FreshRSS_Context::userConf()->lazyload && !FreshRSS_Context::userConf()->display_posts ? lazyimg($this->entry->content(true)) : $this->entry->content(true)
+					FreshRSS_Context::userConf()->lazyload && !FreshRSS_Context::userConf()->display_posts ?
+						lazyimg($this->entry->content($this->feed->attributeBoolean('display_enclosures') ?? true)) :
+						$this->entry->content($this->feed->attributeBoolean('display_enclosures') ?? true)
 				?></div>
 				<?php
 				$display_authors_date = FreshRSS_Context::userConf()->show_author_date === 'f' || FreshRSS_Context::userConf()->show_author_date === 'b';
@@ -192,6 +196,14 @@ $today = @strtotime('today');
 <aside id="slider" class="<?= $class ?>">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 		<div id="slider-content">
+			<?php
+				if (isset($this->tag)) {
+					$this->renderHelper('tag/update');
+				} elseif (isset($slider_feed)) {
+					$this->feed = $slider_feed;
+					$this->renderHelper('feed/update');
+				}
+			?>
 		</div>
 </aside>
 <a href="#close" id="close-slider" class="<?= $class ?>">

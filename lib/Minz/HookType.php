@@ -2,20 +2,23 @@
 declare(strict_types=1);
 
 enum Minz_HookType: string {
+	case ActionExecute = 'action_execute'; // function(Minz_ActionController $controller): bool
 	case ApiMisc = 'api_misc';	// function(): void
 	case BeforeLoginBtn = 'before_login_btn';	// function(): string
 	case CheckUrlBeforeAdd = 'check_url_before_add';	// function(string $url) -> string | null
 	case CustomFaviconBtnUrl = 'custom_favicon_btn_url';	// function(FreshRSS_Feed $feed): string | null
 	case CustomFaviconHash = 'custom_favicon_hash';	// function(FreshRSS_Feed $feed): string | null
 	case EntriesFavorite = 'entries_favorite';	// function(array $ids, bool $is_favorite): void
+	case EntriesRead = 'entries_read';	// function(array $ids, bool $is_read): void
 	case EntryAutoRead = 'entry_auto_read';	// function(FreshRSS_Entry $entry, string $why): void
 	case EntryAutoUnread = 'entry_auto_unread';	// function(FreshRSS_Entry $entry, string $why): void
+	case EntryBeforeAdd = 'entry_before_add';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
 	case EntryBeforeDisplay = 'entry_before_display';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
 	case EntryBeforeInsert = 'entry_before_insert';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
-	case EntryBeforeAdd = 'entry_before_add';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
 	case EntryBeforeUpdate = 'entry_before_update';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
 	case FeedBeforeActualize = 'feed_before_actualize';	// function(FreshRSS_Feed $feed) -> FreshRSS_Feed | null
 	case FeedBeforeInsert = 'feed_before_insert';	// function(FreshRSS_Feed $feed) -> FreshRSS_Feed | null
+	case FeedsListBeforeActualize = 'feeds_list_before_actualize';	// function(array $feedsList) -> array
 	case FreshrssInit = 'freshrss_init';	// function() -> none
 	case FreshrssUserMaintenance = 'freshrss_user_maintenance';	// function() -> none
 	case JsVars = 'js_vars';	// function($vars = array) -> array | null
@@ -44,13 +47,15 @@ enum Minz_HookType: string {
 			case self::NavEntries:
 			case self::NavMenu:
 				return Minz_HookSignature::NoneToString;
+			case self::ActionExecute:
 			case self::CheckUrlBeforeAdd:
+			case self::EntryBeforeAdd:
 			case self::EntryBeforeDisplay:
 			case self::EntryBeforeInsert:
-			case self::EntryBeforeAdd:
 			case self::EntryBeforeUpdate:
 			case self::FeedBeforeActualize:
 			case self::FeedBeforeInsert:
+			case self::FeedsListBeforeActualize:
 			case self::JsVars:
 			case self::NavReadingModes:
 			case self::ViewModes:
@@ -58,6 +63,7 @@ enum Minz_HookType: string {
 			case self::CustomFaviconBtnUrl:
 			case self::CustomFaviconHash:
 			case self::EntriesFavorite:
+			case self::EntriesRead:
 			case self::EntryAutoRead:
 			case self::EntryAutoUnread:
 			case self::SimplepieAfterInit:

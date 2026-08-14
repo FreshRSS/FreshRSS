@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',
 			'ok' => 'Permissions on the data directory are good.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',
+			'ok' => 'Database connection is good.',
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',
+			'ok' => 'Database table "%s" is good.',
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',
+			'ok' => 'All database tables exist.',
+		),
+		'database-title' => 'Database',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',
+		),
 		'dom' => array(
 			'nok' => 'Cannot find the required library to browse the DOM.',
 			'ok' => 'You have the required library to browse the DOM.',
@@ -63,6 +80,10 @@ return array(
 			'ok' => 'You have the recommended PHP fileinfo library (fileinfo package).',
 		),
 		'files' => 'File installation',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',
+		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',
 			'ok' => 'You have the recommended library php-intl for internationalisation.',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Congratulations!',
 	'default_user' => array(
 		'_' => 'Username of the default user',
-		'max_char' => 'maximum 16 alphanumeric characters',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Please fix errors before continuing to the next step.',
 	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',

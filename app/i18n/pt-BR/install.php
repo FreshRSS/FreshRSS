@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Verifique as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório data estão corretos.',
 		),
+		'database-connection' => array(
+			'nok' => 'Erro de conexão com o banco de dados.',
+			'ok' => 'Conexão com o banco de dados está boa.',
+		),
+		'database-table' => array(
+			'nok' => 'Tabela do banco de dados "%s" está incompleta.',
+			'ok' => 'Tabela do banco de dados "%s" está boa.',
+		),
+		'database-tables' => array(
+			'nok' => 'Algumas tabelas do banco de dados estão faltando.',
+			'ok' => 'Todas as tabelas do banco de dados existem.',
+		),
+		'database-title' => 'Banco de Dados',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para navegar pelo DOM (php-xml).',
 			'ok' => 'Você tem a biblioteca necessária para navegar pelo DOM.',
@@ -63,6 +80,10 @@ return array(
 			'ok' => 'Você tem a biblioteca fileinfo.',
 		),
 		'files' => 'Instalação de arquivos',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Não foi possível encontrar a biblioteca recomendada php-intl para internacionalização.',
 			'ok' => 'Você tem a biblioteca recomendada php-intl para internacionalização.',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Parabéns!',
 	'default_user' => array(
 		'_' => 'Usuário do usuário padrão',
-		'max_char' => 'máximo de 16 caracteres alfanuméricos',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Por favor solucione os erros antes de ir para o próximo passo.',
 	'javascript_is_better' => 'O FreshRSS é mais agradável com o JavaScript ativo',

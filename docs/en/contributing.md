@@ -1,4 +1,9 @@
-# Contributor Guidelines
+# Contributor guidelines
+
+## Chat with us
+
+Do you want to ask us some questions? Do you want to discuss with us?
+Don’t hesitate to [join our Mattermost chat](https://framateam.org/signup_user_complete/?id=e2680d3e3128b9fac8fdb3003b0024ee)!
 
 ## Report a bug
 
@@ -29,13 +34,13 @@ Would you like to fix a bug? For optimum coordination between collaborators, you
 1. Be sure the bug is associated with a ticket and indicate that you’ll work on it.
 2. [Fork the project repository](https://help.github.com/articles/fork-a-repo/).
 3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch should be clear, and ideally prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/).
+4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **edge branch**. Don’t forget to add your name to `CREDITS.md` if you’re contributing to FreshRSS for the very first time.
 
 If you have to write code, please follow [our coding style recommendations](developers/02_First_steps.md).
 
 > ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).
 
-**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)” ticket label.
+**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Good%20first%20issue%201%EF%B8%8F%E2%83%A3%22)” and “[help wanted](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22)” ticket labels.
 
 ## Submit an idea
 
@@ -60,7 +65,7 @@ Check the [basic information for creating a new theme](./developers/04_Frontend/
 
 This checklist is designed to ensure high-quality system themes while minimizing maintenance efforts.
 
-* Essential files include: [metadata.json, loader.gif, original.png](./developers/04_Frontend/02_Design.md) (located in the `thumbs` directory).
+* Essential files include: [metadata.json, original.png](./developers/04_Frontend/02_Design.md) (located in the `thumbs` directory).
 * Include _frss.css in the "files" section of [`metadata.json`](./developers/04_Frontend/02_Design.md).
 * Theme-specific icons reside in the `icons` directory.
 	* Icons should be provided as `svg` files.
@@ -69,3 +74,7 @@ This checklist is designed to ensure high-quality system themes while minimizing
 * Utilize CSS variables for colors to facilitate easy color adjustments with [CustomCSS extension](https://github.com/FreshRSS/Extensions).
 * Implement a dark mode that aligns with the `.darkMode` CSS class.
 * To streamline maintenance, avoid using CSS preprocessors; instead, employ well-structured plain CSS.
+
+## AI-assisted pull requests
+
+**Note:** Please limit AI-assisted pull requests to **10 open at a time** per contributor.

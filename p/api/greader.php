@@ -50,7 +50,7 @@ if (PHP_INT_SIZE < 8) {	//32-bit
 	}
 }
 
-const JSON_OPTIONS = JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+const JSON_OPTIONS = JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_SUBSTITUTE | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 
 function headerVariable(string $headerName, string $varName): string {
 	$header = '';
@@ -192,7 +192,7 @@ final class GReaderAPI {
 						Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 						self::unauthorized();
 					}
-					if ($headerAuthX[1] === sha1(FreshRSS_Context::systemConf()->salt . $user . FreshRSS_Context::userConf()->apiPasswordHash)) {
+					if (hash_equals(sha1(FreshRSS_Context::systemConf()->salt . $user . FreshRSS_Context::userConf()->apiPasswordHash), $headerAuthX[1])) {
 						return $user;
 					} else {
 						Minz_Log::warning('Invalid API authorisation for user ' . $user);
@@ -255,7 +255,7 @@ final class GReaderAPI {
 			$token === 'x')) { //Reeder
 			return true;
 		}
-		if ($token === str_pad(sha1(FreshRSS_Context::systemConf()->salt . $user . $conf->apiPasswordHash), 57, 'Z')) {
+		if (hash_equals(str_pad(sha1(FreshRSS_Context::systemConf()->salt . $user . $conf->apiPasswordHash), 57, 'Z'), $token)) {
 			return true;
 		}
 		Minz_Log::warning('Invalid POST token: ' . $token, API_LOG);
@@ -451,7 +451,8 @@ final class GReaderAPI {
 						if ($feedId <= 0) {
 							$http_auth = '';
 							try {
-								FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, '', $http_auth);
+								$kind = self::detectFeedKind($streamUrl);
+								FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, '', $http_auth, [], $kind);
 								continue 2;
 							} catch (Exception $e) {
 								Minz_Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
@@ -482,13 +483,23 @@ final class GReaderAPI {
 		exit('OK');
 	}
 
+	/**
+	 * Guess the kind of feed (RSS/ATOM vs. JSON) based on URL.
+	 * The Google Reader API does not provide any way for the client to specify the feed format.
+	 */
+	private static function detectFeedKind(string $url): int {
+		return preg_match('/(?:\b|_)json(?:\b|_)/i', $url) === 1
+			? FreshRSS_Feed::KIND_JSONFEED
+			: FreshRSS_Feed::KIND_RSS;
+	}
+
 	private static function quickadd(string $url): never {
 		try {
 			$url = htmlspecialchars($url, ENT_COMPAT, 'UTF-8');
 			if (str_starts_with($url, 'feed/')) {
 				$url = substr($url, 5);
 			}
-			$feed = FreshRSS_feed_Controller::addFeed($url);
+			$feed = FreshRSS_feed_Controller::addFeed($url, kind: self::detectFeedKind($url));
 			exit(json_encode([
 					'numResults' => 1,
 					'query' => $feed->url(),
@@ -661,10 +672,16 @@ final class GReaderAPI {
 			$search = new FreshRSS_Search('');
 			$search->setMinDate($start_time);
 			$searches->add($search);
+			// OR
+			$search = new FreshRSS_Search('');
+			$search->setMinModifiedDate($start_time);
+			$searches->add($search);
 		}
 		if ($stop_time !== 0) {
 			$search = new FreshRSS_Search('');
 			$search->setMaxDate($stop_time);
+			// AND
+			$search->setMaxModifiedDate($stop_time);
 			$searches->add($search);
 		}
 
@@ -1123,8 +1140,17 @@ TXT;
 		self::$ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1048576) ?: '';
 
 		if ($pathInfos[1] === 'accounts') {
-			if (($pathInfos[2] === 'ClientLogin') && is_string($_REQUEST['Email'] ?? null) && is_string($_REQUEST['Passwd'] ?? null)) {
-				self::clientLogin($_REQUEST['Email'], $_REQUEST['Passwd']);
+			if ($pathInfos[2] === 'ClientLogin') {
+				$email = $_POST['Email'] ?? $_GET['Email'] ?? null;
+				$passwd = $_POST['Passwd'] ?? $_GET['Passwd'] ?? null;
+				if (is_string($email) && is_string($passwd)) {
+					if (isset($_GET['Email']) || isset($_GET['Passwd'])) {
+						$user_agent = is_string($_SERVER['HTTP_USER_AGENT'] ?? null) ? $_SERVER['HTTP_USER_AGENT'] : '';
+						$warning_message = 'ClientLogin using GET method is deprecated: password may appear in logs. Use POST instead. User-Agent: ' . $user_agent;
+						Minz_Log::warning($warning_message, API_LOG);
+					}
+					self::clientLogin($email, $passwd);
+				}
 			}
 		} elseif (isset($pathInfos[3], $pathInfos[4]) && $pathInfos[1] === 'reader' && $pathInfos[2] === 'api' && $pathInfos[3] === '0') {
 			if (Minz_User::name() === null) {

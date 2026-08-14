@@ -24,6 +24,12 @@ final class UserCSSExtension extends Minz_Extension {
 		if (Minz_Request::isPost()) {
 			$css_rules = Minz_Request::paramString('css-rules', plaintext: true);
 			$this->saveFile(self::FILENAME, $css_rules);
+			FreshRSS_UserDAO::touch();
+			// Redirect (Post/Redirect/Get) so the next page is built after the save,
+			// with a fresh cache-busting URL for the updated stylesheet
+			Minz_Request::good(_t('feedback.conf.updated'), [
+				'c' => 'extension', 'a' => 'configure', 'params' => ['e' => $this->getName()],
+			]);
 		}
 
 		$this->css_rules = '';

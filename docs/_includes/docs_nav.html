@@ -2,7 +2,7 @@
 	<ul>
 		<li><a href="{{ '/en/' | relative_url }}">Home</a></li>
 		<li>
-			<a href="{{ '/en/users/02_First_steps.html' | relative_url }}">User documentation</a>
+			<a href="{{ '/en/users/02_First_steps.html' | relative_url }}">User manual</a>
 			<ul>
 				{% for page in site.pages %}
 					{% if page.url contains '/en/users/' and page.title != nil and page.url != "/en/users/02_First_steps.html" %}
@@ -12,7 +12,7 @@
 			</ul>
 		</li>
 		<li>
-			<a href="{{ '/en/admins/01_Index.html' | relative_url }}">Administrator documentation</a>
+			<a href="{{ '/en/admins/01_Index.html' | relative_url }}">Administrator manual</a>
 			<ul>
 				{% for page in site.pages %}
 					{% if page.url contains '/en/admins/' and page.url != "/en/admins/01_Index.html" and page.title != nil %}
@@ -22,7 +22,7 @@
 			</ul>
 		</li>
 		<li>
-			<a href="{{ '/en/developers/01_Index.html' | relative_url }}">Developer documentation</a>
+			<a href="{{ '/en/developers/01_Index.html' | relative_url }}">Developer manual</a>
 			<ul>
 				{% for page in site.pages %}
 					{% if page.url contains '/en/developers/' and page.url != "/en/developers/01_Index.html" and page.title != nil %}

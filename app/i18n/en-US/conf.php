@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',	// IGNORE
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// IGNORE
+				'both' => 'In header and footer',	// IGNORE
+				'footer' => 'In footer',	// IGNORE
+				'header' => 'In header',	// IGNORE
+				'none' => 'None',	// IGNORE
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// IGNORE
+				'none' => 'None',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
+			'feed_title' => 'Feed title',	// IGNORE
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// IGNORE
+				'above_title' => 'Above title',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In header and footer',	// IGNORE
+				'footer' => 'In footer',	// IGNORE
+				'header' => 'In header',	// IGNORE
+				'none' => 'None',	// IGNORE
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// IGNORE
+				'help' => '0 means: show all tags and do not collapse them',	// IGNORE
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatic dark mode',	// IGNORE
 			'auto' => 'Auto',	// IGNORE
 			'help' => 'For compatible themes only',	// IGNORE
 			'no' => 'No',	// IGNORE
+		),
+		'display_enclosures' => 'Show enclosures',	// IGNORE
+		'headline' => array(
+			'articles_header_footer' => 'Articles: header/footer',	// IGNORE
 		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',	// IGNORE
@@ -54,6 +89,15 @@ return array(
 			'timeout' => 'HTML5 notification timeout',	// IGNORE
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// IGNORE
+		'show_title_unread' => 'Show number of unread articles in the title',	// IGNORE
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// IGNORE
+			'all' => 'For all categories and feeds',	// IGNORE
+			'important' => 'For important feeds only',	// IGNORE
+			'important_locked' => 'Important feeds always show their unread count.',	// IGNORE
+			'none' => 'Never',	// IGNORE
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// IGNORE
 		'theme' => array(
 			'_' => 'Theme',	// IGNORE
 			'deprecated' => array(
@@ -121,6 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// IGNORE
 		'retrieve_extension_list' => 'Retrieve extension list',	// IGNORE
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// IGNORE
 	),
 	'profile' => array(
 		'_' => 'Profile management',	// IGNORE
@@ -132,6 +177,7 @@ return array(
 			'disabled' => 'The API access is disabled.',	// IGNORE
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// IGNORE
 			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// IGNORE
 		),
 		'change_password' => 'Change password',	// IGNORE
 		'confirm_new_password' => 'Confirm new password',	// IGNORE
@@ -148,6 +194,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'User queries',	// IGNORE
+		'create' => 'Create new user query',	// IGNORE
 		'deprecated' => 'This query is no longer valid. The referenced category or feed has been deleted.',	// IGNORE
 		'description' => 'Description',	// IGNORE
 		'filter' => array(
@@ -219,37 +266,6 @@ return array(
 		'after_onread' => 'After “mark all as read”,',	// IGNORE
 		'always_show_favorites' => 'Show all articles in favorites by default',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// IGNORE
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Authors and date',	// IGNORE
-				'both' => 'In header and footer',	// IGNORE
-				'footer' => 'In footer',	// IGNORE
-				'header' => 'In header',	// IGNORE
-				'none' => 'None',	// IGNORE
-			),
-			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// IGNORE
-				'none' => 'None',	// IGNORE
-				'with_authors' => 'In authors and date row',	// IGNORE
-			),
-			'feed_title' => 'Feed title',	// IGNORE
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// IGNORE
-				'above_title' => 'Above title',	// IGNORE
-				'with_authors' => 'In authors and date row',	// IGNORE
-			),
-			'tags' => array(
-				'_' => 'Tags',	// IGNORE
-				'both' => 'In header and footer',	// IGNORE
-				'footer' => 'In footer',	// IGNORE
-				'header' => 'In header',	// IGNORE
-				'none' => 'None',	// IGNORE
-			),
-			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// IGNORE
-				'help' => '0 means: show all tags and do not collapse them',	// IGNORE
-			),
-		),
 		'articles_per_page' => 'Number of articles per page',	// IGNORE
 		'auto_load_more' => 'Load more articles at the bottom of the page',	// IGNORE
 		'auto_remove_article' => 'Hide articles after reading',	// IGNORE
@@ -258,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',	// IGNORE
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// IGNORE
-			'articles_header_footer' => 'Articles: header/footer',	// IGNORE
 			'categories' => 'Left navigation: Categories',	// IGNORE
 			'mark_as_read' => 'Mark article as read',	// IGNORE
 			'misc' => 'Miscellaneous',	// IGNORE
@@ -278,6 +293,7 @@ return array(
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// IGNORE
 			'upon_reception' => 'upon receiving the article',	// IGNORE
 			'when' => 'Mark an article as read…',	// IGNORE
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// IGNORE
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// IGNORE
 			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',	// IGNORE
 		),
@@ -298,6 +314,8 @@ return array(
 			'when' => 'Mark an article as favorite…',
 		),
 		'sticky_post' => 'Stick the article to the top when opened',	// IGNORE
+		'sticky_sort' => 'Keep custom sort order during navigation',	// IGNORE
+		'sticky_sort_help' => 'Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.',	// IGNORE
 		'title' => 'Reading',	// IGNORE
 		'view' => array(
 			'default' => 'Default view',	// IGNORE
@@ -322,7 +340,7 @@ return array(
 		'share_name' => 'Share name to display',	// IGNORE
 		'share_url' => 'Share URL to use',	// IGNORE
 		'title' => 'Sharing',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

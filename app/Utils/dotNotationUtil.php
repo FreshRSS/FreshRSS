@@ -137,6 +137,14 @@ final class FreshRSS_dotNotation_Util
 			? (htmlspecialchars(FreshRSS_dotNotation_Util::getString($jf, $dotNotation['feedTitle']) ?? '', ENT_COMPAT, 'UTF-8') ?: $defaultRssTitle)
 			: $defaultRssTitle;
 
+		$imageUrl = isset($dotNotation['feedImage'])
+			? (FreshRSS_dotNotation_Util::getString($jf, $dotNotation['feedImage']) ?? '')
+			: '';
+		if ($imageUrl === '' && isset($dotNotation['feedImageFallback'])) {
+			$imageUrl = FreshRSS_dotNotation_Util::getString($jf, $dotNotation['feedImageFallback']) ?? '';
+		}
+		$view->image_url = htmlspecialchars($imageUrl, ENT_COMPAT, 'UTF-8');
+
 		$jsonItems = FreshRSS_dotNotation_Util::get($jf, $dotNotation['item']);
 		if (!is_array($jsonItems) || count($jsonItems) === 0) {
 			return null;

@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Megjelenítés',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Szerzők és dátum',
+				'both' => 'Fejlécben és láblécben',
+				'footer' => 'Láblécben',
+				'header' => 'Fejlécben',
+				'none' => 'Sehol',
+			),
+			'feed_name' => array(
+				'above_title' => 'Cím/címke felett',
+				'none' => 'Sehol',
+				'with_authors' => 'A szerzők és dátum sorban',
+			),
+			'feed_title' => 'Hírforrás címe',
+			'icons' => array(
+				'_' => 'Cikk ikon helye<br /><small>(Csak olvasó nézet)</small>',
+				'above_title' => 'A cím felett',
+				'with_authors' => 'A szerzők és dátum sorban',
+			),
+			'tags' => array(
+				'_' => 'Címkék',
+				'both' => 'Fejlécben és láblécben',
+				'footer' => 'Láblécben',
+				'header' => 'Fejlécben',
+				'none' => 'Sehol',
+			),
+			'tags_max' => array(
+				'_' => 'Címkék maximális száma',
+				'help' => '0 esetén: minden címke mutatása összecsukás nélkül',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatikus sötét mód',
 			'auto' => 'Automatikus',
 			'help' => 'Csak kompatibilis témákhoz',
 			'no' => 'Nem',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Cikkek: fejléc/lábléc',
 		),
 		'icon' => array(
 			'bottom_line' => 'Alsó sor',
@@ -54,6 +89,15 @@ return array(
 			'timeout' => 'HTML5 értesítés hossza',
 		),
 		'show_nav_buttons' => 'Navigációs gombok megjelenítése',
+		'show_title_unread' => 'A meg nem nyitott cikkek számának megjelenítése a címben',
+		'show_unread_count' => array(
+			'_' => 'Olvasatlan elemek számának megjelenítése az oldalsávban',
+			'all' => 'Minden kategóriánál és hírforrásnál',
+			'important' => 'Csak a fontos hírforrásoknál',
+			'important_locked' => 'A fontos hírforrások mindig megjelenítik az olvasatlan elemek számát.',
+			'none' => 'Soha',
+		),
+		'sidebar_hidden_by_default' => 'Oldalsáv elrejtése alapértelmezés szerint',
 		'theme' => array(
 			'_' => 'Téma',
 			'deprecated' => array(
@@ -106,7 +150,7 @@ return array(
 		'small' => 'Kicsi',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Értesítés engedélyezése',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
@@ -121,6 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Adatvédelem',
 		'retrieve_extension_list' => 'Kiterjesztés lista beszerzése',
+		'send_referrer_allowlist' => 'Webhelyek, amelyek láthatják a szerver címét (%s)',
 	),
 	'profile' => array(
 		'_' => 'Profil kezelés',
@@ -132,6 +177,7 @@ return array(
 			'disabled' => 'Az API hozzáférés ki van kapcsolva.',
 			'documentation_link' => 'Lásd az <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ismert appok dokumentációját és listáját</a>',
 			'help' => 'Lásd a <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentációt</a>',
+			'security_warning' => 'Használj HTTPS-t. Az API-jelszó titkosítatlanul kerül továbbításra, és GET-tel küldve megjelenhet a szervernaplókban.',
 		),
 		'change_password' => 'Jelszó megváltoztatása',
 		'confirm_new_password' => 'Új jelszó megerősítése',
@@ -148,6 +194,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Felhasználói lekérdezések',
+		'create' => 'Új felhasználói lekérdezés létrehozása',
 		'deprecated' => 'Ez a lekérdezés már nem érvényes. A hivatkozott kategória vagy hírforrás törölve lett.',
 		'description' => 'Leírás',
 		'filter' => array(
@@ -219,37 +266,6 @@ return array(
 		'after_onread' => 'Utána „minden megjelölése olvasottként”,',
 		'always_show_favorites' => 'Minden cikk megjelenítése a kedvencekben alapértelmezetten',
 		'apply_to_individual_feed' => 'A hírforrásokra külön-külön vonatkozik',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Szerzők és dátum',
-				'both' => 'Fejlécben és láblécben',
-				'footer' => 'Láblécben',
-				'header' => 'Fejlécben',
-				'none' => 'Sehol',
-			),
-			'feed_name' => array(
-				'above_title' => 'Cím/címke felett',
-				'none' => 'Sehol',
-				'with_authors' => 'A szerzők és dátum sorban',
-			),
-			'feed_title' => 'Hírforrás címe',
-			'icons' => array(
-				'_' => 'Cikk ikon helye<br /><small>(Csak olvasó nézet)</small>',
-				'above_title' => 'A cím felett',
-				'with_authors' => 'A szerzők és dátum sorban',
-			),
-			'tags' => array(
-				'_' => 'Címkék',
-				'both' => 'Fejlécben és láblécben',
-				'footer' => 'Láblécben',
-				'header' => 'Fejlécben',
-				'none' => 'Sehol',
-			),
-			'tags_max' => array(
-				'_' => 'Címkék maximális száma',
-				'help' => '0 esetén: minden címke mutatása összecsukás nélkül',
-			),
-		),
 		'articles_per_page' => 'Cikkek száma oldalanként',
 		'auto_load_more' => 'Még több cikk betöltése, ha a lap aljához ért',
 		'auto_remove_article' => 'Cikkek elrejtése elolvasás után',
@@ -258,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Mely kategóriák legyenek kibontva',
 		'headline' => array(
 			'articles' => 'Cikkek: Nyitva/Zárva',
-			'articles_header_footer' => 'Cikkek: fejléc/lábléc',
 			'categories' => 'Baloldali navigáció: Kategóriák',
 			'mark_as_read' => 'Cikk megjelölése olvasottnak',
 			'misc' => 'Egyebek',
@@ -278,6 +293,7 @@ return array(
 			'upon_gone' => 'ha már nincs benne a hírforrásban',
 			'upon_reception' => 'a cikk beérkezésekor',
 			'when' => 'Jelöljön meg egy cikket olvasottként…',
+			'when_same_guid_in_category' => 'ha egy azonos GUID már létezik a kategória legújabb <i>n</i> cikkében',
 			'when_same_title_in_category' => 'ha már létezik azonos cím a <i>n</i> kategória legfrissebb cikkeiben',
 			'when_same_title_in_feed' => 'ha egy azonos című cikk már létezik a legújabb <i>n</i> számú cikk között (a hírforrásban)',
 		),
@@ -298,6 +314,8 @@ return array(
 			'when' => 'Cikk megjelölése kedvencnek…',
 		),
 		'sticky_post' => 'A cikk gördüljön felülre, amikor megnyitásra kerül',
+		'sticky_sort' => 'Kézi rendezés megtartása navigáció közben',	// DIRTY
+		'sticky_sort_help' => 'Meghatározza, hogy az utolsó kézi rendezés aktív marad-e, vagy minden kategória, illetve hírcsatorna mindig a saját alapértelmezett vagy globális beállítását használja.',	// DIRTY
 		'title' => 'Olvasás',
 		'view' => array(
 			'default' => 'Alapértelmezett nézet',
@@ -322,7 +340,7 @@ return array(
 		'share_name' => 'Megosztás neve',
 		'share_url' => 'URL megosztása a használathoz',
 		'title' => 'Sharing',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
@@ -357,7 +375,7 @@ return array(
 		'skip_next_article' => 'Ugrás a következőre megnyitás nélkül',
 		'skip_previous_article' => 'Ugrás az előzőre megnyitás nélkül',
 		'title' => 'Gyorsgombok',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Oldalsáv be-/kikapcsolása',
 		'toggle_media' => 'Média indítás/megállítás',
 		'user_filter' => 'Felhasználói lekérdezések elfogadása',
 		'user_filter_help' => 'Ha csak egy felhasználói lekérdezés van, akkor az kerül felhasználásra. Ellenkező esetben a lekérdezések a számuk alapján érhetőek el.',

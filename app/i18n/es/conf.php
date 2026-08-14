@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Visualización',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autores y fecha',
+				'both' => 'En el encabezado y pie de página',
+				'footer' => 'En el pie de página',
+				'header' => 'En el encabezado',
+				'none' => 'Ninguno',
+			),
+			'feed_name' => array(
+				'above_title' => 'Encima de título/etiquetas',
+				'none' => 'Ninguno',
+				'with_authors' => 'En la fila de autores y fecha',
+			),
+			'feed_title' => 'Título de la fuente',
+			'icons' => array(
+				'_' => 'Posición de los iconos del artículo<br /><small>(Solo en vista de lectura)</small>',
+				'above_title' => 'Encima del título',
+				'with_authors' => 'En la fila de autores y fecha',
+			),
+			'tags' => array(
+				'_' => 'Etiquetas',
+				'both' => 'En el encabezado y pie de página',
+				'footer' => 'En el pie de página',
+				'header' => 'En el encabezado',
+				'none' => 'Ninguno',
+			),
+			'tags_max' => array(
+				'_' => 'Máximo número de etiquetas a mostrar',
+				'help' => '0 significa: mostrar todas las etiquetas y que no estén colapsadas',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Modo oscuro automático',
 			'auto' => 'Automático',
 			'help' => 'Solo para temas compatibles',
 			'no' => 'No',	// IGNORE
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Artículos: encabezado/pie de página',
 		),
 		'icon' => array(
 			'bottom_line' => 'Línea inferior',
@@ -54,6 +89,15 @@ return array(
 			'timeout' => 'Notificación de fin de espera HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botones de navegación',
+		'show_title_unread' => 'Mostrar el número de artículos no leídos en el título',
+		'show_unread_count' => array(
+			'_' => 'Mostrar el número de elementos no leídos en la barra lateral',
+			'all' => 'En todas las categorías y fuentes',
+			'important' => 'Solo en las fuentes importantes',
+			'important_locked' => 'Las fuentes importantes siempre muestran su número de elementos no leídos.',
+			'none' => 'Nunca',
+		),
+		'sidebar_hidden_by_default' => 'Ocultar barra lateral por defecto',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -106,7 +150,7 @@ return array(
 		'small' => 'Pequeño',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Activar notificaciones',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
@@ -121,6 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacidad',
 		'retrieve_extension_list' => 'Obtener lista de extensiones',
+		'send_referrer_allowlist' => 'Sitios permitidos para ver la dirección de tu servidor (%s)',
 	),
 	'profile' => array(
 		'_' => 'Administración de perfiles',
@@ -132,6 +177,7 @@ return array(
 			'disabled' => 'El acceso a la API está deshabilitado.',
 			'documentation_link' => 'Ver la <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentación y lista de aplicaciones conocidas</a>',
 			'help' => 'Ver <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentación</a>',
+			'security_warning' => 'Utiliza HTTPS. La contraseña de la API se transmite en texto claro y podría aparecer en los registros del servidor si se envía mediante GET.',
 		),
 		'change_password' => 'Cambiar contraseña',
 		'confirm_new_password' => 'Confirmar nueva contraseña',
@@ -148,6 +194,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Vistas de usuario',
+		'create' => 'Crear nueva vista de usuario',
 		'deprecated' => 'Esta vista ya no es válida. La categoría referenciada o fuente ha sido eliminada.',
 		'description' => 'Descripción',
 		'filter' => array(
@@ -219,37 +266,6 @@ return array(
 		'after_onread' => 'Tras “marcar todo como leído”,',
 		'always_show_favorites' => 'Mostrar todos los artículos en favoritos de forma predeterminada',
 		'apply_to_individual_feed' => 'Aplica a fuentes individualmente',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autores y fecha',
-				'both' => 'En el encabezado y pie de página',
-				'footer' => 'En el pie de página',
-				'header' => 'En el encabezado',
-				'none' => 'Ninguno',
-			),
-			'feed_name' => array(
-				'above_title' => 'Encima de título/etiquetas',
-				'none' => 'Ninguno',
-				'with_authors' => 'En la fila de autores y fecha',
-			),
-			'feed_title' => 'Título de la fuente',
-			'icons' => array(
-				'_' => 'Posición de los iconos del artículo<br /><small>(Solo en vista de lectura)</small>',
-				'above_title' => 'Encima del título',
-				'with_authors' => 'En la fila de autores y fecha',
-			),
-			'tags' => array(
-				'_' => 'Etiquetas',
-				'both' => 'En el encabezado y pie de página',
-				'footer' => 'En el pie de página',
-				'header' => 'En el encabezado',
-				'none' => 'Ninguno',
-			),
-			'tags_max' => array(
-				'_' => 'Máximo número de etiquetas a mostrar',
-				'help' => '0 significa: mostrar todas las etiquetas y que no estén colapsadas',
-			),
-		),
 		'articles_per_page' => 'Número de artículos por página',
 		'auto_load_more' => 'Cargar más artículos al final de la página',
 		'auto_remove_article' => 'Ocultar artículos tras la lectura',
@@ -258,14 +274,13 @@ return array(
 		'display_categories_unfolded' => 'Categorías a desarrollar',
 		'headline' => array(
 			'articles' => 'Artículos: Abrir/Cerrar',
-			'articles_header_footer' => 'Artículos: encabezado/pie de página',
 			'categories' => 'Navegación izquierda: Categorías',
 			'mark_as_read' => 'Marcar artículo como leído',
 			'misc' => 'Variados',
 			'view' => 'Ver',
 		),
 		'hide_read_feeds' => 'Ocultar categorías y fuentes sin artículos no leídos (no funciona con la configuración “Mostrar todos los artículos”)',
-		'img_with_lazyload' => 'Usar el modo de carga diferida para las imágenes',
+		'img_with_lazyload' => 'Usar el modo <em>carga diferida</em> para las imágenes',
 		'jump_next' => 'saltar al siguiente archivo sin leer emparentado',
 		'mark_updated_article_unread' => 'Marcar artículos actualizados como no leídos',
 		'number_divided_when_reader' => 'Dividido en 2 en la vista de lectura.',
@@ -278,6 +293,7 @@ return array(
 			'upon_gone' => 'cuando ya no está disponible en la fuente de noticias previa',
 			'upon_reception' => 'al recibir el artículo',
 			'when' => 'Marcar el artículo como leído…',
+			'when_same_guid_in_category' => 'si ya existe un GUID idéntico entre los <i>n</i> artículos más recientes de la categoría',
 			'when_same_title_in_category' => 'si ya existe un título idéntico en los <i>n</i> artículos más recientes de la categoría',
 			'when_same_title_in_feed' => 'Si ya existe un título idéntico en la parte superior <i>n</i> artículos más recientes (de la fuente)',
 		),
@@ -298,6 +314,8 @@ return array(
 			'when' => 'Marca un artículo como favorito…',
 		),
 		'sticky_post' => 'Fijar el artículo a la parte superior al abrirlo',
+		'sticky_sort' => 'Mantener el orden de clasificación manual durante la navegación',	// DIRTY
+		'sticky_sort_help' => 'Determina si se mantiene activo el último orden de clasificación manual o si cada categoría o fuente usa siempre su propia configuración predeterminada o global.',	// DIRTY
 		'title' => 'Lectura',
 		'view' => array(
 			'default' => 'Vista por defecto',
@@ -322,7 +340,7 @@ return array(
 		'share_name' => 'Compartir nombre a mostrar',
 		'share_url' => 'Compartir URL a usar',
 		'title' => 'Compartir',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'Wallabag',	// IGNORE
 	),
 	'shortcut' => array(

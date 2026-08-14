@@ -4,9 +4,141 @@
 	$this->partial('aside_configure');
 ?>
 <main class="post">
+	<h1><?= _t('conf.query') ?></h1>
+	<h2><?= _t('conf.query.create') ?></h2>
+	<form method="post" action="<?= _url('configure', 'bookmarkQuery') ?>" autocomplete="off" data-auto-leave-validation="1">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+
+		<div class="form-group">
+			<label class="group-name" for="new_name"><?= _t('conf.query.name') ?></label>
+			<div class="group-controls">
+				<input type="text" class="w50" name="query[name]" id="new_name" value="" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for="new_description"><?= _t('conf.query.description') ?></label>
+			<div class="group-controls">
+				<input type="text" class="w50" name="query[description]" id="new_description" value="" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for="new_imageUrl"><?= _t('conf.query.image_url') ?></label>
+			<div class="group-controls">
+				<input type="text" class="w50" name="query[imageUrl]" id="new_imageUrl" value="" />
+			</div>
+		</div>
+
+		<?php if (FreshRSS_Context::systemConf()->api_enabled) { ?>
+			<fieldset>
+				<legend><?= _t('conf.query.share') ?></legend>
+				<div class="form-group">
+					<div class="group-controls">
+						<label class="checkbox" for="new_shareRss">
+							<input type="checkbox" name="query[shareRss]" id="new_shareRss" value="1" />
+							<?= _t('conf.query.filter.shareRss') ?>
+						</label>
+					</div>
+					<div class="group-controls">
+						<label class="checkbox" for="new_shareOpml">
+							<input type="checkbox" name="query[shareOpml]" id="new_shareOpml" value="1" />
+							<?= _t('conf.query.filter.shareOpml') ?>
+						</label>
+					</div>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.query.share.help') ?></a></p>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
+				</div>
+			</fieldset>
+		<?php } else { ?>
+			<div class="form-group">
+				<label class="group-name"><?= _t('conf.query.share.disabled.title') ?></label>
+				<div class="group-controls">
+				<?= _t('conf.query.share.disabled') ?>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
+				</div>
+			</div>
+		<?php } ?>
+
+		<fieldset>
+			<legend><?= _t('conf.query.filter') ?></legend>
+			<div class="form-group">
+				<label class="group-name" for="new_query_search"><?= _t('conf.query.filter.search') ?></label>
+				<div class="group-controls">
+					<input type="text" class="w50" id="new_query_search" name="query[search]" value=""/>
+					<p class="help"><?= _i('help') ?> <?= _t('gen.menu.search_help') ?></a></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name"><?= _t('conf.query.filter.state') ?></label>
+				<div class="group-controls">
+					<label class="checkbox" for="new_show_read">
+					<input type="checkbox" name="query[state][]" id="new_show_read" value="<?= FreshRSS_Entry::STATE_READ ?>" checked="checked" />
+						<?= _t('index.menu.read') ?>
+					</label>
+					<label class="checkbox" for="new_show_not_read">
+						<input type="checkbox" name="query[state][]" id="new_show_not_read" value="<?= FreshRSS_Entry::STATE_NOT_READ ?>" checked="checked" />
+						<?= _t('index.menu.unread') ?>
+					</label>
+					<label class="checkbox" for="new_show_favorite">
+						<input type="checkbox" name="query[state][]" id="new_show_favorite"	value="<?= FreshRSS_Entry::STATE_FAVORITE ?>" checked="checked" />
+						<?= _t('index.menu.starred') ?>
+					</label>
+					<label class="checkbox" for="new_show_not_favorite">
+						<input type="checkbox" name="query[state][]" id="new_show_not_favorite" value="<?= FreshRSS_Entry::STATE_NOT_FAVORITE ?>" checked="checked" />
+						<?= _t('index.menu.non-starred') ?>
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="new_query_get"><?= _t('conf.query.filter.type') ?></label>
+				<div class="group-controls">
+					<select name="query[get]" class="w50" id="new_query_get" size="10">
+						<option value="Z" ><?= _t('conf.query.get_Z') ?></option>
+						<option value="A" ><?= _t('conf.query.get_A') ?></option>
+						<option value="a" ><?= _t('index.feed.title') ?></option>
+						<option value="i" ><?= _t('index.menu.important') ?></option>
+						<option value="s" ><?= _t('index.feed.title_fav') ?></option>
+						<option value="T" ><?= _t('index.menu.mylabels') ?></option>
+						<optgroup label="<?= _t('conf.query.filter.tags') ?>">
+							<?php foreach ($this->tags as $key => $tag): ?>
+								<option value="t_<?= $tag->id() ?>"><?= $tag->name() ?></option>
+							<?php endforeach ?>
+						</optgroup>
+						<optgroup label="<?= _t('conf.query.filter.categories') ?>">
+							<?php foreach ($this->categories as $key => $category): ?>
+								<option value="c_<?= $category->id() ?>" ><?= $category->name() ?></option>
+							<?php endforeach ?>
+						</optgroup>
+						<optgroup label="<?= _t('conf.query.filter.feeds') ?>">
+							<?php foreach ($this->feeds as $key => $feed): ?>
+								<option value="f_<?= $feed->id() ?>" ><?= $feed->name() ?></option>
+							<?php endforeach ?>
+						</optgroup>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="new_query_order"><?= _t('conf.query.filter.order') ?></label>
+				<div class="group-controls">
+					<select name="query[order]" class="w50" id="new_query_order">
+						<option value=""></option>
+						<option value="DESC" ><?= _t('conf.query.order_desc') ?></option>
+						<option value="ASC" ><?= _t('conf.query.order_asc') ?></option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+					<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+
+
 	<form method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<h1><?= _t('conf.query') ?></h1>
 		<?php if (count($this->queries) < 1) { ?>
 			<div class="alert alert-warn">
 				<p><?= _t('conf.query.no_queries') ?></p>

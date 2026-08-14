@@ -89,34 +89,46 @@ final class FeverDAO extends Minz_ModelPdo
 		$values = [];
 		$order = '';
 		$entryDAO = FreshRSS_Factory::createEntryDao();
-
-		$sql = 'SELECT id, guid, title, author, '
-			. ($entryDAO::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content')
-			. ', link, date, is_read, is_favorite, id_feed, attributes '
-			. 'FROM `_entry` WHERE';
+		$contentField = $entryDAO::isCompressed() ? 'UNCOMPRESS(content_bin) AS content' : 'content';
+		$sql = <<<SQL
+			SELECT id, guid, title, author, {$contentField}, link, date, is_read, is_favorite, id_feed, attributes
+			FROM `_entry` WHERE
+			SQL;
 
 		if (!empty($entry_ids)) {
 			$bindEntryIds = $this->bindParamArray('id', $entry_ids, $values);
-			$sql .= " id IN($bindEntryIds)";
+			$sql .= "\n" . <<<SQL
+				id IN($bindEntryIds)
+				SQL;
 		} elseif ($max_id != '') {
-			$sql .= ' id < :id';
+			$sql .= "\n" . <<<'SQL'
+				id < :id
+				SQL;
 			$values[':id'] = $max_id;
 			$order = ' ORDER BY id DESC';
 		} elseif ($since_id != '') {
-			$sql .= ' id > :id';
+			$sql .= "\n" . <<<'SQL'
+				id > :id
+				SQL;
 			$values[':id'] = $since_id;
 			$order = ' ORDER BY id ASC';
 		} else {
-			$sql .= ' 1=1';
+			$sql .= "\n" . <<<'SQL'
+				1=1
+				SQL;
 		}
 
 		if (!empty($feed_ids)) {
 			$bindFeedIds = $this->bindParamArray('feed', $feed_ids, $values);
-			$sql .= " AND id_feed IN($bindFeedIds)";
+			$sql .= "\n" . <<<SQL
+				AND id_feed IN($bindFeedIds)
+				SQL;
 		}
 
 		$sql .= $order;
-		$sql .= ' LIMIT 50';
+		$sql .= "\n" . <<<'SQL'
+			LIMIT 50
+			SQL;
 
 		$stm = $this->pdo->prepare($sql);
 		if ($stm !== false && $stm->execute($values)) {
@@ -164,7 +176,7 @@ final class FeverAPI
 			if ($username != false) {
 				$username = trim($username);
 				FreshRSS_Context::initUser($username);
-				if ($feverKey === FreshRSS_Context::userConf()->feverKey && FreshRSS_Context::userConf()->enabled) {
+				if (hash_equals(FreshRSS_Context::userConf()->feverKey, $feverKey) && FreshRSS_Context::userConf()->enabled) {
 					Minz_Translate::init(FreshRSS_Context::userConf()->language);
 					$this->entryDAO = FreshRSS_Factory::createEntryDao();
 					$this->feedDAO = FreshRSS_Factory::createFeedDao();
@@ -176,7 +188,8 @@ final class FeverAPI
 				Minz_Log::error('Fever API: Please reset your API password!');
 				Minz_User::change();
 			}
-			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey, API_LOG);
+			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey .
+				' ; Remote IP address=' . Minz_Request::connectionRemoteAddress(), API_LOG);
 		}
 		return false;
 	}
@@ -484,8 +497,8 @@ final class FeverAPI
 		if (is_string($_REQUEST['feed_ids'] ?? null)) {
 			$feed_ids = array_filter(explode(',', $_REQUEST['feed_ids']), 'ctype_digit');
 		} elseif (is_string($_REQUEST['group_ids'] ?? null)) {
-			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$group_ids = explode(',', $_REQUEST['group_ids']);
+			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$feeds = [];
 			foreach ($group_ids as $id) {
 				if (!is_numeric($id)) {
@@ -540,7 +553,8 @@ final class FeverAPI
 				'feed_id' => $entry->feedId(),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
 				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),
-				'html' => $entry->content(), 'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
+				'html' => $entry->content($entry->feed()?->attributeBoolean('display_enclosures') ?? true),
+				'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				'is_saved' => $entry->isFavorite() ? 1 : 0,
 				'is_read' => $entry->isRead() ? 1 : 0,
 				'created_on_time' => $entry->date(true),

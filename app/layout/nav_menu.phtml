@@ -98,7 +98,12 @@
 					$url_query['c'] = 'configure';
 					$url_query['a'] = 'bookmarkQuery';
 				?>
-				<li class="item<?= $classSeparator ?>"><button class="as-link" form="post-csrf" formaction="<?= Minz_Url::display($url_query) ?>" type="submit"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></button></li>
+				<li class="item<?= $classSeparator ?>">
+					<form method="POST">
+						<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+						<button class="as-link" formaction="<?= Minz_Url::display($url_query) ?>" type="submit"><?= _i('bookmark-add') ?> <?= _t('index.menu.bookmark_query') ?></button>
+					</form>
+				</li>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>
 		</div>
@@ -125,6 +130,7 @@
 				'state' => FreshRSS_Context::$state,
 				'sort' => FreshRSS_Context::$sort,
 				'order' => FreshRSS_Context::$order,
+				'from' => Minz_Request::actionName(),
 			],
 		];
 
@@ -233,6 +239,7 @@
 			$title = _t('index.menu.sort.desc');
 		}
 		$url_order = Minz_Request::currentRequest();
+		unset($url_order['params']['cid']);
 	?>
 	<div id="nav_menu_sort" class="group">
 		<div class="dropdown">

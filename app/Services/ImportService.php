@@ -61,8 +61,17 @@ class FreshRSS_Import_Service {
 		// existing categories later.
 		$categories = $this->catDAO->listCategories(prePopulateFeeds: false);
 		$categories_by_names = [];
+		$highest_position = PHP_INT_MIN; // To order the numbers as best as possible in case of negative positions, we choose the lowest possible number first
 		foreach ($categories as $category) {
 			$categories_by_names[$category->name()] = $category;
+			$position = $category->attributeInt('position') ?? PHP_INT_MIN;
+			if ($position > $highest_position) {
+				$highest_position = $position;
+			}
+		}
+		if ($highest_position === PHP_INT_MIN) {
+			// If it's still the same number, default to -1 instead
+			$highest_position = -1; // will be incremented to 0
 		}
 
 		// Get current numbers of categories and feeds, and the limits to
@@ -91,7 +100,8 @@ class FreshRSS_Import_Service {
 				$can_create_category = FreshRSS_Context::$isCli || !$limit_reached;
 
 				if ($can_create_category) {
-					$category = $this->createCategory($category_element, $dry_run);
+					// Import category in the exact order as the outline's placement in the OPML, at the end of positioned categories
+					$category = $this->createCategory($category_element, $dry_run, ++$highest_position);
 					if ($category !== null) {
 						$categories_by_names[$category->name()] = $category;
 						$nb_categories++;
@@ -193,6 +203,11 @@ class FreshRSS_Import_Service {
 
 			if (filter_var($feed_elt['frss:unicityCriteriaForced'] ?? '', FILTER_VALIDATE_BOOLEAN)) {
 				$feed->_attribute('unicityCriteriaForced', true);
+			}
+
+			if (isset($feed_elt['frss:ttl'])) {
+				// Signed refresh interval (TTL); a negative value indicates a muted feed
+				$feed->_ttl((int)$feed_elt['frss:ttl']);
 			}
 
 			if (isset($feed_elt['frss:cssFullContent'])) {
@@ -324,7 +339,7 @@ class FreshRSS_Import_Service {
 				$curl_params[CURLOPT_USERAGENT] = $feed_elt['frss:CURLOPT_USERAGENT'];
 			}
 			if (!empty($curl_params)) {
-				$feed->_attribute('curl_params', $curl_params);
+				$feed->_attribute('curl_params', FreshRSS_http_Util::sanitizeCurlParams($curl_params));
 			}
 
 			// Call the extension hook
@@ -366,7 +381,7 @@ class FreshRSS_Import_Service {
 	 * @param bool $dry_run true to not create the category in database.
 	 * @return FreshRSS_Category|null The created category, or null if it failed.
 	 */
-	private function createCategory(array $category_element, bool $dry_run): ?FreshRSS_Category {
+	private function createCategory(array $category_element, bool $dry_run, int $position): ?FreshRSS_Category {
 		$name = $category_element['text'] ?? $category_element['title'] ?? '';
 		$name = Minz_Helper::htmlspecialchars_utf8($name);
 		$category = new FreshRSS_Category($name);
@@ -378,6 +393,8 @@ class FreshRSS_Import_Service {
 				$category->_attribute('opml_url', $opml_url);
 			}
 		}
+
+		$category->_attribute('position', $position);
 
 		if ($dry_run) {
 			return $category;
@@ -421,7 +438,8 @@ class FreshRSS_Import_Service {
 			$categories_elements = array_merge($categories_elements, $outline_categories);
 
 			foreach ($outline_categories_to_feeds as $category_name => $feeds) {
-				if (!is_string($category_name) || !is_array($feeds)) {
+				if (!is_string($category_name) ||	// @phpstan-ignore function.alreadyNarrowedType (defensive)
+					!is_array($feeds)) {	// @phpstan-ignore function.alreadyNarrowedType (defensive)
 					continue;
 				}
 				if (!isset($categories_to_feeds[$category_name])) {
@@ -455,12 +473,13 @@ class FreshRSS_Import_Service {
 		$categories_elements = [];
 		$categories_to_feeds = [];
 
-		if ($parent_category_name === '' && isset($outline['category']) && is_array($outline['category'])) {
+		if ($parent_category_name === '' && is_array($outline['category'] ?? null)) {
 			// The outline has no parent category, but its OPML category
 			// attribute is set, so we use it as the category name.
 			// lib_opml parses this attribute as an array of strings, so we
 			// rebuild a string here.
-			$parent_category_name = implode(', ', $outline['category']);
+			$category_names = array_filter($outline['category'], 'is_string');
+			$parent_category_name = implode(', ', $category_names);
 			$categories_elements[$parent_category_name] = [
 				'text' => $parent_category_name,
 			];

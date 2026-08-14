@@ -62,7 +62,7 @@ return array(
 		'idle' => 'Bezczynne kanały',
 		'main' => 'Główne statystyki',
 		'main_stream' => 'Kanał główny',
-		'nb_unreads' => 'Ilość nieprzeczytanych artykułów',
+		'nb_unreads' => 'Liczba nieprzeczytanych wiadomości',
 		'no_idle' => 'Brak bezczynnych kanałów!',
 		'number_entries' => '%d wiadomości',
 		'overview' => 'Podsumowanie',
@@ -74,7 +74,7 @@ return array(
 		'status_unread' => 'Nieprzeczytane',
 		'title' => 'Statystyki',
 		'top_feed' => '10 największych kanałów',
-		'unread_dates' => 'Daty z największą ilością nieprzeczytanych artykułów',
+		'unread_dates' => 'Daty z największą liczbą nieprzeczytanych wiadomości',
 	),
 	'system' => array(
 		'_' => 'Konfiguracja serwera',
@@ -83,16 +83,21 @@ return array(
 			'_' => 'Baza URL-a',
 			'recommendation' => 'Automatyczne zalecenie: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Message if registrations are closed',	// TODO
+		'closed_registration_message' => 'Komunikat gdy rejestracje są zamknięte',
 		'cookie-duration' => array(
 			'help' => 'w sekundach',
 			'number' => 'Czas przez który użytkownik pozostanie zalogowany',
 		),
-		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
+		'default_closed_registration_message' => 'Ten serwer obecnie nie przyjmuje nowych rejestracji.',
 		'force_email_validation' => 'Wymuś weryfikację adresu e-mail',
 		'instance-name' => 'Nazwa instancji',
+		'internal-host-allowlist' => array(
+			'_' => 'Lista dozwolonych hostów wewnętrznych',
+			'help' => 'Jeden wpis na linię:<ul><li>Kombinacja <code>host:port</code>. Na przykład <code>127.0.0.1:8080</code> lub <code>rss-bridge:80</code></li><li>Notacja CIDR. Na przykład <code>0.0.0.0/0</code>, by zezwolić na dowolny IPv4, <code>::/0</code>, by zezwolić na dowolny IPv6</li><li><code>*</code>, by zezwolić na dowolny host (niebezpieczne)</li></ul>',
+		),
 		'max-categories' => 'Maksymalna liczba kategorii na użytkownika',
 		'max-feeds' => 'Maksymalna liczba kanałów na użytkownika',
+		'override-by-env-var' => 'To ustawienie jest ustawione przez zmienną środowiskową <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Maksymalna liczba kont',
 			'select' => array(

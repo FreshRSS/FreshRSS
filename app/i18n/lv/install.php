@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar datu mapes atļaujām viss ir kārtībā.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku, lai pārlūkotu DOM (php-xml pakete).',
 			'ok' => 'Jums ir nepieciešamā bibliotēka, lai pārlūkotu DOM.',
@@ -63,6 +80,10 @@ return array(
 			'ok' => 'Jums ir fileinfo bibliotēka.',
 		),
 		'files' => 'Failu instalācija',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
 			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
@@ -107,7 +128,7 @@ return array(
 			'nok' => 'Pārbaudiet atļaujas <em>./data/tokens</em> mapē. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar žetonu mapes atļaujām viss ir kārtībā.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO
+		'unknown_process_username' => 'nezināms',
 		'users' => array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar lietotāju mapes atļaujām viss ir kārtībā.',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Apsveicam!',
 	'default_user' => array(
 		'_' => 'Noklusējuma lietotāja lietotājvārds',
-		'max_char' => 'ne vairāk kā 16 burtu un ciparu zīmes',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Lūdzu izlabojat kļūdas pirms ejat uz nākamo soli.',
 	'javascript_is_better' => 'FreshRSS ir patīkamāks, ja ir iespējots JavaScript',

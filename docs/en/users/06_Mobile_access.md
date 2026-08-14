@@ -1,6 +1,6 @@
 This page assumes you have completed the [server setup](../admins/03_Installation.md).
 
-# Mobile Access
+# Mobile access
 
 You can access FreshRSS on mobile devices via browser and via mobile apps.
 

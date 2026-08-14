@@ -29,6 +29,7 @@ return array(
 			'help' => 'Zadejte adresu URL na <a href="http://opml.org/" target="_blank">OPML soubor</a> k dynamickému naplnění této kategorie RSS kanály',
 		),
 		'empty' => 'Vyprázdit kategorii',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Expand category',	// TODO
 		'information' => 'Informace',
 		'open' => 'Open category',	// TODO
@@ -82,10 +83,12 @@ return array(
 			'help' => 'Zapište jeden filtr hledání na řádek. Operátoři <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">viz dokumentace</a>.',
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'icon' => 'Icon',	// TODO
 		'information' => 'Informace',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Minimální počet článků pro ponechání',
 		'kind' => array(
 			'_' => 'Typ zdroje feedu',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (výchozí)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Vymazat mezipaměť',
 			'clear_cache_help' => 'Vymazat mezipaměť pro tento kanál.',

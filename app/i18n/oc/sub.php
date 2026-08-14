@@ -29,6 +29,7 @@ return array(
 			'help' => 'Fornís l’URL per un <a href="http://opml.org/" target="_blank">fichièr OPML</a> per garnir automaticament aquesta categoria amb de flux',
 		),
 		'empty' => 'Categoria voida',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Expand category',	// TODO
 		'information' => 'Informacions',
 		'open' => 'Open category',	// TODO
@@ -82,10 +83,12 @@ return array(
 			'help' => 'Escrivètz una recèrca per linha. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'icon' => 'Icon',	// TODO
 		'information' => 'Informacions',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Nombre minimum d’articles de servar',
 		'kind' => array(
 			'_' => 'Tipe de font de flux',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (defaut)',
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Escafar lo cache',
 			'clear_cache_help' => 'Escafar lo cache d’aqueste flux sul disc',

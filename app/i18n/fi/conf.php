@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Näkymä',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Kirjoittajat ja päiväys',
+				'both' => 'Ylä- ja alatunnisteessa',
+				'footer' => 'Alatunnisteessa',
+				'header' => 'Ylätunnisteessa',
+				'none' => 'Älä näytä',
+			),
+			'feed_name' => array(
+				'above_title' => 'Otsikon/tunnisteiden yläpuolella',
+				'none' => 'Älä näytä',
+				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
+			),
+			'feed_title' => 'Syötteen otsikko',
+			'icons' => array(
+				'_' => 'Artikkelin kuvakkeiden asettelu<br /><small>(vain lukunäkymä)</small>',
+				'above_title' => 'Otsikon yläpuolella',
+				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
+			),
+			'tags' => array(
+				'_' => '#Tunnisteet',
+				'both' => 'Ylä- ja alatunnisteessa',
+				'footer' => 'Alatunnisteessa',
+				'header' => 'Ylätunnisteessa',
+				'none' => 'Älä näytä',
+			),
+			'tags_max' => array(
+				'_' => 'Enimmäismäärä näytettäviä tunnisteita',
+				'help' => '0 - näytä kaikki tunnisteet tiivistämättä',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automaattinen tumma tila',
 			'auto' => 'Automaattinen',
 			'help' => 'Toimii vain yhteensopivissa teemoissa',
 			'no' => 'Ei',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Artikkelit: ylätunniste/alatunniste',
 		),
 		'icon' => array(
 			'bottom_line' => 'Alin rivi',
@@ -54,6 +89,15 @@ return array(
 			'timeout' => 'Tauko HTML5-ilmoitusten välissä',
 		),
 		'show_nav_buttons' => 'Näytä siirtymispainikkeet',
+		'show_title_unread' => 'Show number of unread articles in the title',	// TODO
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Teema',
 			'deprecated' => array(
@@ -121,6 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Tietosuoja',
 		'retrieve_extension_list' => 'Nouda laajennusluettelo',
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Profiilien hallinta',
@@ -132,6 +177,7 @@ return array(
 			'disabled' => 'API on poistettu käytöstä.',
 			'documentation_link' => 'Katso lisätietoja <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ohjeesta ja tunnettujen sovellusten luettelosta</a>',
 			'help' => 'Katso <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ohje</a>',
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Vaihda salasana',
 		'confirm_new_password' => 'Vahvista uusi salasana',
@@ -148,6 +194,7 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Käyttäjän kyselyt',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Kysely ei enää kelpaa. Siinä käytetty luokka tai syöte on poistettu.',
 		'description' => 'Kuvaus',
 		'filter' => array(
@@ -219,37 +266,6 @@ return array(
 		'after_onread' => 'Kun valitset “merkitse kaikki luetuiksi”',
 		'always_show_favorites' => 'Näytä oletusarvoisesti kaikki suosikkiartikkelit',
 		'apply_to_individual_feed' => 'Asetus vaikuttaa jokaiseen syötteeseen erikseen',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Kirjoittajat ja päiväys',
-				'both' => 'Ylä- ja alatunnisteessa',
-				'footer' => 'Alatunnisteessa',
-				'header' => 'Ylätunnisteessa',
-				'none' => 'Älä näytä',
-			),
-			'feed_name' => array(
-				'above_title' => 'Otsikon/tunnisteiden yläpuolella',
-				'none' => 'Älä näytä',
-				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
-			),
-			'feed_title' => 'Syötteen otsikko',
-			'icons' => array(
-				'_' => 'Artikkelin kuvakkeiden asettelu<br /><small>(vain lukunäkymä)</small>',
-				'above_title' => 'Otsikon yläpuolella',
-				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
-			),
-			'tags' => array(
-				'_' => '#Tunnisteet',
-				'both' => 'Ylä- ja alatunnisteessa',
-				'footer' => 'Alatunnisteessa',
-				'header' => 'Ylätunnisteessa',
-				'none' => 'Älä näytä',
-			),
-			'tags_max' => array(
-				'_' => 'Enimmäismäärä näytettäviä tunnisteita',
-				'help' => '0 - näytä kaikki tunnisteet tiivistämättä',
-			),
-		),
 		'articles_per_page' => 'Artikkelien määrä sivulla',
 		'auto_load_more' => 'Lataa lisää artikkeleita sivun lopussa',
 		'auto_remove_article' => 'Piilota artikkelit lukemisen jälkeen',
@@ -258,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Luokat, joiden artikkelit näytetään kokonaan',
 		'headline' => array(
 			'articles' => 'Artikkelit: avaa/sulje',
-			'articles_header_footer' => 'Artikkelit: ylätunniste/alatunniste',
 			'categories' => 'Vasen siirtymisvalikko: luokat',
 			'mark_as_read' => 'Merkitse artikkeli luetuksi',
 			'misc' => 'Sekalaista',
@@ -278,6 +293,7 @@ return array(
 			'upon_gone' => 'kun artikkeli ei ole enää alkuperäisessä uutissyötteessä',
 			'upon_reception' => 'kun artikkeli on vastaanotettu',
 			'when' => 'Merkitse artikkeli luetuksi…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'jos jollakin luokan <i>n</i> uusimmalla artikkelilla on sama otsikko',
 			'when_same_title_in_feed' => 'jos jollakin syötteen <i>n</i> uusimmalla artikkelilla on sama otsikko',
 		),
@@ -298,6 +314,8 @@ return array(
 			'when' => 'Merkitse artikkeli suosikiksi…',
 		),
 		'sticky_post' => 'Kiinnitä artikkeli ylimmäksi avattaessa',
+		'sticky_sort' => 'Säilytä manuaalinen lajittelujärjestys navigoinnin aikana',	// DIRTY
+		'sticky_sort_help' => 'Määrittää, pysyykö viimeisin manuaalinen lajittelu käytössä vai käyttääkö jokainen luokka tai syöte aina omaa oletus- tai yleisasetustaan.',	// DIRTY
 		'title' => 'Lukeminen',
 		'view' => array(
 			'default' => 'Oletusnäkymä',
@@ -322,7 +340,7 @@ return array(
 		'share_name' => 'Näytettävä jakamistavan nimi',
 		'share_url' => 'Käytettävä jakamistavan URL-osoite',
 		'title' => 'Jakaminen',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(

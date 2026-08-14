@@ -8,7 +8,7 @@
 		throw new FreshRSS_Context_Exception('Extension not initialised!');
 	}
 ?>
-<div class="post">
+<div class="post extension-configure">
 	<h2>
 		<?= $this->extension->getName() ?> (<?= $this->extension->getVersion() ?>) —
 		<?= $this->extension->isEnabled() ? _t('admin.extensions.enabled') : _t('admin.extensions.disabled') ?>

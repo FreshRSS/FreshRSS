@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Comprueba los permisos del directorio <em>%s</em>. El servidor HTTP debe contar con permisos de escritura.',
 			'ok' => 'Los permisos del directorio data son correctos.',
 		),
+		'database-connection' => array(
+			'nok' => 'Error de conexión a la base de datos.',
+			'ok' => 'La conexión a la base de datos es correcta.',
+		),
+		'database-table' => array(
+			'nok' => 'La tabla de la base de datos "%s" está incompleta.',
+			'ok' => 'La tabla de la base de datos "%s" es correcta.',
+		),
+		'database-tables' => array(
+			'nok' => 'Algunas tablas de la base de datos están ausentes.',
+			'ok' => 'Todas las tablas de la base de datos existen.',
+		),
+		'database-title' => 'Base de datos',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'No se ha podido localizar la librería necesaria para explorar la DOM.',
 			'ok' => 'Dispones de la librería necesaria para explorar la DOM.',
@@ -63,6 +80,10 @@ return array(
 			'ok' => 'Dispones de la librería fileinfo.',
 		),
 		'files' => 'Instalación de Archivos',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'No se ha podido localizar la librería recomendada php-intl para internacionalización.',
 			'ok' => 'Dispones de la librería recomendada php-intl para internacionalización.',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => '¡Enhorabuena!',
 	'default_user' => array(
 		'_' => 'Nombre de usuario para el usuario por defecto',
-		'max_char' => 'máximo de 16 caracteres alfanuméricos',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Por favor, soluciona los errores detectados antes de proceder con el siguiente paso.',
 	'javascript_is_better' => 'FreshRSS funciona mejor con JavaScript activado',

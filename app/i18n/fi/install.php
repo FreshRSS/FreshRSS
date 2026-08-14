@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Tarkista käyttäjän <em>%2$s</em> oikeudet hakemistoon <em>%1$s</em>. HTTP-palvelimella on oltava kirjoitusoikeus.',
 			'ok' => 'Data-hakemiston oikeudet ovat oikein.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'DOM-rakenteen selaamiseen tarvittavaa kirjastoa ei löydy.',
 			'ok' => 'DOM-rakenteen selaamiseen tarvittava kirjasto löytyy.',
@@ -63,6 +80,10 @@ return array(
 			'ok' => 'Fileinfo-kirjasto löytyy.',
 		),
 		'files' => 'Tiedostojen asennus',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
 			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Onneksi olkoon!',
 	'default_user' => array(
 		'_' => 'Oletuskäyttäjän käyttäjätunnus',
-		'max_char' => 'Enintään 16 aakkosnumeerista merkkiä',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Korjaa virheet, ennen kuin siirryt seuraavaan vaiheeseen.',
 	'javascript_is_better' => 'FreshRSS-sovellusta on miellyttävämpi käyttää, kun JavaScript on käytössä',

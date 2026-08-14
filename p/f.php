@@ -51,8 +51,15 @@ if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (r
 		show_default_favicon(1800);
 		exit();
 	}
+	$url = FreshRSS_http_Util::checkUrl($url) ?: '';
+	if ($url === '') {
+		show_default_favicon(1800);
+		exit();
+	}
 
-	if (!download_favicon($url, $ico)) {
+	// Try downloading the URL as a direct image first (e.g. from a feed's <image><url>),
+	// then fall back to HTML favicon search if it is not a valid image.
+	if (!download_favicon_from_image_url($url, $ico) && !download_favicon($url, $ico)) {
 		// Download failed
 		if ($ico_mtime == false) {
 			show_default_favicon(86400);

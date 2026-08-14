@@ -14,24 +14,48 @@
 		<a href="<?= _url('stats', 'repartition', 'id', $this->feed->id()) ?>"><?= _i('stats') ?> <?= _t('sub.feed.stats') ?></a>
 	</div>
 
-	<?php $nbEntries = $this->feed->nbEntries(); ?>
+	<?php if ($this->feed->inError()): ?>
+		<p class="alert alert-error">
+			<span class="alert-head"><?= _t('gen.short.damn') ?></span>
+			<?= _t('sub.feed.error') ?><br />
+			<?php if ($this->feed->lastError() > 1) { ?>
+				<?= _t('sub.feed.last-error-date', timestampToMachineDate($this->feed->lastError()), timeago($this->feed->lastError())) ?><br />
+			<?php } ?>
+	<?php else: ?>
+		<p class="alert alert-success">
+	<?php endif; ?>
+			<?= _t('sub.feed.last-update', timestampToMachineDate($this->feed->lastUpdate()), timeago($this->feed->lastUpdate())) ?>
+			<?php if ($this->feed->newestArticleReceivedDate() > 0): ?><br />
+				<?= _t('sub.feed.last-entry-received-date', timestampToMachineDate($this->feed->newestArticleReceivedDate()), timeago($this->feed->newestArticleReceivedDate())) ?>
+			<?php endif; ?>
+			<?php if ($this->feed->newestArticlePublicationDate() > 0): ?><br />
+				<?= _t('sub.feed.last-entry-publication-date', timestampToMachineDate($this->feed->newestArticlePublicationDate()), timeago($this->feed->newestArticlePublicationDate())) ?>
+			<?php endif; ?>
+		</p>
 
-	<?php if ($this->feed->inError()) { ?>
-	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('sub.feed.error') ?></p>
-	<?php } elseif ($nbEntries === 0) { ?>
-	<p class="alert alert-warn"><?= _t('sub.feed.empty') ?></p>
-	<?php } ?>
+	<?php $nbEntries = $this->feed->nbEntries(); ?>
+	<?php if ($nbEntries === 0): ?>
+		<p class="alert alert-warn"><?= _t('sub.feed.empty') ?></p>
+	<?php endif; ?>
 
 	<?php
 	$from = Minz_Request::paramString('from');
+	$slider = ['#', 'slider'];
+	$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
+	if (!$ajax) {
+		$from = 'feed';
+		$slider = [];
+	} elseif ($from === '') {
+		$from = $this->cfrom ?: 'index';
+	}
 	if ($from === '') {
-		$url = _url('subscription', 'feed', 'id', $this->feed->id(), '#', 'slider');
+		$url = _url('subscription', 'feed', 'id', $this->feed->id(), ...$slider);
 	} else {
 		$get = Minz_Request::paramString('get');
 		if ($get === '') {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, '#', 'slider');
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'error', Minz_Request::paramBoolean('error') ? 1 : 0, ...$slider);
 		} else {
-			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, '#', 'slider');
+			$url = _url('subscription', 'feed', 'id', $this->feed->id(), 'from', $from, 'get', $get, ...$slider);
 		}
 	}
 	?>
@@ -130,6 +154,35 @@
 				</div>
 			</div>
 
+			<?php
+				$suc = $this->feed->attributeBoolean('show_unread_count');
+				$sucLocked = $this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT &&
+					FreshRSS_Context::userConf()->show_unread_count !== 'none';
+			?>
+			<div class="form-group">
+				<label class="group-name" for="show_unread_count"><?= _t('conf.display.show_unread_count') ?></label>
+				<div class="group-controls">
+					<select name="show_unread_count" id="show_unread_count" class="w50"<?= $sucLocked ? ' disabled="disabled"' : '' ?>>
+						<option value=""<?= $suc === null && !$sucLocked ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="0"<?= $suc === false && !$sucLocked ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+						<option value="1"<?= $suc === true || $sucLocked ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					</select>
+					<?php if ($sucLocked): ?>
+						<small><?= _t('conf.display.show_unread_count.important_locked') ?></small>
+					<?php endif; ?>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="display_enclosures"><?= _t('conf.display.display_enclosures') ?></label>
+				<div class="group-controls">
+					<select name="display_enclosures" id="display_enclosures" class="w50">
+						<option value=""<?= $this->feed->attributeBoolean('display_enclosures') === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="0"<?= $this->feed->attributeBoolean('display_enclosures') === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+						<option value="1"<?= $this->feed->attributeBoolean('display_enclosures') === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					</select>
+				</div>
+			</div>
 
 			<?php
 				$feedDefaultSort = $this->feed->defaultSort();
@@ -368,9 +421,9 @@
 			<div class="form-group">
 				<div class="group-controls">
 					<?= _t('sub.feed.number_entries', $nbEntries) ?>
-					<a class="btn" href="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#', 'slider') ?>">
+					<button class="btn" formaction="<?= _url('feed', 'actualize', 'id', $this->feed->id(), '#', 'slider') ?>">
 						<?= _i('refresh') ?> <?= _t('gen.action.actualize') ?>
-					</a>
+					</button>
 				</div>
 			</div>
 			<?php
@@ -744,13 +797,12 @@
 
 			<div class="form-group">
 				<?php
-					/** @var array<int,int|string> $curlParams */
-					$curlParams = $this->feed->attributeArray('curl_params') ?? [];
+					$curlParams = FreshRSS_http_Util::sanitizeCurlParams($this->feed->attributeArray('curl_params') ?? []);
 				?>
 				<label class="group-name" for="curl_params_cookie"><?= _t('sub.feed.css_cookie') ?></label>
 				<div class="group-controls">
 					<input type="text" name="curl_params_cookie" id="curl_params_cookie" class="w100" value="<?=
-						htmlspecialchars((string)($curlParams[CURLOPT_COOKIE] ?? ''), ENT_COMPAT, 'UTF-8')
+						htmlspecialchars(is_string($curlParams[CURLOPT_COOKIE] ?? null) ? $curlParams[CURLOPT_COOKIE] : '', ENT_COMPAT, 'UTF-8')
 					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.css_cookie_help') ?></p>
 					<label for="curl_params_cookiefile">
@@ -767,7 +819,7 @@
 				<label class="group-name" for="curl_params_redirects"><?= _t('sub.feed.max_http_redir') ?></label>
 				<div class="group-controls">
 					<input type="number" name="curl_params_redirects" id="curl_params_redirects" class="w50" min="-1" value="<?=
-						!empty($curlParams[CURLOPT_MAXREDIRS]) ? $curlParams[CURLOPT_MAXREDIRS] : ''
+						is_int($curlParams[CURLOPT_MAXREDIRS] ?? null) ? $curlParams[CURLOPT_MAXREDIRS] : ''
 					?>" placeholder="<?= _t('gen.short.blank_to_disable') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.max_http_redir_help') ?></p>
 				</div>
@@ -788,7 +840,7 @@
 				<label class="group-name" for="curl_params_useragent"><?= _t('sub.feed.useragent') ?></label>
 				<div class="group-controls">
 					<input type="text" name="curl_params_useragent" id="curl_params_useragent" class="w100" value="<?=
-						htmlspecialchars((string)($curlParams[CURLOPT_USERAGENT] ?? ''), ENT_COMPAT, 'UTF-8')
+						htmlspecialchars(is_string($curlParams[CURLOPT_USERAGENT] ?? null) ? $curlParams[CURLOPT_USERAGENT] : '', ENT_COMPAT, 'UTF-8')
 					?>" placeholder="<?= _t('gen.short.by_default') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.useragent_help') ?></p>
 				</div>
@@ -811,7 +863,7 @@
 					?>
 					</select>
 					<input type="text" name="curl_params" id="curl_params" value="<?=
-						htmlspecialchars((string)($curlParams[CURLOPT_PROXY] ?? ''), ENT_COMPAT, 'UTF-8')
+						htmlspecialchars(is_string($curlParams[CURLOPT_PROXY] ?? null) ? $curlParams[CURLOPT_PROXY] : '', ENT_COMPAT, 'UTF-8')
 					?>" placeholder="<?= _t('gen.short.by_default') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.proxy_help') ?></p>
 				</div>
@@ -822,7 +874,7 @@
 				<div class="group-controls">
 					<select class="number" name="curl_method" id="curl_method"><?php
 					$curl_method = 'GET';
-					if ($this->feed->attributeArray('curl_params') !== null && !empty($this->feed->attributeArray('curl_params')[CURLOPT_POST])) {
+					if (!empty($curlParams[CURLOPT_POST])) {
 						$curl_method = 'POST';
 					}
 					foreach (['GET' => 'GET', 'POST' => 'POST'] as $k => $v) {
@@ -832,7 +884,7 @@
 					</select>
 					<div class="stick">
 						<?php
-							$postFields = $this->feed->attributeArray('curl_params')[CURLOPT_POSTFIELDS] ?? '';
+							$postFields = $curlParams[CURLOPT_POSTFIELDS] ?? '';
 							if (!is_string($postFields)) {
 								$postFields = '';
 							}
@@ -867,14 +919,11 @@
 				<label class="group-name" for="http_headers"><?= _t('sub.feed.http_headers') ?></label>
 				<div class="group-controls">
 					<?php
-						$httpHeaders = $this->feed->attributeArray('curl_params')[CURLOPT_HTTPHEADER] ?? [];
+						$httpHeaders = $curlParams[CURLOPT_HTTPHEADER] ?? [];
 						if (!is_array($httpHeaders)) {
 							$httpHeaders = [];
 						}
 						$httpHeaders = array_filter($httpHeaders, 'is_string');
-						// Remove headers problematic for security
-						$httpHeaders = array_filter($httpHeaders,
-							fn(string $header) => !preg_match('/^(Remote-User|X-WebAuth-User)\\s*:/i', $header));
 					?>
 					<textarea class="w100" id="http_headers" name="http_headers" rows="3" spellcheck="false"><?php
 						foreach ($httpHeaders as $header) {
@@ -907,10 +956,14 @@
 	<h2><?= _t('sub.feed.maintenance.title') ?></h2>
 	<div class="form-group">
 		<div class="group-controls">
-			<button class="btn btn-important" form="post-csrf" formaction="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
-				<?= _t('sub.feed.maintenance.clear_cache') ?>
-			</button>
-			<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
+			<form method="post" action="<?= _url('feed', 'clearCache', 'id', $this->feed->id(), '#', 'slider') ?>">
+				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+				<input type="hidden" name="id" value="<?= $this->feed->id() ?>" />
+				<button class="btn btn-important" type="submit">
+					<?= _t('sub.feed.maintenance.clear_cache') ?>
+				</button>
+				<p class="help"><?= _i('help') ?> <?= _t('sub.feed.maintenance.clear_cache_help') ?></p>
+			</form>
 		</div>
 		<div class="group-controls">
 			<form method="post" action="<?= _url('feed', 'reload', '#', 'slider') ?>">
