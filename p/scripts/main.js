@@ -714,6 +714,10 @@ function last_feed() {
 function prev_category() {
 	const active_cat = document.querySelector('#aside_feed .category.active');
 	if (active_cat) {
+		if (active_cat.querySelector('.feed.active')) {
+			delayedClick(active_cat.querySelector('a.tree-folder-title'));
+			return;
+		}
 		let cat = active_cat;
 		do cat = cat.previousElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
