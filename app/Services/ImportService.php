@@ -403,7 +403,7 @@ class FreshRSS_Import_Service {
 			FreshRSS_Export_Service::PRIORITY_HIDDEN => FreshRSS_Category::PRIORITY_HIDDEN,
 			default => FreshRSS_Category::PRIORITY_MAIN_STREAM,
 		});
-    
+
 		$category->_attribute('position', $position);
 
 		if ($dry_run) {
