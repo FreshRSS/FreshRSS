@@ -61,10 +61,10 @@ class FreshRSS_Import_Service {
 		// existing categories later.
 		$categories = $this->catDAO->listCategories(prePopulateFeeds: false);
 		$categories_by_names = [];
-		$highest_position = 0;
+		$highest_position = PHP_INT_MIN; // To order the positions as best as possible in case of negative positions, we choose the lowest number first
 		foreach ($categories as $category) {
 			$categories_by_names[$category->name()] = $category;
-			$position = $category->attributeInt('position') ?? 0;
+			$position = $category->attributeInt('position') ?? PHP_INT_MIN;
 			if ($position > $highest_position) {
 				$highest_position = $position;
 			}
