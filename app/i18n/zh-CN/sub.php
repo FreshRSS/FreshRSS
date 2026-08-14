@@ -83,6 +83,7 @@ return array(
 			'help' => '每行写一条过滤规则，过滤规则可见 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">文档</a>。',
 			'view_filter' => '在现有文章上预览过滤器（新窗口）',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP 头部',
 		'http_headers_help' => '头部之间用换行符分隔，头部名称和值用冒号分隔（例如：<kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>）。',
 		'icon' => '图标',

@@ -497,8 +497,8 @@ final class FeverAPI
 		if (is_string($_REQUEST['feed_ids'] ?? null)) {
 			$feed_ids = array_filter(explode(',', $_REQUEST['feed_ids']), 'ctype_digit');
 		} elseif (is_string($_REQUEST['group_ids'] ?? null)) {
-			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$group_ids = explode(',', $_REQUEST['group_ids']);
+			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$feeds = [];
 			foreach ($group_ids as $id) {
 				if (!is_numeric($id)) {

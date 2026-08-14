@@ -32,6 +32,37 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Оформлення',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Автори й дата',
+				'both' => 'Вгорі й унизу',
+				'footer' => 'Внизу',
+				'header' => 'Вгорі',
+				'none' => 'Не показувати',
+			),
+			'feed_name' => array(
+				'above_title' => 'Над заголовком і тегами',
+				'none' => 'Не показувати',
+				'with_authors' => 'У рядку авторів і дати',
+			),
+			'feed_title' => 'Назва стрічки',
+			'icons' => array(
+				'_' => 'Піктограми статті<br /><small>(Тільки читацький показ)</small>',
+				'above_title' => 'Над заголовком',
+				'with_authors' => 'У рядку авторів і дати',
+			),
+			'tags' => array(
+				'_' => 'Теги',
+				'both' => 'Вгорі й унизу',
+				'footer' => 'Внизу',
+				'header' => 'Вгорі',
+				'none' => 'Не показувати',
+			),
+			'tags_max' => array(
+				'_' => 'Показувати тегів',
+				'help' => '0 означає показати всі теги й не згортати їх',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Темний режим',
 			'auto' => 'Автоматично',
@@ -39,6 +70,9 @@ return array(
 			'no' => 'Вимкнено',
 		),
 		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Статті: верх/низ',
+		),
 		'icon' => array(
 			'bottom_line' => 'Нижній рядок',
 			'display_authors' => 'Автори',
@@ -232,37 +266,6 @@ return array(
 		'after_onread' => 'Коли все позначено прочитаним,',
 		'always_show_favorites' => 'У вподобаних типово показувати всі статті',
 		'apply_to_individual_feed' => 'Застосовується до саме цієї стрічки',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Автори й дата',
-				'both' => 'Вгорі й унизу',
-				'footer' => 'Внизу',
-				'header' => 'Вгорі',
-				'none' => 'Не показувати',
-			),
-			'feed_name' => array(
-				'above_title' => 'Над заголовком і тегами',
-				'none' => 'Не показувати',
-				'with_authors' => 'У рядку авторів і дати',
-			),
-			'feed_title' => 'Назва стрічки',
-			'icons' => array(
-				'_' => 'Піктограми статті<br /><small>(Тільки читацький показ)</small>',
-				'above_title' => 'Над заголовком',
-				'with_authors' => 'У рядку авторів і дати',
-			),
-			'tags' => array(
-				'_' => 'Теги',
-				'both' => 'Вгорі й унизу',
-				'footer' => 'Внизу',
-				'header' => 'Вгорі',
-				'none' => 'Не показувати',
-			),
-			'tags_max' => array(
-				'_' => 'Показувати тегів',
-				'help' => '0 означає показати всі теги й не згортати їх',
-			),
-		),
 		'articles_per_page' => 'Статей на сторінці',
 		'auto_load_more' => 'Завантажувати більше статей при прокручуванні',
 		'auto_remove_article' => 'Ховати статті після прочитання',
@@ -271,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Категорії для розгортання',
 		'headline' => array(
 			'articles' => 'Статті: відкриті/закриті',
-			'articles_header_footer' => 'Статті: верх/низ',
 			'categories' => 'Ліва навігація: категорії',
 			'mark_as_read' => 'Позначити статтю прочитаною',
 			'misc' => 'Різне',

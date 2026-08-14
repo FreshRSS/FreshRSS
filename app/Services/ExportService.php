@@ -47,8 +47,9 @@ class FreshRSS_Export_Service {
 	public function generateOpml(): array {
 		$view = new FreshRSS_View();
 		$day = date('Y-m-d');
-		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true, details: true);
+		$view->categories = $this->category_dao->listSortedCategories(prePopulateFeeds: true, details: true);
 		$view->excludeMutedFeeds = false;
+		$view->includeSensitiveCurlParams = true;
 
 		return [
 			"feeds_{$day}.opml.xml",

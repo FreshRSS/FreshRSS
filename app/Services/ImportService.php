@@ -61,8 +61,17 @@ class FreshRSS_Import_Service {
 		// existing categories later.
 		$categories = $this->catDAO->listCategories(prePopulateFeeds: false);
 		$categories_by_names = [];
+		$highest_position = PHP_INT_MIN; // To order the numbers as best as possible in case of negative positions, we choose the lowest possible number first
 		foreach ($categories as $category) {
 			$categories_by_names[$category->name()] = $category;
+			$position = $category->attributeInt('position') ?? PHP_INT_MIN;
+			if ($position > $highest_position) {
+				$highest_position = $position;
+			}
+		}
+		if ($highest_position === PHP_INT_MIN) {
+			// If it's still the same number, default to -1 instead
+			$highest_position = -1; // will be incremented to 0
 		}
 
 		// Get current numbers of categories and feeds, and the limits to
@@ -91,7 +100,8 @@ class FreshRSS_Import_Service {
 				$can_create_category = FreshRSS_Context::$isCli || !$limit_reached;
 
 				if ($can_create_category) {
-					$category = $this->createCategory($category_element, $dry_run);
+					// Import category in the exact order as the outline's placement in the OPML, at the end of positioned categories
+					$category = $this->createCategory($category_element, $dry_run, ++$highest_position);
 					if ($category !== null) {
 						$categories_by_names[$category->name()] = $category;
 						$nb_categories++;
@@ -372,7 +382,7 @@ class FreshRSS_Import_Service {
 	 * @param bool $dry_run true to not create the category in database.
 	 * @return FreshRSS_Category|null The created category, or null if it failed.
 	 */
-	private function createCategory(array $category_element, bool $dry_run): ?FreshRSS_Category {
+	private function createCategory(array $category_element, bool $dry_run, int $position): ?FreshRSS_Category {
 		$name = $category_element['text'] ?? $category_element['title'] ?? '';
 		$name = Minz_Helper::htmlspecialchars_utf8($name);
 		$category = new FreshRSS_Category($name);
@@ -393,6 +403,8 @@ class FreshRSS_Import_Service {
 			FreshRSS_Export_Service::PRIORITY_HIDDEN => FreshRSS_Category::PRIORITY_HIDDEN,
 			default => FreshRSS_Category::PRIORITY_MAIN_STREAM,
 		});
+    
+		$category->_attribute('position', $position);
 
 		if ($dry_run) {
 			return $category;
@@ -436,7 +448,8 @@ class FreshRSS_Import_Service {
 			$categories_elements = array_merge($categories_elements, $outline_categories);
 
 			foreach ($outline_categories_to_feeds as $category_name => $feeds) {
-				if (!is_string($category_name) || !is_array($feeds)) {
+				if (!is_string($category_name) ||	// @phpstan-ignore function.alreadyNarrowedType (defensive)
+					!is_array($feeds)) {	// @phpstan-ignore function.alreadyNarrowedType (defensive)
 					continue;
 				}
 				if (!isset($categories_to_feeds[$category_name])) {

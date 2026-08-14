@@ -83,6 +83,7 @@ return array(
 			'help' => 'Escribir un filtro de búsqueda por línea. Ver <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentación de operadores de búsqueda</a>.',
 			'view_filter' => 'Vista previa de filtros en artículos existentes (nueva ventana)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'Cabeceras HTTP',
 		'http_headers_help' => 'Las cabeceras son separadas por un salto de línea, y el nombre y valor de una cabecera son separadas por dos puntos (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icono',

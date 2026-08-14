@@ -83,6 +83,7 @@ return array(
 			'help' => 'Ein Suchfilter pro Zeile. Operatoren <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">siehe Dokumentation</a>.',
 			'view_filter' => 'Filter für vorhandene Artikel in der Vorschau anzeigen (neues Fenster)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP-Header',
 		'http_headers_help' => 'Header werden durch einen Zeilenumbruch getrennt. Name und Wert eines Headers werden durch einen Doppelpunkt getrennt, z. B. <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>.',
 		'icon' => 'Icon',	// IGNORE

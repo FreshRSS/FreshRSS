@@ -83,6 +83,7 @@ return array(
 			'help' => 'Voer één zoekfilter per regel in. Operators: <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">zie documentatie</a>.',
 			'view_filter' => 'Bekijk voorbeeld van filters op bestaande artikelen (nieuw venster)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP-headers',
 		'http_headers_help' => 'Headers worden gescheiden door een regeleinde, en de naam en waarde van een header worden gescheiden door een dubbele punt (bijv.: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer een-token</code></kbd>).',
 		'icon' => 'Pictogram',

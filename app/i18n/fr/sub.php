@@ -83,6 +83,7 @@ return array(
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
 			'view_filter' => 'Aperçu des filtres sur les articles existants (nouvelle fenêtre)',
 		),
+		'global_hint' => 'Utilisez <a href="%s">la vue globale</a> pour voir combien d’articles dans chaque flux correspondent à un état ou à une recherche',
 		'http_headers' => 'Entêtes HTTP',
 		'http_headers_help' => 'Un entête HTTP par ligne, avec le nom et la valeur séparés par un deux-points (ex. : <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icône',

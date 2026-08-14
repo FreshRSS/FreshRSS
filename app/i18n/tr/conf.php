@@ -32,6 +32,37 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Görüntüleme',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Yazarlar ve tarih',
+				'both' => 'Başlıkta ve altbilgide',
+				'footer' => 'Altbilgide',
+				'header' => 'Başlıkta',
+				'none' => 'Yok',
+			),
+			'feed_name' => array(
+				'above_title' => 'Başlık/etiketlerin üstünde',
+				'none' => 'Yok',
+				'with_authors' => 'Yazarlar ve tarih satırında',
+			),
+			'feed_title' => 'Besleme başlığı',
+			'icons' => array(
+				'_' => 'Makale simgelerinin konumu<br /><small>(Yalnızca okuma görünümünde)</small>',
+				'above_title' => 'Başlığın üstünde',
+				'with_authors' => 'Yazarlar ve tarih satırında',
+			),
+			'tags' => array(
+				'_' => 'Etiketler',
+				'both' => 'Başlıkta ve altbilgide',
+				'footer' => 'Altbilgide',
+				'header' => 'Başlıkta',
+				'none' => 'Yok',
+			),
+			'tags_max' => array(
+				'_' => 'Gösterilecek maksimum etiket sayısı',
+				'help' => '0: tüm etiketleri göster ve daraltma',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Otomatik karanlık mod',
 			'auto' => 'Otomatik',
@@ -39,6 +70,9 @@ return array(
 			'no' => 'Hayır',
 		),
 		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Makaleler: başlık/altbilgi',
+		),
 		'icon' => array(
 			'bottom_line' => 'Alt satır',
 			'display_authors' => 'Yazarlar',
@@ -232,37 +266,6 @@ return array(
 		'after_onread' => '“Tümünü okundu olarak işaretle”den sonra,',
 		'always_show_favorites' => 'Varsayılan olarak favorilerdeki tüm makaleleri göster',
 		'apply_to_individual_feed' => 'Beslemelere bireysel olarak uygula',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Yazarlar ve tarih',
-				'both' => 'Başlıkta ve altbilgide',
-				'footer' => 'Altbilgide',
-				'header' => 'Başlıkta',
-				'none' => 'Yok',
-			),
-			'feed_name' => array(
-				'above_title' => 'Başlık/etiketlerin üstünde',
-				'none' => 'Yok',
-				'with_authors' => 'Yazarlar ve tarih satırında',
-			),
-			'feed_title' => 'Besleme başlığı',
-			'icons' => array(
-				'_' => 'Makale simgelerinin konumu<br /><small>(Yalnızca okuma görünümünde)</small>',
-				'above_title' => 'Başlığın üstünde',
-				'with_authors' => 'Yazarlar ve tarih satırında',
-			),
-			'tags' => array(
-				'_' => 'Etiketler',
-				'both' => 'Başlıkta ve altbilgide',
-				'footer' => 'Altbilgide',
-				'header' => 'Başlıkta',
-				'none' => 'Yok',
-			),
-			'tags_max' => array(
-				'_' => 'Gösterilecek maksimum etiket sayısı',
-				'help' => '0: tüm etiketleri göster ve daraltma',
-			),
-		),
 		'articles_per_page' => 'Sayfa başına makale sayısı',
 		'auto_load_more' => 'Sayfanın altından daha fazla makale yükle',
 		'auto_remove_article' => 'Okuduktan sonra makaleleri gizle',
@@ -271,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Açılacak kategoriler',
 		'headline' => array(
 			'articles' => 'Makaleler: Aç/Kapat',
-			'articles_header_footer' => 'Makaleler: başlık/altbilgi',
 			'categories' => 'Sol gezinme: Kategoriler',
 			'mark_as_read' => 'Makaleyi okundu olarak işaretle',
 			'misc' => 'Çeşitli',
