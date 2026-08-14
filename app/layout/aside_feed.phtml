@@ -37,7 +37,7 @@
 	<a href="<?= _url('index', 'about') ?>" class="about"><?= _t('index.menu.about') ?></a>
 	<?php } ?>
 
-	<form id="mark-read-aside" method="post">
+	<form class="mark-read-aside" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	<ul id="sidebar" class="tree scrollbar-thin">
 		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') || FreshRSS_Context::isCurrentGet('A') || FreshRSS_Context::isCurrentGet('Z') ? ' active' : '' ?>">
@@ -218,7 +218,6 @@
 		<li class="item">
 			<?php $confirm = FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 			<button class="read_all as-link <?= $confirm ?>"
-				form="mark-read-aside"
 				formaction="<?= _url('entry', 'read', 'get', 'f_------') ?>"
 				type="submit"><?= _t('index.menu.mark_feed_read') ?></button>
 		</li>

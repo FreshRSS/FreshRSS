@@ -139,8 +139,8 @@
 		$mark_unread_url['params']['nextGet'] = $get;
 	?>
 
-	<div id="nav_menu_read_all" class="group stick">
-		<form id="mark-read-menu" method="post">
+	<div class="nav_menu_read_all group stick">
+		<form class="mark-read-menu" method="post">
 		<?php $confirm = FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 		<button class="read_all btn <?= $confirm ?>"
 			form="mark-read-menu"

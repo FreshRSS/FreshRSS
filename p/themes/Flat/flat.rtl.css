@@ -980,7 +980,7 @@ th {
 		min-height: 0;
 	}
 
-	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+	.nav_menu .stick .mark-read-menu .dropdown-toggle.btn {
 		border-right-width: 0;
 		border-top-right-radius: 5px;
 		border-bottom-right-radius: 5px;

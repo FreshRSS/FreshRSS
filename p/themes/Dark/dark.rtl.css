@@ -662,7 +662,7 @@ kbd {
 		border-right: 1px solid var(--dark-border-color8);
 	}
 
-	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+	.nav_menu .stick .mark-read-menu .dropdown-toggle.btn {
 		border-right: 1px solid var(--dark-border-color0);
 		border-top-right-radius: 3px;
 		border-bottom-right-radius: 3px;
