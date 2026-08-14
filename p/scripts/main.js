@@ -2315,7 +2315,8 @@ function faviconNbUnread(n) {
 		return;
 	}
 	const svgBase = dynamicFaviconBase.innerHTML;
-	const link = document.getElementById('favicon')?.cloneNode(true);
+	const favicon = document.getElementById('favicon');
+	const link = favicon?.cloneNode(true);
 	if (link) {
 		let svgOutput = '';
 		if (n > 0) {
@@ -2351,8 +2352,7 @@ function faviconNbUnread(n) {
 			temp.remove();
 		}
 		link.href = `data:image/svg+xml;base64,${btoa(svgOutput || svgBase)}`;
-		document.querySelector('#favicon').remove();
-		document.head.appendChild(link);
+		favicon.replaceWith(link);
 	}
 }
 
