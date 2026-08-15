@@ -554,12 +554,14 @@ function toggleContent(new_active, old_active, skipping, fromHistory = false) {
 				mark_read(new_active, true, true);
 			}
 			new_active.dispatchEvent(new CustomEvent('freshrss:openArticle', {
-				bubbles: true, cancelable: true,
+				bubbles: true,
+				cancelable: true,
 				detail: { articleId: new_active.id.replace(/^flux_/, ''), fromHistory },
 			}));
 		} else if (old_active === new_active) {
 			new_active.dispatchEvent(new CustomEvent('freshrss:closeArticle', {
-				bubbles: true, cancelable: true,
+				bubbles: true,
+				cancelable: true,
 				detail: { fromHistory },
 			}));
 		}
