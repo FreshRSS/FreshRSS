@@ -1,0 +1,39 @@
+# https://lychee.cli.rs/guides/config/
+
+verbose = "warn"
+no_progress = true
+cache = true
+max_cache_age = "1d"
+
+accept = "200..=204, 429"
+cache_exclude_status = "500..=599, 403, 429"
+
+require_https = true
+exclude_all_private = true
+
+max_concurrency = 50
+accept_timeouts = true
+timeout = 15
+max_retries = 5
+retry_wait_time = 1
+
+extensions = [
+    "md", "html", "css", "js", "php", "phtml", "sh", "json", "jsonc", "xml", "yml", "yaml", "toml", "neon", "dist", "conf", "txt",
+
+    # Dotfiles
+    "htaccess", "editorconfig", "gitattributes", "gitignore", "jshintignore", "jshintrc", "stylelintignore", "dockerignore"
+]
+
+# For extensionless files
+default_extension = "txt"
+
+include_verbatim = true
+
+exclude_path = [
+  '(^|/)index\.html$',
+  '(^|/)data/(cache|users|favicons)($|/)',
+  '(^|/)lib/(phpmailer|simplepie|phpgt|marienfressinaud)($|/)',
+  '(^|/)docs/(_includes|_layouts|i18n)($|/)',
+  '(^|/)p/scripts/vendor($|/)'
+]
+
