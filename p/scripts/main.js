@@ -88,7 +88,7 @@ function numberFormat(nStr) {
 	if (nStr < 0) {
 		return 0;
 	}
-	// http://www.mredkj.com/javascript/numberFormat.html
+	// https://www.mredkj.com/javascript/numberFormat.html
 	const x = String(nStr).split('.');
 	const x2 = x.length > 1 ? '.' + x[1] : '';
 	const rgx = /(\d+)(\d{3})/;

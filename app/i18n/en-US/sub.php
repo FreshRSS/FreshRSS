@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archiving',	// IGNORE
 		'dynamic_opml' => array(
 			'_' => 'Dynamic OPML',	// IGNORE
-			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// IGNORE
+			'help' => 'Provide the URL to an <a href="https://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// IGNORE
 		),
 		'empty' => 'Empty category',	// IGNORE
 		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// IGNORE
@@ -125,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Custom date/time format',	// IGNORE
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// IGNORE
+					'help' => 'Optional. A format supported by <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// IGNORE
 				),
 				'item_timestamp' => array(
 					'_' => 'item date',	// IGNORE
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE
+					'help' => 'The result will be parsed by <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE
 				),
 				'item_title' => array(
 					'_' => 'item title',	// IGNORE
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// IGNORE
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// IGNORE
 				),
 				'item_uid' => array(
 					'_' => 'item unique ID',	// IGNORE
@@ -169,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Custom date/time format',	// IGNORE
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// IGNORE
+					'help' => 'Optional. A format supported by <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// IGNORE
 				),
 				'item_timestamp' => array(
 					'_' => 'item date',	// IGNORE
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE
+					'help' => 'The result will be parsed by <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// IGNORE
 				),
 				'item_title' => 'item title',	// IGNORE
 				'item_uid' => 'item unique ID',	// IGNORE

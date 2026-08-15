@@ -654,7 +654,7 @@ msgstr ""
 #, markdown-text, no-wrap
 msgid ""
 "> ℹ️ Also applies to [Microsoft "
-"Windows](https://docs.microsoft.com/windows/wsl/install-win10) thanks to "
+"Windows](https://learn.microsoft.com/en-us/windows/wsl/install) thanks to "
 "[WSL](https://ubuntu.com/wsl).\n"
 msgstr ""
 
@@ -1366,7 +1366,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/02_GitHub.md:62
 #, markdown-text
-msgid "For further tips, see [here](https://chris.beams.io/posts/git-commit/)."
+msgid "For further tips, see [here](https://chris.beams.io/git-commit)."
 msgstr ""
 
 #. type: Title #
@@ -2624,7 +2624,7 @@ msgstr ""
 #, markdown-text
 msgid ""
 "You can find more information about commit messages [on this blog "
-"post](https://chris.beams.io/posts/git-commit/)."
+"post](https://chris.beams.io/git-commit)."
 msgstr ""
 
 #. type: Title ##
@@ -2702,7 +2702,7 @@ msgstr ""
 msgid ""
 "In order to get as much feedback as possible before a release, it’s "
 "preferable to announce it on GitHub by creating a dedicated ticket ([see "
-"examples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). "
+"examples](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS%20Call%20for%20testing&type=Issues)). "
 "This should be done **at least one week in advance**."
 msgstr ""
 

@@ -697,7 +697,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/02_First_steps.md:91
 #, no-wrap
-msgid "> ℹ️ Also applies to [Microsoft Windows](https://docs.microsoft.com/windows/wsl/install-win10) thanks to [WSL](https://ubuntu.com/wsl).\n"
+msgid "> ℹ️ Also applies to [Microsoft Windows](https://learn.microsoft.com/en-us/windows/wsl/install) thanks to [WSL](https://ubuntu.com/wsl).\n"
 msgstr ""
 
 #. type: Plain text
@@ -1476,9 +1476,9 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/02_GitHub.md:62
-msgid "For further tips, see [here](https://chris.beams.io/posts/git-commit/)."
+msgid "For further tips, see [here](https://chris.beams.io/git-commit)."
 msgstr ""
-"Pour d’autres conseils, voir [ici](https://chris.beams.io/posts/git-commit/)."
+"Pour d’autres conseils, voir [ici](https://chris.beams.io/git-commit)."
 
 #. type: Title #
 #: en/./developers/03_Backend/01_Database_schema.md:1
@@ -2661,12 +2661,12 @@ msgstr ""
 #: en/./developers/04_Pull_requests.md:60
 #, fuzzy
 #| msgid ""
-#| "For further tips, see [here](https://chris.beams.io/posts/git-commit/)."
+#| "For further tips, see [here](https://chris.beams.io/git-commit)."
 msgid ""
 "You can find more information about commit messages [on this blog post]"
-"(https://chris.beams.io/posts/git-commit/)."
+"(https://chris.beams.io/git-commit)."
 msgstr ""
-"Pour d’autres conseils, voir [ici](https://chris.beams.io/posts/git-commit/)."
+"Pour d’autres conseils, voir [ici](https://chris.beams.io/git-commit)."
 
 #. type: Title ##
 #: en/./developers/04_Pull_requests.md:61

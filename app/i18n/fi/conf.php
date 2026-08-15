@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Tarkista API:n tila: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'API on poistettu käytöstä.',
 			'documentation_link' => 'Katso lisätietoja <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ohjeesta ja tunnettujen sovellusten luettelosta</a>',
-			'help' => 'Katso <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ohje</a>',
+			'help' => 'Katso <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ohje</a>',
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Vaihda salasana',

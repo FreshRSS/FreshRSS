@@ -1064,7 +1064,7 @@
 * UI
 	* Better UI / client network performance (time to first byte) thanks to a data streaming pipeline with `yield` [#2588](https://github.com/FreshRSS/FreshRSS/pull/2588)
 		* Improved buffering strategy accordingly, with a loading animation while waiting for the first articles to arrive (e.g. complex / slow search) [#2845](https://github.com/FreshRSS/FreshRSS/pull/2845)
-		* To benefit from it, requires that the full Web stack allow efficient streaming / flushing of data. Check our reference [Docker + Traefik documentation](./Docker/README.md).
+		* To benefit from it, requires that the full Web stack allow efficient streaming / flushing of data. Check our reference [Docker + Traefik documentation](../Docker/README.md).
 	* Support RTL (right-to-left) languages [#2776](https://github.com/FreshRSS/FreshRSS/pull/2776)
 	* New keyboard shortcut <kbd>Alt ⎇</kbd>+<kbd>r</kbd> to park *previous* articles as read [#2843](https://github.com/FreshRSS/FreshRSS/pull/2843)
 	* In the statistics page, show feeds inactive for 1, 2, 3, 5 years [#2827](https://github.com/FreshRSS/FreshRSS/issues/2827)
@@ -1172,7 +1172,7 @@
 	* Add optional database connection URI parameters [#2549](https://github.com/FreshRSS/FreshRSS/issues/2549), [#2559](https://github.com/FreshRSS/FreshRSS/pull/2559)
 	* Allow longer articles with MySQL / MariaDB (up to 16MB compressed instead of 64kB) [#2448](https://github.com/FreshRSS/FreshRSS/issues/2448)
 	* Add support for terms of service [#2520](https://github.com/FreshRSS/FreshRSS/pull/2520)
-	* Add sharing with [Lemmy](https://github.com/dessalines/lemmy) [#2510](https://github.com/FreshRSS/FreshRSS/pull/2510)
+	* Add sharing with [Lemmy](https://github.com/LemmyNet/lemmy) [#2510](https://github.com/FreshRSS/FreshRSS/pull/2510)
 * API
 	* Add support for [Reeder-4](https://www.reederapp.com/) client [#2513](https://github.com/FreshRSS/FreshRSS/issues/2513)
 * Compatibility
@@ -1314,7 +1314,7 @@
 	* Better validation of parameters [#2046](https://github.com/FreshRSS/FreshRSS/issues/2046)
 	* New option `--header` to `cli/user-info.php` [#2296](https://github.com/FreshRSS/FreshRSS/pull/2296)
 * API
-	* Supported by [Readably](https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (client for Android using Fever API)
+	* Supported by [Readably](https://web.archive.org/web/20210207170730/https://play.google.com/store/apps/details?id=com.isaiasmatewos.readably) (client for Android using Fever API) [#2264](https://github.com/FreshRSS/FreshRSS/pull/2264)
 * I18n
 	* Improve Korean [#2242](https://github.com/FreshRSS/FreshRSS/pull/2242)
 	* Improve Occitan [#2253](https://github.com/FreshRSS/FreshRSS/pull/2253)
@@ -1356,17 +1356,17 @@
 	* Improve Dutch [#2221](https://github.com/FreshRSS/FreshRSS/pull/2221)
 	* Improve Occitan [#2230](https://github.com/FreshRSS/FreshRSS/pull/2230)
 * Accessibility
-	* Remove alt in logo [#2209](https://github.com/FreshRSS/FreshRSS/pull/2209)
+	* Remove alt in logo [#2209](https://github.com/FreshRSS/FreshRSS/issues/2209)
 
 
 ## 2018-12-22 FreshRSS 1.13.0
 
 * API
 	* Improvements to the Google Reader API [#2093](https://github.com/FreshRSS/FreshRSS/pull/2093)
-		* Support for [Vienna RSS](http://www.vienna-rss.com/) (client for Mac OS X) [#2091](https://github.com/FreshRSS/FreshRSS/issues/2091)
+		* Support for [Vienna RSS](https://www.vienna-rss.com/) (client for Mac OS X) [#2091](https://github.com/FreshRSS/FreshRSS/issues/2091)
 	* Contributions to WebSub in third-party systems to support instant push notifications
 		from [Mastodon](https://joinmastodon.org) 2.6.2+ and [Friendica](https://friendi.ca) 2018.12+
-		[#mastodon/9302](https://github.com/tootsuite/mastodon/pull/9302), [#friendica/6137](https://github.com/friendica/friendica/pull/6137)
+		[#mastodon/9302](https://github.com/mastodon/mastodon/pull/9302), [#friendica/6137](https://github.com/friendica/friendica/pull/6137)
 		* Rename the PubSubHubbub protocol to use the new standard [WebSub](https://www.w3.org/TR/websub/) name [#2184](https://github.com/FreshRSS/FreshRSS/pull/2184)
 * Features
 	* Ability to import XML files exported from Tiny-Tiny-RSS [#2079](https://github.com/FreshRSS/FreshRSS/issues/2079)
@@ -1394,7 +1394,7 @@
 		* Fix some sanitizing in authors / tags
 	* Strip embedded SVG images for now [#2135](https://github.com/FreshRSS/FreshRSS/pull/2135)
 * Security
-	* Fix HTML injections reported by [Netsparker](https://www.netsparker.com) [#2121](https://github.com/FreshRSS/FreshRSS/issues/2121)
+	* Fix HTML injections reported by [Netsparker](https://www.invicti.com/) [#2121](https://github.com/FreshRSS/FreshRSS/issues/2121)
 * Bug fixing
 	* Fix warning in `tempnam()` with PHP 7.1+ affecting ZIP export [#2134](https://github.com/FreshRSS/FreshRSS/pull/2134)
 	* Fix print for views with unfolded articles [#2130](https://github.com/FreshRSS/FreshRSS/issues/2130)
@@ -1495,9 +1495,9 @@
 ## 2018-06-03 FreshRSS 1.11.0
 
 * API
-	* Add support for Fever compatible API, enabling more clients [#1406](https://github.com/FreshRSS/FreshRSS/pull/1406)
-		* iOS: [Fiery Feeds](https://apps.apple.com/app/fiery-feeds-rss-reader/id1158763303), [Unread](https://apps.apple.com/app/unread-rss-reader/id1252376153)
-		* MacOS: [Readkit](https://apps.apple.com/app/readkit/id588726889)
+	* Add support for Fever compatible API, enabling more clients [#1406](https://github.com/FreshRSS/FreshRSS/issues/1406)
+		* iOS: [Fiery Feeds](https://voidstern.net/fiery-feeds), [Unread](https://www.goldenhillsoftware.com/unread/)
+		* MacOS: [Readkit](https://readkit.app/)
 * Features
 	* Several per-feed options (implemented in JSON) [#1838](https://github.com/FreshRSS/FreshRSS/pull/1838)
 		* Mark updated articles as read [#891](https://github.com/FreshRSS/FreshRSS/issues/891)
@@ -1624,7 +1624,7 @@
 	* Show existing extensions in admin panel [#1708](https://github.com/FreshRSS/FreshRSS/pull/1708)
 	* New function `$entry->_hash($hex)` for extensions that change the content of entries [#1707](https://github.com/FreshRSS/FreshRSS/pull/1707)
 * I18n
-	* Hebrew [#1716](https://github.com/FreshRSS/FreshRSS/pull/1716)
+	* Hebrew ~~\#1716~~
 	* Improved German [#1698](https://github.com/FreshRSS/FreshRSS/pull/1698)
 * Misc.
 	* Customisable `constants.local.php` [#1725](https://github.com/FreshRSS/FreshRSS/pull/1725)
@@ -1698,7 +1698,7 @@
 * Security
 	* Do not require write access to check availability of new versions [#1450](https://github.com/FreshRSS/FreshRSS/issues/1450)
 * Misc.
-	* Move [documentation](./docs/) into FreshRSS code [#1510](https://github.com/FreshRSS/FreshRSS/pull/1510)
+	* Move [documentation](../docs/) into FreshRSS code [#1510](https://github.com/FreshRSS/FreshRSS/pull/1510)
 	* Moved `./data/force-https.default.txt` to `./force-https.default.txt`,
 		`./data/config.default.php` to `./config.default.php`,
 		and `./data/users/_/config.default.php` to `./config-user.default.php` [#1531](https://github.com/FreshRSS/FreshRSS/issues/1531)
@@ -1738,7 +1738,7 @@
 ## 2016-12-26 FreshRSS 1.6.2
 
 * Features
-	* Add git compatibility in Web update system [#1357](https://github.com/FreshRSS/FreshRSS/issues/1357)
+	* Add git compatibility in Web update system [#1357](https://github.com/FreshRSS/FreshRSS/pull/1357)
 		* Requires that the initial installation is done with git
 	* New option `limits.cookie_duration` in `data/config.php` to set the login cookie duration [#1384](https://github.com/FreshRSS/FreshRSS/issues/1384)
 * SQL
@@ -1746,7 +1746,7 @@
 * CLI
 	* New command `./cli/user-info.php` to get some user information [#1345](https://github.com/FreshRSS/FreshRSS/issues/1345)
 * Bug fixing
-	* Fix bug in estimating last user activity [#1358](https://github.com/FreshRSS/FreshRSS/issues/1358)
+	* Fix bug in estimating last user activity [#1358](https://github.com/FreshRSS/FreshRSS/pull/1358)
 	* PostgreSQL: fix bug when updating cached values [#1360](https://github.com/FreshRSS/FreshRSS/issues/1360)
 	* Fix bug in confirmation before marking as read [#1348](https://github.com/FreshRSS/FreshRSS/issues/1348)
 	* Fix small bugs in installer [#1363](https://github.com/FreshRSS/FreshRSS/pull/1363)
@@ -1766,7 +1766,7 @@
 
 * CLI
 	* New Command-Line Interface (CLI) [#1095](https://github.com/FreshRSS/FreshRSS/issues/1095)
-		* Install, add/delete users, actualize, import/export. See [CLI documentation](./cli/README.md).
+		* Install, add/delete users, actualize, import/export. See [CLI documentation](../cli/README.md).
 * API
 	* Support for editing feeds and categories from client applications [#1254](https://github.com/FreshRSS/FreshRSS/issues/1254)
 * Compatibility:
@@ -1810,7 +1810,7 @@
 * SimplePie
 	* Fix auto-discovery of RSS feeds in Web pages served as `text/xml` [#1264](https://github.com/FreshRSS/FreshRSS/issues/1264)
 * Misc.
-	* Removed *resource-priorities* attributes (`defer`, `lazyload`), deprecated by W3C [#1222](https://github.com/FreshRSS/FreshRSS/pull/1222)
+	* Removed *resource-priorities* attributes (`defer`, `lazyload`), deprecated by W3C [#1222](https://github.com/FreshRSS/FreshRSS/issues/1222)
 
 
 ## 2016-08-29 FreshRSS 1.5.0
@@ -1854,7 +1854,7 @@
 * Features
 	* Support for MySQL 5.7+ (e.g. Ubuntu 16.04 LTS) [#1132](https://github.com/FreshRSS/FreshRSS/pull/1132)
 	* Speed optimization for HTTP/2 [#1133](https://github.com/FreshRSS/FreshRSS/pull/1133)
-	* API support for REDIRECT_* HTTP headers (fcgi) [#1128](https://github.com/FreshRSS/FreshRSS/issues/1128)
+	* API support for REDIRECT_* HTTP headers (fcgi) [#1128](https://github.com/FreshRSS/FreshRSS/pull/1128)
 * SimplePie
 	* Support for feeds with invalid whitespace [#1142](https://github.com/FreshRSS/FreshRSS/issues/1142)
 * Bug fixing
@@ -1951,7 +1951,7 @@
 	* PHP 7 officially supported (~70% speed improvements on early tests). [#889](https://github.com/FreshRSS/FreshRSS/issues/889)
 	* Restore support for PHP 5.2.1+. [#214a5cc](https://github.com/Alkarex/FreshRSS/commit/214a5cc9a4c2b821961bc21f22b4b08e34b5be68) [#894](https://github.com/FreshRSS/FreshRSS/issues/894)
 	* Support for data-src for images of articles retrieved via the full-content module. [#877](https://github.com/FreshRSS/FreshRSS/issues/877)
-	* Add a couple of default feeds for fresh installations. [#886](https://github.com/FreshRSS/FreshRSS/issues/886)
+	* Add a couple of default feeds for fresh installations. [#886](https://github.com/FreshRSS/FreshRSS/pull/886)
 	* Changed some log visibilities. [#885](https://github.com/FreshRSS/FreshRSS/issues/885)
 	* Fix broken links for extension script / style files. [#862](https://github.com/FreshRSS/FreshRSS/issues/862)
 	* Load default configuration during installation to avoid hard-coded values. [#890](https://github.com/FreshRSS/FreshRSS/issues/890)

@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivace',
 		'dynamic_opml' => array(
 			'_' => 'Dynamický OPML',
-			'help' => 'Zadejte adresu URL na <a href="http://opml.org/" target="_blank">OPML soubor</a> k dynamickému naplnění této kategorie RSS kanály',
+			'help' => 'Zadejte adresu URL na <a href="https://opml.org/" target="_blank">OPML soubor</a> k dynamickému naplnění této kategorie RSS kanály',
 		),
 		'empty' => 'Vyprázdit kategorii',
 		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
@@ -125,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Vlastní formát data a času',
-					'help' => 'Volitelně. Formát podporovaný funkcí <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> jako např.: <code>d-m-Y H:i:s</code>',
+					'help' => 'Volitelně. Formát podporovaný funkcí <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> jako např.: <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'datum položky',
-					'help' => 'Výsledek bude zpracován pomocí <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Výsledek bude zpracován pomocí <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'název položky',
-					'help' => 'Použijte zejména <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">osu XPath</a> <code>descendant::</code> jako např. <code>descendant::h2</code>',
+					'help' => 'Použijte zejména <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">osu XPath</a> <code>descendant::</code> jako např. <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'jedinečné ID položky',
@@ -169,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Vlastní formát data a času',
-					'help' => 'Volitelně. Formát podporovaný funkcí <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> jako např.: <code>d-m-Y H:i:s</code>',
+					'help' => 'Volitelně. Formát podporovaný funkcí <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> jako např.: <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'datum položky',
-					'help' => 'Výsledek bude analyzován pomocí <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Výsledek bude analyzován pomocí <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'název položky',
 				'item_uid' => 'unikátní ID položky',

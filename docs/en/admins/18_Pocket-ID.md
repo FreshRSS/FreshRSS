@@ -1,9 +1,9 @@
 # Setting up Pocket ID
 
-**[Pocket ID](https://github.com/stonith404/pocket-id)** is a simple OIDC provider that allows users to authenticate with their passkeys to your services.
+**[Pocket ID](https://github.com/pocket-id/pocket-id)** is a simple OIDC provider that allows users to authenticate with their passkeys to your services.
 (See [FreshRSS’ OpenID Connect documentation](16_OpenID-Connect.md)).
 
-You can find more information in the [Pocket ID documentation](https://docs.pocket-id.org/introduction).
+You can find more information in the [Pocket ID documentation](https://pocket-id.org/docs).
 
 ## 1. Create OAuth2/OpenID Provider
 

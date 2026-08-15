@@ -6,7 +6,7 @@ declare(strict_types=1);
  * architecture of a Minz application.
  *
  * @author Marien Fressinaud <dev@marienfressinaud.fr>
- * @license http://www.gnu.org/licenses/agpl-3.0.en.html AGPL
+ * @license https://www.gnu.org/licenses/agpl-3.0.en.html AGPL
  */
 class Minz_Migrator
 {

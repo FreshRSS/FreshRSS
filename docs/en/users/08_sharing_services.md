@@ -16,7 +16,7 @@ FreshRSS has the option to share links with a bunch of services.
 |:------------------|:-----------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------------------|
 | Buffer         | Buffer.com is a social media management platform for scheduling, publishing, and analyzing content. | [Website](https://buffer.com) ||
 | Diaspora*         | The online social world where you are in control     | [Website](https://diasporafoundation.org/), [Wikipedia](https://en.wikipedia.org/wiki/Diaspora_(social_network)) |  |
-| Facebook          | Worldwide social network (by Meta Platforms)         | [Website](https://facebook.com), [Wikipedia](https://en.wikipedia.org/wiki/Facebook) | |
+| Facebook          | Worldwide social network (by Meta Platforms)         | [Website](https://www.facebook.com/), [Wikipedia](https://en.wikipedia.org/wiki/Facebook) | |
 | GNU social        | Social communication software for both public and private communications | [Website](https://gnusocial.rocks/) | |
 | Journal du hacker | Le Journal du hacker s'inspire directement du site anglophone Hacker News | [Website](https://www.journalduhacker.net/) | |
 | Known based sites | Its robust open source framework can be used to build fully-fledged community sites, or a blog for a single user. | [Website](https://withknown.com/) | |
@@ -30,13 +30,12 @@ FreshRSS has the option to share links with a bunch of services.
 | Omnivore          | A complete, open source read-it-later solution for people who love to read. | [Website](https://omnivore.app/) | |
 | Pinboard          | Social Bookmarking for Introverts                    | [Website](https://pinboard.in/) | |
 | Pinterest         | Is an image sharing and social media service designed to enable saving and discovery of information| [Website](https://pinterest.com/), [Wikipedia](https://en.wikipedia.org/wiki/Pinterest) | |
-| Pocket            | Social bookmarking (previous "Read it Later", owned by Mozilla) | [Website](https://getpocket.com), [Wikipedia](https://en.wikipedia.org/wiki/Pocket_(service)) | |
 | Raindrop.io       | All-in-one bookmark manager                          | [Website](https://raindrop.io/)| |
 | Reddit            | A network of communities where people can dive into their interests, hobbies and passions| [Website](https://www.reddit.com/), [Wikipedia](https://en.wikipedia.org/wiki/Reddit)| |
-| Shaarli           | Self-hosted minimalist bookmark manager and link sharing service | [Website](https://shaarli.readthedocs.io/) | |
+| Shaarli           | Self-hosted minimalist bookmark manager and link sharing service | [Website](https://shaarli.readthedocs.io/en/master/) | |
 | Telegram          | Social network                         | [Website](https://telegram.org), [Wikipedia](https://en.wikipedia.org/wiki/Telegram_(software)) | |
 | Twitter           | Microblogging social network                         | [Website](https://twitter.com), [Wikipedia](https://de.wikipedia.org/wiki/Twitter) | |
-| wallabag          | Save and classify articles. Read them later. Freely  | [Website](https://www.wallabag.org) | Compatible to version 1 and 2 |
+| wallabag          | Save and classify articles. Read them later. Freely  | [Website](https://wallabag.org/) | Compatible to version 1 and 2 |
 | Whatsapp          | Instant messaging and voice-over-IP service owned by Meta Platforms| [Website](https://www.whatsapp.com), [Wikipedia](https://en.wikipedia.org/wiki/WhatsApp) | |
 | XING              | Career-oriented social networking site, operated by New Work SE | [Website](https://www.xing.com/), [Wikipedia](https://en.wikipedia.org/wiki/XING) | |
 

@@ -26,7 +26,7 @@ return array(
 		'archiving' => '보관',
 		'dynamic_opml' => array(
 			'_' => '동적 OPML',
-			'help' => '이 카테코리에 피드를 동적으로 채우려면 <a href="http://opml.org/" target="_blank">OPML 파일</a> 의 URL을 제공해주세요',
+			'help' => '이 카테코리에 피드를 동적으로 채우려면 <a href="https://opml.org/" target="_blank">OPML 파일</a> 의 URL을 제공해주세요',
 		),
 		'empty' => '빈 카테고리',
 		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
@@ -125,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => '사용자 지정 날짜/시간 형식',
-					'help' => '선택 사항. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>에서 지원하는 형식(예: <code>d-m-Y H:i:s</code>)',
+					'help' => '선택 사항. <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>에서 지원하는 형식(예: <code>d-m-Y H:i:s</code>)',
 				),
 				'item_timestamp' => array(
 					'_' => '기사 날짜',
-					'help' => '결과 값은 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>에서 파싱한 값을 이용합니다.',
+					'help' => '결과 값은 <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>에서 파싱한 값을 이용합니다.',
 				),
 				'item_title' => array(
 					'_' => '기사 제목',
-					'help' => '<code>descendant::h2</code> 같은 특정 <code>descendant::</code><a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 축</a>을 사용합니다.',
+					'help' => '<code>descendant::h2</code> 같은 특정 <code>descendant::</code><a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath 축</a>을 사용합니다.',
 				),
 				'item_uid' => array(
 					'_' => '기사 UID',
@@ -169,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => '사용자 지정 날짜/시간 형식',
-					'help' => '선택 사항. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>에서 지원하는 형식(예: <code>d-m-Y H:i:s</code>)',
+					'help' => '선택 사항. <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>에서 지원하는 형식(예: <code>d-m-Y H:i:s</code>)',
 				),
 				'item_timestamp' => array(
 					'_' => '기사 날짜',
-					'help' => '결과 값은 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>를 통해 파싱됩니다.',
+					'help' => '결과 값은 <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>를 통해 파싱됩니다.',
 				),
 				'item_title' => '기사 제목',
 				'item_uid' => '기사 고유 ID',

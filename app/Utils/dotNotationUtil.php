@@ -6,7 +6,7 @@ final class FreshRSS_dotNotation_Util
 
 	/**
 	 * Get an item from an array using "dot" notation.
-	 * Functions adapted from https://stackoverflow.com/a/39118759
+	 * Functions adapted from https://stackoverflow.com/questions/9635968/convert-dot-syntax-like-this-that-other-to-multi-dimensional-array-in-php/39118759#39118759
 	 * https://github.com/illuminate/support/blob/52e8f314b8043860b1c09e5c2c7e8cca94aafc7d/Arr.php#L270-L305
 	 * Newer version in
 	 * https://github.com/laravel/framework/blob/10.x/src/Illuminate/Collections/Arr.php#L302-L337

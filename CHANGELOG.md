@@ -1,4 +1,4 @@
-﻿# FreshRSS changelog
+# FreshRSS changelog
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
@@ -45,7 +45,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Improve Spanish [#8878](https://github.com/FreshRSS/FreshRSS/pull/8878)
 	* Improve Ukrainian [#8871](https://github.com/FreshRSS/FreshRSS/pull/8871)
 * Misc.
-	* Update to PHPMailer 7.1.1 [#9807](https://github.com/FreshRSS/FreshRSS/pull/9807)
+	* Update to PHPMailer 7.1.1 [#8907](https://github.com/FreshRSS/FreshRSS/pull/8907)
 	* Improve PHP code [#8906](https://github.com/FreshRSS/FreshRSS/pull/8906)
 	* Fix PHPStan 2.2.2 in CLI [#8911](https://github.com/FreshRSS/FreshRSS/pull/8911)
 	* Update dev dependencies [#8904](https://github.com/FreshRSS/FreshRSS/pull/8904), [#8905](https://github.com/FreshRSS/FreshRSS/pull/8905)
@@ -700,7 +700,7 @@ Security
 * Features
 	* Add support for [regex search (regular expressions)](https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex) [#6706](https://github.com/FreshRSS/FreshRSS/pull/6706), [#6926](https://github.com/FreshRSS/FreshRSS/pull/6926)
 		* ⚠️ Advanced regex syntax for searches depends on the database used (SQLite, PostgreSQL, MariaDB, MySQL),
-		but FreshRSS filter actions such as auto-mark-as-read and auto-favourite always use [PHP PCRE2 syntax](https://php.net/regexp.introduction).
+		but FreshRSS filter actions such as auto-mark-as-read and auto-favourite always use [PHP PCRE2 syntax](https://www.php.net/regexp.introduction).
 	* Allow dynamic search operator in user queries, like `search:UserQueryA date:P1d` [#6851](https://github.com/FreshRSS/FreshRSS/pull/6851)
 	* New feed mode *HTML+XPath+JSON dot notation* (JSON in HTML) [#6888](https://github.com/FreshRSS/FreshRSS/pull/6888)
 	* Better HTTP compliance with support for HTTP response headers `Cache-Control: max-age` and `Expires` [#6812](https://github.com/FreshRSS/FreshRSS/pull/6812), [FreshRSS/simplepie#26](https://github.com/FreshRSS/simplepie/pull/26)
@@ -942,7 +942,7 @@ Security
 		[#6099](https://github.com/FreshRSS/FreshRSS/pull/6099), [#6214](https://github.com/FreshRSS/FreshRSS/pull/6214)
 	* Fix i18n `cli/manipulate.translation.php` ignore behaviour [#6041](https://github.com/FreshRSS/FreshRSS/pull/6041)
 * API
-	* New compatible app [Read You](https://github.com/Ashinch/ReadYou) [#4633](https://github.com/FreshRSS/FreshRSS/pull/4633), [#6050](https://github.com/FreshRSS/FreshRSS/pull/6050)
+	* New compatible app [Read You](https://github.com/ReadYouApp/ReadYou) [#4633](https://github.com/FreshRSS/FreshRSS/pull/4633), [#6050](https://github.com/FreshRSS/FreshRSS/pull/6050)
 	* Reduce API memory consumption [#6137](https://github.com/FreshRSS/FreshRSS/pull/6137)
 	* Allow negative feed IDs for future special cases [#6010](https://github.com/FreshRSS/FreshRSS/pull/6010)
 	* Only return `OK` for requests without query parameters [#6238](https://github.com/FreshRSS/FreshRSS/pull/6238)

@@ -6,7 +6,7 @@ Thanks to our contributors, FreshRSS is translated into [more than 20 languages]
 
 It is common (and that’s an understatement) to want to show some text to the user. The problem is that FreshRSS has users of different nationalities. It is therefore necessary to be able to manage different languages in order not to remain confined to English or French.
 
-The solution is to use the `Minz_Translate` module, which allows dynamic translation of FreshRSS. Before using this module, it is necessary to know where to find the strings to be translated. Each language has its own subdirectory in a parent directory named `app/i18n/`. For example, English language files are located in [`app/i18n/en/`](/app/i18n/en/). There are seven different files:
+The solution is to use the `Minz_Translate` module, which allows dynamic translation of FreshRSS. Before using this module, it is necessary to know where to find the strings to be translated. Each language has its own subdirectory in a parent directory named `app/i18n/`. For example, English language files are located in [`app/i18n/en/`](https://github.com/FreshRSS/FreshRSS/tree/edge/app/i18n/en). There are seven different files:
 
 * `admin.php` for anything related to FreshRSS administration
 * `conf.php` for configuration
@@ -19,7 +19,7 @@ The solution is to use the `Minz_Translate` module, which allows dynamic transla
 
 This organization makes it possible to avoid a single huge translation file.
 
-The translation files are quite simple: it’s only a matter of returning a PHP array containing the translations. As an example, here’s an extract from [`app/i18n/fr/gen.php`](/app/i18n/fr/gen.php):
+The translation files are quite simple: it’s only a matter of returning a PHP array containing the translations. As an example, here’s an extract from [`app/i18n/fr/gen.php`](https://github.com/FreshRSS/FreshRSS/blob/edge/app/i18n/fr/gen.php):
 
 ```php
 <?php
@@ -126,7 +126,7 @@ To access these translations, you must use the `_t()` function (which is a short
 
 The function expects a translation key, but there’s a special case that sometimes makes life easier: the `_` identifier. This must necessarily be present at the end of the chain and gives a value to the higher-level identifier. It’s pretty hard to explain but very simple to understand. In the example given above, an `_` is associated with the value `FreshRSS`: this means that there is no need to write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices.
 
-`_t()` can take any number of variables. The variables will then be replaced in the translation if it contains some “conversion specifications” (usually `%s` or `%d`). You can learn more about these specifications in the [`sprintf()` PHP function documentation](https://www.php.net/manual/function.sprintf).
+`_t()` can take any number of variables. The variables will then be replaced in the translation if it contains some “conversion specifications” (usually `%s` or `%d`). You can learn more about these specifications in the [`sprintf()` PHP function documentation](https://www.php.net/manual/en/function.sprintf.php).
 
 For instance, the English translation for `gen.auth.keep_logged_in` is `Keep me logged in <small>(%s days)</small>`. It means this translation expects a string to be passed as an argument to the `t()` function (well, it should be a `%d` because we want a number here, but it doesn’t matter). For instance:
 

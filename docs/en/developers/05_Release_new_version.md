@@ -1,7 +1,7 @@
 # Preparing the release
 
 In order to get as much feedback as possible before a release, it’s preferable to announce it on GitHub by creating a dedicated ticket
-([see examples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). This should be done **at least one week in advance**.
+([see examples](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS%20Call%20for%20testing&type=Issues)). This should be done **at least one week in advance**.
 
 It’s also recommended to make the announcement on <mailing@freshrss.org>.
 
@@ -35,7 +35,7 @@ The repository managing the code is located on GitHub: [FreshRSS/update.freshrss
 
 The scripts are located in the `./scripts/` directory and must take the form `update_to_x.y.z.z.php`. This directory  also contains `update_to_dev.php` intended for updates of the `edge` branch (this script must not include code specific to a particular version!) and `update_util.php`, which contains a list of functions useful for all scripts.
 
-In order to write a new script, it’s better to copy/paste the last version or to start from `update_to_dev.php`. The first thing to do is to define the URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The URL is in the form  of `https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`.
+In order to write a new script, it’s better to copy/paste the last version or to start from `update_to_dev.php`. The first thing to do is to define the URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The URL is in the form of `https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`.
 
 There are then 5 functions that have to be executed:
 

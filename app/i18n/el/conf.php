@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Ελέγξτε την κατάσταση του API μέσω: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'Η πρόσβαση στο API είναι απενεργοποιημένη.',
 			'documentation_link' => 'Δείτε την <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">τεκμηρίωση και τη λίστα γνωστών εφαρμογών</a>',
-			'help' => 'Δείτε την <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>τεκμηρίωση</a>',
+			'help' => 'Δείτε την <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>τεκμηρίωση</a>',
 			'security_warning' => 'Χρησιμοποιήστε HTTPS. Ο κωδικός πρόσβασης API μεταδίδεται σε καθαρό κείμενο και μπορεί να εμφανίζεται στα αρχεία καταγραφής του διακομιστή αν αποσταλεί μέσω GET.',
 		),
 		'change_password' => 'Αλλαγή κωδικού πρόσβασης',

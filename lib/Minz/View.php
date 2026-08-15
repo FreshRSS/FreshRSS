@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Sous licence AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -263,7 +263,7 @@ class Minz_View {
 	}
 
 	/**
-	 * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
+	 * https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta/name/theme-color
 	 */
 	public static function metaThemeColor(): string {
 		$meta = '';

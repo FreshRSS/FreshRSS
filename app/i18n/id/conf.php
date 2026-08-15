@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Periksa status API melalui: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'Akses API dinonaktifkan.',
 			'documentation_link' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentasi dan daftar aplikasi yang diketahui</a>',
-			'help' => 'Lihat <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentasi</a>',
+			'help' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentasi</a>',
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO

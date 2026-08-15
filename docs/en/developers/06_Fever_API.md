@@ -23,7 +23,7 @@ Then point your mobile application to the `fever.php` address (e.g. `https://fre
 |:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
 |[Fluent Reader](https://hyliu.me/fluent-reader/)                                    |Windows, Linux, macOS|[BSD-3-Clause](https://github.com/yang991178/fluent-reader/blob/master/LICENSE)|
 |[Fluent Reader lite](https://hyliu.me/fluent-reader-lite/)                          |Android, iOS         |[BSD-3-Clause](https://github.com/yang991178/fluent-reader-lite)|
-|[Read You](https://github.com/Ashinch/ReadYou/)                                     |Android              |[GPLv3](https://github.com/Ashinch/ReadYou/blob/main/LICENSE)|
+|[Read You](https://github.com/ReadYouApp/ReadYou)                                     |Android              |[GPLv3](https://github.com/ReadYouApp/ReadYou/blob/main/LICENSE)|
 |[Fiery Feeds](https://voidstern.net/fiery-feeds)       |iOS                  |Closed Source                                             |
 |[Newsflash](https://gitlab.com/news-flash/news_flash_gtk/)                          |Linux                |[GPLv3](https://gitlab.com/news-flash/news_flash_gtk/)|
 |[Unread](https://www.goldenhillsoftware.com/unread/)                 |iOS                  |Closed Source                                             |
@@ -111,21 +111,21 @@ Then use your RSS client to query the API and afterwards check the file `fever.l
 
 ## Official Fever API reference (mirrored)
 
-The original Fever API documentation used to live at `https://feedafever.com/api` but is no longer online.
-As the [archived copy](https://web.archive.org/web/20230616124016/https://feedafever.com/api) may itself disappear over time, its content is mirrored below (converted from HTML to Markdown) for reference, with only the heading levels adjusted to fit this page.
+The original Fever API documentation used to live at `hxxps://feedafever[.]com/api` but is no longer online.
+As the [archived copy](https://web.archive.org/web/20230616124016/https://feedafever.com/api) may itself disappear over time, its content is mirrored below (converted from HTML to Markdown) for reference, with only the heading levels adjusted to fit this page, and some edited URLs.
 
 ## API Public Beta
 
 Fever 1.14 introduces the new Fever API. This API is in public beta and currently supports basic syncing and consuming of content. A subsequent update will allow for adding, editing and deleting feeds and groups. The API’s primary focus is maintaining a local cache of the data in a remote Fever installation.
 
-I am [soliciting feedback](https://feedafever.com/) from interested developers and as such the beta API may expand to reflect that feedback. The current API is incomplete but stable. Existing features may be expanded on but will not be removed or modified. New features may be added.
+I am [soliciting feedback](hxxps://feedafever.com/) from interested developers and as such the beta API may expand to reflect that feedback. The current API is incomplete but stable. Existing features may be expanded on but will not be removed or modified. New features may be added.
 
 ### Authentication
 
 Without further ado, the Fever API endpoint URL looks like:
 
 ```text
-http://yourdomain.com/fever/?api
+https://your.domain/fever/?api
 ```
 
 All requests must be authenticated with a `POST`ed `api_key`. The value of `api_key` should be the md5 checksum of the Fever accounts email address and password concatenated with a colon. An example of a valid value for `api_key` using PHP’s native `md5()` function:
@@ -146,7 +146,7 @@ The default response is a JSON object containing two members:
 The API can also return XML by passing `xml` as the optional value of the `api` argument like so:
 
 ```text
-http://yourdomain.com/fever/?api=xml
+https://your.domain/fever/?api=xml
 ```
 
 The top level XML element is named `response`.
@@ -162,7 +162,7 @@ When reading from the Fever API you add arguments to the query string of the API
 #### Groups
 
 ```text
-http://yourdomain.com/fever/?api&groups
+https://your.domain/fever/?api&groups
 ```
 
 A request with the `groups` argument will return two additional members:
@@ -182,7 +182,7 @@ The “Kindling” super group is not included in this response and is composed 
 #### Feeds
 
 ```text
-http://yourdomain.com/fever/?api&feeds
+https://your.domain/fever/?api&feeds
 ```
 
 A request with the `feeds` argument will return two additional members:
@@ -216,7 +216,7 @@ A `feeds_group` object has the following members:
 #### Favicons
 
 ```text
-http://yourdomain.com/fever/?api&favicons
+https://your.domain/fever/?api&favicons
 ```
 
 A request with the `favicons` argument will return one additional member:
@@ -243,7 +243,7 @@ echo '<img src="data:'.$favicon['data'].'">';
 #### Items
 
 ```text
-http://yourdomain.com/fever/?api&items
+https://your.domain/fever/?api&items
 ```
 
 A request with the `items` argument will return two additional members:
@@ -272,7 +272,7 @@ Most servers won’t have enough memory allocated to PHP to dump all items at on
 #### Hot Links
 
 ```text
-http://yourdomain.com/fever/?api&links
+https://your.domain/fever/?api&links
 ```
 
 A request with the `links` argument will return one additional member:
@@ -295,7 +295,7 @@ A `link` object has the following members:
 When requesting hot links you can control the range and offset by specifying a length of days for each as well as a page to fetch additional hot links. A request with just the `links` argument is equivalent to:
 
 ```text
-http://yourdomain.com/fever/?api&links&offset=0&range=7&page=1
+https://your.domain/fever/?api&links&offset=0&range=7&page=1
 ```
 
 Or the first page (`page=1`) of Hot links for the past week (`range=7`) starting now (`offset=0`).
@@ -311,7 +311,7 @@ Because Fever saves items and not individual links you can only "save" a Hot lin
 The `unread_item_ids` and `saved_item_ids` arguments can be used to keep your local cache synced with the remote Fever installation.
 
 ```text
-http://yourdomain.com/fever/?api&unread_item_ids
+https://your.domain/fever/?api&unread_item_ids
 ```
 
 A request with the `unread_item_ids` argument will return one additional member:
@@ -319,7 +319,7 @@ A request with the `unread_item_ids` argument will return one additional member:
 * `unread_item_ids` (string/comma-separated list of positive integers)
 
 ```text
-http://yourdomain.com/fever/?api&saved_item_ids
+https://your.domain/fever/?api&saved_item_ids
 ```
 
 A request with the `saved_item_ids` argument will return one additional member:
@@ -363,7 +363,7 @@ Similarly you can mark just the “Sparks” super group as read by adding the f
 * `id=-1`
 * `before=?` where `?` is replaced with the Unix timestamp of the the local client’s last `items` API request
 
-Fever, its website and all related files are copyright © 2008-2023 [Shaun Inman](http://shauninman.com/).
+Fever, its website and all related files are copyright © 2008-2023 [Shaun Inman](https://shauninman.com/).
 
 ## Credits
 

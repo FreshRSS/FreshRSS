@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Архивирование',
 		'dynamic_opml' => array(
 			'_' => 'Динамичный OPML',
-			'help' => 'Предоставьте ссылку на <a href="http://opml.org/" target="_blank">OPML файл</a> чтобы динамично заполнять эту категорию лентами',
+			'help' => 'Предоставьте ссылку на <a href="https://opml.org/" target="_blank">OPML файл</a> чтобы динамично заполнять эту категорию лентами',
 		),
 		'empty' => 'Пустая категория',
 		'error' => 'Эта динамическая категория OPML столкнулась с проблемой. Проверьте, что URL OPML всё ещё доступен и максимальное количество лент на пользователя не превышено.',
@@ -125,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Пользовательский формат даты/времени',
-					'help' => 'Выборочно. Формат поддерживается <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> как <code>d-m-Y H:i:s</code>',
+					'help' => 'Выборочно. Формат поддерживается <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> как <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'даты элемента',
-					'help' => 'Результат будет распарсен с <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Результат будет распарсен с <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'заголовка элемента',
-					'help' => 'Используйте, в частности, <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">ось XPath</a> <code>descendant::</code>, наподобие <code>descendant::h2</code>',
+					'help' => 'Используйте, в частности, <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">ось XPath</a> <code>descendant::</code>, наподобие <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'уникальный ID элемента',
@@ -169,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Пользовательский формат даты/времени',
-					'help' => 'Выборочно. Формат, поддерживаемый <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, например <code>d-m-Y H:i:s</code>',
+					'help' => 'Выборочно. Формат, поддерживаемый <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, например <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'дата элемента',
-					'help' => 'Результат будет распарсен используя <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Результат будет распарсен используя <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'название элемента',
 				'item_uid' => 'уникальный ID элемента',

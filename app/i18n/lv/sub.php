@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Arhivēšana',
 		'dynamic_opml' => array(
 			'_' => 'Dinamisks OPML',
-			'help' => 'Norādiet URL uz <a href="http://opml.org/" target="_blank">OPML failu</a>, lai dinamiski papildinātu šo kategoriju ar barotnēm.',
+			'help' => 'Norādiet URL uz <a href="https://opml.org/" target="_blank">OPML failu</a>, lai dinamiski papildinātu šo kategoriju ar barotnēm.',
 		),
 		'empty' => 'Tukša kategorija',
 		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
@@ -125,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Pielāgotais datuma/laika formāts',
-					'help' => 'Pēc izvēles. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> atbalstīts formāts, piemēram, <code>d-m-Y H:i:s</code>',
+					'help' => 'Pēc izvēles. <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> atbalstīts formāts, piemēram, <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'raksta datums',
-					'help' => 'Rezultāts tiks analizēts ar <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Rezultāts tiks analizēts ar <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'raksta tituls',
-					'help' => 'Īpaši izmantojiet <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code>, piemēram, <code>descendant::h2</code>',
+					'help' => 'Īpaši izmantojiet <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code>, piemēram, <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'raksta unikālais ID',
@@ -169,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Pielāgotais datuma/laika formāts',
-					'help' => 'Pēc izvēles. Formāts, ko atbalsta <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> piemēram, <code>d-m-Y H:i:s</code>',
+					'help' => 'Pēc izvēles. Formāts, ko atbalsta <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> piemēram, <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'vienuma datums',
-					'help' => 'Rezultātu parsēs <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Rezultātu parsēs <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'vienuma tituls',
 				'item_uid' => 'vienuma unikālais ID',
