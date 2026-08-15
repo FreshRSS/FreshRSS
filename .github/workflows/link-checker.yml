@@ -1,0 +1,63 @@
+name: Link Checker
+
+on:
+  push:
+    branches: [ edge ]
+  pull_request:
+    branches: [ edge ]
+  schedule:
+    - cron: '30 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: link-checker-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  linkChecker:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Get changed files
+        if: github.event_name == 'pull_request'
+        run: |
+          git diff --name-only --diff-filter=ACMR \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.event.pull_request.head.sha }}" \
+            > changed-files.txt
+
+      - name: Restore lychee cache
+        id: restore-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
+
+      - name: Run lychee
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          # PAT with read-only permissions used to avoid GitHub rate limits (allows 5,000 requests per hour)
+          # Won't be available to forks in pull requests due to restrictions, so falls back to default
+          # GITHUB_TOKEN with 1,000 requests per hour instead.
+          token: ${{ secrets.LYCHEE_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+
+          fail: true
+
+          # Config is loaded from lychee.toml
+          args: >
+            ${{ github.event_name == 'pull_request' && '--files-from changed-files.txt' || '.' }}
+
+      - name: Save lychee cache
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        if: always()
+        with:
+          path: .lycheecache
+          key: ${{ steps.restore-cache.outputs.cache-primary-key }}
