@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ edge ]
   schedule:
-    - cron: '30 12 * * *'
+    - cron: '30 12 1 * *'
   workflow_dispatch:
 
 permissions:
