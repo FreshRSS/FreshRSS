@@ -487,8 +487,16 @@ function toggleContent(new_active, old_active, skipping, fromHistory = false) {
 		}
 		new_active.classList.add('current');
 		if (old_active) {
+			const wasActive = old_active.classList.contains('active');
 			old_active.classList.remove('active');
 			old_active.classList.remove('current');	// Split for IE11
+			if (skipping && wasActive) {
+				old_active.dispatchEvent(new CustomEvent('freshrss:closeArticle', {
+					bubbles: true,
+					cancelable: true,
+					detail: { fromHistory },
+				}));
+			}
 			if (context.auto_remove_article) {
 				removeArticle(old_active);
 			}
