@@ -491,7 +491,6 @@ function toggleContent(new_active, old_active, skipping, fromHistory = false) {
 			if (skipping && wasActive) {
 				old_active.dispatchEvent(new CustomEvent('freshrss:closeArticle', {
 					bubbles: true,
-					cancelable: true,
 					detail: { fromHistory },
 				}));
 			}
@@ -553,7 +552,7 @@ function toggleContent(new_active, old_active, skipping, fromHistory = false) {
 		}
 	}
 
-	// URL history management listens to these events — see init_article_history()
+	// URL history management listens to these events - see init_article_history()
 	if (!skipping) {
 		if (new_active.classList.contains('active')) {
 			if (context.auto_mark_article) {
@@ -561,13 +560,11 @@ function toggleContent(new_active, old_active, skipping, fromHistory = false) {
 			}
 			new_active.dispatchEvent(new CustomEvent('freshrss:openArticle', {
 				bubbles: true,
-				cancelable: true,
 				detail: { articleId: new_active.id.replace(/^flux_/, ''), fromHistory },
 			}));
 		} else if (old_active === new_active) {
 			new_active.dispatchEvent(new CustomEvent('freshrss:closeArticle', {
 				bubbles: true,
-				cancelable: true,
 				detail: { fromHistory },
 			}));
 		}
