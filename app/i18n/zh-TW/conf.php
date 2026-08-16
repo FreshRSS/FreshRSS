@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => '顯示',
+		'article' => array(
+			'authors_date' => array(
+				'_' => '作者和日期',
+				'both' => '兩者都顯示',
+				'footer' => '僅頁腳顯示',
+				'header' => '僅頁眉顯示',
+				'none' => '不顯示',
+			),
+			'feed_name' => array(
+				'above_title' => '標題/標籤之上',
+				'none' => '不顯示',
+				'with_authors' => '在作者和日期那列',
+			),
+			'feed_title' => '訂閱源標題',
+			'icons' => array(
+				'_' => '文章圖示位置<br /><small>(僅閱讀檢視)</small>',
+				'above_title' => '標題之上',
+				'with_authors' => '在作者和日期那列',
+			),
+			'tags' => array(
+				'_' => '標籤',
+				'both' => '兩者都顯示',
+				'footer' => '僅頁腳顯示',
+				'header' => '僅頁眉顯示',
+				'none' => '不顯示',
+			),
+			'tags_max' => array(
+				'_' => '標籤最大顯示數量',
+				'help' => '0 代表顯示所有標籤並且不摺疊它們',
+			),
+		),
 		'darkMode' => array(
 			'_' => '自動黑暗模式',
 			'auto' => '自動',
 			'help' => '僅適用於相容主題',
 			'no' => '否',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => '文章: 頁首/頁尾',
 		),
 		'icon' => array(
 			'bottom_line' => '底部',
@@ -56,11 +91,11 @@ return array(
 		'show_nav_buttons' => '顯示導覽按鈕',
 		'show_title_unread' => '在標題中顯示未讀文章的數量',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => '在側邊欄中顯示未讀數量',
+			'all' => '所有類別與訂閱源',
+			'important' => '僅重要訂閱源',
+			'important_locked' => '總是顯示重要訂閱源的未讀數量。',
+			'none' => '永不',
 		),
 		'sidebar_hidden_by_default' => '預設隱藏側邊欄',
 		'theme' => array(
@@ -146,14 +181,14 @@ return array(
 		),
 		'change_password' => '變更密碼',
 		'confirm_new_password' => '確認新密碼',
-		'current_password' => '目前密碼<br /><small>(用於 Web 表單登入方式)</small>',
+		'current_password' => '當前密碼<br /><small>(適用於 Web 表單登入方式)</small>',
 		'delete' => array(
 			'_' => '帳號刪除',
 			'warn' => '你的帳號及所有相關資料將被刪除。',
 		),
 		'email' => '電子郵件位址',
 		'new_password' => '新密碼',
-		'password_api' => 'API 密碼<br /><small>(例如用於移動端應用程式)</small>',
+		'password_api' => 'API 密碼<br /><small>(例如用於行動應用程式)</small>',
 		'password_format' => '至少 7 個字元',
 		'title' => '設定檔',
 	),
@@ -224,37 +259,6 @@ return array(
 		'after_onread' => '在 "標記全部為已讀" 之後，',
 		'always_show_favorites' => '預設顯示收藏中的所有文章',
 		'apply_to_individual_feed' => '個別套用到訂閱源',
-		'article' => array(
-			'authors_date' => array(
-				'_' => '作者和日期',
-				'both' => '兩者都顯示',
-				'footer' => '僅頁腳顯示',
-				'header' => '僅頁眉顯示',
-				'none' => '不顯示',
-			),
-			'feed_name' => array(
-				'above_title' => '標題/標籤之上',
-				'none' => '不顯示',
-				'with_authors' => '在作者和日期那列',
-			),
-			'feed_title' => '訂閱源標題',
-			'icons' => array(
-				'_' => '文章圖示位置<br /><small>(僅閱讀檢視)</small>',
-				'above_title' => '標題之上',
-				'with_authors' => '在作者和日期那列',
-			),
-			'tags' => array(
-				'_' => '標籤',
-				'both' => '兩者都顯示',
-				'footer' => '僅頁腳顯示',
-				'header' => '僅頁眉顯示',
-				'none' => '不顯示',
-			),
-			'tags_max' => array(
-				'_' => '標籤最大顯示數量',
-				'help' => '0 代表顯示所有標籤並且不摺疊它們',
-			),
-		),
 		'articles_per_page' => '每頁文章數',
 		'auto_load_more' => '在頁面底部載入更多文章',
 		'auto_remove_article' => '閱讀後隱藏文章',
@@ -263,7 +267,6 @@ return array(
 		'display_categories_unfolded' => '不摺疊的類別',
 		'headline' => array(
 			'articles' => '文章: 開啟/關閉',
-			'articles_header_footer' => '文章: 頁首/頁尾',
 			'categories' => '左側導覽: 類別',
 			'mark_as_read' => '標記文章為已讀',
 			'misc' => '雜項',
@@ -299,7 +302,7 @@ return array(
 			'unread_or_favorite' => '顯示未讀和收藏',
 		),
 		'show_fav_unread_help' => '同樣適用於標籤',
-		'sides_close_article' => '點擊文章區域外以關閉',
+		'sides_close_article' => '點擊文章內容區域外以關閉',
 		'star' => array(
 			'when' => '標記文章為最愛…',
 		),
@@ -368,12 +371,12 @@ return array(
 		'toggle_aside' => '切換側邊欄',
 		'toggle_media' => '播放/暫停媒體',
 		'user_filter' => '存取使用者查詢',
-		'user_filter_help' => '如果有多個自定義過濾器，則會按照它們的序號依次訪問。',
+		'user_filter_help' => '如果只有一個使用者查詢就使用它。否則，透過編號來存取查詢。',
 		'views' => '檢視',
 	),
 	'user' => array(
 		'articles_and_size' => '%s 篇文章 (%s)',
-		'current' => '目前使用者',
+		'current' => '當前使用者',
 		'is_admin' => '是否為管理員',
 		'users' => '使用者',
 	),

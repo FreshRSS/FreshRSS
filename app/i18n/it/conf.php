@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Visualizzazione',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autori e data',
+				'both' => 'Nell’intestazione e nel fondo pagina',
+				'footer' => 'Nel fondo pagina',
+				'header' => 'Nell’intestazione',
+				'none' => 'Nessuno',
+			),
+			'feed_name' => array(
+				'above_title' => 'Sopra il titolo/tag',
+				'none' => 'Nessuno',
+				'with_authors' => 'Nella riga degli autori e data',
+			),
+			'feed_title' => 'Titolo del feed',
+			'icons' => array(
+				'_' => 'Posizione delle icone dell’articolo <br /><small>(solo in lettura)</small>',
+				'above_title' => 'Titolo in evidenza',
+				'with_authors' => 'Nella riga degli autori e della data',
+			),
+			'tags' => array(
+				'_' => 'Tag',
+				'both' => 'Nell’intestazione e nel fondo pagina',
+				'footer' => 'Nel fondo pagina',
+				'header' => 'Nell’intestazione',
+				'none' => 'Nessuno',
+			),
+			'tags_max' => array(
+				'_' => 'Numero massimo di tag mostrati',
+				'help' => '0 significa: mostra tutti i tag e non raggrupparli',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Modalità scura automatica',
 			'auto' => 'Auto',	// IGNORE
 			'help' => 'Solo per i temi compatibili',
 			'no' => 'No',	// IGNORE
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Articoli: intestazione/fondo pagina',
 		),
 		'icon' => array(
 			'bottom_line' => 'Barra in fondo',
@@ -224,37 +259,6 @@ return array(
 		'after_onread' => 'Dopo “segna tutto come letto”,',
 		'always_show_favorites' => 'Mostra tutti gli articoli nei preferiti di default',
 		'apply_to_individual_feed' => 'Si applica ai feed singolarmente',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autori e data',
-				'both' => 'Nell’intestazione e nel fondo pagina',
-				'footer' => 'Nel fondo pagina',
-				'header' => 'Nell’intestazione',
-				'none' => 'Nessuno',
-			),
-			'feed_name' => array(
-				'above_title' => 'Sopra il titolo/tag',
-				'none' => 'Nessuno',
-				'with_authors' => 'Nella riga degli autori e data',
-			),
-			'feed_title' => 'Titolo del feed',
-			'icons' => array(
-				'_' => 'Posizione delle icone dell’articolo <br /><small>(solo in lettura)</small>',
-				'above_title' => 'Titolo in evidenza',
-				'with_authors' => 'Nella riga degli autori e della data',
-			),
-			'tags' => array(
-				'_' => 'Tag',
-				'both' => 'Nell’intestazione e nel fondo pagina',
-				'footer' => 'Nel fondo pagina',
-				'header' => 'Nell’intestazione',
-				'none' => 'Nessuno',
-			),
-			'tags_max' => array(
-				'_' => 'Numero massimo di tag mostrati',
-				'help' => '0 significa: mostra tutti i tag e non raggrupparli',
-			),
-		),
 		'articles_per_page' => 'Numero di articoli per pagina',
 		'auto_load_more' => 'Carica articoli successivi a fondo pagina',
 		'auto_remove_article' => 'Nascondi articoli dopo la lettura',
@@ -263,7 +267,6 @@ return array(
 		'display_categories_unfolded' => 'Categorie da aprire',
 		'headline' => array(
 			'articles' => 'Articoli: Apri/Chiudi',
-			'articles_header_footer' => 'Articoli: intestazione/fondo pagina',
 			'categories' => 'Navigazione di sinistra: Categorie',
 			'mark_as_read' => 'Segna gli articoli come letti',
 			'misc' => 'Varie',

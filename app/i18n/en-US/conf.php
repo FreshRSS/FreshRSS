@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',	// IGNORE
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// IGNORE
+				'both' => 'In header and footer',	// IGNORE
+				'footer' => 'In footer',	// IGNORE
+				'header' => 'In header',	// IGNORE
+				'none' => 'None',	// IGNORE
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// IGNORE
+				'none' => 'None',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
+			'feed_title' => 'Feed title',	// IGNORE
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// IGNORE
+				'above_title' => 'Above title',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In header and footer',	// IGNORE
+				'footer' => 'In footer',	// IGNORE
+				'header' => 'In header',	// IGNORE
+				'none' => 'None',	// IGNORE
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// IGNORE
+				'help' => '0 means: show all tags and do not collapse them',	// IGNORE
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatic dark mode',	// IGNORE
 			'auto' => 'Auto',	// IGNORE
 			'help' => 'For compatible themes only',	// IGNORE
 			'no' => 'No',	// IGNORE
+		),
+		'display_enclosures' => 'Show enclosures',	// IGNORE
+		'headline' => array(
+			'articles_header_footer' => 'Articles: header/footer',	// IGNORE
 		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',	// IGNORE
@@ -224,37 +259,6 @@ return array(
 		'after_onread' => 'After “mark all as read”,',	// IGNORE
 		'always_show_favorites' => 'Show all articles in favorites by default',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// IGNORE
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Authors and date',	// IGNORE
-				'both' => 'In header and footer',	// IGNORE
-				'footer' => 'In footer',	// IGNORE
-				'header' => 'In header',	// IGNORE
-				'none' => 'None',	// IGNORE
-			),
-			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// IGNORE
-				'none' => 'None',	// IGNORE
-				'with_authors' => 'In authors and date row',	// IGNORE
-			),
-			'feed_title' => 'Feed title',	// IGNORE
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// IGNORE
-				'above_title' => 'Above title',	// IGNORE
-				'with_authors' => 'In authors and date row',	// IGNORE
-			),
-			'tags' => array(
-				'_' => 'Tags',	// IGNORE
-				'both' => 'In header and footer',	// IGNORE
-				'footer' => 'In footer',	// IGNORE
-				'header' => 'In header',	// IGNORE
-				'none' => 'None',	// IGNORE
-			),
-			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// IGNORE
-				'help' => '0 means: show all tags and do not collapse them',	// IGNORE
-			),
-		),
 		'articles_per_page' => 'Number of articles per page',	// IGNORE
 		'auto_load_more' => 'Load more articles at the bottom of the page',	// IGNORE
 		'auto_remove_article' => 'Hide articles after reading',	// IGNORE
@@ -263,7 +267,6 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',	// IGNORE
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// IGNORE
-			'articles_header_footer' => 'Articles: header/footer',	// IGNORE
 			'categories' => 'Left navigation: Categories',	// IGNORE
 			'mark_as_read' => 'Mark article as read',	// IGNORE
 			'misc' => 'Miscellaneous',	// IGNORE

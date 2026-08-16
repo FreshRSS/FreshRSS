@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Visualización',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autores y fecha',
+				'both' => 'En el encabezado y pie de página',
+				'footer' => 'En el pie de página',
+				'header' => 'En el encabezado',
+				'none' => 'Ninguno',
+			),
+			'feed_name' => array(
+				'above_title' => 'Encima de título/etiquetas',
+				'none' => 'Ninguno',
+				'with_authors' => 'En la fila de autores y fecha',
+			),
+			'feed_title' => 'Título de la fuente',
+			'icons' => array(
+				'_' => 'Posición de los iconos del artículo<br /><small>(Solo en vista de lectura)</small>',
+				'above_title' => 'Encima del título',
+				'with_authors' => 'En la fila de autores y fecha',
+			),
+			'tags' => array(
+				'_' => 'Etiquetas',
+				'both' => 'En el encabezado y pie de página',
+				'footer' => 'En el pie de página',
+				'header' => 'En el encabezado',
+				'none' => 'Ninguno',
+			),
+			'tags_max' => array(
+				'_' => 'Máximo número de etiquetas a mostrar',
+				'help' => '0 significa: mostrar todas las etiquetas y que no estén colapsadas',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Modo oscuro automático',
 			'auto' => 'Automático',
 			'help' => 'Solo para temas compatibles',
 			'no' => 'No',	// IGNORE
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Artículos: encabezado/pie de página',
 		),
 		'icon' => array(
 			'bottom_line' => 'Línea inferior',
@@ -224,37 +259,6 @@ return array(
 		'after_onread' => 'Tras “marcar todo como leído”,',
 		'always_show_favorites' => 'Mostrar todos los artículos en favoritos de forma predeterminada',
 		'apply_to_individual_feed' => 'Aplica a fuentes individualmente',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autores y fecha',
-				'both' => 'En el encabezado y pie de página',
-				'footer' => 'En el pie de página',
-				'header' => 'En el encabezado',
-				'none' => 'Ninguno',
-			),
-			'feed_name' => array(
-				'above_title' => 'Encima de título/etiquetas',
-				'none' => 'Ninguno',
-				'with_authors' => 'En la fila de autores y fecha',
-			),
-			'feed_title' => 'Título de la fuente',
-			'icons' => array(
-				'_' => 'Posición de los iconos del artículo<br /><small>(Solo en vista de lectura)</small>',
-				'above_title' => 'Encima del título',
-				'with_authors' => 'En la fila de autores y fecha',
-			),
-			'tags' => array(
-				'_' => 'Etiquetas',
-				'both' => 'En el encabezado y pie de página',
-				'footer' => 'En el pie de página',
-				'header' => 'En el encabezado',
-				'none' => 'Ninguno',
-			),
-			'tags_max' => array(
-				'_' => 'Máximo número de etiquetas a mostrar',
-				'help' => '0 significa: mostrar todas las etiquetas y que no estén colapsadas',
-			),
-		),
 		'articles_per_page' => 'Número de artículos por página',
 		'auto_load_more' => 'Cargar más artículos al final de la página',
 		'auto_remove_article' => 'Ocultar artículos tras la lectura',
@@ -263,7 +267,6 @@ return array(
 		'display_categories_unfolded' => 'Categorías a desarrollar',
 		'headline' => array(
 			'articles' => 'Artículos: Abrir/Cerrar',
-			'articles_header_footer' => 'Artículos: encabezado/pie de página',
 			'categories' => 'Navegación izquierda: Categorías',
 			'mark_as_read' => 'Marcar artículo como leído',
 			'misc' => 'Variados',

@@ -94,3 +94,5 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: ${{ (github.ref == 'refs/heads/latest' || github.ref == 'refs/heads/edge' || startsWith(github.ref, 'refs/tags/')) && github.repository_owner == 'FreshRSS' }}
+        provenance: mode=max
+        sbom: true
