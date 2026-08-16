@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Username',
-			'format' => '<small>Maximum 16 alphanumeric characters</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -205,6 +205,7 @@ return array(
 		'it' => 'Italiano',
 		'ja' => '日本語',
 		'ko' => '한국어',
+		'lt' => 'Lietuvių',
 		'lv' => 'Latviešu',
 		'nl' => 'Nederlands',
 		'oc' => 'Occitan',

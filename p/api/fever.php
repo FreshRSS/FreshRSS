@@ -497,8 +497,8 @@ final class FeverAPI
 		if (is_string($_REQUEST['feed_ids'] ?? null)) {
 			$feed_ids = array_filter(explode(',', $_REQUEST['feed_ids']), 'ctype_digit');
 		} elseif (is_string($_REQUEST['group_ids'] ?? null)) {
-			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$group_ids = explode(',', $_REQUEST['group_ids']);
+			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$feeds = [];
 			foreach ($group_ids as $id) {
 				if (!is_numeric($id)) {
@@ -553,7 +553,8 @@ final class FeverAPI
 				'feed_id' => $entry->feedId(),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
 				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),
-				'html' => $entry->content(), 'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
+				'html' => $entry->content($entry->feed()?->attributeBoolean('display_enclosures') ?? true),
+				'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				'is_saved' => $entry->isFavorite() ? 1 : 0,
 				'is_read' => $entry->isRead() ? 1 : 0,
 				'created_on_time' => $entry->date(true),

@@ -53,7 +53,7 @@
 
 		& > a,
 		& > span,
-		& > .as-link {
+		& .as-link {
 			padding: 0 2rem;
 			color: var(--main-font-color);
 			font-size: inherit;
@@ -65,7 +65,7 @@
 		}
 
 		& > a,
-		& > .as-link {
+		& .as-link {
 			&:not(.addItem):hover {
 				background: var(--main-first);
 				color: var(--white);
@@ -177,6 +177,12 @@
 	background: var(--warning-light);
 	color: var(--warning-text);
 	border: 1px solid color-mix(in srgb, var(--warning-text) 20%, transparent);
+}
+
+.alert-info {
+	background: var(--info-light);
+	color: var(--info-text);
+	border: 1px solid color-mix(in srgb, var(--info-text) 20%, transparent);
 }
 
 .alert-success {

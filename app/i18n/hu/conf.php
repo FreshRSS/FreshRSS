@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Megjelenítés',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Szerzők és dátum',
+				'both' => 'Fejlécben és láblécben',
+				'footer' => 'Láblécben',
+				'header' => 'Fejlécben',
+				'none' => 'Sehol',
+			),
+			'feed_name' => array(
+				'above_title' => 'Cím/címke felett',
+				'none' => 'Sehol',
+				'with_authors' => 'A szerzők és dátum sorban',
+			),
+			'feed_title' => 'Hírforrás címe',
+			'icons' => array(
+				'_' => 'Cikk ikon helye<br /><small>(Csak olvasó nézet)</small>',
+				'above_title' => 'A cím felett',
+				'with_authors' => 'A szerzők és dátum sorban',
+			),
+			'tags' => array(
+				'_' => 'Címkék',
+				'both' => 'Fejlécben és láblécben',
+				'footer' => 'Láblécben',
+				'header' => 'Fejlécben',
+				'none' => 'Sehol',
+			),
+			'tags_max' => array(
+				'_' => 'Címkék maximális száma',
+				'help' => '0 esetén: minden címke mutatása összecsukás nélkül',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatikus sötét mód',
 			'auto' => 'Automatikus',
 			'help' => 'Csak kompatibilis témákhoz',
 			'no' => 'Nem',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Cikkek: fejléc/lábléc',
 		),
 		'icon' => array(
 			'bottom_line' => 'Alsó sor',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => 'Utána „minden megjelölése olvasottként”,',
 		'always_show_favorites' => 'Minden cikk megjelenítése a kedvencekben alapértelmezetten',
 		'apply_to_individual_feed' => 'A hírforrásokra külön-külön vonatkozik',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Szerzők és dátum',
-				'both' => 'Fejlécben és láblécben',
-				'footer' => 'Láblécben',
-				'header' => 'Fejlécben',
-				'none' => 'Sehol',
-			),
-			'feed_name' => array(
-				'above_title' => 'Cím/címke felett',
-				'none' => 'Sehol',
-				'with_authors' => 'A szerzők és dátum sorban',
-			),
-			'feed_title' => 'Hírforrás címe',
-			'icons' => array(
-				'_' => 'Cikk ikon helye<br /><small>(Csak olvasó nézet)</small>',
-				'above_title' => 'A cím felett',
-				'with_authors' => 'A szerzők és dátum sorban',
-			),
-			'tags' => array(
-				'_' => 'Címkék',
-				'both' => 'Fejlécben és láblécben',
-				'footer' => 'Láblécben',
-				'header' => 'Fejlécben',
-				'none' => 'Sehol',
-			),
-			'tags_max' => array(
-				'_' => 'Címkék maximális száma',
-				'help' => '0 esetén: minden címke mutatása összecsukás nélkül',
-			),
-		),
 		'articles_per_page' => 'Cikkek száma oldalanként',
 		'auto_load_more' => 'Még több cikk betöltése, ha a lap aljához ért',
 		'auto_remove_article' => 'Cikkek elrejtése elolvasás után',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => 'Mely kategóriák legyenek kibontva',
 		'headline' => array(
 			'articles' => 'Cikkek: Nyitva/Zárva',
-			'articles_header_footer' => 'Cikkek: fejléc/lábléc',
 			'categories' => 'Baloldali navigáció: Kategóriák',
 			'mark_as_read' => 'Cikk megjelölése olvasottnak',
 			'misc' => 'Egyebek',

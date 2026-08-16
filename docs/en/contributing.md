@@ -74,3 +74,7 @@ This checklist is designed to ensure high-quality system themes while minimizing
 * Utilize CSS variables for colors to facilitate easy color adjustments with [CustomCSS extension](https://github.com/FreshRSS/Extensions).
 * Implement a dark mode that aligns with the `.darkMode` CSS class.
 * To streamline maintenance, avoid using CSS preprocessors; instead, employ well-structured plain CSS.
+
+## AI-assisted pull requests
+
+**Note:** Please limit AI-assisted pull requests to **10 open at a time** per contributor.

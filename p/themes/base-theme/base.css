@@ -176,7 +176,7 @@ th {
 }
 
 .nav-list .item > a,
-.nav-list .item > .as-link {
+.nav-list .item .as-link {
 	padding: 0 10px;
 }
 
@@ -223,7 +223,7 @@ th {
 
 .dropdown-menu > .item > a,
 .dropdown-menu > .item > span,
-.dropdown-menu > .item > .as-link {
+.dropdown-menu > .item .as-link {
 	padding: 0 22px;
 	line-height: 2.5;
 }
@@ -260,6 +260,9 @@ th {
 }
 
 .alert-warn {
+}
+
+.alert-info {
 }
 
 .alert-success {

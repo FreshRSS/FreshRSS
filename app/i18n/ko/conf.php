@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => '표시',
+		'article' => array(
+			'authors_date' => array(
+				'_' => '작성자, 작성일',
+				'both' => '머리말과 꼬리말에 모두',
+				'footer' => '꼬리말에',
+				'header' => '머리말에',
+				'none' => '숨김',
+			),
+			'feed_name' => array(
+				'above_title' => '제목/태그 위에',
+				'none' => '숨김',
+				'with_authors' => '작성자, 작성일과 같은 줄에',
+			),
+			'feed_title' => '피드 제목',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => '태그',
+				'both' => '머리말과 꼬리말에',
+				'footer' => '꼬리말에',
+				'header' => '머리말에',
+				'none' => '숨김',
+			),
+			'tags_max' => array(
+				'_' => ' 표시할 최대 태그 수',
+				'help' => '0 으로 설정하면 모든 태그를 표시하고 숨기지 않습니다',
+			),
+		),
 		'darkMode' => array(
 			'_' => '자동 다크 모드',
 			'auto' => '자동',
 			'help' => 'For compatible themes only',	// TODO
 			'no' => '끄기',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => '기사: 머리말/꼬리말',
 		),
 		'icon' => array(
 			'bottom_line' => '하단',
@@ -231,37 +266,6 @@ return array(
 		'after_onread' => '“모두 읽음으로 표시” 후,',
 		'always_show_favorites' => '기본으로 즐겨찾기에 있는 모든 글을 표시',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => '작성자, 작성일',
-				'both' => '머리말과 꼬리말에 모두',
-				'footer' => '꼬리말에',
-				'header' => '머리말에',
-				'none' => '숨김',
-			),
-			'feed_name' => array(
-				'above_title' => '제목/태그 위에',
-				'none' => '숨김',
-				'with_authors' => '작성자, 작성일과 같은 줄에',
-			),
-			'feed_title' => '피드 제목',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => '태그',
-				'both' => '머리말과 꼬리말에',
-				'footer' => '꼬리말에',
-				'header' => '머리말에',
-				'none' => '숨김',
-			),
-			'tags_max' => array(
-				'_' => ' 표시할 최대 태그 수',
-				'help' => '0 으로 설정하면 모든 태그를 표시하고 숨기지 않습니다',
-			),
-		),
 		'articles_per_page' => '페이지당 글 수',
 		'auto_load_more' => '페이지 하단에 다다르면 글 더 불러오기',
 		'auto_remove_article' => '글을 읽은 후 숨기기',
@@ -270,7 +274,6 @@ return array(
 		'display_categories_unfolded' => '다음 카테고리를 펼치기',
 		'headline' => array(
 			'articles' => '기사: 열기/닫기',
-			'articles_header_footer' => '기사: 머리말/꼬리말',
 			'categories' => '좌측 탐색 메뉴: 카테고리',
 			'mark_as_read' => '읽음으로 표시',
 			'misc' => '기타',

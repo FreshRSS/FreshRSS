@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nom d’utilizaire',
-			'format' => '<small>16 caractèrs alfanumerics maximum</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -205,6 +205,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE

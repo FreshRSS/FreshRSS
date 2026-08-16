@@ -357,7 +357,7 @@ form {
 		}
 
 		> a,
-		> .as-link {
+		.as-link {
 			padding: 0 1.5rem;
 		}
 
@@ -385,7 +385,7 @@ form {
 	background-color: var(--color-background-nav-darker);
 
 	.item > a,
-	.item > .as-link,
+	.item .as-link,
 	.item > span {
 		width: 96% !important;
 	}
@@ -438,7 +438,7 @@ form {
 		font-size: var(--font-size-dropdown);
 		line-height: var(--line-height-dropdown);
 
-		> :is(a, .as-link, span, button) {
+		> :is(a, .as-link, span), :is(button) {
 			padding: var(--padding-dropdown);
 			color: var(--color-text-light);
 			font-size: var(--font-size-dropdown);
@@ -450,7 +450,7 @@ form {
 			white-space: nowrap;
 		}
 
-		> :is(a, button):hover {
+		> :is(a):hover, :is(button):hover {
 			background-color: var(--color-background-nav);
 			color: var(--color-text-light);
 		}
@@ -530,6 +530,7 @@ li.item.separator {
 	font-size: 1.15em;
 }
 
+.alert-info,
 .alert-warn,
 .alert-success,
 .alert-error {
@@ -539,6 +540,11 @@ li.item.separator {
 .alert-warn {
 	background-color: var(--color-background-light);
 	color: var(--color-text-alert);
+}
+
+.alert-info {
+	background-color: var(--color-background-light);
+	color: var(--color-text);
 }
 
 .alert-success {

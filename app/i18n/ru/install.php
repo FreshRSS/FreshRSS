@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Поздравляем!',
 	'default_user' => array(
 		'_' => 'Имя пользователя по умолчанию',
-		'max_char' => 'не более 16 буквенно-цифровых символов',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Пожалуйста, исправьте ошибки, прежде чем перейти к следующему шагу.',
 	'javascript_is_better' => 'Пользоваться FreshRSS приятнее с включённым JavaScript',
