@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
 
+require_once LIB_PATH . '/favicons.php';
+
 /**
  * Tests for FreshRSS_http_Util
  */
@@ -37,5 +39,46 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			// Non-http(s) schemes are compared as-is
 			['ftp://example.net/feed', 'https://example.net/feed', false],
 		];
+	}
+
+	#[DataProvider('provideForceHttpsUrls')]
+	public function testForceHttps(string $url, string $expected): void {
+		self::assertSame($expected, FreshRSS_http_Util::forceHttps($url));
+	}
+
+	/** @return list<array{string,string}> */
+	public static function provideForceHttpsUrls(): array {
+		return [
+			['http://github.com/FreshRSS/FreshRSS', 'https://github.com/FreshRSS/FreshRSS'],
+			['http://www.github.com/FreshRSS/FreshRSS', 'https://www.github.com/FreshRSS/FreshRSS'],
+			['http://GitHub.com/FreshRSS/FreshRSS', 'https://GitHub.com/FreshRSS/FreshRSS'],
+			['https://github.com/FreshRSS/FreshRSS', 'https://github.com/FreshRSS/FreshRSS'],
+			['http://notgithub.com/FreshRSS/FreshRSS', 'http://notgithub.com/FreshRSS/FreshRSS'],
+			['http://github.com.example/FreshRSS/FreshRSS', 'http://github.com.example/FreshRSS/FreshRSS'],
+		];
+	}
+
+	public function testFaviconCacheUsesForcedHttpsUrl(): void {
+		$url = 'http://github.com/FreshRSS/FreshRSS';
+		self::assertSame(
+			CACHE_PATH . '/' . sha1('https://github.com/FreshRSS/FreshRSS') . '.ico',
+			faviconCachePath($url)
+		);
+	}
+
+	public function testHttpGetUsesForcedHttpsUrlBeforeCache(): void {
+		FreshRSS_Context::initSystem();
+		$cachePath = tempnam(sys_get_temp_dir(), 'freshrss-force-https-');
+		if ($cachePath === false) {
+			self::fail('Could not create a temporary cache file');
+		}
+		try {
+			file_put_contents($cachePath, 'cached');
+			$response = FreshRSS_http_Util::httpGet('http://github.com/FreshRSS/FreshRSS', $cachePath);
+			self::assertSame('https://github.com/FreshRSS/FreshRSS', $response['effective_url']);
+			self::assertSame(-200, $response['status']);
+		} finally {
+			@unlink($cachePath);
+		}
 	}
 }

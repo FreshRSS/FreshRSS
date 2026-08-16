@@ -22,7 +22,7 @@ function isImgMime(string $content): bool {
 }
 
 function faviconCachePath(string $url): string {
-	return CACHE_PATH . '/' . sha1($url) . '.ico';
+	return CACHE_PATH . '/' . sha1(FreshRSS_http_Util::forceHttps($url)) . '.ico';
 }
 
 function searchFavicon(string $url): string {
@@ -30,6 +30,7 @@ function searchFavicon(string $url): string {
 	if ($url === '') {
 		return '';
 	}
+	$url = FreshRSS_http_Util::forceHttps($url);
 	$dom = new DOMDocument();
 	['body' => $html, 'effective_url' => $effective_url, 'fail' => $fail] =
 		FreshRSS_http_Util::httpGet($url, cachePath: CACHE_PATH . '/' . sha1($url) . '.html', type: 'html');
@@ -74,6 +75,7 @@ function searchFavicon(string $url): string {
 		if (!is_string($iri) || $iri === '') {
 			continue;
 		}
+		$iri = FreshRSS_http_Util::forceHttps($iri);
 		$favicon = FreshRSS_http_Util::httpGet($iri, faviconCachePath($iri), 'ico', curl_options: [
 			CURLOPT_REFERER => $effective_url,
 		])['body'];
@@ -93,6 +95,7 @@ function download_favicon_from_image_url(string $imageUrl, string $dest): bool {
 	if (!is_string($imageUrl) || $imageUrl === '') {
 		return false;
 	}
+	$imageUrl = FreshRSS_http_Util::forceHttps($imageUrl);
 	$favicon = FreshRSS_http_Util::httpGet($imageUrl, faviconCachePath($imageUrl), 'ico')['body'];
 	if (!isImgMime($favicon)) {
 		return false;
@@ -105,6 +108,7 @@ function download_favicon(string $url, string $dest): bool {
 	if (!is_string($url) || $url === '') {
 		return @copy(DEFAULT_FAVICON, $dest);
 	}
+	$url = FreshRSS_http_Util::forceHttps($url);
 	$favicon = searchFavicon($url);
 	if ($favicon == '') {
 		$rootUrl = preg_replace('%^(https?://[^/]+).*$%i', '$1/', $url) ?? $url;
@@ -113,7 +117,7 @@ function download_favicon(string $url, string $dest): bool {
 			$favicon = searchFavicon($url);
 		}
 		if ($favicon == '') {
-			$link = FreshRSS_http_Util::checkUrl($rootUrl . 'favicon.ico', fixScheme: false) ?: '';
+			$link = FreshRSS_http_Util::forceHttps(FreshRSS_http_Util::checkUrl($rootUrl . 'favicon.ico', fixScheme: false) ?: '');
 			$favicon = $link === '' ? '' : FreshRSS_http_Util::httpGet($link, faviconCachePath($link), 'ico', curl_options: [
 				CURLOPT_REFERER => $url,
 			])['body'];
