@@ -87,7 +87,7 @@ For more cloud hosting options, see the [list of cloud providers](https://freshr
 
 ## Manual install
 
-1. Get FreshRSS with git or [by downloading the archive](https://codeload.github.com/FreshRSS/FreshRSS/zip/refs/heads/latest)
+1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/refs/heads/latest.zip)
 2. Put the application somewhere on your server (expose only the `./p/` folder to the Web)
 3. Add write access to the `./data/` folder for the webserver user
 4. Access FreshRSS with your browser and follow the installation process
