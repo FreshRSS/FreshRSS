@@ -24,7 +24,7 @@ Cette version sort lorsqu’on considère qu’on a répondu à nos objectifs en
 
 ### La version de développement
 
-[Téléchargement](https://codeload.github.com/FreshRSS/FreshRSS/zip/refs/heads/edge)
+[Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/refs/heads/edge.zip)
 
 Comme son nom l’indique, il s’agit de la version sur laquelle les développeurs travaillent. **Elle est donc instable !** Si vous souhaitez recevoir les améliorations au jour le jour, vous pouvez l’utiliser, mais attention à bien suivre les évolutions sur GitHub (via [le flux RSS de la branche](https://github.com/FreshRSS/FreshRSS/commits/edge.atom) par exemple). On raconte que les développeurs principaux l’utilisent quotidiennement sans avoir de soucis. Sans doute savent-ils ce qu’ils font…
 
