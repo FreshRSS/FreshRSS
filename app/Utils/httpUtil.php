@@ -658,8 +658,9 @@ final class FreshRSS_http_Util {
 			if (in_array($c_status, [301, 302, 303, 307, 308], true)) {
 				// Handle the redirect by making another request
 				$location = \SimplePie\Misc::absolutize_url($headers['location'] ?? $url, $url);
-				if ($location === false) {
-					$location = $url;
+				if ($location === false || !\SimplePie\Misc::is_remote_uri($location)) {
+					Minz_Log::warning('Invalid redirect location: malformed URL “' . ($headers['location'] ?? $url) . '“');
+					break;
 				}
 				if (!self::compareURLOrigins($url, $location)) {
 					unset($curl_options[CURLOPT_COOKIE]);
