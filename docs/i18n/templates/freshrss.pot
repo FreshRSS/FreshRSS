@@ -654,7 +654,7 @@ msgstr ""
 #, markdown-text, no-wrap
 msgid ""
 "> ℹ️ Also applies to [Microsoft "
-"Windows](https://learn.microsoft.com/en-us/windows/wsl/install) thanks to "
+"Windows](https://learn.microsoft.com/windows/wsl/install) thanks to "
 "[WSL](https://ubuntu.com/wsl).\n"
 msgstr ""
 
