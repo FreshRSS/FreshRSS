@@ -16,7 +16,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	 */
 	public static function migrateToGitEdge(): bool {
 		if (!is_writable(FRESHRSS_PATH . '/.git/config')) {
-			throw new Minz_Exception('Error during git checkout: .git directory does not seem writeable! ' .
+			throw new Minz_Exception('Error during git checkout: .git directory does not seem writable! ' .
 				'Please git pull manually!');
 		}
 
