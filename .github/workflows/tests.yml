@@ -102,7 +102,7 @@ jobs:
       if: steps.shell-cache.outputs.cache-hit != 'true'
       run: |
         curl -sL -o ./bin/hadolint "https://github.com/hadolint/hadolint/releases/download/v2.15.1/hadolint-linux-x86_64" &&
-        echo 'c7187db94eeeeca956519a6af171adc31453941a1e777961f6e680f697c8c507  hadolint-linux-x86_64' | sha256sum -c - &&
+        echo 'c7187db94eeeeca956519a6af171adc31453941a1e777961f6e680f697c8c507  ./bin/hadolint' | sha256sum -c - &&
         chmod 700 ./bin/hadolint
 
     - name: Check Dockerfile syntax
