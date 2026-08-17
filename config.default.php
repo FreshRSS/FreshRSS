@@ -149,7 +149,7 @@ return [
 	],
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
-	# https://www.php.net/manual/en/function.curl-setopt.php
+	# https://www.php.net/function.curl-setopt
 	'curl_options' => [
 		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
 		//CURLOPT_SSL_VERIFYHOST => 0,
