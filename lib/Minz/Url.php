@@ -61,7 +61,7 @@ class Minz_Url {
 	}
 
 	/**
-	 * Construct the URI of an URL
+	 * Construct the URI of a URL
 	 * @param array{c:string,a:string,params:array<string,mixed>} $url URL as array definition
 	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return string uri sous la forme ?key=value&key2=value2
