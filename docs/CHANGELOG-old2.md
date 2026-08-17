@@ -1624,7 +1624,7 @@
 	* Show existing extensions in admin panel [#1708](https://github.com/FreshRSS/FreshRSS/pull/1708)
 	* New function `$entry->_hash($hex)` for extensions that change the content of entries [#1707](https://github.com/FreshRSS/FreshRSS/pull/1707)
 * I18n
-	* Hebrew ~~\#1716~~
+	* Hebrew [#689](https://github.com/FreshRSS/FreshRSS/pull/689)
 	* Improved German [#1698](https://github.com/FreshRSS/FreshRSS/pull/1698)
 * Misc.
 	* Customisable `constants.local.php` [#1725](https://github.com/FreshRSS/FreshRSS/pull/1725)
