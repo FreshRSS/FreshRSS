@@ -32,6 +32,14 @@ function xmlHttpRequestJson(req) {
 	}
 	return json;
 }
+
+function decodeOrUnescape(component) {
+	try {
+		return decodeURIComponent(component);
+	} catch (_) {
+		return unescape(component);
+	}
+}
 // </Utils>
 
 // <Global context>
@@ -1401,7 +1409,7 @@ function init_stream(stream) {
 					return true;
 				}
 				const entry_id = flux.dataset.entry;
-				const new_fragment = `#${entry_id}-${el_fragment.substring(1)}`;
+				const new_fragment = `#${entry_id}-${decodeOrUnescape(el_fragment.substring(1))}`;
 				const reference_el = document.getElementById(new_fragment.substring(1));
 				if (!reference_el) {
 					el.target = '_blank';
@@ -2524,12 +2532,12 @@ function init_navigation_handler() {
 				const href = e.sourceElement.getAttribute('href');
 				if (href.startsWith('#')) {
 					window.addEventListener('hashchange', () => {
-						window.hashPos[href] = scroll_target.scrollTop;
+						window.hashPos[decodeOrUnescape(href)] = scroll_target.scrollTop;
 					}, { once: true });
 				}
 			}
 		}
-		window.hashPos[location.hash] = scroll_target.scrollTop;
+		window.hashPos[decodeOrUnescape(location.hash)] = scroll_target.scrollTop;
 
 		if (e.navigationType !== 'traverse') {
 			return;
@@ -2538,6 +2546,8 @@ function init_navigation_handler() {
 		let dest = URL.parse(e.destination.url)?.hash || e.destination.url;
 		if (!dest.startsWith('#')) {
 			dest = '';
+		} else {
+			dest = decodeOrUnescape(dest);
 		}
 		if (dest !== '') {
 			const dest_el = document.getElementById(dest.substring(1));
