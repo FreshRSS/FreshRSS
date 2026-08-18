@@ -14,10 +14,10 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Leisti anoniminį numatytojo naudotojo straipsnių skaitymą (%s)',
 		'allow_anonymous_refresh' => 'Leisti anoniminį straipsnių atnaujinimą',
-		'api_enabled' => 'Leisti <abbr>API</abbr> prieigą <small>(reikalinga mobiliosioms programoms ir dalijimuisi naudotojo užklausomis)</small>',
-		'form' => 'Žiniatinklio forma (tradicinė, reikia „JavaScript“)',
+		'api_enabled' => 'Leisti <abbr>API</abbr> prieigą <small>(reikalinga mobiliosioms programoms ir naudotojo užklausų bendrinimui)</small>',
+		'form' => 'Žiniatinklio forma (tradicinė, reikia JavaScript)',
 		'http' => 'HTTP (pažengusiems: valdo žiniatinklio serveris, OIDC, SSO…)',
-		'none' => 'Jokio (pavojinga)',
+		'none' => 'Joks (pavojinga)',
 		'title' => 'Tapatybės nustatymas',
 		'token' => 'Pagrindinis tapatybės prieigos raktas',
 		'token_help' => 'Leidžia pasiekti visus naudotojo RSS kanalus, taip pat atnaujinti kanalus be tapatybės nustatymo:',
@@ -73,22 +73,22 @@ return array(
 		'status_total' => 'Iš viso',
 		'status_unread' => 'Neskaityti',
 		'title' => 'Statistika',
-		'top_feed' => 'Populiariausi dešimt kanalų',
+		'top_feed' => 'Dešimt populiariausių kanalų',
 		'unread_dates' => 'Datos su daugiausiai neskaitytų straipsnių',
 	),
 	'system' => array(
 		'_' => 'Sistemos konfigūracija',
 		'auto-update-url' => 'Automatinio atnaujinimo serverio URL',
 		'base-url' => array(
-			'_' => 'Bazinė nuoroda (base URL)',
+			'_' => 'Bazinis URL (base URL)',
 			'recommendation' => 'Automatinė rekomendacija: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Pranešimas, kai registracija uždaryta',
+		'closed_registration_message' => 'Pranešimas, kai registracija išjungta',
 		'cookie-duration' => array(
 			'help' => 'sekundėmis',
 			'number' => 'Kiek laiko išlaikyti prisijungimą',
 		),
-		'default_closed_registration_message' => 'Šis serveris šiuo metu nepriima naujų registracijų.',
+		'default_closed_registration_message' => 'Šiame serveryje registracija išjungta.',
 		'force_email_validation' => 'Priverstinis el. pašto adreso patvirtinimas',
 		'instance-name' => 'Egzemplioriaus pavadinimas',
 		'internal-host-allowlist' => array(
@@ -97,7 +97,7 @@ return array(
 		),
 		'max-categories' => 'Didžiausias kategorijų skaičius vienam naudotojui',
 		'max-feeds' => 'Didžiausias kanalų skaičius vienam naudotojui',
-		'override-by-env-var' => 'Šis nustatymas nustatytas aplinkos kintamuoju <kbd>%s</kbd>.',
+		'override-by-env-var' => 'Šis nustatymas valdomas aplinkos kintamuoju <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Didžiausias paskyrų skaičius',
 			'select' => array(
@@ -130,7 +130,7 @@ return array(
 		'changelog' => 'Pakeitimų žurnalas',
 		'check' => 'Tikrinti, ar yra naujų atnaujinimų',
 		'copiedFromURL' => 'update.php nukopijuotas iš %s į ./data',
-		'current_version' => 'Dabar įdiegta versija',
+		'current_version' => 'Įdiegta versija',
 		'last' => 'Paskutinis patikrinimas',
 		'loading' => 'Atnaujinama…',
 		'none' => 'Atnaujinimų nėra',

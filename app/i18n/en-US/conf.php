@@ -243,22 +243,15 @@ return array(
 			'opml' => 'Shareable link to the OPML list of feeds',	// IGNORE
 			'rss' => 'Shareable link to the RSS feed',	// IGNORE
 		),
-		'state_0' => 'Display all articles',	// IGNORE
-		'state_1' => 'Display read articles',	// IGNORE
-		'state_2' => 'Display unread articles',	// IGNORE
-		'state_3' => 'Display all articles',	// IGNORE
-		'state_4' => 'Display favorite articles',
-		'state_5' => 'Display read favorite articles',
-		'state_6' => 'Display unread favorite articles',
-		'state_7' => 'Display favorite articles',
-		'state_8' => 'Display not favorite articles',
-		'state_9' => 'Display read not favorite articles',
-		'state_10' => 'Display unread not favorite articles',
-		'state_11' => 'Display not favorite articles',
-		'state_12' => 'Display all articles',	// IGNORE
-		'state_13' => 'Display read articles',	// IGNORE
-		'state_14' => 'Display unread articles',	// IGNORE
-		'state_15' => 'Display all articles',	// IGNORE
+		'state_all' => 'Display all articles',	// IGNORE
+		'state_favorite' => 'Display favorite articles',
+		'state_not_favorite' => 'Display not favorite articles',
+		'state_read' => 'Display read articles',	// IGNORE
+		'state_read_favorite' => 'Display read favorite articles',
+		'state_read_not_favorite' => 'Display read not favorite articles',
+		'state_unread' => 'Display unread articles',	// IGNORE
+		'state_unread_favorite' => 'Display unread favorite articles',
+		'state_unread_not_favorite' => 'Display unread not favorite articles',
 		'title' => 'User queries',	// IGNORE
 	),
 	'reading' => array(
