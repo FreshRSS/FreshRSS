@@ -116,6 +116,16 @@
 						<p class="help"><?= _i('help') ?> <?= _t('sub.category.dynamic_opml.help') ?></p>
 					</div>
 				</div>
+				<div class="form-group">
+					<label class="group-name" for="opml_create_categories"><?= _t('sub.category.opml_create_categories') ?></label>
+					<div class="group-controls">
+						<label class="checkbox" for="opml_create_categories">
+							<input type="checkbox" name="opml_create_categories" id="opml_create_categories" value="1"<?=
+								$this->category->attributeBoolean('opml_create_categories') ? ' checked="checked"' : '' ?> />
+							<?= _t('sub.category.opml_create_categories_help') ?>
+						</label>
+					</div>
+				</div>
 				<div class="form-group form-actions">
 					<div class="group-controls">
 						<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>

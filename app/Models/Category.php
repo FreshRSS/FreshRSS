@@ -222,67 +222,11 @@ class FreshRSS_Category extends Minz_Model {
 				\SimplePie\Misc::url_remove_credentials($url));
 			$ok = false;
 		} else {
-			$dryRunCategory = new FreshRSS_Category();
 			$importService = new FreshRSS_Import_Service();
-			$importService->importOpml($opml, $dryRunCategory, true);
-			if ($importService->lastStatus()) {
-				$feedDAO = FreshRSS_Factory::createFeedDao();
-				$limits = FreshRSS_Context::systemConf()->limits;
-				$maxFeeds = (int)($limits['max_feeds'] ?? 0);
-				$nbFeeds = $maxFeeds > 0 ? $feedDAO->count() : 0;
-
-				/** @var array<string,FreshRSS_Feed> */
-				$dryRunFeeds = [];
-				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
-					$dryRunFeeds[$dryRunFeed->url()] = $dryRunFeed;
-				}
-
-				/** @var array<string,FreshRSS_Feed> */
-				$existingFeeds = [];
-				foreach ($this->feeds() as $existingFeed) {
-					$existingFeeds[$existingFeed->url()] = $existingFeed;
-					if (empty($dryRunFeeds[$existingFeed->url()])) {
-						// The feed does not exist in the new dynamic OPML, so mute (disable) that feed
-						$existingFeed->_mute(true);
-						$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
-							'ttl' => $existingFeed->ttl(true),
-						]) !== false);
-					}
-				}
-
-				foreach ($dryRunCategory->feeds() as $dryRunFeed) {
-					if (empty($existingFeeds[$dryRunFeed->url()])) {
-						// The feed does not exist in the current category, so add that feed
-						if ($maxFeeds > 0 && $nbFeeds >= $maxFeeds) {
-							// Respect the per-user maximum number of feeds
-							Minz_Log::warning(_t('feedback.sub.feed.over_max', $maxFeeds) .
-								' (dynamic OPML category ' . $this->id() . ')');
-							$ok = false;
-							break;
-						}
-						$dryRunFeed->_category($this);
-						if ($feedDAO->addFeedObject($dryRunFeed) === false) {
-							$ok = false;
-						} else {
-							$nbFeeds++;
-						}
-						$existingFeeds[$dryRunFeed->url()] = $dryRunFeed;
-					} else {
-						$existingFeed = $existingFeeds[$dryRunFeed->url()];
-						if ($existingFeed->mute()) {
-							// The feed already exists in the current category but was muted (disabled), so unmute (enable) again
-							$existingFeed->_mute(false);
-							$ok &= ($feedDAO->updateFeed($existingFeed->id(), [
-								'ttl' => $existingFeed->ttl(true),
-							]) !== false);
-						}
-					}
-				}
-			} else {
-				$ok = false;
-				Minz_Log::warning('Error loading dynamic OPML for category ' . $this->id() . '! ' .
-					\SimplePie\Misc::url_remove_credentials($url));
-			}
+			// When `opml_create_categories` is enabled, honor the remote OPML's own category
+			// structure; otherwise keep the legacy behavior of putting every feed into this category.
+			$createCategories = $this->attributeBoolean('opml_create_categories') ?? false;
+			$ok = $this->syncDynamicOpmlFeeds($importService, $opml, $url, $createCategories);
 		}
 
 		$catDAO = FreshRSS_Factory::createCategoryDao();
@@ -292,7 +236,148 @@ class FreshRSS_Category extends Minz_Model {
 			$catDAO->updateLastError($this->id());
 		}
 
-		return (bool)$ok;
+		return $ok;
+	}
+
+	/**
+	 * Sync the feeds of this Dynamic OPML category against the remote OPML.
+	 *
+	 * @param bool $createCategories When true, the remote OPML's category structure is honored:
+	 *   feeds go into categories named as in the remote OPML (existing categories reused, missing
+	 *   ones created), feeds at the OPML root go into this (anchor) category, and only feeds owned
+	 *   by this Dynamic OPML (tagged with the `dynamic_opml` attribute) are managed — so manually
+	 *   added feeds sharing a category are never touched. When false (legacy), every feed is placed
+	 *   into this single category and the managed set is simply this category's feeds.
+	 */
+	private function syncDynamicOpmlFeeds(FreshRSS_Import_Service $importService, string $opml, string $url, bool $createCategories): bool {
+		$dryRunCategory = new FreshRSS_Category();
+		$importService->importOpml($opml, $createCategories ? null : $dryRunCategory, true);
+		if (!$importService->lastStatus()) {
+			Minz_Log::warning('Error loading dynamic OPML for category ' . $this->id() . '! ' .
+				\SimplePie\Misc::url_remove_credentials($url));
+			return false;
+		}
+
+		$ok = true;
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$limits = FreshRSS_Context::systemConf()->limits;
+		$maxFeeds = (int)($limits['max_feeds'] ?? 0);
+		$maxCategories = (int)($limits['max_categories'] ?? 0);
+		$nbFeeds = $maxFeeds > 0 ? $feedDAO->count() : 0;
+		$nbCategories = $maxCategories > 0 ? $catDAO->count() : 0;
+
+		// Desired feeds from the remote OPML: url => [feed, OPML category name ('' = root)].
+		/** @var array<string,array{feed:FreshRSS_Feed,categoryName:string}> */
+		$desiredFeeds = [];
+		if ($createCategories) {
+			foreach ($importService->importedCategories() as $categoryName => $importedCategory) {
+				foreach ($importedCategory->feeds() as $importedFeed) {
+					$desiredFeeds[$importedFeed->url()] = ['feed' => $importedFeed, 'categoryName' => (string)$categoryName];
+				}
+			}
+		} else {
+			foreach ($dryRunCategory->feeds() as $importedFeed) {
+				$desiredFeeds[$importedFeed->url()] = ['feed' => $importedFeed, 'categoryName' => ''];
+			}
+		}
+
+		// Feeds currently managed by this Dynamic OPML.
+		/** @var array<string,FreshRSS_Feed> */
+		$managedFeeds = [];
+		if ($createCategories) {
+			foreach ($feedDAO->listFeeds() as $feed) {
+				if ($feed->attributeInt('dynamic_opml') === $this->id()) {
+					$managedFeeds[$feed->url()] = $feed;
+				}
+			}
+		} else {
+			foreach ($this->feeds() as $feed) {
+				$managedFeeds[$feed->url()] = $feed;
+			}
+		}
+
+		// Mute feeds that disappeared from the remote OPML.
+		foreach ($managedFeeds as $feedUrl => $feed) {
+			if (!isset($desiredFeeds[$feedUrl]) && !$feed->mute()) {
+				$feed->_mute(true);
+				$ok = ($feedDAO->updateFeed($feed->id(), ['ttl' => $feed->ttl(true)]) !== false) && $ok;
+			}
+		}
+
+		// Add feeds new to this Dynamic OPML, and unmute those that came back.
+		/** @var array<string,FreshRSS_Category|null> */
+		$targetCategories = [];
+		foreach ($desiredFeeds as $feedUrl => $item) {
+			if (isset($managedFeeds[$feedUrl])) {
+				$existingFeed = $managedFeeds[$feedUrl];
+				if ($existingFeed->mute()) {
+					$existingFeed->_mute(false);
+					$ok = ($feedDAO->updateFeed($existingFeed->id(), ['ttl' => $existingFeed->ttl(true)]) !== false) && $ok;
+				}
+				continue;
+			}
+
+			// Respect the per-user maximum number of feeds.
+			if ($maxFeeds > 0 && $nbFeeds >= $maxFeeds) {
+				Minz_Log::warning(_t('feedback.sub.feed.over_max', $maxFeeds) .
+					' (dynamic OPML category ' . $this->id() . ')');
+				$ok = false;
+				break;
+			}
+
+			$categoryName = $item['categoryName'];
+			if (!array_key_exists($categoryName, $targetCategories)) {
+				$targetCategories[$categoryName] = $createCategories
+					? $this->resolveDynamicOpmlCategory($categoryName, $catDAO, $maxCategories, $nbCategories)
+					: $this;
+			}
+			$category = $targetCategories[$categoryName];
+			if ($category === null) {
+				$ok = false;
+				continue;
+			}
+
+			$feed = $item['feed'];
+			$feed->_category($category);
+			if ($createCategories) {
+				$feed->_attribute('dynamic_opml', $this->id());
+			}
+			if ($feedDAO->addFeedObject($feed) === false) {
+				$ok = false;
+			} else {
+				$nbFeeds++;
+			}
+		}
+
+		return $ok;
+	}
+
+	/**
+	 * Find or create the FreshRSS category for a remote OPML category name (create-categories mode).
+	 * An empty name (feeds at the OPML root, or a name equal to this category) maps to this anchor category.
+	 */
+	private function resolveDynamicOpmlCategory(string $categoryName, FreshRSS_CategoryDAO $catDAO, int $maxCategories, int &$nbCategories): ?FreshRSS_Category {
+		if ($categoryName === '' || $categoryName === $this->name()) {
+			return $this;
+		}
+		$existing = $catDAO->searchByName($categoryName);
+		if ($existing !== null) {
+			return $existing;
+		}
+		if ($maxCategories > 0 && $nbCategories >= $maxCategories && !FreshRSS_Context::$isCli) {
+			Minz_Log::warning(_t('feedback.sub.category.over_max', $maxCategories) .
+				' (dynamic OPML category ' . $this->id() . ')');
+			return null;
+		}
+		$category = new FreshRSS_Category($categoryName);
+		$id = $catDAO->addCategoryObject($category);
+		if ($id === false) {
+			return null;
+		}
+		$category->_id($id);
+		$nbCategories++;
+		return $category;
 	}
 
 	private function sortFeeds(): void {

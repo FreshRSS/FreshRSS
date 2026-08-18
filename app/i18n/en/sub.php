@@ -33,6 +33,8 @@ return array(
 		'expand' => 'Expand category',
 		'information' => 'Information',
 		'open' => 'Open category',
+		'opml_create_categories' => 'Reproduce the categories from the remote OPML',
+		'opml_create_categories_help' => 'Reproduce the category structure of the remote OPML instead of putting every feed into this single category. Categories are created as needed (existing categories with the same name are reused), and feeds outside any category are placed into this category.',
 		'opml_url' => 'OPML URL',
 		'position' => 'Display position',
 		'position_help' => 'To control category sort order',

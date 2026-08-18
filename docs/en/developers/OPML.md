@@ -104,6 +104,8 @@ A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are 
 
 * `frss:opmlUrl`: If non-empty, indicates that this outline (category) should be dynamically populated from a remote OPML at the specified URL.
 
+By default, every feed found in the remote OPML is placed into that single (dynamic OPML) category. A dynamic OPML category also has an optional *“Reproduce the categories from the remote OPML”* setting: when enabled, the remote OPML’s own category structure is reproduced — feeds are placed into categories named as in the remote OPML (existing categories with the same name are reused, missing ones are created), and feeds that are not in any category go into the dynamic OPML category itself. Only the feeds managed by this dynamic OPML are added, muted (when they disappear from the remote OPML) or unmuted, so feeds you added manually to those categories are never affected.
+
 ### Example
 
 ```xml

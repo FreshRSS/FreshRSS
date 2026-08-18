@@ -63,9 +63,11 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			if ($opml_url != '') {
 				$cat->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$cat->_attribute('opml_url', $opml_url);
+				$cat->_attribute('opml_create_categories', Minz_Request::paramBoolean('opml_create_categories') ?: null);
 			} else {
 				$cat->_kind(FreshRSS_Category::KIND_NORMAL);
 				$cat->_attribute('opml_url', null);
+				$cat->_attribute('opml_create_categories', null);
 			}
 
 			if ($catDAO->addCategoryObject($cat)) {
@@ -150,9 +152,11 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$category->_attribute('opml_url', $opml_url);
+				$category->_attribute('opml_create_categories', Minz_Request::paramBoolean('opml_create_categories') ?: null);
 			} else {
 				$category->_kind(FreshRSS_Category::KIND_NORMAL);
 				$category->_attribute('opml_url', null);
+				$category->_attribute('opml_create_categories', null);
 			}
 
 			$defaultSortOrder = Minz_Request::paramString('defaultSortOrder', plaintext: true);

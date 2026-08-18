@@ -14,6 +14,13 @@ class FreshRSS_Import_Service {
 	private bool $lastStatus;
 
 	/**
+	 * Categories resolved during the last importOpml() call, keyed by their OPML category name
+	 * (empty string for feeds at the OPML root). Each category has its imported feeds attached.
+	 * @var array<string,FreshRSS_Category>
+	 */
+	private array $importedCategories = [];
+
+	/**
 	 * Initialize the service for the given user.
 	 */
 	public function __construct(?string $username = null) {
@@ -24,6 +31,15 @@ class FreshRSS_Import_Service {
 	/** @return bool true if success, false otherwise */
 	public function lastStatus(): bool {
 		return $this->lastStatus;
+	}
+
+	/**
+	 * Categories resolved during the last importOpml() call, keyed by their OPML category name
+	 * (empty string for feeds at the OPML root), each with its imported feeds attached.
+	 * @return array<string,FreshRSS_Category>
+	 */
+	public function importedCategories(): array {
+		return $this->importedCategories;
 	}
 
 	/**
@@ -38,6 +54,7 @@ class FreshRSS_Import_Service {
 			@set_time_limit(300);
 		}
 		$this->lastStatus = true;
+		$this->importedCategories = [];
 		$opml_array = [];
 		try {
 			$libopml = new \marienfressinaud\LibOpml\LibOpml(strict: false);
@@ -118,6 +135,10 @@ class FreshRSS_Import_Service {
 				// outline, or if we weren't able to create the category.
 				$category = $default_category;
 			}
+
+			// Remember the resolved category (with its imported feeds attached below)
+			// so callers such as Dynamic OPML can honor the OPML category structure.
+			$this->importedCategories[$category_name] = $category;
 
 			// Then, create the feeds one by one and attach them to the
 			// category we just got.
