@@ -347,7 +347,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Scroll into filtered feed/category on page load [#8281](https://github.com/FreshRSS/FreshRSS/pull/8281)
 	* Display sidebar dropdowns above if no space below [#8335](https://github.com/FreshRSS/FreshRSS/pull/8335), [#8336](https://github.com/FreshRSS/FreshRSS/pull/8336)
 	* Use native CSS instead of SCSS [#8200](https://github.com/FreshRSS/FreshRSS/pull/8200), [#8241](https://github.com/FreshRSS/FreshRSS/pull/8241)
-		* Using [CSS nesting](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Nesting) and [relative colours](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Using_relative_colors).
+		* Using [CSS nesting](https://developer.mozilla.org/docs/Web/CSS/Guides/Nesting) and [relative colours](https://developer.mozilla.org/docs/Web/CSS/Guides/Colors/Using_relative_colors).
 	* Various UI and style improvements: [#8171](https://github.com/FreshRSS/FreshRSS/pull/8171), [#8185](https://github.com/FreshRSS/FreshRSS/pull/8185), [#8196](https://github.com/FreshRSS/FreshRSS/pull/8196)
 	* JavaScript finalise migration from `Promise` to `async`/`await`: [#8182](https://github.com/FreshRSS/FreshRSS/pull/8182)
 * API

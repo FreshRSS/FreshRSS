@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'elemento pavadinimas',
-					'help' => 'Ypač naudokite <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath ašį</a> <code>descendant::</code>, pvz. <code>descendant::h2</code>',
+					'help' => 'Ypač naudokite <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath ašį</a> <code>descendant::</code>, pvz. <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'unikalus elemento ID',

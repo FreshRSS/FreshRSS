@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'tytułu',
-					'help' => 'W szczególności warto użyć <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">oś XPath</a> <code>descendant::</code>, na przykład: <code>descendant::h2</code>',
+					'help' => 'W szczególności warto użyć <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">oś XPath</a> <code>descendant::</code>, na przykład: <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'unikalnego identyfikatora',

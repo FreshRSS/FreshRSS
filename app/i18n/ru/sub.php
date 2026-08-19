@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'заголовка элемента',
-					'help' => 'Используйте, в частности, <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">ось XPath</a> <code>descendant::</code>, наподобие <code>descendant::h2</code>',
+					'help' => 'Используйте, в частности, <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">ось XPath</a> <code>descendant::</code>, наподобие <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'уникальный ID элемента',

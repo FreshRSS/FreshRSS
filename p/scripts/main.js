@@ -994,7 +994,7 @@ function init_posts() {
 	}
 
 	if (!navigator.share && document.styleSheets.length > 0) {
-		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		// https://developer.mozilla.org/docs/Web/API/Navigator/share
 		// do not show the menu entry if browser does not support navigator.share
 		document.styleSheets[0].insertRule(
 			'button.as-link[data-type="web-sharing-api"] {display: none !important;}',
@@ -1550,7 +1550,7 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.share > button[data-type="web-sharing-api"]');
-		if (el && navigator.share) {	// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		if (el && navigator.share) {	// https://developer.mozilla.org/docs/Web/API/Navigator/share
 			const shareData = {
 				url: el.dataset.url,
 				title: decodeURI(el.dataset.title),

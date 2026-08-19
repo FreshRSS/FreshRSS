@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'oggetto titolo',
-					'help' => 'Usa in particolare l’<a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
+					'help' => 'Usa in particolare l’<a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'oggetto ID univoco',

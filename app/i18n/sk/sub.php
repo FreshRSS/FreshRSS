@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'položka nadpis',
-					'help' => 'Použite hlavne <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// DIRTY
+					'help' => 'Použite hlavne <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// DIRTY
 				),
 				'item_uid' => array(
 					'_' => 'položka unikátny identifikátor',

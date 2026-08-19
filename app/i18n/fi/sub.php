@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'tekstin otsikko',
-					'help' => 'Käytä erityisesti <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath-siirtymää</a> <code>descendant::</code>, esimerkiksi <code>descendant::h2</code>',
+					'help' => 'Käytä erityisesti <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath-siirtymää</a> <code>descendant::</code>, esimerkiksi <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'tekstin yksilöllinen tunnus',

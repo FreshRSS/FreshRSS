@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'タイトル',
-					'help' => '特に<a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath Axis</a>の <code>descendant::</code> を <code>descendant::h2</code> のように使います',
+					'help' => '特に<a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath Axis</a>の <code>descendant::</code> を <code>descendant::h2</code> のように使います',
 				),
 				'item_uid' => array(
 					'_' => 'ユニークID',

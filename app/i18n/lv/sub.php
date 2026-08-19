@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'raksta tituls',
-					'help' => 'Īpaši izmantojiet <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code>, piemēram, <code>descendant::h2</code>',
+					'help' => 'Īpaši izmantojiet <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code>, piemēram, <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'raksta unikālais ID',

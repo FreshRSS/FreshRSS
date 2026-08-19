@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'título del elemento',
-					'help' => 'Usar <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">eje XPath</a> <code>descendant::</code> como <code>descendant::h2</code>',
+					'help' => 'Usar <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">eje XPath</a> <code>descendant::</code> como <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'Identificador único del elemento',

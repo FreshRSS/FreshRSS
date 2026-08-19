@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'elem cím',
-					'help' => 'Használja az <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath Axes</a> <code>descendant::</code> mint <code>descendant::h2</code>',
+					'help' => 'Használja az <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath Axes</a> <code>descendant::</code> mint <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'elem egyedi ID',

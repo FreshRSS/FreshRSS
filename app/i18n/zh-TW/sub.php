@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => '項目標題',
-					'help' => '注意使用 <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath 軸</a> <code>descendant::</code>，例如 <code>descendant::h2</code>',
+					'help' => '注意使用 <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath 軸</a> <code>descendant::</code>，例如 <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => '項目唯一 ID',

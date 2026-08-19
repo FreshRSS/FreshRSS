@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => ' عنوان مورد',
-					'help' => 'به طور مشخص از <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">محور XPath</a> <code>descendant::</code> استفاده کنید؛ مانند <code>descendant::h2</code>',
+					'help' => 'به طور مشخص از <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">محور XPath</a> <code>descendant::</code> استفاده کنید؛ مانند <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => ' شناسه منحصر به فرد مورد',

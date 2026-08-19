@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => 'öğe başlığı',
-					'help' => 'Özellikle <a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath ekseni</a> <code>descendant::</code> kullanın, örneğin <code>descendant::h2</code>',
+					'help' => 'Özellikle <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath ekseni</a> <code>descendant::</code> kullanın, örneğin <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'öğe benzersiz kimliği',

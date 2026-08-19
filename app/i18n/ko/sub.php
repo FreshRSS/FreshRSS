@@ -133,7 +133,7 @@ return array(
 				),
 				'item_title' => array(
 					'_' => '기사 제목',
-					'help' => '<code>descendant::h2</code> 같은 특정 <code>descendant::</code><a href="https://developer.mozilla.org/en-US/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath 축</a>을 사용합니다.',
+					'help' => '<code>descendant::h2</code> 같은 특정 <code>descendant::</code><a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath 축</a>을 사용합니다.',
 				),
 				'item_uid' => array(
 					'_' => '기사 UID',
