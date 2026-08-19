@@ -25,6 +25,65 @@ function faviconCachePath(string $url): string {
 	return CACHE_PATH . '/' . sha1($url) . '.ico';
 }
 
+function youtubeChannelPageUrl(string $url): ?string {
+	$url = FreshRSS_http_Util::checkUrl($url);
+	if (!is_string($url) || $url === '') {
+		return null;
+	}
+
+	if (preg_match('#^https?://(?:www\.|m\.)?youtube\.com/feeds/videos\.xml#i', $url) !== 1
+		|| preg_match('/[?&]channel_id=([A-Za-z0-9_-]+)/', $url, $match) !== 1) {
+		return null;
+	}
+
+	return FreshRSS_http_Util::checkUrl('https://www.youtube.com/channel/' . $match[1]) ?: null;
+}
+
+function searchYoutubeFavicon(string $url): string {
+	$url = youtubeChannelPageUrl($url) ?? (FreshRSS_http_Util::checkUrl($url) ?: '');
+	if ($url === '' || preg_match('#^https?://(?:www\.|m\.)?youtube\.com/#i', $url) !== 1) {
+		return '';
+	}
+
+	$response = FreshRSS_http_Util::httpGet($url, CACHE_PATH . '/' . sha1($url) . '.html', 'html');
+	$html = $response['body'];
+	$effectiveUrl = $response['effective_url'] !== '' ? $response['effective_url'] : $url;
+	if ($response['fail'] || $html === '' || preg_match('#^https?://(?:www\.|m\.)?youtube\.com/#i', $effectiveUrl) !== 1) {
+		return '';
+	}
+
+	$match = [];
+	$found = preg_match('/<meta[^>]*property=["\']og:image["\'][^>]*content=["\']([^"\']+)/i', $html, $match) === 1
+		|| preg_match('/<meta[^>]*content=["\']([^"\']+)["\'][^>]*property=["\']og:image["\']/i', $html, $match) === 1;
+	if (!$found) {
+		return '';
+	}
+
+	$imageUrl = html_entity_decode(trim($match[1]), ENT_QUOTES);
+	try {
+		$iri = \SimplePie\IRI::absolutize($effectiveUrl, $imageUrl);
+		if ($iri === false) {
+			return '';
+		}
+		$absoluteImageUrl = $iri->get_iri();
+		if (!is_string($absoluteImageUrl)) {
+			return '';
+		}
+		$imageUrl = $absoluteImageUrl;
+	} catch (Throwable) {
+		return '';
+	}
+	$imageUrl = FreshRSS_http_Util::checkUrl($imageUrl, fixScheme: false);
+	if (!is_string($imageUrl) || $imageUrl === '') {
+		return '';
+	}
+
+	$favicon = FreshRSS_http_Util::httpGet($imageUrl, faviconCachePath($imageUrl), 'ico', curl_options: [
+		CURLOPT_REFERER => $effectiveUrl,
+	])['body'];
+	return isImgMime($favicon) ? $favicon : '';
+}
+
 function searchFavicon(string $url): string {
 	$url = trim($url);
 	if ($url === '') {
@@ -105,7 +164,10 @@ function download_favicon(string $url, string $dest): bool {
 	if (!is_string($url) || $url === '') {
 		return @copy(DEFAULT_FAVICON, $dest);
 	}
-	$favicon = searchFavicon($url);
+	$favicon = searchYoutubeFavicon($url);
+	if ($favicon === '') {
+		$favicon = searchFavicon($url);
+	}
 	if ($favicon == '') {
 		$rootUrl = preg_replace('%^(https?://[^/]+).*$%i', '$1/', $url) ?? $url;
 		if ($rootUrl != $url) {

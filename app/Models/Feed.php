@@ -443,8 +443,9 @@ class FreshRSS_Feed extends Minz_Model {
 		$feedIconUrl = $this->attributeString('feedIconUrl') ?? '';
 		$websiteUrl = $this->website(fallback: false);
 		if ($websiteUrl === '' || $websiteUrl === $this->url) {
-			// Get root URL from the feed URL
-			$websiteUrl = preg_replace('%^(https?://[^/]+).*$%i', '$1/', $this->url) ?? $this->url;
+			// YouTube feed URLs expose the channel ID but no channel avatar.
+			$websiteUrl = youtubeChannelPageUrl($this->url)
+				?? (preg_replace('%^(https?://[^/]+).*$%i', '$1/', $this->url) ?? $this->url);
 		}
 		$url = $feedIconUrl !== '' ? $feedIconUrl : $websiteUrl;
 
