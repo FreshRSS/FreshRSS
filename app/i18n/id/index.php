@@ -85,14 +85,14 @@ return array(
 		'rss_view' => 'Umpan RSS',
 		'search_short' => 'Cari',
 		'sort' => array(
-			'asc' => 'Menaik',
+			'asc' => 'Naik',
 			'c' => array(
 				'name_asc' => 'Kategori, judul umpan A→Z',
 				'name_desc' => 'Kategori, judul umpan Z→A',
 			),
 			'date_asc' => 'Tanggal publikasi 1→9',
 			'date_desc' => 'Tanggal publikasi 9→1',
-			'desc' => 'Menurun',
+			'desc' => 'Turun',
 			'f' => array(
 				'name_asc' => 'Judul umpan A→Z',
 				'name_desc' => 'Judul umpan Z→A',

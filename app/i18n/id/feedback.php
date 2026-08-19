@@ -130,7 +130,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'Pembaruan FreshRSS tersedia: <strong>Versi %s</strong>.',
 		'error' => 'Galat terjadi dalam proses pembaruan: %s',
-		'file_is_nok' => 'Pembaruan FreshRSS tersedia (<strong>Versi %s</strong>), but check permissions on <em>%s</em> directory. HTTP server must have have write permission , dan periksa izin di direktori <em>%s</em>. Server HTTP harus memiliki izin menulis di direktori tersebut',
+		'file_is_nok' => 'Pembaruan FreshRSS tersedia (<strong>Versi %s</strong>), tetapi periksa izin pada direktori <em>%s</em>. Server HTTP harus memiliki izin menulis di direktori tersebut.',
 		'finished' => 'Pembaruan selesai!',
 		'none' => 'Tidak ada pembaruan yang tersedia',
 		'server_not_found' => 'Server pembaruan tidak dapat ditemukan. [%s]',
