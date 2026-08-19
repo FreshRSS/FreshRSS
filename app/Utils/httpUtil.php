@@ -286,7 +286,7 @@ final class FreshRSS_http_Util {
 			return false;
 		}
 		foreach ([&$url1, &$url2] as &$url) {
-			$url['port'] ??= match ($url['scheme']) {
+			$url['port'] ??= match ($url['scheme'] ?? '') {
 				'http' => 80,
 				'https' => 443,
 				default => 0,
