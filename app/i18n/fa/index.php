@@ -38,12 +38,23 @@ return array(
 		'empty' => ' هیچ مقاله ای برای نمایش وجود ندارد.',
 		'published' => array(
 			'_' => 'منتشر شده',
+			'beforeLastYear' => 'Published before last year',	// TODO
+			'earlierThisMonth' => 'Published earlier this month',	// TODO
+			'earlierThisYear' => 'Published earlier this year',	// TODO
 			'future' => 'منتشر شده در آینده',
+			'lastMonth' => 'Published last month',	// TODO
+			'lastYear' => 'Published last year',	// TODO
 			'today' => 'امروز منتشر شده',
 			'yesterday' => 'دیروز منتشر شده',
 		),
 		'received' => array(
 			'_' => 'دریافت شده',
+			'beforeLastYear' => 'Received before last year',	// TODO
+			'earlierThisMonth' => 'Received earlier this month',	// TODO
+			'earlierThisYear' => 'Received earlier this year',	// TODO
+			'future' => 'Received in the future',	// TODO
+			'lastMonth' => 'Received last month',	// TODO
+			'lastYear' => 'Received last year',	// TODO
 			'today' => 'امروز دریافت شد',
 			'yesterday' => 'دیروز دریافت شد',
 		),
@@ -53,6 +64,12 @@ return array(
 		'title_global' => ' نمای جهانی',
 		'userModified' => array(
 			'_' => 'ویرایش شده توسط کاربر',
+			'beforeLastYear' => 'Modified by user before last year',	// TODO
+			'earlierThisMonth' => 'Modified by user earlier this month',	// TODO
+			'earlierThisYear' => 'Modified by user earlier this year',	// TODO
+			'future' => 'Modified by user in the future',	// TODO
+			'lastMonth' => 'Modified by user last month',	// TODO
+			'lastYear' => 'Modified by user last year',	// TODO
 			'today' => 'امروز توسط کاربر ویرایش شده',
 			'yesterday' => 'دیروز توسط کاربر ویرایش شده',
 		),

@@ -38,12 +38,23 @@ return array(
 		'empty' => 'Brak wiadomości do wyświetlenia.',
 		'published' => array(
 			'_' => 'Opublikowane',
+			'beforeLastYear' => 'Published before last year',	// TODO
+			'earlierThisMonth' => 'Published earlier this month',	// TODO
+			'earlierThisYear' => 'Published earlier this year',	// TODO
 			'future' => 'Opublikowane w przyszłości',
+			'lastMonth' => 'Published last month',	// TODO
+			'lastYear' => 'Published last year',	// TODO
 			'today' => 'Opublikowane dzisiaj',
 			'yesterday' => 'Opublikowane wczoraj',
 		),
 		'received' => array(
 			'_' => 'Otrzymane',
+			'beforeLastYear' => 'Received before last year',	// TODO
+			'earlierThisMonth' => 'Received earlier this month',	// TODO
+			'earlierThisYear' => 'Received earlier this year',	// TODO
+			'future' => 'Received in the future',	// TODO
+			'lastMonth' => 'Received last month',	// TODO
+			'lastYear' => 'Received last year',	// TODO
 			'today' => 'Otrzymane dzisiaj',
 			'yesterday' => 'Otrzymane wczoraj',
 		),
@@ -53,6 +64,12 @@ return array(
 		'title_global' => 'Widok globalny',
 		'userModified' => array(
 			'_' => 'Zmodyfikowane przez użytkownika',
+			'beforeLastYear' => 'Modified by user before last year',	// TODO
+			'earlierThisMonth' => 'Modified by user earlier this month',	// TODO
+			'earlierThisYear' => 'Modified by user earlier this year',	// TODO
+			'future' => 'Modified by user in the future',	// TODO
+			'lastMonth' => 'Modified by user last month',	// TODO
+			'lastYear' => 'Modified by user last year',	// TODO
 			'today' => 'Zmodyfikowane przez użytkownika dzisiaj',
 			'yesterday' => 'Zmodyfikowane przez użytkownika wczoraj',
 		),

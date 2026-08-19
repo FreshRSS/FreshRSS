@@ -37,13 +37,24 @@ return array(
 	'feed' => array(
 		'empty' => 'Gösterilecek makale yok.',
 		'published' => array(
-			'_' => 'Yayımlandı',
-			'future' => 'Gelecekte yayımlanacak',
-			'today' => 'Bugün yayımlandı',
-			'yesterday' => 'Dün yayımlandı',
+			'_' => 'Published',	// TODO
+			'beforeLastYear' => 'Published before last year',	// TODO
+			'earlierThisMonth' => 'Published earlier this month',	// TODO
+			'earlierThisYear' => 'Published earlier this year',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'lastMonth' => 'Published last month',	// TODO
+			'lastYear' => 'Published last year',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
 		),
 		'received' => array(
-			'_' => 'Teslim alındı',
+			'_' => 'Received',	// TODO
+			'beforeLastYear' => 'Received before last year',	// TODO
+			'earlierThisMonth' => 'Received earlier this month',	// TODO
+			'earlierThisYear' => 'Received earlier this year',	// TODO
+			'future' => 'Received in the future',	// TODO
+			'lastMonth' => 'Received last month',	// TODO
+			'lastYear' => 'Received last year',	// TODO
 			'today' => 'Bugün alınanlar',
 			'yesterday' => 'Dün alınanlar',
 		),
@@ -52,9 +63,15 @@ return array(
 		'title_fav' => 'Favoriler',
 		'title_global' => 'Genel görünüm',
 		'userModified' => array(
-			'_' => 'Kullanıcı tarafından değiştirildi',
-			'today' => 'Kullanıcı tarafından bugün değiştirildi',
-			'yesterday' => 'Kullanıcı tarafından dün değiştirildi',
+			'_' => 'Modified by user',	// TODO
+			'beforeLastYear' => 'Modified by user before last year',	// TODO
+			'earlierThisMonth' => 'Modified by user earlier this month',	// TODO
+			'earlierThisYear' => 'Modified by user earlier this year',	// TODO
+			'future' => 'Modified by user in the future',	// TODO
+			'lastMonth' => 'Modified by user last month',	// TODO
+			'lastYear' => 'Modified by user last year',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
 		),
 	),
 	'log' => array(

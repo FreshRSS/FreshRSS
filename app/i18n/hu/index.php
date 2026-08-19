@@ -38,12 +38,23 @@ return array(
 		'empty' => 'Nincs megjeleníthető cikk.',
 		'published' => array(
 			'_' => 'Közzétéve',
+			'beforeLastYear' => 'Published before last year',	// TODO
+			'earlierThisMonth' => 'Published earlier this month',	// TODO
+			'earlierThisYear' => 'Published earlier this year',	// TODO
 			'future' => 'A jövőben közzétéve',
+			'lastMonth' => 'Published last month',	// TODO
+			'lastYear' => 'Published last year',	// TODO
 			'today' => 'Ma közzétéve',
 			'yesterday' => 'Tegnap közzétéve',
 		),
 		'received' => array(
 			'_' => 'Beérkezett',
+			'beforeLastYear' => 'Received before last year',	// TODO
+			'earlierThisMonth' => 'Received earlier this month',	// TODO
+			'earlierThisYear' => 'Received earlier this year',	// TODO
+			'future' => 'Received in the future',	// TODO
+			'lastMonth' => 'Received last month',	// TODO
+			'lastYear' => 'Received last year',	// TODO
 			'today' => 'Ma beérkezett',
 			'yesterday' => 'Tegnap beérkezett',
 		),
@@ -53,6 +64,12 @@ return array(
 		'title_global' => 'Globális nézet',
 		'userModified' => array(
 			'_' => 'Felhasználó által módosítva',
+			'beforeLastYear' => 'Modified by user before last year',	// TODO
+			'earlierThisMonth' => 'Modified by user earlier this month',	// TODO
+			'earlierThisYear' => 'Modified by user earlier this year',	// TODO
+			'future' => 'Modified by user in the future',	// TODO
+			'lastMonth' => 'Modified by user last month',	// TODO
+			'lastYear' => 'Modified by user last year',	// TODO
 			'today' => 'Felhasználó által módosítva ma',
 			'yesterday' => 'Felhasználó által módosítva tegnap',
 		),

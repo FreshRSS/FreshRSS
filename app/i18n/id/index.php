@@ -38,12 +38,23 @@ return array(
 		'empty' => 'Tidak ada artikel untuk diperlihatkan.',
 		'published' => array(
 			'_' => 'Published',	// TODO
+			'beforeLastYear' => 'Published before last year',	// TODO
+			'earlierThisMonth' => 'Published earlier this month',	// TODO
+			'earlierThisYear' => 'Published earlier this year',	// TODO
 			'future' => 'Published in the future',	// TODO
+			'lastMonth' => 'Published last month',	// TODO
+			'lastYear' => 'Published last year',	// TODO
 			'today' => 'Published today',	// TODO
 			'yesterday' => 'Published yesterday',	// TODO
 		),
 		'received' => array(
 			'_' => 'Received',	// TODO
+			'beforeLastYear' => 'Received before last year',	// TODO
+			'earlierThisMonth' => 'Received earlier this month',	// TODO
+			'earlierThisYear' => 'Received earlier this year',	// TODO
+			'future' => 'Received in the future',	// TODO
+			'lastMonth' => 'Received last month',	// TODO
+			'lastYear' => 'Received last year',	// TODO
 			'today' => 'Diterima hari ini',
 			'yesterday' => 'Diterima kemarin',
 		),
@@ -53,6 +64,12 @@ return array(
 		'title_global' => 'Tampilan Global',
 		'userModified' => array(
 			'_' => 'Modified by user',	// TODO
+			'beforeLastYear' => 'Modified by user before last year',	// TODO
+			'earlierThisMonth' => 'Modified by user earlier this month',	// TODO
+			'earlierThisYear' => 'Modified by user earlier this year',	// TODO
+			'future' => 'Modified by user in the future',	// TODO
+			'lastMonth' => 'Modified by user last month',	// TODO
+			'lastYear' => 'Modified by user last year',	// TODO
 			'today' => 'Modified by user today',	// TODO
 			'yesterday' => 'Modified by user yesterday',	// TODO
 		),

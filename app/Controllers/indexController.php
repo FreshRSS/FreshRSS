@@ -31,10 +31,15 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @return '.future'|'.today'|'.yesterday'|''
+	 * @return '.future'|'.today'|'.yesterday'|'.earlierThisMonth'|'.lastMonth'|'.earlierThisYear'|'.lastYear'|'.beforeLastYear'|''
 	 */
 	private static function dayRelative(int $timestamp, bool $mayBeFuture): string {
 		static $today = null;
+		static $thisMonthStart = null;
+		static $lastMonthStart = null;
+		static $thisYearStart = null;
+		static $lastYearStart = null;
+
 		if (!is_int($today)) {
 			$today = strtotime('today') ?: 0;
 		}
@@ -47,24 +52,64 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		} elseif ($timestamp >= $today - 86400) {
 			return '.yesterday';
 		}
-		return '';
+
+		if (!is_int($thisMonthStart)) {
+			$thisMonthStart = strtotime('midnight first day of this month') ?: 0;
+		}
+		if ($timestamp >= $thisMonthStart) {
+			return '.earlierThisMonth';
+		}
+
+		if (!is_int($lastMonthStart)) {
+			$lastMonthStart = strtotime('midnight first day of last month') ?: 0;
+		}
+		if ($timestamp >= $lastMonthStart) {
+			return '.lastMonth';
+		}
+
+		if (!is_int($thisYearStart)) {
+			$thisYearStart = strtotime('first day of january this year') ?: 0;
+		}
+		if ($timestamp >= $thisYearStart) {
+			return '.earlierThisYear';
+		}
+
+		if (!is_int($lastYearStart)) {
+			$lastYearStart = strtotime('first day of january last year') ?: 0;
+		}
+		if ($timestamp >= $lastYearStart) {
+			return '.lastYear';
+		}
+		return '.beforeLastYear';
 	}
 
 	/**
 	 * Content for displaying a transition between entries when sorting by specific criteria.
 	 */
-	public static function transition(FreshRSS_Entry $entry): string {
-		return match (FreshRSS_Context::$sort) {
-			'id' => _t('index.feed.received' . self::dayRelative($entry->dateAdded(raw: true), mayBeFuture: false)) .
-				' — ' . timestamptodate($entry->dateAdded(raw: true), hour: false),
-			'date' => _t('index.feed.published' . self::dayRelative($entry->date(raw: true), mayBeFuture: true)) .
-				' — ' . timestamptodate($entry->date(raw: true), hour: false),
-			'lastUserModified' => _t('index.feed.userModified' . self::dayRelative($entry->lastUserModified() ?? 0, mayBeFuture: false)) .
-				' — ' . timestamptodate($entry->lastUserModified() ?? 0, hour: false),
-			'c.name' => $entry->feed()?->category()?->name() ?? '',
-			'f.name' => $entry->feed()?->name() ?? '',
-			default => '',
-		};
+	public static function transition(FreshRSS_Entry $entry, ?FreshRSS_Entry $lastEntry = null): string {
+		switch (FreshRSS_Context::$sort) {
+			case 'id':
+				$dayRelative = self::dayRelative($entry->dateAdded(raw: true), mayBeFuture: false);
+				$lastDayRelative = $lastEntry === null ? '' : self::dayRelative($lastEntry->dateAdded(raw: true), mayBeFuture: false);
+				return $dayRelative === $lastDayRelative ? '' :
+					_t('index.feed.received' . $dayRelative) . ' — ' . timestamptodate($entry->dateAdded(raw: true), hour: false);
+			case 'date':
+				$dayRelative = self::dayRelative($entry->date(raw: true), mayBeFuture: false);
+				$lastDayRelative = $lastEntry === null ? '' : self::dayRelative($lastEntry->date(raw: true), mayBeFuture: false);
+				return $dayRelative === $lastDayRelative ? '' :
+					_t('index.feed.published' . $dayRelative) . ' — ' . timestamptodate($entry->date(raw: true), hour: false);
+			case 'lastUserModified':
+				$dayRelative = self::dayRelative($entry->date(raw: true), mayBeFuture: false);
+				$lastDayRelative = $lastEntry === null ? '' : self::dayRelative($lastEntry->lastUserModified() ?? 0, mayBeFuture: false);
+				return $dayRelative === $lastDayRelative ? '' :
+					_t('index.feed.userModified' . $dayRelative) . ' — ' . timestamptodate($entry->lastUserModified() ?? 0, hour: false);
+			case 'c.name':
+				return $entry->feed()?->category()?->name() ?? '';
+			case 'f.name':
+				return $entry->feed()?->name() ?? '';
+			default:
+				return '';
+		}
 	}
 
 	/**
@@ -372,6 +417,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		if (FreshRSS_Context::$continuation_id !== '0') {
 			if (in_array(FreshRSS_Context::$sort, ['c.name', 'date', 'f.name', 'link', 'title', 'lastUserModified', 'length'], true)) {
 				$pagingEntry = $entryDAO->searchById(FreshRSS_Context::$continuation_id);
+				FreshRSS_Context::$continuationEntry = $pagingEntry;
 
 				if ($pagingEntry !== null && in_array(FreshRSS_Context::$sort, ['c.name', 'f.name'], true)) {
 					// We most likely already have the feed object in cache

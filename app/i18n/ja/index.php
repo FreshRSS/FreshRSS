@@ -37,13 +37,24 @@ return array(
 	'feed' => array(
 		'empty' => '表示できる記事がありません',
 		'published' => array(
-			'_' => '公開日',
-			'future' => '未来の日付で公開',
-			'today' => '本日公開',
-			'yesterday' => '昨日公開',
+			'_' => 'Published',	// TODO
+			'beforeLastYear' => 'Published before last year',	// TODO
+			'earlierThisMonth' => 'Published earlier this month',	// TODO
+			'earlierThisYear' => 'Published earlier this year',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'lastMonth' => 'Published last month',	// TODO
+			'lastYear' => 'Published last year',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
 		),
 		'received' => array(
-			'_' => '受信日',
+			'_' => 'Received',	// TODO
+			'beforeLastYear' => 'Received before last year',	// TODO
+			'earlierThisMonth' => 'Received earlier this month',	// TODO
+			'earlierThisYear' => 'Received earlier this year',	// TODO
+			'future' => 'Received in the future',	// TODO
+			'lastMonth' => 'Received last month',	// TODO
+			'lastYear' => 'Received last year',	// TODO
 			'today' => '今日',
 			'yesterday' => '昨日',
 		),
@@ -52,9 +63,15 @@ return array(
 		'title_fav' => 'お気に入り',
 		'title_global' => 'グローバルビュー',
 		'userModified' => array(
-			'_' => 'ユーザーによる変更',
-			'today' => '本日変更',
-			'yesterday' => '昨日変更',
+			'_' => 'Modified by user',	// TODO
+			'beforeLastYear' => 'Modified by user before last year',	// TODO
+			'earlierThisMonth' => 'Modified by user earlier this month',	// TODO
+			'earlierThisYear' => 'Modified by user earlier this year',	// TODO
+			'future' => 'Modified by user in the future',	// TODO
+			'lastMonth' => 'Modified by user last month',	// TODO
+			'lastYear' => 'Modified by user last year',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
 		),
 	),
 	'log' => array(

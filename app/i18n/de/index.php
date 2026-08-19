@@ -38,12 +38,23 @@ return array(
 		'empty' => 'Keine Artikel vorhanden.',
 		'published' => array(
 			'_' => 'Veröffentlicht',
+			'beforeLastYear' => 'Published before last year',	// TODO
+			'earlierThisMonth' => 'Published earlier this month',	// TODO
+			'earlierThisYear' => 'Published earlier this year',	// TODO
 			'future' => 'In Zukunft veröffentlicht',
+			'lastMonth' => 'Published last month',	// TODO
+			'lastYear' => 'Published last year',	// TODO
 			'today' => 'Heute veröffentlicht',
 			'yesterday' => 'Gestern veröffentlicht',
 		),
 		'received' => array(
 			'_' => 'Empfangen',
+			'beforeLastYear' => 'Received before last year',	// TODO
+			'earlierThisMonth' => 'Received earlier this month',	// TODO
+			'earlierThisYear' => 'Received earlier this year',	// TODO
+			'future' => 'Received in the future',	// TODO
+			'lastMonth' => 'Received last month',	// TODO
+			'lastYear' => 'Received last year',	// TODO
 			'today' => 'Heute empfangen',
 			'yesterday' => 'Gestern empfangen',
 		),
@@ -53,6 +64,12 @@ return array(
 		'title_global' => 'Globale Ansicht',
 		'userModified' => array(
 			'_' => 'Vom Benutzer geändert',
+			'beforeLastYear' => 'Modified by user before last year',	// TODO
+			'earlierThisMonth' => 'Modified by user earlier this month',	// TODO
+			'earlierThisYear' => 'Modified by user earlier this year',	// TODO
+			'future' => 'Modified by user in the future',	// TODO
+			'lastMonth' => 'Modified by user last month',	// TODO
+			'lastYear' => 'Modified by user last year',	// TODO
 			'today' => 'Heute vom Benutzer geändert',
 			'yesterday' => 'Gestern vom Benutzer geändert',
 		),
