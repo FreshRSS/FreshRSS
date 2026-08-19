@@ -444,7 +444,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$websiteUrl = $this->website(fallback: false);
 		if ($websiteUrl === '' || $websiteUrl === $this->url) {
 			// YouTube feed URLs expose the channel ID but no channel avatar.
-			$websiteUrl = youtubeChannelPageUrl($this->url)
+			$websiteUrl = youtubeChannelPageUrlFromFeed($this->url)
 				?? (preg_replace('%^(https?://[^/]+).*$%i', '$1/', $this->url) ?? $this->url);
 		}
 		$url = $feedIconUrl !== '' ? $feedIconUrl : $websiteUrl;

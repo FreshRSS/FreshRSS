@@ -25,7 +25,14 @@ function faviconCachePath(string $url): string {
 	return CACHE_PATH . '/' . sha1($url) . '.ico';
 }
 
-function youtubeChannelPageUrl(string $url): ?string {
+function isYoutubeUrl(string $url): bool {
+	return preg_match('#^https?://(?:www\.|m\.)?youtube\.com/#i', $url) === 1;
+}
+
+/**
+ * Returns a channel page URL when given YouTube's channel feed URL format.
+ */
+function youtubeChannelPageUrlFromFeed(string $url): ?string {
 	$url = FreshRSS_http_Util::checkUrl($url);
 	if (!is_string($url) || $url === '') {
 		return null;
@@ -39,16 +46,19 @@ function youtubeChannelPageUrl(string $url): ?string {
 	return FreshRSS_http_Util::checkUrl('https://www.youtube.com/channel/' . $match[1]) ?: null;
 }
 
-function searchYoutubeFavicon(string $url): string {
-	$url = youtubeChannelPageUrl($url) ?? (FreshRSS_http_Util::checkUrl($url) ?: '');
-	if ($url === '' || preg_match('#^https?://(?:www\.|m\.)?youtube\.com/#i', $url) !== 1) {
+/**
+ * Finds a YouTube channel avatar from the page's Open Graph image metadata.
+ */
+function searchYoutubeFavicon(string $pageUrl): string {
+	$pageUrl = youtubeChannelPageUrlFromFeed($pageUrl) ?? (FreshRSS_http_Util::checkUrl($pageUrl) ?: '');
+	if ($pageUrl === '' || !isYoutubeUrl($pageUrl)) {
 		return '';
 	}
 
-	$response = FreshRSS_http_Util::httpGet($url, CACHE_PATH . '/' . sha1($url) . '.html', 'html');
+	$response = FreshRSS_http_Util::httpGet($pageUrl, cachePath: CACHE_PATH . '/' . sha1($pageUrl) . '.html', type: 'html');
 	$html = $response['body'];
-	$effectiveUrl = $response['effective_url'] !== '' ? $response['effective_url'] : $url;
-	if ($response['fail'] || $html === '' || preg_match('#^https?://(?:www\.|m\.)?youtube\.com/#i', $effectiveUrl) !== 1) {
+	$effectiveUrl = $response['effective_url'] !== '' ? $response['effective_url'] : $pageUrl;
+	if ($response['fail'] || $html === '' || !isYoutubeUrl($effectiveUrl)) {
 		return '';
 	}
 
