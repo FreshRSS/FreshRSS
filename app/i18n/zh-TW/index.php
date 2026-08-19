@@ -27,7 +27,7 @@ return array(
 		),
 		'bugs_reports' => '漏洞報告',
 		'documentation' => '說明文件',
-		'freshrss_description' => 'FreshRSS 是個可自託管的 RSS 聚合器和閱讀器。它允許您一次閱讀和追蹤多個新聞網站而無需在不同網站之間切換。FreshRSS 輕量、可配置且易於使用。',
+		'freshrss_description' => 'FreshRSS 是個可自託管的 RSS 聚合器和閱讀器，讓您可以一次閱讀並追蹤多個新聞網站而無需在不同網站之間切換，其輕量、可配置且易於使用。',
 		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">GitHub issues</a>',
 		'license' => '授權',
 		'project_website' => '專案網站',
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => '收藏',
 		'title_global' => '全域檢視',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => '使用者修改過',
+			'today' => '使用者今天修改過',
+			'yesterday' => '使用者昨天修改過',
 		),
 	),
 	'log' => array(
@@ -114,8 +114,8 @@ return array(
 			),
 			'title_asc' => '標題 A→Z',
 			'title_desc' => '標題 Z→A',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => '使用者修改過 1→9',
+			'user_modified_desc' => '使用者修改過 9→1',
 		),
 		'starred' => '顯示收藏',
 		'stats' => '統計',
