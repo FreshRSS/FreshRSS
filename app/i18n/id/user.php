@@ -20,7 +20,7 @@ return array(
 			'change_email' => 'Anda dapat mengubah alamat surel Anda <a href="%s">di halaman profil</a>.',
 			'email_sent_to' => 'Kami sudah mengirimkan Anda surel ke <strong>%s</strong>. Ikuti petunjuk di surel untuk memvalidasi alamat surel Anda.',
 			'feedback' => array(
-				'email_failed' => 'Kami tidak dapat mengirimi Anda surel dikarenakan kesalahan konfigurasi di peladen. ',
+				'email_failed' => 'Kami tidak dapat mengirimi Anda surel dikarenakan kesalahan konfigurasi di server. ',
 				'email_sent' => 'Surel sudah dikirim ke surel Anda.',
 				'error' => 'Validasi alamat surel Anda gagal.',
 				'ok' => 'Alamat surel ini sudah divalidasi.',

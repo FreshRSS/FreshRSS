@@ -57,16 +57,16 @@ return array(
 		'removed' => '%s dihapus',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'Ekstensi ZIP tidak tersedia di peladen Anda. Coba untuk mengekspor berkasnya satu per satu.',
+		'export_no_zip_extension' => 'Ekstensi ZIP tidak tersedia di server Anda. Coba untuk mengekspor berkasnya satu per satu.',
 		'feeds_imported' => 'Umpan Anda telah diimpor. Jika Anda sudah selesai mengimpor, Anda bisa mengklik tombol <i>Perbarui umpan</i>.',
 		'feeds_imported_with_errors' => 'Umpan Anda telah diimpor, tapi ada beberapa galat. Jika Anda sudah selesai mengimpor, Anda bisa mengklik tombol <i>Perbarui umpan</i>.',
 		'file_cannot_be_uploaded' => 'Berkas tidak dapt diunggah!',
-		'no_zip_extension' => 'Ekstensi ZIP tidak tersedia di peladen Anda.',
+		'no_zip_extension' => 'Ekstensi ZIP tidak tersedia di server Anda.',
 		'zip_error' => 'Galat terjadi ketika pemrosesan ZIP.',
 	),
 	'profile' => array(
 		'error' => 'Profil Anda tidak dapat diubah',
-		'passwords_dont_match' => 'Passwords don’t match',	// TODO
+		'passwords_dont_match' => 'Kata sandi tidak cocok',
 		'updated' => 'Profil Anda telah diubah',
 	),
 	'sub' => array(
@@ -81,7 +81,7 @@ return array(
 			'emptied' => 'Kategori telah dikosongkan',
 			'error' => 'Kategori tidak dapat diperbarui',
 			'name_exists' => 'Nama kategori sudah ada.',
-			'no_id' => 'You must specify the id of the category.',	// TODO
+			'no_id' => 'Anda harus menentukan id kategori.',
 			'no_name' => 'Nama kategori tidak boleh kosong.',
 			'not_delete_default' => 'Tidak dapat menghapus kategori baku!',
 			'not_exist' => 'Kategori ini tidak ada!',
@@ -130,10 +130,10 @@ return array(
 	'update' => array(
 		'can_apply' => 'Pembaruan FreshRSS tersedia: <strong>Versi %s</strong>.',
 		'error' => 'Galat terjadi dalam proses pembaruan: %s',
-		'file_is_nok' => 'Pembaruan FreshRSS tersedia (<strong>Versi %s</strong>), but check permissions on <em>%s</em> directory. HTTP server must have have write permission , dan periksa izin di direktori <em>%s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut',
+		'file_is_nok' => 'Pembaruan FreshRSS tersedia (<strong>Versi %s</strong>), but check permissions on <em>%s</em> directory. HTTP server must have have write permission , dan periksa izin di direktori <em>%s</em>. Server HTTP harus memiliki izin menulis di direktori tersebut',
 		'finished' => 'Pembaruan selesai!',
 		'none' => 'Tidak ada pembaruan yang tersedia',
-		'server_not_found' => 'Peladen pembaruan tidak dapat ditemukan. [%s]',
+		'server_not_found' => 'Server pembaruan tidak dapat ditemukan. [%s]',
 	),
 	'user' => array(
 		'created' => array(

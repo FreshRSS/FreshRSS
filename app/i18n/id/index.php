@@ -17,9 +17,9 @@ return array(
 		'bug_reports' => array(
 			'environment_information' => array(
 				'_' => 'Informasi sistem',
-				'browser' => 'Peladen',
+				'browser' => 'Browser',	// IGNORE
 				'database' => 'Basis data',
-				'server_software' => 'Aplikasi peladen',
+				'server_software' => 'Aplikasi server',
 				'version_curl' => 'versi cURL',
 				'version_frss' => 'versi FreshRSS',
 				'version_php' => 'versi PHP',
@@ -37,13 +37,13 @@ return array(
 	'feed' => array(
 		'empty' => 'Tidak ada artikel untuk diperlihatkan.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'Diterbitkan',
+			'future' => 'Diterbitkan di masa mendatang',
+			'today' => 'Diterbitkan hari ini',
+			'yesterday' => 'Diterbitkan kemarin',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'Diterima',
 			'today' => 'Diterima hari ini',
 			'yesterday' => 'Diterima kemarin',
 		),
@@ -52,9 +52,9 @@ return array(
 		'title_fav' => 'Favorit',
 		'title_global' => 'Tampilan Global',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'Diubah oleh pengguna',
+			'today' => 'Diubah oleh pengguna hari ini',
+			'yesterday' => 'Diubah oleh pengguna kemarin',
 		),
 	),
 	'log' => array(
@@ -85,37 +85,37 @@ return array(
 		'rss_view' => 'Umpan RSS',
 		'search_short' => 'Cari',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'Menaik',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => 'Kategori, judul umpan A→Z',
+				'name_desc' => 'Kategori, judul umpan Z→A',
 			),
 			'date_asc' => 'Tanggal publikasi 1→9',
 			'date_desc' => 'Tanggal publikasi 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => 'Menurun',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => 'Judul umpan A→Z',
+				'name_desc' => 'Judul umpan Z→A',
 			),
 			'id_asc' => 'Yang baru diterima terakhir',
 			'id_desc' => 'Yang baru diterima paling awal',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'length_asc' => 'Panjang konten 1→9',
+			'length_desc' => 'Panjang konten 9→1',
 			'link_asc' => 'Tautan A→Z',
 			'link_desc' => 'Tautan Z→A',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => 'Kriteria pengurutan',
+				'help' => 'Pengurutan berdasarkan tanggal <em>diterima</em> disarankan untuk sebagian besar kasus, demi konsistensi dan performa',
 			),
 			'rand' => 'Acak',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => 'Kriteria pengurutan sekunder',
+				'help' => 'Hanya relevan bila kriteria pengurutan utama adalah kategori atau judul umpan',
 			),
 			'title_asc' => 'Judul A→Z',
 			'title_desc' => 'Judul Z→A',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => 'Diubah pengguna 1→9',
+			'user_modified_desc' => 'Diubah pengguna 9→1',
 		),
 		'starred' => 'Tampilkan yang difavoritkan',
 		'stats' => 'Statistik',
