@@ -60,19 +60,15 @@ function searchYoutubeFavicon(string $url): string {
 	}
 
 	$imageUrl = html_entity_decode(trim($match[1]), ENT_QUOTES);
-	try {
-		$iri = \SimplePie\IRI::absolutize($effectiveUrl, $imageUrl);
-		if ($iri === false) {
-			return '';
-		}
-		$absoluteImageUrl = $iri->get_iri();
-		if (!is_string($absoluteImageUrl)) {
-			return '';
-		}
-		$imageUrl = $absoluteImageUrl;
-	} catch (Throwable) {
+	$iri = \SimplePie\IRI::absolutize($effectiveUrl, $imageUrl);
+	if ($iri === false) {
 		return '';
 	}
+	$absoluteImageUrl = $iri->get_iri();
+	if (!is_string($absoluteImageUrl)) {
+		return '';
+	}
+	$imageUrl = $absoluteImageUrl;
 	$imageUrl = FreshRSS_http_Util::checkUrl($imageUrl, fixScheme: false);
 	if (!is_string($imageUrl) || $imageUrl === '') {
 		return '';
