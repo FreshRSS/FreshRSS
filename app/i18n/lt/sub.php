@@ -274,7 +274,7 @@ return array(
 		),
 		'export_labelled' => 'Eksportuoti straipsnius su etiketėmis',
 		'export_opml' => 'Eksportuoti kanalų sąrašą (OPML)',
-		'export_starred' => 'Eksportuoti mėgstamus',
+		'export_starred' => 'Eksportuoti pamėgtus',
 		'feed_list' => '%s straipsnių sąrašas',
 		'file_to_import' => 'Importuotinas failas<br />(OPML, JSON ar ZIP)',
 		'file_to_import_no_zip' => 'Importuotinas failas<br />(OPML ar JSON)',

@@ -47,6 +47,25 @@ function actualize_mutex_file(string $tmpPath, string $dataPath): string {
 	return $tmpPath . '/actualize.' . hash('sha256', realpath($dataPath) ?: $dataPath) . '.freshrss.lock';
 }
 
+/**
+ * Disable stream wrappers that the application does not need.
+ *
+ * For temporary usage of a previously unregistered wrapper, `stream_wrapper_restore()` can be used.
+ */
+function unregister_unsafe_protocols(): void {
+	$registered_wrappers = stream_get_wrappers();
+	$allowed_wrappers = ['file', 'php'];
+	foreach ($registered_wrappers as $protocol) {
+		if (!in_array($protocol, $allowed_wrappers, true)) {
+			stream_wrapper_unregister($protocol);
+		}
+	}
+}
+
+if (!defined('WITH_COMPOSER')) {
+	unregister_unsafe_protocols();
+}
+
 //<Auto-loading>
 function classAutoloader(string $class): void {
 	if (str_starts_with($class, 'FreshRSS')) {
