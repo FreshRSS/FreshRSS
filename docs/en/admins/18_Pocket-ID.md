@@ -12,7 +12,7 @@ Click on **Add OIDC Client** in the Pocket ID Web UI:
 ![pocket-id-1](../img/admins/pocket-id-1.png)
 
 Give the client a name. Under callback URLs, put the URL for your FreshRSS instance as such:
-`https://freshrss.your.domain/i/oidc/`.
+`https://freshrss.example.net/i/oidc/`.
 (Optional) Upload a logo for the client. Click Save.
 
 OIDC credentials for the client will be generated. Click *Show more details* to view all generated fields.
@@ -42,7 +42,7 @@ services:
       OIDC_ENABLED: 1
       OIDC_CLIENT_ID: <POCKET_ID_CLIENT_ID>
       OIDC_CLIENT_SECRET: <POCKET_ID_SECRET>
-      OIDC_PROVIDER_METADATA_URL: https://pocketid.your.domain/.well-known/openid-configuration
+      OIDC_PROVIDER_METADATA_URL: https://pocketid.example.net/.well-known/openid-configuration
       OIDC_SCOPES: openid email profile
       OIDC_X_FORWARDED_HEADERS: X-Forwarded-Proto X-Forwarded-Host
       OIDC_REMOTE_USER_CLAIM: preferred_username

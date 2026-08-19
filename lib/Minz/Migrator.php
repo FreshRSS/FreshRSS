@@ -169,7 +169,7 @@ class Minz_Migrator
 	/**
 	 * Return the list of migrations, sorted with `strnatcmp`
 	 *
-	 * @see https://www.php.net/manual/en/function.strnatcmp.php
+	 * @see https://www.php.net/function.strnatcmp
 	 *
 	 * @return array<string,callable>
 	 */
@@ -209,7 +209,7 @@ class Minz_Migrator
 	/**
 	 * Return the list of available versions, sorted with `strnatcmp`
 	 *
-	 * @see https://www.php.net/manual/en/function.strnatcmp.php
+	 * @see https://www.php.net/function.strnatcmp
 	 *
 	 * @return string[]
 	 */

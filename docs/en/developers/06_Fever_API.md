@@ -125,13 +125,13 @@ I am [soliciting feedback](hxxps://feedafever.com/) from interested developers a
 Without further ado, the Fever API endpoint URL looks like:
 
 ```text
-https://your.domain/fever/?api
+https://your.domain.example/fever/?api
 ```
 
 All requests must be authenticated with a `POST`ed `api_key`. The value of `api_key` should be the md5 checksum of the Fever accounts email address and password concatenated with a colon. An example of a valid value for `api_key` using PHP’s native `md5()` function:
 
 ```php
-$email  = 'you@yourdomain.com';
+$email  = 'you@yourdomain.example';
 $pass   = 'b3stp4s4wd3v4';
 $api_key = md5($email.':'.$pass);
 ```
@@ -146,7 +146,7 @@ The default response is a JSON object containing two members:
 The API can also return XML by passing `xml` as the optional value of the `api` argument like so:
 
 ```text
-https://your.domain/fever/?api=xml
+https://your.domain.example/fever/?api=xml
 ```
 
 The top level XML element is named `response`.
@@ -162,7 +162,7 @@ When reading from the Fever API you add arguments to the query string of the API
 #### Groups
 
 ```text
-https://your.domain/fever/?api&groups
+https://your.domain.example/fever/?api&groups
 ```
 
 A request with the `groups` argument will return two additional members:
@@ -182,7 +182,7 @@ The “Kindling” super group is not included in this response and is composed 
 #### Feeds
 
 ```text
-https://your.domain/fever/?api&feeds
+https://your.domain.example/fever/?api&feeds
 ```
 
 A request with the `feeds` argument will return two additional members:
@@ -216,7 +216,7 @@ A `feeds_group` object has the following members:
 #### Favicons
 
 ```text
-https://your.domain/fever/?api&favicons
+https://your.domain.example/fever/?api&favicons
 ```
 
 A request with the `favicons` argument will return one additional member:
@@ -243,7 +243,7 @@ echo '<img src="data:'.$favicon['data'].'">';
 #### Items
 
 ```text
-https://your.domain/fever/?api&items
+https://your.domain.example/fever/?api&items
 ```
 
 A request with the `items` argument will return two additional members:
@@ -272,7 +272,7 @@ Most servers won’t have enough memory allocated to PHP to dump all items at on
 #### Hot Links
 
 ```text
-https://your.domain/fever/?api&links
+https://your.domain.example/fever/?api&links
 ```
 
 A request with the `links` argument will return one additional member:
@@ -295,7 +295,7 @@ A `link` object has the following members:
 When requesting hot links you can control the range and offset by specifying a length of days for each as well as a page to fetch additional hot links. A request with just the `links` argument is equivalent to:
 
 ```text
-https://your.domain/fever/?api&links&offset=0&range=7&page=1
+https://your.domain.example/fever/?api&links&offset=0&range=7&page=1
 ```
 
 Or the first page (`page=1`) of Hot links for the past week (`range=7`) starting now (`offset=0`).
@@ -311,7 +311,7 @@ Because Fever saves items and not individual links you can only "save" a Hot lin
 The `unread_item_ids` and `saved_item_ids` arguments can be used to keep your local cache synced with the remote Fever installation.
 
 ```text
-https://your.domain/fever/?api&unread_item_ids
+https://your.domain.example/fever/?api&unread_item_ids
 ```
 
 A request with the `unread_item_ids` argument will return one additional member:
@@ -319,7 +319,7 @@ A request with the `unread_item_ids` argument will return one additional member:
 * `unread_item_ids` (string/comma-separated list of positive integers)
 
 ```text
-https://your.domain/fever/?api&saved_item_ids
+https://your.domain.example/fever/?api&saved_item_ids
 ```
 
 A request with the `saved_item_ids` argument will return one additional member:

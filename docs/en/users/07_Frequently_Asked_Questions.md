@@ -70,7 +70,7 @@ If you are using a version prior to 1.16, you can disable your ad-blocker for Fr
 Examples with _uBlock_:
 
 * Whitelist your FreshRSS instance by adding it in _uBlock > Open the dashboard > Whitelist_.
-* Authorize your FreshRSS instance to call `sharing` configuration page by adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the dashboard > My filters_
+* Authorize your FreshRSS instance to call `sharing` configuration page by adding the rule `*sharing,domain=~yourdomain.example` in _uBlock > Open the dashboard > My filters_
 
 ## Problems with firewalls
 

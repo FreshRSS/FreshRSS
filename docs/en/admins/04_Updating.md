@@ -43,7 +43,7 @@ See [Updating on Linux](07_LinuxUpdate.md#using-git) for the same flow with `sud
 
 Updating from a zip archive works for any source installation.
 
-1. Download the latest [stable](https://codeload.github.com/FreshRSS/FreshRSS/zip/refs/heads/latest) or [rolling](https://codeload.github.com/FreshRSS/FreshRSS/zip/refs/heads/edge) release and extract it (for a specific version, use the [releases page](https://github.com/FreshRSS/FreshRSS/releases)). The archive contains a top-level `FreshRSS-X.Y.Z/` folder.
+1. Download the latest [stable (slow)](https://github.com/FreshRSS/FreshRSS/archive/refs/heads/latest.zip) or [rolling](https://github.com/FreshRSS/FreshRSS/archive/refs/heads/edge.zip) release and extract it (for a specific version, use the [releases page](https://github.com/FreshRSS/FreshRSS/releases)). The archive contains a top-level `FreshRSS-X.Y.Z/` folder.
 2. Copy the extracted contents into your FreshRSS directory, overwriting existing files. Your user data, extensions, and custom themes are preserved.
 3. Re-apply file ownership and permissions.
 

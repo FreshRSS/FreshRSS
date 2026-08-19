@@ -76,11 +76,11 @@ If your local user doesn’t have write access to the FreshRSS folder, use a sud
 	cd /usr/share/FreshRSS/
 	```
 
-2. Get the link to the Zip archive for [the latest release](https://github.com/FreshRSS/FreshRSS/releases/latest): <https://codeload.github.com/FreshRSS/FreshRSS/zip/refs/heads/latest>. If you want to use the rolling release, the link is <https://codeload.github.com/FreshRSS/FreshRSS/zip/refs/heads/edge>.
+2. Get the link to the Zip archive for [the latest release](https://github.com/FreshRSS/FreshRSS/releases/latest): <https://github.com/FreshRSS/FreshRSS/archive/refs/heads/latest.zip>. If you want to use the rolling release, the link is <https://github.com/FreshRSS/FreshRSS/archive/refs/heads/edge.zip>.
 
 3. Download and unzip the update file
 	```sh
-	wget -O freshrss.zip https://codeload.github.com/FreshRSS/FreshRSS/zip/refs/heads/latest
+	wget -O freshrss.zip https://github.com/FreshRSS/FreshRSS/archive/refs/heads/latest.zip
 	unzip freshrss.zip
 	```
 

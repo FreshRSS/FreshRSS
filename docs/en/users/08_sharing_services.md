@@ -32,7 +32,7 @@ FreshRSS has the option to share links with a bunch of services.
 | Pinterest         | Is an image sharing and social media service designed to enable saving and discovery of information| [Website](https://pinterest.com/), [Wikipedia](https://en.wikipedia.org/wiki/Pinterest) | |
 | Raindrop.io       | All-in-one bookmark manager                          | [Website](https://raindrop.io/)| |
 | Reddit            | A network of communities where people can dive into their interests, hobbies and passions| [Website](https://www.reddit.com/), [Wikipedia](https://en.wikipedia.org/wiki/Reddit)| |
-| Shaarli           | Self-hosted minimalist bookmark manager and link sharing service | [Website](https://shaarli.readthedocs.io/en/master/) | |
+| Shaarli           | Self-hosted minimalist bookmark manager and link sharing service | [Website](https://shaarli.readthedocs.io/) | |
 | Telegram          | Social network                         | [Website](https://telegram.org), [Wikipedia](https://en.wikipedia.org/wiki/Telegram_(software)) | |
 | Twitter           | Microblogging social network                         | [Website](https://twitter.com), [Wikipedia](https://de.wikipedia.org/wiki/Twitter) | |
 | wallabag          | Save and classify articles. Read them later. Freely  | [Website](https://wallabag.org/) | Compatible to version 1 and 2 |

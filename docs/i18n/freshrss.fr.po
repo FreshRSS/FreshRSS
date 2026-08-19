@@ -5981,8 +5981,7 @@ msgid ""
 "`_t()` can take any number of variables. The variables will then be replaced "
 "in the translation if it contains some “conversion specifications” (usually "
 "`%s` or `%d`). You can learn more about these specifications in the "
-"[`sprintf()` PHP function documentation](https://www.php.net/manual/function."
-"sprintf)."
+"[`sprintf()` PHP function documentation](https://www.php.net/function.sprintf)."
 msgstr ""
 
 #. type: Plain text
@@ -7971,11 +7970,11 @@ msgstr ""
 #: en/./users/07_Frequently_Asked_Questions.md:64
 msgid ""
 "Authorize your FreshRSS instance to call `sharing` configuration page by "
-"adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the "
+"adding the rule `*sharing,domain=~yourdomain.example` in _uBlock > Open the "
 "dashboard > My filters_"
 msgstr ""
 "Autorisez votre instance FreshRSS à appeler la page de configuration "
-"`sharing` en ajoutant la règle `*sharing,domain=~votredomaine.com` dans "
+"`sharing` en ajoutant la règle `*sharing,domain=~votredomaine.example` dans "
 "_uBlock > Ouvrir le fichier tableau de bord > Mes filtres_"
 
 #. type: Title ##
