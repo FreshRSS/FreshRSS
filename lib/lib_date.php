@@ -4,9 +4,9 @@ declare(strict_types=1);
 /**
  * Author: Alexandre Alapetite https://alexandre.alapetite.fr
  * 2014-06-01
- * License: GNU AGPLv3 http://www.gnu.org/licenses/agpl-3.0.html
+ * License: GNU AGPLv3 https://www.gnu.org/licenses/agpl-3.0.html
  *
- * Parser of ISO 8601 time intervals http://en.wikipedia.org/wiki/ISO_8601#Time_intervals
+ * Parser of ISO 8601 time intervals https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
  *	Examples: "2014-02/2014-04", "2014-02/04", "2014-06", "P1M"
  */
 

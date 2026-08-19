@@ -697,7 +697,7 @@ msgstr ""
 #. type: Plain text
 #: en/./developers/02_First_steps.md:91
 #, no-wrap
-msgid "> ℹ️ Also applies to [Microsoft Windows](https://docs.microsoft.com/windows/wsl/install-win10) thanks to [WSL](https://ubuntu.com/wsl).\n"
+msgid "> ℹ️ Also applies to [Microsoft Windows](https://learn.microsoft.com/windows/wsl/install) thanks to [WSL](https://ubuntu.com/wsl).\n"
 msgstr ""
 
 #. type: Plain text
@@ -1476,9 +1476,9 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/02_GitHub.md:62
-msgid "For further tips, see [here](https://chris.beams.io/posts/git-commit/)."
+msgid "For further tips, see [here](https://chris.beams.io/git-commit)."
 msgstr ""
-"Pour d’autres conseils, voir [ici](https://chris.beams.io/posts/git-commit/)."
+"Pour d’autres conseils, voir [ici](https://chris.beams.io/git-commit)."
 
 #. type: Title #
 #: en/./developers/03_Backend/01_Database_schema.md:1
@@ -2661,12 +2661,12 @@ msgstr ""
 #: en/./developers/04_Pull_requests.md:60
 #, fuzzy
 #| msgid ""
-#| "For further tips, see [here](https://chris.beams.io/posts/git-commit/)."
+#| "For further tips, see [here](https://chris.beams.io/git-commit)."
 msgid ""
 "You can find more information about commit messages [on this blog post]"
-"(https://chris.beams.io/posts/git-commit/)."
+"(https://chris.beams.io/git-commit)."
 msgstr ""
-"Pour d’autres conseils, voir [ici](https://chris.beams.io/posts/git-commit/)."
+"Pour d’autres conseils, voir [ici](https://chris.beams.io/git-commit)."
 
 #. type: Title ##
 #: en/./developers/04_Pull_requests.md:61
@@ -3422,7 +3422,7 @@ msgstr ""
 #: en/./developers/06_Fever_API.md:72
 #, no-wrap
 msgid "curl -s -F \"api_key=$api_key\" 'https://freshrss.example.net/api/fever.php?api'\n"
-msgstr "curl -s -F \"api_key=$api_key\" 'https://freshrss.exemple.net/api/fever.php?api'\n"
+msgstr "curl -s -F \"api_key=$api_key\" 'https://freshrss.example.net/api/fever.php?api'\n"
 
 #. type: Plain text
 #: en/./developers/06_Fever_API.md:77
@@ -4363,7 +4363,7 @@ msgstr "Routage"
 #| "In order to link a URL to a controller, first you have to go through a "
 #| "\"routing\" phase. In FreshRSS, this is particularly simple because it "
 #| "suffices to specify the name of the controller to load into the URL using "
-#| "a `c` parameter. For example, the address http://exemple.com?c=hello will "
+#| "a `c` parameter. For example, the address http://example.com?c=hello will "
 #| "execute the code contained in the `hello` controller."
 msgid ""
 "In order to link a URL to a controller, first you have to go through a "
@@ -4375,7 +4375,7 @@ msgstr ""
 "Afin de lier une URL à un contrôleur, on doit passer par une phase dite de « "
 "routage ». Dans FreshRSS, cela est particulièrement simple car il suffit "
 "d’indiquer le nom du contrôleur à charger dans l’URL à l’aide d’un paramètre "
-"`c`. Par exemple, l’adresse http://exemple.com?c=hello va exécuter le code "
+"`c`. Par exemple, l’adresse http://example.com?c=hello va exécuter le code "
 "contenu dans le contrôleur `hello`."
 
 #. type: Plain text
@@ -4432,13 +4432,13 @@ msgstr ""
 #: en/./developers/Minz/index.md:41
 #, fuzzy
 #| msgid ""
-#| "When loading the address http://exemple.com?c=hello&a=world, the `world` "
+#| "When loading the address http://example.com?c=hello&a=world, the `world` "
 #| "action is executed on the `hello` controller."
 msgid ""
 "When loading the address <http://example.com?c=hello&a=world>, the `world` "
 "action is executed on the `hello` controller."
 msgstr ""
-"Si l’on charge l’adresse http://exemple.com?c=hello&a=world, l’action "
+"Si l’on charge l’adresse http://example.com?c=hello&a=world, l’action "
 "`world` va donc être exécutée sur le contrôleur `hello`."
 
 #. type: Plain text
@@ -4446,7 +4446,7 @@ msgstr ""
 #, fuzzy
 #| msgid ""
 #| "Note: if `c` or `a` is not specified, the default value for each of these "
-#| "variables is `index`. So the address http://exemple.com?c=hello will "
+#| "variables is `index`. So the address http://example.com?c=hello will "
 #| "execute the `index` action of the `hello` controller."
 msgid ""
 "Note: if `c` or `a` is not specified, the default value for each of these "
@@ -4454,7 +4454,7 @@ msgid ""
 "execute the `index` action of the `hello` controller."
 msgstr ""
 "Note : si `c` ou `a` n’est pas précisée, la valeur par défaut de chacune de "
-"ces variables est `index`. Ainsi l’adresse http://exemple.com?c=hello va "
+"ces variables est `index`. Ainsi l’adresse http://example.com?c=hello va "
 "exécuter l’action `index` du contrôleur `hello`."
 
 #. type: Plain text
@@ -4650,7 +4650,7 @@ msgid ""
 "</p>\n"
 msgstr ""
 "<p>\n"
-"\tAccéder à la page <a href=\"http://exemple.com?c=hello&amp;a=world\">Hello world</a>!\n"
+"\tAccéder à la page <a href=\"http://example.com?c=hello&amp;a=world\">Hello world</a>!\n"
 "</p>\n"
 
 #. type: Plain text
@@ -4658,7 +4658,7 @@ msgstr ""
 #, fuzzy
 #| msgid ""
 #| "If one day it was decided to use a \"url rewriting\" system to have "
-#| "addresses in a http://exemple.com/controller/action format, all previous "
+#| "addresses in a http://example.com/controller/action format, all previous "
 #| "addresses would become ineffective!"
 msgid ""
 "If one day it was decided to use a \"url rewriting\" system to have "
@@ -4666,7 +4666,7 @@ msgid ""
 "addresses would become ineffective!"
 msgstr ""
 "Si un jour il est décidé d’utiliser un système d'« url rewriting » pour "
-"avoir des adresses au format http://exemple.com/controller/action, toutes "
+"avoir des adresses au format http://example.com/controller/action, toutes "
 "les adresses précédentes deviendraient ineffectives !"
 
 #. type: Plain text
@@ -5202,7 +5202,7 @@ msgstr ""
 #. type: Bullet: '* '
 #: en/./developers/OPML.md:54
 msgid ""
-"`frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/en-US/"
+"`frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/"
 "docs/Web/CSS/CSS_Selectors) to enable the download and extraction of the "
 "matching HTML section of each articles’ Web address."
 msgstr ""
@@ -5981,8 +5981,7 @@ msgid ""
 "`_t()` can take any number of variables. The variables will then be replaced "
 "in the translation if it contains some “conversion specifications” (usually "
 "`%s` or `%d`). You can learn more about these specifications in the "
-"[`sprintf()` PHP function documentation](https://www.php.net/manual/function."
-"sprintf)."
+"[`sprintf()` PHP function documentation](https://www.php.net/function.sprintf)."
 msgstr ""
 
 #. type: Plain text
@@ -6477,7 +6476,7 @@ msgid ""
 "consisting of IDs and classes (which in HTML, matches the id and class "
 "attributes) to retrieve only the interesting part that corresponds to the "
 "article. Ideally, this path starts with an id (which is unique to the page). "
-"The basics are explained [here](https://developer.mozilla.org/en-US/docs/"
+"The basics are explained [here](https://developer.mozilla.org/docs/"
 "Learn/CSS/Building_blocks/Selectors)."
 msgstr ""
 "Ce que j’entends par \"Chemin CSS des articles sur le site d’origine\" "
@@ -7971,11 +7970,11 @@ msgstr ""
 #: en/./users/07_Frequently_Asked_Questions.md:64
 msgid ""
 "Authorize your FreshRSS instance to call `sharing` configuration page by "
-"adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the "
+"adding the rule `*sharing,domain=~yourdomain.example` in _uBlock > Open the "
 "dashboard > My filters_"
 msgstr ""
 "Autorisez votre instance FreshRSS à appeler la page de configuration "
-"`sharing` en ajoutant la règle `*sharing,domain=~votredomaine.com` dans "
+"`sharing` en ajoutant la règle `*sharing,domain=~votredomaine.example` dans "
 "_uBlock > Ouvrir le fichier tableau de bord > Mes filtres_"
 
 #. type: Title ##
@@ -8464,7 +8463,7 @@ msgid ""
 "<https://freshrss.example.net/i/?"
 "c=feed&a=actualize&maxFeeds=10&ajax=1&user=someone&token=my-token>"
 msgstr ""
-"0 * * * * curl 'https://freshrss.exemple.net/i/?"
+"0 * * * * curl 'https://freshrss.example.net/i/?"
 "c=feed&a=actualize&user=quelquun&token=mon-token'\n"
 
 #. type: Plain text
@@ -8515,7 +8514,7 @@ msgstr ""
 #, fuzzy, no-wrap
 #| msgid "0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize'\n"
 msgid "0 * * * * curl -u alice:password123 'https://freshrss.example.net/i/?c=feed&a=actualize&maxFeeds=10&ajax=1&user=alice'\n"
-msgstr "0 * * * * curl -u alice:motdepasse123 'https://freshrss.exemple.net/i/?c=feed&a=actualize'\n"
+msgstr "0 * * * * curl -u alice:motdepasse123 'https://freshrss.example.net/i/?c=feed&a=actualize'\n"
 
 #. type: Plain text
 #: en/./users/09_refreshing_feeds.md:104
@@ -8532,7 +8531,7 @@ msgid ""
 "<https://alice:password123@freshrss.example.net/i/?"
 "c=feed&a=actualize&maxFeeds=10&ajax=1&user=alice>"
 msgstr ""
-"0 * * * * curl -u alice:motdepasse123 'https://freshrss.exemple.net/i/?"
+"0 * * * * curl -u alice:motdepasse123 'https://freshrss.example.net/i/?"
 "c=feed&a=actualize'\n"
 
 #. type: Title ###

@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archyvavimas',
 		'dynamic_opml' => array(
 			'_' => 'Dinaminis OPML',
-			'help' => 'Nurodykite <a href="http://opml.org/" target="_blank">OPML failo</a> URL, kad ši kategorija būtų dinamiškai užpildyta kanalais',
+			'help' => 'Nurodykite <a href="https://opml.org/" target="_blank">OPML failo</a> URL, kad ši kategorija būtų dinamiškai užpildyta kanalais',
 		),
 		'empty' => 'Ištuštinti kategoriją',
 		'error' => 'Su šia dinaminio OPML kategorija iškilo problema. Patikrinkite, ar OPML URL vis dar pasiekiamas ir ar neviršytas didžiausias kanalų skaičius vienam naudotojui.',
@@ -125,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Pasirinktinis datos / laiko formatas',
-					'help' => 'Neprivaloma. Formatas, palaikomas <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, pvz. <code>d-m-Y H:i:s</code>',
+					'help' => 'Neprivaloma. Formatas, palaikomas <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, pvz. <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'elemento data',
-					'help' => 'Rezultatą apdoros <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Rezultatą apdoros <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'elemento pavadinimas',
-					'help' => 'Ypač naudokite <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath ašį</a> <code>descendant::</code>, pvz. <code>descendant::h2</code>',
+					'help' => 'Ypač naudokite <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath ašį</a> <code>descendant::</code>, pvz. <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'unikalus elemento ID',
@@ -169,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Pasirinktinis datos / laiko formatas',
-					'help' => 'Neprivaloma. Formatas, palaikomas <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, pvz. <code>d-m-Y H:i:s</code>',
+					'help' => 'Neprivaloma. Formatas, palaikomas <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, pvz. <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'elemento data',
-					'help' => 'Rezultatą apdoros <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Rezultatą apdoros <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'elemento pavadinimas',
 				'item_uid' => 'unikalus elemento ID',

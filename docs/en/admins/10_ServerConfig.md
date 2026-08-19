@@ -115,7 +115,7 @@ server {
 
 ## Security
 
-Avoid overwriting the [`Content-Security-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) header with directives such as `more_set_headers "Content-Security-Policy: ..."` or `add_header 'Content-Security-Policy' '...'`.
+Avoid overwriting the [`Content-Security-Policy`](https://developer.mozilla.org/docs/Web/HTTP/Guides/CSP) header with directives such as `more_set_headers "Content-Security-Policy: ..."` or `add_header 'Content-Security-Policy' '...'`.
 
 ✅ Example of good CSP: `default-src 'self'; frame-ancestors 'self'`
 
