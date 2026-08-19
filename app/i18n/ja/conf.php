@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'APIステータスを確認する：<kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'APIアクセスは無効です。',
 			'documentation_link' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメントと既知のアプリ一覧</a>を参照してください',
-			'help' => '<a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ドキュメント</a>を参照してください',
 			'security_warning' => 'HTTPSを使用してください。APIパスワードは平文で送信され、GETで送信した場合はサーバーログに記録される可能性があります。',
 		),
 		'change_password' => 'パスワードを変更',

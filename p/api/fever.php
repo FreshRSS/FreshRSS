@@ -7,7 +7,7 @@ header('X-Content-Type-Options: nosniff');
  * Fever API for FreshRSS
  * Version 0.1
  * Author: Kevin Papst / https://github.com/kevinpapst
- * Documentation: https://feedafever.com/api
+ * Documentation: https://freshrss.github.io/FreshRSS/en/developers/06_Fever_API.html#official-fever-api-reference-mirrored
  *
  * Inspired by:
  * TinyTinyRSS Fever API plugin @dasmurphy
@@ -38,7 +38,7 @@ $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1_048_576) ?:
 function debugInfo(): string {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
-	} else {	//nginx	http://php.net/getallheaders#84262
+	} else {	// nginx	https://www.php.net/getallheaders#84262
 		$ALL_HEADERS = [];
 		foreach ($_SERVER as $name => $value) {
 			if (is_string($name) && str_starts_with($name, 'HTTP_')) {

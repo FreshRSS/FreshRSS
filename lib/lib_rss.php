@@ -382,7 +382,7 @@ function checkTrustedIP(): bool {
 
 /**
  * Remove a directory recursively.
- * From http://php.net/rmdir#110489
+ * From https://www.php.net/rmdir#110489
  */
 function recursive_unlink(string $dir): bool {
 	if (!is_dir($dir)) {

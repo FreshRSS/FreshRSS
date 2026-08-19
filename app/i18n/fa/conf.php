@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'بررسی وضعیت از طریق: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'غیرفعال',
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">مستندات و فهرست برنامه‌های شناخته‌شده</a>',	// IGNORE
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
 			'security_warning' => 'از HTTPS استفاده کنید. رمز عبور API به صورت متن ساده ارسال می‌شود و اگر با GET فرستاده شود ممکن است در لاگ‌های سرور ثبت شود.',
 		),
 		'change_password' => 'تغییر رمز عبور',

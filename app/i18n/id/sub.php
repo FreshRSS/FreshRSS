@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Pengarsipan',
 		'dynamic_opml' => array(
 			'_' => 'OPML dinamis',
-			'help' => 'Sediakan URL ke <a href="http://opml.org/" target="_blank">berkas OPML</a> untuk memasukkan umpan ke kategori ini secara dinamis',
+			'help' => 'Sediakan URL ke <a href="https://opml.org/" target="_blank">berkas OPML</a> untuk memasukkan umpan ke kategori ini secara dinamis',
 		),
 		'empty' => 'Kategori kosong',
 		'error' => 'Kategori OPML dinamis ini mengalami masalah. Periksa apakah URL OPML masih dapat dijangkau dan jumlah maksimum umpan per pengguna belum terlampaui.',
@@ -125,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Format tanggal dan waktu kustom',
-					'help' => 'Opsional. Format yang didukung oleh <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> seperti <code>d-m-Y H:i:s</code>',
+					'help' => 'Opsional. Format yang didukung oleh <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> seperti <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'tanggal',
-					'help' => 'Hasil akan diproses oleh <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Hasil akan diproses oleh <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'judul',
-					'help' => 'Gunakan khususnya <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> seperti <code>descendant::h2</code>',
+					'help' => 'Gunakan khususnya <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> seperti <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'ID unik',
@@ -169,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Format tanggal dan waktu kustom',
-					'help' => 'Opsional. Format yang didukung oleh <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> seperti <code>d-m-Y H:i:s</code>',
+					'help' => 'Opsional. Format yang didukung oleh <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> seperti <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'tanggal',
-					'help' => 'Hasil akan diproses oleh <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Hasil akan diproses oleh <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'judul',
 				'item_uid' => 'ID unik',

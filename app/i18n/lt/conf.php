@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Patikrinkite API būseną: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'API prieiga išjungta.',
 			'documentation_link' => 'Žr. <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentaciją ir žinomų programų sąrašą</a>',
-			'help' => 'Žr. <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentaciją</a>',
+			'help' => 'Žr. <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentaciją</a>',
 			'security_warning' => 'Naudokite HTTPS. API slaptažodis perduodamas atviru tekstu ir gali atsirasti serverio žurnaluose, jei siunčiamas per GET.',
 		),
 		'change_password' => 'Keisti slaptažodį',

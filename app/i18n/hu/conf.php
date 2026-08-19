@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'API státusz ellenőrzése: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'Az API hozzáférés ki van kapcsolva.',
 			'documentation_link' => 'Lásd az <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ismert appok dokumentációját és listáját</a>',
-			'help' => 'Lásd a <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentációt</a>',
+			'help' => 'Lásd a <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentációt</a>',
 			'security_warning' => 'Használj HTTPS-t. Az API-jelszó titkosítatlanul kerül továbbításra, és GET-tel küldve megjelenhet a szervernaplókban.',
 		),
 		'change_password' => 'Jelszó megváltoztatása',

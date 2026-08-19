@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Перевірте стан API: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'Доступ через API вимкнено.',
 			'documentation_link' => 'Перегляньте <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацію та перелік відомих програм</a>',
-			'help' => 'Перегляньте <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>документацію</a>',
+			'help' => 'Перегляньте <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>документацію</a>',
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Змінити пароль',
