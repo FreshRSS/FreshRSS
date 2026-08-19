@@ -526,7 +526,8 @@ class File implements Response
         return (int) $this->status_code;
     }
 
-    public function set_status_code(int $status_code): void {
+    public function set_status_code(int $status_code): void
+    {
         $this->status_code = $status_code;
     }
 
@@ -572,7 +573,8 @@ class File implements Response
         return (string) $this->body;
     }
 
-    public function set_body_content(string $body): void {
+    public function set_body_content(string $body): void
+    {
         $this->body = $body;
     }
 
