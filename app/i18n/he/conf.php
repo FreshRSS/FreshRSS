@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
@@ -243,22 +243,15 @@ return array(
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
 		),
-		'state_0' => 'הצגת כל המאמרים',
-		'state_1' => 'הצגת מאמרים שנקראו',
-		'state_2' => 'הצגת מאמרים שלא נקראו',
-		'state_3' => 'הצגת כל המאמרים',
-		'state_4' => 'הצגת מאמרים מועדפים',
-		'state_5' => 'הצגת מאמרים מועדפים שנקראו',
-		'state_6' => 'הצגת מאמרים מועדפים שלא נקראו',
-		'state_7' => 'הצגת מאמרים מועדפים',
-		'state_8' => 'הצגת מאמרים שאינם מועדפים',
-		'state_9' => 'הצגת מאמרים שנקראו ואינם מועדפים',
-		'state_10' => 'הצגת מאמרים שלא נקראו ואינם מועדפים',
-		'state_11' => 'הצגת מאמרים לא מועדפים',
-		'state_12' => 'הצגת כל המאמרים',
-		'state_13' => 'הצגת מאמרים שנקראו',
-		'state_14' => 'הצגת מאמרים שלא נקראו',
-		'state_15' => 'הצגת	כל המאמרים',
+		'state_all' => 'הצגת	כל המאמרים',
+		'state_favorite' => 'הצגת מאמרים מועדפים',
+		'state_not_favorite' => 'הצגת מאמרים לא מועדפים',
+		'state_read' => 'הצגת מאמרים שנקראו',
+		'state_read_favorite' => 'הצגת מאמרים מועדפים שנקראו',
+		'state_read_not_favorite' => 'הצגת מאמרים שנקראו ואינם מועדפים',
+		'state_unread' => 'הצגת מאמרים שלא נקראו',
+		'state_unread_favorite' => 'הצגת מאמרים מועדפים שלא נקראו',
+		'state_unread_not_favorite' => 'הצגת מאמרים שלא נקראו ואינם מועדפים',
 		'title' => 'שאילתות',
 	),
 	'reading' => array(

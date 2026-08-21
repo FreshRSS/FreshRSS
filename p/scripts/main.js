@@ -88,7 +88,7 @@ function numberFormat(nStr) {
 	if (nStr < 0) {
 		return 0;
 	}
-	// http://www.mredkj.com/javascript/numberFormat.html
+	// https://www.mredkj.com/javascript/numberFormat.html
 	const x = String(nStr).split('.');
 	const x2 = x.length > 1 ? '.' + x[1] : '';
 	const rgx = /(\d+)(\d{3})/;
@@ -323,9 +323,7 @@ function send_mark_queue_tick(callback) {
 const delayedFunction = send_mark_queue_tick;
 
 function delayedClick(a) {
-	if (a) {
-		delayedFunction(function () { a.click(); });
-	}
+	delayedFunction(function () { a.click(); });
 }
 
 function mark_read(div, only_not_read, asBatch) {
@@ -612,7 +610,7 @@ function next_unread_entry(skipping) {
 	toggleContent(new_active, old_active, skipping);
 }
 
-function prev_feed(jump_to_unread) {
+function prev_feed() {
 	let found = false;
 	let adjacent = null;
 	const feeds = document.querySelectorAll('#aside_feed .feed');
@@ -628,16 +626,14 @@ function prev_feed(jump_to_unread) {
 		if (getComputedStyle(feed).display === 'none') {
 			continue;
 		}
-		if (jump_to_unread && feed.dataset.unread != 0) {
-			delayedClick(feed.querySelector('a.item-title'));
-			return;
-		} else if (adjacent === null) {
+		if (adjacent === null) {
 			adjacent = feed;
 		}
 	}
 	if (found && adjacent) {
 		delayedClick(adjacent.querySelector('a.item-title'));
 	} else {
+		// if the current active item is a category, goes to the last feed of the category above
 		last_feed();
 	}
 }
@@ -668,25 +664,58 @@ function next_feed(jump_to_unread) {
 	if (found && adjacent) {
 		delayedClick(adjacent.querySelector('a.item-title'));
 	} else {
-		first_feed();
+		// if the current active feed is the last of the entire feed list, doesn't do anything
+		first_feed(jump_to_unread);
 	}
 }
 
-function first_feed() {
-	const a = document.querySelector('#aside_feed .category.active .feed:not([data-unread="0"]) a.item-title');
-	delayedClick(a);
+function first_feed(jump_to_unread, skip_if_last = true) {
+	let feed;
+	if (jump_to_unread) {
+		feed = document.querySelector('#aside_feed .category.active .feed:not([data-unread="0"])');
+	} else {
+		feed = document.querySelector('#aside_feed .category.active .feed');
+	}
+	while (getComputedStyle(feed).display === 'none') {
+		feed = feed.nextElementSibling;
+		if (!feed) {
+			return;
+		}
+	}
+	const categoryItems = feed.parentElement;
+	if (skip_if_last && categoryItems.querySelector('.feed.active') === categoryItems.lastElementChild) {
+		return;
+	}
+	const link = feed.querySelector('a.item-title');
+	delayedClick(link);
 }
 
 function last_feed() {
-	const links = document.querySelectorAll('#aside_feed .category.active .feed:not([data-unread="0"]) a.item-title');
-	if (links && links.length > 0) {
-		delayedClick(links[links.length - 1]);
+	let feed = document.querySelector('#aside_feed .category.active .feed:last-child');
+	if (feed.classList.contains('active')) {
+		const category = feed.closest('.category').previousElementSibling;
+		if (category) {
+			delayedClick(category);
+		}
+		return;
 	}
+	while (getComputedStyle(feed).display === 'none') {
+		feed = feed.previousElementSibling;
+		if (!feed) {
+			return;
+		}
+	}
+	const link = feed.querySelector('a.item-title');
+	delayedClick(link);
 }
 
 function prev_category() {
 	const active_cat = document.querySelector('#aside_feed .category.active');
 	if (active_cat) {
+		if (active_cat.querySelector('.feed.active')) {
+			delayedClick(active_cat.querySelector('a.tree-folder-title'));
+			return;
+		}
 		let cat = active_cat;
 		do cat = cat.previousElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
@@ -720,6 +749,8 @@ function next_unread_category() {
 		while (cat && cat.getAttribute('data-unread') <= 0);
 		if (cat) {
 			delayedClick(cat.querySelector('a.tree-folder-title'));
+		} else if (active_cat.nextElementSibling) {
+			delayedClick(active_cat.nextElementSibling.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -727,15 +758,20 @@ function next_unread_category() {
 }
 
 function first_category() {
-	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
+	// goes to main stream which is always visible
+	const a = document.querySelector('#aside_feed .category a.tree-folder-title');
 	delayedClick(a);
 }
 
 function last_category() {
-	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
-	if (links && links.length > 0) {
-		delayedClick(links[links.length - 1]);
+	let category = document.querySelector('#sidebar > :nth-last-child(2)');
+	while (getComputedStyle(category).display === 'none') {
+		category = category.previousElementSibling;
+		if (!category) {
+			return;
+		}
 	}
+	delayedClick(category.querySelector('a.tree-folder-title'));
 }
 
 function collapse_entry() {
@@ -958,7 +994,7 @@ function init_posts() {
 	}
 
 	if (!navigator.share && document.styleSheets.length > 0) {
-		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		// https://developer.mozilla.org/docs/Web/API/Navigator/share
 		// do not show the menu entry if browser does not support navigator.share
 		document.styleSheets[0].insertRule(
 			'button.as-link[data-type="web-sharing-api"] {display: none !important;}',
@@ -1271,7 +1307,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				prev_category();
 			} else if (ev.shiftKey) {
-				prev_feed(false);
+				prev_feed();
 			} else {
 				prev_entry(false);
 			}
@@ -1293,7 +1329,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				first_category();
 			} else if (ev.shiftKey) {
-				first_feed();
+				first_feed(false, false);
 			} else {
 				const old_active = document.querySelector('.flux.current');
 				const first = document.querySelector('.flux');
@@ -1514,7 +1550,7 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.share > button[data-type="web-sharing-api"]');
-		if (el && navigator.share) {	// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		if (el && navigator.share) {	// https://developer.mozilla.org/docs/Web/API/Navigator/share
 			const shareData = {
 				url: el.dataset.url,
 				title: decodeURI(el.dataset.title),
@@ -2315,7 +2351,8 @@ function faviconNbUnread(n) {
 		return;
 	}
 	const svgBase = dynamicFaviconBase.innerHTML;
-	const link = document.getElementById('favicon')?.cloneNode(true);
+	const favicon = document.getElementById('favicon');
+	const link = favicon?.cloneNode(true);
 	if (link) {
 		let svgOutput = '';
 		if (n > 0) {
@@ -2351,8 +2388,7 @@ function faviconNbUnread(n) {
 			temp.remove();
 		}
 		link.href = `data:image/svg+xml;base64,${btoa(svgOutput || svgBase)}`;
-		document.querySelector('#favicon').remove();
-		document.head.appendChild(link);
+		favicon.replaceWith(link);
 	}
 }
 

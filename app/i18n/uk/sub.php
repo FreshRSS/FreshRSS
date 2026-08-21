@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Архівування',
 		'dynamic_opml' => array(
 			'_' => 'Динамічний OPML',
-			'help' => 'Щоб динамічно заповнювати цю категорію стрічками, вкажіть URL-адресу <a href="http://opml.org/" target="_blank">OPML-файлу</a>',
+			'help' => 'Щоб динамічно заповнювати цю категорію стрічками, вкажіть URL-адресу <a href="https://opml.org/" target="_blank">OPML-файлу</a>',
 		),
 		'empty' => 'Порожня категорія',
 		'error' => 'З цією динамічною OPML-категорією щось не так. Упевніться, що URL-адреса OPML усе ще доступна, а максимальної кількості стрічок користувача ще не вичерпано.',
@@ -125,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Особливий формат дати й часу',
-					'help' => 'Необовʼязково. Формат мусить підтримуватись <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, наприклад <code>d-m-Y H:i:s</code>',
+					'help' => 'Необовʼязково. Формат мусить підтримуватись <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, наприклад <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'дати новини',
-					'help' => 'Результат буде розпізнано за допомогою <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Результат буде розпізнано за допомогою <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'заголовка новини',
-					'help' => 'Використовуйте зокрема <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">вісь XPath</a> <code>descendant::</code>, наприклад <code>descendant::h2</code>',
+					'help' => 'Використовуйте зокрема <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">вісь XPath</a> <code>descendant::</code>, наприклад <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'унікального ідентифікатора новини',
@@ -169,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Особливий формат дати й часу',
-					'help' => 'Необовʼязково. Формат мусить підтримуватись <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, наприклад <code>d-m-Y H:i:s</code>',
+					'help' => 'Необовʼязково. Формат мусить підтримуватись <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, наприклад <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'дати новини',
-					'help' => 'Результат буде розпізнано за допомогою <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Результат буде розпізнано за допомогою <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'заголовка новини',
 				'item_uid' => 'унікального ідентифікатора новини',

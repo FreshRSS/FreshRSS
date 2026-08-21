@@ -2,7 +2,7 @@
 
 Afin d’avoir le plus de retour possible avant une sortie, il est préférable
 de l’annoncer sur GitHub en créant un ticket dédié ([voir les
-exemples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)).
+exemples](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS%20Call%20for%20testing&type=Issues)).
 Ceci est à faire **au moins une semaine à l’avance**.
 
 Il est aussi recommandé de faire l’annonce sur <mailing@freshrss.org>.

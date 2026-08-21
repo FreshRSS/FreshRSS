@@ -56,13 +56,13 @@ Then, insert a blank line, and start to write the body. It’s usually wrapped a
 
 You also can add references (e.g., the URL to the initial ticket in the bug tracker, or a reference to some forum explaining a point).
 
-You can find more information about commit messages [on this blog post](https://chris.beams.io/posts/git-commit/).
+You can find more information about commit messages [in this blog post](https://chris.beams.io/git-commit).
 
 ## How to write tests
 
 FreshRSS has few tests for now, but we’re working on it. We added this point to the checklist to help us to write more tests, and we would really appreciate it if you wrote a test that ensures your patch is working.
 
-We use [PHPUnit](https://phpunit.de/) version 7.5 ([documentation](https://phpunit.readthedocs.io/en/7.5/)).
+We use [PHPUnit](https://phpunit.de/) ([documentation](https://docs.phpunit.de/en/13.3/)).
 
 You’ll find more information on how to run tests [in this document](03_Running_tests.md).
 

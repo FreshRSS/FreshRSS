@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
@@ -243,22 +243,15 @@ return array(
 			'opml' => 'Zdielateľný odkaz na OPML zoznam kanálov',
 			'rss' => 'Zdielateľný odkaz na RSS kanále',
 		),
-		'state_0' => 'Zobraziť všetky články',
-		'state_1' => 'Zobraziť prečítané články',
-		'state_2' => 'Zobraziť neprečítané články',
-		'state_3' => 'Zobraziť všetky články',
-		'state_4' => 'Zobraziť obľúbené články',
-		'state_5' => 'Zobraziť prečítané obľúbené články',
-		'state_6' => 'Zobraziť neprečítané obľúbené články',
-		'state_7' => 'Zobraziť obľúbené články',
-		'state_8' => 'Zobraziť neobľúbené články',
-		'state_9' => 'Zobraziť prečítané neobľúbené články',
-		'state_10' => 'Zobraziť neprečítané neobľúbené články',
-		'state_11' => 'Zobraziť neobľúbené články',
-		'state_12' => 'Zobraziť všetky články',
-		'state_13' => 'Zobraziť prečítané články',
-		'state_14' => 'Zobraziť neprečítané články',
-		'state_15' => 'Zobraziť všetky články',
+		'state_all' => 'Zobraziť všetky články',
+		'state_favorite' => 'Zobraziť obľúbené články',
+		'state_not_favorite' => 'Zobraziť neobľúbené články',
+		'state_read' => 'Zobraziť prečítané články',
+		'state_read_favorite' => 'Zobraziť prečítané obľúbené články',
+		'state_read_not_favorite' => 'Zobraziť prečítané neobľúbené články',
+		'state_unread' => 'Zobraziť neprečítané články',
+		'state_unread_favorite' => 'Zobraziť neprečítané obľúbené články',
+		'state_unread_not_favorite' => 'Zobraziť neprečítané neobľúbené články',
 		'title' => 'Používateľské dopyty',
 	),
 	'reading' => array(

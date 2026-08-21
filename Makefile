@@ -75,7 +75,12 @@ test: bin/phpunit ## Run the PHP test suite
 
 bin/composer:
 	mkdir -p bin/
-	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/a5abae68b349213793dca4a1afcaada0ad11143b/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+	cd bin ; \
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/acf8a43b6a379f3a5ef72ebf21979f4936a608fd/web/installer' && \
+	echo 'aad0c40a36d9938664f5a34eb2ed39dbc1021792f9706dbcb9cd6d8001227c99  installer' | sha256sum -c - && \
+	php installer -- --quiet --install-dir='./' --filename='composer' && \
+	rm installer && \
+	cd ..
 
 # building any of these builds them all
 vendor/bin/phpunit vendor/bin/phpcs vendor/bin/phpcbf vendor/bin/phpstan &: bin/composer
@@ -89,7 +94,8 @@ bin/phpunit bin/phpcs bin/phpcbf bin/phpstan : % : vendor/%
 bin/typos:
 	mkdir -p bin/
 	cd bin ; \
-	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.29.9/typos-v1.29.9-x86_64-unknown-linux-musl.tar.gz' && \
+	wget 'https://github.com/crate-ci/typos/releases/download/v1.49.0/typos-v1.49.0-x86_64-unknown-linux-musl.tar.gz' && \
+	echo '48bd2d58e02ce713b8c0f1aa239e68ee4f7d8c551013135806e6aed3938d9e10  typos-v1.49.0-x86_64-unknown-linux-musl.tar.gz' | sha256sum -c - && \
 	tar -xvf *.tar.gz './typos' && \
 	chmod +x typos && \
 	rm *.tar.gz ; \

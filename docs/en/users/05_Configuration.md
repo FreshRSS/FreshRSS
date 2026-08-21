@@ -255,4 +255,4 @@ AuthType Basic
 Require user marie
 ```
 
-More information can be found in the [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
+More information can be found in the [Apache documentation](https://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).

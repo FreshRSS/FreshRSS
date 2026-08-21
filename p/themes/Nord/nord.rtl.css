@@ -71,7 +71,7 @@
 	src: local('Lato'),
 		url('../fonts/LatoLatin-Regular.woff') format('woff'),
 		url('../fonts/LatoLatin-Bold.woff') format('woff'),
-		url('../fonts/LatoLatin-Bolditalic.woff') format('woff'),
+		url('../fonts/LatoLatin-BoldItalic.woff') format('woff'),
 		url('../fonts/LatoLatin-Italic.woff') format('woff');
 }
 

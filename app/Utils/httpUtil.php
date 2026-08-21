@@ -286,7 +286,7 @@ final class FreshRSS_http_Util {
 			return false;
 		}
 		foreach ([&$url1, &$url2] as &$url) {
-			$url['port'] ??= match ($url['scheme']) {
+			$url['port'] ??= match ($url['scheme'] ?? '') {
 				'http' => 80,
 				'https' => 443,
 				default => 0,
@@ -464,6 +464,11 @@ final class FreshRSS_http_Util {
 	 *   * `-500` `curl_init()` failure.
 	 */
 	public static function httpGet(string $url, ?string $cachePath = null, string $type = 'html', array $attributes = [], array $curl_options = []): array {
+		if (!\SimplePie\Misc::is_remote_uri($url)) {
+			Minz_Log::warning('Error fetching content: malformed URL “' . $url . '“');
+			return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+		}
+
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$feed_timeout = empty($attributes['timeout']) || !is_numeric($attributes['timeout']) ? 0 : intval($attributes['timeout']);
 
@@ -658,8 +663,9 @@ final class FreshRSS_http_Util {
 			if (in_array($c_status, [301, 302, 303, 307, 308], true)) {
 				// Handle the redirect by making another request
 				$location = \SimplePie\Misc::absolutize_url($headers['location'] ?? $url, $url);
-				if ($location === false) {
-					$location = $url;
+				if ($location === false || !\SimplePie\Misc::is_remote_uri($location)) {
+					Minz_Log::warning('Invalid redirect location: malformed URL “' . ($headers['location'] ?? $url) . '“');
+					break;
 				}
 				if (!self::compareURLOrigins($url, $location)) {
 					unset($curl_options[CURLOPT_COOKIE]);
@@ -738,7 +744,7 @@ final class FreshRSS_http_Util {
 		}
 
 		if ($cachePath !== null && file_put_contents($cachePath, $body) === false) {
-			Minz_Log::warning("Error saving cache $cachePath for $url");
+			Minz_Log::warning("Error saving cache for $url");
 		}
 
 		return ['body' => is_string($body) ? $body : '', 'effective_url' => $c_effective_url, 'redirect_count' => $redirs,

@@ -64,7 +64,7 @@ FreshRSS comes with absolutely no warranty.
 	* It even works on Raspberry Pi 1 with response time under a second (tested with 150 feeds, 22k articles)
 * A Web server: Apache2.4+ (recommended), nginx, lighttpd (not tested on others)
 * PHP 8.1+
-	* Required extensions: [cURL](https://www.php.net/curl), [DOM](https://www.php.net/dom), [JSON](https://www.php.net/json), [XML](https://www.php.net/xml), [session](https://www.php.net/session), [ctype](https://www.php.net/ctype)
+	* Required extensions: [cURL](https://www.php.net/curl), [DOM](https://www.php.net/dom), [JSON](https://www.php.net/json), [XML](https://www.php.net/xml), [session](https://www.php.net/features.sessions), [ctype](https://www.php.net/ctype)
 	* Recommended extensions: [PDO_SQLite](https://www.php.net/pdo-sqlite) (for export/import), [GMP](https://www.php.net/gmp) (for API access on 32-bit platforms), [IDN](https://www.php.net/intl.idn) (for Internationalized Domain Names), [mbstring](https://www.php.net/mbstring) (for Unicode strings), [iconv](https://www.php.net/iconv) (for charset conversion), [ZIP](https://www.php.net/zip) (for import/export), [zlib](https://www.php.net/zlib) (for compressed feeds)
 	* Extension for database: [PDO_PGSQL](https://www.php.net/pdo-pgsql) or [PDO_SQLite](https://www.php.net/pdo-sqlite) or [PDO_MySQL](https://www.php.net/pdo-mysql)
 * PostgreSQL 10+ or SQLite or MariaDB 10.6+ or MySQL 8.0+
@@ -79,15 +79,15 @@ If you want a rolling release with the newest features, or want to help testing 
 
 | | | |
 |-|-|-|
-| [<img src="https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png" width="160" alt="Docker" />](./Docker/) | [<img src="https://install-app.yunohost.org/install-with-yunohost.png" width="160" alt="YunoHost" />](https://install-app.yunohost.org/?app=freshrss) | [<img src="https://elest.io/images/logos/deploy-to-elestio-btn.png" width="160" alt="Elestio" />](https://elest.io/open-source/freshrss) |
+| [<img src="https://www.docker.com/app/uploads/2022/03/horizontal-logo-monochromatic-white.png" width="160" alt="Docker" />](./Docker/) | [<img src="https://install-app.yunohost.org/install-with-yunohost.png" width="160" alt="YunoHost" />](https://install-app.yunohost.org/?app=freshrss) | [<img src="https://elest.io/images/logos/deploy-to-elestio-btn.png" width="160" alt="Elestio" />](https://elest.io/open-source/freshrss) |
 | [<img src="https://cloudron.io/img/button.svg" width="160" alt="Cloudron" />](https://cloudron.io/button.html?app=org.freshrss.cloudronapp) | [<img src="https://www.pikapods.com/static/run-button-34.svg" width="160" alt="PikaPods" />](https://www.pikapods.com/pods?run=freshrss) | [<img src="https://zeabur.com/button.svg" width="160" alt="Zeabur" />](https://zeabur.com/templates/MD4TRW) |
-| [<img src="https://raw.githubusercontent.com/ClawCloud/Run-Template/refs/heads/main/Run-on-ClawCloud.svg" width="160" alt="ClawCloud" />](https://template.run.claw.cloud/?openapp=system-fastdeploy%3FtemplateName%3Dfreshrss) | [<img src="https://assets.hostinger.com/vps/deploy.svg" width="160" alt="Hostinger" />](https://www.hostinger.com/vps/docker-hosting?compose_url=https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/freshrss/docker-compose.yml) | |
+| [<img src="https://raw.githubusercontent.com/ClawCloud/Run-Template/refs/heads/main/Run-on-ClawCloud.svg" width="160" alt="ClawCloud" />](https://template.run.claw.cloud/?openapp=system-fastdeploy%3FtemplateName%3Dfreshrss) | [<img src="https://assets.hostinger.com/vps/deploy.svg" width="160" alt="Hostinger" />](https://www.hostinger.com/docker-hosting?compose_url=https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/freshrss/docker-compose.yml) | |
 
 For more cloud hosting options, see the [list of cloud providers](https://freshrss.org/cloud-providers.html) or [Chatons](https://www.chatons.org/search/by-service?field_software_target_id=269) (a directory of ethical hosting providers).
 
 ## Manual install
 
-1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/latest.zip)
+1. Get FreshRSS with git or [by downloading the archive](https://github.com/FreshRSS/FreshRSS/archive/refs/heads/latest.zip)
 2. Put the application somewhere on your server (expose only the `./p/` folder to the Web)
 3. Add write access to the `./data/` folder for the webserver user
 4. Access FreshRSS with your browser and follow the installation process
@@ -136,10 +136,10 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 | Français (fr) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffr+%2F%28TODO%7CDIRTY%29%24%2F) |
 | עברית (he) | ￭￭￭￭･･････ 41% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhe+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Magyar (hu) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhu+%2F%28TODO%7CDIRTY%29%24%2F) |
-| Bahasa Indonesia (id) | ￭￭￭￭￭￭￭￭･･ 88% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fid+%2F%28TODO%7CDIRTY%29%24%2F) |
+| Bahasa Indonesia (id) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fid+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Italiano (it) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fit+%2F%28TODO%7CDIRTY%29%24%2F) |
 | 日本語 (ja) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fja+%2F%28TODO%7CDIRTY%29%24%2F) |
-| 한국어 (ko) | ￭￭￭￭￭￭￭￭･･ 81% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fko+%2F%28TODO%7CDIRTY%29%24%2F) |
+| 한국어 (ko) | ￭￭￭￭￭￭￭￭･･ 80% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fko+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Lietuvių (lt) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Flt+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Latviešu (lv) | ￭￭￭￭￭￭￭￭･･ 81% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Flv+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Nederlands (nl) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fnl+%2F%28TODO%7CDIRTY%29%24%2F) |
@@ -152,7 +152,7 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 | Türkçe (tr) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ftr+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Українська (uk) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fuk+%2F%28TODO%7CDIRTY%29%24%2F) |
 | 简体中文 (zh-CN) | ￭￭￭￭￭￭￭￭￭･ 96% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-CN+%2F%28TODO%7CDIRTY%29%24%2F) |
-| 正體中文 (zh-TW) | ￭￭￭￭￭￭￭￭￭･ 96% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-TW+%2F%28TODO%7CDIRTY%29%24%2F) |
+| 正體中文 (zh-TW) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-TW+%2F%28TODO%7CDIRTY%29%24%2F) |
 
 </translations>
 
@@ -166,9 +166,9 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/developers/06_Fever_API.h
 |:--------------------------------------------------------------------------------------|:-----------:|:-------------------------------------------------------------:|:----------------------:|:----------------:|:-------------:|:---------:|:------------------------------:|:-------------------:|:----------:|:------:|:--------:|:------------:|
 | [Capy Reader](https://github.com/jocmp/capyreader)                                    | Android     | [✓](https://github.com/jocmp/capyreader)                     | ✓✓                   | GReader          | ✓            | ⭐⭐⭐    | ✓                             | ✓                  | ✓         | ✓     | [✓](https://github.com/jocmp/capyreader/discussions/1689) | ✓           |
 | [Readrops](https://github.com/readrops/Readrops)                                      | Android     | [✓](https://github.com/readrops/Readrops)                    | ✓✓                   | GReader          | ✓            | ⭐⭐⭐    | –                             | ✓                  | ✓         | [–](https://github.com/readrops/Readrops/issues/54) | –       | ✓           |
-| [FeedMe](https://play.google.com/store/apps/details?id=com.seazon.feedme)             | Android     | [–](https://github.com/seazon/FeedMe)                        | ✓✓                   | GReader          | ✓            | ⭐⭐       | –                             | –                  | ✓         | [✓](https://github.com/seazon/FeedMe/issues/348) | ✓       | ✓           |
+| [FeedMe](https://play.google.com/store/apps/details?id=com.seazon.feedme)             | Android     | [–](https://github.com/seazon/FeedMe)                        | ✓✓                   | GReader          | ✓            | ⭐⭐       | –                             | –                  | ✓         | ✓ | ✓       | ✓           |
 | [FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader)  | Android     | –                                                            | ✓✓                   | GReader          | ✓            | ⭐⭐       | –                             | –                  | ✓         | ✓     | ✓       | ✓           |
-| [Read You](https://github.com/Ashinch/ReadYou/)                                       | Android     | [✓](https://github.com/Ashinch/ReadYou/)                     | ✓✓                   | GReader          | ✓            | ⭐⭐       | ✓                             | ✓                  | ✓         | –     | –       | ✓           |
+| [Read You](https://github.com/ReadYouApp/ReadYou)                                       | Android     | [✓](https://github.com/ReadYouApp/ReadYou)                     | ✓✓                   | GReader          | ✓            | ⭐⭐       | ✓                             | ✓                  | ✓         | –     | –       | ✓           |
 | [Your News](https://yournews.app/)                                                    | Android, iOS| –                                                            | ✓✓                   | GReader          | –            | ⭐        | ✓                             | ✓                  | ✓        | –     | –      | –        |
 | [Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/)                            | Android, iOS| [✓](https://github.com/yang991178/fluent-reader-lite)        | ✓                     | GReader          | ✓            | ⭐⭐       | –                             | –                  | ✓         | –     | –       | –           |
 | [FeedFlow](https://www.feedflow.dev)                                                  | Android, iOS, Linux, macOS, Windows | [✓](https://github.com/prof18/feed-flow)                     | ✓✓                   | GReader          | ✓            | ?        | ?                             | ?                  | ✓         | ?     | –       | ✓           |
@@ -184,7 +184,7 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/developers/06_Fever_API.h
 
 | App                                                                                   | Platform    | Free Software                                                 | Maintained & Developed | API              | Works offline | Fast sync | Fetch more in individual views | Fetch read articles | Favourites | Labels | Podcasts | Manage feeds |
 |:--------------------------------------------------------------------------------------|:-----------:|:-------------------------------------------------------------:|:----------------------:|:----------------:|:-------------:|:---------:|:------------------------------:|:-------------------:|:----------:|:------:|:--------:|:------------:|
-| [Vienna RSS](http://www.vienna-rss.com/)                                              | macOS       | [✓](https://github.com/ViennaRSS/vienna-rss)                 | ✓✓                   | GReader          | ?            | ?        | ?                             | ?                  | ?         | ?     | ?       | ?           |
+| [Vienna RSS](https://www.vienna-rss.com/)                                              | macOS       | [✓](https://github.com/ViennaRSS/vienna-rss)                 | ✓✓                   | GReader          | ?            | ?        | ?                             | ?                  | ?         | ?     | ?       | ?           |
 | [Readkit](https://readkit.app/)             | iOS, macOS  | –                                                            | ✓✓                   | GReader          | ✓            | ⭐⭐⭐    | –                             | ✓                  | ✓         | –     | ✓       | $           |
 | [Reeder Classic](https://www.reederapp.com/classic/)                                 | iOS, macOS  | –                                                            | ✓✓                   | GReader          | ✓            | ⭐⭐⭐    | –                             | ✓                  | ✓         | –     | –       | ✓           |
 | [lire](https://lireapp.com/)                                                          | iOS, macOS  | –                                                            | ✓✓                   | GReader          | ?            | ?        | ?                             | ?                  | ?         | ?     | ?       | ?           |

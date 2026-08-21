@@ -2907,7 +2907,7 @@ html.slider-active {
 
 	@page {
 		/* Firefox and Safari do not support those yet */
-		/* See: https://developer.mozilla.org/en-US/docs/Web/CSS/@page#browser_compatibility */
+		/* See: https://developer.mozilla.org/docs/Web/CSS/@page#browser_compatibility */
 
 		@top-left { content: ''; }
 

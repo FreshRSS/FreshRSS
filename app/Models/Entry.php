@@ -1200,7 +1200,7 @@ class FreshRSS_Entry extends Minz_Model {
 	/**
 	 * Integer format conversion for Google Reader API format
 	 * @param numeric-string|int $dec Decimal number
-	 * @return string 64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
+	 * @return string 64-bit hexa https://github.com/mihaip/google-reader-api
 	 */
 	private static function dec2hex(string|int $dec): string {
 		return PHP_INT_SIZE < 8 ? // 32-bit ?

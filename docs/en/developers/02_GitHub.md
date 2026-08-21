@@ -6,8 +6,7 @@ If you are new to Git, here are some of the resources you might find useful:
 
 * [GitHub’s blog post](https://github.blog/news-insights/the-library/new-to-git/)
 * <https://docs.github.com/en/github/getting-started-with-github/set-up-git>
-* <http://sixrevisions.com/resources/git-tutorials-beginners/>
-* <http://rogerdudler.github.io/git-guide/>
+* <https://rogerdudler.github.io/git-guide/>
 
 ## Getting the latest code from the FreshRSS repository
 
@@ -59,4 +58,4 @@ A commit message should succinctly describe the changes on the first line. For e
 
 If necessary, this can be followed by a blank line and a longer explanation.
 
-For further tips, see [here (chris.beams.io)](https://chris.beams.io/posts/git-commit/).
+For further tips, see [here (chris.beams.io)](https://chris.beams.io/git-commit).
