@@ -34,8 +34,6 @@ return array(
 		'information' => 'Information',
 		'open' => 'Open category',
 		'opml_url' => 'OPML URL',
-		'position' => 'Display position',
-		'position_help' => 'To control category sort order',
 		'title' => 'Title',
 	),
 	'feed' => array(

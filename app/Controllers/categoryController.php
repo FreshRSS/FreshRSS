@@ -143,9 +143,6 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				]);
 			}
 
-			$position = Minz_Request::paramInt('position') ?: null;
-			$category->_attribute('position', $position);
-
 			$opml_url = FreshRSS_http_Util::checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);

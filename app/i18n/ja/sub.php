@@ -34,8 +34,6 @@ return array(
 		'information' => '情報',
 		'open' => 'カテゴリを開く',
 		'opml_url' => 'OPMLのURL',
-		'position' => '表示位置',
-		'position_help' => 'カテゴリの表示順を指定します',
 		'title' => 'タイトル',
 	),
 	'feed' => array(
