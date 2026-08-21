@@ -213,11 +213,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		$position = 0;
 		foreach (Minz_Request::paramArrayInt('c_ids') as $id) {
 			$category = $categories[$id] ?? null;
-			if ($category === null) {
-				continue;
-			}
-			$position++;
-			if ($category->attributeInt('position') === $position) {
+			if ($category === null || $category->attributeInt('position') === ++$position) {
 				continue;
 			}
 			$category->_attribute('position', $position);
