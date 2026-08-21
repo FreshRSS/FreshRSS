@@ -53,7 +53,7 @@ function init_draggable() {
 	const save_category_order = function () {
 		const c_ids = [];
 		dropSection.querySelectorAll(catBox).forEach(function (box) {
-			c_ids.push(box.getAttribute('data-cat-id'));
+			c_ids.push(+box.getAttribute('data-cat-id'));
 		});
 
 		const req = new XMLHttpRequest();
@@ -236,8 +236,8 @@ function init_draggable() {
 				};
 				req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 				req.send(JSON.stringify({
-					f_id: dragFeedId,
-					c_id: ul_dropzone.getAttribute('data-cat-id'),
+					f_id: +dragFeedId,
+					c_id: +ul_dropzone.getAttribute('data-cat-id'),
 					_csrf: context.csrf,
 				}));
 
