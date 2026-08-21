@@ -226,7 +226,12 @@ function init_draggable() {
 							disabledElement[0].remove();
 						}
 						dnd_successful = true;
-						ul_dropzone.closest('ul').classList.add('drag-drop');
+
+						ul_dropzone.classList.add('drag-drop');
+						setTimeout(
+							() => ul_dropzone.classList.remove('drag-drop'),
+							parseFloat(getComputedStyle(ul_dropzone).animationDuration) * 1000
+						);
 					}
 				};
 				req.onloadend = function (e) {
