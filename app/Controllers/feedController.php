@@ -1085,6 +1085,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward(['c' => 'subscription'], true);
 		}
+		$this->view->_layout(null);
 
 		$feed_id = Minz_Request::paramInt('f_id');
 		$cat_id = Minz_Request::paramInt('c_id');
