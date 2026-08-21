@@ -1175,6 +1175,10 @@ li.drag-hover {
 	border-bottom: 2px solid var(--frss-border-color);
 }
 
+.box.drag-hover .box-title {
+	background-color: var(--frss-dragdrop-color-transparent);
+}
+
 .drag-drop {
 	animation-name: droppedKeyframe;
 	animation-duration: 0.7s;

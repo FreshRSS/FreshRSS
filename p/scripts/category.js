@@ -32,6 +32,8 @@ function dragend_process(t) {
 
 let dragFeedId = '';
 let dragHtml = '';
+let dragCatBox = null;
+let dragCatOver = null;
 
 function init_draggable() {
 	if (!window.context) {
@@ -44,9 +46,44 @@ function init_draggable() {
 
 	const draggable = '[draggable="true"]';
 	const dropzone = '[dropzone="move"]';
+	const catBox = '.box[data-cat-id]';
+	const catHandle = '.box-title[draggable="true"]';
 	const dropSection = document.querySelector('.drop-section');
 
+	const save_category_order = function () {
+		const c_ids = [];
+		dropSection.querySelectorAll(catBox).forEach(function (box) {
+			c_ids.push(box.getAttribute('data-cat-id'));
+		});
+
+		const req = new XMLHttpRequest();
+		req.open('POST', './?c=category&a=move', true);
+		req.responseType = 'json';
+		req.onload = function (e) {
+			if (this.status != 200) {
+				// Reload to show the order actually saved on the server
+				location.reload();
+			}
+		};
+		req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+		req.send(JSON.stringify({
+			c_ids: c_ids,
+			_csrf: context.csrf,
+		}));
+	};
+
 	dropSection.ondragstart = function (ev) {
+		const cat_handle = ev.target.closest ? ev.target.closest(catHandle) : null;
+		if (cat_handle) {
+			dragCatBox = cat_handle.closest(catBox);
+			if (dragCatBox) {
+				ev.dataTransfer.effectAllowed = 'move';
+				ev.dataTransfer.setData('text', dragCatBox.getAttribute('data-cat-id'));
+				cat_handle.classList.add('dragging');
+			}
+			return;
+		}
+
 		const li_draggable = ev.target.closest ? ev.target.closest(draggable) : null;
 		if (li_draggable) {
 			const ulClosest = li_draggable.closest('ul');
@@ -65,6 +102,19 @@ function init_draggable() {
 	};
 
 	dropSection.ondragend = function (ev) {
+		if (dragCatBox !== null) {
+			const cat_handle = dragCatBox.querySelector(catHandle);
+			if (cat_handle) {
+				cat_handle.classList.remove('dragging');
+			}
+			if (dragCatOver !== null) {
+				dragCatOver.classList.remove('drag-hover');
+				dragCatOver = null;
+			}
+			dragCatBox = null;
+			return;
+		}
+
 		const li_draggable = ev.target.closest ? ev.target.closest(draggable) : null;
 		if (li_draggable) {
 			dragend_process(li_draggable);
@@ -79,6 +129,10 @@ function init_draggable() {
 	};
 
 	dropSection.ondragenter = function (ev) {
+		if (dragCatBox !== null) {
+			return;
+		}
+
 		const ul_dropzone = ev.target.closest ? ev.target.closest(dropzone) : null;
 		if (ul_dropzone) {
 			ul_dropzone.classList.add('drag-hover');
@@ -87,6 +141,10 @@ function init_draggable() {
 	};
 
 	dropSection.ondragleave = function (ev) {
+		if (dragCatBox !== null) {
+			return;
+		}
+
 		const ul_dropzone = ev.target.closest ? ev.target.closest(dropzone) : null;
 		if (ul_dropzone) {
 			const scroll_top = document.documentElement.scrollTop;
@@ -107,6 +165,25 @@ function init_draggable() {
 	};
 
 	dropSection.ondragover = function (ev) {
+		if (dragCatBox !== null) {
+			const box = ev.target.closest ? ev.target.closest(catBox) : null;
+			const target = box === dragCatBox ? null : box;
+			if (target !== dragCatOver) {
+				if (dragCatOver !== null) {
+					dragCatOver.classList.remove('drag-hover');
+				}
+				dragCatOver = target;
+				if (dragCatOver !== null) {
+					dragCatOver.classList.add('drag-hover');
+				}
+			}
+			if (dragCatOver !== null) {
+				ev.dataTransfer.dropEffect = 'move';
+				return false;
+			}
+			return;
+		}
+
 		const li = ev.target.closest ? ev.target.closest(dropzone) : null;
 		if (li) {
 			li.closest('ul').classList.remove('drag-drop');
@@ -116,6 +193,20 @@ function init_draggable() {
 	};
 
 	dropSection.ondrop = function (ev) {
+		if (dragCatBox !== null) {
+			if (dragCatOver !== null) {
+				if (dragCatOver.compareDocumentPosition(dragCatBox) & Node.DOCUMENT_POSITION_FOLLOWING) {
+					dragCatOver.insertAdjacentElement('beforebegin', dragCatBox);
+				} else {
+					dragCatOver.insertAdjacentElement('afterend', dragCatBox);
+				}
+				dragCatOver.classList.remove('drag-hover');
+				dragCatOver = null;
+				save_category_order();
+			}
+			return false;
+		}
+
 		if (dragFeedId) {
 			const ul_dropzone = ev.target.closest ? ev.target.closest(dropzone) : null;
 
