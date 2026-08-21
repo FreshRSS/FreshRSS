@@ -34,6 +34,16 @@ let dragFeedId = '';
 let dragHtml = '';
 let dragCatBox = null;
 let dragCatOver = null;
+let draggingCategory = false;
+
+function cleanDragElements() {
+	draggingCategory = false;
+	if (dragCatOver !== null) {
+		dragCatOver.classList.remove('drag-hover');
+		dragCatOver = null;
+	}
+	dragCatBox = null;
+}
 
 function init_draggable() {
 	if (!window.context) {
@@ -50,19 +60,38 @@ function init_draggable() {
 	const catHandle = '.box-title[draggable="true"]';
 	const dropSection = document.querySelector('.drop-section');
 
+
 	const save_category_order = function () {
+		const clone = dropSection.cloneNode(true);
+		const dragCatBoxClone = clone.querySelector(`[data-cat-id="${dragCatBox.dataset.catId}"]`);
+		const dragCatOverClone = clone.querySelector(`[data-cat-id="${dragCatOver.dataset.catId}"]`);
+		if (dragCatOverClone.compareDocumentPosition(dragCatBoxClone) & Node.DOCUMENT_POSITION_FOLLOWING) {
+			dragCatOverClone.insertAdjacentElement('beforebegin', dragCatBoxClone);
+		} else {
+			dragCatOverClone.insertAdjacentElement('afterend', dragCatBoxClone);
+		}
 		const c_ids = [];
-		dropSection.querySelectorAll(catBox).forEach(function (box) {
-			c_ids.push(+box.getAttribute('data-cat-id'));
+		clone.querySelectorAll(catBox).forEach(function (box) {
+			c_ids.push(+box.dataset.catId);
 		});
 
 		const req = new XMLHttpRequest();
 		req.open('POST', './?c=category&a=move', true);
 		req.responseType = 'json';
+		req.onerror = function () { cleanDragElements(); }
 		req.onload = function () {
 			if (this.status !== 200) {
+				cleanDragElements();
 				badAjax(this.status === 403);
+				return;
 			}
+
+			if (dragCatOver.compareDocumentPosition(dragCatBox) & Node.DOCUMENT_POSITION_FOLLOWING) {
+				dragCatOver.insertAdjacentElement('beforebegin', dragCatBox);
+			} else {
+				dragCatOver.insertAdjacentElement('afterend', dragCatBox);
+			}
+			cleanDragElements();
 		};
 		req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		req.send(JSON.stringify({
@@ -72,6 +101,10 @@ function init_draggable() {
 	};
 
 	dropSection.ondragstart = function (ev) {
+		if (draggingCategory) {
+			return;
+		}
+
 		const cat_handle = ev.target.closest ? ev.target.closest(catHandle) : null;
 		if (cat_handle) {
 			dragCatBox = cat_handle.closest(catBox);
@@ -106,11 +139,12 @@ function init_draggable() {
 			if (cat_handle) {
 				cat_handle.classList.remove('dragging');
 			}
-			if (dragCatOver !== null) {
-				dragCatOver.classList.remove('drag-hover');
-				dragCatOver = null;
+
+			// dragCatOver and dragCatBox variables are needed in the load event of the category move request
+			if (!draggingCategory) {
+				cleanDragElements();
 			}
-			dragCatBox = null;
+
 			return;
 		}
 
@@ -123,12 +157,12 @@ function init_draggable() {
 				disallowDragging[i].setAttribute('dropzone', 'move');
 				disallowDragging[i].classList.remove('drag-disallowed');
 			}
-			li_draggable.closest('.drag-active').classList.remove('drag-active');
+			li_draggable.closest('.drag-active')?.classList.remove('drag-active');
 		}
 	};
 
 	dropSection.ondragenter = function (ev) {
-		if (dragCatBox !== null) {
+		if (draggingCategory || dragCatBox !== null) {
 			return;
 		}
 
@@ -164,6 +198,10 @@ function init_draggable() {
 	};
 
 	dropSection.ondragover = function (ev) {
+		if (draggingCategory) {
+			return;
+		}
+
 		if (dragCatBox !== null) {
 			const box = ev.target.closest ? ev.target.closest(catBox) : null;
 			const target = box === dragCatBox ? null : box;
@@ -194,13 +232,7 @@ function init_draggable() {
 	dropSection.ondrop = function (ev) {
 		if (dragCatBox !== null) {
 			if (dragCatOver !== null) {
-				if (dragCatOver.compareDocumentPosition(dragCatBox) & Node.DOCUMENT_POSITION_FOLLOWING) {
-					dragCatOver.insertAdjacentElement('beforebegin', dragCatBox);
-				} else {
-					dragCatOver.insertAdjacentElement('afterend', dragCatBox);
-				}
-				dragCatOver.classList.remove('drag-hover');
-				dragCatOver = null;
+				draggingCategory = true;
 				save_category_order();
 			}
 			return false;
