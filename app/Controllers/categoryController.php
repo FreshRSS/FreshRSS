@@ -210,7 +210,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$categories = $categoryDAO->listCategories(prePopulateFeeds: false);
 
-		$position = 0;
+		$position = -1; // will be incremented to 0
 		foreach (Minz_Request::paramArrayInt('c_ids') as $id) {
 			$category = $categories[$id] ?? null;
 			if ($category === null || $category->attributeInt('position') === ++$position) {
