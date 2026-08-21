@@ -140,7 +140,7 @@
 	?>
 
 	<div class="nav_menu_read_all group stick">
-		<form class="mark-read-menu" method="post">
+		<form name="mark_read_menu" class="mark-read-menu" method="post">
 		<?php $confirm = FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 

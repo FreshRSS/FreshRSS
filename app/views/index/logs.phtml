@@ -6,7 +6,7 @@
 <main class="post">
 	<h1><?= _t('index.log') ?></h1>
 
-	<form method="get" action="<?= _url('index', 'logs') ?>" class="form-inline">
+	<form name="log_search" method="get" action="<?= _url('index', 'logs') ?>" class="form-inline">
 		<input type="hidden" name="c" value="index" />
 		<input type="hidden" name="a" value="logs" />
 		<label for="log-search"><?= _t('gen.action.filter') ?></label>

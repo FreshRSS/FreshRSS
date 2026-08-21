@@ -37,7 +37,7 @@
 	<a href="<?= _url('index', 'about') ?>" class="about"><?= _t('index.menu.about') ?></a>
 	<?php } ?>
 
-	<form class="mark-read-aside" method="post">
+	<form name="mark_read_aside" class="mark-read-aside" method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	<ul id="sidebar" class="tree scrollbar-thin">
 		<li class="tree-folder category all<?= FreshRSS_Context::isCurrentGet('a') || FreshRSS_Context::isCurrentGet('A') || FreshRSS_Context::isCurrentGet('Z') ? ' active' : '' ?>">

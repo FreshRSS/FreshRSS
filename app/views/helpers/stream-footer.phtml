@@ -29,7 +29,7 @@
 	$hasAccess = FreshRSS_Auth::hasAccess();
 	if ($hasAccess) {
 ?>
-<form class="stream-footer" action="" method="post">
+<form name="stream_footer" class="stream-footer" action="" method="post">
 <input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 <?php } else { ?>
 <div class="stream-footer">

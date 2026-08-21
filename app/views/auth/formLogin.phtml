@@ -18,7 +18,7 @@
 		<?php endif; ?>
 	<?php endif; ?>
 
-	<form class="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
+	<form name="crypto_form" class="crypto-form" method="post" action="<?= _url('auth', 'login') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" name="original_request" value="<?= Minz_Url::serialize(Minz_Request::originalRequest())?>" />
 
