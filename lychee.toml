@@ -5,7 +5,7 @@ no_progress = true
 cache = true
 max_cache_age = "1d"
 
-accept = "200..=204, 429"
+accept = "200..=204, 302, 307, 429"
 cache_exclude_status = "500..=599, 403, 429"
 
 require_https = true

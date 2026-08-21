@@ -1,37 +1,37 @@
 # URLs used as examples
-https://codeload\.github\.com/FreshRSS/FreshRSS/zip/x\.y\.z
+^https://codeload\.github\.com/FreshRSS/FreshRSS/zip/x\.y\.z
 ^https://[^/]+\.domain/
-http://wiremock:8080/
-http://freshrss/
+^http://wiremock:8080/
+^http://freshrss/
 
 # URLs used in source code / tests
-http://www\.blogger\.com/feeds/1/posts
-https://www\.blogger\.com/feeds/1/posts
-http://a\.bc/
-https://web\.archive\.org/save/~LINK~
-https://www\.facebook\.com/sharer\.php\?u=~LINK~&amp;t=~TITLE~
-https://archive\.ph/submit/\?url=~LINK~
-https://archive\.is/submit/\?url=~LINK~
-https://www\.reddit\.com/submit?url=~LINK~
-https://publish\.buffer\.com/compose?url=~LINK~&amp;text=~TITLE
-https://www\.journalduhacker\.net/stories/new?url=~LINK~&amp;title=~TITLE~
-https://www\.linkedin\.com/shareArticle?url=~LINK~&amp;title=~TITLE~&amp;source=FreshRSS
-https://www\.xing\.com/spi/shares/new?url=~LINK
+^http://www\.blogger\.com/feeds/1/posts
+^https://www\.blogger\.com/feeds/1/posts
+^http://a\.bc/
+^https://web\.archive\.org/save/~LINK~
+^https://www\.facebook\.com/sharer\.php\?u=~LINK~&amp;t=~TITLE~
+^https://archive\.ph/submit/\?url=~LINK~
+^https://archive\.is/submit/\?url=~LINK~
+^https://www\.reddit\.com/submit?url=~LINK~
+^https://publish\.buffer\.com/compose?url=~LINK~&amp;text=~TITLE
+^https://www\.journalduhacker\.net/stories/new?url=~LINK~&amp;title=~TITLE~
+^https://www\.linkedin\.com/shareArticle?url=~LINK~&amp;title=~TITLE~&amp;source=FreshRSS
+^https://www\.xing\.com/spi/shares/new?url=~LINK
 
-# URLs that will be published in the future
-https://github\.com/FreshRSS/FreshRSS/security/advisories/GHSA-p83h-r2jw-9whg
+# URLs that likely exist, but will be published in the future
+^https://github\.com/FreshRSS/FreshRSS/security/advisories/.*
 
 # Namespaces
-http://purl\.org/dc/elements/1\.1/
-http://search\.yahoo\.com/mrss/
-http://www\.w3\.org/2005/Atom
-https://freshrss\.org/opml
+^http://purl\.org/dc/elements/1\.1/
+^http://search\.yahoo\.com/mrss/
+^http://www\.w3\.org/2005/Atom
+^https://freshrss\.org/opml
 
 # Old references (HTTP)
-http://freshrss\.org/
+^http://freshrss\.org/
 
 # Wrongly returned status codes
-https://www\.pikapods\.com/pods\?run=freshrss
+^https://www\.pikapods\.com/pods\?run=freshrss
 
 # Unreachable due to bot protection
 ^https://stackoverflow\.com/
@@ -44,11 +44,11 @@ https://www\.pikapods\.com/pods\?run=freshrss
 ^https://www\.reddit\.com/
 
 # Works normally in the browser, but not in lychee
-https://www\.vsta\.org/andy/
-https://gnusocial\.rocks/
-https://friendi\.ca/
+^https://www\.vsta\.org/andy/
+^https://gnusocial\.rocks/
+^https://friendi\.ca/
 
 # TODO: Dead?
-https://template\.run\.claw\.cloud/\?openapp=system-fastdeploy%3FtemplateName%3Dfreshrss
-https://amaury\.carrade\.eu/
-https://www\.pimsnel\.com
+^https://template\.run\.claw\.cloud/\?openapp=system-fastdeploy%3FtemplateName%3Dfreshrss
+^https://amaury\.carrade\.eu/
+^https://www\.pimsnel\.com
