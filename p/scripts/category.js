@@ -59,10 +59,9 @@ function init_draggable() {
 		const req = new XMLHttpRequest();
 		req.open('POST', './?c=category&a=move', true);
 		req.responseType = 'json';
-		req.onload = function (e) {
-			if (this.status != 200) {
-				// Reload to show the order actually saved on the server
-				location.reload();
+		req.onload = function () {
+			if (this.status !== 200) {
+				badAjax(this.status === 403);
 			}
 		};
 		req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
@@ -217,22 +216,25 @@ function init_draggable() {
 				req.open('POST', './?c=feed&a=move', true);
 				req.responseType = 'json';
 				req.onload = function (e) {
-					if (this.status == 200) {
-						ul_dropzone.insertAdjacentHTML('afterbegin', dragHtml);
-						ul_dropzone.firstChild.classList.add('moved');
-						ul_dropzone.scrollTop = 0;
-						const disabledElement = ul_dropzone.getElementsByClassName('disabled');
-						if (disabledElement.length > 0) {
-							disabledElement[0].remove();
-						}
-						dnd_successful = true;
-
-						ul_dropzone.classList.add('drag-drop');
-						setTimeout(
-							() => ul_dropzone.classList.remove('drag-drop'),
-							parseFloat(getComputedStyle(ul_dropzone).animationDuration) * 1000
-						);
+					if (this.status !== 200) {
+						badAjax(this.status === 403);
+						return;
 					}
+
+					ul_dropzone.insertAdjacentHTML('afterbegin', dragHtml);
+					ul_dropzone.firstChild.classList.add('moved');
+					ul_dropzone.scrollTop = 0;
+					const disabledElement = ul_dropzone.getElementsByClassName('disabled');
+					if (disabledElement.length > 0) {
+						disabledElement[0].remove();
+					}
+					dnd_successful = true;
+
+					ul_dropzone.classList.add('drag-drop');
+					setTimeout(
+						() => ul_dropzone.classList.remove('drag-drop'),
+						parseFloat(getComputedStyle(ul_dropzone).animationDuration) * 1000
+					);
 				};
 				req.onloadend = function (e) {
 					loading = false;
