@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
@@ -243,22 +243,15 @@ return array(
 			'opml' => 'Link compartilhável para a lista de feeds OPML',
 			'rss' => 'Link compartilhável para o feed RSS',
 		),
-		'state_0' => 'Mostrar todos os artigos',
-		'state_1' => 'Mostrar artigos lidos',
-		'state_2' => 'Mostrar artigos não lidos',
-		'state_3' => 'Mostrar todos os artigos',
-		'state_4' => 'Mostrar artigos favoritos',
-		'state_5' => 'Mostrar artigos favoritos lidos',
-		'state_6' => 'Mostrar artigos favoritos não lidos',
-		'state_7' => 'Mostrar artigos favoritos',
-		'state_8' => 'Mostrar artigos que não são favoritos',
-		'state_9' => 'Mostrar artigos que não são favoritos lidos',
-		'state_10' => 'Mostrar artigos que não são favoritos não lidos',
-		'state_11' => 'Mostrar artigos que não são favoritos',
-		'state_12' => 'Mostrar todos os artigos',
-		'state_13' => 'Mostrar artigos lidos',
-		'state_14' => 'Mostrar artigos não lidos',
-		'state_15' => 'Mostrar todos os artigos',
+		'state_all' => 'Mostrar todos os artigos',
+		'state_favorite' => 'Mostrar artigos favoritos',
+		'state_not_favorite' => 'Mostrar artigos que não são favoritos',
+		'state_read' => 'Mostrar artigos lidos',
+		'state_read_favorite' => 'Mostrar artigos favoritos lidos',
+		'state_read_not_favorite' => 'Mostrar artigos que não são favoritos lidos',
+		'state_unread' => 'Mostrar artigos não lidos',
+		'state_unread_favorite' => 'Mostrar artigos favoritos não lidos',
+		'state_unread_not_favorite' => 'Mostrar artigos que não são favoritos não lidos',
 		'title' => 'Consultas de Utilizadores',
 	),
 	'reading' => array(

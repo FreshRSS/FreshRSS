@@ -167,7 +167,7 @@ foreach ($users as $userFilename) {
 	}
 }
 
-$simplePie->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
+$simplePie->__destruct();	// https://simplepie.org/wiki/faq/i_m_getting_memory_leaks
 unset($simplePie);
 
 if ($nb === 0) {

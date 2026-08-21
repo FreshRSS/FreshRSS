@@ -137,6 +137,26 @@
 	</form>
 
 
+	<?php
+	$stateTranslations = [
+		0 => _t('conf.query.state_all'),
+		1 => _t('conf.query.state_read'),
+		2 => _t('conf.query.state_unread'),
+		3 => _t('conf.query.state_all'),
+		4 => _t('conf.query.state_favorite'),
+		5 => _t('conf.query.state_read_favorite'),
+		6 => _t('conf.query.state_unread_favorite'),
+		7 => _t('conf.query.state_favorite'),
+		8 => _t('conf.query.state_not_favorite'),
+		9 => _t('conf.query.state_read_not_favorite'),
+		10 => _t('conf.query.state_unread_not_favorite'),
+		11 => _t('conf.query.state_not_favorite'),
+		12 => _t('conf.query.state_all'),
+		13 => _t('conf.query.state_read'),
+		14 => _t('conf.query.state_unread'),
+		15 => _t('conf.query.state_all'),
+	];
+	?>
 	<form method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<?php if (count($this->queries) < 1) { ?>
@@ -180,15 +200,30 @@
 							<?php } ?>
 
 							<?php if ($query->getState()) { ?>
-							<li class="item"><?= _t('conf.query.state_' . $query->getState()) ?></li>
+							<li class="item"><?= $stateTranslations[$query->getState()] ?? '' ?></li>
 							<?php } ?>
 
 							<?php if ($query->getOrder() !== '') { ?>
-							<li class="item"><?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
+							<li class="item"><?= match ($query->getOrder()) {
+								'ASC' => _t('conf.query.order_asc'),
+								'DESC' => _t('conf.query.order_desc'),
+								default => '',
+							} ?></li>
 							<?php } ?>
 
 							<?php if ($query->getGet() !== '') { ?>
-							<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
+							<li class="item"><?= match ($query->getGetType()) {
+								'A' => _t('conf.query.get_A'),
+								'Z' => _t('conf.query.get_Z'),
+								'all' => _t('conf.query.get_all'),
+								'all_labels' => _t('conf.query.get_all_labels'),
+								'category' => _t('conf.query.get_category', $query->getGetName()),
+								'favorite' => _t('conf.query.get_favorite'),
+								'feed' => _t('conf.query.get_feed', $query->getGetName()),
+								'important' => _t('conf.query.get_important'),
+								'label' => _t('conf.query.get_label', $query->getGetName()),
+								default => '',
+							} ?></li>
 							<?php } ?>
 							<?php } ?>
 							</ul>

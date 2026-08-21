@@ -11,11 +11,11 @@ FreshRSS is a self-hosted RSS feed aggregator.
 * Documentation: [`freshrss.github.io/FreshRSS`](https://freshrss.github.io/FreshRSS/)
 * License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
 
-![FreshRSS logo](https://github.com/FreshRSS/FreshRSS/raw/edge/docs/img/FreshRSS-logo.png)
+![FreshRSS logo](https://raw.githubusercontent.com/FreshRSS/FreshRSS/edge/docs/img/FreshRSS-logo.png)
 
 ## Install Docker
 
-See <https://docs.docker.com/get-docker/>
+See <https://docs.docker.com/get-started/get-docker/>
 
 Example for Linux Debian / Ubuntu:
 
@@ -40,7 +40,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 ```
 
 * Exposing on port 8080
-* With a [server timezone](http://php.net/timezones) (default is `UTC`)
+* With a [server timezone](https://www.php.net/timezones) (default is `UTC`)
 * With an automatic cron job to refresh feeds
 * Saving FreshRSS data in a Docker volume `freshrss_data` and optional extensions in `freshrss_extensions`
 * Using the default image, which is the latest stable release
@@ -52,7 +52,7 @@ or use the command line described below.
 
 ## Command line
 
-See the [CLI documentation](../cli/README.md) for all the commands, which can be applied like:
+See the [CLI documentation](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md) for all the commands, which can be applied like:
 
 ```sh
 docker exec --user www-data freshrss cli/list-users.php
@@ -91,13 +91,14 @@ and with newer packages in general (Apache, PHP).
 
 ## Environment variables
 
-* `TZ`: (default is `UTC`) A [server timezone](http://php.net/timezones)
+* `TZ`: (default is `UTC`) A [server timezone](https://www.php.net/timezones)
 * `CRON_MIN`: (default is disabled) Define minutes for the built-in cron job to automatically refresh feeds (see below for more advanced options)
-* `DATA_PATH`: (default is empty, defined by `./constants.local.php` or `./constants.php`) Defines the path for writeable data.
+* `DATA_PATH`: (default is empty, defined by `./constants.local.php` or `./constants.php`) Defines the path for writable data.
+* `ENABLE_ACCESS_LOG`: (default is `1`) Set to `0` to disable the Apache access log.
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
-* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
+* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/engine/network/drivers/host/))
 * `INTERNAL_HOST_ALLOWLIST`: (default is empty, can also be set in `data/config.php` or under *System configuration* in Web UI) Requests to internal hosts such as 127.0.0.1 are blocked by default; here you can add overrides for which internal hosts to allow, separated by whitespace. Each host should be described either as a `host:port` combination, CIDR notation (`0.0.0.0/0` to allow any IPv4, `::/0` to allow any IPv6) or `*` to allow all hosts (unsafe)
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
@@ -335,7 +336,7 @@ services:
       # If you want to open a port 8080 on the local machine:
       - "8080:80"
     environment:
-      # A timezone http://php.net/timezones (default is UTC)
+      # A timezone https://www.php.net/timezones (default is UTC)
       TZ: Europe/Paris
       # Cron job to refresh feeds at specified minutes
       CRON_MIN: '2,32'

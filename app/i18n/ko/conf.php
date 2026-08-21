@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
@@ -243,22 +243,15 @@ return array(
 			'opml' => 'OPML 피드 목록 공유 링크',
 			'rss' => 'RSS 피드 공유 링크',
 		),
-		'state_0' => '모든 글 표시',
-		'state_1' => '읽은 글 표시',
-		'state_2' => '읽지 않은 글 표시',
-		'state_3' => '모든 글 표시',
-		'state_4' => '즐겨찾기에 등록된 글 표시',
-		'state_5' => '즐겨찾기에 등록된 읽은 글 표시',
-		'state_6' => '즐겨찾기에 등록된 읽지 않은 글 표시',
-		'state_7' => '즐겨찾기에 등록된 글 표시',
-		'state_8' => '즐겨찾기에 등록되지 않은 글 표시',
-		'state_9' => '즐겨찾기에 등록되지 않고 읽은 글 표시',
-		'state_10' => '즐겨찾기에 등록되지 않고 읽지 않은 글 표시',
-		'state_11' => '즐겨찾기에 등록되지 않은 글 표시',
-		'state_12' => '모든 글 표시',
-		'state_13' => '읽은 글 표시',
-		'state_14' => '읽지 않은 글 표시',
-		'state_15' => '모든 글 표시',
+		'state_all' => '모든 글 표시',
+		'state_favorite' => '즐겨찾기에 등록된 글 표시',
+		'state_not_favorite' => '즐겨찾기에 등록되지 않은 글 표시',
+		'state_read' => '읽은 글 표시',
+		'state_read_favorite' => '즐겨찾기에 등록된 읽은 글 표시',
+		'state_read_not_favorite' => '즐겨찾기에 등록되지 않고 읽은 글 표시',
+		'state_unread' => '읽지 않은 글 표시',
+		'state_unread_favorite' => '즐겨찾기에 등록된 읽지 않은 글 표시',
+		'state_unread_not_favorite' => '즐겨찾기에 등록되지 않고 읽지 않은 글 표시',
 		'title' => '사용자 쿼리',
 	),
 	'reading' => array(

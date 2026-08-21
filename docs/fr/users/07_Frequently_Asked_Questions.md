@@ -78,7 +78,7 @@ la commande suivante :
 ./cli/update_user.php --user <username> --password <password>
 ```
 Pour plus d’information à ce sujet, il existe la [documentation
-dédiée](../../cli/README.md).
+dédiée](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md).
 
 ## Gérer les permissions sous SELinux
 
