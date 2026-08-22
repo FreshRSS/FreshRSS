@@ -713,6 +713,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 			if ($ok && $self_deletion) {
 				FreshRSS_Auth::removeAccess();
+				Minz_Session::_param('csrf', false);
 				$redirect_url = ['c' => 'index', 'a' => 'index'];
 			}
 			invalidateHttpCache();
