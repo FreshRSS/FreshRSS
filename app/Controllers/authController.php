@@ -81,7 +81,9 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 
 		$auth_type = FreshRSS_Context::systemConf()->auth_type;
-		FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
+		if (!FreshRSS_Context::systemConf()->allow_anonymous) {
+			FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
+		}
 		match ($auth_type) {
 			'form' => Minz_Request::forward(['c' => 'auth', 'a' => 'formLogin']),
 			'http_auth' => Minz_Error::error(403, [
@@ -263,7 +265,9 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
+		if (!FreshRSS_Context::systemConf()->allow_anonymous) {
+			FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
+		}
 
 		$this->view->show_tos_checkbox = file_exists(TOS_FILENAME);
 		$this->view->show_email_field = FreshRSS_Context::systemConf()->force_email_validation;

@@ -15,7 +15,7 @@ class FreshRSS_error_Controller extends FreshRSS_ActionController {
 	 *   - error_logs (default: [])
 	 */
 	public function indexAction(): void {
-		if (!FreshRSS_Auth::hasAccess()) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
 			FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
 		}
 		$code_int = Minz_Session::paramInt('error_code') ?: 404;
