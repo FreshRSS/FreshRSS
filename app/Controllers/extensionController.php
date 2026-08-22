@@ -364,5 +364,6 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		if (file_exists(DATA_PATH . '/no-cache.txt') || !httpConditional($mtime, cacheSeconds: 604800, cachePrivacy: 2)) {
 			echo $extension->getFile($filename);
 		}
+		exit;
 	}
 }
