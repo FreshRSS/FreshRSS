@@ -33,7 +33,7 @@
 		?>
 		<div class="box" data-cat-id="<?= $cat->id() ?>">
 			<div class="box-title" draggable="true">
-				<a class="configure open-slider" href="<?= _url('category', 'update', 'id', $cat->id()) ?>" title="<?= _t('gen.action.manage') ?>" data-cat-position="<?= $cat->attributeString('position') ?>"><?= _i('configure') ?></a>
+				<a class="configure open-slider" href="<?= _url('category', 'update', 'id', $cat->id()) ?>" title="<?= _t('gen.action.manage') ?>" data-cat-position="<?= $cat->attributeInt('position') ?>"><?= _i('configure') ?></a>
 				<h2><span class="title<?= $cat->inError() ? ' error' : '' ?>"<?=
 					$cat->inError() ? ' title="' . _t('sub.category.error') . '"' : '' ?>><?=$cat->name() ?><?=
 					$cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? ' ' . _i('opml-dyn') : '' ?></span></h2>

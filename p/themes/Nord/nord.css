@@ -527,10 +527,6 @@ img.favicon {
 	font-size: 1rem;
 }
 
-.box .box-title .configure:not([data-cat-position=""])::after {
-	top: .5rem;
-}
-
 .box .box-content .item {
 	padding: 0;
 	font-size: 0.9rem;
