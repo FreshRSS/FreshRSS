@@ -77,7 +77,10 @@ function init_draggable() {
 		const req = new XMLHttpRequest();
 		req.open('POST', './?c=category&a=move', true);
 		req.responseType = 'json';
-		req.onerror = function () { cleanDragElements(); };
+		req.onerror = function () {
+			cleanDragElements();
+			badAjax(false);
+		};
 		req.onload = function () {
 			if (this.status !== 200) {
 				cleanDragElements();
@@ -246,6 +249,9 @@ function init_draggable() {
 				const req = new XMLHttpRequest();
 				req.open('POST', './?c=feed&a=move', true);
 				req.responseType = 'json';
+				req.onerror = function () {
+					badAjax(false);
+				};
 				req.onload = function (e) {
 					if (this.status !== 200) {
 						badAjax(this.status === 403);
