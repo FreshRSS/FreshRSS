@@ -50,7 +50,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		if (!str_contains($sql, ' REGEXP ')) {
 			return;
 		}
-		// https://php.net/pdo.sqlitecreatefunction
+		// https://www.php.net/pdo.sqlitecreatefunction
 		// https://www.sqlite.org/lang_expr.html#the_like_glob_regexp_match_and_extract_operators
 		$this->pdo->sqliteCreateFunction('regexp',
 			function (string $pattern, string $text): bool {

@@ -88,7 +88,7 @@ function numberFormat(nStr) {
 	if (nStr < 0) {
 		return 0;
 	}
-	// http://www.mredkj.com/javascript/numberFormat.html
+	// https://www.mredkj.com/javascript/numberFormat.html
 	const x = String(nStr).split('.');
 	const x2 = x.length > 1 ? '.' + x[1] : '';
 	const rgx = /(\d+)(\d{3})/;
@@ -323,9 +323,7 @@ function send_mark_queue_tick(callback) {
 const delayedFunction = send_mark_queue_tick;
 
 function delayedClick(a) {
-	if (a) {
-		delayedFunction(function () { a.click(); });
-	}
+	delayedFunction(function () { a.click(); });
 }
 
 function mark_read(div, only_not_read, asBatch) {
@@ -612,7 +610,7 @@ function next_unread_entry(skipping) {
 	toggleContent(new_active, old_active, skipping);
 }
 
-function prev_feed(jump_to_unread) {
+function prev_feed() {
 	let found = false;
 	let adjacent = null;
 	const feeds = document.querySelectorAll('#aside_feed .feed');
@@ -628,16 +626,14 @@ function prev_feed(jump_to_unread) {
 		if (getComputedStyle(feed).display === 'none') {
 			continue;
 		}
-		if (jump_to_unread && feed.dataset.unread != 0) {
-			delayedClick(feed.querySelector('a.item-title'));
-			return;
-		} else if (adjacent === null) {
+		if (adjacent === null) {
 			adjacent = feed;
 		}
 	}
 	if (found && adjacent) {
 		delayedClick(adjacent.querySelector('a.item-title'));
 	} else {
+		// if the current active item is a category, goes to the last feed of the category above
 		last_feed();
 	}
 }
@@ -668,25 +664,58 @@ function next_feed(jump_to_unread) {
 	if (found && adjacent) {
 		delayedClick(adjacent.querySelector('a.item-title'));
 	} else {
-		first_feed();
+		// if the current active feed is the last of the entire feed list, doesn't do anything
+		first_feed(jump_to_unread);
 	}
 }
 
-function first_feed() {
-	const a = document.querySelector('#aside_feed .category.active .feed:not([data-unread="0"]) a.item-title');
-	delayedClick(a);
+function first_feed(jump_to_unread, skip_if_last = true) {
+	let feed;
+	if (jump_to_unread) {
+		feed = document.querySelector('#aside_feed .category.active .feed:not([data-unread="0"])');
+	} else {
+		feed = document.querySelector('#aside_feed .category.active .feed');
+	}
+	while (getComputedStyle(feed).display === 'none') {
+		feed = feed.nextElementSibling;
+		if (!feed) {
+			return;
+		}
+	}
+	const categoryItems = feed.parentElement;
+	if (skip_if_last && categoryItems.querySelector('.feed.active') === categoryItems.lastElementChild) {
+		return;
+	}
+	const link = feed.querySelector('a.item-title');
+	delayedClick(link);
 }
 
 function last_feed() {
-	const links = document.querySelectorAll('#aside_feed .category.active .feed:not([data-unread="0"]) a.item-title');
-	if (links && links.length > 0) {
-		delayedClick(links[links.length - 1]);
+	let feed = document.querySelector('#aside_feed .category.active .feed:last-child');
+	if (feed.classList.contains('active')) {
+		const category = feed.closest('.category').previousElementSibling;
+		if (category) {
+			delayedClick(category);
+		}
+		return;
 	}
+	while (getComputedStyle(feed).display === 'none') {
+		feed = feed.previousElementSibling;
+		if (!feed) {
+			return;
+		}
+	}
+	const link = feed.querySelector('a.item-title');
+	delayedClick(link);
 }
 
 function prev_category() {
 	const active_cat = document.querySelector('#aside_feed .category.active');
 	if (active_cat) {
+		if (active_cat.querySelector('.feed.active')) {
+			delayedClick(active_cat.querySelector('a.tree-folder-title'));
+			return;
+		}
 		let cat = active_cat;
 		do cat = cat.previousElementSibling;
 		while (cat && getComputedStyle(cat).display === 'none');
@@ -720,6 +749,8 @@ function next_unread_category() {
 		while (cat && cat.getAttribute('data-unread') <= 0);
 		if (cat) {
 			delayedClick(cat.querySelector('a.tree-folder-title'));
+		} else if (active_cat.nextElementSibling) {
+			delayedClick(active_cat.nextElementSibling.querySelector('a.tree-folder-title'));
 		}
 	} else {
 		first_category();
@@ -727,15 +758,20 @@ function next_unread_category() {
 }
 
 function first_category() {
-	const a = document.querySelector('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
+	// goes to main stream which is always visible
+	const a = document.querySelector('#aside_feed .category a.tree-folder-title');
 	delayedClick(a);
 }
 
 function last_category() {
-	const links = document.querySelectorAll('#aside_feed .category:not([data-unread="0"]) a.tree-folder-title');
-	if (links && links.length > 0) {
-		delayedClick(links[links.length - 1]);
+	let category = document.querySelector('#sidebar > :nth-last-child(2)');
+	while (getComputedStyle(category).display === 'none') {
+		category = category.previousElementSibling;
+		if (!category) {
+			return;
+		}
 	}
+	delayedClick(category.querySelector('a.tree-folder-title'));
 }
 
 function collapse_entry() {
@@ -804,7 +840,7 @@ async function show_labels_menu(el) {
 
 function show_share_menu(el) {
 	const div = el.parentElement;
-	const dropdownMenu = div.querySelector('.dropdown-menu');
+	const dropdownMenu = div.querySelector(':scope > .dropdown-menu');
 
 	if (!dropdownMenu) {
 		const itemId = el.closest('.flux').dataset.entry;
@@ -822,11 +858,11 @@ function show_share_menu(el) {
 		const title = title_el.textContent;
 		const titleText = title;
 		const template = document.getElementById(templateId).innerHTML
-			.replace(/--entryId--/g, id)
-			.replace(/--link--/g, link)
-			.replace(/--titleText--/g, titleText)
-			.replace(/--websiteName--/g, websiteName)
-			.replace(/--articleAuthors--/g, articleAuthorsText);
+			.replace(/--entryId--/g, encodeURIComponent(id))
+			.replace(/--link--/g, encodeURIComponent(link))
+			.replace(/--titleText--/g, encodeURIComponent(titleText))
+			.replace(/--websiteName--/g, encodeURIComponent(websiteName))
+			.replace(/--articleAuthors--/g, encodeURIComponent(articleAuthorsText));
 
 		div.insertAdjacentHTML('beforeend', template);
 	}
@@ -873,9 +909,10 @@ function auto_share(key) {
 	if (!share) {
 		return;
 	}
-	const shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
+	let shares;
 	if (typeof key === 'undefined') {
 		show_share_menu(share);
+		shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 
 		// Display the share div
 		location.hash = share.id;
@@ -895,6 +932,7 @@ function auto_share(key) {
 			return;
 		}
 	}
+	shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 	// Trigger selected share action and hide the share div
 	key = parseInt(key);
 	if (key <= shares.length) {
@@ -956,7 +994,7 @@ function init_posts() {
 	}
 
 	if (!navigator.share && document.styleSheets.length > 0) {
-		// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		// https://developer.mozilla.org/docs/Web/API/Navigator/share
 		// do not show the menu entry if browser does not support navigator.share
 		document.styleSheets[0].insertRule(
 			'button.as-link[data-type="web-sharing-api"] {display: none !important;}',
@@ -1145,9 +1183,10 @@ function init_column_categories() {
 				const id = itemId.substr(2);
 				const feed_web = a.getAttribute('data-fweb') || '';
 				const template = document.getElementById(templateId)
-					.innerHTML.replace(/------/g, id).replace('http://example.net/', feed_web);
+					.innerHTML.replace(/------/g, id);
 				div.insertAdjacentHTML('beforeend', template);
 				dropdownMenu = div.querySelector('.dropdown-menu');
+				dropdownMenu.querySelector('li.website > a').href = feed_web;
 				dropdownMenu.style.opacity = '0%'; // Hide initially to prevent dropdown flashing
 				if (feed_web == '') {
 					const website = div.querySelector('.item.link.website');
@@ -1202,12 +1241,12 @@ function init_shortcuts() {
 	});
 
 	document.addEventListener('keydown', ev => {
-		if (ev.ctrlKey || ev.metaKey || (ev.altKey && ev.shiftKey) || ev.target.closest('input, select, textarea')) {
-			return;
-		}
-
 		const s = context.shortcuts;
 		let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
+
+		if ((ev.ctrlKey && k !== s.go_website) || ev.metaKey || (ev.altKey && ev.shiftKey) || ev.target.closest('input, select, textarea')) {
+			return;
+		}
 
 		// IE11
 		if (k === 'SPACEBAR') k = 'SPACE';
@@ -1268,7 +1307,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				prev_category();
 			} else if (ev.shiftKey) {
-				prev_feed(false);
+				prev_feed();
 			} else {
 				prev_entry(false);
 			}
@@ -1290,7 +1329,7 @@ function init_shortcuts() {
 			if (ev.altKey) {
 				first_category();
 			} else if (ev.shiftKey) {
-				first_feed();
+				first_feed(false, false);
 			} else {
 				const old_active = document.querySelector('.flux.current');
 				const first = document.querySelector('.flux');
@@ -1321,14 +1360,6 @@ function init_shortcuts() {
 			return;
 		}
 
-		if (ev.altKey || ev.shiftKey) {
-			return;
-		}
-		if (k === s.mark_favorite) {	// Toggle the favorite state
-			mark_favorite(document.querySelector('.flux.current'));
-			ev.preventDefault();
-			return;
-		}
 		if (k === s.go_website) {
 			if (context.auto_mark_site) {
 				mark_read(document.querySelector('.flux.current'), true, false);
@@ -1339,6 +1370,15 @@ function init_shortcuts() {
 				window.open(link_go_website.href, '_blank', 'noopener');
 				ev.preventDefault();
 			}
+			return;
+		}
+
+		if (ev.altKey || ev.shiftKey) {
+			return;
+		}
+		if (k === s.mark_favorite) {	// Toggle the favorite state
+			mark_favorite(document.querySelector('.flux.current'));
+			ev.preventDefault();
 			return;
 		}
 		const hash = location.hash.substr(1);
@@ -1510,7 +1550,7 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item.share > button[data-type="web-sharing-api"]');
-		if (el && navigator.share) {	// https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+		if (el && navigator.share) {	// https://developer.mozilla.org/docs/Web/API/Navigator/share
 			const shareData = {
 				url: el.dataset.url,
 				title: decodeURI(el.dataset.title),
@@ -2311,11 +2351,12 @@ function faviconNbUnread(n) {
 		return;
 	}
 	const svgBase = dynamicFaviconBase.innerHTML;
-	const link = document.getElementById('favicon')?.cloneNode(true);
+	const favicon = document.getElementById('favicon');
+	const link = favicon?.cloneNode(true);
 	if (link) {
 		let svgOutput = '';
 		if (n > 0) {
-			let text = '';
+			let text;
 			if (n < 1000) {
 				text = n;
 			} else if (n < 100000) {
@@ -2347,8 +2388,7 @@ function faviconNbUnread(n) {
 			temp.remove();
 		}
 		link.href = `data:image/svg+xml;base64,${btoa(svgOutput || svgBase)}`;
-		document.querySelector('#favicon').remove();
-		document.head.appendChild(link);
+		favicon.replaceWith(link);
 	}
 }
 
@@ -2468,7 +2508,7 @@ function init_navigation_handler() {
 	if (!('navigation' in window)) {
 		return;
 	}
-	navigation.addEventListener('navigate', (e) => {
+	window.navigation.addEventListener('navigate', (e) => {
 		if (!(e.canIntercept && e.hashChange && e.navigationType === 'traverse')) {
 			return;
 		}

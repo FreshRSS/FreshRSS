@@ -45,12 +45,20 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 	}
 
 	#[\Override]
-	protected function get_curl_resolve_info(string $url): array|null|false {
-		return FreshRSS_http_Util::getCurlResolveInfo($url);
+	protected function get_curl_resolve_info(string $url, bool $for_proxy = false): array|string|null|false {
+		return FreshRSS_http_Util::getCurlResolveInfo($url, $for_proxy);
 	}
 
 	#[\Override]
 	protected function on_http_response($response, array $curl_options = []): void {
+		if (!\SimplePie\Misc::is_remote_uri($this->get_final_requested_uri())) {
+			$this->set_status_code(0);
+			$this->set_body_content('');
+			$this->error = 'Fetching non-remote URLs is not permitted: “' . $this->get_final_requested_uri() . '“';
+			$this->success = false;
+			$response = '';
+		}
+
 		if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
 			syslog(LOG_INFO, 'FreshRSS SimplePie GET ' . $this->get_status_code() . ' ' . \SimplePie\Misc::url_remove_credentials($this->get_final_requested_uri()));
 		}

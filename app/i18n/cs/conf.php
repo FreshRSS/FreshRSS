@@ -32,6 +32,37 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Zobrazení',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autoři a datum',
+				'both' => 'V záhlaví a zápatí',
+				'footer' => 'V zápatí',
+				'header' => 'V záhlaví',
+				'none' => 'Žádný',
+			),
+			'feed_name' => array(
+				'above_title' => 'Nad názvem/štítky',
+				'none' => 'Žádný',
+				'with_authors' => 'V řádku s autory a datem',
+			),
+			'feed_title' => 'Název feedu',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Štítky',
+				'both' => 'V záhlaví a zápatí',
+				'footer' => 'V zápatí',
+				'header' => 'V záhlaví',
+				'none' => 'Žádné',
+			),
+			'tags_max' => array(
+				'_' => 'Maximální počet zobrazených štítků',
+				'help' => '0 znamená: zobrazit všechny značky a nesbalovat je.',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatický tmavý režim',
 			'auto' => 'Automatický',
@@ -39,6 +70,9 @@ return array(
 			'no' => 'Ne',
 		),
 		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Články: záhlaví/zápatí',
+		),
 		'icon' => array(
 			'bottom_line' => 'Spodní řádek',
 			'display_authors' => 'Autoři',
@@ -142,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
@@ -209,22 +243,15 @@ return array(
 			'opml' => 'Odkaz na seznam kanálů OPML, který lze sdílet',
 			'rss' => 'Odkaz na kanál RSS, který lze sdílet',
 		),
-		'state_0' => 'Zobrazit všechny články',
-		'state_1' => 'Zobrazit přečtené články',
-		'state_2' => 'Zobrazit nepřečtené články',
-		'state_3' => 'Zobrazit všechny články',
-		'state_4' => 'Zobrazit oblíbené články',
-		'state_5' => 'Zobrazit přečtené oblíbené články',
-		'state_6' => 'Zobrazit nepřečtené oblíbené články',
-		'state_7' => 'Zobrazit oblíbené články',
-		'state_8' => 'Zobrazit neoblíbené články',
-		'state_9' => 'Zobrazit přečtené neoblíbené články',
-		'state_10' => 'Zobrazit nepřečtené neoblíbené články',
-		'state_11' => 'Zobrazit neoblíbené články',
-		'state_12' => 'Zobrazit všechny články',
-		'state_13' => 'Zobrazit přečtené články',
-		'state_14' => 'Zobrazit nepřečtené články',
-		'state_15' => 'Zobrazit všechny články',
+		'state_all' => 'Zobrazit všechny články',
+		'state_favorite' => 'Zobrazit oblíbené články',
+		'state_not_favorite' => 'Zobrazit neoblíbené články',
+		'state_read' => 'Zobrazit přečtené články',
+		'state_read_favorite' => 'Zobrazit přečtené oblíbené články',
+		'state_read_not_favorite' => 'Zobrazit přečtené neoblíbené články',
+		'state_unread' => 'Zobrazit nepřečtené články',
+		'state_unread_favorite' => 'Zobrazit nepřečtené oblíbené články',
+		'state_unread_not_favorite' => 'Zobrazit nepřečtené neoblíbené články',
 		'title' => 'Uživatelské dotazy',
 	),
 	'reading' => array(
@@ -232,37 +259,6 @@ return array(
 		'after_onread' => 'Po „označit vše jako přečtené“',
 		'always_show_favorites' => 'Ve výchozím nastavení zobrazit všechny články v oblíbených',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autoři a datum',
-				'both' => 'V záhlaví a zápatí',
-				'footer' => 'V zápatí',
-				'header' => 'V záhlaví',
-				'none' => 'Žádný',
-			),
-			'feed_name' => array(
-				'above_title' => 'Nad názvem/štítky',
-				'none' => 'Žádný',
-				'with_authors' => 'V řádku s autory a datem',
-			),
-			'feed_title' => 'Název feedu',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => 'Štítky',
-				'both' => 'V záhlaví a zápatí',
-				'footer' => 'V zápatí',
-				'header' => 'V záhlaví',
-				'none' => 'Žádné',
-			),
-			'tags_max' => array(
-				'_' => 'Maximální počet zobrazených štítků',
-				'help' => '0 znamená: zobrazit všechny značky a nesbalovat je.',
-			),
-		),
 		'articles_per_page' => 'Počet článků na stránku',
 		'auto_load_more' => 'Načítat další články dole na stránce',
 		'auto_remove_article' => 'Po přečtení články skrýt',
@@ -271,7 +267,6 @@ return array(
 		'display_categories_unfolded' => 'Kategorii, které rozbalovat',
 		'headline' => array(
 			'articles' => 'Články: Otevřít/zavřít',
-			'articles_header_footer' => 'Články: záhlaví/zápatí',
 			'categories' => 'Navigace vlevo: Kategorie',
 			'mark_as_read' => 'Označit článek jako přečtený',
 			'misc' => 'Různé',

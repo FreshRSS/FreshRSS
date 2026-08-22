@@ -21,7 +21,9 @@ The "Subscription management" submenu allows categories and feeds to be configur
 
 ### Archiving
 
-If "Purge Policy" has "By default" selected, then the [default purge policy](./05_Configuration.md) is used and the other options are not displayed. Category options will override the default policy, but they will not override feed-specific options.
+If “Purge Policy” has “By default” selected, then the [default purge policy](./05_Configuration.md#archiving) is used and the other options are not displayed. Category options will override the default policy, but they will not override feed-specific options.
+
+See [Archiving](./05_Configuration.md#archiving) for important details on when and how purging actually happens (it is not applied on every refresh, and it is based on the discovery date of articles, not their published date).
 
 ## Feed Settings
 
@@ -29,7 +31,7 @@ These fields will be auto-filled when adding a feed, but they can be modified la
 
 ### Archival
 
-This section will let you override the default settings for feed archiving and update frequency.
+This section will let you override the default settings for feed archiving and update frequency. When “By default” is selected here, the feed uses its category’s purge policy, falling back to the [global default](./05_Configuration.md#archiving) if the category also uses the default.
 
 ### Login
 
@@ -43,7 +45,7 @@ This question comes up regularly, so we’ll try to clarify how one can retrieve
 
 Please be aware that this way you’ll generate much more traffic to the originating sites, and they might block you accordingly. FreshRSS performance is also negatively affected, because you’ll have to fetch the full article content one by one. So it’s a feature to use sparingly!
 
-The  "Article CSS selector on original website" corresponds to the "path" consisting of IDs and classes (which in HTML, matches the id and class attributes) to retrieve only the interesting part that corresponds to the article. Ideally, this path starts with an id (which is unique to the page). The basics are explained [here (MDN)](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
+The  "Article CSS selector on original website" corresponds to the "path" consisting of IDs and classes (which in HTML, matches the id and class attributes) to retrieve only the interesting part that corresponds to the article. Ideally, this path starts with an id (which is unique to the page). The basics are explained [here (MDN)](https://developer.mozilla.org/docs/Learn_web_development/Core/Styling_basics/Basic_selectors).
 
 ##### Example: Rue89
 

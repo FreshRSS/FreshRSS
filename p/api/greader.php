@@ -9,12 +9,12 @@ FreshRSS-specific information is prefixed with 'frss:'
 
 == Credits ==
 * 2014-03: Released by Alexandre Alapetite https://alexandre.alapetite.fr
-	under GNU AGPL 3 license http://www.gnu.org/licenses/agpl-3.0.html
+	under GNU AGPL 3 license https://www.gnu.org/licenses/agpl-3.0.html
 
 == Documentation ==
 * https://code.google.com/archive/p/pyrfeed/wikis/GoogleReaderAPI.wiki
 * https://web.archive.org/web/20130718025427/http://undoc.in/
-* http://ranchero.com/downloads/GoogleReaderAPI-2009.pdf
+* https://ranchero.com/downloads/GoogleReaderAPI-2009.pdf
 * https://github.com/mihaip/google-reader-api
 * https://web.archive.org/web/20210126113527/https://blog.martindoms.com/2009/08/15/using-the-google-reader-api-part-1
 * https://github.com/noinnion/newsplus/blob/master/extensions/GoogleReaderCloneExtension/src/com/noinnion/android/newsplus/extension/google_reader/GoogleReaderClient.java
@@ -94,7 +94,7 @@ final class GReaderAPI {
 	private static function debugInfo(): string {
 		if (function_exists('getallheaders')) {
 			$ALL_HEADERS = getallheaders();
-		} else {	//nginx	http://php.net/getallheaders#84262
+		} else {	//nginx	https://www.php.net/getallheaders#84262
 			$ALL_HEADERS = [];
 			foreach ($_SERVER as $name => $value) {
 				if (is_string($name) && str_starts_with($name, 'HTTP_')) {
@@ -176,7 +176,7 @@ final class GReaderAPI {
 	}
 
 	private static function authorizationToUser(): string {
-		//Input is 'GoogleLogin auth', but PHP replaces spaces by '_'	http://php.net/language.variables.external
+		//Input is 'GoogleLogin auth', but PHP replaces spaces by '_'	https://www.php.net/language.variables.external
 		$headerAuth = headerVariable('Authorization', 'GoogleLogin_auth');
 		if ($headerAuth != '') {
 			$headerAuthX = explode('/', $headerAuth, 2);
@@ -192,7 +192,7 @@ final class GReaderAPI {
 						Minz_Log::warning('Invalid API user ' . $user . ': configuration cannot be found.');
 						self::unauthorized();
 					}
-					if ($headerAuthX[1] === sha1(FreshRSS_Context::systemConf()->salt . $user . FreshRSS_Context::userConf()->apiPasswordHash)) {
+					if (hash_equals(sha1(FreshRSS_Context::systemConf()->salt . $user . FreshRSS_Context::userConf()->apiPasswordHash), $headerAuthX[1])) {
 						return $user;
 					} else {
 						Minz_Log::warning('Invalid API authorisation for user ' . $user);
@@ -451,7 +451,8 @@ final class GReaderAPI {
 						if ($feedId <= 0) {
 							$http_auth = '';
 							try {
-								FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, '', $http_auth);
+								$kind = self::detectFeedKind($streamUrl);
+								FreshRSS_feed_Controller::addFeed($streamUrl, $title, $addCatId, '', $http_auth, [], $kind);
 								continue 2;
 							} catch (Exception $e) {
 								Minz_Log::error('subscriptionEdit error subscribe: ' . $e->getMessage(), API_LOG);
@@ -482,13 +483,23 @@ final class GReaderAPI {
 		exit('OK');
 	}
 
+	/**
+	 * Guess the kind of feed (RSS/ATOM vs. JSON) based on URL.
+	 * The Google Reader API does not provide any way for the client to specify the feed format.
+	 */
+	private static function detectFeedKind(string $url): int {
+		return preg_match('/(?:\b|_)json(?:\b|_)/i', $url) === 1
+			? FreshRSS_Feed::KIND_JSONFEED
+			: FreshRSS_Feed::KIND_RSS;
+	}
+
 	private static function quickadd(string $url): never {
 		try {
 			$url = htmlspecialchars($url, ENT_COMPAT, 'UTF-8');
 			if (str_starts_with($url, 'feed/')) {
 				$url = substr($url, 5);
 			}
-			$feed = FreshRSS_feed_Controller::addFeed($url);
+			$feed = FreshRSS_feed_Controller::addFeed($url, kind: self::detectFeedKind($url));
 			exit(json_encode([
 					'numResults' => 1,
 					'query' => $feed->url(),
@@ -1086,7 +1097,7 @@ TXT;
 		$pathInfo = '';
 		if (empty($_SERVER['PATH_INFO']) || !is_string($_SERVER['PATH_INFO'])) {
 			if (!empty($_SERVER['ORIG_PATH_INFO']) && is_string($_SERVER['ORIG_PATH_INFO'])) {
-				// Compatibility https://php.net/reserved.variables.server
+				// Compatibility https://www.php.net/reserved.variables.server
 				$pathInfo = $_SERVER['ORIG_PATH_INFO'];
 			}
 		} else {

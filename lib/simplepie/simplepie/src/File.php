@@ -104,7 +104,7 @@ class File implements Response
             $this->permanent_url = $url;
         }
         $this->useragent = $useragent;
-        if (preg_match('/^http(s)?:\/\//i', $url)) {
+        if (\SimplePie\Misc::is_remote_uri($url)) {
             if ($useragent === null) {
                 $useragent = (string) ini_get('user_agent');
                 $this->useragent = $useragent;
@@ -114,7 +114,9 @@ class File implements Response
             }
             if (!$force_fsockopen && function_exists('curl_exec')) {
                 $resolve = false; // FreshRSS
-                if (empty($curl_options[CURLOPT_PROXY] ?? null)) { // FreshRSS
+                $proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : null; // FreshRSS
+                $proxy_type = $curl_options[CURLOPT_PROXYTYPE] ?? CURLPROXY_HTTP; // FreshRSS
+                if ($proxy == null) { // FreshRSS
                     $resolve = $this->get_curl_resolve_info($url);
                     if ($resolve === null) {
                         $this->error = 'URL is not allowed to be resolved: ' . \SimplePie\Misc::url_remove_credentials($url);
@@ -127,6 +129,53 @@ class File implements Response
                     }
                     if (!empty($resolve)) {
                         $curl_options[CURLOPT_RESOLVE] = $resolve; // Prevent DNS rebinding
+                    }
+                } else { // FreshRSS
+                    defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2); // Compatibility cURL 7.51
+                    $proxy_scheme = null;
+                    switch ($proxy_type) {
+                        case CURLPROXY_HTTP:
+                            $proxy_scheme = 'http';
+                            break;
+                        case CURLPROXY_HTTPS:
+                            $proxy_scheme = 'https';
+                            break;
+                        case CURLPROXY_SOCKS4:
+                            $proxy_scheme = 'socks4';
+                            break;
+                        case CURLPROXY_SOCKS4A:
+                            $proxy_scheme = 'socks4a';
+                            break;
+                        case CURLPROXY_SOCKS5:
+                            $proxy_scheme = 'socks5';
+                            break;
+                        case CURLPROXY_SOCKS5_HOSTNAME:
+                            $proxy_scheme = 'socks5h';
+                            break;
+                    }
+                    if ($proxy_scheme === null) {
+                        $this->error = 'Unsupported proxy type';
+                        $this->success = false;
+                        return;
+                    }
+                    $proxy = preg_replace('#^.*://#i', '', $proxy); // Strip any scheme already present in CURLOPT_PROXY
+                    $proxy_url = "$proxy_scheme://$proxy"; // CURLOPT_PROXY ($proxy) is formatted as user:pass@hostname:port, with the part before @ being optional
+                    $resolve = $this->get_curl_resolve_info($proxy_url, true);
+                    if ($resolve === null) {
+                        $this->error = 'Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
+                            \SimplePie\Misc::url_remove_credentials($url) . '] [' .
+                            \SimplePie\Misc::url_remove_credentials($proxy_url) . ']';
+                        $this->success = false;
+                        return;
+                    } elseif ($resolve === false) {
+                        $this->error = 'Failed to resolve proxy hostname: ' . \SimplePie\Misc::url_remove_credentials($proxy_url);
+                        $this->success = false;
+                        return;
+                    }
+                    $curl_options[CURLOPT_PROXY] = $resolve; // Translate from a hostname:port value to ip:port, in order to prevent DNS rebinding
+                    if (defined('CURLOPT_PROXY_SSL_VERIFYHOST')) {
+                        // Available as of PHP 7.3.0 and cURL 7.52.0
+                        $curl_options[CURLOPT_PROXY_SSL_VERIFYHOST] = 0; // Skip verifying the hostname (a bit unsafe, but needed since there is no CURLOPT_RESOLVE equivalent for proxy hostnames)
                     }
                 }
                 $this->method = \SimplePie\SimplePie::FILE_SOURCE_REMOTE | \SimplePie\SimplePie::FILE_SOURCE_CURL;
@@ -186,7 +235,8 @@ class File implements Response
                                 ($locationHeader = $this->get_header_line('location')) !== '' && ($this->redirects < $redirects || $redirects === -1)) { // FreshRSS: added infinite redirects for -1
                                 $this->redirects++;
                                 $location = \SimplePie\Misc::absolutize_url($locationHeader, $url);
-                                if ($location === false) {
+                                if ($location === false || !\SimplePie\Misc::is_remote_uri($location)) {
+                                    $this->status_code = 0;
                                     $this->error = "Invalid redirect location, trying to base “{$locationHeader}” onto “{$url}”";
                                     $this->success = false;
                                     return;
@@ -210,6 +260,7 @@ class File implements Response
                                     throw new \InvalidArgumentException('Malformed URL: ' . $url);
                                 }
                                 if (($url_parts_to = parse_url(strtolower($location))) === false) {
+                                    $this->status_code = 0;
                                     $this->error = "Invalid redirect location: malformed URL “{$location}”";
                                     $this->success = false;
                                     return;
@@ -320,7 +371,8 @@ class File implements Response
                                 $this->redirects++;
                                 $location = \SimplePie\Misc::absolutize_url($locationHeader, $url);
                                 $this->permanentUrlMutable = $this->permanentUrlMutable && ($this->status_code == 301 || $this->status_code == 308);
-                                if ($location === false) {
+                                if ($location === false || !\SimplePie\Misc::is_remote_uri($location)) {
+                                    $this->status_code = 0;
                                     $this->error = "Invalid redirect location, trying to base “{$locationHeader}” onto “{$url}”";
                                     $this->success = false;
                                     return;
@@ -332,6 +384,7 @@ class File implements Response
                                     throw new \InvalidArgumentException('Malformed URL: ' . $url);
                                 }
                                 if (($url_parts_to = parse_url(strtolower($location))) === false) {
+                                    $this->status_code = 0;
                                     $this->error = "Invalid redirect location: malformed URL “{$location}”";
                                     $this->success = false;
                                     return;
@@ -444,10 +497,17 @@ class File implements Response
     /**
      * Event to allow inheriting classes to control fetching certain URLs.
      * @param string $url
-     * @return array<string>|null|false Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
+     * @return array<string>|string|null|false Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve. Can also be used for checking if the CURLOPT_PROXY value is allowed, by providing a proxy URL with the `for_proxy` parameter set to `true`. In that case, a string value will be returned with the hostname resolved to an IP if allowed.
      */
-    protected function get_curl_resolve_info(string $url)
+    protected function get_curl_resolve_info(string $url, bool $for_proxy = false)
     {
+        if ($for_proxy) {
+            $pos = strpos($url, '://');
+            if ($pos === false) {
+                return false;
+            }
+            return substr($url, $pos + 3);
+        }
         return [];
     }
 
@@ -464,6 +524,11 @@ class File implements Response
     public function get_status_code(): int
     {
         return (int) $this->status_code;
+    }
+
+    public function set_status_code(int $status_code): void
+    {
+        $this->status_code = $status_code;
     }
 
     public function get_headers(): array
@@ -506,6 +571,11 @@ class File implements Response
     public function get_body_content(): string
     {
         return (string) $this->body;
+    }
+
+    public function set_body_content(string $body): void
+    {
+        $this->body = $body;
     }
 
     /**

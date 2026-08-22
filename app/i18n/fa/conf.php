@@ -32,6 +32,37 @@ return array(
 	),
 	'display' => array(
 		'_' => ' نمایش',
+		'article' => array(
+			'authors_date' => array(
+				'_' => ' نویسندگان و تاریخ',
+				'both' => ' در سرصفحه و پاورقی',
+				'footer' => ' در پاورقی',
+				'header' => ' در سربرگ',
+				'none' => ' هیچکدام',
+			),
+			'feed_name' => array(
+				'above_title' => ' بالای عنوان/برچسب ها',
+				'none' => ' هیچ',
+				'with_authors' => ' در نویسندگان و ردیف تاریخ',
+			),
+			'feed_title' => ' عنوان خوراک',
+			'icons' => array(
+				'_' => 'موقعیت آیکون‌ها<br /><small>(فقط در نمای خواندن)</small>',
+				'above_title' => 'بالاتر از عنوان',
+				'with_authors' => 'در سطر نویسنده و تاریخ',
+			),
+			'tags' => array(
+				'_' => ' برچسب ها',
+				'both' => ' در سرصفحه و پاورقی',
+				'footer' => ' در پاورقی',
+				'header' => ' در سربرگ',
+				'none' => ' هیچ',
+			),
+			'tags_max' => array(
+				'_' => ' حداکثر تعداد برچسب نشان داده شده است',
+				'help' => '0 به این معنی است: همه برچسب ها را نشان دهید و آنها را جمع نکنید',
+			),
+		),
 		'darkMode' => array(
 			'_' => ' حالت تاریک خودکار',
 			'auto' => ' خودکار',
@@ -39,6 +70,9 @@ return array(
 			'no' => 'خیر',
 		),
 		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => ' مقالات: سرصفحه / پاورقی',
+		),
 		'icon' => array(
 			'bottom_line' => ' خط پایین',
 			'display_authors' => ' نویسندگان',
@@ -142,7 +176,7 @@ return array(
 			'check_link' => 'بررسی وضعیت از طریق: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'غیرفعال',
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">مستندات و فهرست برنامه‌های شناخته‌شده</a>',	// IGNORE
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
 			'security_warning' => 'از HTTPS استفاده کنید. رمز عبور API به صورت متن ساده ارسال می‌شود و اگر با GET فرستاده شود ممکن است در لاگ‌های سرور ثبت شود.',
 		),
 		'change_password' => 'تغییر رمز عبور',
@@ -209,22 +243,15 @@ return array(
 			'opml' => 'لینک قابل اشتراک‌گذاری برای فهرست OPML فیدها',
 			'rss' => 'لینک قابل اشتراک‌گذاری برای فید RSS',
 		),
-		'state_0' => 'نمایش همه مقالات',
-		'state_1' => 'نمایش مقالات خوانده شده',
-		'state_2' => 'نمایش مقالات خوانده نشده',
-		'state_3' => 'نمایش همه مقالات',
-		'state_4' => ' نمایش مقالات مورد علاقه',
-		'state_5' => ' نمایش مقالات مورد علاقه خوانده شده',
-		'state_6' => 'نمایش مقالات مورد علاقه خوانده نشده',
-		'state_7' => ' نمایش مقالات مورد علاقه',
-		'state_8' => 'نمایش مقاله‌های غیرموردعلاقه',
-		'state_9' => ' نمایش مقالات مورد علاقه خوانده نشده',
-		'state_10' => 'نمایش مقاله‌های خوانده‌نشده و غیرموردعلاقه',
-		'state_11' => 'نمایش مقاله‌های غیرموردعلاقه',
-		'state_12' => ' نمایش همه مقالات',
-		'state_13' => ' نمایش مقالات خوانده شده',
-		'state_14' => ' نمایش مقالات خوانده نشده',
-		'state_15' => ' نمایش همه مقالات',
+		'state_all' => ' نمایش همه مقالات',
+		'state_favorite' => ' نمایش مقالات مورد علاقه',
+		'state_not_favorite' => 'نمایش مقاله‌های غیرموردعلاقه',
+		'state_read' => ' نمایش مقالات خوانده شده',
+		'state_read_favorite' => ' نمایش مقالات مورد علاقه خوانده شده',
+		'state_read_not_favorite' => ' نمایش مقالات مورد علاقه خوانده نشده',
+		'state_unread' => ' نمایش مقالات خوانده نشده',
+		'state_unread_favorite' => 'نمایش مقالات مورد علاقه خوانده نشده',
+		'state_unread_not_favorite' => 'نمایش مقاله‌های خوانده‌نشده و غیرموردعلاقه',
 		'title' => ' پرس و جوهای کاربر',
 	),
 	'reading' => array(
@@ -232,37 +259,6 @@ return array(
 		'after_onread' => ' بعد از "علامت گذاری همه به عنوان خوانده شده"',
 		'always_show_favorites' => ' نمایش همه مقالات در موارد دلخواه به طور پیش فرض',
 		'apply_to_individual_feed' => 'به صورت جداگانه برای هر فید اعمال می‌شود',
-		'article' => array(
-			'authors_date' => array(
-				'_' => ' نویسندگان و تاریخ',
-				'both' => ' در سرصفحه و پاورقی',
-				'footer' => ' در پاورقی',
-				'header' => ' در سربرگ',
-				'none' => ' هیچکدام',
-			),
-			'feed_name' => array(
-				'above_title' => ' بالای عنوان/برچسب ها',
-				'none' => ' هیچ',
-				'with_authors' => ' در نویسندگان و ردیف تاریخ',
-			),
-			'feed_title' => ' عنوان خوراک',
-			'icons' => array(
-				'_' => 'موقعیت آیکون‌ها<br /><small>(فقط در نمای خواندن)</small>',
-				'above_title' => 'بالاتر از عنوان',
-				'with_authors' => 'در سطر نویسنده و تاریخ',
-			),
-			'tags' => array(
-				'_' => ' برچسب ها',
-				'both' => ' در سرصفحه و پاورقی',
-				'footer' => ' در پاورقی',
-				'header' => ' در سربرگ',
-				'none' => ' هیچ',
-			),
-			'tags_max' => array(
-				'_' => ' حداکثر تعداد برچسب نشان داده شده است',
-				'help' => '0 به این معنی است: همه برچسب ها را نشان دهید و آنها را جمع نکنید',
-			),
-		),
 		'articles_per_page' => ' تعداد مقاله در هر صفحه',
 		'auto_load_more' => ' مقالات بیشتری را در پایین صفحه بارگذاری کنید',
 		'auto_remove_article' => ' مخفی کردن مقالات پس از خواندن',
@@ -271,7 +267,6 @@ return array(
 		'display_categories_unfolded' => 'دسته‌بندی‌هایی که باید باز باشند',
 		'headline' => array(
 			'articles' => ' مقالات: باز/بستن',
-			'articles_header_footer' => ' مقالات: سرصفحه / پاورقی',
 			'categories' => ' ناوبری چپ: دسته ها',
 			'mark_as_read' => ' مقاله را به عنوان خوانده شده علامت گذاری کنید',
 			'misc' => ' متفرقه',

@@ -129,11 +129,15 @@ This will set images to load as they are viewed. This can save data, but will ca
 
 ### Archiving
 
-These are the global options for fetching and retaining articles from feeds. They can be overridden by individual feed’s settings.
+These are the global options for fetching and retaining articles from feeds. They can be overridden by [category](./04_Subscriptions.md#archiving) settings, which can in turn be overridden by individual feed’s settings (priority order: feed, then category, then this global default).
+
+Purging (i.e. deleting) an article is based on the date it was _discovered_ by FreshRSS, not its published date. An article still present in the upstream feed is always kept regardless of the purge policy, so FreshRSS can keep detecting new articles correctly.
+
+Purging does not happen on every feed refresh: it is only triggered on a random subset of refreshes, to limit the load on the database. To purge immediately, use _Purge now_ below, or the `cli/purge.php` [command-line script](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md), which is suitable for cron.
 
 ### Maintenance
 
-This allows for purging/optimizing the current user’s articles in the database.
+This allows for purging/optimizing the current user’s articles in the database. _Purge now_ immediately applies the archiving policy (feed, then category, then global default) described above to all of your feeds.
 
 ## Sharing
 
@@ -251,4 +255,4 @@ AuthType Basic
 Require user marie
 ```
 
-More information can be found in the [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
+More information can be found in the [Apache documentation](https://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).

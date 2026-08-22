@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivage',
 		'dynamic_opml' => array(
 			'_' => 'OPML dynamique',
-			'help' => 'Fournir l’URL d’un <a href="http://opml.org/" target="_blank">fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
+			'help' => 'Fournir l’URL d’un <a href="https://opml.org/" target="_blank">fichier OPML</a> qui donnera dynamiquement la liste des flux de cette catégorie',
 		),
 		'empty' => 'Catégorie vide',
 		'error' => 'Cette catégorie OPML dynamique a rencontré un problème. Vérifiez que l’URL de l’OPML est toujours accessible et que le nombre maximum de flux par utilisateur n’a pas été dépassé.',
@@ -83,6 +83,7 @@ return array(
 			'help' => 'Écrivez une recherche par ligne. Voir la <a href="https://freshrss.github.io/FreshRSS/fr/users/03_Main_view.html#gr%C3%A2ce-au-champ-de-recherche" target="_blank">documentation des opérateurs</a>.',
 			'view_filter' => 'Aperçu des filtres sur les articles existants (nouvelle fenêtre)',
 		),
+		'global_hint' => 'Utilisez <a href="%s">la vue globale</a> pour voir combien d’articles dans chaque flux correspondent à un état ou à une recherche',
 		'http_headers' => 'Entêtes HTTP',
 		'http_headers_help' => 'Un entête HTTP par ligne, avec le nom et la valeur séparés par un deux-points (ex. : <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icône',
@@ -124,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Format personnalisé pour interpréter la date',
-					'help' => 'Optionnel. Un format supporté par <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
+					'help' => 'Optionnel. Un format supporté par <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'date de l’article',
-					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Le résultat sera passé à la fonction <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'titre de l’article',
-					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">axe XPath</a> <code>descendant::</code> comme <code>descendant::h2</code>',
+					'help' => 'Utiliser en particulier l’<a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">axe XPath</a> <code>descendant::</code> comme <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'identifiant unique de l’article',
@@ -168,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Format personnalisé pour interpréter la date',
-					'help' => 'Optionnel. Un format supporté par <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
+					'help' => 'Optionnel. Un format supporté par <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> comme <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'date de l’article',
-					'help' => 'Le résultat sera passé à la fonction <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Le résultat sera passé à la fonction <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'titre de l’article',
 				'item_uid' => 'identifiant unique de l’article',

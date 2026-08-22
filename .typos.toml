@@ -4,6 +4,7 @@ Ths2 = "Ths2"
 
 [default.extend-words]
 ANDS = "ANDS"
+Chanse = "Chanse"
 referer = "referer"
 
 [files]
@@ -28,6 +29,7 @@ extend-exclude = [
 	"app/i18n/it/",
 	"app/i18n/ja/",
 	"app/i18n/ko/",
+	"app/i18n/lt/",
 	"app/i18n/lv/",
 	"app/i18n/nl/",
 	"app/i18n/oc/",

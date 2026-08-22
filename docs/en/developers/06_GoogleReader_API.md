@@ -26,15 +26,14 @@ Then point your mobile application to the `greader.php` address (e.g. `https://f
 |:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
 |[News+](https://github.com/noinnion/newsplus/blob/master/apk/NewsPlus_202.apk) with [News+ Google Reader extension](https://github.com/noinnion/newsplus/blob/master/apk/GoogleReaderCloneExtension_101.apk) |Android|Closed Source (Free), [partially open source](https://github.com/noinnion/newsplus/blob/master/extensions/GoogleReaderCloneExtension/src/com/noinnion/android/newsplus/extension/google_reader/GoogleReaderClient.java)|
 |[FeedMe 3.5.3+](https://play.google.com/store/apps/details?id=com.seazon.feedme) |Android                  |Closed Source (Free)                                             |
-|[EasyRSS](https://github.com/Alkarex/EasyRSS)                          |Android                |[GPLv3](https://github.com/Alkarex/EasyRSS/blob/master/license.txt) ([F-Droid](https://f-droid.org/packages/org.freshrss.easyrss/))|
 |[Readrops](https://github.com/readrops/Readrops) |Android                  |[GPLv3](https://github.com/readrops/Readrops/blob/develop/LICENSE)                                             |
 |[Fluent Reader Lite](https://hyliu.me/fluent-reader-lite/) |Android, iOS            |[BSD-3](https://github.com/yang991178/fluent-reader-lite)                                             |
-|[Read You](https://github.com/Ashinch/ReadYou/)                                     |Android              |[GPLv3](https://github.com/Ashinch/ReadYou/blob/main/LICENSE)|
+|[Read You](https://github.com/ReadYouApp/ReadYou)                                     |Android              |[GPLv3](https://github.com/ReadYouApp/ReadYou/blob/main/LICENSE)|
 |[FocusReader](https://play.google.com/store/apps/details?id=allen.town.focus.reader) |Android                  |Closed Source(Free)                                              |
 |[Newsflash](https://gitlab.com/news-flash/news_flash_gtk/)                          |Linux                |[GPLv3](https://gitlab.com/news-flash/news_flash_gtk/) |
 |[lire](https://lireapp.com/)                                                        |iOS, macOS           |Closed Source                                             |
 |[Newsboat 2.24+](https://newsboat.org/)                           |Linux                |[MIT](https://github.com/newsboat/newsboat/blob/master/LICENSE)                                              |
-|[Vienna RSS](http://www.vienna-rss.com/)                           |macOS                |[Apache-2.0](https://github.com/ViennaRSS/vienna-rss/blob/master/LICENCE.md)                                              |
+|[Vienna RSS](https://www.vienna-rss.com/)                           |macOS                |[Apache-2.0](https://github.com/ViennaRSS/vienna-rss/blob/master/LICENCE.md)                                              |
 |[Reeder Classic](https://www.reederapp.com/classic/)           |macOS, iOS                |Closed Source                                              |
 |[FreshRSS-Notify](https://addons.mozilla.org/firefox/addon/freshrss-notify-webextension/)                           |Firefox                |Open Source                                              |
 
@@ -80,7 +79,7 @@ curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60
 
 * [By Daniel Arowser](https://web.archive.org/web/20130710044440/http://undoc.in/api.html) ([source](https://github.com/arowser/google-reader-api))
 * [By Martin Doms](https://web.archive.org/web/20210126115837/https://blog.martindoms.com/2009/10/16/using-the-google-reader-api-part-2/)
-* [By Nick Bradbury](https://inessential.com/2013/03/14/google_reader_api_documentation)
+* [By Nick Bradbury](https://inessential.com/2013/03/14/google_reader_api_documentation.html)
 * [By Niall Kennedy](https://web.archive.org/web/20170426184845/http://www.niallkennedy.com/blog/2005/12/google-reader-api.html)
 * [By Mihai Parparita](https://web.archive.org/web/20140919042419/http://code.google.com/p/google-reader-api/w/list) ([source](https://github.com/mihaip/google-reader-api))
 

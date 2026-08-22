@@ -240,10 +240,6 @@ th {
 	background-color: #2980b9;
 }
 
-.switch.active:hover {
-	background-image: url('./icons/disabled-light.svg');
-}
-
 /*=== Navigation */
 .nav-list {
 	font-size: 0.9rem;
@@ -268,7 +264,7 @@ th {
 }
 
 .nav-list .item > a,
-.nav-list .item > .as-link {
+.nav-list .item .as-link {
 	padding: 0 1rem;
 }
 
@@ -319,7 +315,7 @@ th {
 
 .dropdown-menu .item > a,
 .dropdown-menu .item > span,
-.dropdown-menu .item > .as-link {
+.dropdown-menu .item .as-link {
 	padding: 0 22px;
 	line-height: 2.5em;
 	font-size: inherit;
@@ -327,7 +323,7 @@ th {
 
 .dropdown-menu .dropdown-section .item > a,
 .dropdown-menu .dropdown-section .item > span,
-.dropdown-menu .dropdown-section .item > .as-link {
+.dropdown-menu .dropdown-section .item .as-link {
 	padding-right: 2rem;
 }
 
@@ -337,8 +333,8 @@ th {
 
 .dropdown-menu .item > a:focus,
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:focus:not([disabled]),
-.dropdown-menu .item > button:hover:not([disabled]),
+.dropdown-menu .item button:focus:not([disabled]),
+.dropdown-menu .item button:hover:not([disabled]),
 .dropdown-menu .item > label:focus:not(.noHover),
 .dropdown-menu .item > label:hover:not(.noHover) {
 	background: #2980b9;
@@ -393,6 +389,12 @@ th {
 	background: #ffe;
 	color: #c95;
 	border: 1px solid #eeb;
+}
+
+.alert-info {
+	background: #e6f3ff;
+	color: #1a3d5c;
+	border: 1px solid #b3d9ff;
 }
 
 .alert-success {

@@ -32,6 +32,37 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Affichage',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Auteurs et date',
+				'both' => 'En en-tête et en pied d’article',
+				'footer' => 'En pied d’article',
+				'header' => 'En en-tête',
+				'none' => 'Caché',
+			),
+			'feed_name' => array(
+				'above_title' => 'Au-dessus du titre',
+				'none' => 'Caché',
+				'with_authors' => 'Sur la ligne « Auteurs et date »',
+			),
+			'feed_title' => 'Titre du flux',
+			'icons' => array(
+				'_' => 'Position des icônes d’article<br /><small>(Vue lecture seulement)</small>',
+				'above_title' => 'Au dessus du titre',
+				'with_authors' => 'Sur la ligne auteur et date',
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'En en-tête et en pied d’article',
+				'footer' => 'En pied d’article',
+				'header' => 'En en-tête',
+				'none' => 'Caché',
+			),
+			'tags_max' => array(
+				'_' => 'Nombre maximum de tags affichés',
+				'help' => '0 pour afficher tous les tags sans menu déroulant',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Mode sombre automatique',
 			'auto' => 'Auto',	// IGNORE
@@ -39,6 +70,9 @@ return array(
 			'no' => 'Non',
 		),
 		'display_enclosures' => 'Afficher les pièces jointes',
+		'headline' => array(
+			'articles_header_footer' => 'Articles : en-tête / pied d’article',
+		),
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
 			'display_authors' => 'Auteurs',
@@ -209,22 +243,15 @@ return array(
 			'opml' => 'Lien partageable de la liste des flux au format OPML',
 			'rss' => 'Lien partageable du flux RSS',
 		),
-		'state_0' => 'Afficher tous les articles',
-		'state_1' => 'Afficher les articles lus',
-		'state_2' => 'Afficher les articles non lus',
-		'state_3' => 'Afficher tous les articles',
-		'state_4' => 'Afficher les articles favoris',
-		'state_5' => 'Afficher les articles lus et favoris',
-		'state_6' => 'Afficher les articles non lus et favoris',
-		'state_7' => 'Afficher les articles favoris',
-		'state_8' => 'Afficher les articles non favoris',
-		'state_9' => 'Afficher les articles lus et non favoris',
-		'state_10' => 'Afficher les articles non lus et non favoris',
-		'state_11' => 'Afficher les articles non favoris',
-		'state_12' => 'Afficher tous les articles',
-		'state_13' => 'Afficher les articles lus',
-		'state_14' => 'Afficher les articles non lus',
-		'state_15' => 'Afficher tous les articles',
+		'state_all' => 'Afficher tous les articles',
+		'state_favorite' => 'Afficher les articles favoris',
+		'state_not_favorite' => 'Afficher les articles non favoris',
+		'state_read' => 'Afficher les articles lus',
+		'state_read_favorite' => 'Afficher les articles lus favoris',
+		'state_read_not_favorite' => 'Afficher les articles lus non favoris',
+		'state_unread' => 'Afficher les articles non lus',
+		'state_unread_favorite' => 'Afficher les articles non lus favoris',
+		'state_unread_not_favorite' => 'Afficher les articles non lus non favoris',
 		'title' => 'Filtres utilisateurs',
 	),
 	'reading' => array(
@@ -232,37 +259,6 @@ return array(
 		'after_onread' => 'Après « Marquer tout comme lu »,',
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
 		'apply_to_individual_feed' => 'S’applique aux flux individuellement',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Auteurs et date',
-				'both' => 'En en-tête et en pied d’article',
-				'footer' => 'En pied d’article',
-				'header' => 'En en-tête',
-				'none' => 'Caché',
-			),
-			'feed_name' => array(
-				'above_title' => 'Au-dessus du titre',
-				'none' => 'Caché',
-				'with_authors' => 'Sur la ligne « Auteurs et date »',
-			),
-			'feed_title' => 'Titre du flux',
-			'icons' => array(
-				'_' => 'Position des icônes d’article<br /><small>(Vue lecture seulement)</small>',
-				'above_title' => 'Au dessus du titre',
-				'with_authors' => 'Sur la ligne auteur et date',
-			),
-			'tags' => array(
-				'_' => 'Tags',	// IGNORE
-				'both' => 'En en-tête et en pied d’article',
-				'footer' => 'En pied d’article',
-				'header' => 'En en-tête',
-				'none' => 'Caché',
-			),
-			'tags_max' => array(
-				'_' => 'Nombre maximum de tags affichés',
-				'help' => '0 pour afficher tous les tags sans menu déroulant',
-			),
-		),
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
@@ -271,7 +267,6 @@ return array(
 		'display_categories_unfolded' => 'Catégories à déplier',
 		'headline' => array(
 			'articles' => 'Articles : ouverture/fermeture',
-			'articles_header_footer' => 'Articles : en-tête / pied d’article',
 			'categories' => 'Navigation de gauche : catégories',
 			'mark_as_read' => 'Marquer les articles comme lus',
 			'misc' => 'Divers',

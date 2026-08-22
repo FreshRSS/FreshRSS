@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Sous licence AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -17,7 +17,7 @@ class Minz_Log {
 	 * 	- level = LOG_WARNING et environment = PRODUCTION
 	 * 	- level = LOG_NOTICE et environment = PRODUCTION
 	 * @param string $information message d'erreur / information à enregistrer
-	 * @param int $level niveau d'erreur https://php.net/function.syslog
+	 * @param int $level niveau d'erreur https://www.php.net/function.syslog
 	 * @param string $file_name fichier de log
 	 * @throws Minz_PermissionDeniedException
 	 */

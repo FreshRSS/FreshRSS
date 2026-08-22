@@ -7,7 +7,7 @@ header('X-Content-Type-Options: nosniff');
  * Fever API for FreshRSS
  * Version 0.1
  * Author: Kevin Papst / https://github.com/kevinpapst
- * Documentation: https://feedafever.com/api
+ * Documentation: https://freshrss.github.io/FreshRSS/en/developers/06_Fever_API.html#official-fever-api-reference-mirrored
  *
  * Inspired by:
  * TinyTinyRSS Fever API plugin @dasmurphy
@@ -38,7 +38,7 @@ $ORIGINAL_INPUT = file_get_contents('php://input', false, null, 0, 1_048_576) ?:
 function debugInfo(): string {
 	if (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
-	} else {	//nginx	http://php.net/getallheaders#84262
+	} else {	// nginx	https://www.php.net/getallheaders#84262
 		$ALL_HEADERS = [];
 		foreach ($_SERVER as $name => $value) {
 			if (is_string($name) && str_starts_with($name, 'HTTP_')) {
@@ -497,8 +497,8 @@ final class FeverAPI
 		if (is_string($_REQUEST['feed_ids'] ?? null)) {
 			$feed_ids = array_filter(explode(',', $_REQUEST['feed_ids']), 'ctype_digit');
 		} elseif (is_string($_REQUEST['group_ids'] ?? null)) {
-			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$group_ids = explode(',', $_REQUEST['group_ids']);
+			$categoryDAO = FreshRSS_Factory::createCategoryDao();
 			$feeds = [];
 			foreach ($group_ids as $id) {
 				if (!is_numeric($id)) {

@@ -27,7 +27,7 @@ return array(
 		'empty' => 'Kosongkan',
 		'enable' => 'Aktifkan',
 		'export' => 'Ekspor',
-		'filter' => 'Filter',	// TODO
+		'filter' => 'Saring',
 		'import' => 'Impor',
 		'load_default_shortcuts' => 'Muat pintasan baku',
 		'manage' => 'Kelola',
@@ -62,9 +62,9 @@ return array(
 			'format' => '<small>Paling tidak 7 karakter</small>',
 		),
 		'reauth' => array(
-			'header' => 'Reauthentication is required',	// TODO
-			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
-			'title' => 'Reauthentication',	// TODO
+			'header' => 'Autentikasi ulang diperlukan',
+			'tip' => 'Anda tidak akan diminta masuk lagi selama <u>%d menit</u>',
+			'title' => 'Autentikasi ulang',
 		),
 		'registration' => array(
 			'_' => 'Akun baru',
@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nama pengguna',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 karakter: huruf, angka, dan <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -165,13 +165,13 @@ return array(
 		'category_empty' => 'Kategori kosong',
 		'confirm_action' => 'Apakah Anda yakin ingin melakukan ini? Ini tidak dapat dibatalkan!',
 		'confirm_action_feed_cat' => 'Apakah Anda yakin ingin melakukan ini? Anda akan kehilangan favorit dan pencarian pengguna terkait. Ini tidak dapat dibatalkan.',
-		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
+		'confirm_exit_slider' => 'Apakah Anda yakin ingin membuang pengaturan yang belum disimpan?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Ada %d artikel baru untuk dibaca di FreshRSS.',	// DIRTY
+				0 => 'Ada %d artikel baru untuk dibaca di FreshRSS.',
 			),
 			'body_unread_articles' => array(
-				0 => '(belum dibaca: %d)',	// DIRTY
+				0 => '(belum dibaca: %d)',
 			),
 			'request_failed' => 'Permintaan gagal, mungkin dikarenakan masalah koneksi internet.',
 			'title_new_articles' => 'FreshRSS: artikel baru!',
@@ -179,7 +179,7 @@ return array(
 		'labels_empty' => 'Tidak ada label',
 		'new_article' => 'Tidak ada artikel baru yang tersedia, klik untuk menyegarkan halaman.',
 		'should_be_activated' => 'JavaScript harus diaktifkan',
-		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
+		'unsafe_csp_header' => 'Header CSP yang digunakan tidak aman dan FreshRSS mungkin rentan terhadap serangan XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lihat dokumentasi</a>',
 	),
 	'lang' => array(
 		'cs' => 'Čeština',	// IGNORE
@@ -197,6 +197,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -214,7 +215,7 @@ return array(
 		'about' => 'Tentang',
 		'account' => 'Akun',
 		'admin' => 'Administrasi',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Pencarian Lanjutan',
 		'archiving' => 'Pengarsipan',
 		'authentication' => 'Autentikasi',
 		'check_install' => 'Pemeriksaan pemasangan',
@@ -248,32 +249,32 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_modified' => 'Server Modification Date',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'Formulir ini membantu menyusun kueri pencarian, tetapi kueri manual jauh lebih ampuh.',
+		'authors' => 'Penulis',
+		'categories' => 'Kategori',
+		'content' => 'Konten',
+		'date_from' => 'Dari',
+		'date_modified' => 'Tanggal Modifikasi Server',
+		'date_past' => 'Dalam kurun terakhir',
+		'date_published' => 'Tanggal Terbit',
+		'date_range' => 'Rentang Tanggal',
+		'date_received' => 'Tanggal Diterima',
+		'date_to' => 'Sampai',
+		'date_user' => 'Tanggal Modifikasi Pengguna',
+		'feeds' => 'Umpan',
+		'free_text' => 'Teks Bebas',
+		'free_text_help' => 'Cari di judul dan konten sekaligus',
+		'full_documentation' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dokumentasi pencarian lengkap</a>',
+		'labels' => 'Label Saya',
+		'multiple_help' => 'Pilih satu atau beberapa (tahan <kbd>Ctrl</kbd> atau <kbd>Cmd</kbd>)',
+		'sources' => 'Sumber',
+		'tags' => 'Tag Artikel',
+		'text' => 'Pencarian Teks',
+		'text_help' => 'Beberapa baris digabungkan dengan <i>atau</i> logis. Juga mendukung <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">ekspresi reguler</a>.',
+		'text_placeholder' => 'Kata kunci',
+		'title' => 'Judul',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Kueri Pengguna',
 	),
 	'share' => array(
 		'Known' => 'Situs berbasis Known',
@@ -295,7 +296,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Penanda',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Bookmarks',	// IGNORE
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

@@ -32,6 +32,37 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Display',	// IGNORE
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// IGNORE
+				'both' => 'In header and footer',	// IGNORE
+				'footer' => 'In footer',	// IGNORE
+				'header' => 'In header',	// IGNORE
+				'none' => 'None',	// IGNORE
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// IGNORE
+				'none' => 'None',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
+			'feed_title' => 'Feed title',	// IGNORE
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// IGNORE
+				'above_title' => 'Above title',	// IGNORE
+				'with_authors' => 'In authors and date row',	// IGNORE
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In header and footer',	// IGNORE
+				'footer' => 'In footer',	// IGNORE
+				'header' => 'In header',	// IGNORE
+				'none' => 'None',	// IGNORE
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// IGNORE
+				'help' => '0 means: show all tags and do not collapse them',	// IGNORE
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatic dark mode',	// IGNORE
 			'auto' => 'Auto',	// IGNORE
@@ -39,6 +70,9 @@ return array(
 			'no' => 'No',	// IGNORE
 		),
 		'display_enclosures' => 'Show enclosures',	// IGNORE
+		'headline' => array(
+			'articles_header_footer' => 'Articles: header/footer',	// IGNORE
+		),
 		'icon' => array(
 			'bottom_line' => 'Bottom line',	// IGNORE
 			'display_authors' => 'Authors',	// IGNORE
@@ -142,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// IGNORE
 			'disabled' => 'The API access is disabled.',	// IGNORE
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// IGNORE
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// IGNORE
 		),
 		'change_password' => 'Change password',	// IGNORE
@@ -209,22 +243,15 @@ return array(
 			'opml' => 'Shareable link to the OPML list of feeds',	// IGNORE
 			'rss' => 'Shareable link to the RSS feed',	// IGNORE
 		),
-		'state_0' => 'Display all articles',	// IGNORE
-		'state_1' => 'Display read articles',	// IGNORE
-		'state_2' => 'Display unread articles',	// IGNORE
-		'state_3' => 'Display all articles',	// IGNORE
-		'state_4' => 'Display favorite articles',
-		'state_5' => 'Display read favorite articles',
-		'state_6' => 'Display unread favorite articles',
-		'state_7' => 'Display favorite articles',
-		'state_8' => 'Display not favorite articles',
-		'state_9' => 'Display read not favorite articles',
-		'state_10' => 'Display unread not favorite articles',
-		'state_11' => 'Display not favorite articles',
-		'state_12' => 'Display all articles',	// IGNORE
-		'state_13' => 'Display read articles',	// IGNORE
-		'state_14' => 'Display unread articles',	// IGNORE
-		'state_15' => 'Display all articles',	// IGNORE
+		'state_all' => 'Display all articles',	// IGNORE
+		'state_favorite' => 'Display favorite articles',
+		'state_not_favorite' => 'Display not favorite articles',
+		'state_read' => 'Display read articles',	// IGNORE
+		'state_read_favorite' => 'Display read favorite articles',
+		'state_read_not_favorite' => 'Display read not favorite articles',
+		'state_unread' => 'Display unread articles',	// IGNORE
+		'state_unread_favorite' => 'Display unread favorite articles',
+		'state_unread_not_favorite' => 'Display unread not favorite articles',
 		'title' => 'User queries',	// IGNORE
 	),
 	'reading' => array(
@@ -232,37 +259,6 @@ return array(
 		'after_onread' => 'After “mark all as read”,',	// IGNORE
 		'always_show_favorites' => 'Show all articles in favorites by default',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// IGNORE
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Authors and date',	// IGNORE
-				'both' => 'In header and footer',	// IGNORE
-				'footer' => 'In footer',	// IGNORE
-				'header' => 'In header',	// IGNORE
-				'none' => 'None',	// IGNORE
-			),
-			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// IGNORE
-				'none' => 'None',	// IGNORE
-				'with_authors' => 'In authors and date row',	// IGNORE
-			),
-			'feed_title' => 'Feed title',	// IGNORE
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// IGNORE
-				'above_title' => 'Above title',	// IGNORE
-				'with_authors' => 'In authors and date row',	// IGNORE
-			),
-			'tags' => array(
-				'_' => 'Tags',	// IGNORE
-				'both' => 'In header and footer',	// IGNORE
-				'footer' => 'In footer',	// IGNORE
-				'header' => 'In header',	// IGNORE
-				'none' => 'None',	// IGNORE
-			),
-			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// IGNORE
-				'help' => '0 means: show all tags and do not collapse them',	// IGNORE
-			),
-		),
 		'articles_per_page' => 'Number of articles per page',	// IGNORE
 		'auto_load_more' => 'Load more articles at the bottom of the page',	// IGNORE
 		'auto_remove_article' => 'Hide articles after reading',	// IGNORE
@@ -271,7 +267,6 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',	// IGNORE
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// IGNORE
-			'articles_header_footer' => 'Articles: header/footer',	// IGNORE
 			'categories' => 'Left navigation: Categories',	// IGNORE
 			'mark_as_read' => 'Mark article as read',	// IGNORE
 			'misc' => 'Miscellaneous',	// IGNORE

@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archiválás',
 		'dynamic_opml' => array(
 			'_' => 'Dinamikus OPML',
-			'help' => 'Adj meg egy URL-t az <a href="http://opml.org/" target="_blank">OPML fájlhoz</a> hogy automatikusan kitöltődjön ez a kategória hírforrásokkal',
+			'help' => 'Adj meg egy URL-t az <a href="https://opml.org/" target="_blank">OPML fájlhoz</a> hogy automatikusan kitöltődjön ez a kategória hírforrásokkal',
 		),
 		'empty' => 'Üres kategória',
 		'error' => 'Ez a dinamikus OPML kategória problémába ütközött. Ellenőrizze, hogy az OPML URL továbbra is elérhető-e, és hogy nem lépte-e túl a felhasználónkénti maximális hírfolyamszámot.',
@@ -83,6 +83,7 @@ return array(
 			'help' => 'Írj egy szűrőt soronként. Műveletek <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">a dokumentációban</a>.',
 			'view_filter' => 'Szűrők előnézete a meglévő cikkeken (új ablakban)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP Fejlécek',
 		'http_headers_help' => 'A fejléceket újsor választja el, a fejléc nevét és értékét kettőspont választja el (pl: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icon',	// IGNORE
@@ -124,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Egyedi dátum/idő formátum',
-					'help' => 'Opcionális. PHP által támogatott formátum <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> például <code>d-m-Y H:i:s</code>',
+					'help' => 'Opcionális. PHP által támogatott formátum <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> például <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'elem dátum',
-					'help' => 'Az eredményt elemzi a <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Az eredményt elemzi a <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'elem cím',
-					'help' => 'Használja az <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath Axes</a> <code>descendant::</code> mint <code>descendant::h2</code>',
+					'help' => 'Használja az <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath Axes</a> <code>descendant::</code> mint <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'elem egyedi ID',
@@ -168,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Egyedi dátum/idő formátum',
-					'help' => 'Opcionális. Egy a <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> funkció által támogatott formátum, például: <code>d-m-Y H:i:s</code>',
+					'help' => 'Opcionális. Egy a <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> funkció által támogatott formátum, például: <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'elem dátum',
-					'help' => 'Az eredményt az <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> php függvény fogja értelmezni',
+					'help' => 'Az eredményt az <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> php függvény fogja értelmezni',
 				),
 				'item_title' => 'elem címe',
 				'item_uid' => 'elem egyedi azonosító ID',

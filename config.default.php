@@ -153,7 +153,7 @@ return [
 	],
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
-	# https://php.net/manual/function.curl-setopt
+	# https://www.php.net/function.curl-setopt
 	'curl_options' => [
 		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
 		//CURLOPT_SSL_VERIFYHOST => 0,
@@ -191,7 +191,7 @@ return [
 		# https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS
 		'connection_uri_params' => '',
 
-		# Additional PDO parameters, such as offered by MySQL https://php.net/ref.pdo-mysql
+		# Additional PDO parameters, such as offered by MySQL https://www.php.net/ref.pdo-mysql
 		'pdo_options' => [
 			//Pdo\Mysql::ATTR_SSL_KEY	=> '/path/to/client-key.pem',
 			//Pdo\Mysql::ATTR_SSL_CERT	=> '/path/to/client-cert.pem',

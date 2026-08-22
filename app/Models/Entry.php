@@ -985,7 +985,9 @@ class FreshRSS_Entry extends Minz_Model {
 			$cssSelector = trim($cssSelector, ', ');
 			$path_entries_filter = trim($feed->attributeString('path_entries_filter') ?? '', ', ');
 			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector, '//'))->asXPath());
-			if ($nodes != false) {
+			if ($nodes === false || $nodes->length === 0) {
+				Minz_Log::warning('CSS content retrieval matched no elements for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
+			} else {
 				$filter_xpath = $path_entries_filter === '' ? '' : (new Gt\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
 				foreach ($nodes as $node) {
 					try {
@@ -1024,6 +1026,9 @@ class FreshRSS_Entry extends Minz_Model {
 
 			unset($xpath, $doc);
 			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
+			if ($nodes !== false && $nodes->length > 0 && trim($html) === '') {
+				Minz_Log::warning('CSS content retrieval returned no content for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
+			}
 
 			if ($path_entries_filter !== '') {
 				// Remove unwanted elements again after sanitizing, for CSS selectors to also match sanitized content
@@ -1195,7 +1200,7 @@ class FreshRSS_Entry extends Minz_Model {
 	/**
 	 * Integer format conversion for Google Reader API format
 	 * @param numeric-string|int $dec Decimal number
-	 * @return string 64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
+	 * @return string 64-bit hexa https://github.com/mihaip/google-reader-api
 	 */
 	private static function dec2hex(string|int $dec): string {
 		return PHP_INT_SIZE < 8 ? // 32-bit ?

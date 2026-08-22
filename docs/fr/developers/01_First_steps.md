@@ -25,7 +25,7 @@ World'` indique que vous devez exécuter la commande `echo` dans le
 répertoire `app/`.
 
 Tout d’abord, vous devez installer
-[Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+[Docker](https://docs.docker.com/engine/install/ubuntu/).
 
 Une fois que c’est fait, clonez le dépôt de code de la manière suivante :
 

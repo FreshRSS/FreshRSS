@@ -408,7 +408,7 @@ input[type="checkbox"] {
 }
 
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:hover {
+.dropdown-menu .item button:hover {
 	text-decoration: none;
 }
 
@@ -749,7 +749,7 @@ input[type="checkbox"]:focus-visible {
 
 .nav-list .item,
 .nav-list .item > a,
-.nav-list .item > .as-link,
+.nav-list .item .as-link,
 .nav-list .item > span {
 	display: block;
 	overflow: hidden;
@@ -870,7 +870,7 @@ input[type="checkbox"]:focus-visible {
 }
 
 .dropdown-menu .item > a,
-.dropdown-menu .item > .as-link,
+.dropdown-menu .item .as-link,
 .dropdown-menu .item > span {
 	display: block;
 	width: 100%;
@@ -933,6 +933,10 @@ input[type="checkbox"]:focus-visible {
 }
 
 .alert-warn {
+	background: inherit;
+}
+
+.alert-info {
 	background: inherit;
 }
 
@@ -1516,11 +1520,6 @@ a.website:hover .favicon {
 	font-weight: bold;
 }
 
-.flux:not(.current):hover .flux_header.has-date .item .title {
-	padding-left: 0.5rem;
-	z-index: 2;
-}
-
 .flux:not(.current):hover .item .title {
 	background-color: inherit;
 }
@@ -1581,6 +1580,7 @@ a.website:hover .favicon {
 	grid-template-columns: minmax(0, 1fr) auto;
 	grid-template-areas: "title date"
 		"summary .";
+	column-gap: 0.5rem;
 	align-content: center;
 }
 
@@ -2907,7 +2907,7 @@ html.slider-active {
 
 	@page {
 		/* Firefox and Safari do not support those yet */
-		/* See: https://developer.mozilla.org/en-US/docs/Web/CSS/@page#browser_compatibility */
+		/* See: https://developer.mozilla.org/docs/Web/CSS/@page#browser_compatibility */
 
 		@top-left { content: ''; }
 

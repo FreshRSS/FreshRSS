@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'アーカイブ',
 		'dynamic_opml' => array(
 			'_' => '動的OPML',
-			'help' => 'このカテゴリに動的フィードを追加するための<a href="http://opml.org/" target="_blank">OPMLファイル</a>のURLを指定します。',
+			'help' => 'このカテゴリに動的フィードを追加するための<a href="https://opml.org/" target="_blank">OPMLファイル</a>のURLを指定します。',
 		),
 		'empty' => '空のカテゴリ',
 		'error' => '動的OPMLカテゴリで問題が発生しました。OPMLのURLに引き続きアクセスできることと、ユーザーごとの最大フィード数を超えていないことを確認してください。',
@@ -83,6 +83,7 @@ return array(
 			'help' => '1行に1つの検索フィルターを設定してください。演算子は<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ドキュメントを参照してください</a>。',
 			'view_filter' => '既存の記事でフィルターをプレビュー（新しいウィンドウ）',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTPヘッダ',
 		'http_headers_help' => 'ヘッダは改行で区切られ、ヘッダの名前と値はコロンで区切られます（例：<kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>）。',
 		'icon' => 'アイコン',
@@ -124,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'カスタム日時フォーマット',
-					'help' => 'オプションです。<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている書式で、<code>d-m-Y H:i:s</code>のように指定します',
+					'help' => 'オプションです。<a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている書式で、<code>d-m-Y H:i:s</code>のように指定します',
 				),
 				'item_timestamp' => array(
 					'_' => '日時',
-					'help' => '結果は<a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>で解析されます',
+					'help' => '結果は<a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>で解析されます',
 				),
 				'item_title' => array(
 					'_' => 'タイトル',
-					'help' => '特に<a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath Axis</a>の <code>descendant::</code> を <code>descendant::h2</code> のように使います',
+					'help' => '特に<a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath Axis</a>の <code>descendant::</code> を <code>descendant::h2</code> のように使います',
 				),
 				'item_uid' => array(
 					'_' => 'ユニークID',
@@ -168,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'カスタム日時フォーマット',
-					'help' => 'オプションです。<a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている書式で、<code>d-m-Y H:i:s</code>のように指定します',
+					'help' => 'オプションです。<a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>でサポートされている書式で、<code>d-m-Y H:i:s</code>のように指定します',
 				),
 				'item_timestamp' => array(
 					'_' => '日時',
-					'help' => '結果は<a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>で解析されます',
+					'help' => '結果は<a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>で解析されます',
 				),
 				'item_title' => 'タイトル',
 				'item_uid' => 'ユニークID',

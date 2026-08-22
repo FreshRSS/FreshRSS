@@ -154,7 +154,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'output' => [],
 			'p' => ['align'],
 			'picture' => [],
-			// 'plaintext' => [], // Can't be closed. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/plaintext
+			// 'plaintext' => [], // Can't be closed. See: https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/plaintext
 			'pre' => ['width', 'wrap'],
 			'progress' => ['max', 'value'],
 			'q' => ['cite'],

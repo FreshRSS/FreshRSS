@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Arşivleme',
 		'dynamic_opml' => array(
 			'_' => 'Dinamik OPML',
-			'help' => 'Bu kategoriyi beslemelerle dinamik olarak doldurmak için bir <a href="http://opml.org/" target="_blank">OPML dosyası</a> URL’si sağlayın.',
+			'help' => 'Bu kategoriyi beslemelerle dinamik olarak doldurmak için bir <a href="https://opml.org/" target="_blank">OPML dosyası</a> URL’si sağlayın.',
 		),
 		'empty' => 'Boş kategori',
 		'error' => 'Bu dinamik OPML kategorisi bir sorunla karşılaştı. OPML URLsinin hâlâ erişilebilir olduğunu ve kullanıcı başına düşen maksimum besleme sayısının aşılmadığını kontrol edin.',
@@ -83,6 +83,7 @@ return array(
 			'help' => 'Her satıra bir arama filtresi yazın. Operatörler için <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">belgelere bakın</a>.',
 			'view_filter' => 'Mevcut makalelerdeki filtreleri önizle (yeni pencere)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP Başlıkları',
 		'http_headers_help' => 'Başlıklar yeni bir satırla ayrılır ve bir başlığın adı ile değeri iki nokta üst üste ile ayrılır (örneğin: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Simge',
@@ -124,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Özel tarih/saat biçimi',
-					'help' => 'İsteğe bağlı. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> tarafından desteklenen bir biçim, örneğin <code>d-m-Y H:i:s</code>',
+					'help' => 'İsteğe bağlı. <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> tarafından desteklenen bir biçim, örneğin <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'öğe tarihi',
-					'help' => 'Sonuç, <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> tarafından ayrıştırılacaktır.',
+					'help' => 'Sonuç, <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> tarafından ayrıştırılacaktır.',
 				),
 				'item_title' => array(
 					'_' => 'öğe başlığı',
-					'help' => 'Özellikle <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath ekseni</a> <code>descendant::</code> kullanın, örneğin <code>descendant::h2</code>',
+					'help' => 'Özellikle <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath ekseni</a> <code>descendant::</code> kullanın, örneğin <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'öğe benzersiz kimliği',
@@ -168,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Özel tarih/saat biçimi',
-					'help' => 'İsteğe bağlı. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> tarafından desteklenen bir biçim, örneğin <code>d-m-Y H:i:s</code>',
+					'help' => 'İsteğe bağlı. <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> tarafından desteklenen bir biçim, örneğin <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'öğe tarihi',
-					'help' => 'Sonuç, <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> tarafından ayrıştırılacaktır.',
+					'help' => 'Sonuç, <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> tarafından ayrıştırılacaktır.',
 				),
 				'item_title' => 'öğe başlığı',
 				'item_uid' => 'öğe benzersiz kimliği',

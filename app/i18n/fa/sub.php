@@ -26,7 +26,7 @@ return array(
 		'archiving' => ' بایگانی',
 		'dynamic_opml' => array(
 			'_' => ' OPML پویا',
-			'help' => ' URL را به <a href="http://opml.org/" target="_blank">فایل OPML</a> ارائه دهید تا به صورت پویا این دسته با فیدها پر شود.',
+			'help' => ' URL را به <a href="https://opml.org/" target="_blank">فایل OPML</a> ارائه دهید تا به صورت پویا این دسته با فیدها پر شود.',
 		),
 		'empty' => ' دسته خالی',
 		'error' => 'این دسته OPML پویا با مشکل روبه‌رو شده است. بررسی کنید که URL فایل OPML هنوز در دسترس باشد و حداکثر تعداد فید برای هر کاربر رد نشده باشد.',
@@ -83,6 +83,7 @@ return array(
 			'help' => ' در هر خط یک فیلتر جستجو بنویسید. اپراتورها <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">مستندات را ببینید</a>.',
 			'view_filter' => 'پیش‌نمایش فیلترها روی مقاله‌های موجود (پنجره جدید)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP سربرگ‌ها',
 		'http_headers_help' => 'سر برگ ها با یک خط جدید از هم جدا می‌شوند و نام و مقدار سربرگ ها با یک دونقطه از هم جدا می‌شوند (مثلاً: <kbd><code>پذیرش: application/atom+xml<br />مجوز: Bearer some-token</code></kbd>).',
 		'icon' => 'آیکون',
@@ -124,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => ' فرمت تاریخ/زمان سفارشی',
-					'help' => 'اختیاری. قالبی که توسط <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> پشتیبانی می‌شود، مانند <code>d-m-Y H:i:s</code>',
+					'help' => 'اختیاری. قالبی که توسط <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> پشتیبانی می‌شود، مانند <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => ' تاریخ مورد',
-					'help' => ' نتیجه با <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> تجزیه خواهد شد',
+					'help' => ' نتیجه با <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> تجزیه خواهد شد',
 				),
 				'item_title' => array(
 					'_' => ' عنوان مورد',
-					'help' => 'به طور مشخص از <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">محور XPath</a> <code>descendant::</code> استفاده کنید؛ مانند <code>descendant::h2</code>',
+					'help' => 'به طور مشخص از <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">محور XPath</a> <code>descendant::</code> استفاده کنید؛ مانند <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => ' شناسه منحصر به فرد مورد',
@@ -168,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'قالب تاریخ/زمان سفارشی',
-					'help' => 'اختیاری. فرمتی که توسط <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> پشتیبانی می‌شود، مانند <code>d-m-Y H:i:s</code>',
+					'help' => 'اختیاری. فرمتی که توسط <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> پشتیبانی می‌شود، مانند <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'تاریخ آیتم',
-					'help' => 'نتیجه توسط <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> تجزیه و تحلیل خواهد شد.',
+					'help' => 'نتیجه توسط <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> تجزیه و تحلیل خواهد شد.',
 				),
 				'item_title' => 'عنوان مورد',
 				'item_uid' => 'شناسه یکتای آیتم',

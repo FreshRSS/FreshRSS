@@ -4,9 +4,9 @@ declare(strict_types=1);
 /**
  * Author: Alexandre Alapetite https://alexandre.alapetite.fr
  * 2014-06-01
- * License: GNU AGPLv3 http://www.gnu.org/licenses/agpl-3.0.html
+ * License: GNU AGPLv3 https://www.gnu.org/licenses/agpl-3.0.html
  *
- * Parser of ISO 8601 time intervals http://en.wikipedia.org/wiki/ISO_8601#Time_intervals
+ * Parser of ISO 8601 time intervals https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
  *	Examples: "2014-02/2014-04", "2014-02/04", "2014-06", "P1M"
  */
 
@@ -46,13 +46,25 @@ function example(string $dateInterval): void {
 
 function _dateFloor(string $isoDate): string {
 	$x = explode('T', $isoDate, 2);
-	$t = isset($x[1]) ? str_pad($x[1], 6, '0') : '000000';
+	$t = isset($x[1]) ? $x[1] : '';
+	$timezone = '';
+	if (preg_match('/([+-]\d{4}|Z)$/i', $t, $matches)) {
+		$timezone = $matches[1];
+		$t = substr($t, 0, -strlen($timezone));
+	}
+	$t = str_pad($t, 6, '0') . $timezone;
 	return str_pad($x[0], 8, '01') . 'T' . $t;
 }
 
 function _dateCeiling(string $isoDate): string {
 	$x = explode('T', $isoDate, 2);
-	$t = isset($x[1]) && strlen($x[1]) > 1 ? str_pad($x[1], 6, '59') : '235959';
+	$t = isset($x[1]) ? $x[1] : '';
+	$timezone = '';
+	if (preg_match('/([+-]\d{4}|Z)$/i', $t, $matches)) {
+		$timezone = $matches[1];
+		$t = substr($t, 0, -strlen($timezone));
+	}
+	$t = strlen($t) > 1 ? str_pad($t, 6, '59') . $timezone : '235959' . $timezone;
 	switch (strlen($x[0])) {
 		case 4:
 			return $x[0] . '1231T' . $t;
@@ -67,7 +79,17 @@ function _dateCeiling(string $isoDate): string {
 
 /** @phpstan-return ($isoDate is null ? null : ($isoDate is '' ? null : string)) */
 function _noDelimit(?string $isoDate): ?string {
-	return $isoDate === null || $isoDate === '' ? null : str_replace(['-', ':'], '', $isoDate);	//FIXME: Bug with negative time zone
+	if ($isoDate === null || $isoDate === '') {
+		return null;
+	}
+
+	$timezone = '';
+	if (preg_match('/([+-]\d{2}:?\d{2}|Z)$/i', $isoDate, $matches)) {
+		$timezone = $matches[1];
+		$isoDate = substr($isoDate, 0, -strlen($timezone));
+	}
+
+	return str_replace(['-', ':'], '', $isoDate) . str_replace(':', '', $timezone);
 }
 
 function _dateRelative(?string $d1, ?string $d2): ?string {

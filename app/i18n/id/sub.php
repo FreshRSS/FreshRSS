@@ -26,10 +26,10 @@ return array(
 		'archiving' => 'Pengarsipan',
 		'dynamic_opml' => array(
 			'_' => 'OPML dinamis',
-			'help' => 'Sediakan URL ke <a href="http://opml.org/" target="_blank">berkas OPML</a> untuk memasukkan umpan ke kategori ini secara dinamis',
+			'help' => 'Sediakan URL ke <a href="https://opml.org/" target="_blank">berkas OPML</a> untuk memasukkan umpan ke kategori ini secara dinamis',
 		),
 		'empty' => 'Kategori kosong',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => 'Kategori OPML dinamis ini mengalami masalah. Periksa apakah URL OPML masih dapat dijangkau dan jumlah maksimum umpan per pengguna belum terlampaui.',
 		'expand' => 'Kembangkan kategori',
 		'information' => 'Informasi',
 		'open' => 'Buka kategori',
@@ -40,7 +40,7 @@ return array(
 	),
 	'feed' => array(
 		'accept_cookies' => 'Terima kuki',
-		'accept_cookies_help' => 'Perbolehkan peladen umpan untuk mengirimkan kuki (hanya disimpan di memori selama durasi permintaan)',
+		'accept_cookies_help' => 'Perbolehkan server umpan untuk mengirimkan kuki (hanya disimpan di memori selama durasi permintaan)',
 		'add' => 'Tambah umpan',
 		'advanced' => 'Lebih lanjut',
 		'archiving' => 'Pengarsipan',
@@ -81,13 +81,14 @@ return array(
 		'filteractions' => array(
 			'_' => 'Tindakan penyaringan',
 			'help' => 'Tulis satu penyaringan pencarian per baris. Operator <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">lihat dokumentasi</a>.',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => 'Pratinjau filter pada artikel yang ada (jendela baru)',
 		),
+		'global_hint' => 'Gunakan <a href="%s">tampilan global</a> untuk melihat berapa banyak artikel di setiap umpan yang cocok dengan suatu status atau ekspresi pencarian',
 		'http_headers' => 'Tajuk HTTP',
 		'http_headers_help' => 'Tajuk dipisahkan dengan baris baru dan nama dan nilai dari tajuk dipisahkan dengan titik dua (contoh: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Ikon',
 		'information' => 'Informasi',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => 'Lalu tambahkan umpan lainnya',
 		'keep_min' => 'Jumlah minimum artikel yang harus disimpan',
 		'kind' => array(
 			'_' => 'Jenis sumber umpan',
@@ -124,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Format tanggal dan waktu kustom',
-					'help' => 'Opsional. Format yang didukung oleh <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> seperti <code>d-m-Y H:i:s</code>',
+					'help' => 'Opsional. Format yang didukung oleh <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> seperti <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'tanggal',
-					'help' => 'Hasil akan diproses oleh <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Hasil akan diproses oleh <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'judul',
-					'help' => 'Gunakan khususnya <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> seperti <code>descendant::h2</code>',
+					'help' => 'Gunakan khususnya <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> seperti <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'ID unik',
@@ -168,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Format tanggal dan waktu kustom',
-					'help' => 'Opsional. Format yang didukung oleh <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> seperti <code>d-m-Y H:i:s</code>',
+					'help' => 'Opsional. Format yang didukung oleh <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> seperti <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'tanggal',
-					'help' => 'Hasil akan diproses oleh <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Hasil akan diproses oleh <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'judul',
 				'item_uid' => 'ID unik',
@@ -187,10 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (baku)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => 'Artikel terakhir diterbitkan <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Artikel terakhir diterima <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Pembaruan gagal terakhir <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Pembaruan berhasil terakhir <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Bersihkan tembolok',
 			'clear_cache_help' => 'Bersihkan tembolok untuk umpan ini.',
@@ -217,7 +218,7 @@ return array(
 		'priority' => array(
 			'_' => 'Ketampakan',
 			'category' => 'Tampilkan hanya di kategorinya saja',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => 'Tampilkan di umpannya sendiri',
 			'hidden' => 'Jangan tampilkan',
 			'important' => 'Tampilkan di umpan penting',
 			'main_stream' => 'Tampilkan di bagian utama',
@@ -289,7 +290,7 @@ return array(
 			'idle' => 'Umpan tak terbarukan',
 			'main' => 'Statistik utama',
 			'repartition' => 'Pengkategorian artikel',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => 'Tanggal belum dibaca',
 		),
 		'subscription_management' => 'Pengelolaan langganan',
 		'subscription_tools' => 'Alat langganan',
