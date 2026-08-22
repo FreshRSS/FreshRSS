@@ -62,8 +62,8 @@ function init_draggable() {
 
 	const save_category_order = function () {
 		const clone = dropSection.cloneNode(true);
-		const dragCatBoxClone = clone.querySelector(`[data-cat-id="${dragCatBox.dataset.catId}"]`);
-		const dragCatOverClone = clone.querySelector(`[data-cat-id="${dragCatOver.dataset.catId}"]`);
+		const dragCatBoxClone = clone.querySelector(`.box[data-cat-id="${dragCatBox.dataset.catId}"]`);
+		const dragCatOverClone = clone.querySelector(`.box[data-cat-id="${dragCatOver.dataset.catId}"]`);
 		if (dragCatOverClone.compareDocumentPosition(dragCatBoxClone) & Node.DOCUMENT_POSITION_FOLLOWING) {
 			dragCatOverClone.insertAdjacentElement('beforebegin', dragCatBoxClone);
 		} else {
