@@ -421,6 +421,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * This action displays the about page of FreshRSS.
 	 */
 	public function aboutAction(): void {
+		if (!FreshRSS_Auth::hasAccess()) {
+			FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
+		}
 		FreshRSS_View::prependTitle(_t('index.about.title') . ' · ');
 	}
 
@@ -435,6 +438,9 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		if ($terms_of_service === false) {
 			Minz_Error::error(404);
 			return;
+		}
+		if (!FreshRSS_Auth::hasAccess()) {
+			FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
 		}
 
 		$this->view->terms_of_service = $terms_of_service;

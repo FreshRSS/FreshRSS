@@ -82,10 +82,6 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 		$auth_type = FreshRSS_Context::systemConf()->auth_type;
 		FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
-		$default_theme = FreshRSS_Context::systemConf()->default_theme;
-		if ($default_theme !== '' && FreshRSS_Context::hasUserConf()) {
-			FreshRSS_Context::userConf()->theme = $default_theme;
-		}
 		match ($auth_type) {
 			'form' => Minz_Request::forward(['c' => 'auth', 'a' => 'formLogin']),
 			'http_auth' => Minz_Error::error(403, [
@@ -266,6 +262,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		if (FreshRSS_user_Controller::max_registrations_reached()) {
 			Minz_Error::error(403);
 		}
+
+		FreshRSS_Context::initUser(Minz_User::INTERNAL_USER, false);
 
 		$this->view->show_tos_checkbox = file_exists(TOS_FILENAME);
 		$this->view->show_email_field = FreshRSS_Context::systemConf()->force_email_validation;

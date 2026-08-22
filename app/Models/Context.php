@@ -132,6 +132,12 @@ final class FreshRSS_Context {
 		if (FreshRSS_Context::$user_conf == null) {
 			return;
 		}
+		if ($username === Minz_User::INTERNAL_USER) {
+			$default_theme = FreshRSS_Context::systemConf()->default_theme;
+			if ($default_theme != '') {
+				FreshRSS_Context::userConf()->theme = $default_theme;
+			}
+		}
 
 		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('');
 
