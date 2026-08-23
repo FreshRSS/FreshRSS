@@ -22,10 +22,11 @@ concurrency:
 jobs:
   # Build job
   build:
+    name: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pages: write
+      pages: write # For preparing the page deployment
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -49,13 +50,14 @@ jobs:
 
   # Deployment job
   deploy:
+    name: deploy
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     permissions:
-      pages: write
-      id-token: write
+      pages: write # For deploying the page
+      id-token: write # For authorizing the deployment
     needs: build
     steps:
       - name: Deploy to GitHub Pages

@@ -9,9 +9,14 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
 
   tests:
+    name: tests
     # https://github.com/actions/virtual-environments
     runs-on: ubuntu-26.04
 

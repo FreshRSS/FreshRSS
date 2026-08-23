@@ -8,13 +8,16 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: zizmor-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   zizmor:
+    name: zizmor
     runs-on: ubuntu-26.04
     permissions:
-      security-events: write
-      contents: read
-      actions: read
+      security-events: write # So that the findings can be listed in the "Security" tab under the "Code scanning" section
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

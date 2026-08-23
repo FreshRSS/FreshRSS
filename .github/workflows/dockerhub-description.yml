@@ -11,8 +11,13 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: update-dockerhub-description
+  cancel-in-progress: false # Queue the description updates
+
 jobs:
   dockerhub-description:
+    name: dockerhub-description
     if: github.repository_owner == 'FreshRSS'
     runs-on: ubuntu-latest
     steps:
