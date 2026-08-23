@@ -26,3 +26,5 @@ jobs:
 
       - name: Run zizmor 🌈
         uses: zizmorcore/zizmor-action@3dc1ecc9bcb9e94e9b2c709687979e1298497054 # v0.6.2
+        with:
+          persona: pedantic # https://docs.zizmor.sh/usage/#using-personas
