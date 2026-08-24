@@ -94,8 +94,8 @@ class FreshRSS_EntryDAOPGSQL extends FreshRSS_EntryDAOSQLite {
 					(id, guid, title, author, content, link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes)
 					(SELECT rank + row_number() OVER(ORDER BY etmp.date, etmp.id) AS id, guid, title, author, content,
 						link, date, `lastSeen`, hash, is_read, is_favorite, id_feed, tags, attributes
-					FROM `_entrytmp` AS etmp
-					ORDER BY etmp.date, etmp.id)
+						FROM `_entrytmp` AS etmp
+						ORDER BY etmp.date, etmp.id)
 					ON CONFLICT DO NOTHING;
 				DELETE FROM `_entrytmp` WHERE id <= maxrank;
 			END $$;
