@@ -19,10 +19,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	}
 
 	public function actualizeAction(): void {
-		if (!FreshRSS_Auth::hasAccess() && !(
-			FreshRSS_Context::systemConf()->allow_anonymous
-			&& FreshRSS_Context::systemConf()->allow_anonymous_refresh
-			)) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymousRefresh()) {
 			Minz_Error::error(403);
 			return;
 		}
@@ -58,7 +55,7 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 	}
 
 	public function nbUnreadsPerFeedAction(): void {
-		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous()) {
 			Minz_Error::error(403);
 			return;
 		}
