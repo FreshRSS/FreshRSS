@@ -294,28 +294,36 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			$simplePie->init();
 		}
 
-		// Sanitizing can grow the string (e.g. auto-closing tags), so shrinking the input is retried a bounded
-		// number of times instead of recursing without limit, which could otherwise loop forever on a fixed point.
-		$result = '';
-		for ($attempt = 0; $attempt < 5; $attempt++) {
+		// Sanitize and truncate, accounting for the fact that sanitizing can grow the string (e.g. auto-closing tags)
+		$data = html_only_entity_decode($data);
+		$truncated = $data;
+		$truncLength = $maxLength;
+		for ($attempt = 0; $attempt < 4; $attempt++) {
 			if ($maxLength !== null) {
-				$data = mb_strcut($data, 0, $maxLength, 'UTF-8');
+				$truncated = mb_strcut($truncated, 0, $truncLength, 'UTF-8');
 			}
-			$sanitized = $simplePie->sanitize->sanitize($data, \SimplePie\SimplePie::CONSTRUCT_HTML, $base);
+			$sanitized = $simplePie->sanitize->sanitize($truncated, \SimplePie\SimplePie::CONSTRUCT_HTML, $base);
 			if (!is_string($sanitized)) {
-				return '';
-			}
-			$result = html_only_entity_decode($sanitized);
-			if ($maxLength === null || strlen($result) <= $maxLength) {
-				return $result;
-			}
-			//Sanitizing has made the result too long so try again shorter
-			$data = mb_strcut($result, 0, max(0, (2 * $maxLength) - strlen($result) - 2), 'UTF-8');
-			if ($data === '') {
 				break;
 			}
+			if ($maxLength === null) {
+				return $sanitized;
+			}
+			if (strlen($sanitized) <= $maxLength) {
+				if (strlen($sanitized) < 8 && strlen($data) >= 8 && strlen($truncated) < strlen($data)) {
+					break;	// We lost too much content (shorter than `<p>a</p>`), so fallback
+				}
+				return $sanitized;
+			}
+			// Exponentially reduce the input length to account for the fact that sanitizing can grow the string
+			$overflow = strlen($sanitized) - $maxLength;
+			$truncLength = max(0, strlen($truncated) - $overflow - (2 ** $attempt));
 		}
-		// Could not converge to the requested length: fall back to a hard truncation that is guaranteed to terminate.
-		return mb_strcut(strip_tags($result), 0, $maxLength, 'UTF-8');
+		// Our heuristic failed, so fallback to sanitize + strip tags + hard-truncate
+		$sanitized = $simplePie->sanitize->sanitize($data, \SimplePie\SimplePie::CONSTRUCT_HTML, $base);
+		if (!is_string($sanitized)) {
+			return '';
+		}
+		return mb_strcut(strip_tags($sanitized), 0, $maxLength, 'UTF-8');
 	}
 }

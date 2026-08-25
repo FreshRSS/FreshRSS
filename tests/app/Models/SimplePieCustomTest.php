@@ -28,18 +28,12 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 		self::assertStringNotContainsString($mustNotContain, $result);
 	}
 
-	/** @return list<array{string,string}> */
-	public static function provideMaliciousHtml(): array {
-		return [
-			// script tag is removed
-			['<script>alert(1)</script>Hello', '<script'],
-			// inline event handler is removed
-			['<img src="x" onerror="alert(1)">', 'onerror'],
-			// javascript: URL is neutralised
-			['<a href="javascript:alert(1)">click</a>', 'href="javascript:'],
-			// style tag is removed
-			['<style>body{display:none}</style>Hello', '<style'],
-		];
+	/** @return Traversable<string,array{string,string}> */
+	public static function provideMaliciousHtml(): Traversable {
+		yield 'script tag' => ['<script>alert(1)</script>Hello', '<script'];
+		yield 'inline event handler' => ['<img src="x" onerror="alert(1)">', 'onerror'];
+		yield 'JavaScript URL' => ['<a href="javascript:alert(1)">click</a>', 'href="javascript:'];
+		yield 'style tag' => ['<style>body{display:none}</style>Hello', '<style'];
 	}
 
 	public static function test_sanitizeHTML_whenSafeHtml_keepsAllowedTags(): void {
@@ -47,36 +41,57 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 		self::assertSame('<p>Hello <b>world</b></p>', $result);
 	}
 
+	public static function test_sanitizeHTML_whenUnsafeAttributeIsRemoved_keepsAllowedTag(): void {
+		self::assertSame('<br>', FreshRSS_SimplePieCustom::sanitizeHTML('<br onclick="x">'));
+		self::assertSame('<br>', FreshRSS_SimplePieCustom::sanitizeHTML('<br onclick="x">', maxLength: 100));
+	}
+
 	public static function test_sanitizeHTML_whenMaxLengthIsZeroOrNegative_returnsEmptyString(): void {
-		self::assertSame('', FreshRSS_SimplePieCustom::sanitizeHTML('<p>Hello world</p>', '', 0));
-		self::assertSame('', FreshRSS_SimplePieCustom::sanitizeHTML('<p>Hello world</p>', '', -1));
+		self::assertSame('', FreshRSS_SimplePieCustom::sanitizeHTML('<p>Hello world</p>', maxLength: 0));
+		self::assertSame('', FreshRSS_SimplePieCustom::sanitizeHTML('<p>Hello world</p>', maxLength: -1));
 	}
 
 	public static function test_sanitizeHTML_whenResultFitsWithinMaxLength_isUnaffected(): void {
-		$result = FreshRSS_SimplePieCustom::sanitizeHTML('<p>Hello world</p>', '', 100);
+		$result = FreshRSS_SimplePieCustom::sanitizeHTML('<p>Hello world</p>', maxLength: 100);
 		self::assertSame('<p>Hello world</p>', $result);
 	}
 
+	public static function test_sanitizeHTML_whenUnsafePrefixExceedsMaxLength_keepsSafeText(): void {
+		self::assertSame('text', FreshRSS_SimplePieCustom::sanitizeHTML('<script>NOK</script><p>text', maxLength: 5));
+	}
+
 	/**
-	 * Regression test: sanitizing can grow a truncated fragment (e.g. `<p>He` gets auto-closed into
-	 * `<p>He</p>`), which used to make sanitizeHTML() recurse on itself without ever converging,
-	 * causing an infinite loop / stack overflow. It must always terminate and respect maxLength.
+	 * Sanitizing can grow a truncated fragment (e.g. `<p>He` gets sanitized into `<p>He</p>`)
 	 */
 	#[DataProvider('provideMaxLengthInputs')]
 	public static function test_sanitizeHTML_whenMaxLengthForcesReSanitizing_terminatesWithinBound(string $input, int $maxLength): void {
-		$result = FreshRSS_SimplePieCustom::sanitizeHTML($input, '', $maxLength);
+		$result = FreshRSS_SimplePieCustom::sanitizeHTML($input, maxLength: $maxLength);
 		self::assertLessThanOrEqual($maxLength, strlen($result));
 	}
 
-	/** @return list<array{string,int}> */
-	public static function provideMaxLengthInputs(): array {
-		return [
-			// unclosed tag grows back when auto-closed
-			['<p>Hello world</p>', 5],
-			// repeated short tags near the boundary
-			[str_repeat('<b>x</b> ', 50), 20],
-			// single character budget
-			['<p>Hello world</p>', 1],
-		];
+	/** @return Traversable<string,array{string,int}> */
+	public static function provideMaxLengthInputs(): Traversable {
+		yield 'unclosed tag' => ['<p>Hello world</p>', 5];
+		yield 'repeated short tags' => [str_repeat('<b>x</b> ', 50), 20];
+		yield 'single-character budget' => ['<p>Hello world</p>', 1];
+	}
+
+	#[DataProvider('provideCases')]
+	public static function test_sanitizeHTML_Cases(
+		string $input,
+		int $maxLength,
+		string $expected,
+	): void {
+		$result = FreshRSS_SimplePieCustom::sanitizeHTML($input, maxLength: $maxLength);
+
+		self::assertLessThanOrEqual($maxLength, strlen($result));
+		self::assertSame($expected, $result);
+	}
+
+	/** @return Traversable<string,array{string,int,string}> */
+	public static function provideCases(): Traversable {
+		yield 'unclosed tag not fitting' => ['<span>Hello</span> <span>World', 31, '<span>Hello</span> '];
+		// yield 'non converging double unclosed tag' => ['<b><b>x', 10, 'x'];
+		// yield 'non converging triple unclosed tag' => ['<b><b><b>y', 20, 'y'];
 	}
 }
