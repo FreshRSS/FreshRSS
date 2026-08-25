@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @property bool $disable_update
  * @property string $environment
  * @property array<string,bool> $extensions_enabled
+ * @property ''|'error'|'warning'|'notice'|'info'|'debug' $log_level
  * @property-read string $mailer
  * @property-read array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,
  *  'secure':string,'auto_tls':bool,'port':int,'from':string} $smtp
