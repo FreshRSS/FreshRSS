@@ -102,9 +102,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * This action displays the normal view of FreshRSS.
 	 */
 	public function normalAction(): void {
-		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous()) {
+			if (Minz_Request::paramString('user') !== '') {
+				Minz_Error::error(403, redirect: false);
+			} else {
+				Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
+			}
 			return;
 		}
 
@@ -208,9 +211,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * This action displays the global view of FreshRSS.
 	 */
 	public function globalAction(): void {
-		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous()) {
+			if (Minz_Request::paramString('user') !== '') {
+				Minz_Error::error(403, redirect: false);
+			} else {
+				Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
+			}
 			return;
 		}
 
@@ -251,10 +257,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * @deprecated See user query RSS sharing instead
 	 */
 	public function rssAction(): void {
-		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous() && !Minz_Request::tokenIsOk()) {
 			Minz_Error::error(403, redirect: false);
 			return;
 		}
@@ -288,10 +292,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	}
 
 	public function opmlAction(): void {
-		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous() && !Minz_Request::tokenIsOk()) {
 			Minz_Error::error(403, redirect: false);
 			return;
 		}

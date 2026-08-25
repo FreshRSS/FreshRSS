@@ -14,7 +14,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			$action = Minz_Request::actionName();
-			$allow_anonymous_refresh = FreshRSS_Context::systemConf()->allow_anonymous_refresh;
 
 			// Likely coming from bookmarklet, redirect to the login page
 			if ($action === 'add') {
@@ -22,7 +21,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			if ($action !== 'actualize' || (!$allow_anonymous_refresh && !Minz_Request::tokenIsOk())) {
+			if ($action !== 'actualize' || (!FreshRSS_Auth::allowAnonymousRefresh() && !Minz_Request::tokenIsOk())) {
 				Minz_Error::error(403);
 			}
 		}

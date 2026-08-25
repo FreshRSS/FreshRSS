@@ -285,7 +285,7 @@
 		</div>
 	</div>
 
-	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous_refresh) { ?>
+	<?php if (FreshRSS_Auth::hasAccess() || FreshRSS_Auth::allowAnonymousRefresh()) { ?>
 		<div id="nav_menu_actualize" class="group">
 			<a id="actualize" class="btn" href="<?= _url('feed', 'actualize') ?>" title="<?= _t('gen.action.actualize') ?>"><?= _i('refresh') ?></a>
 		</div>
