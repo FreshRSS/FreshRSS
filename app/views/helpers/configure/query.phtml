@@ -51,9 +51,18 @@
 							<li><a href="<?= $this->query->sharedUrlGreader() ?>"><?= _i('link') ?> <?= _t('conf.query.share.greader') ?></a></li>
 							<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
 						</ul>
-						<label class="checkbox" for="publishLabelsInsteadOfTags">
-							<input type="checkbox" name="query[publishLabelsInsteadOfTags]" id="publishLabelsInsteadOfTags" value="1" <?= $this->query->publishLabelsInsteadOfTags() ? 'checked="checked"' : ''?> />
-							<?= _t('conf.query.filter.publish_labels_instead_of_tags') ?>
+					</div>
+					<div class="group-controls">
+						<label class="checkbox" for="includeArticleTags">
+							<input type="checkbox" name="query[includeArticleTags]" id="includeArticleTags" value="1" <?= !$this->query->excludeArticleTags() ? 'checked="checked"' : ''?> />
+							<?= _t('conf.query.filter.include_article_tags_label') ?>
+						</label>
+						<label class="checkbox" for="includeUserLabels">
+							<input type="checkbox" name="query[includeUserLabels]" id="includeUserLabels" value="1" <?= $this->query->includeUserLabels() ? 'checked="checked"' : ''?> />
+							<?= _t('conf.query.filter.include_user_labels_label') ?>
+							<input type="text" name="query[userLabelPrefix]" id="userLabelPrefix" class="w20"
+								value="<?= htmlspecialchars($this->query->userLabelPrefix() ?: (Minz_User::name() ?? '') . '/', ENT_COMPAT, 'UTF-8') ?>"
+								placeholder="<?= htmlspecialchars((Minz_User::name() ?? '') . '/', ENT_COMPAT, 'UTF-8') ?>" />
 						</label>
 						<?php endif; ?>
 					</div>

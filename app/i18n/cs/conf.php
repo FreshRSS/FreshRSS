@@ -201,8 +201,9 @@ return array(
 			'_' => 'Použitý filtr:',
 			'categories' => 'Zobrazit podle kategorie',
 			'feeds' => 'Zobrazit podle kanálu',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Seřadit podle data',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Výraz',
 			'shareOpml' => 'Povolit sdílení příslušných kategorií a kanálů pomocí OPML',
 			'shareRss' => 'Povolit sdílení pomocí HTML &amp; RSS',

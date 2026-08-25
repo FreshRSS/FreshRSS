@@ -298,7 +298,7 @@ label > span[title] {
 	text-decoration: underline dotted;
 }
 
-input:not(.w50,.w100) {
+input:not(.w20,.w50,.w100) {
 	max-width: 90%;
 	width: 300px;
 }
@@ -333,6 +333,13 @@ select {
 textarea.h50 {
 	height: 50vh;
 	min-height: 7rem;
+}
+
+input.w20,
+select.w20,
+textarea.w20 {
+	min-width: 20%;
+	box-sizing: border-box;
 }
 
 input.w50,

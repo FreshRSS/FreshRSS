@@ -201,8 +201,9 @@ return array(
 			'_' => 'Filtro aplicado:',
 			'categories' => 'Mostrar por categoría',
 			'feeds' => 'Mostrar por fuente',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Ordenar por fecha',
-			'publish_labels_instead_of_tags' => 'Reemplazar <i>etiquetas de fuente</i> por <i>etiquetas de usuario</i> en el RSS compartido',
 			'search' => 'Expresión',
 			'shareOpml' => 'Permitir que OPML comparta las categorías y fuentes correspondientes',
 			'shareRss' => 'Permite compartir por HTML &amp; RSS',
