@@ -315,7 +315,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 				break;
 			}
 		}
-		//Could not converge to the requested length: fall back to a hard truncation that is guaranteed to terminate
+		// Could not converge to the requested length: fall back to a hard truncation that is guaranteed to terminate.
 		return mb_strcut(strip_tags($result), 0, $maxLength, 'UTF-8');
 	}
 }
