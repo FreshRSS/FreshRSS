@@ -77,13 +77,8 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	#[DataProvider('provideIncompleteTagsOrEntities')]
-	public static function test_sanitizeHTML_Cases(
-		string $input,
-		int $maxLength,
-		string $expected,
-	): void {
+	public static function test_sanitizeHTML_Cases(string $input, int $maxLength, string $expected): void {
 		$result = FreshRSS_SimplePieCustom::sanitizeHTML($input, maxLength: $maxLength);
-
 		self::assertLessThanOrEqual($maxLength, strlen($result));
 		self::assertSame(trim($expected), trim($result));
 	}
