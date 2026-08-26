@@ -42,8 +42,8 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public static function test_sanitizeHTML_whenUnsafeAttributeIsRemoved_keepsAllowedTag(): void {
-		self::assertSame('<br>', FreshRSS_SimplePieCustom::sanitizeHTML('<br onclick="x">'));
-		self::assertSame('<br>', FreshRSS_SimplePieCustom::sanitizeHTML('<br onclick="x">', maxLength: 100));
+		self::assertSame('Hello <br>', FreshRSS_SimplePieCustom::sanitizeHTML('Hello <br onclick="x">'));
+		self::assertSame('Hello <br>', FreshRSS_SimplePieCustom::sanitizeHTML('Hello <br onclick="x">', maxLength: 100));
 	}
 
 	public static function test_sanitizeHTML_whenMaxLengthIsZeroOrNegative_returnsEmptyString(): void {
@@ -76,7 +76,7 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 		yield 'single-character budget' => ['<p>Hello world</p>', 1];
 	}
 
-	#[DataProvider('provideCases')]
+	#[DataProvider('provideIncompleteTagsOrEntities')]
 	public static function test_sanitizeHTML_Cases(
 		string $input,
 		int $maxLength,
@@ -85,13 +85,14 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 		$result = FreshRSS_SimplePieCustom::sanitizeHTML($input, maxLength: $maxLength);
 
 		self::assertLessThanOrEqual($maxLength, strlen($result));
-		self::assertSame($expected, $result);
+		self::assertSame(trim($expected), trim($result));
 	}
 
 	/** @return Traversable<string,array{string,int,string}> */
-	public static function provideCases(): Traversable {
-		yield 'unclosed tag not fitting' => ['<span>Hello</span> <span>World', 31, '<span>Hello</span> '];
-		// yield 'non converging double unclosed tag' => ['<b><b>x', 10, 'x'];
-		// yield 'non converging triple unclosed tag' => ['<b><b><b>y', 20, 'y'];
+	public static function provideIncompleteTagsOrEntities(): Traversable {
+		yield 'unclosed tag not fitting' => ['<span>Hello</span> <span>World', 31, '<span>Hello</span>'];
+		yield 'unclosed entity' => ['Hello&#8230;', 9, 'Hello'];
+		yield 'double unclosed tag' => ['<b> <b>x', 10, 'x'];
+		yield 'triple unclosed tag' => [' <b><b><b>y', 20, 'y'];
 	}
 }

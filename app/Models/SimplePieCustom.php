@@ -301,6 +301,10 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		for ($attempt = 0; $attempt < 4; $attempt++) {
 			if ($maxLength !== null) {
 				$truncated = mb_strcut($truncated, 0, $truncLength, 'UTF-8');
+				$truncated = preg_replace('%(<[^>]{0,99}|&[^;]{0,32})$%', '', $truncated);	// Remove trailing incomplete tag or entity
+				if (!is_string($truncated)) {
+					break;
+				}
 			}
 			$sanitized = $simplePie->sanitize->sanitize($truncated, \SimplePie\SimplePie::CONSTRUCT_HTML, $base);
 			if (!is_string($sanitized)) {
@@ -310,8 +314,8 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 				return $sanitized;
 			}
 			if (strlen($sanitized) <= $maxLength) {
-				if (strlen($sanitized) < 8 && strlen($data) >= 8 && strlen($truncated) < strlen($data)) {
-					break;	// We lost too much content (shorter than `<p>a</p>`), so fallback
+				if (trim(strip_tags($sanitized)) === '') {
+					break;	// Fallback
 				}
 				return $sanitized;
 			}
