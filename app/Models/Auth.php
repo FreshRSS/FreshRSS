@@ -270,4 +270,16 @@ class FreshRSS_Auth {
 
 		return false;
 	}
+
+	public static function allowAnonymous(): bool {
+		$defaultUser = FreshRSS_Context::systemConf()->default_user;
+		$requestedUser = Minz_Request::paramString('user');
+		return FreshRSS_Context::systemConf()->allow_anonymous &&
+			Minz_User::name() === $defaultUser &&
+			($requestedUser === '' || $requestedUser === $defaultUser);
+	}
+
+	public static function allowAnonymousRefresh(): bool {
+		return FreshRSS_Context::systemConf()->allow_anonymous_refresh && self::allowAnonymous();
+	}
 }
