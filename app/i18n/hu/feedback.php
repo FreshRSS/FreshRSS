@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'A hírforrást nem sikerült hozzáadni. <a href="%s">Nézd meg a FreshRSS logokat</a> a részletekért. Megpróbálhatod mindenképp hozzáadni, ha az <code>#force_feed</code> szöveget az URL után írod.',
 			'invalid_url' => 'URL <em>%s</em> érvénytelen',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d hírforrások frissítése kész',
 			'n_entries_deleted' => '%d cikk törlése kész',
 			'no_refresh' => 'Nincs több frissíthető hírforrás',

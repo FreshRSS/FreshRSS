@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Umpan tidak dapat ditambahkan. <a href="%s">Periksa log FreshRSS</a> untuk informasi lebih lanjut. Anda bisa memaksa penambahan dengan menambahkan <code>#force_feed</code> ke URL.',
 			'invalid_url' => 'URL <em>%s</em> tidak valid',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d umpan telah diperbarui',
 			'n_entries_deleted' => '%d artikel telah dihapus',
 			'no_refresh' => 'Tidak ada umpan untuk disegarkan',

@@ -306,6 +306,30 @@ final class FreshRSS_http_Util {
 	}
 
 	/**
+	 * Loosely normalize a URL for approximate comparison only (e.g. to warn about a likely duplicate feed).
+	 * Ignores the scheme, lower-cases the host, and strips all trailing slashes from the path.
+	 * The URL fragment (e.g. `#force_feed`) is dropped too, since parse_url() never returns it here.
+	 * The result is not a valid URL and must never be stored or used for anything other than comparison.
+	 *
+	 * Unlike compareUrlIgnoringHttps() (used by pshb.php), which only tolerates a scheme difference
+	 * and otherwise compares URLs as opaque strings, this also tolerates host case and a trailing slash,
+	 * which is why it is not simply implemented on top of that helper.
+	 */
+	public static function normalizeUrlForComparison(string $url): string {
+		$url = trim($url);
+		$parts = parse_url($url);
+		if (!is_array($parts) || !isset($parts['host'])) {
+			return $url;
+		}
+		$path = rtrim($parts['path'] ?? '', '/');
+		$normalized = strtolower($parts['host']) . $path;
+		if (isset($parts['query'])) {
+			$normalized .= '?' . $parts['query'];
+		}
+		return $normalized;
+	}
+
+	/**
 	 * Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
 	 *
 	 * Can also be used for checking if the CURLOPT_PROXY value is allowed, by providing a proxy URL with the `for_proxy` parameter set to `true`.

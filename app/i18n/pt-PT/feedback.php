@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'O feed RSS não pôde ser adicionado. <a href="%s">Verifique os logs do FreshRSS</a> para detalhes. Pode forçar a atualização no link <code>#force_feed</code> .',
 			'invalid_url' => 'URL <em>%s</em> é inválida',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d feeds foram atualizados',
 			'n_entries_deleted' => '%d artigos foram apagados',
 			'no_refresh' => 'Não há feed para atualizar…',

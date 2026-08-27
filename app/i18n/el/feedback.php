@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Η ροή ειδήσεων δεν μπορούσε να προστεθεί. <a href="%s">Ελέγξτε τα αρχεία καταγραφής του FreshRSS</a> για λεπτομέρειες. Μπορείτε να δοκιμάσετε να την προσθέσετε με δύναμη appending <code>#force_feed</code> στο URL.',
 			'invalid_url' => 'Το URL <em>%s</em> είναι μη έγκυρο',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d ροές έχουν ενημερωθεί',
 			'n_entries_deleted' => '%d άρθρα έχουν διαγραφεί',
 			'no_refresh' => 'Δεν υπάρχουν ροές για ανανέωση',

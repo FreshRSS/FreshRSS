@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Не вдалося додати стрічку новин. <a href="%s">Докладніше в журналах FreshRSS</a>. Щоб спробувати примусове додання, допишіть <code>#force_feed</code> до URL-адреси.',
 			'invalid_url' => 'URL-адреса <em>%s</em> хибна',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => 'Стрічки оновлено (%d)',
 			'n_entries_deleted' => 'Статті видалено (%d)',
 			'no_refresh' => 'Нема стрічок, які можна було б оновити',

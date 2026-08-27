@@ -116,6 +116,81 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
+	 * Looks for an existing feed whose URL is a likely near-duplicate of the given
+	 * (already canonicalized, e.g. via `new FreshRSS_Feed($url)`) URL. Comparison is
+	 * approximate (ignores scheme, host case, and trailing slash) and is only used to warn
+	 * the user before adding; it must never affect the URL that actually gets stored.
+	 *
+	 * Byte-identical matches are intentionally excluded: that case is already handled with a
+	 * clearer, single-step error by addFeed()'s FreshRSS_AlreadySubscribed_Exception, so it
+	 * must not also trigger this softer "looks similar" warning.
+	 *
+	 * @param array<int,FreshRSS_Feed> $feeds
+	 */
+	private static function findLikelyDuplicateFeed(string $url, array $feeds): ?FreshRSS_Feed {
+		// Check for a byte-identical match across *all* existing feeds first, and short-circuit
+		// to null as soon as one is found. This must happen before (not interleaved with) the
+		// near-duplicate scan below: an exact match must win even if a different feed that is
+		// merely a near-duplicate happens to appear earlier in $feeds.
+		foreach ($feeds as $feed) {
+			if ($feed->url() === $url) {
+				// Exact match: not a "likely" duplicate, an actual one. Let it fall through
+				// to addFeed()'s own already-subscribed check instead.
+				return null;
+			}
+		}
+
+		$normalizedUrl = FreshRSS_http_Util::normalizeUrlForComparison($url);
+		foreach ($feeds as $feed) {
+			if (FreshRSS_http_Util::normalizeUrlForComparison($feed->url()) === $normalizedUrl) {
+				return $feed;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Prepares the view used to ask the user to confirm adding a feed via the bookmarklet
+	 * (GET request, app/views/feed/add.phtml).
+	 */
+	private function showAddFeedForm(string $url): FreshRSS_Feed {
+		FreshRSS_View::prependTitle(_t('sub.feed.title_add') . ' · ');
+
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$this->view->categories = $catDAO->listCategories(prePopulateFeeds: false);
+		$feed = new FreshRSS_Feed($url);
+		$this->view->feed = $feed;
+		try {
+			// We try to get more information about the feed.
+			$feed->load(loadDetails: true);
+			$this->view->load_ok = true;
+		} catch (Exception) {
+			$this->view->load_ok = false;
+		}
+		return $feed;
+	}
+
+	/**
+	 * Re-shows the full Add Feed form (app/views/subscription/add.phtml) together with a
+	 * warning that the submitted URL looks like a near-duplicate of an already-subscribed
+	 * feed, so the user can either change the URL or confirm and add it anyway.
+	 *
+	 * The form is re-rendered rather than redirected to, and its fields (category, feed kind,
+	 * XPath/JSON mappings, HTTP auth, curl/proxy/cookie/SSL/timeout/header options,
+	 * keep_adding_feed, …) are re-read by that view straight from the current request
+	 * (see app/views/subscription/add.phtml), so nothing the user entered is lost. Confirming
+	 * resubmits the same form with a `confirm_duplicate` flag, which skips this check.
+	 */
+	private function showDuplicateFeedWarning(FreshRSS_Feed $duplicateFeed): void {
+		FreshRSS_View::prependTitle(_t('sub.title.add') . ' · ');
+
+		$catDAO = FreshRSS_Factory::createCategoryDao();
+		$this->view->categories = $catDAO->listSortedCategories(prePopulateFeeds: false, details: true);
+		$this->view->duplicate_feed = $duplicateFeed;
+		$this->view->_path('subscription/add.phtml');
+	}
+
+	/**
 	 * This action subscribes to a feed.
 	 *
 	 * It can be reached by both GET and POST requests.
@@ -162,6 +237,22 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$cat = Minz_Request::paramInt('category');
+
+			if (!Minz_Request::paramBoolean('confirm_duplicate')) {
+				try {
+					// Canonicalize the same way addFeed() will, so the comparison below lines up
+					// with what addFeed()'s own already-subscribed check will see.
+					$canonicalUrl = (new FreshRSS_Feed($url))->url();
+				} catch (FreshRSS_BadUrl_Exception) {
+					$canonicalUrl = null;
+				}
+				$duplicateFeed = $canonicalUrl === null ? null : self::findLikelyDuplicateFeed($canonicalUrl, $this->view->feeds);
+				if ($duplicateFeed !== null) {
+					// Likely duplicate: ask the user to confirm before actually adding it.
+					$this->showDuplicateFeedWarning($duplicateFeed);
+					return;
+				}
+			}
 
 			// HTTP information are useful if feed is protected behind a
 			// HTTP authentication
@@ -352,20 +443,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			);
 		} else {
 			// GET request: we must ask confirmation to user before adding feed.
-			FreshRSS_View::prependTitle(_t('sub.feed.title_add') . ' · ');
+			$loadedFeed = $this->showAddFeedForm($url);
 
-			$catDAO = FreshRSS_Factory::createCategoryDao();
-			$this->view->categories = $catDAO->listCategories(prePopulateFeeds: false);
-			$this->view->feed = new FreshRSS_Feed($url);
-			try {
-				// We try to get more information about the feed.
-				$this->view->feed->load(loadDetails: true);
-				$this->view->load_ok = true;
-			} catch (Exception) {
-				$this->view->load_ok = false;
-			}
-
-			$feed = $feedDAO->searchByUrl($this->view->feed->url());
+			$feed = $feedDAO->searchByUrl($loadedFeed->url());
 			if ($feed !== null) {
 				// Already subscribe so we redirect to the feed configuration page.
 				$url_redirect['a'] = 'feed';

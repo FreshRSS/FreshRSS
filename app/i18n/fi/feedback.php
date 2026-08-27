@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Uutissyötettä ei voinut lisätä. Lisätietoja on <a href="%s">FreshRSS-lokeissa</a>. Voit yrittää pakottaa lisäämisen liittämällä tekstin <code>#force_feed</code> URL-osoitteen loppuun.',
 			'invalid_url' => 'URL-osoite <em>%s</em> on virheellinen',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d syötettä on päivitetty',
 			'n_entries_deleted' => '%d artikkelia on poistettu',
 			'no_refresh' => 'Päivitettäviä syötteitä ei ole',

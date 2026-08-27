@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'No ha sido posible agregar la fuente RSS. <a href="%s">Revisa el registro de FreshRSS </a> para más información. Puedes probar de forzarlo añadiendo la etiqueta <code>#force_feed</code> a la URL.',
 			'invalid_url' => 'La URL <em>%s</em> es inválida',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => 'Se han actualizado %d fuentes',
 			'n_entries_deleted' => 'Se han eliminado %d artículos',
 			'no_refresh' => 'No hay fuente a actualizar…',

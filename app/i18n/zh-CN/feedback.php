@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => '订阅源添加失败，<a href="%s">检查 FreshRSS 日志</a> 查看详情。你可以在 URL 后添加 <code>#force_feed</code> 尝试强制添加。',
 			'invalid_url' => 'URL <em>%s</em> 无效',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '已更新 %d 个订阅源',
 			'n_entries_deleted' => '已删除 %d 篇文章',
 			'no_refresh' => '没有可刷新的订阅源',

@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'فید خبری اضافه نشد. برای جزئیات <a href="%s">گزارش‌های FreshRSS</a> را بررسی کنید. می‌توانید با افزودن <code>#force_feed</code> به انتهای URL، افزودن اجباری را امتحان کنید.',
 			'invalid_url' => ' URL <em>%s</em> نامعتبر است',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => ' %d فید به روز شده است',
 			'n_entries_deleted' => ' %d مقاله حذف شده است',
 			'no_refresh' => ' هیچ فید برای تازه کردن وجود ندارد',

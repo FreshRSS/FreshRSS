@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'Haber akışı eklenemedi. Ayrıntılar için <a href="%s">FreshRSS günlüklerini kontrol edin</a>. URL’ye <code>#force_feed</code> ekleyerek zorla eklemeyi deneyebilirsiniz.',
 			'invalid_url' => '<em>%s</em> URL’si geçersiz',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d besleme güncellendi',
 			'n_entries_deleted' => '%d makale silindi',
 			'no_refresh' => 'Yenilenecek besleme yok',

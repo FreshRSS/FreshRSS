@@ -102,6 +102,7 @@ return array(
 			),
 			'internal_problem' => 'ニュースフィードを追加できませんでした。詳細は<a href="%s">FreshRSSのログ</a>を確認してください。URLの末尾に<code>#force_feed</code>を追加すると強制的に追加できます。',
 			'invalid_url' => 'URL <em>%s</em>は無効です',
+			'likely_duplicate' => 'This URL looks similar to your existing feed <em>%s</em>. Do you want to add it anyway?',	// TODO
 			'n_actualized' => '%d件のフィードを更新しました',
 			'n_entries_deleted' => '%d件の記事を削除しました',
 			'no_refresh' => '更新するフィードがありません',
