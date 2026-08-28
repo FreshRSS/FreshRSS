@@ -128,7 +128,9 @@ class FreshRSS_View extends Minz_View {
 	public bool $internal_rendering = false;
 	public string $description = '';
 	public string $image_url = '';
-	public bool $publishLabelsInsteadOfTags = false;
+	public bool $includeUserLabels = false;
+	public bool $excludeArticleTags = false;
+	public string $userLabelPrefix = '';
 
 	// Content preview
 	public string $fatalError;

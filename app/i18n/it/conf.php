@@ -201,8 +201,9 @@ return array(
 			'_' => 'Filtro applicato:',
 			'categories' => 'Mostra per categoria',
 			'feeds' => 'Mostra per feed',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Ordina per data',
-			'publish_labels_instead_of_tags' => 'Sostituisce i <i>tag del feed</i> con le <i>etichette dell’utente</i> nel feed RSS condiviso',
 			'search' => 'Espressione',
 			'shareOpml' => 'Abilita la condivisione di OPML di categorie e feed corrispondenti',
 			'shareRss' => 'Abilita la condivisione di HTML &amp; RSS',

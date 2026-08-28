@@ -541,8 +541,16 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			if (!empty($params['shareRss']) && ctype_digit($params['shareRss'])) {
 				$queryParams['shareRss'] = (bool)$params['shareRss'];
 			}
-			if (!empty($params['publishLabelsInsteadOfTags']) && ctype_digit($params['publishLabelsInsteadOfTags'])) {
-				$queryParams['publishLabelsInsteadOfTags'] = (bool)$params['publishLabelsInsteadOfTags'];
+
+			if (isset($params['includeUserLabels'])) {
+				$queryParams['includeUserLabels'] = !empty($params['includeUserLabels']);
+			}
+			if (isset($params['includeArticleTags'])) {
+				// Reversed logic to ease default value
+				$queryParams['excludeArticleTags'] = empty($params['includeArticleTags']);
+			}
+			if (is_string($params['userLabelPrefix'] ?? null)) {
+				$queryParams['userLabelPrefix'] = trim($params['userLabelPrefix']);
 			}
 
 			$queries = FreshRSS_Context::userConf()->queries;

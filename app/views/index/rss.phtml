@@ -40,14 +40,16 @@ foreach ($this->entries as $item) {
 					}
 				}
 
-				if ($this->publishLabelsInsteadOfTags) {
+				if ($this->includeUserLabels) {
 					$categories = $this->entryIdsTagNames['e_' . $item->id()] ?? [];
 					if (is_array($categories)) {
 						foreach ($categories as $category) {
-							echo "\t\t\t", '<category>', $category, '</category>', "\n";
+							echo "\t\t\t", '<category>', htmlspecialchars($this->userLabelPrefix, ENT_NOQUOTES, 'UTF-8'), $category, '</category>', "\n";
 						}
 					}
-				} else {
+				}
+
+				if (!$this->excludeArticleTags) {
 					$categories = $item->tags();
 					if (is_array($categories)) {
 						foreach ($categories as $category) {

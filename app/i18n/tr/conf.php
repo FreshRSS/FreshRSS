@@ -201,8 +201,9 @@ return array(
 			'_' => 'Uygulanan filtre:',
 			'categories' => 'Kategoriye göre göster',
 			'feeds' => 'Beslemeye göre göster',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Tarihe göre sırala',
-			'publish_labels_instead_of_tags' => 'Paylaşılan RSS içindeki <i>feed tags</i>, <i>user labels</i> tarafından değiştirilmeli',
 			'search' => 'İfade',
 			'shareOpml' => 'İlgili kategori ve beslemelerin OPML ile paylaşımını etkinleştir',
 			'shareRss' => 'HTML ve RSS ile paylaşımı etkinleştir',

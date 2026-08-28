@@ -201,8 +201,9 @@ return array(
 			'_' => 'Zastosowane filtry:',
 			'categories' => 'Według kategorii',
 			'feeds' => 'Według kanału',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Sortowanie wg daty',
-			'publish_labels_instead_of_tags' => 'Zamień <i>tagi kanałów</i> na <i>własne etykiety</i> w udostępnionym RSS',
 			'search' => 'Wyrażenie',
 			'shareOpml' => 'Włącz udostępnianie OPML-ów zawierających kategorie i kanały',
 			'shareRss' => 'Włącz udostępnianie przez HTML i RSS',

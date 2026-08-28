@@ -201,8 +201,9 @@ return array(
 			'_' => 'Pritaikytas filtras:',
 			'categories' => 'Rodyti pagal kategoriją',
 			'feeds' => 'Rodyti pagal kanalą',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Rikiuoti pagal datą',
-			'publish_labels_instead_of_tags' => 'Bendrinamame RSS pakeisti <i>kanalo žymas</i> <i>naudotojo etiketėmis</i>',
 			'search' => 'Išraiška',
 			'shareOpml' => 'Įjungti atitinkamų kategorijų ir kanalų bendrinimą per OPML',
 			'shareRss' => 'Įjungti bendrinimą per HTML ir RSS',
