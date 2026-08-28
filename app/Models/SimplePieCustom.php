@@ -286,9 +286,6 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		if ($data === '' || ($maxLength !== null && $maxLength <= 0)) {
 			return '';
 		}
-		if ($maxLength !== null) {
-			$data = mb_strcut($data, 0, $maxLength, 'UTF-8');
-		}
 		/** @var FreshRSS_SimplePieCustom|null $simplePie */
 		static $simplePie = null;
 		if ($simplePie === null) {
@@ -296,16 +293,41 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			$simplePie->enable_cache(false);
 			$simplePie->init();
 		}
+
+		// Sanitize and truncate, accounting for the fact that sanitizing can grow the string (e.g. auto-closing tags)
+		$data = html_only_entity_decode($data);
+		$truncated = $data;
+		$truncLength = $maxLength;
+		for ($attempt = 0; $attempt < 4; $attempt++) {
+			if ($maxLength !== null) {
+				$truncated = mb_strcut($truncated, 0, $truncLength, 'UTF-8');
+				$truncated = preg_replace('%(<[^>]{0,99}|&[^;]{0,32})$%', '', $truncated);	// Remove trailing incomplete tag or entity
+				if (!is_string($truncated)) {
+					break;
+				}
+			}
+			$sanitized = $simplePie->sanitize->sanitize($truncated, \SimplePie\SimplePie::CONSTRUCT_HTML, $base);
+			if (!is_string($sanitized)) {
+				break;
+			}
+			if ($maxLength === null) {
+				return $sanitized;
+			}
+			if (strlen($sanitized) <= $maxLength) {
+				if (trim(strip_tags($sanitized)) === '') {
+					break;	// Fallback
+				}
+				return $sanitized;
+			}
+			// Exponentially reduce the input length to account for the fact that sanitizing can grow the string
+			$overflow = strlen($sanitized) - $maxLength;
+			$truncLength = max(0, strlen($truncated) - $overflow - (2 ** $attempt));
+		}
+		// Our heuristic failed, so fallback to sanitize + strip tags + hard-truncate
 		$sanitized = $simplePie->sanitize->sanitize($data, \SimplePie\SimplePie::CONSTRUCT_HTML, $base);
 		if (!is_string($sanitized)) {
 			return '';
 		}
-		$result = html_only_entity_decode($sanitized);
-		if ($maxLength !== null && strlen($result) > $maxLength) {
-			//Sanitizing has made the result too long so try again shorter
-			$data = mb_strcut($result, 0, (2 * $maxLength) - strlen($result) - 2, 'UTF-8');
-			return self::sanitizeHTML($data, $base, $maxLength);
-		}
-		return $result;
+		return mb_strcut(strip_tags($sanitized), 0, $maxLength, 'UTF-8');
 	}
 }
