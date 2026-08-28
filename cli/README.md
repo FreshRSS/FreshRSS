@@ -238,7 +238,7 @@ Example to get the number of feeds of a given user:
 ./cli/user-info.php --user alex --json | jq '.[] | .feeds'
 ```
 
-Example to count the total number of feeds accross all users:
+Example to count the total number of feeds across all users:
 
 ```sh
 ./cli/user-info.php --json | jq '[.[].feeds] | add'
