@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => 'Tem certeza de que deseja descartar as configurações não salvas?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Há %d novo artigo para ler no FreshRSS.',	// DIRTY
-				1 => 'Há %d novos artigos para ler no FreshRSS.',	// DIRTY
+				0 => 'Há %d novo artigo para ler no FreshRSS.',
+				1 => 'Há %d novos artigos para ler no FreshRSS.',
 			),
 			'body_unread_articles' => array(
-				0 => '(não lido: %d)',	// DIRTY
-				1 => '(não lido: %d)',	// DIRTY
+				0 => '(não lido: %d)',
+				1 => '(não lido: %d)',
 			),
 			'request_failed' => 'Uma solicitação falhou, isto pode ter sido causado por problemas de conexão com a internet.',
 			'title_new_articles' => 'FreshRSS: novos artigos!',
@@ -304,7 +304,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Favoritos',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Favoritos',
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
