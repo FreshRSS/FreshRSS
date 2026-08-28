@@ -1058,7 +1058,8 @@ class FreshRSS_Entry extends Minz_Model {
 
 			return trim($html);
 		} else {
-			throw new Minz_Exception();
+			Minz_Log::warning('Empty response body when fetching article content for ' . $url);
+			return '';
 		}
 	}
 
