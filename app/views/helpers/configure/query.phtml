@@ -40,7 +40,7 @@
 			<fieldset>
 				<legend><?= _t('conf.query.share') ?></legend>
 				<div class="form-group">
-					<label class="group-name" for="viewMode"><?= _t('conf.reading.view.title') ?></label>
+					<label class="group-name" for="viewMode"><?= _t('conf.reading.view.default') ?></label>
 					<div class="group-controls">
 						<select name="query[viewMode]" id="viewMode">
 							<option value="normal"<?= $this->query->getViewMode() === 'normal' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.normal') ?></option>
