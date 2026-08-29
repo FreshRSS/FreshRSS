@@ -250,6 +250,7 @@ People are sorted by name so please keep this order.
 * [Patrick Crandol](https://github.com/pattems): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pattems)
 * [Paulius Šukys](https://github.com/psukys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:psukys), [Web](https://www.sukys.eu/)
 * [Paweł Kalemba](https://github.com/pkalemba): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pkalemba)
+* [payaci](https://github.com/payaci): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3Apayaci)
 * [pe1uca](https://github.com/pe1uca): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pe1uca)
 * [PedroPMS](https://github.com/PedroPMS): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:PedroPMS)
 * [perrinjerome](https://github.com/perrinjerome): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:perrinjerome)
