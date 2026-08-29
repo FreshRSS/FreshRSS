@@ -958,7 +958,7 @@ function onScroll() {
 		});
 	}
 	let streamFooter;
-	if (context.auto_load_more && (streamFooter = document.getElementById('stream-footer'))) {
+	if (context.auto_load_more && (streamFooter = document.querySelector('.stream-footer'))) {
 		if (box_to_follow.offsetHeight > 0 &&
 			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
 			// Too close to the last pre-loaded article
@@ -2249,7 +2249,7 @@ function load_more_posts() {
 		}
 
 		const html = this.response;
-		const streamFooter = document.getElementById('stream-footer');
+		const streamFooter = document.querySelector('.stream-footer');
 		const transitions = document.querySelectorAll('#stream > .transition');
 		let lastTransition = transitions.length > 0 ? transitions[transitions.length - 1] : null;
 
@@ -2270,7 +2270,7 @@ function load_more_posts() {
 		}
 
 		const bigMarkAsRead = document.getElementById('bigMarkAsRead');
-		const readAll = document.querySelector('#nav_menu_read_all .read_all');
+		const readAll = document.querySelector('.nav_menu_read_all .read_all');
 		if (readAll && bigMarkAsRead && bigMarkAsRead.formAction) {
 			if (context.display_order === 'ASC') {
 				readAll.formAction = bigMarkAsRead.formAction;

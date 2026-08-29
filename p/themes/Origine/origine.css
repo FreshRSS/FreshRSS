@@ -997,7 +997,7 @@ button:hover .icon,
 	margin: 0;
 }
 
-#stream-footer {
+.stream-footer {
 	border-top-color: var(--border-color);
 }
 
@@ -1208,7 +1208,7 @@ button:hover .icon,
 		border-radius: 0;
 	}
 
-	#nav_menu_read_all .btn {
+	.nav_menu_read_all .btn {
 		border-left: 1px solid var(--border-color-shadow-side);
 		border-radius: 3px;
 	}
