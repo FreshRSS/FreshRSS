@@ -291,7 +291,7 @@ final class FreshRSS_Context {
 		$order = Minz_Request::paramString('order', plaintext: true) ?: $default_order ?: FreshRSS_Context::userConf()->sort_order;
 		self::$order = in_array($order, ['ASC', 'DESC'], true) ? $order : 'DESC';
 		$sort = Minz_Request::paramString('sort', plaintext: true) ?: $default_sort ?: FreshRSS_Context::userConf()->sort;
-		$allowedSorts = ['id', 'c.name', 'date', 'f.name', 'lastUserModified', 'length', 'link', 'rand', 'title'];
+		$allowedSorts = ['id', 'c.name', 'date', 'f.name', 'length', 'link', 'rand', 'title'];
 		if (FreshRSS_Auth::hasAccess()) {
 			$allowedSorts[] = 'lastUserModified';
 		}

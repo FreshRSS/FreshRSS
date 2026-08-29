@@ -43,8 +43,9 @@
 					<label class="group-name" for="viewMode"><?= _t('conf.reading.view.default') ?></label>
 					<div class="group-controls">
 						<select name="query[viewMode]" id="viewMode">
-							<option value="normal"<?= $this->query->getViewMode() === 'normal' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.normal') ?></option>
-							<option value="reader"<?= $this->query->getViewMode() === 'reader' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.reader') ?></option>
+							<option value=""<?= $this->query->getViewMode(fallback: false) === '' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.default') ?></option>
+							<option value="normal"<?= $this->query->getViewMode(fallback: false) === 'normal' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.normal') ?></option>
+							<option value="reader"<?= $this->query->getViewMode(fallback: false) === 'reader' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.reader') ?></option>
 						</select>
 					</div>
 				</div>

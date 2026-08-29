@@ -180,7 +180,7 @@
 							<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
 							<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
 							<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
-							<input type="hidden" id="queries_<?= $key ?>_viewMode" name="queries[<?= $key ?>][viewMode]" value="<?= $query->getViewMode() ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_viewMode" name="queries[<?= $key ?>][viewMode]" value="<?= $query->getViewMode(fallback: false) ?? '' ?>"/>
 						</div>
 						<?php if (!$query->hasParameters()) { ?>
 						<div class="box-content">

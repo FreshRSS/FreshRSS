@@ -396,8 +396,15 @@ class FreshRSS_UserQuery {
 		$this->imageUrl = $imageUrl;
 	}
 
-	public function getViewMode(): string {
-		return $this->viewMode ?: 'reader';
+	public function getViewMode(bool $fallback = true): string {
+		if ($this->viewMode !== '') {
+			return $this->viewMode;
+		}
+		if ($fallback) {
+			$viewMode = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf()->view_mode : '';
+			return in_array($viewMode, ['normal', 'reader'], true) ? $viewMode : 'normal';
+		}
+		return '';
 	}
 
 	/**
