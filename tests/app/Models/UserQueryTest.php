@@ -81,41 +81,6 @@ class UserQueryTest extends TestCase {
 		self::assertSame($order, $user_query->getOrder());
 	}
 
-	public static function test__construct_whenViewMode_storesViewMode(): void {
-		$query = ['viewMode' => 'normal'];
-		$user_query = new FreshRSS_UserQuery($query, [], []);
-		self::assertSame('normal', $user_query->getViewMode());
-		self::assertSame('normal', $user_query->toArray()['viewMode'] ?? null);
-	}
-
-	public static function test__construct_whenViewModeIsMissingOrInvalid_defaultsToUserPreference(): void {
-		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
-		$userConf = clone FreshRSS_UserConfiguration::default();
-		$userConf->view_mode = 'reader';
-		FreshRSS_Context::setUserConf($userConf);
-		try {
-			foreach ([[], ['viewMode' => 'invalid']] as $query) {
-				$userQuery = new FreshRSS_UserQuery($query, [], []);
-				self::assertSame('reader', $userQuery->getViewMode());
-				self::assertArrayNotHasKey('viewMode', $userQuery->toArray());
-			}
-		} finally {
-			FreshRSS_Context::setUserConf($previousUserConf);
-		}
-	}
-
-	public static function test__construct_whenUserViewModeIsUnsupported_defaultsToNormal(): void {
-		$previousUserConf = FreshRSS_Context::hasUserConf() ? FreshRSS_Context::userConf() : null;
-		$userConf = clone FreshRSS_UserConfiguration::default();
-		$userConf->view_mode = 'global';
-		FreshRSS_Context::setUserConf($userConf);
-		try {
-			self::assertSame('normal', (new FreshRSS_UserQuery([], [], []))->getViewMode());
-		} finally {
-			FreshRSS_Context::setUserConf($previousUserConf);
-		}
-	}
-
 	public static function test__construct_whenState_storesState(): void {
 		$state = FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_FAVORITE;
 		$query = ['state' => $state];

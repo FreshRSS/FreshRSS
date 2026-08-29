@@ -83,6 +83,15 @@ main#stream {
 	.horizontal-list.bottom .dropdown-label {
 		display: none;
 	}
+
+	.flux_header .item.website span,
+	.flux_header .item .date {
+		display: none;
+	}
+
+	.flux .flux_header .item.website {
+		width: 40px;
+	}
 }
 
 main.prompt {
