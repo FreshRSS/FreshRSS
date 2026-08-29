@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Дозволити анонімне читання статей типового користувача (%s)',
 		'allow_anonymous_refresh' => 'Дозволити анонімне оновлення статей',
 		'api_enabled' => 'Дозволити доступ через <abbr>API</abbr> <small>(треба для мобільних програм і поширення користувацьких запитів)</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Вебформа (традиційно, треба JavaScript)',
 		'http' => 'HTTP (складно: за допомогою вебсервера, OIDC, SSO…)',
 		'none' => 'Нема (небезпечно)',

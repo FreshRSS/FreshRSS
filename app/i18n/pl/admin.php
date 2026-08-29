@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Pozwól na anonimowy odczyt wiadomości domyślnego użytkownika (%s)',
 		'allow_anonymous_refresh' => 'Pozwól na anonimowe odświeżanie wiadomości',
 		'api_enabled' => 'Pozwól na dostęp przez <abbr>API</abbr> <small>(wymagane dla aplikacji na telefon i udostępniania zapytań użytkownika)</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Formularz na stronie (tradycyjna, wymagany JavaScript)',
 		'http' => 'HTTP (zaawansowane: zarządzane przez serwer WWW, OIDC, SSO…)',
 		'none' => 'Brak (niebezpieczna)',

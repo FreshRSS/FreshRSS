@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => '允许匿名阅读默认用户（%s）的文章',
 		'allow_anonymous_refresh' => '允许匿名刷新文章',
 		'api_enabled' => '允许 <abbr>API</abbr> 访问 <small>（用于手机应用和分享用户查询）</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => '网页表单（传统方式, 需要 JavaScript)',
 		'http' => 'HTTP（高级：由 Web 服务器、OIDC、SSO 管理…）',
 		'none' => '无（危险）',

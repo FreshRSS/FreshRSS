@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',	// IGNORE
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// IGNORE
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>',	// IGNORE
+		'default_theme' => array(
+			'_' => 'Default theme',	// IGNORE
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// IGNORE
+			'installation_default' => 'Installation default theme',	// IGNORE
+		),
 		'form' => 'Web form (traditional, requires JavaScript)',	// IGNORE
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// IGNORE
 		'none' => 'None (dangerous)',	// IGNORE
