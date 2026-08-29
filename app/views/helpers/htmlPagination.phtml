@@ -1,21 +1,33 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
+	$params = array_filter([
+		'a' => in_array(Minz_Request::paramString('a', plaintext: true), ['normal', 'reader'], true) ? Minz_Request::paramString('a', plaintext: true) : '',
+		'search' => Minz_Request::paramString('search', plaintext: true),
+		'nb' => FreshRSS_Context::$number,
+		'sort' => FreshRSS_Context::$sort,
+		'order' => FreshRSS_Context::$sort === 'rand' ? '' : FreshRSS_Context::$order,
+	], fn($value): bool => $value !== '');
+	$baseUrl = $this->userQuery->sharedUrlHtml(false);
+	$paginationUrl = static function (int $offset) use ($baseUrl, $params): string {
+		if ($offset > 0) {
+			$params['offset'] = $offset;
+		}
+		return htmlspecialchars($baseUrl . '&' . http_build_query($params), ENT_COMPAT, 'UTF-8');
+	};
 ?>
 <nav class="nav-pagination nav-list">
 	<ul class="pagination">
 		<?php if (FreshRSS_Context::$offset > 0): ?>
 		<li class="item pager-first">
-			<a href="<?= $this->userQuery->sharedUrlHtml() . '&nb=' . FreshRSS_Context::$number ?>">« <?= _t('conf.logs.pagination.first') ?></a>
+			<a href="<?= $paginationUrl(0) ?>">« <?= _t('conf.logs.pagination.first') ?></a>
 		</li>
 		<li class="item pager-previous">
-			<a href="<?= $this->userQuery->sharedUrlHtml() . '&nb=' . FreshRSS_Context::$number .
-				'&offset=' . max(0, FreshRSS_Context::$offset - FreshRSS_Context::$number) ?>">‹ <?= _t('conf.logs.pagination.previous') ?></a>
+			<a href="<?= $paginationUrl(max(0, FreshRSS_Context::$offset - FreshRSS_Context::$number)) ?>">‹ <?= _t('conf.logs.pagination.previous') ?></a>
 		</li>
 		<?php endif; ?>
 		<li class="item pager-next">
-			<a href="<?= $this->userQuery->sharedUrlHtml() . '&nb=' . FreshRSS_Context::$number .
-				'&offset=' . (FreshRSS_Context::$offset + FreshRSS_Context::$number) ?>"><?= _t('conf.logs.pagination.next') ?> ›</a>
+			<a href="<?= $paginationUrl(FreshRSS_Context::$offset + FreshRSS_Context::$number) ?>"><?= _t('conf.logs.pagination.next') ?> ›</a>
 		</li>
 	</ul>
 </nav>

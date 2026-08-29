@@ -81,6 +81,25 @@ class UserQueryTest extends TestCase {
 		self::assertSame($order, $user_query->getOrder());
 	}
 
+	public static function test__construct_whenViewMode_storesViewMode(): void {
+		$query = ['viewMode' => 'normal'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame('normal', $user_query->getViewMode());
+		self::assertSame('normal', $user_query->toArray()['viewMode'] ?? null);
+	}
+
+	public static function test__construct_whenViewModeIsMissing_defaultsToReader(): void {
+		$user_query = new FreshRSS_UserQuery([], [], []);
+		self::assertSame('reader', $user_query->getViewMode());
+		self::assertArrayNotHasKey('viewMode', $user_query->toArray());
+	}
+
+	public static function test__construct_whenViewModeIsInvalid_defaultsToReader(): void {
+		$user_query = new FreshRSS_UserQuery(['viewMode' => 'invalid'], [], []);
+		self::assertSame('reader', $user_query->getViewMode());
+		self::assertArrayNotHasKey('viewMode', $user_query->toArray());
+	}
+
 	public static function test__construct_whenState_storesState(): void {
 		$state = FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_FAVORITE;
 		$query = ['state' => $state];

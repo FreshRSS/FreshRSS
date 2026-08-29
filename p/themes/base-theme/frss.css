@@ -1699,6 +1699,10 @@ a.website:hover .favicon {
 	margin-bottom: 0.75rem;
 }
 
+.content .subtitle.horizontal-list {
+	flex-wrap: wrap;
+}
+
 .content > header,
 .content > footer {
 	color: var(--frss-font-color-grey-light);
@@ -1790,9 +1794,10 @@ a.website:hover .favicon {
 }
 
 .content .subtitle.horizontal-list .item.date {
+	margin-left: auto;
 	padding: 0.25rem;
-	width: 155px;
 	text-align: right;
+	white-space: nowrap;
 }
 
 .content .article-header-topline.horizontal-list .item.link,

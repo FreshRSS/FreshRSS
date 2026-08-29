@@ -31,6 +31,7 @@ class FreshRSS_UserQuery {
 	/** XML-encoded description */
 	private string $description = '';
 	private string $imageUrl = '';
+	private string $viewMode = '';
 
 	public static function generateToken(string $salt): string {
 		if (!FreshRSS_Context::hasSystemConf()) {
@@ -47,7 +48,7 @@ class FreshRSS_UserQuery {
 	/**
 	 * @param array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
 	 * 	shareRss?:bool,shareOpml?:bool,includeUserLabels?:bool,excludeArticleTags?:bool,userLabelPrefix?:string,
-	 * 	publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string} $query
+	 * 	publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string,viewMode?:string} $query
 	 * @param array<FreshRSS_Category> $categories
 	 * @param array<FreshRSS_Tag> $labels
 	 */
@@ -83,6 +84,7 @@ class FreshRSS_UserQuery {
 				unset($link['excludeArticleTags']);
 				unset($link['userLabelPrefix']);
 				unset($link['publishLabelsInsteadOfTags']);
+				unset($link['viewMode']);
 				$this->url = Minz_Url::display(['params' => $link]);
 			}
 		} else {
@@ -124,6 +126,9 @@ class FreshRSS_UserQuery {
 		if (isset($query['imageUrl'])) {
 			$this->imageUrl = $query['imageUrl'];
 		}
+		if (isset($query['viewMode']) && in_array($query['viewMode'], ['normal', 'reader'], true)) {
+			$this->viewMode = $query['viewMode'];
+		}
 
 		// linked too deeply with the search object, need to use dependency injection
 		$this->search = new FreshRSS_BooleanSearch($query['search'], 0, 'AND', allowUserQueries: true);
@@ -137,7 +142,7 @@ class FreshRSS_UserQuery {
 	 *
 	 * @return array{get?:string,name?:string,order?:string,search?:string,
 	 * 	state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool,
-	 * 	includeUserLabels?:bool,excludeArticleTags?:bool,userLabelPrefix?:string,description?:string,imageUrl?:string}
+	 * 	includeUserLabels?:bool,excludeArticleTags?:bool,userLabelPrefix?:string,description?:string,imageUrl?:string,viewMode?:string}
 	 */
 	public function toArray(): array {
 		return array_filter([
@@ -155,6 +160,7 @@ class FreshRSS_UserQuery {
 			'userLabelPrefix' => $this->userLabelPrefix,
 			'description' => $this->description,
 			'imageUrl' => $this->imageUrl,
+			'viewMode' => $this->viewMode,
 		], fn($v): bool => $v !== '' && $v !== 0 && $v !== false);
 	}
 
@@ -390,13 +396,17 @@ class FreshRSS_UserQuery {
 		$this->imageUrl = $imageUrl;
 	}
 
+	public function getViewMode(): string {
+		return $this->viewMode ?: 'reader';
+	}
+
 	/**
 	 * Remove queries where $get is appearing.
 	 * @param string $get the get attribute which should be removed.
 	 * @param array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
-	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string}> $queries an array of queries.
+	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string,viewMode?:string}> $queries an array of queries.
 	 * @return array<int,array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
-	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string}> without queries where $get is appearing.
+	 * 	shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string,viewMode?:string}> without queries where $get is appearing.
 	 */
 	public static function remove_query_by_get(string $get, array $queries): array {
 		$final_queries = [];

@@ -562,13 +562,13 @@ function prev_entry(skipping) {
 	if (new_active) {
 		do new_active = new_active.previousElementSibling;
 		while (new_active && !new_active.classList.contains('flux'));
-		if (!new_active) {
+		if (!new_active && document.getElementById('aside_feed')) {
 			prev_feed();
 		}
 	} else {
 		new_active = document.querySelector('.flux');
 	}
-	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+	if (new_active && context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
 		mark_read(new_active, true, true);
 	}
 	toggleContent(new_active, old_active, skipping);
@@ -580,13 +580,13 @@ function next_entry(skipping) {
 	if (new_active) {
 		do new_active = new_active.nextElementSibling;
 		while (new_active && !new_active.classList.contains('flux'));
-		if (!new_active) {
+		if (!new_active && document.getElementById('aside_feed')) {
 			next_feed();
 		}
 	} else {
 		new_active = document.querySelector('.flux');
 	}
-	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+	if (new_active && context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
 		mark_read(new_active, true, true);
 	}
 	toggleContent(new_active, old_active, skipping);
@@ -598,13 +598,13 @@ function next_unread_entry(skipping) {
 	if (new_active) {
 		do new_active = new_active.nextElementSibling;
 		while (new_active && !new_active.classList.contains('not_read'));
-		if (!new_active) {
+		if (!new_active && document.getElementById('aside_feed')) {
 			next_feed(true);
 		}
 	} else {
 		new_active = document.querySelector('.not_read');
 	}
-	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+	if (new_active && context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
 		mark_read(new_active, true, true);
 	}
 	toggleContent(new_active, old_active, skipping);
@@ -2448,7 +2448,7 @@ function init_normal() {
 		});
 	}
 	const nav_menu = document.querySelector('nav.nav_menu');
-	if (nav_menu) {
+	if (nav_menu && sidebar) {
 		nav_menu.addEventListener('click', (e) => {
 			const target = e.target.closest('a.btn:not(#actualize):not(.dropdown-toggle), button[type="submit"]');
 			if (target) {
@@ -2457,7 +2457,7 @@ function init_normal() {
 		});
 	}
 	const new_article = document.querySelector('div#new-article');
-	if (new_article) {
+	if (new_article && sidebar) {
 		new_article.addEventListener('click', () => {
 			sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
 		});
