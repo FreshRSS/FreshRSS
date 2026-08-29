@@ -1699,10 +1699,6 @@ a.website:hover .favicon {
 	margin-bottom: 0.75rem;
 }
 
-.content .subtitle.horizontal-list {
-	flex-wrap: wrap;
-}
-
 .content > header,
 .content > footer {
 	color: var(--frss-font-color-grey-light);
@@ -1763,24 +1759,20 @@ a.website:hover .favicon {
 	padding: 0 0 0.25rem 1rem;
 }
 
-.content .article-header-topline.horizontal-list .item.manage,
-.content .subtitle.horizontal-list .item.manage {
+.content .article-header-topline.horizontal-list .item.manage {
 	text-align: left;
 	width: 2rem;
 }
 
-.content .article-header-topline.horizontal-list .item.manage a,
-.content .subtitle.horizontal-list .item.manage a {
+.content .article-header-topline.horizontal-list .item.manage a {
 	padding: 0.5rem 0.25rem;
 }
 
-.content .article-header-topline.horizontal-list .item,
-.content .subtitle.horizontal-list .item {
+.content .article-header-topline.horizontal-list .item {
 	align-self: flex-start;
 }
 
-.content .article-header-topline.horizontal-list .item .website,
-.content .subtitle.horizontal-list .item .website {
+.content .article-header-topline.horizontal-list .item .website {
 	display: inline-block;
 	max-width: 100%;
 	overflow: hidden;
@@ -1789,24 +1781,11 @@ a.website:hover .favicon {
 	vertical-align: top;
 }
 
-.content .subtitle.horizontal-list .item .author {
-	display: inline-block;
-}
-
-.content .subtitle.horizontal-list .item.date {
-	margin-left: auto;
-	padding: 0.25rem;
-	text-align: right;
-	white-space: nowrap;
-}
-
-.content .article-header-topline.horizontal-list .item.link,
-.content .subtitle.horizontal-list .item.link {
+.content .article-header-topline.horizontal-list .item.link {
 	text-align: right;
 }
 
-.content .article-header-topline.horizontal-list .item.link a,
-.content .subtitle.horizontal-list .item.link a {
+.content .article-header-topline.horizontal-list .item.link a {
 	padding: 0.25rem 0.5rem;
 }
 
@@ -1827,11 +1806,11 @@ a.website:hover .favicon {
 	border: none;
 }
 
-.subtitle > div {
+.subtitle.inline-list > div {
 	display: inline;
 }
 
-.subtitle:not(.horizontal-list) > div:not(:first-of-type)::before {
+.subtitle.inline-list > div + div::before {
 	content: ' · ';
 }
 
