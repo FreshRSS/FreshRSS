@@ -69,7 +69,7 @@ return array(
 			'help' => 'Solo para temas compatibles',
 			'no' => 'No',	// IGNORE
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Mostrar adjuntos',
 		'headline' => array(
 			'articles_header_footer' => 'Artículos: encabezado/pie de página',
 		),
@@ -201,8 +201,8 @@ return array(
 			'_' => 'Filtro aplicado:',
 			'categories' => 'Mostrar por categoría',
 			'feeds' => 'Mostrar por fuente',
-			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
-			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'include_article_tags_label' => 'Incluir etiquetas de artículos de los feeds',
+			'include_user_labels_label' => 'Incluir etiquetas del usuario, con el prefijo:',
 			'order' => 'Ordenar por fecha',
 			'search' => 'Expresión',
 			'shareOpml' => 'Permitir que OPML comparta las categorías y fuentes correspondientes',
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Marca un artículo como favorito…',
 		),
 		'sticky_post' => 'Fijar el artículo a la parte superior al abrirlo',
-		'sticky_sort' => 'Mantener el orden de clasificación manual durante la navegación',	// DIRTY
-		'sticky_sort_help' => 'Determina si se mantiene activo el último orden de clasificación manual o si cada categoría o fuente usa siempre su propia configuración predeterminada o global.',	// DIRTY
+		'sticky_sort' => 'Mantener el orden de clasificación personalizado durante la navegación',
+		'sticky_sort_help' => 'Determina si el último orden de clasificación personalizado permanece activo o si cada categoría o feed utiliza siempre su propia configuración predeterminada o global.',
 		'title' => 'Lectura',
 		'view' => array(
 			'default' => 'Vista por defecto',
