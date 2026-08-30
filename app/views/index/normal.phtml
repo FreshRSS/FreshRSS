@@ -86,7 +86,7 @@ $today = @strtotime('today');
 		?>" data-priority="<?= $this->feed->priority()
 		?>" data-link="<?= $this->entry->link()
 		?>"><?php
-			$this->renderHelper('index/normal/entry_header');
+			$this->renderHelper('index/article');
 			if ($this->feed === null || $this->entry === null) {
 				throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
 			}
@@ -168,7 +168,7 @@ $today = @strtotime('today');
 					<?php
 				} ?>
 			</div><footer><?php
-				$this->renderHelper('index/normal/entry_bottom');
+				$this->renderHelper('index/article');
 			?>
 		</footer></article>
 	</div><?php
