@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nombre de usuario',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 caracteres: letras, dígitos y <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => '¿Estás seguro de que quieres descartar los cambios no guardados?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Hay %d artículo nuevo para leer en FreshRSS.',	// DIRTY
-				1 => 'Hay %d nuevos artículos para leer en FreshRSS.',	// DIRTY
+				0 => 'Hay %d artículo nuevo para leer en FreshRSS.',
+				1 => 'Hay %d artículos nuevos para leer en FreshRSS.',
 			),
 			'body_unread_articles' => array(
-				0 => '(No leídos: %d)',	// DIRTY
-				1 => '(No leídos: %d)',	// DIRTY
+				0 => '(sin leer: %d)',
+				1 => '(sin leer: %d)',
 			),
 			'request_failed' => 'La petición ha fallado. Puede ser debido a problemas de conexión a internet.',
 			'title_new_articles' => 'FreshRSS: ¡nuevos artículos!',
@@ -205,7 +205,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
-		'lt' => 'Lietuvių',	// TODO
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -304,7 +304,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Marcadores',	// DIRTY
+		'nextcloud-bookmarks' => 'Marcadores de Nextcloud',
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
