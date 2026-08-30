@@ -347,7 +347,7 @@ class FreshRSS_UserQuery {
 	}
 
 	public function sharedUrlGreader(bool $xmlEscaped = true): string {
-		if ($this->shareRss && $this->token !== '') {
+		if ($this->shareOpml && $this->token !== '') {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=greader';
 		}
 		return '';
