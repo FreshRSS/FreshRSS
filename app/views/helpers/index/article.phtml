@@ -1,5 +1,5 @@
 <?php
-	// used only in Reading view and html.phtml
+	// shared entry rendering template used by normal and reader views
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$entry = $this->entry;
@@ -40,6 +40,7 @@
 							<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
 								<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 							endif; ?><span><?= $feed->name() ?></span></a>
+						</div>
 					<?php } ?>
 				</div>
 				<?php
@@ -122,9 +123,7 @@
 							<time datetime="<?= $entry->machineReadableDate() ?>"><?= $entry->date() ?></time>
 						</div>
 					</div>
-					<?php
-				}
-
+				<?php }
 				if ($display_tags) {
 					$this->renderHelper('index/tags');
 				}
