@@ -294,6 +294,7 @@ People are sorted by name so please keep this order.
 * [Sadetdin EYILI](https://github.com/sad270): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sad270)
 * [Sam Cohen](https://github.com/samc1213): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:samc1213)
 * [Sam Edwards](https://github.com/dotsam): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dotsam), [Web](https://samedwards.ca/)
+* [SamCyber001](https://github.com/SamCyber001): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SamCyber001)
 * [Sandro Jäckel](https://github.com/SuperSandro2000): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SuperSandro2000), [Web](https://supersandro.de/)
 * [scmaybee](https://github.com/scmaybee): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:scmaybee)
 * [scollovati](https://github.com/scollovati): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:scollovati)
