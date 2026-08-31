@@ -75,14 +75,14 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	if (!empty($raw_query['token']) && hash_equals($raw_query['token'], $token)) {
 		switch ($format) {
 			case 'atom':
-			case 'greader':
 			case 'html':
-			case 'json':
 			case 'rss':
 				if (empty($raw_query['shareRss'])) {
 					continue 2;
 				}
 				break;
+			case 'greader':
+			case 'json':
 			case 'opml':
 				if (empty($raw_query['shareOpml'])) {
 					continue 2;
