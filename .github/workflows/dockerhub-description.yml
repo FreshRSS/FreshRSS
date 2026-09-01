@@ -18,10 +18,25 @@ jobs:
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+    - name: Trim the description to Docker Hub's character limit
+      run: |
+        python3 - <<'EOF'
+        import pathlib
+        # Docker Hub truncates the full description at 25,000 characters, which cuts
+        # Docker/README.md off mid-section. Drop whole trailing sections instead, and
+        # link to the complete version. https://github.com/peter-evans/dockerhub-description#content-limits
+        LIMIT = 25000
+        MORE = '\n\n---\n\n📖 **[Read the full documentation on GitHub](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/README.md)**\n'
+        readme = pathlib.Path('Docker/README.md').read_text(encoding='utf-8')
+        if len(readme) + len(MORE) > LIMIT:
+            readme = readme[:LIMIT - len(MORE)].rpartition('\n## ')[0]
+        pathlib.Path('README.dockerhub.md').write_text(readme + MORE, encoding='utf-8')
+        EOF
+
     - name: Update repo description
       uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         repository: freshrss/freshrss
-        readme-filepath: Docker/README.md
+        readme-filepath: README.dockerhub.md
