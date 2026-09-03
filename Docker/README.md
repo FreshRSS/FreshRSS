@@ -599,120 +599,12 @@ server {
 }
 ```
 
-## Cron job to automatically refresh feeds
+## Further administration documentation
 
-We recommend a refresh rate of about twice per hour (see *WebSub* / *PubSubHubbub* for real-time updates).
-There are no less than 3 options. Pick a single one.
+To keep this Docker Hub guide below its description-size limit, the detailed
+operational guides live in the documentation site:
 
-### Option 1) Cron inside the FreshRSS Docker image
-
-Easiest, built-in solution, also used already in the examples above
-(but your Docker instance will have a second process in the background, without monitoring).
-Just pass the environment variable `CRON_MIN` to your `docker run` command,
-containing a valid cron minute definition such as `13,43` (recommended) or `*/20`.
-Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
-
-```sh
-docker run ... \
-  -e CRON_MIN=13,43 \
-  --name freshrss freshrss/freshrss
-```
-
-### Option 2) Cron on the host machine
-
-Traditional solution.
-Set a cron job up on your host machine, calling the `actualize_script.php` inside the FreshRSS Docker instance.
-Remember not pass the `CRON_MIN` environment variable to your Docker run, to avoid running the built-in cron daemon of option 1.
-
-Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
-
-```text
-7,37 * * * * root docker exec --user www-data freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
-```
-
-### Option 3) Cron as another instance of the same FreshRSS Docker image
-
-For advanced users. Offers good logging and monitoring with auto-restart on failure.
-Watch out to use the same run parameters than in your main FreshRSS instance, for database, networking, and file system.
-See cron option 1 for customising the cron schedule.
-
-#### For the Debian image (default)
-
-```sh
-docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v freshrss_data:/var/www/FreshRSS/data \
-  -v freshrss_extensions:/var/www/FreshRSS/extensions \
-  -e CRON_MIN=17,47 \
-  --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss \
-  cron -f
-```
-
-#### For the Debian image (default) using a custom cron.d fragment
-
-This method gives most flexibility to execute various FreshRSS CLI commands.
-
-```sh
-docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v freshrss_data:/var/www/FreshRSS/data \
-  -v freshrss_extensions:/var/www/FreshRSS/extensions \
-  -v ./freshrss_crontab:/etc/cron.d/freshrss \
-  --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss \
-  cron -f
-```
-
-#### For the Alpine image
-
-```sh
-docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v freshrss_data:/var/www/FreshRSS/data \
-  -v freshrss_extensions:/var/www/FreshRSS/extensions \
-  -e CRON_MIN=27,57 \
-  --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss:alpine \
-  crond -f -d 6
-```
-
-## Migrate database
-
-Our [CLI](../cli/README.md) offers commands to back-up and migrate user databases,
-with `cli/db-backup.php` and `cli/db-restore.php` in particular.
-
-Here is an example (assuming our [Docker Compose example](#docker-compose-with-postgresql))
-intended for migrating to a newer major version of PostgreSQL,
-but which can also be used to migrate between other databases (e.g. MySQL to PostgreSQL).
-
-```sh
-# Stop FreshRSS container (Web server + cron) during maintenance
-docker compose down freshrss
-
-# Optional additional pre-upgrade back-up using PostgreSQL own mechanism
-docker compose -f docker-compose-db.yml \
-  exec freshrss-db pg_dump -U freshrss freshrss | gzip -9 > freshrss-postgres-backup.sql.gz
-# ------↑ Name of your PostgreSQL Docker container
-# -----------------------------↑ Name of your PostgreSQL user for FreshRSS
-# --------------------------------------↑ Name of your PostgreSQL database for FreshRSS
-
-# Back-up all users’ respective tables to SQLite files
-docker compose -f docker-compose.yml -f docker-compose-db.yml \
-  run --rm freshrss cli/db-backup.php
-
-# Remove old database (PostgreSQL) container and its data volume
-docker compose -f docker-compose-db.yml \
-  down --volumes freshrss-db
-
-# Edit your Compose file to use new database (e.g. newest postgres:xx)
-nano docker-compose-db.yml
-
-# Start new database (PostgreSQL) container and its new empty data volume
-docker compose -f docker-compose.yml -f docker-compose-db.yml \
-  up -d freshrss-db
-
-# Restore all users’ respective tables from SQLite files
-docker compose -f docker-compose.yml -f docker-compose-db.yml \
-  run --rm freshrss cli/db-restore.php --delete-backup
-
-# Restart a new FreshRSS container after maintenance
-docker compose -f docker-compose.yml -f docker-compose-db.yml up -d freshrss
-```
+- [Automatically refresh feeds](../docs/en/admins/08_FeedUpdates.md), including
+  the cron daemon in the Docker image and host-based scheduling.
+- [Back up and migrate databases](../docs/en/admins/05_Backup.md), including
+  the `cli/db-backup.php` and `cli/db-restore.php` workflow.
