@@ -90,87 +90,8 @@ $today = @strtotime('today');
 			if ($this->feed === null || $this->entry === null) {
 				throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
 			}
-		?><article class="flux_content" dir="auto">
-			<div class="content content_<?= FreshRSS_Context::userConf()->content_width ?>">
-				<header>
-					<?php if (FreshRSS_Context::userConf()->show_feed_name === 't') { ?>
-						<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-							<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
-								<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
-							endif; ?><span><?= $this->feed->name() ?></span></a>
-						</div>
-					<?php } ?>
-					<?php if (FreshRSS_Context::userConf()->show_tags === 'h' || FreshRSS_Context::userConf()->show_tags === 'b') {
-						$this->renderHelper('index/tags');
-						if ($this->feed === null || $this->entry === null) {
-							throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
-						}
-					} ?>
-					<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $this->entry->link() ?>" title="<?= _t('conf.shortcut.see_on_website')?>"><?= $this->entry->title() ?></a></h1>
-					<?php if (FreshRSS_Context::userConf()->show_author_date === 'h' || FreshRSS_Context::userConf()->show_author_date === 'b') { ?>
-					<div class="subtitle">
-						<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
-							<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-								<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
-									<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
-								endif; ?><span><?= $this->feed->name() ?></span></a>
-							</div>
-						<?php }
-						if (!empty($this->entry->authors())) {
-							$this->renderHelper('index/authors');
-							if ($this->feed === null || $this->entry === null) {
-								throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
-							}
-						}
-						?>
-						<div class="date"><?= $this->entry->date() ?></div>
-					</div>
-					<?php } ?>
-				</header>
-				<div class="text"><?=
-					FreshRSS_Context::userConf()->lazyload && !FreshRSS_Context::userConf()->display_posts ?
-						lazyimg($this->entry->content($this->feed->attributeBoolean('display_enclosures') ?? true)) :
-						$this->entry->content($this->feed->attributeBoolean('display_enclosures') ?? true)
-				?></div>
-				<?php
-				$display_authors_date = FreshRSS_Context::userConf()->show_author_date === 'f' || FreshRSS_Context::userConf()->show_author_date === 'b';
-				$display_tags = FreshRSS_Context::userConf()->show_tags === 'f' || FreshRSS_Context::userConf()->show_tags === 'b';
-
-				if ($display_authors_date || $display_tags) {
-					?>
-					<footer>
-						<?php
-						if ($display_authors_date) { ?>
-							<div class="subtitle">
-								<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
-									<div class="website"><a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-										<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
-											<img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php
-										endif; ?><span><?= $this->feed->name() ?></span></a>
-									</div>
-								<?php }
-									if (!empty($this->entry->authors())) {
-										$this->renderHelper('index/authors');
-										if ($this->feed === null || $this->entry === null) {
-											throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
-										}
-									}
-								?>
-								<div class="date"><?= $this->entry->date() ?></div>
-							</div>
-						<?php
-						}
-						if ($display_tags) {
-							$this->renderHelper('index/tags');
-						}
-						?>
-					</footer>
-					<?php
-				} ?>
-			</div><footer><?php
-				$this->renderHelper('index/normal/entry_bottom');
-			?>
-		</footer></article>
+			$this->renderHelper('index/article');
+		?>
 	</div><?php
 	endforeach;
 

@@ -1,5 +1,4 @@
 <?php
-	// used only in Reading view and html.phtml
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	$entry = $this->entry;
@@ -7,9 +6,13 @@
 	if ($feed === null || $entry === null) {
 		return;
 	}
+	$readerView = Minz_Request::actionName() === 'reader';
+	$standardNormalView = !$readerView && !$this->internal_rendering;
+	$feedUrl = $this->internal_rendering ? $feed->website() :
+		_url('index', $readerView ? 'reader' : 'index', 'get', 'f_' . $feed->id());
 ?>
-<article class="flux_content content_<?= FreshRSS_Context::userConf()->content_width ?>" dir="auto">
-	<div class="content">
+<article class="flux_content<?= $standardNormalView ? '' : ' content_' . FreshRSS_Context::userConf()->content_width ?>" dir="auto">
+	<div class="content<?= $standardNormalView ? ' content_' . FreshRSS_Context::userConf()->content_width : '' ?>">
 		<header>
 			<?php
 				$favoriteUrl = ['c' => 'entry', 'a' => 'bookmark', 'params' => ['id' => $entry->id()]];
@@ -21,18 +24,17 @@
 					$readUrl['params']['is_read'] = '0';
 				}
 			?>
+			<?php if (FreshRSS_Auth::hasAccess() && !$standardNormalView): ?>
 			<div class="article-header-topline horizontal-list">
-				<?php if (FreshRSS_Auth::hasAccess()) { ?>
-					<?php if (FreshRSS_Context::userConf()->topline_read && FreshRSS_Context::userConf()->show_article_icons == 't') { ?>
-						<div class="item manage">
-							<a class="read" href="<?= Minz_Url::display($readUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?= _i($entry->isRead() ? 'read' : 'unread') ?></a>
-						</div>
-					<?php } ?>
-					<?php if (FreshRSS_Context::userConf()->topline_favorite && FreshRSS_Context::userConf()->show_article_icons == 't') { ?>
-						<div class="item manage">
-							<a class="bookmark" href="<?= Minz_Url::display($favoriteUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i($entry->isFavorite() ? 'starred' : 'non-starred') ?></a>
-						</div>
-					<?php } ?>
+				<?php if (FreshRSS_Context::userConf()->topline_read && FreshRSS_Context::userConf()->show_article_icons === 't') { ?>
+					<div class="item manage">
+						<a class="read" href="<?= Minz_Url::display($readUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?= _i($entry->isRead() ? 'read' : 'unread') ?></a>
+					</div>
+				<?php } ?>
+				<?php if (FreshRSS_Context::userConf()->topline_favorite && FreshRSS_Context::userConf()->show_article_icons === 't') { ?>
+					<div class="item manage">
+						<a class="bookmark" href="<?= Minz_Url::display($favoriteUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i($entry->isFavorite() ? 'starred' : 'non-starred') ?></a>
+					</div>
 				<?php } ?>
 				<div class="item">
 					<?php if (FreshRSS_Context::userConf()->show_feed_name === 't') { ?>
@@ -43,54 +45,58 @@
 					<?php } ?>
 				</div>
 				<?php
-				if (FreshRSS_Context::userConf()->topline_link && FreshRSS_Context::userConf()->show_article_icons == 't') { ?>
+				if (FreshRSS_Context::userConf()->topline_link && FreshRSS_Context::userConf()->show_article_icons === 't') { ?>
 					<div class="item link">
 						<a target="_blank" rel="noreferrer" href="<?= $entry->link() ?>" class="item-element" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a>
 					</div>
 				<?php } ?>
 			</div>
+			<?php endif; ?>
+			<?php if ($standardNormalView && FreshRSS_Context::userConf()->show_feed_name === 't') { ?>
+				<div class="website"><a href="<?= $feedUrl ?>" title="<?= _t('gen.action.filter') ?>">
+					<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
+						<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+					endif; ?><span><?= $feed->name() ?></span></a>
+				</div>
+			<?php } ?>
 
 			<?php
 				if (in_array(FreshRSS_Context::userConf()->show_tags, ['b', 'h'], true)) {
 					$this->renderHelper('index/tags');
 				}
 			?>
-			<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $entry->link() ?>"><?= $entry->title() ?></a></h1>
+			<h1 class="title"><a target="_blank" rel="noreferrer" class="go_website" href="<?= $entry->link() ?>"<?=
+				$standardNormalView ? ' title="' . _t('conf.shortcut.see_on_website') . '"' : '' ?>><?= $entry->title() ?></a></h1>
 			<?php if (in_array(FreshRSS_Context::userConf()->show_author_date, ['h','b'], true)) { ?>
-				<div class="subtitle horizontal-list">
-					<?php if (FreshRSS_Auth::hasAccess()) { ?>
-						<?php if (FreshRSS_Context::userConf()->topline_read && FreshRSS_Context::userConf()->show_article_icons == 'a') { ?>
+				<div class="subtitle inline-list">
+					<?php if (FreshRSS_Auth::hasAccess() && !$standardNormalView): ?>
+						<?php if (FreshRSS_Context::userConf()->topline_read && FreshRSS_Context::userConf()->show_article_icons === 'a') { ?>
 							<div class="item manage">
 								<a class="read" href="<?= Minz_Url::display($readUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?= _i($entry->isRead() ? 'read' : 'unread') ?></a>
 							</div>
 						<?php } ?>
-						<?php if (FreshRSS_Context::userConf()->topline_favorite && FreshRSS_Context::userConf()->show_article_icons == 'a') { ?>
+						<?php if (FreshRSS_Context::userConf()->topline_favorite && FreshRSS_Context::userConf()->show_article_icons === 'a') { ?>
 							<div class="item manage">
 								<a class="bookmark" href="<?= Minz_Url::display($favoriteUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?= _i($entry->isFavorite() ? 'starred' : 'non-starred') ?></a>
 							</div>
 						<?php } ?>
-					<?php } ?>
-					<div class="item">
-						<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
-							<span class="website"><a href="<?= $this->internal_rendering ? $feed->website() : _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
-								<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
-									<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
-								endif; ?><span><?= $feed->name() ?></span></a></span>
-						<?php }
-							if (!empty($entry->authors())) {
-								$this->renderHelper('index/authors');
-								if ($this->feed === null || $this->entry === null) {
-									throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
-								}
-							}
-						?>
-					</div>
-					<div class="item date">
-						<time datetime="<?= $entry->machineReadableDate() ?>"><?= $entry->date() ?></time>
-					</div>
+					<?php endif; ?>
+					<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
+						<div class="website"><a href="<?= $feedUrl ?>" title="<?= _t('gen.action.filter') ?>">
+							<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
+								<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
+							endif; ?><span><?= $feed->name() ?></span></a></div>
+					<?php }
+						$this->renderHelper('index/authors');
+						if ($this->feed === null || $this->entry === null) {
+							throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
+						}
+					?>
+					<div class="date"><time datetime="<?=
+						$entry->machineReadableDate() ?>"><?= $entry->date() ?></time></div>
 					<?php
-					if (FreshRSS_Context::userConf()->topline_link && FreshRSS_Context::userConf()->show_article_icons == 'a') { ?>
-						<div class="item link">
+					if (!$standardNormalView && FreshRSS_Context::userConf()->topline_link && FreshRSS_Context::userConf()->show_article_icons === 'a') { ?>
+						<div class="link">
 							<a target="_blank" rel="noreferrer" href="<?= $entry->link() ?>" class="item-element" title="<?= _t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a>
 						</div>
 					<?php } ?>
@@ -98,9 +104,11 @@
 			<?php } ?>
 		</header>
 
-		<div class="text">
-			<?= $entry->content($feed->attributeBoolean('display_enclosures') ?? true) ?>
-		</div>
+		<div class="text"><?=
+			$standardNormalView && FreshRSS_Context::userConf()->lazyload && !FreshRSS_Context::userConf()->display_posts
+				? lazyimg($entry->content($feed->attributeBoolean('display_enclosures') ?? true))
+				: $entry->content($feed->attributeBoolean('display_enclosures') ?? true)
+		?></div>
 		<?php
 		$display_authors_date = in_array(FreshRSS_Context::userConf()->show_author_date, ['b', 'f'], true);
 		$display_tags = in_array(FreshRSS_Context::userConf()->show_tags, ['b', 'f'], true);
@@ -109,18 +117,16 @@
 			?>
 			<footer>
 				<?php if ($display_authors_date) { ?>
-					<div class="subtitle">
+					<div class="subtitle inline-list">
 						<?php if (FreshRSS_Context::userConf()->show_feed_name === 'a') { ?>
-							<div class="website"><a href="<?= _url('index', 'reader', 'get', 'f_' . $feed->id()) ?>" title="<?= _t('gen.action.filter') ?>">
+							<div class="website"><a href="<?= $feedUrl ?>" title="<?= _t('gen.action.filter') ?>">
 								<?php if (FreshRSS_Context::userConf()->show_favicons): ?>
 									<img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php
 								endif; ?><span><?= $feed->name() ?></span></a></div>
 						<?php }
 							$this->renderHelper('index/authors');
 						?>
-						<div class="date">
-							<time datetime="<?= $entry->machineReadableDate() ?>"><?= $entry->date() ?></time>
-						</div>
+						<div class="date"><time datetime="<?= $entry->machineReadableDate() ?>"><?= $entry->date() ?></time></div>
 					</div>
 					<?php
 				}
@@ -135,6 +141,9 @@
 	</div>
 
 	<footer>
+		<?php if ($standardNormalView) {
+			$this->renderHelper('index/normal/entry_bottom');
+		} else { ?>
 		<ul class="horizontal-list bottom">
 			<?php if (FreshRSS_Auth::hasAccess()) { ?>
 				<?php if (FreshRSS_Context::userConf()->bottomline_read) { ?>
@@ -163,5 +172,6 @@
 				</li>
 			<?php } ?>
 		</ul>
+		<?php } ?>
 	</footer>
 </article>

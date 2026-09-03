@@ -1,7 +1,7 @@
 <?php
 	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
-	if ($this->entry === null) {
+	if ($this->entry === null || empty($this->entry->authors())) {
 		return;
 	}
 ?>

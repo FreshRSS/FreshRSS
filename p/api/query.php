@@ -222,6 +222,12 @@ if (in_array($format, ['rss', 'atom'], true)) {
 	$view->_layout(null);
 	$view->_path('index/opml.phtml');
 } else {
+	$viewMode = Minz_Request::paramString('a', plaintext: true);
+	if (!in_array($viewMode, ['normal', 'reader'], true)) {
+		$viewMode = $query->getViewMode();
+	}
+	Minz_Request::_actionName($viewMode);
+	FreshRSS_Context::userConf()->display_posts = $viewMode === 'reader';
 	header("Content-Security-Policy: default-src 'self'; frame-src *; img-src * data:; media-src *; frame-ancestors " .
 		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout('layout');

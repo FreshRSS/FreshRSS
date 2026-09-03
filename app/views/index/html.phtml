@@ -3,14 +3,42 @@
 	/** @var FreshRSS_View $this */
 	// Override some layout preferences for the public API output
 	FreshRSS_Context::userConf()->content_width = 'large';
+	FreshRSS_Context::userConf()->show_article_icons = 'a';	// With authors, due to no topline in public view
 	FreshRSS_Context::userConf()->show_author_date = FreshRSS_UserConfiguration::default()->show_author_date;
 	FreshRSS_Context::userConf()->show_favicons = FreshRSS_UserConfiguration::default()->show_favicons;
-	FreshRSS_Context::userConf()->show_feed_name = FreshRSS_UserConfiguration::default()->show_feed_name;
+	FreshRSS_Context::userConf()->show_feed_name = 'a';	// With authors, due to no topline in public view
 	FreshRSS_Context::userConf()->show_tags = FreshRSS_UserConfiguration::default()->show_tags;
 	FreshRSS_Context::userConf()->show_tags_max = FreshRSS_UserConfiguration::default()->show_tags_max;
+	FreshRSS_Context::userConf()->topline_myLabels = false;
+	FreshRSS_Context::userConf()->topline_sharing = false;
+	$viewMode = Minz_Request::actionName();
+	$viewParams = array_filter([
+		'search' => Minz_Request::paramString('search', plaintext: true),
+		'nb' => Minz_Request::paramInt('nb'),
+		'offset' => Minz_Request::paramInt('offset'),
+		'sort' => FreshRSS_Context::$sort,
+		'order' => FreshRSS_Context::$sort === 'rand' ? '' : FreshRSS_Context::$order,
+	], fn($value): bool => $value !== '' && $value !== 0);
+	$baseUrl = $this->userQuery->sharedUrlHtml(false);
+	$viewUrl = static fn(string $mode): string => htmlspecialchars(
+		$baseUrl . '&' . http_build_query(array_merge($viewParams, ['a' => $mode])),
+		ENT_COMPAT,
+		'UTF-8',
+	);
 ?>
+<nav class="nav_menu">
+	<div id="nav_menu_views" class="group">
+		<a class="view-normal btn <?= $viewMode === 'normal' ? 'active' : '' ?>" title="<?= _t('index.menu.normal_view') ?>" href="<?= $viewUrl('normal') ?>">
+			<?= _i('view-normal') ?>
+		</a>
+		<a class="view-reader btn <?= $viewMode === 'reader' ? 'active' : '' ?>" title="<?= _t('index.menu.reader_view') ?>" href="<?= $viewUrl('reader') ?>">
+			<?= _i('view-reader') ?>
+		</a>
+	</div>
+	<?php $this->renderHelper('sortMenu'); ?>
+</nav>
 <?php $this->renderHelper('htmlPagination'); ?>
-<main id="stream" class="reader api">
+<main id="stream" class="<?= $viewMode ?> api<?= $viewMode === 'normal' ? ' hide_posts' : '' ?>">
 	<h2>
 		<a href="<?= $this->html_url ?>"><?= FreshRSS_View::title() ?></a> ·
 		<a class="view-rss" href="<?= $this->rss_url ?>" title="<?= _t('index.menu.rss_view') ?>">
@@ -24,9 +52,18 @@
 				FreshRSS_Category::findFeed($this->categories, $entry->feedId()) ??
 				FreshRSS_Feed::default();
 	?>
-		<div class="flux">
-			<?php $this->renderHelper('index/article'); ?>
-		</div>
+		<div class="flux" id="flux_<?= $this->entry->id()
+			?>" data-entry="<?= $this->entry->id()
+			?>" data-category="<?= $this->feed->categoryId()
+			?>" data-feed="<?= $this->feed->id()
+			?>" data-priority="<?= $this->feed->priority()
+			?>" data-link="<?= $this->entry->link()
+			?>"><?php
+			if ($viewMode === 'normal') {
+				$this->renderHelper('index/normal/entry_header');
+			}
+			$this->renderHelper('index/article');
+		?></div>
 	<?php endforeach; ?>
 </main>
 <?php $this->renderHelper('htmlPagination'); ?>
