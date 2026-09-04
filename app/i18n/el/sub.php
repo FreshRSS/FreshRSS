@@ -34,8 +34,6 @@ return array(
 		'information' => 'Information',	// TODO
 		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// TODO
-		'position' => 'Display position',	// TODO
-		'position_help' => 'To control category sort order',	// TODO
 		'title' => 'Title',	// TODO
 	),
 	'feed' => array(
