@@ -45,6 +45,9 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		return "{$expression} REGEXP ?";
 	}
 
+	// Note: After calling this function, it is required to
+	// handle the FreshRSS_RegexLimit_Exception from `PDOStatement->execute()`,
+	// as it may be thrown.
 	#[\Override]
 	protected function registerSqlFunctions(string $sql): void {
 		if (!str_contains($sql, ' REGEXP ')) {
@@ -54,7 +57,13 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		// https://www.sqlite.org/lang_expr.html#the_like_glob_regexp_match_and_extract_operators
 		$this->pdo->sqliteCreateFunction('regexp',
 			function (string $pattern, string $text): bool {
-				return preg_match($pattern, $text) === 1;
+				$matches = preg_match($pattern, $text) === 1;
+				$error = preg_last_error();
+				if ($error === PREG_BACKTRACK_LIMIT_ERROR || $error === PREG_RECURSION_LIMIT_ERROR) {
+					// Stop further execution of query
+					throw new FreshRSS_RegexLimit_Exception($pattern, preg_last_error_msg());
+				}
+				return $matches;
 			},
 			2
 		);
