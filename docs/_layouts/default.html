@@ -34,9 +34,11 @@
 		<a class="close" href="#close"></a>
 
 		<aside id="aside">
-			<a href="https://freshrss.org/">&lt; {%t back_to_freshrss %}</a>
-			{% include lang_dropdown.html location="aside" %}
-			<a class="close" href="#close" title="{%t close %}">&times;</a>
+			<div class="aside_links">
+				<a href="https://freshrss.org/">&lt; {%t back_to_freshrss %}</a>
+				{% include lang_dropdown.html location="aside" %}
+				<a class="close" href="#close" title="{%t close %}">&times;</a>
+			</div>
 
 			<section class="search">
 				<noscript>
