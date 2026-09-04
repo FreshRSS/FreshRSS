@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
 	apt-get install --no-install-recommends -y \
 	ca-certificates cron \
-	apache2 libapache2-mod-php \
+	apache2 libapache2-mod-fcgid php-fpm \
 	libapache2-mod-auth-openidc \
 	php-curl php-gmp php-intl php-mbstring php-xml php-zip \
 	php-sqlite3 php-mysql php-pgsql && \
@@ -42,7 +42,9 @@ RUN \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
 	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
 	# Enable required Apache modules
-	a2enmod -q deflate expires filter headers mime remoteip setenvif && \
+	a2enmod -q fcgid proxy_fcgi deflate expires filter headers mime remoteip setenvif && \
+	# Enable php-fpm
+	a2enconf -q php8.4-fpm && \
 	# Enable FreshRSS configuration for Apache
 	a2ensite -q 'FreshRSS*' && \
 	# Disable unwanted PHP modules
@@ -69,6 +71,9 @@ ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
 # hadolint ignore=DL3025
-CMD ([ -z "$CRON_MIN" ] || cron) && \
+CMD bash -c "\
+	/usr/sbin/php-fpm8.4 -F & \
+	([ -z "$CRON_MIN" ] || cron) && \
 	. /etc/apache2/envvars && \
-	exec apache2 -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo "-D OIDC_ENABLED")
+	apache2 -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo "-D OIDC_ENABLED") & \
+	wait -n"
