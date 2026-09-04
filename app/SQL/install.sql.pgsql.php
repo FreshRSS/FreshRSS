@@ -110,6 +110,17 @@ SQL;
 $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
 ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastModified` BIGINT;	-- 1.29.0
 CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` (`lastModified`);
+
+CREATE TABLE IF NOT EXISTS `_feed_category` (
+	"feed_id"     INT NOT NULL,
+	"category_id" INT NOT NULL,
+	PRIMARY KEY ("feed_id", "category_id"),
+	FOREIGN KEY ("feed_id") REFERENCES `_feed` ("id") ON DELETE CASCADE,
+	FOREIGN KEY ("category_id") REFERENCES `_category` ("id") ON DELETE CASCADE
+);
+INSERT INTO `_feed_category` (feed_id, category_id)
+	SELECT id, category FROM `_feed` WHERE category IS NOT NULL AND category != 0
+	ON CONFLICT DO NOTHING;
 SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'

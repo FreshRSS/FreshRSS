@@ -101,6 +101,50 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 	}
 
+
+	/**
+	 * Set the categories for a feed in the feed_category join table.
+	 * @param array<int> $categoryIds
+	 */
+	public function setFeedCategories(int $feedId, array $categoryIds): bool {
+		$ok = true;
+		$sql = <<<'SQL'
+			DELETE FROM `_feed_category` WHERE feed_id=:feed_id
+			SQL;
+		$stm = $this->pdo->prepare($sql);
+		if ($stm === false || !$stm->execute([':feed_id' => $feedId])) {
+			return false;
+		}
+		foreach ($categoryIds as $catId) {
+			$catId = (int)$catId;
+			if ($catId <= 0) {
+				continue;
+			}
+			$sql2 = <<<'SQL'
+				INSERT INTO `_feed_category` (feed_id, category_id) VALUES (:feed_id, :category_id)
+				SQL;
+			$stm2 = $this->pdo->prepare($sql2);
+			if ($stm2 === false) {
+				return false;
+			}
+			$ok = $ok && $stm2->execute([':feed_id' => $feedId, ':category_id' => $catId]);
+		}
+		return $ok;
+	}
+
+	/** @return array<int> */
+	public function getFeedCategoryIds(int $feedId): array {
+		$sql = <<<'SQL'
+			SELECT category_id FROM `_feed_category` WHERE feed_id=:feed_id
+			SQL;
+		$stm = $this->pdo->prepare($sql);
+		if ($stm === false || !$stm->execute([':feed_id' => $feedId])) {
+			return [];
+		}
+		$res = $stm->fetchAll(\PDO::FETCH_COLUMN, 0);
+		return is_array($res) ? array_map('intval', $res) : [];
+	}
+
 	public function addFeedObject(FreshRSS_Feed $feed): int|false {
 		// Add feed only if we don’t find it in DB
 		$feed_search = $this->searchByUrl($feed->url());
@@ -126,6 +170,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			if ($id) {
 				$feed->_id($id);
 				$feed->faviconPrepare();
+				$this->setFeedCategories((int)$id, $feed->categoryIds());
 			}
 
 			return $id;
@@ -154,6 +199,13 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 			if (!$this->updateFeed($feed_search->id(), $values)) {
 				return false;
+			}
+
+			// Merge existing categories with new ones
+			if (!empty($feed->categoryIds())) {
+				$existingCatIds = $this->getFeedCategoryIds($feed_search->id());
+				$mergedCatIds = array_unique(array_merge($existingCatIds, $feed->categoryIds()));
+				$this->setFeedCategories($feed_search->id(), array_values($mergedCatIds));
 			}
 
 			return $feed_search->id();
@@ -425,7 +477,24 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 		/** @var list<array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority:int,
 		 * 	pathEntries:string,httpAuth:string,error:int,ttl:int,attributes?:string,cache_nbUnreads:int,cache_nbEntries:int}> $res */
-		return self::daoToFeeds($res);
+		$feeds = self::daoToFeeds($res);
+		// Populate categoryIds from join table in one query
+		$sql2 = <<<'SQL'
+			SELECT feed_id, category_id FROM `_feed_category`
+			SQL;
+		$catRows = $this->fetchAssoc($sql2);
+		if (is_array($catRows)) {
+			$catMap = [];
+			foreach ($catRows as $row) {
+				$catMap[(int)$row['feed_id']][] = (int)$row['category_id'];
+			}
+			foreach ($feeds as $feed) {
+				if (isset($catMap[$feed->id()])) {
+					$feed->_categoryIds($catMap[$feed->id()]);
+				}
+			}
+		}
+		return $feeds;
 	}
 
 	/** @return array<string,string> */
@@ -518,7 +587,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 	 */
 	public function listByCategory(int $cat, ?bool $muted = null, ?bool $errored = null): array {
 		$sql = <<<'SQL'
-			SELECT * FROM `_feed` WHERE category=:category
+			SELECT * FROM `_feed` f
+			WHERE EXISTS (SELECT 1 FROM `_feed_category` fc WHERE fc.feed_id=f.id AND fc.category_id=:category)
+			OR (NOT EXISTS (SELECT 1 FROM `_feed_category` fc2 WHERE fc2.feed_id=f.id) AND f.category=:category2)
 			SQL;
 		if ($muted) {
 			$sql .= "\n" . <<<SQL
@@ -530,7 +601,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 				AND error <> 0
 				SQL;
 		}
-		$res = $this->fetchAssoc($sql, [':category' => $cat]);
+		$res = $this->fetchAssoc($sql, [':category' => $cat, ':category2' => $cat]);
 		if (!is_array($res)) {
 			return [];
 		}

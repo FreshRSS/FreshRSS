@@ -421,13 +421,13 @@ final class FeverAPI
 			if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
 				continue;
 			}
-			$ids[$feed->categoryId()][] = $feed->id();
+			$catIds = $feed->categoryIds(); if (empty($catIds)) { $catIds = [$feed->categoryId()]; } foreach ($catIds as $catId) { $ids[$catId][] = $feed->id(); }
 		}
 
 		foreach ($ids as $category => $feedIds) {
 			$groups[] = [
 				'group_id' => $category,
-				'feed_ids' => implode(',', $feedIds)
+				'feed_ids' => implode(',', array_unique($feedIds))
 			];
 		}
 

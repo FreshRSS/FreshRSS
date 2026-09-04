@@ -332,7 +332,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 				SELECT c.id AS c_id, c.name AS c_name, c.kind AS c_kind, c.`lastUpdate` AS c_last_update, c.error AS c_error, c.attributes AS c_attributes,
 					{$feedFields}
 				FROM `_category` c
-				LEFT OUTER JOIN `_feed` f ON f.category=c.id
+				LEFT OUTER JOIN (
+					SELECT f.*, fc.category_id AS _joined_category_id FROM `_feed` f
+					JOIN `_feed_category` fc ON fc.feed_id = f.id
+					UNION
+					SELECT f.*, f.category AS _joined_category_id FROM `_feed` f
+					WHERE NOT EXISTS (SELECT 1 FROM `_feed_category` fc2 WHERE fc2.feed_id = f.id)
+				) f ON f._joined_category_id = c.id
 				GROUP BY f.id, c_id
 				ORDER BY c.name, f.name
 				SQL;

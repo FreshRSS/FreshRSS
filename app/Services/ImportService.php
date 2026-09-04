@@ -84,6 +84,8 @@ class FreshRSS_Import_Service {
 		// feeds elements indexed by their categories names.
 		[$categories_elements, $categories_to_feeds] = $this->loadFromOutlines($opml_array['body'], '');
 
+		// First pass: resolve/create categories, build category name => object map
+		$resolved_categories = [];  // category_name => FreshRSS_Category|null
 		foreach ($categories_to_feeds as $category_name => $feeds_elements) {
 			$category_element = $categories_elements[$category_name] ?? null;
 
@@ -119,25 +121,62 @@ class FreshRSS_Import_Service {
 				$category = $default_category;
 			}
 
-			// Then, create the feeds one by one and attach them to the
-			// category we just got.
+			$resolved_categories[$category_name] = $category;
+		}
+
+		// Second pass: build feed_url => {element, category_ids:[]} to handle multi-category feeds
+		/** @var array<string, array{element: array<string,string>, category_ids: list<int>}> $feeds_by_url */
+		$feeds_by_url = [];
+		foreach ($categories_to_feeds as $category_name => $feeds_elements) {
+			$category = $resolved_categories[$category_name] ?? $default_category;
 			foreach ($feeds_elements as $feed_element) {
-				$limit_reached = $nb_feeds >= $limits['max_feeds'];
-				$can_create_feed = FreshRSS_Context::$isCli || !$limit_reached;
-				if (!$can_create_feed) {
-					Minz_Log::warning(
-						_t('feedback.sub.feed.over_max', $limits['max_feeds'])
-					);
-					$this->lastStatus = false;
+				$url = $feed_element['xmlUrl'] ?? '';
+				if ($url === '') {
+					continue;
+				}
+				if (!isset($feeds_by_url[$url])) {
+					$feeds_by_url[$url] = ['element' => $feed_element, 'category_ids' => []];
+				}
+				if ($category->id() > 0 && !in_array($category->id(), $feeds_by_url[$url]['category_ids'], true)) {
+					$feeds_by_url[$url]['category_ids'][] = $category->id();
+				}
+			}
+		}
+
+		// Third pass: create feeds with all their categories
+		foreach ($feeds_by_url as $url => $feed_data) {
+			$limit_reached = $nb_feeds >= $limits['max_feeds'];
+			$can_create_feed = FreshRSS_Context::$isCli || !$limit_reached;
+			if (!$can_create_feed) {
+				Minz_Log::warning(
+					_t('feedback.sub.feed.over_max', $limits['max_feeds'])
+				);
+				$this->lastStatus = false;
+				break;
+			}
+
+			// Use first category as primary for backwards compat
+			$primary_cat_id = $feed_data['category_ids'][0] ?? $default_category->id();
+			$primary_category = null;
+			foreach ($resolved_categories as $cat) {
+				if ($cat !== null && $cat->id() === $primary_cat_id) {
+					$primary_category = $cat;
 					break;
 				}
+			}
+			if ($primary_category === null) {
+				$primary_category = $default_category;
+			}
 
-				if ($this->createFeed($feed_element, $category, $dry_run) !== null) {
-					// TODO what if the feed already exists in the database?
-					$nb_feeds++;
-				} else {
-					$this->lastStatus = false;
+			$feed = $this->createFeed($feed_data['element'], $primary_category, $dry_run);
+			if ($feed !== null) {
+				// Set all categories in the join table
+				if (!$dry_run && !empty($feed_data['category_ids'])) {
+					$this->feedDAO->setFeedCategories($feed->id(), $feed_data['category_ids']);
 				}
+				$nb_feeds++;
+			} else {
+				$this->lastStatus = false;
 			}
 		}
 	}
