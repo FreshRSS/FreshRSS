@@ -94,7 +94,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 * This action handles form login page.
 	 *
 	 * If this action is reached through a POST request, username and password
-	 * are compared to login the current user.
+	 * are compared to log in the current user.
 	 *
 	 * Parameters are:
 	 *   - nonce (default: false)
@@ -150,7 +150,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			$ok = FreshRSS_FormAuth::checkCredentials(
 				$username, FreshRSS_Context::userConf()->passwordHash, $nonce, $challenge
 			);
-			if ($ok) {
+			if ($ok === true) {
 				// Set session parameter to give access to the user.
 				Minz_Session::regenerateID('FreshRSS');
 				Minz_Session::_params([
@@ -273,4 +273,5 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			return _url('auth', 'logout');
 		}
 	}
+
 }
