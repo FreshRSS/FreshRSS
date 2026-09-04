@@ -1,0 +1,8 @@
+{
+    "name": "Hoarder Integration",
+    "author": "Sergio Salazar",
+    "description": "Integrates FreshRSS with Hoarder to add bookmarks.",
+    "version": 1.0,
+    "entrypoint": "hoarderIntegration",
+    "type": "user"
+}

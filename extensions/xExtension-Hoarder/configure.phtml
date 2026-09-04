@@ -1,0 +1,53 @@
+<?php
+$config = FreshRSS_Context::$user_conf->HoarderIntegration ?? [];
+$apiKey = trim($config['api_key'] ?? '');
+$ipaddress = trim($config['ip_address'] ?? '');
+$server_addr = trim($config['server_addr'] ?? '');
+$keyboard_shortcut = trim($config['keyboard_shortcut'] ?? '');
+?>
+
+<form action="<?php echo _url('extension', 'configure', 'e', urlencode($this->getName())); ?>" method="post">
+    <input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
+
+    <!-- API Key Input -->
+    <div class="form-group">
+        <label for="api_key"><?= _t('ext.hoarderIntegration.configure.api_key'); ?>:</label>
+        <input type="password" name="api_key" id="api_key" value="<?php echo htmlspecialchars($apiKey); ?>" required />
+        <div class="alert alert-info">
+            <?= _t('ext.hoarderIntegration.configure.api_key_description'); ?>
+        </div>
+    </div>
+
+    <!-- Server Address Input -->
+    <div class="form-group">
+        <label for="server_addr"></label>
+        <input type="url" name="server_addr" id="server_addr" value="<?php echo htmlspecialchars($server_addr); ?>" required />
+        <div class="form-description">
+            <small class="form-text text-muted"><?= _t('ext.hoarderIntegration.configure.instance_url'); ?></small>
+        </div>
+    </div>
+
+    <!-- IP Address Input -->
+    <div class="form-group">
+        <label for="ip_address"></label>
+        <input type="text" name="ip_address" id="ip_address" value="<?php echo htmlspecialchars($ipaddress); ?>" required />
+        <div class="form-description">
+            <small class="form-text text-muted"><?= _t('ext.hoarderIntegration.configure.ip_addr'); ?></small>
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcut Input -->
+    <div class="form-group">
+        <label for="keyboard_shortcut"></label>
+        <input type="text" name="keyboard_shortcut" id="keyboard_shortcut" maxlength="1" value="<?php echo htmlspecialchars($keyboard_shortcut); ?>" />
+        <div class="form-description">
+        <small class="form-text text-muted"><?= _t('ext.hoarderIntegration.configure.keyboard_shortcut'); ?></small>
+        </div>
+    </div>
+
+    <div class="form-group form-actions">
+    <div class="group-controls">
+      <button type="submit" class="btn btn-important"><?= _t('gen.action.submit'); ?></button>
+    </div>
+  </div>
+</form>
