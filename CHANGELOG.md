@@ -28,6 +28,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * API
 	* Add a warning message to the API password section and a log warning when a client uses GET instead of recommended POST [#8845](https://github.com/FreshRSS/FreshRSS/pull/8845)
 * Deployment
+	* Docker: Support Docker secrets via `_FILE` suffixed environment variables for the OIDC client variables (e.g. `OIDC_CLIENT_SECRET_FILE`), following the `postgres`/`mysql` convention [#7308](https://github.com/FreshRSS/FreshRSS/issues/7308)
 	* Docker alternative image updated to Alpine 3.24 with PHP 8.5.7 and Apache 2.4.67 [#8916](https://github.com/FreshRSS/FreshRSS/pull/8916)
 	* Apache use only `CONN_REMOTE_ADDR` in logs when `mod_remoteip` is available, for compatibility with LiteSpeed Web Server [#8890](https://github.com/FreshRSS/FreshRSS/pull/8890)
 * UI
