@@ -1078,16 +1078,6 @@ function rememberOpenCategory(category_id, isOpen) {
 	}
 }
 
-function openCategory(category_id) {
-	const category_element = document.getElementById(category_id);
-	if (!category_element) return;
-	category_element.querySelector('.tree-folder-items').classList.add('active');
-	const img = category_element.querySelector('button.dropdown-toggle img');
-	if (!img) return;
-	img.src = img.src.replace('/icons/down.', '/icons/up.');
-	img.alt = '🔼';
-}
-
 function loadJs(name) {
 	if (!document.getElementById(name)) {
 		const script = document.createElement('script');
@@ -1104,13 +1094,7 @@ function init_column_categories() {
 		return;
 	}
 
-	// Restore open categories
-	if (context.display_categories === 'remember') {
-		const open_categories = JSON.parse(localStorage.getItem('FreshRSS_open_categories') || '{}');
-		Object.keys(open_categories).forEach(function (category_id) {
-			openCategory(category_id);
-		});
-	}
+	// Open categories are now restored earlier by restore-categories.js, loaded from aside_feed.phtml.
 
 	const sidebar_scrollTop = sessionStorage.getItem('FreshRSS_sidebar_scrollTop');
 	if (sidebar_scrollTop) {

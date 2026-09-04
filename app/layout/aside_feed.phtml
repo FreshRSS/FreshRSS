@@ -180,6 +180,9 @@
 	</ul>
 	</form>
 </nav>
+<?php if (FreshRSS_Context::userConf()->display_categories === 'remember' && in_array($actual_view, ['normal', 'reader'], true)) { ?>
+<script src="<?= Minz_Url::display('/scripts/restore-categories.js?' . @filemtime(PUBLIC_PATH . '/scripts/restore-categories.js')) ?>"></script>
+<?php } ?>
 <a class="close-aside" href="#close">❌</a>
 
 <div id="first_load" class="loading"></div>

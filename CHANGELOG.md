@@ -23,6 +23,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Bug fixing
 	* Fix lost elements while parsing search query [#8884](https://github.com/FreshRSS/FreshRSS/pull/8884)
 	* Fix tagging an already-tagged entry on PostgreSQL raising a SQL error instead of being a no-op [#7923](https://github.com/FreshRSS/FreshRSS/issues/7923)
+	* Restore remembered open categories before the sidebar paints, avoiding a visible collapse-then-expand jump on navigation [#8512](https://github.com/FreshRSS/FreshRSS/issues/8512)
 * CLI
 	* New `cli/reconfigure-user.php` to read/write per-user config attributes [#8873](https://github.com/FreshRSS/FreshRSS/pull/8873)
 * API
