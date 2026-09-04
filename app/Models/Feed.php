@@ -673,7 +673,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 
 				$clean_url = \SimplePie\Misc::url_remove_credentials($subscribe_url);
-				if ($subscribe_url !== '' && $subscribe_url !== $url) {
+				if ($subscribe_url !== '' && $subscribe_url !== $url && $this->category()?->kind() !== FreshRSS_Category::KIND_DYNAMIC_OPML) {
 					$this->_url($clean_url);
 				}
 
