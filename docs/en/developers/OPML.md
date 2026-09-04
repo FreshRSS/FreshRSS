@@ -80,6 +80,7 @@ A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are 
 * `frss:CURLOPT_COOKIEFILE`
 * `frss:CURLOPT_FOLLOWLOCATION`
 * `frss:CURLOPT_HTTPHEADER`
+* `frss:CURLOPT_IPRESOLVE`: `0` to use whichever IP version is available (default), `1` to force IPv4, `2` to force IPv6.
 * `frss:CURLOPT_MAXREDIRS`
 * `frss:CURLOPT_POST`
 * `frss:CURLOPT_POSTFIELDS`

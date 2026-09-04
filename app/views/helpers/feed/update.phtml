@@ -852,9 +852,6 @@
 					<select name="proxy_type" id="proxy_type"><?php
 						defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2);	// Compatibility cURL 7.51
 						$type = $curlParams[CURLOPT_PROXYTYPE] ?? '';
-						if ($type === 3) {	// Legacy for NONE
-							$type = -1;
-						}
 						foreach (['' => '', -1 => 'NONE', CURLPROXY_HTTP => 'HTTP', CURLPROXY_HTTPS => 'HTTPS',
 							CURLPROXY_SOCKS4 => 'SOCKS4', CURLPROXY_SOCKS4A => 'SOCKS4A', CURLPROXY_SOCKS5 => 'SOCKS5',
 							CURLPROXY_SOCKS5_HOSTNAME => 'SOCKS5H'] as $k => $v) {
