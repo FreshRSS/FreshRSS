@@ -28,7 +28,7 @@ It could happen that we make two releases in a short span of time if we have a r
 
 ## Development version
 
-[Download](https://github.com/FreshRSS/FreshRSS/archive/edge.zip)
+[Download](https://github.com/FreshRSS/FreshRSS/archive/refs/heads/edge.zip)
 
 As its name suggests, the development version is the working codebase, intended for developers. **This release may be unstable!**
 

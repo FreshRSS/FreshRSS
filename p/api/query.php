@@ -75,14 +75,14 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	if (!empty($raw_query['token']) && hash_equals($raw_query['token'], $token)) {
 		switch ($format) {
 			case 'atom':
-			case 'greader':
 			case 'html':
-			case 'json':
 			case 'rss':
 				if (empty($raw_query['shareRss'])) {
 					continue 2;
 				}
 				break;
+			case 'greader':
+			case 'json':
 			case 'opml':
 				if (empty($raw_query['shareOpml'])) {
 					continue 2;
@@ -170,9 +170,11 @@ $view->rss_url = $query->sharedUrlRss();
 $view->rss_title = $query->getName();
 $view->image_url = $query->getImageUrl();
 $view->description = $query->getDescription() ?: _t('index.feed.rss_of', $view->rss_title);
-$view->publishLabelsInsteadOfTags = $query->publishLabelsInsteadOfTags();
+$view->includeUserLabels = $query->includeUserLabels();
+$view->excludeArticleTags = $query->excludeArticleTags();
+$view->userLabelPrefix = $query->userLabelPrefix();
 $view->entryIdsTagNames = [];
-if ($view->publishLabelsInsteadOfTags && in_array($format, ['rss', 'atom'], true)) {
+if ($view->includeUserLabels && in_array($format, ['rss', 'atom'], true)) {
 	$entries = iterator_to_array($view->entries, preserve_keys: false);	// TODO: Optimise: avoid iterator_to_array if possible
 	$view->entries = $entries;
 	if (!empty($entries)) {

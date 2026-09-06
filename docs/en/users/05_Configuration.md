@@ -224,7 +224,7 @@ The Top Menu within the mobile view might look a little bit cluttered, depending
     }
 
     /* Hides the Dropdown Menu Button next to the "Mark all read" Button in Mobile View */
-    #mark-read-menu .dropdown {
+    .mark-read-menu .dropdown {
         display: none;
     }
 }
@@ -255,4 +255,4 @@ AuthType Basic
 Require user marie
 ```
 
-More information can be found in the [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
+More information can be found in the [Apache documentation](https://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).

@@ -16,7 +16,7 @@ return array(
 		'allow_anonymous_refresh' => 'Izinkan untuk memuat ulang artikel awanama',
 		'api_enabled' => 'Izinkan akses <abbr>API</abbr> <small>(Diperlukan untuk aplikasi seluler dan untuk membagikan pencarian pengguna)</small>',
 		'form' => 'Formulir Web (klasik, membutuhkan JavaScript)',
-		'http' => 'HTTP (tingkat lanjut: dikelola oleh peladen Web, OIDC, SSO, dll.)',
+		'http' => 'HTTP (tingkat lanjut: dikelola oleh server Web, OIDC, SSO, dll.)',
 		'none' => 'Tidak ada (berbahaya)',
 		'title' => 'Autentikasi',
 		'token' => 'Token autentikasi utama',
@@ -31,7 +31,7 @@ return array(
 		'empty_list' => 'Tidak ada ekstensi yang terpasang',
 		'empty_list_help' => 'Periksa log untuk menemukan alasan daftar ekstensi yang kosong.',
 		'enabled' => 'Diaktifkan',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Kompatibel',
 		'latest' => 'Terpasang',
 		'name' => 'Nama',
 		'no_configure_view' => 'Ekstensi ini tidak dapat dikonfigurasi.',
@@ -48,8 +48,8 @@ return array(
 		'_' => 'Statistik',
 		'all_feeds' => 'Semua umpan',
 		'category' => 'Kategori',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Tanggal terbit',
+		'date_received' => 'Tanggal diterima',
 		'entry_count' => 'Jumlah entri',
 		'entry_per_category' => 'Entri per kategori',
 		'entry_per_day' => 'Entri per hari (30 hari terakhir)',
@@ -62,7 +62,7 @@ return array(
 		'idle' => 'Umpan Tak Terbarukan',
 		'main' => 'Statistik utama',
 		'main_stream' => 'Bagian utama',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Jumlah artikel belum dibaca',
 		'no_idle' => 'Tidak ada umpan tak terbarukan!',
 		'number_entries' => '%d artikel',
 		'overview' => 'Ringkasan',
@@ -74,30 +74,30 @@ return array(
 		'status_unread' => 'Belum Terbaca',
 		'title' => 'Statistik',
 		'top_feed' => 'Sepuluh umpan teratas',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => 'Tanggal dengan artikel belum dibaca terbanyak',
 	),
 	'system' => array(
 		'_' => 'Konfigurasi Sistem',
-		'auto-update-url' => 'URL peladen untuk pembaruan otomatis',
+		'auto-update-url' => 'URL server untuk pembaruan otomatis',
 		'base-url' => array(
-			'_' => 'URL peladen',
+			'_' => 'URL server',
 			'recommendation' => 'Rekomendasi Otomatis: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Message if registrations are closed',	// TODO
+		'closed_registration_message' => 'Pesan jika pendaftaran ditutup',
 		'cookie-duration' => array(
 			'help' => 'dalam detik',
 			'number' => 'Durasi untuk terus masuk',
 		),
-		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
+		'default_closed_registration_message' => 'Server ini tidak menerima pendaftaran baru untuk saat ini.',
 		'force_email_validation' => 'Paksa verifikasi alamat surel',
-		'instance-name' => 'Nama peladen',
+		'instance-name' => 'Nama server',
 		'internal-host-allowlist' => array(
-			'_' => 'Internal host allowlist',	// TODO
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'_' => 'Daftar izin host internal',
+			'help' => 'Satu entri per baris:<ul><li>Sebuah <code>host:port</code>. Misalnya <code>127.0.0.1:8080</code> atau <code>rss-bridge:80</code></li><li>Notasi CIDR. Misalnya <code>0.0.0.0/0</code> untuk mengizinkan semua IPv4, <code>::/0</code> untuk mengizinkan semua IPv6</li><li>Sebuah <code>*</code> untuk mengizinkan semua host (tidak aman)</li></ul>',
 		),
 		'max-categories' => 'Jumlah kategori maksimal per pengguna',
 		'max-feeds' => 'Jumlah umpan maksimal per pengguna',
-		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'override-by-env-var' => 'Pengaturan ini ditetapkan oleh variabel lingkungan <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Jumlah akun maksimal',
 			'select' => array(

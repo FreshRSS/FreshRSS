@@ -18,13 +18,13 @@ FreshRSS possède deux versions différentes (nous parlons de branches) qui sort
 
 ### La version stable
 
-[Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/latest.zip)
+[Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/refs/heads/latest.zip)
 
 Cette version sort lorsqu’on considère qu’on a répondu à nos objectifs en terme de nouvelles fonctionnalités. Deux versions peuvent ainsi sortir de façon très rapprochée si les développeurs travaillent bien. En pratique, comme nous nous fixons de nombreux objectifs et que nous travaillons sur notre temps libre, les versions sont souvent assez espacées (plusieurs mois). Son avantage est que le code est particulièrement stable et vous ne devriez pas faire face à de méchants bugs.
 
 ### La version de développement
 
-[Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/edge.zip)
+[Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/refs/heads/edge.zip)
 
 Comme son nom l’indique, il s’agit de la version sur laquelle les développeurs travaillent. **Elle est donc instable !** Si vous souhaitez recevoir les améliorations au jour le jour, vous pouvez l’utiliser, mais attention à bien suivre les évolutions sur GitHub (via [le flux RSS de la branche](https://github.com/FreshRSS/FreshRSS/commits/edge.atom) par exemple). On raconte que les développeurs principaux l’utilisent quotidiennement sans avoir de soucis. Sans doute savent-ils ce qu’ils font…
 
@@ -132,8 +132,6 @@ server {
 	}
 }
 ```
-
-Pour un tutoriel pas à pas, vous pouvez suivre [cet article dédié](http://www.pihomeserver.fr/2013/05/08/raspberry-pi-home-server-installer-un-agregateur-de-flux-rss-pour-remplacer-google-reader/).
 
 ## Conseils de sécurité
 

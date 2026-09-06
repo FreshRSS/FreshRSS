@@ -57,7 +57,7 @@ class FreshRSS extends Minz_FrontController {
 		// Complete initialization of the other FreshRSS / Minz components.
 		self::initI18n();
 		// Enable extensions for the current (logged) user.
-		if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous) {
+		if (FreshRSS_Auth::hasAccess() || FreshRSS_Auth::allowAnonymous()) {
 			$ext_list = FreshRSS_Context::userConf()->extensions_enabled;
 			Minz_ExtensionManager::enableByList($ext_list, 'user');
 		}
@@ -76,9 +76,9 @@ class FreshRSS extends Minz_FrontController {
 				(Minz_Request::controllerName() === 'auth' && Minz_Request::actionName() === 'login') ||
 				(Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'create' && !FreshRSS_Auth::hasAccess('admin')) ||
 				(Minz_Request::controllerName() === 'feed' && Minz_Request::actionName() === 'actualize' &&
-					FreshRSS_Context::systemConf()->allow_anonymous_refresh) ||
+					FreshRSS_Auth::allowAnonymousRefresh()) ||
 				(Minz_Request::controllerName() === 'javascript' && Minz_Request::actionName() === 'actualize' &&
-					FreshRSS_Context::systemConf()->allow_anonymous)
+					FreshRSS_Auth::allowAnonymous())
 				)) {
 				// Token-based protection against XSRF attacks, except for the login or self-create user forms
 				self::initI18n();

@@ -20,7 +20,7 @@ return array(
 		'none' => 'Nenhum (Perigoso)',
 		'title' => 'Autenticação',
 		'token' => 'Token de autenticação principal',
-		'token_help' => 'Permite acesso a todos as saídas RSS do usuário bem como atualização dos feeds sem autenticação:',
+		'token_help' => 'Permite acesso a todas as saídas RSS do usuário, bem como a atualização dos feeds sem autenticação:',
 		'type' => 'Método de autenticação',
 	),
 	'extensions' => array(
@@ -53,9 +53,9 @@ return array(
 		'entry_count' => 'Contagem de entrada',
 		'entry_per_category' => 'Entradas por categoria',
 		'entry_per_day' => 'Entradas por dia (últimos 30 dias)',
-		'entry_per_day_of_week' => 'Por dia da semana(média: %.2f mensagens)',
+		'entry_per_day_of_week' => 'Por dia da semana (média: %.2f mensagens)',
 		'entry_per_hour' => 'Por hora (média: %.2f mensagens)',
-		'entry_per_month' => 'Por mês(média: %.2f mensagens)',
+		'entry_per_month' => 'Por mês (média: %.2f mensagens)',
 		'entry_repartition' => 'Repartição de entradas',
 		'feed' => 'Feed',	// IGNORE
 		'feed_per_category' => 'Feeds por categoria',
@@ -73,7 +73,7 @@ return array(
 		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Não lidos',
 		'title' => 'Estatísticas',
-		'top_feed' => 'Top10 Feeds',
+		'top_feed' => 'Top 10 Feeds',
 		'unread_dates' => 'Datas com mais artigos não lidos',
 	),
 	'system' => array(
@@ -86,18 +86,18 @@ return array(
 		'closed_registration_message' => 'Mensagem caso as inscrições estejam encerradas',
 		'cookie-duration' => array(
 			'help' => 'em segundos',
-			'number' => 'Manter seção ativa durante',
+			'number' => 'Manter sessão ativa durante',
 		),
 		'default_closed_registration_message' => 'Este servidor não aceita novas inscrições no momento.',
 		'force_email_validation' => 'Força verificação do endereço de email',
 		'instance-name' => 'Nome da instância',
 		'internal-host-allowlist' => array(
-			'_' => 'Internal host allowlist',	// TODO
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'_' => 'Lista de permissões de hosts internos',
+			'help' => 'Uma entrada por linha:<ul><li>Um <code>host:porta</code>. Por exemplo, <code>127.0.0.1:8080</code> ou <code>rss-bridge:80</code></li><li>Uma notação CIDR. Por exemplo, <code>0.0.0.0/0</code> para permitir qualquer IPv4 e <code>::/0</code> para permitir qualquer IPv6</li><li>Um <code>*</code> para permitir qualquer host (não seguro)</li></ul>',
 		),
 		'max-categories' => 'Limite de categorias por usuário',
 		'max-feeds' => 'Limite de Feeds por usuário',
-		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'override-by-env-var' => 'Esta configuração é definida pela variável de ambiente <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Máximo número de contas',
 			'select' => array(

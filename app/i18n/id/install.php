@@ -35,7 +35,7 @@ return array(
 		'_' => 'Pemeriksaan',
 		'already_installed' => 'Kami mendeteksi bahwa FreshRSS sudah terpasang!',
 		'cache' => array(
-			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Server HTTP harus memiliki izin menulis di direktori tersebut.',
 			'ok' => 'Izin untuk direktori tembolok sudah bagus.',
 		),
 		'ctype' => array(
@@ -47,32 +47,32 @@ return array(
 			'ok' => 'Anda memiliki pustaka cURL.',
 		),
 		'data' => array(
-			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Server HTTP harus memiliki izin menulis di direktori tersebut.',
 			'ok' => 'Izin untuk direktori data sudah bagus.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Kesalahan koneksi basis data.',
+			'ok' => 'Koneksi basis data sudah bagus.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Tabel basis data "%s" tidak lengkap.',
+			'ok' => 'Tabel basis data "%s" sudah bagus.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Beberapa tabel basis data tidak ditemukan.',
+			'ok' => 'Semua tabel basis data sudah ada.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Basis data',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'Root dokumen server web Anda tampaknya tidak menunjuk ke folder <code>./p/</code>. Folder lain seperti <code>./data/</code> mungkin dapat diakses publik.',
+			'ok' => 'Root dokumen server web Anda sudah menunjuk dengan benar ke folder <code>./p/</code>.',
 		),
 		'dom' => array(
 			'nok' => 'Tidak dapat menemukan pustaka yang diperlukan untuk menelusuri DOM.',
 			'ok' => 'Anda memiliki pustaka yang diperlukan untuk menelusuri DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Server HTTP harus memiliki izin menulis di direktori tersebut.',
 			'ok' => 'Izin untuk direktori favicon sudah bagus.',
 		),
 		'fileinfo' => array(
@@ -81,12 +81,12 @@ return array(
 		),
 		'files' => 'Pemasangan Berkas',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => 'Tidak dapat menemukan ekstensi GMP yang diperlukan untuk PHP 32-bit (paket php-gmp).',
+			'ok' => 'Anda memiliki ekstensi GMP yang diperlukan untuk PHP 32-bit.',
 		),
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Tidak dapat menemukan pustaka php-intl yang disarankan untuk internasionalisasi.',
+			'ok' => 'Anda memiliki pustaka php-intl yang disarankan untuk internasionalisasi.',
 		),
 		'json' => array(
 			'nok' => 'Tidak dapat menemukan pustaka yang direkomendasikan untuk membaca JSON.',
@@ -101,14 +101,14 @@ return array(
 			'ok' => 'Anda memiliki pustaka untuk ekspresi regular (regex) (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Tidak dapat menemukan driver PDO yang diperlukan untuk MySQL/MariaDB.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Tidak dapat menemukan driver PDO yang diperlukan untuk PostgreSQL.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'Tidak dapat menemukan driver PDO untuk SQLite.',
+			'ok' => 'Anda memiliki driver PDO untuk SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'Tidak dapat menemukan PDO atau sejenisnya untuk basis data yang didukung (pdo_sqlite, pdo_pgsql, pdo_mysql).',
@@ -121,16 +121,16 @@ return array(
 		),
 		'reload' => 'Periksa kembali',
 		'tmp' => array(
-			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Server HTTP harus memiliki izin menulis di direktori tersebut.',
 			'ok' => 'Izin pada direktori tmp sudah bagus.',
 		),
 		'tokens' => array(
-			'nok' => 'Periksa izin direktori <em>./data/tokens</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'nok' => 'Periksa izin direktori <em>./data/tokens</em>. Server HTTP harus memiliki izin menulis di direktori tersebut.',
 			'ok' => 'Izin pada direktori token sudah bagus.',
 		),
 		'unknown_process_username' => 'tidak diketahui',
 		'users' => array(
-			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Peladen HTTP harus memiliki izin menulis di direktori tersebut.',
+			'nok' => 'Periksa izin direktori <em>%1$s</em> untuk pengguna <em>%2$s</em>. Server HTTP harus memiliki izin menulis di direktori tersebut.',
 			'ok' => 'Izin pada direktori pengguna sudah bagus.',
 		),
 		'xml' => array(
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Selamat datang!',
 	'default_user' => array(
 		'_' => 'Nama pengguna untuk pengguna baku',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '1-39 karakter: huruf, angka, dan <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Perbaiki galat sebelum melanjutkan.',
 	'javascript_is_better' => 'FreshRSS lebih baik dengan JavaScript diaktifkan',
@@ -164,7 +164,7 @@ return array(
 	'missing_applied_migrations' => 'Ada sesuatu yang salah, Anda harus membuat berkas kosong <em>%s</em> secara manual.',
 	'ok' => 'Proses pemasangan sukses.',
 	'session' => array(
-		'nok' => 'Sepertinya konfigurasi peladen webnya salah untuk kuki yang dibutuhkan untuk sesi PHP!',
+		'nok' => 'Sepertinya konfigurasi server webnya salah untuk kuki yang dibutuhkan untuk sesi PHP!',
 	),
 	'step' => 'langkah %d',
 	'steps' => 'Langkah-Langkah',

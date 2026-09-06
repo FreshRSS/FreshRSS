@@ -4,6 +4,7 @@ Ths2 = "Ths2"
 
 [default.extend-words]
 ANDS = "ANDS"
+Chanse = "Chanse"
 referer = "referer"
 
 [files]

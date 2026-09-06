@@ -7,7 +7,7 @@
 ?>
 
 <main class="post">
-	<form class="crypto-form" method="post" action="<?= _url('user', 'profile') ?>" data-auto-leave-validation="1">
+	<form name="crypto_form" class="crypto-form" method="post" action="<?= _url('user', 'profile') ?>" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<h1><?= _t('conf.profile') ?></h1>
 
@@ -149,7 +149,7 @@
 	<?php if (!FreshRSS_Auth::hasAccess('admin')) { ?>
 	<h2><?= _t('conf.profile.delete') ?></h2>
 
-	<form class="crypto-form" method="post" action="<?= _url('user', 'delete') ?>">
+	<form name="crypto_form" class="crypto-form" method="post" action="<?= _url('user', 'delete') ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<p class="alert alert-warn"><span class="alert-head"><?= _t('gen.short.attention') ?></span> <?= _t('conf.profile.delete.warn') ?></p>
