@@ -344,6 +344,7 @@ People are sorted by name so please keep this order.
 * [Wanabo](https://github.com/Wanabo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Wanabo)
 * [witchcraze](https://github.com/witchcraze): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:witchcraze)
 * [wtoscer](https://github.com/wtoscer): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:wtoscer)
+* [XiaoSong1223](https://github.com/XiaoSong1223): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:XiaoSong1223)
 * [xnaas](https://github.com/ghost): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xnaas)
 * [xtmd](https://github.com/xtmd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xtmd)
 * [xtmd](https://github.com/xtmd): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:xtmd), [Web](https://iblog.cc/)
