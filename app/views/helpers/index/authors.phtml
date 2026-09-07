@@ -9,7 +9,11 @@
 <?php
 	$first = true;
 	foreach ($this->entry->authors() as $author) {
-		$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
+		if (Minz_Request::controllerName() === 'index') {
+			$href = Minz_Url::display(Minz_Request::modifiedCurrentRequest(['search' => 'author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"']));
+		} else { // API public access
+			$href = $this->html_url . '&search=' . urlencode('author:"' . htmlspecialchars_decode($author, ENT_QUOTES) . '"');
+		}
 		?><?= $first ? ' ' : ' · ' ?><a href="<?= $href ?>" title="<?= _t('gen.action.filter') ?>"><?= $author ?></a><?php
 		$first = false;
 	}

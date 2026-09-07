@@ -1,0 +1,20 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
+<datalist id="datalist-labels"></datalist>
+
+<template id="labels_article_template">
+	<div class="dropdown-menu">
+		<ul class="dropdown-menu-scrollable scrollbar-thin">
+			<li class="dropdown-header">
+				<?= _t('index.menu.mylabels') ?>
+				<?php if (FreshRSS_Auth::hasAccess()) { ?>
+					<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
+				<?php } ?>
+			</li>
+			<!-- Ajax -->
+		</ul>
+	</div>
+	<a class="dropdown-close" href="#close">❌</a>
+</template>

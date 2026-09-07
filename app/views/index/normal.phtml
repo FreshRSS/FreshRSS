@@ -11,32 +11,16 @@ $slider_feed = $this->feed;
 call_user_func($this->callbackBeforeEntries, $this);
 
 $last_transition = '';
-$useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
 
 $today = @strtotime('today');
 ?>
-
-<datalist id="datalist-labels"></datalist>
 
 <template id="share_article_template">
 	<?php $this->renderHelper('index/normal/entry_share_menu'); ?>
 	<a class="dropdown-close" href="#close">❌</a>
 </template>
 
-<template id="labels_article_template">
-	<div class="dropdown-menu">
-		<ul class="dropdown-menu-scrollable scrollbar-thin">
-			<li class="dropdown-header">
-				<?= _t('index.menu.mylabels') ?>
-				<?php if (FreshRSS_Auth::hasAccess()) { ?>
-					<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
-				<?php } ?>
-			</li>
-			<!-- Ajax -->
-		</ul>
-	</div>
-	<a class="dropdown-close" href="#close">❌</a>
-</template>
+<?php $this->renderHelper('index/labelsTemplates'); ?>
 
 <main id="stream" class="normal<?= FreshRSS_Context::userConf()->display_posts ? '' : ' hide_posts' ?>">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.normal') ?></h1>
@@ -45,7 +29,7 @@ $today = @strtotime('today');
 	</div><?php
 	$lastEntry = null;
 	$nbEntries = 0;
-	foreach ($this->entries as $item):
+	foreach ($this->entries as $item) {
 		/** @var FreshRSS_Entry|null $item */
 		$item = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $item);
 		if ($item === null) {
@@ -76,24 +60,8 @@ $today = @strtotime('today');
 			<span class="name"><?= FreshRSS_Context::$name ?></span>
 			</div><?php
 		}
-	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
-		?><?= $this->entry->isFavorite() ? ' favorite' : ''
-		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
-		?>" id="flux_<?= $this->entry->id()
-		?>" data-entry="<?= $this->entry->id()
-		?>" data-category="<?= $this->feed->categoryId()
-		?>" data-feed="<?= $this->feed->id()
-		?>" data-priority="<?= $this->feed->priority()
-		?>" data-link="<?= $this->entry->link()
-		?>"><?php
-			$this->renderHelper('index/normal/entry_header');
-			if ($this->feed === null || $this->entry === null) {
-				throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
-			}
-			$this->renderHelper('index/article');
-		?>
-	</div><?php
-	endforeach;
+		$this->renderHelper('index/article');
+	}
 
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);

@@ -9,9 +9,6 @@ if (!Minz_Request::paramBoolean('ajax')) {
 $slider_feed = $this->feed;
 
 call_user_func($this->callbackBeforeEntries, $this);
-
-$lazyload = FreshRSS_Context::userConf()->lazyload;
-$useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
 ?>
 <main id="stream" class="reader">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.reader') ?></h1>
@@ -20,7 +17,7 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 	</div><?php
 	$lastEntry = null;
 	$nbEntries = 0;
-	foreach ($this->entries as $entry):
+	foreach ($this->entries as $entry) {
 		/** @var FreshRSS_Entry|null $entry */
 		$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $entry);
 		if ($entry === null) {
@@ -34,18 +31,8 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 		//We most likely already have the feed object in cache, otherwise make a request
 		$this->feed = FreshRSS_Category::findFeed($this->categories, $this->entry->feedId()) ?? $this->entry->feed() ?? FreshRSS_Feed::default();
 		$this->entry->_feed($this->feed);
-	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
-		?><?= $this->entry->isFavorite() ? ' favorite' : ''
-		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
-		?>" id="flux_<?= $this->entry->id()
-		?>" data-entry="<?= $this->entry->id()
-		?>" data-category="<?= $this->feed->categoryId()
-		?>" data-feed="<?= $this->feed->id()
-		?>" data-priority="<?= $this->feed->priority()
-		?>" data-link="<?= $this->entry->link()
-		?>"><?php $this->renderHelper('index/article'); ?>
-	</div><?php
-	endforeach;
+		$this->renderHelper('index/article');
+	}
 
 	if ($nbEntries > 0):
 		call_user_func($this->callbackBeforePagination, $this, $nbEntries, $lastEntry);

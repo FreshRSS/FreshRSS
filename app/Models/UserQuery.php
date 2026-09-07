@@ -367,6 +367,17 @@ class FreshRSS_UserQuery {
 	}
 
 	/**
+	 * Public endpoint giving the user labels of a given entry, but only if user labels are published for this query.
+	 * The endpoint is only used to render the shared HTML page, so HTML sharing must be enabled.
+	 */
+	public function sharedUrlLabels(bool $xmlEscaped = true): string {
+		if ($this->shareRss && $this->includeUserLabels && $this->token !== '') {
+			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=labels';
+		}
+		return '';
+	}
+
+	/**
 	 * OPML is only safe for some query types, otherwise it risks leaking unwanted feed information.
 	 */
 	public function safeForOpml(): bool {

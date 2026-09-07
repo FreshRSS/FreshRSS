@@ -323,6 +323,9 @@ function send_mark_queue_tick(callback) {
 const delayedFunction = send_mark_queue_tick;
 
 function delayedClick(a) {
+	if (!a) {
+		return;
+	}
 	delayedFunction(function () { a.click(); });
 }
 
@@ -793,6 +796,9 @@ function toggle_media() {
 
 function user_filter(key) {
 	const filter = document.getElementById('dropdown-query');
+	if (!filter) {
+		return;
+	}
 	const filters = filter.parentElement.querySelectorAll('.dropdown-menu > .query > a');
 	if (typeof key === 'undefined') {
 		if (!filters.length) {
@@ -894,7 +900,7 @@ async function mylabels(key) {
 	key = parseInt(key);
 
 	if (key === 0) {
-		mylabelsDropdown.parentElement.querySelector('.dropdown-menu .item .newTag').focus();
+		mylabelsDropdown.parentElement.querySelector('.dropdown-menu .item .newTag')?.focus();
 	} else {
 		const mylabelsCheckboxes = mylabelsDropdown.parentElement.querySelectorAll('.dropdown-menu .item .checkboxTag');
 
@@ -1333,7 +1339,7 @@ function init_shortcuts() {
 			} else {
 				const old_active = document.querySelector('.flux.current');
 				const first = document.querySelector('.flux');
-				if (first.classList.contains('flux')) {
+				if (first) {
 					toggleContent(first, old_active, false);
 				}
 			}
@@ -1348,7 +1354,7 @@ function init_shortcuts() {
 			} else {
 				const old_active = document.querySelector('.flux.current');
 				const last = document.querySelector('.flux:last-of-type');
-				if (last.classList.contains('flux')) {
+				if (last) {
 					toggleContent(last, old_active, false);
 				}
 			}
@@ -1752,7 +1758,8 @@ async function loadDynamicTags(div) {
 
 	let json;
 	try {
-		const response = await fetch('./?c=tag&a=getTagsForEntry&id_entry=' + entryId, {
+		// `context.urls.labels` ends with `id_entry=` and is set only for shared (anonymous) user queries
+		const response = await fetch((context.urls.labels || './?c=tag&a=getTagsForEntry&id_entry=') + entryId, {
 			headers: {
 				'Accept': 'application/json',
 			}

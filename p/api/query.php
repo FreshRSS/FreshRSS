@@ -16,7 +16,7 @@ if (!ctype_alnum($token)) {
 }
 
 $format = Minz_Request::paramString('f', plaintext: true);
-if (!in_array($format, ['atom', 'greader', 'html', 'json', 'opml', 'rss'], true)) {
+if (!in_array($format, ['atom', 'greader', 'html', 'json', 'labels', 'opml', 'rss'], true)) {
 	header('HTTP/1.1 422 Unprocessable Entity');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Invalid format `f`!');
@@ -78,6 +78,7 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 			case 'greader':
 			case 'html':
 			case 'json':
+			case 'labels':
 			case 'rss':
 				if (empty($raw_query['shareRss'])) {
 					continue 2;
@@ -128,6 +129,7 @@ try {
 		$view->entries = new EmptyIterator();
 	}
 	Minz_Request::_param('search', $userSearch->toString());	// Restore user search for display and exports
+	$mergedSearch = FreshRSS_Context::$search;	// Keep the aggregated search, to check if an entry belongs to the query
 	FreshRSS_Context::$search = $userSearch;	// Restore user search for display and exports
 } catch (Minz_Exception) {
 	Minz_Error::error(400, 'Bad user query!');
@@ -159,6 +161,40 @@ switch ($type) {
 	default:
 		$view->categories = FreshRSS_Context::categories();
 		break;
+}
+
+if ($format === 'labels') {
+	header("Content-Security-Policy: default-src 'none'; sandbox; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
+	header('Cache-Control: private, max-age=60');
+
+	if (!$query->shareRss() || !$query->includeUserLabels()) {
+		header('HTTP/1.1 404 Not Found');
+		header('Content-Type: text/plain; charset=UTF-8');
+		die('HTML sharing not enabled for this user query!');
+	}
+
+	$id_entry = Minz_Request::paramString('id_entry', plaintext: true);
+	if (!ctype_digit($id_entry)) {
+		header('HTTP/1.1 422 Unprocessable Entity');
+		header('Content-Type: text/plain; charset=UTF-8');
+		die('Invalid entry ID!');
+	}
+
+	$tags = [];
+	$entryDAO = FreshRSS_Factory::createEntryDao();
+	$matching = $entryDAO->listIdsWhere($type, $id, FreshRSS_Context::$state, $mergedSearch, id_min: $id_entry, id_max: $id_entry, limit: 1);
+	if (!in_array($id_entry, $matching ?? [], true)) {
+		header('HTTP/1.1 404 Not Found');
+		header('Content-Type: text/plain; charset=UTF-8');
+		die('Entry not found in the shared query!');
+	}
+
+	header('Content-Type: application/json; charset=UTF-8');
+	$tagDAO = FreshRSS_Factory::createTagDao();
+	$tags = array_values(array_filter($tagDAO->getTagsForEntry($id_entry), static fn(array $tag): bool => $tag['checked']));
+	echo json_encode($tags);
+	exit();
 }
 
 $view->disable_aside = true;

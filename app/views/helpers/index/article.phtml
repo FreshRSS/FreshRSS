@@ -10,6 +10,32 @@
 	$standardNormalView = !$readerView && !$this->internal_rendering;
 	$feedUrl = $this->internal_rendering ? $feed->website() :
 		_url('index', $readerView ? 'reader' : 'index', 'get', 'f_' . $feed->id());
+	$classes = 'flux';
+	if (!$this->internal_rendering) {
+		if (!$entry->isRead()) {
+			$classes .= ' not_read';
+		}
+		if ($entry->isFavorite()) {
+			$classes .= ' favorite';
+		}
+		if (!FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed() &&
+			$feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) {
+			$classes .= ' keep_unread ';
+		}
+	}
+?><div class="<?= $classes ?>" id="flux_<?= $entry->id()
+	?>" data-entry="<?= $entry->id()
+	?>" data-category="<?= $feed->categoryId()
+	?>" data-feed="<?= $feed->id()
+	?>" data-priority="<?= $feed->priority()
+	?>" data-link="<?= $entry->link()
+	?>"><?php
+	if (Minz_Request::actionName() === 'normal') {
+		$this->renderHelper('index/normal/entry_header');
+		if ($this->feed === null || $this->entry === null) {
+			throw new Exception('Unexpected side effect!');	// Should never occur. Only for PHPStan
+		}
+	}
 ?>
 <article class="flux_content<?= $standardNormalView ? '' : ' content_' . FreshRSS_Context::userConf()->content_width ?>" dir="auto">
 	<div class="content<?= $standardNormalView ? ' content_' . FreshRSS_Context::userConf()->content_width : '' ?>">
@@ -61,7 +87,7 @@
 			<?php } ?>
 
 			<?php
-				if (in_array(FreshRSS_Context::userConf()->show_tags, ['b', 'h'], true)) {
+				if (!$this->excludeArticleTags && in_array(FreshRSS_Context::userConf()->show_tags, ['b', 'h'], true)) {
 					$this->renderHelper('index/tags');
 				}
 			?>
@@ -131,7 +157,7 @@
 					<?php
 				}
 
-				if ($display_tags) {
+				if (!$this->excludeArticleTags && $display_tags) {
 					$this->renderHelper('index/tags');
 				}
 				?>
@@ -157,6 +183,17 @@
 					</li>
 				<?php } ?>
 			<?php } ?>
+			<?php if ($this->internal_rendering && $this->includeUserLabels && FreshRSS_Context::userConf()->bottomline_myLabels) { ?>
+				<li class="item labels">
+					<div class="item-element dropdown dynamictags">
+						<div id="dropdown-labels-<?= $entry->id() ?>" class="dropdown-target"></div>
+						<a class="dropdown-toggle" href="#dropdown-labels-<?= $entry->id() ?>">
+							<?= _i('label') ?><span class="dropdown-label"><?= _t('index.menu.mylabels') ?></span>
+						</a>
+						<?php /* labels_article_template */ ?>
+					</div>
+				</li>
+			<?php } ?>
 			<li class="item share"></li>
 			<?php
 			if (FreshRSS_Context::userConf()->bottomline_date) {
@@ -175,3 +212,4 @@
 		<?php } ?>
 	</footer>
 </article>
+</div>

@@ -9,7 +9,9 @@
 	FreshRSS_Context::userConf()->show_feed_name = 'a';	// With authors, due to no topline in public view
 	FreshRSS_Context::userConf()->show_tags = FreshRSS_UserConfiguration::default()->show_tags;
 	FreshRSS_Context::userConf()->show_tags_max = FreshRSS_UserConfiguration::default()->show_tags_max;
-	FreshRSS_Context::userConf()->topline_myLabels = false;
+	// User labels are published only if the owner enabled them for this shared query
+	FreshRSS_Context::userConf()->topline_myLabels = $this->includeUserLabels && FreshRSS_Context::userConf()->topline_myLabels;
+	FreshRSS_Context::userConf()->bottomline_myLabels = $this->includeUserLabels && FreshRSS_Context::userConf()->bottomline_myLabels;
 	FreshRSS_Context::userConf()->topline_sharing = false;
 	$viewMode = Minz_Request::actionName();
 	$viewParams = array_filter([
@@ -26,6 +28,9 @@
 		'UTF-8',
 	);
 ?>
+<?php if ($this->includeUserLabels) {
+	$this->renderHelper('index/labelsTemplates');
+} ?>
 <nav class="nav_menu">
 	<div id="nav_menu_views" class="group">
 		<a class="view-normal btn <?= $viewMode === 'normal' ? 'active' : '' ?>" title="<?= _t('index.menu.normal_view') ?>" href="<?= $viewUrl('normal') ?>">
@@ -46,24 +51,20 @@
 		</a>
 	</h2>
 	<?php
-		foreach ($this->entries as $entry):
+		$nbEntries = 0;
+		foreach ($this->entries as $entry) {
+			$nbEntries++;
 			$this->entry = $entry;
 			$this->feed = $this->feeds[$entry->feedId()] ??
 				FreshRSS_Category::findFeed($this->categories, $entry->feedId()) ??
 				FreshRSS_Feed::default();
-	?>
-		<div class="flux" id="flux_<?= $this->entry->id()
-			?>" data-entry="<?= $this->entry->id()
-			?>" data-category="<?= $this->feed->categoryId()
-			?>" data-feed="<?= $this->feed->id()
-			?>" data-priority="<?= $this->feed->priority()
-			?>" data-link="<?= $this->entry->link()
-			?>"><?php
-			if ($viewMode === 'normal') {
-				$this->renderHelper('index/normal/entry_header');
-			}
 			$this->renderHelper('index/article');
-		?></div>
-	<?php endforeach; ?>
+		}
+	?>
+	<?php if ($nbEntries === 0) { ?>
+		<div class="prompt alert alert-warn">
+			<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>
+		</div>
+	<?php } ?>
 </main>
 <?php $this->renderHelper('htmlPagination'); ?>
