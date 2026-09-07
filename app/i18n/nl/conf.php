@@ -201,8 +201,9 @@ return array(
 			'_' => 'Filter toegepast:',
 			'categories' => 'Weergeven op categorie',
 			'feeds' => 'Weergeven op feed',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Sorteren op datum',
-			'publish_labels_instead_of_tags' => 'Vervang <i>feedtags</i> door <i>gebruikerslabels</i> in de gedeelde RSS',
 			'search' => 'Expressie',
 			'shareOpml' => 'Via OPML delen van bijbehorende categorieën en feeds aanzetten',
 			'shareRss' => 'Via HTML &amp; RSS delen aanzetten',

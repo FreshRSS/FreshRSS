@@ -201,8 +201,9 @@ return array(
 			'_' => 'Εφαρμοσμένο φίλτρο:',
 			'categories' => 'Προβολή ανά κατηγορία',
 			'feeds' => 'Προβολή ανά ροή',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Ταξινόμηση κατά ημερομηνία',
-			'publish_labels_instead_of_tags' => 'Αντικατάσταση των <i>ετικετών ροής</i> από <i>ετικέτες χρήστη</i> στο κοινοποιημένο RSS',
 			'search' => 'Έκφραση',
 			'shareOpml' => 'Ενεργοποίηση κοινοποίησης μέσω OPML των αντίστοιχων κατηγοριών και ροών',
 			'shareRss' => 'Ενεργοποίηση κοινοποίησης μέσω HTML &amp; RSS',

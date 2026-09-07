@@ -1273,7 +1273,7 @@ class FreshRSS_Entry extends Minz_Model {
 			if ($mode === 'compat') {
 				$item['origin']['title'] = escapeToUnicodeAlternative($feed->name(), true);
 			} elseif ($mode === 'freshrss') {
-				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url());
+				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url(includeCredentials: false));
 			}
 			if ($feed->priority() >= FreshRSS_Feed::PRIORITY_MAIN_STREAM) {
 				$item['categories'][] = 'user/-/state/org.freshrss/main';

@@ -139,23 +139,22 @@
 		$mark_unread_url['params']['nextGet'] = $get;
 	?>
 
-	<div id="nav_menu_read_all" class="group stick">
-		<form id="mark-read-menu" method="post">
+	<div class="nav_menu_read_all group stick">
+		<form name="mark_read_menu" class="mark-read-menu" method="post">
 		<?php $confirm = FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : ''; ?>
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+
 		<button class="read_all btn <?= $confirm ?>"
-			form="mark-read-menu"
 			formaction="<?= Minz_Url::display($mark_read_url) ?>"
 			type="submit"><?= _t('gen.action.mark_read') ?></button>
 
 		<div id="nav_menu_read" class="dropdown">
-			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 			<div id="dropdown-read" class="dropdown-target"></div>
 
 			<a class="dropdown-toggle btn" href="#dropdown-read"><?= _i('down') ?></a>
 			<ul class="dropdown-menu">
 				<li class="item">
 					<button class="as-link <?= $confirm ?>"
-						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_read_url) ?>"
 						type="submit"><?= $string_mark ?></button>
 				</li>
@@ -179,19 +178,16 @@
 ?>
 				<li class="item separator">
 					<button class="as-link <?= $mark_read_enabled ? $confirm : '" disabled="disabled' ?>"
-						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_before_today) ?>"
 						type="submit"><?= _t('index.menu.before_one_day') ?></button>
 				</li>
 				<li class="item">
 					<button class="as-link <?= $mark_read_enabled ? $confirm : '" disabled="disabled' ?>"
-						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_before_one_week) ?>"
 						type="submit"><?= _t('index.menu.before_one_week') ?></button>
 				</li>
 				<li class="item separator">
 					<button class="as-link <?= $mark_unread_enabled ? $confirm : '" disabled="disabled' ?>"
-						form="mark-read-menu"
 						formaction="<?= Minz_Url::display($mark_unread_url) ?>"
 						type="submit"><?= $string_unmark ?></button>
 				</li>

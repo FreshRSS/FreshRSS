@@ -201,8 +201,9 @@ return array(
 			'_' => 'Piemērotais filtrs:',
 			'categories' => 'Rādīt pēc kategorijas',
 			'feeds' => 'Rādīt pēc barotnes',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Kārtot pēc datuma',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Izteiksme',
 			'shareOpml' => 'Iespējot dalīšanos, izmantojot OPML atbilstošajām kategorijām un barotnēm',
 			'shareRss' => 'Iespējojiet koplietošanu ar HTML &amp; RSS',
