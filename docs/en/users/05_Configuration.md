@@ -224,7 +224,7 @@ The Top Menu within the mobile view might look a little bit cluttered, depending
     }
 
     /* Hides the Dropdown Menu Button next to the "Mark all read" Button in Mobile View */
-    #mark-read-menu .dropdown {
+    .mark-read-menu .dropdown {
         display: none;
     }
 }

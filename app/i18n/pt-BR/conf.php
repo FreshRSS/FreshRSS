@@ -69,7 +69,7 @@ return array(
 			'help' => 'Somente para temas compatíveis',
 			'no' => 'Não',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Mostrar anexos',
 		'headline' => array(
 			'articles_header_footer' => 'Artigos: cabeçalho/rodapé',
 		),
@@ -91,11 +91,11 @@ return array(
 		'show_nav_buttons' => 'Mostrar botões de navegação',
 		'show_title_unread' => 'Mostrar o número de artigos não lidos no título',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Mostrar contagem de não lidos na barra lateral',
+			'all' => 'Para todas as categorias e feeds',
+			'important' => 'Apenas para feeds importantes',
+			'important_locked' => 'Feeds importantes sempre mostram sua contagem de não lidos.',
+			'none' => 'Nunca',
 		),
 		'sidebar_hidden_by_default' => 'Ocultar barra lateral por padrão',
 		'theme' => array(
@@ -177,7 +177,7 @@ return array(
 			'disabled' => 'O acesso à API está desativado.',
 			'documentation_link' => 'Veja a <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentação e lista de aplicativos conhecidos</a>',
 			'help' => 'Veja a <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentação</a>',
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'security_warning' => 'Use HTTPS. A senha da API é transmitida em texto simples e pode aparecer nos logs do servidor se enviada via GET.',
 		),
 		'change_password' => 'Alterar senha',
 		'confirm_new_password' => 'Confirmar nova senha',
@@ -201,8 +201,8 @@ return array(
 			'_' => 'Filtro aplicado:',
 			'categories' => 'Exibir por categoria',
 			'feeds' => 'Exibir por feed',
-			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
-			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'include_article_tags_label' => 'Incluir tags dos artigos dos feeds',
+			'include_user_labels_label' => 'Incluir rótulos do usuário, com prefixo:',
 			'order' => 'Ordenar por data',
 			'search' => 'Expressão',
 			'shareOpml' => 'Habilita o compartilhamento por OPML de categorias e feeds correspondentes',
