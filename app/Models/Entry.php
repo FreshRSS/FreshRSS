@@ -1200,7 +1200,7 @@ class FreshRSS_Entry extends Minz_Model {
 	/**
 	 * Integer format conversion for Google Reader API format
 	 * @param numeric-string|int $dec Decimal number
-	 * @return string 64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
+	 * @return string 64-bit hexa https://github.com/mihaip/google-reader-api
 	 */
 	private static function dec2hex(string|int $dec): string {
 		return PHP_INT_SIZE < 8 ? // 32-bit ?
@@ -1273,7 +1273,7 @@ class FreshRSS_Entry extends Minz_Model {
 			if ($mode === 'compat') {
 				$item['origin']['title'] = escapeToUnicodeAlternative($feed->name(), true);
 			} elseif ($mode === 'freshrss') {
-				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url());
+				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url(includeCredentials: false));
 			}
 			if ($feed->priority() >= FreshRSS_Feed::PRIORITY_MAIN_STREAM) {
 				$item['categories'][] = 'user/-/state/org.freshrss/main';

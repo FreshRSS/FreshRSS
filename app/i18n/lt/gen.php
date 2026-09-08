@@ -176,7 +176,7 @@ return array(
 	'js' => array(
 		'category_empty' => 'Tuščia kategorija',
 		'confirm_action' => 'Ar tikrai norite atlikti šį veiksmą? Jo negalima atšaukti!',
-		'confirm_action_feed_cat' => 'Ar tikrai norite atlikti šį veiksmą? Prarasite susijusius mėgstamus straipsnius ir naudotojo užklausas. Jo negalima atšaukti!',
+		'confirm_action_feed_cat' => 'Ar tikrai norite atlikti šį veiksmą? Prarasite susijusius pamėgtus straipsnius ir naudotojo užklausas. Jo negalima atšaukti!',
 		'confirm_exit_slider' => 'Ar tikrai norite atsisakyti neišsaugotų nustatymų?',
 		'feedback' => array(
 			'body_new_articles' => array(
@@ -244,7 +244,7 @@ return array(
 		'reading' => 'Skaitymas',
 		'search' => 'Ieškoti žodžių ar #žymų',
 		'search_help' => 'Išplėstinių <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">paieškos parametrų</a> ieškokite dokumentacijoje',
-		'sharing' => 'Dalijimasis',
+		'sharing' => 'Bendrinimas',
 		'shortcuts' => 'Spartieji klavišai',
 		'stats' => 'Statistika',
 		'system' => 'Sistemos konfigūracija',
@@ -324,7 +324,7 @@ return array(
 		'twitter' => 'Twitter',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
-		'web-sharing-api' => 'Sistemos dalijimasis',
+		'web-sharing-api' => 'Sistemos bendrinimas',
 		'whatsapp' => 'Whatsapp',	// IGNORE
 		'xing' => 'Xing',	// IGNORE
 	),

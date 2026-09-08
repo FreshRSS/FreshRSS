@@ -145,7 +145,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	}
 
 	public function getTagsForEntryAction(): void {
-		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous()) {
 			Minz_Error::error(403);
 		}
 		$this->view->_layout(null);
