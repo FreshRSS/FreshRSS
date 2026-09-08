@@ -117,6 +117,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* New plural system [#8988](https://github.com/FreshRSS/FreshRSS/pull/8988)
 		* Pluralize the *new articles* count message
 	* Prefer OS-bundled Japanese fonts when UI language is Japanese [#9002](https://github.com/FreshRSS/FreshRSS/pull/9002)
+	* Add Azerbaijani (Azərbaycanca)
 	* Add Lithuanian [#9201](https://github.com/FreshRSS/FreshRSS/pull/9201), [#9213](https://github.com/FreshRSS/FreshRSS/pull/9213)
 	* Improve German [#9149](https://github.com/FreshRSS/FreshRSS/pull/9149)
 	* Improve Greek [#8977](https://github.com/FreshRSS/FreshRSS/pull/8977), [#9038](https://github.com/FreshRSS/FreshRSS/pull/9038)
