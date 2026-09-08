@@ -227,7 +227,8 @@ class FreshRSS_Entry extends Minz_Model {
 		$thumbnailAttribute = $this->attributeArray('thumbnail') ?? [];
 		if (!empty($thumbnailAttribute['url'])) {
 			$elink = $thumbnailAttribute['url'];
-			if (is_string($elink) && ($allowDuplicateEnclosures || !self::containsLink($content, $elink))) {
+			if (is_string($elink) && FreshRSS_http_Util::isAllowedUrlScheme($elink) &&
+				($allowDuplicateEnclosures || !self::containsLink($content, $elink))) {
 				$content .= <<<HTML
 					<figure class="enclosure">
 						<p class="enclosure-content">
@@ -248,7 +249,7 @@ class FreshRSS_Entry extends Minz_Model {
 				continue;
 			}
 			$elink = $enclosure['url'] ?? '';
-			if ($elink == '' || !is_string($elink)) {
+			if ($elink == '' || !is_string($elink) || !FreshRSS_http_Util::isAllowedUrlScheme($elink)) {
 				continue;
 			}
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
@@ -269,7 +270,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$content .= '<figure class="enclosure">';
 
 			foreach ($thumbnails as $thumbnail) {
-				if (is_string($thumbnail)) {
+				if (is_string($thumbnail) && FreshRSS_http_Util::isAllowedUrlScheme($thumbnail)) {
 					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
 				}
 			}

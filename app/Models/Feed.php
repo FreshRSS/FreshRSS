@@ -841,7 +841,8 @@ class FreshRSS_Feed extends Minz_Model {
 			$content = html_only_entity_decode($item->get_content());
 
 			$attributeThumbnail = $item->get_thumbnail() ?? [];
-			if (empty($attributeThumbnail['url'])) {
+			if (empty($attributeThumbnail['url']) || !is_string($attributeThumbnail['url']) ||
+				!FreshRSS_http_Util::isAllowedUrlScheme($attributeThumbnail['url'])) {
 				$attributeThumbnail['url'] = '';
 			}
 
@@ -851,7 +852,7 @@ class FreshRSS_Feed extends Minz_Model {
 			if (!empty($enclosures)) {
 				foreach ($enclosures as $enclosure) {
 					$elink = $enclosure->get_link();
-					if ($elink != '') {
+					if (is_string($elink) && $elink !== '' && FreshRSS_http_Util::isAllowedUrlScheme($elink)) {
 						$etitle = $enclosure->get_title() ?? '';
 						$credits = $enclosure->get_credits() ?? null;
 						$description = $enclosure->get_description() ?? '';
@@ -894,7 +895,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 						if (!empty($enclosure->get_thumbnails())) {
 							foreach ($enclosure->get_thumbnails() as $thumbnail) {
-								if ($thumbnail !== $attributeThumbnail['url']) {
+								if (is_string($thumbnail) && FreshRSS_http_Util::isAllowedUrlScheme($thumbnail) &&
+									$thumbnail !== $attributeThumbnail['url']) {
 									$attributeEnclosure['thumbnails'][] = $thumbnail;
 								}
 							}
