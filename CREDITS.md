@@ -138,6 +138,7 @@ People are sorted by name so please keep this order.
 * [jaden](https://github.com/jaden): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jaden)
 * [Jake Mannens](https://github.com/jakem72360): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jakem72360)
 * [Jam Balaya](https://github.com/JamBalaya56562): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:JamBalaya56562)
+* [Jamal Ali](https://github.com/jamalkamaladdin): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jamalkamaladdin)
 * [James Frost](https://github.com/Fraetor): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Fraetor), [Web](https://www.frost.cx/)
 * [Jamie Slome](https://github.com/JamieSlome): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:JamieSlome)
 * [Jan Lukas Gernert](https://github.com/jangernert): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jangernert)
