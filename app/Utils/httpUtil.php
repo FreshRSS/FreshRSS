@@ -106,24 +106,6 @@ final class FreshRSS_http_Util {
 	}
 
 	/**
-	 * Check whether a URL uses an allowed URI scheme (http or https), for user-facing links
-	 * such as feed enclosures and thumbnails. Consistent with the protocols allowed for fetching.
-	 * Strips control characters and whitespace, which browsers ignore when parsing the scheme.
-	 */
-	public static function isAllowedUrlScheme(string $url): bool {
-		$url = preg_replace('/[\x00-\x20\x7f]/', '', $url) ?? '';
-		$pos = strpos($url, ':');
-		if ($pos === false) {
-			return false;	// Relative URLs are not usable for external enclosures
-		}
-		$scheme = strtolower(substr($url, 0, $pos));
-		if (!ctype_alnum($scheme)) {
-			return false;
-		}
-		return $scheme === 'http' || $scheme === 'https';
-	}
-
-	/**
 	 * @param array<mixed> $curl_params
 	 * @return array<mixed>
 	 */

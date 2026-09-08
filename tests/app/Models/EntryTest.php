@@ -25,7 +25,7 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideUrlSchemes')]
 	public function test_isAllowedUrlScheme(string $url, bool $expected): void {
-		self::assertSame($expected, FreshRSS_http_Util::isAllowedUrlScheme($url));
+		self::assertSame($expected, \SimplePie\Misc::is_remote_uri($url));
 	}
 
 	public function test_content_dropsUnsafeEnclosureUrls(): void {

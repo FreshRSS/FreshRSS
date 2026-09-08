@@ -227,7 +227,7 @@ class FreshRSS_Entry extends Minz_Model {
 		$thumbnailAttribute = $this->attributeArray('thumbnail') ?? [];
 		if (!empty($thumbnailAttribute['url'])) {
 			$elink = $thumbnailAttribute['url'];
-			if (is_string($elink) && FreshRSS_http_Util::isAllowedUrlScheme($elink) &&
+			if (is_string($elink) && \SimplePie\Misc::is_remote_uri($elink) &&
 				($allowDuplicateEnclosures || !self::containsLink($content, $elink))) {
 				$content .= <<<HTML
 					<figure class="enclosure">
@@ -249,7 +249,7 @@ class FreshRSS_Entry extends Minz_Model {
 				continue;
 			}
 			$elink = $enclosure['url'] ?? '';
-			if ($elink == '' || !is_string($elink) || !FreshRSS_http_Util::isAllowedUrlScheme($elink)) {
+			if ($elink == '' || !is_string($elink) || !\SimplePie\Misc::is_remote_uri($elink)) {
 				continue;
 			}
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
@@ -270,7 +270,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$content .= '<figure class="enclosure">';
 
 			foreach ($thumbnails as $thumbnail) {
-				if (is_string($thumbnail) && FreshRSS_http_Util::isAllowedUrlScheme($thumbnail)) {
+				if (is_string($thumbnail) && \SimplePie\Misc::is_remote_uri($thumbnail)) {
 					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
 				}
 			}

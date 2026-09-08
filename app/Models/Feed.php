@@ -842,7 +842,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$attributeThumbnail = $item->get_thumbnail() ?? [];
 			if (empty($attributeThumbnail['url']) || !is_string($attributeThumbnail['url']) ||
-				!FreshRSS_http_Util::isAllowedUrlScheme($attributeThumbnail['url'])) {
+				!\SimplePie\Misc::is_remote_uri($attributeThumbnail['url'])) {
 				$attributeThumbnail['url'] = '';
 			}
 
@@ -852,7 +852,7 @@ class FreshRSS_Feed extends Minz_Model {
 			if (!empty($enclosures)) {
 				foreach ($enclosures as $enclosure) {
 					$elink = $enclosure->get_link();
-					if (is_string($elink) && $elink !== '' && FreshRSS_http_Util::isAllowedUrlScheme($elink)) {
+					if (is_string($elink) && $elink !== '' && \SimplePie\Misc::is_remote_uri($elink)) {
 						$etitle = $enclosure->get_title() ?? '';
 						$credits = $enclosure->get_credits() ?? null;
 						$description = $enclosure->get_description() ?? '';
@@ -895,7 +895,7 @@ class FreshRSS_Feed extends Minz_Model {
 
 						if (!empty($enclosure->get_thumbnails())) {
 							foreach ($enclosure->get_thumbnails() as $thumbnail) {
-								if (is_string($thumbnail) && FreshRSS_http_Util::isAllowedUrlScheme($thumbnail) &&
+								if (is_string($thumbnail) && \SimplePie\Misc::is_remote_uri($thumbnail) &&
 									$thumbnail !== $attributeThumbnail['url']) {
 									$attributeEnclosure['thumbnails'][] = $thumbnail;
 								}
