@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Buraxılış kanalı',
 			'edge' => 'Davamlı buraxılış (“edge”)',
-			'latest' => 'Stabil buraxılış (“latest”)',
+			'latest' => 'Stabil buraxılış (“latest”)',	// DIRTY
 		),
 		'title' => 'FreshRSS-i yenilə',
 		'viaGit' => 'git və GitHub.com vasitəsilə yeniləmə başladı',

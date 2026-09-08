@@ -1304,6 +1304,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$filename = $simplePie->get_cache_filename($url);
 		switch ($this->kind) {
 			case FreshRSS_Feed::KIND_HTML_XPATH:
+			case FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION:
 				return CACHE_PATH . '/' . $filename . '.html';
 			case FreshRSS_Feed::KIND_XML_XPATH:
 				return CACHE_PATH . '/' . $filename . '.xml';
@@ -1313,8 +1314,9 @@ class FreshRSS_Feed extends Minz_Model {
 				return CACHE_PATH . '/' . $filename . '.json';
 			case FreshRSS_Feed::KIND_RSS:
 			case FreshRSS_Feed::KIND_RSS_FORCED:
-			default:
 				return CACHE_PATH . '/' . $filename . '.spc';
+			default:
+				return CACHE_PATH . '/' . $filename . '.raw';
 		}
 	}
 
