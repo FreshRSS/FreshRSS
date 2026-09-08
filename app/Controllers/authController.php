@@ -113,10 +113,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->view->cookie_days = (int)round($limits['cookie_duration'] / 86400, 1);
 
-		$isPOST = Minz_Request::isPost() && !Minz_Session::paramBoolean('POST_to_GET');
-		Minz_Session::_param('POST_to_GET');
-
-		if ($isPOST) {
+		if (Minz_Request::isPost()) {
 			$nonce = Minz_Session::paramString('nonce');
 			$username = Minz_Request::paramString('username');
 			$challenge = Minz_Request::paramString('challenge');
@@ -125,9 +122,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			if ($nonce === '') {
 				Minz_Log::warning("Invalid session during login for user={$username}, nonce={$nonce}, ip_address={$ip_address}");
 				header('HTTP/1.1 403 Forbidden');
-				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
 				Minz_Request::setBadNotification(_t('install.session.nok'));
-				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
+				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], true);
 				return;
 			}
 
@@ -184,9 +180,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			} else {
 				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}, ip_address={$ip_address}");
 				header('HTTP/1.1 403 Forbidden');
-				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
 				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
-				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
+				Minz_Request::forward(['c' => 'auth', 'a' => 'login'], true);
 			}
 		} else {
 			Minz_Session::deleteLegacyCookie('FreshRSS');	// Delete legacy cookie (before 1.29.0)
