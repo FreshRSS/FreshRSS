@@ -52,7 +52,7 @@ If your local user doesn’t have write access to the FreshRSS folder, use a sud
 	git pull --ff-only
 	```
 
-	> ℹ️ Use `edge` for the rolling release or `latest` for the latest stable release.
+	> ℹ️ Use `edge` for the rolling release or `latest` for the latest versioned release.
 
 5. (optional) Make sure you use the correct version
 	```sh
