@@ -72,6 +72,9 @@ jobs:
     - name: Check Markdown syntax
       run: npm run --silent markdownlint
 
+    - name: Check Docker Hub description size
+      run: test "$(wc -c < Docker/README.md)" -le 25000
+
     - name: Check CSS syntax
       run: npm run --silent stylelint
 
