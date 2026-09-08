@@ -24,7 +24,6 @@ body {
 }
 
 aside {
-	padding: 1rem;
 	width: var(--aside-width);
 	height: 100vh;
 	border-right: 1px solid black;
@@ -32,6 +31,12 @@ aside {
 	top: 0;
 	left: 0;
 	margin-right: 1rem;
+}
+
+aside > .aside_links,
+aside > .search,
+aside > .docs {
+	padding: 1rem;
 }
 
 aside > nav.docs {
