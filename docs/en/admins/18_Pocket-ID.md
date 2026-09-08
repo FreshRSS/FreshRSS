@@ -29,7 +29,7 @@ This is an example docker-compose file for FreshRSS with OIDC enabled.
 ```yaml
 services:
   freshrss:
-    image: freshrss/freshrss
+    image: freshrss/freshrss:edge
     container_name: freshrss
     ports:
       - 8080:80
