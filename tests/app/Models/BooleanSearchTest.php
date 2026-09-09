@@ -31,10 +31,17 @@ final class BooleanSearchTest extends \PHPUnit\Framework\TestCase {
 		self::assertSame($expectedValues, $values);
 	}
 
+	public function test_constructor_acceptsSearchesAtTheLimits(): void {
+		$input = str_repeat('a', MAX_SEARCH_LENGTH);
+		self::assertSame($input, (string)new FreshRSS_BooleanSearch($input));
+		$input = str_repeat('(', MAX_SEARCH_PARENTHESES_DEPTH) . 'ab' . str_repeat(')', MAX_SEARCH_PARENTHESES_DEPTH);
+		self::assertSame('ab', (string)new FreshRSS_BooleanSearch($input));
+	}
+
 	/** @return list<list{string}> */
 	public static function provideTooLongOrTooDeepSearches(): array {
-		$tooLong = str_repeat('ab ', 1400);	// Long enough to exceed the maximum search length
-		$tooDeep = str_repeat('(', 40) . 'ab' . str_repeat(')', 40);	// Deeper than the maximum parentheses depth
+		$tooLong = str_repeat('a', MAX_SEARCH_LENGTH + 1);
+		$tooDeep = str_repeat('(', MAX_SEARCH_PARENTHESES_DEPTH + 1) . 'ab' . str_repeat(')', MAX_SEARCH_PARENTHESES_DEPTH + 1);
 		return [
 			[$tooLong],
 			[$tooDeep],
@@ -44,7 +51,6 @@ final class BooleanSearchTest extends \PHPUnit\Framework\TestCase {
 	#[DataProvider('provideTooLongOrTooDeepSearches')]
 	public function test_constructor_rejectsTooLongOrTooDeepSearches(string $input): void {
 		self::expectException(Minz_BadRequestException::class);
-		// Tests run at the default PHP memory limit; a brute-force 1400-deep search would consume too much memory
 		new FreshRSS_BooleanSearch($input);
 	}
 }
