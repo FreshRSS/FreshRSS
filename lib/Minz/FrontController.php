@@ -62,6 +62,8 @@ class Minz_FrontController {
 	public function run(): void {
 		try {
 			$this->dispatcher->run();
+		} catch (Minz_BadRequestException $e) {
+			Minz_Error::error(400, ['error' => [$e->getMessage()]], redirect: true);
 		} catch (Minz_Exception $e) {
 			try {
 				Minz_Log::error($e->getMessage());

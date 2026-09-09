@@ -11,11 +11,24 @@ declare(strict_types=1);
  */
 class Minz_Log {
 	/**
+	 * Syslog priority corresponding to each value accepted by the `log_level` system setting,
+	 * from the most to the least severe.
+	 * @var array<string,int>
+	 */
+	private const LOG_LEVELS = [
+		'error' => LOG_ERR,
+		'warning' => LOG_WARNING,
+		'notice' => LOG_NOTICE,
+		'info' => LOG_INFO,
+		'debug' => LOG_DEBUG,
+	];
+
+	/**
 	 * Enregistre un message dans un fichier de log spécifique
 	 * Message non loggué si
 	 * 	- environment = SILENT
-	 * 	- level = LOG_WARNING et environment = PRODUCTION
-	 * 	- level = LOG_NOTICE et environment = PRODUCTION
+	 * 	- level est moins sévère que le seuil déterminé par `log_level`,
+	 * 	  ou par défaut par `environment` (PRODUCTION ne garde que warning et error)
 	 * @param string $information message d'erreur / information à enregistrer
 	 * @param int $level niveau d'erreur https://www.php.net/function.syslog
 	 * @param string $file_name fichier de log
@@ -23,38 +36,37 @@ class Minz_Log {
 	 */
 	public static function record(string $information, int $level, ?string $file_name = null): void {
 		$env = getenv('FRESHRSS_ENV');
-		if ($env == '') {
-			try {
-				$conf = Minz_Configuration::get('system');
+		$log_level = '';
+		try {
+			$conf = Minz_Configuration::get('system');
+			$log_level = $conf->log_level;
+			if ($env == '') {
 				$env = $conf->environment;
-			} catch (Minz_ConfigurationException $e) {
+			}
+		} catch (Minz_ConfigurationException $e) {
+			if ($env == '') {
 				$env = 'production';
 			}
 		}
+		if ($log_level === '' || !isset(self::LOG_LEVELS[$log_level])) {
+			$log_level = match ($env) {
+				'silent' => 'error',
+				'production' => 'warning',
+				default => 'debug',
+			};
+		}
 
-		if (! ($env === 'silent' || ($env === 'production' && ($level >= LOG_NOTICE)))) {
+		if (! ($env === 'silent' || $level > self::LOG_LEVELS[$log_level])) {
 			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 			if ($file_name == null) {
 				$file_name = join_path(USERS_PATH, $username, LOG_FILENAME);
 			}
 
-			switch ($level) {
-				case LOG_ERR:
-					$level_label = 'error';
-					break;
-				case LOG_WARNING:
-					$level_label = 'warning';
-					break;
-				case LOG_NOTICE:
-					$level_label = 'notice';
-					break;
-				case LOG_DEBUG:
-					$level_label = 'debug';
-					break;
-				default:
-					$level = LOG_INFO;
-					$level_label = 'info';
+			$level_labels = array_flip(self::LOG_LEVELS);
+			if (!isset($level_labels[$level])) {
+				$level = LOG_INFO;
 			}
+			$level_label = $level_labels[$level];
 
 			$log = '[' . date('r') . '] [' . $level_label . '] --- ' . str_replace(["\r", "\n"], ' ', $information) . "\n";
 
