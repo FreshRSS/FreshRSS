@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// IGNORE
 			'disabled' => 'The API access is disabled.',	// IGNORE
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// IGNORE
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// IGNORE
 		),
 		'change_password' => 'Change password',	// IGNORE
@@ -201,8 +201,9 @@ return array(
 			'_' => 'Filter applied:',	// IGNORE
 			'categories' => 'Display by category',	// IGNORE
 			'feeds' => 'Display by feed',	// IGNORE
+			'include_article_tags_label' => 'Include article tags from feeds',	// IGNORE
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// IGNORE
 			'order' => 'Sort by date',	// IGNORE
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// IGNORE
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// IGNORE
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// IGNORE
@@ -243,22 +244,15 @@ return array(
 			'opml' => 'Shareable link to the OPML list of feeds',	// IGNORE
 			'rss' => 'Shareable link to the RSS feed',	// IGNORE
 		),
-		'state_0' => 'Display all articles',	// IGNORE
-		'state_1' => 'Display read articles',	// IGNORE
-		'state_2' => 'Display unread articles',	// IGNORE
-		'state_3' => 'Display all articles',	// IGNORE
-		'state_4' => 'Display favorite articles',
-		'state_5' => 'Display read favorite articles',
-		'state_6' => 'Display unread favorite articles',
-		'state_7' => 'Display favorite articles',
-		'state_8' => 'Display not favorite articles',
-		'state_9' => 'Display read not favorite articles',
-		'state_10' => 'Display unread not favorite articles',
-		'state_11' => 'Display not favorite articles',
-		'state_12' => 'Display all articles',	// IGNORE
-		'state_13' => 'Display read articles',	// IGNORE
-		'state_14' => 'Display unread articles',	// IGNORE
-		'state_15' => 'Display all articles',	// IGNORE
+		'state_all' => 'Display all articles',	// IGNORE
+		'state_favorite' => 'Display favorite articles',
+		'state_not_favorite' => 'Display not favorite articles',
+		'state_read' => 'Display read articles',	// IGNORE
+		'state_read_favorite' => 'Display read favorite articles',
+		'state_read_not_favorite' => 'Display read not favorite articles',
+		'state_unread' => 'Display unread articles',	// IGNORE
+		'state_unread_favorite' => 'Display unread favorite articles',
+		'state_unread_not_favorite' => 'Display unread not favorite articles',
 		'title' => 'User queries',	// IGNORE
 	),
 	'reading' => array(

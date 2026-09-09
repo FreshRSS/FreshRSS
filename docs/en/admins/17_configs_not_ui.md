@@ -24,6 +24,14 @@ It does not have any effect for choosing the release channels.
 
 `'environment'` default value `'production'`
 
+#### System config: log_level
+
+Minimum severity of the messages written to the log files, overriding the verbosity implied by `environment` above.
+
+One of `'error'`, `'warning'`, `'notice'`, `'info'`, or `'debug'`, from the least to the most verbose.
+
+`'log_level'` default value `''` (empty), meaning: `'warning'` when `environment` is `'production'`, `'debug'` otherwise.
+
 #### System config: base_url
 
 This option is displayed in Administration -> System configuration, but is not editable there.

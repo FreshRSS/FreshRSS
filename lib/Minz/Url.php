@@ -61,7 +61,7 @@ class Minz_Url {
 	}
 
 	/**
-	 * Construit l'URI d'une URL
+	 * Construct the URI of a URL
 	 * @param array{c:string,a:string,params:array<string,mixed>} $url URL as array definition
 	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
 	 * @return string uri sous la forme ?key=value&key2=value2
@@ -140,7 +140,7 @@ class Minz_Url {
 
 	/** @return array{c?:string,a?:string,params?:array<string,mixed>} */
 	public static function unserialize(string $url = ''): array {
-		$result = json_decode(base64_decode($url, true) ?: '', associative: true, flags: JSON_THROW_ON_ERROR) ?? [];
+		$result = json_decode(base64_decode($url, true) ?: '', associative: true) ?? [];
 		/** @var array{c?:string,a?:string,params?:array<string,mixed>} $result */
 		return $result;
 	}
