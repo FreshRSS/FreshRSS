@@ -222,7 +222,7 @@ Require user marie
 ```
 
 Plus d’informations dans [la documentation
-d’Apache.](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
+d’Apache.](https://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
 
 ## Gestion des flux
 

@@ -16,7 +16,7 @@ declare(strict_types=1);
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 # ***** END LICENSE BLOCK *****
 
@@ -62,6 +62,8 @@ class Minz_FrontController {
 	public function run(): void {
 		try {
 			$this->dispatcher->run();
+		} catch (Minz_BadRequestException $e) {
+			Minz_Error::error(400, ['error' => [$e->getMessage()]], redirect: true);
 		} catch (Minz_Exception $e) {
 			try {
 				Minz_Log::error($e->getMessage());

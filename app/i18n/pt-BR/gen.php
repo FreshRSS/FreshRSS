@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Usuário',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>De 1 a 39 caracteres: letras, números e <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => 'Tem certeza de que deseja descartar as configurações não salvas?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Há %d novo artigo para ler no FreshRSS.',	// DIRTY
-				1 => 'Há %d novos artigos para ler no FreshRSS.',	// DIRTY
+				0 => 'Há %d novo artigo para ler no FreshRSS.',
+				1 => 'Há %d novos artigos para ler no FreshRSS.',
 			),
 			'body_unread_articles' => array(
-				0 => '(não lido: %d)',	// DIRTY
-				1 => '(não lido: %d)',	// DIRTY
+				0 => '(não lido: %d)',
+				1 => '(não lido: %d)',
 			),
 			'request_failed' => 'Uma solicitação falhou, isto pode ter sido causado por problemas de conexão com a internet.',
 			'title_new_articles' => 'FreshRSS: novos artigos!',
@@ -190,6 +190,7 @@ return array(
 		'unsafe_csp_header' => 'O cabeçalho CSP em uso é inseguro e o FreshRSS pode ser vulnerável a ataques XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Consulte a documentação</a>',
 	),
 	'lang' => array(
+		'az' => 'Azərbaycanca',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -205,7 +206,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
-		'lt' => 'Lietuvių',	// TODO
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -304,7 +305,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Favoritos',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Favoritos',
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

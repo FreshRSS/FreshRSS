@@ -176,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
@@ -201,8 +201,9 @@ return array(
 			'_' => 'Filtres aplicats :',
 			'categories' => 'Afichatge per categoria',
 			'feeds' => 'Afichatge per flux',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Triar per data',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
@@ -243,22 +244,15 @@ return array(
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
 		),
-		'state_0' => 'Mostrar totes los articles',
-		'state_1' => 'Mostrar los articles pas legits',
-		'state_2' => 'Mostrar los articles pas legits',
-		'state_3' => 'Mostrar totes los articles',
-		'state_4' => 'Mostrar los articles favorits',
-		'state_5' => 'Mostrar los articles legits e en favorits',
-		'state_6' => 'Mostrar los articles pas legits e en favorit',
-		'state_7' => 'Mostrar los articles favorits',
-		'state_8' => 'Mostrar los articles pas en favorit',
-		'state_9' => 'Mostrar los articles legits e pas en favorit',
-		'state_10' => 'Mostrar los articles pas legits e pas en favorit',
-		'state_11' => 'Mostrar los articles pas en favorit',
-		'state_12' => 'Mostrar totes los articles',
-		'state_13' => 'Mostrar los articles legits',
-		'state_14' => 'Mostrar los articles pas legits',
-		'state_15' => 'Mostrar totes los articles',
+		'state_all' => 'Mostrar totes los articles',
+		'state_favorite' => 'Mostrar los articles favorits',
+		'state_not_favorite' => 'Mostrar los articles pas en favorit',
+		'state_read' => 'Mostrar los articles legits',
+		'state_read_favorite' => 'Mostrar los articles legits e en favorits',
+		'state_read_not_favorite' => 'Mostrar los articles legits e pas en favorit',
+		'state_unread' => 'Mostrar los articles pas legits',
+		'state_unread_favorite' => 'Mostrar los articles pas legits e en favorit',
+		'state_unread_not_favorite' => 'Mostrar los articles pas legits e pas en favorit',
 		'title' => 'Filtres utilizaire',
 	),
 	'reading' => array(
