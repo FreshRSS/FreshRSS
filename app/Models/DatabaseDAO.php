@@ -17,7 +17,7 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 	public const MAX_VARIABLE_NUMBER = 998;
 
 	//MySQL InnoDB maximum index length for UTF8MB4
-	//https://dev.mysql.com/doc/refman/8.0/en/innodb-restrictions.html
+	// https://dev.mysql.com/doc/refman/26.7/en/innodb-restrictions-limitations.html
 	public const LENGTH_INDEX_UNICODE = 191;
 
 	public function create(): string {
@@ -330,8 +330,8 @@ class FreshRSS_DatabaseDAO extends Minz_ModelPdo {
 			if ($this->pdo->dbType() === 'mysql') {
 				$isMariaDB = $this->isMariaDB();
 				if (!$isMariaDB) {
-					// MySQL does not support `DROP INDEX IF EXISTS` yet https://dev.mysql.com/doc/refman/8.3/en/drop-index.html
-					// but MariaDB does https://mariadb.com/kb/en/drop-index/
+					// MySQL does not support `DROP INDEX IF EXISTS` yet https://dev.mysql.com/doc/refman/26.7/en/drop-index.html
+					// but MariaDB does https://mariadb.com/docs/server/reference/sql-statements/data-definition/drop/drop-index
 					$sql = str_replace('DROP INDEX IF EXISTS', 'DROP INDEX', $sql);
 				}
 			}
