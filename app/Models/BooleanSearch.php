@@ -6,6 +6,9 @@ declare(strict_types=1);
  */
 class FreshRSS_BooleanSearch implements \Stringable {
 
+	private const MAX_SEARCH_LENGTH = 4096;
+	private const MAX_PARENTHESES_DEPTH = 32;
+
 	private string $raw_input = '';
 	/** @var list<FreshRSS_BooleanSearch|FreshRSS_Search> */
 	private array $searches = [];
@@ -32,6 +35,9 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		$this->raw_input = $input;
 
 		if ($level === 0) {
+			if (strlen($input) > self::MAX_SEARCH_LENGTH) {
+				$input = substr($input, 0, self::MAX_SEARCH_LENGTH);
+			}
 			$input = self::escapeLiterals($input);
 			if ($expandUserQueries || !$allowUserQueries) {
 				$input = $this->parseUserQueryNames($input, $allowUserQueries);
@@ -222,6 +228,9 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	 * Example: '(ab (cd OR ef)) OR gh OR ij OR (kl)' becomes '(ab ((cd) OR (ef))) OR (gh) OR (ij) OR (kl)'
 	 */
 	public static function consistentOrParentheses(string $input): string {
+		if (strlen($input) > self::MAX_SEARCH_LENGTH) {
+			$input = substr($input, 0, self::MAX_SEARCH_LENGTH);
+		}
 		if (!preg_match('/(?<!\\\\)\\(/', $input)) {
 			// No unescaped parentheses in the input
 			return trim($input);
@@ -246,6 +255,9 @@ class FreshRSS_BooleanSearch implements \Stringable {
 							$segment = '';
 						}
 						$c = '';
+					}
+					if ($parenthesesCount >= self::MAX_PARENTHESES_DEPTH) {
+						return trim($input);
 					}
 					$parenthesesCount++;
 				} elseif ($c === ')') {
