@@ -1,0 +1,23 @@
+FreshRSS has been deployed.
+
+{{- if .Values.ingress.enabled }}
+
+It is reachable through the configured ingress host:
+
+  http://{{ .Values.ingress.host }}{{ .Values.ingress.path }}
+{{- else }}
+
+The ingress is disabled. Reach FreshRSS by port-forwarding the service:
+
+  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "freshrss.fullname" . }} 8080:{{ .Values.service.port }}
+
+Then open http://localhost:8080/
+{{- end }}
+
+Check the rollout status with:
+
+  kubectl rollout status -n {{ .Release.Namespace }} statefulset/{{ include "freshrss.fullname" . }}
+
+Run the chart tests with:
+
+  helm test {{ .Release.Name }} -n {{ .Release.Namespace }}
