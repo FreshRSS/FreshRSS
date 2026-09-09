@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Canale di rilascio',
 			'edge' => 'Rilascio continuo (“edge”)',
-			'latest' => 'Stabile (“latest”)',
+			'latest' => 'Stabile (“latest”)',	// DIRTY
 		),
 		'title' => 'Aggiorna sistema',
 		'viaGit' => 'Aggiornamento tramite git e GitHub.com avviato',

@@ -59,7 +59,7 @@ return [
 	'buffer' => [
 		'url' => 'https://publish.buffer.com/compose?url=~LINK~&amp;text=~TITLE~',
 		'transform' => ['rawurlencode'],
-		'help' => 'https://support.buffer.com/hc/en-us/articles/360035587394-Scheduling-posts',
+		'help' => 'https://support.buffer.com/en-us/articles/scheduling-posts-4Qdld7giAZ',
 		'form' => 'simple',
 		'method' => 'GET',
 	],
@@ -178,9 +178,9 @@ return [
 		'method' => 'GET',
 	],
 	'pinterest' => [
-		'url' => 'https://pinterest.com/pin/create/button/?url=~LINK~',
+		'url' => 'https://www.pinterest.com/pin/create/button/?url=~LINK~',
 		'transform' => ['rawurlencode'],
-		'help' => 'https://pinterest.com/',
+		'help' => 'https://www.pinterest.com/',
 		'form' => 'simple',
 		'method' => 'GET',
 	],
@@ -207,7 +207,7 @@ return [
 	'shaarli' => [
 		'url' => '~URL~?post=~LINK~&amp;title=~TITLE~&amp;source=FreshRSS',
 		'transform' => ['rawurlencode'],
-		'help' => 'http://sebsauvage.net/wiki/doku.php?id=php:shaarli',
+		'help' => 'https://sebsauvage.net/wiki/doku.php?id=php:shaarli',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
@@ -226,14 +226,14 @@ return [
 	'wallabag' => [
 		'url' => '~URL~?action=add&amp;url=~LINK~',
 		'transform' => ['rawurlencode'],
-		'help' => 'http://www.wallabag.org/',
+		'help' => 'https://wallabag.org/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],
 	'wallabagv2' => [
 		'url' => '~URL~/bookmarklet?url=~LINK~',
 		'transform' => ['rawurlencode'],
-		'help' => 'http://www.wallabag.org/',
+		'help' => 'https://wallabag.org/',
 		'form' => 'advanced',
 		'method' => 'GET',
 	],

@@ -93,7 +93,7 @@ return array(
 		'instance-name' => '實例名稱',
 		'internal-host-allowlist' => array(
 			'_' => '內部主機允許清單',
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'help' => '每行一個條目:<ul><li>單個 <code>主機:連接埠</code>。例如 <code>127.0.0.1:8080</code> 或 <code>rss-bridge:80</code></li><li>單個 CIDR 標記。例如 <code>0.0.0.0/0</code> 以允許任何 IPv4 位址、<code>::/0</code> 以允許任何 IPv6 位址</li><li>單個 <code>*</code> 以允許任何主機 (不安全)</li></ul>',
 		),
 		'max-categories' => '每個使用者的最大類別數',
 		'max-feeds' => '每個使用者的最大訂閱源數',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => '發行方式',
 			'edge' => '滾動發行 (“edge”)',
-			'latest' => '穩定發行 (“latest”)',
+			'latest' => '穩定發行 (“latest”)',	// DIRTY
 		),
 		'title' => '更新 FreshRSS',
 		'viaGit' => '透過 git 和 GitHub.com 開始更新',

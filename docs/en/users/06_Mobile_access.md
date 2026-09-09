@@ -40,18 +40,18 @@ See the [page about the Fever compatible API](../developers/06_Fever_API.md) for
 
 * Click on the second link “Check partial server configuration (without `%2F` support)”:
 	* If you get `PASS`, then the problem is indeed that your server does not accept slashes `/` that are escaped `%2F`.
-		* With Apache, remember the directive [`AllowEncodedSlashes On`](http://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)
+		* With Apache, remember the directive [`AllowEncodedSlashes On`](https://httpd.apache.org/docs/trunk/mod/core.html#allowencodedslashes)
 		* Or use a client that does not escape slashes (such as EasyRSS) ([`check client list`](https://github.com/FreshRSS/FreshRSS#apis--native-apps)).
 	* If you get *Service Unavailable!*, then check the preceding section “Enable the API in FreshRSS” again.
 	* With __Apache__:
-		* If you get *FAIL getallheaders!*, the combination of your PHP version and your Web server does not provide access to [`getallheaders`](http://php.net/getallheaders)
+		* If you get *FAIL getallheaders!*, the combination of your PHP version and your Web server does not provide access to [`getallheaders`](https://www.php.net/getallheaders)
 			* Turn on Apache `mod_setenvif` (often enabled by default), or `mod_rewrite` with the following procedure:
-				* Allow [`FileInfo` in `.htaccess`](http://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): see the [server setup](../admins/03_Installation.md) again.
-				* Enable [`mod_rewrite`](http://httpd.apache.org/docs/trunk/mod/mod_rewrite.html):
+				* Allow [`FileInfo` in `.htaccess`](https://httpd.apache.org/docs/trunk/mod/core.html#allowoverride): see the [server setup](../admins/03_Installation.md) again.
+				* Enable [`mod_rewrite`](https://httpd.apache.org/docs/trunk/mod/mod_rewrite.html):
 					* With Debian / Ubuntu: `sudo a2enmod rewrite`
 	* With __nginx__:
 		* If you get *Bad Request!*, check your server `PATH_INFO` configuration.
 		* If you get *File not found!*, check your server `fastcgi_split_path_info`.
-	* If you get *FAIL 64-bit or GMP extension!*, then your PHP version does not pass the requirement of being 64-bit and/or have PHP [GMP](http://php.net/gmp) extension.
+	* If you get *FAIL 64-bit or GMP extension!*, then your PHP version does not pass the requirement of being 64-bit and/or have PHP [GMP](https://www.php.net/gmp) extension.
 		* The easiest is to add the GMP extension. On Debian / Ubuntu: `sudo apt install php-gmp`
 	* Update and try again from the preceding section “Testing”.

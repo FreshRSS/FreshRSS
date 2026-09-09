@@ -104,7 +104,7 @@ class File implements Response
             $this->permanent_url = $url;
         }
         $this->useragent = $useragent;
-        if (preg_match('/^http(s)?:\/\//i', $url)) {
+        if (\SimplePie\Misc::is_remote_uri($url)) {
             if ($useragent === null) {
                 $useragent = (string) ini_get('user_agent');
                 $this->useragent = $useragent;
@@ -235,7 +235,8 @@ class File implements Response
                                 ($locationHeader = $this->get_header_line('location')) !== '' && ($this->redirects < $redirects || $redirects === -1)) { // FreshRSS: added infinite redirects for -1
                                 $this->redirects++;
                                 $location = \SimplePie\Misc::absolutize_url($locationHeader, $url);
-                                if ($location === false) {
+                                if ($location === false || !\SimplePie\Misc::is_remote_uri($location)) {
+                                    $this->status_code = 0;
                                     $this->error = "Invalid redirect location, trying to base “{$locationHeader}” onto “{$url}”";
                                     $this->success = false;
                                     return;
@@ -259,6 +260,7 @@ class File implements Response
                                     throw new \InvalidArgumentException('Malformed URL: ' . $url);
                                 }
                                 if (($url_parts_to = parse_url(strtolower($location))) === false) {
+                                    $this->status_code = 0;
                                     $this->error = "Invalid redirect location: malformed URL “{$location}”";
                                     $this->success = false;
                                     return;
@@ -369,7 +371,8 @@ class File implements Response
                                 $this->redirects++;
                                 $location = \SimplePie\Misc::absolutize_url($locationHeader, $url);
                                 $this->permanentUrlMutable = $this->permanentUrlMutable && ($this->status_code == 301 || $this->status_code == 308);
-                                if ($location === false) {
+                                if ($location === false || !\SimplePie\Misc::is_remote_uri($location)) {
+                                    $this->status_code = 0;
                                     $this->error = "Invalid redirect location, trying to base “{$locationHeader}” onto “{$url}”";
                                     $this->success = false;
                                     return;
@@ -381,6 +384,7 @@ class File implements Response
                                     throw new \InvalidArgumentException('Malformed URL: ' . $url);
                                 }
                                 if (($url_parts_to = parse_url(strtolower($location))) === false) {
+                                    $this->status_code = 0;
                                     $this->error = "Invalid redirect location: malformed URL “{$location}”";
                                     $this->success = false;
                                     return;
@@ -522,6 +526,11 @@ class File implements Response
         return (int) $this->status_code;
     }
 
+    public function set_status_code(int $status_code): void
+    {
+        $this->status_code = $status_code;
+    }
+
     public function get_headers(): array
     {
         $this->maybe_update_headers();
@@ -562,6 +571,11 @@ class File implements Response
     public function get_body_content(): string
     {
         return (string) $this->body;
+    }
+
+    public function set_body_content(string $body): void
+    {
+        $this->body = $body;
     }
 
     /**

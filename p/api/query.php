@@ -75,14 +75,14 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 	if (!empty($raw_query['token']) && hash_equals($raw_query['token'], $token)) {
 		switch ($format) {
 			case 'atom':
-			case 'greader':
 			case 'html':
-			case 'json':
 			case 'rss':
 				if (empty($raw_query['shareRss'])) {
 					continue 2;
 				}
 				break;
+			case 'greader':
+			case 'json':
 			case 'opml':
 				if (empty($raw_query['shareOpml'])) {
 					continue 2;
@@ -100,7 +100,13 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 
 		$search = $query->getSearch()->toString();
 		// Note: we disallow references to user queries in public user search to avoid sniffing internal user queries
-		$userSearch = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true), 0, 'AND', allowUserQueries: false);
+		try {
+			$userSearch = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true), 0, 'AND', allowUserQueries: false);
+		} catch (Minz_BadRequestException $e) {
+			header('HTTP/1.1 400 Bad Request');
+			header('Content-Type: text/plain; charset=UTF-8');
+			die($e->getMessage());
+		}
 		if ($userSearch->toString() !== '') {
 			if ($search === '') {
 				$search = $userSearch->toString();
@@ -170,9 +176,11 @@ $view->rss_url = $query->sharedUrlRss();
 $view->rss_title = $query->getName();
 $view->image_url = $query->getImageUrl();
 $view->description = $query->getDescription() ?: _t('index.feed.rss_of', $view->rss_title);
-$view->publishLabelsInsteadOfTags = $query->publishLabelsInsteadOfTags();
+$view->includeUserLabels = $query->includeUserLabels();
+$view->excludeArticleTags = $query->excludeArticleTags();
+$view->userLabelPrefix = $query->userLabelPrefix();
 $view->entryIdsTagNames = [];
-if ($view->publishLabelsInsteadOfTags && in_array($format, ['rss', 'atom'], true)) {
+if ($view->includeUserLabels && in_array($format, ['rss', 'atom'], true)) {
 	$entries = iterator_to_array($view->entries, preserve_keys: false);	// TODO: Optimise: avoid iterator_to_array if possible
 	$view->entries = $entries;
 	if (!empty($entries)) {
