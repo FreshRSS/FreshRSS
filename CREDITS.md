@@ -14,7 +14,7 @@ People are sorted by name so please keep this order.
 * [aarnej](https://github.com/aarnej): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aarnej)
 * [Aaron Schif](https://github.com/aaronschif): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aaronschif)
 * [Adam Stephens](https://github.com/adamcstephens): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:adamcstephens)
-* [AdamKorcz](https://github.com/0xdeadrelay): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:0xdeadrelay)
+* [AdamKorcz](https://github.com/AdamKorcz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:AdamKorcz)
 * [Adrien Dorsaz](https://github.com/Trim): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Trim), [Web](https://adorsaz.ch/)
 * [Aidi Stan](https://github.com/aidistan): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aidistan), [Web](https://aidistan.site/)
 * [ale-rt](https://github.com/ale-rt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ale-rt)

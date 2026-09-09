@@ -8,11 +8,10 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 ## 2026-09-09 FreshRSS 1.30.0
 
 * Security
-	* 💥 Disallow access to local networks such as `127.0.0.1` by default, for security reasons (breaking change) [#8400](https://github.com/FreshRSS/FreshRSS/pull/8400),
-		[#9195](https://github.com/FreshRSS/FreshRSS/pull/9195)
+	* 💥 SSRF mitigation: disallow access to local networks such as `127.0.0.1` by default, for security reasons (breaking change) [#8400](https://github.com/FreshRSS/FreshRSS/pull/8400),
+		[#8950](https://github.com/FreshRSS/FreshRSS/pull/8950), [#9195](https://github.com/FreshRSS/FreshRSS/pull/9195)
 		* Selected local networks can be allowed under *System configuration* or using the `INTERNAL_HOST_ALLOWLIST` environment variable
 		* Passing `*` allows all networks like before (unsafe)
-	* Improve SSRF mitigations by restricting `CURLOPT_PROXY` [#8950](https://github.com/FreshRSS/FreshRSS/pull/8950)
 	* Fix auth CSRFs (login and register actions) [#9171](https://github.com/FreshRSS/FreshRSS/pull/9171)
 	* Log invalid challenge and ignore JSON error during login [#9278](https://github.com/FreshRSS/FreshRSS/pull/9278)
 	* Disallow fetching of non remote URI [#9215](https://github.com/FreshRSS/FreshRSS/pull/9215)
