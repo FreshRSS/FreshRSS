@@ -151,7 +151,7 @@ class FreshRSS_Import_Service {
 	 * @param array<string,string> $feed_elt An OPML element (must be a feed element).
 	 * @param FreshRSS_Category $category The category to associate to the feed.
 	 * @param bool $dry_run true to not create the feed in database.
-	 * @param bool $trusted_source false to ignore security-relevant attributes (feed cURL parameters), see importOpml().
+	 * @param bool $trusted_source false to ignore security-relevant attributes (feed cURL parameters); see {@see FreshRSS_Import_Service::importOpml()}.
 	 * @return FreshRSS_Feed|null The created feed, or null if it failed.
 	 */
 	private function createFeed(array $feed_elt, FreshRSS_Category $category, bool $dry_run, bool $trusted_source = false): ?FreshRSS_Feed {
@@ -385,7 +385,7 @@ class FreshRSS_Import_Service {
 	 *
 	 * @param array<string,string> $category_element An OPML element (must be a category element).
 	 * @param bool $dry_run true to not create the category in database.
-	 * @param bool $trusted_source false to ignore security-relevant attributes (dynamic OPML), see importOpml().
+	 * @param bool $trusted_source false to ignore security-relevant attributes (dynamic OPML); see {@see FreshRSS_Import_Service::importOpml()}.
 	 * @return FreshRSS_Category|null The created category, or null if it failed.
 	 */
 	private function createCategory(array $category_element, bool $dry_run, int $position, bool $trusted_source = false): ?FreshRSS_Category {
