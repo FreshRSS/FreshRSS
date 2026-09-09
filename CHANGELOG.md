@@ -2,7 +2,7 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-09-XX FreshRSS 1.29.2-dev
+## 2026-09-09 FreshRSS 1.30.0
 
 * Security
 	* 💥 Disallow access to local networks such as `127.0.0.1` by default, for security reasons (breaking change) [#8400](https://github.com/FreshRSS/FreshRSS/pull/8400),
