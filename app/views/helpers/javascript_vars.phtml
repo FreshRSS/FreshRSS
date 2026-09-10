@@ -4,7 +4,7 @@ declare(strict_types=1);
 $mark = FreshRSS_Context::userConf()->mark_when;
 $s = FreshRSS_Context::userConf()->shortcuts;
 $extData = Minz_ExtensionManager::callHook(Minz_HookType::JsVars, []);
-$canView = FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous;
+$canView = FreshRSS_Auth::hasAccess() || FreshRSS_Auth::allowAnonymous();
 echo json_encode([
 	'context' => [
 		'anonymous' => !FreshRSS_Auth::hasAccess(),

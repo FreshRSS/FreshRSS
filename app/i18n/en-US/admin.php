@@ -142,7 +142,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// IGNORE
 			'edge' => 'Rolling release (“edge”)',	// IGNORE
-			'latest' => 'Stable release (“latest”)',	// IGNORE
+			'latest' => 'Versioned release (“latest”)',	// IGNORE
 		),
 		'title' => 'Update system',	// IGNORE
 		'viaGit' => 'Update via git and GitHub.com started',	// IGNORE

@@ -142,7 +142,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Kanal rilis',
 			'edge' => 'Rilis Baru (“edge”)',
-			'latest' => 'Rilis Stabil (“latest”)',
+			'latest' => 'Rilis Stabil (“latest”)',	// DIRTY
 		),
 		'title' => 'Pembaruan FreshRSS',
 		'viaGit' => 'Pembaruan lewat git dan Github.com dimulai',

@@ -325,7 +325,7 @@ final class GReaderAPI {
 	private static function subscriptionImport(string $opml): never {
 		$user = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 		$importService = new FreshRSS_Import_Service($user);
-		$importService->importOpml($opml);
+		$importService->importOpml($opml, trusted_source: true);
 		if ($importService->lastStatus()) {
 			FreshRSS_feed_Controller::actualizeFeedsAndCommit();
 			invalidateHttpCache($user);
