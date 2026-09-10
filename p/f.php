@@ -37,7 +37,12 @@ $ico = FAVICONS_DIR . $id . '.ico';
 $ico_mtime = @filemtime($ico) ?: 0;
 $txt_mtime = @filemtime($txt) ?: 0;
 
-$is_custom_favicon = $ico_mtime != false && $txt_mtime == false;
+$is_custom_favicon = false;
+if ($ico_mtime == false && $txt_mtime == false) {
+	$ico = CUSTOM_FAVICONS_DIR . $id . '.ico';
+	$ico_mtime = @filemtime($ico) ?: 0;
+	$is_custom_favicon = $ico_mtime != false;
+}
 
 if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (rand(15, 20) * 86400))) && !$is_custom_favicon) {
 	if ($txt_mtime == false) {
