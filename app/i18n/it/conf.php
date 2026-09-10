@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Visualizzazione',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autori e data',
+				'both' => 'Nell’intestazione e nel fondo pagina',
+				'footer' => 'Nel fondo pagina',
+				'header' => 'Nell’intestazione',
+				'none' => 'Nessuno',
+			),
+			'feed_name' => array(
+				'above_title' => 'Sopra il titolo/tag',
+				'none' => 'Nessuno',
+				'with_authors' => 'Nella riga degli autori e data',
+			),
+			'feed_title' => 'Titolo del feed',
+			'icons' => array(
+				'_' => 'Posizione delle icone dell’articolo <br /><small>(solo in lettura)</small>',
+				'above_title' => 'Titolo in evidenza',
+				'with_authors' => 'Nella riga degli autori e della data',
+			),
+			'tags' => array(
+				'_' => 'Tag',
+				'both' => 'Nell’intestazione e nel fondo pagina',
+				'footer' => 'Nel fondo pagina',
+				'header' => 'Nell’intestazione',
+				'none' => 'Nessuno',
+			),
+			'tags_max' => array(
+				'_' => 'Numero massimo di tag mostrati',
+				'help' => '0 significa: mostra tutti i tag e non raggrupparli',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Modalità scura automatica',
 			'auto' => 'Auto',	// IGNORE
 			'help' => 'Solo per i temi compatibili',
 			'no' => 'No',	// IGNORE
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Articoli: intestazione/fondo pagina',
 		),
 		'icon' => array(
 			'bottom_line' => 'Barra in fondo',
@@ -54,6 +89,14 @@ return array(
 			'timeout' => 'Notifica timeout HTML5',
 		),
 		'show_nav_buttons' => 'Mostra i pulsanti di navigazione',
+		'show_title_unread' => 'Mostra il numero di articoli non letti nel titolo',
+		'show_unread_count' => array(
+			'_' => 'Mostra il numero di elementi non letti nella barra laterale',
+			'all' => 'Per tutte le categorie e tutti i feed',
+			'important' => 'Solo per i feed importanti',
+			'important_locked' => 'I feed importanti mostrano sempre il numero di elementi non letti.',
+			'none' => 'Mai',
+		),
 		'sidebar_hidden_by_default' => 'Nascondi la barra laterale di default',
 		'theme' => array(
 			'_' => 'Tema',
@@ -122,6 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// IGNORE
 		'retrieve_extension_list' => 'Recupero dell’elenco delle estensioni',
+		'send_referrer_allowlist' => 'Siti a cui è consentito vedere l\'indirizzo del tuo server (%s)',
 	),
 	'profile' => array(
 		'_' => 'Gestione profili',
@@ -132,7 +176,8 @@ return array(
 			'check_link' => 'Verificare lo stato dell’API tramite: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'L’accesso all’API è disabilitato.',
 			'documentation_link' => 'Vedi la <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentazione e l’elenco delle applicazioni</a>',
-			'help' => 'leggi la <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentazione</a>',
+			'help' => 'leggi la <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentazione</a>',
+			'security_warning' => 'Usa HTTPS. La password dell’API viene trasmessa in chiaro e, se inviata tramite GET, potrebbe comparire nei log del server.',
 		),
 		'change_password' => 'Modifica password',
 		'confirm_new_password' => 'Conferma nuova password',
@@ -149,14 +194,16 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Ricerche personali',
+		'create' => 'Crea nuova query utente',
 		'deprecated' => 'Questa query non è più valida. La categoria o il feed di riferimento non stati cancellati.',
 		'description' => 'Descrizione',
 		'filter' => array(
 			'_' => 'Filtro applicato:',
 			'categories' => 'Mostra per categoria',
 			'feeds' => 'Mostra per feed',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Ordina per data',
-			'publish_labels_instead_of_tags' => 'Sostituisce i <i>tag del feed</i> con le <i>etichette dell’utente</i> nel feed RSS condiviso',
 			'search' => 'Espressione',
 			'shareOpml' => 'Abilita la condivisione di OPML di categorie e feed corrispondenti',
 			'shareRss' => 'Abilita la condivisione di HTML &amp; RSS',
@@ -197,22 +244,15 @@ return array(
 			'opml' => 'Link condivisibile alla lista OPML dei feed',
 			'rss' => 'Link condivisibile al feed RSS',
 		),
-		'state_0' => 'Mostra tutti gli articoli',
-		'state_1' => 'Mostra gli articoli letti',
-		'state_2' => 'Mostra gli articoli non letti',
-		'state_3' => 'Mostra tutti gli articoli',
-		'state_4' => 'Mostra gli articoli preferiti',
-		'state_5' => 'Mostra gli articoli preferiti letti',
-		'state_6' => 'Mostra gli articoli preferiti non letti',
-		'state_7' => 'Mostra gli articoli preferiti',
-		'state_8' => 'Non mostrare gli articoli preferiti',
-		'state_9' => 'Mostra gli articoli letti non preferiti',
-		'state_10' => 'Mostra gli articoli non letti e non preferiti',
-		'state_11' => 'Non mostrare gli articoli preferiti',
-		'state_12' => 'Mostra tutti gli articoli',
-		'state_13' => 'Mostra gli articoli letti',
-		'state_14' => 'Mostra gli articoli non letti',
-		'state_15' => 'Mostra tutti gli articoli',
+		'state_all' => 'Mostra tutti gli articoli',
+		'state_favorite' => 'Mostra gli articoli preferiti',
+		'state_not_favorite' => 'Non mostrare gli articoli preferiti',
+		'state_read' => 'Mostra gli articoli letti',
+		'state_read_favorite' => 'Mostra gli articoli preferiti letti',
+		'state_read_not_favorite' => 'Mostra gli articoli letti non preferiti',
+		'state_unread' => 'Mostra gli articoli non letti',
+		'state_unread_favorite' => 'Mostra gli articoli preferiti non letti',
+		'state_unread_not_favorite' => 'Mostra gli articoli non letti e non preferiti',
 		'title' => 'Ricerche personali',
 	),
 	'reading' => array(
@@ -220,37 +260,6 @@ return array(
 		'after_onread' => 'Dopo “segna tutto come letto”,',
 		'always_show_favorites' => 'Mostra tutti gli articoli nei preferiti di default',
 		'apply_to_individual_feed' => 'Si applica ai feed singolarmente',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autori e data',
-				'both' => 'Nell’intestazione e nel fondo pagina',
-				'footer' => 'Nel fondo pagina',
-				'header' => 'Nell’intestazione',
-				'none' => 'Nessuno',
-			),
-			'feed_name' => array(
-				'above_title' => 'Sopra il titolo/tag',
-				'none' => 'Nessuno',
-				'with_authors' => 'Nella riga degli autori e data',
-			),
-			'feed_title' => 'Titolo del feed',
-			'icons' => array(
-				'_' => 'Posizione delle icone dell’articolo <br /><small>(solo in lettura)</small>',
-				'above_title' => 'Titolo in evidenza',
-				'with_authors' => 'Nella riga degli autori e della data',
-			),
-			'tags' => array(
-				'_' => 'Tag',
-				'both' => 'Nell’intestazione e nel fondo pagina',
-				'footer' => 'Nel fondo pagina',
-				'header' => 'Nell’intestazione',
-				'none' => 'Nessuno',
-			),
-			'tags_max' => array(
-				'_' => 'Numero massimo di tag mostrati',
-				'help' => '0 significa: mostra tutti i tag e non raggrupparli',
-			),
-		),
 		'articles_per_page' => 'Numero di articoli per pagina',
 		'auto_load_more' => 'Carica articoli successivi a fondo pagina',
 		'auto_remove_article' => 'Nascondi articoli dopo la lettura',
@@ -259,14 +268,13 @@ return array(
 		'display_categories_unfolded' => 'Categorie da aprire',
 		'headline' => array(
 			'articles' => 'Articoli: Apri/Chiudi',
-			'articles_header_footer' => 'Articoli: intestazione/fondo pagina',
 			'categories' => 'Navigazione di sinistra: Categorie',
 			'mark_as_read' => 'Segna gli articoli come letti',
 			'misc' => 'Varie',
 			'view' => 'Vista',
 		),
 		'hide_read_feeds' => 'Nascondi categorie e feed con articoli già letti (non funziona se “Mostra tutti gli articoli” è selezionato)',
-		'img_with_lazyload' => 'Usa la modalità “caricamento ritardato” per le immagini',
+		'img_with_lazyload' => 'Usa la modalità <em>caricamento ritardato</em> per le immagini',
 		'jump_next' => 'Salta al successivo fratello non letto',
 		'mark_updated_article_unread' => 'Segna articoli aggiornati come non letti',
 		'number_divided_when_reader' => 'Diviso 2 nella modalità di lettura.',
@@ -279,6 +287,7 @@ return array(
 			'upon_gone' => 'quando non si trova più nel feed di notizie in alto',
 			'upon_reception' => 'Alla ricezione del contenuto',
 			'when' => 'Segna articoli come letti…',
+			'when_same_guid_in_category' => 'se un GUID identico esiste già nei primi <i>n</i> articoli più recenti della categoria',
 			'when_same_title_in_category' => 'se un titolo identico esiste già nei primi <i>n</i> articoli più recenti della categoria',
 			'when_same_title_in_feed' => 'se un titolo identico esiste già tra i <i>n</i> articoli più recenti (del feed)',
 		),
@@ -299,6 +308,8 @@ return array(
 			'when' => 'Segna un articolo come preferito…',
 		),
 		'sticky_post' => 'Blocca il contenuto a inizio pagina quando aperto',
+		'sticky_sort' => 'Mantieni l’ordinamento manuale durante la navigazione',	// DIRTY
+		'sticky_sort_help' => 'Determina se l’ultimo ordinamento manuale rimane attivo oppure se ogni categoria o feed usa sempre la propria impostazione predefinita o globale.',	// DIRTY
 		'title' => 'Lettura',
 		'view' => array(
 			'default' => 'Visualizzazione predefinita',

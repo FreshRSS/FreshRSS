@@ -26,9 +26,10 @@ return array(
 		'archiving' => 'Archiveren',
 		'dynamic_opml' => array(
 			'_' => 'Dynamische OPML',
-			'help' => 'Geef de URL naar een <a href="http://opml.org/" target="_blank">OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
+			'help' => 'Geef de URL naar een <a href="https://opml.org/" target="_blank">OPML-bestand</a> om deze categorie dynamisch met feeds te vullen',
 		),
 		'empty' => 'Lege categorie',
+		'error' => 'Deze dynamische OPML-categorie heeft een probleem ondervonden. Controleer of de OPML-URL nog bereikbaar is en of het maximumaantal feeds per gebruiker niet is overschreden.',
 		'expand' => 'Categorie uitklappen',
 		'information' => 'Informatie',
 		'open' => 'Categorie openen',
@@ -72,20 +73,22 @@ return array(
 		'error' => 'Deze feed heeft een probleem ondervonden. Als deze situatie aanhoudt, controleer dan of de feed nog steeds bereikbaar is.',
 		'export-as-opml' => array(
 			'download' => 'Downloaden',
-			'help' => 'XML-bestand (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'XML-bestand (gedeeltelijke dataset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Zie documentatie</a>)',
 			'label' => 'Als OPML exporteren',
 		),
 		'ext_favicon' => 'Automatisch instellen',
 		'favicon_changed_by_ext' => 'Het pictogram is ingesteld door de extensie <b>%s</b>.',
 		'filteractions' => array(
 			'_' => 'Filteracties',
-			'help' => 'Voer één zoekfilter per lijn in. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => 'Voer één zoekfilter per regel in. Operators: <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">zie documentatie</a>.',
 			'view_filter' => 'Bekijk voorbeeld van filters op bestaande artikelen (nieuw venster)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP-headers',
 		'http_headers_help' => 'Headers worden gescheiden door een regeleinde, en de naam en waarde van een header worden gescheiden door een dubbele punt (bijv.: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer een-token</code></kbd>).',
 		'icon' => 'Pictogram',
 		'information' => 'Informatie',
+		'keep_adding_feed' => 'Voeg daarna meer feeds toe',
 		'keep_min' => 'Minimum aantal artikelen om te houden',
 		'kind' => array(
 			'_' => 'Feedbron-type',
@@ -122,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Aangepast datum-/tijdformaat',
-					'help' => 'Optioneel. Een formaat ondersteund door <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> zoals <code>d-m-Y H:i:s</code>',
+					'help' => 'Optioneel. Een formaat ondersteund door <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> zoals <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'datum van bericht',
-					'help' => 'Het resultaat zal worden geparset door <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Het resultaat zal worden geparset door <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'titel van bericht',
-					'help' => 'Gebruik vooral <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> zoals <code>descendant::h2</code>',
+					'help' => 'Gebruik vooral <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> zoals <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'uniek ID van bericht',
@@ -166,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Aangepast datum-/tijdformaat',
-					'help' => 'Optioneel. Een formaat ondersteund door <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> zoals <code>d-m-Y H:i:s</code>',
+					'help' => 'Optioneel. Een formaat ondersteund door <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> zoals <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'item-datum',
-					'help' => 'Het resultaat zal worden geparst door <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Het resultaat zal worden geparst door <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'item-titel',
 				'item_uid' => 'uniek item-id',
@@ -185,11 +188,15 @@ return array(
 			'rss' => 'RSS / Atom (standaard)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Laatste artikel gepubliceerd op <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Laatste artikel ontvangen op <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Laatste mislukte update op <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Laatste succesvolle update op <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Cache leegmaken',
 			'clear_cache_help' => 'Cache voor deze feed leegmaken.',
 			'reload_articles' => 'Artikels herladen',
-			'reload_articles_help' => 'Artikels herladen en complete inhoud ophalen als een selector is gedefinieerd.',	// DIRTY
+			'reload_articles_help' => 'Artikels herladen en de volledige inhoud ophalen als een selector is gedefinieerd.',
 			'title' => 'Onderhoud',
 		),
 		'max_http_redir' => 'Max HTTP redirects',	// IGNORE
@@ -217,7 +224,7 @@ return array(
 			'main_stream' => 'Zichtbaar in het overzicht',
 		),
 		'proxy' => 'Proxy instellen om deze feed op te halen',
-		'proxy_help' => 'Selecteer een protocol (bv. SOCKS5) en voer een proxy-adres in (b.v. <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Selecteer een protocol (bv. SOCKS5) en voer een proxy-adres in (bv. <kbd>127.0.0.1:1080</kbd> of <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Terugzetten naar standaard',
 		'selector_preview' => array(
 			'show_raw' => 'Broncode tonen',

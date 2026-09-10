@@ -64,7 +64,7 @@ propose 13 thèmes officiels :
 | Dark pink | Miicat_47 | |
 | Flat design | Marien Fressinaud | N’est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
 | Mapco | Thomas Guesnon  | |
-| Nord theme | joelchrono12 | |
+| Nord | joelchrono12 | |
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
@@ -222,7 +222,7 @@ Require user marie
 ```
 
 Plus d’informations dans [la documentation
-d’Apache.](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
+d’Apache.](https://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
 
 ## Gestion des flux
 

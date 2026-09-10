@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nome utente',
-			'format' => '<small>Massimo 16 caratteri alfanumerici</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -140,14 +140,47 @@ return array(
 		'_' => 'Feed RSS Reader',
 		'about' => 'Informazioni',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d giorno fa',
+			1 => '%d giorni fa',
+		),
+		'hour' => array(
+			0 => '%d ora fa',
+			1 => '%d ore fa',
+		),
+		'justnow' => 'proprio adesso',
+		'minute' => array(
+			0 => '%d minuto fa',
+			1 => '%d minuti fa',
+		),
+		'month' => array(
+			0 => '%d mese fa',
+			1 => '%d mesi fa',
+		),
+		'second' => array(
+			0 => '%d secondo fa',
+			1 => '%d secondi fa',
+		),
+		'year' => array(
+			0 => '%d anno fa',
+			1 => '%d anni fa',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Categoria vuota',
 		'confirm_action' => 'Sei sicuro di voler continuare?',
 		'confirm_action_feed_cat' => 'Sei sicuro di voler continuare? Verranno persi i preferiti e le ricerche utente correlate!',
 		'confirm_exit_slider' => 'Sei sicuro di voler perdere le impostazioni non salvate?',
 		'feedback' => array(
-			'body_new_articles' => 'Ci sono %%d nuovi articoli da leggere.',
-			'body_unread_articles' => '(non letti: %%d)',
+			'body_new_articles' => array(
+				0 => 'C\'è %d nuovo articolo da leggere.',	// DIRTY
+				1 => 'Ci sono %d nuovi articoli da leggere.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(non letti: %d)',	// DIRTY
+				1 => '(non letti: %d)',	// DIRTY
+			),
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
 		),
@@ -157,6 +190,7 @@ return array(
 		'unsafe_csp_header' => 'L’header CSP attualmente utilizzato non è sicuro e quindi FreshRSS può essere vulnerabile ad attacchi XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Vedi la documentazione</a>',
 	),
 	'lang' => array(
+		'az' => 'Azərbaycanca',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -172,6 +206,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -265,10 +300,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Segnalibri',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

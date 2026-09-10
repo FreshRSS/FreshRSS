@@ -9,6 +9,7 @@ enum Minz_HookType: string {
 	case CustomFaviconBtnUrl = 'custom_favicon_btn_url';	// function(FreshRSS_Feed $feed): string | null
 	case CustomFaviconHash = 'custom_favicon_hash';	// function(FreshRSS_Feed $feed): string | null
 	case EntriesFavorite = 'entries_favorite';	// function(array $ids, bool $is_favorite): void
+	case EntriesRead = 'entries_read';	// function(array $ids, bool $is_read): void
 	case EntryAutoRead = 'entry_auto_read';	// function(FreshRSS_Entry $entry, string $why): void
 	case EntryAutoUnread = 'entry_auto_unread';	// function(FreshRSS_Entry $entry, string $why): void
 	case EntryBeforeAdd = 'entry_before_add';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
@@ -62,6 +63,7 @@ enum Minz_HookType: string {
 			case self::CustomFaviconBtnUrl:
 			case self::CustomFaviconHash:
 			case self::EntriesFavorite:
+			case self::EntriesRead:
 			case self::EntryAutoRead:
 			case self::EntryAutoUnread:
 			case self::SimplepieAfterInit:

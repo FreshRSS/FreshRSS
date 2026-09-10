@@ -16,6 +16,8 @@ Result: Content of `./extensions/CustomCSS/` has f.e. `extension.php`, `metadata
 
 Important: Do not delete or overwrite the existing files `./extensions/.gitignore` and `./extensions/README.md`.
 
+> **Note:** If `THIRDPARTY_EXTENSIONS_PATH` is set in `data/constants.local.php`, extensions must be placed in that directory instead of `./extensions`. If extensions are not appearing in the UI, check whether this constant is configured.
+
 ## How to enable/disable and manage
 
 See in the front end: configuration menu `Configuration/Extensions`

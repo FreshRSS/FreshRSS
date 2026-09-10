@@ -27,7 +27,7 @@ if (!is_readable($filename)) {
 	fail('FreshRSS error: file is not readable “' . $filename . '”');
 }
 
-echo 'FreshRSS importing ZIP/OPML/JSON for user “', $username, "”…\n";
+echo 'FreshRSS importing ZIP/OPML/JSON/TXT for user “', $username, "”…\n";
 
 $importController = new FreshRSS_importExport_Controller();
 

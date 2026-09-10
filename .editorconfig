@@ -15,7 +15,7 @@ indent_style = tab
 [*.js]
 indent_style = tab
 
-[*.json]
+[*.{json,jsonc}]
 indent_style = tab
 
 [*.md]

@@ -26,9 +26,10 @@ return array(
 		'archiving' => 'Archiving',	// TODO
 		'dynamic_opml' => array(
 			'_' => 'Dynamic OPML',	// TODO
-			'help' => 'Provide the URL to an <a href="http://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// TODO
+			'help' => 'Provide the URL to an <a href="https://opml.org/" target="_blank">OPML file</a> to dynamically populate this category with feeds',	// TODO
 		),
 		'empty' => 'Empty category',	// TODO
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Expand category',	// TODO
 		'information' => 'Information',	// TODO
 		'open' => 'Open category',	// TODO
@@ -82,10 +83,12 @@ return array(
 			'help' => 'Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// TODO
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP Headers',	// TODO
 		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
 		'icon' => 'Icon',	// TODO
 		'information' => 'Information',	// TODO
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Minimum number of articles to keep',	// TODO
 		'kind' => array(
 			'_' => 'Type of feed source',	// TODO
@@ -122,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'help' => 'The result will be parsed by <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
 				),
 				'item_title' => array(
 					'_' => 'item title',	// TODO
-					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
+					'help' => 'Use in particular the <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// TODO
 				),
 				'item_uid' => array(
 					'_' => 'item unique ID',	// TODO
@@ -166,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Custom date/time format',	// TODO
-					'help' => 'Optional. A format supported by <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
+					'help' => 'Optional. A format supported by <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> such as <code>d-m-Y H:i:s</code>',	// TODO
 				),
 				'item_timestamp' => array(
 					'_' => 'item date',	// TODO
-					'help' => 'The result will be parsed by <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
+					'help' => 'The result will be parsed by <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// TODO
 				),
 				'item_title' => 'item title',	// TODO
 				'item_uid' => 'item unique ID',	// TODO
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (default)',	// TODO
 			'xml_xpath' => 'XML + XPath',	// TODO
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Clear cache',	// TODO
 			'clear_cache_help' => 'Clear the cache for this feed.',	// TODO

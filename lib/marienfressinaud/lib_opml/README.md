@@ -7,7 +7,7 @@ structure arranged to show hierarchical relationships). It is mainly used to
 exchange list of feeds between feed aggregators. The specification is
 available at [opml.org](http://opml.org).
 
-lib\_opml has been tested with PHP 7.2+. It requires [DOMDocument](https://www.php.net/manual/book.dom.php)
+lib\_opml has been tested with PHP 8.2+. It requires [DOMDocument](https://www.php.net/manual/book.dom.php)
 to work.
 
 It supports versions 1.0 and 2.0 of OPML since these are the only published

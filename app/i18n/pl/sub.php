@@ -26,9 +26,10 @@ return array(
 		'archiving' => 'Archiwizacja',
 		'dynamic_opml' => array(
 			'_' => 'Dynamiczny OPML',
-			'help' => 'Podaj adres <a href="http://opml.org/" target="_blank">pliku OPML</a>, aby dynamicznie zapełnić tę kategorię kanałami',
+			'help' => 'Podaj adres <a href="https://opml.org/" target="_blank">pliku OPML</a>, aby dynamicznie zapełnić tę kategorię kanałami',
 		),
 		'empty' => 'Pusta kategoria',
+		'error' => 'Ta kategoria dynamicznego OPML napotkała problem. Sprawdź, czy adres URL tego OPML jest nadal dostępny oraz czy nie została przekroczona maksymalna liczba kanałów na użytkownika.',
 		'expand' => 'Rozszerz kategorię',
 		'information' => 'Informacje',
 		'open' => 'Otwórz kategorię',
@@ -80,12 +81,14 @@ return array(
 		'filteractions' => array(
 			'_' => 'Akcje filtrowania',
 			'help' => 'Jedno zapytanie na linię. Operatory opisane są w <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dokumentacji</a>.',
-			'view_filter' => 'Podgląd filtrów na istniejących artykułach (nowe okno)',
+			'view_filter' => 'Podgląd filtrów na istniejących wiadomościach (nowe okno)',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'Nagłówki HTTP',
 		'http_headers_help' => 'Nagłówki są oddzielane przez nową linię, a nazwa i wartość nagłówka są oddzielane przez dwukropek (np: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer jakiś-token</code></kbd>).',
 		'icon' => 'Ikona',
 		'information' => 'Informacja',
+		'keep_adding_feed' => 'Następnie dodaj więcej kanałów',
 		'keep_min' => 'Minimalna liczba wiadomości do przechowywania',
 		'kind' => array(
 			'_' => 'Rodzaj źródła kanału',
@@ -93,7 +96,7 @@ return array(
 				'_' => 'HTML + XPath + notacja kropkowa JSON (JSON w HTML-u)',
 				'xpath' => array(
 					'_' => 'XPath do JSON-a w HTML-u',
-					'help' => 'Przykład: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (jeden obiekt JSON dla każdego artykułu)',
+					'help' => 'Przykład: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (jeden obiekt JSON dla każdej wiadomości)',
 				),
 			),
 			'html_xpath' => array(
@@ -122,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Własny format daty/czasu',
-					'help' => 'Opcjonalne. Format wspierany przez <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, przykładowo <code>d-m-Y H:i:s</code>',
+					'help' => 'Opcjonalne. Format wspierany przez <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, przykładowo <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'daty',
-					'help' => 'Wynik zostanie przetworzony za pomocą funkcji <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Wynik zostanie przetworzony za pomocą funkcji <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'tytułu',
-					'help' => 'W szczególności warto użyć <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">oś XPath</a> <code>descendant::</code>, na przykład: <code>descendant::h2</code>',
+					'help' => 'W szczególności warto użyć <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">oś XPath</a> <code>descendant::</code>, na przykład: <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'unikalnego identyfikatora',
@@ -166,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Własny format daty/czasu',
-					'help' => 'Opcjonalne. Format wspierany przez <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, przykładowo <code>d-m-Y H:i:s</code>',
+					'help' => 'Opcjonalne. Format wspierany przez <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, przykładowo <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'czas wiadomości',
-					'help' => 'Wartość będzie przetwarzana funkcją <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'Wartość będzie przetwarzana funkcją <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'tytuł wiadomości',
 				'item_uid' => 'unikalny identyfikator wiadomości',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (domyślne)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Ostatnia wiadomość opublikowana <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Ostatnia wiadomość otrzymana <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Ostatnia nieudana aktualizacja <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Ostatnia pomyślna aktualizacja <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Wyczyść pamięć podręczną',
 			'clear_cache_help' => 'Czyści pamięć podręczną tego kanału.',
@@ -239,7 +246,7 @@ return array(
 		'ttl' => 'Nie odświeżaj automatycznie częściej niż',
 		'unicityCriteria' => array(
 			'_' => 'Kryteria unikalności kanału',
-			'forced' => '<span title="Zablokuj kryteria unikalności, nawet jeżeli kanał ma duplikaty artykułów">wymuszone</span>',
+			'forced' => '<span title="Zablokuj kryteria unikalności, nawet jeżeli kanał ma duplikaty wiadomości">wymuszone</span>',
 			'help' => 'Istotne dla niezgodnych kanałów.<br />⚠️ Wprowadzenie zmian w polityce utworzy duplikaty.',
 			'id' => 'standardowe ID (domyślne)',
 			'link' => 'odnośnik',

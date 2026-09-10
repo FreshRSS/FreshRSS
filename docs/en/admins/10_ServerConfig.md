@@ -1,4 +1,4 @@
-# Apache/Nginx Configuration Files
+# Apache/Nginx configuration files
 
 > ℹ️ For improved security, remove sensitive information in the Web server logs by using our [`sensitive-log.sh` script](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/sensitive-log.sh),
 on the model of our [reference Apache configuration](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/FreshRSS.Apache.conf) used for our official Docker images
@@ -115,7 +115,7 @@ server {
 
 ## Security
 
-Avoid overwriting the [`Content-Security-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) header with directives such as `more_set_headers "Content-Security-Policy: ..."` or `add_header 'Content-Security-Policy' '...'`.
+Avoid overwriting the [`Content-Security-Policy`](https://developer.mozilla.org/docs/Web/HTTP/Guides/CSP) header with directives such as `more_set_headers "Content-Security-Policy: ..."` or `add_header 'Content-Security-Policy' '...'`.
 
 ✅ Example of good CSP: `default-src 'self'; frame-ancestors 'self'`
 

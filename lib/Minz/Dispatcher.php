@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Sous licence AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -53,6 +53,10 @@ final class Minz_Dispatcher {
 				$this->controller->lastAction();
 
 				if (!self::$needsReset) {
+					$model = $this->controller->view();
+					if ($model instanceof FreshRSS_View && $model->displaySlider) {
+						FreshRSS_View::prependScript(Minz_Url::display('/scripts/extra.js?' . @filemtime(PUBLIC_PATH . '/scripts/extra.js')));
+					}
 					$this->controller->declareCspHeader();
 					$this->controller->view()->build();
 				}

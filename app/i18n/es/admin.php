@@ -91,8 +91,13 @@ return array(
 		'default_closed_registration_message' => 'Este servidor no acepta nuevos registros en este momento.',
 		'force_email_validation' => 'Forzar la validación de direcciones de correo electrónico',
 		'instance-name' => 'Nombre de la fuente',
+		'internal-host-allowlist' => array(
+			'_' => 'Lista de permitidos de hosts internos',
+			'help' => 'Una entrada por línea:<ul><li>Un <code>host:puerto</code>. Por ejemplo <code>127.0.0.1:8080</code> o <code>rss-bridge:80</code></li><li>Una notación CIDR. Por ejemplo <code>0.0.0.0/0</code> para permitir cualquier IPv4, <code>::/0</code> para permitir cualquier IPv6</li><li>Un <code>*</code> para permitir cualquier host (inseguro)</li></ul>',
+		),
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',
+		'override-by-env-var' => 'Esta configuración está definida por la variable de entorno <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Número máximo de cuentas',
 			'select' => array(
@@ -132,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Canal de publicación',
 			'edge' => 'Versión de pruebas (“edge”)',
-			'latest' => 'Versión estable (“latest”)',
+			'latest' => 'Versión estable (“latest”)',	// DIRTY
 		),
 		'title' => 'Actualizar sistema',
 		'viaGit' => 'Actualización comenzada vía git y GitHub',

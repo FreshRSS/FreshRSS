@@ -94,13 +94,13 @@ input:focus, select:focus, textarea:focus {
 	border-color: var(--main-first);
 }
 
-input:invalid, select:invalid {
+input:user-invalid, select:user-invalid {
 	color: var(--alert-bg);
 	border-color: var(--alert-bg);
 	box-shadow: none;
 }
 
-input:disabled, select:disabled {
+input:disabled, select:disabled, textarea:disabled {
 	color: var(--grey-medium-dark);
 	border-color: var(--grey-medium-dark);
 }

@@ -14,7 +14,7 @@ if ($extensionName === '') {
 	$pathInfo = '';
 	if (empty($_SERVER['PATH_INFO']) || !is_string($_SERVER['PATH_INFO'] ?? null)) {
 		if (!empty($_SERVER['ORIG_PATH_INFO']) && is_string($_SERVER['ORIG_PATH_INFO'])) {
-			// Compatibility https://php.net/reserved.variables.server
+			// Compatibility https://www.php.net/reserved.variables.server
 			$pathInfo = $_SERVER['ORIG_PATH_INFO'];
 		}
 	} else {

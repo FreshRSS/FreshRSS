@@ -50,7 +50,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		if (!str_contains($sql, ' REGEXP ')) {
 			return;
 		}
-		// https://php.net/pdo.sqlitecreatefunction
+		// https://www.php.net/pdo.sqlitecreatefunction
 		// https://www.sqlite.org/lang_expr.html#the_like_glob_regexp_match_and_extract_operators
 		$this->pdo->sqliteCreateFunction('regexp',
 			function (string $pattern, string $text): bool {
@@ -164,6 +164,9 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 				}
 			}
 			$this->pdo->commit();
+			if ($affected > 0) {
+				Minz_ExtensionManager::callHook(Minz_HookType::EntriesRead, [$ids], $is_read);
+			}
 			return $affected;
 		}
 	}
@@ -192,7 +195,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$values[] = $id;
 		}
 
-		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters);
+		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {

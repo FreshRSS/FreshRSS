@@ -537,7 +537,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		/** @var list<array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority:int,
 		 * 	pathEntries:string,httpAuth:string,error:int,ttl:int,attributes?:string,cache_nbUnreads:int,cache_nbEntries:int}> $res */
 		$feeds = self::daoToFeeds($res);
-		uasort($feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		uasort($feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => FreshRSS_Context::localeCompare($a->name(), $b->name()));
 		return $feeds;
 	}
 
@@ -553,6 +553,22 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			SELECT COUNT(*) AS count FROM `_entry` WHERE id_feed=:id_feed AND is_read=0
 			SQL;
 		return $this->fetchInt($sql, ['id_feed' => $id]) ?? -1;
+	}
+
+	/** @return int Timestamp of the newest article received for the specified feed, or 0 if none */
+	public function newestArticleReceivedDate(int $feedId): int {
+		$sql = <<<'SQL'
+			SELECT MAX(id) / 1000000 AS t FROM `_entry` WHERE id_feed=:id_feed
+			SQL;
+		return $this->fetchInt($sql, ['id_feed' => $feedId]) ?? 0;
+	}
+
+	/** @return int Timestamp of the Last article published for the specified feed, or 0 if none */
+	public function newestArticlePublicationDate(int $feedId): int {
+		$sql = <<<'SQL'
+			SELECT MAX(date) AS t FROM `_entry` WHERE id_feed=:id_feed
+			SQL;
+		return $this->fetchInt($sql, ['id_feed' => $feedId]) ?? 0;
 	}
 
 	/**
@@ -704,7 +720,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 
 	/**
 	 * @param array<array{id?:int,url?:string,kind?:int,category?:int,name?:string,website?:string,description?:string,lastUpdate?:int,priority?:int,
-	 * 	pathEntries?:string,httpAuth?:string,error?:int|bool,ttl?:int,attributes?:string,cache_nbUnreads?:int,cache_nbEntries?:int}> $listDAO
+	 * 	pathEntries?:string,httpAuth?:string,error?:int,ttl?:int,attributes?:string,cache_nbUnreads?:int,cache_nbEntries?:int}> $listDAO
 	 * @return array<int,FreshRSS_Feed> where the key is the feed ID
 	 */
 	public static function daoToFeeds(array $listDAO, ?int $catID = null): array {

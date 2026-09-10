@@ -493,6 +493,9 @@ function printStep1(): void {
 	printStep1Template('intl', $res['intl']);
 	printStep1Template('fileinfo', $res['fileinfo']);
 	printStep1Template('zip', $res['zip']);
+	if (isset($res['gmp'])) {
+		printStep1Template('gmp', $res['gmp']);
+	}
 	?>
 	<h2><?= _t('install.check.files') ?></h2>
 	<?php
@@ -502,6 +505,7 @@ function printStep1(): void {
 	printStep1Template('tmp', $res['tmp'], [TMP_PATH, $processUsername]);
 	printStep1Template('users', $res['users'], [USERS_PATH, $processUsername]);
 	printStep1Template('favicons', $res['favicons'], [DATA_PATH . '/favicons', $processUsername]);
+	printStep1Template('docroot', $res['docroot']);
 	?>
 
 	<?php if (freshrss_already_installed() && $res['all'] == 'ok') { ?>

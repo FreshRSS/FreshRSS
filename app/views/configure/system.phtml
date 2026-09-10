@@ -64,6 +64,32 @@
 			</div>
 		</div>
 
+		<?php
+			$internal_host_allowlist = getenv('INTERNAL_HOST_ALLOWLIST');
+			if (is_string($internal_host_allowlist) && $internal_host_allowlist !== '') {
+				$internal_host_allowlist = Minz_Helper::htmlspecialchars_utf8(preg_split('/\s+/', $internal_host_allowlist, -1, PREG_SPLIT_NO_EMPTY));
+			}
+			$internal_host_allowlist_fromenv = true;
+			if (!is_array($internal_host_allowlist) || empty($internal_host_allowlist)) {
+				$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
+				$internal_host_allowlist_fromenv = false;
+			}
+		?>
+
+		<div class="form-group">
+			<label class="group-name" for="internal-host-allowlist"><?= _t('admin.system.internal-host-allowlist') ?></label>
+			<div class="group-controls">
+				<textarea
+					<?= $internal_host_allowlist_fromenv ? '' : 'id="internal-host-allowlist"' ?>
+					name="internal-host-allowlist"
+					<?= $internal_host_allowlist_fromenv ? ' disabled="disabled"' : ''?>><?= implode("\n", $internal_host_allowlist) ?></textarea>
+				<?php if ($internal_host_allowlist_fromenv): ?>
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.override-by-env-var', 'INTERNAL_HOST_ALLOWLIST') ?></p>
+				<?php endif ?>
+					<div class="help"><?= _i('help') ?> <?= _t('admin.system.internal-host-allowlist.help') ?></div>
+			</div>
+		</div>
+
 		<h2><?= _t('admin.system.registration.title') ?></h2>
 
 		<div class="form-group">

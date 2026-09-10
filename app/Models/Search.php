@@ -1210,8 +1210,8 @@ class FreshRSS_Search implements \Stringable {
 			$this->inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/\\binurl:(?P<search>[^\\s]*)/', $input, $matches)) {
-			$this->inurl = $matches['search'];
+		if (preg_match_all('/\\binurl:(?P<search>[^\\s"]*)/', $input, $matches)) {
+			$this->inurl = array_merge($this->inurl ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->inurl = self::removeEmptyValues($this->inurl);
@@ -1230,8 +1230,8 @@ class FreshRSS_Search implements \Stringable {
 			$this->not_inurl = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=[\\s(]|^)[!-]inurl:(?P<search>[^\\s]*)/', $input, $matches)) {
-			$this->not_inurl = $matches['search'];
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]inurl:(?P<search>[^\\s"]*)/', $input, $matches)) {
+			$this->not_inurl = array_merge($this->not_inurl ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_inurl = self::removeEmptyValues($this->not_inurl);
@@ -1380,8 +1380,8 @@ class FreshRSS_Search implements \Stringable {
 			$this->tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/#(?P<search>[^\\s]+)/', $input, $matches)) {
-			$this->tags = $matches['search'];
+		if (preg_match_all('/#(?P<search>[^\\s"]+)/', $input, $matches)) {
+			$this->tags = array_merge($this->tags ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->tags = self::removeEmptyValues($this->tags);
@@ -1402,8 +1402,8 @@ class FreshRSS_Search implements \Stringable {
 			$this->not_tags = $matches['search'];
 			$input = str_replace($matches[0], '', $input);
 		}
-		if (preg_match_all('/(?<=[\\s(]|^)[!-]#(?P<search>[^\\s]+)/', $input, $matches)) {
-			$this->not_tags = $matches['search'];
+		if (preg_match_all('/(?<=[\\s(]|^)[!-]#(?P<search>[^\\s"]+)/', $input, $matches)) {
+			$this->not_tags = array_merge($this->not_tags ?? [], $matches['search']);
 			$input = str_replace($matches[0], '', $input);
 		}
 		$this->not_tags = self::removeEmptyValues($this->not_tags);

@@ -4,7 +4,7 @@ This tutorial demonstrates commands for updating FreshRSS. It assumes that your 
 
 **Note that FreshRSS contains a built-in update system.** It’s easier to use if you don’t understand the commands that follow. It’s available through the web interface of your FreshRSS installation, Administration → Update.
 
-Please read the general advice from “[Backing Up and Updating FreshRSS](04_Updating.md)” before applying any command from this guide.
+Please read the general advice from “[Updating](04_Updating.md)” before applying any command from this guide.
 
 ## Pausing automatic feed updates
 
@@ -52,7 +52,7 @@ If your local user doesn’t have write access to the FreshRSS folder, use a sud
 	git pull --ff-only
 	```
 
-	> ℹ️ Use `edge` for the rolling release or `latest` for the latest stable release.
+	> ℹ️ Use `edge` for the rolling release or `latest` for the latest versioned release.
 
 5. (optional) Make sure you use the correct version
 	```sh
@@ -76,11 +76,11 @@ If your local user doesn’t have write access to the FreshRSS folder, use a sud
 	cd /usr/share/FreshRSS/
 	```
 
-2. Get the link to the Zip archive for [the latest release](https://github.com/FreshRSS/FreshRSS/releases/latest): [`https://github.com/FreshRSS/FreshRSS/archive/latest.zip`](https://github.com/FreshRSS/FreshRSS/archive/latest.zip). If you want to use the rolling release, the link is [`https://github.com/FreshRSS/FreshRSS/archive/edge.zip`](https://github.com/FreshRSS/FreshRSS/archive/edge.zip).
+2. Get the link to the Zip archive for [the latest release](https://github.com/FreshRSS/FreshRSS/releases/latest): <https://github.com/FreshRSS/FreshRSS/archive/refs/heads/latest.zip>. If you want to use the rolling release, the link is <https://github.com/FreshRSS/FreshRSS/archive/refs/heads/edge.zip>.
 
 3. Download and unzip the update file
 	```sh
-	wget -O freshrss.zip https://github.com/FreshRSS/FreshRSS/archive/latest.zip
+	wget -O freshrss.zip https://github.com/FreshRSS/FreshRSS/archive/refs/heads/latest.zip
 	unzip freshrss.zip
 	```
 

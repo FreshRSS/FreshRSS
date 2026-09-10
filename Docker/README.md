@@ -6,16 +6,16 @@
 FreshRSS is a self-hosted RSS feed aggregator.
 
 * Official website: [`freshrss.org`](https://freshrss.org/)
-* Official Docker images: [`hub.docker.com/r/freshrss/freshrss`](https://hub.docker.com/r/freshrss/freshrss/)
+* Official Docker images: [`hub.docker.com/r/freshrss/freshrss`](https://hub.docker.com/r/freshrss/freshrss/) [`ghcr.io/freshrss/freshrss`](https://github.com/FreshRSS/FreshRSS/pkgs/container/freshrss)
 * Repository: [`github.com/FreshRSS/FreshRSS`](https://github.com/FreshRSS/FreshRSS/)
 * Documentation: [`freshrss.github.io/FreshRSS`](https://freshrss.github.io/FreshRSS/)
 * License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
 
-![FreshRSS logo](https://github.com/FreshRSS/FreshRSS/raw/edge/docs/img/FreshRSS-logo.png)
+![FreshRSS logo](https://raw.githubusercontent.com/FreshRSS/FreshRSS/edge/docs/img/FreshRSS-logo.png)
 
 ## Install Docker
 
-See <https://docs.docker.com/get-docker/>
+See <https://docs.docker.com/get-started/get-docker/>
 
 Example for Linux Debian / Ubuntu:
 
@@ -32,18 +32,18 @@ Example running FreshRSS (or scroll down to the [Docker Compose](#docker-compose
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -p 8080:80 \
   -e TZ=Europe/Paris \
-  -e 'CRON_MIN=1,31' \
+  -e CRON_MIN=1,31 \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
   --name freshrss \
-  freshrss/freshrss
+  freshrss/freshrss:edge
 ```
 
 * Exposing on port 8080
-* With a [server timezone](http://php.net/timezones) (default is `UTC`)
+* With a [server timezone](https://www.php.net/timezones) (default is `UTC`)
 * With an automatic cron job to refresh feeds
 * Saving FreshRSS data in a Docker volume `freshrss_data` and optional extensions in `freshrss_extensions`
-* Using the default image, which is the latest stable release
+* Using the rolling release channel
 
 ### Complete installation
 
@@ -52,7 +52,7 @@ or use the command line described below.
 
 ## Command line
 
-See the [CLI documentation](../cli/README.md) for all the commands, which can be applied like:
+See the [CLI documentation](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md) for all the commands, which can be applied like:
 
 ```sh
 docker exec --user www-data freshrss cli/list-users.php
@@ -72,10 +72,10 @@ docker exec --user www-data freshrss cli/create-user.php --user freshrss --passw
 
 The [tags](https://hub.docker.com/r/freshrss/freshrss/tags) correspond to FreshRSS branches and versions:
 
-* `:latest` (default) is the [latest stable release](https://github.com/FreshRSS/FreshRSS/releases/latest)
+* `:latest` (default) is the [latest versioned release](https://github.com/FreshRSS/FreshRSS/releases/latest)
 * `:edge` is the rolling release, same than our [git `edge` branch](https://github.com/FreshRSS/FreshRSS/tree/edge)
 * `:x.y.z` tags correspond to [specific FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases), allowing you to target a precise version for deployment
-* `:x` tags track the latest release within a major version series. For instance, `:1` will update to include any `1.x` releases, but will exclude versions beyond `2.x`
+* `:x` tags track the latest release within a major version series. For instance, `:1` will update to include any `1.x` releases, but will exclude versions beyond `2.x`. Note that bug fixes and security fixes are not backported.
 * `*-alpine` use Linux Alpine as base-image instead of Debian
 * Our Docker images are designed with multi-architecture support, accommodating a variety of Linux platforms including `linux/arm/v7`, `linux/arm64`, and `linux/amd64`.
   * For other platforms, see the [custom build section](#build-custom-docker-image)
@@ -91,13 +91,15 @@ and with newer packages in general (Apache, PHP).
 
 ## Environment variables
 
-* `TZ`: (default is `UTC`) A [server timezone](http://php.net/timezones)
+* `TZ`: (default is `UTC`) A [server timezone](https://www.php.net/timezones)
 * `CRON_MIN`: (default is disabled) Define minutes for the built-in cron job to automatically refresh feeds (see below for more advanced options)
-* `DATA_PATH`: (default is empty, defined by `./constants.local.php` or `./constants.php`) Defines the path for writeable data.
+* `DATA_PATH`: (default is empty, defined by `./constants.local.php` or `./constants.php`) Defines the path for writable data.
+* `ENABLE_ACCESS_LOG`: (default is `1`) Set to `0` to disable the Apache access log.
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
-* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
+* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/engine/network/drivers/host/))
+* `INTERNAL_HOST_ALLOWLIST`: (default is empty, can also be set in `data/config.php` or under *System configuration* in Web UI) Requests to internal hosts such as 127.0.0.1 are blocked by default; here you can add overrides for which internal hosts to allow, separated by whitespace. Each host should be described either as a `host:port` combination, CIDR notation (`0.0.0.0/0` to allow any IPv4, `::/0` to allow any IPv6) or `*` to allow all hosts (unsafe)
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
@@ -105,12 +107,12 @@ and with newer packages in general (Apache, PHP).
 
 ```sh
 # Rebuild an image (see build section below) or get a new online version:
-docker pull freshrss/freshrss
+docker pull freshrss/freshrss:edge
 # And then
 docker stop freshrss
 docker rename freshrss freshrss_old
 # See the run section above for the full command
-docker run ... --name freshrss freshrss/freshrss
+docker run ... --name freshrss freshrss/freshrss:edge
 # If everything is working, delete the old container
 docker rm freshrss_old
 ```
@@ -122,10 +124,10 @@ which is currently limited to `x64` (Intel, AMD), `arm32v7`, `arm64`.
 
 > ℹ️ If you try to run an image for the wrong platform, you might get an error message like *exec format error*.
 
-Pick `#latest` (stable release) or `#edge` (rolling release) or a specific release number such as `#1.21.0` like:
+Pick `#edge` (rolling release) or `#latest` (versioned release) or a specific release number such as `#1.21.0` like:
 
 ```sh
-docker build --pull --tag freshrss/freshrss:latest -f Docker/Dockerfile-Alpine https://github.com/FreshRSS/FreshRSS.git#latest
+docker build --pull --tag freshrss/freshrss:custom -f Docker/Dockerfile-Alpine https://github.com/FreshRSS/FreshRSS.git#latest
 ```
 
 > ℹ️ See an automated way to do that in our [Docker Compose](#docker-compose) section, leveraging a [git build context](https://docs.docker.com/build/building/context/#git-repositories).
@@ -141,7 +143,7 @@ docker run --rm \
   -p 8080:80 \
   -e FRESHRSS_ENV=development \
   -e TZ=Europe/Paris \
-  -e 'CRON_MIN=1,31' \
+  -e CRON_MIN=1,31 \
   -v $(pwd):/var/www/FreshRSS \
   -v freshrss_data:/var/www/FreshRSS/data \
   --name freshrss \
@@ -242,7 +244,7 @@ docker run ...
   -v /your/.htaccess:/var/www/FreshRSS/p/i/.htaccess \
   -v /your/.htpasswd:/var/www/FreshRSS/data/.htpasswd \
   ...
-  --name freshrss freshrss/freshrss
+  --name freshrss freshrss/freshrss:edge
 ```
 
 Example of `/your/.htaccess` referring to `/your/.htpasswd`:
@@ -313,7 +315,7 @@ services:
     image: freshrss/freshrss:edge
     # Optional build section if you want to build the image locally:
     build:
-      # Pick #latest (stable release) or #edge (rolling release) or a specific release like #1.21.0
+      # Pick #edge (rolling release) or #latest (versioned release) or a specific release like #1.21.0
       context: https://github.com/FreshRSS/FreshRSS.git#edge
       dockerfile: Docker/Dockerfile-Alpine
     container_name: freshrss
@@ -334,7 +336,7 @@ services:
       # If you want to open a port 8080 on the local machine:
       - "8080:80"
     environment:
-      # A timezone http://php.net/timezones (default is UTC)
+      # A timezone https://www.php.net/timezones (default is UTC)
       TZ: Europe/Paris
       # Cron job to refresh feeds at specified minutes
       CRON_MIN: '2,32'
@@ -342,6 +344,12 @@ services:
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
+      # Optional parameter to allow sending requests to certain internal hosts, by default all internal requests are blocked
+      # Examples: 127.0.0.1:8080, rss-bridge:80, etc.
+      #   or a CIDR notation: 0.0.0.0/0 (to allow any IPv4), ::/0 (to allow any IPv6)
+      # Setting * disables this check completely, allowing any host to be accessed (unsafe)
+      #INTERNAL_HOST_ALLOWLIST: rss-bridge:80 rsshub:1200
+
       # Optional parameter, remove for automatic settings, set to 0 to disable,
       # or (if you use a proxy) to a space-separated list of trusted IP ranges
       # compatible with https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy
@@ -601,13 +609,13 @@ There are no less than 3 options. Pick a single one.
 Easiest, built-in solution, also used already in the examples above
 (but your Docker instance will have a second process in the background, without monitoring).
 Just pass the environment variable `CRON_MIN` to your `docker run` command,
-containing a valid cron minute definition such as `'13,43'` (recommended) or `'*/20'`.
+containing a valid cron minute definition such as `13,43` (recommended) or `*/20`.
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
 
 ```sh
 docker run ... \
-  -e 'CRON_MIN=13,43' \
-  --name freshrss freshrss/freshrss
+  -e CRON_MIN=13,43 \
+  --name freshrss freshrss/freshrss:edge
 ```
 
 ### Option 2) Cron on the host machine
@@ -634,9 +642,9 @@ See cron option 1 for customising the cron schedule.
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
-  -e 'CRON_MIN=17,47' \
+  -e CRON_MIN=17,47 \
   --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss \
+  --name freshrss_cron freshrss/freshrss:edge \
   cron -f
 ```
 
@@ -650,7 +658,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
   -v ./freshrss_crontab:/etc/cron.d/freshrss \
   --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss \
+  --name freshrss_cron freshrss/freshrss:edge \
   cron -f
 ```
 
@@ -660,9 +668,9 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
-  -e 'CRON_MIN=27,57' \
+  -e CRON_MIN=27,57 \
   --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss:alpine \
+  --name freshrss_cron freshrss/freshrss:edge-alpine \
   crond -f -d 6
 ```
 

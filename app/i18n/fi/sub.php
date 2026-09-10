@@ -26,9 +26,10 @@ return array(
 		'archiving' => 'Arkistointi',
 		'dynamic_opml' => array(
 			'_' => 'Dynaaminen OPML',
-			'help' => 'Voit tuoda syötteet tähän luokkaan automaattisesti antamalla <a href="http://opml.org/" target="_blank">OPML-tiedoston</a> URL-osoitteen',
+			'help' => 'Voit tuoda syötteet tähän luokkaan automaattisesti antamalla <a href="https://opml.org/" target="_blank">OPML-tiedoston</a> URL-osoitteen',
 		),
 		'empty' => 'Tyhjä luokka',
+		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
 		'expand' => 'Laajenna luokka',
 		'information' => 'Tiedot',
 		'open' => 'Avaa luokka',
@@ -82,10 +83,12 @@ return array(
 			'help' => 'Kirjoita kukin hakusuodatin omalle rivilleen. Lisätietoja operaattoreista <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">ohjeissa</a>.',
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP-otsikot',
 		'http_headers_help' => 'Otsikot erotellaan rivinvaihdoin, ja nimi ja arvo erotellaan kaksoispisteellä. Esimerkki: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Kuvake',
 		'information' => 'Tiedot',
+		'keep_adding_feed' => 'Then add more feeds',	// TODO
 		'keep_min' => 'Säilytettävien artikkeleiden vähimmäismäärä',
 		'kind' => array(
 			'_' => 'Syötteen lähteen laji',
@@ -122,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Mukautettu päivämäärän/kellonajan muoto',
-					'help' => 'Valinnainen. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>-funktion tukema muoto, kuten <code>d-m-Y H:i:s</code>',
+					'help' => 'Valinnainen. <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>-funktion tukema muoto, kuten <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'tekstin päivämäärä',
-					'help' => '<a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>-funktio jäsentää tuloksen',
+					'help' => '<a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>-funktio jäsentää tuloksen',
 				),
 				'item_title' => array(
 					'_' => 'tekstin otsikko',
-					'help' => 'Käytä erityisesti <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath-siirtymää</a> <code>descendant::</code>, esimerkiksi <code>descendant::h2</code>',
+					'help' => 'Käytä erityisesti <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath-siirtymää</a> <code>descendant::</code>, esimerkiksi <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'tekstin yksilöllinen tunnus',
@@ -166,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Mukautettu päivämäärän/kellonajan muoto',
-					'help' => 'Valinnainen. <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>-funktion tukema muoto, kuten <code>d-m-Y H:i:s</code>',
+					'help' => 'Valinnainen. <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>-funktion tukema muoto, kuten <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'tekstin päivämäärä',
-					'help' => '<a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>-funktio jäsentää tuloksen',
+					'help' => '<a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>-funktio jäsentää tuloksen',
 				),
 				'item_title' => 'tekstin otsikko',
 				'item_uid' => 'tekstin yksilöllinen tunnus',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS/Atom (oletus)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
 		'maintenance' => array(
 			'clear_cache' => 'Tyhjennä välimuisti',
 			'clear_cache_help' => 'Tyhjennä syötteen välimuisti.',

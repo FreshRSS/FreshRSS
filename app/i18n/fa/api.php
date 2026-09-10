@@ -12,22 +12,22 @@
 
 return array(
 	'information' => array(
-		'address' => 'Your API address:',	// TODO
+		'address' => 'نشانی API شما:',
 		'output' => array(
-			'encoding-support' => '⚠️ WARN: no <code>%2F</code> support, some clients might not work!',	// TODO
-			'invalid-configuration' => '⚠️ WARN: Probable invalid base URL in ./data/config.php',	// TODO
-			'pass' => '✔️ PASS',	// TODO
-			'unknown-error' => '❌ ',	// TODO
+			'encoding-support' => '⚠️ هشدار: پشتیبانی از <code>%2F</code> وجود ندارد؛ ممکن است برخی کلاینت‌ها کار نکنند!',
+			'invalid-configuration' => '⚠️ هشدار: احتمالاً نشانی پایه در ./data/config.php نامعتبر است',
+			'pass' => '✔️ قبول',
+			'unknown-error' => '❌ خطای ناشناخته',
 		),
 		'test' => array(
-			'fever' => 'Fever API configuration test:',	// TODO
-			'greader' => 'Google Reader API configuration test:',	// TODO
+			'fever' => 'آزمون پیکربندی API سازگار با Fever:',
+			'greader' => 'آزمون پیکربندی API سازگار با Google Reader:',
 		),
 		'title' => array(
-			'_' => 'FreshRSS API endpoints',	// TODO
-			'extension' => 'API for extensions',	// TODO
-			'fever' => 'Fever compatible API',	// TODO
-			'greader' => 'Google Reader compatible API',	// TODO
+			'_' => 'نقاط پایانی API در FreshRSS',
+			'extension' => 'API برای افزونه‌ها',
+			'fever' => 'API سازگار با Fever',
+			'greader' => 'API سازگار با Google Reader',
 		),
 	),
 );

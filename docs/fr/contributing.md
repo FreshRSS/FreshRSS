@@ -35,8 +35,8 @@ Voulez-vous corriger un bogue ? Pour maintenir une grande coordination entre
 les collaborateurs, vous devrez suivre ces indications :
 
 1. Assurez-vous que le bogue est associé à un ticket et indiquez que vous allez travailler sur le bogue.
-2. [Fork du répertoire de projet](https://help.github.com/articles/fork-a-repo/).
-3. [Créez une nouvelle branche](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
+2. [Fork du répertoire de projet](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo).
+3. [Créez une nouvelle branche](https://docs.github.com/en/pull-requests/how-tos/commit-changes/managing-branches-within-your-repository).
 	Le nom de la branche doit être clair, et idéalement préfixé par l’identifiant du ticket correspondant.
 	Par exemple, `783-contributing-file` pour réparer
 	[ticket	#783](https://github.com/FreshRSS/FreshRSS/issues/783).
@@ -48,7 +48,7 @@ de codage](developers/01_First_steps.md).
 
 > ℹ Voir [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) pour les conventions de code (à la fois pour les humains et agents IA).
 
-**Conseil :** si vous cherchez des bugs faciles à corriger, jetez un coup d’oeil à la vignette « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) ».
+**Conseil :** si vous cherchez des bugs faciles à corriger, jetez un coup d’oeil à la vignette « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Good%20first%20issue%201%EF%B8%8F%E2%83%A3%22) ».
 
 ## Soumettre une idée
 

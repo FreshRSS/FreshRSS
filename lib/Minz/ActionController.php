@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Sous licence AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -81,9 +81,9 @@ abstract class Minz_ActionController {
 	 * default-src and frame-ancestors directives should always be given.
 	 *
 	 * References:
-	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP
-	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/default-src
-	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors
+	 * - https://developer.mozilla.org/docs/Web/HTTP/Guides/CSP
+	 * - https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/default-src
+	 * - https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors
 	 *
 	 * @param array<string,string> $policies An array where keys are directives and values are sources.
 	 */

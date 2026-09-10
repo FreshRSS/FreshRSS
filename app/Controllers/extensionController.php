@@ -48,9 +48,11 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$extensionListUrl = 'https://raw.githubusercontent.com/FreshRSS/Extensions/refs/heads/main/extensions.json';
 
 		$cacheFile = CACHE_PATH . '/extension_list.json';
+		$fetchResult = null;
 		if (FreshRSS_Context::userConf()->retrieve_extension_list === true) {
 			if (!file_exists($cacheFile) || (time() - (filemtime($cacheFile) ?: 0) > 86400)) {
-				$json = FreshRSS_http_Util::httpGet($extensionListUrl, $cacheFile, 'json')['body'];
+				$fetchResult = FreshRSS_http_Util::httpGet($extensionListUrl, $cacheFile, 'json');
+				$json = $fetchResult['body'];
 			} else {
 				$json = @file_get_contents($cacheFile) ?: '';
 			}
@@ -61,7 +63,13 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 		// we ran into problems, simply ignore them
 		if ($json === '') {
-			Minz_Log::error('Could not fetch available extension from GitHub');
+			$details = '';
+			if (is_array($fetchResult)) {
+				$status = $fetchResult['status'];
+				$error = $fetchResult['error'];
+				$details = ' (HTTP status ' . $status . ($error !== '' ? '; ' . $error : '') . ')';
+			}
+			Minz_Log::error('Could not fetch available extension list from GitHub' . $details);
 			return [];
 		}
 
@@ -354,7 +362,8 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		header("Content-Disposition: inline; filename='{$filename}'");
 		header('Referrer-Policy: same-origin');
 		if (file_exists(DATA_PATH . '/no-cache.txt') || !httpConditional($mtime, cacheSeconds: 604800, cachePrivacy: 2)) {
-			echo $extension->getFile($filename);
+			$contents = $extension->getFile($filename);
+			$this->view->content = is_string($contents) ? $contents : '';
 		}
 	}
 }

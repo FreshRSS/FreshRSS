@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Afichatge',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autors e data',
+				'both' => 'Dins l’entèsta e lo bas de pagina',
+				'footer' => 'Al pè de pagina',
+				'header' => 'Dins l’entèsta',
+				'none' => 'Cap',
+			),
+			'feed_name' => array(
+				'above_title' => 'Al dessús títol/etiquetas',
+				'none' => 'Cap',
+				'with_authors' => 'Dins la linha autors e data',
+			),
+			'feed_title' => 'Títol del flux',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Etiquetas',
+				'both' => 'Dins l’entèsta e lo bas de pagina',
+				'footer' => 'Al pè de pagina',
+				'header' => 'Dins l’entèsta',
+				'none' => 'Cap',
+			),
+			'tags_max' => array(
+				'_' => 'Nombre max d’etiquetas afichadas',
+				'help' => '0 significa : mostrar totas las etiquetas e las plegar pas',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatic dark mode',	// TODO
 			'auto' => 'Auto',	// TODO
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// TODO
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Articles : entèsta/pè de pagina',
 		),
 		'icon' => array(
 			'bottom_line' => 'Linha enbàs',
@@ -54,6 +89,14 @@ return array(
 			'timeout' => 'Temps d’afichatge de las notificacions HTML5',
 		),
 		'show_nav_buttons' => 'Mostrar los botons de navigacion',
+		'show_title_unread' => 'Mostra lo nombre d’articles non legits dins lo títol',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
 		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Tèma',
@@ -122,6 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Privacy',	// TODO
 		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
 	),
 	'profile' => array(
 		'_' => 'Gestion del perfil',
@@ -132,7 +176,8 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
 		'confirm_new_password' => 'Confirm new password',	// TODO
@@ -149,14 +194,16 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Filtres utilizaires',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Aqueste filtre es pas valid. La categoria o lo flux concernit es estat suprimit.',
 		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Filtres aplicats :',
 			'categories' => 'Afichatge per categoria',
 			'feeds' => 'Afichatge per flux',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Triar per data',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
@@ -197,22 +244,15 @@ return array(
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
 		),
-		'state_0' => 'Mostrar totes los articles',
-		'state_1' => 'Mostrar los articles pas legits',
-		'state_2' => 'Mostrar los articles pas legits',
-		'state_3' => 'Mostrar totes los articles',
-		'state_4' => 'Mostrar los articles favorits',
-		'state_5' => 'Mostrar los articles legits e en favorits',
-		'state_6' => 'Mostrar los articles pas legits e en favorit',
-		'state_7' => 'Mostrar los articles favorits',
-		'state_8' => 'Mostrar los articles pas en favorit',
-		'state_9' => 'Mostrar los articles legits e pas en favorit',
-		'state_10' => 'Mostrar los articles pas legits e pas en favorit',
-		'state_11' => 'Mostrar los articles pas en favorit',
-		'state_12' => 'Mostrar totes los articles',
-		'state_13' => 'Mostrar los articles legits',
-		'state_14' => 'Mostrar los articles pas legits',
-		'state_15' => 'Mostrar totes los articles',
+		'state_all' => 'Mostrar totes los articles',
+		'state_favorite' => 'Mostrar los articles favorits',
+		'state_not_favorite' => 'Mostrar los articles pas en favorit',
+		'state_read' => 'Mostrar los articles legits',
+		'state_read_favorite' => 'Mostrar los articles legits e en favorits',
+		'state_read_not_favorite' => 'Mostrar los articles legits e pas en favorit',
+		'state_unread' => 'Mostrar los articles pas legits',
+		'state_unread_favorite' => 'Mostrar los articles pas legits e en favorit',
+		'state_unread_not_favorite' => 'Mostrar los articles pas legits e pas en favorit',
 		'title' => 'Filtres utilizaire',
 	),
 	'reading' => array(
@@ -220,37 +260,6 @@ return array(
 		'after_onread' => 'Aprèp « marcar coma legit »,',
 		'always_show_favorites' => 'Mostrar totes los articles dels favorits per defaut',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autors e data',
-				'both' => 'Dins l’entèsta e lo bas de pagina',
-				'footer' => 'Al pè de pagina',
-				'header' => 'Dins l’entèsta',
-				'none' => 'Cap',
-			),
-			'feed_name' => array(
-				'above_title' => 'Al dessús títol/etiquetas',
-				'none' => 'Cap',
-				'with_authors' => 'Dins la linha autors e data',
-			),
-			'feed_title' => 'Títol del flux',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => 'Etiquetas',
-				'both' => 'Dins l’entèsta e lo bas de pagina',
-				'footer' => 'Al pè de pagina',
-				'header' => 'Dins l’entèsta',
-				'none' => 'Cap',
-			),
-			'tags_max' => array(
-				'_' => 'Nombre max d’etiquetas afichadas',
-				'help' => '0 significa : mostrar totas las etiquetas e las plegar pas',
-			),
-		),
 		'articles_per_page' => 'Nombre d’articles per pagina',
 		'auto_load_more' => 'Cargar los articles seguents enbàs de la pagina',
 		'auto_remove_article' => 'Rescondre los articles aprèp lectura',
@@ -259,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Categorias a desplegar',
 		'headline' => array(
 			'articles' => 'Articles : Dobrir/Tampar',
-			'articles_header_footer' => 'Articles : entèsta/pè de pagina',
 			'categories' => 'Navegacion esquèrra : categorias',
 			'mark_as_read' => 'Marcar los articles coma legits',
 			'misc' => 'Divèrs',
@@ -279,6 +287,7 @@ return array(
 			'upon_gone' => 'quand es pas mai dins lo flux de novèla font',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_feed' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents (of the feed)',	// DIRTY
 		),
@@ -299,6 +308,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Gardar l’article amont quand es dobèrt',
+		'sticky_sort' => 'Servar l’òrdre de triada manual pendent la navigacion',	// DIRTY
+		'sticky_sort_help' => 'Determina se lo darrièr òrdre de triada manual es conservat o se cada categoria o flux utiliza totjorn son pròpri paramètre per defaut o global.',	// DIRTY
 		'title' => 'Lectura',
 		'view' => array(
 			'default' => 'Vista per defaut',

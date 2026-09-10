@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Affichage',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Auteurs et date',
+				'both' => 'En en-tête et en pied d’article',
+				'footer' => 'En pied d’article',
+				'header' => 'En en-tête',
+				'none' => 'Caché',
+			),
+			'feed_name' => array(
+				'above_title' => 'Au-dessus du titre',
+				'none' => 'Caché',
+				'with_authors' => 'Sur la ligne « Auteurs et date »',
+			),
+			'feed_title' => 'Titre du flux',
+			'icons' => array(
+				'_' => 'Position des icônes d’article<br /><small>(Vue lecture seulement)</small>',
+				'above_title' => 'Au dessus du titre',
+				'with_authors' => 'Sur la ligne auteur et date',
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'En en-tête et en pied d’article',
+				'footer' => 'En pied d’article',
+				'header' => 'En en-tête',
+				'none' => 'Caché',
+			),
+			'tags_max' => array(
+				'_' => 'Nombre maximum de tags affichés',
+				'help' => '0 pour afficher tous les tags sans menu déroulant',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Mode sombre automatique',
 			'auto' => 'Auto',	// IGNORE
 			'help' => 'Seulement pour les thèmes compatibles',
 			'no' => 'Non',
+		),
+		'display_enclosures' => 'Afficher les pièces jointes',
+		'headline' => array(
+			'articles_header_footer' => 'Articles : en-tête / pied d’article',
 		),
 		'icon' => array(
 			'bottom_line' => 'Ligne du bas',
@@ -54,6 +89,14 @@ return array(
 			'timeout' => 'Temps d’affichage de la notification HTML5',
 		),
 		'show_nav_buttons' => 'Afficher les boutons de navigation',
+		'show_title_unread' => 'Afficher le nombre d’articles non lus dans le titre',
+		'show_unread_count' => array(
+			'_' => 'Afficher le nombre d’articles non lus dans la barre latérale',
+			'all' => 'Pour toutes les catégories et tous les flux',
+			'important' => 'Pour les flux importants uniquement',
+			'important_locked' => 'Les flux importants affichent toujours leur nombre d’articles non lus.',
+			'none' => 'Jamais',
+		),
 		'sidebar_hidden_by_default' => 'Masquer la barre latérale par défaut',
 		'theme' => array(
 			'_' => 'Thème',
@@ -122,6 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => 'Vie privée',
 		'retrieve_extension_list' => 'Récupération de la liste des extensions',
+		'send_referrer_allowlist' => 'Sites autorisés à voir l’adresse de votre serveur (%s)',
 	),
 	'profile' => array(
 		'_' => 'Gestion du profil',
@@ -133,6 +177,7 @@ return array(
 			'disabled' => 'L’accès API est désactivé.',
 			'documentation_link' => 'Voir <a href="https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html" target="_blank">la documentation et une liste d’applications compatibles</a>',
 			'help' => 'Voir <a href="https://freshrss.github.io/FreshRSS/fr/users/06_Mobile_access.html" target=_blank>la documentation</a>',
+			'security_warning' => 'Utilisez HTTPS. Le mot de passe API est transmis en clair et peut apparaître dans les journaux du serveur s’il est envoyé via GET.',
 		),
 		'change_password' => 'Changer le mot de passe',
 		'confirm_new_password' => 'Confirmer le mot de passe',
@@ -149,14 +194,16 @@ return array(
 	),
 	'query' => array(
 		'_' => 'Filtres utilisateurs',
+		'create' => 'Créer un nouveau filtre utilisateur',
 		'deprecated' => 'Ce filtre n’est plus valide. La catégorie ou le flux concerné a été supprimé.',
 		'description' => 'Description',	// IGNORE
 		'filter' => array(
 			'_' => 'Filtres appliqués :',
 			'categories' => 'Afficher par catégorie',
 			'feeds' => 'Afficher par flux',
+			'include_article_tags_label' => 'Inclure les tags des articles provenant des flux',
+			'include_user_labels_label' => 'Inclure les étiquettes utilisateur, avec le préfixe :',
 			'order' => 'Tri par date',
-			'publish_labels_instead_of_tags' => 'Remplacer les <i>tags des flux</i> par les <i>étiquettes d’utilisateur</i> dans le RSS partagé',
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Active le partage par OPML des catégories et flux correspondants',
 			'shareRss' => 'Active le partage par HTML &amp; RSS',
@@ -168,7 +215,7 @@ return array(
 		'get_Z' => 'Tous les flux, y compris les archivés',
 		'get_all' => 'Afficher tous les articles',
 		'get_all_labels' => 'Afficher les articles avec une étiquette',
-		'get_category' => 'Afficher la catégorie <em>%s<em>',
+		'get_category' => 'Afficher la catégorie <em>%s</em>',
 		'get_favorite' => 'Afficher les articles favoris',
 		'get_feed' => 'Afficher le flux <em>%s</em>',
 		'get_important' => 'Afficher les articles des flux importants',
@@ -197,22 +244,15 @@ return array(
 			'opml' => 'Lien partageable de la liste des flux au format OPML',
 			'rss' => 'Lien partageable du flux RSS',
 		),
-		'state_0' => 'Afficher tous les articles',
-		'state_1' => 'Afficher les articles lus',
-		'state_2' => 'Afficher les articles non lus',
-		'state_3' => 'Afficher tous les articles',
-		'state_4' => 'Afficher les articles favoris',
-		'state_5' => 'Afficher les articles lus et favoris',
-		'state_6' => 'Afficher les articles non lus et favoris',
-		'state_7' => 'Afficher les articles favoris',
-		'state_8' => 'Afficher les articles non favoris',
-		'state_9' => 'Afficher les articles lus et non favoris',
-		'state_10' => 'Afficher les articles non lus et non favoris',
-		'state_11' => 'Afficher les articles non favoris',
-		'state_12' => 'Afficher tous les articles',
-		'state_13' => 'Afficher les articles lus',
-		'state_14' => 'Afficher les articles non lus',
-		'state_15' => 'Afficher tous les articles',
+		'state_all' => 'Afficher tous les articles',
+		'state_favorite' => 'Afficher les articles favoris',
+		'state_not_favorite' => 'Afficher les articles non favoris',
+		'state_read' => 'Afficher les articles lus',
+		'state_read_favorite' => 'Afficher les articles lus favoris',
+		'state_read_not_favorite' => 'Afficher les articles lus non favoris',
+		'state_unread' => 'Afficher les articles non lus',
+		'state_unread_favorite' => 'Afficher les articles non lus favoris',
+		'state_unread_not_favorite' => 'Afficher les articles non lus non favoris',
 		'title' => 'Filtres utilisateurs',
 	),
 	'reading' => array(
@@ -220,37 +260,6 @@ return array(
 		'after_onread' => 'Après « Marquer tout comme lu »,',
 		'always_show_favorites' => 'Afficher par défaut tous les articles dans les favoris',
 		'apply_to_individual_feed' => 'S’applique aux flux individuellement',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Auteurs et date',
-				'both' => 'En en-tête et en pied d’article',
-				'footer' => 'En pied d’article',
-				'header' => 'En en-tête',
-				'none' => 'Caché',
-			),
-			'feed_name' => array(
-				'above_title' => 'Au-dessus du titre',
-				'none' => 'Caché',
-				'with_authors' => 'Sur la ligne « Auteurs et date »',
-			),
-			'feed_title' => 'Titre du flux',
-			'icons' => array(
-				'_' => 'Position des icônes d’article<br /><small>(Vue lecture seulement)</small>',
-				'above_title' => 'Au dessus du titre',
-				'with_authors' => 'Sur la ligne auteur et date',
-			),
-			'tags' => array(
-				'_' => 'Tags',	// IGNORE
-				'both' => 'En en-tête et en pied d’article',
-				'footer' => 'En pied d’article',
-				'header' => 'En en-tête',
-				'none' => 'Caché',
-			),
-			'tags_max' => array(
-				'_' => 'Nombre maximum de tags affichés',
-				'help' => '0 pour afficher tous les tags sans menu déroulant',
-			),
-		),
 		'articles_per_page' => 'Nombre d’articles par page',
 		'auto_load_more' => 'Charger les articles suivants en bas de page',
 		'auto_remove_article' => 'Cacher les articles après lecture',
@@ -259,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Catégories à déplier',
 		'headline' => array(
 			'articles' => 'Articles : ouverture/fermeture',
-			'articles_header_footer' => 'Articles : en-tête / pied d’article',
 			'categories' => 'Navigation de gauche : catégories',
 			'mark_as_read' => 'Marquer les articles comme lus',
 			'misc' => 'Divers',
@@ -279,6 +287,7 @@ return array(
 			'upon_gone' => 'lorsqu’il n’est plus dans le flux d’actualités en amont',
 			'upon_reception' => 'dès la réception du nouvel article',
 			'when' => 'Marquer un article comme lu…',
+			'when_same_guid_in_category' => 'si un même GUID existe déjà dans les <i>n</i> articles plus récents de la catégorie',
 			'when_same_title_in_category' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents de la catégorie',
 			'when_same_title_in_feed' => 'si un même titre existe déjà dans les <i>n</i> articles plus récents du flux',
 		),
@@ -299,6 +308,8 @@ return array(
 			'when' => 'Marquer un article comme favori…',
 		),
 		'sticky_post' => 'Aligner l’article en haut quand il est ouvert',
+		'sticky_sort' => 'Conserver l’ordre de tri manuel lors de la navigation',
+		'sticky_sort_help' => 'Détermine si le dernier ordre de tri manuel est conservé ou si chaque catégorie ou flux utilise toujours son propre paramètre par défaut ou global.',
 		'title' => 'Lecture',
 		'view' => array(
 			'default' => 'Vue par défaut',

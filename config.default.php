@@ -9,6 +9,12 @@ return [
 	#	or to `production` to get only the most important messages.
 	'environment' => 'production',
 
+	# Minimum severity of the messages written to `./data/users/*/log.txt`, overriding the
+	#	verbosity implied by `environment` above. One of `error`, `warning`, `notice`, `info`, `debug`,
+	#	from the least to the most verbose. Leave empty (`''`) to keep the default behaviour:
+	#	`warning` (i.e. only errors and warnings) when `environment` is `production`, `debug` otherwise.
+	'log_level' => '',
+
 	# Used to make crypto more unique. Generated during install.
 	'salt' => '',
 
@@ -142,10 +148,14 @@ return [
 
 		# Max amount of bytes that are allowed for upload of custom favicon
 		'max_favicon_upload_size' => 1048576,	# 1 MiB
+
+		# Limits for regex, useful to limit regex during user searches
+		'regex_backtrack_limit' => 10000,
+		'regex_recursion_limit' => 100,
 	],
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
-	# https://php.net/manual/function.curl-setopt
+	# https://www.php.net/function.curl-setopt
 	'curl_options' => [
 		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
 		//CURLOPT_SSL_VERIFYHOST => 0,
@@ -183,7 +193,7 @@ return [
 		# https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS
 		'connection_uri_params' => '',
 
-		# Additional PDO parameters, such as offered by MySQL https://php.net/ref.pdo-mysql
+		# Additional PDO parameters, such as offered by MySQL https://www.php.net/ref.pdo-mysql
 		'pdo_options' => [
 			//Pdo\Mysql::ATTR_SSL_KEY	=> '/path/to/client-key.pem',
 			//Pdo\Mysql::ATTR_SSL_CERT	=> '/path/to/client-cert.pem',
@@ -207,7 +217,18 @@ return [
 		'username' => '',
 		'password' => '',
 		'secure' => '', // '', 'ssl' or 'tls'
+		'auto_tls' => true, // maps to PHPMailer’s `SMTPAutoTLS`; set to false to disable opportunistic STARTTLS, e.g. when using a self-signed certificate
 		'from' => 'root@localhost',
+	],
+
+	# Automatic SQLite export of each user’s database, triggered by `./cli/export-sqlite-auto.php`.
+	# Intended to be scheduled by an admin (e.g. via cron) for periodic on-server backups
+	# distinct from the manual `./cli/db-backup.php` / `./cli/db-restore.php` migration workflow.
+	'auto_sqlite_export' => [
+		# Enable the automatic export. When false, `./cli/export-sqlite-auto.php` exits without writing.
+		'enabled' => false,
+		# Number of past exports to retain per user. Older files are pruned after a successful export.
+		'retention' => 7,
 	],
 
 	# List of enabled FreshRSS extensions.
@@ -228,5 +249,20 @@ return [
 	'trusted_sources' => [
 		'127.0.0.0/8',
 		'::1/128',
-	]
+	],
+
+	# Requests to internal hosts such as 127.0.0.1 are blocked by default
+	# Blocked ranges include:
+	# - 10.0.0.0/8
+	# - 172.16.0.0/12
+	# - 192.168.0.0/16
+	#
+	# Here you can add overrides for particular IP/domain:port combinations
+	# Examples: 127.0.0.1:8080, rss-bridge:80, etc.
+	#
+	# CIDR is permitted too
+	# Examples: 0.0.0.0/0, ::/0 (to allow any IPv4 or any IPv6)
+	#
+	# Setting * disables this check completely, allowing any host to be accessed (unsafe)
+	'internal_host_allowlist' => [],
 ];

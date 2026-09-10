@@ -85,14 +85,14 @@ return array(
 		'rss_view' => 'RSS-feed',
 		'search_short' => 'Zoeken',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'Oplopend',
 			'c' => array(
 				'name_asc' => 'Categorie, feedtitels A→Z',
 				'name_desc' => 'Categorie, feedtitels Z→A',
 			),
 			'date_asc' => 'Publicatiedatum 1→9',
 			'date_desc' => 'Publicatiedatum 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => 'Aflopend',
 			'f' => array(
 				'name_asc' => 'Feedtitel A→Z',
 				'name_desc' => 'Feedtitel Z→A',
@@ -104,13 +104,13 @@ return array(
 			'link_asc' => 'Link A→Z',	// IGNORE
 			'link_desc' => 'Link Z→A',	// IGNORE
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => 'Sorteercriterium',
+				'help' => 'Sorteren op <em>ontvangstdatum</em> wordt in de meeste gevallen aanbevolen voor consistentie en prestaties',
 			),
 			'rand' => 'Willekeurige volgorde',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => 'Secundair sorteercriterium',
+				'help' => 'Alleen relevant wanneer het primaire sorteercriterium categorie- of feedtitels is',
 			),
 			'title_asc' => 'Titel A→Z',
 			'title_desc' => 'Titel Z→A',

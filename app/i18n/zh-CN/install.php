@@ -63,6 +63,10 @@ return array(
 			'ok' => 'All database tables exist.',	// TODO
 		),
 		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => '找不到用于浏览 DOM 的库（php-xml 包）',
 			'ok' => '已找到用于浏览 DOM 的库',
@@ -76,6 +80,10 @@ return array(
 			'ok' => '已找到 fileinfo 库',
 		),
 		'files' => '文件相关',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => '无法找到推荐用于国际化支持的 php-intl 扩展。',
 			'ok' => '已找到推荐用于国际化支持的 php-intl 扩展。',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => '恭喜！',
 	'default_user' => array(
 		'_' => '默认用户名',
-		'max_char' => '最多 16 个数字或字母',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => '请在继续下一步前修复错误',
 	'javascript_is_better' => '启用 JavaScript 会使 FreshRSS 工作得更好',

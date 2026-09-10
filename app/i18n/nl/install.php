@@ -51,18 +51,22 @@ return array(
 			'ok' => 'Permissies van de data map zijn goed.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Fout bij databaseverbinding.',
+			'ok' => 'Databaseverbinding is in orde.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Databanktabel "%s" is onvolledig.',
+			'ok' => 'Databanktabel "%s" is in orde.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Sommige databanktabelen ontbreken.',
+			'ok' => 'Alle databanktabelen bestaan.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Databank',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM.',
 			'ok' => 'U hebt de benodigde bibliotheek om te bladeren in de DOM.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'U hebt de fileinfo uitbreiding.',
 		),
 		'files' => 'Bestanden installatie',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'De aanbevolen bibliotheek php-intl voor internationalisering kan niet worden gevonden.',
 			'ok' => 'U beschikt over de aanbevolen bibliotheek php-intl voor internationalisering.',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Gefeliciteerd!',
 	'default_user' => array(
 		'_' => 'Gebruikersnaam van de standaardgebruiker',
-		'max_char' => 'maximaal 16 alfanumerieke tekens',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',

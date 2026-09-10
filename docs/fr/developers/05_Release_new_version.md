@@ -2,7 +2,7 @@
 
 Afin d’avoir le plus de retour possible avant une sortie, il est préférable
 de l’annoncer sur GitHub en créant un ticket dédié ([voir les
-exemples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)).
+exemples](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS%20Call%20for%20testing&type=Issues)).
 Ceci est à faire **au moins une semaine à l’avance**.
 
 Il est aussi recommandé de faire l’annonce sur <mailing@freshrss.org>.
@@ -84,11 +84,11 @@ Voici un exemple de fichier `versions.php` :
 ```php
 <?php
 return [
-	// STABLE
+	// Versioned releases
 	'0.8.0' => '1.0.0',
 	'0.8.1' => '1.0.0',
 	'1.0.0' => '1.0.1',  // doesn’t exist (yet)
-	// DEV
+	// Rolling releases
 	'1.1.2-dev' => 'dev',
 	'1.1.3-dev' => 'dev',
 	'1.1.4-dev' => 'dev',
@@ -99,7 +99,7 @@ Et voici comment fonctionne cette table :
 
 * à gauche se trouve la version N, à droite la version N+1 ;
 * les versions `x.y.z-dev` sont **toutes** mises à jour vers `edge` ;
-* les versions stables sont mises à jour vers des versions stables ;
+* les publications versionnées sont mises à jour vers des publications versionnées ;
 * il est possible de sauter plusieurs versions d’un coup à condition que les
 	scripts de mise à jour le prennent en charge ;
 * il est conseillé d’indiquer la correspondance de la version courante vers
@@ -107,8 +107,8 @@ Et voici comment fonctionne cette table :
 	encore. Tant que le script correspondant n’existera pas, rien ne se
 	passera.
 
-Il est **très fortement** indiqué de garder ce fichier rangé selon les
-numéros de versions en séparant les versions stables et de dev.
+Il est fortement indiqué de garder ce fichier rangé selon les
+numéros de versions en séparant les publications versionnées et celles de dev.
 
 ## Déploiement
 
@@ -135,13 +135,9 @@ Lorsque tout fonctionne, il est temps d’annoncer la sortie au monde entier !
 
 * sur GitHub en créant [une nouvelle
 	release](https://github.com/FreshRSS/FreshRSS/releases/new) ;
-* sur le blog de freshrss.org au minimum pour les versions stables (écrire
-	l’article sur
-	[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org)).
-* sur Twitter (compte [@FreshRSS](https://twitter.com/FreshRSS)) ;
-* et sur <mailing@freshrss.org> ;
+* sur <https://framapiaf.org/@freshrss> ;
 
-## Lancer la prochaine version de développement
+## Lancer la prochaine version
 
 ```console
 $ git checkout edge

@@ -310,7 +310,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			$aPosition = $a->attributeInt('position');
 			$bPosition = $b->attributeInt('position');
 			if ($aPosition === $bPosition) {
-				return strnatcasecmp($a->name(), $b->name());
+				return FreshRSS_Context::localeCompare($a->name(), $b->name());
 			} elseif (null === $aPosition) {
 				return 1;
 			} elseif (null === $bPosition) {
@@ -465,10 +465,24 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		return $res;
 	}
 
+	/** @return list<string> */
+	public function listGuids(int $id, int $limit = 0): array {
+		$sql = <<<'SQL'
+			SELECT e.guid FROM `_entry` e
+			INNER JOIN `_feed` f ON e.id_feed=f.id
+			WHERE f.category=:id_category
+			ORDER BY e.id DESC
+			SQL;
+		$sql .= ($limit < 1 ? '' : ' LIMIT ' . intval($limit));
+		$res = $this->fetchColumn($sql, 0, [':id_category' => $id]) ?? [];
+		/** @var list<string> $res */
+		return $res;
+	}
+
 	/**
 	 * @param array<array{c_name:string,c_id:int,c_kind:int,c_last_update:int,c_error:int|bool,c_attributes?:string,
 	 * 	id?:int,name?:string,url?:string,kind?:int,website?:string,priority?:int,
-	 * 	error?:int|bool,attributes?:string,cache_nbEntries?:int,cache_nbUnreads?:int,ttl?:int}> $listDAO
+	 * 	error?:int,attributes?:string,cache_nbEntries?:int,cache_nbUnreads?:int,ttl?:int}> $listDAO
 	 * @return array<int,FreshRSS_Category> where the key is the category ID
 	 */
 	private static function daoToCategoriesPrepopulated(array $listDAO): array {
@@ -485,6 +499,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 					$feedDao::daoToFeeds($feedsDao, $previousLine['c_id'])
 				);
 				$cat->_kind($previousLine['c_kind']);
+				$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
+				$cat->_error($previousLine['c_error'] ?? 0);
 				$cat->_attributes($previousLine['c_attributes'] ?? '[]');
 				$list[$cat->id()] = $cat;
 

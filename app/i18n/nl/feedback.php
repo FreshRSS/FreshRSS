@@ -58,11 +58,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server. Exporteer a.u.b. uw bestanden één voor één.',
-		'feeds_imported' => 'Uw feeds zijn geimporteerd en worden nu vernieuwd / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Uw feeds zijn geimporteerd maar er zijn enige fouten opgetreden / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'Uw feeds zijn geïmporteerd. Als u klaar bent met importeren, kunt u nu op de knop <i>Feeds vernieuwen</i> klikken.',
+		'feeds_imported_with_errors' => 'Uw feeds zijn geïmporteerd, maar er zijn enkele fouten opgetreden. Als u klaar bent met importeren, kunt u nu op de knop <i>Feeds vernieuwen</i> klikken.',
 		'file_cannot_be_uploaded' => 'Bestand kan niet worden verzonden!',
 		'no_zip_extension' => 'ZIP uitbreiding is niet aanwezig op uw server.',
-		'zip_error' => 'Er is een fout opgetreden tijdens het imporeren van het ZIP bestand.',	// DIRTY
+		'zip_error' => 'Er is een fout opgetreden tijdens het verwerken van het ZIP-bestand.',
 	),
 	'profile' => array(
 		'error' => 'Uw profiel kan niet worden aangepast',

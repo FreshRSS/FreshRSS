@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Tampilan',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Penulis dan tanggal',
+				'both' => 'Di baris atas dan bawah',
+				'footer' => 'Di baris bawah',
+				'header' => 'Di baris atas',
+				'none' => 'Tidak ditampilkan',
+			),
+			'feed_name' => array(
+				'above_title' => 'Di atas judul/lebel',
+				'none' => 'Tidak ditampilkan',
+				'with_authors' => 'Di baris penulis dan tanggal',
+			),
+			'feed_title' => 'Judul umpan',
+			'icons' => array(
+				'_' => 'Posisi ikon artikel <br /><small>(Tampilan membaca saja)</small>',
+				'above_title' => 'Di atas judul',
+				'with_authors' => 'Di baris penulis dan tanggal',
+			),
+			'tags' => array(
+				'_' => 'Label',
+				'both' => 'Di baris atas dan bawah',
+				'footer' => 'Di baris bawah',
+				'header' => 'Di baris atas',
+				'none' => 'Tidak ditampilkan',
+			),
+			'tags_max' => array(
+				'_' => 'Maksimum label yang ditampilkan',
+				'help' => '0 berarti: tampilkan semua label dan jangan sembunyikan',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Mode gelap otomatis',
 			'auto' => 'Otomatis',
 			'help' => 'Hanya untuk tema yang kompatibel',
 			'no' => 'Tidak',
+		),
+		'display_enclosures' => 'Tampilkan lampiran media',
+		'headline' => array(
+			'articles_header_footer' => 'Artikel: Baris Atas/Bawah',
 		),
 		'icon' => array(
 			'bottom_line' => 'Baris bawah',
@@ -54,7 +89,15 @@ return array(
 			'timeout' => 'Batas waktu pemberitahuan HTML5',
 		),
 		'show_nav_buttons' => 'Tampilkan tombol navigasi',
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'show_title_unread' => 'Tampilkan jumlah artikel yang belum dibaca di judul',
+		'show_unread_count' => array(
+			'_' => 'Tampilkan jumlah belum dibaca di bilah sisi',
+			'all' => 'Untuk semua kategori dan umpan',
+			'important' => 'Hanya untuk umpan penting',
+			'important_locked' => 'Umpan penting selalu menampilkan jumlah belum dibacanya.',
+			'none' => 'Tidak pernah',
+		),
+		'sidebar_hidden_by_default' => 'Sembunyikan bilah sisi secara bawaan',
 		'theme' => array(
 			'_' => 'Tema',
 			'deprecated' => array(
@@ -107,21 +150,22 @@ return array(
 		'small' => 'Kecil',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => 'Aktifkan notifikasi',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => 'Tampilkan spanduk peringatan',
+			'seconds' => 'detik (minimal 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => 'Tampilkan spanduk konfirmasi',
+			'seconds' => 'detik (0 berarti tidak ditampilkan)',
 		),
 	),
 	'privacy' => array(
 		'_' => 'Privasi',
 		'retrieve_extension_list' => 'Ambil daftar ekstensi',
+		'send_referrer_allowlist' => 'Situs yang diizinkan melihat alamat server Anda (%s)',
 	),
 	'profile' => array(
 		'_' => 'Pengelolaan Profil',
@@ -132,31 +176,34 @@ return array(
 			'check_link' => 'Periksa status API melalui: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'Akses API dinonaktifkan.',
 			'documentation_link' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">dokumentasi dan daftar aplikasi yang diketahui</a>',
-			'help' => 'Lihat <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentasi</a>',
+			'help' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>dokumentasi</a>',
+			'security_warning' => 'Gunakan HTTPS. Kata sandi API dikirim dalam teks polos dan dapat muncul di log server jika dikirim melalui GET.',
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'change_password' => 'Ubah kata sandi',
+		'confirm_new_password' => 'Konfirmasi kata sandi baru',
+		'current_password' => 'Kata sandi saat ini<br /><small>(untuk metode masuk formulir Web)</small>',
 		'delete' => array(
 			'_' => 'Hapus akun',
 			'warn' => 'Akun Anda dan semua data terkait akan dihapus.',
 		),
 		'email' => 'Alamat surel',
-		'new_password' => 'New password',	// TODO
+		'new_password' => 'Kata sandi baru',
 		'password_api' => 'Sandi API<br /><small>(contoh: untuk aplikasi ponsel)</small>',
 		'password_format' => 'Minimal 7 karakter',
 		'title' => 'Profil',
 	),
 	'query' => array(
 		'_' => 'Pencarian Pengguna',
+		'create' => 'Buat kueri pengguna baru',
 		'deprecated' => 'Pencarian ini tidak valid lagi. Kategori atau umpan yang dirujuk telah dihapus.',
 		'description' => 'Deskripsi',
 		'filter' => array(
 			'_' => 'Filter yang diterapkan:',
 			'categories' => 'Tampilkan berdasarkan kategori',
 			'feeds' => 'Tampilkan berdasarkan umpan',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Urutkan berdasarkan tanggal',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Ekspresi Pencarian',
 			'shareOpml' => 'Aktifkan berbagi melalui OPML dari kategori dan umpan terkait',
 			'shareRss' => 'Aktifkan berbagi melalui HTML &amp; RSS',
@@ -197,22 +244,15 @@ return array(
 			'opml' => 'Tautan dapat dibagikan ke daftar OPML dari umpan',
 			'rss' => 'Tautan dapat dibagikan ke umpan RSS',
 		),
-		'state_0' => 'Tampilkan semua artikel',
-		'state_1' => 'Tampilkan artikel yang sudah dibaca',
-		'state_2' => 'Tampilkan artikel yang belum dibaca',
-		'state_3' => 'Tampilkan semua artikel',
-		'state_4' => 'Tampilkan artikel favorit',
-		'state_5' => 'Tampilkan artikel favorit yang sudah dibaca',
-		'state_6' => 'Tampilkan artikel favorit yang belum dibaca',
-		'state_7' => 'Tampilkan artikel favorit',
-		'state_8' => 'Tampilkan artikel tidak favorit',
-		'state_9' => 'Tampilkan artikel tidak favorit yang sudah dibaca',
-		'state_10' => 'Tampilkan artikel tidak favorit yang belum dibaca',
-		'state_11' => 'Tampilkan artikel tidak favorit',
-		'state_12' => 'Tampilkan semua artikel',
-		'state_13' => 'Tampilkan artikel yang sudah dibaca',
-		'state_14' => 'Tampilkan artikel yang belum dibaca',
-		'state_15' => 'Tampilkan semua artikel',
+		'state_all' => 'Tampilkan semua artikel',
+		'state_favorite' => 'Tampilkan artikel favorit',
+		'state_not_favorite' => 'Tampilkan artikel tidak favorit',
+		'state_read' => 'Tampilkan artikel yang sudah dibaca',
+		'state_read_favorite' => 'Tampilkan artikel favorit yang sudah dibaca',
+		'state_read_not_favorite' => 'Tampilkan artikel tidak favorit yang sudah dibaca',
+		'state_unread' => 'Tampilkan artikel yang belum dibaca',
+		'state_unread_favorite' => 'Tampilkan artikel favorit yang belum dibaca',
+		'state_unread_not_favorite' => 'Tampilkan artikel tidak favorit yang belum dibaca',
 		'title' => 'Pencarian pengguna',
 	),
 	'reading' => array(
@@ -220,37 +260,6 @@ return array(
 		'after_onread' => 'Setelah “tandai semua sebagai sudah dibaca”',
 		'always_show_favorites' => 'Tampilkan semua artikel favorit secara baku',
 		'apply_to_individual_feed' => 'Berlaku per umpan individu',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Penulis dan tanggal',
-				'both' => 'Di baris atas dan bawah',
-				'footer' => 'Di baris bawah',
-				'header' => 'Di baris atas',
-				'none' => 'Tidak ditampilkan',
-			),
-			'feed_name' => array(
-				'above_title' => 'Di atas judul/lebel',
-				'none' => 'Tidak ditampilkan',
-				'with_authors' => 'Di baris penulis dan tanggal',
-			),
-			'feed_title' => 'Judul umpan',
-			'icons' => array(
-				'_' => 'Posisi ikon artikel <br /><small>(Tampilan membaca saja)</small>',
-				'above_title' => 'Di atas judul',
-				'with_authors' => 'Di baris penulis dan tanggal',
-			),
-			'tags' => array(
-				'_' => 'Label',
-				'both' => 'Di baris atas dan bawah',
-				'footer' => 'Di baris bawah',
-				'header' => 'Di baris atas',
-				'none' => 'Tidak ditampilkan',
-			),
-			'tags_max' => array(
-				'_' => 'Maksimum label yang ditampilkan',
-				'help' => '0 berarti: tampilkan semua label dan jangan sembunyikan',
-			),
-		),
 		'articles_per_page' => 'Jumlah artikel per halaman',
 		'auto_load_more' => 'Muat lebih banyak artikel setelah bagian bawah halaman',
 		'auto_remove_article' => 'Sembunyikan artikel setelah dibaca',
@@ -259,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Kategori yang dibuka',
 		'headline' => array(
 			'articles' => 'Artikel: Buka/Tutup',
-			'articles_header_footer' => 'Artikel: Baris Atas/Bawah',
 			'categories' => 'Navigasi kiri: Kategori',
 			'mark_as_read' => 'Tandai artikel sebagai sudah dibaca',
 			'misc' => 'Lain-lain',
@@ -279,6 +287,7 @@ return array(
 			'upon_gone' => 'saat artikel hilang dari umpan situs aslinya',
 			'upon_reception' => 'saat menerima artikel',
 			'when' => 'Tandai artikel sebagai sudah dibaca…',
+			'when_same_guid_in_category' => 'jika GUID yang identik sudah ada di <i>n</i> artikel terbaru teratas dalam kategori tersebut',
 			'when_same_title_in_category' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dalam kategori',
 			'when_same_title_in_feed' => 'jika judul yang identik sudah ada di <i>n</i> artikel terbaru dari umpan',
 		),
@@ -299,6 +308,8 @@ return array(
 			'when' => 'Tandai artikel sebagai favorit…',
 		),
 		'sticky_post' => 'Sematkan artikel ke bagian atas saat dibuka',
+		'sticky_sort' => 'Pertahankan urutan pengurutan manual saat menavigasi',
+		'sticky_sort_help' => 'Menentukan apakah urutan pengurutan manual terakhir tetap aktif atau setiap kategori atau umpan selalu menggunakan pengaturan bawaan atau globalnya sendiri.',
 		'title' => 'Membaca',
 		'view' => array(
 			'default' => 'Tampilan baku',
@@ -358,7 +369,7 @@ return array(
 		'skip_next_article' => 'Fokus berikutnya tanpa membuka',
 		'skip_previous_article' => 'Fokus sebelumnya tanpa membuka',
 		'title' => 'Pintasan',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => 'Alihkan bilah sisi',
 		'toggle_media' => 'Putar/jeda media',
 		'user_filter' => 'Akses pencarian pengguna',
 		'user_filter_help' => 'Jika hanya ada satu pencarian pengguna, maka itu akan digunakan. Jika tidak, pencarian dapat diakses dengan nomornya',

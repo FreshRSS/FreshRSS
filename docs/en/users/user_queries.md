@@ -5,7 +5,17 @@
 Read about [the filters](./10_filter.md) to learn the different ways to search and filter
 articles in FreshRSS.
 
-## Bookmark the current query
+## Create an user query
+
+### Bookmark the user query
+
+It is possible to create any search query by filling out the form.
+
+![User queries form](../img/users/user.queries.form.empty.png)
+
+Then click submit to save the query
+
+### Bookmark the current query
 
 Once you have a search query with a filter, it can be saved.
 
@@ -49,6 +59,7 @@ Some parameters can be manually added to the URL:
 * `nb`: Number of articles to return. Limited by `max_posts_per_rss` in the user configuration. Can be used in combination with `offset` for pagination.
 * `offset`: Skip a number of articles. Used in particular by the HTML view for pagination.
 * `order`: Show the newest articles at the top with `DESC`, or the oldest articles at the top with `ASC`. By default, will use the sort order defined by the user query.
+* `search`: Filter the user query results based on search filter. See [Filtering articles](./10_filter.md) for more details.
 
 ## Sharing with a master token (deprecated)
 

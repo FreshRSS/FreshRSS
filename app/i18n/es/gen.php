@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nombre de usuario',
-			'format' => '<small>Máximo 16 caracteres alfanuméricos</small>',
+			'format' => '<small>1-39 caracteres: letras, dígitos y <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -140,14 +140,47 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Acerca de FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'hace %d día',
+			1 => 'hace %d días',
+		),
+		'hour' => array(
+			0 => 'hace %d hora',
+			1 => 'hace %d horas',
+		),
+		'justnow' => 'justo ahora',
+		'minute' => array(
+			0 => 'hace %d minuto',
+			1 => 'hace %d minutos',
+		),
+		'month' => array(
+			0 => 'hace %d mes',
+			1 => 'hace %d meses',
+		),
+		'second' => array(
+			0 => 'hace %d segundo',
+			1 => 'hace %d segundos',
+		),
+		'year' => array(
+			0 => 'hace %d año',
+			1 => 'hace %d años',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Vaciar categoría',
 		'confirm_action' => '¿Seguro que quieres hacerlo? No hay marcha atrás…',
 		'confirm_action_feed_cat' => '¿Seguro que quieres hacerlo? Perderás todos los favoritos relacionados y las búsquedas de usuario. ¡Y no hay marcha atrás!',
 		'confirm_exit_slider' => '¿Estás seguro de que quieres descartar los cambios no guardados?',
 		'feedback' => array(
-			'body_new_articles' => 'Hay %%d nuevos artículos para leer en FreshRSS.',
-			'body_unread_articles' => '(No leídos: %%d)',
+			'body_new_articles' => array(
+				0 => 'Hay %d artículo nuevo para leer en FreshRSS.',
+				1 => 'Hay %d artículos nuevos para leer en FreshRSS.',
+			),
+			'body_unread_articles' => array(
+				0 => '(sin leer: %d)',
+				1 => '(sin leer: %d)',
+			),
 			'request_failed' => 'La petición ha fallado. Puede ser debido a problemas de conexión a internet.',
 			'title_new_articles' => 'FreshRSS: ¡nuevos artículos!',
 		),
@@ -157,6 +190,7 @@ return array(
 		'unsafe_csp_header' => 'La cabecera CSP en uso no es segura y FreshRSS puede ser vulnerable a ataques XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Ver documentación</a>',
 	),
 	'lang' => array(
+		'az' => 'Azərbaycanca',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -172,6 +206,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -265,10 +300,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Marcadores de Nextcloud',
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

@@ -1,4 +1,4 @@
-# Installation on Cloud Providers
+# Installation on cloud providers
 
 Some hosting platforms provide documentation to install FreshRSS, or even better, an installation wizard to enjoy your very own instance.
 
@@ -8,7 +8,7 @@ Some hosting platforms provide documentation to install FreshRSS, or even better
 
 You might also use a ready-to-go FreshRSS instance, shared between multiple users.
 
-* [Hostux](https://hostux.network/fr/) (FR)
+* [Hostux](https://hostux.net/fr/) (FR)
 * [Siick](https://services.siick.fr/) (FR)
 * [Zaclys](https://www.zaclys.com/flux/) (FR)
 * [Chère de Prince](https://cheredeprince.net/services/) (FR)

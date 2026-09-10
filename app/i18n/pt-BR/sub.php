@@ -26,9 +26,10 @@ return array(
 		'archiving' => 'Arquivar',
 		'dynamic_opml' => array(
 			'_' => 'OPML Dinâmico',
-			'help' => 'Forneça uma URL para <a href="http://opml.org/" target="_blank">o arquivo OPML </a> para preencher dinamicamente esta categoria com feeds',
+			'help' => 'Forneça uma URL para <a href="https://opml.org/" target="_blank">o arquivo OPML </a> para preencher dinamicamente esta categoria com feeds',
 		),
 		'empty' => 'Categoria vazia',
+		'error' => 'Esta categoria OPML dinâmica encontrou um problema. Verifique se a URL OPML ainda está acessível e se o número máximo de feeds por usuário não foi excedido.',
 		'expand' => 'Expandir categoria',
 		'information' => 'Informações',
 		'open' => 'Abrir categoria',
@@ -82,10 +83,12 @@ return array(
 			'help' => 'Escreva um filtro de pesquisa por linha. Operadores <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">consulte a documentação</a>.',
 			'view_filter' => 'Visualizar filtros em artigos existentes (nova janela)',
 		),
+		'global_hint' => 'Use a <a href="%s">visão global</a> para ver quantos artigos em cada feed correspondem a um estado ou a uma expressão de busca',
 		'http_headers' => 'Cabeçalhos HTTP',
 		'http_headers_help' => 'Os cabeçalhos são separados por uma nova linha, e o nome e o valor de um cabeçalho são separados por dois pontos (ex: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Ícone',
 		'information' => 'Informações',
+		'keep_adding_feed' => 'Em seguida, adicione mais feeds.',
 		'keep_min' => 'Número mínimo de artigos para manter',
 		'kind' => array(
 			'_' => 'Tipo de fonte de alimentação do Feed',
@@ -122,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Formato de data/hora personalizado',
-					'help' => 'Opcional. Um formato suportado por <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> assim como <code>d-m-Y H:i:s</code>',
+					'help' => 'Opcional. Um formato suportado por <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> assim como <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'Data do Item',
-					'help' => 'O resultado será parecido com: <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'O resultado será parecido com: <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => array(
 					'_' => 'Titulo do Item',
-					'help' => 'Utilize especialmente <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
+					'help' => 'Utilize especialmente <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'ID único do item',
@@ -166,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Formato de data/hora customizado',
-					'help' => 'Opcional. Um formato suportado por <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> assim como <code>d-m-Y H:i:s</code>',
+					'help' => 'Opcional. Um formato suportado por <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> assim como <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'data do item',
-					'help' => 'O resultado será analisado por <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
+					'help' => 'O resultado será analisado por <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',
 				),
 				'item_title' => 'título do item',
 				'item_uid' => 'ID único do item',
@@ -185,6 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (padrão)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
+		'last-entry-publication-date' => 'Último artigo publicado <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Último artigo recebido <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Última atualização com erro <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Última atualização bem-sucedida <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => 'Limpar o cache',
 			'clear_cache_help' => 'Limpar o cache em disco deste feed',
