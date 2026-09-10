@@ -34,8 +34,6 @@ return array(
 		'information' => 'Informācija',
 		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
-		'position' => 'Displeja pozīcija',
-		'position_help' => 'Lai pārvaldītu kategoriju šķirošanas secību',
 		'title' => 'Tituls',
 	),
 	'feed' => array(

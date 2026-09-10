@@ -1182,6 +1182,10 @@ li.drag-hover {
 	border-bottom: 2px solid var(--frss-border-color);
 }
 
+.box.drag-hover .box-title {
+	background-color: var(--frss-dragdrop-color-transparent);
+}
+
 .drag-drop {
 	animation-name: droppedKeyframe;
 	animation-duration: 0.7s;
@@ -2345,22 +2349,6 @@ html.slider-active {
 	content: attr(data-unread);
 	position: absolute;
 	top: 0;
-	right: 10px;
-	text-align: center;
-	font-size: 0.75rem;
-	border-radius: 12px;
-	line-height: 1;
-	font-weight: initial;
-}
-
-.box .box-title .configure:not([data-cat-position=""])::after {
-	margin: 0.5rem 0px 0px;
-	padding: 5px 10px;
-	min-width: 20px;
-	display: block;
-	content: attr(data-cat-position);
-	position: absolute;
-	top: 0px;
 	right: 10px;
 	text-align: center;
 	font-size: 0.75rem;

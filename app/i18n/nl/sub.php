@@ -34,8 +34,6 @@ return array(
 		'information' => 'Informatie',
 		'open' => 'Categorie openen',
 		'opml_url' => 'OPML URL',	// IGNORE
-		'position' => 'Weergavepositie',
-		'position_help' => 'Om de categorieweergave-sorteervolgorde te controleren',
 		'title' => 'Titel',
 	),
 	'feed' => array(
