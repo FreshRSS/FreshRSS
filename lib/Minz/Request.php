@@ -283,6 +283,25 @@ class Minz_Request {
 	}
 
 	/**
+	 * Returns `PATH_INFO` with `SCRIPT_NAME` stripped from the beginning of it,
+	 * if it's there on some shared hosting configurations.
+	 */
+	public static function pathInfo(): string {
+		$pathInfo = $_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '';
+		if (!is_string($pathInfo)) {
+			$pathInfo = '';
+		}
+		$scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+		if (!is_string($scriptName)) {
+			$scriptName = '';
+		}
+		if ($pathInfo !== '' && $scriptName !== '' && str_starts_with($pathInfo, $scriptName)) {
+			$pathInfo = substr($pathInfo, strlen($scriptName));
+		}
+		return $pathInfo;
+	}
+
+	/**
 	 * Return true if the request is over HTTPS, false otherwise (HTTP)
 	 */
 	public static function isHttps(): bool {

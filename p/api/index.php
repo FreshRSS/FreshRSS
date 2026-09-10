@@ -12,7 +12,7 @@ $frameAncestors = FreshRSS_Context::systemConf()->attributeString('csp.frame-anc
 header("Content-Security-Policy: default-src 'self'; frame-ancestors $frameAncestors");
 header('X-Content-Type-Options: nosniff');
 
-if (($_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '') !== '') {
+if (Minz_Request::pathInfo() !== '') {
 	// Do not allow trailing slashes
 	header('HTTP/1.1 400 Bad Request');
 	die('Invalid path!');
