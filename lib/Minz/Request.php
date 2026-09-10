@@ -283,20 +283,16 @@ class Minz_Request {
 	}
 
 	/**
-	 * Returns `PATH_INFO` with `SCRIPT_NAME` stripped from the beginning of it,
-	 * if it's there on some shared hosting configurations.
+	 * Returns `PATH_INFO` accounting for a bug when sometimes it may contain `SCRIPT_NAME` value instead of blank
 	 */
 	public static function pathInfo(): string {
-		$pathInfo = $_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '';
+		$pathInfo = $_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? null;
 		if (!is_string($pathInfo)) {
-			$pathInfo = '';
+			return '';
 		}
-		$scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
-		if (!is_string($scriptName)) {
-			$scriptName = '';
-		}
-		if ($pathInfo !== '' && $scriptName !== '' && str_starts_with($pathInfo, $scriptName)) {
-			$pathInfo = substr($pathInfo, strlen($scriptName));
+		$scriptName = $_SERVER['SCRIPT_NAME'] ?? null;
+		if ($scriptName === $pathInfo) {
+			return '';
 		}
 		return $pathInfo;
 	}
