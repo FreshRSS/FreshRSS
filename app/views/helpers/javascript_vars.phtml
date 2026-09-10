@@ -23,7 +23,6 @@ echo json_encode([
 		'auto_load_more' => FreshRSS_Context::userConf()->auto_load_more && FreshRSS_Context::$sort !== 'rand',
 		'auto_actualize_feeds' => Minz_Session::paramBoolean('actualize_feeds'),
 		'nb_parallel_refresh' => max(1, FreshRSS_Context::systemConf()->nb_parallel_refresh),
-		'does_lazyload' => FreshRSS_Context::userConf()->lazyload && !Minz_Request::is('index', 'reader'), // TODO: currently no lazy-loading is being done in reader view
 		'sides_close_article' => !!FreshRSS_Context::userConf()->sides_close_article,
 		'sidebar_hidden_by_default' => !!FreshRSS_Context::userConf()->sidebar_hidden_by_default,
 		'sticky_post' => !!FreshRSS_Context::isStickyPostEnabled(),

@@ -10,7 +10,6 @@ $slider_feed = $this->feed;
 
 call_user_func($this->callbackBeforeEntries, $this);
 
-$lazyload = FreshRSS_Context::userConf()->lazyload;
 $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
 ?>
 <main id="stream" class="reader">
