@@ -233,6 +233,7 @@ final class FreshRSS_Context {
 	 *   - next (default: empty string)
 	 *   - hours (default: 0)
 	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */

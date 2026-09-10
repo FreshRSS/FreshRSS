@@ -51,6 +51,7 @@ class FreshRSS_UserQuery {
 	 * 	publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string,viewMode?:string} $query
 	 * @param array<FreshRSS_Category> $categories
 	 * @param array<FreshRSS_Tag> $labels
+	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 */
 	public function __construct(array $query, array $categories, array $labels) {
 		$this->categories = [];
