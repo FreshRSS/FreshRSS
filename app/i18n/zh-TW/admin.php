@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => '允許匿名閱讀預設使用者的文章 (%s)',
 		'allow_anonymous_refresh' => '允許匿名刷新文章',
 		'api_enabled' => '允許 <abbr>API</abbr> 存取 <small>(行動應用程式與分享使用者查詢需要)</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Web 表單 (傳統方式，需要 JavaScript)',
 		'http' => 'HTTP (進階: 由 Web 伺服器、OIDC、SSO 等管理)',
 		'none' => '無 (危險)',

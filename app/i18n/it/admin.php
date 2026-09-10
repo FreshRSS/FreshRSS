@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Consenti la lettura agli utenti anonimi degli articoli dell utente predefinito (%s)',
 		'allow_anonymous_refresh' => 'Consenti agli utenti anonimi di aggiornare gli articoli',
 		'api_enabled' => 'Consentire l’accesso all’<abbr>API</abbr> <small>(necessario per le app e per la condivisione delle query degli utenti)</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Web form (tradizionale, richiede JavaScript)',
 		'http' => 'HTTP (avanzato: gestito da server Web, OIDC, SSO…)',
 		'none' => 'Nessuno (pericoloso)',

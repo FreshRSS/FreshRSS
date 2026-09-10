@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Leisti anoniminį numatytojo naudotojo straipsnių skaitymą (%s)',
 		'allow_anonymous_refresh' => 'Leisti anoniminį straipsnių atnaujinimą',
 		'api_enabled' => 'Leisti <abbr>API</abbr> prieigą <small>(reikalinga mobiliosioms programoms ir naudotojo užklausų bendrinimui)</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Žiniatinklio forma (tradicinė, reikia JavaScript)',
 		'http' => 'HTTP (pažengusiems: valdo žiniatinklio serveris, OIDC, SSO…)',
 		'none' => 'Joks (pavojinga)',

@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',
+			'help' => 'Theme used on pages shown before login, such as the login page.',
+			'installation_default' => 'Installation default theme',
+		),
 		'form' => 'Web form (traditional, requires JavaScript)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',
 		'none' => 'None (dangerous)',

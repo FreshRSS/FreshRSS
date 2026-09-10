@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Povolit anonymní čtení článků výchozího uživatele (%s)',
 		'allow_anonymous_refresh' => 'Povolit anonymní obnovení článků',
 		'api_enabled' => 'Povolit přístup k <abbr>API</abbr> <small>(vyžadováno pro mobilní aplikace and sharing user queries)</small>',	// DIRTY
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Webový formulář (tradiční, vyžaduje JavaScript)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Žádný (nebezpečné)',

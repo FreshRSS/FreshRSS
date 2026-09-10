@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Névtelen felhasználók olvashatják az alapértelmezett felhasználó cikkeit (%s)',
 		'allow_anonymous_refresh' => 'Névtelen felhasználók frissíthetik a cikkeket',
 		'api_enabled' => ' <abbr>API</abbr> elérés engedélyezése <small>(mobilalkalmazásokhoz és felhasználói lekérdezés megosztásához szükséges )</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Webes űrlap (hagyományos, JavaScript szükséges hozzá)',
 		'http' => 'HTTP (haladó: Web szerver kezeli, OIDC, SSO…)',
 		'none' => 'nincs (veszélyes)',
