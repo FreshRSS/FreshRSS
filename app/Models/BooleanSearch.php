@@ -33,7 +33,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		$this->raw_input = $input;
 
 		if ($level === 0) {
-			if (strlen($input) > MAX_SEARCH_LENGTH) {
+			if (strlen($input) > FreshRSS_Context::systemConf()->limits['max_search_length']) {
 				throw new Minz_BadRequestException('Search is too long!');
 			}
 			$input = self::escapeLiterals($input);
@@ -228,7 +228,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 */
 	public static function consistentOrParentheses(string $input): string {
-		if (strlen($input) > MAX_SEARCH_LENGTH) {
+		if (strlen($input) > FreshRSS_Context::systemConf()->limits['max_search_length']) {
 			throw new Minz_BadRequestException('Search is too long!');
 		}
 		if (!preg_match('/(?<!\\\\)\\(/', $input)) {
@@ -256,7 +256,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 						}
 						$c = '';
 					}
-					if ($parenthesesCount >= MAX_SEARCH_PARENTHESES_DEPTH) {	// @phpstan-ignore greaterOrEqual.alwaysFalse
+					if ($parenthesesCount >= FreshRSS_Context::systemConf()->limits['max_search_parentheses_depth']) {
 						throw new Minz_BadRequestException('Search has too deeply nested parentheses!');
 					}
 					$parenthesesCount++;

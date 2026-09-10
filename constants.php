@@ -59,10 +59,6 @@ defined('MAX_LOG_SIZE') or define('MAX_LOG_SIZE', 1048576);
 // Amount of characters of text shown if feed has no title
 defined('MAX_CHARS_EMPTY_FEED_TITLE') or define('MAX_CHARS_EMPTY_FEED_TITLE', 75);
 
-// Limits for searches
-defined('MAX_SEARCH_LENGTH') or define('MAX_SEARCH_LENGTH', 16384);
-defined('MAX_SEARCH_PARENTHESES_DEPTH') or define('MAX_SEARCH_PARENTHESES_DEPTH', 32);
-
 //This directory must be writable
 $dataPath = getenv('DATA_PATH');
 if (is_string($dataPath) && $dataPath !== '') {

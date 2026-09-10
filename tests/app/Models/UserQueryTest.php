@@ -8,6 +8,13 @@ use PHPUnit\Framework\TestCase;
  */
 class UserQueryTest extends TestCase {
 
+	public function __construct(string $name) {
+		parent::__construct($name);
+		if (!FreshRSS_Context::hasSystemConf()) {
+			FreshRSS_Context::initSystem();
+		}
+	}
+
 	public static function test__construct_whenAllQuery_storesAllParameters(): void {
 		$query = ['get' => 'a'];
 		$user_query = new FreshRSS_UserQuery($query, [], []);
