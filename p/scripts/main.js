@@ -323,6 +323,9 @@ function send_mark_queue_tick(callback) {
 const delayedFunction = send_mark_queue_tick;
 
 function delayedClick(a) {
+	if (!a) {
+		return;
+	}
 	delayedFunction(function () { a.click(); });
 }
 
@@ -562,13 +565,13 @@ function prev_entry(skipping) {
 	if (new_active) {
 		do new_active = new_active.previousElementSibling;
 		while (new_active && !new_active.classList.contains('flux'));
-		if (!new_active) {
+		if (!new_active && document.getElementById('aside_feed')) {
 			prev_feed();
 		}
 	} else {
 		new_active = document.querySelector('.flux');
 	}
-	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+	if (new_active && context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
 		mark_read(new_active, true, true);
 	}
 	toggleContent(new_active, old_active, skipping);
@@ -580,13 +583,13 @@ function next_entry(skipping) {
 	if (new_active) {
 		do new_active = new_active.nextElementSibling;
 		while (new_active && !new_active.classList.contains('flux'));
-		if (!new_active) {
+		if (!new_active && document.getElementById('aside_feed')) {
 			next_feed();
 		}
 	} else {
 		new_active = document.querySelector('.flux');
 	}
-	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+	if (new_active && context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
 		mark_read(new_active, true, true);
 	}
 	toggleContent(new_active, old_active, skipping);
@@ -598,13 +601,13 @@ function next_unread_entry(skipping) {
 	if (new_active) {
 		do new_active = new_active.nextElementSibling;
 		while (new_active && !new_active.classList.contains('not_read'));
-		if (!new_active) {
+		if (!new_active && document.getElementById('aside_feed')) {
 			next_feed(true);
 		}
 	} else {
 		new_active = document.querySelector('.not_read');
 	}
-	if (context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
+	if (new_active && context.auto_mark_focus && !new_active.classList.contains('keep_unread')) {
 		mark_read(new_active, true, true);
 	}
 	toggleContent(new_active, old_active, skipping);
@@ -793,6 +796,9 @@ function toggle_media() {
 
 function user_filter(key) {
 	const filter = document.getElementById('dropdown-query');
+	if (!filter) {
+		return;
+	}
 	const filters = filter.parentElement.querySelectorAll('.dropdown-menu > .query > a');
 	if (typeof key === 'undefined') {
 		if (!filters.length) {
@@ -894,7 +900,7 @@ async function mylabels(key) {
 	key = parseInt(key);
 
 	if (key === 0) {
-		mylabelsDropdown.parentElement.querySelector('.dropdown-menu .item .newTag').focus();
+		mylabelsDropdown.parentElement.querySelector('.dropdown-menu .item .newTag')?.focus();
 	} else {
 		const mylabelsCheckboxes = mylabelsDropdown.parentElement.querySelectorAll('.dropdown-menu .item .checkboxTag');
 
@@ -1333,7 +1339,7 @@ function init_shortcuts() {
 			} else {
 				const old_active = document.querySelector('.flux.current');
 				const first = document.querySelector('.flux');
-				if (first.classList.contains('flux')) {
+				if (first) {
 					toggleContent(first, old_active, false);
 				}
 			}
@@ -1348,7 +1354,7 @@ function init_shortcuts() {
 			} else {
 				const old_active = document.querySelector('.flux.current');
 				const last = document.querySelector('.flux:last-of-type');
-				if (last.classList.contains('flux')) {
+				if (last) {
 					toggleContent(last, old_active, false);
 				}
 			}
@@ -1752,7 +1758,8 @@ async function loadDynamicTags(div) {
 
 	let json;
 	try {
-		const response = await fetch('./?c=tag&a=getTagsForEntry&id_entry=' + entryId, {
+		// `context.urls.labels` ends with `id_entry=` and is set only for shared (anonymous) user queries
+		const response = await fetch((context.urls.labels || './?c=tag&a=getTagsForEntry&id_entry=') + entryId, {
 			headers: {
 				'Accept': 'application/json',
 			}
@@ -2448,7 +2455,7 @@ function init_normal() {
 		});
 	}
 	const nav_menu = document.querySelector('nav.nav_menu');
-	if (nav_menu) {
+	if (nav_menu && sidebar) {
 		nav_menu.addEventListener('click', (e) => {
 			const target = e.target.closest('a.btn:not(#actualize):not(.dropdown-toggle), button[type="submit"]');
 			if (target) {
@@ -2457,7 +2464,7 @@ function init_normal() {
 		});
 	}
 	const new_article = document.querySelector('div#new-article');
-	if (new_article) {
+	if (new_article && sidebar) {
 		new_article.addEventListener('click', () => {
 			sessionStorage.setItem('FreshRSS_sidebar_scrollTop', sidebar.scrollTop);
 		});

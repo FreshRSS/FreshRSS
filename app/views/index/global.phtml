@@ -14,27 +14,12 @@
 	}
 ?>
 
-<datalist id="datalist-labels"></datalist>
-
 <template id="share_article_template">
 	<?php $this->renderHelper('index/normal/entry_share_menu'); ?>
 	<a class="dropdown-close" href="#close">❌</a>
 </template>
 
-<template id="labels_article_template">
-	<div class="dropdown-menu">
-		<ul class="dropdown-menu-scrollable scrollbar-thin">
-			<li class="dropdown-header">
-				<?= _t('index.menu.mylabels') ?>
-				<?php if (FreshRSS_Auth::hasAccess()) { ?>
-					<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
-				<?php } ?>
-			</li>
-			<!-- Ajax -->
-		</ul>
-	</div>
-	<a class="dropdown-close" href="#close">❌</a>
-</template>
+<?php $this->renderHelper('index/labelsTemplates'); ?>
 
 <main id="stream" class="global<?= $class ?>">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.global') ?></h1>
