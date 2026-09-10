@@ -36,14 +36,14 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
   --name freshrss \
-  freshrss/freshrss
+  freshrss/freshrss:edge
 ```
 
 * Exposing on port 8080
 * With a [server timezone](https://www.php.net/timezones) (default is `UTC`)
 * With an automatic cron job to refresh feeds
 * Saving FreshRSS data in a Docker volume `freshrss_data` and optional extensions in `freshrss_extensions`
-* Using the default image, which is the latest stable release
+* Using the rolling release channel
 
 ### Complete installation
 
@@ -72,10 +72,10 @@ docker exec --user www-data freshrss cli/create-user.php --user freshrss --passw
 
 The [tags](https://hub.docker.com/r/freshrss/freshrss/tags) correspond to FreshRSS branches and versions:
 
-* `:latest` (default) is the [latest stable release](https://github.com/FreshRSS/FreshRSS/releases/latest)
+* `:latest` (default) is the [latest versioned release](https://github.com/FreshRSS/FreshRSS/releases/latest)
 * `:edge` is the rolling release, same than our [git `edge` branch](https://github.com/FreshRSS/FreshRSS/tree/edge)
 * `:x.y.z` tags correspond to [specific FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases), allowing you to target a precise version for deployment
-* `:x` tags track the latest release within a major version series. For instance, `:1` will update to include any `1.x` releases, but will exclude versions beyond `2.x`
+* `:x` tags track the latest release within a major version series. For instance, `:1` will update to include any `1.x` releases, but will exclude versions beyond `2.x`. Note that bug fixes and security fixes are not backported.
 * `*-alpine` use Linux Alpine as base-image instead of Debian
 * Our Docker images are designed with multi-architecture support, accommodating a variety of Linux platforms including `linux/arm/v7`, `linux/arm64`, and `linux/amd64`.
   * For other platforms, see the [custom build section](#build-custom-docker-image)
@@ -107,12 +107,12 @@ and with newer packages in general (Apache, PHP).
 
 ```sh
 # Rebuild an image (see build section below) or get a new online version:
-docker pull freshrss/freshrss
+docker pull freshrss/freshrss:edge
 # And then
 docker stop freshrss
 docker rename freshrss freshrss_old
 # See the run section above for the full command
-docker run ... --name freshrss freshrss/freshrss
+docker run ... --name freshrss freshrss/freshrss:edge
 # If everything is working, delete the old container
 docker rm freshrss_old
 ```
@@ -124,10 +124,10 @@ which is currently limited to `x64` (Intel, AMD), `arm32v7`, `arm64`.
 
 > ℹ️ If you try to run an image for the wrong platform, you might get an error message like *exec format error*.
 
-Pick `#latest` (stable release) or `#edge` (rolling release) or a specific release number such as `#1.21.0` like:
+Pick `#edge` (rolling release) or `#latest` (versioned release) or a specific release number such as `#1.21.0` like:
 
 ```sh
-docker build --pull --tag freshrss/freshrss:latest -f Docker/Dockerfile-Alpine https://github.com/FreshRSS/FreshRSS.git#latest
+docker build --pull --tag freshrss/freshrss:custom -f Docker/Dockerfile-Alpine https://github.com/FreshRSS/FreshRSS.git#latest
 ```
 
 > ℹ️ See an automated way to do that in our [Docker Compose](#docker-compose) section, leveraging a [git build context](https://docs.docker.com/build/building/context/#git-repositories).
@@ -244,7 +244,7 @@ docker run ...
   -v /your/.htaccess:/var/www/FreshRSS/p/i/.htaccess \
   -v /your/.htpasswd:/var/www/FreshRSS/data/.htpasswd \
   ...
-  --name freshrss freshrss/freshrss
+  --name freshrss freshrss/freshrss:edge
 ```
 
 Example of `/your/.htaccess` referring to `/your/.htpasswd`:
@@ -315,7 +315,7 @@ services:
     image: freshrss/freshrss:edge
     # Optional build section if you want to build the image locally:
     build:
-      # Pick #latest (stable release) or #edge (rolling release) or a specific release like #1.21.0
+      # Pick #edge (rolling release) or #latest (versioned release) or a specific release like #1.21.0
       context: https://github.com/FreshRSS/FreshRSS.git#edge
       dockerfile: Docker/Dockerfile-Alpine
     container_name: freshrss
@@ -615,7 +615,7 @@ Not passing the `CRON_MIN` environment variable – or setting it to empty strin
 ```sh
 docker run ... \
   -e CRON_MIN=13,43 \
-  --name freshrss freshrss/freshrss
+  --name freshrss freshrss/freshrss:edge
 ```
 
 ### Option 2) Cron on the host machine
@@ -644,7 +644,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
   -e CRON_MIN=17,47 \
   --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss \
+  --name freshrss_cron freshrss/freshrss:edge \
   cron -f
 ```
 
@@ -658,7 +658,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
   -v ./freshrss_crontab:/etc/cron.d/freshrss \
   --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss \
+  --name freshrss_cron freshrss/freshrss:edge \
   cron -f
 ```
 
@@ -670,7 +670,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
   -e CRON_MIN=27,57 \
   --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss:alpine \
+  --name freshrss_cron freshrss/freshrss:edge-alpine \
   crond -f -d 6
 ```
 

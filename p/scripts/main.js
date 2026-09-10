@@ -2196,8 +2196,8 @@ function refreshUnreads() {
 
 		const nb_unreads = title ? str2int(title.getAttribute('data-unread')) : 0;
 
+		faviconNbUnread(nb_unreads);
 		if (nb_unreads > 0 && new_articles) {
-			faviconNbUnread(nb_unreads);
 			notifs_html5_show(json.notifBody);
 		}
 	};
