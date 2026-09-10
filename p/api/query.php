@@ -38,7 +38,7 @@ if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_e
 	die('Service Unavailable!');
 }
 
-if (($_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '') !== '') {
+if (get_path_info() !== '') {
 	// Do not allow trailing slashes
 	header('HTTP/1.1 400 Bad Request');
 	die('Invalid path!');

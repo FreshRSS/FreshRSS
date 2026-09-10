@@ -28,6 +28,25 @@ if (function_exists('openlog')) {
 }
 
 /**
+ * Returns `PATH_INFO` with `SCRIPT_NAME` stripped from the beginning of it,
+ * if it's there on some shared hosting configurations.
+ */
+function get_path_info(): string {
+	$pathInfo = $_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '';
+	if (!is_string($pathInfo)) {
+		$pathInfo = '';
+	}
+	$scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+	if (!is_string($scriptName)) {
+		$scriptName = '';
+	}
+	if ($pathInfo !== '' && $scriptName !== '' && str_starts_with($pathInfo, $scriptName)) {
+		$pathInfo = substr($pathInfo, strlen($scriptName));
+	}
+	return $pathInfo;
+}
+
+/**
  * Build a directory path by concatenating a list of directory names.
  *
  * @param string ...$path_parts a list of directory names
