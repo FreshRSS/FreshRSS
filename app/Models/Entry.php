@@ -1059,7 +1059,8 @@ class FreshRSS_Entry extends Minz_Model {
 
 			return trim($html);
 		} else {
-			throw new Minz_Exception();
+			Minz_Log::warning('Empty response body when fetching article content for ' . $url);
+			return '';
 		}
 	}
 
@@ -1105,7 +1106,10 @@ class FreshRSS_Entry extends Minz_Model {
 					}
 				} catch (Exception $e) {
 					// rien à faire, on garde l’ancien contenu(requête a échoué)
-					Minz_Log::warning($e->getMessage());
+					$message = $e->getMessage();
+					if ($message !== '') {
+						Minz_Log::warning($message);
+					}
 				}
 			}
 		} elseif (trim($feed->attributeString('path_entries_filter') ?? '') !== '') {
