@@ -136,21 +136,36 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="group-name" for="priority"><?= _t('sub.feed.priority') ?></label>
+				<label class="group-name" for="priority"><?= _t('sub.priority') ?></label>
 				<div class="group-controls">
 					<select name="priority" id="priority" class="w50">
+						<?php $priority = $this->feed->priority(follow_category: false) ?>
+						<option value="<?= FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING ?>" <?=
+							FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.use_category_setting') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_IMPORTANT ?>" <?=
-							FreshRSS_Feed::PRIORITY_IMPORTANT === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.important') ?></option>
+							FreshRSS_Feed::PRIORITY_IMPORTANT === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.important') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_MAIN_STREAM ?>" <?=
-							FreshRSS_Feed::PRIORITY_MAIN_STREAM === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.main_stream') ?></option>
+							FreshRSS_Feed::PRIORITY_MAIN_STREAM === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.main_stream') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_CATEGORY ?>" <?=
-							FreshRSS_Feed::PRIORITY_CATEGORY === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.category') ?></option>
+							FreshRSS_Feed::PRIORITY_CATEGORY === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.category') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_FEED ?>" <?=
-							FreshRSS_Feed::PRIORITY_FEED === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.feed') ?></option>
+							FreshRSS_Feed::PRIORITY_FEED === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.feed') ?></option>
 						<option value="<?= FreshRSS_Feed::PRIORITY_HIDDEN ?>" <?=
-							FreshRSS_Feed::PRIORITY_HIDDEN === $this->feed->priority() ? 'selected="selected"' : '' ?>><?= _t('sub.feed.priority.hidden') ?></option>
+							FreshRSS_Feed::PRIORITY_HIDDEN === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.hidden') ?></option>
 					</select>
-					<?= _i('important') ?>
+					<div class="priority-icon">
+						<?php if ($priority === FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING): ?>
+							<span title="<?= _t('sub.priority.use_category_setting.help', _t('sub.priority.' . match ($this->feed->category()?->priority()) {
+								FreshRSS_Category::PRIORITY_IMPORTANT => 'important',
+								FreshRSS_Category::PRIORITY_MAIN_STREAM => 'main_stream',
+								FreshRSS_Category::PRIORITY_CATEGORY => 'category',
+								FreshRSS_Category::PRIORITY_HIDDEN => 'hidden',
+								default => 'main_stream',
+							})) ?>"><?= _i('help2', FreshRSS_Themes::ICON_IMG) ?></span>
+						<?php else: ?>
+							<?= _i('important') ?>
+						<?php endif ?>
+					</div>
 				</div>
 			</div>
 

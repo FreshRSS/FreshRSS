@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d wiadomości',
 		'open_feed' => 'Otwórz kanał %s',
 		'path_entries_conditions' => 'Warunki dla pobrania zawartości',
-		'priority' => array(
-			'_' => 'Widoczność',
-			'category' => 'Pokaż w kategorii kanału',
-			'feed' => 'Pokaż w kanale',
-			'hidden' => 'Nie pokazuj',
-			'important' => 'Pokaż w ważnych kanałach',
-			'main_stream' => 'Pokaż w kanale głównym',
-		),
 		'proxy' => 'Serwer proxy używany podczas pobierania kanału',
 		'proxy_help' => 'Wybierz protokół (np. SOCKS5) i podaj adres serwera proxy (np. <kbd>127.0.0.1:1080</kbd> lub <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Przywróć domyślną',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Zarządzanie subskrypcjami',
 		'subscription_tools' => 'Narzędzia subskrypcji',
+	),
+	'priority' => array(
+		'_' => 'Widoczność',
+		'category' => 'Pokaż w kategorii kanału',
+		'feed' => 'Pokaż w kanale',
+		'hidden' => 'Nie pokazuj',
+		'important' => 'Pokaż w ważnych kanałach',
+		'main_stream' => 'Pokaż w kanale głównym',
+		'use_category_setting' => array(
+			'_' => 'Użyj ustawienia kategorii',
+			'help' => 'Ustawienie kategorii: %s',
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Dodaj tę etykietę do nowych wiadomości',

@@ -56,19 +56,30 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	 * @return array{total:int,count_unreads:int,count_reads:int,count_favorites:int}|false
 	 */
 	public function calculateEntryRepartitionPerFeed(?int $feed = null, bool $only_main = false): array|false {
+		$extra_fields = '';
+		$join = '';
 		$filter = '';
 		if ($only_main) {
-			$filter .= 'AND f.priority = 10';
+			$extra_fields .= <<<'SQL'
+				,
+				CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END AS priority2
+				SQL;
+			$join .= <<<'SQL'
+				INNER JOIN `_category` c ON c.id = f.category
+				SQL;
+			$filter = 'AND priority2 = 10';
 		}
 		if ($feed !== null) {
-			$filter .= "AND e.id_feed = {$feed}";
+			$filter = "AND e.id_feed = {$feed}";
 		}
 		$sql = <<<SQL
 			SELECT COUNT(1) AS total,
 			COUNT(1) - SUM(e.is_read) AS count_unreads,
 			SUM(e.is_read) AS count_reads,
 			SUM(e.is_favorite) AS count_favorites
+			{$extra_fields}
 			FROM `_entry` AS e, `_feed` AS f
+			{$join}
 			WHERE e.id_feed = f.id
 			{$filter}
 			SQL;
@@ -389,10 +400,12 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 		$sql = <<<SQL
 			SELECT
 				{$this->sqlDateToIsoGranularity('e.' . $field, precision: $field === 'id' ? 1000000 : 1, granularity: $granularity)} AS granularity,
-				COUNT(*) AS unread_count
+				COUNT(*) AS unread_count,
+				CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END AS priority2
 			FROM `_entry` e
 			INNER JOIN `_feed` f ON e.id_feed = f.id
-			WHERE e.is_read = 0 AND f.priority >= :min_priority
+			INNER JOIN `_category` c ON c.id = f.category
+			WHERE e.is_read = 0 AND priority2 >= :min_priority
 			GROUP BY granularity
 			ORDER BY unread_count DESC, granularity DESC
 			LIMIT :max
