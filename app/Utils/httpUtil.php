@@ -814,9 +814,9 @@ final class FreshRSS_http_Util {
 
 	/**
 	 * Resolve a trusted-source hostname to its IP addresses (IPv4 and IPv6).
-	 * The result is cached for the lifetime of the PHP process, mirroring how
-	 * Apache mod_remoteip resolves `RemoteIPInternalProxy` hostnames once at
-	 * configuration load time.
+	 * Results are cached within the current PHP execution (one HTTP request
+	 * under Apache or PHP-FPM, or one CLI invocation). This avoids repeated
+	 * lookups within that execution; it does not cache across HTTP requests.
 	 *
 	 * @return list<string> the IPv4 and IPv6 addresses of the host, or an empty list if it could not be resolved
 	 */
@@ -880,7 +880,7 @@ final class FreshRSS_http_Util {
 	 * The connection IP is obtained from the `CONN_REMOTE_ADDR`
 	 * (if available, to be robust even when using Apache mod_remoteip) or `REMOTE_ADDR` environment variables.
 	 * The entries are interpreted like Apache's `RemoteIPInternalProxy`:
-	 * an IP address, an IP/CIDR range, or a hostname (resolved once per process).
+	 * an IP address, an IP/CIDR range, or a hostname (resolved once per PHP execution).
 	 * @return bool true if the sender’s IP is in one of the ranges defined in the configuration, else false
 	 */
 	public static function checkTrustedIP(): bool {
