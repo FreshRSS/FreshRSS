@@ -809,11 +809,78 @@ final class FreshRSS_http_Util {
 		return $ip_net_bits === $subnet_bits;
 	}
 
+	/** @var array<string,list<string>> $trustedHostDnsCache */
+	private static array $trustedHostDnsCache = [];
+
+	/**
+	 * Resolve a trusted-source hostname to its IP addresses (IPv4 and IPv6).
+	 * Results are cached within the current PHP execution (one HTTP request
+	 * under Apache or PHP-FPM, or one CLI invocation). This avoids repeated
+	 * lookups within that execution; it does not cache across HTTP requests.
+	 *
+	 * @return list<string> the IPv4 and IPv6 addresses of the host, or an empty list if it could not be resolved
+	 */
+	private static function resolveTrustedHost(string $host): array {
+		if (!isset(self::$trustedHostDnsCache[$host])) {
+			/** @var list<string> $ips */
+			$ips = [];
+			// gethostbynamel() consults /etc/hosts as well as DNS (IPv4)
+			foreach (gethostbynamel($host) ?: [] as $ip) {
+				if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
+					$ips[] = $ip;
+				}
+			}
+			$aaaaRecords = @dns_get_record($host, DNS_AAAA);
+			if (is_array($aaaaRecords)) {
+				foreach ($aaaaRecords as $record) {
+					$ip = $record['ipv6'] ?? '';
+					if (is_string($ip) && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
+						$ips[] = $ip;
+					}
+				}
+			}
+			self::$trustedHostDnsCache[$host] = array_values(array_unique($ips));
+		}
+		return self::$trustedHostDnsCache[$host];
+	}
+
+	/**
+	 * Check if an IP matches a trusted-source entry, in the format of Apache
+	 * mod_remoteip `RemoteIPInternalProxy`: an IP address, an IP address with a
+	 * CIDR prefix, or a hostname. A bare IP address implies a full-length
+	 * prefix (e.g. 192.168.1.1 for IPv4, 2001:db8::1 for IPv6).
+	 *
+	 * @param string $ip the connection IP to verify (ex: 192.168.16.1)
+	 * @param string $source the trusted-source entry (ex: 192.168.16.0/24 or gateway.localdomain)
+	 * @return bool true if the IP is in the trusted source, otherwise false
+	 */
+	public static function isTrustedSource(string $ip, string $source): bool {
+		$source = trim($source);
+		if ($source === '') {
+			return false;
+		}
+		if (str_contains($source, '/')) {
+			return self::checkCIDR($ip, $source);
+		}
+		if (filter_var($source, FILTER_VALIDATE_IP) !== false) {
+			// Implicit full-length prefix for a bare IP address
+			return self::checkCIDR($ip, $source . (str_contains($source, ':') ? '/128' : '/32'));
+		}
+		foreach (self::resolveTrustedHost($source) as $resolvedIp) {
+			if (self::checkCIDR($ip, $resolvedIp . (str_contains($resolvedIp, ':') ? '/128' : '/32'))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Check if the client (e.g. last proxy) is allowed to send unsafe headers.
 	 * This uses the `TRUSTED_PROXY` environment variable or the `trusted_sources` configuration option to get an array of the authorized ranges,
 	 * The connection IP is obtained from the `CONN_REMOTE_ADDR`
 	 * (if available, to be robust even when using Apache mod_remoteip) or `REMOTE_ADDR` environment variables.
+	 * The entries are interpreted like Apache's `RemoteIPInternalProxy`:
+	 * an IP address, an IP/CIDR range, or a hostname (resolved once per PHP execution).
 	 * @return bool true if the sender’s IP is in one of the ranges defined in the configuration, else false
 	 */
 	public static function checkTrustedIP(): bool {
@@ -831,8 +898,8 @@ final class FreshRSS_http_Util {
 		if (!is_array($trusted) || empty($trusted)) {
 			$trusted = FreshRSS_Context::systemConf()->trusted_sources;
 		}
-		foreach ($trusted as $cidr) {
-			if (self::checkCIDR($remoteIp, $cidr)) {
+		foreach ($trusted as $source) {
+			if (self::isTrustedSource($remoteIp, $source)) {
 				return true;
 			}
 		}

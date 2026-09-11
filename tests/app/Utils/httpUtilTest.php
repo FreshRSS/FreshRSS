@@ -38,4 +38,43 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			['ftp://example.net/feed', 'https://example.net/feed', false],
 		];
 	}
+
+	#[DataProvider('provideTrustedSources')]
+	public function test_isTrustedSource(string $ip, string $source, bool $expected): void {
+		self::assertSame($expected, FreshRSS_http_Util::isTrustedSource($ip, $source));
+	}
+
+	/** @return list<array{string,string,bool}> */
+	public static function provideTrustedSources(): array {
+		return [
+			// Bare IPv4 matches exactly, with an implicit /32 prefix
+			['192.168.1.1', '192.168.1.1', true],
+			['192.168.1.2', '192.168.1.1', false],
+			// Explicit IPv4 CIDR
+			['192.168.1.42', '192.168.1.0/24', true],
+			['192.168.2.42', '192.168.1.0/24', false],
+			['192.168.1.42', '192.168.1.0/32', false],
+			// Bare IPv6 matches exactly, with an implicit /128 prefix
+			['2001:db8::1', '2001:db8::1', true],
+			['2001:db8::2', '2001:db8::1', false],
+			// Explicit IPv6 CIDR
+			['fe80::1234', 'fe80::/10', true],
+			['fec0::1234', 'fe80::/10', false],
+			// IPv4 and IPv6 ranges are not mixed
+			['192.168.1.1', '192.168.1.1/128', false],
+			['2001:db8::1', '2001:db8::1/32', true],
+			['2001:db9::1', '2001:db8::/32', false],
+			// Hostname entries resolve to their addresses (localhost is in /etc/hosts)
+			['127.0.0.1', 'localhost', true],
+			['127.0.0.2', 'localhost', false],
+			// Unresolvable hostname matches nothing
+			['127.0.0.1', 'nonexistent-host.invalid', false],
+			// Invalid entries match nothing
+			['192.168.1.1', '', false],
+			['192.168.1.1', '   ', false],
+			['192.168.1.1', '256.256.256.256', false],
+			['192.168.1.1', '192.168.1.0/33', false],
+			['192.168.1.1', '192.168.1.0/abc', false],
+		];
+	}
 }
