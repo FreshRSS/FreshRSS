@@ -8,14 +8,21 @@ on:
     types: [published]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  packages: write
+# To ensure that if the latest push finishes faster than an earlier run, the previous run won't
+# overwrite it later. (by queueing the runs)
+concurrency:
+  group: docker-publish-${{ github.ref_name }} # e.g. docker-publish-edge, docker-publish-latest, docker-publish-1.29.1
+  cancel-in-progress: false
+
+permissions: {}
 
 jobs:
   build-container-image:
     name: Build Docker image ${{ matrix.name }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # For uploading to the GitHub container registry (ghcr.io)
     strategy:
       matrix:
         include:
@@ -47,6 +54,8 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
 
     - name: Get FreshRSS version
       run: |

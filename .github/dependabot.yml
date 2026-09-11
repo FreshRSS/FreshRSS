@@ -6,10 +6,14 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default-days: 7
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default-days: 7
     groups:
       eslint:
         patterns:
@@ -23,7 +27,11 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default-days: 7
   - package-ecosystem: "composer"
     directory: "/lib/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default-days: 7
