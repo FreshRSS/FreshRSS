@@ -1,0 +1,18 @@
+/*=== Tables */
+table {
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid var(--grey-medium-light);
+}
+
+th {
+	background: var(--grey-lighter);
+}
+
+.config-articleicons td,
+.config-articleicons th {
+	font-weight: normal;
+	text-align: center;
+}

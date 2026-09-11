@@ -1,0 +1,18 @@
+/*=== READER VIEW */
+/*================*/
+#stream.reader {
+	.flux {
+		background: var(--grey-light);
+		color: var(--main-font-color);
+		border: none;
+
+		.flux_content {
+			background-color: var(--white);
+			border: none;
+
+			.author {
+				color: var(--grey-medium-dark);
+			}
+		}
+	}
+}

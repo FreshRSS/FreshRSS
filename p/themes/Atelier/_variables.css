@@ -1,0 +1,222 @@
+/*rtl:begin:ignore*/
+/* Semantic roles. Neutrals resolve through the ramp in _palette.css and never through a literal, so a scheme swap is a one-file change. The accent hues below are deliberately literal: success, warning and destructive keep their meaning across every neutral scheme. Their quiet surfaces do not -- a tint and a border hand-picked against a cool grey read as a foreign body on a warm one -- so those are mixed from the accent and the ramp, and follow whichever neutral the folder ships. Where a role needs a value the ramp does not offer, it is mixed from two adjacent steps rather than hand-picked, so the formula carries over to the other schemes. */
+:root {
+	color-scheme: light;
+
+	/* shadcn/ui semantic color roles. */
+	--background: var(--at-scale-100);
+	--foreground: var(--at-scale-900);
+	--card: var(--at-scale-white);
+	--card-foreground: var(--at-scale-900);
+	--popover: var(--at-scale-white);
+	--popover-foreground: var(--at-scale-900);
+	--primary: var(--at-scale-700);
+	--primary-foreground: var(--at-scale-white);
+	--primary-hover: var(--at-scale-800);
+	--secondary: var(--at-scale-200);
+	--secondary-foreground: var(--at-scale-950);
+	--muted: var(--at-scale-50);
+	/* Step 600, not 500: secondary text has to clear WCAG AA on --background and --muted, not just on the white card. Step 500 reaches only 4.14:1 and 4.44:1 there. */
+	--muted-foreground: var(--at-scale-600);
+	--accent: var(--at-scale-200);
+	--accent-foreground: var(--at-scale-950);
+	--destructive: #c0392b;
+	--destructive-foreground: #fff;
+	/* The tint is the surface of a feed row that failed to refresh, and FreshRSS writes that feed's name on it in --destructive itself, so the two have to hold 4.5:1 against each other. That is what caps the accent share here rather than how tinted it looks: at 8% the pair fell to 4.63:1 on Slate and 4.36:1 on Olive's dark row. */
+	--destructive-muted: color-mix(in srgb, var(--destructive) 5%, var(--at-scale-50));
+	--destructive-border: color-mix(in srgb, var(--destructive) 32%, var(--at-scale-50));
+	--border: var(--at-scale-200);
+	/* The boundary of a control carries information, so it needs 3:1 against the surfaces it sits on (WCAG 1.4.11). The ramp straddles that bar -- step 400 stays under it, step 500 clears it but reads as a hard outline -- so mix the two and land above it. 70%, not the 60% a cool grey alone needs: Olive's step 500 is the lightest of the nine, and at 60% its field boundary lands at 2.99:1. */
+	--input: color-mix(in srgb, var(--at-scale-500) 70%, var(--at-scale-400));
+	--ring: var(--at-scale-500);
+	--radius: 10px;
+
+	/* Additional semantic feedback roles used by FreshRSS. */
+	--warning: #e0c04f;
+	--warning-foreground: #6e5a1b;
+	--warning-muted: color-mix(in srgb, var(--warning) 14%, var(--at-scale-50));
+	--warning-border: color-mix(in srgb, var(--warning) 55%, var(--at-scale-50));
+	/* Information is the one feedback state with no hue of its own, so its surface is the ramp rather than a mix with an accent. */
+	--info-muted: color-mix(in srgb, var(--at-scale-200) 55%, var(--at-scale-50));
+	--info-foreground: var(--at-scale-700);
+	--success: #45a878;
+	--success-foreground: #1f6b45;
+	--success-muted: color-mix(in srgb, var(--success) 10%, var(--at-scale-50));
+	--success-border: color-mix(in srgb, var(--success) 35%, var(--at-scale-50));
+	/* Matches icons/starred.svg exactly. An external SVG cannot inherit currentColor, so the favorite star is a fixed asset and one value has to clear 3:1 on light and dark rows alike (WCAG 1.4.11). */
+	--favorite: #ad7d09;
+	--favorite-muted: color-mix(in srgb, var(--favorite) 12%, var(--at-scale-50));
+
+	/* shadcn/ui sidebar roles. */
+	--sidebar: var(--at-scale-50);
+	--sidebar-foreground: var(--at-scale-700);
+	--sidebar-primary: var(--at-scale-700);
+	--sidebar-primary-foreground: var(--at-scale-white);
+	--sidebar-accent: var(--at-scale-200);
+	--sidebar-accent-foreground: var(--at-scale-950);
+	--sidebar-border: var(--at-scale-200);
+	--sidebar-ring: var(--at-scale-500);
+
+	/* Mapco compatibility aliases. Keep upstream structural modules stable. */
+	--main-first: var(--primary);
+	--main-first-alt: var(--primary-hover);
+	--main-first-light: var(--accent);
+	--main-first-darker: var(--accent-foreground);
+	--main-font-color: var(--foreground);
+	--light-font-color: var(--muted-foreground);
+	--white: var(--card);
+
+	--grey-dark: var(--muted-foreground);
+	--grey-medium-dark: var(--at-scale-400);
+	--grey-medium: var(--input);
+	--grey-medium-light: var(--border);
+	--grey-light: var(--background);
+	--grey-lighter: var(--muted);
+
+	--unread-font-color: var(--accent-foreground);
+	--unread-bg: var(--card);
+	--unread-bg-light: var(--card);
+
+	--alert-bg: var(--destructive);
+	--alert-light: color-mix(in srgb, var(--destructive) 14%, var(--at-scale-50));
+	--alert-text: #7a2e1f;
+	--alert-border: var(--destructive-border);
+	--code-text: #b4442e;
+	--code-bg: color-mix(in srgb, var(--code-text) 8%, var(--at-scale-50));
+
+	--warning-bg: var(--warning);
+	--warning-light: color-mix(in srgb, var(--warning) 22%, var(--at-scale-50));
+	--warning-text: var(--warning-foreground);
+
+	--info-light: var(--info-muted);
+	--info-text: var(--info-foreground);
+
+	--success-bg: var(--success);
+	--success-light: color-mix(in srgb, var(--success) 18%, var(--at-scale-50));
+	--success-text: var(--success-foreground);
+
+	--fav-bg: var(--favorite);
+	--fav-light: var(--favorite-muted);
+
+	--sid-font-color: var(--sidebar-foreground);
+	--sid-bg: var(--sidebar);
+	--sid-bg-alt: var(--background);
+	--sid-bg-dark: var(--sidebar-accent);
+	--sid-sep: var(--sidebar-border);
+	--sid-active: var(--sidebar-accent);
+	--sid-active-font: var(--sidebar-accent-foreground);
+	--sid-pills: color-mix(in srgb, var(--at-scale-900) 8%, transparent);
+
+	/* Three base-theme tokens run the other way and are only consumed: --frss-padding-top-bottom, --frss-padding-flux-items and --width-aside are defined by frss.css, which FreshRSS loads from base-theme and this repository does not contain. Every use carries the upstream value as a fallback -- 0.5rem, 0.75rem and 300px in FreshRSS 1.29.1 -- because they sit inside calc(), and a calc() that references an undefined property is invalid at computed-value time: the declaration would be dropped rather than degraded. */
+	/* FreshRSS base-theme aliases used outside Mapco's component modules. */
+	--frss-font-color-dark: var(--foreground);
+	--frss-font-color-grey-dark: var(--muted-foreground);
+	--frss-font-color-grey-light: var(--muted-foreground);
+	--frss-font-color-disabled: var(--muted-foreground);
+	--frss-font-color-error: var(--destructive);
+	--frss-background-color: var(--card);
+	--frss-background-color-transparent: color-mix(
+		in srgb,
+		var(--card) 80%,
+		transparent
+	);
+	--frss-background-color-middle: var(--muted);
+	--frss-background-color-dark: var(--accent);
+	--frss-background-color-error-transparent: color-mix(
+		in srgb,
+		var(--destructive) 25%,
+		transparent
+	);
+	--frss-border-color: var(--input);
+	--frss-border-color-error: var(--destructive);
+	/* Atelier paints .switch.active with --primary, so the base theme's accent has to name the same color instead of a green nothing renders. */
+	--frss-switch-accent-color: var(--primary);
+	--frss-noThumbnailImage-background-color: var(--muted);
+	/* The base theme drags and drops in #ff0. Route it through the palette so reordering feeds reads as a highlight rather than raw yellow. */
+	--frss-dragdrop-color: var(--accent);
+	--frss-dragdrop-color-transparent: color-mix(
+		in srgb,
+		var(--ring) 30%,
+		transparent
+	);
+	--frss-darken-background-hover-transparent: color-mix(
+		in srgb,
+		var(--foreground) 12%,
+		transparent
+	);
+	--frss-scrollbar-handle: color-mix(
+		in srgb,
+		var(--foreground) 18%,
+		transparent
+	);
+	--frss-scrollbar-handle-hover: color-mix(
+		in srgb,
+		var(--foreground) 40%,
+		transparent
+	);
+	--frss-scrollbar-track: transparent;
+	--frss-scrollbar-track-hover: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+	/* FreshRSS carries a user setting for automatic dark mode -- "Automatic dark mode" under Display, which it advertises for this theme because metadata.json names a dark theme-color -- and marks the choice with a darkMode_auto class on the root element. Reading the system preference without it meant the setting said one thing and the page did another for anyone who had turned it off. The class is matched inside :where() so it gates the rule without lending it specificity, which keeps every weight in this file the one it was written as. */
+	:root:where(.darkMode_auto) {
+		color-scheme: dark;
+
+		/* The dark surfaces walk down the same ramp: page 900, cards 800, raised states between 800 and 700. Decorative boundaries use step 700; fields keep the higher-contrast --input role below. */
+		--background: var(--at-scale-900);
+		--foreground: var(--at-scale-50);
+		--card: var(--at-scale-800);
+		--card-foreground: var(--at-scale-50);
+		--popover: var(--at-scale-800);
+		--popover-foreground: var(--at-scale-50);
+		--primary: var(--at-scale-200);
+		--primary-foreground: var(--at-scale-800);
+		--primary-hover: var(--at-scale-100);
+		--secondary: var(--at-scale-750);
+		--secondary-foreground: var(--at-scale-50);
+		--muted: var(--at-scale-750);
+		--muted-foreground: var(--at-scale-400);
+		--accent: var(--at-scale-750);
+		--accent-foreground: var(--at-scale-50);
+		/* A shade lighter than the light scheme's red would suggest, and lighter than it used to be: the dark card is step 800, and Olive's is the lightest of the nine, where the old value read at 4.48:1. */
+		--destructive: #e87365;
+		--destructive-foreground: var(--at-scale-900);
+		--destructive-muted: color-mix(in srgb, var(--destructive) 12%, var(--at-scale-900));
+		--destructive-border: color-mix(in srgb, var(--destructive) 50%, var(--at-scale-900));
+		--border: var(--at-scale-700);
+		/* --input is deliberately absent: the mid-grey mixed in the light scheme is the one value that clears 3:1 in both directions, against white surfaces as the darker element and against dark surfaces as the lighter one. One formula, one contrast check, both schemes. */
+		--ring: var(--at-scale-400);
+
+		--warning: #e0c04f;
+		--warning-foreground: #f3d77a;
+		--warning-muted: color-mix(in srgb, var(--warning) 18%, var(--at-scale-900));
+		--warning-border: color-mix(in srgb, var(--warning) 42%, var(--at-scale-900));
+		--info-muted: color-mix(in srgb, var(--at-scale-700) 55%, var(--at-scale-900));
+		--info-foreground: var(--at-scale-300);
+		--success: #45a878;
+		--success-foreground: #7bd5a6;
+		--success-muted: color-mix(in srgb, var(--success) 22%, var(--at-scale-900));
+		--success-border: color-mix(in srgb, var(--success) 55%, var(--at-scale-900));
+		--favorite-muted: color-mix(in srgb, var(--favorite) 22%, var(--at-scale-900));
+
+		--sidebar: var(--at-scale-800);
+		--sidebar-foreground: var(--at-scale-200);
+		--sidebar-primary: var(--at-scale-200);
+		--sidebar-primary-foreground: var(--at-scale-800);
+		--sidebar-accent: var(--at-scale-750);
+		--sidebar-accent-foreground: var(--at-scale-50);
+		--sidebar-border: var(--at-scale-700);
+		--sidebar-ring: var(--at-scale-400);
+
+		/* Dark values for Mapco roles that are not pure semantic aliases. */
+		--alert-light: var(--destructive-muted);
+		--alert-text: #ffb4aa;
+		--code-text: #f08a74;
+		--code-bg: color-mix(in srgb, var(--code-text) 15%, var(--at-scale-900));
+		--warning-light: var(--warning-muted);
+		--success-light: var(--success-muted);
+		--sid-pills: color-mix(in srgb, var(--at-scale-50) 10%, transparent);
+	}
+}
+/*rtl:end:ignore*/

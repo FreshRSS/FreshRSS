@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+/*rtl:begin:ignore*/
+/* FreshRSS cache-busts only the sheets named in metadata.json, by their mtime. Files reached through @import carry no such query, so a browser can hold a partial from an older release while the sheets around it are fresh -- and since the override layer relies on rules being absent here, a stale partial brings removed styling back. The release version in the query changes the URL with every release. */
+
+@import "_fonts.css?v=1.5.0";
+
+@import "_palette.css?v=1.5.0";
+
+@import "_variables.css?v=1.5.0";
+
+@import "_forms.css?v=1.5.0";
+
+@import "_tables.css?v=1.5.0";
+
+@import "_components.css?v=1.5.0";
+
+@import "_divers.css?v=1.5.0";
+
+@import "_sidebar.css?v=1.5.0";
+
+@import "_layout.css?v=1.5.0";
+
+@import "_list-view.css?v=1.5.0";
+
+@import "_global-view.css?v=1.5.0";
+
+@import "_reader-view.css?v=1.5.0";
+
+@import "_configuration.css?v=1.5.0";
+
+@import "_logs.css?v=1.5.0";
+
+@import "_stats.css?v=1.5.0";
+
+@import "_mobile.css?v=1.5.0";
+
+/*=== GENERAL */
+/*============*/
+html, body {
+	background: var(--grey-light);
+	color: var(--main-font-color);
+	font-size: 0.875rem;
+}
+
+body.formLogin,
+body.register {
+	background: var(--sid-bg);
+}
+
+/*=== Links */
+a, button.as-link {
+	outline: none;
+	color: var(--main-first);
+}
+/*rtl:end:ignore*/
