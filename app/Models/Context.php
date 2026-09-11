@@ -317,6 +317,11 @@ final class FreshRSS_Context {
 		self::$sinceHours = Minz_Request::paramInt('hours');
 	}
 
+	/** Return the requested navigation state, or 0 to reapply the reading preference after the action. */
+	public static function getStateForRedirect(): int {
+		return Minz_Request::paramIntNull('stateForRedirect') ?? Minz_Request::paramInt('state');
+	}
+
 	/**
 	 * Checks whether the $state parameter is consequential, i.e. has any effect
 	 * (not zero, and not just including opposite states).

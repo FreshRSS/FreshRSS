@@ -4,6 +4,9 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-XX-XX FreshRSS 1.30.1-dev
 
+* Bug fixes
+	* Restore the automatic reading view after marking articles as read, while preserving explicit filters [#9288](https://github.com/FreshRSS/FreshRSS/issues/9288)
+
 
 ## 2026-09-09 FreshRSS 1.30.0
 
