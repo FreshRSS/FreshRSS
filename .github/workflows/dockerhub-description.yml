@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - Docker/README.md
+      - .github/scripts/dockerhub-description.php
+      - .github/workflows/dockerhub-description.yml
     branches:
       - edge
   workflow_dispatch:
@@ -18,10 +20,16 @@ jobs:
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+    # Docker Hub caps the description at 25,000 characters and the action below
+    # cuts at exactly that, mid-section (#9211). Cut at a heading instead, and
+    # link to the rest.
+    - name: Build the Docker Hub description
+      run: php .github/scripts/dockerhub-description.php Docker/README.md "$RUNNER_TEMP/dockerhub-description.md"
+
     - name: Update repo description
       uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         repository: freshrss/freshrss
-        readme-filepath: Docker/README.md
+        readme-filepath: ${{ runner.temp }}/dockerhub-description.md
