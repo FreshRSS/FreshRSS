@@ -2639,11 +2639,11 @@ html.slider-active {
 	}
 
 	.flux .flux_header.has-thumbnail.has-summary li.labels {
-		grid-area: manage-labels
+		grid-area: manage-labels;
 	}
 
 	.flux .flux_header.has-thumbnail.has-summary li.share {
-		grid-area: manage-share
+		grid-area: manage-share;
 	}
 
 	#overlay .close {
