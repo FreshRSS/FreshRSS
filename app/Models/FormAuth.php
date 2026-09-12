@@ -11,6 +11,12 @@ class FreshRSS_FormAuth {
 			return false;
 		}
 
+		// Expecting bcrypt format, see: https://en.wikipedia.org/wiki/Bcrypt#Description
+		if (!preg_match('/^\$2[aby]\$(0[4-9]|10)\$[.\/0-9A-Za-z]{53}$/', $challenge)) {
+			Minz_Log::debug("Invalid challenge format: user={$username}, challenge={$challenge}, nonce={$nonce}");
+			return false;
+		}
+
 		return password_verify($hash . $nonce, $challenge);
 	}
 

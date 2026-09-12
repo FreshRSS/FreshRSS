@@ -9,6 +9,7 @@
 		$url_next['params']['idMax'] = FreshRSS_Context::$id_max;
 	}
 	$url_next['params']['state'] = (string)FreshRSS_Context::$state;
+	$url_next['params']['stateForRedirect'] = FreshRSS_Context::getStateForRedirect();
 	$url_next['params']['ajax'] = '1';
 
 	$url_mark_read = [
@@ -20,6 +21,7 @@
 			'idMax' => FreshRSS_Context::$id_max,
 			'search' => FreshRSS_Context::$search->toString(),
 			'state' => FreshRSS_Context::$state,
+			'stateForRedirect' => FreshRSS_Context::getStateForRedirect(),
 			'sort' => FreshRSS_Context::$sort,
 			'order' => FreshRSS_Context::$order,
 			'from' => Minz_Request::paramStringNull('from') ?? Minz_Request::actionName(),

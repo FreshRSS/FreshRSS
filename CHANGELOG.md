@@ -2,22 +2,36 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-09-XX FreshRSS 1.29.2-dev
+## 2026-XX-XX FreshRSS 1.30.1-dev
+
+* Bug fixes
+	* Restore the automatic reading view after marking articles as read, while preserving explicit filters [#9288](https://github.com/FreshRSS/FreshRSS/issues/9288)
+
+
+## 2026-09-09 FreshRSS 1.30.0
 
 * Security
-	* 💥 Disallow access to local networks such as `127.0.0.1` by default, for security reasons (breaking change) [#8400](https://github.com/FreshRSS/FreshRSS/pull/8400),
-		[#9195](https://github.com/FreshRSS/FreshRSS/pull/9195)
+	* 💥 SSRF mitigation: disallow access to local networks such as `127.0.0.1` by default, for security reasons (breaking change) [#8400](https://github.com/FreshRSS/FreshRSS/pull/8400),
+		[#8950](https://github.com/FreshRSS/FreshRSS/pull/8950), [#9195](https://github.com/FreshRSS/FreshRSS/pull/9195)
 		* Selected local networks can be allowed under *System configuration* or using the `INTERNAL_HOST_ALLOWLIST` environment variable
 		* Passing `*` allows all networks like before (unsafe)
-	* Improve SSRF mitigations by restricting `CURLOPT_PROXY` [#8950](https://github.com/FreshRSS/FreshRSS/pull/8950)
+	* Fix auth CSRFs (login and register actions) [#9171](https://github.com/FreshRSS/FreshRSS/pull/9171)
+	* Log invalid challenge and ignore JSON error during login [#9278](https://github.com/FreshRSS/FreshRSS/pull/9278)
+	* Disallow fetching of non remote URI [#9215](https://github.com/FreshRSS/FreshRSS/pull/9215)
+	* Only allow HTTP/HTTPS schemes for enclosure and thumbnail URLs [#9272](https://github.com/FreshRSS/FreshRSS/pull/9272)
 	* Fix access control in `rss` and `opml` actions [#8912](https://github.com/FreshRSS/FreshRSS/pull/8912)
-	* Refactor to use CSRF field directly instead of borrowing it from a form [#9169](https://github.com/FreshRSS/FreshRSS/pull/9169)
+	* Refactor to use CSRF field directly instead of borrowing it from a form [#9169](https://github.com/FreshRSS/FreshRSS/pull/9169), [#9205](https://github.com/FreshRSS/FreshRSS/pull/9205)
+	* Cleaner limit anonymous mode to default user [#9235](https://github.com/FreshRSS/FreshRSS/pull/9235)
 	* Fix HTML ingestions in templates [#9146](https://github.com/FreshRSS/FreshRSS/pull/9146), [#9170](https://github.com/FreshRSS/FreshRSS/pull/9170)
 	* Fix bad header filtering bypass [#8964](https://github.com/FreshRSS/FreshRSS/pull/8964)
 	* Sanitize all fields during JSON import [#9168](https://github.com/FreshRSS/FreshRSS/pull/9168)
+	* Gate `greader` (JSON) user query share format behind *Share by OPML* [#9248](https://github.com/FreshRSS/FreshRSS/pull/9248)
 	* Public OPML should not contain cURL parameters [#9070](https://github.com/FreshRSS/FreshRSS/pull/9070)
+	* Ignore security-relevant OPML attributes for dynamic OPML sources [#9276](https://github.com/FreshRSS/FreshRSS/pull/9276)
+	* Strip feed URL credentials from anonymous user query output [#9246](https://github.com/FreshRSS/FreshRSS/pull/9246)
 	* Set limits for regex during search [#8913](https://github.com/FreshRSS/FreshRSS/pull/8913)
 	* Fix path disclosure in cache error message [#9206](https://github.com/FreshRSS/FreshRSS/pull/9206)
+	* Limit the length and parentheses nesting depth of a search query [#9277](https://github.com/FreshRSS/FreshRSS/pull/9277)
 	* Use timing-safe comparison for tokens [#8945](https://github.com/FreshRSS/FreshRSS/pull/8945)
 	* Use `hash_equals()` for GReader API token comparison [#9183](https://github.com/FreshRSS/FreshRSS/pull/9183)
 	* Mailer: allow disabling SMTPAutoTLS via config [#9026](https://github.com/FreshRSS/FreshRSS/pull/9026)
@@ -25,6 +39,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Stop the unread-count poller after the session ends [#9065](https://github.com/FreshRSS/FreshRSS/pull/9065)
 	* Add remote IP address to warning on form login [#8942](https://github.com/FreshRSS/FreshRSS/pull/8942)
 	* Pin the GitHub actions using SHA [#9200](https://github.com/FreshRSS/FreshRSS/pull/9200)
+	* Harden cache and SimplePie cache deserialization [#9273](https://github.com/FreshRSS/FreshRSS/pull/9273)
 * SimplePie
 	* Security: Disallow `javascript:` URI scheme (protocol) [#8263](https://github.com/FreshRSS/FreshRSS/pull/8263)
 	* Fix wrong player parent logic leading to invalid type [#8893](https://github.com/FreshRSS/FreshRSS/pull/8893), [simplepie#978](https://github.com/simplepie/simplepie/pull/978)
@@ -38,7 +53,9 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 		* Use global view when searching from subscription page [#9144](https://github.com/FreshRSS/FreshRSS/pull/9144)
 	* New option to hide badges showing number of unread articles (*Phantom Obligation*) [#8844](https://github.com/FreshRSS/FreshRSS/pull/8844)
 	* Refresh only feeds in the current view [#9060](https://github.com/FreshRSS/FreshRSS/pull/9060)
+	* Offer to add a prefix when resharing user labels [#9236](https://github.com/FreshRSS/FreshRSS/pull/9236)
 	* Add log search to the logs page [#9059](https://github.com/FreshRSS/FreshRSS/pull/9059)
+	* Add configurable `log_level` system setting [#9185](https://github.com/FreshRSS/FreshRSS/pull/9185)
 	* New option to keep or not the custom sort order when navigating between categories and feeds [#8969](https://github.com/FreshRSS/FreshRSS/pull/8969)
 	* New per-feed option to show or hide enclosures (attachments) [#9015](https://github.com/FreshRSS/FreshRSS/pull/9015)
 	* Detect JSON feeds from URLs containing `json` [#9058](https://github.com/FreshRSS/FreshRSS/pull/9058)
@@ -53,8 +70,10 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix lost elements while parsing search query [#8884](https://github.com/FreshRSS/FreshRSS/pull/8884)
 	* Fix “mark as read older than…” widening the active search [#9173](https://github.com/FreshRSS/FreshRSS/pull/9173)
 	* Fix saving user queries [#9190](https://github.com/FreshRSS/FreshRSS/pull/9190)
-	* Fix tagging an already-tagged entry on PostgreSQL raising a SQL error instead of being a no-op [#9136](https://github.com/FreshRSS/FreshRSS/pull/9136)
 	* Fix SQL errors breaking some regex searches with MySQL / MariaDB [#9036](https://github.com/FreshRSS/FreshRSS/pull/9036)
+	* Fix marking filtered label articles as read in SQLite and PostgreSQL [#9264](https://github.com/FreshRSS/FreshRSS/pull/9264)
+	* Fix tagging an already-tagged entry on PostgreSQL raising a SQL error instead of being a no-op [#9136](https://github.com/FreshRSS/FreshRSS/pull/9136)
+	* PostgreSQL: make committing new entries resilient to duplicate keys [#9231](https://github.com/FreshRSS/FreshRSS/pull/9231)
 	* Preserve negative timezone offsets in date intervals [#9071](https://github.com/FreshRSS/FreshRSS/pull/9071)
 	* Fix feed dropdown bugs due to hash desync [#8949](https://github.com/FreshRSS/FreshRSS/pull/8949)
 	* Fix slider not reinitializing after form submit [#8973](https://github.com/FreshRSS/FreshRSS/pull/8973)
@@ -65,10 +84,12 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Keep search and state filters when marking articles as read [#9007](https://github.com/FreshRSS/FreshRSS/pull/9007)
 	* Fix `--db-prefix` silently drops following CLI flags [#9042](https://github.com/FreshRSS/FreshRSS/pull/9042)
 	* Remove stale dynamic favicon links [#9127](https://github.com/FreshRSS/FreshRSS/pull/9127)
+	* Fix desync between favicon and title unread counters [#9262](https://github.com/FreshRSS/FreshRSS/pull/9262)
 	* Fix outdated username length hint on registration and install forms [#9013](https://github.com/FreshRSS/FreshRSS/pull/9013)
 	* Redirect away from wrong URL paths [#9075](https://github.com/FreshRSS/FreshRSS/pull/9075)
 	* Fix auto-share shortcut on first use [#9072](https://github.com/FreshRSS/FreshRSS/pull/9072)
 	* Exclude hidden feeds from global view counts [#9152](https://github.com/FreshRSS/FreshRSS/pull/9152)
+	* Fix only the last `<media:credit>` being written to the RSS output [#9174](https://github.com/FreshRSS/FreshRSS/pull/9174)
 * CLI
 	* New `cli/reconfigure-user.php` to read/write per-user config attributes [#8873](https://github.com/FreshRSS/FreshRSS/pull/8873)
 	* Report new articles count per feed in `app/actualize_script.php` output [#8948](https://github.com/FreshRSS/FreshRSS/pull/8948)
@@ -96,40 +117,46 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Group export feeds by category [#9079](https://github.com/FreshRSS/FreshRSS/pull/9079), [#9154](https://github.com/FreshRSS/FreshRSS/pull/9154)
 	* Sort feed names with locale-aware collation [#8985](https://github.com/FreshRSS/FreshRSS/pull/8985)
 	* Sort labels with locale-aware collation [#9023](https://github.com/FreshRSS/FreshRSS/pull/9023)
+	* Format unread counter in title on page load [#9263](https://github.com/FreshRSS/FreshRSS/pull/9263)
 	* Display slider after submit for all buttons in feed update UI [#8999](https://github.com/FreshRSS/FreshRSS/pull/8999)
+	* Improve aside keyboard navigation [#9202](https://github.com/FreshRSS/FreshRSS/pull/9202)
 	* Allows usage of <kbd>Ctrl/Shift</kbd> keys with the open website shortcut [#9186](https://github.com/FreshRSS/FreshRSS/pull/9186)
 	* Fix padding for `.nav_menu` in Alternative-Dark, Flat, and Nord themes [#8901](https://github.com/FreshRSS/FreshRSS/pull/8901)
+	* Fix typo in alert error border `color` variable [#9266](https://github.com/FreshRSS/FreshRSS/pull/9266)
 	* Use JavaScript `Event()` constructor instead of deprecated `initEvent()` [#9035](https://github.com/FreshRSS/FreshRSS/pull/9035)
 	* Use `:user-invalid` instead of `:invalid` for CSS form field styling [#9025](https://github.com/FreshRSS/FreshRSS/pull/9025)
 	* Remove unused simple layout [#8998](https://github.com/FreshRSS/FreshRSS/pull/8998)
 	* Various UI and style improvements: [#8823](https://github.com/FreshRSS/FreshRSS/pull/8823), [#8824](https://github.com/FreshRSS/FreshRSS/pull/8824),
 		[#9140](https://github.com/FreshRSS/FreshRSS/pull/9140), [#9145](https://github.com/FreshRSS/FreshRSS/pull/9145)
 * Extensions
-	* New `freshrss:entryStateChange` JavaScript event for extensions, dispatched when an article has finished being marked as read/unread [#8862](https://github.com/FreshRSS/FreshRSS/pull/9031)
 	* Minor `Minz_Extension` typing [#8952](https://github.com/FreshRSS/FreshRSS/pull/8952)
 	* Improve extension list fetch diagnostics [#9055](https://github.com/FreshRSS/FreshRSS/pull/9055)
+	* Fix a PHP warning in *Serve* action [#9267](https://github.com/FreshRSS/FreshRSS/pull/9267)
 	* Fix extension settings cancel action [#9053](https://github.com/FreshRSS/FreshRSS/pull/9053)
 	* Fix sharing menu conflicts with extensions [#9074](https://github.com/FreshRSS/FreshRSS/pull/9074)
 	* Add read status hook for entries [#8995](https://github.com/FreshRSS/FreshRSS/pull/8995)
-	* Dispatch a JavaScript event when an entry finishes being marked read/unread [#9031](https://github.com/FreshRSS/FreshRSS/pull/9031)
+	* Dispatch a new JavaScript event `freshrss:entryStateChange` when an entry finishes being marked read/unread [#9031](https://github.com/FreshRSS/FreshRSS/pull/9031)
 	* Redirect after saving user CSS/JS so changes apply immediately [#9006](https://github.com/FreshRSS/FreshRSS/pull/9006)
 * I18n
 	* New plural system [#8988](https://github.com/FreshRSS/FreshRSS/pull/8988)
 		* Pluralize the *new articles* count message
 	* Prefer OS-bundled Japanese fonts when UI language is Japanese [#9002](https://github.com/FreshRSS/FreshRSS/pull/9002)
+	* Add Azerbaijani [#9269](https://github.com/FreshRSS/FreshRSS/pull/9269)
 	* Add Lithuanian [#9201](https://github.com/FreshRSS/FreshRSS/pull/9201), [#9213](https://github.com/FreshRSS/FreshRSS/pull/9213)
+	* Improve Brazilian Portuguese [#9240](https://github.com/FreshRSS/FreshRSS/pull/9240), [#9242](https://github.com/FreshRSS/FreshRSS/pull/9242)
 	* Improve German [#9149](https://github.com/FreshRSS/FreshRSS/pull/9149)
 	* Improve Greek [#8977](https://github.com/FreshRSS/FreshRSS/pull/8977), [#9038](https://github.com/FreshRSS/FreshRSS/pull/9038)
-	* Improve Indonesian (Bahasa Indonesia) [#9220](https://github.com/FreshRSS/FreshRSS/pull/9220)
 	* Improve Hungarian [#8879](https://github.com/FreshRSS/FreshRSS/pull/8879)
+	* Improve Indonesian (Bahasa Indonesia) [#9220](https://github.com/FreshRSS/FreshRSS/pull/9220)
 	* Improve Italian [#8880](https://github.com/FreshRSS/FreshRSS/pull/8880)
 	* Improve Japanese [#9064](https://github.com/FreshRSS/FreshRSS/pull/9064)
 	* Improve Persian [#8923](https://github.com/FreshRSS/FreshRSS/pull/8923)
-	* Improve Spanish [#8878](https://github.com/FreshRSS/FreshRSS/pull/8878)
-	* Improve Traditional Chinese [#9037](https://github.com/FreshRSS/FreshRSS/pull/9037), [#9069](https://github.com/FreshRSS/FreshRSS/pull/9069)
+	* Improve Spanish [#8878](https://github.com/FreshRSS/FreshRSS/pull/8878), [#9245](https://github.com/FreshRSS/FreshRSS/pull/9245)
+	* Improve Traditional Chinese [#9037](https://github.com/FreshRSS/FreshRSS/pull/9037), [#9069](https://github.com/FreshRSS/FreshRSS/pull/9069), [#9223](https://github.com/FreshRSS/FreshRSS/pull/9223)
 	* Improve Turkish [#8966](https://github.com/FreshRSS/FreshRSS/pull/8966), [#8971](https://github.com/FreshRSS/FreshRSS/pull/8971), [#8970](https://github.com/FreshRSS/FreshRSS/pull/8970),
 		[#8989](https://github.com/FreshRSS/FreshRSS/pull/8989)
 	* Improve Ukrainian [#8871](https://github.com/FreshRSS/FreshRSS/pull/8871)
+	* Refactor user query translation keys [#9049](https://github.com/FreshRSS/FreshRSS/pull/9049)
 * Misc.
 	* Update to PHPMailer 7.1.1 [#8907](https://github.com/FreshRSS/FreshRSS/pull/8907)
 	* Improve PHP code [#8906](https://github.com/FreshRSS/FreshRSS/pull/8906), [#9156](https://github.com/FreshRSS/FreshRSS/pull/9156)
@@ -141,7 +168,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 		[#8962](https://github.com/FreshRSS/FreshRSS/pull/8962), [#8960](https://github.com/FreshRSS/FreshRSS/pull/8960), [#9148](https://github.com/FreshRSS/FreshRSS/pull/9148),
 		[#9162](https://github.com/FreshRSS/FreshRSS/pull/9162), [#9165](https://github.com/FreshRSS/FreshRSS/pull/9165), [#9158](https://github.com/FreshRSS/FreshRSS/pull/9158),
 		[#9159](https://github.com/FreshRSS/FreshRSS/pull/9159), [#9176](https://github.com/FreshRSS/FreshRSS/pull/9176), [#9178](https://github.com/FreshRSS/FreshRSS/pull/9178),
-		[#9179](https://github.com/FreshRSS/FreshRSS/pull/9179)
+		[#9179](https://github.com/FreshRSS/FreshRSS/pull/9179), [#9219](https://github.com/FreshRSS/FreshRSS/pull/9219), [#9253](https://github.com/FreshRSS/FreshRSS/pull/9253),
+		[#9254](https://github.com/FreshRSS/FreshRSS/pull/9254), [#9255](https://github.com/FreshRSS/FreshRSS/pull/9255), [#9257](https://github.com/FreshRSS/FreshRSS/pull/9257)
 
 
 ## 2026-05-20 FreshRSS 1.29.1
