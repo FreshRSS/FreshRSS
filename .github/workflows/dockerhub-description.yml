@@ -18,10 +18,30 @@ jobs:
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+    # Docker Hub cuts the description at 25000 characters, mid-sentence.
+    # Cut it ourselves at the last heading that fits, and link to the full text.
+    - name: Fit the description in the Docker Hub limit
+      run: |
+        limit=25000
+        footer='\n[Read the full documentation on GitHub](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/README.md)\n'
+        if [ "$(wc -c < Docker/README.md)" -le "${limit}" ]; then
+          cp Docker/README.md dockerhub-description.md
+        else
+          budget=$(( limit - $(printf '%b' "${footer}" | wc -c) ))
+          cut=$(LC_ALL=C awk -v budget="${budget}" '
+            /^```/ { fence = !fence }
+            !fence && /^#+ / && pos <= budget { keep = pos }
+            { pos += length($0) + 1 }
+            END { print keep + 0 }' Docker/README.md)
+          head -c "${cut}" Docker/README.md > dockerhub-description.md
+          printf '%b' "${footer}" >> dockerhub-description.md
+        fi
+        wc -c dockerhub-description.md
+
     - name: Update repo description
       uses: peter-evans/dockerhub-description@1b9a80c056b620d92cedb9d9b5a223409c68ddfa
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         repository: freshrss/freshrss
-        readme-filepath: Docker/README.md
+        readme-filepath: dockerhub-description.md
