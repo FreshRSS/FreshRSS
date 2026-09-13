@@ -791,12 +791,13 @@ final class FreshRSS_http_Util {
 			return false;	// Do not mix IPv4 and IPv6
 		}
 
-		$mask_bits_str = $split[1] ?? '';
+		$max_mask_bits = str_contains($ip, ':') ? 128 : 32;
+		// A range without a subnet is a single address, like Apache’s mod_remoteip accepts
+		$mask_bits_str = $split[1] ?? (string)$max_mask_bits;
 		if (!ctype_digit($mask_bits_str)) {
 			return false;
 		}
 		$mask_bits = (int)$mask_bits_str;
-		$max_mask_bits = str_contains($ip, ':') ? 128 : 32;
 		if ($mask_bits < 0 || $mask_bits > $max_mask_bits) {
 			return false;	// Reject invalid mask bits lengths
 		}
