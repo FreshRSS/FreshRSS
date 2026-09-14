@@ -19,7 +19,7 @@ Not passing the `CRON_MIN` environment variable – or setting it to empty strin
 ```sh
 docker run ... \
   -e CRON_MIN=13,43 \
-  --name freshrss freshrss/freshrss
+  --name freshrss freshrss/freshrss:edge
 ```
 
 ## Cron as a trigger

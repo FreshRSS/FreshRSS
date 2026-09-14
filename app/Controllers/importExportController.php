@@ -123,7 +123,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			if ($opml_file === false) {
 				continue;
 			}
-			$importService->importOpml($opml_file);
+			$importService->importOpml($opml_file, trusted_source: true);
 			if (!$importService->lastStatus()) {
 				$ok = false;
 				if (FreshRSS_Context::$isCli) {

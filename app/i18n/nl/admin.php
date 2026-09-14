@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release-kanaal',
 			'edge' => 'Rollende release (“edge”)',
-			'latest' => 'Stabiele release (“latest”)',
+			'latest' => 'Stabiele release (“latest”)',	// DIRTY
 		),
 		'title' => 'Vernieuw systeem',
 		'viaGit' => 'Update via git and GitHub.com gestart',

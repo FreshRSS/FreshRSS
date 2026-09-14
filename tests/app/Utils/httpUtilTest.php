@@ -13,6 +13,39 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);
 	}
 
+	#[DataProvider('provideCidrRanges')]
+	public function test_checkCIDR(string $ip, string $range, bool $expected): void {
+		$checkCIDR = new ReflectionMethod(FreshRSS_http_Util::class, 'checkCIDR');
+		self::assertEquals($expected, $checkCIDR->invoke(null, $ip, $range));
+	}
+
+	/** @return list<array{string,string,bool}> */
+	public static function provideCidrRanges(): array {
+		return [
+			// A range without a subnet is a single address
+			['192.168.1.1', '192.168.1.1', true],
+			['192.168.1.2', '192.168.1.1', false],
+			['2001:db8::1', '2001:db8::1', true],
+			['2001:db8::2', '2001:db8::1', false],
+
+			// An explicit subnet keeps working
+			['192.168.1.1', '192.168.1.1/32', true],
+			['192.168.1.42', '192.168.1.0/24', true],
+			['192.168.2.42', '192.168.1.0/24', false],
+			['192.168.1.1', '0.0.0.0/0', true],
+			['2001:db8::1', '2001:db8::/32', true],
+
+			// Invalid input is still rejected
+			['192.168.1.1', '', false],
+			['192.168.1.1', '192.168.1.1/', false],
+			['192.168.1.1', '192.168.1.1/33', false],
+			['192.168.1.1', '192.168.1.1/abc', false],
+			['192.168.1.1', 'gateway.localdomain', false],
+			['192.168.1.1', '2001:db8::1', false],
+			['not-an-ip', '192.168.1.1', false],
+		];
+	}
+
 	/** @return list<array{string,string,bool}> */
 	public static function provideUrlsIgnoringHttps(): array {
 		return [

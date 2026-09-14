@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Канал випусків',
 			'edge' => 'Крайній випуск («edge»)',
-			'latest' => 'Стабільний випуск («latest»)',
+			'latest' => 'Стабільний випуск («latest»)',	// DIRTY
 		),
 		'title' => 'Оновити FreshRSS',
 		'viaGit' => 'Розпочато оновлення за допомогою git і GitHub.com',

@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'latest' => 'Versioned release (“latest”)',	// TODO
 		),
 		'title' => 'מערכת העדכון',
 		'viaGit' => 'Update via git and GitHub.com started',	// TODO
