@@ -209,26 +209,30 @@ class Minz_Session {
 
 	/**
 	 * Regenerate a session id.
+	 *
+	 * @return bool True if the session was successfully regenerated, false otherwise (e.g. unwritable session storage)
 	 */
-	public static function regenerateID(string $name): void {
+	public static function regenerateID(string $name): bool {
 		if (self::$volatile || self::$locked) {
-			return;
+			return false;
 		}
 		// Ensure that regenerating the session won't send multiple cookies so we can send one ourselves instead
 		ini_set('session.use_cookies', '0');
 		session_name($name);
-		session_start();
-		session_regenerate_id(true);
+		if (@session_start() === false || @session_regenerate_id(true) === false) {
+			return false;
+		}
 		session_write_close();
 		$newId = session_id();
 		if ($newId === false) {
 			Minz_Error::error(500);
-			return;
+			return false;
 		}
 		$params = session_get_cookie_params();
 		$params['expires'] = $params['lifetime'] > 0 ? time() + $params['lifetime'] : 0;
 		unset($params['lifetime']);
 		setcookie($name, $newId, $params);
+		return true;
 	}
 
 	public static function deleteLongTermCookie(string $name): void {
