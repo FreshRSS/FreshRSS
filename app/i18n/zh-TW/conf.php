@@ -117,6 +117,7 @@ return array(
 		'title' => '顯示',
 		'website' => array(
 			'full' => '圖示及名稱',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => '僅圖示',
 			'label' => '網站',
 			'name' => '僅名稱',

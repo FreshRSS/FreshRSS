@@ -117,6 +117,7 @@ return array(
 		'title' => 'Ekrāns',
 		'website' => array(
 			'full' => 'Ikona un vārds',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Tikai ikona',
 			'label' => 'Mājaslapa',
 			'name' => 'Tikai vārds',

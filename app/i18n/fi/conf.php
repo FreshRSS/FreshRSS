@@ -117,6 +117,7 @@ return array(
 		'title' => 'Näkymä',
 		'website' => array(
 			'full' => 'Kuvake ja nimi',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Vain kuvake',
 			'label' => 'Sivusto',
 			'name' => 'Vain nimi',

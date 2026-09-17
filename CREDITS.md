@@ -169,6 +169,7 @@ People are sorted by name so please keep this order.
 * [Justin Tracey](https://github.com/jtracey): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jtracey), [Web](https://unsuspicious.click)
 * [Kachelkaiser](https://github.com/Kachelkaiser): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Kachelkaiser)
 * [Kaibin Yang](https://github.com/ghost): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SkyYkb), [Web](https://kaibinyang.com/)
+* [kalelooz](https://github.com/kalelooz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kalelooz)
 * [Karim Sharafutdinov](https://github.com/krm-shrftdnv): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:krm-shrftdnv)
 * [Kasimir Cash](https://github.com/KasimirCash): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:KasimirCash)
 * [Kevin Papst](https://github.com/kevinpapst): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kevinpapst), [Web](https://www.kevinpapst.de/)
