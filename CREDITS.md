@@ -140,6 +140,7 @@ People are sorted by name so please keep this order.
 * [Ihsan Arif](https://github.com/ihsanarifr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ihsanarifr), [Web](https://bio.santekno.com/)
 * [Ilias Vrachnis](https://github.com/vrachnis): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:vrachnis)
 * [Inverle](https://github.com/Inverle): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Inverle)
+* [J Jong](https://github.com/jellejo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jellejo)
 * [Jackson Culbreth](https://github.com/culbrethj): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:culbrethj)
 * [jaden](https://github.com/jaden): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jaden)
 * [Jake Mannens](https://github.com/jakem72360): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jakem72360)
