@@ -53,7 +53,7 @@ You can use the search field to further refine results:
 * by URL: `inurl:keyword` or `inurl:'composed keyword'`
 * by tag: `#tag` or `#tag+with+whitespace` or `#'tag with whitespace'`
 * by free-text: `keyword` or `'composed keyword'`
-* by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
+* by date of discovery, using the [ISO 8601 time interval format](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
 	* From a specific day, or month, or year:
 		* `date:2014-03-30`
 		* `date:2014-03` or `date:201403`
@@ -149,11 +149,11 @@ As opposed to normal searches, special XML characters `<&">` are not escaped in 
 
 ⚠️ Advanced regex syntax details depend on the regex engine used:
 
-* FreshRSS filter actions such as auto-mark-as-read and auto-favourite use [PHP preg_match](https://php.net/function.preg-match).
+* FreshRSS filter actions such as auto-mark-as-read and auto-favourite use [PHP preg_match](https://www.php.net/function.preg-match).
 * Regex searches depend on which database you are using:
-	* For SQLite, [PHP preg_match](https://php.net/function.preg-match) is used;
+	* For SQLite, [PHP preg_match](https://www.php.net/function.preg-match) is used;
 	* [For PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP);
-	* [For MariaDB](https://mariadb.com/kb/en/pcre/);
+	* [For MariaDB](https://mariadb.com/docs/server/reference/sql-functions/string-functions/regular-expressions-functions/pcre);
 	* [For MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
 
 > ℹ️ Even with PostgreSQL, you are welcome to use `\b` for word boundary (and `\B` for the opposite), as there is an automatic translation to `\y` and `\Y`.

@@ -15,6 +15,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	 * @param int $level
 	 * @param 'AND'|'OR'|'AND NOT'|'OR NOT' $operator
 	 * @param bool $allowUserQueries
+	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 */
 	public function __construct(
 		string $input,
@@ -32,6 +33,9 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		$this->raw_input = $input;
 
 		if ($level === 0) {
+			if (strlen($input) > FreshRSS_Context::systemConf()->limits['max_search_length']) {
+				throw new Minz_BadRequestException('Search is too long!');
+			}
 			$input = self::escapeLiterals($input);
 			if ($expandUserQueries || !$allowUserQueries) {
 				$input = $this->parseUserQueryNames($input, $allowUserQueries);
@@ -220,8 +224,13 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	 * If the query contains a mix of `OR` expressions with and without parentheses,
 	 * then add parentheses to make the query consistent.
 	 * Example: '(ab (cd OR ef)) OR gh OR ij OR (kl)' becomes '(ab ((cd) OR (ef))) OR (gh) OR (ij) OR (kl)'
+	 *
+	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 */
 	public static function consistentOrParentheses(string $input): string {
+		if (strlen($input) > FreshRSS_Context::systemConf()->limits['max_search_length']) {
+			throw new Minz_BadRequestException('Search is too long!');
+		}
 		if (!preg_match('/(?<!\\\\)\\(/', $input)) {
 			// No unescaped parentheses in the input
 			return trim($input);
@@ -246,6 +255,9 @@ class FreshRSS_BooleanSearch implements \Stringable {
 							$segment = '';
 						}
 						$c = '';
+					}
+					if ($parenthesesCount >= FreshRSS_Context::systemConf()->limits['max_search_parentheses_depth']) {
+						throw new Minz_BadRequestException('Search has too deeply nested parentheses!');
 					}
 					$parenthesesCount++;
 				} elseif ($c === ')') {
@@ -586,6 +598,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 
 	/**
 	 * @param bool $expandUserQueries Whether to expand user queries (saved searches) or not
+	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 */
 	public function toString(bool $expandUserQueries = true): string {
 		if ($expandUserQueries) {

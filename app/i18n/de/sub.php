@@ -26,7 +26,7 @@ return array(
 		'archiving' => 'Archivierung',
 		'dynamic_opml' => array(
 			'_' => 'Dynamisches OPML',
-			'help' => 'URL zu einer <a href="http://opml.org/" target="_blank">OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
+			'help' => 'URL zu einer <a href="https://opml.org/" target="_blank">OPML Datei</a>, um die Kategorie dynamisch mit Feeds zu befüllen',
 		),
 		'empty' => 'Leere Kategorie',
 		'error' => 'Diese dynamische OPML-Kategorie hat ein Problem. Prüfen Sie, ob die OPML-URL noch erreichbar ist und die maximale Anzahl an Feeds pro Nutzer nicht überschritten ist.',
@@ -125,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Benutzerdefiniertes Datum/Zeit-Format',
-					'help' => 'Optional. Ein Format unterstützt von <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, wie zum Beispiel <code>d-m-Y H:i:s</code>',
+					'help' => 'Optional. Ein Format unterstützt von <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a>, wie zum Beispiel <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'Artikel-Datum',
-					'help' => 'Das Ergebnis wird durch <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> geparst',
+					'help' => 'Das Ergebnis wird durch <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> geparst',
 				),
 				'item_title' => array(
 					'_' => 'Artikel-Titel',
-					'help' => 'Insbesondere <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath axis</a> <code>descendant::</code> nutzen, wie z.B. <code>descendant::h2</code>',
+					'help' => 'Insbesondere <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> nutzen, wie z.B. <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => 'Eindeutige ID des Artikels',
@@ -169,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => 'Benutzerdefiniertes Datum/Zeit-Format',
-					'help' => 'Optional. Format, das von <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> unterstützt wird, wie z.B. <code>d-m-Y H:i:s</code>',
+					'help' => 'Optional. Format, das von <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> unterstützt wird, wie z.B. <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => 'Datum des Eintrags',
-					'help' => 'Das Ergebnis wird von <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> geparst.',
+					'help' => 'Das Ergebnis wird von <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> geparst.',
 				),
 				'item_title' => 'Titel des Eintrags',
 				'item_uid' => 'Eindeutige ID des Eintrags',

@@ -240,10 +240,6 @@ th {
 	background-color: #2980b9;
 }
 
-.switch.active:hover {
-	background-image: url('./icons/disabled-light.svg');
-}
-
 /*=== Navigation */
 .nav-list {
 	font-size: 0.9rem;
@@ -980,7 +976,7 @@ th {
 		min-height: 0;
 	}
 
-	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn {
+	.nav_menu .stick .mark-read-menu .dropdown-toggle.btn {
 		border-left-width: 0;
 		border-top-left-radius: 5px;
 		border-bottom-left-radius: 5px;

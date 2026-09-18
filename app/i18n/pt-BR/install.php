@@ -64,8 +64,8 @@ return array(
 		),
 		'database-title' => 'Banco de Dados',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'A raiz de documentos do seu servidor web não parece apontar para a pasta <code>./p/</code>. Outras pastas, como <code>./data/</code>, podem estar acessíveis publicamente.',
+			'ok' => 'A raiz de documentos do seu servidor web aponta corretamente para a pasta <code>./p/</code>.',
 		),
 		'dom' => array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para navegar pelo DOM (php-xml).',
@@ -81,8 +81,8 @@ return array(
 		),
 		'files' => 'Instalação de arquivos',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => 'Não foi possível encontrar a extensão GMP necessária para o PHP de 32 bits (pacote php-gmp).',
+			'ok' => 'Você tem a extensão GMP necessária para o PHP de 32 bits.',
 		),
 		'intl' => array(
 			'nok' => 'Não foi possível encontrar a biblioteca recomendada php-intl para internacionalização.',
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Parabéns!',
 	'default_user' => array(
 		'_' => 'Usuário do usuário padrão',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => 'De 1 a 39 caracteres: letras, números e <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Por favor solucione os erros antes de ir para o próximo passo.',
 	'javascript_is_better' => 'O FreshRSS é mais agradável com o JavaScript ativo',

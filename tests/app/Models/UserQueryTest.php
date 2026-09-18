@@ -8,6 +8,13 @@ use PHPUnit\Framework\TestCase;
  */
 class UserQueryTest extends TestCase {
 
+	public function __construct(string $name) {
+		parent::__construct($name);
+		if (!FreshRSS_Context::hasSystemConf()) {
+			FreshRSS_Context::initSystem();
+		}
+	}
+
 	public static function test__construct_whenAllQuery_storesAllParameters(): void {
 		$query = ['get' => 'a'];
 		$user_query = new FreshRSS_UserQuery($query, [], []);
@@ -97,6 +104,7 @@ class UserQueryTest extends TestCase {
 
 	public static function testToArray_whenNoData_returnsEmptyArray(): void {
 		$user_query = new FreshRSS_UserQuery([], [], []);
+		// All values are defaults, so array should be empty
 		self::assertCount(0, $user_query->toArray());
 	}
 
@@ -214,6 +222,28 @@ class UserQueryTest extends TestCase {
 		$query = ['get' => 'q'];
 		$user_query = new FreshRSS_UserQuery($query, [], []);
 		self::assertFalse($user_query->isDeprecated());
+	}
+
+	public static function test__construct_whenUserLabelPrefix_storesValue(): void {
+		$query = ['userLabelPrefix' => 'test/'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame('test/', $user_query->userLabelPrefix());
+	}
+
+	public static function test__construct_migration_fromPublishLabelsInsteadOfTags_whenEnabled(): void {
+		// Test of legacy migration
+		$query = ['publishLabelsInsteadOfTags' => true];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertTrue($user_query->includeUserLabels());
+		self::assertTrue($user_query->excludeArticleTags());
+	}
+
+	public static function test__construct_migration_fromPublishLabelsInsteadOfTags_whenDisabled(): void {
+		// Test of legacy migration
+		$query = ['publishLabelsInsteadOfTags' => false];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertFalse($user_query->includeUserLabels());
+		self::assertFalse($user_query->excludeArticleTags());
 	}
 
 }

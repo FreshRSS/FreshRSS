@@ -6,7 +6,7 @@ declare(strict_types=1);
 /** @var string */
 const FRESHRSS_MIN_PHP_VERSION = '8.1.0';
 /** @var string */
-const FRESHRSS_VERSION = '1.29.2-dev';
+const FRESHRSS_VERSION = '1.30.1-dev';
 /** @var string */
 const FRESHRSS_WEBSITE = 'https://freshrss.org';
 /** @var string */
@@ -46,7 +46,7 @@ if (file_exists(__DIR__ . '/constants.local.php')) {
 
 defined('FRESHRSS_USERAGENT') or define('FRESHRSS_USERAGENT', 'FreshRSS/' . FRESHRSS_VERSION . ' (' . PHP_OS . '; ' . FRESHRSS_WEBSITE . ')');
 
-// PHP text output compression http://php.net/ob_gzhandler (better to do it at Web server level)
+// PHP text output compression https://www.php.net/ob_gzhandler (better to do it at Web server level)
 defined('PHP_COMPRESSION') or define('PHP_COMPRESSION', false);
 
 defined('COPY_LOG_TO_SYSLOG') or define('COPY_LOG_TO_SYSLOG', filter_var(getenv('COPY_LOG_TO_SYSLOG'), FILTER_VALIDATE_BOOLEAN));

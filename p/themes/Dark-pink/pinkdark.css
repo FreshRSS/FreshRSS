@@ -170,7 +170,7 @@ input:focus {
 }
 
 @media (max-width: 840px) {
-	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn:hover {
+	.nav_menu .stick .mark-read-menu .dropdown-toggle.btn:hover {
 		border-left-color: #ff449a;
 	}
 }

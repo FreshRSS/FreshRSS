@@ -227,7 +227,8 @@ class FreshRSS_Entry extends Minz_Model {
 		$thumbnailAttribute = $this->attributeArray('thumbnail') ?? [];
 		if (!empty($thumbnailAttribute['url'])) {
 			$elink = $thumbnailAttribute['url'];
-			if (is_string($elink) && ($allowDuplicateEnclosures || !self::containsLink($content, $elink))) {
+			if (is_string($elink) && \SimplePie\Misc::is_remote_uri($elink) &&
+				($allowDuplicateEnclosures || !self::containsLink($content, $elink))) {
 				$content .= <<<HTML
 					<figure class="enclosure">
 						<p class="enclosure-content">
@@ -248,7 +249,7 @@ class FreshRSS_Entry extends Minz_Model {
 				continue;
 			}
 			$elink = $enclosure['url'] ?? '';
-			if ($elink == '' || !is_string($elink)) {
+			if ($elink == '' || !is_string($elink) || !\SimplePie\Misc::is_remote_uri($elink)) {
 				continue;
 			}
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
@@ -269,7 +270,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$content .= '<figure class="enclosure">';
 
 			foreach ($thumbnails as $thumbnail) {
-				if (is_string($thumbnail)) {
+				if (is_string($thumbnail) && \SimplePie\Misc::is_remote_uri($thumbnail)) {
 					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
 				}
 			}
@@ -1200,7 +1201,7 @@ class FreshRSS_Entry extends Minz_Model {
 	/**
 	 * Integer format conversion for Google Reader API format
 	 * @param numeric-string|int $dec Decimal number
-	 * @return string 64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
+	 * @return string 64-bit hexa https://github.com/mihaip/google-reader-api
 	 */
 	private static function dec2hex(string|int $dec): string {
 		return PHP_INT_SIZE < 8 ? // 32-bit ?
@@ -1273,7 +1274,7 @@ class FreshRSS_Entry extends Minz_Model {
 			if ($mode === 'compat') {
 				$item['origin']['title'] = escapeToUnicodeAlternative($feed->name(), true);
 			} elseif ($mode === 'freshrss') {
-				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url());
+				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url(includeCredentials: false));
 			}
 			if ($feed->priority() >= FreshRSS_Feed::PRIORITY_MAIN_STREAM) {
 				$item['categories'][] = 'user/-/state/org.freshrss/main';

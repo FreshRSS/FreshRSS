@@ -1,6 +1,6 @@
 # OpenID Connect (OIDC)
 
-See: [What is OpenID Connect?](https://openid.net/connect/).
+See: [What is OpenID Connect?](https://openid.net/developers/how-connect-works/).
 
 This is one of the [access control methods](09_AccessControl.md) supported by FreshRSS.
 
@@ -63,6 +63,6 @@ See our reference [Apache configuration](https://github.com/FreshRSS/FreshRSS/bl
 
 See specific instructions for:
 
-* Authentik: [here (freshrss.org)](16_OpenID-Connect-Authentik.md) or [here (goauthentik.io)](https://goauthentik.io/integrations/services/freshrss/)
+* Authentik: [here (freshrss.org)](16_OpenID-Connect-Authentik.md) or [here (goauthentik.io)](https://integrations.goauthentik.io/services/freshrss/)
 * Authelia: [here (authelia.com)](https://www.authelia.com/integration/openid-connect/freshrss/)
 * Pocket ID: [here (freshrss.org)](18_Pocket-ID.md)

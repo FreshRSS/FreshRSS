@@ -28,7 +28,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	}
 
 	protected static function sqlLimitAll(): string {
-		// https://dev.mysql.com/doc/refman/9.4/en/select.html
+		// https://dev.mysql.com/doc/refman/26.7/en/select.html
 		return '18446744073709551615';	// Maximum unsigned BIGINT in MySQL, which neither supports ALL nor -1
 	}
 
@@ -138,7 +138,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				if (!is_string($sql)) {
 					throw new Exception('ALTER_TABLE_ENTRY_LAST_USER_MODIFIED is not a string!');
 				}
-				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/9.6/en/alter-table.html
+				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/26.7/en/alter-table.html
 					$sql = str_replace(' IF NOT EXISTS ', ' ', $sql);
 				}
 				$result = $this->pdo->exec($sql);
@@ -147,7 +147,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				if (!is_string($sql)) {
 					throw new Exception('ALTER_TABLE_ENTRY_LAST_MODIFIED is not a string!');
 				}
-				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/9.6/en/alter-table.html
+				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/26.7/en/alter-table.html
 					$sql = str_replace(' IF NOT EXISTS ', ' ', $sql);
 				}
 				$result = $this->pdo->exec($sql);
@@ -1644,7 +1644,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Internal secondary sort
 			. (in_array($sort, ['c.name', 'f.name'], true) ? ', ' . $orderBy2 . ' ' . $order2 : '')	// User secondary sort
 			. ($sort === 'id' ? '' : ', e.id ' . $order)	// For keyset pagination
-			. ($limit > 0 ? ' LIMIT ' . $limit : '')	// http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			. ($limit > 0 ? ' LIMIT ' . $limit : '')	// https://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 			. ($offset > 0 ? ' OFFSET ' . $offset : '')
 		];
 	}

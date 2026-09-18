@@ -14,12 +14,12 @@ FreshRSS has a lot of features including:
 
 * RSS and Atom aggregation
 * Mark article as favorite if you liked it or if you want to read it later
-* Filter and search functionality helps to easily find articles ([more information](./users/10_filter.html))
+* Filter and search functionality helps to easily find articles ([more information](./users/10_filter.md))
 * Statistics to show you the publishing frequency all the websites you follow
-* Import/export of your feeds into OPML format ([more information](./users/04_Subscriptions.html#import--export))
-* Several themes created by the community ([more information](./admins/11_Themes.html))
-* Several extensions created by the community ([more information](./admins/15_extensions.html))
-* "Google Reader"-like API to connect Android applications ([more information](./users/06_Mobile_access.html#access-via-mobile-app))
+* Import/export of your feeds into OPML format ([more information](./users/04_Subscriptions.md#import--export))
+* Several themes created by the community ([more information](./admins/11_Themes.md))
+* Several extensions created by the community ([more information](./admins/15_extensions.md))
+* "Google Reader"-like API to connect Android applications ([more information](./users/06_Mobile_access.md#access-via-mobile-app))
 * The application is "responsive," which means it adapts to small screens so you can bring articles in your pocket
 * Self-hosted: the code is free ([under AGPL3 licence](https://github.com/FreshRSS/FreshRSS/blob/edge/LICENSE.txt)), so you can host your own instance of FreshRSS ([more information](./admins/02_Prerequisites.md))
 * Multi-user, so you can also host for your friends and family ([more information](./admins/12_User_management.md))

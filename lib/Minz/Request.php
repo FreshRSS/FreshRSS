@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Sous licence AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -280,6 +280,21 @@ class Minz_Request {
 			$remoteIp = '';
 		}
 		return $remoteIp;
+	}
+
+	/**
+	 * Returns `PATH_INFO` accounting for a bug when sometimes it may contain `SCRIPT_NAME` value instead of blank
+	 */
+	public static function pathInfo(): string {
+		$pathInfo = $_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? null;
+		if (!is_string($pathInfo)) {
+			return '';
+		}
+		$scriptName = $_SERVER['SCRIPT_NAME'] ?? null;
+		if ($scriptName === $pathInfo) {
+			return '';
+		}
+		return $pathInfo;
 	}
 
 	/**

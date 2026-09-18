@@ -32,8 +32,11 @@ class FreshRSS_Import_Service {
 	 * @param string $opml_file the OPML file content.
 	 * @param FreshRSS_Category|null $forced_category force the feeds to be associated to this category.
 	 * @param bool $dry_run true to not create categories and feeds in database.
+	 * @param bool $trusted_source true when the OPML content is explicitly provided by the user (e.g. local file import);
+	 *        false by default, and for content fetched from a remote source (e.g. dynamic OPML categories), in which case
+	 *        security-relevant attributes (feed cURL parameters, nested dynamic categories) are ignored.
 	 */
-	public function importOpml(string $opml_file, ?FreshRSS_Category $forced_category = null, bool $dry_run = false): void {
+	public function importOpml(string $opml_file, ?FreshRSS_Category $forced_category = null, bool $dry_run = false, bool $trusted_source = false): void {
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
 		}
@@ -61,8 +64,17 @@ class FreshRSS_Import_Service {
 		// existing categories later.
 		$categories = $this->catDAO->listCategories(prePopulateFeeds: false);
 		$categories_by_names = [];
+		$highest_position = PHP_INT_MIN; // To order the numbers as best as possible in case of negative positions, we choose the lowest possible number first
 		foreach ($categories as $category) {
 			$categories_by_names[$category->name()] = $category;
+			$position = $category->attributeInt('position') ?? PHP_INT_MIN;
+			if ($position > $highest_position) {
+				$highest_position = $position;
+			}
+		}
+		if ($highest_position === PHP_INT_MIN) {
+			// If it's still the same number, default to -1 instead
+			$highest_position = -1; // will be incremented to 0
 		}
 
 		// Get current numbers of categories and feeds, and the limits to
@@ -91,7 +103,8 @@ class FreshRSS_Import_Service {
 				$can_create_category = FreshRSS_Context::$isCli || !$limit_reached;
 
 				if ($can_create_category) {
-					$category = $this->createCategory($category_element, $dry_run);
+					// Import category in the exact order as the outline's placement in the OPML, at the end of positioned categories
+					$category = $this->createCategory($category_element, $dry_run, ++$highest_position, $trusted_source);
 					if ($category !== null) {
 						$categories_by_names[$category->name()] = $category;
 						$nb_categories++;
@@ -122,7 +135,7 @@ class FreshRSS_Import_Service {
 					break;
 				}
 
-				if ($this->createFeed($feed_element, $category, $dry_run) !== null) {
+				if ($this->createFeed($feed_element, $category, $dry_run, $trusted_source) !== null) {
 					// TODO what if the feed already exists in the database?
 					$nb_feeds++;
 				} else {
@@ -138,9 +151,10 @@ class FreshRSS_Import_Service {
 	 * @param array<string,string> $feed_elt An OPML element (must be a feed element).
 	 * @param FreshRSS_Category $category The category to associate to the feed.
 	 * @param bool $dry_run true to not create the feed in database.
+	 * @param bool $trusted_source false to ignore security-relevant attributes (feed cURL parameters); see {@see FreshRSS_Import_Service::importOpml()}.
 	 * @return FreshRSS_Feed|null The created feed, or null if it failed.
 	 */
-	private function createFeed(array $feed_elt, FreshRSS_Category $category, bool $dry_run): ?FreshRSS_Feed {
+	private function createFeed(array $feed_elt, FreshRSS_Category $category, bool $dry_run, bool $trusted_source = false): ?FreshRSS_Feed {
 		$url = Minz_Helper::htmlspecialchars_utf8($feed_elt['xmlUrl']);
 		$name = $feed_elt['text'] ?? $feed_elt['title'] ?? '';
 		$name = Minz_Helper::htmlspecialchars_utf8($name);
@@ -328,7 +342,9 @@ class FreshRSS_Import_Service {
 			if (isset($feed_elt['frss:CURLOPT_USERAGENT'])) {
 				$curl_params[CURLOPT_USERAGENT] = $feed_elt['frss:CURLOPT_USERAGENT'];
 			}
-			if (!empty($curl_params)) {
+			// Feed cURL parameters are only honored for OPML content explicitly provided by the user;
+			// a remote (dynamic) OPML must not be able to configure the cURL behavior of the instance.
+			if ($trusted_source && !empty($curl_params)) {
 				$feed->_attribute('curl_params', FreshRSS_http_Util::sanitizeCurlParams($curl_params));
 			}
 
@@ -369,20 +385,23 @@ class FreshRSS_Import_Service {
 	 *
 	 * @param array<string,string> $category_element An OPML element (must be a category element).
 	 * @param bool $dry_run true to not create the category in database.
+	 * @param bool $trusted_source false to ignore security-relevant attributes (dynamic OPML); see {@see FreshRSS_Import_Service::importOpml()}.
 	 * @return FreshRSS_Category|null The created category, or null if it failed.
 	 */
-	private function createCategory(array $category_element, bool $dry_run): ?FreshRSS_Category {
+	private function createCategory(array $category_element, bool $dry_run, int $position, bool $trusted_source = false): ?FreshRSS_Category {
 		$name = $category_element['text'] ?? $category_element['title'] ?? '';
 		$name = Minz_Helper::htmlspecialchars_utf8($name);
 		$category = new FreshRSS_Category($name);
 
-		if (isset($category_element['frss:opmlUrl'])) {
+		if ($trusted_source && isset($category_element['frss:opmlUrl'])) {
 			$opml_url = FreshRSS_http_Util::checkUrl($category_element['frss:opmlUrl']);
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
 				$category->_attribute('opml_url', $opml_url);
 			}
 		}
+
+		$category->_attribute('position', $position);
 
 		if ($dry_run) {
 			return $category;
