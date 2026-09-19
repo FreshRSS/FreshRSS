@@ -206,7 +206,7 @@ final class GReaderAPI {
 		return '';
 	}
 
-	private static function clientLogin(string $email, string $pass): never {
+	private static function clientLogin(string $email, #[\SensitiveParameter] string $pass): never {
 		//https://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 		if (FreshRSS_user_Controller::checkUsername($email)) {
 			FreshRSS_Context::initUser($email);
