@@ -7,6 +7,13 @@ require_once LIB_PATH . '/lib_date.php';
 
 final class SearchTest extends \PHPUnit\Framework\TestCase {
 
+	public function __construct(string $name) {
+		parent::__construct($name);
+		if (!FreshRSS_Context::hasSystemConf()) {
+			FreshRSS_Context::initSystem();
+		}
+	}
+
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
 		$search = new FreshRSS_Search($input);

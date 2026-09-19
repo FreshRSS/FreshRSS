@@ -46,8 +46,7 @@ class Minz_FrontController {
 				empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
 				array_filter($_POST, 'is_string', ARRAY_FILTER_USE_KEY)
 			);
-			$pathInfo = $_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '';
-			Minz_Request::forward($url, redirect: $pathInfo !== '');
+			Minz_Request::forward($url, redirect: Minz_Request::pathInfo() !== '');
 		} catch (Minz_Exception $e) {
 			Minz_Log::error($e->getMessage());
 			self::killApp($e->getMessage());
