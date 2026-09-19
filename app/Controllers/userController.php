@@ -74,7 +74,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	}
 
 	/** @param array<string,mixed> $userConfigUpdated */
-	public static function updateUser(string $user, ?string $email, string $passwordPlain, array $userConfigUpdated = []): bool {
+	public static function updateUser(string $user, ?string $email, #[\SensitiveParameter] string $passwordPlain, array $userConfigUpdated = []): bool {
 		$userConfig = FreshRSS_UserConfiguration::getForUser($user);
 		if ($userConfig === null) {
 			return false;
@@ -343,7 +343,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public static function createUser(string $new_user_name, ?string $email, string $passwordPlain,
+	public static function createUser(string $new_user_name, ?string $email, #[\SensitiveParameter] string $passwordPlain,
 		array $userConfigOverride = [], bool $insertDefaultFeeds = true): bool {
 		$userConfig = [];
 

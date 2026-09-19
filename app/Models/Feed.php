@@ -560,7 +560,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _pathEntries(string $value): void {
 		$this->pathEntries = $value;
 	}
-	public function _httpAuth(string $value): void {
+	public function _httpAuth(#[\SensitiveParameter] string $value): void {
 		$this->httpAuth = $value;
 	}
 
