@@ -599,7 +599,9 @@ class Minz_Request {
 			return false;
 		}
 		$conf = FreshRSS_UserConfiguration::getForUser($username);
-		if ($conf === null || !hash_equals($conf->token, $token_param)) {
+		if ($conf === null || !$conf->enabled || !hash_equals($conf->token, $token_param)) {
+			// A disabled account must not retain token access (feed refresh, RSS/OPML
+			// export); session auth already enforces `enabled` in FreshRSS_Auth.
 			return false;
 		}
 		return true;
