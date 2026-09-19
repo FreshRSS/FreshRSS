@@ -133,8 +133,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		if (!(Minz_Request::actionName() === 'apply' && Minz_Request::paramBoolean('post_conf')) &&
-			FreshRSS_Auth::requestReauth()) {
+		// Require reauthentication consistently, including for the apply/post_conf
+		// finalisation step (previously exempted). The legitimate post_conf redirect
+		// still passes on the reauth performed moments earlier by the apply request.
+		if (FreshRSS_Auth::requestReauth()) {
 			return;
 		}
 
@@ -187,6 +189,13 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		Else via system configuration  auto_update_url
 	*/
 	public function checkAction(): void {
+		// Staging an update is a state-changing action; require POST so the global
+		// anti-CSRF token check applies (GET is never CSRF-validated).
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'update', 'a' => 'index'], true);
+			return;
+		}
+
 		FreshRSS_View::prependTitle(_t('admin.update.title') . ' · ');
 		$this->view->_path('update/index.phtml');
 
@@ -298,6 +307,17 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		}
 
 		if (Minz_Request::paramBoolean('post_conf')) {
+			// Privileged post-configuration step (do_post_update() / PostUpdate hook,
+			// removal of the staged update). It is only ever reached as the internal
+			// redirect issued after a successful, CSRF-checked apply below, so require
+			// the one-time marker that step sets and reject any other entry — e.g. a
+			// cross-site GET navigation, which is never anti-CSRF validated.
+			if (!Minz_Session::paramBoolean('update_post_conf_ok')) {
+				Minz_Request::forward(['c' => 'update', 'a' => 'index'], true);
+				return;
+			}
+			Minz_Session::_param('update_post_conf_ok', false);
+
 			if (self::isGit()) {
 				$res = !self::hasGitUpdate();
 			} else {
@@ -321,16 +341,21 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.update.error', is_string($res) ? $res : 'unknown'), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		} else {
+			// Applying an update is state-changing; require POST so the global
+			// anti-CSRF token check applies (GET is never CSRF-validated).
+			if (!Minz_Request::isPost()) {
+				Minz_Request::forward(['c' => 'update', 'a' => 'index'], true);
+				return;
+			}
+
 			$res = false;
 
 			if (self::isGit()) {
 				$res = self::gitPull();
 			} else {
 				require UPDATE_FILENAME;
-				if (Minz_Request::isPost()) {
-					// @phpstan-ignore function.notFound
-					save_info_update();
-				}
+				// @phpstan-ignore function.notFound
+				save_info_update();
 				// @phpstan-ignore function.notFound
 				if (!need_info_update()) {
 					// @phpstan-ignore function.notFound
@@ -345,6 +370,8 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($res === true) {
+				// Authorise the single internal post-configuration redirect that follows.
+				Minz_Session::_param('update_post_conf_ok', true);
 				Minz_Request::forward([
 					'c' => 'update',
 					'a' => 'apply',
