@@ -18,7 +18,7 @@ final class SessionTest extends \PHPUnit\Framework\TestCase {
 	public function testRegenerateIDOnHealthyStorage(): void {
 		$previous = $_SESSION ?? [];
 
-		self::assertTrue(Minz_Session::regenerateID('FreshRSS'));
+		Minz_Session::regenerateID('FreshRSS');
 
 		$_SESSION['probe'] = 'ok';
 		self::assertSame('ok', $_SESSION['probe']);
@@ -32,18 +32,7 @@ final class SessionTest extends \PHPUnit\Framework\TestCase {
 		$broken_path = $save_path . '/missing_subdir';
 		ini_set('session.save_path', $broken_path);
 
-		$previous = [];
-		if (isset($_SESSION)) {
-			$previous = $_SESSION;
-		}
-
-		self::assertFalse(Minz_Session::regenerateID('FreshRSS'));
-
-		if ($previous !== []) {
-			$_SESSION = $previous;
-		}
-		self::assertSame($broken_path, ini_get('session.save_path'));
-		ini_set('session.save_path', sys_get_temp_dir());
-		self::assertTrue(rmdir($save_path));
+		$this->expectException(RuntimeException::class);
+		Minz_Session::regenerateID('FreshRSS');
 	}
 }

@@ -152,8 +152,10 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			);
 			if ($ok) {
 				// Set session parameter to give access to the user.
-				if (!Minz_Session::regenerateID('FreshRSS')) {
-					Minz_Log::error("Session could not be regenerated during login for user={$username}, ip_address={$ip_address}");
+				try {
+					Minz_Session::regenerateID('FreshRSS');
+				} catch (RuntimeException $e) {
+					Minz_Log::error("Session could not be regenerated during login for user={$username}, ip_address={$ip_address}: {$e->getMessage()}");
 					header('HTTP/1.1 500 Internal Server Error');
 					Minz_Request::setBadNotification(_t('install.session.nok'));
 					Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
@@ -218,15 +220,18 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				$username, FreshRSS_Context::userConf()->passwordHash, $nonce, $challenge
 				)) {
 				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
-			} elseif (!Minz_Session::regenerateID('FreshRSS')) {
-				Minz_Log::error('Session could not be regenerated during reauthentication');
-				Minz_Session::_param('lastReauth', 0);
-				header('HTTP/1.1 500 Internal Server Error');
-				Minz_Request::setBadNotification(_t('install.session.nok'));
 			} else {
-				Minz_Session::_param('lastReauth', time());
-				Minz_Request::forward($redirect, true);
-				return;
+				try {
+					Minz_Session::regenerateID('FreshRSS');
+					Minz_Session::_param('lastReauth', time());
+					Minz_Request::forward($redirect, true);
+					return;
+				} catch (RuntimeException $e) {
+					Minz_Log::error("Session could not be regenerated during reauthentication! {$e->getMessage()}");
+					Minz_Session::_param('lastReauth', 0);
+					header('HTTP/1.1 500 Internal Server Error');
+					Minz_Request::setBadNotification(_t('install.session.nok'));
+				}
 			}
 		}
 		FreshRSS_View::prependTitle(_t('gen.auth.reauth.title') . ' · ');
@@ -241,7 +246,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			invalidateHttpCache();
 			FreshRSS_Auth::removeAccess();
 			Minz_Session::_param('csrf', false);
-			Minz_Session::regenerateID('FreshRSS');
+			try {
+				Minz_Session::regenerateID('FreshRSS');
+			} catch (RuntimeException $e) {
+				Minz_Log::error('Session could not be regenerated during logout! ' . $e->getMessage());
+			}
 			Minz_Request::good(
 				_t('feedback.auth.logout.success'),
 				[ 'c' => 'index', 'a' => 'index' ],

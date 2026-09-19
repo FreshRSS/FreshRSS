@@ -15,8 +15,7 @@ class Minz_Session {
 
 	public static function lock(): bool {
 		if (!self::$volatile && !self::$locked) {
-			session_start();
-			self::$locked = true;
+			self::$locked = session_start();
 		}
 		return self::$locked;
 	}
@@ -210,29 +209,35 @@ class Minz_Session {
 	/**
 	 * Regenerate a session id.
 	 *
-	 * @return bool True if the session was successfully regenerated, false otherwise (e.g. unwritable session storage)
+	 * @throws RuntimeException if the session could not be regenerated (e.g. unwritable session storage)
 	 */
-	public static function regenerateID(string $name): bool {
-		if (self::$volatile || self::$locked) {
-			return false;
+	public static function regenerateID(string $name): void {
+		if (self::$volatile) {
+			return;
+		}
+		if (self::$locked) {
+			throw new RuntimeException('Session is locked!');
 		}
 		// Ensure that regenerating the session won't send multiple cookies so we can send one ourselves instead
 		ini_set('session.use_cookies', '0');
-		session_name($name);
-		if (@session_start() === false || @session_regenerate_id(true) === false) {
-			return false;
+		if (session_name($name) === false || !session_start()) {
+			throw new RuntimeException("Session {$name} could not be started!");
+		}
+		if (!session_regenerate_id(delete_old_session: true)) {
+			throw new RuntimeException('Session could not be regenerated!');
 		}
 		session_write_close();
 		$newId = session_id();
 		if ($newId === false) {
-			Minz_Error::error(500);
-			return false;
+			throw new RuntimeException('Session ID could not be retrieved!');
 		}
 		$params = session_get_cookie_params();
 		$params['expires'] = $params['lifetime'] > 0 ? time() + $params['lifetime'] : 0;
 		unset($params['lifetime']);
-		setcookie($name, $newId, $params);
-		return true;
+		if (!setcookie($name, $newId, $params)) {
+			throw new RuntimeException('Failed to set session cookie!');
+		}
+		return;
 	}
 
 	public static function deleteLongTermCookie(string $name): void {
