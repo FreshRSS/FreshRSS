@@ -198,7 +198,13 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					return;
 				}
 
-				Minz_Session::regenerateID('FreshRSS');
+				try {
+					Minz_Session::regenerateID('FreshRSS');
+				} catch (RuntimeException $e) {
+					Minz_Log::error('Session could not be regenerated during password change! ' . $e->getMessage());
+					Minz_Request::bad(_t('install.session.nok'), ['c' => 'user', 'a' => 'profile']);
+					return;
+				}
 			}
 
 			if (FreshRSS_Context::systemConf()->force_email_validation && empty($email)) {
