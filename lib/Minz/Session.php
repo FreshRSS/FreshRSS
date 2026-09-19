@@ -54,6 +54,10 @@ class Minz_Session {
 
 		session_name($name);
 
+		// Reject an uninitialized (e.g. attacker-supplied) session ID rather than
+		// adopting it, as defence in depth against session fixation.
+		ini_set('session.use_strict_mode', '1');
+
 		// When using cookies (default value), session_start() sends HTTP headers
 		session_start();
 		session_write_close();
