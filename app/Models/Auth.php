@@ -168,6 +168,7 @@ class FreshRSS_Auth {
 			'lastReauth' => false,
 			// 'csrf' => false, // Must be refreshed separately
 			'REMOTE_USER' => false,
+			'nonce' => false,	// Invalidate any outstanding login challenge (e.g. on logout)
 		]);
 
 		$username = Minz_Request::paramString('user');
