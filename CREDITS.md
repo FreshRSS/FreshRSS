@@ -189,6 +189,7 @@ People are sorted by name so please keep this order.
 * [Luc Sanchez](https://github.com/ColonelMoutarde): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ColonelMoutarde), [Web](https://www.luc-sanchez.fr/)
 * [Luca Olivetti](https://github.com/olivluca): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:olivluca)
 * [LucasVerneyDGE](https://github.com/ghost): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:LucasVerneyDGE)
+* [Luigi Colluto](https://github.com/gigioneggiando): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gigioneggiando)
 * [Luis Carlos Simitana](https://github.com/simitana): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:simitana)
 * [Lukas David Vacula](https://github.com/ldv8434): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ldv8434), [Web](https://lvacula.com/)
 * [Machou](https://github.com/Machou): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Machou)
