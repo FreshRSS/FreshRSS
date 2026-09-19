@@ -590,6 +590,10 @@ final class FreshRSS_http_Util {
 					// there is no CURLOPT_RESOLVE equivalent for proxy hostnames)
 					$curl_options[CURLOPT_PROXY_SSL_VERIFYHOST] = 0;
 				}
+				if (defined('CURLOPT_PROXY_SSL_VERIFYPEER') && isset($attributes['ssl_verify']) && $attributes['ssl_verify'] == false) {
+					// Disable certificate verification for HTTPS proxies
+					$curl_options[CURLOPT_PROXY_SSL_VERIFYPEER] = false;
+				}
 			}
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 			$ch = curl_init();

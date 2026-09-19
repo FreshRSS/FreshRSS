@@ -172,6 +172,8 @@ return [
 		//CURLOPT_PROXYPORT => 8080,
 		//CURLOPT_PROXYAUTH => CURLAUTH_BASIC,
 		//CURLOPT_PROXYUSERPWD => 'user:password',
+		# Disable certificate verification for HTTPS proxies
+		//CURLOPT_PROXY_SSL_VERIFYPEER => false,
 	],
 
 	'db' => [

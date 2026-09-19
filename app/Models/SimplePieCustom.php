@@ -27,6 +27,10 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			$curl_options[CURLOPT_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
 			if (empty($attributes['ssl_verify'])) {
 				$curl_options[CURLOPT_SSL_CIPHER_LIST] = 'DEFAULT@SECLEVEL=1';
+				if (defined('CURLOPT_PROXY_SSL_VERIFYPEER')) {
+					// Disable certificate verification for HTTPS proxies
+					$curl_options[CURLOPT_PROXY_SSL_VERIFYPEER] = false;
+				}
 			}
 		}
 		$attributes['curl_params'] = FreshRSS_http_Util::sanitizeCurlParams(is_array($attributes['curl_params'] ?? null) ? $attributes['curl_params'] : []);
