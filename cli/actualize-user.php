@@ -27,7 +27,7 @@ if ($cliOptions->feedId !== '') {
 	$feedId = filter_var($cliOptions->feedId, FILTER_VALIDATE_INT, [
 		'options' => ['min_range' => 1],
 	]);
-	if ($feedId === false) {
+	if (!is_int($feedId)) {
 		fail('FreshRSS error: Invalid feed ID: ' . $cliOptions->feedId . "\n");
 	}
 }
