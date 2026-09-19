@@ -71,4 +71,29 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			['ftp://example.net/feed', 'https://example.net/feed', false],
 		];
 	}
+
+	#[DataProvider('provideTrustedSources')]
+	public function test_isTrustedSource(string $ip, string $source, bool $expected): void {
+		self::assertSame($expected, FreshRSS_http_Util::isTrustedSource($ip, $source));
+	}
+
+	/** @return list<array{string,string,bool}> */
+	public static function provideTrustedSources(): array {
+		return [
+			// Bare IPs and CIDR ranges delegate to checkCIDR()
+			['192.168.1.1', '192.168.1.1', true],
+			['192.168.1.2', '192.168.1.1', false],
+			['192.168.1.42', '192.168.1.0/24', true],
+			['2001:db8::1', '2001:db8::1', true],
+			// Hostname entries resolve to their addresses (localhost is in /etc/hosts)
+			['127.0.0.1', 'localhost', true],
+			['127.0.0.2', 'localhost', false],
+			// Unresolvable hostname matches nothing
+			['127.0.0.1', 'nonexistent-host.invalid', false],
+			// Empty and invalid entries match nothing
+			['192.168.1.1', '', false],
+			['192.168.1.1', '   ', false],
+			['192.168.1.1', '256.256.256.256', false],
+		];
+	}
 }
