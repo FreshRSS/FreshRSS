@@ -74,7 +74,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	}
 
 	/** @param array<string,mixed> $userConfigUpdated */
-	public static function updateUser(string $user, ?string $email, string $passwordPlain, array $userConfigUpdated = []): bool {
+	public static function updateUser(string $user, ?string $email, #[\SensitiveParameter] string $passwordPlain, array $userConfigUpdated = []): bool {
 		$userConfig = FreshRSS_UserConfiguration::getForUser($user);
 		if ($userConfig === null) {
 			return false;
@@ -198,7 +198,13 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					return;
 				}
 
-				Minz_Session::regenerateID('FreshRSS');
+				try {
+					Minz_Session::regenerateID('FreshRSS');
+				} catch (RuntimeException $e) {
+					Minz_Log::error('Session could not be regenerated during password change! ' . $e->getMessage());
+					Minz_Request::bad(_t('install.session.nok'), ['c' => 'user', 'a' => 'profile']);
+					return;
+				}
 			}
 
 			if (FreshRSS_Context::systemConf()->force_email_validation && empty($email)) {
@@ -343,7 +349,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public static function createUser(string $new_user_name, ?string $email, string $passwordPlain,
+	public static function createUser(string $new_user_name, ?string $email, #[\SensitiveParameter] string $passwordPlain,
 		array $userConfigOverride = [], bool $insertDefaultFeeds = true): bool {
 		$userConfig = [];
 
