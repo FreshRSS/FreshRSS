@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @property-read int $reauth_time
  * @property-read string $auto_update_url
  * @property-read array<int,mixed> $curl_options
+ * @property string $default_theme
  * @property string $default_user
  * @property string $email_validation_token
  * @property bool $force_email_validation

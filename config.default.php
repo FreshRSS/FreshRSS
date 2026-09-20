@@ -31,6 +31,10 @@ return [
 	# Natural language of the user interface, e.g. `en`, `fr`.
 	'language' => 'en',
 
+	# Theme used for pages shown before login (e.g. the login page).
+	#	Empty string means the FreshRSS installation default theme is used.
+	'default_theme' => '',
+
 	# Title of this FreshRSS instance in the Web user interface.
 	'title' => 'FreshRSS',
 

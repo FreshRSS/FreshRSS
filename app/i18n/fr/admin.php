@@ -15,6 +15,11 @@ return array(
 		'allow_anonymous' => 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
 		'allow_anonymous_refresh' => 'Autoriser le rafraîchissement anonyme des flux',
 		'api_enabled' => 'Autoriser l’accès par <abbr>API</abbr> <small>(nécessaire pour les applications mobiles et pour partager les filtres utilisateurs)</small>',
+		'default_theme' => array(
+			'_' => 'Default theme',	// TODO
+			'help' => 'Theme used on pages shown before login, such as the login page.',	// TODO
+			'installation_default' => 'Installation default theme',	// TODO
+		),
 		'form' => 'Formulaire (traditionnel, requiert JavaScript)',
 		'http' => 'HTTP (avancé : contrôlé par serveur Web, OIDC, SSO…)',
 		'none' => 'Aucune (dangereux)',
