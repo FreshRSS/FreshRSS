@@ -2,7 +2,8 @@
 declare(strict_types=1);
 
 class FreshRSS_FormAuth {
-	public static function checkCredentials(string $username, string $hash, string $nonce, string $challenge): bool {
+	public static function checkCredentials(string $username, #[\SensitiveParameter] string $hash,
+		string $nonce, #[\SensitiveParameter] string $challenge): bool {
 		if (!FreshRSS_user_Controller::checkUsername($username) ||
 				!ctype_graph($hash) ||
 				!ctype_graph($challenge) ||
@@ -56,7 +57,7 @@ class FreshRSS_FormAuth {
 		return false;
 	}
 
-	public static function makeCookie(string $username, string $password_hash): string|false {
+	public static function makeCookie(string $username, #[\SensitiveParameter] string $password_hash): string|false {
 		do {
 			$token = hash('sha256', FreshRSS_Context::systemConf()->salt . $username . random_bytes(32));
 			$token_file = DATA_PATH . '/tokens/' . $token . '.txt';
