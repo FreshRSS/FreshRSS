@@ -54,6 +54,7 @@ jobs:
           token: ${{ secrets.LYCHEE_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 
           fail: true
+          failIfEmpty: false # Avoid failing in PRs with no links in changed files (`true` is the default)
 
           # Config is loaded from lychee.toml
           args: >
