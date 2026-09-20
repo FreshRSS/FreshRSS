@@ -190,6 +190,7 @@ return array(
 		'unsafe_csp_header' => 'A CSP fejléc használata nem biztonságos és a FreshRSS sebezhető lehet az XSS támadásokkal szemben. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lásd dokumentáció</a>',
 	),
 	'lang' => array(
+		'az' => 'Azərbaycanca',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE

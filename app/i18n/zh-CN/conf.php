@@ -201,8 +201,9 @@ return array(
 			'_' => '生效的过滤器：',
 			'categories' => '按分类显示',
 			'feeds' => '按订阅源显示',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => '按日期排序',
-			'publish_labels_instead_of_tags' => '在共享的 RSS 中用 <i>用户标签</i> 替换 <i>订阅源标签</i>',	// DIRTY
 			'search' => '表达式',
 			'shareOpml' => '启用相应类别和 feed 的 OPML 分享',
 			'shareRss' => '启用 HTML 和 RSS 分享',

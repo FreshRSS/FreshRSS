@@ -22,7 +22,7 @@ return array(
 		'keep_period' => '文章最大保留時間',
 		'keep_unreads' => '永不刪除未讀文章',
 		'maintenance' => '維護',
-		'optimize' => '最佳化資料庫',
+		'optimize' => '資料庫最佳化',
 		'optimize_help' => '偶爾執行以減少資料庫大小',
 		'policy' => '清理策略',
 		'policy_warning' => '如果未選擇清理策略，則將保留全部文章。',
@@ -69,7 +69,7 @@ return array(
 			'help' => '僅適用於相容主題',
 			'no' => '否',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => '顯示附件',
 		'headline' => array(
 			'articles_header_footer' => '文章: 頁首/頁尾',
 		),
@@ -165,7 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => '隱私',
 		'retrieve_extension_list' => '取得擴充功能清單',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => '允許看到您的伺服器位址 (%s) 的站點',
 	),
 	'profile' => array(
 		'_' => '設定檔管理',
@@ -201,8 +201,9 @@ return array(
 			'_' => '套用的過濾器:',
 			'categories' => '按類別顯示',
 			'feeds' => '按訂閱源顯示',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => '按日期排序',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => '表達式',
 			'shareOpml' => '啟用透過對應類別和訂閱源的 OPML 分享',
 			'shareRss' => '啟用透過 HTML 分享 &amp; RSS',
@@ -210,8 +211,8 @@ return array(
 			'tags' => '按標籤顯示',
 			'type' => '類型',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => '顯示所有訂閱源，包含僅於其類別中顯示的部份',
+		'get_Z' => '顯示所有訂閱源，包含被歸檔的部份',
 		'get_all' => '顯示所有文章',
 		'get_all_labels' => '顯示任何標籤的文章',
 		'get_category' => '顯示類別 “%s”',
@@ -219,13 +220,13 @@ return array(
 		'get_feed' => '顯示訂閱源 “%s”',
 		'get_important' => '顯示來自重要訂閱源的文章',
 		'get_label' => '顯示帶有標籤 “%s” 的文章',
-		'help' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">說明文件以了解使用者查詢和透過 HTML / RSS / OPML 重新分享</a>。',
+		'help' => '請參閱<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">使用者查詢與 HTML / RSS / OPML 重新分享方法的說明文件</a>。',
 		'image_url' => '影像 URL',
 		'name' => '名稱',
 		'no_filter' => '無過濾器',
 		'no_queries' => array(
 			'_' => '尚無使用者查詢被儲存。',
-			'help' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">說明文件</a>',
+			'help' => '請參閱<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">說明文件</a>',
 		),
 		'number' => '查詢 n°%d',
 		'order_asc' => '先顯示最舊文章',

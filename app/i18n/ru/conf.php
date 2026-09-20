@@ -201,8 +201,9 @@ return array(
 			'_' => 'Применённые фильтры:',
 			'categories' => 'Отображение по категории',
 			'feeds' => 'Отображение по ленте',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Сортировать по дате',
-			'publish_labels_instead_of_tags' => 'Заменить <i>теги ленты</i> на <i>пользовательские метки</i> в общей RSS-ленте',
 			'search' => 'Выражение',
 			'shareOpml' => 'Включить общий доступ с помощью OPML к соответствующим категориям и лентам',
 			'shareRss' => 'Включить общий доступ с помощью HTML &amp; RSS',

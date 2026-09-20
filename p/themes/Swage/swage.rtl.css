@@ -1298,14 +1298,14 @@ main.global {
 	}
 
 	#nav_menu_sort .dropdown-menu,
-	#nav_menu_read_all .dropdown-menu,
+	.nav_menu_read_all .dropdown-menu,
 	#dropdown-search-wrapper .dropdown-menu,
 	#nav_menu_queries .dropdown-menu {
 		top: 4.4rem;
 	}
 
 	#nav_menu_sort .dropdown-menu,
-	#nav_menu_read_all .dropdown-menu,
+	.nav_menu_read_all .dropdown-menu,
 	#nav_menu_actions .dropdown-menu {
 		position: fixed;
 	}
@@ -1542,14 +1542,14 @@ main.global {
 		top: 0;
 	}
 
-	form#mark-read-menu,
+	form.mark-read-menu,
 	a#actualize,
 	div#nav_menu_actions,
 	div#nav_menu_views {
 		position: absolute;
 	}
 
-	form#mark-read-menu {
+	form.mark-read-menu {
 		left: 38px;
 		top: 0;
 	}
@@ -1592,7 +1592,7 @@ main.global {
 			margin-right: 0;
 		}
 
-		.nav_menu form#mark-read-menu,
+		.nav_menu form.mark-read-menu,
 		.nav_menu a#actualize,
 		.nav_menu div#nav_menu_actions,
 		.nav_menu div#nav_menu_views,
@@ -1699,7 +1699,7 @@ button.as-link {
 	}
 }
 
-#nav_menu_read_all {
+.nav_menu_read_all {
 	ul.dropdown-menu {
 		&::after {
 			display: none;

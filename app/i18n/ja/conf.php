@@ -201,8 +201,9 @@ return array(
 			'_' => 'フィルターを適用：',
 			'categories' => 'カテゴリごとに表示する',
 			'feeds' => 'フィードごとに表示する',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => '日付ごとにソートする',
-			'publish_labels_instead_of_tags' => '共有RSSでは<i>フィードタグ</i>の代わりに<i>ユーザーラベル</i>を使用する',
 			'search' => '検索式',
 			'shareOpml' => 'カテゴリとフィードのOPMLによる共有を有効にする',
 			'shareRss' => 'HTMLとRSSによる共有を有効にする',

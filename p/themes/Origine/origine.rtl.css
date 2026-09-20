@@ -50,7 +50,7 @@
 	--alert-success-border-color: #cec;
 	--alert-error-background-color: #fdd;
 	--alert-error-font-color: #693a3a;
-	--alert-error-boder-color: #ecc;
+	--alert-error-border-color: #ecc;
 
 	--notification-good-background-color: #ffe;
 	--notification-good-border-color: #eeb;
@@ -558,7 +558,7 @@ button:hover .icon,
 .alert-error {
 	background-color: var(--alert-error-background-color);
 	color: var(--alert-error-font-color);
-	border: 1px solid var(--alert-error-boder-color);
+	border: 1px solid var(--alert-error-border-color);
 }
 
 .alert-error a {
@@ -997,7 +997,7 @@ button:hover .icon,
 	margin: 0;
 }
 
-#stream-footer {
+.stream-footer {
 	border-top-color: var(--border-color);
 }
 
@@ -1208,7 +1208,7 @@ button:hover .icon,
 		border-radius: 0;
 	}
 
-	#nav_menu_read_all .btn {
+	.nav_menu_read_all .btn {
 		border-right: 1px solid var(--border-color-shadow-side);
 		border-radius: 3px;
 	}
@@ -1302,7 +1302,7 @@ button:hover .icon,
 		--alert-success-border-color: #cec;
 		--alert-error-background-color: #fdda;
 		--alert-error-font-color: #512b2b;
-		--alert-error-boder-color: #ecc;
+		--alert-error-border-color: #ecc;
 
 		--notification-good-background-color: #ffe;
 		--notification-good-border-color: #eeb;

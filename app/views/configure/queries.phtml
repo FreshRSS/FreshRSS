@@ -6,7 +6,7 @@
 <main class="post">
 	<h1><?= _t('conf.query') ?></h1>
 	<h2><?= _t('conf.query.create') ?></h2>
-	<form method="post" action="<?= _url('configure', 'bookmarkQuery') ?>" autocomplete="off" data-auto-leave-validation="1">
+	<form name="bookmark_query" method="post" action="<?= _url('configure', 'bookmarkQuery') ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">
@@ -157,7 +157,7 @@
 		15 => _t('conf.query.state_all'),
 	];
 	?>
-	<form method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
+	<form name="drag_queries" method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<?php if (count($this->queries) < 1) { ?>
 			<div class="alert alert-warn">

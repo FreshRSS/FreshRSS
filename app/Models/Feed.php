@@ -560,7 +560,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _pathEntries(string $value): void {
 		$this->pathEntries = $value;
 	}
-	public function _httpAuth(string $value): void {
+	public function _httpAuth(#[\SensitiveParameter] string $value): void {
 		$this->httpAuth = $value;
 	}
 
@@ -841,7 +841,8 @@ class FreshRSS_Feed extends Minz_Model {
 			$content = html_only_entity_decode($item->get_content());
 
 			$attributeThumbnail = $item->get_thumbnail() ?? [];
-			if (empty($attributeThumbnail['url'])) {
+			if (empty($attributeThumbnail['url']) || !is_string($attributeThumbnail['url']) ||
+				!\SimplePie\Misc::is_remote_uri($attributeThumbnail['url'])) {
 				$attributeThumbnail['url'] = '';
 			}
 
@@ -851,7 +852,7 @@ class FreshRSS_Feed extends Minz_Model {
 			if (!empty($enclosures)) {
 				foreach ($enclosures as $enclosure) {
 					$elink = $enclosure->get_link();
-					if ($elink != '') {
+					if (is_string($elink) && $elink !== '' && \SimplePie\Misc::is_remote_uri($elink)) {
 						$etitle = $enclosure->get_title() ?? '';
 						$credits = $enclosure->get_credits() ?? null;
 						$description = $enclosure->get_description() ?? '';
@@ -894,7 +895,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 						if (!empty($enclosure->get_thumbnails())) {
 							foreach ($enclosure->get_thumbnails() as $thumbnail) {
-								if ($thumbnail !== $attributeThumbnail['url']) {
+								if (is_string($thumbnail) && \SimplePie\Misc::is_remote_uri($thumbnail) &&
+									$thumbnail !== $attributeThumbnail['url']) {
 									$attributeEnclosure['thumbnails'][] = $thumbnail;
 								}
 							}
@@ -1302,6 +1304,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$filename = $simplePie->get_cache_filename($url);
 		switch ($this->kind) {
 			case FreshRSS_Feed::KIND_HTML_XPATH:
+			case FreshRSS_Feed::KIND_HTML_XPATH_JSON_DOTNOTATION:
 				return CACHE_PATH . '/' . $filename . '.html';
 			case FreshRSS_Feed::KIND_XML_XPATH:
 				return CACHE_PATH . '/' . $filename . '.xml';
@@ -1311,8 +1314,9 @@ class FreshRSS_Feed extends Minz_Model {
 				return CACHE_PATH . '/' . $filename . '.json';
 			case FreshRSS_Feed::KIND_RSS:
 			case FreshRSS_Feed::KIND_RSS_FORCED:
-			default:
 				return CACHE_PATH . '/' . $filename . '.spc';
+			default:
+				return CACHE_PATH . '/' . $filename . '.raw';
 		}
 	}
 
@@ -1356,12 +1360,18 @@ class FreshRSS_Feed extends Minz_Model {
 	//<WebSub>
 
 	public function pubSubHubbubEnabled(): bool {
+		// Whether the current user is enrolled in the WebSub of that topic
+		$currentUser = Minz_User::name() ?? '';
+		if ($currentUser === '') {
+			return false;
+		}
 		$url = $this->selfUrl ?: $this->url;
-		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
-		if (($hubFile = @file_get_contents($hubFilename)) != false) {
+		$path = PSHB_PATH . '/feeds/' . sha1($url);
+		if (($hubFile = @file_get_contents($path . '/!hub.json')) != false) {
 			$hubJson = json_decode($hubFile, true);
 			if (is_array($hubJson) && empty($hubJson['error']) &&
-				(empty($hubJson['lease_end']) || $hubJson['lease_end'] > time())) {
+				(empty($hubJson['lease_end']) || $hubJson['lease_end'] > time()) &&
+				file_exists($path . '/' . $currentUser . '.txt')) {
 				return true;
 			}
 		}
@@ -1395,10 +1405,21 @@ class FreshRSS_Feed extends Minz_Model {
 			$this->hubUrl !== '' && $this->selfUrl !== '' && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
+			$currentUser = Minz_User::name() ?? '';
 			if (($hubFile = @file_get_contents($hubFilename)) != false) {
 				$hubJson = json_decode($hubFile, true);
 				if (!is_array($hubJson) || empty($hubJson['key']) || !is_string($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
 					$text = 'Invalid JSON for WebSub: ' . $this->url;
+					Minz_Log::warning($text);
+					Minz_Log::warning($text, PSHB_LOG);
+					return false;
+				}
+				if (($hubJson['hub'] ?? null) !== $this->hubUrl) {
+					if (FreshRSS_user_Controller::checkUsername($currentUser) && file_exists($path . '/' . $currentUser . '.txt')) {
+						unlink($path . '/' . $currentUser . '.txt');
+					}
+					$text = 'WebSub: Hub ' . $this->hubUrl . ' currently advertised by ' . $this->url .
+						' does not match the hub file! Not subscribing ' . $currentUser;
 					Minz_Log::warning($text);
 					Minz_Log::warning($text, PSHB_LOG);
 					return false;
@@ -1416,7 +1437,7 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 			} else {
 				@mkdir($path, 0770, true);
-				$key = sha1($path . FreshRSS_Context::systemConf()->salt);
+				$key = bin2hex(random_bytes(32));
 				$hubJson = [
 					'hub' => $this->hubUrl,
 					'key' => $key,
@@ -1428,7 +1449,6 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::debug($text);
 				Minz_Log::debug($text, PSHB_LOG);
 			}
-			$currentUser = Minz_User::name() ?? '';
 			if (FreshRSS_user_Controller::checkUsername($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
 				touch($path . '/' . $currentUser . '.txt');
 			}

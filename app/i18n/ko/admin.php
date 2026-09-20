@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => '릴리즈 채널',
 			'edge' => '롤링 릴리즈 (“edge”)',
-			'latest' => '안정 릴리즈 (“latest”)',
+			'latest' => '안정 릴리즈 (“latest”)',	// DIRTY
 		),
 		'title' => '업데이트',
 		'viaGit' => 'Git 및 GitHub.com을 통한 업데이트 시작 됨',

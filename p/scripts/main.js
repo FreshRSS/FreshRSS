@@ -958,7 +958,7 @@ function onScroll() {
 		});
 	}
 	let streamFooter;
-	if (context.auto_load_more && (streamFooter = document.getElementById('stream-footer'))) {
+	if (context.auto_load_more && (streamFooter = document.querySelector('.stream-footer'))) {
 		if (box_to_follow.offsetHeight > 0 &&
 			box_to_follow.scrollTop + box_to_follow.offsetHeight + (window.innerHeight / 2) >= streamFooter.offsetTop) {
 			// Too close to the last pre-loaded article
@@ -1523,7 +1523,7 @@ function init_stream(stream) {
 		el = ev.target.closest('.item.share > button[data-type="clipboard"]');
 		if (el) { // Clipboard
 			if (navigator.clipboard) {
-				navigator.clipboard.writeText(el.dataset.url)
+				navigator.clipboard.writeText(decodeURIComponent(el.dataset.url))
 					.then(() => {
 						toggleClass(el, 'ok');
 					})
@@ -1534,7 +1534,7 @@ function init_stream(stream) {
 			} else {
 				// fallback, if navigator.clipboard is not available f.e. if access is not via https or localhost
 				const inputElement = document.createElement('input');
-				inputElement.value = el.dataset.url;
+				inputElement.value = decodeURIComponent(el.dataset.url);
 				document.body.appendChild(inputElement);
 				inputElement.select();
 				if (document.execCommand && document.execCommand('copy')) {
@@ -1552,7 +1552,7 @@ function init_stream(stream) {
 		el = ev.target.closest('.item.share > button[data-type="web-sharing-api"]');
 		if (el && navigator.share) {	// https://developer.mozilla.org/docs/Web/API/Navigator/share
 			const shareData = {
-				url: el.dataset.url,
+				url: decodeURIComponent(el.dataset.url),
 				title: decodeURI(el.dataset.title),
 			};
 			navigator.share(shareData);
@@ -1569,6 +1569,8 @@ function init_stream(stream) {
 		if (el) {	// Share by POST
 			const f = el.parentElement.querySelector('form');
 			f.disabled = false;
+			const input = f.querySelector('input');
+			input.value = decodeURIComponent(input.value);
 			f.submit();
 			return false;
 		}
@@ -2196,8 +2198,8 @@ function refreshUnreads() {
 
 		const nb_unreads = title ? str2int(title.getAttribute('data-unread')) : 0;
 
+		faviconNbUnread(nb_unreads);
 		if (nb_unreads > 0 && new_articles) {
-			faviconNbUnread(nb_unreads);
 			notifs_html5_show(json.notifBody);
 		}
 	};
@@ -2249,7 +2251,7 @@ function load_more_posts() {
 		}
 
 		const html = this.response;
-		const streamFooter = document.getElementById('stream-footer');
+		const streamFooter = document.querySelector('.stream-footer');
 		const transitions = document.querySelectorAll('#stream > .transition');
 		let lastTransition = transitions.length > 0 ? transitions[transitions.length - 1] : null;
 
@@ -2270,7 +2272,7 @@ function load_more_posts() {
 		}
 
 		const bigMarkAsRead = document.getElementById('bigMarkAsRead');
-		const readAll = document.querySelector('#nav_menu_read_all .read_all');
+		const readAll = document.querySelector('.nav_menu_read_all .read_all');
 		if (readAll && bigMarkAsRead && bigMarkAsRead.formAction) {
 			if (context.display_order === 'ASC') {
 				readAll.formAction = bigMarkAsRead.formAction;

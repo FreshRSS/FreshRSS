@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Izlaiduma kanāls',
 			'edge' => 'Ritošā atbrīvošana (“edge”)',
-			'latest' => 'Stabila atbrīvošana (“latest”)',
+			'latest' => 'Stabila atbrīvošana (“latest”)',	// DIRTY
 		),
 		'title' => 'Atjaunināt sistēmu',
 		'viaGit' => 'Atjaunināt, izmantojot git un GitHub.com sākts',

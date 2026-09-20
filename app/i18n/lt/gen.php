@@ -198,6 +198,7 @@ return array(
 		'unsafe_csp_header' => 'Naudojama CSP antraštė yra nesaugi, ir FreshRSS gali būti pažeidžiama XSS atakų. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Žr. dokumentaciją</a>',
 	),
 	'lang' => array(
+		'az' => 'Azərbaycanca',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE

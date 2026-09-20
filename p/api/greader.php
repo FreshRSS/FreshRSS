@@ -206,7 +206,7 @@ final class GReaderAPI {
 		return '';
 	}
 
-	private static function clientLogin(string $email, string $pass): never {
+	private static function clientLogin(string $email, #[\SensitiveParameter] string $pass): never {
 		//https://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 		if (FreshRSS_user_Controller::checkUsername($email)) {
 			FreshRSS_Context::initUser($email);
@@ -325,7 +325,7 @@ final class GReaderAPI {
 	private static function subscriptionImport(string $opml): never {
 		$user = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 		$importService = new FreshRSS_Import_Service($user);
-		$importService->importOpml($opml);
+		$importService->importOpml($opml, trusted_source: true);
 		if ($importService->lastStatus()) {
 			FreshRSS_feed_Controller::actualizeFeedsAndCommit();
 			invalidateHttpCache($user);

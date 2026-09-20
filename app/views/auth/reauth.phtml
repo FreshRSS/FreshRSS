@@ -6,7 +6,7 @@
 <main class="prompt">
 	<h1><?= _t('gen.auth.reauth.header') ?></h1>
 
-	<form class="crypto-form" method="post">
+	<form name="crypto_form" class="crypto-form" method="post">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" id="username" value="<?= Minz_User::name() ?>" />
 		<div class="form-group">

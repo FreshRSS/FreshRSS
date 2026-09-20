@@ -2967,8 +2967,8 @@ msgstr "Voici un exemple de fichier `versions.php` :"
 #, no-wrap
 msgid ""
 "<?php\n"
-"return array(\n"
-"\t// STABLE\n"
+"return [\n"
+"\t// Releases\n"
 "\t'0.8.0' => '1.0.0',\n"
 "\t'0.8.1' => '1.0.0',\n"
 "\t'1.0.0' => '1.0.1',  // doesn’t exist (yet)\n"
@@ -2976,19 +2976,19 @@ msgid ""
 "\t'1.1.2-dev' => 'dev',\n"
 "\t'1.1.3-dev' => 'dev',\n"
 "\t'1.1.4-dev' => 'dev',\n"
-");\n"
+"];\n"
 msgstr ""
 "<?php\n"
-"return array(\n"
-"\t// STABLE\n"
+"return [\n"
+"\t// Releases\n"
 "\t'0.8.0' => '1.0.0',\n"
 "\t'0.8.1' => '1.0.0',\n"
-"\t'1.0.0' => '1.0.1',  // doesn’t exist (yet)\n"
+"\t'1.0.0' => '1.0.1',  // n’existe pas (encore)\n"
 "\t// DEV\n"
 "\t'1.1.2-dev' => 'dev',\n"
 "\t'1.1.3-dev' => 'dev',\n"
 "\t'1.1.4-dev' => 'dev',\n"
-");\n"
+"];\n"
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:69
@@ -3007,8 +3007,8 @@ msgstr "les versions `x.y.z-dev` sont **toutes** mises à jour vers `edge` ;"
 
 #. type: Bullet: '* '
 #: en/./developers/05_Release_new_version.md:75
-msgid "stable versions are updated to stable versions;"
-msgstr "les versions stables sont mises à jour vers des versions stables ;"
+msgid "versioned releases are updated to versioned releases;"
+msgstr "les publications versionnées sont mises à jour vers des publications versionnées ;"
 
 #. type: Bullet: '* '
 #: en/./developers/05_Release_new_version.md:75
@@ -3032,16 +3032,13 @@ msgstr ""
 
 #. type: Plain text
 #: en/./developers/05_Release_new_version.md:77
-#, fuzzy
-#| msgid ""
-#| "It’s **very strongly** recommended to keep this file organized according "
-#| "to version numbers by separating stable and dev versions."
 msgid ""
 "It’s**very strongly** recommended to keep this file organized according to "
-"version numbers by separating stable and dev versions."
+"version numbers by separating versioned and dev versions."
 msgstr ""
 "Il est **très fortement** indiqué de garder ce fichier rangé selon les "
-"numéros de versions en séparant les versions stables et de dev."
+"numéros de versions en séparant les publications versionnées et celles de "
+"dev."
 
 #. type: Title ##
 #: en/./developers/05_Release_new_version.md:78
@@ -3119,29 +3116,14 @@ msgstr ""
 
 #. type: Bullet: '* '
 #: en/./developers/05_Release_new_version.md:99
-msgid ""
-"on the freshrss.org blog, at least for stable versions (write the article "
-"on[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org))"
-msgstr ""
-"sur le blog de freshrss.org au minimum pour les versions stables (écrire "
-"l’article sur [FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss."
-"org))."
-
-#. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:99
-msgid "on Twitter ([@FreshRSS](https://twitter.com/FreshRSS) account)"
-msgstr "sur Twitter (compte [@FreshRSS](https://twitter.com/FreshRSS)) ;"
-
-#. type: Bullet: '* '
-#: en/./developers/05_Release_new_version.md:99
-msgid "and on mailing@freshrss.org"
-msgstr "et sur mailing@freshrss.org ;"
+msgid "on <https://framapiaf.org/@freshrss>"
+msgstr "sur <https://framapiaf.org/@freshrss> ;"
 
 #. type: Title ##
 #: en/./developers/05_Release_new_version.md:100
 #, no-wrap
-msgid "Starting the next development version"
-msgstr "Lancer la prochaine version de développement"
+msgid "Starting the next version"
+msgstr "Lancer la prochaine version"
 
 #. type: Fenced code block (console)
 #: en/./developers/05_Release_new_version.md:102
@@ -3165,10 +3147,10 @@ msgstr ""
 #: en/./developers/05_Release_new_version.md:111
 msgid ""
 "Also remember to update update.freshrss.org so that it takes the current "
-"development version into account."
+"rolling release into account."
 msgstr ""
 "Pensez aussi à mettre à jour update.freshrss.org pour qu’il prenne en compte "
-"la version de développement actuelle."
+"la publication continue actuelle."
 
 #. type: Title #
 #: en/./developers/06_Fever_API.md:1

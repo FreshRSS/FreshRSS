@@ -201,8 +201,9 @@ return array(
 			'_' => 'Застосовано фільтр:',
 			'categories' => 'Показати категорію',
 			'feeds' => 'Показати стрічку',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Впорядкувати за датою',
-			'publish_labels_instead_of_tags' => 'Замінити <i>теги стрічок</i> на <i>користувацькі мітки</i> в RSS-поширенні',
 			'search' => 'Вираз',
 			'shareOpml' => 'Увімкнути OPML-поширення відповідних категорій і стрічок',
 			'shareRss' => 'Увімкнути поширення в форматі HTML і RSS',

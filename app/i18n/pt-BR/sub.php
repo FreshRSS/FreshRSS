@@ -83,7 +83,7 @@ return array(
 			'help' => 'Escreva um filtro de pesquisa por linha. Operadores <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">consulte a documentação</a>.',
 			'view_filter' => 'Visualizar filtros em artigos existentes (nova janela)',
 		),
-		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
+		'global_hint' => 'Use a <a href="%s">visão global</a> para ver quantos artigos em cada feed correspondem a um estado ou a uma expressão de busca',
 		'http_headers' => 'Cabeçalhos HTTP',
 		'http_headers_help' => 'Os cabeçalhos são separados por uma nova linha, e o nome e o valor de um cabeçalho são separados por dois pontos (ex: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Ícone',

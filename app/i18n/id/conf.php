@@ -201,8 +201,9 @@ return array(
 			'_' => 'Filter yang diterapkan:',
 			'categories' => 'Tampilkan berdasarkan kategori',
 			'feeds' => 'Tampilkan berdasarkan umpan',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Urutkan berdasarkan tanggal',
-			'publish_labels_instead_of_tags' => 'Ganti <i>tag umpan</i> dengan <i>label pengguna</i> pada RSS yang dibagikan',
 			'search' => 'Ekspresi Pencarian',
 			'shareOpml' => 'Aktifkan berbagi melalui OPML dari kategori dan umpan terkait',
 			'shareRss' => 'Aktifkan berbagi melalui HTML &amp; RSS',
