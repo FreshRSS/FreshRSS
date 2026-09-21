@@ -37,7 +37,7 @@ class FreshRSS_Auth {
 		if (self::accessControl()) {
 			// Rotate the PHP session ID on the unauthenticated->authenticated
 			// transition (remember-me cookie restore, HTTP auth, HTTP auto-register)
-			// to prevent session fixation, mirroring the explicit form-login path.
+			// to prevent session fixation.
 			// 'none' has no authentication boundary, so there is nothing to rotate.
 			if (FreshRSS_Context::systemConf()->auth_type !== 'none') {
 				try {
