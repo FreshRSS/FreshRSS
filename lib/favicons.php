@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 const FAVICONS_DIR = DATA_PATH . '/favicons/';
+const CUSTOM_FAVICONS_DIR = DATA_PATH . '/custom-favicons/';
 const DEFAULT_FAVICON = PUBLIC_PATH . '/themes/icons/default_favicon.ico';
 
 function isImgMime(string $content): bool {
