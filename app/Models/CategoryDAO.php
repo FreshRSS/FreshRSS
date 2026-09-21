@@ -31,6 +31,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN `lastUpdate` BIGINT DEFAULT 0') !== false;
 			} elseif ($name === 'error') {	//v1.20.0
 				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN error BIGINT DEFAULT 0') !== false;
+			} elseif ($name === 'priority') {	//v1.30.0
+				return $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN priority TINYINT(2) NOT NULL DEFAULT 10') !== false;
 			} elseif ('attributes' === $name) {	//v1.15.0
 				$ok = $this->pdo->exec('ALTER TABLE `_category` ADD COLUMN attributes TEXT') !== false;
 
@@ -116,13 +118,13 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	public function addCategory(array $valuesTmp): int|false {
 		if (empty($valuesTmp['id'])) {	// Auto-generated ID
 			$sql = <<<'SQL'
-				INSERT INTO `_category`(name, kind, attributes)
-				SELECT * FROM (SELECT :name1 AS name, 1*:kind AS kind, :attributes AS attributes) c2
+				INSERT INTO `_category`(name, kind, priority, attributes)
+				SELECT * FROM (SELECT :name1 AS name, 1*:kind AS kind, :priority AS priority, :attributes AS attributes) c2
 				SQL;
 		} else {
 			$sql = <<<'SQL'
-				INSERT INTO `_category`(id, name, kind, attributes)
-				SELECT * FROM (SELECT 1*:id AS id, :name1 AS name, 1*:kind AS kind, :attributes AS attributes) c2
+				INSERT INTO `_category`(id, name, kind, priority, attributes)
+				SELECT * FROM (SELECT 1*:id AS id, :name1 AS name, 1*:kind AS kind, :priority AS priority, :attributes AS attributes) c2
 				SQL;
 		}
 		// No tag of the same name
@@ -140,6 +142,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			(empty($valuesTmp['id']) || $stm->bindValue(':id', $valuesTmp['id'], PDO::PARAM_INT)) &&
 			$stm->bindValue(':name1', $valuesTmp['name'], PDO::PARAM_STR) &&
 			$stm->bindValue(':kind', $valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL, PDO::PARAM_INT) &&
+			$stm->bindValue(':priority', $valuesTmp['priority'] ?? FreshRSS_Category::PRIORITY_MAIN_STREAM, PDO::PARAM_INT) &&
 			$stm->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
 				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), PDO::PARAM_STR) &&
 			$stm->bindValue(':name2', $valuesTmp['name'], PDO::PARAM_STR) &&
@@ -168,6 +171,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			$values = [
 				'kind' => $category->kind(),
 				'name' => $category->name(),
+				'priority' => $category->priority(),
 				'attributes' => $category->attributes(),
 			];
 			return $this->addCategory($values);
@@ -182,7 +186,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	public function updateCategory(int $id, array $valuesTmp): int|false {
 		// No tag of the same name
 		$sql = <<<'SQL'
-			UPDATE `_category` SET name=:name, kind=:kind, attributes=:attributes WHERE id=:id
+			UPDATE `_category` SET name=:name, kind=:kind, priority=:priority, attributes=:attributes WHERE id=:id
 			AND NOT EXISTS (SELECT 1 FROM `_tag` WHERE name = :name2)
 			SQL;
 		$stm = $this->pdo->prepare($sql);
@@ -195,6 +199,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		if ($stm !== false &&
 			$stm->bindValue(':name', $valuesTmp['name'], PDO::PARAM_STR) &&
 			$stm->bindValue(':kind', $valuesTmp['kind'] ?? FreshRSS_Category::KIND_NORMAL, PDO::PARAM_INT) &&
+			$stm->bindValue(':priority', $valuesTmp['priority'] ?? FreshRSS_Category::PRIORITY_MAIN_STREAM, PDO::PARAM_INT) &&
 			$stm->bindValue(':attributes', is_string($valuesTmp['attributes']) ? $valuesTmp['attributes'] :
 				json_encode($valuesTmp['attributes'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), PDO::PARAM_STR) &&
 			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
@@ -329,7 +334,8 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 				'f.*' :
 				'f.id, f.name, f.url, f.kind, f.website, f.priority, f.error, f.attributes, f.`cache_nbEntries`, f.`cache_nbUnreads`, f.ttl';
 			$sql = <<<SQL
-				SELECT c.id AS c_id, c.name AS c_name, c.kind AS c_kind, c.`lastUpdate` AS c_last_update, c.error AS c_error, c.attributes AS c_attributes,
+				SELECT c.id AS c_id, c.name AS c_name, c.kind AS c_kind,
+				c.priority AS c_priority, c.`lastUpdate` AS c_last_update, c.error AS c_error, c.attributes AS c_attributes,
 					{$feedFields}
 				FROM `_category` c
 				LEFT OUTER JOIN `_feed` f ON f.category=c.id
@@ -443,10 +449,14 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 
 	public function countNotRead(int $id, int $minPriority = FreshRSS_Feed::PRIORITY_CATEGORY): int {
 		$sql = <<<'SQL'
-			SELECT COUNT(*) AS count FROM `_entry` e
+			SELECT
+			COUNT(*) AS count,
+			CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END AS priority2
+			FROM `_entry` e
 			INNER JOIN `_feed` f ON e.id_feed=f.id
+			INNER JOIN `_category` c ON c.id = f.category
 			WHERE f.category=:id AND e.is_read=0
-			AND f.priority>=:minPriority
+			AND priority2>=:minPriority
 			SQL;
 		return $this->fetchInt($sql, [':id' => $id, ':minPriority' => $minPriority]) ?? -1;
 	}
@@ -500,6 +510,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 				);
 				$cat->_kind($previousLine['c_kind']);
 				$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
+				$cat->_priority($previousLine['c_priority'] ?? FreshRSS_Category::PRIORITY_MAIN_STREAM);
 				$cat->_error($previousLine['c_error'] ?? 0);
 				$cat->_attributes($previousLine['c_attributes'] ?? '[]');
 				$list[$cat->id()] = $cat;
@@ -520,6 +531,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			);
 			$cat->_kind($previousLine['c_kind']);
 			$cat->_lastUpdate($previousLine['c_last_update'] ?? 0);
+			$cat->_priority($previousLine['c_priority'] ?? FreshRSS_Category::PRIORITY_MAIN_STREAM);
 			$cat->_error($previousLine['c_error'] ?? 0);
 			$cat->_attributes($previousLine['c_attributes'] ?? []);
 			$list[$cat->id()] = $cat;
@@ -541,6 +553,7 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 			);
 			$cat->_kind($dao['kind']);
 			$cat->_lastUpdate($dao['lastUpdate'] ?? 0);
+			$cat->_priority($dao['priority'] ?? FreshRSS_Category::PRIORITY_MAIN_STREAM);
 			$cat->_error($dao['error'] ?? 0);
 			$cat->_attributes($dao['attributes'] ?? '');
 			$list[$cat->id()] = $cat;

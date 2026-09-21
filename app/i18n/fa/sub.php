@@ -215,14 +215,6 @@ return array(
 		'number_entries' => ' %d مقاله',
 		'open_feed' => 'باز کردن فید %s',
 		'path_entries_conditions' => 'شرایط بازیابی محتوا',
-		'priority' => array(
-			'_' => ' دید',
-			'category' => 'نمایش در دسته‌بندی خودش',
-			'feed' => 'در فید خودش نشان داده شود',
-			'hidden' => 'نشان ندهید.',
-			'important' => 'نمایش در فیدهای مهم',
-			'main_stream' => ' نمایش در جریان اصلی',
-		),
 		'proxy' => ' یک پروکسی برای واکشی این فید تنظیم کنید',
 		'proxy_help' => ' یک پروتکل (به عنوان مثال: SOCKS5) انتخاب کنید و آدرس پراکسی را وارد کنید (به عنوان مثال: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'تنظیم مجدد به حالت پیش‌فرض',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => ' مدیریت اشتراک',
 		'subscription_tools' => 'ابزارهای اشتراک',
+	),
+	'priority' => array(
+		'_' => ' دید',
+		'category' => ' نمایش در دسته بندی خود',
+		'feed' => 'در فید خودش نشان داده شود',
+		'hidden' => 'نشان ندهید.',
+		'important' => 'نمایش در فیدهای مهم',
+		'main_stream' => ' نمایش در جریان اصلی',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'این برچسب را به مقالات جدید اضافه کنید',

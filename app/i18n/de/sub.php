@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d Artikel',
 		'open_feed' => 'Feed %s öffnen',
 		'path_entries_conditions' => 'Bedingungen für den Inhaltsabruf',
-		'priority' => array(
-			'_' => 'Sichtbarkeit',
-			'category' => 'In eigener Kategorie anzeigen',
-			'feed' => 'In seinem Feed anzeigen',
-			'hidden' => 'Nicht anzeigen',
-			'important' => 'In „Wichtige Feeds“ anzeigen',
-			'main_stream' => 'In Haupt-Feeds zeigen',
-		),
 		'proxy' => 'Proxy für das Abrufen dieses Feeds festlegen',
 		'proxy_help' => 'Wählen Sie ein Protokoll aus (z. B. SOCKS5) und geben Sie die Proxy-Adresse ein (z. B. <kbd>127.0.0.1:1080</kbd> oder <kbd>username:password@127.0.0.1:1080</kbd>).',
 		'reset_favicon' => 'Auf Standard zurücksetzen',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Abonnementverwaltung',
 		'subscription_tools' => 'Abonnement-Tools',
+	),
+	'priority' => array(
+		'_' => 'Sichtbarkeit',
+		'category' => 'In eigener Kategorie anzeigen',
+		'feed' => 'In seinem Feed anzeigen',
+		'hidden' => 'Nicht anzeigen',
+		'important' => 'In „Wichtige Feeds“ anzeigen',
+		'main_stream' => 'In Haupt-Feeds zeigen',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Dieses Label zu neuen Artikeln hinzufügen',

@@ -22,7 +22,7 @@ class FreshRSS_CategoryDAOSQLite extends FreshRSS_CategoryDAO {
 		}
 		$columns = $this->fetchColumn("PRAGMA table_info('category')", 1);
 		if ($columns !== null) {
-			foreach (['kind', 'lastUpdate', 'error', 'attributes'] as $column) {
+			foreach (['kind', 'lastUpdate', 'error', 'attributes', 'priority'] as $column) {
 				if (!in_array($column, $columns, true)) {
 					return $this->addColumn($column);
 				}

@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d makale',
 		'open_feed' => '%s beslemesini aç',
 		'path_entries_conditions' => 'İçerik alma koşulları',
-		'priority' => array(
-			'_' => 'Görünürlük',
-			'category' => 'Kategorisinde göster',
-			'feed' => 'Beslemesinde göster',
-			'hidden' => 'Gösterilmesin',
-			'important' => 'Önemli beslemelerde göster',
-			'main_stream' => 'Ana akışta göster',
-		),
 		'proxy' => 'Bu beslemeyi almak için bir proxy ayarlayın',
 		'proxy_help' => 'Bir protokol seçin (örneğin: SOCKS5) ve proxy adresini girin (örneğin: <kbd>127.0.0.1:1080</kbd> veya <kbd>kullanıcıadı:parola@127.0.0.1:1080</kbd>).',
 		'reset_favicon' => 'Varsayılana sıfırla',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Abonelik yönetimi',
 		'subscription_tools' => 'Abonelik araçları',
+	),
+	'priority' => array(
+		'_' => 'Görünürlük',
+		'category' => 'Kategorisinde göster',
+		'feed' => 'Show in its feed',	// TODO
+		'hidden' => 'Gösterilmesin',
+		'important' => 'Önemli beslemelerde göster',
+		'main_stream' => 'Ana akışta göster',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Bu etiketi yeni makalelere ekle',

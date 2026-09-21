@@ -74,7 +74,9 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			$ok &= $stm->bindValue(':website', safe_ascii($valuesTmp['website']), PDO::PARAM_STR);
 			$ok &= $stm->bindValue(':description', FreshRSS_SimplePieCustom::sanitizeHTML($valuesTmp['description'], ''), PDO::PARAM_STR);
 			$ok &= $stm->bindValue(':last_update', $valuesTmp['lastUpdate'], PDO::PARAM_INT);
-			$ok &= $stm->bindValue(':priority', isset($valuesTmp['priority']) ? (int)$valuesTmp['priority'] : FreshRSS_Feed::PRIORITY_MAIN_STREAM, PDO::PARAM_INT);
+			$ok &= $stm->bindValue(':priority', isset($valuesTmp['priority']) ?
+				(int)$valuesTmp['priority'] :
+				FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING, PDO::PARAM_INT);
 			$ok &= $stm->bindValue(':path_entries', mb_strcut($valuesTmp['pathEntries'], 0, 4096, 'UTF-8'), PDO::PARAM_STR);
 			$ok &= $stm->bindValue(':http_auth', base64_encode($valuesTmp['httpAuth'] ?? ''), PDO::PARAM_STR);
 			$ok &= $stm->bindValue(':error', isset($valuesTmp['error']) ? (int)$valuesTmp['error'] : 0, PDO::PARAM_INT);
@@ -113,7 +115,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 				'name' => $feed->name(true),
 				'website' => $feed->website(),
 				'description' => $feed->description(),
-				'priority' => $feed->priority(),
+				'priority' => $feed->priority(follow_category: false),
 				'lastUpdate' => 0,
 				'error' => false,
 				'pathEntries' => $feed->pathEntries(),
@@ -743,7 +745,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 			$myFeed->_website($dao['website'] ?? '', false);
 			$myFeed->_description($dao['description'] ?? '');
 			$myFeed->_lastUpdate($dao['lastUpdate'] ?? 0);
-			$myFeed->_priority($dao['priority'] ?? 10);
+			$myFeed->_priority($dao['priority'] ?? FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING);
 			$myFeed->_pathEntries($dao['pathEntries'] ?? '');
 			$myFeed->_httpAuth(base64_decode($dao['httpAuth'] ?? '', true) ?: '');
 			$myFeed->_error($dao['error'] ?? 0);

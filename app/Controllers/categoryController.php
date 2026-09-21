@@ -176,6 +176,7 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			$values = [
 				'kind' => $category->kind(),
 				'name' => Minz_Request::paramString('name'),
+				'priority' => Minz_Request::paramIntNull('priority') ?? FreshRSS_Category::PRIORITY_MAIN_STREAM,
 				'attributes' => $category->attributes(),
 			];
 

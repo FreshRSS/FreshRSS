@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d článků',
 		'open_feed' => 'Open feed %s',	// TODO
 		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
-		'priority' => array(
-			'_' => 'Viditelnost',
-			'category' => 'Zobrazit v jeho kategorii',
-			'feed' => 'Show in its feed',	// TODO
-			'hidden' => 'Nezobrazovat',
-			'important' => 'Zobrazit v důležitých kanálech',
-			'main_stream' => 'Zobrazit ve hlavním kanálu',
-		),
 		'proxy' => 'Nastavete proxy pro načítání tohoto kanálu',
 		'proxy_help' => 'Vyberte protokol (např.: SOCKS5) a zadejte adresu proxy (např.: <kbd>127.0.0.1:1080</kbd> nebo <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Reset to default',	// TODO
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Správa odběrů',
 		'subscription_tools' => 'Nástroje odběrů',
+	),
+	'priority' => array(
+		'_' => 'Viditelnost',
+		'category' => 'Zobrazit v jeho kategorii',
+		'feed' => 'Show in its feed',	// TODO
+		'hidden' => 'Nezobrazovat',
+		'important' => 'Zobrazit v důležitých kanálech',
+		'main_stream' => 'Zobrazit ve hlavním kanálu',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Přidat tento štítek k novým článkům',

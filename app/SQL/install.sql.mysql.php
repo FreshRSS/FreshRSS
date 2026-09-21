@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `_category` (
 	`name` VARCHAR(191) NOT NULL,	-- Max index length for Unicode is 191 characters (767 bytes) FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE
 	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
 	`lastUpdate` BIGINT DEFAULT 0,	-- 1.20.0
+	`priority` TINYINT(2) NOT NULL DEFAULT 10,	-- v1.30.0
 	`error` BIGINT DEFAULT 0,	-- Date, v1.29.0
 	`attributes` TEXT,	-- v1.15.0
 	PRIMARY KEY (`id`),
@@ -143,7 +144,8 @@ BEGIN
 
 	IF up_to_date = 0 THEN
 		ALTER TABLE `_category`
-			MODIFY COLUMN `error` BIGINT DEFAULT 0;	-- v1.29.0
+			MODIFY COLUMN `error` BIGINT DEFAULT 0,	-- v1.29.0
+			MODIFY COLUMN `priority` TINYINT(2) DEFAULT 10; -- v1.30.0
 		ALTER TABLE `_feed`
 			MODIFY COLUMN `website` TEXT CHARACTER SET latin1 COLLATE latin1_bin,
 			MODIFY COLUMN `lastUpdate` BIGINT DEFAULT 0,

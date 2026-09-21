@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d məqalə',
 		'open_feed' => '%s lentini aç',
 		'path_entries_conditions' => 'Məzmunun alınması üçün şərtlər',
-		'priority' => array(
-			'_' => 'Görünürlük',
-			'category' => 'Öz kateqoriyasında göstər',
-			'feed' => 'Öz lentində göstər',
-			'hidden' => 'Göstərmə',
-			'important' => 'Vacib lentlərdə göstər',
-			'main_stream' => 'Əsas axında göstər',
-		),
 		'proxy' => 'Bu lenti gətirmək üçün proxy təyin edin',
 		'proxy_help' => 'Protokol seçin (məsələn: SOCKS5) və proxy ünvanını daxil edin (məsələn: <kbd>127.0.0.1:1080</kbd> və ya <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Standarta qaytar',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Abunələrin idarə edilməsi',
 		'subscription_tools' => 'Abunə alətləri',
+	),
+	'priority' => array(
+		'_' => 'Görünürlük',
+		'category' => 'Öz kateqoriyasında göstər',
+		'feed' => 'Öz lentində göstər',
+		'hidden' => 'Göstərmə',
+		'important' => 'Vacib lentlərdə göstər',
+		'main_stream' => 'Əsas axında göstər',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Bu etiketi yeni məqalələrə əlavə et',
