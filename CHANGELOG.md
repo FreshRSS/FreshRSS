@@ -99,6 +99,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fever API: log the client IP address on authentication failure [#8981](https://github.com/FreshRSS/FreshRSS/pull/8981)
 	* WebSub: ignore HTTP/HTTPS scheme difference in Self URL comparison [#9005](https://github.com/FreshRSS/FreshRSS/pull/9005)
 * Deployment
+	* Docker: Support Docker secrets via `_FILE` suffixed environment variables for the OIDC client variables (e.g. `OIDC_CLIENT_SECRET_FILE`), following the `postgres`/`mysql` convention [#7308](https://github.com/FreshRSS/FreshRSS/issues/7308)
 	* Docker alternative image updated to Alpine 3.24 with PHP 8.5.7 and Apache 2.4.67 [#8916](https://github.com/FreshRSS/FreshRSS/pull/8916)
 	* Start supporting PHP 8.6+
 		* Docker dev `:newest` with PHP 8.6 [#9155](https://github.com/FreshRSS/FreshRSS/pull/9155)
