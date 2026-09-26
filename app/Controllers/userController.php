@@ -162,25 +162,28 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_View::prependTitle(_t('conf.profile.title') . ' · ');
 
-		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/bcrypt.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/bcrypt.js')));
-
 		if (Minz_Request::isPost() && Minz_User::name() != null) {
 			$old_email = FreshRSS_Context::userConf()->mail_login;
 
 			$email = Minz_Request::paramString('email');
 
-			$challenge = Minz_Request::paramString('challenge');
-			$newPasswordPlain = '';
-			if ($challenge !== '') {
+			$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true);
+			$newPasswordPlain = Minz_Request::paramString('newPasswordPlain', plaintext: true);
+			$confirmPasswordPlain = Minz_Request::paramString('confirmPasswordPlain', plaintext: true);
+			if ($passwordPlain !== '') {
 				$username = Minz_User::name();
-				$nonce = Minz_Session::paramString('nonce');
 
-				$newPasswordPlain = Minz_Request::paramString('newPasswordPlain', plaintext: true);
-				$confirmPasswordPlain = Minz_Request::paramString('confirmPasswordPlain', plaintext: true);
+				$passwordRequirementsMet = FreshRSS_FormAuth::passwordRequirementsMet(
+					$passwordPlain,
+					['enforceMinLength' => true]
+				);
 
-				if (!FreshRSS_FormAuth::checkCredentials(
-					$username, FreshRSS_Context::userConf()->passwordHash, $nonce, $challenge
-					) || strlen($newPasswordPlain) < 7) {
+				// Currently the only requirement is checking whether the password length is within the range of 7-72 characters.
+				// This limit is enforced in the form as well, so no custom error message is needed so far
+				// on the server side.
+				if (!$passwordRequirementsMet || !FreshRSS_FormAuth::checkCredentials(
+					$username, FreshRSS_Context::userConf()->passwordHash, $passwordPlain
+				)) {
 					Minz_Session::_param('open', true); // Auto-expand `change password` section
 					Minz_Request::bad(
 						_t('feedback.auth.login.invalid'),
@@ -189,7 +192,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					return;
 				}
 
-				if ($newPasswordPlain !== $confirmPasswordPlain) {
+				if ($confirmPasswordPlain !== $newPasswordPlain) {
 					Minz_Session::_param('open', true); // Auto-expand `change password` section
 					Minz_Request::bad(
 						_t('feedback.profile.passwords_dont_match'),
@@ -435,7 +438,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			$new_user_name = Minz_Request::paramString('new_user_name');
 			$email = Minz_Request::paramString('new_user_email');
-			$passwordPlain = Minz_Request::paramString('new_user_passwordPlain', true);
+			$passwordPlain = Minz_Request::paramString('new_user_passwordPlain', plaintext: true);
 			$badRedirectUrl = [
 				'c' => Minz_Request::paramString('originController') ?: 'auth',
 				'a' => Minz_Request::paramString('originAction') ?: 'register',
@@ -455,7 +458,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				);
 			}
 
-			if (!FreshRSS_password_Util::check($passwordPlain)) {
+			if (!FreshRSS_FormAuth::passwordRequirementsMet($passwordPlain)) {
 				Minz_Request::bad(
 					_t('user.password.invalid'),
 					$badRedirectUrl
@@ -700,12 +703,10 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$ok = true;
 			if ($self_deletion) {
 				// We check the password if it’s a self-destruction
-				$nonce = Minz_Session::paramString('nonce');
-				$challenge = Minz_Request::paramString('challenge');
+				$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true);
 
 				$ok &= FreshRSS_FormAuth::checkCredentials(
-					$username, FreshRSS_Context::userConf()->passwordHash,
-					$nonce, $challenge
+					$username, FreshRSS_Context::userConf()->passwordHash, $passwordPlain
 				);
 				if (!$ok) {
 					Minz_Request::bad(_t('feedback.auth.login.invalid'), ['c' => 'user', 'a' => 'profile']);

@@ -2,23 +2,52 @@
 declare(strict_types=1);
 
 class FreshRSS_FormAuth {
-	public static function checkCredentials(string $username, #[\SensitiveParameter] string $hash,
-		string $nonce, #[\SensitiveParameter] string $challenge): bool {
-		if (!FreshRSS_user_Controller::checkUsername($username) ||
-				!ctype_graph($hash) ||
-				!ctype_graph($challenge) ||
-				!ctype_alnum($nonce)) {
-			Minz_Log::debug("Invalid credential parameters: user={$username}, challenge={$challenge}, nonce={$nonce}");
+	public const MIN_PASSWORD_LENGTH = 7; // Only to be enforced when setting new passwords.
+	public const MAX_PASSWORD_LENGTH = 72;
+
+	/**
+	 * @param array{enforceMinLength?: bool} $options
+	 */
+	public static function passwordRequirementsMet(#[\SensitiveParameter] string $passwordPlain, array $options = []): bool {
+		$enforceMinLength = ($options['enforceMinLength'] ?? true) === true;
+		if (strlen($passwordPlain) > self::MAX_PASSWORD_LENGTH) {
+			return false;
+		}
+		if ($enforceMinLength && strlen($passwordPlain) < self::MIN_PASSWORD_LENGTH) {
+			return false;
+		}
+		return true;
+	}
+
+	public static function checkCredentials(string $username, #[\SensitiveParameter] string $hash, #[\SensitiveParameter] string $passwordPlain): bool {
+		if (!FreshRSS_user_Controller::checkUsername($username) || !ctype_graph($hash)) {
+			Minz_Log::debug("Invalid credential parameters: user={$username}");
 			return false;
 		}
 
 		// Expecting bcrypt format, see: https://en.wikipedia.org/wiki/Bcrypt#Description
-		if (!preg_match('/^\$2[aby]\$(0[4-9]|10)\$[.\/0-9A-Za-z]{53}$/', $challenge)) {
-			Minz_Log::debug("Invalid challenge format: user={$username}, challenge={$challenge}, nonce={$nonce}");
+		// FreshRSS has not historically used any other algorithm for password hash generation,
+		// so no upgrades are required.
+		if (!preg_match('/^\$2[aby]\$(0[4-9]|10)\$[.\/0-9A-Za-z]{53}$/', $hash)) {
+			Minz_Log::debug("Invalid hash format: user={$username}");
 			return false;
 		}
 
-		return password_verify($hash . $nonce, $challenge);
+		if (strlen($passwordPlain) > self::MAX_PASSWORD_LENGTH) {
+			Minz_Log::warning("Exceeded maximum allowed password length during authentication: user={$username}");
+			return false;
+		}
+
+		// https://www.php.net/manual/function.password-verify.php
+		if (password_verify($passwordPlain, $hash)) {
+			if ($passwordPlain === '') {
+				Minz_Log::warning("Refusing authentication with empty zero-length password: user={$username}");
+				return false;
+			}
+			return true;
+		}
+
+		return false;
 	}
 
 	/** @return list<string> */

@@ -212,7 +212,7 @@ function saveStep3(): bool {
 		}
 
 		$password_plain = param('passwordPlain', '');
-		if (FreshRSS_Context::systemConf()->auth_type === 'form' && $password_plain == '') {
+		if (FreshRSS_Context::systemConf()->auth_type === 'form' && !FreshRSS_FormAuth::passwordRequirementsMet($password_plain)) {
 			return false;
 		}
 
@@ -694,12 +694,13 @@ function printStep3(): void {
 			<label class="group-name" for="passwordPlain"><?= _t('admin.user.password_form') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}"
-						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="3" />
+					<input
+						type="password" id="passwordPlain" name="passwordPlain"
+						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="3"
+						minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>" maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" />
 					<button type="button" class="btn toggle-password" data-toggle="passwordPlain" tabindex="4"><?= FreshRSS_Themes::icon('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>
-				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			</div>
 		</div>
 

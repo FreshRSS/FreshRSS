@@ -1,103 +1,10 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, notifs_html5_is_supported, openNotification, xmlHttpRequestJson */
-
-// <crypto form (Web login)>
-function poormanSalt() {	// If crypto.getRandomValues is not available
-	const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789/abcdefghijklmnopqrstuvwxyz';
-	let text = '$2a$04$';
-	for (let i = 22; i > 0; i--) {
-		text += base.charAt(Math.floor(Math.random() * 64));
-	}
-	return text;
-}
+/* globals context, notifs_html5_is_supported */
 
 function forgetOpenCategories() {
 	localStorage.removeItem('FreshRSS_open_categories');
 }
-
-function init_crypto_forms() {
-	const crypto_forms = document.querySelectorAll('.crypto-form');
-	if (crypto_forms.length === 0) {
-		return;
-	}
-
-	if (!(window.bcrypt)) {
-		if (window.console) {
-			console.log('FreshRSS waiting for bcrypt.js…');
-		}
-		setTimeout(init_crypto_forms, 100);
-		return;
-	}
-
-	/* globals bcrypt */
-	crypto_forms.forEach(crypto_form => {
-		const submit_button = crypto_form.querySelector('[type="submit"]');
-		if (submit_button) {
-			submit_button.disabled = false;
-		}
-
-		crypto_form.onsubmit = function (e) {
-			let challenge = crypto_form.querySelector('#challenge');
-			if (!challenge) {
-				crypto_form.querySelectorAll('details[data-challenge-if-open]').forEach(el => {
-					if (el.open && !challenge) {
-						crypto_form.insertAdjacentHTML('beforeend', '<input type="hidden" id="challenge" name="challenge" />');
-						challenge = crypto_form.querySelector('#challenge');
-					}
-				});
-				if (!challenge) {
-					return true;
-				}
-			}
-
-			e.preventDefault();
-
-			if (!submit_button) {
-				return false;
-			}
-			submit_button.disabled = true;
-
-			const req = new XMLHttpRequest();
-			req.open('GET', './?c=javascript&a=nonce&user=' + crypto_form.querySelector('#username').value, true);
-
-			req.onerror = function () {
-				openNotification('Communication error!', 'bad');
-				submit_button.disabled = false;
-			};
-
-			req.onload = function () {
-				if (req.status == 200) {
-					const json = xmlHttpRequestJson(req);
-					if (!json.salt1 || !json.nonce) {
-						openNotification('Invalid user!', 'bad');
-					} else {
-						try {
-							const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
-							const s = bcrypt.hashSync(crypto_form.querySelector('.passwordPlain').value, json.salt1);
-							const c = bcrypt.hashSync(s + json.nonce, strong ? bcrypt.genSaltSync(4) : poormanSalt());
-							challenge.value = c;
-							if (!s || !c) {
-								openNotification('Crypto error!', 'bad');
-							} else {
-								crypto_form.removeEventListener('submit', crypto_form.onsubmit);
-								crypto_form.submit();
-							}
-						} catch (ex) {
-							openNotification('Crypto exception! ' + ex, 'bad');
-						}
-					}
-				} else {
-					req.onerror();
-				}
-				submit_button.disabled = false;
-			};
-
-			req.send();
-		};
-	});
-}
-// </crypto form (Web login)>
 
 // <show password>
 
@@ -645,7 +552,6 @@ function init_extra_afterDOM() {
 	if (loginButton) {
 		loginButton.addEventListener('click', forgetOpenCategories);
 	}
-	init_crypto_forms();
 	init_password_observers(document.body);
 	init_select_observers();
 	init_configuration_alert();
