@@ -421,7 +421,12 @@ final class GReaderAPI {
 				$cat = $categoryDAO->searchByName($c_name);
 				$addCatId = $cat === null ? 0 : $cat->id();
 				if ($addCatId === 0) {
-					$addCatId = $categoryDAO->addCategory(['name' => $c_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+					$limits = FreshRSS_Context::systemConf()->limits;
+					if ($limits['max_categories'] > 0 && $categoryDAO->count() >= $limits['max_categories']) {
+						Minz_Log::warning(_t('feedback.sub.category.over_max', $limits['max_categories']), API_LOG);
+					} else {
+						$addCatId = $categoryDAO->addCategory(['name' => $c_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+					}
 				}
 			}
 		} elseif (str_starts_with($remove, 'user/-/label/')) {
