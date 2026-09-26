@@ -635,7 +635,18 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$cat_name = Minz_Helper::htmlspecialchars_utf8(trim($origin['category'] ?? ''));
 		if ($cat_name !== '') {
 			$new_cat = $this->categoryDAO->searchByName($cat_name);
-			$cat_id = $new_cat?->id() ?: $this->categoryDAO->addCategory(['name' => $cat_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+			$cat_id = $new_cat?->id() ?: 0;
+			if ($cat_id === 0) {
+				$limits = FreshRSS_Context::systemConf()->limits;
+				if ($limits['max_categories'] > 0 && $this->categoryDAO->count() >= $limits['max_categories']) {
+					Minz_Log::warning(_t('feedback.sub.category.over_max', $limits['max_categories']));
+				} else {
+					$cat_id = $this->categoryDAO->addCategory(['name' => $cat_name]) ?: 0;
+				}
+			}
+			if ($cat_id === 0) {
+				$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+			}
 		}
 
 		try {
