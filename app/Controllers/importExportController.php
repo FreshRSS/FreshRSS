@@ -13,6 +13,45 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	private FreshRSS_CategoryDAO $categoryDAO;
 
 	/**
+	 * ZIP import safety limits (defence against ZIP bombs / decompression DoS).
+	 * A legitimate export is an OPML plus a handful of JSON files, so these ceilings
+	 * sit far above any realistic export while keeping import memory bounded.
+	 */
+	private const IMPORT_ZIP_MAX_MEMBERS = 100;
+	private const IMPORT_ZIP_MEMBER_MAX_SIZE = 64 * 1024 * 1024;
+	private const IMPORT_ZIP_TOTAL_MAX_SIZE = 128 * 1024 * 1024;
+	private const IMPORT_ZIP_MAX_RATIO = 100;
+
+	/**
+	 * Read a ZIP member by name through a stream, aborting once the decompressed
+	 * content exceeds $maxBytes. Returns null on read error or when the cap is
+	 * exceeded, so a forged/under-reported uncompressed size in the archive
+	 * metadata cannot be used to force unbounded memory allocation.
+	 */
+	private static function readZipMemberCapped(ZipArchive $zip, string $name, int $maxBytes): ?string {
+		$stream = $zip->getStream($name);
+		if ($stream === false) {
+			return null;
+		}
+		$content = '';
+		try {
+			while (!feof($stream)) {
+				$chunk = fread($stream, 1 << 16);
+				if ($chunk === false) {
+					return null;
+				}
+				$content .= $chunk;
+				if (strlen($content) > $maxBytes) {
+					return null;
+				}
+			}
+		} finally {
+			fclose($stream);
+		}
+		return $content;
+	}
+
+	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
@@ -81,7 +120,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		];
 
 		// We try to list all files according to their type
-		$list = [];
+		$skipped = false;
 		if ('zip' === $type_file && extension_loaded('zip')) {
 			$zip = new ZipArchive();
 			$result = $zip->open($path);
@@ -89,14 +128,51 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				// zip_open cannot open file: something is wrong
 				throw new FreshRSS_Zip_Exception($result);
 			}
+			$accepted = 0;
+			$totalUncompressed = 0;
 			for ($i = 0; $i < $zip->numFiles; $i++) {
-				if ($zip->getNameIndex($i) === false) {
+				$entryName = $zip->getNameIndex($i);
+				if ($entryName === false) {
 					continue;
 				}
-				$type_zipfile = self::guessFileType($zip->getNameIndex($i));
-				if ('unknown' !== $type_zipfile) {
-					$list_files[$type_zipfile][] = $zip->getFromIndex($i);
+				$type_zipfile = self::guessFileType($entryName);
+				if ('unknown' === $type_zipfile) {
+					continue;
 				}
+				if ($zip->locateName($entryName, ZipArchive::FL_NOCASE | ZipArchive::FL_NODIR) !== $i) {
+					// Duplicate entry name: skip to keep name-based lookups unambiguous
+					continue;
+				}
+				// Reject obvious ZIP bombs cheaply from the central-directory metadata...
+				$stat = $zip->statIndex($i);
+				$declaredSize = is_array($stat) ? (int)($stat['size'] ?? 0) : 0;
+				$compSize = is_array($stat) ? (int)($stat['comp_size'] ?? 0) : 0;
+				if ($declaredSize > self::IMPORT_ZIP_MEMBER_MAX_SIZE
+					|| ($compSize > 0 && $declaredSize / $compSize > self::IMPORT_ZIP_MAX_RATIO)) {
+					Minz_Log::warning('Import: skipping oversized/over-compressed ZIP member: ' . $entryName);
+					$skipped = true;
+					continue;
+				}
+				if ($accepted >= self::IMPORT_ZIP_MAX_MEMBERS) {
+					Minz_Log::warning('Import: ZIP member budget reached, remaining members skipped');
+					break;
+				}
+				// ...then enforce the real decompressed size while streaming, since the
+				// declared metadata above is attacker-controlled and can under-report.
+				$content = self::readZipMemberCapped($zip, $entryName, self::IMPORT_ZIP_MEMBER_MAX_SIZE);
+				if ($content === null) {
+					Minz_Log::warning('Import: skipping unreadable/over-limit ZIP member: ' . $entryName);
+					$skipped = true;
+					continue;
+				}
+				$totalUncompressed += strlen($content);
+				if ($totalUncompressed > self::IMPORT_ZIP_TOTAL_MAX_SIZE) {
+					Minz_Log::warning('Import: ZIP total size reached, remaining members skipped');
+					$skipped = true;
+					break;
+				}
+				$list_files[$type_zipfile][] = $content;
+				$accepted++;
 			}
 			$zip->close();
 		} elseif ('zip' === $type_file) {
@@ -115,7 +191,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		// OPML first(so categories and feeds are imported)
 		// Starred articles then so the "favourite" status is already set
 		// And finally all other files.
-		$ok = true;
+		$ok = !$skipped;
 
 		$importService = new FreshRSS_Import_Service($username);
 
