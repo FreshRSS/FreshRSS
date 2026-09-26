@@ -3,6 +3,15 @@ declare(strict_types=1);
 
 final class FreshRSS_http_Util {
 
+	/**
+	 * Ceiling on the decoded response body buffered from a remote fetch, and on the
+	 * accumulated response headers. Defence against a malicious/misbehaving server
+	 * exhausting memory with a very large — or highly compressed (decompression bomb)
+	 * — response. Generous enough for any realistic feed/HTML/favicon.
+	 */
+	private const RESPONSE_BODY_MAX_SIZE = 32 * 1024 * 1024;
+	private const RESPONSE_HEADERS_MAX_SIZE = 256 * 1024;
+
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
 	private const PRIVATE_SUBNETS = [
 		'127.0.0.0/8',    // RFC1700 (Loopback)
@@ -583,8 +592,10 @@ final class FreshRSS_http_Util {
 			curl_setopt_array($ch, FreshRSS_Context::systemConf()->curl_options);
 
 			$responseHeaders = '';
-			curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders) {
-				if (trim($header) !== '') {	// Skip e.g. separation with trailer headers
+			curl_setopt($ch, CURLOPT_HEADERFUNCTION, function (\CurlHandle $ch, string $header) use (&$responseHeaders): int {
+				// Skip blank separators, and stop accumulating past the ceiling so a
+				// server cannot exhaust memory with unbounded response headers.
+				if (trim($header) !== '' && strlen($responseHeaders) < self::RESPONSE_HEADERS_MAX_SIZE) {
 					$responseHeaders .= $header;
 				}
 				return strlen($header);
@@ -616,14 +627,31 @@ final class FreshRSS_http_Util {
 			curl_setopt_array($ch, $curl_options);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);	// We handle HTTP redirections manually for security
 
-			$body = curl_exec($ch);
+			// Bound the response body: MAXFILESIZE caps the on-the-wire size, and the
+			// write callback caps the decoded size we buffer, aborting the transfer once
+			// the ceiling is reached (so a decompression bomb cannot exhaust memory).
+			$body = '';
+			$bodyLimitExceeded = false;
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
+			curl_setopt($ch, CURLOPT_MAXFILESIZE, self::RESPONSE_BODY_MAX_SIZE);
+			curl_setopt($ch, CURLOPT_WRITEFUNCTION,
+				function (\CurlHandle $ch, string $data) use (&$body, &$bodyLimitExceeded): int {
+					$body .= $data;
+					if (strlen($body) > self::RESPONSE_BODY_MAX_SIZE) {
+						$bodyLimitExceeded = true;
+						return 0;	// Abort the transfer (CURLE_WRITE_ERROR)
+					}
+					return strlen($data);
+				});
+
+			$curlOk = curl_exec($ch) !== false;
 			$c_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			$c_content_type = '' . curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 			$c_effective_url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 			$c_error = curl_error($ch);
 
 			$headers = [];
-			if ($body !== false) {
+			if ($curlOk) {
 				$responseHeaders .= "\r\n";
 				$responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders($responseHeaders);
 				$parser = new \SimplePie\HTTP\Parser($responseHeaders);
@@ -679,9 +707,12 @@ final class FreshRSS_http_Util {
 				continue;
 			}
 
-			$fail = $c_status != 200 || $c_error != '' || $body === false;
+			$fail = $c_status != 200 || $c_error != '' || !$curlOk || $bodyLimitExceeded;
 			if ($fail) {
 				$body = '';
+				if ($bodyLimitExceeded) {
+					Minz_Log::warning('Response exceeded the ' . self::RESPONSE_BODY_MAX_SIZE . '-byte limit; aborted [' . $url . ']');
+				}
 				Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
 				if (in_array($c_status, [429, 503], true)) {
 					$retryAfter = FreshRSS_http_Util::setRetryAfter($url, $proxy, $headers['retry-after'] ?? '');
@@ -694,7 +725,7 @@ final class FreshRSS_http_Util {
 						$errorMessage .= ' We may retry after ' . date('c', $retryAfter);
 					}
 				}
-			} elseif (!is_string($body) || strlen($body) === 0) { // TODO: Implement HTTP 410 Gone
+			} elseif (strlen($body) === 0) { // TODO: Implement HTTP 410 Gone
 				$body = '';
 			} else {
 				if (in_array($type, ['html', 'json', 'opml', 'xml'], true)) {
@@ -719,7 +750,7 @@ final class FreshRSS_http_Util {
 			Minz_Log::warning("Error saving cache for $url");
 		}
 
-		return ['body' => is_string($body) ? $body : '', 'effective_url' => $c_effective_url, 'redirect_count' => $redirs,
+		return ['body' => $body, 'effective_url' => $c_effective_url, 'redirect_count' => $redirs,
 			'fail' => $fail, 'status' => $c_status, 'error' => $c_error];
 	}
 

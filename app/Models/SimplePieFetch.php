@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 final class FreshRSS_SimplePieFetch extends \SimplePie\File
 {
+	/** Ceiling on the feed download size, applied via SimplePie\File::curlInit(). */
+	private const RESPONSE_MAX_SIZE = 32 * 1024 * 1024;
+
 	public function __construct(string $url, int $timeout = 10, int $redirects = 5,
 		?array $headers = null, ?string $useragent = null, bool $force_fsockopen = false, array $curl_options = []) {
 
@@ -39,6 +42,14 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 				unset($curl_options[CURLOPT_MAXREDIRS]);
 				$redirects = 0;
 			}
+		}
+
+		// Bound the feed download size so an oversized response cannot exhaust memory.
+		// curl aborts (CURLE_FILESIZE_EXCEEDED) and FAILONERROR surfaces it as a fetch
+		// failure. This caps the on-the-wire size; the httpGet() paths (favicons, HTML,
+		// OPML) enforce their own decoded-size ceiling separately.
+		if (!isset($curl_options[CURLOPT_MAXFILESIZE])) {
+			$curl_options[CURLOPT_MAXFILESIZE] = self::RESPONSE_MAX_SIZE;
 		}
 
 		parent::__construct($url, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
