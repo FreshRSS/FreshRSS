@@ -1,0 +1,7 @@
+/*rtl:begin:ignore*/
+/*=== LOGS */
+/*=========*/
+.log-item.log-error {
+	background-color: var(--destructive-muted);
+}
+/*rtl:end:ignore*/
