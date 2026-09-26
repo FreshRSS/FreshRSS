@@ -280,6 +280,6 @@ class FreshRSS_Auth {
 	}
 
 	public static function allowAnonymousRefresh(): bool {
-		return FreshRSS_Context::systemConf()->allow_anonymous_refresh && self::allowAnonymous();
+		return FreshRSS_Context::systemConf()->allow_anonymous_refresh;
 	}
 }
