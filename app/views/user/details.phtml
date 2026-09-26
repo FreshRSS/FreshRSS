@@ -59,8 +59,10 @@
 			<label class="group-name" for="newPasswordPlain"><?= _t('admin.user.password_form') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password"
-						pattern=".{7,}" <?= FreshRSS_password_Util::cryptAvailable() && Minz_User::name() !== $this->username ? '' : 'disabled="disabled" ' ?>/>
+					<input
+						type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password"
+						<?= FreshRSS_password_Util::cryptAvailable() && Minz_User::name() !== $this->username ? '' : 'disabled="disabled" ' ?>
+						minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>" maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" />
 					<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help'); ?> <?= _t('admin.user.password_format') ?></p>
@@ -68,7 +70,6 @@
 		</div>
 
 		<div class="form-group form-actions">
-			<noscript><b><?= _t('gen.js.should_be_activated'); ?></b></noscript>
 			<?php
 				$disabledIfAjax = Minz_Request::paramBoolean('ajax') ? ' disabled="disabled"' : '';
 			?>

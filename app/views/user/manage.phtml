@@ -70,11 +70,12 @@
 			<label class="group-name" for="new_user_passwordPlain"><?= _t('admin.user.password_form') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="new-password" pattern=".{7,}" />
+					<input
+					type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="new-password"
+					minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>" maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" />
 					<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>
-				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			</div>
 		</div>
 
