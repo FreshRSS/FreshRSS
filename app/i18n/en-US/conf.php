@@ -117,6 +117,7 @@ return array(
 		'title' => 'Display',	// IGNORE
 		'website' => array(
 			'full' => 'Icon and name',	// IGNORE
+			'full_below' => 'Icon and name below the title',	// IGNORE
 			'icon' => 'Icon only',	// IGNORE
 			'label' => 'Website',	// IGNORE
 			'name' => 'Name only',	// IGNORE

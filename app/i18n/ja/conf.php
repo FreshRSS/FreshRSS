@@ -117,6 +117,7 @@ return array(
 		'title' => '表示',
 		'website' => array(
 			'full' => 'アイコンと名前',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'アイコンのみ',
 			'label' => 'Webサイト',
 			'name' => '名前のみ',

@@ -117,6 +117,7 @@ return array(
 		'title' => '显示',
 		'website' => array(
 			'full' => '图标和名称',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => '仅图标',
 			'label' => '网页显示',
 			'name' => '仅名称',

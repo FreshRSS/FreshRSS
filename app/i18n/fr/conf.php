@@ -117,6 +117,7 @@ return array(
 		'title' => 'Affichage',
 		'website' => array(
 			'full' => 'Icône et nom',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Icône seulement',
 			'label' => 'Site Web',
 			'name' => 'Nom seulement',

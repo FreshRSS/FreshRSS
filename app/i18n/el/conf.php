@@ -117,6 +117,7 @@ return array(
 		'title' => 'Προβολή',
 		'website' => array(
 			'full' => 'Εικονίδιο και όνομα',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Μόνο εικονίδιο',
 			'label' => 'Ιστότοπος',
 			'name' => 'Μόνο όνομα',

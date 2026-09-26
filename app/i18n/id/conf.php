@@ -117,6 +117,7 @@ return array(
 		'title' => 'Tampilan',
 		'website' => array(
 			'full' => 'Ikon dan nama',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Hanya ikon',
 			'label' => 'Situs web',
 			'name' => 'Hanya nama',

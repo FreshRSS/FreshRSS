@@ -117,6 +117,7 @@ return array(
 		'title' => 'Rodymas',
 		'website' => array(
 			'full' => 'Piktograma ir pavadinimas',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Tik piktograma',
 			'label' => 'Svetainė',
 			'name' => 'Tik pavadinimas',
