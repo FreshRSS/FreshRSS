@@ -9,7 +9,7 @@ This section will guide you to the pages you need to get started. The order is t
 [After installing the application](../admins/03_Installation.md), the first step is to add some feeds. You have a few options:
 
 1. [Add a feed manually](04_Subscriptions.md#adding-a-feed)
-2. [Import an OPML or JSON file](04_Subscriptions.md#import-and-export)
+2. [Import an OPML or JSON file](04_Subscriptions.md#import-export)
 3. [Use the bookmarklet](04_Subscriptions.md#use-bookmarklet)
 
 ## Reading Views
@@ -24,9 +24,9 @@ Once you have added your feeds to FreshRSS, it is time to read them. There are t
 
 Now that you’ve mastered basic use, it’s time to configure FreshRSS to improve your reading experience. It’s highly configurable, so it’s recommended to play around with them to find a configuration that suits you well. Here are a few resources to help you improve your daily FreshRSS experience:
 
-* [Organize your feeds in categories](04_Subscriptions.md#feed-management)
-* [Change the home page](05_Configuration.md#changing-the-view)
-* [Choose the reading options](05_Configuration.md#reading-options)
+* [Organize your feeds in categories](04_Subscriptions.md#subscription-management)
+* [Change the home page](05_Configuration.md#display)
+* [Choose the reading options](05_Configuration.md#reading)
 * [Refresh feeds](09_refreshing_feeds.md)
 * [Filter articles](10_filter.md) for a fast access to a selection
 * [search for an article](10_filter.md#with-the-search-field) published some time ago

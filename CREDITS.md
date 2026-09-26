@@ -260,6 +260,7 @@ People are sorted by name so please keep this order.
 * [papaschloss](https://github.com/papaschloss): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:papaschloss)
 * [Patrick Crandol](https://github.com/pattems): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pattems)
 * [Paulius Šukys](https://github.com/psukys): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:psukys), [Web](https://www.sukys.eu/)
+* [Pavel Miniutka](https://github.com/pavel-miniutka): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pavel-miniutka)
 * [Paweł Kalemba](https://github.com/pkalemba): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pkalemba)
 * [payaci](https://github.com/payaci): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3Apayaci)
 * [pe1uca](https://github.com/pe1uca): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pe1uca)
