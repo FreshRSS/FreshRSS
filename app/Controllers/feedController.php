@@ -354,6 +354,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			// GET request: we must ask confirmation to user before adding feed.
 			FreshRSS_View::prependTitle(_t('sub.feed.title_add') . ' · ');
 
+			// Same hook as in addFeed(), so that the preview probes the URL that would actually be subscribed to.
+			/** @var string|null $urlHooked */
+			$urlHooked = Minz_ExtensionManager::callHook(Minz_HookType::CheckUrlBeforeAdd, $url);
+			if ($urlHooked === null) {
+				Minz_Request::bad(_t('feedback.sub.feed.not_added', $url), $url_redirect);
+				return;
+			}
+			$url = $urlHooked;
+
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$this->view->categories = $catDAO->listCategories(prePopulateFeeds: false);
 			$this->view->feed = new FreshRSS_Feed($url);
