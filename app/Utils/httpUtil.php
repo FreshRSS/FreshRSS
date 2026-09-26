@@ -562,6 +562,9 @@ final class FreshRSS_http_Util {
 					// since the domain is resolved outside of the proxy.
 					$curl_options[CURLOPT_RESOLVE] = $resolve;
 				}
+				if (defined('CURLOPT_PROXY_SSL_VERIFYPEER') && isset($attributes['ssl_verify'])) {
+					$curl_options[CURLOPT_PROXY_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
+				}
 			}
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 			$ch = curl_init();
