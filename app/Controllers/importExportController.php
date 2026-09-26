@@ -701,21 +701,21 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$exported_files = [];
 
 		if ($export_opml) {
-			[$filename, $content] = $export_service->generateOpml();
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateOpml();
+			$exported_files[$filename] = $path;
 		}
 
 		// Starred and labelled entries are merged in the same `starred` file
 		// to avoid duplication of content.
 		if ($export_starred && $export_labelled) {
-			[$filename, $content] = $export_service->generateStarredEntries('ST');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('ST');
+			$exported_files[$filename] = $path;
 		} elseif ($export_starred) {
-			[$filename, $content] = $export_service->generateStarredEntries('S');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('S');
+			$exported_files[$filename] = $path;
 		} elseif ($export_labelled) {
-			[$filename, $content] = $export_service->generateStarredEntries('T');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('T');
+			$exported_files[$filename] = $path;
 		}
 
 		foreach ($export_feeds as $feed_id) {
@@ -725,8 +725,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				continue;
 			}
 
-			[$filename, $content] = $result;
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $result;
+			$exported_files[$filename] = $path;
 		}
 
 		$nb_files = count($exported_files);
@@ -739,7 +739,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		if ($nb_files === 1) {
 			// If we only have one file, we just export it as it is
 			$filename = key($exported_files);
-			$content = $exported_files[$filename];
+			$path = $exported_files[$filename];
 		} else {
 			// More files? Let’s compress them in a Zip archive
 			if (!extension_loaded('zip')) {
@@ -751,10 +751,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			[$filename, $content] = $export_service->zip($exported_files);
+			[$filename, $path] = $export_service->zip($exported_files);
 		}
 
-		if (!is_string($content)) {
+		if (!is_string($path)) {
 			Minz_Request::bad(_t('feedback.import_export.zip_error'), ['c' => 'importExport', 'a' => 'index']);
 			return;
 		}
@@ -764,7 +764,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		header('Content-disposition: attachment; filename="' . $filename . '"');
 
 		$this->view->_layout(null);
-		$this->view->content = $content;
+		$this->view->exportPath = $path;
 	}
 
 	/**
