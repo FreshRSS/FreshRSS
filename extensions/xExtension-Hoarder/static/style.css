@@ -1,0 +1,114 @@
+/* Notifications */
+.notification.hoarder_button_good,
+.notification.hoarder_button_bad {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 20px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 80%;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeInOut 4s ease forwards;
+}
+
+.notification.hoarder_button_bad {
+  background: #f76c5e;
+}
+
+.notification.hoarder_button_good {
+  background: #3aafa9;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+
+/* Input Fields */
+input#api_token {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input#keyboard_shortcut {
+  width: 50px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* List Styling */
+.listedNumbers {
+  list-style-type: decimal;
+  padding-left: 20px;
+  margin-top: 10px;
+  color: #fff;
+}
+
+/* Button and Icon Styles */
+.item-element.hoarderIntegration .disabled {
+  display: none !important;
+}
+
+.hoarderIntegration img {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Loading Animation */
+.lds-dual-ring {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #e74c3c;
+  border-color: #e74c3c transparent #e74c3c transparent;
+  animation: lds-dual-ring 0.9s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Tooltip Styling */
+.hoarderIntegration:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 120%;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hoarderIntegration:hover::after {
+  opacity: 1;
+}
