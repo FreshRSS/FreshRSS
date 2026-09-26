@@ -120,7 +120,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		];
 
 		// We try to list all files according to their type
-		$list = [];
+		$skipped = false;
 		if ('zip' === $type_file && extension_loaded('zip')) {
 			$zip = new ZipArchive();
 			$result = $zip->open($path);
@@ -139,6 +139,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				if ('unknown' === $type_zipfile) {
 					continue;
 				}
+				if ($zip->locateName($entryName, ZipArchive::FL_NOCASE | ZipArchive::FL_NODIR) !== $i) {
+					// Duplicate entry name: skip to keep name-based lookups unambiguous
+					continue;
+				}
 				// Reject obvious ZIP bombs cheaply from the central-directory metadata...
 				$stat = $zip->statIndex($i);
 				$declaredSize = is_array($stat) ? (int)($stat['size'] ?? 0) : 0;
@@ -146,11 +150,11 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				if ($declaredSize > self::IMPORT_ZIP_MEMBER_MAX_SIZE
 					|| ($compSize > 0 && $declaredSize / $compSize > self::IMPORT_ZIP_MAX_RATIO)) {
 					Minz_Log::warning('Import: skipping oversized/over-compressed ZIP member: ' . $entryName);
+					$skipped = true;
 					continue;
 				}
-				if ($accepted >= self::IMPORT_ZIP_MAX_MEMBERS
-					|| $totalUncompressed + $declaredSize > self::IMPORT_ZIP_TOTAL_MAX_SIZE) {
-					Minz_Log::warning('Import: ZIP size/member budget reached, remaining members skipped');
+				if ($accepted >= self::IMPORT_ZIP_MAX_MEMBERS) {
+					Minz_Log::warning('Import: ZIP member budget reached, remaining members skipped');
 					break;
 				}
 				// ...then enforce the real decompressed size while streaming, since the
@@ -158,11 +162,17 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				$content = self::readZipMemberCapped($zip, $entryName, self::IMPORT_ZIP_MEMBER_MAX_SIZE);
 				if ($content === null) {
 					Minz_Log::warning('Import: skipping unreadable/over-limit ZIP member: ' . $entryName);
+					$skipped = true;
 					continue;
+				}
+				$totalUncompressed += strlen($content);
+				if ($totalUncompressed > self::IMPORT_ZIP_TOTAL_MAX_SIZE) {
+					Minz_Log::warning('Import: ZIP total size reached, remaining members skipped');
+					$skipped = true;
+					break;
 				}
 				$list_files[$type_zipfile][] = $content;
 				$accepted++;
-				$totalUncompressed += strlen($content);
 			}
 			$zip->close();
 		} elseif ('zip' === $type_file) {
@@ -181,7 +191,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		// OPML first(so categories and feeds are imported)
 		// Starred articles then so the "favourite" status is already set
 		// And finally all other files.
-		$ok = true;
+		$ok = !$skipped;
 
 		$importService = new FreshRSS_Import_Service($username);
 
