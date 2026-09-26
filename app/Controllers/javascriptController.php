@@ -67,11 +67,8 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		$this->view->tags = $tagDAO->listTags(precounts: true);
 	}
 
-	//For Web-form login
+	// For Web-form login
 
-	/**
-	 * @throws Exception
-	 */
 	public function nonceAction(): void {
 		header('Content-Type: application/json; charset=UTF-8');
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s \\G\\M\\T'));
@@ -85,29 +82,20 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 			return;
 		}
 		$user_conf = FreshRSS_UserConfiguration::getForUser($user);
+		$this->view->nonce = hash('sha256', FreshRSS_Context::systemConf()->salt . $user . random_bytes(32));
+		Minz_Session::_param('nonce', $this->view->nonce);
 		if ($user_conf !== null) {
-			try {
-				$s = $user_conf->passwordHash;
-				if (strlen($s) >= 60) {
-					//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
-					$this->view->salt1 = substr($s, 0, 29);
-					$this->view->nonce = hash('sha256', FreshRSS_Context::systemConf()->salt . $user . random_bytes(32));
-					Minz_Session::_param('nonce', $this->view->nonce);
-					return;	//Success
-				}
-			} catch (Minz_Exception $me) {
-				Minz_Log::warning('Nonce failure: ' . $me->getMessage());
+			$s = $user_conf->passwordHash;
+			if (strlen($s) >= 60) {
+				// CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
+				$this->view->salt1 = substr($s, 0, 29);
+				return;	// Success
 			}
 		} else {
 			Minz_Log::notice('Nonce failure due to invalid username! ' . $user);
 		}
-		//Failure: Return random data.
-		$this->view->salt1 = sprintf('$2a$%02d$', FreshRSS_password_Util::BCRYPT_COST);
-		$alphabet = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		for ($i = 22; $i > 0; $i--) {
-			$this->view->salt1 .= $alphabet[random_int(0, 63)];
-		}
-		$this->view->nonce = hash('sha256', 'failure' . rand());
-		Minz_Session::_param('nonce', $this->view->nonce);
+		// Failure: Return static random data for given username.
+		$salt = substr(str_replace('+', '.', base64_encode(hash('sha256', FreshRSS_Context::systemConf()->salt . $user))), 0, 22);
+		$this->view->salt1 = substr(crypt('failure', '$2y$09$' . $salt), 0, 29);
 	}
 }
