@@ -62,7 +62,8 @@ To enable this feature, you need to add the IP range (in CIDR notation) of your 
 To allow only one IPv4, you can use a `/32` like this: `trusted_sources => [ '192.168.1.10/32' ]`.
 Likewise to allow only one IPv6, you can use a `/128` like this: `trusted_sources => [ '::1/128' ]`.
 
-You may alternatively pass a `TRUSTED_PROXY` environment variable in a format compatible with [Apache’s `mod_remoteip` `RemoteIPInternalProxy`](https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy).
+You may alternatively pass a `TRUSTED_PROXY` environment variable, which is a space-separated list of CIDR notations like this: `192.168.1.10/32 ::1/128`.
+Unlike [Apache’s `mod_remoteip` `RemoteIPInternalProxy`](https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy) syntax, domain names or a single IP missing a `/32` or `/128` suffix is not supported and will silently cause requests to be rejected as unauthorized.
 
 > ☠️ WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
 
