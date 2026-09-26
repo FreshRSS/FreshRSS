@@ -535,6 +535,9 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			if (!empty($params['imageUrl']) && is_string($params['imageUrl'])) {
 				$queryParams['imageUrl'] = $params['imageUrl'];
 			}
+			if (!empty($params['viewMode']) && is_string($params['viewMode'])) {
+				$queryParams['viewMode'] = $params['viewMode'];
+			}
 			if (!empty($params['shareOpml']) && ctype_digit($params['shareOpml'])) {
 				$queryParams['shareOpml'] = (bool)$params['shareOpml'];
 			}

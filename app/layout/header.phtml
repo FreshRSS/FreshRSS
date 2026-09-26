@@ -26,11 +26,13 @@
 				<?php } if (Minz_Request::paramInt('state') !== 0) { ?>
 				<input type="hidden" name="state" value="<?= Minz_Request::paramInt('state') ?>" />
 				<?php } ?>
+			<?php elseif ($this->internal_rendering && in_array(Minz_Request::actionName(), ['normal', 'reader'], true)): ?>
+				<input type="hidden" name="a" value="<?= Minz_Request::actionName() ?>" />
 			<?php elseif (Minz_Request::controllerName() === 'subscription'): ?>
 				<input type="hidden" name="c" value="index" />
 				<input type="hidden" name="a" value="global" />
 			<?php endif; ?>
-			<?php if (Minz_Request::paramString('user') !== '') { ?>
+			<?php if (Minz_Request::paramString('user') !== '' && Minz_User::name() !== null) { ?>
 			<input type="hidden" name="user" value="<?= Minz_User::name() ?>" />
 			<?php } if (ctype_alnum(Minz_Request::paramString('t'))) { ?>
 			<input type="hidden" name="t" value="<?= Minz_Request::paramString('t') ?>" />
