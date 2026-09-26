@@ -57,7 +57,7 @@ class Minz_ModelArray {
 			throw new Minz_PermissionDeniedException($this->filename);
 		}
 		if (function_exists('opcache_invalidate')) {
-			opcache_invalidate($this->filename);	//Clear PHP cache for include
+			opcache_invalidate($this->filename, force: true);
 		}
 		return true;
 	}

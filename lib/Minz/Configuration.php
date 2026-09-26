@@ -239,7 +239,7 @@ class Minz_Configuration {
 
 		// Clear PHP cache for include
 		if (function_exists('opcache_invalidate')) {
-			opcache_invalidate($this->config_filename);
+			opcache_invalidate($this->config_filename, force: true);
 		}
 
 		return true;
