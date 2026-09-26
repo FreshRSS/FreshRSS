@@ -9,15 +9,22 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
 
   tests:
+    name: tests
     # https://github.com/actions/virtual-environments
     runs-on: ubuntu-26.04
 
     steps:
     - name: Git checkout source code
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
 
     # Composer tests
 

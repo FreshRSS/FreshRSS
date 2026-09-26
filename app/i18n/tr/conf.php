@@ -69,7 +69,7 @@ return array(
 			'help' => 'Yalnızca uyumlu temalar için',
 			'no' => 'Hayır',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Ek dosyaları göster',
 		'headline' => array(
 			'articles_header_footer' => 'Makaleler: başlık/altbilgi',
 		),
@@ -202,8 +202,8 @@ return array(
 			'_' => 'Uygulanan filtre:',
 			'categories' => 'Kategoriye göre göster',
 			'feeds' => 'Beslemeye göre göster',
-			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
-			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'include_article_tags_label' => 'Beslemelerden gelen makale etiketlerini dahil et',
+			'include_user_labels_label' => 'Kullanıcı etiketlerini şu ön ekle dahil et:',
 			'order' => 'Tarihe göre sırala',
 			'search' => 'İfade',
 			'shareOpml' => 'İlgili kategori ve beslemelerin OPML ile paylaşımını etkinleştir',
