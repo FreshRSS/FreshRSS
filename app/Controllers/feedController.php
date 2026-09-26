@@ -354,6 +354,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			// GET request: we must ask confirmation to user before adding feed.
 			FreshRSS_View::prependTitle(_t('sub.feed.title_add') . ' · ');
 
+			// Same hook as in addFeed(), so that the preview probes the URL that would actually be subscribed to.
+			/** @var string|null $urlHooked */
+			$urlHooked = Minz_ExtensionManager::callHook(Minz_HookType::CheckUrlBeforeAdd, $url);
+			if ($urlHooked === null) {
+				Minz_Request::bad(_t('feedback.sub.feed.not_added', $url), $url_redirect);
+				return;
+			}
+			$url = $urlHooked;
+
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$this->view->categories = $catDAO->listCategories(prePopulateFeeds: false);
 			$this->view->feed = new FreshRSS_Feed($url);
@@ -775,14 +784,18 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$feedProperties['url'] = $feed->url();
 			} elseif ($simplePiePush !== null && $selfUrl !== '' && $selfUrl !== $feed->url()) {	// selfUrl has priority for WebSub
 				// https://github.com/pubsubhubbub/PubSubHubbub/wiki/Moving-Feeds-or-changing-Hubs
-				Minz_Log::debug('WebSub unsubscribe ' . $feed->url(includeCredentials: false));
-				if (!$feed->pubSubHubbubSubscribe(false)) {	//Unsubscribe
-					Minz_Log::warning('Error while WebSub unsubscribing from ' . $feed->url(includeCredentials: false));
+				if (str_starts_with($feed->url(), 'https://') && !str_starts_with($selfUrl, 'https://')) {
+					Minz_Log::debug('WebSub: refusing to downgrade to ' . \SimplePie\Misc::url_remove_credentials($selfUrl));
+				} else {
+					Minz_Log::debug('WebSub unsubscribe ' . $feed->url(includeCredentials: false));
+					if (!$feed->pubSubHubbubSubscribe(false)) {	//Unsubscribe
+						Minz_Log::warning('Error while WebSub unsubscribing from ' . $feed->url(includeCredentials: false));
+					}
+					$feed->_url($selfUrl);
+					Minz_Log::warning('Feed ' . \SimplePie\Misc::url_remove_credentials($url) .
+						' canonical address moved to ' . $feed->url(includeCredentials: false));
+					$feedProperties['url'] = $feed->url();
 				}
-				$feed->_url($selfUrl);
-				Minz_Log::warning('Feed ' . \SimplePie\Misc::url_remove_credentials($url) .
-					' canonical address moved to ' . $feed->url(includeCredentials: false));
-				$feedProperties['url'] = $feed->url();
 			}
 
 			if ($simplePie != null) {

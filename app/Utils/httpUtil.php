@@ -308,29 +308,18 @@ final class FreshRSS_http_Util {
 	/**
 	 * Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
 	 *
-	 * Can also be used for checking if the CURLOPT_PROXY value is allowed, by providing a proxy URL with the `for_proxy` parameter set to `true`.
-	 * In that case, a string value will be returned with the hostname resolved to an IP if allowed.
-	 *
-	 * @return array<string>|string|null|false
+	 * @return array<string>|null|false
 	 */
-	public static function getCurlResolveInfo(string $url, bool $for_proxy = false): array|string|null|false {
-		// Parse the original URL first so that credentials keep their original case (only the host is case-insensitive).
-		$parsedOriginal = parse_url($url);
+	public static function getCurlResolveInfo(string $url): array|null|false {
 		$url = strtolower($url);
 		$parsed = parse_url($url);
-		if ($parsed === false || $parsedOriginal === false) {
+		if ($parsed === false) {
 			return false;
 		}
 		$host = $parsed['host'] ?? null;
 		$scheme = $parsed['scheme'] ?? null;
 		if ($host === null || $scheme === null) {
 			return false;
-		}
-		$credentials = '';
-		$user = $parsedOriginal['user'] ?? null;
-		$pass = $parsedOriginal['pass'] ?? null;
-		if (is_string($user) && is_string($pass)) {
-			$credentials = "$user:$pass@";
 		}
 		if (str_starts_with($host, '[') && str_ends_with($host, ']')) {
 			if (strlen($host) === 2) {
@@ -357,12 +346,6 @@ final class FreshRSS_http_Util {
 			default => 0,
 		};
 		if (in_array('*', $internal_host_allowlist, true)) {
-			if ($for_proxy) {
-				if (filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
-					return $credentials . "[$host]:$port";
-				}
-				return $credentials . "$host:$port";
-			}
 			return [];	// Disables SSRF checks entirely (unsafe)
 		}
 
@@ -424,20 +407,10 @@ final class FreshRSS_http_Util {
 
 		if (count($ips_ok) > 0) {
 			if (count($records) > 0 || isset(self::$resolve_ok[$host])) {
-				if ($for_proxy) {
-					// $ips_ok[0] is already bracketed when it is an IPv6 address
-					return $credentials . "$ips_ok[0]:$port";
-				}
 				$resolve_str .= implode(',', $ips_ok);
 				return [$resolve_str];
 			}
 			if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
-				if ($for_proxy) {
-					if (filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
-						return $credentials . "[$host]:$port";
-					}
-					return $credentials . "$host:$port";
-				}
 				// No resolve overrides since the URL only contained an IP, not a domain
 				return [];
 			}
@@ -574,7 +547,7 @@ final class FreshRSS_http_Util {
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 				}
 				$proxy_url = "$proxy_scheme://$proxy"; // CURLOPT_PROXY ($proxy) is formatted as user:pass@hostname:port, with the part before @ being optional
-				$resolve = self::getCurlResolveInfo($proxy_url, for_proxy: true);
+				$resolve = self::getCurlResolveInfo($proxy_url);
 				if ($resolve === null) {
 					Minz_Log::warning('Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
 						\SimplePie\Misc::url_remove_credentials($url) . '] [' .
@@ -583,12 +556,11 @@ final class FreshRSS_http_Util {
 				} elseif ($resolve === false) {
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 				}
-				// Translate from a hostname:port value to ip:port, in order to avoid DNS rebinding
-				$curl_options[CURLOPT_PROXY] = $resolve;
-				if (defined('CURLOPT_PROXY_SSL_VERIFYHOST')) {
-					// Skip verifying the hostname (a bit unsafe, but needed since
-					// there is no CURLOPT_RESOLVE equivalent for proxy hostnames)
-					$curl_options[CURLOPT_PROXY_SSL_VERIFYHOST] = 0;
+				if (!empty($resolve)) {
+					// Only for the proxy domain, socks4a and socks5h DNS queries will be passed through the proxy.
+					// For the other proxy protocols, note that IPs for internal domains can be leaked,
+					// since the domain is resolved outside of the proxy.
+					$curl_options[CURLOPT_RESOLVE] = $resolve;
 				}
 				if (defined('CURLOPT_PROXY_SSL_VERIFYPEER') && isset($attributes['ssl_verify'])) {
 					$curl_options[CURLOPT_PROXY_SSL_VERIFYPEER] = (bool)$attributes['ssl_verify'];
