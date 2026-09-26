@@ -507,6 +507,13 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($ok && !FreshRSS_Auth::hasAccess('admin')) {
 				$user_conf = FreshRSS_UserConfiguration::getForUser($new_user_name);
 				if ($user_conf !== null) {
+					// Rotate the session ID on this unauthenticated->authenticated
+					// transition to prevent session fixation, as on form login.
+					try {
+						Minz_Session::regenerateID('FreshRSS');
+					} catch (RuntimeException $e) {
+						Minz_Log::error('Session could not be regenerated during self-registration auto-login! ' . $e->getMessage());
+					}
 					Minz_Session::_params([
 						Minz_User::CURRENT_USER => $new_user_name,
 						'passwordHash' => $user_conf->passwordHash,
