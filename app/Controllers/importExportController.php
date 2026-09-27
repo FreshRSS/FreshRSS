@@ -139,8 +139,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				if ('unknown' === $type_zipfile) {
 					continue;
 				}
-				if ($zip->locateName($entryName, ZipArchive::FL_NOCASE | ZipArchive::FL_NODIR) !== $i) {
-					// Duplicate entry name: skip to keep name-based lookups unambiguous
+				if ($zip->locateName($entryName) !== $i) {
+					// Duplicate entry name: keep only the first occurrence
 					continue;
 				}
 				// Reject obvious ZIP bombs cheaply from the central-directory metadata...
