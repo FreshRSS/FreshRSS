@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 16 16"><style>.st0{fill:#fff}</style><path d="M16 5.3h-2.3V3H12v2.3H9.8v1.6H12v2.3h1.7V6.9H16z" class="st0"/><path d="M11 10.2V7.9H8.8V4.3H11V2h1.8v-.3c0-1-.8-1.7-1.7-1.7H2.5C1.5 0 .8.8.8 1.7v13.9l6-2.6 6.1 2.6v-5.4z" class="st0"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 16 16">
+	<style>
+		.st0{fill:#fff}
+	</style>
+	<path d="M16 5.3h-2.3V3H12v2.3H9.8v1.6H12v2.3h1.7V6.9H16z" class="st0"/>
+	<path d="M11 10.2V7.9H8.8V4.3H11V2h1.8v-.3c0-1-.8-1.7-1.7-1.7H2.5C1.5 0 .8.8.8 1.7v13.9l6-2.6 6.1 2.6v-5.4z" class="st0"/>
+</svg>

@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><title>Logo FreshRSS</title><circle cx="128" cy="128" r="128" fill="#fff"/><circle cx="128" cy="128" r="33" fill="#0062be"/><g fill="none" stroke="#0062be" stroke-width="24"><g stroke-opacity=".3"><path d="M12 128a116 116 0 1 1 116 116"/><path d="M54 128a74 74 0 1 1 74 74"/></g><path d="M128 12a116 116 0 0 1 116 116M128 54a74 74 0 0 1 74 74"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+	<title>Logo FreshRSS</title>
+	<circle cx="128" cy="128" r="128" fill="#fff"/>
+	<circle cx="128" cy="128" r="33" fill="#0062be"/>
+	<g fill="none" stroke="#0062be" stroke-width="24">
+		<g stroke-opacity=".3">
+			<path d="M12 128a116 116 0 1 1 116 116"/>
+			<path d="M54 128a74 74 0 1 1 74 74"/>
+		</g>
+		<path d="M128 12a116 116 0 0 1 116 116M128 54a74 74 0 0 1 74 74"/>
+	</g>
+</svg>
