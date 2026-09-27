@@ -174,6 +174,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($challenge !== '') {
 				$username = Minz_User::name();
 				$nonce = Minz_Session::paramString('nonce');
+				Minz_Session::_param('nonce', false);	// One-time: consume the challenge so it cannot be replayed.
 
 				$newPasswordPlain = Minz_Request::paramString('newPasswordPlain', plaintext: true);
 				$confirmPasswordPlain = Minz_Request::paramString('confirmPasswordPlain', plaintext: true);
@@ -701,6 +702,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($self_deletion) {
 				// We check the password if it’s a self-destruction
 				$nonce = Minz_Session::paramString('nonce');
+				Minz_Session::_param('nonce', false);	// One-time: consume the challenge so it cannot be replayed.
 				$challenge = Minz_Request::paramString('challenge');
 
 				$ok &= FreshRSS_FormAuth::checkCredentials(
