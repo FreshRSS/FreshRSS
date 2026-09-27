@@ -32,7 +32,8 @@
 
 		<div class="form-group">
 			<label for="new_user_name"><?= _t('gen.auth.username') ?></label>
-			<input id="new_user_name" name="new_user_name" type="text" size="16" required="required" autocomplete="off"
+			<input id="new_user_name" name="new_user_name" type="text"<?= $this->auth_autofills['username'] ?>
+				size="16" required="required" autocomplete="off"
 				pattern="<?= FreshRSS_user_Controller::USERNAME_PATTERN ?>" autocapitalize="off" />
 			<p class="help"><?= _i('help') ?> <?= _t('gen.auth.username.format') ?></p>
 		</div>
@@ -49,7 +50,8 @@
 		<div class="form-group">
 			<label for="new_user_passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="stick">
-				<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" required="required" autocomplete="new-password" pattern=".{7,}" />
+				<input type="password" id="new_user_passwordPlain" name="new_user_passwordPlain"<?= $this->auth_autofills['password'] ?>
+				required="required" autocomplete="new-password" pattern=".{7,}" />
 				<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 			</div>
 			<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>

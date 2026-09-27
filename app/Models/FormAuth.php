@@ -21,6 +21,27 @@ class FreshRSS_FormAuth {
 		return password_verify($hash . $nonce, $challenge);
 	}
 
+	/**
+	 * @return array{username: string, password: string}
+	 */
+	public static function getAutofilledFields(): array {
+		$username = Minz_ExtensionManager::callHook(Minz_HookType::AutofillField, 'username');
+		$password = Minz_ExtensionManager::callHook(Minz_HookType::AutofillField, 'password');
+
+		$fields = [
+			'username' => is_string($username) ? $username : '',
+			'password' => is_string($password) ? $password : '',
+		];
+
+		foreach ($fields as $k => $v) {
+			if ($v !== '') {
+				$fields[$k] = ' value="' . htmlspecialchars($v, ENT_COMPAT, 'UTF-8') . '"';
+			}
+		}
+
+		return $fields;
+	}
+
 	/** @return list<string> */
 	public static function getCredentialsFromCookie(): array {
 		$token = Minz_Session::getLongTermCookie('FreshRSS_login');
