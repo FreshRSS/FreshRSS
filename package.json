@@ -28,7 +28,7 @@
 		"markdownlint": "markdownlint-cli2",
 		"markdownlint_fix": "markdownlint-cli2 --fix",
 		"rtlcss": "rtlcss -d p/themes/ && find p/themes/ -type f -name '*.rtl.rtl.css' -delete",
-		"svgo": "find p/ docs/ -name '*.svg' -exec svgo --multipass --pretty --indent -1 {} + | awk '/:$/{name=$0;next} /KiB/ && !/ - 0% /{print name; print}'",
+		"svgo": "find p/ docs/ -name '*.svg' -exec svgo {} + | awk '/:$/{name=$0;next} /KiB/ && !/ - 0% /{print name; print}'",
 		"stylelint": "stylelint '**/*.css'",
 		"stylelint_fix": "stylelint --fix '**/*.css'",
 		"test": "npm run eslint && npm run stylelint && npm run markdownlint",
