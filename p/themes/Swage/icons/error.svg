@@ -1,5 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-<style type="text/css">.st0{fill:#B0425B;}</style>
-<path class="st0" d="M0,16h16L8,2.2L0,16z M8.7,13.8H7.3v-1.5h1.5V13.8z M8.7,10.9H7.3V8h1.5V10.9z"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 16h16L8 2.2zm8.7-2.2H7.3v-1.5h1.5v1.5zm0-2.9H7.3V8h1.5v2.9z" style="fill:#b0425b"/></svg>
