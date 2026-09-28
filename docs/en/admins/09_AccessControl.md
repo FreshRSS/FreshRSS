@@ -58,13 +58,12 @@ variable containing the email address of the authenticated user (e.g. `REMOTE_US
 
 You may also use the `Remote-User` or `X-WebAuth-User` HTTP headers to integrate with a reverse-proxy’s authentication.
 
-To enable this feature, you need to add the IP range (in CIDR notation) of your trusted proxy in the `trusted_sources` configuration option.
-To allow only one IPv4, you can use a `/32` like this: `trusted_sources => [ '192.168.1.10/32' ]`.
-Likewise to allow only one IPv6, you can use a `/128` like this: `trusted_sources => [ '::1/128' ]`.
+To enable this feature, you need to add the IPs (or ranges in CIDR notation) of your trusted proxy in the `trusted_sources` configuration option.
 
-You may alternatively pass a `TRUSTED_PROXY` environment variable in a format compatible with [Apache’s `mod_remoteip` `RemoteIPInternalProxy`](https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy).
+You may alternatively pass a `TRUSTED_PROXY` environment variable, which is a space-separated list of IPs or CIDR notations like this: `192.168.1.10 ::1/128`.
+The format is largely compatible with [Apache’s `mod_remoteip` `RemoteIPInternalProxy`](https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy), except that domain names are not supported and will be silently ignored.
 
-> ☠️ WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
+> ☠️ WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option and/or the `TRUSTED_PROXY` environment variable. If your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
 
 ### Authentik Proxy Provider
 

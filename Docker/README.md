@@ -351,8 +351,8 @@ services:
       #INTERNAL_HOST_ALLOWLIST: rss-bridge:80 rsshub:1200
 
       # Optional parameter, remove for automatic settings, set to 0 to disable,
-      # or (if you use a proxy) to a space-separated list of trusted IP ranges
-      # compatible with https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy
+      # or (if you use a proxy) to a space-separated list of trusted IPs or CIDR
+      # notation for ranges. Domain names are not supported and will be ignored.
       # This impacts which IP address is logged (X-Forwarded-For or REMOTE_ADDR).
       # This also impacts external authentication methods;
       # see https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html

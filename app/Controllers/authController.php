@@ -118,6 +118,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 		if ($isPOST) {
 			$nonce = Minz_Session::paramString('nonce');
+			Minz_Session::_param('nonce', false);	// One-time: consume the challenge so it cannot be replayed.
 			$username = Minz_Request::paramString('username');
 			$challenge = Minz_Request::paramString('challenge');
 			$ip_address = Minz_Request::connectionRemoteAddress();
@@ -215,6 +216,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			$username = Minz_User::name() ?? '';
 			$nonce = Minz_Session::paramString('nonce');
+			Minz_Session::_param('nonce', false);	// One-time: consume the challenge so it cannot be replayed.
 			$challenge = Minz_Request::paramString('challenge');
 			if (!FreshRSS_FormAuth::checkCredentials(
 				$username, FreshRSS_Context::userConf()->passwordHash, $nonce, $challenge
