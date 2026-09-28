@@ -54,6 +54,9 @@ class Minz_Session {
 
 		session_name($name);
 
+		// Reject an uninitialized (e.g. attacker-supplied) session ID
+		ini_set('session.use_strict_mode', '1');
+
 		// When using cookies (default value), session_start() sends HTTP headers
 		session_start();
 		session_write_close();
@@ -234,6 +237,25 @@ class Minz_Session {
 		$params = session_get_cookie_params();
 		$params['expires'] = $params['lifetime'] > 0 ? time() + $params['lifetime'] : 0;
 		unset($params['lifetime']);
+
+		// session_start() may already have queued a cookie when there was no session
+		// cookie in the request (e.g. during remember-me auto-login).
+		$setCookieHeaders = [];
+		foreach (headers_list() as $header) {
+			if (stripos($header, 'Set-Cookie:') === 0) {
+				$setCookieHeaders[] = $header;
+			}
+		}
+		if ($setCookieHeaders !== []) {
+			header_remove('Set-Cookie');
+			$prefixLength = strlen('Set-Cookie:');
+			foreach ($setCookieHeaders as $header) {
+				$cookie = ltrim(substr($header, $prefixLength));
+				if (!str_starts_with($cookie, $name . '=')) {
+					header($header, replace: false);
+				}
+			}
+		}
 		if (!setcookie($name, $newId, $params)) {
 			throw new RuntimeException('Failed to set session cookie!');
 		}
