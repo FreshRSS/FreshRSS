@@ -35,6 +35,11 @@ class Minz_Log {
 	 * @throws Minz_PermissionDeniedException
 	 */
 	public static function record(string $information, int $level, ?string $file_name = null): void {
+		// Prevent spam of empty log messages
+		if (trim($information) === '') {
+			return;
+		}
+
 		$env = getenv('FRESHRSS_ENV');
 		$log_level = '';
 		try {
