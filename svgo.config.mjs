@@ -7,7 +7,17 @@ export default {
 	},
 	multipass: true,
 	plugins: [ // https://svgo.dev/docs/plugins/
-		'preset-default', // built-in plugins enabled by default
+		{
+			name: 'preset-default', // Built-in plugins enabled by default: https://svgo.dev/docs/preset-default/#plugins-list
+			params: {
+				overrides: {
+					// Disable selected plugins from the default preset
+					removeComments: false,
+				},
+			},
+		},
+
+		// Extra plugins
 		'removeScripts',
 	],
 };
