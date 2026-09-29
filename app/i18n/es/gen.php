@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'Acepto los <a href="%s">Términos de Servicio</a>.',
 		'email' => 'Correo electrónico',
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// TODO
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// TODO
+			'submit' => 'Send the reset link',	// TODO
+			'title' => 'Password reset',	// TODO
+		),
 		'keep_logged_in' => 'Mantenerme identificado <small>(%s días)</small>',
 		'login' => 'Conectar',
 		'logout' => 'Desconectar',
@@ -70,6 +76,11 @@ return array(
 			'_' => 'Nueva cuenta',
 			'ask' => '¿Crear una cuenta?',
 			'title' => 'Creación de cuenta',
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired.',	// TODO
+			'submit' => 'Change password',	// TODO
+			'title' => 'Choose a new password',	// TODO
 		),
 		'username' => array(
 			'_' => 'Nombre de usuario',

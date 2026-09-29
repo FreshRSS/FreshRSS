@@ -98,6 +98,10 @@ return array(
 		'max-categories' => 'Maksimālais kategoriju skaits vienam lietotājam',
 		'max-feeds' => 'Maksimālais barotņu skaits vienam lietotājam',
 		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => 'Maksimālais kontu skaits',
 			'select' => array(

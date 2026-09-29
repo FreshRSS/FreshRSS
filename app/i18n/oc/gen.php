@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'Accepti las <a href="%s">condicions d’utilizacion</a>.',
 		'email' => 'Adreça de corrièl',
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// TODO
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// TODO
+			'submit' => 'Send the reset link',	// TODO
+			'title' => 'Password reset',	// TODO
+		),
 		'keep_logged_in' => 'Demorar connectat <small>(%s jorns) </small>',
 		'login' => 'Connexion',
 		'logout' => 'Se desconnectar',
@@ -70,6 +76,11 @@ return array(
 			'_' => 'Compte nòu',
 			'ask' => 'Crear un compte?',
 			'title' => 'Creacion de compte',
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired.',	// TODO
+			'submit' => 'Change password',	// TODO
+			'title' => 'Choose a new password',	// TODO
 		),
 		'username' => array(
 			'_' => 'Nom d’utilizaire',

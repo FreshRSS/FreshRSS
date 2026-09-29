@@ -98,6 +98,10 @@ return array(
 		'max-categories' => 'Limite de categorias por usuário',
 		'max-feeds' => 'Limite de Feeds por usuário',
 		'override-by-env-var' => 'Esta configuração é definida pela variável de ambiente <kbd>%s</kbd>.',
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => 'Máximo número de contas',
 			'select' => array(

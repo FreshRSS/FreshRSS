@@ -38,6 +38,13 @@ return array(
 			'title' => '你需要验证你的帐户',
 			'welcome' => '你已注册 %s 现在只需点击下方链接通过邮箱验证即可完成注册:',
 		),
+		'password_reset' => array(
+			'body' => 'Someone requested to reset the password of your account on %s. To choose a new password, follow the link:',	// TODO
+			'expiry' => 'This link is valid for %d minutes and can be used only once.',	// TODO
+			'ignore' => 'If you did not request this, you can ignore this email: your password will not change.',	// TODO
+			'title' => 'Password reset',	// TODO
+			'welcome' => 'Hello %s,',	// TODO
+		),
 	),
 	'password' => array(
 		'invalid' => '无效密码',

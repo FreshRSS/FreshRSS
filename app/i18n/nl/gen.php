@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'Ik accepteer de <a href="%s">gebruiksvoorwaarden</a>.',
 		'email' => 'Email adres',
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// TODO
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// TODO
+			'submit' => 'Send the reset link',	// TODO
+			'title' => 'Password reset',	// TODO
+		),
 		'keep_logged_in' => 'Ingelogd blijven voor <small>(%s dagen)</small>',
 		'login' => 'Log in',
 		'logout' => 'Log uit',
@@ -70,6 +76,11 @@ return array(
 			'_' => 'Nieuw account',
 			'ask' => 'Maak een account?',
 			'title' => 'Account maken',
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired.',	// TODO
+			'submit' => 'Change password',	// TODO
+			'title' => 'Choose a new password',	// TODO
 		),
 		'username' => array(
 			'_' => 'Gebruikersnaam',

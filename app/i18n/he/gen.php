@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO
 		'email' => 'Email address',	// TODO
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// TODO
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// TODO
+			'submit' => 'Send the reset link',	// TODO
+			'title' => 'Password reset',	// TODO
+		),
 		'keep_logged_in' => 'השאר מחובר <small>חודש</small>',
 		'login' => 'כניסה לחשבון',
 		'logout' => 'יציאה מהחשבון',
@@ -70,6 +76,11 @@ return array(
 			'_' => 'New account',	// TODO
 			'ask' => 'Create an account?',	// TODO
 			'title' => 'Account creation',	// TODO
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired.',	// TODO
+			'submit' => 'Change password',	// TODO
+			'title' => 'Choose a new password',	// TODO
 		),
 		'username' => array(
 			'_' => 'שם משתמש',

@@ -113,6 +113,12 @@ class FreshRSS_View extends Minz_View {
 	public string $site_title;
 	public string $validation_url;
 
+	// Password reset
+	public string $reset_url;
+	public int $expiry_minutes;
+	public bool $reset_token_valid;
+	public string $reset_token;
+
 	// Logs
 	public int $currentPage;
 	public Minz_Paginator $logsPaginator;

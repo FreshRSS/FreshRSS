@@ -32,6 +32,10 @@ return array(
 		'logout' => array(
 			'success' => 'You are disconnected',
 		),
+		'password_reset' => array(
+			'done' => 'Your password has been changed. You can now log in.',
+			'requested' => 'If this account exists and has an email address, a password reset link has been sent.',
+		),
 	),
 	'conf' => array(
 		'error' => 'An error occurred while saving configuration',

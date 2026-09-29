@@ -98,6 +98,10 @@ return array(
 		'max-categories' => 'ユーザーごとの最大カテゴリ数',
 		'max-feeds' => 'ユーザーごとの最大フィード数',
 		'override-by-env-var' => '<kbd>%s</kbd> は環境変数によって上書きされます',
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => 'アカウント数の上限',
 			'select' => array(

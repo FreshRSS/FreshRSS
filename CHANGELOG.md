@@ -2,6 +2,12 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
+## 2026-XX-XX FreshRSS 1.31.0-dev
+
+* Features
+	* Optional password reset by email link [#9216](https://github.com/FreshRSS/FreshRSS/issues/9216)
+
+
 ## 2026-10-XX FreshRSS 1.30.1-dev
 
 * Security

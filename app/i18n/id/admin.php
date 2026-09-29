@@ -98,6 +98,10 @@ return array(
 		'max-categories' => 'Jumlah kategori maksimal per pengguna',
 		'max-feeds' => 'Jumlah umpan maksimal per pengguna',
 		'override-by-env-var' => 'Pengaturan ini ditetapkan oleh variabel lingkungan <kbd>%s</kbd>.',
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => 'Jumlah akun maksimal',
 			'select' => array(

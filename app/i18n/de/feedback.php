@@ -32,6 +32,10 @@ return array(
 		'logout' => array(
 			'success' => 'Sie sind abgemeldet',
 		),
+		'password_reset' => array(
+			'done' => 'Your password has been changed. You can now log in.',	// TODO
+			'requested' => 'If this account exists and has an email address, a password reset link has been sent.',	// TODO
+		),
 	),
 	'conf' => array(
 		'error' => 'Während der Speicherung der Konfiguration trat ein Fehler auf',

@@ -38,6 +38,13 @@ return array(
 			'title' => 'Vissza kell igazolnod a fiókod',
 			'welcome' => 'Üdv %s,',
 		),
+		'password_reset' => array(
+			'body' => 'Someone requested to reset the password of your account on %s. To choose a new password, follow the link:',	// TODO
+			'expiry' => 'This link is valid for %d minutes and can be used only once.',	// TODO
+			'ignore' => 'If you did not request this, you can ignore this email: your password will not change.',	// TODO
+			'title' => 'Password reset',	// TODO
+			'welcome' => 'Hello %s,',	// TODO
+		),
 	),
 	'password' => array(
 		'invalid' => 'A jelszó érvénytelen.',

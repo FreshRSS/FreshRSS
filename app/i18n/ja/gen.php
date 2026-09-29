@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => '<a href="%s">利用規約</a>に同意します。',
 		'email' => 'メールアドレス',
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// TODO
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// TODO
+			'submit' => 'Send the reset link',	// TODO
+			'title' => 'Password reset',	// TODO
+		),
 		'keep_logged_in' => 'ログイン状態を保持する<small>（%s日間）</small>',
 		'login' => 'ログイン',
 		'logout' => 'ログアウト',
@@ -70,6 +76,11 @@ return array(
 			'_' => '新規アカウント',
 			'ask' => 'アカウントを作成しますか？',
 			'title' => 'アカウント作成',
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired.',	// TODO
+			'submit' => 'Change password',	// TODO
+			'title' => 'Choose a new password',	// TODO
 		),
 		'username' => array(
 			'_' => 'ユーザー名',
