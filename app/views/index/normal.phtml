@@ -128,7 +128,7 @@ $today = @strtotime('today');
 					<?php } ?>
 				</header>
 				<div class="text"><?=
-					FreshRSS_Context::userConf()->lazyload && !FreshRSS_Context::userConf()->display_posts ?
+					FreshRSS_Context::userConf()->lazyload ?
 						lazyimg($this->entry->content($this->feed->attributeBoolean('display_enclosures') ?? true)) :
 						$this->entry->content($this->feed->attributeBoolean('display_enclosures') ?? true)
 				?></div>
