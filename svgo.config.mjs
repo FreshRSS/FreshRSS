@@ -1,6 +1,6 @@
 export default {
 	js2svg: {
-		indent: -1,
+		indent: '\t',
 		pretty: true,
 		eol: 'lf',
 		finalNewline: true,
