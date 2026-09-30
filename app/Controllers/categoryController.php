@@ -143,9 +143,6 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				]);
 			}
 
-			$position = Minz_Request::paramInt('position') ?: null;
-			$category->_attribute('position', $position);
-
 			$opml_url = FreshRSS_http_Util::checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
@@ -194,6 +191,45 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
 			}
 		}
+	}
+
+	/**
+	 * This action changes the display position of the categories.
+	 *
+	 * This page must be reached by a POST request.
+	 *
+	 * Request parameter is:
+	 *   - c_ids: the category IDs, in the wanted display order
+	 */
+	public function moveAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'subscription', 'a' => 'index'], true);
+		}
+		$this->view->_layout(null);
+
+		$categoryDAO = FreshRSS_Factory::createCategoryDao();
+		$categories = $categoryDAO->listCategories(prePopulateFeeds: false);
+
+		$position = -1; // will be incremented to 0
+		foreach (Minz_Request::paramArrayInt('c_ids') as $id) {
+			$category = $categories[$id] ?? null;
+			if ($category === null || $category->attributeInt('position') === ++$position) {
+				continue;
+			}
+			$category->_attribute('position', $position);
+			$values = [
+				'kind' => $category->kind(),
+				'name' => $category->name(),
+				'attributes' => $category->attributes(),
+			];
+			if (false === $categoryDAO->updateCategory($id, $values)) {
+				Minz_Log::warning('Cannot move category `' . $id . '` to position `' . $position . '`');
+				Minz_Error::error(500);
+				return;
+			}
+		}
+
+		invalidateHttpCache();
 	}
 
 	public function viewFilterAction(): void {
