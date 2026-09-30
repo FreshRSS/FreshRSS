@@ -223,7 +223,7 @@ class Minz_Session {
 		}
 		// Ensure that regenerating the session won't send multiple cookies so we can send one ourselves instead
 		ini_set('session.use_cookies', '0');
-		if (session_name($name) === false || !session_start()) {
+		if (session_name($name) === false || !@session_start()) {
 			throw new RuntimeException("Session {$name} could not be started!");
 		}
 		if (!session_regenerate_id(delete_old_session: true)) {
