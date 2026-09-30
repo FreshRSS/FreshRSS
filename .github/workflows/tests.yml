@@ -85,6 +85,9 @@ jobs:
     - name: Check Right-to-left CSS
       run: npm run --silent rtlcss && git diff --exit-code
 
+    - name: Optimize SVG image files
+      run: npm run --silent svgo && git diff --exit-code
+
     # Shell tests
 
     - name: Use shell cache

@@ -37,6 +37,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 */
 	public static function addFeed(string $url, string $title = '', int $cat_id = 0, string $new_cat_name = '',
 		string $http_auth = '', array $attributes = [], int $kind = FreshRSS_Feed::KIND_RSS): FreshRSS_Feed {
+		$limits = FreshRSS_Context::systemConf()->limits;
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		if ($limits['max_feeds'] > 0 && $feedDAO->count() >= $limits['max_feeds']) {
+			Minz_Log::warning(_t('feedback.sub.feed.over_max', $limits['max_feeds']));
+			throw new FreshRSS_FeedNotAdded_Exception($url);
+		}
+
 		FreshRSS_UserDAO::touch();
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
@@ -58,9 +65,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$cat = $catDAO->searchById($cat_id);
 		}
 		if ($cat === null && $new_cat_name != '') {
-			$new_cat_id = $catDAO->addCategory(['name' => $new_cat_name]);
-			$cat_id = $new_cat_id > 0 ? $new_cat_id : $cat_id;
-			$cat = $catDAO->searchById($cat_id);
+			if ($limits['max_categories'] > 0 && $catDAO->count() >= $limits['max_categories']) {
+				Minz_Log::warning(_t('feedback.sub.category.over_max', $limits['max_categories']));
+			} else {
+				$new_cat_id = $catDAO->addCategory(['name' => $new_cat_name]);
+				$cat_id = $new_cat_id > 0 ? $new_cat_id : $cat_id;
+				$cat = $catDAO->searchById($cat_id);
+			}
 		}
 		if ($cat === null) {
 			$catDAO->checkDefault();
@@ -92,7 +103,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				break;
 		}
 
-		$feedDAO = FreshRSS_Factory::createFeedDao();
 		if ($feedDAO->searchByUrl($feed->url()) !== null) {
 			throw new FreshRSS_AlreadySubscribed_Exception($url, $feed->name());
 		}
@@ -1070,7 +1080,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$cat_id = $cat === null ? 0 : $cat->id();
 		}
 		if ($cat_id <= 1 && $new_cat_name != '') {
-			$cat_id = $catDAO->addCategory(['name' => $new_cat_name]);
+			$limits = FreshRSS_Context::systemConf()->limits;
+			if ($limits['max_categories'] > 0 && $catDAO->count() >= $limits['max_categories']) {
+				Minz_Log::warning(_t('feedback.sub.category.over_max', $limits['max_categories']));
+			} else {
+				$cat_id = $catDAO->addCategory(['name' => $new_cat_name]) ?: $cat_id;
+			}
 		}
 		if ($cat_id <= 1) {
 			$catDAO->checkDefault();
