@@ -78,6 +78,11 @@ echo json_encode([
 		'logout' => Minz_Url::display(['c' => 'auth', 'a' => 'logout'], 'php'),
 		'help' => FRESHRSS_WIKI,
 		'shortcuts' => Minz_Url::display(['c' => 'configure', 'a' => 'shortcut'], 'php'),
+		'labels' => $this->internal_rendering && $this->includeUserLabels && isset($this->userQuery) ?
+			$this->userQuery->sharedUrlLabels(xmlEscaped: false) .
+			(Minz_Request::paramString('search', plaintext: true) !== '' ?
+				'&search=' . urlencode(Minz_Request::paramString('search', plaintext: true)) : '') .
+			'&id_entry=' : '',
 	],
 	'i18n' => [
 		'confirmation_default' => _t('gen.js.confirm_action'),

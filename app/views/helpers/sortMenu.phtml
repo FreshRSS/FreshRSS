@@ -1,0 +1,76 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	$icon = FreshRSS_Context::$order === 'ASC' ? 'sort-up' : 'sort-down';
+	if ($this->internal_rendering) {
+		$publicParams = array_filter([
+			'a' => Minz_Request::actionName(),
+			'search' => Minz_Request::paramString('search', plaintext: true),
+			'nb' => Minz_Request::paramInt('nb'),
+		], fn($value): bool => $value !== '' && $value !== 0);
+		$baseUrl = $this->userQuery->sharedUrlHtml(false);
+		$sortUrl = static function (string $sort, ?string $order) use ($baseUrl, $publicParams): string {
+			$params = array_merge($publicParams, ['sort' => $sort]);
+			if ($order !== null) {
+				$params['order'] = $order;
+			}
+			return htmlspecialchars($baseUrl . '&' . http_build_query($params), ENT_COMPAT, 'UTF-8');
+		};
+	} else {
+		$urlOrder = Minz_Request::currentRequest();
+		unset($urlOrder['params']['cid']);
+		$sortUrl = static fn(string $sort, ?string $order): string =>
+			Minz_Url::display($urlOrder, amend: ['params' => ['sort' => $sort, 'order' => $order]]);
+	}
+?>
+<div id="nav_menu_sort" class="group">
+	<div class="dropdown">
+		<div id="dropdown-sort" class="dropdown-target"></div>
+		<a id="toggle-order" class="dropdown-toggle btn" href="#dropdown-sort" title="<?= _t('index.menu.sort.primary') ?>"><?= _i($icon) ?></a>
+		<ul class="dropdown-menu" role="radiogroup">
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'id' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('id', 'DESC') ?>"><?= _t('index.menu.sort.id_desc') ?></a></li>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'date' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('date', 'DESC') ?>"><?= _t('index.menu.sort.date_desc') ?></a></li>
+			<?php if (FreshRSS_Auth::hasAccess()): ?>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'lastUserModified' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('lastUserModified', 'DESC') ?>"><?= _t('index.menu.sort.user_modified_desc') ?></a></li>
+			<?php endif; ?>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'length' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('length', 'DESC') ?>"><?= _t('index.menu.sort.length_desc') ?></a></li>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'link' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('link', 'DESC') ?>"><?= _t('index.menu.sort.link_desc') ?></a></li>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'title' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('title', 'DESC') ?>"><?= _t('index.menu.sort.title_desc') ?></a></li>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'f.name' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('f.name', 'DESC') ?>"><?= _t('index.menu.sort.f.name_desc') ?></a></li>
+			<?php if (!$this->internal_rendering): ?>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'DESC' && FreshRSS_Context::$sort === 'c.name' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('c.name', 'DESC') ?>"><?= _t('index.menu.sort.c.name_desc') ?></a></li>
+			<?php endif; ?>
+			<li class="item separator" role="radio" aria-checked="<?= FreshRSS_Context::$sort === 'rand' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('rand', null) ?>"><?= _t('index.menu.sort.rand') ?></a></li>
+			<li class="item separator" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'id' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('id', 'ASC') ?>"><?= _t('index.menu.sort.id_asc') ?></a></li>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'date' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('date', 'ASC') ?>"><?= _t('index.menu.sort.date_asc') ?></a></li>
+			<?php if (FreshRSS_Auth::hasAccess()): ?>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'lastUserModified' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('lastUserModified', 'ASC') ?>"><?= _t('index.menu.sort.user_modified_asc') ?></a></li>
+			<?php endif; ?>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'length' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('length', 'ASC') ?>"><?= _t('index.menu.sort.length_asc') ?></a></li>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'link' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('link', 'ASC') ?>"><?= _t('index.menu.sort.link_asc') ?></a></li>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'title' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('title', 'ASC') ?>"><?= _t('index.menu.sort.title_asc') ?></a></li>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'f.name' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('f.name', 'ASC') ?>"><?= _t('index.menu.sort.f.name_asc') ?></a></li>
+			<?php if (!$this->internal_rendering): ?>
+			<li class="item" role="radio" aria-checked="<?= FreshRSS_Context::$order === 'ASC' && FreshRSS_Context::$sort === 'c.name' ? 'true' : 'false' ?>">
+				<a href="<?= $sortUrl('c.name', 'ASC') ?>"><?= _t('index.menu.sort.c.name_asc') ?></a></li>
+			<?php endif; ?>
+		</ul>
+		<a class="dropdown-close" href="#close">❌</a>
+	</div>
+</div>

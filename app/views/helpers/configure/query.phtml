@@ -40,6 +40,16 @@
 			<fieldset>
 				<legend><?= _t('conf.query.share') ?></legend>
 				<div class="form-group">
+					<label class="group-name" for="viewMode"><?= _t('conf.reading.view.default') ?></label>
+					<div class="group-controls">
+						<select name="query[viewMode]" id="viewMode">
+							<option value=""<?= $this->query->getViewMode(fallback: false) === '' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.default') ?></option>
+							<option value="normal"<?= $this->query->getViewMode(fallback: false) === 'normal' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.normal') ?></option>
+							<option value="reader"<?= $this->query->getViewMode(fallback: false) === 'reader' ? ' selected="selected"' : '' ?>><?= _t('conf.reading.view.reader') ?></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
 					<div class="group-controls">
 						<label class="checkbox" for="shareRss">
 							<input type="checkbox" name="query[shareRss]" id="shareRss" value="1" <?= $this->query->shareRss() ? 'checked="checked"' : ''?> />
