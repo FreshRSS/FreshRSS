@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-    bootstrap="./tests/bootstrap.php"
-    displayDetailsOnAllIssues="true"
-    failOnAllIssues="true"
+	bootstrap="./tests/bootstrap.php"
+	displayDetailsOnAllIssues="true"
+	failOnAllIssues="true"
 >
-    <testsuites>
-        <testsuite name="default">
-            <directory>./tests</directory>
-        </testsuite>
-    </testsuites>
+	<php>
+		<env name="FRESHRSS_ENV" value="silent" force="true"/> <!-- To avoid writing into log files -->
+	</php>
+	<testsuites>
+		<testsuite name="default">
+			<directory>./tests</directory>
+		</testsuite>
+	</testsuites>
 </phpunit>
