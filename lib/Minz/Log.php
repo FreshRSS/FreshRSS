@@ -89,6 +89,8 @@ class Minz_Log {
 	/**
 	 * Returns the most recently logged message as a string value, and clears it.
 	 * Mainly for use in PHPUnit tests.
+	 *
+	 * @phpstan-impure The return value might change, even though input arguments are the same between calls.
 	 */
 	public static function getLastLog(bool $clear_last_log = true): string {
 		$lastLog = self::$lastLog;
