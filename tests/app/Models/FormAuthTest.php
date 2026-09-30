@@ -46,6 +46,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
+		self::assertSame(Minz_Log::getLastLog(), "Invalid credential parameters: user={$username}");
 	}
 
 	public function testAuthWithValidUsernameAndWrongCredentialsFail(): void {
@@ -56,6 +57,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
+		self::assertSame(Minz_Log::getLastLog(), '');
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsOk(): void {
@@ -66,6 +68,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok);
+		self::assertSame(Minz_Log::getLastLog(), '');
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndEmptyPasswordFail(): void {
@@ -76,6 +79,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
+		self::assertSame(Minz_Log::getLastLog(), "Refusing authentication with empty zero-length password: user={$username}");
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndTooLongPasswordFail(): void {
@@ -86,6 +90,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
+		self::assertSame(Minz_Log::getLastLog(), "Exceeded maximum allowed password length during authentication: user={$username}");
 
 		// It's fine if the user truncates their own password though
 		$password = str_repeat('a', 72);
@@ -93,6 +98,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok);
+		self::assertSame(Minz_Log::getLastLog(), '');
 
 		// If truncated down to less than 72 characters, login should fail
 		$password = str_repeat('a', 71);
@@ -100,6 +106,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
+		self::assertSame(Minz_Log::getLastLog(), '');
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndWrongPassAlgorithmFail(): void {
@@ -110,6 +117,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
+		self::assertSame(Minz_Log::getLastLog(), "Invalid hash format: user={$username}");
 	}
 
 	public function testAuthWithValidUsernameAndAnyCredentialsAndMalformedBcryptHashFail(): void {
@@ -120,6 +128,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
+		self::assertSame(Minz_Log::getLastLog(), "Invalid hash format: user={$username}");
 	}
 
 	public function testAuthWithValidUsernameAndAnyCredentialsAndEmptyHashFail(): void {
@@ -130,6 +139,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
+		self::assertSame(Minz_Log::getLastLog(), "Invalid credential parameters: user={$username}"); // `ctype_graph($hash)` returns false on empty string values
 	}
 
 	public function testAuthWithValidUsernameAndCorrectHashAsPasswordFail(): void {
@@ -140,5 +150,6 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $hash
 		);
 		self::assertFalse($ok);
+		self::assertSame(Minz_Log::getLastLog(), '');
 	}
 }

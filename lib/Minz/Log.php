@@ -23,6 +23,8 @@ class Minz_Log {
 		'debug' => LOG_DEBUG,
 	];
 
+	private static string $lastLog = '';
+
 	/**
 	 * Enregistre un message dans un fichier de log spécifique
 	 * Message non loggué si
@@ -56,6 +58,8 @@ class Minz_Log {
 			};
 		}
 
+		self::$lastLog = $information;
+
 		if (! ($env === 'silent' || $level > self::LOG_LEVELS[$log_level])) {
 			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 			if ($file_name == null) {
@@ -80,6 +84,18 @@ class Minz_Log {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
 		}
+	}
+
+	/**
+	 * Returns the most recently logged message as a string value, and clears it.
+	 * Mainly for use in PHPUnit tests.
+	 */
+	public static function getLastLog(bool $clear_last_log = true): string {
+		$lastLog = self::$lastLog;
+		if ($clear_last_log) {
+			self::$lastLog = '';
+		}
+		return $lastLog;
 	}
 
 	/**
