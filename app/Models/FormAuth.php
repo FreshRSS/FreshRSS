@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 class FreshRSS_FormAuth {
 	public const MIN_PASSWORD_LENGTH = 7; // Only to be enforced when setting new passwords.
-	public const MAX_PASSWORD_LENGTH = 72;
+	public const MAX_PASSWORD_LENGTH = 72; // Bcrypt limits password lengths to 72 bytes.
 
 	/**
 	 * @param array{enforceMinLength?: bool} $options

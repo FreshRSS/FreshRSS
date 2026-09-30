@@ -93,6 +93,13 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok);
+
+		// If truncated down to less than 72 characters, login should fail
+		$password = str_repeat('a', 71);
+		$ok = FreshRSS_FormAuth::checkCredentials(
+			$username, $hash, $password
+		);
+		self::assertFalse($ok);
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndWrongPassAlgorithmFail(): void {
