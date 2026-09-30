@@ -2524,8 +2524,7 @@ html.slider-active {
 	.flux_header .item.website span,
 	.item .date,
 	.dropdown-menu > .no-mobile,
-	.no-mobile,
-	.aside_feed .tree-folder-items .item .no-dropdown-toggle {
+	.no-mobile {
 		display: none;
 	}
 
@@ -2585,16 +2584,23 @@ html.slider-active {
 		text-align: right;
 	}
 
+	.aside_feed .tree-folder-items > .item {
+		display: flex;
+	}
+
 	.aside .feed .item-title {
-		padding-right: 0.75rem;
 		padding-left: 4rem;
-		display: block;
-		width: 100%;
+		flex: 1;
 		box-sizing: border-box;
 	}
 
 	.aside .feed .item-title[data-unread="0"] {
 		padding-left: 1rem;
+	}
+
+	/* No hover on touch screens */
+	.aside_feed .tree-folder-items .item .dropdown-toggle > .icon {
+		visibility: visible;
 	}
 
 	.flux .flux_header.has-thumbnail.has-summary {
