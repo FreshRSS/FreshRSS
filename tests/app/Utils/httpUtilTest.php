@@ -71,4 +71,34 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			['ftp://example.net/feed', 'https://example.net/feed', false],
 		];
 	}
+
+	public function test_getCurlResolveInfoAcceptsPublicNat64Address(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [
+		'example.test' => [
+			'192.0.66.96',
+			'64:ff9b::c000:4260',
+			],
+		]);
+
+		self::assertSame(
+		['example.test:443:192.0.66.96,[64:ff9b::c000:4260]'],
+		FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+		);
+	}
+
+	public function test_getCurlResolveInfoRejectsPrivateNat64Address(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [
+		'example.test' => [
+			'64:ff9b::a9fe:a9fe',
+		],
+		]);
+
+		self::assertNull(
+		FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+		);
+	}
 }

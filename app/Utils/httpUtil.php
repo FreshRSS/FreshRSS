@@ -391,6 +391,35 @@ final class FreshRSS_http_Util {
 				continue;
 			}
 
+			// NAT64 addresses use the RFC 6052 well-known prefix.
+			// Validate the embedded IPv4 address because the NAT64 IPv6 address itself
+			// is globally routable even when it maps to a private/reserved IPv4 address.
+			if (self::checkCIDR($ip, '64:ff9b::/96')) {
+				$packed = @inet_pton($ip);
+				if ($packed === false || strlen($packed) !== 16) {
+					continue;
+				}
+
+				$embedded_ipv4 = @inet_ntop(substr($packed, 12, 4));
+				if ($embedded_ipv4 === false) {
+					continue;
+				}
+
+				if (filter_var($embedded_ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+					continue;
+				}
+
+				// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
+				foreach (self::PRIVATE_SUBNETS as $cidr) {
+					if (self::checkCIDR($embedded_ipv4, $cidr)) {
+						continue 2;
+					}
+				}
+
+				$ips_ok[] = $add_ip;
+				continue;
+			}
+
 			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
 				continue;
 			}
