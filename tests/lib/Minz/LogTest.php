@@ -13,7 +13,7 @@ class LogTest extends TestCase {
 
 	#[\Override]
 	protected function tearDown(): void {
-		putenv('FRESHRSS_ENV');
+		putenv('FRESHRSS_ENV=silent');
 		@unlink($this->logFile);
 	}
 
