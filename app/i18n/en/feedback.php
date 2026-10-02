@@ -33,7 +33,7 @@ return array(
 			'success' => 'You are disconnected',
 		),
 		'password_reset' => array(
-			'done' => 'Your password has been changed. You can now log in.',
+			'done' => 'Your password has been changed. You can log in now.',
 			'requested' => 'If this account exists and has an email address, a password reset link has been sent.',
 		),
 	),
