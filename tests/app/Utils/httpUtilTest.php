@@ -13,6 +13,30 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);
 	}
 
+	#[DataProvider('provideUtf8Html')]
+	public function test_enforceHtmlBase_keepsUtf8InScripts(string $html): void {
+		$enforceHtmlBase = new ReflectionMethod(FreshRSS_http_Util::class, 'enforceHtmlBase');
+		$result = $enforceHtmlBase->invoke(null, $html, 'https://example.net/page');
+		self::assertIsString($result);
+		self::assertStringContainsString('<base href="https://example.net/page">', $result);
+		self::assertStringContainsString('<script type="application/json">{"title":"Café’s menu — 日本"}</script>', $result);
+		if (str_starts_with($html, "\xEF\xBB\xBF")) {
+			self::assertStringStartsWith("\xEF\xBB\xBF", $result);
+		}
+	}
+
+	/** @return array<string,array{string}> */
+	public static function provideUtf8Html(): array {
+		$body = '<body><p>Café’s menu — 日本</p><script type="application/json">{"title":"Café’s menu — 日本"}</script></body></html>';
+		$head = '<html><head><title>T</title></head>';
+		return [
+			'meta charset' => ['<!DOCTYPE html><html><head><meta charset="utf-8"><title>T</title></head>' . $body],
+			'byte order mark' => ["\xEF\xBB\xBF" . '<!DOCTYPE html>' . $head . $body],
+			'byte order mark, late <html>' => ["\xEF\xBB\xBF" . '<!DOCTYPE html>' . str_repeat('<!-- padding -->', 40) . $head . $body],
+			'meta http-equiv' => ['<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>T</title></head>' . $body],
+		];
+	}
+
 	#[DataProvider('provideCidrRanges')]
 	public function test_checkCIDR(string $ip, string $range, bool $expected): void {
 		$checkCIDR = new ReflectionMethod(FreshRSS_http_Util::class, 'checkCIDR');
