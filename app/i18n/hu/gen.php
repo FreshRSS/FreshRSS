@@ -78,7 +78,8 @@ return array(
 			'title' => 'Fiók létrehozása',
 		),
 		'reset_password' => array(
-			'invalid' => 'This password reset link is invalid or has expired.',	// TODO
+			'invalid' => 'This password reset link is invalid or has expired. Please request a new one below.',	// TODO
+			'request_new' => 'Request a new link',	// TODO
 			'submit' => 'Change password',	// TODO
 			'title' => 'Choose a new password',	// TODO
 		),

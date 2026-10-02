@@ -67,7 +67,7 @@ class FreshRSS_User_Mailer extends Minz_Mailer {
 		$subject_prefix = '[' . FreshRSS_Context::systemConf()->title . ']';
 		return $this->mail(
 			$user_config->mail_login,
-			$subject_prefix . ' ' . _t('user.mailer.password_reset.title')
+			$subject_prefix . ' ' . _t('user.mailer.password_reset.title', FreshRSS_Context::systemConf()->base_url)
 		);
 	}
 }

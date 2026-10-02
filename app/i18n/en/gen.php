@@ -78,7 +78,8 @@ return array(
 			'title' => 'Account creation',
 		),
 		'reset_password' => array(
-			'invalid' => 'This password reset link is invalid or has expired.',
+			'invalid' => 'This password reset link is invalid or has expired. Please request a new one below.',
+			'request_new' => 'Request a new link',
 			'submit' => 'Change password',
 			'title' => 'Choose a new password',
 		),

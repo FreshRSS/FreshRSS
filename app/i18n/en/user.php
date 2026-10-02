@@ -42,7 +42,7 @@ return array(
 			'body' => 'Someone requested to reset the password of your account on %s. To choose a new password, follow the link:',
 			'expiry' => 'This link is valid for %d minutes and can be used only once.',
 			'ignore' => 'If you did not request this, you can ignore this email: your password will not change.',
-			'title' => 'Password reset',
+			'title' => 'Password reset for %s',
 			'welcome' => 'Hello %s,',
 		),
 	),
