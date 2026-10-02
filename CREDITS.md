@@ -212,6 +212,7 @@ People are sorted by name so please keep this order.
 * [Matt Sephton](https://github.com/gingerbeardman): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:gingerbeardman)
 * [matthew-neavling](https://github.com/matthew-neavling): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:matthew-neavling)
 * [Maurice Schleußinger](https://github.com/maurice-schleussinger): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:maurice-schleussinger)
+* [Max Oberrauch](https://github.com/Juice-de-Orange): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Juice-de-Orange)
 * [May Meow](https://github.com/MayMeow): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:MayMeow), [Web](https://maymeow.com)
 * [McFev](https://github.com/McFev): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:McFev)
 * [Mejans](https://github.com/Mejans): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Mejans)
