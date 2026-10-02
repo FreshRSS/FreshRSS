@@ -4,6 +4,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-10-XX FreshRSS 1.30.1-dev
 
+* Deployment
+	* Reword recommendations and explanations for *edge* (rolling release) vs. *latest* (versioned release) channels [#9270](https://github.com/FreshRSS/FreshRSS/pull/9270)
 * Security
 	* Config + increase default values for search max length and depth [#9280](https://github.com/FreshRSS/FreshRSS/pull/9280)
 	* Accept a trusted proxy address given without a subnet [#9301](https://github.com/FreshRSS/FreshRSS/pull/9301)
@@ -41,7 +43,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Avoid writing to log files during unit tests [#9373](https://github.com/FreshRSS/FreshRSS/pull/9373)
 	* Update dev dependencies [#9323](https://github.com/FreshRSS/FreshRSS/pull/9323), [#9324](https://github.com/FreshRSS/FreshRSS/pull/9324),
 		[#9325](https://github.com/FreshRSS/FreshRSS/pull/9325), [#9326](https://github.com/FreshRSS/FreshRSS/pull/9326), [#9327](https://github.com/FreshRSS/FreshRSS/pull/9327),
-		[#9328](https://github.com/FreshRSS/FreshRSS/pull/9328), [#9368](https://github.com/FreshRSS/FreshRSS/pull/9368)
+		[#9328](https://github.com/FreshRSS/FreshRSS/pull/9328), [#9368](https://github.com/FreshRSS/FreshRSS/pull/9368), [#9378](https://github.com/FreshRSS/FreshRSS/pull/9378),
+		[#9379](https://github.com/FreshRSS/FreshRSS/pull/9379), [#9380](https://github.com/FreshRSS/FreshRSS/pull/9380), [#9381](https://github.com/FreshRSS/FreshRSS/pull/9381)
 
 
 ## 2026-09-09 FreshRSS 1.30.0
