@@ -22,13 +22,16 @@ final class FreshRSS_http_Util {
 	];
 	/** @var array<string, string[]> $resolve_ok */
 	private static array $resolve_ok = [];
+	/** @var array<string, bool> $retry_after_domain_wide */
+	private static array $retry_after_domain_wide = [];
 
 	private static function getRetryAfterFile(string $url, string $proxy): string {
 		$domain = parse_url($url, PHP_URL_HOST);
 		if (!is_string($domain) || $domain === '') {
 			return '';
 		}
-		$domainWide = Minz_Request::serverIsPublic($domain);
+		// Once per host, as serverIsPublic() may resolve it
+		$domainWide = self::$retry_after_domain_wide[$domain] ??= Minz_Request::serverIsPublic($url);
 		$port = parse_url($url, PHP_URL_PORT);
 		if (is_int($port)) {
 			$domain .= ':' . $port;
