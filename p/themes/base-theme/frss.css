@@ -65,16 +65,20 @@ html, body {
 }
 
 /* iOS 27+ blurs the top edge of home screen web apps unless something is painted there.
+`-webkit-touch-callout` is only supported by WebKit on iOS/iPadOS, which limits this to those platforms.
 See: https://tips.ojapp.app/en/ios-27-pwa-top-blur-workaround-2/ */
 
-@media (display-mode: standalone) {
-	.remove-blur {
-		background: #fff;
-		position: fixed;
-		inset: 0 0 auto;
-		height: 11px;
-		pointer-events: none;
-		background-clip: text;
+@supports (-webkit-touch-callout: none) {
+	/* stylelint-disable-next-line at-rule-empty-line-before */
+	@media (display-mode: standalone) {
+		.remove-blur {
+			background: #fff;
+			position: fixed;
+			inset: 0 0 auto;
+			height: 11px;
+			pointer-events: none;
+			background-clip: text;
+		}
 	}
 }
 
