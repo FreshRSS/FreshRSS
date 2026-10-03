@@ -69,7 +69,7 @@ return array(
 			'help' => 'Solo per i temi compatibili',
 			'no' => 'No',	// IGNORE
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Mostra gli allegati',
 		'headline' => array(
 			'articles_header_footer' => 'Articoli: intestazione/fondo pagina',
 		),
@@ -201,8 +201,8 @@ return array(
 			'_' => 'Filtro applicato:',
 			'categories' => 'Mostra per categoria',
 			'feeds' => 'Mostra per feed',
-			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
-			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'include_article_tags_label' => 'Includi i tag degli articoli provenienti dai feed',
+			'include_user_labels_label' => 'Includi le etichette dell’utente, con prefisso:',
 			'order' => 'Ordina per data',
 			'search' => 'Espressione',
 			'shareOpml' => 'Abilita la condivisione di OPML di categorie e feed corrispondenti',
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Segna un articolo come preferito…',
 		),
 		'sticky_post' => 'Blocca il contenuto a inizio pagina quando aperto',
-		'sticky_sort' => 'Mantieni l’ordinamento manuale durante la navigazione',	// DIRTY
-		'sticky_sort_help' => 'Determina se l’ultimo ordinamento manuale rimane attivo oppure se ogni categoria o feed usa sempre la propria impostazione predefinita o globale.',	// DIRTY
+		'sticky_sort' => 'Mantieni l’ordinamento manuale durante la navigazione',
+		'sticky_sort_help' => 'Determina se l’ultimo ordinamento manuale rimane attivo oppure se ogni categoria o feed usa sempre la propria impostazione predefinita o globale.',
 		'title' => 'Lettura',
 		'view' => array(
 			'default' => 'Visualizzazione predefinita',
