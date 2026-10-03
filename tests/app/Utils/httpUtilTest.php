@@ -6,11 +6,17 @@ use PHPUnit\Framework\Attributes\DataProvider;
 /**
  * Tests for FreshRSS_http_Util
  */
-class httpUtilTest extends \PHPUnit\Framework\TestCase {
+final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideUrlsIgnoringHttps')]
 	public function test_compareUrlIgnoringHttps(string $url1, string $url2, bool $expected): void {
 		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);
+	}
+
+	#[\Override]
+	protected function tearDown(): void {
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, []);	// Restore the default empty cache
 	}
 
 	#[DataProvider('provideUrlsForRetryAfter')]
@@ -89,5 +95,50 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			// Non-http(s) schemes are compared as-is
 			['ftp://example.net/feed', 'https://example.net/feed', false],
 		];
+	}
+
+	public function test_getCurlResolveInfoAcceptsPublicNat64Address(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [
+			'example.test' => [
+				'192.0.66.96',
+				'64:ff9b::c000:4260',
+			],
+		]);
+
+		self::assertSame(
+			['example.test:443:192.0.66.96,[64:ff9b::c000:4260]'],
+			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+		);
+	}
+
+	public function test_getCurlResolveInfoRejectsPrivateNat64Address(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [
+			'example.test' => [
+				'64:ff9b::a9fe:a9fe',
+			],
+		]);
+
+		self::assertNull(
+			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+		);
+	}
+
+	public function test_getCurlResolveInfoRejectsLocalUseNat64Address(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [
+			'example.test' => [
+				'64:ff9b:1::c000:4260',
+				'64:ff9b:1::a9fe:a9fe',
+			],
+		]);
+
+		self::assertNull(
+			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+		);
 	}
 }
