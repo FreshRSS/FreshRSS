@@ -1,0 +1,11 @@
+{
+	"name": "Atelier",
+	"author": "mbieh (based on Mapco by Thomas Guesnon)",
+	"description": "Modern light and dark theme inspired by shadcn/ui, on the Tailwind Neutral palette — grey without a hue — with a clear reading hierarchy, soft radii, and subtle motion.",
+	"version": "1.5.0",
+	"files": ["_frss.css", "atelier.css", "atelier-ui.css"],
+	"theme-color": {
+		"light": "#f5f5f5",
+		"dark": "#171717"
+	}
+}
