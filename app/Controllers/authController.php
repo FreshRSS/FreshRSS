@@ -109,6 +109,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_View::prependTitle(_t('gen.auth.login') . ' · ');
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/bcrypt.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/bcrypt.js')));
+		$this->view->auth_autofills = FreshRSS_FormAuth::getAutofilledFields();
 
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->view->cookie_days = (int)round($limits['cookie_duration'] / 86400, 1);
@@ -238,6 +239,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 		FreshRSS_View::prependTitle(_t('gen.auth.reauth.title') . ' · ');
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/bcrypt.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/bcrypt.js')));
+		$this->view->auth_autofills = FreshRSS_FormAuth::getAutofilledFields();
 	}
 
 	/**
@@ -282,6 +284,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		$this->view->show_tos_checkbox = file_exists(TOS_FILENAME);
 		$this->view->show_email_field = FreshRSS_Context::systemConf()->force_email_validation;
 		$this->view->preferred_language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::systemConf()->language);
+		$this->view->auth_autofills = FreshRSS_FormAuth::getAutofilledFields();
 		FreshRSS_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 
