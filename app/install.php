@@ -697,7 +697,8 @@ function printStep3(): void {
 					<input
 						type="password" id="passwordPlain" name="passwordPlain"
 						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="3"
-						minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>" maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" />
+						minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>"
+						maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" data-max-bytes="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" />
 					<button type="button" class="btn toggle-password" data-toggle="passwordPlain" tabindex="4"><?= FreshRSS_Themes::icon('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>
@@ -875,5 +876,6 @@ if (_t('gen.dir') === 'rtl') {
 	</main>
 </div>
 	<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
+	<script src="../scripts/extra.js?<?= @filemtime(PUBLIC_PATH . '/scripts/extra.js') ?>"></script>
 	</body>
 </html>

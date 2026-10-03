@@ -33,7 +33,18 @@ class FreshRSS_FormAuth {
 			return false;
 		}
 
-		if (strlen($passwordPlain) > self::MAX_PASSWORD_LENGTH) {
+		$byteLen = strlen($passwordPlain);
+		$utf8Prefix = mb_check_encoding($passwordPlain, 'UTF-8')
+			? mb_strcut($passwordPlain, 0, self::MAX_PASSWORD_LENGTH, 'UTF-8')
+			: '';
+
+		$cutOffUtf8Character = $byteLen > self::MAX_PASSWORD_LENGTH &&
+			strlen($utf8Prefix) < self::MAX_PASSWORD_LENGTH &&
+			mb_strlen($passwordPlain, 'UTF-8') === mb_strlen($utf8Prefix, 'UTF-8') + 1;
+
+		// Only reject logging in with a password longer than 72 bytes if the limit does not
+		// cut off a valid UTF-8 character, since this may be an existing bcrypt password.
+		if (!$cutOffUtf8Character && $byteLen > self::MAX_PASSWORD_LENGTH) {
 			Minz_Log::warning("Exceeded maximum allowed password length during authentication: user={$username}");
 			return false;
 		}

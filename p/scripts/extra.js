@@ -6,8 +6,6 @@ function forgetOpenCategories() {
 	localStorage.removeItem('FreshRSS_open_categories');
 }
 
-// <show password>
-
 function init_display(parent) {
 	const theme = parent.querySelector('select#theme');
 	if (!theme) {
@@ -20,6 +18,7 @@ function init_display(parent) {
 	});
 }
 
+// <password forms>
 function togglePW(btn) {
 	if (btn.classList.contains('active')) {
 		hidePW(btn);
@@ -51,7 +50,27 @@ function init_password_observers(parent) {
 		btn.onclick = () => togglePW(btn);
 	});
 }
-// </show password>
+
+function init_password_byte_length_validation(parent) {
+	parent.querySelectorAll('input[type="password"][data-max-bytes]').forEach(input => {
+		function validate() {
+			// Display custom validation error for the password input or unset any custom errors.
+			if (new TextEncoder().encode(input.value).length > +input.dataset.maxBytes) {
+				input.setCustomValidity(context.i18n.provided_password_too_long);
+			} else {
+				input.setCustomValidity('');
+			}
+
+			// Update the displayed validation status immediately before
+			// the user attempts to submit the form.
+			input.reportValidity();
+		}
+
+		input.addEventListener('input', validate);
+		validate();
+	});
+}
+// </password forms>
 
 function init_archiving(parent) {
 	parent.addEventListener('change', function (e) {
@@ -553,6 +572,7 @@ function init_extra_afterDOM() {
 		loginButton.addEventListener('click', forgetOpenCategories);
 	}
 	init_password_observers(document.body);
+	init_password_byte_length_validation(document.body);
 	init_select_observers();
 	init_configuration_alert();
 	init_2stateButton();
@@ -567,6 +587,7 @@ function init_extra_afterDOM() {
 	if (slider) {
 		slider.addEventListener('freshrss:slider-load', function (e) {
 			init_password_observers(slider);
+			init_password_byte_length_validation(slider);
 		});
 		init_slider(slider);
 		init_archiving(slider);

@@ -72,7 +72,8 @@
 				<div class="stick">
 					<input
 					type="password" id="new_user_passwordPlain" name="new_user_passwordPlain" autocomplete="new-password"
-					minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>" maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" />
+					minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>"
+					maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" data-max-bytes="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" />
 					<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>

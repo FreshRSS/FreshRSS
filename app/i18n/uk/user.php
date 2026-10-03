@@ -41,6 +41,7 @@ return array(
 	),
 	'password' => array(
 		'invalid' => 'Хибний пароль.',
+		'provided_password_too_long' => 'The provided password is too long.',	// TODO
 	),
 	'tos' => array(
 		'feedback' => array(

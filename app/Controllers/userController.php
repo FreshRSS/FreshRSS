@@ -178,8 +178,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					['enforceMinLength' => true]
 				);
 
-				// Currently the only requirement is checking whether the password length is within the range of 7-72 characters.
-				// This limit is enforced in the form as well, so no custom error message is needed so far
+				// Currently the only requirement is checking whether the password length is within the range of 7-72 bytes.
+				// This limit is enforced in the form using a custom JS validator as well, so no custom error message is needed so far
 				// on the server side.
 				if (!$passwordRequirementsMet || !FreshRSS_FormAuth::checkCredentials(
 					$username, FreshRSS_Context::userConf()->passwordHash, $passwordPlain
