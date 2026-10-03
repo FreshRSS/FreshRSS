@@ -13,6 +13,25 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);
 	}
 
+	#[DataProvider('provideUrlsForRetryAfter')]
+	public function test_getRetryAfterFile(string $url1, string $url2, bool $sameFile): void {
+		$getRetryAfterFile = new ReflectionMethod(FreshRSS_http_Util::class, 'getRetryAfterFile');
+		self::assertSame($sameFile, $getRetryAfterFile->invoke(null, $url1, '') === $getRetryAfterFile->invoke(null, $url2, ''));
+	}
+
+	/** @return array<string,array{string,string,bool}> */
+	public static function provideUrlsForRetryAfter(): array {
+		return [
+			// A public server waits as a whole, per port
+			'public server' => ['https://198.51.100.7/feed1', 'https://198.51.100.7/feed2?a=1&b=2', true],
+			'public server, other port' => ['https://198.51.100.7/feed', 'https://198.51.100.7:8443/feed', false],
+			// A server on a local network waits URL by URL
+			'local IP address' => ['http://192.168.1.2/feed1', 'http://192.168.1.2/feed2', false],
+			'local domain' => ['http://rss-bridge.lan/?bridge=A', 'http://rss-bridge.lan/?bridge=B', false],
+			'local, same URL' => ['http://192.168.1.2/feed', 'http://192.168.1.2/feed', true],
+		];
+	}
+
 	#[DataProvider('provideCidrRanges')]
 	public function test_checkCIDR(string $ip, string $range, bool $expected): void {
 		$checkCIDR = new ReflectionMethod(FreshRSS_http_Util::class, 'checkCIDR');
