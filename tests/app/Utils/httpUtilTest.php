@@ -6,7 +6,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 /**
  * Tests for FreshRSS_http_Util
  */
-class httpUtilTest extends \PHPUnit\Framework\TestCase {
+final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideUrlsIgnoringHttps')]
 	public function test_compareUrlIgnoringHttps(string $url1, string $url2, bool $expected): void {
@@ -119,6 +119,21 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		$resolveOk->setValue(null, [
 			'example.test' => [
 				'64:ff9b::a9fe:a9fe',
+			],
+		]);
+
+		self::assertNull(
+			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+		);
+	}
+
+	public function test_getCurlResolveInfoRejectsLocalUseNat64Address(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [
+			'example.test' => [
+				'64:ff9b:1::c000:4260',
+				'64:ff9b:1::a9fe:a9fe',
 			],
 		]);
 

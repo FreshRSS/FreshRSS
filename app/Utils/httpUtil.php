@@ -18,6 +18,7 @@ final class FreshRSS_http_Util {
 		'fe80::/10',      // Link Local Address
 		'::ffff:0:0/96',  // IPv4 translations
 		'64:ff9b::/96',   // RFC6052 (IPv6 Addressing of IPv4/IPv6 Translators, NAT64)
+		'64:ff9b:1::/48', // RFC8215 (Local-Use IPv4/IPv6 Translation Prefix)
 		'::/128',         // Unspecified address
 	];
 	/** @var array<string, string[]> $resolve_ok */
