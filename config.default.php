@@ -50,6 +50,11 @@ return [
 	# feed if they didn’t access this URL.
 	'force_email_validation' => false,
 
+	# Allow users to reset their forgotten password through an emailed link.
+	# Requires the `form` authentication, a working mailer (see `mailer` and `smtp`),
+	# and `base_url` to be set, as the link is never built from the requested host.
+	'password_reset' => false,
+
 	# Allow or not visitors without login to see the articles
 	#	of the default user.
 	'allow_anonymous' => false,

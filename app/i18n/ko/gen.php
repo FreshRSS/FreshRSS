@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => '<a href="%s">서비스 약관</a>에 동의합니다.',
 		'email' => '메일 주소',
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// TODO
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// TODO
+			'submit' => 'Send the reset link',	// TODO
+			'title' => 'Password reset',	// TODO
+		),
 		'keep_logged_in' => '로그인 유지 <small>(%s 일)</small>',
 		'login' => '로그인',
 		'logout' => '로그아웃',
@@ -70,6 +76,12 @@ return array(
 			'_' => '새 계정',
 			'ask' => '새 계정을 만들까요?',
 			'title' => '계정 생성',
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired. Please request a new one below.',	// TODO
+			'request_new' => 'Request a new link',	// TODO
+			'submit' => 'Change password',	// TODO
+			'title' => 'Choose a new password',	// TODO
 		),
 		'username' => array(
 			'_' => '사용자 이름',

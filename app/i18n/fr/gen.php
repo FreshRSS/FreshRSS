@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'Accepter les <a href="%s">Conditions Générales d’Utilisation</a>.',
 		'email' => 'Adresse courriel',
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// TODO
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// TODO
+			'submit' => 'Send the reset link',	// TODO
+			'title' => 'Password reset',	// TODO
+		),
 		'keep_logged_in' => 'Rester connecté <small>(%s jours)</small>',
 		'login' => 'Connexion',
 		'logout' => 'Déconnexion',
@@ -70,6 +76,12 @@ return array(
 			'_' => 'Nouveau compte',
 			'ask' => 'Créer un compte ?',
 			'title' => 'Création de compte',
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired. Please request a new one below.',	// TODO
+			'request_new' => 'Request a new link',	// TODO
+			'submit' => 'Change password',	// TODO
+			'title' => 'Choose a new password',	// TODO
 		),
 		'username' => array(
 			'_' => 'Nom d’utilisateur',

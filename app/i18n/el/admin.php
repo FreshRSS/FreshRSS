@@ -98,6 +98,10 @@ return array(
 		'max-categories' => 'Μέγιστος αριθμός κατηγοριών ανά χρήστη',
 		'max-feeds' => 'Μέγιστος αριθμός ροών ανά χρήστη',
 		'override-by-env-var' => 'Αυτή η ρύθμιση ορίζεται από τη μεταβλητή περιβάλλοντος <kbd>%s</kbd>.',
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => 'Μέγιστος αριθμός λογαριασμών',
 			'select' => array(

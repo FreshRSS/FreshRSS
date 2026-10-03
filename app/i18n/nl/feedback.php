@@ -32,6 +32,10 @@ return array(
 		'logout' => array(
 			'success' => 'U bent uitgelogd',
 		),
+		'password_reset' => array(
+			'done' => 'Your password has been changed. You can log in now.',	// TODO
+			'requested' => 'If this account exists and has an email address, a password reset link has been sent.',	// TODO
+		),
 	),
 	'conf' => array(
 		'error' => 'Er is een fout opgetreden tijdens het opslaan van de configuratie',

@@ -98,6 +98,10 @@ return array(
 		'max-categories' => 'Didžiausias kategorijų skaičius vienam naudotojui',
 		'max-feeds' => 'Didžiausias kanalų skaičius vienam naudotojui',
 		'override-by-env-var' => 'Šis nustatymas valdomas aplinkos kintamuoju <kbd>%s</kbd>.',
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => 'Didžiausias paskyrų skaičius',
 			'select' => array(

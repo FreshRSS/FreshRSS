@@ -98,6 +98,10 @@ return array(
 		'max-categories' => 'Максімальная колькасць катэгорый для карыстальніка',
 		'max-feeds' => 'Максімальная колькасць стужак для карыстальніка',
 		'override-by-env-var' => 'Гэта налада задаецца пераменнай асяроддзя <kbd>%s</kbd>.',
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => 'Максімальная колькасць уліковых запісаў',
 			'select' => array(

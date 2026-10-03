@@ -285,6 +285,134 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 
+	/**
+	 * Password reset requires the form authentication and a configured base URL,
+	 * so that the emailed link is never built from the (untrusted) requested host.
+	 */
+	public static function passwordResetEnabled(): bool {
+		return FreshRSS_Context::systemConf()->password_reset &&
+			FreshRSS_Context::systemConf()->auth_type === 'form' &&
+			strlen(Minz_Request::getBaseUrl()) >= strlen('http://a.bc');
+	}
+
+	/**
+	 * This action lets a user request a password reset link by email.
+	 *
+	 * The response is the same whether or not an email was sent,
+	 * so it does not tell whether a user exists or has an email address.
+	 */
+	public function forgotPasswordAction(): void {
+		if (!self::passwordResetEnabled()) {
+			Minz_Error::error(404);
+			return;
+		}
+		if (FreshRSS_Auth::hasAccess()) {
+			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
+			return;
+		}
+
+		invalidateHttpCache();
+		FreshRSS_View::prependTitle(_t('gen.auth.forgot_password.title') . ' · ');
+
+		if (Minz_Request::isPost()) {
+			$language = Minz_Translate::language();
+			self::sendPasswordReset(Minz_Request::paramString('username'));
+			Minz_Translate::reset($language);	// The mailer switches to the language of the user
+			usleep(random_int(100, 10000));	//Primitive mitigation of timing attacks, in μs
+			Minz_Request::good(_t('feedback.auth.password_reset.requested'), ['c' => 'auth', 'a' => 'login']);
+		}
+	}
+
+	private static function sendPasswordReset(string $username): void {
+		if (!FreshRSS_user_Controller::checkUsername($username) || !FreshRSS_UserDAO::exists($username)) {
+			return;
+		}
+		$user_config = FreshRSS_UserConfiguration::getForUser($username);
+		if ($user_config === null || !$user_config->enabled || $user_config->mail_login === '' ||
+			(FreshRSS_Context::systemConf()->force_email_validation && $user_config->email_validation_token !== '')) {
+			return;
+		}
+
+		$reset = FreshRSS_password_Util::newResetToken($user_config->attributeArray('password_reset'), time());
+		if ($reset === null) {
+			return;	// Throttled
+		}
+		$user_config->_attribute('password_reset', $reset['data']);
+		if (!$user_config->save()) {
+			return;
+		}
+
+		$ip_address = Minz_Request::connectionRemoteAddress();
+		$mailer = new FreshRSS_User_Mailer();
+		if ($mailer->send_password_reset($username, $user_config, $reset['token'])) {
+			Minz_Log::notice("Password reset email sent for user={$username}, ip_address={$ip_address}", ADMIN_LOG);
+		} else {
+			Minz_Log::warning("Password reset email could not be sent for user={$username}, ip_address={$ip_address}", ADMIN_LOG);
+		}
+	}
+
+	/**
+	 * This action handles the link sent by email to reset a password.
+	 *
+	 * Parameters are:
+	 *   - username
+	 *   - token
+	 *   - newPasswordPlain (POST)
+	 *   - confirmPasswordPlain (POST)
+	 */
+	public function resetPasswordAction(): void {
+		if (!self::passwordResetEnabled()) {
+			Minz_Error::error(404);
+			return;
+		}
+		if (FreshRSS_Auth::hasAccess()) {
+			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
+			return;
+		}
+
+		invalidateHttpCache();
+		header('Referrer-Policy: no-referrer');	// Do not leak the token
+		FreshRSS_View::prependTitle(_t('gen.auth.reset_password.title') . ' · ');
+
+		$username = Minz_Request::paramString('username');
+		$token = Minz_Request::paramString('token');
+		$user_config = FreshRSS_user_Controller::checkUsername($username) && FreshRSS_UserDAO::exists($username) ?
+			FreshRSS_UserConfiguration::getForUser($username) : null;
+		$valid = $user_config !== null && $user_config->enabled &&
+			FreshRSS_password_Util::checkResetToken($user_config->attributeArray('password_reset'), $token, time());
+
+		$this->view->username = $username;
+		$this->view->reset_token = $token;
+		$this->view->reset_token_valid = $valid;
+
+		if (!$valid || $user_config === null || !Minz_Request::isPost()) {
+			return;
+		}
+
+		$newPasswordPlain = Minz_Request::paramString('newPasswordPlain', plaintext: true);
+		$confirmPasswordPlain = Minz_Request::paramString('confirmPasswordPlain', plaintext: true);
+		if (!FreshRSS_password_Util::check($newPasswordPlain)) {
+			Minz_Request::setBadNotification(_t('user.password.invalid'));
+			return;
+		}
+		if ($newPasswordPlain !== $confirmPasswordPlain) {
+			Minz_Request::setBadNotification(_t('feedback.profile.passwords_dont_match'));
+			return;
+		}
+
+		// Changing the password hash also invalidates all existing sessions and login cookies
+		$user_config->passwordHash = FreshRSS_password_Util::hash($newPasswordPlain);
+		$user_config->_attribute('password_reset', null);	// One-time token
+		if (!$user_config->save()) {
+			Minz_Request::setBadNotification(_t('feedback.profile.error'));
+			return;
+		}
+
+		$ip_address = Minz_Request::connectionRemoteAddress();
+		Minz_Log::notice("Password reset for user={$username}, ip_address={$ip_address}", ADMIN_LOG);
+		Minz_Request::good(_t('feedback.auth.password_reset.done'), ['c' => 'auth', 'a' => 'login']);
+	}
+
 	public static function getLogoutUrl(): string {
 		if (($_SERVER['AUTH_TYPE'] ?? '') === 'openid-connect') {
 			$url_string = urlencode(Minz_Request::guessBaseUrl());

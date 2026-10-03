@@ -685,6 +685,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::systemConf()->limits = $limits;
 			FreshRSS_Context::systemConf()->title = Minz_Request::paramString('instance-name') ?: 'FreshRSS';
 			FreshRSS_Context::systemConf()->force_email_validation = Minz_Request::paramBoolean('force-email-validation');
+			FreshRSS_Context::systemConf()->password_reset = Minz_Request::paramBoolean('password-reset');
 			$internal_host_allowlist = Minz_Request::paramTextToArrayNull('internal-host-allowlist');
 			if ($internal_host_allowlist !== null) {
 				FreshRSS_Context::systemConf()->internal_host_allowlist = Minz_Request::paramTextToArray('internal-host-allowlist');
