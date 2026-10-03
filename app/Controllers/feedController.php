@@ -607,7 +607,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 					// HTTP 410 Gone
 					Minz_Log::warning('Muting gone feed: ' . $feed->url(false));
 					$feed->_mute(true);
-					$feedDAO->updateFeed($feed->id(), ['ttl' => $feed->ttl(true)]);	// Also when the feed has the default TTL (0)
+					$feedDAO->updateFeed($feed->id(), ['ttl' => $feed->ttl(raw: true)]);	// Also when the feed has the default TTL (0)
 				}
 				$feed->unlock();
 				continue;

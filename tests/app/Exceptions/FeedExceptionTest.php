@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class FeedExceptionTest extends \PHPUnit\Framework\TestCase {
+final class FeedExceptionTest extends \PHPUnit\Framework\TestCase {
 
 	public function test_keepsHttpStatusCode(): void {
 		$previous = new RuntimeException('previous');
