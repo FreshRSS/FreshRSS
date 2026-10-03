@@ -76,15 +76,15 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		FreshRSS_Context::initSystem();
 		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
 		$resolveOk->setValue(null, [
-		'example.test' => [
-			'192.0.66.96',
-			'64:ff9b::c000:4260',
+			'example.test' => [
+				'192.0.66.96',
+				'64:ff9b::c000:4260',
 			],
 		]);
 
 		self::assertSame(
-		['example.test:443:192.0.66.96,[64:ff9b::c000:4260]'],
-		FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+			['example.test:443:192.0.66.96,[64:ff9b::c000:4260]'],
+			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
 		);
 	}
 
@@ -92,13 +92,13 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		FreshRSS_Context::initSystem();
 		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
 		$resolveOk->setValue(null, [
-		'example.test' => [
-			'64:ff9b::a9fe:a9fe',
-		],
+			'example.test' => [
+				'64:ff9b::a9fe:a9fe',
+			],
 		]);
 
 		self::assertNull(
-		FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
 		);
 	}
 }
