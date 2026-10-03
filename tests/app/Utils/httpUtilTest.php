@@ -13,6 +13,12 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);
 	}
 
+	#[\Override]
+	protected function tearDown(): void {
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, []);	// Restore the default empty cache
+	}
+
 	#[DataProvider('provideCidrRanges')]
 	public function test_checkCIDR(string $ip, string $range, bool $expected): void {
 		$checkCIDR = new ReflectionMethod(FreshRSS_http_Util::class, 'checkCIDR');
