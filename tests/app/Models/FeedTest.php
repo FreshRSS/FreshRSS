@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
 
-class FeedTest extends \PHPUnit\Framework\TestCase {
+final class FeedTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideStoredAndRequestedUrls')]
 	public function test_load_obeysRetryAfter(string $storedUrl, string $requestedUrl): void {
