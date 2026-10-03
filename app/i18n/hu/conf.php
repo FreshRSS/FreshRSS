@@ -117,6 +117,7 @@ return array(
 		'title' => 'Megjelenítés',
 		'website' => array(
 			'full' => 'Ikon és név',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Csak ikon',
 			'label' => 'Weblap',
 			'name' => 'Csak név',

@@ -117,6 +117,7 @@ return array(
 		'title' => 'Оформлення',
 		'website' => array(
 			'full' => 'Піктограма й назва',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Лише піктограма',
 			'label' => 'Вебсайт',
 			'name' => 'Лише назва',

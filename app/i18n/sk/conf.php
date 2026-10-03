@@ -117,6 +117,7 @@ return array(
 		'title' => 'Zobraziť',
 		'website' => array(
 			'full' => 'Ikona a názov',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Iba ikona',
 			'label' => 'Webová stránka',
 			'name' => 'Iba názov',
