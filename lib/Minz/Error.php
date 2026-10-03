@@ -19,7 +19,7 @@ class Minz_Error {
 	*      > $logs['error']
 	*      > $logs['warning']
 	*      > $logs['notice']
-	* @param bool $redirect whether to force a redirect (logs will not be shown to the user)
+	* @param bool $redirect If true, uses an HTTP redirection, and if false (default), performs an internal dispatcher redirection.
 	*/
 	public static function error(int $code = 404, string|array $logs = [], bool $redirect = true): void {
 		$logs = self::processLogs($logs);
