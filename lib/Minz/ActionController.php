@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <https://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -58,7 +58,7 @@ abstract class Minz_ActionController {
 	}
 
 	/**
-	 * Getteur
+	 * Getter
 	 */
 	public function view(): Minz_View {
 		return $this->view;
@@ -113,9 +113,9 @@ abstract class Minz_ActionController {
 	}
 
 	/**
-	 * Méthodes à redéfinir (ou non) par héritage
-	 * firstAction est la première méthode exécutée par le Dispatcher
-	 * lastAction est la dernière
+	 * Methods that may be overridden by subclasses
+	 * firstAction is the first method executed by the Dispatcher
+	 * lastAction is the last method executed by the Dispatcher
 	 */
 	public function init(): void { }
 	public function firstAction(): void { }

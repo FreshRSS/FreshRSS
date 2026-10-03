@@ -657,7 +657,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$this->hubUrl = empty($links[0]) ? '' : (FreshRSS_http_Util::checkUrl($links[0]) ?: '');
 
 				if ($loadDetails) {
-					// si on a utilisé l’auto-discover, notre url va avoir changé
+					// If auto-discovery was used, the URL has changed
 					$subscribe_url = $simplePie->subscribe_url(false) ?? '';
 
 					if ($this->name(true) === '') {

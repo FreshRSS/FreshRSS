@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <https://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -130,9 +130,9 @@ class Minz_View {
 	 * @param string $part the partial element to be added
 	 */
 	public function partial(string $part): void {
-		$fic_partial = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
-		if (!$this->includeFile($fic_partial)) {
-			Minz_Log::warning('File not found: `' . $fic_partial . '`');
+		$partial_file = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
+		if (!$this->includeFile($partial_file)) {
+			Minz_Log::warning('File not found: `' . $partial_file . '`');
 		}
 	}
 
@@ -141,9 +141,9 @@ class Minz_View {
 	 * @param string $helper the element to be displayed
 	 */
 	public function renderHelper(string $helper): void {
-		$fic_helper = '/views/helpers/' . $helper . '.phtml';
-		if (!$this->includeFile($fic_helper)) {
-			Minz_Log::warning('File not found: `' . $fic_helper . '`');
+		$helper_file = '/views/helpers/' . $helper . '.phtml';
+		if (!$this->includeFile($helper_file)) {
+			Minz_Log::warning('File not found: `' . $helper_file . '`');
 		}
 	}
 

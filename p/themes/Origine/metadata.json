@@ -1,7 +1,7 @@
 {
 	"name": "Origine",
 	"author": "Marien Fressinaud",
-	"description": "Le thème par défaut pour FreshRSS",
+	"description": "The default theme for FreshRSS",
 	"version": 0.2,
 	"files": ["_frss.css", "origine.css"],
 	"theme-color": {"dark": "#1f1f1f", "light": "#f0f0f0"}
