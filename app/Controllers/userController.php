@@ -174,7 +174,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 				$username = Minz_User::name();
 
 				$passwordRequirementsMet = FreshRSS_FormAuth::passwordRequirementsMet(
-					$passwordPlain,
+					$newPasswordPlain,
 					['enforceMinLength' => true]
 				);
 
