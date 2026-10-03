@@ -1186,7 +1186,7 @@ function init_column_categories() {
 					.innerHTML.replace(/------/g, id);
 				div.insertAdjacentHTML('beforeend', template);
 				dropdownMenu = div.querySelector('.dropdown-menu');
-				dropdownMenu.querySelector('li.website > a').href = feed_web;
+				dropdownMenu.querySelector('li.website > a')?.setAttribute('href', feed_web); // Labels have no website
 				dropdownMenu.style.opacity = '0%'; // Hide initially to prevent dropdown flashing
 				if (feed_web == '') {
 					const website = div.querySelector('.item.link.website');
