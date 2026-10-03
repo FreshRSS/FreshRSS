@@ -91,6 +91,9 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		}
 
 		if ($passwordPlain != '') {
+			if (!FreshRSS_FormAuth::passwordRequirementsMet($passwordPlain, ['enforceMinLength' => true])) {
+				return false;
+			}
 			$passwordHash = FreshRSS_password_Util::hash($passwordPlain);
 			$userConfig->passwordHash = $passwordHash;
 			if ($user === Minz_User::name()) {
