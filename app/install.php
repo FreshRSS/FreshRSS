@@ -212,7 +212,7 @@ function saveStep3(): bool {
 		}
 
 		$password_plain = param('passwordPlain', '');
-		if (FreshRSS_Context::systemConf()->auth_type === 'form' && $password_plain == '') {
+		if (FreshRSS_Context::systemConf()->auth_type === 'form' && !FreshRSS_FormAuth::passwordRequirementsMet($password_plain)) {
 			return false;
 		}
 
@@ -613,7 +613,7 @@ function printStep2(): void {
 				<div class="stick">
 					<input type="password" id="pass" name="pass" value="<?=
 						$bd_password ?? '' ?>" tabindex="4" autocomplete="off" />
-					<a class="btn toggle-password" data-toggle="pass" tabindex="5"><?= FreshRSS_Themes::icon('key') ?></a>
+					<a class="btn toggle-password" tabindex="5"><?= FreshRSS_Themes::icon('key') ?></a>
 				</div>
 			</div>
 		</div>
@@ -694,12 +694,14 @@ function printStep3(): void {
 			<label class="group-name" for="passwordPlain"><?= _t('admin.user.password_form') ?></label>
 			<div class="group-controls">
 				<div class="stick">
-					<input type="password" id="passwordPlain" name="passwordPlain" pattern=".{7,}"
-						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="3" />
-					<button type="button" class="btn toggle-password" data-toggle="passwordPlain" tabindex="4"><?= FreshRSS_Themes::icon('key') ?></button>
+					<input
+						type="password" id="passwordPlain" name="passwordPlain"
+						autocomplete="off" <?= $auth_type === 'form' ? ' required="required"' : '' ?> tabindex="3"
+						minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>"
+						maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" data-max-bytes="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" />
+					<button type="button" class="btn toggle-password" tabindex="4"><?= FreshRSS_Themes::icon('key') ?></button>
 				</div>
 				<p class="help"><?= _i('help') ?> <?= _t('admin.user.password_format') ?></p>
-				<noscript><b><?= _t('gen.js.should_be_activated') ?></b></noscript>
 			</div>
 		</div>
 
@@ -774,7 +776,13 @@ if (_t('gen.dir') === 'rtl') {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="initial-scale=1.0" />
-		<script id="jsonVars" type="application/json">{}</script>
+		<script id="jsonVars" type="application/json">
+			<?= json_encode([
+				'i18n' => [
+					'provided_password_too_long' => _t('user.password.provided_password_too_long'),
+				]
+			], JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>
+		</script>
 		<title><?= _t('install.title') ?>: <?= _t('install.step', STEP + 1) ?></title>
 		<link rel="stylesheet" href="../themes/base-theme/frss.css?<?= @filemtime(PUBLIC_PATH . '/themes/base-theme/frss.css') ?>" />
 		<link rel="stylesheet" href="../themes/Origine/origine.css?<?= @filemtime(PUBLIC_PATH . '/themes/Origine/origine.css') ?>" />
@@ -874,5 +882,6 @@ if (_t('gen.dir') === 'rtl') {
 	</main>
 </div>
 	<script src="../scripts/install.js?<?= @filemtime(PUBLIC_PATH . '/scripts/install.js') ?>"></script>
+	<script src="../scripts/extra.js?<?= @filemtime(PUBLIC_PATH . '/scripts/extra.js') ?>"></script>
 	</body>
 </html>

@@ -66,48 +66,4 @@ class FreshRSS_javascript_Controller extends FreshRSS_ActionController {
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$this->view->tags = $tagDAO->listTags(precounts: true);
 	}
-
-	//For Web-form login
-
-	/**
-	 * @throws Exception
-	 */
-	public function nonceAction(): void {
-		header('Content-Type: application/json; charset=UTF-8');
-		header('Last-Modified: ' . gmdate('D, d M Y H:i:s \\G\\M\\T'));
-		header('Expires: 0');
-		header('Cache-Control: private, no-cache, no-store, must-revalidate');
-		header('Pragma: no-cache');
-
-		$user = Minz_Request::paramString('user');
-		if ($user === '') {
-			Minz_Error::error(400);
-			return;
-		}
-		$user_conf = FreshRSS_UserConfiguration::getForUser($user);
-		if ($user_conf !== null) {
-			try {
-				$s = $user_conf->passwordHash;
-				if (strlen($s) >= 60) {
-					//CRYPT_BLOWFISH Salt: "$2a$", a two digit cost parameter, "$", and 22 characters from the alphabet "./0-9A-Za-z".
-					$this->view->salt1 = substr($s, 0, 29);
-					$this->view->nonce = hash('sha256', FreshRSS_Context::systemConf()->salt . $user . random_bytes(32));
-					Minz_Session::_param('nonce', $this->view->nonce);
-					return;	//Success
-				}
-			} catch (Minz_Exception $me) {
-				Minz_Log::warning('Nonce failure: ' . $me->getMessage());
-			}
-		} else {
-			Minz_Log::notice('Nonce failure due to invalid username! ' . $user);
-		}
-		//Failure: Return random data.
-		$this->view->salt1 = sprintf('$2a$%02d$', FreshRSS_password_Util::BCRYPT_COST);
-		$alphabet = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		for ($i = 22; $i > 0; $i--) {
-			$this->view->salt1 .= $alphabet[random_int(0, 63)];
-		}
-		$this->view->nonce = hash('sha256', 'failure' . rand());
-		Minz_Session::_param('nonce', $this->view->nonce);
-	}
 }
