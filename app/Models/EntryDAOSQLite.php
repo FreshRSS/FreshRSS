@@ -195,7 +195,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$values[] = $id;
 		}
 
-		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters);
+		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {

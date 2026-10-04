@@ -1775,6 +1775,15 @@ a.website:hover .favicon {
 	align-self: flex-start;
 }
 
+.content .subtitle.horizontal-list {
+	flex-wrap: wrap;
+}
+
+.content .subtitle.horizontal-list .item {
+	flex-shrink: 1;
+	min-width: 0;
+}
+
 .content .article-header-topline.horizontal-list .item .website,
 .content .subtitle.horizontal-list .item .website {
 	display: inline-block;
@@ -2639,11 +2648,11 @@ html.slider-active {
 	}
 
 	.flux .flux_header.has-thumbnail.has-summary li.labels {
-		grid-area: manage-labels
+		grid-area: manage-labels;
 	}
 
 	.flux .flux_header.has-thumbnail.has-summary li.share {
-		grid-area: manage-share
+		grid-area: manage-share;
 	}
 
 	#overlay .close {
@@ -2856,6 +2865,11 @@ html.slider-active {
 	.content .text,
 	.content footer {
 		padding: 1rem;
+	}
+
+	.content .subtitle.horizontal-list .item.date {
+		width: auto;
+		text-align: left;
 	}
 
 	table {

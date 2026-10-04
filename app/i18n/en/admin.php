@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release channel',
 			'edge' => 'Rolling release (“edge”)',
-			'latest' => 'Stable release (“latest”)',
+			'latest' => 'Versioned release (“latest”)',
 		),
 		'title' => 'Update FreshRSS',
 		'viaGit' => 'Update via git and GitHub.com started',

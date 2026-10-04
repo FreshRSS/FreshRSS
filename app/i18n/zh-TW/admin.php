@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => '發行方式',
 			'edge' => '滾動發行 (“edge”)',
-			'latest' => '穩定發行 (“latest”)',
+			'latest' => '穩定發行 (“latest”)',	// DIRTY
 		),
 		'title' => '更新 FreshRSS',
 		'viaGit' => '透過 git 和 GitHub.com 開始更新',

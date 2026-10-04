@@ -23,28 +23,13 @@ class Minz_Error {
 	*/
 	public static function error(int $code = 404, string|array $logs = [], bool $redirect = true): void {
 		$logs = self::processLogs($logs);
-		$error_filename = APP_PATH . '/Controllers/errorController.php';
 
-		if (file_exists($error_filename)) {
-			Minz_Session::_params([
-				'error_code' => $code,
-				'error_logs' => $logs,
-			]);
+		Minz_Session::_params([
+			'error_code' => $code,
+			'error_logs' => $logs,
+		]);
 
-			Minz_Request::forward(['c' => 'error'], $redirect);
-		} else {
-			echo '<h1>An error occurred</h1>' . "\n";
-
-			if (!empty($logs)) {
-				echo '<ul>' . "\n";
-				foreach ($logs as $log) {
-					echo '<li>' . $log . '</li>' . "\n";
-				}
-				echo '</ul>' . "\n";
-			}
-
-			exit();
-		}
+		Minz_Request::forward(['c' => 'error'], $redirect);
 	}
 
 	/**

@@ -19,6 +19,7 @@ class FreshRSS_Auth {
 		if (isset($_SESSION['REMOTE_USER']) && $_SESSION['REMOTE_USER'] !== FreshRSS_http_Util::httpAuthUser()) {
 			//HTTP REMOTE_USER has changed
 			self::removeAccess();
+			Minz_Session::_param('csrf', false);
 		}
 
 		self::$login_ok = Minz_Session::paramBoolean('loginOk');
@@ -27,16 +28,25 @@ class FreshRSS_Auth {
 			$current_user = FreshRSS_Context::systemConf()->default_user;
 			Minz_Session::_params([
 				Minz_User::CURRENT_USER => $current_user,
-				'csrf' => false,
 			]);
 		}
 
 		if (self::$login_ok && self::giveAccess()) {
 			return self::$login_ok;
 		}
-		if (self::accessControl() && self::giveAccess()) {
-			FreshRSS_UserDAO::touch();
-			return self::$login_ok;
+		if (self::accessControl()) {
+			// Rotate the PHP session ID on the unauthenticated->authenticated transition
+			if (FreshRSS_Context::systemConf()->auth_type !== 'none') {
+				try {
+					Minz_Session::regenerateID('FreshRSS');
+				} catch (RuntimeException $e) {
+					Minz_Log::error('Session could not be regenerated during access restoration: ' . $e->getMessage());
+				}
+			}
+			if (self::giveAccess()) {
+				FreshRSS_UserDAO::touch();
+				return self::$login_ok;
+			}
 		}
 		// Be sure all accesses are removed!
 		self::removeAccess();
@@ -166,7 +176,7 @@ class FreshRSS_Auth {
 		Minz_Session::_params([
 			'loginOk' => false,
 			'lastReauth' => false,
-			'csrf' => false,
+			// 'csrf' => false, // Must be refreshed separately
 			'REMOTE_USER' => false,
 		]);
 
@@ -280,6 +290,6 @@ class FreshRSS_Auth {
 	}
 
 	public static function allowAnonymousRefresh(): bool {
-		return FreshRSS_Context::systemConf()->allow_anonymous_refresh && self::allowAnonymous();
+		return FreshRSS_Context::systemConf()->allow_anonymous_refresh;
 	}
 }

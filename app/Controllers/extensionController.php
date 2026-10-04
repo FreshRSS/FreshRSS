@@ -362,7 +362,8 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		header("Content-Disposition: inline; filename='{$filename}'");
 		header('Referrer-Policy: same-origin');
 		if (file_exists(DATA_PATH . '/no-cache.txt') || !httpConditional($mtime, cacheSeconds: 604800, cachePrivacy: 2)) {
-			echo $extension->getFile($filename);
+			$contents = $extension->getFile($filename);
+			$this->view->content = is_string($contents) ? $contents : '';
 		}
 	}
 }

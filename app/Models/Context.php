@@ -233,6 +233,7 @@ final class FreshRSS_Context {
 	 *   - next (default: empty string)
 	 *   - hours (default: 0)
 	 * @throws FreshRSS_Context_Exception
+	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
@@ -314,6 +315,11 @@ final class FreshRSS_Context {
 		$continuation_id = Minz_Request::paramString('cid', plaintext: true);
 		self::$continuation_id = ctype_digit($continuation_id) ? $continuation_id : '0';
 		self::$sinceHours = Minz_Request::paramInt('hours');
+	}
+
+	/** Return the requested navigation state, or 0 to reapply the reading preference after the action. */
+	public static function getStateForRedirect(): int {
+		return Minz_Request::paramIntNull('stateForRedirect') ?? Minz_Request::paramInt('state');
 	}
 
 	/**

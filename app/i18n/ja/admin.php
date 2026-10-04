@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'リリースチャンネル',
 			'edge' => 'ローリングリリース（edge）',
-			'latest' => '安定版リリース（latest）',
+			'latest' => '安定版リリース（latest）',	// DIRTY
 		),
 		'title' => 'アップデートシステム',
 		'viaGit' => 'gitおよびGitHub.com経由でアップデートを開始しました。',

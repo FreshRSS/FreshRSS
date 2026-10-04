@@ -1,10 +1,11 @@
 # Installation on Debian/Ubuntu
 
-This tutorial will give you step-by-step commands to install the latest stable release of FreshRSS with Apache and MySQL using git. It’s always recommended that you [backup your installation](05_Backup.md) before updating
+This tutorial will give you step-by-step commands to install FreshRSS with Apache using git.
+It’s always recommended that you [backup your installation](05_Backup.md) before updating
 
 Please note: Commands need to be run as an administrator; either perform the following from a sudo shell (`sudo -s`) or use an administrator account.
 
-## Part 1: Setting up and configuring the LAMP stack
+## Part 1: Setting up and configuring the Web server
 
 Begin by installing Apache, and enable Apache modules needed for FreshRSS
 
@@ -31,32 +32,11 @@ Install the PHP module for Apache
 apt install libapache2-mod-php
 ```
 
-Next, we’ll need to install and configure MySQL. Install MySQL components like so:
+This tutorial uses [SQLite](DatabaseConfig.md), which needs no database server:
+the `php-sqlite3` module installed above is all that is required.
+Each user’s data is stored in a single file, `data/users/_user_/db.sqlite`, created during the installation.
 
-```sh
-sudo apt install mysql-server mysql-client php-mysql
-```
-
-MySQL must now be started:
-
-```sh
-service mysql-server start
-```
-
-We’ll need to configure MySQL.
-**Note:** As you’ve just installed mysql, there will be no root password; simply hit enter on the first step
-
-```sh
-mysql_secure_installation
-```
-
-And restart it
-
-```sh
-service mysql-server restart
-```
-
-Finally, restart MySQL and the web server
+Finally, restart the web server
 
 ```sh
 service apache2 restart
@@ -100,32 +80,9 @@ Finally, symlink the public folder to your FreshRSS directory
 [ ! -e "/var/www/html/FreshRSS" ] && ln -s /var/www/FreshRSS/p /var/www/html/FreshRSS || echo "/var/www/html/FreshRSS already exists"
 ```
 
-## Part 3: Creating a Database for FreshRSS
+## Part 3: Finishing the Installation
 
-Start a MySQL session. running this command will ask you for the MySQL password you set earlier, and then put you into a prompt that should look like `MariaDB [(none)]>`
-
-```sh
-mysql -u root -p
-```
-
-From the MySQL prompt (`MariaDB [(none)]>`), run the following commands, substituting `<username>`, `<password>`, and `<database_name>` for real values.
-
-```sql
-CREATE USER '<username>'@'localhost' IDENTIFIED BY '<password>';
-CREATE DATABASE `databaseName`;
-GRANT ALL privileges ON `databaseName`.* TO 'userName'@localhost;
-FLUSH PRIVILEGES;
-QUIT;
-```
-
-A brief explanation of the previous command block:
-
-* You first create a database user for FreshRSS to use.
-* Then you create a database for FreshRSS to store data in.
-* You grant permissions for the user you created to read, write, and modify the database.
-* Flushing privileges reloads the permissions, which makes the previous command take effect.
-
-## Part 4: Finishing the Installation
+No database setup is needed with SQLite: it is created automatically during the installation.
 
 You can now finish the installation from a web browser by navigating to to `http://<your_server>/` and following the graphical prompts.
 Alternatively, you can finish the installation using [the cli](https://github.com/FreshRSS/FreshRSS/tree/edge/cli)

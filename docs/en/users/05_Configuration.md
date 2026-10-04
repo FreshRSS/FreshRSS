@@ -15,6 +15,7 @@ Available languages are:
 
 | Language (English name) | Language (Endonym) | Ordered by language code (ISO-639-1) |
 |:------------------------|:-----------------------|:-------------------------------------|
+| Belarusian              | Беларуская             | be                                   |
 | Czech                   | Čeština                | cs                                   |
 | German                  | Deutsch                | de                                   |
 | Greek                   | Ελληνικά               | el                                   |

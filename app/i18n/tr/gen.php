@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Kullanıcı adı',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 karakter: harfler, rakamlar ve <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -190,6 +190,8 @@ return array(
 		'unsafe_csp_header' => 'Kullanılan CSP başlığı güvenli değil ve FreshRSS, XSS saldırılarına karşı savunmasız olabilir. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Belgelere bakın</a>',
 	),
 	'lang' => array(
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -205,7 +207,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
-		'lt' => 'Lietuvių',	// TODO
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE

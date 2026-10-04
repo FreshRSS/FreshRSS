@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// IGNORE
 			'edge' => 'Rolling release (“edge”)',	// IGNORE
-			'latest' => 'Stable release (“latest”)',	// IGNORE
+			'latest' => 'Versioned release (“latest”)',	// TODO
 		),
 		'title' => 'FreshRSS frissítése',
 		'viaGit' => 'Frissítés a git és GitHub.com-on keresztül elindult',

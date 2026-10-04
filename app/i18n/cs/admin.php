@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Kanál pro vydání',
 			'edge' => 'Vydání "Rolling" / Nepřetržitě aktualizované vydání (“edge”)',
-			'latest' => 'Stabilní vydání (“latest”)',
+			'latest' => 'Stabilní vydání (“latest”)',	// DIRTY
 		),
 		'title' => 'Aktualizovat systém',
 		'viaGit' => 'Aktualizace přes git a GitHub.com začala',

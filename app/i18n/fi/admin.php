@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Julkaisukanava',
 			'edge' => 'Uusin versio (“edge”)',
-			'latest' => 'Vakaa versio (“latest”)',
+			'latest' => 'Vakaa versio (“latest”)',	// DIRTY
 		),
 		'title' => 'Päivitä FreshRSS',
 		'viaGit' => 'Päivitys gitin ja GitHub.comin avulla on aloitettu',

@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => ' کانال انتشار',
 			'edge' => 'انتشار پیوسته («edge»)',
-			'latest' => 'انتشار پایدار («latest»)',
+			'latest' => 'انتشار پایدار («latest»)',	// DIRTY
 		),
 		'title' => 'به‌روزرسانی FreshRSS',
 		'viaGit' => 'به‌روزرسانی از طریق git و GitHub.com شروع شد',

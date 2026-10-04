@@ -190,6 +190,8 @@ return array(
 		'unsafe_csp_header' => 'Käytössä oleva CSP-otsikko on turvaton, ja FreshRSS saattaa olla altis XSS-hyökkäyksille. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lisätietoja ohjeessa</a>',
 	),
 	'lang' => array(
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE

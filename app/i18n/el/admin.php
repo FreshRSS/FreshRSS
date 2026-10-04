@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Κανάλι κυκλοφορίας',
 			'edge' => 'Rolling release («edge»)',
-			'latest' => 'Σταθερή κυκλοφορία («latest»)',
+			'latest' => 'Σταθερή κυκλοφορία («latest»)',	// DIRTY
 		),
 		'title' => 'Ενημέρωση συστήματος',
 		'viaGit' => 'Ξεκίνησε η ενημέρωση μέσω git και GitHub.com',

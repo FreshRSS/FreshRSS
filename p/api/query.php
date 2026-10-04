@@ -38,7 +38,7 @@ if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_e
 	die('Service Unavailable!');
 }
 
-if (($_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '') !== '') {
+if (Minz_Request::pathInfo() !== '') {
 	// Do not allow trailing slashes
 	header('HTTP/1.1 400 Bad Request');
 	die('Invalid path!');
@@ -100,7 +100,13 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 
 		$search = $query->getSearch()->toString();
 		// Note: we disallow references to user queries in public user search to avoid sniffing internal user queries
-		$userSearch = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true), 0, 'AND', allowUserQueries: false);
+		try {
+			$userSearch = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true), 0, 'AND', allowUserQueries: false);
+		} catch (Minz_BadRequestException $e) {
+			header('HTTP/1.1 400 Bad Request');
+			header('Content-Type: text/plain; charset=UTF-8');
+			die($e->getMessage());
+		}
 		if ($userSearch->toString() !== '') {
 			if ($search === '') {
 				$search = $userSearch->toString();

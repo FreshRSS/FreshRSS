@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Kanál verzií',
 			'edge' => 'Vývojárska verzia (“edge”)',
-			'latest' => 'Stabilná verzia (“latest”)',
+			'latest' => 'Stabilná verzia (“latest”)',	// DIRTY
 		),
 		'title' => 'Aktualizácia systému',
 		'viaGit' => 'Začala sa aktualizácia prostredníctvom git a GitHub.com',

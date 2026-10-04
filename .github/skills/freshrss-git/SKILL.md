@@ -10,6 +10,7 @@ FreshRSS uses a rolling-release approach with a main branch called `:edge`.
 This is the branch to target for most pull requests.
 
 Releases are tracked in a branch called `:latest`.
+Bug fixes and security fixes are not backported to older releases.
 
 ## Check changes made in the current branch
 

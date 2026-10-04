@@ -136,8 +136,8 @@ return array(
 		'none' => 'Brak nowych aktualizacji',
 		'releaseChannel' => array(
 			'_' => 'Kanał aktualizacji',
-			'edge' => 'Wersja rozwojowa (“edge”)',
-			'latest' => 'Wersja stabilna (“latest”)',
+			'edge' => 'Wydanie ciągłe (“edge”)',
+			'latest' => 'Wydanie wersjonowane (“latest”)',
 		),
 		'title' => 'Aktualizacja',
 		'viaGit' => 'Rozpoczęto aktualizację gitem do najnowszej wersji z GitHuba',
