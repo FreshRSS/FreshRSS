@@ -49,6 +49,38 @@ jobs:
             "$HEAD_SHA" \
             > changed-files.txt
 
+          # Lychee does not apply `extensions` from the config to files passed via `--files-from`.
+          # Filter the changed files so only allowed file types are checked.
+          python3 <<'PY'
+          import pathlib
+          import tomllib
+
+          config = tomllib.load(open("lychee.toml", "rb"))
+          extensions = {e.lstrip(".").lower() for e in config["extensions"]}
+
+          files = pathlib.Path("changed-files.txt").read_text().splitlines()
+          files = [
+              f for f in files
+              if (
+                  pathlib.PurePath(f).suffix.lstrip(".").lower() in extensions
+                  or (
+                      not pathlib.PurePath(f).suffix
+                      and pathlib.PurePath(f).name.startswith(".")
+                      and pathlib.PurePath(f).name.lstrip(".").lower() in extensions
+                  )
+                  or (
+                      not pathlib.PurePath(f).suffix
+                      and not pathlib.PurePath(f).name.startswith(".")
+                      and config.get("default_extension") in extensions
+                  )
+              )
+          ]
+
+          pathlib.Path("changed-files.txt").write_text(
+              "\n".join(files) + ("\n" if files else "")
+          )
+          PY
+
       - name: Restore lychee cache
         id: restore-cache
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -70,7 +102,6 @@ jobs:
 
           # Config is loaded from lychee.toml
           args: >
-            --exclude-path '(^|/)\.lycheeignore$'
             ${{ github.event_name == 'pull_request' && '--files-from changed-files.txt' || '.' }}
 
       - name: Save lychee cache
