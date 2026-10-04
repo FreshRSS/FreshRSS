@@ -605,15 +605,19 @@ class FreshRSS_Feed extends Minz_Model {
 					Minz_Exception::ERROR
 				);
 			} else {
-				if (($retryAfter = FreshRSS_http_Util::getRetryAfter($this->url, $this->proxyParam())) > 0) {
+				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);
+				$forceFeed = str_ends_with($url, '#force_feed');
+				if ($forceFeed) {
+					$url = substr($url, 0, -11);
+				}
+				// Retry-After is stored for the URL as requested, not as stored for the feed
+				if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $this->proxyParam())) > 0) {
 					throw new FreshRSS_Feed_Exception('For that domain, will first retry after ' . date('c', $retryAfter) .
 						'. ' . $this->url(includeCredentials: false), code: 503);
 				}
 				$simplePie = new FreshRSS_SimplePieCustom($this->attributes(), $this->curlOptions());
-				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);
-				if (str_ends_with($url, '#force_feed')) {
+				if ($forceFeed) {
 					$simplePie->force_feed(true);
-					$url = substr($url, 0, -11);
 				}
 				$simplePie->set_feed_url($url);
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed

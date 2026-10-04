@@ -18,17 +18,21 @@ final class FreshRSS_http_Util {
 		'fe80::/10',      // Link Local Address
 		'::ffff:0:0/96',  // IPv4 translations
 		'64:ff9b::/96',   // RFC6052 (IPv6 Addressing of IPv4/IPv6 Translators, NAT64)
+		'64:ff9b:1::/48', // RFC8215 (Local-Use IPv4/IPv6 Translation Prefix)
 		'::/128',         // Unspecified address
 	];
 	/** @var array<string, string[]> $resolve_ok */
 	private static array $resolve_ok = [];
+	/** @var array<string, bool> $retry_after_domain_wide */
+	private static array $retry_after_domain_wide = [];
 
 	private static function getRetryAfterFile(string $url, string $proxy): string {
 		$domain = parse_url($url, PHP_URL_HOST);
 		if (!is_string($domain) || $domain === '') {
 			return '';
 		}
-		$domainWide = Minz_Request::serverIsPublic($domain);
+		// Once per host, as serverIsPublic() may resolve it
+		$domainWide = self::$retry_after_domain_wide[$domain] ??= Minz_Request::serverIsPublic($url);
 		$port = parse_url($url, PHP_URL_PORT);
 		if (is_int($port)) {
 			$domain .= ':' . $port;
@@ -308,29 +312,18 @@ final class FreshRSS_http_Util {
 	/**
 	 * Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
 	 *
-	 * Can also be used for checking if the CURLOPT_PROXY value is allowed, by providing a proxy URL with the `for_proxy` parameter set to `true`.
-	 * In that case, a string value will be returned with the hostname resolved to an IP if allowed.
-	 *
-	 * @return array<string>|string|null|false
+	 * @return array<string>|null|false
 	 */
-	public static function getCurlResolveInfo(string $url, bool $for_proxy = false): array|string|null|false {
-		// Parse the original URL first so that credentials keep their original case (only the host is case-insensitive).
-		$parsedOriginal = parse_url($url);
+	public static function getCurlResolveInfo(string $url): array|null|false {
 		$url = strtolower($url);
 		$parsed = parse_url($url);
-		if ($parsed === false || $parsedOriginal === false) {
+		if ($parsed === false) {
 			return false;
 		}
 		$host = $parsed['host'] ?? null;
 		$scheme = $parsed['scheme'] ?? null;
 		if ($host === null || $scheme === null) {
 			return false;
-		}
-		$credentials = '';
-		$user = $parsedOriginal['user'] ?? null;
-		$pass = $parsedOriginal['pass'] ?? null;
-		if (is_string($user) && is_string($pass)) {
-			$credentials = "$user:$pass@";
 		}
 		if (str_starts_with($host, '[') && str_ends_with($host, ']')) {
 			if (strlen($host) === 2) {
@@ -357,12 +350,6 @@ final class FreshRSS_http_Util {
 			default => 0,
 		};
 		if (in_array('*', $internal_host_allowlist, true)) {
-			if ($for_proxy) {
-				if (filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
-					return $credentials . "[$host]:$port";
-				}
-				return $credentials . "$host:$port";
-			}
 			return [];	// Disables SSRF checks entirely (unsafe)
 		}
 
@@ -408,6 +395,35 @@ final class FreshRSS_http_Util {
 				continue;
 			}
 
+			// NAT64 addresses use the RFC 6052 well-known prefix.
+			// Validate the embedded IPv4 address because the NAT64 IPv6 address itself
+			// is globally routable even when it maps to a private/reserved IPv4 address.
+			if (self::checkCIDR($ip, '64:ff9b::/96')) {
+				$packed = @inet_pton($ip);
+				if ($packed === false || strlen($packed) !== 16) {
+					continue;
+				}
+
+				$embedded_ipv4 = @inet_ntop(substr($packed, 12, 4));
+				if ($embedded_ipv4 === false) {
+					continue;
+				}
+
+				if (filter_var($embedded_ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+					continue;
+				}
+
+				// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
+				foreach (self::PRIVATE_SUBNETS as $cidr) {
+					if (self::checkCIDR($embedded_ipv4, $cidr)) {
+						continue 2;
+					}
+				}
+
+				$ips_ok[] = $add_ip;
+				continue;
+			}
+
 			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
 				continue;
 			}
@@ -424,20 +440,10 @@ final class FreshRSS_http_Util {
 
 		if (count($ips_ok) > 0) {
 			if (count($records) > 0 || isset(self::$resolve_ok[$host])) {
-				if ($for_proxy) {
-					// $ips_ok[0] is already bracketed when it is an IPv6 address
-					return $credentials . "$ips_ok[0]:$port";
-				}
 				$resolve_str .= implode(',', $ips_ok);
 				return [$resolve_str];
 			}
 			if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
-				if ($for_proxy) {
-					if (filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
-						return $credentials . "[$host]:$port";
-					}
-					return $credentials . "$host:$port";
-				}
 				// No resolve overrides since the URL only contained an IP, not a domain
 				return [];
 			}
@@ -574,7 +580,7 @@ final class FreshRSS_http_Util {
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 				}
 				$proxy_url = "$proxy_scheme://$proxy"; // CURLOPT_PROXY ($proxy) is formatted as user:pass@hostname:port, with the part before @ being optional
-				$resolve = self::getCurlResolveInfo($proxy_url, for_proxy: true);
+				$resolve = self::getCurlResolveInfo($proxy_url);
 				if ($resolve === null) {
 					Minz_Log::warning('Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
 						\SimplePie\Misc::url_remove_credentials($url) . '] [' .
@@ -583,12 +589,11 @@ final class FreshRSS_http_Util {
 				} elseif ($resolve === false) {
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
 				}
-				// Translate from a hostname:port value to ip:port, in order to avoid DNS rebinding
-				$curl_options[CURLOPT_PROXY] = $resolve;
-				if (defined('CURLOPT_PROXY_SSL_VERIFYHOST')) {
-					// Skip verifying the hostname (a bit unsafe, but needed since
-					// there is no CURLOPT_RESOLVE equivalent for proxy hostnames)
-					$curl_options[CURLOPT_PROXY_SSL_VERIFYHOST] = 0;
+				if (!empty($resolve)) {
+					// Only for the proxy domain, socks4a and socks5h DNS queries will be passed through the proxy.
+					// For the other proxy protocols, note that IPs for internal domains can be leaked,
+					// since the domain is resolved outside of the proxy.
+					$curl_options[CURLOPT_RESOLVE] = $resolve;
 				}
 			}
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since

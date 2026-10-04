@@ -1017,7 +1017,7 @@ class FreshRSS_Entry extends Minz_Model {
 							continue;
 						}
 						$html .= $doc->saveHTML($node) . "\n";
-					} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
+					} catch (Error $e) {
 						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
 							throw $e;
 						}

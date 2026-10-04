@@ -83,7 +83,7 @@ return array(
 			'help' => 'Scrivi un filtro di ricerca per riga. Per li operatori <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">vedi la documentazione</a>.',
 			'view_filter' => 'Anteprima dei filtri sugli articoli esistenti (nuova finestra)',
 		),
-		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
+		'global_hint' => 'Usa <a href="%s">la vista globale</a> per vedere quanti articoli in ogni feed corrispondono a uno stato o a un’espressione di ricerca',
 		'http_headers' => 'HTTP Headers',	// IGNORE
 		'http_headers_help' => 'Le intestazioni sono separate da una linea e il nome e il valore di un’intestazione sono separati da due punti (p.es: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
 		'icon' => 'Icona',
