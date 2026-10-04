@@ -18,17 +18,21 @@ final class FreshRSS_http_Util {
 		'fe80::/10',      // Link Local Address
 		'::ffff:0:0/96',  // IPv4 translations
 		'64:ff9b::/96',   // RFC6052 (IPv6 Addressing of IPv4/IPv6 Translators, NAT64)
+		'64:ff9b:1::/48', // RFC8215 (Local-Use IPv4/IPv6 Translation Prefix)
 		'::/128',         // Unspecified address
 	];
 	/** @var array<string, string[]> $resolve_ok */
 	private static array $resolve_ok = [];
+	/** @var array<string, bool> $retry_after_domain_wide */
+	private static array $retry_after_domain_wide = [];
 
 	private static function getRetryAfterFile(string $url, string $proxy): string {
 		$domain = parse_url($url, PHP_URL_HOST);
 		if (!is_string($domain) || $domain === '') {
 			return '';
 		}
-		$domainWide = Minz_Request::serverIsPublic($domain);
+		// Once per host, as serverIsPublic() may resolve it
+		$domainWide = self::$retry_after_domain_wide[$domain] ??= Minz_Request::serverIsPublic($url);
 		$port = parse_url($url, PHP_URL_PORT);
 		if (is_int($port)) {
 			$domain .= ':' . $port;
@@ -387,6 +391,35 @@ final class FreshRSS_http_Util {
 			}
 			if (in_array($allowlist_str, $internal_host_allowlist, true) ||
 				in_array("$host:$port", $internal_host_allowlist, true)) {
+				$ips_ok[] = $add_ip;
+				continue;
+			}
+
+			// NAT64 addresses use the RFC 6052 well-known prefix.
+			// Validate the embedded IPv4 address because the NAT64 IPv6 address itself
+			// is globally routable even when it maps to a private/reserved IPv4 address.
+			if (self::checkCIDR($ip, '64:ff9b::/96')) {
+				$packed = @inet_pton($ip);
+				if ($packed === false || strlen($packed) !== 16) {
+					continue;
+				}
+
+				$embedded_ipv4 = @inet_ntop(substr($packed, 12, 4));
+				if ($embedded_ipv4 === false) {
+					continue;
+				}
+
+				if (filter_var($embedded_ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+					continue;
+				}
+
+				// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
+				foreach (self::PRIVATE_SUBNETS as $cidr) {
+					if (self::checkCIDR($embedded_ipv4, $cidr)) {
+						continue 2;
+					}
+				}
+
 				$ips_ok[] = $add_ip;
 				continue;
 			}

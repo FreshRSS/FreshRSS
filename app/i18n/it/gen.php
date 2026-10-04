@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nome utente',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 caratteri: lettere, cifre e <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => 'Sei sicuro di voler perdere le impostazioni non salvate?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'C\'è %d nuovo articolo da leggere.',	// DIRTY
-				1 => 'Ci sono %d nuovi articoli da leggere.',	// DIRTY
+				0 => 'C\'è %d nuovo articolo da leggere su FreshRSS.',
+				1 => 'Ci sono %d nuovi articoli da leggere su FreshRSS.',
 			),
 			'body_unread_articles' => array(
-				0 => '(non letti: %d)',	// DIRTY
-				1 => '(non letti: %d)',	// DIRTY
+				0 => '(non letti: %d)',
+				1 => '(non letti: %d)',
 			),
 			'request_failed' => 'Richiesta fallita, probabilmente a causa di problemi di connessione',
 			'title_new_articles' => 'Feed RSS Reader: nuovi articoli!',
@@ -207,7 +207,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
-		'lt' => 'Lietuvių',	// TODO
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -306,7 +306,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Segnalibri',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Segnalibri',
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
