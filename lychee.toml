@@ -12,9 +12,9 @@ require_https = true
 exclude_all_private = true
 
 max_concurrency = 50
-accept_timeouts = true
+accept_timeouts = false # Retry instead
 timeout = 15
-max_retries = 5
+max_retries = 3
 retry_wait_time = 1
 
 extensions = [
