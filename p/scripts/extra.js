@@ -61,9 +61,11 @@ function init_password_byte_length_validation(parent) {
 				input.setCustomValidity('');
 			}
 
-			// Update the displayed validation status immediately before
-			// the user attempts to submit the form.
-			input.reportValidity();
+			if (!(input.validity.valueMissing || input.validity.tooShort)) {
+				// Update the displayed validation status immediately before
+				// the user attempts to submit the form.
+				input.reportValidity();
+			}
 		}
 
 		input.addEventListener('input', validate);
