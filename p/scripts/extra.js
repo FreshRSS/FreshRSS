@@ -61,7 +61,7 @@ function init_password_byte_length_validation(parent) {
 				input.setCustomValidity('');
 			}
 
-			if (!(input.validity.valueMissing || input.validity.tooShort)) {
+			if (input.validity.customError) {
 				// Update the displayed validation status immediately before
 				// the user attempts to submit the form.
 				input.reportValidity();
