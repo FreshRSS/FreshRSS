@@ -31,7 +31,11 @@ include_verbatim = true
 hidden = true
 
 exclude_path = [
+  # Files
   '(^|/)index\.html$',
+  '(^|/)\.github/ISSUE_TEMPLATE/feed-report-form\.yml$',
+
+  # Directories
   '(^|/)data/(cache|users|favicons)($|/)',
   '(^|/)lib/(phpmailer|simplepie|phpgt|marienfressinaud)($|/)',
   '(^|/)docs/(_includes|_layouts|i18n)($|/)',
