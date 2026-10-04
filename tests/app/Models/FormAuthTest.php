@@ -96,7 +96,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Invalid credential parameters: user={$username}");
+		self::assertSame("Invalid credential parameters: user={$username}", Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndWrongCredentialsFail(): void {
@@ -107,7 +107,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsOk(): void {
@@ -118,7 +118,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok);
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndTooLongUtf8PasswordOk(): void {
@@ -130,7 +130,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok); // Login is successful with a cut-off UTF-8 character at the end
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 
 		$password .= 'é';
 		$hash = FreshRSS_password_Util::hash($password);
@@ -138,7 +138,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Exceeded maximum allowed password length during authentication: user={$username}");
+		self::assertSame("Exceeded maximum allowed password length during authentication: user={$username}", Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndTooLongUtf8PasswordWithCutOffCharacterFollowedByAnotherCharacterFail(): void {
@@ -150,7 +150,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Exceeded maximum allowed password length during authentication: user={$username}");
+		self::assertSame("Exceeded maximum allowed password length during authentication: user={$username}", Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndTooLongUtf8PasswordWithThreeByteCharacterOk(): void {
@@ -162,7 +162,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok); // Login is successful with a cut-off UTF-8 character at the end
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 
 		$password .= '€';
 		$hash = FreshRSS_password_Util::hash($password);
@@ -170,7 +170,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Exceeded maximum allowed password length during authentication: user={$username}");
+		self::assertSame("Exceeded maximum allowed password length during authentication: user={$username}", Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndTooLongUtf8PasswordWithFourByteCharacterOk(): void {
@@ -182,7 +182,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok); // Login is successful with a cut-off UTF-8 character at the end
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 
 		$password .= '😀';
 		$hash = FreshRSS_password_Util::hash($password);
@@ -190,7 +190,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Exceeded maximum allowed password length during authentication: user={$username}");
+		self::assertSame("Exceeded maximum allowed password length during authentication: user={$username}", Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndTooLongUtf8PasswordWithThreeByteCharacterCutOffAfterTwoBytesOk(): void {
@@ -202,7 +202,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok);
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndTooLongUtf8PasswordWithFourByteCharacterCutOffAfterTwoBytesOk(): void {
@@ -214,7 +214,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok);
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndTooLongUtf8PasswordWithFourByteCharacterCutOffAfterThreeBytesOk(): void {
@@ -226,7 +226,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok);
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndTooLongUtf8PasswordWithoutCutOffCharacter(): void {
@@ -238,7 +238,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Exceeded maximum allowed password length during authentication: user={$username}");
+		self::assertSame("Exceeded maximum allowed password length during authentication: user={$username}", Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndHugeUtf8Password(): void {
@@ -249,7 +249,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Exceeded maximum allowed password length during authentication: user={$username}");
+		self::assertSame("Exceeded maximum allowed password length during authentication: user={$username}", Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndEmptyPasswordFail(): void {
@@ -260,7 +260,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Refusing authentication with empty zero-length password: user={$username}");
+		self::assertSame("Refusing authentication with empty zero-length password: user={$username}", Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndTooLongPasswordFail(): void {
@@ -271,7 +271,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Exceeded maximum allowed password length during authentication: user={$username}");
+		self::assertSame("Exceeded maximum allowed password length during authentication: user={$username}", Minz_Log::getLastLog());
 
 		// It's fine if the user truncates their own password though
 		// Note: There are separate tests for UTF-8 passwords to test the case
@@ -282,7 +282,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertTrue($ok);
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 
 		// If truncated down to less than 72 characters, login should fail
 		$password = str_repeat('a', 71);
@@ -290,7 +290,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndCorrectCredentialsAndWrongPassAlgorithmFail(): void {
@@ -301,7 +301,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Invalid hash format: user={$username}");
+		self::assertSame("Invalid hash format: user={$username}", Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndAnyCredentialsAndMalformedBcryptHashFail(): void {
@@ -312,7 +312,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Invalid hash format: user={$username}");
+		self::assertSame("Invalid hash format: user={$username}", Minz_Log::getLastLog());
 	}
 
 	public function testAuthWithValidUsernameAndAnyCredentialsAndEmptyHashFail(): void {
@@ -323,7 +323,7 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $password
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), "Invalid credential parameters: user={$username}"); // `ctype_graph($hash)` returns false on empty string values
+		self::assertSame("Invalid credential parameters: user={$username}", Minz_Log::getLastLog()); // `ctype_graph($hash)` returns false on empty string values
 	}
 
 	public function testAuthWithValidUsernameAndCorrectHashAsPasswordFail(): void {
@@ -334,6 +334,6 @@ final class FormAuthTest extends \PHPUnit\Framework\TestCase {
 			$username, $hash, $hash
 		);
 		self::assertFalse($ok);
-		self::assertSame(Minz_Log::getLastLog(), '');
+		self::assertSame('', Minz_Log::getLastLog());
 	}
 }
