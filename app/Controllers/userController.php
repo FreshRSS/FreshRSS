@@ -122,7 +122,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			}
 
 			$username = Minz_Request::paramString('username');
-			$newPasswordPlain = Minz_User::name() !== $username ? Minz_Request::paramString('newPasswordPlain', true) : '';
+			$newPasswordPlain = Minz_User::name() !== $username ? Minz_Request::paramString('newPasswordPlain', plaintext: true, trim: false) : '';
 
 			$ok = self::updateUser($username, null, $newPasswordPlain, [
 				'token' => Minz_Request::paramString('token') ?: null,
@@ -441,7 +441,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			$new_user_name = Minz_Request::paramString('new_user_name');
 			$email = Minz_Request::paramString('new_user_email');
-			$passwordPlain = Minz_Request::paramString('new_user_passwordPlain', plaintext: true);
+			$passwordPlain = Minz_Request::paramString('new_user_passwordPlain', plaintext: true, trim: false);
 			$badRedirectUrl = [
 				'c' => Minz_Request::paramString('originController') ?: 'auth',
 				'a' => Minz_Request::paramString('originAction') ?: 'register',
