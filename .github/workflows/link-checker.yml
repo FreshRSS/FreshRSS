@@ -26,6 +26,18 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
+      # Check local links across the repository first to catch broken links in
+      # files that are not part of the PR's changed files.
+      - name: Check local links (offline run)
+        if: github.event_name == 'pull_request'
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          fail: true
+          failIfEmpty: false
+          args: >
+            --offline
+            .
+
       - name: Get changed files
         if: github.event_name == 'pull_request'
         env:
