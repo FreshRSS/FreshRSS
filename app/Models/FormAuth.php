@@ -16,6 +16,9 @@ class FreshRSS_FormAuth {
 		if ($enforceMinLength && strlen($passwordPlain) < self::MIN_PASSWORD_LENGTH) {
 			return false;
 		}
+		if (trim($passwordPlain) === '') {
+			return false;
+		}
 		return true;
 	}
 
@@ -51,7 +54,7 @@ class FreshRSS_FormAuth {
 
 		// https://www.php.net/manual/function.password-verify.php
 		if (password_verify($passwordPlain, $hash)) {
-			if ($passwordPlain === '') {
+			if (trim($passwordPlain) === '') {
 				Minz_Log::warning("Refusing authentication with empty zero-length password: user={$username}");
 				return false;
 			}

@@ -170,9 +170,9 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 			$email = Minz_Request::paramString('email');
 
-			$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true);
-			$newPasswordPlain = Minz_Request::paramString('newPasswordPlain', plaintext: true);
-			$confirmPasswordPlain = Minz_Request::paramString('confirmPasswordPlain', plaintext: true);
+			$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true, trim: false);
+			$newPasswordPlain = Minz_Request::paramString('newPasswordPlain', plaintext: true, trim: false);
+			$confirmPasswordPlain = Minz_Request::paramString('confirmPasswordPlain', plaintext: true, trim: false);
 			if ($passwordPlain !== '') {
 				$username = Minz_User::name();
 
@@ -713,7 +713,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$ok = true;
 			if ($self_deletion) {
 				// We check the password if it’s a self-destruction
-				$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true);
+				$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true, trim: false);
 
 				$ok &= FreshRSS_FormAuth::checkCredentials(
 					$username, FreshRSS_Context::userConf()->passwordHash, $passwordPlain

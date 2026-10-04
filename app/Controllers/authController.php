@@ -114,7 +114,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 		if (Minz_Request::isPost()) {
 			$username = Minz_Request::paramString('username');
-			$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true);
+			$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true, trim: false);
 			$ip_address = Minz_Request::connectionRemoteAddress();
 
 			if (!Minz_Session::paramBoolean('sessionOk')) {
@@ -208,7 +208,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		}
 		if (Minz_Request::isPost()) {
 			$username = Minz_User::name() ?? '';
-			$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true);
+			$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true, trim: false);
 			if (!FreshRSS_FormAuth::checkCredentials(
 				$username, FreshRSS_Context::userConf()->passwordHash, $passwordPlain
 			)) {
