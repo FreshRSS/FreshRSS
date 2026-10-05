@@ -48,6 +48,10 @@ OIDC support in Docker is activated by the presence of a non-empty non-zero `OID
 * `OIDC_SESSION_TYPE`: Optional. OpenID Connect session storage type. See [mod_auth_openidc’s documentation for details](https://github.com/OpenIDC/mod_auth_openidc/blob/72c9f479c2d228477ff0a9518964f61879c83fb6/auth_openidc.conf#L587-L596).
 * `OIDC_DEFAULT_URL`: Optional. URL the user is redirected to when the OIDC module receives a callback whose anti-CSRF state has expired or cannot be matched, for example when an interactive login (external identity provider, MFA/step-up, or the user stepping away) takes longer than the state timeout. When not defined, the default is `/i/`, the FreshRSS index, so that an expired login restarts against the existing provider session instead of returning an HTTP 400 error page. Maps to mod_auth_openidc’s [`OIDCDefaultURL`](https://github.com/OpenIDC/mod_auth_openidc/blob/b2e99151bc695335089c8d4bfe5793624ac0732e/auth_openidc.conf#L786-L790).
 
+> ℹ️ `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET`, and `OIDC_CLIENT_CRYPTO_KEY` can each instead be provided via a `_FILE` suffixed
+> variable pointing to a file containing the value (e.g. `OIDC_CLIENT_SECRET_FILE=/run/secrets/oidc_client_secret`),
+> to use with [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) or similar. See [Docker/README.md](../../../Docker/README.md#openid-connect-secret-files-_file-variables).
+
 You may add additional custom configuration in a new `./FreshRSS/p/i/.htaccess` file.
 
 ### Token endpoint authentication method

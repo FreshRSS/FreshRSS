@@ -103,6 +103,49 @@ and with newer packages in general (Apache, PHP).
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
+### Docker Compose secrets
+
+For automatic installation, [Docker Compose secrets](https://docs.docker.com/compose/how-tos/use-secrets/) can supply
+the sensitive `DB_PASSWORD`, `ADMIN_PASSWORD`, and `ADMIN_API_PASSWORD` values without storing them in an environment file.
+Declare the secret files and mount them in the FreshRSS service:
+
+```yaml
+secrets:
+  db_password:
+    file: ./secrets/db_password
+  admin_password:
+    file: ./secrets/admin_password
+  admin_api_password:
+    file: ./secrets/admin_api_password
+
+services:
+  freshrss:
+    secrets:
+      - db_password
+      - admin_password
+      - admin_api_password
+```
+
+Then use the mounted files from the `FRESHRSS_INSTALL` and `FRESHRSS_USER` values in the Compose example below:
+
+```yaml
+      FRESHRSS_INSTALL: |-
+        --db-password "$(cat /run/secrets/db_password)"
+      FRESHRSS_USER: |-
+        --api-password "$(cat /run/secrets/admin_api_password)"
+        --password "$(cat /run/secrets/admin_password)"
+```
+
+The command substitutions are evaluated inside the container, after Compose has mounted the files. Keep the secret files private.
+
+### OpenID Connect secret files (`_FILE` variables)
+
+For the [OpenID Connect](https://freshrss.github.io/FreshRSS/en/admins/16_OpenID-Connect.html) variables `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET`, and `OIDC_CLIENT_CRYPTO_KEY`,
+you can instead provide a `_FILE` suffixed variable pointing to a file containing the value, e.g. `OIDC_CLIENT_SECRET_FILE=/run/secrets/oidc_client_secret`,
+following the same convention as the official [PostgreSQL](https://hub.docker.com/_/postgres/) and [MySQL](https://hub.docker.com/_/mysql/) Docker images.
+This is useful with [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) or other secret-file mechanisms, to avoid exposing sensitive values as plain environment variables.
+Setting both a variable and its `_FILE` counterpart at the same time is an error.
+
 ## How to update
 
 ```sh
