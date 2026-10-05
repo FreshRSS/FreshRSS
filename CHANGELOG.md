@@ -2,7 +2,7 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-10-XX FreshRSS 1.30.1-dev
+## 2026-10-05 FreshRSS 1.30.1
 
 * Deployment
 	* Reword recommendations and explanations for *edge* (rolling release) vs. *latest* (versioned release) channels [#9270](https://github.com/FreshRSS/FreshRSS/pull/9270)
