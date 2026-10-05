@@ -315,10 +315,10 @@ final class GReaderAPI {
 	private static function subscriptionExport(): never {
 		$user = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 		$export_service = new FreshRSS_Export_Service($user);
-		[$filename, $content] = $export_service->generateOpml();
+		[$filename, $path] = $export_service->generateOpml();
 		header('Content-Type: application/xml; charset=UTF-8');
 		header('Content-disposition: attachment; filename="' . $filename . '"');
-		echo $content;
+		readfile($path);
 		exit();
 	}
 
