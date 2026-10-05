@@ -2,6 +2,9 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
+## 2026-1X-XX FreshRSS 1.30.2-dev
+
+
 ## 2026-10-05 FreshRSS 1.30.1
 
 * Deployment
