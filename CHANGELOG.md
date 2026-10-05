@@ -2,7 +2,10 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-10-XX FreshRSS 1.30.1-dev
+## 2026-1X-XX FreshRSS 1.30.2-dev
+
+
+## 2026-10-05 FreshRSS 1.30.1
 
 * Deployment
 	* Reword recommendations and explanations for *edge* (rolling release) vs. *latest* (versioned release) channels [#9270](https://github.com/FreshRSS/FreshRSS/pull/9270)
@@ -17,7 +20,11 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Make the login challenge nonce one-time [#9334](https://github.com/FreshRSS/FreshRSS/pull/9334)
 	* Bound ZIP import against decompression bombs [#9332](https://github.com/FreshRSS/FreshRSS/pull/9332)
 	* Rotate session ID on all authenticated transitions [#9333](https://github.com/FreshRSS/FreshRSS/pull/9333)
+	* Minz: Remove vulnerable and unused code path for displaying errors [#9395](https://github.com/FreshRSS/FreshRSS/pull/9395)
+	* Fix NAT64 feed fetching on IPv6-only hosts [#9372](https://github.com/FreshRSS/FreshRSS/pull/9372)
 * Bug fixes
+	* Fix domain-wide `Retry-After` [#9390](https://github.com/FreshRSS/FreshRSS/pull/9390)
+	* Fix muting of feeds gone with HTTP 410 [#9391](https://github.com/FreshRSS/FreshRSS/pull/9391)
 	* Fix infinite redirect loop due to `SCRIPT_NAME` in `PATH_INFO` [#9282](https://github.com/FreshRSS/FreshRSS/pull/9282), [#9287](https://github.com/FreshRSS/FreshRSS/pull/9287)
 	* Restore the automatic reading view after marking articles as read, while preserving explicit filters [#9288](https://github.com/FreshRSS/FreshRSS/issues/9288)
 	* Fix adaptive reading state after marking articles read [#9290](https://github.com/FreshRSS/FreshRSS/pull/9290)
@@ -26,25 +33,31 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix regression with HTTPS proxies due to wrong TLS SNI resolution [#9341](https://github.com/FreshRSS/FreshRSS/pull/9341)
 	* Better enforce limits for feeds and categories [#9357](https://github.com/FreshRSS/FreshRSS/pull/9357)
 	* Fix JavaScript error when opening a label menu in sidebar [#9377](https://github.com/FreshRSS/FreshRSS/pull/9377)
+	* Fix custom favicon with GReader API [#9409](https://github.com/FreshRSS/FreshRSS/pull/9409)
 * CLI
 	* Add optional feed argument to `actualize-user.php` [#9319](https://github.com/FreshRSS/FreshRSS/pull/9319)
 * UI
-	* Various UI and style improvements [#9298](https://github.com/FreshRSS/FreshRSS/pull/9298)
+	* Various UI and style improvements [#9298](https://github.com/FreshRSS/FreshRSS/pull/9298), [#9369](https://github.com/FreshRSS/FreshRSS/pull/9369),
+		[#9388](https://github.com/FreshRSS/FreshRSS/pull/9388)
 * Extensions
 	* Call `check_url_before_add` hook when previewing a feed [#9343](https://github.com/FreshRSS/FreshRSS/pull/9343)
 * I18n
 	* Add Belarusian [#9351](https://github.com/FreshRSS/FreshRSS/pull/9351)
-	* Improve German [#9370](https://github.com/FreshRSS/FreshRSS/pull/9370)
+	* Improve German [#9370](https://github.com/FreshRSS/FreshRSS/pull/9370), [#9385](https://github.com/FreshRSS/FreshRSS/pull/9385)
 	* Improve Italian [#9370](https://github.com/FreshRSS/FreshRSS/pull/9370)
+	* Improve Japanese [#9398](https://github.com/FreshRSS/FreshRSS/pull/9398)
 	* Improve Turkish [#9349](https://github.com/FreshRSS/FreshRSS/pull/9349)
 * Misc.
 	* Check SVG optimization in the tests CI workflow with SVGO [#9361](https://github.com/FreshRSS/FreshRSS/pull/9361)
 	* Move PHPUnit flags to a config file and use strictest failure mode [#9374](https://github.com/FreshRSS/FreshRSS/pull/9374)
 	* Avoid writing to log files during unit tests [#9373](https://github.com/FreshRSS/FreshRSS/pull/9373)
+	* Bump Ruby gems automatically with Dependabot for docs [#9401](https://github.com/FreshRSS/FreshRSS/pull/9401)
 	* Update dev dependencies [#9323](https://github.com/FreshRSS/FreshRSS/pull/9323), [#9324](https://github.com/FreshRSS/FreshRSS/pull/9324),
 		[#9325](https://github.com/FreshRSS/FreshRSS/pull/9325), [#9326](https://github.com/FreshRSS/FreshRSS/pull/9326), [#9327](https://github.com/FreshRSS/FreshRSS/pull/9327),
 		[#9328](https://github.com/FreshRSS/FreshRSS/pull/9328), [#9368](https://github.com/FreshRSS/FreshRSS/pull/9368), [#9378](https://github.com/FreshRSS/FreshRSS/pull/9378),
-		[#9379](https://github.com/FreshRSS/FreshRSS/pull/9379), [#9380](https://github.com/FreshRSS/FreshRSS/pull/9380), [#9381](https://github.com/FreshRSS/FreshRSS/pull/9381)
+		[#9379](https://github.com/FreshRSS/FreshRSS/pull/9379), [#9380](https://github.com/FreshRSS/FreshRSS/pull/9380), [#9381](https://github.com/FreshRSS/FreshRSS/pull/9381),
+		[#9402](https://github.com/FreshRSS/FreshRSS/pull/9402), [#9403](https://github.com/FreshRSS/FreshRSS/pull/9403), [#9404](https://github.com/FreshRSS/FreshRSS/pull/9404),
+		[#9405](https://github.com/FreshRSS/FreshRSS/pull/9405), [#9406](https://github.com/FreshRSS/FreshRSS/pull/9406), [#9407](https://github.com/FreshRSS/FreshRSS/pull/9407)
 
 
 ## 2026-09-09 FreshRSS 1.30.0
