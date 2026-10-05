@@ -19,6 +19,7 @@ People are sorted by name so please keep this order.
 * [Aidi Stan](https://github.com/aidistan): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aidistan), [Web](https://aidistan.site/)
 * [akine](https://github.com/akine): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:akine)
 * [ale-rt](https://github.com/ale-rt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ale-rt)
+* [Alejandro Borrego](https://github.com/abp002): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:abp002), [Web](https://abp002.github.io/)
 * [Alexander Steinhöfer](https://github.com/lx-s): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:lx-s), [Web](https://lx-s.de/)
 * [Alexandre Alapetite](https://github.com/Alkarex): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Alkarex), [Web](https://alexandre.alapetite.fr/)
 * [Alexis Degrugillier](https://github.com/aledeg): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aledeg)
