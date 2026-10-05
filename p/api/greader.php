@@ -357,13 +357,13 @@ final class GReaderAPI {
 							'label' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 						],
 					],
-					//'sortid' => $feed->name(),
+					//'sortid' => htmlspecialchars_decode($feed->name(), ENT_QUOTES),
 					//'firstitemmsec' => 0,
 					'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
 					'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
 					'iconUrl' => str_replace(
 						'/api/greader.php/reader/api/0/subscription', '',	// Security if base_url is not set properly
-						$feed->favicon(absolute: true)),
+						htmlspecialchars_decode($feed->favicon(absolute: true), ENT_QUOTES)),
 					'frss:priority' => match ($feed->priority()) {
 						FreshRSS_Feed::PRIORITY_IMPORTANT => FreshRSS_Export_Service::PRIORITY_IMPORTANT,
 						FreshRSS_Feed::PRIORITY_MAIN_STREAM => FreshRSS_Export_Service::PRIORITY_MAIN_STREAM,
