@@ -103,7 +103,7 @@ GEM
     jekyll-readme-index (0.4.0)
       jekyll (>= 3.0, < 5.0)
       kramdown-parser-gfm (~> 1.1)
-    jekyll-relative-links (0.7.0)
+    jekyll-relative-links (0.8.0)
       jekyll (>= 3.3, < 5.0)
     jekyll-sass-converter (3.1.0)
       sass-embedded (~> 1.75)
