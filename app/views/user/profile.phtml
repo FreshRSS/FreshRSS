@@ -65,7 +65,7 @@
 					<input type="hidden" id="username" value="<?= Minz_User::name() ?? '' ?>" />
 					<div class="stick">
 						<input
-							type="password" id="currentPasswordPlain" name="passwordPlain" class="passwordPlain" maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>"
+							type="password" id="currentPasswordPlain" name="passwordPlain" class="passwordPlain"
 							data-required-if-open="1" data-no-leave-validation="1" />
 						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
@@ -78,7 +78,8 @@
 						<input
 							type="password" id="newPasswordPlain" name="newPasswordPlain" autocomplete="new-password"
 							minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>"
-							maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>" data-max-bytes="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>"
+							pattern=".{<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>,<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>}"
+							data-max-bytes="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>"
 							data-required-if-open="1" />
 						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
@@ -93,7 +94,9 @@
 					<div class="stick">
 						<input
 							type="password" id="confirmPasswordPlain" name="confirmPasswordPlain" autocomplete="new-password"
-							minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>" maxlength="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>"
+							minlength="<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>"
+							pattern=".{<?= FreshRSS_FormAuth::MIN_PASSWORD_LENGTH ?>,<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>}"
+							data-max-bytes="<?= FreshRSS_FormAuth::MAX_PASSWORD_LENGTH ?>"
 							data-required-if-open="1" />
 						<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 					</div>
