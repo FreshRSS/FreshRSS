@@ -72,7 +72,7 @@ See: https://tips.ojapp.app/en/ios-27-pwa-top-blur-workaround-2/ */
 	/* stylelint-disable-next-line at-rule-empty-line-before */
 	@media (display-mode: standalone) {
 		.remove-blur {
-			background: #fff;
+			background: var(--frss-background-color, #fff);
 			position: fixed;
 			inset: 0 0 auto;
 			height: 11px;
