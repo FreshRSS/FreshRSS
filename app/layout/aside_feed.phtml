@@ -109,9 +109,12 @@
 					$c_show = ($c_active && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true))
 						|| FreshRSS_Context::userConf()->display_categories === 'all';
 					$hideSucCat = $cat->showUnreadCount() ? '' : ' data-unread-hide="1"';
+					$catHtmlAttributesResult = Minz_ExtensionManager::callHook(Minz_HookType::CategoryHtmlAttributes, $cat);
+					$catHtmlAttributes = is_string($catHtmlAttributesResult) ? $catHtmlAttributesResult : '';
 		?>
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
-			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>"<?= $hideSucCat ?>>
+			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>"<?= $hideSucCat
+			?><?= $catHtmlAttributes === '' ? '' : ' ' . $catHtmlAttributes ?>>
 			<a href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>" class="tree-folder-title">
 				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($c_show ? 'up' : 'down') ?></button><?php
 				?><span title="<?= $cat->inError() ? _t('sub.category.error') : _t('sub.category.open') ?>" class="title<?=
@@ -148,9 +151,12 @@
 		}
 		$mute_class = $feed->mute() ? ' mute' : '';
 		$hideSucFeed = $feed->showUnreadCount() ? '' : ' data-unread-hide="1"';
+		$feedHtmlAttributesResult = Minz_ExtensionManager::callHook(Minz_HookType::FeedHtmlAttributes, $feed);
+		$feedHtmlAttributes = is_string($feedHtmlAttributesResult) ? $feedHtmlAttributesResult : '';
 ?>
 <li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>"
-		data-unread="<?= $feed->nbNotRead() ?>"<?= $hideSucFeed ?> data-priority="<?= $feed->priority() ?>"><?php
+		data-unread="<?= $feed->nbNotRead() ?>"<?= $hideSucFeed ?> data-priority="<?= $feed->priority()
+		?>"<?= $feedHtmlAttributes === '' ? '' : ' ' . $feedHtmlAttributes ?>><?php
 		if ($f_active || $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds):
 			?><div class="dropdown no-mobile">
 				<div id="dropdown-<?= $feed->id() ?>" class="dropdown-target"></div><a href="#dropdown-<?= $feed->id() ?>" class="dropdown-toggle" title="<?=
