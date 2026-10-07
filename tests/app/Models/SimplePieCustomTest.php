@@ -36,6 +36,10 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 		yield 'inline event handler' => ['<img src="x" onerror="alert(1)">', 'onerror'];
 		yield 'JavaScript URL' => ['<a href="javascript:alert(1)">click</a>', 'href="javascript:'];
 		yield 'style tag' => ['<style>body{display:none}</style>Hello', '<style'];
+		yield 'data:text/html URL in link' => ['<a href="data:text/html,<script>alert(1)</script>">click</a>', 'href="data:'];
+		yield 'data:text/html URL in iframe' => ['<iframe src="data:text/html,<script>alert(1)</script>"></iframe>', 'src="data:'];
+		yield 'data:text/html URL in image' => ['<img src="data:text/html,<script>alert(1)</script>">', 'src="data:'];
+		yield 'data:image URL in link' => ['<a href="data:image/png;base64,iVBORw0KGgo=">click</a>', 'href="data:'];
 	}
 
 	public static function test_sanitizeHTML_whenSafeHtml_keepsAllowedTags(): void {
@@ -91,5 +95,20 @@ final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 		yield 'unclosed entity' => ['Hello&#8230;', 9, 'Hello'];
 		yield 'double unclosed tag' => ['<b> <b>x', 10, 'x'];
 		yield 'triple unclosed tag' => [' <b><b><b>y', 20, 'y'];
+	}
+
+	/**
+	 * Inline `data:image/...` URIs are inert in `<img>` and widely used by feeds, so they must survive
+	 * while `data:` is blocked on navigational/framing attributes (see provideMaliciousHtml()).
+	 */
+	public static function test_sanitizeHTML_whenDataImageUri_keepsItOnImageElements(): void {
+		$png = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+		self::assertSame('<img src="' . $png . '" alt="">', FreshRSS_SimplePieCustom::sanitizeHTML('<img src="' . $png . '" alt="">'));
+		self::assertStringContainsString('poster="' . $png . '"', FreshRSS_SimplePieCustom::sanitizeHTML('<video poster="' . $png . '"></video>'));
+	}
+
+	public static function test_sanitizeHTML_whenDisallowedScheme_prefixesUnsafe(): void {
+		$result = FreshRSS_SimplePieCustom::sanitizeHTML('<a href="data:text/html,x">click</a>');
+		self::assertStringContainsString('href="unsafe:data:text/html,x"', $result);
 	}
 }
