@@ -117,6 +117,7 @@ return array(
 		'title' => 'Отображение',
 		'website' => array(
 			'full' => 'Значок и название',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Только значок',
 			'label' => 'Вебсайт',
 			'name' => 'Только название',
