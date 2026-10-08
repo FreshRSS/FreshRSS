@@ -455,8 +455,8 @@ class FreshRSS_Import_Service {
 			$categories_elements = array_merge($categories_elements, $outline_categories);
 
 			foreach ($outline_categories_to_feeds as $category_name => $feeds) {
-				if (!is_string($category_name) ||	// @phpstan-ignore function.alreadyNarrowedType (defensive)
-					!is_array($feeds)) {	// @phpstan-ignore function.alreadyNarrowedType (defensive)
+				if (!is_string($category_name) ||
+					!is_array($feeds)) {
 					continue;
 				}
 				if (!isset($categories_to_feeds[$category_name])) {

@@ -75,7 +75,7 @@ FreshRSS_Factory::createEntryDao();
 # Runs all tests: PHPUnit, PHPCS, PHPStan, typos
 make test-all
 
-# Auto-fix all trivial issues: whitespace, RTL CSS, translations
+# Auto-fix all trivial issues: whitespace, RTL CSS, translations, SVG image optimization
 make fix-all
 
 # See a list of commands:

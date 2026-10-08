@@ -206,7 +206,7 @@ final class GReaderAPI {
 		return '';
 	}
 
-	private static function clientLogin(string $email, string $pass): never {
+	private static function clientLogin(string $email, #[\SensitiveParameter] string $pass): never {
 		//https://web.archive.org/web/20130604091042/http://undoc.in/clientLogin.html
 		if (FreshRSS_user_Controller::checkUsername($email)) {
 			FreshRSS_Context::initUser($email);
@@ -315,10 +315,10 @@ final class GReaderAPI {
 	private static function subscriptionExport(): never {
 		$user = Minz_User::name() ?? Minz_User::INTERNAL_USER;
 		$export_service = new FreshRSS_Export_Service($user);
-		[$filename, $content] = $export_service->generateOpml();
+		[$filename, $path] = $export_service->generateOpml();
 		header('Content-Type: application/xml; charset=UTF-8');
 		header('Content-disposition: attachment; filename="' . $filename . '"');
-		echo $content;
+		readfile($path);
 		exit();
 	}
 
@@ -365,13 +365,13 @@ final class GReaderAPI {
 							},
 						],
 					],
-					//'sortid' => $feed->name(),
+					//'sortid' => htmlspecialchars_decode($feed->name(), ENT_QUOTES),
 					//'firstitemmsec' => 0,
 					'url' => htmlspecialchars_decode($feed->url(), ENT_QUOTES),
 					'htmlUrl' => htmlspecialchars_decode($feed->website(), ENT_QUOTES),
 					'iconUrl' => str_replace(
 						'/api/greader.php/reader/api/0/subscription', '',	// Security if base_url is not set properly
-						$feed->favicon(absolute: true)),
+						htmlspecialchars_decode($feed->favicon(absolute: true), ENT_QUOTES)),
 					'frss:priority' => match ($feed->priority(follow_category: false)) {
 						FreshRSS_Feed::PRIORITY_IMPORTANT => FreshRSS_Export_Service::PRIORITY_IMPORTANT,
 						FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING => FreshRSS_Export_Service::PRIORITY_USE_CATEGORY_SETTING,
@@ -430,7 +430,12 @@ final class GReaderAPI {
 				$cat = $categoryDAO->searchByName($c_name);
 				$addCatId = $cat === null ? 0 : $cat->id();
 				if ($addCatId === 0) {
-					$addCatId = $categoryDAO->addCategory(['name' => $c_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+					$limits = FreshRSS_Context::systemConf()->limits;
+					if ($limits['max_categories'] > 0 && $categoryDAO->count() >= $limits['max_categories']) {
+						Minz_Log::warning(_t('feedback.sub.category.over_max', $limits['max_categories']), API_LOG);
+					} else {
+						$addCatId = $categoryDAO->addCategory(['name' => $c_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+					}
 				}
 			}
 		} elseif (str_starts_with($remove, 'user/-/label/')) {

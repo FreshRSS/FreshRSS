@@ -37,6 +37,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 	 */
 	public static function addFeed(string $url, string $title = '', int $cat_id = 0, string $new_cat_name = '',
 		string $http_auth = '', array $attributes = [], int $kind = FreshRSS_Feed::KIND_RSS): FreshRSS_Feed {
+		$limits = FreshRSS_Context::systemConf()->limits;
+		$feedDAO = FreshRSS_Factory::createFeedDao();
+		if ($limits['max_feeds'] > 0 && $feedDAO->count() >= $limits['max_feeds']) {
+			Minz_Log::warning(_t('feedback.sub.feed.over_max', $limits['max_feeds']));
+			throw new FreshRSS_FeedNotAdded_Exception($url);
+		}
+
 		FreshRSS_UserDAO::touch();
 		if (function_exists('set_time_limit')) {
 			@set_time_limit(300);
@@ -58,9 +65,13 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$cat = $catDAO->searchById($cat_id);
 		}
 		if ($cat === null && $new_cat_name != '') {
-			$new_cat_id = $catDAO->addCategory(['name' => $new_cat_name]);
-			$cat_id = $new_cat_id > 0 ? $new_cat_id : $cat_id;
-			$cat = $catDAO->searchById($cat_id);
+			if ($limits['max_categories'] > 0 && $catDAO->count() >= $limits['max_categories']) {
+				Minz_Log::warning(_t('feedback.sub.category.over_max', $limits['max_categories']));
+			} else {
+				$new_cat_id = $catDAO->addCategory(['name' => $new_cat_name]);
+				$cat_id = $new_cat_id > 0 ? $new_cat_id : $cat_id;
+				$cat = $catDAO->searchById($cat_id);
+			}
 		}
 		if ($cat === null) {
 			$catDAO->checkDefault();
@@ -92,7 +103,6 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				break;
 		}
 
-		$feedDAO = FreshRSS_Factory::createFeedDao();
 		if ($feedDAO->searchByUrl($feed->url()) !== null) {
 			throw new FreshRSS_AlreadySubscribed_Exception($url, $feed->name());
 		}
@@ -354,6 +364,15 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			// GET request: we must ask confirmation to user before adding feed.
 			FreshRSS_View::prependTitle(_t('sub.feed.title_add') . ' · ');
 
+			// Same hook as in addFeed(), so that the preview probes the URL that would actually be subscribed to.
+			/** @var string|null $urlHooked */
+			$urlHooked = Minz_ExtensionManager::callHook(Minz_HookType::CheckUrlBeforeAdd, $url);
+			if ($urlHooked === null) {
+				Minz_Request::bad(_t('feedback.sub.feed.not_added', $url), $url_redirect);
+				return;
+			}
+			$url = $urlHooked;
+
 			$catDAO = FreshRSS_Factory::createCategoryDao();
 			$this->view->categories = $catDAO->listCategories(prePopulateFeeds: false);
 			$this->view->feed = new FreshRSS_Feed($url);
@@ -587,8 +606,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				if ($e->getCode() === 410) {
 					// HTTP 410 Gone
 					Minz_Log::warning('Muting gone feed: ' . $feed->url(false));
-					$feedDAO->mute($feed->id(), true);
-					$feed->_ttl(-abs($feed->ttl())); // Replicate behavior of line above which acts directly into the DB
+					$feed->_mute(true);
+					$feedDAO->updateFeed($feed->id(), ['ttl' => $feed->ttl(raw: true)]);	// Also when the feed has the default TTL (0)
 				}
 				$feed->unlock();
 				continue;
@@ -775,14 +794,18 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				$feedProperties['url'] = $feed->url();
 			} elseif ($simplePiePush !== null && $selfUrl !== '' && $selfUrl !== $feed->url()) {	// selfUrl has priority for WebSub
 				// https://github.com/pubsubhubbub/PubSubHubbub/wiki/Moving-Feeds-or-changing-Hubs
-				Minz_Log::debug('WebSub unsubscribe ' . $feed->url(includeCredentials: false));
-				if (!$feed->pubSubHubbubSubscribe(false)) {	//Unsubscribe
-					Minz_Log::warning('Error while WebSub unsubscribing from ' . $feed->url(includeCredentials: false));
+				if (str_starts_with($feed->url(), 'https://') && !str_starts_with($selfUrl, 'https://')) {
+					Minz_Log::debug('WebSub: refusing to downgrade to ' . \SimplePie\Misc::url_remove_credentials($selfUrl));
+				} else {
+					Minz_Log::debug('WebSub unsubscribe ' . $feed->url(includeCredentials: false));
+					if (!$feed->pubSubHubbubSubscribe(false)) {	//Unsubscribe
+						Minz_Log::warning('Error while WebSub unsubscribing from ' . $feed->url(includeCredentials: false));
+					}
+					$feed->_url($selfUrl);
+					Minz_Log::warning('Feed ' . \SimplePie\Misc::url_remove_credentials($url) .
+						' canonical address moved to ' . $feed->url(includeCredentials: false));
+					$feedProperties['url'] = $feed->url();
 				}
-				$feed->_url($selfUrl);
-				Minz_Log::warning('Feed ' . \SimplePie\Misc::url_remove_credentials($url) .
-					' canonical address moved to ' . $feed->url(includeCredentials: false));
-				$feedProperties['url'] = $feed->url();
 			}
 
 			if ($simplePie != null) {
@@ -1057,7 +1080,12 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$cat_id = $cat === null ? 0 : $cat->id();
 		}
 		if ($cat_id <= 1 && $new_cat_name != '') {
-			$cat_id = $catDAO->addCategory(['name' => $new_cat_name]);
+			$limits = FreshRSS_Context::systemConf()->limits;
+			if ($limits['max_categories'] > 0 && $catDAO->count() >= $limits['max_categories']) {
+				Minz_Log::warning(_t('feedback.sub.category.over_max', $limits['max_categories']));
+			} else {
+				$cat_id = $catDAO->addCategory(['name' => $new_cat_name]) ?: $cat_id;
+			}
 		}
 		if ($cat_id <= 1) {
 			$catDAO->checkDefault();

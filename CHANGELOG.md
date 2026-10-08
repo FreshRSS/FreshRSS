@@ -2,7 +2,62 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-XX-XX FreshRSS 1.30.1-dev
+## 2026-1X-XX FreshRSS 1.30.2-dev
+
+
+## 2026-10-05 FreshRSS 1.30.1
+
+* Deployment
+	* Reword recommendations and explanations for *edge* (rolling release) vs. *latest* (versioned release) channels [#9270](https://github.com/FreshRSS/FreshRSS/pull/9270)
+* Security
+	* Config + increase default values for search max length and depth [#9280](https://github.com/FreshRSS/FreshRSS/pull/9280)
+	* Accept a trusted proxy address given without a subnet [#9301](https://github.com/FreshRSS/FreshRSS/pull/9301)
+	* Warn during session regenerate fail [#9311](https://github.com/FreshRSS/FreshRSS/pull/9311), [#9376](https://github.com/FreshRSS/FreshRSS/pull/9376)
+	* CI/CD add zizmor workflow for action security checks [#9228](https://github.com/FreshRSS/FreshRSS/pull/9228), [#9331](https://github.com/FreshRSS/FreshRSS/pull/9331)
+	* Use PHP `#[\SensitiveParameter]` [#9322](https://github.com/FreshRSS/FreshRSS/pull/9322)
+	* Reject token access (RSS/OPML export, feed refresh) for disabled accounts [#9336](https://github.com/FreshRSS/FreshRSS/pull/9336)
+	* Require POST+CSRF for self-update mutations [#9335](https://github.com/FreshRSS/FreshRSS/pull/9335)
+	* Make the login challenge nonce one-time [#9334](https://github.com/FreshRSS/FreshRSS/pull/9334)
+	* Bound ZIP import against decompression bombs [#9332](https://github.com/FreshRSS/FreshRSS/pull/9332)
+	* Rotate session ID on all authenticated transitions [#9333](https://github.com/FreshRSS/FreshRSS/pull/9333)
+	* Minz: Remove vulnerable and unused code path for displaying errors [#9395](https://github.com/FreshRSS/FreshRSS/pull/9395)
+	* Fix NAT64 feed fetching on IPv6-only hosts [#9372](https://github.com/FreshRSS/FreshRSS/pull/9372)
+* Bug fixes
+	* Fix domain-wide `Retry-After` [#9390](https://github.com/FreshRSS/FreshRSS/pull/9390)
+	* Fix muting of feeds gone with HTTP 410 [#9391](https://github.com/FreshRSS/FreshRSS/pull/9391)
+	* Fix infinite redirect loop due to `SCRIPT_NAME` in `PATH_INFO` [#9282](https://github.com/FreshRSS/FreshRSS/pull/9282), [#9287](https://github.com/FreshRSS/FreshRSS/pull/9287)
+	* Restore the automatic reading view after marking articles as read, while preserving explicit filters [#9288](https://github.com/FreshRSS/FreshRSS/issues/9288)
+	* Fix adaptive reading state after marking articles read [#9290](https://github.com/FreshRSS/FreshRSS/pull/9290)
+	* Fix regression sharing links [#9303](https://github.com/FreshRSS/FreshRSS/pull/9303)
+	* Don’t disable anonymous refresh when anonymous feed access is disabled [#9354](https://github.com/FreshRSS/FreshRSS/pull/9354)
+	* Fix regression with HTTPS proxies due to wrong TLS SNI resolution [#9341](https://github.com/FreshRSS/FreshRSS/pull/9341)
+	* Better enforce limits for feeds and categories [#9357](https://github.com/FreshRSS/FreshRSS/pull/9357)
+	* Fix JavaScript error when opening a label menu in sidebar [#9377](https://github.com/FreshRSS/FreshRSS/pull/9377)
+	* Fix custom favicon with GReader API [#9409](https://github.com/FreshRSS/FreshRSS/pull/9409)
+* CLI
+	* Add optional feed argument to `actualize-user.php` [#9319](https://github.com/FreshRSS/FreshRSS/pull/9319)
+* UI
+	* Various UI and style improvements [#9298](https://github.com/FreshRSS/FreshRSS/pull/9298), [#9369](https://github.com/FreshRSS/FreshRSS/pull/9369),
+		[#9388](https://github.com/FreshRSS/FreshRSS/pull/9388)
+* Extensions
+	* Call `check_url_before_add` hook when previewing a feed [#9343](https://github.com/FreshRSS/FreshRSS/pull/9343)
+* I18n
+	* Add Belarusian [#9351](https://github.com/FreshRSS/FreshRSS/pull/9351)
+	* Improve German [#9370](https://github.com/FreshRSS/FreshRSS/pull/9370), [#9385](https://github.com/FreshRSS/FreshRSS/pull/9385)
+	* Improve Italian [#9370](https://github.com/FreshRSS/FreshRSS/pull/9370)
+	* Improve Japanese [#9398](https://github.com/FreshRSS/FreshRSS/pull/9398)
+	* Improve Turkish [#9349](https://github.com/FreshRSS/FreshRSS/pull/9349)
+* Misc.
+	* Check SVG optimization in the tests CI workflow with SVGO [#9361](https://github.com/FreshRSS/FreshRSS/pull/9361)
+	* Move PHPUnit flags to a config file and use strictest failure mode [#9374](https://github.com/FreshRSS/FreshRSS/pull/9374)
+	* Avoid writing to log files during unit tests [#9373](https://github.com/FreshRSS/FreshRSS/pull/9373)
+	* Bump Ruby gems automatically with Dependabot for docs [#9401](https://github.com/FreshRSS/FreshRSS/pull/9401)
+	* Update dev dependencies [#9323](https://github.com/FreshRSS/FreshRSS/pull/9323), [#9324](https://github.com/FreshRSS/FreshRSS/pull/9324),
+		[#9325](https://github.com/FreshRSS/FreshRSS/pull/9325), [#9326](https://github.com/FreshRSS/FreshRSS/pull/9326), [#9327](https://github.com/FreshRSS/FreshRSS/pull/9327),
+		[#9328](https://github.com/FreshRSS/FreshRSS/pull/9328), [#9368](https://github.com/FreshRSS/FreshRSS/pull/9368), [#9378](https://github.com/FreshRSS/FreshRSS/pull/9378),
+		[#9379](https://github.com/FreshRSS/FreshRSS/pull/9379), [#9380](https://github.com/FreshRSS/FreshRSS/pull/9380), [#9381](https://github.com/FreshRSS/FreshRSS/pull/9381),
+		[#9402](https://github.com/FreshRSS/FreshRSS/pull/9402), [#9403](https://github.com/FreshRSS/FreshRSS/pull/9403), [#9404](https://github.com/FreshRSS/FreshRSS/pull/9404),
+		[#9405](https://github.com/FreshRSS/FreshRSS/pull/9405), [#9406](https://github.com/FreshRSS/FreshRSS/pull/9406), [#9407](https://github.com/FreshRSS/FreshRSS/pull/9407)
 
 
 ## 2026-09-09 FreshRSS 1.30.0
@@ -250,7 +305,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Improve slider behaviour when using navigate back button [#8496](https://github.com/FreshRSS/FreshRSS/pull/8496), [#8524](https://github.com/FreshRSS/FreshRSS/pull/8524)
 	* Improve consistency of slider behaviour after submitting form [#8612](https://github.com/FreshRSS/FreshRSS/pull/8612)
 	* Create dynamic favicons from SVG instead of PNG canvas [#8577](https://github.com/FreshRSS/FreshRSS/pull/8577), [#8588](https://github.com/FreshRSS/FreshRSS/pull/8588)
-	* Only display scrollbar everywhere if there's an overflow (especially for Chromium) [#8542](https://github.com/FreshRSS/FreshRSS/pull/8542)
+	* Only display scrollbar everywhere if there’s an overflow (especially for Chromium) [#8542](https://github.com/FreshRSS/FreshRSS/pull/8542)
 	* Fix CSS padding of `.content pre code` [#8620](https://github.com/FreshRSS/FreshRSS/pull/8620)
 	* Fix wrong navigation buttons layout on Chromium [#8606](https://github.com/FreshRSS/FreshRSS/pull/8606)
 	* Fix don’t mark as read if middle click is outside of article link [#8553](https://github.com/FreshRSS/FreshRSS/pull/8553)

@@ -13,6 +13,45 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	private FreshRSS_CategoryDAO $categoryDAO;
 
 	/**
+	 * ZIP import safety limits (defence against ZIP bombs / decompression DoS).
+	 * A legitimate export is an OPML plus a handful of JSON files, so these ceilings
+	 * sit far above any realistic export while keeping import memory bounded.
+	 */
+	private const IMPORT_ZIP_MAX_MEMBERS = 100;
+	private const IMPORT_ZIP_MEMBER_MAX_SIZE = 64 * 1024 * 1024;
+	private const IMPORT_ZIP_TOTAL_MAX_SIZE = 128 * 1024 * 1024;
+	private const IMPORT_ZIP_MAX_RATIO = 100;
+
+	/**
+	 * Read a ZIP member by name through a stream, aborting once the decompressed
+	 * content exceeds $maxBytes. Returns null on read error or when the cap is
+	 * exceeded, so a forged/under-reported uncompressed size in the archive
+	 * metadata cannot be used to force unbounded memory allocation.
+	 */
+	private static function readZipMemberCapped(ZipArchive $zip, string $name, int $maxBytes): ?string {
+		$stream = $zip->getStream($name);
+		if ($stream === false) {
+			return null;
+		}
+		$content = '';
+		try {
+			while (!feof($stream)) {
+				$chunk = fread($stream, 1 << 16);
+				if ($chunk === false) {
+					return null;
+				}
+				$content .= $chunk;
+				if (strlen($content) > $maxBytes) {
+					return null;
+				}
+			}
+		} finally {
+			fclose($stream);
+		}
+		return $content;
+	}
+
+	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
@@ -81,7 +120,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		];
 
 		// We try to list all files according to their type
-		$list = [];
+		$skipped = false;
 		if ('zip' === $type_file && extension_loaded('zip')) {
 			$zip = new ZipArchive();
 			$result = $zip->open($path);
@@ -89,14 +128,51 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				// zip_open cannot open file: something is wrong
 				throw new FreshRSS_Zip_Exception($result);
 			}
+			$accepted = 0;
+			$totalUncompressed = 0;
 			for ($i = 0; $i < $zip->numFiles; $i++) {
-				if ($zip->getNameIndex($i) === false) {
+				$entryName = $zip->getNameIndex($i);
+				if ($entryName === false) {
 					continue;
 				}
-				$type_zipfile = self::guessFileType($zip->getNameIndex($i));
-				if ('unknown' !== $type_zipfile) {
-					$list_files[$type_zipfile][] = $zip->getFromIndex($i);
+				$type_zipfile = self::guessFileType($entryName);
+				if ('unknown' === $type_zipfile) {
+					continue;
 				}
+				if ($zip->locateName($entryName) !== $i) {
+					// Duplicate entry name: keep only the first occurrence
+					continue;
+				}
+				// Reject obvious ZIP bombs cheaply from the central-directory metadata...
+				$stat = $zip->statIndex($i);
+				$declaredSize = is_array($stat) ? (int)($stat['size'] ?? 0) : 0;
+				$compSize = is_array($stat) ? (int)($stat['comp_size'] ?? 0) : 0;
+				if ($declaredSize > self::IMPORT_ZIP_MEMBER_MAX_SIZE
+					|| ($compSize > 0 && $declaredSize / $compSize > self::IMPORT_ZIP_MAX_RATIO)) {
+					Minz_Log::warning('Import: skipping oversized/over-compressed ZIP member: ' . $entryName);
+					$skipped = true;
+					continue;
+				}
+				if ($accepted >= self::IMPORT_ZIP_MAX_MEMBERS) {
+					Minz_Log::warning('Import: ZIP member budget reached, remaining members skipped');
+					break;
+				}
+				// ...then enforce the real decompressed size while streaming, since the
+				// declared metadata above is attacker-controlled and can under-report.
+				$content = self::readZipMemberCapped($zip, $entryName, self::IMPORT_ZIP_MEMBER_MAX_SIZE);
+				if ($content === null) {
+					Minz_Log::warning('Import: skipping unreadable/over-limit ZIP member: ' . $entryName);
+					$skipped = true;
+					continue;
+				}
+				$totalUncompressed += strlen($content);
+				if ($totalUncompressed > self::IMPORT_ZIP_TOTAL_MAX_SIZE) {
+					Minz_Log::warning('Import: ZIP total size reached, remaining members skipped');
+					$skipped = true;
+					break;
+				}
+				$list_files[$type_zipfile][] = $content;
+				$accepted++;
 			}
 			$zip->close();
 		} elseif ('zip' === $type_file) {
@@ -115,7 +191,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		// OPML first(so categories and feeds are imported)
 		// Starred articles then so the "favourite" status is already set
 		// And finally all other files.
-		$ok = true;
+		$ok = !$skipped;
 
 		$importService = new FreshRSS_Import_Service($username);
 
@@ -635,7 +711,18 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$cat_name = Minz_Helper::htmlspecialchars_utf8(trim($origin['category'] ?? ''));
 		if ($cat_name !== '') {
 			$new_cat = $this->categoryDAO->searchByName($cat_name);
-			$cat_id = $new_cat?->id() ?: $this->categoryDAO->addCategory(['name' => $cat_name]) ?: FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+			$cat_id = $new_cat?->id() ?: 0;
+			if ($cat_id === 0) {
+				$limits = FreshRSS_Context::systemConf()->limits;
+				if ($limits['max_categories'] > 0 && $this->categoryDAO->count() >= $limits['max_categories']) {
+					Minz_Log::warning(_t('feedback.sub.category.over_max', $limits['max_categories']));
+				} else {
+					$cat_id = $this->categoryDAO->addCategory(['name' => $cat_name]) ?: 0;
+				}
+			}
+			if ($cat_id === 0) {
+				$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+			}
 		}
 
 		try {
@@ -701,21 +788,21 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$exported_files = [];
 
 		if ($export_opml) {
-			[$filename, $content] = $export_service->generateOpml();
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateOpml();
+			$exported_files[$filename] = $path;
 		}
 
 		// Starred and labelled entries are merged in the same `starred` file
 		// to avoid duplication of content.
 		if ($export_starred && $export_labelled) {
-			[$filename, $content] = $export_service->generateStarredEntries('ST');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('ST');
+			$exported_files[$filename] = $path;
 		} elseif ($export_starred) {
-			[$filename, $content] = $export_service->generateStarredEntries('S');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('S');
+			$exported_files[$filename] = $path;
 		} elseif ($export_labelled) {
-			[$filename, $content] = $export_service->generateStarredEntries('T');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('T');
+			$exported_files[$filename] = $path;
 		}
 
 		foreach ($export_feeds as $feed_id) {
@@ -725,8 +812,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				continue;
 			}
 
-			[$filename, $content] = $result;
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $result;
+			$exported_files[$filename] = $path;
 		}
 
 		$nb_files = count($exported_files);
@@ -739,7 +826,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		if ($nb_files === 1) {
 			// If we only have one file, we just export it as it is
 			$filename = key($exported_files);
-			$content = $exported_files[$filename];
+			$path = $exported_files[$filename];
 		} else {
 			// More files? Let’s compress them in a Zip archive
 			if (!extension_loaded('zip')) {
@@ -751,10 +838,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			[$filename, $content] = $export_service->zip($exported_files);
+			[$filename, $path] = $export_service->zip($exported_files);
 		}
 
-		if (!is_string($content)) {
+		if (!is_string($path)) {
 			Minz_Request::bad(_t('feedback.import_export.zip_error'), ['c' => 'importExport', 'a' => 'index']);
 			return;
 		}
@@ -764,7 +851,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		header('Content-disposition: attachment; filename="' . $filename . '"');
 
 		$this->view->_layout(null);
-		$this->view->content = $content;
+		$this->view->exportPath = $path;
 	}
 
 	/**
