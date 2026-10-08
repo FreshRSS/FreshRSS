@@ -4,6 +4,9 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-1X-XX FreshRSS 1.30.2-dev
 
+* Deployment
+	* 💥 Require PHP 8.2+ (drop PHP 8.1), and use PHP 8.2 features: readonly classes, `FILTER_FLAG_GLOBAL_RANGE`, `ini_parse_quantity()`
+
 
 ## 2026-10-05 FreshRSS 1.30.1
 
@@ -14,7 +17,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Accept a trusted proxy address given without a subnet [#9301](https://github.com/FreshRSS/FreshRSS/pull/9301)
 	* Warn during session regenerate fail [#9311](https://github.com/FreshRSS/FreshRSS/pull/9311), [#9376](https://github.com/FreshRSS/FreshRSS/pull/9376)
 	* CI/CD add zizmor workflow for action security checks [#9228](https://github.com/FreshRSS/FreshRSS/pull/9228), [#9331](https://github.com/FreshRSS/FreshRSS/pull/9331)
-	* Use PHP `#[\SensitiveParameter]` [#9322](https://github.com/FreshRSS/FreshRSS/pull/9322)
+	* Use PHP 8.2+ `#[\SensitiveParameter]` [#9322](https://github.com/FreshRSS/FreshRSS/pull/9322)
 	* Reject token access (RSS/OPML export, feed refresh) for disabled accounts [#9336](https://github.com/FreshRSS/FreshRSS/pull/9336)
 	* Require POST+CSRF for self-update mutations [#9335](https://github.com/FreshRSS/FreshRSS/pull/9335)
 	* Make the login challenge nonce one-time [#9334](https://github.com/FreshRSS/FreshRSS/pull/9334)
