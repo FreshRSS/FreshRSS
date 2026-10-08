@@ -34,8 +34,6 @@ return array(
 		'information' => 'Məlumat',
 		'open' => 'Kateqoriyanı aç',
 		'opml_url' => 'OPML URL-i',
-		'position' => 'Göstərilmə mövqeyi',
-		'position_help' => 'Kateqoriya sıralamasına nəzarət etmək üçün',
 		'title' => 'Başlıq',
 	),
 	'feed' => array(

@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context */
+/* globals context, badAjax */
 
 let loading = false;
 let dnd_successful = false;
@@ -32,6 +32,18 @@ function dragend_process(t) {
 
 let dragFeedId = '';
 let dragHtml = '';
+let dragCatBox = null;
+let dragCatOver = null;
+let draggingCategory = false;
+
+function cleanDragElements() {
+	draggingCategory = false;
+	if (dragCatOver !== null) {
+		dragCatOver.classList.remove('drag-hover');
+		dragCatOver = null;
+	}
+	dragCatBox = null;
+}
 
 function init_draggable() {
 	if (!window.context) {
@@ -44,9 +56,68 @@ function init_draggable() {
 
 	const draggable = '[draggable="true"]';
 	const dropzone = '[dropzone="move"]';
+	const catBox = '.box[data-cat-id]';
+	const catHandle = '.box-title[draggable="true"]';
 	const dropSection = document.querySelector('.drop-section');
 
+	const save_category_order = function () {
+		const clone = dropSection.cloneNode(true);
+		const dragCatBoxClone = clone.querySelector(`.box[data-cat-id="${dragCatBox.dataset.catId}"]`);
+		const dragCatOverClone = clone.querySelector(`.box[data-cat-id="${dragCatOver.dataset.catId}"]`);
+		if (dragCatOverClone.compareDocumentPosition(dragCatBoxClone) & Node.DOCUMENT_POSITION_FOLLOWING) {
+			dragCatOverClone.insertAdjacentElement('beforebegin', dragCatBoxClone);
+		} else {
+			dragCatOverClone.insertAdjacentElement('afterend', dragCatBoxClone);
+		}
+		const c_ids = [];
+		clone.querySelectorAll(catBox).forEach(function (box) {
+			c_ids.push(+box.dataset.catId);
+		});
+
+		const req = new XMLHttpRequest();
+		req.open('POST', './?c=category&a=move', true);
+		req.responseType = 'json';
+		req.onerror = function () {
+			cleanDragElements();
+			badAjax(false);
+		};
+		req.onload = function () {
+			if (this.status !== 200) {
+				cleanDragElements();
+				badAjax(this.status === 403);
+				return;
+			}
+
+			if (dragCatOver.compareDocumentPosition(dragCatBox) & Node.DOCUMENT_POSITION_FOLLOWING) {
+				dragCatOver.insertAdjacentElement('beforebegin', dragCatBox);
+			} else {
+				dragCatOver.insertAdjacentElement('afterend', dragCatBox);
+			}
+			cleanDragElements();
+		};
+		req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+		req.send(JSON.stringify({
+			c_ids: c_ids,
+			_csrf: context.csrf,
+		}));
+	};
+
 	dropSection.ondragstart = function (ev) {
+		if (draggingCategory) {
+			return;
+		}
+
+		const cat_handle = ev.target.closest ? ev.target.closest(catHandle) : null;
+		if (cat_handle) {
+			dragCatBox = cat_handle.closest(catBox);
+			if (dragCatBox) {
+				ev.dataTransfer.effectAllowed = 'move';
+				ev.dataTransfer.setData('text', dragCatBox.getAttribute('data-cat-id'));
+				cat_handle.classList.add('dragging');
+			}
+			return;
+		}
+
 		const li_draggable = ev.target.closest ? ev.target.closest(draggable) : null;
 		if (li_draggable) {
 			const ulClosest = li_draggable.closest('ul');
@@ -65,6 +136,20 @@ function init_draggable() {
 	};
 
 	dropSection.ondragend = function (ev) {
+		if (dragCatBox !== null) {
+			const cat_handle = dragCatBox.querySelector(catHandle);
+			if (cat_handle) {
+				cat_handle.classList.remove('dragging');
+			}
+
+			// dragCatOver and dragCatBox variables are needed in the load event of the category move request
+			if (!draggingCategory) {
+				cleanDragElements();
+			}
+
+			return;
+		}
+
 		const li_draggable = ev.target.closest ? ev.target.closest(draggable) : null;
 		if (li_draggable) {
 			dragend_process(li_draggable);
@@ -74,11 +159,15 @@ function init_draggable() {
 				disallowDragging[i].setAttribute('dropzone', 'move');
 				disallowDragging[i].classList.remove('drag-disallowed');
 			}
-			li_draggable.closest('.drag-active').classList.remove('drag-active');
+			li_draggable.closest('.drag-active')?.classList.remove('drag-active');
 		}
 	};
 
 	dropSection.ondragenter = function (ev) {
+		if (draggingCategory || dragCatBox !== null) {
+			return;
+		}
+
 		const ul_dropzone = ev.target.closest ? ev.target.closest(dropzone) : null;
 		if (ul_dropzone) {
 			ul_dropzone.classList.add('drag-hover');
@@ -87,6 +176,10 @@ function init_draggable() {
 	};
 
 	dropSection.ondragleave = function (ev) {
+		if (dragCatBox !== null) {
+			return;
+		}
+
 		const ul_dropzone = ev.target.closest ? ev.target.closest(dropzone) : null;
 		if (ul_dropzone) {
 			const scroll_top = document.documentElement.scrollTop;
@@ -107,6 +200,29 @@ function init_draggable() {
 	};
 
 	dropSection.ondragover = function (ev) {
+		if (draggingCategory) {
+			return;
+		}
+
+		if (dragCatBox !== null) {
+			const box = ev.target.closest ? ev.target.closest(catBox) : null;
+			const target = box === dragCatBox ? null : box;
+			if (target !== dragCatOver) {
+				if (dragCatOver !== null) {
+					dragCatOver.classList.remove('drag-hover');
+				}
+				dragCatOver = target;
+				if (dragCatOver !== null) {
+					dragCatOver.classList.add('drag-hover');
+				}
+			}
+			if (dragCatOver !== null) {
+				ev.dataTransfer.dropEffect = 'move';
+				return false;
+			}
+			return;
+		}
+
 		const li = ev.target.closest ? ev.target.closest(dropzone) : null;
 		if (li) {
 			li.closest('ul').classList.remove('drag-drop');
@@ -116,6 +232,14 @@ function init_draggable() {
 	};
 
 	dropSection.ondrop = function (ev) {
+		if (dragCatBox !== null) {
+			if (dragCatOver !== null) {
+				draggingCategory = true;
+				save_category_order();
+			}
+			return false;
+		}
+
 		if (dragFeedId) {
 			const ul_dropzone = ev.target.closest ? ev.target.closest(dropzone) : null;
 
@@ -125,18 +249,29 @@ function init_draggable() {
 				const req = new XMLHttpRequest();
 				req.open('POST', './?c=feed&a=move', true);
 				req.responseType = 'json';
+				req.onerror = function () {
+					badAjax(false);
+				};
 				req.onload = function (e) {
-					if (this.status == 200) {
-						ul_dropzone.insertAdjacentHTML('afterbegin', dragHtml);
-						ul_dropzone.firstChild.classList.add('moved');
-						ul_dropzone.scrollTop = 0;
-						const disabledElement = ul_dropzone.getElementsByClassName('disabled');
-						if (disabledElement.length > 0) {
-							disabledElement[0].remove();
-						}
-						dnd_successful = true;
-						ul_dropzone.closest('ul').classList.add('drag-drop');
+					if (this.status !== 200) {
+						badAjax(this.status === 403);
+						return;
 					}
+
+					ul_dropzone.insertAdjacentHTML('afterbegin', dragHtml);
+					ul_dropzone.firstChild.classList.add('moved');
+					ul_dropzone.scrollTop = 0;
+					const disabledElement = ul_dropzone.getElementsByClassName('disabled');
+					if (disabledElement.length > 0) {
+						disabledElement[0].remove();
+					}
+					dnd_successful = true;
+
+					ul_dropzone.classList.add('drag-drop');
+					setTimeout(
+						() => ul_dropzone.classList.remove('drag-drop'),
+						parseFloat(getComputedStyle(ul_dropzone).animationDuration) * 1000
+					);
 				};
 				req.onloadend = function (e) {
 					loading = false;
@@ -145,8 +280,8 @@ function init_draggable() {
 				};
 				req.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 				req.send(JSON.stringify({
-					f_id: dragFeedId,
-					c_id: ul_dropzone.getAttribute('data-cat-id'),
+					f_id: +dragFeedId,
+					c_id: +ul_dropzone.getAttribute('data-cat-id'),
 					_csrf: context.csrf,
 				}));
 
