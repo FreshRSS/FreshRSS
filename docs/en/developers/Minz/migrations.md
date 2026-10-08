@@ -15,14 +15,16 @@ The class must declare a `migrate` static function. It must return `true` or a s
 Example:
 
 ```php
+<?php
+declare(strict_types=1);
 // File: app/migrations/2020_01_11_CreateFooTable.php
 class FreshRSS_Migration_2020_01_11_CreateFooTable {
-	public static function migrate() {
+	public static function migrate(): bool {
 		$pdo = new Minz_PdoSqlite('sqlite:/some/path/db.sqlite');
 		$result = $pdo->exec('CREATE TABLE foos (bar TEXT)');
 		if ($result === false) {
 			$error = $pdo->errorInfo();
-			raise Exception('Error in SQL statement: ' . $error[2]);
+			throw new Exception('Error in SQL statement: ' . $error[2]);
 		}
 
 		return true;
