@@ -14,6 +14,12 @@ class FreshRSS_Category extends Minz_Model {
 	 */
 	public const KIND_DYNAMIC_OPML = 2;
 
+	public const PRIORITY_IMPORTANT = 20;
+	public const PRIORITY_MAIN_STREAM = 10; // default priority
+	public const PRIORITY_CATEGORY = 0;
+	public const PRIORITY_FEED = -5;
+	public const PRIORITY_HIDDEN = -10;
+
 	private int $id = 0;
 	private int $kind = 0;
 	private string $name;
@@ -24,6 +30,7 @@ class FreshRSS_Category extends Minz_Model {
 	private ?array $feeds = null;
 	private bool|int $hasFeedsWithError = false;
 	private int $lastUpdate = 0;
+	private int $priority = self::PRIORITY_MAIN_STREAM;
 	private bool $error = false;
 
 	/**
@@ -60,6 +67,9 @@ class FreshRSS_Category extends Minz_Model {
 	public function lastUpdate(): int {
 		return $this->lastUpdate;
 	}
+	public function priority(): int {
+		return $this->priority;
+	}
 
 	/**
 	 * @param int|numeric-string $value
@@ -67,6 +77,10 @@ class FreshRSS_Category extends Minz_Model {
 	 */
 	public function _lastUpdate(int|string $value): void {
 		$this->lastUpdate = (int)$value;
+	}
+
+	public function _priority(int $value): void {
+		$this->priority = $value;
 	}
 
 	public function inError(): bool {
@@ -121,6 +135,21 @@ class FreshRSS_Category extends Minz_Model {
 	public function showUnreadCount(): bool {
 		return $this->attributeBoolean('show_unread_count') ??
 			(FreshRSS_Context::userConf()->show_unread_count === 'all');
+	}
+
+	public function hiddenInSidebar(): bool {
+		if (FreshRSS_Context::isCurrentGet('c_' . $this->id())) {
+			return false;
+		}
+		if ($this->priority() === FreshRSS_Category::PRIORITY_HIDDEN) {
+			foreach ($this->feeds() as $feed) {
+				if (FreshRSS_Context::isCurrentGet('f_' . $feed->id()) || $feed->priority() !== FreshRSS_Feed::PRIORITY_HIDDEN) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	/**

@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d straipsnių',
 		'open_feed' => 'Atverti kanalą %s',
 		'path_entries_conditions' => 'Turinio gavimo sąlygos',
-		'priority' => array(
-			'_' => 'Matomumas',
-			'category' => 'Rodyti savo kategorijoje',
-			'feed' => 'Rodyti savo kanale',
-			'hidden' => 'Nerodyti',
-			'important' => 'Rodyti tarp svarbių kanalų',
-			'main_stream' => 'Rodyti pagrindiniame sraute',
-		),
 		'proxy' => 'Nustatyti tarpinį serverį (proxy) šiam kanalui gauti',
 		'proxy_help' => 'Pasirinkite protokolą (pvz.: SOCKS5) ir įveskite tarpinio serverio adresą (pvz.: <kbd>127.0.0.1:1080</kbd> arba <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Atkurti numatytąją',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Prenumeratų tvarkymas',
 		'subscription_tools' => 'Prenumeratų įrankiai',
+	),
+	'priority' => array(
+		'_' => 'Visibility',	// TODO
+		'category' => 'Show in its category',	// TODO
+		'feed' => 'Show in its feed',	// TODO
+		'hidden' => 'Do not show',	// TODO
+		'important' => 'Show in important feeds',	// TODO
+		'main_stream' => 'Show in main stream',	// TODO
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Pridėti šią etiketę naujiems straipsniams',

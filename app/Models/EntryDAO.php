@@ -606,21 +606,22 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				AND is_favorite=1
 				SQL;
 		}
+
+		$priority2 = '(CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END)';
 		if ($priorityMin !== null || $priorityMax !== null) {
 			$sql .= "\n" . <<<'SQL'
-				AND id_feed IN (SELECT f.id FROM `_feed` f WHERE 1=1
+				AND id_feed IN (SELECT f.id FROM `_feed` f INNER JOIN `_category` c ON c.id = f.category WHERE 1=1
 				SQL;
+
 			if ($priorityMin !== null) {
-				$sql .= "\n" . <<<'SQL'
-					AND f.priority >= ?
+				$sql .= "\n" . <<<SQL
+					AND {$priority2} >= {$priorityMin}
 					SQL;
-				$values[] = $priorityMin;
 			}
 			if ($priorityMax !== null) {
-				$sql .= "\n" . <<<'SQL'
-					AND f.priority < ?
+				$sql .= "\n" . <<<SQL
+					AND {$priority2} < {$priorityMax}
 					SQL;
-				$values[] = $priorityMax;
 			}
 			$sql .= "\n" . <<<'SQL'
 				)
@@ -662,13 +663,17 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
-		$sql = <<<'SQL'
+		$priority2 = '(CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END)';
+		$sql = <<<SQL
 			UPDATE `_entry`
 			SET is_read = ?, `lastUserModified` = ?
 			WHERE is_read <> ? AND id <= ?
-			AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=? AND f.priority >= ? AND f.priority < ?)
+			AND id_feed IN (
+			SELECT f.id FROM `_feed` f
+			INNER JOIN `_category` c
+			ON c.id = f.category WHERE f.category=? AND {$priority2} >= {$priorityMin} AND {$priority2} < 20)
 			SQL;
-		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax, $id, $priorityMin, FreshRSS_Feed::PRIORITY_IMPORTANT];
+		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax, $id];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
@@ -1550,22 +1555,22 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$values = [];
 		switch ($type) {
 			case 'a':	// All PRIORITY_MAIN_STREAM
-				$where .= 'f.priority >= ' .
+				$where .= 'priority2 >= ' .
 					min(FreshRSS_Feed::PRIORITY_MAIN_STREAM, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
 				break;
 			case 'A':	// All except PRIORITY_HIDDEN
-				$where .= 'f.priority >= ' .
+				$where .= 'priority2 >= ' .
 					min(FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
 				break;
 			case 'Z':	// All including PRIORITY_HIDDEN
 				$where .= '1=1 ';
 				break;
 			case 'i':	// Priority important feeds
-				$where .= 'f.priority >= ' .
+				$where .= 'priority2 >= ' .
 					min(FreshRSS_Feed::PRIORITY_IMPORTANT, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
 				break;
 			case 's':	// Starred. Deprecated: use $state instead
-				$where .= 'f.priority > ' .
+				$where .= 'priority2 > ' .
 					min(FreshRSS_Feed::PRIORITY_HIDDEN, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
 				$where .= 'AND e.is_favorite=1 ';
 				break;
@@ -1573,7 +1578,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$where .= 'e.is_favorite=1 ';
 				break;
 			case 'c':	// Category
-				$where .= 'f.priority >= ' .
+				$where .= 'priority2 >= ' .
 					min(FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
 				$where .= 'AND f.category=? ';
 				$values[] = $id;
@@ -1631,11 +1636,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 		return [array_merge($values, $searchValues), 'SELECT '
 			. ($type === 'T' && $sort !== 'rand' ? 'DISTINCT ' : '')
-			. 'e.id'
+			. 'e.id, CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END AS priority2'
 			. ($type === 'T' && !in_array($sort, ['id', 'rand'], true) ? ', ' . $orderBy : '')	// SELECT DISTINCT, ORDER BY expressions must appear in SELECT
 			. ' FROM `_entry` e ' . $useEntryIndex
 			. 'INNER JOIN `_feed` f ON f.id = e.id_feed '
-			. ($sort === 'c.name' ? 'INNER JOIN `_category` c ON c.id = f.category ' : '')
+			. 'INNER JOIN `_category` c ON c.id = f.category '
 			. ($type === 't' || $type === 'T' ? 'INNER JOIN `_entrytag` et ON et.id_entry = e.id ' : '')
 			. 'WHERE ' . $where
 			. $search
@@ -2010,16 +2015,25 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	public function countAsStates(?int $minPriority = null): array {
 		$values = [];
 		$sql = <<<'SQL'
-			SELECT
+				SELECT
 				COUNT(*) AS total,
 				COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS unread,
 				COUNT(CASE WHEN e.is_favorite = 1 THEN 1 END) AS favorites
+				SQL;
+		if ($minPriority !== null) {
+			$sql .= "\n" . <<<'SQL'
+				,
+				CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END AS priority2
+			SQL;
+		}
+		$sql .= "\n" . <<<'SQL'
 			FROM `_entry` e
 			SQL;
 		if ($minPriority !== null) {
 			$sql .= "\n" . <<<'SQL'
 				INNER JOIN `_feed` f ON e.id_feed = f.id
-				WHERE f.priority > :priority
+				INNER JOIN `_category` c ON c.id = f.category
+				WHERE priority2 > :priority
 				SQL;
 			$values[':priority'] = $minPriority;
 		}
@@ -2035,13 +2049,24 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 
 	public function count(?int $minPriority = null): int {
 		$sql = <<<'SQL'
-			SELECT COUNT(*) AS count FROM `_entry` e
+			SELECT
+			COUNT(*) AS count
+			SQL;
+		if ($minPriority !== null) {
+			$sql .= "\n" . <<<'SQL'
+				,
+				CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END AS priority2
+				SQL;
+		}
+		$sql .= "\n" . <<<'SQL'
+			FROM `_entry` e
 			SQL;
 		$values = [];
 		if ($minPriority !== null) {
 			$sql .= "\n" . <<<'SQL'
 				INNER JOIN `_feed` f ON e.id_feed=f.id
-				WHERE f.priority > :priority
+				INNER JOIN `_category` c ON c.id=f.category
+				WHERE priority2 > :priority
 				SQL;
 			$values[':priority'] = $minPriority;
 		}
@@ -2053,10 +2078,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		$sql = <<<'SQL'
 			SELECT
 				COUNT(*) AS total,
-				COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS unread
+				COUNT(CASE WHEN e.is_read = 0 THEN 1 END) AS unread,
+				CASE WHEN f.priority = 10 THEN c.priority ELSE f.priority END AS priority2
 			FROM `_entry` e
 			JOIN `_feed` f ON e.id_feed = f.id
-			WHERE e.is_favorite = 1 AND f.priority > :priority
+			INNER JOIN `_category` c ON c.id = f.category
+			WHERE e.is_favorite = 1 AND priority2 > :priority
 			SQL;
 		$res = $this->fetchAssoc($sql, [':priority' => FreshRSS_Feed::PRIORITY_HIDDEN]);
 		if ($res === null || !isset($res[0])) {

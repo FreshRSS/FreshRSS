@@ -38,14 +38,17 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false, bool $in
 				break;
 		}
 
-		$outline['frss:priority'] = match ($feed->priority()) {
-			FreshRSS_Feed::PRIORITY_IMPORTANT => FreshRSS_Export_Service::PRIORITY_IMPORTANT,
-			FreshRSS_Feed::PRIORITY_MAIN_STREAM => null,	// Default
-			FreshRSS_Feed::PRIORITY_CATEGORY => FreshRSS_Export_Service::PRIORITY_CATEGORY,
-			FreshRSS_Feed::PRIORITY_FEED => FreshRSS_Export_Service::PRIORITY_FEED,
-			FreshRSS_Feed::PRIORITY_HIDDEN => FreshRSS_Export_Service::PRIORITY_HIDDEN,
-			default => null,
-		};
+		$priority = $feed->priority(follow_category: false);
+		if ($priority !== FreshRSS_Feed::PRIORITY_USE_CATEGORY_SETTING) {
+			$outline['frss:priority'] = match ($feed->priority(follow_category: false)) {
+				FreshRSS_Feed::PRIORITY_IMPORTANT => FreshRSS_Export_Service::PRIORITY_IMPORTANT,
+				FreshRSS_Feed::PRIORITY_MAIN_STREAM => FreshRSS_Export_Service::PRIORITY_MAIN_STREAM,
+				FreshRSS_Feed::PRIORITY_CATEGORY => FreshRSS_Export_Service::PRIORITY_CATEGORY,
+				FreshRSS_Feed::PRIORITY_FEED => FreshRSS_Export_Service::PRIORITY_FEED,
+				FreshRSS_Feed::PRIORITY_HIDDEN => FreshRSS_Export_Service::PRIORITY_HIDDEN,
+				default => null,
+			};
+		}
 
 		if ($feed->attributeString('unicityCriteria') != '' && $feed->attributeString('unicityCriteria') !== 'id') {
 			$outline['frss:unicityCriteria'] = $feed->attributeString('unicityCriteria');
@@ -178,6 +181,17 @@ if (!empty($this->categories)) {
 
 		if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {
 			$outline['frss:opmlUrl'] = $cat->attributeString('opml_url');
+		}
+
+		$priority = $cat->priority();
+		if ($priority !== FreshRSS_Category::PRIORITY_MAIN_STREAM) {
+			$outline['frss:priority'] = match ($cat->priority()) {
+				FreshRSS_Category::PRIORITY_IMPORTANT => FreshRSS_Export_Service::PRIORITY_IMPORTANT,
+				FreshRSS_Category::PRIORITY_CATEGORY => FreshRSS_Export_Service::PRIORITY_CATEGORY,
+				FreshRSS_Category::PRIORITY_FEED => FreshRSS_Export_Service::PRIORITY_FEED,
+				FreshRSS_Category::PRIORITY_HIDDEN => FreshRSS_Export_Service::PRIORITY_HIDDEN,
+				default => null,
+			};
 		}
 
 		$opml_array['body'][] = $outline;

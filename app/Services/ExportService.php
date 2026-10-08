@@ -25,6 +25,7 @@ class FreshRSS_Export_Service {
 
 	final public const PRIORITY_IMPORTANT = 'important';
 	final public const PRIORITY_MAIN_STREAM = 'main';
+	final public const PRIORITY_USE_CATEGORY_SETTING = 'use_category_setting';
 	final public const PRIORITY_CATEGORY = 'category';
 	final public const PRIORITY_FEED = 'feed';
 	final public const PRIORITY_HIDDEN = 'hidden';

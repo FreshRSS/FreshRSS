@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d artigos',
 		'open_feed' => 'Abrir feed %s',
 		'path_entries_conditions' => 'Condições para recuperação de conteúdo',
-		'priority' => array(
-			'_' => 'Visibilidade',
-			'category' => 'Mostrar na sua categoria',
-			'feed' => 'Mostrar no seu feed',
-			'hidden' => 'Não exibir',
-			'important' => 'Mostrar feeds importantes',
-			'main_stream' => 'Mostrar na tela principal',
-		),
 		'proxy' => 'Defina um proxy para buscar esse feed',
 		'proxy_help' => 'Selecione um protocolo (e.g: SOCKS5) e digite o endereço do proxy (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Redefinir para o padrão',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Gerenciamento de inscrições',
 		'subscription_tools' => 'Ferramentas de inscrição',
+	),
+	'priority' => array(
+		'_' => 'Visibilidade',
+		'category' => 'Mostrar na sua categoria',
+		'feed' => 'Mostrar no seu feed',
+		'hidden' => 'Não exibir',
+		'important' => 'Mostrar feeds importantes',
+		'main_stream' => 'Mostrar na tela principal',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Adicione esta etiqueta para novos artigos',

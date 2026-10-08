@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d артыкулаў',
 		'open_feed' => 'Адкрыць стужку %s',
 		'path_entries_conditions' => 'Умовы атрымання змесціва',
-		'priority' => array(
-			'_' => 'Бачнасць',
-			'category' => 'Паказваць у катэгорыі',
-			'feed' => 'Паказваць у стужцы',
-			'hidden' => 'Не паказваць',
-			'important' => 'Паказваць у важных стужках',
-			'main_stream' => 'Паказваць у галоўнай стужцы',
-		),
 		'proxy' => 'Проксі для атрымання гэтай стужкі',
 		'proxy_help' => 'Выберыце пратакол (напрыклад: SOCKS5) і ўвядзіце адрас проксі (напрыклад: <kbd>127.0.0.1:1080</kbd> або <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Скінуць да прадвызначанага',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Падпіскі',
 		'subscription_tools' => 'Інструменты падпіскі',
+	),
+	'priority' => array(
+		'_' => 'Бачнасць',
+		'category' => 'Паказваць у катэгорыі',
+		'feed' => 'Паказваць у стужцы',
+		'hidden' => 'Не паказваць',
+		'important' => 'Паказваць у важных стужках',
+		'main_stream' => 'Паказваць у галоўнай стужцы',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Дадаваць гэту метку да новых артыкулаў',

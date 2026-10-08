@@ -215,14 +215,6 @@ return array(
 		'number_entries' => 'Статей: %d',
 		'open_feed' => 'Відкрити стрічку %s',
 		'path_entries_conditions' => 'Умови завантаження тексту',
-		'priority' => array(
-			'_' => 'Видимість',
-			'category' => 'Показати в категорії',
-			'feed' => 'Показати в стрічці',
-			'hidden' => 'Не показувати',
-			'important' => 'Показати у важливих стрічках',
-			'main_stream' => 'Показати в головному потоці',
-		),
 		'proxy' => 'Налаштувати проксі для завантаження стрічки',
 		'proxy_help' => 'Оберіть протокол (наприклад, SOCKS5) і введіть адресу проксі (наприклад, <kbd>127.0.0.1:1080</kbd> чи <kbd>логін:пароль@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'Відновити типову',
@@ -294,6 +286,18 @@ return array(
 		),
 		'subscription_management' => 'Керування підписками',
 		'subscription_tools' => 'Засоби підписки',
+	),
+	'priority' => array(
+		'_' => 'Видимість',
+		'category' => 'Показати в категорії',
+		'feed' => 'Показати в стрічці',
+		'hidden' => 'Не показувати',
+		'important' => 'Показати у важливих стрічках',
+		'main_stream' => 'Показати в головному потоці',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'Додавати мітку до нових статей',
