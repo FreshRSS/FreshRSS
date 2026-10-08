@@ -5,19 +5,19 @@
 	$a = Minz_Request::actionName();
 	$params = array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
 ?>
-<?php if ($this->nbPage > 1) { ?>
+<?php if ($this->pageCount > 1) { ?>
 <nav class="nav-pagination nav-list">
 	<div class="pagination-wrapper">
 		<ul class="pagination">
 			<?php
-				/** @var string $getteur from Minz_Paginator::render() */
-				$params[$getteur] = 1;
+				/** @var string $getter from Minz_Paginator::render() */
+				$params[$getter] = 1;
 			?>
 			<li class="item pager-first">
 				<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>">« <?= _t('conf.logs.pagination.first') ?></a>
 			</li>
 
-			<?php $params[$getteur] = $this->currentPage - 1; ?>
+			<?php $params[$getter] = $this->currentPage - 1; ?>
 
 			<li class="item pager-previous">
 				<?php if ($this->currentPage > 1) { ?>
@@ -31,8 +31,8 @@
 
 			<?php
 			for ($i = $this->currentPage - 2; $i <= $this->currentPage + 2; $i++) {
-				if ($i > 0 && $i <= $this->nbPage) {
-					$params[$getteur] = $i;
+				if ($i > 0 && $i <= $this->pageCount) {
+					$params[$getter] = $i;
 					if ($i != $this->currentPage) {
 						$class = '';
 						$aria = 'false';
@@ -45,19 +45,19 @@
 				}
 			} ?>
 
-			<?php if ($this->nbPage > $this->currentPage + 2) { ?>
+			<?php if ($this->pageCount > $this->currentPage + 2) { ?>
 			<li class="item">…</a></li>
 			<?php } ?>
 
-			<?php $params[$getteur] = $this->currentPage + 1; ?>
+			<?php $params[$getter] = $this->currentPage + 1; ?>
 
 			<li class="item pager-next">
-				<?php if ($this->currentPage < $this->nbPage) { ?>
+				<?php if ($this->currentPage < $this->pageCount) { ?>
 				<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>"><?= _t('conf.logs.pagination.next') ?> ›</a>
 				<?php } ?>
 			</li>
 
-			<?php $params[$getteur] = $this->nbPage; ?>
+			<?php $params[$getter] = $this->pageCount; ?>
 			<li class="item pager-last">
 				<a href="<?= Minz_Url::display(['c' => $c, 'a' => $a, 'params' => $params]) ?>"><?= _t('conf.logs.pagination.last') ?> »</a>
 			</li>
