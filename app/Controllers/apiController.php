@@ -10,7 +10,7 @@ class FreshRSS_api_Controller extends FreshRSS_ActionController {
 	 * Update the user API password.
 	 * Return an error message, or `false` if no error.
 	 */
-	public static function updatePassword(string $apiPasswordPlain): string|false {
+	public static function updatePassword(#[\SensitiveParameter] string $apiPasswordPlain): string|false {
 		$username = Minz_User::name();
 		if ($username == null) {
 			return _t('feedback.api.password.failed');

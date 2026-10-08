@@ -9,7 +9,7 @@ class FreshRSS_password_Util {
 	/**
 	 * Return a hash of a plain password, using BCRYPT
 	 */
-	public static function hash(string $passwordPlain): string {
+	public static function hash(#[\SensitiveParameter] string $passwordPlain): string {
 		$passwordHash = password_hash(
 			$passwordPlain,
 			PASSWORD_BCRYPT,
@@ -25,7 +25,7 @@ class FreshRSS_password_Util {
 	 *
 	 * @return bool True if the password is valid, false otherwise
 	 */
-	public static function check(string $password): bool {
+	public static function check(#[\SensitiveParameter] string $password): bool {
 		return strlen($password) >= 7;
 	}
 

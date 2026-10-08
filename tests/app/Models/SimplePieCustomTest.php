@@ -9,9 +9,11 @@ use PHPUnit\Framework\Attributes\DataProvider;
  */
 final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 
-	#[\Override]
-	public static function setUpBeforeClass(): void {
-		FreshRSS_Context::initSystem();
+	public function __construct(string $name) {
+		parent::__construct($name);
+		if (!FreshRSS_Context::hasSystemConf()) {
+			FreshRSS_Context::initSystem();
+		}
 	}
 
 	public static function test_sanitizeHTML_whenEmptyString_returnsEmptyString(): void {

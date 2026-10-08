@@ -23,8 +23,8 @@ $username = cliInitUser($cliOptions->user);
 fwrite(STDERR, 'FreshRSS exporting OPML for user “' . $username . "”…\n");
 
 $export_service = new FreshRSS_Export_Service($username);
-[$filename, $content] = $export_service->generateOpml();
-echo $content;
+[$filename, $path] = $export_service->generateOpml();
+readfile($path);
 
 invalidateHttpCache($username);
 
