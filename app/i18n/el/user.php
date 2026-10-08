@@ -41,6 +41,7 @@ return array(
 	),
 	'password' => array(
 		'invalid' => 'Ο κωδικός πρόσβασης δεν είναι έγκυρος.',
+		'provided_password_too_long' => 'The provided password is too long.',	// TODO
 	),
 	'tos' => array(
 		'feedback' => array(
