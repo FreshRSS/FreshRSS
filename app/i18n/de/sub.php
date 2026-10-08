@@ -266,6 +266,7 @@ return array(
 		'validator' => 'Gültigkeit des Feeds überprüfen',
 		'website' => 'Website-URL',
 		'websub' => 'Sofortbenachrichtigung mit WebSub',
+		'websub_pending' => 'Subscribed to WebSub, waiting for the first notification',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

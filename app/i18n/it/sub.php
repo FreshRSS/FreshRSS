@@ -266,6 +266,7 @@ return array(
 		'validator' => 'Controlla la validita del feed ',
 		'website' => 'URL del sito',
 		'websub' => 'Notifica istantanea con WebSub',
+		'websub_pending' => 'Subscribed to WebSub, waiting for the first notification',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

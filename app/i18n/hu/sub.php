@@ -266,6 +266,7 @@ return array(
 		'validator' => 'Hírforrás helyességének ellenőrzése',
 		'website' => 'Weboldal URL',
 		'websub' => 'Azonnali értesítés WebSub-al',
+		'websub_pending' => 'Subscribed to WebSub, waiting for the first notification',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

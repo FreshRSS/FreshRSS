@@ -712,7 +712,7 @@ final class FreshRSS_http_Util {
 				continue;
 			}
 
-			$fail = $c_status != 200 || $c_error != '' || $body === false;
+			$fail = $c_status < 200 || $c_status > 299 || $c_error != '' || $body === false;
 			if ($fail) {
 				$body = '';
 				Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);

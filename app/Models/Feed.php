@@ -1363,8 +1363,11 @@ class FreshRSS_Feed extends Minz_Model {
 
 	//<WebSub>
 
-	public function pubSubHubbubEnabled(): bool {
-		// Whether the current user is enrolled in the WebSub of that topic
+	/**
+	 * WebSub subscription state for the current user, or false when not subscribed
+	 * @return array<string,mixed>|false
+	 */
+	private function pubSubHubbubState(): array|false {
 		$currentUser = Minz_User::name() ?? '';
 		if ($currentUser === '') {
 			return false;
@@ -1372,14 +1375,31 @@ class FreshRSS_Feed extends Minz_Model {
 		$url = $this->selfUrl ?: $this->url;
 		$path = PSHB_PATH . '/feeds/' . sha1($url);
 		if (($hubFile = @file_get_contents($path . '/!hub.json')) != false) {
+			/** @var array<string,mixed> $hubJson */
 			$hubJson = json_decode($hubFile, true);
-			if (is_array($hubJson) && empty($hubJson['error']) &&
+			if (is_array($hubJson) &&
 				(empty($hubJson['lease_end']) || $hubJson['lease_end'] > time()) &&
 				file_exists($path . '/' . $currentUser . '.txt')) {
-				return true;
+				return $hubJson;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Whether WebSub is activated for this feed and this user, and validated by a successfully received push
+	 */
+	public function pubSubHubbubEnabled(): bool {
+		$hubJson = $this->pubSubHubbubState();
+		return is_array($hubJson) && empty($hubJson['error']);
+	}
+
+	/**
+	 * Whether WebSub is activated for this feed and this user, but waiting for first successful push
+	 */
+	public function pubSubHubbubPending(): bool {
+		$hubJson = $this->pubSubHubbubState();
+		return is_array($hubJson) && !empty($hubJson['error']);
 	}
 
 	public function pubSubHubbubError(bool $error = true): bool {

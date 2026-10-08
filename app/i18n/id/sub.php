@@ -266,6 +266,7 @@ return array(
 		'validator' => 'Periksa validitas umpan ini',
 		'website' => 'URL situs',
 		'websub' => 'Notifikasi langsung menggunakan WebSub',
+		'websub_pending' => 'Subscribed to WebSub, waiting for the first notification',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(
