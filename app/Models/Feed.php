@@ -1525,7 +1525,7 @@ class FreshRSS_Feed extends Minz_Model {
 				' via hub ' . $hubJson['hub'] .
 				' with callback ' . $callbackUrl . ': ' . $response['status'] . ' ' . $response['body'], PSHB_LOG);
 
-			if (str_starts_with('' . $response['status'], '2')) {
+			if ($response['method'] === 'POST' && str_starts_with('' . $response['status'], '2')) {
 				return true;
 			} else {
 				$hubJson['lease_start'] = time();	//Prevent trying again too soon

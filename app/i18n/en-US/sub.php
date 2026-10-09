@@ -266,7 +266,7 @@ return array(
 		'validator' => 'Check the validity of the feed',	// IGNORE
 		'website' => 'Website URL',	// IGNORE
 		'websub' => 'Instant notifications with WebSub',	// IGNORE
-		'websub_pending' => 'Subscribed to WebSub, waiting for the first notification',	// IGNORE
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// IGNORE
 	),
 	'import_export' => array(
 		'export' => array(

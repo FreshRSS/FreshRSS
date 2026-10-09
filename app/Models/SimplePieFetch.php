@@ -25,7 +25,7 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 			}
 		}
 
-		$redirects = $curl_options[CURLOPT_MAXREDIRS] ?? null;
+		$redirects = $curl_options[CURLOPT_MAXREDIRS] ?? $redirects;
 		if (!is_int($redirects)) {
 			$redirects = 4;
 		} elseif ($redirects < 0) {

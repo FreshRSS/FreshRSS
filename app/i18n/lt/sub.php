@@ -266,7 +266,7 @@ return array(
 		'validator' => 'Patikrinti kanalo tinkamumą',
 		'website' => 'Svetainės URL',
 		'websub' => 'Momentiniai pranešimai su WebSub',
-		'websub_pending' => 'Subscribed to WebSub, waiting for the first notification',	// TODO
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

@@ -266,7 +266,7 @@ return array(
 		'validator' => 'Tarkista syötteen kelpoisuus',
 		'website' => 'Sivuston URL-osoite',
 		'websub' => 'Välittömät ilmoitukset WebSubin avulla',
-		'websub_pending' => 'Subscribed to WebSub, waiting for the first notification',	// TODO
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

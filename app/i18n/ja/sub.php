@@ -266,7 +266,7 @@ return array(
 		'validator' => 'フィードが有効かどうかを確認する',
 		'website' => 'WebサイトのURL',
 		'websub' => 'WebSubとの即時通知',
-		'websub_pending' => 'Subscribed to WebSub, waiting for the first notification',	// TODO
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(
