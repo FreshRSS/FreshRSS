@@ -2,7 +2,7 @@
 
 **Note: Currently personal themes are not officially supported and may be overwritten when updating. Be sure to keep backups!**
 
-**For small theme changes, the official [CustomCSS extension](https://github.com/FreshRSS/Extensions) is recommended.**
+**For small theme changes, the built-in [User CSS extension](../users/05_Configuration.md#user-css) is recommended.**
 
 Themes should be installed at `FreshRSS/p/themes/my-theme-name`. Docker users can use:
 
