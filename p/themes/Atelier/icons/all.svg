@@ -1,20 +1,4 @@
-<!-- @license lucide-static v1.31.0 - ISC -->
-<svg
-  class="lucide lucide-list"
-  xmlns="http://www.w3.org/2000/svg"
-  width="16"
-  height="16"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="#404040"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="M3 5h.01" />
-  <path d="M3 12h.01" />
-  <path d="M3 19h.01" />
-  <path d="M8 5h13" />
-  <path d="M8 12h13" />
-  <path d="M8 19h13" />
+<!--@license lucide-static v1.31.0 - ISC-->
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-list" viewBox="0 0 24 24">
+	<path d="M3 5h.01M3 12h.01M3 19h.01M8 5h13M8 12h13M8 19h13"/>
 </svg>

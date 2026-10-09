@@ -2,7 +2,7 @@
  * Atelier UI – override layer on top of the Mapco structural foundation
  *
  * Design system: shadcn/ui (https://ui.shadcn.com/docs/theming)
- * Color palette: the Tailwind 4.3 neutral this folder ships (see _palette.css)
+ * Color palette: the Tailwind 4.3 neutral this folder ships (see the ramp opening the first :root block in atelier.css)
  *
  * Sections:
  *   1. Tokens & typography
@@ -1121,6 +1121,25 @@ a.dropdown-toggle::before {
 	text-align: center;
 }
 
+/* FreshRSS 1.30 can hide the unread count of a feed, a category or the whole tree; it marks those [data-unread-hide] and shows a faint dot instead of the number. Here the dot is drawn as a solid disc at full strength, centred in the 2rem a pill takes, so it lines up with the counts in the rows around it. */
+.aside_feed .tree-folder .tree-folder-title[data-unread-hide]:not([data-unread="0"])::after,
+.aside_feed .tree-folder.category[data-unread-hide]:not([data-unread="0"])::after,
+.aside_feed .tree-folder-items .item > .item-title[data-unread-hide]:not([data-unread="0"])::after {
+	margin-inline: 0.75rem;
+	padding: 0;
+	background: var(--muted-foreground);
+	width: 0.5rem;
+	height: 0.5rem;
+	min-inline-size: 0;
+	content: "";
+	opacity: 1;
+}
+
+/* A category's counter sits 0.75rem in from the edge; the disc keeps that inset on top of its own. */
+.aside_feed .tree-folder.category[data-unread-hide]:not([data-unread="0"])::after {
+	margin-inline-end: 1.5rem;
+}
+
 /*=== 6. Layout: content card & page background ======================*/
 
 /* Do not stretch #global artificially to the viewport height. */
@@ -1429,13 +1448,16 @@ main.prompt h1,
 		border-radius: var(--at-radius-s);
 	}
 
-	.flux_header > .item.titleAuthorSummaryDate {
+	/* FreshRSS 1.30 lays this cell out as a grid of its own, on a selector one class heavier than the one this rule had; the extra .flux keeps the layout here, and the gap and alignment it adds are reset to what the row was built with. */
+	.flux .flux_header > .item.titleAuthorSummaryDate {
 		grid-area: content;
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) max-content;
 		grid-template-areas: "title date" "summary summary";
 		align-items: center;
 		align-content: center;
+		align-self: auto;
+		column-gap: normal;
 		row-gap: 0.25rem;
 		min-inline-size: 0;
 		padding-block: 0.625rem;
@@ -1801,8 +1823,8 @@ main.prompt h1,
 	text-underline-offset: 0.18em;
 }
 
-/* The end of the stream: a status line and, depending on the reading settings, the action that follows from it. FreshRSS separates the two with <br> and the base layer adds 5em below the footer plus 100vh below the big button, which left the card ending in a void. One centred column with bounded padding, so the block closes the card instead of trailing off. */
-#stream-footer {
+/* The end of the stream: a status line and, depending on the reading settings, the action that follows from it. FreshRSS separates the two with <br> and the base layer adds 5em below the footer plus 100vh below the big button, which left the card ending in a void. One centred column with bounded padding, so the block closes the card instead of trailing off. FreshRSS 1.30 names it by class rather than by id; the list keeps both, at the weight of the id. */
+:is(#stream-footer, .stream-footer) {
 	box-sizing: border-box;
 	inline-size: 100%;
 	margin: 0;
@@ -1987,13 +2009,15 @@ main.prompt h1,
 	padding-block-start: 0.5rem;
 }
 
-.dropdown-menu .item > :is(a, button, .as-link):focus-visible {
+.dropdown-menu .item > :is(a, button, .as-link):focus-visible,
+.dropdown-menu .item .as-link:focus-visible {
 	outline: 2px solid var(--ring);
 	outline-offset: -2px;
 	background: var(--accent);
 }
 
-.dropdown-menu .item > :is(a, button, .as-link)[aria-disabled="true"] {
+.dropdown-menu .item > :is(a, button, .as-link)[aria-disabled="true"],
+.dropdown-menu .item .as-link[aria-disabled="true"] {
 	opacity: 0.5;
 	pointer-events: none;
 }
@@ -2064,8 +2088,8 @@ main.prompt h1,
 	color: var(--accent-foreground) !important;
 }
 
-/* Settings menus carry no icons in FreshRSS's markup, so they are keyed off each entry's target URL. Drawing them as masks tinted with currentColor keeps them in step with the hover, active and dark-theme foreground, which a bundled <img> could not do. The header dropdown and the settings sidebar link to the same targets, so one selector list serves both. */
-:is(.dropdown-menu, .aside.nav-list) .item > :is(
+/* Settings menus carry no icons in FreshRSS's markup, so they are keyed off each entry's target URL. Drawing them as masks tinted with currentColor keeps them in step with the hover, active and dark-theme foreground, which a bundled <img> could not do. The header dropdown and the settings sidebar link to the same targets, so one selector list serves both. The entries are matched anywhere inside .item rather than as its children, because FreshRSS 1.30 wraps the logout button in a form of its own. */
+:is(.dropdown-menu, .aside.nav-list) .item :is(
 	button.signout,
 	a[href*="c=user"][href*="a=profile"],
 	a[href*="c=configure"][href*="a=display"],
@@ -2156,7 +2180,7 @@ button.read_all::before {
 }
 
 /* Logout */
-:is(.dropdown-menu, .aside.nav-list) .item > button.signout::before {
+:is(.dropdown-menu, .aside.nav-list) .item button.signout::before {
 	mask-image: url("icons/logout.svg");
 }
 
@@ -2291,15 +2315,15 @@ button.read_all::before {
 }
 
 /* The logout button already ends with FreshRSS's own icon; drop it so the new leading glyph does not duplicate it and every label keeps the same indent. */
-:is(.dropdown-menu, .aside.nav-list) .item > button.signout .icon {
+:is(.dropdown-menu, .aside.nav-list) .item button.signout .icon {
 	display: none;
 }
 
 /* The logo already provides the canonical route back to the feed list. Hide FreshRSS's duplicate first entry in both configuration sidebars. The configuration variant contains no second entry, so remove its empty section as well; the subscription variant keeps Advanced Search below it. */
 .aside.nav-list > ul > .item.nav-section:first-child > ul > .item:first-child,
-	main.post .alert > p:last-child:has(
-		> a[href*="c=index"][href*="a=index"]
-	) {
+main.post .alert > p:last-child:has(
+	> a[href*="c=index"][href*="a=index"]
+) {
 	display: none;
 }
 
@@ -3643,6 +3667,11 @@ progress {
 	border-inline-end-color: transparent;
 }
 
+/* FreshRSS keeps the second state of a two-state button hidden until the first is clicked -- "Updating…" beside "Start update" -- and the display .btn sets above would show it from the start, as a second button that does nothing. */
+.btn-state2:not(.show) {
+	display: none;
+}
+
 #noArticlesToShow,
 .prompt.alert {
 	margin: 1rem;
@@ -3706,6 +3735,15 @@ progress {
 .drag-active .drag-hover.drop-zone {
 	border-color: var(--primary);
 	background: var(--accent);
+}
+
+/* The log filter, new in FreshRSS 1.30, is a bare label, field and button that the base layer leaves unstyled. */
+main.post > .form-inline {
+	margin-block-end: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
 }
 
 /* Logs */
