@@ -279,7 +279,6 @@ final class FreshRSS_http_Util {
 			foreach ($doc->childNodes as $node) {
 				$utf8 .= $doc->saveHTML($node) ?: '';
 			}
-			// Put back the byte order mark of the input, if any, which saveHTML() drops: it may be the only charset information
 			$html = $utf8 !== '' ? $bom . $utf8 : $html;
 		} else {
 			$html = $doc->saveHTML() ?: $html;
