@@ -102,7 +102,7 @@ if ($ORIGINAL_INPUT == '') {
 $hubSecret = $hubJson['secret'] ?? null;
 if (is_string($hubSecret) && $hubSecret !== '') {
 	$signatureOk = false;
-	//The X-Hub-Signature header has the form `method=hexSignature`, e.g. `sha256=09AF`
+	// The X-Hub-Signature header has the form `method=hexSignature`, e.g. `sha256=09AF`
 	$signature = is_string($_SERVER['HTTP_X_HUB_SIGNATURE'] ?? null) ? $_SERVER['HTTP_X_HUB_SIGNATURE'] : '';
 	// https://www.php.net/function.hash-hmac-algos
 	if (preg_match('/^(?<algo>[a-zA-Z0-9]{4,6})=(?<signature>[0-9a-fA-F]{40,128})$/', $signature, $matches) === 1) {
