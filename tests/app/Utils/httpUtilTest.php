@@ -6,11 +6,36 @@ use PHPUnit\Framework\Attributes\DataProvider;
 /**
  * Tests for FreshRSS_http_Util
  */
-class httpUtilTest extends \PHPUnit\Framework\TestCase {
+final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideUrlsIgnoringHttps')]
 	public function test_compareUrlIgnoringHttps(string $url1, string $url2, bool $expected): void {
 		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);
+	}
+
+	#[\Override]
+	protected function tearDown(): void {
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, []);	// Restore the default empty cache
+	}
+
+	#[DataProvider('provideUrlsForRetryAfter')]
+	public function test_getRetryAfterFile(string $url1, string $url2, bool $sameFile): void {
+		$getRetryAfterFile = new ReflectionMethod(FreshRSS_http_Util::class, 'getRetryAfterFile');
+		self::assertSame($sameFile, $getRetryAfterFile->invoke(null, $url1, '') === $getRetryAfterFile->invoke(null, $url2, ''));
+	}
+
+	/** @return array<string,array{string,string,bool}> */
+	public static function provideUrlsForRetryAfter(): array {
+		return [
+			// A public server waits as a whole, per port
+			'public server' => ['https://198.51.100.7/feed1', 'https://198.51.100.7/feed2?a=1&b=2', true],
+			'public server, other port' => ['https://198.51.100.7/feed', 'https://198.51.100.7:8443/feed', false],
+			// A server on a local network waits URL by URL
+			'local IP address' => ['http://192.168.1.2/feed1', 'http://192.168.1.2/feed2', false],
+			'local domain' => ['http://rss-bridge.lan/?bridge=A', 'http://rss-bridge.lan/?bridge=B', false],
+			'local, same URL' => ['http://192.168.1.2/feed', 'http://192.168.1.2/feed', true],
+		];
 	}
 
 	#[DataProvider('provideCidrRanges')]
@@ -70,5 +95,50 @@ class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			// Non-http(s) schemes are compared as-is
 			['ftp://example.net/feed', 'https://example.net/feed', false],
 		];
+	}
+
+	public function test_getCurlResolveInfoAcceptsPublicNat64Address(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [
+			'example.test' => [
+				'192.0.66.96',
+				'64:ff9b::c000:4260',
+			],
+		]);
+
+		self::assertSame(
+			['example.test:443:192.0.66.96,[64:ff9b::c000:4260]'],
+			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+		);
+	}
+
+	public function test_getCurlResolveInfoRejectsPrivateNat64Address(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [
+			'example.test' => [
+				'64:ff9b::a9fe:a9fe',
+			],
+		]);
+
+		self::assertNull(
+			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+		);
+	}
+
+	public function test_getCurlResolveInfoRejectsLocalUseNat64Address(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [
+			'example.test' => [
+				'64:ff9b:1::c000:4260',
+				'64:ff9b:1::a9fe:a9fe',
+			],
+		]);
+
+		self::assertNull(
+			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+		);
 	}
 }
