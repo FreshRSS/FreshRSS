@@ -266,6 +266,7 @@ return array(
 		'validator' => '피드 유효성 검사',
 		'website' => '웹사이트 URL',
 		'websub' => 'WebSub을 사용한 즉시 알림',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

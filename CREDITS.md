@@ -325,6 +325,7 @@ People are sorted by name so please keep this order.
 * [sirideain](https://github.com/sirideain): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sirideain)
 * [skrlet13](https://github.com/ghost): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:skrlet13)
 * [Sp3r4z](https://github.com/Sp3r4z): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Sp3r4z)
+* [spa77k](https://github.com/spa77k): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:spa77k)
 * [stag-enterprises](https://github.com/stag-enterprises): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:stag-enterprises), [Web](https://stag.lol)
 * [Steve Jones](https://github.com/squaregoldfish): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:squaregoldfish)
 * [Strubbl](https://github.com/Strubbl): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Strubbl)
