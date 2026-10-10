@@ -92,4 +92,23 @@ final class CategoryTest extends \PHPUnit\Framework\TestCase {
 		$feed = next($feeds) ?: FreshRSS_Feed::default();
 		self::assertSame('ZZZ', $feed->name());
 	}
+
+	public function test_constructor_canKeepDatabaseOrder(): void {
+		// SQLite byte order differs from the in-memory locale-aware sort.
+		$expected = ['5 English-Title-Example', '5 中文标题示例', 'ZZZ', 'lll', '朝日新聞'];
+		$feeds = [];
+		foreach ($expected as $i => $name) {
+			$feed = new FreshRSS_Feed('https://example.net/' . $i, false);
+			$feed->_id($i + 1);
+			$feed->_name($name);
+			$feed->_nbNotRead(0);
+			$feeds[] = $feed;
+		}
+		$category = new FreshRSS_Category('test', 0, $feeds, false);
+		$names = [];
+		foreach ($category->feeds() as $feed) {
+			$names[] = $feed->name();
+		}
+		self::assertSame($expected, $names);
+	}
 }
