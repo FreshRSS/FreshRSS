@@ -266,6 +266,7 @@ return array(
 		'validator' => 'Pārbaudēt barotnes derīgumu',
 		'website' => 'Mājaslapas URL',
 		'websub' => 'Tūlītēji paziņojumi ar WebSub',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(
