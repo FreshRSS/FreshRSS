@@ -205,6 +205,16 @@ th {
 	border-radius: 0 3px 3px 0;
 }
 
+/* The hidden CSRF input precedes the button, so the sibling rules above must not apply to it */
+.stick .mark-read-menu .read_all.btn {
+	border-left: 1px solid var(--border-color-middle);
+	border-radius: 3px 0 0 3px;
+}
+
+.stick .mark-read-menu .read_all.btn:hover {
+	border-left-color: var(--contrast-border-color-hover);
+}
+
 .btn {
 	margin: 0;
 	padding: 0.25rem 0.5rem;
