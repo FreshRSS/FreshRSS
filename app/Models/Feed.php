@@ -1513,12 +1513,16 @@ class FreshRSS_Feed extends Minz_Model {
 				'hub.topic' => $url,
 				'hub.callback' => $callbackUrl,
 			];
-			if ($state) {	//Subscribe
-				if (empty($hubJson['secret']) || !is_string($hubJson['secret'])) {
-					$hubJson['secret'] = bin2hex(random_bytes(32));
-					file_put_contents($hubFilename, json_encode($hubJson));
+			if ($state) {	// Subscribe
+				// hub.secret SHOULD only be specified when the request was made over HTTPS
+				// https://www.w3.org/TR/websub/#subscription-parameter-details
+				if (str_starts_with(strtolower($hubJson['hub']), 'https://')) {
+					if (empty($hubJson['secret']) || !is_string($hubJson['secret'])) {
+						$hubJson['secret'] = bin2hex(random_bytes(32));	// length < 200
+						file_put_contents($hubFilename, json_encode($hubJson));
+					}
+					$postFields['hub.secret'] = $hubJson['secret'];
 				}
-				$postFields['hub.secret'] = $hubJson['secret'];
 			}
 			if (!$state) {	//unsubscribe
 				$hubJson['lease_end'] = time() - 60;
