@@ -35,3 +35,9 @@ updates:
       interval: "monthly"
     cooldown:
       default-days: 7
+  - package-ecosystem: "bundler"
+    directory: "/docs/"
+    schedule:
+      interval: "monthly"
+    cooldown:
+      default-days: 7

@@ -16,7 +16,7 @@
 	],
 	"require": {
 		"marienfressinaud/lib_opml": "dev-main#f0e850b6394af90b898daf0e65fcc7363457b844",
-		"phpgt/cssxpath": "v1.5.0",
+		"phpgt/cssxpath": "v1.6.0",
 		"phpmailer/phpmailer": "7.1.1",
 		"simplepie/simplepie": "dev-freshrss#caa6737811d75301720d07b30d9b53a4ab0b969d"
 	},

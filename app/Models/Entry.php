@@ -985,11 +985,11 @@ class FreshRSS_Entry extends Minz_Model {
 			$cssSelector = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
 			$cssSelector = trim($cssSelector, ', ');
 			$path_entries_filter = trim($feed->attributeString('path_entries_filter') ?? '', ', ');
-			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector, '//'))->asXPath());
+			$nodes = $xpath->query((new GT\CssXPath\Translator($cssSelector, '//'))->asXPath());
 			if ($nodes === false || $nodes->length === 0) {
 				Minz_Log::warning('CSS content retrieval matched no elements for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
 			} else {
-				$filter_xpath = $path_entries_filter === '' ? '' : (new Gt\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
+				$filter_xpath = $path_entries_filter === '' ? '' : (new GT\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
 				foreach ($nodes as $node) {
 					try {
 						if (!($node instanceof DOMElement)) {
@@ -1038,7 +1038,7 @@ class FreshRSS_Entry extends Minz_Model {
 				$utf8BOM = "\xEF\xBB\xBF";
 				$doc->loadHTML($utf8BOM . $html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 				$xpath = new DOMXPath($doc);
-				$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter, '//'))->asXPath()) ?: [];
+				$filterednodes = $xpath->query((new GT\CssXPath\Translator($path_entries_filter, '//'))->asXPath()) ?: [];
 				foreach ($filterednodes as $filterednode) {
 					try {
 						if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
@@ -1116,7 +1116,7 @@ class FreshRSS_Entry extends Minz_Model {
 				return false;
 			}
 			$xpath = new DOMXPath($doc);
-			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter'), '//'))->asXPath()) ?: [];
+			$filterednodes = $xpath->query((new GT\CssXPath\Translator($feed->attributeString('path_entries_filter'), '//'))->asXPath()) ?: [];
 			foreach ($filterednodes as $filterednode) {
 				try {
 					if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
