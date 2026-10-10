@@ -12,7 +12,7 @@
 		<div class="form-group">
 			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="stick">
-				<input type="password" id="passwordPlain"<?= $this->auth_autofills['password'] ?>
+				<input type="password" id="passwordPlain"<?= $this->auth_autofills['password'] !== '' ? ' value="' . $this->auth_autofills['password'] . '"' : '' ?>
 					class="passwordPlain" required="required" />
 				<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 			</div>

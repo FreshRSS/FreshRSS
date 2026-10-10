@@ -24,7 +24,7 @@ class FreshRSS_FormAuth {
 	/**
 	 * @return array{username: string, password: string}
 	 */
-	public static function getAutofilledFields(): array {
+	public static function getAutofilledFields(bool $raw = false): array {
 		$username = Minz_ExtensionManager::callHook(Minz_HookType::AutofillField, 'username');
 		$password = Minz_ExtensionManager::callHook(Minz_HookType::AutofillField, 'password');
 
@@ -33,9 +33,9 @@ class FreshRSS_FormAuth {
 			'password' => is_string($password) ? $password : '',
 		];
 
-		foreach ($fields as $k => $v) {
-			if ($v !== '') {
-				$fields[$k] = ' value="' . htmlspecialchars($v, ENT_COMPAT, 'UTF-8') . '"';
+		if (!$raw) {
+			foreach ($fields as $k => $v) {
+				$fields[$k] = htmlspecialchars($v, ENT_COMPAT, 'UTF-8');
 			}
 		}
 
