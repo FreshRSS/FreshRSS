@@ -2415,8 +2415,8 @@ html.slider-active {
 	width: calc(100% - 6rem);
 }
 
-.state_unread .category:not(.active)[data-unread="0"],
-.state_unread .feed:not(.active)[data-unread="0"] {
+.state_unread .category:not(.active):not(.show-read)[data-unread="0"],
+.state_unread .category:not(.show-read) .feed:not(.active)[data-unread="0"] {
 	display: none;
 }
 
