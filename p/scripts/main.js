@@ -2497,6 +2497,23 @@ see https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security`
 	`);
 }
 
+function init_remove_blur() {
+	const strip = document.querySelector('.remove-blur');
+	if (!strip) {
+		return;
+	}
+	// Match the iOS status bar to the theme, using the first applicable `theme-color` from the theme metadata
+	const update = () => {
+		const meta = Array.from(document.querySelectorAll('meta[name="theme-color"]'))
+			.find(m => !m.media || window.matchMedia(m.media).matches);
+		if (meta) {
+			strip.style.backgroundColor = meta.content;
+		}
+	};
+	update();
+	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', update);
+}
+
 function init_main_beforeDOM() {
 	history.scrollRestoration = 'manual';
 	document.scrollingElement.scrollTop = 0;
@@ -2523,6 +2540,7 @@ function init_navigation_handler() {
 
 function init_main_afterDOM() {
 	removeFirstLoadSpinner();
+	init_remove_blur();
 	init_notifications();
 	init_csp_alert();
 	init_confirm_action();
