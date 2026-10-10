@@ -1507,17 +1507,25 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::warning('Invalid callback for WebSub: ' . $this->url);
 				return false;
 			}
+			$postFields = [
+				'hub.verify' => 'sync',
+				'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
+				'hub.topic' => $url,
+				'hub.callback' => $callbackUrl,
+			];
+			if ($state) {	//Subscribe
+				if (empty($hubJson['secret']) || !is_string($hubJson['secret'])) {
+					$hubJson['secret'] = bin2hex(random_bytes(32));
+					file_put_contents($hubFilename, json_encode($hubJson));
+				}
+				$postFields['hub.secret'] = $hubJson['secret'];
+			}
 			if (!$state) {	//unsubscribe
 				$hubJson['lease_end'] = time() - 60;
 				file_put_contents($hubFilename, json_encode($hubJson));
 			}
 			$response = FreshRSS_http_Util::httpGet($hubJson['hub'], null, 'html', [], [
-				CURLOPT_POSTFIELDS => http_build_query([
-					'hub.verify' => 'sync',
-					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
-					'hub.topic' => $url,
-					'hub.callback' => $callbackUrl,
-				]),
+				CURLOPT_POSTFIELDS => http_build_query($postFields),
 				CURLOPT_MAXREDIRS => 10,
 			]);
 
