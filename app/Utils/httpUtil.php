@@ -528,6 +528,9 @@ final class FreshRSS_http_Util {
 		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
 		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
 
+		// Strip any scheme already present in CURLOPT_PROXY, as the scheme is determined by CURLOPT_PROXYTYPE:
+		$proxy = preg_replace('#^.*://#', '', $proxy) ?? $proxy;
+
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
 			return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true, 'status' => -429, 'error' => '', 'method' => $c_method];
@@ -574,6 +577,7 @@ final class FreshRSS_http_Util {
 						\SimplePie\Misc::url_remove_credentials($url) . ']');
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				} elseif ($resolve === false) {
+					Minz_Log::warning('Error during HTTP fetch: unable to resolve hostname! ' . \SimplePie\Misc::url_remove_credentials($url));
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				}
 				if (!empty($resolve)) {
@@ -602,6 +606,7 @@ final class FreshRSS_http_Util {
 						\SimplePie\Misc::url_remove_credentials($proxy_url) . ']');
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				} elseif ($resolve === false) {
+					Minz_Log::warning('Error during HTTP fetch: unable to resolve the proxy’s hostname! ' . \SimplePie\Misc::url_remove_credentials($proxy_url));
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				}
 				if (!empty($resolve)) {
