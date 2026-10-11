@@ -25,11 +25,11 @@ class Minz_Error {
 		$logs = self::processLogs($logs);
 
 		Minz_Session::_params([
-			'error_code' => $code,
 			'error_logs' => $logs,
 		]);
 
-		Minz_Request::forward(['c' => 'error'], $redirect);
+		// The error code is passed by URL and not by session due to session ID rotations
+		Minz_Request::forward(['c' => 'error', 'params' => ['code' => $code]], $redirect);
 	}
 
 	/**
