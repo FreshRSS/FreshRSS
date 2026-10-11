@@ -46,6 +46,13 @@ jobs:
               type=semver,pattern={{major}}-alpine,enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
             #  type=semver,pattern={{major}}.{{minor}}-alpine
     steps:
+    - name: Login to Docker Hub
+      if: github.repository_owner == 'FreshRSS'
+      uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
 
@@ -75,13 +82,6 @@ jobs:
         labels: |
           org.opencontainers.image.url=https://freshrss.org/
           org.opencontainers.image.version=${{ env.FRESHRSS_VERSION }}
-
-    - name: Login to Docker Hub
-      if: github.repository_owner == 'FreshRSS'
-      uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Login to GitHub Container Registry
       if: github.repository_owner == 'FreshRSS'
