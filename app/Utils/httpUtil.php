@@ -525,11 +525,9 @@ final class FreshRSS_http_Util {
 				}
 			}
 		}
-		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
 		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
-
-		// Strip any scheme already present in CURLOPT_PROXY, as the scheme is determined by CURLOPT_PROXYTYPE:
-		$proxy = preg_replace('#^.*://#', '', $proxy) ?? $proxy;
+		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
+		$proxy = preg_replace('#^.*://#', '', $proxy) ?? $proxy;	// Strip scheme, as it is provided by CURLOPT_PROXYTYPE
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
