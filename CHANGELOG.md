@@ -2,7 +2,22 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-1X-XX FreshRSS 1.30.2-dev
+## 2026-10-XX FreshRSS 1.30.2-dev
+
+* Security
+	* SimplePie sanitizer: block `data:` URI scheme while keeping `data:image` for images [#9417](https://github.com/FreshRSS/FreshRSS/pull/9417)
+* Bug fixes
+	* WebSub fix POST, fix warning, better message [#9420](https://github.com/FreshRSS/FreshRSS/pull/9420)
+	* Fix PHP 8.5+ deprecation of `sqliteCreateFunction` for SQLite [#9421](https://github.com/FreshRSS/FreshRSS/pull/9421)
+* Performance
+	* Reduce memory consumption of export [#9350](https://github.com/FreshRSS/FreshRSS/pull/9350)
+* UI
+	* Various UI and style improvements [#9426](https://github.com/FreshRSS/FreshRSS/pull/9426)
+* Misc.
+	* Update to `GT\CssXPath` 1.6.0 [#9411](https://github.com/FreshRSS/FreshRSS/pull/9411)
+	* CI/CD: Fix login to Docker Hub [#9433](https://github.com/FreshRSS/FreshRSS/pull/9433)
+	* Fix SVGO zero percent filtering in CI [#9422](https://github.com/FreshRSS/FreshRSS/pull/9422)
+	* Update dev dependencies [#9425](https://github.com/FreshRSS/FreshRSS/pull/9425)
 
 
 ## 2026-10-05 FreshRSS 1.30.1
