@@ -459,11 +459,11 @@ class FreshRSS_Feed extends Minz_Model {
 			if ($txt_mtime != false &&
 				($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (14 * 86400)))) {
 				// no ico file or we should download a new one.
-				if ($feedIconUrl !== '' && download_favicon_from_image_url($feedIconUrl, $ico)) {
+				if ($feedIconUrl !== '' && download_favicon_from_image_url($feedIconUrl, $ico, $this->attributes(), $this->curlOptions())) {
 					return;
 				}
 				// Fall back to website favicon search
-				if (!download_favicon($websiteUrl, $ico)) {
+				if (!download_favicon($websiteUrl, $ico, $this->attributes(), $this->curlOptions())) {
 					touch($ico);
 				}
 			}
