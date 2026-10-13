@@ -22,6 +22,9 @@ Entries are separated by newlines, and must be a `host:port` combination, for ex
 Another option is to set an `INTERNAL_HOST_ALLOWLIST` environment variable (e.g. in your docker-compose file). The entries there are separated by whitespace instead.
 Adding `*` disables the SSRF check completely (unsafe).
 
+The same allowlist is needed for HTTP and SOCKS proxies:
+for instance, a proxy `socks5h://127.0.0.1:1080` is blocked unless its location is allowed.
+
 ### Recommended additional mitigations for shared/public setups
 
 Although there are already existing mitigations for SSRF, some extra steps can be taken for more safety:
