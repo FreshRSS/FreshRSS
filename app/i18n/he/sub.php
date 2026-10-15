@@ -258,6 +258,7 @@ return array(
 		'validator' => 'בדיקות תקינות ההזנה',
 		'website' => 'אתר URL',
 		'websub' => 'Instant notifications with WebSub',	// TODO
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

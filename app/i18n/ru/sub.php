@@ -258,6 +258,7 @@ return array(
 		'validator' => 'Проверить валидность ленты',
 		'website' => 'URL сайта',
 		'websub' => 'Моментальные оповещения посредством WebSub',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

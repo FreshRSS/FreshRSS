@@ -258,6 +258,7 @@ return array(
 		'validator' => 'Zkontrolovat platnost kanálu',
 		'website' => 'Adresa URL webové stránky',
 		'websub' => 'Okamžité oznámení s WebSub',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(
