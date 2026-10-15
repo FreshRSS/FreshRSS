@@ -145,6 +145,7 @@ People are sorted by name so please keep this order.
 * [IEEE-754](https://github.com/IEEE-754): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:IEEE-754)
 * [Ihsan Arif](https://github.com/ihsanarifr): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ihsanarifr), [Web](https://bio.santekno.com/)
 * [Ilias Vrachnis](https://github.com/vrachnis): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:vrachnis)
+* [ImperfectBlu](https://github.com/lordmarrik): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:lordmarrik)
 * [Inverle](https://github.com/Inverle): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Inverle)
 * [Jackson Culbreth](https://github.com/culbrethj): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:culbrethj)
 * [jaden](https://github.com/jaden): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jaden)
