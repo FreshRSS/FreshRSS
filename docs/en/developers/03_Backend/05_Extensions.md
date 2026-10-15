@@ -147,7 +147,7 @@ final class HelloWorldExtension extends Minz_Extension
 		parent::init();
 
 		$this->registerHook(Minz_HookType::EntryBeforeDisplay, $this->renderEntry(...), 10);
-		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, self::checkUrl(...), -10);
+		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, self::checkUrlBeforeAdd(...), -10);
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
