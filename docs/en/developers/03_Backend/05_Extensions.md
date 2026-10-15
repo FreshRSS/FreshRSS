@@ -191,6 +191,11 @@ Example response for a `query_icon_info` request:
 * `Minz_HookType::EntryBeforeUpdate` (`function($entry) -> Entry | null`): will be executed when a feed is refreshed and just before an entry is updated in the database. Useful for reading the final state of the entry after filter actions have been applied. The updated entry (instance of FreshRSS\_Entry) will be passed as parameter.
 * `Minz_HookType::FeedBeforeActualize` (`function($feed) -> Feed | null`): will be executed when a feed is updated. The feed (instance of FreshRSS\_Feed) will be passed as parameter.
 * `Minz_HookType::FeedBeforeInsert` (`function($feed) -> Feed | null`): will be executed when a new feed is imported into the database. The new feed (instance of FreshRSS\_Feed) will be passed as parameter.
+* `Minz_HookType::FeedsAfterActualize` (`function(array $feeds, int $nbNewArticles): void`):
+	will be executed at the end of a refresh (cron, web interface, API, CLI, WebSub), once the new articles are committed
+	and therefore visible to queries and the API. `$feeds` lists the refreshed feeds whose articles changed,
+	`$nbNewArticles` counts the new articles. `$feeds` is empty when the web interface commits the articles of feeds it refreshed
+	in earlier requests. Useful for extensions that process new articles in bulk.
 * `Minz_HookType::FeedsListBeforeActualize` (`function(array<FreshRSS_Feed> $feedList) -> array | null`): will be executed before FreshRSS tries to update feeds. The list of feeds (array of `FreshRSS_Feed`) to update will be passed as a parameter. Useful for modifying the order in which the feeds will be updated.
 * `Minz_HookType::FreshrssInit` (`function() -> none`): will be executed at the end of the initialization of FreshRSS, useful to initialize components or to do additional access checks.
 * `Minz_HookType::FreshrssUserMaintenance` (`function() -> none`): will be executed for each user during the `actualize_script`, useful to run some maintenance tasks on the user.

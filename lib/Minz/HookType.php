@@ -18,6 +18,7 @@ enum Minz_HookType: string {
 	case EntryBeforeUpdate = 'entry_before_update';	// function(FreshRSS_Entry $entry) -> FreshRSS_Entry | null
 	case FeedBeforeActualize = 'feed_before_actualize';	// function(FreshRSS_Feed $feed) -> FreshRSS_Feed | null
 	case FeedBeforeInsert = 'feed_before_insert';	// function(FreshRSS_Feed $feed) -> FreshRSS_Feed | null
+	case FeedsAfterActualize = 'feeds_after_actualize';	// function(array $feeds, int $nbNewArticles): void
 	case FeedsListBeforeActualize = 'feeds_list_before_actualize';	// function(array $feedsList) -> array
 	case FreshrssInit = 'freshrss_init';	// function() -> none
 	case FreshrssUserMaintenance = 'freshrss_user_maintenance';	// function() -> none
@@ -66,6 +67,7 @@ enum Minz_HookType: string {
 			case self::EntriesRead:
 			case self::EntryAutoRead:
 			case self::EntryAutoUnread:
+			case self::FeedsAfterActualize:
 			case self::SimplepieAfterInit:
 			case self::SimplepieBeforeInit:
 				return Minz_HookSignature::PassArguments;
