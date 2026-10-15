@@ -83,6 +83,9 @@
 <?php
 	if (!Minz_Request::paramBoolean('ajax')) {
 		flush();
+?>
+	<div class="remove-blur" aria-hidden="true"></div>
+<?php
 		$this->partial('header');
 	}
 ?>
