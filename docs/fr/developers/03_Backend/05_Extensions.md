@@ -210,7 +210,7 @@ final class HelloWorldExtension extends Minz_Extension
 		return $entry;
 	}
 
-	public static function checkUrlBeforeAdd(string $url): string {
+	public static function checkUrlBeforeAdd(string $url): ?string {
 		if (str_starts_with($url, 'https://')) {
 			return $url;
 		}
