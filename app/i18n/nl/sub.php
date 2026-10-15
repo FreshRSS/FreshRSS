@@ -266,6 +266,7 @@ return array(
 		'validator' => 'Controleer de geldigheid van de feed',
 		'website' => 'Website-url',
 		'websub' => 'Directe notificaties met WebSub',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

@@ -74,7 +74,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	}
 
 	/** @param array<string,mixed> $userConfigUpdated */
-	public static function updateUser(string $user, ?string $email, string $passwordPlain, array $userConfigUpdated = []): bool {
+	public static function updateUser(string $user, ?string $email, #[\SensitiveParameter] string $passwordPlain, array $userConfigUpdated = []): bool {
 		$userConfig = FreshRSS_UserConfiguration::getForUser($user);
 		if ($userConfig === null) {
 			return false;
@@ -174,6 +174,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($challenge !== '') {
 				$username = Minz_User::name();
 				$nonce = Minz_Session::paramString('nonce');
+				Minz_Session::_param('nonce', false);	// One-time: consume the challenge so it cannot be replayed.
 
 				$newPasswordPlain = Minz_Request::paramString('newPasswordPlain', plaintext: true);
 				$confirmPasswordPlain = Minz_Request::paramString('confirmPasswordPlain', plaintext: true);
@@ -198,7 +199,13 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 					return;
 				}
 
-				Minz_Session::regenerateID('FreshRSS');
+				try {
+					Minz_Session::regenerateID('FreshRSS');
+				} catch (RuntimeException $e) {
+					Minz_Log::error('Session could not be regenerated during password change! ' . $e->getMessage());
+					Minz_Request::bad(_t('install.session.nok'), ['c' => 'user', 'a' => 'profile']);
+					return;
+				}
 			}
 
 			if (FreshRSS_Context::systemConf()->force_email_validation && empty($email)) {
@@ -343,7 +350,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 * @throws Minz_ConfigurationNamespaceException
 	 * @throws Minz_PDOConnectionException
 	 */
-	public static function createUser(string $new_user_name, ?string $email, string $passwordPlain,
+	public static function createUser(string $new_user_name, ?string $email, #[\SensitiveParameter] string $passwordPlain,
 		array $userConfigOverride = [], bool $insertDefaultFeeds = true): bool {
 		$userConfig = [];
 
@@ -501,6 +508,13 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($ok && !FreshRSS_Auth::hasAccess('admin')) {
 				$user_conf = FreshRSS_UserConfiguration::getForUser($new_user_name);
 				if ($user_conf !== null) {
+					// Rotate the session ID on this unauthenticated->authenticated
+					// transition to prevent session fixation, as on form login.
+					try {
+						Minz_Session::regenerateID('FreshRSS');
+					} catch (RuntimeException $e) {
+						Minz_Log::error('Session could not be regenerated during self-registration auto-login! ' . $e->getMessage());
+					}
 					Minz_Session::_params([
 						Minz_User::CURRENT_USER => $new_user_name,
 						'passwordHash' => $user_conf->passwordHash,
@@ -695,6 +709,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			if ($self_deletion) {
 				// We check the password if it’s a self-destruction
 				$nonce = Minz_Session::paramString('nonce');
+				Minz_Session::_param('nonce', false);	// One-time: consume the challenge so it cannot be replayed.
 				$challenge = Minz_Request::paramString('challenge');
 
 				$ok &= FreshRSS_FormAuth::checkCredentials(

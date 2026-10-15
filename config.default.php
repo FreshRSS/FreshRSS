@@ -152,6 +152,11 @@ return [
 		# Limits for regex, useful to limit regex during user searches
 		'regex_backtrack_limit' => 10000,
 		'regex_recursion_limit' => 100,
+
+		# Max length of a Boolean search query, in bytes
+		'max_search_length' => 16384,
+		# Max depth of parentheses nesting in a Boolean search query
+		'max_search_parentheses_depth' => 32,
 	],
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.

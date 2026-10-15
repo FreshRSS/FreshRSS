@@ -1,6 +1,6 @@
 <?php
 
-namespace Gt\CssXPath;
+namespace GT\CssXPath;
 
 class SelectorListSplitter {
 	/** @return array<int, string> */

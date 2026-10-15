@@ -101,7 +101,7 @@ cd /usr/share/FreshRSS
 ```
 
 ```sh
-./cli/actualize-user.php --user username
+./cli/actualize-user.php --user username [ --feed-id 123 ]
 # Fetch feeds for the specified user.
 
 ./cli/delete-user.php --user username

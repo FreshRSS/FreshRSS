@@ -160,7 +160,7 @@ class File implements Response
                     }
                     $proxy = preg_replace('#^.*://#i', '', $proxy); // Strip any scheme already present in CURLOPT_PROXY
                     $proxy_url = "$proxy_scheme://$proxy"; // CURLOPT_PROXY ($proxy) is formatted as user:pass@hostname:port, with the part before @ being optional
-                    $resolve = $this->get_curl_resolve_info($proxy_url, true);
+                    $resolve = $this->get_curl_resolve_info($proxy_url);
                     if ($resolve === null) {
                         $this->error = 'Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
                             \SimplePie\Misc::url_remove_credentials($url) . '] [' .
@@ -172,10 +172,11 @@ class File implements Response
                         $this->success = false;
                         return;
                     }
-                    $curl_options[CURLOPT_PROXY] = $resolve; // Translate from a hostname:port value to ip:port, in order to prevent DNS rebinding
-                    if (defined('CURLOPT_PROXY_SSL_VERIFYHOST')) {
-                        // Available as of PHP 7.3.0 and cURL 7.52.0
-                        $curl_options[CURLOPT_PROXY_SSL_VERIFYHOST] = 0; // Skip verifying the hostname (a bit unsafe, but needed since there is no CURLOPT_RESOLVE equivalent for proxy hostnames)
+                    if (!empty($resolve)) {
+                        // Only for the proxy domain, socks4a and socks5h DNS queries will be passed through the proxy.
+                        // For the other proxy protocols, note that IPs for internal domains can be leaked,
+                        // since the domain is resolved outside of the proxy.
+                        $curl_options[CURLOPT_RESOLVE] = $resolve;
                     }
                 }
                 $this->method = \SimplePie\SimplePie::FILE_SOURCE_REMOTE | \SimplePie\SimplePie::FILE_SOURCE_CURL;
@@ -495,19 +496,12 @@ class File implements Response
     }
 
     /**
-     * Event to allow inheriting classes to control fetching certain URLs.
+     * Event to allow inheriting classes to control fetching certain website and proxy URLs.
      * @param string $url
-     * @return array<string>|string|null|false Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve. Can also be used for checking if the CURLOPT_PROXY value is allowed, by providing a proxy URL with the `for_proxy` parameter set to `true`. In that case, a string value will be returned with the hostname resolved to an IP if allowed.
+     * @return array<string>|null|false Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
      */
-    protected function get_curl_resolve_info(string $url, bool $for_proxy = false)
+    protected function get_curl_resolve_info(string $url)
     {
-        if ($for_proxy) {
-            $pos = strpos($url, '://');
-            if ($pos === false) {
-                return false;
-            }
-            return substr($url, $pos + 3);
-        }
         return [];
     }
 

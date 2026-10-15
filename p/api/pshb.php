@@ -128,10 +128,10 @@ if ($httpLink !== '' && preg_match_all('/<([^>]+)>;\\s*rel="([^"]+)"/', $httpLin
 	}
 }
 
-if (FreshRSS_http_Util::compareUrlIgnoringHttps($self, $canonical) !== 0) {
-	//header('HTTP/1.1 422 Unprocessable Entity');
+if ($self !== '' && FreshRSS_http_Util::compareUrlIgnoringHttps($self, $canonical) !== 0) {
+	header('HTTP/1.1 422 Unprocessable Entity');
 	Minz_Log::warning('Warning: Self URL [' . $self . '] does not match registered canonical URL!: ' . $canonical, PSHB_LOG);
-	//die('Self URL does not match registered canonical URL!');
+	die('Self URL does not match registered canonical URL!');
 }
 
 Minz_ExtensionManager::init();

@@ -266,6 +266,7 @@ return array(
 		'validator' => 'Sprawdź zgodność kanału',
 		'website' => 'Adres strony',
 		'websub' => 'Natychmiastowe powiadomienia protokołu WebSub',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

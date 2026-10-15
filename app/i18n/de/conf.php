@@ -201,8 +201,8 @@ return array(
 			'_' => 'Angewendeter Filter:',
 			'categories' => 'Nach Kategorie filtern',
 			'feeds' => 'Nach Feed filtern',
-			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
-			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'include_article_tags_label' => 'Artikel-Tags aus den Feeds berücksichtigen',
+			'include_user_labels_label' => 'Eigene Labels berücksichtigen, mit Präfix:',
 			'order' => 'Nach Datum sortieren',
 			'search' => 'Suchbegriff',
 			'shareOpml' => 'Teilen via OPML mit zugehörigen Kategorien und Feeds aktivieren',
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Artikel als Favorit markieren…',
 		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
-		'sticky_sort' => 'Manuelle Sortierung bei der Navigation beibehalten',	// DIRTY
-		'sticky_sort_help' => 'Legt fest, ob die letzte manuelle Sortierung aktiv bleibt oder ob jede Kategorie bzw. jeder Feed immer die eigene Standard- oder globale Einstellung verwendet.',	// DIRTY
+		'sticky_sort' => 'Manuelle Sortierung bei der Navigation beibehalten',
+		'sticky_sort_help' => 'Legt fest, ob die letzte manuelle Sortierung aktiv bleibt oder ob jede Kategorie bzw. jeder Feed immer die eigene Standard- oder globale Einstellung verwendet.',
 		'title' => 'Lesen',
 		'view' => array(
 			'default' => 'Standard-Ansicht',

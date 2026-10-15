@@ -283,6 +283,21 @@ class Minz_Request {
 	}
 
 	/**
+	 * Returns `PATH_INFO` accounting for a bug when sometimes it may contain `SCRIPT_NAME` value instead of blank
+	 */
+	public static function pathInfo(): string {
+		$pathInfo = $_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? null;
+		if (!is_string($pathInfo)) {
+			return '';
+		}
+		$scriptName = $_SERVER['SCRIPT_NAME'] ?? null;
+		if ($scriptName === $pathInfo) {
+			return '';
+		}
+		return $pathInfo;
+	}
+
+	/**
 	 * Return true if the request is over HTTPS, false otherwise (HTTP)
 	 */
 	public static function isHttps(): bool {
@@ -584,7 +599,7 @@ class Minz_Request {
 			return false;
 		}
 		$conf = FreshRSS_UserConfiguration::getForUser($username);
-		if ($conf === null || !hash_equals($conf->token, $token_param)) {
+		if ($conf === null || !$conf->enabled || !hash_equals($conf->token, $token_param)) {
 			return false;
 		}
 		return true;

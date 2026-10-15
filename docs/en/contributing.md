@@ -69,9 +69,9 @@ This checklist is designed to ensure high-quality system themes while minimizing
 * Include _frss.css in the "files" section of [`metadata.json`](./developers/04_Frontend/02_Design.md).
 * Theme-specific icons reside in the `icons` directory.
 	* Icons should be provided as `svg` files.
-		* Ensure clean code without any unnecessary fragments; utilize tools like [SVGOMG](https://jakearchibald.github.io/svgomg/) for cleaning.
+		* Ensure clean code without any unnecessary fragments. SVG files should be optimized using `make svgo`.
 		* The default color for icons is `#666666`; employ CSS filters for recoloring.
-* Utilize CSS variables for colors to facilitate easy color adjustments with [CustomCSS extension](https://github.com/FreshRSS/Extensions).
+* Utilize CSS variables for colors to facilitate easy color adjustments with the [User CSS extension](./users/05_Configuration.md#user-css).
 * Implement a dark mode that aligns with the `.darkMode` CSS class.
 * To streamline maintenance, avoid using CSS preprocessors; instead, employ well-structured plain CSS.
 

@@ -207,7 +207,7 @@ class FreshRSS_entry_Controller extends FreshRSS_ActionController {
 			if ($search !== '') {
 				$params['search'] = $search;
 			}
-			$stateParam = Minz_Request::paramInt('state');
+			$stateParam = FreshRSS_Context::getStateForRedirect();
 			if ($stateParam !== 0) {
 				$params['state'] = $stateParam;
 			}

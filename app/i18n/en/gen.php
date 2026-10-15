@@ -191,6 +191,7 @@ return array(
 	),
 	'lang' => array(
 		'az' => 'Azərbaycanca',
+		'be' => 'Беларуская',
 		'cs' => 'Čeština',
 		'de' => 'Deutsch',
 		'el' => 'Ελληνικά',

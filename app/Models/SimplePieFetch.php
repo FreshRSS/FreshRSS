@@ -25,7 +25,7 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 			}
 		}
 
-		$redirects = $curl_options[CURLOPT_MAXREDIRS] ?? null;
+		$redirects = $curl_options[CURLOPT_MAXREDIRS] ?? $redirects;
 		if (!is_int($redirects)) {
 			$redirects = 4;
 		} elseif ($redirects < 0) {
@@ -45,8 +45,8 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 	}
 
 	#[\Override]
-	protected function get_curl_resolve_info(string $url, bool $for_proxy = false): array|string|null|false {
-		return FreshRSS_http_Util::getCurlResolveInfo($url, $for_proxy);
+	protected function get_curl_resolve_info(string $url): array|null|false {
+		return FreshRSS_http_Util::getCurlResolveInfo($url);
 	}
 
 	#[\Override]

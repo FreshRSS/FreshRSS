@@ -64,7 +64,8 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		$this->rename_attributes(['id', 'class']);
 		$this->allow_aria_attr(true);
 		$this->allow_data_attr(true);
-		$this->disallow_uri_schemes(['javascript']);
+		// `data:` is still allowed for images (see Sanitize::is_allowed_uri()), but blocked on navigational/framing attributes
+		$this->disallow_uri_schemes(['javascript', 'data']);
 		$this->allowed_html_attributes([
 			// HTML
 			'dir',

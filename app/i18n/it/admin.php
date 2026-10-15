@@ -92,12 +92,12 @@ return array(
 		'force_email_validation' => 'Forza la validazione dell’indirizzo mail',
 		'instance-name' => 'Nome istanza',
 		'internal-host-allowlist' => array(
-			'_' => 'Internal host allowlist',	// TODO
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'_' => 'Host interni consentiti',
+			'help' => 'Una voce per riga:<ul><li>Un <code>host:port</code>. Ad esempio <code>127.0.0.1:8080</code> o <code>rss-bridge:80</code></li><li>Una notazione CIDR. Ad esempio <code>0.0.0.0/0</code> per consentire qualsiasi indirizzo IPv4, <code>::/0</code> per consentire qualsiasi indirizzo IPv6</li><li>Un <code>*</code> per consentire qualsiasi host (non sicuro)</li></ul>',
 		),
 		'max-categories' => 'Limite categorie per utente',
 		'max-feeds' => 'Limite feeds per utente',
-		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'override-by-env-var' => 'Questa impostazione è definita dalla variabile d’ambiente <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Numero massimo di profili',
 			'select' => array(
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Canale di rilascio',
 			'edge' => 'Rilascio continuo (“edge”)',
-			'latest' => 'Stabile (“latest”)',	// DIRTY
+			'latest' => 'Rilascio versionato (“latest”)',
 		),
 		'title' => 'Aggiorna sistema',
 		'viaGit' => 'Aggiornamento tramite git e GitHub.com avviato',

@@ -34,9 +34,20 @@ class FreshRSS_Auth {
 		if (self::$login_ok && self::giveAccess()) {
 			return self::$login_ok;
 		}
-		if (self::accessControl() && self::giveAccess()) {
-			FreshRSS_UserDAO::touch();
-			return self::$login_ok;
+		if (self::accessControl()) {
+			// Rotate the PHP session ID on the unauthenticated->authenticated transition.
+			// Keep the old session (not authenticated) to not break concurrent in-flight requests.
+			if (FreshRSS_Context::systemConf()->auth_type !== 'none') {
+				try {
+					Minz_Session::regenerateID('FreshRSS', delete_old_session: false);
+				} catch (RuntimeException $e) {
+					Minz_Log::error('Session could not be regenerated during access restoration: ' . $e->getMessage());
+				}
+			}
+			if (self::giveAccess()) {
+				FreshRSS_UserDAO::touch();
+				return self::$login_ok;
+			}
 		}
 		// Be sure all accesses are removed!
 		self::removeAccess();
@@ -106,6 +117,7 @@ class FreshRSS_Auth {
 		FreshRSS_Context::initUser();
 		if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) {
 			self::$login_ok = false;
+			Minz_Session::_param('loginOk', false);
 			return false;
 		}
 
@@ -280,6 +292,6 @@ class FreshRSS_Auth {
 	}
 
 	public static function allowAnonymousRefresh(): bool {
-		return FreshRSS_Context::systemConf()->allow_anonymous_refresh && self::allowAnonymous();
+		return FreshRSS_Context::systemConf()->allow_anonymous_refresh;
 	}
 }
