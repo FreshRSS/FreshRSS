@@ -112,7 +112,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 
 		return array_map(static function (array $extension) {
 			if ($extension['compatibility'] !== '✔') {
-				$extension['compatibility'] = version_compare($extension['compatibility'], FRESHRSS_VERSION, '>=') ? '✔' : '✘';
+				$extension['compatibility'] = version_compare(FRESHRSS_VERSION, $extension['compatibility'], '>=') ? '✔' : '✘';
 			}
 			return $extension;
 		}, $extensions);
