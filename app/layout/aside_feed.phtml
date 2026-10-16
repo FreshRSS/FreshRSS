@@ -80,7 +80,7 @@
 				<li id="t_<?= $tag->id() ?>" class="item feed<?= FreshRSS_Context::isCurrentGet('t_' . $tag->id()) ? ' active' : ''
 					?>" data-unread="<?= $tag->nbUnread() ?>"<?= $hideSucGlobal ?>>
 					<?php if (FreshRSS_Auth::hasAccess()) { ?>
-						<div class="dropdown no-mobile">
+						<div class="dropdown">
 							<div id="dropdown-t-<?= $tag->id() ?>" class="dropdown-target"></div>
 							<a class="dropdown-toggle" href="#dropdown-t-<?= $tag->id() ?>"><?= _i('configure') ?></a>
 							<?php /* tag_config_template */ ?>
@@ -152,7 +152,7 @@
 <li id="f_<?= $feed->id() ?>" class="item feed<?= $f_active_class, $mute_class, $error_class, $empty_class ?>"
 		data-unread="<?= $feed->nbNotRead() ?>"<?= $hideSucFeed ?> data-priority="<?= $feed->priority() ?>"><?php
 		if ($f_active || $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds):
-			?><div class="dropdown no-mobile">
+			?><div class="dropdown">
 				<div id="dropdown-<?= $feed->id() ?>" class="dropdown-target"></div><a href="#dropdown-<?= $feed->id() ?>" class="dropdown-toggle" title="<?=
 					_t('gen.action.menu.open') ?>" data-fweb="<?= $feed->website() ?>"><?= _i('configure') ?></a><?php /* feed_config_template */ ?>
 			</div><?php
