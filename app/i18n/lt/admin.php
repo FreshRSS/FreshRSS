@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Naudotojų registracijos forma',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Retry-After allowlist',	// TODO
+			'help' => 'One entry per line: a <code>host</code> to match all ports, or a <code>host:port</code> combination. For instance <code>rss-bridge</code> or <code>rsshub:1200</code>. The <code>Retry-After</code> header is ignored for matching hosts.',	// TODO
+		),
 		'sensitive-parameter' => 'Slaptas parametras. Redaguokite rankiniu būdu faile <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'nepateiktos',

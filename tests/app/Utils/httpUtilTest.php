@@ -15,9 +15,11 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[\Override]
 	protected function tearDown(): void {
-		FreshRSS_Context::initSystem(reload: true);	// Restore the default internal host allowlist
+		FreshRSS_Context::initSystem(reload: true);	// Restore the default system configuration
 		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
 		$resolveOk->setValue(null, []);	// Restore the default empty cache
+		$retryAfterDomainWide = new ReflectionProperty(FreshRSS_http_Util::class, 'retry_after_domain_wide');
+		$retryAfterDomainWide->setValue(null, []);
 	}
 
 	#[DataProvider('provideUrlsForRetryAfter')]
@@ -37,6 +39,35 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			'local domain' => ['http://rss-bridge.lan/?bridge=A', 'http://rss-bridge.lan/?bridge=B', false],
 			'local, same URL' => ['http://192.168.1.2/feed', 'http://192.168.1.2/feed', true],
 		];
+	}
+
+	#[DataProvider('provideRetryAfterAllowlist')]
+	public function test_retryAfterAllowlist(string $allowedDomain, string $url, bool $isAllowlisted): void {
+		FreshRSS_Context::systemConf()->retry_after_allowlist = [$allowedDomain];
+		$getRetryAfterFile = new ReflectionMethod(FreshRSS_http_Util::class, 'getRetryAfterFile');
+
+		self::assertSame($isAllowlisted, $getRetryAfterFile->invoke(null, $url, '') === '');
+	}
+
+	/** @return array<string,array{string,string,bool}> */
+	public static function provideRetryAfterAllowlist(): array {
+		return [
+			'host' => ['rss.example.com', 'https://rss.example.com/feed', true],
+			'host with any port' => ['rss.example.com', 'https://rss.example.com:10443/feed', true],
+			'host and port' => ['rss.example.com:10443', 'https://rss.example.com:10443/feed', true],
+			'host and different port' => ['rss.example.com:10443', 'https://rss.example.com:443/feed', false],
+			'host without required port' => ['rss.example.com:10443', 'https://rss.example.com/feed', false],
+			'host is case insensitive' => ['RSS.EXAMPLE.COM', 'https://rss.example.com/feed', true],
+			'subdomain' => ['rss.example.com', 'https://sub.rss.example.com/feed', false],
+			'IPv6 host and port' => ['[2001:db8::1]:8080', 'https://[2001:db8::1]:8080/feed', true],
+		];
+	}
+
+	public function test_retryAfterAllowlistSkipsCooldown(): void {
+		FreshRSS_Context::systemConf()->retry_after_allowlist = ['rss.example.com'];
+
+		self::assertSame(0, FreshRSS_http_Util::setRetryAfter('https://rss.example.com/feed', '', '3600'));
+		self::assertSame(0, FreshRSS_http_Util::getRetryAfter('https://rss.example.com/feed', ''));
 	}
 
 	#[DataProvider('provideCidrRanges')]
