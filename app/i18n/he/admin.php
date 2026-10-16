@@ -115,8 +115,8 @@ return array(
 			'title' => 'User registration form',	// TODO
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Retry-After allowlist',	// TODO
-			'help' => 'One entry per line: a <code>host</code> to match all ports, or a <code>host:port</code> combination. For instance <code>rss-bridge</code> or <code>rsshub:1200</code>. The <code>Retry-After</code> header is ignored for matching hosts.',	// TODO
+			'_' => 'רשימת היתרים של Retry-After',
+			'help' => 'רשומה אחת בכל שורה: <code>host</code> להתאמה לכל היציאות, או צירוף <code>host:port</code> ליציאה מסוימת. לדוגמה <code>rss-bridge</code> או <code>rsshub:1200</code>. הכותרת <code>Retry-After</code> אינה נלקחת בחשבון עבור המארחים התואמים.',
 		),
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(

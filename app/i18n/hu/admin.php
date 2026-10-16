@@ -115,8 +115,8 @@ return array(
 			'title' => 'Felhasználó regisztrációs űrlap',
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Retry-After allowlist',	// TODO
-			'help' => 'One entry per line: a <code>host</code> to match all ports, or a <code>host:port</code> combination. For instance <code>rss-bridge</code> or <code>rsshub:1200</code>. The <code>Retry-After</code> header is ignored for matching hosts.',	// TODO
+			'_' => 'Retry-After engedélyezési lista',
+			'help' => 'Soronként egy bejegyzés: <code>host</code> az összes porthoz, vagy <code>host:port</code> egy adott porthoz. Például <code>rss-bridge</code> vagy <code>rsshub:1200</code>. Az egyező kiszolgálók <code>Retry-After</code> fejléce figyelmen kívül marad.',
 		),
 		'sensitive-parameter' => 'Érzékeny paraméter. Szerkessze manuálisan itt <kbd>./data/config.php</kbd>',
 		'tos' => array(

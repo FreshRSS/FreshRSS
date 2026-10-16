@@ -115,8 +115,8 @@ return array(
 			'title' => 'Käyttäjän rekisteröintilomake',
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Retry-After allowlist',	// TODO
-			'help' => 'One entry per line: a <code>host</code> to match all ports, or a <code>host:port</code> combination. For instance <code>rss-bridge</code> or <code>rsshub:1200</code>. The <code>Retry-After</code> header is ignored for matching hosts.',	// TODO
+			'_' => 'Retry-After-poikkeuslista',
+			'help' => 'Yksi merkintä riville: <code>host</code> kattaa kaikki portit ja <code>host:port</code> tietyn portin. Esimerkiksi <code>rss-bridge</code> tai <code>rsshub:1200</code>. Vastaavien palvelimien <code>Retry-After</code>-otsake ohitetaan.',
 		),
 		'sensitive-parameter' => 'Suojattu parametri. Muokkaa suoraan <kbd>./data/config.php</kbd>-tiedostossa.',
 		'tos' => array(

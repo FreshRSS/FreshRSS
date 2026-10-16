@@ -115,8 +115,8 @@ return array(
 			'title' => 'Registračný formulár používateľa',
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Retry-After allowlist',	// TODO
-			'help' => 'One entry per line: a <code>host</code> to match all ports, or a <code>host:port</code> combination. For instance <code>rss-bridge</code> or <code>rsshub:1200</code>. The <code>Retry-After</code> header is ignored for matching hosts.',	// TODO
+			'_' => 'Zoznam povolených hostiteľov pre Retry-After',
+			'help' => 'Jeden záznam na riadok: <code>host</code> pre všetky porty alebo kombinácia <code>host:port</code> pre konkrétny port. Napríklad <code>rss-bridge</code> alebo <code>rsshub:1200</code>. Pri zodpovedajúcich hostiteľoch sa hlavička <code>Retry-After</code> ignoruje.',
 		),
 		'sensitive-parameter' => 'Citlivý parameter. Upravte ručne v súbore <kbd>./data/config.php</kbd>',
 		'tos' => array(

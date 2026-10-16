@@ -115,8 +115,8 @@ return array(
 			'title' => 'Formulir Pendaftaran Pengguna',
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Retry-After allowlist',	// TODO
-			'help' => 'One entry per line: a <code>host</code> to match all ports, or a <code>host:port</code> combination. For instance <code>rss-bridge</code> or <code>rsshub:1200</code>. The <code>Retry-After</code> header is ignored for matching hosts.',	// TODO
+			'_' => 'Daftar izin Retry-After',
+			'help' => 'Satu entri per baris: <code>host</code> untuk mencocokkan semua port, atau kombinasi <code>host:port</code> untuk port tertentu. Misalnya <code>rss-bridge</code> atau <code>rsshub:1200</code>. Header <code>Retry-After</code> diabaikan untuk host yang cocok.',
 		),
 		'sensitive-parameter' => 'Konfigurasi sensitif. Sunting manual di <kbd>./data/config.php</kbd>',
 		'tos' => array(

@@ -115,8 +115,8 @@ return array(
 			'title' => '使用者註冊表單',
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Retry-After allowlist',	// TODO
-			'help' => 'One entry per line: a <code>host</code> to match all ports, or a <code>host:port</code> combination. For instance <code>rss-bridge</code> or <code>rsshub:1200</code>. The <code>Retry-After</code> header is ignored for matching hosts.',	// TODO
+			'_' => 'Retry-After 允許清單',
+			'help' => '每行填寫一個項目：使用 <code>host</code> 比對該主機的所有連接埠，或使用 <code>host:port</code> 指定主機和連接埠。例如 <code>rss-bridge</code> 或 <code>rsshub:1200</code>。符合條件主機的 <code>Retry-After</code> 回應標頭將被忽略。',
 		),
 		'sensitive-parameter' => '敏感參數。請在 <kbd>./data/config.php</kbd> 中手動編輯',
 		'tos' => array(
