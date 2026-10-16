@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Benutzer-Registrierungsformular',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Retry-After-Ausnahmeliste',
+			'help' => 'Ein Eintrag pro Zeile: <code>host</code> für alle Ports oder eine Kombination aus <code>host:port</code> für einen bestimmten Port. Zum Beispiel <code>rss-bridge</code> oder <code>rsshub:1200</code>. Der <code>Retry-After</code>-Header wird für passende Hosts ignoriert.',
+		),
 		'sensitive-parameter' => 'Kritische Einstellung. Manuell in <kbd>./data/config.php</kbd> anpassbar.',
 		'tos' => array(
 			'disabled' => 'sind nicht aktiviert',

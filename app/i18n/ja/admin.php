@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'ユーザー登録',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Retry-After の許可リスト',
+			'help' => '1行につき1件を指定します。すべてのポートを対象とする場合は <code>host</code>、特定のポートのみを対象とする場合は <code>host:port</code> 形式で指定してください。例：<code>rss-bridge</code>、<code>rsshub:1200</code>。一致するホストの <code>Retry-After</code> ヘッダーは無視されます。',
+		),
 		'sensitive-parameter' => 'センシティブなパラメーターです。<kbd>./data/config.php</kbd> を手動で編集してください',
 		'tos' => array(
 			'disabled' => '無効',

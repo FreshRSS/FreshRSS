@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Registrační formulář uživatele',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Seznam povolených hostitelů pro Retry-After',
+			'help' => 'Jeden záznam na řádek: <code>host</code> pro všechny porty nebo kombinace <code>host:port</code> pro konkrétní port. Například <code>rss-bridge</code> nebo <code>rsshub:1200</code>. U odpovídajících hostitelů se hlavička <code>Retry-After</code> ignoruje.',
+		),
 		'sensitive-parameter' => 'Citlivý parametr. Upravte ručně v souboru <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'není uveden',

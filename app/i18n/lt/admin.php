@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Naudotojų registracijos forma',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Retry-After leistinųjų serverių sąrašas',
+			'help' => 'Po vieną įrašą eilutėje: <code>host</code>, kad atitiktų visus prievadus, arba <code>host:port</code> derinys konkrečiam prievadui. Pavyzdžiui, <code>rss-bridge</code> arba <code>rsshub:1200</code>. Atitinkančių serverių <code>Retry-After</code> antraštė nepaisoma.',
+		),
 		'sensitive-parameter' => 'Slaptas parametras. Redaguokite rankiniu būdu faile <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'nepateiktos',

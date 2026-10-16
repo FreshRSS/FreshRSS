@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Formulário de registo de utilizador',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Lista de permissões de Retry-After',
+			'help' => 'Uma entrada por linha: um <code>host</code> para todas as portas ou uma combinação <code>host:port</code> para uma porta específica. Por exemplo, <code>rss-bridge</code> ou <code>rsshub:1200</code>. O cabeçalho <code>Retry-After</code> é ignorado para os servidores correspondentes.',
+		),
 		'sensitive-parameter' => 'Parâmetro sensível. Edite manualmente em <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'não fornecido',

@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Φόρμα εγγραφής χρήστη',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Λίστα επιτρεπόμενων hosts για το Retry-After',
+			'help' => 'Μία καταχώρηση ανά γραμμή: ένα <code>host</code> για όλες τις θύρες ή ένας συνδυασμός <code>host:port</code> για συγκεκριμένη θύρα. Για παράδειγμα <code>rss-bridge</code> ή <code>rsshub:1200</code>. Η κεφαλίδα <code>Retry-After</code> αγνοείται για τους hosts που αντιστοιχούν.',
+		),
 		'sensitive-parameter' => 'Ευαίσθητη παράμετρος. Επεξεργαστείτε χειροκίνητα στο <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'δεν παρέχεται',

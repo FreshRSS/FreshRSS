@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Käyttäjän rekisteröintilomake',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Retry-After-poikkeuslista',
+			'help' => 'Yksi merkintä riville: <code>host</code> kattaa kaikki portit ja <code>host:port</code> tietyn portin. Esimerkiksi <code>rss-bridge</code> tai <code>rsshub:1200</code>. Vastaavien palvelimien <code>Retry-After</code>-otsake ohitetaan.',
+		),
 		'sensitive-parameter' => 'Suojattu parametri. Muokkaa suoraan <kbd>./data/config.php</kbd>-tiedostossa.',
 		'tos' => array(
 			'disabled' => 'ei käytössä',

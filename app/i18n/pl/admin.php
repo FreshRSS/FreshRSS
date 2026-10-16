@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Formularz rejestracji użytkowników',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Lista dozwolonych hostów dla Retry-After',
+			'help' => 'Jeden wpis na linię: <code>host</code> dla wszystkich portów lub kombinacja <code>host:port</code> dla konkretnego portu. Na przykład <code>rss-bridge</code> lub <code>rsshub:1200</code>. Nagłówek <code>Retry-After</code> jest ignorowany dla pasujących hostów.',
+		),
 		'sensitive-parameter' => 'Czuły parametr. Należy go ustawić ręcznie w <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'nie zostały ustalone',
