@@ -100,6 +100,7 @@ People are sorted by name so please keep this order.
 * [Edgardo Ramírez](https://github.com/SoldierCorp): [contributors](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SoldierCorp)
 * [EdJoPaTo](https://github.com/EdJoPaTo): [contributions](https://github.com/FreshRSS/FreshRSS/commits/edge?author=EdJoPaTo)
 * [Elanna Grossman](https://github.com/Karvel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Karvel), [Web](https://elanna.me/)
+* [Emre](https://github.com/Emredinho61): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Emredinho61), [Web](https://emre-bayazitoglu.netlify.app/)
 * [equinoxmatt](https://github.com/equinoxmatt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:equinoxmatt)
 * [Ethan Stoner](https://github.com/ethanstoner): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ethanstoner), [Web](https://ethanstoner.dev/)
 * [Eve Coull](https://github.com/eveiscoull): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:eveiscoull), [Web](https://oe.tc/)
