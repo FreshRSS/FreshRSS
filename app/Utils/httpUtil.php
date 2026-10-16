@@ -273,7 +273,20 @@ final class FreshRSS_http_Util {
 		$htmlPos = stripos($html, '<html');
 		$htmlStart = $htmlPos === false || $htmlPos > 512 ? '' : substr($html, 0, $htmlPos);
 
-		$html = $doc->saveHTML() ?: $html;
+		$encoding = strtolower($doc->encoding ?? '');
+		$bom = str_starts_with($html, "\xEF\xBB\xBF") ? "\xEF\xBB\xBF" : '';
+		if ($encoding === 'utf-8' || ($encoding === '' && $bom !== '')) {
+			// For a whole document, libxml2 saveHTML() only knows the charset from <meta http-equiv="Content-Type">.
+			// With <meta charset="UTF-8"> or a byte order mark, it writes non-ASCII characters as HTML entities,
+			// also inside <script>, where they are not decoded, which corrupts e.g. JSON data. Node by node, it writes UTF-8.
+			$utf8 = '';
+			foreach ($doc->childNodes as $node) {
+				$utf8 .= $doc->saveHTML($node) ?: '';
+			}
+			$html = $utf8 !== '' ? $bom . $utf8 : $html;
+		} else {
+			$html = $doc->saveHTML() ?: $html;
+		}
 		if ($htmlStart !== '' && !str_starts_with($html, $htmlStart)) {
 			// libxml2 saveHTML() risks removing Unicode BOM and XML declaration,
 			// which affects future detection of charset encoding, so manually restore it
