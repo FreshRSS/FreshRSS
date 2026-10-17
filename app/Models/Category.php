@@ -28,12 +28,13 @@ class FreshRSS_Category extends Minz_Model {
 
 	/**
 	 * @param array<FreshRSS_Feed>|null $feeds
+	 * @param bool $sortFeeds false when $feeds is already in `ORDER BY name` order
 	 */
-	public function __construct(string $name = '', int $id = 0, ?array $feeds = null) {
+	public function __construct(string $name = '', int $id = 0, ?array $feeds = null, bool $sortFeeds = true) {
 		$this->_id($id);
 		$this->_name($name);
 		if ($feeds !== null) {
-			$this->_feeds($feeds);
+			$this->_feeds($feeds, $sortFeeds);
 			$this->nbFeeds = 0;
 			$this->nbNotRead = 0;
 			foreach ($feeds as $feed) {
@@ -141,7 +142,6 @@ class FreshRSS_Category extends Minz_Model {
 					$this->hasFeedsWithError |= ($feed->inError() && !$feed->mute());
 				}
 			}
-			$this->sortFeeds();
 		}
 		return $this->feeds ?? [];
 	}
@@ -167,13 +167,18 @@ class FreshRSS_Category extends Minz_Model {
 		}
 	}
 
-	/** @param array<FreshRSS_Feed>|FreshRSS_Feed $values */
-	public function _feeds(array|FreshRSS_Feed $values): void {
+	/**
+	 * @param array<FreshRSS_Feed>|FreshRSS_Feed $values
+	 * @param bool $sort false when $values is already in `ORDER BY name` order
+	 */
+	public function _feeds(array|FreshRSS_Feed $values, bool $sort = true): void {
 		if (!is_array($values)) {
 			$values = [$values];
 		}
 		$this->feeds = array_values($values);
-		$this->sortFeeds();
+		if ($sort) {
+			$this->sortFeeds();
+		}
 	}
 
 	public function defaultSort(): ?string {
@@ -295,6 +300,11 @@ class FreshRSS_Category extends Minz_Model {
 		return (bool)$ok;
 	}
 
+	/**
+	 * In-memory order only (for example addFeed() before the next database load).
+	 * Lists loaded with `ORDER BY name` must not call this: localeCompare() does not
+	 * match the database collation used by the article list.
+	 */
 	private function sortFeeds(): void {
 		if ($this->feeds === null) {
 			return;
