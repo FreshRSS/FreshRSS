@@ -160,25 +160,23 @@ class File implements Response
                     }
                     $proxy = preg_replace('#^.*://#i', '', $proxy); // Strip any scheme already present in CURLOPT_PROXY
                     $proxy_url = "$proxy_scheme://$proxy"; // CURLOPT_PROXY ($proxy) is formatted as user:pass@hostname:port, with the part before @ being optional
-                    if ($proxy_type === CURLPROXY_SOCKS4A || $proxy_type === CURLPROXY_SOCKS5_HOSTNAME) {
-                        $resolve = [];
-                    } else {
-                        $resolve = $this->get_curl_resolve_info($proxy_url);
-                        if ($resolve === null) {
-                            $this->error = 'Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
-                                \SimplePie\Misc::url_remove_credentials($url) . '] [' .
-                                \SimplePie\Misc::url_remove_credentials($proxy_url) . ']';
-                            $this->success = false;
-                            return;
-                        } elseif ($resolve === false) {
-                            $this->error = 'Failed to resolve proxy hostname: ' . \SimplePie\Misc::url_remove_credentials($proxy_url);
-                            $this->success = false;
-                            return;
-                        }
-                        if (!empty($resolve)) {
-                            // For the other proxy protocols, note that IPs for internal domains can be leaked, since the domain is resolved outside of the proxy
-                            $curl_options[CURLOPT_RESOLVE] = $resolve;
-                        }
+                    $resolve = $this->get_curl_resolve_info($proxy_url);
+                    if ($resolve === null) {
+                        $this->error = 'Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
+                            \SimplePie\Misc::url_remove_credentials($url) . '] [' .
+                            \SimplePie\Misc::url_remove_credentials($proxy_url) . ']';
+                        $this->success = false;
+                        return;
+                    } elseif ($resolve === false) {
+                        $this->error = 'Failed to resolve proxy hostname: ' . \SimplePie\Misc::url_remove_credentials($proxy_url);
+                        $this->success = false;
+                        return;
+                    }
+                    if (!empty($resolve)) {
+                        // Only for the proxy domain, socks4a and socks5h DNS queries will be passed through the proxy.
+                        // For the other proxy protocols, note that IPs for internal domains can be leaked,
+                        // since the domain is resolved outside of the proxy.
+                        $curl_options[CURLOPT_RESOLVE] = $resolve;
                     }
                 }
                 $this->method = \SimplePie\SimplePie::FILE_SOURCE_REMOTE | \SimplePie\SimplePie::FILE_SOURCE_CURL;
