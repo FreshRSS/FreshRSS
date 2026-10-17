@@ -80,6 +80,29 @@
 			</div>
 
 			<div class="form-group">
+				<label class="group-name" for="priority"><?= _t('sub.priority') ?></label>
+				<div class="group-controls">
+					<select name="priority" id="priority" class="w50">
+						<?php $priority = $this->category->priority() ?>
+						<option value="<?= FreshRSS_Category::PRIORITY_IMPORTANT ?>" <?=
+							FreshRSS_Category::PRIORITY_IMPORTANT === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.important') ?></option>
+						<option value="<?= FreshRSS_Category::PRIORITY_MAIN_STREAM ?>" <?=
+							FreshRSS_Category::PRIORITY_MAIN_STREAM === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.main_stream') ?></option>
+						<option value="<?= FreshRSS_Category::PRIORITY_CATEGORY ?>" <?=
+							FreshRSS_Category::PRIORITY_CATEGORY === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.category') ?></option>
+						<option value="<?= FreshRSS_Category::PRIORITY_FEED ?>" <?=
+							FreshRSS_Category::PRIORITY_FEED === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.feed') ?></option>
+						<option value="<?= FreshRSS_Category::PRIORITY_HIDDEN ?>" <?=
+							FreshRSS_Category::PRIORITY_HIDDEN === $priority ? 'selected="selected"' : '' ?>><?= _t('sub.priority.hidden') ?></option>
+					</select>
+					<div class="priority-icon">
+						<?= _i('important') ?>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="form-group">
 				<label class="group-name" for="show_unread_count"><?= _t('conf.display.show_unread_count') ?></label>
 				<div class="group-controls">
 					<?php $suc = $this->category->attributeBoolean('show_unread_count'); ?>
