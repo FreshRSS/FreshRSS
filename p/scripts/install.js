@@ -71,10 +71,10 @@ function mySqlShowHide() {
 		}
 	}
 }
-const bd_type = document.getElementById('type');
-if (bd_type) {
+const db_type = document.getElementById('type');
+if (db_type) {
 	mySqlShowHide();
-	bd_type.addEventListener('change', mySqlShowHide);
+	db_type.addEventListener('change', mySqlShowHide);
 }
 
 function ask_confirmation(ev) {
