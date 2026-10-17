@@ -68,7 +68,8 @@
 			$t_active = FreshRSS_Context::isCurrentGet('T');
 			$t_show = ($t_active && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true)) || FreshRSS_Context::userConf()->display_categories === 'all';
 		?>
-		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>"<?= $hideSucGlobal ?>>
+		<li id="tags" class="tree-folder category tags<?= $t_active ? ' active' : '' ?><?=
+			FreshRSS_Context::userConf()->show_fav_unread ? ' show-read' : '' ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>"<?= $hideSucGlobal ?>>
 			<a href="<?= _url('index', $actual_view, 'get', 'T') . $state_filter_manual ?>" class="tree-folder-title">
 				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($t_show ? 'up' : 'down') ?></button><span class="title" title="<?=
 					_t('sub.category.open') ?>" data-unread="<?= format_number($this->nbUnreadTags) ?>"<?= $hideSucGlobal ?>><?= _t('index.menu.mylabels') ?></span>
