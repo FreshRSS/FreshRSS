@@ -176,9 +176,7 @@ class File implements Response
                             return;
                         }
                         if (!empty($resolve)) {
-                            // Only for the proxy domain, socks4a and socks5h DNS queries will be passed through the proxy.
-                            // For the other proxy protocols, note that IPs for internal domains can be leaked,
-                            // since the domain is resolved outside of the proxy.
+                            // For the other proxy protocols, note that IPs for internal domains can be leaked, since the domain is resolved outside of the proxy
                             $curl_options[CURLOPT_RESOLVE] = $resolve;
                         }
                     }

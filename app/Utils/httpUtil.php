@@ -597,21 +597,23 @@ final class FreshRSS_http_Util {
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				}
 				$proxy_url = "$proxy_scheme://$proxy"; // CURLOPT_PROXY ($proxy) is formatted as user:pass@hostname:port, with the part before @ being optional
-				$resolve = self::getCurlResolveInfo($proxy_url);
-				if ($resolve === null) {
-					Minz_Log::warning('Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
-						\SimplePie\Misc::url_remove_credentials($url) . '] [' .
-						\SimplePie\Misc::url_remove_credentials($proxy_url) . ']');
-					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
-				} elseif ($resolve === false) {
-					Minz_Log::warning('Error during HTTP fetch: unable to resolve the proxy’s hostname! ' . \SimplePie\Misc::url_remove_credentials($proxy_url));
-					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
-				}
-				if (!empty($resolve)) {
-					// Only for the proxy domain, socks4a and socks5h DNS queries will be passed through the proxy.
-					// For the other proxy protocols, note that IPs for internal domains can be leaked,
-					// since the domain is resolved outside of the proxy.
-					$curl_options[CURLOPT_RESOLVE] = $resolve;
+				if ($proxy_type === CURLPROXY_SOCKS4A || $proxy_type === CURLPROXY_SOCKS5_HOSTNAME) {
+					$resolve = [];
+				} else {
+					$resolve = self::getCurlResolveInfo($proxy_url);
+					if ($resolve === null) {
+						Minz_Log::warning('Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
+							\SimplePie\Misc::url_remove_credentials($url) . '] [' .
+							\SimplePie\Misc::url_remove_credentials($proxy_url) . ']');
+						return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
+					} elseif ($resolve === false) {
+						Minz_Log::warning('Error during HTTP fetch: unable to resolve the proxy’s hostname! ' . \SimplePie\Misc::url_remove_credentials($proxy_url));
+						return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
+					}
+					if (!empty($resolve)) {
+						// For the other proxy protocols, note that IPs for internal domains can be leaked, since the domain is resolved outside of the proxy
+						$curl_options[CURLOPT_RESOLVE] = $resolve;
+					}
 				}
 			}
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
