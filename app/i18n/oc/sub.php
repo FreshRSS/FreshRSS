@@ -34,8 +34,6 @@ return array(
 		'information' => 'Informacions',
 		'open' => 'Open category',	// TODO
 		'opml_url' => 'URL OPML',
-		'position' => 'Mostrar la posicion',
-		'position_help' => 'Per contrarotlar l’òrdre de tria de la categoria',
 		'title' => 'Títol',
 	),
 	'feed' => array(

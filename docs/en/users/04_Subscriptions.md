@@ -10,14 +10,13 @@
 
 ## Subscription management
 
-The "Subscription management" submenu allows categories and feeds to be configured. Feeds can be moved between categories by drag-and-drop, or in the individual feed’s settings. Hovering over a feed/category will cause a gear icon to appear. Clicking the icon will bring up the settings for that item.
+The "Subscription management" submenu allows categories and feeds to be configured. Feeds can be moved between categories by drag-and-drop, or in the individual feed’s settings. Categories can be reordered by dragging one category’s title onto another one. Categories that have never been reordered are listed last, in alphabetical order. Hovering over a feed/category will cause a gear icon to appear. Clicking the icon will bring up the settings for that item.
 
 ## Category Settings
 
 ### Information
 
 * **Title:** Name of category
-* **Display position:** Defines the order of categories. Lower numbers get priority, non-numbered items come last, and equally numbered items will sort by alphabetical order.
 
 ### Archiving
 
