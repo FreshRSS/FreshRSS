@@ -15,6 +15,7 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[\Override]
 	protected function tearDown(): void {
+		FreshRSS_Context::initSystem(reload: true);	// Restore the default internal host allowlist
 		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
 		$resolveOk->setValue(null, []);	// Restore the default empty cache
 	}
@@ -163,6 +164,51 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 		self::assertNull(
 			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+		);
+	}
+
+	/** Socks schemes default to port 1080, and an IP address proxy produces no resolve entry */
+	public function test_getCurlResolveInfoForProxyAddress(): void {
+		FreshRSS_Context::initSystem();
+		// A proxy on a private address is rejected by default
+		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('socks5h://127.0.0.1:1080'));
+
+		// Once the proxy is allowlisted, no resolve override is needed for an IP address
+		FreshRSS_Context::systemConf()->internal_host_allowlist = ['127.0.0.1:1080'];
+		self::assertSame([], FreshRSS_http_Util::getCurlResolveInfo('socks5h://127.0.0.1:1080'));
+
+		// Other proxy ports need their own entry
+		FreshRSS_Context::systemConf()->internal_host_allowlist = ['127.0.0.1:8080'];
+		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('socks5h://127.0.0.1:1080'));
+		self::assertSame([], FreshRSS_http_Util::getCurlResolveInfo('https://127.0.0.1:8080'));
+	}
+
+	/** For a hostname proxy, the resolved IP of the proxy is pinned with a resolve entry, to prevent DNS rebinding */
+	public function test_getCurlResolveInfoForProxyHostname(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, ['proxy.example.test' => ['198.51.100.7']]);
+		FreshRSS_Context::systemConf()->internal_host_allowlist = ['198.51.100.7:1080'];
+
+		self::assertSame(
+			['proxy.example.test:1080:198.51.100.7'],
+			FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080')
+		);
+
+		// An entry is still produced without allowlisting, because the address is public
+		FreshRSS_Context::systemConf()->internal_host_allowlist = [];
+		self::assertSame(
+			['proxy.example.test:1080:198.51.100.7'],
+			FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080')
+		);
+
+		// A proxy resolving to a private address is rejected unless allowlisted
+		$resolveOk->setValue(null, ['proxy.example.test' => ['192.168.1.1']]);
+		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080'));
+		FreshRSS_Context::systemConf()->internal_host_allowlist = ['192.168.1.1:1080'];
+		self::assertSame(
+			['proxy.example.test:1080:192.168.1.1'],
+			FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080')
 		);
 	}
 }

@@ -2,7 +2,32 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-1X-XX FreshRSS 1.30.2-dev
+## 2026-10-XX FreshRSS 1.30.2-dev
+
+* Security
+	* SimplePie sanitizer: block `data:` URI scheme while keeping `data:image` for images [#9417](https://github.com/FreshRSS/FreshRSS/pull/9417)
+	* Mitigate some 404 situations [#9435](https://github.com/FreshRSS/FreshRSS/pull/9435)
+* Bug fixes
+	* WebSub fix POST, fix warning, better message [#9420](https://github.com/FreshRSS/FreshRSS/pull/9420)
+	* Fix PHP 8.5+ deprecation of `sqliteCreateFunction` for SQLite [#9421](https://github.com/FreshRSS/FreshRSS/pull/9421)
+	* Fix wrong order of args in extension compatibility check [#9445](https://github.com/FreshRSS/FreshRSS/pull/9445)
+* Performance
+	* Reduce memory consumption of export [#9350](https://github.com/FreshRSS/FreshRSS/pull/9350)
+* Features
+	* Better doc and log proxy cases [#9436](https://github.com/FreshRSS/FreshRSS/pull/9436)
+* Extensions
+	* Update registerHook docs with newer PHP 8.1+ syntax for callables [#9443](https://github.com/FreshRSS/FreshRSS/pull/9443), [Extensions#548](https://github.com/FreshRSS/Extensions/pull/548)
+* UI
+	* Disallow user page navigation while refreshing feeds [#9446](https://github.com/FreshRSS/FreshRSS/pull/9446)
+	* Various UI and style improvements [#9426](https://github.com/FreshRSS/FreshRSS/pull/9426), [#9441](https://github.com/FreshRSS/FreshRSS/pull/9441)
+* I18n
+	* Improve German [#9439](https://github.com/FreshRSS/FreshRSS/pull/9439)
+	* Improve Turkish [#9440](https://github.com/FreshRSS/FreshRSS/pull/9440)
+* Misc.
+	* Update to `GT\CssXPath` 1.6.0 [#9411](https://github.com/FreshRSS/FreshRSS/pull/9411)
+	* CI/CD: Fix login to Docker Hub [#9433](https://github.com/FreshRSS/FreshRSS/pull/9433)
+	* Fix SVGO zero percent filtering in CI [#9422](https://github.com/FreshRSS/FreshRSS/pull/9422)
+	* Update dev dependencies [#9425](https://github.com/FreshRSS/FreshRSS/pull/9425)
 
 
 ## 2026-10-05 FreshRSS 1.30.1

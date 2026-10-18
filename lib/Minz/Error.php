@@ -29,7 +29,8 @@ class Minz_Error {
 			'error_logs' => $logs,
 		]);
 
-		Minz_Request::forward(['c' => 'error'], $redirect);
+		// Also pass the error code by URL, in case the session is lost (session ID rotation)
+		Minz_Request::forward(['c' => 'error', 'params' => ['code' => $code]], $redirect);
 	}
 
 	/**
