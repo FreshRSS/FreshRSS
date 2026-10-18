@@ -117,6 +117,7 @@ return array(
 		'title' => 'Görünüş',
 		'website' => array(
 			'full' => 'İkon və ad',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Yalnız ikon',
 			'label' => 'Veb sayt',
 			'name' => 'Yalnız ad',

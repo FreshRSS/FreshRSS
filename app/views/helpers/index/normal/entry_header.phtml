@@ -22,6 +22,7 @@
 	if ($topline_date) {
 		$headerClasses[] = 'has-date';
 	}
+	$website = $topline_website === 'none' ? '' : $this->helperToString('index/normal/entry_website');
 	if ($this->feed === null || $this->entry === null) {
 		return;
 	}
@@ -49,11 +50,9 @@
 		}
 	}
 
-	if ($topline_website !== 'none'):
+	if ($topline_website !== 'none' && $topline_website !== 'full-below'):
 	?><li class="item website">
-		<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" class="item-element" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
-			<?php if (FreshRSS_Context::userConf()->show_favicons && 'name' !== $topline_website): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><?php if ('icon' !== $topline_website): ?><span class="websiteName"><?= $this->feed->name() ?></span><?php endif; ?>
-		</a>
+		<?= $website ?>
 		</li><?php
 	endif; ?>
 
@@ -72,6 +71,9 @@
 			?> <span class="author"><?= implode(' · ', $this->entry->authors()) ?></span><?php
 		endif;
 		?></a>
+		<?php if ($topline_website === 'full-below'): ?>
+			<div class="item website"><?= $website ?></div>
+		<?php endif; ?>
 	<?php
 	if ($topline_summary):
 		?><div class="summary"><?= trim(mb_substr(strip_tags($this->entry->content(false)), 0, 500, 'UTF-8')) ?></div><?php

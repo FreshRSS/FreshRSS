@@ -81,6 +81,10 @@ Some people prefer short lines of text, while others prefer to maximize the avai
 
 ### Article icons
 
+The **Website** setting controls the feed icon and name in normal view.
+Choose **Icon and name below the title** to place them between the article title and summary.
+The default **Icon and name** option keeps them before the title.
+
 Please note that this section only affects normal view.
 
 ![Article icons configuration](../img/users/configuration.article.icons.png)

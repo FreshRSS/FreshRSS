@@ -117,6 +117,7 @@ return array(
 		'title' => ' نمایش',
 		'website' => array(
 			'full' => ' نماد و نام',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => ' فقط نماد',
 			'label' => 'وب‌سایت',
 			'name' => ' فقط نام',

@@ -1600,6 +1600,27 @@ a.website:hover .favicon {
 	text-decoration: none;
 }
 
+.flux .websitefull-below .item.titleAuthorSummaryDate {
+	grid-template-areas: "title date"
+		"website ."
+		"summary .";
+}
+
+.flux .websitefull-below .item.website {
+	grid-area: website;
+	width: auto;
+	min-width: 0;
+}
+
+.flux .websitefull-below .item.website .item-element {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.flux .websitefull-below .item.website .websiteName {
+	display: inline;
+}
+
 .flux .flux_header .item .summary {
 	grid-area: summary;
 	display: -webkit-box;

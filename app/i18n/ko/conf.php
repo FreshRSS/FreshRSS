@@ -117,6 +117,7 @@ return array(
 		'title' => '표시',
 		'website' => array(
 			'full' => '아이콘 및 이름',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => '아이콘',
 			'label' => '웹사이트',
 			'name' => '이름',

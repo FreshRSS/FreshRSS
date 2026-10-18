@@ -117,6 +117,7 @@ return array(
 		'title' => 'Görüntüleme',
 		'website' => array(
 			'full' => 'Simge ve isim',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Yalnızca simge',
 			'label' => 'Web sitesi',
 			'name' => 'Yalnızca isim',

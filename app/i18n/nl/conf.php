@@ -117,6 +117,7 @@ return array(
 		'title' => 'Opmaak',
 		'website' => array(
 			'full' => 'Icoon en naam',
+			'full_below' => 'Icon and name below the title',	// TODO
 			'icon' => 'Alleen icoon',
 			'label' => 'Website',	// IGNORE
 			'name' => 'Alleen naam',
