@@ -34,7 +34,7 @@
 			<input type="hidden" name="user" value="<?= Minz_User::name() ?>" />
 			<?php } if (ctype_alnum(Minz_Request::paramString('t'))) { ?>
 			<input type="hidden" name="t" value="<?= Minz_Request::paramString('t') ?>" />
-			<?php } if (ctype_lower(Minz_Request::paramString('sort'))) { ?>
+			<?php } if (Minz_Request::paramString('sort') !== '') { ?>
 			<input type="hidden" name="sort" value="<?= FreshRSS_Context::$sort ?>" />
 			<?php } if (ctype_upper(Minz_Request::paramString('order'))) { ?>
 			<input type="hidden" name="order" value="<?= FreshRSS_Context::$order ?>" />
