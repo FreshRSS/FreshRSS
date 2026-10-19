@@ -4,6 +4,11 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-XX-XX FreshRSS 1.30.3-dev
 
+* Compatibility
+	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+* Deployment
+	* Docker: dev image `freshrss/freshrss:oldest` updated to Alpine 3.18 with PHP 8.2.16 and Apache 2.4.62 [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+
 
 ## 2026-10-19 FreshRSS 1.30.2
 
@@ -35,9 +40,6 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* CI/CD: Fix login to Docker Hub [#9433](https://github.com/FreshRSS/FreshRSS/pull/9433)
 	* Fix SVGO zero percent filtering in CI [#9422](https://github.com/FreshRSS/FreshRSS/pull/9422)
 	* Update dev dependencies [#9425](https://github.com/FreshRSS/FreshRSS/pull/9425)
-
-* Deployment
-	* 💥 Require PHP 8.2+ (drop PHP 8.1), and use PHP 8.2 features: readonly classes, `FILTER_FLAG_GLOBAL_RANGE`, `ini_parse_quantity()`
 
 
 ## 2026-10-05 FreshRSS 1.30.1
