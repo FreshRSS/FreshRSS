@@ -47,7 +47,7 @@ final class FreshRSS_http_Util {
 			return '';
 		}
 		// Once per host, as serverIsPublic() may resolve it
-		$domainWide = self::$retry_after_domain_wide[$domain] ??= Minz_Request::serverIsPublic($url);
+		$domainWide = self::$retry_after_domain_wide[$domain] ??= Minz_Request::serverIsPublic($url, allowDnsResolve: $proxy === '');
 		if (is_int($port)) {
 			$domain .= ':' . $port;
 		}

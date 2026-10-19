@@ -43,7 +43,7 @@ return array(
 			'ok' => 'Znaleziono wymaganą bibliotekę do sprawdzania rodzajów znaków (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Nie znaleziono biblioteki cURL (php-curl package).',
+			'nok' => 'Nie znaleziono biblioteki cURL (pakiet php-curl).',
 			'ok' => 'Znaleziono bibliotekę cURL.',
 		),
 		'data' => array(
@@ -64,8 +64,8 @@ return array(
 		),
 		'database-title' => 'Baza danych',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'Katalog główny serwera WWW nie wskazuje na folder <code>./p/</code>. Inne foldery, takie jak <code>./data/</code>, mogą być publicznie dostępne.',
+			'ok' => 'Katalog główny serwera WWW prawidłowo wskazuje na folder <code>./p/</code>.',
 		),
 		'dom' => array(
 			'nok' => 'Nie znaleziono wymaganej biblioteki do korzystania z DOM-u.',
@@ -76,13 +76,13 @@ return array(
 			'ok' => 'Uprawnienia dla katalogu ikonek kanałów się zgadzają.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Nie znaleziono biblioteki fileinfo dla PHP (paczka fileinfo).',
+			'nok' => 'Nie znaleziono biblioteki fileinfo dla PHP (pakiet fileinfo).',
 			'ok' => 'Znaleziono bibliotekę fileinfo.',
 		),
 		'files' => 'Instalacja plików',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => 'Nie znaleziono wymaganego rozszerzenia GMP dla 32-bitowego PHP (pakiet php-gmp).',
+			'ok' => 'Znaleziono rozszerzenie GMP wymagane przez 32-bitowe PHP.',
 		),
 		'intl' => array(
 			'nok' => 'Nie znaleziono zalecanej biblioteki php-intl do internacjonalizacji.',
@@ -138,7 +138,7 @@ return array(
 			'ok' => 'Znaleziono wymaganą bibliotekę do przetwarzania XML-a.',
 		),
 		'zip' => array(
-			'nok' => 'Nie znaleziono rozszerzenia ZIP (paczka php-zip).',
+			'nok' => 'Nie znaleziono rozszerzenia ZIP (pakiet php-zip).',
 			'ok' => 'Znaleziono rozszerzenie ZIP.',
 		),
 	),
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'Gratulacje!',
 	'default_user' => array(
 		'_' => 'Nazwa domyślnego użytkownika',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => 'Od 1 do 39 znaków: litery, cyfry oraz <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Proszę naprawić wszystkie błędy przed przystąpieniem do kolejnego kroku.',
 	'javascript_is_better' => 'FreshRSS działa lepiej z włączonym JavaScript-em',
