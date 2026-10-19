@@ -2,7 +2,7 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-10-XX FreshRSS 1.30.2-dev
+## 2026-10-19 FreshRSS 1.30.2
 
 * Security
 	* SimplePie sanitizer: block `data:` URI scheme while keeping `data:image` for images [#9417](https://github.com/FreshRSS/FreshRSS/pull/9417)
