@@ -1408,9 +1408,7 @@ function init_shortcuts() {
 	const searchBox = document.getElementById('search');
 	if (searchBox) {
 		searchBox.addEventListener('keydown', ev => {
-			let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
-			if (k === 'ESC') k = 'ESCAPE'; // IE11
-			if (k === 'ESCAPE') {
+			if (ev.key === 'Escape') {
 				searchBox.blur();
 				ev.preventDefault();
 			}
