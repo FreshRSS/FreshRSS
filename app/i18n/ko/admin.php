@@ -115,8 +115,8 @@ return array(
 			'title' => '사용자 회원가입 양식',
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Retry-After 허용 목록',
-			'help' => '한 줄에 하나씩 입력하세요. 모든 포트에 적용하려면 <code>host</code>를, 특정 포트에만 적용하려면 <code>host:port</code> 조합을 사용하세요. 예: <code>rss-bridge</code> 또는 <code>rsshub:1200</code>. 일치하는 호스트의 <code>Retry-After</code> 헤더는 무시됩니다.',
+			'_' => 'Retry-After 허용 목록',	// DIRTY
+			'help' => '한 줄에 하나씩 입력하세요. 모든 포트에 적용하려면 <code>host</code>를, 특정 포트에만 적용하려면 <code>host:port</code> 조합을 사용하세요. 예: <code>rss-bridge</code> 또는 <code>rsshub:1200</code>. 일치하는 호스트의 <code>Retry-After</code> 헤더는 무시됩니다.',	// DIRTY
 		),
 		'sensitive-parameter' => 'Sensitive parameter. <kbd>./data/config.php</kbd>에서 직접 수정',	// DIRTY
 		'tos' => array(

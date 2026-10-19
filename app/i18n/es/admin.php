@@ -115,8 +115,8 @@ return array(
 			'title' => 'Formulario de registro del usuario',
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Lista de permitidos de Retry-After',
-			'help' => 'Una entrada por línea: un <code>host</code> para incluir todos los puertos o una combinación <code>host:port</code> para un puerto específico. Por ejemplo, <code>rss-bridge</code> o <code>rsshub:1200</code>. Se ignora la cabecera <code>Retry-After</code> de los hosts que coincidan.',
+			'_' => 'Lista de permitidos de Retry-After',	// DIRTY
+			'help' => 'Una entrada por línea: un <code>host</code> para incluir todos los puertos o una combinación <code>host:port</code> para un puerto específico. Por ejemplo, <code>rss-bridge</code> o <code>rsshub:1200</code>. Se ignora la cabecera <code>Retry-After</code> de los hosts que coincidan.',	// DIRTY
 		),
 		'sensitive-parameter' => 'Parámetro sensible. Lo puedes editar manualmente en <kbd>./data/config.php</kbd>',
 		'tos' => array(

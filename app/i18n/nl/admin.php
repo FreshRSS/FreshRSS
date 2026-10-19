@@ -115,8 +115,8 @@ return array(
 			'title' => 'Gebruikersregistratieformulier',
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Retry-After-uitzonderingslijst',
-			'help' => 'Eén vermelding per regel: een <code>host</code> voor alle poorten of een combinatie van <code>host:port</code> voor een specifieke poort. Bijvoorbeeld <code>rss-bridge</code> of <code>rsshub:1200</code>. De <code>Retry-After</code>-header wordt voor overeenkomende hosts genegeerd.',
+			'_' => 'Retry-After-uitzonderingslijst',	// DIRTY
+			'help' => 'Eén vermelding per regel: een <code>host</code> voor alle poorten of een combinatie van <code>host:port</code> voor een specifieke poort. Bijvoorbeeld <code>rss-bridge</code> of <code>rsshub:1200</code>. De <code>Retry-After</code>-header wordt voor overeenkomende hosts genegeerd.',	// DIRTY
 		),
 		'sensitive-parameter' => 'Kwetsbare parameter. Handmatig te bewerken in <kbd>./data/config.php</kbd>',
 		'tos' => array(

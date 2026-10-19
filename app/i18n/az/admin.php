@@ -115,8 +115,8 @@ return array(
 			'title' => 'İstifadəçi qeydiyyat forması',
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Retry-After icazə siyahısı',
-			'help' => 'Hər sətirdə bir qeyd: bütün portları uyğunlaşdırmaq üçün <code>host</code> və ya müəyyən port üçün <code>host:port</code> kombinasiyası. Məsələn, <code>rss-bridge</code> və ya <code>rsshub:1200</code>. Uyğun hostlar üçün <code>Retry-After</code> başlığı nəzərə alınmır.',
+			'_' => 'Retry-After icazə siyahısı',	// DIRTY
+			'help' => 'Hər sətirdə bir qeyd: bütün portları uyğunlaşdırmaq üçün <code>host</code> və ya müəyyən port üçün <code>host:port</code> kombinasiyası. Məsələn, <code>rss-bridge</code> və ya <code>rsshub:1200</code>. Uyğun hostlar üçün <code>Retry-After</code> başlığı nəzərə alınmır.',	// DIRTY
 		),
 		'sensitive-parameter' => 'Həssas parametr. <kbd>./data/config.php</kbd> faylında əl ilə redaktə edin',
 		'tos' => array(

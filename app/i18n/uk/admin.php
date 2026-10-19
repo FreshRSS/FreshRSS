@@ -115,8 +115,8 @@ return array(
 			'title' => 'Форма користувацької реєстрації',
 		),
 		'retry-after-allowlist' => array(
-			'_' => 'Список дозволених вузлів для Retry-After',
-			'help' => 'Один запис на рядок: <code>host</code> для всіх портів або комбінація <code>host:port</code> для певного порту. Наприклад, <code>rss-bridge</code> або <code>rsshub:1200</code>. Заголовок <code>Retry-After</code> ігнорується для відповідних вузлів.',
+			'_' => 'Список дозволених вузлів для Retry-After',	// DIRTY
+			'help' => 'Один запис на рядок: <code>host</code> для всіх портів або комбінація <code>host:port</code> для певного порту. Наприклад, <code>rss-bridge</code> або <code>rsshub:1200</code>. Заголовок <code>Retry-After</code> ігнорується для відповідних вузлів.',	// DIRTY
 		),
 		'sensitive-parameter' => 'Чутливий параметр. Відредагуйте вручну в <kbd>./data/config.php</kbd>',
 		'tos' => array(
