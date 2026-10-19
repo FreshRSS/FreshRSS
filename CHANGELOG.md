@@ -7,9 +7,12 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Security
 	* SimplePie sanitizer: block `data:` URI scheme while keeping `data:image` for images [#9417](https://github.com/FreshRSS/FreshRSS/pull/9417)
 	* Mitigate some 404 situations [#9435](https://github.com/FreshRSS/FreshRSS/pull/9435)
+	* Do not log the Fever API key on authentication failure [#9468](https://github.com/FreshRSS/FreshRSS/pull/9468)
+	* Fix local DNS leak when fetching feeds through a proxy [#9451](https://github.com/FreshRSS/FreshRSS/pull/9451)
 * Bug fixes
 	* WebSub fix POST, fix warning, better message [#9420](https://github.com/FreshRSS/FreshRSS/pull/9420)
 	* Fix PHP 8.5+ deprecation of `sqliteCreateFunction` for SQLite [#9421](https://github.com/FreshRSS/FreshRSS/pull/9421)
+	* Preserve explicit sort overrides when searching [#9467](https://github.com/FreshRSS/FreshRSS/pull/9467)
 	* Fix wrong order of args in extension compatibility check [#9445](https://github.com/FreshRSS/FreshRSS/pull/9445)
 * Performance
 	* Reduce memory consumption of export [#9350](https://github.com/FreshRSS/FreshRSS/pull/9350)
@@ -22,6 +25,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Various UI and style improvements [#9426](https://github.com/FreshRSS/FreshRSS/pull/9426), [#9441](https://github.com/FreshRSS/FreshRSS/pull/9441)
 * I18n
 	* Improve German [#9439](https://github.com/FreshRSS/FreshRSS/pull/9439)
+	* Improve Polish [#9458](https://github.com/FreshRSS/FreshRSS/pull/9458)
 	* Improve Turkish [#9440](https://github.com/FreshRSS/FreshRSS/pull/9440)
 * Misc.
 	* Update to `GT\CssXPath` 1.6.0 [#9411](https://github.com/FreshRSS/FreshRSS/pull/9411)
