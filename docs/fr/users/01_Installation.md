@@ -7,7 +7,7 @@ Il est toutefois de votre responsabilité de vérifier que votre hébergement pe
 | Logiciel         | Recommandé         | Fonctionne aussi avec          |
 | --------         | -----------        | ---------------------          |
 | Serveur web      | **Apache 2.4+**    | nginx, lighttpd |
-| PHP              | **PHP 8.2+**       | FreshRSS 1.30.1 : PHP 8.1+ |
+| PHP              | **PHP 8.2+**       | FreshRSS 1.30.2 : PHP 8.1+ |
 | Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L9-L11)* |                                |
 | Base de données  | **PostgreSQL 10+** | SQLite, MariaDB 10.6+, MySQL 8.0+ |
 | Navigateur       | **Firefox**        | Chrome, Opera, Safari, or Edge   |
