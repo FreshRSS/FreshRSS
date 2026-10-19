@@ -16,7 +16,7 @@ final class headerTest extends \PHPUnit\Framework\TestCase {
 		}
 		yield 'no override' => [null, null];
 		yield 'empty override' => ['', null];
-		yield 'invalid override' => ['" onfocus="alert(1)', 'id'];
+		yield 'invalid override' => ['" onfocus="alert(1)', null];
 	}
 
 	#[DataProvider('provideSearchSorts')]
