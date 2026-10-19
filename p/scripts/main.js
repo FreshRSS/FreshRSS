@@ -1402,6 +1402,20 @@ function init_shortcuts() {
 		if (k === s.toggle_media) { toggle_media(); ev.preventDefault(); }
 		if (k === s.toggle_aside) { toggle_aside_click(); ev.preventDefault(); }
 	});
+
+	// Pressing Esc inside the search box leaves it, so the user can go straight
+	// back to navigating articles with the keyboard. See #5043.
+	const searchBox = document.getElementById('search');
+	if (searchBox) {
+		searchBox.addEventListener('keydown', ev => {
+			let k = (ev.key.trim() || ev.code || 'Space').toUpperCase();
+			if (k === 'ESC') k = 'ESCAPE'; // IE11
+			if (k === 'ESCAPE') {
+				searchBox.blur();
+				ev.preventDefault();
+			}
+		});
+	}
 }
 
 function init_stream(stream) {
