@@ -23,14 +23,14 @@ if (isset($_GET['step']) && is_numeric($_GET['step'])) {
 }
 
 if (STEP === 2 && isset($_POST['type'])) {
-	Minz_Session::_param('bd_type', $_POST['type']);
+	Minz_Session::_param('db_type', $_POST['type']);
 }
 
 function param(string $key, string $default = ''): string {
 	return isset($_POST[$key]) && is_string($_POST[$key]) ? trim($_POST[$key]) : $default;
 }
 
-// gestion internationalisation
+// Internationalization
 function initTranslate(): void {
 	Minz_Translate::init();
 	$available_languages = Minz_Translate::availableLanguages();
@@ -52,7 +52,7 @@ function get_best_language(): string {
 }
 
 
-/*** SAUVEGARDES ***/
+/*** SAVE OPERATIONS ***/
 function saveLanguage(): bool {
 	if (!empty($_POST)) {
 		if (!isset($_POST['language'])) {
@@ -84,13 +84,13 @@ function saveStep1(): void {
 				'auth_type' => FreshRSS_Context::systemConf()->auth_type,
 				'default_user' => Minz_User::name() ?? '',
 				'passwordHash' => FreshRSS_Context::userConf()->passwordHash,
-				'bd_type' => FreshRSS_Context::systemConf()->db['type'] ?? '',
-				'bd_host' => FreshRSS_Context::systemConf()->db['host'] ?? '',
-				'bd_user' => FreshRSS_Context::systemConf()->db['user'] ?? '',
-				'bd_password' => FreshRSS_Context::systemConf()->db['password'] ?? '',
-				'bd_base' => FreshRSS_Context::systemConf()->db['base'] ?? '',
-				'bd_prefix' => FreshRSS_Context::systemConf()->db['prefix'] ?? '',
-				'bd_error' => false,
+				'db_type' => FreshRSS_Context::systemConf()->db['type'] ?? '',
+				'db_host' => FreshRSS_Context::systemConf()->db['host'] ?? '',
+				'db_user' => FreshRSS_Context::systemConf()->db['user'] ?? '',
+				'db_password' => FreshRSS_Context::systemConf()->db['password'] ?? '',
+				'db_base' => FreshRSS_Context::systemConf()->db['base'] ?? '',
+				'db_prefix' => FreshRSS_Context::systemConf()->db['prefix'] ?? '',
+				'db_error' => false,
 			]);
 
 		header('Location: index.php?step=4');
@@ -99,13 +99,13 @@ function saveStep1(): void {
 
 function saveStep2(): void {
 	if (!empty($_POST)) {
-		if (Minz_Session::paramString('bd_type') === 'sqlite') {
+		if (Minz_Session::paramString('db_type') === 'sqlite') {
 			Minz_Session::_params([
-					'bd_base' => false,
-					'bd_host' => false,
-					'bd_user' => false,
-					'bd_password' => false,
-					'bd_prefix' => false,
+					'db_base' => false,
+					'db_host' => false,
+					'db_user' => false,
+					'db_password' => false,
+					'db_prefix' => false,
 				]);
 		} else {
 			if (empty($_POST['type']) || !is_string($_POST['type']) ||
@@ -114,14 +114,14 @@ function saveStep2(): void {
 				empty($_POST['base']) || !is_string($_POST['base']) ||
 				!is_string($_POST['pass'] ?? null) || !is_string($_POST['prefix'] ?? null)
 			) {
-				Minz_Session::_param('bd_error', 'Missing parameters!');
+				Minz_Session::_param('db_error', 'Missing parameters!');
 			} else {
 				Minz_Session::_params([
-					'bd_base' => substr($_POST['base'], 0, 64),
-					'bd_host' => $_POST['host'],
-					'bd_user' => $_POST['user'],
-					'bd_password' => $_POST['pass'],
-					'bd_prefix' => substr($_POST['prefix'], 0, 16),
+					'db_base' => substr($_POST['base'], 0, 64),
+					'db_host' => $_POST['host'],
+					'db_user' => $_POST['user'],
+					'db_password' => $_POST['pass'],
+					'db_prefix' => substr($_POST['prefix'], 0, 16),
 				]);
 			}
 		}
@@ -133,12 +133,12 @@ function saveStep2(): void {
 			'base_url' => $base_url,
 			'default_user' => '_',
 			'db' => [
-				'type' => Minz_Session::paramString('bd_type'),
-				'host' => Minz_Session::paramString('bd_host'),
-				'user' => Minz_Session::paramString('bd_user'),
-				'password' => Minz_Session::paramString('bd_password'),
-				'base' => Minz_Session::paramString('bd_base'),
-				'prefix' => Minz_Session::paramString('bd_prefix'),
+				'type' => Minz_Session::paramString('db_type'),
+				'host' => Minz_Session::paramString('db_host'),
+				'user' => Minz_Session::paramString('db_user'),
+				'password' => Minz_Session::paramString('db_password'),
+				'base' => Minz_Session::paramString('db_base'),
+				'prefix' => Minz_Session::paramString('db_prefix'),
 				'pdo_options' => [],
 			],
 			'pubsubhubbub_enabled' => Minz_Request::serverIsPublic($base_url),
@@ -176,12 +176,12 @@ function saveStep2(): void {
 			$error = initDb();
 			Minz_User::change();
 			if ($error != '') {
-				Minz_Session::_param('bd_error', $error);
+				Minz_Session::_param('db_error', $error);
 			} else {
 				$ok = true;
 			}
 		} catch (Exception $ex) {
-			Minz_Session::_param('bd_error', $ex->getMessage());
+			Minz_Session::_param('db_error', $ex->getMessage());
 			$ok = false;
 		}
 		if (!$ok) {
@@ -189,10 +189,10 @@ function saveStep2(): void {
 		}
 
 		if ($ok) {
-			Minz_Session::_param('bd_error');
+			Minz_Session::_param('db_error');
 			header('Location: index.php?step=3');
-		} elseif (Minz_Session::paramString('bd_error') == '') {
-			Minz_Session::_param('bd_error', 'Unknown error!');
+		} elseif (Minz_Session::paramString('db_error') == '') {
+			Minz_Session::_param('db_error', 'Unknown error!');
 		}
 	}
 	invalidateHttpCache();
@@ -243,7 +243,7 @@ function saveStep3(): bool {
 			$databaseDAO = FreshRSS_Factory::createDatabaseDAO(Minz_User::INTERNAL_USER);
 			if (!$databaseDAO->testTyping()) {
 				$message = 'Invalid PDO driver behaviour for selected database type!';
-				if (Minz_Session::paramString('bd_type') === 'mysql') {
+				if (Minz_Session::paramString('db_type') === 'mysql') {
 					$message .= ' MySQL requires mysqlnd.';
 				}
 				throw new Exception($message);
@@ -261,7 +261,7 @@ function saveStep3(): bool {
 				]
 			);
 		} catch (Exception $e) {
-			Minz_Session::_param('bd_error', $e->getMessage());
+			Minz_Session::_param('db_error', $e->getMessage());
 			$ok = false;
 		}
 		if (!$ok) {
@@ -276,7 +276,7 @@ function saveStep3(): bool {
 	return true;
 }
 
-/*** VÉRIFICATIONS ***/
+/*** CHECKS ***/
 function checkStep(): void {
 	$s0 = checkStep0();
 	$s1 = checkRequirements();
@@ -337,14 +337,14 @@ function freshrss_already_installed(): bool {
 function checkStep2(): array {
 	$conf = is_writable(join_path(DATA_PATH, 'config.php'));
 
-	$bd = Minz_Session::paramString('bd_type') != '';
-	$conn = Minz_Session::paramString('bd_error') == '';
+	$db = Minz_Session::paramString('db_type') != '';
+	$conn = Minz_Session::paramString('db_error') == '';
 
 	return [
-		'bd' => $bd ? 'ok' : 'ko',
+		'db' => $db ? 'ok' : 'ko',
 		'conn' => $conn ? 'ok' : 'ko',
 		'conf' => $conf ? 'ok' : 'ko',
-		'all' => $bd && $conn && $conf ? 'ok' : 'ko',
+		'all' => $db && $conn && $conf ? 'ok' : 'ko',
 	];
 }
 
@@ -552,7 +552,7 @@ function printStep2(): void {
 	<p class="alert alert-success"><span class="alert-head"><?= _t('gen.short.ok') ?></span> <?= _t('install.bdd.conf.ok') ?></p>
 	<?php } elseif ($s2['conn'] == 'ko') { ?>
 	<p class="alert alert-error"><span class="alert-head"><?= _t('gen.short.damn') ?></span> <?= _t('install.bdd.conf.ko'),
-		(empty($_SESSION['bd_error']) || !is_string($_SESSION['bd_error']) ? '' : ' ' . $_SESSION['bd_error']) ?></p>
+		(empty($_SESSION['db_error']) || !is_string($_SESSION['db_error']) ? '' : ' ' . $_SESSION['db_error']) ?></p>
 	<?php } ?>
 
 	<h2><?= _t('install.bdd.conf') ?></h2>
@@ -563,19 +563,19 @@ function printStep2(): void {
 				<select name="type" id="type" tabindex="1">
 				<?php if (extension_loaded('pdo_sqlite')) {?>
 				<option value="sqlite"
-					<?= ($_SESSION['bd_type'] ?? null) === 'sqlite' ? 'selected="selected"' : '' ?>>
+					<?= ($_SESSION['db_type'] ?? null) === 'sqlite' ? 'selected="selected"' : '' ?>>
 					SQLite
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_mysql')) {?>
 				<option value="mysql"
-					<?= ($_SESSION['bd_type'] ?? null) === 'mysql' ? 'selected="selected"' : '' ?>>
+					<?= ($_SESSION['db_type'] ?? null) === 'mysql' ? 'selected="selected"' : '' ?>>
 					MySQL / MariaDB
 				</option>
 				<?php }?>
 				<?php if (extension_loaded('pdo_pgsql')) {?>
 				<option value="pgsql"
-					<?= ($_SESSION['bd_type'] ?? null) === 'pgsql' ? 'selected="selected"' : '' ?>>
+					<?= ($_SESSION['db_type'] ?? null) === 'pgsql' ? 'selected="selected"' : '' ?>>
 					PostgreSQL
 				</option>
 				<?php }?>
@@ -585,17 +585,17 @@ function printStep2(): void {
 
 		<div id="mysql">
 		<?php
-			$bd_base = is_string($_SESSION['bd_base'] ?? null) ? $_SESSION['bd_base'] : null;
-			$bd_host = is_string($_SESSION['bd_host'] ?? null) ? $_SESSION['bd_host'] : null;
-			$bd_password = is_string($_SESSION['bd_password'] ?? null) ? $_SESSION['bd_password'] : null;
-			$bd_prefix = is_string($_SESSION['bd_prefix'] ?? null) ? $_SESSION['bd_prefix'] : null;
-			$bd_user = is_string($_SESSION['bd_user'] ?? null) ? $_SESSION['bd_user'] : null;
+			$db_base = is_string($_SESSION['db_base'] ?? null) ? $_SESSION['db_base'] : null;
+			$db_host = is_string($_SESSION['db_host'] ?? null) ? $_SESSION['db_host'] : null;
+			$db_password = is_string($_SESSION['db_password'] ?? null) ? $_SESSION['db_password'] : null;
+			$db_prefix = is_string($_SESSION['db_prefix'] ?? null) ? $_SESSION['db_prefix'] : null;
+			$db_user = is_string($_SESSION['db_user'] ?? null) ? $_SESSION['db_user'] : null;
 		?>
 		<div class="form-group">
 			<label class="group-name" for="host"><?= _t('install.bdd.host') ?></label>
 			<div class="group-controls">
 				<input type="text" id="host" name="host" pattern="[0-9A-Z\/a-z_.\-]{1,64}(:[0-9]{2,5})?" value="<?=
-					$bd_host ?? $system_default_config->db['host'] ?? '' ?>" tabindex="2" />
+					$db_host ?? $system_default_config->db['host'] ?? '' ?>" tabindex="2" />
 			</div>
 		</div>
 
@@ -603,7 +603,7 @@ function printStep2(): void {
 			<label class="group-name" for="user"><?= _t('install.bdd.username') ?></label>
 			<div class="group-controls">
 				<input type="text" id="user" name="user" maxlength="64" pattern="[0-9A-Za-z@_.\-]{1,64}" value="<?=
-					$bd_user ?? '' ?>" tabindex="3" />
+					$db_user ?? '' ?>" tabindex="3" />
 			</div>
 		</div>
 
@@ -612,7 +612,7 @@ function printStep2(): void {
 			<div class="group-controls">
 				<div class="stick">
 					<input type="password" id="pass" name="pass" value="<?=
-						$bd_password ?? '' ?>" tabindex="4" autocomplete="off" />
+						$db_password ?? '' ?>" tabindex="4" autocomplete="off" />
 					<a class="btn toggle-password" data-toggle="pass" tabindex="5"><?= FreshRSS_Themes::icon('key') ?></a>
 				</div>
 			</div>
@@ -622,7 +622,7 @@ function printStep2(): void {
 			<label class="group-name" for="base"><?= _t('install.bdd') ?></label>
 			<div class="group-controls">
 				<input type="text" id="base" name="base" maxlength="64" pattern="[0-9A-Za-z_\-]{1,64}" value="<?=
-					$bd_base ?? '' ?>" tabindex="6" />
+					$db_base ?? '' ?>" tabindex="6" />
 			</div>
 		</div>
 
@@ -630,7 +630,7 @@ function printStep2(): void {
 			<label class="group-name" for="prefix"><?= _t('install.bdd.prefix') ?></label>
 			<div class="group-controls">
 				<input type="text" id="prefix" name="prefix" maxlength="16" pattern="[0-9A-Za-z_]{1,16}" value="<?=
-					$bd_prefix ?? $system_default_config->db['prefix'] ?? '' ?>" tabindex="7" />
+					$db_prefix ?? $system_default_config->db['prefix'] ?? '' ?>" tabindex="7" />
 			</div>
 		</div>
 		</div>

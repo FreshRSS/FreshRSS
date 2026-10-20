@@ -1067,7 +1067,7 @@ class FreshRSS_Entry extends Minz_Model {
 	 * @return bool True if the content was modified, false otherwise
 	 */
 	public function loadCompleteContent(bool $force = false): bool {
-		// Gestion du contenu
+		// Content handling
 		// Trying to fetch full article content even when feeds do not propose it
 		$feed = $this->feed();
 		if ($feed === null) {
@@ -1077,7 +1077,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $force ? null : $entryDAO->searchByGuid($this->feedId, $this->guid);
 			if ($entry !== null) {
-				// l’article existe déjà en BDD, en se contente de recharger ce contenu
+				// The article already exists in the database, so simply reload its content
 				$this->content = $entry->content(false);
 			} else {
 				try {
@@ -1104,7 +1104,7 @@ class FreshRSS_Entry extends Minz_Model {
 						return true;
 					}
 				} catch (Exception $e) {
-					// rien à faire, on garde l’ancien contenu(requête a échoué)
+					// Nothing to do: the request failed, so keep the previous content
 					Minz_Log::warning($e->getMessage());
 				}
 			}
