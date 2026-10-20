@@ -4,6 +4,7 @@ declare(strict_types=1);
 enum Minz_HookType: string {
 	case ActionExecute = 'action_execute'; // function(Minz_ActionController $controller): bool
 	case ApiMisc = 'api_misc';	// function(): void
+	case AutofillField = 'autofill_field';	// function(string $field_name): string | null
 	case BeforeLoginBtn = 'before_login_btn';	// function(): string
 	case CheckUrlBeforeAdd = 'check_url_before_add';	// function(string $url) -> string | null
 	case CustomFaviconBtnUrl = 'custom_favicon_btn_url';	// function(FreshRSS_Feed $feed): string | null
@@ -60,6 +61,7 @@ enum Minz_HookType: string {
 			case self::NavReadingModes:
 			case self::ViewModes:
 				return Minz_HookSignature::OneToOne;
+			case self::AutofillField:
 			case self::CustomFaviconBtnUrl:
 			case self::CustomFaviconHash:
 			case self::EntriesFavorite:

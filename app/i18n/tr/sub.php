@@ -266,7 +266,7 @@ return array(
 		'validator' => 'Beslemenin geçerliliğini kontrol et',
 		'website' => 'Web sitesi URL’si',
 		'websub' => 'WebSub ile anlık bildirimler',
-		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
+		'websub_pending' => 'WebSub’a abone olundu. Bildirim bekleniyor.',
 	),
 	'import_export' => array(
 		'export' => array(

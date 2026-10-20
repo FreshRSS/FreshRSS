@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nazwa użytkownika',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>Od 1 do 39 znaków: litery, cyfry oraz <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -180,14 +180,14 @@ return array(
 		'confirm_exit_slider' => 'Czy na pewno chcesz odrzucić niezapisane ustawienia?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'W FreshRSS znajduje się %d wiadomości do przeczytania.',	// DIRTY
-				1 => 'W FreshRSS znajduje się %d wiadomości do przeczytania.',	// DIRTY
-				2 => 'W FreshRSS znajduje się %d wiadomości do przeczytania.',	// DIRTY
+				0 => 'W FreshRSS jest %d nowa wiadomość do przeczytania.',
+				1 => 'W FreshRSS są %d nowe wiadomości do przeczytania.',
+				2 => 'W FreshRSS jest %d nowych wiadomości do przeczytania.',
 			),
 			'body_unread_articles' => array(
-				0 => '(Nieprzeczytane: %d)',	// DIRTY
-				1 => '(Nieprzeczytane: %d)',	// DIRTY
-				2 => '(Nieprzeczytane: %d)',	// DIRTY
+				0 => '(Nieprzeczytane: %d)',
+				1 => '(Nieprzeczytane: %d)',
+				2 => '(Nieprzeczytane: %d)',
 			),
 			'request_failed' => 'Zapytanie nie powiodło się. Może to być spowodowane problemami z łącznością z internetem.',
 			'title_new_articles' => 'FreshRSS: nowe wiadomości!',
@@ -215,7 +215,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
-		'lt' => 'Lietuvių',	// TODO
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -314,7 +314,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Zakładki',	// DIRTY
+		'nextcloud-bookmarks' => 'Zakładki Nextcloud',
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

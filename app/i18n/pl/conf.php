@@ -69,7 +69,7 @@ return array(
 			'help' => 'Wyłącznie dla kompatybilnych wyglądów',
 			'no' => 'Wyłączony',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Pokaż załączniki',
 		'headline' => array(
 			'articles_header_footer' => 'Wiadomości: nagłówek i stopka',
 		),
@@ -79,7 +79,7 @@ return array(
 			'entry' => 'Ikony wiadomości',
 			'publication_date' => 'Data publikacji',
 			'related_tags' => 'Tagi',
-			'sharing' => 'Udostępnij',
+			'sharing' => 'Udostępnianie',
 			'summary' => 'Skrót wiadomości',
 			'top_line' => 'Górny margines',
 		),
@@ -91,11 +91,11 @@ return array(
 		'show_nav_buttons' => 'Pokaż przyciski nawigacyjne',
 		'show_title_unread' => 'Pokaż liczbę nieprzeczytanych wiadomości w tytule',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Pokaż liczbę nieprzeczytanych na pasku bocznym',
+			'all' => 'Dla wszystkich kategorii i kanałów',
+			'important' => 'Tylko dla ważnych kanałów',
+			'important_locked' => 'Ważne kanały zawsze pokazują liczbę nieprzeczytanych wiadomości.',
+			'none' => 'Nigdy',
 		),
 		'sidebar_hidden_by_default' => 'Ukryj pasek boczny domyślnie',
 		'theme' => array(
@@ -201,8 +201,8 @@ return array(
 			'_' => 'Zastosowane filtry:',
 			'categories' => 'Według kategorii',
 			'feeds' => 'Według kanału',
-			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
-			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'include_article_tags_label' => 'Uwzględnij tagi wiadomości z kanałów',
+			'include_user_labels_label' => 'Uwzględnij etykiety użytkownika z prefiksem:',
 			'order' => 'Sortowanie wg daty',
 			'search' => 'Wyrażenie',
 			'shareOpml' => 'Włącz udostępnianie OPML-ów zawierających kategorie i kanały',
@@ -275,7 +275,7 @@ return array(
 		),
 		'hide_read_feeds' => 'Ukryj kategorie i kanały nie zawierające nieprzeczytanych wiadomości (nie działa gdy włączone jest wyświetlanie wszystkich wiadomości)',
 		'img_with_lazyload' => 'Opóźnij ładowanie obrazów dopóki nie będą widoczne',
-		'jump_next' => 'przeskocz do następnego nieprzeczytanego wpisu',
+		'jump_next' => 'przeskocz do następnej nieprzeczytanej wiadomości',
 		'mark_updated_article_unread' => 'Oznacz zaktualizowane wiadomości jako nieprzeczytane',
 		'number_divided_when_reader' => 'Dzielone przez 2 w widoku czytania.',
 		'read' => array(
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Oznacz wiadomość jako ulubioną…',
 		),
 		'sticky_post' => 'Przesuń wiadomość na górę strony po otworzeniu',
-		'sticky_sort' => 'Zachowaj ręczną kolejność sortowania podczas nawigacji',	// DIRTY
-		'sticky_sort_help' => 'Określa, czy ostatnia ręczna kolejność sortowania pozostaje aktywna, czy każda kategoria lub kanał zawsze używa własnego ustawienia domyślnego lub globalnego.',	// DIRTY
+		'sticky_sort' => 'Zachowaj niestandardową kolejność sortowania podczas nawigacji',
+		'sticky_sort_help' => 'Określa, czy ostatnia niestandardowa kolejność sortowania ma pozostać aktywna, czy każda kategoria lub kanał ma zawsze używać własnego ustawienia domyślnego albo globalnego.',
 		'title' => 'Czytanie',
 		'view' => array(
 			'default' => 'Domyślny widok',

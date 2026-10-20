@@ -32,7 +32,7 @@ final class FreshRSS_http_Util {
 			return '';
 		}
 		// Once per host, as serverIsPublic() may resolve it
-		$domainWide = self::$retry_after_domain_wide[$domain] ??= Minz_Request::serverIsPublic($url);
+		$domainWide = self::$retry_after_domain_wide[$domain] ??= Minz_Request::serverIsPublic($url, allowDnsResolve: $proxy === '');
 		$port = parse_url($url, PHP_URL_PORT);
 		if (is_int($port)) {
 			$domain .= ':' . $port;
@@ -525,8 +525,9 @@ final class FreshRSS_http_Util {
 				}
 			}
 		}
-		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
 		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
+		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
+		$proxy = preg_replace('#^.*://#', '', $proxy) ?? $proxy;	// Strip scheme, as it is provided by CURLOPT_PROXYTYPE
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
@@ -574,6 +575,7 @@ final class FreshRSS_http_Util {
 						\SimplePie\Misc::url_remove_credentials($url) . ']');
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				} elseif ($resolve === false) {
+					Minz_Log::warning('Error during HTTP fetch: unable to resolve hostname! ' . \SimplePie\Misc::url_remove_credentials($url));
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				}
 				if (!empty($resolve)) {
@@ -602,6 +604,7 @@ final class FreshRSS_http_Util {
 						\SimplePie\Misc::url_remove_credentials($proxy_url) . ']');
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				} elseif ($resolve === false) {
+					Minz_Log::warning('Error during HTTP fetch: unable to resolve the proxy’s hostname! ' . \SimplePie\Misc::url_remove_credentials($proxy_url));
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				}
 				if (!empty($resolve)) {

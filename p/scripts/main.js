@@ -1863,7 +1863,10 @@ function refreshFeed(feeds, feeds_count) {
 			const req2 = new XMLHttpRequest();
 			req2.open('POST', './?c=feed&a=actualize&id=-1&ajax=1', true);
 			req2.onloadend = function (e) {
-				delayedFunction(function () { location.reload(); });
+				delayedFunction(function () {
+					feeds_processed = 0; // New articles were committed, allow exiting the page without confirmation.
+					location.reload();
+				});
 			};
 			req2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 			req2.send(JSON.stringify({
@@ -2465,8 +2468,17 @@ function init_normal() {
 		});
 	}
 
-	document.addEventListener("visibilitychange", () => {
-		if (document.visibilityState === "hidden") {
+	window.addEventListener('beforeunload', (e) => {
+		const feeds_updating = feeds_processed > 0;
+		if (feeds_updating) {
+			// Prevent the user from closing the tab without confirmation.
+			e.preventDefault();
+			return false;
+		}
+	});
+
+	document.addEventListener('visibilitychange', () => {
+		if (document.visibilityState === 'hidden') {
 			if (mark_read_queue && mark_read_queue.length > 0) {
 				clearTimeout(send_mark_read_queue_timeout);
 				send_mark_queue_tick(null);
