@@ -266,6 +266,7 @@ return array(
 		'validator' => '檢查訂閱源有效性',
 		'website' => '網站 URL',
 		'websub' => 'WebSub 即時通知',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

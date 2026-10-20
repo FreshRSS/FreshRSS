@@ -103,6 +103,10 @@ class FreshRSS_View extends Minz_View {
 	public string $sqlitePath;
 	public string $sqliteName;
 
+	// Form auth
+	/** @var array{username: string, password: string} */
+	public array $auth_autofills;
+
 	// Form login
 	public int $cookie_days;
 
@@ -117,7 +121,7 @@ class FreshRSS_View extends Minz_View {
 	// Logs
 	public int $currentPage;
 	public Minz_Paginator $logsPaginator;
-	public int $nbPage;
+	public int $pageCount;
 	public string $logSearch = '';
 
 	// RSS view

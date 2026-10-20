@@ -266,6 +266,7 @@ return array(
 		'validator' => 'Перевірити коректність стрічки',
 		'website' => 'URL-адреса вебсайту',
 		'websub' => 'Негайні сповіщення за допомогою WebSub',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

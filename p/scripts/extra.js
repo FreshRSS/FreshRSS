@@ -446,17 +446,18 @@ function init_2stateButton() {
 }
 
 function init_configuration_alert() {
-	window.onsubmit = function (e) {
+	window.addEventListener('submit', function (e) {
 		window.hasSubmit = data_leave_validation(document.body, e.target);
-	};
-	window.onbeforeunload = function (e) {
+	});
+	window.addEventListener('beforeunload', function (e) {
 		if (window.hasSubmit) {
-			return;
+			return true;
 		}
 		if (!data_leave_validation(document.body)) {
+			e.preventDefault();
 			return false;
 		}
-	};
+	});
 }
 
 function init_details_attributes() {
