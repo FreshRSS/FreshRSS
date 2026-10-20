@@ -1403,8 +1403,7 @@ function init_shortcuts() {
 		if (k === s.toggle_aside) { toggle_aside_click(); ev.preventDefault(); }
 	});
 
-	// Pressing Esc inside the search box leaves it, so the user can go straight
-	// back to navigating articles with the keyboard. See #5043.
+	// Unfocus the search input if user presses Esc
 	const searchBox = document.getElementById('search');
 	if (searchBox) {
 		searchBox.addEventListener('keydown', ev => {
