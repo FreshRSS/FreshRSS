@@ -187,6 +187,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$max_redirs = Minz_Request::paramInt('curl_params_redirects');
 			$useragent = Minz_Request::paramString('curl_params_useragent', plaintext: true);
 			$proxy_address = Minz_Request::paramString('curl_params', plaintext: true);
+			$proxy_address = preg_replace('#^.*://#', '', $proxy_address) ?? $proxy_address;
 			$proxy_type = Minz_Request::paramIntNull('proxy_type');
 			$request_method = Minz_Request::paramString('curl_method', plaintext: true);
 			$request_fields = Minz_Request::paramString('curl_fields', plaintext: true);
@@ -606,8 +607,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 				if ($e->getCode() === 410) {
 					// HTTP 410 Gone
 					Minz_Log::warning('Muting gone feed: ' . $feed->url(false));
-					$feedDAO->mute($feed->id(), true);
-					$feed->_ttl(-abs($feed->ttl())); // Replicate behavior of line above which acts directly into the DB
+					$feed->_mute(true);
+					$feedDAO->updateFeed($feed->id(), ['ttl' => $feed->ttl(raw: true)]);	// Also when the feed has the default TTL (0)
 				}
 				$feed->unlock();
 				continue;

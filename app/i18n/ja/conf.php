@@ -69,7 +69,7 @@ return array(
 			'help' => '対応テーマのみ',
 			'no' => '無効',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => '添付ファイルを表示',
 		'headline' => array(
 			'articles_header_footer' => '記事：ヘッダー/フッター',
 		),
@@ -201,8 +201,8 @@ return array(
 			'_' => 'フィルターを適用：',
 			'categories' => 'カテゴリごとに表示する',
 			'feeds' => 'フィードごとに表示する',
-			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
-			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'include_article_tags_label' => 'フィードの記事タグを含める',
+			'include_user_labels_label' => 'プレフィックスを付けてユーザーラベルを含める：',
 			'order' => '日付ごとにソートする',
 			'search' => '検索式',
 			'shareOpml' => 'カテゴリとフィードのOPMLによる共有を有効にする',

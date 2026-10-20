@@ -158,6 +158,33 @@ class Minz_View {
 	}
 
 	/**
+	 * Writes renderHelper() into a file, without keeping the whole output in memory
+	 * @param string $helper the element to be treated
+	 * @param string $filename the path of the file to write
+	 * @throws Minz_PermissionDeniedException
+	 */
+	public function helperToFile(string $helper, string $filename): void {
+		$file = fopen($filename, 'wb');
+		if ($file === false) {
+			throw new Minz_PermissionDeniedException($filename);
+		}
+		$written = true;
+		ob_start(static function (string $buffer) use ($file, &$written): string {
+			$written = $written && fwrite($file, $buffer) !== false;
+			return '';
+		}, 65536);	// Write to the file by chunks of 64 KiB
+		try {
+			$this->renderHelper($helper);
+		} finally {
+			ob_end_flush();
+			$written = fclose($file) && $written;
+		}
+		if (!$written) {
+			throw new Minz_PermissionDeniedException($filename);
+		}
+	}
+
+	/**
 	 * Choose the current view layout.
 	 * @param string|null $layout the layout name to use, null to use no layouts.
 	 */

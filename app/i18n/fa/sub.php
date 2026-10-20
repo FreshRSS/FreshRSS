@@ -266,6 +266,7 @@ return array(
 		'validator' => ' اعتبار خوراک را بررسی کنید',
 		'website' => 'نشانی وب‌سایت',
 		'websub' => ' اطلاع رسانی فوری با WebSub',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

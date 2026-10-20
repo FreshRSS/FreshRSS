@@ -430,7 +430,7 @@ class Minz_Request {
 	 * @param string $address the address to test, which can be an URL with a DNS or an IP.
 	 * @return bool true if server does not appear to be on some kind of local network, false otherwise (probably public).
 	 */
-	public static function serverIsPublic(string $address): bool {
+	public static function serverIsPublic(string $address, bool $allowDnsResolve = true): bool {
 		if (strlen($address) < strlen('http://a.bc')) {
 			return false;
 		}
@@ -445,12 +445,12 @@ class Minz_Request {
 			&& !preg_match('/^(\\[)?(::1|f[c-d][0-9a-f]{2}:|fe80:)(\\])?/i', $host);	// IPv6
 
 		// If $host looks public and is not an IP address, try to resolve it
-		if ($is_public && filter_var($host, FILTER_VALIDATE_IP) === false) {
+		if ($allowDnsResolve && $is_public && filter_var($host, FILTER_VALIDATE_IP) === false) {
 			$resolvedIp = self::resolveHostname($host);
 			if ($resolvedIp !== null && $resolvedIp !== $host) {
 				$resolvedAddress = str_contains($resolvedIp, ':') ? "http://[{$resolvedIp}]/" : "http://{$resolvedIp}/";
 				if ($resolvedAddress !== $address) {
-					$is_public &= self::serverIsPublic($resolvedAddress);
+					$is_public &= self::serverIsPublic($resolvedAddress, $allowDnsResolve);
 				}
 			}
 		}
