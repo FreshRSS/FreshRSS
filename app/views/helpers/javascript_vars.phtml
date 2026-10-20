@@ -89,6 +89,7 @@ echo json_encode([
 		'favicon_size_exceeded' => _t('feedback.sub.feed.favicon.too_large', format_bytes(FreshRSS_Context::systemConf()->limits['max_favicon_upload_size'])),
 		'language' => FreshRSS_Context::userConf()->language,
 		'unsafe_csp_header' => _t('gen.js.unsafe_csp_header'),
+		'provided_password_too_long' => _t('user.password.provided_password_too_long'),
 	],
 	'icons' => [
 		'read' => rawurlencode(_i('read')),
