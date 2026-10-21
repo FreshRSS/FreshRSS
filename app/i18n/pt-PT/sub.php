@@ -249,7 +249,7 @@ return array(
 			'forced' => '<span title="Bloquear os critérios de unicidade, mesmo quando o feed tem artigos duplicados">forçado</span>',
 			'help' => 'Relevante para feeds inválidos.<br />⚠️ Alterar a política criará duplicados.',
 			'id' => 'ID padrão (predefinição)',
-			'link' => 'Link',
+			'link' => 'Ligação',
 			'sha1:content' => 'Conteúdo',
 			'sha1:content_published' => 'Conteúdo + Data',
 			'sha1:link_published' => 'Link + Data',
