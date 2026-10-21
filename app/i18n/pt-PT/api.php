@@ -12,22 +12,22 @@
 
 return array(
 	'information' => array(
-		'address' => 'Your API address:',	// TODO
+		'address' => 'O seu endereço de API:',
 		'output' => array(
-			'encoding-support' => '⚠️ WARN: no <code>%2F</code> support, some clients might not work!',	// TODO
-			'invalid-configuration' => '⚠️ WARN: Probable invalid base URL in ./data/config.php',	// TODO
-			'pass' => '✔️ PASS',	// TODO
-			'unknown-error' => '❌ ',	// TODO
+			'encoding-support' => '⚠️ AVISO: sem suporte para <code>%2F</code>, alguns clientes poderão não funcionar!',
+			'invalid-configuration' => '⚠️ AVISO: URL base provavelmente inválido em ./data/config.php',
+			'pass' => '✔️ SUCESSO',
+			'unknown-error' => '❌ ',
 		),
 		'test' => array(
-			'fever' => 'Fever API configuration test:',	// TODO
-			'greader' => 'Google Reader API configuration test:',	// TODO
+			'fever' => 'Teste de configuração da API Fever:',
+			'greader' => 'Teste de configuração da API Google Reader:',
 		),
 		'title' => array(
-			'_' => 'FreshRSS API endpoints',	// TODO
-			'extension' => 'API for extensions',	// TODO
-			'fever' => 'Fever compatible API',	// TODO
-			'greader' => 'Google Reader compatible API',	// TODO
+			'_' => 'Pontos de acesso da API do FreshRSS',
+			'extension' => 'API para extensões',
+			'fever' => 'API compatível com Fever',
+			'greader' => 'API compatível com Google Reader',
 		),
 	),
 );
