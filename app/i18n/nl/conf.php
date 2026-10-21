@@ -69,7 +69,7 @@ return array(
 			'help' => 'Alleen voor compatibele thema’s',
 			'no' => 'Nee',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => 'Toon bijlagen',
 		'headline' => array(
 			'articles_header_footer' => 'Artikelen: kop/voet',
 		),
@@ -91,11 +91,11 @@ return array(
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'show_title_unread' => 'Aantal ongelezen artikelen in de titel weergeven',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Aantal ongelezen artikelen in de zijbalk weergeven',
+			'all' => 'Voor alle categorieën en feeds',
+			'important' => 'Alleen voor belangrijke feeds',
+			'important_locked' => 'Belangrijke feeds tonen altijd het aantal ongelezen artikelen.',
+			'none' => 'Nooit',
 		),
 		'sidebar_hidden_by_default' => 'Zijbalk standaard verbergen',
 		'theme' => array(
@@ -201,8 +201,8 @@ return array(
 			'_' => 'Filter toegepast:',
 			'categories' => 'Weergeven op categorie',
 			'feeds' => 'Weergeven op feed',
-			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
-			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'include_article_tags_label' => 'Artikel-tags van feeds opnemen',
+			'include_user_labels_label' => 'Gebruikerslabels opnemen, met voorvoegsel:',
 			'order' => 'Sorteren op datum',
 			'search' => 'Expressie',
 			'shareOpml' => 'Via OPML delen van bijbehorende categorieën en feeds aanzetten',
