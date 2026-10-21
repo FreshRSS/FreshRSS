@@ -101,8 +101,8 @@ return array(
 			'id_desc' => 'Recebidos recentemente em primeiro',
 			'length_asc' => 'Tamanho do conteúdo 1→9',
 			'length_desc' => 'Tamanho do conteúdo 9→1',
-			'link_asc' => 'Link A→Z',
-			'link_desc' => 'Link Z→A',
+			'link_asc' => 'Link A→Z',	// IGNORE
+			'link_desc' => 'Link Z→A',	// IGNORE
 			'primary' => array(
 				'_' => 'Critério de ordenação',
 				'help' => 'Recomenda-se a ordenação por data de <em>receção</em> na maioria dos casos, para consistência e desempenho',

@@ -207,7 +207,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
-		'lt' => 'Lietuvių',
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -271,7 +271,7 @@ return array(
 		'date_received' => 'Data de receção',
 		'date_to' => 'Até',
 		'date_user' => 'Data de modificação do utilizador',
-		'feeds' => 'Feeds',
+		'feeds' => 'Feeds',	// IGNORE
 		'free_text' => 'Texto livre',
 		'free_text_help' => 'Pesquisar tanto no título como no conteúdo',
 		'full_documentation' => 'Ver a <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">documentação completa de pesquisa</a>',
@@ -283,7 +283,7 @@ return array(
 		'text_help' => 'Múltiplas linhas são combinadas por um <i>ou</i> lógico. Também suporta <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">expressões regulares</a>.',
 		'text_placeholder' => 'Palavra-chave',
 		'title' => 'Título',
-		'url' => 'URL',
+		'url' => 'URL',	// IGNORE
 		'user_queries' => 'Consultas de utilizador',
 	),
 	'share' => array(
@@ -295,7 +295,7 @@ return array(
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => 'Área de transferência',
 		'diaspora' => 'Diaspora*',	// IGNORE
-		'email' => 'Email',
+		'email' => 'Email',	// IGNORE
 		'email-webmail-firefox-fix' => 'Email (webmail - correção para o Firefox)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE

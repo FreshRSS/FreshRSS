@@ -17,7 +17,7 @@ return array(
 			'encoding-support' => '⚠️ AVISO: sem suporte para <code>%2F</code>, alguns clientes poderão não funcionar!',
 			'invalid-configuration' => '⚠️ AVISO: URL base provavelmente inválido em ./data/config.php',
 			'pass' => '✔️ SUCESSO',
-			'unknown-error' => '❌ ',
+			'unknown-error' => '❌ ',	// IGNORE
 		),
 		'test' => array(
 			'fever' => 'Teste de configuração da API Fever:',
