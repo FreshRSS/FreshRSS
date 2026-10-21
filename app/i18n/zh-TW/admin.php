@@ -98,6 +98,10 @@ return array(
 		'max-categories' => '每個使用者的最大類別數',
 		'max-feeds' => '每個使用者的最大訂閱源數',
 		'override-by-env-var' => '此設定由環境變數 <kbd>%s</kbd> 覆寫。',
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => '最大帳號數',
 			'select' => array(

@@ -93,6 +93,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		if ($passwordPlain != '') {
 			$passwordHash = FreshRSS_password_Util::hash($passwordPlain);
 			$userConfig->passwordHash = $passwordHash;
+			$userConfig->_attribute('password_reset', null);	// Invalidate any pending password reset link
 			if ($user === Minz_User::name()) {
 				FreshRSS_Context::userConf()->passwordHash = $passwordHash;
 			}

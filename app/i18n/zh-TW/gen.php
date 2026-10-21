@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => '我接受 <a href="%s">服務條款</a>',
 		'email' => '電子郵件位址',
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// TODO
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// TODO
+			'submit' => 'Send the reset link',	// TODO
+			'title' => 'Password reset',	// TODO
+		),
 		'keep_logged_in' => '<small>%s</small> 天內保持登入',
 		'login' => '登入',
 		'logout' => '登出',
@@ -70,6 +76,12 @@ return array(
 			'_' => '新帳號',
 			'ask' => '建立帳號？',
 			'title' => '帳號建立',
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired. Please request a new one below.',	// TODO
+			'request_new' => 'Request a new link',	// TODO
+			'submit' => 'Change password',	// TODO
+			'title' => 'Choose a new password',	// TODO
 		),
 		'username' => array(
 			'_' => '使用者名稱',

@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => '<a href="%s">Hizmet Şartları</a>’nı kabul ediyorum.',
 		'email' => 'E-posta adresi',
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// TODO
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// TODO
+			'submit' => 'Send the reset link',	// TODO
+			'title' => 'Password reset',	// TODO
+		),
 		'keep_logged_in' => 'Beni oturumda tut <small>(%s gün)</small>',
 		'login' => 'Giriş yap',
 		'logout' => 'Çıkış yap',
@@ -70,6 +76,12 @@ return array(
 			'_' => 'Yeni hesap',
 			'ask' => 'Hesap oluştur?',
 			'title' => 'Hesap oluşturma',
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired. Please request a new one below.',	// TODO
+			'request_new' => 'Request a new link',	// TODO
+			'submit' => 'Change password',	// TODO
+			'title' => 'Choose a new password',	// TODO
 		),
 		'username' => array(
 			'_' => 'Kullanıcı adı',

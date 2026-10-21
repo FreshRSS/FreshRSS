@@ -156,6 +156,22 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="password-reset">
+					<input
+						type="checkbox"
+						name="password-reset"
+						id="password-reset"
+						value="1"
+						<?= FreshRSS_Context::systemConf()->password_reset ? 'checked="checked"' : '' ?>
+					/>
+					<?= _t('admin.system.password_reset._') ?>
+				</label>
+				<p class="help"><?= _i('help') ?> <?= _t('admin.system.password_reset.help') ?></p>
+			</div>
+		</div>
+
 		<div class="form-group form-actions">
 			<div class="group-controls">
 				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>

@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'Prijímam <a href="%s">Podmienky služby</a>.',
 		'email' => 'E-mailová adresa',
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// TODO
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// TODO
+			'submit' => 'Send the reset link',	// TODO
+			'title' => 'Password reset',	// TODO
+		),
 		'keep_logged_in' => 'Zostať prihlásený <small>(počet dní: %s)</small>',
 		'login' => 'Prihlásiť',
 		'logout' => 'Odhlásiť',
@@ -70,6 +76,12 @@ return array(
 			'_' => 'Nový účet',
 			'ask' => 'Vytvoriť účet?',
 			'title' => 'Vytvorenie účtu',
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired. Please request a new one below.',	// TODO
+			'request_new' => 'Request a new link',	// TODO
+			'submit' => 'Change password',	// TODO
+			'title' => 'Choose a new password',	// TODO
 		),
 		'username' => array(
 			'_' => 'Používateľské meno',

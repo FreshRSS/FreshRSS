@@ -98,6 +98,10 @@ return array(
 		'max-categories' => '各用户分类数限制',
 		'max-feeds' => '各用户订阅源数限制',
 		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => '最大用户数',
 			'select' => array(
