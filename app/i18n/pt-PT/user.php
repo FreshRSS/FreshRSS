@@ -14,41 +14,41 @@ return array(
 	'email' => array(
 		'feedback' => array(
 			'invalid' => 'Endereço de email inválido',
-			'required' => 'O endereço de email é necessário',
+			'required' => 'O endereço de email é obrigatório',
 		),
 		'validation' => array(
-			'change_email' => 'Pode mudar seu endereço de email <a href="%s">na página do perfil</a>.',
-			'email_sent_to' => 'Enviamos um email para <strong>%s</strong>. Por favor, siga as instruções contidas nele para verificar sua conta.',
+			'change_email' => 'Pode alterar o seu endereço de email <a href="%s">na página do perfil</a>.',
+			'email_sent_to' => 'Enviámos um email para <strong>%s</strong>. Por favor, siga as instruções contidas no mesmo para verificar a sua conta.',
 			'feedback' => array(
-				'email_failed' => 'Não foi possível enviar um email devido a um erro de configuração no servidor.',
-				'email_sent' => 'Um email foi enviado para o seu endereço',
+				'email_failed' => 'Não foi possível enviar o email devido a um erro de configuração no servidor.',
+				'email_sent' => 'Foi enviado um email para o seu endereço',
 				'error' => 'Falha na verificação do endereço de email',
 				'ok' => 'O endereço de email foi verificado com sucesso.',
-				'unnecessary' => 'Esse endereço de email já foi verificado.',
-				'wrong_token' => 'A verificação do endereço de email falhou por causa do token incorreto.',
+				'unnecessary' => 'Este endereço de email já foi verificado.',
+				'wrong_token' => 'A verificação do endereço de email falhou devido a um token incorreto.',
 			),
-			'need_to' => 'Para poder utilizar o %s, deve verificar seu endereço de email.',
+			'need_to' => 'Para poder utilizar o %s, deve verificar o seu endereço de email.',
 			'resend_email' => 'Reenviar o email',
 			'title' => 'Validação do endereço de email',
 		),
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => 'Registrou no %s. Mas ainda é necessário verificar seu endereço de email. Para isso, basta seguir o link:',
-			'title' => 'Precisa verificar a conta',
-			'welcome' => 'Bem vindo %s,',
+			'body' => 'Registou-se no %s. No entanto, ainda é necessário verificar o seu endereço de email. Para o fazer, basta seguir o link:',
+			'title' => 'Precisa de verificar a conta',
+			'welcome' => 'Bem-vindo, %s,',
 		),
 	),
 	'password' => array(
-		'invalid' => 'Senha incorreta',
+		'invalid' => 'Palavra-passe incorreta',
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'Para se registrar, tem que aceitar os Termos do serviço.',
+			'invalid' => 'Para se registar, tem de aceitar os Termos de serviço.',
 		),
 	),
 	'username' => array(
 		'invalid' => 'Nome de utilizador inválido.',
-		'taken' => 'O nome de utilizador %s já está sendo utilizado',
+		'taken' => 'O nome de utilizador %s já está a ser utilizado',
 	),
 );
