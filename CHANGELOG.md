@@ -3,13 +3,19 @@
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 
-## 2026-10-2X FreshRSS 1.30.4-dev
+## 2026-10-21 FreshRSS 1.30.4
+
+* Security
+	* Docker alternative image (Alpine 3.24) updated with PHP 8.5.12 and Apache 2.4.69 [#9475](https://github.com/FreshRSS/FreshRSS/issues/9475)
+	* Docker: disable PHP `session.upload_progress.enabled` for additional security [#9476](https://github.com/FreshRSS/FreshRSS/pull/9476)
+* I18n
+	* Improve Dutch [#9479](https://github.com/FreshRSS/FreshRSS/pull/9479)
 
 
 ## 2026-10-21 FreshRSS 1.30.3
 
 * Deployment
-	* Docker default image updated to Debian 13 Trixie with PHP 8.4.27-1~deb13u1 and Apache 2.4.69
+	* Docker default image (Debian 13 Trixie) updated with PHP [8.4.27-1~deb13u1](https://tracker.debian.org/news/1813677/accepted-php84-8427-1deb13u1-source-into-stable-security/) and Apache 2.4.69 [#9475](https://github.com/FreshRSS/FreshRSS/issues/9475)
 * Extensions
 	* New hook: `Minz_HookType::AutofillField` for auth views [#9362](https://github.com/FreshRSS/FreshRSS/pull/9362)
 * I18n

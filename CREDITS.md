@@ -246,6 +246,7 @@ People are sorted by name so please keep this order.
 * [NaeiKinDus](https://github.com/NaeiKinDus): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:NaeiKinDus)
 * [Nainor](https://github.com/Nainor): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Nainor)
 * [nanhualyq](https://github.com/nanhualyq): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:nanhualyq)
+* [Nat Welch](https://github.com/icco): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:icco), [Web](https://natwelch.com)
 * [Natalie Stroud](https://github.com/natastro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:natastro)
 * [netsho](https://github.com/netsho): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:netsho)
 * [nhirokinet](https://github.com/nhirokinet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:nhirokinet)
