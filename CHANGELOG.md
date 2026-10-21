@@ -2,7 +2,20 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-XX-XX FreshRSS 1.30.3-dev
+
+## 2026-10-2X FreshRSS 1.30.4-dev
+
+
+## 2026-10-21 FreshRSS 1.30.3
+
+* Deployment
+	* Docker default image updated to Debian 13 Trixie with PHP 8.4.27-1~deb13u1 and Apache 2.4.69
+* Extensions
+	* New hook: `Minz_HookType::AutofillField` for auth views [#9362](https://github.com/FreshRSS/FreshRSS/pull/9362)
+* I18n
+	* Improve Brazilian Portuguese [#9473](https://github.com/FreshRSS/FreshRSS/pull/9473)
+* Misc.
+	* Translate non-English code comments and identifiers [#9383](https://github.com/FreshRSS/FreshRSS/pull/9383)
 
 
 ## 2026-10-19 FreshRSS 1.30.2
