@@ -56,6 +56,7 @@ People are sorted by name so please keep this order.
 * [Brewal Bouvet](https://github.com/Jucgshu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jucgshu)
 * [Brooke.](https://github.com/BrookeDot): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:BrookeDot), [Web](https://brooke.codes/)
 * [Bryan Butler](https://github.com/BryanButlerGit): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:BryanButlerGit)
+* [Busy-SweetPotato](https://github.com/Busy-SweetPotato): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Busy-SweetPotato)
 * [caminsha](https://github.com/caminsha): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:caminsha)
 * [CarelessCaution](https://github.com/ghost): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:CarelessCaution)
 * [Carey Metcalfe](https://github.com/pR0Ps): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:pR0Ps), [Web](https://cmetcalfe.ca/)

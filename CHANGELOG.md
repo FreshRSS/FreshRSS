@@ -4,6 +4,9 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-XX-XX FreshRSS 1.30.5-dev
 
+* Bug fixes
+	* Fix saved search references with overlapping IDs or names
+
 
 ## 2026-10-21 FreshRSS 1.30.4
 
