@@ -2,6 +2,8 @@ parameters:
 	phpVersion:
 		min: 80100	# PHP 8.1
 		max: 80599	# PHP 8.5
+	scanFiles:
+		- tests/stubs/php84-dom.php
 	level: 10	# https://phpstan.org/user-guide/rule-levels
 	fileExtensions:
 		- php
@@ -10,6 +12,7 @@ parameters:
 		- .
 	excludePaths:
 		analyse:
+			- tests/stubs/php84-dom.php
 			- lib/marienfressinaud/*
 			- lib/phpgt/*
 			- lib/phpmailer/*
