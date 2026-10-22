@@ -85,6 +85,7 @@ People are sorted by name so please keep this order.
 * [Daniel Scharmach](https://github.com/scharmach): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:scharmach)
 * [Danny](https://github.com/tpq2030): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:tpq2030)
 * [Darkentia](https://github.com/Darkentia): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Darkentia)
+* [Darodi](https://github.com/darodi): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:darodi)
 * [David Lynch](https://github.com/kemayo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:kemayo), [Web](https://davidlynch.org/)
 * [David Souza](https://github.com/araujo0205): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:araujo0205)
 * [Dennis Cheng](https://github.com/den13501): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:den13501)
