@@ -312,6 +312,7 @@ People are sorted by name so please keep this order.
 * [robertdahlem](https://github.com/robertdahlem): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:robertdahlem)
 * [rocka](https://github.com/rocka): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rocka)
 * [romibi](https://github.com/romibi): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:romibi)
+* [Ron Richter](https://github.com/eMPai-git): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:eMPai-git)
 * [Rosemary Le Faive](https://github.com/rosiel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:rosiel)
 * [Rufubi](https://github.com/Rufubi): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Rufubi)
 * [Rui Melo](https://github.com/ViPeR5000): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ViPeR5000)
