@@ -176,22 +176,45 @@ test('FreshRSS rootless image contract', { timeout: 300_000 }, async t => {
 		assert.equal(ownership, '33:33:700', 'Fresh named volume did not inherit the image data directory ownership/mode');
 	}, [imageCheck, engineCheck]);
 
-	await check('Apache, PHP CLI, and scheduled refresh run as UID/GID 33:33', async () => {
+	await check('startup completes a partially initialized data directory without losing existing files', async () => {
+		const volume = await freshVolume('partial-data');
+		const marker = `${prefix}-partial-data-preserved`;
+		await docker(['run', '--rm', '--user', '33:33', '--entrypoint', '/bin/sh',
+			'--mount', `type=volume,source=${volume},target=/var/www/FreshRSS/data`, values.image,
+			'-c', `mkdir -p /var/www/FreshRSS/data/users/_ && printf '%s' '${marker}' > /var/www/FreshRSS/data/users/_/.rootless-contract-marker`]);
+
+		const partial = await launch('partial-data', { volume });
+		assertInstaller(await waitForHttp(partial.url));
+		const state = JSON.parse(await docker(['exec', partial.name, 'php', '-r', String.raw`$root = '/var/www/FreshRSS/data'; $dirs = ['', '/cache', '/extensions-data', '/favicons', '/fever', '/PubSubHubbub', '/PubSubHubbub/feeds', '/PubSubHubbub/keys', '/Retry-After', '/tokens', '/users', '/users/_']; $missing = []; foreach ($dirs as $dir) { $path = $root . $dir; if (!is_dir($path)) { $missing[] = $dir . ' (directory)'; continue; } if (!is_file($path . '/index.html')) $missing[] = $dir . '/index.html'; } $htaccess = @file_get_contents($root . '/.htaccess'); if ($htaccess === false || !str_contains($htaccess, 'Require all denied')) $missing[] = '.htaccess deny rule'; $marker = @file_get_contents($root . '/users/_/.rootless-contract-marker'); echo json_encode(['missing' => $missing, 'marker' => $marker, 'uid' => fileowner($root), 'gid' => filegroup($root)]);`]));
+		assert.deepEqual(state.missing, [], `FreshRSS did not complete the partial data layout: ${state.missing.join(', ')}`);
+		assert.equal(state.marker, marker, 'Startup changed or removed existing user data');
+		assert.equal(`${state.uid}:${state.gid}`, '33:33', 'Prepared data directory is not owned by the application identity');
+	}, [imageCheck, engineCheck]);
+
+	await check('Apache and scheduler processes, plus PHP CLI, run as UID/GID 33:33', async () => {
 		const id = (await docker(['exec', primary.name, '/bin/sh', '-c', 'id -u; id -g'])).split(/\s+/);
 		assert.deepEqual(id, ['33', '33']);
-		const script = String.raw`$found = []; foreach (glob("/proc/[0-9]*/status") as $file) { $s = file_get_contents($file); $cmd = str_replace("\0", " ", @file_get_contents(dirname($file) . "/cmdline")); if (preg_match("/^Name:\\s+apache2$/m", $s) || str_contains($cmd, "rootless-cron.sh") || str_contains($cmd, "/usr/bin/snooze")) { preg_match("/^Uid:\\s+(\\d+)\\s+(\\d+)/m", $s, $u); preg_match("/^Gid:\\s+(\\d+)\\s+(\\d+)/m", $s, $g); $found[] = ["name" => trim($cmd), "uid" => (int)$u[2], "gid" => (int)$g[2]]; } } echo json_encode($found);`;
+		const cliIdentity = await docker(['exec', primary.name, 'php', '-r', String.raw`$s = file_get_contents('/proc/self/status'); preg_match('/^Uid:\s+\d+\s+(\d+)/m', $s, $u); preg_match('/^Gid:\s+\d+\s+(\d+)/m', $s, $g); echo $u[1] . ':' . $g[1];`]);
+		assert.equal(cliIdentity, '33:33', 'PHP CLI does not run as UID/GID 33:33');
+		const script = String.raw`$found = []; $self = getmypid(); foreach (glob("/proc/[0-9]*/status") as $file) { $pid = (int)basename(dirname($file)); if ($pid === $self) continue; $s = @file_get_contents($file); $raw = @file_get_contents(dirname($file) . "/cmdline"); if ($s === false || $raw === false) continue; $argv = explode("\0", trim($raw, "\0")); $comm = ''; preg_match("/^Name:\\s+(.*)$/m", $s, $n); if (isset($n[1])) $comm = trim($n[1]); $isCronScript = array_filter($argv, fn($arg) => preg_match("~(?:^|/)rootless-cron\\.sh$~", $arg)); $isSnooze = isset($argv[0]) && basename($argv[0]) === "snooze"; if ($comm === "apache2" || $isCronScript || $isSnooze) { preg_match("/^Uid:\\s+\\d+\\s+(\\d+)/m", $s, $u); preg_match("/^Gid:\\s+\\d+\\s+(\\d+)/m", $s, $g); if (!isset($u[1], $g[1])) continue; $found[] = ["name" => $comm, "argv" => $argv, "uid" => (int)$u[1], "gid" => (int)$g[1]]; } } echo json_encode($found);`;
 		const deadline = Date.now() + 10_000;
 		let processes = [];
 		while (Date.now() < deadline) {
 			processes = JSON.parse(await docker(['exec', primary.name, 'php', '-r', script]));
-			if (processes.some(entry => entry.name.includes('rootless-cron.sh') || entry.name.includes('/usr/bin/snooze'))) break;
+			if (processes.some(entry => entry.argv.some(argument => /(?:^|\/)rootless-cron\.sh$/.test(argument)) || entry.argv[0]?.split('/').at(-1) === 'snooze')) break;
 			await delay(250);
 		}
-		const apache = processes.filter(entry => entry.name.includes('apache2'));
-		const scheduler = processes.filter(entry => entry.name.includes('rootless-cron.sh') || entry.name.includes('/usr/bin/snooze'));
+		const apache = processes.filter(entry => entry.name === 'apache2');
+		const scheduler = processes.filter(entry => entry.argv.some(argument => /(?:^|\/)rootless-cron\.sh$/.test(argument)) || entry.argv[0]?.split('/').at(-1) === 'snooze');
 		assert.ok(apache.length > 0, 'No Apache process found');
 		assert.ok(scheduler.length > 0, 'CRON_MIN did not start the rootless scheduler');
 		assert.ok(processes.every(entry => entry.uid === 33 && entry.gid === 33), `Process identities: ${JSON.stringify(processes)}`);
+		const noCronVolume = await freshVolume('no-cron');
+		const withoutCron = await launch('without-cron', { volume: noCronVolume });
+		await waitForHttp(withoutCron.url);
+		const noCronProcesses = JSON.parse(await docker(['exec', withoutCron.name, 'php', '-r', script]));
+		assert.equal(noCronProcesses.some(entry => entry.argv.some(argument => /(?:^|\/)rootless-cron\.sh$/.test(argument)) || entry.argv[0]?.split('/').at(-1) === 'snooze'), false,
+			'Process probe reported a scheduler when CRON_MIN is disabled');
 	}, [volumeCheck]);
 
 	await check('named-volume data persists across container recreation', async () => {
