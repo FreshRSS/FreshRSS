@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Gebruikersregistratieformulier',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Retry-After-toelatingslijst',
+			'help' => 'Eén vermelding per regel: een <code>host</code> die overeenkomt met alle poorten, of een combinatie van <code>host:poort</code>. Bijvoorbeeld <code>rss-bridge</code> of <code>rsshub:1200</code>. De <code>Retry-After</code>-header wordt genegeerd voor hosts die aan de voorwaarde voldoen.',
+		),
 		'sensitive-parameter' => 'Kwetsbare parameter. Handmatig te bewerken in <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'is niet ingegeven',
