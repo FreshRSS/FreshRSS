@@ -68,7 +68,7 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 
 To select a theme, simply scroll through the themes and select one that strikes your fancy. After confirmation, the theme will be applied to the interface.
 
-If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md) and [install it](../admins/11_Themes.md). For small theme changes, the official [CustomCSS extension](https://github.com/FreshRSS/Extensions) is recommended.
+If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md) and [install it](../admins/11_Themes.md). For small theme changes, the built-in [User CSS extension](#user-css) is recommended.
 
 ### Content width
 
@@ -196,11 +196,21 @@ You can change your email address or password here. The authentication token is 
 
 Extensions can be managed from this menu. Note that while extensions can be removed from the web interface, they cannot be added from it.
 
-Some extensions have configurations and these can be changed in the manage page, which opens with the button near the name of the extension.
+Each extension that you can manage is listed with a switch to enable or disable it, followed by a gear icon (⚙️ _Manage_) and the name of the extension.
+
+Some extensions have configurations and these can be changed in the manage page, which opens with the gear icon.
 
 ### User CSS
 
-It gives ability to create user-specific CSS rules to apply in addition of the actual theme.
+_User CSS_ is a core extension shipped with FreshRSS. It gives ability to create user-specific CSS rules to apply in addition of the actual theme.
+
+To use it:
+
+1. Enable _User CSS_ in the list of _User extensions_.
+2. Open its manage page with the gear icon.
+3. Write the rules in the _Additional CSS rules_ field and submit.
+
+The rules only apply to the current user, and only while the extension is enabled.
 
 #### Example: Getting rid of Top Menu Items
 
@@ -233,7 +243,9 @@ The Top Menu within the mobile view might look a little bit cluttered, depending
 
 ### User JS
 
-It gives ability to create user-specific JS.
+_User JS_ is a core extension shipped with FreshRSS. It gives ability to create user-specific JS.
+
+It is used the same way as [User CSS](#user-css): enable _User JS_, open its manage page with the gear icon, write the script in the _Additional JS_ field, and submit. FreshRSS might ask you to sign in again before showing this page.
 
 ## Users
 

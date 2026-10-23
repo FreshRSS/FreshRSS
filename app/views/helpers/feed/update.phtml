@@ -269,12 +269,21 @@
 				</div>
 			</div>
 
-			<?php if ($this->feed->pubSubHubbubEnabled()) { ?>
+			<?php
+			if ($this->feed->pubSubHubbubEnabled()) {
+				$websub = _t('sub.feed.websub');
+			} elseif ($this->feed->pubSubHubbubPending()) {
+				$websub = _t('sub.feed.websub_pending');
+			} else {
+				$websub = '';
+			}
+			if ($websub !== '') {
+				?>
 				<div class="form-group">
 					<div class="group-controls">
 						<label class="checkbox" for="pubsubhubbub">
 							<input type="checkbox" name="pubsubhubbub" id="pubsubhubbub" disabled="disabled" value="1" checked="checked" />
-							<?= _t('sub.feed.websub') ?>
+							<?= $websub ?>
 						</label>
 					</div>
 				</div>

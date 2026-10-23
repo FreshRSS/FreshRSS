@@ -1800,8 +1800,9 @@ a.website:hover .favicon {
 
 .content .subtitle.horizontal-list .item.date {
 	padding: 0.25rem;
-	width: 155px;
+	min-width: 155px;
 	text-align: right;
+	white-space: nowrap;
 }
 
 .content .article-header-topline.horizontal-list .item.link,
@@ -2868,8 +2869,9 @@ html.slider-active {
 	}
 
 	.content .subtitle.horizontal-list .item.date {
-		width: auto;
+		min-width: 0;
 		text-align: left;
+		white-space: normal;
 	}
 
 	table {

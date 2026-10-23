@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <https://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -130,9 +130,9 @@ class Minz_View {
 	 * @param string $part the partial element to be added
 	 */
 	public function partial(string $part): void {
-		$fic_partial = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
-		if (!$this->includeFile($fic_partial)) {
-			Minz_Log::warning('File not found: `' . $fic_partial . '`');
+		$partial_file = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
+		if (!$this->includeFile($partial_file)) {
+			Minz_Log::warning('File not found: `' . $partial_file . '`');
 		}
 	}
 
@@ -141,9 +141,9 @@ class Minz_View {
 	 * @param string $helper the element to be displayed
 	 */
 	public function renderHelper(string $helper): void {
-		$fic_helper = '/views/helpers/' . $helper . '.phtml';
-		if (!$this->includeFile($fic_helper)) {
-			Minz_Log::warning('File not found: `' . $fic_helper . '`');
+		$helper_file = '/views/helpers/' . $helper . '.phtml';
+		if (!$this->includeFile($helper_file)) {
+			Minz_Log::warning('File not found: `' . $helper_file . '`');
 		}
 	}
 
@@ -155,6 +155,33 @@ class Minz_View {
 		ob_start();
 		$this->renderHelper($helper);
 		return ob_get_clean() ?: '';
+	}
+
+	/**
+	 * Writes renderHelper() into a file, without keeping the whole output in memory
+	 * @param string $helper the element to be treated
+	 * @param string $filename the path of the file to write
+	 * @throws Minz_PermissionDeniedException
+	 */
+	public function helperToFile(string $helper, string $filename): void {
+		$file = fopen($filename, 'wb');
+		if ($file === false) {
+			throw new Minz_PermissionDeniedException($filename);
+		}
+		$written = true;
+		ob_start(static function (string $buffer) use ($file, &$written): string {
+			$written = $written && fwrite($file, $buffer) !== false;
+			return '';
+		}, 65536);	// Write to the file by chunks of 64 KiB
+		try {
+			$this->renderHelper($helper);
+		} finally {
+			ob_end_flush();
+			$written = fclose($file) && $written;
+		}
+		if (!$written) {
+			throw new Minz_PermissionDeniedException($filename);
+		}
 	}
 
 	/**
