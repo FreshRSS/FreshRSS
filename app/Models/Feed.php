@@ -264,7 +264,9 @@ class FreshRSS_Feed extends Minz_Model {
 				$params = $feedIconUrl !== '' ? $feedIconUrl . $this->proxyParam()
 					: $this->website(fallback: true) . $this->proxyParam();
 			}
-			$this->hashFavicon = hash('crc32b', $salt . (is_string($params) ? $params : ''));
+			// Keyed hash (MAC) rather than an unkeyed checksum, so that the favicon cache key
+			// cannot be computed for other users' feeds without knowing the secret salt.
+			$this->hashFavicon = substr(hash_hmac('sha256', is_string($params) ? $params : '', $salt), 0, 16);
 		}
 		return $this->hashFavicon;
 	}

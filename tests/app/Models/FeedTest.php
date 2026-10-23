@@ -43,4 +43,21 @@ final class FeedTest extends \PHPUnit\Framework\TestCase {
 			'system proxy' => ['http://192.168.1.2/feed', 'http://192.168.1.2/feed', 'proxy.example.test:3128'],
 		];
 	}
+
+	public function test_hashFavicon_isKeyedBySalt(): void {
+		FreshRSS_Context::initSystem();
+		$salt = FreshRSS_Context::systemConf()->salt;
+
+		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+		$feed->_website('https://example.com/', validate: false);
+
+		// Keyed hash (MAC), not an unkeyed checksum: users must not be able to compute
+		// the favicon cache key of other users' feeds without the secret salt.
+		$hash = $feed->hashFavicon();
+		self::assertMatchesRegularExpression('/^[0-9a-f]{16}$/', $hash);
+		self::assertSame(substr(hash_hmac('sha256', 'https://example.com/' . $feed->proxyParam(), $salt), 0, 16), $hash);
+
+		$feed->_website('https://example.org/', validate: false);
+		self::assertNotSame($hash, $feed->hashFavicon());
+	}
 }
