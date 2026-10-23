@@ -5,6 +5,9 @@
 
 # --- Apply timezone, PHP defaults, and Apache options ---
 prepare_standard_configuration() {
+	: "${is_root:?entrypoint must initialise is_root before preparing standard configuration}"
+	: "${APACHE_CONFIG:?entrypoint must select APACHE_CONFIG before preparing standard configuration}"
+	: "${TZ:?entrypoint must select TZ before preparing standard configuration}"
 	if [ "$is_root" -eq 1 ]; then
 		# Configure system timezone, PHP defaults, and Apache options as root.
 		ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime || die 'Could not set /etc/localtime.'

@@ -5,8 +5,11 @@ die() {
 	exit 1
 }
 
+# shellcheck source=./Docker/entrypoint-common.sh
 . ./Docker/entrypoint-common.sh || die 'Could not load the shared runtime helper.'
+# shellcheck source=./Docker/entrypoint-standard.sh
 . ./Docker/entrypoint-standard.sh || die 'Could not load the standard runtime helper.'
+# shellcheck source=./Docker/entrypoint-rootless.sh
 . ./Docker/entrypoint-rootless.sh || die 'Could not load the rootless runtime helper.'
 
 # --- Identify the image profile and runtime identity ---

@@ -4,6 +4,7 @@
 # entrypoint.sh so exported OIDC values and shell state carry into the command.
 
 configure_oidc() {
+	: "${is_root:?entrypoint must initialise is_root before configuring OIDC}"
 	if [ -n "${OIDC_ENABLED:-}" ]; then
 		case "$OIDC_ENABLED" in
 			*[!0-9]*) die "OIDC_ENABLED must be empty, 0, or a non-negative integer; got '$OIDC_ENABLED'." ;;
@@ -42,6 +43,8 @@ configure_oidc() {
 }
 
 prepare_runtime_paths() {
+	: "${is_root:?entrypoint must initialise is_root before preparing runtime paths}"
+	: "${runtime_profile:?entrypoint must initialise runtime_profile before preparing runtime paths}"
 	if [ "$is_root" -eq 1 ]; then
 		[ "$runtime_profile" = standard ] || die 'The rootless profile cannot prepare root-owned runtime paths.'
 		prepare_standard_root_paths
@@ -105,6 +108,8 @@ initialize_freshrss() {
 }
 
 finalize_freshrss() {
+	: "${is_root:?entrypoint must initialise is_root before finalising FreshRSS}"
+	: "${runtime_profile:?entrypoint must initialise runtime_profile before finalising FreshRSS}"
 	if [ "$is_root" -eq 1 ]; then
 		[ "$runtime_profile" = standard ] || die 'The rootless profile cannot finalize root-owned permissions.'
 		finalize_standard_root_permissions
