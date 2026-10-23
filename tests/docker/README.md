@@ -36,9 +36,13 @@ The checks cover the fixed `33:33` identity, rejection of changed UID/GID
 overrides, fresh named-volume installation without an ownership helper,
 completion of a partially initialized data directory while preserving existing
 user data, Apache/PHP/scheduler process identities, data persistence across
-container recreation, and the `LISTEN` override. The test intentionally does
-not add read-only-root or capability restrictions because those are outside
-the rootless contract.
+container recreation, and the `LISTEN` override. It also installs a test user,
+subscribes it to a local RSS fixture, and verifies that a scheduled tick fetches
+the feed and completes successfully. The fixture is served by the test runner;
+the test adds `host.docker.internal:host-gateway` to the app container. GitHub
+Actions builds the image and runs this contract against its rootful Docker
+engine. The test intentionally does not add read-only-root or capability
+restrictions because those are outside the rootless contract.
 
 To check a prepared host bind mount, pass an existing empty disposable directory
 with ownership mapped to container UID/GID `33:33` for the selected engine:

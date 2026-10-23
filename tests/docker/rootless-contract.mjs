@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promises';
+import { createServer } from 'node:http';
 import { dirname, resolve } from 'node:path';
 import process from 'node:process';
 import { test } from 'node:test';
@@ -25,12 +26,13 @@ if (values.help) {
 }
 assert.ok(['rootless', 'rootful'].includes(values.engine), '--engine must be rootless or rootful');
 
-test('FreshRSS rootless image contract', { timeout: 300_000 }, async t => {
+test('FreshRSS rootless image contract', { timeout: 480_000 }, async t => {
 	const prefix = `freshrss-rootless-contract-${randomUUID().slice(0, 8)}`;
 	const containers = [];
 	const volumes = [];
 	const passed = new Set();
 	const bindSentinels = [];
+	const fixtureServers = [];
 	const report = { suiteVersion: 1, image: values.image, adapter: 'rootless-contract.mjs',
 		expectedEngine: values.engine, completed: false, tests: [] };
 	let primary;
@@ -39,6 +41,12 @@ test('FreshRSS rootless image contract', { timeout: 300_000 }, async t => {
 		const result = await command(args, options);
 		assert.equal(result.code, 0, `Docker ${args[0]} failed: ${result.stderr.toString().trim()}`);
 		return result.stdout.toString().trim();
+	}
+
+	async function containerLogs(name) {
+		const result = await command(['logs', name]);
+		assert.equal(result.code, 0, `Docker logs failed: ${result.stderr.toString().trim()}`);
+		return `${result.stdout.toString()}${result.stderr.toString()}`.trim();
 	}
 
 	async function check(name, fn, dependencies = []) {
@@ -71,12 +79,14 @@ test('FreshRSS rootless image contract', { timeout: 300_000 }, async t => {
 		return name;
 	}
 
-	async function launch(label, { volume, listen, port, cron = '', bindData = false } = {}) {
+	async function launch(label, { volume, listen, port, cron = '', bindData = false, env = {}, addHostGateway = false } = {}) {
 		const name = `${prefix}-${label}`;
 		const args = ['run', '--detach', '--name', name, '--publish', `127.0.0.1::${port ?? 8080}`];
 		if (bindData) args.push('--mount', `type=bind,source=${resolve(values['bind-data'])},target=/var/www/FreshRSS/data`);
 		else if (volume) args.push('--mount', `type=volume,source=${volume},target=/var/www/FreshRSS/data`);
+		if (addHostGateway) args.push('--add-host', 'host.docker.internal:host-gateway');
 		if (listen) args.push('--env', `LISTEN=${listen}`);
+		for (const [key, value] of Object.entries(env)) args.push('--env', `${key}=${value}`);
 		args.push('--env', `CRON_MIN=${cron}`, values.image);
 		await docker(args);
 		containers.push(name);
@@ -105,6 +115,9 @@ test('FreshRSS rootless image contract', { timeout: 300_000 }, async t => {
 
 	async function cleanup() {
 		const errors = [];
+		for (const server of fixtureServers) {
+			await new Promise(resolveClose => server.close(resolveClose));
+		}
 		for (const { hostPath, filename } of bindSentinels) {
 			const result = await command(['run', '--rm', '--user', '33:33', '--entrypoint', '/bin/rm',
 				'--mount', `type=bind,source=${hostPath},target=/cleanup`, values.image, '-f', `/cleanup/${filename}`]);
@@ -216,6 +229,70 @@ test('FreshRSS rootless image contract', { timeout: 300_000 }, async t => {
 		assert.equal(noCronProcesses.some(entry => entry.argv.some(argument => /(?:^|\/)rootless-cron\.sh$/.test(argument)) || entry.argv[0]?.split('/').at(-1) === 'snooze'), false,
 			'Process probe reported a scheduler when CRON_MIN is disabled');
 	}, [volumeCheck]);
+
+	await check('scheduled tick refreshes a subscribed local RSS feed', async () => {
+		const fixtureRequestTimes = [];
+		const fixtureServer = createServer((_request, response) => {
+			fixtureRequestTimes.push(Date.now());
+			response.writeHead(200, { 'content-type': 'application/rss+xml; charset=utf-8' });
+			response.end(`<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>Rootless scheduler test</title><link>http://localhost/</link><description>Scheduler fixture</description>
+<item><guid isPermaLink="false">${prefix}-scheduled-entry</guid><title>Scheduled refresh test</title><link>http://localhost/${prefix}</link><description>Fetched by the rootless scheduler</description><pubDate>${new Date().toUTCString()}</pubDate></item>
+</channel></rss>`);
+		});
+		fixtureServers.push(fixtureServer);
+		await new Promise((resolveListen, rejectListen) => {
+			fixtureServer.once('error', rejectListen);
+			fixtureServer.listen(0, '0.0.0.0', resolveListen);
+		});
+		const fixtureAddress = fixtureServer.address();
+		assert.ok(fixtureAddress && typeof fixtureAddress === 'object', 'RSS fixture did not bind to a TCP port');
+
+		const volume = await freshVolume('scheduled-refresh');
+		const nextTick = new Date();
+		nextTick.setUTCMinutes(nextTick.getUTCMinutes() + 2, 0, 0);
+		const scheduledMinute = nextTick.getUTCMinutes();
+		const scheduled = await launch('scheduled-refresh', {
+			volume,
+			cron: String(scheduledMinute),
+			addHostGateway: true,
+			env: {
+				TZ: 'UTC',
+				INTERNAL_HOST_ALLOWLIST: `host.docker.internal:${fixtureAddress.port}`,
+				FRESHRSS_INSTALL: '--default-user scheduler-test --api-enabled',
+				FRESHRSS_USER: '--user scheduler-test --password scheduler-test --no-default-feeds --feed-ttl-default 1',
+			},
+		});
+		await waitForHttp(scheduled.url);
+		const feedUrl = `http://host.docker.internal:${fixtureAddress.port}/feed.xml`;
+		const opml = `<?xml version="1.0" encoding="UTF-8"?><opml version="2.0"><head><title>Scheduler test</title></head><body><outline text="Scheduler test" title="Scheduler test" type="rss" xmlUrl="${feedUrl}" /></body></opml>`;
+		const opmlPath = '/run/freshrss/tmp/scheduled-feed.opml';
+		await docker(['exec', '-i', scheduled.name, '/bin/sh', '-c', `cat > '${opmlPath}'`], { input: opml });
+		await docker(['exec', scheduled.name, 'php', 'cli/import-for-user.php', '--user', 'scheduler-test', '--filename', opmlPath]);
+		await delay(1_500);
+		assert.ok(Date.now() < nextTick.getTime(), 'Scheduled tick arrived before the RSS fixture setup completed');
+
+		const deadline = Date.now() + 240_000;
+		let logs = '';
+		while (!fixtureRequestTimes.some(requestTime => requestTime >= nextTick.getTime()) && Date.now() < deadline) {
+			logs = await containerLogs(scheduled.name);
+			if (/FreshRSS scheduler: refresh finished .*exit status [1-9]\d*\./.test(logs)) {
+				assert.fail(`Scheduled refresh failed:\n${logs}`);
+			}
+			await delay(1_000);
+		}
+		assert.ok(fixtureRequestTimes.some(requestTime => requestTime >= nextTick.getTime()), `The scheduled tick did not fetch the subscribed local RSS fixture. Container logs:\n${logs}`);
+		const refreshDeadline = Date.now() + 30_000;
+		while (!/FreshRSS scheduler: refresh finished .*exit status 0\./.test(logs) && Date.now() < refreshDeadline) {
+			logs = await containerLogs(scheduled.name);
+			if (/FreshRSS scheduler: refresh finished .*exit status [1-9]\d*\./.test(logs)) {
+				assert.fail(`Scheduled refresh failed:\n${logs}`);
+			}
+			await delay(250);
+		}
+		assert.match(logs, /FreshRSS scheduler: refresh started at /, 'No scheduled refresh tick was observed');
+		assert.match(logs, /FreshRSS scheduler: refresh finished .*exit status 0\./, 'Scheduled refresh did not finish successfully');
+	}, [imageCheck, engineCheck]);
 
 	await check('named-volume data persists across container recreation', async () => {
 		const marker = `${prefix}-persisted`;
