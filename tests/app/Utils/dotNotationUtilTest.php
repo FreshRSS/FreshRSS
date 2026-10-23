@@ -46,4 +46,30 @@ final class dotNotationUtilTest extends \PHPUnit\Framework\TestCase {
 		$value = FreshRSS_dotNotation_Util::get($array, $key);
 		self::assertSame($expected, $value);
 	}
+
+	public static function testConvertJsonToRssEscapesCategories(): void {
+		FreshRSS_Context::initSystem();
+		Minz_Translate::init('en');
+		$json = <<<json
+		{
+			"items": [
+				{"title": "First", "url": "https://example.net/1", "categories": ["News & Politics", "Arts & Culture"]},
+				{"title": "Second", "url": "https://example.net/2", "categories": "Science & Tech"}
+			]
+		}
+		json;
+		$jf = json_decode($json, true);
+		self::assertIsArray($jf);
+		$rss = FreshRSS_dotNotation_Util::convertJsonToRss($jf, 'https://example.net/', [
+			'item' => 'items',
+			'itemTitle' => 'title',
+			'itemUri' => 'url',
+			'itemCategories' => 'categories',
+		], 'Test');
+		self::assertIsString($rss);
+		self::assertStringContainsString('<category>News &amp; Politics</category>', $rss);
+		self::assertStringContainsString('<category>Arts &amp; Culture</category>', $rss);
+		self::assertStringContainsString('<category>Science &amp; Tech</category>', $rss);
+		self::assertNotFalse(simplexml_load_string($rss), 'Output must be valid XML');
+	}
 }
