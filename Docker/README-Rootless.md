@@ -11,7 +11,7 @@ Pull the image or build it from the repository root:
 ```sh
 docker pull freshrss/freshrss:rootless
 # Or build the current source:
-docker build -f Docker/Dockerfile-Rootless -t freshrss:rootless .
+docker build -f Docker/Dockerfile-Rootless -t freshrss/freshrss:rootless .
 ```
 
 Create persistent storage and start FreshRSS. A fresh named volume inherits
@@ -26,18 +26,18 @@ docker run -d --restart unless-stopped --name freshrss \
   -p 8080:8080 \
   -e TZ=Europe/Paris \
   -e CRON_MIN=13,43 \
-  freshrss:rootless
+  freshrss/freshrss:rootless
 ```
 
 Open <http://localhost:8080> and complete the FreshRSS installer.
 
 ## Install with Docker Compose and a host path
 
-Set `FRESHRSS_DATA_DIR` in a `.env` file beside `compose.yaml` to an absolute
-Linux or WSL path, for example:
+Set `FRESHRSS_DATA_DIR` in a `.env` file beside `compose.yaml` to a path that you own. Replace `/path/to/freshrss-data` in these
+examples with that path:
 
 ```dotenv
-FRESHRSS_DATA_DIR=/home/alice/freshrss-data
+FRESHRSS_DATA_DIR=/path/to/freshrss-data
 ```
 
 Create that directory and save this Compose file:
@@ -76,7 +76,7 @@ services:
 Prepare the directory and start the app:
 
 ```sh
-mkdir -p /home/alice/freshrss-data
+mkdir -p /path/to/freshrss-data
 docker compose --profile init run --rm prepare-data
 docker compose up -d freshrss
 ```
@@ -227,11 +227,11 @@ uses part of the container's memory limit.
 
 ## Optional settings
 
+- OIDC is supported using the environment variables defined by the [Docker README](README.md#environment-variables).
 - `CRON_MIN` keeps the default image's minute-field setting, but the rootless
   image translates it for its nonroot scheduler instead of starting Debian
   cron. It validates the expression at startup and rejects unsupported or
   malformed minute fields. Leave it empty to disable scheduled refreshes.
-- OIDC is supported by this Debian-based image.
 - `LISTEN` defaults to port `8080` in this image (`80` in the default image).
   If you change it, publish the same container-side port; for example,
   `LISTEN=0.0.0.0:8081` with `-p 8081:8081`.
