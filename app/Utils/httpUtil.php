@@ -4,23 +4,8 @@ declare(strict_types=1);
 final class FreshRSS_http_Util {
 
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
-	private const PRIVATE_SUBNETS = [
-		'127.0.0.0/8',    // RFC1700 (Loopback)
-		'10.0.0.0/8',     // RFC1918
-		'192.168.0.0/16', // RFC1918
-		'172.16.0.0/12',  // RFC1918
-		'169.254.0.0/16', // RFC3927
-		'0.0.0.0/8',      // RFC5735
-		'240.0.0.0/4',    // RFC1112
-		'100.64.0.0/10',  // RFC6598 (Shared Address Space of Carrier-Grade NAT)
-		'::1/128',        // Loopback
-		'fc00::/7',       // Unique Local Address
-		'fe80::/10',      // Link Local Address
-		'::ffff:0:0/96',  // IPv4 translations
-		'64:ff9b::/96',   // RFC6052 (IPv6 Addressing of IPv4/IPv6 Translators, NAT64)
-		'64:ff9b:1::/48', // RFC8215 (Local-Use IPv4/IPv6 Translation Prefix)
-		'::/128',         // Unspecified address
-	];
+	private const NAT64_PREFIX_RFC6052 = '64:ff9b::/96';
+	private const NAT64_PREFIX_RFC8215 = '64:ff9b:1::/48';
 	/** @var array<string, string[]> $resolve_ok */
 	private static array $resolve_ok = [];
 	/** @var array<string, bool> $retry_after_domain_wide */
@@ -398,7 +383,7 @@ final class FreshRSS_http_Util {
 			// NAT64 addresses use the RFC 6052 well-known prefix.
 			// Validate the embedded IPv4 address because the NAT64 IPv6 address itself
 			// is globally routable even when it maps to a private/reserved IPv4 address.
-			if (self::checkCIDR($ip, '64:ff9b::/96')) {
+			if (self::checkCIDR($ip, self::NAT64_PREFIX_RFC6052)) {
 				$packed = @inet_pton($ip);
 				if ($packed === false || strlen($packed) !== 16) {
 					continue;
@@ -409,30 +394,19 @@ final class FreshRSS_http_Util {
 					continue;
 				}
 
-				if (filter_var($embedded_ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+				if (filter_var($embedded_ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false) {
 					continue;
-				}
-
-				// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
-				foreach (self::PRIVATE_SUBNETS as $cidr) {
-					if (self::checkCIDR($embedded_ipv4, $cidr)) {
-						continue 2;
-					}
 				}
 
 				$ips_ok[] = $add_ip;
 				continue;
 			}
 
-			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
-				continue;
-			}
 			// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
-			// Workaround is available by using `FILTER_FLAG_GLOBAL_RANGE` instead, but that was only added in PHP 8.2, and we need to support PHP 8.1+
-			foreach (self::PRIVATE_SUBNETS as $cidr) {
-				if (self::checkCIDR($ip, $cidr)) {
-					continue 2;
-				}
+			// `FILTER_FLAG_GLOBAL_RANGE` does not reject the NAT64 prefixes
+			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false ||
+				self::checkCIDR($ip, self::NAT64_PREFIX_RFC8215)) {
+				continue;
 			}
 
 			$ips_ok[] = $add_ip;

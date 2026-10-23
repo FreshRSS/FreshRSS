@@ -171,11 +171,16 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080')
 		);
 
-		// An entry is still produced without allowlisting, because the address is public
+		// Applications must not emit resolve entries for an address that is not guaranteed public.
+		// TEST-NET-2 is a reserved range, so without an allowlist entry, no entry is produced.
 		FreshRSS_Context::systemConf()->internal_host_allowlist = [];
+		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080'));
+
+		// A genuinely public address produces an entry without allowlisting
+		$resolveOk->setValue(null, ['public-proxy.example.test' => ['8.8.8.8']]);
 		self::assertSame(
-			['proxy.example.test:1080:198.51.100.7'],
-			FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080')
+			['public-proxy.example.test:1080:8.8.8.8'],
+			FreshRSS_http_Util::getCurlResolveInfo('socks5h://public-proxy.example.test:1080')
 		);
 
 		// A proxy resolving to a private address is rejected unless allowlisted

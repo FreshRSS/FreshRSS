@@ -7,7 +7,7 @@ Il est toutefois de votre responsabilité de vérifier que votre hébergement pe
 | Logiciel         | Recommandé         | Fonctionne aussi avec          |
 | --------         | -----------        | ---------------------          |
 | Serveur web      | **Apache 2.4+**    | nginx, lighttpd |
-| PHP              | **PHP 8.1+**       | FreshRSS 1.24.3 : PHP 7.4+<br />FreshRSS 1.22.1 : PHP 7.2+ |
+| PHP              | **PHP 8.2+**       | FreshRSS 1.30.2 : PHP 8.1+ |
 | Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L9-L11)* |                                |
 | Base de données  | **PostgreSQL 10+** | SQLite, MariaDB 10.6+, MySQL 8.0+ |
 | Navigateur       | **Firefox**        | Chrome, Opera, Safari, or Edge   |
@@ -118,7 +118,7 @@ server {
 	# gestion des fichiers php
 	# il est nécessaire d’utiliser cette expression régulière pour le bon fonctionnement de l’API
 	location ~ ^.+?\.php(/.*)?$ {
-		fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# Par défaut la variable PATH_INFO n’est pas définie sous PHP-FPM
 		# mais les APIs FreshRSS greader.php et misc.php en ont besoin. Si vous avez un “Bad Request”, vérifiez bien cette dernière !
