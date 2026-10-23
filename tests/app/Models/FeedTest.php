@@ -46,18 +46,68 @@ final class FeedTest extends \PHPUnit\Framework\TestCase {
 
 	public function test_hashFavicon_isKeyedBySalt(): void {
 		FreshRSS_Context::initSystem();
-		$salt = FreshRSS_Context::systemConf()->salt;
+		$systemConf = FreshRSS_Context::systemConf();
+		$originalSalt = $systemConf->salt;
+		$systemConf->_attribute('salt', 'test-instance-salt');
 
+		try {
+			$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+			$feed->_website('https://example.com/', validate: false);
+
+			$hash = $feed->hashFavicon();
+			self::assertMatchesRegularExpression('/^[0-9a-f]{16}$/', $hash);
+			self::assertSame(substr(hash_hmac('sha256', 'https://example.com/' . $feed->proxyParam(), 'test-instance-salt'), 0, 16), $hash);
+			$feed->_website('https://example.org/', validate: false);
+			self::assertNotSame($hash, $feed->hashFavicon());
+			$hash = $feed->hashFavicon();
+
+			$systemConf->_attribute('salt', 'another-instance-salt');
+			self::assertNotSame($hash, $feed->hashFavicon(skipCache: true));
+		} finally {
+			$systemConf->_attribute('salt', $originalSalt);
+		}
+	}
+
+	public function test_favicon_migratesLegacyCustomIconWithoutDeletingSharedSource(): void {
+		FreshRSS_Context::initSystem();
+		require_once LIB_PATH . '/favicons.php';
 		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
-		$feed->_website('https://example.com/', validate: false);
+		$feed->_id(987654);
+		$contents = file_get_contents(DEFAULT_FAVICON);
+		self::assertIsString($contents);
+		$newPath = $feed->setCustomFavicon($contents, updateFeed: false);
+		self::assertIsString($newPath);
+		unlink($newPath);
+		$legacyPath = FAVICONS_DIR . hash('crc32b', FreshRSS_Context::systemConf()->salt . $feed->id() . Minz_User::name()) . '.ico';
+		file_put_contents($legacyPath, $contents);
 
-		// Keyed hash (MAC), not an unkeyed checksum: users must not be able to compute
-		// the favicon cache key of other users' feeds without the secret salt.
-		$hash = $feed->hashFavicon();
-		self::assertMatchesRegularExpression('/^[0-9a-f]{16}$/', $hash);
-		self::assertSame(substr(hash_hmac('sha256', 'https://example.com/' . $feed->proxyParam(), $salt), 0, 16), $hash);
+		$feed->favicon();
 
-		$feed->_website('https://example.org/', validate: false);
-		self::assertNotSame($hash, $feed->hashFavicon());
+		self::assertSame($contents, file_get_contents($newPath));
+		self::assertSame($contents, file_get_contents($legacyPath));
+		unlink($legacyPath);
+		unlink($newPath);
+	}
+
+	public function test_favicon_migrationDoesNotOverwriteDestination(): void {
+		FreshRSS_Context::initSystem();
+		require_once LIB_PATH . '/favicons.php';
+		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+		$feed->_id(987655);
+		$contents = file_get_contents(DEFAULT_FAVICON);
+		self::assertIsString($contents);
+		$newPath = $feed->setCustomFavicon($contents, updateFeed: false);
+		self::assertIsString($newPath);
+		$destination = 'destination-icon';
+		file_put_contents($newPath, $destination);
+		$legacyPath = FAVICONS_DIR . hash('crc32b', FreshRSS_Context::systemConf()->salt . $feed->id() . Minz_User::name()) . '.ico';
+		file_put_contents($legacyPath, $contents);
+
+		$feed->favicon();
+
+		self::assertSame($destination, file_get_contents($newPath));
+		self::assertSame($contents, file_get_contents($legacyPath));
+		unlink($legacyPath);
+		unlink($newPath);
 	}
 }
