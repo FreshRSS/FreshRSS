@@ -135,6 +135,7 @@ People are sorted by name so please keep this order.
 * [happymacarts](https://github.com/happymacarts): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:happymacarts)
 * [Harshad Hirapara](https://github.com/harshad389): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:harshad389)
 * [HawkForge](https://github.com/HawkForge): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:HawkForge)
+* [Hellraiser28](https://github.com/Hellraiser28): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Hellraiser28)
 * [hesch](https://github.com/hesch): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hesch)
 * [hilariousperson](https://github.com/hilariousperson): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hilariousperson)
 * [Hippolyte Thomas](https://github.com/hippothomas): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:hippothomas), [Web](https://hippolyte-thomas.fr/)
