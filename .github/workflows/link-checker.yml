@@ -55,7 +55,8 @@ jobs:
           import pathlib
           import tomllib
 
-          config = tomllib.load(open("lychee.toml", "rb"))
+          with open("lychee.toml", "rb") as fp:
+              config = tomllib.load(fp)
           extensions = {e.lstrip(".").lower() for e in config["extensions"]}
 
           files = pathlib.Path("changed-files.txt").read_text().splitlines()
