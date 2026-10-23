@@ -15,6 +15,24 @@ emails are sent when users change their email.
 You can also enable this feature directly in FreshRSS: `Administration` >
 `System configuration` > check `Force email addresses validation`.
 
+## Password reset by email
+
+Users can reset a forgotten password through a link sent to their email address.
+Enable it in `Administration` > `System configuration` > check `Allow password reset by email`,
+or set `password_reset` to `true` in `data/config.php`.
+
+It requires:
+
+- the `form` authentication method,
+- a working mailer (see below),
+- the `base_url` to be set in `data/config.php`, since the emailed link is never built from the requested host name.
+
+A *Forgot password?* link then appears on the login page.
+Users without an email address (or with a non-validated one when `force_email_validation` is enabled) cannot reset their password,
+but the response does not reveal it. A link is valid for one hour, can be used only once,
+and at most one email per user is sent every five minutes.
+Resetting the password logs the user out from all devices.
+
 ## Configure the SMTP server
 
 By default, FreshRSS will attempt to send emails with the [`mail`](https://www.php.net/function.mail)

@@ -98,6 +98,10 @@ return array(
 		'max-categories' => ' حداکثر تعداد دسته ها برای هر کاربر',
 		'max-feeds' => ' حداکثر تعداد فید برای هر کاربر',
 		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => ' حداکثر تعداد حساب ها',
 			'select' => array(

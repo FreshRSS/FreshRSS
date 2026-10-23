@@ -38,6 +38,13 @@ return array(
 			'title' => 'You need to validate your account',	// IGNORE
 			'welcome' => 'Welcome %s,',	// IGNORE
 		),
+		'password_reset' => array(
+			'body' => 'Someone requested to reset the password of your account on %s. To choose a new password, follow the link:',	// IGNORE
+			'expiry' => 'This link is valid for %d minutes and can be used only once.',	// IGNORE
+			'ignore' => 'If you did not request this, you can ignore this email: your password will not change.',	// IGNORE
+			'title' => 'Password reset for %s',	// IGNORE
+			'welcome' => 'Hello %s,',	// IGNORE
+		),
 	),
 	'password' => array(
 		'invalid' => 'The password is invalid.',	// IGNORE

@@ -98,6 +98,10 @@ return array(
 		'max-categories' => 'İstifadəçi başına maksimum kateqoriya sayı',
 		'max-feeds' => 'İstifadəçi başına maksimum lent sayı',
 		'override-by-env-var' => 'Bu parametr <kbd>%s</kbd> mühit dəyişəni ilə təyin olunur.',
+		'password_reset' => array(
+			'_' => 'Allow password reset by email',	// TODO
+			'help' => 'Requires the form authentication, a working mailer, and <code>base_url</code> to be set in <code>data/config.php</code>.',	// TODO
+		),
 		'registration' => array(
 			'number' => 'Maksimum hesab sayı',
 			'select' => array(

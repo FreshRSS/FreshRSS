@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// IGNORE
 		'email' => 'Email address',	// IGNORE
+		'forgot_password' => array(
+			'_' => 'Forgot password?',	// IGNORE
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',	// IGNORE
+			'submit' => 'Send the reset link',	// IGNORE
+			'title' => 'Password reset',	// IGNORE
+		),
 		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',	// IGNORE
 		'login' => 'Login',	// IGNORE
 		'logout' => 'Logout',	// IGNORE
@@ -70,6 +76,12 @@ return array(
 			'_' => 'New account',	// IGNORE
 			'ask' => 'Create an account?',	// IGNORE
 			'title' => 'Account creation',	// IGNORE
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired. Please request a new one below.',	// IGNORE
+			'request_new' => 'Request a new link',	// IGNORE
+			'submit' => 'Change password',	// IGNORE
+			'title' => 'Choose a new password',	// IGNORE
 		),
 		'username' => array(
 			'_' => 'Username',	// IGNORE

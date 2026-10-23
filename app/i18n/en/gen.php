@@ -54,6 +54,12 @@ return array(
 	'auth' => array(
 		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',
 		'email' => 'Email address',
+		'forgot_password' => array(
+			'_' => 'Forgot password?',
+			'help' => 'Enter your username. If your account has an email address, you will receive a link to reset your password.',
+			'submit' => 'Send the reset link',
+			'title' => 'Password reset',
+		),
 		'keep_logged_in' => 'Keep me logged in <small>(%s days)</small>',
 		'login' => 'Login',
 		'logout' => 'Logout',
@@ -70,6 +76,12 @@ return array(
 			'_' => 'New account',
 			'ask' => 'Create an account?',
 			'title' => 'Account creation',
+		),
+		'reset_password' => array(
+			'invalid' => 'This password reset link is invalid or has expired. Please request a new one below.',
+			'request_new' => 'Request a new link',
+			'submit' => 'Change password',
+			'title' => 'Choose a new password',
 		),
 		'username' => array(
 			'_' => 'Username',

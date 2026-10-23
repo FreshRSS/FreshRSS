@@ -17,6 +17,7 @@ declare(strict_types=1);
  * @property string $default_user
  * @property string $email_validation_token
  * @property bool $force_email_validation
+ * @property bool $password_reset
  * @property-read bool $http_auth_auto_register
  * @property-read string $http_auth_auto_register_email_field
  * @property string $language
