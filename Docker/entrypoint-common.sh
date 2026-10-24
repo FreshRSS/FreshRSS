@@ -7,7 +7,7 @@ configure_oidc() {
 	: "${is_root:?entrypoint must initialise is_root before configuring OIDC}"
 	if [ -n "${OIDC_ENABLED:-}" ]; then
 		case "$OIDC_ENABLED" in
-			*[!0-9]*) die "OIDC_ENABLED must be empty, 0, or a non-negative integer; got '$OIDC_ENABLED'." ;;
+		*[!0-9]*) die "OIDC_ENABLED must be empty, 0, or a non-negative integer; got '$OIDC_ENABLED'." ;;
 		esac
 	fi
 

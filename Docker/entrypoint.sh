@@ -17,8 +17,8 @@ die() {
 # whether the process happens to run as root.
 runtime_profile=${FRESHRSS_ENTRYPOINT_PROFILE:-standard}
 case "$runtime_profile" in
-	standard|rootless) ;;
-	*) die "Unsupported FRESHRSS_ENTRYPOINT_PROFILE '$runtime_profile'. Use 'standard' or 'rootless'." ;;
+standard | rootless) ;;
+*) die "Unsupported FRESHRSS_ENTRYPOINT_PROFILE '$runtime_profile'. Use 'standard' or 'rootless'." ;;
 esac
 
 is_root=0
@@ -32,7 +32,7 @@ if [ -z "${TZ:-}" ]; then
 	TZ=UTC
 fi
 case "$TZ" in
-	''|*[!A-Za-z0-9_+./-]*) die "Invalid timezone name '$TZ'. Use an IANA timezone such as UTC or America/Los_Angeles." ;;
+'' | *[!A-Za-z0-9_+./-]*) die "Invalid timezone name '$TZ'. Use an IANA timezone such as UTC or America/Los_Angeles." ;;
 esac
 [ -f "/usr/share/zoneinfo/$TZ" ] || die "Timezone data for '$TZ' is unavailable; install tzdata or choose an available timezone."
 export TZ

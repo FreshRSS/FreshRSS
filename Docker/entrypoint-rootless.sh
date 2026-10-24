@@ -22,21 +22,21 @@ prepare_rootless_runtime() {
 	export APACHE_RUN_USER APACHE_RUN_GROUP APACHE_RUN_DIR APACHE_PID_FILE APACHE_LOCK_DIR APACHE_LOG_DIR
 	[ -n "${PHP_INI_SCAN_DIR:-}" ] || PHP_INI_SCAN_DIR=:/run/freshrss/php
 	case ":$PHP_INI_SCAN_DIR:" in
-		*:/run/freshrss/php:*) ;;
-		*) PHP_INI_SCAN_DIR="$PHP_INI_SCAN_DIR:/run/freshrss/php" ;;
+	*:/run/freshrss/php:*) ;;
+	*) PHP_INI_SCAN_DIR="$PHP_INI_SCAN_DIR:/run/freshrss/php" ;;
 	esac
 	export PHP_INI_SCAN_DIR
 
 	# --- Generate PHP runtime paths and session/upload configuration ---
 	data_path=$(/usr/bin/php -r 'require "constants.php"; echo DATA_PATH;') || die 'Could not determine FreshRSS DATA_PATH.'
 	case "$data_path" in
-		/*) ;;
-		*) die 'DATA_PATH must be an absolute path.' ;;
+	/*) ;;
+	*) die 'DATA_PATH must be an absolute path.' ;;
 	esac
 	newline='
-'	carriage_return=$(printf '\r')
+' carriage_return=$(printf '\r')
 	case "$data_path" in
-		*"$newline"*|*"$carriage_return"*) die 'DATA_PATH must not contain newlines.' ;;
+	*"$newline"* | *"$carriage_return"*) die 'DATA_PATH must not contain newlines.' ;;
 	esac
 	mkdir -p "$data_path/.tmp" || die "DATA_PATH '$data_path' must be writable by UID/GID 33:33."
 	ini_path=$(printf '%s' "$data_path" | sed 's/[\\"]/\\&/g') || die 'Could not escape DATA_PATH for PHP configuration.'
@@ -55,12 +55,12 @@ prepare_rootless_runtime() {
 		die 'LISTEN port must be between 1 and 65535.'
 	fi
 	case "${ENABLE_ACCESS_LOG:-1}" in
-		0|1) ;;
-		*) die 'ENABLE_ACCESS_LOG must be 0 or 1.' ;;
+	0 | 1) ;;
+	*) die 'ENABLE_ACCESS_LOG must be 0 or 1.' ;;
 	esac
 	proxy=${TRUSTED_PROXY:-}
 	case "$proxy" in
-		*"$newline"*|*"$carriage_return"*|*\\*|*\"*) die 'Invalid TRUSTED_PROXY value.' ;;
+	*"$newline"* | *"$carriage_return"* | *\\* | *\"*) die 'Invalid TRUSTED_PROXY value.' ;;
 	esac
 	APACHE_CONFIG="$runtime/FreshRSS.Apache.conf"
 	export APACHE_CONFIG

@@ -12,10 +12,10 @@ stop_services() {
 	trap '' TERM INT
 	for pid in "${pids[@]}"; do kill -TERM -- "-$pid" 2>/dev/null || true; done
 	deadline=$((SECONDS + 8))
-	while (( SECONDS < deadline )); do
+	while ((SECONDS < deadline)); do
 		alive=0
 		for pid in "${pids[@]}"; do kill -0 -- "-$pid" 2>/dev/null && alive=1; done
-		(( alive )) || break
+		((alive)) || break
 		sleep 0.1
 	done
 	for pid in "${pids[@]}"; do kill -KILL -- "-$pid" 2>/dev/null || true; done
@@ -34,5 +34,5 @@ status=0
 wait -n "${pids[@]}" || status=$?
 echo "FreshRSS: a required service exited (status $status); stopping the container." >&2
 stop_services
-(( status != 0 )) || status=1
+((status != 0)) || status=1
 exit "$status"

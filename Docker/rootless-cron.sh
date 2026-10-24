@@ -2,7 +2,10 @@
 set -euo pipefail
 umask 077
 
-die() { echo "FreshRSS scheduler: $*" >&2; exit 1; }
+die() {
+	echo "FreshRSS scheduler: $*" >&2
+	exit 1
+}
 
 # Strip leading zeroes before arithmetic, avoiding octal and integer overflow.
 minute_number() {
@@ -21,7 +24,7 @@ translate_minutes() {
 		[[ $field =~ ^(\*|[0-9]+(-[0-9]+)?)(/([0-9]+))?$ ]] || die "Invalid CRON_MIN field '$field'."
 		base=${BASH_REMATCH[1]}
 		step=$(minute_number "${BASH_REMATCH[4]:-1}")
-		(( step > 0 && step <= 59 )) || die 'CRON_MIN steps must be between 1 and 59.'
+		((step > 0 && step <= 59)) || die 'CRON_MIN steps must be between 1 and 59.'
 		if [[ $base = '*' ]]; then
 			first=0
 			last=59
@@ -34,10 +37,10 @@ translate_minutes() {
 			# A stepped single value denotes that value through minute 59.
 			[[ $field != */* ]] || last=59
 		fi
-		(( first <= last && last <= 59 )) || die "Invalid CRON_MIN range '$base'."
-		for (( minute=first; minute<=last; minute+=step )); do selected[minute]=1; done
+		((first <= last && last <= 59)) || die "Invalid CRON_MIN range '$base'."
+		for ((minute = first; minute <= last; minute += step)); do selected[minute]=1; done
 	done
-	for (( minute=0; minute<60; minute++ )); do
+	for ((minute = 0; minute < 60; minute++)); do
 		[[ ${selected[minute]:-0} = 0 ]] || result+="${result:+,}$minute"
 	done
 	printf '%s\n' "$result"
@@ -47,7 +50,7 @@ if [[ ${1:-} = --translate && $# = 2 ]]; then
 	translate_minutes "$2"
 	exit 0
 fi
-(( $# == 0 )) || die 'Usage: rootless-cron.sh [--translate MINUTES]'
+(($# == 0)) || die 'Usage: rootless-cron.sh [--translate MINUTES]'
 
 IFS= read -r minutes <"$FRESHRSS_RUNTIME_DIR/cron-minutes"
 [[ $minutes =~ ^[0-9]+(,[0-9]+)*$ ]] || die 'Missing or invalid translated minute list.'
@@ -81,7 +84,7 @@ while :; do
 	run_child /usr/bin/snooze -v -H '*' -M "$minutes" -S 0 || die 'snooze exited unsuccessfully.'
 	now=$(date +%s)
 	minute=$((now / 60))
-	if (( minute == last_minute )); then
+	if ((minute == last_minute)); then
 		# Prevent a fast job or an early wakeup from running twice in one minute.
 		run_child sleep 1 || die 'Could not wait for the next scheduling interval.'
 		continue
