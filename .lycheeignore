@@ -17,7 +17,7 @@
 ^https://www\.linkedin\.com/shareArticle\?url=~LINK~&amp;title=~TITLE~&amp;source=FreshRSS
 ^https://www\.xing\.com/spi/shares/new\?url=~LINK
 ^http://a\.bc/
-^http://rss-bridge.lan/
+^http://rss-bridge\.lan/
 ^https://198\.51\.100\.7/
 ^https://198\.51\.100\.7:8443/
 
