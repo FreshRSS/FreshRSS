@@ -212,9 +212,11 @@ class Minz_Session {
 	/**
 	 * Regenerate a session id.
 	 *
+	 * @param bool $delete_old_session `true` to delete the old session file; set to `false` if it is known
+	 * not to contain authenticated data, to avoid breaking concurrent in-flight requests
 	 * @throws RuntimeException if the session could not be regenerated (e.g. unwritable session storage)
 	 */
-	public static function regenerateID(string $name): void {
+	public static function regenerateID(string $name, bool $delete_old_session = true): void {
 		if (self::$volatile) {
 			return;
 		}
@@ -226,7 +228,7 @@ class Minz_Session {
 		if (session_name($name) === false || !@session_start()) {
 			throw new RuntimeException("Session {$name} could not be started!");
 		}
-		if (!session_regenerate_id(delete_old_session: true)) {
+		if (!session_regenerate_id(delete_old_session: $delete_old_session)) {
 			throw new RuntimeException('Session could not be regenerated!');
 		}
 		session_write_close();

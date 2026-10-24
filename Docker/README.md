@@ -105,6 +105,10 @@ and with newer packages in general (Apache, PHP).
 
 ## How to update
 
+Your data and extensions are kept in the `freshrss_data` and `freshrss_extensions` volumes,
+so updating FreshRSS only means running a newer image with the same volumes.
+Back up these volumes (and your database, if not using SQLite) first; see [Backup](../docs/en/admins/05_Backup.md).
+
 ```sh
 # Rebuild an image (see build section below) or get a new online version:
 docker pull freshrss/freshrss:edge
@@ -116,6 +120,17 @@ docker run ... --name freshrss freshrss/freshrss:edge
 # If everything is working, delete the old container
 docker rm freshrss_old
 ```
+
+With [Docker Compose](#docker-compose), run `pull` and then `up` again, with the same `-f` files as when you started, e.g.:
+
+```sh
+docker compose -f docker-compose.yml -f docker-compose-db.yml pull
+docker compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
+```
+
+> ⚠️ Keep the same major version of your database image (e.g. `postgres:17`) when updating FreshRSS, even if our example Compose files use a newer one:
+> a new major version of PostgreSQL refuses to start with the data of a previous one. To change it, see [Migrate database](#migrate-database).
+> If you replace your Compose files with newer copies of ours, also check that your `.env` file still uses the same variable names.
 
 ## Build custom Docker image
 
