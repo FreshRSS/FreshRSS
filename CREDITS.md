@@ -13,6 +13,7 @@ People are sorted by name so please keep this order.
 * [4xfu](https://github.com/4xfu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:4xfu)
 * [aarnej](https://github.com/aarnej): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aarnej)
 * [Aaron Schif](https://github.com/aaronschif): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aaronschif)
+* [Abdullah](https://github.com/A-AL-ANAZI): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:A-AL-ANAZI)
 * [Adam Stephens](https://github.com/adamcstephens): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:adamcstephens)
 * [AdamKorcz](https://github.com/AdamKorcz): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:AdamKorcz)
 * [Adrien Dorsaz](https://github.com/Trim): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Trim), [Web](https://adorsaz.ch/)
