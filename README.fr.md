@@ -236,6 +236,7 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 
 | Langage | Progression | |
 | - | - | - |
+| العربية (ar) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Far+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Azərbaycanca (az) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Faz+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Беларуская (be) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fbe+%2F%28TODO%7CDIRTY%29%24%2F) |
 | Čeština (cs) | ￭￭￭￭￭￭￭￭･･ 81% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fcs+%2F%28TODO%7CDIRTY%29%24%2F) |
