@@ -873,7 +873,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseUserQueryIds(string $input): string {
 		if (preg_match_all('/\\b[S]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->user_query_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -895,7 +895,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotUserQueryIds(string $input): string {
 		if (preg_match_all('/(?<=[\\s(]|^)[!-][S]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->not_user_query_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -922,11 +922,11 @@ class FreshRSS_Search implements \Stringable {
 		$names_lists = [];
 		if (preg_match_all('/\\bsearch?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$names_lists = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\bsearch?:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$names_lists = array_merge($names_lists, $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (!empty($names_lists)) {
 			$this->user_query_names = [];
@@ -948,11 +948,11 @@ class FreshRSS_Search implements \Stringable {
 		$names_lists = [];
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]search?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$names_lists = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]search?:(?P<search>[^\\s"]*)/', $input, $matches)) {
 			$names_lists = array_merge($names_lists, $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (!empty($names_lists)) {
 			$this->not_user_query_names = [];
