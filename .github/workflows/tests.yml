@@ -17,7 +17,7 @@ jobs:
 
   tests:
     name: tests
-    # https://github.com/actions/virtual-environments
+    # https://github.com/actions/runner-images
     runs-on: ubuntu-26.04
 
     steps:

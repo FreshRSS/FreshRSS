@@ -446,7 +446,7 @@ docker compose down --remove-orphans --volumes
 ## Run in production
 
 For production, it is a good idea to use a reverse proxy on your host server, providing HTTPS.
-A dedicated solution such as [Træfik](https://traefik.io/traefik/) is recommended
+A dedicated solution such as [Træfik](https://traefik.io/traefik) is recommended
 (or see [alternative options below](#alternative-reverse-proxy-configurations)).
 
 You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`, and set it in your `.env` file:
