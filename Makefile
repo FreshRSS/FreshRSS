@@ -73,6 +73,10 @@ lint-fix: bin/phpcbf ## Fix the errors detected by the linter
 test: bin/phpunit ## Run the PHP test suite
 	$(PHP) bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
 
+.PHONY: test-rootless-cron-translation
+test-rootless-cron-translation: ## Test rootless CRON_MIN translation
+	bash tests/docker/rootless-cron-translation.sh
+
 bin/composer:
 	mkdir -p bin/
 	cd bin ; \
@@ -133,7 +137,7 @@ typos-test: bin/typos
 
 # TODO: Add shellcheck, shfmt, hadolint
 .PHONY: test-all
-test-all: composer-test npm-test typos-test ## Run all tests
+test-all: composer-test npm-test typos-test test-rootless-cron-translation ## Run all tests
 
 .PHONY: fix-all
 fix-all: composer-fix npm-fix ## Run all fixes

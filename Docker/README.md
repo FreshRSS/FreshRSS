@@ -77,6 +77,7 @@ The [tags](https://hub.docker.com/r/freshrss/freshrss/tags) correspond to FreshR
 * `:x.y.z` tags correspond to [specific FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases), allowing you to target a precise version for deployment
 * `:x` tags track the latest release within a major version series. For instance, `:1` will update to include any `1.x` releases, but will exclude versions beyond `2.x`. Note that bug fixes and security fixes are not backported.
 * `*-alpine` use Linux Alpine as base-image instead of Debian
+* `:rootless`, `:edge-rootless`, `:x.y.z-rootless`, and `:x-rootless` use the Debian rootless image with UID/GID of `33:33` (www-data user). `:rootless` follows the latest versioned release; the other tags follow the corresponding release or branch.
 * Our Docker images are designed with multi-architecture support, accommodating a variety of Linux platforms including `linux/arm/v7`, `linux/arm64`, and `linux/amd64`.
   * For other platforms, see the [custom build section](#build-custom-docker-image)
 
@@ -98,7 +99,7 @@ and with newer packages in general (Apache, PHP).
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
-* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/engine/network/drivers/host/))
+* `LISTEN`: Sets the internal Apache listening address and port. The default is `80` for existing images and `8080` for the rootless image. For example, use `0.0.0.0:8080` for [Docker host networking](https://docs.docker.com/engine/network/drivers/host/). Ports must be between `1` and `65535`; binding to ports below `1024` may require additional privileges from the container engine.
 * `INTERNAL_HOST_ALLOWLIST`: (default is empty, can also be set in `data/config.php` or under *System configuration* in Web UI) Requests to internal hosts such as 127.0.0.1 are blocked by default; here you can add overrides for which internal hosts to allow, separated by whitespace. Each host should be described either as a `host:port` combination, CIDR notation (`0.0.0.0/0` to allow any IPv4, `::/0` to allow any IPv6) or `*` to allow all hosts (unsafe)
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
@@ -146,6 +147,10 @@ docker build --pull --tag freshrss/freshrss:custom -f Docker/Dockerfile-Alpine h
 ```
 
 > ℹ️ See an automated way to do that in our [Docker Compose](#docker-compose) section, leveraging a [git build context](https://docs.docker.com/build/building/context/#git-repositories).
+
+### Rootless image
+
+The [rootless image guide](README-Rootless.md) covers its fixed `33:33` identity, installation with named volumes or host paths, Docker Compose, OIDC, scheduler, and storage requirements. The image is defined by [Dockerfile-Rootless](Dockerfile-Rootless); existing image variants are unchanged.
 
 ## Development mode
 

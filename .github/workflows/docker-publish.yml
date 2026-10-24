@@ -45,6 +45,16 @@ jobs:
               type=semver,pattern={{version}}-alpine
               type=semver,pattern={{major}}-alpine,enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
             #  type=semver,pattern={{major}}.{{minor}}-alpine
+          - name: Rootless
+            file: Docker/Dockerfile-Rootless
+            flavor: |
+              latest=false
+            tags: |
+              type=raw,value=rootless,enable=${{ github.ref == 'refs/heads/latest' || startsWith(github.ref, 'refs/tags/') }}
+              type=edge,suffix=-rootless,onlatest=false
+              type=semver,pattern={{version}}-rootless
+              type=semver,pattern={{major}}-rootless,enable=${{ !startsWith(github.ref, 'refs/tags/0.') }}
+            #  type=semver,pattern={{major}}.{{minor}}-rootless
     steps:
     - name: Login to Docker Hub
       if: github.repository_owner == 'FreshRSS'

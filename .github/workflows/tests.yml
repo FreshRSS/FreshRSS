@@ -108,6 +108,15 @@ jobs:
       # shellcheck is pre-installed https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2204-Readme.md
       run: ./tests/shellchecks.sh
 
+    - name: Test rootless cron minute translation
+      run: bash tests/docker/rootless-cron-translation.sh
+
+    - name: Build rootless Docker image for contract test
+      run: docker build --pull --file Docker/Dockerfile-Rootless --tag freshrss:rootless-test .
+
+    - name: Test rootless image contract on rootful Docker engine
+      run: node tests/docker/rootless-contract.mjs --image freshrss:rootless-test --engine rootful
+
     - name: Install hadolint
       if: steps.shell-cache.outputs.cache-hit != 'true'
       run: |
