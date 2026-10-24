@@ -10,14 +10,16 @@ import { parseArgs } from 'node:util';
 import { command } from './docker-command.mjs';
 
 const { fetch, AbortSignal } = globalThis;
-const { values } = parseArgs({ options: {
-	image: { type: 'string', default: 'freshrss:rootless' },
-	engine: { type: 'string', default: 'rootless' },
-	'expected-image-id': { type: 'string' },
-	'bind-data': { type: 'string' },
-	report: { type: 'string' },
-	help: { type: 'boolean', default: false },
-} });
+const { values } = parseArgs({
+	options: {
+		'image': { type: 'string', default: 'freshrss:rootless' },
+		'engine': { type: 'string', default: 'rootless' },
+		'expected-image-id': { type: 'string' },
+		'bind-data': { type: 'string' },
+		'report': { type: 'string' },
+		'help': { type: 'boolean', default: false },
+	},
+});
 
 if (values.help) {
 	console.log('Usage: node tests/docker/rootless-contract.mjs [--image IMAGE] [--engine rootless|rootful] [--expected-image-id ID]');
@@ -33,8 +35,14 @@ test('FreshRSS rootless image contract', { timeout: 480_000 }, async t => {
 	const passed = new Set();
 	const bindSentinels = [];
 	const fixtureServers = [];
-	const report = { suiteVersion: 1, image: values.image, adapter: 'rootless-contract.mjs',
-		expectedEngine: values.engine, completed: false, tests: [] };
+	const report = {
+		suiteVersion: 1,
+		image: values.image,
+		adapter: 'rootless-contract.mjs',
+		expectedEngine: values.engine,
+		completed: false,
+		tests: [],
+	};
 	let primary;
 
 	async function docker(args, options) {
@@ -116,7 +124,7 @@ test('FreshRSS rootless image contract', { timeout: 480_000 }, async t => {
 	async function cleanup() {
 		const errors = [];
 		for (const server of fixtureServers) {
-			await new Promise(resolveClose => server.close(resolveClose));
+			await new Promise(resolve => server.close(resolve));
 		}
 		for (const { hostPath, filename } of bindSentinels) {
 			const result = await command(['run', '--rm', '--user', '33:33', '--entrypoint', '/bin/rm',
@@ -198,7 +206,25 @@ test('FreshRSS rootless image contract', { timeout: 480_000 }, async t => {
 
 		const partial = await launch('partial-data', { volume });
 		assertInstaller(await waitForHttp(partial.url));
-		const state = JSON.parse(await docker(['exec', partial.name, 'php', '-r', String.raw`$root = '/var/www/FreshRSS/data'; $dirs = ['', '/cache', '/extensions-data', '/favicons', '/fever', '/PubSubHubbub', '/PubSubHubbub/feeds', '/PubSubHubbub/keys', '/Retry-After', '/tokens', '/users', '/users/_']; $missing = []; foreach ($dirs as $dir) { $path = $root . $dir; if (!is_dir($path)) { $missing[] = $dir . ' (directory)'; continue; } if (!is_file($path . '/index.html')) $missing[] = $dir . '/index.html'; } $htaccess = @file_get_contents($root . '/.htaccess'); if ($htaccess === false || !str_contains($htaccess, 'Require all denied')) $missing[] = '.htaccess deny rule'; $marker = @file_get_contents($root . '/users/_/.rootless-contract-marker'); echo json_encode(['missing' => $missing, 'marker' => $marker, 'uid' => fileowner($root), 'gid' => filegroup($root)]);`]));
+		const state = JSON.parse(await docker(['exec', partial.name, 'php', '-r', String.raw`
+			$root = '/var/www/FreshRSS/data';
+			$dirs = ['', '/cache', '/extensions-data', '/favicons', '/fever', '/PubSubHubbub',
+				'/PubSubHubbub/feeds', '/PubSubHubbub/keys', '/Retry-After', '/tokens', '/users', '/users/_'];
+			$missing = [];
+			foreach ($dirs as $dir) {
+				$path = $root . $dir;
+				if (!is_dir($path)) {
+					$missing[] = $dir . ' (directory)';
+					continue;
+				}
+				if (!is_file($path . '/index.html')) $missing[] = $dir . '/index.html';
+			}
+			$htaccess = @file_get_contents($root . '/.htaccess');
+			if ($htaccess === false || !str_contains($htaccess, 'Require all denied')) $missing[] = '.htaccess deny rule';
+			$marker = @file_get_contents($root . '/users/_/.rootless-contract-marker');
+			echo json_encode(['missing' => $missing, 'marker' => $marker,
+				'uid' => fileowner($root), 'gid' => filegroup($root)]);
+		`]));
 		assert.deepEqual(state.missing, [], `FreshRSS did not complete the partial data layout: ${state.missing.join(', ')}`);
 		assert.equal(state.marker, marker, 'Startup changed or removed existing user data');
 		assert.equal(`${state.uid}:${state.gid}`, '33:33', 'Prepared data directory is not owned by the application identity');
@@ -207,18 +233,50 @@ test('FreshRSS rootless image contract', { timeout: 480_000 }, async t => {
 	await check('Apache and scheduler processes, plus PHP CLI, run as UID/GID 33:33', async () => {
 		const id = (await docker(['exec', primary.name, '/bin/sh', '-c', 'id -u; id -g'])).split(/\s+/);
 		assert.deepEqual(id, ['33', '33']);
-		const cliIdentity = await docker(['exec', primary.name, 'php', '-r', String.raw`$s = file_get_contents('/proc/self/status'); preg_match('/^Uid:\s+\d+\s+(\d+)/m', $s, $u); preg_match('/^Gid:\s+\d+\s+(\d+)/m', $s, $g); echo $u[1] . ':' . $g[1];`]);
+		const cliIdentity = await docker(['exec', primary.name, 'php', '-r', String.raw`
+			$s = file_get_contents('/proc/self/status');
+			preg_match('/^Uid:\s+\d+\s+(\d+)/m', $s, $u);
+			preg_match('/^Gid:\s+\d+\s+(\d+)/m', $s, $g);
+			echo $u[1] . ':' . $g[1];
+		`]);
 		assert.equal(cliIdentity, '33:33', 'PHP CLI does not run as UID/GID 33:33');
-		const script = String.raw`$found = []; $self = getmypid(); foreach (glob("/proc/[0-9]*/status") as $file) { $pid = (int)basename(dirname($file)); if ($pid === $self) continue; $s = @file_get_contents($file); $raw = @file_get_contents(dirname($file) . "/cmdline"); if ($s === false || $raw === false) continue; $argv = explode("\0", trim($raw, "\0")); $comm = ''; preg_match("/^Name:\\s+(.*)$/m", $s, $n); if (isset($n[1])) $comm = trim($n[1]); $isCronScript = array_filter($argv, fn($arg) => preg_match("~(?:^|/)rootless-cron\\.sh$~", $arg)); $isSnooze = isset($argv[0]) && basename($argv[0]) === "snooze"; if ($comm === "apache2" || $isCronScript || $isSnooze) { preg_match("/^Uid:\\s+\\d+\\s+(\\d+)/m", $s, $u); preg_match("/^Gid:\\s+\\d+\\s+(\\d+)/m", $s, $g); if (!isset($u[1], $g[1])) continue; $found[] = ["name" => $comm, "argv" => $argv, "uid" => (int)$u[1], "gid" => (int)$g[1]]; } } echo json_encode($found);`;
+		const script = String.raw`
+			$found = [];
+			$self = getmypid();
+			foreach (glob("/proc/[0-9]*/status") as $file) {
+				$pid = (int)basename(dirname($file));
+				if ($pid === $self) continue;
+				$s = @file_get_contents($file);
+				$raw = @file_get_contents(dirname($file) . "/cmdline");
+				if ($s === false || $raw === false) continue;
+				$argv = explode("\0", trim($raw, "\0"));
+				$comm = '';
+				preg_match("/^Name:\\s+(.*)$/m", $s, $n);
+				if (isset($n[1])) $comm = trim($n[1]);
+				$isCronScript = array_filter($argv,
+					fn($arg) => preg_match("~(?:^|/)rootless-cron\\.sh$~", $arg));
+				$isSnooze = isset($argv[0]) && basename($argv[0]) === "snooze";
+				if ($comm === "apache2" || $isCronScript || $isSnooze) {
+					preg_match("/^Uid:\\s+\\d+\\s+(\\d+)/m", $s, $u);
+					preg_match("/^Gid:\\s+\\d+\\s+(\\d+)/m", $s, $g);
+					if (!isset($u[1], $g[1])) continue;
+					$found[] = ["name" => $comm, "argv" => $argv,
+						"uid" => (int)$u[1], "gid" => (int)$g[1]];
+				}
+			}
+			echo json_encode($found);
+		`;
 		const deadline = Date.now() + 10_000;
 		let processes = [];
 		while (Date.now() < deadline) {
 			processes = JSON.parse(await docker(['exec', primary.name, 'php', '-r', script]));
-			if (processes.some(entry => entry.argv.some(argument => /(?:^|\/)rootless-cron\.sh$/.test(argument)) || entry.argv[0]?.split('/').at(-1) === 'snooze')) break;
+			if (processes.some(entry => entry.argv.some(argument => /(?:^|\/)rootless-cron\.sh$/.test(argument)) ||
+				entry.argv[0]?.split('/').at(-1) === 'snooze')) break;
 			await delay(250);
 		}
 		const apache = processes.filter(entry => entry.name === 'apache2');
-		const scheduler = processes.filter(entry => entry.argv.some(argument => /(?:^|\/)rootless-cron\.sh$/.test(argument)) || entry.argv[0]?.split('/').at(-1) === 'snooze');
+		const scheduler = processes.filter(entry => entry.argv.some(argument => /(?:^|\/)rootless-cron\.sh$/.test(argument)) ||
+			entry.argv[0]?.split('/').at(-1) === 'snooze');
 		assert.ok(apache.length > 0, 'No Apache process found');
 		assert.ok(scheduler.length > 0, 'CRON_MIN did not start the rootless scheduler');
 		assert.ok(processes.every(entry => entry.uid === 33 && entry.gid === 33), `Process identities: ${JSON.stringify(processes)}`);
@@ -226,8 +284,9 @@ test('FreshRSS rootless image contract', { timeout: 480_000 }, async t => {
 		const withoutCron = await launch('without-cron', { volume: noCronVolume });
 		await waitForHttp(withoutCron.url);
 		const noCronProcesses = JSON.parse(await docker(['exec', withoutCron.name, 'php', '-r', script]));
-		assert.equal(noCronProcesses.some(entry => entry.argv.some(argument => /(?:^|\/)rootless-cron\.sh$/.test(argument)) || entry.argv[0]?.split('/').at(-1) === 'snooze'), false,
-			'Process probe reported a scheduler when CRON_MIN is disabled');
+		assert.equal(noCronProcesses.some(entry => entry.argv.some(argument => /(?:^|\/)rootless-cron\.sh$/.test(argument)) ||
+			entry.argv[0]?.split('/').at(-1) === 'snooze'), false,
+		'Process probe reported a scheduler when CRON_MIN is disabled');
 	}, [volumeCheck]);
 
 	await check('scheduled tick refreshes a subscribed local RSS feed', async () => {
@@ -237,13 +296,19 @@ test('FreshRSS rootless image contract', { timeout: 480_000 }, async t => {
 			response.writeHead(200, { 'content-type': 'application/rss+xml; charset=utf-8' });
 			response.end(`<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel><title>Rootless scheduler test</title><link>http://localhost/</link><description>Scheduler fixture</description>
-<item><guid isPermaLink="false">${prefix}-scheduled-entry</guid><title>Scheduled refresh test</title><link>http://localhost/${prefix}</link><description>Fetched by the rootless scheduler</description><pubDate>${new Date().toUTCString()}</pubDate></item>
+<item>
+<guid isPermaLink="false">${prefix}-scheduled-entry</guid>
+<title>Scheduled refresh test</title>
+<link>http://localhost/${prefix}</link>
+<description>Fetched by the rootless scheduler</description>
+<pubDate>${new Date().toUTCString()}</pubDate>
+</item>
 </channel></rss>`);
 		});
 		fixtureServers.push(fixtureServer);
-		await new Promise((resolveListen, rejectListen) => {
-			fixtureServer.once('error', rejectListen);
-			fixtureServer.listen(0, '0.0.0.0', resolveListen);
+		await new Promise((resolve, reject) => {
+			fixtureServer.once('error', reject);
+			fixtureServer.listen(0, '0.0.0.0', resolve);
 		});
 		const fixtureAddress = fixtureServer.address();
 		assert.ok(fixtureAddress && typeof fixtureAddress === 'object', 'RSS fixture did not bind to a TCP port');
@@ -265,7 +330,11 @@ test('FreshRSS rootless image contract', { timeout: 480_000 }, async t => {
 		});
 		await waitForHttp(scheduled.url);
 		const feedUrl = `http://host.docker.internal:${fixtureAddress.port}/feed.xml`;
-		const opml = `<?xml version="1.0" encoding="UTF-8"?><opml version="2.0"><head><title>Scheduler test</title></head><body><outline text="Scheduler test" title="Scheduler test" type="rss" xmlUrl="${feedUrl}" /></body></opml>`;
+		const opml = `<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+	<head><title>Scheduler test</title></head>
+	<body><outline text="Scheduler test" title="Scheduler test" type="rss" xmlUrl="${feedUrl}" /></body>
+</opml>`;
 		const opmlPath = '/run/freshrss/tmp/scheduled-feed.opml';
 		await docker(['exec', '-i', scheduled.name, '/bin/sh', '-c', `cat > '${opmlPath}'`], { input: opml });
 		await docker(['exec', scheduled.name, 'php', 'cli/import-for-user.php', '--user', 'scheduler-test', '--filename', opmlPath]);
@@ -281,7 +350,10 @@ test('FreshRSS rootless image contract', { timeout: 480_000 }, async t => {
 			}
 			await delay(1_000);
 		}
-		assert.ok(fixtureRequestTimes.some(requestTime => requestTime >= nextTick.getTime()), `The scheduled tick did not fetch the subscribed local RSS fixture. Container logs:\n${logs}`);
+		assert.ok(
+			fixtureRequestTimes.some(requestTime => requestTime >= nextTick.getTime()),
+			`The scheduled tick did not fetch the subscribed local RSS fixture. Container logs:\n${logs}`
+		);
 		const refreshDeadline = Date.now() + 30_000;
 		while (!/FreshRSS scheduler: refresh finished .*exit status 0\./.test(logs) && Date.now() < refreshDeadline) {
 			logs = await containerLogs(scheduled.name);
