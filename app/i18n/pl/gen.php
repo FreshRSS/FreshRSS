@@ -198,6 +198,7 @@ return array(
 		'unsafe_csp_header' => 'Używany nagłówek CSP jest niebezpieczny i FreshRSS może być podatny na ataki XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Zobacz dokumentację</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
 		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE

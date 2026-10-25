@@ -536,7 +536,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/unread$%', $tag)) {
 						$is_read = false;
 					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/label/\s*(?P<tag>.+?)\s*$%', $tag, $matches)) {
-						$labels[] = $matches['tag'];
+						$labels[] = Minz_Helper::htmlspecialchars_utf8($matches['tag']);
 					}
 					unset($tags[$i]);
 				}

@@ -225,7 +225,7 @@ final class FreshRSS_dotNotation_Util
 			if ($rssItem['title'] != '' || $rssItem['content'] != '' || $rssItem['link'] != '') {
 				// HTML-encoding/escaping of the relevant fields (all except 'content')
 				foreach (['author', 'guid', 'link', 'thumbnail', 'timestamp', 'tags', 'title'] as $key) {
-					if (!empty($rssItem[$key]) && is_string($rssItem[$key])) {
+					if (!empty($rssItem[$key])) {
 						$rssItem[$key] = Minz_Helper::htmlspecialchars_utf8($rssItem[$key]);
 					}
 				}
