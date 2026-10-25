@@ -4,6 +4,18 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-XX-XX FreshRSS 1.30.5-dev
 
+* Bug fixes
+	* Fix 32-bit systems provide a string for SQL BIGINT [#9486](https://github.com/FreshRSS/FreshRSS/pull/9486)
+* Security
+	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
+* I18n
+	* Add Arabic [#9502](https://github.com/FreshRSS/FreshRSS/pull/9502)
+* CI/CD
+	* Add a link checker workflow using lychee [#9209](https://github.com/FreshRSS/FreshRSS/pull/9209), [#9495](https://github.com/FreshRSS/FreshRSS/pull/9495), [#9507](https://github.com/FreshRSS/FreshRSS/pull/9507)
+	* Group auto dependency updates into one PR per ecosystem [#9496](https://github.com/FreshRSS/FreshRSS/pull/9496)
+	* Update dev dependencies [#9494](https://github.com/FreshRSS/FreshRSS/pull/9494), [#9497](https://github.com/FreshRSS/FreshRSS/pull/9497), [#9498](https://github.com/FreshRSS/FreshRSS/pull/9498),
+		[#9499](https://github.com/FreshRSS/FreshRSS/pull/9499),[#9500](https://github.com/FreshRSS/FreshRSS/pull/9500),[#9501](https://github.com/FreshRSS/FreshRSS/pull/9501),
+
 
 ## 2026-10-21 FreshRSS 1.30.4
 
