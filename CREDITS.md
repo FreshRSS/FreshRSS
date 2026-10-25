@@ -294,6 +294,7 @@ People are sorted by name so please keep this order.
 * [proletarius101](https://github.com/proletarius101): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:proletarius101)
 * [purexo](https://github.com/purexo): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:purexo), [Web](https://purexo.fr/)
 * [Pyr0x1](https://github.com/Pyr0x1): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Pyr0x1)
+* [Pythame](https://github.com/Pythame): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Pythame)
 * [Quent-in](https://github.com/Quent-in): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Quent-in)
 * [Quentin Dufour](https://github.com/superboum): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:superboum), [Web](https://quentin.dufour.io/)
 * [Quentin Pagès](https://github.com/Quenty31): [contributions](https://github.com/FreshRSS/documentation/pulls?q=is:pr+author:Quenty31)
