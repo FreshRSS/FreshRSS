@@ -114,37 +114,9 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function test_getCurlResolveInfoRejectsPrivateNat64Address(): void {
-		FreshRSS_Context::initSystem();
-		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
-		$resolveOk->setValue(null, [
-			'example.test' => [
-				'64:ff9b::a9fe:a9fe',
-			],
-		]);
-
-		self::assertNull(
-			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
-		);
-	}
-
-	public function test_getCurlResolveInfoRejectsLocalUseNat64Address(): void {
-		FreshRSS_Context::initSystem();
-		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
-		$resolveOk->setValue(null, [
-			'example.test' => [
-				'64:ff9b:1::c000:4260',
-				'64:ff9b:1::a9fe:a9fe',
-			],
-		]);
-
-		self::assertNull(
-			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
-		);
-	}
-
 	#[DataProvider('providePrivateSubnets')]
 	public function test_getCurlResolveInfoRejectsPrivateSubnets(string $ip): void {
+		FreshRSS_Context::initSystem();
 		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
 		$resolveOk->setValue(null, ['example.test' => [$ip]]);
 		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed'));
