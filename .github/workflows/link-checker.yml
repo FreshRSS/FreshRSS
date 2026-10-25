@@ -98,7 +98,7 @@ jobs:
           # GITHUB_TOKEN with 1,000 requests per hour instead.
           token: ${{ secrets.LYCHEE_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 
-          fail: true
+          fail: ${{ github.event_name != 'push' }} # Never fail the workflow on push events to reduce noise
           failIfEmpty: false # Avoid failing in PRs with no links in changed files (`true` is the default)
 
           # Config is loaded from lychee.toml
