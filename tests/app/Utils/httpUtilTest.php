@@ -143,6 +143,35 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		);
 	}
 
+	#[DataProvider('providePrivateSubnets')]
+	public function test_getCurlResolveInfoRejectsPrivateSubnets(string $ip): void {
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, ['example.test' => [$ip]]);
+		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed'));
+	}
+
+	/** @return array<string,array{string}> */
+	public static function providePrivateSubnets(): array {
+		return [
+			// One example per range, ensuring FILTER_FLAG_GLOBAL_RANGE and custom checks are sufficient
+			'127.0.0.0/8' => ['127.0.0.1'],	// RFC1700 (Loopback)
+			'10.0.0.0/8' => ['10.0.0.5'],	// RFC1918
+			'192.168.0.0/16' => ['192.168.1.5'],	// RFC1918
+			'172.16.0.0/12' => ['172.16.5.5'],	// RFC1918
+			'169.254.0.0/16' => ['169.254.5.5'],	// RFC3927
+			'0.0.0.0/8' => ['0.0.0.5'],	// RFC5735
+			'240.0.0.0/4' => ['240.0.0.5'],	// RFC1112
+			'100.64.0.0/10' => ['100.64.5.5'],	// RFC6598 (Shared Address Space of Carrier-Grade NAT)
+			'::1/128' => ['::1'],	// Loopback
+			'fc00::/7' => ['fc00::5'],	// Unique Local Address
+			'fe80::/10' => ['fe80::5'],	// Link Local Address
+			'::ffff:0:0/96' => ['::ffff:10.0.0.5'],	// IPv4 translations
+			'64:ff9b::/96' => ['64:ff9b::a9fe:a9fe'],	// RFC6052 (IPv4/IPv6 Translator, NAT64)
+			'64:ff9b:1::/48' => ['64:ff9b:1::c000:4260'],	// RFC8215 (Local-Use IPv4/IPv6 Translation Prefix)
+			'::/128' => ['::'],	// Unspecified address
+		];
+	}
+
 	/** Socks schemes default to port 1080, and an IP address proxy produces no resolve entry */
 	public function test_getCurlResolveInfoForProxyAddress(): void {
 		FreshRSS_Context::initSystem();
