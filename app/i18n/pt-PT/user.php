@@ -40,8 +40,8 @@ return array(
 		),
 	),
 	'password' => array(
-		'provided_password_too_long' => 'The provided password is too long.',	// TODO
 		'invalid' => 'Palavra-passe incorreta',
+		'provided_password_too_long' => 'The provided password is too long.',	// TODO
 	),
 	'tos' => array(
 		'feedback' => array(
