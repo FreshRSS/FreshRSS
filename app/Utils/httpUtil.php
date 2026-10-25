@@ -402,7 +402,6 @@ final class FreshRSS_http_Util {
 				continue;
 			}
 
-			// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
 			// `FILTER_FLAG_GLOBAL_RANGE` does not reject the NAT64 prefixes
 			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false ||
 				self::checkCIDR($ip, self::NAT64_PREFIX_RFC8215)) {
