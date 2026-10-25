@@ -1807,8 +1807,10 @@ async function loadDynamicTags(div) {
 		div.querySelector('.dropdown-menu-scrollable').appendChild(li_item0);
 	}
 
-	let html = '';
-	let datalist = '';
+	const dropdown = div.querySelector('.dropdown-menu-scrollable');
+	const datalistLabels = document.getElementById('datalist-labels');
+	datalistLabels.innerHTML = ''; // clear before add the (updated) labels list
+
 	if (json && json.length) {
 		let nbLabelsChecked = 0;
 		for (let i = 0; i < json.length; i++) {
@@ -1820,21 +1822,37 @@ async function loadDynamicTags(div) {
 			if (tag.checked) {
 				nbLabelsChecked++;
 			}
-			html += '<li class="item"><label><input ' +
-				(context.anonymous ? '' : 'class="checkboxTag" ') +
-				'name="t_' + tag.id + '"type="checkbox" ' +
-				(context.anonymous ? 'disabled="disabled" ' : '') +
-				(tag.checked ? 'checked="checked" ' : '') + '/>' + tag.name + '</label></li>';
-			datalist += '<option value="' + tag.name + '"></option>';
+
+			const liItem = document.createElement('li');
+			liItem.className = 'item';
+			const labelItem = document.createElement('label');
+			const inputCheckbox = document.createElement('input');
+			if (!context.anonymous) {
+				inputCheckbox.className = 'checkboxTag';
+			}
+			inputCheckbox.name = 't_' + tag.id;
+			inputCheckbox.type = 'checkbox';
+			inputCheckbox.disabled = context.anonymous;
+			inputCheckbox.checked = !!tag.checked;
+			labelItem.appendChild(inputCheckbox);
+			labelItem.appendChild(document.createTextNode(tag.name));
+			liItem.appendChild(labelItem);
+			dropdown.appendChild(liItem);
+
+			const optionLabel = document.createElement('option');
+			optionLabel.value = tag.name;
+			datalistLabels.appendChild(optionLabel);
 		}
 		if (context.anonymous && nbLabelsChecked === 0) {
-			html += '<li class="item"><span class="emptyLabels">' + context.i18n.labels_empty + '</span></li>';
+			const emptyItem = document.createElement('li');
+			emptyItem.className = 'item';
+			const spanEmpty = document.createElement('span');
+			spanEmpty.className = 'emptyLabels';
+			spanEmpty.textContent = context.i18n.labels_empty;
+			emptyItem.appendChild(spanEmpty);
+			dropdown.appendChild(emptyItem);
 		}
 	}
-	div.querySelector('.dropdown-menu-scrollable').insertAdjacentHTML('beforeend', html);
-	const datalistLabels = document.getElementById('datalist-labels');
-	datalistLabels.innerHTML = ''; // clear before add the (updated) labels list
-	datalistLabels.insertAdjacentHTML('beforeend', datalist);
 }
 
 // <actualize>

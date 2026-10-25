@@ -564,8 +564,12 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->httpAuth = $value;
 	}
 
-	public function _error(int $value): void {
-		$this->error = $value;
+	/**
+	 * @param int|numeric-string $value
+	 * 32-bit systems provide a string and will fail in year 2038
+	 */
+	public function _error(int|string $value): void {
+		$this->error = (int)$value;
 	}
 	public function _mute(bool $value): void {
 		$this->mute = $value;
