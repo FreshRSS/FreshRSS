@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-Draft a [new security advisory](https://github.com/FreshRSS/FreshRSS/security/advisories) online,
+Draft a [new security advisory](https://github.com/FreshRSS/FreshRSS/security/advisories) online (preferred),
 or report security issues to <alexandre@alapetite.fr> ([PGP public key if relevant](https://alexandre.alapetite.fr/cv/pgp.asc)).
 
 ## AI-assisted security scanning
@@ -26,3 +26,7 @@ Inspiration from <https://lkml.org/lkml/2026/5/17/896>:
 If you decide to contribute a patch for a vulnerability yourself, please open a public PR rather than using a private fork.
 
 This makes it easier for other reporters to check whether an issue is already known and also simplifies review and merging, as some GitHub features, such as CI workflows, may not work correctly in private forks.
+
+## Threat model
+
+See [`docs/threat_model.md`](docs/threat_model.md) for the vulnerabilities considered in scope, severity guidance, and examples of non-findings.
