@@ -6,11 +6,11 @@ FreshRSS is a self-hosted RSS/Atom reader. It supports web and API access, multi
 
 | Boundary | Protect |
 |---|---|
-| Visitor → FreshRSS | Login, sessions, API and share-token checks; public endpoints must expose only intended data. |
-| User → another user or administrator | Private feeds and articles, account settings, saved queries, tokens, and user-specific state. |
-| Feed or imported file → FreshRSS | Parser safety, HTML rendering, URL handling, file paths, and resource limits. Treat feed content, redirects, response headers, and imports as untrusted. |
-| FreshRSS → network, filesystem, and scheduled jobs | SSRF controls, credentials, `data/`, logs, backups, CLI/cron behavior, and file permissions. |
-| Source code → build and release | CI permissions, secrets, dependencies, release artifacts, and published container images. |
+| Visitor → FreshRSS | Authentication, sessions, API authorization, and share-token checks; public endpoints must expose only intended data. |
+| Authenticated user → another user or administrator | Enforce ownership and role checks so an authenticated user cannot access or modify another user's private feeds, articles, account settings, saved queries, tokens, or user-specific state without authorization. |
+| Feed or imported file → FreshRSS | Safe parsing, HTML rendering, URL handling, file access, and resource limits. Treat feed content, redirects, response headers, and imports as untrusted. |
+| FreshRSS → network, filesystem, and scheduled jobs | SSRF protections, credentials, `data/`, logs, backups, CLI/cron behavior, and file permissions. Report unsafe behavior caused by FreshRSS, not operator misconfiguration alone. |
+| Source code → build and release | CI permissions, secrets, dependencies, release artifacts, and published container images. Report exploitable workflow or supply-chain vulnerabilities. |
 
 The `data/` directory contains sensitive state and must not be web-accessible. Configure the web-server document root to FreshRSS's `p/` directory, not the repository root, so `p/` is not part of the public URL. Source files, configuration, logs, backups, and other data must not be downloadable. Installation and permission guidance is in the [installation manual](https://freshrss.github.io/FreshRSS/en/admins/03_Installation.html); backup contents and procedures are in the [backup guide](https://freshrss.github.io/FreshRSS/en/admins/05_Backup.html). The [repository code map](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) identifies the main controllers, views, API entry points, configuration files, and database access layers.
 
@@ -56,7 +56,7 @@ Useful regression checks:
 - Use two users with the same feed but different website/proxy settings; confirm that shared cache entries do not cross-contaminate. Run security-sensitive database tests against SQLite, PostgreSQL, and MySQL/MariaDB where supported.
 - Return controlled errors and long `Retry-After` values from a local feed server; confirm that retries are bounded and one user's feed cannot suppress refresh for others.
 
-Reports should state the attacker's role, required configuration, entry point, reproduction steps, and demonstrated impact. Include a regression test where practical, and group reports caused by the same root bug.
+Reports should include a concise summary, a proof of concept (PoC), the attacker's role, required configuration, entry point, reproduction steps, demonstrated impact, and a suggested fix. Where known, optionally include root-cause analysis, such as the commit or PR that introduced the issue. Include a regression test where practical, and group reports caused by the same root bug.
 
 ## Non-findings and exclusions
 
@@ -65,4 +65,4 @@ Reports should state the attacker's role, required configuration, entry point, r
 - Missing headers, version banners, generic stack traces, missing tests or rate limits, and a dependency CVE without a reachable vulnerable path and security impact are not findings by themselves.
 - Self-XSS that requires the victim to paste code into developer tools, purely volumetric denial of service, and work proportional to normal feed size are out of scope. Modest input that causes disproportionate resource use remains in scope.
 - Low-sensitivity path-existence signals, cosmetic changes visible only to the acting user, and inert or safely escaped HTML are usually not security findings. Raise severity when they expose secrets, cross a user boundary, alter a sensitive action, or form part of a demonstrated exploit chain.
-- Assume the attacker does not already control a FreshRSS administrator account, the repository's trusted maintainers, the Docker host, or the database superuser. A finding is in scope if FreshRSS lets a lower-privilege attacker cross one of these boundaries.
+- Do not assume every finding must be exploitable by an unauthenticated or ordinary user. A finding that requires a FreshRSS administrator account is in scope if it demonstrates security impact beyond the administrator's intended capabilities; state the required role and impact explicitly. Do not assume the attacker already controls the repository's trusted maintainers, Docker host, or database superuser. Any path that lets a lower-privileged attacker cross into one of these trust domains is also in scope.
