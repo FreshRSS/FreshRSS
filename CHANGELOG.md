@@ -4,6 +4,13 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-XX-XX FreshRSS 1.30.5-dev
 
+* Compatibility
+	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+* Deployment
+	* Docker: dev image `freshrss/freshrss:oldest` updated to Alpine 3.18 with PHP 8.2.16 and Apache 2.4.62 [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+* Misc.
+	* Update to PHPUnit 11.x (PHP 8.2+) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+
 
 ## 2026-10-21 FreshRSS 1.30.4
 
@@ -24,13 +31,6 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Improve Brazilian Portuguese [#9473](https://github.com/FreshRSS/FreshRSS/pull/9473)
 * Misc.
 	* Translate non-English code comments and identifiers [#9383](https://github.com/FreshRSS/FreshRSS/pull/9383)
-
-* Compatibility
-	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
-* Deployment
-	* Docker: dev image `freshrss/freshrss:oldest` updated to Alpine 3.18 with PHP 8.2.16 and Apache 2.4.62 [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
-* Misc.
-	* Update to PHPUnit 11.x (PHP 8.2+) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 
 
 ## 2026-10-19 FreshRSS 1.30.2
