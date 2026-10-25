@@ -110,7 +110,7 @@ class FreshRSS_Feed extends Minz_Model {
 		$curl_options = array_replace(FreshRSS_Context::systemConf()->curl_options,
 			FreshRSS_http_Util::sanitizeCurlParams($this->attributeArray('curl_params') ?? []));
 		$proxyType = $curl_options[CURLOPT_PROXYTYPE] ?? 0;
-		if (is_int($proxyType) && ($proxyType < 0 || $proxyType === 3)) {
+		if (is_int($proxyType) && ($proxyType < 0 || $proxyType === 3)) {	// 3 is legacy for NONE
 			return '';	// Proxy disabled for this feed
 		}
 		return is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : '';
