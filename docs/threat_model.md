@@ -48,14 +48,6 @@ Assume a reachable FreshRSS instance. Rate the demonstrated impact and required 
 
 Use the [test suite](https://freshrss.github.io/FreshRSS/en/developers/03_Running_tests.html), synthetic feeds, local HTTP servers, test accounts, and temporary directories. Test only instances and services you own or have permission to assess. The [logging guide](https://freshrss.github.io/FreshRSS/en/admins/logs_and_errors.html) may help with debugging.
 
-Useful regression checks:
-
-- Render hostile feed titles and descriptions, including values restored from JSON/OPML imports; check normal text fields and nested values in `attributes` across HTML, JavaScript, and URL contexts. Verify that markup cannot impersonate trusted UI or alter links/forms.
-- Try invalid theme names and path values; verify that traversal, protected-file access, and sensitive absolute-path disclosure fail.
-- Fetch public shared OPML with dummy cookies, authorization headers, POST bodies, and proxy credentials; confirm that these secrets are absent.
-- Use two users with the same feed but different website/proxy settings; confirm that shared cache entries do not cross-contaminate. Run security-sensitive database tests against SQLite, PostgreSQL, and MySQL/MariaDB where supported.
-- Return controlled errors and long `Retry-After` values from a local feed server; confirm that retries are bounded and one user's feed cannot suppress refresh for others.
-
 Reports should include a concise summary, a proof of concept (PoC), the attacker's role, required configuration, entry point, reproduction steps, demonstrated impact, and a suggested fix. Where known, optionally include root-cause analysis, such as the commit or PR that introduced the issue. Include a regression test where practical, and group reports caused by the same root bug.
 
 ## Non-findings and exclusions
