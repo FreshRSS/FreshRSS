@@ -105,9 +105,15 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->hashFavicon(skipCache: true);
 	}
 
+	/** Must match the proxy of `FreshRSS_SimplePieCustom`, which stores `Retry-After`. */
 	public function proxyParam(): string {
-		$curl_params = FreshRSS_http_Util::sanitizeCurlParams($this->attributeArray('curl_params') ?? []);
-		return is_string($curl_params[CURLOPT_PROXY] ?? null) ? $curl_params[CURLOPT_PROXY] : '';
+		$curl_options = array_replace(FreshRSS_Context::systemConf()->curl_options,
+			FreshRSS_http_Util::sanitizeCurlParams($this->attributeArray('curl_params') ?? []));
+		$proxyType = $curl_options[CURLOPT_PROXYTYPE] ?? 0;
+		if (is_int($proxyType) && ($proxyType < 0 || $proxyType === 3)) {	// 3 is legacy for NONE
+			return '';	// Proxy disabled for this feed
+		}
+		return is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : '';
 	}
 
 	/**

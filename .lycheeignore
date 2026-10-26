@@ -54,6 +54,8 @@
 
 # TODO: Temporarily broken
 ^https://install-app\.yunohost\.org/\?app=freshrss
+^https://wiki\.gentoo\.org/wiki/Cron
+^https://wiki\.gentoo\.org/wiki/Cron/fr
 
 # TODO: Dead?
 ^https://template\.run\.claw\.cloud/\?openapp=system-fastdeploy%3FtemplateName%3Dfreshrss

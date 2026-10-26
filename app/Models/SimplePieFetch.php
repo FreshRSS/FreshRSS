@@ -25,10 +25,10 @@ final class FreshRSS_SimplePieFetch extends \SimplePie\File
 			}
 		}
 
-		$redirects = $curl_options[CURLOPT_MAXREDIRS] ?? $redirects;
-		if (!is_int($redirects)) {
-			$redirects = 4;
-		} elseif ($redirects < 0) {
+		if (is_int($curl_options[CURLOPT_MAXREDIRS] ?? null)) {
+			$redirects = $curl_options[CURLOPT_MAXREDIRS];
+		}
+		if ($redirects < 0) {
 			$redirects = -1;	// infinite redirects
 		}
 		if (isset($curl_options[CURLOPT_FOLLOWLOCATION])) {
