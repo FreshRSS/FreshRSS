@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Povolit anonymní čtení článků výchozího uživatele (%s)',
 		'allow_anonymous_refresh' => 'Povolit anonymní obnovení článků',
 		'api_enabled' => 'Povolit přístup k <abbr>API</abbr> <small>(vyžadováno pro mobilní aplikace and sharing user queries)</small>',	// DIRTY
-		'form' => 'Webový formulář (tradiční, vyžaduje JavaScript)',
+		'form' => 'Webový formulář (tradiční)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Žádný (nebezpečné)',
 		'title' => 'Ověřování',
