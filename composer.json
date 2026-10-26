@@ -17,7 +17,7 @@
 		"WebSub"
 	],
 	"require": {
-		"php": ">=8.1",
+		"php": ">=8.2",
 		"ext-ctype": "*",
 		"ext-curl": "*",
 		"ext-dom": "*",
@@ -49,11 +49,11 @@
 			"phpstan/extension-installer": false
 		},
 		"platform": {
-			"php": "8.1"
+			"php": "8.2"
 		}
 	},
 	"require-dev": {
-		"php": ">=8.1",
+		"php": ">=8.2",
 		"ext-phar": "*",
 		"ext-tokenizer": "*",
 		"ext-xmlwriter": "*",
@@ -61,7 +61,7 @@
 		"phpstan/phpstan-deprecation-rules": "^2.0",
 		"phpstan/phpstan-phpunit": "^2.0",
 		"phpstan/phpstan-strict-rules": "^2.0",
-		"phpunit/phpunit": "^10",
+		"phpunit/phpunit": "^11",
 		"squizlabs/php_codesniffer": "^4.0"
 	},
 	"scripts": {

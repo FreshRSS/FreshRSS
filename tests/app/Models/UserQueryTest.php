@@ -8,8 +8,8 @@ use PHPUnit\Framework\TestCase;
  */
 class UserQueryTest extends TestCase {
 
-	public function __construct(string $name) {
-		parent::__construct($name);
+	#[\Override]
+	protected function setUp(): void {
 		if (!FreshRSS_Context::hasSystemConf()) {
 			FreshRSS_Context::initSystem();
 		}

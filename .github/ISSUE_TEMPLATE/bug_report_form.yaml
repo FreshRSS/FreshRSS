@@ -44,7 +44,7 @@ body:
     attributes:
       label: System information
       description: Please complete the following information
-      value: "- Database version: [e.g. SQLite, PostgreSQL 17]\n- PHP version: [e.g. PHP 8.2]\n- Installation type: [e.g. Docker, Docker image source, git, Yunohost]\n- Web server type: [e.g. Apache, nginx]\n- Device: [e.g. iPhone13]\n- OS: [e.g. Ubuntu 24.04, Win11, MacOS14]\n- Browser: [e.g. Firefox 134]"
+      value: "- Database version: [e.g. PostgreSQL 18, MySQL 8.4, SQLite]\n- PHP version: [e.g. PHP 8.2]\n- Installation type: [e.g. Docker, Docker image source, git, YunoHost]\n- Web server type: [e.g. Apache, nginx]\n- Device: [e.g. iPhone13]\n- OS: [e.g. Ubuntu 24.04, Win11, macOS 27]\n- Browser: [e.g. Firefox 157]"
     validations:
       required: true
   - type: textarea
