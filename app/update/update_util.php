@@ -1,10 +1,10 @@
 <?php
+declare(strict_types=1);
 
 define('PACKAGE_PATHNAME', DATA_PATH . '/update_package');
 
-
 // Delete a file tree (from http://php.net/rmdir#110489)
-function del_tree($dir) {
+function del_tree(string $dir) {
 	if (!is_dir($dir)) {
 		return true;
 	}
@@ -24,8 +24,8 @@ function del_tree($dir) {
 }
 
 
-// Do a recursive copy (from http://fr2.php.net/manual/en/function.copy.php#91010)
-function recurse_copy($src, $dst) {
+// Do a recursive copy (from https://www.php.net/function.copy#91010)
+function recurse_copy(string $src, string $dst) {
 	$dir = opendir($src);
 	@mkdir($dst);
 	while (false !== ($file = readdir($dir))) {
@@ -63,7 +63,7 @@ function data_backup() {
 
 
 // Check if a directory exists and if it is writable.
-function check_directory($dir) {
+function check_directory(string $dir) {
 	if (!file_exists($dir)) {
 		$res = @mkdir($dir, 0775);
 		if (!$res) {
@@ -103,7 +103,7 @@ EOF;
 
 
 // Save and unzip FreshRSS package.
-function save_package($url) {
+function save_package(string $url) {
 	// First, download package from $url.
 	$zip_filename = PACKAGE_PATHNAME . '.zip';
 	$zip_file = @fopen($zip_filename, 'w+');
@@ -158,7 +158,7 @@ function save_package($url) {
 
 
 // Move custom themes to not delete them
-function save_custom_themes($destination) {
+function save_custom_themes(string $destination) {
 	$themes_base_dir = PUBLIC_PATH . '/themes';
 	$themes_dirs = array_diff(scandir($themes_base_dir), array('.', '..'));
 	foreach ($themes_dirs as $theme_dir) {
@@ -175,8 +175,8 @@ function save_custom_themes($destination) {
 
 // Deploy FreshRSS package by replacing old version by the new one.
 function deploy_package() {
-	$base_pathname = array_pop(array_diff(scandir(PACKAGE_PATHNAME),
-										  array('.', '..')));
+	$diff = array_diff(scandir(PACKAGE_PATHNAME), array('.', '..'));
+	$base_pathname = array_pop($diff);
 	$base_pathname = PACKAGE_PATHNAME . '/' . $base_pathname;
 
 	save_custom_themes($base_pathname . '/p/themes');
