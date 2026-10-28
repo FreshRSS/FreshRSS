@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'إعدادات النظام',
-		'auto-update-url' => 'عنوان URL لخادم التحديث التلقائي',
 		'base-url' => array(
 			'_' => 'عنوان URL الأساسي',
 			'recommendation' => 'التوصية التلقائية: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'بدء التحديث',
 		'changelog' => 'سجل التغييرات',
 		'check' => 'التحقق من وجود تحديثات جديدة',
-		'copiedFromURL' => 'تم نسخ update.php من %s إلى ./data',
 		'current_version' => 'الإصدار المثبت الحالي',
 		'last' => 'آخر فحص',
 		'loading' => 'جارٍ التحديث…',

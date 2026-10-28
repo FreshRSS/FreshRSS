@@ -106,11 +106,26 @@ EOF;
 function save_package($url) {
 	// First, download package from $url.
 	$zip_filename = PACKAGE_PATHNAME . '.zip';
-	$zip_file = fopen($zip_filename, 'w+');
-	$c = curl_init($url);
+	$zip_file = @fopen($zip_filename, 'w+');
+	if ($zip_file === false) {
+		return false;
+	}
+	$c = @curl_init($url);
+	if ($c === false) {
+		fclose($zip_file);
+		@unlink($zip_filename);
+		return false;
+	}
 	curl_setopt($c, CURLOPT_HEADER, false);
+	curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
 	curl_setopt($c, CURLOPT_BINARYTRANSFER, true);
 	curl_setopt($c, CURLOPT_FILE, $zip_file);
+	if (defined('CURLOPT_PROTOCOLS') && is_int(CURLOPT_PROTOCOLS)) {
+		curl_setopt($c, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+		if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+			curl_setopt($c, CURLOPT_REDIR_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
+		}
+	}
 	curl_exec($c);
 
 	$status = curl_getinfo($c, CURLINFO_HTTP_CODE);
@@ -118,17 +133,25 @@ function save_package($url) {
 	fclose($zip_file);
 
 	if ($status !== 200) {
+		@unlink($zip_filename);
 		return false;
 	}
 
 	// And unzip package in PACKAGE_PATHNAME (should be under DATA_PATHNAME).
 	$zip = new ZipArchive;
-	if ($zip->open($zip_filename) === false) {
+	if ($zip->open($zip_filename) !== true) {
+		@unlink($zip_filename);
 		return false;
 	}
-	$zip->extractTo(PACKAGE_PATHNAME);
+	$res = $zip->extractTo(PACKAGE_PATHNAME);
 	$zip->close();
 	@unlink($zip_filename);
+
+	if ($res !== true) {
+		// The package is incomplete: remove it.
+		del_tree(PACKAGE_PATHNAME);
+		return false;
+	}
 
 	return true;
 }

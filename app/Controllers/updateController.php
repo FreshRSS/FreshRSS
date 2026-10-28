@@ -4,6 +4,7 @@ declare(strict_types=1);
 class FreshRSS_update_Controller extends FreshRSS_ActionController {
 
 	private const LASTUPDATEFILE = 'last_update.txt';
+	private const GITHUB_LATEST_RELEASE_URL = 'https://api.github.com/repos/FreshRSS/FreshRSS/releases/latest';
 
 	public static function isGit(): bool {
 		return is_dir(FRESHRSS_PATH . '/.git/');
@@ -154,12 +155,9 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	public function indexAction(): void {
 		FreshRSS_View::prependTitle(_t('admin.update.title') . ' · ');
 
-		if (file_exists(UPDATE_FILENAME)) {
-			// There is an update file to apply!
-			$version = @file_get_contents(join_path(DATA_PATH, self::LASTUPDATEFILE));
-			if ($version == '') {
-				$version = 'unknown';
-			}
+		$version = trim((string)@file_get_contents(join_path(DATA_PATH, self::LASTUPDATEFILE)));
+		if ($version !== '' && self::isUpdateNeeded($version)) {
+			// There is an update to apply!
 			if (@touch(FRESHRSS_PATH . '/index.html')) {
 				$this->view->update_to_apply = true;
 				$this->view->message = [
@@ -181,10 +179,28 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		return !str_contains($currentVersion, 'dev') && !str_contains($currentVersion, 'edge');
 	}
 
-	/*  Check installation if there is a newer version.
-		via Git, if available.
-		Else via system configuration  auto_update_url
-	*/
+	/**
+	 * Check whether the provided version is newer than the current one.
+	 * Note that dev and edge versions are always considered to be replaced by any stable release.
+	 */
+	public static function isUpdateNeeded(string $nextVersion): bool {
+		$versionRegex = '/^[A-Za-z0-9._-]+$/u';
+		if (!preg_match($versionRegex, $nextVersion)) {
+			// Only accept a version string similar to a git tag, to avoid risky content.
+			return false;
+		}
+		if (str_ends_with(FRESHRSS_VERSION, '-dev')) {
+			// A development version should be replaced by any stable release.
+			return true;
+		}
+		return version_compare(FRESHRSS_VERSION, $nextVersion, '<');
+	}
+
+	/**
+	 * Check whether there is a version currently available newer than the current one,
+	 * according to the default update channel of GitHub.
+	 * Via Git, if available. Else via GitHub Releases.
+	 */
 	public function checkAction(): void {
 		if (!Minz_Request::isPost()) {
 			Minz_Request::forward(['c' => 'update', 'a' => 'index'], true);
@@ -194,16 +210,16 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('admin.update.title') . ' · ');
 		$this->view->_path('update/index.phtml');
 
-		if (file_exists(UPDATE_FILENAME)) {
-			// There is already an update file to apply: we don’t need to check
+		$version = trim((string)@file_get_contents(join_path(DATA_PATH, self::LASTUPDATEFILE)));
+		if ($version !== '') {
+			// There is already an update to apply: we don't need to check
 			// the webserver!
-			// Or if already check during the last hour, do nothing.
 			Minz_Request::forward(['c' => 'update'], true);
 
 			return;
 		}
 
-		$script = '';
+		$version = '';
 
 		if (self::isGit()) {
 			if (self::hasGitUpdate()) {
@@ -217,59 +233,35 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				return;
 			}
 		} else {
-			$auto_update_url = FreshRSS_Context::systemConf()->auto_update_url . '/?v=' . FRESHRSS_VERSION;
-			Minz_Log::debug('HTTP GET ' . $auto_update_url);
-			$curlResource = curl_init($auto_update_url);
+			$latestReleaseUrl = self::GITHUB_LATEST_RELEASE_URL;
+			$cacheFile = CACHE_PATH . '/latest_release.json';
+			$fetchResult = null;
+			if (!file_exists($cacheFile) || (time() - (filemtime($cacheFile) ?: 0) > 86400)) {
+				$fetchResult = FreshRSS_http_Util::httpGet($latestReleaseUrl, $cacheFile, 'json');
+				$json = $fetchResult['body'];
+			} else {
+				$json = @file_get_contents($cacheFile) ?: '';
+			}
 
-			if ($curlResource === false) {
-				Minz_Log::warning('curl_init() failed');
+			/** @var array<string,mixed>|null $latestRelease */
+			$latestRelease = json_decode($json, true);
+			if (!is_array($latestRelease) || !is_string($latestRelease['tag_name'] ?? null) ||
+				$latestRelease['tag_name'] === '') {
+				$details = '';
+				if (is_array($fetchResult)) {
+					$details = ' (HTTP status ' . $fetchResult['status'] .
+						($fetchResult['error'] !== '' ? '; ' . $fetchResult['error'] : '') . ')';
+				}
+				Minz_Log::error('Could not fetch the latest release from GitHub (' . $latestReleaseUrl . ')' . $details);
 				$this->view->message = [
 					'status' => 'bad',
-					'title' => _t('gen.short.damn'),
-					'body' => _t('feedback.update.server_not_found', $auto_update_url)
-				];
-				return;
-			}
-			curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curlResource, CURLOPT_SSL_VERIFYPEER, true);
-			curl_setopt($curlResource, CURLOPT_SSL_VERIFYHOST, 2);
-
-			$curl_options = [];
-			if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
-				$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
-				if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
-					$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
-				}
-			} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
-				// Legacy PHP 8.2-
-				if (defined('CURLOPT_PROTOCOLS')) {
-					$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
-				}
-				if (defined('CURLOPT_REDIR_PROTOCOLS')) {
-					$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
-				}
-			}
-			curl_setopt_array($curlResource, $curl_options);
-
-			$result = curl_exec($curlResource);
-			$curlGetinfo = curl_getinfo($curlResource, CURLINFO_HTTP_CODE);
-			$curlError = curl_error($curlResource);
-
-			if ($curlGetinfo !== 200) {
-				Minz_Log::warning(
-					'Error during update (HTTP code ' . $curlGetinfo . '): ' . $curlError
-				);
-
-				$this->view->message = [
-					'status' => 'bad',
-					'body' => _t('feedback.update.server_not_found', $auto_update_url),
+					'body' => _t('feedback.update.server_not_found', $latestReleaseUrl),
 				];
 				return;
 			}
 
-			$res_array = explode("\n", (string)$result, 2);
-			$status = $res_array[0];
-			if (!str_starts_with($status, 'UPDATE')) {
+			$tag = $latestRelease['tag_name'];
+			if (!self::isUpdateNeeded($tag)) {
 				$this->view->message = [
 					'status' => 'latest',
 					'body' => _t('feedback.update.none'),
@@ -278,26 +270,17 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			$script = $res_array[1];
-			$version = explode(' ', $status, 2);
-			$version = $version[1];
-
-			Minz_Log::notice(_t('admin.update.copiedFromURL', $auto_update_url));
+			$version = $tag;
 		}
 
-		if (file_put_contents(UPDATE_FILENAME, $script) !== false) {
-			@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), $version);
-			Minz_Request::forward(['c' => 'update'], true);
-		} else {
-			$this->view->message = [
-				'status' => 'bad',
-				'body' => _t('feedback.update.error', 'Cannot save the update script'),
-			];
-		}
+		@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), $version);
+		Minz_Request::forward(['c' => 'update'], true);
 	}
 
 	public function applyAction(): void {
-		if (FreshRSS_Context::systemConf()->disable_update || !file_exists(UPDATE_FILENAME) || !touch(FRESHRSS_PATH . '/index.html')) {
+		$version = trim((string)@file_get_contents(join_path(DATA_PATH, self::LASTUPDATEFILE)));
+		if (FreshRSS_Context::systemConf()->disable_update || $version === '' || !self::isUpdateNeeded($version) ||
+			!touch(FRESHRSS_PATH . '/index.html')) {
 			Minz_Request::forward(['c' => 'update'], true);
 		}
 
@@ -311,15 +294,13 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if (self::isGit()) {
 				$res = !self::hasGitUpdate();
 			} else {
-				require UPDATE_FILENAME;
-				// @phpstan-ignore function.notFound
+				require APP_PATH . '/update/post-update.php';
 				$res = do_post_update();
 			}
 
 			Minz_ExtensionManager::callHookVoid(Minz_HookType::PostUpdate);
 
 			if ($res === true) {
-				@unlink(UPDATE_FILENAME);
 				@file_put_contents(join_path(DATA_PATH, self::LASTUPDATEFILE), '');
 				Minz_Log::notice(_t('feedback.update.finished'));
 				Minz_Request::good(
@@ -341,16 +322,10 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			if (self::isGit()) {
 				$res = self::gitPull();
 			} else {
-				require UPDATE_FILENAME;
-				// @phpstan-ignore function.notFound
-				save_info_update();
-				// @phpstan-ignore function.notFound
-				if (!need_info_update()) {
-					// @phpstan-ignore function.notFound
-					$res = apply_update();
-				} else {
-					return;
-				}
+				require_once APP_PATH . '/update/update_util.php';
+				require_once APP_PATH . '/update/update.php';
+				// The version is a valid git tag name, previously saved by the check action.
+				$res = apply_update('https://github.com/FreshRSS/FreshRSS/archive/refs/tags/' . $version . '.zip');
 			}
 
 			if (function_exists('opcache_reset')) {

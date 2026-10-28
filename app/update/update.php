@@ -55,18 +55,3 @@ function apply_update($zipUrl) {
 
 	return true;
 }
-
-
-function need_info_update() {
-	return false;
-}
-
-
-function save_info_update() {
-
-}
-
-
-function ask_info_update() {
-
-}
