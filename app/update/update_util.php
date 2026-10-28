@@ -131,7 +131,6 @@ function save_package(string $url): bool {
 	curl_exec($c);
 
 	$status = curl_getinfo($c, CURLINFO_HTTP_CODE);
-	curl_close($c);
 	fclose($zip_file);
 
 	if ($status !== 200) {
