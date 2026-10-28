@@ -52,7 +52,7 @@ function remove_data_backup() {
 // Create a backup of data.
 function data_backup() {
 	$from = DATA_PATH;
-	$to = $from .'.back';
+	$to = $from . '.back';
 
 	if (file_exists($from)) {
 		return recurse_copy($from, $to);
@@ -138,7 +138,7 @@ function save_package($url) {
 	}
 
 	// And unzip package in PACKAGE_PATHNAME (should be under DATA_PATHNAME).
-	$zip = new ZipArchive;
+	$zip = new ZipArchive();
 	if ($zip->open($zip_filename) !== true) {
 		@unlink($zip_filename);
 		return false;
@@ -176,7 +176,7 @@ function save_custom_themes($destination) {
 // Deploy FreshRSS package by replacing old version by the new one.
 function deploy_package() {
 	$base_pathname = array_pop(array_diff(scandir(PACKAGE_PATHNAME),
-	                                      array('.', '..')));
+										  array('.', '..')));
 	$base_pathname = PACKAGE_PATHNAME . '/' . $base_pathname;
 
 	save_custom_themes($base_pathname . '/p/themes');
@@ -197,15 +197,15 @@ function deploy_package() {
 	// These functions can fail because config.default.php has been introduced
 	// in the 0.9.4 version.
 	@copy($base_pathname . '/data/config.default.php',
-	      DATA_PATH . '/config.default.php');
+		  DATA_PATH . '/config.default.php');
 	@copy($base_pathname . '/data/users/_/config.default.php',
-	      DATA_PATH . '/users/_/config.default.php');
+		  DATA_PATH . '/users/_/config.default.php');
 	// These functions can fail because files have been moved in the 1.7.0
 	// version.
 	@copy($base_pathname . '/config.default.php',
-	      FRESHRSS_PATH . '/config.default.php');
+		  FRESHRSS_PATH . '/config.default.php');
 	@copy($base_pathname . '/config-user.default.php',
-	      FRESHRSS_PATH . '/config-user.default.php');
+		  FRESHRSS_PATH . '/config-user.default.php');
 
 	return true;
 }
