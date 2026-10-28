@@ -1,16 +1,18 @@
 <?php
-class Minz_Exception extends Exception {
-	const ERROR = 0;
-	const WARNING = 10;
-	const NOTICE = 20;
+declare(strict_types=1);
 
-	public function __construct ($message, $code = self::ERROR) {
-		if ($code != Minz_Exception::ERROR
-		 && $code != Minz_Exception::WARNING
-		 && $code != Minz_Exception::NOTICE) {
+class Minz_Exception extends Exception {
+	public const ERROR = 0;
+	public const WARNING = 10;
+	public const NOTICE = 20;
+
+	public function __construct(string $message = '', int $code = self::ERROR, ?Throwable $previous = null) {
+		if ($code !== Minz_Exception::ERROR
+			&& $code !== Minz_Exception::WARNING
+			&& $code !== Minz_Exception::NOTICE) {
 			$code = Minz_Exception::ERROR;
 		}
 
-		parent::__construct ($message, $code);
+		parent::__construct($message, $code, $previous);
 	}
 }

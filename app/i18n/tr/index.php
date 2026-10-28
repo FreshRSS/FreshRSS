@@ -1,63 +1,132 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
 	'about' => array(
 		'_' => 'Hakkında',
-		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',
-		'bugs_reports' => 'Hata raporu',
-		'credits' => 'Tanıtım',
-		'credits_content' => 'Bu frameworkü kullanmamasına rağmen FreshRSS bazı tasarım ögelerini <a href="http://twitter.github.io/bootstrap/">Bootstrap</a> dan almıştır. <a href="https://git.gnome.org/browse/gnome-icon-theme-symbolic">İkonlar</a> <a href="https://www.gnome.org/">GNOME projesinden</a> alınmıştır. <em>Open Sans</em> yazı tipi <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a> tarafından oluşturulmuştur. FreshRSS bir PHP framework olan <a href="https://github.com/marienfressinaud/MINZ">Minz</a> i temel alır.',
-		'freshrss_description' => 'FreshRSS <a href="http://tontof.net/kriss/feed/">Kriss Feed</a> veya <a href="http://leed.idleman.fr/">Leed</a> gibi kendi hostunuzda çalışan bir RSS akış toplayıcısıdır. Güçlü ve yapılandırılabilir araçlarıyla basit ve kullanımı kolay bir uygulamadır.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">Github sayfası</a>',
+		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
+		'bug_reports' => array(
+			'environment_information' => array(
+				'_' => 'Sistem bilgileri',
+				'browser' => 'Tarayıcı',
+				'database' => 'Veritabanı',
+				'server_software' => 'Sunucu yazılımı',
+				'version_curl' => 'cURL sürümü',
+				'version_frss' => 'FreshRSS sürümü',
+				'version_php' => 'PHP sürümü',
+			),
+		),
+		'bugs_reports' => 'Hata raporları',
+		'documentation' => 'Belgeler',
+		'freshrss_description' => 'FreshRSS, kendi sunucunuzda barındırabileceğiniz bir RSS toplayıcı ve okuyucudur. Birden fazla haber sitesini tek bir bakışta okuyup takip etmenizi sağlar, böylece siteler arasında gezinmenize gerek kalmaz. FreshRSS hafif, yapılandırılabilir ve kullanımı kolaydır.',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">GitHub üzerinde</a>',
 		'license' => 'Lisans',
-		'project_website' => 'Proje sayfası',
+		'project_website' => 'Proje web sitesi',
 		'title' => 'Hakkında',
-		'version' => 'Versiyon',
-		'website' => 'Website',
+		'version' => 'Sürüm',
 	),
 	'feed' => array(
-		'add' => 'Akış ekleyebilirsin.',
 		'empty' => 'Gösterilecek makale yok.',
-		'rss_of' => 'RSS feed of %s',
-		'title' => 'RSS akışlarınız',
-		'title_global' => 'Global görünüm',
-		'title_fav' => 'Favorilerin',
+		'published' => array(
+			'_' => 'Yayımlandı',
+			'future' => 'Gelecekte yayımlanacak',
+			'today' => 'Bugün yayımlandı',
+			'yesterday' => 'Dün yayımlandı',
+		),
+		'received' => array(
+			'_' => 'Teslim alındı',
+			'today' => 'Bugün alınanlar',
+			'yesterday' => 'Dün alınanlar',
+		),
+		'rss_of' => '%s’nin RSS beslemesi',
+		'title' => 'Ana akış',
+		'title_fav' => 'Favoriler',
+		'title_global' => 'Genel görünüm',
+		'userModified' => array(
+			'_' => 'Kullanıcı tarafından değiştirildi',
+			'today' => 'Kullanıcı tarafından bugün değiştirildi',
+			'yesterday' => 'Kullanıcı tarafından dün değiştirildi',
+		),
 	),
 	'log' => array(
-		'_' => 'Log Kayıtları',
-		'clear' => 'Log kayıt dosyasını temizle',
-		'empty' => 'Log kayır dosyası boş',
-		'title' => 'Log Kayıtları',
+		'_' => 'Günlükler',
+		'clear' => 'Günlükleri temizle',
+		'empty' => 'Günlük dosyası boş',
+		'title' => 'Günlükler',
 	),
 	'menu' => array(
-		'about' => 'FreshRSS hakkında',
-		'add_query' => 'Sorgu ekle',
-		'before_one_day' => 'Bir gün önce',
-		'before_one_week' => 'Bir hafta önce',
+		'about' => 'FreshRSS Hakkında',
+		'before_one_day' => 'Bir günden eski',
+		'before_one_week' => 'Bir haftadan eski',
+		'bookmark_query' => 'Geçerli sorguyu yer imlerine ekle',
 		'favorites' => 'Favoriler (%s)',
-		'global_view' => 'Global görünüm',
+		'global_view' => 'Genel görünüm',
+		'important' => 'Önemli beslemeler',
 		'main_stream' => 'Ana akış',
-		'mark_all_read' => 'Hepsini okundu olarak işaretle',
+		'mark_all_read' => 'Tümünü okundu olarak işaretle',
 		'mark_cat_read' => 'Kategoriyi okundu olarak işaretle',
-		'mark_feed_read' => 'Akışı okundu olarak işaretle',
-		'mark_selection_unread' => 'Mark selection as unread',	//TODO
-		'newer_first' => 'Önce yeniler',
-		'non-starred' => 'Favori dışındakileri göster',
+		'mark_feed_read' => 'Beslemeyi okundu olarak işaretle',
+		'mark_selection_unread' => 'Seçimi okunmadı olarak işaretle',
+		'mylabels' => 'Etiketlerim',
+		'non-starred' => 'Favori olmayanları göster',
 		'normal_view' => 'Normal görünüm',
-		'older_first' => 'Önce eskiler',
 		'queries' => 'Kullanıcı sorguları',
-		'read' => 'Okunmuşları göster',
+		'read' => 'Okunanları göster',
 		'reader_view' => 'Okuma görünümü',
-		'rss_view' => 'RSS akışı',
+		'rss_view' => 'RSS beslemesi',
 		'search_short' => 'Ara',
+		'sort' => array(
+			'asc' => 'Yükselen',
+			'c' => array(
+				'name_asc' => 'Kategori, besleme başlıkları A→Z',
+				'name_desc' => 'Kategori, beslnme başlıkları Z→A',
+			),
+			'date_asc' => 'Yayın tarihi 1→9',
+			'date_desc' => 'Yayın tarihi 9→1',
+			'desc' => 'Azalan',
+			'f' => array(
+				'name_asc' => 'Besleme başlıkları A→Z',
+				'name_desc' => 'Besleme başlıkları Z→A',
+			),
+			'id_asc' => 'Son alınanlar en sonda',
+			'id_desc' => 'Son alınanlar başta',
+			'length_asc' => 'İçerik uzunluğu 1→9',
+			'length_desc' => 'İçerik uzunluğu 9→1',
+			'link_asc' => 'Bağlantı A→Z',
+			'link_desc' => 'Bağlantı Z→A',
+			'primary' => array(
+				'_' => 'Sıralama kriteri',
+				'help' => '<em>received</em> tarihi tarafından sıralamak, tutarlılık ve performans açısından çoğu zaman önerilir',
+			),
+			'rand' => 'Rastgele sıralama',
+			'secondary' => array(
+				'_' => 'İkincil sıralama ölçütü',
+				'help' => 'Yalnızca birincil sıralama ölçütü kategoriler veya besleme başlıkları olduğunda geçerlidir.',
+			),
+			'title_asc' => 'Başlık A→Z',
+			'title_desc' => 'Başlık Z→A',
+			'user_modified_asc' => 'Kullanıcı tarafından değiştirilen 1→9',
+			'user_modified_desc' => 'Kullanıcı tarafından değiştirilen 9→1',
+		),
 		'starred' => 'Favorileri göster',
 		'stats' => 'İstatistikler',
 		'subscription' => 'Abonelik yönetimi',
-		'tags' => 'My labels',	//TODO
-		'unread' => 'Okunmamışları göster',
+		'unread' => 'Okunmayanları göster',
 	),
-	'share' => 'Share',
+	'share' => 'Paylaş',
 	'tag' => array(
-		'related' => 'İlgili etiketler',	//TODO
+		'related' => 'Makale etiketleri',
+	),
+	'tos' => array(
+		'title' => 'Hizmet Şartları',
 	),
 );

@@ -1,56 +1,80 @@
-## Join us on the mailing lists
+# Contributor guidelines
 
-Do you want to ask us some questions? Do you want to discuss with us? Don't hesitate to subscribe to our mailing lists!
+## Chat with us
 
-- The first mailing is destined to generic information, it should be adapted to users. [Join mailing@freshrss.org](https://freshrss.org/mailman/listinfo/mailing).
-- The second mailing is mainly for developers. [Join dev@freshrss.org](https://freshrss.org/mailman/listinfo/dev)
+Do you want to ask us some questions? Do you want to discuss with us?
+Don’t hesitate to [join our Mattermost chat](https://framateam.org/signup_user_complete/?id=e2680d3e3128b9fac8fdb3003b0024ee)!
 
 ## Report a bug
 
-You found a bug? Don't panic, here are some steps to report it easily:
+Have you found a bug? Don’t panic, here are some steps to report it with ease:
 
-1. Search for it on [the bug tracker](https://github.com/FreshRSS/FreshRSS/issues) (don't forget to use the search bar).
-2. If you find a similar bug, don't hesitate to post a comment to add more importance to the related ticket.
-3. If you didn't find it, [open a new ticket](https://github.com/FreshRSS/FreshRSS/issues/new).
+1. Search for it on [the bug tracker](https://github.com/FreshRSS/FreshRSS/issues) (don’t forget to use the search bar).
+2. If you find a similar bug, don’t hesitate to post a comment to add more importance to the related ticket.
+3. If you didn’t find it, [open a new ticket](https://github.com/FreshRSS/FreshRSS/issues/new).
 
-If you have to create a new ticket, try to apply the following advices:
+If you have to create a new ticket, please try to keep in mind the following advice:
 
-- Give an explicit title to the ticket so it will be easier to find it later.
-- Be as exhaustive as possible in the description: what did you do? What is the bug? What are the steps to reproduce the bug?
-- We also need some information:
-    + Your FreshRSS version (on about page or `constants.php` file)
-    + Your server configuration: type of hosting, PHP version
-    + Your storage system (MySQL / MariaDB / PostgreSQL or SQLite)
-    + If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
+* Give an explicit title to the ticket so it will be easier to find it later.
+* Be as exhaustive as possible in the description: what did you do? What is the bug? What are the steps to reproduce the bug?
+
+We also need some information:
+
+* Your FreshRSS version (on the about page or in the `constants.php` file)
+* Your server configuration: the type of hosting and the PHP version
+* Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
+* If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
+
+For a more detailed guide on writing bug reports, please refer to [the in-depth guide on reporting bugs](./developers/06_Reporting_Bugs.md).
 
 ## Fix a bug
 
-Did you want to fix a bug? To keep a great coordination between collaborators, you will have to follow these indications:
+Would you like to fix a bug? For optimum coordination between collaborators, you should follow these indications:
 
-1. Be sure the bug is associated to a ticket and say you work on it.
-2. [Fork this project repository](https://help.github.com/articles/fork-a-repo/).
-3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch must be explicit and being prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **dev branch**.
+1. Be sure the bug is associated with a ticket and indicate that you’ll work on it.
+2. [Fork the project repository](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo).
+3. [Create a new branch](https://docs.github.com/en/pull-requests/how-tos/commit-changes/managing-branches-within-your-repository). The name of the branch should be clear, and ideally prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
+4. Make your changes to your fork and [send a pull request](https://docs.github.com/en/pull-requests/reference/pull-requests) on the **edge branch**. Don’t forget to add your name to `CREDITS.md` if you’re contributing to FreshRSS for the very first time.
 
-If you have to write code, please follow [our coding style recommendations](developers/01_First_steps.md).
+If you have to write code, please follow [our coding style recommendations](developers/02_First_steps.md).
 
-**Tip:** if you are searching for easy-to-fix bugs, have a look at the « [good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) » ticket label.
+> ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).
+
+**Tip:** if you’re searching for easy-to-fix bugs, please have a look at the “[good first issue](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Good%20first%20issue%201%EF%B8%8F%E2%83%A3%22)” and “[help wanted](https://github.com/FreshRSS/FreshRSS/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22)” ticket labels.
 
 ## Submit an idea
 
-You have great ideas, yes! Don't be shy and open [a new ticket](https://github.com/FreshRSS/FreshRSS/issues/new) on our bug tracker to ask if we can implement it. The greatest ideas often come from the shyest suggestions!
+You have great ideas, yes! Don’t be shy and open [a new ticket](https://github.com/FreshRSS/FreshRSS/issues/new) on our bug tracker to ask if we can implement it. The greatest ideas often come from the shyest suggestions!
 
-If your idea is nice, we'll have a look at it.
+If your idea is nice, we’ll have a look at it.
 
 ## Contribute to internationalization (i18n)
 
-If you want to improve internationalization, please open a new ticket first and follow indications from « Fix a bug » section.
+Learn how to contribute to translations in [the dedicated documentation](./internationalization.md).
 
-Translations are present in the subdirectories of `./app/i18n/`.
+## Contribute to the documentation
 
-We are working on a better way to handle internationalization but don't hesitate to suggest any idea!
+The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it.
+If you want to give some help, meet us in the main repositories [docs directory](https://github.com/FreshRSS/FreshRSS/tree/edge/docs)!
 
-## Contribute to documentation
+## Contribute to the system themes
 
-The documentation needs a lot of improvements in order to be more useful to new contributors and we are working on it. 
-If you want to give some help, meet us in the main repositories [docs directory](https://github.com/FreshRSS/FreshRSS/tree/master/docs)!
+FreshRSS offers some official themes. If you have a good sense for great UI you are invited to share your theme with the community (via a [show&tell discussion thread](https://github.com/FreshRSS/FreshRSS/discussions/categories/show-and-tell) or as a [Pull Request](https://github.com/FreshRSS/FreshRSS/pulls)).
+
+Check the [basic information for creating a new theme](./developers/04_Frontend/02_Design.md).
+
+This checklist is designed to ensure high-quality system themes while minimizing maintenance efforts.
+
+* Essential files include: [metadata.json, original.png](./developers/04_Frontend/02_Design.md) (located in the `thumbs` directory).
+* Include _frss.css in the "files" section of [`metadata.json`](./developers/04_Frontend/02_Design.md).
+* Theme-specific icons reside in the `icons` directory.
+	* Icons should be provided as `svg` files.
+		* Ensure clean code without any unnecessary fragments. SVG files should be optimized using `make svgo`.
+		* The default color for icons is `#666666`; employ CSS filters for recoloring.
+* Utilize CSS variables for colors to facilitate easy color adjustments with the [User CSS extension](./users/05_Configuration.md#user-css).
+* Implement a dark mode that aligns with the `.darkMode` CSS class.
+* To streamline maintenance, avoid using CSS preprocessors; instead, employ well-structured plain CSS.
+
+## AI-assisted pull requests
+
+**Note:** Please limit AI-assisted pull requests to **10 open at a time** per contributor.

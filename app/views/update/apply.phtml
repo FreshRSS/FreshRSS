@@ -1,9 +1,13 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
+<main class="post">
+	<h1><?= _t('admin.update') ?></h1>
 
-<div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
-
-	<h1><?php echo _t('admin.update'); ?></h1>
-
-	<?php ask_info_update(); ?>
-</div>
+	<?php
+		// @phpstan-ignore function.notFound
+		ask_info_update();
+	?>
+</main>

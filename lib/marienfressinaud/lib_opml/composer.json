@@ -1,0 +1,35 @@
+{
+    "name": "marienfressinaud/lib_opml",
+    "description": "A library to read and write OPML in PHP.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marien Fressinaud",
+            "email": "dev@marienfressinaud.fr"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "ext-dom": "*"
+    },
+    "config": {
+        "platform": {
+            "php": "8.2"
+        }
+    },
+    "support": {
+        "issues": "https://framagit.org/marienfressinaud/lib_opml/-/issues"
+    },
+    "autoload": {
+        "files": [
+            "src/functions.php"
+        ],
+        "psr-4": {
+            "marienfressinaud\\": "src/"
+        }
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^4.0",
+        "phpunit/phpunit": "^11.0"
+    }
+}

@@ -1,39 +1,41 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'Завершить установку',
-		'fix_errors_before' => 'Пожалуйста, исправьте ошибки прежде чем переходить  к следующему этапу.',
-		'keep_install' => 'Сохранить предыдущую установку',
-		'next_step' => 'Перейти к следующему этапу',
+		'fix_errors_before' => 'Пожалуйста, исправьте все ошибки, прежде чем перейти к следующему шагу.',
+		'keep_install' => 'Сохранить предыдущую конфигурацию',
+		'next_step' => 'Перейти к следующему шагу',
 		'reinstall' => 'Переустановить FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Вэб-форма (традиционный, необходим JavaScript)',
-		'http' => 'HTTP (для продвинутых пользователей с HTTPS)',
-		'none' => 'Никакого (опасно)',
-		'password_form' => 'Пароль<br /><small>(для метода аутентификации на Вэб-формах)</small>',
-		'password_format' => 'Как минимум 7 букв',
-		'type' => 'Метод аутентификации',
 	),
 	'bdd' => array(
 		'_' => 'База данных',
 		'conf' => array(
-			'_' => 'Конфигурация базы данныхDatabase configuration',
-			'ko' => 'Проверьте конфигурацию базы данных.',
-			'ok' => 'Конфигурация базы данных сохранена.',
+			'_' => 'Настройки базы данных',
+			'ko' => 'Проверьте настройки базы данных.',
+			'ok' => 'Настройки базы данных сохранены.',
 		),
 		'host' => 'Хост',
-		'prefix' => 'Префикс таблицы',
 		'password' => 'Пароль базы данных',
+		'prefix' => 'Префикс таблицы',
 		'type' => 'Тип базы данных',
 		'username' => 'Имя пользователя базы данных',
 	),
 	'check' => array(
 		'_' => 'Проверки',
-		'already_installed' => 'Обнаружена предыдущая установка FreshRSS!',
+		'already_installed' => 'Мы обнаружили, что FreshRSS уже установлен!',
 		'cache' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/cache</em> . Сервер HTTP должен иметь права на запись в эту папку.',
+			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на папку кэша в порядке.',
 		),
 		'ctype' => array(
@@ -45,71 +47,127 @@ return array(
 			'ok' => 'У вас установлено расширение cURL.',
 		),
 		'data' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data</em> . Сервер HTTP должен иметь права на запись в эту папку.',
+			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на <em>./data/</em> в порядке.',
+		),
+		'database-connection' => array(
+			'nok' => 'Ошибка подключения к базе данных.',
+			'ok' => 'Подключение к базе данных успешно.',
+		),
+		'database-table' => array(
+			'nok' => 'Таблица базы данных "%s" неполная.',
+			'ok' => 'Таблица базы данных "%s" в порядке.',
+		),
+		'database-tables' => array(
+			'nok' => 'Некоторые таблицы базы данных отсутствуют.',
+			'ok' => 'Все таблицы базы данных существуют.',
+		),
+		'database-title' => 'База данных',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
 		),
 		'dom' => array(
 			'nok' => 'У вас не установлена необходимая библиотека для просмотра DOM (пакет php-xml).',
 			'ok' => 'У вас установлена необходимая библиотека для просмотра DOM.',
 		),
 		'favicons' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/favicons</em> . Сервер HTTP должен иметь права на запись в эту папку.',
+			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на папку значков в порядке.',
 		),
 		'fileinfo' => array(
 			'nok' => 'У вас нет расширения PHP fileinfo (пакет fileinfo).',
 			'ok' => 'У вас установлено расширение fileinfo.',
 		),
-		'http_referer' => array(
-			'nok' => 'Убедитесь, что вы не изменяете ваш HTTP REFERER.',
-			'ok' => 'Ваш HTTP REFERER известен и соотвествует вашему серверу.',
+		'files' => 'Установка файлов',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'Не найдена библиотека php-intl, рекомендуемая для поддержки разных языков.',
+			'ok' => 'Рекомендуемая библиотека php-intl для поддержки разных языков установлена.',
+		),
+		'json' => array(
+			'nok' => 'У вас нет рекомендуемой библиотеки для разбора JSON.',
+			'ok' => 'У вас установлена необходимая библиотека для разбора JSON.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
-		),
-		'minz' => array(
-			'nok' => 'У вас не установлен фрейворк Minz.',
-			'ok' => 'У вас установлен фрейворк Minz.',
+			'nok' => 'У вас не установлена рекомендуемая библиотека mbstring для Unicode.',
+			'ok' => 'У вас установлена рекомендуемая библиотека mbstring для Unicode.',
 		),
 		'pcre' => array(
 			'nok' => 'У вас не установлена необходимая библиотека для работы с регулярными выражениями (php-pcre).',
 			'ok' => 'У вас установлена необходимая библиотека для работы с регулярными выражениями (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Не найден необходимый PDO-драйвер для MySQL/MariaDB.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Не найден необходимый PDO-драйвер для PostgreSQL.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Не найден PDO-драйвер для SQLite.',
+			'ok' => 'У вас установлен PDO-драйвер для SQLite.',
+		),
 		'pdo' => array(
-			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Инсталляция PHP',
 			'nok' => 'У вас установлен PHP версии %s, но FreshRSS необходима версия не ниже %s.',
 			'ok' => 'У вас установлен PHP версии %s, который совместим с FreshRSS.',
 		),
+		'reload' => 'Проверьте еще раз',
+		'tmp' => array(
+			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
+			'ok' => 'Права на папку temp в порядке.',
+		),
+		'tokens' => array(
+			'nok' => 'Проверьте права доступа к папке <em>./data/tokens</em> . Веб-сервер должен иметь право на запись в эту папку.',
+			'ok' => 'Права на папку tokens в порядке.',
+		),
+		'unknown_process_username' => 'неизвестно',
 		'users' => array(
-			'nok' => 'Проверьте права доступа к папке <em>./data/users</em> . Сервер HTTP должен иметь права на запись в эту папку.',
-			'ok' => 'Права на папку users  в порядке.',
+			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
+			'ok' => 'Права на папку users в порядке.',
+		),
+		'xml' => array(
+			'nok' => 'У вас нет необходимой библиотеки для разбора XML.',
+			'ok' => 'У вас установлена необходимая библиотека для разбора XML.',
+		),
+		'zip' => array(
+			'nok' => 'У вас не установлено расширение ZIP (пакет php-zip).',
+			'ok' => 'У вас установлено расширение ZIP.',
 		),
 	),
 	'conf' => array(
 		'_' => 'Общие настройки',
-		'ok' => 'Общие настройки были сохранены.',
+		'ok' => 'Общие настройки сохранены.',
 	),
 	'congratulations' => 'Поздравляем!',
-	'default_user' => 'Имя пользователя по умолчанию <small>(максимум 16 латинских букв и/или цифр)</small>',
-	'delete_articles_after' => 'Удалять статьи после',
-	'fix_errors_before' => 'Пожалуйста, исправьте ошибки прежде чем переходить  к следующему этапу..',
-	'javascript_is_better' => 'FreshRSS принесёт больше удовольствия, если включить JavaScript',
+	'default_user' => array(
+		'_' => 'Имя пользователя по умолчанию',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+	),
+	'fix_errors_before' => 'Пожалуйста, исправьте ошибки, прежде чем перейти к следующему шагу.',
+	'javascript_is_better' => 'Пользоваться FreshRSS приятнее с включённым JavaScript',
 	'js' => array(
-		'confirm_reinstall' => 'Переустанавливая FreshRSS, вы потеряете предыдущую конфигурацию. Вы хотите продолжить?',
+		'confirm_reinstall' => 'Переустанавливая FreshRSS, вы потеряете предыдущую конфигурацию. Вы уверены, что хотите продолжить?',
 	),
 	'language' => array(
 		'_' => 'Язык',
 		'choose' => 'Выберите язык для FreshRSS',
 		'defined' => 'Язык выбран.',
 	),
-	'not_deleted' => 'Что-то пошло не так; удалите файл <em>%s</em> вручную.',
-	'ok' => 'Установка успешна.',
-	'step' => '%d этап',
-	'steps' => 'Этапы',
+	'missing_applied_migrations' => 'Что-то пошло не так; вам следует создать пустой файл <em>%s</em> вручную.',
+	'ok' => 'Установка успешно завершена.',
+	'session' => array(
+		'nok' => 'Похоже, веб-сервер имеет неправильные настройки кук! Куки нужны для сессий PHP.',
+	),
+	'step' => 'шаг %d',
+	'steps' => 'Шаги',
+	'this_is_the_end' => 'Завершение',
 	'title' => 'Установка · FreshRSS',
-	'this_is_the_end' => 'Это конец',
 );

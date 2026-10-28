@@ -1,19 +1,39 @@
-<div class="post">
-	<h1>
-		<?php echo $this->extension->getName(); ?> (<?php echo $this->extension->getVersion(); ?>) —
-		<?php echo $this->extension->isEnabled() ? _t('admin.extensions.enabled')
-		                                         : _t('admin.extensions.disabled'); ?>
-	</h1>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	if (!Minz_Request::paramBoolean('ajax')) {
+		$this->partial('aside_configure');
+	}
+	if ($this->extension === null) {
+		throw new FreshRSS_Context_Exception('Extension not initialised!');
+	}
+?>
+<div class="post extension-configure">
+	<h2>
+		<?= $this->extension->getName() ?> (<?= $this->extension->getVersion() ?>) —
+		<?= $this->extension->isEnabled() ? _t('admin.extensions.enabled') : _t('admin.extensions.disabled') ?>
+	</h2>
 
-	<p class="alert alert-warn"><?php echo $this->extension->getDescription(); ?> — <?php echo _t('gen.short.by_author'), ' ', $this->extension->getAuthor(); ?></p>
+	<p class="alert alert-warn"><?= $this->extension->getDescription() ?> — <?= _t('gen.short.by_author'), ' ', $this->extension->getAuthor() ?></p>
 
-	<h2><?php echo _t('gen.action.manage'); ?></h2>
+	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
+	<form method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button class="btn btn-attention confirm" formaction="<?= _url('extension', 'remove', 'e', urlencode($this->extension->getName())) ?>"><?= _t('gen.action.remove') ?></button>
+			</div>
+		</div>
+	</form>
+	<?php } ?>
+
+	<h2><?= _t('gen.action.manage') ?></h2>
 	<?php
 		$configure_view = $this->extension->getConfigureView();
 		if ($configure_view !== false) {
 			echo $configure_view;
 		} else {
 	?>
-	<p class="alert alert-warn"><?php echo _t('admin.extensions.no_configure_view'); ?></p>
+	<p class="alert alert-warn"><?= _t('admin.extensions.no_configure_view') ?></p>
 	<?php } ?>
 </div>

@@ -1,0 +1,4 @@
+services:
+  freshrss:
+    volumes:
+      - ../..:/var/www/FreshRSS

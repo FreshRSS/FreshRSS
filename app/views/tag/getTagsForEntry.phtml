@@ -1,2 +1,4 @@
 <?php
-echo json_encode($this->tags);
+declare(strict_types=1);
+/** @var FreshRSS_View $this */
+echo json_encode($this->tagsForEntry);

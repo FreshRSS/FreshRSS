@@ -1,24 +1,31 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
-require(__DIR__ . '/_cli.php');
+declare(strict_types=1);
+require __DIR__ . '/_cli.php';
 
-$options = getopt('', array(
-		'user:',
-	));
+performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
-if (empty($options['user'])) {
-	fail('Usage: ' . basename(__FILE__) . " --user username > /path/to/file.opml.xml");
+$cliOptions = new class extends CliOptionsParser {
+	public string $user;
+
+	public function __construct() {
+		$this->addRequiredOption('user', (new CliOption('user')));
+		parent::__construct();
+	}
+};
+
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$username = cliInitUser($options['user']);
+$username = cliInitUser($cliOptions->user);
 
 fwrite(STDERR, 'FreshRSS exporting OPML for user “' . $username . "”…\n");
 
-$importController = new FreshRSS_importExport_Controller();
-
-$ok = false;
-$ok = $importController->exportFile(true, false, array(), 0, $username);
+$export_service = new FreshRSS_Export_Service($username);
+[$filename, $path] = $export_service->generateOpml();
+readfile($path);
 
 invalidateHttpCache($username);
 
-done($ok);
+done();

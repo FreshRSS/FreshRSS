@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+@import "_fonts.rtl.css";
+
+@import "_variables.rtl.css";
+
+@import "_forms.rtl.css";
+
+@import "_tables.rtl.css";
+
+@import "_components.rtl.css";
+
+@import "_divers.rtl.css";
+
+@import "_sidebar.rtl.css";
+
+@import "_layout.rtl.css";
+
+@import "_list-view.rtl.css";
+
+@import "_global-view.rtl.css";
+
+@import "_reader-view.rtl.css";
+
+@import "_configuration.rtl.css";
+
+@import "_logs.rtl.css";
+
+@import "_stats.rtl.css";
+
+@import "_mobile.rtl.css";
+
+/*=== GENERAL */
+/*============*/
+html, body {
+	background: var(--grey-light);
+	color: var(--main-font-color);
+	font-family: "lato", "Helvetica", "Arial", sans-serif;
+	font-size: 0.875rem;
+}
+
+body.formLogin,
+body.register {
+	background: var(--sid-bg);
+}
+
+/*=== Links */
+a, button.as-link {
+	outline: none;
+	color: var(--main-first);
+}
+

@@ -1,110 +1,108 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
- * La classe Paginator permet de gérer la pagination de l'application facilement
+ * The Minz_Paginator is used to handle paging
  */
 class Minz_Paginator {
 	/**
-	 * $items tableau des éléments à afficher/gérer
+	 * @var list<Minz_Model> array of items to display or manage
 	 */
-	private $items = array ();
+	private array $items = [];
 
 	/**
-	 * $nbItemsPerPage le nombre d'éléments par page
+	 * Number of items per page
 	 */
-	private $nbItemsPerPage = 10;
+	private int $itemsPerPage = 10;
 
 	/**
-	 * $currentPage page actuelle à gérer
+	 * Current page
 	 */
-	private $currentPage = 1;
+	private int $currentPage = 1;
 
 	/**
-	 * $nbPage le nombre de pages de pagination
+	 * Total number of pages
 	 */
-	private $nbPage = 1;
+	private int $pageCount = 1;
 
 	/**
-	 * $nbItems le nombre d'éléments
+	 * Number of items
 	 */
-	private $nbItems = 0;
+	private int $itemCount = 0;
 
 	/**
-	 * Constructeur
-	 * @param $items les éléments à gérer
+	 * Constructor
+	 * @param list<Minz_Model> $items the items to manage
 	 */
-	public function __construct ($items) {
-		$this->_items ($items);
-		$this->_nbItems (count ($this->items (true)));
-		$this->_nbItemsPerPage ($this->nbItemsPerPage);
-		$this->_currentPage ($this->currentPage);
+	public function __construct(array $items) {
+		$this->_items($items);
+		$this->_itemCount(count($this->items(true)));
+		$this->_itemsPerPage($this->itemsPerPage);
+		$this->_currentPage($this->currentPage);
 	}
 
 	/**
-	 * Permet d'afficher la pagination
-	 * @param $view nom du fichier de vue situé dans /app/views/helpers/
-	 * @param $getteur variable de type $_GET[] permettant de retrouver la page
+	 * Renders the pagination
+	 * @param string $view name of the view file located in /app/views/helpers/
+	 * @param string $getter name of the `$_GET` parameter used for pagination
 	 */
-	public function render ($view, $getteur) {
-		$view = APP_PATH . '/views/helpers/'.$view;
+	public function render(string $view, string $getter = 'page'): void {
+		$view = APP_PATH . '/views/helpers/' . $view;
 
-		if (file_exists ($view)) {
-			include ($view);
+		if (file_exists($view)) {
+			include $view;
 		}
 	}
 
 	/**
-	 * Permet de retrouver la page d'un élément donné
-	 * @param $item l'élément à retrouver
-	 * @return la page à laquelle se trouve l'élément (false si non trouvé)
+	 * Finds the page containing a given item
+	 * @param Minz_Model $item the item to find
+	 * @return int|false the page containing the item, false if not found
 	 */
-	public function pageByItem ($item) {
-		$page = false;
+	public function pageByItem(Minz_Model $item): int|false {
 		$i = 0;
 
 		do {
-			if ($item == $this->items[$i]) {
-				$page = ceil (($i + 1) / $this->nbItemsPerPage);
+			if ($item === $this->items[$i]) {
+				return (int)(ceil(($i + 1) / $this->itemsPerPage));
 			}
-
 			$i++;
-		} while (!$page && $i < $this->nbItems ());
+		} while ($i < $this->itemCount());
 
-		return $page;
+		return false;
 	}
 
 	/**
-	 * Permet de retrouver la position d'un élément donné (à partir de 0)
-	 * @param $item l'élément à retrouver
-	 * @return la position à laquelle se trouve l'élément (false si non trouvé)
+	 * Search the position (index) of a given element
+	 * @param Minz_Model $item the element to search
+	 * @return int|false the position of the element, or false if not found
 	 */
-	public function positionByItem ($item) {
-		$find = false;
+	public function positionByItem(Minz_Model $item): int|false {
 		$i = 0;
 
 		do {
-			if ($item == $this->items[$i]) {
-				$find = true;
-			} else {
-				$i++;
+			if ($item === $this->items[$i]) {
+				return $i;
 			}
-		} while (!$find && $i < $this->nbItems ());
+			$i++;
+		} while ($i < $this->itemCount());
 
-		return $i;
+		return false;
 	}
 
 	/**
-	 * Permet de récupérer un item par sa position
-	 * @param $pos la position de l'élément
-	 * @return l'item situé à $pos (dernier item si $pos<0, 1er si $pos>=count($items))
+	 * Gets the item at a given position
+	 * @param int $pos the position of the item
+	 * @return Minz_Model item at $pos (last item if $pos < 0, first if $pos >= count($items))
 	 */
-	public function itemByPosition ($pos) {
+	public function itemByPosition(int $pos): Minz_Model {
 		if ($pos < 0) {
-			$pos = $this->nbItems () - 1;
+			$pos = $this->itemCount() - 1;
 		}
 		if ($pos >= count($this->items)) {
 			$pos = 0;
@@ -114,28 +112,29 @@ class Minz_Paginator {
 	}
 
 	/**
-	 * GETTEURS
+	 * Getters
 	 */
 	/**
-	 * @param $all si à true, retourne tous les éléments sans prendre en compte la pagination
+	 * @param bool $all if true, returns all items without applying pagination
+	 * @return list<Minz_Model>
 	 */
-	public function items ($all = false) {
-		$array = array ();
-		$nbItems = $this->nbItems ();
+	public function items(bool $all = false): array {
+		$array = [];
+		$itemCount = $this->itemCount();
 
-		if ($nbItems <= $this->nbItemsPerPage || $all) {
+		if ($itemCount <= $this->itemsPerPage || $all) {
 			$array = $this->items;
 		} else {
-			$begin = ($this->currentPage - 1) * $this->nbItemsPerPage;
+			$begin = ($this->currentPage - 1) * $this->itemsPerPage;
 			$counter = 0;
 			$i = 0;
 
-			foreach ($this->items as $key => $item) {
+			foreach ($this->items as $item) {
 				if ($i >= $begin) {
-					$array[$key] = $item;
+					$array[] = $item;
 					$counter++;
 				}
-				if ($counter >= $this->nbItemsPerPage) {
+				if ($counter >= $this->itemsPerPage) {
 					break;
 				}
 				$i++;
@@ -144,53 +143,51 @@ class Minz_Paginator {
 
 		return $array;
 	}
-	public function nbItemsPerPage  () {
-		return $this->nbItemsPerPage;
+	public function itemsPerPage(): int {
+		return $this->itemsPerPage;
 	}
-	public function currentPage () {
+	public function currentPage(): int {
 		return $this->currentPage;
 	}
-	public function nbPage () {
-		return $this->nbPage;
+	public function pageCount(): int {
+		return $this->pageCount;
 	}
-	public function nbItems () {
-		return $this->nbItems;
+	public function itemCount(): int {
+		return $this->itemCount;
 	}
 
 	/**
-	 * SETTEURS
+	 * Setters
 	 */
-	public function _items ($items) {
-		if (is_array ($items)) {
-			$this->items = $items;
+	/** @param list<Minz_Model> $items */
+	public function _items(?array $items): void {
+		$this->items = $items ?? [];
+		$this->_pageCount();
+	}
+	public function _itemsPerPage(int $itemsPerPage): void {
+		if ($itemsPerPage > $this->itemCount()) {
+			$itemsPerPage = $this->itemCount();
+		}
+		if ($itemsPerPage < 0) {
+			$itemsPerPage = 0;
 		}
 
-		$this->_nbPage ();
+		$this->itemsPerPage = $itemsPerPage;
+		$this->_pageCount();
 	}
-	public function _nbItemsPerPage ($nbItemsPerPage) {
-		if ($nbItemsPerPage > $this->nbItems ()) {
-			$nbItemsPerPage = $this->nbItems ();
-		}
-		if ($nbItemsPerPage < 0) {
-			$nbItemsPerPage = 0;
-		}
-
-		$this->nbItemsPerPage = $nbItemsPerPage;
-		$this->_nbPage ();
-	}
-	public function _currentPage ($page) {
-		if($page < 1 || ($page > $this->nbPage && $this->nbPage > 0)) {
-			throw new CurrentPagePaginationException ($page);
+	public function _currentPage(int $page): void {
+		if ($page < 1 || ($page > $this->pageCount && $this->pageCount > 0)) {
+			throw new Minz_CurrentPagePaginationException($page);
 		}
 
 		$this->currentPage = $page;
 	}
-	private function _nbPage () {
-		if ($this->nbItemsPerPage > 0) {
-			$this->nbPage = ceil ($this->nbItems () / $this->nbItemsPerPage);
+	private function _pageCount(): void {
+		if ($this->itemsPerPage > 0) {
+			$this->pageCount = (int)ceil($this->itemCount() / $this->itemsPerPage);
 		}
 	}
-	public function _nbItems ($value) {
-		$this->nbItems = $value;
+	public function _itemCount(int $value): void {
+		$this->itemCount = $value;
 	}
 }

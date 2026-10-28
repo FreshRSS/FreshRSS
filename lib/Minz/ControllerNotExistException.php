@@ -1,9 +1,9 @@
 <?php
-class Minz_ControllerNotExistException extends Minz_Exception {
-	public function __construct ($controller_name, $code = self::ERROR) {
-		$message = 'Controller `' . $controller_name
-		         . '` doesn\'t exist';
+declare(strict_types=1);
 
-		parent::__construct ($message, $code);
+class Minz_ControllerNotExistException extends Minz_Exception {
+	public function __construct(int $code = self::ERROR) {
+		$message = 'Controller not found!';
+		parent::__construct($message, $code);
 	}
 }

@@ -1,14 +1,16 @@
 <?php
+declare(strict_types=1);
 
-class FreshRSS_FeedNotAdded_Exception extends Exception {
-	private $feedName = '';
+class FreshRSS_FeedNotAdded_Exception extends Minz_Exception {
 
-	public function __construct($url, $feedName) {
+	private string $url = '';
+
+	public function __construct(string $url) {
 		parent::__construct('Feed not added! ' . $url, 2147);
-		$this->feedName = $feedName;
+		$this->url = $url;
 	}
 
-	public function feedName() {
-		return $this->feedName;
+	public function url(): string {
+		return $this->url;
 	}
 }

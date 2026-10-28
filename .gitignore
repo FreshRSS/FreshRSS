@@ -1,9 +1,28 @@
-constants.local.php
+/.htaccess
+/bin/
+/constants.local.php
+/data.back/
+/extensions/node_modules/
+/extensions/vendor/
+/node_modules/
+/phpstan.neon
+/vendor/
+
+.vscode/
+
+/docs/_site/
+/docs/.sass-cache/
+/docs/.bundle/
+/docs/.jekyll-metadata
+
+# OS files
+.DS_Store
 
 # Temp files
 *~
 *.bak
 *.backup
+*.cache
 \#*
 .\#*
 *\#

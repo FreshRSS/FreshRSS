@@ -1,0 +1,32 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	// Override some layout preferences for the public API output
+	FreshRSS_Context::userConf()->content_width = 'large';
+	FreshRSS_Context::userConf()->show_author_date = FreshRSS_UserConfiguration::default()->show_author_date;
+	FreshRSS_Context::userConf()->show_favicons = FreshRSS_UserConfiguration::default()->show_favicons;
+	FreshRSS_Context::userConf()->show_feed_name = FreshRSS_UserConfiguration::default()->show_feed_name;
+	FreshRSS_Context::userConf()->show_tags = FreshRSS_UserConfiguration::default()->show_tags;
+	FreshRSS_Context::userConf()->show_tags_max = FreshRSS_UserConfiguration::default()->show_tags_max;
+?>
+<?php $this->renderHelper('htmlPagination'); ?>
+<main id="stream" class="reader api">
+	<h2>
+		<a href="<?= $this->html_url ?>"><?= FreshRSS_View::title() ?></a> ·
+		<a class="view-rss" href="<?= $this->rss_url ?>" title="<?= _t('index.menu.rss_view') ?>">
+			<?= _i('rss') ?>
+		</a>
+	</h2>
+	<?php
+		foreach ($this->entries as $entry):
+			$this->entry = $entry;
+			$this->feed = $this->feeds[$entry->feedId()] ??
+				FreshRSS_Category::findFeed($this->categories, $entry->feedId()) ??
+				FreshRSS_Feed::default();
+	?>
+		<div class="flux">
+			<?php $this->renderHelper('index/article'); ?>
+		</div>
+	<?php endforeach; ?>
+</main>
+<?php $this->renderHelper('htmlPagination'); ?>

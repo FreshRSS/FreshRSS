@@ -1,0 +1,336 @@
+<?php
+
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
+return array(
+	'action' => array(
+		'actualize' => 'Perbarui umpan',
+		'add' => 'Tambah',
+		'back_to_rss_feeds' => '← Kembali ke umpan RSS Anda',
+		'cancel' => 'Batal',
+		'close' => 'Tutup',
+		'create' => 'Buat',
+		'delete_all_feeds' => 'Hapus semua umpan',
+		'delete_errored_feeds' => 'Hapus umpan dengan galat',
+		'delete_muted_feeds' => 'Hapus umpan yang dibisukan',
+		'demote' => 'Demosi',
+		'disable' => 'Nonaktifkan',
+		'download' => 'Unduh',
+		'empty' => 'Kosongkan',
+		'enable' => 'Aktifkan',
+		'export' => 'Ekspor',
+		'filter' => 'Saring',
+		'import' => 'Impor',
+		'load_default_shortcuts' => 'Muat pintasan baku',
+		'manage' => 'Kelola',
+		'mark_read' => 'Tandai sebagai sudah dibaca',
+		'menu' => array(
+			'open' => 'Buka menu',
+		),
+		'nav_buttons' => array(
+			'next' => 'Artikel selanjutnya',
+			'prev' => 'Artikel sebelumnya',
+			'up' => 'Ke atas',
+		),
+		'open_url' => 'Buka URL',
+		'promote' => 'Promosi',
+		'purge' => 'Hapus',
+		'refresh_opml' => 'Segarkan OPML',
+		'remove' => 'Hapus',
+		'rename' => 'Ubah nama',
+		'see_website' => 'Lihat situs',
+		'submit' => 'Kirim',
+		'truncate' => 'Hapus semua artikel',
+		'update' => 'Perbarui',
+	),
+	'auth' => array(
+		'accept_tos' => 'Saya menyetujui <a href="%s">Kebijakan Layanan</a>.',
+		'email' => 'Alamat surel',
+		'keep_logged_in' => 'Biarkan saya masuk <small>(%s hari)</small>',
+		'login' => 'Masuk',
+		'logout' => 'Keluar',
+		'password' => array(
+			'_' => 'Kata sandi',
+			'format' => '<small>Paling tidak 7 karakter</small>',
+		),
+		'reauth' => array(
+			'header' => 'Autentikasi ulang diperlukan',
+			'tip' => 'Anda tidak akan diminta masuk lagi selama <u>%d menit</u>',
+			'title' => 'Autentikasi ulang',
+		),
+		'registration' => array(
+			'_' => 'Akun baru',
+			'ask' => 'Buat akun?',
+			'title' => 'Pembuatan akun',
+		),
+		'username' => array(
+			'_' => 'Nama pengguna',
+			'format' => '<small>1-39 karakter: huruf, angka, dan <code>. _ @ -</code></small>',
+		),
+	),
+	'date' => array(
+		'Apr' => '\\A\\p\\r\\i\\l',	// IGNORE
+		'Aug' => '\\A\\g\\u\\s\\t\\u\\s',
+		'Dec' => '\\D\\e\\s\\e\\m\\b\\e\\r',
+		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\i',
+		'Jan' => '\\J\\a\\n\\u\\a\\r\\i',
+		'Jul' => '\\J\\u\\l\\i',
+		'Jun' => '\\J\\u\\n\\i',
+		'Mar' => '\\M\\a\\r\\e\\t',
+		'May' => '\\M\\e\\i',
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// IGNORE
+		'Oct' => '\\O\\k\\t\\o\\b\\e\\r',
+		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// IGNORE
+		'apr' => 'Apr.',	// IGNORE
+		'april' => 'April',	// IGNORE
+		'aug' => 'Agu.',
+		'august' => 'Agustus',
+		'before_yesterday' => 'Sebelum kemarin',
+		'dec' => 'Des.',
+		'december' => 'Desember',
+		'feb' => 'Feb.',	// IGNORE
+		'february' => 'Februari',
+		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
+		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t g\\:i a',
+		'fri' => 'Jum',
+		'jan' => 'Jan.',	// IGNORE
+		'january' => 'Januari',
+		'jul' => 'Juli',
+		'july' => 'Juli',
+		'jun' => 'Juni',
+		'june' => 'Juni',
+		'last_2_year' => 'Dua tahun terakhir',
+		'last_3_month' => 'Tiga bulan terakhir',
+		'last_3_year' => 'Tiga tahun terakhir',
+		'last_5_year' => 'Lima tahun terakhir',
+		'last_6_month' => 'Enam bulan terakhir',
+		'last_month' => 'Satu bulan terakhir',
+		'last_week' => 'Satu pekan terakhir',
+		'last_year' => 'Satu tahun terakhir',
+		'mar' => 'Mar.',	// IGNORE
+		'march' => 'Maret',
+		'may' => 'Mei',
+		'may_' => 'Mei',
+		'mon' => 'Bln',
+		'month' => 'bulan',
+		'nov' => 'Nov.',	// IGNORE
+		'november' => 'November',	// IGNORE
+		'oct' => 'Okt.',
+		'october' => 'Oktober',
+		'sat' => 'Sbt',
+		'sep' => 'Sept.',	// IGNORE
+		'september' => 'September',	// IGNORE
+		'sun' => 'Mng',
+		'thu' => 'Kms',
+		'today' => 'Hari ini',
+		'tue' => 'Sel',
+		'wed' => 'Rab',
+		'yesterday' => 'Kemarin',
+	),
+	'dir' => 'ltr',	// IGNORE
+	'freshrss' => array(
+		'_' => 'FreshRSS',	// IGNORE
+		'about' => 'Tentang FreshRSS',
+	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d hari yang lalu',
+		),
+		'hour' => array(
+			0 => '%d jam yang lalu',
+		),
+		'justnow' => 'baru saja',
+		'minute' => array(
+			0 => '%d menit yang lalu',
+		),
+		'month' => array(
+			0 => '%d bulan yang lalu',
+		),
+		'second' => array(
+			0 => '%d detik yang lalu',
+		),
+		'year' => array(
+			0 => '%d tahun yang lalu',
+		),
+	),
+	'js' => array(
+		'category_empty' => 'Kategori kosong',
+		'confirm_action' => 'Apakah Anda yakin ingin melakukan ini? Ini tidak dapat dibatalkan!',
+		'confirm_action_feed_cat' => 'Apakah Anda yakin ingin melakukan ini? Anda akan kehilangan favorit dan pencarian pengguna terkait. Ini tidak dapat dibatalkan.',
+		'confirm_exit_slider' => 'Apakah Anda yakin ingin membuang pengaturan yang belum disimpan?',
+		'feedback' => array(
+			'body_new_articles' => array(
+				0 => 'Ada %d artikel baru untuk dibaca di FreshRSS.',
+			),
+			'body_unread_articles' => array(
+				0 => '(belum dibaca: %d)',
+			),
+			'request_failed' => 'Permintaan gagal, mungkin dikarenakan masalah koneksi internet.',
+			'title_new_articles' => 'FreshRSS: artikel baru!',
+		),
+		'labels_empty' => 'Tidak ada label',
+		'new_article' => 'Tidak ada artikel baru yang tersedia, klik untuk menyegarkan halaman.',
+		'should_be_activated' => 'JavaScript harus diaktifkan',
+		'unsafe_csp_header' => 'Header CSP yang digunakan tidak aman dan FreshRSS mungkin rentan terhadap serangan XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lihat dokumentasi</a>',
+	),
+	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// IGNORE
+		'lv' => 'Latviešu',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
+	),
+	'menu' => array(
+		'about' => 'Tentang',
+		'account' => 'Akun',
+		'admin' => 'Administrasi',
+		'advanced_search' => 'Pencarian Lanjutan',
+		'archiving' => 'Pengarsipan',
+		'authentication' => 'Autentikasi',
+		'check_install' => 'Pemeriksaan pemasangan',
+		'configuration' => 'Konfigurasi',
+		'display' => 'Tampilan',
+		'extensions' => 'Ekstensi',
+		'logs' => 'Log',
+		'privacy' => 'Privasi',
+		'queries' => 'Pencarian pengguna',
+		'reading' => 'Membaca',
+		'search' => 'Cari kata atau #label',
+		'search_help' => 'Lihat dokumentasi unuk <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">parameter pencarian</a> lebih lanjut',
+		'sharing' => 'Berbagi',
+		'shortcuts' => 'Pintasan',
+		'stats' => 'Statistik',
+		'system' => 'Konfigurasi sistem',
+		'update' => 'Pembaruan',
+		'user_management' => 'Kelola pengguna',
+		'user_profile' => 'Profil',
+	),
+	'period' => array(
+		'days' => 'hari',
+		'hours' => 'jam',
+		'months' => 'bulan',
+		'weeks' => 'minggu',
+		'years' => 'tahun',
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'Formulir ini membantu menyusun kueri pencarian, tetapi kueri manual jauh lebih ampuh.',
+		'authors' => 'Penulis',
+		'categories' => 'Kategori',
+		'content' => 'Konten',
+		'date_from' => 'Dari',
+		'date_modified' => 'Tanggal Modifikasi Server',
+		'date_past' => 'Dalam kurun terakhir',
+		'date_published' => 'Tanggal Terbit',
+		'date_range' => 'Rentang Tanggal',
+		'date_received' => 'Tanggal Diterima',
+		'date_to' => 'Sampai',
+		'date_user' => 'Tanggal Modifikasi Pengguna',
+		'feeds' => 'Umpan',
+		'free_text' => 'Teks Bebas',
+		'free_text_help' => 'Cari di judul dan konten sekaligus',
+		'full_documentation' => 'Lihat <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">dokumentasi pencarian lengkap</a>',
+		'labels' => 'Label Saya',
+		'multiple_help' => 'Pilih satu atau beberapa (tahan <kbd>Ctrl</kbd> atau <kbd>Cmd</kbd>)',
+		'sources' => 'Sumber',
+		'tags' => 'Tag Artikel',
+		'text' => 'Pencarian Teks',
+		'text_help' => 'Beberapa baris digabungkan dengan <i>atau</i> logis. Juga mendukung <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">ekspresi reguler</a>.',
+		'text_placeholder' => 'Kata kunci',
+		'title' => 'Judul',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Kueri Pengguna',
+	),
+	'share' => array(
+		'Known' => 'Situs berbasis Known',
+		'archiveIS' => 'archive.is',	// IGNORE
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
+		'clipboard' => 'Papan Klip',
+		'diaspora' => 'Diaspora*',	// IGNORE
+		'email' => 'Surel',
+		'email-webmail-firefox-fix' => 'Surel (klien web - perbaikan untuk Firefox)',
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Bookmarks',	// IGNORE
+		'omnivore' => 'Omnivore',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
+		'print' => 'Cetak',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'Bagikan sistem',
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
+	),
+	'short' => array(
+		'attention' => 'Peringatan!',
+		'blank_to_disable' => 'Biarkan kosong untuk menonaktifkan',
+		'by_author' => 'Oleh:',
+		'by_default' => 'Secara baku',
+		'damn' => 'Sial!',
+		'default_category' => 'Tidak ada kategori',
+		'no' => 'Tidak',
+		'not_applicable' => 'Tidak tersedia',
+		'ok' => 'Oke!',
+		'or' => 'atau',
+		'yes' => 'Ya',
+	),
+	'stream' => array(
+		'load_more' => 'Muat lebih banyak artikel',
+		'mark_all_read' => 'Tandai semua sebagai sudah dibaca',
+		'nothing_to_load' => 'Tidak ada artikel lagi',
+	),
+);

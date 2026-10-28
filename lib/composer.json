@@ -1,0 +1,33 @@
+{
+	"name": "freshrss.org/freshrss",
+	"description": "A free, self-hostable aggregator",
+	"type": "project",
+	"homepage": "https://freshrss.org/",
+	"license": "AGPL-3.0",
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/FreshRSS/simplepie.git"
+		},
+		{
+			"type": "git",
+			"url": "https://framagit.org/marienfressinaud/lib_opml.git"
+		}
+	],
+	"require": {
+		"marienfressinaud/lib_opml": "dev-main#f0e850b6394af90b898daf0e65fcc7363457b844",
+		"phpgt/cssxpath": "v1.6.0",
+		"phpmailer/phpmailer": "7.1.1",
+		"simplepie/simplepie": "dev-freshrss#042298d6550e74225cf0eedba1913cf68976d6bb"
+	},
+	"config": {
+		"sort-packages": true,
+		"vendor-dir": "./"
+	},
+	"scripts": {
+		"post-update-cmd": [
+			"git clean -d -ff -X .",
+			"find . -name '.git' -type d -exec rm -rf {} + || true"
+		]
+	}
+}

@@ -1,60 +1,94 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
 	'action' => array(
 		'actualize' => 'מימוש',
+		'add' => 'Add',	// TODO
 		'back_to_rss_feeds' => '← חזרה להזנות הRSS שלך',
 		'cancel' => 'ביטול',
+		'close' => 'Close',	// TODO
 		'create' => 'יצירה',
-		'disable' => 'Disable', // @todo
-		'empty' => 'Empty', // @todo
-		'enable' => 'Enable', // @todo
+		'delete_all_feeds' => 'Delete all feeds',	// TODO
+		'delete_errored_feeds' => 'Delete feeds with errors',	// TODO
+		'delete_muted_feeds' => 'Delete muted feeds',	// TODO
+		'demote' => 'Demote',	// TODO
+		'disable' => 'Disable',	// TODO
+		'download' => 'Download',	// TODO
+		'empty' => 'Empty',	// TODO
+		'enable' => 'Enable',	// TODO
 		'export' => 'ייצוא',
 		'filter' => 'מסנן',
 		'import' => 'ייבוא',
+		'load_default_shortcuts' => 'Load default shortcuts',	// TODO
 		'manage' => 'ניהול',
 		'mark_read' => 'סימון כנקרא',
-		'mark_favorite' => 'סימון כמועדף',
-		'remove' => 'Remove', // @todo
+		'menu' => array(
+			'open' => 'Open menu',	// TODO
+		),
+		'nav_buttons' => array(
+			'next' => 'Next article',	// TODO
+			'prev' => 'Previous article',	// TODO
+			'up' => 'Go up',	// TODO
+		),
+		'open_url' => 'Open URL',	// TODO
+		'promote' => 'Promote',	// TODO
+		'purge' => 'Purge',	// TODO
+		'refresh_opml' => 'Refresh OPML',	// TODO
+		'remove' => 'Remove',	// TODO
+		'rename' => 'Rename',	// TODO
 		'see_website' => 'ראו אתר',
 		'submit' => 'אישור',
 		'truncate' => 'מחיקת כל המאמרים',
-		'update' => 'Update', // TODO
+		'update' => 'Update',	// TODO
 	),
 	'auth' => array(
-		'email' => 'Email address', // @todo
+		'accept_tos' => 'I accept the <a href="%s">Terms of Service</a>.',	// TODO
+		'email' => 'Email address',	// TODO
 		'keep_logged_in' => 'השאר מחובר <small>חודש</small>',
 		'login' => 'כניסה לחשבון',
 		'logout' => 'יציאה מהחשבון',
 		'password' => array(
 			'_' => 'סיסמה',
-			'format' => '<small>At least 7 characters</small>',
+			'format' => '<small>At least 7 characters</small>',	// TODO
+		),
+		'reauth' => array(
+			'header' => 'Reauthentication is required',	// TODO
+			'tip' => 'You won’t be asked to sign in again for <u>%d minutes</u>',	// TODO
+			'title' => 'Reauthentication',	// TODO
 		),
 		'registration' => array(
-			'_' => 'New account', // @todo
-			'ask' => 'Create an account?', // @todo
-			'title' => 'Account creation', // @todo
+			'_' => 'New account',	// TODO
+			'ask' => 'Create an account?',	// TODO
+			'title' => 'Account creation',	// TODO
 		),
-		'reset' => 'איפוס אימות',
 		'username' => array(
 			'_' => 'שם משתמש',
-			'admin' => 'שם משתמש של המנהל',
-			'format' => '<small>maximum 16 alphanumeric characters</small>', // @todo
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
-		'Apr' => '\\A\\p\\r\\i\\l',
-		'Aug' => '\\A\\u\\g\\u\\s\\t',
-		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',
-		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\y',
-		'Jan' => '\\J\\a\\n\\u\\a\\r\\y',
-		'Jul' => '\\J\\u\\l\\y',
-		'Jun' => '\\J\\u\\n\\e',
-		'Mar' => '\\M\\a\\r\\c\\h',
-		'May' => '\\M\\a\\y',
-		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',
-		'Oct' => '\\O\\c\\t\\o\\b\\e\\r',
-		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',
+		'Apr' => '\\A\\p\\r\\i\\l',	// TODO
+		'Aug' => '\\A\\u\\g\\u\\s\\t',	// TODO
+		'Dec' => '\\D\\e\\c\\e\\m\\b\\e\\r',	// TODO
+		'Feb' => '\\F\\e\\b\\r\\u\\a\\r\\y',	// TODO
+		'Jan' => '\\J\\a\\n\\u\\a\\r\\y',	// TODO
+		'Jul' => '\\J\\u\\l\\y',	// TODO
+		'Jun' => '\\J\\u\\n\\e',	// TODO
+		'Mar' => '\\M\\a\\r\\c\\h',	// TODO
+		'May' => '\\M\\a\\y',	// TODO
+		'Nov' => '\\N\\o\\v\\e\\m\\b\\e\\r',	// TODO
+		'Oct' => '\\O\\c\\t\\o\\b\\e\\r',	// TODO
+		'Sep' => '\\S\\e\\p\\t\\e\\m\\b\\e\\r',	// TODO
 		'apr' => 'apr',
 		'april' => 'Apr',
 		'aug' => 'aug',
@@ -64,119 +98,230 @@ return array(
 		'december' => 'Dec',
 		'feb' => 'feb',
 		'february' => 'Feb',
-		'format_date' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y',
-		'format_date_hour' => '%s j\\<\\s\\u\\p\\>S\\<\\/\\s\\u\\p\\> Y \\a\\t H\\:i',
-		'fri' => 'Fri',
+		'format_date' => 'j %s Y',	// IGNORE
+		'format_date_hour' => 'j %s Y \\a\\t H\\:i',	// IGNORE
+		'fri' => 'Fri',	// TODO
 		'jan' => 'jan',
 		'january' => 'Jan',
 		'jul' => 'jul',
 		'july' => 'Jul',
 		'jun' => 'jun',
 		'june' => 'Jun',
+		'last_2_year' => 'Last two years',	// TODO
 		'last_3_month' => 'בשלושת החודשים האחרונים',
+		'last_3_year' => 'Last three years',	// TODO
+		'last_5_year' => 'Last five years',	// TODO
 		'last_6_month' => 'בששת החודשים האחרונים',
 		'last_month' => 'בחודש שעבר',
 		'last_week' => 'בשבוע שעבר',
 		'last_year' => 'בשנה האחרונה',
 		'mar' => 'mar',
 		'march' => 'Mar',
-		'may' => 'May',
-		'may_' => 'May',
-		'mon' => 'Mon',
+		'may' => 'May',	// TODO
+		'may_' => 'May',	// TODO
+		'mon' => 'Mon',	// TODO
 		'month' => 'חודשים',
 		'nov' => 'nov',
 		'november' => 'Nov',
 		'oct' => 'oct',
 		'october' => 'Oct',
-		'sat' => 'Sat',
+		'sat' => 'Sat',	// TODO
 		'sep' => 'sep',
 		'september' => 'Sep',
-		'sun' => 'Sun',
-		'thu' => 'Thu',
+		'sun' => 'Sun',	// TODO
+		'thu' => 'Thu',	// TODO
 		'today' => 'היום',
-		'tue' => 'Tue',
-		'wed' => 'Wed',
+		'tue' => 'Tue',	// TODO
+		'wed' => 'Wed',	// TODO
 		'yesterday' => 'אתמול',
 	),
+	'dir' => 'rtl',
 	'freshrss' => array(
-		'_' => 'FreshRSS',
+		'_' => 'FreshRSS',	// TODO
 		'about' => 'אודות FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => 'לפני %d יום',
+			1 => 'לפני %d ימים',
+		),
+		'hour' => array(
+			0 => 'לפני %d שעה',
+			1 => 'לפני %d שעות',
+		),
+		'justnow' => 'הרגע',
+		'minute' => array(
+			0 => 'לפני %d דקה',
+			1 => 'לפני %d דקות',
+		),
+		'month' => array(
+			0 => 'לפני %d חודש',
+			1 => 'לפני %d חודשים',
+		),
+		'second' => array(
+			0 => 'לפני %d שנייה',
+			1 => 'לפני %d שניות',
+		),
+		'year' => array(
+			0 => 'לפני %d שנה',
+			1 => 'לפני %d שנים',
+		),
+	),
 	'js' => array(
-		'category_empty' => 'Empty category', // @todo
+		'category_empty' => 'Empty category',	// TODO
 		'confirm_action' => 'האם אתם בטוחים שברצונכם לבצע פעולה זו? אין אפשרות לבטל אותה!',
 		'confirm_action_feed_cat' => 'האם אתם בטוחים שברצוניכם לבצע פעולה זו? מועדפים ושאילתות עשויות לאבוד. אין אפשרות לבטל אותה!',
+		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'ישנם  \d מאמרים חדשים לקרוא ב FreshRSS.',
-			'request_failed' => 'A request has failed, it may have been caused by Internet connection problems.', // @todo
+			'body_new_articles' => array(
+				0 => 'ישנם %d מאמרים חדשים לקרוא ב FreshRSS.',	// DIRTY
+				1 => 'ישנם %d מאמרים חדשים לקרוא ב FreshRSS.',	// DIRTY
+			),
+			'body_unread_articles' => array(
+				0 => '(unread: %d)',	// TODO
+				1 => '(unread: %d)',	// TODO
+			),
+			'request_failed' => 'A request has failed, it may have been caused by internet connection problems.',	// TODO
 			'title_new_articles' => 'FreshRSS: מאמרים חדשים!',
 		),
+		'labels_empty' => 'No labels',	// TODO
 		'new_article' => 'מאמרים חדשים זמינים, לחצו לרענון העמוד.',
 		'should_be_activated' => 'חובה להפעיל JavaScript',
+		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
-		'cz' => 'Čeština',
-		'de' => 'Deutsch',
-		'en' => 'English',
-		'es' => 'Español',
-		'fr' => 'Français',
-		'he' => 'עברית',
-		'it' => 'Italiano',
-		'kr' => '한국어',
-		'nl' => 'Nederlands',
-		'pt-br' => 'Português (Brasil)',
-		'ru' => 'Русский',
-		'tr' => 'Türkçe',
-		'zh-cn' => '简体中文',
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
+		'cs' => 'Čeština',	// IGNORE
+		'de' => 'Deutsch',	// IGNORE
+		'el' => 'Ελληνικά',	// IGNORE
+		'en' => 'English',	// IGNORE
+		'en-US' => 'English (United States)',	// IGNORE
+		'es' => 'Español',	// IGNORE
+		'fa' => 'فارسی',	// IGNORE
+		'fi' => 'Suomi',	// IGNORE
+		'fr' => 'Français',	// IGNORE
+		'he' => 'עברית',	// IGNORE
+		'hu' => 'Magyar',	// IGNORE
+		'id' => 'Bahasa Indonesia',	// IGNORE
+		'it' => 'Italiano',	// IGNORE
+		'ja' => '日本語',	// IGNORE
+		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
+		'lv' => 'Latviešu',	// IGNORE
+		'nl' => 'Nederlands',	// IGNORE
+		'oc' => 'Occitan',	// IGNORE
+		'pl' => 'Polski',	// IGNORE
+		'pt-BR' => 'Português (Brasil)',	// IGNORE
+		'pt-PT' => 'Português (Portugal)',	// IGNORE
+		'ru' => 'Русский',	// IGNORE
+		'sk' => 'Slovenčina',	// IGNORE
+		'tr' => 'Türkçe',	// IGNORE
+		'uk' => 'Українська',	// IGNORE
+		'zh-CN' => '简体中文',	// IGNORE
+		'zh-TW' => '正體中文',	// IGNORE
 	),
 	'menu' => array(
 		'about' => 'אודות',
+		'account' => 'Account',	// TODO
 		'admin' => 'ניהול',
+		'advanced_search' => 'Advanced Search',	// TODO
 		'archiving' => 'ארכוב',
-		'authentication' => 'Authentication', // @todo
-		'check_install' => 'Installation checking', // @todo
+		'authentication' => 'Authentication',	// TODO
+		'check_install' => 'Installation check',	// TODO
 		'configuration' => 'הגדרות',
 		'display' => 'תצוגה',
-		'extensions' => 'Extensions', // @todo
+		'extensions' => 'Extensions',	// TODO
 		'logs' => 'לוגים',
+		'privacy' => 'Privacy',	// TODO
 		'queries' => 'שאילתות',
 		'reading' => 'קריאה',
 		'search' => 'חיפוש מילים או #תגים',
+		'search_help' => 'See documentation for advanced <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">search parameters</a>',	// TODO
 		'sharing' => 'שיתוף',
 		'shortcuts' => 'קיצורי דרך',
 		'stats' => 'סטטיסטיקות',
-		'system' => 'System configuration', // @todo
+		'system' => 'System configuration',	// TODO
 		'update' => 'עדכון',
-		'user_management' => 'Manage users', // @todo
-		'user_profile' => 'Profile', // @todo
+		'user_management' => 'Manage users',	// TODO
+		'user_profile' => 'Profile',	// TODO
 	),
-	'pagination' => array(
-		'first' => 'הראשון',
-		'last' => 'אחרון',
-		'load_more' => 'טעינת מאמרים נוספים',
-		'mark_all_read' => 'סימון הכל כנקרא',
-		'next' => 'הבא',
-		'nothing_to_load' => 'אין מאמרים נוספים',
-		'previous' => 'הקודם',
+	'period' => array(
+		'days' => 'days',	// TODO
+		'hours' => 'hours',	// TODO
+		'months' => 'months',	// TODO
+		'weeks' => 'weeks',	// TODO
+		'years' => 'years',	// TODO
+	),
+	'readme' => array(
+		'contribute' => 'contribute',	// IGNORE
+		'language' => 'Language',	// IGNORE
+		'translated' => 'Progress',	// IGNORE
+	),
+	'search' => array(
+		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
+		'authors' => 'Authors',	// TODO
+		'categories' => 'Categories',	// TODO
+		'content' => 'Content',	// TODO
+		'date_from' => 'From',	// TODO
+		'date_modified' => 'Server Modification Date',	// TODO
+		'date_past' => 'In the past',	// TODO
+		'date_published' => 'Publication Date',	// TODO
+		'date_range' => 'Date Range',	// TODO
+		'date_received' => 'Received Date',	// TODO
+		'date_to' => 'To',	// TODO
+		'date_user' => 'User Modification Date',	// TODO
+		'feeds' => 'Feeds',	// TODO
+		'free_text' => 'Free Text',	// TODO
+		'free_text_help' => 'Search both in title and content',	// TODO
+		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
+		'labels' => 'My Labels',	// TODO
+		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
+		'sources' => 'Sources',	// TODO
+		'tags' => 'Article Tags',	// TODO
+		'text' => 'Text Search',	// TODO
+		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
+		'text_placeholder' => 'Keyword',	// TODO
+		'title' => 'Title',	// TODO
+		'url' => 'URL',	// TODO
+		'user_queries' => 'User Queries',	// TODO
 	),
 	'share' => array(
-		'blogotext' => 'Blogotext',
-		'diaspora' => 'Diaspora*',
+		'Known' => 'Known based sites',	// TODO
+		'archiveIS' => 'archive.is',	// IGNORE
+		'archiveORG' => 'archive.org',	// IGNORE
+		'archivePH' => 'archive.ph',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
+		'buffer' => 'Buffer',	// IGNORE
+		'clipboard' => 'Clipboard',	// TODO
+		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'דואר אלקטרוני',
-		'facebook' => 'Facebook',
-		'g+' => 'Google+',
-		'gnusocial' => 'GNU social',
-		'jdh' => 'Journal du hacker',
-		'Known' => 'Known based sites',
-		'linkedin' => 'LinkedIn',
-		'mastodon' => 'Mastodon',
-		'movim' => 'Movim',
-		'pocket' => 'Pocket',
+		'email-webmail-firefox-fix' => 'Email (webmail - fix for Firefox)',	// TODO
+		'facebook' => 'Facebook',	// IGNORE
+		'gnusocial' => 'GNU social',	// IGNORE
+		'jdh' => 'Journal du hacker',	// IGNORE
+		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
+		'linkding' => 'Linkding',	// IGNORE
+		'linkedin' => 'LinkedIn',	// IGNORE
+		'mastodon' => 'Mastodon',	// IGNORE
+		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud סימניות',	// DIRTY
+		'omnivore' => 'Omnivore',	// IGNORE
+		'pinboard' => 'Pinboard',	// IGNORE
+		'pinterest' => 'Pinterest',	// IGNORE
 		'print' => 'הדפסה',
-		'shaarli' => 'Shaarli',
-		'twitter' => 'Twitter',
-		'wallabag' => 'wallabag v1',
-		'wallabagv2' => 'wallabag v2',
+		'raindrop' => 'Raindrop.io',	// IGNORE
+		'reddit' => 'Reddit',	// IGNORE
+		'shaarli' => 'Shaarli',	// IGNORE
+		'telegram' => 'Telegram',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
+		'wallabag' => 'wallabag v1',	// IGNORE
+		'wallabagv2' => 'wallabag v2',	// IGNORE
+		'web-sharing-api' => 'System sharing',	// TODO
+		'whatsapp' => 'Whatsapp',	// IGNORE
+		'xing' => 'Xing',	// IGNORE
 	),
 	'short' => array(
 		'attention' => 'זהירות!',
@@ -185,10 +330,15 @@ return array(
 		'by_default' => 'ברירת מחדל',
 		'damn' => 'הו לא!',
 		'default_category' => 'ללא קטגוריה',
-		'no' => 'לא',
-		'not_applicable' => 'Not available', // @todo
+		'no' => 'לא',	// IGNORE
+		'not_applicable' => 'Not available',	// TODO
 		'ok' => 'כן!',
 		'or' => 'או',
 		'yes' => 'כן',
+	),
+	'stream' => array(
+		'load_more' => 'טעינת מאמרים נוספים',
+		'mark_all_read' => 'סימון הכל כנקרא',
+		'nothing_to_load' => 'אין מאמרים נוספים',
 	),
 );

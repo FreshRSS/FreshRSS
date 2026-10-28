@@ -1,5 +1,13 @@
+<IfModule mod_authz_core.c>
+	# Deny files without extension or with specific extensions
+	<FilesMatch "^[^.]+$|\.(md|sh)$">
+		Require all denied
+	</FilesMatch>
+</IfModule>
+
 <IfModule mod_mime.c>
-	AddType application/font-woff .woff
+	AddType font/woff .woff
+	AddType font/woff2 .woff2
 
 	AddCharset	UTF-8	.css
 	AddCharset	UTF-8	.svg
@@ -7,7 +15,9 @@
 
 <IfModule mod_expires.c>
 	ExpiresActive	on
-	ExpiresByType	application/font-woff	"access plus 1 month"
+	ExpiresByType	application/json	"access plus 1 month"
+	ExpiresByType	font/woff	"access plus 1 month"
+	ExpiresByType	font/woff2	"access plus 1 month"
 	ExpiresByType	image/gif	"access plus 1 month"
 	ExpiresByType	image/png	"access plus 1 month"
 	ExpiresByType	image/svg+xml	"access plus 1 month"
@@ -16,6 +26,6 @@
 
 <IfModule mod_headers.c>
 	<FilesMatch "\.svg$">
-		Header	set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'"
+		Header	set Content-Security-Policy "default-src 'self'; frame-ancestors 'none'; style-src 'self' 'unsafe-inline'"
 	</FilesMatch>
 </IfModule>

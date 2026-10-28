@@ -1,0 +1,135 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
+<main class="post">
+	<h1><?= _t('conf.sharing') ?></h1>
+
+	<form method="post" action="<?= _url('configure', 'integration') ?>" class="draggableList">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<template id="simple-share">
+			<fieldset class="group-share dragbox">
+				<legend draggable="true">##label##</legend>
+				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" data-leave-validation="" />
+				<div class="form-group" id="group-share-##key##">
+					<label class="group-name" for="share_##key##_name"><?= _t('conf.sharing.share_name') ?></label>
+					<div class="group-controls">
+						<input type="text" id="share_##key##_name" name="share[##key##][name]" value="##label##" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="group-controls">
+						<button type="button" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _t('gen.action.remove') ?></button>
+					</div>
+				</div>
+			</fieldset>
+		</template>
+		<template id="advanced-share">
+			<fieldset class="group-share dragbox">
+				<legend draggable="true">##label##</legend>
+				<input type="hidden" id="share_##key##_type" name="share[##key##][type]" value="##type##" data-leave-validation="" />
+				<input type="hidden" id="share_##key##_method" name="share[##key##][method]" value="##method##" />
+				<input type="hidden" id="share_##key##_field" name="share[##key##][field]" value="##field##" />
+				<div class="form-group" id="group-share-##key##">
+					<label class="group-name" for="share_##key##_name"><?= _t('conf.sharing.share_name') ?></label>
+					<div class="group-controls">
+						<input type="text" id="share_##key##_name" name="share[##key##][name]" value="" />
+					</div>
+				</div>
+				<div class="form-group" id="group-share-##key##">
+					<label class="group-name" for="share_##key##_url"><?= _t('conf.sharing.share_url') ?></label>
+					<div class="group-controls">
+						<input type="url" id="share_##key##_url" name="share[##key##][url]" class="long" value="" required />
+						<p class="help"><?= _i('help') ?> <a href="##help##" target="_blank" rel="noreferrer"><?= _t('conf.sharing.more_information') ?></a></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="group-controls">
+						<button type="button" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _t('gen.action.remove') ?></button>
+					</div>
+				</div>
+			</fieldset>
+		</template>
+
+		<?php
+			foreach (FreshRSS_Context::userConf()->sharing as $key => $share_options) {
+				$share = FreshRSS_Share::get($share_options['type']);
+				if ($share === null) {
+					continue;
+				}
+				$share->update($share_options);
+		?>
+		<fieldset class="group-share dragbox" id="group-share-<?= $key ?>">
+			<legend draggable="true"><?= $share->name(true) ?></legend>
+			<input type="hidden" id="share_<?= $key ?>_type" name="share[<?= $key ?>][type]" value="<?= $share->type() ?>" />
+			<input type="hidden" id="share_<?= $key ?>_method" name="share[<?= $key ?>][method]" value="<?= $share->method() ?>" />
+			<input type="hidden" id="share_<?= $key ?>_field" name="share[<?= $key ?>][field]" value="<?= $share->field() ?>" />
+
+			<?php if ($share->isDeprecated()) { ?>
+			<div class="prompt alert alert-warn">
+				<p><?= _t('conf.sharing.deprecated') ?></p>
+			</div>
+			<?php } ?>
+
+			<div class="form-group">
+				<label class="group-name" for="share_<?= $key ?>_name">
+					<?= _t('conf.sharing.share_name') ?>
+				</label>
+				<div class="group-controls">
+					<input type="text" id="share_<?= $key ?>_name" name="share[<?= $key ?>][name]" value="<?= $share->name() ?>" />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<?php if ($share->formType() === 'advanced') { ?>
+					<label class="group-name" for="share_<?= $key ?>_url">
+						<?= _t('conf.sharing.share_url') ?>
+					</label>
+
+					<div class="group-controls">
+						<div class="stick">
+							<input type="url" id="share_<?= $key ?>_url" name="share[<?= $key ?>][url]" class="long" value="<?= $share->baseUrl() ?>" required="required" />
+							<a class="btn open-url" target="_blank" rel="noreferrer" href="<?= $share->baseUrl() ?>" title="<?= _t('gen.action.open_url') ?>" data-input="share_<?= $key ?>_url"><?= _i('link') ?></a>
+						</div>
+						<p class="help"><?= _i('help') ?> <a href="<?= $share->help() ?>" target="_blank" rel="noreferrer"><?= _t('conf.sharing.more_information') ?></a></p>
+					</div>
+				<?php } ?>
+			</div>
+
+			<div class="form-group">
+				<div class="group-controls">
+					<button type="button" class="remove btn btn-attention" title="<?= _t('conf.sharing.remove') ?>"><?= _t('gen.action.remove') ?></button>
+				</div>
+			</div>
+
+
+		</fieldset>
+		<?php } ?>
+
+		<fieldset>
+			<legend><?= _t('conf.sharing.add') ?></legend>
+			<div class="form-group">
+				<div class="group-controls">
+					<div class="stick">
+						<select>
+							<?php foreach (FreshRSS_Share::enum() as $share) { ?>
+							<option value='<?= $share->type() ?>' data-form='<?= $share->formType() ?>' data-help='<?= $share->help() ?>'
+								data-method='<?= $share->method() ?>' data-field='<?= $share->field() ?>'>
+								<?= $share->name(true) ?>
+							</option>
+							<?php } ?>
+						</select>
+						<a href='#' class='share add btn' title="<?= _t('conf.sharing.add') ?>"><?= _i('add') ?></a>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+
+		<div class="form-group form-actions">
+			<div class="group-controls">
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+			</div>
+		</div>
+	</form>
+</main>

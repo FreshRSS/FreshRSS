@@ -1,15 +1,17 @@
-# The .phtml files
+# View files
 
-**TODO**
+## The .phtml files
 
-# Writing a URL
+> **TODO**
 
-**TODO**
+## Writing a URL
 
-# Displaying an icon
+> **TODO**
 
-**TODO**
+## Displaying an icon
 
-# Internationalisation
+> **TODO**
 
-**TODO**
+## Internationalisation
+
+> **TODO**

@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+@import "_fonts.css";
+
+@import "_variables.css";
+
+@import "_forms.css";
+
+@import "_tables.css";
+
+@import "_components.css";
+
+@import "_divers.css";
+
+@import "_sidebar.css";
+
+@import "_layout.css";
+
+@import "_list-view.css";
+
+@import "_global-view.css";
+
+@import "_reader-view.css";
+
+@import "_configuration.css";
+
+@import "_logs.css";
+
+@import "_stats.css";
+
+@import "_mobile.css";
+
+/*=== GENERAL */
+/*============*/
+html, body {
+	background: var(--grey-light);
+	color: var(--main-font-color);
+	font-family: "lato", "Helvetica", "Arial", sans-serif;
+	font-size: 0.875rem;
+}
+
+body.formLogin,
+body.register {
+	background: var(--sid-bg);
+}
+
+/*=== Links */
+a, button.as-link {
+	outline: none;
+	color: var(--main-first);
+}
+

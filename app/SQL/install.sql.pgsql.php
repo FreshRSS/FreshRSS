@@ -1,112 +1,161 @@
 <?php
-define('SQL_CREATE_DB', 'CREATE DATABASE %1$s ENCODING \'UTF8\';');
+$GLOBALS['SQL_CREATE_DB'] = <<<'SQL'
+CREATE DATABASE "%1$s" ENCODING 'UTF8';
+SQL;
 
-global $SQL_CREATE_TABLES;
-$SQL_CREATE_TABLES = array(
-'CREATE TABLE IF NOT EXISTS "%1$scategory" (
+$GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
+CREATE TABLE IF NOT EXISTS `_category` (
 	"id" SERIAL PRIMARY KEY,
-	"name" VARCHAR(255) UNIQUE NOT NULL
-);',
+	"name" VARCHAR(191) UNIQUE NOT NULL,
+	"kind" SMALLINT DEFAULT 0,	-- 1.20.0
+	"lastUpdate" BIGINT DEFAULT 0,	-- 1.20.0
+	"error" BIGINT DEFAULT 0,	-- Date, v1.29.0
+	"attributes" TEXT	-- v1.15.0
+);
 
-'CREATE TABLE IF NOT EXISTS "%1$sfeed" (
+CREATE TABLE IF NOT EXISTS `_feed` (
 	"id" SERIAL PRIMARY KEY,
-	"url" VARCHAR(511) UNIQUE NOT NULL,
-	"category" SMALLINT DEFAULT 0,
-	"name" VARCHAR(255) NOT NULL,
-	"website" VARCHAR(255),
+	"url" VARCHAR(32768) NOT NULL,
+	"kind" SMALLINT DEFAULT 0, -- 1.20.0
+	"category" INT DEFAULT 0,	-- 1.20.0
+	"name" VARCHAR(191) NOT NULL,
+	"website" VARCHAR(32768),
 	"description" TEXT,
-	"lastUpdate" INT DEFAULT 0,
+	"lastUpdate" BIGINT DEFAULT 0,
 	"priority" SMALLINT NOT NULL DEFAULT 10,
-	"pathEntries" VARCHAR(511) DEFAULT NULL,
-	"httpAuth" VARCHAR(511) DEFAULT NULL,
-	"error" SMALLINT DEFAULT 0,
-	"keep_history" INT NOT NULL DEFAULT -2,
+	"pathEntries" VARCHAR(4096) DEFAULT NULL,
+	"httpAuth" VARCHAR(1024) DEFAULT NULL,
+	"error" BIGINT DEFAULT 0,	-- Date, v1.29.0
 	"ttl" INT NOT NULL DEFAULT 0,
 	"attributes" TEXT,	-- v1.11.0
 	"cache_nbEntries" INT DEFAULT 0,
 	"cache_nbUnreads" INT DEFAULT 0,
-	FOREIGN KEY ("category") REFERENCES "%1$scategory" ("id") ON DELETE SET NULL ON UPDATE CASCADE
-);',
-'CREATE INDEX %1$sname_index ON "%1$sfeed" ("name");',
-'CREATE INDEX %1$spriority_index ON "%1$sfeed" ("priority");',
-'CREATE INDEX %1$skeep_history_index ON "%1$sfeed" ("keep_history");',
+	FOREIGN KEY ("category") REFERENCES `_category` ("id") ON DELETE SET NULL ON UPDATE CASCADE
+);
+CREATE INDEX IF NOT EXISTS `_name_index` ON `_feed` ("name");
+CREATE INDEX IF NOT EXISTS `_priority_index` ON `_feed` ("priority");
 
-'CREATE TABLE IF NOT EXISTS "%1$sentry" (
+CREATE TABLE IF NOT EXISTS `_entry` (
 	"id" BIGINT NOT NULL PRIMARY KEY,
-	"guid" VARCHAR(760) NOT NULL,
-	"title" VARCHAR(255) NOT NULL,
-	"author" VARCHAR(255),
+	"guid" VARCHAR(767) NOT NULL,
+	"title" VARCHAR(8192) NOT NULL,
+	"author" VARCHAR(1024),
 	"content" TEXT,
-	"link" VARCHAR(1023) NOT NULL,
-	"date" INT,
-	"lastSeen" INT DEFAULT 0,
+	"link" VARCHAR(16383) NOT NULL,
+	"date" BIGINT,
+	"lastSeen" BIGINT DEFAULT 0,
+	"lastModified" BIGINT,	-- v1.29.0
+	"lastUserModified" BIGINT,	-- v1.28.0
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
-	"id_feed" SMALLINT,
-	"tags" VARCHAR(1023),
-	FOREIGN KEY ("id_feed") REFERENCES "%1$sfeed" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+	"id_feed" INT,	-- 1.20.0
+	"tags" VARCHAR(2048),
+	"attributes" TEXT,	-- v1.20.0
+	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
-);',
-'CREATE INDEX %1$sis_favorite_index ON "%1$sentry" ("is_favorite");',
-'CREATE INDEX %1$sis_read_index ON "%1$sentry" ("is_read");',
-'CREATE INDEX %1$sentry_lastSeen_index ON "%1$sentry" ("lastSeen");',
-
-'INSERT INTO "%1$scategory" (id, name)
-	SELECT 1, \'%2$s\'
-	WHERE NOT EXISTS (SELECT id FROM "%1$scategory" WHERE id = 1)
-	RETURNING nextval(\'%1$scategory_id_seq\');',
 );
+CREATE INDEX IF NOT EXISTS `_is_favorite_index` ON `_entry` ("is_favorite");
+CREATE INDEX IF NOT EXISTS `_is_read_index` ON `_entry` ("is_read");
+CREATE INDEX IF NOT EXISTS `_entry_lastSeen_index` ON `_entry` ("lastSeen");
+CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` ("lastModified");
+CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` ("lastUserModified");
+CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
 
-global $SQL_CREATE_TABLE_ENTRYTMP;
-$SQL_CREATE_TABLE_ENTRYTMP = array(
-'CREATE TABLE IF NOT EXISTS "%1$sentrytmp" (	-- v1.7
+INSERT INTO `_category` (id, name)
+	SELECT 1, 'Uncategorized'
+	WHERE NOT EXISTS (SELECT id FROM `_category` WHERE id = 1)
+	RETURNING nextval('`_category_id_seq`');
+
+CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	"id" BIGINT NOT NULL PRIMARY KEY,
-	"guid" VARCHAR(760) NOT NULL,
-	"title" VARCHAR(255) NOT NULL,
-	"author" VARCHAR(255),
+	"guid" VARCHAR(767) NOT NULL,
+	"title" VARCHAR(8192) NOT NULL,
+	"author" VARCHAR(1024),
 	"content" TEXT,
-	"link" VARCHAR(1023) NOT NULL,
-	"date" INT,
-	"lastSeen" INT DEFAULT 0,
+	"link" VARCHAR(16383) NOT NULL,
+	"date" BIGINT,
+	"lastSeen" BIGINT DEFAULT 0,
 	"hash" BYTEA,
 	"is_read" SMALLINT NOT NULL DEFAULT 0,
 	"is_favorite" SMALLINT NOT NULL DEFAULT 0,
-	"id_feed" SMALLINT,
-	"tags" VARCHAR(1023),
-	FOREIGN KEY ("id_feed") REFERENCES "%1$sfeed" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+	"id_feed" INT,	-- 1.20.0
+	"tags" VARCHAR(2048),
+	"attributes" TEXT,	-- v1.20.0
+	FOREIGN KEY ("id_feed") REFERENCES `_feed` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE ("id_feed","guid")
-);',
-'CREATE INDEX %1$sentrytmp_date_index ON "%1$sentrytmp" ("date");',
-
-'CREATE INDEX %1$sentry_feed_read_index ON "%1$sentry" ("id_feed","is_read");',	//v1.7
 );
+CREATE INDEX IF NOT EXISTS `_entrytmp_date_index` ON `_entrytmp` ("date");
 
-global $SQL_CREATE_TABLE_TAGS;
-$SQL_CREATE_TABLE_TAGS = array(
-'CREATE TABLE IF NOT EXISTS "%1$stag" (	-- v1.12
+CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
 	"id" SERIAL PRIMARY KEY,
-	"name" VARCHAR(63) UNIQUE NOT NULL,
+	"name" VARCHAR(191) UNIQUE NOT NULL,
 	"attributes" TEXT
-);',
-'CREATE TABLE IF NOT EXISTS "%1$sentrytag" (
-	"id_tag" SMALLINT,
+);
+CREATE TABLE IF NOT EXISTS `_entrytag` (
+	"id_tag" INT,	-- 1.20.0
 	"id_entry" BIGINT,
 	PRIMARY KEY ("id_tag","id_entry"),
-	FOREIGN KEY ("id_tag") REFERENCES "%1$stag" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY ("id_entry") REFERENCES "%1$sentry" ("id") ON DELETE CASCADE ON UPDATE CASCADE
-);',
-'CREATE INDEX %1$sentrytag_id_entry_index ON "%1$sentrytag" ("id_entry");',
+	FOREIGN KEY ("id_tag") REFERENCES `_tag` ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY ("id_entry") REFERENCES `_entry` ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
+CREATE INDEX IF NOT EXISTS `_entrytag_id_entry_index` ON `_entrytag` ("id_entry");
+SQL;
 
-global $SQL_INSERT_FEEDS;
-$SQL_INSERT_FEEDS = array(
-'INSERT INTO "%1$sfeed" (url, category, name, website, description, ttl)
-	SELECT \'https://freshrss.org/feeds/all.atom.xml\', 1, \'FreshRSS.org\', \'https://freshrss.org/\', \'FreshRSS, a free, self-hostable aggregator…\', 86400
-	WHERE NOT EXISTS (SELECT id FROM "%1$sfeed" WHERE url = \'https://freshrss.org/feeds/all.atom.xml\');',
-'INSERT INTO "%1$sfeed" (url, category, name, website, description, ttl)
-	SELECT \'https://github.com/FreshRSS/FreshRSS/releases.atom\', 1, \'FreshRSS @ GitHub\', \'https://github.com/FreshRSS/FreshRSS/\', \'FreshRSS releases @ GitHub\', 86400
-	WHERE NOT EXISTS (SELECT id FROM "%1$sfeed" WHERE url = \'https://github.com/FreshRSS/FreshRSS/releases.atom\');',
-);
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastUserModified` BIGINT;	-- 1.28.0
+CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` (`lastUserModified`);
+SQL;
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS "%1$sentrytmp", "%1$sentry", "%1$sfeed", "%1$scategory"');
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry` ADD COLUMN IF NOT EXISTS `lastModified` BIGINT;	-- 1.29.0
+CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` (`lastModified`);
+SQL;
+
+$GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
+DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
+SQL;
+
+$GLOBALS['SQL_UPDATE_MINOR'] = <<<'SQL'
+DO $$
+BEGIN
+	IF NOT EXISTS (
+		SELECT 1 FROM information_schema.columns
+		WHERE table_schema = 'public'
+			AND table_name = REPLACE('`_feed`', '"', '')
+			AND column_name = 'error'
+			AND data_type = 'bigint'
+	) THEN
+		ALTER TABLE `_category`
+			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191),
+			ALTER COLUMN "error" SET DATA TYPE BIGINT;
+		ALTER TABLE `_feed`
+			DROP CONSTRAINT IF EXISTS `_feed_url_key`,
+			ALTER COLUMN "url" SET DATA TYPE VARCHAR(32768),
+			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191),
+			ALTER COLUMN "website" SET DATA TYPE VARCHAR(32768),
+			ALTER COLUMN "lastUpdate" SET DATA TYPE BIGINT,
+			ALTER COLUMN "error" SET DATA TYPE BIGINT,
+			ALTER COLUMN "pathEntries" SET DATA TYPE VARCHAR(4096),
+			ALTER COLUMN "httpAuth" SET DATA TYPE VARCHAR(1024);
+		ALTER TABLE `_entry`
+			ALTER COLUMN "date" SET DATA TYPE BIGINT,
+			ALTER COLUMN "lastSeen" SET DATA TYPE BIGINT,
+			ALTER COLUMN "guid" SET DATA TYPE VARCHAR(767),
+			ALTER COLUMN "title" SET DATA TYPE VARCHAR(8192),
+			ALTER COLUMN "author" SET DATA TYPE VARCHAR(1024),
+			ALTER COLUMN "link" SET DATA TYPE VARCHAR(16383),
+			ALTER COLUMN "tags" SET DATA TYPE VARCHAR(2048);
+		ALTER TABLE `_entrytmp`
+			ALTER COLUMN "date" SET DATA TYPE BIGINT,
+			ALTER COLUMN "lastSeen" SET DATA TYPE BIGINT,
+			ALTER COLUMN "guid" SET DATA TYPE VARCHAR(767),
+			ALTER COLUMN "title" SET DATA TYPE VARCHAR(8192),
+			ALTER COLUMN "author" SET DATA TYPE VARCHAR(1024),
+			ALTER COLUMN "link" SET DATA TYPE VARCHAR(16383),
+			ALTER COLUMN "tags" SET DATA TYPE VARCHAR(2048);
+		ALTER TABLE `_tag`
+			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191);
+	END IF;
+END $$;
+SQL;

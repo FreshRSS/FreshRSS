@@ -1,0 +1,8 @@
+{
+	"name": "Mapco",
+	"author": "Thomas Guesnon",
+	"description": "Theme for FreshRSS",
+	"version": 0.2,
+	"files": ["_frss.css", "mapco.css"],
+	"theme-color": "#303136"
+}

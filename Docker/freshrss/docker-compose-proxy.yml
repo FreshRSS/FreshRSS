@@ -1,0 +1,60 @@
+volumes:
+  traefik-letsencrypt:
+  traefik-tmp:
+
+services:
+
+  traefik:
+    image: traefik:3
+    container_name: traefik
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik-tmp:/tmp
+      - traefik-letsencrypt:/etc/traefik/acme
+      - ./traefik/tls.yaml:/etc/traefik/tls.yaml:ro
+    command:
+      - --global.sendAnonymousUsage
+      - --accesslog=true
+      - --api=false
+      - --providers.docker=true
+      - --providers.docker.exposedByDefault=false
+      - --log.level=INFO
+      - --entryPoints.http.address=:80
+      - --entryPoints.https.address=:443
+      - --entryPoints.http.http.redirections.entryPoint.to=https
+      - --entryPoints.http.http.redirections.entryPoint.scheme=https
+      - --certificatesResolvers.letsEncrypt.acme.storage=/etc/traefik/acme/acme.json
+      - --certificatesResolvers.letsEncrypt.acme.email=${ADMIN_EMAIL}
+      - --certificatesResolvers.letsEncrypt.acme.tlsChallenge=true
+      - --providers.file.filename=/etc/traefik/tls.yml
+    labels:
+      - traefik.enable=false
+
+  freshrss:
+    environment:
+      TRUSTED_PROXY: 172.16.0.1/12
+    labels:
+      - traefik.enable=true
+      - traefik.http.middlewares.freshrssM1.compress=true
+      - traefik.http.middlewares.freshrssM2.headers.browserXssFilter=true
+      - traefik.http.middlewares.freshrssM2.headers.forceSTSHeader=true
+      - traefik.http.middlewares.freshrssM2.headers.frameDeny=true
+      - traefik.http.middlewares.freshrssM2.headers.referrerPolicy=no-referrer-when-downgrade
+      - traefik.http.middlewares.freshrssM2.headers.stsSeconds=31536000
+      - traefik.http.routers.freshrss.entryPoints=https
+      - traefik.http.routers.freshrss.tls.certResolver=letsEncrypt
+      - traefik.http.routers.freshrss.tls=true
+      # Option 1: server FreshRSS as sub-domain
+      - traefik.http.routers.freshrss.middlewares=freshrssM1,freshrssM2
+      - traefik.http.routers.freshrss.rule=Host(`${SERVER_DNS}`)
+      # # Option 2: serve FreshRSS as sub-path
+      # - traefik.http.middlewares.freshrssM3.stripprefix.prefixes=/freshrss
+      # - traefik.http.routers.freshrss.middlewares=freshrssM1,freshrssM2,freshrssM3
+      # - traefik.http.routers.freshrss.rule=PathPrefix(`/freshrss`)

@@ -1,3 +1,1 @@
-Order	Allow,Deny
-Deny	from all
-Satisfy	all
+Require all denied

@@ -1,85 +1,317 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
 	'api' => array(
-		'documentation' => 'Copy the following URL to use it within an external tool.',// TODO
-		'title' => 'API',// TODO
+		'documentation' => 'Aşağıdaki URL’yi kopyalayın ve harici bir araçta kullanın.',
+		'title' => 'API',	// IGNORE
 	),
 	'bookmarklet' => array(
-		'documentation' => 'Drag this button to your bookmarks toolbar or right-click it and choose "Bookmark This Link". Then click "Subscribe" button in any page you want to subscribe to.',// TODO
-		'label' => 'Subscribe',// TODO
-		'title' => 'Bookmarklet',// TODO
+		'documentation' => 'Bu düğmeyi yer imleri çubuğunuza sürükleyin veya sağ tıklayıp “Bu Bağlantıyı Yer İmlerine Ekle” seçeneğini seçin. Ardından abone olmak istediğiniz herhangi bir sayfada “Abone Ol” düğmesine tıklayın.',
+		'label' => 'Abone Ol',
+		'title' => 'Yer İmi Aracı',
 	),
 	'category' => array(
 		'_' => 'Kategori',
 		'add' => 'Kategori ekle',
+		'archiving' => 'Arşivleme',
+		'dynamic_opml' => array(
+			'_' => 'Dinamik OPML',
+			'help' => 'Bu kategoriyi beslemelerle dinamik olarak doldurmak için bir <a href="https://opml.org/" target="_blank">OPML dosyası</a> URL’si sağlayın.',
+		),
 		'empty' => 'Boş kategori',
-		'new' => 'Yeni kategori',
+		'error' => 'Bu dinamik OPML kategorisi bir sorunla karşılaştı. OPML URLsinin hâlâ erişilebilir olduğunu ve kullanıcı başına düşen maksimum besleme sayısının aşılmadığını kontrol edin.',
+		'expand' => 'Kategoriyi genişlet',
+		'information' => 'Bilgi',
+		'open' => 'Kategoriyi aç',
+		'opml_url' => 'OPML URL’si',
+		'position' => 'Görüntüleme konumu',
+		'position_help' => 'Kategori sıralama düzenini kontrol etmek için',
+		'title' => 'Başlık',
 	),
 	'feed' => array(
-		'add' => 'RSS akışı ekle',
+		'accept_cookies' => 'Çerezleri kabul et',
+		'accept_cookies_help' => 'Besleme sunucusunun çerez ayarlamasına izin ver (yalnızca istek süresince bellekte saklanır).',
+		'add' => 'Besleme ekle',
 		'advanced' => 'Gelişmiş',
-		'archiving' => 'Arşiv',
+		'archiving' => 'Arşivleme',
 		'auth' => array(
 			'configuration' => 'Giriş',
-			'help' => 'HTTP korumalı RSS akışlarına bağlantı izni sağlar',
+			'help' => 'HTTP ile korunan RSS beslemelerine erişim sağlar.',
 			'http' => 'HTTP Kimlik Doğrulama',
-			'password' => 'HTTP şifre',
+			'password' => 'HTTP parolası',
 			'username' => 'HTTP kullanıcı adı',
 		),
-		'css_help' => 'Dikkat, daha çok zaman gerekir!',
-		'css_path' => 'Makaleleri kendi CSS görünümü ile göster',
-		'description' => 'Tanım',
-		'empty' => 'Bu akış boş. Lütfen akışın aktif olduğuna emin olun.',
-		'error' => 'Bu akışda bir hatayla karşılaşıldı. Lütfen akışın sürekli ulaşılabilir olduğuna emin olun.',
-		'informations' => 'Bilgi',
-		'keep_history' => 'En az tutulacak makale sayısı',
-		'moved_category_deleted' => 'Bir kategoriyi silerseniz, içerisindeki akışlar <em>%s</em> içerisine yerleşir.',
-		'mute' => 'mute', // TODO
-		'no_selected' => 'Hiçbir akış seçilmedi.',
-		'number_entries' => '%d makale',
-		'priority' => array(
-			'_' => 'Visibility', // TODO
-			'archived' => 'Do not show (archived)', // TODO
-			'main_stream' => 'Ana akışda göster',
-			'normal' => 'Show in its category', // TODO
+		'change_favicon' => 'Değiştir',
+		'clear_cache' => 'Önbelleği her zaman temizle',
+		'content_action' => array(
+			'_' => 'Makale içeriği getirilirken içerik eylemi',
+			'append' => 'Mevcut içeriğin sonuna ekle',
+			'prepend' => 'Mevcut içeriğin başına ekle',
+			'replace' => 'Mevcut içeriği değiştir',
 		),
-		'ssl_verify' => 'Verify SSL security',	//TODO
+		'content_retrieval' => 'İçerik alma',
+		'css_cookie' => 'Makale içeriği getirilirken çerezleri kullan',
+		'css_cookie_help' => 'Örnek: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
+		'css_help' => 'Kısaltılmış RSS beslemelerini alır (dikkat, daha fazla zaman gerektirir!)',
+		'css_path' => 'Orijinal web sitesindeki makale CSS seçicisi',
+		'css_path_filter' => array(
+			'_' => 'Kaldırılacak öğelerin CSS seçicisi',
+			'help' => 'CSS seçicisi bir liste olabilir, örneğin: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
+		),
+		'description' => 'Açıklama',
+		'empty' => 'Bu besleme boş. Lütfen hala güncel olup olmadığını kontrol edin.',
+		'error' => 'Bu beslemede bir sorun oluştu. Eğer bu durum devam ederse, lütfen hala erişilebilir olup olmadığını kontrol edin.',
+		'export-as-opml' => array(
+			'download' => 'İndir',
+			'help' => 'XML dosyası (veri alt kümesi. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">Belgelere bakın</a>)',
+			'label' => 'OPML olarak dışa aktar',
+		),
+		'ext_favicon' => 'Otomatik olarak belirle',
+		'favicon_changed_by_ext' => 'Bu simge <b>%s</b> uzantısı tarafından belirlendi.',
+		'filteractions' => array(
+			'_' => 'Filtre eylemleri',
+			'help' => 'Her satıra bir arama filtresi yazın. Operatörler için <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">belgelere bakın</a>.',
+			'view_filter' => 'Mevcut makalelerdeki filtreleri önizle (yeni pencere)',
+		),
+		'global_hint' => 'Her beslemede bir duruma veya arama ifadesine kaç makalenin eşleştiğini görmek için <a href="%s">genel görünümü</a> kullanın',
+		'http_headers' => 'HTTP Başlıkları',
+		'http_headers_help' => 'Başlıklar yeni bir satırla ayrılır ve bir başlığın adı ile değeri iki nokta üst üste ile ayrılır (örneğin: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => 'Simge',
+		'information' => 'Bilgi',
+		'keep_adding_feed' => 'Daha fazla besleme ekle',
+		'keep_min' => 'Saklanacak minimum makale sayısı',
+		'kind' => array(
+			'_' => 'Besleme kaynağı türü',
+			'html_json' => array(
+				'_' => 'HTML + XPath + JSON nokta notasyonu (HTML içindeki JSON)',
+				'xpath' => array(
+					'_' => 'HTML içindeki JSON için XPath',
+					'help' => 'Örnek: <code>normalize-space(//script[@type="application/json"])</code> (tek JSON)<br />veya: <code>//script[@type="application/ld+json"]</code> (her makale için bir JSON nesnesi)',
+				),
+			),
+			'html_xpath' => array(
+				'_' => 'HTML + XPath (Web kazıma)',
+				'feed_title' => array(
+					'_' => 'besleme başlığı',
+					'help' => 'Örnek: <code>//title</code> veya sabit bir metin: <code>"Benim özel beslemem"</code>',
+				),
+				'help' => '<dfn><a href="https://www.w3.org/TR/xpath-10/" target="_blank">XPath 1.0</a></dfn>, gelişmiş kullanıcılar için standart bir sorgu dilidir ve FreshRSS tarafından web kazımayı etkinleştirmek için desteklenir.',
+				'item' => array(
+					'_' => 'haber <strong>öğelerini</strong> bulma<br /><small>(en önemlisi)</small>',
+					'help' => 'Örnek: <code>//div[@class="news-item"]</code>',
+				),
+				'item_author' => array(
+					'_' => 'öğe yazarı',
+					'help' => 'Sabit bir metin de olabilir. Örnek: <code>"Anonim"</code>',
+				),
+				'item_categories' => 'öğe etiketleri',
+				'item_content' => array(
+					'_' => 'öğe içeriği',
+					'help' => 'Tam öğeyi almak için örnek: <code>.</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'öğe küçük resmi',
+					'help' => 'Örnek: <code>descendant::img/@src</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Özel tarih/saat biçimi',
+					'help' => 'İsteğe bağlı. <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> tarafından desteklenen bir biçim, örneğin <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'öğe tarihi',
+					'help' => 'Sonuç, <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> tarafından ayrıştırılacaktır.',
+				),
+				'item_title' => array(
+					'_' => 'öğe başlığı',
+					'help' => 'Özellikle <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath ekseni</a> <code>descendant::</code> kullanın, örneğin <code>descendant::h2</code>',
+				),
+				'item_uid' => array(
+					'_' => 'öğe benzersiz kimliği',
+					'help' => 'İsteğe bağlı. Örnek: <code>descendant::div/@data-uri</code>',
+				),
+				'item_uri' => array(
+					'_' => 'öğe bağlantısı (URL)',
+					'help' => 'Örnek: <code>descendant::a/@href</code>',
+				),
+				'relative' => 'Öğe ile ilgili XPath:',
+				'xpath' => 'Şunun için XPath:',
+			),
+			'json_dotnotation' => array(
+				'_' => 'JSON (nokta notasyonu)',
+				'feed_title' => array(
+					'_' => 'besleme başlığı',
+					'help' => 'Örnek: <code>meta.title</code> veya sabit bir metin: <code>"Benim özel beslemem"</code>',
+				),
+				'help' => 'JSON nokta notasyonu, nesneler arasında noktalar ve diziler için köşeli parantezler kullanır (örneğin <code>data.items[0].title</code>).',
+				'item' => array(
+					'_' => 'haber <strong>öğelerini</strong> bulma<br /><small>(en önemlisi)</small>',
+					'help' => 'Öğeleri içeren diziye giden JSON yolu, örneğin <code>$</code> veya <code>newsItems</code>',
+				),
+				'item_author' => 'öğe yazarı',
+				'item_categories' => 'öğe etiketleri',
+				'item_content' => array(
+					'_' => 'öğe içeriği',
+					'help' => 'İçeriğin bulunduğu anahtar, örneğin <code>content</code>',
+				),
+				'item_thumbnail' => array(
+					'_' => 'öğe küçük resmi',
+					'help' => 'Örnek: <code>image</code>',
+				),
+				'item_timeFormat' => array(
+					'_' => 'Özel tarih/saat biçimi',
+					'help' => 'İsteğe bağlı. <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> tarafından desteklenen bir biçim, örneğin <code>d-m-Y H:i:s</code>',
+				),
+				'item_timestamp' => array(
+					'_' => 'öğe tarihi',
+					'help' => 'Sonuç, <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> tarafından ayrıştırılacaktır.',
+				),
+				'item_title' => 'öğe başlığı',
+				'item_uid' => 'öğe benzersiz kimliği',
+				'item_uri' => array(
+					'_' => 'öğe bağlantısı (URL)',
+					'help' => 'Örnek: <code>permalink</code>',
+				),
+				'json' => 'Şunun için nokta notasyonu:',
+				'relative' => 'Öğe ile ilgili nokta notasyon yolu:',
+			),
+			'jsonfeed' => 'JSON Besleme',
+			'rss' => 'RSS / Atom (varsayılan)',
+			'xml_xpath' => 'XML + XPath',	// IGNORE
+		),
+		'last-entry-publication-date' => 'Yayınlanan son makale <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => 'Teslim alınan son makale <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => 'Son hatalı güncelleme <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => 'Son başarılı güncelleme <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'maintenance' => array(
+			'clear_cache' => 'Önbelleği temizle',
+			'clear_cache_help' => 'Bu besleme için önbelleği temizle.',
+			'reload_articles' => 'Makaleleri yeniden yükle',
+			'reload_articles_help' => 'Belirtilen sayıda makaleyi yeniden yükle ve bir seçici tanımlıysa tam içeriği getir.',
+			'title' => 'Bakım',
+		),
+		'max_http_redir' => 'Maksimum HTTP yönlendirmeleri',
+		'max_http_redir_help' => 'Devre dışı bırakmak için 0’a ayarlayın veya boş bırakın, sınırsız yönlendirme için -1 kullanın.',
+		'method' => array(
+			'_' => 'HTTP Yöntemi',
+		),
+		'method_help' => 'POST yükü, <code>application/x-www-form-urlencoded</code> ve <code>application/json</code> için otomatik destek sağlar.',
+		'method_postparams' => 'POST için yük',
+		'moved_category_deleted' => 'Bir kategoriyi kaldırdığınızda, içindeki beslemeler otomatik olarak <em>%s</em> altına sınıflandırılır.',
+		'mute' => array(
+			'_' => 'sessize al',
+			'state_is_muted' => 'Bu besleme sessize alınmış',
+		),
+		'no_selected' => 'Hiçbir besleme seçilmedi.',
+		'number_entries' => '%d makale',
+		'open_feed' => '%s beslemesini aç',
+		'path_entries_conditions' => 'İçerik alma koşulları',
+		'priority' => array(
+			'_' => 'Görünürlük',
+			'category' => 'Kategorisinde göster',
+			'feed' => 'Beslemesinde göster',
+			'hidden' => 'Gösterilmesin',
+			'important' => 'Önemli beslemelerde göster',
+			'main_stream' => 'Ana akışta göster',
+		),
+		'proxy' => 'Bu beslemeyi almak için bir proxy ayarlayın',
+		'proxy_help' => 'Bir protokol seçin (örneğin: SOCKS5) ve proxy adresini girin (örneğin: <kbd>127.0.0.1:1080</kbd> veya <kbd>kullanıcıadı:parola@127.0.0.1:1080</kbd>).',
+		'reset_favicon' => 'Varsayılana sıfırla',
+		'selector_preview' => array(
+			'show_raw' => 'Kaynak kodu göster',
+			'show_rendered' => 'İçeriği göster',
+		),
+		'show' => array(
+			'all' => 'Tüm beslemeler',
+			'error' => 'Yalnızca hatalı beslemeleri göster',
+		),
+		'showing' => array(
+			'error' => 'Yalnızca hatalı beslemeler gösteriliyor',
+		),
+		'ssl_verify' => 'SSL güvenliğini doğrula',
 		'stats' => 'İstatistikler',
-		'think_to_add' => 'Akış ekleyebilirsiniz.',
-		'timeout' => 'Timeout in seconds',	//TODO
+		'think_to_add' => 'Birkaç besleme eklemeyi düşünebilirsiniz.',
+		'timeout' => 'Zaman aşımı (saniye cinsinden)',
 		'title' => 'Başlık',
-		'title_add' => 'RSS akışı ekle',
-		'ttl' => 'Şu kadar süreden fazla otomatik yenileme yapma',
-		'url' => 'Akış URL',
-		'validator' => 'Akış geçerliliğini kontrol edin',
-		'website' => 'Site URL',
-		'pubsubhubbub' => 'PubSubHubbub ile anlık bildirim',
-	),
-	'firefox' => array(
-		'documentation' => 'Follow the steps described <a href="https://developer.mozilla.org/en-US/Firefox/Releases/2/Adding_feed_readers_to_Firefox#Adding_a_new_feed_reader_manually">here</a> to add FreshRSS to Firefox feed reader list.',// TODO
-		'title' => 'Firefox feed reader',// TODO
+		'title_add' => 'RSS beslemesi ekle',
+		'ttl' => 'Otomatik yenileme sıklığını şundan fazla yapma',
+		'unicityCriteria' => array(
+			'_' => 'Makale benzersizlik kriteri',
+			'forced' => '<span title="Beslemede yinelenen makaleler olsa bile benzersizlik kriterini zorla">zorlanmış</span>',
+			'help' => 'Geçersiz beslemeler için geçerlidir.<br />⚠️ Politikayı değiştirmek kopyalar oluşturur.',
+			'id' => 'Standart Kimlik (varsayılan)',
+			'link' => 'Bağlantı',
+			'sha1:content' => 'İçerik',
+			'sha1:content_published' => 'İçerik + Tarih',
+			'sha1:link_published' => 'Bağlantı + Tarih',
+			'sha1:link_published_title' => 'Bağlantı + Tarih + Başlık',
+			'sha1:link_published_title_content' => 'Bağlantı + Tarih + Başlık + İçerik',
+			'sha1:published' => 'Tarih',
+			'sha1:title' => 'Başlık',
+			'sha1:title_published' => 'Başlık + Tarih',
+			'sha1:title_published_content' => 'Başlık + Tarih + İçerik',
+		),
+		'url' => 'Besleme URL’si',
+		'useragent' => 'Bu beslemeyi almak için kullanıcı aracısını ayarlayın',
+		'useragent_help' => 'Örnek: <kbd>Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:86.0)</kbd>',
+		'validator' => 'Beslemenin geçerliliğini kontrol et',
+		'website' => 'Web sitesi URL’si',
+		'websub' => 'WebSub ile anlık bildirimler',
+		'websub_pending' => 'WebSub’a abone olundu. Bildirim bekleniyor.',
 	),
 	'import_export' => array(
-		'export' => 'Dışa aktar',
-		'export_opml' => 'Akış listesini dışarı aktar (OPML)',
-		'export_starred' => 'Favorileri dışarı aktar',
+		'export' => array(
+			'_' => 'Dışa Aktar',
+			'sqlite' => 'Kullanıcı veritabanını SQLite olarak indir',
+		),
+		'export_labelled' => 'Etiketlenmiş makalelerinizi dışa aktarın',
+		'export_opml' => 'Besleme listesini dışa aktar (OPML)',
+		'export_starred' => 'Favorilerinizi dışa aktarın',
 		'feed_list' => '%s makalenin listesi',
-		'file_to_import' => 'Dosyadan içe aktar<br />(OPML, JSON or ZIP)',
-		'file_to_import_no_zip' => 'Dosyadan içe aktar<br />(OPML or JSON)',
-		'import' => 'İçe aktar',
-		'starred_list' => 'Favori makaleleirn listesi',
-		'title' => 'İçe / dışa aktar',
+		'file_to_import' => 'İçe aktarılacak dosya<br />(OPML, JSON veya ZIP)',
+		'file_to_import_no_zip' => 'İçe aktarılacak dosya<br />(OPML veya JSON)',
+		'import' => 'İçe Aktar',
+		'starred_list' => 'Favori makalelerin listesi',
+		'title' => 'İçe / dışa aktarma',
 	),
 	'menu' => array(
-		'bookmark' => 'Abonelik (FreshRSS yer imleri)',
-		'import_export' => 'İçe / dışa aktar',
+		'add' => 'Besleme veya kategori ekle',
+		'import_export' => 'İçe / dışa aktarma',
+		'label_management' => 'Etiket yönetimi',
+		'stats' => array(
+			'idle' => 'Boşta olan beslemeler',
+			'main' => 'Ana istatistikler',
+			'repartition' => 'Makale dağılımı',
+			'unread_dates' => 'Okunmamış tarihler',
+		),
 		'subscription_management' => 'Abonelik yönetimi',
-		'subscription_tools' => 'Subscription tools',// TODO
+		'subscription_tools' => 'Abonelik araçları',
+	),
+	'tag' => array(
+		'auto_label' => 'Bu etiketi yeni makalelere ekle',
+		'name' => 'İsim',
+		'new_name' => 'Yeni isim',
+		'old_name' => 'Eski isim',
 	),
 	'title' => array(
 		'_' => 'Abonelik yönetimi',
-		'feed_management' => 'RSS  akış yönetimi',
-		'subscription_tools' => 'Subscription tools',// TODO
+		'add' => 'Besleme veya kategori ekle',
+		'add_category' => 'Kategori ekle',
+		'add_dynamic_opml' => 'Dinamik OPML ekle',
+		'add_feed' => 'Besleme ekle',
+		'add_label' => 'Etiket ekle',
+		'add_opml_category' => 'OPML kategori adı',
+		'delete_label' => 'Etiketi sil',
+		'feed_management' => 'RSS besleme yönetimi',
+		'subscription_tools' => 'Abonelik araçları',
 	),
 );

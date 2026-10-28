@@ -1,11 +1,13 @@
-# Fichier modèle
+# Design
 
-**TODO**
+## Fichier modèle
 
-# Écrire un nouveau thème
+> **À FAIRE**
 
-**TODO**
+## Écrire un nouveau thème
 
-# Surcharger les icônes
+> **À FAIRE**
 
-**TODO**
+## Surcharger les icônes
+
+> **À FAIRE**

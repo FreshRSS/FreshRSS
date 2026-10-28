@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 # ***** BEGIN LICENSE BLOCK *****
 # MINZ - a free PHP Framework like Zend Framework
 # Copyright (C) 2011 Marien Fressinaud
@@ -14,122 +16,104 @@
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 # ***** END LICENSE BLOCK *****
 
 /**
- * La classe FrontController est le Dispatcher du framework, elle lance l'application
- * Elle est appelée en général dans le fichier index.php à la racine du serveur
+ * The Minz_FrontController class is the framework Dispatcher.
+ * It runs the application.
+ * It is generally invoqued by an index.php file at the root.
  */
 class Minz_FrontController {
-	protected $dispatcher;
+
+	protected Minz_Dispatcher $dispatcher;
 
 	/**
-	 * Constructeur
-	 * Initialise le dispatcher, met à jour la Request
+	 * Constructor
+	 * Initializes the dispatcher and updates the request
 	 */
-	public function __construct () {
+	public function __construct() {
 		try {
-			Minz_Configuration::register('system',
-			                             DATA_PATH . '/config.php',
-			                             FRESHRSS_PATH . '/config.default.php');
 			$this->setReporting();
 
 			Minz_Request::init();
 
-			$url = $this->buildUrl();
-			$url['params'] = array_merge (
-				$url['params'],
-				Minz_Request::fetchPOST ()
+			// Build the current request's URL and forward to it directly.
+			// If needed, a redirect is issued instead to correct the public relative path.
+			$url = Minz_Url::build();
+			$url['params'] = array_merge(
+				empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
+				array_filter($_POST, 'is_string', ARRAY_FILTER_USE_KEY)
 			);
-			Minz_Request::forward ($url);
+			Minz_Request::forward($url, redirect: Minz_Request::pathInfo() !== '');
 		} catch (Minz_Exception $e) {
 			Minz_Log::error($e->getMessage());
-			$this->killApp ($e->getMessage ());
+			self::killApp($e->getMessage());
 		}
 
 		$this->dispatcher = Minz_Dispatcher::getInstance();
 	}
 
 	/**
-	 * Retourne un tableau représentant l'url passée par la barre d'adresses
-	 * @return tableau représentant l'url
+	 * Starts the application (runs the dispatcher and sends the response)
 	 */
-	private function buildUrl() {
-		$url = array ();
-
-		$url['c'] = Minz_Request::fetchGET (
-			'c',
-			Minz_Request::defaultControllerName ()
-		);
-		$url['a'] = Minz_Request::fetchGET (
-			'a',
-			Minz_Request::defaultActionName ()
-		);
-		$url['params'] = Minz_Request::fetchGET ();
-
-		// post-traitement
-		unset ($url['params']['c']);
-		unset ($url['params']['a']);
-
-		return $url;
-	}
-
-	/**
-	 * Démarre l'application (lance le dispatcher et renvoie la réponse)
-	 */
-	public function run () {
+	public function run(): void {
 		try {
 			$this->dispatcher->run();
+		} catch (Minz_BadRequestException $e) {
+			Minz_Error::error(400, ['error' => [$e->getMessage()]], redirect: true);
 		} catch (Minz_Exception $e) {
 			try {
 				Minz_Log::error($e->getMessage());
 			} catch (Minz_PermissionDeniedException $e) {
-				$this->killApp ($e->getMessage ());
+				self::killApp($e->getMessage());
 			}
 
 			if ($e instanceof Minz_FileNotExistException ||
 					$e instanceof Minz_ControllerNotExistException ||
 					$e instanceof Minz_ControllerNotActionControllerException ||
 					$e instanceof Minz_ActionException) {
-				Minz_Error::error (
-					404,
-					array ('error' => array ($e->getMessage ())),
-					true
-				);
+				Minz_Error::error(404, ['error' => [$e->getMessage()]], true);
 			} else {
-				$this->killApp ();
+				self::killApp($e->getMessage());
 			}
 		}
 	}
 
 	/**
-	* Permet d'arrêter le programme en urgence
-	*/
-	private function killApp ($txt = '') {
-		if ($txt == '') {
-			$txt = 'See logs files';
+	 * Kills the programme
+	 */
+	public static function killApp(string $txt = ''): never {
+		header('HTTP/1.1 500 Internal Server Error', true, 500);
+		if (function_exists('errorMessageInfo')) {
+			//If the application has defined a custom error message function
+			die(errorMessageInfo('Application problem', $txt));
 		}
-		exit ('### Application problem ###<br />'."\n".$txt);
+		die('### Application problem ###<br />' . "\n" . $txt);
 	}
 
-	private function setReporting() {
-		$conf = Minz_Configuration::get('system');
-		switch($conf->environment) {
-		case 'production':
-			error_reporting(E_ALL);
-			ini_set('display_errors', 'Off');
-			ini_set('log_errors', 'On');
-			break;
-		case 'development':
-			error_reporting(E_ALL);
-			ini_set('display_errors', 'On');
-			ini_set('log_errors', 'On');
-			break;
-		case 'silent':
-			error_reporting(0);
-			break;
+	private function setReporting(): void {
+		$envType = getenv('FRESHRSS_ENV');
+		if ($envType == '') {
+			$conf = Minz_Configuration::get('system');
+			$envType = $conf->environment;
+		}
+		switch ($envType) {
+			case 'development':
+				error_reporting(E_ALL);
+				ini_set('display_errors', 'On');
+				ini_set('log_errors', 'On');
+				break;
+			case 'silent':
+				error_reporting(0);
+				break;
+			case 'production':
+			default:
+				error_reporting(E_ALL);
+				ini_set('display_errors', 'Off');
+				ini_set('log_errors', 'On');
+				break;
 		}
 	}
 }

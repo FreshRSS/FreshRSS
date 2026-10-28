@@ -1,0 +1,165 @@
+<?php
+
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
+return array(
+	'auth' => array(
+		'allow_anonymous' => 'Επιτρέψτε την ανώνυμη ανάγνωση των άρθρων του προεπιλεγμένου χρήστη (%s)',
+		'allow_anonymous_refresh' => 'Επιτρέψτε την ανώνυμη ανανέωση των άρθρων',
+		'api_enabled' => 'Επιτρέψτε την πρόσβαση <abbr>API</abbr> <small>(απαιτείται για εφαρμογές κινητών και κοινοποίηση ερωτημάτων χρηστών)</small>',
+		'form' => 'Φόρμα ιστού (σύνηθες, απαιτεί JavaScript)',
+		'http' => 'HTTP (για προχωρημένους: διαχειρίζεται από τον Web server, OIDC, SSO…)',
+		'none' => 'Καμία (ριψοκίνδυνο)',
+		'title' => 'Πιστοποίηση',
+		'token' => 'Κύριο διακριτικό πιστοποίησης',
+		'token_help' => 'Επιτρέπει την πρόσβαση σε όλες τις εξόδους RSS του χρήστη καθώς και την ανανέωση ροών χωρίς πιστοποίηση:',
+		'type' => 'Μέθοδος πιστοποίησης',
+	),
+	'extensions' => array(
+		'author' => 'Συντάκτης',
+		'community' => 'Διαθέσιμες επεκτάσεις κοινότητας',
+		'description' => 'Περιγραφή',
+		'disabled' => 'Απενεργοποιημένες',
+		'empty_list' => 'Δεν υπάρχουν εγκατεστημένες επεκτάσεις',
+		'empty_list_help' => 'Ελέγξτε τα αρχεία καταγραφής για να προσδιορίσετε τον λόγο της κενής λίστας επεκτάσεων.',
+		'enabled' => 'Ενεργοποιημένες',
+		'is_compatible' => 'Είναι συμβατό',
+		'latest' => 'Εγκατεστημένες',
+		'name' => 'Όνομα',
+		'no_configure_view' => 'Αυτή η επέκταση δεν μπορεί να ρυθμιστεί.',
+		'system' => array(
+			'_' => 'Επεκτάσεις συστήματος',
+			'no_rights' => 'Επέκταση συστήματος (δεν έχετε τα απαραίτητα δικαιώματα)',
+		),
+		'title' => 'Επεκτάσεις',
+		'update' => 'Διαθέσιμη ενημέρωση',
+		'user' => 'Επεκτάσεις χρήστη',
+		'version' => 'Έκδοση',
+	),
+	'stats' => array(
+		'_' => 'Στατιστικά',
+		'all_feeds' => 'Όλες οι ροές',
+		'category' => 'Κατηγορία',
+		'date_published' => 'Ημερομηνία δημοσίευσης',
+		'date_received' => 'Ημερομηνία λήψης',
+		'entry_count' => 'Αριθμός άρθρων',
+		'entry_per_category' => 'Άρθρα ανά κατηγορία',
+		'entry_per_day' => 'Άρθρα ανά ημέρα (τελευταίες 30 ημέρες)',
+		'entry_per_day_of_week' => 'Ανά ημέρα της εβδομάδας (μέσος όρος: %.2f μηνύματα)',
+		'entry_per_hour' => 'Ανά ώρα (μέσος όρος: %.2f μηνύματα)',
+		'entry_per_month' => 'Ανά μήνα (μέσος όρος: %.2f μηνύματα)',
+		'entry_repartition' => 'Κατανομή άρθρων',
+		'feed' => 'Ροή',
+		'feed_per_category' => 'Ροές ανά κατηγορία',
+		'idle' => 'Αδρανείς ροές',
+		'main' => 'Κύρια στατιστικά',
+		'main_stream' => 'Κεντρική ροή',
+		'nb_unreads' => 'Αριθμός μη αναγνωσμένων άρθρων',
+		'no_idle' => 'Δεν υπάρχουν αδρανείς ροές!',
+		'number_entries' => '%d άρθρα',
+		'overview' => 'Επισκόπηση',
+		'percent_of_total' => '% του συνόλου',
+		'repartition' => 'Κατανομή άρθρων: %s',
+		'status_favorites' => 'Αγαπημένα',
+		'status_read' => 'Αναγνωσμένα',
+		'status_total' => 'Σύνολο',
+		'status_unread' => 'Μη αναγνωσμένα',
+		'title' => 'Στατιστικά',
+		'top_feed' => 'Οι δέκα κορυφαίες ροές',
+		'unread_dates' => 'Ημερομηνίες με τα περισσότερα μη αναγνωσμένα άρθρα',
+	),
+	'system' => array(
+		'_' => 'Ρυθμίσεις συστήματος',
+		'auto-update-url' => 'Αυτόματη ενημέρωση URL διακομιστή',
+		'base-url' => array(
+			'_' => 'Βασικό URL',
+			'recommendation' => 'Αυτόματη σύσταση: <kbd>%s</kbd>',
+		),
+		'closed_registration_message' => 'Μήνυμα όταν οι εγγραφές είναι κλειστές',
+		'cookie-duration' => array(
+			'help' => 'σε δευτερόλεπτα',
+			'number' => 'Διάρκεια παραμονής σε σύνδεση',
+		),
+		'default_closed_registration_message' => 'Αυτός ο διακομιστής δεν αποδέχεται νέες εγγραφές αυτή τη στιγμή.',
+		'force_email_validation' => 'Επιβολή επιβεβαίωσης διεύθυνσης email',
+		'instance-name' => 'Όνομα instance',
+		'internal-host-allowlist' => array(
+			'_' => 'Λίστα επιτρεπόμενων εσωτερικών hosts',
+			'help' => 'Μία καταχώρηση ανά γραμμή:<ul><li>Ένα <code>host:port</code>. Για παράδειγμα <code>127.0.0.1:8080</code> ή <code>rss-bridge:80</code></li><li>Σημειογραφία CIDR. Για παράδειγμα <code>0.0.0.0/0</code> για να επιτρέψετε οποιοδήποτε IPv4, <code>::/0</code> για να επιτρέψετε οποιοδήποτε IPv6</li><li>Ένα <code>*</code> για να επιτρέψετε οποιοδήποτε host (μη ασφαλές)</li></ul>',
+		),
+		'max-categories' => 'Μέγιστος αριθμός κατηγοριών ανά χρήστη',
+		'max-feeds' => 'Μέγιστος αριθμός ροών ανά χρήστη',
+		'override-by-env-var' => 'Αυτή η ρύθμιση ορίζεται από τη μεταβλητή περιβάλλοντος <kbd>%s</kbd>.',
+		'registration' => array(
+			'number' => 'Μέγιστος αριθμός λογαριασμών',
+			'select' => array(
+				'label' => 'Φόρμα εγγραφής',
+				'option' => array(
+					'noform' => 'Απενεργοποιημένη: Χωρίς φόρμα εγγραφής',
+					'nolimit' => 'Ενεργοποιημένη: Χωρίς όριο λογαριασμών',
+					'setaccountsnumber' => 'Ορισμός μέγιστου αριθμού λογαριασμών',
+				),
+			),
+			'status' => array(
+				'disabled' => 'Η φόρμα είναι απενεργοποιημένη',
+				'enabled' => 'Η φόρμα είναι ενεργοποιημένη',
+			),
+			'title' => 'Φόρμα εγγραφής χρήστη',
+		),
+		'sensitive-parameter' => 'Ευαίσθητη παράμετρος. Επεξεργαστείτε χειροκίνητα στο <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'δεν παρέχεται',
+			'enabled' => '<a href="./?a=tos">είναι ενεργοποιημένο</a>',
+			'help' => 'Πώς να <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">ενεργοποιήσετε τους Όρους Χρήσης</a>',
+		),
+		'websub' => array(
+			'help' => 'Σχετικά με το <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
+		),
+	),
+	'update' => array(
+		'_' => 'Ενημέρωση συστήματος',
+		'apply' => 'Εφαρμογή',
+		'changelog' => 'Ιστορικό αλλαγών',
+		'check' => 'Έλεγχος για νέες ενημερώσεις',
+		'copiedFromURL' => 'το update.php αντιγράφηκε από %s στο ./data',
+		'current_version' => 'Τρέχουσα έκδοση του',
+		'last' => 'Τελευταίος έλεγχος',
+		'loading' => 'Ενημέρωση…',
+		'none' => 'Δεν υπάρχουν ενημερώσεις',
+		'releaseChannel' => array(
+			'_' => 'Κανάλι κυκλοφορίας',
+			'edge' => 'Rolling release («edge»)',
+			'latest' => 'Σταθερή κυκλοφορία («latest»)',	// DIRTY
+		),
+		'title' => 'Ενημέρωση συστήματος',
+		'viaGit' => 'Ξεκίνησε η ενημέρωση μέσω git και GitHub.com',
+	),
+	'user' => array(
+		'admin' => 'Διαχειριστής',
+		'article_count' => 'Άρθρα',
+		'back_to_manage' => '← Επιστροφή στη λίστα χρηστών',
+		'create' => 'Δημιουργία νέου χρήστη',
+		'database_size' => 'Μέγεθος βάσης δεδομένων',
+		'email' => 'Διεύθυνση email',
+		'enabled' => 'Ενεργοποιημένο',
+		'feed_count' => 'Ροές',
+		'is_admin' => 'Είναι διαχειριστής',
+		'language' => 'Γλώσσα',
+		'last_user_activity' => 'Τελευταία δραστηριότητα χρήστη',
+		'list' => 'Λίστα χρηστών',
+		'number' => 'Δημιουργήθηκε %d λογαριασμός',
+		'numbers' => 'Δημιουργήθηκαν %d λογαριασμοί',
+		'password_form' => 'Κωδικός πρόσβασης<br /><small>(για τη μέθοδο σύνδεσης μέσω φόρμας ιστού)</small>',
+		'password_format' => 'Τουλάχιστον 7 χαρακτήρες',
+		'title' => 'Διαχείριση χρηστών',
+		'username' => 'Όνομα χρήστη',
+	),
+);

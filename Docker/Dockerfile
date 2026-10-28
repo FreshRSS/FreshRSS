@@ -1,27 +1,74 @@
-FROM alpine:3.8
+FROM debian:13-slim
 
-RUN apk add --no-cache \
-	apache2 php7-apache2 \
-	php7 php7-curl php7-gmp php7-intl php7-mbstring php7-xml php7-zip \
-	php7-ctype php7-dom php7-fileinfo php7-iconv php7-json php7-session php7-simplexml php7-xmlreader php7-zlib \
-	php7-pdo_sqlite \
-	php7-pdo_mysql \
-	php7-pdo_pgsql
+ENV TZ=UTC
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ENV FRESHRSS_ROOT /var/www/FreshRSS
-RUN mkdir -p ${FRESHRSS_ROOT} /run/apache2/
-WORKDIR ${FRESHRSS_ROOT}
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && \
+	apt-get install --no-install-recommends -y \
+	ca-certificates cron \
+	apache2 libapache2-mod-php \
+	libapache2-mod-auth-openidc \
+	php-curl php-gmp php-intl php-mbstring php-xml php-zip \
+	php-sqlite3 php-mysql php-pgsql && \
+	rm -rf /var/lib/apt/lists/*
 
-COPY . ${FRESHRSS_ROOT}
-COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
+RUN mkdir -p /var/www/FreshRSS/ /run/apache2/
+WORKDIR /var/www/FreshRSS
 
-RUN sed -r -i "/^[ ]*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/httpd.conf && \
-	echo "17,37 * * * * php ${FRESHRSS_ROOT}/app/actualize_script.php 2>&1 | tee /tmp/FreshRSS.log" >> \
-		/var/spool/cron/crontabs/root
+COPY --chown=root:www-data . /var/www/FreshRSS
+COPY ./Docker/*.Apache.conf /etc/apache2/sites-available/
 
-ENV CRON_MIN ''
+ARG FRESHRSS_VERSION
+ARG SOURCE_COMMIT
+
+LABEL \
+	org.opencontainers.image.description="A self-hosted RSS feed aggregator" \
+	org.opencontainers.image.documentation="https://freshrss.github.io/FreshRSS/" \
+	org.opencontainers.image.licenses="AGPL-3.0" \
+	org.opencontainers.image.revision="${SOURCE_COMMIT}" \
+	org.opencontainers.image.source="https://github.com/FreshRSS/FreshRSS" \
+	org.opencontainers.image.title="FreshRSS" \
+	org.opencontainers.image.url="https://freshrss.org/" \
+	org.opencontainers.image.vendor="FreshRSS" \
+	org.opencontainers.image.version="$FRESHRSS_VERSION"
+
+RUN \
+	# Disable unwanted Apache modules and configurations
+	a2dismod -q -f alias autoindex negotiation status && \
+	a2dismod -q auth_openidc && \
+	a2disconf -q '*' && \
+	a2dissite -q '*' && \
+	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" /etc/apache2/apache2.conf && \
+	sed -r -i "/^\s*Listen /s/^/#/" /etc/apache2/ports.conf && \
+	# Enable required Apache modules
+	a2enmod -q deflate expires filter headers mime remoteip setenvif && \
+	# Enable FreshRSS configuration for Apache
+	a2ensite -q 'FreshRSS*' && \
+	# Disable unwanted PHP modules
+	phpdismod calendar exif ffi ftp gettext mysqli posix readline shmop sockets sysvmsg sysvsem sysvshm xsl && \
+	# Disable built-in FreshRSS updates when using Docker, as the full image is supposed to be updated instead
+	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
+	# Configure cron job
+	touch /var/www/FreshRSS/Docker/env.txt && \
+	echo "7,37 * * * * . /var/www/FreshRSS/Docker/env.txt; \
+		su www-data -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /etc/crontab.freshrss.default
+
+ENV COPY_LOG_TO_SYSLOG=On
+ENV COPY_SYSLOG_TO_STDERR=On
+ENV CRON_MIN=''
+ENV DATA_PATH=''
+ENV ENABLE_ACCESS_LOG=1
+ENV FRESHRSS_ENV=''
+ENV LISTEN=''
+ENV OIDC_ENABLED=''
+ENV TRUSTED_PROXY=''
+
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
 EXPOSE 80
-CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
-	exec httpd -D FOREGROUND
+# hadolint ignore=DL3025
+CMD ([ -z "$CRON_MIN" ] || cron) && \
+	. /etc/apache2/envvars && \
+	exec apache2 -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo "-D OIDC_ENABLED")

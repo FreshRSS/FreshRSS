@@ -1,8 +1,10 @@
 <?php
-class Minz_CurrentPagePaginationException extends Minz_Exception {
-	public function __construct ($page) {
-		$message = 'Page number `' . $page . '` doesn\'t exist';
+declare(strict_types=1);
 
-		parent::__construct ($message, self::ERROR);
+class Minz_CurrentPagePaginationException extends Minz_Exception {
+	public function __construct(int $page) {
+		$message = 'Page number `' . $page . '` doesn’t exist';
+
+		parent::__construct($message, self::ERROR);
 	}
 }

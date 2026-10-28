@@ -1,62 +1,168 @@
-<?php $this->partial('aside_configure'); ?>
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+	$this->partial('aside_configure');
+?>
+<main class="post">
+	<h1><?= _t('admin.system') ?></h1>
 
-<div class="post">
-	<a href="<?php echo _url('index', 'index'); ?>"><?php echo _t('gen.action.back_to_rss_feeds'); ?></a>
-
-	<form method="post" action="<?php echo _url('configure', 'system'); ?>">
-		<input type="hidden" name="_csrf" value="<?php echo FreshRSS_Auth::csrfToken(); ?>" />
-		<legend><?php echo _t('admin.system'); ?></legend>
+	<form method="post" action="<?= _url('configure', 'system') ?>" data-auto-leave-validation="1">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">
-			<label class="group-name" for="instance-name"><?php echo _t('admin.system.instance-name'); ?></label>
+			<label class="group-name" for="instance-name"><?= _t('admin.system.instance-name') ?></label>
 			<div class="group-controls">
-			    <input type="text" class="extend" id="instance-name" name="instance-name" value="<?php echo FreshRSS_Context::$system_conf->title; ?>" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->title; ?>"/>
+				<input type="text" id="instance-name" name="instance-name" value="<?= FreshRSS_Context::systemConf()->title ?>" />
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="auto-update-url"><?php echo _t('admin.system.auto-update-url'); ?></label>
+			<label class="group-name" for="base-url"><?= _t('admin.system.base-url') ?></label>
 			<div class="group-controls">
-			    <input type="text" class="extend" id="auto-update-url" name="auto-update-url" value="<?php echo FreshRSS_Context::$system_conf->auto_update_url; ?>" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->auto_update_url; ?>"/>
+				<input type="text" id="base-url" name="base-url" value="<?= FreshRSS_Context::systemConf()->base_url ?>" readonly="readonly" />
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.base-url.recommendation', dirname(Minz_Request::guessBaseUrl())) ?></p>
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.sensitive-parameter') ?></p>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="max-registrations"><?php echo _t('admin.system.registration.number'); ?></label>
+			<label class="group-name" for="websub"><?= _t('sub.feed.websub') ?></label>
 			<div class="group-controls">
-				<input type="number" id="max-registrations" name="max-registrations" value="<?php echo FreshRSS_Context::$system_conf->limits['max_registrations']; ?>" min="0" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->limits['max_registrations']; ?>"/>
-				<?php echo _i('help'); ?> <?php echo _t('admin.system.registration.help'); ?>
+				<input type="checkbox" id="websub" name="websub" disabled="disabled" <?=
+					FreshRSS_Context::systemConf()->pubsubhubbub_enabled && Minz_Request::serverIsPublic(FreshRSS_Context::systemConf()->base_url) ? 'checked="checked"' : '' ?> />
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.websub.help') ?></p>
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.sensitive-parameter') ?></p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="auto-update-url"><?= _t('admin.system.auto-update-url') ?></label>
+			<div class="group-controls">
+				<input type="text" id="auto-update-url" name="auto-update-url" disabled="disabled" value="<?= FreshRSS_Context::systemConf()->auto_update_url ?>" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="max-feeds"><?= _t('admin.system.max-feeds') ?></label>
+			<div class="group-controls">
+				<input type="number" id="max-feeds" name="max-feeds" value="<?= FreshRSS_Context::systemConf()->limits['max_feeds'] ?>" min="1" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="max-categories"><?= _t('admin.system.max-categories') ?></label>
+			<div class="group-controls">
+				<input type="number" id="max-categories" name="max-categories" value="<?= FreshRSS_Context::systemConf()->limits['max_categories'] ?>" min="1" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="group-name" for="cookie-duration"><?= _t('admin.system.cookie-duration.number') ?></label>
+			<div class="group-controls">
+				<input type="number" id="cookie-duration" name="cookie-duration" value="<?= FreshRSS_Context::systemConf()->limits['cookie_duration'] ?>" min="0" />
+				<p class="help"><?= _i('help') ?> <?= _t('admin.system.cookie-duration.help') ?></p>
+			</div>
+		</div>
+
+		<?php
+			$internal_host_allowlist = getenv('INTERNAL_HOST_ALLOWLIST');
+			if (is_string($internal_host_allowlist) && $internal_host_allowlist !== '') {
+				$internal_host_allowlist = Minz_Helper::htmlspecialchars_utf8(preg_split('/\s+/', $internal_host_allowlist, -1, PREG_SPLIT_NO_EMPTY));
+			}
+			$internal_host_allowlist_fromenv = true;
+			if (!is_array($internal_host_allowlist) || empty($internal_host_allowlist)) {
+				$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
+				$internal_host_allowlist_fromenv = false;
+			}
+		?>
+
+		<div class="form-group">
+			<label class="group-name" for="internal-host-allowlist"><?= _t('admin.system.internal-host-allowlist') ?></label>
+			<div class="group-controls">
+				<textarea
+					<?= $internal_host_allowlist_fromenv ? '' : 'id="internal-host-allowlist"' ?>
+					name="internal-host-allowlist"
+					<?= $internal_host_allowlist_fromenv ? ' disabled="disabled"' : ''?>><?= implode("\n", $internal_host_allowlist) ?></textarea>
+				<?php if ($internal_host_allowlist_fromenv): ?>
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.override-by-env-var', 'INTERNAL_HOST_ALLOWLIST') ?></p>
+				<?php endif ?>
+					<div class="help"><?= _i('help') ?> <?= _t('admin.system.internal-host-allowlist.help') ?></div>
+			</div>
+		</div>
+
+		<h2><?= _t('admin.system.registration.title') ?></h2>
+
+		<div class="form-group">
+			<label class="group-name" for="max-registrations-select"><?= _t('admin.system.registration.select.label') ?></label>
+			<div class="group-controls">
+				<select class="select-input-changer" name="" data-name="max-registrations">
+					<option value="1" <?= FreshRSS_Context::systemConf()->limits['max_registrations'] == 1 ? 'selected = "selected"' : ''; ?> data-input-visible="false"><?= _t('admin.system.registration.select.option.noform') ?></option>
+					<option value="0" <?= FreshRSS_Context::systemConf()->limits['max_registrations'] == 0 ? 'selected = "selected"' : ''; ?> data-input-visible="false"><?= _t('admin.system.registration.select.option.nolimit') ?></option>
+					<option value="2" <?= FreshRSS_Context::systemConf()->limits['max_registrations'] > 1 ? 'selected = "selected"' : ''; ?> data-input-visible="true"><?= _t('admin.system.registration.select.option.setaccountsnumber') ?></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group" id="max-registrations-block">
+			<label class="group-name" for="max-registrations-input"><?= _t('admin.system.registration.number') ?></label>
+			<div class="group-controls">
+				<?php $number = count(FreshRSS_user_Controller::listUsers()); ?>
+				 <input type="number" id="max-registrations-input" name="" value="<?= FreshRSS_Context::systemConf()->limits['max_registrations'] > 1 ? FreshRSS_Context::systemConf()->limits['max_registrations'] : $number + 1; ?>" min="2" data-number="<?= $number ?>"/>
+				<span id="max-registrations-status-disabled">(= <?= _t('admin.system.registration.status.disabled') ?>)</span><span id="max-registrations-status-enabled">(= <?= _t('admin.system.registration.status.enabled') ?>)</span>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="group-controls">
-				<?php
-					$number = count(listUsers());
-					echo ($number > 1 ? _t('admin.user.numbers', $number) : _t('admin.user.number', $number));
-				?>
+				<?= ($number > 1 ? _t('admin.user.numbers', $number) : _t('admin.user.number', $number)); ?>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="max-feeds"><?php echo _t('admin.system.max-feeds'); ?></label>
+			<label class="group-name" for="closed_registration_message"><?= _t('admin.system.closed_registration_message') ?></label>
 			<div class="group-controls">
-			    <input type="number" id="max-feeds" name="max-feeds" value="<?php echo FreshRSS_Context::$system_conf->limits['max_feeds']; ?>" min="1" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->limits['max_feeds']; ?>"/>
+				<textarea id="closed_registration_message" name="closed_registration_message" rows="4" cols="50"><?=
+					FreshRSS_Context::systemConf()->attributeString('closed_registration_message') ?:
+					_t('admin.system.default_closed_registration_message')
+				?></textarea>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="group-name" for="max-categories"><?php echo _t('admin.system.max-categories'); ?></label>
+			<label class="group-name"><?= _t('index.tos.title') ?></label>
 			<div class="group-controls">
-			    <input type="number" id="max-categories" name="max-categories" value="<?php echo FreshRSS_Context::$system_conf->limits['max_categories']; ?>" min="1" data-leave-validation="<?php echo FreshRSS_Context::$system_conf->limits['max_categories']; ?>"/>
+				<?php if (file_exists(TOS_FILENAME)) { ?>
+					<?= _t('admin.system.tos.enabled') ?>
+					<?php
+				} else { ?>
+					<?= _t('admin.system.tos.disabled') ?>
+					<p class="help"><?= _i('help') ?> <?= _t('admin.system.tos.help') ?></p>
+				<?php } ?>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="force-email-validation">
+					<input
+						type="checkbox"
+						name="force-email-validation"
+						id="force-email-validation"
+						value="1"
+						<?= FreshRSS_Context::systemConf()->force_email_validation ? 'checked="checked"' : '' ?>
+					/>
+					<?= _t('admin.system.force_email_validation') ?>
+				</label>
 			</div>
 		</div>
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
-				<button type="submit" class="btn btn-important"><?php echo _t('gen.action.submit'); ?></button>
-				<button type="reset" class="btn"><?php echo _t('gen.action.cancel'); ?></button>
+				<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
 			</div>
 		</div>
 	</form>
-</div>
+</main>
+
+<script src="../scripts/config.js?<?= @filemtime(PUBLIC_PATH . '/scripts/config.js') ?>"></script>

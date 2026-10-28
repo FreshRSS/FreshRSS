@@ -1,138 +1,178 @@
 <?php
-define('SQL_CREATE_DB', 'CREATE DATABASE IF NOT EXISTS %1$s DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
+$GLOBALS['SQL_CREATE_DB'] = <<<'SQL'
+CREATE DATABASE IF NOT EXISTS `%1$s` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+SQL;
 
-define('SQL_CREATE_TABLES', '
-CREATE TABLE IF NOT EXISTS `%1$scategory` (
-	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-	`name` VARCHAR(' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') NOT NULL,	-- Max index length for Unicode is 191 characters (767 bytes)
+$GLOBALS['SQL_CREATE_TABLES'] = <<<'SQL'
+CREATE TABLE IF NOT EXISTS `_category` (
+	`id` INT NOT NULL AUTO_INCREMENT,	-- v0.7
+	`name` VARCHAR(191) NOT NULL,	-- Max index length for Unicode is 191 characters (767 bytes) FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE
+	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
+	`lastUpdate` BIGINT DEFAULT 0,	-- 1.20.0
+	`error` BIGINT DEFAULT 0,	-- Date, v1.29.0
+	`attributes` TEXT,	-- v1.15.0
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
-CREATE TABLE IF NOT EXISTS `%1$sfeed` (
-	`id` SMALLINT NOT NULL AUTO_INCREMENT,	-- v0.7
-	`url` VARCHAR(511) CHARACTER SET latin1 NOT NULL,
-	`category` SMALLINT DEFAULT 0,	-- v0.7
-	`name` VARCHAR(' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') NOT NULL,
-	`website` VARCHAR(255) CHARACTER SET latin1,
+CREATE TABLE IF NOT EXISTS `_feed` (
+	`id` INT NOT NULL AUTO_INCREMENT,	-- v0.7
+	`url` VARCHAR(32768) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	`kind` SMALLINT DEFAULT 0,	-- 1.20.0
+	`category` INT DEFAULT 0,	-- 1.20.0
+	`name` VARCHAR(191) NOT NULL,
+	`website` TEXT CHARACTER SET latin1 COLLATE latin1_bin,
 	`description` TEXT,
-	`lastUpdate` INT(11) DEFAULT 0,	-- Until year 2038
-	`priority` TINYNT(2) NOT NULL DEFAULT 10,
-	`pathEntries` VARCHAR(511) DEFAULT NULL,
-	`httpAuth` VARCHAR(511) DEFAULT NULL,
-	`error` BOOLEAN DEFAULT 0,
-	`keep_history` MEDIUMINT NOT NULL DEFAULT -2,	-- v0.7
+	`lastUpdate` BIGINT DEFAULT 0,
+	`priority` TINYINT(2) NOT NULL DEFAULT 10,
+	`pathEntries` VARCHAR(4096) DEFAULT NULL,
+	`httpAuth` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
+	`error` BIGINT DEFAULT 0,	-- Date, v1.29.0
 	`ttl` INT NOT NULL DEFAULT 0,	-- v0.7.3
 	`attributes` TEXT,	-- v1.11.0
 	`cache_nbEntries` INT DEFAULT 0,	-- v0.7
 	`cache_nbUnreads` INT DEFAULT 0,	-- v0.7
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`category`) REFERENCES `%1$scategory`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-	UNIQUE KEY (`url`),	-- v0.7
+	FOREIGN KEY (`category`) REFERENCES `_category`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
 	INDEX (`name`),	-- v0.7
-	INDEX (`priority`),	-- v0.7
-	INDEX (`keep_history`)	-- v0.7
+	INDEX (`priority`)	-- v0.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
-CREATE TABLE IF NOT EXISTS `%1$sentry` (
+CREATE TABLE IF NOT EXISTS `_entry` (
 	`id` BIGINT NOT NULL,	-- v0.7
-	`guid` VARCHAR(760) CHARACTER SET latin1 NOT NULL,	-- Maximum for UNIQUE is 767B
-	`title` VARCHAR(255) NOT NULL,
-	`author` VARCHAR(255),
-	`content_bin` BLOB,	-- v0.7
-	`link` VARCHAR(1023) CHARACTER SET latin1 NOT NULL,
-	`date` INT(11),	-- Until year 2038
-	`lastSeen` INT(11) DEFAULT 0,	-- v1.1.1, Until year 2038
+	`guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,	-- Maximum for UNIQUE is 767B
+	`title` VARCHAR(8192) NOT NULL,
+	`author` VARCHAR(1024),
+	`content_bin` MEDIUMBLOB,	-- v0.7
+	`link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
+	`lastModified` BIGINT,	-- v1.29.0
+	`lastUserModified` BIGINT,	-- v1.28.0
 	`hash` BINARY(16),	-- v1.1.1
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
-	`id_feed` SMALLINT,	-- v0.7
-	`tags` VARCHAR(1023),
+	`id_feed` INT,	-- 1.20.0
+	`tags` VARCHAR(2048),
+	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),	-- v0.7
 	INDEX (`is_favorite`),	-- v0.7
 	INDEX (`is_read`),	-- v0.7
-	INDEX `entry_lastSeen_index` (`lastSeen`)	-- v1.1.1
-	-- INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7 Located futher down
+	INDEX `entry_lastSeen_index` (`lastSeen`),	-- v1.1.1
+	INDEX `entry_last_modified_index` (`lastModified`),
+	INDEX `entry_last_user_modified_index` (`lastUserModified`),
+	INDEX `entry_feed_read_index` (`id_feed`,`is_read`)	-- v1.7
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
-INSERT IGNORE INTO `%1$scategory` (id, name) VALUES(1, "%2$s");
-');
+INSERT IGNORE INTO `_category` (id, name) VALUES(1, 'Uncategorized');
 
-define('SQL_CREATE_TABLE_ENTRYTMP', '
-CREATE TABLE IF NOT EXISTS `%1$sentrytmp` (	-- v1.7
+CREATE TABLE IF NOT EXISTS `_entrytmp` (	-- v1.7
 	`id` BIGINT NOT NULL,
-	`guid` VARCHAR(760) CHARACTER SET latin1 NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`author` VARCHAR(255),
-	`content_bin` BLOB,
-	`link` VARCHAR(1023) CHARACTER SET latin1 NOT NULL,
-	`date` INT(11),
-	`lastSeen` INT(11) DEFAULT 0,
+	`guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	`title` VARCHAR(8192) NOT NULL,
+	`author` VARCHAR(1024),
+	`content_bin` MEDIUMBLOB,
+	`link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+	`date` BIGINT,
+	`lastSeen` BIGINT DEFAULT 0,
 	`hash` BINARY(16),
 	`is_read` BOOLEAN NOT NULL DEFAULT 0,
 	`is_favorite` BOOLEAN NOT NULL DEFAULT 0,
-	`id_feed` SMALLINT,
-	`tags` VARCHAR(1023),
+	`id_feed` INT,	-- 1.20.0
+	`tags` VARCHAR(2048),
+	`attributes` TEXT,	-- v1.20.0
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`id_feed`) REFERENCES `%1$sfeed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (`id_feed`) REFERENCES `_feed`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	UNIQUE KEY (`id_feed`,`guid`),
 	INDEX (`date`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
-CREATE INDEX `entry_feed_read_index` ON `%1$sentry`(`id_feed`,`is_read`);	-- v1.7 Located here to be auto-added
-');
-
-define('SQL_CREATE_TABLE_TAGS', '
-CREATE TABLE IF NOT EXISTS `%1$stag` (	-- v1.12
-	`id` SMALLINT NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(63) NOT NULL,
+CREATE TABLE IF NOT EXISTS `_tag` (	-- v1.12
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(191) NOT NULL,
 	`attributes` TEXT,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY (`name`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
 
-CREATE TABLE IF NOT EXISTS `%1$sentrytag` (	-- v1.12
-	`id_tag` SMALLINT,
+CREATE TABLE IF NOT EXISTS `_entrytag` (	-- v1.12
+	`id_tag` INT,	-- 1.20.0
 	`id_entry` BIGINT,
 	PRIMARY KEY (`id_tag`,`id_entry`),
-	FOREIGN KEY (`id_tag`) REFERENCES `%1$stag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-	FOREIGN KEY (`id_entry`) REFERENCES `%1$sentry`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (`id_tag`) REFERENCES `_tag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (`id_entry`) REFERENCES `_entry`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	INDEX (`id_entry`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ENGINE = INNODB;
-');
+SQL;
 
-define('SQL_INSERT_FEEDS', '
-INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("https://freshrss.org/feeds/all.atom.xml", 1, "FreshRSS.org", "https://freshrss.org/", "FreshRSS, a free, self-hostable aggregator…", 86400);
-INSERT IGNORE INTO `%1$sfeed` (url, category, name, website, description, ttl) VALUES("https://github.com/FreshRSS/FreshRSS/releases.atom", 1, "FreshRSS @ GitHub", "https://github.com/FreshRSS/FreshRSS/", "FreshRSS releases @ GitHub", 86400);
-');
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_USER_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry`
+	ADD COLUMN IF NOT EXISTS `lastUserModified` BIGINT,	-- 1.28.0
+	ADD INDEX IF NOT EXISTS `entry_last_user_modified_index` (`lastUserModified`);
+SQL;
 
-define('SQL_DROP_TABLES', 'DROP TABLE IF EXISTS `%1$sentrytag`, `%1$stag`, `%1$sentrytmp`, `%1$sentry`, `%1$sfeed`, `%1$scategory`');
+$GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
+ALTER TABLE `_entry`
+	ADD COLUMN IF NOT EXISTS `lastModified` BIGINT,	-- 1.29.0
+	ADD INDEX IF NOT EXISTS `entry_last_modified_index` (`lastModified`);
+SQL;
 
-define('SQL_UPDATE_UTF8MB4', '
-ALTER DATABASE `%2$s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;	-- v1.5.0
+$GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
+DROP TABLE IF EXISTS `_entrytag`, `_tag`, `_entrytmp`, `_entry`, `_feed`, `_category`;
+SQL;
 
-ALTER TABLE `%1$scategory` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-UPDATE `%1$scategory` SET name=SUBSTRING(name,1,' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') WHERE LENGTH(name) > ' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ';
-ALTER TABLE `%1$scategory` MODIFY `name` VARCHAR(' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
-OPTIMIZE TABLE `%1$scategory`;
+$GLOBALS['SQL_UPDATE_MINOR'] = <<<'SQL'
+DROP PROCEDURE IF EXISTS update_minor;
+CREATE PROCEDURE update_minor()
+BEGIN
+	DECLARE up_to_date INT;
 
-ALTER TABLE `%1$sfeed` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-UPDATE `%1$sfeed` SET name=SUBSTRING(name,1,' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') WHERE LENGTH(name) > ' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ';
-ALTER TABLE `%1$sfeed` MODIFY `name` VARCHAR(' . FreshRSS_DatabaseDAO::LENGTH_INDEX_UNICODE . ') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
-ALTER TABLE `%1$sfeed` MODIFY `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-OPTIMIZE TABLE `%1$sfeed`;
+	SELECT COUNT(*) INTO up_to_date FROM information_schema.COLUMNS
+		WHERE TABLE_SCHEMA = DATABASE()
+		AND TABLE_NAME = REPLACE('`_feed`', '`', '')
+		AND COLUMN_NAME = 'error'
+		AND DATA_TYPE = 'bigint';
 
-ALTER TABLE `%1$sentry` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-ALTER TABLE `%1$sentry` MODIFY `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL;
-ALTER TABLE `%1$sentry` MODIFY `author` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-ALTER TABLE `%1$sentry` MODIFY `tags` VARCHAR(1023) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-OPTIMIZE TABLE `%1$sentry`;
-');
+	IF up_to_date = 0 THEN
+		ALTER TABLE `_category`
+			MODIFY COLUMN `error` BIGINT DEFAULT 0;	-- v1.29.0
+		ALTER TABLE `_feed`
+			MODIFY COLUMN `website` TEXT CHARACTER SET latin1 COLLATE latin1_bin,
+			MODIFY COLUMN `lastUpdate` BIGINT DEFAULT 0,
+			MODIFY COLUMN `error` BIGINT DEFAULT 0,	-- v1.29.0
+			MODIFY COLUMN `pathEntries` VARCHAR(4096),
+			MODIFY COLUMN `httpAuth` VARCHAR(1024) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL;
+		ALTER TABLE `_entry`
+			MODIFY COLUMN `date` BIGINT,
+			MODIFY COLUMN `lastSeen` BIGINT DEFAULT 0,
+			MODIFY COLUMN `guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+			MODIFY COLUMN `title` VARCHAR(8192) NOT NULL,
+			MODIFY COLUMN `author` VARCHAR(1024),
+			MODIFY COLUMN `link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+			MODIFY COLUMN `tags` VARCHAR(2048);
+		ALTER TABLE `_entrytmp`
+			MODIFY COLUMN `date` BIGINT,
+			MODIFY COLUMN `lastSeen` BIGINT DEFAULT 0,
+			MODIFY COLUMN `guid` VARCHAR(767) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+			MODIFY COLUMN `title` VARCHAR(8192) NOT NULL,
+			MODIFY COLUMN `author` VARCHAR(1024),
+			MODIFY COLUMN `link` VARCHAR(16383) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+			MODIFY COLUMN `tags` VARCHAR(2048);
+		ALTER TABLE `_tag`
+			MODIFY COLUMN `name` VARCHAR(191) NOT NULL;
+		ALTER TABLE `_feed`
+			DROP INDEX IF EXISTS `url`, -- IF EXISTS works with MariaDB but not with MySQL, so needs PHP workaround
+			MODIFY COLUMN `url` VARCHAR(32768) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL;
+	END IF;
+END;
+CALL update_minor();
+DROP PROCEDURE update_minor;
+SQL;

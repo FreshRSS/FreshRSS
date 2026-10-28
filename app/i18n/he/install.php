@@ -1,20 +1,22 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
 	'action' => array(
 		'finish' => 'השלמת ההתקנה',
 		'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
+		'keep_install' => 'Keep previous configuration',	// TODO
 		'next_step' => 'לשלב הבא',
-	),
-	'auth' => array(
-		'email_persona' => 'כתובת דואר אלקטרוני להרשמה<br /><small>(לצורך <a href="https://persona.org/" rel="external">מוזילה פרסונה</a>)</small>',
-		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
-		'http' => 'HTTP (למשתמשים מתקדמים עם HTTPS)',
-		'none' => 'ללא (מסוכן)',
-		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
-		'password_format' => 'At least 7 characters', // @todo
-		'persona' => 'מוזילה פרסונה (מודרני, דורש JavaScript)',
-		'type' => 'שיטת אימות',
+		'reinstall' => 'Reinstall FreshRSS',	// TODO
 	),
 	'bdd' => array(
 		'_' => 'בסיס נתונים',
@@ -24,15 +26,16 @@ return array(
 			'ok' => 'הגדרות בסיס הנתונים נשמרו.',
 		),
 		'host' => 'מארח',
-		'prefix' => 'קידומת הטבלה',
 		'password' => 'HTTP סיסמה',
+		'prefix' => 'קידומת הטבלה',
 		'type' => 'סוג בסיס הנתונים',
 		'username' => 'HTTP שם משתמש',
 	),
 	'check' => array(
 		'_' => 'בדיקות',
+		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO
 		'cache' => array(
-			'nok' => 'Check permissions on <em>./data/cache</em> directory. HTTP server must have rights to write into', // @todo
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'ההרשאות בתיקיית המטמון תקינות',
 		),
 		'ctype' => array(
@@ -44,52 +47,99 @@ return array(
 			'ok' => 'יש לכם את גירסת %s של cURL',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on <em>./data</em> directory. HTTP server must have rights to write into', // @todo
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'ההרשאות בתיקיית הדאטא תקינות',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
-			'nok' => 'הספרייה הנדרשת לסיור ב DOM אינה מותקנת  (php-xml package)',
+			'nok' => 'הספרייה הנדרשת לסיור ב DOM אינה מותקנת	(php-xml package)',
 			'ok' => 'הספרייה הנדרשת לסיור ב DOM מותקנת',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on <em>./data/favicons</em> directory. HTTP server must have rights to write into', // @todo
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',
 			'ok' => 'ההרשאות בתיקיית הfavicons תקינות',
 		),
-		'http_referer' => array(
-			'nok' => 'נא לדבוק שאינך פוגעת ב HTTP REFERER שלך.',
-			'ok' => 'הHTTP REFERER ידוע ותאם לשרת שלך.',
+		'fileinfo' => array(
+			'nok' => 'Cannot find the recommended PHP fileinfo library (fileinfo package).',	// TODO
+			'ok' => 'You have the recommended PHP fileinfo library (fileinfo package).',	// TODO
+		),
+		'files' => 'File installation',	// TODO
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
 		),
 		'json' => array(
-			'nok' => 'Cannot find a recommended library to parse JSON.',	//TODO
-			'ok' => 'You have a recommended library to parse JSON.',	//TODO
+			'nok' => 'Cannot find the required library to parse JSON.',	// TODO
+			'ok' => 'You have the required library to parse JSON.',	// TODO
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	//TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	//TODO
-		),
-		'minz' => array(
-			'nok' => 'You lack the Minz framework.', // @todo
-			'ok' => 'יש לכם את תשתית Minz',
+			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO
+			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO
 		),
 		'pcre' => array(
 			'nok' => 'הספרייה הנדרשת לביטויים רגולריים אינה מותקנת (php-pcre)',
 			'ok' => 'הספרייה הנדרשת לביטויים רגולריים מותקנת (PCRE)',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+		),
 		'pdo' => array(
 			'nok' => 'PDO אינו מותקן או שאחד ממנהלי ההתקנים שלו חסר (pdo_mysql, pdo_sqlite)',
 			'ok' => 'PDO מותקן ולפחות אחד ממנהלי ההתקן הנתמכים מותקן (pdo_mysql, pdo_sqlite)',
 		),
-		'persona' => array(
-			'nok' => 'Check permissions on <em>./data/persona</em> directory. HTTP server must have rights to write into', // @todo
-			'ok' => 'ההרשאות בתיקיית מוזילה פרסונה תקינות',
-		),
 		'php' => array(
+			'_' => 'PHP installation',	// TODO
 			'nok' => 'גירסת PHP שלכם היא %s אך FreshRSS דורש לפחות את גירסה %s',
 			'ok' => 'גירסת PHP שלכם היא %s, שתואמת ל FreshRSS',
 		),
+		'reload' => 'בדוק שוב',
+		'tmp' => array(
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
+			'ok' => 'Permissions on the temp directory are good.',	// TODO
+		),
+		'tokens' => array(
+			'nok' => 'Check permissions on <em>./data/tokens</em> directory. HTTP server must have write permission',	// TODO
+			'ok' => 'Permissions on the tokens directory are good.',	// TODO
+		),
+		'unknown_process_username' => 'unknown',	// TODO
 		'users' => array(
-			'nok' => 'Check permissions on <em>./data/users</em> directory. HTTP server must have rights to write into', // @todo
-			'ok' => 'Permissions on users directory are good.', // @todo
+			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
+			'ok' => 'Permissions on the users directory are good.',	// TODO
+		),
+		'xml' => array(
+			'nok' => 'Cannot find the required library to parse XML.',	// TODO
+			'ok' => 'You have the required library to parse XML.',	// TODO
+		),
+		'zip' => array(
+			'nok' => 'Cannot find the recommended extension for ZIP (php-zip package).',	// TODO
+			'ok' => 'You have the recommended extension for ZIP (php-zip package).',	// TODO
 		),
 	),
 	'conf' => array(
@@ -97,19 +147,27 @@ return array(
 		'ok' => 'ההגדרות הכלליות נשמרו.',
 	),
 	'congratulations' => 'מזל טוב!',
-	'default_user' => 'שם המשתמש של משתמש ברירת המחדל <small>(לכל היותר 16 תווים אלפאנומריים)</small>',
-	'delete_articles_after' => 'מחיקת מאמרים לאחר',
+	'default_user' => array(
+		'_' => 'שם המשתמש של משתמש ברירת המחדל',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+	),
 	'fix_errors_before' => 'יש לתקן את השגיאות לפני המעבר לשלב הבא.',
 	'javascript_is_better' => 'FreshRSS מעדיף שתאפשרו JavaScript',
+	'js' => array(
+		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',	// TODO
+	),
 	'language' => array(
 		'_' => 'שפה',
 		'choose' => 'בחירת שפה ל FreshRSS',
 		'defined' => 'השפה הוגדרה.',
 	),
-	'not_deleted' => 'משהו נכשל; יש צורך למחוק את הקובץ <em>%s</em> ידנית.',
-	'ok' => 'The installation process was successful.', // @todo
-	'step' => 'step %d', // @todo
+	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO
+	'ok' => 'The installation process was successful.',	// TODO
+	'session' => array(
+		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO
+	),
+	'step' => 'step %d',	// TODO
 	'steps' => 'שלבים',
-	'title' => 'התקנה · FreshRSS',
 	'this_is_the_end' => 'סיום',
+	'title' => 'התקנה · FreshRSS',
 );

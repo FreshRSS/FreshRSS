@@ -1,116 +1,152 @@
 <?php
 
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
 return array(
-	'admin' => array(
-		'optimization_complete' => 'Optimisation complete',	//TODO
-	),
 	'access' => array(
-		'denied' => 'You don’t have permission to access this page',	//TODO
-		'not_found' => 'You are looking for a page which doesn’t exist',	//TODO
+		'denied' => 'У вас нет разрешения на доступ к этой странице',
+		'not_found' => 'Данной страницы не существует',
+	),
+	'admin' => array(
+		'optimization_complete' => 'Оптимизация завершена',
+	),
+	'api' => array(
+		'password' => array(
+			'failed' => 'Ваш пароль не может быть изменён',
+			'updated' => 'Ваш пароль изменён',
+		),
 	),
 	'auth' => array(
-		'form' => array(
-			'not_set' => 'A problem occured during authentication system configuration. Please retry later.',	//TODO
-			'set' => 'Form is now your default authentication system.',	//TODO
-		),
 		'login' => array(
-			'invalid' => 'Login is invalid',	//TODO
-			'success' => 'You are connected',	//TODO
+			'invalid' => 'Неверный логин',
+			'success' => 'Вы вошли',
 		),
 		'logout' => array(
-			'success' => 'You are disconnected',	//TODO
+			'success' => 'Вы вышли',
 		),
-		'no_password_set' => 'Administrator password hasn’t been set. This feature isn’t available.',	//TODO
 	),
 	'conf' => array(
-		'error' => 'An error occurred during configuration saving',	//TODO
-		'query_created' => 'Query "%s" has been created.',	//TODO
-		'shortcuts_updated' => 'Shortcuts have been updated',	//TODO
-		'updated' => 'Configuration has been updated',	//TODO
+		'error' => 'Во время сохранения конфигурации возникла ошибка',
+		'query_created' => 'Запрос “%s” создан.',
+		'shortcuts_updated' => 'Горячие клавиши изменены',
+		'updated' => 'Конфигурация изменена',
 	),
 	'extensions' => array(
-		'already_enabled' => '%s is already enabled',	//TODO
+		'already_enabled' => '%s уже включено',
+		'cannot_remove' => '%s не может быть удалено',
 		'disable' => array(
-			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',	//TODO
-			'ok' => '%s is now disabled',	//TODO
+			'ko' => '%s не может быть отключено. <a href="%s">Проверьте логи FreshRSS</a> для подробностей.',
+			'ok' => '%s теперь отключено',
 		),
 		'enable' => array(
-			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',	//TODO
-			'ok' => '%s is now enabled',	//TODO
+			'ko' => '%s не может быть включено. <a href="%s">Проверьте логи FreshRSS</a> для подробностей.',
+			'ok' => '%s теперь включено',
 		),
-		'no_access' => 'You have no access on %s',	//TODO
-		'not_enabled' => '%s is not enabled yet',	//TODO
-		'not_found' => '%s does not exist',	//TODO
+		'invalid_view_mode' => 'Недопустимый режим просмотра “%s”! Возвращение к “Обычному виду”.',
+		'no_access' => 'У вас нет доступа к %s',
+		'not_enabled' => '%s не включено',
+		'not_found' => '%s не существует',
+		'removed' => '%s удалено',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'ZIP extension is not present on your server. Please try to export files one by one.',	//TODO
-		'feeds_imported' => 'Your feeds have been imported and will now be updated',	//TODO
-		'feeds_imported_with_errors' => 'Your feeds have been imported but some errors occurred',	//TODO
-		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	//TODO
-		'no_zip_extension' => 'ZIP extension is not present on your server.',	//TODO
-		'zip_error' => 'An error occured during ZIP import.',	//TODO
+		'export_no_zip_extension' => 'На вашем сервере нет расширения ZIP. Пожалуйста, попробуйте экспортировать файлы один за другим.',
+		'feeds_imported' => 'Ваши ленты импортированы и теперь будут обновлены. Если вы завершили импортирование, можете нажать на кнопку <i>Обновить ленты</i>.',
+		'feeds_imported_with_errors' => 'Ваши ленты импортированы, но возникли ошибки. Если вы завершили импортирование, можете нажать на кнопку <i>Обновить ленты</i>.',
+		'file_cannot_be_uploaded' => 'Файл не может быть загружен!',
+		'no_zip_extension' => 'На вашем сервере нет расширения ZIP.',
+		'zip_error' => 'Ошибка возникла при импорте ZIP.',
+	),
+	'profile' => array(
+		'error' => 'Ваш профиль не может быть изменён',
+		'passwords_dont_match' => 'Пароли не совпадают',
+		'updated' => 'Ваш профиль изменён',
 	),
 	'sub' => array(
-		'actualize' => 'Actualise',	//TODO
+		'actualize' => 'Обновляется',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	//TODO
-			'marked_unread' => 'The articles have been marked as unread.',	//TODO
+			'marked_read' => 'Выбранные статьи отмечены прочитанными.',
+			'marked_unread' => 'Статьи отмечены непрочитанными.',
 		),
 		'category' => array(
-			'created' => 'Category %s has been created.',	//TODO
-			'deleted' => 'Category has been deleted.',	//TODO
-			'emptied' => 'Category has been emptied',	//TODO
-			'error' => 'Category cannot be updated',	//TODO
-			'name_exists' => 'Category name already exists.',	//TODO
-			'no_id' => 'You must precise the id of the category.',	//TODO
-			'no_name' => 'Category name cannot be empty.',	//TODO
-			'not_delete_default' => 'You cannot delete the default category!',	//TODO
-			'not_exist' => 'The category does not exist!',	//TODO
-			'over_max' => 'You have reached your limit of categories (%d)',	//TODO
-			'updated' => 'Category has been updated.',	//TODO
+			'created' => 'Категория %s создана.',
+			'deleted' => 'Категория удалена.',
+			'emptied' => 'Категория очищена',
+			'error' => 'Категория не может быть изменена',
+			'name_exists' => 'Категория с таким названием уже существует.',
+			'no_id' => 'Вы должны задать id категории.',
+			'no_name' => 'Название категории не может быть пустым.',
+			'not_delete_default' => 'Вы не можете удалить стандартную категорию!',
+			'not_exist' => 'Категории не существует!',
+			'over_max' => 'Вы достигли вашего лимита категорий (%d)',
+			'updated' => 'Категория изменена.',
 		),
 		'feed' => array(
-			'actualized' => '<em>%s</em> has been updated',	//TODO
-			'actualizeds' => 'RSS feeds have been updated',	//TODO
-			'added' => 'RSS feed <em>%s</em> has been added',	//TODO
-			'already_subscribed' => 'You have already subscribed to <em>%s</em>',	//TODO
-			'deleted' => 'Feed has been deleted',	//TODO
-			'error' => 'Feed cannot be updated',	//TODO
-			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	//TODO
-			'invalid_url' => 'URL <em>%s</em> is invalid',	//TODO
-			'n_actualized' => '%d feeds have been updated',	//TODO
-			'n_entries_deleted' => '%d articles have been deleted',	//TODO
-			'no_refresh' => 'There is no feed to refresh…',	//TODO
-			'not_added' => '<em>%s</em> could not be added',	//TODO
-			'over_max' => 'You have reached your limit of feeds (%d)',	//TODO
-			'updated' => 'Feed has been updated',	//TODO
+			'actualized' => '<em>%s</em> обновлена',
+			'actualizeds' => 'RSS-ленты обновлены',
+			'added' => 'RSS-лента <em>%s</em> добавлена',
+			'already_subscribed' => 'Вы уже подписаны на <em>%s</em>',
+			'cache_cleared' => 'Кэш <em>%s</em> очищен',
+			'deleted' => 'Лента удалена',
+			'error' => 'Лента не может быть изменена',
+			'favicon' => array(
+				'too_large' => 'Загруженный значок слишком большой. Максимальный размер файла: <em>%s</em>.',
+				'unsupported_format' => 'Формат файла изображения не поддерживается!',
+			),
+			'internal_problem' => 'Новостная лента не может быть добавлена. <a href="%s">Проверьте логи FreshRSS</a> для подробностей. Вы можете попробовать принудительно добавить ленту, добавив <code>#force_feed</code> к URL.',
+			'invalid_url' => 'URL <em>%s</em> неверный',
+			'n_actualized' => '%d лент обновлено',
+			'n_entries_deleted' => '%d лент удалено',
+			'no_refresh' => 'Нет лент для обновления',
+			'not_added' => '<em>%s</em> не может быть добавлена',
+			'not_found' => 'Лента не найдена',
+			'over_max' => 'Вы достигли ограничения на количество лент (%d)',
+			'reloaded' => '<em>%s</em> перезагружена',
+			'selector_preview' => array(
+				'http_error' => 'Не удалось загрузить содержимое сайта.',
+				'no_entries' => 'В этой ленте нет статей. Требуется хотя бы одна статья, чтобы создать предпросмотр.',
+				'no_feed' => 'Внутренняя ошибка (лента не найдена).',
+				'no_result' => 'Нет совпадений с селектором. В качестве запасного варианта, вместо этого отображается оригинальный текст ленты.',
+				'selector_empty' => 'Селектор пуст. Необходимо задать селектор, чтобы создать предпросмотр.',
+			),
+			'updated' => 'Лента изменена',
 		),
-		'purge_completed' => 'Purge completed (%d articles deleted)',	//TODO
+		'purge_completed' => 'Очистка выполнена (%d статей удалено)',
+	),
+	'tag' => array(
+		'created' => 'Метка “%s” создана.',
+		'error' => 'Метка не может быть изменена!',
+		'name_exists' => 'Метка с таким названием уже существует.',
+		'renamed' => 'Метка “%s” переименована в “%s”.',
+		'updated' => 'Метка изменена.',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	//TODO
-		'error' => 'The update process has encountered an error: %s',	//TODO
-		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have rights to write into',	//TODO
-		'finished' => 'Update completed!',	//TODO
-		'none' => 'No update to apply',	//TODO
-		'server_not_found' => 'Update server cannot be found. [%s]',	//TODO
+		'can_apply' => 'FreshRSS будет обновлён до <strong>версии %s</strong>.',
+		'error' => 'Процесс обновления столкнулся с ошибкой: %s',
+		'file_is_nok' => 'Новая <strong>версия %s</strong> доступна, но проверьте права к директории <em>%s</em>. У веб-сервера должно быть право на запись',
+		'finished' => 'Обновление завершено!',
+		'none' => 'Нет обновлений',
+		'server_not_found' => 'Сервер обновлений не найден. [%s]',
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'User %s has been created',	//TODO
-			'error' => 'User %s cannot be created',	//TODO
+			'_' => 'Пользователь %s создан',
+			'error' => 'Пользователь %s не может быть создан',
 		),
 		'deleted' => array(
-			'_' => 'User %s has been deleted',	//TODO
-			'error' => 'User %s cannot be deleted',	//TODO
+			'_' => 'Пользователь %s удалён',
+			'error' => 'Пользователь %s не может быть удалён',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated', // TODO
-			'error' => 'User %s has not been updated', // TODO
+			'_' => 'Пользователь %s изменён',
+			'error' => 'Пользователь %s не был изменён',
 		),
-	),
-	'profile' => array(
-		'error' => 'Your profile cannot be modified',	//TODO
-		'updated' => 'Your profile has been modified',	//TODO
 	),
 );

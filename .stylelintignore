@@ -1,0 +1,10 @@
+.git/
+extensions/
+node_modules/
+p/scripts/vendor/
+vendor/
+# Ignore RTLCSS auto-generated CSS
+*.rtl.css
+
+# actual location is docs/_includes/docs.css
+docs/assets/css/docs.css
