@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Rendszer konfiguráció',
-		'auto-update-url' => 'Automatikus frissítés szerver URL',
 		'base-url' => array(
 			'_' => 'Alap URL',
 			'recommendation' => 'Automatikus ajánlás: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Frissítés indítása',
 		'changelog' => 'Változások listája',
 		'check' => 'Új frissítések lekérése',
-		'copiedFromURL' => 'update.php átmásolva %s ide ./data',
 		'current_version' => 'Jelenleg telepített verzió',
 		'last' => 'Utolsó ellenőrzés',
 		'loading' => 'Frissítés…',

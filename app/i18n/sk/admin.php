@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Nastavenia systému',
-		'auto-update-url' => 'Odkaz na aktualizačný server',
 		'base-url' => array(
 			'_' => 'Základná URL',
 			'recommendation' => 'Automatické odporúčanie: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Použiť',
 		'changelog' => 'Zoznam zmien',
 		'check' => 'Skontrolovať aktualizácie',
-		'copiedFromURL' => 'update.php skopírovaný z %s do ./data',
 		'current_version' => 'Vaša aktuálna verzia',
 		'last' => 'Posledná kontrola',
 		'loading' => 'Aktualizuje sa…',
