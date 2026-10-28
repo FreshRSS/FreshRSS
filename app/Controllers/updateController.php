@@ -308,8 +308,8 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 				);
 			} else {
-				Minz_Log::error(_t('feedback.update.error', is_string($res) ? $res : 'unknown'));
-				Minz_Request::bad(_t('feedback.update.error', is_string($res) ? $res : 'unknown'), [ 'c' => 'update', 'a' => 'index' ]);
+				Minz_Log::error(_t('feedback.update.error', 'unknown'));
+				Minz_Request::bad(_t('feedback.update.error', 'unknown'), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		} else {
 			if (!Minz_Request::isPost()) {
@@ -341,8 +341,8 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 					'params' => ['post_conf' => '1'],
 					], true);
 			} else {
-				Minz_Log::error(_t('feedback.update.error', is_string($res) ? $res : 'unknown'));
-				Minz_Request::bad(_t('feedback.update.error', is_string($res) ? $res : 'unknown'), [ 'c' => 'update', 'a' => 'index' ]);
+				Minz_Log::error(_t('feedback.update.error', $res));
+				Minz_Request::bad(_t('feedback.update.error', $res), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		}
 	}

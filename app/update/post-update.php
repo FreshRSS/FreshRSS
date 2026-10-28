@@ -1,5 +1,5 @@
 <?php
 
-function do_post_update() {
+function do_post_update(): bool {
 	return true;
 }

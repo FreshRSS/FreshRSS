@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
 
 // Apply the update by replacing old version of FreshRSS by the new one.
-function apply_update($zipUrl) {
+function apply_update(string $zipUrl): true|string {
 	$dirs_to_check = array(
 		DATA_PATH,
 		DATA_PATH . '/cache',

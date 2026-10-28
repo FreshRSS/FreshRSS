@@ -4,12 +4,12 @@ declare(strict_types=1);
 define('PACKAGE_PATHNAME', DATA_PATH . '/update_package');
 
 // Delete a file tree (from http://php.net/rmdir#110489)
-function del_tree(string $dir) {
+function del_tree(string $dir): bool {
 	if (!is_dir($dir)) {
 		return true;
 	}
 
-	$files = array_diff(scandir($dir), array('.', '..'));
+	$files = array_diff(scandir($dir) ?: [], array('.', '..'));
 	foreach ($files as $filename) {
 		$filename = $dir . '/' . $filename;
 		if (is_dir($filename)) {
@@ -25,8 +25,11 @@ function del_tree(string $dir) {
 
 
 // Do a recursive copy (from https://www.php.net/function.copy#91010)
-function recurse_copy(string $src, string $dst) {
+function recurse_copy(string $src, string $dst): bool {
 	$dir = opendir($src);
+	if ($dir === false) {
+		return false;
+	}
 	@mkdir($dst);
 	while (false !== ($file = readdir($dir))) {
 		if (($file != '.') && ($file != '..')) {
@@ -44,13 +47,13 @@ function recurse_copy(string $src, string $dst) {
 
 
 // Remove previous backup of data.
-function remove_data_backup() {
+function remove_data_backup(): bool {
 	return del_tree(DATA_PATH . '.back');
 }
 
 
 // Create a backup of data.
-function data_backup() {
+function data_backup(): bool {
 	$from = DATA_PATH;
 	$to = $from . '.back';
 
@@ -63,7 +66,7 @@ function data_backup() {
 
 
 // Check if a directory exists and if it is writable.
-function check_directory(string $dir) {
+function check_directory(string $dir): bool {
 	if (!file_exists($dir)) {
 		$res = @mkdir($dir, 0775);
 		if (!$res) {
@@ -103,7 +106,7 @@ EOF;
 
 
 // Save and unzip FreshRSS package.
-function save_package(string $url) {
+function save_package(string $url): bool {
 	// First, download package from $url.
 	$zip_filename = PACKAGE_PATHNAME . '.zip';
 	$zip_file = @fopen($zip_filename, 'w+');
@@ -118,7 +121,6 @@ function save_package(string $url) {
 	}
 	curl_setopt($c, CURLOPT_HEADER, false);
 	curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
-	curl_setopt($c, CURLOPT_BINARYTRANSFER, true);
 	curl_setopt($c, CURLOPT_FILE, $zip_file);
 	if (defined('CURLOPT_PROTOCOLS') && is_int(CURLOPT_PROTOCOLS)) {
 		curl_setopt($c, CURLOPT_PROTOCOLS, CURLPROTO_HTTP | CURLPROTO_HTTPS);
@@ -158,9 +160,9 @@ function save_package(string $url) {
 
 
 // Move custom themes to not delete them
-function save_custom_themes(string $destination) {
+function save_custom_themes(string $destination): void {
 	$themes_base_dir = PUBLIC_PATH . '/themes';
-	$themes_dirs = array_diff(scandir($themes_base_dir), array('.', '..'));
+	$themes_dirs = array_diff(scandir($themes_base_dir) ?: [], array('.', '..'));
 	foreach ($themes_dirs as $theme_dir) {
 		if (!preg_match('/^xTheme-/i', $theme_dir)) {
 			continue;
@@ -174,8 +176,11 @@ function save_custom_themes(string $destination) {
 
 
 // Deploy FreshRSS package by replacing old version by the new one.
-function deploy_package() {
-	$diff = array_diff(scandir(PACKAGE_PATHNAME), array('.', '..'));
+function deploy_package(): bool {
+	$diff = array_diff(scandir(PACKAGE_PATHNAME) ?: [], array('.', '..'));
+	if ($diff === []) {
+		return false;
+	}
 	$base_pathname = array_pop($diff);
 	$base_pathname = PACKAGE_PATHNAME . '/' . $base_pathname;
 
@@ -212,6 +217,6 @@ function deploy_package() {
 
 
 // Remove files of FRSS package.
-function clean_package() {
+function clean_package(): bool {
 	return del_tree(PACKAGE_PATHNAME);
 }
