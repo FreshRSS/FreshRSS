@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 define('PACKAGE_PATHNAME', DATA_PATH . '/update_package');
 
-// Delete a file tree (from http://php.net/rmdir#110489)
+// Delete a file tree (from https://www.php.net/rmdir#110489)
 function del_tree(string $dir): bool {
 	if (!is_dir($dir)) {
 		return true;
