@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Näkymä',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Kirjoittajat ja päiväys',
+				'both' => 'Ylä- ja alatunnisteessa',
+				'footer' => 'Alatunnisteessa',
+				'header' => 'Ylätunnisteessa',
+				'none' => 'Älä näytä',
+			),
+			'feed_name' => array(
+				'above_title' => 'Otsikon/tunnisteiden yläpuolella',
+				'none' => 'Älä näytä',
+				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
+			),
+			'feed_title' => 'Syötteen otsikko',
+			'icons' => array(
+				'_' => 'Artikkelin kuvakkeiden asettelu<br /><small>(vain lukunäkymä)</small>',
+				'above_title' => 'Otsikon yläpuolella',
+				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
+			),
+			'tags' => array(
+				'_' => '#Tunnisteet',
+				'both' => 'Ylä- ja alatunnisteessa',
+				'footer' => 'Alatunnisteessa',
+				'header' => 'Ylätunnisteessa',
+				'none' => 'Älä näytä',
+			),
+			'tags_max' => array(
+				'_' => 'Enimmäismäärä näytettäviä tunnisteita',
+				'help' => '0 - näytä kaikki tunnisteet tiivistämättä',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automaattinen tumma tila',
 			'auto' => 'Automaattinen',
 			'help' => 'Toimii vain yhteensopivissa teemoissa',
 			'no' => 'Ei',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Artikkelit: ylätunniste/alatunniste',
 		),
 		'icon' => array(
 			'bottom_line' => 'Alin rivi',
@@ -141,7 +176,7 @@ return array(
 			'check_link' => 'Tarkista API:n tila: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'API on poistettu käytöstä.',
 			'documentation_link' => 'Katso lisätietoja <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">ohjeesta ja tunnettujen sovellusten luettelosta</a>',
-			'help' => 'Katso <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ohje</a>',
+			'help' => 'Katso <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>ohje</a>',
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Vaihda salasana',
@@ -166,8 +201,9 @@ return array(
 			'_' => 'Suodatin käytössä:',
 			'categories' => 'Näytä luokan mukaan',
 			'feeds' => 'Näytä syötteen mukaan',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Sort by',	// TODO
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Lauseke',
 			'shareOpml' => 'Jaa kyselyä vastaavat luokat ja syötteet OPML-muodossa',
 			'shareRss' => 'Jaa HTML &amp; RSS -muodossa',
@@ -208,22 +244,15 @@ return array(
 			'opml' => 'Jaettava linkki syötteiden OPML-luetteloon',
 			'rss' => 'Jaettava linkki RSS-syötteeseen',
 		),
-		'state_0' => 'Näytä kaikki artikkelit',
-		'state_1' => 'Näytä luetut artikkelit',
-		'state_2' => 'Näytä lukemattomat artikkelit',
-		'state_3' => 'Näytä kaikki artikkelit',
-		'state_4' => 'Näytä suosikkiartikkelit',
-		'state_5' => 'Näytä luetut suosikkiartikkelit',
-		'state_6' => 'Näytä lukemattomat suosikkiartikkelit',
-		'state_7' => 'Näytä suosikkiartikkelit',
-		'state_8' => 'Näytä muut kuin suosikkiartikkelit',
-		'state_9' => 'Näytä luetut muut kuin suosikkiartikkelit',
-		'state_10' => 'Näytä lukemattomat muut kuin suosikkiartikkelit',
-		'state_11' => 'Näytä muut kuin suosikkiartikkelit',
-		'state_12' => 'Näytä kaikki artikkelit',
-		'state_13' => 'Näytä luetut artikkelit',
-		'state_14' => 'Näytä lukemattomat artikkelit',
-		'state_15' => 'Näytä kaikki artikkelit',
+		'state_all' => 'Näytä kaikki artikkelit',
+		'state_favorite' => 'Näytä suosikkiartikkelit',
+		'state_not_favorite' => 'Näytä muut kuin suosikkiartikkelit',
+		'state_read' => 'Näytä luetut artikkelit',
+		'state_read_favorite' => 'Näytä luetut suosikkiartikkelit',
+		'state_read_not_favorite' => 'Näytä luetut muut kuin suosikkiartikkelit',
+		'state_unread' => 'Näytä lukemattomat artikkelit',
+		'state_unread_favorite' => 'Näytä lukemattomat suosikkiartikkelit',
+		'state_unread_not_favorite' => 'Näytä lukemattomat muut kuin suosikkiartikkelit',
 		'title' => 'Käyttäjän kyselyt',
 	),
 	'reading' => array(
@@ -231,37 +260,6 @@ return array(
 		'after_onread' => 'Kun valitset “merkitse kaikki luetuiksi”',
 		'always_show_favorites' => 'Näytä oletusarvoisesti kaikki suosikkiartikkelit',
 		'apply_to_individual_feed' => 'Asetus vaikuttaa jokaiseen syötteeseen erikseen',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Kirjoittajat ja päiväys',
-				'both' => 'Ylä- ja alatunnisteessa',
-				'footer' => 'Alatunnisteessa',
-				'header' => 'Ylätunnisteessa',
-				'none' => 'Älä näytä',
-			),
-			'feed_name' => array(
-				'above_title' => 'Otsikon/tunnisteiden yläpuolella',
-				'none' => 'Älä näytä',
-				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
-			),
-			'feed_title' => 'Syötteen otsikko',
-			'icons' => array(
-				'_' => 'Artikkelin kuvakkeiden asettelu<br /><small>(vain lukunäkymä)</small>',
-				'above_title' => 'Otsikon yläpuolella',
-				'with_authors' => 'Kirjoittajien ja päiväysten rivillä',
-			),
-			'tags' => array(
-				'_' => '#Tunnisteet',
-				'both' => 'Ylä- ja alatunnisteessa',
-				'footer' => 'Alatunnisteessa',
-				'header' => 'Ylätunnisteessa',
-				'none' => 'Älä näytä',
-			),
-			'tags_max' => array(
-				'_' => 'Enimmäismäärä näytettäviä tunnisteita',
-				'help' => '0 - näytä kaikki tunnisteet tiivistämättä',
-			),
-		),
 		'articles_per_page' => 'Artikkelien määrä sivulla',
 		'auto_load_more' => 'Lataa lisää artikkeleita sivun lopussa',
 		'auto_remove_article' => 'Piilota artikkelit lukemisen jälkeen',
@@ -270,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Luokat, joiden artikkelit näytetään kokonaan',
 		'headline' => array(
 			'articles' => 'Artikkelit: avaa/sulje',
-			'articles_header_footer' => 'Artikkelit: ylätunniste/alatunniste',
 			'categories' => 'Vasen siirtymisvalikko: luokat',
 			'mark_as_read' => 'Merkitse artikkeli luetuksi',
 			'misc' => 'Sekalaista',

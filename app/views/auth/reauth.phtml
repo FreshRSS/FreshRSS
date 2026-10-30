@@ -6,13 +6,14 @@
 <main class="prompt">
 	<h1><?= _t('gen.auth.reauth.header') ?></h1>
 
-	<form class="crypto-form" method="post">
+	<form name="crypto_form" class="crypto-form" method="post">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<input type="hidden" id="username" value="<?= Minz_User::name() ?>" />
 		<div class="form-group">
 			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="stick">
-				<input type="password" id="passwordPlain" class="passwordPlain" required="required" />
+				<input type="password" id="passwordPlain"<?= $this->auth_autofills['password'] !== '' ? ' value="' . $this->auth_autofills['password'] . '"' : '' ?>
+					class="passwordPlain" required="required" />
 				<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
 			</div>
 			<input type="hidden" id="challenge" name="challenge" />

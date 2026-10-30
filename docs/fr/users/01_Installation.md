@@ -7,26 +7,29 @@ Il est toutefois de votre responsabilité de vérifier que votre hébergement pe
 | Logiciel         | Recommandé         | Fonctionne aussi avec          |
 | --------         | -----------        | ---------------------          |
 | Serveur web      | **Apache 2.4+**    | nginx, lighttpd |
-| PHP              | **PHP 8.1+**       | FreshRSS 1.24.3 : PHP 7.4+<br />FreshRSS 1.22.1 : PHP 7.2+ |
+| PHP              | **PHP 8.2+**       | FreshRSS 1.30.4 : PHP 8.1+ |
 | Modules PHP      | Requis : libxml, cURL, JSON, PDO_MySQL, PCRE et ctype<br />Requis (32 bits seulement) : GMP<br />Recommandé : Zlib, mbstring et iconv, ZipArchive<br />*Pour une liste complète des modules nécessaires voir le [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L9-L11)* |                                |
 | Base de données  | **PostgreSQL 10+** | SQLite, MariaDB 10.6+, MySQL 8.0+ |
 | Navigateur       | **Firefox**        | Chrome, Opera, Safari, or Edge   |
 
 ## Choisir la bonne version de FreshRSS
 
-FreshRSS possède deux versions différentes (nous parlons de branches) qui sortent à des fréquences plus ou moins rapides. Aussi prenez le temps de comprendre à quoi correspond chacune de ces versions.
+FreshRSS possède deux canaux de distributions (ou branches) qui sortent à des fréquences plus ou moins rapides:
 
-### La version stable
+### Canal de publication continue
 
-[Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/latest.zip)
+Si vous voulez une publication continue (*rolling release*) avec les dernières nouveautés et sécurité,
+ou bien aider à tester ou développer la future version,
+vous pouvez utiliser [la branche `edge`](https://github.com/FreshRSS/FreshRSS/tree/edge/).
 
-Cette version sort lorsqu’on considère qu’on a répondu à nos objectifs en terme de nouvelles fonctionnalités. Deux versions peuvent ainsi sortir de façon très rapprochée si les développeurs travaillent bien. En pratique, comme nous nous fixons de nombreux objectifs et que nous travaillons sur notre temps libre, les versions sont souvent assez espacées (plusieurs mois). Son avantage est que le code est particulièrement stable et vous ne devriez pas faire face à de méchants bugs.
+### Canal de publication versionnée
 
-### La version de développement
-
-[Téléchargement](https://github.com/FreshRSS/FreshRSS/archive/edge.zip)
-
-Comme son nom l’indique, il s’agit de la version sur laquelle les développeurs travaillent. **Elle est donc instable !** Si vous souhaitez recevoir les améliorations au jour le jour, vous pouvez l’utiliser, mais attention à bien suivre les évolutions sur GitHub (via [le flux RSS de la branche](https://github.com/FreshRSS/FreshRSS/commits/edge.atom) par exemple). On raconte que les développeurs principaux l’utilisent quotidiennement sans avoir de soucis. Sans doute savent-ils ce qu’ils font…
+Si vous préférez moins de mises à jour, vous pouvez utiliser [la branche `latest`](https://github.com/FreshRSS/FreshRSS/tree/latest/).
+Celle-ci est plus stable mais au prix de moins de sécurité et de plus de bugs connus
+car les corrections ne sont pas rétro-portées sur les anciennes versions.
+De nouvelles versions sont publiées quelques fois par an.
+Voir la [dernière version](https://github.com/FreshRSS/FreshRSS/releases/latest)
+et la [liste des versions](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## Installation sur Apache
 
@@ -115,7 +118,7 @@ server {
 	# gestion des fichiers php
 	# il est nécessaire d’utiliser cette expression régulière pour le bon fonctionnement de l’API
 	location ~ ^.+?\.php(/.*)?$ {
-		fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# Par défaut la variable PATH_INFO n’est pas définie sous PHP-FPM
 		# mais les APIs FreshRSS greader.php et misc.php en ont besoin. Si vous avez un “Bad Request”, vérifiez bien cette dernière !
@@ -132,8 +135,6 @@ server {
 	}
 }
 ```
-
-Pour un tutoriel pas à pas, vous pouvez suivre [cet article dédié](http://www.pihomeserver.fr/2013/05/08/raspberry-pi-home-server-installer-un-agregateur-de-flux-rss-pour-remplacer-google-reader/).
 
 ## Conseils de sécurité
 

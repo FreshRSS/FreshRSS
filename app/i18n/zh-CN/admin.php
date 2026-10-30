@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => '发布通道',
 			'edge' => '滚动发布 (“edge”)',
-			'latest' => '稳定版本 (“latest”)',
+			'latest' => '稳定版本 (“latest”)',	// DIRTY
 		),
 		'title' => '更新系统',
 		'viaGit' => '开始通过 git 和 GitHub.com 更新',

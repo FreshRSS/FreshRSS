@@ -43,7 +43,7 @@ return array(
 			'ok' => 'Znaleziono wymaganą bibliotekę do sprawdzania rodzajów znaków (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Nie znaleziono biblioteki cURL (php-curl package).',
+			'nok' => 'Nie znaleziono biblioteki cURL (pakiet php-curl).',
 			'ok' => 'Znaleziono bibliotekę cURL.',
 		),
 		'data' => array(
@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Wszystkie tabele bazy danych istnieją.',
 		),
 		'database-title' => 'Baza danych',
+		'docroot' => array(
+			'nok' => 'Katalog główny serwera WWW nie wskazuje na folder <code>./p/</code>. Inne foldery, takie jak <code>./data/</code>, mogą być publicznie dostępne.',
+			'ok' => 'Katalog główny serwera WWW prawidłowo wskazuje na folder <code>./p/</code>.',
+		),
 		'dom' => array(
 			'nok' => 'Nie znaleziono wymaganej biblioteki do korzystania z DOM-u.',
 			'ok' => 'Znaleziono wymaganą bibliotekę do korzystania z DOM-u.',
@@ -72,10 +76,14 @@ return array(
 			'ok' => 'Uprawnienia dla katalogu ikonek kanałów się zgadzają.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Nie znaleziono biblioteki fileinfo dla PHP (paczka fileinfo).',
+			'nok' => 'Nie znaleziono biblioteki fileinfo dla PHP (pakiet fileinfo).',
 			'ok' => 'Znaleziono bibliotekę fileinfo.',
 		),
 		'files' => 'Instalacja plików',
+		'gmp' => array(
+			'nok' => 'Nie znaleziono wymaganego rozszerzenia GMP dla 32-bitowego PHP (pakiet php-gmp).',
+			'ok' => 'Znaleziono rozszerzenie GMP wymagane przez 32-bitowe PHP.',
+		),
 		'intl' => array(
 			'nok' => 'Nie znaleziono zalecanej biblioteki php-intl do internacjonalizacji.',
 			'ok' => 'Znaleziono zalecaną bibliotekę php-intl do internacjonalizacji.',
@@ -130,7 +138,7 @@ return array(
 			'ok' => 'Znaleziono wymaganą bibliotekę do przetwarzania XML-a.',
 		),
 		'zip' => array(
-			'nok' => 'Nie znaleziono rozszerzenia ZIP (paczka php-zip).',
+			'nok' => 'Nie znaleziono rozszerzenia ZIP (pakiet php-zip).',
 			'ok' => 'Znaleziono rozszerzenie ZIP.',
 		),
 	),
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Gratulacje!',
 	'default_user' => array(
 		'_' => 'Nazwa domyślnego użytkownika',
-		'max_char' => 'maksymalnie 16 znaków alfanumerycznych',
+		'max_char' => 'Od 1 do 39 znaków: litery, cyfry oraz <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Proszę naprawić wszystkie błędy przed przystąpieniem do kolejnego kroku.',
 	'javascript_is_better' => 'FreshRSS działa lepiej z włączonym JavaScript-em',

@@ -35,8 +35,8 @@ Voulez-vous corriger un bogue ? Pour maintenir une grande coordination entre
 les collaborateurs, vous devrez suivre ces indications :
 
 1. Assurez-vous que le bogue est associé à un ticket et indiquez que vous allez travailler sur le bogue.
-2. [Fork du répertoire de projet](https://help.github.com/articles/fork-a-repo/).
-3. [Créez une nouvelle branche](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/).
+2. [Fork du répertoire de projet](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo).
+3. [Créez une nouvelle branche](https://docs.github.com/en/pull-requests/how-tos/commit-changes/managing-branches-within-your-repository).
 	Le nom de la branche doit être clair, et idéalement préfixé par l’identifiant du ticket correspondant.
 	Par exemple, `783-contributing-file` pour réparer
 	[ticket	#783](https://github.com/FreshRSS/FreshRSS/issues/783).

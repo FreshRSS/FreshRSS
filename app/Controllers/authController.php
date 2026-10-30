@@ -109,6 +109,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 		FreshRSS_View::prependTitle(_t('gen.auth.login') . ' · ');
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/bcrypt.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/bcrypt.js')));
+		$this->view->auth_autofills = FreshRSS_FormAuth::getAutofilledFields();
 
 		$limits = FreshRSS_Context::systemConf()->limits;
 		$this->view->cookie_days = (int)round($limits['cookie_duration'] / 86400, 1);
@@ -118,11 +119,13 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 		if ($isPOST) {
 			$nonce = Minz_Session::paramString('nonce');
+			Minz_Session::_param('nonce', false);	// One-time: consume the challenge so it cannot be replayed.
 			$username = Minz_Request::paramString('username');
 			$challenge = Minz_Request::paramString('challenge');
+			$ip_address = Minz_Request::connectionRemoteAddress();
 
 			if ($nonce === '') {
-				Minz_Log::warning("Invalid session during login for user={$username}, nonce={$nonce}");
+				Minz_Log::warning("Invalid session during login for user={$username}, nonce={$nonce}, ip_address={$ip_address}");
 				header('HTTP/1.1 403 Forbidden');
 				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
 				Minz_Request::setBadNotification(_t('install.session.nok'));
@@ -151,7 +154,15 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			);
 			if ($ok) {
 				// Set session parameter to give access to the user.
-				Minz_Session::regenerateID('FreshRSS');
+				try {
+					Minz_Session::regenerateID('FreshRSS');
+				} catch (RuntimeException $e) {
+					Minz_Log::error("Session could not be regenerated during login for user={$username}, ip_address={$ip_address}: {$e->getMessage()}");
+					header('HTTP/1.1 500 Internal Server Error');
+					Minz_Request::setBadNotification(_t('install.session.nok'));
+					Minz_Request::forward(['c' => 'auth', 'a' => 'login'], false);
+					return;
+				}
 				Minz_Session::_params([
 					Minz_User::CURRENT_USER => $username,
 					'passwordHash' => FreshRSS_Context::userConf()->passwordHash,
@@ -181,7 +192,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 				);
 			} else {
-				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}");
+				Minz_Log::warning("Password mismatch for user={$username}, nonce={$nonce}, c={$challenge}, ip_address={$ip_address}");
 				header('HTTP/1.1 403 Forbidden');
 				Minz_Session::_param('POST_to_GET', true);	//Prevent infinite internal redirect
 				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
@@ -206,20 +217,29 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			$username = Minz_User::name() ?? '';
 			$nonce = Minz_Session::paramString('nonce');
+			Minz_Session::_param('nonce', false);	// One-time: consume the challenge so it cannot be replayed.
 			$challenge = Minz_Request::paramString('challenge');
 			if (!FreshRSS_FormAuth::checkCredentials(
 				$username, FreshRSS_Context::userConf()->passwordHash, $nonce, $challenge
 				)) {
 				Minz_Request::setBadNotification(_t('feedback.auth.login.invalid'));
 			} else {
-				Minz_Session::regenerateID('FreshRSS');
-				Minz_Session::_param('lastReauth', time());
-				Minz_Request::forward($redirect, true);
-				return;
+				try {
+					Minz_Session::regenerateID('FreshRSS');
+					Minz_Session::_param('lastReauth', time());
+					Minz_Request::forward($redirect, true);
+					return;
+				} catch (RuntimeException $e) {
+					Minz_Log::error("Session could not be regenerated during reauthentication! {$e->getMessage()}");
+					Minz_Session::_param('lastReauth', 0);
+					header('HTTP/1.1 500 Internal Server Error');
+					Minz_Request::setBadNotification(_t('install.session.nok'));
+				}
 			}
 		}
 		FreshRSS_View::prependTitle(_t('gen.auth.reauth.title') . ' · ');
 		FreshRSS_View::appendScript(Minz_Url::display('/scripts/vendor/bcrypt.js?' . @filemtime(PUBLIC_PATH . '/scripts/vendor/bcrypt.js')));
+		$this->view->auth_autofills = FreshRSS_FormAuth::getAutofilledFields();
 	}
 
 	/**
@@ -229,7 +249,12 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		if (Minz_Request::isPost()) {
 			invalidateHttpCache();
 			FreshRSS_Auth::removeAccess();
-			Minz_Session::regenerateID('FreshRSS');
+			Minz_Session::_param('csrf', false);
+			try {
+				Minz_Session::regenerateID('FreshRSS');
+			} catch (RuntimeException $e) {
+				Minz_Log::error('Session could not be regenerated during logout! ' . $e->getMessage());
+			}
 			Minz_Request::good(
 				_t('feedback.auth.logout.success'),
 				[ 'c' => 'index', 'a' => 'index' ],
@@ -259,6 +284,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		$this->view->show_tos_checkbox = file_exists(TOS_FILENAME);
 		$this->view->show_email_field = FreshRSS_Context::systemConf()->force_email_validation;
 		$this->view->preferred_language = Minz_Translate::getLanguage(null, Minz_Request::getPreferredLanguages(), FreshRSS_Context::systemConf()->language);
+		$this->view->auth_autofills = FreshRSS_FormAuth::getAutofilledFields();
 		FreshRSS_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 

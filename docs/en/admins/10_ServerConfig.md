@@ -95,7 +95,7 @@ server {
 	# php files handling
 	# this regex is mandatory because of the API
 	location ~ ^.+?\.php(/.*)?$ {
-		fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
 		fastcgi_split_path_info ^(.+\.php)(/.*)$;
 		# By default, the variable PATH_INFO is not set under PHP-FPM
 		# But FreshRSS APIs greader.php and misc.php need it. If you have a “Bad Request” error, double check this var!
@@ -115,7 +115,7 @@ server {
 
 ## Security
 
-Avoid overwriting the [`Content-Security-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) header with directives such as `more_set_headers "Content-Security-Policy: ..."` or `add_header 'Content-Security-Policy' '...'`.
+Avoid overwriting the [`Content-Security-Policy`](https://developer.mozilla.org/docs/Web/HTTP/Guides/CSP) header with directives such as `more_set_headers "Content-Security-Policy: ..."` or `add_header 'Content-Security-Policy' '...'`.
 
 ✅ Example of good CSP: `default-src 'self'; frame-ancestors 'self'`
 

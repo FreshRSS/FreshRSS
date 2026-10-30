@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Alle databanktabelen bestaan.',
 		),
 		'database-title' => 'Databank',
+		'docroot' => array(
+			'nok' => 'De hoofdmap (root) van de webserver lijkt niet naar de map <code>./p/</code> te wijzen. Andere mappen, zoals <code>./data/</code>, zijn mogelijk openbaar toegankelijk.',
+			'ok' => 'De hoofdmap (root) van de webserver wijst correct naar de map <code>./p/</code>.',
+		),
 		'dom' => array(
 			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM.',
 			'ok' => 'U hebt de benodigde bibliotheek om te bladeren in de DOM.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'U hebt de fileinfo uitbreiding.',
 		),
 		'files' => 'Bestanden installatie',
+		'gmp' => array(
+			'nok' => 'De vereiste GMP-uitbreiding voor 32-bits PHP (php-gmp-pakket) kan niet worden gevonden.',
+			'ok' => 'U beschikt over de vereiste GMP-uitbreiding voor 32-bits PHP.',
+		),
 		'intl' => array(
 			'nok' => 'De aanbevolen bibliotheek php-intl voor internationalisering kan niet worden gevonden.',
 			'ok' => 'U beschikt over de aanbevolen bibliotheek php-intl voor internationalisering.',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Gefeliciteerd!',
 	'default_user' => array(
 		'_' => 'Gebruikersnaam van de standaardgebruiker',
-		'max_char' => 'maximaal 16 alfanumerieke tekens',
+		'max_char' => '1-39 tekens: letters, cijfers en <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',

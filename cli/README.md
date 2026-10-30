@@ -101,7 +101,7 @@ cd /usr/share/FreshRSS
 ```
 
 ```sh
-./cli/actualize-user.php --user username
+./cli/actualize-user.php --user username [ --feed-id 123 ]
 # Fetch feeds for the specified user.
 
 ./cli/delete-user.php --user username
@@ -236,6 +236,12 @@ Example to get the number of feeds of a given user:
 ./cli/user-info.php --user alex | cut -f6
 #or
 ./cli/user-info.php --user alex --json | jq '.[] | .feeds'
+```
+
+Example to count the total number of feeds across all users:
+
+```sh
+./cli/user-info.php --json | jq '[.[].feeds] | add'
 ```
 
 Example to get the name of the users who have not been active since a given date:

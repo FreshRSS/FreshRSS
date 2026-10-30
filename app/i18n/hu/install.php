@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Minden adatbázis tábla létezik.',
 		),
 		'database-title' => 'Adatbázis',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'A DOM böngészéséhez nem található a könyvtár.',
 			'ok' => 'A DOM böngészésére való könyvtár telepítve van.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'A fileinfo könyvtár telepítve van.',
 		),
 		'files' => 'Fájl telepítés',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Nem található a nemzetköziesítéshez javasolt php-intl könyvtár.',
 			'ok' => 'Rendelkezik a nemzetköziesítéshez javasolt php-intl könyvtárral.',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Gratulálunk!',
 	'default_user' => array(
 		'_' => 'Alapértelmezett felhasználó neve',
-		'max_char' => 'maximum 16 alfanumerikus karakter',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Javíts meg minden hibát mielőtt továbblépnél a következő lépésre.',
 	'javascript_is_better' => 'A FreshRSS sokkal jobban élvezhető ha a JavaScript engedélyezve van.',

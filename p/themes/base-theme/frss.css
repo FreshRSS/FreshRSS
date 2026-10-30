@@ -64,6 +64,12 @@ html, body {
 	font-size: 100%;
 }
 
+html:lang(ja) body {
+	font-family: "OpenSans", "Cantarell", "Helvetica", "Arial",
+		"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo",
+		"Osaka", "Noto Sans CJK JP", "Noto Sans JP", sans-serif;
+}
+
 button, input, select, textarea {
 	font-family: inherit;
 }
@@ -292,7 +298,7 @@ label > span[title] {
 	text-decoration: underline dotted;
 }
 
-input:not(.w50,.w100) {
+input:not(.w20,.w50,.w100) {
 	max-width: 90%;
 	width: 300px;
 }
@@ -327,6 +333,13 @@ select {
 textarea.h50 {
 	height: 50vh;
 	min-height: 7rem;
+}
+
+input.w20,
+select.w20,
+textarea.w20 {
+	min-width: 20%;
+	box-sizing: border-box;
 }
 
 input.w50,
@@ -367,7 +380,7 @@ textarea[rows="2"] {
 	height: 4em;
 }
 
-textarea:invalid {
+textarea:user-invalid {
 	border: 2px dashed var(--frss-border-color-error);
 }
 
@@ -402,7 +415,7 @@ input[type="checkbox"] {
 }
 
 .dropdown-menu .item > a:hover,
-.dropdown-menu .item > button:hover {
+.dropdown-menu .item button:hover {
 	text-decoration: none;
 }
 
@@ -542,7 +555,7 @@ td.numeric {
 }
 
 @supports (position: sticky) {
-	#mark-read-aside {
+	.mark-read-aside {
 		position: sticky;
 		top: 0;
 	}
@@ -595,7 +608,7 @@ button:disabled:hover, textarea:disabled:hover, input:disabled:hover {
 	flex-shrink: 0;
 }
 
-#nav_menu_read_all form {
+.nav_menu_read_all form {
 	display: inline-flex;
 }
 
@@ -743,7 +756,7 @@ input[type="checkbox"]:focus-visible {
 
 .nav-list .item,
 .nav-list .item > a,
-.nav-list .item > .as-link,
+.nav-list .item .as-link,
 .nav-list .item > span {
 	display: block;
 	overflow: hidden;
@@ -864,7 +877,7 @@ input[type="checkbox"]:focus-visible {
 }
 
 .dropdown-menu .item > a,
-.dropdown-menu .item > .as-link,
+.dropdown-menu .item .as-link,
 .dropdown-menu .item > span {
 	display: block;
 	width: 100%;
@@ -930,6 +943,10 @@ input[type="checkbox"]:focus-visible {
 	background: inherit;
 }
 
+.alert-info {
+	background: inherit;
+}
+
 .group-controls .alert {
 	width: 100%
 }
@@ -963,7 +980,7 @@ input[type="checkbox"]:focus-visible {
 }
 
 /* === stream-footer **/
-#stream-footer {
+.stream-footer {
 	margin: 0 0 5em;
 	padding: 1em 0;
 	width: 100%;
@@ -1510,11 +1527,6 @@ a.website:hover .favicon {
 	font-weight: bold;
 }
 
-.flux:not(.current):hover .flux_header.has-date .item .title {
-	padding-right: 0.5rem;
-	z-index: 2;
-}
-
 .flux:not(.current):hover .item .title {
 	background-color: inherit;
 }
@@ -1575,6 +1587,7 @@ a.website:hover .favicon {
 	grid-template-columns: minmax(0, 1fr) auto;
 	grid-template-areas: "title date"
 		"summary .";
+	column-gap: 0.5rem;
 	align-content: center;
 }
 
@@ -1762,6 +1775,15 @@ a.website:hover .favicon {
 	align-self: flex-start;
 }
 
+.content .subtitle.horizontal-list {
+	flex-wrap: wrap;
+}
+
+.content .subtitle.horizontal-list .item {
+	flex-shrink: 1;
+	min-width: 0;
+}
+
 .content .article-header-topline.horizontal-list .item .website,
 .content .subtitle.horizontal-list .item .website {
 	display: inline-block;
@@ -1778,8 +1800,9 @@ a.website:hover .favicon {
 
 .content .subtitle.horizontal-list .item.date {
 	padding: 0.25rem;
-	width: 155px;
+	min-width: 155px;
 	text-align: right;
+	white-space: nowrap;
 }
 
 .content .article-header-topline.horizontal-list .item.link,
@@ -2626,11 +2649,11 @@ html.slider-active {
 	}
 
 	.flux .flux_header.has-thumbnail.has-summary li.labels {
-		grid-area: manage-labels
+		grid-area: manage-labels;
 	}
 
 	.flux .flux_header.has-thumbnail.has-summary li.share {
-		grid-area: manage-share
+		grid-area: manage-share;
 	}
 
 	#overlay .close {
@@ -2740,15 +2763,15 @@ html.slider-active {
 		box-shadow: -3px 0 3px var(--frss-box-shadow-color-transparent);
 	}
 
-	#nav_menu_read_all .dropdown-target ~ .dropdown-toggle .icon {
+	.nav_menu_read_all .dropdown-target ~ .dropdown-toggle .icon {
 		display: none;
 	}
 
-	#nav_menu_read_all .dropdown-target ~ .dropdown-toggle::before {
+	.nav_menu_read_all .dropdown-target ~ .dropdown-toggle::before {
 		content: '✓';
 	}
 
-	#nav_menu_read_all .read_all.btn {
+	.nav_menu_read_all .read_all.btn {
 		display: none;
 	}
 
@@ -2845,6 +2868,12 @@ html.slider-active {
 		padding: 1rem;
 	}
 
+	.content .subtitle.horizontal-list .item.date {
+		min-width: 0;
+		text-align: left;
+		white-space: normal;
+	}
+
 	table {
 		font-size: 0.9rem;
 	}
@@ -2901,7 +2930,7 @@ html.slider-active {
 
 	@page {
 		/* Firefox and Safari do not support those yet */
-		/* See: https://developer.mozilla.org/en-US/docs/Web/CSS/@page#browser_compatibility */
+		/* See: https://developer.mozilla.org/docs/Web/CSS/@page#browser_compatibility */
 
 		@top-left { content: ''; }
 

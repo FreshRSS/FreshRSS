@@ -677,7 +677,7 @@ class Sanitize implements RegistryAware
                         $value = $this->registry->call(Misc::class, 'absolutize_url', [$element->getAttribute($attribute), $this->base]);
                         if ($value !== false) {
                             // Block disallowed URI protocols (e.g. javascript:), otherwise force HTTPS where applicable
-                            $value = ($this->disallowed_uri_schemes !== [] && !$this->is_allowed_scheme($value))
+                            $value = ($this->disallowed_uri_schemes !== [] && !$this->is_allowed_uri($tag, $attribute, $value))
                                 ? 'unsafe:' . $value
                                 : $this->https_url($value);
                             $element->setAttribute($attribute, $value);
@@ -721,16 +721,18 @@ class Sanitize implements RegistryAware
                 && !isset($this->allowed_html_elements_with_attributes[$tag])) {
                 if (!in_array($tag, ['script', 'style', 'svg', 'math', 'template'], true)) {
                     // Preserve children inside the disallowed element
-                    for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
-                        $child = $element->childNodes->item($i);
-                        if ($child === null) {
-                            continue;
-                        }
+                    $nextSibling = $element->nextSibling;
+                    while ($element->firstChild !== null) {
+                        $child = $element->firstChild;
                         if ($child instanceof \DOMText) {
                             $child->nodeValue = htmlspecialchars($child->nodeValue ?? '', ENT_QUOTES, 'UTF-8');
                         }
                         if ($parent !== null) {
-                            $parent->insertBefore($child, $element);
+                            if ($nextSibling !== null) {
+                                $parent->insertBefore($child, $nextSibling);
+                            } else {
+                                $parent->appendChild($child);
+                            }
                         }
                         $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
                     }
@@ -775,6 +777,36 @@ class Sanitize implements RegistryAware
             return false;
         }
         return !in_array($scheme, $this->disallowed_uri_schemes, true);
+    }
+
+    /**
+     * Elements/attributes on which a `data:` URI carrying an image is still allowed
+     * even when the `data` scheme is otherwise disallowed. Such URIs are inert
+     * (an `<img>` never executes script), whereas `data:` on navigational or framing
+     * attributes (`<a href>`, `<iframe src>`, ...) may load attacker-controlled HTML.
+     * @var array<string, list<string>>
+     */
+    private const DATA_IMAGE_URI_ALLOWED = [
+        'image' => ['src'],
+        'img' => ['src'],
+        'video' => ['poster'],
+    ];
+
+    /**
+     * Like {@see is_allowed_scheme()}, but aware of the element and attribute the URI sits on,
+     * so that `data:image/...` can stay allowed on image-bearing attributes while `data:` is
+     * blocked elsewhere (e.g. `<a href="data:text/html,...">`, `<iframe src="data:...">`).
+     */
+    public function is_allowed_uri(string $tag, string $attribute, string $uri): bool
+    {
+        $pos = strpos($uri, ':');
+        if ($pos !== false && strtolower(substr($uri, 0, $pos)) === 'data'
+            && in_array('data', $this->disallowed_uri_schemes, true)
+            && in_array($attribute, self::DATA_IMAGE_URI_ALLOWED[strtolower($tag)] ?? [], true)
+            && preg_match('%^data:image/[a-z0-9.+-]+[;,]%i', $uri) === 1) {
+            return true;
+        }
+        return $this->is_allowed_scheme($uri);
     }
 
     /**

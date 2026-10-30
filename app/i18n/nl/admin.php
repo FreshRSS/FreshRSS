@@ -92,12 +92,12 @@ return array(
 		'force_email_validation' => 'Emailadresvalidatie forceren',
 		'instance-name' => 'Voorbeeld naam',
 		'internal-host-allowlist' => array(
-			'_' => 'Internal host allowlist',	// TODO
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'_' => 'Toegestane interne hosts',
+			'help' => 'Eén vermelding per regel:<ul><li>Een <code>host:port</code>, bijvoorbeeld <code>127.0.0.1:8080</code> of <code>rss-bridge:80</code></li><li>Een CIDR-notatie, bijvoorbeeld <code>0.0.0.0/0</code> om alle IPv4-adressen toe te staan, of <code>::/0</code> om alle IPv6-adressen toe te staan</li><li>Een <code>*</code> om alle hosts toe te staan (onveilig)</li></ul>',
 		),
 		'max-categories' => 'Categorielimiet per gebruiker',
 		'max-feeds' => 'Feedlimiet per gebruiker',
-		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'override-by-env-var' => 'Deze instelling wordt bepaald door de omgevingsvariabele <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Maximum aantal accounts',
 			'select' => array(
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release-kanaal',
 			'edge' => 'Rollende release (“edge”)',
-			'latest' => 'Stabiele release (“latest”)',
+			'latest' => 'Versiegebonden release (“latest”)',
 		),
 		'title' => 'Vernieuw systeem',
 		'viaGit' => 'Update via git and GitHub.com gestart',

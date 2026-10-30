@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Represents a view mode option for the reading configuration
  */
-final class FreshRSS_ViewMode {
+final readonly class FreshRSS_ViewMode {
 	private string $id;
 	private string $name;
 	private string $controller;

@@ -48,6 +48,9 @@ metadata.json:
 
 ### pre installed extensions (core extensions)
 
-See folder: `.lib/core-extensions`
+See folder: `./lib/core-extensions`
+
+* `UserCSS`: [User CSS](../users/05_Configuration.md#user-css)
+* `UserJS`: [User JS](../users/05_Configuration.md#user-js)
 
 Important: do not install your chosen extensions here!

@@ -146,8 +146,8 @@ final class HelloWorldExtension extends Minz_Extension
 	public function init(): void {
 		parent::init();
 
-		$this->registerHook(Minz_HookType::EntryBeforeDisplay, [$this, 'renderEntry'], 10);
-		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, [self::class, 'checkUrl'], -10);
+		$this->registerHook(Minz_HookType::EntryBeforeDisplay, $this->renderEntry(...), 10);
+		$this->registerHook(Minz_HookType::CheckUrlBeforeAdd, self::checkUrlBeforeAdd(...), -10);
 	}
 
 	public function renderEntry(FreshRSS_Entry $entry): FreshRSS_Entry {
@@ -156,7 +156,7 @@ final class HelloWorldExtension extends Minz_Extension
 		return $entry;
 	}
 
-	public static function checkUrlBeforeAdd(string $url): string {
+	public static function checkUrlBeforeAdd(string $url): ?string {
 		if (str_starts_with($url, 'https://')) {
 			return $url;
 		}
@@ -171,6 +171,11 @@ The following events are available:
 	By returning `true`, you allow the original action to proceed further; `false` stops further execution of the action.
 	This hook can be used for adding extra functionality to an existing action. See also: `Minz_Request::is()`, `Minz_Request::controllerName()`, `Minz_Request::actionName()`.
 * `Minz_HookType::ApiMisc` (`function(): void`): to allow extensions to have their own API endpoint
+* `Minz_HookType::AutofillField` (`function(string $field_name): string | null`): For autofilling a field in a form, to be used for example in the authentication views.
+	If it gets called with a `username` value, you may return `demo` to autofill the username field.
+	Currently supported fields:
+	* `username` - in `register/formLogin/reauth`
+	* `password` - in `register/formLogin/reauth`
 * `Minz_HookType::BeforeLoginBtn` (`function(): string`): Allows to insert HTML before the login button. Applies to the create button on the register page as well. Example use case is inserting a captcha widget.
 * `Minz_HookType::CheckUrlBeforeAdd` (`function($url) -> Url | null`): will be executed every time a URL is added. The URL itself will be passed as parameter. This way a website known to have feeds which doesn’t advertise it in the header can still be automatically supported.
 * `Minz_HookType::CustomFaviconBtnUrl` (`function(FreshRSS_Feed $feed): string | null`): Allows extensions to implement a button for setting a custom favicon for individual feeds by providing an URL. The URL will be sent a POST request with the `extAction` field set to either `query_icon_info` or `update_icon`, along with an `id` field which describes the feed's ID.
@@ -225,6 +230,7 @@ if (document.readyState && document.readyState !== 'loading' && typeof window.co
 The following events are available:
 
 * `freshrss:globalContextLoaded`: will be dispatched after load the global `context` variable, useful for referencing variables injected with the `Minz_HookType::JsVars` hook.
+* `freshrss:entryStateChange`: will be dispatched on `document` after an entry has finished being marked as read or unread (i.e. once the underlying AJAX request has completed). The `detail` property of the event contains `id` (the entry ID) and `isRead` (the new read state). Useful for extensions that display their own read/unread indicator outside of the main article list, e.g. in a custom reading pane.
 
 ### Injecting CDN content
 

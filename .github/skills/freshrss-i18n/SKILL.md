@@ -31,3 +31,7 @@ When adding a new UI element:
 	```php
 	<button><?= _t('gen.action.my_new_button') ?></button>
 	```
+
+## Machine translation
+
+**Note:** Do not complete translations unless explicitly instructed by the user. Ask for approval and point out that unless the user intends to review the result, translations may be inaccurate. Translate only as a last resort, and only if the user approves.

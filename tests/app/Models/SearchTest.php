@@ -7,6 +7,13 @@ require_once LIB_PATH . '/lib_date.php';
 
 final class SearchTest extends \PHPUnit\Framework\TestCase {
 
+	#[\Override]
+	protected function setUp(): void {
+		if (!FreshRSS_Context::hasSystemConf()) {
+			FreshRSS_Context::initSystem();
+		}
+	}
+
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
 		$search = new FreshRSS_Search($input);
@@ -859,10 +866,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider provideRegexPostreSQL
-	 * @param array<string> $values
-	 */
+	/** @param array<string> $values */
+	#[DataProvider('provideRegexPostreSQL')]
 	public function test__regex_postgresql(string $input, string $sql, array $values): void {
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
 		self::assertSame(trim($sql), trim($filterSearch));
@@ -970,10 +975,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider provideRegexMariaDB
-	 * @param array<string> $values
-	 */
+	/** @param array<string> $values */
+	#[DataProvider('provideRegexMariaDB')]
 	public function test__regex_mariadb(string $input, string $sql, array $values): void {
 		FreshRSS_DatabaseDAO::$dummyConnection = true;
 		FreshRSS_DatabaseDAO::setStaticVersion('11.4.3-MariaDB-ubu2404');
@@ -1007,16 +1010,24 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				'intext:/^ab$/m',
-				'(UNCOMPRESS(e.content_bin) REGEXP ?))',
+				'(UNCOMPRESS(e.content_bin) REGEXP ?)',
 				['(?-i)(?m)^ab$']
+			],
+			[
+				'-intext:/^ab$/m',
+				'(NOT UNCOMPRESS(e.content_bin) REGEXP ?)',
+				['(?-i)(?m)^ab$']
+			],
+			[
+				'-/^ab$/',
+				'(NOT e.title REGEXP ? AND NOT UNCOMPRESS(e.content_bin) REGEXP ?)',
+				['(?-i)^ab$', '(?-i)^ab$']
 			],
 		];
 	}
 
-	/**
-	 * @dataProvider provideRegexMySQL
-	 * @param array<string> $values
-	 */
+	/** @param array<string> $values */
+	#[DataProvider('provideRegexMySQL')]
 	public function test__regex_mysql(string $input, string $sql, array $values): void {
 		FreshRSS_DatabaseDAO::$dummyConnection = true;
 		FreshRSS_DatabaseDAO::setStaticVersion('9.0.1');
@@ -1045,16 +1056,24 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				'intext:/^ab$/m',
-				"(REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc')))",
+				"(REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc'))",
 				['^ab$']
+			],
+			[
+				'-intext:/^ab$/m',
+				"(NOT REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc'))",
+				['^ab$']
+			],
+			[
+				'-/^ab$/',
+				"(NOT REGEXP_LIKE(e.title,?,'c') AND NOT REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'c'))",
+				['^ab$', '^ab$']
 			],
 		];
 	}
 
-	/**
-	 * @dataProvider provideRegexSQLite
-	 * @param array<string> $values
-	 */
+	/** @param array<string> $values */
+	#[DataProvider('provideRegexSQLite')]
 	public function test__regex_sqlite(string $input, string $sql, array $values): void {
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAOSQLite::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
 		self::assertSame(trim($sql), trim($filterSearch));

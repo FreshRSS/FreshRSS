@@ -102,9 +102,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * This action displays the normal view of FreshRSS.
 	 */
 	public function normalAction(): void {
-		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous()) {
+			if (Minz_Request::paramString('user') !== '') {
+				Minz_Error::error(403, redirect: false);
+			} else {
+				Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
+			}
 			return;
 		}
 
@@ -146,7 +149,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 			$title = '“' . htmlspecialchars($search, ENT_COMPAT, 'UTF-8') . '”';
 		}
 		if (FreshRSS_Context::userConf()->show_title_unread && FreshRSS_Context::$get_unread > 0) {
-			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
+			$title = '(' . format_number(FreshRSS_Context::$get_unread) . ') ' . $title;
 		}
 		if (strlen($title) > 0) {
 			FreshRSS_View::prependTitle($title . ' · ');
@@ -208,9 +211,12 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * This action displays the global view of FreshRSS.
 	 */
 	public function globalAction(): void {
-		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous) {
-			Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous()) {
+			if (Minz_Request::paramString('user') !== '') {
+				Minz_Error::error(403, redirect: false);
+			} else {
+				Minz_Request::forward(['c' => 'auth', 'a' => 'login']);
+			}
 			return;
 		}
 
@@ -224,11 +230,16 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$this->view->categories = FreshRSS_Context::categories();
+		// Filter feed list when searching or when a restrictive state filter is active
+		if (FreshRSS_Context::$search->toString() !== '' || FreshRSS_Context::isStateConsequential(FreshRSS_Context::$state)) {
+			$entryDAO = FreshRSS_Factory::createEntryDao();
+			$this->view->feedIdsMatching = $entryDAO->listFeedIdsMatching(FreshRSS_Context::$state, FreshRSS_Context::$search);
+		}
 
 		$this->view->rss_title = FreshRSS_Context::$name . ' | ' . FreshRSS_View::title();
 		$title = _t('index.feed.title_global');
 		if (FreshRSS_Context::userConf()->show_title_unread && FreshRSS_Context::$get_unread > 0) {
-			$title = '(' . FreshRSS_Context::$get_unread . ') ' . $title;
+			$title = '(' . format_number(FreshRSS_Context::$get_unread) . ') ' . $title;
 		}
 		FreshRSS_View::prependTitle($title . ' · ');
 
@@ -246,10 +257,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	 * @deprecated See user query RSS sharing instead
 	 */
 	public function rssAction(): void {
-		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous() && !Minz_Request::tokenIsOk()) {
 			Minz_Error::error(403, redirect: false);
 			return;
 		}
@@ -283,10 +292,8 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 	}
 
 	public function opmlAction(): void {
-		$allow_anonymous = FreshRSS_Context::systemConf()->allow_anonymous;
-
 		// Check if user has access.
-		if (!FreshRSS_Auth::hasAccess() && !$allow_anonymous && !Minz_Request::tokenIsOk()) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous() && !Minz_Request::tokenIsOk()) {
 			Minz_Error::error(403, redirect: false);
 			return;
 		}
@@ -452,11 +459,19 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$logs = FreshRSS_LogDAO::lines();	//TODO: ask only the necessary lines
+		$search = trim(Minz_Request::paramString('search', plaintext: true));
+		if ($search !== '') {
+			$logs = array_values(array_filter($logs, static fn(FreshRSS_Log $log): bool =>
+				stripos($log->level(), $search) !== false ||
+				stripos($log->date(), $search) !== false ||
+				stripos($log->info(), $search) !== false));
+		}
+		$this->view->logSearch = $search;
 
-		//gestion pagination
+		// Pagination handling
 		$page = Minz_Request::paramInt('page') ?: 1;
 		$this->view->logsPaginator = new Minz_Paginator($logs);
-		$this->view->logsPaginator->_nbItemsPerPage(50);
+		$this->view->logsPaginator->_itemsPerPage(50);
 		$this->view->logsPaginator->_currentPage($page);
 	}
 }

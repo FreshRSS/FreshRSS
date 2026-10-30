@@ -24,9 +24,7 @@
   <body>
 		<nav class="mobile-nav">
 			<a class="toggle-aside" href="#aside" title="{%t toggle_aside %}">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-  				<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-				</svg>
+				{% include hamburger_icon.svg %}
 			</a>
 			{% include lang_dropdown.html location="mobile" %}
 		</nav>
@@ -76,6 +74,10 @@
 				{% include docs_nav.html %}
 			</nav>
 		</aside>
+
+		<template id="copy-svg-icon">
+			{% include copy_icon.svg %}
+		</template>
 
     <main>
 			{% include anchor_headings.html html=content anchorBody="#" generateId=true %}

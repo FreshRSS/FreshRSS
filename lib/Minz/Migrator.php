@@ -6,7 +6,7 @@ declare(strict_types=1);
  * architecture of a Minz application.
  *
  * @author Marien Fressinaud <dev@marienfressinaud.fr>
- * @license http://www.gnu.org/licenses/agpl-3.0.en.html AGPL
+ * @license https://www.gnu.org/licenses/agpl-3.0.en.html AGPL
  */
 class Minz_Migrator
 {
@@ -169,7 +169,7 @@ class Minz_Migrator
 	/**
 	 * Return the list of migrations, sorted with `strnatcmp`
 	 *
-	 * @see https://www.php.net/manual/en/function.strnatcmp.php
+	 * @see https://www.php.net/function.strnatcmp
 	 *
 	 * @return array<string,callable>
 	 */
@@ -209,7 +209,7 @@ class Minz_Migrator
 	/**
 	 * Return the list of available versions, sorted with `strnatcmp`
 	 *
-	 * @see https://www.php.net/manual/en/function.strnatcmp.php
+	 * @see https://www.php.net/function.strnatcmp
 	 *
 	 * @return string[]
 	 */

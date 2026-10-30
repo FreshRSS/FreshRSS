@@ -25,16 +25,16 @@ We also need some information:
 * Your storage system (SQLite, MySQL, MariaDB, PostgreSQL)
 * If possible, the related logs (PHP logs and FreshRSS logs under `data/users/your_user/log.txt`)
 
-For a more detailed guide on writing bug reports, please refer to [the in-depth guide on reporting bugs](developers/06_Reporting_Bugs).
+For a more detailed guide on writing bug reports, please refer to [the in-depth guide on reporting bugs](./developers/06_Reporting_Bugs.md).
 
 ## Fix a bug
 
 Would you like to fix a bug? For optimum coordination between collaborators, you should follow these indications:
 
 1. Be sure the bug is associated with a ticket and indicate that you’ll work on it.
-2. [Fork the project repository](https://help.github.com/articles/fork-a-repo/).
-3. [Create a new branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/). The name of the branch should be clear, and ideally prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
-4. Make your changes to your fork and [send a pull request](https://help.github.com/articles/using-pull-requests/) on the **edge branch**. Don’t forget to add your name to `CREDITS.md` if you’re contributing to FreshRSS for the very first time.
+2. [Fork the project repository](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo).
+3. [Create a new branch](https://docs.github.com/en/pull-requests/how-tos/commit-changes/managing-branches-within-your-repository). The name of the branch should be clear, and ideally prefixed by the related ticket id. For instance, `783-contributing-file` to fix [ticket #783](https://github.com/FreshRSS/FreshRSS/issues/783).
+4. Make your changes to your fork and [send a pull request](https://docs.github.com/en/pull-requests/reference/pull-requests) on the **edge branch**. Don’t forget to add your name to `CREDITS.md` if you’re contributing to FreshRSS for the very first time.
 
 If you have to write code, please follow [our coding style recommendations](developers/02_First_steps.md).
 
@@ -69,8 +69,12 @@ This checklist is designed to ensure high-quality system themes while minimizing
 * Include _frss.css in the "files" section of [`metadata.json`](./developers/04_Frontend/02_Design.md).
 * Theme-specific icons reside in the `icons` directory.
 	* Icons should be provided as `svg` files.
-		* Ensure clean code without any unnecessary fragments; utilize tools like [SVGOMG](https://jakearchibald.github.io/svgomg/) for cleaning.
+		* Ensure clean code without any unnecessary fragments. SVG files should be optimized using `make svgo`.
 		* The default color for icons is `#666666`; employ CSS filters for recoloring.
-* Utilize CSS variables for colors to facilitate easy color adjustments with [CustomCSS extension](https://github.com/FreshRSS/Extensions).
+* Utilize CSS variables for colors to facilitate easy color adjustments with the [User CSS extension](./users/05_Configuration.md#user-css).
 * Implement a dark mode that aligns with the `.darkMode` CSS class.
 * To streamline maintenance, avoid using CSS preprocessors; instead, employ well-structured plain CSS.
+
+## AI-assisted pull requests
+
+**Note:** Please limit AI-assisted pull requests to **10 open at a time** per contributor.

@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Opmaak',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Auteurs en datum',
+				'both' => 'In kop en voet',
+				'footer' => 'In voet',
+				'header' => 'In kop',
+				'none' => 'Geen',
+			),
+			'feed_name' => array(
+				'above_title' => 'Boven titel/tags',
+				'none' => 'Geen',
+				'with_authors' => 'In lijn met auteurs en datum',
+			),
+			'feed_title' => 'Feedtitel',
+			'icons' => array(
+				'_' => 'Positie van artikelpictogrammen<br /><small>(Alleen leesweergave)</small>',
+				'above_title' => 'Boven titel',
+				'with_authors' => 'In rij auteurs en datum',
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In kop en voet',
+				'footer' => 'In voet',
+				'header' => 'In kop',
+				'none' => 'Geen',
+			),
+			'tags_max' => array(
+				'_' => 'Max aantal getoonde tags',
+				'help' => '0 betekent: toon alle tags en verberg er geen',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatische dark mode',
 			'auto' => 'Auto',	// IGNORE
 			'help' => 'Alleen voor compatibele thema’s',
 			'no' => 'Nee',
+		),
+		'display_enclosures' => 'Toon bijlagen',
+		'headline' => array(
+			'articles_header_footer' => 'Artikelen: kop/voet',
 		),
 		'icon' => array(
 			'bottom_line' => 'Onderaan',
@@ -56,11 +91,11 @@ return array(
 		'show_nav_buttons' => 'Toon navigatieknoppen',
 		'show_title_unread' => 'Aantal ongelezen artikelen in de titel weergeven',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Aantal ongelezen artikelen in de zijbalk weergeven',
+			'all' => 'Voor alle categorieën en feeds',
+			'important' => 'Alleen voor belangrijke feeds',
+			'important_locked' => 'Belangrijke feeds tonen altijd het aantal ongelezen artikelen.',
+			'none' => 'Nooit',
 		),
 		'sidebar_hidden_by_default' => 'Zijbalk standaard verbergen',
 		'theme' => array(
@@ -141,7 +176,7 @@ return array(
 			'check_link' => 'Controleer API-status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'De API-toegang is uitgeschakeld.',
 			'documentation_link' => 'Zie de <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentatie en lijst met bekende apps</a>',
-			'help' => 'Zie <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentatie</a>',
+			'help' => 'Zie <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentatie</a>',
 			'security_warning' => 'Gebruik HTTPS. Het API-wachtwoord wordt als tekst verzonden en kan in serverlogs terechtkomen als het via GET wordt verzonden.',
 		),
 		'change_password' => 'Wachtwoord wijzigen',
@@ -166,8 +201,9 @@ return array(
 			'_' => 'Filter toegepast:',
 			'categories' => 'Weergeven op categorie',
 			'feeds' => 'Weergeven op feed',
+			'include_article_tags_label' => 'Artikel-tags van feeds opnemen',
+			'include_user_labels_label' => 'Gebruikerslabels opnemen, met voorvoegsel:',
 			'order' => 'Sort by',	// TODO
-			'publish_labels_instead_of_tags' => 'Vervang <i>feedtags</i> door <i>gebruikerslabels</i> in de gedeelde RSS',
 			'search' => 'Expressie',
 			'shareOpml' => 'Via OPML delen van bijbehorende categorieën en feeds aanzetten',
 			'shareRss' => 'Via HTML &amp; RSS delen aanzetten',
@@ -208,22 +244,15 @@ return array(
 			'opml' => 'Deelbare link naar de OPML-lijst van feeds',
 			'rss' => 'Deelbare link naar de RSS-feed',
 		),
-		'state_0' => 'Toon alle artikelen',
-		'state_1' => 'Toon gelezen artikelen',
-		'state_2' => 'Toon ongelezen artikelen',
-		'state_3' => 'Toon alle artikelen',
-		'state_4' => 'Toon favoriete artikelen',
-		'state_5' => 'Toon gelezen favoriete artikelen',
-		'state_6' => 'Toon ongelezen favoriete artikelen',
-		'state_7' => 'Toon favoriete artikelen',
-		'state_8' => 'Toon niet favoriete artikelen',
-		'state_9' => 'Toon gelezen niet favoriete artikelen',
-		'state_10' => 'Toon ongelezen niet favoriete artikelen',
-		'state_11' => 'Toon niet favoriete artikelen',
-		'state_12' => 'Toon alle artikelen',
-		'state_13' => 'Toon gelezen artikelen',
-		'state_14' => 'Toon ongelezen artikelen',
-		'state_15' => 'Toon alle artikelen',
+		'state_all' => 'Toon alle artikelen',
+		'state_favorite' => 'Toon favoriete artikelen',
+		'state_not_favorite' => 'Toon niet favoriete artikelen',
+		'state_read' => 'Toon gelezen artikelen',
+		'state_read_favorite' => 'Toon gelezen favoriete artikelen',
+		'state_read_not_favorite' => 'Toon gelezen niet favoriete artikelen',
+		'state_unread' => 'Toon ongelezen artikelen',
+		'state_unread_favorite' => 'Toon ongelezen favoriete artikelen',
+		'state_unread_not_favorite' => 'Toon ongelezen niet favoriete artikelen',
 		'title' => 'Gebruikersquery’s',
 	),
 	'reading' => array(
@@ -231,37 +260,6 @@ return array(
 		'after_onread' => 'Na „markeer alles als gelezen”,',
 		'always_show_favorites' => 'Toon alle artikelen standaard in favorieten',
 		'apply_to_individual_feed' => 'Toegepast op individuele feeds',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Auteurs en datum',
-				'both' => 'In kop en voet',
-				'footer' => 'In voet',
-				'header' => 'In kop',
-				'none' => 'Geen',
-			),
-			'feed_name' => array(
-				'above_title' => 'Boven titel/tags',
-				'none' => 'Geen',
-				'with_authors' => 'In lijn met auteurs en datum',
-			),
-			'feed_title' => 'Feedtitel',
-			'icons' => array(
-				'_' => 'Positie van artikelpictogrammen<br /><small>(Alleen leesweergave)</small>',
-				'above_title' => 'Boven titel',
-				'with_authors' => 'In rij auteurs en datum',
-			),
-			'tags' => array(
-				'_' => 'Tags',	// IGNORE
-				'both' => 'In kop en voet',
-				'footer' => 'In voet',
-				'header' => 'In kop',
-				'none' => 'Geen',
-			),
-			'tags_max' => array(
-				'_' => 'Max aantal getoonde tags',
-				'help' => '0 betekent: toon alle tags en verberg er geen',
-			),
-		),
 		'articles_per_page' => 'Aantal artikelen per pagina',
 		'auto_load_more' => 'Laad volgende artikel onderaan de pagina',
 		'auto_remove_article' => 'Verberg artikel na lezen',
@@ -270,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Categoriën om uit te klappen',
 		'headline' => array(
 			'articles' => 'Artikelen: openen/sluiten',
-			'articles_header_footer' => 'Artikelen: kop/voet',
 			'categories' => 'Linkernavigatie: categoriën',
 			'mark_as_read' => 'Artikelen als gelezen markeren',
 			'misc' => 'Diversen',

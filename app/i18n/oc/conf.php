@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Afichatge',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autors e data',
+				'both' => 'Dins l’entèsta e lo bas de pagina',
+				'footer' => 'Al pè de pagina',
+				'header' => 'Dins l’entèsta',
+				'none' => 'Cap',
+			),
+			'feed_name' => array(
+				'above_title' => 'Al dessús títol/etiquetas',
+				'none' => 'Cap',
+				'with_authors' => 'Dins la linha autors e data',
+			),
+			'feed_title' => 'Títol del flux',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Etiquetas',
+				'both' => 'Dins l’entèsta e lo bas de pagina',
+				'footer' => 'Al pè de pagina',
+				'header' => 'Dins l’entèsta',
+				'none' => 'Cap',
+			),
+			'tags_max' => array(
+				'_' => 'Nombre max d’etiquetas afichadas',
+				'help' => '0 significa : mostrar totas las etiquetas e las plegar pas',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatic dark mode',	// TODO
 			'auto' => 'Auto',	// TODO
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// TODO
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Articles : entèsta/pè de pagina',
 		),
 		'icon' => array(
 			'bottom_line' => 'Linha enbàs',
@@ -141,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
@@ -166,8 +201,9 @@ return array(
 			'_' => 'Filtres aplicats :',
 			'categories' => 'Afichatge per categoria',
 			'feeds' => 'Afichatge per flux',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Sort by',	// TODO
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
@@ -208,22 +244,15 @@ return array(
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
 		),
-		'state_0' => 'Mostrar totes los articles',
-		'state_1' => 'Mostrar los articles pas legits',
-		'state_2' => 'Mostrar los articles pas legits',
-		'state_3' => 'Mostrar totes los articles',
-		'state_4' => 'Mostrar los articles favorits',
-		'state_5' => 'Mostrar los articles legits e en favorits',
-		'state_6' => 'Mostrar los articles pas legits e en favorit',
-		'state_7' => 'Mostrar los articles favorits',
-		'state_8' => 'Mostrar los articles pas en favorit',
-		'state_9' => 'Mostrar los articles legits e pas en favorit',
-		'state_10' => 'Mostrar los articles pas legits e pas en favorit',
-		'state_11' => 'Mostrar los articles pas en favorit',
-		'state_12' => 'Mostrar totes los articles',
-		'state_13' => 'Mostrar los articles legits',
-		'state_14' => 'Mostrar los articles pas legits',
-		'state_15' => 'Mostrar totes los articles',
+		'state_all' => 'Mostrar totes los articles',
+		'state_favorite' => 'Mostrar los articles favorits',
+		'state_not_favorite' => 'Mostrar los articles pas en favorit',
+		'state_read' => 'Mostrar los articles legits',
+		'state_read_favorite' => 'Mostrar los articles legits e en favorits',
+		'state_read_not_favorite' => 'Mostrar los articles legits e pas en favorit',
+		'state_unread' => 'Mostrar los articles pas legits',
+		'state_unread_favorite' => 'Mostrar los articles pas legits e en favorit',
+		'state_unread_not_favorite' => 'Mostrar los articles pas legits e pas en favorit',
 		'title' => 'Filtres utilizaire',
 	),
 	'reading' => array(
@@ -231,37 +260,6 @@ return array(
 		'after_onread' => 'Aprèp « marcar coma legit »,',
 		'always_show_favorites' => 'Mostrar totes los articles dels favorits per defaut',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autors e data',
-				'both' => 'Dins l’entèsta e lo bas de pagina',
-				'footer' => 'Al pè de pagina',
-				'header' => 'Dins l’entèsta',
-				'none' => 'Cap',
-			),
-			'feed_name' => array(
-				'above_title' => 'Al dessús títol/etiquetas',
-				'none' => 'Cap',
-				'with_authors' => 'Dins la linha autors e data',
-			),
-			'feed_title' => 'Títol del flux',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => 'Etiquetas',
-				'both' => 'Dins l’entèsta e lo bas de pagina',
-				'footer' => 'Al pè de pagina',
-				'header' => 'Dins l’entèsta',
-				'none' => 'Cap',
-			),
-			'tags_max' => array(
-				'_' => 'Nombre max d’etiquetas afichadas',
-				'help' => '0 significa : mostrar totas las etiquetas e las plegar pas',
-			),
-		),
 		'articles_per_page' => 'Nombre d’articles per pagina',
 		'auto_load_more' => 'Cargar los articles seguents enbàs de la pagina',
 		'auto_remove_article' => 'Rescondre los articles aprèp lectura',
@@ -270,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Categorias a desplegar',
 		'headline' => array(
 			'articles' => 'Articles : Dobrir/Tampar',
-			'articles_header_footer' => 'Articles : entèsta/pè de pagina',
 			'categories' => 'Navegacion esquèrra : categorias',
 			'mark_as_read' => 'Marcar los articles coma legits',
 			'misc' => 'Divèrs',

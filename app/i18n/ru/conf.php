@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Отображение',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Авторы и дата',
+				'both' => 'В верхнем и нижнем колонтитулах',
+				'footer' => 'В нижнем колонтитуле',
+				'header' => 'В верхнем колонтитуле',
+				'none' => 'Нигде',
+			),
+			'feed_name' => array(
+				'above_title' => 'Над титулом и метками',
+				'none' => 'Нигде',
+				'with_authors' => 'В строке с автором и датой',
+			),
+			'feed_title' => 'Титул ленты',
+			'icons' => array(
+				'_' => 'Позиция иконок статьи<br /><small>(только в виде для чтения)</small>',
+				'above_title' => 'Над заголовком',
+				'with_authors' => 'В строке с авторами и датой',
+			),
+			'tags' => array(
+				'_' => 'Метки',
+				'both' => 'В верхнем и нижнем колонтитулах',
+				'footer' => 'В нижнем колонтитуле',
+				'header' => 'В верхнем колонтитуле',
+				'none' => 'Нигде',
+			),
+			'tags_max' => array(
+				'_' => 'Максимальное количество отображающих меток',
+				'help' => '0 означает: показать все метки и не сжимать их',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Автоматический темный режим',
 			'auto' => 'Авто',
 			'help' => 'Только для совместимых тем',
 			'no' => 'Нет',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Статьи: верхний/нижний колонтитул',
 		),
 		'icon' => array(
 			'bottom_line' => 'Нижняя линия',
@@ -141,7 +176,7 @@ return array(
 			'check_link' => 'Проверить статус API через: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'Доступ к API отключен.',
 			'documentation_link' => 'См. <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацию и список известных приложений</a>',
-			'help' => 'См. <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацию</a>',
+			'help' => 'См. <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">документацию</a>',
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Изменить пароль',
@@ -166,8 +201,9 @@ return array(
 			'_' => 'Применённые фильтры:',
 			'categories' => 'Отображение по категории',
 			'feeds' => 'Отображение по ленте',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Sort by',	// TODO
-			'publish_labels_instead_of_tags' => 'Заменить <i>теги ленты</i> на <i>пользовательские метки</i> в общей RSS-ленте',
 			'search' => 'Выражение',
 			'shareOpml' => 'Включить общий доступ с помощью OPML к соответствующим категориям и лентам',
 			'shareRss' => 'Включить общий доступ с помощью HTML &amp; RSS',
@@ -208,22 +244,15 @@ return array(
 			'opml' => 'Ссылка доступа на список лент в формате OPML',
 			'rss' => 'Ссылка доступа на RSS-ленту',
 		),
-		'state_0' => 'Показать все статьи',
-		'state_1' => 'Показать прочитанные статьи',
-		'state_2' => 'Показать непрочитанные статьи',
-		'state_3' => 'Показать все статьи',
-		'state_4' => 'Показать избранные статьи',
-		'state_5' => 'Показать прочитанные избранные статьи',
-		'state_6' => 'Показать непрочитанные избранные статьи',
-		'state_7' => 'Показать избранные статьи',
-		'state_8' => 'Показать неизбранные статьи',
-		'state_9' => 'Показать прочитанные неизбранные статьи',
-		'state_10' => 'Показать непрочитанные неизбранные статьи',
-		'state_11' => 'Показать неизбранные статьи',
-		'state_12' => 'Показать все статьи',
-		'state_13' => 'Показать прочитанные статьи',
-		'state_14' => 'Показать непрочитанные статьи',
-		'state_15' => 'Показать все статьи',
+		'state_all' => 'Показать все статьи',
+		'state_favorite' => 'Показать избранные статьи',
+		'state_not_favorite' => 'Показать неизбранные статьи',
+		'state_read' => 'Показать прочитанные статьи',
+		'state_read_favorite' => 'Показать прочитанные избранные статьи',
+		'state_read_not_favorite' => 'Показать прочитанные неизбранные статьи',
+		'state_unread' => 'Показать непрочитанные статьи',
+		'state_unread_favorite' => 'Показать непрочитанные избранные статьи',
+		'state_unread_not_favorite' => 'Показать непрочитанные неизбранные статьи',
 		'title' => 'Пользовательские запросы',
 	),
 	'reading' => array(
@@ -231,37 +260,6 @@ return array(
 		'after_onread' => 'После «отметить всё прочитанным»',
 		'always_show_favorites' => 'Показывать все статьи в избранном по умолчанию',
 		'apply_to_individual_feed' => 'Применяется к лентам индивидуально',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Авторы и дата',
-				'both' => 'В верхнем и нижнем колонтитулах',
-				'footer' => 'В нижнем колонтитуле',
-				'header' => 'В верхнем колонтитуле',
-				'none' => 'Нигде',
-			),
-			'feed_name' => array(
-				'above_title' => 'Над титулом и метками',
-				'none' => 'Нигде',
-				'with_authors' => 'В строке с автором и датой',
-			),
-			'feed_title' => 'Титул ленты',
-			'icons' => array(
-				'_' => 'Позиция иконок статьи<br /><small>(только в виде для чтения)</small>',
-				'above_title' => 'Над заголовком',
-				'with_authors' => 'В строке с авторами и датой',
-			),
-			'tags' => array(
-				'_' => 'Метки',
-				'both' => 'В верхнем и нижнем колонтитулах',
-				'footer' => 'В нижнем колонтитуле',
-				'header' => 'В верхнем колонтитуле',
-				'none' => 'Нигде',
-			),
-			'tags_max' => array(
-				'_' => 'Максимальное количество отображающих меток',
-				'help' => '0 означает: показать все метки и не сжимать их',
-			),
-		),
 		'articles_per_page' => 'Количество статей на странице',
 		'auto_load_more' => 'Загружать больше статей при достижении низа страницы',
 		'auto_remove_article' => 'Скрывать статьи по прочтении',
@@ -270,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Какие категории развёртывать',
 		'headline' => array(
 			'articles' => 'Статьи: открыть/закрыть',
-			'articles_header_footer' => 'Статьи: верхний/нижний колонтитул',
 			'categories' => 'Левая панель: категории',
 			'mark_as_read' => 'Пометить статью прочитанной',
 			'misc' => 'Разное',

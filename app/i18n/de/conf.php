@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Anzeige',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autoren und Datum',
+				'both' => 'In Kopf- und Fußzeile',
+				'footer' => 'In Fußzeile',
+				'header' => 'In Kopfzeile',
+				'none' => 'Nicht anzeigen',
+			),
+			'feed_name' => array(
+				'above_title' => 'Oberhalb der Überschrift und Tags',
+				'none' => 'Nicht anzeigen',
+				'with_authors' => 'In der Zeile mit Autoren und Datum',
+			),
+			'feed_title' => 'Feed-Titel',
+			'icons' => array(
+				'_' => 'Artikel-Icon-Position<br /><small>(Nur in der Lese-Ansicht)</small>',
+				'above_title' => 'Über dem Titel',
+				'with_authors' => 'In der Autoren- und Datumszeile',
+			),
+			'tags' => array(
+				'_' => 'Tags',	// IGNORE
+				'both' => 'In Kopf- und Fußzeile',
+				'footer' => 'In Fußzeile',
+				'header' => 'In Kopfzeile',
+				'none' => 'Nicht anzeigen',
+			),
+			'tags_max' => array(
+				'_' => 'Max. Anzahl angezeigter Tags',
+				'help' => '0 bedeutet, dass alle Tags angezeigt und nicht eingeklappt werden',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatischer Dunkel-Modus',
 			'auto' => 'Automatisch',
 			'help' => 'Nur für kompatible Themes',
 			'no' => 'Nein',
+		),
+		'display_enclosures' => 'Anhänge anzeigen',
+		'headline' => array(
+			'articles_header_footer' => 'Artikel: Kopf- und Fußzeile',
 		),
 		'icon' => array(
 			'bottom_line' => 'Fußzeile',
@@ -56,11 +91,11 @@ return array(
 		'show_nav_buttons' => 'Navigationsschaltflächen anzeigen',
 		'show_title_unread' => 'Anzahl ungelesener Artikel im Titel anzeigen',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => 'Zeige Anzahl ungelesener Artikel in der Seitenleiste',
+			'all' => 'Für alle Kategorien und Feeds',
+			'important' => 'Nur für Wichtige Feeds',
+			'important_locked' => 'Bei Wichtige Feeds immer anzeigen.',
+			'none' => 'Nicht anzeigen',
 		),
 		'sidebar_hidden_by_default' => 'Seitenleiste standardmäßig ausblenden',
 		'theme' => array(
@@ -141,7 +176,7 @@ return array(
 			'check_link' => 'API-Status prüfen: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'Der API-Zugriff ist deaktiviert.',
 			'documentation_link' => 'Siehe die <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">Dokumentation und die Liste der bekannten Apps</a>',
-			'help' => 'Siehe <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>Dokumentation</a>',
+			'help' => 'Siehe <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>Dokumentation</a>',
 			'security_warning' => 'Verwenden Sie HTTPS. Das API-Passwort wird im Klartext übertragen und kann in Server-Logs erscheinen, wenn es per GET gesendet wird.',
 		),
 		'change_password' => 'Passwort ändern',
@@ -166,8 +201,9 @@ return array(
 			'_' => 'Angewendeter Filter:',
 			'categories' => 'Nach Kategorie filtern',
 			'feeds' => 'Nach Feed filtern',
+			'include_article_tags_label' => 'Artikel-Tags aus den Feeds berücksichtigen',
+			'include_user_labels_label' => 'Eigene Labels berücksichtigen, mit Präfix:',
 			'order' => 'Sort by',	// TODO
-			'publish_labels_instead_of_tags' => '<i>Feed-Tags</i> im geteilten RSS durch <i>Benutzerlabel</i> ersetzen',
 			'search' => 'Suchbegriff',
 			'shareOpml' => 'Teilen via OPML mit zugehörigen Kategorien und Feeds aktivieren',
 			'shareRss' => 'Teilen via HTML &amp; RSS aktivieren',
@@ -208,22 +244,15 @@ return array(
 			'opml' => 'Freigabelink zur OPML-Liste der Feeds',
 			'rss' => 'Freigabelink zum RSS-Feed',
 		),
-		'state_0' => 'Alle Artikel anzeigen',
-		'state_1' => 'Gelesene Artikel anzeigen',
-		'state_2' => 'Ungelesene Artikel anzeigen',
-		'state_3' => 'Alle Artikel anzeigen',
-		'state_4' => 'Favoritenartikel anzeigen',
-		'state_5' => 'Gelesene Favoritenartikel anzeigen',
-		'state_6' => 'Ungelesene Favoritenartikel anzeigen',
-		'state_7' => 'Favoritenartikel anzeigen',
-		'state_8' => 'Keine Favoritenartikel anzeigen',
-		'state_9' => 'Gelesene ohne Favoritenartikel anzeigen',
-		'state_10' => 'Ungelesene ohne Favoritenartikel anzeigen',
-		'state_11' => 'Keine Favoritenartikel anzeigen',
-		'state_12' => 'Alle Artikel anzeigen',
-		'state_13' => 'Gelesene Artikel anzeigen',
-		'state_14' => 'Ungelesene Artikel anzeigen',
-		'state_15' => 'Alle Artikel anzeigen',
+		'state_all' => 'Alle Artikel anzeigen',
+		'state_favorite' => 'Favoritenartikel anzeigen',
+		'state_not_favorite' => 'Keine Favoritenartikel anzeigen',
+		'state_read' => 'Gelesene Artikel anzeigen',
+		'state_read_favorite' => 'Gelesene Favoritenartikel anzeigen',
+		'state_read_not_favorite' => 'Gelesene ohne Favoritenartikel anzeigen',
+		'state_unread' => 'Ungelesene Artikel anzeigen',
+		'state_unread_favorite' => 'Ungelesene Favoritenartikel anzeigen',
+		'state_unread_not_favorite' => 'Ungelesene ohne Favoritenartikel anzeigen',
 		'title' => 'Benutzerabfragen',
 	),
 	'reading' => array(
@@ -231,37 +260,6 @@ return array(
 		'after_onread' => 'Nach „Alle als gelesen markieren“,',
 		'always_show_favorites' => 'Favoriten immer anzeigen',
 		'apply_to_individual_feed' => 'Betrifft die Feeds einzeln.',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autoren und Datum',
-				'both' => 'In Kopf- und Fußzeile',
-				'footer' => 'In Fußzeile',
-				'header' => 'In Kopfzeile',
-				'none' => 'Nicht anzeigen',
-			),
-			'feed_name' => array(
-				'above_title' => 'Oberhalb der Überschrift und Tags',
-				'none' => 'Nicht anzeigen',
-				'with_authors' => 'In der Zeile mit Autoren und Datum',
-			),
-			'feed_title' => 'Feed-Titel',
-			'icons' => array(
-				'_' => 'Artikel-Icon-Position<br /><small>(Nur in der Lese-Ansicht)</small>',
-				'above_title' => 'Über dem Titel',
-				'with_authors' => 'In der Autoren- und Datumszeile',
-			),
-			'tags' => array(
-				'_' => 'Tags',	// IGNORE
-				'both' => 'In Kopf- und Fußzeile',
-				'footer' => 'In Fußzeile',
-				'header' => 'In Kopfzeile',
-				'none' => 'Nicht anzeigen',
-			),
-			'tags_max' => array(
-				'_' => 'Max. Anzahl angezeigter Tags',
-				'help' => '0 bedeutet, dass alle Tags angezeigt und nicht eingeklappt werden',
-			),
-		),
 		'articles_per_page' => 'Anzahl der Artikel pro Seite',
 		'auto_load_more' => 'Die nächsten Artikel am Seitenende laden',
 		'auto_remove_article' => 'Artikel nach dem Lesen verstecken',
@@ -270,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Ausgeklappte Kategorien',
 		'headline' => array(
 			'articles' => 'Artikel: Öffnen/Schließen',
-			'articles_header_footer' => 'Artikel: Kopf- und Fußzeile',
 			'categories' => 'Linke Navigation: Kategorien',
 			'mark_as_read' => 'Artikel als gelesen markieren',
 			'misc' => 'Sonstiges',
@@ -311,8 +308,8 @@ return array(
 			'when' => 'Artikel als Favorit markieren…',
 		),
 		'sticky_post' => 'Wenn geöffnet, den Artikel ganz oben anheften',
-		'sticky_sort' => 'Manuelle Sortierung bei der Navigation beibehalten',	// DIRTY
-		'sticky_sort_help' => 'Legt fest, ob die letzte manuelle Sortierung aktiv bleibt oder ob jede Kategorie bzw. jeder Feed immer die eigene Standard- oder globale Einstellung verwendet.',	// DIRTY
+		'sticky_sort' => 'Manuelle Sortierung bei der Navigation beibehalten',
+		'sticky_sort_help' => 'Legt fest, ob die letzte manuelle Sortierung aktiv bleibt oder ob jede Kategorie bzw. jeder Feed immer die eigene Standard- oder globale Einstellung verwendet.',
 		'title' => 'Lesen',
 		'view' => array(
 			'default' => 'Standard-Ansicht',

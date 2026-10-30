@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Ekrāns',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autori un datums',
+				'both' => 'Virsrakstā un kājenē',
+				'footer' => 'Kājienē',
+				'header' => 'Virsrakstā',
+				'none' => 'Nekāds',
+			),
+			'feed_name' => array(
+				'above_title' => 'Virs titula/birkām',
+				'none' => 'Nekāds',
+				'with_authors' => 'Autoru un datuma rindā',
+			),
+			'feed_title' => 'Barotnes tituls',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Birkas',
+				'both' => 'Virsrakstā un kājenē',
+				'footer' => 'Kājienē',
+				'header' => 'Virsrakstā',
+				'none' => 'Nekāds',
+			),
+			'tags_max' => array(
+				'_' => 'Maksimālais rādīto birku skaits',
+				'help' => '0 nozīmē: rādīt visas birkas un nesalocīt tās',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automātiskais tumšais režīms',
 			'auto' => 'Auto',	// IGNORE
 			'help' => 'Tikai saderīgām tēmām',
 			'no' => 'Nē',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Raksti: virsraksts/kājotne',
 		),
 		'icon' => array(
 			'bottom_line' => 'Apakšējā līnija',
@@ -141,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
@@ -166,8 +201,9 @@ return array(
 			'_' => 'Piemērotais filtrs:',
 			'categories' => 'Rādīt pēc kategorijas',
 			'feeds' => 'Rādīt pēc barotnes',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Sort by',	// TODO
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Izteiksme',
 			'shareOpml' => 'Iespējot dalīšanos, izmantojot OPML atbilstošajām kategorijām un barotnēm',
 			'shareRss' => 'Iespējojiet koplietošanu ar HTML &amp; RSS',
@@ -208,22 +244,15 @@ return array(
 			'opml' => 'Kopīgojama saite uz OPML barotņu sarakstu',
 			'rss' => 'Kopīgojama saite uz RSS barotni',
 		),
-		'state_0' => 'Rādīt visus rakstus',
-		'state_1' => 'Rādīt lasītos rakstus',
-		'state_2' => 'Rādīt nelasītos rakstus',
-		'state_3' => 'Rādīt visus rakstus',
-		'state_4' => 'Rādīt mīļākos rakstus',
-		'state_5' => 'Rādīt lasītos mīļākos rakstus',
-		'state_6' => 'Rādīt nelasītos mīļākos rakstus',
-		'state_7' => 'Rādīt mīļākos rakstus',
-		'state_8' => 'Rādīt ne mīļākos rakstus',
-		'state_9' => 'Rādīt lasītos ne mīļākos rakstus',
-		'state_10' => 'Rādīt nelasītos ne mīļākos rakstus',
-		'state_11' => 'Rādīt ne mīļākos rakstus',
-		'state_12' => 'Rādīt visus rakstus',
-		'state_13' => 'Rādīt lasītos rakstus',
-		'state_14' => 'Rādīt nelasītos rakstus',
-		'state_15' => 'Rādīt visus rakstus',
+		'state_all' => 'Rādīt visus rakstus',
+		'state_favorite' => 'Rādīt mīļākos rakstus',
+		'state_not_favorite' => 'Rādīt ne mīļākos rakstus',
+		'state_read' => 'Rādīt lasītos rakstus',
+		'state_read_favorite' => 'Rādīt lasītos mīļākos rakstus',
+		'state_read_not_favorite' => 'Rādīt lasītos ne mīļākos rakstus',
+		'state_unread' => 'Rādīt nelasītos rakstus',
+		'state_unread_favorite' => 'Rādīt nelasītos mīļākos rakstus',
+		'state_unread_not_favorite' => 'Rādīt nelasītos ne mīļākos rakstus',
 		'title' => 'Lietotāja pieprasījumi',
 	),
 	'reading' => array(
@@ -231,37 +260,6 @@ return array(
 		'after_onread' => 'Pēc "atzīmēt visus kā izlasītus",',
 		'always_show_favorites' => 'Pēc noklusējuma rādīt visus rakstus mīļāko sadaļā',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autori un datums',
-				'both' => 'Virsrakstā un kājenē',
-				'footer' => 'Kājienē',
-				'header' => 'Virsrakstā',
-				'none' => 'Nekāds',
-			),
-			'feed_name' => array(
-				'above_title' => 'Virs titula/birkām',
-				'none' => 'Nekāds',
-				'with_authors' => 'Autoru un datuma rindā',
-			),
-			'feed_title' => 'Barotnes tituls',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => 'Birkas',
-				'both' => 'Virsrakstā un kājenē',
-				'footer' => 'Kājienē',
-				'header' => 'Virsrakstā',
-				'none' => 'Nekāds',
-			),
-			'tags_max' => array(
-				'_' => 'Maksimālais rādīto birku skaits',
-				'help' => '0 nozīmē: rādīt visas birkas un nesalocīt tās',
-			),
-		),
 		'articles_per_page' => 'Rakstu skaits lapā',
 		'auto_load_more' => 'Ielādēt vairāk rakstu lapas apakšā',
 		'auto_remove_article' => 'Paslēpt rakstus pēc izlasīšanas',
@@ -270,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Nesalocītās kategorijas',
 		'headline' => array(
 			'articles' => 'Raksti: Atvērt/Aizvērt',
-			'articles_header_footer' => 'Raksti: virsraksts/kājotne',
 			'categories' => 'Kreisā navigācija: Kategorijas',
 			'mark_as_read' => 'Atzīmēt rakstu kā izlasītu',
 			'misc' => 'Citi',

@@ -109,6 +109,10 @@ input:focus {
 	filter: brightness(3);
 }
 
+.alert-info {
+	border-color: #ffb6c1;
+}
+
 .stick .btn-important:first-child {
 	border-left-color: #fd6aae;
 }
@@ -166,7 +170,7 @@ input:focus {
 }
 
 @media (max-width: 840px) {
-	.nav_menu .stick #mark-read-menu .dropdown-toggle.btn:hover {
+	.nav_menu .stick .mark-read-menu .dropdown-toggle.btn:hover {
 		border-right-color: #ff449a;
 	}
 }

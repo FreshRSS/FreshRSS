@@ -19,12 +19,12 @@ function load_panel(link) {
 			return;
 		}
 		const html = this.response;
-		const foreign = html.querySelectorAll('.nav_menu, #stream .day, #stream .flux, #stream-footer, #stream.prompt');
+		const foreign = html.querySelectorAll('.nav_menu, #stream .day, #stream .flux, .stream-footer, #stream.prompt');
 		const panel = document.getElementById('panel');
 		foreign.forEach(function (el) {
 			panel.appendChild(document.adoptNode(el));
 		});
-		panel.querySelectorAll('.nav_menu > :not([id="nav_menu_read_all"])').forEach(function (el) {
+		panel.querySelectorAll('.nav_menu > :not(.nav_menu_read_all)').forEach(function (el) {
 			el.remove();
 		});
 
@@ -44,7 +44,7 @@ function load_panel(link) {
 
 		// We already have a click listener in main.js
 		panel.addEventListener('click', function (ev) {
-			const b = ev.target.closest('#nav_menu_read_all button, #bigMarkAsRead');
+			const b = ev.target.closest('.nav_menu_read_all button, #bigMarkAsRead');
 			if (b) {
 				console.log(b.formAction);
 
@@ -92,7 +92,7 @@ function init_global_view() {
 		};
 	});
 
-	document.querySelectorAll('.nav_menu #nav_menu_read_all, .nav_menu .toggle_aside').forEach(function (el) {
+	document.querySelectorAll('.nav_menu .nav_menu_read_all, .nav_menu .toggle_aside').forEach(function (el) {
 		el.remove();
 	});
 

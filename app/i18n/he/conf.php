@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'תצוגה',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automatic dark mode',	// TODO
 			'auto' => 'Auto',	// TODO
 			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// TODO
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 		),
 		'icon' => array(
 			'bottom_line' => 'שורה תחתונה',
@@ -141,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
@@ -166,8 +201,9 @@ return array(
 			'_' => 'מסננים בשימוש:',
 			'categories' => 'Display by category',	// TODO
 			'feeds' => 'Display by feed',	// TODO
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Sort by',	// TODO
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => 'Expression',	// TODO
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
@@ -208,22 +244,15 @@ return array(
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
 		),
-		'state_0' => 'הצגת כל המאמרים',
-		'state_1' => 'הצגת מאמרים שנקראו',
-		'state_2' => 'הצגת מאמרים שלא נקראו',
-		'state_3' => 'הצגת כל המאמרים',
-		'state_4' => 'הצגת מאמרים מועדפים',
-		'state_5' => 'הצגת מאמרים מועדפים שנקראו',
-		'state_6' => 'הצגת מאמרים מועדפים שלא נקראו',
-		'state_7' => 'הצגת מאמרים מועדפים',
-		'state_8' => 'הצגת מאמרים שאינם מועדפים',
-		'state_9' => 'הצגת מאמרים שנקראו ואינם מועדפים',
-		'state_10' => 'הצגת מאמרים שלא נקראו ואינם מועדפים',
-		'state_11' => 'הצגת מאמרים לא מועדפים',
-		'state_12' => 'הצגת כל המאמרים',
-		'state_13' => 'הצגת מאמרים שנקראו',
-		'state_14' => 'הצגת מאמרים שלא נקראו',
-		'state_15' => 'הצגת	כל המאמרים',
+		'state_all' => 'הצגת	כל המאמרים',
+		'state_favorite' => 'הצגת מאמרים מועדפים',
+		'state_not_favorite' => 'הצגת מאמרים לא מועדפים',
+		'state_read' => 'הצגת מאמרים שנקראו',
+		'state_read_favorite' => 'הצגת מאמרים מועדפים שנקראו',
+		'state_read_not_favorite' => 'הצגת מאמרים שנקראו ואינם מועדפים',
+		'state_unread' => 'הצגת מאמרים שלא נקראו',
+		'state_unread_favorite' => 'הצגת מאמרים מועדפים שלא נקראו',
+		'state_unread_not_favorite' => 'הצגת מאמרים שלא נקראו ואינם מועדפים',
 		'title' => 'שאילתות',
 	),
 	'reading' => array(
@@ -231,37 +260,6 @@ return array(
 		'after_onread' => 'לאחר “סימון הכל כנקרא”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
-			),
-			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'feed_title' => 'Feed title',	// TODO
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
-			),
-			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
-			),
-		),
 		'articles_per_page' => 'מספר המאמרים בעמוד',
 		'auto_load_more' => 'טעינת המאמר הבא סוף העמוד',
 		'auto_remove_article' => 'Hide articles after reading',	// TODO
@@ -270,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',	// TODO
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// TODO
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Left navigation: Categories',	// TODO
 			'mark_as_read' => 'Mark article as read',	// TODO
 			'misc' => 'Miscellaneous',	// TODO

@@ -170,7 +170,7 @@ label {
 		outline: none;
 	}
 
-	&:invalid {
+	&:user-invalid {
 		padding-right: 5px;
 		color: var(--color-text-bad);
 		border-right-color: var(--color-border-bad);
@@ -357,7 +357,7 @@ form {
 		}
 
 		> a,
-		> .as-link {
+		.as-link {
 			padding: 0 1.5rem;
 		}
 
@@ -385,7 +385,7 @@ form {
 	background-color: var(--color-background-nav-darker);
 
 	.item > a,
-	.item > .as-link,
+	.item .as-link,
 	.item > span {
 		width: 96% !important;
 	}
@@ -438,7 +438,7 @@ form {
 		font-size: var(--font-size-dropdown);
 		line-height: var(--line-height-dropdown);
 
-		> :is(a, .as-link, span, button) {
+		> :is(a, .as-link, span), :is(button) {
 			padding: var(--padding-dropdown);
 			color: var(--color-text-light);
 			font-size: var(--font-size-dropdown);
@@ -450,7 +450,7 @@ form {
 			white-space: nowrap;
 		}
 
-		> :is(a, button):hover {
+		> :is(a):hover, :is(button):hover {
 			background-color: var(--color-background-nav);
 			color: var(--color-text-light);
 		}
@@ -530,6 +530,7 @@ li.item.separator {
 	font-size: 1.15em;
 }
 
+.alert-info,
 .alert-warn,
 .alert-success,
 .alert-error {
@@ -539,6 +540,11 @@ li.item.separator {
 .alert-warn {
 	background-color: var(--color-background-light);
 	color: var(--color-text-alert);
+}
+
+.alert-info {
+	background-color: var(--color-background-light);
+	color: var(--color-text);
 }
 
 .alert-success {
@@ -1292,14 +1298,14 @@ main.global {
 	}
 
 	#nav_menu_sort .dropdown-menu,
-	#nav_menu_read_all .dropdown-menu,
+	.nav_menu_read_all .dropdown-menu,
 	#dropdown-search-wrapper .dropdown-menu,
 	#nav_menu_queries .dropdown-menu {
 		top: 4.4rem;
 	}
 
 	#nav_menu_sort .dropdown-menu,
-	#nav_menu_read_all .dropdown-menu,
+	.nav_menu_read_all .dropdown-menu,
 	#nav_menu_actions .dropdown-menu {
 		position: fixed;
 	}
@@ -1536,14 +1542,14 @@ main.global {
 		top: 0;
 	}
 
-	form#mark-read-menu,
+	form.mark-read-menu,
 	a#actualize,
 	div#nav_menu_actions,
 	div#nav_menu_views {
 		position: absolute;
 	}
 
-	form#mark-read-menu {
+	form.mark-read-menu {
 		left: 38px;
 		top: 0;
 	}
@@ -1586,7 +1592,7 @@ main.global {
 			margin-right: 0;
 		}
 
-		.nav_menu form#mark-read-menu,
+		.nav_menu form.mark-read-menu,
 		.nav_menu a#actualize,
 		.nav_menu div#nav_menu_actions,
 		.nav_menu div#nav_menu_views,
@@ -1693,7 +1699,7 @@ button.as-link {
 	}
 }
 
-#nav_menu_read_all {
+.nav_menu_read_all {
 	ul.dropdown-menu {
 		&::after {
 			display: none;

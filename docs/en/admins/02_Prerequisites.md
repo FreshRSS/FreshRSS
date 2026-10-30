@@ -7,31 +7,34 @@ You need to verify that your server can run FreshRSS before installing it. If yo
 | Software      | Recommended             | Also Works With         |
 | ------------- | ----------------------- | ----------------------- |
 | Web server    | **Apache 2.4**          | nginx, lighttpd |
-| PHP           | **PHP 8.1+**            | FreshRSS 1.24.3: PHP 7.4+<br />FreshRSS 1.22.1: PHP 7.2+ |
+| PHP           | **PHP 8.2+**            | FreshRSS 1.30.4: PHP 8.1+ |
 | PHP modules   | Required: libxml, cURL, JSON, PDO_MySQL, PCRE and ctype.<br />Required (32-bit only): GMP <br />Recommended: Zlib, mbstring, iconv, ZipArchive<br />*For the whole modules list see [Dockerfile](https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/Dockerfile-Alpine#L9-L11)* | |
 | Database      | **PostgreSQL 10+**      | SQLite, MariaDB 10.6+, MySQL 8.0+ |
 | Browser       | **Firefox**             | Chrome, Opera, Safari, or Edge       |
 
 ## Getting the appropriate version of FreshRSS
 
-FreshRSS has two different releases. It is better if you spend some time to understand the purpose of each release.
+FreshRSS has two different release channels:
 
-## Stable release
+## Rolling release
 
-[Download](https://github.com/FreshRSS/FreshRSS/releases/latest)
+If you want a rolling release with the newest features and security fixes,
+or want to help testing or developing the next release,
+you can use [the `edge` branch](https://github.com/FreshRSS/FreshRSS/tree/edge/).
 
-This version is really stable, tested thoroughly, and you should not face any major bugs.
+In case of bug on this branch, they are quickly resolved, since this branch is actively used.
 
-Stable releases are not released on a set schedule. Rather, they are released whenever we consider that our goal for new features is reached, and the software is stable.
+Branch activity can be followed for instance via [the branch RSS feed](https://github.com/FreshRSS/FreshRSS/commits/edge.atom).
 
-It could happen that we make two releases in a short span of time if we have a really good coding pace. In reality, we are all working on the project in our spare time, so a new release usually occurs every few months.
+Docker releases are available for this branch ; and updating via git or ZIP is also available, both manually and through the Web interface.
 
-## Development version
+## Versioned release
 
-[Download](https://github.com/FreshRSS/FreshRSS/archive/edge.zip)
+If you prefer fewer updates, you can use [the `latest` branch](https://github.com/FreshRSS/FreshRSS/tree/latest/).
+It is more stable but at the price of less security and more known bugs,
+as fixes are not backported to older versions.
+New versions are published a few times a year.
+See the [latest release](https://github.com/FreshRSS/FreshRSS/releases/latest)
+and the [list of releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-As its name suggests, the development version is the working codebase, intended for developers. **This release may be unstable!**
-
-If you want to keep track of the most recent enhancements or help the developers with bug reports, this is the branch for you. If you use this version, please keep in mind that you need to follow the branch activity on GitHub (via [the branch RSS feed](https://github.com/FreshRSS/FreshRSS/commits/edge.atom), for instance), and manually pull new commits.
-
-Some say that the main developers use this branch on a daily basis without problem. They may know what they are doing…
+Versioned releases are not released on a set schedule. Rather, they are released whenever we consider that our goal for new features is reached.

@@ -22,7 +22,7 @@ return array(
 		'keep_period' => '文章最大保留時間',
 		'keep_unreads' => '永不刪除未讀文章',
 		'maintenance' => '維護',
-		'optimize' => '最佳化資料庫',
+		'optimize' => '資料庫最佳化',
 		'optimize_help' => '偶爾執行以減少資料庫大小',
 		'policy' => '清理策略',
 		'policy_warning' => '如果未選擇清理策略，則將保留全部文章。',
@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => '顯示',
+		'article' => array(
+			'authors_date' => array(
+				'_' => '作者和日期',
+				'both' => '兩者都顯示',
+				'footer' => '僅頁腳顯示',
+				'header' => '僅頁眉顯示',
+				'none' => '不顯示',
+			),
+			'feed_name' => array(
+				'above_title' => '標題/標籤之上',
+				'none' => '不顯示',
+				'with_authors' => '在作者和日期那列',
+			),
+			'feed_title' => '訂閱源標題',
+			'icons' => array(
+				'_' => '文章圖示位置<br /><small>(僅閱讀檢視)</small>',
+				'above_title' => '標題之上',
+				'with_authors' => '在作者和日期那列',
+			),
+			'tags' => array(
+				'_' => '標籤',
+				'both' => '兩者都顯示',
+				'footer' => '僅頁腳顯示',
+				'header' => '僅頁眉顯示',
+				'none' => '不顯示',
+			),
+			'tags_max' => array(
+				'_' => '標籤最大顯示數量',
+				'help' => '0 代表顯示所有標籤並且不摺疊它們',
+			),
+		),
 		'darkMode' => array(
 			'_' => '自動黑暗模式',
 			'auto' => '自動',
 			'help' => '僅適用於相容主題',
 			'no' => '否',
+		),
+		'display_enclosures' => '顯示附件',
+		'headline' => array(
+			'articles_header_footer' => '文章: 頁首/頁尾',
 		),
 		'icon' => array(
 			'bottom_line' => '底部',
@@ -56,11 +91,11 @@ return array(
 		'show_nav_buttons' => '顯示導覽按鈕',
 		'show_title_unread' => '在標題中顯示未讀文章的數量',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => '在側邊欄中顯示未讀數量',
+			'all' => '所有類別與訂閱源',
+			'important' => '僅重要訂閱源',
+			'important_locked' => '總是顯示重要訂閱源的未讀數量。',
+			'none' => '永不',
 		),
 		'sidebar_hidden_by_default' => '預設隱藏側邊欄',
 		'theme' => array(
@@ -130,7 +165,7 @@ return array(
 	'privacy' => array(
 		'_' => '隱私',
 		'retrieve_extension_list' => '取得擴充功能清單',
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'send_referrer_allowlist' => '允許看到您的伺服器位址 (%s) 的站點',
 	),
 	'profile' => array(
 		'_' => '設定檔管理',
@@ -141,19 +176,19 @@ return array(
 			'check_link' => '透過此處檢查 API 狀態: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
 			'disabled' => 'API 存取已停用',
 			'documentation_link' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">說明文件與已知應用程式清單</a>',
-			'help' => '請參閱 <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>說明文件</a>',
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'help' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>說明文件</a>',
+			'security_warning' => '請使用 HTTPS。API 密碼會以明文傳輸，並且如果透過 GET 傳送，可能出現在伺服器的紀錄中。',
 		),
 		'change_password' => '變更密碼',
 		'confirm_new_password' => '確認新密碼',
-		'current_password' => '目前密碼<br /><small>(用於 Web 表單登入方式)</small>',
+		'current_password' => '當前密碼<br /><small>(適用於 Web 表單登入方式)</small>',
 		'delete' => array(
 			'_' => '帳號刪除',
 			'warn' => '你的帳號及所有相關資料將被刪除。',
 		),
 		'email' => '電子郵件位址',
 		'new_password' => '新密碼',
-		'password_api' => 'API 密碼<br /><small>(例如用於移動端應用程式)</small>',
+		'password_api' => 'API 密碼<br /><small>(例如用於行動應用程式)</small>',
 		'password_format' => '至少 7 個字元',
 		'title' => '設定檔',
 	),
@@ -166,8 +201,9 @@ return array(
 			'_' => '套用的過濾器:',
 			'categories' => '按類別顯示',
 			'feeds' => '按訂閱源顯示',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
 			'order' => 'Sort by',	// TODO
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
 			'search' => '表達式',
 			'shareOpml' => '啟用透過對應類別和訂閱源的 OPML 分享',
 			'shareRss' => '啟用透過 HTML 分享 &amp; RSS',
@@ -175,8 +211,8 @@ return array(
 			'tags' => '按標籤顯示',
 			'type' => '類型',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => '顯示所有訂閱源，包含僅於其類別中顯示的部份',
+		'get_Z' => '顯示所有訂閱源，包含被歸檔的部份',
 		'get_all' => '顯示所有文章',
 		'get_all_labels' => '顯示任何標籤的文章',
 		'get_category' => '顯示類別 “%s”',
@@ -184,13 +220,13 @@ return array(
 		'get_feed' => '顯示訂閱源 “%s”',
 		'get_important' => '顯示來自重要訂閱源的文章',
 		'get_label' => '顯示帶有標籤 “%s” 的文章',
-		'help' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">說明文件以了解使用者查詢和透過 HTML / RSS / OPML 重新分享</a>。',
+		'help' => '請參閱<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">使用者查詢與 HTML / RSS / OPML 重新分享方法的說明文件</a>。',
 		'image_url' => '影像 URL',
 		'name' => '名稱',
 		'no_filter' => '無過濾器',
 		'no_queries' => array(
 			'_' => '尚無使用者查詢被儲存。',
-			'help' => '請參閱 <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">說明文件</a>',
+			'help' => '請參閱<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">說明文件</a>',
 		),
 		'number' => '查詢 n°%d',
 		'order_asc' => '先顯示最舊文章',
@@ -208,22 +244,15 @@ return array(
 			'opml' => 'OPML 訂閱源清單的可分享連結',
 			'rss' => 'RSS 訂閱源的可分享連結',
 		),
-		'state_0' => '顯示所有文章',
-		'state_1' => '顯示已讀文章',
-		'state_2' => '顯示未讀文章',
-		'state_3' => '顯示所有文章',
-		'state_4' => '顯示收藏文章',
-		'state_5' => '顯示已讀的收藏文章',
-		'state_6' => '顯示未讀的收藏文章',
-		'state_7' => '顯示收藏文章',
-		'state_8' => '顯示未收藏文章',
-		'state_9' => '顯示已讀的未收藏文章',
-		'state_10' => '顯示未讀的未收藏文章',
-		'state_11' => '顯示未收藏文章',
-		'state_12' => '顯示所有文章',
-		'state_13' => '顯示已讀文章',
-		'state_14' => '顯示未讀文章',
-		'state_15' => '顯示所有文章',
+		'state_all' => '顯示所有文章',
+		'state_favorite' => '顯示收藏文章',
+		'state_not_favorite' => '顯示未收藏文章',
+		'state_read' => '顯示已讀文章',
+		'state_read_favorite' => '顯示已讀的收藏文章',
+		'state_read_not_favorite' => '顯示已讀的未收藏文章',
+		'state_unread' => '顯示未讀文章',
+		'state_unread_favorite' => '顯示未讀的收藏文章',
+		'state_unread_not_favorite' => '顯示未讀的未收藏文章',
 		'title' => '使用者查詢',
 	),
 	'reading' => array(
@@ -231,37 +260,6 @@ return array(
 		'after_onread' => '在 "標記全部為已讀" 之後，',
 		'always_show_favorites' => '預設顯示收藏中的所有文章',
 		'apply_to_individual_feed' => '個別套用到訂閱源',
-		'article' => array(
-			'authors_date' => array(
-				'_' => '作者和日期',
-				'both' => '兩者都顯示',
-				'footer' => '僅頁腳顯示',
-				'header' => '僅頁眉顯示',
-				'none' => '不顯示',
-			),
-			'feed_name' => array(
-				'above_title' => '標題/標籤之上',
-				'none' => '不顯示',
-				'with_authors' => '在作者和日期那列',
-			),
-			'feed_title' => '訂閱源標題',
-			'icons' => array(
-				'_' => '文章圖示位置<br /><small>(僅閱讀檢視)</small>',
-				'above_title' => '標題之上',
-				'with_authors' => '在作者和日期那列',
-			),
-			'tags' => array(
-				'_' => '標籤',
-				'both' => '兩者都顯示',
-				'footer' => '僅頁腳顯示',
-				'header' => '僅頁眉顯示',
-				'none' => '不顯示',
-			),
-			'tags_max' => array(
-				'_' => '標籤最大顯示數量',
-				'help' => '0 代表顯示所有標籤並且不摺疊它們',
-			),
-		),
 		'articles_per_page' => '每頁文章數',
 		'auto_load_more' => '在頁面底部載入更多文章',
 		'auto_remove_article' => '閱讀後隱藏文章',
@@ -270,7 +268,6 @@ return array(
 		'display_categories_unfolded' => '不摺疊的類別',
 		'headline' => array(
 			'articles' => '文章: 開啟/關閉',
-			'articles_header_footer' => '文章: 頁首/頁尾',
 			'categories' => '左側導覽: 類別',
 			'mark_as_read' => '標記文章為已讀',
 			'misc' => '雜項',
@@ -306,7 +303,7 @@ return array(
 			'unread_or_favorite' => '顯示未讀和收藏',
 		),
 		'show_fav_unread_help' => '同樣適用於標籤',
-		'sides_close_article' => '點擊文章區域外以關閉',
+		'sides_close_article' => '點擊文章內容區域外以關閉',
 		'star' => array(
 			'when' => '標記文章為最愛…',
 		),
@@ -375,12 +372,12 @@ return array(
 		'toggle_aside' => '切換側邊欄',
 		'toggle_media' => '播放/暫停媒體',
 		'user_filter' => '存取使用者查詢',
-		'user_filter_help' => '如果有多個自定義過濾器，則會按照它們的序號依次訪問。',
+		'user_filter_help' => '如果只有一個使用者查詢就使用它。否則，透過編號來存取查詢。',
 		'views' => '檢視',
 	),
 	'user' => array(
 		'articles_and_size' => '%s 篇文章 (%s)',
-		'current' => '目前使用者',
+		'current' => '當前使用者',
 		'is_admin' => '是否為管理員',
 		'users' => '使用者',
 	),

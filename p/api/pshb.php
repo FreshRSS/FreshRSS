@@ -121,17 +121,17 @@ if ($httpLink !== '' && preg_match_all('/<([^>]+)>;\\s*rel="([^"]+)"/', $httpLin
 	// }
 	if (!empty($links['self'])) {
 		$httpSelf = FreshRSS_http_Util::checkUrl($links['self']) ?: '';
-		if ($self !== '' && $self !== $httpSelf) {
+		if ($self !== '' && FreshRSS_http_Util::compareUrlIgnoringHttps($self, $httpSelf) !== 0) {
 			Minz_Log::warning('Warning: Self URL mismatch between XML [' . $self . '] and HTTP!: ' . $httpSelf, PSHB_LOG);
 		}
 		$self = $httpSelf;
 	}
 }
 
-if ($self !== $canonical) {
-	//header('HTTP/1.1 422 Unprocessable Entity');
+if ($self !== '' && FreshRSS_http_Util::compareUrlIgnoringHttps($self, $canonical) !== 0) {
+	header('HTTP/1.1 422 Unprocessable Entity');
 	Minz_Log::warning('Warning: Self URL [' . $self . '] does not match registered canonical URL!: ' . $canonical, PSHB_LOG);
-	//die('Self URL does not match registered canonical URL!');
+	die('Self URL does not match registered canonical URL!');
 }
 
 Minz_ExtensionManager::init();
@@ -167,7 +167,7 @@ foreach ($users as $userFilename) {
 	}
 }
 
-$simplePie->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
+$simplePie->__destruct();	// https://simplepie.org/wiki/faq/i_m_getting_memory_leaks
 unset($simplePie);
 
 if ($nb === 0) {

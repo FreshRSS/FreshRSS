@@ -5,7 +5,7 @@
 ?>
 <main class="post">
 	<h1><?= _t('admin.extensions.title') ?></h1>
-	<form id="form-extension" method="post">
+	<form method="post">
 	<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 	<?php if (!empty($this->extension_list['system'])) { ?>
 	<h2><?= _t('admin.extensions.system') ?></h2>

@@ -1,5 +1,5 @@
 <?php
-namespace Gt\CssXPath;
+namespace GT\CssXPath;
 
 use RuntimeException;
 

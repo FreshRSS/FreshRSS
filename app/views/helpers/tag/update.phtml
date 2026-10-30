@@ -62,7 +62,7 @@
 	</form>
 
 	<h3><?= _t('sub.title.delete_label') ?></h3>
-	<form id="delete_tag" method="post" action="<?= _url('tag', 'delete', 'id_tag', $this->tag->id()) ?>">
+	<form method="post" action="<?= _url('tag', 'delete', 'id_tag', $this->tag->id()) ?>">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<div class="form-group form-actions">
 			<div class="group-controls">
