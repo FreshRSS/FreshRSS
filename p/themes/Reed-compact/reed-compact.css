@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+/*
+* Reed Compact — Reed with one-line article rows, about as tall as Origine's (~40px).
+* Loads after ../Reed/reed.css and only overrides the article list.
+* Relative url()s in reed.css resolve against the Reed folder, so fonts and icons come from there.
+*/
+
+/* Reed centres the list in a 56rem column; compact rows always span the page.
+* An opened article's text still follows the content width setting */
+
+#stream.normal :is(.transition, .flux, #new-article) {
+	max-width: none;
+}
+
+/*=== Article list: one line per article
+* (read)(star) [icon] FEED NAME   Title  Excerpt…       time [thumb]
+* Icon and feed name are auto tracks sized by their elements, so turning either off leaves no gap.
+* The title takes what it needs and the excerpt gets the rest
+*/
+
+.flux .flux_header,
+.flux .flux_header.has-thumbnail.has-summary {
+	grid-template-columns: auto auto auto auto minmax(0, max-content) minmax(0, 1fr) auto auto;
+	/* Upstream's phone CSS gives thumbnail+summary rows two */
+	grid-template-rows: auto;
+	grid-template-areas: "read fav icon site title summary date thumb";
+	align-items: baseline;
+	margin: 1px 0;
+	/* The toggles' own 0.3rem padding makes up the rest of the left inset */
+	padding-block: 0.5rem;
+	padding-inline: 0.45rem 0.75rem;
+	border-radius: var(--radius);
+}
+
+.flux .flux_header .item .item-element {
+	line-height: 1.5rem;
+}
+
+.flux .flux_header .favicon {
+	/* Not redundant: the shorthand resets Reed's grid-row span, which would add a second row */
+	grid-area: icon;
+	/* Equal visible gaps circle→star and star→favicon: the toggle icons sit centred in their buttons,
+	* and the circle is drawn 22 wide in a 48 viewBox, so 13/48 of its icon is blank on each side */
+	margin-inline: calc((var(--toggle-size) - var(--toggle-icon)) / 2 + var(--toggle-icon) * 13 / 48) 0.75rem;
+	padding: 2px;
+	width: 20px;
+	height: 20px;
+	border-radius: 5px;
+}
+
+.flux .flux_header .websiteName {
+	width: 10rem;
+	margin-inline-end: 0.75rem;
+	font-size: 0.7rem;
+}
+
+.flux .flux_header .item .title,
+.flux .flux_header .item > a.title {
+	margin: 0;
+	display: block;
+	font-size: 0.95rem;
+	overflow: hidden;
+	/* Reed's .item > a.title outranks the .item-element rule above */
+	line-height: 1.5rem;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.flux .flux_header .item .summary {
+	margin: 0;
+	display: block;
+	overflow: hidden;
+	padding-inline-start: 0.75rem;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.flux .flux_header .item .date {
+	padding-inline-start: 0.75rem;
+}
+
+/* Flex, or the inline toggle sits on a text baseline and rides ~3px above the favicon */
+.flux .flux_header .item.manage {
+	display: flex;
+	align-self: center;
+}
+
+/* Thumbnails shrink to the line; Reed derives the widths from --thumb-h */
+.flux .flux_header .item.thumbnail,
+.flux .flux_header .item.thumbnail.small,
+.flux .flux_header.has-thumbnail.has-summary li.thumbnail {
+	margin-inline-start: 0.5rem;
+	--thumb-h: 24px;
+}
+
+.flux .flux_header .item.thumbnail img {
+	border-radius: 3px;
+}
+
+.flux.current > .flux_header::before {
+	top: 0.6rem;
+	bottom: 0.6rem;
+}
+
+/* Upstream already hides the feed name and time on phones; drop the excerpt too so the title gets the line */
+
+@media (max-width: 840px) {
+	.flux .flux_header .item .summary {
+		display: none;
+	}
+}

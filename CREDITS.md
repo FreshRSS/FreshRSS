@@ -333,6 +333,7 @@ People are sorted by name so please keep this order.
 * [Sharawey74](https://github.com/Sharawey74): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Sharawey74)
 * [Shaurya Kesarwani](https://github.com/shaurya703): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:shaurya703)
 * [shn7798](https://github.com/shn7798): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:shn7798)
+* [SiggeMcKvack](https://github.com/SiggeMcKvack): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SiggeMcKvack)
 * [Simone "roughnecks" Canaletti](https://github.com/roughnecks): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:roughnecks), [Web](https://woodpeckersnest.space/)
 * [sirideain](https://github.com/sirideain): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sirideain)
 * [skrlet13](https://github.com/ghost): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:skrlet13)
