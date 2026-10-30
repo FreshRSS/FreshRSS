@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Według kanału',
 			'include_article_tags_label' => 'Uwzględnij tagi wiadomości z kanałów',
 			'include_user_labels_label' => 'Uwzględnij etykiety użytkownika z prefiksem:',
-			'order' => 'Sortowanie wg daty',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Wyrażenie',
 			'shareOpml' => 'Włącz udostępnianie OPML-ów zawierających kategorie i kanały',
 			'shareRss' => 'Włącz udostępnianie przez HTML i RSS',

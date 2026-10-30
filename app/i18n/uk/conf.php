@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Показати стрічку',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Впорядкувати за датою',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Вираз',
 			'shareOpml' => 'Увімкнути OPML-поширення відповідних категорій і стрічок',
 			'shareRss' => 'Увімкнути поширення в форматі HTML і RSS',

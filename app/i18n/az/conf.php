@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Lentə görə göstər',
 			'include_article_tags_label' => 'Lentlərdən gələn məqalə etiketlərini daxil et',
 			'include_user_labels_label' => 'İstifadəçi etiketlərini daxil et, prefiks ilə:',
-			'order' => 'Tarixə görə sırala',
+			'order' => 'Sort by',	// TODO
 			'search' => 'İfadə',
 			'shareOpml' => 'Uyğun kateqoriya və lentlərin OPML ilə paylaşılmasını aktivləşdir',
 			'shareRss' => 'HTML &amp; RSS ilə paylaşmanı aktivləşdir',

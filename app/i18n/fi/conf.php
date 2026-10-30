@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Näytä syötteen mukaan',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Lajittele päivämäärän mukaan',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Lauseke',
 			'shareOpml' => 'Jaa kyselyä vastaavat luokat ja syötteet OPML-muodossa',
 			'shareRss' => 'Jaa HTML &amp; RSS -muodossa',

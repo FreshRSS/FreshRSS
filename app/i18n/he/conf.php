@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Display by feed',	// TODO
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Sort by date',	// TODO
+			'order' => 'Sort by',	// TODO
 			'search' => 'Expression',	// TODO
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO

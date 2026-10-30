@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Tampilkan berdasarkan umpan',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Urutkan berdasarkan tanggal',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Ekspresi Pencarian',
 			'shareOpml' => 'Aktifkan berbagi melalui OPML dari kategori dan umpan terkait',
 			'shareRss' => 'Aktifkan berbagi melalui HTML &amp; RSS',

@@ -6,6 +6,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 * Compatibility
 	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+* Features
+	* User queries can define their own sort criterion (field and direction) [#8954](https://github.com/FreshRSS/FreshRSS/pull/8954)
 * Bug fixes
 	* Fix 32-bit systems provide a string for SQL BIGINT [#9486](https://github.com/FreshRSS/FreshRSS/pull/9486)
 * Security

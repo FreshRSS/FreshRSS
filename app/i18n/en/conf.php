@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Display by feed',
 			'include_article_tags_label' => 'Include article tags from feeds',
 			'include_user_labels_label' => 'Include user labels, with prefix:',
-			'order' => 'Sort by date',
+			'order' => 'Sort by',
 			'search' => 'Expression',
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',

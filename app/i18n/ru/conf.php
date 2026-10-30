@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Отображение по ленте',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Сортировать по дате',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Выражение',
 			'shareOpml' => 'Включить общий доступ с помощью OPML к соответствующим категориям и лентам',
 			'shareRss' => 'Включить общий доступ с помощью HTML &amp; RSS',

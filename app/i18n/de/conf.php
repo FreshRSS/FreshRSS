@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Nach Feed filtern',
 			'include_article_tags_label' => 'Artikel-Tags aus den Feeds berücksichtigen',
 			'include_user_labels_label' => 'Eigene Labels berücksichtigen, mit Präfix:',
-			'order' => 'Nach Datum sortieren',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Suchbegriff',
 			'shareOpml' => 'Teilen via OPML mit zugehörigen Kategorien und Feeds aktivieren',
 			'shareRss' => 'Teilen via HTML &amp; RSS aktivieren',

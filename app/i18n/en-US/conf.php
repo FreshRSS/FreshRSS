@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Display by feed',	// IGNORE
 			'include_article_tags_label' => 'Include article tags from feeds',	// IGNORE
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// IGNORE
-			'order' => 'Sort by date',	// IGNORE
+			'order' => 'Sort by',	// IGNORE
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// IGNORE
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// IGNORE

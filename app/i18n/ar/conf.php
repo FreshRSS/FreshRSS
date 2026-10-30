@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'العرض حسب الخلاصة',
 			'include_article_tags_label' => 'تضمين وسوم المقالات من الخلاصات',
 			'include_user_labels_label' => 'تضمين تسميات المستخدم، مع البادئة:',
-			'order' => 'الفرز حسب التاريخ',
+			'order' => 'Sort by',	// TODO
 			'search' => 'التعبير',
 			'shareOpml' => 'تفعيل المشاركة عبر OPML للتصنيفات والخلاصات المقابلة',
 			'shareRss' => 'تفعيل المشاركة عبر HTML &amp; RSS',

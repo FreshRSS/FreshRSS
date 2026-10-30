@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'フィードごとに表示する',
 			'include_article_tags_label' => 'フィードの記事タグを含める',
 			'include_user_labels_label' => 'プレフィックスを付けてユーザーラベルを含める：',
-			'order' => '日付ごとにソートする',
+			'order' => 'Sort by',	// TODO
 			'search' => '検索式',
 			'shareOpml' => 'カテゴリとフィードのOPMLによる共有を有効にする',
 			'shareRss' => 'HTMLとRSSによる共有を有効にする',
