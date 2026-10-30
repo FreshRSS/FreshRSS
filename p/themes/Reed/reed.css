@@ -1,0 +1,2884 @@
+@charset "UTF-8";
+
+/*******************
+* Reed — a calm, warm theme for FreshRSS: paper by day, warm brown by night.
+* Content first: quiet chrome, two-line article rows, serif reading view.
+* Builds on base-theme/frss.css.
+*******************/
+
+/* FreshRSS prints ✓/✔ as text (user list, compatibility tables); render them as Lucide's check */
+
+@font-face {
+	font-family: "Lucide Check";
+	src: url("fonts/lucide-check.woff") format("woff");
+	unicode-range: U+2713-2714;
+}
+
+/* Bundled so text looks the same on every OS; FreshRSS's CSP blocks font CDNs.
+* Split by script (tools/subset-fonts.py): browsers only fetch Greek and Cyrillic when a page uses them */
+
+@font-face {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("fonts/InterVariable-latin.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("fonts/InterVariable-greek.woff2") format("woff2");
+	unicode-range: U+0370-03FF, U+1F00-1FFF;
+}
+
+@font-face {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("fonts/InterVariable-cyrillic.woff2") format("woff2");
+	unicode-range: U+0400-052F, U+1C80-1C8F, U+2DE0-2DFF, U+A640-A69F;
+}
+
+@font-face {
+	font-family: "Literata";
+	font-style: normal;
+	font-weight: 200 900;
+	font-display: swap;
+	src: url("fonts/Literata-latin.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Literata";
+	font-style: normal;
+	font-weight: 200 900;
+	font-display: swap;
+	src: url("fonts/Literata-greek.woff2") format("woff2");
+	unicode-range: U+0370-03FF, U+1F00-1FFF;
+}
+
+@font-face {
+	font-family: "Literata";
+	font-style: normal;
+	font-weight: 200 900;
+	font-display: swap;
+	src: url("fonts/Literata-cyrillic.woff2") format("woff2");
+	unicode-range: U+0400-052F, U+1C80-1C8F, U+2DE0-2DFF, U+A640-A69F;
+}
+
+@font-face {
+	font-family: "Literata";
+	font-style: italic;
+	font-weight: 200 900;
+	font-display: swap;
+	src: url("fonts/Literata-Italic-latin.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Literata";
+	font-style: italic;
+	font-weight: 200 900;
+	font-display: swap;
+	src: url("fonts/Literata-Italic-greek.woff2") format("woff2");
+	unicode-range: U+0370-03FF, U+1F00-1FFF;
+}
+
+@font-face {
+	font-family: "Literata";
+	font-style: italic;
+	font-weight: 200 900;
+	font-display: swap;
+	src: url("fonts/Literata-Italic-cyrillic.woff2") format("woff2");
+	unicode-range: U+0400-052F, U+1C80-1C8F, U+2DE0-2DFF, U+A640-A69F;
+}
+/* Warm paper by default; FreshRSS's "Automatic dark mode" (Display settings, on by default)
+* adds .darkMode_auto, which switches to the dark palette below when the OS is dark */
+
+:root {
+	color-scheme: light;
+	accent-color: var(--accent);
+
+	--sans-font: "Lucide Check", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+	--serif-font: "Literata", "Iowan Old Style", "Charter", "Palatino Linotype", Georgia, serif;
+	--mono-font: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+	--bg: #f7f1e8;
+	--bg-sidebar: #efe7dc;
+	--bg-hover: #2b1d140a;
+	--bg-selected: #2b1d1412;
+	--bg-raised: #fffcf7;
+	--separator: #e3d9cc;
+	--text: #3b312c;
+	--text-strong: #1f1916;
+	--text-secondary: #6b5f58;
+	--text-tertiary: #a3968e;
+	/* Dimmest grey for text people read (5.0:1 on --bg); --text-tertiary is for decoration and disabled states */
+	--text-muted: #72655e;
+	/* Darker than the dark palette's amber so it reads as text (5.4:1 on --bg) */
+	--accent: #8a580b;
+	--accent-strong: #6e4506;
+	--red: #ab372e;
+	--green: #44713a;
+
+	--radius-sm: 4px;
+	--radius: 6px;
+	--radius-md: 8px;
+	--radius-lg: 10px;
+	/* Inside a 1px outline, so the fill's corners follow the outline's */
+	--radius-inner: calc(var(--radius) - 1px);
+	--focus-glow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+	/* Article-list read/star toggles: hit area (WCAG 2.5.8) and icon height */
+	--toggle-size: 24px;
+	--toggle-icon: 0.85rem;
+	/* Popovers (menus, notifications) sit on --bg-raised, where --separator disappears */
+	--edge-raised: #2b1d1421;
+	--divider-raised: #2b1d1412;
+	--shadow-pop: 0 8px 24px #3a28182e;
+	/* Header buttons (gear, refresh, phone search): 1.25rem icon, 0.4rem padding, 1px border */
+	--header-btn: calc(1.25rem + 0.8rem + 2px);
+	/* The header row's centre above the toolbar: half the 56px row plus its 1px border */
+	--header-mid: 29px;
+	/* Gear plus the refresh button beside it, 0.25rem apart */
+	--header-gear-width: calc(4rem + var(--header-btn) + 0.25rem);
+	--action-outline: #2b1d142e;
+	--field-fill: #fffcf799;
+	/* 3.1:1 against the page, enough to identify the field */
+	--field-outline: #2b1d1480;
+	--field-outline-hover: #2b1d14a6;
+	--action-hover: #2b1d140f;
+	--fill-subtle: #2b1d141a;
+	--fill-subtle-hover: #2b1d1429;
+	/* Grouped-list cards: lifted off the page like paper on paper */
+	--fill-card: #fffcf7b3;
+	/* Opaque accent tint for selected options */
+	--accent-fill: #ecd7ae;
+	/* Darker than --red so white text reaches 5.4:1 */
+	--red-fill: #b8433a;
+	--switch-knob: #fff;
+	--select-chevron: url("icons/select-chevron-light.svg");
+	--sidebar-row: 2.25rem;
+	--favicon-tile: #fff;
+	--ease: 150ms ease;
+
+	/* Default icons are #666 (5.1:1 on --bg); warm them slightly, darken to --text on hover */
+	--icon-filter: sepia(0.2);
+	--icon-filter-hover: sepia(0.2) brightness(0.55);
+	/* Help icons beside --text-secondary hints */
+	--icon-filter-help: var(--icon-filter);
+	/* Icons that sit beside --text labels and match them */
+	--icon-filter-text: sepia(0.2) brightness(0.55);
+	--icon-filter-text-hover: sepia(0.2) brightness(0.3);
+	/* The theme's amber icons (icons/) are drawn for the dark page; darken them for paper */
+	--amber-icon-filter: brightness(0.62) saturate(1.4);
+	/* Amber icons greyed to match --icon-filter: grayscale gives #b0b0b0 from the amber */
+	--amber-icon-filter-grey: grayscale(1) brightness(0.58) sepia(0.2);
+	--amber-icon-filter-grey-hover: grayscale(1) brightness(0.32) sepia(0.2);
+	/* Logo at rest: the button icons' grey (#666 is invert(0.4) from black) */
+	--logo-filter: brightness(0) invert(0.4) sepia(0.2);
+
+	--frss-background-color: var(--bg);
+	--frss-background-color-transparent: color-mix(in srgb, var(--bg) 50%, transparent);
+	--frss-background-color-middle: var(--bg-raised);
+	--frss-background-color-dark: var(--bg-raised);
+	--frss-background-color-error-transparent: color-mix(in srgb, var(--red) 25%, transparent);
+	--frss-border-color: var(--separator);
+	--frss-border-color-error: var(--red);
+	--frss-font-color-dark: var(--text);
+	--frss-font-color-light: var(--text-strong);
+	--frss-font-color-grey-dark: var(--text-secondary);
+	--frss-font-color-grey-light: var(--text-tertiary);
+	--frss-font-color-disabled: var(--text-tertiary);
+	--frss-font-color-error: var(--red);
+	--frss-dragdrop-color: color-mix(in srgb, var(--accent) 40%, transparent);
+	--frss-dragdrop-color-transparent: color-mix(in srgb, var(--accent) 15%, transparent);
+	--frss-switch-accent-color: var(--accent);
+	--frss-box-shadow-color-transparent: #3a281840;
+	--frss-modal-background-color-transparent: #2b1d1466;
+	--frss-darken-background-hover-transparent: var(--bg-hover);
+	--frss-noThumbnailImage-background-color: var(--bg-raised);
+
+	--frss-scrollbar-handle: var(--fill-subtle);
+	--frss-scrollbar-handle-hover: #2b1d1433;
+	--frss-scrollbar-track: transparent;
+	--frss-scrollbar-track-hover: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root.darkMode_auto {
+		color-scheme: dark;
+
+		--bg: #2b2422;
+		--bg-sidebar: #221c1a;
+		--bg-hover: #ffffff08;
+		--bg-selected: #ffffff12;
+		--bg-raised: #3a312e;
+		--separator: #3a322f;
+		--text: #e6e0dc;
+		--text-strong: #f6f1ed;
+		--text-secondary: #a69b96;
+		--text-tertiary: #776d68;
+		/* 4.6:1 on --bg */
+		--text-muted: #968b86;
+		--accent: #e0ac52;
+		--accent-strong: #ecbf6f;
+		--red: #e97d74;
+		--green: #8fbf7f;
+
+		--edge-raised: #ffffff14;
+		--divider-raised: #ffffff12;
+		--shadow-pop: 0 8px 24px #0009;
+		--action-outline: #ffffff26;
+		--field-fill: #00000026;
+		--field-outline: #ffffff5c;
+		--field-outline-hover: #ffffff80;
+		--action-hover: #ffffff14;
+		--fill-subtle: #ffffff1f;
+		--fill-subtle-hover: #ffffff2e;
+		/* A step under --bg-hover's rows would vanish on the cards */
+		--fill-card: #ffffff0a;
+		--accent-fill: #665130;
+		--switch-knob: var(--text-strong);
+		--select-chevron: url("icons/select-chevron.svg");
+		/* Light tile keeps dark favicons (GitHub, etc.) visible */
+		--favicon-tile: #d9d2cd;
+
+		/* Lift the #666 icons to a soft grey */
+		--icon-filter: invert(1) brightness(0.85);
+		--icon-filter-hover: invert(1) brightness(1.35);
+		/* Upstream's own help-icon filter, which only suits a dark page */
+		--icon-filter-help: brightness(2);
+		/* #666 inverts to #999, sepia warms it and brightness lifts it to --text (#e6e1d9) */
+		--icon-filter-text: invert(1) sepia(0.15) brightness(1.43);
+		--icon-filter-text-hover: invert(1) sepia(0.15) brightness(1.53);
+		--amber-icon-filter: none;
+		--amber-icon-filter-grey: grayscale(1) brightness(0.74);
+		--amber-icon-filter-grey-hover: grayscale(1) brightness(1.17);
+		/* #666 through --icon-filter is #828282, which invert(0.51) gives from black */
+		--logo-filter: brightness(0) invert(0.51);
+
+		--frss-box-shadow-color-transparent: #0008;
+		--frss-modal-background-color-transparent: #0009;
+		--frss-scrollbar-handle-hover: #ffffff3d;
+	}
+}
+
+/*=== GENERAL */
+/*============*/
+html, body {
+	background: var(--bg);
+	color: var(--text);
+	font-family: var(--sans-font);
+	-webkit-font-smoothing: antialiased;
+}
+
+::selection {
+	background: color-mix(in srgb, var(--accent) 35%, transparent);
+	color: var(--text-strong);
+}
+
+a, .as-link, button.as-link {
+	color: var(--accent);
+}
+
+a:hover, .as-link:hover, button.as-link:hover {
+	color: var(--accent-strong);
+}
+
+p.help,
+div.help {
+	color: var(--text-secondary);
+	font-size: 0.85em;
+}
+
+.help code,
+kbd {
+	padding: 0.1em 0.35em;
+	color: var(--text);
+	font-family: var(--mono-font);
+	font-size: 0.85em;
+	border-radius: var(--radius-sm);
+	background-color: var(--bg-raised);
+	border-color: var(--separator);
+}
+
+/*=== Forms */
+input, select, textarea {
+	padding: 0.4rem 0.6rem;
+	color: var(--text);
+	font-size: 0.9rem;
+	border: 1px solid var(--field-outline);
+	border-radius: var(--radius);
+	min-height: 25px;
+	background-color: var(--field-fill);
+	transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+input::placeholder, textarea::placeholder {
+	color: var(--text-muted);
+}
+
+input:hover, select:hover, textarea:hover {
+	border-color: var(--field-outline-hover);
+}
+
+input:focus, select:focus, textarea:focus {
+	border-color: var(--accent);
+	box-shadow: var(--focus-glow);
+	/* Transparent, not none: forced-colours mode drops the box-shadow but paints the outline */
+	outline: 2px solid transparent;
+}
+
+/* Upstream draws focus rings in --frss-border-color, which is --separator here and invisible */
+:is(a, button, .btn, input[type="checkbox"], input[type="radio"], summary, [tabindex]):focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+/* Centre the 15px box on capitals: upstream's vertical-align: middle uses the x-height,
+* which leaves Inter's labels looking top-aligned */
+
+input[type="checkbox"], input[type="radio"] {
+	min-height: 0;
+	margin-block: 0;
+	vertical-align: calc(0.5cap - 7.5px);
+	box-shadow: none;
+}
+
+/* Breathing room between form rows. Labels line up with the first line of
+* their controls, and are pushed down to the field's centre when it starts with one */
+
+.form-group .group-controls {
+	padding: 0.3rem;
+	/* Upstream's overflow-x: auto clips focus rings flush with the edge; the side
+	* padding makes room for them and the margin gives it back, so fields don't move */
+	margin-left: calc(220px - 0.3rem);
+}
+
+.form-group .group-name {
+	padding: 0.3rem 0 0;
+}
+
+.form-group:has(> .group-controls > :is(input:not([type="checkbox"], [type="radio"]), select, textarea, .stick):first-child) .group-name,
+.form-group:has(> .group-controls > label:first-child :is(input:not([type="checkbox"], [type="radio"]), select)) .group-name {
+	padding-top: 0.625rem;
+}
+
+input:user-invalid, select:user-invalid, textarea:user-invalid {
+	border-color: var(--red);
+}
+
+input:disabled, select:disabled, textarea:disabled,
+button.as-link[disabled] {
+	color: var(--text-tertiary);
+}
+
+/* Section headings (h2, and legend in fieldset forms) share one look on settings
+* pages and panels: room above, but not right under the page title */
+
+.post h2,
+#slider h2,
+legend {
+	margin: 2rem 0 0.75rem;
+	padding: 0;
+	color: var(--text-strong);
+	font-size: 1.4rem;
+	font-weight: 700;
+}
+
+.post h1 + h2 {
+	margin-top: 0.5rem;
+}
+
+/* Browsers ignore a legend's top margin, so space the fieldset instead */
+legend {
+	margin-top: 0;
+}
+
+fieldset ~ fieldset,
+:is(.post, #slider) .form-actions + fieldset {
+	margin-top: 2rem;
+}
+
+/* Collapsible form sections: Lucide chevron, aligned with the fields */
+summary.form-advanced-title {
+	margin: 0.25rem 0 0.25rem 220px;
+	padding: 0.4rem 0;
+	display: flex;
+	color: var(--text-strong);
+	align-items: center;
+	gap: 0.4rem;
+	font-weight: 600;
+	text-align: left;
+	list-style: none;
+	cursor: pointer;
+}
+
+summary.form-advanced-title::-webkit-details-marker {
+	display: none;
+}
+
+summary.form-advanced-title::before {
+	content: "";
+	width: 1rem;
+	height: 1rem;
+	background-color: var(--text-secondary);
+	--mask-icon: url("icons/next.svg");
+	/* Closed points to where text flows: left in right-to-left languages */
+	transform: none /*rtl:scaleX(-1)*/;
+	transition: transform var(--ease);
+}
+
+/* Open points down in both directions; rtlcss would flip the angle */
+details[open] > summary.form-advanced-title::before {
+	transform: rotate(90deg) /*rtl:rotate(90deg)*/;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table tr {
+	border-bottom: 1px solid var(--separator);
+}
+
+table th, table td {
+	padding: 8px 12px;
+}
+
+/* Solid fill lets the sticky Submit bar cover scrolled content. Its top edge only
+* shows while it is stuck over content; a permanent border reads as a stray divider
+* on short inline forms (import/export). Browsers without scroll-state show no edge */
+
+.form-group.form-actions {
+	background-color: var(--bg);
+	container-type: scroll-state;
+}
+
+@container scroll-state(stuck: bottom) {
+	.form-group.form-actions > .group-controls::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		border-top: 1px solid var(--separator);
+	}
+}
+
+input[type="file"] {
+	padding: 0.25rem;
+}
+
+input[type="file"]::file-selector-button {
+	padding: 0.3rem 0.7rem;
+	color: var(--text);
+	font: inherit;
+	border: 1px solid var(--action-outline);
+	border-radius: var(--radius-sm);
+	margin-right: 0.6rem;
+	background-color: var(--bg-raised);
+	cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover {
+	background-color: var(--fill-subtle);
+}
+
+/* Own chevron: the native one ignores padding and sits tight against the border.
+* A file, not a data: URI, because FreshRSS's CSP blocks those; stroke is --text-secondary,
+* so each palette has its own copy */
+
+select:not([multiple], [size]) {
+	padding-right: 2rem;
+	appearance: none;
+	background-image: var(--select-chevron);
+	/* The chevron's own 4px inset makes the visible gap match the 0.6rem text padding */
+	background-position: right calc(0.6rem - 4px) center;
+	background-size: 1rem;
+	background-repeat: no-repeat;
+}
+
+select[multiple],
+select[size] {
+	min-width: 20rem;
+}
+
+/* Selected options in list boxes: amber instead of the system blue. Chrome ignores
+* background-color on a focused list's selection but honours a background image */
+
+select[multiple] option:checked,
+select[size] option:checked {
+	/* opaque: a translucent tint would blend with Chrome's focused-selection blue */
+	background: linear-gradient(var(--accent-fill), var(--accent-fill));
+	color: var(--text-strong);
+	/* Chrome forces a system text colour on a focused list's selection; this wins */
+	-webkit-text-fill-color: var(--text-strong);
+}
+
+.group-controls > input[type="number"] {
+	width: 12.5rem;
+}
+
+/*=== Buttons: quiet by default, they recede until needed */
+.btn {
+	margin: 0.3rem 0.6rem 0.3rem 0;
+	padding: 0.25rem 0.6rem;
+	background: transparent;
+	color: var(--text-secondary);
+	font-size: 0.85rem;
+	border: 1px solid transparent;
+	border-radius: var(--radius);
+	min-height: 25px;
+	line-height: 25px;
+	text-decoration: none;
+	vertical-align: middle;
+	transition: background-color var(--ease), color var(--ease);
+}
+
+.btn:hover {
+	background: var(--bg-hover);
+	color: var(--text-strong);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.btn.active,
+div:target ~ .btn {
+	color: var(--text-strong);
+	background-color: var(--bg-selected);
+}
+
+.btn-important,
+.nav_menu_read_all .read_all,
+#actualize {
+	color: var(--text) !important;
+	background-color: transparent;
+	font-weight: normal;
+}
+
+/* One primary per form: the first main button in the button bar (and the bookmarklet) */
+.form-actions .btn-important:not(.btn-important ~ .btn-important),
+.prompt .btn-important,
+.post p .btn-important,
+.post form > .btn-important {
+	color: var(--bg) !important;
+	background-color: var(--accent);
+	font-weight: 600;
+}
+
+.form-actions .btn-important:not(.btn-important ~ .btn-important):hover,
+.prompt .btn-important:hover,
+.post p .btn-important:hover,
+.post form > .btn-important:hover {
+	background-color: var(--accent-strong);
+}
+
+/* Destructive actions: outlined like other secondary actions, in a red tint */
+.btn-attention {
+	color: var(--red) !important;
+	border-color: color-mix(in srgb, var(--red) 40%, transparent);
+}
+
+.btn-attention:hover {
+	background: color-mix(in srgb, var(--red) 15%, transparent);
+}
+
+.stick .btn,
+.stick input,
+.stick select {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.stick .btn:last-child {
+	margin-right: 0;
+}
+
+.stick input,
+.stick select {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.stick input + .btn,
+.stick select + .btn {
+	background: var(--bg-raised);
+	/* Centre the icon exactly; vertical-align: middle sits it on the text baseline,
+	* and the 25px line box made the group taller than a plain input */
+	display: flex;
+	border-left: 0;
+	align-items: center;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	/* Outlined like the field it's attached to, which draws the divider */
+	border-color: var(--field-outline);
+}
+
+.header .stick,
+.header .btn {
+	margin: 0;
+}
+
+/*=== Switches: pill, white knob, accent when on */
+.switch {
+	margin: 0;
+	padding: 0;
+	width: 2.75rem;
+	height: 1.625rem;
+	flex: none;
+	background-color: var(--fill-subtle);
+	background-image: none !important;
+	border-radius: 999px;
+	transition: background-color var(--ease);
+}
+
+.switch:not([disabled]):hover {
+	background-color: var(--fill-subtle-hover);
+}
+
+.switch.active,
+.switch.active:not([disabled]):hover {
+	background-color: var(--accent);
+}
+
+.switch::before,
+.switch:not([disabled]):hover::before,
+.switch.active::before,
+.switch.active:not([disabled]):hover::before {
+	top: 2px;
+	left: 2px;
+	right: auto;
+	width: calc(1.625rem - 4px);
+	height: calc(1.625rem - 4px);
+	background-color: var(--switch-knob);
+	background-image: none;
+	box-shadow: 0 1px 3px #0006;
+	transition: transform var(--ease);
+}
+
+.switch.active::before,
+.switch.active:not([disabled]):hover::before {
+	transform: translateX(calc(2.75rem - 1.625rem));
+}
+
+.switch::after {
+	display: none;
+}
+
+.switch[disabled] {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+/*=== Grouped lists (extensions): rounded card, name left, controls right */
+.manage-list {
+	margin: 0.5rem 0 1.5rem;
+	padding: 0;
+	max-width: 40rem;
+	background-color: var(--fill-card);
+	border-radius: var(--radius-lg);
+}
+
+.manage-list li {
+	padding: 0.625rem 1rem;
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	line-height: 1.4;
+}
+
+.manage-list li + li {
+	border-top: 1px solid var(--separator);
+}
+
+.manage-list li .ext_name {
+	order: 1;
+	flex: 1;
+	color: var(--text-strong);
+}
+
+.manage-list li .configure { order: 2; }
+
+.manage-list li .switch { order: 3; }
+
+.manage-list .disabled {
+	color: var(--text-secondary);
+	font-style: normal;
+}
+
+/* Wide tables wrap instead of overflowing their scroll wrapper */
+.table-wrapper table {
+	width: 100%;
+}
+
+.table-wrapper th,
+.table-wrapper td {
+	white-space: normal;
+}
+
+.table-wrapper th {
+	text-align: left;
+}
+
+/* Long URLs must not force the table wider */
+.table-wrapper td {
+	overflow-wrap: anywhere;
+}
+
+/* Secondary actions on settings pages and panels, Cancel included: outlined, like
+* toolbar actions. Buttons attached to inputs keep their look */
+
+:is(.post, #slider) .btn:not(.btn-important, .btn-attention, .stick .btn),
+:is(.post, #slider) .form-group:not(.form-actions) .btn-important:not(p .btn-important),
+:is(.post, #slider) .form-actions .btn-important ~ .btn-important {
+	color: var(--text) !important;
+	background-color: transparent;
+	border: 1px solid var(--action-outline);
+	font-weight: normal !important;
+}
+
+:is(.post, #slider) .btn:not(.btn-important, .btn-attention, .stick .btn):hover,
+:is(.post, #slider) .form-group:not(.form-actions) .btn-important:not(p .btn-important):hover,
+:is(.post, #slider) .form-actions .btn-important ~ .btn-important:hover {
+	background-color: var(--action-hover);
+}
+
+/*=== Icons (img only: emoji icons are spans and must keep their colours) */
+img.icon {
+	filter: var(--icon-filter);
+	transition: filter var(--ease);
+}
+
+a:hover img.icon,
+.btn:hover img.icon {
+	filter: var(--icon-filter-hover);
+}
+
+.help .icon {
+	filter: var(--icon-filter-help);
+}
+
+/* Panels loaded in the background (feed/category gear) are rendered without the theme,
+* so they reference FreshRSS's default icons; swap in this theme's versions */
+
+img.icon[src$="/themes/icons/add.svg"] { content: url("icons/add.svg"); }
+
+img.icon[src$="/themes/icons/all.svg"] { content: url("icons/all.svg"); }
+
+img.icon[src$="/themes/icons/bookmark-add.svg"] { content: url("icons/bookmark-add.svg"); }
+
+img.icon[src$="/themes/icons/bookmark-tag.svg"] { content: url("icons/bookmark-tag.svg"); }
+
+img.icon[src$="/themes/icons/category.svg"] { content: url("icons/category.svg"); }
+
+img.icon[src$="/themes/icons/close.svg"] { content: url("icons/close.svg"); }
+
+img.icon[src$="/themes/icons/configure.svg"] { content: url("icons/configure.svg"); }
+
+img.icon[src$="/themes/icons/debug.svg"] { content: url("icons/debug.svg"); }
+
+img.icon[src$="/themes/icons/disabled.svg"] { content: url("icons/disabled.svg"); }
+
+img.icon[src$="/themes/icons/down.svg"] { content: url("icons/down.svg"); }
+
+img.icon[src$="/themes/icons/enabled.svg"] { content: url("icons/enabled.svg"); }
+
+img.icon[src$="/themes/icons/error.svg"] { content: url("icons/error.svg"); }
+
+img.icon[src$="/themes/icons/help.svg"] { content: url("icons/help.svg"); }
+
+img.icon[src$="/themes/icons/important.svg"] { content: url("icons/important.svg"); }
+
+img.icon[src$="/themes/icons/key.svg"] { content: url("icons/key.svg"); }
+
+img.icon[src$="/themes/icons/label.svg"] { content: url("icons/label.svg"); }
+
+img.icon[src$="/themes/icons/link.svg"] { content: url("icons/link.svg"); }
+
+img.icon[src$="/themes/icons/login.svg"] { content: url("icons/login.svg"); }
+
+img.icon[src$="/themes/icons/logout.svg"] { content: url("icons/logout.svg"); }
+
+img.icon[src$="/themes/icons/look.svg"] { content: url("icons/look.svg"); }
+
+img.icon[src$="/themes/icons/next.svg"] { content: url("icons/next.svg"); }
+
+img.icon[src$="/themes/icons/non-starred.svg"] { content: url("icons/non-starred.svg"); }
+
+img.icon[src$="/themes/icons/notice.svg"] { content: url("icons/notice.svg"); }
+
+img.icon[src$="/themes/icons/opml.svg"] { content: url("icons/opml.svg"); }
+
+img.icon[src$="/themes/icons/opml-dyn.svg"] { content: url("icons/opml-dyn.svg"); }
+
+img.icon[src$="/themes/icons/prev.svg"] { content: url("icons/prev.svg"); }
+
+img.icon[src$="/themes/icons/read.svg"] { content: url("icons/read.svg"); }
+
+img.icon[src$="/themes/icons/refresh.svg"] { content: url("icons/refresh.svg"); }
+
+img.icon[src$="/themes/icons/rss.svg"] { content: url("icons/rss.svg"); }
+
+img.icon[src$="/themes/icons/search.svg"] { content: url("icons/search.svg"); }
+
+img.icon[src$="/themes/icons/share.svg"] { content: url("icons/share.svg"); }
+
+img.icon[src$="/themes/icons/sort-down.svg"] { content: url("icons/sort-down.svg"); }
+
+img.icon[src$="/themes/icons/sort-up.svg"] { content: url("icons/sort-up.svg"); }
+
+img.icon[src$="/themes/icons/starred.svg"] { content: url("icons/starred.svg"); }
+
+img.icon[src$="/themes/icons/stats.svg"] { content: url("icons/stats.svg"); }
+
+img.icon[src$="/themes/icons/tag.svg"] { content: url("icons/tag.svg"); }
+
+img.icon[src$="/themes/icons/unread.svg"] { content: url("icons/unread.svg"); }
+
+img.icon[src$="/themes/icons/up.svg"] { content: url("icons/up.svg"); }
+
+img.icon[src$="/themes/icons/view-global.svg"] { content: url("icons/view-global.svg"); }
+
+img.icon[src$="/themes/icons/view-normal.svg"] { content: url("icons/view-normal.svg"); }
+
+img.icon[src$="/themes/icons/view-reader.svg"] { content: url("icons/view-reader.svg"); }
+
+img.icon[src$="/themes/icons/warning.svg"] { content: url("icons/warning.svg"); }
+
+/* Themes built on Reed without an icons/ folder (Reed Compact) get upstream's logo */
+img.logo[src$="/themes/icons/FreshRSS-logo.svg"] { content: url("icons/FreshRSS-logo.svg"); }
+
+/* The password toggle prints the key icon, which icons/key.svg draws as an eye;
+* while the password is shown, the button is .active */
+
+.toggle-password.active img.icon {
+	content: url("icons/eye-off.svg");
+}
+
+/* Theme's own coloured icons (icons/) must not be inverted */
+.icon[src$="/starred.svg"],
+.icon[src$="/unread.svg"] {
+	filter: var(--amber-icon-filter) !important;
+}
+
+/* Toolbar state filters stay grey like the other toolbar icons: amber read as "on"
+* whatever the state. The background shows which are on, and their icons brighten.
+* The grey matches the #666 icons (--icon-filter and its hover) */
+
+#nav_menu_actions .btn.active img.icon {
+	filter: var(--icon-filter-hover);
+}
+
+#nav_menu_actions .icon:is([src$="/starred.svg"], [src$="/unread.svg"]) {
+	filter: var(--amber-icon-filter-grey) !important;
+}
+
+#nav_menu_actions .btn:is(.active, :hover) .icon:is([src$="/starred.svg"], [src$="/unread.svg"]) {
+	filter: var(--amber-icon-filter-grey-hover) !important;
+}
+
+/* Lucide icons drawn as masks, so they take the element's colour: any ::before that sets
+* --mask-icon gets one; the rest fall back to no mask */
+
+::before {
+	mask: var(--mask-icon, none) center / contain no-repeat;
+}
+
+/* A tile behind every favicon; on the dark palette it keeps dark ones (GitHub, etc.) visible */
+img.favicon {
+	padding: 1px;
+	background: var(--favicon-tile);
+	border-radius: 3px;
+}
+
+/* Upstream greys the favicon while its feed link is hovered; in the article list
+* that link covers the feed name, so the icon lost its colour on most row hovers */
+
+.website a:hover .favicon,
+a.website:hover .favicon {
+	filter: none;
+}
+
+/*=== Dropdowns */
+.dropdown-menu {
+	margin: 6px 0 0;
+	padding: 0.25rem;
+	background: var(--bg-raised);
+	font-size: 0.85rem;
+	border: 1px solid var(--edge-raised);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-pop);
+	text-align: left;
+}
+
+.dropdown-menu::after {
+	display: none;
+}
+
+.dropdown-header,
+.dropdown-section .dropdown-section-title {
+	padding: 0.5rem 0.75rem 0.25rem;
+	/* Secondary, not muted: menus sit on --bg-raised, where muted drops below 4.5:1 */
+	color: var(--text-secondary);
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-align: left;
+}
+
+.dropdown-menu .item > a,
+.dropdown-menu .item > span,
+.dropdown-menu .item .as-link {
+	padding: 0 0.75rem;
+	min-width: 200px;
+	color: var(--text) !important;
+	font-size: inherit;
+	line-height: 2.1em;
+	border-radius: var(--radius-sm);
+}
+
+.dropdown-menu .dropdown-section .item > a,
+.dropdown-menu .dropdown-section .item > span,
+.dropdown-menu .dropdown-section .item .as-link {
+	padding-left: 1.5rem;
+}
+
+/* Checkable items (sort order): the "✓" sits in a gutter, so ticked and unticked labels line up */
+.dropdown-menu > .item[aria-checked] > a {
+	position: relative;
+	padding-left: 1.75rem;
+}
+
+.dropdown-menu > .item[aria-checked="true"] > a::before {
+	position: absolute;
+	left: 0.6rem;
+}
+
+.dropdown-menu .item > a:hover,
+.dropdown-menu .item > a:focus-visible,
+.dropdown-menu .item button:hover:not([disabled]),
+.dropdown-menu .item button:focus-visible:not([disabled]),
+.dropdown-menu .item > label:hover:not(.noHover),
+.dropdown-menu .item > label:focus-visible:not(.noHover) {
+	background-color: var(--bg-selected);
+	color: var(--text-strong) !important;
+	text-decoration: none;
+	border-radius: var(--radius-sm);
+}
+
+.dropdown-menu .input select,
+.dropdown-menu .input input {
+	margin: 0 auto 5px;
+	padding: 2px 5px;
+}
+
+.dropdown-target:target ~ .dropdown-toggle::after {
+	display: none;
+}
+
+.dropdown-close a:hover {
+	background: none;
+}
+
+.item ~ .dropdown-header,
+.dropdown-section ~ .dropdown-section,
+.item.separator {
+	border-top-color: var(--separator);
+}
+
+/* --separator matches the menu's --bg-raised, which hid the line and left only a gap */
+.dropdown-menu .item ~ .dropdown-header,
+.dropdown-menu .dropdown-section ~ .dropdown-section,
+.dropdown-menu .item.separator {
+	border-top-color: var(--divider-raised);
+}
+
+/*=== Settings menu, settings and subscription sidebars: a Lucide icon left of each entry.
+* Matched on the link's own URL; extension entries keep a blank gutter (fully masked) so their
+* text still lines up. "Go back to your RSS feeds" draws its own arrow further down */
+
+.configure .dropdown-menu .dropdown-section .item > a,
+.configure .dropdown-menu .item button.signout,
+.aside > ul > .nav-section:not(:first-child) .item > a,
+.aside > ul > .nav-section:first-child .item + .item > a,
+.aside .item button.signout {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	padding-left: 0.75rem;
+}
+
+.configure .dropdown-menu .dropdown-section .item > a::before,
+.configure .dropdown-menu .item button.signout::before,
+.aside > ul > .nav-section:not(:first-child) .item > a::before,
+.aside > ul > .nav-section:first-child .item + .item > a::before,
+.aside .item button.signout::before {
+	content: "";
+	flex: none;
+	width: 1rem;
+	height: 1rem;
+	background-color: var(--text-secondary);
+}
+
+/* Blank default without specificity, so the per-URL rules below override it */
+:where(.configure .dropdown-menu .dropdown-section .item > a, .aside .nav-section .item > a)::before {
+	--mask-icon: linear-gradient(transparent, transparent);
+}
+
+.configure .dropdown-menu .dropdown-section .item > a:is(:hover, :focus-visible)::before,
+.configure .dropdown-menu .item button.signout:is(:hover, :focus-visible)::before,
+.aside .nav-section .item:is(.active, :hover) > a::before,
+.aside .item button.signout:is(:hover, :focus-visible)::before {
+	background-color: currentColor;
+}
+
+.item > a[href$="?c=user&a=profile"]::before { --mask-icon: url("icons/circle-user.svg"); }
+
+.item > a[href$="?c=configure&a=display"]::before { --mask-icon: url("icons/palette.svg"); }
+
+.item > a[href$="?c=configure&a=reading"]::before { --mask-icon: url("icons/book-open.svg"); }
+
+.item > a[href$="?c=configure&a=archiving"]::before { --mask-icon: url("icons/archive.svg"); }
+
+.item > a[href$="?c=configure&a=integration"]::before { --mask-icon: url("icons/share.svg"); }
+
+.item > a[href$="?c=configure&a=shortcut"]::before { --mask-icon: url("icons/keyboard.svg"); }
+
+.item > a[href$="?c=configure&a=queries"]::before { --mask-icon: url("icons/bookmark-tag.svg"); }
+
+.item > a[href$="?c=extension"]::before { --mask-icon: url("icons/puzzle.svg"); }
+
+.item > a[href$="?c=configure&a=privacy"]::before { --mask-icon: url("icons/shield.svg"); }
+
+.item > a[href$="?c=configure&a=system"]::before { --mask-icon: url("icons/server.svg"); }
+
+.item > a[href$="?c=user&a=manage"]::before { --mask-icon: url("icons/users.svg"); }
+
+.item > a[href$="?c=auth"]::before { --mask-icon: url("icons/lock.svg"); }
+
+.item > a[href$="?c=update&a=checkInstall"]::before { --mask-icon: url("icons/clipboard-check.svg"); }
+
+.item > a[href$="?c=update"]::before { --mask-icon: url("icons/download.svg"); }
+
+.item > a[href$="?a=logs"]::before { --mask-icon: url("icons/scroll-text.svg"); }
+
+.item > a[href$="?a=about"]::before { --mask-icon: url("icons/info.svg"); }
+
+.item > a[href$="?a=tos"]::before { --mask-icon: url("icons/file-text.svg"); }
+
+.item > a[href$="?c=search"]::before { --mask-icon: url("icons/search.svg"); }
+
+.item > a[href$="?c=subscription&a=add"]::before { --mask-icon: url("icons/rss-plus.svg"); }
+
+.item > a[href$="?c=subscription"]::before { --mask-icon: url("icons/rss.svg"); }
+
+.item > a[href$="?c=tag"]::before { --mask-icon: url("icons/label.svg"); }
+
+.item > a[href$="?c=importExport"]::before { --mask-icon: url("icons/arrow-down-up.svg"); }
+
+.item > a[href$="?c=subscription&a=bookmarklet"]::before { --mask-icon: url("icons/wrench.svg"); }
+
+.item > a[href$="?c=stats"]::before { --mask-icon: url("icons/stats.svg"); }
+
+.item > a[href$="?c=stats&a=idle"]::before { --mask-icon: url("icons/clock.svg"); }
+
+.item > a[href$="?c=stats&a=repartition"]::before { --mask-icon: url("icons/chart-pie.svg"); }
+
+.item > a[href$="?c=stats&a=unreadDates"]::before { --mask-icon: url("icons/calendar.svg"); }
+
+/* Upstream puts the logout icon after the label; drawn as ::before instead */
+button.signout::before {
+	--mask-icon: url("icons/logout.svg");
+	/* The arrow points toward the end of the line, so it flips in right-to-left languages */
+	transform: none /*rtl:scaleX(-1)*/;
+}
+
+button.signout .icon {
+	display: none;
+}
+
+/*=== Alerts */
+.alert {
+	margin: 1rem 0;
+	max-width: 50rem;
+	width: auto;
+	color: var(--text);
+	font-size: 0.9em;
+	border: none;
+	border-left: 3px solid var(--text-muted);
+	border-radius: var(--radius);
+	box-sizing: border-box;
+	background-color: var(--bg-raised);
+}
+
+.alert-success { border-left-color: var(--green); }
+
+.alert-warn { border-left-color: var(--accent); }
+
+.alert-info { border-left-color: var(--text-secondary); }
+
+.alert-error { border-left-color: var(--red); }
+
+/* Stacked alerts (installation check) read as one grouped card with dividers */
+.alert:has(+ .alert) {
+	margin-bottom: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.alert + .alert {
+	margin-top: 0;
+	border-top: 1px solid var(--divider-raised);
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+/*=== Pagination */
+.pagination {
+	padding: 0.5rem;
+	background-color: transparent;
+}
+
+.pagination .item a {
+	border-radius: var(--radius);
+}
+
+.pagination .item.active a {
+	color: var(--text-strong);
+	font-weight: 600;
+}
+
+.pagination .item a:hover {
+	background-color: var(--bg-hover);
+	color: var(--text-strong);
+}
+
+/*=== Boxes (global view, subscription management) */
+.box {
+	background-color: var(--bg-sidebar);
+	border: 1px solid var(--separator);
+	border-radius: var(--radius-lg);
+}
+
+/* Flex gap ignores the stray whitespace some templates put between gear and title */
+.box .box-title {
+	padding: 0.625rem 1rem;
+	display: flex;
+	border-bottom: 1px solid var(--separator);
+	align-items: center;
+	gap: 0.5rem;
+}
+
+/* Unbreakable category and feed names wrap instead of overflowing the box */
+.box .box-title > *,
+.box .box-content .item {
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.box .box-title .configure {
+	display: flex;
+}
+
+/* Optical nudge: the title's visual centre sits slightly below its line box */
+.box .box-title .configure .icon {
+	position: relative;
+	top: 2px;
+}
+
+.box .box-title h2 {
+	margin: 0;
+	color: var(--text-strong);
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.box .box-content .item {
+	padding: 0;
+	font-size: 0.9rem;
+}
+
+/* Feed rows: upstream's hanging indent pushes the gear outside the row, so the hover
+* band skipped it. Flex keeps gear, favicon and name in one rounded band, like the
+* sidebar, and long names still wrap under the name */
+
+.box .box-content:has(> .item.feed) {
+	padding: 0.5rem;
+}
+
+.box .box-content .item.feed {
+	padding: 0.4rem 0.5rem;
+	display: flex;
+	border-radius: var(--radius);
+	align-items: center;
+	gap: 0.5rem;
+	line-height: 1.4;
+	text-indent: 0;
+}
+
+.box .box-content .item.feed .icon,
+.box .box-content .item.feed .favicon {
+	flex: none;
+	margin: 0;
+}
+
+/* "Empty category": a quiet caption like "no articles", not a hoverable row */
+.box .box-content .item.feed.emptyCategory {
+	justify-content: center;
+	padding: 0.75rem 0.5rem;
+	font-size: 0.8rem;
+	font-style: normal;
+}
+
+.box .box-content .item.feed.emptyCategory,
+.box .box-content .item.feed.emptyCategory > div {
+	background: none;
+	color: var(--text-muted);
+}
+
+/* "Add a feed": its icon and label have no space between them in the markup */
+.box .box-content .item.feed > a:not(.configure, .item-title) {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-width: 0;
+}
+
+.box.category .box-title .title {
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.box.category .box-title .title:not([data-unread="0"]) {
+	padding-right: 2.5rem;
+}
+
+.box.category .title:not([data-unread="0"])::after {
+	background: none;
+	color: var(--text-muted);
+	border: 0;
+	box-shadow: none;
+}
+
+[draggable=true] {
+	cursor: grab;
+}
+
+.drag-drop-marker {
+	border: 2px dashed var(--accent);
+}
+
+/*=== STRUCTURE */
+/*===============*/
+/*=== Header */
+.header {
+	background-color: var(--bg-sidebar);
+	border-bottom: 1px solid var(--separator);
+}
+
+.header > .item {
+	vertical-align: middle;
+}
+
+.header > .item.title h1 a {
+	text-decoration: none;
+}
+
+/* Logo (theme copy is amber): the button icons' grey at rest, the accent on hover */
+.header > .item.title .logo {
+	filter: var(--logo-filter);
+	transition: filter var(--ease);
+}
+
+.header > .item.title a:hover .logo {
+	filter: var(--amber-icon-filter);
+}
+
+/* Header holds only logo | search | refresh + gear, so search can take the middle,
+* capped and centred over the article column (start padding mirrors the gear cell) */
+
+.header > .item.search {
+	padding-left: calc(var(--header-gear-width) + 2rem);
+	padding-right: 1rem;
+}
+
+.header > .item.configure {
+	width: var(--header-gear-width);
+	padding-right: 1rem;
+	text-align: right;
+}
+
+/* Flex-centre the gear: vertical-align: middle sat it low in the button */
+.header > .item.configure .btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header > .item.search .stick {
+	margin: 0 auto;
+	display: flex;
+	max-width: 40rem;
+	border-radius: var(--radius);
+}
+
+/* Upstream caps the field at 90%, which left the bar short of its frame */
+.header > .item.search input {
+	max-width: none;
+	width: auto;
+	flex: 1;
+	min-width: 0;
+	background-color: var(--bg-raised);
+}
+
+/* On --bg-raised, --text-muted placeholders drop to 3.8:1 */
+.header > .item.search input::placeholder {
+	color: var(--text-secondary);
+}
+
+/* Filled, not outlined: it's page chrome, unlike form fields */
+.header > .item.search input,
+.header > .item.search .btn {
+	border-color: transparent;
+}
+
+/* Field and button focus as one control: one accent frame and glow, no divider between them */
+.header > .item.search .stick:focus-within {
+	box-shadow: var(--focus-glow);
+}
+
+.header > .item.search .stick:focus-within input,
+.header > .item.search .stick:focus-within .btn {
+	border-color: var(--accent);
+}
+
+.header > .item.search .stick:focus-within input {
+	border-inline-end-color: transparent;
+	box-shadow: none;
+}
+
+/*=== Sidebar (feeds & settings): quiet source list */
+.aside {
+	background-color: var(--bg-sidebar);
+	border-right: 1px solid var(--separator);
+}
+
+.aside.aside_feed {
+	padding: 10px 0;
+}
+
+.aside.aside_feed .tree {
+	margin: 10px 0 50px;
+	max-height: calc(99vh - 10px);
+}
+
+/* Once the list sticks, keep the tree's top 10px: its margin collapses out of this wrapper,
+* so a stuck highlight would otherwise touch the window edge */
+
+.mark-read-aside {
+	top: 10px;
+}
+
+.aside .toggle_aside,
+#slider .toggle_aside,
+.dropdown-menu .toggle_aside,
+.dropdown-header-close a {
+	background: var(--bg-raised);
+	border: none;
+}
+
+.aside .toggle_aside:hover,
+#slider .toggle_aside:hover,
+.dropdown-menu .toggle_aside:hover {
+	background-color: var(--bg-selected) !important;
+}
+
+.nav-list {
+	padding: 0.5rem 0;
+	font-size: 0.9rem;
+}
+
+.nav-list .item {
+	margin: 1px 0.5rem;
+	width: auto;
+	min-height: 2.1em;
+	line-height: 2.1;
+	border-radius: var(--radius);
+}
+
+.nav-list .nav-header {
+	margin: 1.25rem 0.5rem 0.25rem;
+	padding: 0 0.75rem;
+	color: var(--text-muted);
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+/* Upstream prints an empty headline above "About": keep the section gap, drop the blank line */
+.nav-list .nav-header:empty {
+	margin-bottom: 0;
+	min-height: 0;
+}
+
+.nav-list .item > a,
+.nav-list .item .as-link {
+	padding: 0 0.75rem;
+	color: var(--text);
+	border-radius: var(--radius);
+}
+
+.nav-list .item > a .icon,
+.nav-list .item .as-link .icon {
+	margin-left: 0.35rem;
+}
+
+.nav-list .item > a:hover,
+.nav-list .item .as-link:hover {
+	background-color: var(--bg-hover);
+	color: var(--text-strong);
+	text-decoration: none;
+}
+
+/* Fill the row only: a second translucent fill on its link would double it */
+.nav-list .item.active {
+	background-color: var(--bg-selected);
+}
+
+.nav-list .item.active > a,
+.nav-list .item.active .as-link {
+	background-color: transparent;
+	color: var(--text-strong);
+}
+
+/* "Go back to your RSS feeds": every translation starts with a text "← ";
+* hide it and draw Lucide's arrow-left. An inline ::before would take over
+* ::first-letter, so the icon is positioned instead */
+
+.aside > ul > .nav-section:first-child > ul > .item:first-child > a {
+	position: relative;
+	/* Shares the icon box and text column of the iconed links below (padding + icon + gap),
+	* less the space after the hidden arrow (Inter's is 0.3em) */
+	padding-left: calc(2.35rem - 0.3em);
+}
+
+.aside > ul > .nav-section:first-child > ul > .item:first-child > a::first-letter {
+	font-size: 0;
+}
+
+.aside > ul > .nav-section:first-child > ul > .item:first-child > a::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 0.75rem;
+	width: 1rem;
+	height: 1rem;
+	/* Back points right in right-to-left languages */
+	transform: translateY(-50%) /*rtl:translateY(-50%) scaleX(-1)*/;
+	background-color: currentColor;
+	--mask-icon: url("icons/arrow-left.svg");
+}
+
+/* Subscription sidebar puts "Advanced search" in the same section: keep it clear of the back link */
+.aside > ul > .nav-section:first-child .item + .item {
+	margin-top: 0.75rem;
+}
+
+/* Sidebar "Subscription management" and "+": outlined actions, like the toolbar */
+.aside .stick.configure-feeds {
+	margin: 0.25rem 0.5rem 0.5rem;
+	display: flex;
+	gap: 0.4rem;
+}
+
+#btn-subscription,
+#btn-add {
+	margin: 0;
+	border: 1px solid var(--action-outline);
+	border-radius: var(--radius);
+}
+
+#btn-subscription {
+	flex: 1;
+	text-align: center;
+}
+
+/* Same size as a toolbar segment: 16px icon, 0.5rem sides */
+#btn-add {
+	padding-inline: 0.5rem;
+}
+
+#btn-subscription:hover,
+#btn-add:hover {
+	background-color: var(--action-hover);
+}
+
+/* "Add feed" rather than FreshRSS's generic "add" */
+#btn-add img.icon {
+	content: url("icons/rss-plus.svg");
+	/* Matches the --text label of "Subscription management" beside it, not the grey icon colour */
+	filter: var(--icon-filter-text);
+}
+
+/* The id rule above outranks .btn:hover; brighten to the label's --text-strong hover */
+#btn-add:hover img.icon {
+	filter: var(--icon-filter-text-hover);
+}
+
+/*=== Tree (categories & feeds) */
+.tree-folder.category {
+	border-bottom: none;
+}
+
+/* Category rows: flex keeps chevron/icon and name on the row's true centre */
+.tree-folder-title {
+	margin: 1px 0.5rem;
+	padding: 0 0.75rem;
+	display: flex;
+	height: var(--sidebar-row);
+	font-size: 0.95rem;
+	border-radius: var(--radius-md);
+	position: relative;
+	align-items: center;
+	gap: 0.25rem;
+	box-sizing: border-box;
+	line-height: var(--sidebar-row);
+}
+
+/* Transparent, not inherit: inheriting the row's translucent hover colour doubles it */
+.tree-folder-title .title {
+	background: transparent;
+	color: var(--text);
+}
+
+/* Category rows are links: no underline or link colour on hover, the row fill is the cue */
+a.tree-folder-title,
+a.tree-folder-title:hover {
+	color: var(--text);
+	text-decoration: none;
+}
+
+.tree-folder-title > .title {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tree-folder-title > .icon,
+.tree-folder-title > .dropdown-toggle {
+	flex: none;
+}
+
+.tree-folder-title .title:hover {
+	text-decoration: none;
+}
+
+.tree-folder .tree-folder-title:hover {
+	background: var(--bg-hover);
+}
+
+.tree-folder.active .tree-folder-title {
+	background: var(--bg-selected);
+}
+
+.tree-folder.active .tree-folder-title .title {
+	color: var(--text-strong);
+}
+
+/* FreshRSS also marks the parent category active when one of its feeds is selected;
+* only the selected row should be highlighted */
+
+.tree-folder.active:has(.item.feed.active) > .tree-folder-title:not(:hover) {
+	background: transparent;
+}
+
+.tree-folder.active:has(.item.feed.active) > .tree-folder-title .title {
+	color: var(--text);
+}
+
+/* …unless the category is collapsed: then it stands in for the hidden selection, like Finder */
+.tree-folder.active:has(.item.feed.active):has(> .tree-folder-items:not(.active)) > .tree-folder-title {
+	background: var(--bg-selected);
+}
+
+/* Disclosure chevron: right when collapsed (down.svg), down when expanded (up.svg) */
+.tree-folder-title .dropdown-toggle .icon[src$="/down.svg"] {
+	transform: rotate(-90deg);
+}
+
+.tree-folder-title .dropdown-toggle .icon[src$="/up.svg"] {
+	transform: rotate(180deg);
+}
+
+.tree-folder-items,
+.aside_feed .tree-folder-items.active {
+	background: transparent;
+}
+
+.aside_feed .tree-folder-items.active {
+	padding-bottom: 0.5rem;
+}
+
+.tree-folder-items > .item {
+	margin: 1px 0.5rem;
+	font-size: 0.95rem;
+	border-radius: var(--radius-md);
+	transition: background-color var(--ease);
+}
+
+/* Feed rows match category rows: one shared, explicit row height (inline icons
+* would otherwise stretch the line box by a pixel or two) */
+
+.aside_feed .tree-folder-items > .item {
+	height: var(--sidebar-row);
+}
+
+.aside_feed .tree-folder-items > .item .item-title,
+.aside_feed .tree-folder-items > .item .dropdown-toggle {
+	padding-top: 0;
+	padding-bottom: 0;
+	line-height: var(--sidebar-row);
+}
+
+.aside_feed .tree-folder-items > .item .item-title,
+.aside_feed .tree-folder-items > .item .dropdown {
+	vertical-align: top;
+}
+
+/* Feed gear: pinned to the row's centre, like the favicon */
+.aside_feed .tree-folder-items > .item .dropdown-toggle .icon {
+	vertical-align: top;
+	margin-top: calc((var(--sidebar-row) - 1rem) / 2);
+}
+
+.aside_feed .item.feed .favicon {
+	padding: 2px;
+	background: var(--favicon-tile);
+	width: 20px;
+	height: 20px;
+	border-radius: 5px;
+	box-sizing: border-box;
+	/* Pinned to the row's centre; "middle" aligns to the font's x-height and sits low.
+	* The feed name stays inline (bare text) so it can still ellipsize */
+	vertical-align: top;
+	margin-top: calc((var(--sidebar-row) - 20px) / 2);
+}
+
+.tree-folder-items > .item > a {
+	color: var(--text);
+	text-decoration: none;
+}
+
+.item.feed:hover {
+	background-color: var(--bg-hover);
+}
+
+.item.feed.active,
+li.item.active {
+	background-color: var(--bg-selected);
+}
+
+.item.feed.active a {
+	color: var(--text-strong);
+}
+
+.item.feed.error > .item-title {
+	color: var(--red);
+}
+
+/* Upstream marks feeds and categories with errors with a text "⚠"; use Lucide's
+* triangle-alert, centred on the capitals like the checkboxes */
+
+.title.error::before,
+.item.feed.error .item-title .title::before,
+.box-content .item.feed.error .item-title::before,
+.theme-preview-list .properties .error::before {
+	content: "";
+	display: inline-block;
+	flex-shrink: 0;
+	width: 1em;
+	height: 1em;
+	margin-inline-end: 0.35em;
+	vertical-align: calc(0.5cap - 0.5em);
+	background-color: var(--red);
+	--mask-icon: url("icons/warning.svg");
+}
+
+/* Unread feeds are slightly stronger, not bold */
+.feed .item-title:not([data-unread="0"]) {
+	color: var(--text-strong);
+	font-weight: normal;
+}
+
+/* Unread counters: faint plain numbers in one box for categories and feeds,
+* full row height, centred, right-aligned */
+
+.aside .category .tree-folder-title .title:not([data-unread="0"])::after,
+.aside .feed .item-title:not([data-unread="0"])::after {
+	margin: 0;
+	padding: 0;
+	background: none;
+	display: flex;
+	color: var(--text-secondary);
+	font-size: 0.9rem;
+	border: none;
+	font-weight: normal;
+	top: 0;
+	bottom: 0;
+	right: 0.75rem;
+	align-items: center;
+	justify-content: flex-end;
+	line-height: normal;
+}
+
+/* Long category names ellipsize before the count instead of running under it */
+.aside_feed .tree-folder-title > .title:not([data-unread="0"]) {
+	padding-right: 2.5rem;
+}
+
+/* Counts from 1 000 up carry a thin-space separator (format_number): reserve room for up to 9 999 999 */
+.aside_feed .tree-folder-title > .title[data-unread*="\202F"] {
+	padding-right: 4.75rem;
+}
+
+.aside_feed .feed .item-title[data-unread*="\202F"] {
+	width: calc(100% - 7.25rem);
+}
+
+/*=== Article list toolbar */
+.nav_menu {
+	padding: 5px 0.5rem;
+	background: var(--bg);
+	display: flex;
+	border-bottom: 1px solid var(--separator);
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.5rem;
+	text-align: center;
+}
+
+/* Flex-centre the icons: upstream's vertical-align: middle leaves them ~1px low with Inter.
+* content-box so <button>s keep the same height as the <a> buttons */
+
+.nav_menu .btn {
+	margin: 0.125rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: content-box;
+}
+
+/* Each toolbar group becomes one outlined segmented control, so the rows read as a few
+* controls instead of a dozen loose icons. A line splits the segments, and an active one
+* fills its segment instead of taking an outline. The group can't clip that fill to its
+* corners, since it would clip the dropdown menus too, so the end segments round their own */
+
+.nav_menu .group,
+.nav_menu.nav_mobile #nav_menu_toggle_aside,
+#nav_menu_queries {
+	align-items: center;
+	margin: 0;
+	border: 1px solid var(--action-outline);
+	border-radius: var(--radius);
+}
+
+.nav_menu .group .btn:not(.dropdown-menu .btn),
+.nav_menu.nav_mobile #nav_menu_toggle_aside .btn {
+	margin: 0;
+	padding: 4px 0.5rem;
+	border: none;
+	border-radius: 0;
+}
+
+.nav_menu .group > .btn ~ .btn:not(.dropdown-menu .btn) {
+	border-left: 1px solid var(--action-outline);
+}
+
+.nav_menu .group > .btn:first-child:not(.dropdown-menu .btn) {
+	border-radius: var(--radius-inner) 0 0 var(--radius-inner);
+}
+
+.nav_menu .group > .btn:last-child:not(.dropdown-menu .btn) {
+	border-radius: 0 var(--radius-inner) var(--radius-inner) 0;
+}
+
+.nav_menu .group > .btn:only-child:not(.dropdown-menu .btn),
+.nav_menu .group .dropdown-toggle:not(.dropdown-menu .btn),
+.nav_menu.nav_mobile #nav_menu_toggle_aside .btn {
+	border-radius: var(--radius-inner);
+}
+
+/* The sidebar toggle shows a sidebar, not FreshRSS's category folder; the panel sits on the reading-start side */
+#nav_menu_toggle_aside img.icon {
+	content: url("icons/panel-left.svg");
+	transform: none /*rtl:scaleX(-1)*/;
+}
+
+/* An active segment takes the sidebar's selected-row fill; its icon brightening carries the contrast */
+.nav_menu .group .btn.active img.icon {
+	filter: var(--icon-filter-hover);
+}
+
+/* Subscription and configuration bars hold only the phone sidebar toggle. Upstream hides
+* them on desktop, where the sidebar is always open; display: flex above would undo that.
+* Subscription's toggle lacks the .group class, so it borrows the group outline above */
+
+.nav_menu.nav_mobile {
+	/* Upstream's .nav_menu.nav_mobile { display: block } outranks .nav_menu above */
+	display: flex;
+	justify-content: flex-start;
+}
+
+@media (min-width: 841px) {
+	.nav_menu.nav_mobile {
+		display: none;
+	}
+}
+
+.nav_menu.nav_mobile #nav_menu_toggle_aside {
+	display: inline-flex;
+}
+
+/* Where the article toolbar can't fit one row (~425px today), sort alone would wrap.
+* Break before "Mark as read" instead, so it, the views and sort share the second row. The break
+* line stands in for the row gap, which would otherwise show on both sides of it */
+
+@media (max-width: 440px) {
+	.nav_menu:has(.nav_menu_read_all) {
+		row-gap: 0;
+	}
+
+	.nav_menu:has(.nav_menu_read_all)::after {
+		content: "";
+		order: 1;
+		flex-basis: 100%;
+		height: 0.5rem;
+	}
+
+	.nav_menu_read_all,
+	.nav_menu_read_all ~ .group {
+		order: 2;
+	}
+}
+
+/* The state toggles are one control and saved queries another, but both sit in
+* #nav_menu_actions: the toggles draw their own outline, and queries gets its own frame */
+
+#nav_menu_actions {
+	border: none;
+}
+
+#nav_menu_actions > .btn {
+	border-block: 1px solid var(--action-outline);
+	background-clip: padding-box;
+}
+
+#toggle-read {
+	border-left: 1px solid var(--action-outline);
+	border-radius: var(--radius) 0 0 var(--radius);
+}
+
+#toggle-non-starred {
+	border-right: 1px solid var(--action-outline);
+	border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+#nav_menu_queries {
+	margin-left: 0.5rem;
+}
+
+/* "Mark as read" + its dropdown form one split button: its group draws the frame, and a line
+* splits the two where the text button shows (phones hide it) */
+
+.nav_menu .mark-read-menu {
+	align-items: stretch;
+}
+
+.nav_menu .group .read_all:not(.dropdown-menu .btn) {
+	border-right: 1px solid var(--action-outline);
+	border-radius: var(--radius-inner) 0 0 var(--radius-inner);
+}
+
+@media (min-width: 841px) {
+	.nav_menu .mark-read-menu .dropdown-toggle:not(.dropdown-menu .btn) {
+		border-radius: 0 var(--radius-inner) var(--radius-inner) 0;
+	}
+}
+
+/* Refresh moves up beside the gear, styled like it. The toolbar starts where the header ends */
+.nav_menu #nav_menu_actualize {
+	position: absolute;
+	right: calc(1rem + var(--header-btn) + 0.25rem);
+	bottom: calc(100% + var(--header-mid));
+	transform: translateY(50%);
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+/* One size for the header buttons, including the toolbar's refresh and phone search moved up there */
+.header > .item.configure .btn,
+.nav_menu #actualize,
+.nav_menu #toggle-search {
+	padding: 0.4rem;
+	border-radius: var(--radius);
+}
+
+.header > .item.configure .icon,
+#actualize .icon,
+#toggle-search .icon {
+	height: 1.25rem;
+}
+
+.nav_menu #actualize {
+	margin: 0;
+	border: 1px solid transparent;
+}
+
+#actualize:hover {
+	background-color: var(--action-hover);
+}
+
+.nav_menu .mark-read-menu .dropdown {
+	display: flex;
+}
+
+.nav_menu .mark-read-menu .dropdown-toggle {
+	display: flex;
+	align-items: center;
+}
+
+.nav_menu .mark-read-menu .read_all {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+/* One outlined circle-check on "Mark as read" (phones show it on the toggle instead) and the end-of-list button */
+.nav_menu .mark-read-menu .read_all::before,
+.nav_menu_read_all .dropdown-target ~ .dropdown-toggle::before,
+#bigMarkAsRead.big .bigTick,
+#bigMarkAsRead.small .bigTick {
+	background: url("icons/mark-all-read.svg") center / contain no-repeat;
+	filter: var(--amber-icon-filter);
+}
+
+.nav_menu .mark-read-menu .read_all::before,
+.nav_menu_read_all .dropdown-target ~ .dropdown-toggle::before {
+	flex: none;
+	width: 1rem;
+	height: 1rem;
+}
+
+.nav_menu .mark-read-menu .read_all::before {
+	content: "";
+}
+
+.nav_menu .mark-read-menu .read_all:hover,
+.nav_menu .mark-read-menu .dropdown-toggle:hover {
+	background-color: var(--action-hover);
+}
+
+/* Empty states ("There are no articles to show.", a user query with no filter):
+* a quiet caption like the end of the list, not a warning card */
+
+#stream > .prompt.alert,
+form[name="drag_queries"] .box-content > .alert-warn {
+	margin: 3rem 1rem;
+	padding: 0;
+	background: none;
+	max-width: none;
+	color: var(--text-muted);
+	border: none;
+	text-align: center;
+}
+
+#stream > .prompt.alert .alert-head,
+form[name="drag_queries"] .box-content > .alert-warn .alert-head {
+	color: inherit;
+	font-size: 0.8rem;
+	font-weight: normal;
+}
+
+form[name="drag_queries"] .box-content > .alert-warn {
+	margin: 0.75rem 1rem;
+}
+
+/*=== New article notification and end-of-list button: one outlined pill */
+#new-article > a,
+#bigMarkAsRead.big,
+#bigMarkAsRead.small {
+	padding: 0.4rem 0.9rem;
+	display: inline-flex;
+	color: var(--text);
+	font-size: 0.85rem;
+	border: 1px solid var(--action-outline);
+	border-radius: 999px;
+	gap: 0.4rem;
+	text-decoration: none;
+	transition: background-color var(--ease);
+}
+
+#new-article > a:hover,
+#bigMarkAsRead:hover {
+	background-color: var(--action-hover);
+	color: var(--text);
+	text-decoration: none;
+}
+
+#new-article {
+	text-align: center;
+}
+
+#new-article > a {
+	align-items: center;
+	margin: 0.75rem auto;
+}
+
+#new-article > a::before {
+	content: "";
+	flex: none;
+	width: 1rem;
+	height: 1rem;
+	background-color: var(--accent);
+	--mask-icon: url("icons/refresh.svg");
+}
+
+/*=== Centred reading column */
+.transition,
+.flux,
+#new-article {
+	max-width: 56rem;
+	margin-inline: auto;
+}
+
+/*=== Day separators */
+.transition {
+	padding: 1.75rem 1rem 0.5rem;
+	/* Date left, feed name right: frss.css pins the name absolutely, over the date in narrow columns */
+	display: flex;
+	color: var(--text);
+	font-size: 0.75rem;
+	border: none;
+	font-weight: 700;
+	line-height: 1.5;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	align-items: center;
+	gap: 1rem;
+}
+
+/* "Next day" link: the template prints a text "⏭"; draw Lucide's skip-forward instead */
+.transition .transition-next {
+	padding: 0.15rem;
+	display: inline-flex;
+	color: var(--text-secondary);
+	font-size: 0;
+	border-radius: var(--radius-sm);
+	vertical-align: middle;
+	margin-left: 0.35rem;
+}
+
+.transition .transition-next::before {
+	content: "";
+	width: 0.875rem;
+	height: 0.875rem;
+	background-color: currentColor;
+	/* Forward points left in right-to-left languages */
+	transform: none /*rtl:scaleX(-1)*/;
+	--mask-icon: url("icons/skip-forward.svg");
+}
+
+.transition .transition-next:hover {
+	background-color: var(--bg-hover);
+	color: var(--text-strong);
+}
+
+.transition .name {
+	padding: 0;
+	width: auto;
+	font-size: 1em;
+	position: static;
+	flex: 1;
+	min-width: 0;
+	text-align: end;
+	font-style: normal;
+	opacity: 1;
+}
+
+/*=== Article list: rows without separators, cards on hover/selection
+* [icon] FEED NAME           time (read)(star)  [thumb]
+* [icon] Title, up to two lines                 [thumb]
+* [icon] Excerpt, up to two lines               [thumb]
+* The dot sits after the time, so the time's varying width doesn't stagger the dots
+*/
+
+.flux {
+	background: transparent;
+	border: none;
+}
+
+/* Upstream's mobile CSS re-grids .has-thumbnail.has-summary rows with more specific
+* selectors; matching them keeps Reed's layout at every width */
+
+.flux .flux_header,
+.flux .flux_header.has-thumbnail.has-summary {
+	margin: 2px 0;
+	padding: 0.7rem 1rem 0.7rem 0.75rem;
+	display: grid;
+	font-size: 0.85rem;
+	border-radius: var(--radius-lg);
+	grid-template-columns: 2.75rem minmax(0, 1fr) auto auto auto auto;
+	grid-template-areas: "icon site    date    read    fav     thumb"
+		"icon title   title   title   title   thumb"
+		"icon summary summary summary summary thumb";
+	align-items: start;
+	box-sizing: border-box;
+	cursor: pointer;
+	transition: background-color var(--ease);
+}
+
+/* Lift the nested pieces (favicon, feed name, title, summary, date) into the row grid */
+.flux .flux_header .item.titleAuthorSummaryDate,
+.flux .flux_header .item.website,
+.flux .flux_header .item.website > .item-element {
+	display: contents;
+}
+
+.flux .flux_header > .item {
+	white-space: normal;
+}
+
+.flux .flux_header .item .item-element {
+	padding: 0;
+	line-height: 1.35;
+}
+
+/* Row actions live in the opened article, not in the list */
+.flux .flux_header > .item.labels,
+.flux .flux_header > .item.share,
+.flux .flux_header > .item.link {
+	display: none;
+}
+
+/* The unread dot and a set star always show; the read ring and empty star appear on hover */
+.flux .flux_header .item.manage {
+	width: auto;
+	text-align: center;
+}
+
+.flux .flux_header .item.manage:has(.read),
+.flux .flux_header.has-thumbnail.has-summary li.manage:has(.read) { grid-area: read; }
+
+.flux .flux_header .item.manage:has(.bookmark),
+.flux .flux_header.has-thumbnail.has-summary li.manage:has(.bookmark) { grid-area: fav; }
+
+.flux .flux_header .item.manage .item-element {
+	padding: 0 0.3rem;
+	/* The negative margin keeps the row's first line height */
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	margin-block: -0.3rem;
+	min-width: var(--toggle-size);
+	min-height: var(--toggle-size);
+	line-height: 1;
+}
+
+.flux .flux_header .item.manage .icon {
+	height: var(--toggle-icon);
+	transition: opacity var(--ease);
+}
+
+/* Touch screens have no hover, so they always show them */
+
+@media (hover: hover) {
+	.flux .flux_header:not(:hover, :focus-within) .item.manage :is(.read .icon:not([src$="/unread.svg"]), .bookmark .icon[src$="/non-starred.svg"]) {
+		opacity: 0;
+	}
+}
+
+.flux .flux_header .favicon {
+	padding: 3px;
+	background: var(--favicon-tile);
+	width: 28px;
+	height: 28px;
+	border-radius: 7px;
+	grid-area: icon;
+	grid-row: 1 / span 2;
+	align-self: center;
+	box-sizing: border-box;
+}
+
+.flux .flux_header .websiteName {
+	grid-area: site;
+	overflow: hidden;
+	color: var(--text-secondary);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-overflow: ellipsis;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+.flux .flux_header .item .date {
+	grid-area: date;
+	padding: 0 0 0 0.5rem;
+	color: var(--text-secondary);
+	font-size: 0.75rem;
+	font-weight: 500;
+	white-space: nowrap;
+}
+
+.flux .flux_header .item .title,
+.flux .flux_header .item > a.title {
+	display: -webkit-box;
+	color: var(--text-muted);
+	font-size: 1rem;
+	grid-area: title;
+	margin-top: 0.1rem;
+	font-weight: 500;
+	line-height: 1.3;
+	white-space: normal;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.flux.not_read .flux_header .item .title,
+.flux.current .flux_header .item .title {
+	color: var(--text-strong);
+}
+
+/* Weight as well as colour, so unread stands out without the dot or colour vision */
+.flux.not_read .flux_header .item .title {
+	font-weight: 600;
+}
+
+.flux .flux_header .item .title .author {
+	padding-left: 0.5rem;
+	color: var(--text-muted);
+	font-weight: normal;
+}
+
+.flux .flux_header .item .summary {
+	grid-area: summary;
+	margin: 0.25rem 0 0;
+	color: var(--text-muted);
+	font-size: 0.85rem;
+	line-height: 1.4;
+}
+
+.flux.not_read .flux_header .item .summary {
+	color: var(--text-secondary);
+}
+
+/* Muted text drops below 4.5:1 on the hover and selected fills */
+.flux:not(.not_read):is(:hover, .current) .flux_header .item .summary,
+.flux:not(.not_read, .current):hover .flux_header .item .title,
+.flux:is(:hover, .current) .flux_header .item .title .author {
+	color: var(--text-secondary);
+}
+
+.flux .flux_header .item.thumbnail,
+.flux .flux_header .item.thumbnail.small,
+.flux .flux_header.has-thumbnail.has-summary li.thumbnail {
+	grid-area: thumb;
+	align-self: center;
+	margin-left: 0.75rem;
+	padding: 0;
+	--thumb-h: 72px;
+	height: var(--thumb-h);
+}
+
+/* Width follows the thumbnail setting at one height: portrait 3:4, square, landscape 16:9.
+* :is() carries .small's weight, so these outrank upstream's narrower .portrait.small etc. */
+
+.flux .flux_header .item.thumbnail:is(.portrait, .portrait.small) {
+	width: calc(var(--thumb-h) * 3 / 4);
+}
+
+.flux .flux_header .item.thumbnail:is(.square, .square.small) {
+	width: var(--thumb-h);
+}
+
+.flux .flux_header .item.thumbnail:is(.landscape, .landscape.small) {
+	width: calc(var(--thumb-h) * 16 / 9);
+}
+
+.flux .flux_header .item.thumbnail img {
+	background: var(--bg-raised);
+	border-radius: var(--radius);
+}
+
+.flux .flux_header .item.thumbnail:empty {
+	display: none;
+}
+
+/* Once any row has a thumbnail, rows without one keep the slot so time and dot line up */
+#stream:has(.item.thumbnail img) .flux .flux_header .item.thumbnail:empty {
+	display: block;
+	visibility: hidden;
+}
+
+.flux:not(.current):hover .flux_header {
+	background-color: var(--bg-hover);
+}
+
+.flux.current > .flux_header {
+	position: relative;
+	background: var(--bg-selected);
+}
+
+/* The fill alone is 1.2:1; an accent bar keeps j/k readers' place.
+* Inset from the rounded corners so it stays straight */
+
+.flux.current > .flux_header::before {
+	background: var(--accent);
+	width: 3px;
+	border-radius: 0 3px 3px 0;
+	content: "";
+	position: absolute;
+	top: 0.75rem;
+	bottom: 0.75rem;
+	left: 0;
+}
+
+.flux .bottom {
+	font-size: 0.8rem;
+	text-align: center;
+}
+
+/*=== Opened article: serif reading view */
+.flux_content .content {
+	color: var(--text);
+	font-family: var(--serif-font);
+	font-size: 1.125rem;
+	line-height: 1.7;
+}
+
+.flux_content .content header {
+	font-family: var(--sans-font);
+	/* An unbreakable author or feed name must not widen the page */
+	overflow-wrap: anywhere;
+}
+
+.flux_content .content header h1.title {
+	margin: 2rem 0 0.75rem;
+	font-family: var(--sans-font);
+	font-size: 1.9rem;
+	font-weight: 700;
+	line-height: 1.15;
+	letter-spacing: -0.015em;
+}
+
+.flux_content .content header h1.title a {
+	color: var(--text-strong);
+}
+
+.flux_content .content header h1.title a:hover {
+	color: var(--accent);
+}
+
+/* Upstream colours the rest of the byline and footer (tags…) --text-tertiary, 3:1 */
+.content > header,
+.content > footer {
+	color: var(--text-muted);
+}
+
+.flux_content .content header .website,
+.flux_content .content header .author,
+.flux_content .content header .date {
+	color: var(--text-secondary);
+	font-size: 0.85rem;
+}
+
+.content :is(h2, h3, h4, h5, h6) {
+	margin: 1.75em 0 0.5em;
+	color: var(--text-strong);
+	font-family: var(--sans-font);
+	line-height: 1.25;
+	text-wrap: balance;
+}
+
+.content h2 { font-size: 1.4em; }
+
+.content h3 { font-size: 1.2em; }
+
+.content h4 { font-size: 1.05em; }
+
+.content :is(h5, h6) { font-size: 1em; }
+
+.content a {
+	color: var(--accent);
+	text-decoration: underline;
+	text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+	text-underline-offset: 0.15em;
+}
+
+.content a:hover {
+	text-decoration-color: var(--accent);
+}
+
+/* Title and byline are not body links */
+.content > header a,
+.content > footer a {
+	text-decoration: none;
+}
+
+/* Keeps img.favicon's corner: .content img (same weight, later) would round it to --radius */
+.content > header .favicon {
+	border-radius: 3px;
+}
+
+.flux_content .content > header a:not(.title a) {
+	color: var(--text-secondary);
+}
+
+.flux_content .content > header a:not(.title a):hover {
+	color: var(--text-strong);
+}
+
+.content > header .dropdown-menu .dropdown-header,
+.content > footer .dropdown-menu .dropdown-header {
+	color: var(--text-secondary);
+}
+
+.content > footer .subtitle {
+	border-color: var(--separator);
+}
+
+.content img,
+.content video {
+	border-radius: var(--radius);
+}
+
+/* Wide tables scroll inside the reading column instead of being clipped */
+.content table {
+	display: block;
+	max-width: fit-content;
+	overflow-x: auto;
+}
+
+/* FreshRSS strips inline colours but keeps <font color>, which is often black on this background */
+.content font[color] {
+	color: inherit;
+}
+
+.content figure {
+	margin: 1.75em 0;
+}
+
+.content figcaption {
+	margin-top: 0.5em;
+	color: var(--text-secondary);
+	font-family: var(--sans-font);
+	font-size: 0.85rem;
+	line-height: 1.4;
+}
+
+.content hr {
+	margin: 2rem 1rem;
+	background: var(--separator);
+	height: 1px;
+	border: none;
+}
+
+.content pre {
+	padding: 1rem;
+	background: var(--bg-sidebar);
+	font-family: var(--mono-font);
+	font-size: 0.85rem;
+	border: 1px solid var(--separator);
+	border-radius: var(--radius);
+	line-height: 1.5;
+}
+
+/* The pre already sets the size; code's own 0.85em would shrink it again */
+.content pre code {
+	background: transparent;
+	font-size: inherit;
+	border: none;
+}
+
+.content code {
+	padding: 0.1em 0.3em;
+	background: var(--bg-raised);
+	color: var(--text);
+	font-family: var(--mono-font);
+	font-size: 0.85em;
+	border: none;
+	border-radius: var(--radius-sm);
+}
+
+.content blockquote {
+	margin: 1.5rem 0;
+	padding: 0 1.25rem;
+	/* Upright: long italic passages tire, and <em> inside them can't stand out */
+	color: var(--text-secondary);
+	border-left: 3px solid var(--accent);
+}
+
+.content blockquote p {
+	margin: 0.5rem 0;
+}
+
+/*=== Notifications */
+.notification {
+	background: var(--bg-raised);
+	color: var(--text);
+	font-size: 0.9rem;
+	border: 1px solid var(--edge-raised);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-pop);
+	z-index: 9999;
+}
+
+.notification.bad {
+	background-color: var(--red-fill);
+	color: #fff;
+}
+
+.notification .close {
+	padding: 1.25rem;
+	line-height: 1;
+}
+
+.notification .close:hover {
+	background-color: var(--bg-hover);
+}
+
+/*=== Popup, slider, overlays */
+#popup-content,
+#slider,
+#slider .form-group.form-actions {
+	background-color: var(--bg-sidebar);
+}
+
+#panel {
+	background-color: var(--bg);
+}
+
+#nav_entries {
+	background: var(--bg-sidebar);
+	border-top: 1px solid var(--separator);
+}
+
+#nav_entries .item a:hover {
+	background-color: var(--bg-hover);
+}
+
+/* End of list: a small caption and a compact pill instead of a giant tick block */
+.stream-footer-inner {
+	padding-top: 1.5rem;
+	color: var(--text-muted);
+	font-size: 0.8rem;
+}
+
+#bigMarkAsRead.big,
+#bigMarkAsRead.small {
+	align-items: baseline;
+	margin-top: 0.6rem;
+	width: auto;
+}
+
+/* Upstream leaves 100vh below the button so the last articles can scroll to the top
+* (sticky_post, auto_mark_scroll). Only keep it while an article is open */
+
+#stream:not(:has(.flux.active)) #bigMarkAsRead {
+	margin-bottom: 0;
+}
+
+#bigMarkAsRead br {
+	display: none;
+}
+
+/* The template prints a text "✓"; show Lucide's circle-check instead */
+#bigMarkAsRead.big .bigTick,
+#bigMarkAsRead.small .bigTick {
+	display: inline-block;
+	align-self: center;
+	width: 1.1rem;
+	height: 1.1rem;
+	font-size: 0;
+}
+
+#bigMarkAsRead .jumpNext {
+	color: var(--text-secondary);
+	font-size: 0.9em;
+}
+
+#bigMarkAsRead .jumpNext::before {
+	content: "· ";
+}
+
+.stream-footer {
+	border-top: 0;
+}
+
+/*=== Reader view */
+#stream.reader :is(.flux, .flux .flux_content) {
+	background-color: var(--bg);
+	border: none;
+}
+
+/*=== User list: mark the default user by weight, not italics */
+.default-user {
+	font-style: normal;
+}
+
+.default-user .username {
+	color: var(--text-strong);
+	font-weight: 600;
+}
+
+/* "Add a category": a compact dashed drop target, not an empty card */
+/* Upstream fades the whole box to 50%, which put its text and outline far below 3:1 */
+.box.visible-semi {
+	background: transparent;
+	border: 1px dashed var(--text-tertiary);
+	opacity: 1;
+}
+
+.box.visible-semi .box-title {
+	border-bottom: none;
+}
+
+/* The heading sits inside the link: amber like "Add a feed" */
+.box.visible-semi .box-title h2 {
+	color: inherit;
+	font-weight: normal;
+}
+
+.box.visible-semi .box-content {
+	padding: 0;
+	min-height: 0;
+}
+
+/* Logs: errors get a subtle tint and a red marker, not a heavy fill */
+.log-item.log-error {
+	background-color: color-mix(in srgb, var(--red) 8%, transparent);
+}
+
+.log-item.log-error td:first-child {
+	box-shadow: inset 3px 0 0 var(--red);
+}
+
+/*=== Statistics */
+.stat {
+	margin: 10px 0 20px;
+}
+
+.stat > table td,
+.stat > table th {
+	text-align: center;
+}
+
+/*=== Theme picker & preview */
+.theme-preview-list,
+.theme-preview-list .properties {
+	border-color: var(--separator);
+}
+
+.theme-preview-list:hover,
+.theme-preview-list:hover .properties {
+	border-color: var(--text-tertiary);
+}
+
+.preview_controls {
+	background-color: var(--bg-sidebar);
+	border-color: var(--separator);
+}
+
+.preview_background {
+	background-color: transparent;
+}
+
+/*=== REDUCED MOTION */
+/*==================*/
+
+@media (prefers-reduced-motion: reduce) {
+	*, ::before, ::after {
+		transition: none !important;
+		animation: none !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/*=== MOBILE */
+/*===========*/
+
+@media (max-width: 840px) {
+	.aside {
+		left: 0;
+	}
+
+	.aside.visible + .close-aside,
+	.configure .dropdown-target:target ~ .dropdown-close {
+		background-color: var(--frss-modal-background-color-transparent);
+	}
+
+	#overlay {
+		background-color: var(--bg-sidebar);
+	}
+
+	#slider.active {
+		background-color: var(--bg);
+	}
+
+	#close-slider.active {
+		background: var(--bg-sidebar);
+		display: block;
+		width: 100%;
+		height: 50px;
+		border-bottom: 1px solid var(--separator);
+		line-height: 50px;
+		text-align: center;
+		z-index: 10;
+	}
+
+	/* Logo inset mirrors the gear's: 1rem cell + 1px border + 0.4rem button padding + ~1.75px of
+	* blank viewBox, less upstream's 5px cell padding on the logo side */
+
+	.header > .item.title a {
+		padding-left: calc(1.4rem - 2px);
+	}
+
+	/* The markup's width="160" fits the desktop 32px height; at upstream's 24px the logo
+	* would sit centred in 20px of blank on each side */
+
+	.header > .item.title .logo {
+		width: auto;
+	}
+
+	/* Search moves into the toolbar and upstream hides its form, but the empty cell keeps
+	* the desktop centring padding, which Firefox adds to the page width */
+
+	.header > .item.search {
+		padding: 0;
+	}
+
+	/* Search moves up beside refresh, styled like it: one button (1.25rem icon, 0.8rem padding,
+	* 2px border) and 0.25rem further in. Its panel drops from the toolbar's top edge */
+
+	.nav_menu #toggle-search {
+		position: absolute;
+		right: calc(1rem + 2 * (var(--header-btn) + 0.25rem));
+		bottom: calc(100% + var(--header-mid));
+		transform: translateY(50%);
+		border-color: transparent;
+	}
+
+	#dropdown-search-wrapper .dropdown-menu {
+		top: 0.25rem;
+	}
+
+	/* Search panel: the field spans the panel and lines up with "Advanced Search" below it,
+	* with the same inset above it as at the sides */
+
+	#dropdown-search-wrapper .dropdown-menu form {
+		padding-top: 10px;
+	}
+
+	/* Upstream leaves 20px and caps it at 500px, and its field at 90% */
+	#dropdown-search-wrapper .stick {
+		display: flex;
+		max-width: none;
+		width: auto;
+	}
+
+	#dropdown-search-wrapper .stick input {
+		max-width: none;
+		width: auto;
+		flex: 1;
+		min-width: 0;
+	}
+
+	/* As upstream: "Mark as read" folds into its dropdown (whose first entry marks all read), and the
+	* toggle shows the circle-check where upstream prints a text "✓" */
+
+	.nav_menu .mark-read-menu .read_all {
+		display: none;
+	}
+
+	.nav_menu_read_all .dropdown-target ~ .dropdown-toggle::before {
+		content: "";
+	}
+
+	/* Under 16px, iOS zooms the page when a field takes focus */
+	input, select, textarea {
+		font-size: 16px;
+	}
+
+	summary.form-advanced-title {
+		margin-left: 0;
+	}
+
+	.form-group .group-controls {
+		margin-left: -0.3rem;
+	}
+
+	.flux .flux_header .item.thumbnail,
+	.flux .flux_header .item.thumbnail.small,
+	.flux .flux_header.has-thumbnail.has-summary li.thumbnail {
+		--thumb-h: 56px;
+	}
+
+	.pagination {
+		margin: 0 0 3.5em;
+	}
+
+	/* Even side padding keeps the centred message clear of the close button */
+	.notification {
+		top: 1%;
+		left: 2%;
+		right: 2%;
+		padding-inline: 2.75rem;
+	}
+
+	.dropdown-menu {
+		margin: 0;
+	}
+}
+
+/*=== PRINT */
+/*==========*/
+
+@media print {
+	.header, .aside,
+	.nav_menu, .transition,
+	.flux_header,
+	.flux_content .bottom,
+	.pagination,
+	#nav_entries {
+		display: none;
+	}
+
+	/* The reading view colours text with the tokens; print in ink whatever the screen palette */
+	:root,
+	:root.darkMode_auto {
+		--bg: #fff;
+		--bg-sidebar: #f4f4f4;
+		--bg-raised: #eee;
+		--separator: #ccc;
+		--text: #000;
+		--text-strong: #000;
+		--text-secondary: #444;
+		--text-muted: #555;
+		--accent: #7a4f00;
+	}
+
+	html, body {
+		background: #fff;
+		color: #000;
+	}
+
+	#global,
+	.flux_content {
+		display: block !important;
+	}
+}
