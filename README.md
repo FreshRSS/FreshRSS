@@ -7,6 +7,8 @@
 
 FreshRSS is a self-hosted RSS feed aggregator.
 
+[![Deploy to Railyard](https://app.railyard.run/deploy/badge)](https://app.railyard.run/deploy?repo=https://github.com/FreshRSS/FreshRSS)
+
 It is lightweight, easy to work with, powerful, customizable, and has been [translated](#internationalization-20-languages-translation-progress) into many languages.
 
 It is a multi-user application with an anonymous reading mode. It supports custom tags.
