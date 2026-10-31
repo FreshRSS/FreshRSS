@@ -64,6 +64,7 @@ People are sorted by name so please keep this order.
 * [Chanse Syres](https://github.com/chanse-syres): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:chanse-syres), [Web](https://chansesyres.com/)
 * [chemical1979](https://github.com/chemical1979): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:chemical1979)
 * [Chris Francy](https://github.com/zoredache): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:zoredache)
+* [ChrisB85](https://github.com/ChrisB85): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ChrisB85)
 * [Christian König](https://github.com/yubiuser): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yubiuser)
 * [Christian Weiske](https://github.com/cweiske): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cweiske), [Web](https://cweiske.de/)
 * [Christos Longros](https://github.com/chrislongros): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:chrislongros), [Web](https://chrislongros.com/)
