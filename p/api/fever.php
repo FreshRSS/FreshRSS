@@ -390,6 +390,9 @@ final class FeverAPI
 			if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
 				continue;
 			}
+			if ($feed->customFavicon()) {
+				$feed->faviconPrepare();
+			}
 			$id = $feed->hashFavicon();
 			$filename = DATA_PATH . '/favicons/' . $id . '.ico';
 			if (!file_exists($filename)) {
