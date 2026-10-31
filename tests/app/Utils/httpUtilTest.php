@@ -51,16 +51,14 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		}
 	}
 
-	/** @return array<string,array{string}> */
-	public static function provideUtf8Html(): array {
-		$body = '<body><p>Café’s menu — 日本</p><script type="application/json">{"title":"Café’s menu — 日本"}</script></body></html>';
+	/** @return Traversable<string,array{string}> */
+	public static function provideUtf8Html(): Traversable {
 		$head = '<html><head><title>T</title></head>';
-		return [
-			'meta charset' => ['<!DOCTYPE html><html><head><meta charset="utf-8"><title>T</title></head>' . $body],
-			'byte order mark' => ["\xEF\xBB\xBF" . '<!DOCTYPE html>' . $head . $body],
-			'byte order mark, late <html>' => ["\xEF\xBB\xBF" . '<!DOCTYPE html>' . str_repeat('<!-- padding -->', 40) . $head . $body],
-			'meta http-equiv' => ['<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>T</title></head>' . $body],
-		];
+		$body = '<body><p>Café’s menu — 日本</p><script type="application/json">{"title":"Café’s menu — 日本"}</script></body></html>';
+		yield 'meta charset' => ['<!DOCTYPE html><html><head><meta charset="utf-8"><title>T</title></head>' . $body];
+		yield 'byte order mark' => ["\xEF\xBB\xBF" . '<!DOCTYPE html>' . $head . $body];
+		yield 'byte order mark, late <html>' => ["\xEF\xBB\xBF" . '<!DOCTYPE html>' . str_repeat('<!-- padding -->', 40) . $head . $body];
+		yield 'meta http-equiv' => ['<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>T</title></head>' . $body];
 	}
 
 	#[DataProvider('provideCidrRanges')]
