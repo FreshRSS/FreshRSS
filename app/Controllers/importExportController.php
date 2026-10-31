@@ -80,19 +80,11 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$this->listSqliteArchives();
 	}
 
-	private static function megabytes(string $size_str): float|int|string {
-		return match (substr($size_str, -1)) {
-			'M', 'm' => (int)$size_str,
-			'K', 'k' => (int)$size_str / 1024,
-			'G', 'g' => (int)$size_str * 1024,
-			default => $size_str,
-		};
-	}
-
 	private static function minimumMemory(int|string $mb): void {
 		$mb = (int)$mb;
-		$ini = self::megabytes(ini_get('memory_limit') ?: '0');
-		if ($ini < $mb) {
+		// `ini_get('memory_limit')` returns e.g. `128M`, or `-1` for unlimited
+		$ini = (int)(ini_parse_quantity(ini_get('memory_limit') ?: '0') / 1048576);
+		if ($ini >= 0 && $ini < $mb) {
 			ini_set('memory_limit', $mb . 'M');
 		}
 	}
@@ -544,7 +536,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/unread$%', $tag)) {
 						$is_read = false;
 					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/label/\s*(?P<tag>.+?)\s*$%', $tag, $matches)) {
-						$labels[] = $matches['tag'];
+						$labels[] = Minz_Helper::htmlspecialchars_utf8($matches['tag']);
 					}
 					unset($tags[$i]);
 				}

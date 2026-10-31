@@ -198,6 +198,7 @@ return array(
 		'unsafe_csp_header' => 'Через використовуваний CSP-заголовок FreshRSS під загрозою XSS-атак. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Переглянути документацію</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
 		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE

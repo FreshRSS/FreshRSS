@@ -5,8 +5,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 final class BooleanSearchTest extends \PHPUnit\Framework\TestCase {
 
-	public function __construct(string $name) {
-		parent::__construct($name);
+	#[\Override]
+	protected function setUp(): void {
 		if (!FreshRSS_Context::hasSystemConf()) {
 			FreshRSS_Context::initSystem();
 		}
@@ -48,6 +48,9 @@ final class BooleanSearchTest extends \PHPUnit\Framework\TestCase {
 
 	/** @return list<list{string}> */
 	public static function provideTooLongOrTooDeepSearches(): array {
+		if (!FreshRSS_Context::hasSystemConf()) {
+			FreshRSS_Context::initSystem();
+		}
 		$tooLong = str_repeat('a', FreshRSS_Context::systemConf()->limits['max_search_length'] + 1);
 		$tooDeep = str_repeat('(', FreshRSS_Context::systemConf()->limits['max_search_parentheses_depth'] + 1) . 'ab' .
 			str_repeat(')', FreshRSS_Context::systemConf()->limits['max_search_parentheses_depth'] + 1);

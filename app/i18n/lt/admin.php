@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Leisti anoniminį numatytojo naudotojo straipsnių skaitymą (%s)',
 		'allow_anonymous_refresh' => 'Leisti anoniminį straipsnių atnaujinimą',
 		'api_enabled' => 'Leisti <abbr>API</abbr> prieigą <small>(reikalinga mobiliosioms programoms ir naudotojo užklausų bendrinimui)</small>',
-		'form' => 'Žiniatinklio forma (tradicinė, reikia JavaScript)',
+		'form' => 'Žiniatinklio forma (tradicinė)',
 		'http' => 'HTTP (pažengusiems: valdo žiniatinklio serveris, OIDC, SSO…)',
 		'none' => 'Joks (pavojinga)',
 		'title' => 'Tapatybės nustatymas',

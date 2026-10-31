@@ -1,7 +1,7 @@
 {
 	"name": "Flat design",
 	"author": "Marien Fressinaud",
-	"description": "Thème plat pour FreshRSS",
+	"description": "Flat theme for FreshRSS",
 	"version": 0.2,
 	"files": ["_frss.css", "flat.css"],
 	"theme-color": "#34495e"

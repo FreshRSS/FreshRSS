@@ -190,6 +190,7 @@ return array(
 		'unsafe_csp_header' => 'L’en-tête CSP utilisé n’est pas sécurisé et FreshRSS peut être vulnérable aux attaques XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Voir la documentation</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
 		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE

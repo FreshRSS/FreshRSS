@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
 		'allow_anonymous_refresh' => 'Autoriser le rafraîchissement anonyme des flux',
 		'api_enabled' => 'Autoriser l’accès par <abbr>API</abbr> <small>(nécessaire pour les applications mobiles et pour partager les filtres utilisateurs)</small>',
-		'form' => 'Formulaire (traditionnel, requiert JavaScript)',
+		'form' => 'Formulaire (traditionnel)',
 		'http' => 'HTTP (avancé : contrôlé par serveur Web, OIDC, SSO…)',
 		'none' => 'Aucune (dangereux)',
 		'title' => 'Authentification',

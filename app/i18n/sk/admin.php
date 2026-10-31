@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Povoliť čítanie článkov prednastaveného používateľa (%s) bez prihlásenia.',
 		'allow_anonymous_refresh' => 'Povoliť obnovenie článkov bez prihlásenia',
 		'api_enabled' => 'Povoliť prístup cez <abbr>API</abbr> <small>(vyžadujú mobilné aplikácie and sharing user queries)</small>',	// DIRTY
-		'form' => 'Webový formulár (traditičný, vyžaduje JavaScript)',
+		'form' => 'Webový formulár (traditičný)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Žiadny (nebezpečné)',
 		'title' => 'Prihlásenie',
