@@ -105,9 +105,15 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->hashFavicon(skipCache: true);
 	}
 
+	/** Must match the proxy of `FreshRSS_SimplePieCustom`, which stores `Retry-After`. */
 	public function proxyParam(): string {
-		$curl_params = FreshRSS_http_Util::sanitizeCurlParams($this->attributeArray('curl_params') ?? []);
-		return is_string($curl_params[CURLOPT_PROXY] ?? null) ? $curl_params[CURLOPT_PROXY] : '';
+		$curl_options = array_replace(FreshRSS_Context::systemConf()->curl_options,
+			FreshRSS_http_Util::sanitizeCurlParams($this->attributeArray('curl_params') ?? []));
+		$proxyType = $curl_options[CURLOPT_PROXYTYPE] ?? 0;
+		if (is_int($proxyType) && ($proxyType < 0 || $proxyType === 3)) {	// 3 is legacy for NONE
+			return '';	// Proxy disabled for this feed
+		}
+		return is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : '';
 	}
 
 	/**
@@ -1463,13 +1469,18 @@ class FreshRSS_Feed extends Minz_Model {
 					(empty($hubJson['lease_start']) || $hubJson['lease_start'] < time() - (3600 * 23))) {	//Do not renew too often
 					$key = $hubJson['key'];	//To renew our lease
 				}
-			} else {
+			} else {	// First-time subscription
 				@mkdir($path, 0770, true);
 				$key = bin2hex(random_bytes(32));
 				$hubJson = [
 					'hub' => $this->hubUrl,
 					'key' => $key,
 				];
+				// hub.secret SHOULD only be specified when the request was made over HTTPS
+				// https://www.w3.org/TR/websub/#subscription-parameter-details
+				if (str_starts_with(strtolower($this->hubUrl), 'https://')) {
+					$hubJson['secret'] = bin2hex(random_bytes(32));	// length < 200
+				}
 				file_put_contents($hubFilename, json_encode($hubJson));
 				@mkdir(PSHB_PATH . '/keys/', 0770, true);
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', $this->selfUrl);
@@ -1511,17 +1522,32 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::warning('Invalid callback for WebSub: ' . $this->url);
 				return false;
 			}
-			if (!$state) {	//unsubscribe
+			$postFields = [
+				'hub.verify' => 'sync',
+				'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
+				'hub.topic' => $url,
+				'hub.callback' => $callbackUrl,
+			];
+			$newSecret = null;
+			if ($state) {	// Subscribe
+				// Legacy (before support of hub.secret) case of renewing an unsigned subscription.
+				// hub.secret SHOULD only be specified when the request was made over HTTPS
+				if (str_starts_with(strtolower($hubJson['hub']), 'https://')) {
+					if (empty($hubJson['secret']) || !is_string($hubJson['secret'])) {
+						// We keep the existing subscription (without secret) until the hub confirmation.
+						$newSecret = bin2hex(random_bytes(32));	// length < 200
+						$postFields['hub.secret'] = $newSecret;
+					} else {
+						$postFields['hub.secret'] = $hubJson['secret'];
+					}
+				}
+			}
+			if (!$state) {	// Unsubscribe
 				$hubJson['lease_end'] = time() - 60;
 				file_put_contents($hubFilename, json_encode($hubJson));
 			}
 			$response = FreshRSS_http_Util::httpGet($hubJson['hub'], null, 'html', [], [
-				CURLOPT_POSTFIELDS => http_build_query([
-					'hub.verify' => 'sync',
-					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
-					'hub.topic' => $url,
-					'hub.callback' => $callbackUrl,
-				]),
+				CURLOPT_POSTFIELDS => http_build_query($postFields),
 				CURLOPT_MAXREDIRS => 10,
 			]);
 
@@ -1530,6 +1556,17 @@ class FreshRSS_Feed extends Minz_Model {
 				' with callback ' . $callbackUrl . ': ' . $response['status'] . ' ' . $response['body'], PSHB_LOG);
 
 			if ($response['method'] === 'POST' && str_starts_with('' . $response['status'], '2')) {
+				if ($newSecret !== null) {	// Legacy (before support of hub.secret) case.
+					// Reload because hub verification (hub.verify=sync) may have updated $hubFile in the meantime
+					$hJson = json_decode((string)@file_get_contents($hubFilename), true);
+					if (is_array($hJson)) {
+						// Save secret only after hub confirmation
+						$hJson['secret'] = $newSecret;
+						file_put_contents($hubFilename, json_encode($hJson));
+					} else {
+						Minz_Log::warning('Could not save hub.secret for WebSub: ' . $this->url, PSHB_LOG);
+					}
+				}
 				return true;
 			} else {
 				$hubJson['lease_start'] = time();	//Prevent trying again too soon

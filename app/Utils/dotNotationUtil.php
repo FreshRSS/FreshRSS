@@ -194,22 +194,31 @@ final class FreshRSS_dotNotation_Util
 			$rssItem['thumbnail'] = isset($dotNotation['itemThumbnail']) ? FreshRSS_dotNotation_Util::getString($jsonItem, $dotNotation['itemThumbnail']) ?? '' : '';
 
 			//Enclosures?
+			$enclosures = [];
 			if (isset($dotNotation['itemAttachment'])) {
 				$jsonItemAttachments = FreshRSS_dotNotation_Util::get($jsonItem, $dotNotation['itemAttachment']);
-				if (is_array($jsonItemAttachments) && count($jsonItemAttachments) > 0) {
-					$rssItem['attachments'] = [];
+				if (is_array($jsonItemAttachments)) {
 					foreach ($jsonItemAttachments as $attachment) {
-						$rssAttachment = [];
-						$rssAttachment['url'] = isset($dotNotation['itemAttachmentUrl'])
-							? FreshRSS_dotNotation_Util::getString($attachment, $dotNotation['itemAttachmentUrl'])
+						$url = isset($dotNotation['itemAttachmentUrl'])
+							? FreshRSS_dotNotation_Util::getString($attachment, $dotNotation['itemAttachmentUrl']) ?? ''
 							: '';
-						$rssAttachment['type'] = isset($dotNotation['itemAttachmentType'])
-							? FreshRSS_dotNotation_Util::getString($attachment, $dotNotation['itemAttachmentType'])
+						if ($url === '') {
+							continue;
+						}
+						$enclosure = ['url' => Minz_Helper::htmlspecialchars_utf8($url)];
+						$type = isset($dotNotation['itemAttachmentType'])
+							? FreshRSS_dotNotation_Util::getString($attachment, $dotNotation['itemAttachmentType']) ?? ''
 							: '';
-						$rssAttachment['length'] = isset($dotNotation['itemAttachmentLength'])
-							? FreshRSS_dotNotation_Util::get($attachment, $dotNotation['itemAttachmentLength'])
+						if ($type !== '') {
+							$enclosure['type'] = Minz_Helper::htmlspecialchars_utf8($type);
+						}
+						$length = isset($dotNotation['itemAttachmentLength'])
+							? FreshRSS_dotNotation_Util::getString($attachment, $dotNotation['itemAttachmentLength']) ?? ''
 							: '';
-						$rssItem['attachments'][] = $rssAttachment;
+						if (is_numeric($length)) {
+							$enclosure['length'] = (int)$length;
+						}
+						$enclosures[] = $enclosure;
 					}
 				}
 			}
@@ -229,7 +238,11 @@ final class FreshRSS_dotNotation_Util
 						$rssItem[$key] = Minz_Helper::htmlspecialchars_utf8($rssItem[$key]);
 					}
 				}
-				$view->entries[] = FreshRSS_Entry::fromArray($rssItem);
+				$entry = FreshRSS_Entry::fromArray($rssItem);
+				if (!empty($enclosures)) {
+					$entry->_attribute('enclosures', $enclosures);
+				}
+				$view->entries[] = $entry;
 			}
 		}
 

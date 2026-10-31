@@ -4,14 +4,19 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-XX-XX FreshRSS 1.30.5-dev
 
+* Compatibility
+	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 * Bug fixes
 	* Fix 32-bit systems provide a string for SQL BIGINT [#9486](https://github.com/FreshRSS/FreshRSS/pull/9486)
 * Security
 	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
+* Deployment
+	* Docker: dev image `freshrss/freshrss:oldest` updated to Alpine 3.18 with PHP 8.2.16 and Apache 2.4.62 [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 * I18n
 	* Add Arabic [#9502](https://github.com/FreshRSS/FreshRSS/pull/9502)
 * CI/CD
 	* Add a link checker workflow using lychee [#9209](https://github.com/FreshRSS/FreshRSS/pull/9209), [#9495](https://github.com/FreshRSS/FreshRSS/pull/9495), [#9507](https://github.com/FreshRSS/FreshRSS/pull/9507)
+	* Update to PHPUnit 11.x (PHP 8.2+) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 	* Group auto dependency updates into one PR per ecosystem [#9496](https://github.com/FreshRSS/FreshRSS/pull/9496)
 	* Update dev dependencies [#9494](https://github.com/FreshRSS/FreshRSS/pull/9494), [#9497](https://github.com/FreshRSS/FreshRSS/pull/9497), [#9498](https://github.com/FreshRSS/FreshRSS/pull/9498),
 		[#9499](https://github.com/FreshRSS/FreshRSS/pull/9499),[#9500](https://github.com/FreshRSS/FreshRSS/pull/9500),[#9501](https://github.com/FreshRSS/FreshRSS/pull/9501),
@@ -79,7 +84,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Accept a trusted proxy address given without a subnet [#9301](https://github.com/FreshRSS/FreshRSS/pull/9301)
 	* Warn during session regenerate fail [#9311](https://github.com/FreshRSS/FreshRSS/pull/9311), [#9376](https://github.com/FreshRSS/FreshRSS/pull/9376)
 	* CI/CD add zizmor workflow for action security checks [#9228](https://github.com/FreshRSS/FreshRSS/pull/9228), [#9331](https://github.com/FreshRSS/FreshRSS/pull/9331)
-	* Use PHP `#[\SensitiveParameter]` [#9322](https://github.com/FreshRSS/FreshRSS/pull/9322)
+	* Use PHP 8.2+ `#[\SensitiveParameter]` [#9322](https://github.com/FreshRSS/FreshRSS/pull/9322)
 	* Reject token access (RSS/OPML export, feed refresh) for disabled accounts [#9336](https://github.com/FreshRSS/FreshRSS/pull/9336)
 	* Require POST+CSRF for self-update mutations [#9335](https://github.com/FreshRSS/FreshRSS/pull/9335)
 	* Make the login challenge nonce one-time [#9334](https://github.com/FreshRSS/FreshRSS/pull/9334)

@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => '누구나 기본 사용자의 글을 읽을 수 있도록 합니다(%s)',
 		'allow_anonymous_refresh' => '누구나 피드를 갱신할 수 있도록 합니다',
 		'api_enabled' => '<abbr>API</abbr> 사용을 허가합니다<small>(모바일 애플리케이션을 사용할 때 필요합니다	and sharing user queries)</small>',	// DIRTY
-		'form' => '웹폼 (전통적인 방식, 자바스크립트 필요)',
+		'form' => '웹폼 (전통적인 방식)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => '사용하지 않음 (위험)',
 		'title' => '인증',
