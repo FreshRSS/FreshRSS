@@ -120,8 +120,12 @@ storage ownership. Development source mounts likewise need writable data and
 extensions directories.
 
 `CRON_MIN` keeps its existing minute-expression syntax (for example `1,31` or
-`*/15`). An empty value disables scheduling. Supercronic inherits the container
-environment, runs refreshes serially, and logs output to the container logs.
+`*/15`). Set it on the main FreshRSS container: Apache and supercronic run
+together in that container, with no scheduler sidecar required. An empty value
+disables scheduling. Supercronic inherits the container environment, runs
+refreshes serially, and logs output to the container logs. When migrating an
+existing Alpine cron sidecar, stop and remove it, then set `CRON_MIN` on the main
+FreshRSS container and recreate that container using its default command.
 Alpine and Newest install the distribution package; Arch builds supercronic
 v0.2.33 from a pinned source revision in a separate build stage.
 
@@ -135,9 +139,9 @@ To test a locally built rootless image, run:
 ./tests/docker-rootless.sh freshrss:rootless-alpine
 ```
 
-The test requires Docker. Repeat against a rootless Docker context to
-validate a rootless engine; running as a non-root container user alone does not
-establish that the engine is rootless.
+The test requires Docker and verifies non-root image processes using a
+conventional Docker daemon. Validation against rootless container engines is
+deferred.
 
 ## Environment variables
 
@@ -667,12 +671,15 @@ server {
 ## Cron job to automatically refresh feeds
 
 We recommend a refresh rate of about twice per hour (see *WebSub* / *PubSubHubbub* for real-time updates).
-There are no less than 3 options. Pick a single one.
+The recommended setup runs the scheduler inside the FreshRSS container.
+Choose one scheduling method to avoid duplicate refreshes.
 
 ### Option 1) Cron inside the FreshRSS Docker image
 
-Easiest, built-in solution, also used already in the examples above
-(but your Docker instance will have a second process in the background, without monitoring).
+Recommended, built-in solution, also used in the examples above.
+On Alpine, Arch, and Newest, the default command starts Apache and supercronic
+in the same container and stops both when the container shuts down.
+Debian uses its existing cron daemon in the same container.
 Just pass the environment variable `CRON_MIN` to your `docker run` command,
 containing a valid cron minute definition such as `13,43` (recommended) or `*/20`.
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
@@ -682,6 +689,19 @@ docker run ... \
   -e CRON_MIN=13,43 \
   --name freshrss freshrss/freshrss:edge
 ```
+
+For Alpine, a complete example is:
+
+```sh
+docker run -d --restart unless-stopped --log-opt max-size=10m \
+  -p 8080:8080 \
+  -v freshrss_data:/var/www/FreshRSS/data \
+  -v freshrss_extensions:/var/www/FreshRSS/extensions \
+  -e CRON_MIN=13,43 \
+  --name freshrss freshrss/freshrss:edge-alpine
+```
+
+Keep the image's default command so that it starts both services.
 
 ### Option 2) Cron on the host machine
 
@@ -695,7 +715,7 @@ Example on Debian / Ubuntu: Create `/etc/cron.d/FreshRSS` with:
 7,37 * * * * root docker exec --user www-data freshrss php ./app/actualize_script.php > /tmp/FreshRSS.log 2>&1
 ```
 
-### Option 3) Cron as another instance of the same FreshRSS Docker image
+### Option 3) Separate cron container for Debian
 
 For advanced users. Offers good logging and monitoring with auto-restart on failure.
 Watch out to use the same run parameters than in your main FreshRSS instance, for database, networking, and file system.
@@ -725,18 +745,6 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   --net freshrss-network \
   --name freshrss_cron freshrss/freshrss:edge \
   cron -f
-```
-
-#### For the Alpine image
-
-```sh
-docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v freshrss_data:/var/www/FreshRSS/data \
-  -v freshrss_extensions:/var/www/FreshRSS/extensions \
-  -e CRON_MIN=27,57 \
-  --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss:edge-alpine \
-  crond -f -d 6
 ```
 
 ## Migrate database

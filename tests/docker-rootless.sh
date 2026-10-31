@@ -94,12 +94,14 @@ docker run -d --name "$name-custom" -p 127.0.0.1::8080 \
 wait_http "$name-custom"
 
 # Accelerated scheduler checks use supercronic's seconds field, without waiting
-# for a wall-clock minute. Jobs inherit the environment and recover after failure.
-docker run -d --name "$name-cron" --entrypoint sh -e CRON_MIN='*' \
-	-e ROOTLESS_TEST_VALUE=inherited "$image" -ec '
+# for a wall-clock minute. Apache stays available in the same container while
+# jobs inherit the environment and recover after failure.
+docker run -d --name "$name-cron" -e CRON_MIN='*' \
+	-e ROOTLESS_TEST_VALUE=inherited "$image" sh -ec '
 	printf "* * * * * * * echo \$ROOTLESS_TEST_VALUE >>/run/freshrss/ticks; exit 1\n" >/run/freshrss/crontab
-	exec ./Docker/run-services.sh sleep 300
+	exec ./Docker/run-services.sh httpd -D FOREGROUND
 ' >/dev/null
+wait_http "$name-cron"
 i=0
 until [ "$(docker exec "$name-cron" sh -c 'wc -l </run/freshrss/ticks' 2>/dev/null || echo 0)" -ge 2 ]; do
 	i=$((i + 1))
@@ -107,16 +109,18 @@ until [ "$(docker exec "$name-cron" sh -c 'wc -l </run/freshrss/ticks' 2>/dev/nu
 	sleep 1
 done
 docker exec "$name-cron" grep -q inherited /run/freshrss/ticks
+wait_http "$name-cron"
 for container in "$name" "$name-cron"; do
 	docker stop -t 10 "$container" >/dev/null
 	[ "$(docker inspect -f '{{.State.ExitCode}}' "$container")" = 0 ] || fail 'unclean shutdown'
 done
 # Stopping during an active job allows supercronic to finish it gracefully.
 docker rm "$name-cron" >/dev/null
-docker run -d --name "$name-cron" --entrypoint sh -e CRON_MIN='*' "$image" -ec '
+docker run -d --name "$name-cron" -e CRON_MIN='*' "$image" sh -ec '
 	printf "* * * * * * * touch /run/freshrss/started; sleep 2; touch /run/freshrss/completed\n" >/run/freshrss/crontab
-	exec ./Docker/run-services.sh sleep 300
+	exec ./Docker/run-services.sh httpd -D FOREGROUND
 ' >/dev/null
+wait_http "$name-cron"
 i=0
 until docker exec "$name-cron" test -f /run/freshrss/started; do
 	i=$((i + 1))
