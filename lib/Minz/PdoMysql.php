@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
  */
 
 class Minz_PdoMysql extends Minz_Pdo {
@@ -11,9 +11,14 @@ class Minz_PdoMysql extends Minz_Pdo {
 	 * @param array<int,int|string|bool>|null $options
 	 * @throws PDOException
 	 */
-	public function __construct(string $dsn, ?string $username = null, ?string $passwd = null, ?array $options = null) {
+	public function __construct(string $dsn, ?string $username = null, #[\SensitiveParameter] ?string $passwd = null, ?array $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
-		$this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+		if (class_exists('Pdo\Mysql')) {
+			assert(is_int(Pdo\Mysql::ATTR_USE_BUFFERED_QUERY));	// For PHPStan with PHP 8.4+
+			$this->setAttribute(Pdo\Mysql::ATTR_USE_BUFFERED_QUERY, false);
+		} else {
+			$this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);	// PHP < 8.4
+		}
 	}
 
 	#[\Override]

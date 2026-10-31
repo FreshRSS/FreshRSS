@@ -77,23 +77,22 @@ return array(
 		'mark_feed_read' => 'Merkitse syöte luetuksi',
 		'mark_selection_unread' => 'Merkitse valitut lukemattomiksi',
 		'mylabels' => 'Omat tunnisteet',
-		'newer_first' => 'Uusin ensin',
 		'non-starred' => 'Näytä muut kuin suosikit',
 		'normal_view' => 'Tavallinen näkymä',
-		'older_first' => 'Vanhin ensin',
 		'queries' => 'Käyttäjän tekemät kyselyt',
 		'read' => 'Näytä luetut',
 		'reader_view' => 'Lukunäkymä',
 		'rss_view' => 'RSS-syöte',
 		'search_short' => 'Haku',
 		'sort' => array(
-			'_' => 'Lajitteluehdot',
+			'asc' => 'Ascending',	// TODO
 			'c' => array(
 				'name_asc' => 'Luokka, syötteiden otsikot A→Ö',
 				'name_desc' => 'Luokka, syötteiden otsikot Ö→A',
 			),
 			'date_asc' => 'Julkaisupäivä 1→9',
 			'date_desc' => 'Julkaisupäivä 9→1',
+			'desc' => 'Descending',	// TODO
 			'f' => array(
 				'name_asc' => 'Syötteen otsikko A→Ö',
 				'name_desc' => 'Syötteen otsikko Ö→A',
@@ -104,7 +103,15 @@ return array(
 			'length_desc' => 'Content length 9→1',	// TODO
 			'link_asc' => 'Linkki A→Ö',
 			'link_desc' => 'Linkki Ö→A',
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
 			'rand' => 'Satunnainen järjestys',
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
 			'title_asc' => 'Otsikko A→Ö',
 			'title_desc' => 'Otsikko Ö→A',
 			'user_modified_asc' => 'Käyttäjä muokannut 1→9',

@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',	// IGNORE
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',	// IGNORE
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>',	// IGNORE
-		'form' => 'Web form (traditional, requires JavaScript)',	// IGNORE
+		'form' => 'Web form (traditional)',	// IGNORE
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// IGNORE
 		'none' => 'None (dangerous)',	// IGNORE
 		'title' => 'Authentication',	// IGNORE
@@ -83,14 +83,21 @@ return array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// IGNORE
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// IGNORE
 		'cookie-duration' => array(
 			'help' => 'in seconds',	// IGNORE
 			'number' => 'Duration to keep logged in',	// IGNORE
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// IGNORE
 		'force_email_validation' => 'Force email address validation',	// IGNORE
 		'instance-name' => 'Instance name',	// IGNORE
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// IGNORE
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// IGNORE
+		),
 		'max-categories' => 'Max number of categories per user',	// IGNORE
 		'max-feeds' => 'Max number of feeds per user',	// IGNORE
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// IGNORE
 		'registration' => array(
 			'number' => 'Max number of accounts',	// IGNORE
 			'select' => array(
@@ -130,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// IGNORE
 			'edge' => 'Rolling release (“edge”)',	// IGNORE
-			'latest' => 'Stable release (“latest”)',	// IGNORE
+			'latest' => 'Versioned release (“latest”)',	// IGNORE
 		),
 		'title' => 'Update system',	// IGNORE
 		'viaGit' => 'Update via git and GitHub.com started',	// IGNORE

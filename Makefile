@@ -7,15 +7,22 @@ endif
 PORT ?= 8080
 NETWORK ?= freshrss-network
 
+# detect docker or podman
+DOCKER ?= $(shell which docker 2>/dev/null || which podman 2>/dev/null)
+
+ifeq ($(DOCKER),)
+NO_DOCKER := 1
+endif
+
 ifdef NO_DOCKER
 	PHP = $(shell which php)
 else
-	PHP = docker run \
+	PHP = $(DOCKER) run \
 		--rm \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
 		--env FRESHRSS_ENV=development \
 		--name freshrss-php-cli \
-		freshrss/freshrss:$(TAG) \
+		docker.io/freshrss/freshrss:$(TAG) \
 		php
 endif
 
@@ -28,16 +35,16 @@ endif
 ##@ Docker
 .PHONY: build
 build: ## Build a Docker image
-	docker build \
+	$(DOCKER) build \
 		--pull \
 		--tag freshrss/freshrss:$(TAG) \
 		--file Docker/$(DOCKERFILE) .
 
 .PHONY: start
 start: ## Start the development environment (use Docker)
-	docker network create --driver bridge $(NETWORK) || true
+	$(DOCKER) network create --driver bridge $(NETWORK) || true
 	$(foreach extension,$(extensions),$(eval volumes=$(volumes) --volume $(extension):/var/www/FreshRSS/extensions/$(notdir $(extension)):z))
-	docker run \
+	$(DOCKER) run \
 		-it \
 		--rm \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
@@ -46,12 +53,12 @@ start: ## Start the development environment (use Docker)
 		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
 		--network $(NETWORK) \
-		freshrss/freshrss:$(TAG)
+		docker.io/freshrss/freshrss:$(TAG)
 
 .PHONY: stop
 stop: ## Stop FreshRSS container if any
-	docker stop freshrss-dev || true
-	docker network rm $(NETWORK) || true
+	$(DOCKER) stop freshrss-dev || true
+	$(DOCKER) network rm $(NETWORK) || true
 
 ##@ Tests and linter
 .PHONY: lint
@@ -63,12 +70,17 @@ lint-fix: bin/phpcbf ## Fix the errors detected by the linter
 	$(PHP) bin/phpcbf . -p -s
 
 .PHONY: test
-test: bin/phpunit ## Run the test suite
+test: bin/phpunit ## Run the PHP test suite
 	$(PHP) bin/phpunit --bootstrap ./tests/bootstrap.php ./tests
 
 bin/composer:
 	mkdir -p bin/
-	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/a5abae68b349213793dca4a1afcaada0ad11143b/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+	cd bin ; \
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/acf8a43b6a379f3a5ef72ebf21979f4936a608fd/web/installer' && \
+	echo 'aad0c40a36d9938664f5a34eb2ed39dbc1021792f9706dbcb9cd6d8001227c99  installer' | sha256sum -c - && \
+	php installer -- --quiet --install-dir='./' --filename='composer' && \
+	rm installer && \
+	cd ..
 
 # building any of these builds them all
 vendor/bin/phpunit vendor/bin/phpcs vendor/bin/phpcbf vendor/bin/phpstan &: bin/composer
@@ -82,7 +94,8 @@ bin/phpunit bin/phpcs bin/phpcbf bin/phpstan : % : vendor/%
 bin/typos:
 	mkdir -p bin/
 	cd bin ; \
-	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.29.9/typos-v1.29.9-x86_64-unknown-linux-musl.tar.gz' && \
+	wget 'https://github.com/crate-ci/typos/releases/download/v1.49.0/typos-v1.49.0-x86_64-unknown-linux-musl.tar.gz' && \
+	echo '48bd2d58e02ce713b8c0f1aa239e68ee4f7d8c551013135806e6aed3938d9e10  typos-v1.49.0-x86_64-unknown-linux-musl.tar.gz' | sha256sum -c - && \
 	tar -xvf *.tar.gz './typos' && \
 	chmod +x typos && \
 	rm *.tar.gz ; \
@@ -93,6 +106,37 @@ node_modules/.bin/eslint:
 
 node_modules/.bin/rtlcss:
 	npm install
+
+node_modules/.bin/svgo:
+	npm install
+
+# TODO: Add composer install
+.PHONY: composer-test
+composer-test: bin/phpstan bin/composer
+	bin/composer run-script test
+
+.PHONY: composer-fix
+composer-fix: bin/composer
+	bin/composer run-script fix
+
+.PHONY: npm-test
+npm-test: node_modules/.bin/eslint
+	npm test
+
+.PHONY: npm-fix
+npm-fix: node_modules/.bin/eslint
+	npm run fix
+
+.PHONY: typos-test
+typos-test: bin/typos
+	bin/typos
+
+# TODO: Add shellcheck, shfmt, hadolint
+.PHONY: test-all
+test-all: composer-test npm-test typos-test ## Run all tests
+
+.PHONY: fix-all
+fix-all: composer-fix npm-fix ## Run all fixes
 
 ##@ I18n
 .PHONY: i18n-add-file
@@ -133,9 +177,15 @@ endif
 	$(PHP) ./cli/manipulate.translation.php --action add --language $(lang) --origin-language $(ref)
 	@echo Language added.
 
+.PHONY: i18n-compile-plurals
+i18n-compile-plurals: ## Compile plural formulas from app/i18n/*/plurals.php
+	@$(PHP) ./cli/compile.plurals.php --all
+	@echo Plural files compiled.
+
 .PHONY: i18n-format
 i18n-format: ## Format I18N files
 	@$(PHP) ./cli/manipulate.translation.php --action format
+	@$(PHP) ./cli/compile.plurals.php --all
 	@echo Files formatted.
 
 .PHONY: i18n-ignore-key
@@ -200,38 +250,9 @@ refresh: ## Refresh feeds by fetching new messages
 rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
 	npm run-script rtlcss
 
-###############################
-## New commands aligned on CI #
-##     Work in progress       #
-###############################
-
-# TODO: Add composer install
-.PHONY: composer-test
-composer-test: bin/phpstan bin/composer
-	bin/composer run-script test
-
-.PHONY: composer-fix
-composer-fix: bin/composer
-	bin/composer run-script fix
-
-.PHONY: npm-test
-npm-test: node_modules/.bin/eslint
-	npm test
-
-.PHONY: npm-fix
-npm-fix: node_modules/.bin/eslint
-	npm run fix
-
-.PHONY: typos-test
-typos-test: bin/typos
-	bin/typos
-
-# TODO: Add shellcheck, shfmt, hadolint
-.PHONY: test-all
-test-all: composer-test npm-test typos-test
-
-.PHONY: fix-all
-fix-all: composer-fix npm-fix
+.PHONY: svgo
+svgo: node_modules/.bin/svgo ## Optimize SVG image files
+	npm run-script svgo
 
 ##@ Help
 .PHONY: help

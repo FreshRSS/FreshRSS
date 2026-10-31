@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
- * Request représente la requête http
+ * The Minz_Request class represents the HTTP request
  */
 class Minz_Request {
 
@@ -23,7 +23,7 @@ class Minz_Request {
 	private static array $originalRequest = [];
 
 	/**
-	 * Getteurs
+	 * Getters
 	 */
 	public static function controllerName(): string {
 		return self::$controller_name;
@@ -145,12 +145,15 @@ class Minz_Request {
 
 	/**
 	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
+	 * @param bool $trim `false` to skip trimming whitespace surrounding the parameter, `true` (default) to trim whitespace
 	 */
-	public static function paramStringNull(string $key, bool $plaintext = false): ?string {
+	public static function paramStringNull(string $key, bool $plaintext = false, bool $trim = true): ?string {
 		if (isset(self::$params[$key])) {
 			$s = self::$params[$key];
 			if (is_string($s)) {
-				$s = trim($s);
+				if ($trim) {
+					$s = trim($s);
+				}
 				return $plaintext ? $s : htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
 			}
 			if (is_int($s) || is_bool($s)) {
@@ -162,9 +165,27 @@ class Minz_Request {
 
 	/**
 	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
+	 * @param bool $trim `false` to skip trimming whitespace surrounding the parameter, `true` (default) to trim whitespace
 	 */
-	public static function paramString(string $key, bool $plaintext = false): string {
-		return self::paramStringNull($key, $plaintext) ?? '';
+	public static function paramString(string $key, bool $plaintext = false, bool $trim = true): string {
+		return self::paramStringNull($key, $plaintext, $trim) ?? '';
+	}
+
+	/**
+	 * Extract text lines to array.
+	 *
+	 * It will return an array where each cell contains one line of a text. The new line
+	 * character is used to break the text into lines. This method is well suited to use
+	 * to split textarea content.
+	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
+	 * @return list<string>|null
+	 */
+	public static function paramTextToArrayNull(string $key, bool $plaintext = false): ?array {
+		if (isset(self::$params[$key]) && is_string(self::$params[$key])) {
+			$result = preg_split('/\R/u', self::$params[$key]) ?: [];
+			return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
+		}
+		return null;
 	}
 
 	/**
@@ -177,11 +198,7 @@ class Minz_Request {
 	 * @return list<string>
 	 */
 	public static function paramTextToArray(string $key, bool $plaintext = false): array {
-		if (isset(self::$params[$key]) && is_string(self::$params[$key])) {
-			$result = preg_split('/\R/u', self::$params[$key]) ?: [];
-			return $plaintext ? $result : Minz_Helper::htmlspecialchars_utf8($result);
-		}
-		return [];
+		return self::paramTextToArrayNull($key, $plaintext) ?? [];
 	}
 
 	public static function defaultControllerName(): string {
@@ -219,7 +236,7 @@ class Minz_Request {
 	}
 
 	/**
-	 * Setteurs
+	 * Setters
 	 */
 	public static function _controllerName(string $controller_name): void {
 		self::$controller_name = ctype_alnum($controller_name) ? $controller_name : '';
@@ -243,7 +260,7 @@ class Minz_Request {
 	}
 
 	/**
-	 * Initialise la Request
+	 * Initializes the request
 	 */
 	public static function init(): void {
 		self::_params(array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY));
@@ -267,6 +284,21 @@ class Minz_Request {
 			$remoteIp = '';
 		}
 		return $remoteIp;
+	}
+
+	/**
+	 * Returns `PATH_INFO` accounting for a bug when sometimes it may contain `SCRIPT_NAME` value instead of blank
+	 */
+	public static function pathInfo(): string {
+		$pathInfo = $_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? null;
+		if (!is_string($pathInfo)) {
+			return '';
+		}
+		$scriptName = $_SERVER['SCRIPT_NAME'] ?? null;
+		if ($scriptName === $pathInfo) {
+			return '';
+		}
+		return $pathInfo;
 	}
 
 	/**
@@ -402,7 +434,7 @@ class Minz_Request {
 	 * @param string $address the address to test, which can be an URL with a DNS or an IP.
 	 * @return bool true if server does not appear to be on some kind of local network, false otherwise (probably public).
 	 */
-	public static function serverIsPublic(string $address): bool {
+	public static function serverIsPublic(string $address, bool $allowDnsResolve = true): bool {
 		if (strlen($address) < strlen('http://a.bc')) {
 			return false;
 		}
@@ -417,12 +449,12 @@ class Minz_Request {
 			&& !preg_match('/^(\\[)?(::1|f[c-d][0-9a-f]{2}:|fe80:)(\\])?/i', $host);	// IPv6
 
 		// If $host looks public and is not an IP address, try to resolve it
-		if ($is_public && filter_var($host, FILTER_VALIDATE_IP) === false) {
+		if ($allowDnsResolve && $is_public && filter_var($host, FILTER_VALIDATE_IP) === false) {
 			$resolvedIp = self::resolveHostname($host);
 			if ($resolvedIp !== null && $resolvedIp !== $host) {
 				$resolvedAddress = str_contains($resolvedIp, ':') ? "http://[{$resolvedIp}]/" : "http://{$resolvedIp}/";
 				if ($resolvedAddress !== $address) {
-					$is_public &= self::serverIsPublic($resolvedAddress);
+					$is_public &= self::serverIsPublic($resolvedAddress, $allowDnsResolve);
 				}
 			}
 		}
@@ -571,7 +603,7 @@ class Minz_Request {
 			return false;
 		}
 		$conf = FreshRSS_UserConfiguration::getForUser($username);
-		if ($conf === null || !hash_equals($conf->token, $token_param)) {
+		if ($conf === null || !$conf->enabled || !hash_equals($conf->token, $token_param)) {
 			return false;
 		}
 		return true;

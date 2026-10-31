@@ -126,6 +126,11 @@
 
 }
 
+.group > .btn:only-child,
+.group > .dropdown:only-child > .btn {
+	border-radius: 5px;
+}
+
 .aside {
 	background: var(--sid-bg);
 

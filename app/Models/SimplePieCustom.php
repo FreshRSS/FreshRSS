@@ -44,12 +44,28 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 				unset($curl_options[CURLOPT_PROXY]);
 			}
 		}
+		if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
+			$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+			if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
+				$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+			}
+		} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
+			// Legacy PHP 8.2-
+			if (defined('CURLOPT_PROTOCOLS')) {
+				$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+			}
+			if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+				$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+			}
+		}
 		$this->set_curl_options($curl_options);
 
 		$this->strip_comments(true);
 		$this->rename_attributes(['id', 'class']);
 		$this->allow_aria_attr(true);
 		$this->allow_data_attr(true);
+		// `data:` is still allowed for images (see Sanitize::is_allowed_uri()), but blocked on navigational/framing attributes
+		$this->disallow_uri_schemes(['javascript', 'data']);
 		$this->allowed_html_attributes([
 			// HTML
 			'dir',
@@ -114,7 +130,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'hgroup' => [],
 			'hr' => ['align', 'noshade', 'size', 'width'],
 			'i' => [],
-			'iframe' => ['src', 'align', 'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'scrolling'],
+			'iframe' => ['src', 'align', 'frameborder', 'longdesc', 'marginheight', 'marginwidth', 'scrolling', 'allowfullscreen'],
 			'image' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
 			'img' => ['src', 'alt', 'width', 'height', 'align', 'border', 'hspace', 'longdesc', 'vspace'],
 			'ins' => ['cite', 'datetime'],
@@ -139,7 +155,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'output' => [],
 			'p' => ['align'],
 			'picture' => [],
-			// 'plaintext' => [], // Can't be closed. See: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/plaintext
+			// 'plaintext' => [], // Can't be closed. See: https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/plaintext
 			'pre' => ['width', 'wrap'],
 			'progress' => ['max', 'value'],
 			'q' => ['cite'],
@@ -220,6 +236,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			'iframe' => [
 				'allow' => 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
 				'sandbox' => 'allow-scripts allow-same-origin',
+				'allowfullscreen' => 'allowfullscreen',
 			],
 			'video' => ['controls' => 'controls', 'preload' => 'none'],
 		]);
@@ -270,9 +287,6 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 		if ($data === '' || ($maxLength !== null && $maxLength <= 0)) {
 			return '';
 		}
-		if ($maxLength !== null) {
-			$data = mb_strcut($data, 0, $maxLength, 'UTF-8');
-		}
 		/** @var FreshRSS_SimplePieCustom|null $simplePie */
 		static $simplePie = null;
 		if ($simplePie === null) {
@@ -280,16 +294,41 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 			$simplePie->enable_cache(false);
 			$simplePie->init();
 		}
+
+		// Sanitize and truncate, accounting for the fact that sanitizing can grow the string (e.g. auto-closing tags)
+		$data = html_only_entity_decode($data);
+		$truncated = $data;
+		$truncLength = $maxLength;
+		for ($attempt = 0; $attempt < 4; $attempt++) {
+			if ($maxLength !== null) {
+				$truncated = mb_strcut($truncated, 0, $truncLength, 'UTF-8');
+				$truncated = preg_replace('%(<[^>]{0,99}|&[^;]{0,32})$%', '', $truncated);	// Remove trailing incomplete tag or entity
+				if (!is_string($truncated)) {
+					break;
+				}
+			}
+			$sanitized = $simplePie->sanitize->sanitize($truncated, \SimplePie\SimplePie::CONSTRUCT_HTML, $base);
+			if (!is_string($sanitized)) {
+				break;
+			}
+			if ($maxLength === null) {
+				return $sanitized;
+			}
+			if (strlen($sanitized) <= $maxLength) {
+				if (trim(strip_tags($sanitized)) === '') {
+					break;	// Fallback
+				}
+				return $sanitized;
+			}
+			// Exponentially reduce the input length to account for the fact that sanitizing can grow the string
+			$overflow = strlen($sanitized) - $maxLength;
+			$truncLength = max(0, strlen($truncated) - $overflow - (2 ** $attempt));
+		}
+		// Our heuristic failed, so fallback to sanitize + strip tags + hard-truncate
 		$sanitized = $simplePie->sanitize->sanitize($data, \SimplePie\SimplePie::CONSTRUCT_HTML, $base);
 		if (!is_string($sanitized)) {
 			return '';
 		}
-		$result = html_only_entity_decode($sanitized);
-		if ($maxLength !== null && strlen($result) > $maxLength) {
-			//Sanitizing has made the result too long so try again shorter
-			$data = mb_strcut($result, 0, (2 * $maxLength) - strlen($result) - 2, 'UTF-8');
-			return self::sanitizeHTML($data, $base, $maxLength);
-		}
-		return $result;
+		return mb_strcut(strip_tags($sanitized), 0, $maxLength, 'UTF-8');
 	}
 }

@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Névtelen felhasználók olvashatják az alapértelmezett felhasználó cikkeit (%s)',
 		'allow_anonymous_refresh' => 'Névtelen felhasználók frissíthetik a cikkeket',
 		'api_enabled' => ' <abbr>API</abbr> elérés engedélyezése <small>(mobilalkalmazásokhoz és felhasználói lekérdezés megosztásához szükséges )</small>',
-		'form' => 'Webes űrlap (hagyományos, JavaScript szükséges hozzá)',
+		'form' => 'Webes űrlap (hagyományos)',
 		'http' => 'HTTP (haladó: Web szerver kezeli, OIDC, SSO…)',
 		'none' => 'nincs (veszélyes)',
 		'title' => 'Hitelesítés',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'Alap URL',
 			'recommendation' => 'Automatikus ajánlás: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Üzenet, ha a regisztrációk le vannak zárva',
 		'cookie-duration' => array(
 			'help' => 'másodpercekben',
 			'number' => 'Bejelentkezve maradás időtartam',
 		),
+		'default_closed_registration_message' => 'Ez a szerver jelenleg nem fogad új regisztrációkat.',
 		'force_email_validation' => 'Kötelező email cím visszaigazolás',
 		'instance-name' => 'Instance név',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => 'Maximális kategóriák száma felhasználónkét',
 		'max-feeds' => 'Maximális hírforrások száma felhasználónként',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Max felhasználó szám',
 			'select' => array(
@@ -130,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// IGNORE
 			'edge' => 'Rolling release (“edge”)',	// IGNORE
-			'latest' => 'Stable release (“latest”)',	// IGNORE
+			'latest' => 'Versioned release (“latest”)',	// TODO
 		),
 		'title' => 'FreshRSS frissítése',
 		'viaGit' => 'Frissítés a git és GitHub.com-on keresztül elindult',

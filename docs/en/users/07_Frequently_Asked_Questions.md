@@ -1,3 +1,5 @@
+# Frequently asked questions
+
 We may not have answered all of your questions in the previous sections. The FAQ contains some questions that have not been answered elsewhere.
 
 ## What is `/i` at the end of the application URL?
@@ -13,7 +15,7 @@ Of course, ```/i``` has a purpose! It’s used for performance and usability:
 
 To increase security, FreshRSS is hosted in two sections. The first section is public (the `./p` folder) and the second section is private (everything else). Therefore the `robots.txt` file is located in the `./p` sub-folder.
 
-As explained in the [security section](../admins/09_AccessControl.html), it’s highly recommended to make only the public section available at the domain level.
+As explained in the [security section](../admins/09_AccessControl.md), it’s highly recommended to make only the public section available at the domain level.
 With that configuration, `./p` is the root folder for <https://demo.freshrss.org/>, thus making `robots.txt` available at the root of the application.
 
 The same principle applies to `favicon.ico` and `.htaccess`.
@@ -51,6 +53,14 @@ semanage fcontext -a -t httpd_sys_rw_content_t '/usr/share/FreshRSS/data(/.*)?'
 restorecon -Rv /usr/share/FreshRSS/data
 ```
 
+## Permission denied under `/usr/share/` with PHP-FPM
+
+Some Linux distributions harden their PHP-FPM systemd service so that `/usr/` is read-only for PHP, even when file ownership and Unix permissions look correct. This can cause HTTP 500 errors such as `Permission denied` or `Read-only file system` when FreshRSS writes to `./data/users/*/log.txt`, marks entries as read, or updates user data.
+
+For new installations, install FreshRSS in a writable application path such as `/var/www/FreshRSS` instead of `/usr/share/FreshRSS`.
+
+For existing installations, move `./data/` to a writable location and link it back, or configure the PHP-FPM systemd unit with an appropriate `ReadWritePaths=` override for the FreshRSS `data` directory. Restart PHP-FPM after changing the systemd unit.
+
 ## Why do I have a blank page while trying to configure the sharing options?
 
 The `sharing` word in the URL is a trigger word for some ad-blocker rules. Starting with version 1.16, `sharing` has been replaced by `integration` in the faulty URL while keeping the exact same wording throughout the application.
@@ -60,7 +70,7 @@ If you are using a version prior to 1.16, you can disable your ad-blocker for Fr
 Examples with _uBlock_:
 
 * Whitelist your FreshRSS instance by adding it in _uBlock > Open the dashboard > Whitelist_.
-* Authorize your FreshRSS instance to call `sharing` configuration page by adding the rule `*sharing,domain=~yourdomain.com` in _uBlock > Open the dashboard > My filters_
+* Authorize your FreshRSS instance to call `sharing` configuration page by adding the rule `*sharing,domain=~yourdomain.example` in _uBlock > Open the dashboard > My filters_
 
 ## Problems with firewalls
 

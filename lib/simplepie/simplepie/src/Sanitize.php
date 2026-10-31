@@ -58,6 +58,8 @@ class Sanitize implements RegistryAware
     public $allow_data_attr = true;
     /** @var bool */
     public $allow_aria_attr = true;
+    /** @var string[] */
+    public $disallowed_uri_schemes = ['javascript'];
     /** @var array<string, array<string, string>> */
     public $add_attributes = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']];
     /** @var bool */
@@ -281,6 +283,14 @@ class Sanitize implements RegistryAware
     }
 
     /**
+     * @param string[] $schemes List of URI schemes (protocols) to disallow
+     */
+    public function disallow_uri_schemes(array $schemes = ['javascript']): void
+    {
+        $this->disallowed_uri_schemes = $schemes;
+    }
+
+    /**
      * @return void
      */
     public function encode_instead_of_strip(bool $encode = false)
@@ -352,8 +362,8 @@ class Sanitize implements RegistryAware
      * containing URLs that need to be resolved relative to the feed
      *
      * Defaults to |a|@href, |area|@href, |audio|@src, |blockquote|@cite,
-     * |del|@cite, |form|@action, |img|@longdesc, |img|@src, |input|@src,
-     * |ins|@cite, |q|@cite, |source|@src, |video|@src
+     * |del|@cite, |form|@action, |iframe|@src, |img|@longdesc, |img|@src,
+     * |input|@src, |ins|@cite, |q|@cite, |source|@src, |video|@src
      *
      * @since 1.0
      * @param array<string, string|string[]>|null $element_attribute Element/attribute key/value pairs, null for default
@@ -369,6 +379,7 @@ class Sanitize implements RegistryAware
                 'blockquote' => 'cite',
                 'del' => 'cite',
                 'form' => 'action',
+                'iframe' => 'src',
                 'img' => [
                     'longdesc',
                     'src'
@@ -535,10 +546,18 @@ class Sanitize implements RegistryAware
                     }
                 }
 
-                // Replace relative URLs
+                // Replace relative URLs and blocks disallowed URI schemes (protocols)
                 $this->base = $base;
                 foreach ($this->replace_url_attributes as $element => $attributes) {
                     $this->replace_urls($document, $element, $attributes);
+                }
+
+                // MathML and SVG allow href on arbitrary descendants,
+                // so require a walk of the DOM
+                if ($this->disallowed_uri_schemes !== []
+                    && ($document->getElementsByTagName('math')->length > 0
+                        || $document->getElementsByTagName('svg')->length > 0)) {
+                    $this->block_disallowed_schemes_in_descendants($xpath);
                 }
 
                 // If image handling (caching, etc.) is enabled, cache and rewrite all the image tags.
@@ -657,7 +676,10 @@ class Sanitize implements RegistryAware
                     if ($element->hasAttribute($attribute)) {
                         $value = $this->registry->call(Misc::class, 'absolutize_url', [$element->getAttribute($attribute), $this->base]);
                         if ($value !== false) {
-                            $value = $this->https_url($value);
+                            // Block disallowed URI protocols (e.g. javascript:), otherwise force HTTPS where applicable
+                            $value = ($this->disallowed_uri_schemes !== [] && !$this->is_allowed_uri($tag, $attribute, $value))
+                                ? 'unsafe:' . $value
+                                : $this->https_url($value);
                             $element->setAttribute($attribute, $value);
                         }
                     }
@@ -697,18 +719,20 @@ class Sanitize implements RegistryAware
             $parent = $element->parentNode;
             if (!in_array($tag, ['html', 'head', 'body', 'div'], true)
                 && !isset($this->allowed_html_elements_with_attributes[$tag])) {
-                if (!in_array($tag, ['script', 'style', 'svg', 'math'], true)) {
+                if (!in_array($tag, ['script', 'style', 'svg', 'math', 'template'], true)) {
                     // Preserve children inside the disallowed element
-                    for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
-                        $child = $element->childNodes->item($i);
-                        if ($child === null) {
-                            continue;
-                        }
+                    $nextSibling = $element->nextSibling;
+                    while ($element->firstChild !== null) {
+                        $child = $element->firstChild;
                         if ($child instanceof \DOMText) {
                             $child->nodeValue = htmlspecialchars($child->nodeValue ?? '', ENT_QUOTES, 'UTF-8');
                         }
                         if ($parent !== null) {
-                            $parent->insertBefore($child, $element);
+                            if ($nextSibling !== null) {
+                                $parent->insertBefore($child, $nextSibling);
+                            } else {
+                                $parent->appendChild($child);
+                            }
                         }
                         $this->enforce_allowed_html_nodes($child, $allow_data_attr, $allow_aria_attr);
                     }
@@ -742,6 +766,81 @@ class Sanitize implements RegistryAware
         }
     }
 
+    public function is_allowed_scheme(string $uri): bool
+    {
+        $pos = strpos($uri, ':');
+        if ($pos === false) {
+            return true;
+        }
+        $scheme = strtolower(substr($uri, 0, $pos));
+        if (!ctype_alnum($scheme)) {
+            return false;
+        }
+        return !in_array($scheme, $this->disallowed_uri_schemes, true);
+    }
+
+    /**
+     * Elements/attributes on which a `data:` URI carrying an image is still allowed
+     * even when the `data` scheme is otherwise disallowed. Such URIs are inert
+     * (an `<img>` never executes script), whereas `data:` on navigational or framing
+     * attributes (`<a href>`, `<iframe src>`, ...) may load attacker-controlled HTML.
+     * @var array<string, list<string>>
+     */
+    private const DATA_IMAGE_URI_ALLOWED = [
+        'image' => ['src'],
+        'img' => ['src'],
+        'video' => ['poster'],
+    ];
+
+    /**
+     * Like {@see is_allowed_scheme()}, but aware of the element and attribute the URI sits on,
+     * so that `data:image/...` can stay allowed on image-bearing attributes while `data:` is
+     * blocked elsewhere (e.g. `<a href="data:text/html,...">`, `<iframe src="data:...">`).
+     */
+    public function is_allowed_uri(string $tag, string $attribute, string $uri): bool
+    {
+        $pos = strpos($uri, ':');
+        if ($pos !== false && strtolower(substr($uri, 0, $pos)) === 'data'
+            && in_array('data', $this->disallowed_uri_schemes, true)
+            && in_array($attribute, self::DATA_IMAGE_URI_ALLOWED[strtolower($tag)] ?? [], true)
+            && preg_match('%^data:image/[a-z0-9.+-]+[;,]%i', $uri) === 1) {
+            return true;
+        }
+        return $this->is_allowed_scheme($uri);
+    }
+
+    /**
+     * Block disallowed URI schemes (protocols) on elements carrying an href attribute.
+     *
+     * This handles MathML and SVG elements which permit href on arbitrary descendant elements
+     * For SVG, also checks xlink:href attribute.
+     */
+    private function block_disallowed_schemes_in_descendants(\DOMXPath $xpath): void
+    {
+        // Note: content is parsed via loadHTML(), which does not namespace-process attributes
+        $elements = $xpath->query('.//*[self::math or self::svg]/descendant-or-self::*[@href or @*[name()="xlink:href"]]');
+        if ($elements === false) {
+            return;
+        }
+        foreach ($elements as $element) {
+            if (!($element instanceof \DOMElement)) {
+                continue;
+            }
+            if ($element->hasAttribute('href')) {
+                $href = $element->getAttribute('href');
+                if (!$this->is_allowed_scheme($href)) {
+                    $element->setAttribute('href', 'unsafe:' . $href);
+                }
+            }
+            if ($element->hasAttribute('xlink:href')) {
+                $href = $element->getAttribute('xlink:href');
+                if (!$this->is_allowed_scheme($href)) {
+                    $element->setAttribute('xlink:href', 'unsafe:' . $href);
+                }
+            }
+        }
+    }
+
     /**
      * @param int-mask-of<SimplePie::CONSTRUCT_*> $type
      * @return void
@@ -759,6 +858,9 @@ class Sanitize implements RegistryAware
 
         if ($this->encode_instead_of_strip) {
             foreach ($elements as $element) {
+                if (!($element instanceof \DOMNode)) {
+                    continue;
+                }
                 $fragment = $document->createDocumentFragment();
 
                 // For elements which aren't script or style, include the tag itself
@@ -815,6 +917,9 @@ class Sanitize implements RegistryAware
             return;
         } else {
             foreach ($elements as $element) {
+                if (!($element instanceof \DOMNode)) {
+                    continue;
+                }
                 $fragment = $document->createDocumentFragment();
                 $number = $element->childNodes->length;
                 for ($i = $number; $i > 0; $i--) {

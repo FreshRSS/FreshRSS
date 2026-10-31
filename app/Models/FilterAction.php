@@ -33,7 +33,7 @@ class FreshRSS_FilterAction {
 	public function toJSON(): array {
 		if (is_array($this->actions) && $this->booleanSearch != null) {
 			return [
-				'search' => $this->booleanSearch->__toString(),
+				'search' => $this->booleanSearch->toString(expandUserQueries: false),
 				'actions' => $this->actions,
 			];
 		}

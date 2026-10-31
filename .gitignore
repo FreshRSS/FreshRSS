@@ -12,6 +12,11 @@
 
 /docs/_site/
 /docs/.sass-cache/
+/docs/.bundle/
+/docs/.jekyll-metadata
+
+# OS files
+.DS_Store
 
 # Temp files
 *~

@@ -1,105 +1,10 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, openNotification, xmlHttpRequestJson */
-
-// <crypto form (Web login)>
-function poormanSalt() {	// If crypto.getRandomValues is not available
-	const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ.0123456789/abcdefghijklmnopqrstuvwxyz';
-	let text = '$2a$04$';
-	for (let i = 22; i > 0; i--) {
-		text += base.charAt(Math.floor(Math.random() * 64));
-	}
-	return text;
-}
+/* globals context, notifs_html5_is_supported */
 
 function forgetOpenCategories() {
 	localStorage.removeItem('FreshRSS_open_categories');
 }
-
-function init_crypto_forms() {
-	const crypto_forms = document.querySelectorAll('.crypto-form');
-	if (crypto_forms.length === 0) {
-		return;
-	}
-
-	if (!(window.bcrypt)) {
-		if (window.console) {
-			console.log('FreshRSS waiting for bcrypt.js…');
-		}
-		setTimeout(init_crypto_forms, 100);
-		return;
-	}
-
-	/* globals bcrypt */
-	crypto_forms.forEach(crypto_form => {
-		const submit_button = crypto_form.querySelector('[type="submit"]');
-		if (submit_button) {
-			submit_button.disabled = false;
-		}
-
-		crypto_form.onsubmit = function (e) {
-			let challenge = crypto_form.querySelector('#challenge');
-			if (!challenge) {
-				crypto_form.querySelectorAll('details[data-challenge-if-open]').forEach(el => {
-					if (el.open && !challenge) {
-						crypto_form.insertAdjacentHTML('beforeend', '<input type="hidden" id="challenge" name="challenge" />');
-						challenge = crypto_form.querySelector('#challenge');
-					}
-				});
-				if (!challenge) {
-					return true;
-				}
-			}
-
-			e.preventDefault();
-
-			if (!submit_button) {
-				return false;
-			}
-			submit_button.disabled = true;
-
-			const req = new XMLHttpRequest();
-			req.open('GET', './?c=javascript&a=nonce&user=' + crypto_form.querySelector('#username').value, true);
-
-			req.onerror = function () {
-				openNotification('Communication error!', 'bad');
-				submit_button.disabled = false;
-			};
-
-			req.onload = function () {
-				if (req.status == 200) {
-					const json = xmlHttpRequestJson(req);
-					if (!json.salt1 || !json.nonce) {
-						openNotification('Invalid user!', 'bad');
-					} else {
-						try {
-							const strong = window.Uint32Array && window.crypto && (typeof window.crypto.getRandomValues === 'function');
-							const s = bcrypt.hashSync(crypto_form.querySelector('.passwordPlain').value, json.salt1);
-							const c = bcrypt.hashSync(s + json.nonce, strong ? bcrypt.genSaltSync(4) : poormanSalt());
-							challenge.value = c;
-							if (!s || !c) {
-								openNotification('Crypto error!', 'bad');
-							} else {
-								crypto_form.removeEventListener('submit', crypto_form.onsubmit);
-								crypto_form.submit();
-							}
-						} catch (ex) {
-							openNotification('Crypto exception! ' + ex, 'bad');
-						}
-					}
-				} else {
-					req.onerror();
-				}
-				submit_button.disabled = false;
-			};
-
-			req.send();
-		};
-	});
-}
-// </crypto form (Web login)>
-
-// <show password>
 
 function init_display(parent) {
 	const theme = parent.querySelector('select#theme');
@@ -113,6 +18,7 @@ function init_display(parent) {
 	});
 }
 
+// <password forms>
 function togglePW(btn) {
 	if (btn.classList.contains('active')) {
 		hidePW(btn);
@@ -144,7 +50,29 @@ function init_password_observers(parent) {
 		btn.onclick = () => togglePW(btn);
 	});
 }
-// </show password>
+
+function init_password_byte_length_validation(parent) {
+	parent.querySelectorAll('input[type="password"][data-max-bytes]').forEach(input => {
+		function validate() {
+			// Display custom validation error for the password input or unset any custom errors.
+			if (new TextEncoder().encode(input.value).length > +input.dataset.maxBytes) {
+				input.setCustomValidity(context.i18n.provided_password_too_long);
+			} else {
+				input.setCustomValidity('');
+			}
+
+			if (input.validity.customError) {
+				// Update the displayed validation status immediately before
+				// the user attempts to submit the form.
+				input.reportValidity();
+			}
+		}
+
+		input.addEventListener('input', validate);
+		validate();
+	});
+}
+// </password forms>
 
 function init_archiving(parent) {
 	parent.addEventListener('change', function (e) {
@@ -362,6 +290,18 @@ function open_slider_listener(ev) {
 					f.insertAdjacentHTML('afterbegin', '<input type="hidden" name="slider" value="1" />');
 				});
 				context.ajax_loading = false;
+
+				window.addEventListener('hashchange', () => {
+					if (location.hash.substr(1) === 'slider') {
+						// Triggers when slider is closed
+						window.addEventListener('hashchange', () => {
+							location.hash = 'close';
+							slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
+							document.documentElement.classList.remove('slider-active');
+						}, { once: true });
+					}
+				}, { once: true });
+
 				slider.dispatchEvent(freshrssSliderLoadEvent);
 			};
 			req.send();
@@ -375,8 +315,20 @@ function init_slider(slider) {
 
 	document.getElementById('close-slider').addEventListener('click', close_slider_listener);
 	document.querySelector('#slider .toggle_aside').addEventListener('click', close_slider_listener);
+	slider.addEventListener('click', ev => {
+		if (ev.target.closest('.extension-configure button[type="reset"], .extension-configure input[type="reset"]') && close_slider_listener(ev)) {
+			location.hash = 'close';
+		}
+	});
 
 	if (slider.children.length > 0) {
+		const slider_scrollTop = sessionStorage.getItem('FreshRSS_slider_scrollTop');
+		if (slider_scrollTop) {
+			slider.scrollTop = +slider_scrollTop;
+			sessionStorage.removeItem('FreshRSS_slider_scrollTop');
+		}
+		slider.submitListener = () => sessionStorage.setItem('FreshRSS_slider_scrollTop', slider.scrollTop);
+		slider.addEventListener('submit', slider.submitListener);
 		slider.dispatchEvent(freshrssSliderLoadEvent);
 	}
 }
@@ -384,8 +336,7 @@ function init_slider(slider) {
 function close_slider_listener(ev) {
 	const slider = document.getElementById('slider');
 	if (data_leave_validation(slider) || confirm(context.i18n.confirm_exit_slider)) {
-		slider.querySelectorAll('form').forEach(function (f) { f.reset(); });
-		document.documentElement.classList.remove('slider-active');
+		slider.removeEventListener('submit', slider.submitListener);
 		return true;
 	}
 	if (ev) {
@@ -395,11 +346,14 @@ function close_slider_listener(ev) {
 }
 // </slider>
 
-// overwrites the href attribute from the url input
+// updates href from the input value, with optional prefix/encoding
 function updateHref(ev) {
 	const urlField = document.getElementById(this.getAttribute('data-input'));
-	const url = urlField.value;
-	if (url.length > 0) {
+	const rawUrl = urlField.value;
+	const prefix = this.getAttribute('data-prefix') || '';
+	const shouldEncode = this.getAttribute('data-encode') === '1';
+	const url = prefix + (shouldEncode ? encodeURIComponent(rawUrl) : rawUrl);
+	if (rawUrl.length > 0) {
 		this.href = url;
 		return true;
 	} else {
@@ -492,17 +446,18 @@ function init_2stateButton() {
 }
 
 function init_configuration_alert() {
-	window.onsubmit = function (e) {
+	window.addEventListener('submit', function (e) {
 		window.hasSubmit = data_leave_validation(document.body, e.target);
-	};
-	window.onbeforeunload = function (e) {
+	});
+	window.addEventListener('beforeunload', function (e) {
 		if (window.hasSubmit) {
-			return;
+			return true;
 		}
 		if (!data_leave_validation(document.body)) {
+			e.preventDefault();
 			return false;
 		}
-	};
+	});
 }
 
 function init_details_attributes() {
@@ -578,6 +533,35 @@ function init_user_stats() {
 	document.querySelectorAll('tr[data-need-ajax]').forEach(row => observer.observe(row));
 }
 
+function init_enable_notify_button() {
+	const notify_button = document.getElementById('html5_enable_notif');
+	if (!notify_button) return;
+	// it means unsupported in browser
+	if (!notifs_html5_is_supported()) {
+		notify_button.checked = false;
+		return;
+	}
+
+	// Not granted, uncheck even if it is saved in server so browser asks for permission
+	if (Notification.permission !== 'granted') {
+		notify_button.checked = false;
+	}
+
+	notify_button.addEventListener('change', async function () {
+		if (this.checked) {
+			const permission = await Notification.requestPermission();
+			context.notifs_html5_permission = permission;
+			// Uncheck if user denied
+			if (permission !== 'granted') {
+				notify_button.checked = false;
+			}
+		} else {
+			// User disabled notifications
+			context.notifs_html5_permission = 'denied';
+		}
+	});
+}
+
 function init_extra_afterDOM() {
 	if (!window.context) {
 		if (window.console) {
@@ -590,31 +574,31 @@ function init_extra_afterDOM() {
 	if (loginButton) {
 		loginButton.addEventListener('click', forgetOpenCategories);
 	}
-	if (!['normal', 'global', 'reader'].includes(context.current_view)) {
-		init_crypto_forms();
-		init_password_observers(document.body);
-		init_select_observers();
-		init_configuration_alert();
-		init_2stateButton();
-		init_update_feed();
-		init_details_attributes();
-		init_user_stats();
+	init_password_observers(document.body);
+	init_password_byte_length_validation(document.body);
+	init_select_observers();
+	init_configuration_alert();
+	init_2stateButton();
+	init_update_feed();
+	init_details_attributes();
+	init_user_stats();
+	init_enable_notify_button();
 
-		data_auto_leave_validation(document.body);
+	data_auto_leave_validation(document.body);
 
-		const slider = document.getElementById('slider');
-		if (slider) {
-			slider.addEventListener('freshrss:slider-load', function (e) {
-				init_password_observers(slider);
-			});
-			init_slider(slider);
-			init_archiving(slider);
-			init_url_observers(slider);
-		} else {
-			init_display(document.body);
-			init_archiving(document.body);
-			init_url_observers(document.body);
-		}
+	const slider = document.getElementById('slider');
+	if (slider) {
+		slider.addEventListener('freshrss:slider-load', function (e) {
+			init_password_observers(slider);
+			init_password_byte_length_validation(slider);
+		});
+		init_slider(slider);
+		init_archiving(slider);
+		init_url_observers(slider);
+	} else {
+		init_display(document.body);
+		init_archiving(document.body);
+		init_url_observers(document.body);
 	}
 
 	if (window.console) {

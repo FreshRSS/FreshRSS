@@ -3,34 +3,20 @@ FROM alpine:edge
 
 ENV TZ=UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-ARG TARGETARCH
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
 	apk add --no-cache \
-	tzdata sed \
-	apache2 php85-apache2 \
+	tzdata \
+	apache2 php86-apache2 \
 	apache-mod-auth-openidc \
-	php85 php85-curl php85-gmp php85-intl php85-mbstring php85-xml php85-zip \
-	php85-ctype php85-dom php85-fileinfo php85-iconv php85-json php85-openssl php85-phar php85-session php85-simplexml php85-xmlreader php85-xmlwriter php85-xml php85-tokenizer php85-zlib \
-	php85-pdo_sqlite php85-pdo_mysql php85-pdo_pgsql && \
-	# Install supercronic for rootless cron
-	wget -q -O /usr/local/bin/supercronic https://github.com/aptible/supercronic/releases/download/v0.2.33/supercronic-linux-${TARGETARCH} && \
-	chmod +x /usr/local/bin/supercronic
+	php86 php86-curl php86-gmp php86-intl php86-mbstring php86-xml php86-zip \
+	php86-ctype php86-dom php86-fileinfo php86-iconv php86-json php86-openssl php86-phar php86-session php86-simplexml php86-xmlreader php86-xmlwriter php86-xml php86-tokenizer php86-zlib \
+	php86-pdo_sqlite php86-pdo_mysql php86-pdo_pgsql
 
-# Create non-root user
-RUN adduser -D -u 1000 -G apache freshrss && \
-	mkdir -p /var/www/FreshRSS /run/apache2/ && \
-	chown -R freshrss:apache /run/apache2/
+RUN mkdir -p /var/www/FreshRSS /run/apache2/
 WORKDIR /var/www/FreshRSS
 
-COPY --chown=freshrss:apache . /var/www/FreshRSS
-COPY --chown=freshrss:apache ./Docker/*.Apache.conf /etc/apache2/conf.d/
-
-# Create data directories with proper permissions
-RUN mkdir -p ./data/cache ./data/extensions-data ./data/favicons ./data/fever \
-	./data/PubSubHubbub/feeds ./data/PubSubHubbub/keys ./data/Retry-After \
-	./data/tokens ./data/users/_ && \
-	chown -R freshrss:apache ./data ./extensions && \
-	chmod -R 775 ./data ./extensions
+COPY --chown=root:www-data . /var/www/FreshRSS
+COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
 
 ARG FRESHRSS_VERSION
 ARG SOURCE_COMMIT
@@ -58,32 +44,30 @@ RUN \
 	# Enable required Apache modules
 	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|filter|headers|mime|remoteip|setenvif).so$/s/^\s*#//" \
 		/etc/apache2/httpd.conf && \
-	# PHP configuration (done at build time for non-root)
-	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php85 /usr/bin/php; else true; fi && \
-	echo -e 'memory_limit = 256M\npost_max_size = 32M\nupload_max_filesize = 32M' > /etc/php85/conf.d/10_freshrss.ini && \
+	# PHP configuration
+	if [ ! -f /usr/bin/php ]; then ln -s /usr/bin/php86 /usr/bin/php; else true; fi && \
+	echo 'memory_limit = 256M' > /etc/php86/conf.d/10_memory.ini && \
 	# Disable built-in FreshRSS updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
-	# Configure supercronic crontab (no user field needed, runs as current user)
-	echo '27,57 * * * * php /var/www/FreshRSS/app/actualize_script.php 2>&1' > /var/www/FreshRSS/Docker/crontab.freshrss.default && \
-	chown freshrss:apache /var/www/FreshRSS/Docker/crontab.freshrss.default && \
-	chmod +x /var/www/FreshRSS/Docker/entrypoint-nonroot.sh
+	# Configure cron job
+	touch /var/www/FreshRSS/Docker/env.txt && \
+	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
+		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
+		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /etc/crontab.freshrss.default
 
 ENV COPY_LOG_TO_SYSLOG=On
 ENV COPY_SYSLOG_TO_STDERR=On
 ENV CRON_MIN=''
 ENV DATA_PATH=''
+ENV ENABLE_ACCESS_LOG=1
 ENV FRESHRSS_ENV=''
 ENV LISTEN=''
 ENV OIDC_ENABLED=''
 ENV TRUSTED_PROXY=''
 
-ENTRYPOINT ["./Docker/entrypoint-nonroot.sh"]
+ENTRYPOINT ["./Docker/entrypoint.sh"]
 
-EXPOSE 8080
-
-USER freshrss
-
+EXPOSE 80
 # hadolint ignore=DL3025
-CMD ([ -z "$CRON_MIN" ] || supercronic /var/www/FreshRSS/Docker/crontab.freshrss &) && \
+CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
 	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo "-D OIDC_ENABLED")
-

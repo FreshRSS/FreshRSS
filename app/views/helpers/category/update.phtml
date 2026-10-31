@@ -15,7 +15,19 @@
 		<a href="<?= _url('index', 'index', 'get', 'c_' . $this->category->id()) ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('category', 'update', 'id', $this->category->id(), '#', 'slider') ?>" autocomplete="off" data-auto-leave-validation="1">
+	<?php
+		$from = Minz_Request::paramString('from');
+		$slider = ['#', 'slider'];
+		$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
+		if (!$ajax) {
+			$from = 'update';
+			$slider = [];
+		} elseif ($from === '') {
+			$from = 'index';
+		}
+	?>
+
+	<form method="post" action="<?= _url('category', 'update', 'id', $this->category->id(), 'from', $from, ...$slider) ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 		<fieldset>
 			<legend><?= _t('sub.category.information') ?></legend>
@@ -33,6 +45,49 @@
 				<div class="group-controls">
 					<input type="number" name="position" id="position" value="<?= $this->category->attributeInt('position') ?>" />
 					<p class="help"><?= _i('help') ?> <?= _t('sub.category.position_help') ?></p>
+				</div>
+			</div>
+
+			<?php
+				$categoryDefaultSort = $this->category->defaultSort();
+				$categoryDefaultOrder = $this->category->defaultOrder();
+				$categoryDefaultSortOrder = $categoryDefaultSort !== null
+					? ($categoryDefaultSort === 'rand' ? 'rand' : $categoryDefaultSort . '_' . strtolower($categoryDefaultOrder ?? 'desc'))
+					: '';
+			?>
+			<div class="form-group">
+				<label class="group-name" for="defaultSortOrder"><?= _t('index.menu.sort.primary') ?></label>
+				<div class="group-controls">
+					<select name="defaultSortOrder" id="defaultSortOrderCategory" class="w50">
+						<option value=""></option>
+						<option value="id_desc" <?= $categoryDefaultSortOrder === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc" <?= $categoryDefaultSortOrder === 'date_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc" <?= $categoryDefaultSortOrder === 'length_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc" <?= $categoryDefaultSortOrder === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc" <?= $categoryDefaultSortOrder === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option value="f.name_desc" <?= $categoryDefaultSortOrder === 'f.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand" <?= $categoryDefaultSortOrder === 'rand' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc" <?= $categoryDefaultSortOrder === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc" <?= $categoryDefaultSortOrder === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc" <?= $categoryDefaultSortOrder === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc" <?= $categoryDefaultSortOrder === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc" <?= $categoryDefaultSortOrder === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
+						<option value="f.name_asc" <?= $categoryDefaultSortOrder === 'f.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_asc') ?></option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name" for="show_unread_count"><?= _t('conf.display.show_unread_count') ?></label>
+				<div class="group-controls">
+					<?php $suc = $this->category->attributeBoolean('show_unread_count'); ?>
+					<select name="show_unread_count" id="show_unread_count" class="w50">
+						<option value=""<?= $suc === null ? ' selected="selected"' : '' ?>><?= _t('gen.short.by_default') ?></option>
+						<option value="0"<?= $suc === false ? ' selected="selected"' : '' ?>><?= _t('gen.short.no') ?></option>
+						<option value="1"<?= $suc === true ? ' selected="selected"' : '' ?>><?= _t('gen.short.yes') ?></option>
+					</select>
 				</div>
 			</div>
 
@@ -92,11 +147,25 @@
 			</div>
 
 			<div class="form-group">
+				<label class="group-name" for="enable_read_when_same_guid_in_category"><?= _t('conf.reading.read.when') ?></label>
+				<div class="group-controls">
+					<label class="checkbox" for="enable_read_when_same_guid_in_category">
+						<input type="checkbox" name="enable_read_when_same_guid_in_category" id="enable_read_when_same_guid_in_category" value="1"<?=
+							$this->category->hasAttribute('read_when_same_guid_in_category') ? ' checked="checked"' : '' ?> />
+						<?= _t('conf.reading.read.when_same_guid_in_category') ?>
+						<?php $read_when_same_guid_in_category = $this->category->hasAttribute('read_when_same_guid_in_category') ? $this->category->attributeInt('read_when_same_guid_in_category') : 25; ?>
+						<input type="number" id="read_when_same_guid_in_category" name="read_when_same_guid_in_category" min="0"
+							value="<?= $read_when_same_guid_in_category ?>" />
+					</label>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<label class="group-name" for="filteractions_read"><?= _t('conf.reading.read.when') ?></label>
 				<div class="group-controls">
 					<textarea name="filteractions_read" id="filteractions_read" class="w100"><?php
 						foreach ($this->category->filtersAction('read') as $filterRead) {
-							echo htmlspecialchars($filterRead->__toString(), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
+							echo htmlspecialchars($filterRead->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8'), PHP_EOL;
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>

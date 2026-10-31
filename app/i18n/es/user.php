@@ -41,10 +41,11 @@ return array(
 	),
 	'password' => array(
 		'invalid' => 'La contraseña no es válida.',
+		'provided_password_too_long' => 'The provided password is too long.',	// TODO
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'Debe aceptar los Términos de Servicio para poder registrarse.',
+			'invalid' => 'Debe aceptar los términos de servicio para poder registrarse.',
 		),
 	),
 	'username' => array(

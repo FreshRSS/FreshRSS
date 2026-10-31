@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -58,7 +58,7 @@ abstract class Minz_ActionController {
 	}
 
 	/**
-	 * Getteur
+	 * Getter
 	 */
 	public function view(): Minz_View {
 		return $this->view;
@@ -81,13 +81,13 @@ abstract class Minz_ActionController {
 	 * default-src and frame-ancestors directives should always be given.
 	 *
 	 * References:
-	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP
-	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/default-src
-	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors
+	 * - https://developer.mozilla.org/docs/Web/HTTP/Guides/CSP
+	 * - https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/default-src
+	 * - https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors
 	 *
 	 * @param array<string,string> $policies An array where keys are directives and values are sources.
 	 */
-	protected function _csp(array $policies): void {
+	public function _csp(array $policies): void {
 		if (!isset($policies['default-src']) || !isset($policies['frame-ancestors'])) {
 			$action = Minz_Request::controllerName() . '#' . Minz_Request::actionName();
 			Minz_Log::warning(
@@ -113,9 +113,9 @@ abstract class Minz_ActionController {
 	}
 
 	/**
-	 * Méthodes à redéfinir (ou non) par héritage
-	 * firstAction est la première méthode exécutée par le Dispatcher
-	 * lastAction est la dernière
+	 * Methods that may be overridden by subclasses
+	 * firstAction is the first method executed by the Dispatcher
+	 * lastAction is the last method executed by the Dispatcher
 	 */
 	public function init(): void { }
 	public function firstAction(): void { }

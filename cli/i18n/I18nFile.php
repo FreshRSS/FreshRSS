@@ -7,13 +7,10 @@ class I18nFile {
 
 	/**
 	 * @param array<mixed,mixed> $array
-	 * @phpstan-assert-if-true array<string,string|array<string,mixed>> $array
+	 * @phpstan-assert-if-true array<int|string,string|array<mixed>> $array
 	 */
 	public static function is_array_recursive_string(array $array): bool {
-		foreach ($array as $key => $value) {
-			if (!is_string($key)) {
-				return false;
-			}
+		foreach ($array as $value) {
 			if (!is_string($value) && !(is_array($value) && self::is_array_recursive_string($value))) {
 				return false;
 			}
@@ -34,6 +31,9 @@ class I18nFile {
 			$files = new DirectoryIterator($dir->getPathname());
 			foreach ($files as $file) {
 				if (!$file->isFile()) {
+					continue;
+				}
+				if ($file->getFilename() === 'plurals.php') {
 					continue;
 				}
 
@@ -62,7 +62,7 @@ class I18nFile {
 
 	/**
 	 * Process the content of an i18n file
-	 * @return array<string,string|array<string,mixed>>
+	 * @return array<int|string,string|array<mixed>>
 	 */
 	private function process(string $filename): array {
 		$fileContent = file_get_contents($filename);
@@ -101,7 +101,7 @@ class I18nFile {
 	/**
 	 * Flatten an array of translation
 	 *
-	 * @param array<string,I18nValue|string|array<string,I18nValue>|mixed> $translation
+	 * @param array<int|string,I18nValue|string|array<mixed>|mixed> $translation
 	 * @return array<string,I18nValue>
 	 */
 	private function flatten(array $translation, string $prefix = ''): array {
@@ -112,7 +112,8 @@ class I18nFile {
 		}
 
 		foreach ($translation as $key => $value) {
-			if (is_array($value) && is_array_keys_string($value)) {
+			$key = (string)$key;
+			if (is_array($value) && self::is_array_recursive_string($value)) {
 				$a += $this->flatten($value, $prefix . $key);
 			} elseif (is_string($value) || $value instanceof I18nValue) {
 				$a[$prefix . $key] = new I18nValue($value);
@@ -129,7 +130,7 @@ class I18nFile {
 	 * no use of it.
 	 *
 	 * @param array<string,I18nValue> $translation
-	 * @return array<string,array<string,I18nValue>>
+	 * @return array<int|string,mixed>
 	 */
 	private function unflatten(array $translation): array {
 		$a = [];
@@ -138,7 +139,20 @@ class I18nFile {
 		foreach ($translation as $compoundKey => $value) {
 			$keys = explode('.', $compoundKey);
 			array_shift($keys);
-			eval("\$a['" . implode("']['", $keys) . "'] = '" . addcslashes($value->__toString(), "'") . "';");
+			$current =& $a;
+			$lastIndex = count($keys) - 1;
+			foreach ($keys as $index => $key) {
+				$normalisedKey = ctype_digit($key) ? (int)$key : $key;
+				if ($index === $lastIndex) {
+					$current[$normalisedKey] = $value->__toString();
+					continue;
+				}
+				if (!isset($current[$normalisedKey]) || !is_array($current[$normalisedKey])) {
+					$current[$normalisedKey] = [];
+				}
+				$current =& $current[$normalisedKey];
+			}
+			unset($current);
 		}
 
 		return $a;

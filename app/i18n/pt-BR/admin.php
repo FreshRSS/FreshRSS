@@ -14,13 +14,13 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Permitir a leitura anônima dos artigos pelo usuário padrão (%s)',
 		'allow_anonymous_refresh' => 'Permitir atualização anônima dos artigos',
-		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessáiro para aplicativos móveis and sharing user queries)</small>',	// DIRTY
-		'form' => 'Formulário Web(tradicional, Necessita de JavaScript)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessário para aplicativos móveis e compartilhamento de consultas de usuários)</small>',
+		'form' => 'Formulário Web(tradicional)',
+		'http' => 'HTTP (avançado: gerenciado por servidor web, OIDC, SSO…)',
 		'none' => 'Nenhum (Perigoso)',
 		'title' => 'Autenticação',
 		'token' => 'Token de autenticação principal',
-		'token_help' => 'Permite acesso a todos as saídas RSS do usuário bem como atualização dos feeds sem autenticação:',
+		'token_help' => 'Permite acesso a todas as saídas RSS do usuário, bem como a atualização dos feeds sem autenticação:',
 		'type' => 'Método de autenticação',
 	),
 	'extensions' => array(
@@ -29,9 +29,9 @@ return array(
 		'description' => 'Descrição',
 		'disabled' => 'Desabilitado',
 		'empty_list' => 'Não há extensões instaladas',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => 'Verifique os registros para determinar o motivo da lista de extensões estar vazia.',
 		'enabled' => 'Habilitada',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'É compatível',
 		'latest' => 'Instalado',
 		'name' => 'Nome',
 		'no_configure_view' => 'Esta extensão não pode ser configurada.',
@@ -48,24 +48,24 @@ return array(
 		'_' => 'Estatísticas',
 		'all_feeds' => 'Todos os feeds',
 		'category' => 'Categoria',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => 'Data de publicação',
+		'date_received' => 'Data de recebimento',
 		'entry_count' => 'Contagem de entrada',
 		'entry_per_category' => 'Entradas por categoria',
 		'entry_per_day' => 'Entradas por dia (últimos 30 dias)',
-		'entry_per_day_of_week' => 'Por dia da semana(média: %.2f mensagens)',
+		'entry_per_day_of_week' => 'Por dia da semana (média: %.2f mensagens)',
 		'entry_per_hour' => 'Por hora (média: %.2f mensagens)',
-		'entry_per_month' => 'Por mês(média: %.2f mensagens)',
+		'entry_per_month' => 'Por mês (média: %.2f mensagens)',
 		'entry_repartition' => 'Repartição de entradas',
 		'feed' => 'Feed',	// IGNORE
 		'feed_per_category' => 'Feeds por categoria',
 		'idle' => 'Feeds inativos',
 		'main' => 'Estatísticas principais',
 		'main_stream' => 'Stream principal',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => 'Número de artigos não lidos',
 		'no_idle' => 'Não há nenhum feed inativo!',
 		'number_entries' => '%d artigos',
-		'overview' => 'Overview',	// TODO
+		'overview' => 'Visão geral',
 		'percent_of_total' => '% do total',
 		'repartition' => 'Repartição de artigos: %s',
 		'status_favorites' => 'Favoritos',
@@ -73,8 +73,8 @@ return array(
 		'status_total' => 'Total',	// IGNORE
 		'status_unread' => 'Não lidos',
 		'title' => 'Estatísticas',
-		'top_feed' => 'Top10 Feeds',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'top_feed' => 'Top 10 Feeds',
+		'unread_dates' => 'Datas com mais artigos não lidos',
 	),
 	'system' => array(
 		'_' => 'Configuração do sistema',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'URL Base',
 			'recommendation' => 'Recomendação automática: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Mensagem caso as inscrições estejam encerradas',
 		'cookie-duration' => array(
 			'help' => 'em segundos',
-			'number' => 'Manter seção ativa durante',
+			'number' => 'Manter sessão ativa durante',
 		),
+		'default_closed_registration_message' => 'Este servidor não aceita novas inscrições no momento.',
 		'force_email_validation' => 'Força verificação do endereço de email',
 		'instance-name' => 'Nome da instância',
+		'internal-host-allowlist' => array(
+			'_' => 'Lista de permissões de hosts internos',
+			'help' => 'Uma entrada por linha:<ul><li>Um <code>host:porta</code>. Por exemplo, <code>127.0.0.1:8080</code> ou <code>rss-bridge:80</code></li><li>Uma notação CIDR. Por exemplo, <code>0.0.0.0/0</code> para permitir qualquer IPv4 e <code>::/0</code> para permitir qualquer IPv6</li><li>Um <code>*</code> para permitir qualquer host (não seguro)</li></ul>',
+		),
 		'max-categories' => 'Limite de categorias por usuário',
 		'max-feeds' => 'Limite de Feeds por usuário',
+		'override-by-env-var' => 'Esta configuração é definida pela variável de ambiente <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Máximo número de contas',
 			'select' => array(
@@ -130,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Canal de Release',
 			'edge' => 'Release contínua (“edge”)',
-			'latest' => 'Release estável (“latest”)',
+			'latest' => 'Release estável (“latest”)',	// DIRTY
 		),
 		'title' => 'Sistema de atualização',
 		'viaGit' => 'Atualização via git e GitHub.com iniciada',

@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Povolit anonymní čtení článků výchozího uživatele (%s)',
 		'allow_anonymous_refresh' => 'Povolit anonymní obnovení článků',
 		'api_enabled' => 'Povolit přístup k <abbr>API</abbr> <small>(vyžadováno pro mobilní aplikace and sharing user queries)</small>',	// DIRTY
-		'form' => 'Webový formulář (tradiční, vyžaduje JavaScript)',
+		'form' => 'Webový formulář (tradiční)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Žádný (nebezpečné)',
 		'title' => 'Ověřování',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'Základní adresa URL',
 			'recommendation' => 'Automatické doporučení: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Trvání ponechání přihlášení',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Vynutit ověření e-mailové adresy',
 		'instance-name' => 'Název instance',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => 'Maximální počet kategorií na uživatele',
 		'max-feeds' => 'Maximální počet kanálů na uživatele',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Maximální počet účtů',
 			'select' => array(
@@ -130,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Kanál pro vydání',
 			'edge' => 'Vydání "Rolling" / Nepřetržitě aktualizované vydání (“edge”)',
-			'latest' => 'Stabilní vydání (“latest”)',
+			'latest' => 'Stabilní vydání (“latest”)',	// DIRTY
 		),
 		'title' => 'Aktualizovat systém',
 		'viaGit' => 'Aktualizace přes git a GitHub.com začala',

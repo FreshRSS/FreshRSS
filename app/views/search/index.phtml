@@ -99,6 +99,24 @@
 			</div>
 
 			<div class="form-group">
+				<label class="group-name"><?= _t('gen.search.date_modified') ?></label>
+				<div class="group-controls">
+					<div>
+						<label for="mdate_number"><?= _t('gen.search.date_past') ?>
+							<input id="mdate_number" name="mdate_number" type="number" min="0" placeholder="0" />
+							<select id="mdate_unit" name="mdate_unit">
+								<option value="H"><?= _t('gen.period.hours') ?></option>
+								<option value="D"><?= _t('gen.period.days') ?></option>
+								<option value="W"><?= _t('gen.period.weeks') ?></option>
+								<option value="M"><?= _t('gen.period.months') ?></option>
+								<option value="Y"><?= _t('gen.period.years') ?></option>
+							</select>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
 				<label class="group-name"><?= _t('gen.search.date_user') ?></label>
 				<div class="group-controls">
 					<div>
@@ -143,6 +161,20 @@
 						</label>
 						<label for="pubdate_to"><?= _t('gen.search.date_to') ?>
 							<input id="pubdate_to" name="pubdate_to" type="date" />
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="group-name"><?= _t('gen.search.date_modified') ?></label>
+				<div class="group-controls">
+					<div>
+						<label for="mdate_from"><?= _t('gen.search.date_from') ?>
+							<input id="mdate_from" name="mdate_from" type="date" />
+						</label>
+						<label for="mdate_to"><?= _t('gen.search.date_to') ?>
+							<input id="mdate_to" name="mdate_to" type="date" />
 						</label>
 					</div>
 				</div>

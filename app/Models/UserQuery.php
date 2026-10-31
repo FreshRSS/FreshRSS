@@ -21,7 +21,9 @@ class FreshRSS_UserQuery {
 	private string $token = '';
 	private bool $shareRss = false;
 	private bool $shareOpml = false;
-	private bool $publishLabelsInsteadOfTags = false;
+	private bool $includeUserLabels = false;
+	private bool $excludeArticleTags = false;
+	private string $userLabelPrefix = '';
 	/** @var array<int,FreshRSS_Category> $categories where the key is the category ID */
 	private array $categories;
 	/** @var array<int,FreshRSS_Tag> $labels where the key is the label ID */
@@ -44,9 +46,11 @@ class FreshRSS_UserQuery {
 
 	/**
 	 * @param array{get?:string,name?:string,order?:string,search?:string,state?:int,url?:string,token?:string,
-	 * 	shareRss?:bool,shareOpml?:bool,publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string} $query
+	 * 	shareRss?:bool,shareOpml?:bool,includeUserLabels?:bool,excludeArticleTags?:bool,userLabelPrefix?:string,
+	 * 	publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string} $query
 	 * @param array<FreshRSS_Category> $categories
 	 * @param array<FreshRSS_Tag> $labels
+	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 */
 	public function __construct(array $query, array $categories, array $labels) {
 		$this->categories = [];
@@ -76,6 +80,9 @@ class FreshRSS_UserQuery {
 				unset($link['name']);
 				unset($link['shareOpml']);
 				unset($link['shareRss']);
+				unset($link['includeUserLabels']);
+				unset($link['excludeArticleTags']);
+				unset($link['userLabelPrefix']);
 				unset($link['publishLabelsInsteadOfTags']);
 				$this->url = Minz_Url::display(['params' => $link]);
 			}
@@ -94,9 +101,24 @@ class FreshRSS_UserQuery {
 		if (isset($query['shareOpml'])) {
 			$this->shareOpml = $query['shareOpml'];
 		}
-		if (isset($query['publishLabelsInsteadOfTags'])) {
-			$this->publishLabelsInsteadOfTags = (bool)$query['publishLabelsInsteadOfTags'];
+
+		if (isset($query['publishLabelsInsteadOfTags'])) {	// Legacy
+			$this->includeUserLabels = (bool)$query['publishLabelsInsteadOfTags'];
+			$this->excludeArticleTags = (bool)$query['publishLabelsInsteadOfTags'];
+			if ($this->includeUserLabels) {
+				$this->userLabelPrefix = '';
+			}
 		}
+		if (isset($query['includeUserLabels'])) {
+			$this->includeUserLabels = (bool)$query['includeUserLabels'];
+		}
+		if (isset($query['excludeArticleTags'])) {
+			$this->excludeArticleTags = (bool)$query['excludeArticleTags'];
+		}
+		if (isset($query['userLabelPrefix'])) {
+			$this->userLabelPrefix = (string)$query['userLabelPrefix'];
+		}
+
 		if (isset($query['description'])) {
 			$this->description = $query['description'];
 		}
@@ -116,20 +138,22 @@ class FreshRSS_UserQuery {
 	 *
 	 * @return array{get?:string,name?:string,order?:string,search?:string,
 	 * 	state?:int,url?:string,token?:string,shareRss?:bool,shareOpml?:bool,
-	 * 	publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string}
+	 * 	includeUserLabels?:bool,excludeArticleTags?:bool,userLabelPrefix?:string,description?:string,imageUrl?:string}
 	 */
 	public function toArray(): array {
 		return array_filter([
 			'get' => $this->get,
 			'name' => $this->name,
 			'order' => $this->order,
-			'search' => $this->search->__toString(),
+			'search' => $this->search->toString(expandUserQueries: false),
 			'state' => $this->state,
 			'url' => $this->url,
 			'token' => $this->token,
 			'shareRss' => $this->shareRss,
 			'shareOpml' => $this->shareOpml,
-			'publishLabelsInsteadOfTags' => $this->publishLabelsInsteadOfTags,
+			'includeUserLabels' => $this->includeUserLabels,
+			'excludeArticleTags' => $this->excludeArticleTags,
+			'userLabelPrefix' => $this->userLabelPrefix,
 			'description' => $this->description,
 			'imageUrl' => $this->imageUrl,
 		], fn($v): bool => $v !== '' && $v !== 0 && $v !== false);
@@ -154,28 +178,28 @@ class FreshRSS_UserQuery {
 				case 'Z':	// All including PRIORITY_HIDDEN
 					$this->get_type = 'Z';
 					break;
-				case 'c':
+				case 'c':	// Category
 					$this->get_type = 'category';
 					$c = $this->categories[$id] ?? null;
 					$this->get_name = $c === null ? '' : $c->name();
 					break;
-				case 'f':
+				case 'f':	// Feed
 					$this->get_type = 'feed';
 					$f = FreshRSS_Category::findFeed($this->categories, $id);
 					$this->get_name = $f === null ? '' : $f->name();
 					break;
-				case 'i':
+				case 'i':	// Priority important feeds
 					$this->get_type = 'important';
 					break;
-				case 's':
+				case 's':	// Starred. Deprecated: use $state instead
 					$this->get_type = 'favorite';
 					break;
-				case 't':
+				case 't':	// Tag (label)
 					$this->get_type = 'label';
 					$l = $this->labels[$id] ?? null;
 					$this->get_name = $l === null ? '' : $l->name();
 					break;
-				case 'T':
+				case 'T':	// Any tag (label)
 					$this->get_type = 'all_labels';
 					break;
 			}
@@ -221,7 +245,7 @@ class FreshRSS_UserQuery {
 	 * Check if there is a search in the search object
 	 */
 	public function hasSearch(): bool {
-		return $this->search->__toString() !== '';
+		return $this->search->toString() !== '';
 	}
 
 	public function getGet(): string {
@@ -287,12 +311,28 @@ class FreshRSS_UserQuery {
 		return $this->shareOpml;
 	}
 
-	public function setPublishLabelsInsteadOfTags(bool $publishLabelsInsteadOfTags): void {
-		$this->publishLabelsInsteadOfTags = $publishLabelsInsteadOfTags;
+	public function setIncludeUserLabels(bool $includeUserLabels): void {
+		$this->includeUserLabels = $includeUserLabels;
 	}
 
-	public function publishLabelsInsteadOfTags(): bool {
-		return $this->publishLabelsInsteadOfTags;
+	public function includeUserLabels(): bool {
+		return $this->includeUserLabels;
+	}
+
+	public function setExcludeArticleTags(bool $excludeArticleTags): void {
+		$this->excludeArticleTags = $excludeArticleTags;
+	}
+
+	public function excludeArticleTags(): bool {
+		return $this->excludeArticleTags;
+	}
+
+	public function setUserLabelPrefix(string $userLabelPrefix): void {
+		$this->userLabelPrefix = $userLabelPrefix;
+	}
+
+	public function userLabelPrefix(): string {
+		return $this->userLabelPrefix;
 	}
 
 	protected function sharedUrl(bool $xmlEscaped = true): string {
@@ -308,7 +348,7 @@ class FreshRSS_UserQuery {
 	}
 
 	public function sharedUrlGreader(bool $xmlEscaped = true): string {
-		if ($this->shareRss && $this->token !== '') {
+		if ($this->shareOpml && $this->token !== '') {
 			return $this->sharedUrl($xmlEscaped) . ($xmlEscaped ? '&amp;' : '&') . 'f=greader';
 		}
 		return '';

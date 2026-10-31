@@ -8,6 +8,7 @@ final class I18nFileTest extends \PHPUnit\Framework\TestCase {
 
 		$file = new I18nFile();
 		$data = $file->load();
+		self::assertArrayNotHasKey('plurals.php', $data['en']);
 		$file->dump($data);
 
 		$after = $this->computeFilesHash();

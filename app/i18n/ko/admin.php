@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => '누구나 기본 사용자의 글을 읽을 수 있도록 합니다(%s)',
 		'allow_anonymous_refresh' => '누구나 피드를 갱신할 수 있도록 합니다',
 		'api_enabled' => '<abbr>API</abbr> 사용을 허가합니다<small>(모바일 애플리케이션을 사용할 때 필요합니다	and sharing user queries)</small>',	// DIRTY
-		'form' => '웹폼 (전통적인 방식, 자바스크립트 필요)',
+		'form' => '웹폼 (전통적인 방식)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => '사용하지 않음 (위험)',
 		'title' => '인증',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => '자동 추천: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => '초',
 			'number' => '로그인 유지 시간',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => '이메일 주소 확인 강제화',
 		'instance-name' => '인스턴스 이름',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => '사용자별 카테고리 개수 제한',
 		'max-feeds' => '사용자별 피드 개수 제한',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => '계정 최대 개수',
 			'select' => array(
@@ -130,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => '릴리즈 채널',
 			'edge' => '롤링 릴리즈 (“edge”)',
-			'latest' => '안정 릴리즈 (“latest”)',
+			'latest' => '안정 릴리즈 (“latest”)',	// DIRTY
 		),
 		'title' => '업데이트',
 		'viaGit' => 'Git 및 GitHub.com을 통한 업데이트 시작 됨',

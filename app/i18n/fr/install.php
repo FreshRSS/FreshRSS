@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Veuillez vérifier les droits de l’utilisateur <em>%2$s</em> sur le répertoire <em>%1$s</em>. Le serveur HTTP doit être capable d’écrire dedans.',
 			'ok' => 'Les droits sur le répertoire de data sont bons.',
 		),
+		'database-connection' => array(
+			'nok' => 'Erreur de connexion à la base de données.',
+			'ok' => 'La connexion à la base de données est bonne.',
+		),
+		'database-table' => array(
+			'nok' => 'La table de la base de données "%s" est incomplète.',
+			'ok' => 'La table de la base de données "%s" est correcte.',
+		),
+		'database-tables' => array(
+			'nok' => 'Certaines tables de la base de données sont manquantes.',
+			'ok' => 'Toutes les tables de la base de données existent.',
+		),
+		'database-title' => 'Base de données',
+		'docroot' => array(
+			'nok' => 'Le répertoire racine de votre serveur Web ne semble pas pointer vers le dossier <code>./p/</code>. D’autres dossiers tels que <code>./data/</code> risquent d’être exposés publiquement.',
+			'ok' => 'Le répertoire racine de votre serveur Web pointe correctement vers le dossier <code>./p/</code>.',
+		),
 		'dom' => array(
 			'nok' => 'Impossible de trouver la librairie requise pour parcourir le DOM.',
 			'ok' => 'Vous disposez de la librairie requise pour parcourir le DOM.',
@@ -59,10 +76,14 @@ return array(
 			'ok' => 'Les droits sur le répertoire des favicons sont bons.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Vous ne disposez pas de la librairie recommendée php-fileinfo.',
-			'ok' => 'Vous disposez de la librairie recommendée php-fileinfo.',
+			'nok' => 'Vous ne disposez pas de la librairie recommandéee php-fileinfo.',
+			'ok' => 'Vous disposez de la librairie recommandéee php-fileinfo.',
 		),
 		'files' => 'Installation des fichiers',
+		'gmp' => array(
+			'nok' => 'Vous ne disposez pas de l’extension GMP requise pour PHP 32 bits (paquet php-gmp).',
+			'ok' => 'Vous disposez de l’extension GMP requise pour PHP 32 bits.',
+		),
 		'intl' => array(
 			'nok' => ' Impossible de trouver la librairie recommandée php-intl pour l’internationalisation.',
 			'ok' => 'Vous disposez de la librairie recommandée php-intl pour l’internationalisation.',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Félicitations !',
 	'default_user' => array(
 		'_' => 'Nom de l’utilisateur par défaut',
-		'max_char' => '16 caractères alphanumériques maximum',
+		'max_char' => '1-39 caractères : lettres, chiffres et <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Veuillez corriger les erreurs avant de passer à l’étape suivante.',
 	'javascript_is_better' => 'FreshRSS est plus agréable à utiliser avec JavaScript activé',

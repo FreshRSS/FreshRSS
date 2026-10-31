@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Разрешить анонимное чтение статей пользователя по умолчанию (%s)',
 		'allow_anonymous_refresh' => 'Разрешить анонимное обновление статей',
 		'api_enabled' => 'Позволить <abbr>API</abbr> доступ <small>(необходимо для мобильных приложений and sharing user queries)</small>',
-		'form' => 'Веб-форма (традиционный, необходим JavaScript)',
+		'form' => 'Веб-форма (традиционный)',
 		'http' => 'HTTP (продвинутый: управляется веб-сервером, OIDC, SSO…)',
 		'none' => 'Без аутентификации (небезопасно)',
 		'title' => 'Аутентификации',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'Основной URL-адрес',
 			'recommendation' => 'Автоматическая рекомендация: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Сообщение при закрытой регистрации',
 		'cookie-duration' => array(
 			'help' => 'в секундах',
 			'number' => 'Оставаться в системе на протяжении',
 		),
+		'default_closed_registration_message' => 'На этом сервере в данный момент регистрация новых пользователей закрыта.',
 		'force_email_validation' => 'Обязать подтверждать адрес электронной почты',
 		'instance-name' => 'Название экземпляра',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => 'Максимальное количество категорий на пользователя',
 		'max-feeds' => 'Максимальное количество лент на пользователя',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Максимальное количество аккаунтов',
 			'select' => array(
@@ -130,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Релизный канал',
 			'edge' => 'Плавающий релиз (“edge”)',
-			'latest' => 'Стабильный релиз (“latest”)',
+			'latest' => 'Стабильный релиз (“latest”)',	// DIRTY
 		),
 		'title' => 'Обновить систему',
 		'viaGit' => 'Обновление с помощью git и GitHub.com запущено',

@@ -49,6 +49,9 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 	}
 
 	public static function exists(string $username): bool {
+		if (!FreshRSS_user_Controller::checkUsername($username)) {
+			return false;
+		}
 		return is_dir(USERS_PATH . '/' . $username);
 	}
 
@@ -64,6 +67,9 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 
 	/** Time of the last modification action by the user (e.g., mark an article as read) */
 	public static function mtime(string $username): int {
+		if (!FreshRSS_user_Controller::checkUsername($username)) {
+			return 0;
+		}
 		return @filemtime(USERS_PATH . '/' . $username . '/config.php') ?: 0;
 	}
 
@@ -79,6 +85,9 @@ class FreshRSS_UserDAO extends Minz_ModelPdo {
 
 	/** Time of the last new content automatically received by the user (e.g., cron job, WebSub) */
 	public static function ctime(string $username): int {
+		if (!FreshRSS_user_Controller::checkUsername($username)) {
+			return 0;
+		}
 		return @filemtime(USERS_PATH . '/' . $username . '/' . LOG_FILENAME) ?: 0;
 	}
 }

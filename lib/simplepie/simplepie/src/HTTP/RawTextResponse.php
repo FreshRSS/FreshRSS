@@ -28,20 +28,20 @@ final class RawTextResponse implements Response
     private $permanent_url;
 
     /**
-     * @var array<non-empty-array<string>>
+     * @var array<string, non-empty-array<string>>
      */
     private $headers = [];
 
     /**
      * @var string
      */
-    private $requested_url;
+    private $final_requested_url;
 
     public function __construct(string $raw_text, string $filepath)
     {
         $this->raw_text = $raw_text;
         $this->permanent_url = $filepath;
-        $this->requested_url = $filepath;
+        $this->final_requested_url = $filepath;
     }
 
     public function get_permanent_uri(): string
@@ -51,7 +51,7 @@ final class RawTextResponse implements Response
 
     public function get_final_requested_uri(): string
     {
-        return $this->requested_url;
+        return $this->final_requested_url;
     }
 
     public function get_status_code(): int

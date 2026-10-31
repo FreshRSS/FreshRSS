@@ -10,12 +10,12 @@ exclude: [CHANGELOG*.md, README.md, vendor]
 defaults:
   -
     scope:
-      path: "/en/*"
+      path: "en"
     values:
       lang: "en"
   -
     scope:
-      path: "/fr/*"
+      path: "fr"
     values:
       lang: "fr"
 
@@ -37,13 +37,18 @@ translations:
     choose_language: Choisir la langue
     copy_to_clipboard: Copier dans le presse-papiers
 
+markdown: CommonMark
+commonmark:
+  options: ["SMART", "FOOTNOTES", "UNSAFE"]
+  extensions: ["strikethrough", "autolink", "table", "tagfilter"]
+highlighter: rouge
+
 plugins:
   # gh
   - jekyll-coffeescript
-  - jekyll-commonmark-ghpages
+  - jekyll-commonmark
   - jekyll-gist
   - jekyll-github-metadata
-  - jekyll-paginate
   - jekyll-relative-links
   - jekyll-optional-front-matter
   - jekyll-readme-index

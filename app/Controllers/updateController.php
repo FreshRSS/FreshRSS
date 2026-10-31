@@ -16,7 +16,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	 */
 	public static function migrateToGitEdge(): bool {
 		if (!is_writable(FRESHRSS_PATH . '/.git/config')) {
-			throw new Minz_Exception('Error during git checkout: .git directory does not seem writeable! ' .
+			throw new Minz_Exception('Error during git checkout: .git directory does not seem writable! ' .
 				'Please git pull manually!');
 		}
 
@@ -133,8 +133,7 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			Minz_Error::error(403);
 		}
 
-		if (!(Minz_Request::actionName() === 'apply' && Minz_Request::paramBoolean('post_conf')) &&
-			FreshRSS_Auth::requestReauth()) {
+		if (FreshRSS_Auth::requestReauth()) {
 			return;
 		}
 
@@ -187,6 +186,11 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		Else via system configuration  auto_update_url
 	*/
 	public function checkAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'update', 'a' => 'index'], true);
+			return;
+		}
+
 		FreshRSS_View::prependTitle(_t('admin.update.title') . ' · ');
 		$this->view->_path('update/index.phtml');
 
@@ -229,6 +233,24 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($curlResource, CURLOPT_SSL_VERIFYPEER, true);
 			curl_setopt($curlResource, CURLOPT_SSL_VERIFYHOST, 2);
+
+			$curl_options = [];
+			if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
+				$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
+				if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS_STR] = 'http,https';
+				}
+			} elseif (defined('CURLPROTO_HTTP') && defined('CURLPROTO_HTTPS')) {
+				// Legacy PHP 8.2-
+				if (defined('CURLOPT_PROTOCOLS')) {
+					$curl_options[CURLOPT_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+				if (defined('CURLOPT_REDIR_PROTOCOLS')) {
+					$curl_options[CURLOPT_REDIR_PROTOCOLS] = CURLPROTO_HTTP | CURLPROTO_HTTPS;
+				}
+			}
+			curl_setopt_array($curlResource, $curl_options);
+
 			$result = curl_exec($curlResource);
 			$curlGetinfo = curl_getinfo($curlResource, CURLINFO_HTTP_CODE);
 			$curlError = curl_error($curlResource);
@@ -280,6 +302,12 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 		}
 
 		if (Minz_Request::paramBoolean('post_conf')) {
+			if (!Minz_Session::paramBoolean('update_post_conf_ok')) {
+				Minz_Request::forward(['c' => 'update', 'a' => 'index'], true);
+				return;
+			}
+			Minz_Session::_param('update_post_conf_ok', false);
+
 			if (self::isGit()) {
 				$res = !self::hasGitUpdate();
 			} else {
@@ -303,16 +331,19 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 				Minz_Request::bad(_t('feedback.update.error', is_string($res) ? $res : 'unknown'), [ 'c' => 'update', 'a' => 'index' ]);
 			}
 		} else {
+			if (!Minz_Request::isPost()) {
+				Minz_Request::forward(['c' => 'update', 'a' => 'index'], true);
+				return;
+			}
+
 			$res = false;
 
 			if (self::isGit()) {
 				$res = self::gitPull();
 			} else {
 				require UPDATE_FILENAME;
-				if (Minz_Request::isPost()) {
-					// @phpstan-ignore function.notFound
-					save_info_update();
-				}
+				// @phpstan-ignore function.notFound
+				save_info_update();
 				// @phpstan-ignore function.notFound
 				if (!need_info_update()) {
 					// @phpstan-ignore function.notFound
@@ -327,6 +358,8 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($res === true) {
+				// Authorise the single internal post-configuration redirect that follows.
+				Minz_Session::_param('update_post_conf_ok', true);
 				Minz_Request::forward([
 					'c' => 'update',
 					'a' => 'apply',
@@ -361,30 +394,32 @@ class FreshRSS_update_Controller extends FreshRSS_ActionController {
 	/**
 	 * Check database is well-installed.
 	 *
-	 * @return array<string,bool> of tested values.
+	 * @return array<string,array<string,bool>|bool> of tested values.
 	 */
 	private static function check_install_database(): array {
 		$status = [
 			'connection' => true,
 			'tables' => false,
-			'categories' => false,
-			'feeds' => false,
-			'entries' => false,
-			'entrytmp' => false,
-			'tag' => false,
-			'entrytag' => false,
+			'table' => [
+				'categories' => false,
+				'feeds' => false,
+				'entries' => false,
+				'entrytmp' => false,
+				'tag' => false,
+				'entrytag' => false,
+			],
 		];
 
 		try {
 			$dbDAO = FreshRSS_Factory::createDatabaseDAO();
 
 			$status['tables'] = $dbDAO->tablesAreCorrect();
-			$status['categories'] = $dbDAO->categoryIsCorrect();
-			$status['feeds'] = $dbDAO->feedIsCorrect();
-			$status['entries'] = $dbDAO->entryIsCorrect();
-			$status['entrytmp'] = $dbDAO->entrytmpIsCorrect();
-			$status['tag'] = $dbDAO->tagIsCorrect();
-			$status['entrytag'] = $dbDAO->entrytagIsCorrect();
+			$status['table']['categories'] = $dbDAO->categoryIsCorrect();
+			$status['table']['feeds'] = $dbDAO->feedIsCorrect();
+			$status['table']['entries'] = $dbDAO->entryIsCorrect();
+			$status['table']['entrytmp'] = $dbDAO->entrytmpIsCorrect();
+			$status['table']['tag'] = $dbDAO->tagIsCorrect();
+			$status['table']['entrytag'] = $dbDAO->entrytagIsCorrect();
 		} catch (Minz_PDOConnectionException $e) {
 			$status['connection'] = false;
 		}

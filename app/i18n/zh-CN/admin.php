@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => '允许匿名阅读默认用户（%s）的文章',
 		'allow_anonymous_refresh' => '允许匿名刷新文章',
 		'api_enabled' => '允许 <abbr>API</abbr> 访问 <small>（用于手机应用和分享用户查询）</small>',
-		'form' => '网页表单（传统方式, 需要 JavaScript)',
+		'form' => '网页表单（传统方式)',
 		'http' => 'HTTP（高级：由 Web 服务器、OIDC、SSO 管理…）',
 		'none' => '无（危险）',
 		'title' => '认证',
@@ -83,14 +83,21 @@ return array(
 			'_' => '基础 URL',
 			'recommendation' => '推荐: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => '单位：秒',
 			'number' => '保持登录的时长',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => '强制验证邮箱地址',
 		'instance-name' => '实例名称',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => '各用户分类数限制',
 		'max-feeds' => '各用户订阅源数限制',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => '最大用户数',
 			'select' => array(
@@ -130,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => '发布通道',
 			'edge' => '滚动发布 (“edge”)',
-			'latest' => '稳定版本 (“latest”)',
+			'latest' => '稳定版本 (“latest”)',	// DIRTY
 		),
 		'title' => '更新系统',
 		'viaGit' => '开始通过 git 和 GitHub.com 更新',

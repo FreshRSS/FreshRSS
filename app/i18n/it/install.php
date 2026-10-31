@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Verifica i permessi sulla cartella <em>%s</em>. Il server HTTP deve avere i permessi per scriverci dentro.',
 			'ok' => 'I permessi sulla cartella data sono corretti.',
 		),
+		'database-connection' => array(
+			'nok' => 'Errore di connessione al database.',
+			'ok' => 'Connessione al database stabilita.',
+		),
+		'database-table' => array(
+			'nok' => 'La tavola del database "%s" è incompleta.',
+			'ok' => 'La tavola del database "%s" è valida.',
+		),
+		'database-tables' => array(
+			'nok' => 'Alcune tavole del database sono mancanti.',
+			'ok' => 'Tutte le tavole del database esistono.',
+		),
+		'database-title' => 'Database',	// IGNORE
+		'docroot' => array(
+			'nok' => 'La document root del server web non sembra puntare alla cartella <code>./p/</code>. Altre cartelle come <code>./data/</code> potrebbero essere accessibili pubblicamente.',
+			'ok' => 'La document root del server web punta correttamente alla cartella <code>./p/</code>.',
+		),
 		'dom' => array(
 			'nok' => 'Manca una libreria richiesta per leggere DOM.',
 			'ok' => 'Libreria richiesta per leggere DOM presente.',
@@ -63,9 +80,13 @@ return array(
 			'ok' => 'Estensione fileinfo presente.',
 		),
 		'files' => 'Installazione files',
+		'gmp' => array(
+			'nok' => 'Impossibile trovare l’estensione GMP richiesta per PHP a 32 bit (pacchetto php-gmp).',
+			'ok' => 'Estensione GMP richiesta per PHP a 32 bit presente.',
+		),
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Impossibile trovare la libreria di internazionalizzazione php-intl.',
+			'ok' => 'Disponi della libreria di internazionalizzazione php-intl raccomandata.',
 		),
 		'json' => array(
 			'nok' => 'Manca la libreria consigliata per effettuare la lettura del JSON.',
@@ -80,14 +101,14 @@ return array(
 			'ok' => 'Libreria richiesta per le regular expressions presente (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Impossibile trovare il driver PDO necessario per MySQL/MariaDB.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Impossibile trovare il driver PDO necessario per PostgreSQL.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'nok' => 'Impossibile trovare il driver PDO necessario per SQLite.',
+			'ok' => 'Impossibile trovare il driver PDO necessario per SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'Manca PDO o uno degli altri driver supportati (pdo_sqlite, pdo_pgsql, pdo_mysql).',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Congratulazione!',
 	'default_user' => array(
 		'_' => 'Username utente predefinito',
-		'max_char' => 'massimo 16 caratteri alfanumerici',
+		'max_char' => '1-39 caratteri: lettere, cifre e <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Per favore correggi gli errori prima di passare al passaggio successivo.',
 	'javascript_is_better' => 'FreshRSS funziona meglio con JavaScript abilitato',

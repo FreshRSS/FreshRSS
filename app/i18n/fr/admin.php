@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
 		'allow_anonymous_refresh' => 'Autoriser le rafraîchissement anonyme des flux',
 		'api_enabled' => 'Autoriser l’accès par <abbr>API</abbr> <small>(nécessaire pour les applications mobiles et pour partager les filtres utilisateurs)</small>',
-		'form' => 'Formulaire (traditionnel, requiert JavaScript)',
+		'form' => 'Formulaire (traditionnel)',
 		'http' => 'HTTP (avancé : contrôlé par serveur Web, OIDC, SSO…)',
 		'none' => 'Aucune (dangereux)',
 		'title' => 'Authentification',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'URL de la racine',
 			'recommendation' => 'Recommandation automatique : <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message si les nouvelles inscriptions sont fermées',
 		'cookie-duration' => array(
 			'help' => 'en secondes',
 			'number' => 'Durée avant expiration de la session',
 		),
+		'default_closed_registration_message' => 'Ce serveur n’accepte plus de nouvelles inscriptions pour le moment.',
 		'force_email_validation' => 'Forcer la validation des adresses email',
 		'instance-name' => 'Nom de l’instance',
+		'internal-host-allowlist' => array(
+			'_' => 'Liste d’adresses internes autorisées',
+			'help' => 'Une entrée par ligne :<ul><li>Un <code>host:port</code>. Par exemple <code>127.0.0.1:8080</code> ou <code>rss-bridge:80</code></li><li>Une notation CIDR. Par exemple <code>0.0.0.0/0</code> pour autoriser tout IPv4, <code>::/0</code> pour autoriser tout IPv6</li><li>Un <code>*</code> pour autoriser tout hôte (dangereux)</li></ul>',
+		),
 		'max-categories' => 'Limite de catégories par utilisateur',
 		'max-feeds' => 'Limite de flux par utilisateur',
+		'override-by-env-var' => 'Cette option est définie par la variable d’environnement <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Nombre max de comptes',
 			'select' => array(
@@ -130,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Canal de publication',
 			'edge' => 'Publication continue (“edge”)',
-			'latest' => 'Publication stable (“latest”)',
+			'latest' => 'Publication versionnée (“latest”)',
 		),
 		'title' => 'Système de mise à jour',
 		'viaGit' => 'Mise à jour via git et GitHub.com démarrée',

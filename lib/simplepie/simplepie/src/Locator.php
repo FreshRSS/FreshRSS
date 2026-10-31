@@ -26,9 +26,9 @@ use SimplePie\HTTP\Response;
 class Locator implements RegistryAware
 {
     /** @var ?string */
-    public $useragent = null;
+    public $useragent;
     /** @var int */
-    public $timeout = 10;
+    public $timeout;
     /** @var File */
     public $file;
     /** @var string[] */
@@ -46,11 +46,11 @@ class Locator implements RegistryAware
     /** @var int */
     public $checked_feeds = 0;
     /** @var int */
-    public $max_checked_feeds = 10;
+    public $max_checked_feeds;
     /** @var bool */
-    public $force_fsockopen = false;
+    public $force_fsockopen;
     /** @var array<int, mixed> */
-    public $curl_options = [];
+    public $curl_options;
     /** @var ?\DomDocument */
     public $dom;
     /** @var ?Registry */
@@ -167,7 +167,8 @@ class Locator implements RegistryAware
         assert($this->registry !== null);
 
         if (Misc::is_remote_uri($file->get_final_requested_uri())) {
-            $sniffer = $this->registry->create(Content\Type\Sniffer::class, [$file]);
+            $fileResponse = File::fromResponse($file);
+            $sniffer = $this->registry->create(Content\Type\Sniffer::class, [$fileResponse]);
             $sniffed = $sniffer->get_type();
             $mime_types = ['application/rss+xml', 'application/rdf+xml',
                                 'text/rdf', 'application/atom+xml', 'text/xml',

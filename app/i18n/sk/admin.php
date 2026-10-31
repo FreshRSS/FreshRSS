@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Povoliť čítanie článkov prednastaveného používateľa (%s) bez prihlásenia.',
 		'allow_anonymous_refresh' => 'Povoliť obnovenie článkov bez prihlásenia',
 		'api_enabled' => 'Povoliť prístup cez <abbr>API</abbr> <small>(vyžadujú mobilné aplikácie and sharing user queries)</small>',	// DIRTY
-		'form' => 'Webový formulár (traditičný, vyžaduje JavaScript)',
+		'form' => 'Webový formulár (traditičný)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Žiadny (nebezpečné)',
 		'title' => 'Prihlásenie',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'Základná URL',
 			'recommendation' => 'Automatické odporúčanie: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',	// TODO
 		'cookie-duration' => array(
 			'help' => 'v sekundách',
 			'number' => 'Dobra, počas ktorej ste prihlásený',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Vynútiť overenie e-mailovej adresy',
 		'instance-name' => 'Názov inštancie',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => 'Limit počtu kategórií pre používateľa',
 		'max-feeds' => 'Limit počtu kanálov pre používateľov',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Maximálny počt účtov',
 			'select' => array(
@@ -130,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Kanál verzií',
 			'edge' => 'Vývojárska verzia (“edge”)',
-			'latest' => 'Stabilná verzia (“latest”)',
+			'latest' => 'Stabilná verzia (“latest”)',	// DIRTY
 		),
 		'title' => 'Aktualizácia systému',
 		'viaGit' => 'Začala sa aktualizácia prostredníctvom git a GitHub.com',

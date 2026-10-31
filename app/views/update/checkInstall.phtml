@@ -27,14 +27,18 @@
 	</p>
 	<?php } ?>
 
-	<?php /*
-	<h2><?= _t('install.check.database') ?></h2>
+	<h2><?= _t('install.check.database-title') ?></h2>
 
 	<?php foreach ($this->status_database as $key => $status) { ?>
-	<p class="alert <?= match ($status) { 'ok' => 'alert-success', 'warn' => 'alert-warn', default => 'alert-error' } ?>">
-		<?= _t('install.check.' . $key . '.' . ($status === 'ok' ? 'ok' : 'nok')) ?>
+		<?php if ($key === 'table') { continue; } ?>
+	<p class="alert <?= match ($status) { true => 'alert-success', default => 'alert-error' } ?>">
+		<?= _t('install.check.database-' . $key . '.' . ($status === true ? 'ok' : 'nok')) ?>
 	</p>
 	<?php } ?>
-	*/ ?>
+	<?php foreach ((array) $this->status_database['table'] as $key => $status) { ?>
+	<p class="alert <?= match ($status) { true => 'alert-success', default => 'alert-error' } ?>">
+		<?= sprintf(_t('install.check.database-table.' . ($status === true ? 'ok' : 'nok')), $key) ?>
+	</p>
+	<?php } ?>
 
 </main>

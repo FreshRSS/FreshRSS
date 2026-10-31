@@ -6,6 +6,8 @@ if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('nav_menu');
 }
 
+$slider_feed = $this->feed;
+
 call_user_func($this->callbackBeforeEntries, $this);
 
 $lazyload = FreshRSS_Context::userConf()->lazyload;
@@ -37,8 +39,10 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
 		?>" id="flux_<?= $this->entry->id()
 		?>" data-entry="<?= $this->entry->id()
+		?>" data-category="<?= $this->feed->categoryId()
 		?>" data-feed="<?= $this->feed->id()
 		?>" data-priority="<?= $this->feed->priority()
+		?>" data-link="<?= $this->entry->link()
 		?>"><?php $this->renderHelper('index/article'); ?>
 	</div><?php
 	endforeach;
@@ -64,6 +68,14 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 <aside id="slider" class="<?= $class ?>">
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 	<div id="slider-content">
+		<?php
+			if (isset($this->tag)) {
+				$this->renderHelper('tag/update');
+			} elseif (isset($slider_feed)) {
+				$this->feed = $slider_feed;
+				$this->renderHelper('feed/update');
+			}
+		?>
 	</div>
 </aside>
 <a href="#close" id="close-slider" class="<?= $class ?>">

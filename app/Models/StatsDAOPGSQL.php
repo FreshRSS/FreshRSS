@@ -5,6 +5,9 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 
 	#[\Override]
 	protected function sqlDateToIsoGranularity(string $field, int $precision, string $granularity): string {
+		if (!preg_match('/^[a-zA-Z0-9_.]+$/', $field)) {
+			throw new InvalidArgumentException('Invalid date field!');
+		}
 		$offset = $this->getTimezoneOffset();
 		return match ($granularity) {
 			'day' => "to_char(to_timestamp(($field / $precision) + $offset), 'YYYY-MM-DD')",
@@ -56,13 +59,12 @@ class FreshRSS_StatsDAOPGSQL extends FreshRSS_StatsDAO {
 		}
 		$offset = $this->getTimezoneOffset();
 		$sql = <<<SQL
-SELECT extract( {$period} from to_timestamp(e.date + {$offset})) AS period
-, COUNT(1) AS count
-FROM `_entry` AS e
-{$restrict}
-GROUP BY period
-ORDER BY period ASC
-SQL;
+			SELECT extract( {$period} from to_timestamp(e.date + {$offset})) AS period, COUNT(1) AS count
+			FROM `_entry` AS e
+			{$restrict}
+			GROUP BY period
+			ORDER BY period ASC
+			SQL;
 
 		$res = $this->fetchAssoc($sql);
 		if ($res == null) {

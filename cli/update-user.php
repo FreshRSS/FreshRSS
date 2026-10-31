@@ -75,10 +75,11 @@ $ok = FreshRSS_user_Controller::updateUser(
 	$values);
 
 if (!$ok) {
+	// TODO: Refactor with exceptions in updateUser to be able to show the exact reason.
 	fail('FreshRSS could not update user!');
 }
 
-if (isset($cliOptions->apiPassword)) {
+if (($cliOptions->apiPassword ?? '') !== '') {
 	$error = FreshRSS_api_Controller::updatePassword($cliOptions->apiPassword);
 	if ($error !== false) {
 		fail($error);

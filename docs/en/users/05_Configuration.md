@@ -15,6 +15,7 @@ Available languages are:
 
 | Language (English name) | Language (Endonym) | Ordered by language code (ISO-639-1) |
 |:------------------------|:-----------------------|:-------------------------------------|
+| Belarusian              | Беларуская             | be                                   |
 | Czech                   | Čeština                | cs                                   |
 | German                  | Deutsch                | de                                   |
 | Greek                   | Ελληνικά               | el                                   |
@@ -58,7 +59,7 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 | Dark pink | Miicat_47 | |
 | Flat design | Marien Fressinaud | |
 | Mapco | Thomas Guesnon  | |
-| Nord theme | joelchrono12 | |
+| Nord | joelchrono12 | |
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
@@ -67,7 +68,7 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 
 To select a theme, simply scroll through the themes and select one that strikes your fancy. After confirmation, the theme will be applied to the interface.
 
-If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md) and [install it](../admins/11_Themes.md). For small theme changes, the official [CustomCSS extension](https://github.com/FreshRSS/Extensions) is recommended.
+If you can’t find any themes you like, it’s always possible to [create your own](../developers/04_Frontend/02_Design.md) and [install it](../admins/11_Themes.md). For small theme changes, the built-in [User CSS extension](#user-css) is recommended.
 
 ### Content width
 
@@ -105,6 +106,12 @@ By default, FreshRSS displays buttons to ease the article navigation when browsi
 
 If you don’t use those buttons because you never browse on mobile or because you browse with gestures, you can disable them from the interface.
 
+### Hide sidebar by default
+
+By default, the sidebar is visible when opening FreshRSS. If you prefer to have more reading space on load, you can hide it by default.
+
+When this option is enabled, the sidebar will be hidden at the start of each new session in the normal and reader views. You can still toggle it at any time using the sidebar button in the navigation bar.
+
 ## Reading
 
 ### Number of articles per page
@@ -123,11 +130,15 @@ This will set images to load as they are viewed. This can save data, but will ca
 
 ### Archiving
 
-These are the global options for fetching and retaining articles from feeds. They can be overridden by individual feed’s settings.
+These are the global options for fetching and retaining articles from feeds. They can be overridden by [category](./04_Subscriptions.md#archiving) settings, which can in turn be overridden by individual feed’s settings (priority order: feed, then category, then this global default).
+
+Purging (i.e. deleting) an article is based on the date it was _discovered_ by FreshRSS, not its published date. An article still present in the upstream feed is always kept regardless of the purge policy, so FreshRSS can keep detecting new articles correctly.
+
+Purging does not happen on every feed refresh: it is only triggered on a random subset of refreshes, to limit the load on the database. To purge immediately, use _Purge now_ below, or the `cli/purge.php` [command-line script](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md), which is suitable for cron.
 
 ### Maintenance
 
-This allows for purging/optimizing the current user’s articles in the database.
+This allows for purging/optimizing the current user’s articles in the database. _Purge now_ immediately applies the archiving policy (feed, then category, then global default) described above to all of your feeds.
 
 ## Sharing
 
@@ -185,11 +196,21 @@ You can change your email address or password here. The authentication token is 
 
 Extensions can be managed from this menu. Note that while extensions can be removed from the web interface, they cannot be added from it.
 
-Some extensions have configurations and these can be changed in the manage page, which opens with the button near the name of the extension.
+Each extension that you can manage is listed with a switch to enable or disable it, followed by a gear icon (⚙️ _Manage_) and the name of the extension.
+
+Some extensions have configurations and these can be changed in the manage page, which opens with the gear icon.
 
 ### User CSS
 
-It gives ability to create user-specific CSS rules to apply in addition of the actual theme.
+_User CSS_ is a core extension shipped with FreshRSS. It gives ability to create user-specific CSS rules to apply in addition of the actual theme.
+
+To use it:
+
+1. Enable _User CSS_ in the list of _User extensions_.
+2. Open its manage page with the gear icon.
+3. Write the rules in the _Additional CSS rules_ field and submit.
+
+The rules only apply to the current user, and only while the extension is enabled.
 
 #### Example: Getting rid of Top Menu Items
 
@@ -214,7 +235,7 @@ The Top Menu within the mobile view might look a little bit cluttered, depending
     }
 
     /* Hides the Dropdown Menu Button next to the "Mark all read" Button in Mobile View */
-    #mark-read-menu .dropdown {
+    .mark-read-menu .dropdown {
         display: none;
     }
 }
@@ -222,7 +243,9 @@ The Top Menu within the mobile view might look a little bit cluttered, depending
 
 ### User JS
 
-It gives ability to create user-specific JS.
+_User JS_ is a core extension shipped with FreshRSS. It gives ability to create user-specific JS.
+
+It is used the same way as [User CSS](#user-css): enable _User JS_, open its manage page with the gear icon, write the script in the _Additional JS_ field, and submit. FreshRSS might ask you to sign in again before showing this page.
 
 ## Users
 
@@ -245,4 +268,4 @@ AuthType Basic
 Require user marie
 ```
 
-More information can be found in the [Apache documentation](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).
+More information can be found in the [Apache documentation](https://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking).

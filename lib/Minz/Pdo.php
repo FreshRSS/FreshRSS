@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
  */
 
 abstract class Minz_Pdo extends PDO {
@@ -11,7 +11,7 @@ abstract class Minz_Pdo extends PDO {
 	 * @param array<int,int|string|bool>|null $options
 	 * @throws PDOException
 	 */
-	public function __construct(string $dsn, ?string $username = null, ?string $passwd = null, ?array $options = null) {
+	public function __construct(string $dsn, ?string $username = null, #[\SensitiveParameter] ?string $passwd = null, ?array $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);
 		$this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	}

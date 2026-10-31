@@ -53,7 +53,7 @@ You can use the search field to further refine results:
 * by URL: `inurl:keyword` or `inurl:'composed keyword'`
 * by tag: `#tag` or `#tag+with+whitespace` or `#'tag with whitespace'`
 * by free-text: `keyword` or `'composed keyword'`
-* by date of discovery, using the [ISO 8601 time interval format](http://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
+* by date of discovery, using the [ISO 8601 time interval format](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals): `date:<date-interval>`
 	* From a specific day, or month, or year:
 		* `date:2014-03-30`
 		* `date:2014-03` or `date:201403`
@@ -91,7 +91,8 @@ You can use the search field to further refine results:
 	* Date constraints may be combined:
 		* `date:P1Y !date:P1M` (from one year before now until one month before now)
 * by date of publication, using the same format: `pubdate:<date-interval>`
-* by date of user modification, using the same format: `userdate:<date-interval>`
+* by date of server modification, using the same format: `mdate:<date-interval>`
+* by date of user modification (e.g. mark as read or favourite), using the same format: `userdate:<date-interval>`
 * by custom label ID `L:12` or multiple label IDs: `L:12,13,14` or with any label: `L:*`
 * by custom label name `label:label`, `label:"my label"` or any label name from a list (*or*): `labels:"my label,my other label"`
 * by several label names (*and*): `label:"my label" label:"my other label"`
@@ -148,11 +149,11 @@ As opposed to normal searches, special XML characters `<&">` are not escaped in 
 
 ⚠️ Advanced regex syntax details depend on the regex engine used:
 
-* FreshRSS filter actions such as auto-mark-as-read and auto-favourite use [PHP preg_match](https://php.net/function.preg-match).
+* FreshRSS filter actions such as auto-mark-as-read and auto-favourite use [PHP preg_match](https://www.php.net/function.preg-match).
 * Regex searches depend on which database you are using:
-	* For SQLite, [PHP preg_match](https://php.net/function.preg-match) is used;
+	* For SQLite, [PHP preg_match](https://www.php.net/function.preg-match) is used;
 	* [For PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP);
-	* [For MariaDB](https://mariadb.com/kb/en/pcre/);
+	* [For MariaDB](https://mariadb.com/docs/server/reference/sql-functions/string-functions/regular-expressions-functions/pcre);
 	* [For MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
 
 > ℹ️ Even with PostgreSQL, you are welcome to use `\b` for word boundary (and `\B` for the opposite), as there is an automatic translation to `\y` and `\Y`.

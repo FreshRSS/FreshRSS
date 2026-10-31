@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Allow anonymous reading of the default user’s articles (%s)',
 		'allow_anonymous_refresh' => 'Allow anonymous refresh of the articles',
 		'api_enabled' => 'Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>',
-		'form' => 'Web form (traditional, requires JavaScript)',
+		'form' => 'Web form (traditional)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',
 		'none' => 'None (dangerous)',
 		'title' => 'Authentication',
@@ -31,7 +31,7 @@ return array(
 		'empty_list' => 'There are no installed extensions',
 		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',
 		'enabled' => 'Enabled',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => 'Is compatible',
 		'latest' => 'Installed',
 		'name' => 'Name',
 		'no_configure_view' => 'This extension cannot be configured.',
@@ -83,14 +83,21 @@ return array(
 			'_' => 'Base URL',
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',
 		),
+		'closed_registration_message' => 'Message if registrations are closed',
 		'cookie-duration' => array(
 			'help' => 'in seconds',
 			'number' => 'Duration to keep logged in',
 		),
+		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',
 		'force_email_validation' => 'Force email address validation',
 		'instance-name' => 'Instance name',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',
+		),
 		'max-categories' => 'Max number of categories per user',
 		'max-feeds' => 'Max number of feeds per user',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Max number of accounts',
 			'select' => array(
@@ -130,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release channel',
 			'edge' => 'Rolling release (“edge”)',
-			'latest' => 'Stable release (“latest”)',
+			'latest' => 'Versioned release (“latest”)',
 		),
 		'title' => 'Update FreshRSS',
 		'viaGit' => 'Update via git and GitHub.com started',

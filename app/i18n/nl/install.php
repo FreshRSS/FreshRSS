@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Controleer permissies van de <em>%s</em> map. HTTP server moet rechten hebben om er in te kunnen schrijven.',
 			'ok' => 'Permissies van de data map zijn goed.',
 		),
+		'database-connection' => array(
+			'nok' => 'Fout bij databaseverbinding.',
+			'ok' => 'Databaseverbinding is in orde.',
+		),
+		'database-table' => array(
+			'nok' => 'Databanktabel "%s" is onvolledig.',
+			'ok' => 'Databanktabel "%s" is in orde.',
+		),
+		'database-tables' => array(
+			'nok' => 'Sommige databanktabelen ontbreken.',
+			'ok' => 'Alle databanktabelen bestaan.',
+		),
+		'database-title' => 'Databank',
+		'docroot' => array(
+			'nok' => 'De hoofdmap (root) van de webserver lijkt niet naar de map <code>./p/</code> te wijzen. Andere mappen, zoals <code>./data/</code>, zijn mogelijk openbaar toegankelijk.',
+			'ok' => 'De hoofdmap (root) van de webserver wijst correct naar de map <code>./p/</code>.',
+		),
 		'dom' => array(
 			'nok' => 'U mist een benodigde bibliotheek om te bladeren in de DOM.',
 			'ok' => 'U hebt de benodigde bibliotheek om te bladeren in de DOM.',
@@ -63,12 +80,16 @@ return array(
 			'ok' => 'U hebt de fileinfo uitbreiding.',
 		),
 		'files' => 'Bestanden installatie',
+		'gmp' => array(
+			'nok' => 'De vereiste GMP-uitbreiding voor 32-bits PHP (php-gmp-pakket) kan niet worden gevonden.',
+			'ok' => 'U beschikt over de vereiste GMP-uitbreiding voor 32-bits PHP.',
+		),
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'De aanbevolen bibliotheek php-intl voor internationalisering kan niet worden gevonden.',
+			'ok' => 'U beschikt over de aanbevolen bibliotheek php-intl voor internationalisering.',
 		),
 		'json' => array(
-			'nok' => 'U mist een benodigede bibliotheek om JSON te gebruiken.',
+			'nok' => 'U mist een benodigde bibliotheek om JSON te gebruiken.',
 			'ok' => 'U hebt de benodigde bibliotheek om JSON te gebruiken.',
 		),
 		'mbstring' => array(
@@ -80,14 +101,14 @@ return array(
 			'ok' => 'U hebt de benodigde bibliotheek voor regular expressions (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'De vereiste PDO-driver voor MySQL/MariaDB kan niet worden gevonden.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'De vereiste PDO-driver voor PostgreSQL kan niet worden gevonden.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'nok' => 'De PDO-driver voor SQLite kan niet worden gevonden.',
+			'ok' => 'U hebt het PDO-stuurprogramma voor SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'U mist PDO of één van de ondersteunde (pdo_sqlite, pdo_pgsql, pdo_mysql).',
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Gefeliciteerd!',
 	'default_user' => array(
 		'_' => 'Gebruikersnaam van de standaardgebruiker',
-		'max_char' => 'maximaal 16 alfanumerieke tekens',
+		'max_char' => '1-39 tekens: letters, cijfers en <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Repareer fouten alvorens U naar de volgende stap gaat.',
 	'javascript_is_better' => 'FreshRSS werkt beter JavaScript ingeschakeld',

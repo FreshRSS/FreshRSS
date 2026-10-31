@@ -41,17 +41,14 @@ $i18nData = new I18nData($data->load());
 
 switch ($cliOptions->action) {
 	case 'add':
-		if (isset($cliOptions->key) && isset($cliOptions->value) && isset($cliOptions->language)) {
+		if (($cliOptions->key ?? '') !== '' && ($cliOptions->value ?? '') !== '' && ($cliOptions->language ?? '') !== '') {
 			$i18nData->addValue($cliOptions->key, $cliOptions->value, $cliOptions->language);
-		} elseif (isset($cliOptions->key) && isset($cliOptions->value)) {
+		} elseif (($cliOptions->key ?? '') !== '' && ($cliOptions->value ?? '') !== '') {
 			$i18nData->addKey($cliOptions->key, $cliOptions->value);
-		} elseif (isset($cliOptions->key)) {
+		} elseif (($cliOptions->key ?? '') !== '') {
 			$i18nData->addFile($cliOptions->key);
-		} elseif (isset($cliOptions->language)) {
-			$reference = null;
-			if (isset($cliOptions->originLanguage)) {
-				$reference = $cliOptions->originLanguage;
-			}
+		} elseif (($cliOptions->language ?? '') !== '') {
+			$reference = ($cliOptions->originLanguage ?? '') === '' ? null : $cliOptions->originLanguage;
 			$i18nData->addLanguage($cliOptions->language, $reference);
 		} else {
 			error('You need to specify a valid set of options.');
@@ -59,7 +56,7 @@ switch ($cliOptions->action) {
 		}
 		break;
 	case 'move':
-		if (isset($cliOptions->key) && isset($cliOptions->newKey)) {
+		if (($cliOptions->key ?? '') !== '' && ($cliOptions->newKey ?? '') !== '') {
 			$i18nData->moveKey($cliOptions->key, $cliOptions->newKey);
 		} else {
 			error('You need to specify the key to move and its new location.');
@@ -67,7 +64,7 @@ switch ($cliOptions->action) {
 		}
 		break;
 	case 'delete':
-		if (isset($cliOptions->key)) {
+		if (($cliOptions->key ?? '') !== '') {
 			$i18nData->removeKey($cliOptions->key);
 		} else {
 			error('You need to specify the key to delete.');
@@ -75,7 +72,7 @@ switch ($cliOptions->action) {
 		}
 		break;
 	case 'exist':
-		if (isset($cliOptions->key)) {
+		if (($cliOptions->key ?? '') !== '') {
 			$key = $cliOptions->key;
 			if ($i18nData->isKnown($key)) {
 				echo "The '{$key}' key is known.\n\n";
@@ -90,7 +87,7 @@ switch ($cliOptions->action) {
 	case 'format':
 		break;
 	case 'ignore':
-		if (isset($cliOptions->language) && isset($cliOptions->key)) {
+		if (($cliOptions->language ?? '') !== '' && ($cliOptions->key ?? '') !== '') {
 			$i18nData->ignore($cliOptions->key, $cliOptions->language, $cliOptions->revert);
 		} else {
 			error('You need to specify a valid set of options.');
@@ -98,7 +95,7 @@ switch ($cliOptions->action) {
 		}
 		break;
 	case 'ignore_unmodified':
-		if (isset($cliOptions->language)) {
+		if (($cliOptions->language ?? '') !== '') {
 			$i18nData->ignore_unmodified($cliOptions->language, $cliOptions->revert);
 		} else {
 			error('You need to specify a valid set of options.');

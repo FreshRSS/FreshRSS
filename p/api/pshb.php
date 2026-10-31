@@ -98,6 +98,26 @@ if ($ORIGINAL_INPUT == '') {
 	die('Missing XML payload!');
 }
 
+// Authenticated content distribution	// https://www.w3.org/TR/websub/#signing-content
+$hubSecret = $hubJson['secret'] ?? null;
+if (is_string($hubSecret) && $hubSecret !== '') {
+	$signatureOk = false;
+	// The X-Hub-Signature header has the form `method=hexSignature`, e.g. `sha256=09AF`
+	$signature = is_string($_SERVER['HTTP_X_HUB_SIGNATURE'] ?? null) ? $_SERVER['HTTP_X_HUB_SIGNATURE'] : '';
+	// https://www.php.net/function.hash-hmac-algos
+	if (preg_match('/^(?<algo>[a-zA-Z0-9]{4,6})=(?<signature>[0-9a-fA-F]{40,128})$/', $signature, $matches) === 1) {
+		$algo = strtolower('' . $matches['algo']);
+		if (in_array($algo, ['sha1', 'sha256', 'sha384', 'sha512'], true)) {
+			$signatureOk = hash_equals(hash_hmac($algo, $ORIGINAL_INPUT, $hubSecret), '' . $matches['signature']);
+		}
+	}
+	if (!$signatureOk) {
+		Minz_Log::warning('Invalid signature for WebSub push to ' . $canonical, PSHB_LOG);
+		header('HTTP/1.1 422 Unprocessable Entity');
+		die('Invalid hub signature!');
+	}
+}
+
 $simplePie = new FreshRSS_SimplePieCustom();
 $simplePie->enable_cache(false);
 $simplePie->set_raw_data($ORIGINAL_INPUT);
@@ -121,17 +141,17 @@ if ($httpLink !== '' && preg_match_all('/<([^>]+)>;\\s*rel="([^"]+)"/', $httpLin
 	// }
 	if (!empty($links['self'])) {
 		$httpSelf = FreshRSS_http_Util::checkUrl($links['self']) ?: '';
-		if ($self !== '' && $self !== $httpSelf) {
+		if ($self !== '' && FreshRSS_http_Util::compareUrlIgnoringHttps($self, $httpSelf) !== 0) {
 			Minz_Log::warning('Warning: Self URL mismatch between XML [' . $self . '] and HTTP!: ' . $httpSelf, PSHB_LOG);
 		}
 		$self = $httpSelf;
 	}
 }
 
-if ($self !== $canonical) {
-	//header('HTTP/1.1 422 Unprocessable Entity');
+if ($self !== '' && FreshRSS_http_Util::compareUrlIgnoringHttps($self, $canonical) !== 0) {
+	header('HTTP/1.1 422 Unprocessable Entity');
 	Minz_Log::warning('Warning: Self URL [' . $self . '] does not match registered canonical URL!: ' . $canonical, PSHB_LOG);
-	//die('Self URL does not match registered canonical URL!');
+	die('Self URL does not match registered canonical URL!');
 }
 
 Minz_ExtensionManager::init();
@@ -167,7 +187,7 @@ foreach ($users as $userFilename) {
 	}
 }
 
-$simplePie->__destruct();	//http://simplepie.org/wiki/faq/i_m_getting_memory_leaks
+$simplePie->__destruct();	// https://simplepie.org/wiki/faq/i_m_getting_memory_leaks
 unset($simplePie);
 
 if ($nb === 0) {

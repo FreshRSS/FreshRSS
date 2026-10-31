@@ -50,6 +50,23 @@ return array(
 			'nok' => 'Verifique as permissões no diretório <em>%s</em>. O servidor HTTP deve ter direitos para escrever dentro desta pasta.',
 			'ok' => 'Permissões no diretório data estão corretos.',
 		),
+		'database-connection' => array(
+			'nok' => 'Erro de conexão com o banco de dados.',
+			'ok' => 'Conexão com o banco de dados está boa.',
+		),
+		'database-table' => array(
+			'nok' => 'Tabela do banco de dados "%s" está incompleta.',
+			'ok' => 'Tabela do banco de dados "%s" está boa.',
+		),
+		'database-tables' => array(
+			'nok' => 'Algumas tabelas do banco de dados estão faltando.',
+			'ok' => 'Todas as tabelas do banco de dados existem.',
+		),
+		'database-title' => 'Banco de Dados',
+		'docroot' => array(
+			'nok' => 'A raiz de documentos do seu servidor web não parece apontar para a pasta <code>./p/</code>. Outras pastas, como <code>./data/</code>, podem estar acessíveis publicamente.',
+			'ok' => 'A raiz de documentos do seu servidor web aponta corretamente para a pasta <code>./p/</code>.',
+		),
 		'dom' => array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para navegar pelo DOM (php-xml).',
 			'ok' => 'Você tem a biblioteca necessária para navegar pelo DOM.',
@@ -63,9 +80,13 @@ return array(
 			'ok' => 'Você tem a biblioteca fileinfo.',
 		),
 		'files' => 'Instalação de arquivos',
+		'gmp' => array(
+			'nok' => 'Não foi possível encontrar a extensão GMP necessária para o PHP de 32 bits (pacote php-gmp).',
+			'ok' => 'Você tem a extensão GMP necessária para o PHP de 32 bits.',
+		),
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Não foi possível encontrar a biblioteca recomendada php-intl para internacionalização.',
+			'ok' => 'Você tem a biblioteca recomendada php-intl para internacionalização.',
 		),
 		'json' => array(
 			'nok' => 'Não foi possível encontrar JSON (php-json).',
@@ -80,21 +101,21 @@ return array(
 			'ok' => 'Você tem a biblioteca necessária para expressões regulares (php-pcre).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Não foi possível encontrar o driver PDO necessário para MySQL/MariaDB.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Não foi possível encontrar o driver PDO necessário para PostgreSQL.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'nok' => 'Não foi possível encontrar o driver PDO necessário para SQLite.',
+			'ok' => 'Você tem o driver PDO para SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'Não foi encontrado o PDO ou um dos drivers suportados (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 			'ok' => 'Você tem o PDO e ao menos um dos drivers suportados (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'_' => 'Instação do PHP',
+			'_' => 'Instalação do PHP',
 			'nok' => 'Sua versão do PHP é %s mas FreshRSS requer ao menos a versão %s.',
 			'ok' => 'Sua versão do PHP é %s, que é compatível com o FreshRSS.',
 		),
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Parabéns!',
 	'default_user' => array(
 		'_' => 'Usuário do usuário padrão',
-		'max_char' => 'máximo de 16 caracteres alfanuméricos',
+		'max_char' => 'De 1 a 39 caracteres: letras, números e <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Por favor solucione os erros antes de ir para o próximo passo.',
 	'javascript_is_better' => 'O FreshRSS é mais agradável com o JavaScript ativo',

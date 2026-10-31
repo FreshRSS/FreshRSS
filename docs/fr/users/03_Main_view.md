@@ -32,7 +32,7 @@ Le script qui permet de mettre à jour les articles s’appelle
 *actualize_script.php* et se trouve dans le répertoire *app* de votre
 instance de FreshRSS. La syntaxe des tâches planifiées ne sera pas expliquée
 ici, cependant voici [une introduction rapide à
-crontab](http://www.adminschoice.com/crontab-quick-reference/) qui peut vous
+crontab](https://adminschoice.com/crontab-quick-reference/) qui peut vous
 aider.
 
 Ci-dessous vous trouverez un exemple permettant la mise à jour des articles
@@ -103,7 +103,7 @@ You can also target a different user by adding their username to the query
 string, with `&user=insert-username`:
 
 ```cron
-0 * * * * curl 'https://freshrss.exemple.net/i/?c=feed&a=actualize&user=quelquun&token=mon-token'
+0 * * * * curl 'https://freshrss.example.net/i/?c=feed&a=actualize&user=quelquun&token=mon-token'
 ```
 
 ##### Authentification HTTP
@@ -114,7 +114,7 @@ cron. **Notez que cette solution est grandement déconseillée puisqu’elle
 implique que vos identifiants seront visibles en clair !**
 
 ```cron
-0 * * * * curl -u alice:motdepasse123 'https://freshrss.exemple.net/i/?c=feed&a=actualize'
+0 * * * * curl -u alice:motdepasse123 'https://freshrss.example.net/i/?c=feed&a=actualize'
 ```
 
 ### Mise à jour manuelle
@@ -250,7 +250,8 @@ Il est possible d’utiliser le champ de recherche pour raffiner les résultats 
 	* Les contraintes de date peuvent être combinées :
 		* `date:P1Y !date:P1M` (depuis un an avant maintenant jusqu’à un mois avant maintenant)
 * par date de publication, avec la même syntaxe : `pubdate:<date-interval>`
-* par date de modification par l’utilisateur, avec la même syntaxe : `userdate:<date-interval>`
+* par date de modification par le serveur, avec la même syntaxe : `mdate:<date-interval>`
+* par date de modification par l’utilisateur (par exemple marqué comme lu ou favori), avec la même syntaxe : `userdate:<date-interval>`
 * par ID d’étiquette : `L:12` ou de plusieurs étiquettes : `L:12,13,14` ou avec n’importe quelle étiquette : `L:*`
 * par nom d’étiquette : `label:étiquette`, `label:"mon étiquette"` ou d’une étiquette parmi une liste (*ou*) : `labels:"mon étiquette,mon autre étiquette"`
 * par plusieurs noms d’étiquettes (*et*) : `label:"mon étiquette" label:"mon autre étiquette"`
@@ -307,11 +308,11 @@ Contrairement aux recherches normales, les caractères spéciaux XML `<&">` ne s
 
 ⚠️ Les détails de syntaxe regex avancée dépendent du moteur regex utilisé :
 
-* Les filtres d’action de FreshRSS comme marquer-automatiquement-comme-lu et mettre-automatiquement-en-favori utilisent [PHP preg_match](https://php.net/function.preg-match).
+* Les filtres d’action de FreshRSS comme marquer-automatiquement-comme-lu et mettre-automatiquement-en-favori utilisent [PHP preg_match](https://www.php.net/function.preg-match).
 * Les recherches regex dépendent de la base de données utilisée :
-	* Pour SQLite, [PHP preg_match](https://php.net/function.preg-match) est utilisé ;
+	* Pour SQLite, [PHP preg_match](https://www.php.net/function.preg-match) est utilisé ;
 	* [Pour PostgreSQL](https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP) ;
 	* [Pour MariaDB](https://mariadb.com/kb/en/pcre/) ;
-	* [Pour MySQL](https://dev.mysql.com/doc/refman/9.0/en/regexp.html#function_regexp-like).
+	* [Pour MySQL](https://dev.mysql.com/doc/refman/26.7/en/regexp.html#function_regexp-like).
 
 > ℹ️ Même avec PostgreSQL, vous pouvez utiliser `\b` pour les limites de mots (et `\B` pour l’inverse), car une traduction automatique est effectuée vers `\y` et `\Y`.

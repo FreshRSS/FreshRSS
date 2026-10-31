@@ -150,6 +150,10 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$feed->_attribute('mark_updated_article_unread', Minz_Request::paramTernary('mark_updated_article_unread'));
 			$feed->_attribute('read_upon_reception', Minz_Request::paramTernary('read_upon_reception'));
 			$feed->_attribute('clear_cache', Minz_Request::paramTernary('clear_cache'));
+			if (Minz_Request::hasParam('show_unread_count')) {
+				$feed->_attribute('show_unread_count', Minz_Request::paramTernary('show_unread_count'));
+			}
+			$feed->_attribute('display_enclosures', Minz_Request::paramTernary('display_enclosures'));
 
 			$keep_max_n_unread = Minz_Request::paramTernary('keep_max_n_unread') === true ? Minz_Request::paramInt('keep_max_n_unread') : null;
 			$feed->_attribute('keep_max_n_unread', $keep_max_n_unread >= 0 ? $keep_max_n_unread : null);
@@ -170,6 +174,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			$max_redirs = Minz_Request::paramInt('curl_params_redirects');
 			$useragent = Minz_Request::paramString('curl_params_useragent', plaintext: true);
 			$proxy_address = Minz_Request::paramString('curl_params', plaintext: true);
+			$proxy_address = preg_replace('#^.*://#', '', $proxy_address) ?? $proxy_address;
 			$proxy_type = Minz_Request::paramIntNull('proxy_type');
 			$request_method = Minz_Request::paramString('curl_method', plaintext: true);
 			$request_fields = Minz_Request::paramString('curl_fields', plaintext: true);
@@ -191,7 +196,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			}
 			if ($max_redirs != 0) {
 				$opts[CURLOPT_MAXREDIRS] = $max_redirs;
-				$opts[CURLOPT_FOLLOWLOCATION] = 1;
+				$opts[CURLOPT_FOLLOWLOCATION] = true;
 			}
 			if ($useragent !== '') {
 				$opts[CURLOPT_USERAGENT] = $useragent;
@@ -213,7 +218,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$opts[CURLOPT_HTTPHEADER] = array_unique($opts[CURLOPT_HTTPHEADER]);
 			}
 
-			$feed->_attribute('curl_params', empty($opts) ? null : $opts);
+			$feed->_attribute('curl_params', empty($opts) ? null : FreshRSS_http_Util::sanitizeCurlParams($opts));
 
 			$feed->_attribute('content_action', Minz_Request::paramString('content_action', true) ?: 'replace');
 
@@ -334,6 +339,22 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				$feed->resetCustomFavicon();
 			}
 
+			$defaultSortOrder = Minz_Request::paramString('defaultSortOrder', plaintext: true);
+			if (str_ends_with($defaultSortOrder, '_asc')) {
+				$feed->_attribute('defaultOrder', 'ASC');
+				$defaultSortOrder = substr($defaultSortOrder, 0, -strlen('_asc'));
+			} elseif (str_ends_with($defaultSortOrder, '_desc')) {
+				$feed->_attribute('defaultOrder', 'DESC');
+				$defaultSortOrder = substr($defaultSortOrder, 0, -strlen('_desc'));
+			} else {
+				$feed->_attribute('defaultOrder');
+			}
+			if (in_array($defaultSortOrder, ['id', 'date', 'link', 'title', 'length', 'rand'], true)) {
+				$feed->_attribute('defaultSort', $defaultSortOrder);
+			} else {
+				$feed->_attribute('defaultSort');
+			}
+
 			$values = [
 				'name' => Minz_Request::paramString('name'),
 				'kind' => $feed->kind(),
@@ -359,13 +380,16 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 				case 'reader':
 					$get = Minz_Request::paramString('get');
 					if ($get !== '') {
-						$url_redirect = ['c' => 'index', 'a' => $from, 'params' => ['get' => $get]];
+						$url_redirect = ['c' => 'index', 'a' => $from, 'params' => ['id' => $id, 'get' => $get]];
 					} else {
-						$url_redirect = ['c' => 'index', 'a' => $from];
+						$url_redirect = ['c' => 'index', 'a' => $from, 'params' => ['id' => $id]];
 					}
 					break;
+				case 'index':
+					$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id, 'error' => Minz_Request::paramBoolean('error') ? 1 : 0]];
+					break;
 				default:
-					$url_redirect = ['c' => 'subscription', 'params' => ['id' => $id]];
+					$url_redirect = ['c' => 'subscription', 'a' => 'feed', 'params' => ['id' => $id]];
 			}
 
 			if ($favicon_uploaded && !$resetFavicon) {
@@ -421,7 +445,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 		$actionsSearch = new FreshRSS_BooleanSearch('', operator: 'AND');
 		foreach ($filteractions as $action) {
 			$actionSearch = new FreshRSS_BooleanSearch($action, operator: 'OR');
-			if ($actionSearch->__toString() === '') {
+			if ($actionSearch->toString() === '') {
 				continue;
 			}
 			$actionsSearch->add($actionSearch);
@@ -433,7 +457,7 @@ class FreshRSS_subscription_Controller extends FreshRSS_ActionController {
 			'c' => 'index',
 			'a' => 'index',
 			'params' => [
-				'search' => $search->__toString(),
+				'search' => $search->toString(),
 			],
 		], redirect: true);
 	}

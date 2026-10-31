@@ -1,12 +1,12 @@
-# Access Control
+# Access control
 
-FreshRSS offers three methods of Access control: Form Authentication using JavaScript, HTTP based Authentication, or an uncontrolled state with no authentication required.
+FreshRSS offers three methods of Access control: Form Authentication using a standard HTML form, HTTP based Authentication, or an uncontrolled state with no authentication required.
 
 ## Server-side feed fetching & security considerations
 
 FreshRSS fetches RSS feeds using server-side HTTP requests (via the cURL library).
 This design allows users to subscribe to feeds hosted not just on the public internet, but also on internal or private networks.
-For example, many users connect FreshRSS to tools like RSS-Bridge, cron jobs, or local automation services such as Node-RED — all of which may run on `localhost` or internal IPs.
+For example, many users connect FreshRSS to tools like RSS-Bridge, cron jobs, or local automation services such as Node-RED, all of which may run on `localhost` or internal IPs.
 
 In self-hosted, single-user setups, this behaviour is expected and usually safe.
 However, in **multi-user or public-facing instances**, this same functionality can introduce a potential security risk known as **Server-Side Request Forgery (SSRF)**.
@@ -17,9 +17,17 @@ In an SSRF scenario, a malicious user could submit a feed URL that points to int
 * `http://169.254.169.254` (cloud metadata services)
 * Other services not meant to be exposed externally
 
-While FreshRSS does not treat these requests as unsafe by default — since many legitimate use cases depend on them — it’s important to understand the implications if your instance is shared, exposed on the internet, or co-hosted with other services.
+FreshRSS blocks these unsafe requests by default, due to the security risks written above, though certain hosts can be excluded from the block by going to `Settings > System configuration` and making changes to the internal host allowlist.
+Entries are separated by newlines, and must be a `host:port` combination, for example `127.0.0.1:8080`, `rss-bridge:80` or a CIDR notation (`0.0.0.0/0` to allow any IPv4, `::/0` to allow any IPv6).
+Another option is to set an `INTERNAL_HOST_ALLOWLIST` environment variable (e.g. in your docker-compose file). The entries there are separated by whitespace instead.
+Adding `*` disables the SSRF check completely (unsafe).
 
-### Recommended mitigations for shared/public setups
+The same allowlist is needed for HTTP and SOCKS proxies:
+for instance, a proxy `socks5h://127.0.0.1:1080` is blocked unless its location is allowed.
+
+### Recommended additional mitigations for shared/public setups
+
+Although there are already existing mitigations for SSRF, some extra steps can be taken for more safety:
 
 * Run FreshRSS behind a firewall or reverse proxy that blocks access to internal IP ranges
 * Use container isolation or a virtual network to prevent access to sensitive endpoints
@@ -32,9 +40,9 @@ These steps are not necessary for trusted, single-user deployments, but are stro
 
 ## Form Authentication
 
-Form Authentication requires the use of JavaScript. It will work on any supported version of PHP.
+Form Authentication is using a standard HTML form, it does not require any JavaScript since FreshRSS v1.31.0. It will work on any supported version of PHP (>=8.1).
 
-This option requires nothing more than selecting Form Authentication during installation.
+This option requires nothing more than selecting Form Authentication during installation, and properly configured PHP sessions.
 
 ## HTTP Authentication
 
@@ -53,18 +61,17 @@ variable containing the email address of the authenticated user (e.g. `REMOTE_US
 
 You may also use the `Remote-User` or `X-WebAuth-User` HTTP headers to integrate with a reverse-proxy’s authentication.
 
-To enable this feature, you need to add the IP range (in CIDR notation) of your trusted proxy in the `trusted_sources` configuration option.
-To allow only one IPv4, you can use a `/32` like this: `trusted_sources => [ '192.168.1.10/32' ]`.
-Likewise to allow only one IPv6, you can use a `/128` like this: `trusted_sources => [ '::1/128' ]`.
+To enable this feature, you need to add the IPs (or ranges in CIDR notation) of your trusted proxy in the `trusted_sources` configuration option.
 
-You may alternatively pass a `TRUSTED_PROXY` environment variable in a format compatible with [Apache’s `mod_remoteip` `RemoteIPInternalProxy`](https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy).
+You may alternatively pass a `TRUSTED_PROXY` environment variable, which is a space-separated list of IPs or CIDR notations like this: `192.168.1.10 ::1/128`.
+The format is largely compatible with [Apache’s `mod_remoteip` `RemoteIPInternalProxy`](https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy), except that domain names are not supported and will be silently ignored.
 
-> ☠️ WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option, if your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
+> ☠️ WARNING: FreshRSS will trust any IP configured in the `trusted_sources` option and/or the `TRUSTED_PROXY` environment variable. If your proxy isn’t properly secured, an attacker could simply attach this header and get admin access.
 
 ### Authentik Proxy Provider
 
 If you wish to use external authentication with [Authentik](https://goauthentik.io/),
-you will need to configure a [Proxy Provider](https://goauthentik.io/docs/providers/proxy/) with a _Property Mapping_ that tells Authentik to inject the `X-WebAuth-User` HTTP header.
+you will need to configure a [Proxy Provider](https://docs.goauthentik.io/add-secure-apps/providers/proxy/) with a _Property Mapping_ that tells Authentik to inject the `X-WebAuth-User` HTTP header.
 You can do so with the following expression:
 
 ```python

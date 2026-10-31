@@ -118,13 +118,20 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 			}
 
 			if ($ok) {
-				$tag->_filtersAction('label', Minz_Request::paramTextToArray('filteractions_label'));	// Keep as HTML
+				$tag->_filtersAction('label', Minz_Request::paramTextToArray('filteractions_label', plaintext: true));
 				$ok = $tagDAO->updateTagAttributes($tag->id(), $tag->attributes()) !== false;
 			}
 
 			invalidateHttpCache();
 
-			$url_redirect = ['c' => 'tag', 'a' => 'update', 'params' => ['id' => $id]];
+			$prev_controller = 'tag';
+			$from = Minz_Request::paramStringNull('from') ?? 'update';
+			$params = ['id' => $id];
+			if ($from === 'normal' || $from === 'reader') {
+				$prev_controller = 'index';
+				$params['type'] = 'tag';
+			}
+			$url_redirect = ['c' => $prev_controller, 'a' => $from, 'params' => $params];
 			if ($ok) {
 				Minz_Request::good(
 					_t('feedback.tag.updated'),
@@ -138,7 +145,7 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 	}
 
 	public function getTagsForEntryAction(): void {
-		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Context::systemConf()->allow_anonymous) {
+		if (!FreshRSS_Auth::hasAccess() && !FreshRSS_Auth::allowAnonymous()) {
 			Minz_Error::error(403);
 		}
 		$this->view->_layout(null);
@@ -146,7 +153,11 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
 		$id_entry = Minz_Request::paramString('id_entry');
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$this->view->tagsForEntry = $tagDAO->getTagsForEntry($id_entry);
+		$tagsForEntry = $tagDAO->getTagsForEntry($id_entry);
+		foreach ($tagsForEntry as $key => $tag) {
+			$tagsForEntry[$key]['name'] = htmlspecialchars_decode($tag['name'], ENT_QUOTES);
+		}
+		$this->view->tagsForEntry = $tagsForEntry;
 	}
 
 	public function addAction(): void {
@@ -225,6 +236,11 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		}
 		$tagDAO = FreshRSS_Factory::createTagDao();
 		$this->view->tags = $tagDAO->listTags(precounts: true);
+		$id = Minz_Request::paramInt('id');
+		if ($id !== 0) {
+			$this->view->displaySlider = true;
+			$this->view->tag = $tagDAO->searchById($id);
+		}
 	}
 
 	public static function escapeForSearch(string $tag): string {

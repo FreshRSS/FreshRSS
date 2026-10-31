@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Gebruikersnaam',
-			'format' => '<small>Maximaal 16 alfanumerieke tekens</small>',
+			'format' => '<small>1-39 tekens: letters, cijfers en <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -140,14 +140,47 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Over FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d dag geleden',
+			1 => '%d dagen geleden',
+		),
+		'hour' => array(
+			0 => '%d uur geleden',
+			1 => '%d uur geleden',
+		),
+		'justnow' => 'zojuist',
+		'minute' => array(
+			0 => '%d minuut geleden',
+			1 => '%d minuten geleden',
+		),
+		'month' => array(
+			0 => '%d maand geleden',
+			1 => '%d maanden geleden',
+		),
+		'second' => array(
+			0 => '%d seconde geleden',
+			1 => '%d seconden geleden',
+		),
+		'year' => array(
+			0 => '%d jaar geleden',
+			1 => '%d jaar geleden',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Lege categorie',
 		'confirm_action' => 'Weet u zeker dat u dit wilt doen? Het kan niet ongedaan worden gemaakt!',
 		'confirm_action_feed_cat' => 'Weet u zeker dat u dit wilt doen? U verliest alle gereleteerde favorieten en gebruikers informatie. Het kan niet ongedaan worden gemaakt!',
 		'confirm_exit_slider' => 'Weet u zeker dat u de niet opgeslagen instellingen wilt negeren?',
 		'feedback' => array(
-			'body_new_articles' => 'Er zijn %%d nieuwe artikelen om te lezen op FreshRSS.',
-			'body_unread_articles' => '(ongelezen: %%d)',
+			'body_new_articles' => array(
+				0 => 'Er is %d nieuw artikel om te lezen op FreshRSS.',
+				1 => 'Er zijn %d nieuwe artikelen om te lezen op FreshRSS.',
+			),
+			'body_unread_articles' => array(
+				0 => '(ongelezen: %d)',
+				1 => '(ongelezen: %d)',
+			),
 			'request_failed' => 'Een opdracht is mislukt, mogelijk door Internet verbindings problemen.',
 			'title_new_articles' => 'FreshRSS: nieuwe artikelen!',
 		),
@@ -157,6 +190,9 @@ return array(
 		'unsafe_csp_header' => 'De gebruikte CSP-header is onveilig en FreshRSS kan kwetsbaar zijn voor XSS-aanvallen. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Zie documentatie</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -172,6 +208,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -189,7 +226,7 @@ return array(
 		'about' => 'Over',
 		'account' => 'Account',	// IGNORE
 		'admin' => 'Administratie',
-		'advanced_search' => 'Advanced Search',	// TODO
+		'advanced_search' => 'Geavanceerd zoeken',
 		'archiving' => 'Archiveren',
 		'authentication' => 'Authenticatie',
 		'check_install' => 'Installatiecontrole',
@@ -223,31 +260,32 @@ return array(
 		'translated' => 'Progress',	// IGNORE
 	),
 	'search' => array(
-		'advanced_search_help' => 'This form helps construct search queries, but manual queries are even more powerful.',	// TODO
-		'authors' => 'Authors',	// TODO
-		'categories' => 'Categories',	// TODO
-		'content' => 'Content',	// TODO
-		'date_from' => 'From',	// TODO
-		'date_past' => 'In the past',	// TODO
-		'date_published' => 'Publication Date',	// TODO
-		'date_range' => 'Date Range',	// TODO
-		'date_received' => 'Received Date',	// TODO
-		'date_to' => 'To',	// TODO
-		'date_user' => 'User Modification Date',	// TODO
-		'feeds' => 'Feeds',	// TODO
-		'free_text' => 'Free Text',	// TODO
-		'free_text_help' => 'Search both in title and content',	// TODO
-		'full_documentation' => 'View <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">full search documentation</a>',	// TODO
-		'labels' => 'My Labels',	// TODO
-		'multiple_help' => 'Select one or more (hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd>)',	// TODO
-		'sources' => 'Sources',	// TODO
-		'tags' => 'Article Tags',	// TODO
-		'text' => 'Text Search',	// TODO
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
-		'text_placeholder' => 'Keyword',	// TODO
-		'title' => 'Title',	// TODO
-		'url' => 'URL',	// TODO
-		'user_queries' => 'User Queries',	// TODO
+		'advanced_search_help' => 'Dit formulier helpt bij het opstellen van zoekopdrachten, maar handmatige zoekopdrachten zijn nog krachtiger.',
+		'authors' => 'Auteurs',
+		'categories' => 'Categorieën',
+		'content' => 'Inhoud',
+		'date_from' => 'Van',
+		'date_modified' => 'Wijzigingsdatum (server)',
+		'date_past' => 'In het verleden',
+		'date_published' => 'Publicatiedatum',
+		'date_range' => 'Datumbereik',
+		'date_received' => 'Datum ontvangen',
+		'date_to' => 'Tot',
+		'date_user' => 'Wijzigingsdatum (gebruiker)',
+		'feeds' => 'Feeds',	// IGNORE
+		'free_text' => 'Vrije tekst',
+		'free_text_help' => 'Zoeken in zowel titel als inhoud',
+		'full_documentation' => 'Zie de <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">volledige zoekdocumentatie</a>',
+		'labels' => 'Mijn labels',
+		'multiple_help' => 'Selecteer een of meer (houd <kbd>Ctrl</kbd> of <kbd>Cmd</kbd> ingedrukt)',
+		'sources' => 'Bronnen',
+		'tags' => 'Artikel-tags',
+		'text' => 'Tekst zoeken',
+		'text_help' => 'Meerdere regels worden gecombineerd door een logische <i>or</i> (en. voor <i>of</i>). Ondersteunt ook <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">reguliere expressies</a>.',
+		'text_placeholder' => 'Sleutelwoord',
+		'title' => 'Titel',
+		'url' => 'URL',	// IGNORE
+		'user_queries' => 'Gebruikersqueries',
 	),
 	'share' => array(
 		'Known' => 'Known-gebaseerde sites',
@@ -264,10 +302,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Bookmarks',	// IGNORE
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
@@ -276,7 +316,7 @@ return array(
 		'reddit' => 'Reddit',	// IGNORE
 		'shaarli' => 'Shaarli',	// IGNORE
 		'telegram' => 'Telegram',	// IGNORE
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag v1',	// IGNORE
 		'wallabagv2' => 'wallabag v2',	// IGNORE
 		'web-sharing-api' => 'Delen van systeem',

@@ -135,8 +135,6 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 		$pubDateUnit = trim(Minz_Request::paramString('pubdate_unit'));
 
 		if ($pubDateNumber > 0 && $pubDateUnit !== '') {
-			// Convert to ISO 8601 duration format: P1D, P1W, P1M, PT1H, etc.
-			// Time units (H, M, S) require a T separator
 			$prefix = ($pubDateUnit === 'H' || $pubDateUnit === 'M' || $pubDateUnit === 'S') ? 'PT' : 'P';
 			$searchTerms[] = "pubdate:{$prefix}{$pubDateNumber}{$pubDateUnit}";
 		} elseif ($pubDateFrom !== '' || $pubDateTo !== '') {
@@ -149,6 +147,25 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 			}
 		}
 
+		// Server modification date
+		$mDateFrom = trim(Minz_Request::paramString('mdate_from'));
+		$mDateTo = trim(Minz_Request::paramString('mdate_to'));
+		$mDateNumber = Minz_Request::paramInt('mdate_number');
+		$mDateUnit = trim(Minz_Request::paramString('mdate_unit'));
+
+		if ($mDateNumber > 0 && $mDateUnit !== '') {
+			$prefix = ($mDateUnit === 'H' || $mDateUnit === 'M' || $mDateUnit === 'S') ? 'PT' : 'P';
+			$searchTerms[] = "mdate:{$prefix}{$mDateNumber}{$mDateUnit}";
+		} elseif ($mDateFrom !== '' || $mDateTo !== '') {
+			if ($mDateFrom !== '' && $mDateTo !== '') {
+				$searchTerms[] = "mdate:$mDateFrom/$mDateTo";
+			} elseif ($mDateFrom !== '') {
+				$searchTerms[] = "mdate:$mDateFrom/";
+			} elseif ($mDateTo !== '') {
+				$searchTerms[] = "mdate:/$mDateTo";
+			}
+		}
+
 		// User modification date
 		$userDateFrom = trim(Minz_Request::paramString('userdate_from'));
 		$userDateTo = trim(Minz_Request::paramString('userdate_to'));
@@ -156,8 +173,6 @@ class FreshRSS_search_Controller extends FreshRSS_ActionController {
 		$userDateUnit = trim(Minz_Request::paramString('userdate_unit'));
 
 		if ($userDateNumber > 0 && $userDateUnit !== '') {
-			// Convert to ISO 8601 duration format: P1D, P1W, P1M, PT1H, etc.
-			// Time units (H, M, S) require a T separator
 			$prefix = ($userDateUnit === 'H' || $userDateUnit === 'M' || $userDateUnit === 'S') ? 'PT' : 'P';
 			$searchTerms[] = "userdate:{$prefix}{$userDateNumber}{$userDateUnit}";
 		} elseif ($userDateFrom !== '' || $userDateTo !== '') {

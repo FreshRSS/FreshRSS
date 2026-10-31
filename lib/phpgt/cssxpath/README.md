@@ -26,7 +26,7 @@ Example usage
 
 
 ```php
-use Gt\CssXPath\Translator;
+use GT\CssXPath\Translator;
 
 $html = <<<HTML
 <form>
@@ -46,7 +46,7 @@ $document = new DOMDocument();
 $document->loadHTML($html);
 
 $xpath = new DOMXPath($document);
-$inputElementList = $xpath->query(new Translator("form>label>input");
+$inputElementList = $xpath->query(new Translator("form>label>input"));
 ```
 
 ## Using this library with XML Documents

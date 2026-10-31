@@ -21,6 +21,7 @@ Les langues disponibles sont:
 
 | Langue (nom français)   | Langue (endonyme)      | Classé par code de langue (ISO-639-1) |
 |:------------------------|:-----------------------|:-------------------------------------|
+| Biélorusse              | Беларуская             | be                                   |
 | Tchèque                 | Čeština                | cs                                   |
 | Allemand                | Deutsch                | de                                   |
 | Grec                    | Ελληνικά               | el                                   |
@@ -64,7 +65,7 @@ propose 13 thèmes officiels :
 | Dark pink | Miicat_47 | |
 | Flat design | Marien Fressinaud | N’est plus pris en charge. Sera supprimé avec FreshRSS V1.22.0 |
 | Mapco | Thomas Guesnon  | |
-| Nord theme | joelchrono12 | |
+| Nord | joelchrono12 | |
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
@@ -94,7 +95,7 @@ quatre réglages disponibles :
 Veuillez noter que cette section n’affecte que la vue normale.
 
 ![Configuration des icônes
-d’article](../img/users/configuration.article.icons.png)
+d’article](../../en/img/users/configuration.article.icons.png)
 
 Chaque article est rendu avec un en-tête (ligne supérieure) et un pied de
 page (ligne inférieure). Dans cette section, vous pouvez choisir ce qui sera
@@ -119,7 +120,7 @@ By default, FreshRSS displays buttons to ease the article navigation when
 browsing on mobile. The drawback is that they eat up some precious space.
 
 ![navigation button
-configuration](../img/users/configuration.navigation.button.png)
+configuration](../../en/img/users/configuration.navigation.button.png)
 
 If you don’t use those buttons because you never browse on mobile or because
 you browse with gestures, you can disable them from the interface.
@@ -142,7 +143,7 @@ self-hosted services (Shaarli, etc.) to proprietary services (Facebook,
 etc.).
 
 By default, the sharing list is empty.  ![Sharing
-configuration](../img/users/configuration.sharing.png)
+configuration](../../en/img/users/configuration.sharing.png)
 
 Pour ajouter un nouvel élément à la liste, veuillez suivre les étapes
 simples ci-dessous :
@@ -222,7 +223,7 @@ Require user marie
 ```
 
 Plus d’informations dans [la documentation
-d’Apache.](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
+d’Apache.](https://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
 
 ## Gestion des flux
 

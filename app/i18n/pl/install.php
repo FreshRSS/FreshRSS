@@ -43,12 +43,29 @@ return array(
 			'ok' => 'Znaleziono wymaganą bibliotekę do sprawdzania rodzajów znaków (ctype).',
 		),
 		'curl' => array(
-			'nok' => 'Nie znaleziono biblioteki cURL (php-curl package).',
+			'nok' => 'Nie znaleziono biblioteki cURL (pakiet php-curl).',
 			'ok' => 'Znaleziono bibliotekę cURL.',
 		),
 		'data' => array(
 			'nok' => 'Sprawdź uprawnienia użytkownika <em>%2$s</em> dla katalogu <em>%1$s</em>. Użytkownik serwera WWW musi mieć uprawnienia do zapisu.',
 			'ok' => 'Uprawnienia dla katalogu danych się zgadzają.',
+		),
+		'database-connection' => array(
+			'nok' => 'Wystąpił błąd podczas łączenia z bazą danych.',
+			'ok' => 'Połączenie z bazą danych się powiodło.',
+		),
+		'database-table' => array(
+			'nok' => 'Tabela bazy danych "%s" jest niekompletna.',
+			'ok' => 'Tabela bazy danych "%s" jest prawidłowa.',
+		),
+		'database-tables' => array(
+			'nok' => 'Brakuje niektórych tabel w bazie danych.',
+			'ok' => 'Wszystkie tabele bazy danych istnieją.',
+		),
+		'database-title' => 'Baza danych',
+		'docroot' => array(
+			'nok' => 'Katalog główny serwera WWW nie wskazuje na folder <code>./p/</code>. Inne foldery, takie jak <code>./data/</code>, mogą być publicznie dostępne.',
+			'ok' => 'Katalog główny serwera WWW prawidłowo wskazuje na folder <code>./p/</code>.',
 		),
 		'dom' => array(
 			'nok' => 'Nie znaleziono wymaganej biblioteki do korzystania z DOM-u.',
@@ -59,13 +76,17 @@ return array(
 			'ok' => 'Uprawnienia dla katalogu ikonek kanałów się zgadzają.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Nie znaleziono biblioteki fileinfo dla PHP (paczka fileinfo).',
+			'nok' => 'Nie znaleziono biblioteki fileinfo dla PHP (pakiet fileinfo).',
 			'ok' => 'Znaleziono bibliotekę fileinfo.',
 		),
 		'files' => 'Instalacja plików',
+		'gmp' => array(
+			'nok' => 'Nie znaleziono wymaganego rozszerzenia GMP dla 32-bitowego PHP (pakiet php-gmp).',
+			'ok' => 'Znaleziono rozszerzenie GMP wymagane przez 32-bitowe PHP.',
+		),
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => 'Nie znaleziono zalecanej biblioteki php-intl do internacjonalizacji.',
+			'ok' => 'Znaleziono zalecaną bibliotekę php-intl do internacjonalizacji.',
 		),
 		'json' => array(
 			'nok' => 'Nie znaleziono zalecanej biblioteki do przetwarzania JSON-a.',
@@ -80,14 +101,14 @@ return array(
 			'ok' => 'Znaleziono wymaganą bibliotekę do obsługi wyrażeń regularnych (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'Nie znaleziono wymaganego sterownika PDO dla MySQL/MariaDB.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'Nie znaleziono wymaganego sterownika PDO dla PostgreSQL.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite',	// TODO
+			'nok' => 'Nie znaleziono sterownika PDO dla SQLite.',
+			'ok' => 'Znaleziono sterownik PDO dla SQLite.',
 		),
 		'pdo' => array(
 			'nok' => 'Nie znaleziono PDO ani żadnego wspieranego sterownika bazy danych (pdo_sqlite, pdo_pgsql, pdo_mysql).',
@@ -117,7 +138,7 @@ return array(
 			'ok' => 'Znaleziono wymaganą bibliotekę do przetwarzania XML-a.',
 		),
 		'zip' => array(
-			'nok' => 'Nie znaleziono rozszerzenia ZIP (paczka php-zip).',
+			'nok' => 'Nie znaleziono rozszerzenia ZIP (pakiet php-zip).',
 			'ok' => 'Znaleziono rozszerzenie ZIP.',
 		),
 	),
@@ -128,7 +149,7 @@ return array(
 	'congratulations' => 'Gratulacje!',
 	'default_user' => array(
 		'_' => 'Nazwa domyślnego użytkownika',
-		'max_char' => 'maksymalnie 16 znaków alfanumerycznych',
+		'max_char' => 'Od 1 do 39 znaków: litery, cyfry oraz <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Proszę naprawić wszystkie błędy przed przystąpieniem do kolejnego kroku.',
 	'javascript_is_better' => 'FreshRSS działa lepiej z włączonym JavaScript-em',
