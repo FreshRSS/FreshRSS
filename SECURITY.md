@@ -19,7 +19,7 @@ Inspiration from <https://lkml.org/lkml/2026/5/17/896>:
 > AI detected bugs are pretty much by definition not secret, and
 > treating them on some private list is a waste of time for everybody
 > involved - and only makes that duplication worse because the reporters
-> can't even see each other's reports.
+> can’t even see each other’s reports.
 
 ## Contributing security fixes
 
