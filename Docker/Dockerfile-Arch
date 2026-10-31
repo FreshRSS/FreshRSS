@@ -1,3 +1,12 @@
+# Build the scheduler from pinned source; no downloaded release binaries.
+# hadolint ignore=DL3006
+FROM archlinux AS supercronic-builder
+RUN pacman -Syu --noconfirm && pacman -S --noconfirm go git ca-certificates && \
+	pacman -Scc --noconfirm
+# supercronic v0.2.33
+RUN GOBIN=/out CGO_ENABLED=0 GOSUMDB=sum.golang.org \
+	go install github.com/aptible/supercronic@cca6b3a90abc99a024f4b437da0f1886da68ca7a
+
 # Test image for development
 # hadolint ignore=DL3006
 FROM archlinux
@@ -6,17 +15,21 @@ ENV TZ=UTC
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 
 RUN pacman -Syu --noconfirm && pacman -S --noconfirm \
-	cronie \
 	apache php-apache \
 	php \
 	php-sqlite php-pgsql \
 	&& pacman -Scc --noconfirm
 
-RUN mkdir -p /var/www/FreshRSS /run/httpd/
+RUN useradd --uid 1000 --gid http --home-dir /var/www/FreshRSS freshrss && \
+	mkdir -p /var/www/FreshRSS /run/httpd/ /run/freshrss/php && \
+	chown -R freshrss:http /run/httpd/ /run/freshrss/
+COPY --from=supercronic-builder /out/supercronic /usr/local/bin/supercronic
 WORKDIR /var/www/FreshRSS
 
 COPY --chown=root:http . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/httpd/conf/conf.d/
+
+RUN mkdir -p ./data && chown -R freshrss:http ./data ./extensions /etc/httpd/conf/conf.d/
 
 ARG FRESHRSS_VERSION
 ARG SOURCE_COMMIT
@@ -47,10 +60,8 @@ RUN \
 	sed -r -i "/;extension=(curl|gmp|iconv|intl|pdo_mysql|pdo_pgsql|pdo_sqlite|zip)$/s/^;//" /etc/php/php.ini && \
 	# Disable built-in FreshRSS updates when using Docker, as the full image is supposed to be updated instead
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
-	touch /var/www/FreshRSS/Docker/env.txt && \
-	echo "17,47 * * * * . /var/www/FreshRSS/Docker/env.txt; \
-		su http -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
-		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /etc/crontab.freshrss.default
+	# supercronic inherits the container environment and runs as freshrss
+	echo '17,47 * * * * php /var/www/FreshRSS/app/actualize_script.php' > /etc/crontab.freshrss.default
 
 ENV COPY_LOG_TO_SYSLOG=On
 ENV COPY_SYSLOG_TO_STDERR=On
@@ -58,13 +69,14 @@ ENV CRON_MIN=''
 ENV DATA_PATH=''
 ENV ENABLE_ACCESS_LOG=1
 ENV FRESHRSS_ENV=''
-ENV LISTEN=''
+ENV LISTEN=8080
 ENV OIDC_ENABLED=''
 ENV TRUSTED_PROXY=''
+ENV PHP_INI_SCAN_DIR=:/run/freshrss/php
 
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
-EXPOSE 80
+USER freshrss
+EXPOSE 8080
 # hadolint ignore=DL3025
-CMD ([ -z "$CRON_MIN" ] || crond) && \
-	exec httpd -D FOREGROUND
+CMD exec ./Docker/run-services.sh httpd -D FOREGROUND

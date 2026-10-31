@@ -130,3 +130,21 @@ jobs:
 
     - name: Check spelling
       run: bin/typos
+
+  docker-rootless:
+    name: Rootless Docker (${{ matrix.variant }})
+    runs-on: ubuntu-26.04
+    strategy:
+      matrix:
+        variant: [Alpine, Arch, Newest]
+    steps:
+    - name: Git checkout source code
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - name: Build rootless image
+      env:
+        VARIANT: ${{ matrix.variant }}
+      run: docker build -f "Docker/Dockerfile-${VARIANT}" -t freshrss:rootless-test .
+    - name: Test rootless image
+      run: ./tests/docker-rootless.sh freshrss:rootless-test
