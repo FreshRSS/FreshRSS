@@ -270,4 +270,9 @@ return [
 	#
 	# Setting * disables this check completely, allowing any host to be accessed (unsafe)
 	'internal_host_allowlist' => [],
+
+	# Ignore HTTP Retry-After headers from these hosts.
+	# Each entry must be a host, matching all ports, or a host:port combination.
+	# Examples: rss-bridge, rsshub:1200, [2001:db8::1]:8080
+	'retry_after_allowlist' => [],
 ];

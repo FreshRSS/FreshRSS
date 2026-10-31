@@ -90,6 +90,15 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="group-name" for="retry-after-allowlist"><?= _t('admin.system.retry-after-allowlist') ?></label>
+			<div class="group-controls">
+				<textarea id="retry-after-allowlist" name="retry-after-allowlist"><?=
+					implode("\n", FreshRSS_Context::systemConf()->retry_after_allowlist) ?></textarea>
+				<div class="help"><?= _i('help') ?> <?= _t('admin.system.retry-after-allowlist.help') ?></div>
+			</div>
+		</div>
+
 		<h2><?= _t('admin.system.registration.title') ?></h2>
 
 		<div class="form-group">

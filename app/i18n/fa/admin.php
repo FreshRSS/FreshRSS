@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'فرم ثبت نام کاربر',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'فهرست مجاز Retry-After',	// DIRTY
+			'help' => 'در هر خط یک مورد وارد کنید: <code>host</code> برای تطبیق همهٔ درگاه‌ها، یا ترکیب <code>host:port</code> برای یک درگاه مشخص. برای مثال <code>rss-bridge</code> یا <code>rsshub:1200</code>. سرآیند <code>Retry-After</code> برای میزبان‌های منطبق نادیده گرفته می‌شود.',	// DIRTY
+		),
 		'sensitive-parameter' => 'پارامتر حساس. به صورت دستی در <kbd>./data/config.php</kbd> ویرایش کنید',
 		'tos' => array(
 			'disabled' => ' داده نشده است',
