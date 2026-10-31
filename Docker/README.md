@@ -66,7 +66,7 @@ docker exec --user www-data freshrss cli/do-install.php --default-user freshrss
 docker exec --user www-data freshrss cli/create-user.php --user freshrss --password freshrss
 ```
 
-> ℹ️ You have to replace `--user www-data` by `--user apache` when using our images based on Linux Alpine.
+> ℹ️ You have to replace `--user www-data` by `--user freshrss` when using the rootless Alpine, Arch, or Newest images.
 
 ## Our Docker image variants
 
@@ -89,6 +89,56 @@ and with newer packages in general (Apache, PHP).
 
 > ℹ️ For some rare systems, one variant might work but not the other, for instance due to kernel incompatibilities.
 
+### Rootless Alpine, Arch, and Newest images
+
+These images run Apache, PHP, and scheduled refreshes as `freshrss` (UID 1000),
+using the distribution's Apache group (`apache` on Alpine, `http` on Arch).
+Their internal port is **8080**: use `-p 8080:8080` with `:edge-alpine`.
+The Debian images retain port 80 and their existing startup behaviour.
+No additional image variants or tags are introduced.
+
+When upgrading, back up your data and database first, change the container port
+mapping from 80 to 8080, and prepare existing data and extension volumes for the
+new identity. Fresh named volumes inherit ownership from the image. Existing
+volumes and bind mounts must be writable by UID 1000; the container cannot repair
+root-owned storage. For example, after stopping FreshRSS, a conventional Docker
+engine can prepare its named volumes with a temporary root process:
+
+```sh
+docker run --rm --user 0 --entrypoint sh \
+  -v freshrss_data:/var/www/FreshRSS/data \
+  -v freshrss_extensions:/var/www/FreshRSS/extensions \
+  freshrss/freshrss:edge-alpine \
+  -c 'chown -R freshrss:apache /var/www/FreshRSS/data /var/www/FreshRSS/extensions'
+```
+
+With a rootless engine, prepare bind mounts using the engine's UID mapping rather
+than assuming container UID 1000 equals host UID 1000. Custom `DATA_PATH` storage
+and configuration files must also be accessible to the application user.
+Use the image's default user for CLI commands; overriding it does not initialise
+storage ownership. Development source mounts likewise need writable data and
+extensions directories.
+
+`CRON_MIN` keeps its existing minute-expression syntax (for example `1,31` or
+`*/15`). An empty value disables scheduling. Supercronic inherits the container
+environment, runs refreshes serially, and logs output to the container logs.
+Alpine and Newest install the distribution package; Arch builds supercronic
+v0.2.33 from a pinned source revision in a separate build stage.
+
+Stable Alpine and Arch do not gain OIDC support. Newest retains its existing OIDC
+module. Rootless Debian and the native PHP OIDC work in
+[issue #8031](https://github.com/FreshRSS/FreshRSS/issues/8031) are separate changes.
+
+To test a locally built rootless image, run:
+
+```sh
+./tests/docker-rootless.sh freshrss:rootless-alpine
+```
+
+The test requires Docker. Repeat against a rootless Docker context to
+validate a rootless engine; running as a non-root container user alone does not
+establish that the engine is rootless.
+
 ## Environment variables
 
 * `TZ`: (default is `UTC`) A [server timezone](https://www.php.net/timezones)
@@ -98,7 +148,7 @@ and with newer packages in general (Apache, PHP).
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
-* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/engine/network/drivers/host/))
+* `LISTEN`: (default is `80` on Debian, `8080` on Alpine, Arch, and Newest) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/engine/network/drivers/host/))
 * `INTERNAL_HOST_ALLOWLIST`: (default is empty, can also be set in `data/config.php` or under *System configuration* in Web UI) Requests to internal hosts such as 127.0.0.1 are blocked by default; here you can add overrides for which internal hosts to allow, separated by whitespace. Each host should be described either as a `host:port` combination, CIDR notation (`0.0.0.0/0` to allow any IPv4, `::/0` to allow any IPv6) or `*` to allow all hosts (unsafe)
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
