@@ -41,6 +41,7 @@ return array(
 	),
 	'password' => array(
 		'invalid' => 'Le mot de passe est invalide.',
+		'provided_password_too_long' => 'Le mot de passe fourni est trop long !',
 	),
 	'tos' => array(
 		'feedback' => array(

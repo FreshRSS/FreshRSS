@@ -6,6 +6,7 @@ echo "$TZ" >/etc/timezone
 find /etc/php*/ -type f -name php.ini -exec sed -i -E \
 	-e "\\#^;?date.timezone#s#^.*#date.timezone = $TZ#" \
 	-e "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" \
+	-e "\\#^;?session.upload_progress.enabled#s#^.*#session.upload_progress.enabled = Off#" \
 	-e "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
 
 while read -r config_path _; do
