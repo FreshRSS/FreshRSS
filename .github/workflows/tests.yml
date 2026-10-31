@@ -143,6 +143,8 @@ jobs:
       with:
         persist-credentials: false
     - name: Build rootless image
-      run: docker build -f Docker/Dockerfile-${{ matrix.variant }} -t freshrss:rootless-test .
+      env:
+        VARIANT: ${{ matrix.variant }}
+      run: docker build -f "Docker/Dockerfile-${VARIANT}" -t freshrss:rootless-test .
     - name: Test rootless image
       run: ./tests/docker-rootless.sh freshrss:rootless-test
