@@ -6,6 +6,7 @@ endif
 
 PORT ?= 8080
 NETWORK ?= freshrss-network
+CONTAINER_PORT ?= $(if $(findstring alpine,$(TAG)),8080,80)
 
 # detect docker or podman
 DOCKER ?= $(shell which docker 2>/dev/null || which podman 2>/dev/null)
@@ -49,7 +50,7 @@ start: ## Start the development environment (use Docker)
 		--rm \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
 		$(volumes) \
-		--publish $(PORT):80 \
+		--publish $(PORT):$(CONTAINER_PORT) \
 		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
 		--network $(NETWORK) \
