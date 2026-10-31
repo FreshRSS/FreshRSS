@@ -264,7 +264,10 @@ class FreshRSS_Feed extends Minz_Model {
 				$params = $feedIconUrl !== '' ? $feedIconUrl . $this->proxyParam()
 					: $this->website(fallback: true) . $this->proxyParam();
 			}
-			$this->hashFavicon = substr(hash_hmac('sha256', is_string($params) ? $params : '', $salt), 0, 16);
+			$hash = hash_hmac('sha256', is_string($params) ? $params : '', $salt, binary: true);
+			$hash = substr($hash, 0, 8);	// Keep 64 bits
+			$hash = strtr(rtrim(base64_encode($hash), '='), '+/', '-_');	// URL-safe base64
+			$this->hashFavicon = $hash;	// Length 11
 		}
 		return $this->hashFavicon;
 	}
@@ -477,6 +480,7 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+	/** Legacy favicon migration from FreshRSS < 1.31.0 */
 	private function migrateCustomFavicon(): void {
 		if (!$this->customFavicon()) {
 			return;
@@ -487,26 +491,18 @@ class FreshRSS_Feed extends Minz_Model {
 		if ($hookParams !== null) {
 			$params = $hookParams;
 		}
-		$legacyHash = hash('crc32b', $salt . (is_string($params) ? $params : ''));
-		$legacyPath = FAVICONS_DIR . $legacyHash . '.ico';
 		$newPath = FAVICONS_DIR . $this->hashFavicon() . '.ico';
-		if ($legacyPath !== $newPath && !file_exists($newPath) && is_file($legacyPath)) {
-			$source = @fopen($legacyPath, 'rb');
-			if ($source !== false) {
-				$destination = @fopen($newPath, 'xb');
-				if ($destination !== false) {
-					if (stream_copy_to_stream($source, $destination) === false || !fflush($destination)) {
-						@unlink($newPath);
-					}
-					fclose($destination);
-				}
-				fclose($source);
+		if (!file_exists($newPath)) {
+			$legacyHash = hash('crc32b', $salt . (is_string($params) ? $params : ''));
+			$legacyPath = FAVICONS_DIR . $legacyHash . '.ico';
+			if (is_file($legacyPath)) {
+				@copy($legacyPath, $newPath);
 			}
 		}
 	}
 
 	public static function faviconDelete(string $hash): void {
-		if (!ctype_xdigit($hash)) {
+		if (preg_match('/\\A[A-Za-z0-9_-]{1,11}\\z/', $hash) !== 1) {
 			return;
 		}
 		$path = DATA_PATH . '/favicons/' . $hash;

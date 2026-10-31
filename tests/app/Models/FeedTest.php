@@ -55,8 +55,9 @@ final class FeedTest extends \PHPUnit\Framework\TestCase {
 			$feed->_website('https://example.com/', validate: false);
 
 			$hash = $feed->hashFavicon();
-			self::assertMatchesRegularExpression('/^[0-9a-f]{16}$/', $hash);
-			self::assertSame(substr(hash_hmac('sha256', 'https://example.com/' . $feed->proxyParam(), 'test-instance-salt'), 0, 16), $hash);
+			self::assertMatchesRegularExpression('/^[A-Za-z0-9_-]{11}$/', $hash);
+			$hmac = substr(hash_hmac('sha256', 'https://example.com/' . $feed->proxyParam(), 'test-instance-salt', true), 0, 8);
+			self::assertSame(rtrim(strtr(base64_encode($hmac), '+/', '-_'), '='), $hash);
 			$feed->_website('https://example.org/', validate: false);
 			self::assertNotSame($hash, $feed->hashFavicon());
 			$hash = $feed->hashFavicon();
