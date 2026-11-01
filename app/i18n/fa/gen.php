@@ -190,6 +190,7 @@ return array(
 		'unsafe_csp_header' => 'سرآیند CSP فعلی امن نیست و FreshRSS ممکن است در برابر حملات XSS آسیب‌پذیر باشد. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">مستندات را ببینید</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
 		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE

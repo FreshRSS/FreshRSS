@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <https://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
- * Request représente la requête http
+ * The Minz_Request class represents the HTTP request
  */
 class Minz_Request {
 
@@ -23,7 +23,7 @@ class Minz_Request {
 	private static array $originalRequest = [];
 
 	/**
-	 * Getteurs
+	 * Getters
 	 */
 	public static function controllerName(): string {
 		return self::$controller_name;
@@ -145,12 +145,15 @@ class Minz_Request {
 
 	/**
 	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
+	 * @param bool $trim `false` to skip trimming whitespace surrounding the parameter, `true` (default) to trim whitespace
 	 */
-	public static function paramStringNull(string $key, bool $plaintext = false): ?string {
+	public static function paramStringNull(string $key, bool $plaintext = false, bool $trim = true): ?string {
 		if (isset(self::$params[$key])) {
 			$s = self::$params[$key];
 			if (is_string($s)) {
-				$s = trim($s);
+				if ($trim) {
+					$s = trim($s);
+				}
 				return $plaintext ? $s : htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
 			}
 			if (is_int($s) || is_bool($s)) {
@@ -162,9 +165,10 @@ class Minz_Request {
 
 	/**
 	 * @param bool $plaintext `true` to return special characters without any escaping (unsafe), `false` (default) to XML-encode them
+	 * @param bool $trim `false` to skip trimming whitespace surrounding the parameter, `true` (default) to trim whitespace
 	 */
-	public static function paramString(string $key, bool $plaintext = false): string {
-		return self::paramStringNull($key, $plaintext) ?? '';
+	public static function paramString(string $key, bool $plaintext = false, bool $trim = true): string {
+		return self::paramStringNull($key, $plaintext, $trim) ?? '';
 	}
 
 	/**
@@ -232,7 +236,7 @@ class Minz_Request {
 	}
 
 	/**
-	 * Setteurs
+	 * Setters
 	 */
 	public static function _controllerName(string $controller_name): void {
 		self::$controller_name = ctype_alnum($controller_name) ? $controller_name : '';
@@ -256,7 +260,7 @@ class Minz_Request {
 	}
 
 	/**
-	 * Initialise la Request
+	 * Initializes the request
 	 */
 	public static function init(): void {
 		self::_params(array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY));

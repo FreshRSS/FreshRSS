@@ -30,8 +30,8 @@ class Minz_FrontController {
 	protected Minz_Dispatcher $dispatcher;
 
 	/**
-	 * Constructeur
-	 * Initialise le dispatcher, met à jour la Request
+	 * Constructor
+	 * Initializes the dispatcher and updates the request
 	 */
 	public function __construct() {
 		try {
@@ -56,7 +56,7 @@ class Minz_FrontController {
 	}
 
 	/**
-	 * Démarre l'application (lance le dispatcher et renvoie la réponse)
+	 * Starts the application (runs the dispatcher and sends the response)
 	 */
 	public function run(): void {
 		try {

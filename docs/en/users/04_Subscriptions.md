@@ -45,25 +45,58 @@ This question comes up regularly, so we’ll try to clarify how one can retrieve
 
 Please be aware that this way you’ll generate much more traffic to the originating sites, and they might block you accordingly. FreshRSS performance is also negatively affected, because you’ll have to fetch the full article content one by one. So it’s a feature to use sparingly!
 
-The  "Article CSS selector on original website" corresponds to the "path" consisting of IDs and classes (which in HTML, matches the id and class attributes) to retrieve only the interesting part that corresponds to the article. Ideally, this path starts with an id (which is unique to the page). The basics are explained [here (MDN)](https://developer.mozilla.org/docs/Learn_web_development/Core/Styling_basics/Basic_selectors).
+The options are in the “Content retrieval” and “Advanced” sections of the feed settings.
+The main one, “Article CSS selector on original website”, is a [CSS selector](https://developer.mozilla.org/docs/Learn_web_development/Core/Styling_basics/Basic_selectors) matching the part of the article’s web page to retrieve.
 
-##### Example: Rue89
+##### Finding the CSS selector
 
-To find this path, you have to go to the address of one of the truncated articles.
-You look have to look for the "block" of HTML that corresponds to article content (in the source code!).
+1. Open one of the truncated articles in your browser.
+2. Look at the source of the page (for instance with “View Page Source”).
+	FreshRSS does not run JavaScript, so content added to the page by JavaScript is not available to FreshRSS.
+3. Find the HTML element that contains the text of the article, and nothing else from the page.
+	If the element is too large (for instance one that also contains the menu, the comments, or the whole page), all of that will be retrieved as well.
+4. Write a CSS selector for this element, using its `id` or `class` attributes: `#main` matches `id="main"`, and `.entry-content` matches `class="entry-content"` (do not forget the leading `#` or `.`).
+	Use an id or class that all the articles of the website have in common, not one that is specific to a single article (such as `#post-1234`).
+5. Write the selector in “Article CSS selector on original website”, and click the preview button next to the field to check the result.
+	The preview uses one of the articles already in the feed, and also applies “CSS selector of the elements to remove”.
+6. Submit the form.
 
-Here we find that the block that encompasses nothing but the content of the article is ```<div class="content clearfix">```. We’ll only use the `.content` class here. Nevertheless, as said above, it’s best to start the path with an id. If we go back to the parent block, we find ```<div id="article">``` and that’s perfect! The path will be ```#article .content```.
+For instance, with the following web page:
 
-##### Add the corresponding classes to the article CSS path on the feed configuration page
+```html
+<body>
+<nav>…</nav>
+<div id="main">
+	<article>
+		<h1>Title of the article</h1>
+		<div class="entry-content">
+			<p>Text of the article…</p>
+		</div>
+		<div class="comments">…</div>
+	</article>
+</div>
+<footer>…</footer>
+</body>
+```
 
-Examples:
+The selector `#main .entry-content` retrieves only the text of the article.
+The selector `article` would also retrieve the title (which FreshRSS already shows) and the comments.
 
-* Rue89: ```#article .content```
-* PCINpact: ```#actu_content```
-* Lesnumériques: ```article#body div.text.clearfix```
-* Phoronix: ```#main .content```
+##### How the retrieved content is used
 
-##### Combining CSS Classes
+* All the elements matching the selector are retrieved.
+* The content is only retrieved for new articles, and for articles that are updated in the feed.
+	To apply a new selector to the articles that are already in FreshRSS, submit the form first, then use “Reload articles” in the “Maintenance” section of the feed settings: it reloads as many of the most recent articles as the number entered next to the button (10 by default).
+* By default, the retrieved content replaces the content of the feed.
+	It can instead be added before or after it with “Content action when fetching the article content” in the “Advanced” section.
+* “Conditions for content retrieval” restricts the retrieval to the articles matching at least one of the [search filters](./10_filter.md) (one per line).
+	When empty, the content is retrieved for all the articles.
+* When the selector does not match anything, the article keeps its current content (the content of the feed for a new article), and a warning is written in the logs.
+* Like the content of the feeds, the retrieved content is sanitized: for instance, scripts are removed, and the `id` and `class` attributes are renamed `data-sanitized-id` and `data-sanitized-class`.
+* Some websites show the full article only when some cookies are sent (such as a consent cookie), or only to some browsers.
+	See “Use Cookies when fetching the article content” and “Set the user agent for fetching this feed” in the “Advanced” section.
+
+##### Removing unwanted parts
 
 Let’s say we have an article which contains ads, and we do not want to have those ads retrieved by FreshRSS. Example HTML:
 
@@ -81,6 +114,11 @@ Let’s say we have an article which contains ads, and we do not want to have th
 ```
 
 In this case it’s possible to combine multiple CSS selectors with a comma: ```#article p.content, #article h2```
+
+Alternatively, keep `#article` as the article CSS selector, and write `.ad` in “CSS selector of the elements to remove” in the “Advanced” section.
+
+“CSS selector of the elements to remove” also works without an article CSS selector, to clean up the content provided by the feed itself.
+Since this content is already sanitized, match its classes with `[data-sanitized-class~="ad"]` instead of `.ad`.
 
 #### Retrieve a truncated feed with external tools
 

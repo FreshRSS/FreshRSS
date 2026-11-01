@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 final class EntryTest extends \PHPUnit\Framework\TestCase {
 
-	public function __construct(string $name) {
-		parent::__construct($name);
+	#[\Override]
+	protected function setUp(): void {
 		if (!FreshRSS_Context::hasSystemConf()) {
 			FreshRSS_Context::initSystem();
 		}

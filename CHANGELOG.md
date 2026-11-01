@@ -2,14 +2,58 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-10-XX FreshRSS 1.30.2-dev
+## 2026-XX-XX FreshRSS 1.30.5-dev
+
+* Compatibility
+	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+* Bug fixes
+	* Fix 32-bit systems provide a string for SQL BIGINT [#9486](https://github.com/FreshRSS/FreshRSS/pull/9486)
+* Security
+	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
+* Deployment
+	* Docker: dev image `freshrss/freshrss:oldest` updated to Alpine 3.18 with PHP 8.2.16 and Apache 2.4.62 [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+* I18n
+	* Add Arabic [#9502](https://github.com/FreshRSS/FreshRSS/pull/9502)
+* CI/CD
+	* Add a link checker workflow using lychee [#9209](https://github.com/FreshRSS/FreshRSS/pull/9209), [#9495](https://github.com/FreshRSS/FreshRSS/pull/9495), [#9507](https://github.com/FreshRSS/FreshRSS/pull/9507)
+	* Update to PHPUnit 11.x (PHP 8.2+) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+	* Group auto dependency updates into one PR per ecosystem [#9496](https://github.com/FreshRSS/FreshRSS/pull/9496)
+	* Update dev dependencies [#9494](https://github.com/FreshRSS/FreshRSS/pull/9494), [#9497](https://github.com/FreshRSS/FreshRSS/pull/9497), [#9498](https://github.com/FreshRSS/FreshRSS/pull/9498),
+		[#9499](https://github.com/FreshRSS/FreshRSS/pull/9499),[#9500](https://github.com/FreshRSS/FreshRSS/pull/9500),[#9501](https://github.com/FreshRSS/FreshRSS/pull/9501),
+
+
+## 2026-10-21 FreshRSS 1.30.4
+
+* Security
+	* Docker alternative image (Alpine 3.24) updated with PHP 8.5.12 and Apache 2.4.69 [#9475](https://github.com/FreshRSS/FreshRSS/issues/9475)
+	* Docker: disable PHP `session.upload_progress.enabled` for additional security [#9476](https://github.com/FreshRSS/FreshRSS/pull/9476)
+* I18n
+	* Improve Dutch [#9479](https://github.com/FreshRSS/FreshRSS/pull/9479)
+
+
+## 2026-10-21 FreshRSS 1.30.3
+
+* Deployment
+	* Docker default image (Debian 13 Trixie) updated with PHP [8.4.27-1~deb13u1](https://tracker.debian.org/news/1813677/accepted-php84-8427-1deb13u1-source-into-stable-security/) and Apache 2.4.69 [#9475](https://github.com/FreshRSS/FreshRSS/issues/9475)
+* Extensions
+	* New hook: `Minz_HookType::AutofillField` for auth views [#9362](https://github.com/FreshRSS/FreshRSS/pull/9362)
+* I18n
+	* Improve Brazilian Portuguese [#9473](https://github.com/FreshRSS/FreshRSS/pull/9473)
+* Misc.
+	* Translate non-English code comments and identifiers [#9383](https://github.com/FreshRSS/FreshRSS/pull/9383)
+
+
+## 2026-10-19 FreshRSS 1.30.2
 
 * Security
 	* SimplePie sanitizer: block `data:` URI scheme while keeping `data:image` for images [#9417](https://github.com/FreshRSS/FreshRSS/pull/9417)
 	* Mitigate some 404 situations [#9435](https://github.com/FreshRSS/FreshRSS/pull/9435)
+	* Do not log the Fever API key on authentication failure [#9468](https://github.com/FreshRSS/FreshRSS/pull/9468)
+	* Fix local DNS leak when fetching feeds through a proxy [#9451](https://github.com/FreshRSS/FreshRSS/pull/9451)
 * Bug fixes
 	* WebSub fix POST, fix warning, better message [#9420](https://github.com/FreshRSS/FreshRSS/pull/9420)
 	* Fix PHP 8.5+ deprecation of `sqliteCreateFunction` for SQLite [#9421](https://github.com/FreshRSS/FreshRSS/pull/9421)
+	* Preserve explicit sort overrides when searching [#9467](https://github.com/FreshRSS/FreshRSS/pull/9467)
 	* Fix wrong order of args in extension compatibility check [#9445](https://github.com/FreshRSS/FreshRSS/pull/9445)
 * Performance
 	* Reduce memory consumption of export [#9350](https://github.com/FreshRSS/FreshRSS/pull/9350)
@@ -22,6 +66,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Various UI and style improvements [#9426](https://github.com/FreshRSS/FreshRSS/pull/9426), [#9441](https://github.com/FreshRSS/FreshRSS/pull/9441)
 * I18n
 	* Improve German [#9439](https://github.com/FreshRSS/FreshRSS/pull/9439)
+	* Improve Polish [#9458](https://github.com/FreshRSS/FreshRSS/pull/9458)
 	* Improve Turkish [#9440](https://github.com/FreshRSS/FreshRSS/pull/9440)
 * Misc.
 	* Update to `GT\CssXPath` 1.6.0 [#9411](https://github.com/FreshRSS/FreshRSS/pull/9411)
@@ -39,7 +84,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Accept a trusted proxy address given without a subnet [#9301](https://github.com/FreshRSS/FreshRSS/pull/9301)
 	* Warn during session regenerate fail [#9311](https://github.com/FreshRSS/FreshRSS/pull/9311), [#9376](https://github.com/FreshRSS/FreshRSS/pull/9376)
 	* CI/CD add zizmor workflow for action security checks [#9228](https://github.com/FreshRSS/FreshRSS/pull/9228), [#9331](https://github.com/FreshRSS/FreshRSS/pull/9331)
-	* Use PHP `#[\SensitiveParameter]` [#9322](https://github.com/FreshRSS/FreshRSS/pull/9322)
+	* Use PHP 8.2+ `#[\SensitiveParameter]` [#9322](https://github.com/FreshRSS/FreshRSS/pull/9322)
 	* Reject token access (RSS/OPML export, feed refresh) for disabled accounts [#9336](https://github.com/FreshRSS/FreshRSS/pull/9336)
 	* Require POST+CSRF for self-update mutations [#9335](https://github.com/FreshRSS/FreshRSS/pull/9335)
 	* Make the login challenge nonce one-time [#9334](https://github.com/FreshRSS/FreshRSS/pull/9334)
