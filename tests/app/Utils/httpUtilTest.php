@@ -58,7 +58,7 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			'host and different port' => ['rss.example.com:10443', 'https://rss.example.com:443/feed', false],
 			'host without required port' => ['rss.example.com:10443', 'https://rss.example.com/feed', false],
 			'host is case insensitive' => ['RSS.EXAMPLE.COM', 'https://rss.example.com/feed', true],
-			'subdomain' => ['rss.example.com', 'https://sub.rss.example.com/feed', false],
+			'subdomain' => ['example.com', 'https://rss.example.com/feed', false],
 			'IPv6 host and port' => ['[2001:db8::1]:8080', 'https://[2001:db8::1]:8080/feed', true],
 		];
 	}
