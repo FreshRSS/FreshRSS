@@ -1,3 +1,7 @@
+---
+lang: en
+---
+
 # FreshRSS threat model
 
 FreshRSS is a self-hosted RSS/Atom reader.
