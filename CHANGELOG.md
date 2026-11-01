@@ -10,6 +10,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix HTTP Retry-After cache when proxy is used [#9508](https://github.com/FreshRSS/FreshRSS/pull/9508)
 	* Fix 32-bit systems provide a string for SQL BIGINT [#9486](https://github.com/FreshRSS/FreshRSS/pull/9486)
 	* Keep JSON feed attachments as enclosures [#9510](https://github.com/FreshRSS/FreshRSS/pull/9510)
+	* Fix saved search references with overlapping IDs or names [#9484](https://github.com/FreshRSS/FreshRSS/pull/9484)
 	* Fix non-ASCII characters in scripts of fetched HTML pages [#9384](https://github.com/FreshRSS/FreshRSS/pull/9384)
 * Security
 	* 💥 Replace bcrypt challenge auth with direct password comparison [#9358](https://github.com/FreshRSS/FreshRSS/pull/9358)
