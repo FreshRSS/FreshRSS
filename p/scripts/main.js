@@ -896,7 +896,7 @@ async function mylabels(key) {
 		await show_labels_menu(mylabelsDropdown);
 	}
 	// Display the mylabels div
-	location.hash = mylabelsDropdown.id;
+	setArticleMenuHash(mylabelsDropdown.id);
 	// Force scrolling to the mylabels div
 	const scrollTop = needsScroll(mylabelsDropdown.closest('.horizontal-list'));
 	if (scrollTop !== 0) {
@@ -931,7 +931,7 @@ function auto_share(key) {
 		shares = share.parentElement.querySelectorAll('.dropdown-menu .item [data-type]');
 
 		// Display the share div
-		location.hash = share.id;
+		setArticleMenuHash(share.id);
 		// Force scrolling to the share div
 		const scrollTop = needsScroll(share.closest('.horizontal-list'));
 		if (scrollTop !== 0) {
@@ -1409,7 +1409,16 @@ function init_shortcuts() {
 		if (k === s.close_menus && (
 			(hash === 'slider' && close_slider_listener()) ||
 			hash.startsWith('dropdown')
-		)) { location.hash = 'close'; ev.preventDefault(); return; }
+		)) {
+			// Article menus share the article history entry; other menus still push #close.
+			if (hash.startsWith('dropdown')) {
+				setArticleMenuHash('close');
+			} else {
+				location.hash = 'close';
+			}
+			ev.preventDefault();
+			return;
+		}
 		if (k === s.help) { window.open(context.urls.help); ev.preventDefault(); return; }
 		if (k === s.focus_search) { document.getElementById('search').focus(); ev.preventDefault(); return; }
 		if (k === s.normal_view) { delayedClick(document.querySelector('#nav_menu_views .view-normal')); ev.preventDefault(); return; }
@@ -2543,30 +2552,92 @@ see https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security`
 	`);
 }
 
+// Keep labels/share hashes on the open article's history entry.
+// <a href="#dropdown-…"> and href="#close" would otherwise push entries that Back must walk through.
+function setArticleMenuHash(hash, articleId) {
+	const normalized = hash.charAt(0) === '#' ? hash.substring(1) : hash;
+	const id = articleId ||
+		history.state?.freshrssArticleId ||
+		(location.hash.startsWith('#article-') ? location.hash.substring(9) : '');
+	if (!id) {
+		location.hash = normalized;
+		return false;
+	}
+	const state = history.state?.freshrssArticle
+		? { freshrssArticle: true, freshrssArticleId: id }
+		: history.state;
+	const url = normalized === 'close' ? '#article-' + id : '#' + normalized;
+	history.replaceState(state, '', url);
+	return true;
+}
+
+function articleIdFromMenuHash(hash) {
+	const prefixes = ['dropdown-labels2-', 'dropdown-labels-', 'dropdown-share2-', 'dropdown-share-', 'dropdown-tags-'];
+	for (let i = 0; i < prefixes.length; i++) {
+		if (hash.startsWith(prefixes[i])) {
+			return hash.substring(prefixes[i].length);
+		}
+	}
+	return '';
+}
+
+function isArticleMenuHash(hash, articleId) {
+	return articleId !== '' && articleIdFromMenuHash(hash) === String(articleId);
+}
+
 function init_article_history() {
 	function pushOrReplaceArticleHash(articleId) {
 		const articleHash = '#article-' + articleId;
-		if (location.hash.startsWith('#article-')) {
-			history.replaceState(history.state, '', articleHash);
+		// The entry may currently show a menu hash; it is still the article entry.
+		if (location.hash.startsWith('#article-') || history.state?.freshrssArticle) {
+			const state = history.state?.freshrssArticle
+				? { freshrssArticle: true, freshrssArticleId: articleId }
+				: history.state;
+			history.replaceState(state, '', articleHash);
 		} else {
-			history.pushState({ freshrssArticle: true }, '', articleHash);
+			history.pushState({ freshrssArticle: true, freshrssArticleId: articleId }, '', articleHash);
 		}
 	}
 
-	// Expand the article referenced by the hash on page load
+	// Expand the article referenced by the hash on page load.
+	// A menu hash is the same history entry with #dropdown-… in place of #article-{id}.
 	const initialHash = location.hash.substring(1);
-	if (initialHash.startsWith('article-')) {
-		const articleId = initialHash.substring(8);
-		const article = document.getElementById('flux_' + articleId);
+	const initialArticleId = initialHash.startsWith('article-') ? initialHash.substring(8) : articleIdFromMenuHash(initialHash);
+	if (initialArticleId) {
+		const article = document.getElementById('flux_' + initialArticleId);
 		if (article) {
 			if (!article.classList.contains('active')) {
 				const currentArticle = document.querySelector('.flux.current');
 				toggleContent(article, currentArticle, false, true);
 			}
-		} else {
-			history.replaceState({}, '', '');
+		} else if (history.state?.freshrssArticle) {
+			history.back();	// The entry of an article that is no longer listed: skip it
+		} else if (initialHash.startsWith('article-')) {
+			history.replaceState(null, '', location.pathname + location.search);
 		}
 	}
+
+	// Opening or closing a menu must not push a history entry above the article.
+	document.addEventListener('click', function (ev) {
+		if (ev.defaultPrevented || ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) {
+			return;
+		}
+		const link = ev.target.closest('.flux.active a.dropdown-toggle, .flux.active a.dropdown-close');
+		if (!link) {
+			return;
+		}
+		const href = link.getAttribute('href');
+		if (!href || href.charAt(0) !== '#') {
+			return;
+		}
+		const hash = href.substring(1);
+		if (!hash.startsWith('dropdown-') && hash !== 'close') {
+			return;
+		}
+		const flux = link.closest('.flux');
+		ev.preventDefault();
+		setArticleMenuHash(hash, flux.id.replace(/^flux_/, ''));
+	}, true);
 
 	// Keep the URL hash in sync with the open article
 	document.addEventListener('freshrss:openArticle', function (ev) {
@@ -2577,6 +2648,13 @@ function init_article_history() {
 	document.addEventListener('freshrss:closeArticle', function (ev) {
 		if (!ev.detail.fromHistory) {
 			if (history.state?.freshrssArticle) {
+				const articleId = history.state.freshrssArticleId ||
+					(ev.target.id ? ev.target.id.replace(/^flux_/, '') : '') ||
+					(location.hash.startsWith('#article-') ? location.hash.substring(9) : '');
+				if (articleId && !location.hash.startsWith('#article-')) {
+					// Forward should restore the article, not the menu that was open on top of it.
+					history.replaceState({ freshrssArticle: true, freshrssArticleId: articleId }, '', '#article-' + articleId);
+				}
 				history.back();
 			} else {
 				history.replaceState(history.state, '', location.href.split('#')[0]);
@@ -2588,6 +2666,7 @@ function init_article_history() {
 	window.addEventListener('hashchange', function (ev) {
 		const oldHash = ev.oldURL ? ev.oldURL.split('#')[1] || '' : '';
 		const newHash = location.hash.substring(1);
+		const menuArticleId = articleIdFromMenuHash(newHash);
 
 		if (newHash.startsWith('article-')) {
 			const articleId = newHash.substring(8);
@@ -2605,11 +2684,20 @@ function init_article_history() {
 			} else {
 				history.replaceState({}, '', location.href.split('#')[0]);
 			}
-		} else if (oldHash.startsWith('article-') && newHash === '') {
-			const oldArticleId = oldHash.substring(8);
-			const article = document.getElementById('flux_' + oldArticleId);
-			if (article && article.classList.contains('active')) {
-				toggleContent(article, article, false, true);
+		} else if (menuArticleId) {
+			const article = document.getElementById('flux_' + menuArticleId);
+			if (article && !article.classList.contains('active')) {
+				const currentArticle = document.querySelector('.flux.current');
+				toggleContent(article, currentArticle, false, true);
+			}
+		} else if (newHash === '') {
+			const active = document.querySelector('.flux.active');
+			if (active) {
+				const activeId = active.id.replace(/^flux_/, '');
+				// Back from the article entry, including when a menu hash replaced #article-{id}.
+				if (oldHash === 'article-' + activeId || isArticleMenuHash(oldHash, activeId)) {
+					toggleContent(active, active, false, true);
+				}
 			}
 		}
 	});
