@@ -7,19 +7,29 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Compatibility
 	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 * Bug fixes
+	* Fix HTTP Retry-After cache when proxy is used [#9508](https://github.com/FreshRSS/FreshRSS/pull/9508)
 	* Fix 32-bit systems provide a string for SQL BIGINT [#9486](https://github.com/FreshRSS/FreshRSS/pull/9486)
+	* Keep JSON feed attachments as enclosures [#9510](https://github.com/FreshRSS/FreshRSS/pull/9510)
+	* Fix non-ASCII characters in scripts of fetched HTML pages [#9384](https://github.com/FreshRSS/FreshRSS/pull/9384)
 * Security
+	* 💥 Replace bcrypt challenge auth with direct password comparison [#9358](https://github.com/FreshRSS/FreshRSS/pull/9358)
+	* WebSub security: Implement support for `hub.secret` [#9430](https://github.com/FreshRSS/FreshRSS/pull/9430)
 	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
+	* Document threat model for security scanners [#9509](https://github.com/FreshRSS/FreshRSS/pull/9509)
 * Deployment
 	* Docker: dev image `freshrss/freshrss:oldest` updated to Alpine 3.18 with PHP 8.2.16 and Apache 2.4.62 [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
-* I18n
+* UI
+	* <kbd>Esc</kbd> leaves the search box [#9462](https://github.com/FreshRSS/FreshRSS/pull/9462)
+* Extensions
+	* Add `feeds_after_actualize` hook [#9438](https://github.com/FreshRSS/FreshRSS/pull/9438)
 	* Add Arabic [#9502](https://github.com/FreshRSS/FreshRSS/pull/9502)
 * CI/CD
-	* Add a link checker workflow using lychee [#9209](https://github.com/FreshRSS/FreshRSS/pull/9209), [#9495](https://github.com/FreshRSS/FreshRSS/pull/9495), [#9507](https://github.com/FreshRSS/FreshRSS/pull/9507)
+	* Add a link checker workflow using lychee [#9209](https://github.com/FreshRSS/FreshRSS/pull/9209), [#9495](https://github.com/FreshRSS/FreshRSS/pull/9495),
+		[#9507](https://github.com/FreshRSS/FreshRSS/pull/9507), [#9511](https://github.com/FreshRSS/FreshRSS/pull/9511)
 	* Update to PHPUnit 11.x (PHP 8.2+) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 	* Group auto dependency updates into one PR per ecosystem [#9496](https://github.com/FreshRSS/FreshRSS/pull/9496)
 	* Update dev dependencies [#9494](https://github.com/FreshRSS/FreshRSS/pull/9494), [#9497](https://github.com/FreshRSS/FreshRSS/pull/9497), [#9498](https://github.com/FreshRSS/FreshRSS/pull/9498),
-		[#9499](https://github.com/FreshRSS/FreshRSS/pull/9499),[#9500](https://github.com/FreshRSS/FreshRSS/pull/9500),[#9501](https://github.com/FreshRSS/FreshRSS/pull/9501),
+		[#9499](https://github.com/FreshRSS/FreshRSS/pull/9499),[#9500](https://github.com/FreshRSS/FreshRSS/pull/9500),[#9501](https://github.com/FreshRSS/FreshRSS/pull/9501)
 
 
 ## 2026-10-21 FreshRSS 1.30.4
