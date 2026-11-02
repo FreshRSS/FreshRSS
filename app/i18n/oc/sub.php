@@ -70,7 +70,7 @@ return array(
 		),
 		'description' => 'Descripcion',	// IGNORE
 		'empty' => 'Aqueste flux es void. Assegurats-vos qu’es totjorn mantengut.',
-		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible.',	// DIRTY
+		'error' => 'Aqueste flux a rescontrat un problèma. Volgatz verificar que siá totjorn accessible.',	// DIRTY - This feed has encountered a problem. If this situation persists, please verify that it is still reachable.
 		'export-as-opml' => array(
 			'download' => 'Download',	// TODO
 			'help' => 'XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// TODO
@@ -80,7 +80,7 @@ return array(
 		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'Filtre d’accion',
-			'help' => 'Escrivètz una recèrca per linha. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => 'Escrivètz una recèrca per linha. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY - Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
@@ -196,7 +196,7 @@ return array(
 			'clear_cache' => 'Escafar lo cache',
 			'clear_cache_help' => 'Escafar lo cache d’aqueste flux sul disc',
 			'reload_articles' => 'Recargar los articles',
-			'reload_articles_help' => 'Recargar los articles e recuperar lo contengut complet',	// DIRTY
+			'reload_articles_help' => 'Recargar los articles e recuperar lo contengut complet',	// DIRTY - Reload that many articles and fetch complete content if a selector is defined.
 			'title' => 'Mantenença',
 		),
 		'max_http_redir' => 'Max HTTP redireccions',
@@ -224,7 +224,7 @@ return array(
 			'main_stream' => 'Mostar al flux màger',
 		),
 		'proxy' => 'Definir un servidor proxy per trapar aqueste flux',
-		'proxy_help' => 'Seleccionatz un protocòl (ex : SOCKS5) e picatz l’adreça del proxy (ex : <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Seleccionatz un protocòl (ex : SOCKS5) e picatz l’adreça del proxy (ex : <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY - Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Veire lo còdi font',

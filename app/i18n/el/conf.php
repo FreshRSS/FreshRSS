@@ -308,8 +308,8 @@ return array(
 			'when' => 'Σήμανση άρθρου ως αγαπημένου…',
 		),
 		'sticky_post' => 'Καρφίτσωμα του άρθρου στην κορυφή όταν ανοίγεται',
-		'sticky_sort' => 'Διατήρηση της χειροκίνητης ταξινόμησης κατά την πλοήγηση',	// DIRTY
-		'sticky_sort_help' => 'Καθορίζει αν διατηρείται η τελευταία χειροκίνητη ταξινόμηση ή αν κάθε κατηγορία ή ροή χρησιμοποιεί πάντα τη δική της προεπιλεγμένη ή καθολική ρύθμιση.',	// DIRTY
+		'sticky_sort' => 'Διατήρηση της χειροκίνητης ταξινόμησης κατά την πλοήγηση',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'Καθορίζει αν διατηρείται η τελευταία χειροκίνητη ταξινόμηση ή αν κάθε κατηγορία ή ροή χρησιμοποιεί πάντα τη δική της προεπιλεγμένη ή καθολική ρύθμιση.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Ανάγνωση',
 		'view' => array(
 			'default' => 'Προεπιλεγμένη προβολή',

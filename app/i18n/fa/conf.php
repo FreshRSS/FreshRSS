@@ -308,8 +308,8 @@ return array(
 			'when' => 'یک مطلب را به عنوان مورد علاقه علامت‌گذاری کن...',
 		),
 		'sticky_post' => ' وقتی باز شد مقاله را به بالا بچسبانید',
-		'sticky_sort' => 'حفظ ترتیب مرتب‌سازی دستی هنگام پیمایش',	// DIRTY
-		'sticky_sort_help' => 'تعیین می‌کند که آیا آخرین ترتیب مرتب‌سازی دستی فعال بماند یا هر دسته یا خوراک همیشه از تنظیم پیش‌فرض یا سراسری خود استفاده کند.',	// DIRTY
+		'sticky_sort' => 'حفظ ترتیب مرتب‌سازی دستی هنگام پیمایش',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'تعیین می‌کند که آیا آخرین ترتیب مرتب‌سازی دستی فعال بماند یا هر دسته یا خوراک همیشه از تنظیم پیش‌فرض یا سراسری خود استفاده کند.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => ' خواندن',
 		'view' => array(
 			'default' => ' نمای پیش فرض',

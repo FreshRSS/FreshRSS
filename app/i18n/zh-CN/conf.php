@@ -238,7 +238,7 @@ return array(
 				'_' => '已禁用',
 				'title' => '分享',
 			),
-			'greader' => 'GReader JSON 的分享链接',	// DIRTY
+			'greader' => 'GReader JSON 的分享链接',	// DIRTY - Shareable link to the GReader JSON
 			'help' => '获取此自定义查询的分享链接',
 			'html' => 'HTML 页面的分享链接',
 			'opml' => '订阅源 OPML 的分享链接',

@@ -17,7 +17,7 @@ return array(
 		'help' => 'Vairākas opcijas ir pieejamas atsevišķas barotnes iestatījumos.',
 		'keep_favourites' => 'Nekad neizdzēst mīļākos',
 		'keep_labels' => 'Nekad neizdzēst birkas',
-		'keep_max' => 'Maksimālais saglabājamo rakstu skaits',	// DIRTY
+		'keep_max' => 'Maksimālais saglabājamo rakstu skaits',	// DIRTY - Maximum number of articles to keep per feed
 		'keep_min_by_feed' => 'Minimālais rakstu skaits, kas jāsaglabā vienā barotnē',
 		'keep_period' => 'Maksimālais saglabājamo rakstu vecums',
 		'keep_unreads' => 'Nekad neizdzēst nelasītos rakstus',
@@ -144,7 +144,7 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '"atzīmēt visus kā izlasītus" button',	// DIRTY
+		'_' => '"atzīmēt visus kā izlasītus" button',	// DIRTY - “Mark all as read” button
 		'big' => 'Big',	// TODO
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
@@ -289,7 +289,7 @@ return array(
 			'when' => 'Atzīmēt rakstu kā izlasītu…',
 			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => 'ja identisks virsraksts jau ir jaunākajos <i>n</i> rakstos (of the feed)',	// DIRTY
+			'when_same_title_in_feed' => 'ja identisks virsraksts jau ir jaunākajos <i>n</i> rakstos (of the feed)',	// DIRTY - if an identical title already exists in the top <i>n</i> newest articles of the feed
 		),
 		'show' => array(
 			'_' => 'Rādāmie raksti',
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
-		'sticky_sort' => 'Saglabāt manuālo kārtošanas secību navigācijas laikā',	// DIRTY
-		'sticky_sort_help' => 'Nosaka, vai tiek saglabāta pēdējā manuālā kārtošanas secība, vai arī katra kategorija vai plūsma vienmēr izmanto savu noklusējuma vai globālo iestatījumu.',	// DIRTY
+		'sticky_sort' => 'Saglabāt manuālo kārtošanas secību navigācijas laikā',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'Nosaka, vai tiek saglabāta pēdējā manuālā kārtošanas secība, vai arī katra kategorija vai plūsma vienmēr izmanto savu noklusējuma vai globālo iestatījumu.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Lasīšana',
 		'view' => array(
 			'default' => 'Noklusējuma skats',
