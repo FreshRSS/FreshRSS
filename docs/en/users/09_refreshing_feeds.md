@@ -41,7 +41,7 @@ This is the recommended method.
 
 This method is only available if you have access to the scheduled tasks of the machine on which your FreshRSS instance is installed.
 
-The script is named *actualize_script.php* and is located in the *app* folder. The scheduled task syntax will not be explained here. However, here is [a quick introduction to crontab](http://www.adminschoice.com/crontab-quick-reference/) that might help you.
+The script is named *actualize_script.php* and is located in the *app* folder. The scheduled task syntax will not be explained here. However, here is [a quick introduction to crontab](https://adminschoice.com/crontab-quick-reference/) that might help you.
 
 Here is an example to trigger article update every hour.
 

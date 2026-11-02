@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Todas las tablas de la base de datos existen.',
 		),
 		'database-title' => 'Base de datos',
+		'docroot' => array(
+			'nok' => 'La raíz de documentos de su servidor web no parece apuntar a la carpeta <code>./p/</code>. Otras carpetas como <code>./data/</code> podrían ser accesibles públicamente.',
+			'ok' => 'La raíz de documentos de su servidor web apunta correctamente a la carpeta <code>./p/</code>.',
+		),
 		'dom' => array(
 			'nok' => 'No se ha podido localizar la librería necesaria para explorar la DOM.',
 			'ok' => 'Dispones de la librería necesaria para explorar la DOM.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'Dispones de la librería fileinfo.',
 		),
 		'files' => 'Instalación de Archivos',
+		'gmp' => array(
+			'nok' => 'No se puede encontrar la extensión GMP requerida para PHP de 32 bits (paquete php-gmp).',
+			'ok' => 'Tiene la extensión GMP requerida para PHP de 32 bits.',
+		),
 		'intl' => array(
 			'nok' => 'No se ha podido localizar la librería recomendada php-intl para internacionalización.',
 			'ok' => 'Dispones de la librería recomendada php-intl para internacionalización.',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => '¡Enhorabuena!',
 	'default_user' => array(
 		'_' => 'Nombre de usuario para el usuario por defecto',
-		'max_char' => 'máximo de 16 caracteres alfanuméricos',
+		'max_char' => '1-39 caracteres: letras, dígitos y <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Por favor, soluciona los errores detectados antes de proceder con el siguiente paso.',
 	'javascript_is_better' => 'FreshRSS funciona mejor con JavaScript activado',

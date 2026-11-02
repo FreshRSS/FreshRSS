@@ -6,7 +6,7 @@ Learn how to install, update, and backup FreshRSS, as well as how to use the com
 
 1. [Prerequisites](02_Prerequisites.md): What you’ll need to run FreshRSS
 2. [General installation instructions](03_Installation.md) for FreshRSS
-3. [Update your installation](04_Updating.md) to the latest stable or development version
+3. [Update your installation](04_Updating.md) to the latest rolling release or versioned release
 4. [Logging and error messages](logs_and_errors.md) in case of any troubles
 
 ## Tutorials and Examples
@@ -32,6 +32,7 @@ Learn how to install, update, and backup FreshRSS, as well as how to use the com
 ### Web server configuration
 
 * [Apache/Nginx configuration files](10_ServerConfig.md)
+* [OpenBSD httpd](OpenBSD-httpd.md)
 * [Reverse proxy with Caddy](Caddy.md)
 
 ### Special server information
@@ -39,4 +40,3 @@ Learn how to install, update, and backup FreshRSS, as well as how to use the com
 * [Installation on Debian 9/Ubuntu 16.04](06_LinuxInstall.md)
 * [Installation on cloud providers](14_CloudProviders.md)
 * [Updating on Debian 9/Ubuntu 16.04](07_LinuxUpdate.md)
-

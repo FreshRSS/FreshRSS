@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'הרשאה לאנונימיים לקרוא את מאמרי משתמש ברירת המחדל (%s)',
 		'allow_anonymous_refresh' => 'הרשאה לאנונימיים לרענן את רשימת המאמרים',
 		'api_enabled' => 'הרשאת גישה ל <abbr>API</abbr> <small>(נדרש ליישומים סלולריים and sharing user queries)</small>',	// DIRTY
-		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
+		'form' => 'טופס אינטרנטי (מסורתי)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'ללא (מסוכן)',
 		'title' => 'Authentication',	// TODO
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'latest' => 'Versioned release (“latest”)',	// TODO
 		),
 		'title' => 'מערכת העדכון',
 		'viaGit' => 'Update via git and GitHub.com started',	// TODO

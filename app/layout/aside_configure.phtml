@@ -2,9 +2,6 @@
 	declare(strict_types=1);
 ?>
 <nav class="nav nav-list aside" id="aside_feed">
-	<form id="post-csrf" method="post">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-	</form>
 	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 
 	<ul>
@@ -22,8 +19,11 @@
 					<a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a>
 				</li>
 				<li class="item">
-					<button class="as-link signout" form="post-csrf" formaction="<?=
-						FreshRSS_auth_Controller::getLogoutUrl() ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></button>
+					<form method="POST">
+						<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+						<button class="as-link signout" formaction="<?=
+							FreshRSS_auth_Controller::getLogoutUrl() ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></button>
+					</form>
 				</li>
 			</ul>
 		</li>

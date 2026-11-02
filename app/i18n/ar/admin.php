@@ -1,0 +1,165 @@
+<?php
+
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
+
+return array(
+	'auth' => array(
+		'allow_anonymous' => 'السماح بالقراءة المجهولة لمقالات المستخدم الافتراضي (%s)',
+		'allow_anonymous_refresh' => 'السماح بالتحديث المجهول للمقالات',
+		'api_enabled' => 'السماح بالوصول إلى <abbr>API</abbr> <small>(مطلوب لتطبيقات الجوال ومشاركة استعلامات المستخدم)</small>',
+		'form' => 'نموذج الويب (تقليدي، يتطلب JavaScript)',	// DIRTY
+		'http' => 'HTTP (متقدم: يديره خادم الويب، OIDC، SSO…)',
+		'none' => 'لا شيء (خطير)',
+		'title' => 'المصادقة',
+		'token' => 'رمز المصادقة الرئيسي',
+		'token_help' => 'يسمح بالوصول إلى جميع مخرجات RSS للمستخدم بالإضافة إلى تحديث الخلاصات دون مصادقة:',
+		'type' => 'طريقة المصادقة',
+	),
+	'extensions' => array(
+		'author' => 'المؤلف',
+		'community' => 'إضافات المجتمع المتاحة',
+		'description' => 'الوصف',
+		'disabled' => 'معطلة',
+		'empty_list' => 'لا توجد إضافات مثبتة',
+		'empty_list_help' => 'تحقق من السجلات لتحديد سبب قائمة الإضافات الفارغة.',
+		'enabled' => 'مفعلة',
+		'is_compatible' => 'متوافقة',
+		'latest' => 'مثبتة',
+		'name' => 'الاسم',
+		'no_configure_view' => 'لا يمكن إعداد هذه الإضافة.',
+		'system' => array(
+			'_' => 'إضافات النظام',
+			'no_rights' => 'إضافة نظام (ليس لديك الأذونات المطلوبة)',
+		),
+		'title' => 'الإضافات',
+		'update' => 'يتوفر تحديث',
+		'user' => 'إضافات المستخدم',
+		'version' => 'الإصدار',
+	),
+	'stats' => array(
+		'_' => 'الإحصاءات',
+		'all_feeds' => 'جميع الخلاصات',
+		'category' => 'الفئة',
+		'date_published' => 'تاريخ النشر',
+		'date_received' => 'تاريخ الاستلام',
+		'entry_count' => 'عدد الإدخالات',
+		'entry_per_category' => 'الإدخالات حسب الفئة',
+		'entry_per_day' => 'الإدخالات في اليوم (آخر 30 يومًا)',
+		'entry_per_day_of_week' => 'حسب يوم الأسبوع (المعدل: %.2f رسالة)',
+		'entry_per_hour' => 'حسب الساعة (المعدل: %.2f رسالة)',
+		'entry_per_month' => 'حسب الشهر (المعدل: %.2f رسالة)',
+		'entry_repartition' => 'توزيع الإدخالات',
+		'feed' => 'الخلاصة',
+		'feed_per_category' => 'الخلاصات حسب الفئة',
+		'idle' => 'الخلاصات الخاملة',
+		'main' => 'الإحصاءات الرئيسية',
+		'main_stream' => 'التدفق الرئيسي',
+		'nb_unreads' => 'عدد المقالات غير المقروءة',
+		'no_idle' => 'لا توجد خلاصات خاملة!',
+		'number_entries' => '%d مقال',
+		'overview' => 'نظرة عامة',
+		'percent_of_total' => '% من الإجمالي',
+		'repartition' => 'توزيع المقالات: %s',
+		'status_favorites' => 'المفضلة',
+		'status_read' => 'مقروءة',
+		'status_total' => 'الإجمالي',
+		'status_unread' => 'غير مقروءة',
+		'title' => 'الإحصاءات',
+		'top_feed' => 'أفضل عشر خلاصات',
+		'unread_dates' => 'التواريخ ذات المقالات غير المقروءة الأكثر',
+	),
+	'system' => array(
+		'_' => 'إعدادات النظام',
+		'auto-update-url' => 'عنوان URL لخادم التحديث التلقائي',
+		'base-url' => array(
+			'_' => 'عنوان URL الأساسي',
+			'recommendation' => 'التوصية التلقائية: <kbd>%s</kbd>',
+		),
+		'closed_registration_message' => 'الرسالة عند إغلاق التسجيل',
+		'cookie-duration' => array(
+			'help' => 'بالثواني',
+			'number' => 'مدة بقاء تسجيل الدخول',
+		),
+		'default_closed_registration_message' => 'لا يقبل هذا الخادم تسجيلات جديدة في الوقت الحالي.',
+		'force_email_validation' => 'فرض التحقق من عنوان البريد الإلكتروني',
+		'instance-name' => 'اسم المثيل',
+		'internal-host-allowlist' => array(
+			'_' => 'قائمة السماح للمضيفين الداخليين',
+			'help' => 'إدخال واحد في كل سطر:<ul><li><code>host:port</code>. على سبيل المثال <code>127.0.0.1:8080</code> أو <code>rss-bridge:80</code></li><li>تدوين CIDR. على سبيل المثال <code>0.0.0.0/0</code> للسماح بأي IPv4، و<code>::/0</code> للسماح بأي IPv6</li><li><code>*</code> للسماح بأي مضيف (غير آمن)</li></ul>',
+		),
+		'max-categories' => 'الحد الأقصى لعدد الفئات لكل مستخدم',
+		'max-feeds' => 'الحد الأقصى لعدد الخلاصات لكل مستخدم',
+		'override-by-env-var' => 'يتم تعيين هذا الإعداد بواسطة متغير البيئة <kbd>%s</kbd>.',
+		'registration' => array(
+			'number' => 'الحد الأقصى لعدد الحسابات',
+			'select' => array(
+				'label' => 'نموذج التسجيل',
+				'option' => array(
+					'noform' => 'معطل: لا يوجد نموذج تسجيل',
+					'nolimit' => 'مفعل: لا يوجد حد لعدد الحسابات',
+					'setaccountsnumber' => 'تعيين الحد الأقصى لعدد الحسابات',
+				),
+			),
+			'status' => array(
+				'disabled' => 'النموذج معطل',
+				'enabled' => 'النموذج مفعل',
+			),
+			'title' => 'نموذج تسجيل المستخدم',
+		),
+		'sensitive-parameter' => 'معلمة حساسة. حررها يدويًا في <kbd>./data/config.php</kbd>',
+		'tos' => array(
+			'disabled' => 'غير مقدمة',
+			'enabled' => '<a href="./?a=tos">مفعلة</a>',
+			'help' => 'كيفية <a href="https://freshrss.github.io/FreshRSS/en/admins/12_User_management.html#enable-terms-of-service-tos" target="_blank">تفعيل شروط الخدمة</a>',
+		),
+		'websub' => array(
+			'help' => 'حول <a href="https://freshrss.github.io/FreshRSS/en/users/WebSub.html" target="_blank">WebSub</a>',
+		),
+	),
+	'update' => array(
+		'_' => 'تحديث FreshRSS',
+		'apply' => 'بدء التحديث',
+		'changelog' => 'سجل التغييرات',
+		'check' => 'التحقق من وجود تحديثات جديدة',
+		'copiedFromURL' => 'تم نسخ update.php من %s إلى ./data',
+		'current_version' => 'الإصدار المثبت الحالي',
+		'last' => 'آخر فحص',
+		'loading' => 'جارٍ التحديث…',
+		'none' => 'لا يتوفر تحديث',
+		'releaseChannel' => array(
+			'_' => 'قناة الإصدار',
+			'edge' => 'إصدار متجدد (“edge”)',
+			'latest' => 'إصدار مرقم (“latest”)',
+		),
+		'title' => 'تحديث FreshRSS',
+		'viaGit' => 'بدأ التحديث عبر git و GitHub.com',
+	),
+	'user' => array(
+		'admin' => 'المسؤول',
+		'article_count' => 'المقالات',
+		'back_to_manage' => '← العودة إلى قائمة المستخدمين',
+		'create' => 'إنشاء مستخدم جديد',
+		'database_size' => 'حجم قاعدة البيانات',
+		'email' => 'عنوان البريد الإلكتروني',
+		'enabled' => 'مفعل',
+		'feed_count' => 'الخلاصات',
+		'is_admin' => 'مسؤول',
+		'language' => 'اللغة',
+		'last_user_activity' => 'آخر نشاط للمستخدم',
+		'list' => 'قائمة المستخدمين',
+		'number' => 'تم إنشاء %d حساب',
+		'numbers' => 'تم إنشاء %d حسابات',
+		'password_form' => 'كلمة المرور<br /><small>(لطريقة تسجيل الدخول عبر نموذج الويب)</small>',
+		'password_format' => '7 أحرف على الأقل',
+		'title' => 'إدارة المستخدمين',
+		'username' => 'اسم المستخدم',
+	),
+);

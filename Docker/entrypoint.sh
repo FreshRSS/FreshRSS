@@ -6,6 +6,7 @@ echo "$TZ" >/etc/timezone
 find /etc/php*/ -type f -name php.ini -exec sed -i -E \
 	-e "\\#^;?date.timezone#s#^.*#date.timezone = $TZ#" \
 	-e "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" \
+	-e "\\#^;?session.upload_progress.enabled#s#^.*#session.upload_progress.enabled = Off#" \
 	-e "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
 
 while read -r config_path _; do
@@ -22,6 +23,10 @@ EOF
 if [ -z "$APACHE_CONFIG" ]; then
 	echo '❌ Apache configuration file not found!'
 	exit 11
+fi
+
+if [ "$ENABLE_ACCESS_LOG" = "0" ]; then
+	sed -E -i '/^[ \t]*CustomLog[ \t]/s/^/#/' "$APACHE_CONFIG"
 fi
 
 if [ -n "$LISTEN" ]; then
@@ -43,6 +48,7 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 	export OIDC_SESSION_INACTIVITY_TIMEOUT="${OIDC_SESSION_INACTIVITY_TIMEOUT:-300}"
 	export OIDC_SESSION_MAX_DURATION="${OIDC_SESSION_MAX_DURATION:-27200}"
 	export OIDC_SESSION_TYPE="${OIDC_SESSION_TYPE:-server-cache}"
+	export OIDC_DEFAULT_URL="${OIDC_DEFAULT_URL:-/i/}"
 
 	# Debian
 	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||

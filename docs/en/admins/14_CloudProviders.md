@@ -8,7 +8,7 @@ Some hosting platforms provide documentation to install FreshRSS, or even better
 
 You might also use a ready-to-go FreshRSS instance, shared between multiple users.
 
-* [Hostux](https://hostux.network/fr/) (FR)
+* [Hostux](https://hostux.net/fr/) (FR)
 * [Siick](https://services.siick.fr/) (FR)
 * [Zaclys](https://www.zaclys.com/flux/) (FR)
 * [Chère de Prince](https://cheredeprince.net/services/) (FR)

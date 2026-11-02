@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Varsayılan kullanıcının makalelerinin (%s) anonim okunmasına izin ver',
 		'allow_anonymous_refresh' => 'Makalelerin anonim olarak yenilenmesine izin ver',
 		'api_enabled' => '<abbr>API</abbr> erişimine izin ver <small>(mobil uygulamalar ve kullanıcı sorgularını paylaşmak için gereklidir)</small>',
-		'form' => 'Web formu (geleneksel, JavaScript gerektirir)',
+		'form' => 'Web formu (geleneksel)',
 		'http' => 'HTTP (gelişmiş: Web sunucusu, OIDC, SSO vb. tarafından yönetilir)',
 		'none' => 'Yok (tehlikeli)',
 		'title' => 'Kimlik Doğrulama',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Yayın kanalı',
 			'edge' => 'Sürekli yayın (“edge”)',
-			'latest' => 'Kararlı yayın (“latest”)',
+			'latest' => 'Kararlı yayın (“latest”)',	// DIRTY
 		),
 		'title' => 'FreshRSS’yi Güncelle',
 		'viaGit' => 'Git ve GitHub.com üzerinden güncelleme başlatıldı',

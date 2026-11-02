@@ -16,7 +16,7 @@ declare(strict_types=1);
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 # ***** END LICENSE BLOCK *****
 
@@ -30,8 +30,8 @@ class Minz_FrontController {
 	protected Minz_Dispatcher $dispatcher;
 
 	/**
-	 * Constructeur
-	 * Initialise le dispatcher, met à jour la Request
+	 * Constructor
+	 * Initializes the dispatcher and updates the request
 	 */
 	public function __construct() {
 		try {
@@ -39,12 +39,14 @@ class Minz_FrontController {
 
 			Minz_Request::init();
 
+			// Build the current request's URL and forward to it directly.
+			// If needed, a redirect is issued instead to correct the public relative path.
 			$url = Minz_Url::build();
 			$url['params'] = array_merge(
 				empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
 				array_filter($_POST, 'is_string', ARRAY_FILTER_USE_KEY)
 			);
-			Minz_Request::forward($url);
+			Minz_Request::forward($url, redirect: Minz_Request::pathInfo() !== '');
 		} catch (Minz_Exception $e) {
 			Minz_Log::error($e->getMessage());
 			self::killApp($e->getMessage());
@@ -54,11 +56,13 @@ class Minz_FrontController {
 	}
 
 	/**
-	 * Démarre l'application (lance le dispatcher et renvoie la réponse)
+	 * Starts the application (runs the dispatcher and sends the response)
 	 */
 	public function run(): void {
 		try {
 			$this->dispatcher->run();
+		} catch (Minz_BadRequestException $e) {
+			Minz_Error::error(400, ['error' => [$e->getMessage()]], redirect: true);
 		} catch (Minz_Exception $e) {
 			try {
 				Minz_Log::error($e->getMessage());

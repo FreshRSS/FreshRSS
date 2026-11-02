@@ -6,14 +6,17 @@
 <main class="post">
 	<h1><?= _t('sub.title') ?></h1>
 
+	<p class="alert alert-info">
+		<?= _t('sub.feed.global_hint', _url('index', 'global')) ?>
+	</p>
+
 	<?php if ($this->onlyFeedsWithError): ?>
 	<div class="link-showAllFeeds-wrapper">
 		<a href="<?= _url('subscription', 'index') ?>">← <?= _t('sub.feed.show.all') ?></a>
 	</div>
-		<p class="alert alert-warn">
+	<p class="alert alert-warn">
 		<?= _t('sub.feed.showing.error') ?>
 	</p>
-
 	<?php endif; ?>
 
 	<?php if (!$this->onlyFeedsWithError && $this->signalError) { ?>

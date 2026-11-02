@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Nutzername',
-			'format' => '<small>Maximal 16 alphanumerische Zeichen</small>',
+			'format' => '<small>1-39 Zeichen: Buchstaben, Zahlen und <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => 'Sollen die nicht gespeicherten Einstellungen wirklich verworfen werden?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Es gibt %d neuen Artikel zum Lesen auf FreshRSS.',	// DIRTY
-				1 => 'Es gibt %d neue Artikel zum Lesen auf FreshRSS.',	// DIRTY
+				0 => 'Es gibt %d neuen Artikel zum Lesen auf FreshRSS.',
+				1 => 'Es gibt %d neue Artikel zum Lesen auf FreshRSS.',
 			),
 			'body_unread_articles' => array(
-				0 => '(Ungelesen: %d)',	// DIRTY
-				1 => '(Ungelesen: %d)',	// DIRTY
+				0 => '(Ungelesen: %d)',
+				1 => '(Ungelesen: %d)',
 			),
 			'request_failed' => 'Eine Anfrage ist fehlgeschlagen, dies könnte durch Probleme mit der Internetverbindung verursacht worden sein.',
 			'title_new_articles' => 'FreshRSS: neue Artikel!',
@@ -190,6 +190,9 @@ return array(
 		'unsafe_csp_header' => 'Der verwendete CSP-Header ist unsicher und FreshRSS könnte anfällig für XSS-Angriffe sein. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Siehe Dokumentation</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -205,6 +208,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -298,10 +302,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Lesezeichen',
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

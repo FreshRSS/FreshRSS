@@ -41,6 +41,7 @@ return array(
 	),
 	'password' => array(
 		'invalid' => 'The password is invalid.',	// IGNORE
+		'provided_password_too_long' => 'The provided password is too long.',	// IGNORE
 	),
 	'tos' => array(
 		'feedback' => array(

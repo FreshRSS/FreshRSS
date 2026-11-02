@@ -63,6 +63,10 @@ return array(
 			'ok' => 'همه جدول‌های پایگاه داده وجود دارند.',
 		),
 		'database-title' => 'پایگاه داده',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'کتابخانه مورد نیاز برای مرور DOM را نمی‌توان پیدا کرد.',
 			'ok' => 'شما کتابخانه مورد نیاز برای مرور DOM را دارید.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'شما کتابخانه fileinfo را دارید.',
 		),
 		'files' => ' نصب فایل',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'کتابخانه پیشنهادی php-intl برای بین‌المللی‌سازی پیدا نشد.',
 			'ok' => 'کتابخانه پیشنهادی php-intl برای بین‌المللی‌سازی روی سیستم شما نصب است.',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'تبریک می‌گویم!',
 	'default_user' => array(
 		'_' => 'نام کاربری کاربر پیش‌فرض',
-		'max_char' => 'حداکثر ۱۶ کاراکتر الفبایی-عددی',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'لطفا قبل از رفتن به مرحله بعدی، خطاها را برطرف کنید.',
 	'javascript_is_better' => 'FreshRSS با فعال بودن جاوااسکریپت کارآمدتر است.',

@@ -1,7 +1,7 @@
 # Preparing the release
 
 In order to get as much feedback as possible before a release, it’s preferable to announce it on GitHub by creating a dedicated ticket
-([see examples](https://github.com/FreshRSS/FreshRSS/search?utf8=%E2%9C%93&q=Call+for+testing&type=Issues)). This should be done **at least one week in advance**.
+([see examples](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS%20Call%20for%20testing&type=Issues)). This should be done **at least one week in advance**.
 
 It’s also recommended to make the announcement on <mailing@freshrss.org>.
 
@@ -35,7 +35,7 @@ The repository managing the code is located on GitHub: [FreshRSS/update.freshrss
 
 The scripts are located in the `./scripts/` directory and must take the form `update_to_x.y.z.z.php`. This directory  also contains `update_to_dev.php` intended for updates of the `edge` branch (this script must not include code specific to a particular version!) and `update_util.php`, which contains a list of functions useful for all scripts.
 
-In order to write a new script, it’s better to copy/paste the last version or to start from `update_to_dev.php`. The first thing to do is to define the URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The URL is in the form  of `https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`.
+In order to write a new script, it’s better to copy/paste the last version or to start from `update_to_dev.php`. The first thing to do is to define the URL from which the FreshRSS package will be downloaded (`PACKAGE_URL`). The URL is in the form of `https://codeload.github.com/FreshRSS/FreshRSS/zip/x.y.z`.
 
 There are then 5 functions that have to be executed:
 
@@ -54,11 +54,11 @@ Here’s an example of a `versions.php` file:
 ```php
 <?php
 return [
-	// STABLE
+	// Versioned releases
 	'0.8.0' => '1.0.0',
 	'0.8.1' => '1.0.0',
 	'1.0.0' => '1.0.1',  // doesn’t exist (yet)
-	// DEV
+	// Rolling releases
 	'1.1.2-dev' => 'dev',
 	'1.1.3-dev' => 'dev',
 	'1.1.4-dev' => 'dev',
@@ -69,11 +69,11 @@ And here’s how this table works:
 
 * on the left you can find the N version, on the right the N+1 version;
 * the `x.y.z.z-dev` versions are **all** updated to `edge`;
-* stable versions are updated to stable versions;
+* versioned releases are updated to versioned releases;
 * it’s possible to skip several versions at once, provided that the update scripts support it;
 * it’s advisable to indicate the correspondence of the current version to its potential future version by specifying that this version does not yet exist. As long as the corresponding script does not exist, nothing will happen.
 
-It’s**very strongly** recommended to keep this file organized according to version numbers by separating stable and dev versions.
+It’s strongly recommended to keep this file organized according to version numbers by separating versioned and dev versions.
 
 ## Deployment
 
@@ -93,11 +93,9 @@ Two services need to be updated immediately after the update.
 When everything’s working, it’s time to announce the release to the world!
 
 * on GitHub by creating[a new release](https://github.com/FreshRSS/FreshRSS/releases/new)
-* on the freshrss.org blog, at least for stable versions (write the article on[FreshRSS/freshrss.org](https://github.com/FreshRSS/freshrss.org))
-* on Twitter ([@FreshRSS](https://twitter.com/FreshRSS) account)
-* and on <mailing@freshrss.org>
+* on <https://framapiaf.org/@freshrss>
 
-## Starting the next development version
+## Starting the next version
 
 ```console
 $ git checkout edge
@@ -108,4 +106,4 @@ $ vim CHANGELOG.md
 $ git add CHANGELOG.md && git commit && git push
 ```
 
-Also remember to update update.freshrss.org so that it takes the current development version into account.
+Also remember to update update.freshrss.org so that it takes the current rolling release into account.

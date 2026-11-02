@@ -37,6 +37,35 @@ function join_path(...$path_parts): string {
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
 
+/**
+ * Build the mutex path for an actualisation run.
+ *
+ * The data path identifies a FreshRSS instance, while the temporary path only
+ * determines where its mutex is stored.
+ */
+function actualize_mutex_file(string $tmpPath, string $dataPath): string {
+	return $tmpPath . '/actualize.' . hash('sha256', realpath($dataPath) ?: $dataPath) . '.freshrss.lock';
+}
+
+/**
+ * Disable stream wrappers that the application does not need.
+ *
+ * For temporary usage of a previously unregistered wrapper, `stream_wrapper_restore()` can be used.
+ */
+function unregister_unsafe_protocols(): void {
+	$registered_wrappers = stream_get_wrappers();
+	$allowed_wrappers = ['file', 'php'];
+	foreach ($registered_wrappers as $protocol) {
+		if (!in_array($protocol, $allowed_wrappers, true)) {
+			stream_wrapper_unregister($protocol);
+		}
+	}
+}
+
+if (!defined('WITH_COMPOSER')) {
+	unregister_unsafe_protocols();
+}
+
 //<Auto-loading>
 function classAutoloader(string $class): void {
 	if (str_starts_with($class, 'FreshRSS')) {
@@ -59,8 +88,8 @@ function classAutoloader(string $class): void {
 		$base_dir = LIB_PATH . '/simplepie/simplepie/src/';
 		$relative_class_name = substr($class, strlen($prefix));
 		include $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
-	} elseif (str_starts_with($class, 'Gt\\CssXPath\\')) {
-		$prefix = 'Gt\\CssXPath\\';
+	} elseif (str_starts_with($class, 'GT\\CssXPath\\')) {
+		$prefix = 'GT\\CssXPath\\';
 		$base_dir = LIB_PATH . '/phpgt/cssxpath/src/';
 		$relative_class_name = substr($class, strlen($prefix));
 		include $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
@@ -353,7 +382,7 @@ function checkTrustedIP(): bool {
 
 /**
  * Remove a directory recursively.
- * From http://php.net/rmdir#110489
+ * From https://www.php.net/rmdir#110489
  */
 function recursive_unlink(string $dir): bool {
 	if (!is_dir($dir)) {

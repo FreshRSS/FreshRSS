@@ -7,6 +7,13 @@ require_once LIB_PATH . '/lib_date.php';
 
 final class SearchTest extends \PHPUnit\Framework\TestCase {
 
+	#[\Override]
+	protected function setUp(): void {
+		if (!FreshRSS_Context::hasSystemConf()) {
+			FreshRSS_Context::initSystem();
+		}
+	}
+
 	#[DataProvider('provideEmptyInput')]
 	public static function test__construct_whenInputIsEmpty_getsOnlyNullValues(string $input): void {
 		$search = new FreshRSS_Search($input);
@@ -859,10 +866,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider provideRegexPostreSQL
-	 * @param array<string> $values
-	 */
+	/** @param array<string> $values */
+	#[DataProvider('provideRegexPostreSQL')]
 	public function test__regex_postgresql(string $input, string $sql, array $values): void {
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
 		self::assertSame(trim($sql), trim($filterSearch));
@@ -970,10 +975,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider provideRegexMariaDB
-	 * @param array<string> $values
-	 */
+	/** @param array<string> $values */
+	#[DataProvider('provideRegexMariaDB')]
 	public function test__regex_mariadb(string $input, string $sql, array $values): void {
 		FreshRSS_DatabaseDAO::$dummyConnection = true;
 		FreshRSS_DatabaseDAO::setStaticVersion('11.4.3-MariaDB-ubu2404');
@@ -1007,16 +1010,24 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				'intext:/^ab$/m',
-				'(UNCOMPRESS(e.content_bin) REGEXP ?))',
+				'(UNCOMPRESS(e.content_bin) REGEXP ?)',
 				['(?-i)(?m)^ab$']
+			],
+			[
+				'-intext:/^ab$/m',
+				'(NOT UNCOMPRESS(e.content_bin) REGEXP ?)',
+				['(?-i)(?m)^ab$']
+			],
+			[
+				'-/^ab$/',
+				'(NOT e.title REGEXP ? AND NOT UNCOMPRESS(e.content_bin) REGEXP ?)',
+				['(?-i)^ab$', '(?-i)^ab$']
 			],
 		];
 	}
 
-	/**
-	 * @dataProvider provideRegexMySQL
-	 * @param array<string> $values
-	 */
+	/** @param array<string> $values */
+	#[DataProvider('provideRegexMySQL')]
 	public function test__regex_mysql(string $input, string $sql, array $values): void {
 		FreshRSS_DatabaseDAO::$dummyConnection = true;
 		FreshRSS_DatabaseDAO::setStaticVersion('9.0.1');
@@ -1045,16 +1056,24 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			],
 			[
 				'intext:/^ab$/m',
-				"(REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc')))",
+				"(REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc'))",
 				['^ab$']
+			],
+			[
+				'-intext:/^ab$/m',
+				"(NOT REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'mc'))",
+				['^ab$']
+			],
+			[
+				'-/^ab$/',
+				"(NOT REGEXP_LIKE(e.title,?,'c') AND NOT REGEXP_LIKE(UNCOMPRESS(e.content_bin),?,'c'))",
+				['^ab$', '^ab$']
 			],
 		];
 	}
 
-	/**
-	 * @dataProvider provideRegexSQLite
-	 * @param array<string> $values
-	 */
+	/** @param array<string> $values */
+	#[DataProvider('provideRegexSQLite')]
 	public function test__regex_sqlite(string $input, string $sql, array $values): void {
 		[$filterValues, $filterSearch] = FreshRSS_EntryDAOSQLite::sqlBooleanSearch('e.', new FreshRSS_BooleanSearch($input));
 		self::assertSame(trim($sql), trim($filterSearch));
@@ -1211,6 +1230,10 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 	 * @return array<string,array{0:list<array{search:string,name?:string}>,1:string,2:string,3:string}>
 	 */
 	public static function provideBooleanSearchToStringExpansion(): array {
+		$overlappingQueries = array_fill(0, 11, ['search' => 'author:Unused']);
+		$overlappingQueries[1] = ['name' => 'News', 'search' => 'author:Alice'];
+		$overlappingQueries[10] = ['name' => 'Newsletter', 'search' => 'author:Bob'];
+
 		return [
 			'Not found ID' => [
 				[
@@ -1247,6 +1270,60 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'search:First search:Second ',
 				'search:First search:Second',
 				'author:Alice intitle:World',
+			],
+			'Longer ID first' => [
+				$overlappingQueries,
+				'S:10 OR S:1',
+				'S:10 OR S:1',
+				'author:Bob OR author:Alice',
+			],
+			'Shorter ID first' => [
+				$overlappingQueries,
+				'S:1 OR S:10',
+				'S:1 OR S:10',
+				'author:Alice OR author:Bob',
+			],
+			'Overlapping IDs with AND' => [
+				$overlappingQueries,
+				'S:1 S:10',
+				'S:1 S:10',
+				'author:Alice author:Bob',
+			],
+			'Overlapping ID groups' => [
+				$overlappingQueries,
+				'S:1,10 S:1',
+				'S:1,10 S:1',
+				'(author:Alice OR author:Bob) author:Alice',
+			],
+			'Longer name first' => [
+				$overlappingQueries,
+				'search:Newsletter OR search:News',
+				'search:Newsletter OR search:News',
+				'author:Bob OR author:Alice',
+			],
+			'Shorter name first' => [
+				$overlappingQueries,
+				'search:News OR search:Newsletter',
+				'search:News OR search:Newsletter',
+				'author:Alice OR author:Bob',
+			],
+			'Overlapping names with AND' => [
+				$overlappingQueries,
+				'search:News search:Newsletter',
+				'search:News search:Newsletter',
+				'author:Alice author:Bob',
+			],
+			'Negated overlapping IDs' => [
+				$overlappingQueries,
+				'-S:1 -S:10',
+				'-S:1 -S:10',
+				'-author:Alice -author:Bob',
+			],
+			'Negated overlapping names' => [
+				$overlappingQueries,
+				'-search:News -search:Newsletter',
+				'-search:News -search:Newsletter',
+				'-author:Alice -author:Bob',
 			],
 		];
 	}

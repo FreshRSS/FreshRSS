@@ -9,6 +9,12 @@ return [
 	#	or to `production` to get only the most important messages.
 	'environment' => 'production',
 
+	# Minimum severity of the messages written to `./data/users/*/log.txt`, overriding the
+	#	verbosity implied by `environment` above. One of `error`, `warning`, `notice`, `info`, `debug`,
+	#	from the least to the most verbose. Leave empty (`''`) to keep the default behaviour:
+	#	`warning` (i.e. only errors and warnings) when `environment` is `production`, `debug` otherwise.
+	'log_level' => '',
+
 	# Used to make crypto more unique. Generated during install.
 	'salt' => '',
 
@@ -146,10 +152,15 @@ return [
 		# Limits for regex, useful to limit regex during user searches
 		'regex_backtrack_limit' => 10000,
 		'regex_recursion_limit' => 100,
+
+		# Max length of a Boolean search query, in bytes
+		'max_search_length' => 16384,
+		# Max depth of parentheses nesting in a Boolean search query
+		'max_search_parentheses_depth' => 32,
 	],
 
 	# Options used by cURL when making HTTP requests, e.g. when the SimplePie library retrieves feeds.
-	# https://php.net/manual/function.curl-setopt
+	# https://www.php.net/function.curl-setopt
 	'curl_options' => [
 		# Options to disable SSL/TLS certificate check (e.g. for self-signed HTTPS)
 		//CURLOPT_SSL_VERIFYHOST => 0,
@@ -187,7 +198,7 @@ return [
 		# https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-PARAMKEYWORDS
 		'connection_uri_params' => '',
 
-		# Additional PDO parameters, such as offered by MySQL https://php.net/ref.pdo-mysql
+		# Additional PDO parameters, such as offered by MySQL https://www.php.net/ref.pdo-mysql
 		'pdo_options' => [
 			//Pdo\Mysql::ATTR_SSL_KEY	=> '/path/to/client-key.pem',
 			//Pdo\Mysql::ATTR_SSL_CERT	=> '/path/to/client-cert.pem',

@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => '使用者名稱',
-			'format' => '<small>最多 16 個數字或字母</small>',
+			'format' => '<small>長度限制為 1-39 個字元 (字母、數字或 <code>. _ @ -</code>)</small>',
 		),
 	),
 	'date' => array(
@@ -98,8 +98,8 @@ return array(
 		'december' => '十二月',
 		'feb' => '二月',
 		'february' => '二月',
-		'format_date' => 'Y \\年 n \\月 j \\日',
-		'format_date_hour' => 'Y \\年 n \\月 j \\日	H\\:i',
+		'format_date' => 'Y \\年 m \\月 d \\日',
+		'format_date_hour' => 'Y \\年 m \\月 d \\日	H\\:i',
 		'fri' => '週五',
 		'jan' => '一月',
 		'january' => '一月',
@@ -184,6 +184,9 @@ return array(
 		'unsafe_csp_header' => '目前使用的 CSP 標頭不安全，FreshRSS 可能會受到 XSS 攻擊。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">請參閱說明文件</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -199,6 +202,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -265,13 +269,13 @@ return array(
 		'feeds' => '訂閱源',
 		'free_text' => '關鍵字',
 		'free_text_help' => '同時搜尋標題與內容',
-		'full_documentation' => '檢視 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">完整搜尋說明文件</a>',
+		'full_documentation' => '檢視<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">完整的搜尋說明文件</a>',
 		'labels' => '我的標籤',
 		'multiple_help' => '選擇一個或更多 (按住 <kbd>Ctrl</kbd> 或 <kbd>Cmd</kbd>)',
 		'sources' => '來源',
 		'tags' => '文章標籤',
 		'text' => '文字搜尋',
-		'text_help' => 'Multiple lines are combined by a logical <i>or</i>. Also supports <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">regular expressions</a>.',	// TODO
+		'text_help' => '多行內容會以邏輯 <i>or</i> 合併。此外還支援<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#regex" target="_blank">正規表達式</a>。',
 		'text_placeholder' => '關鍵字',
 		'title' => '標題',
 		'url' => 'URL',	// IGNORE
@@ -292,10 +296,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud 書籤',	// DIRTY
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

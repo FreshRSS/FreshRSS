@@ -227,7 +227,8 @@ class FreshRSS_Entry extends Minz_Model {
 		$thumbnailAttribute = $this->attributeArray('thumbnail') ?? [];
 		if (!empty($thumbnailAttribute['url'])) {
 			$elink = $thumbnailAttribute['url'];
-			if (is_string($elink) && ($allowDuplicateEnclosures || !self::containsLink($content, $elink))) {
+			if (is_string($elink) && \SimplePie\Misc::is_remote_uri($elink) &&
+				($allowDuplicateEnclosures || !self::containsLink($content, $elink))) {
 				$content .= <<<HTML
 					<figure class="enclosure">
 						<p class="enclosure-content">
@@ -248,7 +249,7 @@ class FreshRSS_Entry extends Minz_Model {
 				continue;
 			}
 			$elink = $enclosure['url'] ?? '';
-			if ($elink == '' || !is_string($elink)) {
+			if ($elink == '' || !is_string($elink) || !\SimplePie\Misc::is_remote_uri($elink)) {
 				continue;
 			}
 			if (!$allowDuplicateEnclosures && self::containsLink($content, $elink)) {
@@ -269,7 +270,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$content .= '<figure class="enclosure">';
 
 			foreach ($thumbnails as $thumbnail) {
-				if (is_string($thumbnail)) {
+				if (is_string($thumbnail) && \SimplePie\Misc::is_remote_uri($thumbnail)) {
 					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
 				}
 			}
@@ -984,9 +985,11 @@ class FreshRSS_Entry extends Minz_Model {
 			$cssSelector = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
 			$cssSelector = trim($cssSelector, ', ');
 			$path_entries_filter = trim($feed->attributeString('path_entries_filter') ?? '', ', ');
-			$nodes = $xpath->query((new Gt\CssXPath\Translator($cssSelector, '//'))->asXPath());
-			if ($nodes != false) {
-				$filter_xpath = $path_entries_filter === '' ? '' : (new Gt\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
+			$nodes = $xpath->query((new GT\CssXPath\Translator($cssSelector, '//'))->asXPath());
+			if ($nodes === false || $nodes->length === 0) {
+				Minz_Log::warning('CSS content retrieval matched no elements for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
+			} else {
+				$filter_xpath = $path_entries_filter === '' ? '' : (new GT\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
 				foreach ($nodes as $node) {
 					try {
 						if (!($node instanceof DOMElement)) {
@@ -1014,7 +1017,7 @@ class FreshRSS_Entry extends Minz_Model {
 							continue;
 						}
 						$html .= $doc->saveHTML($node) . "\n";
-					} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
+					} catch (Error $e) {
 						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
 							throw $e;
 						}
@@ -1024,6 +1027,9 @@ class FreshRSS_Entry extends Minz_Model {
 
 			unset($xpath, $doc);
 			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
+			if ($nodes !== false && $nodes->length > 0 && trim($html) === '') {
+				Minz_Log::warning('CSS content retrieval returned no content for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
+			}
 
 			if ($path_entries_filter !== '') {
 				// Remove unwanted elements again after sanitizing, for CSS selectors to also match sanitized content
@@ -1032,7 +1038,7 @@ class FreshRSS_Entry extends Minz_Model {
 				$utf8BOM = "\xEF\xBB\xBF";
 				$doc->loadHTML($utf8BOM . $html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
 				$xpath = new DOMXPath($doc);
-				$filterednodes = $xpath->query((new Gt\CssXPath\Translator($path_entries_filter, '//'))->asXPath()) ?: [];
+				$filterednodes = $xpath->query((new GT\CssXPath\Translator($path_entries_filter, '//'))->asXPath()) ?: [];
 				foreach ($filterednodes as $filterednode) {
 					try {
 						if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
@@ -1061,7 +1067,7 @@ class FreshRSS_Entry extends Minz_Model {
 	 * @return bool True if the content was modified, false otherwise
 	 */
 	public function loadCompleteContent(bool $force = false): bool {
-		// Gestion du contenu
+		// Content handling
 		// Trying to fetch full article content even when feeds do not propose it
 		$feed = $this->feed();
 		if ($feed === null) {
@@ -1071,7 +1077,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$entryDAO = FreshRSS_Factory::createEntryDao();
 			$entry = $force ? null : $entryDAO->searchByGuid($this->feedId, $this->guid);
 			if ($entry !== null) {
-				// l’article existe déjà en BDD, en se contente de recharger ce contenu
+				// The article already exists in the database, so simply reload its content
 				$this->content = $entry->content(false);
 			} else {
 				try {
@@ -1098,7 +1104,7 @@ class FreshRSS_Entry extends Minz_Model {
 						return true;
 					}
 				} catch (Exception $e) {
-					// rien à faire, on garde l’ancien contenu(requête a échoué)
+					// Nothing to do: the request failed, so keep the previous content
 					Minz_Log::warning($e->getMessage());
 				}
 			}
@@ -1110,7 +1116,7 @@ class FreshRSS_Entry extends Minz_Model {
 				return false;
 			}
 			$xpath = new DOMXPath($doc);
-			$filterednodes = $xpath->query((new Gt\CssXPath\Translator($feed->attributeString('path_entries_filter'), '//'))->asXPath()) ?: [];
+			$filterednodes = $xpath->query((new GT\CssXPath\Translator($feed->attributeString('path_entries_filter'), '//'))->asXPath()) ?: [];
 			foreach ($filterednodes as $filterednode) {
 				try {
 					if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
@@ -1195,7 +1201,7 @@ class FreshRSS_Entry extends Minz_Model {
 	/**
 	 * Integer format conversion for Google Reader API format
 	 * @param numeric-string|int $dec Decimal number
-	 * @return string 64-bit hexa http://code.google.com/p/google-reader-api/wiki/ItemId
+	 * @return string 64-bit hexa https://github.com/mihaip/google-reader-api
 	 */
 	private static function dec2hex(string|int $dec): string {
 		return PHP_INT_SIZE < 8 ? // 32-bit ?
@@ -1249,7 +1255,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$item['title'] = escapeToUnicodeAlternative($this->title(), false);
 			unset($item['alternate'][0]['type']);
 			$item['summary'] = [
-				'content' => mb_strcut($this->content(true), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
+				'content' => mb_strcut($this->content($feed?->attributeBoolean('display_enclosures') ?? true), 0, self::API_MAX_COMPAT_CONTENT_LENGTH, 'UTF-8'),
 			];
 		} else {
 			$item['content'] = [
@@ -1268,7 +1274,7 @@ class FreshRSS_Entry extends Minz_Model {
 			if ($mode === 'compat') {
 				$item['origin']['title'] = escapeToUnicodeAlternative($feed->name(), true);
 			} elseif ($mode === 'freshrss') {
-				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url());
+				$item['origin']['feedUrl'] = htmlspecialchars_decode($feed->url(includeCredentials: false));
 			}
 			if ($feed->priority() >= FreshRSS_Feed::PRIORITY_MAIN_STREAM) {
 				$item['categories'][] = 'user/-/state/org.freshrss/main';

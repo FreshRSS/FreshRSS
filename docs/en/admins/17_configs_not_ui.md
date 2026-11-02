@@ -24,6 +24,14 @@ It does not have any effect for choosing the release channels.
 
 `'environment'` default value `'production'`
 
+#### System config: log_level
+
+Minimum severity of the messages written to the log files, overriding the verbosity implied by `environment` above.
+
+One of `'error'`, `'warning'`, `'notice'`, `'info'`, or `'debug'`, from the least to the most verbose.
+
+`'log_level'` default value `''` (empty), meaning: `'warning'` when `environment` is `'production'`, `'debug'` otherwise.
+
 #### System config: base_url
 
 This option is displayed in Administration -> System configuration, but is not editable there.
@@ -47,6 +55,38 @@ Example: `'<img class="logo" src="https://example.net/Hello.png" alt="Logo Examp
 #### System config: Sending an email
 
 See the documentation directly in the source code `config.default.php`
+
+#### System config: HTTP proxy tunnelling
+
+When FreshRSS fetches HTTPS feeds through an HTTP proxy that supports `CONNECT`,
+enable tunnelling in `data/config.php` by adding `CURLOPT_HTTPPROXYTUNNEL` to
+the global cURL options:
+
+```php
+'curl_options' => [
+	CURLOPT_PROXY => 'proxy.example.net:8080',
+	CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
+	CURLOPT_HTTPPROXYTUNNEL => true,
+],
+```
+
+This is useful for proxies such as VPN gateway containers. The option applies
+to all feed requests unless overridden by a feed-specific configuration.
+
+## Force HTTPS
+
+FreshRSS rewrites `http://` URLs to `https://` in feed content, for domains known to support HTTPS.
+The default list is defined in `./force-https.default.txt`; do not modify this file, but specify your own values in `./data/force-https.txt`, one domain per line:
+
+```text
+example.com
+www.example.net
+```
+
+Empty lines and comments starting with `#` are ignored.
+A listed domain also matches its sub-domains, e.g. `example.com` matches `www.example.com`.
+
+With Docker, this file is `force-https.txt` in the persistent data volume mounted at `/var/www/FreshRSS/data/`.
 
 ## Application wide constants
 

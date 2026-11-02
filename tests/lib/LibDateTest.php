@@ -45,6 +45,8 @@ class LibDateTest extends \PHPUnit\Framework\TestCase {
 			['2014-03-30', strtotime('2014-03-30 00:00:00'), strtotime('2014-03-30 23:59:59')],
 			['2014-05-30T13', strtotime('2014-05-30 13:00:00'), strtotime('2014-05-30 13:59:59')],
 			['2014-05-30T13:30', strtotime('2014-05-30 13:30:00'), strtotime('2014-05-30 13:30:59')],
+			// With negative timezone offset
+			['2014-05-30T13:30-05:00', strtotime('2014-05-30T13:30:00-05:00'), strtotime('2014-05-30T13:30:59-05:00')],
 
 			// Date ranges with explicit end dates
 			['2014-02/2014-04', strtotime('2014-02-01 00:00:00'), strtotime('2014-04-30 23:59:59')],

@@ -8,7 +8,7 @@ We assume here that you use a GNU/Linux distribution, capable of running Docker.
 
 The commands that follow have to be executed in a console. They start by `$` when commands need to be executed as normal user, and by `#` when they need to be executed as root user. You don’t have to type these characters. A path may be indicated before these characters to help you identify where they need to be executed. For instance, `app$ echo 'Hello World'` indicates that you have to execute `echo` command in the `app/` directory.
 
-First, you need to install [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+First, you need to install [Docker](https://docs.docker.com/engine/install/ubuntu/).
 
 Once you’re done, clone the repository with:
 
@@ -85,7 +85,7 @@ This requires `make` and `npm` in addition to the FreshRSS requirements. See bel
 
 ### Debian / Ubuntu
 
-> ℹ️ Also applies to [Microsoft Windows](https://docs.microsoft.com/windows/wsl/install-win10) thanks to [WSL](https://ubuntu.com/wsl).
+> ℹ️ Also applies to [Microsoft Windows](https://learn.microsoft.com/en-us/windows/wsl/install) thanks to [WSL](https://ubuntu.com/wsl).
 
 Here are the dependencies that need to be manually installed prior to running the fixes & tests.
 
@@ -121,7 +121,7 @@ A short (not complete) summary:
 > ℹ Check [`php.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/php.instructions.md) for detailed coding conventions (both for humans and AI agents).
 
 - Syntax of `php` and `phtml` files is checked.
-- translation files (`i18n`) are checked ([more information about i18n files](../internationalization.html)).
+- translation files (`i18n`) are checked ([more information about i18n files](../internationalization.md)).
 - unit test (`tests`) are run by [PHPunit](https://phpunit.de/).
 - Linter:
   - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)

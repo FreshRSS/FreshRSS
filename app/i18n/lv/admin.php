@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Ļaut anonīmi lasīt noklusējuma lietotāja rakstus (%s)',
 		'allow_anonymous_refresh' => 'Atļaut anonīmu rakstu atsvaidzināšanu',
 		'api_enabled' => 'Atļaut <abbr>API</abbr> piekļuvi <small>(nepieciešams mobilajām lietotnēm and sharing user queries)</small>',	// DIRTY
-		'form' => 'Tīmekļa veidlapa (tradicionālā, nepieciešams JavaScript)',
+		'form' => 'Tīmekļa veidlapa (tradicionālā)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Nav (bīstami)',
 		'title' => 'Autentifikācija',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Izlaiduma kanāls',
 			'edge' => 'Ritošā atbrīvošana (“edge”)',
-			'latest' => 'Stabila atbrīvošana (“latest”)',
+			'latest' => 'Stabila atbrīvošana (“latest”)',	// DIRTY
 		),
 		'title' => 'Atjaunināt sistēmu',
 		'viaGit' => 'Atjaunināt, izmantojot git un GitHub.com sākts',

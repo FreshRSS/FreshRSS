@@ -3,7 +3,7 @@
 FreshRSS supports the [OPML](https://en.wikipedia.org/wiki/OPML) format to export and import lists of RSS/Atom feeds in a standard way, compatible with several other RSS aggregators.
 
 However, FreshRSS also supports several additional features not covered by the basic OPML specification.
-Luckily, the [OPML specification](http://opml.org/spec2.opml) allows extensions:
+Luckily, the [OPML specification](https://opml.org/spec2.opml) allows extensions:
 
 > *An OPML file may contain elements and attributes not described on this page, only if those elements are defined in a namespace.*
 
@@ -93,9 +93,9 @@ A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are 
 * `frss:unicityCriteria`: Criteria used for the unicity of articles. E.g. `id` (default), `link`, `sha1:link_published`, `sha1:link_published_title`, `sha1:title`, [etc](https://github.com/FreshRSS/FreshRSS/blob/1c92d55917029d291d00009b674d8552934a69ec/app/Models/Feed.php#L652-L666).
 * `frss:unicityCriteriaForced`: Boolean to force the usage of the selected unicity criterion even in the case of many duplicates (otherwise, the default behaviour is to fall back to a more precise unicity criteria).
 * `frss:ttl`: Refresh interval of the feed, in seconds. A negative value indicates a muted feed (automatic refresh disabled). When absent, the importing instance’s default refresh interval is used.
-* `frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to enable the download and extraction of the matching HTML section of each articles’ Web address.
+* `frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/docs/Web/CSS/Guides/Selectors) to enable the download and extraction of the matching HTML section of each articles’ Web address.
 	* Example: `div.main, .summary`
-* `frss:cssContentFilter`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to remove the matching HTML elements from the article content or from the full content retrieved by `frss:cssFullContent`.
+* `frss:cssContentFilter`: [CSS Selector](https://developer.mozilla.org/docs/Web/CSS/Guides/Selectors) to remove the matching HTML elements from the article content or from the full content retrieved by `frss:cssFullContent`.
 	* Example: `.footer, .aside`
 . `frss:cssFullContentConditions`: List (separated by a new line) of search queries to trigger a full content retrieval as defined by `frss:cssFullContent`.
 * `frss:filtersActionRead`: List (separated by a new line) of search queries to automatically mark a new article as read.
