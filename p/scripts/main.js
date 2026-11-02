@@ -1159,8 +1159,9 @@ function init_column_categories() {
 
 			const ul = a.closest('li').querySelector('.tree-folder-items');
 			let nbVisibleItems = 0;
-			for (let i = ul.children.length - 1; i >= 0; i--) {
-				if (ul.children[i].offsetHeight) {
+			// Includes the items of sub-categories
+			for (const li of ul.querySelectorAll('li')) {
+				if (li.offsetHeight || getComputedStyle(li).display !== 'none') {
 					nbVisibleItems++;
 				}
 			}

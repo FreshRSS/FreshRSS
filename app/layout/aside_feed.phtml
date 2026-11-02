@@ -100,32 +100,56 @@
 			foreach ($this->categories as $cat) {
 				$nbFeedsTotal += $cat->nbFeeds();
 			}
+			$show_favicon = FreshRSS_Context::userConf()->show_favicons && $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds;
 
-			foreach ($this->categories as $cat):
+			/** Whether the category or one of its sub-categories contains a feed */
+			$hasFeeds = function (FreshRSS_Category $cat) use (&$hasFeeds): bool {
+				if (!empty($cat->feeds())) {
+					return true;
+				}
+				foreach (FreshRSS_Category::childrenOf($this->categories, $cat->id()) as $child) {
+					if ($hasFeeds($child)) {
+						return true;
+					}
+				}
+				return false;
+			};
+
+			$renderCategory = function (FreshRSS_Category $cat) use (&$renderCategory, &$hasFeeds, $actual_view, $state_filter_manual, $nbFeedsTotal, $show_favicon): void {
+				if (!$hasFeeds($cat)) {
+					return;
+				}
 				$feeds = $cat->feeds();
+				$children = FreshRSS_Category::childrenOf($this->categories, $cat->id());
 				$position = $cat->attributeInt('position');
-				if (!empty($feeds)) {
-					$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
-					$c_show = ($c_active && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true))
-						|| FreshRSS_Context::userConf()->display_categories === 'all';
-					$hideSucCat = $cat->showUnreadCount() ? '' : ' data-unread-hide="1"';
+				$c_active = FreshRSS_Context::isCurrentGet('c_' . $cat->id());
+				$c_open = $c_active;
+				foreach (FreshRSS_Category::descendantIds($this->categories, $cat->id()) as $descendantId) {
+					$c_open = $c_open || FreshRSS_Context::isCurrentGet('c_' . $descendantId);
+				}
+				$c_show = ($c_open && in_array(FreshRSS_Context::userConf()->display_categories, ['active', 'remember'], true))
+					|| FreshRSS_Context::userConf()->display_categories === 'all';
+				$hideSucCat = $cat->showUnreadCount() ? '' : ' data-unread-hide="1"';
+				$nbUnreadCat = $cat->nbNotReadWithDescendants($this->categories);
 		?>
 		<li id="c_<?= $cat->id() ?>" class="tree-folder category<?= $c_active ? ' active' : '' ?>"<?=
-			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $cat->nbNotRead() ?>"<?= $hideSucCat ?>>
+			null === $position ? '' : " data-position='$position'" ?> data-unread="<?= $nbUnreadCat ?>"<?= $hideSucCat ?>>
 			<a href="<?= _url('index', $actual_view, 'get', 'c_' . $cat->id()) . $state_filter_manual ?>" class="tree-folder-title">
 				<button class="dropdown-toggle" title="<?= _t('sub.category.expand') ?>"><?= _i($c_show ? 'up' : 'down') ?></button><?php
 				?><span title="<?= $cat->inError() ? _t('sub.category.error') : _t('sub.category.open') ?>" class="title<?=
 					$cat->hasFeedsWithError() || $cat->inError() ? ' error' : ''
-					?>" data-unread="<?= format_number($cat->nbNotRead()) ?>"<?= $hideSucCat ?>><?=
+					?>" data-unread="<?= format_number($nbUnreadCat) ?>"<?= $hideSucCat ?>><?=
 					$cat->name() ?><?= $cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML ? ' ' . _i('opml-dyn') : ''
 				?></span>
 			</a>
 
 			<ul class="tree-folder-items<?= $c_show ? ' active' : '' ?>">
 <?php
-	// NB: Reduce whitespace in that loop
-	$show_favicon = FreshRSS_Context::userConf()->show_favicons && $nbFeedsTotal < FreshRSS_Context::userConf()->simplify_over_n_feeds;
+		foreach ($children as $child) {
+			$renderCategory($child);
+		}
 
+// NB: Reduce whitespace in that loop
 	foreach ($feeds as $feed):
 		$f_active = FreshRSS_Context::isCurrentGet('f_' . $feed->id());
 		if (!$f_active && $feed->priority() < FreshRSS_Feed::PRIORITY_FEED) {
@@ -173,8 +197,11 @@
 			</ul>
 		</li>
 		<?php
-				}
-			endforeach;
+			};
+
+			foreach (FreshRSS_Category::childrenOf($this->categories, 0) as $cat) {
+				$renderCategory($cat);
+			}
 		?>
 		<li class="tree-bottom"></li>
 	</ul>
