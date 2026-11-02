@@ -14,7 +14,7 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Povolit anonymní čtení článků výchozího uživatele (%s)',
 		'allow_anonymous_refresh' => 'Povolit anonymní obnovení článků',
-		'api_enabled' => 'Povolit přístup k <abbr>API</abbr> <small>(vyžadováno pro mobilní aplikace and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Povolit přístup k <abbr>API</abbr> <small>(vyžadováno pro mobilní aplikace and sharing user queries)</small>',	// DIRTY - Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>
 		'form' => 'Webový formulář (tradiční)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Žádný (nebezpečné)',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Kanál pro vydání',
 			'edge' => 'Vydání "Rolling" / Nepřetržitě aktualizované vydání (“edge”)',
-			'latest' => 'Stabilní vydání (“latest”)',	// DIRTY
+			'latest' => 'Stabilní vydání (“latest”)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'Aktualizovat systém',
 		'viaGit' => 'Aktualizace přes git a GitHub.com začala',

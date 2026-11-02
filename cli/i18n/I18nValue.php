@@ -44,6 +44,10 @@ class I18nValue implements \Stringable {
 		return $this->state === self::STATE_IGNORE;
 	}
 
+	public function isDirty(): bool {
+		return $this->state === self::STATE_DIRTY;
+	}
+
 	public function isTodo(): bool {
 		return $this->state === self::STATE_TODO;
 	}

@@ -308,8 +308,8 @@ return array(
 			'when' => 'Cikk megjelölése kedvencnek…',
 		),
 		'sticky_post' => 'A cikk gördüljön felülre, amikor megnyitásra kerül',
-		'sticky_sort' => 'Kézi rendezés megtartása navigáció közben',	// DIRTY
-		'sticky_sort_help' => 'Meghatározza, hogy az utolsó kézi rendezés aktív marad-e, vagy minden kategória, illetve hírcsatorna mindig a saját alapértelmezett vagy globális beállítását használja.',	// DIRTY
+		'sticky_sort' => 'Kézi rendezés megtartása navigáció közben',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'Meghatározza, hogy az utolsó kézi rendezés aktív marad-e, vagy minden kategória, illetve hírcsatorna mindig a saját alapértelmezett vagy globális beállítását használja.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Olvasás',
 		'view' => array(
 			'default' => 'Alapértelmezett nézet',

@@ -308,8 +308,8 @@ return array(
 			'when' => 'Отмечать статью избранной…',
 		),
 		'sticky_post' => 'Прикрепить статью к верху при открытии',
-		'sticky_sort' => 'Сохранять ручной порядок сортировки при навигации',	// DIRTY
-		'sticky_sort_help' => 'Определяет, сохраняется ли последний ручной порядок сортировки или каждая категория либо лента всегда использует собственную настройку по умолчанию или глобальную.',	// DIRTY
+		'sticky_sort' => 'Сохранять ручной порядок сортировки при навигации',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'Определяет, сохраняется ли последний ручной порядок сортировки или каждая категория либо лента всегда использует собственную настройку по умолчанию или глобальную.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Чтение',
 		'view' => array(
 			'default' => 'Вид по умолчанию',
