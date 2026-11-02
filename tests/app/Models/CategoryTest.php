@@ -92,4 +92,31 @@ final class CategoryTest extends \PHPUnit\Framework\TestCase {
 		$feed = next($feeds) ?: FreshRSS_Feed::default();
 		self::assertSame('ZZZ', $feed->name());
 	}
+
+	/** @return array<int,FreshRSS_Category> */
+	private static function nestedCategories(): array {
+		$categories = [];
+		foreach ([11 => 0, 12 => 11, 13 => 12, 14 => 0, 15 => 99, 16 => 16] as $id => $parent) {
+			$category = new FreshRSS_Category('c' . $id, $id);
+			$category->_attribute('parent', $parent ?: null);
+			$categories[$id] = $category;
+		}
+		return $categories;
+	}
+
+	public static function test_descendantIds_includesAllLevels(): void {
+		self::assertSame([11, 12, 13], FreshRSS_Category::descendantIds(self::nestedCategories(), 11));
+		self::assertSame([14], FreshRSS_Category::descendantIds(self::nestedCategories(), 14));
+	}
+
+	public static function test_descendantIds_whenCycle_terminates(): void {
+		$categories = self::nestedCategories();
+		$categories[11]->_attribute('parent', 13);
+		self::assertEqualsCanonicalizing([11, 12, 13], FreshRSS_Category::descendantIds($categories, 11));
+	}
+
+	public static function test_childrenOf_treatsInvalidParentAsTopLevel(): void {
+		$top = array_map(static fn(FreshRSS_Category $c) => $c->id(), FreshRSS_Category::childrenOf(self::nestedCategories(), 0));
+		self::assertSame([11, 14, 15, 16], $top);
+	}
 }
