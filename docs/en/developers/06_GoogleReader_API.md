@@ -59,6 +59,8 @@ curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356e
 curl -s -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
   'https://freshrss.example.net/api/greader.php/reader/api/0/tag/list?output=json'
 
+# Nested categories keep a flat label id. The `frss:parent` field of a `folder` in `tag/list` gives the label id of its parent category.
+
 # Retrieve a token for requests making modifications
 curl -H "Authorization:GoogleLogin auth=alice/8e6845e089457af25303abc6f53356eb60bdb5f8" \
   'https://freshrss.example.net/api/greader.php/reader/api/0/token'

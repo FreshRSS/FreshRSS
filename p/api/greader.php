@@ -290,11 +290,16 @@ final class GReaderAPI {
 		$categoryDAO = FreshRSS_Factory::createCategoryDao();
 		$categories = $categoryDAO->listCategories(prePopulateFeeds: false, details: false);
 		foreach ($categories as $cat) {
-			$tags[] = [
+			$tag = [
 				'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
 				//'sortid' => $cat->name(),
 				'type' => 'folder',	//Inoreader
 			];
+			$parent = $categories[$cat->parentId()] ?? null;
+			if ($parent !== null && $parent->id() !== $cat->id()) {
+				$tag['frss:parent'] = 'user/-/label/' . htmlspecialchars_decode($parent->name(), ENT_QUOTES);
+			}
+			$tags[] = $tag;
 		}
 
 		$tagDAO = FreshRSS_Factory::createTagDao();
@@ -531,7 +536,8 @@ final class GReaderAPI {
 		$feedDAO = FreshRSS_Factory::createFeedDao();
 		$feedsNewestItemUsec = $feedDAO->listFeedsNewestItemUsec();
 		$unreadcounts = [];
-		foreach ($categoryDAO->listCategories(prePopulateFeeds: true, details: true) as $cat) {
+		$allCategories = $categoryDAO->listCategories(prePopulateFeeds: true, details: true);
+		foreach ($allCategories as $cat) {
 			$catLastUpdate = 0;
 			foreach ($cat->feeds() as $feed) {
 				if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
@@ -549,7 +555,7 @@ final class GReaderAPI {
 			}
 			$unreadcounts[] = [
 				'id' => 'user/-/label/' . htmlspecialchars_decode($cat->name(), ENT_QUOTES),
-				'count' => $cat->nbNotRead(),
+				'count' => $cat->nbNotReadWithDescendants($allCategories),	// Same scope as the label stream
 				'newestItemTimestampUsec' => '' . $catLastUpdate,
 			];
 			$totalUnreads += $cat->nbNotRead();
