@@ -34,6 +34,7 @@ return array(
 		'information' => ' اطلاعات',
 		'open' => 'دسته‌بندی باز',
 		'opml_url' => ' URL OPML',
+		'parent' => 'Parent category',	// TODO
 		'position' => ' موقعیت نمایش',
 		'position_help' => 'برای کنترل ترتیب مرتب‌سازی دسته‌بندی',
 		'title' => ' عنوان',

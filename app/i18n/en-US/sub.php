@@ -34,6 +34,7 @@ return array(
 		'information' => 'Information',	// IGNORE
 		'open' => 'Open category',	// IGNORE
 		'opml_url' => 'OPML URL',	// IGNORE
+		'parent' => 'Parent category',	// IGNORE
 		'position' => 'Display position',	// IGNORE
 		'position_help' => 'To control category sort order',	// IGNORE
 		'title' => 'Title',	// IGNORE

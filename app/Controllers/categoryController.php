@@ -146,6 +146,14 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 			$position = Minz_Request::paramInt('position') ?: null;
 			$category->_attribute('position', $position);
 
+			// The parent must exist and must not be the category itself or one of its descendants
+			$allCategories = $categoryDAO->listCategories(false);
+			$parentId = Minz_Request::paramInt('parent');
+			if (!isset($allCategories[$parentId]) || in_array($parentId, FreshRSS_Category::descendantIds($allCategories, $id), true)) {
+				$parentId = 0;
+			}
+			$category->_attribute('parent', $parentId ?: null);
+
 			$opml_url = FreshRSS_http_Util::checkUrl(Minz_Request::paramString('opml_url', plaintext: true));
 			if ($opml_url != '') {
 				$category->_kind(FreshRSS_Category::KIND_DYNAMIC_OPML);
@@ -247,6 +255,20 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 
 			if ($feedDAO->changeCategory($id, FreshRSS_CategoryDAO::DEFAULTCATEGORYID) === false) {
 				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
+			}
+
+			// Sub-categories move up to the parent of the deleted category
+			$allCategories = $catDAO->listCategories(false);
+			$deleted = $allCategories[$id] ?? null;
+			if ($deleted !== null) {
+				foreach (FreshRSS_Category::childrenOf($allCategories, $id) as $child) {
+					$child->_attribute('parent', $deleted->parentId() ?: null);
+					$catDAO->updateCategory($child->id(), [
+						'name' => $child->name(),
+						'kind' => $child->kind(),
+						'attributes' => $child->attributes(),
+					]);
+				}
 			}
 
 			if ($catDAO->deleteCategory($id) === false) {

@@ -34,6 +34,7 @@ return array(
 		'information' => 'Informácia',
 		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
+		'parent' => 'Parent category',	// TODO
 		'position' => 'Zobrazť pozíciu',
 		'position_help' => 'Na kontrolu zoradenia kategórií',
 		'title' => 'Názov',

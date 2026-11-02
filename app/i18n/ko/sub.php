@@ -34,6 +34,7 @@ return array(
 		'information' => '정보',
 		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// IGNORE
+		'parent' => 'Parent category',	// TODO
 		'position' => '표시 위치',
 		'position_help' => '정렬 순서 제어',
 		'title' => '제목',

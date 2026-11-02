@@ -34,6 +34,7 @@ return array(
 		'information' => 'מידע',
 		'open' => 'Open category',	// TODO
 		'opml_url' => 'OPML URL',	// TODO
+		'parent' => 'Parent category',	// TODO
 		'position' => 'Display position',	// TODO
 		'position_help' => 'To control category sort order',	// TODO
 		'title' => 'כותרת',

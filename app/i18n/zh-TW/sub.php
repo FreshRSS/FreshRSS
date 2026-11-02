@@ -34,6 +34,7 @@ return array(
 		'information' => '資訊',
 		'open' => '開啟類別',
 		'opml_url' => 'OPML URL',	// IGNORE
+		'parent' => 'Parent category',	// TODO
 		'position' => '顯示位置',
 		'position_help' => '用於控制類別排序',
 		'title' => '標題',

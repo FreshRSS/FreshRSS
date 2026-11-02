@@ -34,6 +34,7 @@ return array(
 		'information' => 'معلومات',
 		'open' => 'فتح التصنيف',
 		'opml_url' => 'عنوان OPML',
+		'parent' => 'Parent category',	// TODO
 		'position' => 'موضع العرض',
 		'position_help' => 'للتحكم في ترتيب فرز التصنيفات',
 		'title' => 'العنوان',

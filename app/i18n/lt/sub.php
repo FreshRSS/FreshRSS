@@ -34,6 +34,7 @@ return array(
 		'information' => 'Informacija',
 		'open' => 'Atverti kategoriją',
 		'opml_url' => 'OPML URL',	// IGNORE
+		'parent' => 'Parent category',	// TODO
 		'position' => 'Rodymo padėtis',
 		'position_help' => 'Kategorijų rikiavimo tvarkai valdyti',
 		'title' => 'Pavadinimas',

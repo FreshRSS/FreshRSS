@@ -34,6 +34,7 @@ return array(
 		'information' => '信息',
 		'open' => '打开分类',
 		'opml_url' => 'OPML URL',	// IGNORE
+		'parent' => 'Parent category',	// TODO
 		'position' => '显示位置',
 		'position_help' => '控制分类排列顺序',
 		'title' => '标题',
