@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Formulari d’inscripcion utilizaire',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Lista d’autorizacion Retry-After',	// DIRTY
+			'help' => 'Una entrada per linha : un <code>host</code> per totes los pòrts, o una combinason <code>host:port</code> per un pòrt precís. Per exemple <code>rss-bridge</code> o <code>rsshub:1200</code>. L’entèsta <code>Retry-After</code> es ignorada pels òstes correspondents.',	// DIRTY
+		),
 		'sensitive-parameter' => 'Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>',	// TODO
 		'tos' => array(
 			'disabled' => 'is not given',	// TODO

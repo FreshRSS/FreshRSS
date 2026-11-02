@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Lietotāja reģistrācijas veidlapa',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Retry-After atļauto resursdatoru saraksts',	// DIRTY
+			'help' => 'Viens ieraksts katrā rindā: <code>host</code> visiem portiem vai <code>host:port</code> kombinācija konkrētam portam. Piemēram, <code>rss-bridge</code> vai <code>rsshub:1200</code>. Atbilstošo resursdatoru <code>Retry-After</code> galvene tiek ignorēta.',	// DIRTY
+		),
 		'sensitive-parameter' => 'Jutīgs parametrs. Rediģējiet manuāli <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'nav dots',

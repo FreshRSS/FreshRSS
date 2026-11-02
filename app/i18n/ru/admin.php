@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Форма регистрации пользователей',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Список разрешённых узлов для Retry-After',	// DIRTY
+			'help' => 'Одна запись на строку: <code>host</code> для всех портов или сочетание <code>host:port</code> для конкретного порта. Например, <code>rss-bridge</code> или <code>rsshub:1200</code>. Заголовок <code>Retry-After</code> игнорируется для соответствующих узлов.',	// DIRTY
+		),
 		'sensitive-parameter' => 'Важный параметр. Отредактируйте вручную в <kbd>./data/config.php</kbd>',
 		'tos' => array(
 			'disabled' => 'не указан',

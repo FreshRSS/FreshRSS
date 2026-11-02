@@ -114,6 +114,10 @@ return array(
 			),
 			'title' => 'Kullanıcı kayıt formu',
 		),
+		'retry-after-allowlist' => array(
+			'_' => 'Retry-After izin listesi',	// DIRTY
+			'help' => 'Her satıra bir giriş yazın: tüm bağlantı noktaları için <code>host</code> veya belirli bir bağlantı noktası için <code>host:port</code> birleşimi. Örneğin <code>rss-bridge</code> veya <code>rsshub:1200</code>. Eşleşen sunucuların <code>Retry-After</code> başlığı yok sayılır.',	// DIRTY
+		),
 		'sensitive-parameter' => 'Hassas parametre. <kbd>./data/config.php</kbd> dosyasında manuel olarak düzenleyin',
 		'tos' => array(
 			'disabled' => 'verilmedi',
