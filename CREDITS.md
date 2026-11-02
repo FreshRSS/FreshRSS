@@ -180,6 +180,7 @@ People are sorted by name so please keep this order.
 * [Julien Reichardt](https://github.com/j8r): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:j8r)
 * [Julien-Pierre Avérous](https://github.com/javerous): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:javerous), [Web](https://www.sourcemac.fr/)
 * [junkfood](https://github.com/JunkFood02): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:JunkFood02)
+* [Justin Golding](https://github.com/Jgolding1998): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Jgolding1998)
 * [Justin Tracey](https://github.com/jtracey): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:jtracey), [Web](https://unsuspicious.click)
 * [Kachelkaiser](https://github.com/Kachelkaiser): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Kachelkaiser)
 * [Kaibin Yang](https://github.com/ghost): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SkyYkb), [Web](https://kaibinyang.com/)

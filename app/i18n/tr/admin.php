@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Yayın kanalı',
 			'edge' => 'Sürekli yayın (“edge”)',
-			'latest' => 'Kararlı yayın (“latest”)',	// DIRTY
+			'latest' => 'Kararlı yayın (“latest”)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'FreshRSS’yi Güncelle',
 		'viaGit' => 'Git ve GitHub.com üzerinden güncelleme başlatıldı',

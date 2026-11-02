@@ -55,7 +55,8 @@ class I18nFile {
 			}
 			foreach ($file as $name => $content) {
 				$filename = $dir . DIRECTORY_SEPARATOR . $name;
-				file_put_contents($filename, $this->format($content));
+				$reference = $language === 'en' ? [] : ($i18n['en'][$name] ?? []);
+				file_put_contents($filename, $this->format($content, $reference));
 			}
 		}
 	}
@@ -145,6 +146,10 @@ class I18nFile {
 				$normalisedKey = ctype_digit($key) ? (int)$key : $key;
 				if ($index === $lastIndex) {
 					$current[$normalisedKey] = $value->__toString();
+					if ($value->isDirty()) {
+						// Carry the key through var_export, including when several keys share the same translation.
+						$current[$normalisedKey] .= ':' . base64_encode($compoundKey);
+					}
 					continue;
 				}
 				if (!isset($current[$normalisedKey]) || !is_array($current[$normalisedKey])) {
@@ -166,12 +171,12 @@ class I18nFile {
 	 * formatting regexes are applied to match the original content.
 	 *
 	 * @param array<string,I18nValue> $translation
+	 * @param array<string,I18nValue> $reference
 	 */
-	private function format(array $translation): string {
+	private function format(array $translation, array $reference = []): string {
 		$translation = var_export($this->unflatten($translation), true);
 		$patterns = [
 			'/ -> todo\',/',
-			'/ -> dirty\',/',
 			'/ -> ignore\',/',
 			'/array \(/',
 			'/=>\s*array/',
@@ -180,7 +185,6 @@ class I18nFile {
 		];
 		$replacements = [
 			"',\t// TODO", // Double quoting is mandatory to have a tab instead of the \t string
-			"',\t// DIRTY", // Double quoting is mandatory to have a tab instead of the \t string
 			"',\t// IGNORE", // Double quoting is mandatory to have a tab instead of the \t string
 			'array(',
 			'=> array',
@@ -188,6 +192,21 @@ class I18nFile {
 			"\t", // Double quoting is mandatory to have a tab instead of the \t string
 		];
 		$translation = preg_replace($patterns, $replacements, $translation);
+		$translation = preg_replace_callback('/ -> dirty:([A-Za-z0-9+\/=]+)\',/', static function (array $matches) use ($reference): string {
+			$key = base64_decode($matches[1], true);
+			$original = $key === false ? null : ($reference[$key] ?? null);
+			if ($original === null && $key !== false && preg_match('/^(.+)\.\d+$/', $key, $parts) === 1) {
+				$original = $reference[$parts[1] . '.1'] ?? $reference[$parts[1] . '.0'] ?? null;
+			}
+			if ($original === null) {
+				return "',\t// DIRTY";
+			}
+
+			// Keep the reference inside its line comment, including when it contains a PHP closing tag.
+			$comment = trim(preg_replace('/\s+/', ' ', $original->getValue()) ?? '');
+			$comment = str_replace('?>', '? >', $comment);
+			return "',\t// DIRTY" . ($comment === '' ? '' : ' - ' . $comment);
+		}, $translation ?? '');
 
 		return <<<PHP
 <?php

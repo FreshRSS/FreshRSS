@@ -14,7 +14,7 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Ļaut anonīmi lasīt noklusējuma lietotāja rakstus (%s)',
 		'allow_anonymous_refresh' => 'Atļaut anonīmu rakstu atsvaidzināšanu',
-		'api_enabled' => 'Atļaut <abbr>API</abbr> piekļuvi <small>(nepieciešams mobilajām lietotnēm and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Atļaut <abbr>API</abbr> piekļuvi <small>(nepieciešams mobilajām lietotnēm and sharing user queries)</small>',	// DIRTY - Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>
 		'form' => 'Tīmekļa veidlapa (tradicionālā)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Nav (bīstami)',
@@ -67,7 +67,7 @@ return array(
 		'number_entries' => '%d raksti',
 		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '% no kopsummas',
-		'repartition' => 'Rakstu pārdalīšana: %s',	// DIRTY
+		'repartition' => 'Rakstu pārdalīšana: %s',	// DIRTY - Articles repartition: %s
 		'status_favorites' => 'Mīļākie',
 		'status_read' => 'Izlasīti',
 		'status_total' => 'Kopā',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Izlaiduma kanāls',
 			'edge' => 'Ritošā atbrīvošana (“edge”)',
-			'latest' => 'Stabila atbrīvošana (“latest”)',	// DIRTY
+			'latest' => 'Stabila atbrīvošana (“latest”)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'Atjaunināt sistēmu',
 		'viaGit' => 'Atjaunināt, izmantojot git un GitHub.com sākts',

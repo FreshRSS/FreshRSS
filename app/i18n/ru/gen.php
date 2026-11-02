@@ -180,14 +180,14 @@ return array(
 		'confirm_exit_slider' => 'Вы уверены, что хотите отменить несохраненные настройки?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => '%d новых статей в FreshRSS.',	// DIRTY
-				1 => '%d новых статей в FreshRSS.',	// DIRTY
-				2 => '%d новых статей в FreshRSS.',	// DIRTY
+				0 => '%d новых статей в FreshRSS.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => '%d новых статей в FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
+				2 => '%d новых статей в FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(Непрочитанные: %d)',	// DIRTY
-				1 => '(Непрочитанные: %d)',	// DIRTY
-				2 => '(Непрочитанные: %d)',	// DIRTY
+				0 => '(Непрочитанные: %d)',	// DIRTY - (unread: %d)
+				1 => '(Непрочитанные: %d)',	// DIRTY - (unread: %d)
+				2 => '(Непрочитанные: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => 'Запрос не удался. Возможно, это вызвано проблемами с подключением к Интернет.',
 			'title_new_articles' => 'FreshRSS: новые статьи!',
@@ -315,7 +315,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Закладки',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Закладки',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
