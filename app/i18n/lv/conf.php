@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Rādīt pēc barotnes',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Kārtot pēc datuma',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Izteiksme',
 			'shareOpml' => 'Iespējot dalīšanos, izmantojot OPML atbilstošajām kategorijām un barotnēm',
 			'shareRss' => 'Iespējojiet koplietošanu ar HTML &amp; RSS',

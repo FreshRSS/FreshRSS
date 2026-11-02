@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Beslemeye göre göster',
 			'include_article_tags_label' => 'Beslemelerden gelen makale etiketlerini dahil et',
 			'include_user_labels_label' => 'Kullanıcı etiketlerini şu ön ekle dahil et:',
-			'order' => 'Tarihe göre sırala',
+			'order' => 'Sort by',	// TODO
 			'search' => 'İfade',
 			'shareOpml' => 'İlgili kategori ve beslemelerin OPML ile paylaşımını etkinleştir',
 			'shareRss' => 'HTML ve RSS ile paylaşımı etkinleştir',

@@ -203,7 +203,7 @@ return array(
 			'feeds' => '按订阅源显示',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => '按日期排序',
+			'order' => 'Sort by',	// TODO
 			'search' => '表达式',
 			'shareOpml' => '启用相应类别和 feed 的 OPML 分享',
 			'shareRss' => '启用 HTML 和 RSS 分享',

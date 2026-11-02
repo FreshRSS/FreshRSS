@@ -203,7 +203,7 @@ return array(
 			'feeds' => ' نمایش با فید',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => ' مرتب سازی بر اساس تاریخ',
+			'order' => 'Sort by',	// TODO
 			'search' => ' بیان',
 			'shareOpml' => 'فعال‌سازی اشتراک‌گذاری دسته‌ها و فیدهای مربوطه با OPML',
 			'shareRss' => 'اشتراک‌گذاری RSS',
