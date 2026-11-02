@@ -168,10 +168,10 @@ return array(
 		'confirm_exit_slider' => '您确定要放弃未保存的设置吗？',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'FreshRSS 中有 %d 篇文章等待阅读。',	// DIRTY - There is %d new article to read on FreshRSS.
+				0 => 'FreshRSS 中有 %d 篇文章等待阅读。',	// DIRTY - Singular: There is %d new article to read on FreshRSS. | Plural: There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(未读: %d)',	// DIRTY - (unread: %d)
+				0 => '(未读: %d)',	// DIRTY - Singular: (unread: %d) | Plural: (unread: %d)
 			),
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',

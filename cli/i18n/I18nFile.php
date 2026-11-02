@@ -174,6 +174,7 @@ class I18nFile {
 	 * @param array<string,I18nValue> $reference
 	 */
 	private function format(array $translation, array $reference = []): string {
+		$translationKeys = array_fill_keys(array_keys($translation), true);
 		$translation = var_export($this->unflatten($translation), true);
 		$patterns = [
 			'/ -> todo\',/',
@@ -192,7 +193,7 @@ class I18nFile {
 			"\t", // Double quoting is mandatory to have a tab instead of the \t string
 		];
 		$translation = preg_replace($patterns, $replacements, $translation);
-		$translation = preg_replace_callback('/ -> dirty:([A-Za-z0-9+\/=]+)\',/', static function (array $matches) use ($reference): string {
+		$translation = preg_replace_callback('/ -> dirty:([A-Za-z0-9+\/=]+)\',/', static function (array $matches) use ($reference, $translationKeys): string {
 			$key = base64_decode($matches[1], true);
 			$original = $key === false ? null : ($reference[$key] ?? null);
 			if ($original === null && $key !== false && preg_match('/^(.+)\.\d+$/', $key, $parts) === 1) {
@@ -202,8 +203,13 @@ class I18nFile {
 				return "',\t// DIRTY";
 			}
 
+			$comment = $original->getValue();
+			if ($key !== false && preg_match('/^(.+)\.0$/', $key, $parts) === 1
+				&& !isset($translationKeys[$parts[1] . '.1']) && isset($reference[$key], $reference[$parts[1] . '.1'])) {
+				$comment = 'Singular: ' . $comment . ' | Plural: ' . $reference[$parts[1] . '.1']->getValue();
+			}
 			// Keep the reference inside its line comment, including when it contains a PHP closing tag.
-			$comment = trim(preg_replace('/\s+/', ' ', $original->getValue()) ?? '');
+			$comment = trim(preg_replace('/\s+/', ' ', $comment) ?? '');
 			$comment = str_replace('?>', '? >', $comment);
 			return "',\t// DIRTY" . ($comment === '' ? '' : ' - ' . $comment);
 		}, $translation ?? '');

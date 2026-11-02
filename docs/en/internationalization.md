@@ -71,6 +71,8 @@ It will remove the comments on the lines that you’ve changed, and will reforma
 
 Entries marked `// DIRTY` need review. Formatting adds the current English text after the marker, for example `// DIRTY - Save your changes`, so you can compare it with the translation on the same line. Remove the marker once you have reviewed the translation.
 
+For translations with a single plural form, the comment includes both English forms, labelled `Singular:` and `Plural:`.
+
 The strings to translate can be easily found in the translations files thanks to the tag we spoke about at the end of the previous section. Indeed, it indicates to our tools that the strings are not translated yet. This means you can find them with Git. For instance for the Greek language:
 
 ```sh

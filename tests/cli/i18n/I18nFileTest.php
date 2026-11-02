@@ -86,6 +86,24 @@ final class I18nFileTest extends \PHPUnit\Framework\TestCase {
 		self::assertStringContainsString("2 => 'Autre forme',\t// DIRTY - One form", $output);
 	}
 
+	public function testDirtyCommentsShowBothEnglishFormsForSingleFormTranslations(): void {
+		$format = new ReflectionMethod(I18nFile::class, 'format');
+		$output = $format->invoke(new I18nFile(), [
+			'example.count.0' => new I18nValue('記事が %d 件あります -> dirty'),
+			'example.only.0' => new I18nValue('一つの形 -> dirty'),
+			'example.fallback.0' => new I18nValue('別の形 -> dirty'),
+		], [
+			'example.count.0' => new I18nValue("One article\n?>"),
+			'example.count.1' => new I18nValue("Many articles\t?>"),
+			'example.only.0' => new I18nValue('One form'),
+			'example.fallback.1' => new I18nValue('Plural only'),
+		]);
+		self::assertIsString($output);
+		self::assertStringContainsString("0 => '記事が %d 件あります',\t// DIRTY - Singular: One article ? > | Plural: Many articles ? >\n", $output);
+		self::assertStringContainsString("0 => '一つの形',\t// DIRTY - One form\n", $output);
+		self::assertStringContainsString("0 => '別の形',\t// DIRTY - Plural only\n", $output);
+	}
+
 	public function test(): void {
 		$before = $this->computeFilesHash();
 
