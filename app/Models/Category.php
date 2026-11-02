@@ -121,6 +121,45 @@ class FreshRSS_Category extends Minz_Model {
 
 	/**
 	 * @param array<int,FreshRSS_Category> $categories where the key is the category ID
+	 * @return list<FreshRSS_Category> all the categories, depth-first so that each parent is followed by its sub-categories
+	 */
+	public static function flattenTree(array $categories): array {
+		$list = [];
+		$seen = [];
+		$walk = static function (int $parentId) use (&$walk, &$list, &$seen, $categories): void {
+			foreach (self::childrenOf($categories, $parentId) as $category) {
+				if (!isset($seen[$category->id()])) {
+					$seen[$category->id()] = true;
+					$list[] = $category;
+					$walk($category->id());
+				}
+			}
+		};
+		$walk(0);
+		foreach ($categories as $category) {	// Anything unreachable, e.g. a cycle
+			if (!isset($seen[$category->id()])) {
+				$list[] = $category;
+			}
+		}
+		return $list;
+	}
+
+	/**
+	 * @param array<int,FreshRSS_Category> $categories where the key is the category ID
+	 * @return string HTML-encoded names from the top-level ancestor down to this category, e.g. `News / Tech`
+	 */
+	public function pathName(array $categories): string {
+		$names = [];
+		$seen = [];
+		for ($category = $this; $category !== null && !isset($seen[$category->id()]); $category = $categories[$category->parentId()] ?? null) {
+			$seen[$category->id()] = true;
+			array_unshift($names, $category->name());
+		}
+		return implode(' / ', $names);
+	}
+
+	/**
+	 * @param array<int,FreshRSS_Category> $categories where the key is the category ID
 	 * @return int number of unread articles in the category and in all its sub-categories
 	 */
 	public function nbNotReadWithDescendants(array $categories, int $minPriority = FreshRSS_Feed::PRIORITY_FEED): int {

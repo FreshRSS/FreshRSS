@@ -119,4 +119,22 @@ final class CategoryTest extends \PHPUnit\Framework\TestCase {
 		$top = array_map(static fn(FreshRSS_Category $c) => $c->id(), FreshRSS_Category::childrenOf(self::nestedCategories(), 0));
 		self::assertSame([11, 14, 15, 16], $top);
 	}
+
+	public static function test_flattenTree_isDepthFirstAndKeepsEverything(): void {
+		$ids = array_map(static fn(FreshRSS_Category $c) => $c->id(), FreshRSS_Category::flattenTree(self::nestedCategories()));
+		self::assertSame([11, 12, 13, 14, 15, 16], $ids);
+
+		$categories = self::nestedCategories();
+		$categories[11]->_attribute('parent', 13);	// Cycle: unreachable from the top level
+		$ids = array_map(static fn(FreshRSS_Category $c) => $c->id(), FreshRSS_Category::flattenTree($categories));
+		self::assertEqualsCanonicalizing([11, 12, 13, 14, 15, 16], $ids);
+	}
+
+	public static function test_pathName_listsAncestors(): void {
+		$categories = self::nestedCategories();
+		self::assertSame('c11 / c12 / c13', $categories[13]->pathName($categories));
+		self::assertSame('c14', $categories[14]->pathName($categories));
+		$categories[11]->_attribute('parent', 13);
+		self::assertSame('c11 / c12 / c13', $categories[13]->pathName($categories));	// Terminates on a cycle
+	}
 }
