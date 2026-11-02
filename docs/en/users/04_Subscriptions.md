@@ -17,7 +17,8 @@ The "Subscription management" submenu allows categories and feeds to be configur
 ### Information
 
 * **Title:** Name of category
-* **Display position:** Defines the order of categories. Lower numbers get priority, non-numbered items come last, and equally numbered items will sort by alphabetical order.
+* **Parent category:** Nests this category under another one. Viewing, counting unread articles and marking as read on a category also include its sub-categories. Deleting a category moves its sub-categories up one level.
+* **Display position:** Defines the order of categories among the categories with the same parent. Lower numbers get priority, non-numbered items come last, and equally numbered items will sort by alphabetical order.
 
 ### Archiving
 

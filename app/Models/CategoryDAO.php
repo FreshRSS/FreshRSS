@@ -434,6 +434,11 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 		return $this->fetchInt($sql) ?? -1;
 	}
 
+	/** @return list<int> the ID of the category followed by the IDs of all its descendants */
+	public function listDescendantIds(int $id): array {
+		return FreshRSS_Category::descendantIds($this->listCategories(false), $id);
+	}
+
 	public function countFeed(int $id): int {
 		$sql = <<<'SQL'
 			SELECT COUNT(*) AS count FROM `_feed` WHERE category=:id

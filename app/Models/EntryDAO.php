@@ -662,13 +662,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			Minz_Log::debug('Calling markReadCat(0) is deprecated!');
 		}
 
-		$sql = <<<'SQL'
+		$categoryIds = FreshRSS_Factory::createCategoryDao()->listDescendantIds($id);	// Includes sub-categories
+		$in = implode(',', array_fill(0, count($categoryIds), '?'));
+		$sql = <<<SQL
 			UPDATE `_entry`
 			SET is_read = ?, `lastUserModified` = ?
 			WHERE is_read <> ? AND id <= ?
-			AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category=? AND f.priority >= ? AND f.priority < ?)
+			AND id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category IN ({$in}) AND f.priority >= ? AND f.priority < ?)
 			SQL;
-		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax, $id, $priorityMin, FreshRSS_Feed::PRIORITY_IMPORTANT];
+		$values = [$is_read ? 1 : 0, time(), $is_read ? 1 : 0, $idMax, ...$categoryIds, $priorityMin, FreshRSS_Feed::PRIORITY_IMPORTANT];
 
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
@@ -679,8 +681,12 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			return false;
 		}
 		$affected = $stm->rowCount();
-		if (($affected > 0) && (!$this->updateCacheUnreads($id, null))) {
-			return false;
+		if ($affected > 0) {
+			foreach ($categoryIds as $categoryId) {
+				if (!$this->updateCacheUnreads($categoryId, null)) {
+					return false;
+				}
+			}
 		}
 		return $affected;
 	}
@@ -1575,8 +1581,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			case 'c':	// Category
 				$where .= 'f.priority >= ' .
 					min(FreshRSS_Feed::PRIORITY_CATEGORY, FreshRSS_Context::$search->needVisibility() ?? FreshRSS_Feed::PRIORITY_IMPORTANT) . ' ';
-				$where .= 'AND f.category=? ';
-				$values[] = $id;
+				$categoryIds = FreshRSS_Factory::createCategoryDao()->listDescendantIds($id);	// Includes sub-categories
+				$where .= 'AND f.category IN (' . implode(',', array_fill(0, count($categoryIds), '?')) . ') ';
+				array_push($values, ...$categoryIds);
 				break;
 			case 'f':	// Feed
 				$where .= 'e.id_feed=? ';

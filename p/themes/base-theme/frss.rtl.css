@@ -1265,6 +1265,10 @@ li.drag-hover {
 	text-overflow: ellipsis;
 }
 
+.tree-folder-items > .tree-folder {
+	margin-right: 1rem;
+}
+
 .tree-folder-items > .item {
 	display: block;
 	white-space: nowrap;

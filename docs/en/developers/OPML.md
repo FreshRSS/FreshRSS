@@ -17,6 +17,10 @@ FreshRSS uses the XML namespace <https://freshrss.org/opml> to export/import ext
 
 The list of the custom FreshRSS attributes can be seen in [the source code](https://github.com/FreshRSS/FreshRSS/blob/edge/app/views/helpers/export/opml.phtml), and here is an overview:
 
+### Nested categories
+
+Categories can be nested: an `<outline>` that contains other category outlines is the parent of those categories. On import, nesting is applied to the categories that get created. Existing categories keep their current parent.
+
 ### HTML+XPath or XML+XPath
 
 * `<outline type="HTML+XPath" ...`: Additional type of source, which is not RSS/Atom, but HTML Web Scraping using [XPath](https://www.w3.org/TR/xpath-10/) 1.0.

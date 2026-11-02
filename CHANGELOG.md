@@ -6,6 +6,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 * Compatibility
 	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+* Features
+	* Nested categories: a category can have a parent category, set in the category settings, kept by OPML import and export, and exposed in the Google Reader API as `frss:parent`
 * Bug fixes
 	* Fix HTTP Retry-After cache when proxy is used [#9508](https://github.com/FreshRSS/FreshRSS/pull/9508)
 	* Fix 32-bit systems provide a string for SQL BIGINT [#9486](https://github.com/FreshRSS/FreshRSS/pull/9486)

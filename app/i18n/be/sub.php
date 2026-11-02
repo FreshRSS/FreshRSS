@@ -34,6 +34,7 @@ return array(
 		'information' => 'Інфармацыя',
 		'open' => 'Адкрыць катэгорыю',
 		'opml_url' => 'URL-адрас OPML',
+		'parent' => 'Parent category',	// TODO
 		'position' => 'Пазіцыя паказу',
 		'position_help' => 'Для кіравання парадкам сартавання катэгорый',
 		'title' => 'Назва',

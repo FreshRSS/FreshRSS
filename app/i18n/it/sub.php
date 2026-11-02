@@ -34,6 +34,7 @@ return array(
 		'information' => 'Informazioni',
 		'open' => 'Aprire la categoria!',
 		'opml_url' => 'URL OPML',
+		'parent' => 'Parent category',	// TODO
 		'position' => 'Mostra posizione',
 		'position_help' => 'Per controllare l’ordinamento della categoria',
 		'title' => 'Titolo',

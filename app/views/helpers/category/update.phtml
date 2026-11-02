@@ -40,6 +40,25 @@
 					?> />
 				</div>
 			</div>
+			<?php
+				$allCategories = FreshRSS_Factory::createCategoryDao()->listSortedCategories(false);
+				$excludedIds = FreshRSS_Category::descendantIds($allCategories, $this->category->id());
+			?>
+			<div class="form-group">
+				<label class="group-name" for="parent"><?= _t('sub.category.parent') ?></label>
+				<div class="group-controls">
+					<select name="parent" id="parent">
+						<option value="0"></option>
+						<?php foreach ($allCategories as $parentCandidate) {
+							if (in_array($parentCandidate->id(), $excludedIds, true)) {
+								continue;
+							} ?>
+							<option value="<?= $parentCandidate->id() ?>"<?= $parentCandidate->id() === $this->category->parentId() ? ' selected="selected"' : ''
+								?>><?= $parentCandidate->name() ?></option>
+						<?php } ?>
+					</select>
+				</div>
+			</div>
 			<div class="form-group">
 				<label class="group-name" for="position"><?= _t('sub.category.position') ?></label>
 				<div class="group-controls">

@@ -34,6 +34,7 @@ return array(
 		'information' => 'Információ',
 		'open' => 'Kategória megnyitása',
 		'opml_url' => 'OPML URL',	// IGNORE
+		'parent' => 'Parent category',	// TODO
 		'position' => 'Megjelenítési pozíció',
 		'position_help' => 'Kategória rendezési sorrend',
 		'title' => 'Cím',

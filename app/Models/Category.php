@@ -80,6 +80,96 @@ class FreshRSS_Category extends Minz_Model {
 	public function _error(bool|int|string $value): void {
 		$this->error = (bool)$value;
 	}
+	/** @return int ID of the parent category, or 0 for a top-level category */
+	public function parentId(): int {
+		return $this->attributeInt('parent') ?? 0;
+	}
+
+	/**
+	 * @param array<int,FreshRSS_Category> $categories where the key is the category ID
+	 * @return list<FreshRSS_Category> direct children of the category, or the top-level categories if `$parentId` is 0
+	 */
+	public static function childrenOf(array $categories, int $parentId): array {
+		$children = [];
+		foreach ($categories as $category) {
+			$parent = $category->parentId();
+			if ($parent === $category->id() || !isset($categories[$parent])) {
+				$parent = 0;	// Invalid or missing parent: treat as top-level
+			}
+			if ($parent === $parentId) {
+				$children[] = $category;
+			}
+		}
+		return $children;
+	}
+
+	/**
+	 * @param array<int,FreshRSS_Category> $categories where the key is the category ID
+	 * @return list<int> the ID of the category followed by the IDs of all its descendants
+	 */
+	public static function descendantIds(array $categories, int $id): array {
+		$ids = [$id];
+		for ($i = 0; $i < count($ids); $i++) {
+			foreach (self::childrenOf($categories, $ids[$i]) as $child) {
+				if (!in_array($child->id(), $ids, true)) {	// Also protects against cycles
+					$ids[] = $child->id();
+				}
+			}
+		}
+		return $ids;
+	}
+
+	/**
+	 * @param array<int,FreshRSS_Category> $categories where the key is the category ID
+	 * @return list<FreshRSS_Category> all the categories, depth-first so that each parent is followed by its sub-categories
+	 */
+	public static function flattenTree(array $categories): array {
+		$list = [];
+		$seen = [];
+		$walk = static function (int $parentId) use (&$walk, &$list, &$seen, $categories): void {
+			foreach (self::childrenOf($categories, $parentId) as $category) {
+				if (!isset($seen[$category->id()])) {
+					$seen[$category->id()] = true;
+					$list[] = $category;
+					$walk($category->id());
+				}
+			}
+		};
+		$walk(0);
+		foreach ($categories as $category) {	// Anything unreachable, e.g. a cycle
+			if (!isset($seen[$category->id()])) {
+				$list[] = $category;
+			}
+		}
+		return $list;
+	}
+
+	/**
+	 * @param array<int,FreshRSS_Category> $categories where the key is the category ID
+	 * @return string HTML-encoded names from the top-level ancestor down to this category, e.g. `News / Tech`
+	 */
+	public function pathName(array $categories): string {
+		$names = [];
+		$seen = [];
+		for ($category = $this; $category !== null && !isset($seen[$category->id()]); $category = $categories[$category->parentId()] ?? null) {
+			$seen[$category->id()] = true;
+			array_unshift($names, $category->name());
+		}
+		return implode(' / ', $names);
+	}
+
+	/**
+	 * @param array<int,FreshRSS_Category> $categories where the key is the category ID
+	 * @return int number of unread articles in the category and in all its sub-categories
+	 */
+	public function nbNotReadWithDescendants(array $categories, int $minPriority = FreshRSS_Feed::PRIORITY_FEED): int {
+		$nb = 0;
+		foreach (self::descendantIds($categories, $this->id()) as $id) {
+			$nb += $id === $this->id() ? $this->nbNotRead($minPriority) : ($categories[$id]?->nbNotRead($minPriority) ?? 0);
+		}
+		return $nb;
+	}
+
 	public function isDefault(): bool {
 		return $this->id == FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
 	}

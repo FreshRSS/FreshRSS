@@ -34,6 +34,7 @@ return array(
 		'information' => 'Tiedot',
 		'open' => 'Avaa luokka',
 		'opml_url' => 'OPML-tiedoston URL-osoite',
+		'parent' => 'Parent category',	// TODO
 		'position' => 'Näyttöjärjestys',
 		'position_help' => 'Määritä luokkien lajittelujärjestys',
 		'title' => 'Otsikko',

@@ -34,6 +34,7 @@ return array(
 		'information' => 'Information',
 		'open' => 'Open category',
 		'opml_url' => 'OPML URL',
+		'parent' => 'Parent category',
 		'position' => 'Display position',
 		'position_help' => 'To control category sort order',
 		'title' => 'Title',

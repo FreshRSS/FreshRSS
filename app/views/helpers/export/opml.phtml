@@ -156,6 +156,27 @@ function feedsToOutlines(array $feeds, bool $excludeMutedFeeds = false, bool $in
 	return $outlines;
 }
 
+/**
+ * @param array<int,FreshRSS_Category> $categories where the key is the category ID
+ * @return array<string,mixed> the OPML outline of the category, with its feeds and its sub-categories
+ */
+function categoryToOutline(FreshRSS_Category $cat, array $categories, bool $excludeMutedFeeds, bool $includeSensitiveCurlParams): array {
+	$outline = [
+		'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
+		'@outlines' => feedsToOutlines($cat->feeds(), $excludeMutedFeeds, $includeSensitiveCurlParams),
+	];
+
+	foreach (FreshRSS_Category::childrenOf($categories, $cat->id()) as $child) {
+		$outline['@outlines'][] = categoryToOutline($child, $categories, $excludeMutedFeeds, $includeSensitiveCurlParams);
+	}
+
+	if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {
+		$outline['frss:opmlUrl'] = $cat->attributeString('opml_url');
+	}
+
+	return $outline;
+}
+
 /** @var FreshRSS_View $this */
 
 $opml_array = [
@@ -170,17 +191,8 @@ $opml_array = [
 ];
 
 if (!empty($this->categories)) {
-	foreach ($this->categories as $cat) {
-		$outline = [
-			'text' => htmlspecialchars_decode($cat->name(), ENT_QUOTES),
-			'@outlines' => feedsToOutlines($cat->feeds(), $this->excludeMutedFeeds, $this->includeSensitiveCurlParams),
-		];
-
-		if ($cat->kind() === FreshRSS_Category::KIND_DYNAMIC_OPML) {
-			$outline['frss:opmlUrl'] = $cat->attributeString('opml_url');
-		}
-
-		$opml_array['body'][] = $outline;
+	foreach (FreshRSS_Category::childrenOf($this->categories, 0) as $cat) {
+		$opml_array['body'][] = categoryToOutline($cat, $this->categories, $this->excludeMutedFeeds, $this->includeSensitiveCurlParams);
 	}
 }
 

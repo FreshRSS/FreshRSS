@@ -540,7 +540,7 @@ final class FreshRSS_Context {
 					throw new FreshRSS_Context_Exception('Invalid category: ' . $id);
 				}
 				self::$name = $cat->name();
-				self::$get_unread = $cat->nbNotRead();
+				self::$get_unread = $cat->nbNotReadWithDescendants(self::$categories);
 				break;
 			case 't':	// Tag (label)
 				// We try to find the corresponding tag.

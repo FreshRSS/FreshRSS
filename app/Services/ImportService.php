@@ -12,6 +12,8 @@ class FreshRSS_Import_Service {
 
 	/** true if success, false otherwise */
 	private bool $lastStatus;
+	/** @var array<string,string> parent category name of each nested category name, from the OPML outlines */
+	private array $opmlParents = [];
 
 	/**
 	 * Initialize the service for the given user.
@@ -85,7 +87,23 @@ class FreshRSS_Import_Service {
 
 		// Process the OPML outlines to get a list of categories and a list of
 		// feeds elements indexed by their categories names.
+		$this->resetOpmlParents();
 		[$categories_elements, $categories_to_feeds] = $this->loadFromOutlines($opml_array['body'], '');
+
+		// Also create the parents of nested categories, just before their first sub-category
+		$ordered = [];
+		foreach ($categories_to_feeds as $category_name => $feeds_elements) {
+			$ancestors = [];
+			for ($name = (string)$category_name; isset($this->opmlParents[$name]); $name = $this->opmlParents[$name]) {
+				$ancestors[] = $this->opmlParents[$name];
+			}
+			foreach (array_reverse($ancestors) as $ancestor) {
+				$ordered[$ancestor] ??= $categories_to_feeds[$ancestor] ?? [];
+			}
+			$ordered[$category_name] ??= $feeds_elements;
+		}
+		$categories_to_feeds = $ordered;
+		$created_categories = [];
 
 		foreach ($categories_to_feeds as $category_name => $feeds_elements) {
 			$category_element = $categories_elements[$category_name] ?? null;
@@ -107,6 +125,7 @@ class FreshRSS_Import_Service {
 					$category = $this->createCategory($category_element, $dry_run, ++$highest_position, $trusted_source);
 					if ($category !== null) {
 						$categories_by_names[$category->name()] = $category;
+						$created_categories[$category_name] = $category;
 						$nb_categories++;
 					}
 				} else {
@@ -140,6 +159,21 @@ class FreshRSS_Import_Service {
 					$nb_feeds++;
 				} else {
 					$this->lastStatus = false;
+				}
+			}
+		}
+
+		// Nest the new categories as in the OPML (existing categories keep their place)
+		if (!$dry_run && $forced_category === null) {
+			foreach ($created_categories as $category_name => $category) {
+				$parent = $categories_by_names[$this->opmlParents[$category_name] ?? ''] ?? null;
+				if ($parent !== null && $parent->id() !== $category->id()) {
+					$category->_attribute('parent', $parent->id());
+					$this->catDAO->updateCategory($category->id(), [
+						'name' => $category->name(),
+						'kind' => $category->kind(),
+						'attributes' => $category->attributes(),
+					]);
 				}
 			}
 		}
@@ -462,6 +496,24 @@ class FreshRSS_Import_Service {
 		return [$categories_elements, $categories_to_feeds];
 	}
 
+	private function resetOpmlParents(): void {
+		$this->opmlParents = [];
+	}
+
+	/** Whether `$candidate` is `$name` itself or one of its ancestors, to avoid cycles when names are repeated in the OPML */
+	private function isOpmlAncestor(string $candidate, string $name): bool {
+		for ($i = 0; $i < 100; $i++) {
+			if ($name === $candidate) {
+				return true;
+			}
+			if (!isset($this->opmlParents[$name])) {
+				return false;
+			}
+			$name = $this->opmlParents[$name];
+		}
+		return true;
+	}
+
 	/**
 	 * Return the list of category and feed outlines by categories names.
 	 *
@@ -503,6 +555,15 @@ class FreshRSS_Import_Service {
 			}
 
 			$children = array_filter($outline['@outlines'], 'is_array');
+			foreach ($children as $child) {
+				if (is_array($child['@outlines'] ?? null)) {
+					$child_name = !empty($child['text']) && is_string($child['text']) ? $child['text'] :
+						(!empty($child['title']) && is_string($child['title']) ? $child['title'] : $category_name);
+					if ($category_name !== '' && !isset($this->opmlParents[$child_name]) && !$this->isOpmlAncestor($child_name, $category_name)) {
+						$this->opmlParents[$child_name] = $category_name;
+					}
+				}
+			}
 			[$categories_elements, $categories_to_feeds] = $this->loadFromOutlines($children, $category_name);
 
 			unset($outline['@outlines']);
