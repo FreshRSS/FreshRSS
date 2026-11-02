@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Izinkan pembacaan artikel pengguna default (%s) secara awanama',
 		'allow_anonymous_refresh' => 'Izinkan untuk memuat ulang artikel awanama',
 		'api_enabled' => 'Izinkan akses <abbr>API</abbr> <small>(Diperlukan untuk aplikasi seluler dan untuk membagikan pencarian pengguna)</small>',
-		'form' => 'Formulir Web (klasik, membutuhkan JavaScript)',
+		'form' => 'Formulir Web (klasik)',
 		'http' => 'HTTP (tingkat lanjut: dikelola oleh server Web, OIDC, SSO, dll.)',
 		'none' => 'Tidak ada (berbahaya)',
 		'title' => 'Autentikasi',

@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'ログインしていないユーザーにもデフォルトユーザー（%s）の記事の閲覧を許可する',
 		'allow_anonymous_refresh' => 'ログインしていないユーザーにも記事の更新を許可する',
 		'api_enabled' => '<abbr>API</abbr>アクセスを許可する<small>（モバイルアプリやユーザークエリの共有に必要）</small>',
-		'form' => 'ウェブフォーム（JavaScriptが必要です）',
+		'form' => 'ウェブフォーム（JavaScriptが必要です）',	// DIRTY
 		'http' => 'HTTP（上級者向け：Webサーバー、OIDC、SSOなどで管理）',
 		'none' => 'なし（危険）',
 		'title' => '認証',

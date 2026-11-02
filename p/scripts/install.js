@@ -1,42 +1,12 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
 
-let timeoutHide;
-
-function showPW_this() {
-	const id_passwordField = this.getAttribute('data-toggle');
-	if (this.classList.contains('active')) {
-		hidePW(id_passwordField);
-	} else {
-		showPW(id_passwordField);
-	}
-	return false;
-}
-
-function showPW(id_passwordField) {
-	const passwordField = document.getElementById(id_passwordField);
-	passwordField.setAttribute('type', 'text');
-	passwordField.nextElementSibling.classList.add('active');
-	clearTimeout(timeoutHide);
-	timeoutHide = setTimeout(function () { hidePW(id_passwordField); }, 5000);
-	return false;
-}
-
-function hidePW(id_passwordField) {
-	clearTimeout(timeoutHide);
-	const passwordField = document.getElementById(id_passwordField);
-	passwordField.setAttribute('type', 'password');
-	passwordField.nextElementSibling.classList.remove('active');
-	return false;
-}
-
-function init_password_observers(parent) {
-	parent.querySelectorAll('.toggle-password').forEach(function (btn) {
-		btn.addEventListener('click', showPW_this);
-	});
-}
-
-init_password_observers(document.body);
+(function parseJsonVars() {
+	const jsonVars = document.getElementById('jsonVars');
+	const json = JSON.parse(jsonVars.innerHTML);
+	jsonVars.outerHTML = '';
+	window.context = { 'i18n': json.i18n };
+}());
 
 const auth_type = document.getElementById('auth_type');
 function auth_type_change() {

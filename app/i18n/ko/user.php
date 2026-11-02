@@ -41,6 +41,7 @@ return array(
 	),
 	'password' => array(
 		'invalid' => '이 비밀번호는 유효하지 않습니다.',
+		'provided_password_too_long' => 'The provided password is too long.',	// TODO
 	),
 	'tos' => array(
 		'feedback' => array(
