@@ -750,8 +750,8 @@ class Sanitize implements RegistryAware
             for ($i = $element->attributes->length - 1; $i >= 0; $i--) {
                 $attr = $element->attributes[$i]->nodeName;
                 // Skip data-*, aria-* if allowed
-                if (($allow_data_attr && str_starts_with($attr, 'data-'))
-                    || ($allow_aria_attr && str_starts_with($attr, 'aria-'))) {
+                if (($allow_data_attr && strpos($attr, 'data-') === 0)
+                    || ($allow_aria_attr && strpos($attr, 'aria-') === 0)) {
                     continue;
                 }
 
@@ -1044,17 +1044,20 @@ class Sanitize implements RegistryAware
     }
 
     /**
-     * Absolutise each URL in `srcset` on `<img>` and `<source>` against the
-     * document base, dropping entries with a disallowed URI scheme (this
-     * runs after `replace_urls`, so entries written into `src` below would
-     * otherwise bypass that scheme check). For `<img>` only, when `src` is
-     * empty or a recognised placeholder (lazy-loading pattern), write the
-     * smallest `Nw` entry (or, failing that, the lowest-density `Nx` entry)
-     * as a fallback. The browser uses `srcset` for actual selection; `src`
-     * only loads when `srcset` can't be honoured (legacy browsers,
-     * non-browser API consumers), so the smallest is the safest fallback
-     * by bandwidth and is never larger than what `srcset` would have
-     * picked.
+     * Give every URL in `srcset` the same treatment `replace_urls()` gives a
+     * single-URL attribute: absolutise against the document base, block a
+     * disallowed URI scheme, force HTTPS where configured. `srcset` holds a
+     * list rather than one URL, so it cannot go in `replace_url_attributes`
+     * and nothing else in the pipeline touches it.
+     *
+     * For `<img>` only, when `src` is empty or a recognised placeholder
+     * (lazy-loading pattern), write the smallest `Nw` entry (or, failing
+     * that, the lowest-density `Nx` entry) as a fallback. The browser uses
+     * `srcset` for actual selection; `src` only loads when `srcset` can't be
+     * honoured (legacy browsers, non-browser API consumers), so the smallest
+     * is the safest fallback by bandwidth and is never larger than what
+     * `srcset` would have picked. This runs before `replace_urls()`, so that
+     * `src` still goes through the normal single-URL pass afterwards.
      */
     private function rewrite_img_srcset(\DOMElement $element): void
     {
@@ -1065,17 +1068,26 @@ class Sanitize implements RegistryAware
         $absolutised = [];
         foreach ($entries as $e) {
             $abs = $this->registry->call(Misc::class, 'absolutize_url', [$e['url'], $this->base]);
-            if (!is_string($abs) || $abs === '' || !$this->is_allowed_scheme($abs)) {
+            if (!is_string($abs) || $abs === '') {
                 continue;
             }
-            $absolutised[] = ['url' => $abs, 'descriptor' => $e['descriptor'], 'w' => $e['w'], 'x' => $e['x']];
+            // Same condition as replace_urls(), but a blocked entry is dropped
+            // instead of being kept with an `unsafe:` prefix: an entry the
+            // browser must never pick has no reason to stay in the candidate
+            // list, and unlike `src` the attribute tolerates being shorter.
+            if ($this->disallowed_uri_schemes !== [] && !$this->is_allowed_uri($element->tagName, 'srcset', $abs)) {
+                continue;
+            }
+            $absolutised[] = ['url' => $this->https_url($abs), 'descriptor' => $e['descriptor'], 'w' => $e['w'], 'x' => $e['x']];
         }
         if ($absolutised === []) {
             $element->removeAttribute('srcset');
             return;
         }
         $element->setAttribute('srcset', implode(', ', array_map(
-            static fn (array $e): string => $e['descriptor'] === '' ? $e['url'] : $e['url'] . ' ' . $e['descriptor'],
+            static function (array $e): string {
+                return $e['descriptor'] === '' ? $e['url'] : $e['url'] . ' ' . $e['descriptor'];
+            },
             $absolutised
         )));
 
@@ -1088,12 +1100,20 @@ class Sanitize implements RegistryAware
         if (!$this->is_placeholder_src($current)) {
             return;
         }
-        $candidates = array_values(array_filter($absolutised, static fn (array $e): bool => $e['w'] > 0));
+        $candidates = array_values(array_filter($absolutised, static function (array $e): bool {
+            return $e['w'] > 0;
+        }));
         if ($candidates !== []) {
-            usort($candidates, static fn (array $a, array $b): int => $a['w'] <=> $b['w']);
+            usort($candidates, static function (array $a, array $b): int {
+                return $a['w'] <=> $b['w'];
+            });
         } else {
-            $candidates = array_values(array_filter($absolutised, static fn (array $e): bool => $e['x'] > 0.0));
-            usort($candidates, static fn (array $a, array $b): int => $a['x'] <=> $b['x']);
+            $candidates = array_values(array_filter($absolutised, static function (array $e): bool {
+                return $e['x'] > 0.0;
+            }));
+            usort($candidates, static function (array $a, array $b): int {
+                return $a['x'] <=> $b['x'];
+            });
         }
         if ($candidates === []) {
             return;
@@ -1114,8 +1134,8 @@ class Sanitize implements RegistryAware
         if ($src === '') {
             return true;
         }
-        return str_starts_with($src, 'data:') &&
-            (strlen($src) < 128 || str_starts_with($src, 'data:image/gif;base64,R0lGODlh'));
+        return strpos($src, 'data:') === 0 &&
+            (strlen($src) < 128 || strpos($src, 'data:image/gif;base64,R0lGODlh') === 0);
     }
 
     /**
@@ -1145,12 +1165,12 @@ class Sanitize implements RegistryAware
             while ($pos < $len && !ctype_space($srcset[$pos])) {
                 $pos++;
             }
-            $url = substr($srcset, $start, $pos - $start);
+            $url = (string) substr($srcset, $start, $pos - $start);
             if ($url === '') {
                 break;
             }
             $descriptor = '';
-            if (str_ends_with($url, ',')) {
+            if (substr($url, -1) === ',') {
                 // Trailing comma terminates the entry: URL without descriptor
                 $url = rtrim($url, ',');
             } else {
@@ -1158,7 +1178,7 @@ class Sanitize implements RegistryAware
                 if ($end === false) {
                     $end = $len;
                 }
-                $descriptor = trim(substr($srcset, $pos, $end - $pos));
+                $descriptor = trim((string) substr($srcset, $pos, $end - $pos));
                 $pos = $end;
             }
             if ($url === '') {
