@@ -210,7 +210,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -e POSTGRES_USER=freshrss \
   -e POSTGRES_PASSWORD=freshrss \
   --net freshrss-network \
-  --name freshrss-db postgres
+  --name freshrss-db postgres:18
 ```
 
 In the FreshRSS setup, you will then specify the name of the container (`freshrss-db`) as the host for the database.
