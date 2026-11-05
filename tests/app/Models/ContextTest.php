@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 
 final class ContextTest extends \PHPUnit\Framework\TestCase {
 
@@ -48,6 +49,7 @@ final class ContextTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	#[DataProvider('provideLocaleComparisons')]
+	#[RunInSeparateProcess]
 	public static function testLocaleCompare(string $a, string $b, int $expected): void {
 		if (!FreshRSS_Context::hasUserConf()) {
 			FreshRSS_Context::setUserConf(FreshRSS_UserConfiguration::default());
