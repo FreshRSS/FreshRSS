@@ -74,6 +74,7 @@ People are sorted by name so please keep this order.
 * [Clemens Neubauer](https://github.com/cn-tools): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:cn-tools), [Web](https://cn-tools.eu/)
 * [colons](https://github.com/colons): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:colons), [Web](https://colons.co)
 * [Corentin Garcia](https://github.com/corenting): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:corenting), [Web](https://corenting.fr/)
+* [Corey Quinn](https://github.com/quinnypig): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:quinnypig)
 * [Craig Andrews](https://github.com/candrews): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:candrews), [Web](https://candrews.integralblue.com/)
 * [Creak](https://github.com/MightyCreak): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is%3Apr+author%3AMightyCreak)
 * [Cron](https://github.com/featurecreep-cron): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:featurecreep-cron)

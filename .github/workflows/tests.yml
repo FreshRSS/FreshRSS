@@ -20,6 +20,22 @@ jobs:
     # https://github.com/actions/runner-images
     runs-on: ubuntu-26.04
 
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 127.0.0.1:5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      FRESHRSS_TEST_PGSQL_DSN: pgsql:host=127.0.0.1;dbname=postgres;user=postgres
+
     steps:
     - name: Git checkout source code
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
