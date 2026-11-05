@@ -38,4 +38,21 @@ final class ContextTest extends \PHPUnit\Framework\TestCase {
 		$url = Minz_Url::display(['params' => ['state' => 2, 'stateForRedirect' => 0]], 'ascii');
 		self::assertStringContainsString('state=2&stateForRedirect=0', $url);
 	}
+
+	/** @return Traversable<string,list{string,string,int}> */
+	public static function provideLocaleComparisons(): Traversable {
+		yield 'case-insensitive' => ['Banana', 'banana', 0];
+		yield 'equal strings' => ['apple', 'apple', 0];
+		yield 'accent-sensitive' => ['Ápple', 'apple', 1];
+		yield 'numeric-sensitive' => ['apple2', 'apple10', -1];
+	}
+
+	#[DataProvider('provideLocaleComparisons')]
+	public static function testLocaleCompare(string $a, string $b, int $expected): void {
+		if (!FreshRSS_Context::hasUserConf()) {
+			FreshRSS_Context::setUserConf(FreshRSS_UserConfiguration::default());
+		}
+		$result = FreshRSS_Context::localeCompare($a, $b);
+		self::assertSame($expected, $result <=> 0);
+	}
 }
