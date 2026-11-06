@@ -22,7 +22,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:18-alpine
+        image: postgres:18-alpine@sha256:eaef288f54a90a909e49f0121d5d047a5e974e922699de4249625cf7cde34f36
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
         ports:
