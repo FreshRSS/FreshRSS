@@ -1,5 +1,43 @@
 #!/bin/sh
 
+# Read a variable from a file (Docker/Kubernetes secret), following the same
+# `*_FILE` convention as the official postgres/mysql Docker images.
+# e.g. `OIDC_CLIENT_SECRET_FILE=/run/secrets/oidc_client_secret` sets `OIDC_CLIENT_SECRET` from that file.
+# Only kept for variables that are read directly by Apache/mod_auth_openidc from the
+# container's runtime environment. NOT used for FRESHRSS_INSTALL/FRESHRSS_USER parameters
+# (e.g. DB_*, ADMIN_*), because those are interpolated by `docker compose` on the host
+# before the container starts, so a `_FILE`-only value would silently resolve to blank.
+file_env() {
+	# shellcheck disable=SC3043 # 'local' is supported by dash, ash, and bash, which are the shells used to run this script
+	local var file_var var_value file_value
+	var="$1"
+	case "$var" in
+		''|*[!_0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ]*)
+			echo "❌ Invalid variable name: $var"
+			exit 15
+			;;
+	esac
+	file_var="${var}_FILE"
+	eval "var_value=\${$var:-}"
+	eval "file_value=\${$file_var:-}"
+	if [ -n "$var_value" ] && [ -n "$file_value" ]; then
+		echo "❌ Both $var and $file_var are set, please define only one of them!"
+		exit 13
+	fi
+	if [ -n "$file_value" ]; then
+		var_value=$(cat <"$file_value") || {
+			echo "❌ Could not read secret file $file_value for $file_var!"
+			exit 14
+		}
+		export "$var=$var_value"
+		unset "$file_var"
+	fi
+}
+
+for secret_var in OIDC_CLIENT_SECRET OIDC_CLIENT_ID OIDC_CLIENT_CRYPTO_KEY; do
+	file_env "$secret_var"
+done
+
 ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
 echo "$TZ" >/etc/timezone
 
