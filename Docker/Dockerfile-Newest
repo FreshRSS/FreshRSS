@@ -3,20 +3,24 @@ FROM alpine:edge
 
 ENV TZ=UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing/' >> /etc/apk/repositories && \
 	apk add --no-cache \
-	tzdata \
+	tzdata supercronic \
 	apache2 php86-apache2 \
 	apache-mod-auth-openidc \
 	php86 php86-curl php86-gmp php86-intl php86-mbstring php86-xml php86-zip \
 	php86-ctype php86-dom php86-fileinfo php86-iconv php86-json php86-openssl php86-phar php86-session php86-simplexml php86-xmlreader php86-xmlwriter php86-xml php86-tokenizer php86-zlib \
 	php86-pdo_sqlite php86-pdo_mysql php86-pdo_pgsql
 
-RUN mkdir -p /var/www/FreshRSS /run/apache2/
+RUN adduser -D -u 1000 -G apache -h /var/www/FreshRSS freshrss && \
+	mkdir -p /var/www/FreshRSS /run/apache2/ /run/freshrss/php && \
+	chown -R freshrss:apache /run/apache2/ /run/freshrss/
 WORKDIR /var/www/FreshRSS
 
 COPY --chown=root:www-data . /var/www/FreshRSS
 COPY ./Docker/*.Apache.conf /etc/apache2/conf.d/
+
+RUN mkdir -p ./data && chown -R freshrss:apache ./data ./extensions /etc/apache2/conf.d/
 
 ARG FRESHRSS_VERSION
 ARG SOURCE_COMMIT
@@ -40,6 +44,7 @@ RUN \
 		/etc/apache2/httpd.conf && \
 	sed -r -i "/^\s*(CustomLog|ErrorLog|Listen) /s/^/#/" \
 		/etc/apache2/httpd.conf && \
+	sed -i 's#LoadModule auth_openidc_module mod_auth_openidc.so#LoadModule auth_openidc_module modules/mod_auth_openidc.so#' /etc/apache2/conf.d/mod-auth-openidc.conf && \
 	mv /etc/apache2/conf.d/mod-auth-openidc.conf /etc/apache2/conf.d/mod-auth-openidc.conf.bak && \
 	# Enable required Apache modules
 	sed -r -i "/^\s*#\s*LoadModule .*mod_(deflate|expires|filter|headers|mime|remoteip|setenvif).so$/s/^\s*#//" \
@@ -49,11 +54,8 @@ RUN \
 	echo 'memory_limit = 256M' > /etc/php86/conf.d/10_memory.ini && \
 	# Disable built-in FreshRSS updates when using Docker, as the full image is supposed to be updated instead.
 	sed -r -i "\\#disable_update#s#^.*#\t'disable_update' => true,#" ./config.default.php && \
-	# Configure cron job
-	touch /var/www/FreshRSS/Docker/env.txt && \
-	echo "27,57 * * * * . /var/www/FreshRSS/Docker/env.txt; \
-		su apache -s /bin/sh -c 'php /var/www/FreshRSS/app/actualize_script.php' \
-		2>> /proc/1/fd/2 > /tmp/FreshRSS.log" > /etc/crontab.freshrss.default
+	# supercronic inherits the container environment and runs as freshrss
+	echo '27,57 * * * * php /var/www/FreshRSS/app/actualize_script.php' > /etc/crontab.freshrss.default
 
 ENV COPY_LOG_TO_SYSLOG=On
 ENV COPY_SYSLOG_TO_STDERR=On
@@ -61,13 +63,14 @@ ENV CRON_MIN=''
 ENV DATA_PATH=''
 ENV ENABLE_ACCESS_LOG=1
 ENV FRESHRSS_ENV=''
-ENV LISTEN=''
+ENV LISTEN=8080
 ENV OIDC_ENABLED=''
 ENV TRUSTED_PROXY=''
+ENV PHP_INI_SCAN_DIR=:/run/freshrss/php
 
 ENTRYPOINT ["./Docker/entrypoint.sh"]
 
-EXPOSE 80
+USER freshrss
+EXPOSE 8080
 # hadolint ignore=DL3025
-CMD ([ -z "$CRON_MIN" ] || crond -d 6) && \
-	exec httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo "-D OIDC_ENABLED")
+CMD exec ./Docker/run-services.sh httpd -D FOREGROUND $([ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ] && echo "-D OIDC_ENABLED")
