@@ -1427,6 +1427,17 @@ function init_shortcuts() {
 		if (k === s.toggle_media) { toggle_media(); ev.preventDefault(); }
 		if (k === s.toggle_aside) { toggle_aside_click(); ev.preventDefault(); }
 	});
+
+	// Unfocus the search input if user presses Esc
+	const searchBox = document.getElementById('search');
+	if (searchBox) {
+		searchBox.addEventListener('keydown', ev => {
+			if (ev.key === 'Escape') {
+				searchBox.blur();
+				ev.preventDefault();
+			}
+		});
+	}
 }
 
 function init_stream(stream) {

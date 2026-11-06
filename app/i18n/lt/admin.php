@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Leidimų kanalas',
 			'edge' => 'Nuolatinis leidimas („edge“)',
-			'latest' => 'Stabilus leidimas („latest“)',	// DIRTY
+			'latest' => 'Stabilus leidimas („latest“)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'Atnaujinti FreshRSS',
 		'viaGit' => 'Pradėtas atnaujinimas per „git“ ir „GitHub.com“',

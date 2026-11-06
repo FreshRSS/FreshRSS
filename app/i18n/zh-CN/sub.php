@@ -70,7 +70,7 @@ return array(
 		),
 		'description' => '描述',
 		'empty' => '此源为空。请确认它是否正常更新。',
-		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',	// DIRTY
+		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',	// DIRTY - This feed has encountered a problem. If this situation persists, please verify that it is still reachable.
 		'export-as-opml' => array(
 			'download' => '下载',
 			'help' => 'XML 文件（数据子集。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">查看文档</a>)',
@@ -93,9 +93,9 @@ return array(
 		'kind' => array(
 			'_' => '订阅源类型',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON 点表示法（HTML 中的 JSON）',	// DIRTY
+				'_' => 'HTML + XPath + JSON 点表示法（HTML 中的 JSON）',	// DIRTY - HTML + XPath + JSON dot notation (JSON in HTML)
 				'xpath' => array(
-					'_' => '用于 HTML 中 JSON 的 XPath',	// DIRTY
+					'_' => '用于 HTML 中 JSON 的 XPath',	// DIRTY - XPath for JSON in HTML
 					'help' => '示例：<code>normalize-space(//script[@type="application/json"])</code>（单个 JSON）<br />或：<code>//script[@type="application/ld+json"]</code>（每篇文章一个 JSON 对象）',
 				),
 			),
@@ -155,7 +155,7 @@ return array(
 				'help' => 'JSON 点表达式（JSON 路径）在对象之间使用点，在数组中使用中括号 (例如 <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => '寻找新的 <strong>文章</strong><br /><small>(最重要的参数)</small>',
-					'help' => '包含文章数组的 JSON 路径，例如 <code>$</code> 或 <code>newsItems</code>',	// DIRTY
+					'help' => '包含文章数组的 JSON 路径，例如 <code>$</code> 或 <code>newsItems</code>',	// DIRTY - JSON path to the array containing the items, e.g. <code>$</code> or <code>newsItems</code>
 				),
 				'item_author' => '文章作者',
 				'item_categories' => '文章标签',
@@ -209,7 +209,7 @@ return array(
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => array(
 			'_' => '暂停',
-			'state_is_muted' => '此订阅源已静音',	// DIRTY
+			'state_is_muted' => '此订阅源已静音',	// DIRTY - This feed is muted
 		),
 		'no_selected' => '未选择订阅源',
 		'number_entries' => '%d 篇文章',
@@ -218,7 +218,7 @@ return array(
 		'priority' => array(
 			'_' => '可见性',
 			'category' => '在分类中显示',
-			'feed' => '在其订阅源中显示',	// DIRTY
+			'feed' => '在其订阅源中显示',	// DIRTY - Show in its feed
 			'hidden' => '不显示',
 			'important' => '在“重要的订阅”中显示',
 			'main_stream' => '在首页中显示',

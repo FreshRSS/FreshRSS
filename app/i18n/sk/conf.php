@@ -17,7 +17,7 @@ return array(
 		'help' => 'Viac možností nájdete v nastaveniach kanála',
 		'keep_favourites' => 'Nikdy nemazať obľúbené',
 		'keep_labels' => 'Nikdy nemazať štítky',
-		'keep_max' => 'Maximálny počet článkov na zachovanie',	// DIRTY
+		'keep_max' => 'Maximálny počet článkov na zachovanie',	// DIRTY - Maximum number of articles to keep per feed
 		'keep_min_by_feed' => 'Minimálny počet článkov kanála na zachovanie',
 		'keep_period' => 'Maximálny vek článkov na zachovanie',
 		'keep_unreads' => 'Nikdy nemazať neprečítané články',
@@ -144,7 +144,7 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '“Označiť všetko ako prečítané” button',	// DIRTY
+		'_' => '“Označiť všetko ako prečítané” button',	// DIRTY - “Mark all as read” button
 		'big' => 'Big',	// TODO
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Zobraziť podľa kanála',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Zobraziť podľa dátumu',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Výraz',
 			'shareOpml' => 'Povoliť zdieľanie prostredníctvom OPML zodpovedajúdich kategórií a kanálov',
 			'shareRss' => 'Povoliť zdieľanie prostredníctvom HTML &amp; RSS',
@@ -289,7 +289,7 @@ return array(
 			'when' => 'Označiť článok ako prečítaný…',
 			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => 'ak rovnaký nadpis už existuje v TOP <i>n</i> najnovších článkoch (of the feed)',	// DIRTY
+			'when_same_title_in_feed' => 'ak rovnaký nadpis už existuje v TOP <i>n</i> najnovších článkoch (of the feed)',	// DIRTY - if an identical title already exists in the top <i>n</i> newest articles of the feed
 		),
 		'show' => array(
 			'_' => 'Článkov na zobrazenie',
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
-		'sticky_sort' => 'Zachovať ručné zoradenie počas navigácie',	// DIRTY
-		'sticky_sort_help' => 'Určuje, či zostane zachované posledné ručné zoradenie, alebo či každá kategória či kanál vždy použije vlastné predvolené alebo globálne nastavenie.',	// DIRTY
+		'sticky_sort' => 'Zachovať ručné zoradenie počas navigácie',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'Určuje, či zostane zachované posledné ručné zoradenie, alebo či každá kategória či kanál vždy použije vlastné predvolené alebo globálne nastavenie.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Čítanie',
 		'view' => array(
 			'default' => 'Prednastavené zobrazenie',

@@ -31,7 +31,7 @@ return array(
 		'empty_list' => '没有已安装的扩展',
 		'empty_list_help' => '检查日志以确定扩展列表为空的原因。',
 		'enabled' => '已启用',
-		'is_compatible' => '兼容',	// DIRTY
+		'is_compatible' => '兼容',	// DIRTY - Is compatible
 		'latest' => '已安装',
 		'name' => '名称',
 		'no_configure_view' => '此扩展无法配置。',
@@ -67,7 +67,7 @@ return array(
 		'number_entries' => '%d 篇文章',
 		'overview' => '概览',
 		'percent_of_total' => '%',
-		'repartition' => '文章分布: %s',	// DIRTY
+		'repartition' => '文章分布: %s',	// DIRTY - Articles repartition: %s
 		'status_favorites' => '收藏',
 		'status_read' => '已读',
 		'status_total' => '总计',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => '发布通道',
 			'edge' => '滚动发布 (“edge”)',
-			'latest' => '稳定版本 (“latest”)',	// DIRTY
+			'latest' => '稳定版本 (“latest”)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => '更新系统',
 		'viaGit' => '开始通过 git 和 GitHub.com 更新',
