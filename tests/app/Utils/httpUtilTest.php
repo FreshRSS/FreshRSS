@@ -13,6 +13,28 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);
 	}
 
+	#[DataProvider('provideCurlProxyValues')]
+	public function test_sanitizeCurlParamsRejectsMalformedProxy(string $proxy, bool $shouldSurvive): void {
+		$sanitized = FreshRSS_http_Util::sanitizeCurlParams([CURLOPT_PROXY => $proxy, CURLOPT_PROXYTYPE => CURLPROXY_HTTP]);
+		self::assertSame($shouldSurvive, array_key_exists(CURLOPT_PROXY, $sanitized));
+	}
+
+	/** @return array<string,array{string,bool}> */
+	public static function provideCurlProxyValues(): array {
+		return [
+			// A second `://` would otherwise be reduced by a greedy scheme-strip to this
+			// trailing "decoy" host for the allowlist/DNS-pinning check, while cURL still
+			// receives the original, unstripped value as CURLOPT_PROXY.
+			'rejects scheme-prefixed decoy host' => ['http://127.0.0.1:8080/://8.8.8.8', false],
+			'rejects scheme-less decoy host' => ['127.0.0.1:8080/://198.51.100.10', false],
+			'accepts bare host:port' => ['127.0.0.1:8080', true],
+			'accepts hostname:port' => ['proxy.example.com:3128', true],
+			'accepts http scheme' => ['http://proxy.example.com:3128', true],
+			'accepts socks5 with credentials' => ['socks5://user:pass@203.0.113.5:1080', true],
+			'accepts socks5h host-only' => ['socks5h://198.51.100.10', true],
+		];
+	}
+
 	#[\Override]
 	protected function tearDown(): void {
 		FreshRSS_Context::initSystem(reload: true);	// Restore the default internal host allowlist

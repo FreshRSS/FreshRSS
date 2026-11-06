@@ -125,8 +125,30 @@ final class FreshRSS_http_Util {
 				$curl_params[$k] = array_filter($curl_params[$k],
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
 			}
+			// Reject a CURLOPT_PROXY that is not a plain [scheme://][user[:pass]@]host[:port] string.
+			// Otherwise a value such as `http://127.0.0.1:8080/://8.8.8.8` is later reduced by the
+			// greedy scheme-strip in httpGet()/SimplePie File::curlInit() to the last `://`-separated
+			// component for the allowlist/DNS-pinning check, while the original, unstripped value is
+			// still what gets passed to cURL -- letting the checked host and the contacted host differ.
+			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || !self::isSafeProxyString($curl_params[$k]))) {
+				unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
+			}
 		}
 		return $curl_params;
+	}
+
+	/**
+	 * Whether a CURLOPT_PROXY value is a plain `[scheme://][user[:pass]@]host[:port]` string,
+	 * with no extra path/query/fragment and at most the one scheme separator. In particular this
+	 * rejects a value containing a second `://`, which a naive greedy scheme-strip (`preg_replace`
+	 * with `.*`) would otherwise reduce to an attacker-chosen "decoy" host for an allowlist check
+	 * while cURL still receives the original, unstripped value.
+	 */
+	private static function isSafeProxyString(string $proxy): bool {
+		return preg_match(
+			'~^(?:(?:https?|socks[45]a?h?)://)?(?:[^@/:?#\s]+(?::[^@/:?#\s]*)?@)?[^@/:?#\s]+(?::\d{1,5})?$~i',
+			$proxy,
+		) === 1;
 	}
 
 	private static function idn_to_puny(string $url): string {
