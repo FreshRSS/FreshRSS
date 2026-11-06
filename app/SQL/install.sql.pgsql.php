@@ -57,10 +57,10 @@ CREATE TABLE IF NOT EXISTS `_entry` (
 );
 CREATE INDEX IF NOT EXISTS `_is_favorite_index` ON `_entry` ("is_favorite");
 CREATE INDEX IF NOT EXISTS `_is_read_index` ON `_entry` ("is_read");
+CREATE INDEX IF NOT EXISTS `_entry_feed_read_id_index` ON `_entry` ("id_feed","is_read","id");	-- v1.29.0
 CREATE INDEX IF NOT EXISTS `_entry_lastSeen_index` ON `_entry` ("lastSeen");
 CREATE INDEX IF NOT EXISTS `_entry_last_modified_index` ON `_entry` ("lastModified");
-CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` ("lastUserModified");
-CREATE INDEX IF NOT EXISTS `_entry_feed_read_index` ON `_entry` ("id_feed","is_read");	-- v1.7
+CREATE INDEX IF NOT EXISTS `_entry_last_user_modified_index` ON `_entry` ("lastUserModified");	-- v1.28.0
 
 INSERT INTO `_category` (id, name)
 	SELECT 1, 'Uncategorized'
@@ -156,6 +156,14 @@ BEGIN
 			ALTER COLUMN "tags" SET DATA TYPE VARCHAR(2048);
 		ALTER TABLE `_tag`
 			ALTER COLUMN "name" SET DATA TYPE VARCHAR(191);
+	END IF;
+
+	-- Manual SELECT test to avoid locks
+	IF NOT EXISTS (SELECT 1 FROM pg_class cis WHERE cis.relname = REPLACE('`_entry_feed_read_id_index`', '"', '')) THEN
+		CREATE INDEX IF NOT EXISTS `_entry_feed_read_id_index` ON `_entry` ("id_feed","is_read","id");	-- v1.29.0
+	END IF;
+	IF EXISTS (SELECT 1 FROM pg_class cis WHERE cis.relname = REPLACE('`_entry_feed_read_index`', '"', '')) THEN
+		DROP INDEX IF EXISTS `_entry_feed_read_index`;
 	END IF;
 END $$;
 SQL;
