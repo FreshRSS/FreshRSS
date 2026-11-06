@@ -4,6 +4,7 @@
 	/** @var FreshRSS_View $this */
 	$entry = $this->entry;
 	$feed = $this->feed;
+	$bottomline_sharing = FreshRSS_Context::userConf()->bottomline_sharing && (count(FreshRSS_Context::userConf()->sharing) > 0);
 	if ($feed === null || $entry === null) {
 		return;
 	}
@@ -148,7 +149,17 @@
 					</li>
 				<?php } ?>
 			<?php } ?>
-			<li class="item share"></li>
+			<li class="item share"><?php
+				if ($bottomline_sharing) {
+					?><div class="item-element dropdown">
+					<div id="dropdown-share-<?= $entry->id() ?>" class="dropdown-target"></div>
+					<a class="dropdown-toggle" href="#dropdown-share-<?= $entry->id() ?>">
+						<?= _i('share') ?><span class="dropdown-label"><?= _t('index.share') ?></span>
+					</a>
+					<?php $this->renderHelper('index/normal/entry_share_menu'); ?>
+					</div>
+				<?php } ?>
+			</li>
 			<?php
 			if (FreshRSS_Context::userConf()->bottomline_date) {
 				?>
