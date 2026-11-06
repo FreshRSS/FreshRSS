@@ -45,6 +45,7 @@ return array (
 	'show_feed_name' => 'a',	// {0 => none, a => with authors, t => above title}
 	'show_article_icons' => 't', // {a => with_authors, t => above title}
 	'hide_read_feeds' => true,
+	'sidebar_sort_feeds_by' => 'alpha',	// {alpha => alphabetical, unread => unread count}
 	'onread_jump_next' => true,
 	'lazyload' => true,
 	'sides_close_article' => false,

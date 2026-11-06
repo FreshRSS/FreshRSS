@@ -1,0 +1,24 @@
+Adds a reading preference to sort feeds in the sidebar by unread count.
+Falls back to alphabetical order when feeds have the same unread count.
+This uses the existing cached unread count exposed by FreshRSS_Feed::nbNotRead().
+
+Changes proposed in this pull request:
+
+- Add a "Sort feeds by" setting to the reading configuration page
+- Keep alphabetical sorting as the default
+- Add optional unread-count sorting for feeds within categories
+- Add tests for unread-count sorting and alphabetical tie-breaking
+
+How to test the feature manually:
+
+1. Go to Configuration > Reading and set "Sort feeds by" to "Unread count"
+2. Check a category that has feeds with different unread counts
+3. Confirm feeds with more unread articles appear first, and feeds with the same unread count stay alphabetical
+
+
+Pull request checklist:
+
+- [x] clear commit messages
+- [x] code manually tested
+- [x] unit tests written
+- [ ] documentation updated
