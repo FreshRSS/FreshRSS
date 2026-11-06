@@ -125,13 +125,20 @@ final class FreshRSS_http_Util {
 				$curl_params[$k] = array_filter($curl_params[$k],
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
 			}
-			// Reject a CURLOPT_PROXY that is not a plain [scheme://][user[:pass]@]host[:port] string.
-			// Otherwise a value such as `http://127.0.0.1:8080/://8.8.8.8` is later reduced by the
-			// greedy scheme-strip in httpGet()/SimplePie File::curlInit() to the last `://`-separated
-			// component for the allowlist/DNS-pinning check, while the original, unstripped value is
-			// still what gets passed to cURL -- letting the checked host and the contacted host differ.
-			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || !self::isSafeProxyString($curl_params[$k]))) {
-				unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
+			// A CURLOPT_PROXY value must be a plain [scheme://][user[:pass]@]host[:port] string.
+			// Reject anything else -- in particular a value containing a second "://", which the
+			// allowlist/DNS-pinning check used to reduce (via a greedy preg_replace in httpGet()
+			// and SimplePie File::curlInit()) to an attacker-chosen "decoy" host, while the
+			// original, unstripped value was still what got passed to cURL, letting the checked
+			// host and the contacted host differ. Strip any (now validated, single) leading
+			// scheme here, once, so every consumer of curl_params sees an already-normalised,
+			// scheme-less value and none of them need to strip it themselves.
+			if ($k === CURLOPT_PROXY) {
+				if (!is_string($curl_params[$k]) || !self::isSafeProxyString($curl_params[$k])) {
+					unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
+				} else {
+					$curl_params[$k] = preg_replace('~^(?:https?|socks[45]a?h?)://~i', '', $curl_params[$k]);
+				}
 			}
 		}
 		return $curl_params;
@@ -139,10 +146,7 @@ final class FreshRSS_http_Util {
 
 	/**
 	 * Whether a CURLOPT_PROXY value is a plain `[scheme://][user[:pass]@]host[:port]` string,
-	 * with no extra path/query/fragment and at most the one scheme separator. In particular this
-	 * rejects a value containing a second `://`, which a naive greedy scheme-strip (`preg_replace`
-	 * with `.*`) would otherwise reduce to an attacker-chosen "decoy" host for an allowlist check
-	 * while cURL still receives the original, unstripped value.
+	 * with no extra path/query/fragment and at most the one scheme separator.
 	 */
 	private static function isSafeProxyString(string $proxy): bool {
 		return preg_match(
@@ -534,8 +538,10 @@ final class FreshRSS_http_Util {
 			}
 		}
 		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
+		// CURLOPT_PROXY is already scheme-less by the time it reaches here: sanitizeCurlParams()
+		// strips any (validated) leading scheme once, and the documented systemConf() convention
+		// (docs/en/admins/17_configs_not_ui.md) is likewise scheme-less.
 		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
-		$proxy = preg_replace('#^.*://#', '', $proxy) ?? $proxy;	// Strip scheme, as it is provided by CURLOPT_PROXYTYPE
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
