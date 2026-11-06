@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => ' پیکربندی سیستم',
-		'auto-update-url' => 'نشانی سرور به‌روزرسانی خودکار',
 		'base-url' => array(
 			'_' => 'آدرس پایه',
 			'recommendation' => 'توصیه: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'شروع به‌روزرسانی',
 		'changelog' => ' تغییرات',
 		'check' => 'بررسی به‌روزرسانی‌های جدید',
-		'copiedFromURL' => 'update.php از %s به ./data کپی شد',
 		'current_version' => ' نسخه نصب شده فعلی',
 		'last' => ' آخرین بررسی',
 		'loading' => 'در حال به‌روزرسانی…',

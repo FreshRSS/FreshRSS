@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Konfigurasi Sistem',
-		'auto-update-url' => 'URL server untuk pembaruan otomatis',
 		'base-url' => array(
 			'_' => 'URL server',
 			'recommendation' => 'Rekomendasi Otomatis: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Mulai pembaruan',
 		'changelog' => 'Log Perubahan',
 		'check' => 'Periksa pembaruan baru',
-		'copiedFromURL' => 'update.php disalin dari %s ke ./data',
 		'current_version' => 'Versi saat ini adalah',
 		'last' => 'Terakhir diperiksa pada',
 		'loading' => 'Memperbarui…',

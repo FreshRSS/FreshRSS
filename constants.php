@@ -67,7 +67,6 @@ if (is_string($dataPath) && $dataPath !== '') {
 	defined('DATA_PATH') or define('DATA_PATH', FRESHRSS_PATH . '/data');
 }
 
-defined('UPDATE_FILENAME') or define('UPDATE_FILENAME', DATA_PATH . '/update.php');
 defined('USERS_PATH') or define('USERS_PATH', DATA_PATH . '/users');
 defined('LOG_FILENAME') or define('LOG_FILENAME', 'log.txt');
 defined('ADMIN_LOG') or define('ADMIN_LOG', USERS_PATH . '/_/' . LOG_FILENAME);

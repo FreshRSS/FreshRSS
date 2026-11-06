@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'システム設定',
-		'auto-update-url' => '自動更新サーバーのURL',
 		'base-url' => array(
 			'_' => 'ベースURL',
 			'recommendation' => '自動検出された推奨URL：<kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => '適用',
 		'changelog' => '変更履歴',
 		'check' => 'アップデートを確認する',
-		'copiedFromURL' => 'update.phpが%sから./dataにコピーされました。',
 		'current_version' => '現在のバージョン',
 		'last' => '前回の確認',
 		'loading' => '更新中…',

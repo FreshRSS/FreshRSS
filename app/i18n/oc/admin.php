@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Configuracion sistèma',
-		'auto-update-url' => 'URL del servici de mesa a jorn',
 		'base-url' => array(
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Aplicar',
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'Verificar las mesas a jorn',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Vòstra version actuala',
 		'last' => 'Darrièra verificacion',
 		'loading' => 'Updating…',	// TODO

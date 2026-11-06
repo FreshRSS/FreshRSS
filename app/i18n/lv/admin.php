@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Sistēmas konfigurācija',
-		'auto-update-url' => 'Automātiskās atjaunināšanas servera URL',
 		'base-url' => array(
 			'_' => 'Bāzes URL',
 			'recommendation' => 'Automātiska ieteikšana: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Pieteikties',
 		'changelog' => 'Izmaiņu žurnāls',
 		'check' => 'Jaunu atjauninājumu pārbaude',
-		'copiedFromURL' => 'update.php kopēts no %s uz ./data',
 		'current_version' => 'Jūsu pašreizējā versija',
 		'last' => 'Pēdējā verifikācija',
 		'loading' => 'Atjaunināšana…',
