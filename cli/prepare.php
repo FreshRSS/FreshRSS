@@ -8,6 +8,7 @@ $dirs = [
 	'/cache',
 	'/extensions-data',
 	'/favicons',
+	'/custom-favicons',
 	'/fever',
 	'/PubSubHubbub',
 	'/PubSubHubbub/feeds',
