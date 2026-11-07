@@ -1,0 +1,8 @@
+{
+	"name": "Reed",
+	"author": "SiggeMcKvack",
+	"description": "Calm, warm theme with automatic dark mode",
+	"version": 0.4,
+	"files": ["_frss.css", "reed.css"],
+	"theme-color": {"dark": "#2b2422", "light": "#f7f1e8"}
+}
