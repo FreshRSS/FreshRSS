@@ -512,15 +512,17 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 				AND error <> 0
 				SQL;
 		}
+		// Same order as the article list (`ORDER BY f.name`). Do not sort again in PHP.
+		$sql .= "\n" . <<<'SQL'
+			ORDER BY name
+			SQL;
 		$res = $this->fetchAssoc($sql, [':category' => $cat]);
 		if (!is_array($res)) {
 			return [];
 		}
 		/** @var list<array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority:int,
 		 * 	pathEntries:string,httpAuth:string,error:int,ttl:int,attributes?:string,cache_nbUnreads:int,cache_nbEntries:int}> $res */
-		$feeds = self::daoToFeeds($res);
-		uasort($feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => FreshRSS_Context::localeCompare($a->name(), $b->name()));
-		return $feeds;
+		return self::daoToFeeds($res);
 	}
 
 	public function countEntries(int $id): int {
