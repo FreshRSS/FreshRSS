@@ -68,17 +68,17 @@ return array(
 		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdny. Overte, prosím, či je ešte spravovaný autorom.',
-		'error' => 'Vyskytol sa problém s týmto kanálom. Overte, prosím, či kanál stále existuje.',	// DIRTY
+		'error' => 'Vyskytol sa problém s týmto kanálom. Overte, prosím, či kanál stále existuje.',	// DIRTY - This feed has encountered a problem. If this situation persists, please verify that it is still reachable.
 		'export-as-opml' => array(
 			'download' => 'Stiahnuť',
-			'help' => 'XML súbor (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'XML súbor (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY - XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)
 			'label' => 'Exportovať ako OPML',
 		),
 		'ext_favicon' => 'Set automatically',	// TODO
 		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
 		'filteractions' => array(
 			'_' => 'Filtrovať akcie',
-			'help' => 'Napíšte jeden výraz hľadania na riadok. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY
+			'help' => 'Napíšte jeden výraz hľadania na riadok. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.',	// DIRTY - Write one search filter per line. Operators <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">see documentation</a>.
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
 		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
@@ -127,11 +127,11 @@ return array(
 				),
 				'item_timestamp' => array(
 					'_' => 'položka dátum',
-					'help' => 'Výsledok spracuje <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// DIRTY
+					'help' => 'Výsledok spracuje <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>',	// DIRTY - The result will be parsed by <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a>
 				),
 				'item_title' => array(
 					'_' => 'položka nadpis',
-					'help' => 'Použite hlavne <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// DIRTY
+					'help' => 'Použite hlavne <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>',	// DIRTY - Use in particular the <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath axis</a> <code>descendant::</code> like <code>descendant::h2</code>
 				),
 				'item_uid' => array(
 					'_' => 'položka unikátny identifikátor',
@@ -153,7 +153,7 @@ return array(
 				'help' => 'JSON so zápisom s bodkou používa bodky na oddelenie objekov a zložené zátvorky pre polia (príklad: <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'hľadajú sa <strong>položky</strong> noviniek<br /><small>(najdôležitejšie)</small>',
-					'help' => 'JSON cesta k polu obsahujúce položky, príklad: <code>$</code> or <code>newsItems</code>',	// DIRTY
+					'help' => 'JSON cesta k polu obsahujúce položky, príklad: <code>$</code> or <code>newsItems</code>',	// DIRTY - JSON path to the array containing the items, e.g. <code>$</code> or <code>newsItems</code>
 				),
 				'item_author' => 'autor položky',
 				'item_categories' => 'značky položky',
@@ -194,7 +194,7 @@ return array(
 			'clear_cache' => 'Vymazať vyrovnáciu pamäť',
 			'clear_cache_help' => 'Vymazať vyrovnáciu pamäť pre tento kanál.',
 			'reload_articles' => 'Obnoviť články',
-			'reload_articles_help' => 'Obnoviť články a stiahnuť kompletný obsah, ak je definovaný selektor.',	// DIRTY
+			'reload_articles_help' => 'Obnoviť články a stiahnuť kompletný obsah, ak je definovaný selektor.',	// DIRTY - Reload that many articles and fetch complete content if a selector is defined.
 			'title' => 'Údržba',
 		),
 		'max_http_redir' => 'Max HTTP presmerovaní',
@@ -222,7 +222,7 @@ return array(
 			'main_stream' => 'Zobraziť v prehľade kanálov',
 		),
 		'proxy' => 'Na sťahovanie tohto kanálu nastaviť proxy',
-		'proxy_help' => 'Vyberte protokol (napr.: SOCKS5) a zadajte adresu proxy servera (napr.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY
+		'proxy_help' => 'Vyberte protokol (napr.: SOCKS5) a zadajte adresu proxy servera (napr.: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)',	// DIRTY - Select a protocol (e.g: SOCKS5) and enter the proxy address (e.g: <kbd>127.0.0.1:1080</kbd> or <kbd>username:password@127.0.0.1:1080</kbd>)
 		'reset_favicon' => 'Reset to default',	// TODO
 		'selector_preview' => array(
 			'show_raw' => 'Zobraziť zdrojový kód',
@@ -264,6 +264,7 @@ return array(
 		'validator' => 'Skontrolovať platnosť kanála',
 		'website' => 'Odkaz webovej stránky',
 		'websub' => 'Okamžité oznámenia cez WebSub',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

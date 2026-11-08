@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Anonymes Lesen der Artikel des Standardbenutzers (%s) erlauben',
 		'allow_anonymous_refresh' => 'Anonymes Aktualisieren der Artikel erlauben',
 		'api_enabled' => '<abbr>API</abbr>-Zugriff erlauben <small>(für mobile Apps und zum Teilen von Benutzerabfragen erforderlich)</small>',
-		'form' => 'Webformular (traditionell, benötigt JavaScript)',
+		'form' => 'Webformular (traditionell)',
 		'http' => 'HTTP (fortgeschritten: vom Webserver verwaltet, OIDC, SSO…)',
 		'none' => 'Keine (gefährlich)',
 		'title' => 'Authentifizierung',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Veröffentlichungskanal',
 			'edge' => 'Aktueller Entwicklungsstand (“edge”)',
-			'latest' => 'Stabile Version (“latest”)',	// DIRTY
+			'latest' => 'Veröffentlichte Version (“latest”)',
 		),
 		'title' => 'System aktualisieren',
 		'viaGit' => 'Update über git und GitHub.com gestartet',

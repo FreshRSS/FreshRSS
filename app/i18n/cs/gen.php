@@ -180,14 +180,14 @@ return array(
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY
-				1 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY
-				2 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY
+				0 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY - There are %d new articles to read on FreshRSS.
+				2 => 'Ve FreshRSS je %d nových článků k přečtení.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(nepřečtené: %d)',	// DIRTY
-				1 => '(nepřečtené: %d)',	// DIRTY
-				2 => '(nepřečtené: %d)',	// DIRTY
+				0 => '(nepřečtené: %d)',	// DIRTY - (unread: %d)
+				1 => '(nepřečtené: %d)',	// DIRTY - (unread: %d)
+				2 => '(nepřečtené: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => 'Požadavek selhal, to může být způsobeno problémy s připojení k internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
@@ -198,7 +198,9 @@ return array(
 		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -313,7 +315,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Záložky',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Záložky',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

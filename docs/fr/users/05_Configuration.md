@@ -21,6 +21,7 @@ Les langues disponibles sont:
 
 | Langue (nom français)   | Langue (endonyme)      | Classé par code de langue (ISO-639-1) |
 |:------------------------|:-----------------------|:-------------------------------------|
+| Biélorusse              | Беларуская             | be                                   |
 | Tchèque                 | Čeština                | cs                                   |
 | Allemand                | Deutsch                | de                                   |
 | Grec                    | Ελληνικά               | el                                   |

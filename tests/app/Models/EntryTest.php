@@ -4,8 +4,10 @@ declare(strict_types=1);
 final class EntryTest extends \PHPUnit\Framework\TestCase {
 
 	#[\Override]
-	public static function setUpBeforeClass(): void {
-		FreshRSS_Context::initSystem();
+	protected function setUp(): void {
+		if (!FreshRSS_Context::hasSystemConf()) {
+			FreshRSS_Context::initSystem();
+		}
 	}
 
 	/**

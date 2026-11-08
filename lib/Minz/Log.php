@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <https://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -23,15 +23,17 @@ class Minz_Log {
 		'debug' => LOG_DEBUG,
 	];
 
+	private static string $lastLog = '';
+
 	/**
-	 * Enregistre un message dans un fichier de log spécifique
-	 * Message non loggué si
+	 * Records a message in a specific log file
+	 * The message is not logged if
 	 * 	- environment = SILENT
-	 * 	- level est moins sévère que le seuil déterminé par `log_level`,
-	 * 	  ou par défaut par `environment` (PRODUCTION ne garde que warning et error)
-	 * @param string $information message d'erreur / information à enregistrer
-	 * @param int $level niveau d'erreur https://www.php.net/function.syslog
-	 * @param string $file_name fichier de log
+	 * 	- level is less severe than the threshold determined by `log_level`,
+	 * 	  or, by default, by `environment` (PRODUCTION keeps only warnings and errors)
+	 * @param string $information error message / information to record
+	 * @param int $level error level https://www.php.net/function.syslog
+	 * @param string $file_name log file
 	 * @throws Minz_PermissionDeniedException
 	 */
 	public static function record(string $information, int $level, ?string $file_name = null): void {
@@ -55,6 +57,8 @@ class Minz_Log {
 				default => 'debug',
 			};
 		}
+
+		self::$lastLog = $information;
 
 		if (! ($env === 'silent' || $level > self::LOG_LEVELS[$log_level])) {
 			$username = Minz_User::name() ?? Minz_User::INTERNAL_USER;
@@ -80,6 +84,20 @@ class Minz_Log {
 				throw new Minz_PermissionDeniedException($file_name, Minz_Exception::ERROR);
 			}
 		}
+	}
+
+	/**
+	 * Returns the most recently logged message as a string value, and clears it.
+	 * Mainly for use in PHPUnit tests.
+	 *
+	 * @phpstan-impure The return value might change, even though input arguments are the same between calls.
+	 */
+	public static function getLastLog(bool $clear_last_log = true): string {
+		$lastLog = self::$lastLog;
+		if ($clear_last_log) {
+			self::$lastLog = '';
+		}
+		return $lastLog;
 	}
 
 	/**

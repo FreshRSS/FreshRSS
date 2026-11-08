@@ -9,15 +9,22 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
 
   tests:
-    # https://github.com/actions/virtual-environments
+    name: tests
+    # https://github.com/actions/runner-images
     runs-on: ubuntu-26.04
 
     steps:
     - name: Git checkout source code
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
 
     # Composer tests
 
@@ -58,7 +65,7 @@ jobs:
     # NPM tests
 
     - name: Uses Node.js
-      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+      uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
       with:
         # https://nodejs.org/en/about/previous-releases
         node-version: lts/*
@@ -78,6 +85,9 @@ jobs:
     - name: Check Right-to-left CSS
       run: npm run --silent rtlcss && git diff --exit-code
 
+    - name: Optimize SVG image files
+      run: npm run --silent svgo && git diff --exit-code
+
     # Shell tests
 
     - name: Use shell cache
@@ -95,7 +105,6 @@ jobs:
       run: GOBIN=${PWD}/bin/ go install mvdan.cc/sh/v3/cmd/shfmt@v3.8.0
 
     - name: Check shell script syntax
-      # shellcheck is pre-installed https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2204-Readme.md
       run: ./tests/shellchecks.sh
 
     - name: Install hadolint

@@ -107,6 +107,9 @@ node_modules/.bin/eslint:
 node_modules/.bin/rtlcss:
 	npm install
 
+node_modules/.bin/svgo:
+	npm install
+
 # TODO: Add composer install
 .PHONY: composer-test
 composer-test: bin/phpstan bin/composer
@@ -246,6 +249,10 @@ refresh: ## Refresh feeds by fetching new messages
 .PHONY: rtl
 rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
 	npm run-script rtlcss
+
+.PHONY: svgo
+svgo: node_modules/.bin/svgo ## Optimize SVG image files
+	npm run-script svgo
 
 ##@ Help
 .PHONY: help

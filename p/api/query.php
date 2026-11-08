@@ -38,7 +38,7 @@ if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_e
 	die('Service Unavailable!');
 }
 
-if (($_SERVER['PATH_INFO'] ?? $_SERVER['ORIG_PATH_INFO'] ?? '') !== '') {
+if (Minz_Request::pathInfo() !== '') {
 	// Do not allow trailing slashes
 	header('HTTP/1.1 400 Bad Request');
 	die('Invalid path!');
@@ -95,6 +95,9 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 		Minz_Request::_param('get', $query->getGet());
 		if (Minz_Request::paramString('order', plaintext: true) === '') {
 			Minz_Request::_param('order', $query->getOrder());
+		}
+		if (Minz_Request::paramString('sort', plaintext: true) === '') {
+			Minz_Request::_param('sort', $query->getSort());
 		}
 		Minz_Request::_param('state', (string)$query->getState());
 

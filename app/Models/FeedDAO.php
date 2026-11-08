@@ -261,24 +261,6 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function mute(int $id, bool $value = true): int|false {
-		$sign = $value ? '-' : '';
-		$sql = <<<SQL
-			UPDATE `_feed`
-			SET ttl = {$sign}ABS(ttl)
-			WHERE id = :id
-			SQL;
-		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false &&
-			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
-			$stm->execute()) {
-			return $stm->rowCount();
-		}
-		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
-		return false;
-	}
-
 	public function changeCategory(int $idOldCat, int $idNewCat): int|false {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$newCat = $catDAO->searchById($idNewCat);

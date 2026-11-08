@@ -105,9 +105,15 @@ class FreshRSS_Feed extends Minz_Model {
 		$this->hashFavicon(skipCache: true);
 	}
 
+	/** Must match the proxy of `FreshRSS_SimplePieCustom`, which stores `Retry-After`. */
 	public function proxyParam(): string {
-		$curl_params = FreshRSS_http_Util::sanitizeCurlParams($this->attributeArray('curl_params') ?? []);
-		return is_string($curl_params[CURLOPT_PROXY] ?? null) ? $curl_params[CURLOPT_PROXY] : '';
+		$curl_options = array_replace(FreshRSS_Context::systemConf()->curl_options,
+			FreshRSS_http_Util::sanitizeCurlParams($this->attributeArray('curl_params') ?? []));
+		$proxyType = $curl_options[CURLOPT_PROXYTYPE] ?? 0;
+		if (is_int($proxyType) && ($proxyType < 0 || $proxyType === 3)) {	// 3 is legacy for NONE
+			return '';	// Proxy disabled for this feed
+		}
+		return is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : '';
 	}
 
 	/**
@@ -560,12 +566,16 @@ class FreshRSS_Feed extends Minz_Model {
 	public function _pathEntries(string $value): void {
 		$this->pathEntries = $value;
 	}
-	public function _httpAuth(string $value): void {
+	public function _httpAuth(#[\SensitiveParameter] string $value): void {
 		$this->httpAuth = $value;
 	}
 
-	public function _error(int $value): void {
-		$this->error = $value;
+	/**
+	 * @param int|numeric-string $value
+	 * 32-bit systems provide a string and will fail in year 2038
+	 */
+	public function _error(int|string $value): void {
+		$this->error = (int)$value;
 	}
 	public function _mute(bool $value): void {
 		$this->mute = $value;
@@ -605,15 +615,19 @@ class FreshRSS_Feed extends Minz_Model {
 					Minz_Exception::ERROR
 				);
 			} else {
-				if (($retryAfter = FreshRSS_http_Util::getRetryAfter($this->url, $this->proxyParam())) > 0) {
+				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);
+				$forceFeed = str_ends_with($url, '#force_feed');
+				if ($forceFeed) {
+					$url = substr($url, 0, -11);
+				}
+				// Retry-After is stored for the URL as requested, not as stored for the feed
+				if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $this->proxyParam())) > 0) {
 					throw new FreshRSS_Feed_Exception('For that domain, will first retry after ' . date('c', $retryAfter) .
 						'. ' . $this->url(includeCredentials: false), code: 503);
 				}
 				$simplePie = new FreshRSS_SimplePieCustom($this->attributes(), $this->curlOptions());
-				$url = htmlspecialchars_decode($this->url, ENT_QUOTES);
-				if (str_ends_with($url, '#force_feed')) {
+				if ($forceFeed) {
 					$simplePie->force_feed(true);
-					$url = substr($url, 0, -11);
 				}
 				$simplePie->set_feed_url($url);
 				if (!$loadDetails) {	//Only activates auto-discovery when adding a new feed
@@ -653,7 +667,7 @@ class FreshRSS_Feed extends Minz_Model {
 				$this->hubUrl = empty($links[0]) ? '' : (FreshRSS_http_Util::checkUrl($links[0]) ?: '');
 
 				if ($loadDetails) {
-					// si on a utilisé l’auto-discover, notre url va avoir changé
+					// If auto-discovery was used, the URL has changed
 					$subscribe_url = $simplePie->subscribe_url(false) ?? '';
 
 					if ($this->name(true) === '') {
@@ -1359,17 +1373,43 @@ class FreshRSS_Feed extends Minz_Model {
 
 	//<WebSub>
 
-	public function pubSubHubbubEnabled(): bool {
+	/**
+	 * WebSub subscription state for the current user, or false when not subscribed
+	 * @return array<string,mixed>|false
+	 */
+	private function pubSubHubbubState(): array|false {
+		$currentUser = Minz_User::name() ?? '';
+		if ($currentUser === '') {
+			return false;
+		}
 		$url = $this->selfUrl ?: $this->url;
-		$hubFilename = PSHB_PATH . '/feeds/' . sha1($url) . '/!hub.json';
-		if (($hubFile = @file_get_contents($hubFilename)) != false) {
+		$path = PSHB_PATH . '/feeds/' . sha1($url);
+		if (($hubFile = @file_get_contents($path . '/!hub.json')) != false) {
+			/** @var array<string,mixed> $hubJson */
 			$hubJson = json_decode($hubFile, true);
-			if (is_array($hubJson) && empty($hubJson['error']) &&
-				(empty($hubJson['lease_end']) || $hubJson['lease_end'] > time())) {
-				return true;
+			if (is_array($hubJson) &&
+				(empty($hubJson['lease_end']) || $hubJson['lease_end'] > time()) &&
+				file_exists($path . '/' . $currentUser . '.txt')) {
+				return $hubJson;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Whether WebSub is activated for this feed and this user, and validated by a successfully received push
+	 */
+	public function pubSubHubbubEnabled(): bool {
+		$hubJson = $this->pubSubHubbubState();
+		return is_array($hubJson) && empty($hubJson['error']);
+	}
+
+	/**
+	 * Whether WebSub is activated for this feed and this user, but waiting for first successful push
+	 */
+	public function pubSubHubbubPending(): bool {
+		$hubJson = $this->pubSubHubbubState();
+		return is_array($hubJson) && !empty($hubJson['error']);
 	}
 
 	public function pubSubHubbubError(bool $error = true): bool {
@@ -1399,10 +1439,21 @@ class FreshRSS_Feed extends Minz_Model {
 			$this->hubUrl !== '' && $this->selfUrl !== '' && @is_dir(PSHB_PATH)) {
 			$path = PSHB_PATH . '/feeds/' . sha1($this->selfUrl);
 			$hubFilename = $path . '/!hub.json';
+			$currentUser = Minz_User::name() ?? '';
 			if (($hubFile = @file_get_contents($hubFilename)) != false) {
 				$hubJson = json_decode($hubFile, true);
 				if (!is_array($hubJson) || empty($hubJson['key']) || !is_string($hubJson['key']) || !ctype_xdigit($hubJson['key'])) {
 					$text = 'Invalid JSON for WebSub: ' . $this->url;
+					Minz_Log::warning($text);
+					Minz_Log::warning($text, PSHB_LOG);
+					return false;
+				}
+				if (($hubJson['hub'] ?? null) !== $this->hubUrl) {
+					if (FreshRSS_user_Controller::checkUsername($currentUser) && file_exists($path . '/' . $currentUser . '.txt')) {
+						unlink($path . '/' . $currentUser . '.txt');
+					}
+					$text = 'WebSub: Hub ' . $this->hubUrl . ' currently advertised by ' . $this->url .
+						' does not match the hub file! Not subscribing ' . $currentUser;
 					Minz_Log::warning($text);
 					Minz_Log::warning($text, PSHB_LOG);
 					return false;
@@ -1418,13 +1469,18 @@ class FreshRSS_Feed extends Minz_Model {
 					(empty($hubJson['lease_start']) || $hubJson['lease_start'] < time() - (3600 * 23))) {	//Do not renew too often
 					$key = $hubJson['key'];	//To renew our lease
 				}
-			} else {
+			} else {	// First-time subscription
 				@mkdir($path, 0770, true);
-				$key = sha1($path . FreshRSS_Context::systemConf()->salt);
+				$key = bin2hex(random_bytes(32));
 				$hubJson = [
 					'hub' => $this->hubUrl,
 					'key' => $key,
 				];
+				// hub.secret SHOULD only be specified when the request was made over HTTPS
+				// https://www.w3.org/TR/websub/#subscription-parameter-details
+				if (str_starts_with(strtolower($this->hubUrl), 'https://')) {
+					$hubJson['secret'] = bin2hex(random_bytes(32));	// length < 200
+				}
 				file_put_contents($hubFilename, json_encode($hubJson));
 				@mkdir(PSHB_PATH . '/keys/', 0770, true);
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', $this->selfUrl);
@@ -1432,7 +1488,6 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::debug($text);
 				Minz_Log::debug($text, PSHB_LOG);
 			}
-			$currentUser = Minz_User::name() ?? '';
 			if (FreshRSS_user_Controller::checkUsername($currentUser) && !file_exists($path . '/' . $currentUser . '.txt')) {
 				touch($path . '/' . $currentUser . '.txt');
 			}
@@ -1467,17 +1522,32 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::warning('Invalid callback for WebSub: ' . $this->url);
 				return false;
 			}
-			if (!$state) {	//unsubscribe
+			$postFields = [
+				'hub.verify' => 'sync',
+				'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
+				'hub.topic' => $url,
+				'hub.callback' => $callbackUrl,
+			];
+			$newSecret = null;
+			if ($state) {	// Subscribe
+				// Legacy (before support of hub.secret) case of renewing an unsigned subscription.
+				// hub.secret SHOULD only be specified when the request was made over HTTPS
+				if (str_starts_with(strtolower($hubJson['hub']), 'https://')) {
+					if (empty($hubJson['secret']) || !is_string($hubJson['secret'])) {
+						// We keep the existing subscription (without secret) until the hub confirmation.
+						$newSecret = bin2hex(random_bytes(32));	// length < 200
+						$postFields['hub.secret'] = $newSecret;
+					} else {
+						$postFields['hub.secret'] = $hubJson['secret'];
+					}
+				}
+			}
+			if (!$state) {	// Unsubscribe
 				$hubJson['lease_end'] = time() - 60;
 				file_put_contents($hubFilename, json_encode($hubJson));
 			}
 			$response = FreshRSS_http_Util::httpGet($hubJson['hub'], null, 'html', [], [
-				CURLOPT_POSTFIELDS => http_build_query([
-					'hub.verify' => 'sync',
-					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
-					'hub.topic' => $url,
-					'hub.callback' => $callbackUrl,
-				]),
+				CURLOPT_POSTFIELDS => http_build_query($postFields),
 				CURLOPT_MAXREDIRS => 10,
 			]);
 
@@ -1485,7 +1555,18 @@ class FreshRSS_Feed extends Minz_Model {
 				' via hub ' . $hubJson['hub'] .
 				' with callback ' . $callbackUrl . ': ' . $response['status'] . ' ' . $response['body'], PSHB_LOG);
 
-			if (str_starts_with('' . $response['status'], '2')) {
+			if ($response['method'] === 'POST' && str_starts_with('' . $response['status'], '2')) {
+				if ($newSecret !== null) {	// Legacy (before support of hub.secret) case.
+					// Reload because hub verification (hub.verify=sync) may have updated $hubFile in the meantime
+					$hJson = json_decode((string)@file_get_contents($hubFilename), true);
+					if (is_array($hJson)) {
+						// Save secret only after hub confirmation
+						$hJson['secret'] = $newSecret;
+						file_put_contents($hubFilename, json_encode($hJson));
+					} else {
+						Minz_Log::warning('Could not save hub.secret for WebSub: ' . $this->url, PSHB_LOG);
+					}
+				}
 				return true;
 			} else {
 				$hubJson['lease_start'] = time();	//Prevent trying again too soon
