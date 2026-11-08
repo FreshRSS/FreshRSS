@@ -125,32 +125,21 @@ final class FreshRSS_http_Util {
 				$curl_params[$k] = array_filter($curl_params[$k],
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
 			}
-			// A CURLOPT_PROXY value must be a plain [scheme://][user[:pass]@]host[:port] string.
-			// Reject anything else -- in particular a value containing a second "://", which the
-			// allowlist/DNS-pinning check used to reduce (via a greedy preg_replace in httpGet()
-			// and SimplePie File::curlInit()) to an attacker-chosen "decoy" host, while the
-			// original, unstripped value was still what got passed to cURL, letting the checked
-			// host and the contacted host differ. Strip any (now validated, single) leading
-			// scheme here, once, so every consumer of curl_params sees an already-normalised,
-			// scheme-less value and none of them need to strip it themselves.
-			if ($k === CURLOPT_PROXY) {
-				if (!is_string($curl_params[$k]) || !self::isSafeProxyString($curl_params[$k])) {
-					unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
-				} else {
-					$curl_params[$k] = preg_replace('~^(?:https?|socks[45]a?h?)://~i', '', $curl_params[$k]);
-				}
+			// A CURLOPT_PROXY value must be a plain [user[:pass]@]host[:port] string.
+			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || !self::isSafeProxyString($curl_params[$k]))) {
+				unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
 			}
 		}
 		return $curl_params;
 	}
 
 	/**
-	 * Whether a CURLOPT_PROXY value is a plain `[scheme://][user[:pass]@]host[:port]` string,
-	 * with no extra path/query/fragment and at most the one scheme separator.
+	 * Whether a CURLOPT_PROXY value is a plain `[user[:pass]@]host[:port]` string, with no
+	 * scheme (that comes from CURLOPT_PROXYTYPE) and no extra path, query, or fragment.
 	 */
 	private static function isSafeProxyString(string $proxy): bool {
 		return preg_match(
-			'~^(?:(?:https?|socks[45]a?h?)://)?(?:[^@/:?#\s]+(?::[^@/:?#\s]*)?@)?[^@/:?#\s]+(?::\d{1,5})?$~i',
+			'~^(?:[^@/:?#\s]+(?::[^@/:?#\s]*)?@)?[^@/:?#\s]+(?::\d{1,5})?$~',
 			$proxy,
 		) === 1;
 	}
@@ -539,7 +528,7 @@ final class FreshRSS_http_Util {
 		}
 		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
 		// CURLOPT_PROXY is already scheme-less by the time it reaches here: sanitizeCurlParams()
-		// strips any (validated) leading scheme once, and the documented systemConf() convention
+		// rejects a scheme-containing value, and the documented systemConf() convention
 		// (docs/en/admins/17_configs_not_ui.md) is likewise scheme-less.
 		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
 

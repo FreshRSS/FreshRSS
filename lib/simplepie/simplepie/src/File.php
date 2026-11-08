@@ -158,8 +158,8 @@ class File implements Response
                         $this->success = false;
                         return;
                     }
-                    // CURLOPT_PROXY ($proxy) is already scheme-less by this point: FreshRSS_http_Util::sanitizeCurlParams()
-                    // strips any (validated) leading scheme once, centrally, before this value is ever stored or used.
+                    // CURLOPT_PROXY ($proxy) is already scheme-less by this point: the caller (FreshRSS_http_Util::
+                    // sanitizeCurlParams()) rejects any scheme-containing value before it's ever stored or used.
                     $proxy_url = "$proxy_scheme://$proxy"; // formatted as user:pass@hostname:port, with the part before @ being optional
                     $resolve = $this->get_curl_resolve_info($proxy_url);
                     if ($resolve === null) {
