@@ -266,6 +266,7 @@ return array(
 		'validator' => 'Vérifier la validité du flux',
 		'website' => 'URL du site',
 		'websub' => 'Notifications instantanée par WebSub',
+		'websub_pending' => 'WebSub activé ; en attente de la première notification.',
 	),
 	'import_export' => array(
 		'export' => array(

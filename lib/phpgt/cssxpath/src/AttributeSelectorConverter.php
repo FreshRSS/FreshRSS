@@ -1,6 +1,6 @@
 <?php
 
-namespace Gt\CssXPath;
+namespace GT\CssXPath;
 
 class AttributeSelectorConverter {
 	/** @param array<string, mixed> $token */

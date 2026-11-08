@@ -75,7 +75,7 @@ FreshRSS_Factory::createEntryDao();
 # Runs all tests: PHPUnit, PHPCS, PHPStan, typos
 make test-all
 
-# Auto-fix all trivial issues: whitespace, RTL CSS, translations
+# Auto-fix all trivial issues: whitespace, RTL CSS, translations, SVG image optimization
 make fix-all
 
 # See a list of commands:
@@ -111,3 +111,7 @@ or at least re-apply the file permissions after CLI operations:
 ```sh
 cli/access-permissions.sh
 ```
+
+## Security scanning
+
+Review [`SECURITY.md`](SECURITY.md) and [`docs/threat_model.md`](docs/threat_model.md) for more information.

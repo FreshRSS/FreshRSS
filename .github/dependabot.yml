@@ -6,10 +6,18 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns:
+          - '*'
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default-days: 7
     groups:
       eslint:
         patterns:
@@ -19,11 +27,41 @@ updates:
       stylelint:
         patterns:
           - "*stylelint*"
+      npm-other:
+        patterns:
+          - '*'
+        exclude-patterns:
+          - "*eslint*"
+          - "globals"
+          - "neostandard"
+          - "*stylelint*"
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default-days: 7
+    groups:
+      composer-root:
+        patterns:
+          - '*'
   - package-ecosystem: "composer"
     directory: "/lib/"
     schedule:
       interval: "monthly"
+    cooldown:
+      default-days: 7
+    groups:
+      composer-lib:
+        patterns:
+          - '*'
+  - package-ecosystem: "bundler"
+    directory: "/docs/"
+    schedule:
+      interval: "monthly"
+    cooldown:
+      default-days: 7
+    groups:
+      bundler:
+        patterns:
+          - '*'

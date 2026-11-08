@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Kullanıcı adı',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 karakter: harfler, rakamlar ve <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => 'Kaydedilmemiş ayarları atmak istediğinizden emin misiniz?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'FreshRSS’de okunacak %d yeni makale var.',	// DIRTY
-				1 => 'FreshRSS’de okunacak %d yeni makale var.',	// DIRTY
+				0 => 'FreshRSS’de okunacak %d yeni makale var.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'FreshRSS’de okunacak %d yeni makale var.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(okunmamış: %d)',	// DIRTY
-				1 => '(okunmamış: %d)',	// DIRTY
+				0 => '(okunmamış: %d)',	// DIRTY - (unread: %d)
+				1 => '(okunmamış: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => 'Bir istek başarısız oldu, bu internet bağlantı sorunlarından kaynaklanmış olabilir.',
 			'title_new_articles' => 'FreshRSS: yeni makaleler!',
@@ -190,7 +190,9 @@ return array(
 		'unsafe_csp_header' => 'Kullanılan CSP başlığı güvenli değil ve FreshRSS, XSS saldırılarına karşı savunmasız olabilir. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Belgelere bakın</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -206,7 +208,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
-		'lt' => 'Lietuvių',	// TODO
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -305,7 +307,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Yer imleri',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Yer imleri',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

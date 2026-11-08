@@ -54,18 +54,18 @@ return array(
 		'change_favicon' => '變更…',
 		'clear_cache' => '總是清除快取',
 		'content_action' => array(
-			'_' => '取得文章內容後的動作',
+			'_' => '擷取文章內容時的動作',
 			'append' => '新增在現有內容後面',
 			'prepend' => '新增在現有內容前面',
 			'replace' => '取代現有內容',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
-		'css_cookie' => '在取得文章內容時使用 Cookies',
+		'content_retrieval' => '內容擷取',
+		'css_cookie' => '在擷取文章內容時使用 Cookies',
 		'css_cookie_help' => '範例: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
-		'css_help' => '取得截斷的 RSS 訂閱源 (請注意，會需要更多時間)',
+		'css_help' => '擷取被截斷的 RSS 訂閱源 (請注意，會需要更多時間)',
 		'css_path' => '原始網站上的文章 CSS 選擇器',
 		'css_path_filter' => array(
-			'_' => '用於移除元素的 CSS 選擇器',
+			'_' => '移除元素用的 CSS 選擇器',
 			'help' => 'CSS 選擇器可以是清單，例如: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
 		'description' => '描述',
@@ -85,7 +85,7 @@ return array(
 		),
 		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP 標頭',
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
+		'http_headers_help' => '標頭以換行分隔，其名稱與值則以冒號分隔 (例如: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>)。',
 		'icon' => '圖示',
 		'information' => '資訊',
 		'keep_adding_feed' => '繼續新增更多訂閱源',
@@ -214,7 +214,7 @@ return array(
 		'no_selected' => '未選擇訂閱源。',
 		'number_entries' => '%d 篇文章',
 		'open_feed' => '開啟訂閱源 %s',
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'path_entries_conditions' => '內容擷取條件',
 		'priority' => array(
 			'_' => '可見度',
 			'category' => '在類別中顯示',
@@ -223,7 +223,7 @@ return array(
 			'important' => '顯示在重要訂閱源',
 			'main_stream' => '顯示在主資訊流',
 		),
-		'proxy' => '取得訂閱源時的代理',
+		'proxy' => '設定擷取此訂閱源使用的代理',
 		'proxy_help' => '選擇協定 (例如: SOCKS5) 並輸入代理位址 (例如: <kbd>127.0.0.1:1080</kbd> 或 <kbd>使用者名稱:密碼@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => '重設至預設',
 		'selector_preview' => array(
@@ -266,6 +266,7 @@ return array(
 		'validator' => '檢查訂閱源有效性',
 		'website' => '網站 URL',
 		'websub' => 'WebSub 即時通知',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(
