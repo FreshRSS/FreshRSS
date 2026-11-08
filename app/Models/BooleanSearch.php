@@ -97,7 +97,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 				}
 			}
 
-			$input = str_replace($fromS, $toS, $input);
+			$input = strtr($input, array_combine($fromS, $toS));
 		}
 		return $input;
 	}
@@ -145,7 +145,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 				}
 			}
 
-			$input = str_replace($fromS, $toS, $input);
+			$input = strtr($input, array_combine($fromS, $toS));
 		}
 		return $input;
 	}

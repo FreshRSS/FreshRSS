@@ -39,7 +39,7 @@
 		"@stylistic/stylelint-plugin": "^5.3.1",
 		"eslint": "^10.13.0",
 		"globals": "^17.13.0",
-		"markdownlint-cli2": "^0.23.3",
+		"markdownlint-cli2": "^0.24.0",
 		"neostandard": "^0.14.1",
 		"rtlcss": "^4.3.0",
 		"stylelint": "^17.16.0",

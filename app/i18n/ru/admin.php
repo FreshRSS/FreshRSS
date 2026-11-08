@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Релизный канал',
 			'edge' => 'Плавающий релиз (“edge”)',
-			'latest' => 'Стабильный релиз (“latest”)',	// DIRTY
+			'latest' => 'Стабильный релиз (“latest”)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'Обновить систему',
 		'viaGit' => 'Обновление с помощью git и GitHub.com запущено',

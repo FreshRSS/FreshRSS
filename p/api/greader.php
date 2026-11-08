@@ -61,8 +61,11 @@ function headerVariable(string $headerName, string $varName): string {
 		$header = '' . $_SERVER['REDIRECT_' . $upName];
 	} elseif (function_exists('getallheaders')) {
 		$ALL_HEADERS = getallheaders();
-		if (is_string($ALL_HEADERS[$headerName] ?? null)) {
-			$header = '' . $ALL_HEADERS[$headerName];
+		foreach ($ALL_HEADERS as $name => $value) {
+			if (is_string($name) && strcasecmp($name, $headerName) === 0 && is_string($value)) {
+				$header = $value;
+				break;
+			}
 		}
 	}
 	parse_str($header, $pairs);
