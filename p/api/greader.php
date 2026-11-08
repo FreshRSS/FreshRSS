@@ -1016,7 +1016,7 @@ TXT;
 			$cat = $categoryDAO->searchByName($s);
 			if ($cat != null) {
 				$categoryDAO->updateCategory($cat->id(), [
-					'name' => $dest, 'kind' => $cat->kind(), 'attributes' => $cat->attributes()
+					'name' => $dest, 'kind' => $cat->kind(), 'priority' => $cat->priority(), 'attributes' => $cat->attributes()
 				]);
 				exit('OK');
 			} else {
