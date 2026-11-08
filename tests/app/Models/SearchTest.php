@@ -1234,8 +1234,44 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'intitle:/^A B OR C D/i',
 				'intitle:/^A B OR C D/i',
 			],
+			[
+				'"a(b"',
+				'"a(b"',
+			],
+			[
+				'intitle:"(test)"',
+				'intitle:"(test)"',
+			],
+			[
+				'"a)OR(b"',
+				'"a)OR(b"',
+			],
+			[
+				'"x.OR.y"',
+				'"x.OR.y"',
+			],
 		];
 	}
+
+	#[DataProvider('provideBooleanSearchToStringRoundTrip')]
+	public static function testBooleanSearchToStringRoundTrip(string $input): void {
+		$search = new FreshRSS_BooleanSearch($input);
+		$reparsed = new FreshRSS_BooleanSearch($search->toString());
+		self::assertSame($search->toString(), $reparsed->toString());
+	}
+
+	/** @return list<list{string}> */
+	public static function provideBooleanSearchToStringRoundTrip(): array {
+		return [
+			['"a(b"'],
+			['"a)OR(b"'],
+			['"a b" ("cd)OR(ef")'],
+			['intitle:"(x)" author:"a OR b"'],
+			['"x.OR.y" OR z'],
+			['intitle:/^(ab|cd)/ "e)f"'],
+		];
+	}
+
 
 	/**
 	 * @param list<array{search:string,name?:string}> $queries
