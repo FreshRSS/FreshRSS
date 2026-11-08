@@ -184,6 +184,7 @@ return array(
 		'unsafe_csp_header' => '目前使用的 CSP 標頭不安全，FreshRSS 可能會受到 XSS 攻擊。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">請參閱說明文件</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
 		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
@@ -259,7 +260,7 @@ return array(
 		'content' => '內容',
 		'date_from' => '從',
 		'date_modified' => '伺服器修改日期',
-		'date_past' => 'In the past',	// TODO
+		'date_past' => '過去',
 		'date_published' => '發表日期',
 		'date_range' => '日期範圍',
 		'date_received' => '接收日期',
@@ -281,7 +282,7 @@ return array(
 		'user_queries' => '使用者查詢',
 	),
 	'share' => array(
-		'Known' => '基於已知的站點',
+		'Known' => '基於 Known 的站點',
 		'archiveIS' => 'archive.is',	// IGNORE
 		'archiveORG' => 'archive.org',	// IGNORE
 		'archivePH' => 'archive.ph',	// IGNORE
@@ -289,7 +290,7 @@ return array(
 		'buffer' => 'Buffer',	// IGNORE
 		'clipboard' => '剪貼簿',
 		'diaspora' => 'Diaspora*',	// IGNORE
-		'email' => 'Email',	// IGNORE
+		'email' => '電子郵件',
 		'email-webmail-firefox-fix' => '電子郵件 (webmail - Firefox 專用修正)',
 		'facebook' => 'Facebook',	// IGNORE
 		'gnusocial' => 'GNU social',	// IGNORE
@@ -300,7 +301,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud 書籤',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Bookmarks',	// IGNORE
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

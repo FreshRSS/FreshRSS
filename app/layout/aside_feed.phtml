@@ -14,10 +14,10 @@
 		$state_filter_manual .= '&state=' . $s;
 	}
 	if (FreshRSS_Context::userConf()->sticky_sort) {
-		if (($s = Minz_Request::paramString('sort', plaintext: true)) !== '' && preg_match('/^[a-z.]+$/', $s)) {
+		if (($s = Minz_Request::paramString('sort', plaintext: true)) !== '' && preg_match('/^[a-zA-Z.]{2,16}$/', $s)) {
 			$state_filter_manual .= '&sort=' . $s;
 		}
-		if (($s = Minz_Request::paramString('order', plaintext: true)) !== '' && ctype_alpha($s)) {
+		if (($s = Minz_Request::paramString('order', plaintext: true)) !== '' && ctype_upper($s)) {
 			$state_filter_manual .= '&order=' . $s;
 		}
 	}

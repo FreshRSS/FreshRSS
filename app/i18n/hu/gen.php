@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => 'Biztosan elveti a nem mentett beállításokat?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => '%d db új cikk olvasható a FreshRSS-ben.',	// DIRTY
-				1 => '%d db új cikk olvasható a FreshRSS-ben.',	// DIRTY
+				0 => '%d db új cikk olvasható a FreshRSS-ben.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => '%d db új cikk olvasható a FreshRSS-ben.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(olvasatlan: %d)',	// DIRTY
-				1 => '(olvasatlan: %d)',	// DIRTY
+				0 => '(olvasatlan: %d)',	// DIRTY - (unread: %d)
+				1 => '(olvasatlan: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => 'Egy művelet nem sikerült, lehetséges hogy az internet kapcsolattal vannak problémák.',
 			'title_new_articles' => 'FreshRSS: új cikkek!',
@@ -190,6 +190,7 @@ return array(
 		'unsafe_csp_header' => 'A CSP fejléc használata nem biztonságos és a FreshRSS sebezhető lehet az XSS támadásokkal szemben. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lásd dokumentáció</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
 		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
@@ -306,7 +307,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Könyvjelzők',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Könyvjelzők',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
