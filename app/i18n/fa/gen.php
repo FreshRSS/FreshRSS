@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => 'مطمئنید می‌خواهید تنظیمات ذخیره‌نشده را نادیده بگیرید؟',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => ' %d مقاله جدید برای خواندن در FreshRSS وجود دارد.',	// DIRTY
-				1 => ' %d مقاله جدید برای خواندن در FreshRSS وجود دارد.',	// DIRTY
+				0 => ' %d مقاله جدید برای خواندن در FreshRSS وجود دارد.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => ' %d مقاله جدید برای خواندن در FreshRSS وجود دارد.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => ' (خوانده نشده: %d)',	// DIRTY
-				1 => ' (خوانده نشده: %d)',	// DIRTY
+				0 => ' (خوانده نشده: %d)',	// DIRTY - (unread: %d)
+				1 => ' (خوانده نشده: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => ' یک درخواست شکست خورده است',
 			'title_new_articles' => ' FreshRSS: مقالات جدید!',
@@ -307,7 +307,7 @@ return array(
 		'linkedin' => ' لینکدین',
 		'mastodon' => ' ماستودون',
 		'movim' => ' Movim',
-		'nextcloud-bookmarks' => 'Nextcloud نشانک‌ها',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud نشانک‌ها',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => ' همه چیزخوار',
 		'pinboard' => ' پینبرد',
 		'pinterest' => ' پینترست',

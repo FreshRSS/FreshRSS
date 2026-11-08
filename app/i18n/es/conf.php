@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Mostrar por fuente',
 			'include_article_tags_label' => 'Incluir etiquetas de artículos de los feeds',
 			'include_user_labels_label' => 'Incluir etiquetas del usuario, con el prefijo:',
-			'order' => 'Ordenar por fecha',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Expresión',
 			'shareOpml' => 'Permitir que OPML comparta las categorías y fuentes correspondientes',
 			'shareRss' => 'Permite compartir por HTML &amp; RSS',

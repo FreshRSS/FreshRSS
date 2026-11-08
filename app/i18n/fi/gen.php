@@ -174,12 +174,12 @@ return array(
 		'confirm_exit_slider' => 'Haluatko varmasti hylätä muutetut asetukset?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'FreshRSS-sovelluksessa on %d uusi artikkeli luettavana.',	// DIRTY
-				1 => 'FreshRSS-sovelluksessa on %d uutta artikkelia luettavana.',	// DIRTY
+				0 => 'FreshRSS-sovelluksessa on %d uusi artikkeli luettavana.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'FreshRSS-sovelluksessa on %d uutta artikkelia luettavana.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(lukematta: %d)',	// DIRTY
-				1 => '(lukematta: %d)',	// DIRTY
+				0 => '(lukematta: %d)',	// DIRTY - (unread: %d)
+				1 => '(lukematta: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => 'Pyyntö epäonnistui. Internetyhteydessä on ehkä ollut ongelmia.',
 			'title_new_articles' => 'FreshRSS: uusia artikkeleita!',
@@ -307,7 +307,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Kirjanmerkit',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Kirjanmerkit',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
