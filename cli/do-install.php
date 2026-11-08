@@ -158,17 +158,17 @@ $ok = false;
 try {
 	$error = initDb();
 	if ($error != '') {
-		$_SESSION['bd_error'] = $error;
+		$_SESSION['db_error'] = $error;
 	} else {
 		$ok = true;
 	}
 } catch (Exception $ex) {
-	$_SESSION['bd_error'] = $ex->getMessage();
+	$_SESSION['db_error'] = $ex->getMessage();
 }
 
 if (!$ok) {
 	@unlink(join_path(DATA_PATH, 'config.php'));
-	fail('FreshRSS database error: ' . (is_string($_SESSION['bd_error'] ?? null) ? $_SESSION['bd_error'] : 'Unknown error'));
+	fail('FreshRSS database error: ' . (is_string($_SESSION['db_error'] ?? null) ? $_SESSION['db_error'] : 'Unknown error'));
 }
 
 if (!is_string($config['default_user'] ?? null)) {

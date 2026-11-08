@@ -86,6 +86,7 @@ $ok = FreshRSS_user_Controller::createUser(
 );
 
 if (!$ok) {
+	// TODO: Refactor with exceptions in updateUser to be able to show the exact reason.
 	fail('FreshRSS could not create user!');
 }
 

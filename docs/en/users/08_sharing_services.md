@@ -29,7 +29,7 @@ FreshRSS has the option to share links with a bunch of services.
 | Nextcloud Bookmarks | Selfhosted bookmark app for Nextcloud                | [Website](https://apps.nextcloud.com/apps/bookmarks) | |
 | Omnivore          | A complete, open source read-it-later solution for people who love to read. | [Website](https://omnivore.app/) | |
 | Pinboard          | Social Bookmarking for Introverts                    | [Website](https://pinboard.in/) | |
-| Pinterest         | Is an image sharing and social media service designed to enable saving and discovery of information| [Website](https://pinterest.com/), [Wikipedia](https://en.wikipedia.org/wiki/Pinterest) | |
+| Pinterest         | Is an image sharing and social media service designed to enable saving and discovery of information| [Website](https://www.pinterest.com/), [Wikipedia](https://en.wikipedia.org/wiki/Pinterest) | |
 | Raindrop.io       | All-in-one bookmark manager                          | [Website](https://raindrop.io/)| |
 | Reddit            | A network of communities where people can dive into their interests, hobbies and passions| [Website](https://www.reddit.com/), [Wikipedia](https://en.wikipedia.org/wiki/Reddit)| |
 | Shaarli           | Self-hosted minimalist bookmark manager and link sharing service | [Website](https://shaarli.readthedocs.io/) | |

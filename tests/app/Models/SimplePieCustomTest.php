@@ -9,8 +9,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
  */
 final class SimplePieCustomTest extends \PHPUnit\Framework\TestCase {
 
-	public function __construct(string $name) {
-		parent::__construct($name);
+	#[\Override]
+	protected function setUp(): void {
 		if (!FreshRSS_Context::hasSystemConf()) {
 			FreshRSS_Context::initSystem();
 		}

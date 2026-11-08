@@ -144,7 +144,7 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '„označit vše jako přečtené“ button',	// DIRTY
+		'_' => '„označit vše jako přečtené“ button',	// DIRTY - “Mark all as read” button
 		'big' => 'Big',	// TODO
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Zobrazit podle kanálu',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Seřadit podle data',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Výraz',
 			'shareOpml' => 'Povolit sdílení příslušných kategorií a kanálů pomocí OPML',
 			'shareRss' => 'Povolit sdílení pomocí HTML &amp; RSS',
@@ -283,13 +283,13 @@ return array(
 			'article_viewed' => 'když je článek zobrazen',
 			'focus' => 'při zaměření (kromě důležitých kanálů)',
 			'keep_max_n_unread' => 'Maximální počet článků, které ponechat jako nepřečtené',
-			'scroll' => 'během posouvání (kromě důležitých kanálů)',	// DIRTY
+			'scroll' => 'během posouvání (kromě důležitých kanálů)',	// DIRTY - while scrolling (except for important feeds)
 			'upon_gone' => 'když se již nenachází v upstreamu zpráv.',
 			'upon_reception' => 'po obdržení článku',
 			'when' => 'Označit článek jako přečtený…',
 			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => 'když shodný název již existuje v top <i>n</i> nejnovějších článcích (of the feed)',	// DIRTY
+			'when_same_title_in_feed' => 'když shodný název již existuje v top <i>n</i> nejnovějších článcích (of the feed)',	// DIRTY - if an identical title already exists in the top <i>n</i> newest articles of the feed
 		),
 		'show' => array(
 			'_' => 'Počet zobrazených článků',
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Při otevření připnout článek na začátek',
-		'sticky_sort' => 'Zachovat ruční řazení při navigaci',	// DIRTY
-		'sticky_sort_help' => 'Určuje, zda se zachová poslední ruční řazení, nebo zda každá kategorie či kanál vždy použije vlastní výchozí nebo globální nastavení.',	// DIRTY
+		'sticky_sort' => 'Zachovat ruční řazení při navigaci',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'Určuje, zda se zachová poslední ruční řazení, nebo zda každá kategorie či kanál vždy použije vlastní výchozí nebo globální nastavení.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Čtení',
 		'view' => array(
 			'default' => 'Výchozí zobrazení',

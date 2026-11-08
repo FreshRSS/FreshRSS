@@ -168,10 +168,10 @@ return array(
 		'confirm_exit_slider' => '您确定要放弃未保存的设置吗？',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'FreshRSS 中有 %d 篇文章等待阅读。',	// DIRTY
+				0 => 'FreshRSS 中有 %d 篇文章等待阅读。',	// DIRTY - Singular: There is %d new article to read on FreshRSS. | Plural: There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(未读: %d)',	// DIRTY
+				0 => '(未读: %d)',	// DIRTY - Singular: (unread: %d) | Plural: (unread: %d)
 			),
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
@@ -182,6 +182,7 @@ return array(
 		'unsafe_csp_header' => '当前使用的 CSP 头部不安全，FreshRSS 可能容易受到 XSS 攻击。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">查看文档</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
 		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
@@ -257,14 +258,14 @@ return array(
 		'content' => '内容',
 		'date_from' => '从',
 		'date_modified' => 'Server Modification Date',	// TODO
-		'date_past' => '过去',	// DIRTY
+		'date_past' => '过去',	// DIRTY - In the past
 		'date_published' => '发布日期',
 		'date_range' => '日期范围',
 		'date_received' => '接收日期',
 		'date_to' => '到',
 		'date_user' => '用户修改日期',
 		'feeds' => '订阅源',
-		'free_text' => '自由文本',	// DIRTY
+		'free_text' => '自由文本',	// DIRTY - Free Text
 		'free_text_help' => '在标题和内容中搜索',
 		'full_documentation' => '查看 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">完整搜索文档</a>',
 		'labels' => '我的标签',
@@ -298,7 +299,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud 书签',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud 书签',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
