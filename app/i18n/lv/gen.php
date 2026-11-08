@@ -180,14 +180,14 @@ return array(
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
-				1 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
-				2 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY
+				0 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY - There are %d new articles to read on FreshRSS.
+				2 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(neizlasīti: %d)',	// DIRTY
-				1 => '(neizlasīti: %d)',	// DIRTY
-				2 => '(neizlasīti: %d)',	// DIRTY
+				0 => '(neizlasīti: %d)',	// DIRTY - (unread: %d)
+				1 => '(neizlasīti: %d)',	// DIRTY - (unread: %d)
+				2 => '(neizlasīti: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => 'Pieprasījums nav izdevies, iespējams, to izraisījušas interneta savienojuma problēmas.',
 			'title_new_articles' => 'FreshRSS: jauni raksti!',
@@ -315,7 +315,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Grāmatzīmes',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Grāmatzīmes',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

@@ -174,8 +174,8 @@ return array(
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'I a %d nòus articles per legir sus FreshRSS.',	// DIRTY
-				1 => 'I a %d nòus articles per legir sus FreshRSS.',	// DIRTY
+				0 => 'I a %d nòus articles per legir sus FreshRSS.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'I a %d nòus articles per legir sus FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
 				0 => '(unread: %d)',	// TODO
@@ -307,7 +307,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Marcapaginas',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Marcapaginas',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

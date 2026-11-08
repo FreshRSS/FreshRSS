@@ -144,7 +144,7 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '« o marcar tot coma legit » button',	// DIRTY
+		'_' => '« o marcar tot coma legit » button',	// DIRTY - “Mark all as read” button
 		'big' => 'Big',	// TODO
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Afichatge per flux',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Triar per data',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Expression',	// IGNORE
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
@@ -283,13 +283,13 @@ return array(
 			'article_viewed' => 'quand l’article es mostrat',
 			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Nombre max d’articles a gardar pas legits',
-			'scroll' => 'en davalant la pagina (except for important feeds)',	// DIRTY
+			'scroll' => 'en davalant la pagina (except for important feeds)',	// DIRTY - while scrolling (except for important feeds)
 			'upon_gone' => 'quand es pas mai dins lo flux de novèla font',
 			'upon_reception' => 'en recebre un article novèl',
 			'when' => 'Marcar un article coma legit…',
 			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents (of the feed)',	// DIRTY
+			'when_same_title_in_feed' => 'se un títol identic existís ja demest lo <i>n</i> articles mai recents (of the feed)',	// DIRTY - if an identical title already exists in the top <i>n</i> newest articles of the feed
 		),
 		'show' => array(
 			'_' => 'Articles de mostrar',
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Gardar l’article amont quand es dobèrt',
-		'sticky_sort' => 'Servar l’òrdre de triada manual pendent la navigacion',	// DIRTY
-		'sticky_sort_help' => 'Determina se lo darrièr òrdre de triada manual es conservat o se cada categoria o flux utiliza totjorn son pròpri paramètre per defaut o global.',	// DIRTY
+		'sticky_sort' => 'Servar l’òrdre de triada manual pendent la navigacion',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'Determina se lo darrièr òrdre de triada manual es conservat o se cada categoria o flux utiliza totjorn son pròpri paramètre per defaut o global.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Lectura',
 		'view' => array(
 			'default' => 'Vista per defaut',

@@ -267,6 +267,10 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   --name freshrss-db postgres
 ```
 
+> ⚠️ `postgres` without a version tag is `postgres:latest`, which moves to each new major version of PostgreSQL.
+> New major versions of PostgreSQL refuse to start with the data of a different PostgreSQL version:
+> see update guidance on [docker-library/postgres#37](https://github.com/docker-library/postgres/issues/37) or with FreshRSS own [database migration](#migrate-database).
+
 In the FreshRSS setup, you will then specify the name of the container (`freshrss-db`) as the host for the database.
 
 See also the section [Docker Compose with PostgreSQL](#docker-compose-with-postgresql) below.
