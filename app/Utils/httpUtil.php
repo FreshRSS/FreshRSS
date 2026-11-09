@@ -125,12 +125,8 @@ final class FreshRSS_http_Util {
 				$curl_params[$k] = array_filter($curl_params[$k],
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
 			}
-			// A "/" in CURLOPT_PROXY is never legitimate for a plain [user[:pass]@]host[:port] value
-			// (the scheme comes from CURLOPT_PROXYTYPE). Rejecting it blocks both a value containing
-			// a scheme (e.g. the "http://" in "http://host/://decoy") and a SOCKS Unix-domain-socket
-			// path (e.g. "localhost:9050/path/to.sock", which cURL treats specially for SOCKS proxies
-			// and which could otherwise smuggle a connection to an arbitrary local socket past a
-			// host:port-only allowlist check). This also correctly keeps IPv6 proxies like [::1]:8080.
+			// Forbid '/' in CURLOPT_PROXY [user[:pass]@]host[:port] (the scheme comes from CURLOPT_PROXYTYPE),
+			// to reject e.g. 'http://example.net/://decoy' and 'localhost:9050/path/to.sock'
 			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || str_contains($curl_params[$k], '/'))) {
 				unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
 			}
@@ -521,9 +517,7 @@ final class FreshRSS_http_Util {
 			}
 		}
 		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
-		// CURLOPT_PROXY is already scheme-less by the time it reaches here: sanitizeCurlParams()
-		// rejects a scheme-containing value, and the documented systemConf() convention
-		// (docs/en/admins/17_configs_not_ui.md) is likewise scheme-less.
+		// CURLOPT_PROXY is already scheme-less by the time it reaches here:
 		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
