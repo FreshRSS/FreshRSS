@@ -73,7 +73,7 @@ return array(
 		),
 		'username' => array(
 			'_' => ' نام کاربری',
-			'format' => '<small>حداکثر 16 نویسه الفبای عددی</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -173,8 +173,14 @@ return array(
 		'confirm_action_feed_cat' => ' آیا مطمئن هستید که می خواهید این عمل را انجام دهید؟ موارد دلخواه و درخواست های کاربر مرتبط را از دست خواهید داد. نمی توان آن را لغو کرد!',
 		'confirm_exit_slider' => 'مطمئنید می‌خواهید تنظیمات ذخیره‌نشده را نادیده بگیرید؟',
 		'feedback' => array(
-			'body_new_articles' => ' %%d مقاله جدید برای خواندن در FreshRSS وجود دارد.',
-			'body_unread_articles' => ' (خوانده نشده: %%d)',
+			'body_new_articles' => array(
+				0 => ' %d مقاله جدید برای خواندن در FreshRSS وجود دارد.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => ' %d مقاله جدید برای خواندن در FreshRSS وجود دارد.',	// DIRTY - There are %d new articles to read on FreshRSS.
+			),
+			'body_unread_articles' => array(
+				0 => ' (خوانده نشده: %d)',	// DIRTY - (unread: %d)
+				1 => ' (خوانده نشده: %d)',	// DIRTY - (unread: %d)
+			),
 			'request_failed' => ' یک درخواست شکست خورده است',
 			'title_new_articles' => ' FreshRSS: مقالات جدید!',
 		),
@@ -184,6 +190,9 @@ return array(
 		'unsafe_csp_header' => 'سرآیند CSP فعلی امن نیست و FreshRSS ممکن است در برابر حملات XSS آسیب‌پذیر باشد. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">مستندات را ببینید</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -199,6 +208,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -292,10 +302,12 @@ return array(
 		'gnusocial' => ' گنو اجتماعی',
 		'jdh' => 'ژورنال دو هکر',
 		'lemmy' => ' لمی',
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => ' پیوند دادن',
 		'linkedin' => ' لینکدین',
 		'mastodon' => ' ماستودون',
 		'movim' => ' Movim',
+		'nextcloud-bookmarks' => 'Nextcloud نشانک‌ها',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => ' همه چیزخوار',
 		'pinboard' => ' پینبرد',
 		'pinterest' => ' پینترست',

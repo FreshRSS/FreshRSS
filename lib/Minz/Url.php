@@ -12,7 +12,7 @@ class Minz_Url {
 	 *                    $url['a'] = action
 	 *                    $url['params'] = array of additional parameters
 	 *             or as a string
-	 * @param string $encoding how to encode & (& ou &amp; pour html)
+	 * @param string $encoding how to encode & (& or &amp; for HTML)
 	 * @param array{c?:string,a?:string,params?:array<string,mixed>} $amend Parameters to add or replace in the URL in its array form
 	 * @return string Formatted URL
 	 * @throws Minz_ConfigurationException
@@ -61,17 +61,17 @@ class Minz_Url {
 	}
 
 	/**
-	 * Construit l'URI d'une URL
+	 * Construct the URI of a URL
 	 * @param array{c:string,a:string,params:array<string,mixed>} $url URL as array definition
-	 * @param string $encodage pour indiquer comment encoder les & (& ou &amp; pour html)
-	 * @return string uri sous la forme ?key=value&key2=value2
+	 * @param string $encoding how to encode & (& or &amp; for HTML)
+	 * @return string URI in the form ?key=value&key2=value2
 	 */
-	private static function printUri(array $url, string $encodage): string {
+	private static function printUri(array $url, string $encoding): string {
 		$uri = '';
 		$separator = '?';
 		$anchor = '';
 
-		if ($encodage === 'html') {
+		if ($encoding === 'html') {
 			$and = '&amp;';
 		} else {
 			$and = '&';
@@ -79,7 +79,7 @@ class Minz_Url {
 
 		if (!empty($url['params']) && is_array($url['params']) && !empty($url['params']['#'])) {
 			if (is_string($url['params']['#'])) {
-				$anchor = '#' . ($encodage === 'html' ? htmlspecialchars($url['params']['#'], ENT_QUOTES, 'UTF-8') : $url['params']['#']);
+				$anchor = '#' . ($encoding === 'html' ? htmlspecialchars($url['params']['#'], ENT_QUOTES, 'UTF-8') : $url['params']['#']);
 			}
 			unset($url['params']['#']);
 		}
@@ -140,7 +140,7 @@ class Minz_Url {
 
 	/** @return array{c?:string,a?:string,params?:array<string,mixed>} */
 	public static function unserialize(string $url = ''): array {
-		$result = json_decode(base64_decode($url, true) ?: '', associative: true, flags: JSON_THROW_ON_ERROR) ?? [];
+		$result = json_decode(base64_decode($url, true) ?: '', associative: true) ?? [];
 		/** @var array{c?:string,a?:string,params?:array<string,mixed>} $result */
 		return $result;
 	}
@@ -162,7 +162,7 @@ class Minz_Url {
 			'params' => $get,
 		];
 
-		// post-traitement
+		// Post-processing
 		unset($url['params']['c']);
 		unset($url['params']['a']);
 

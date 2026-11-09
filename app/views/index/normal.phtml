@@ -55,12 +55,12 @@ $today = @strtotime('today');
 		$this->entry = $item;
 		$lastEntry = $item;
 		$nbEntries++;
-		$content = $item->attributeString('diff') ?? $item->content();
 
 		// We most likely already have the feed object in cache, otherwise make a request
 		$this->feed = FreshRSS_Category::findFeed($this->categories, $this->entry->feedId()) ??
 			$this->entry->feed() ?? FreshRSS_Feed::default();
 		$this->entry->_feed($this->feed);
+		$content = $this->entry->attributeString('diff') ?? $this->entry->content($this->feed->attributeBoolean('display_enclosures') ?? true);
 
 		if ($last_transition !== ($transition = FreshRSS_index_Controller::transition($this->entry))) {
 			$last_transition = $transition;

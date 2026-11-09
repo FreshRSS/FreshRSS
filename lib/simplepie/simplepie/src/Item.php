@@ -932,9 +932,11 @@ class Item implements RegistryAware
      * @since Beta 2
      * @todo Add support for end-user defined sorting of enclosures by type/handler (so we can prefer the faster-loading FLV over MP4).
      * @todo If an element exists at a level, but its value is empty, we should fall back to the value from the parent (if it exists).
+     * @param bool $excludeMediaGroupAlternatives When true, only one `<media:content>` is kept per `<media:group>`
+     *   (the one marked `isDefault="true"`, or the first one), skipping the redundant alternative representations.
      * @return \SimplePie\Enclosure[]|null List of \SimplePie\Enclosure items
      */
-    public function get_enclosures()
+    public function get_enclosures(bool $excludeMediaGroupAlternatives = false)
     {
         if (!isset($this->data['enclosures'])) {
             $this->data['enclosures'] = [];
@@ -2294,11 +2296,70 @@ class Item implements RegistryAware
 
             $this->data['enclosures'] = array_values(array_unique($this->data['enclosures']));
         }
-        if (!empty($this->data['enclosures'])) {
-            return $this->data['enclosures'];
+
+        $enclosures = $this->data['enclosures'];
+        if ($excludeMediaGroupAlternatives && $enclosures !== []) {
+            $alternativeUrls = $this->get_media_group_alternative_urls();
+            if ($alternativeUrls !== []) {
+                $enclosures = array_values(array_filter(
+                    $enclosures,
+                    static function (\SimplePie\Enclosure $enclosure) use ($alternativeUrls): bool {
+                        return empty($alternativeUrls[$enclosure->get_link() ?? '']);
+                    }
+                ));
+            }
+        }
+        if (!empty($enclosures)) {
+            return $enclosures;
         }
 
         return null;
+    }
+
+    /**
+     * List the URLs of the redundant `<media:content>` alternatives inside `<media:group>` elements.
+     *
+     * A `<media:group>` gathers different representations of the same content (e.g. several video
+     * resolutions), so only one element per group should normally be shown: the one marked with
+     * `isDefault="true"`, or the first one otherwise.
+     *
+     * @link https://www.rssboard.org/media-rss#media-group
+     * @return array<string, true> URLs (as keys) of the media alternatives that should be skipped
+     */
+    private function get_media_group_alternative_urls(): array
+    {
+        $alternativeUrls = [];
+        foreach ((array) $this->get_item_tags(\SimplePie\SimplePie::NAMESPACE_MEDIARSS, 'group') as $group) {
+            $contents = $group['child'][\SimplePie\SimplePie::NAMESPACE_MEDIARSS]['content'] ?? null;
+            if (!is_array($contents) || count($contents) < 2) {
+                continue;
+            }
+            $urls = [];
+            $defaultUrl = null;
+            foreach ($contents as $content) {
+                if (!isset($content['attribs']['']['url'])) {
+                    continue;
+                }
+                // Same URL processing as when building the enclosures above, so the URLs can be compared
+                $url = $this->sanitize($content['attribs']['']['url'], \SimplePie\SimplePie::CONSTRUCT_IRI, $this->get_own_base($content));
+                if ($url === '') {
+                    continue;
+                }
+                $urls[] = $url;
+                if ($defaultUrl === null && ($content['attribs']['']['isDefault'] ?? '') === 'true') {
+                    $defaultUrl = $url;
+                }
+            }
+            if ($defaultUrl === null) {
+                $defaultUrl = $urls[0] ?? '';
+            }
+            foreach ($urls as $url) {
+                if ($url !== $defaultUrl) {
+                    $alternativeUrls[$url] = true;
+                }
+            }
+        }
+        return $alternativeUrls;
     }
 
     /**

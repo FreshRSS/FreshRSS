@@ -12,22 +12,22 @@
 
 return array(
 	'information' => array(
-		'address' => 'Your API address:',	// TODO
+		'address' => 'APIアドレス：',
 		'output' => array(
-			'encoding-support' => '⚠️ WARN: no <code>%2F</code> support, some clients might not work!',	// TODO
-			'invalid-configuration' => '⚠️ WARN: Probable invalid base URL in ./data/config.php',	// TODO
-			'pass' => '✔️ PASS',	// TODO
-			'unknown-error' => '❌ ',	// TODO
+			'encoding-support' => '⚠️ 警告：<code>%2F</code>に対応していないため、一部のクライアントが動作しない可能性があります',
+			'invalid-configuration' => '⚠️ 警告：<code>./data/config.php</code>内のベースURLが無効な可能性があります。',
+			'pass' => '✔️ 成功',
+			'unknown-error' => '❌ エラー：',
 		),
 		'test' => array(
-			'fever' => 'Fever API configuration test:',	// TODO
-			'greader' => 'Google Reader API configuration test:',	// TODO
+			'fever' => 'Fever API設定テスト：',
+			'greader' => 'Google Reader API設定テスト：',
 		),
 		'title' => array(
-			'_' => 'FreshRSS API endpoints',	// TODO
-			'extension' => 'API for extensions',	// TODO
-			'fever' => 'Fever compatible API',	// TODO
-			'greader' => 'Google Reader compatible API',	// TODO
+			'_' => 'FreshRSS APIエンドポイント',
+			'extension' => '拡張機能向けAPI',
+			'fever' => 'Fever互換API',
+			'greader' => 'Google Reader互換API',
 		),
 	),
 );

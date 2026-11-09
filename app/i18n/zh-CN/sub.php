@@ -26,7 +26,7 @@ return array(
 		'archiving' => '归档',
 		'dynamic_opml' => array(
 			'_' => '动态订阅',
-			'help' => '使用 URL 上的 <a href="http://opml.org/" target="_blank">OPML 文件</a> 中的订阅源填充这一分类',
+			'help' => '使用 URL 上的 <a href="https://opml.org/" target="_blank">OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
 		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
@@ -70,7 +70,7 @@ return array(
 		),
 		'description' => '描述',
 		'empty' => '此源为空。请确认它是否正常更新。',
-		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',	// DIRTY
+		'error' => '此源遇到一些问题。请在确认是否能正常访问后重试。',	// DIRTY - This feed has encountered a problem. If this situation persists, please verify that it is still reachable.
 		'export-as-opml' => array(
 			'download' => '下载',
 			'help' => 'XML 文件（数据子集。<a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">查看文档</a>)',
@@ -83,6 +83,7 @@ return array(
 			'help' => '每行写一条过滤规则，过滤规则可见 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">文档</a>。',
 			'view_filter' => '在现有文章上预览过滤器（新窗口）',
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP 头部',
 		'http_headers_help' => '头部之间用换行符分隔，头部名称和值用冒号分隔（例如：<kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>）。',
 		'icon' => '图标',
@@ -92,9 +93,9 @@ return array(
 		'kind' => array(
 			'_' => '订阅源类型',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON 点表示法（HTML 中的 JSON）',	// DIRTY
+				'_' => 'HTML + XPath + JSON 点表示法（HTML 中的 JSON）',	// DIRTY - HTML + XPath + JSON dot notation (JSON in HTML)
 				'xpath' => array(
-					'_' => '用于 HTML 中 JSON 的 XPath',	// DIRTY
+					'_' => '用于 HTML 中 JSON 的 XPath',	// DIRTY - XPath for JSON in HTML
 					'help' => '示例：<code>normalize-space(//script[@type="application/json"])</code>（单个 JSON）<br />或：<code>//script[@type="application/ld+json"]</code>（每篇文章一个 JSON 对象）',
 				),
 			),
@@ -124,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => '自定义日期/时间格式',
-					'help' => '可选项， 格式参见 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 例如 <code>d-m-Y H:i:s</code>',
+					'help' => '可选项， 格式参见 <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '文章日期：',
-					'help' => '结果将被 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
+					'help' => '结果将被 <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
 				),
 				'item_title' => array(
 					'_' => '文章标题',
-					'help' => '注意使用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 轴</a> <code>descendant::</code>，例如 <code>descendant::h2</code>',
+					'help' => '注意使用 <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath 轴</a> <code>descendant::</code>，例如 <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => '文章唯一 ID',
@@ -154,7 +155,7 @@ return array(
 				'help' => 'JSON 点表达式（JSON 路径）在对象之间使用点，在数组中使用中括号 (例如 <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => '寻找新的 <strong>文章</strong><br /><small>(最重要的参数)</small>',
-					'help' => '包含文章数组的 JSON 路径，例如 <code>$</code> 或 <code>newsItems</code>',	// DIRTY
+					'help' => '包含文章数组的 JSON 路径，例如 <code>$</code> 或 <code>newsItems</code>',	// DIRTY - JSON path to the array containing the items, e.g. <code>$</code> or <code>newsItems</code>
 				),
 				'item_author' => '文章作者',
 				'item_categories' => '文章标签',
@@ -168,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => '自定义时间格式',
-					'help' => '可选项. 被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支持的日期格式。例如 <code>d-m-Y H:i:s</code>',
+					'help' => '可选项. 被 <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支持的日期格式。例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '文章时间',
-					'help' => '结果会被 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
+					'help' => '结果会被 <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
 				),
 				'item_title' => '文章标题',
 				'item_uid' => '文章唯一ID',
@@ -209,7 +210,7 @@ return array(
 		'moved_category_deleted' => '删除分类时，其中的订阅源会自动归类到 <em>%s</em>',
 		'mute' => array(
 			'_' => '暂停',
-			'state_is_muted' => '此订阅源已静音',	// DIRTY
+			'state_is_muted' => '此订阅源已静音',	// DIRTY - This feed is muted
 		),
 		'no_selected' => '未选择订阅源',
 		'number_entries' => '%d 篇文章',
@@ -218,7 +219,7 @@ return array(
 		'priority' => array(
 			'_' => '可见性',
 			'category' => '在分类中显示',
-			'feed' => '在其订阅源中显示',	// DIRTY
+			'feed' => '在其订阅源中显示',	// DIRTY - Show in its feed
 			'hidden' => '不显示',
 			'important' => '在“重要的订阅”中显示',
 			'main_stream' => '在首页中显示',
@@ -266,6 +267,7 @@ return array(
 		'validator' => '检查订阅源有效性',
 		'website' => '网站地址',
 		'websub' => 'WebSub 即时通知',
+		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
 	),
 	'import_export' => array(
 		'export' => array(

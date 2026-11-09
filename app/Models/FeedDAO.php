@@ -261,24 +261,6 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 	}
 
-	public function mute(int $id, bool $value = true): int|false {
-		$sign = $value ? '-' : '';
-		$sql = <<<SQL
-			UPDATE `_feed`
-			SET ttl = {$sign}ABS(ttl)
-			WHERE id = :id
-			SQL;
-		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false &&
-			$stm->bindValue(':id', $id, PDO::PARAM_INT) &&
-			$stm->execute()) {
-			return $stm->rowCount();
-		}
-		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
-		return false;
-	}
-
 	public function changeCategory(int $idOldCat, int $idNewCat): int|false {
 		$catDAO = FreshRSS_Factory::createCategoryDao();
 		$newCat = $catDAO->searchById($idNewCat);
@@ -537,7 +519,7 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		/** @var list<array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority:int,
 		 * 	pathEntries:string,httpAuth:string,error:int,ttl:int,attributes?:string,cache_nbUnreads:int,cache_nbEntries:int}> $res */
 		$feeds = self::daoToFeeds($res);
-		uasort($feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => strnatcasecmp($a->name(), $b->name()));
+		uasort($feeds, static fn(FreshRSS_Feed $a, FreshRSS_Feed $b) => FreshRSS_Context::localeCompare($a->name(), $b->name()));
 		return $feeds;
 	}
 

@@ -2,7 +2,7 @@
 
 ## What to back up
 
-- `./data/` - **required**. You can skip `cache/` and `favicons/`; FreshRSS rebuilds them.
+- `./data/` - **required**. You can skip `cache/`; FreshRSS rebuilds it.
 - `./extensions/` - **recommended** if you use third-party extensions.
 - `./i/themes/` - **optional**, only if you have added custom themes.
 - **External database** (MySQL, MariaDB, PostgreSQL) - back up separately with [`./cli/db-backup.php`](#creating-a-database-backup) (portable SQLite per user) or `mysqldump`/`pg_dump`. SQLite is covered by `./data/` above.

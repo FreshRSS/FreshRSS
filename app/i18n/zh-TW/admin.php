@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => '允許匿名閱讀預設使用者的文章 (%s)',
 		'allow_anonymous_refresh' => '允許匿名刷新文章',
 		'api_enabled' => '允許 <abbr>API</abbr> 存取 <small>(行動應用程式與分享使用者查詢需要)</small>',
-		'form' => 'Web 表單 (傳統方式，需要 JavaScript)',
+		'form' => 'Web 表單 (傳統)',
 		'http' => 'HTTP (進階: 由 Web 伺服器、OIDC、SSO 等管理)',
 		'none' => '無 (危險)',
 		'title' => '身份驗證',
@@ -92,12 +92,12 @@ return array(
 		'force_email_validation' => '強制驗證電子郵件位址',
 		'instance-name' => '實例名稱',
 		'internal-host-allowlist' => array(
-			'_' => 'Internal host allowlist',	// TODO
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'_' => '內部主機允許清單',
+			'help' => '每行一個條目:<ul><li>單個 <code>主機:連接埠</code>。例如 <code>127.0.0.1:8080</code> 或 <code>rss-bridge:80</code></li><li>單個 CIDR 標記。例如 <code>0.0.0.0/0</code> 以允許任何 IPv4 位址、<code>::/0</code> 以允許任何 IPv6 位址</li><li>單個 <code>*</code> 以允許任何主機 (不安全)</li></ul>',
 		),
 		'max-categories' => '每個使用者的最大類別數',
 		'max-feeds' => '每個使用者的最大訂閱源數',
-		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'override-by-env-var' => '此設定由環境變數 <kbd>%s</kbd> 覆寫。',
 		'registration' => array(
 			'number' => '最大帳號數',
 			'select' => array(
@@ -136,8 +136,8 @@ return array(
 		'none' => '無可用更新',
 		'releaseChannel' => array(
 			'_' => '發行方式',
-			'edge' => '滾動發行 (“edge”)',
-			'latest' => '穩定發行 (“latest”)',
+			'edge' => '滾動式發行 (“edge”)',
+			'latest' => '版本化發行 (“latest”)',
 		),
 		'title' => '更新 FreshRSS',
 		'viaGit' => '透過 git 和 GitHub.com 開始更新',
@@ -157,7 +157,7 @@ return array(
 		'list' => '使用者清單',
 		'number' => '已建立 %d 個帳號',
 		'numbers' => '已建立 %d 個帳號',
-		'password_form' => '密碼<br /><small>(用於 Web 表單登入方式)</small>',
+		'password_form' => '密碼<br /><small>(適用於 Web 表單登入方式)</small>',
 		'password_format' => '至少 7 個字元',
 		'title' => '管理使用者',
 		'username' => '使用者名稱',

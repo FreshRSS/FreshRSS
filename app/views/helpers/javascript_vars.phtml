@@ -4,7 +4,7 @@ declare(strict_types=1);
 $mark = FreshRSS_Context::userConf()->mark_when;
 $s = FreshRSS_Context::userConf()->shortcuts;
 $extData = Minz_ExtensionManager::callHook(Minz_HookType::JsVars, []);
-$canView = FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous;
+$canView = FreshRSS_Auth::hasAccess() || FreshRSS_Auth::allowAnonymous();
 echo json_encode([
 	'context' => [
 		'anonymous' => !FreshRSS_Auth::hasAccess(),
@@ -83,14 +83,13 @@ echo json_encode([
 		'confirmation_default' => _t('gen.js.confirm_action'),
 		'confirm_exit_slider' => _t('gen.js.confirm_exit_slider'),
 		'notif_title_articles' => _t('gen.js.feedback.title_new_articles'),
-		'notif_body_new_articles' => _t('gen.js.feedback.body_new_articles'),
-		'notif_body_unread_articles' => _t('gen.js.feedback.body_unread_articles'),
 		'notif_request_failed' => _t('gen.js.feedback.request_failed'),
 		'category_empty' => _t('gen.js.category_empty'),
 		'labels_empty' => _t('gen.js.labels_empty'),
 		'favicon_size_exceeded' => _t('feedback.sub.feed.favicon.too_large', format_bytes(FreshRSS_Context::systemConf()->limits['max_favicon_upload_size'])),
 		'language' => FreshRSS_Context::userConf()->language,
 		'unsafe_csp_header' => _t('gen.js.unsafe_csp_header'),
+		'provided_password_too_long' => _t('user.password.provided_password_too_long'),
 	],
 	'icons' => [
 		'read' => rawurlencode(_i('read')),

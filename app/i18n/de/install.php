@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Alle Datenbanktabellen sind vorhanden.',
 		),
 		'database-title' => 'Datenbank',
+		'docroot' => array(
+			'nok' => 'Das Dokumentenstammverzeichnis (document root) des Webservers scheint nicht auf den Ordner <code>./p/</code> zu verweisen. Andere Verzeichnes, wie zum Beispiel <code>./data/</code>, wären damit öffentlich zugänglich.',
+			'ok' => 'Das Dokumentenstammverzeichnis (document root) des Webservers zeigt korrekt auf das <code>./p/</code> Verzeichnis.',
+		),
 		'dom' => array(
 			'nok' => 'Ihnen fehlt die benötigte Bibliothek zum Durchsuchen des DOM.',
 			'ok' => 'Sie haben die benötigte Bibliothek zum Durchsuchen des DOM.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'Sie verfügen über die empfohlene PHP-Bibliothek „fileinfo“ (Paket „fileinfo“).',
 		),
 		'files' => 'Datei-Installation',
+		'gmp' => array(
+			'nok' => 'Die erforderliche GMP Erweiterung für 32-bit PHP (php-gmp package) konnte nicht gefunden werden.',
+			'ok' => 'Die erforderliche GMP Erweiterung für 32-bit PHP ist vorhanden.',
+		),
 		'intl' => array(
 			'nok' => 'Die empfohlene Bibliothek php-intl für die Internationalisierung kann nicht gefunden werden.',
 			'ok' => 'Sie haben die empfohlene Bibliothek php-intl für die Internationalisierung.',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Glückwunsch!',
 	'default_user' => array(
 		'_' => 'Benutzername des Standardbenutzers',
-		'max_char' => 'maximal 16 alphanumerische Zeichen',
+		'max_char' => '1-39 Zeichen: Buchstaben, Zahlen und <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Bitte den Fehler korrigieren, bevor zum nächsten Schritt gesprungen wird.',
 	'javascript_is_better' => 'FreshRSS ist angenehmer, wenn JavaScript aktiviert ist.',

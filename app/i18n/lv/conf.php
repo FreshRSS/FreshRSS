@@ -17,7 +17,7 @@ return array(
 		'help' => 'Vairākas opcijas ir pieejamas atsevišķas barotnes iestatījumos.',
 		'keep_favourites' => 'Nekad neizdzēst mīļākos',
 		'keep_labels' => 'Nekad neizdzēst birkas',
-		'keep_max' => 'Maksimālais saglabājamo rakstu skaits',	// DIRTY
+		'keep_max' => 'Maksimālais saglabājamo rakstu skaits',	// DIRTY - Maximum number of articles to keep per feed
 		'keep_min_by_feed' => 'Minimālais rakstu skaits, kas jāsaglabā vienā barotnē',
 		'keep_period' => 'Maksimālais saglabājamo rakstu vecums',
 		'keep_unreads' => 'Nekad neizdzēst nelasītos rakstus',
@@ -32,11 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Ekrāns',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Autori un datums',
+				'both' => 'Virsrakstā un kājenē',
+				'footer' => 'Kājienē',
+				'header' => 'Virsrakstā',
+				'none' => 'Nekāds',
+			),
+			'feed_name' => array(
+				'above_title' => 'Virs titula/birkām',
+				'none' => 'Nekāds',
+				'with_authors' => 'Autoru un datuma rindā',
+			),
+			'feed_title' => 'Barotnes tituls',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Birkas',
+				'both' => 'Virsrakstā un kājenē',
+				'footer' => 'Kājienē',
+				'header' => 'Virsrakstā',
+				'none' => 'Nekāds',
+			),
+			'tags_max' => array(
+				'_' => 'Maksimālais rādīto birku skaits',
+				'help' => '0 nozīmē: rādīt visas birkas un nesalocīt tās',
+			),
+		),
 		'darkMode' => array(
 			'_' => 'Automātiskais tumšais režīms',
 			'auto' => 'Auto',	// IGNORE
 			'help' => 'Tikai saderīgām tēmām',
 			'no' => 'Nē',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Raksti: virsraksts/kājotne',
 		),
 		'icon' => array(
 			'bottom_line' => 'Apakšējā līnija',
@@ -109,7 +144,7 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '"atzīmēt visus kā izlasītus" button',	// DIRTY
+		'_' => '"atzīmēt visus kā izlasītus" button',	// DIRTY - “Mark all as read” button
 		'big' => 'Big',	// TODO
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
@@ -141,7 +176,7 @@ return array(
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
 			'disabled' => 'The API access is disabled.',	// TODO
 			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="http://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
 			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
 		),
 		'change_password' => 'Change password',	// TODO
@@ -166,8 +201,9 @@ return array(
 			'_' => 'Piemērotais filtrs:',
 			'categories' => 'Rādīt pēc kategorijas',
 			'feeds' => 'Rādīt pēc barotnes',
-			'order' => 'Kārtot pēc datuma',
-			'publish_labels_instead_of_tags' => 'Replace <i>feed tags</i> by <i>user labels</i> in the shared RSS',	// TODO
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'order' => 'Sort by',	// TODO
 			'search' => 'Izteiksme',
 			'shareOpml' => 'Iespējot dalīšanos, izmantojot OPML atbilstošajām kategorijām un barotnēm',
 			'shareRss' => 'Iespējojiet koplietošanu ar HTML &amp; RSS',
@@ -208,22 +244,15 @@ return array(
 			'opml' => 'Kopīgojama saite uz OPML barotņu sarakstu',
 			'rss' => 'Kopīgojama saite uz RSS barotni',
 		),
-		'state_0' => 'Rādīt visus rakstus',
-		'state_1' => 'Rādīt lasītos rakstus',
-		'state_2' => 'Rādīt nelasītos rakstus',
-		'state_3' => 'Rādīt visus rakstus',
-		'state_4' => 'Rādīt mīļākos rakstus',
-		'state_5' => 'Rādīt lasītos mīļākos rakstus',
-		'state_6' => 'Rādīt nelasītos mīļākos rakstus',
-		'state_7' => 'Rādīt mīļākos rakstus',
-		'state_8' => 'Rādīt ne mīļākos rakstus',
-		'state_9' => 'Rādīt lasītos ne mīļākos rakstus',
-		'state_10' => 'Rādīt nelasītos ne mīļākos rakstus',
-		'state_11' => 'Rādīt ne mīļākos rakstus',
-		'state_12' => 'Rādīt visus rakstus',
-		'state_13' => 'Rādīt lasītos rakstus',
-		'state_14' => 'Rādīt nelasītos rakstus',
-		'state_15' => 'Rādīt visus rakstus',
+		'state_all' => 'Rādīt visus rakstus',
+		'state_favorite' => 'Rādīt mīļākos rakstus',
+		'state_not_favorite' => 'Rādīt ne mīļākos rakstus',
+		'state_read' => 'Rādīt lasītos rakstus',
+		'state_read_favorite' => 'Rādīt lasītos mīļākos rakstus',
+		'state_read_not_favorite' => 'Rādīt lasītos ne mīļākos rakstus',
+		'state_unread' => 'Rādīt nelasītos rakstus',
+		'state_unread_favorite' => 'Rādīt nelasītos mīļākos rakstus',
+		'state_unread_not_favorite' => 'Rādīt nelasītos ne mīļākos rakstus',
 		'title' => 'Lietotāja pieprasījumi',
 	),
 	'reading' => array(
@@ -231,37 +260,6 @@ return array(
 		'after_onread' => 'Pēc "atzīmēt visus kā izlasītus",',
 		'always_show_favorites' => 'Pēc noklusējuma rādīt visus rakstus mīļāko sadaļā',
 		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Autori un datums',
-				'both' => 'Virsrakstā un kājenē',
-				'footer' => 'Kājienē',
-				'header' => 'Virsrakstā',
-				'none' => 'Nekāds',
-			),
-			'feed_name' => array(
-				'above_title' => 'Virs titula/birkām',
-				'none' => 'Nekāds',
-				'with_authors' => 'Autoru un datuma rindā',
-			),
-			'feed_title' => 'Barotnes tituls',
-			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'tags' => array(
-				'_' => 'Birkas',
-				'both' => 'Virsrakstā un kājenē',
-				'footer' => 'Kājienē',
-				'header' => 'Virsrakstā',
-				'none' => 'Nekāds',
-			),
-			'tags_max' => array(
-				'_' => 'Maksimālais rādīto birku skaits',
-				'help' => '0 nozīmē: rādīt visas birkas un nesalocīt tās',
-			),
-		),
 		'articles_per_page' => 'Rakstu skaits lapā',
 		'auto_load_more' => 'Ielādēt vairāk rakstu lapas apakšā',
 		'auto_remove_article' => 'Paslēpt rakstus pēc izlasīšanas',
@@ -270,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Nesalocītās kategorijas',
 		'headline' => array(
 			'articles' => 'Raksti: Atvērt/Aizvērt',
-			'articles_header_footer' => 'Raksti: virsraksts/kājotne',
 			'categories' => 'Kreisā navigācija: Kategorijas',
 			'mark_as_read' => 'Atzīmēt rakstu kā izlasītu',
 			'misc' => 'Citi',
@@ -292,7 +289,7 @@ return array(
 			'when' => 'Atzīmēt rakstu kā izlasītu…',
 			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => 'ja identisks virsraksts jau ir jaunākajos <i>n</i> rakstos (of the feed)',	// DIRTY
+			'when_same_title_in_feed' => 'ja identisks virsraksts jau ir jaunākajos <i>n</i> rakstos (of the feed)',	// DIRTY - if an identical title already exists in the top <i>n</i> newest articles of the feed
 		),
 		'show' => array(
 			'_' => 'Rādāmie raksti',
@@ -311,6 +308,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Uzlīmēt rakstu augšā, kad atvērts',
+		'sticky_sort' => 'Saglabāt manuālo kārtošanas secību navigācijas laikā',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'Nosaka, vai tiek saglabāta pēdējā manuālā kārtošanas secība, vai arī katra kategorija vai plūsma vienmēr izmanto savu noklusējuma vai globālo iestatījumu.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Lasīšana',
 		'view' => array(
 			'default' => 'Noklusējuma skats',

@@ -7,7 +7,7 @@ return array (
 	'enabled' => true,
 	'is_admin' => false,
 	'language' => 'en',
-	// A timezone identifier such as 'Europe/Paris' https://php.net/timezones or blank for server default
+	// A timezone identifier such as 'Europe/Paris' https://www.php.net/timezones or blank for server default
 	'timezone' => '',
 	'archiving' => [
 		'keep_period' => 'P3M',
@@ -62,6 +62,8 @@ return array (
 	# 'id'|'date'|'link'|'title'
 	'secondary_sort' => 'id',
 	'secondary_sort_order' => 'DESC',
+	# To carry the manual sort/order over to the next navigation
+	'sticky_sort' => true,
 
 	'anon_access' => false,
 	'mark_when' => array (

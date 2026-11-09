@@ -30,7 +30,7 @@ class Minz_Mailer {
 	protected $view;
 
 	private string $mailer;
-	/** @var array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'port':int,'from':string} */
+	/** @var array{'hostname':string,'host':string,'auth':bool,'username':string,'password':string,'secure':string,'auto_tls':bool,'port':int,'from':string} */
 	private array $smtp_config;
 	private int $debug_level;
 
@@ -94,6 +94,7 @@ class Minz_Mailer {
 				$mail->Username = $this->smtp_config['username'];
 				$mail->Password = $this->smtp_config['password'];
 				$mail->SMTPSecure = $this->smtp_config['secure'];
+				$mail->SMTPAutoTLS = $this->smtp_config['auto_tls'];
 				$mail->Port = $this->smtp_config['port'];
 			} else {
 				$mail->isMail();

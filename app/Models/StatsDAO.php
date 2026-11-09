@@ -206,6 +206,14 @@ class FreshRSS_StatsDAO extends Minz_ModelPdo {
 	}
 
 	/**
+	 * Calculates the average number of articles from an entry repartition.
+	 * @param array<int,int> $repartition
+	 */
+	public static function calculateEntryAverageFromRepartition(array $repartition): float {
+		return empty($repartition) ? 0.0 : array_sum($repartition) / count($repartition);
+	}
+
+	/**
 	 * Calculates the average number of article per feed
 	 * @param float $period number used to divide the number of day in the period
 	 */

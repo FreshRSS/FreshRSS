@@ -63,6 +63,10 @@ return array(
 			'ok' => 'All database tables exist.',	// TODO
 		),
 		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Impossible de trobar una bibliotèca per percórrer lo DOM.',
 			'ok' => 'Avètz la bibliotèca per percórrer lo DOM.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'Avètz la bibliotèca fileinfo.',
 		),
 		'files' => 'Installacion dels fichièrs',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
 		'intl' => array(
 			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
 			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Òsca !',
 	'default_user' => array(
 		'_' => 'Nom d’utilizaire per defaut',
-		'max_char' => '16 caractèrs alfanumerics maximum',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Mercés de corregir las errors seguentas abans de contunhar.',
 	'javascript_is_better' => 'FreshRSS es mai agradable amb lo JavaScript activat',

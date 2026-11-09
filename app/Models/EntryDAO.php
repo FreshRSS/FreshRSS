@@ -28,7 +28,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 	}
 
 	protected static function sqlLimitAll(): string {
-		// https://dev.mysql.com/doc/refman/9.4/en/select.html
+		// https://dev.mysql.com/doc/refman/26.7/en/select.html
 		return '18446744073709551615';	// Maximum unsigned BIGINT in MySQL, which neither supports ALL nor -1
 	}
 
@@ -138,7 +138,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				if (!is_string($sql)) {
 					throw new Exception('ALTER_TABLE_ENTRY_LAST_USER_MODIFIED is not a string!');
 				}
-				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/9.6/en/alter-table.html
+				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/26.7/en/alter-table.html
 					$sql = str_replace(' IF NOT EXISTS ', ' ', $sql);
 				}
 				$result = $this->pdo->exec($sql);
@@ -147,7 +147,7 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				if (!is_string($sql)) {
 					throw new Exception('ALTER_TABLE_ENTRY_LAST_MODIFIED is not a string!');
 				}
-				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/9.6/en/alter-table.html
+				if ($isMySQL) { // Unlike MariaDB, MySQL does not support `IF NOT EXISTS` https://dev.mysql.com/doc/refman/26.7/en/alter-table.html
 					$sql = str_replace(' IF NOT EXISTS ', ' ', $sql);
 				}
 				$result = $this->pdo->exec($sql);
@@ -538,6 +538,9 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			if (($affected > 0) && (!$this->updateCacheUnreads(null, null))) {
 				return false;
 			}
+			if ($affected > 0) {
+				Minz_ExtensionManager::callHook(Minz_HookType::EntriesRead, $ids, $is_read);
+			}
 			return $affected;
 		} else {
 			FreshRSS_UserDAO::touch();
@@ -555,7 +558,11 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$stm->bindValue(':id', $ids, PDO::PARAM_STR) &&	// TODO: Test PDO::PARAM_INT on 32-bit platform
 				$stm->bindValue(':old_is_read', $is_read ? 0 : 1, PDO::PARAM_INT) &&
 				$stm->execute()) {
-				return $stm->rowCount();
+				$affected = $stm->rowCount();
+				if ($affected > 0) {
+					Minz_ExtensionManager::callHook(Minz_HookType::EntriesRead, [$ids], $is_read);
+				}
+				return $affected;
 			} else {
 				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 				/** @var array{0:string,1:int,2:string} $info */
@@ -978,7 +985,7 @@ SQL;
 
 				if ($filterSearch !== '') {
 					if ($search !== '') {
-						$search .= $filter->operator();
+						$search = rtrim($search) . ' ' . $filter->operator();
 					} elseif (in_array($filter->operator(), ['AND NOT', 'OR NOT'], true)) {
 						// Special case if we start with a negation (there is already the default AND before)
 						$search .= ' NOT';
@@ -1234,7 +1241,7 @@ SQL;
 			if ($filter->getIntextRegex() !== null) {
 				if (static::isCompressed()) {	// MySQL-only
 					foreach ($filter->getIntextRegex() as $content) {
-						$sub_search .= 'AND ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $content, $values) . ') ';
+						$sub_search .= 'AND ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $content, $values) . ' ';
 					}
 				} else {
 					foreach ($filter->getIntextRegex() as $content) {
@@ -1303,7 +1310,7 @@ SQL;
 			if ($filter->getNotIntextRegex() !== null) {
 				if (static::isCompressed()) {	// MySQL-only
 					foreach ($filter->getNotIntextRegex() as $content) {
-						$sub_search .= 'AND NOT ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $content, $values) . ') ';
+						$sub_search .= 'AND NOT ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $content, $values) . ' ';
 					}
 				} else {
 					foreach ($filter->getNotIntextRegex() as $content) {
@@ -1373,7 +1380,7 @@ SQL;
 				foreach ($filter->getNotSearchRegex() as $search_value) {
 					if (static::isCompressed()) {	// MySQL-only
 						$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $search_value, $values) .
-							' ANT NOT ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $search_value, $values) . ' ';
+							' AND NOT ' . static::sqlRegex("UNCOMPRESS({$alias}content_bin)", $search_value, $values) . ' ';
 					} else {
 						$sub_search .= 'AND NOT ' . static::sqlRegex($alias . 'title', $search_value, $values) .
 							' AND NOT ' . static::sqlRegex($alias . 'content', $search_value, $values) . ' ';
@@ -1652,7 +1659,7 @@ SQL;
 			. ($sort === 'c.name' ? ', f.name ' . $order : '')	// Internal secondary sort
 			. (in_array($sort, ['c.name', 'f.name'], true) ? ', ' . $orderBy2 . ' ' . $order2 : '')	// User secondary sort
 			. ($sort === 'id' ? '' : ', e.id ' . $order)	// For keyset pagination
-			. ($limit > 0 ? ' LIMIT ' . $limit : '')	// http://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+			. ($limit > 0 ? ' LIMIT ' . $limit : '')	// https://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
 			. ($offset > 0 ? ' OFFSET ' . $offset : '')
 		];
 	}
@@ -1872,6 +1879,32 @@ SQL;
 		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
 		return null;
+	}
+
+	/**
+	 * Get feed IDs that have entries matching the given state and search filters.
+	 * @return array<int,int> The keys are feed IDs, and the values are the number of matching entries for that feed.
+	 */
+	public function listFeedIdsMatching(int $state, ?FreshRSS_BooleanSearch $filters = null): array {
+		[$values, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters);
+		$sql = <<<SQL
+			SELECT e.id_feed, COUNT(*) AS count FROM `_entry` e
+			WHERE 1=1 {$search}
+			GROUP BY e.id_feed
+			SQL;
+		$stm = $this->pdo->prepare($sql);
+		if ($stm !== false && $stm->execute($values)) {
+			/** @var list<array{id_feed:int|string,count:int}> $res */
+			$res = $stm->fetchAll(PDO::FETCH_ASSOC);
+			$result = [];
+			foreach ($res as $row) {
+				$result[(int)$row['id_feed']] = (int)$row['count'];
+			}
+			return $result;
+		}
+		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+		Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($info));
+		return [];
 	}
 
 	/**

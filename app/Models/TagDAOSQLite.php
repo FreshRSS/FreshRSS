@@ -4,8 +4,8 @@ declare(strict_types=1);
 class FreshRSS_TagDAOSQLite extends FreshRSS_TagDAO {
 
 	#[\Override]
-	public function sqlIgnore(): string {
-		return 'OR IGNORE';
+	public static function sqlIgnoreConflict(string $sql): string {
+		return str_replace('INSERT INTO ', 'INSERT OR IGNORE INTO ', $sql);
 	}
 
 	#[\Override]

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class Minz_Hook {
+readonly class Minz_Hook {
 	public const DEFAULT_PRIORITY = 0;
 
 	public function __construct(
