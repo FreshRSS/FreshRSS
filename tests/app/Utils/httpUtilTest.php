@@ -32,11 +32,16 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			'rejects scheme-prefixed decoy host' => ['http://127.0.0.1:8080/://8.8.8.8', false],
 			'rejects scheme-less decoy host' => ['127.0.0.1:8080/://198.51.100.10', false],
 			// The scheme comes from CURLOPT_PROXYTYPE, not the value itself -- a scheme-containing
-			// value is now rejected outright rather than normalised.
+			// value is rejected outright rather than normalised.
 			'rejects a value carrying its own scheme' => ['http://proxy.example.com:3128', false],
+			// cURL treats "host:port/path" as a Unix domain socket for SOCKS proxies and ignores the
+			// port, so an allowlisted host:port could otherwise be smuggled into connecting to an
+			// arbitrary local socket.
+			'rejects a SOCKS Unix-domain-socket path' => ['localhost:9050/path/to.sock', false],
 			'accepts bare host:port' => ['127.0.0.1:8080', true],
 			'accepts hostname:port' => ['proxy.example.com:3128', true],
 			'accepts host:port with credentials' => ['user:pass@203.0.113.5:1080', true],
+			'accepts an IPv6 proxy' => ['[::1]:8080', true],
 		];
 	}
 

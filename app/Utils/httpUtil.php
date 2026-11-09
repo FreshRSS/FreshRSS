@@ -125,23 +125,17 @@ final class FreshRSS_http_Util {
 				$curl_params[$k] = array_filter($curl_params[$k],
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
 			}
-			// A CURLOPT_PROXY value must be a plain [user[:pass]@]host[:port] string.
-			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || !self::isSafeProxyString($curl_params[$k]))) {
+			// A "/" in CURLOPT_PROXY is never legitimate for a plain [user[:pass]@]host[:port] value
+			// (the scheme comes from CURLOPT_PROXYTYPE). Rejecting it blocks both a value containing
+			// a scheme (e.g. the "http://" in "http://host/://decoy") and a SOCKS Unix-domain-socket
+			// path (e.g. "localhost:9050/path/to.sock", which cURL treats specially for SOCKS proxies
+			// and which could otherwise smuggle a connection to an arbitrary local socket past a
+			// host:port-only allowlist check). This also correctly keeps IPv6 proxies like [::1]:8080.
+			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || str_contains($curl_params[$k], '/'))) {
 				unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
 			}
 		}
 		return $curl_params;
-	}
-
-	/**
-	 * Whether a CURLOPT_PROXY value is a plain `[user[:pass]@]host[:port]` string, with no
-	 * scheme (that comes from CURLOPT_PROXYTYPE) and no extra path, query, or fragment.
-	 */
-	private static function isSafeProxyString(string $proxy): bool {
-		return preg_match(
-			'~^(?:[^@/:?#\s]+(?::[^@/:?#\s]*)?@)?[^@/:?#\s]+(?::\d{1,5})?$~',
-			$proxy,
-		) === 1;
 	}
 
 	private static function idn_to_puny(string $url): string {
