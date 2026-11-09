@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Permitir a leitura anónima dos artigos pelo utilizador predefinido (%s)',
 		'allow_anonymous_refresh' => 'Permitir atualização anónima dos artigos',
 		'api_enabled' => 'Permitir acesso à <abbr>API</abbr> <small>(Necessário para aplicações móveis e partilha de pesquisas personalizadas)</small>',
-		'form' => 'Formulário web (tradicional, requer JavaScript)',
+		'form' => 'Formulário web (tradicional)',
 		'http' => 'HTTP (avançado: gerido pelo servidor web, OIDC, SSO…)',
 		'none' => 'Nenhum (Perigoso)',
 		'title' => 'Autenticação',

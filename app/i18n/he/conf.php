@@ -144,7 +144,7 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '“סימון הכל כנקרא” button',	// DIRTY
+		'_' => '“סימון הכל כנקרא” button',	// DIRTY - “Mark all as read” button
 		'big' => 'Big',	// TODO
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
@@ -170,7 +170,7 @@ return array(
 	'profile' => array(
 		'_' => 'Profile management',	// TODO
 		'api' => array(
-			'_' => 'API management',	// DIRTY
+			'_' => 'API management',	// DIRTY - External access via API
 			'api_not_set' => 'API password not set',	// TODO
 			'api_set' => 'API password set',	// TODO
 			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Display by feed',	// TODO
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Sort by date',	// TODO
+			'order' => 'Sort by',	// TODO
 			'search' => 'Expression',	// TODO
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
@@ -283,7 +283,7 @@ return array(
 			'article_viewed' => 'כאשר מאמר נצפה',
 			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
-			'scroll' => '(except for important feeds) כאשר גוללים',	// DIRTY
+			'scroll' => '(except for important feeds) כאשר גוללים',	// DIRTY - while scrolling (except for important feeds)
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'כאשר המאמר מתקבל',
 			'when' => 'סימון מאמרים כנקראו…',
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'הצמדת המאמר לחלק העליון כאשר הוא פתוח',
-		'sticky_sort' => 'שמירת סדר המיון הידני בעת ניווט',	// DIRTY
-		'sticky_sort_help' => 'קובע אם סדר המיון הידני האחרון נשאר פעיל או שכל קטגוריה או הזנה משתמשת תמיד בהגדרת ברירת המחדל או הכללית שלה.',	// DIRTY
+		'sticky_sort' => 'שמירת סדר המיון הידני בעת ניווט',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'קובע אם סדר המיון הידני האחרון נשאר פעיל או שכל קטגוריה או הזנה משתמשת תמיד בהגדרת ברירת המחדל או הכללית שלה.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'קריאה',
 		'view' => array(
 			'default' => 'תצוגת ברירת המחדל',

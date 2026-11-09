@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Επιτρέψτε την ανώνυμη ανάγνωση των άρθρων του προεπιλεγμένου χρήστη (%s)',
 		'allow_anonymous_refresh' => 'Επιτρέψτε την ανώνυμη ανανέωση των άρθρων',
 		'api_enabled' => 'Επιτρέψτε την πρόσβαση <abbr>API</abbr> <small>(απαιτείται για εφαρμογές κινητών και κοινοποίηση ερωτημάτων χρηστών)</small>',
-		'form' => 'Φόρμα ιστού (σύνηθες, απαιτεί JavaScript)',
+		'form' => 'Φόρμα ιστού (σύνηθες)',
 		'http' => 'HTTP (για προχωρημένους: διαχειρίζεται από τον Web server, OIDC, SSO…)',
 		'none' => 'Καμία (ριψοκίνδυνο)',
 		'title' => 'Πιστοποίηση',
@@ -135,7 +135,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Κανάλι κυκλοφορίας',
 			'edge' => 'Rolling release («edge»)',
-			'latest' => 'Σταθερή κυκλοφορία («latest»)',	// DIRTY
+			'latest' => 'Σταθερή κυκλοφορία («latest»)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'Ενημέρωση συστήματος',
 		'viaGit' => 'Ξεκίνησε η ενημέρωση μέσω git και GitHub.com',

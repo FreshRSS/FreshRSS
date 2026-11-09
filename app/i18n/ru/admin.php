@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Разрешить анонимное чтение статей пользователя по умолчанию (%s)',
 		'allow_anonymous_refresh' => 'Разрешить анонимное обновление статей',
 		'api_enabled' => 'Позволить <abbr>API</abbr> доступ <small>(необходимо для мобильных приложений and sharing user queries)</small>',
-		'form' => 'Веб-форма (традиционный, необходим JavaScript)',
+		'form' => 'Веб-форма (традиционный)',
 		'http' => 'HTTP (продвинутый: управляется веб-сервером, OIDC, SSO…)',
 		'none' => 'Без аутентификации (небезопасно)',
 		'title' => 'Аутентификации',
@@ -135,7 +135,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Релизный канал',
 			'edge' => 'Плавающий релиз (“edge”)',
-			'latest' => 'Стабильный релиз (“latest”)',	// DIRTY
+			'latest' => 'Стабильный релиз (“latest”)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'Обновить систему',
 		'viaGit' => 'Обновление с помощью git и GitHub.com запущено',

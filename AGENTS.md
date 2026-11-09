@@ -111,3 +111,7 @@ or at least re-apply the file permissions after CLI operations:
 ```sh
 cli/access-permissions.sh
 ```
+
+## Security scanning
+
+Review [`SECURITY.md`](SECURITY.md) and [`docs/threat_model.md`](docs/threat_model.md) for more information.

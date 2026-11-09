@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Névtelen felhasználók olvashatják az alapértelmezett felhasználó cikkeit (%s)',
 		'allow_anonymous_refresh' => 'Névtelen felhasználók frissíthetik a cikkeket',
 		'api_enabled' => ' <abbr>API</abbr> elérés engedélyezése <small>(mobilalkalmazásokhoz és felhasználói lekérdezés megosztásához szükséges )</small>',
-		'form' => 'Webes űrlap (hagyományos, JavaScript szükséges hozzá)',
+		'form' => 'Webes űrlap (hagyományos)',
 		'http' => 'HTTP (haladó: Web szerver kezeli, OIDC, SSO…)',
 		'none' => 'nincs (veszélyes)',
 		'title' => 'Hitelesítés',

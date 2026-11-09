@@ -144,7 +144,7 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '“모두 읽음으로 표시” button',	// DIRTY
+		'_' => '“모두 읽음으로 표시” button',	// DIRTY - “Mark all as read” button
 		'big' => 'Big',	// TODO
 		'none' => 'None',	// TODO
 		'small' => 'Small',	// TODO
@@ -203,7 +203,7 @@ return array(
 			'feeds' => '피드별로 표시',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => '날짜순으로 정렬',
+			'order' => 'Sort by',	// TODO
 			'search' => '정규 표현식',
 			'shareOpml' => '해당 카테고리와 피드에 대한 OPML 공유 활성화',
 			'shareRss' => 'HTML 및 RSS 공유 활성화',
@@ -283,13 +283,13 @@ return array(
 			'article_viewed' => '글을 읽었을 때',
 			'focus' => '포커스 됐을 때 (중요 피드 제외)',
 			'keep_max_n_unread' => '읽지 않은 상태로 유지할 최대 글 개수',
-			'scroll' => '스크롤을 하며 지나갈 때 (except for important feeds)',	// DIRTY
+			'scroll' => '스크롤을 하며 지나갈 때 (except for important feeds)',	// DIRTY - while scrolling (except for important feeds)
 			'upon_gone' => '원본 뉴스 피드에서 글 삭제 되었을 때',
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',
 			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
 			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => '상위 <i>n</i>개의 최신 글에 동일한 제목이 이미 있는 경우 (of the feed)',	// DIRTY
+			'when_same_title_in_feed' => '상위 <i>n</i>개의 최신 글에 동일한 제목이 이미 있는 경우 (of the feed)',	// DIRTY - if an identical title already exists in the top <i>n</i> newest articles of the feed
 		),
 		'show' => array(
 			'_' => '글 표시 방식',
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => '글이 펼쳐진 경우 최상단에 고정하기',
-		'sticky_sort' => '탐색 중에도 수동 정렬 순서 유지',	// DIRTY
-		'sticky_sort_help' => '마지막 수동 정렬 순서를 계속 사용할지, 아니면 각 카테고리나 피드가 항상 자체 기본값 또는 전역 설정을 사용할지 결정합니다.',	// DIRTY
+		'sticky_sort' => '탐색 중에도 수동 정렬 순서 유지',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => '마지막 수동 정렬 순서를 계속 사용할지, 아니면 각 카테고리나 피드가 항상 자체 기본값 또는 전역 설정을 사용할지 결정합니다.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => '읽기',
 		'view' => array(
 			'default' => '기본 보기 모드',

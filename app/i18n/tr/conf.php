@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Beslemeye göre göster',
 			'include_article_tags_label' => 'Beslemelerden gelen makale etiketlerini dahil et',
 			'include_user_labels_label' => 'Kullanıcı etiketlerini şu ön ekle dahil et:',
-			'order' => 'Tarihe göre sırala',
+			'order' => 'Sort by',	// TODO
 			'search' => 'İfade',
 			'shareOpml' => 'İlgili kategori ve beslemelerin OPML ile paylaşımını etkinleştir',
 			'shareRss' => 'HTML ve RSS ile paylaşımı etkinleştir',
@@ -308,8 +308,8 @@ return array(
 			'when' => 'Bir makaleyi favori olarak işaretle…',
 		),
 		'sticky_post' => 'Makale açıldığında üstte sabitle',
-		'sticky_sort' => 'Gezinme sırasında el ile belirlenen sıralama düzenini koru',	// DIRTY
-		'sticky_sort_help' => 'Son el ile belirlenen sıralama düzeninin etkin kalıp kalmayacağını ya da her kategori veya beslemenin her zaman kendi varsayılan veya genel ayarını kullanacağını belirler.',	// DIRTY
+		'sticky_sort' => 'Gezinme sırasında el ile belirlenen sıralama düzenini koru',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'Son el ile belirlenen sıralama düzeninin etkin kalıp kalmayacağını ya da her kategori veya beslemenin her zaman kendi varsayılan veya genel ayarını kullanacağını belirler.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Okuma',
 		'view' => array(
 			'default' => 'Varsayılan görünüm',

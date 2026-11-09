@@ -13,6 +13,38 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);
 	}
 
+	#[DataProvider('provideCurlProxyValues')]
+	public function test_sanitizeCurlParamsRejectsMalformedProxy(string $proxy, bool $shouldSurvive): void {
+		$sanitized = FreshRSS_http_Util::sanitizeCurlParams([CURLOPT_PROXY => $proxy, CURLOPT_PROXYTYPE => CURLPROXY_HTTP]);
+		if ($shouldSurvive) {
+			self::assertSame($proxy, $sanitized[CURLOPT_PROXY] ?? null);
+		} else {
+			self::assertArrayNotHasKey(CURLOPT_PROXY, $sanitized);
+		}
+	}
+
+	/** @return array<string,array{string,bool}> */
+	public static function provideCurlProxyValues(): array {
+		return [
+			// A second `://` would otherwise be reduced by a greedy scheme-strip to this
+			// trailing "decoy" host for the allowlist/DNS-pinning check, while cURL still
+			// received the original, unstripped value as CURLOPT_PROXY.
+			'rejects scheme-prefixed decoy host' => ['http://127.0.0.1:8080/://8.8.8.8', false],
+			'rejects scheme-less decoy host' => ['127.0.0.1:8080/://198.51.100.10', false],
+			// The scheme comes from CURLOPT_PROXYTYPE, not the value itself -- a scheme-containing
+			// value is rejected outright rather than normalised.
+			'rejects a value carrying its own scheme' => ['http://proxy.example.com:3128', false],
+			// cURL treats "host:port/path" as a Unix domain socket for SOCKS proxies and ignores the
+			// port, so an allowlisted host:port could otherwise be smuggled into connecting to an
+			// arbitrary local socket.
+			'rejects a SOCKS Unix-domain-socket path' => ['localhost:9050/path/to.sock', false],
+			'accepts bare host:port' => ['127.0.0.1:8080', true],
+			'accepts hostname:port' => ['proxy.example.com:3128', true],
+			'accepts host:port with credentials' => ['user:pass@203.0.113.5:1080', true],
+			'accepts an IPv6 proxy' => ['[::1]:8080', true],
+		];
+	}
+
 	#[\Override]
 	protected function tearDown(): void {
 		FreshRSS_Context::initSystem(reload: true);	// Restore the default internal host allowlist
@@ -37,6 +69,28 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			'local domain' => ['http://rss-bridge.lan/?bridge=A', 'http://rss-bridge.lan/?bridge=B', false],
 			'local, same URL' => ['http://192.168.1.2/feed', 'http://192.168.1.2/feed', true],
 		];
+	}
+
+	#[DataProvider('provideUtf8Html')]
+	public function test_enforceHtmlBase_keepsUtf8InScripts(string $html): void {
+		$enforceHtmlBase = new ReflectionMethod(FreshRSS_http_Util::class, 'enforceHtmlBase');
+		$result = $enforceHtmlBase->invoke(null, $html, 'https://example.net/page');
+		self::assertIsString($result);
+		self::assertStringContainsString('<base href="https://example.net/page">', $result);
+		self::assertStringContainsString('<script type="application/json">{"title":"Café’s menu — 日本"}</script>', $result);
+		if (str_starts_with($html, "\xEF\xBB\xBF")) {
+			self::assertStringStartsWith("\xEF\xBB\xBF", $result);
+		}
+	}
+
+	/** @return Traversable<string,array{string}> */
+	public static function provideUtf8Html(): Traversable {
+		$head = '<html><head><title>T</title></head>';
+		$body = '<body><p>Café’s menu — 日本</p><script type="application/json">{"title":"Café’s menu — 日本"}</script></body></html>';
+		yield 'meta charset' => ['<!DOCTYPE html><html><head><meta charset="utf-8"><title>T</title></head>' . $body];
+		yield 'byte order mark' => ["\xEF\xBB\xBF" . '<!DOCTYPE html>' . $head . $body];
+		yield 'byte order mark, late <html>' => ["\xEF\xBB\xBF" . '<!DOCTYPE html>' . str_repeat('<!-- padding -->', 40) . $head . $body];
+		yield 'meta http-equiv' => ['<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>T</title></head>' . $body];
 	}
 
 	#[DataProvider('provideCidrRanges')]

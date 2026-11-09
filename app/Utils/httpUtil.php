@@ -125,6 +125,11 @@ final class FreshRSS_http_Util {
 				$curl_params[$k] = array_filter($curl_params[$k],
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
 			}
+			// Forbid '/' in CURLOPT_PROXY [user[:pass]@]host[:port] (the scheme comes from CURLOPT_PROXYTYPE),
+			// to reject e.g. 'http://example.net/://decoy' and 'localhost:9050/path/to.sock'
+			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || str_contains($curl_params[$k], '/'))) {
+				unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
+			}
 		}
 		return $curl_params;
 	}
@@ -258,7 +263,20 @@ final class FreshRSS_http_Util {
 		$htmlPos = stripos($html, '<html');
 		$htmlStart = $htmlPos === false || $htmlPos > 512 ? '' : substr($html, 0, $htmlPos);
 
-		$html = $doc->saveHTML() ?: $html;
+		$encoding = strtolower($doc->encoding ?? '');
+		$bom = str_starts_with($html, "\xEF\xBB\xBF") ? "\xEF\xBB\xBF" : '';
+		if ($encoding === 'utf-8' || ($encoding === '' && $bom !== '')) {
+			// For a whole document, libxml2 saveHTML() only knows the charset from <meta http-equiv="Content-Type">.
+			// With <meta charset="UTF-8"> or a byte order mark, it writes non-ASCII characters as HTML entities,
+			// also inside <script>, where they are not decoded, which corrupts e.g. JSON data. Node by node, it writes UTF-8.
+			$utf8 = '';
+			foreach ($doc->childNodes as $node) {
+				$utf8 .= $doc->saveHTML($node) ?: '';
+			}
+			$html = $utf8 !== '' ? $bom . $utf8 : $html;
+		} else {
+			$html = $doc->saveHTML() ?: $html;
+		}
 		if ($htmlStart !== '' && !str_starts_with($html, $htmlStart)) {
 			// libxml2 saveHTML() risks removing Unicode BOM and XML declaration,
 			// which affects future detection of charset encoding, so manually restore it
@@ -499,8 +517,8 @@ final class FreshRSS_http_Util {
 			}
 		}
 		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
+		// CURLOPT_PROXY is already scheme-less by the time it reaches here:
 		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
-		$proxy = preg_replace('#^.*://#', '', $proxy) ?? $proxy;	// Strip scheme, as it is provided by CURLOPT_PROXYTYPE
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));

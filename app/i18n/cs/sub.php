@@ -70,10 +70,10 @@ return array(
 		),
 		'description' => 'Popis',
 		'empty' => 'Tento kanál je prázdný. Ověřte prosím, zda je stále udržován.',
-		'error' => 'Vyskytl se problém s kanálem. Ověřte prosím, že je vždy dostupný.',	// DIRTY
+		'error' => 'Vyskytl se problém s kanálem. Ověřte prosím, že je vždy dostupný.',	// DIRTY - This feed has encountered a problem. If this situation persists, please verify that it is still reachable.
 		'export-as-opml' => array(
 			'download' => 'Stáhnout',
-			'help' => 'Soubor XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY
+			'help' => 'Soubor XML (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY - XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)
 			'label' => 'Exportovat jako OPML',
 		),
 		'ext_favicon' => 'Set automatically',	// TODO
@@ -155,7 +155,7 @@ return array(
 				'help' => 'JSON s tečkovým zápisem používá tečky mezi objekty a závorky pro pole. (e.g. <code>data.items[0].title</code>)',
 				'item' => array(
 					'_' => 'vyhledávání nových <strong>položek</strong><br /><small>(nejdůležitější)</small>',
-					'help' => 'JSON cesta k poli obsahujícímu položky, např.: <code>$</code> or <code>newsItems</code>',	// DIRTY
+					'help' => 'JSON cesta k poli obsahujícímu položky, např.: <code>$</code> or <code>newsItems</code>',	// DIRTY - JSON path to the array containing the items, e.g. <code>$</code> or <code>newsItems</code>
 				),
 				'item_author' => 'autor položky',
 				'item_categories' => 'štítky položky',

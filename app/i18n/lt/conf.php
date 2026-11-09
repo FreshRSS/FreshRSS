@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Rodyti pagal kanalą',
 			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
 			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Rikiuoti pagal datą',
+			'order' => 'Sort by',	// TODO
 			'search' => 'Išraiška',
 			'shareOpml' => 'Įjungti atitinkamų kategorijų ir kanalų bendrinimą per OPML',
 			'shareRss' => 'Įjungti bendrinimą per HTML ir RSS',

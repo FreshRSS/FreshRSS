@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => ' اجازه خواندن ناشناس مقالات کاربر پیش‌فرض (%s)',
 		'allow_anonymous_refresh' => ' اجازه بازخوانی ناشناس مقالات را بدهید',
 		'api_enabled' => 'اجازه دسترسی به <abbr>API</abbr> <small>(برای برنامه‌های موبایل و اشتراک‌گذاری پرس‌وجوهای کاربر لازم است)</small>',
-		'form' => 'فرم وب (سنتی، نیازمند JavaScript)',
+		'form' => 'فرم وب (سنتی، نیازمند JavaScript)',	// DIRTY - Web form (traditional)
 		'http' => 'HTTP (پیشرفته: مدیریت‌شده توسط وب‌سرور، OIDC، SSO و...)',
 		'none' => ' هیچ (خطرناک)',
 		'title' => ' احراز هویت',
@@ -135,7 +135,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => ' کانال انتشار',
 			'edge' => 'انتشار پیوسته («edge»)',
-			'latest' => 'انتشار پایدار («latest»)',	// DIRTY
+			'latest' => 'انتشار پایدار («latest»)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'به‌روزرسانی FreshRSS',
 		'viaGit' => 'به‌روزرسانی از طریق git و GitHub.com شروع شد',

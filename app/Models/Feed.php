@@ -264,7 +264,10 @@ class FreshRSS_Feed extends Minz_Model {
 				$params = $feedIconUrl !== '' ? $feedIconUrl . $this->proxyParam()
 					: $this->website(fallback: true) . $this->proxyParam();
 			}
-			$this->hashFavicon = hash('crc32b', $salt . (is_string($params) ? $params : ''));
+			$hash = hash_hmac('sha256', is_string($params) ? $params : '', $salt, binary: true);
+			$hash = substr($hash, 0, 8);	// Keep 64 bits
+			$hash = strtr(rtrim(base64_encode($hash), '='), '+/', '-_');	// URL-safe base64
+			$this->hashFavicon = $hash;	// Length 11
 		}
 		return $this->hashFavicon;
 	}
@@ -444,6 +447,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function faviconPrepare(bool $force = false): void {
 		require_once LIB_PATH . '/favicons.php';
 		if ($this->customFavicon()) {
+			$this->migrateCustomFavicon();
 			return;
 		}
 		$feedIconUrl = $this->attributeString('feedIconUrl') ?? '';
@@ -476,8 +480,29 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+	/** Legacy favicon migration from FreshRSS < 1.31.0 */
+	private function migrateCustomFavicon(): void {
+		if (!$this->customFavicon()) {
+			return;
+		}
+		$salt = FreshRSS_Context::systemConf()->salt;
+		$params = $this->id . Minz_User::name();
+		$hookParams = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconHash, $this);
+		if ($hookParams !== null) {
+			$params = $hookParams;
+		}
+		$newPath = FAVICONS_DIR . $this->hashFavicon() . '.ico';
+		if (!file_exists($newPath)) {
+			$legacyHash = hash('crc32b', $salt . (is_string($params) ? $params : ''));
+			$legacyPath = FAVICONS_DIR . $legacyHash . '.ico';
+			if (is_file($legacyPath)) {
+				@copy($legacyPath, $newPath);
+			}
+		}
+	}
+
 	public static function faviconDelete(string $hash): void {
-		if (!ctype_xdigit($hash)) {
+		if (preg_match('/\\A[A-Za-z0-9_-]{1,11}\\z/', $hash) !== 1) {
 			return;
 		}
 		$path = DATA_PATH . '/favicons/' . $hash;
@@ -485,6 +510,8 @@ class FreshRSS_Feed extends Minz_Model {
 		@unlink($path . '.txt');
 	}
 	public function favicon(bool $absolute = false): string {
+		require_once LIB_PATH . '/favicons.php';
+		$this->migrateCustomFavicon();
 		$hash = $this->hashFavicon();
 		$url = '/f.php?h=' . $hash;
 		if ($this->customFavicon()
@@ -1469,13 +1496,18 @@ class FreshRSS_Feed extends Minz_Model {
 					(empty($hubJson['lease_start']) || $hubJson['lease_start'] < time() - (3600 * 23))) {	//Do not renew too often
 					$key = $hubJson['key'];	//To renew our lease
 				}
-			} else {
+			} else {	// First-time subscription
 				@mkdir($path, 0770, true);
 				$key = bin2hex(random_bytes(32));
 				$hubJson = [
 					'hub' => $this->hubUrl,
 					'key' => $key,
 				];
+				// hub.secret SHOULD only be specified when the request was made over HTTPS
+				// https://www.w3.org/TR/websub/#subscription-parameter-details
+				if (str_starts_with(strtolower($this->hubUrl), 'https://')) {
+					$hubJson['secret'] = bin2hex(random_bytes(32));	// length < 200
+				}
 				file_put_contents($hubFilename, json_encode($hubJson));
 				@mkdir(PSHB_PATH . '/keys/', 0770, true);
 				file_put_contents(PSHB_PATH . '/keys/' . $key . '.txt', $this->selfUrl);
@@ -1517,17 +1549,32 @@ class FreshRSS_Feed extends Minz_Model {
 				Minz_Log::warning('Invalid callback for WebSub: ' . $this->url);
 				return false;
 			}
-			if (!$state) {	//unsubscribe
+			$postFields = [
+				'hub.verify' => 'sync',
+				'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
+				'hub.topic' => $url,
+				'hub.callback' => $callbackUrl,
+			];
+			$newSecret = null;
+			if ($state) {	// Subscribe
+				// Legacy (before support of hub.secret) case of renewing an unsigned subscription.
+				// hub.secret SHOULD only be specified when the request was made over HTTPS
+				if (str_starts_with(strtolower($hubJson['hub']), 'https://')) {
+					if (empty($hubJson['secret']) || !is_string($hubJson['secret'])) {
+						// We keep the existing subscription (without secret) until the hub confirmation.
+						$newSecret = bin2hex(random_bytes(32));	// length < 200
+						$postFields['hub.secret'] = $newSecret;
+					} else {
+						$postFields['hub.secret'] = $hubJson['secret'];
+					}
+				}
+			}
+			if (!$state) {	// Unsubscribe
 				$hubJson['lease_end'] = time() - 60;
 				file_put_contents($hubFilename, json_encode($hubJson));
 			}
 			$response = FreshRSS_http_Util::httpGet($hubJson['hub'], null, 'html', [], [
-				CURLOPT_POSTFIELDS => http_build_query([
-					'hub.verify' => 'sync',
-					'hub.mode' => $state ? 'subscribe' : 'unsubscribe',
-					'hub.topic' => $url,
-					'hub.callback' => $callbackUrl,
-				]),
+				CURLOPT_POSTFIELDS => http_build_query($postFields),
 				CURLOPT_MAXREDIRS => 10,
 			]);
 
@@ -1536,6 +1583,17 @@ class FreshRSS_Feed extends Minz_Model {
 				' with callback ' . $callbackUrl . ': ' . $response['status'] . ' ' . $response['body'], PSHB_LOG);
 
 			if ($response['method'] === 'POST' && str_starts_with('' . $response['status'], '2')) {
+				if ($newSecret !== null) {	// Legacy (before support of hub.secret) case.
+					// Reload because hub verification (hub.verify=sync) may have updated $hubFile in the meantime
+					$hJson = json_decode((string)@file_get_contents($hubFilename), true);
+					if (is_array($hJson)) {
+						// Save secret only after hub confirmation
+						$hJson['secret'] = $newSecret;
+						file_put_contents($hubFilename, json_encode($hJson));
+					} else {
+						Minz_Log::warning('Could not save hub.secret for WebSub: ' . $this->url, PSHB_LOG);
+					}
+				}
 				return true;
 			} else {
 				$hubJson['lease_start'] = time();	//Prevent trying again too soon

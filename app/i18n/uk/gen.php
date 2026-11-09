@@ -180,14 +180,14 @@ return array(
 		'confirm_exit_slider' => 'Точно відкинути незбережені параметри?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY
-				1 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY
-				2 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY
+				0 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
+				2 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(непрочитано: %d)',	// DIRTY
-				1 => '(непрочитано: %d)',	// DIRTY
-				2 => '(непрочитано: %d)',	// DIRTY
+				0 => '(непрочитано: %d)',	// DIRTY - (unread: %d)
+				1 => '(непрочитано: %d)',	// DIRTY - (unread: %d)
+				2 => '(непрочитано: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => 'Не вдалося виконати запит. Можливо, інтернет-зʼєднання нестабільне.',
 			'title_new_articles' => 'FreshRSS: нові статті!',
@@ -315,7 +315,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Закладки',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Закладки',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE
