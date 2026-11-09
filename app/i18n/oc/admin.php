@@ -14,7 +14,7 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Autorizar la lectura anonima dels articles de l’utilizaire per defaut (%s)',
 		'allow_anonymous_refresh' => 'Autorizar l’actualizacion anonime dels fluxes',
-		'api_enabled' => 'Autorizar l’accès per <abbr>API</abbr><small>(necessari per las aplicacions mobil and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Autorizar l’accès per <abbr>API</abbr><small>(necessari per las aplicacions mobil and sharing user queries)</small>',	// DIRTY - Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>
 		'form' => 'Formulari (tradicional)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Cap (perilhós)',

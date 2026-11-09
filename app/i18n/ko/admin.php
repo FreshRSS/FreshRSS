@@ -14,7 +14,7 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => '누구나 기본 사용자의 글을 읽을 수 있도록 합니다(%s)',
 		'allow_anonymous_refresh' => '누구나 피드를 갱신할 수 있도록 합니다',
-		'api_enabled' => '<abbr>API</abbr> 사용을 허가합니다<small>(모바일 애플리케이션을 사용할 때 필요합니다	and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => '<abbr>API</abbr> 사용을 허가합니다<small>(모바일 애플리케이션을 사용할 때 필요합니다	and sharing user queries)</small>',	// DIRTY - Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>
 		'form' => '웹폼 (전통적인 방식)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => '사용하지 않음 (위험)',
@@ -67,7 +67,7 @@ return array(
 		'number_entries' => '%d 개의 글',
 		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '전체에서의 비율 (%)',
-		'repartition' => '글 분류: %s',	// DIRTY
+		'repartition' => '글 분류: %s',	// DIRTY - Articles repartition: %s
 		'status_favorites' => '즐겨찾기',
 		'status_read' => '읽음',
 		'status_total' => '전체',
@@ -114,7 +114,7 @@ return array(
 			),
 			'title' => '사용자 회원가입 양식',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. <kbd>./data/config.php</kbd>에서 직접 수정',	// DIRTY
+		'sensitive-parameter' => 'Sensitive parameter. <kbd>./data/config.php</kbd>에서 직접 수정',	// DIRTY - Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>
 		'tos' => array(
 			'disabled' => '주어지지 않음',
 			'enabled' => '<a href="./?a=tos">활성화됨</a>',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => '릴리즈 채널',
 			'edge' => '롤링 릴리즈 (“edge”)',
-			'latest' => '안정 릴리즈 (“latest”)',	// DIRTY
+			'latest' => '안정 릴리즈 (“latest”)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => '업데이트',
 		'viaGit' => 'Git 및 GitHub.com을 통한 업데이트 시작 됨',

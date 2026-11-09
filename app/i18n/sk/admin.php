@@ -14,7 +14,7 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Povoliť čítanie článkov prednastaveného používateľa (%s) bez prihlásenia.',
 		'allow_anonymous_refresh' => 'Povoliť obnovenie článkov bez prihlásenia',
-		'api_enabled' => 'Povoliť prístup cez <abbr>API</abbr> <small>(vyžadujú mobilné aplikácie and sharing user queries)</small>',	// DIRTY
+		'api_enabled' => 'Povoliť prístup cez <abbr>API</abbr> <small>(vyžadujú mobilné aplikácie and sharing user queries)</small>',	// DIRTY - Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>
 		'form' => 'Webový formulár (traditičný)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Žiadny (nebezpečné)',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Kanál verzií',
 			'edge' => 'Vývojárska verzia (“edge”)',
-			'latest' => 'Stabilná verzia (“latest”)',	// DIRTY
+			'latest' => 'Stabilná verzia (“latest”)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'Aktualizácia systému',
 		'viaGit' => 'Začala sa aktualizácia prostredníctvom git a GitHub.com',
