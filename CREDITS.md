@@ -329,6 +329,7 @@ People are sorted by name so please keep this order.
 * [Sadetdin EYILI](https://github.com/sad270): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:sad270)
 * [Sam Cohen](https://github.com/samc1213): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:samc1213)
 * [Sam Edwards](https://github.com/dotsam): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:dotsam), [Web](https://samedwards.ca/)
+* [S31ZUR3](https://github.com/S31ZUR3): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:S31ZUR3)
 * [SamCyber001](https://github.com/SamCyber001): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SamCyber001)
 * [Sandro Jäckel](https://github.com/SuperSandro2000): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SuperSandro2000), [Web](https://supersandro.de/)
 * [Satyam](https://github.com/satyvm): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:satyvm), [Web](https://satyam.cv/)
