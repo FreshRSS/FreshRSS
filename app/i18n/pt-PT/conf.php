@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Mostrar por feed',
 			'include_article_tags_label' => 'Incluir tags de artigos dos feeds',
 			'include_user_labels_label' => 'Incluir rótulos de utilizador, com o prefixo:',
-			'order' => 'Sort by',	// TODO
+			'order' => 'Ordenar por',
 			'search' => 'Expressão',
 			'shareOpml' => 'Ativar a partilha por OPML de categorias e feeds correspondentes',
 			'shareRss' => 'Ativar a partilha por HTML e RSS',
