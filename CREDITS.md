@@ -231,6 +231,7 @@ People are sorted by name so please keep this order.
 * [Max Oberrauch](https://github.com/Juice-de-Orange): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Juice-de-Orange)
 * [May Meow](https://github.com/MayMeow): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:MayMeow), [Web](https://www.maymeow.com)
 * [McFev](https://github.com/McFev): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:McFev)
+* [Mehmet Kösece](https://github.com/KoseceMehmet): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:KoseceMehmet)
 * [Mejans](https://github.com/Mejans): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Mejans)
 * [Melvyn Laïly](https://github.com/yaurthek): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:yaurthek), [Web](https://x2a.yt/)
 * [Michael Meier](https://github.com/mmeier86): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:mmeier86)
