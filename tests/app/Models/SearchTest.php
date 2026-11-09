@@ -66,6 +66,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['word1 intitle:"word2 word3"', ['word2 word3'], ['word1']],
 			["word1 intitle:'word2 word3'", ['word2 word3'], ['word1']],
 			['intitle:word1 intitle:word2', ['word1', 'word2'], null],
+			['intitle:word1 intitle:word10', ['word1', 'word10'], null],
 			['intitle: word1 word2', null, ['word1', 'word2']],
 			['intitle:123', ['123'], null],
 			['intitle:"word1 word2" word3"', ['word1 word2'], ['word3"']],
@@ -125,6 +126,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['word1 author:"word2 word3"', ['word2 word3'], ['word1']],
 			["word1 author:'word2 word3'", ['word2 word3'], ['word1']],
 			['author:word1 author:word2', ['word1', 'word2'], null],
+			['author:word1 author:word10', ['word1', 'word10'], null],
 			['author: word1 word2', null, ['word1', 'word2']],
 			['author:123', ['123'], null],
 			['author:"word1 word2" word3"', ['word1 word2'], ['word3"']],
@@ -158,6 +160,7 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['inurl:word1 word2', ['word1'], ['word2']],
 			['inurl:"word1 word2"', ['word1 word2'], null],
 			['inurl:word1 word2 inurl:word3', ['word1', 'word3'], ['word2']],
+			['inurl:word1 inurl:word10', ['word1', 'word10'], null],
 			["inurl:word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['inurl:word1+word2', ['word1+word2'], null],
 		];
@@ -263,6 +266,8 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 			['#word1 word2', ['word1'], ['word2']],
 			['#"word1 word2"', ['word1 word2'], null],
 			['#word1 #word2', ['word1', 'word2'], null],
+			['#word1 #word10', ['word1', 'word10'], null],
+			['#word10 #word1', ['word10', 'word1'], null],
 			["#word1 'word2 word3' word4", ['word1'], ['word2 word3', 'word4']],
 			['#word1+word2', ['word1 word2'], null]
 		];
@@ -679,10 +684,36 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				['^(ab|cd)']
 			],
 			[
+				'!e:9 !e:90 !f:1 !f:10 !c:2 !c:20',
+				'(e.id NOT IN (?,?) AND e.id_feed NOT IN (?,?) AND e.id_feed NOT IN (SELECT f.id FROM `_feed` f WHERE f.category IN (?,?)))',
+				['9', '90', 1, 10, 2, 20]
+			],
+			[
+				'!intitle:word1 !intitle:word10',
+				'(e.title NOT LIKE ? AND e.title NOT LIKE ?)',
+				['%word1%', '%word10%']
+			],
+			[
 				'L:1 L:2',
 				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) AND ' .
 					'e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)))',
 				[1, 2]
+			],
+			[
+				'e:1 e:10',
+				'(e.id IN (?,?))',
+				['1', '10']
+			],
+			[
+				'f:1 f:10 c:2 c:20',
+				'(e.id_feed IN (?,?) AND e.id_feed IN (SELECT f.id FROM `_feed` f WHERE f.category IN (?,?)))',
+				[1, 10, 2, 20]
+			],
+			[
+				'L:1 L:10',
+				'(e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)) AND ' .
+					'e.id IN (SELECT et.id_entry FROM `_entrytag` et WHERE et.id_tag IN (?)))',
+				[1, 10]
 			],
 			[
 				'L:1,2',
@@ -725,6 +756,15 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
 		self::assertSame('(e.id >= ?) OR (e.`lastModified` >= ?)', $filterSearch);
 		self::assertSame([$startTime . '000000', $startTime], $filterValues);
+	}
+	public function test__add_boolean_searches_combines_with_and(): void {
+		$combined = new FreshRSS_BooleanSearch('');
+		$combined->add(new FreshRSS_BooleanSearch('ab'));
+		$combined->add(new FreshRSS_BooleanSearch('cd OR ef', 0, 'AND', allowUserQueries: false));
+		self::assertSame('ab (cd OR ef)', $combined->toString());
+
+		[$filterValues] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $combined);
+		self::assertSame(['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'], $filterValues);
 	}
 
 	/**
@@ -1203,8 +1243,44 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'intitle:/^A B OR C D/i',
 				'intitle:/^A B OR C D/i',
 			],
+			[
+				'"a(b"',
+				'"a(b"',
+			],
+			[
+				'intitle:"(test)"',
+				'intitle:"(test)"',
+			],
+			[
+				'"a)OR(b"',
+				'"a)OR(b"',
+			],
+			[
+				'"x.OR.y"',
+				'"x.OR.y"',
+			],
 		];
 	}
+
+	#[DataProvider('provideBooleanSearchToStringRoundTrip')]
+	public static function testBooleanSearchToStringRoundTrip(string $input): void {
+		$search = new FreshRSS_BooleanSearch($input);
+		$reparsed = new FreshRSS_BooleanSearch($search->toString());
+		self::assertSame($search->toString(), $reparsed->toString());
+	}
+
+	/** @return list<list{string}> */
+	public static function provideBooleanSearchToStringRoundTrip(): array {
+		return [
+			['"a(b"'],
+			['"a)OR(b"'],
+			['"a b" ("cd)OR(ef")'],
+			['intitle:"(x)" author:"a OR b"'],
+			['"x.OR.y" OR z'],
+			['intitle:/^(ab|cd)/ "e)f"'],
+		];
+	}
+
 
 	/**
 	 * @param list<array{search:string,name?:string}> $queries
