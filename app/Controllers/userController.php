@@ -74,8 +74,8 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * Update a username's email, password hash and chosen user configuration attributes.
-	 * If `$passwordPlain` is passed an empty string, the user's password hash stays unupdated.
+	 * Update a username’s email, password hash and chosen user configuration attributes.
+	 * If `$passwordPlain` is passed an empty string, the user’s password hash stays unupdated.
 	 *
 	 * @param array<string,mixed> $userConfigUpdated
 	 */
@@ -175,7 +175,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 			$email = Minz_Request::paramString('email');
 
-			// Don't update the user's password, until the passwordPlain input is
+			// Don’t update the user’s password, until the passwordPlain input is
 			// verified to match against the actual current password.
 			$newPasswordPlain = '';
 			$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true, trim: false);
@@ -238,7 +238,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$ok = self::updateUser(
 				Minz_User::name(),
 				$email,
-				$newPasswordPlain, // Empty if passwordPlain didn't match against the current password.
+				$newPasswordPlain,	// Empty if passwordPlain didn’t match against the current password.
 				[
 					'token' => Minz_Request::paramString('token'),
 				]
