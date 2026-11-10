@@ -757,6 +757,15 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		self::assertSame('(e.id >= ?) OR (e.`lastModified` >= ?)', $filterSearch);
 		self::assertSame([$startTime . '000000', $startTime], $filterValues);
 	}
+	public function test__add_boolean_searches_combines_with_and(): void {
+		$combined = new FreshRSS_BooleanSearch('');
+		$combined->add(new FreshRSS_BooleanSearch('ab'));
+		$combined->add(new FreshRSS_BooleanSearch('cd OR ef', 0, 'AND', allowUserQueries: false));
+		self::assertSame('ab (cd OR ef)', $combined->toString());
+
+		[$filterValues] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $combined);
+		self::assertSame(['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'], $filterValues);
+	}
 
 	/**
 	 * @param array<string> $values
@@ -1234,8 +1243,44 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'intitle:/^A B OR C D/i',
 				'intitle:/^A B OR C D/i',
 			],
+			[
+				'"a(b"',
+				'"a(b"',
+			],
+			[
+				'intitle:"(test)"',
+				'intitle:"(test)"',
+			],
+			[
+				'"a)OR(b"',
+				'"a)OR(b"',
+			],
+			[
+				'"x.OR.y"',
+				'"x.OR.y"',
+			],
 		];
 	}
+
+	#[DataProvider('provideBooleanSearchToStringRoundTrip')]
+	public static function testBooleanSearchToStringRoundTrip(string $input): void {
+		$search = new FreshRSS_BooleanSearch($input);
+		$reparsed = new FreshRSS_BooleanSearch($search->toString());
+		self::assertSame($search->toString(), $reparsed->toString());
+	}
+
+	/** @return list<list{string}> */
+	public static function provideBooleanSearchToStringRoundTrip(): array {
+		return [
+			['"a(b"'],
+			['"a)OR(b"'],
+			['"a b" ("cd)OR(ef")'],
+			['intitle:"(x)" author:"a OR b"'],
+			['"x.OR.y" OR z'],
+			['intitle:/^(ab|cd)/ "e)f"'],
+		];
+	}
+
 
 	/**
 	 * @param list<array{search:string,name?:string}> $queries

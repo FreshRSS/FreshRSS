@@ -16,7 +16,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix saved search references with overlapping IDs or names [#9484](https://github.com/FreshRSS/FreshRSS/pull/9484)
 	* Fix non-ASCII characters in scripts of fetched HTML pages [#9384](https://github.com/FreshRSS/FreshRSS/pull/9384)
 * Security
-	* 💥 Replace bcrypt challenge auth with direct password comparison [#9358](https://github.com/FreshRSS/FreshRSS/pull/9358)
+	* 💥 Replace bcrypt challenge auth with direct password comparison [#9358](https://github.com/FreshRSS/FreshRSS/pull/9358), [#9550](https://github.com/FreshRSS/FreshRSS/pull/9550)
 	* WebSub security: Implement support for `hub.secret` [#9430](https://github.com/FreshRSS/FreshRSS/pull/9430)
 	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
 	* Document threat model for security scanners [#9509](https://github.com/FreshRSS/FreshRSS/pull/9509)

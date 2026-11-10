@@ -181,7 +181,7 @@ The following events are available:
 * `Minz_HookType::CustomFaviconBtnUrl` (`function(FreshRSS_Feed $feed): string | null`): Allows extensions to implement a button for setting a custom favicon for individual feeds by providing an URL. The URL will be sent a POST request with the `extAction` field set to either `query_icon_info` or `update_icon`, along with an `id` field which describes the feed's ID.
 Example response for a `query_icon_info` request:
 ```json
-{"extName":"YouTube Video Feed","iconUrl":"..\/f.php?h=40838a43"}
+{"extName":"YouTube Video Feed","iconUrl":"../f.php?h=7fYbyMvIWCI"}
 ```
 * `Minz_HookType::CustomFaviconHash` (`function(FreshRSS_Feed $feed): string | null`): Enables the modification of custom favicon hashes by returning params from the hook function. The hook should check if the `customFaviconExt` attribute of `$feed` is set to the extension's name before returning a custom value. Otherwise, the return value should be null.
 * `Minz_HookType::EntriesFavorite` (`function(array $ids, bool $is_favorite): void`):

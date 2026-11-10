@@ -264,7 +264,10 @@ class FreshRSS_Feed extends Minz_Model {
 				$params = $feedIconUrl !== '' ? $feedIconUrl . $this->proxyParam()
 					: $this->website(fallback: true) . $this->proxyParam();
 			}
-			$this->hashFavicon = hash('crc32b', $salt . (is_string($params) ? $params : ''));
+			$hash = hash_hmac('sha256', is_string($params) ? $params : '', $salt, binary: true);
+			$hash = substr($hash, 0, 8);	// Keep 64 bits
+			$hash = strtr(rtrim(base64_encode($hash), '='), '+/', '-_');	// URL-safe base64
+			$this->hashFavicon = $hash;	// Length 11
 		}
 		return $this->hashFavicon;
 	}
@@ -444,6 +447,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function faviconPrepare(bool $force = false): void {
 		require_once LIB_PATH . '/favicons.php';
 		if ($this->customFavicon()) {
+			$this->migrateCustomFavicon();
 			return;
 		}
 		$feedIconUrl = $this->attributeString('feedIconUrl') ?? '';
@@ -476,8 +480,29 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+	/** Legacy favicon migration from FreshRSS < 1.31.0 */
+	private function migrateCustomFavicon(): void {
+		if (!$this->customFavicon()) {
+			return;
+		}
+		$salt = FreshRSS_Context::systemConf()->salt;
+		$params = $this->id . Minz_User::name();
+		$hookParams = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconHash, $this);
+		if ($hookParams !== null) {
+			$params = $hookParams;
+		}
+		$newPath = FAVICONS_DIR . $this->hashFavicon() . '.ico';
+		if (!file_exists($newPath)) {
+			$legacyHash = hash('crc32b', $salt . (is_string($params) ? $params : ''));
+			$legacyPath = FAVICONS_DIR . $legacyHash . '.ico';
+			if (is_file($legacyPath)) {
+				@copy($legacyPath, $newPath);
+			}
+		}
+	}
+
 	public static function faviconDelete(string $hash): void {
-		if (!ctype_xdigit($hash)) {
+		if (preg_match('/\\A[A-Za-z0-9_-]{1,11}\\z/', $hash) !== 1) {
 			return;
 		}
 		$path = DATA_PATH . '/favicons/' . $hash;
@@ -485,6 +510,8 @@ class FreshRSS_Feed extends Minz_Model {
 		@unlink($path . '.txt');
 	}
 	public function favicon(bool $absolute = false): string {
+		require_once LIB_PATH . '/favicons.php';
+		$this->migrateCustomFavicon();
 		$hash = $this->hashFavicon();
 		$url = '/f.php?h=' . $hash;
 		if ($this->customFavicon()

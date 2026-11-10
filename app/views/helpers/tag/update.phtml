@@ -49,6 +49,11 @@
 						}
 					?></textarea>
 					<p class="help"><?= _i('help') ?> <?= _t('sub.feed.filteractions.help') ?></p>
+					<p>
+						<button class="btn" formaction="<?= _url('configure', 'viewFilter', 'filters_name', 'filteractions_label') ?>" formtarget="_blank">
+							<?= _t('sub.feed.filteractions.view_filter') ?>
+						</button>
+					</p>
 				</div>
 			</div>
 		</fieldset>

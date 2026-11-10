@@ -17,7 +17,7 @@ return array(
 			'required' => '需要電子郵件位址。',
 		),
 		'validation' => array(
-			'change_email' => '您可以 <a href="%s">在設定檔頁面</a> 變更電子郵件位址。',
+			'change_email' => '您可以在 <a href="%s">設定檔頁面</a> 變更電子郵件位址。',
 			'email_sent_to' => '我們已發送一封電子郵件到 <strong>%s</strong>。請遵循其說明驗證您的位址。',
 			'feedback' => array(
 				'email_failed' => '因為伺服器配置錯誤，我們無法給您發送電子郵件。',
@@ -34,14 +34,14 @@ return array(
 	),
 	'mailer' => array(
 		'email_need_validation' => array(
-			'body' => '您剛剛在 %s 註冊，但仍需要驗證電子郵件位址。請點擊以下連結:',
-			'title' => '您需要驗證您的帳號',
+			'body' => '您剛剛在 %s 註冊，但仍需驗證電子郵件位址。請點擊以下連結:',
+			'title' => '您需要驗證自己的帳號',
 			'welcome' => '歡迎 %s，',
 		),
 	),
 	'password' => array(
-		'invalid' => '密碼無效',
-		'provided_password_too_long' => 'The provided password is too long.',	// TODO
+		'invalid' => '密碼無效。',
+		'provided_password_too_long' => '密碼過長。',
 	),
 	'tos' => array(
 		'feedback' => array(
@@ -50,6 +50,6 @@ return array(
 	),
 	'username' => array(
 		'invalid' => '此使用者名稱無效。',
-		'taken' => '此使用者名稱，%s，已被使用。',
+		'taken' => '此使用者名稱 "%s" 已被使用。',
 	),
 );
