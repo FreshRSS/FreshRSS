@@ -82,7 +82,26 @@ cd /usr/share/FreshRSS
 > ℹ️ More options for [the configuration of users](../config-user.default.php#L3-L5) may be set in `./data/config-user.custom.php` prior to creating new users, or in `./data/users/*/config.php` for existing users.
 
 ```sh
-./cli/actualize-user.php --user username
+./cli/reconfigure-user.php --user username --list [ --show-secrets ]
+# List all configuration attributes of the user, one per line as key=value.
+# Known-sensitive keys (matching *hash, *key, *password, *token, *secret) are redacted as *** unless --show-secrets is given.
+
+./cli/reconfigure-user.php --user username --key attribute
+# Read the value of a single attribute. Exit code 2 if the key does not exist.
+
+./cli/reconfigure-user.php --user username --key attribute --set --value 'new-value'
+# Set an attribute to the given value. Type is inferred from the existing value (bool, int, string).
+# Fails if the key does not exist; use --force to create a new key (e.g. for extension-specific config).
+
+./cli/reconfigure-user.php --user username --key attribute --set --value-stdin
+# Read the new value from stdin instead of --value (recommended for secrets to avoid leaking in shell history / ps).
+
+./cli/reconfigure-user.php --user username --key attribute --unset
+# Remove the attribute from the user's configuration. Exit code 2 if the key does not exist.
+```
+
+```sh
+./cli/actualize-user.php --user username [ --feed-id 123 ]
 # Fetch feeds for the specified user.
 
 ./cli/delete-user.php --user username
@@ -95,6 +114,8 @@ cd /usr/share/FreshRSS
 # -h, --human-readable display output in a human readable format
 # --header outputs some columns headers.
 # --json JSON format (disables --header and --human-readable but uses ISO Zulu format for dates).
+# --no-db-size for faster responses by disabling database size calculation.
+# --no-db-counts for faster responses by disabling counting the different types of articles in database.
 # --user indicates a username, and can be repeated.
 # Returns: 1) a * if the user is admin, 2) the name of the user,
 #  3) the date/time of last user action, 4) the size occupied,
@@ -121,8 +142,27 @@ cd /usr/share/FreshRSS
 ```sh
 cd /usr/share/FreshRSS
 
+./cli/db-backup.php
+# Back-up all users respective database to `data/users/*/backup.sqlite`
+# -q, --quiet suppress non-error messages
+
+./cli/export-sqlite-auto.php
+# Periodic SQLite export per user to `data/users/*/sqlite-backups/<YYYYMMDDTHHMMSSZ>.sqlite`, pruned to retention.
+# Gated by `auto_sqlite_export` in `data/config.php`.
+# -q, --quiet suppress non-error messages
+
+./cli/db-restore.php --delete-backup --force-overwrite
+# Restore all users respective database from `data/users/*/backup.sqlite`
+# --delete-backup:	delete `data/users/*/backup.sqlite` after successful import
+# --force-overwrite:	will clear the users respective database before import
+
 ./cli/db-optimize.php --user username
 # Optimize database (reduces the size) for a given user (perform `OPTIMIZE TABLE` in MySQL, `VACUUM` in SQLite)
+
+./cli/purge.php --user username
+# Apply the purge policy (max number of articles, max age, exceptions) to all feeds of the given user.
+# Equivalent to clicking ‘Purge now’ in the GUI, but suitable for cron.
+# Purge queries are expensive and blocking; running daily or weekly is usually enough.
 ```
 
 ### Translation
@@ -140,12 +180,20 @@ cd /usr/share/FreshRSS
 # -r, --revert revert the action (only used with ignore action).
 # -o, --origin-language selects the origin language (only used with add language action).
 
-./cli/check-translation.php [ ---display-result --help --language fr --display-report ]
+./cli/compile.plurals.php [ --all --file app/i18n/en/plurals.php --formula 'nplurals=2; plural=(n != 1);' ]
+# Compile gettext plural formulas into PHP callables for runtime use.
+# Plural source files are driven by a leading comment such as:
+#   // Plural-Forms: nplurals=2; plural=(n != 1);
+# Run this command, or `make fix-all`, after editing those comments.
+# See examples: https://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html
+
+./cli/check.translation.php [ ---display-result --help --language fr --display-report --generate-readme ]
 # Check if translation files have missing keys or missing translations.
 # -d, --display-result display results of check.
 # -h, --help display help text and exit.
 # -l, --language set the language check.
 # -r, --display-report display completion report.
+# -g, --generate-readme generate translation progress section in readme.
 ```
 
 ## Note about cron
@@ -188,6 +236,12 @@ Example to get the number of feeds of a given user:
 ./cli/user-info.php --user alex | cut -f6
 #or
 ./cli/user-info.php --user alex --json | jq '.[] | .feeds'
+```
+
+Example to count the total number of feeds across all users:
+
+```sh
+./cli/user-info.php --json | jq '[.[].feeds] | add'
 ```
 
 Example to get the name of the users who have not been active since a given date:

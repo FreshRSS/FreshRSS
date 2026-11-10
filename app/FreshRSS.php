@@ -34,6 +34,7 @@ class FreshRSS extends Minz_FrontController {
 			// Relax Content Security Policy to allow external images if a custom logo HTML is used
 			Minz_ActionController::_defaultCsp([
 				'default-src' => "'self'",
+				'frame-ancestors' => FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'",
 				'img-src' => '* data:',
 			]);
 		}
@@ -56,7 +57,7 @@ class FreshRSS extends Minz_FrontController {
 		// Complete initialization of the other FreshRSS / Minz components.
 		self::initI18n();
 		// Enable extensions for the current (logged) user.
-		if (FreshRSS_Auth::hasAccess() || FreshRSS_Context::systemConf()->allow_anonymous) {
+		if (FreshRSS_Auth::hasAccess() || FreshRSS_Auth::allowAnonymous()) {
 			$ext_list = FreshRSS_Context::userConf()->extensions_enabled;
 			Minz_ExtensionManager::enableByList($ext_list, 'user');
 		}
@@ -65,21 +66,14 @@ class FreshRSS extends Minz_FrontController {
 			self::checkEmailValidated();
 		}
 
-		Minz_ExtensionManager::callHookVoid('freshrss_init');
+		Minz_ExtensionManager::callHookVoid(Minz_HookType::FreshrssInit);
 	}
 
 	private static function initAuth(): void {
 		FreshRSS_Auth::init();
 		if (Minz_Request::isPost()) {
-			if (!FreshRSS_Context::hasSystemConf() || !(FreshRSS_Auth::isCsrfOk() ||
-				(Minz_Request::controllerName() === 'auth' && Minz_Request::actionName() === 'login') ||
-				(Minz_Request::controllerName() === 'user' && Minz_Request::actionName() === 'create' && !FreshRSS_Auth::hasAccess('admin')) ||
-				(Minz_Request::controllerName() === 'feed' && Minz_Request::actionName() === 'actualize'
-					&& FreshRSS_Context::systemConf()->allow_anonymous_refresh) ||
-				(Minz_Request::controllerName() === 'javascript' && Minz_Request::actionName() === 'actualize'
-					&& FreshRSS_Context::systemConf()->allow_anonymous)
-				)) {
-				// Token-based protection against XSRF attacks, except for the login or self-create user forms
+			if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Auth::isCsrfOk()) {
+				// Token-based protection against CSRF attacks
 				self::initI18n();
 				Minz_Error::error(403, ['error' => [_t('feedback.access.denied'), ' [CSRF]']]);
 			}
@@ -111,8 +105,8 @@ class FreshRSS extends Minz_FrontController {
 			return;
 		}
 		$theme = FreshRSS_Themes::load(FreshRSS_Context::userConf()->theme);
-		if ($theme) {
-			foreach(array_reverse($theme['files']) as $file) {
+		if (is_array($theme)) {
+			foreach (array_reverse($theme['files']) as $file) {
 				switch (substr($file, -3)) {
 					case '.js':
 						$theme_id = $theme['id'];
@@ -148,7 +142,7 @@ class FreshRSS extends Minz_FrontController {
 	}
 
 	public static function preLayout(): void {
-		header("X-Content-Type-Options: nosniff");
+		header('X-Content-Type-Options: nosniff');
 
 		FreshRSS_Share::load(join_path(APP_PATH, 'shares.php'));
 		self::loadStylesAndScripts();
@@ -164,7 +158,7 @@ class FreshRSS extends Minz_FrontController {
 			Minz_Request::is('user', 'delete') ||
 			Minz_Request::is('auth', 'logout') ||
 			Minz_Request::is('feed', 'actualize') ||
-			Minz_Request::is('javascript', 'nonce')
+			Minz_Request::is('error', 'index')
 		);
 		if ($email_not_verified && !$action_is_allowed) {
 			Minz_Request::forward([

@@ -1,0 +1,10 @@
+<?php
+declare(strict_types=1);
+/** @var FreshRSS_View $this */
+@ob_end_clean();	// Ensure no buffer
+header('Content-Type: application/vnd.sqlite3');
+header('Content-Disposition: attachment; filename="' . $this->sqliteName . '"');
+header('Cache-Control: private, no-store, max-age=0');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s \\G\\M\\T', @filemtime($this->sqlitePath) ?: 0));
+header('Content-Length: ' . (@filesize($this->sqlitePath) ?: 0));
+readfile($this->sqlitePath);

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Gardar la configuracion precedenta',
 		'next_step' => 'Anar a l’estapa seguenta',
 		'reinstall' => 'Reïnstallar FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Formulari (tradicional, demanda JavaScript)',
-		'http' => 'HTTP (per utilizaires avançats amb HTTPS)',
-		'none' => 'Cap (perilhós)',
-		'password_form' => 'Senhal API<br /><small>(ex. : per la connexion via formulari)</small>',
-		'password_format' => 'Almens 7 caractèrs',
-		'type' => 'Mòde d’autentification',
 	),
 	'bdd' => array(
 		'_' => 'Basa de donadas',
@@ -58,6 +50,23 @@ return array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Los dreches sul repertòri data son bons.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Impossible de trobar una bibliotèca per percórrer lo DOM.',
 			'ok' => 'Avètz la bibliotèca per percórrer lo DOM.',
@@ -69,6 +78,15 @@ return array(
 		'fileinfo' => array(
 			'nok' => 'Avètz pas PHP fileinfo (paquet fileinfo).',
 			'ok' => 'Avètz la bibliotèca fileinfo.',
+		),
+		'files' => 'Installacion dels fichièrs',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
 		),
 		'json' => array(
 			'nok' => 'Impossible de trobar l’extension recomandada JSON (paquet php-json).',
@@ -82,18 +100,33 @@ return array(
 			'nok' => 'Impossible de trobar una bibliotèca per las expressions regulara (php-pcre).',
 			'ok' => 'Avètz la bibliotèca per las expressions regularas (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Impossible de trobar PDO o un dels drivers compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Avètz PDO e almens un des drivers compatibles (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Impossible de trobar PDO o un dels drivers compatibles (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Avètz PDO e almens un des drivers compatibles (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
-			'nok' => 'Vòstra version PHP es la %s mas FreshRSS demanda almens la version %s.',
+			'_' => 'Installacion PHP',
+			'nok' => 'Vòstra version PHP es la %s más FreshRSS demanda almens la versión %s.',
 			'ok' => 'Vòstra version PHP es %s, qu’es compatibla amb FreshRSS.',
 		),
 		'reload' => 'Revérifier',
 		'tmp' => array(
 			'nok' => 'Volgatz verificar los dreches sul repertòri <em>%s</em>. Lo servidor HTTP deu poder escriure dedins.',
 			'ok' => 'Las permissions sul repertòri temporari son bonas.',
+		),
+		'tokens' => array(
+			'nok' => 'Volgatz verificar los dreches sul repertòri <em>./data/tokens</em>. Lo servidor HTTP deu poder escriure dedins',
+			'ok' => 'Los dreches sul repertòri dels getons son bons.',
 		),
 		'unknown_process_username' => 'desconegut',
 		'users' => array(
@@ -104,6 +137,10 @@ return array(
 			'nok' => 'Impossible de trobar una bibliotèca necessària per XML.',
 			'ok' => 'Avètz la bibliotèca per percórrer los XML.',
 		),
+		'zip' => array(
+			'nok' => 'Avètz pas l’extension ZIP (paquet php-zip).',
+			'ok' => 'Avètz l’exension ZIP.',
+		),
 	),
 	'conf' => array(
 		'_' => 'Configuracion generala',
@@ -112,7 +149,7 @@ return array(
 	'congratulations' => 'Òsca !',
 	'default_user' => array(
 		'_' => 'Nom d’utilizaire per defaut',
-		'max_char' => '16 caractèrs alfanumerics maximum',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Mercés de corregir las errors seguentas abans de contunhar.',
 	'javascript_is_better' => 'FreshRSS es mai agradable amb lo JavaScript activat',

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -11,14 +11,14 @@ declare(strict_types=1);
  */
 class Minz_ModelArray {
 	/**
-	 * $filename est le nom du fichier
+	 * File name
 	 */
 	protected string $filename;
 
 	/**
-	 * Ouvre le fichier indiqué, charge le tableau dans $array et le $filename
-	 * @param string $filename le nom du fichier à ouvrir contenant un tableau
-	 * Remarque : $array sera obligatoirement un tableau
+	 * Opens the specified file and loads the array into $array
+	 * @param string $filename the name of the file containing the array
+	 * Note: $array is always an array
 	 */
 	public function __construct(string $filename) {
 		$this->filename = $filename;
@@ -35,20 +35,20 @@ class Minz_ModelArray {
 		} elseif (($handle = $this->getLock()) === false) {
 			throw new Minz_PermissionDeniedException($this->filename);
 		} else {
-			$data = include($this->filename);
+			$data = include $this->filename;
 			$this->releaseLock($handle);
 
 			if ($data === false) {
 				throw new Minz_PermissionDeniedException($this->filename);
-			} elseif (!is_array($data)) {
-				$data = array();
+			} elseif (!is_array($data) || !is_array_keys_string($data)) {
+				$data = [];
 			}
 			return $data;
 		}
 	}
 
 	/**
-	 * Sauve le tableau $array dans le fichier $filename
+	 * Saves $array to $filename
 	 * @param array<string,mixed> $array
 	 * @throws Minz_PermissionDeniedException
 	 */

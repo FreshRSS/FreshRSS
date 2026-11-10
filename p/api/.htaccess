@@ -1,9 +1,12 @@
 <IfModule mod_setenvif.c>
 	SetEnvIfNoCase "Authorization" "(.*)" HTTP_AUTHORIZATION=$1
+	SetEnvIfNoCase "Authorization" "^GoogleLogin auth=([^/]+)" REMOTE_USER=$1 LOG_REMOTE_USER=$1
 </IfModule>
 <IfModule !mod_setenvif.c>
 	<IfModule mod_rewrite.c>
 		RewriteEngine on
 		RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+		RewriteCond %{HTTP:Authorization} "^GoogleLogin auth=([^/]+)" [NC]
+		RewriteRule .* - [E=REMOTE_USER:%1,E=LOG_REMOTE_USER:%1]
 	</IfModule>
 </IfModule>

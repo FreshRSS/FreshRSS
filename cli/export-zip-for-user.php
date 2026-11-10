@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
@@ -33,12 +33,12 @@ $number_entries = $cliOptions->maxFeedEntries;
 $exported_files = [];
 
 // First, we generate the OPML file
-list($filename, $content) = $export_service->generateOpml();
-$exported_files[$filename] = $content;
+[$filename, $path] = $export_service->generateOpml();
+$exported_files[$filename] = $path;
 
 // Then, labelled and starred entries
-list($filename, $content) = $export_service->generateStarredEntries('ST');
-$exported_files[$filename] = $content;
+[$filename, $path] = $export_service->generateStarredEntries('ST');
+$exported_files[$filename] = $path;
 
 // And a list of entries based on the complete list of feeds
 $feeds_exported_files = $export_service->generateAllFeedEntries($number_entries);
@@ -46,8 +46,11 @@ $exported_files = array_merge($exported_files, $feeds_exported_files);
 
 // Finally, we compress all these files into a single Zip archive and we output
 // the content
-list($filename, $content) = $export_service->zip($exported_files);
-echo $content;
+[$filename, $path] = $export_service->zip($exported_files);
+if ($path === false) {
+	fail('FreshRSS error: cannot create the Zip archive!');
+}
+readfile($path);
 
 invalidateHttpCache($username);
 

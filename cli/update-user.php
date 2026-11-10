@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $user;
@@ -66,21 +66,22 @@ $values = [
 	'max_posts_per_rss' => $cliOptions->maxPostsPerRss ?? null,
 ];
 
-$values = array_filter($values);
+$values = array_filter($values, fn($value): bool => $value !== null && $value !== '');
 
 $ok = FreshRSS_user_Controller::updateUser(
 	$username,
-	isset($cliOptions->email) ? $cliOptions->email : null,
+	$cliOptions->email ?? null,
 	$cliOptions->password ?? '',
 	$values);
 
 if (!$ok) {
+	// TODO: Refactor with exceptions in updateUser to be able to show the exact reason.
 	fail('FreshRSS could not update user!');
 }
 
-if (isset($cliOptions->apiPassword)) {
+if (($cliOptions->apiPassword ?? '') !== '') {
 	$error = FreshRSS_api_Controller::updatePassword($cliOptions->apiPassword);
-	if ($error) {
+	if ($error !== false) {
 		fail($error);
 	}
 }

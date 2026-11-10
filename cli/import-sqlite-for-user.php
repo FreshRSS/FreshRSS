@@ -1,14 +1,14 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $user;
 	public string $filename;
-	public string $forceOverwrite;
+	public bool $forceOverwrite;
 
 	public function __construct() {
 		$this->addRequiredOption('user', (new CliOption('user')));
@@ -32,8 +32,7 @@ if (pathinfo($filename, PATHINFO_EXTENSION) !== 'sqlite') {
 echo 'FreshRSS importing database from SQLite for user “', $username, "”…\n";
 
 $databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
-$clearFirst = isset($cliOptions->forceOverwrite);
-$ok = $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_IMPORT, $clearFirst);
+$ok = $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_IMPORT, clearFirst: $cliOptions->forceOverwrite);
 if (!$ok) {
 	echo 'If you would like to clear the user database first, use the option --force-overwrite', "\n";
 }

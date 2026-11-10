@@ -10,11 +10,53 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 	private FreshRSS_FeedDAO $feedDAO;
 
+	private FreshRSS_CategoryDAO $categoryDAO;
+
+	/**
+	 * ZIP import safety limits (defence against ZIP bombs / decompression DoS).
+	 * A legitimate export is an OPML plus a handful of JSON files, so these ceilings
+	 * sit far above any realistic export while keeping import memory bounded.
+	 */
+	private const IMPORT_ZIP_MAX_MEMBERS = 100;
+	private const IMPORT_ZIP_MEMBER_MAX_SIZE = 64 * 1024 * 1024;
+	private const IMPORT_ZIP_TOTAL_MAX_SIZE = 128 * 1024 * 1024;
+	private const IMPORT_ZIP_MAX_RATIO = 100;
+
+	/**
+	 * Read a ZIP member by name through a stream, aborting once the decompressed
+	 * content exceeds $maxBytes. Returns null on read error or when the cap is
+	 * exceeded, so a forged/under-reported uncompressed size in the archive
+	 * metadata cannot be used to force unbounded memory allocation.
+	 */
+	private static function readZipMemberCapped(ZipArchive $zip, string $name, int $maxBytes): ?string {
+		$stream = $zip->getStream($name);
+		if ($stream === false) {
+			return null;
+		}
+		$content = '';
+		try {
+			while (!feof($stream)) {
+				$chunk = fread($stream, 1 << 16);
+				if ($chunk === false) {
+					return null;
+				}
+				$content .= $chunk;
+				if (strlen($content) > $maxBytes) {
+					return null;
+				}
+			}
+		} finally {
+			fclose($stream);
+		}
+		return $content;
+	}
+
 	/**
 	 * This action is called before every other action in that class. It is
 	 * the common boilerplate for every action. It is triggered by the
 	 * underlying framework.
 	 */
+	#[\Override]
 	public function firstAction(): void {
 		if (!FreshRSS_Auth::hasAccess()) {
 			Minz_Error::error(403);
@@ -22,35 +64,27 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		$this->entryDAO = FreshRSS_Factory::createEntryDao();
 		$this->feedDAO = FreshRSS_Factory::createFeedDao();
+		$this->categoryDAO = FreshRSS_Factory::createCategoryDao();
 	}
 
 	/**
 	 * This action displays the main page for import / export system.
 	 */
 	public function indexAction(): void {
-		$this->view->feeds = $this->feedDAO->listFeeds();
+		$this->view->categories = array_filter(
+			$this->categoryDAO->listCategories(),
+			static fn(FreshRSS_Category $category): bool => !empty($category->feeds()),
+		);
+		$this->view->feedCount = array_sum(array_map(static fn(FreshRSS_Category $category): int => count($category->feeds()), $this->view->categories));
 		FreshRSS_View::prependTitle(_t('sub.import_export.title') . ' · ');
+		$this->listSqliteArchives();
 	}
 
-	/**
-	 * @return float|int|string
-	 */
-	private static function megabytes(string $size_str) {
-		switch (substr($size_str, -1)) {
-			case 'M': case 'm': return (int)$size_str;
-			case 'K': case 'k': return (int)$size_str / 1024;
-			case 'G': case 'g': return (int)$size_str * 1024;
-		}
-		return $size_str;
-	}
-
-	/**
-	 * @param string|int $mb
-	 */
-	private static function minimumMemory($mb): void {
+	private static function minimumMemory(int|string $mb): void {
 		$mb = (int)$mb;
-		$ini = self::megabytes(ini_get('memory_limit') ?: '0');
-		if ($ini < $mb) {
+		// `ini_get('memory_limit')` returns e.g. `128M`, or `-1` for unlimited
+		$ini = (int)(ini_parse_quantity(ini_get('memory_limit') ?: '0') / 1048576);
+		if ($ini >= 0 && $ini < $mb) {
 			ini_set('memory_limit', $mb . 'M');
 		}
 	}
@@ -66,6 +100,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		$this->entryDAO = FreshRSS_Factory::createEntryDao($username);
 		$this->feedDAO = FreshRSS_Factory::createFeedDao($username);
+		$this->categoryDAO = FreshRSS_Factory::createCategoryDao($username);
 
 		$type_file = self::guessFileType($name);
 
@@ -77,7 +112,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		];
 
 		// We try to list all files according to their type
-		$list = [];
+		$skipped = false;
 		if ('zip' === $type_file && extension_loaded('zip')) {
 			$zip = new ZipArchive();
 			$result = $zip->open($path);
@@ -85,19 +120,61 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				// zip_open cannot open file: something is wrong
 				throw new FreshRSS_Zip_Exception($result);
 			}
+			$accepted = 0;
+			$totalUncompressed = 0;
 			for ($i = 0; $i < $zip->numFiles; $i++) {
-				if ($zip->getNameIndex($i) === false) {
+				$entryName = $zip->getNameIndex($i);
+				if ($entryName === false) {
 					continue;
 				}
-				$type_zipfile = self::guessFileType($zip->getNameIndex($i));
-				if ('unknown' !== $type_zipfile) {
-					$list_files[$type_zipfile][] = $zip->getFromIndex($i);
+				$type_zipfile = self::guessFileType($entryName);
+				if ('unknown' === $type_zipfile) {
+					continue;
 				}
+				if ($zip->locateName($entryName) !== $i) {
+					// Duplicate entry name: keep only the first occurrence
+					continue;
+				}
+				// Reject obvious ZIP bombs cheaply from the central-directory metadata...
+				$stat = $zip->statIndex($i);
+				$declaredSize = is_array($stat) ? (int)($stat['size'] ?? 0) : 0;
+				$compSize = is_array($stat) ? (int)($stat['comp_size'] ?? 0) : 0;
+				if ($declaredSize > self::IMPORT_ZIP_MEMBER_MAX_SIZE
+					|| ($compSize > 0 && $declaredSize / $compSize > self::IMPORT_ZIP_MAX_RATIO)) {
+					Minz_Log::warning('Import: skipping oversized/over-compressed ZIP member: ' . $entryName);
+					$skipped = true;
+					continue;
+				}
+				if ($accepted >= self::IMPORT_ZIP_MAX_MEMBERS) {
+					Minz_Log::warning('Import: ZIP member budget reached, remaining members skipped');
+					break;
+				}
+				// ...then enforce the real decompressed size while streaming, since the
+				// declared metadata above is attacker-controlled and can under-report.
+				$content = self::readZipMemberCapped($zip, $entryName, self::IMPORT_ZIP_MEMBER_MAX_SIZE);
+				if ($content === null) {
+					Minz_Log::warning('Import: skipping unreadable/over-limit ZIP member: ' . $entryName);
+					$skipped = true;
+					continue;
+				}
+				$totalUncompressed += strlen($content);
+				if ($totalUncompressed > self::IMPORT_ZIP_TOTAL_MAX_SIZE) {
+					Minz_Log::warning('Import: ZIP total size reached, remaining members skipped');
+					$skipped = true;
+					break;
+				}
+				$list_files[$type_zipfile][] = $content;
+				$accepted++;
 			}
 			$zip->close();
 		} elseif ('zip' === $type_file) {
 			// ZIP extension is not loaded
 			throw new FreshRSS_ZipMissing_Exception();
+		} elseif ('txt' === $type_file) {
+			$contents = file_get_contents($path);
+			if (is_string($contents)) {
+				$list_files['opml'][] = self::txtToOpml($contents);
+			}
 		} elseif ('unknown' !== $type_file) {
 			$list_files[$type_file][] = file_get_contents($path);
 		}
@@ -106,7 +183,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		// OPML first(so categories and feeds are imported)
 		// Starred articles then so the "favourite" status is already set
 		// And finally all other files.
-		$ok = true;
+		$ok = !$skipped;
 
 		$importService = new FreshRSS_Import_Service($username);
 
@@ -114,7 +191,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			if ($opml_file === false) {
 				continue;
 			}
-			$importService->importOpml($opml_file);
+			$importService->importOpml($opml_file, trusted_source: true);
 			if (!$importService->lastStatus()) {
 				$ok = false;
 				if (FreshRSS_Context::$isCli) {
@@ -173,12 +250,13 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			Minz_Request::forward(['c' => 'importExport', 'a' => 'index'], true);
 		}
 
-		$file = $_FILES['file'];
-		$status_file = $file['error'];
+		$file = $_FILES['file'] ?? null;
+		$status_file = is_array($file) ? $file['error'] ?? -1 : -1;
 
-		if ($status_file !== 0) {
-			Minz_Log::warning('File cannot be uploaded. Error code: ' . $status_file);
+		if (!is_array($file) || $status_file !== 0 || !is_string($file['name'] ?? null) || !is_string($file['tmp_name'] ?? null)) {
+			Minz_Log::warning('File cannot be uploaded. Error code: ' . (is_numeric($status_file) ? $status_file : -1));
 			Minz_Request::bad(_t('feedback.import_export.file_cannot_be_uploaded'), [ 'c' => 'importExport', 'a' => 'index' ]);
+			return;
 		}
 
 		if (function_exists('set_time_limit')) {
@@ -188,7 +266,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$error = false;
 		try {
 			$error = !$this->importFile($file['name'], $file['tmp_name']);
-		} catch (FreshRSS_ZipMissing_Exception $zme) {
+		} catch (FreshRSS_ZipMissing_Exception) {
 			Minz_Request::bad(
 				_t('feedback.import_export.no_zip_extension'),
 				['c' => 'importExport', 'a' => 'index']
@@ -203,7 +281,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		// And finally, we get import status and redirect to the home page
 		$content_notif = $error === true ? _t('feedback.import_export.feeds_imported_with_errors') : _t('feedback.import_export.feeds_imported');
-		Minz_Request::good($content_notif);
+		Minz_Request::good(
+			$content_notif,
+			showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+		);
 	}
 
 	/**
@@ -213,17 +294,19 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 * That could be improved but should be enough for what we have to do.
 	 */
 	private static function guessFileType(string $filename): string {
-		if (substr_compare($filename, '.zip', -4) === 0) {
+		if (str_ends_with($filename, '.zip')) {
 			return 'zip';
+		} elseif (str_ends_with($filename, '.txt')) {
+			return 'txt';
 		} elseif (stripos($filename, 'opml') !== false) {
 			return 'opml';
-		} elseif (substr_compare($filename, '.json', -5) === 0) {
-			if (strpos($filename, 'starred') !== false) {
+		} elseif (str_ends_with($filename, '.json')) {
+			if (str_contains($filename, 'starred')) {
 				return 'json_starred';
 			} else {
 				return 'json_feed';
 			}
-		} elseif (substr_compare($filename, '.xml', -4) === 0) {
+		} elseif (str_ends_with($filename, '.xml')) {
 			if (preg_match('/Tiny|tt-?rss/i', $filename)) {
 				return 'ttrss_starred';
 			} else {
@@ -234,39 +317,69 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
-	 * @return false|string
+	 * Wraps a newline-separated list of feed URLs into a minimal OPML document
+	 * so it can be imported through the existing OPML pipeline.
 	 */
-	private function ttrssXmlToJson(string $xml) {
-		$table = (array)simplexml_load_string($xml, null, LIBXML_NOBLANKS | LIBXML_NOCDATA);
+	private static function txtToOpml(string $contents): string {
+		$utf8BOM = "\xEF\xBB\xBF";
+		$contents = preg_replace('/^' . $utf8BOM . '/', '', $contents) ?? $contents;
+		$outlines = '';
+		foreach (preg_split('/\R/', $contents) ?: [] as $line) {
+			$url = trim($line);
+			if ($url === '' || str_starts_with($url, '#') || str_starts_with($url, '<')) {
+				continue;
+			}
+			if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+				$message = 'TXT import: skipping invalid URL “' . \SimplePie\Misc::url_remove_credentials($url) . '”';
+				if (FreshRSS_Context::$isCli) {
+					fwrite(STDERR, $message . "\n");
+				} else {
+					Minz_Log::warning($message);
+				}
+				continue;
+			}
+			$escaped = htmlspecialchars($url, ENT_COMPAT | ENT_XML1, 'UTF-8');
+			$outlines .= '<outline type="rss" text="' . $escaped . '" xmlUrl="' . $escaped . '" />' . "\n";
+		}
+		return '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+			. '<opml version="2.0"><body>' . "\n"
+			. $outlines
+			. '</body></opml>' . "\n";
+	}
+
+	private function ttrssXmlToJson(string $xml): string|false {
+		$table = (array)simplexml_load_string($xml, options: LIBXML_NOBLANKS | LIBXML_NOCDATA);
 		$table['items'] = $table['article'] ?? [];
+		if (!is_array($table['items'])) {
+			$table['items'] = [];
+		}
 		unset($table['article']);
 		for ($i = count($table['items']) - 1; $i >= 0; $i--) {
 			$item = (array)($table['items'][$i]);
-			$item = array_filter($item, static function ($v) {
-					// Filter out empty properties, potentially reported as empty objects
-					return (is_string($v) && trim($v) !== '') || !empty($v);
-				});
-			$item['updated'] = isset($item['updated']) ? strtotime($item['updated']) : '';
+			$item = array_filter($item, static fn($v) =>
+				// Filter out empty properties, potentially reported as empty objects
+				(is_string($v) && trim($v) !== '') || !empty($v));
+			$item['updated'] = is_string($item['updated'] ?? null) ? strtotime($item['updated']) : '';
 			$item['published'] = $item['updated'];
 			$item['content'] = ['content' => $item['content'] ?? ''];
-			$item['categories'] = isset($item['tag_cache']) ? [$item['tag_cache']] : [];
+			$item['categories'] = is_string($item['tag_cache'] ?? null) ? [$item['tag_cache']] : [];
 			if (!empty($item['marked'])) {
 				$item['categories'][] = 'user/-/state/com.google/starred';
 			}
 			if (!empty($item['published'])) {
 				$item['categories'][] = 'user/-/state/com.google/broadcast';
 			}
-			if (!empty($item['label_cache'])) {
+			if (is_string($item['label_cache'] ?? null)) {
 				$labels_cache = json_decode($item['label_cache'], true);
 				if (is_array($labels_cache)) {
 					foreach ($labels_cache as $label_cache) {
-						if (!empty($label_cache[1])) {
+						if (is_array($label_cache) && !empty($label_cache[1]) && is_string($label_cache[1])) {
 							$item['categories'][] = 'user/-/label/' . trim($label_cache[1]);
 						}
 					}
 				}
 			}
-			$item['alternate'][0]['href'] = $item['link'] ?? '';
+			$item['alternate'] = [['href' => $item['link'] ?? '']];
 			$item['origin'] = [
 				'title' => $item['feed_title'] ?? '',
 				'feedUrl' => $item['feed_url'] ?? '',
@@ -298,6 +411,9 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			return false;
 		}
 		$items = $article_object['items'] ?? $article_object;
+		if (!is_array($items)) {
+			$items = [];
+		}
 
 		$mark_as_read = FreshRSS_Context::userConf()->mark_when['reception'] ? 1 : 0;
 
@@ -310,31 +426,41 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 
 		// First, we check feeds of articles are in DB (and add them if needed).
 		foreach ($items as &$item) {
-			if (!isset($item['guid']) && isset($item['id'])) {
-				$item['guid'] = $item['id'];
-			}
-			if (empty($item['guid'])) {
+			if (!is_array($item)) {
 				continue;
 			}
-			if (empty($item['origin'])) {
+			if (!is_string($item['guid'] ?? null) && is_string($item['id'] ?? null)) {
+				$item['guid'] = $item['id'];
+			}
+			if (!is_string($item['guid'] ?? null)) {
+				continue;
+			}
+			if (!is_array($item['origin'] ?? null)) {
 				$item['origin'] = [];
 			}
-			if (empty($item['origin']['title']) || trim($item['origin']['title']) === '') {
+			if (!is_string($item['origin']['title'] ?? null) || trim($item['origin']['title']) === '') {
 				$item['origin']['title'] = 'Import';
 			}
-			if (!empty($item['origin']['feedUrl'])) {
+			if (is_string($item['origin']['feedUrl'] ?? null)) {
 				$feedUrl = $item['origin']['feedUrl'];
-			} elseif (!empty($item['origin']['streamId']) && strpos($item['origin']['streamId'], 'feed/') === 0) {
+			} elseif (is_string($item['origin']['streamId'] ?? null) && str_starts_with($item['origin']['streamId'], 'feed/')) {
 				$feedUrl = substr($item['origin']['streamId'], 5);	//Google Reader
 				$item['origin']['feedUrl'] = $feedUrl;
-			} elseif (!empty($item['origin']['htmlUrl'])) {
+			} elseif (is_string($item['origin']['htmlUrl'] ?? null)) {
 				$feedUrl = $item['origin']['htmlUrl'];
 			} else {
 				$feedUrl = 'http://import.localhost/import.xml';
 				$item['origin']['feedUrl'] = $feedUrl;
-				$item['origin']['disable'] = true;
+				$item['origin']['disable'] = 'true';
 			}
-			$feed = new FreshRSS_Feed($feedUrl);
+			$feedUrlOriginal = $feedUrl;
+			$feedUrl = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($feedUrl) ?: '');
+			try {
+				$feed = new FreshRSS_Feed($feedUrl);
+			} catch (FreshRSS_BadUrl_Exception) {
+				Minz_Log::warning('Could not add feed with invalid URL "' . \SimplePie\Misc::url_remove_credentials($feedUrlOriginal) . '" during JSON import');
+				continue;
+			}
 			$feed = $this->feedDAO->searchByUrl($feed->url());
 
 			if ($feed === null) {
@@ -343,7 +469,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 					// Oops, no more place!
 					Minz_Log::warning(_t('feedback.sub.feed.over_max', $limits['max_feeds']));
 				} else {
-					$feed = $this->addFeedJson($item['origin']);
+					$origin = array_filter($item['origin'], fn($value, $key): bool => is_string($key) && is_string($value), ARRAY_FILTER_USE_BOTH);
+					$feed = $this->addFeedJson($origin);
 				}
 
 				if ($feed === null) {
@@ -354,7 +481,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				}
 			}
 
-			if ($feed != null) {
+			if ($feed !== null) {
 				$article_to_feed[$item['guid']] = $feed->id();
 				if (!isset($newFeedGuids['f_' . $feed->id()])) {
 					$newFeedGuids['f_' . $feed->id()] = [];
@@ -383,35 +510,38 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$newGuids = [];
 		$this->entryDAO->beginTransaction();
 		foreach ($items as &$item) {
-			if (empty($item['guid']) || empty($article_to_feed[$item['guid']])) {
+			if (!is_array($item) || empty($item['guid']) || !is_string($item['guid']) || empty($article_to_feed[$item['guid']])) {
 				// Related feed does not exist for this entry, do nothing.
 				continue;
 			}
 
 			$feed_id = $article_to_feed[$item['guid']];
-			$author = $item['author'] ?? '';
+			$author = is_string($item['author'] ?? null) ? Minz_Helper::htmlspecialchars_utf8($item['author']) : '';
 			$is_starred = null; // null is used to preserve the current state if that item exists and is already starred
 			$is_read = null;
-			$tags = empty($item['categories']) ? [] : $item['categories'];
+			$tags = is_array($item['categories'] ?? null) ? $item['categories'] : [];
 			$labels = [];
 			for ($i = count($tags) - 1; $i >= 0; $i--) {
-				$tag = trim($tags[$i]);
-				if (strpos($tag, 'user/-/') !== false) {
-					if ($tag === 'user/-/state/com.google/starred') {
+				$tag = $tags[$i];
+				if (!is_string($tag)) {
+					unset($tags[$i]);
+					continue;
+				}
+				$tag = trim($tag);
+				if (preg_match('%^user/[A-Za-z0-9_-]+/%', $tag)) {
+					if (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/starred$%', $tag)) {
 						$is_starred = true;
-					} elseif ($tag === 'user/-/state/com.google/read') {
+					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/read$%', $tag)) {
 						$is_read = true;
-					} elseif ($tag === 'user/-/state/com.google/unread') {
+					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/unread$%', $tag)) {
 						$is_read = false;
-					} elseif (strpos($tag, 'user/-/label/') === 0) {
-						$tag = trim(substr($tag, 13));
-						if ($tag != '') {
-							$labels[] = $tag;
-						}
+					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/label/\s*(?P<tag>.+?)\s*$%', $tag, $matches)) {
+						$labels[] = Minz_Helper::htmlspecialchars_utf8($matches['tag']);
 					}
 					unset($tags[$i]);
 				}
 			}
+			$tags = Minz_Helper::htmlspecialchars_utf8(array_values(array_filter($tags, 'is_string')));
 			if ($starred && !$is_starred) {
 				//If the article has no label, mark it as starred (old format)
 				$is_starred = empty($labels);
@@ -420,44 +550,46 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				$is_read = $mark_as_read;
 			}
 
-			if (isset($item['alternate'][0]['href'])) {
+			if (is_array($item['alternate']) && is_array($item['alternate'][0] ?? null) && is_string($item['alternate'][0]['href'] ?? null)) {
 				$url = $item['alternate'][0]['href'];
-			} elseif (isset($item['url'])) {
+			} elseif (is_string($item['url'] ?? null)) {
 				$url = $item['url'];	//FeedBin
 			} else {
 				$url = '';
 			}
-			if (!is_string($url)) {
-				$url = '';
-			}
+			$url = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($url) ?: '');
 
-			$title = empty($item['title']) ? $url : $item['title'];
+			$title = is_string($item['title'] ?? null) ? $item['title'] : $url;
+			$title = Minz_Helper::htmlspecialchars_utf8($title);
 
-			if (isset($item['content']['content']) && is_string($item['content']['content'])) {
+			if (is_array($item['content'] ?? null) && is_string($item['content']['content'] ?? null)) {
 				$content = $item['content']['content'];
-			} elseif (isset($item['summary']['content']) && is_string($item['summary']['content'])) {
+			} elseif (is_array($item['summary']) && is_string($item['summary']['content'] ?? null)) {
 				$content = $item['summary']['content'];
-			} elseif (isset($item['content']) && is_string($item['content'])) {
+			} elseif (is_string($item['content'] ?? null)) {
 				$content = $item['content'];	//FeedBin
 			} else {
 				$content = '';
 			}
-			$content = sanitizeHTML($content, $url);
+			$content = FreshRSS_SimplePieCustom::sanitizeHTML($content, $url);
 
-			if (!empty($item['published'])) {
-				$published = '' . $item['published'];
-			} elseif (!empty($item['timestampUsec'])) {
-				$published = substr('' . $item['timestampUsec'], 0, -6);
-			} elseif (!empty($item['updated'])) {
-				$published = '' . $item['updated'];
+			if (is_int($item['published'] ?? null) || is_string($item['published'] ?? null)) {
+				$published = (string)$item['published'];
+			} elseif (is_int($item['timestampUsec'] ?? null) || is_string($item['timestampUsec'] ?? null)) {
+				$published = substr((string)$item['timestampUsec'], 0, -6);
+			} elseif (is_int($item['updated'] ?? null) || is_string($item['updated'] ?? null)) {
+				$published = (string)$item['updated'];
 			} else {
 				$published = '0';
 			}
 			if (!ctype_digit($published)) {
-				$published = '' . strtotime($published);
+				$published = (string)(strtotime($published) ?: 0);
 			}
 			if (strlen($published) > 10) {	// Milliseconds, e.g. Feedly
 				$published = substr($published, 0, -3);
+				if (!is_numeric($published)) {
+					$published = '0';	// For PHPStan
+				}
 			}
 
 			$entry = new FreshRSS_Entry(
@@ -472,16 +604,29 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 			$newGuids[$entry->guid()] = true;
 
-			$entry = Minz_ExtensionManager::callHook('entry_before_insert', $entry);
+			$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeInsert, $entry);
 			if (!($entry instanceof FreshRSS_Entry)) {
 				// An extension has returned a null value, there is nothing to insert.
 				continue;
 			}
 
 			if (isset($existingHashForGuids['f_' . $feed_id][$entry->guid()])) {
+				$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeUpdate, $entry);
+				if (!($entry instanceof FreshRSS_Entry)) {
+					// An extension has returned a null value, there is nothing to insert.
+					continue;
+				}
+
 				$ok = $this->entryDAO->updateEntry($entry->toArray());
 			} else {
 				$entry->_lastSeen(time());
+
+				$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeAdd, $entry);
+				if (!($entry instanceof FreshRSS_Entry)) {
+					// An extension has returned a null value, there is nothing to insert.
+					continue;
+				}
+
 				$ok = $this->entryDAO->addEntry($entry->toArray());
 			}
 
@@ -542,6 +687,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		} else {
 			return null;
 		}
+		$url = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($url) ?: '');
 		if (!empty($origin['htmlUrl'])) {
 			$website = $origin['htmlUrl'];
 		} elseif (!empty($origin['feedUrl'])) {
@@ -549,12 +695,32 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		} else {
 			$website = '';
 		}
+		$website = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($website) ?: '');
 		$name = empty($origin['title']) ? $website : $origin['title'];
+		$name = Minz_Helper::htmlspecialchars_utf8($name);
+
+		$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+		$cat_name = Minz_Helper::htmlspecialchars_utf8(trim($origin['category'] ?? ''));
+		if ($cat_name !== '') {
+			$new_cat = $this->categoryDAO->searchByName($cat_name);
+			$cat_id = $new_cat?->id() ?: 0;
+			if ($cat_id === 0) {
+				$limits = FreshRSS_Context::systemConf()->limits;
+				if ($limits['max_categories'] > 0 && $this->categoryDAO->count() >= $limits['max_categories']) {
+					Minz_Log::warning(_t('feedback.sub.category.over_max', $limits['max_categories']));
+				} else {
+					$cat_id = $this->categoryDAO->addCategory(['name' => $cat_name]) ?: 0;
+				}
+			}
+			if ($cat_id === 0) {
+				$cat_id = FreshRSS_CategoryDAO::DEFAULTCATEGORYID;
+			}
+		}
 
 		try {
 			// Create a Feed object and add it in database.
 			$feed = new FreshRSS_Feed($url);
-			$feed->_categoryId(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+			$feed->_categoryId($cat_id);
 			$feed->_name($name);
 			$feed->_website($website);
 			if (!empty($origin['disable'])) {
@@ -562,8 +728,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 
 			// Call the extension hook
-			$feed = Minz_ExtensionManager::callHook('feed_before_insert', $feed);
-			if ($feed != null) {
+			$feed = Minz_ExtensionManager::callHook(Minz_HookType::FeedBeforeInsert, $feed);
+			if ($feed instanceof FreshRSS_Feed) {
 				// addFeedObject checks if feed is already in DB so nothing else to
 				// check here.
 				$id = $this->feedDAO->addFeedObject($feed);
@@ -593,7 +759,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 *   - export_opml (default: false)
 	 *   - export_starred (default: false)
 	 *   - export_labelled (default: false)
-	 *   - export_feeds (default: array()) a list of feed ids
+	 *   - export_feeds (default: []) a list of feed ids
 	 */
 	public function exportAction(): void {
 		if (!Minz_Request::isPost()) {
@@ -614,32 +780,32 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$exported_files = [];
 
 		if ($export_opml) {
-			[$filename, $content] = $export_service->generateOpml();
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateOpml();
+			$exported_files[$filename] = $path;
 		}
 
 		// Starred and labelled entries are merged in the same `starred` file
 		// to avoid duplication of content.
 		if ($export_starred && $export_labelled) {
-			[$filename, $content] = $export_service->generateStarredEntries('ST');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('ST');
+			$exported_files[$filename] = $path;
 		} elseif ($export_starred) {
-			[$filename, $content] = $export_service->generateStarredEntries('S');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('S');
+			$exported_files[$filename] = $path;
 		} elseif ($export_labelled) {
-			[$filename, $content] = $export_service->generateStarredEntries('T');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('T');
+			$exported_files[$filename] = $path;
 		}
 
 		foreach ($export_feeds as $feed_id) {
 			$result = $export_service->generateFeedEntries((int)$feed_id, $max_number_entries);
-			if (!$result) {
+			if ($result === null) {
 				// It means the actual feed_id doesn’t correspond to any existing feed
 				continue;
 			}
 
-			[$filename, $content] = $result;
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $result;
+			$exported_files[$filename] = $path;
 		}
 
 		$nb_files = count($exported_files);
@@ -652,7 +818,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		if ($nb_files === 1) {
 			// If we only have one file, we just export it as it is
 			$filename = key($exported_files);
-			$content = $exported_files[$filename];
+			$path = $exported_files[$filename];
 		} else {
 			// More files? Let’s compress them in a Zip archive
 			if (!extension_loaded('zip')) {
@@ -664,10 +830,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			[$filename, $content] = $export_service->zip($exported_files);
+			[$filename, $path] = $export_service->zip($exported_files);
 		}
 
-		if (!is_string($content)) {
+		if (!is_string($path)) {
 			Minz_Request::bad(_t('feedback.import_export.zip_error'), ['c' => 'importExport', 'a' => 'index']);
 			return;
 		}
@@ -677,7 +843,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		header('Content-disposition: attachment; filename="' . $filename . '"');
 
 		$this->view->_layout(null);
-		$this->view->content = $content;
+		$this->view->exportPath = $path;
 	}
 
 	/**
@@ -688,16 +854,55 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 	 */
 	private static function filenameToContentType(string $filename): string {
 		$filetype = self::guessFileType($filename);
-		switch ($filetype) {
-		case 'zip':
-			return 'application/zip';
-		case 'opml':
-			return 'application/xml; charset=utf-8';
-		case 'json_starred':
-		case 'json_feed':
-			return 'application/json; charset=utf-8';
-		default:
-			return 'application/octet-stream';
+		return match ($filetype) {
+			'zip' => 'application/zip',
+			'opml' => 'application/xml; charset=utf-8',
+			'json_starred', 'json_feed' => 'application/json; charset=utf-8',
+			default => 'application/octet-stream',
+		};
+	}
+
+	private const REGEX_SQLITE_FILENAME = '/^(?![.-])[0-9a-zA-Z_.@ #&()~\-]{1,128}\.sqlite$/';
+
+	private function listSqliteArchives(): void {
+		$this->view->sqliteArchives = [];
+		$files = glob(USERS_PATH . '/' . Minz_User::name() . '/*.sqlite', GLOB_NOSORT) ?: [];
+		foreach ($files as $file) {
+			$archive = [
+				'name' => basename($file),
+				'size' => @filesize($file),
+				'mtime' => @filemtime($file),
+			];
+			if ($archive['size'] != false && $archive['mtime'] != false && preg_match(self::REGEX_SQLITE_FILENAME, $archive['name'])) {
+				$this->view->sqliteArchives[] = $archive;
+			}
 		}
+		// Sort by time, newest first:
+		usort($this->view->sqliteArchives, static fn(array $a, array $b): int => $b['mtime'] <=> $a['mtime']);
+	}
+
+	public function sqliteAction(): void {
+		if (!Minz_Request::isPost()) {
+			Minz_Request::forward(['c' => 'importExport', 'a' => 'index'], true);
+		}
+		$sqlite = Minz_Request::paramString('sqlite');
+		if (!preg_match(self::REGEX_SQLITE_FILENAME, $sqlite)) {
+			Minz_Error::error(404);
+			return;
+		}
+		$path = USERS_PATH . '/' . Minz_User::name() . '/' . $sqlite;
+		if (!file_exists($path) || @filesize($path) == false || @filemtime($path) == false) {
+			Minz_Error::error(404);
+			return;
+		}
+
+		$this->view->sqlitePath = $path;
+		$this->view->sqliteName = basename($path);
+		if ($this->view->sqliteName === 'db.sqlite') {
+			$username = Minz_User::name() ?? '_';
+			$date = date('Y-m-d_H-i-s', filemtime($path) ?: time());	// @phpstan-ignore ternary.alwaysTrue (for additional safety)
+			$this->view->sqliteName = 'freshrss_' . $username . '_' . $date . '_db.sqlite';
+		}
+		$this->view->_layout(null);
 	}
 }

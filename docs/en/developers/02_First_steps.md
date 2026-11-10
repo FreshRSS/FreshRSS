@@ -8,7 +8,7 @@ We assume here that you use a GNU/Linux distribution, capable of running Docker.
 
 The commands that follow have to be executed in a console. They start by `$` when commands need to be executed as normal user, and by `#` when they need to be executed as root user. You don’t have to type these characters. A path may be indicated before these characters to help you identify where they need to be executed. For instance, `app$ echo 'Hello World'` indicates that you have to execute `echo` command in the `app/` directory.
 
-First, you need to install [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+First, you need to install [Docker](https://docs.docker.com/engine/install/ubuntu/).
 
 Once you’re done, clone the repository with:
 
@@ -35,7 +35,7 @@ You can stop the containers by typing <kbd>Control</kbd> + <kbd>c</kbd> or with 
 make stop
 ```
 
-If you’re interested in the configuration, the `make` commands are defined in the [`Makefile`](/Makefile).
+If you’re interested in the configuration, the `make` commands are defined in the [`Makefile`](https://github.com/FreshRSS/FreshRSS/blob/edge/Makefile).
 
 If you need to use a different tag image (default is `alpine`), you can set the `TAG` environment variable:
 
@@ -70,7 +70,7 @@ Contributions which don’t follow the coding style will be rejected as long as 
 ## GitHub Actions
 
 The code will be checked for every pull request commit on GitHub via [GitHub Actions](https://github.com/FreshRSS/FreshRSS/actions).
-See the configuration file [`tests.yml`](../../../.github/workflows/tests.yml).
+See the configuration file [`tests.yml`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/workflows/tests.yml).
 
 ## Running fixes & tests
 
@@ -85,7 +85,7 @@ This requires `make` and `npm` in addition to the FreshRSS requirements. See bel
 
 ### Debian / Ubuntu
 
-> ℹ️ Also applies to [Microsoft Windows](https://docs.microsoft.com/windows/wsl/install-win10) thanks to [WSL](https://ubuntu.com/wsl).
+> ℹ️ Also applies to [Microsoft Windows](https://learn.microsoft.com/en-us/windows/wsl/install) thanks to [WSL](https://ubuntu.com/wsl).
 
 Here are the dependencies that need to be manually installed prior to running the fixes & tests.
 
@@ -107,23 +107,29 @@ apk add git make npm php-cli php-curl php-ctype php-dom php-mbstring php-openssl
 
 ### Partial fixes & tests
 
-- composer-based: `npm run fix && npm test` or see the [`scripts` section of `composer.json`](../../../composer.json) for individual tests or fixes such as `composer phpstan`
-- npm-based: `npm run fix && npm test` or see the [`scripts` section of `package.json`](../../../package.json) for individual tests or fixes such as `npm run rtlcss`
+- composer-based: `npm run fix && npm test` or see the [`scripts` section of `composer.json`](https://github.com/FreshRSS/FreshRSS/blob/edge/composer.json) for individual tests or fixes such as `composer phpstan`
+- npm-based: `npm run fix && npm test` or see the [`scripts` section of `package.json`](https://github.com/FreshRSS/FreshRSS/blob/edge/package.json) for individual tests or fixes such as `npm run rtlcss`
 
 ### Tests summary
+
+> ℹ Check [`AGENTS.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/AGENTS.md) for detailed coding conventions (both for humans and AI agents).
 
 A short (not complete) summary:
 
 #### PHP
 
+> ℹ Check [`php.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/php.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
 - Syntax of `php` and `phtml` files is checked.
-- translation files (`i18n`) are checked ([more information about i18n files](internationalization.html)).
+- translation files (`i18n`) are checked ([more information about i18n files](../internationalization.md)).
 - unit test (`tests`) are run by [PHPunit](https://phpunit.de/).
 - Linter:
   - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)
   - [PHPstan](https://github.com/phpstan/phpstan)
 
 ### CSS
+
+> ℹ Check [`css.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/css.instructions.md) for detailed coding conventions (both for humans and AI agents).
 
 - Linter:
   - [PHP_Codesniffer (phpcs)](https://github.com/squizlabs/PHP_CodeSniffer)
@@ -132,15 +138,21 @@ A short (not complete) summary:
 
 ### JavaScript
 
+> ℹ Check [`javascript.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/javascript.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
 - Linter:
   - via npm `.styleintrc.json` ([ECMAScript 2017](https://en.wikipedia.org/wiki/ECMAScript#8th_Edition_%E2%80%93_ECMAScript_2017))
 
 ### Markdown
 
+> ℹ Check [`markdown.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/markdown.instructions.md) for detailed coding conventions (both for humans and AI agents).
+
 - Linter:
-  - via npm `.markdownlint.json`
+  - via npm `.markdownlint-cli2.jsonc`
 
 ## Spaces, tabs and other whitespace characters
+
+> ℹ Check [`_general.instructions.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/instructions/_general.instructions.md) for detailed coding conventions (both for humans and AI agents).
 
 ### Indentation
 

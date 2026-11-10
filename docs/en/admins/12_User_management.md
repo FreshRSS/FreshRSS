@@ -1,4 +1,4 @@
-# User Management
+# User management
 
 ## User list
 

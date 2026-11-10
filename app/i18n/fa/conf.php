@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -32,10 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => ' نمایش',
+		'article' => array(
+			'authors_date' => array(
+				'_' => ' نویسندگان و تاریخ',
+				'both' => ' در سرصفحه و پاورقی',
+				'footer' => ' در پاورقی',
+				'header' => ' در سربرگ',
+				'none' => ' هیچکدام',
+			),
+			'feed_name' => array(
+				'above_title' => ' بالای عنوان/برچسب ها',
+				'none' => ' هیچ',
+				'with_authors' => ' در نویسندگان و ردیف تاریخ',
+			),
+			'feed_title' => ' عنوان خوراک',
+			'icons' => array(
+				'_' => 'موقعیت آیکون‌ها<br /><small>(فقط در نمای خواندن)</small>',
+				'above_title' => 'بالاتر از عنوان',
+				'with_authors' => 'در سطر نویسنده و تاریخ',
+			),
+			'tags' => array(
+				'_' => ' برچسب ها',
+				'both' => ' در سرصفحه و پاورقی',
+				'footer' => ' در پاورقی',
+				'header' => ' در سربرگ',
+				'none' => ' هیچ',
+			),
+			'tags_max' => array(
+				'_' => ' حداکثر تعداد برچسب نشان داده شده است',
+				'help' => '0 به این معنی است: همه برچسب ها را نشان دهید و آنها را جمع نکنید',
+			),
+		),
 		'darkMode' => array(
-			'_' => ' حالت تاریک خودکار (بتا)',
+			'_' => ' حالت تاریک خودکار',
 			'auto' => ' خودکار',
-			'no' => ' شماره',
+			'help' => 'کمک',
+			'no' => 'خیر',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => ' مقالات: سرصفحه / پاورقی',
 		),
 		'icon' => array(
 			'bottom_line' => ' خط پایین',
@@ -53,14 +89,23 @@ return array(
 			'timeout' => ' وقفه اعلان HTML5',
 		),
 		'show_nav_buttons' => ' دکمه های ناوبری را نشان دهید',
+		'show_title_unread' => 'نمایش تعداد مقالات خوانده نشده در عنوان',
+		'show_unread_count' => array(
+			'_' => 'نمایش تعداد خوانده‌نشده‌ها در نوار کناری',
+			'all' => 'برای همه دسته‌ها و فیدها',
+			'important' => 'فقط برای فیدهای مهم',
+			'important_locked' => 'فیدهای مهم همیشه تعداد خوانده‌نشده‌های خود را نشان می‌دهند.',
+			'none' => 'هرگز',
+		),
+		'sidebar_hidden_by_default' => 'پنهان کردن نوار کناری به صورت پیش‌فرض',
 		'theme' => array(
 			'_' => ' موضوع',
 			'deprecated' => array(
 				'_' => ' منسوخ شده است',
-				'description' => ' این طرح زمینه دیگر پشتیبانی نمی‌شود و در <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">آینده در دسترس نخواهد بود انتشار FreshRSS</a>',
+				'description' => 'این پوسته دیگر پشتیبانی نمی‌شود و در <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">نسخه آینده FreshRSS</a> در دسترس نخواهد بود',
 			),
 		),
-		'theme_not_available' => ' طرح زمینه "%s" دیگر در دسترس نیست. لطفا موضوع دیگری را انتخاب کنید.',
+		'theme_not_available' => 'پوسته «%s» دیگر در دسترس نیست. لطفاً پوسته دیگری انتخاب کنید.',
 		'thumbnail' => array(
 			'label' => ' تصویر بند انگشتی',
 			'landscape' => ' منظره',
@@ -73,7 +118,7 @@ return array(
 		'website' => array(
 			'full' => ' نماد و نام',
 			'icon' => ' فقط نماد',
-			'label' => ' وب سایت',
+			'label' => 'وب‌سایت',
 			'name' => ' فقط نام',
 			'none' => ' هیچکدام',
 		),
@@ -98,112 +143,131 @@ return array(
 			'previous' => ' قبلی',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '"علامت گذاری همه به عنوان خوانده شده" دکمه',
+		'big' => 'بزرگ',
+		'none' => 'هیچ',
+		'small' => 'کوچک',
+	),
+	'notification' => array(
+		'html5_enable_notif' => 'فعال کردن اعلان',
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'نمایش نوار هشدار',
+			'seconds' => 'ثانیه (حداقل ۱)',
+		),
+		'good' => array(
+			'label' => 'نمایش نوار تأیید',
+			'seconds' => 'ثانیه (۰ یعنی نمایش داده نشود)',
+		),
+	),
+	'privacy' => array(
+		'_' => 'حریم خصوصی',
+		'retrieve_extension_list' => 'بازیابی لیست افزونه‌ها',
+		'send_referrer_allowlist' => 'سایت‌هایی که مجازند نشانی سرور شما را ببینند (%s)',
+	),
 	'profile' => array(
 		'_' => ' مدیریت پروفایل',
-		'api' => ' مدیریت API',
+		'api' => array(
+			'_' => ' مدیریت API',
+			'api_not_set' => 'API تنظیم نشده',
+			'api_set' => 'API تنظیم شده',
+			'check_link' => 'بررسی وضعیت از طریق: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'غیرفعال',
+			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">مستندات و فهرست برنامه‌های شناخته‌شده</a>',	// IGNORE
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// IGNORE
+			'security_warning' => 'از HTTPS استفاده کنید. رمز عبور API به صورت متن ساده ارسال می‌شود و اگر با GET فرستاده شود ممکن است در لاگ‌های سرور ثبت شود.',
+		),
+		'change_password' => 'تغییر رمز عبور',
+		'confirm_new_password' => 'تأیید رمز عبور جدید',
+		'current_password' => 'رمز عبور کنونی<br /><small>(برای روش ورود با فرم وب)</small>',
 		'delete' => array(
 			'_' => ' حذف اکانت',
 			'warn' => ' حساب شما و تمام داده های مرتبط حذف خواهد شد.',
 		),
 		'email' => ' آدرس ایمیل',
+		'new_password' => 'رمز عبور جدید',
 		'password_api' => ' رمز عبور API<br /><small>(مثلاً برای برنامه های تلفن همراه)</small>',
-		'password_form' => ' رمز عبور<br /><small>(برای روش ورود به فرم وب)</small>',
 		'password_format' => ' حداقل 7 کاراکتر',
 		'title' => ' نمایه',
 	),
 	'query' => array(
 		'_' => ' پرس و جوهای کاربر',
+		'create' => 'ایجاد پرس‌وجوی کاربری جدید',
 		'deprecated' => ' این عبارت دیگر معتبر نیست. دسته یا فید ارجاع شده حذف شده است.',
+		'description' => 'توضیحات',
 		'filter' => array(
 			'_' => ' فیلتر اعمال شده:',
-			'categories' => ' نمایش بر اساس دسته بندی',
+			'categories' => 'نمایش بر اساس دسته‌بندی',
 			'feeds' => ' نمایش با فید',
-			'order' => ' مرتب سازی بر اساس تاریخ',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'order' => 'Sort by',	// TODO
 			'search' => ' بیان',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
-			'state' => ' ایالت',
+			'shareOpml' => 'فعال‌سازی اشتراک‌گذاری دسته‌ها و فیدهای مربوطه با OPML',
+			'shareRss' => 'اشتراک‌گذاری RSS',
+			'state' => 'وضعیت',
 			'tags' => ' نمایش بر اساس برچسب',
 			'type' => ' نوع',
 		),
+		'get_A' => 'نمایش همه فیدها، از جمله فیدهایی که در دسته‌بندی خودشان نشان داده شده‌اند',
+		'get_Z' => 'نمایش همه فیدها، از جمله فیدهای بایگانی‌شده',
 		'get_all' => ' نمایش همه مقالات',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'نمایش مقالات با هر برچسبی',
 		'get_category' => ' دسته «%s» را نمایش دهید',
 		'get_favorite' => ' نمایش مقالات مورد علاقه',
 		'get_feed' => ' فید "%s" را نمایش دهید',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => 'نمایش مقالات از فیدهای مهم',
+		'get_label' => 'نمایش مقالات با برچسب %s',
+		'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">مستندات مربوط به پرس‌وجوهای کاربر و بازنشر آن‌ها با HTML / RSS / OPML</a> را ببینید.',
+		'image_url' => 'نشانی اینترنتی تصویر',
 		'name' => ' نام',
 		'no_filter' => ' بدون فیلتر',
-		'number' => ' پرس و جو n°%d',
+		'no_queries' => array(
+			'_' => 'هنوز هیچ پرس‌وجوی کاربری ذخیره نشده است',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">مستندات</a> را ببینید',
+		),
+		'number' => 'پرس‌وجوی شماره %d',
 		'order_asc' => ' ابتدا قدیمی ترین مقالات را نمایش دهید',
 		'order_desc' => ' ابتدا جدیدترین مقالات را نمایش دهید',
 		'search' => ' «%s» را جستجو کنید',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => 'اشتراک‌گذاری این پرس‌وجو از طریق لینک',
+			'disabled' => array(
+				'_' => 'غیرفعال',
+				'title' => 'اشتراک‌گذاری',
+			),
+			'greader' => 'لینک قابل اشتراک‌گذاری برای JSON GReader',
+			'help' => 'اگر می‌خواهید این جستجو را با کسی به اشتراک بگذارید، این پیوند را بدهید',
+			'html' => 'لینک قابل اشتراک‌گذاری به صفحه HTML',
+			'opml' => 'لینک قابل اشتراک‌گذاری برای فهرست OPML فیدها',
+			'rss' => 'لینک قابل اشتراک‌گذاری برای فید RSS',
 		),
-		'state_0' => 'نمایش همه مقالات',
-		'state_1' => 'نمایش مقالات خوانده شده',
-		'state_2' => 'نمایش مقالات خوانده نشده',
-		'state_3' => 'نمایش همه مقالات',
-		'state_4' => ' نمایش مقالات مورد علاقه',
-		'state_5' => ' نمایش مقالات مورد علاقه خوانده شده',
-		'state_6' => 'نمایش مقالات مورد علاقه خوانده نشده',
-		'state_7' => ' نمایش مقالات مورد علاقه',
-		'state_8' => ' نمایش مقالات مورد علاقه نیست',
-		'state_9' => ' نمایش مقالات مورد علاقه خوانده نشده',
-		'state_10' => ' نمایش مقالات خوانده نشده و نه مورد علاقه',
-		'state_11' => ' نمایش مقالات مورد علاقه نیست',
-		'state_12' => ' نمایش همه مقالات',
-		'state_13' => ' نمایش مقالات خوانده شده',
-		'state_14' => ' نمایش مقالات خوانده نشده',
-		'state_15' => ' نمایش همه مقالات',
+		'state_all' => ' نمایش همه مقالات',
+		'state_favorite' => ' نمایش مقالات مورد علاقه',
+		'state_not_favorite' => 'نمایش مقاله‌های غیرموردعلاقه',
+		'state_read' => ' نمایش مقالات خوانده شده',
+		'state_read_favorite' => ' نمایش مقالات مورد علاقه خوانده شده',
+		'state_read_not_favorite' => ' نمایش مقالات مورد علاقه خوانده نشده',
+		'state_unread' => ' نمایش مقالات خوانده نشده',
+		'state_unread_favorite' => 'نمایش مقالات مورد علاقه خوانده نشده',
+		'state_unread_not_favorite' => 'نمایش مقاله‌های خوانده‌نشده و غیرموردعلاقه',
 		'title' => ' پرس و جوهای کاربر',
 	),
 	'reading' => array(
 		'_' => ' خواندن',
 		'after_onread' => ' بعد از "علامت گذاری همه به عنوان خوانده شده"',
 		'always_show_favorites' => ' نمایش همه مقالات در موارد دلخواه به طور پیش فرض',
-		'article' => array(
-			'authors_date' => array(
-				'_' => ' نویسندگان و تاریخ',
-				'both' => ' در سرصفحه و پاورقی',
-				'footer' => ' در پاورقی',
-				'header' => ' در سربرگ',
-				'none' => ' هیچکدام',
-			),
-			'feed_name' => array(
-				'above_title' => ' بالای عنوان/برچسب ها',
-				'none' => ' هیچ',
-				'with_authors' => ' در نویسندگان و ردیف تاریخ',
-			),
-			'feed_title' => ' عنوان خوراک',
-			'tags' => array(
-				'_' => ' برچسب ها',
-				'both' => ' در سرصفحه و پاورقی',
-				'footer' => ' در پاورقی',
-				'header' => ' در سربرگ',
-				'none' => ' هیچ',
-			),
-			'tags_max' => array(
-				'_' => ' حداکثر تعداد برچسب نشان داده شده است',
-				'help' => '0 به این معنی است: همه برچسب ها را نشان دهید و آنها را جمع نکنید',
-			),
-		),
+		'apply_to_individual_feed' => 'به صورت جداگانه برای هر فید اعمال می‌شود',
 		'articles_per_page' => ' تعداد مقاله در هر صفحه',
 		'auto_load_more' => ' مقالات بیشتری را در پایین صفحه بارگذاری کنید',
 		'auto_remove_article' => ' مخفی کردن مقالات پس از خواندن',
 		'confirm_enabled' => ' یک دیالوگ تأیید را روی اقدامات "علامت گذاری همه به عنوان خوانده شده" نمایش دهید',
 		'display_articles_unfolded' => ' نمایش مقالاتی که به طور پیش فرض باز شده اند',
-		'display_categories_unfolded' => ' دسته بندی هایی که باید آشکار شوند',
+		'display_categories_unfolded' => 'دسته‌بندی‌هایی که باید باز باشند',
 		'headline' => array(
 			'articles' => ' مقالات: باز/بستن',
-			'articles_header_footer' => ' مقالات: سرصفحه / پاورقی',
 			'categories' => ' ناوبری چپ: دسته ها',
 			'mark_as_read' => ' مقاله را به عنوان خوانده شده علامت گذاری کنید',
 			'misc' => ' متفرقه',
@@ -211,38 +275,41 @@ return array(
 		),
 		'hide_read_feeds' => ' دسته‌ها و فیدها را بدون مقاله خوانده نشده پنهان کنید (با پیکربندی «نمایش همه مقاله‌ها» کار نمی‌کند)',
 		'img_with_lazyload' => ' از حالت <em>بار تنبل</em> برای بارگیری تصاویر استفاده کنید',
-		'jump_next' => ' پرش به خواهر و برادر خوانده نشده بعدی (فید یا دسته)',
+		'jump_next' => 'پرش به مورد خوانده‌نشده بعدی در همان سطح',
 		'mark_updated_article_unread' => ' مقالات به روز شده را به عنوان خوانده نشده علامت گذاری کنید',
 		'number_divided_when_reader' => ' در نمای خواندن بر 2 تقسیم کنید.',
 		'read' => array(
-			'article_open_on_website' => ' هنگامی که مقاله در وب سایت اصلی خود باز می شود',
+			'article_open_on_website' => 'هنگامی که مقاله در وب‌سایت اصلی خود باز می‌شود',
 			'article_viewed' => ' هنگام مشاهده مقاله',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'فقط هنگام انتخاب فید (به‌جز فیدهای مهم)',
 			'keep_max_n_unread' => ' حداکثر تعداد مقالات خوانده نشده',
-			'scroll' => '(except for important feeds) در حین پیمایش',	// DIRTY
+			'scroll' => '(به‌جز فیدهای مهم) در حین پیمایش',
 			'upon_gone' => ' زمانی که دیگر در فید اخبار بالادستی نیست',
 			'upon_reception' => ' پس از دریافت مقاله',
 			'when' => ' علامت گذاری یک مقاله به عنوان خوانده شده…',
-			'when_same_title' => ' اگر عنوان یکسانی از قبل در <i>n</i> جدیدترین مقالات بالا وجود داشته باشد',
+			'when_same_guid_in_category' => 'اگر GUID یکسانی از قبل در <i>n</i> مقاله جدیدتر دسته وجود داشته باشد',
+			'when_same_title_in_category' => 'اگر عنوان مشابهی از قبل در <i>n</i> مقاله جدیدتر این دسته وجود داشته باشد',
+			'when_same_title_in_feed' => 'اگر عنوان مشابهی از قبل در <i>n</i> مقاله جدیدتر این فید وجود داشته باشد',
 		),
 		'show' => array(
 			'_' => ' مقالات برای نمایش',
 			'active_category' => ' دسته فعال',
-			'adaptive' => ' نمایش را تنظیم کنید',
+			'adaptive' => 'اگر مقاله‌ای خوانده‌نشده موجود است، آن‌ها را نمایش دهد؛ در غیر این صورت، تمام مقالات را نشان دهد.',
 			'all_articles' => ' نمایش همه مقالات',
 			'all_categories' => ' همه دسته ها',
 			'no_category' => ' بدون دسته',
-			'remember_categories' => ' دسته بندی های باز را به خاطر بسپارید',
+			'remember_categories' => 'دسته‌بندی‌های باز را به خاطر بسپارید',
 			'unread' => ' فقط خوانده نشده را نشان دهد',
+			'unread_or_favorite' => 'نمایش خوانده‌نشده‌ها و موردعلاقه‌ها',
 		),
 		'show_fav_unread_help' => ' روی برچسب ها نیز اعمال می شود',
 		'sides_close_article' => ' با کلیک کردن خارج از ناحیه متن مقاله',
-		'sort' => array(
-			'_' => ' ترتیب مرتب سازی',
-			'newer_first' => ' ابتدا جدیدترین',
-			'older_first' => ' اول قدیمی ترین',
+		'star' => array(
+			'when' => 'یک مطلب را به عنوان مورد علاقه علامت‌گذاری کن...',
 		),
 		'sticky_post' => ' وقتی باز شد مقاله را به بالا بچسبانید',
+		'sticky_sort' => 'حفظ ترتیب مرتب‌سازی دستی هنگام پیمایش',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'تعیین می‌کند که آیا آخرین ترتیب مرتب‌سازی دستی فعال بماند یا هر دسته یا خوراک همیشه از تنظیم پیش‌فرض یا سراسری خود استفاده کند.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => ' خواندن',
 		'view' => array(
 			'default' => ' نمای پیش فرض',
@@ -254,8 +321,8 @@ return array(
 	'sharing' => array(
 		'_' => ' اشتراک گذاری',
 		'add' => ' یک روش اشتراک گذاری اضافه کنید',
-		'blogotext' => ' وبلاگ متن',
-		'deprecated' => ' این سرویس منسوخ شده است و در <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="باز کردن اسناد برای اطلاعات بیشتر" target= از FreshRSS حذف خواهد شد. "_blank">نسخه آینده</a>.',
+		'bluesky' => 'Bluesky( یک شبکه اجتماعی غیرمتمرکز است که به کاربران اجازه می‌دهد پست‌های کوتاه، عکس و ویدیو به اشتراک بگذارند)',
+		'deprecated' => 'این سرویس منسوخ شده است و در <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="باز کردن مستندات برای اطلاعات بیشتر" target="_blank">نسخه آینده</a> از FreshRSS حذف خواهد شد.',
 		'diaspora' => ' دیاسپورا*',
 		'email' => ' ایمیل',
 		'facebook' => ' فیس بوک',
@@ -272,11 +339,11 @@ return array(
 	),
 	'shortcut' => array(
 		'_' => ' میانبرها',
-		'article_action' => ' اقدامات ماده',
+		'article_action' => 'اقدام‌های مقاله',
 		'auto_share' => ' اشتراک گذاری',
 		'auto_share_help' => ' اگر فقط یک حالت اشتراک گذاری وجود داشته باشد',
-		'close_dropdown' => ' منوها را ببندید',
-		'collapse_article' => ' فروپاشی',
+		'close_menus' => ' منوها را ببندید',
+		'collapse_article' => 'جمع کردن مقاله',
 		'first_article' => ' اولین مقاله را باز کنید',
 		'focus_search' => ' به کادر جستجو دسترسی پیدا کنید',
 		'global_view' => ' تغییر به نمای جهانی',
@@ -297,15 +364,16 @@ return array(
 		'previous_article' => ' مقاله قبلی را باز کنید',
 		'reading_view' => ' به نمای خواندن بروید',
 		'rss_view' => ' به عنوان فید RSS باز شود',
-		'see_on_website' => ' به وب سایت اصلی مراجعه کنید',
+		'see_on_website' => 'به وب‌سایت اصلی مراجعه کنید',
 		'shift_for_all_read' => '+ <kbd>Alt ⎇</kbd> برای علامت گذاری مقالات قبلی به عنوان خوانده شده<br />+ <kbd>⇧ Shift</kbd> برای علامت گذاری همه مقالات به عنوان خوانده شده',
 		'skip_next_article' => ' فوکوس بعدی بدون باز کردن',
 		'skip_previous_article' => ' فوکوس قبلی بدون باز کردن',
 		'title' => ' میانبرها',
+		'toggle_aside' => 'تغییر وضعیت نوار کناری',
 		'toggle_media' => ' پخش/مکث رسانه',
 		'user_filter' => ' به درخواست های کاربر دسترسی پیدا کنید',
 		'user_filter_help' => ' اگر فقط یک درخواست کاربر وجود داشته باشد',
-		'views' => ' بازدید',
+		'views' => 'نماها',
 	),
 	'user' => array(
 		'articles_and_size' => '%s مقاله (%s)',

@@ -1,0 +1,12 @@
+# Copy this file to `.htaccess` for additional root-level protection
+# if you cannot set Apache `DocumentRoot` to `./p/` as recommended.
+
+# Deny files starting with a dot or without extension or with specific extensions
+<FilesMatch "^\.|^[^.]+$|\.(config\.js|gz|md|neon|sqlite|xml|ya?ml|zip)$">
+	Require all denied
+</FilesMatch>
+
+# Deny some sub-folders, which may not be excluded by their own .htaccess
+<If "%{REQUEST_URI} =~ m#(?<!/p/scripts)/(bin|data|extensions|node_modules|vendor|\..+)(/|$)#">
+	Require all denied
+</If>

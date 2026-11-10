@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 $cliOptions = new class extends CliOptionsParser {
 	public string $defaultUser;
@@ -54,7 +54,7 @@ $cliOptions = new class extends CliOptionsParser {
 		$this->addOption('dbUser', (new CliOption('db-user')));
 		$this->addOption('dbPassword', (new CliOption('db-password')));
 		$this->addOption('dbBase', (new CliOption('db-base')));
-		$this->addOption('dbPrefix', (new CliOption('db-prefix'))->withValueOptional());
+		$this->addOption('dbPrefix', (new CliOption('db-prefix'))->withValueRequired());
 		parent::__construct();
 	}
 };
@@ -108,15 +108,17 @@ foreach ($values as $name => $value) {
 				}
 				break;
 		}
-		// @phpstan-ignore-next-line (change to `@phpstan-ignore property.dynamicName` when upgrading to PHPStan 1.11+)
+		// @phpstan-ignore assign.propertyType
 		$systemConf->$name = $value;
 	}
 }
 
-$db = array_merge(FreshRSS_Context::systemConf()->db, array_filter($dbValues));
+$db = array_merge(FreshRSS_Context::systemConf()->db,
+	array_filter($dbValues, fn(?string $v): bool => $v !== null && trim($v) !== ''));
 
 performRequirementCheck($db['type']);
 
+assert(in_array($db['type'], ['mysql', 'pgsql', 'sqlite'], true));
 FreshRSS_Context::systemConf()->db = $db;
 
 FreshRSS_Context::systemConf()->save();

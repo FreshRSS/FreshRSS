@@ -1,25 +1,28 @@
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/../../constants.php');
-require(LIB_PATH . '/lib_rss.php');	//Includes class autoloader
+
+header('X-Content-Type-Options: nosniff');
+
+require dirname(__DIR__, 2) . '/constants.php';
+require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
 Minz_Request::init();
 
-$token = Minz_Request::paramString('t');
+$token = Minz_Request::paramString('t', plaintext: true);
 if (!ctype_alnum($token)) {
 	header('HTTP/1.1 422 Unprocessable Entity');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Invalid token `t`!' . $token);
 }
 
-$format = Minz_Request::paramString('f');
-if (!in_array($format, ['atom', 'html', 'opml', 'rss'], true)) {
+$format = Minz_Request::paramString('f', plaintext: true);
+if (!in_array($format, ['atom', 'greader', 'html', 'json', 'opml', 'rss'], true)) {
 	header('HTTP/1.1 422 Unprocessable Entity');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Invalid format `f`!');
 }
 
-$user = Minz_Request::paramString('user');
+$user = Minz_Request::paramString('user', plaintext: true);
 if (!FreshRSS_user_Controller::checkUsername($user)) {
 	header('HTTP/1.1 422 Unprocessable Entity');
 	header('Content-Type: text/plain; charset=UTF-8');
@@ -35,8 +38,14 @@ if (!FreshRSS_Context::hasSystemConf() || !FreshRSS_Context::systemConf()->api_e
 	die('Service Unavailable!');
 }
 
+if (Minz_Request::pathInfo() !== '') {
+	// Do not allow trailing slashes
+	header('HTTP/1.1 400 Bad Request');
+	die('Invalid path!');
+}
+
 FreshRSS_Context::initUser($user);
-if (!FreshRSS_Context::hasUserConf()) {
+if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) {
 	usleep(rand(100, 10000));	//Primitive mitigation of scanning for users
 	header('HTTP/1.1 404 Not Found');
 	header('Content-Type: text/plain; charset=UTF-8');
@@ -45,12 +54,15 @@ if (!FreshRSS_Context::hasUserConf()) {
 	usleep(rand(20, 200));
 }
 
-if (!file_exists(DATA_PATH . '/no-cache.txt')) {
-	require(LIB_PATH . '/http-conditional.php');
-	// TODO: Consider taking advantage of $feedMode, only for monotonous queries {all, categories, feeds} and not dynamic ones {read/unread, favourites, user labels}
-	if (httpConditional(FreshRSS_UserDAO::mtime($user) ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
-		exit();	//No need to send anything
-	}
+require LIB_PATH . '/http-conditional.php';
+$dateLastModification = max(
+	FreshRSS_UserDAO::ctime($user),
+	FreshRSS_UserDAO::mtime($user),
+	@filemtime(DATA_PATH . '/config.php') ?: 0
+);
+// TODO: Consider taking advantage of $feedMode, only for monotonous queries {all, categories, feeds} and not dynamic ones {read/unread, favourites, user labels}
+if (!file_exists(DATA_PATH . '/no-cache.txt') && httpConditional($dateLastModification ?: time(), 0, 0, false, PHP_COMPRESSION, false)) {
+	exit();	//No need to send anything
 }
 
 Minz_Translate::init(FreshRSS_Context::userConf()->language);
@@ -60,7 +72,7 @@ Minz_ExtensionManager::enableByList(FreshRSS_Context::userConf()->extensions_ena
 $query = null;
 $userSearch = null;
 foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
-	if (!empty($raw_query['token']) && $raw_query['token'] === $token) {
+	if (!empty($raw_query['token']) && hash_equals($raw_query['token'], $token)) {
 		switch ($format) {
 			case 'atom':
 			case 'html':
@@ -69,6 +81,8 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 					continue 2;
 				}
 				break;
+			case 'greader':
+			case 'json':
 			case 'opml':
 				if (empty($raw_query['shareOpml'])) {
 					continue 2;
@@ -79,22 +93,24 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 		}
 		$query = new FreshRSS_UserQuery($raw_query, FreshRSS_Context::categories(), FreshRSS_Context::labels());
 		Minz_Request::_param('get', $query->getGet());
-		if (Minz_Request::paramString('order') === '') {
+		if (Minz_Request::paramString('order', plaintext: true) === '') {
 			Minz_Request::_param('order', $query->getOrder());
 		}
-		Minz_Request::_param('state', $query->getState());
-
-		$search = $query->getSearch()->getRawInput();
-		// Note: we disallow references to user queries in public user search to avoid sniffing internal user queries
-		$userSearch = new FreshRSS_BooleanSearch(Minz_Request::paramString('search'), 0, 'AND', false);
-		if ($userSearch->getRawInput() !== '') {
-			if ($search === '') {
-				$search = $userSearch->getRawInput();
-			} else {
-				$search .= ' (' . $userSearch->getRawInput() . ')';
-			}
+		if (Minz_Request::paramString('sort', plaintext: true) === '') {
+			Minz_Request::_param('sort', $query->getSort());
 		}
-		Minz_Request::_param('search', $search);
+		Minz_Request::_param('state', (string)$query->getState());
+
+		// Note: we disallow references to user queries in public user search to avoid sniffing internal user queries
+		try {
+			$userSearch = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true), 0, 'AND', allowUserQueries: false);
+		} catch (Minz_BadRequestException $e) {
+			header('HTTP/1.1 400 Bad Request');
+			header('Content-Type: text/plain; charset=UTF-8');
+			die($e->getMessage());
+		}
+		// Only the search of the user query is passed as a string; the user search is combined structurally below
+		Minz_Request::_param('search', $query->getSearch()->toString());
 		break;
 	}
 }
@@ -109,9 +125,24 @@ $view = new FreshRSS_View();
 
 try {
 	FreshRSS_Context::updateUsingRequest(false);
-	Minz_Request::_param('search', $userSearch->getRawInput());	// Restore user search
+	if ($userSearch->toString() !== '') {
+		if (FreshRSS_Context::$search->toString() === '') {
+			FreshRSS_Context::$search = $userSearch;
+		} else {
+			// Combine with a structural AND, so that the user search cannot alter the search of the user query
+			$combinedSearch = new FreshRSS_BooleanSearch('');
+			$combinedSearch->add(FreshRSS_Context::$search);
+			$combinedSearch->add($userSearch);
+			FreshRSS_Context::$search = $combinedSearch;
+		}
+	}
 	$view->entries = FreshRSS_index_Controller::listEntriesByContext();
-} catch (Minz_Exception $e) {
+	if (!$view->entries->valid()) {	// Init the generator to consume the aggregated search and catch potential exceptions
+		$view->entries = new EmptyIterator();
+	}
+	Minz_Request::_param('search', $userSearch->toString());	// Restore user search for display and exports
+	FreshRSS_Context::$search = $userSearch;	// Restore user search for display and exports
+} catch (Minz_Exception) {
 	Minz_Error::error(400, 'Bad user query!');
 	die();
 }
@@ -127,7 +158,7 @@ switch ($type) {
 			Minz_Error::error(404, "Category {$id} not found!");
 			die();
 		}
-		$view->categories = [ $cat->id() => $cat ];
+		$view->categories = [$cat->id() => $cat];
 		break;
 	case 'f':	// Feed
 		$feed = FreshRSS_Category::findFeed(FreshRSS_Context::categories(), $id);
@@ -135,7 +166,7 @@ switch ($type) {
 			Minz_Error::error(404, "Feed {$id} not found!");
 			die();
 		}
-		$view->feeds = [ $feed->id() => $feed ];
+		$view->feeds = [$id => $feed];
 		$view->categories = [];
 		break;
 	default:
@@ -150,24 +181,62 @@ $view->userQuery = $query;
 $view->html_url = $query->sharedUrlHtml();
 $view->rss_url = $query->sharedUrlRss();
 $view->rss_title = $query->getName();
+$view->image_url = $query->getImageUrl();
+$view->description = $query->getDescription() ?: _t('index.feed.rss_of', $view->rss_title);
+$view->includeUserLabels = $query->includeUserLabels();
+$view->excludeArticleTags = $query->excludeArticleTags();
+$view->userLabelPrefix = $query->userLabelPrefix();
+$view->entryIdsTagNames = [];
+if ($view->includeUserLabels && in_array($format, ['rss', 'atom'], true)) {
+	$entries = iterator_to_array($view->entries, preserve_keys: false);	// TODO: Optimise: avoid iterator_to_array if possible
+	$view->entries = $entries;
+	if (!empty($entries)) {
+		$tagDAO = FreshRSS_Factory::createTagDao();
+		$view->entryIdsTagNames = $tagDAO->getEntryIdsTagNames($entries);
+	}
+}
 if ($query->getName() != '') {
 	FreshRSS_View::_title($query->getName());
 }
 FreshRSS_Context::systemConf()->allow_anonymous = true;
 
+header('Access-Control-Allow-Methods: GET');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Max-Age: 600');
+header('Cache-Control: public, max-age=60');
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+	header('HTTP/1.1 204 No Content');
+	exit();
+}
+
 if (in_array($format, ['rss', 'atom'], true)) {
 	header('Content-Type: application/rss+xml; charset=utf-8');
+	header("Content-Security-Policy: default-src 'none'; sandbox; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout(null);
 	$view->_path('index/rss.phtml');
+} elseif (in_array($format, ['greader', 'json'], true)) {
+	header('Content-Type: application/json; charset=utf-8');
+	header("Content-Security-Policy: default-src 'none'; sandbox; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
+	$view->_layout(null);
+	$view->type = 'query/' . $token;
+	$view->list_title = $query->getName();
+	$view->entryIdsTagNames = [];	// Do not export user labels for privacy
+	$view->_path('helpers/export/articles.phtml');
 } elseif ($format === 'opml') {
 	if (!$query->safeForOpml()) {
 		Minz_Error::error(404, 'OPML not allowed for this user query!');
 		die();
 	}
 	header('Content-Type: application/xml; charset=utf-8');
+	header("Content-Security-Policy: default-src 'none'; sandbox; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout(null);
 	$view->_path('index/opml.phtml');
 } else {
+	header("Content-Security-Policy: default-src 'self'; frame-src *; img-src * data:; media-src *; frame-ancestors " .
+		(FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'"));
 	$view->_layout('layout');
 	$view->_path('index/html.phtml');
 }

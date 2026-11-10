@@ -4,6 +4,8 @@
 	if ($this->query === null) {
 		throw new FreshRSS_Context_Exception('Query not initialised!');
 	}
+
+	$ajax = Minz_Request::paramBoolean('ajax') || $this->displaySlider;
 ?>
 <div class="post">
 	<h2><?= $this->query->getName() ?></h2>
@@ -11,61 +13,98 @@
 		<a href="<?= $this->query->getUrl() ?>"><?= _i('link') ?> <?= _t('gen.action.filter') ?></a>
 	</div>
 
-	<form method="post" action="<?= _url('configure', 'query', 'id', $this->queryId, '#', 'slider') ?>" autocomplete="off">
+	<form method="post" action="<?= _url('configure', 'query', 'id', $this->queryId, 'from', $ajax ? 'queries' : 'query', ...($ajax ? ['#', 'slider'] : [])) ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 
 		<div class="form-group">
 			<label class="group-name" for="name"><?= _t('conf.query.name') ?></label>
 			<div class="group-controls">
-				<input type="text" name="name" id="name" value="<?= $this->query->getName() ?>" />
+				<input type="text" class="w100" name="name" id="name" value="<?= $this->query->getName() ?>" />
 				<input type="hidden" name="query[token]" id="query_token" value="<?= $this->query->getToken() ?>" />
 			</div>
 		</div>
+		<div class="form-group">
+			<label class="group-name" for="description"><?= _t('conf.query.description') ?></label>
+			<div class="group-controls">
+				<input type="text" class="w100" name="query[description]" id="description" value="<?= $this->query->getDescription() ?>" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for="imageUrl"><?= _t('conf.query.image_url') ?></label>
+			<div class="group-controls">
+				<input type="text" class="w100" name="query[imageUrl]" id="imageUrl" value="<?= $this->query->getImageUrl() ?>" />
+			</div>
+		</div>
 
-		<fieldset>
-			<legend><?= _t('conf.query.share') ?></legend>
+		<?php if (FreshRSS_Context::systemConf()->api_enabled) { ?>
+			<fieldset>
+				<legend><?= _t('conf.query.share') ?></legend>
+				<div class="form-group">
+					<div class="group-controls">
+						<label class="checkbox" for="shareRss">
+							<input type="checkbox" name="query[shareRss]" id="shareRss" value="1" <?= $this->query->shareRss() ? 'checked="checked"' : ''?> />
+							<?= _t('conf.query.filter.shareRss') ?>
+						</label>
+						<?php if ($this->query->sharedUrlRss() !== ''): ?>
+						<ul>
+							<li><a href="<?= $this->query->sharedUrlHtml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.html') ?></a></li>
+							<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
+						</ul>
+					</div>
+					<div class="group-controls">
+						<label class="checkbox" for="includeArticleTags">
+							<input type="checkbox" name="query[includeArticleTags]" id="includeArticleTags" value="1" <?= !$this->query->excludeArticleTags() ? 'checked="checked"' : ''?> />
+							<?= _t('conf.query.filter.include_article_tags_label') ?>
+						</label>
+						<label class="checkbox" for="includeUserLabels">
+							<input type="checkbox" name="query[includeUserLabels]" id="includeUserLabels" value="1" <?= $this->query->includeUserLabels() ? 'checked="checked"' : ''?> />
+							<?= _t('conf.query.filter.include_user_labels_label') ?>
+							<input type="text" name="query[userLabelPrefix]" id="userLabelPrefix" class="w20"
+								value="<?= htmlspecialchars($this->query->userLabelPrefix() ?: (Minz_User::name() ?? '') . '/', ENT_COMPAT, 'UTF-8') ?>"
+								placeholder="<?= htmlspecialchars((Minz_User::name() ?? '') . '/', ENT_COMPAT, 'UTF-8') ?>" />
+						</label>
+						<?php endif; ?>
+					</div>
+					<div class="group-controls">
+						<label class="checkbox" for="shareOpml">
+							<input type="checkbox" name="query[shareOpml]" id="shareOpml" value="1" <?= $this->query->shareOpml() && $this->query->safeForOpml() ? 'checked="checked"' : '' ?>
+								<?= $this->query->safeForOpml() ? '' : 'disabled="disabled"' ?> />
+							<?= _t('conf.query.filter.shareOpml') ?>
+						</label>
+						<?php if ($this->query->sharedUrlOpml() !== ''): ?>
+						<ul>
+							<li><a href="<?= $this->query->sharedUrlOpml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.opml') ?></a></li>
+							<li><a href="<?= $this->query->sharedUrlGreader() ?>"><?= _i('link') ?> <?= _t('conf.query.share.greader') ?></a></li>
+						</ul>
+						<?php endif; ?>
+					</div>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.query.share.help') ?></a></p>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
+				</div>
+
+				<div class="form-group form-actions">
+					<div class="group-controls">
+						<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+					</div>
+				</div>
+			</fieldset>
+		<?php } else { ?>
 			<div class="form-group">
+				<label class="group-name"><?= _t('conf.query.share.disabled.title') ?></label>
 				<div class="group-controls">
-					<label class="checkbox" for="shareRss">
-						<input type="checkbox" name="query[shareRss]" id="shareRss" value="1" <?= $this->query->shareRss() ? 'checked="checked"' : ''?> />
-						<?= _t('conf.query.filter.shareRss') ?>
-					</label>
-					<?php if ($this->query->sharedUrlRss() !== ''): ?>
-					<ul>
-						<li><a href="<?= $this->query->sharedUrlHtml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.html') ?></a></li>
-						<li><a href="<?= $this->query->sharedUrlRss() ?>"><?= _i('link') ?> <?= _t('conf.query.share.rss') ?></a></li>
-					</ul>
-					<?php endif; ?>
-				</div>
-				<div class="group-controls">
-					<label class="checkbox" for="shareOpml">
-						<input type="checkbox" name="query[shareOpml]" id="shareOpml" value="1" <?= $this->query->shareOpml() && $this->query->safeForOpml() ? 'checked="checked"' : '' ?>
-							<?= $this->query->safeForOpml() ? '' : 'disabled="disabled"' ?> />
-						<?= _t('conf.query.filter.shareOpml') ?>
-					</label>
-					<?php if ($this->query->sharedUrlOpml() !== ''): ?>
-					<ul>
-						<li><a href="<?= $this->query->sharedUrlOpml() ?>"><?= _i('link') ?> <?= _t('conf.query.share.opml') ?></a></li>
-					</ul>
-					<?php endif; ?>
-				</div>
-				<p class="help"><?= _i('help') ?> <?= _t('conf.query.share.help') ?></a></p>
-				<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
-			</div>
-
-			<div class="form-group form-actions">
-				<div class="group-controls">
-					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+				<?= _t('conf.query.share.disabled') ?>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
 				</div>
 			</div>
-		</fieldset>
+		<?php } ?>
 
 		<fieldset>
 			<legend><?= _t('conf.query.filter') ?></legend>
 			<div class="form-group">
 				<label class="group-name" for=""><?= _t('conf.query.filter.search') ?></label>
 				<div class="group-controls">
-					<input type="text" id="query_search" name="query[search]" value="<?= htmlspecialchars($this->query->getSearch()->getRawInput(), ENT_COMPAT, 'UTF-8') ?>"/>
+					<input type="text" class="w100" id="query_search" name="query[search]" value="<?=
+						htmlspecialchars($this->query->getSearch()->toString(expandUserQueries: false), ENT_COMPAT, 'UTF-8') ?>"/>
 					<p class="help"><?= _i('help') ?> <?= _t('gen.menu.search_help') ?></a></p>
 				</div>
 			</div>
@@ -97,11 +136,13 @@
 			<div class="form-group">
 				<label class="group-name" for="query_get"><?= _t('conf.query.filter.type') ?></label>
 				<div class="group-controls">
-					<select name="query[get]" id="query_get" size="10">
+					<select name="query[get]" class="w100" id="query_get" size="10">
+						<option value="Z" <?= 'Z' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('conf.query.get_Z') ?></option>
+						<option value="A" <?= 'A' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('conf.query.get_A') ?></option>
 						<option value="a" <?= in_array($this->query->getGet(), ['', 'a'], true) ? 'selected="selected"' : '' ?>><?= _t('index.feed.title') ?></option>
 						<option value="i" <?= 'i' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.menu.important') ?></option>
 						<option value="s" <?= 's' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.feed.title_fav') ?></option>
-						<option value="T" <?= 'T' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.menu.tags') ?></option>
+						<option value="T" <?= 'T' === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= _t('index.menu.mylabels') ?></option>
 						<optgroup label="<?= _t('conf.query.filter.tags') ?>">
 							<?php foreach ($this->tags as $tag): ?>
 								<option value="t_<?= $tag->id() ?>" <?= "t_{$tag->id()}" === $this->query->getGet() ? 'selected="selected"' : '' ?>><?= $tag->name() ?></option>
@@ -120,13 +161,32 @@
 					</select>
 				</div>
 			</div>
+			<?php
+				$querySort = $this->query->getSort();
+				$querySortCombined = $querySort === 'rand' ? 'rand' : $querySort . '_' . strtolower($this->query->getOrder());
+			?>
 			<div class="form-group">
-				<label class="group-name" for=""><?= _t('conf.query.filter.order') ?></label>
+				<label class="group-name" for="query_sort"><?= _t('conf.query.filter.order') ?></label>
 				<div class="group-controls">
-					<select name="query[order]" id="query_order">
+					<select name="query[sort]" class="w100" id="query_sort">
 						<option value=""></option>
-						<option value="DESC" <?= 'DESC' === $this->query->getOrder() ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_desc') ?></option>
-						<option value="ASC" <?= 'ASC' === $this->query->getOrder() ? 'selected="selected"' : '' ?>><?= _t('conf.query.order_asc') ?></option>
+						<option value="id_desc" <?= $querySortCombined === 'id_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc" <?= $querySortCombined === 'date_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc" <?= $querySortCombined === 'length_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc" <?= $querySortCombined === 'link_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc" <?= $querySortCombined === 'title_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_desc') ?></option>
+						<option value="f.name_desc" <?= $querySortCombined === 'f.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_desc') ?></option>
+						<option value="c.name_desc" <?= $querySortCombined === 'c.name_desc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.c.name_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand" <?= $querySortCombined === 'rand' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc" <?= $querySortCombined === 'id_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc" <?= $querySortCombined === 'date_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc" <?= $querySortCombined === 'length_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc" <?= $querySortCombined === 'link_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc" <?= $querySortCombined === 'title_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.title_asc') ?></option>
+						<option value="f.name_asc" <?= $querySortCombined === 'f.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.f.name_asc') ?></option>
+						<option value="c.name_asc" <?= $querySortCombined === 'c.name_asc' ? 'selected="selected"' : '' ?>><?= _t('index.menu.sort.c.name_asc') ?></option>
 					</select>
 				</div>
 			</div>

@@ -4,21 +4,25 @@
 	$this->partial('aside_configure');
 ?>
 <main class="post">
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-	</div>
-
 	<h1><?= _t('index.log') ?></h1>
 
+	<form name="log_search" method="get" action="<?= _url('index', 'logs') ?>" class="form-inline">
+		<input type="hidden" name="c" value="index" />
+		<input type="hidden" name="a" value="logs" />
+		<label for="log-search"><?= _t('gen.action.filter') ?></label>
+		<input type="search" id="log-search" name="search" value="<?= htmlspecialchars($this->logSearch, ENT_COMPAT, 'UTF-8') ?>" />
+		<button type="submit" class="btn"><?= _t('gen.action.filter') ?></button>
+	</form>
+
 	<?php
-		/** @var array<FreshRSS_Log> $items */
+		/** @var list<FreshRSS_Log> $items */
 		$items = $this->logsPaginator->items();
 	?>
 
 	<?php if (!empty($items)) { ?>
 		<form method="post" action="<?= _url('index', 'logs') ?>">
 			<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
-			
+
 			<div id="loglist-wrapper" class="table-wrapper scrollbar-thin">
 				<table id="loglist">
 					<thead>
@@ -46,7 +50,7 @@
 				</table>
 			</div>
 			<?php $this->logsPaginator->render('logs_pagination.phtml', 'page'); ?>
-			
+
 			<div class="form-group form-actions">
 			<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 				<input type="hidden" name="clearLogs" />

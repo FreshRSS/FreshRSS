@@ -15,6 +15,11 @@ trait FreshRSS_AttributesTrait {
 		return $this->attributes;
 	}
 
+	/** @param non-empty-string $key */
+	public function hasAttribute(string $key): bool {
+		return isset($this->attributes[$key]);
+	}
+
 	/**
 	 * @param non-empty-string $key
 	 * @return array<int|string,mixed>|null
@@ -43,11 +48,12 @@ trait FreshRSS_AttributesTrait {
 	}
 
 	/** @param string|array<string,mixed> $values Values, not HTML-encoded */
-	public function _attributes($values): void {
+	public function _attributes(string|array $values): void {
 		if (is_string($values)) {
 			$values = json_decode($values, true);
 		}
 		if (is_array($values)) {
+			$values = array_filter($values, 'is_string', ARRAY_FILTER_USE_KEY);
 			$this->attributes = $values;
 		}
 	}

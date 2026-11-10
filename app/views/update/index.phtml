@@ -4,10 +4,6 @@
 	$this->partial('aside_configure');
 ?>
 <main class="post">
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-	</div>
-
 	<h1><?= _t('admin.update') ?></h1>
 
 	<?php if (!empty($this->message)) { ?>
@@ -40,7 +36,7 @@
 	<div class="form-group">
 		<label class="group-name"><?= _t('admin.update.releaseChannel') ?></label>
 		<div class="group-controls">
-			<?php if($this->is_release_channel_stable) { ?>
+			<?php if ($this->is_release_channel_stable) { ?>
 				<a href="https://github.com/FreshRSS/FreshRSS/releases/latest" target="_blank">
 					<?= _t('admin.update.releaseChannel.latest') ?>
 				</a>
@@ -52,6 +48,7 @@
 		</div>
 	</div>
 
+	<?php if (!FreshRSS_Context::systemConf()->disable_update): ?>
 	<div class="form-group">
 		<label class="group-name"><?= _t('admin.update.last') ?></label>
 		<div class="group-controls">
@@ -64,7 +61,10 @@
 	?>
 	<div class="form-group form-actions">
 		<div class="group-controls">
-			<a href="<?= _url('update', 'check') ?>" class="btn btn-important"><?= _t('admin.update.check') ?></a>
+			<form method="post" action="<?= _url('update', 'check') ?>">
+				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+				<button type="submit" class="btn btn-important"><?= _t('admin.update.check') ?></button>
+			</form>
 		</div>
 	</div>
 	<?php } ?>
@@ -72,9 +72,13 @@
 	<?php if ($this->update_to_apply) { ?>
 	<div class="form-group form-actions">
 		<div class="group-controls">
-			<a class="btn btn-attention btn-state1" href="<?= _url('update', 'apply') ?>" data-state2-id="button-update-loading"><?= _t('admin.update.apply') ?></a>
-			<span class="btn btn-state2" id="button-update-loading"><?= _t('admin.update.loading') ?></span>
+			<form method="post" action="<?= _url('update', 'apply') ?>">
+				<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+				<button type="submit" class="btn btn-attention btn-state1" data-state2-id="button-update-loading"><?= _t('admin.update.apply') ?></button>
+				<span class="btn btn-state2" id="button-update-loading"><?= _t('admin.update.loading') ?></span>
+			</form>
 		</div>
 	</div>
 	<?php } ?>
+	<?php endif; ?>
 </main>

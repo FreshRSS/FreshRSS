@@ -31,8 +31,7 @@ Voir [export/import SQLite]( https://github.com/FreshRSS/FreshRSS/tree/edge/cli)
 > Voici une liste d’outils que vous pouvez utiliser :
 >
 > - [Pandoc](https://pandoc.org/) disponible sur la plus part des systèmes,
-> - [OPML generator](https://opml-gen.ovh/) disponible en ligne,
-> - [txt2opml](https://alterfiles.com/convert/txt/opml) disponible en ligne.
+> - [opmlmaker](https://rssgizmos.com/opmlmaker.html) disponible en ligne.
 
 ## Utiliser le « bookmarklet »
 

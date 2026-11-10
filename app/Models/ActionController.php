@@ -5,6 +5,7 @@ abstract class FreshRSS_ActionController extends Minz_ActionController {
 
 	/**
 	 * @var FreshRSS_View
+	 * @phpstan-ignore property.phpDocType
 	 */
 	protected $view;
 

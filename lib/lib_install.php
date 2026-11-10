@@ -4,14 +4,29 @@ declare(strict_types=1);
 FreshRSS_SystemConfiguration::register('default_system', join_path(FRESHRSS_PATH, 'config.default.php'));
 FreshRSS_UserConfiguration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
-/** @return array<string,string> */
-function checkRequirements(string $dbType = ''): array {
+/**
+ * GMP is needed to convert entry identifiers to the Google Reader format on 32-bit PHP.
+ *
+ * @return 'ok'|'ko'|null
+ */
+function gmpRequirementStatus(int $integerSize = PHP_INT_SIZE, ?bool $gmpLoaded = null): ?string {
+	if ($integerSize >= 8) {
+		return null;
+	}
+
+	return ($gmpLoaded ?? extension_loaded('gmp')) ? 'ok' : 'ko';
+}
+
+/**
+ * @param 'mysql'|'pgsql'|'sqlite'|'' $dbType
+ * @return array<string,'ok'|'ko'|'warn'>
+ */
+function checkRequirements(string $dbType = '', bool $checkPhp = true, bool $checkFiles = true): array {
 	$php = version_compare(PHP_VERSION, FRESHRSS_MIN_PHP_VERSION) >= 0;
-	$curl = extension_loaded('curl');
+	$curl = extension_loaded('curl');	// TODO: We actually require cURL >= 7.52 for CURLPROXY_HTTPS
 	$pdo_mysql = extension_loaded('pdo_mysql');
 	$pdo_sqlite = extension_loaded('pdo_sqlite');
 	$pdo_pgsql = extension_loaded('pdo_pgsql');
-	$message = '';
 	switch ($dbType) {
 		case 'mysql':
 			$pdo_sqlite = $pdo_pgsql = true;
@@ -29,51 +44,76 @@ function checkRequirements(string $dbType = ''): array {
 			$pdo = $pdo_mysql || $pdo_sqlite || $pdo_pgsql;
 			break;
 		default:
-			$pdo_mysql = $pdo_sqlite = $pdo_pgsql = true;
-			$pdo = false;
-			$message = 'Invalid database type!';
-			break;
+			throw new InvalidArgumentException('Invalid database type!');
 	}
+	$pdo &= class_exists('PDO');
 	$pcre = extension_loaded('pcre');
 	$ctype = extension_loaded('ctype');
 	$fileinfo = extension_loaded('fileinfo');
 	$dom = class_exists('DOMDocument');
 	$xml = function_exists('xml_parser_create');
 	$json = function_exists('json_encode');
+	$intl = extension_loaded('intl');
 	$mbstring = extension_loaded('mbstring');
+	$zip = extension_loaded('zip');
+	$gmp = gmpRequirementStatus();
 	$data = is_dir(DATA_PATH) && touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
 	$cache = is_dir(CACHE_PATH) && touch(CACHE_PATH . '/index.html');
 	$tmp = is_dir(TMP_PATH) && is_writable(TMP_PATH);
 	$users = is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html');
 	$favicons = is_dir(DATA_PATH) && touch(DATA_PATH . '/favicons/index.html');
+	$tokens = is_dir(DATA_PATH) && touch(DATA_PATH . '/tokens/index.html');
+	// An unknown or incorrect document root might web-expose folders such as `./data`.
+	// An empty `DOCUMENT_ROOT` outside of a Web server context (e.g. CLI, cron) is ignored because `realpath('')` resolves to the current directory.
+	$documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? null;
+	$docRootPath = is_string($documentRoot) && $documentRoot !== '' ? realpath($documentRoot) : false;
+	$docRootOk = $documentRoot === '' || ($docRootPath !== false && $docRootPath === realpath(PUBLIC_PATH));
 
-	return array(
-		'php' => $php ? 'ok' : 'ko',
-		'curl' => $curl ? 'ok' : 'ko',
-		'pdo-mysql' => $pdo_mysql ? 'ok' : 'ko',
-		'pdo-sqlite' => $pdo_sqlite ? 'ok' : 'ko',
-		'pdo-pgsql' => $pdo_pgsql ? 'ok' : 'ko',
-		'pdo' => $pdo ? 'ok' : 'ko',
-		'pcre' => $pcre ? 'ok' : 'ko',
-		'ctype' => $ctype ? 'ok' : 'ko',
-		'fileinfo' => $fileinfo ? 'ok' : 'ko',
-		'dom' => $dom ? 'ok' : 'ko',
-		'xml' => $xml ? 'ok' : 'ko',
-		'json' => $json ? 'ok' : 'ko',
-		'mbstring' => $mbstring ? 'ok' : 'ko',
-		'data' => $data ? 'ok' : 'ko',
-		'cache' => $cache ? 'ok' : 'ko',
-		'tmp' => $tmp ? 'ok' : 'ko',
-		'users' => $users ? 'ok' : 'ko',
-		'favicons' => $favicons ? 'ok' : 'ko',
-		'message' => $message ?: '',
-		'all' => $php && $curl && $pdo && $pcre && $ctype && $dom && $xml &&
-			$data && $cache && $tmp && $users && $favicons && $message == '' ? 'ok' : 'ko'
-	);
+	$result = [];
+	if ($checkPhp) {
+		$result += [
+			'php' => $php ? 'ok' : 'ko',
+			'pdo' => $pdo ? 'ok' : 'ko',
+			'pdo-sqlite' => $pdo_sqlite ? 'ok' : ($dbType === 'sqlite' ? 'ko' : 'warn'),
+			'pdo-pgsql' => ($dbType === 'pgsql' && !$pdo_pgsql) ? 'ko' : null,
+			'pdo-mysql' => ($dbType === 'mysql' && !$pdo_mysql) ? 'ko' : null,
+			'dom' => $dom ? 'ok' : 'ko',
+			'xml' => $xml ? 'ok' : 'ko',
+			'curl' => $curl ? 'ok' : 'ko',
+			'pcre' => $pcre ? 'ok' : 'ko',
+			'ctype' => $ctype ? 'ok' : 'ko',
+			'json' => $json ? 'ok' : 'ko',
+			'mbstring' => $mbstring ? 'ok' : 'warn',
+			'intl' => $intl ? 'ok' : 'warn',
+			'zip' => $zip ? 'ok' : 'warn',
+			'fileinfo' => $fileinfo ? 'ok' : 'warn',
+			'gmp' => $gmp,
+		];
+	}
+
+	if ($checkFiles) {
+		$result += [
+			'data' => $data ? 'ok' : 'ko',
+			'cache' => $cache ? 'ok' : 'ko',
+			'tmp' => $tmp ? 'ok' : 'ko',
+			'users' => $users ? 'ok' : 'ko',
+			'favicons' => $favicons ? 'ok' : 'ko',
+			'tokens' => $tokens ? 'ok' : 'ko',
+			'docroot' => $docRootOk ? 'ok' : 'warn',
+		];
+	}
+
+	if ($checkPhp && $checkFiles) {
+		$result['all'] = $php && $curl && $json && $pdo && $pcre && $ctype && $dom && $xml && $gmp !== 'ko' &&
+			$data && $cache && $tmp && $users && $favicons && $tokens ? 'ok' : 'ko';
+	}
+
+	$result = array_filter($result, static fn($v) => $v !== null);
+	return $result;
 }
 
 function generateSalt(): string {
-	return sha1(uniqid('' . mt_rand(), true).implode('', stat(__FILE__) ?: []));
+	return hash('sha256', uniqid(more_entropy: true) . implode('', stat(__FILE__) ?: []) . random_bytes(32));
 }
 
 /**

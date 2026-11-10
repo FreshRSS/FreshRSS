@@ -1,9 +1,9 @@
-# OPML in FreshRSS
+# OPML
 
 FreshRSS supports the [OPML](https://en.wikipedia.org/wiki/OPML) format to export and import lists of RSS/Atom feeds in a standard way, compatible with several other RSS aggregators.
 
 However, FreshRSS also supports several additional features not covered by the basic OPML specification.
-Luckily, the [OPML specification](http://opml.org/spec2.opml) allows extensions:
+Luckily, the [OPML specification](https://opml.org/spec2.opml) allows extensions:
 
 > *An OPML file may contain elements and attributes not described on this page, only if those elements are defined in a namespace.*
 
@@ -44,28 +44,33 @@ The following attributes are using similar naming conventions than [RSS-Bridge](
 * `frss:xPathItemCategories`: XPath expression for extracting a list of categories (tags) from the item context.
 * `frss:xPathItemUid`: XPath expression for extracting an item’s unique ID from the item context. If left empty, a hash is computed automatically.
 
-### JSON+DotPath
+### JSON+DotNotation
 
-* `<outline type="JSON+DotPath" ...`: Similar to `HTML+XPath` but for JSON and using a dot/bracket syntax such as `object.object.array[2].property`.
+* `<outline type="JSON+DotNotation" ...`: Similar to `HTML+XPath` but for JSON and using a dot/bracket syntax such as `object.object.array[2].property`.
 
-* `frss:jsonItem`: JSON dot path for extracting the feed items from the source page.
+* `frss:jsonItem`: JSON dot notation for extracting the feed items from the source page.
 	* Example: `data.items`
-* `frss:jsonItemTitle`: JSON dot path for extracting the item’s title from the item context.
+* `frss:jsonItemTitle`: JSON dot notation for extracting the item’s title from the item context.
 	* Example: `meta.title`
-* `frss:jsonItemContent`: JSON dot path for extracting an item’s content from the item context.
+* `frss:jsonItemContent`: JSON dot notation for extracting an item’s content from the item context.
 	* Example: `content`
-* `frss:jsonItemUri`: JSON dot path for extracting an item link from the item context.
+* `frss:jsonItemUri`: JSON dot notation for extracting an item link from the item context.
 	* Example: `meta.links[0]`
-* `frss:jsonItemAuthor`: JSON dot path for extracting an item author from the item context.
-* `frss:jsonItemTimestamp`: JSON dot path for extracting an item timestamp from the item context. The result will be parsed by [`strtotime()`](https://php.net/strtotime).
+* `frss:jsonItemAuthor`: JSON dot notation for extracting an item author from the item context.
+* `frss:jsonItemTimestamp`: JSON dot notation for extracting an item timestamp from the item context. The result will be parsed by [`strtotime()`](https://php.net/strtotime).
 * `frss:jsonItemTimeFormat`: Date/Time format to parse the timestamp, according to [`DateTime::createFromFormat()`](https://php.net/datetime.createfromformat).
-* `frss:jsonItemThumbnail`: JSON dot path for extracting an item’s thumbnail (image) URL from the item context.
-* `frss:jsonItemCategories`: JSON dot path for extracting a list of categories (tags) from the item context.
-* `frss:jsonItemUid`: JSON dot path for extracting an item’s unique ID from the item context. If left empty, a hash is computed automatically.
+* `frss:jsonItemThumbnail`: JSON dot notation for extracting an item’s thumbnail (image) URL from the item context.
+* `frss:jsonItemCategories`: JSON dot notation for extracting a list of categories (tags) from the item context.
+* `frss:jsonItemUid`: JSON dot notation for extracting an item’s unique ID from the item context. If left empty, a hash is computed automatically.
 
 ### JSON Feed
 
-* `<outline type="JSONFeed" ...`: Uses `JSON+DotPath` behind the scenes to parse a [JSON Feed](https://www.jsonfeed.org/).
+* `<outline type="JSONFeed" ...`: Uses `JSON+DotNotation` behind the scenes to parse a [JSON Feed](https://www.jsonfeed.org/).
+
+### HTML+XPath+JSON
+
+* `<outline type="HTML+XPath+JSON+DotNotation" frss:xPathToJson="..." ...`: Same as `JSON+DotNotation` but first extracting the JSON string from an HTML document thanks to an XPath expression.
+	* Example: `//script[@type='application/json']`
 
 ### cURL
 
@@ -84,10 +89,15 @@ A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are 
 
 ### Miscellaneous
 
-* `frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to enable the download and extraction of the matching HTML section of each articles’ Web address.
+* `frss:priority`: Used for priority / visibility of the articles of that feed. Can be: `important`, `main` (default), `category`, `feed`, `hidden`.
+* `frss:unicityCriteria`: Criteria used for the unicity of articles. E.g. `id` (default), `link`, `sha1:link_published`, `sha1:link_published_title`, `sha1:title`, [etc](https://github.com/FreshRSS/FreshRSS/blob/1c92d55917029d291d00009b674d8552934a69ec/app/Models/Feed.php#L652-L666).
+* `frss:unicityCriteriaForced`: Boolean to force the usage of the selected unicity criterion even in the case of many duplicates (otherwise, the default behaviour is to fall back to a more precise unicity criteria).
+* `frss:ttl`: Refresh interval of the feed, in seconds. A negative value indicates a muted feed (automatic refresh disabled). When absent, the importing instance’s default refresh interval is used.
+* `frss:cssFullContent`: [CSS Selector](https://developer.mozilla.org/docs/Web/CSS/Guides/Selectors) to enable the download and extraction of the matching HTML section of each articles’ Web address.
 	* Example: `div.main, .summary`
-* `frss:cssFullContentFilter`: [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) to remove the matching HTML elements from the full content retrieved by `frss:cssFullContent`.
+* `frss:cssContentFilter`: [CSS Selector](https://developer.mozilla.org/docs/Web/CSS/Guides/Selectors) to remove the matching HTML elements from the article content or from the full content retrieved by `frss:cssFullContent`.
 	* Example: `.footer, .aside`
+. `frss:cssFullContentConditions`: List (separated by a new line) of search queries to trigger a full content retrieval as defined by `frss:cssFullContent`.
 * `frss:filtersActionRead`: List (separated by a new line) of search queries to automatically mark a new article as read.
 
 ### Dynamic OPML (reading lists)
@@ -109,6 +119,7 @@ A number of [cURL options](https://curl.se/libcurl/c/curl_easy_setopt.html) are 
 			xmlUrl="https://www.example.net/page.html"
 			htmlUrl="https://www.example.net/page.html"
 			description="Example of Web scraping"
+			frss:priority="main"
 			frss:xPathItem="//a[contains(@href, '/interesting/')]/ancestor::article"
 			frss:xPathItemTitle="descendant::h2"
 			frss:xPathItemContent="."

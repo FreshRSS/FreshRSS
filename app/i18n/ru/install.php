@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Сохранить предыдущую конфигурацию',
 		'next_step' => 'Перейти к следующему шагу',
 		'reinstall' => 'Переустановить FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Веб-форма (традиционный, необходим JavaScript)',
-		'http' => 'HTTP (для опытных пользователей с HTTPS)',
-		'none' => 'Без аутентификации (небезопасно)',
-		'password_form' => 'Пароль<br /><small>(для входа через веб-форму)</small>',
-		'password_format' => 'Не менее 7 символов',
-		'type' => 'Способ аутентификации',
 	),
 	'bdd' => array(
 		'_' => 'База данных',
@@ -58,6 +50,23 @@ return array(
 			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на <em>./data/</em> в порядке.',
 		),
+		'database-connection' => array(
+			'nok' => 'Ошибка подключения к базе данных.',
+			'ok' => 'Подключение к базе данных успешно.',
+		),
+		'database-table' => array(
+			'nok' => 'Таблица базы данных "%s" неполная.',
+			'ok' => 'Таблица базы данных "%s" в порядке.',
+		),
+		'database-tables' => array(
+			'nok' => 'Некоторые таблицы базы данных отсутствуют.',
+			'ok' => 'Все таблицы базы данных существуют.',
+		),
+		'database-title' => 'База данных',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'У вас не установлена необходимая библиотека для просмотра DOM (пакет php-xml).',
 			'ok' => 'У вас установлена необходимая библиотека для просмотра DOM.',
@@ -69,6 +78,15 @@ return array(
 		'fileinfo' => array(
 			'nok' => 'У вас нет расширения PHP fileinfo (пакет fileinfo).',
 			'ok' => 'У вас установлено расширение fileinfo.',
+		),
+		'files' => 'Установка файлов',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'Не найдена библиотека php-intl, рекомендуемая для поддержки разных языков.',
+			'ok' => 'Рекомендуемая библиотека php-intl для поддержки разных языков установлена.',
 		),
 		'json' => array(
 			'nok' => 'У вас нет рекомендуемой библиотеки для разбора JSON.',
@@ -82,11 +100,22 @@ return array(
 			'nok' => 'У вас не установлена необходимая библиотека для работы с регулярными выражениями (php-pcre).',
 			'ok' => 'У вас установлена необходимая библиотека для работы с регулярными выражениями (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Не найден необходимый PDO-драйвер для MySQL/MariaDB.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Не найден необходимый PDO-драйвер для PostgreSQL.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Не найден PDO-драйвер для SQLite.',
+			'ok' => 'У вас установлен PDO-драйвер для SQLite.',
+		),
 		'pdo' => array(
-			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'У вас не установлен PDO или один из необходимых драйверов (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'У вас установлен PDO и как минимум один из поддерживаемых драйверов (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'Инсталляция PHP',
 			'nok' => 'У вас установлен PHP версии %s, но FreshRSS необходима версия не ниже %s.',
 			'ok' => 'У вас установлен PHP версии %s, который совместим с FreshRSS.',
 		),
@@ -94,6 +123,10 @@ return array(
 		'tmp' => array(
 			'nok' => 'Проверьте права доступа к папке <em>%s</em> . Веб-сервер должен иметь право на запись в эту папку.',
 			'ok' => 'Права на папку temp в порядке.',
+		),
+		'tokens' => array(
+			'nok' => 'Проверьте права доступа к папке <em>./data/tokens</em> . Веб-сервер должен иметь право на запись в эту папку.',
+			'ok' => 'Права на папку tokens в порядке.',
 		),
 		'unknown_process_username' => 'неизвестно',
 		'users' => array(
@@ -104,6 +137,10 @@ return array(
 			'nok' => 'У вас нет необходимой библиотеки для разбора XML.',
 			'ok' => 'У вас установлена необходимая библиотека для разбора XML.',
 		),
+		'zip' => array(
+			'nok' => 'У вас не установлено расширение ZIP (пакет php-zip).',
+			'ok' => 'У вас установлено расширение ZIP.',
+		),
 	),
 	'conf' => array(
 		'_' => 'Общие настройки',
@@ -112,7 +149,7 @@ return array(
 	'congratulations' => 'Поздравляем!',
 	'default_user' => array(
 		'_' => 'Имя пользователя по умолчанию',
-		'max_char' => 'не более 16 буквенно-цифровых символов',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Пожалуйста, исправьте ошибки, прежде чем перейти к следующему шагу.',
 	'javascript_is_better' => 'Пользоваться FreshRSS приятнее с включённым JavaScript',

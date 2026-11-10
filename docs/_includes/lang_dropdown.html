@@ -1,0 +1,12 @@
+<div class="lang-dropdown" id="{{ include.location }}-language">
+	<a class="lang-btn" href="#{{ include.location }}-language" title="{%t choose_language %}">
+		{% include language_icon.svg %}
+	</a>
+	<a class="close" href="#close"></a>
+	<nav class="lang-dropdown">
+		<ul>
+			<li><a href="{{ '/en/' | relative_url }}">English (en)</a></li>
+			<li><a href="{{ '/fr/' | relative_url }}">Français (fr)</a></li>
+		</ul>
+	</nav>
+</div>

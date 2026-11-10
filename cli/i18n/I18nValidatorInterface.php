@@ -14,6 +14,6 @@ interface I18nValidatorInterface {
 	/**
 	 * Display the validation report.
 	 */
-	public function displayReport(): string;
+	public function displayReport(bool $percentage_only = false): string;
 
 }

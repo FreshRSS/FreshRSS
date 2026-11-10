@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -17,7 +17,7 @@ return array(
 		'help' => 'Viac možností nájdete v nastaveniach kanála',
 		'keep_favourites' => 'Nikdy nemazať obľúbené',
 		'keep_labels' => 'Nikdy nemazať štítky',
-		'keep_max' => 'Maximálny počet článkov na zachovanie',	// DIRTY
+		'keep_max' => 'Maximálny počet článkov na zachovanie',	// DIRTY - Maximum number of articles to keep per feed
 		'keep_min_by_feed' => 'Minimálny počet článkov kanála na zachovanie',
 		'keep_period' => 'Maximálny vek článkov na zachovanie',
 		'keep_unreads' => 'Nikdy nemazať neprečítané články',
@@ -32,10 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'Zobrazenie',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authori a dátum',
+				'both' => 'V záhlaví a pätičke',
+				'footer' => 'V pätičke',
+				'header' => 'V záhlaví',
+				'none' => 'Žiadne',
+			),
+			'feed_name' => array(
+				'above_title' => 'O zápise/značky',
+				'none' => 'Žiadne',
+				'with_authors' => 'V riadku autori a dátum',
+			),
+			'feed_title' => 'Nadpis kanála',
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Značky',
+				'both' => 'V záhlaví a pätičke',
+				'footer' => 'V pätičke',
+				'header' => 'V záhlaví',
+				'none' => 'Žiadne',
+			),
+			'tags_max' => array(
+				'_' => 'Maximálny počet zobrazených značiek',
+				'help' => '0 znamená: zobraziť všetky značky a nerozbaľuj ich',
+			),
+		),
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
-			'auto' => 'Auto',	// TODO
-			'no' => 'No',	// TODO
+			'_' => 'Automatický tmavý režim',
+			'auto' => 'Automaticky',
+			'help' => 'For compatible themes only',	// TODO
+			'no' => 'Nie',
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Články: záhlavie/pätička',
 		),
 		'icon' => array(
 			'bottom_line' => 'Spodný riadok',
@@ -53,11 +89,20 @@ return array(
 			'timeout' => 'Limit HTML5 oznámenia',
 		),
 		'show_nav_buttons' => 'Zobraziť tlačidlá oznámenia',
+		'show_title_unread' => 'Zobraziť počet neprečítaných článkov v názve',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'Vzhľad',
 			'deprecated' => array(
-				'_' => 'Deprecated',	// TODO
-				'description' => 'This theme is no longer supported and will be not available anymore in a <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">future release of FreshRSS</a>',	// TODO
+				'_' => 'Nepodporované',
+				'description' => 'Táto téma už nie je podporovaná a nebude viac dostupná v <a href="https://freshrss.github.io/FreshRSS/en/users/05_Configuration.html#theme" target="_blank">budúdich verziách FreshRSS</a>',
 			),
 		),
 		'theme_not_available' => 'Vzhľad “%s” už nie je dostupný. Prosím, vyberte si iný vzhľad.',
@@ -68,14 +113,14 @@ return array(
 			'portrait' => 'Nastojato',
 			'square' => 'Štvorec',
 		),
-		'timezone' => 'Time zone',	// TODO
+		'timezone' => 'Časová zóna',
 		'title' => 'Zobraziť',
 		'website' => array(
-			'full' => 'Icon and name',	// TODO
-			'icon' => 'Icon only',	// TODO
-			'label' => 'Website',	// TODO
-			'name' => 'Name only',	// TODO
-			'none' => 'None',	// TODO
+			'full' => 'Ikona a názov',
+			'icon' => 'Iba ikona',
+			'label' => 'Webová stránka',
+			'name' => 'Iba názov',
+			'none' => 'Nič',
 		),
 		'width' => array(
 			'content' => 'Šírka obsahu',
@@ -98,103 +143,123 @@ return array(
 			'previous' => 'Predošlý',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“Označiť všetko ako prečítané” button',	// DIRTY - “Mark all as read” button
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+	),
 	'profile' => array(
 		'_' => 'Správca profilu',
-		'api' => 'Správa API',
+		'api' => array(
+			'_' => 'Správa API',
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
+			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
+			'disabled' => 'The API access is disabled.',	// TODO
+			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Vymazanie účtu',
 			'warn' => 'Váš účet a všetky údaje v ňom budú vymazané.',
 		),
 		'email' => 'E-mailová adresa',
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'Heslo API<br /><small>(pre mobilné aplikácie)</small>',
-		'password_form' => 'Heslo<br /><small>(pre spôsob prihlásenia cez webový formulár)</small>',
 		'password_format' => 'Najmenej 7 znakov',
 		'title' => 'Profil',
 	),
 	'query' => array(
 		'_' => 'Dopyty používateľa',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'Tento dopyt už nie je platný. Kategória alebo kanál boli vymazané.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'Použitý filter:',
 			'categories' => 'Zobraziť podľa kategórie',
 			'feeds' => 'Zobraziť podľa kanála',
-			'order' => 'Zobraziť podľa dátumu',
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'order' => 'Sort by',	// TODO
 			'search' => 'Výraz',
-			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
-			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
+			'shareOpml' => 'Povoliť zdieľanie prostredníctvom OPML zodpovedajúdich kategórií a kanálov',
+			'shareRss' => 'Povoliť zdieľanie prostredníctvom HTML &amp; RSS',
 			'state' => 'Štát',
 			'tags' => 'Zobraziť podľa štítku',
 			'type' => 'Typ',
 		),
+		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
+		'get_Z' => 'Show all feeds, also archived ones',	// TODO
 		'get_all' => 'Zobraziť všetky články',
-		'get_all_labels' => 'Display articles with any label',	// TODO
+		'get_all_labels' => 'Zobraziť články so všetkými štítkami',
 		'get_category' => 'Zobraziť kategóriu “%s”',
 		'get_favorite' => 'Zobraziť obľúbené články',
 		'get_feed' => 'Zobraziť kanál “%s”',
-		'get_important' => 'Display articles from important feeds',	// TODO
-		'get_label' => 'Display articles with “%s” label',	// TODO
-		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'get_important' => 'Zobraziť články z dôležitých kanálov',
+		'get_label' => 'Zobraziť články so štítkom “%s”',
+		'help' => 'Prečítajte si <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentáciu pre dopyt používateľov a zdieľanie prostredníctvom HTML / RSS / OPML</a>.',
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Meno',
 		'no_filter' => 'Žiadny filter',
+		'no_queries' => array(
+			'_' => 'No user queries are saved yet.',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+		),
 		'number' => 'Dopyt číslo %d',
 		'order_asc' => 'Zobraziť staršie články hore',
 		'order_desc' => 'Zobraziť novšie články hore',
 		'search' => 'Vyhľadáva sa: “%s”',
 		'share' => array(
-			'_' => 'Share this query by link',	// TODO
-			'help' => 'Give this link if you want to share this query with anyone',	// TODO
-			'html' => 'Shareable link to the HTML page',	// TODO
-			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
-			'rss' => 'Shareable link to the RSS feed',	// TODO
+			'_' => 'Zdieľať odkaz pre tento dopyt',
+			'disabled' => array(
+				'_' => 'disabled',	// TODO
+				'title' => 'Sharing',	// TODO
+			),
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
+			'help' => 'Pošlite tento odkaz ak chcete zdielať dopyt s kýmkoľvek',
+			'html' => 'Zdielateľný odkaz na HTML stránku',
+			'opml' => 'Zdielateľný odkaz na OPML zoznam kanálov',
+			'rss' => 'Zdielateľný odkaz na RSS kanále',
 		),
-		'state_0' => 'Zobraziť všetky články',
-		'state_1' => 'Zobraziť prečítané články',
-		'state_2' => 'Zobraziť neprečítané články',
-		'state_3' => 'Zobraziť všetky články',
-		'state_4' => 'Zobraziť obľúbené články',
-		'state_5' => 'Zobraziť prečítané obľúbené články',
-		'state_6' => 'Zobraziť neprečítané obľúbené články',
-		'state_7' => 'Zobraziť obľúbené články',
-		'state_8' => 'Zobraziť neobľúbené články',
-		'state_9' => 'Zobraziť prečítané neobľúbené články',
-		'state_10' => 'Zobraziť neprečítané neobľúbené články',
-		'state_11' => 'Zobraziť neobľúbené články',
-		'state_12' => 'Zobraziť všetky články',
-		'state_13' => 'Zobraziť prečítané články',
-		'state_14' => 'Zobraziť neprečítané články',
-		'state_15' => 'Zobraziť všetky články',
+		'state_all' => 'Zobraziť všetky články',
+		'state_favorite' => 'Zobraziť obľúbené články',
+		'state_not_favorite' => 'Zobraziť neobľúbené články',
+		'state_read' => 'Zobraziť prečítané články',
+		'state_read_favorite' => 'Zobraziť prečítané obľúbené články',
+		'state_read_not_favorite' => 'Zobraziť prečítané neobľúbené články',
+		'state_unread' => 'Zobraziť neprečítané články',
+		'state_unread_favorite' => 'Zobraziť neprečítané obľúbené články',
+		'state_unread_not_favorite' => 'Zobraziť neprečítané neobľúbené články',
 		'title' => 'Používateľské dopyty',
 	),
 	'reading' => array(
 		'_' => 'Čítanie',
 		'after_onread' => 'Po “Označiť všetko ako prečítané”,',
 		'always_show_favorites' => 'Automaticky zobraziť všetky články v obľúbených',
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Authori a dátum',
-				'both' => 'V záhlaví a pätičke',
-				'footer' => 'V pätičke',
-				'header' => 'V záhlaví',
-				'none' => 'Žiadne',
-			),
-			'feed_name' => array(
-				'above_title' => 'O zápise/značky',
-				'none' => 'Žiadne',
-				'with_authors' => 'V riadku autori a dátum',
-			),
-			'feed_title' => 'Nadpis kanála',
-			'tags' => array(
-				'_' => 'Značky',
-				'both' => 'V záhlaví a pätičke',
-				'footer' => 'V pätičke',
-				'header' => 'V záhlaví',
-				'none' => 'Žiadne',
-			),
-			'tags_max' => array(
-				'_' => 'Maximálny počet zobrazených značiek',
-				'help' => '0 znamená: zobraziť všetky značky a nerozbaľuj ich',
-			),
-		),
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'articles_per_page' => 'Počet článkov na jednu stranu',
 		'auto_load_more' => 'Načítať ďalšie články dolu na stránke',
 		'auto_remove_article' => 'Skryť články po prečítaní',
@@ -203,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Kategórie na rozbalenie',
 		'headline' => array(
 			'articles' => 'Články: Otvoriť/Zatvoriť',
-			'articles_header_footer' => 'Články: záhlavie/pätička',
 			'categories' => 'Ľavé menu: Kategórie',
 			'mark_as_read' => 'Označiť článok ako prečítaný',
 			'misc' => 'Ostatné',
@@ -211,38 +275,41 @@ return array(
 		),
 		'hide_read_feeds' => 'Skryť kategórie a kanály s nulovým počtom neprečítaných článkov (nefunguje s nastaveným “Zobraziť všetky články”)',
 		'img_with_lazyload' => 'Pre načítanie obrázkov použiť <em>lazy load</em>',
-		'jump_next' => 'skočiť na ďalší neprečítaný (kanál ale kategóriu)',
+		'jump_next' => 'skočiť na ďalší neprečítaný',
 		'mark_updated_article_unread' => 'Označiť aktualizované články ako neprečítané',
 		'number_divided_when_reader' => 'V režime čítania predeliť na dve časti.',
 		'read' => array(
 			'article_open_on_website' => 'keď je článok otvorený na svojej webovej stránke',
 			'article_viewed' => 'keď je článok zobrazený',
-			'focus' => 'when focused (except for important feeds)',	// TODO
+			'focus' => 'počas prezeranie (okrem dôležitých kanálov)',
 			'keep_max_n_unread' => 'Maximálny počet článkov ponechať ako neprečítané',
-			'scroll' => 'počas skrolovania (except for important feeds)',	// DIRTY
+			'scroll' => 'počas skrolovania (okrem dôležitých kanálov)',
 			'upon_gone' => 'keď už nie je v hlavnom kanály noviniek',
 			'upon_reception' => 'po načítaní článku',
 			'when' => 'Označiť článok ako prečítaný…',
-			'when_same_title' => 'ak rovnaký nadpis už existuje v TOP <i>n</i> najnovších článkoch',
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'ak rovnaký nadpis už existuje v TOP <i>n</i> najnovších článkoch (of the feed)',	// DIRTY - if an identical title already exists in the top <i>n</i> newest articles of the feed
 		),
 		'show' => array(
 			'_' => 'Článkov na zobrazenie',
 			'active_category' => 'Aktívna kategória',
-			'adaptive' => 'Vyberte zobrazenie',
+			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
 			'all_articles' => 'Zobraziť všetky články',
 			'all_categories' => 'Všetky kategórie',
 			'no_category' => 'Bez kategŕie',
 			'remember_categories' => 'Zapamätať otvorené kategórie',
 			'unread' => 'Zobraziť iba neprečítané',
+			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
 		),
 		'show_fav_unread_help' => 'Týka sa aj štítkov',
 		'sides_close_article' => 'Po kliknutí mimo textu článku sa článok zatvorí',
-		'sort' => array(
-			'_' => 'Poradie',
-			'newer_first' => 'Novšie hore',
-			'older_first' => 'Staršie hore',
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'Po otvorení posunúť článok hore',
+		'sticky_sort' => 'Zachovať ručné zoradenie počas navigácie',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'Určuje, či zostane zachované posledné ručné zoradenie, alebo či každá kategória či kanál vždy použije vlastné predvolené alebo globálne nastavenie.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Čítanie',
 		'view' => array(
 			'default' => 'Prednastavené zobrazenie',
@@ -254,8 +321,8 @@ return array(
 	'sharing' => array(
 		'_' => 'Zdieľanie',
 		'add' => 'Pridať spôsob zdieľania',
-		'blogotext' => 'Blogotext',	// IGNORE
-		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
+		'bluesky' => 'Bluesky',	// IGNORE
+		'deprecated' => 'Táto služba nie je podporovaná a bude z FreshRSS odstránená v <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Pre viac informácií otvorte dokumentáciu" target="_blank">budúcich verziách</a>.',
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'E-mail',	// IGNORE
 		'facebook' => 'Facebook',	// IGNORE
@@ -267,7 +334,7 @@ return array(
 		'share_name' => 'Meno pre zobrazenie',
 		'share_url' => 'Zdieľaný odkaz',
 		'title' => 'Zdieľanie',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
@@ -275,7 +342,7 @@ return array(
 		'article_action' => 'Akcie článku',
 		'auto_share' => 'Zdieľať',
 		'auto_share_help' => 'Ak je nastavený iba jeden spôsob zdieľania, použije sa. Inak si spôsoby zdieľania vyberá používateľ podľa čísla.',
-		'close_dropdown' => 'Zavrie menu',
+		'close_menus' => 'Zavrie menu',
 		'collapse_article' => 'Zroluje článok',
 		'first_article' => 'Otvorí prvý článok',
 		'focus_search' => 'Vyhľadávanie',
@@ -302,6 +369,7 @@ return array(
 		'skip_next_article' => 'Prejde na ďalší bez otvorenia',
 		'skip_previous_article' => 'Prejde na predošlý bez otvorenia',
 		'title' => 'Skratky',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Spustiť/zastaviť médium',
 		'user_filter' => 'Použiť používateľské filtre',
 		'user_filter_help' => 'Ak je nastavený iba jeden spôsob zdieľania, použije sa. Inak si spôsoby zdieľania vyberá používateľ podľa čísla.',

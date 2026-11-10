@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -14,6 +14,7 @@ abstract class Minz_ActionController {
 	/** @var array<string,string> */
 	private static array $csp_default = [
 		'default-src' => "'self'",
+		'frame-ancestors' => "'none'",
 	];
 
 	/** @var array<string,string> */
@@ -26,6 +27,8 @@ abstract class Minz_ActionController {
 	 * Gives the possibility to override the default view model type.
 	 * @var class-string
 	 * @deprecated Use constructor with view type instead
+	 * @access private
+	 * @internal
 	 */
 	public static string $defaultViewType = Minz_View::class;
 
@@ -42,8 +45,8 @@ abstract class Minz_ActionController {
 				$view = null;
 			}
 		}
-		if ($view === null && class_exists(self::$defaultViewType)) {
-			$view = new self::$defaultViewType();
+		if ($view === null && class_exists(self::$defaultViewType)) {	/// @phpstan-ignore staticProperty.deprecated
+			$view = new self::$defaultViewType();	// @phpstan-ignore staticProperty.deprecated
 			if (!($view instanceof Minz_View)) {
 				$view = null;
 			}
@@ -51,11 +54,11 @@ abstract class Minz_ActionController {
 		$this->view = $view ?? new Minz_View();
 		$view_path = Minz_Request::controllerName() . '/' . Minz_Request::actionName() . '.phtml';
 		$this->view->_path($view_path);
-		$this->view->attributeParams ();
+		$this->view->attributeParams();
 	}
 
 	/**
-	 * Getteur
+	 * Getter
 	 */
 	public function view(): Minz_View {
 		return $this->view;
@@ -66,7 +69,7 @@ abstract class Minz_ActionController {
 	 * @param array<string,string> $policies An array where keys are directives and values are sources.
 	 */
 	public static function _defaultCsp(array $policies): void {
-		if (!isset($policies['default-src'])) {
+		if (!isset($policies['default-src']) || !isset($policies['frame-ancestors'])) {
 			Minz_Log::warning('Default CSP policy is not declared', ADMIN_LOG);
 		}
 		self::$csp_default = $policies;
@@ -75,16 +78,17 @@ abstract class Minz_ActionController {
 	/**
 	 * Set CSP policies.
 	 *
-	 * A default-src directive should always be given.
+	 * default-src and frame-ancestors directives should always be given.
 	 *
 	 * References:
-	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
-	 * - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src
+	 * - https://developer.mozilla.org/docs/Web/HTTP/Guides/CSP
+	 * - https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/default-src
+	 * - https://developer.mozilla.org/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors
 	 *
 	 * @param array<string,string> $policies An array where keys are directives and values are sources.
 	 */
-	protected function _csp(array $policies): void {
-		if (!isset($policies['default-src'])) {
+	public function _csp(array $policies): void {
+		if (!isset($policies['default-src']) || !isset($policies['frame-ancestors'])) {
 			$action = Minz_Request::controllerName() . '#' . Minz_Request::actionName();
 			Minz_Log::warning(
 				"Default CSP policy is not declared for action {$action}.",
@@ -99,6 +103,9 @@ abstract class Minz_ActionController {
 	 */
 	public function declareCspHeader(): void {
 		$policies = [];
+		foreach (Minz_ExtensionManager::listExtensions(true) as $extension) {
+			$extension->amendCsp($this->csp_policies);
+		}
 		foreach ($this->csp_policies as $directive => $sources) {
 			$policies[] = $directive . ' ' . $sources;
 		}
@@ -106,9 +113,9 @@ abstract class Minz_ActionController {
 	}
 
 	/**
-	 * Méthodes à redéfinir (ou non) par héritage
-	 * firstAction est la première méthode exécutée par le Dispatcher
-	 * lastAction est la dernière
+	 * Methods that may be overridden by subclasses
+	 * firstAction is the first method executed by the Dispatcher
+	 * lastAction is the last method executed by the Dispatcher
 	 */
 	public function init(): void { }
 	public function firstAction(): void { }

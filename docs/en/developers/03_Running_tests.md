@@ -1,31 +1,35 @@
 # Running tests
 
-FreshRSS is tested with [PHPUnit](https://phpunit.de/). No code should be merged in `edge` if the tests don’t pass.
+FreshRSS is tested with [PHPUnit](https://phpunit.de/), [PHPStan](https://phpstan.org/), [PHP\_CodeSniffer](https://github.com/PHPCSStandards/PHP_CodeSniffer/), and more.
+No code should be merged in `edge` if the tests don’t pass.
 
 ## Locally
 
 As a developer, you can run the test suite on your PC easily with `make` commands. You can run the test suite with:
 
 ```sh
-make test
+cd ./FreshRSS/
+make test-all
 ```
 
-This command downloads the PHPUnit binary and verifies its checksum. If the verification fails, the file is deleted. In this case, you should [open an issue on GitHub](https://github.com/FreshRSS/FreshRSS/issues/new) to let maintainers know about the problem.
-
-Then, it executes PHPUnit in a Docker container. If you don’t use Docker, you can run the command directly with:
+Some syntax, formatting, whitespace, and i18n conventions can be fixed automatically with:
 
 ```sh
-NO_DOCKER=true make test
+make fix-all
 ```
 
-The linter can be run with a `make` command as well:
+Some tests can run inside some Docker images, in particular to test against minimum and maximum versions of PHP:
 
 ```sh
-make lint # to execute the linter on the PHP files
-make lint-fix # or, to fix the errors detected by the linter
-```
+# Prepare
+make composer-test
+docker build --pull --tag freshrss/freshrss:oldest -f Docker/Dockerfile-Oldest .
+docker build --pull --tag freshrss/freshrss:newest -f Docker/Dockerfile-Newest .
 
-Similarly to PHPUnit, it downloads a [PHP\_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) binary (i.e. `phpcs` or `phpcbf` depending on the command) and verifies its checksum.
+# Run
+docker run --rm -e FRESHRSS_ENV=development -e TZ=UTC -v $(pwd):/var/www/FreshRSS freshrss/freshrss:oldest bin/composer test
+docker run --rm -e FRESHRSS_ENV=development -e TZ=UTC -v $(pwd):/var/www/FreshRSS freshrss/freshrss:newest bin/composer test
+```
 
 ## GitHub Actions for Continuous Integration
 
@@ -38,7 +42,7 @@ If you are interested, you can take a look at [the configuration file](https://g
 ## Using feed snapshots
 
 As feed data is volatile, it’s better to work with snapshots when debugging some issues.
-You can find the description to retrieve a snapshot [here](06_Reporting_Bugs.md#how-to-provide-feed-data).
+Check the [description to retrieve a snapshot](06_Reporting_Bugs.md#how-to-provide-feed-data).
 
 To serve those snapshots, you can use a mock server.
 Here we will demonstrate how to work with [WireMock](https://wiremock.org/) but other solutions exist.
@@ -57,7 +61,7 @@ If you do not have one, you need to create one.
 		},
 		"response": {
 			"status": 200,
-			"bodyFileName": "{{request.pathSegments.[0]}}",
+			"bodyFileName": "{{ '{{' }}request.pathSegments.[0]}}",
 			"transformers": ["response-template"],
 			"headers": {
 				"Content-Type": "application/rss+xml"
@@ -66,7 +70,7 @@ If you do not have one, you need to create one.
 	}
 	```
 1. Launch the containerized server with the following command:
-	```bash
+	```sh
 	# <PORT> is the port used on the host to communicate with the server
 	# <NETWORK> is the name of the docker network used (by default, it’s freshrss-network)
 	docker run -it --rm -p <PORT>:8080 --name wiremock --network <NETWORK> -v $PWD:/home/wiremock wiremock/wiremock:latest-alpine --local-response-templating

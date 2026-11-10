@@ -1,0 +1,31 @@
+<?php
+	declare(strict_types=1);
+	/** @var FreshRSS_View $this */
+?>
+
+<main class="prompt">
+	<h1><?= _t('gen.auth.reauth.header') ?></h1>
+
+	<form method="post">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" id="username" value="<?= Minz_User::name() ?>" />
+		<div class="form-group">
+			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
+			<div class="stick">
+				<input type="password"<?= $this->auth_autofills['password'] !== '' ? ' value="' . $this->auth_autofills['password'] . '"' : '' ?>
+					id="passwordPlain" name="passwordPlain" class="passwordPlain" required="required" />
+				<button type="button" class="btn toggle-password"><?= _i('key') ?></button>
+			</div>
+		</div>
+		<?php
+			$reauth_time = FreshRSS_Context::systemConf()->reauth_time;
+		?>
+		<p class="help"><?= _i('help') ?> <?= _t('gen.auth.reauth.tip', intval($reauth_time / 60)) ?></p>
+		<div class="form-group form-group-actions">
+			<button type="submit" class="btn btn-important">
+				<?= _t('gen.auth.login') ?>
+			</button>
+		</div>
+	</form>
+</main>
+

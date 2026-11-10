@@ -6,32 +6,44 @@ if (!Minz_Request::paramBoolean('ajax')) {
 	$this->partial('nav_menu');
 }
 
+$slider_feed = $this->feed;
+
 call_user_func($this->callbackBeforeEntries, $this);
 
 $lazyload = FreshRSS_Context::userConf()->lazyload;
+$useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
 ?>
 <main id="stream" class="reader">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.reader') ?></h1>
-	<div id="new-article">
+	<div id="new-article" hidden="hidden">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
 	$lastEntry = null;
 	$nbEntries = 0;
 	foreach ($this->entries as $entry):
-		$lastEntry = $entry;
-		$nbEntries++;
-		ob_flush();
-		/** @var FreshRSS_Entry */
-		$entry = Minz_ExtensionManager::callHook('entry_before_display', $entry);
-		if ($entry == null) {
+		/** @var FreshRSS_Entry|null $entry */
+		$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $entry);
+		if ($entry === null) {
 			continue;
 		}
+		ob_flush();
 		$this->entry = $entry;
+		$lastEntry = $entry;
+		$nbEntries++;
 
 		//We most likely already have the feed object in cache, otherwise make a request
-		$this->feed = FreshRSS_Category::findFeed($this->categories, $entry->feedId()) ?? $entry->feed() ?? FreshRSS_Feed::default();
-	?><div class="flux<?= !$entry->isRead() ? ' not_read' : '' ?><?= $entry->isFavorite() ? ' favorite' : '' ?>" id="flux_<?= $entry->id() ?>" data-priority="<?= $this->feed->priority() ?>">
-		<?php $this->renderHelper('index/article'); ?>
+		$this->feed = FreshRSS_Category::findFeed($this->categories, $this->entry->feedId()) ?? $this->entry->feed() ?? FreshRSS_Feed::default();
+		$this->entry->_feed($this->feed);
+	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
+		?><?= $this->entry->isFavorite() ? ' favorite' : ''
+		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
+		?>" id="flux_<?= $this->entry->id()
+		?>" data-entry="<?= $this->entry->id()
+		?>" data-category="<?= $this->feed->categoryId()
+		?>" data-feed="<?= $this->feed->id()
+		?>" data-priority="<?= $this->feed->priority()
+		?>" data-link="<?= $this->entry->link()
+		?>"><?php $this->renderHelper('index/article'); ?>
 	</div><?php
 	endforeach;
 
@@ -43,7 +55,7 @@ $lazyload = FreshRSS_Context::userConf()->lazyload;
 		ob_end_clean();	//Discard the articles headers, as we have no articles
 ?>
 <main id="stream" class="reader">
-	<div id="new-article">
+	<div id="new-article" hidden="hidden">
 		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div>
 	<div class="prompt alert alert-warn">
@@ -51,3 +63,21 @@ $lazyload = FreshRSS_Context::userConf()->lazyload;
 	</div>
 </main>
 <?php endif; ?>
+
+<?php $class = $this->displaySlider ? ' active' : ''; ?>
+<aside id="slider" class="<?= $class ?>">
+	<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
+	<div id="slider-content">
+		<?php
+			if (isset($this->tag)) {
+				$this->renderHelper('tag/update');
+			} elseif (isset($slider_feed)) {
+				$this->feed = $slider_feed;
+				$this->renderHelper('feed/update');
+			}
+		?>
+	</div>
+</aside>
+<a href="#close" id="close-slider" class="<?= $class ?>">
+	<?= _i('close') ?>
+</a>

@@ -1,4 +1,4 @@
 <?php
-namespace Gt\CssXPath;
+namespace GT\CssXPath;
 
 class NotYetImplementedException extends CssXPathException {}

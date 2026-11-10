@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'archiving' => array(
@@ -32,10 +32,46 @@ return array(
 	),
 	'display' => array(
 		'_' => 'תצוגה',
+		'article' => array(
+			'authors_date' => array(
+				'_' => 'Authors and date',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'feed_name' => array(
+				'above_title' => 'Above title/tags',	// TODO
+				'none' => 'None',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'feed_title' => 'Feed title',	// TODO
+			'icons' => array(
+				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
+				'above_title' => 'Above title',	// TODO
+				'with_authors' => 'In authors and date row',	// TODO
+			),
+			'tags' => array(
+				'_' => 'Tags',	// TODO
+				'both' => 'In header and footer',	// TODO
+				'footer' => 'In footer',	// TODO
+				'header' => 'In header',	// TODO
+				'none' => 'None',	// TODO
+			),
+			'tags_max' => array(
+				'_' => 'Max number of tags shown',	// TODO
+				'help' => '0 means: show all tags and do not collapse them',	// TODO
+			),
+		),
 		'darkMode' => array(
-			'_' => 'Automatic dark mode (beta)',	// TODO
+			'_' => 'Automatic dark mode',	// TODO
 			'auto' => 'Auto',	// TODO
+			'help' => 'For compatible themes only',	// TODO
 			'no' => 'No',	// TODO
+		),
+		'display_enclosures' => 'Show enclosures',	// TODO
+		'headline' => array(
+			'articles_header_footer' => 'Articles: header/footer',	// TODO
 		),
 		'icon' => array(
 			'bottom_line' => 'שורה תחתונה',
@@ -53,6 +89,15 @@ return array(
 			'timeout' => 'HTML5 התראה פג תוקף',
 		),
 		'show_nav_buttons' => 'Show the navigation buttons',	// TODO
+		'show_title_unread' => 'הצגת מספר המאמרים שלא נקראו בכותרת',
+		'show_unread_count' => array(
+			'_' => 'Show unread counts in sidebar',	// TODO
+			'all' => 'For all categories and feeds',	// TODO
+			'important' => 'For important feeds only',	// TODO
+			'important_locked' => 'Important feeds always show their unread count.',	// TODO
+			'none' => 'Never',	// TODO
+		),
+		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
 		'theme' => array(
 			'_' => 'ערכת נושא',
 			'deprecated' => array(
@@ -98,27 +143,67 @@ return array(
 			'previous' => 'הקודם',
 		),
 	),
+	'mark_read_button' => array(
+		'_' => '“סימון הכל כנקרא” button',	// DIRTY - “Mark all as read” button
+		'big' => 'Big',	// TODO
+		'none' => 'None',	// TODO
+		'small' => 'Small',	// TODO
+	),
+	'notification' => array(
+		'html5_enable_notif' => 'Enable notification',	// TODO
+	),
+	'notification_timeout' => array(
+		'bad' => array(
+			'label' => 'Show warning banner',	// TODO
+			'seconds' => 'seconds (at least 1)',	// TODO
+		),
+		'good' => array(
+			'label' => 'Show acknowledgement banner',	// TODO
+			'seconds' => 'seconds (0 means not shown)',	// TODO
+		),
+	),
+	'privacy' => array(
+		'_' => 'Privacy',	// TODO
+		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
+		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+	),
 	'profile' => array(
 		'_' => 'Profile management',	// TODO
-		'api' => 'API management',	// TODO
+		'api' => array(
+			'_' => 'API management',	// DIRTY - External access via API
+			'api_not_set' => 'API password not set',	// TODO
+			'api_set' => 'API password set',	// TODO
+			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
+			'disabled' => 'The API access is disabled.',	// TODO
+			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
+			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+		),
+		'change_password' => 'Change password',	// TODO
+		'confirm_new_password' => 'Confirm new password',	// TODO
+		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
 		'delete' => array(
 			'_' => 'Account deletion',	// TODO
 			'warn' => 'Your account and all related data will be deleted.',	// TODO
 		),
 		'email' => 'Email address',	// TODO
+		'new_password' => 'New password',	// TODO
 		'password_api' => 'סיסמת API<br /><small>(לדוגמה ליישומים סלולריים)</small>',
-		'password_form' => 'סיסמה<br /><small>(לשימוש בטפוס ההרשמה)</small>',
 		'password_format' => 'At least 7 characters',	// TODO
 		'title' => 'Profile',	// TODO
 	),
 	'query' => array(
 		'_' => 'שאילתות',
+		'create' => 'Create new user query',	// TODO
 		'deprecated' => 'שאילתה זו אינה בתוקף יותר, הפיד או הקטגוריה לייחוס נמחקו.',
+		'description' => 'Description',	// TODO
 		'filter' => array(
 			'_' => 'מסננים בשימוש:',
 			'categories' => 'Display by category',	// TODO
 			'feeds' => 'Display by feed',	// TODO
-			'order' => 'Sort by date',	// TODO
+			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
+			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'order' => 'Sort by',	// TODO
 			'search' => 'Expression',	// TODO
 			'shareOpml' => 'Enable sharing by OPML of corresponding categories and feeds',	// TODO
 			'shareRss' => 'Enable sharing by HTML &amp; RSS',	// TODO
@@ -126,6 +211,8 @@ return array(
 			'tags' => 'Display by label',	// TODO
 			'type' => 'Type',	// TODO
 		),
+		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
+		'get_Z' => 'Show all feeds, also archived ones',	// TODO
 		'get_all' => 'הצגת כל המאמרים',
 		'get_all_labels' => 'Display articles with any label',	// TODO
 		'get_category' => 'הצגת קטגוריה “%s”',
@@ -134,67 +221,45 @@ return array(
 		'get_important' => 'Display articles from important feeds',	// TODO
 		'get_label' => 'Display articles with “%s” label',	// TODO
 		'help' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation for user queries and resharing by HTML / RSS / OPML</a>.',	// TODO
+		'image_url' => 'Image URL',	// TODO
 		'name' => 'Name',	// TODO
 		'no_filter' => 'ללא סינון',
+		'no_queries' => array(
+			'_' => 'No user queries are saved yet.',	// TODO
+			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+		),
 		'number' => 'שאילתה מספר °%d',
 		'order_asc' => 'הצגת מאמרים ישנים בראש',
 		'order_desc' => 'הצגת מאמרים חדשים בראש',
 		'search' => 'חיפוש “%s”',
 		'share' => array(
 			'_' => 'Share this query by link',	// TODO
+			'disabled' => array(
+				'_' => 'disabled',	// TODO
+				'title' => 'Sharing',	// TODO
+			),
+			'greader' => 'Shareable link to the GReader JSON',	// TODO
 			'help' => 'Give this link if you want to share this query with anyone',	// TODO
 			'html' => 'Shareable link to the HTML page',	// TODO
 			'opml' => 'Shareable link to the OPML list of feeds',	// TODO
 			'rss' => 'Shareable link to the RSS feed',	// TODO
 		),
-		'state_0' => 'הצגת כל המאמרים',
-		'state_1' => 'הצגת מאמרים שנקראו',
-		'state_2' => 'הצגת מאמרים שלא נקראו',
-		'state_3' => 'הצגת כל המאמרים',
-		'state_4' => 'הצגת מאמרים מועדפים',
-		'state_5' => 'הצגת מאמרים מועדפים שנקראו',
-		'state_6' => 'הצגת מאמרים מועדפים שלא נקראו',
-		'state_7' => 'הצגת מאמרים מועדפים',
-		'state_8' => 'הצגת מאמרים שאינם מועדפים',
-		'state_9' => 'הצגת מאמרים שנקראו ואינם מועדפים',
-		'state_10' => 'הצגת מאמרים שלא נקראו ואינם מועדפים',
-		'state_11' => 'הצגת מאמרים לא מועדפים',
-		'state_12' => 'הצגת כל המאמרים',
-		'state_13' => 'הצגת מאמרים שנקראו',
-		'state_14' => 'הצגת מאמרים שלא נקראו',
-		'state_15' => 'הצגת	כל המאמרים',
+		'state_all' => 'הצגת	כל המאמרים',
+		'state_favorite' => 'הצגת מאמרים מועדפים',
+		'state_not_favorite' => 'הצגת מאמרים לא מועדפים',
+		'state_read' => 'הצגת מאמרים שנקראו',
+		'state_read_favorite' => 'הצגת מאמרים מועדפים שנקראו',
+		'state_read_not_favorite' => 'הצגת מאמרים שנקראו ואינם מועדפים',
+		'state_unread' => 'הצגת מאמרים שלא נקראו',
+		'state_unread_favorite' => 'הצגת מאמרים מועדפים שלא נקראו',
+		'state_unread_not_favorite' => 'הצגת מאמרים שלא נקראו ואינם מועדפים',
 		'title' => 'שאילתות',
 	),
 	'reading' => array(
 		'_' => 'קריאה',
 		'after_onread' => 'לאחר “סימון הכל כנקרא”,',
 		'always_show_favorites' => 'Show all articles in favourites by default',	// TODO
-		'article' => array(
-			'authors_date' => array(
-				'_' => 'Authors and date',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
-			),
-			'feed_name' => array(
-				'above_title' => 'Above title/tags',	// TODO
-				'none' => 'None',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
-			),
-			'feed_title' => 'Feed title',	// TODO
-			'tags' => array(
-				'_' => 'Tags',	// TODO
-				'both' => 'In header and footer',	// TODO
-				'footer' => 'In footer',	// TODO
-				'header' => 'In header',	// TODO
-				'none' => 'None',	// TODO
-			),
-			'tags_max' => array(
-				'_' => 'Max number of tags shown',	// TODO
-				'help' => '0 means: show all tags and do not collapse them',	// TODO
-			),
-		),
+		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
 		'articles_per_page' => 'מספר המאמרים בעמוד',
 		'auto_load_more' => 'טעינת המאמר הבא סוף העמוד',
 		'auto_remove_article' => 'Hide articles after reading',	// TODO
@@ -203,7 +268,6 @@ return array(
 		'display_categories_unfolded' => 'Categories to unfold',	// TODO
 		'headline' => array(
 			'articles' => 'Articles: Open/Close',	// TODO
-			'articles_header_footer' => 'Articles: header/footer',	// TODO
 			'categories' => 'Left navigation: Categories',	// TODO
 			'mark_as_read' => 'Mark article as read',	// TODO
 			'misc' => 'Miscellaneous',	// TODO
@@ -211,7 +275,7 @@ return array(
 		),
 		'hide_read_feeds' => 'הסתרת קטגוריות &amp; הזנות ללא מאמרים שלא נקראו (לא עובד יחד עם “הצגת כל המאמרים”)',
 		'img_with_lazyload' => 'שימוש ב "טעינה עצלה" על מנת לטעון תמונות',
-		'jump_next' => 'קפיצה לפריט הבא שלא נקרא (הזנה או קטגוריה)',
+		'jump_next' => 'קפיצה לפריט הבא שלא נקרא',
 		'mark_updated_article_unread' => 'Mark updated articles as unread',	// TODO
 		'number_divided_when_reader' => 'חלוקה ב2 במצב קריאה.',
 		'read' => array(
@@ -219,30 +283,33 @@ return array(
 			'article_viewed' => 'כאשר מאמר נצפה',
 			'focus' => 'when focused (except for important feeds)',	// TODO
 			'keep_max_n_unread' => 'Max number of articles to keep unread',	// TODO
-			'scroll' => '(except for important feeds) כאשר גוללים',	// DIRTY
+			'scroll' => '(except for important feeds) כאשר גוללים',	// DIRTY - while scrolling (except for important feeds)
 			'upon_gone' => 'when it is no longer in the upstream news feed',	// TODO
 			'upon_reception' => 'כאשר המאמר מתקבל',
 			'when' => 'סימון מאמרים כנקראו…',
-			'when_same_title' => 'if an identical title already exists in the top <i>n</i> newest articles',	// TODO
+			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
+			'when_same_title_in_feed' => 'if an identical title already exists in the top <i>n</i> newest articles of the feed',	// TODO
 		),
 		'show' => array(
 			'_' => 'מאמרים להצגה',
 			'active_category' => 'Active category',	// TODO
-			'adaptive' => 'תצוגה מתעדכנת',
+			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
 			'all_articles' => 'הצגת כל המאמרים',
 			'all_categories' => 'All categories',	// TODO
 			'no_category' => 'No category',	// TODO
 			'remember_categories' => 'Remember open categories',	// TODO
 			'unread' => 'הצגת מאמרים שלא נקראו בלבד',
+			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
 		),
 		'show_fav_unread_help' => 'Applies also on labels',	// TODO
 		'sides_close_article' => 'Clicking outside of article text area closes the article',	// TODO
-		'sort' => array(
-			'_' => 'סדר המיון',
-			'newer_first' => 'חדשים בראש',
-			'older_first' => 'ישנים יותר בראש',
+		'star' => array(
+			'when' => 'Mark an article as favourite…',	// TODO
 		),
 		'sticky_post' => 'הצמדת המאמר לחלק העליון כאשר הוא פתוח',
+		'sticky_sort' => 'שמירת סדר המיון הידני בעת ניווט',	// DIRTY - Keep custom sort order during navigation
+		'sticky_sort_help' => 'קובע אם סדר המיון הידני האחרון נשאר פעיל או שכל קטגוריה או הזנה משתמשת תמיד בהגדרת ברירת המחדל או הכללית שלה.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'קריאה',
 		'view' => array(
 			'default' => 'תצוגת ברירת המחדל',
@@ -254,7 +321,7 @@ return array(
 	'sharing' => array(
 		'_' => 'שיתוף',
 		'add' => 'Add a sharing method',	// TODO
-		'blogotext' => 'Blogotext',	// IGNORE
+		'bluesky' => 'Bluesky',	// IGNORE
 		'deprecated' => 'This service is deprecated and will be removed from FreshRSS in a <a href="https://freshrss.github.io/FreshRSS/en/users/08_sharing_services.html" title="Open documentation for more information" target="_blank">future release</a>.',	// TODO
 		'diaspora' => 'Diaspora*',	// IGNORE
 		'email' => 'דואר אלקטרוני',
@@ -267,7 +334,7 @@ return array(
 		'share_name' => 'שיתוף שם לתצוגה',
 		'share_url' => 'לשימוש שתפו URL',
 		'title' => 'שיתוף',
-		'twitter' => 'Twitter',	// IGNORE
+		'twitter' => 'X (Twitter)',	// IGNORE
 		'wallabag' => 'wallabag',	// IGNORE
 	),
 	'shortcut' => array(
@@ -275,7 +342,7 @@ return array(
 		'article_action' => 'פעולות על מאמרים',
 		'auto_share' => 'שיתוף',
 		'auto_share_help' => 'אם יש רק מצב שיתוף אחד, הוא מופעל. אחרת המצבים נבחרים על בסיס המספר שלהם.',
-		'close_dropdown' => 'Close menus',	// TODO
+		'close_menus' => 'Close menus',	// TODO
 		'collapse_article' => 'כיווץ',
 		'first_article' => 'דילוג למאמר הראשון',
 		'focus_search' => 'גישה לתיבת החיפוש',
@@ -302,6 +369,7 @@ return array(
 		'skip_next_article' => 'Focus next without opening',	// TODO
 		'skip_previous_article' => 'Focus previous without opening',	// TODO
 		'title' => 'קיצורי דרך',
+		'toggle_aside' => 'Toggle sidebar',	// TODO
 		'toggle_media' => 'Play/pause media',	// TODO
 		'user_filter' => 'גישה למססנים',
 		'user_filter_help' => 'אם יש רק מזנן אחד הוא יהיה בשימוש. אחרת המסננים ישמשו על בסיס המספר שלהם.',

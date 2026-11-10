@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s pòt pas èsser activada. <a href="%s">Consultatz los jornals d’audit de FreshRSS logs</a> per mai de detalhs.',
 			'ok' => '%s es ara activada',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'Avètz pas accès sus %s',
 		'not_enabled' => '%s es pas encara activada',
 		'not_found' => '%s existís pas',
@@ -57,14 +58,15 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'L’extension ZIP es pas presenta sul servidor. Volgatz ensajar d’exportar los fichièrs un per un.',
-		'feeds_imported' => 'Vòstres fluxes son estats importats seràn actualizats en seguida / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Vòstres fluxes son estats importats mas i a agut d’errors / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'Vòstres fluxes son estats importats seràn actualizats en seguida / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY - Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.
+		'feeds_imported_with_errors' => 'Vòstres fluxes son estats importats mas i a agut d’errors / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY - Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.
 		'file_cannot_be_uploaded' => 'Telecargament del fichièr impossible',
 		'no_zip_extension' => 'L’extension es pas presenta sul servidor.',
-		'zip_error' => 'Una error s’es producha pendent l’importacion del fichièr ZIP.',	// DIRTY
+		'zip_error' => 'Una error s’es producha pendent l’importacion del fichièr ZIP.',	// DIRTY - An error occurred during ZIP processing.
 	),
 	'profile' => array(
 		'error' => 'Impossible d’actualizar vòstre perfil',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Vòstre perfil es estat actualizat',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> cache escafat',
 			'deleted' => 'Lo flux es suprimit',
 			'error' => 'Error en actualizar',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'Lo flux pòt pas èsser ajustat. <a href="%s">Consultatz los jornals d’audit de FreshRSS</a> per ne saber mai. Podètz forçar l’apondon en ajustant <code>#force_feed</code> a l’URL.',
 			'invalid_url' => 'L’URL <em>%s</em> es invalida',
 			'n_actualized' => '%s fluxes son estats actualizats',

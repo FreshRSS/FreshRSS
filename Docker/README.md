@@ -6,22 +6,22 @@
 FreshRSS is a self-hosted RSS feed aggregator.
 
 * Official website: [`freshrss.org`](https://freshrss.org/)
-* Official Docker images: [`hub.docker.com/r/freshrss/freshrss`](https://hub.docker.com/r/freshrss/freshrss/)
+* Official Docker images: [`hub.docker.com/r/freshrss/freshrss`](https://hub.docker.com/r/freshrss/freshrss/) [`ghcr.io/freshrss/freshrss`](https://github.com/FreshRSS/FreshRSS/pkgs/container/freshrss)
 * Repository: [`github.com/FreshRSS/FreshRSS`](https://github.com/FreshRSS/FreshRSS/)
 * Documentation: [`freshrss.github.io/FreshRSS`](https://freshrss.github.io/FreshRSS/)
 * License: [GNU AGPL 3](https://www.gnu.org/licenses/agpl-3.0.html)
 
-![FreshRSS logo](https://github.com/FreshRSS/FreshRSS/raw/edge/docs/img/FreshRSS-logo.png)
+![FreshRSS logo](https://raw.githubusercontent.com/FreshRSS/FreshRSS/edge/docs/img/FreshRSS-logo.png)
 
 ## Install Docker
 
-See <https://docs.docker.com/get-docker/>
+See <https://docs.docker.com/get-started/get-docker/>
 
 Example for Linux Debian / Ubuntu:
 
 ```sh
 # Install default Docker Compose and automatically the corresponding version of Docker
-apt install docker-compose
+apt install docker-compose-v2
 ```
 
 ## Quick run
@@ -32,18 +32,18 @@ Example running FreshRSS (or scroll down to the [Docker Compose](#docker-compose
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -p 8080:80 \
   -e TZ=Europe/Paris \
-  -e 'CRON_MIN=1,31' \
+  -e CRON_MIN=1,31 \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
   --name freshrss \
-  freshrss/freshrss
+  freshrss/freshrss:edge
 ```
 
 * Exposing on port 8080
-* With a [server timezone](http://php.net/timezones) (default is `UTC`)
+* With a [server timezone](https://www.php.net/timezones) (default is `UTC`)
 * With an automatic cron job to refresh feeds
 * Saving FreshRSS data in a Docker volume `freshrss_data` and optional extensions in `freshrss_extensions`
-* Using the default image, which is the latest stable release
+* Using the rolling release channel
 
 ### Complete installation
 
@@ -52,7 +52,7 @@ or use the command line described below.
 
 ## Command line
 
-See the [CLI documentation](../cli/README.md) for all the commands, which can be applied like:
+See the [CLI documentation](https://github.com/FreshRSS/FreshRSS/blob/edge/cli/README.md) for all the commands, which can be applied like:
 
 ```sh
 docker exec --user www-data freshrss cli/list-users.php
@@ -61,7 +61,7 @@ docker exec --user www-data freshrss cli/list-users.php
 Example of installation via command line:
 
 ```sh
-docker exec --user www-data freshrss cli/do-install.php --default_user freshrss
+docker exec --user www-data freshrss cli/do-install.php --default-user freshrss
 
 docker exec --user www-data freshrss cli/create-user.php --user freshrss --password freshrss
 ```
@@ -72,10 +72,10 @@ docker exec --user www-data freshrss cli/create-user.php --user freshrss --passw
 
 The [tags](https://hub.docker.com/r/freshrss/freshrss/tags) correspond to FreshRSS branches and versions:
 
-* `:latest` (default) is the [latest stable release](https://github.com/FreshRSS/FreshRSS/releases/latest)
+* `:latest` (default) is the [latest versioned release](https://github.com/FreshRSS/FreshRSS/releases/latest)
 * `:edge` is the rolling release, same than our [git `edge` branch](https://github.com/FreshRSS/FreshRSS/tree/edge)
 * `:x.y.z` tags correspond to [specific FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases), allowing you to target a precise version for deployment
-* `:x` tags track the latest release within a major version series. For instance, `:1` will update to include any `1.x` releases, but will exclude versions beyond `2.x`
+* `:x` tags track the latest release within a major version series. For instance, `:1` will update to include any `1.x` releases, but will exclude versions beyond `2.x`. Note that bug fixes and security fixes are not backported.
 * `*-alpine` use Linux Alpine as base-image instead of Debian
 * Our Docker images are designed with multi-architecture support, accommodating a variety of Linux platforms including `linux/arm/v7`, `linux/arm64`, and `linux/amd64`.
   * For other platforms, see the [custom build section](#build-custom-docker-image)
@@ -91,29 +91,46 @@ and with newer packages in general (Apache, PHP).
 
 ## Environment variables
 
-* `TZ`: (default is `UTC`) A [server timezone](http://php.net/timezones)
+* `TZ`: (default is `UTC`) A [server timezone](https://www.php.net/timezones)
 * `CRON_MIN`: (default is disabled) Define minutes for the built-in cron job to automatically refresh feeds (see below for more advanced options)
-* `DATA_PATH`: (default is empty, defined by `./constants.local.php` or `./constants.php`) Defines the path for writeable data.
+* `DATA_PATH`: (default is empty, defined by `./constants.local.php` or `./constants.php`) Defines the path for writable data.
+* `ENABLE_ACCESS_LOG`: (default is `1`) Set to `0` to disable the Apache access log.
 * `FRESHRSS_ENV`: (default is `production`) Enables additional development information if set to `development` (increases the level of logging and ensures that errors are displayed) (see below for more development options)
 * `COPY_LOG_TO_SYSLOG`: (default is `On`) Copy all the logs to syslog
 * `COPY_SYSLOG_TO_STDERR`: (default is `On`) Copy syslog to Standard Error so that it is visible in docker logs
-* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/network/host/))
+* `LISTEN`: (default is `80`) Modifies the internal Apache listening address and port, e.g. `0.0.0.0:8080` (for advanced users; useful for [Docker host networking](https://docs.docker.com/engine/network/drivers/host/))
+* `INTERNAL_HOST_ALLOWLIST`: (default is empty, can also be set in `data/config.php` or under *System configuration* in Web UI) Requests to internal hosts such as 127.0.0.1 are blocked by default; here you can add overrides for which internal hosts to allow, separated by whitespace. Each host should be described either as a `host:port` combination, CIDR notation (`0.0.0.0/0` to allow any IPv4, `::/0` to allow any IPv6) or `*` to allow all hosts (unsafe)
 * `FRESHRSS_INSTALL`: automatically pass arguments to command line `cli/do-install.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 * `FRESHRSS_USER`: automatically pass arguments to command line `cli/create-user.php` (for advanced users; see example in Docker Compose section). Only executed at the very first run (so far), so if you make any change, you need to delete your `freshrss` service, `freshrss_data` volume, before running again.
 
 ## How to update
 
+Your data and extensions are kept in the `freshrss_data` and `freshrss_extensions` volumes,
+so updating FreshRSS only means running a newer image with the same volumes.
+Back up these volumes (and your database, if not using SQLite) first; see [Backup](../docs/en/admins/05_Backup.md).
+
 ```sh
 # Rebuild an image (see build section below) or get a new online version:
-docker pull freshrss/freshrss
+docker pull freshrss/freshrss:edge
 # And then
 docker stop freshrss
 docker rename freshrss freshrss_old
 # See the run section above for the full command
-docker run ... --name freshrss freshrss/freshrss
+docker run ... --name freshrss freshrss/freshrss:edge
 # If everything is working, delete the old container
 docker rm freshrss_old
 ```
+
+With [Docker Compose](#docker-compose), run `pull` and then `up` again, with the same `-f` files as when you started, e.g.:
+
+```sh
+docker compose -f docker-compose.yml -f docker-compose-db.yml pull
+docker compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
+```
+
+> ⚠️ Keep the same major version of your database image (e.g. `postgres:17`) when updating FreshRSS, even if our example Compose files use a newer one:
+> a new major version of PostgreSQL refuses to start with the data of a previous one. To change it, see [Migrate database](#migrate-database).
+> If you replace your Compose files with newer copies of ours, also check that your `.env` file still uses the same variable names.
 
 ## Build custom Docker image
 
@@ -122,10 +139,10 @@ which is currently limited to `x64` (Intel, AMD), `arm32v7`, `arm64`.
 
 > ℹ️ If you try to run an image for the wrong platform, you might get an error message like *exec format error*.
 
-Pick `#latest` (stable release) or `#edge` (rolling release) or a specific release number such as `#1.21.0` like:
+Pick `#edge` (rolling release) or `#latest` (versioned release) or a specific release number such as `#1.21.0` like:
 
 ```sh
-docker build --pull --tag freshrss/freshrss:latest -f Docker/Dockerfile-Alpine https://github.com/FreshRSS/FreshRSS.git#latest
+docker build --pull --tag freshrss/freshrss:custom -f Docker/Dockerfile-Alpine https://github.com/FreshRSS/FreshRSS.git#latest
 ```
 
 > ℹ️ See an automated way to do that in our [Docker Compose](#docker-compose) section, leveraging a [git build context](https://docs.docker.com/build/building/context/#git-repositories).
@@ -141,7 +158,7 @@ docker run --rm \
   -p 8080:80 \
   -e FRESHRSS_ENV=development \
   -e TZ=Europe/Paris \
-  -e 'CRON_MIN=1,31' \
+  -e CRON_MIN=1,31 \
   -v $(pwd):/var/www/FreshRSS \
   -v freshrss_data:/var/www/FreshRSS/data \
   --name freshrss \
@@ -162,6 +179,10 @@ They need to be compiled manually:
 cd ./FreshRSS/
 docker build --pull --tag freshrss/freshrss:oldest -f Docker/Dockerfile-Oldest .
 docker build --pull --tag freshrss/freshrss:newest -f Docker/Dockerfile-Newest .
+
+# Example of use:
+make composer-test
+docker run --rm -e FRESHRSS_ENV=development -e TZ=UTC -v $(pwd):/var/www/FreshRSS freshrss/freshrss:oldest bin/composer test
 ```
 
 ## Supported databases
@@ -184,7 +205,7 @@ docker network connect freshrss-network postgres
 
 # Otherwise, start a new PostgreSQL instance, remembering to change the passwords:
 docker run -d --restart unless-stopped --log-opt max-size=10m \
-  -v pgsql_data:/var/lib/postgresql/data \
+  -v pgsql_data:/var/lib/postgresql \
   -e POSTGRES_DB=freshrss \
   -e POSTGRES_USER=freshrss \
   -e POSTGRES_PASSWORD=freshrss \
@@ -192,7 +213,13 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   --name freshrss-db postgres
 ```
 
+> ⚠️ `postgres` without a version tag is `postgres:latest`, which moves to each new major version of PostgreSQL.
+> New major versions of PostgreSQL refuse to start with the data of a different PostgreSQL version:
+> see update guidance on [docker-library/postgres#37](https://github.com/docker-library/postgres/issues/37) or with FreshRSS own [database migration](#migrate-database).
+
 In the FreshRSS setup, you will then specify the name of the container (`freshrss-db`) as the host for the database.
+
+See also the section [Docker Compose with PostgreSQL](#docker-compose-with-postgresql) below.
 
 ### [MySQL](https://hub.docker.com/_/mysql/) or [MariaDB](https://hub.docker.com/_/mariadb)
 
@@ -236,7 +263,7 @@ docker run ...
   -v /your/.htaccess:/var/www/FreshRSS/p/i/.htaccess \
   -v /your/.htpasswd:/var/www/FreshRSS/data/.htpasswd \
   ...
-  --name freshrss freshrss/freshrss
+  --name freshrss freshrss/freshrss:edge
 ```
 
 Example of `/your/.htaccess` referring to `/your/.htpasswd`:
@@ -268,6 +295,7 @@ sudo nano /var/lib/docker/volumes/freshrss_data/_data/config.php
 First, put variables such as passwords in your `.env` file, which can live where your `docker-compose.yml` should be. See [`example.env`](./freshrss/example.env).
 
 ```ini
+BASE_URL=https://freshrss.example.net
 ADMIN_EMAIL=admin@example.net
 ADMIN_PASSWORD=freshrss
 ADMIN_API_PASSWORD=freshrss
@@ -285,20 +313,18 @@ See [`docker-compose.yml`](./freshrss/docker-compose.yml)
 ```sh
 cd ./FreshRSS/Docker/freshrss/
 # Update
-docker-compose pull
+docker compose pull
 # Run
-docker-compose -f docker-compose.yml -f docker-compose-local.yml up -d --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-local.yml up -d --remove-orphans
 # Logs
-docker-compose logs -f --timestamps
+docker compose logs -f --timestamps
 # Stop
-docker-compose down --remove-orphans
+docker compose down --remove-orphans
 ```
 
 Detailed (partial) example of Docker Compose for FreshRSS:
 
 ```yaml
-version: "2.4"
-
 volumes:
   data:
   extensions:
@@ -308,7 +334,7 @@ services:
     image: freshrss/freshrss:edge
     # Optional build section if you want to build the image locally:
     build:
-      # Pick #latest (stable release) or #edge (rolling release) or a specific release like #1.21.0
+      # Pick #edge (rolling release) or #latest (versioned release) or a specific release like #1.21.0
       context: https://github.com/FreshRSS/FreshRSS.git#edge
       dockerfile: Docker/Dockerfile-Alpine
     container_name: freshrss
@@ -329,17 +355,23 @@ services:
       # If you want to open a port 8080 on the local machine:
       - "8080:80"
     environment:
-      # A timezone http://php.net/timezones (default is UTC)
+      # A timezone https://www.php.net/timezones (default is UTC)
       TZ: Europe/Paris
       # Cron job to refresh feeds at specified minutes
       CRON_MIN: '2,32'
-      # 'development' for additional logs; default is 'production'
+      # Optional 'development' for additional logs; default is 'production'
       FRESHRSS_ENV: development
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
+      # Optional parameter to allow sending requests to certain internal hosts, by default all internal requests are blocked
+      # Examples: 127.0.0.1:8080, rss-bridge:80, etc.
+      #   or a CIDR notation: 0.0.0.0/0 (to allow any IPv4), ::/0 (to allow any IPv6)
+      # Setting * disables this check completely, allowing any host to be accessed (unsafe)
+      #INTERNAL_HOST_ALLOWLIST: rss-bridge:80 rsshub:1200
+
       # Optional parameter, remove for automatic settings, set to 0 to disable,
-      # or (if you use a proxy) to a space-separated list of trusted IP ranges
-      # compatible with https://httpd.apache.org/docs/current/mod/mod_remoteip.html#remoteipinternalproxy
+      # or (if you use a proxy) to a space-separated list of trusted IPs or CIDR
+      # notation for ranges. Domain names are not supported and will be ignored.
       # This impacts which IP address is logged (X-Forwarded-For or REMOTE_ADDR).
       # This also impacts external authentication methods;
       # see https://freshrss.github.io/FreshRSS/en/admins/09_AccessControl.html
@@ -359,7 +391,7 @@ services:
         --db-password ${DB_PASSWORD}
         --db-type pgsql
         --db-user ${DB_USER}
-        --default_user admin
+        --default-user admin
         --language en
       FRESHRSS_USER: |-
         --api-password ${ADMIN_API_PASSWORD}
@@ -367,6 +399,14 @@ services:
         --language en
         --password ${ADMIN_PASSWORD}
         --user admin
+    # Optional healthcheck
+    healthcheck:
+      test: ["CMD", "cli/health.php"]
+      timeout: 10s
+      start_period: 60s
+      start_interval: 11s
+      interval: 75s
+      retries: 3
 ```
 
 ### Docker Compose with PostgreSQL
@@ -378,12 +418,14 @@ See [`docker-compose-db.yml`](./freshrss/docker-compose-db.yml)
 ```sh
 cd ./FreshRSS/Docker/freshrss/
 # Update
-docker-compose -f docker-compose.yml -f docker-compose-db.yml pull
+docker compose -f docker-compose.yml -f docker-compose-db.yml pull
 # Run
-docker-compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
 # Logs
-docker-compose -f docker-compose.yml -f docker-compose-db.yml logs -f --timestamps
+docker compose -f docker-compose.yml -f docker-compose-db.yml logs -f --timestamps
 ```
+
+See also the section [Migrate database](#migrate-database) below to upgrade to a major PostgreSQL version with Docker Compose.
 
 ### Docker Compose for development
 
@@ -396,11 +438,11 @@ See [`docker-compose-development.yml`](./freshrss/docker-compose-development.yml
 cd ./FreshRSS/Docker/freshrss/
 # Update
 git pull --ff-only --prune
-docker-compose pull
+docker compose pull
 # Run
-docker-compose -f docker-compose-development.yml -f docker-compose.yml -f docker-compose-local.yml up --remove-orphans
+docker compose -f docker-compose-development.yml -f docker-compose.yml -f docker-compose-local.yml up --remove-orphans
 # Stop with [Control]+[C] and purge
-docker-compose down --remove-orphans --volumes
+docker compose down --remove-orphans --volumes
 ```
 
 > ℹ️ You can combine it with `-f docker-compose-db.yml` to spin a PostgreSQL database.
@@ -408,7 +450,7 @@ docker-compose down --remove-orphans --volumes
 ## Run in production
 
 For production, it is a good idea to use a reverse proxy on your host server, providing HTTPS.
-A dedicated solution such as [Træfik](https://traefik.io/traefik/) is recommended
+A dedicated solution such as [Træfik](https://traefik.io/traefik) is recommended
 (or see [alternative options below](#alternative-reverse-proxy-configurations)).
 
 You must first chose a domain (DNS) or sub-domain, e.g. `freshrss.example.net`, and set it in your `.env` file:
@@ -446,13 +488,13 @@ See [`docker-compose-proxy.yml`](./freshrss/docker-compose-proxy.yml)
 ```sh
 cd ./FreshRSS/Docker/freshrss/
 # Update
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml pull
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml pull
 # Run
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml up -d --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml up -d --remove-orphans
 # Logs
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml logs -f --timestamps
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml logs -f --timestamps
 # Stop
-docker-compose -f docker-compose.yml -f docker-compose-proxy.yml down --remove-orphans
+docker compose -f docker-compose.yml -f docker-compose-proxy.yml down --remove-orphans
 ```
 
 > ℹ️ You can combine it with `-f docker-compose-db.yml` to spin a PostgreSQL database.
@@ -586,13 +628,13 @@ There are no less than 3 options. Pick a single one.
 Easiest, built-in solution, also used already in the examples above
 (but your Docker instance will have a second process in the background, without monitoring).
 Just pass the environment variable `CRON_MIN` to your `docker run` command,
-containing a valid cron minute definition such as `'13,43'` (recommended) or `'*/20'`.
+containing a valid cron minute definition such as `13,43` (recommended) or `*/20`.
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
 
 ```sh
 docker run ... \
-  -e 'CRON_MIN=13,43' \
-  --name freshrss freshrss/freshrss
+  -e CRON_MIN=13,43 \
+  --name freshrss freshrss/freshrss:edge
 ```
 
 ### Option 2) Cron on the host machine
@@ -619,9 +661,9 @@ See cron option 1 for customising the cron schedule.
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
-  -e 'CRON_MIN=17,47' \
+  -e CRON_MIN=17,47 \
   --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss \
+  --name freshrss_cron freshrss/freshrss:edge \
   cron -f
 ```
 
@@ -635,7 +677,7 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
   -v ./freshrss_crontab:/etc/cron.d/freshrss \
   --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss \
+  --name freshrss_cron freshrss/freshrss:edge \
   cron -f
 ```
 
@@ -645,8 +687,51 @@ docker run -d --restart unless-stopped --log-opt max-size=10m \
 docker run -d --restart unless-stopped --log-opt max-size=10m \
   -v freshrss_data:/var/www/FreshRSS/data \
   -v freshrss_extensions:/var/www/FreshRSS/extensions \
-  -e 'CRON_MIN=27,57' \
+  -e CRON_MIN=27,57 \
   --net freshrss-network \
-  --name freshrss_cron freshrss/freshrss:alpine \
+  --name freshrss_cron freshrss/freshrss:edge-alpine \
   crond -f -d 6
+```
+
+## Migrate database
+
+Our [CLI](../cli/README.md) offers commands to back-up and migrate user databases,
+with `cli/db-backup.php` and `cli/db-restore.php` in particular.
+
+Here is an example (assuming our [Docker Compose example](#docker-compose-with-postgresql))
+intended for migrating to a newer major version of PostgreSQL,
+but which can also be used to migrate between other databases (e.g. MySQL to PostgreSQL).
+
+```sh
+# Stop FreshRSS container (Web server + cron) during maintenance
+docker compose down freshrss
+
+# Optional additional pre-upgrade back-up using PostgreSQL own mechanism
+docker compose -f docker-compose-db.yml \
+  exec freshrss-db pg_dump -U freshrss freshrss | gzip -9 > freshrss-postgres-backup.sql.gz
+# ------↑ Name of your PostgreSQL Docker container
+# -----------------------------↑ Name of your PostgreSQL user for FreshRSS
+# --------------------------------------↑ Name of your PostgreSQL database for FreshRSS
+
+# Back-up all users’ respective tables to SQLite files
+docker compose -f docker-compose.yml -f docker-compose-db.yml \
+  run --rm freshrss cli/db-backup.php
+
+# Remove old database (PostgreSQL) container and its data volume
+docker compose -f docker-compose-db.yml \
+  down --volumes freshrss-db
+
+# Edit your Compose file to use new database (e.g. newest postgres:xx)
+nano docker-compose-db.yml
+
+# Start new database (PostgreSQL) container and its new empty data volume
+docker compose -f docker-compose.yml -f docker-compose-db.yml \
+  up -d freshrss-db
+
+# Restore all users’ respective tables from SQLite files
+docker compose -f docker-compose.yml -f docker-compose-db.yml \
+  run --rm freshrss cli/db-restore.php --delete-backup
+
+# Restart a new FreshRSS container after maintenance
+docker compose -f docker-compose.yml -f docker-compose-db.yml up -d freshrss
 ```

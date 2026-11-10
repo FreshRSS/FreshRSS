@@ -7,4 +7,5 @@
 /extensions/node_modules/
 /extensions/vendor/
 /node_modules/
+/tests/**/*.sqlite
 /vendor/

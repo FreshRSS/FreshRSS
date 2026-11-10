@@ -4,77 +4,259 @@
 	$this->partial('aside_configure');
 ?>
 <main class="post">
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-	</div>
-
-	<form method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
+	<h1><?= _t('conf.query') ?></h1>
+	<h2><?= _t('conf.query.create') ?></h2>
+	<form name="bookmark_query" method="post" action="<?= _url('configure', 'bookmarkQuery') ?>" autocomplete="off" data-auto-leave-validation="1">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<h1><?= _t('conf.query') ?></h1>
 
-		<?php foreach ($this->queries as $key => $query) { ?>
-		<div class="form-group" id="query-group-<?= $key ?>" draggable="true">
-			<div class="box">
-				<div class="box-title">
-					<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', '' . $key) ?>"><?= _i('configure') ?></a><h2><?= $query->getName() ?></h2>
-					<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
-					<input type="hidden" id="queries_<?= $key ?>_token" name="queries[<?= $key ?>][token]" value="<?= $query->getToken() ?>"/>
-					<input type="hidden" id="queries_<?= $key ?>_shareRss" name="queries[<?= $key ?>][token]" value="<?= $query->shareRss() ?>"/>
-					<input type="hidden" id="queries_<?= $key ?>_shareOpml" name="queries[<?= $key ?>][token]" value="<?= $query->shareOpml() ?>"/>
-					<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
-					<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()->getRawInput()) ?>"/>
-					<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
-					<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
-					<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
-				</div>
-				<?php if (!$query->hasParameters()) { ?>
-				<div class="box-content">
-					<div class="alert alert-warn">
-						<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
-					</div>
-				</div>
-				<?php } elseif ($query->isDeprecated()) { ?>
-				<div class="box-content">
-					<div class="alert alert-error">
-						<div class="alert-head"><?= _t('conf.query.deprecated') ?></div>
-					</div>
-				</div>
-				<?php } else { ?>
-					<ul class="box-content scrollbar-thin">
-					<?php if ($query->hasSearch()) { ?>
-					<li class="item"><?= _t('conf.query.search', htmlspecialchars($query->getSearch()->getRawInput(), ENT_NOQUOTES, 'UTF-8')) ?></li>
-					<?php } ?>
-
-					<?php if ($query->getState()) { ?>
-					<li class="item"><?= _t('conf.query.state_' . $query->getState()) ?></li>
-					<?php } ?>
-
-					<?php if ($query->getOrder()) { ?>
-					<li class="item"><?= _t('conf.query.order_' . strtolower($query->getOrder())) ?></li>
-					<?php } ?>
-
-					<?php if ($query->getGet()) { ?>
-					<li class="item"><?= _t('conf.query.get_' . $query->getGetType(), $query->getGetName()) ?></li>
-					<?php } ?>
-					<?php } ?>
-					</ul>
+		<div class="form-group">
+			<label class="group-name" for="new_name"><?= _t('conf.query.name') ?></label>
+			<div class="group-controls">
+				<input type="text" class="w50" name="query[name]" id="new_name" value="" />
 			</div>
 		</div>
+		<div class="form-group">
+			<label class="group-name" for="new_description"><?= _t('conf.query.description') ?></label>
+			<div class="group-controls">
+				<input type="text" class="w50" name="query[description]" id="new_description" value="" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="group-name" for="new_imageUrl"><?= _t('conf.query.image_url') ?></label>
+			<div class="group-controls">
+				<input type="text" class="w50" name="query[imageUrl]" id="new_imageUrl" value="" />
+			</div>
+		</div>
+
+		<?php if (FreshRSS_Context::systemConf()->api_enabled) { ?>
+			<fieldset>
+				<legend><?= _t('conf.query.share') ?></legend>
+				<div class="form-group">
+					<div class="group-controls">
+						<label class="checkbox" for="new_shareRss">
+							<input type="checkbox" name="query[shareRss]" id="new_shareRss" value="1" />
+							<?= _t('conf.query.filter.shareRss') ?>
+						</label>
+					</div>
+					<div class="group-controls">
+						<label class="checkbox" for="new_shareOpml">
+							<input type="checkbox" name="query[shareOpml]" id="new_shareOpml" value="1" />
+							<?= _t('conf.query.filter.shareOpml') ?>
+						</label>
+					</div>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.query.share.help') ?></a></p>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
+				</div>
+			</fieldset>
+		<?php } else { ?>
+			<div class="form-group">
+				<label class="group-name"><?= _t('conf.query.share.disabled.title') ?></label>
+				<div class="group-controls">
+				<?= _t('conf.query.share.disabled') ?>
+					<p class="help"><?= _i('help') ?> <?= _t('conf.query.help') ?></a></p>
+				</div>
+			</div>
 		<?php } ?>
+
+		<fieldset>
+			<legend><?= _t('conf.query.filter') ?></legend>
+			<div class="form-group">
+				<label class="group-name" for="new_query_search"><?= _t('conf.query.filter.search') ?></label>
+				<div class="group-controls">
+					<input type="text" class="w50" id="new_query_search" name="query[search]" value=""/>
+					<p class="help"><?= _i('help') ?> <?= _t('gen.menu.search_help') ?></a></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name"><?= _t('conf.query.filter.state') ?></label>
+				<div class="group-controls">
+					<label class="checkbox" for="new_show_read">
+					<input type="checkbox" name="query[state][]" id="new_show_read" value="<?= FreshRSS_Entry::STATE_READ ?>" checked="checked" />
+						<?= _t('index.menu.read') ?>
+					</label>
+					<label class="checkbox" for="new_show_not_read">
+						<input type="checkbox" name="query[state][]" id="new_show_not_read" value="<?= FreshRSS_Entry::STATE_NOT_READ ?>" checked="checked" />
+						<?= _t('index.menu.unread') ?>
+					</label>
+					<label class="checkbox" for="new_show_favorite">
+						<input type="checkbox" name="query[state][]" id="new_show_favorite"	value="<?= FreshRSS_Entry::STATE_FAVORITE ?>" checked="checked" />
+						<?= _t('index.menu.starred') ?>
+					</label>
+					<label class="checkbox" for="new_show_not_favorite">
+						<input type="checkbox" name="query[state][]" id="new_show_not_favorite" value="<?= FreshRSS_Entry::STATE_NOT_FAVORITE ?>" checked="checked" />
+						<?= _t('index.menu.non-starred') ?>
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="new_query_get"><?= _t('conf.query.filter.type') ?></label>
+				<div class="group-controls">
+					<select name="query[get]" class="w50" id="new_query_get" size="10">
+						<option value="Z" ><?= _t('conf.query.get_Z') ?></option>
+						<option value="A" ><?= _t('conf.query.get_A') ?></option>
+						<option value="a" ><?= _t('index.feed.title') ?></option>
+						<option value="i" ><?= _t('index.menu.important') ?></option>
+						<option value="s" ><?= _t('index.feed.title_fav') ?></option>
+						<option value="T" ><?= _t('index.menu.mylabels') ?></option>
+						<optgroup label="<?= _t('conf.query.filter.tags') ?>">
+							<?php foreach ($this->tags as $key => $tag): ?>
+								<option value="t_<?= $tag->id() ?>"><?= $tag->name() ?></option>
+							<?php endforeach ?>
+						</optgroup>
+						<optgroup label="<?= _t('conf.query.filter.categories') ?>">
+							<?php foreach ($this->categories as $key => $category): ?>
+								<option value="c_<?= $category->id() ?>" ><?= $category->name() ?></option>
+							<?php endforeach ?>
+						</optgroup>
+						<optgroup label="<?= _t('conf.query.filter.feeds') ?>">
+							<?php foreach ($this->feeds as $key => $feed): ?>
+								<option value="f_<?= $feed->id() ?>" ><?= $feed->name() ?></option>
+							<?php endforeach ?>
+						</optgroup>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="group-name" for="new_query_sort"><?= _t('conf.query.filter.order') ?></label>
+				<div class="group-controls">
+					<select name="query[sort]" class="w50" id="new_query_sort">
+						<option value=""></option>
+						<option value="id_desc"><?= _t('index.menu.sort.id_desc') ?></option>
+						<option value="date_desc"><?= _t('index.menu.sort.date_desc') ?></option>
+						<option value="length_desc"><?= _t('index.menu.sort.length_desc') ?></option>
+						<option value="link_desc"><?= _t('index.menu.sort.link_desc') ?></option>
+						<option value="title_desc"><?= _t('index.menu.sort.title_desc') ?></option>
+						<option value="f.name_desc"><?= _t('index.menu.sort.f.name_desc') ?></option>
+						<option value="c.name_desc"><?= _t('index.menu.sort.c.name_desc') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="rand"><?= _t('index.menu.sort.rand') ?></option>
+						<option disabled="disabled">────────────────</option>
+						<option value="id_asc"><?= _t('index.menu.sort.id_asc') ?></option>
+						<option value="date_asc"><?= _t('index.menu.sort.date_asc') ?></option>
+						<option value="length_asc"><?= _t('index.menu.sort.length_asc') ?></option>
+						<option value="link_asc"><?= _t('index.menu.sort.link_asc') ?></option>
+						<option value="title_asc"><?= _t('index.menu.sort.title_asc') ?></option>
+						<option value="f.name_asc"><?= _t('index.menu.sort.f.name_asc') ?></option>
+						<option value="c.name_asc"><?= _t('index.menu.sort.c.name_asc') ?></option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn btn-important"><?= _t('gen.action.submit') ?></button>
+					<button type="reset" class="btn"><?= _t('gen.action.cancel') ?></button>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+
+
+	<?php
+	$stateTranslations = [
+		0 => _t('conf.query.state_all'),
+		1 => _t('conf.query.state_read'),
+		2 => _t('conf.query.state_unread'),
+		3 => _t('conf.query.state_all'),
+		4 => _t('conf.query.state_favorite'),
+		5 => _t('conf.query.state_read_favorite'),
+		6 => _t('conf.query.state_unread_favorite'),
+		7 => _t('conf.query.state_favorite'),
+		8 => _t('conf.query.state_not_favorite'),
+		9 => _t('conf.query.state_read_not_favorite'),
+		10 => _t('conf.query.state_unread_not_favorite'),
+		11 => _t('conf.query.state_not_favorite'),
+		12 => _t('conf.query.state_all'),
+		13 => _t('conf.query.state_read'),
+		14 => _t('conf.query.state_unread'),
+		15 => _t('conf.query.state_all'),
+	];
+	?>
+	<form name="drag_queries" method="post" action="<?= _url('configure', 'queries') ?>" class="draggableList">
+		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<?php if (count($this->queries) < 1) { ?>
+			<div class="alert alert-warn">
+				<p><?= _t('conf.query.no_queries') ?></p>
+				<p class="help"><?= _i('help') ?> <?= _t('conf.query.no_queries.help') ?></p>
+		</div>
+		<?php
+		} else {
+			foreach ($this->queries as $key => $query) { ?>
+				<div class="form-group" id="query-group-<?= $key ?>" draggable="true">
+					<div class="box">
+						<div class="box-title">
+							<a class="configure open-slider" href="<?= _url('configure', 'query', 'id', '' . $key) ?>"><?= _i('configure') ?></a><h2><?= $query->getName() ?></h2>
+							<input type="hidden" id="queries_<?= $key ?>_name" name="queries[<?= $key ?>][name]" value="<?= $query->getName() ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_token" name="queries[<?= $key ?>][token]" value="<?= $query->getToken() ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_shareRss" name="queries[<?= $key ?>][shareRss]" value="<?= $query->shareRss() ? '1' : '0' ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_shareOpml" name="queries[<?= $key ?>][shareOpml]" value="<?= $query->shareOpml() ? '1' : '0' ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_url" name="queries[<?= $key ?>][url]" value="<?= $query->getUrl() ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_search" name="queries[<?= $key ?>][search]" value="<?= urlencode($query->getSearch()->toString(expandUserQueries: false)) ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_state" name="queries[<?= $key ?>][state]" value="<?= $query->getState() ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_order" name="queries[<?= $key ?>][order]" value="<?= $query->getOrder() ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_sort" name="queries[<?= $key ?>][sort]" value="<?= $query->getSort() ?>"/>
+							<input type="hidden" id="queries_<?= $key ?>_get" name="queries[<?= $key ?>][get]" value="<?= $query->getGet() ?>"/>
+						</div>
+						<?php if (!$query->hasParameters()) { ?>
+						<div class="box-content">
+							<div class="alert alert-warn">
+								<div class="alert-head"><?= _t('conf.query.no_filter') ?></div>
+							</div>
+						</div>
+						<?php } elseif ($query->isDeprecated()) { ?>
+						<div class="box-content">
+							<div class="alert alert-error">
+								<div class="alert-head"><?= _t('conf.query.deprecated') ?></div>
+							</div>
+						</div>
+						<?php } else { ?>
+							<ul class="box-content scrollbar-thin">
+							<?php if ($query->hasSearch()) { ?>
+							<li class="item"><?= _t('conf.query.search', htmlspecialchars($query->getSearch()->toString(expandUserQueries: false), ENT_NOQUOTES, 'UTF-8')) ?></li>
+							<?php } ?>
+
+							<?php if ($query->getState()) { ?>
+							<li class="item"><?= $stateTranslations[$query->getState()] ?? '' ?></li>
+							<?php } ?>
+
+							<?php $qSort = $query->getSort(); $sortCombined = $qSort === 'rand' ? 'rand' : $qSort . '_' . strtolower($query->getOrder()); ?>
+							<li class="item"><?= _t('index.menu.sort.' . $sortCombined) ?></li>
+
+							<?php if ($query->getGet() !== '') { ?>
+							<li class="item"><?= match ($query->getGetType()) {
+								'A' => _t('conf.query.get_A'),
+								'Z' => _t('conf.query.get_Z'),
+								'all' => _t('conf.query.get_all'),
+								'all_labels' => _t('conf.query.get_all_labels'),
+								'category' => _t('conf.query.get_category', $query->getGetName()),
+								'favorite' => _t('conf.query.get_favorite'),
+								'feed' => _t('conf.query.get_feed', $query->getGetName()),
+								'important' => _t('conf.query.get_important'),
+								'label' => _t('conf.query.get_label', $query->getGetName()),
+								default => '',
+							} ?></li>
+							<?php } ?>
+							<?php } ?>
+							</ul>
+					</div>
+				</div>
+			<?php
+			}
+		}?>
 	</form>
 </main>
 
 <?php $class = ($this->query != null) ? ' active' : ''; ?>
 <aside id="slider" class="<?= $class ?>">
-<a class="toggle_aside" href="#close"><img class="icon" src="../themes/icons/close.svg" loading="lazy" alt="❌"></a>
+<a class="toggle_aside" href="#close"><?= _i('close') ?></a>
 	<div id="slider-content">
 		<?php
 			if ($this->query != null) {
-				$this->renderHelper('configure/query');
+			$this->renderHelper('configure/query');
 			}
 		?>
 	</div>
 </aside>
-<a href="#" id="close-slider">
+<a href="#close" id="close-slider">
 	<?= _i('close') ?>
 </a>

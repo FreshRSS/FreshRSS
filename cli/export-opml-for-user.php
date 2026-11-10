@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
-require(__DIR__ . '/_cli.php');
+require __DIR__ . '/_cli.php';
 
 performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
 
@@ -23,8 +23,8 @@ $username = cliInitUser($cliOptions->user);
 fwrite(STDERR, 'FreshRSS exporting OPML for user “' . $username . "”…\n");
 
 $export_service = new FreshRSS_Export_Service($username);
-list($filename, $content) = $export_service->generateOpml();
-echo $content;
+[$filename, $path] = $export_service->generateOpml();
+readfile($path);
 
 invalidateHttpCache($username);
 
