@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => '系統配置',
-		'auto-update-url' => '自動升級伺服器 URL',
 		'base-url' => array(
 			'_' => '基礎 URL',
 			'recommendation' => '自動推薦: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => '開始更新',
 		'changelog' => '變更紀錄',
 		'check' => '檢查更新',
-		'copiedFromURL' => '從 %s 複製 update.php 到 ./data',
 		'current_version' => '當前安裝的版本',
 		'last' => '上次檢查',
 		'loading' => '更新中…',

@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Configuración del sistema',
-		'auto-update-url' => 'URL de auto-actualización',
 		'base-url' => array(
 			'_' => 'URL Base',
 			'recommendation' => 'Recomendación automática: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Aplicar',
 		'changelog' => 'Registro de cambios',
 		'check' => 'Buscar actualizaciones',
-		'copiedFromURL' => 'update.php copiado desde %s a ./data',
 		'current_version' => 'Dispones de la versión',
 		'last' => 'Última comprobación',
 		'loading' => 'Actualizando…',

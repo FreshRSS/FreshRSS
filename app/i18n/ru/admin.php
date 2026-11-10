@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Системные настройки',
-		'auto-update-url' => 'URL сервера для автоматического обновления',
 		'base-url' => array(
 			'_' => 'Основной URL-адрес',
 			'recommendation' => 'Автоматическая рекомендация: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Применить',
 		'changelog' => 'Список изменений',
 		'check' => 'Проверить обновления',
-		'copiedFromURL' => 'update.php скопирован из %s в ./data',
 		'current_version' => 'Ваша текущая версия',
 		'last' => 'Последняя проверка',
 		'loading' => 'Обновление…',

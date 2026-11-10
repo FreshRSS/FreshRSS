@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Ρυθμίσεις συστήματος',
-		'auto-update-url' => 'Αυτόματη ενημέρωση URL διακομιστή',
 		'base-url' => array(
 			'_' => 'Βασικό URL',
 			'recommendation' => 'Αυτόματη σύσταση: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Εφαρμογή',
 		'changelog' => 'Ιστορικό αλλαγών',
 		'check' => 'Έλεγχος για νέες ενημερώσεις',
-		'copiedFromURL' => 'το update.php αντιγράφηκε από %s στο ./data',
 		'current_version' => 'Τρέχουσα έκδοση του',
 		'last' => 'Τελευταίος έλεγχος',
 		'loading' => 'Ενημέρωση…',
