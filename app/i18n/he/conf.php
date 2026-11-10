@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'שמירת סדר המיון הידני בעת ניווט',	// DIRTY - Keep custom sort order during navigation
 		'sticky_sort_help' => 'קובע אם סדר המיון הידני האחרון נשאר פעיל או שכל קטגוריה או הזנה משתמשת תמיד בהגדרת ברירת המחדל או הכללית שלה.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'קריאה',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'תצוגת ברירת המחדל',
 			'global' => 'תצוגה גלובלית',

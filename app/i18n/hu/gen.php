@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'URL Megnyitása',
 		'promote' => 'Előléptet',
 		'purge' => 'Töröl',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'OPML frissítése',
 		'remove' => 'Eltávolít',
 		'rename' => 'Átnevez',

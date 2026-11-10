@@ -143,7 +143,7 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 | Español (es) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fes+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | فارسی (fa) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffa+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Suomi (fi) | ￭￭￭￭￭￭￭￭￭･ 91% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffi+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
-| Français (fr) | ￭￭￭￭￭￭￭￭￭￭ 100% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffr+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
+| Français (fr) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ffr+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | עברית (he) | ￭￭￭￭･･････ 41% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhe+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Magyar (hu) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fhu+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Bahasa Indonesia (id) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fid+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
@@ -157,12 +157,12 @@ See the [repository dedicated to those extensions](https://github.com/FreshRSS/E
 | Polski (pl) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpl+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Português (Brasil) (pt-BR) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-BR+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Português (Portugal) (pt-PT) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-PT+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
-| Русский (ru) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fru+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
+| Русский (ru) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fru+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Slovenčina (sk) | ￭￭￭￭￭￭￭￭･･ 80% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fsk+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Türkçe (tr) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ftr+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
-| Українська (uk) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fuk+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
+| Українська (uk) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fuk+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | 简体中文 (zh-CN) | ￭￭￭￭￭￭￭￭￭･ 95% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-CN+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
-| 正體中文 (zh-TW) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-TW+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
+| 正體中文 (zh-TW) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribute](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-TW+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 
 </translations>
 

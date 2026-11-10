@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Naviqasiya zamanı fərdi sıralamanı saxla',
 		'sticky_sort_help' => 'Sonuncu fərdi sıralamanın aktiv qalacağını, yoxsa hər kateqoriya və ya lentin həmişə öz standart və ya qlobal parametrindən istifadə edəcəyini müəyyən edir.',
 		'title' => 'Oxuma',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Standart görünüş',
 			'global' => 'Qlobal görünüş',

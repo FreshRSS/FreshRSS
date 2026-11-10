@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Dobrir l’URL',
 		'promote' => 'Promòure',
 		'purge' => 'Purgar',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Refrescar OPML',
 		'remove' => 'Levar',
 		'rename' => 'Renomenar',

@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Zachovat ruční řazení při navigaci',	// DIRTY - Keep custom sort order during navigation
 		'sticky_sort_help' => 'Určuje, zda se zachová poslední ruční řazení, nebo zda každá kategorie či kanál vždy použije vlastní výchozí nebo globální nastavení.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Čtení',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Výchozí zobrazení',
 			'global' => 'Zobrazení přehledu',

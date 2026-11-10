@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Saglabāt manuālo kārtošanas secību navigācijas laikā',	// DIRTY - Keep custom sort order during navigation
 		'sticky_sort_help' => 'Nosaka, vai tiek saglabāta pēdējā manuālā kārtošanas secība, vai arī katra kategorija vai plūsma vienmēr izmanto savu noklusējuma vai globālo iestatījumu.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Lasīšana',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Noklusējuma skats',
 			'global' => 'Globālais skats',

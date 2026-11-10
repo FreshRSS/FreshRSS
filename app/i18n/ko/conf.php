@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => '탐색 중에도 수동 정렬 순서 유지',	// DIRTY - Keep custom sort order during navigation
 		'sticky_sort_help' => '마지막 수동 정렬 순서를 계속 사용할지, 아니면 각 카테고리나 피드가 항상 자체 기본값 또는 전역 설정을 사용할지 결정합니다.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => '읽기',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => '기본 보기 모드',
 			'global' => '전체 모드',

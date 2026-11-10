@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Mantener el orden de clasificación personalizado durante la navegación',
 		'sticky_sort_help' => 'Determina si el último orden de clasificación personalizado permanece activo o si cada categoría o feed utiliza siempre su propia configuración predeterminada o global.',
 		'title' => 'Lectura',
+		'title_opens_website' => 'Hacer clic en el título del artículo lo abrirá en su página original',
 		'view' => array(
 			'default' => 'Vista por defecto',
 			'global' => 'Vista global',

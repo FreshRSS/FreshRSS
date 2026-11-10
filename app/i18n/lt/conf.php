@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Naršant išlaikyti pasirinktinę rikiavimo tvarką',
 		'sticky_sort_help' => 'Nustato, ar išlaikoma paskutinė pasirinktinė rikiavimo tvarka, ar kiekviena kategorija ar kanalas visada naudoja savo numatytąjį ar bendrą nustatymą.',
 		'title' => 'Skaitymas',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Numatytasis vaizdas',
 			'global' => 'Bendras vaizdas',

@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Адкрыць URL-адрас',
 		'promote' => 'Павысіць',
 		'purge' => 'Ачысціць',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Абнавіць OPML',
 		'remove' => 'Выдаліць',
 		'rename' => 'Перайменаваць',

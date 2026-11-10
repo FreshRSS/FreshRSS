@@ -126,6 +126,10 @@ The status of articles to display when loading FreshRSS. "Adjust showing" will d
 
 This will set images to load as they are viewed. This can save data, but will can cause images to load in later.
 
+### Open articles on their original website
+
+When “Clicking on the article title opens it on its original website” is enabled, clicking on the title of an article in the normal view opens it on its original website in a new tab, instead of in FreshRSS. The link icon at the end of the article header is then replaced by an icon to read the article in FreshRSS. The article is marked as read according to the “when the article is opened on its original website” option.
+
 ## Archival
 
 ### Archiving

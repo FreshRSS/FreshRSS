@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Conserver l’ordre de tri manuel lors de la navigation',
 		'sticky_sort_help' => 'Détermine si le dernier ordre de tri manuel est conservé ou si chaque catégorie ou flux utilise toujours son propre paramètre par défaut ou global.',
 		'title' => 'Lecture',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Vue par défaut',
 			'global' => 'Vue globale',

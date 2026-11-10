@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Kézi rendezés megtartása navigáció közben',	// DIRTY - Keep custom sort order during navigation
 		'sticky_sort_help' => 'Meghatározza, hogy az utolsó kézi rendezés aktív marad-e, vagy minden kategória, illetve hírcsatorna mindig a saját alapértelmezett vagy globális beállítását használja.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Olvasás',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Alapértelmezett nézet',
 			'global' => 'Globális nézet',

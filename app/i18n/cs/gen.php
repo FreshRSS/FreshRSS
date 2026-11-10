@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Otevřít adresu URL',
 		'promote' => 'Zvýšit úroveň',
 		'purge' => 'Vymazat',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Aktualizovat OPML',
 		'remove' => 'Odebrat',
 		'rename' => 'Přejmenovat',
