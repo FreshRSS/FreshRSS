@@ -173,7 +173,7 @@ class FreshRSS_Search implements \Stringable {
 			// Discard user queries
 			return $s;
 		}
-		if (strpbrk($s, ' "\'\\/:') !== false || $s === '') {
+		if (strpbrk($s, ' "\'\\/:()') !== false || $s === '' || preg_match('/\bOR\b/i', $s) === 1) {
 			return '"' . addcslashes($s, '"') . '"';
 		}
 		return $s;
