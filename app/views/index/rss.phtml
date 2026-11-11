@@ -103,8 +103,7 @@ foreach ($this->entries as $item) {
 					// https://www.rssboard.org/rss-specification#ltenclosuregtSubelementOfLtitemgt
 					$enclosureUrl = (string)$enclosure['url'];
 					$enclosureType = strtolower((string)($enclosure['type'] ?? ''));
-					if ($enclosureType === 'application/x-bittorrent'
-						|| preg_match('~^magnet:|\.torrent(\?|#|$)~i', $enclosureUrl) === 1) {
+					if ($enclosureType === 'application/x-bittorrent' || preg_match('~^magnet:|\.torrent(\?|#|$)~i', $enclosureUrl) === 1) {
 						echo "\t\t\t", '<enclosure url="' . $enclosureUrl . '" type="application/x-bittorrent"'
 							. (empty($enclosure['length']) ? '' : ' length="' . $enclosure['length'] . '"')
 							. '/>', "\n";
