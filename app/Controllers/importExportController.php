@@ -516,7 +516,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 
 			$feed_id = $article_to_feed[$item['guid']];
-			$author = is_string($item['author'] ?? null) ? Minz_Helper::htmlspecialchars_utf8($item['author']) : '';
+			// FreshRSS's own export is already HTML-encoded; decode first so it is not encoded twice
+			$author = is_string($item['author'] ?? null) ? Minz_Helper::htmlspecialchars_utf8(htmlspecialchars_decode($item['author'], ENT_QUOTES)) : '';
 			$is_starred = null; // null is used to preserve the current state if that item exists and is already starred
 			$is_read = null;
 			$tags = is_array($item['categories'] ?? null) ? $item['categories'] : [];
@@ -560,7 +561,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			$url = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($url) ?: '');
 
 			$title = is_string($item['title'] ?? null) ? $item['title'] : $url;
-			$title = Minz_Helper::htmlspecialchars_utf8($title);
+			$title = Minz_Helper::htmlspecialchars_utf8(htmlspecialchars_decode($title, ENT_QUOTES));
 
 			if (is_array($item['content'] ?? null) && is_string($item['content']['content'] ?? null)) {
 				$content = $item['content']['content'];
