@@ -3884,6 +3884,16 @@ html.controller_stats .box .box-content > canvas {
 	text-underline-offset: 0.15em;
 }
 
+/* A link in the article body carries an underline at rest. FreshRSS's base sheet strips it from every link, which left only the step between --primary and the body text to tell a link apart, and on a neutral ramp that step is a shade of the same grey: 700 against 900 in the light scheme, 200 against 50 in the dark, far below the 3:1 WCAG asks of color alone. The line is drawn in --muted-foreground, which clears 4.5:1 on the card, so it reads without turning a link-heavy paragraph dark, and takes the link's own color under the pointer. Only .text is the feed's content; the header and footer around it hold the feed, title and author links, which stay as they are. */
+.flux_content .content > .text a {
+	text-decoration-line: underline;
+	text-decoration-color: var(--muted-foreground);
+}
+
+.flux_content .content > .text a:hover {
+	text-decoration-color: currentcolor;
+}
+
 .flux_content .content blockquote {
 	margin-inline: 0;
 	padding-inline-start: 1rem;
