@@ -293,6 +293,10 @@ class FreshRSS_CategoryDAO extends Minz_ModelPdo {
 	}
 
 	public function searchByName(string $name): ?FreshRSS_Category {
+		// The default category exposes a translated name, but its stored name is not translated.
+		if ($name === _t('gen.short.default_category')) {
+			return $this->searchById(self::DEFAULTCATEGORYID);
+		}
 		$sql = <<<'SQL'
 			SELECT * FROM `_category` WHERE name=:name
 			SQL;

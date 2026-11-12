@@ -40,6 +40,7 @@ People are sorted by name so please keep this order.
 * [Antonio Santos](https://github.com/Otolock): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Otolock), [Web](https://otolock.net/)
 * [Arslan-TR](https://github.com/Arslan-TR): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Arslan-TR)
 * [ArthurHoaro](https://github.com/ArthurHoaro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ArthurHoaro)
+* [Artem Netsvetaev](https://github.com/netsvetoch): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:netsvetoch)
 * [Artur Weigandt](https://github.com/Art4): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Art4), [Web](https://ruhr.social/@Art4)
 * [ASMfreaK](https://github.com/ASMfreaK): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ASMfreaK)
 * [Axel Leroy](https://github.com/axeleroy): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:axeleroy), [Web](https://axel.leroy.sh/)
