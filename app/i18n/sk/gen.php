@@ -180,14 +180,14 @@ return array(
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Počet nových článkov v čítačke FreshRSS: %d',	// DIRTY
-				1 => 'Počet nových článkov v čítačke FreshRSS: %d',	// DIRTY
-				2 => 'Počet nových článkov v čítačke FreshRSS: %d',	// DIRTY
+				0 => 'Počet nových článkov v čítačke FreshRSS: %d',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'Počet nových článkov v čítačke FreshRSS: %d',	// DIRTY - There are %d new articles to read on FreshRSS.
+				2 => 'Počet nových článkov v čítačke FreshRSS: %d',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(neprečítané: %d)',	// DIRTY
-				1 => '(neprečítané: %d)',	// DIRTY
-				2 => '(neprečítané: %d)',	// DIRTY
+				0 => '(neprečítané: %d)',	// DIRTY - (unread: %d)
+				1 => '(neprečítané: %d)',	// DIRTY - (unread: %d)
+				2 => '(neprečítané: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => 'Nepodarilo sa spracovať váš dopyt, pravdepodobne kvôli problému s pripojením do internetu.',
 			'title_new_articles' => 'FreshRSS: nové články!',
@@ -198,6 +198,7 @@ return array(
 		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
 		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
@@ -314,7 +315,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Záložky',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Záložky',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

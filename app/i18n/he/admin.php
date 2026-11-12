@@ -14,8 +14,8 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'הרשאה לאנונימיים לקרוא את מאמרי משתמש ברירת המחדל (%s)',
 		'allow_anonymous_refresh' => 'הרשאה לאנונימיים לרענן את רשימת המאמרים',
-		'api_enabled' => 'הרשאת גישה ל <abbr>API</abbr> <small>(נדרש ליישומים סלולריים and sharing user queries)</small>',	// DIRTY
-		'form' => 'טופס אינטרנטי (מסורתי, דורש JavaScript)',
+		'api_enabled' => 'הרשאת גישה ל <abbr>API</abbr> <small>(נדרש ליישומים סלולריים and sharing user queries)</small>',	// DIRTY - Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>
+		'form' => 'טופס אינטרנטי (מסורתי)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'ללא (מסוכן)',
 		'title' => 'Authentication',	// TODO
@@ -67,7 +67,7 @@ return array(
 		'number_entries' => '%d מאמרים',
 		'overview' => 'Overview',	// TODO
 		'percent_of_total' => '% מסך הכל',
-		'repartition' => 'חלוקת המאמרים: %s',	// DIRTY
+		'repartition' => 'חלוקת המאמרים: %s',	// DIRTY - Articles repartition: %s
 		'status_favorites' => 'מועדפים',
 		'status_read' => 'נקרא',
 		'status_total' => 'סך הכל',

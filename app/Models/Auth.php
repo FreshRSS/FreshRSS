@@ -35,10 +35,11 @@ class FreshRSS_Auth {
 			return self::$login_ok;
 		}
 		if (self::accessControl()) {
-			// Rotate the PHP session ID on the unauthenticated->authenticated transition
+			// Rotate the PHP session ID on the unauthenticated->authenticated transition.
+			// Keep the old session (not authenticated) to not break concurrent in-flight requests.
 			if (FreshRSS_Context::systemConf()->auth_type !== 'none') {
 				try {
-					Minz_Session::regenerateID('FreshRSS');
+					Minz_Session::regenerateID('FreshRSS', delete_old_session: false);
 				} catch (RuntimeException $e) {
 					Minz_Log::error('Session could not be regenerated during access restoration: ' . $e->getMessage());
 				}
@@ -116,6 +117,7 @@ class FreshRSS_Auth {
 		FreshRSS_Context::initUser();
 		if (!FreshRSS_Context::hasUserConf() || !FreshRSS_Context::userConf()->enabled) {
 			self::$login_ok = false;
+			Minz_Session::_param('loginOk', false);
 			return false;
 		}
 

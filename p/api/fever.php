@@ -188,8 +188,8 @@ final class FeverAPI
 				Minz_Log::error('Fever API: Please reset your API password!');
 				Minz_User::change();
 			}
-			Minz_Log::warning('Fever API: wrong credentials! ' . $feverKey .
-				' ; Remote IP address=' . Minz_Request::connectionRemoteAddress(), API_LOG);
+			Minz_Log::warning('Fever API: wrong credentials! Remote IP address=' .
+				Minz_Request::connectionRemoteAddress(), API_LOG);
 		}
 		return false;
 	}
@@ -389,6 +389,9 @@ final class FeverAPI
 		foreach ($myFeeds as $feed) {
 			if ($feed->priority() <= FreshRSS_Feed::PRIORITY_HIDDEN) {
 				continue;
+			}
+			if ($feed->customFavicon()) {
+				$feed->faviconPrepare();
 			}
 			$id = $feed->hashFavicon();
 			$filename = DATA_PATH . '/favicons/' . $id . '.ico';

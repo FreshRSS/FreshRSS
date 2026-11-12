@@ -153,7 +153,11 @@ class FreshRSS_tag_Controller extends FreshRSS_ActionController {
 		header('Cache-Control: private, no-cache, no-store, must-revalidate');
 		$id_entry = Minz_Request::paramString('id_entry');
 		$tagDAO = FreshRSS_Factory::createTagDao();
-		$this->view->tagsForEntry = $tagDAO->getTagsForEntry($id_entry);
+		$tagsForEntry = $tagDAO->getTagsForEntry($id_entry);
+		foreach ($tagsForEntry as $key => $tag) {
+			$tagsForEntry[$key]['name'] = htmlspecialchars_decode($tag['name'], ENT_QUOTES);
+		}
+		$this->view->tagsForEntry = $tagsForEntry;
 	}
 
 	public function addAction(): void {

@@ -2,8 +2,6 @@
 declare(strict_types=1);
 
 class FreshRSS_password_Util {
-	// Will also have to be computed client side on mobile devices,
-	// so do not use a too high cost
 	public const BCRYPT_COST = 9;
 
 	/**
@@ -16,17 +14,6 @@ class FreshRSS_password_Util {
 			['cost' => self::BCRYPT_COST]
 		);
 		return $passwordHash;
-	}
-
-	/**
-	 * Verify the given password is valid.
-	 *
-	 * A valid password is a string of at least 7 characters.
-	 *
-	 * @return bool True if the password is valid, false otherwise
-	 */
-	public static function check(#[\SensitiveParameter] string $password): bool {
-		return strlen($password) >= 7;
 	}
 
 	public static function cryptAvailable(): bool {

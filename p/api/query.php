@@ -96,9 +96,11 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 		if (Minz_Request::paramString('order', plaintext: true) === '') {
 			Minz_Request::_param('order', $query->getOrder());
 		}
+		if (Minz_Request::paramString('sort', plaintext: true) === '') {
+			Minz_Request::_param('sort', $query->getSort());
+		}
 		Minz_Request::_param('state', (string)$query->getState());
 
-		$search = $query->getSearch()->toString();
 		// Note: we disallow references to user queries in public user search to avoid sniffing internal user queries
 		try {
 			$userSearch = new FreshRSS_BooleanSearch(Minz_Request::paramString('search', plaintext: true), 0, 'AND', allowUserQueries: false);
@@ -107,14 +109,8 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 			header('Content-Type: text/plain; charset=UTF-8');
 			die($e->getMessage());
 		}
-		if ($userSearch->toString() !== '') {
-			if ($search === '') {
-				$search = $userSearch->toString();
-			} else {
-				$search .= ' (' . $userSearch->toString() . ')';
-			}
-		}
-		Minz_Request::_param('search', $search);
+		// Only the search of the user query is passed as a string; the user search is combined structurally below
+		Minz_Request::_param('search', $query->getSearch()->toString());
 		break;
 	}
 }
@@ -129,6 +125,17 @@ $view = new FreshRSS_View();
 
 try {
 	FreshRSS_Context::updateUsingRequest(false);
+	if ($userSearch->toString() !== '') {
+		if (FreshRSS_Context::$search->toString() === '') {
+			FreshRSS_Context::$search = $userSearch;
+		} else {
+			// Combine with a structural AND, so that the user search cannot alter the search of the user query
+			$combinedSearch = new FreshRSS_BooleanSearch('');
+			$combinedSearch->add(FreshRSS_Context::$search);
+			$combinedSearch->add($userSearch);
+			FreshRSS_Context::$search = $combinedSearch;
+		}
+	}
 	$view->entries = FreshRSS_index_Controller::listEntriesByContext();
 	if (!$view->entries->valid()) {	// Init the generator to consume the aggregated search and catch potential exceptions
 		$view->entries = new EmptyIterator();

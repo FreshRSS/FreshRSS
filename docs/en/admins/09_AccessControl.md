@@ -1,6 +1,6 @@
 # Access control
 
-FreshRSS offers three methods of Access control: Form Authentication using JavaScript, HTTP based Authentication, or an uncontrolled state with no authentication required.
+FreshRSS offers three methods of Access control: Form Authentication using a standard HTML form, HTTP based Authentication, or an uncontrolled state with no authentication required.
 
 ## Server-side feed fetching & security considerations
 
@@ -22,6 +22,9 @@ Entries are separated by newlines, and must be a `host:port` combination, for ex
 Another option is to set an `INTERNAL_HOST_ALLOWLIST` environment variable (e.g. in your docker-compose file). The entries there are separated by whitespace instead.
 Adding `*` disables the SSRF check completely (unsafe).
 
+The same allowlist is needed for HTTP and SOCKS proxies:
+for instance, a proxy `socks5h://127.0.0.1:1080` is blocked unless its location is allowed.
+
 ### Recommended additional mitigations for shared/public setups
 
 Although there are already existing mitigations for SSRF, some extra steps can be taken for more safety:
@@ -37,9 +40,9 @@ These steps are not necessary for trusted, single-user deployments, but are stro
 
 ## Form Authentication
 
-Form Authentication requires the use of JavaScript. It will work on any supported version of PHP.
+Form Authentication is using a standard HTML form, it does not require any JavaScript since FreshRSS v1.31.0. It will work on any supported version of PHP (>=8.2).
 
-This option requires nothing more than selecting Form Authentication during installation.
+This option requires nothing more than selecting Form Authentication during installation, and properly configured PHP sessions.
 
 ## HTTP Authentication
 

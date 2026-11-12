@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 final class EntryTest extends \PHPUnit\Framework\TestCase {
 
-	public function __construct(string $name) {
-		parent::__construct($name);
+	#[\Override]
+	protected function setUp(): void {
 		if (!FreshRSS_Context::hasSystemConf()) {
 			FreshRSS_Context::initSystem();
 		}
@@ -93,5 +93,20 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 		self::assertStringContainsString('href="https://example.com/podcast.mp3"', $html);
 		self::assertStringContainsString('src="https://example.com/thumb.jpg"', $html);
 		self::assertStringContainsString('Hello', $html);
+	}
+
+	/** ZIP/JSON export/import */
+	public function test_toGReaderFreshRssExportRoundTripsEncoding(): void {
+		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+		$feed->_id(1);
+		$feed->_name('Feed &amp; me');
+
+		$entry = new FreshRSS_Entry(1, 'tag:example.net,2026:1', 'A &amp; B', 'B &amp; C', 'Hello', 'https://example.net/post-1', 1731312000);
+		$entry->_id('1731312000000000');
+		$entry->_feed($feed);
+
+		$item = $entry->toGReader('freshrss');
+		self::assertSame('A &amp; B', $item['title']);
+		self::assertSame('B &amp; C', $item['author']);
 	}
 }

@@ -80,19 +80,11 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$this->listSqliteArchives();
 	}
 
-	private static function megabytes(string $size_str): float|int|string {
-		return match (substr($size_str, -1)) {
-			'M', 'm' => (int)$size_str,
-			'K', 'k' => (int)$size_str / 1024,
-			'G', 'g' => (int)$size_str * 1024,
-			default => $size_str,
-		};
-	}
-
 	private static function minimumMemory(int|string $mb): void {
 		$mb = (int)$mb;
-		$ini = self::megabytes(ini_get('memory_limit') ?: '0');
-		if ($ini < $mb) {
+		// `ini_get('memory_limit')` returns e.g. `128M`, or `-1` for unlimited
+		$ini = (int)(ini_parse_quantity(ini_get('memory_limit') ?: '0') / 1048576);
+		if ($ini >= 0 && $ini < $mb) {
 			ini_set('memory_limit', $mb . 'M');
 		}
 	}
@@ -524,7 +516,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 
 			$feed_id = $article_to_feed[$item['guid']];
-			$author = is_string($item['author'] ?? null) ? Minz_Helper::htmlspecialchars_utf8($item['author']) : '';
+			$author = is_string($item['author'] ?? null) ? Minz_Helper::htmlspecialchars_utf8(htmlspecialchars_decode($item['author'], ENT_QUOTES)) : '';
 			$is_starred = null; // null is used to preserve the current state if that item exists and is already starred
 			$is_read = null;
 			$tags = is_array($item['categories'] ?? null) ? $item['categories'] : [];
@@ -544,7 +536,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/state/com.google/unread$%', $tag)) {
 						$is_read = false;
 					} elseif (preg_match('%^user/[A-Za-z0-9_-]+/label/\s*(?P<tag>.+?)\s*$%', $tag, $matches)) {
-						$labels[] = $matches['tag'];
+						$labels[] = Minz_Helper::htmlspecialchars_utf8($matches['tag']);
 					}
 					unset($tags[$i]);
 				}
@@ -568,7 +560,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			$url = Minz_Helper::htmlspecialchars_utf8(FreshRSS_http_Util::checkUrl($url) ?: '');
 
 			$title = is_string($item['title'] ?? null) ? $item['title'] : $url;
-			$title = Minz_Helper::htmlspecialchars_utf8($title);
+			$title = Minz_Helper::htmlspecialchars_utf8(htmlspecialchars_decode($title, ENT_QUOTES));
 
 			if (is_array($item['content'] ?? null) && is_string($item['content']['content'] ?? null)) {
 				$content = $item['content']['content'];
@@ -788,21 +780,21 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		$exported_files = [];
 
 		if ($export_opml) {
-			[$filename, $content] = $export_service->generateOpml();
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateOpml();
+			$exported_files[$filename] = $path;
 		}
 
 		// Starred and labelled entries are merged in the same `starred` file
 		// to avoid duplication of content.
 		if ($export_starred && $export_labelled) {
-			[$filename, $content] = $export_service->generateStarredEntries('ST');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('ST');
+			$exported_files[$filename] = $path;
 		} elseif ($export_starred) {
-			[$filename, $content] = $export_service->generateStarredEntries('S');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('S');
+			$exported_files[$filename] = $path;
 		} elseif ($export_labelled) {
-			[$filename, $content] = $export_service->generateStarredEntries('T');
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $export_service->generateStarredEntries('T');
+			$exported_files[$filename] = $path;
 		}
 
 		foreach ($export_feeds as $feed_id) {
@@ -812,8 +804,8 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				continue;
 			}
 
-			[$filename, $content] = $result;
-			$exported_files[$filename] = $content;
+			[$filename, $path] = $result;
+			$exported_files[$filename] = $path;
 		}
 
 		$nb_files = count($exported_files);
@@ -826,7 +818,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		if ($nb_files === 1) {
 			// If we only have one file, we just export it as it is
 			$filename = key($exported_files);
-			$content = $exported_files[$filename];
+			$path = $exported_files[$filename];
 		} else {
 			// More files? Let’s compress them in a Zip archive
 			if (!extension_loaded('zip')) {
@@ -838,10 +830,10 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 				return;
 			}
 
-			[$filename, $content] = $export_service->zip($exported_files);
+			[$filename, $path] = $export_service->zip($exported_files);
 		}
 
-		if (!is_string($content)) {
+		if (!is_string($path)) {
 			Minz_Request::bad(_t('feedback.import_export.zip_error'), ['c' => 'importExport', 'a' => 'index']);
 			return;
 		}
@@ -851,7 +843,7 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 		header('Content-disposition: attachment; filename="' . $filename . '"');
 
 		$this->view->_layout(null);
-		$this->view->content = $content;
+		$this->view->exportPath = $path;
 	}
 
 	/**

@@ -187,6 +187,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			$max_redirs = Minz_Request::paramInt('curl_params_redirects');
 			$useragent = Minz_Request::paramString('curl_params_useragent', plaintext: true);
 			$proxy_address = Minz_Request::paramString('curl_params', plaintext: true);
+			$proxy_address = preg_replace('#^.*://#', '', $proxy_address) ?? $proxy_address;
 			$proxy_type = Minz_Request::paramIntNull('proxy_type');
 			$request_method = Minz_Request::paramString('curl_method', plaintext: true);
 			$request_fields = Minz_Request::paramString('curl_fields', plaintext: true);
@@ -958,6 +959,7 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		if ($entryDAO->inTransaction()) {
 			$entryDAO->commit();
 		}
+		Minz_ExtensionManager::callHook(Minz_HookType::FeedsAfterActualize, $feedsCacheToRefresh, $nbNewArticles);
 		if (rand(0, 30) === 1) {	// Remove old cache once in a while
 			cleanCache(CLEANCACHE_HOURS);
 		}
@@ -984,9 +986,11 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 		if ($id === -1 && !$noCommit) {	//Special request only to commit & refresh DB cache
 			$nbUpdatedFeeds = 0;
 			$feed = null;
-			FreshRSS_feed_Controller::commitNewEntries();
+			$nbNewArticles = FreshRSS_feed_Controller::commitNewEntries();
 			$feedDAO = FreshRSS_Factory::createFeedDao();
 			$feedDAO->updateCachedValues();
+			// The refreshed feeds are not known here: the web interface refreshed them in earlier requests without commit
+			Minz_ExtensionManager::callHook(Minz_HookType::FeedsAfterActualize, [], $nbNewArticles);
 		} else {
 			if (!$noCommit) {
 				$databaseDAO = FreshRSS_Factory::createDatabaseDAO();
@@ -1022,6 +1026,9 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			}
 			if ($entryDAO->inTransaction()) {
 				$entryDAO->commit();
+			}
+			if (!$noCommit) {
+				Minz_ExtensionManager::callHook(Minz_HookType::FeedsAfterActualize, $feedsCacheToRefresh, $nbNewArticles);
 			}
 		}
 

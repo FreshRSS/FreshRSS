@@ -73,7 +73,11 @@ class FreshRSS_Category extends Minz_Model {
 		return $this->error;
 	}
 
-	public function _error(bool|int $value): void {
+	/**
+	 * @param bool|int|numeric-string $value
+	 * 32-bit systems provide a string and will fail in year 2038
+	 */
+	public function _error(bool|int|string $value): void {
 		$this->error = (bool)$value;
 	}
 	public function isDefault(): bool {

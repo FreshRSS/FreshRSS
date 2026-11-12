@@ -174,8 +174,8 @@ return array(
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'ישנם %d מאמרים חדשים לקרוא ב FreshRSS.',	// DIRTY
-				1 => 'ישנם %d מאמרים חדשים לקרוא ב FreshRSS.',	// DIRTY
+				0 => 'ישנם %d מאמרים חדשים לקרוא ב FreshRSS.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'ישנם %d מאמרים חדשים לקרוא ב FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
 				0 => '(unread: %d)',	// TODO
@@ -190,6 +190,7 @@ return array(
 		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
 		'az' => 'Azərbaycanca',	// IGNORE
 		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
@@ -306,7 +307,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud סימניות',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud סימניות',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

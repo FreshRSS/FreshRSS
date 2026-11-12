@@ -4,23 +4,8 @@ declare(strict_types=1);
 final class FreshRSS_http_Util {
 
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
-	private const PRIVATE_SUBNETS = [
-		'127.0.0.0/8',    // RFC1700 (Loopback)
-		'10.0.0.0/8',     // RFC1918
-		'192.168.0.0/16', // RFC1918
-		'172.16.0.0/12',  // RFC1918
-		'169.254.0.0/16', // RFC3927
-		'0.0.0.0/8',      // RFC5735
-		'240.0.0.0/4',    // RFC1112
-		'100.64.0.0/10',  // RFC6598 (Shared Address Space of Carrier-Grade NAT)
-		'::1/128',        // Loopback
-		'fc00::/7',       // Unique Local Address
-		'fe80::/10',      // Link Local Address
-		'::ffff:0:0/96',  // IPv4 translations
-		'64:ff9b::/96',   // RFC6052 (IPv6 Addressing of IPv4/IPv6 Translators, NAT64)
-		'64:ff9b:1::/48', // RFC8215 (Local-Use IPv4/IPv6 Translation Prefix)
-		'::/128',         // Unspecified address
-	];
+	private const NAT64_PREFIX_RFC6052 = '64:ff9b::/96';
+	private const NAT64_PREFIX_RFC8215 = '64:ff9b:1::/48';
 	/** @var array<string, string[]> $resolve_ok */
 	private static array $resolve_ok = [];
 	/** @var array<string, bool> $retry_after_domain_wide */
@@ -32,7 +17,7 @@ final class FreshRSS_http_Util {
 			return '';
 		}
 		// Once per host, as serverIsPublic() may resolve it
-		$domainWide = self::$retry_after_domain_wide[$domain] ??= Minz_Request::serverIsPublic($url);
+		$domainWide = self::$retry_after_domain_wide[$domain] ??= Minz_Request::serverIsPublic($url, allowDnsResolve: $proxy === '');
 		$port = parse_url($url, PHP_URL_PORT);
 		if (is_int($port)) {
 			$domain .= ':' . $port;
@@ -139,6 +124,11 @@ final class FreshRSS_http_Util {
 			if ($k === CURLOPT_HTTPHEADER && is_array($curl_params[$k])) {
 				$curl_params[$k] = array_filter($curl_params[$k],
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
+			}
+			// Forbid '/' in CURLOPT_PROXY [user[:pass]@]host[:port] (the scheme comes from CURLOPT_PROXYTYPE),
+			// to reject e.g. 'http://example.net/://decoy' and 'localhost:9050/path/to.sock'
+			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || str_contains($curl_params[$k], '/'))) {
+				unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
 			}
 		}
 		return $curl_params;
@@ -273,7 +263,20 @@ final class FreshRSS_http_Util {
 		$htmlPos = stripos($html, '<html');
 		$htmlStart = $htmlPos === false || $htmlPos > 512 ? '' : substr($html, 0, $htmlPos);
 
-		$html = $doc->saveHTML() ?: $html;
+		$encoding = strtolower($doc->encoding ?? '');
+		$bom = str_starts_with($html, "\xEF\xBB\xBF") ? "\xEF\xBB\xBF" : '';
+		if ($encoding === 'utf-8' || ($encoding === '' && $bom !== '')) {
+			// For a whole document, libxml2 saveHTML() only knows the charset from <meta http-equiv="Content-Type">.
+			// With <meta charset="UTF-8"> or a byte order mark, it writes non-ASCII characters as HTML entities,
+			// also inside <script>, where they are not decoded, which corrupts e.g. JSON data. Node by node, it writes UTF-8.
+			$utf8 = '';
+			foreach ($doc->childNodes as $node) {
+				$utf8 .= $doc->saveHTML($node) ?: '';
+			}
+			$html = $utf8 !== '' ? $bom . $utf8 : $html;
+		} else {
+			$html = $doc->saveHTML() ?: $html;
+		}
 		if ($htmlStart !== '' && !str_starts_with($html, $htmlStart)) {
 			// libxml2 saveHTML() risks removing Unicode BOM and XML declaration,
 			// which affects future detection of charset encoding, so manually restore it
@@ -398,7 +401,7 @@ final class FreshRSS_http_Util {
 			// NAT64 addresses use the RFC 6052 well-known prefix.
 			// Validate the embedded IPv4 address because the NAT64 IPv6 address itself
 			// is globally routable even when it maps to a private/reserved IPv4 address.
-			if (self::checkCIDR($ip, '64:ff9b::/96')) {
+			if (self::checkCIDR($ip, self::NAT64_PREFIX_RFC6052)) {
 				$packed = @inet_pton($ip);
 				if ($packed === false || strlen($packed) !== 16) {
 					continue;
@@ -409,30 +412,18 @@ final class FreshRSS_http_Util {
 					continue;
 				}
 
-				if (filter_var($embedded_ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+				if (filter_var($embedded_ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false) {
 					continue;
-				}
-
-				// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
-				foreach (self::PRIVATE_SUBNETS as $cidr) {
-					if (self::checkCIDR($embedded_ipv4, $cidr)) {
-						continue 2;
-					}
 				}
 
 				$ips_ok[] = $add_ip;
 				continue;
 			}
 
-			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
+			// `FILTER_FLAG_GLOBAL_RANGE` does not reject the NAT64 prefixes
+			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false ||
+				self::checkCIDR($ip, self::NAT64_PREFIX_RFC8215)) {
 				continue;
-			}
-			// Extra check because the above one might not be enough: https://github.com/php/php-src/issues/16944
-			// Workaround is available by using `FILTER_FLAG_GLOBAL_RANGE` instead, but that was only added in PHP 8.2, and we need to support PHP 8.1+
-			foreach (self::PRIVATE_SUBNETS as $cidr) {
-				if (self::checkCIDR($ip, $cidr)) {
-					continue 2;
-				}
 			}
 
 			$ips_ok[] = $add_ip;
@@ -458,21 +449,36 @@ final class FreshRSS_http_Util {
 
 
 	/**
+	 * Whether cURL sends the request as a HTTP POST (`CURLOPT_POST` or `CURLOPT_POSTFIELDS`)
+	 * @param array<mixed> $user_options User-defined cURL options derived from `curl_params`
+	 * @param array<mixed> $curl_options Internal cURL options
+	 */
+	private static function isPost(array $user_options, array $curl_options): bool {
+		return !empty($user_options[CURLOPT_POST]) || !empty($curl_options[CURLOPT_POST]) ||
+			isset($user_options[CURLOPT_POSTFIELDS]) || isset($curl_options[CURLOPT_POSTFIELDS]);
+	}
+
+	/**
 	 * @param non-empty-string $url
 	 * @param string|null $cachePath path to cache file, or `null` to disable caching
 	 * @param string $type {html,ico,json,opml,xml}
 	 * @param array<string,mixed> $attributes May contain user-defined cURL options in `$attributes['curl_params']`
 	 * @param array<int,mixed> $curl_options Internal overrides of cURL options
-	 * @return array{body:string,effective_url:string,redirect_count:int,fail:bool,status:int,error:string}
+	 * @return array{body:string,effective_url:string,redirect_count:int,fail:bool,status:int,error:string,method:string}
 	 *   `status` is the HTTP response code (e.g. 200, 404), or a custom negative value:
 	 *   * `-200` served from local cache;
 	 *   * `-429` blocked by active `Retry-After` period;
-	 *   * `-500` `curl_init()` failure.
+	 *   * `-500` `curl_init()` failure, or request refused by a security check.
+	 *
+	 *   `method` is the HTTP method used for the request producing `status` ('GET' or 'POST').
 	 */
 	public static function httpGet(string $url, ?string $cachePath = null, string $type = 'html', array $attributes = [], array $curl_options = []): array {
+		$options = is_array($attributes['curl_params'] ?? null) ?
+			self::sanitizeCurlParams($attributes['curl_params']) : [];	// User-defined cURL options
+		$c_method = self::isPost($options, $curl_options) ? 'POST' : 'GET';
 		if (!\SimplePie\Misc::is_remote_uri($url)) {
 			Minz_Log::warning('Error fetching content: malformed URL “' . $url . '“');
-			return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+			return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 		}
 
 		$limits = FreshRSS_Context::systemConf()->limits;
@@ -486,7 +492,8 @@ final class FreshRSS_http_Util {
 					if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
 						syslog(LOG_DEBUG, 'FreshRSS uses cache for ' . \SimplePie\Misc::url_remove_credentials($url));
 					}
-					return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false, 'status' => -200, 'error' => ''];
+					return ['body' => $body, 'effective_url' => $url, 'redirect_count' => 0, 'fail' => false, 'status' => -200,
+						'error' => '', 'method' => $c_method];
 				}
 			}
 		}
@@ -499,9 +506,7 @@ final class FreshRSS_http_Util {
 		$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] ?? null) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
 		$proxy_type = is_int(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXYTYPE] ?? null) ?
 			FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXYTYPE] : 0;
-		$options = [];	// User-defined cURL options
-		if (is_array($attributes['curl_params'] ?? null)) {
-			$options = self::sanitizeCurlParams($attributes['curl_params']);
+		if (!empty($options)) {
 			$proxy = is_string($options[CURLOPT_PROXY] ?? null) ? $options[CURLOPT_PROXY] : $proxy;
 			$proxy_type = is_int($options[CURLOPT_PROXYTYPE] ?? null) ? $options[CURLOPT_PROXYTYPE] : $proxy_type;
 			if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
@@ -511,16 +516,17 @@ final class FreshRSS_http_Util {
 				}
 			}
 		}
-		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
 		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
+		// CURLOPT_PROXY is already scheme-less by the time it reaches here:
+		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
-			return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true, 'status' => -429, 'error' => ''];
+			return ['body' => '', 'effective_url' => $url, 'redirect_count' => 0, 'fail' => true, 'status' => -429, 'error' => '', 'method' => $c_method];
 		}
 
 		if (FreshRSS_Context::systemConf()->simplepie_syslog_enabled) {
-			syslog(LOG_INFO, 'FreshRSS GET ' . $type . ' ' . \SimplePie\Misc::url_remove_credentials($url));
+			syslog(LOG_INFO, 'FreshRSS ' . $c_method . ' ' . $type . ' ' . \SimplePie\Misc::url_remove_credentials($url));
 		}
 
 		switch ($type) {
@@ -550,6 +556,7 @@ final class FreshRSS_http_Util {
 			$max_redirs = 4;
 		}
 		while (true) {
+			$c_method = self::isPost($options, $curl_options) ? 'POST' : 'GET';	// Can change after a redirect has changed the method
 			$url = is_string($url) ? $url : '';
 			$resolve = [];
 			if ($proxy === '') {
@@ -557,9 +564,10 @@ final class FreshRSS_http_Util {
 				if ($resolve === null) {
 					Minz_Log::warning('Fetching this URL is not allowed, because the host’s IP is not in the allowlist [' .
 						\SimplePie\Misc::url_remove_credentials($url) . ']');
-					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				} elseif ($resolve === false) {
-					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+					Minz_Log::warning('Error during HTTP fetch: unable to resolve hostname! ' . \SimplePie\Misc::url_remove_credentials($url));
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				}
 				if (!empty($resolve)) {
 					$curl_options[CURLOPT_RESOLVE] = $resolve;	// Prevent DNS rebinding
@@ -577,7 +585,7 @@ final class FreshRSS_http_Util {
 				};
 				if ($proxy_scheme === null) {
 					// Unsupported proxy type
-					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				}
 				$proxy_url = "$proxy_scheme://$proxy"; // CURLOPT_PROXY ($proxy) is formatted as user:pass@hostname:port, with the part before @ being optional
 				$resolve = self::getCurlResolveInfo($proxy_url);
@@ -585,9 +593,10 @@ final class FreshRSS_http_Util {
 					Minz_Log::warning('Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
 						\SimplePie\Misc::url_remove_credentials($url) . '] [' .
 						\SimplePie\Misc::url_remove_credentials($proxy_url) . ']');
-					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				} elseif ($resolve === false) {
-					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+					Minz_Log::warning('Error during HTTP fetch: unable to resolve the proxy’s hostname! ' . \SimplePie\Misc::url_remove_credentials($proxy_url));
+					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				}
 				if (!empty($resolve)) {
 					// Only for the proxy domain, socks4a and socks5h DNS queries will be passed through the proxy.
@@ -599,7 +608,7 @@ final class FreshRSS_http_Util {
 			// TODO: Implement HTTP 1.1 conditional GET If-Modified-Since
 			$ch = curl_init();
 			if ($ch === false || $url === '') {
-				return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => ''];
+				return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 			}
 			curl_setopt_array($ch, [
 				CURLOPT_URL => $url,
@@ -693,7 +702,7 @@ final class FreshRSS_http_Util {
 					Minz_Log::warning('Error fetching content: Too many redirects were hit [' . \SimplePie\Misc::url_remove_credentials($original_url) . ']');
 					break;
 				}
-				if ((isset($options[CURLOPT_POST]) || isset($curl_options[CURLOPT_POST])) &&
+				if (self::isPost($options, $curl_options) &&
 					in_array($c_status, [301, 302, 303], true)) {	// Not for 307 and 308, which must not change the HTTP method
 					unset($curl_options[CURLOPT_POST]);
 					unset($curl_options[CURLOPT_POSTFIELDS]);
@@ -712,7 +721,7 @@ final class FreshRSS_http_Util {
 				continue;
 			}
 
-			$fail = $c_status != 200 || $c_error != '' || $body === false;
+			$fail = $c_status < 200 || $c_status >= 300 || $c_error != '' || $body === false;
 			if ($fail) {
 				$body = '';
 				Minz_Log::warning('Error fetching content: HTTP code ' . $c_status . ': ' . $c_error . ' ' . $url);
@@ -753,7 +762,7 @@ final class FreshRSS_http_Util {
 		}
 
 		return ['body' => is_string($body) ? $body : '', 'effective_url' => $c_effective_url, 'redirect_count' => $redirs,
-			'fail' => $fail, 'status' => $c_status, 'error' => $c_error];
+			'fail' => $fail, 'status' => $c_status, 'error' => $c_error, 'method' => $c_method];
 	}
 
 	/**
