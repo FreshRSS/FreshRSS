@@ -516,7 +516,6 @@ class FreshRSS_importExport_Controller extends FreshRSS_ActionController {
 			}
 
 			$feed_id = $article_to_feed[$item['guid']];
-			// FreshRSS's own export is already HTML-encoded; decode first so it is not encoded twice
 			$author = is_string($item['author'] ?? null) ? Minz_Helper::htmlspecialchars_utf8(htmlspecialchars_decode($item['author'], ENT_QUOTES)) : '';
 			$is_starred = null; // null is used to preserve the current state if that item exists and is already starred
 			$is_read = null;
