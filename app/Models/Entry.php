@@ -735,7 +735,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getAuthorRegex() !== null) {
 					foreach ($filter->getAuthorRegex() as $author) {
-						$ok &= preg_match($author, implode("\n", $this->authors)) === 1;
+						$ok &= $this->regexMatch($author, implode("\n", $this->authors), $booleanSearch) === 1;
 					}
 				}
 				if ($ok && $filter->getNotAuthor() !== null) {
@@ -745,7 +745,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getNotAuthorRegex() !== null) {
 					foreach ($filter->getNotAuthorRegex() as $author) {
-						$ok &= preg_match($author, implode("\n", $this->authors)) === 0;
+						$ok &= $this->regexMatch($author, implode("\n", $this->authors), $booleanSearch) === 0;
 					}
 				}
 				if ($ok && $filter->getIntitle() !== null) {
@@ -755,7 +755,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getIntitleRegex() !== null) {
 					foreach ($filter->getIntitleRegex() as $title) {
-						$ok &= preg_match($title, $this->title) === 1;
+						$ok &= $this->regexMatch($title, $this->title, $booleanSearch) === 1;
 					}
 				}
 				if ($ok && $filter->getNotIntitle() !== null) {
@@ -765,7 +765,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getNotIntitleRegex() !== null) {
 					foreach ($filter->getNotIntitleRegex() as $title) {
-						$ok &= preg_match($title, $this->title) === 0;
+						$ok &= $this->regexMatch($title, $this->title, $booleanSearch) === 0;
 					}
 				}
 				if ($ok && $filter->getIntext() !== null) {
@@ -775,7 +775,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getIntextRegex() !== null) {
 					foreach ($filter->getIntextRegex() as $content) {
-						$ok &= preg_match($content, $this->content) === 1;
+						$ok &= $this->regexMatch($content, $this->content, $booleanSearch) === 1;
 					}
 				}
 				if ($ok && $filter->getNotIntext() !== null) {
@@ -785,7 +785,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getNotIntextRegex() !== null) {
 					foreach ($filter->getNotIntextRegex() as $content) {
-						$ok &= preg_match($content, $this->content) === 0;
+						$ok &= $this->regexMatch($content, $this->content, $booleanSearch) === 0;
 					}
 				}
 				if ($ok && $filter->getTags() !== null) {
@@ -806,7 +806,7 @@ class FreshRSS_Entry extends Minz_Model {
 						$found = false;
 						foreach ($this->tags as $tag1) {
 							$tag1 = ltrim($tag1, '#');
-							if (preg_match($tag2, $tag1) === 1) {
+							if ($this->regexMatch($tag2, $tag1, $booleanSearch) === 1) {
 								$found = true;
 								break;
 							}
@@ -832,7 +832,7 @@ class FreshRSS_Entry extends Minz_Model {
 						$found = false;
 						foreach ($this->tags as $tag1) {
 							$tag1 = ltrim($tag1, '#');
-							if (preg_match($tag2, $tag1) === 1) {
+							if ($this->regexMatch($tag2, $tag1, $booleanSearch) === 1) {
 								$found = true;
 								break;
 							}
@@ -847,7 +847,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getInurlRegex() !== null) {
 					foreach ($filter->getInurlRegex() as $url) {
-						$ok &= preg_match($url, $this->link) === 1;
+						$ok &= $this->regexMatch($url, $this->link, $booleanSearch) === 1;
 					}
 				}
 				if ($ok && $filter->getNotInurl() !== null) {
@@ -857,7 +857,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getNotInurlRegex() !== null) {
 					foreach ($filter->getNotInurlRegex() as $url) {
-						$ok &= preg_match($url, $this->link) === 0;
+						$ok &= $this->regexMatch($url, $this->link, $booleanSearch) === 0;
 					}
 				}
 				if ($ok && $filter->getSearch() !== null) {
@@ -872,12 +872,12 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getSearchRegex() !== null) {
 					foreach ($filter->getSearchRegex() as $needle) {
-						$ok &= (preg_match($needle, $this->title) === 1 || preg_match($needle, $this->content) === 1);
+						$ok &= ($this->regexMatch($needle, $this->title, $booleanSearch) === 1 || $this->regexMatch($needle, $this->content, $booleanSearch) === 1);
 					}
 				}
 				if ($ok && $filter->getNotSearchRegex() !== null) {
 					foreach ($filter->getNotSearchRegex() as $needle) {
-						$ok &= (preg_match($needle, $this->title) === 0 && preg_match($needle, $this->content) === 0);
+						$ok &= ($this->regexMatch($needle, $this->title, $booleanSearch) === 0 && $this->regexMatch($needle, $this->content, $booleanSearch) === 0);
 					}
 				}
 				if ($ok) {
@@ -886,6 +886,27 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 		}
 		return (bool)$ok;
+	}
+
+	/**
+	 * Handle `preg_match()` errors with better logging
+	 * @return int|false Same return values as preg_match()
+	 */
+	private function regexMatch(string $pattern, string $subject, FreshRSS_BooleanSearch $booleanSearch): int|false {
+		/** @var array<string,bool> */
+		static $loggedRegexes = [];
+
+		$result = @preg_match($pattern, $subject);
+		if ($result === false && preg_last_error() === PREG_INTERNAL_ERROR) {
+			if (!isset($loggedRegexes[$pattern])) {
+				$loggedRegexes[$pattern] = true;	// Log only once per run
+				Minz_Log::warning(__METHOD__ . ' Invalid PCRE regex `' . $pattern . '`; ' .
+					(error_get_last()['message'] ?? preg_last_error_msg()) .
+					'; in search: `' . $booleanSearch . '`' .
+					'; first triggered by entry ' . $this->id() . ' of feed ' . $this->feedId());
+			}
+		}
+		return $result;
 	}
 
 	/**
