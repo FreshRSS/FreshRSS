@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Säilytä manuaalinen lajittelujärjestys navigoinnin aikana',	// DIRTY - Keep custom sort order during navigation
 		'sticky_sort_help' => 'Määrittää, pysyykö viimeisin manuaalinen lajittelu käytössä vai käyttääkö jokainen luokka tai syöte aina omaa oletus- tai yleisasetustaan.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Lukeminen',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Oletusnäkymä',
 			'global' => 'Yleinen näkymä',

@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'URLを開く',
 		'promote' => '昇格',
 		'purge' => '不要なデータの削除',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'OPMLを更新する',
 		'remove' => '消去',
 		'rename' => '名前を変更する',

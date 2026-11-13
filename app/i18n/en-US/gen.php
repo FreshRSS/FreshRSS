@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Open URL',	// IGNORE
 		'promote' => 'Promote',	// IGNORE
 		'purge' => 'Purge',	// IGNORE
+		'read_in_freshrss' => 'Read in FreshRSS',	// IGNORE
 		'refresh_opml' => 'Refresh OPML',	// IGNORE
 		'remove' => 'Remove',	// IGNORE
 		'rename' => 'Rename',	// IGNORE

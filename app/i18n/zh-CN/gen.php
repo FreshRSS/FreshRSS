@@ -43,6 +43,7 @@ return array(
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => '刷新订阅源动态列表',
 		'remove' => '删除',
 		'rename' => '重命名',

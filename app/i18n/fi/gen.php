@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Avaa URL-osoite',
 		'promote' => 'Nosta tärkeyttä',
 		'purge' => 'Tyhjennä',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Päivitä OPML',
 		'remove' => 'Poista',
 		'rename' => 'Nimeä uudelleen',

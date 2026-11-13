@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Manuelle Sortierung bei der Navigation beibehalten',
 		'sticky_sort_help' => 'Legt fest, ob die letzte manuelle Sortierung aktiv bleibt oder ob jede Kategorie bzw. jeder Feed immer die eigene Standard- oder globale Einstellung verwendet.',
 		'title' => 'Lesen',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Standard-Ansicht',
 			'global' => 'Globale Ansicht',

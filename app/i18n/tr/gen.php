@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'URL’yi aç',
 		'promote' => 'Yükselt',
 		'purge' => 'Temizle',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'OPML’yi yenile',
 		'remove' => 'Kaldır',
 		'rename' => 'Yeniden adlandır',

@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Pertahankan urutan pengurutan manual saat menavigasi',
 		'sticky_sort_help' => 'Menentukan apakah urutan pengurutan manual terakhir tetap aktif atau setiap kategori atau umpan selalu menggunakan pengaturan bawaan atau globalnya sendiri.',
 		'title' => 'Membaca',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Tampilan baku',
 			'global' => 'Tampilan global',

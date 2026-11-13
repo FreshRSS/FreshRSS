@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'URL 열기',
 		'promote' => '목록 수준 올리기',
 		'purge' => '제거',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'OPML 새로고침',
 		'remove' => '삭제',
 		'rename' => '이름 바꾸기',

@@ -69,6 +69,7 @@ declare(strict_types=1);
  * @property bool $sticky_sort To carry the manual sort/order over to the next navigation
  * @property string $theme
  * @property string $darkMode
+ * @property bool $title_opens_website
  * @property string $token
  * @property bool $topline_date
  * @property bool $topline_display_authors
