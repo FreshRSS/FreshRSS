@@ -13,7 +13,6 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use SimplePie\Misc;
-use Throwable;
 
 /**
  * HTTP Client based on PSR-18 and PSR-17 implementations
@@ -83,11 +82,14 @@ final class Psr18Client implements Client
             ), 1);
         }
 
-        if (Misc::is_remote_uri($url)) {
-            return $this->requestUrl($method, $url, $headers);
+        if (!Misc::is_remote_uri($url)) {
+            throw new ClientException(sprintf(
+                'Fetching non-http(s) URI scheme not allowed, "%s" given.',
+                $url
+            ));
         }
 
-        return $this->requestLocalFile($url);
+        return $this->requestUrl($method, $url, $headers);
     }
 
     /**
@@ -129,7 +131,11 @@ final class Psr18Client implements Client
                 $remainingRedirects--;
                 $followRedirect = true;
 
-                $requestedUrl = $response->getHeaderLine('Location');
+                $location = $response->getHeaderLine('Location');
+
+                // Resolve relative redirects against the current URL before
+                // forwarding, as RFC 9110 permits relative Location headers.
+                $requestedUrl = Misc::absolutize_url($location, $requestedUrl) ?: $location;
 
                 if ($statusCode === 301 || $statusCode === 308) {
                     $permanentUrl = $requestedUrl;
@@ -140,24 +146,5 @@ final class Psr18Client implements Client
         } while ($followRedirect);
 
         return new Psr7Response($response, $permanentUrl, $requestedUrl);
-    }
-
-    private function requestLocalFile(string $path): Response
-    {
-        if (!is_readable($path)) {
-            throw new ClientException(sprintf('file "%s" is not readable', $path));
-        }
-
-        try {
-            $raw = file_get_contents($path);
-        } catch (Throwable $th) {
-            throw new ClientException($th->getMessage(), $th->getCode(), $th);
-        }
-
-        if ($raw === false) {
-            throw new ClientException('file_get_contents() could not read the file', 1);
-        }
-
-        return new RawTextResponse($raw, $path);
     }
 }
