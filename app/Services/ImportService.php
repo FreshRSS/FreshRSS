@@ -440,15 +440,11 @@ class FreshRSS_Import_Service {
 			// return several categories and feeds if the outline is a category).
 			[$outline_categories, $outline_categories_to_feeds] = $this->loadFromOutline($outline, $parent_category_name);
 
-			// Then, we merge the initial arrays with the arrays returned by
-			// the outline.
-			$categories_elements = array_merge($categories_elements, $outline_categories);
+			// Then, we merge the initial arrays with the arrays returned by the outline.
+			// Watch out for category names that are numeric strings such as `'90'`:
+			$categories_elements = $categories_elements + $outline_categories;
 
 			foreach ($outline_categories_to_feeds as $category_name => $feeds) {
-				if (!is_string($category_name) ||
-					!is_array($feeds)) {
-					continue;
-				}
 				if (!isset($categories_to_feeds[$category_name])) {
 					$categories_to_feeds[$category_name] = [];
 				}
