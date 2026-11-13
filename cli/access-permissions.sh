@@ -7,8 +7,17 @@ if [ ! -f './constants.php' ] || [ ! -d './cli/' ]; then
 fi
 
 if [ "$(id -u)" -ne 0 ]; then
-	echo >&2 '⛔ Applying access permissions require running as root or sudo!'
-	exit 3
+	if [ "${1:-}" != --only-userdirs ]; then
+		echo >&2 '⛔ Applying access permissions require running as root or sudo!'
+		exit 3
+	fi
+	data_path="${DATA_PATH:-$(php -r 'require "constants.php"; echo DATA_PATH;')}"
+	if ! mkdir -p "$data_path/users/_/" || [ ! -w "$data_path/users/_/" ]; then
+		echo >&2 "⛔ Storage '$data_path' must be writable by UID $(id -u), GID $(id -g). Prepare volume ownership before starting FreshRSS."
+		exit 3
+	fi
+	# prepare.php creates the complete structure as the current application user.
+	exit 0
 fi
 
 # Always fix permissions on the data and extensions directories
