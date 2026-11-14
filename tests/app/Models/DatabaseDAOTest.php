@@ -10,42 +10,48 @@ final class DatabaseDAOTest extends \PHPUnit\Framework\TestCase {
 			self::markTestSkipped('FRESHRSS_TEST_PGSQL_DSN is not configured.');
 		}
 
+		// A gateway login need not match the PostgreSQL role that owns the tables:
+		// the DAO relies on grants to the visible tables, not on its own ownership.
 		$pdo = new Minz_PdoPgsql($dsn, null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 		$pdo->setPrefix('test_');
 		$pdo->beginTransaction();
-		FreshRSS_Context::initSystem();
-		$db = FreshRSS_Context::systemConf()->db;
 		try {
-			// A gateway login need not match the PostgreSQL role that owns the tables.
-			$config = $db;
-			$config['user'] = 'freshrss_test_app.routing';
-			FreshRSS_Context::systemConf()->db = $config;
-			$pdo->exec('CREATE ROLE freshrss_test_app NOLOGIN');
-			$pdo->exec('CREATE SCHEMA freshrss_test_visible');
-			$pdo->exec('CREATE SCHEMA freshrss_test_hidden');
-			$pdo->exec('SET LOCAL search_path TO freshrss_test_visible');
-			foreach (['category', 'feed', 'entry', 'entrytmp', 'tag', 'entrytag'] as $table) {
-				$pdo->exec('CREATE TABLE test_' . $table . ' (id integer)');
-			}
-			$pdo->exec('CREATE TABLE another_users_feed (id integer)');
-			$pdo->exec('GRANT USAGE ON SCHEMA freshrss_test_visible, freshrss_test_hidden TO freshrss_test_app');
-			$pdo->exec('GRANT SELECT ON ALL TABLES IN SCHEMA freshrss_test_visible TO freshrss_test_app');
-			$pdo->exec('SET LOCAL ROLE freshrss_test_app');
+			$pdo->exec(<<<'SQL'
+				CREATE ROLE freshrss_test_app NOLOGIN;
+				CREATE SCHEMA freshrss_test_visible;
+				CREATE SCHEMA freshrss_test_hidden;
+				SET LOCAL search_path TO freshrss_test_visible;
+				GRANT USAGE ON SCHEMA freshrss_test_visible, freshrss_test_hidden TO freshrss_test_app;
+				SQL);
+			$pdo->exec(<<<'SQL'
+				CREATE TABLE test_category (id integer);
+				CREATE TABLE test_feed (id integer);
+				CREATE TABLE test_entry (id integer);
+				CREATE TABLE test_entrytmp (id integer);
+				CREATE TABLE test_tag (id integer);
+				CREATE TABLE test_entrytag (id integer);
+				CREATE TABLE another_users_feed (id integer);
+				GRANT SELECT ON ALL TABLES IN SCHEMA freshrss_test_visible TO freshrss_test_app;
+				SET LOCAL ROLE freshrss_test_app;
+				SQL);
 			$dao = new FreshRSS_DatabaseDAOPGSQL('test', $pdo);
 			self::assertTrue($dao->tablesAreCorrect(), 'Visible tables may belong to another role.');
 
-			$pdo->exec('RESET ROLE');
-			$pdo->exec('ALTER TABLE test_feed SET SCHEMA freshrss_test_hidden');
-			$pdo->exec('SET LOCAL ROLE freshrss_test_app');
+			$pdo->exec(<<<'SQL'
+				RESET ROLE;
+				ALTER TABLE test_feed SET SCHEMA freshrss_test_hidden;
+				SET LOCAL ROLE freshrss_test_app;
+				SQL);
 			self::assertFalse($dao->tablesAreCorrect(), 'A table outside search_path must not hide a missing table.');
 
-			$pdo->exec('RESET ROLE');
-			$pdo->exec('CREATE VIEW test_feed AS SELECT * FROM freshrss_test_hidden.test_feed');
-			$pdo->exec('SET LOCAL ROLE freshrss_test_app');
+			$pdo->exec(<<<'SQL'
+				RESET ROLE;
+				CREATE VIEW test_feed AS SELECT * FROM freshrss_test_hidden.test_feed;
+				SET LOCAL ROLE freshrss_test_app;
+				SQL);
 			self::assertFalse($dao->tablesAreCorrect(), 'A view must not count as a table.');
 		} finally {
 			$pdo->rollBack();
-			FreshRSS_Context::systemConf()->db = $db;
 		}
 	}
 
