@@ -73,7 +73,12 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 		return $limit_registrations > 0 && $number_accounts >= $limit_registrations;
 	}
 
-	/** @param array<string,mixed> $userConfigUpdated */
+	/**
+	 * Update a username’s email, password hash and chosen user configuration attributes.
+	 * If `$passwordPlain` is passed an empty string, the user’s password hash stays unupdated.
+	 *
+	 * @param array<string,mixed> $userConfigUpdated
+	 */
 	public static function updateUser(string $user, ?string $email, #[\SensitiveParameter] string $passwordPlain, array $userConfigUpdated = []): bool {
 		$userConfig = FreshRSS_UserConfiguration::getForUser($user);
 		if ($userConfig === null) {
@@ -170,10 +175,13 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 
 			$email = Minz_Request::paramString('email');
 
+			// Don’t update the user’s password, until the passwordPlain input is
+			// verified to match against the actual current password.
+			$newPasswordPlain = '';
 			$passwordPlain = Minz_Request::paramString('passwordPlain', plaintext: true, trim: false);
-			$newPasswordPlain = Minz_Request::paramString('newPasswordPlain', plaintext: true, trim: false);
-			$confirmPasswordPlain = Minz_Request::paramString('confirmPasswordPlain', plaintext: true, trim: false);
 			if ($passwordPlain !== '') {
+				$newPasswordPlain = Minz_Request::paramString('newPasswordPlain', plaintext: true, trim: false);
+				$confirmPasswordPlain = Minz_Request::paramString('confirmPasswordPlain', plaintext: true, trim: false);
 				$username = Minz_User::name();
 
 				$passwordRequirementsMet = FreshRSS_FormAuth::passwordRequirementsMet(
@@ -230,7 +238,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 			$ok = self::updateUser(
 				Minz_User::name(),
 				$email,
-				$newPasswordPlain,
+				$newPasswordPlain,	// Empty if passwordPlain didn’t match against the current password.
 				[
 					'token' => Minz_Request::paramString('token'),
 				]

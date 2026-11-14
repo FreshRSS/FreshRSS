@@ -40,7 +40,7 @@ These steps are not necessary for trusted, single-user deployments, but are stro
 
 ## Form Authentication
 
-Form Authentication is using a standard HTML form, it does not require any JavaScript since FreshRSS v1.31.0. It will work on any supported version of PHP (>=8.1).
+Form Authentication is using a standard HTML form, it does not require any JavaScript since FreshRSS v1.31.0. It will work on any supported version of PHP (>=8.2).
 
 This option requires nothing more than selecting Form Authentication during installation, and properly configured PHP sessions.
 
