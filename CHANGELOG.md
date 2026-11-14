@@ -7,6 +7,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Compatibility
 	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 * Features
+	* A separate feed kind to track `text/plain` changes as diffs against previous content [#8107](https://github.com/FreshRSS/FreshRSS/pull/8107)
 	* User queries can define their own sort criterion (field and direction) [#8954](https://github.com/FreshRSS/FreshRSS/pull/8954)
 * Bug fixes
 	* Fix HTTP Retry-After cache when proxy is used [#9508](https://github.com/FreshRSS/FreshRSS/pull/9508)

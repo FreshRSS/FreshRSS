@@ -556,7 +556,7 @@ final class FeverAPI
 				'feed_id' => $entry->feedId(),
 				'title' => escapeToUnicodeAlternative($entry->title(), false),
 				'author' => escapeToUnicodeAlternative(trim($entry->authors(true), '; '), false),
-				'html' => $entry->content($entry->feed()?->attributeBoolean('display_enclosures') ?? true),
+				'html' => $entry->attributeString('diff') ?? $entry->content($entry->feed()?->attributeBoolean('display_enclosures') ?? true),
 				'url' => htmlspecialchars_decode($entry->link(), ENT_QUOTES),
 				'is_saved' => $entry->isFavorite() ? 1 : 0,
 				'is_read' => $entry->isRead() ? 1 : 0,

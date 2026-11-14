@@ -185,6 +185,7 @@ return array(
 				'relative' => 'مسار بتدوين بالنقاط (نسبي إلى العنصر) لـ:',
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (الافتراضي)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

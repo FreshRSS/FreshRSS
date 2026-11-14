@@ -22,6 +22,7 @@ class FreshRSS_Export_Service {
 	final public const TYPE_JSON_DOTNOTATION = 'JSON+DotNotation';
 	final public const TYPE_JSONFEED = 'JSONFeed';
 	final public const TYPE_HTML_XPATH_JSON_DOTNOTATION = 'HTML+XPath+JSON+DotNotation';
+	final public const TYPE_PLAIN_TEXT = 'text';
 
 	final public const PRIORITY_IMPORTANT = 'important';
 	final public const PRIORITY_MAIN_STREAM = 'main';

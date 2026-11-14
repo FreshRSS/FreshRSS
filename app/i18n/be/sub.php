@@ -185,6 +185,7 @@ return array(
 				'relative' => 'шлях у кропкавай натацыі (адносна элемента) для:',
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (прадвызначаны)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
