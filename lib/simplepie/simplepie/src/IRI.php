@@ -306,9 +306,6 @@ class IRI
     {
         $iri = trim($iri, "\x20\x09\x0A\x0C\x0D");
         if (preg_match('/^(?:(?P<scheme>[^:\/?#]+):)?(:?\/\/(?P<authority>[^\/?#]*))?(?P<path>[^?#]*)(?:\?(?P<query>[^#]*))?(?:#(?P<fragment>.*))?$/', $iri, $match, \PREG_UNMATCHED_AS_NULL)) {
-            // TODO: Remove once we require PHP ≥ 7.4.
-            $match['query'] = $match['query'] ?? null;
-            $match['fragment'] = $match['fragment'] ?? null;
             return $match;
         }
 

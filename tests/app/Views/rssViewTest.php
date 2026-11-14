@@ -46,4 +46,34 @@ final class rssViewTest extends \PHPUnit\Framework\TestCase {
 		]);
 		self::assertStringContainsString('<media:credit>Alice</media:credit>', $rss);
 	}
+
+	/** BitTorrent enclosures must also be exposed as RSS 2.0 `<enclosure>` for clients that ignore Media RSS */
+	public function test_rss_enclosureForBitTorrent(): void {
+		$rss = self::renderEntryWithEnclosure([
+			'url' => 'https://example.net/file.torrent',
+			'type' => 'application/x-bittorrent',
+			'length' => 12216,
+		]);
+		self::assertStringContainsString(
+			'<enclosure url="https://example.net/file.torrent" type="application/x-bittorrent" length="12216"/>', $rss);
+	}
+
+	/** A magnet link is a torrent even without a MIME type */
+	public function test_rss_enclosureForMagnetWithoutType(): void {
+		$rss = self::renderEntryWithEnclosure([
+			'url' => 'magnet:?xt=urn:btih:0123456789abcdef',
+		]);
+		self::assertStringContainsString(
+			'<enclosure url="magnet:?xt=urn:btih:0123456789abcdef" type="application/x-bittorrent"/>', $rss);
+	}
+
+	/** Images / audio / video must not be duplicated as RSS 2.0 `<enclosure>` */
+	public function test_rss_noEnclosureForImageAttachment(): void {
+		$rss = self::renderEntryWithEnclosure([
+			'url' => 'https://example.net/cover.jpg',
+			'type' => 'image/jpeg',
+			'medium' => 'image',
+		]);
+		self::assertStringNotContainsString('<enclosure', $rss);
+	}
 }

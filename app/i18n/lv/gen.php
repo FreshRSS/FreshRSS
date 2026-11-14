@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Atvērt URL',
 		'promote' => 'Paaugstināt amatu',
 		'purge' => 'Iztīrīt',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Pārlādēt OPML',
 		'remove' => 'Noņemt',
 		'rename' => 'Pārdēvēt',

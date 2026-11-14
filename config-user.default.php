@@ -48,6 +48,7 @@ return array (
 	'onread_jump_next' => true,
 	'lazyload' => true,
 	'sides_close_article' => false,
+	'title_opens_website' => false,
 	'sticky_post' => true,
 	'reading_confirm' => false,
 	'auto_remove_article' => false,
