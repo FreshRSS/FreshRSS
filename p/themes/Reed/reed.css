@@ -761,8 +761,8 @@ a:hover img.icon,
 	filter: var(--icon-filter-help);
 }
 
-/* Panels loaded in the background (feed/category gear) are rendered without the theme,
-* so they reference FreshRSS's default icons; swap in this theme's versions */
+/* Themes built on Reed without an icons/ folder (Reed Compact) get upstream's icons;
+* swap in Reed's versions */
 
 img.icon[src$="/themes/icons/add.svg"] { content: url("icons/add.svg"); }
 

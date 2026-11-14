@@ -17,7 +17,6 @@ Reed follows the system’s light or dark appearance while **Settings → Displa
 ## Known limitations
 
 - Statistics chart colours are hard-coded by FreshRSS and aren’t themed.
-- Icons in background-loaded panels are swapped through CSS `content: url()`, which may not work in Firefox.
 
 ## Fonts
 
