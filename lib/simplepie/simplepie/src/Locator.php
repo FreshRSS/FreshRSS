@@ -205,7 +205,7 @@ class Locator implements RegistryAware
                     continue;
                 }
                 $this->base = $base;
-                $this->base_location = method_exists($element, 'getLineNo') ? $element->getLineNo() : 0;
+                $this->base_location = $element->getLineNo();
                 break;
             }
         }
@@ -249,7 +249,7 @@ class Locator implements RegistryAware
             }
             if ($link->hasAttribute('href') && $link->hasAttribute('rel')) {
                 $rel = array_unique($this->registry->call(Misc::class, 'space_separated_tokens', [strtolower($link->getAttribute('rel'))]));
-                $line = method_exists($link, 'getLineNo') ? $link->getLineNo() : 1;
+                $line = $link->getLineNo();
 
                 if ($this->base_location < $line) {
                     $href = $this->registry->call(Misc::class, 'absolutize_url', [trim($link->getAttribute('href')), $this->base]);
@@ -300,7 +300,7 @@ class Locator implements RegistryAware
                 $href = trim($link->getAttribute('href'));
                 $parsed = $this->registry->call(Misc::class, 'parse_url', [$href]);
                 if ($parsed['scheme'] === '' || preg_match('/^(https?|feed)?$/i', $parsed['scheme'])) {
-                    if (method_exists($link, 'getLineNo') && $this->base_location < $link->getLineNo()) {
+                    if ($this->base_location < $link->getLineNo()) {
                         $href = $this->registry->call(Misc::class, 'absolutize_url', [trim($link->getAttribute('href')), $this->base]);
                     } else {
                         $href = $this->registry->call(Misc::class, 'absolutize_url', [trim($link->getAttribute('href')), $this->http_base]);
@@ -354,8 +354,7 @@ class Locator implements RegistryAware
             $parsed = $this->registry->call(Misc::class, 'parse_url', [$href]);
             if ($parsed['scheme'] === '' ||
                 preg_match('/^https?$/i', $parsed['scheme'])) {
-                if (method_exists($link, 'getLineNo') &&
-                    $this->base_location < $link->getLineNo()) {
+                if ($this->base_location < $link->getLineNo()) {
                     $href = $this->registry->call(
                         Misc::class,
                         'absolutize_url',
