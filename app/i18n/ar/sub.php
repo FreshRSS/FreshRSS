@@ -215,14 +215,6 @@ return array(
 		'number_entries' => '%d مقال',
 		'open_feed' => 'فتح الخلاصة %s',
 		'path_entries_conditions' => 'شروط استرجاع المحتوى',
-		'priority' => array(
-			'_' => 'الظهور',
-			'category' => 'الإظهار في تصنيفها',
-			'feed' => 'الإظهار في خلاصتها',
-			'hidden' => 'عدم الإظهار',
-			'important' => 'الإظهار في الخلاصات المهمة',
-			'main_stream' => 'الإظهار في التدفق الرئيسي',
-		),
 		'proxy' => 'تعيين وكيل لجلب هذه الخلاصة',
 		'proxy_help' => 'اختر بروتوكولاً (مثال: SOCKS5) وأدخل عنوان الوكيل (مثال: <kbd>127.0.0.1:1080</kbd> أو <kbd>username:password@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => 'إعادة التعيين إلى الافتراضي',
@@ -295,6 +287,18 @@ return array(
 		),
 		'subscription_management' => 'إدارة الاشتراكات',
 		'subscription_tools' => 'أدوات الاشتراك',
+	),
+	'priority' => array(
+		'_' => 'الظهور',
+		'category' => 'الإظهار في تصنيفها',
+		'feed' => 'الإظهار في خلاصتها',
+		'hidden' => 'عدم الإظهار',
+		'important' => 'الإظهار في الخلاصات المهمة',
+		'main_stream' => 'الإظهار في التدفق الرئيسي',
+		'use_category_setting' => array(
+			'_' => 'Use category setting',	// TODO
+			'help' => 'Category setting: %s',	// TODO
+		),
 	),
 	'tag' => array(
 		'auto_label' => 'إضافة هذه التسمية إلى المقالات الجديدة',
