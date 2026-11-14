@@ -41,12 +41,13 @@ class Minz_FrontController {
 
 			// Build the current request's URL and forward to it directly.
 			// If needed, a redirect is issued instead to correct the public relative path.
-			$url = Minz_Url::build();
-			$url['params'] = array_merge(
-				empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
-				array_filter($_POST, 'is_string', ARRAY_FILTER_USE_KEY)
-			);
-			Minz_Request::forward($url, redirect: Minz_Request::pathInfo() !== '');
+			// Only GET parameters are part of the URL, and hence of the original request or of a redirect.
+			Minz_Request::forward(Minz_Url::build(), redirect: Minz_Request::pathInfo() !== '');
+
+			// POST parameters (which may contain passwords) are added afterwards so that they never end up in a URL.
+			$post = array_filter($_POST, 'is_string', ARRAY_FILTER_USE_KEY);
+			unset($post['rid']);	// Request ID is only taken from GET
+			Minz_Request::_params(array_merge(Minz_Request::params(), $post));
 		} catch (Minz_Exception $e) {
 			Minz_Log::error($e->getMessage());
 			self::killApp($e->getMessage());
