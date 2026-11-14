@@ -11,6 +11,7 @@
 	$topline_display_authors = FreshRSS_Context::userConf()->topline_display_authors;
 	$topline_date = FreshRSS_Context::userConf()->topline_date;
 	$topline_link = FreshRSS_Context::userConf()->topline_link;
+	$title_opens_website = FreshRSS_Context::userConf()->title_opens_website;
 	$lazyload = FreshRSS_Context::userConf()->lazyload;
 	$headerClasses = ['horizontal-list', 'flux_header', 'website' . $topline_website];
 	if ($topline_thumbnail !== 'none') {
@@ -100,6 +101,12 @@
 			</div>
 		</li>
 	<?php } ?>
-	<?php if ($topline_link) { ?><li class="item link"><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element" title="<?=
-		_t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a></li><?php } ?>
+	<?php if ($topline_link) { ?><li class="item link"><?php
+		if ($title_opens_website) {	// The title opens the original website, so this icon opens the article in FreshRSS instead
+			?><button type="button" class="item-element as-link" title="<?= _t('gen.action.read_in_freshrss') ?>"><?= _i('view-reader') ?></button><?php
+		} else {
+			?><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element" title="<?=
+				_t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a><?php
+		}
+	?></li><?php } ?>
 </ul>

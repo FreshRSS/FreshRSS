@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Άνοιγμα συνδέσμου',
 		'promote' => 'Προαγωγή',
 		'purge' => 'Άδειασμα',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Φρεσκάρισμα OPML',
 		'remove' => 'Αφαίρεση',
 		'rename' => 'Μετονομασία',

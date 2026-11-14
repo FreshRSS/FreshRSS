@@ -106,6 +106,7 @@ People are sorted by name so please keep this order.
 * [Ed Sandor](https://github.com/ewsandor): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ewsandor), [Web](https://sandorlaboratories.com/)
 * [Edgardo Ramírez](https://github.com/SoldierCorp): [contributors](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:SoldierCorp)
 * [EdJoPaTo](https://github.com/EdJoPaTo): [contributions](https://github.com/FreshRSS/FreshRSS/commits/edge?author=EdJoPaTo)
+* [Eduardo Coronell](https://github.com/EduardoNovato): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:EduardoNovato)
 * [Elanna Grossman](https://github.com/Karvel): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Karvel), [Web](https://elanna.me/)
 * [Emre](https://github.com/Emredinho61): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Emredinho61), [Web](https://emre-bayazitoglu.netlify.app/)
 * [equinoxmatt](https://github.com/equinoxmatt): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:equinoxmatt)

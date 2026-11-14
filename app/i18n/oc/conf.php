@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Servar l’òrdre de triada manual pendent la navigacion',	// DIRTY - Keep custom sort order during navigation
 		'sticky_sort_help' => 'Determina se lo darrièr òrdre de triada manual es conservat o se cada categoria o flux utiliza totjorn son pròpri paramètre per defaut o global.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Lectura',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Vista per defaut',
 			'global' => 'Vista generala',

@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Зберігати ручний порядок сортування під час навігації',	// DIRTY - Keep custom sort order during navigation
 		'sticky_sort_help' => 'Визначає, чи зберігається останній ручний порядок сортування, чи кожна категорія або стрічка завжди використовує власне типове або глобальне налаштування.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Читання',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Типовий показ',
 			'global' => 'Глобальний показ',

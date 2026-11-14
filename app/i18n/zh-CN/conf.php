@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => '导航时保持手动排序',
 		'sticky_sort_help' => '决定保持最近一次手动排序，还是让每个分类或订阅源始终使用各自的默认或全局设置。',
 		'title' => '阅读',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => '默认视图',
 			'global' => '全屏视图',

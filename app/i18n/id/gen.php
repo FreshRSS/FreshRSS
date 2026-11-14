@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Buka URL',
 		'promote' => 'Promosi',
 		'purge' => 'Hapus',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Segarkan OPML',
 		'remove' => 'Hapus',
 		'rename' => 'Ubah nama',
