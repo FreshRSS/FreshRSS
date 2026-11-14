@@ -1,0 +1,8 @@
+{
+	"name": "Reed Compact",
+	"author": "SiggeMcKvack",
+	"description": "Reed with one-line article rows",
+	"version": 0.1,
+	"files": ["_frss.css", "../Reed/reed.css", "reed-compact.css"],
+	"theme-color": {"dark": "#2b2422", "light": "#f7f1e8"}
+}
