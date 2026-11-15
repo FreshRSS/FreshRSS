@@ -59,6 +59,9 @@ if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (r
 
 	// Try downloading the URL as a direct image first (e.g. from a feed's <image><url>),
 	// then fall back to HTML favicon search if it is not a valid image.
+	// TODO: This on-demand endpoint only has the favicon hash and the stored URL (no live Feed
+	// object), so a feed's per-feed proxy/cURL settings (curl_params) are not applied here yet.
+	// Fixing this would require persisting sanitized curl_options alongside the .txt file.
 	if (!download_favicon_from_image_url($url, $ico) && !download_favicon($url, $ico)) {
 		// Download failed
 		if ($ico_mtime == false) {
