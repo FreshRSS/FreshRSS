@@ -67,27 +67,6 @@ parameters:
 			messages:
 				- '#Dom\\\S+#'
 		-
-			identifier: notIdentical.alwaysTrue
-			paths:
-				- app/Models/CategoryDAO.php
-				- app/Models/DatabaseDAO.php
-				- app/Models/FeedDAO.php
-		-
-			identifier: isset.offset
-			path: app/Models/Feed.php
-		-
-			identifier: empty.offset
-			path: app/Models/BooleanSearch.php
-		-
-			identifier: booleanNot.exprNotBoolean
-			path: lib/Minz/Migrator.php
-		-
-			identifier: booleanAnd.leftNotBoolean
-			path: lib/http-conditional.php
-		-
-			identifier: booleanOr.leftNotBoolean
-			path: p/f.php
-		-
 			message: '#Access to deprecated#'
 			path: app/Models/Context.php
 		-
