@@ -148,10 +148,12 @@ final class HTMLDocument extends \DOMDocument
     public static function createFromString(string $source, ?int $options = null, ?string $overrideEncoding = null)
     {
         $document = new self();
-        $options = ($options ?? 0) | LIBXML_NOERROR | LIBXML_NOWARNING;
+        $options = ($options ?? 0) | LIBXML_NOERROR | LIBXML_NOWARNING | LIBXML_HTML_NODEFDTD;
 
-        if ($source !== '' && !preg_match('#<(?:meta|\?xml)[^>]*?(?:charset|encoding)\\s*=#i', $source)) {
-            // If the source itself declares an encoding, let the parser honour it, otherwise UTF-8:
+        // If the source itself declares an encoding, let the parser honour it, otherwise UTF-8.
+        $injectEncoding = $source !== '' && strncmp($source, "\xEF\xBB\xBF", 3) !== 0
+            && !preg_match('#<(?:meta|\?xml)[^>]*?(?:charset|encoding)\\s*=#i', $source);
+        if ($injectEncoding) {
             $source = '<?xml encoding="UTF-8">' . $source;
         }
 
@@ -160,6 +162,16 @@ final class HTMLDocument extends \DOMDocument
             $document->loadHTML($source, $options & ~HTML_NO_DEFAULT_NS);
         } catch (\ValueError $e) {
             // the native API silently creates an empty document.
+        }
+
+        if ($injectEncoding) {
+            // Remove the injected declaration, which would otherwise be serialised
+            foreach ($document->childNodes as $child) {
+                if ($child instanceof \DOMProcessingInstruction && $child->target === 'xml') {
+                    $document->removeChild($child);
+                    break;
+                }
+            }
         }
 
         return $document;
@@ -174,7 +186,17 @@ final class HTMLDocument extends \DOMDocument
      */
     public function saveHTML(?\DOMNode $node = null): string
     {
-        $html = parent::saveHTML($node);
+        if ($node === null && in_array(strtolower($this->encoding ?? 'utf-8'), ['utf-8', 'utf8'], true)) {
+            // For a whole document, the legacy serialiser only knows the charset from `<meta http-equiv="Content-Type">`,
+            // and otherwise writes non-ASCII characters as HTML entities, also inside `<script>`, where they are not decoded.
+            // Node by node, it writes UTF-8, but skips the doctype.
+            $html = '';
+            foreach ($this->childNodes as $child) {
+                $html .= $child instanceof \DOMDocumentType ? '<!DOCTYPE ' . $child->name . '>' : parent::saveHTML($child);
+            }
+        } else {
+            $html = parent::saveHTML($node);
+        }
         if ($html === false) {
             return '';
         }
