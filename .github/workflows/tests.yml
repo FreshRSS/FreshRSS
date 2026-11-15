@@ -133,7 +133,7 @@ jobs:
 
   # https://github.com/shivammathur/setup-php
   tests-oldest-php:
-    name: tests (PHP 8.2)
+    name: tests PHP 8.2
     runs-on: ubuntu-26.04
 
     steps:
