@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+// Polyfill PHP 8.4+ `Dom\` classes, including the CSS selector API,
+// maintained together with the vendored SimplePie fork:
+require_once LIB_PATH . '/simplepie/simplepie/compat/dom.php';
+
 if (!function_exists('mb_strcut')) {
 	function mb_strcut(string $str, int $start, ?int $length = null, string $encoding = 'UTF-8'): string {
 		return substr($str, $start, $length) ?: '';
@@ -55,6 +59,10 @@ function actualize_mutex_file(string $tmpPath, string $dataPath): string {
 function unregister_unsafe_protocols(): void {
 	$registered_wrappers = stream_get_wrappers();
 	$allowed_wrappers = ['file', 'php'];
+	if (defined('__PHPSTAN_RUNNING__')) {
+		// Needed for PHPStan compatibility PHP < 8.4
+		$allowed_wrappers[] = 'phar';
+	}
 	foreach ($registered_wrappers as $protocol) {
 		if (!in_array($protocol, $allowed_wrappers, true)) {
 			stream_wrapper_unregister($protocol);

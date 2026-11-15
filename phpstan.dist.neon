@@ -58,6 +58,36 @@ parameters:
 	ignoreErrors:
 		- '#Only booleans are allowed in (a negated boolean|a ternary operator condition|an elseif condition|an if condition|&&|\|\|), (bool|false|int(<[0-9, max]+>)?|true|null|\|)+ given.*#'
 		-
+			# For PHP < 8.4, the `Dom\` classes are approximated by `lib/simplepie/simplepie/compat/`
+			identifier: class.notFound
+			messages:
+				- '#Dom\\\S+#'
+		-
+			identifier: argument.type
+			messages:
+				- '#Dom\\\S+#'
+		-
+			identifier: notIdentical.alwaysTrue
+			paths:
+				- app/Models/CategoryDAO.php
+				- app/Models/DatabaseDAO.php
+				- app/Models/FeedDAO.php
+		-
+			identifier: isset.offset
+			path: app/Models/Feed.php
+		-
+			identifier: empty.offset
+			path: app/Models/BooleanSearch.php
+		-
+			identifier: booleanNot.exprNotBoolean
+			path: lib/Minz/Migrator.php
+		-
+			identifier: booleanAnd.leftNotBoolean
+			path: lib/http-conditional.php
+		-
+			identifier: booleanOr.leftNotBoolean
+			path: p/f.php
+		-
 			message: '#Access to deprecated#'
 			path: app/Models/Context.php
 		-

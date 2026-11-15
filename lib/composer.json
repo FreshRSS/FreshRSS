@@ -12,13 +12,17 @@
 		{
 			"type": "git",
 			"url": "https://framagit.org/marienfressinaud/lib_opml.git"
+		},
+		{
+			"type": "git",
+			"url": "https://github.com/Alkarex/CssXPath.git"
 		}
 	],
 	"require": {
 		"marienfressinaud/lib_opml": "dev-main#f0e850b6394af90b898daf0e65fcc7363457b844",
-		"phpgt/cssxpath": "v1.6.0",
+		"phpgt/cssxpath": "dev-case-insensitivity#bbc9e886268997874aa8795eb70eb001b385356f",
 		"phpmailer/phpmailer": "7.1.1",
-		"simplepie/simplepie": "dev-freshrss#366b687cc1a39b76f1563ce9859fb027f85001d2"
+		"simplepie/simplepie": "dev-php84-dom#0e41dbbe729cd85c64922a5f0d79372384faabae"
 	},
 	"config": {
 		"sort-packages": true,

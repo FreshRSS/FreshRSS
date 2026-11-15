@@ -207,7 +207,7 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/developers/06_Fever_API.h
 * [SimplePie](https://simplepie.org/)
 * [php-http-304](https://alexandre.alapetite.fr/doc-alex/php-http-304/)
 * [lib_opml](https://framagit.org/marienfressinaud/lib_opml)
-* [PhpGt/CssXPath](https://github.com/PhpGt/CssXPath)
+* [PhpGt/CssXPath](https://github.com/PhpGt/CssXPath) (only for PHP < 8.4)
 * [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 * [Chart.js](https://www.chartjs.org)
 

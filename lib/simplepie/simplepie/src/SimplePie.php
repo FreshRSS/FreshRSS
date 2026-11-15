@@ -2029,7 +2029,6 @@ class SimplePie
             $cache = new BaseDataCache($cache);
         }
 
-        // @phpstan-ignore-next-line Enforce PHPDoc type.
         if ($cache !== false && !$cache instanceof DataCache) {
             throw new InvalidArgumentException(sprintf(
                 '%s(): Argument #1 ($cache) must be of type %s|false',
@@ -2112,7 +2111,7 @@ class SimplePie
                             // Set raw_data to false here too, to signify that the cache
                             // is still valid.
                             $this->raw_data = false;
-                            if (isset($file)) { // FreshRSS
+                            if (isset($file)) { // FreshRSS // @phpstan-ignore isset.variable
                                 $old_cache_control = $this->data['headers']['cache-control'] ?? '';
                                 $old_max_age = \SimplePie\HTTP\Utils::get_http_max_age($this->data['headers']);
 
@@ -2227,16 +2226,17 @@ class SimplePie
                 $copyContentType = $file->get_header_line('content-type');
                 try {
                     $microformats = false;
-                    if (class_exists('DOMXpath') && function_exists('Mf2\parse')) {
-                        $doc = new \DOMDocument();
-                        @$doc->loadHTML($file->get_body_content());
-                        $xpath = new \DOMXpath($doc);
+                    if (class_exists(\Dom\XPath::class) && function_exists('Mf2\parse')) {
+                        // NB: Unlike with the legacy DOM API, parsing never fails (no recovery needed),
+                        // and errors are swallowed by `LIBXML_NOERROR`.
+                        $doc = \Dom\HTMLDocument::createFromString($file->get_body_content(), LIBXML_NOERROR);
+                        $xpath = new \Dom\XPath($doc);
                         // Check for both h-feed and h-entry, as both a feed with no entries
                         // and a list of entries without an h-feed wrapper are both valid.
                         $query = '//*[contains(concat(" ", @class, " "), " h-feed ") or '.
                             'contains(concat(" ", @class, " "), " h-entry ")]';
 
-                        /** @var \DOMNodeList<\DOMElement> $result */
+                        /** @var \Dom\NodeList<\Dom\Element> $result */
                         $result = $xpath->query($query);
                         $microformats = $result->length !== 0;
                     }
@@ -2272,7 +2272,7 @@ class SimplePie
                 } catch (SimplePieException $e) {
                     // We need to unset this so that if SimplePie::set_file() has been called that object is untouched
                     unset($file);
-                    // This is usually because DOMDocument doesn't exist
+                    // This is usually because `\Dom\Document` doesn't exist
                     $this->error = $e->getMessage();
                     $this->registry->call(Misc::class, 'error', [$this->error, E_USER_NOTICE, $e->getFile(), $e->getLine()]);
                     return false;
@@ -3622,8 +3622,6 @@ class SimplePie
             foreach ($urls as $arg) {
                 if ($arg instanceof SimplePie) {
                     $items = array_merge($items, $arg->get_items(0, $limit));
-
-                    // @phpstan-ignore-next-line Enforce PHPDoc type.
                 } else {
                     trigger_error('Arguments must be SimplePie objects', E_USER_WARNING);
                 }

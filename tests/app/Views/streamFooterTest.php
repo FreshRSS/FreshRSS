@@ -31,11 +31,10 @@ final class streamFooterTest extends \PHPUnit\Framework\TestCase {
 
 		$view = new FreshRSS_View();
 		$view->_path('helpers/stream-footer.phtml');
-		$html = new DOMDocument();
-		self::assertTrue($html->loadHTML($view->renderToString(), LIBXML_NONET));
-		$button = $html->getElementById('load_more');
-		self::assertInstanceOf(DOMElement::class, $button);
-		$query = parse_url($button->getAttribute('formaction'), PHP_URL_QUERY);
+		$doc = Dom\HTMLDocument::createFromString($view->renderToString(), LIBXML_NOERROR);
+		$button = $doc->getElementById('load_more');
+		self::assertInstanceOf(Dom\Element::class, $button);
+		$query = parse_url($button->getAttribute('formaction') ?? '', PHP_URL_QUERY);
 		self::assertIsString($query);
 		parse_str($query, $params);
 		self::assertSame((string)$resolvedState, $params['state'] ?? null);

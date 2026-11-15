@@ -234,56 +234,28 @@ final class FreshRSS_http_Util {
 	 * @return string an HTML string
 	 */
 	private static function enforceHtmlBase(string $html, string $href): string {
-		$doc = new DOMDocument();
-		$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
-		if ($doc->documentElement === null) {
+		$doc = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR);
+		$documentElement = $doc->documentElement;
+		if ($documentElement === null) {
 			return '';
 		}
-		$xpath = new DOMXPath($doc);
-		$bases = $xpath->evaluate('//base');
-		if (!($bases instanceof DOMNodeList) || $bases->length === 0) {
+		if ($doc->querySelector('base') === null) {
 			$base = $doc->createElement('base');
-			if ($base === false) {
-				return $html;
-			}
 			$base->setAttribute('href', $href);
-			$head = null;
-			$heads = $xpath->evaluate('//head');
-			if ($heads instanceof DOMNodeList && $heads->length > 0) {
-				$head = $heads->item(0);
-			}
-			if ($head instanceof DOMElement) {
+			$head = $doc->querySelector('head');
+			if ($head instanceof Dom\Element) {
 				$head->insertBefore($base, $head->firstChild);
 			} else {
-				$doc->documentElement->insertBefore($base, $doc->documentElement->firstChild);
+				$documentElement->insertBefore($base, $documentElement->firstChild);
 			}
 		}
 
-		// Save the start of HTML because libxml2 saveHTML() risks scrambling it
-		$htmlPos = stripos($html, '<html');
-		$htmlStart = $htmlPos === false || $htmlPos > 512 ? '' : substr($html, 0, $htmlPos);
-
-		$encoding = strtolower($doc->encoding ?? '');
-		$bom = str_starts_with($html, "\xEF\xBB\xBF") ? "\xEF\xBB\xBF" : '';
-		if ($encoding === 'utf-8' || ($encoding === '' && $bom !== '')) {
-			// For a whole document, libxml2 saveHTML() only knows the charset from <meta http-equiv="Content-Type">.
-			// With <meta charset="UTF-8"> or a byte order mark, it writes non-ASCII characters as HTML entities,
-			// also inside <script>, where they are not decoded, which corrupts e.g. JSON data. Node by node, it writes UTF-8.
-			$utf8 = '';
-			foreach ($doc->childNodes as $node) {
-				$utf8 .= $doc->saveHTML($node) ?: '';
-			}
-			$html = $utf8 !== '' ? $bom . $utf8 : $html;
-		} else {
-			$html = $doc->saveHTML() ?: $html;
+		$saved = $doc->saveHTML();
+		if ($saved === '') {
+			return $html;
 		}
-		if ($htmlStart !== '' && !str_starts_with($html, $htmlStart)) {
-			// libxml2 saveHTML() risks removing Unicode BOM and XML declaration,
-			// which affects future detection of charset encoding, so manually restore it
-			$htmlPos = stripos($html, '<html');
-			$html = $htmlPos === false || $htmlPos > 512 ? $html : $htmlStart . substr($html, $htmlPos);
-		}
-		return $html;
+		// Re-add the Unicode byte order mark, for downstream charset detection
+		return (str_starts_with($html, "\xEF\xBB\xBF") ? "\xEF\xBB\xBF" : '') . $saved;
 	}
 
 	public static function compareURLOrigins(string $url1, string $url2): bool {

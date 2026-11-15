@@ -13,7 +13,7 @@ final class entryHeaderTest extends \PHPUnit\Framework\TestCase {
 	private const ARTICLE_URL = 'https://example.net/article';
 	private const LINK_ITEM = '//li[contains(concat(" ", normalize-space(@class), " "), " link ")]';
 
-	private static function renderEntryHeader(bool $titleOpensWebsite): DOMXPath {
+	private static function renderEntryHeader(bool $titleOpensWebsite): Dom\XPath {
 		FreshRSS_Context::initSystem();
 		Minz_Session::init('FreshRSS', volatile: true);
 		FreshRSS_Context::setUserConf(clone FreshRSS_UserConfiguration::default());
@@ -24,15 +24,12 @@ final class entryHeaderTest extends \PHPUnit\Framework\TestCase {
 		$view->_path('helpers/index/normal/entry_header.phtml');
 		$view->feed = new FreshRSS_Feed('https://example.net/feed.xml', false);
 		$view->entry = new FreshRSS_Entry(1, 'guid', 'Title', '', 'Content', self::ARTICLE_URL, 1700000000);
-		$html = new DOMDocument();
-		self::assertTrue($html->loadHTML($view->renderToString(), LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING));
-		return new DOMXPath($html);
+		$doc = Dom\HTMLDocument::createFromString($view->renderToString(), LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
+		return new Dom\XPath($doc);
 	}
 
-	private static function countNodes(DOMXPath $xpath, string $query): int {
-		$nodes = $xpath->query($query);
-		self::assertNotFalse($nodes);
-		return $nodes->length;
+	private static function countNodes(Dom\XPath $xpath, string $query): int {
+		return $xpath->query($query)->length;
 	}
 
 	public function testLinkIconOpensOriginalWebsiteByDefault(): void {

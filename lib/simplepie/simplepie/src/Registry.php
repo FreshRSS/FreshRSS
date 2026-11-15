@@ -206,6 +206,7 @@ class Registry
             $instance->set_registry($this);
         } elseif (method_exists($instance, 'set_registry')) {
             trigger_error(sprintf('Using the method "set_registry()" without implementing "%s" is deprecated since SimplePie 1.8.0, implement "%s" in "%s".', RegistryAware::class, RegistryAware::class, $class), \E_USER_DEPRECATED);
+            // @phpstan-ignore method.nonObject
             $instance->set_registry($this);
         }
 

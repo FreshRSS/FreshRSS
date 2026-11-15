@@ -3,6 +3,9 @@
 namespace GT\CssXPath;
 
 class AttributeSelectorConverter {
+	private const UPPER_CASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private const LOWER_CASE = "abcdefghijklmnopqrstuvwxyz";
+
 	/** @param array<string, mixed> $token */
 	public function apply(
 		array $token,
@@ -25,10 +28,12 @@ class AttributeSelectorConverter {
 			return;
 		}
 
-		$valueString = trim((string)$detailValue["content"], " '\"");
+		[$valueString, $flag] = $this->extractValueAndFlag(
+			(string)$detailValue["content"]
+		);
 		$equalsType = $detailType["content"];
 		$expression->appendFragment(
-			$this->buildExpression($attribute, $valueString, $equalsType)
+			$this->buildExpression($attribute, $valueString, $equalsType, $flag)
 		);
 	}
 
@@ -55,9 +60,12 @@ class AttributeSelectorConverter {
 			return "@{$attribute}";
 		}
 
-		$valueString = trim((string)$detailValue["content"], " '\"");
+		[$valueString, $flag] = $this->extractValueAndFlag(
+			(string)$detailValue["content"]
+		);
 		$equalsType = $detailType["content"];
-		return $this->buildCondition($attribute, $valueString, $equalsType);
+		$condition = $this->buildCondition($attribute, $valueString, $equalsType);
+		return $this->applyCaseFlag($condition, $attribute, $flag);
 	}
 
 	/**
@@ -107,7 +115,7 @@ class AttributeSelectorConverter {
 			Translator::EQUALS_STARTS_WITH => ""
 				. "starts-with(@{$attribute}, \"{$value}\")"
 				. "",
-				Translator::EQUALS_ENDS_WITH => ""
+			Translator::EQUALS_ENDS_WITH => ""
 				. "substring(@{$attribute},"
 				. "string-length(@{$attribute}) - "
 				. "string-length(\"{$value}\") + 1)"
@@ -120,8 +128,66 @@ class AttributeSelectorConverter {
 	private function buildExpression(
 		string $attribute,
 		string $value,
-		string $equalsType
+		string $equalsType,
+		?string $flag = null
 	):string {
-		return "[" . $this->buildCondition($attribute, $value, $equalsType) . "]";
+		$condition = $this->buildCondition($attribute, $value, $equalsType);
+		$condition = $this->applyCaseFlag($condition, $attribute, $flag);
+		return "[{$condition}]";
+	}
+
+	/**
+	 * Splits an attribute selector's value from its trailing case flag, if
+	 * present, e.g. `rel~="icon" i` represents the value "icon" matched with
+	 * case-insensitivity.
+	 * A case flag appears either directly after the closing quote of a quoted
+	 * value, or separated by whitespace after an unquoted value.
+	 * @param string $rawValue
+	 * @return array{string, string|null} The attribute value and its case
+	 *   flag, or null if there is no case flag
+	 */
+	private function extractValueAndFlag(string $rawValue):array {
+		$patternQuoted = "/^(?<quote>['\"])(?<value>.*)(?P=quote)\s*"
+			. "(?<flag>[is])\s*$/i";
+		$patternUnquoted = '/^(?<value>.+\S)\s+(?<flag>[is])\s*$/i';
+
+		if(preg_match($patternQuoted, $rawValue, $matches) === 1
+			|| preg_match($patternUnquoted, $rawValue, $matches) === 1) {
+			$flag = strtolower($matches["flag"]);
+			$value = trim($matches["value"], " '\"");
+			if($flag === "i") {
+				$value = strtolower($value);
+			}
+
+			return [$value, $flag];
+		}
+
+		return [trim($rawValue, " '\""), null];
+	}
+
+	/**
+	 * Rewrites the condition's attribute-name comparison to ignore case, using
+	 * the XPath translate() function.
+	 * @param string $condition
+	 * @param string $attribute
+	 * @param string|null $flag
+	 * @return string
+	 */
+	private function applyCaseFlag(
+		string $condition,
+		string $attribute,
+		?string $flag
+	):string {
+		if($flag === null || $flag === "s") {
+			return $condition;
+		}
+
+		return str_replace(
+			"@" . $attribute,
+			"translate(@" . $attribute
+			. ",\"" . self::UPPER_CASE . "\","
+			. "\"" . self::LOWER_CASE . "\")",
+			$condition
+		);
 	}
 }

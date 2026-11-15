@@ -69,15 +69,16 @@ class Parser implements RegistryAware
      */
     public function parse(string &$data, string $encoding, string $url = '')
     {
-        if (class_exists('DOMXpath') && function_exists('Mf2\parse')) {
-            $doc = new \DOMDocument();
-            @$doc->loadHTML($data);
-            $xpath = new \DOMXpath($doc);
+        if (class_exists(\Dom\XPath::class) && function_exists('Mf2\parse')) {
+            // NB: Unlike with the legacy DOM API, parsing never fails (no recovery needed),
+            // and errors are swallowed by `LIBXML_NOERROR`.
+            $doc = \Dom\HTMLDocument::createFromString($data, LIBXML_NOERROR);
+            $xpath = new \Dom\XPath($doc);
             // Check for both h-feed and h-entry, as both a feed with no entries
             // and a list of entries without an h-feed wrapper are both valid.
             $query = '//*[contains(concat(" ", @class, " "), " h-feed ") or '.
                 'contains(concat(" ", @class, " "), " h-entry ")]';
-            /** @var \DOMNodeList<\DOMElement> $result */
+            /** @var \Dom\NodeList<\Dom\Element> $result */
             $result = $xpath->query($query);
             if ($result->length !== 0) {
                 return $this->parse_microformats($data, $url);
@@ -94,22 +95,27 @@ class Parser implements RegistryAware
         // Strip BOM:
         // UTF-32 Big Endian BOM
         if (substr($data, 0, 4) === "\x00\x00\xFE\xFF") {
+            /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
             $data = substr($data, 4);
         }
         // UTF-32 Little Endian BOM
         elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00") {
+            /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
             $data = substr($data, 4);
         }
         // UTF-16 Big Endian BOM
         elseif (substr($data, 0, 2) === "\xFE\xFF") {
+            /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
             $data = substr($data, 2);
         }
         // UTF-16 Little Endian BOM
         elseif (substr($data, 0, 2) === "\xFF\xFE") {
+            /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
             $data = substr($data, 2);
         }
         // UTF-8 BOM
         elseif (substr($data, 0, 3) === "\xEF\xBB\xBF") {
+            /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
             $data = substr($data, 3);
         }
 
@@ -121,6 +127,7 @@ class Parser implements RegistryAware
         if (substr($data, 0, 5) === '<?xml' && strspn(substr($data, 5, 1), "\x09\x0A\x0D\x20") && ($pos = strpos($data, '?>')) !== false) {
             $declaration = $this->registry->create(DeclarationParser::class, [substr($data, 5, $pos - 5)]);
             if ($declaration->parse()) {
+                /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
                 $data = substr($data, $pos + 2);
                 $data = '<?xml version="' . $declaration->version . '" encoding="' . $encoding . '" standalone="' . (($declaration->standalone) ? 'yes' : 'no') . '"?>' . "\n" .
                     self::set_doctype($data);
@@ -289,6 +296,7 @@ class Parser implements RegistryAware
      * @param XMLParser|resource|null $parser
      * @param array<string, string> $attributes
      * @return void
+     * @phpstan-ignore class.notFound (XMLParser requires PHP >= 8.0)
      */
     public function tag_open($parser, string $tag, array $attributes)
     {
@@ -345,6 +353,7 @@ class Parser implements RegistryAware
     /**
      * @param XMLParser|resource|null $parser
      * @return void
+     * @phpstan-ignore class.notFound (XMLParser requires PHP >= 8.0)
      */
     public function cdata($parser, string $cdata)
     {
@@ -358,6 +367,7 @@ class Parser implements RegistryAware
     /**
      * @param XMLParser|resource|null $parser
      * @return void
+     * @phpstan-ignore class.notFound (XMLParser requires PHP >= 8.0)
      */
     public function tag_close($parser, string $tag)
     {

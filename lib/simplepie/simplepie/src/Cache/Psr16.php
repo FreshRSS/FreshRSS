@@ -83,6 +83,7 @@ final class Psr16 implements DataCache
      */
     public function set_data(string $key, array $value, ?int $ttl = null): bool
     {
+        // @phpstan-ignore argument.type (mixed is not supported by PHP < 8.0, used by psr/simple-cache >= 2)
         return $this->cache->set($key, $value, $ttl);
     }
 
