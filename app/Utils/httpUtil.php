@@ -180,7 +180,7 @@ final class FreshRSS_http_Util {
 	 * Set an XML preamble to enforce the HTML content type charset received by HTTP.
 	 * @param string $html the raw downloaded HTML content
 	 * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
-	 * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
+	 * @return string an HTML string with Unicode BOM encoding information
 	 */
 	private static function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === 1 ? $matches[1] : '';
