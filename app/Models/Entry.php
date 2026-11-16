@@ -324,13 +324,13 @@ class FreshRSS_Entry extends Minz_Model {
 		try {
 			$searchEnclosures = !is_iterable($attributeEnclosures) && (str_contains($this->content, '<p class="enclosure-content'));
 			$searchBodyImages &= (stripos($this->content, '<img') !== false);
-			$xpath = null;
+			$doc = null;
 			if ($searchEnclosures || $searchBodyImages) {
-				$xpath = new Dom\XPath(Dom\HTMLDocument::createFromString($this->content, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS));
+				$doc = Dom\HTMLDocument::createFromString($this->content, LIBXML_NOERROR);
 			}
-			if ($searchEnclosures && $xpath !== null) {
+			if ($searchEnclosures && $doc !== null) {
 				// Legacy code for database entries < FreshRSS 1.20.1
-				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
+				$enclosures = $doc->querySelectorAll('div.enclosure > p.enclosure-content > [src]');
 				if ($enclosures->length > 0) {
 					foreach ($enclosures as $enclosure) {
 						if (!($enclosure instanceof Dom\Element)) {
@@ -353,8 +353,8 @@ class FreshRSS_Entry extends Minz_Model {
 					}
 				}
 			}
-			if ($searchBodyImages && $xpath !== null) {
-				$images = $xpath->query('//img');
+			if ($searchBodyImages && $doc !== null) {
+				$images = $doc->querySelectorAll('img');
 				if ($images->length > 0) {
 					foreach ($images as $img) {
 						if (!($img instanceof Dom\Element)) {

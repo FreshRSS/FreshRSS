@@ -1133,7 +1133,6 @@ class FreshRSS_Feed extends Minz_Model {
 					$doc = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
 					break;
 				case FreshRSS_Feed::KIND_XML_XPATH:
-					// Unlike the legacy DOM API, no recovery of malformed XML: fail instead
 					$doc = @Dom\XMLDocument::createFromString($html, LIBXML_NONET);
 					break;
 				default:

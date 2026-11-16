@@ -24,7 +24,7 @@ final class entryHeaderTest extends \PHPUnit\Framework\TestCase {
 		$view->_path('helpers/index/normal/entry_header.phtml');
 		$view->feed = new FreshRSS_Feed('https://example.net/feed.xml', false);
 		$view->entry = new FreshRSS_Entry(1, 'guid', 'Title', '', 'Content', self::ARTICLE_URL, 1700000000);
-		$doc = Dom\HTMLDocument::createFromString($view->renderToString(), LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
+		$doc = Dom\HTMLDocument::createFromString($view->renderToString());
 		return new Dom\XPath($doc);
 	}
 

@@ -14,11 +14,11 @@ final class CssXPathTest extends \PHPUnit\Framework\TestCase
 		$doc = \Dom\HTMLDocument::createFromString(<<<'HTML'
 			<!DOCTYPE html>
 			<html><body>
-				<link rel="ICON" href="a.ico">
-				<link rel="shortcut icon" href="b.ico">
-				<link rel="alternate" href="c.xml">
+				<link rel="ICON" href="a.ico" />
+				<link rel="shortcut icon" href="b.ico" />
+				<link rel="alternate" href="c.xml" />
 			</body></html>
-			HTML, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
+			HTML);
 		$xpath = new \Dom\XPath($doc);
 
 		$links = $xpath->query((string)new \GT\CssXPath\Translator('link[href][rel~="icon" i]', './/'));
