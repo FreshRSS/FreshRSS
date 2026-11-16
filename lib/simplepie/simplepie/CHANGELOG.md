@@ -9,19 +9,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-Nothing yet.
+- New method `SimplePie\SimplePie::get_icon_url()` for the feed favicon, taken from `atom:icon` or a square RSS 2.0 `image` (by @Alkarex in [#974](https://github.com/simplepie/simplepie/pull/974))
+- Publish [security policy](SECURITY.md) (by @jgalea in [#1013](https://github.com/simplepie/simplepie/pull/1013))
+- Feeds that incorrectly declare the namespace as `https://www.w3.org/2005/Atom` are now parsed as Atom (by @jgalea in [#1010](https://github.com/simplepie/simplepie/pull/1010))
 
 ### Changed
 
-Nothing yet.
+- Minimum supported PHP version is now 7.4 (by @jgalea)
+- `SimplePie\Item::get_date()` now returns `null` for a date that cannot be parsed, instead of the Unix epoch on PHP < 8.0 or the current time on PHP 8.0+ (by @arraintxo in [#964](https://github.com/simplepie/simplepie/pull/964))
+- Exclude more development files from the Composer package (by @johnbillion in [#955](https://github.com/simplepie/simplepie/pull/955))
 
 ### Fixed
 
-Nothing yet.
+- Normalize the declared encoding to uppercase, so `utf-8` and `UTF-8` are no longer treated as different encodings (by @Alkarex in [#936](https://github.com/simplepie/simplepie/pull/936))
+- `File`: Use `CURLOPT_ACCEPT_ENCODING` instead of the renamed `CURLOPT_ENCODING` on cURL versions that support it (by @mmeier86 in [#960](https://github.com/simplepie/simplepie/pull/960))
+- `File`: Disable cURL content decoding when the server sends a `Content-Encoding` header cURL cannot handle (by @mmeier86 in [#962](https://github.com/simplepie/simplepie/pull/962))
+- Do not trigger an undefined array key warning in `SimplePie\Item::get_thumbnail()` for an empty `<media:thumbnail />` (by @Alkarex in [#970](https://github.com/simplepie/simplepie/pull/970))
+- Fix `TypeError` in `SimplePie\Enclosure` when `channels` or `duration` were parsed as strings (by @Alkarex in [#975](https://github.com/simplepie/simplepie/pull/975))
+- Fix `TypeError` in `SimplePie\Enclosure` when a media player element has no `url` (by @Alkarex in [#978](https://github.com/simplepie/simplepie/pull/978))
+- Accept feeds larger than 10 MB with libxml 2.7.0 and newer, as older versions did; this only works on PHP 8.4.0 and newer (by @LeeXiaolan in [#977](https://github.com/simplepie/simplepie/pull/977))
+- Fix “Using null as an array offset” deprecations on PHP 8.5 (by @swissspidy in [#949](https://github.com/simplepie/simplepie/pull/949), @Alkarex in [#979](https://github.com/simplepie/simplepie/pull/979))
+- Fix incorrect argument typing information for static analyzers (by @jtojnar in [#946](https://github.com/simplepie/simplepie/pull/946))
+- `File`: Stop reporting interim instead of final status code (by @Alkarex in [#945](https://github.com/simplepie/simplepie/pull/945))
+- `Psr18Client` handles 308 redirects (by @jtojnar in [#938](https://github.com/simplepie/simplepie/pull/938))
+- `SimplePie\Content\Type\Sniffer::__construct()` expects `File` as parameter instead of `mixed` again. This reverts accidental BC break from 1.9.0. (by @jtojnar in [#938](https://github.com/simplepie/simplepie/pull/938))
+- Feeds with whitespace before the XML declaration are parsed instead of being rejected as invalid XML (by @jgalea in [#1005](https://github.com/simplepie/simplepie/pull/1005))
+- `Psr18Client` resolves relative `Location` redirect headers against the current URL (by @ziegenberg in [#1018](https://github.com/simplepie/simplepie/pull/1018))
 
 ### Deprecated
 
 - `SimplePie\SimplePie::set_item_limit()` is deprecated since it only affects multi-feed mode, which has been deprecated in SimplePie 1.9 (by @jtojnar in [#954](https://github.com/simplepie/simplepie/pull/954))
+
+### Removed
+
+- **Breaking:** Fetching non-http(s) URLs using `File` or `Psr18Client` is no longer supported. ([CVE-2026-111234](https://github.com/advisories/GHSA-9fwh-fc64-58p8)). (by @jtojnar in [#994](https://github.com/simplepie/simplepie/pull/994))
+- **Breaking:** Fetching local paths set via `set_feed_url` is no longer supported. Use `SimplePie::set_raw_data()` with the contents of the file, obtained e.g. using `file_get_contents`. (by @jtojnar in [#993](https://github.com/simplepie/simplepie/pull/993) and [#994](https://github.com/simplepie/simplepie/pull/994))
 
 ## [1.9.0](https://github.com/simplepie/simplepie/compare/1.8.1...1.9.0) - 2025-09-12
 

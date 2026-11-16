@@ -153,6 +153,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->onread_jump_next = Minz_Request::paramBoolean('onread_jump_next');
 			FreshRSS_Context::userConf()->lazyload = Minz_Request::paramBoolean('lazyload');
 			FreshRSS_Context::userConf()->sides_close_article = Minz_Request::paramBoolean('sides_close_article');
+			FreshRSS_Context::userConf()->title_opens_website = Minz_Request::paramBoolean('title_opens_website');
 			FreshRSS_Context::userConf()->sticky_post = Minz_Request::paramBoolean('sticky_post');
 			FreshRSS_Context::userConf()->sticky_sort = Minz_Request::paramBoolean('sticky_sort');
 			$markReadButton = Minz_Request::paramStringNull('mark_read_button', plaintext: true);

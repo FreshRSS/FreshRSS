@@ -9,13 +9,15 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Features
 	* User queries can define their own sort criterion (field and direction) [#8954](https://github.com/FreshRSS/FreshRSS/pull/8954)
 * Bug fixes
+	* PostgreSQL: detect FreshRSS tables by visibility rather than owner [#9535](https://github.com/FreshRSS/FreshRSS/pull/9535)
 	* Fix HTTP Retry-After cache when proxy is used [#9508](https://github.com/FreshRSS/FreshRSS/pull/9508)
 	* Fix 32-bit systems provide a string for SQL BIGINT [#9486](https://github.com/FreshRSS/FreshRSS/pull/9486)
 	* Keep JSON feed attachments as enclosures [#9510](https://github.com/FreshRSS/FreshRSS/pull/9510)
 	* Fix saved search references with overlapping IDs or names [#9484](https://github.com/FreshRSS/FreshRSS/pull/9484)
 	* Fix non-ASCII characters in scripts of fetched HTML pages [#9384](https://github.com/FreshRSS/FreshRSS/pull/9384)
 * Security
-	* 💥 Replace bcrypt challenge auth with direct password comparison [#9358](https://github.com/FreshRSS/FreshRSS/pull/9358)
+	* 💥 Replace bcrypt challenge auth with direct password comparison [#9358](https://github.com/FreshRSS/FreshRSS/pull/9358), [#9550](https://github.com/FreshRSS/FreshRSS/pull/9550), [#9566](https://github.com/FreshRSS/FreshRSS/pull/9566)
+	* Fix user enumeration by probing inconsistent error responses on failed logins [#9568](https://github.com/FreshRSS/FreshRSS/pull/9568)
 	* WebSub security: Implement support for `hub.secret` [#9430](https://github.com/FreshRSS/FreshRSS/pull/9430)
 	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
 	* Document threat model for security scanners [#9509](https://github.com/FreshRSS/FreshRSS/pull/9509)

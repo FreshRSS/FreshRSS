@@ -42,4 +42,5 @@ simplepie/simplepie/idn/
 simplepie/simplepie/library/
 simplepie/simplepie/phpunit.xml.dist
 simplepie/simplepie/ROADMAP.md
+simplepie/simplepie/SECURITY.md
 simplepie/simplepie/tests/

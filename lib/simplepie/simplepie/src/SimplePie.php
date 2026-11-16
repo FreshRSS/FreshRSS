@@ -24,6 +24,7 @@ use SimplePie\HTTP\Client;
 use SimplePie\HTTP\ClientException;
 use SimplePie\HTTP\FileClient;
 use SimplePie\HTTP\Psr18Client;
+use SimplePie\HTTP\RawTextResponse;
 use SimplePie\HTTP\Response;
 
 /**
@@ -729,8 +730,8 @@ class SimplePie
      */
     public function __construct()
     {
-        if (version_compare(PHP_VERSION, '7.2', '<')) {
-            exit('Please upgrade to PHP 7.2 or newer.');
+        if (version_compare(PHP_VERSION, '7.4', '<')) {
+            exit('Please upgrade to PHP 7.4 or newer.');
         }
 
         $this->set_useragent();
@@ -1883,8 +1884,15 @@ class SimplePie
         if ($this->feed_url !== null) {
             $parsed_feed_url = $this->registry->call(Misc::class, 'parse_url', [$this->feed_url]);
 
+            $scheme = $parsed_feed_url['scheme'];
+            if (!Misc::is_remote_uri($this->feed_url)) {
+                $source = $scheme === '' ? 'local feeds' : "feeds from $scheme";
+                $this->error = "Fetching $source not supported";
+                return false;
+            }
+
             // Decide whether to enable caching
-            if ($this->enable_cache && $parsed_feed_url['scheme'] !== '') {
+            if ($this->enable_cache && $scheme !== '') {
                 $cache = $this->get_cache($this->feed_url);
             }
 
@@ -2011,7 +2019,7 @@ class SimplePie
      *
      * If the data is already cached, attempt to fetch it from there instead
      *
-     * @param Base|DataCache|false $cache Cache handler, or false to not load from the cache
+     * @param Base|DataCache|false $cache Cache handler (when handling a non-local file), or false to not load from the cache
      * @return array{array<string, string>, string}|bool Returns true if the data was loaded from the cache, or an array of HTTP headers and sniffed type
      */
     protected function fetch_data(&$cache)

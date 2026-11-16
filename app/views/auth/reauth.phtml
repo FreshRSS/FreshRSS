@@ -8,6 +8,7 @@
 
 	<form method="post">
 		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="original_request" value="<?= Minz_Request::paramString('r') ?>" />
 		<input type="hidden" id="username" value="<?= Minz_User::name() ?>" />
 		<div class="form-group">
 			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>

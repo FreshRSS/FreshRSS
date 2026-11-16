@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'ナビゲーション中も手動の並び順を保持する',
 		'sticky_sort_help' => '最後に指定した並べ替え順を保持するか、カテゴリやフィードごとに既定または全体設定の並べ替え順を使用するかを指定します。',
 		'title' => '閲覧',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'デフォルトビュー',
 			'global' => 'グローバルビュー',

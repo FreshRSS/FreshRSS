@@ -87,7 +87,7 @@ et la [liste des versions](https://github.com/FreshRSS/FreshRSS/releases).
 | | | |
 |-|-|-|
 | [<img src="https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png" width="160" alt="Docker" />](./Docker/) | [<img src="https://install-app.yunohost.org/install-with-yunohost.png" width="160" alt="YunoHost" />](https://install-app.yunohost.org/?app=freshrss) | [<img src="https://elest.io/images/logos/deploy-to-elestio-btn.png" width="160" alt="Elestio" />](https://elest.io/open-source/freshrss) |
-| [<img src="https://cloudron.io/img/button.svg" width="160" alt="Cloudron" />](https://cloudron.io/button.html?app=org.freshrss.cloudronapp) | [<img src="https://www.pikapods.com/static/run-button-34.svg" width="160" alt="PikaPods" />](https://www.pikapods.com/pods?run=freshrss) | [<img src="https://zeabur.com/button.svg" width="160" alt="Zeabur" />](https://zeabur.com/templates/MD4TRW) |
+| [<img src="https://cloudron.io/img/button.svg" width="160" alt="Cloudron" />](https://cloudron.io/button.html?app=org.freshrss.cloudronapp) | [<img src="https://www.pikapods.com/static/run-button-34.svg" width="160" alt="PikaPods" />](https://www.pikapods.com/pods?run=freshrss) | [<img src="https://zenavo.app/deploy-button.svg" width="160" alt="Zenavo" />](https://zenavo.app/templates/freshrss) |
 | [<img src="https://raw.githubusercontent.com/ClawCloud/Run-Template/refs/heads/main/Run-on-ClawCloud.svg" width="160" alt="ClawCloud" />](https://template.run.claw.cloud/?openapp=system-fastdeploy%3FtemplateName%3Dfreshrss) | [<img src="https://assets.hostinger.com/vps/deploy.svg" width="160" alt="Hostinger" />](https://www.hostinger.com/docker-hosting?compose_url=https://github.com/FreshRSS/FreshRSS/blob/edge/Docker/freshrss/docker-compose.yml) | |
 
 Pour plus d’options d’hébergement dans le cloud, consultez la [liste des fournisseurs cloud](https://freshrss.org/cloud-providers.html) ou [Chatons](https://www.chatons.org/search/by-service?field_software_target_id=269) (un annuaire de fournisseurs d’hébergement éthiques).
@@ -261,12 +261,12 @@ Voir le [dépôt dédié à ces extensions](https://github.com/FreshRSS/Extensio
 | Polski (pl) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpl+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Português (Brasil) (pt-BR) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-BR+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Português (Portugal) (pt-PT) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fpt-PT+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
-| Русский (ru) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fru+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
+| Русский (ru) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fru+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Slovenčina (sk) | ￭￭￭￭￭￭￭￭･･ 80% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fsk+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | Türkçe (tr) | ￭￭￭￭￭￭￭￭￭･ 99% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Ftr+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
-| Українська (uk) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fuk+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
+| Українська (uk) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fuk+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 | 简体中文 (zh-CN) | ￭￭￭￭￭￭￭￭￭･ 95% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-CN+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
-| 正體中文 (zh-TW) | ￭￭￭￭￭￭￭￭￭･ 98% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-TW+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
+| 正體中文 (zh-TW) | ￭￭￭￭￭￭￭￭￭･ 97% | [contribuer](https://github.com/search?q=repo%3AFreshRSS%2FFreshRSS+path%3Aapp%2Fi18n%2Fzh-TW+%2F%28TODO%7CDIRTY%29%28+-+.%2A%29%3F%24%2F) |
 
 </translations>
 
