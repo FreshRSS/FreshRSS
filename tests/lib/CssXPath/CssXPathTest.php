@@ -18,7 +18,7 @@ final class CssXPathTest extends \PHPUnit\Framework\TestCase
 				<link rel="shortcut icon" href="b.ico" />
 				<link rel="alternate" href="c.xml" />
 			</body></html>
-			HTML, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
+			HTML, Dom\HTML_NO_DEFAULT_NS);
 		$xpath = new \Dom\XPath($doc);
 
 		$links = $xpath->query((string)new \GT\CssXPath\Translator('link[href][rel~="icon" i]', './/'));
