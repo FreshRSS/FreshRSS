@@ -521,6 +521,10 @@ class Sanitize implements RegistryAware
                     }
                 }
 
+                // Set the base before processing allowed nodes so `srcset` URLs
+                // can be absolutised, and keep only allowed HTML elements and
+                // attributes (this also rewrites `<img>`/`<source>` `srcset`).
+                $this->base = $base;
                 if (!empty($this->allowed_html_elements_with_attributes)) {
                     $this->enforce_allowed_html_nodes($document, $this->allow_data_attr, $this->allow_aria_attr);
                 }
@@ -547,7 +551,6 @@ class Sanitize implements RegistryAware
                 }
 
                 // Replace relative URLs and blocks disallowed URI schemes (protocols)
-                $this->base = $base;
                 foreach ($this->replace_url_attributes as $element => $attributes) {
                     $this->replace_urls($document, $element, $attributes);
                 }
@@ -710,7 +713,8 @@ class Sanitize implements RegistryAware
     }
 
     /**
-     * Keep only allowed HTML elements (tags) and their allowed attributes.
+     * Keep only allowed HTML elements (tags) and their allowed attributes,
+     * and rewrite `srcset` URLs on `<img>` and `<source>`.
      */
     protected function enforce_allowed_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true): void
     {
@@ -746,14 +750,18 @@ class Sanitize implements RegistryAware
             for ($i = $element->attributes->length - 1; $i >= 0; $i--) {
                 $attr = $element->attributes[$i]->nodeName;
                 // Skip data-*, aria-* if allowed
-                if (($allow_data_attr && str_starts_with($attr, 'data-'))
-                    || ($allow_aria_attr && str_starts_with($attr, 'aria-'))) {
+                if (($allow_data_attr && strpos($attr, 'data-') === 0)
+                    || ($allow_aria_attr && strpos($attr, 'aria-') === 0)) {
                     continue;
                 }
 
                 if (!in_array($attr, $allowed_attrs, true)) {
                     $element->removeAttributeNode($element->attributes[$i]);
                 }
+            }
+
+            if (in_array($tag, ['img', 'source'], true) && $element->hasAttribute('srcset')) {
+                $this->rewrite_img_srcset($element);
             }
         }
         if ($element instanceof \DOMElement || $element instanceof \DOMDocument) {
@@ -1033,6 +1041,158 @@ class Sanitize implements RegistryAware
         }
 
         return $this->http_client;
+    }
+
+    /**
+     * Give every URL in `srcset` the same treatment `replace_urls()` gives a
+     * single-URL attribute: absolutise against the document base, block a
+     * disallowed URI scheme, force HTTPS where configured. `srcset` holds a
+     * list rather than one URL, so it cannot go in `replace_url_attributes`
+     * and nothing else in the pipeline touches it.
+     *
+     * For `<img>` only, when `src` is empty or a recognised placeholder
+     * (lazy-loading pattern), write the smallest `Nw` entry (or, failing
+     * that, the lowest-density `Nx` entry) as a fallback. The browser uses
+     * `srcset` for actual selection; `src` only loads when `srcset` can't be
+     * honoured (legacy browsers, non-browser API consumers), so the smallest
+     * is the safest fallback by bandwidth and is never larger than what
+     * `srcset` would have picked. This runs before `replace_urls()`, so that
+     * `src` still goes through the normal single-URL pass afterwards.
+     */
+    private function rewrite_img_srcset(\DOMElement $element): void
+    {
+        $entries = $this->parse_srcset($element->getAttribute('srcset'));
+        if ($entries === []) {
+            return;
+        }
+        $absolutised = [];
+        foreach ($entries as $e) {
+            $abs = $this->registry->call(Misc::class, 'absolutize_url', [$e['url'], $this->base]);
+            if (!is_string($abs) || $abs === '') {
+                continue;
+            }
+            // Same condition as replace_urls(), but a blocked entry is dropped
+            // instead of being kept with an `unsafe:` prefix: an entry the
+            // browser must never pick has no reason to stay in the candidate
+            // list, and unlike `src` the attribute tolerates being shorter.
+            if ($this->disallowed_uri_schemes !== [] && !$this->is_allowed_uri($element->tagName, 'srcset', $abs)) {
+                continue;
+            }
+            $absolutised[] = ['url' => $this->https_url($abs), 'descriptor' => $e['descriptor'], 'w' => $e['w'], 'x' => $e['x']];
+        }
+        if ($absolutised === []) {
+            $element->removeAttribute('srcset');
+            return;
+        }
+        $element->setAttribute('srcset', implode(', ', array_map(
+            static function (array $e): string {
+                return $e['descriptor'] === '' ? $e['url'] : $e['url'] . ' ' . $e['descriptor'];
+            },
+            $absolutised
+        )));
+
+        // `<source>` (inside `<picture>`) has no `src` attribute; only `<img>`
+        // needs a fallback `src` rewrite when its current value is a placeholder.
+        if ($element->tagName !== 'img') {
+            return;
+        }
+        $current = $element->getAttribute('src');
+        if (!$this->is_placeholder_src($current)) {
+            return;
+        }
+        $candidates = array_values(array_filter($absolutised, static function (array $e): bool {
+            return $e['w'] > 0;
+        }));
+        if ($candidates !== []) {
+            usort($candidates, static function (array $a, array $b): int {
+                return $a['w'] <=> $b['w'];
+            });
+        } else {
+            $candidates = array_values(array_filter($absolutised, static function (array $e): bool {
+                return $e['x'] > 0.0;
+            }));
+            usort($candidates, static function (array $a, array $b): int {
+                return $a['x'] <=> $b['x'];
+            });
+        }
+        if ($candidates === []) {
+            return;
+        }
+        $element->setAttribute('src', $candidates[0]['url']);
+    }
+
+    /**
+     * A `src` value is treated as a lazy-load placeholder if it is empty,
+     * matches the de-facto universal 1x1 transparent GIF marker (base64
+     * encoding of the GIF89a header for a 1x1 transparent image), or is
+     * any other `data:` URI under 128 characters. The threshold sits
+     * between common placeholder sizes (~70-120 chars) and the smallest
+     * useful inline rasters (~200+ chars).
+     */
+    private function is_placeholder_src(string $src): bool
+    {
+        if ($src === '') {
+            return true;
+        }
+        return strpos($src, 'data:') === 0 &&
+            (strlen($src) < 128 || strpos($src, 'data:image/gif;base64,R0lGODlh') === 0);
+    }
+
+    /**
+     * Follows the WHATWG srcset parsing algorithm rather than splitting on
+     * every comma: a URL is a run of non-whitespace, so unencoded commas
+     * inside URLs (Cloudinary, WordPress image CDNs) do not break entries
+     * apart. A comma only separates entries when it ends a URL or follows
+     * a descriptor.
+     *
+     * @return list<array{url: string, descriptor: string, w: int, x: float}>
+     *         `descriptor` is `''` when the source entry has no descriptor
+     *         (browser implies `1x`, so `x` is 1.0); `w` is 0 and `x` is
+     *         0.0 when the descriptor is not of that kind. Both are used
+     *         when picking a fallback `src`.
+     */
+    private function parse_srcset(string $srcset): array
+    {
+        $out = [];
+        $len = strlen($srcset);
+        $pos = 0;
+        while ($pos < $len) {
+            // Skip whitespace and separating commas
+            while ($pos < $len && (ctype_space($srcset[$pos]) || $srcset[$pos] === ',')) {
+                $pos++;
+            }
+            $start = $pos;
+            while ($pos < $len && !ctype_space($srcset[$pos])) {
+                $pos++;
+            }
+            $url = (string) substr($srcset, $start, $pos - $start);
+            if ($url === '') {
+                break;
+            }
+            $descriptor = '';
+            if (substr($url, -1) === ',') {
+                // Trailing comma terminates the entry: URL without descriptor
+                $url = rtrim($url, ',');
+            } else {
+                $end = strpos($srcset, ',', $pos);
+                if ($end === false) {
+                    $end = $len;
+                }
+                $descriptor = trim((string) substr($srcset, $pos, $end - $pos));
+                $pos = $end;
+            }
+            if ($url === '') {
+                continue;
+            }
+            $w = (preg_match('/^(\d+)w$/', $descriptor, $m) === 1) ? (int)$m[1] : 0;
+            if ($descriptor === '') {
+                $x = 1.0;
+            } else {
+                $x = (preg_match('/^(\d+(?:\.\d+)?)x$/', $descriptor, $m) === 1) ? (float)$m[1] : 0.0;
+            }
+            $out[] = ['url' => $url, 'descriptor' => $descriptor, 'w' => $w, 'x' => $x];
+        }
+        return $out;
     }
 }
 
