@@ -31,7 +31,7 @@ final class streamFooterTest extends \PHPUnit\Framework\TestCase {
 
 		$view = new FreshRSS_View();
 		$view->_path('helpers/stream-footer.phtml');
-		$doc = Dom\HTMLDocument::createFromString($view->renderToString());
+		$doc = Dom\HTMLDocument::createFromString($view->renderToString(), LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
 		$button = $doc->getElementById('load_more');
 		self::assertInstanceOf(Dom\Element::class, $button);
 		$query = parse_url($button->getAttribute('formaction') ?? '', PHP_URL_QUERY);

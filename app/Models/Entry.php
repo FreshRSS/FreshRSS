@@ -326,7 +326,7 @@ class FreshRSS_Entry extends Minz_Model {
 			$searchBodyImages &= (stripos($this->content, '<img') !== false);
 			$doc = null;
 			if ($searchEnclosures || $searchBodyImages) {
-				$doc = Dom\HTMLDocument::createFromString($this->content, LIBXML_NOERROR);
+				$doc = Dom\HTMLDocument::createFromString($this->content, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
 			}
 			if ($searchEnclosures && $doc !== null) {
 				// Legacy code for database entries < FreshRSS 1.20.1
@@ -1114,7 +1114,7 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 		} elseif (trim($feed->attributeString('path_entries_filter') ?? '') !== '') {
 			$originalContent = $this->attributeString('original_content') ?? $this->content;
-			$doc = Dom\HTMLDocument::createFromString($originalContent, LIBXML_NOERROR);
+			$doc = Dom\HTMLDocument::createFromString($originalContent, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
 			$pathEntriesFilter = $feed->attributeString('path_entries_filter');
 			$filterednodeList = $doc->querySelectorAll($pathEntriesFilter);
 			foreach ($filterednodeList as $filterednode) {
