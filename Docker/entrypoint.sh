@@ -1,13 +1,20 @@
 #!/bin/sh
 
-ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
-echo "$TZ" >/etc/timezone
+if [ "$(id -u)" -eq 0 ]; then
+	ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime
+	echo "$TZ" >/etc/timezone
 
-find /etc/php*/ -type f -name php.ini -exec sed -i -E \
-	-e "\\#^;?date.timezone#s#^.*#date.timezone = $TZ#" \
-	-e "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" \
-	-e "\\#^;?session.upload_progress.enabled#s#^.*#session.upload_progress.enabled = Off#" \
-	-e "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
+	find /etc/php*/ -type f -name php.ini -exec sed -i -E \
+		-e "\\#^;?date.timezone#s#^.*#date.timezone = $TZ#" \
+		-e "\\#^;?post_max_size#s#^.*#post_max_size = 32M#" \
+		-e "\\#^;?session.upload_progress.enabled#s#^.*#session.upload_progress.enabled = Off#" \
+		-e "\\#^;?upload_max_filesize#s#^.*#upload_max_filesize = 32M#" {} \;
+else
+	# TZ controls libc; PHP reads a writable runtime override instead of /etc.
+	mkdir -p /run/freshrss/php || exit 1
+	printf 'date.timezone = "%s"\npost_max_size = 32M\nupload_max_filesize = 32M\nsession.upload_progress.enabled = Off\n' \
+		"$TZ" >/run/freshrss/php/zz-freshrss.ini || exit 1
+fi
 
 while read -r config_path _; do
 	if [ -f "$config_path" ]; then
@@ -53,7 +60,8 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 	# Debian
 	(which a2enmod >/dev/null && a2enmod -q auth_openidc) ||
 		# Alpine
-		(mv /etc/apache2/conf.d/mod-auth-openidc.conf.bak /etc/apache2/conf.d/mod-auth-openidc.conf && echo 'Enabling module auth_openidc.') ||
+		({ [ -f /etc/apache2/conf.d/00-mod-auth-openidc.conf ] ||
+			mv /etc/apache2/conf.d/mod-auth-openidc.conf.bak /etc/apache2/conf.d/00-mod-auth-openidc.conf; } && echo 'Enabling module auth_openidc.') ||
 		# Misc.
 		(echo '❌ Failed to enable auth_openidc module!' && exit 12)
 
@@ -65,14 +73,19 @@ if [ -n "$OIDC_ENABLED" ] && [ "$OIDC_ENABLED" -ne 0 ]; then
 fi
 
 if [ -n "$CRON_MIN" ]; then
-	awk -v RS='\0' '!/^(FRESHRSS_INSTALL|FRESHRSS_USER|HOME|PATH|PWD|SHLVL|TERM|_)=/ {gsub("\047", "\047\\\047\047"); print "export \047" $0 "\047"}' /proc/self/environ >/var/www/FreshRSS/Docker/env.txt
-	sed </etc/crontab.freshrss.default \
-		-r "s#^[^ ]+ #$CRON_MIN #" | crontab -
+	if [ "$(id -u)" -eq 0 ]; then
+		awk -v RS='\0' '!/^(FRESHRSS_INSTALL|FRESHRSS_USER|HOME|PATH|PWD|SHLVL|TERM|_)=/ {gsub("\047", "\047\\\047\047"); print "export \047" $0 "\047"}' /proc/self/environ >/var/www/FreshRSS/Docker/env.txt
+		sed </etc/crontab.freshrss.default \
+			-r "s#^[^ ]+ #$CRON_MIN #" | crontab -
+	else
+		sed -r "s#^[^ ]+ #$CRON_MIN #" /etc/crontab.freshrss.default >/run/freshrss/crontab || exit 1
+		supercronic -test /run/freshrss/crontab || exit 1
+	fi
 fi
 
-./cli/access-permissions.sh --only-userdirs
+./cli/access-permissions.sh --only-userdirs || { [ "$(id -u)" -eq 0 ] || exit 1; }
 
-php -f ./cli/prepare.php >/dev/null
+php -f ./cli/prepare.php >/dev/null || { [ "$(id -u)" -eq 0 ] || exit 1; }
 
 if [ -n "$FRESHRSS_INSTALL" ]; then
 	# shellcheck disable=SC2046
@@ -109,6 +122,6 @@ fi
 
 # Fix permissions of data added by prepare.php as well as a potential
 # installation/user setup
-./cli/access-permissions.sh --only-userdirs
+./cli/access-permissions.sh --only-userdirs || { [ "$(id -u)" -eq 0 ] || exit 1; }
 
 exec "$@"

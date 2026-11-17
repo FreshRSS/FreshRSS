@@ -6,6 +6,7 @@ endif
 
 PORT ?= 8080
 NETWORK ?= freshrss-network
+CONTAINER_PORT ?= $(if $(findstring alpine,$(TAG)),8080,80)
 
 # PHP versions tested by test-all-php-versions
 PHP_VERSIONS ?= 8.2 8.3 8.4 8.5 8.6-rc
@@ -52,7 +53,7 @@ start: ## Start the development environment (use Docker)
 		--rm \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
 		$(volumes) \
-		--publish $(PORT):80 \
+		--publish $(PORT):$(CONTAINER_PORT) \
 		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
 		--network $(NETWORK) \
