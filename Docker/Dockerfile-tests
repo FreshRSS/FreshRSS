@@ -1,0 +1,21 @@
+# Base images for `make test-all-php-versions`
+ARG PHP_VERSION=8.5
+FROM php:${PHP_VERSION}-cli
+
+ENV TZ=UTC
+
+RUN apt-get update && \
+	apt-get install --yes --no-install-recommends \
+		libgmp-dev \
+		libicu-dev \
+		libonig-dev \
+		libpq-dev \
+		libzip-dev && \
+	docker-php-ext-install \
+		gmp \
+		intl \
+		mbstring \
+		pdo_mysql \
+		pdo_pgsql \
+		zip && \
+	rm -rf /var/lib/apt/lists/*
