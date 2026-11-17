@@ -109,4 +109,11 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 		self::assertSame('A &amp; B', $item['title']);
 		self::assertSame('B &amp; C', $item['author']);
 	}
+
+	/** Above PHP_INT_MAX, an integer literal is a float on 32-bit platforms */
+	public function test_idAcceptsTheFloatA32BitPlatformPasses(): void {
+		$entry = new FreshRSS_Entry(1, 'guid-1', 'Title', '', '', 'https://example.net/1', 1700000000);
+		$entry->_id(1700000000000001.0);
+		self::assertSame('1700000000000001', $entry->id());
+	}
 }
