@@ -150,15 +150,13 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 			FreshRSS_Context::initUser($username);
 			if (!FreshRSS_Context::hasUserConf()) {
-				// Initialise the default user to be able to display the error page
-				FreshRSS_Context::initUser(FreshRSS_Context::systemConf()->default_user);
-				Minz_Error::error(403, _t('feedback.auth.login.invalid'), false);
+				self::loginFailed(403, _t('feedback.auth.login.invalid'));
 				return;
 			}
 
 			if (!FreshRSS_Context::userConf()->enabled || FreshRSS_Context::userConf()->passwordHash == '') {
 				usleep(random_int(100, 5000));	// Primitive mitigation of timing attacks, in μs
-				Minz_Error::error(403, _t('feedback.auth.login.invalid'), false);
+				self::loginFailed(403, _t('feedback.auth.login.invalid'));
 				return;
 			}
 
@@ -205,6 +203,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			} else {
 				Minz_Log::warning("Password mismatch for user={$username}, ip_address={$ip_address}");
 				self::loginFailed(403, _t('feedback.auth.login.invalid'));
+				return;
 			}
 		} else {
 			Minz_Session::deleteLegacyCookie('FreshRSS');	// Delete legacy cookie (before 1.29.0)
