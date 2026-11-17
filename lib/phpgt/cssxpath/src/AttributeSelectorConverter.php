@@ -64,8 +64,8 @@ class AttributeSelectorConverter {
 			(string)$detailValue["content"]
 		);
 		$equalsType = $detailType["content"];
-		$condition = $this->buildCondition($attribute, $valueString, $equalsType);
-		return $this->applyCaseFlag($condition, $attribute, $flag);
+		$attribute = $this->getAttributeAccessor($attribute, $flag);
+		return $this->buildCondition($attribute, $valueString, $equalsType);
 	}
 
 	/**
@@ -102,26 +102,26 @@ class AttributeSelectorConverter {
 		string $equalsType
 	):string {
 		return match($equalsType) {
-			Translator::EQUALS_EXACT => "@{$attribute}=\"{$value}\"",
-			Translator::EQUALS_CONTAINS => "contains(@{$attribute},\"{$value}\")",
+			Translator::EQUALS_EXACT => "{$attribute}=\"{$value}\"",
+			Translator::EQUALS_CONTAINS => "contains({$attribute},\"{$value}\")",
 			Translator::EQUALS_CONTAINS_WORD => ""
-				. "contains(concat(\" \",@{$attribute},\" \"),"
+				. "contains(concat(\" \",{$attribute},\" \"),"
 				. "concat(\" \",\"{$value}\",\" \"))"
 				. "",
 			Translator::EQUALS_OR_STARTS_WITH_HYPHENATED => ""
-				. "@{$attribute}=\"{$value}\" or "
-				. "starts-with(@{$attribute}, \"{$value}-\")"
+				. "{$attribute}=\"{$value}\" or "
+				. "starts-with({$attribute}, \"{$value}-\")"
 				. "",
 			Translator::EQUALS_STARTS_WITH => ""
-				. "starts-with(@{$attribute}, \"{$value}\")"
+				. "starts-with({$attribute}, \"{$value}\")"
 				. "",
 			Translator::EQUALS_ENDS_WITH => ""
-				. "substring(@{$attribute},"
-				. "string-length(@{$attribute}) - "
+				. "substring({$attribute},"
+				. "string-length({$attribute}) - "
 				. "string-length(\"{$value}\") + 1)"
 				. "=\"{$value}\""
 				. "",
-			default => "@{$attribute}",
+			default => $attribute,
 		};
 	}
 
@@ -131,8 +131,8 @@ class AttributeSelectorConverter {
 		string $equalsType,
 		?string $flag = null
 	):string {
+		$attribute = $this->getAttributeAccessor($attribute, $flag);
 		$condition = $this->buildCondition($attribute, $value, $equalsType);
-		$condition = $this->applyCaseFlag($condition, $attribute, $flag);
 		return "[{$condition}]";
 	}
 
@@ -149,7 +149,7 @@ class AttributeSelectorConverter {
 	private function extractValueAndFlag(string $rawValue):array {
 		$patternQuoted = "/^(?<quote>['\"])(?<value>.*)(?P=quote)\s*"
 			. "(?<flag>[is])\s*$/i";
-		$patternUnquoted = '/^(?<value>.+\S)\s+(?<flag>[is])\s*$/i';
+		$patternUnquoted = '/^(?<value>.*\S)\s+(?<flag>[is])\s*$/i';
 
 		if(preg_match($patternQuoted, $rawValue, $matches) === 1
 			|| preg_match($patternUnquoted, $rawValue, $matches) === 1) {
@@ -168,26 +168,20 @@ class AttributeSelectorConverter {
 	/**
 	 * Rewrites the condition's attribute-name comparison to ignore case, using
 	 * the XPath translate() function.
-	 * @param string $condition
 	 * @param string $attribute
 	 * @param string|null $flag
 	 * @return string
 	 */
-	private function applyCaseFlag(
-		string $condition,
+	private function getAttributeAccessor(
 		string $attribute,
 		?string $flag
 	):string {
 		if($flag === null || $flag === "s") {
-			return $condition;
+			return "@" . $attribute;
 		}
 
-		return str_replace(
-			"@" . $attribute,
-			"translate(@" . $attribute
+		return "translate(@" . $attribute
 			. ",\"" . self::UPPER_CASE . "\","
-			. "\"" . self::LOWER_CASE . "\")",
-			$condition
-		);
+			. "\"" . self::LOWER_CASE . "\")";
 	}
 }
