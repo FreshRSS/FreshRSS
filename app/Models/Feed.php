@@ -1141,12 +1141,10 @@ class FreshRSS_Feed extends Minz_Model {
 
 			$xpath = new Dom\XPath($doc);
 			$xPathEvaluate = function (string $expression, Dom\Node|\DOMNode|null $contextNode = null) use ($xpath): mixed {
-				if ($contextNode instanceof \DOMNode) {
-					return @$xpath->evaluate($expression, $contextNode);
-				} elseif ($contextNode instanceof Dom\Node) {
-					return @$xpath->evaluate($expression, $contextNode);
+				if ($contextNode === null) {
+					return @$xpath->evaluate($expression);
 				}
-				return null;
+				return @$xpath->evaluate($expression, $contextNode);
 			};
 
 			$xpathEvaluateString = function (string $expression, Dom\Node|\DOMNode|null $contextNode = null) use ($xPathEvaluate): string {
