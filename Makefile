@@ -7,6 +7,9 @@ endif
 PORT ?= 8080
 NETWORK ?= freshrss-network
 
+# PHP versions tested by test-all-php-versions
+PHP_VERSIONS ?= 8.2 8.3 8.4 8.5 8.6-rc
+
 # detect docker or podman
 DOCKER ?= $(shell which docker 2>/dev/null || which podman 2>/dev/null)
 
@@ -134,6 +137,22 @@ typos-test: bin/typos
 # TODO: Add shellcheck, shfmt, hadolint
 .PHONY: test-all
 test-all: composer-test npm-test typos-test ## Run all tests
+
+.PHONY: test-all-php-versions
+test-all-php-versions: ## Run the test suite with every supported PHP version (Docker)
+	@set -eu; \
+	for v in $(PHP_VERSIONS); do \
+		echo "===== PHP $$v ====="; \
+		$(DOCKER) build --quiet \
+			--build-arg PHP_VERSION=$$v \
+			--tag docker.io/freshrss/tests:php$$v \
+			--file Docker/Dockerfile-tests . ; \
+		$(DOCKER) run --rm \
+			--volume $(shell pwd):/var/www/FreshRSS:z \
+			--workdir /var/www/FreshRSS \
+			docker.io/freshrss/tests:php$$v \
+			sh -c "php --version | head -1 ; bin/composer test" ; \
+	done
 
 .PHONY: fix-all
 fix-all: composer-fix npm-fix ## Run all fixes
