@@ -124,8 +124,6 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	#[\Override]
 	public function markRead(array|string $ids, bool $is_read = true): int|false {
 		if (is_array($ids)) {	//Many IDs at once (used by API)
-			// The base implementation uses a portable batched UPDATE (chunked by MAX_VARIABLE_NUMBER),
-			// and calls back into this method for single IDs.
 			return parent::markRead($ids, $is_read);
 		} else {
 			FreshRSS_UserDAO::touch();
