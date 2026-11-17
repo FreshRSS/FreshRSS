@@ -22,7 +22,7 @@
 		"marienfressinaud/lib_opml": "dev-main#f0e850b6394af90b898daf0e65fcc7363457b844",
 		"phpgt/cssxpath": "dev-case-insensitivity#790b859e1a71842fede2bf1d35a3392ed06c4a5f",
 		"phpmailer/phpmailer": "7.1.1",
-		"simplepie/simplepie": "dev-php84-dom#16a79f3e7031d896a18a0b6db61055551a46c62c"
+		"simplepie/simplepie": "dev-php84-dom#97704b048f7f1862e95b61597ac32683d584646b"
 	},
 	"config": {
 		"sort-packages": true,
