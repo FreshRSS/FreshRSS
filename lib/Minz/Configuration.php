@@ -235,7 +235,10 @@ class Minz_Configuration {
 			return false;
 		}
 
-		@rename($tmp_filename, $this->config_filename);
+		if (!@rename($tmp_filename, $this->config_filename)) {
+			@unlink($tmp_filename);
+			return false;
+		}
 
 		// Clear PHP cache for include
 		if (function_exists('opcache_invalidate')) {
