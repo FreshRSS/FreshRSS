@@ -536,13 +536,10 @@ class FreshRSS_Entry extends Minz_Model {
 		$this->sqlContentLength = $value > 0 ? $value : null;
 	}
 
-	/** @param int|float|numeric-string $value String and float are for compatibility with 32-bit platforms */
-	public function _id(int|float|string $value): void {
+	/** @param int|numeric-string $value String is for compatibility with 32-bit platforms */
+	public function _id(int|string $value): void {
 		if (is_int($value)) {
 			$value = (string)$value;
-		} elseif (is_float($value)) {
-			// Casting a large float to string gives its exponent notation form
-			$value = sprintf('%.0f', $value);
 		}
 		$this->id = $value;
 		if ($this->date_added == 0) {
