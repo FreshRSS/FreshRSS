@@ -20,9 +20,9 @@
 	],
 	"require": {
 		"marienfressinaud/lib_opml": "dev-main#f0e850b6394af90b898daf0e65fcc7363457b844",
-		"phpgt/cssxpath": "dev-case-insensitivity#790b859e1a71842fede2bf1d35a3392ed06c4a5f",
+		"phpgt/cssxpath": "dev-case-insensitivity#4d046c033b348a908be2b049d2ba4f50ee3f9e3a",
 		"phpmailer/phpmailer": "7.1.1",
-		"simplepie/simplepie": "dev-php84-dom#c648f09aeb812c07c0a1ac3c405e914d0e67b592"
+		"simplepie/simplepie": "dev-php84-dom#0ebcd235a0a3436f14b43d809e424e0e957e7533"
 	},
 	"config": {
 		"sort-packages": true,

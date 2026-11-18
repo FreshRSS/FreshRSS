@@ -14,27 +14,8 @@ class AttributeSelectorConverter {
 	):void {
 		$expression->ensureElement();
 
-		$attribute = (string)$token["content"];
-		if($htmlMode) {
-			$attribute = strtolower($attribute);
-		}
-
-		$detail = $token["detail"] ?? null;
-		$detailType = $detail[0] ?? null;
-		$detailValue = $detail[1] ?? null;
-
-		if(!$this->hasEqualsType($detailType)) {
-			$expression->appendFragment("[@{$attribute}]");
-			return;
-		}
-
-		[$valueString, $flag] = $this->extractValueAndFlag(
-			(string)$detailValue["content"]
-		);
-		$equalsType = $detailType["content"];
-		$expression->appendFragment(
-			$this->buildExpression($attribute, $valueString, $equalsType, $flag)
-		);
+		$condition = $this->buildConditionFromToken($token, $htmlMode);
+		$expression->appendFragment("[{$condition}]");
 	}
 
 	/** @param array<string, mixed> $token */
@@ -60,12 +41,13 @@ class AttributeSelectorConverter {
 			return "@{$attribute}";
 		}
 
-		[$valueString, $flag] = $this->extractValueAndFlag(
+		[$value, $flag] = $this->extractValueAndFlag(
 			(string)$detailValue["content"]
 		);
 		$equalsType = $detailType["content"];
-		$attribute = $this->getAttributeAccessor($attribute, $flag);
-		return $this->buildCondition($attribute, $valueString, $equalsType);
+		$attributeAccessor = $this->getAttributeAccessor($attribute, $flag);
+		$condition = $this->buildCondition($attributeAccessor, $value, $equalsType);
+		return $this->withExistenceCheck($attribute, $condition, $flag);
 	}
 
 	/**
@@ -125,28 +107,27 @@ class AttributeSelectorConverter {
 		};
 	}
 
-	private function buildExpression(
+	private function withExistenceCheck(
 		string $attribute,
-		string $value,
-		string $equalsType,
-		?string $flag = null
+		string $condition,
+		?string $flag
 	):string {
-		$attribute = $this->getAttributeAccessor($attribute, $flag);
-		$condition = $this->buildCondition($attribute, $value, $equalsType);
-		return "[{$condition}]";
+		if($flag !== "i") {
+			return $condition;
+		}
+
+		return "@{$attribute} and ({$condition})";
 	}
 
 	/**
-	 * Splits an attribute selector's value from its trailing case flag, if
-	 * present, e.g. `rel~="icon" i` represents the value "icon" matched with
-	 * case-insensitivity.
-	 * A case flag appears either directly after the closing quote of a quoted
-	 * value, or separated by whitespace after an unquoted value.
+	 * Splits an attribute selector's value from its trailing case flag, if any.
+	 * E.g. `rel~="icon" i` represents the value "icon" with case-insensitivity.
 	 * @param string $rawValue
-	 * @return array{string, string|null} The attribute value and its case
-	 *   flag, or null if there is no case flag
+	 * @return array{string, string|null} The attribute value and case flag.
 	 */
 	private function extractValueAndFlag(string $rawValue):array {
+		// A case flag appears either after the closing quote of a quoted value,
+		// or separated by whitespace after an unquoted value.
 		$patternQuoted = "/^(?<quote>['\"])(?<value>.*)(?P=quote)\s*"
 			. "(?<flag>[is])\s*$/i";
 		$patternUnquoted = '/^(?<value>.*\S)\s+(?<flag>[is])\s*$/i';
@@ -166,11 +147,8 @@ class AttributeSelectorConverter {
 	}
 
 	/**
-	 * Rewrites the condition's attribute-name comparison to ignore case, using
-	 * the XPath translate() function.
-	 * @param string $attribute
-	 * @param string|null $flag
-	 * @return string
+	 * Rewrites the condition's attribute-name comparison to ignore case,
+	 * using the XPath translate() function.
 	 */
 	private function getAttributeAccessor(
 		string $attribute,
