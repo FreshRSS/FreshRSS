@@ -734,7 +734,7 @@ msgstr ""
 #. type: Fenced code block (sh)
 #: en/./developers/02_First_steps.md:106
 #, no-wrap
-msgid "apk add git make npm php-cli php-curl php-ctype php-dom php-mbstring php-openssl php-phar php-simplexml php-xml php-pdo php-tokenizer php-xmlreader php-xmlwriter unzip wget\n"
+msgid "apk add git make npm php-cli php-curl php-ctype php-dom php-mbstring php-openssl php-phar php-simplexml php-xml php-pdo php-tokenizer php-xmlwriter unzip wget\n"
 msgstr ""
 
 #. type: Title ###

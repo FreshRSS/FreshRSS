@@ -40,8 +40,7 @@
 	"suggest": {
 		"ext-iconv": "*",
 		"ext-pdo_mysql": "*",
-		"ext-pdo_pgsql": "*",
-		"ext-xmlreader": "*"
+		"ext-pdo_pgsql": "*"
 	},
 	"config": {
 		"allow-plugins": {

@@ -9,7 +9,7 @@ RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposit
 	apache2 php86-apache2 \
 	apache-mod-auth-openidc \
 	php86 php86-curl php86-gmp php86-intl php86-mbstring php86-xml php86-zip \
-	php86-ctype php86-dom php86-fileinfo php86-iconv php86-json php86-openssl php86-phar php86-session php86-simplexml php86-xmlreader php86-xmlwriter php86-xml php86-tokenizer php86-zlib \
+	php86-ctype php86-dom php86-fileinfo php86-iconv php86-json php86-openssl php86-phar php86-session php86-simplexml php86-xmlwriter php86-xml php86-tokenizer php86-zlib \
 	php86-pdo_sqlite php86-pdo_mysql php86-pdo_pgsql
 
 RUN mkdir -p /var/www/FreshRSS /run/apache2/
