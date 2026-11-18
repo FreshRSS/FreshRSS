@@ -185,6 +185,7 @@ return array(
 				'relative' => 'taškinės notacijos kelias (santykinis elementui), skirtas:',
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (numatytasis)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

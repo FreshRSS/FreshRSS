@@ -185,6 +185,7 @@ return array(
 				'relative' => 'nöqtə notasiyalı yol (elementə nisbətən) bunun üçün:',
 			),
 			'jsonfeed' => 'JSON Feed',	// IGNORE
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (standart)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),

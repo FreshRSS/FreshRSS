@@ -185,6 +185,7 @@ return array(
 				'relative' => 'jalur notasi dot (relatif ke item) untuk:',
 			),
 			'jsonfeed' => 'Umpan JSON',
+			'plain_text' => 'Plain text (show diff)',	// TODO
 			'rss' => 'RSS / Atom (baku)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
