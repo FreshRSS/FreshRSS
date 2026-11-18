@@ -39,7 +39,7 @@ Ci-dessous vous trouverez un exemple permettant la mise à jour des articles
 toutes les heures.
 
 ```cron
-0 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+0 * * * * php /chemin/vers/FreshRSS/app/actualize_script.php >> /tmp/FreshRSS.log 2>&1
 ```
 
 « Paramètres de configuration du script; Ils sont utilisables simultanément
