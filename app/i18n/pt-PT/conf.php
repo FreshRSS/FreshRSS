@@ -311,7 +311,7 @@ return array(
 		'sticky_sort' => 'Manter a ordenação manual durante a navegação',
 		'sticky_sort_help' => 'Determina se a última ordenação manual é mantida ativa ou se cada categoria ou fonte utiliza sempre a sua própria configuração predefinida ou global.',
 		'title' => 'Leitura',
-		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
+		'title_opens_website' => 'Clicar no título do artigo abre-o no site original',
 		'view' => array(
 			'default' => 'Visualização predefinida',
 			'global' => 'Visualização global',
