@@ -37,7 +37,7 @@ Edit `/etc/crontab` and append the following line:
 10 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php >> /tmp/FreshRSS.log 2>&1
 ```
 
-This will append log lines, rather than having each run overwrite the existing logs. You may want to set up `logrotate` or a similar utility to prevent the logfile from growing too large.
+This will append new log lines to the end of the existing log file. You may want to set up `logrotate` or a similar utility to prevent the logfile from growing too large.
 
 > FreshRSS error: This PHP script may only be invoked from command line!
 
