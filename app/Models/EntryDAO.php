@@ -630,11 +630,18 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
 		$stm = $this->pdo->prepare($sql . $search);
-		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
-			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+		try {
+			if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
+				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+				return false;
+			}
+		} catch (FreshRSS_RegexLimit_Exception $e) { // @phpstan-ignore catch.neverThrown (May be thrown after `registerSqlFunctions()`)
+			Minz_Log::warning($e->getMessage());
+			// Minz_Error::error(500, $e->getMessage(), true); // Doesn't work because entries are listed from the view, and the output already started
 			return false;
 		}
+
 		$affected = $stm->rowCount();
 		if (($affected > 0) && (!$this->updateCacheUnreads(null, null))) {
 			return false;
@@ -673,9 +680,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
 		$stm = $this->pdo->prepare($sql . $search);
-		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
-			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+		try {
+			if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
+				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+				return false;
+			}
+		} catch (FreshRSS_RegexLimit_Exception $e) { // @phpstan-ignore catch.neverThrown (May be thrown after `registerSqlFunctions()`)
+			Minz_Log::warning($e->getMessage());
+			// Minz_Error::error(500, $e->getMessage(), true); // Doesn't work because entries are listed from the view, and the output already started
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -717,10 +730,16 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
 		$stm = $this->pdo->prepare($sql . $search);
-		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
-			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info) . ' with SQL: ' . $sql . $search);
-			$this->pdo->rollBack();
+		try {
+			if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
+				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info) . ' with SQL: ' . $sql . $search);
+				$this->pdo->rollBack();
+				return false;
+			}
+		} catch (FreshRSS_RegexLimit_Exception $e) { // @phpstan-ignore catch.neverThrown (May be thrown after `registerSqlFunctions()`)
+			Minz_Log::warning($e->getMessage());
+			// Minz_Error::error(500, $e->getMessage(), true); // Doesn't work because entries are listed from the view, and the output already started
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -778,9 +797,15 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters);
 
 		$stm = $this->pdo->prepare($sql . $search);
-		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
-			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+		try {
+			if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {
+				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+				Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+				return false;
+			}
+		} catch (FreshRSS_RegexLimit_Exception $e) { // @phpstan-ignore catch.neverThrown (May be thrown after `registerSqlFunctions()`)
+			Minz_Log::warning($e->getMessage());
+			// Minz_Error::error(500, $e->getMessage(), true); // Doesn't work because entries are listed from the view, and the output already started
 			return false;
 		}
 		$affected = $stm->rowCount();
@@ -1739,20 +1764,26 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 				$stm->bindValue($index + 1, $value, $paramType);
 			}
 		}
-		if ($stm !== false && $stm->execute()) {
-			// TODO: Consider adding an option for SQL debugging
-			// Minz_Log::debug('SQL params ' . __METHOD__ . ' ' . json_encode($values));
-			// Minz_Log::debug('SQL query ' . __METHOD__ . ' ' . json_encode($sql));
-			return $stm;
-		} else {
-			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			/** @var array{0:string,1:int,2:string} $info */
-			if ($this->autoUpdateDb($info)) {
-				return $this->listWhereRaw($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
-					continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
+		try {
+			if ($stm !== false && $stm->execute()) {
+				// TODO: Consider adding an option for SQL debugging
+				// Minz_Log::debug('SQL params ' . __METHOD__ . ' ' . json_encode($values));
+				// Minz_Log::debug('SQL query ' . __METHOD__ . ' ' . json_encode($sql));
+				return $stm;
+			} else {
+				$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+				/** @var array{0:string,1:int,2:string} $info */
+				if ($this->autoUpdateDb($info)) {
+					return $this->listWhereRaw($type, $id, $state, $filters, id_min: $id_min, id_max: $id_max, sort: $sort, order: $order,
+						continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset);
+				}
+				Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($info));
+				Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($sql));
+				return false;
 			}
-			Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($info));
-			Minz_Log::error('SQL error ' . __METHOD__ . ' ' . json_encode($sql));
+		} catch (FreshRSS_RegexLimit_Exception $e) { // @phpstan-ignore catch.neverThrown (May be thrown after `registerSqlFunctions()`)
+			Minz_Log::warning($e->getMessage());
+			// Minz_Error::error(500, $e->getMessage(), true); // Doesn't work because entries are listed from the view, and the output already started
 			return false;
 		}
 	}
@@ -1854,12 +1885,18 @@ class FreshRSS_EntryDAO extends Minz_ModelPdo {
 			continuation_id: $continuation_id, continuation_values: $continuation_values, limit: $limit, offset: $offset,
 			secondary_sort: $secondary_sort, secondary_sort_order: $secondary_sort_order);
 		$stm = $this->pdo->prepare($sql);
-		if ($stm !== false && $stm->execute($values)) {
-			/** @var list<int|numeric-string> $res */
-			$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
-			$res = array_map('strval', $res);
-			/** @var list<numeric-string> $res */
-			return $res;
+		try {
+			if ($stm !== false && $stm->execute($values)) {
+				/** @var list<int|numeric-string> $res */
+				$res = $stm->fetchAll(PDO::FETCH_COLUMN, 0);
+				$res = array_map('strval', $res);
+				/** @var list<numeric-string> $res */
+				return $res;
+			}
+		} catch (FreshRSS_RegexLimit_Exception $e) { // @phpstan-ignore catch.neverThrown (May be thrown after `registerSqlFunctions()`)
+			Minz_Log::warning($e->getMessage());
+			// Minz_Error::error(500, $e->getMessage(), true); // Doesn't work because entries are listed from the view, and the output already started
+			return false;
 		}
 		$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
 		Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
