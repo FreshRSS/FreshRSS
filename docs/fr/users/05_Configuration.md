@@ -69,6 +69,8 @@ propose 13 thèmes officiels :
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
+| Reed | SiggeMcKvack | |
+| Reed Compact | SiggeMcKvack | |
 | Swage | Patrick Crandol | |
 
 Si aucun de ceux proposés ne convient, il est toujours possible de [créer
