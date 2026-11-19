@@ -67,7 +67,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		if (preg_match_all('/\bsearch:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
 		}
-		if (preg_match_all('/\bsearch:(?P<search>[^\s"\']*)/', $input, $matchesFound)) {
+		if (preg_match_all('/\bsearch:(?P<search>(?:[^\s"\'()]|(?<=\\\\)[()])*)/', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
 		}
 
