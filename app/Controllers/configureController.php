@@ -630,7 +630,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$id = empty($queries) ? 0 : (max(array_keys($queries)) + 1);
 
 		/** @var array{get?:string,name?:string,order?:string,sort?:string,search?:string,state?:int,shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $params */
-		$params = Minz_Request::paramArray('query') ?: array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
+		$params = Minz_Request::paramArray('query') ?:
+			Minz_Helper::htmlspecialchars_utf8(array_intersect_key($_GET, array_flip(['get', 'order', 'sort', 'search', 'state'])));
 		$name = ($params['name'] ?? '') ?: _t('conf.query.number', $id + 1);
 		$queryParams = [];
 
