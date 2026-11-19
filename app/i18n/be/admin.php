@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Канфігурацыя сістэмы',
-		'auto-update-url' => 'URL-адрас сервера аўтаматычнага абнаўлення',
 		'base-url' => array(
 			'_' => 'Базавы URL-адрас',
 			'recommendation' => 'Аўтаматычная рэкамендацыя: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Пачаць абнаўленне',
 		'changelog' => 'Журнал змяненняў',
 		'check' => 'Праверыць наяўнасць абнаўленняў',
-		'copiedFromURL' => 'update.php скапіраваны з %s у ./data',
 		'current_version' => 'Бягучая ўсталяваная версія',
 		'last' => 'Апошняя праверка',
 		'loading' => 'Абнаўленне…',

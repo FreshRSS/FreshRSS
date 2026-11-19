@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Sistemos konfigūracija',
-		'auto-update-url' => 'Automatinio atnaujinimo serverio URL',
 		'base-url' => array(
 			'_' => 'Bazinis URL (base URL)',
 			'recommendation' => 'Automatinė rekomendacija: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Pradėti atnaujinimą',
 		'changelog' => 'Pakeitimų žurnalas',
 		'check' => 'Tikrinti, ar yra naujų atnaujinimų',
-		'copiedFromURL' => 'update.php nukopijuotas iš %s į ./data',
 		'current_version' => 'Įdiegta versija',
 		'last' => 'Paskutinis patikrinimas',
 		'loading' => 'Atnaujinama…',

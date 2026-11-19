@@ -25,9 +25,6 @@ return [
 	# https://freshrss.example.net/
 	'base_url' => '',
 
-	# Specify address of the FreshRSS auto-update server.
-	'auto_update_url' => 'https://update.freshrss.org',
-
 	# Natural language of the user interface, e.g. `en`, `fr`.
 	'language' => 'en',
 

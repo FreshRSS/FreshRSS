@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Sistem yapılandırması',
-		'auto-update-url' => 'Otomatik güncelleme sunucu URL’si',
 		'base-url' => array(
 			'_' => 'Temel URL',
 			'recommendation' => 'Otomatik öneri: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Güncellemeyi başlat',
 		'changelog' => 'Değişiklik günlüğü',
 		'check' => 'Yeni güncellemeleri kontrol et',
-		'copiedFromURL' => 'update.php, %s adresinden ./data’ya kopyalandı',
 		'current_version' => 'Mevcut yüklü sürüm',
 		'last' => 'Son kontrol',
 		'loading' => 'Güncelleniyor…',

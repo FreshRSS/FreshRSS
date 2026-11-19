@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'System configuration',	// IGNORE
-		'auto-update-url' => 'Auto-update server URL',	// IGNORE
 		'base-url' => array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// IGNORE
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Apply',	// IGNORE
 		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Check for new updates',	// IGNORE
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// IGNORE
 		'current_version' => 'Current installed version',	// IGNORE
 		'last' => 'Last verification',	// IGNORE
 		'loading' => 'Updating…',	// IGNORE

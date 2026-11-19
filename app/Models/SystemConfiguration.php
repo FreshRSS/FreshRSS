@@ -12,7 +12,6 @@ declare(strict_types=1);
  * @property array{enabled:bool,retention:int} $auto_sqlite_export
  * @property-read bool $reauth_required
  * @property-read int $reauth_time
- * @property-read string $auto_update_url
  * @property-read array<int,mixed> $curl_options
  * @property string $default_user
  * @property string $email_validation_token

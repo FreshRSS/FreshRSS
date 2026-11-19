@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Järjestelmän määritys',
-		'auto-update-url' => 'Automaattisen päivityksen palvelimen URL',
 		'base-url' => array(
 			'_' => 'URL-pääosoite',
 			'recommendation' => 'Automaattinen suositus: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Aloita päivitys',
 		'changelog' => 'Muutokset',
 		'check' => 'Tarkista päivitykset',
-		'copiedFromURL' => 'update.php kopioitu osoitteesta %s hakemistoon ./data',
 		'current_version' => 'Asennettu versio',
 		'last' => 'Viimeksi tarkistettu',
 		'loading' => 'Päivitetään…',

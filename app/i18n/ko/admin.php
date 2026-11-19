@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => '시스템 설정',
-		'auto-update-url' => '자동 업데이트 서버 URL',
 		'base-url' => array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => '자동 추천: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => '업데이트 적용하기',
 		'changelog' => '변경사항',
 		'check' => '새 업데이트 확인하기',
-		'copiedFromURL' => 'update.php가 %s 에서 ./data 으로 복사됨',
 		'current_version' => '현버전은 입니다',
 		'last' => '마지막 확인',
 		'loading' => '업데이트 중…',
