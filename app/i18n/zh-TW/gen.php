@@ -43,7 +43,7 @@ return array(
 		'open_url' => '開啟 URL',
 		'promote' => '升級為管理員',
 		'purge' => '清理',
-		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
+		'read_in_freshrss' => '在 FreshRSS 中閱讀',
 		'refresh_opml' => '刷新 OPML',
 		'remove' => '移除',
 		'rename' => '重新命名',
