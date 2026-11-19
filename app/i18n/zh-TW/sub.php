@@ -77,7 +77,7 @@ return array(
 			'label' => '匯出為 OPML',
 		),
 		'ext_favicon' => '自動設定',
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'favicon_changed_by_ext' => '此圖示已由 <b>%s</b> 擴充功能設定。',
 		'filteractions' => array(
 			'_' => '過濾動作',
 			'help' => '每行一個搜尋過濾器。運算子<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">請參閱說明文件</a>。',
@@ -266,12 +266,12 @@ return array(
 		'validator' => '檢查訂閱源有效性',
 		'website' => '網站 URL',
 		'websub' => 'WebSub 即時通知',
-		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
+		'websub_pending' => '已訂閱 WebSub。等待首則通知中。',
 	),
 	'import_export' => array(
 		'export' => array(
 			'_' => '匯出',
-			'sqlite' => '下載使用者資料庫為 SQLite 檔案',
+			'sqlite' => '下載使用者資料庫並儲存為 SQLite 格式檔案',
 		),
 		'export_labelled' => '匯出有標籤的文章',
 		'export_opml' => '匯出訂閱源清單 (OPML)',
