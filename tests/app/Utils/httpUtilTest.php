@@ -45,6 +45,26 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	#[DataProvider('provideUrlsForCheckUrl')]
+	public function test_checkUrl(string $url, string|false $expected): void {
+		self::assertSame($expected, FreshRSS_http_Util::checkUrl($url));
+	}
+
+	/** @return Traversable<string,array{string,string|false}> */
+	public static function provideUrlsForCheckUrl(): Traversable {
+		yield 'plain' => ['https://example.net/feed?a=1&amp;b=2', 'https://example.net/feed?a=1&amp;b=2'];
+		yield 'underscore' => ['https://ex_ample.net/', 'https://ex_ample.net/'];
+		yield 'IPv6' => ['https://[2001:db8::1]/feed', 'https://[2001:db8::1]/feed'];
+		if (function_exists('idn_to_ascii')) {
+			yield 'IDN' => ['https://bücher.example/feed', 'https://xn--bcher-kva.example/feed'];
+			yield 'IDN with ideographic full stop' => ['https://日本語。example/', 'https://xn--wgv71a119e.example/'];
+		}
+		// IDNA (UTS #46) maps fullwidth punctuation to ASCII: must not produce characters absent from the (possibly HTML-encoded) input
+		yield 'fullwidth markup in host' => ['https://example.net／＂＞＜b＞', false];
+		yield 'fullwidth path and query in host' => ['https://example.net／path？a＝1＆b＝2', false];
+		yield 'fullwidth userinfo in host' => ['https://example.net＠example.org/', false];
+	}
+
 	#[\Override]
 	protected function tearDown(): void {
 		FreshRSS_Context::initSystem(reload: true);	// Restore the default internal host allowlist

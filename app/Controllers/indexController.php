@@ -112,7 +112,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 		}
 
 		$id = Minz_Request::paramInt('id');
-		if ($id !== 0) {
+		if ($id !== 0 && FreshRSS_Auth::hasAccess()) {
 			if (Minz_Request::paramString('type') === 'tag') {
 				$tagDAO = FreshRSS_Factory::createTagDao();
 				$tag = $tagDAO->searchById($id);
