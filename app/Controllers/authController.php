@@ -72,6 +72,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	public function loginAction(): void {
 		if (FreshRSS_Auth::hasAccess()) {
 			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
+			return;
 		}
 
 		$auth_type = FreshRSS_Context::systemConf()->auth_type;
@@ -127,6 +128,11 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 	 * @throws Exception
 	 */
 	public function formLoginAction(): void {
+		if (FreshRSS_Auth::hasAccess()) {
+			Minz_Request::forward(['c' => 'index', 'a' => 'index'], true);
+			return;
+		}
+
 		invalidateHttpCache();
 
 		FreshRSS_View::prependTitle(_t('gen.auth.login') . ' · ');

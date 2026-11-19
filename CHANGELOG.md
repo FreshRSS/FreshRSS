@@ -42,6 +42,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix search references [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591)
 	* Prevent use of irrelevant parameter is shared user queries [#9589](https://github.com/FreshRSS/FreshRSS/pull/9589)
 	* Fix user enumeration by probing inconsistent error responses on failed logins [#9568](https://github.com/FreshRSS/FreshRSS/pull/9568)
+	* Deny formLogin access if already logged in [#9598](https://github.com/FreshRSS/FreshRSS/pull/9598)
 	* Better sanitize bookmark [#9594](https://github.com/FreshRSS/FreshRSS/pull/9594)
 	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
 	* Document threat model for security scanners [#9509](https://github.com/FreshRSS/FreshRSS/pull/9509)
