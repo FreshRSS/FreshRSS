@@ -195,6 +195,7 @@ class Enclosure
      * @param Rating[]|null $ratings
      * @param Restriction[]|null $restrictions
      * @param string[]|null $thumbnails
+     * @phpstan-ignore constructor.unusedParameter
      */
     public function __construct(
         ?string $link = null,
