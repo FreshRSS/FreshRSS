@@ -337,10 +337,6 @@ function cleanCache(int $hours = 720): void {
 /**
  * Add native lazy loading by inserting a `loading="lazy"` attribute right after
  * the tag name of img/image/iframe/track/video elements that do not have one.
- * The insertion point can only fall between the tag name and its first
- * attribute, where it cannot change how the quotes of the existing attribute
- * values pair up (GHSA-fc53-pf4q-9phm), so tags forged to look like they contain
- * an extra `src=` inside an attribute value stay as they came from the sanitiser.
  * @param string $content is the text we want to parse
  */
 function lazyimg(string $content): string {
