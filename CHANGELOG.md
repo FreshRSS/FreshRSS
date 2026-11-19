@@ -2,11 +2,15 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-XX-XX FreshRSS 1.30.5-dev
+## 2026-1X-XX FreshRSS 1.30.5-dev
 
 * Compatibility
 	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+		* And recommend PHP 8.4+ for native HTML5 parsing (compliance, security, performance)
 * Features
+	* Use PHP 8.4+ `\Dom` classes and functions when available (polyfill for PHP < 8.4) [#9567](https://github.com/FreshRSS/FreshRSS/pull/9567)
+		* Polyfill `GT\CssXPath`: Add support for case insensitivity [phpgt/CssXPath#256](https://github.com/phpgt/CssXPath/pull/256)
+	* Use native HTML5 `<img loading="lazy"` instead of custom JavaScript [#5816](https://github.com/FreshRSS/FreshRSS/pull/5816)
 	* User queries can define their own sorting criterion (field and direction) [#8954](https://github.com/FreshRSS/FreshRSS/pull/8954)
 	* Better catch and log user regex errors [#9559](https://github.com/FreshRSS/FreshRSS/pull/9559)
 	* Sharing by RSS emit `<enclosure>` for BitTorrent attachments [#9553](https://github.com/FreshRSS/FreshRSS/pull/9553)
@@ -31,35 +35,47 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Security
 	* 💥 Replace bcrypt challenge auth with direct password comparison [#9358](https://github.com/FreshRSS/FreshRSS/pull/9358), [#9550](https://github.com/FreshRSS/FreshRSS/pull/9550), [#9566](https://github.com/FreshRSS/FreshRSS/pull/9566)
 	* Search: quote parentheses and `OR` when serialising terms [#9541](https://github.com/FreshRSS/FreshRSS/pull/9541)
-	* Fix user enumeration by probing inconsistent error responses on failed logins [#9568](https://github.com/FreshRSS/FreshRSS/pull/9568)
+	* Use HTTP header `Cross-Origin-Opener-Policy: same-origin` [#9588](https://github.com/FreshRSS/FreshRSS/pull/9588)
 	* WebSub security: Implement support for `hub.secret` [#9430](https://github.com/FreshRSS/FreshRSS/pull/9430)
+	* Reduce risk of data cache leak [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591)
+	* Sanitize Punycode [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591)
+	* Fix search references [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591)
+	* Prevent use of irrelevant parameter is shared user queries [#9589](https://github.com/FreshRSS/FreshRSS/pull/9589)
+	* Fix user enumeration by probing inconsistent error responses on failed logins [#9568](https://github.com/FreshRSS/FreshRSS/pull/9568)
+	* Better sanitize bookmark [#9594](https://github.com/FreshRSS/FreshRSS/pull/9594)
 	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
 	* Document threat model for security scanners [#9509](https://github.com/FreshRSS/FreshRSS/pull/9509)
 	* Use a keyed hash for favicon cache keys [#9518](https://github.com/FreshRSS/FreshRSS/pull/9518)
 * Performance
 	* SQL speed improvement for batch mark as read under SQLite and PostgreSQL [#9575](https://github.com/FreshRSS/FreshRSS/pull/9575)
+* SimplePie
+	* Use PHP 8.4+ `\Dom` classes and functions when available (polyfill for PHP < 8.4) [FreshRSS/simplepie#98](https://github.com/FreshRSS/simplepie/pull/98)
+		* Upgrade to PHPStan 2 [FreshRSS/simplepie#97](https://github.com/FreshRSS/simplepie/pull/97), [simplepie#939](https://github.com/simplepie/simplepie/pull/939)
+		* Add unit test for HTML5 sanitizing compliance [simplepie#1022](https://github.com/simplepie/simplepie/pull/1022)
+		* Remove obsolete `xml_is_sane` and `XMLReader` fallback [simplepie#1023](https://github.com/simplepie/simplepie/pull/1023)
+	* Bump [#9562](https://github.com/FreshRSS/FreshRSS/pull/9562), [FreshRSS/simplepie#96](https://github.com/FreshRSS/simplepie/pull/96)
+		* Remove support for local files
+		* Ignore whitespace before the XML declaration
+		* Treat https Atom 1.0 namespace as Atom
 * Deployment
 	* Docker: dev image `freshrss/freshrss:oldest` updated to Alpine 3.18 with PHP 8.2.16 and Apache 2.4.62 [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 	* Docker: dev image `freshrss/freshrss:newest` updated to use HTTPs for downloading packages [#9584](https://github.com/FreshRSS/FreshRSS/pull/9584)
 * UI
 	* Add option to open articles on their original website by default [#9554](https://github.com/FreshRSS/FreshRSS/pull/9554)
 	* <kbd>Esc</kbd> leaves the search box [#9462](https://github.com/FreshRSS/FreshRSS/pull/9462)
-* SimplePie: Bump [#9562](https://github.com/FreshRSS/FreshRSS/pull/9562), [FreshRSS/simplepie#96](https://github.com/FreshRSS/simplepie/pull/96)
-	* Remove support for local files
-	* Ignore whitespace before the XML declaration
-	* Treat https Atom 1.0 namespace as Atom
 * Extensions
 	* Add `feeds_after_actualize` hook [#9438](https://github.com/FreshRSS/FreshRSS/pull/9438)
 * I18n
 	* Add current English text to `DIRTY` translation comments [#9525](https://github.com/FreshRSS/FreshRSS/pull/9525)
 	* Add Arabic [#9502](https://github.com/FreshRSS/FreshRSS/pull/9502)
 	* Improve Portuguese [#9573](https://github.com/FreshRSS/FreshRSS/pull/9573), [#9583](https://github.com/FreshRSS/FreshRSS/pull/9583)
-	* Improve traditional Chinese [#9540](https://github.com/FreshRSS/FreshRSS/pull/9540)
+	* Improve traditional Chinese [#9540](https://github.com/FreshRSS/FreshRSS/pull/9540), [#9590](https://github.com/FreshRSS/FreshRSS/pull/9590)
 * CI/CD
 	* Add a link checker workflow using lychee [#9209](https://github.com/FreshRSS/FreshRSS/pull/9209), [#9495](https://github.com/FreshRSS/FreshRSS/pull/9495),
 		[#9507](https://github.com/FreshRSS/FreshRSS/pull/9507), [#9511](https://github.com/FreshRSS/FreshRSS/pull/9511)
 	* Update to PHPUnit 11.x (PHP 8.2+) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 	* Group auto dependency updates into one PR per ecosystem [#9496](https://github.com/FreshRSS/FreshRSS/pull/9496)
+* Misc.
 	* New `make test-all-php-versions` to run tests with all supported PHP versions [#9576](https://github.com/FreshRSS/FreshRSS/pull/9576)
 	* Update dev dependencies [#9494](https://github.com/FreshRSS/FreshRSS/pull/9494), [#9497](https://github.com/FreshRSS/FreshRSS/pull/9497), [#9498](https://github.com/FreshRSS/FreshRSS/pull/9498),
 		[#9499](https://github.com/FreshRSS/FreshRSS/pull/9499),[#9500](https://github.com/FreshRSS/FreshRSS/pull/9500),[#9501](https://github.com/FreshRSS/FreshRSS/pull/9501),
