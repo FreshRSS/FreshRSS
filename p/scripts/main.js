@@ -2437,16 +2437,14 @@ function enforce_referrer_allowlist(stream) {
 	for (const iframe of stream.querySelectorAll('div.content iframe[src], div.content iframe[data-original]')) {
 		let hostname;
 		try {
-			hostname = new URL(context.does_lazyload ? iframe.getAttribute('data-original') : iframe.src).hostname;
+			hostname = new URL(iframe.src).hostname;
 		} catch (_) {
 			continue;
 		}
 		if (context.send_referrer_allowlist.includes(hostname) && !iframe.hasAttribute('referrerpolicy')) {
 			iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-			if (!context.does_lazyload) {
-				// iframe must be reloaded to apply the `referrerpolicy` change
-				iframe.src = iframe.src; // eslint-disable-line no-self-assign
-			}
+			// iframe must be reloaded to apply the `referrerpolicy` change
+			iframe.src = iframe.src; // eslint-disable-line no-self-assign
 		}
 	}
 }
